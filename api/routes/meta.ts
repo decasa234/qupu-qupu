@@ -1,44 +1,34 @@
 import { Router, type Request, type Response } from 'express'
-import supabase from '../db.js'
+import { listMeta } from '../services/videos.js'
 
 const router = Router()
 
-/**
- * Get All Subjects
- * GET /api/meta/subjects
- */
-router.get('/subjects', async (req: Request, res: Response): Promise<void> => {
+router.get('/subjects', async (_req: Request, res: Response): Promise<void> => {
   try {
-    const { data, error } = await supabase
-      .from('subjects')
-      .select('*')
-      .order('name')
-
-    if (error) throw error
-
-    res.json({ success: true, data })
-  } catch (err: any) {
-    console.error('Get subjects error:', err)
+    const meta = await listMeta()
+    res.json({ success: true, data: meta.subjects })
+  } catch (error) {
+    console.error('Get subjects error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })
 
-/**
- * Get All Age Groups
- * GET /api/meta/age-groups
- */
-router.get('/age-groups', async (req: Request, res: Response): Promise<void> => {
+router.get('/age-groups', async (_req: Request, res: Response): Promise<void> => {
   try {
-    const { data, error } = await supabase
-      .from('age_groups')
-      .select('*')
-      .order('min_age')
+    const meta = await listMeta()
+    res.json({ success: true, data: meta.ageGroups })
+  } catch (error) {
+    console.error('Get age groups error:', error)
+    res.status(500).json({ success: false, error: 'Internal server error' })
+  }
+})
 
-    if (error) throw error
-
-    res.json({ success: true, data })
-  } catch (err: any) {
-    console.error('Get age groups error:', err)
+router.get('/badge-families', async (_req: Request, res: Response): Promise<void> => {
+  try {
+    const meta = await listMeta()
+    res.json({ success: true, data: meta.badgeFamilies })
+  } catch (error) {
+    console.error('Get badge families error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })

@@ -1,175 +1,304 @@
-import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
-import { LogOut, User, Home, PlayCircle, BarChart2, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { LayoutDashboard, Menu, Shield, Trophy, X } from 'lucide-react'
+import BrandLogo from './BrandLogo'
+import ChildSwitcher from './ChildSwitcher'
+import { useAuthStore } from '../store/authStore'
+import { cn } from '../lib/utils'
 
-const Navbar = () => {
-  const { user, logout, isAuthenticated } = useAuthStore();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+const SCROLL_SPY_IDS = ['beranda', 'kategori']
+
+function useScrollSpy(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null)
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActive(null)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visible[0]) {
+          setActive(visible[0].target.id)
+        }
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.25, 0.5] },
+    )
+
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [ids, pathname])
+
+  return active
+}
+
+type NavItem = {
+  label: string
+  to: string
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Beranda', to: '/' },
+  { label: 'Kategori', to: '/#kategori' },
+  { label: 'Video', to: '/videos' },
+]
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+  const { user, isAuthenticated, logout } = useAuthStore()
+  const isAdmin = user?.role === 'admin'
+  const activeSection = useScrollSpy(SCROLL_SPY_IDS)
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
-  const navLinks = [
-    { name: 'Home', path: '/', icon: Home },
-    ...(isAuthenticated ? [
-      { name: 'Scoring', path: '/scoring', icon: PlayCircle },
-      { name: 'My Quizzes', path: '/my-quizzes', icon: BarChart2 },
-    ] : []),
-  ];
+    logout()
+    navigate('/')
+  }
 
   return (
-    <nav className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-110 transition-transform">
-                Q
-              </div>
-              <span className="font-bold text-xl tracking-tight">QuizTracker</span>
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border-2 border-qupu-peach bg-qupu-cream/95 px-4 backdrop-blur-md sm:px-6">
+        <Link to="/" aria-label="Beranda QUPU" className="shrink-0 cursor-pointer !p-0">
+          <BrandLogo />
+        </Link>
+
+        <nav className="hidden items-center gap-1 lg:flex">
+          {NAV_ITEMS.map((item) => (
+            <NavItemLink key={item.to} item={item} activeSection={activeSection} />
+          ))}
+          {isAuthenticated && (
+            <NavItemLink
+              item={{ label: 'Dashboard', to: '/dashboard' }}
+              activeSection={activeSection}
+            />
+          )}
+          {isAuthenticated && (
+            <NavItemLink
+              item={{ label: 'Badge', to: '/badges' }}
+              activeSection={activeSection}
+            />
+          )}
+          {isAdmin && (
+            <NavItemLink
+              item={{ label: 'Admin', to: '/admin/videos' }}
+              activeSection={activeSection}
+            />
+          )}
+        </nav>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          {isAuthenticated && <ChildSwitcher />}
+          {isAuthenticated ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="cursor-pointer rounded-full px-3 py-2 font-display text-base font-bold text-qupu-muted transition-colors hover:text-qupu-brand-orange"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="cursor-pointer rounded-full px-3 py-2 font-display text-base font-bold text-qupu-muted transition-colors hover:text-qupu-brand-orange"
+            >
+              Login
             </Link>
-          </div>
+          )}
+          <a
+            href="https://www.youtube.com/@qupuid?sub_confirmation=1"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-2.5 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white">
+              <i className="fa-brands fa-youtube text-base text-red-600" aria-hidden="true" />
+            </span>
+            Subscribe YouTube
+          </a>
+        </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? 'bg-purple-900 text-white shadow-inner'
-                    : 'text-purple-100 hover:bg-purple-600'
-                }`}
-              >
-                <link.icon size={18} />
-                {link.name}
-              </Link>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="inline-flex cursor-pointer rounded-full bg-white p-3 text-qupu-brand-blue shadow-soft lg:hidden"
+          aria-label="Toggle navigation"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border-2 border-qupu-peach bg-white px-5 py-5 shadow-clay lg:hidden">
+          <div className="flex flex-col gap-2">
+            {NAV_ITEMS.map((item) => (
+              <MobileLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
+                {item.label}
+              </MobileLink>
             ))}
-
-            {isAuthenticated ? (
-              <div className="ml-4 flex items-center gap-4">
-                <Link to="/profile" className="flex items-center gap-2 text-sm font-medium hover:text-orange-300 transition-colors">
-                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center border-2 border-orange-400">
-                    <User size={16} />
-                  </div>
-                  <span>{user?.name}</span>
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-1 bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full text-xs font-bold transition-transform hover:scale-105 shadow-sm"
-                >
-                  <LogOut size={14} />
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-orange-200 transition-colors"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
-                >
-                  Sign Up
-                </Link>
-              </div>
+            {isAuthenticated && (
+              <MobileLink icon={LayoutDashboard} to="/dashboard" onClick={() => setOpen(false)}>
+                Dashboard
+              </MobileLink>
+            )}
+            {isAuthenticated && (
+              <MobileLink icon={Trophy} to="/badges" onClick={() => setOpen(false)}>
+                Badge
+              </MobileLink>
+            )}
+            {isAdmin && (
+              <MobileLink icon={Shield} to="/admin/videos" onClick={() => setOpen(false)}>
+                Admin
+              </MobileLink>
             )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-purple-100 hover:text-white hover:bg-purple-600 focus:outline-none"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          {isAuthenticated && (
+            <div className="mt-5 border-t border-qupu-peach pt-4">
+              <ChildSwitcher />
+            </div>
+          )}
+
+          <div className="mt-5 grid gap-3 border-t border-qupu-peach pt-5">
+            {isAuthenticated ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false)
+                  handleLogout()
+                }}
+                className="w-full cursor-pointer rounded-2xl bg-qupu-brand-blue px-5 py-3 font-display text-sm font-extrabold text-white"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="w-full cursor-pointer rounded-2xl border-2 border-qupu-brand-blue px-5 py-3 text-center font-display text-sm font-bold text-qupu-brand-blue"
+              >
+                Login
+              </Link>
+            )}
+            <a
+              href="https://www.youtube.com/@qupuid?sub_confirmation=1"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-3 font-display text-sm font-extrabold text-white shadow-subscribe"
+            > 
+              <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white">
+                <i className="fa-brands fa-youtube text-sm text-red-600" aria-hidden="true" />
+              </span>
+              Subscribe YouTube
+            </a>
           </div>
         </div>
-      </div>
+      )}
+    </header>
+  )
+}
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-purple-800 overflow-hidden"
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center gap-2 block px-3 py-2 rounded-md text-base font-medium ${
-                    location.pathname === link.path
-                      ? 'bg-purple-900 text-white'
-                      : 'text-purple-100 hover:bg-purple-600'
-                  }`}
-                >
-                  <link.icon size={18} />
-                  {link.name}
-                </Link>
-              ))}
-              
-              {isAuthenticated ? (
-                <>
-                  <Link
-                    to="/profile"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-2 block px-3 py-2 rounded-md text-base font-medium text-purple-100 hover:bg-purple-600"
-                  >
-                    <User size={18} />
-                    Profile
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMenuOpen(false);
-                    }}
-                    className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-300 hover:bg-purple-600 hover:text-red-200"
-                  >
-                    <LogOut size={18} />
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <div className="mt-4 flex flex-col gap-2 px-3">
-                  <Link
-                    to="/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block text-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-600 hover:bg-purple-700"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/register"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block text-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-500 hover:bg-orange-600"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
-            </div>
-          </motion.div>
+function NavItemLink({
+  item,
+  activeSection,
+}: {
+  item: NavItem
+  activeSection: string | null
+}) {
+  const location = useLocation()
+  const isHash = item.to.includes('#')
+  const activeClass =
+    'text-qupu-brand-orange underline decoration-qupu-brand-orange decoration-[3px] underline-offset-[10px]'
+  const idleClass = 'text-qupu-muted hover:text-qupu-brand-orange'
+
+  if (isHash) {
+    const sectionId = item.to.split('#')[1]
+    const isActive = location.pathname === '/' && activeSection === sectionId
+
+    return (
+      <a
+        href={item.to}
+        className={cn(
+          'cursor-pointer rounded-full px-4 py-2 font-display text-base font-bold transition-colors',
+          isActive ? activeClass : idleClass,
         )}
-      </AnimatePresence>
-    </nav>
-  );
-};
+      >
+        {item.label}
+      </a>
+    )
+  }
 
-export default Navbar;
+  const onHomeWithoutHash =
+    item.to === '/' && location.pathname === '/' && !location.hash
+  const homeIsActive =
+    item.to === '/' && (activeSection === 'beranda' || (onHomeWithoutHash && !activeSection))
+
+  const isActive =
+    item.to === '/'
+      ? homeIsActive
+      : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
+
+  const handleClick =
+    item.to === '/' && location.pathname === '/'
+      ? (event: React.MouseEvent<HTMLAnchorElement>) => {
+          event.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      : undefined
+
+  return (
+    <NavLink
+      to={item.to}
+      end={item.to === '/'}
+      onClick={handleClick}
+      className={cn(
+        'cursor-pointer rounded-full px-4 py-2 font-display text-base font-bold transition-colors',
+        isActive ? activeClass : idleClass,
+      )}
+    >
+      {item.label}
+    </NavLink>
+  )
+}
+
+function MobileLink({
+  to,
+  children,
+  onClick,
+  icon: Icon,
+}: {
+  to: string
+  children: string
+  onClick: () => void
+  icon?: typeof Shield
+}) {
+  const isHash = to.includes('#')
+  const classes =
+    'flex cursor-pointer items-center gap-3 rounded-2xl bg-qupu-cream px-4 py-3 font-display font-bold text-qupu-brand-blue'
+
+  if (isHash) {
+    return (
+      <a href={to} onClick={onClick} className={classes}>
+        {Icon && <Icon className="h-4 w-4" />}
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={to} onClick={onClick} className={classes}>
+      {Icon && <Icon className="h-4 w-4" />}
+      {children}
+    </Link>
+  )
+}

@@ -1,7 +1,7 @@
 import { Router, type Response } from 'express'
-import supabase from '../db.js'
-import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
 import Joi from 'joi'
+import { queryOne } from '../db.js'
+import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
 
 const router = Router()
 
@@ -9,82 +9,90 @@ const updateProfileSchema = Joi.object({
   name: Joi.string().min(2).max(50),
   age: Joi.number().min(6).max(16),
   phone: Joi.string(),
-  email: Joi.string().email()
+  email: Joi.string().email(),
 })
 
-/**
- * Get Current User Profile
- * GET /api/users/me
- */
 router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const userId = req.user.id
-    const { data, error } = await supabase
-      .from('users')
-      .select('*, age_groups(name)')
-      .eq('id', userId)
-      .single()
+    const user = await queryOne<{
+      id: string
+      email: string
+      phone: string
+      name: string
+      age: number
+      role: string
+      age_group_id: string | null
+    }>(
+      `
+        SELECT id, email, phone, name, age, role, age_group_id
+        FROM users
+        WHERE id = $1
+      `,
+      [req.user.id],
+    )
 
-    if (error) {
-      throw error
-    }
-
-    if (!data) {
+    if (!user) {
       res.status(404).json({ success: false, error: 'User not found' })
       return
     }
 
-    const { password_hash, ...userWithoutPassword } = data
-    res.json({ success: true, data: userWithoutPassword })
-  } catch (err: any) {
-    console.error('Get profile error:', err)
+    res.json({ success: true, data: user })
+  } catch (error) {
+    console.error('Get profile error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })
 
-/**
- * Update Profile
- * PUT /api/users/me
- */
 router.put('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { error, value } = updateProfileSchema.validate(req.body)
+
     if (error) {
       res.status(400).json({ success: false, error: error.details[0].message })
       return
     }
 
-    const userId = req.user.id
-    
-    // If age is updated, update age_group_id as well
-    if (value.age) {
-        const { data: ageGroup } = await supabase
-        .from('age_groups')
-        .select('id')
-        .lte('min_age', value.age)
-        .gte('max_age', value.age)
-        .single()
-        
-        if (ageGroup) {
-            value.age_group_id = ageGroup.id
-        }
+    let ageGroupId: string | null | undefined
+    if (typeof value.age === 'number') {
+      const ageGroup = await queryOne<{ id: string }>(
+        `
+          SELECT id
+          FROM age_groups
+          WHERE min_age <= $1 AND max_age >= $1
+          LIMIT 1
+        `,
+        [value.age],
+      )
+      ageGroupId = ageGroup?.id ?? null
     }
 
-    const { data, error: updateError } = await supabase
-      .from('users')
-      .update(value)
-      .eq('id', userId)
-      .select()
-      .single()
+    const user = await queryOne<{
+      id: string
+      email: string
+      phone: string
+      name: string
+      age: number
+      role: string
+      age_group_id: string | null
+    }>(
+      `
+        UPDATE users
+        SET
+          name = COALESCE($2, name),
+          age = COALESCE($3, age),
+          phone = COALESCE($4, phone),
+          email = COALESCE($5, email),
+          age_group_id = COALESCE($6, age_group_id),
+          updated_at = NOW()
+        WHERE id = $1
+        RETURNING id, email, phone, name, age, role, age_group_id
+      `,
+      [req.user.id, value.name ?? null, value.age ?? null, value.phone ?? null, value.email ?? null, ageGroupId ?? null],
+    )
 
-    if (updateError) {
-      throw updateError
-    }
-
-    const { password_hash, ...userWithoutPassword } = data
-    res.json({ success: true, data: userWithoutPassword })
-  } catch (err: any) {
-    console.error('Update profile error:', err)
+    res.json({ success: true, data: user })
+  } catch (error) {
+    console.error('Update profile error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })

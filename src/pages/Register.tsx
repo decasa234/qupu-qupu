@@ -1,184 +1,148 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
-import api from '../lib/api';
-import { UserPlus, Mail, Lock, User, Phone, Calendar } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Lock, Mail, Phone, UserCircle2 } from 'lucide-react'
+import api from '../lib/api'
+import { useAuthStore } from '../store/authStore'
+import type { AuthPayload } from '../types'
 
-const Register = () => {
-  const navigate = useNavigate();
-  const { login } = useAuthStore();
-  const [formData, setFormData] = useState({
+export default function Register() {
+  const navigate = useNavigate()
+  const { login } = useAuthStore()
+  const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
-    age: '',
     password: '',
-  });
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setIsLoading(true);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setLoading(true)
+    setError('')
 
     try {
       const response = await api.post('/auth/register', {
-        ...formData,
-        age: Number(formData.age),
-      });
-      const { user, token } = response.data.data;
-      login(user, token);
-      navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to register');
+        ...form,
+        age: null,
+      })
+      const payload = response.data.data as AuthPayload
+      login(payload.user, payload.token)
+      navigate('/onboarding/child', { replace: true })
+    } catch (requestError: unknown) {
+      const nextError =
+        typeof requestError === 'object' &&
+        requestError !== null &&
+        'response' in requestError &&
+        typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
+          ? (requestError as { response?: { data?: { error?: string } } }).response?.data?.error
+          : 'Registrasi gagal.'
+      setError(nextError)
     } finally {
-      setIsLoading(false);
+      setLoading(false)
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  }
 
   return (
-    <div className="max-w-md mx-auto mt-6 mb-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
-      >
-        <div className="bg-gradient-to-r from-orange-500 to-pink-600 px-8 py-6 text-center">
-          <div className="mx-auto w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm">
-            <UserPlus className="text-white w-8 h-8" />
-          </div>
-          <h2 className="text-3xl font-bold text-white">Join the Fun!</h2>
-          <p className="text-orange-100 mt-2">Create your account to start tracking scores</p>
-        </div>
+    <div className="mx-auto max-w-xl">
+      <div className="rounded-[2.5rem] border border-qupu-peach bg-white p-8 shadow-soft sm:p-10">
+        <div className="text-sm font-bold uppercase tracking-[0.24em] text-qupu-orange">Register</div>
+        <h1 className="mt-2 font-display text-4xl font-bold text-qupu-purple">
+          Buat akun orang tua QUPU
+        </h1>
+        <p className="mt-3 text-qupu-muted">
+          Satu akun untuk semua anak. Setelah daftar kamu bisa tambah profil tiap anak dan simpan progres masing-masing.
+        </p>
 
-        <div className="p-8">
+        <form className="mt-8 grid gap-4" onSubmit={handleSubmit}>
+          <Field
+            label="Nama orang tua"
+            icon={UserCircle2}
+            value={form.name}
+            onChange={(value) => setForm((state) => ({ ...state, name: value }))}
+            placeholder="Nama kamu"
+            type="text"
+          />
+          <Field
+            label="Email"
+            icon={Mail}
+            value={form.email}
+            onChange={(value) => setForm((state) => ({ ...state, email: value }))}
+            placeholder="orangtua@contoh.com"
+            type="email"
+          />
+          <Field
+            label="No. HP"
+            icon={Phone}
+            value={form.phone}
+            onChange={(value) => setForm((state) => ({ ...state, phone: value }))}
+            placeholder="0812xxxx"
+            type="tel"
+          />
+          <Field
+            label="Password"
+            icon={Lock}
+            value={form.password}
+            onChange={(value) => setForm((state) => ({ ...state, password: value }))}
+            placeholder="minimal 8 karakter"
+            type="password"
+          />
+
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-6 border border-red-200 dark:border-red-800">
+            <div className="rounded-[1.25rem] bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Full Name
-              </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  name="name"
-                  type="text"
-                  required
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="inline-flex w-full items-center justify-center rounded-full bg-qupu-orange px-5 py-4 text-base font-bold text-white transition-colors hover:bg-qupu-orange-dark disabled:opacity-60"
+          >
+            {loading ? 'Membuat akun...' : 'Buat akun orang tua'}
+          </button>
+        </form>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Phone
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    name="phone"
-                    type="tel"
-                    required
-                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                    placeholder="+1234567890"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Age
-                </label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    name="age"
-                    type="number"
-                    min="6"
-                    max="16"
-                    required
-                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                    placeholder="6-16"
-                    value={formData.age}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  name="password"
-                  type="password"
-                  required
-                  minLength={8}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
-                  placeholder="Min 8 chars"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-            >
-              {isLoading ? 'Creating Account...' : 'Create Account'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            Already have an account?{' '}
-            <Link to="/login" className="text-orange-600 dark:text-orange-400 hover:underline font-semibold">
-              Log in here
-            </Link>
-          </div>
+        <div className="mt-6 text-sm text-qupu-muted">
+          Sudah punya akun?{' '}
+          <Link to="/login" className="font-bold text-qupu-purple hover:underline">
+            Login di sini
+          </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+function Field({
+  label,
+  icon: Icon,
+  value,
+  onChange,
+  placeholder,
+  type,
+}: {
+  label: string
+  icon: typeof Mail
+  value: string
+  onChange: (value: string) => void
+  placeholder: string
+  type: string
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
+      <div className="relative mt-2">
+        <Icon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-qupu-muted" />
+        <input
+          type={type}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          className="w-full rounded-[1.2rem] border border-qupu-peach bg-qupu-shell px-12 py-4 text-qupu-ink outline-none transition-colors focus:border-qupu-orange"
+        />
+      </div>
+    </label>
+  )
+}

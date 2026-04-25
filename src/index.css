@@ -1,14 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  line-height: 1.5;
-  font-weight: 400;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  :root {
+    color-scheme: light;
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.5;
+    font-weight: 500;
+    --qupu-orange: #f97316;
+    --qupu-orange-dark: #ea580c;
+    --qupu-purple: #7c3aed;
+    --qupu-purple-dark: #5b21b6;
+    --qupu-shell: #fff2df;
+    --qupu-cream: #fff2df;
+    --qupu-peach: #ffd3b1;
+    --qupu-ink: #341857;
+    --qupu-muted: #7b5a98;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply border-transparent;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-qupu-cream text-qupu-ink;
+  }
+
+  img {
+    @apply block max-w-full;
+  }
+
+  button,
+  a {
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-qupu-orange/30;
+  }
+}
+
+@layer utilities {
+  .surface-grid {
+    background-image:
+      linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .mask-fade {
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.85));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
