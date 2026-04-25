@@ -11,7 +11,6 @@ import type { Child, ScoreAttemptResult, VideoDetail } from '../types'
 
 export default function VideoDetailPage() {
   const { slug = '' } = useParams()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate()
   const { isAuthenticated, activeChildId, children, addChild, setActiveChild } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
@@ -358,10 +357,68 @@ export default function VideoDetailPage() {
             )}
 
             {result && (
-              <div className="text-center">
-                {/* Result UI placeholder — Task 13 fills this in */}
-                <div className="rounded-[1.5rem] bg-qupu-cream px-4 py-6 text-sm text-qupu-muted">
-                  Result placeholder. Task 13 turns this into the celebration view.
+              <div className="space-y-5 text-center">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                  Skor Tersimpan
+                </div>
+
+                <div className="font-display text-6xl font-extrabold leading-none text-qupu-brand-blue">
+                  {result.attempt.scorePercentage}%
+                </div>
+                <div className="text-xs font-semibold text-qupu-muted">
+                  {result.attempt.correctAnswers} / {result.attempt.totalQuestions} jawaban benar
+                </div>
+
+                {result.unlockedBadge ? (
+                  <div className="relative mx-auto inline-flex items-center gap-3 overflow-visible rounded-full px-5 py-3 text-white shadow-sm" style={{ backgroundColor: result.unlockedBadge.colorHex }}>
+                    <i className="fa-solid fa-star pointer-events-none absolute -left-3 -top-3 text-2xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+                    <i className="fa-solid fa-star pointer-events-none absolute -right-3 -bottom-2 text-base text-qupu-brand-yellow/80" aria-hidden="true" />
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-base" style={{ color: result.unlockedBadge.colorHex }}>
+                      <i className="fa-solid fa-trophy" aria-hidden="true" />
+                    </span>
+                    <div className="text-left">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.18em]">
+                        {result.unlockedBadge.familyName}
+                      </div>
+                      <div className="font-display text-base font-extrabold">
+                        Tier {result.unlockedBadge.tier} · {result.unlockedBadge.tierName}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-[1.5rem] bg-qupu-cream px-4 py-3 text-sm text-qupu-muted">
+                    Belum ada badge yang terbuka dari skor ini. Coba lagi dengan hasil lebih tinggi.
+                  </div>
+                )}
+
+                <div className="text-sm font-semibold text-qupu-brand-blue">
+                  {result.unlockedBadge
+                    ? result.isUpgrade
+                      ? 'Badge naik tier — kerja bagus!'
+                      : 'Badge untuk hasil ini sudah tersimpan.'
+                    : 'Skor tetap tercatat di progres.'}
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => navigate('/dashboard')}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-3 font-display text-sm font-extrabold text-white shadow-subscribe transition-transform hover:-translate-y-0.5"
+                  >
+                    <i className="fa-solid fa-gauge text-sm" aria-hidden="true" />
+                    Lihat dashboard
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setResult(null)
+                      setScore(0)
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-orange transition-colors hover:bg-qupu-brand-orange hover:text-white"
+                  >
+                    <i className="fa-solid fa-rotate-left text-sm" aria-hidden="true" />
+                    Coba skor lain
+                  </button>
                 </div>
               </div>
             )}
