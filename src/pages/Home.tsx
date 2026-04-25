@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { formatDistanceToNow } from 'date-fns'
 import { id as idLocale } from 'date-fns/locale'
 import api from '../lib/api'
 import { cn } from '../lib/utils'
+import Reveal from '../components/Reveal'
 import type { VideoCard as VideoCardType } from '../types'
 
 const FEATURES = [
@@ -109,25 +109,6 @@ export default function Home() {
         <SubscribeCtaSection />
       </Reveal>
     </div>
-  )
-}
-
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 60, scale: 0.92 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{
-        type: 'spring',
-        stiffness: 95,
-        damping: 14,
-        mass: 0.9,
-        delay,
-      }}
-    >
-      {children}
-    </motion.div>
   )
 }
 
