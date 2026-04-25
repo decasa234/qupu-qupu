@@ -11,6 +11,7 @@ import type { Child, ScoreAttemptResult, VideoDetail } from '../types'
 
 export default function VideoDetailPage() {
   const { slug = '' } = useParams()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate()
   const { isAuthenticated, activeChildId, children, addChild, setActiveChild } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
@@ -225,10 +226,147 @@ export default function VideoDetailPage() {
           </div>
         </Reveal>
 
-        {/* Score input card placeholder — Task 12 fills this in */}
-        <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-sm text-qupu-muted shadow-[5px_6px_0_0_#FFD3B1]">
-          Score input card lives here (Task 12).
-        </div>
+        <Reveal delay={0.05}>
+          <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-7">
+            {!isAuthenticated && (
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+                  <i className="fa-solid fa-lock text-xl" aria-hidden="true" />
+                </div>
+                <h2 className="mt-4 font-display text-xl font-bold text-qupu-brand-blue">
+                  Login untuk menyimpan progres
+                </h2>
+                <p className="mt-2 text-sm text-qupu-muted">
+                  Video tetap bisa ditonton oleh siapa pun, tapi badge dan progres butuh akun.
+                </p>
+                <div className="mt-5 grid gap-3">
+                  <Link
+                    to="/register"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-3 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
+                  >
+                    <i className="fa-solid fa-user-plus text-sm" aria-hidden="true" />
+                    Buat akun QUPU
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-blue transition-colors hover:bg-qupu-brand-blue hover:text-white"
+                  >
+                    Sudah punya akun? Login
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {isAuthenticated && !activeChild && (
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+                  <i className="fa-solid fa-user-plus text-xl" aria-hidden="true" />
+                </div>
+                <h2 className="mt-4 font-display text-xl font-bold text-qupu-brand-blue">
+                  Pilih profil anak dulu
+                </h2>
+                <p className="mt-2 text-sm text-qupu-muted">
+                  Tambahkan atau pilih profil anak untuk menyimpan skor.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-3 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
+                >
+                  <i className="fa-solid fa-plus text-sm" aria-hidden="true" />
+                  Tambah profil anak
+                </button>
+              </div>
+            )}
+
+            {isAuthenticated && activeChild && !result && (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                    Input Skor
+                  </div>
+                  <div className="mt-1 flex items-center gap-3">
+                    <span
+                      className="h-7 w-7 rounded-full border-2 border-white shadow-sm"
+                      style={{ backgroundColor: activeChild.avatarColor ?? '#FB923C' }}
+                    />
+                    <h2 className="font-display text-2xl font-bold text-qupu-brand-blue">
+                      Skor {activeChild.name}
+                    </h2>
+                  </div>
+                  <p className="mt-2 text-xs text-qupu-muted">
+                    Geser untuk masukkan jumlah jawaban benar (0 – {video.numberOfQuestions}).
+                  </p>
+                </div>
+
+                <Slider
+                  value={score}
+                  max={video.numberOfQuestions}
+                  onChange={setScore}
+                  ariaLabel="Jumlah jawaban benar"
+                />
+
+                <div
+                  key={previewTier?.tier ?? 'none'}
+                  className="rounded-[1.5rem] px-4 py-4 transition-colors"
+                  style={{
+                    backgroundColor: previewTier ? `${previewTier.colorHex}1F` : '#FFF2DF',
+                  }}
+                >
+                  {previewTier ? (
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-10 w-10 items-center justify-center rounded-full text-white shadow-sm"
+                        style={{ backgroundColor: previewTier.colorHex }}
+                      >
+                        <i className="fa-solid fa-star text-sm" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-muted">
+                          Akan terbuka
+                        </div>
+                        <div className="font-display text-base font-extrabold text-qupu-brand-blue">
+                          Tier {previewTier.tier} · {previewTier.name}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 text-sm text-qupu-muted">
+                      <i className="fa-solid fa-circle-info" aria-hidden="true" />
+                      Skor ini belum membuka badge. Coba lagi dengan hasil lebih tinggi.
+                    </div>
+                  )}
+                </div>
+
+                {submitError && (
+                  <div className="rounded-[1.25rem] bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+                    {submitError}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                    <i className="fa-solid fa-floppy-disk text-base text-qupu-brand-blue" aria-hidden="true" />
+                  </span>
+                  {saving ? 'Menyimpan...' : `Simpan skor ${score}/${video.numberOfQuestions}`}
+                </button>
+              </form>
+            )}
+
+            {result && (
+              <div className="text-center">
+                {/* Result UI placeholder — Task 13 fills this in */}
+                <div className="rounded-[1.5rem] bg-qupu-cream px-4 py-6 text-sm text-qupu-muted">
+                  Result placeholder. Task 13 turns this into the celebration view.
+                </div>
+              </div>
+            )}
+          </div>
+        </Reveal>
       </div>
 
       <ChildModal
@@ -237,23 +375,7 @@ export default function VideoDetailPage() {
         onCreated={handleChildCreated}
       />
 
-      {/* Suppress unused-vars while right column is stubbed; remove after Task 12 */}
-      {/* eslint-disable-next-line no-constant-binary-expression */}
-      {false && (
-        <span className="hidden">
-          {String(score)}
-          {String(saving)}
-          {String(submitError)}
-          {String(result)}
-          {String(previewTier)}
-          {String(activeChild)}
-          {String(isAuthenticated)}
-          {String(navigate)}
-          {String(setScore)}
-          {String(handleSubmit)}
-          {Slider.name}
-        </span>
-      )}
+
     </div>
   )
 }
