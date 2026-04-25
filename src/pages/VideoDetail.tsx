@@ -168,10 +168,66 @@ export default function VideoDetailPage() {
       </div>
 
       <div className="space-y-6">
-        {/* Right column placeholder — Tasks 11–13 fill this in */}
+        <Reveal>
+          <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-7">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                  Badge Family
+                </div>
+                <div className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue">
+                  {video.badgeFamily.name}
+                </div>
+                {video.badgeFamily.description && (
+                  <p className="mt-2 text-xs font-medium text-qupu-muted">
+                    {video.badgeFamily.description}
+                  </p>
+                )}
+              </div>
+              <span
+                className="shrink-0 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                style={{ backgroundColor: video.badgeFamily.colorHex }}
+              >
+                3 Tier
+              </span>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              {video.badgeRules.map((rule, index) => (
+                <Reveal key={rule.badgeTierId} delay={0.05 * (index + 1)}>
+                  <div className="flex items-center justify-between rounded-[1.25rem] bg-qupu-cream px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-white shadow-sm"
+                        style={{ backgroundColor: rule.colorHex }}
+                      >
+                        <i className="fa-solid fa-star text-sm" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <div className="text-sm font-bold text-qupu-brand-blue">
+                          Tier {rule.tier} · {rule.name}
+                        </div>
+                        <div className="text-xs text-qupu-muted">
+                          {rule.minCorrect} – {rule.maxCorrect ?? `${video.numberOfQuestions}+`} jawaban benar
+                        </div>
+                      </div>
+                    </div>
+                    <span
+                      className="rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                      style={{ backgroundColor: rule.colorHex }}
+                    >
+                      Unlock
+                    </span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Score input card placeholder — Task 12 fills this in */}
         <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-sm text-qupu-muted shadow-[5px_6px_0_0_#FFD3B1]">
-          Right column under construction. Tasks 11–13 will replace this with the badge family card,
-          score input card, and result state.
+          Score input card lives here (Task 12).
         </div>
       </div>
 
