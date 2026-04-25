@@ -1,5 +1,5 @@
+// src/components/VideoCard.tsx
 import { Link } from 'react-router-dom'
-import { ArrowRight, PlayCircle } from 'lucide-react'
 import type { VideoCard as VideoCardType } from '../types'
 
 interface VideoCardProps {
@@ -8,54 +8,59 @@ interface VideoCardProps {
 
 export default function VideoCard({ video }: VideoCardProps) {
   return (
-    <article className="group overflow-hidden rounded-[2rem] border border-qupu-peach bg-white shadow-soft transition-transform duration-200 hover:-translate-y-1">
+    <article className="group overflow-hidden rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white shadow-[5px_6px_0_0_#FFD3B1] transition-all duration-200 hover:-translate-y-1 hover:border-qupu-brand-orange">
       <Link to={`/videos/${video.slug}`} className="block cursor-pointer">
         <div className="relative aspect-video overflow-hidden bg-qupu-cream">
           <img
             src={video.thumbnailUrl}
             alt={video.title}
+            loading="lazy"
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
-          <div className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-qupu-purple">
+          <div
+            className="absolute left-3 top-3 rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-white shadow-sm"
+            style={{ backgroundColor: video.subject.colorHex }}
+          >
+            {video.subject.name}
+          </div>
+          <div className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-qupu-brand-blue shadow-sm">
             {video.ageGroup.name}
           </div>
-          <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-qupu-purple px-3 py-2 text-sm font-bold text-white shadow-soft">
-            <PlayCircle className="h-4 w-4" />
-            Tonton
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-qupu-brand-orange shadow-clay-orange">
+              <i className="fa-solid fa-play text-lg text-white" aria-hidden="true" />
+            </div>
           </div>
         </div>
       </Link>
 
-      <div className="space-y-4 p-5">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-qupu-muted">
-          <span
-            className="rounded-full px-3 py-1 text-white"
-            style={{ backgroundColor: video.subject.colorHex }}
-          >
-            {video.subject.name}
-          </span>
+      <div className="space-y-3 p-5">
+        <h3 className="line-clamp-2 font-display text-lg font-extrabold leading-tight text-qupu-brand-blue group-hover:text-qupu-brand-orange">
+          {video.title}
+        </h3>
+        {video.description && (
+          <p className="line-clamp-2 text-xs font-medium leading-relaxed text-qupu-muted">
+            {video.description}
+          </p>
+        )}
+
+        <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-qupu-muted">
           <span>{video.numberOfQuestions} soal</span>
+          <span className="text-qupu-muted/50">•</span>
           <span>{video.difficulty}</span>
         </div>
 
-        <div>
-          <h3 className="font-display text-2xl font-bold text-qupu-ink">{video.title}</h3>
-          <p className="mt-2 line-clamp-2 text-sm text-qupu-muted">{video.description}</p>
-        </div>
-
-        <div className="flex items-center justify-between rounded-[1.25rem] bg-qupu-cream px-4 py-3">
+        <div className="flex items-center justify-between rounded-[1.25rem] bg-qupu-cream px-4 py-2.5">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-qupu-muted">
-              Badge
-            </div>
-            <div className="font-bold text-qupu-purple">{video.badgeFamily.name}</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Badge</div>
+            <div className="text-sm font-bold text-qupu-brand-blue">{video.badgeFamily.name}</div>
           </div>
           <Link
             to={`/videos/${video.slug}`}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-qupu-orange shadow-soft transition-colors hover:bg-qupu-orange hover:text-white"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 text-xs font-extrabold text-white transition-transform hover:-translate-y-0.5"
           >
             Detail
-            <ArrowRight className="h-4 w-4" />
+            <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true" />
           </Link>
         </div>
       </div>
