@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
-// Temporary: removed in Tasks 7-8 of the auth-pages redesign plan
-import { Pencil, Save, Trash2 } from 'lucide-react'
 import PillField from '../components/PillField'
 import Toggle from '../components/Toggle'
 import api from '../lib/api'
@@ -373,7 +371,21 @@ export default function AdminVideosPage() {
             </div>
 
             {message && (
-              <div className="rounded-[1.25rem] bg-qupu-cream px-4 py-3 text-sm font-semibold text-qupu-purple">
+              <div
+                className={`flex items-center gap-3 rounded-[1.25rem] px-4 py-3 text-sm font-semibold ${
+                  message.toLowerCase().startsWith('gagal')
+                    ? 'bg-red-50 text-red-600'
+                    : 'bg-emerald-50 text-emerald-700'
+                }`}
+              >
+                <i
+                  className={`${
+                    message.toLowerCase().startsWith('gagal')
+                      ? 'fa-solid fa-triangle-exclamation'
+                      : 'fa-solid fa-circle-check'
+                  } text-base`}
+                  aria-hidden="true"
+                />
                 {message}
               </div>
             )}
@@ -381,9 +393,11 @@ export default function AdminVideosPage() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-purple px-5 py-4 text-base font-bold text-white transition-colors hover:bg-qupu-purple-dark disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60"
             >
-              <Save className="h-4 w-4" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                <i className="fa-solid fa-floppy-disk text-base text-qupu-brand-blue" aria-hidden="true" />
+              </span>
               {saving ? 'Menyimpan...' : editingId ? 'Update video' : 'Buat video'}
             </button>
           </form>
@@ -399,14 +413,36 @@ export default function AdminVideosPage() {
           ) : (
             <div className="grid gap-4">
               {videos.map((video) => (
-                <div key={video.id} className="rounded-[1.5rem] bg-qupu-shell p-4">
+                <div
+                  key={video.id}
+                  className="rounded-[1.75rem] border-2 border-transparent bg-qupu-shell p-4 transition-colors hover:border-qupu-brand-orange/40"
+                >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="flex gap-4">
-                      <img
-                        src={video.thumbnailUrl}
-                        alt={video.title}
-                        className="h-24 w-36 rounded-[1rem] object-cover"
-                      />
+                      <div className="relative h-24 w-36 shrink-0 overflow-hidden rounded-[1.25rem] border-2 border-qupu-peach">
+                        <img
+                          src={video.thumbnailUrl}
+                          alt={video.title}
+                          className="h-full w-full object-cover"
+                        />
+                        <span
+                          className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${
+                            video.isPublished
+                              ? 'bg-emerald-500 text-white'
+                              : 'bg-qupu-muted text-white'
+                          }`}
+                        >
+                          <i
+                            className={
+                              video.isPublished
+                                ? 'fa-solid fa-circle-check'
+                                : 'fa-solid fa-circle-pause'
+                            }
+                            aria-hidden="true"
+                          />
+                          {video.isPublished ? 'Live' : 'Draft'}
+                        </span>
+                      </div>
                       <div>
                         <div className="flex flex-wrap gap-2">
                           <span
@@ -415,12 +451,14 @@ export default function AdminVideosPage() {
                           >
                             {video.subject.name}
                           </span>
-                          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-qupu-purple">
+                          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-qupu-brand-blue">
                             {video.ageGroup.name}
                           </span>
                         </div>
-                        <div className="mt-2 font-bold text-qupu-purple">{video.title}</div>
-                        <div className="mt-1 text-sm text-qupu-muted">
+                        <div className="mt-2 font-display text-base font-extrabold text-qupu-brand-blue">
+                          {video.title}
+                        </div>
+                        <div className="mt-1 text-sm font-medium text-qupu-muted">
                           {video.badgeFamily.name} • {video.numberOfQuestions} soal
                         </div>
                       </div>
@@ -429,17 +467,17 @@ export default function AdminVideosPage() {
                       <button
                         type="button"
                         onClick={() => startEdit(video)}
-                        className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-qupu-purple shadow-soft"
+                        className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-extrabold text-white shadow-subscribe transition-transform hover:-translate-y-0.5 active:translate-y-0"
                       >
-                        <Pencil className="h-4 w-4" />
+                        <i className="fa-solid fa-pencil text-xs" aria-hidden="true" />
                         Edit
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDelete(video.id)}
-                        className="inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-white"
+                        className="inline-flex items-center gap-2 rounded-full border-[3px] border-red-500 bg-transparent px-4 py-[6px] font-display text-sm font-extrabold text-red-500 transition-all hover:-translate-y-0.5 hover:bg-red-500 hover:text-white"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
                         Hapus
                       </button>
                     </div>
