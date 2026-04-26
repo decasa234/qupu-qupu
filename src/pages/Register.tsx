@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../lib/api'
 import AuthCard from '../components/AuthCard'
+import PillField from '../components/PillField'
 import { useAuthStore } from '../store/authStore'
 import type { AuthPayload } from '../types'
 
@@ -107,43 +108,5 @@ export default function Register() {
         </button>
       </form>
     </AuthCard>
-  )
-}
-
-function PillField({
-  label,
-  icon,
-  value,
-  onChange,
-  placeholder,
-  type = 'text',
-  required = false,
-}: {
-  label: string
-  icon: string
-  value: string
-  onChange: (value: string) => void
-  placeholder: string
-  type?: string
-  required?: boolean
-}) {
-  return (
-    <label className="block">
-      <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
-      <div className="relative mt-2">
-        <i
-          className={`${icon} pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-base text-qupu-muted`}
-          aria-hidden="true"
-        />
-        <input
-          type={type}
-          value={value}
-          required={required}
-          onChange={(event) => onChange(event.target.value)}
-          placeholder={placeholder}
-          className="w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
-        />
-      </div>
-    </label>
   )
 }
