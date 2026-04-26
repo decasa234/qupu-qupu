@@ -1,10 +1,21 @@
 import { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import BrandLogo from './BrandLogo'
 import api from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import type { Child } from '../types'
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    if (hash) return
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [pathname, hash])
+
+  return null
+}
 
 export default function Layout() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
@@ -26,6 +37,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-qupu-cream text-qupu-ink">
+      <ScrollToTop />
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-[-6rem] top-[-4rem] h-72 w-72 rounded-full bg-qupu-orange/20 blur-3xl" />
         <div className="absolute right-[-4rem] top-28 h-72 w-72 rounded-full bg-qupu-brand-blue/20 blur-3xl" />
@@ -34,7 +46,7 @@ export default function Layout() {
 
       <Navbar />
 
-      <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:px-8">
         <Outlet />
       </main>
 

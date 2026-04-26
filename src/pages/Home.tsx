@@ -118,7 +118,7 @@ function HeroSection() {
   return (
     <section
       id="beranda"
-      className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-28 flex w-screen items-center overflow-hidden bg-gradient-to-b from-[#F4A85D] via-[#FAC07A] to-[#FDE3C1] pb-20 pt-32 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40"
+      className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-36 flex w-screen items-center overflow-hidden bg-gradient-to-b from-[#F4A85D] via-[#FAC07A] to-[#FDE3C1] pb-20 pt-40 sm:pb-24 sm:pt-44 lg:pb-28 lg:pt-48"
     >
       <HeroRays />
       <HeroRaysHorizontal />
