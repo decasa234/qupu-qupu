@@ -30,7 +30,7 @@ export default function AuthCard({
           alt=""
           draggable={false}
           aria-hidden="true"
-          className="pointer-events-none absolute -right-4 -top-12 h-28 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)] sm:-right-6 sm:-top-14 sm:h-32"
+          className="pointer-events-none absolute -right-4 -top-12 z-10 h-28 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)] sm:-right-6 sm:-top-14 sm:h-32"
         />
 
         <i
