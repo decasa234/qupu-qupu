@@ -15,6 +15,9 @@ const SUMMARY_ICONS = {
   badges: 'fa-solid fa-medal',
 } as const
 
+const INNER_CARD =
+  'rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]'
+
 export default function DashboardPage() {
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
@@ -121,7 +124,7 @@ export default function DashboardPage() {
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <div className="space-y-6">
           <Reveal delay={0.05}>
-            <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
+            <div className={INNER_CARD}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
@@ -174,7 +177,7 @@ export default function DashboardPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
+            <div className={INNER_CARD}>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                 <i className="fa-solid fa-trophy" aria-hidden="true" />
                 Best progress
@@ -190,7 +193,7 @@ export default function DashboardPage() {
                     <Link
                       key={item.videoId}
                       to={`/videos/${item.videoSlug}`}
-                      className="cursor-pointer rounded-[1.5rem] border-2 border-transparent bg-qupu-shell px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-qupu-brand-orange/40"
+                      className="rounded-[1.5rem] border-2 border-transparent bg-qupu-shell px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-qupu-brand-orange/40"
                     >
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>
@@ -224,7 +227,7 @@ export default function DashboardPage() {
 
         <div className="space-y-6">
           <Reveal delay={0.15}>
-            <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
+            <div className={INNER_CARD}>
               <div className="flex items-center gap-3">
                 <div
                   className="h-12 w-12 rounded-full border-4 border-white shadow-soft"
