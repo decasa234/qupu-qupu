@@ -64,3 +64,7 @@ When a user submits a score (`services/member.ts` `submitVideoScore`):
 ### Frontend routes (`src/App.tsx`)
 
 `/` (Home), `/videos/:slug`, `/login`, `/register`, `/dashboard` (protected), `/badges` (protected), `/admin/videos` (admin-only). Unknown paths redirect to `/`.
+
+## Documented Solutions
+
+`docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas.
