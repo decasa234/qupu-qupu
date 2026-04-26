@@ -1,10 +1,13 @@
-type PillFieldProps = {
+// src/components/PillField.tsx
+import type { HTMLInputTypeAttribute } from 'react'
+
+interface PillFieldProps {
   label: string
   icon: string
   value: string
   onChange: (value: string) => void
   placeholder?: string
-  type?: string
+  type?: HTMLInputTypeAttribute
   required?: boolean
   helper?: string
   name?: string
@@ -42,7 +45,7 @@ export default function PillField({
           className="w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
         />
       </div>
-      {helper && <div className="mt-2 text-xs font-semibold text-qupu-muted">{helper}</div>}
+      {helper && <p className="mt-2 text-xs font-semibold text-qupu-muted">{helper}</p>}
     </label>
   )
 }
