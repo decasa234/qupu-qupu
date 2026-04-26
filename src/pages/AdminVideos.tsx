@@ -3,6 +3,8 @@ import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
 // Temporary: removed in Tasks 7-8 of the auth-pages redesign plan
 import { Pencil, Save, Trash2 } from 'lucide-react'
+import PillField from '../components/PillField'
+import Toggle from '../components/Toggle'
 import api from '../lib/api'
 import { slugify } from '../lib/youtube'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
@@ -224,19 +226,21 @@ export default function AdminVideosPage() {
           </div>
 
           <form className="grid gap-4" onSubmit={handleSubmit}>
-            <AdminInput label="Judul video" value={form.title} onChange={(value) => setForm((state) => ({ ...state, title: value }))} />
-            <AdminInput label="Slug" value={form.slug} onChange={(value) => setForm((state) => ({ ...state, slug: value }))} helper={`Preview: ${titlePreview || '-'}`} />
-            <AdminInput label="YouTube URL" value={form.youtubeUrl} onChange={(value) => setForm((state) => ({ ...state, youtubeUrl: value }))} />
-            <AdminInput label="Thumbnail URL" value={form.thumbnailUrl} onChange={(value) => setForm((state) => ({ ...state, thumbnailUrl: value }))} />
+            <PillField icon="fa-solid fa-film" label="Judul video" value={form.title} onChange={(value) => setForm((state) => ({ ...state, title: value }))} />
+            <PillField icon="fa-solid fa-link" label="Slug" value={form.slug} onChange={(value) => setForm((state) => ({ ...state, slug: value }))} helper={`Preview: ${titlePreview || '-'}`} />
+            <PillField icon="fa-brands fa-youtube" label="YouTube URL" value={form.youtubeUrl} onChange={(value) => setForm((state) => ({ ...state, youtubeUrl: value }))} />
+            <PillField icon="fa-solid fa-image" label="Thumbnail URL" value={form.thumbnailUrl} onChange={(value) => setForm((state) => ({ ...state, thumbnailUrl: value }))} />
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <AdminSelect
+              <PillSelect
+                icon="fa-solid fa-book"
                 label="Subject"
                 value={form.subjectId}
                 onChange={(value) => setForm((state) => ({ ...state, subjectId: value }))}
                 options={subjectOptions.map((subject) => ({ value: subject.id, label: subject.name }))}
               />
-              <AdminSelect
+              <PillSelect
+                icon="fa-solid fa-children"
                 label="Age group"
                 value={form.ageGroupId}
                 onChange={(value) => setForm((state) => ({ ...state, ageGroupId: value }))}
@@ -245,13 +249,15 @@ export default function AdminVideosPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              <AdminInput
+              <PillField
+                icon="fa-solid fa-list-ol"
                 label="Jumlah soal"
                 type="number"
                 value={String(form.numberOfQuestions)}
                 onChange={(value) => setForm((state) => ({ ...state, numberOfQuestions: Number(value) }))}
               />
-              <AdminSelect
+              <PillSelect
+                icon="fa-solid fa-gauge-high"
                 label="Difficulty"
                 value={form.difficulty}
                 onChange={(value) => setForm((state) => ({ ...state, difficulty: value as AdminVideoFormValues['difficulty'] }))}
@@ -261,7 +267,8 @@ export default function AdminVideosPage() {
                   { value: 'hard', label: 'hard' },
                 ]}
               />
-              <AdminInput
+              <PillField
+                icon="fa-solid fa-sort"
                 label="Sort order"
                 type="number"
                 value={String(form.sortOrder)}
@@ -269,7 +276,8 @@ export default function AdminVideosPage() {
               />
             </div>
 
-            <AdminSelect
+            <PillSelect
+              icon="fa-solid fa-medal"
               label="Badge family"
               value={form.badgeFamilyId}
               onChange={(value) => setForm((state) => ({ ...state, badgeFamilyId: value }))}
@@ -277,63 +285,90 @@ export default function AdminVideosPage() {
             />
 
             <label className="block">
-              <span className="text-sm font-bold uppercase tracking-[0.18em] text-qupu-muted">Deskripsi</span>
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Deskripsi</span>
               <textarea
                 value={form.description}
                 onChange={(event) => setForm((state) => ({ ...state, description: event.target.value }))}
                 rows={4}
-                className="mt-2 w-full rounded-[1.2rem] border border-qupu-peach bg-qupu-shell px-4 py-3 text-qupu-ink outline-none focus:border-qupu-orange"
+                className="mt-2 w-full rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell px-5 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
               />
             </label>
 
-            <div className="grid gap-4 rounded-[1.5rem] bg-qupu-shell p-4">
-              <div className="font-bold text-qupu-purple">Rule badge per tier</div>
-              {form.badgeRules.map((rule, index) => (
-                <div key={rule.tier} className="grid gap-3 rounded-[1.2rem] bg-white p-4 sm:grid-cols-3">
-                  <div className="font-semibold text-qupu-purple">Tier {rule.tier}</div>
-                  <AdminInput
-                    label="Min benar"
-                    type="number"
-                    value={String(rule.minCorrect)}
-                    onChange={(value) =>
-                      setForm((state) => ({
-                        ...state,
-                        badgeRules: state.badgeRules.map((item, itemIndex) =>
-                          itemIndex === index ? { ...item, minCorrect: Number(value) } : item,
-                        ),
-                      }))
-                    }
-                  />
-                  <AdminInput
-                    label="Max benar"
-                    type="number"
-                    value={rule.maxCorrect === null ? '' : String(rule.maxCorrect)}
-                    onChange={(value) =>
-                      setForm((state) => ({
-                        ...state,
-                        badgeRules: state.badgeRules.map((item, itemIndex) =>
-                          itemIndex === index
-                            ? { ...item, maxCorrect: value === '' ? null : Number(value) }
-                            : item,
-                        ),
-                      }))
-                    }
-                    helper={rule.tier === 3 ? 'Kosongkan untuk tier terakhir tanpa batas.' : undefined}
-                  />
-                </div>
-              ))}
+            <div className="grid gap-4 rounded-[1.75rem] bg-qupu-shell p-5">
+              <div className="flex items-center gap-2 font-display text-base font-extrabold text-qupu-brand-blue">
+                <i className="fa-solid fa-medal text-qupu-brand-orange" aria-hidden="true" />
+                Rule badge per tier
+              </div>
+              {form.badgeRules.map((rule, index) => {
+                const tierColor =
+                  rule.tier === 1
+                    ? 'bg-qupu-brand-blue text-white'
+                    : rule.tier === 2
+                    ? 'bg-qupu-brand-orange text-white'
+                    : 'bg-qupu-brand-yellow text-qupu-brand-blue'
+
+                return (
+                  <div
+                    key={rule.tier}
+                    className="grid items-end gap-3 rounded-[1.5rem] bg-white p-4 sm:grid-cols-[auto_1fr_1fr]"
+                  >
+                    <span
+                      className={`inline-flex h-12 items-center justify-center rounded-full px-4 font-display text-sm font-extrabold uppercase tracking-[0.16em] ${tierColor}`}
+                    >
+                      Tier {rule.tier}
+                    </span>
+                    <PillField
+                      icon="fa-solid fa-hashtag"
+                      label="Min benar"
+                      type="number"
+                      value={String(rule.minCorrect)}
+                      onChange={(value) =>
+                        setForm((state) => ({
+                          ...state,
+                          badgeRules: state.badgeRules.map((item, itemIndex) =>
+                            itemIndex === index ? { ...item, minCorrect: Number(value) } : item,
+                          ),
+                        }))
+                      }
+                    />
+                    <PillField
+                      icon="fa-solid fa-hashtag"
+                      label="Max benar"
+                      type="number"
+                      value={rule.maxCorrect === null ? '' : String(rule.maxCorrect)}
+                      onChange={(value) =>
+                        setForm((state) => ({
+                          ...state,
+                          badgeRules: state.badgeRules.map((item, itemIndex) =>
+                            itemIndex === index
+                              ? { ...item, maxCorrect: value === '' ? null : Number(value) }
+                              : item,
+                          ),
+                        }))
+                      }
+                      helper={rule.tier === 3 ? 'Kosongkan untuk tier terakhir tanpa batas.' : undefined}
+                    />
+                  </div>
+                )
+              })}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <ToggleRow
+              <Toggle
                 label="Publish video"
+                helper="Tampil di katalog publik."
                 checked={form.isPublished}
                 onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
+                iconOn="fa-solid fa-eye"
+                iconOff="fa-solid fa-eye-slash"
               />
-              <ToggleRow
+              <Toggle
                 label="Featured di landing"
+                helper="Muncul di home Video Terbaru."
                 checked={form.isFeatured}
                 onChange={(checked) => setForm((state) => ({ ...state, isFeatured: checked }))}
+                iconOn="fa-solid fa-star"
+                iconOff="fa-regular fa-star"
               />
             </div>
 
@@ -419,39 +454,14 @@ export default function AdminVideosPage() {
   )
 }
 
-function AdminInput({
-  label,
-  value,
-  onChange,
-  type = 'text',
-  helper,
-}: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  type?: string
-  helper?: string
-}) {
-  return (
-    <label className="block">
-      <span className="text-sm font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
-      <input
-        type={type}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-2 w-full rounded-[1.2rem] border border-qupu-peach bg-qupu-shell px-4 py-3 text-qupu-ink outline-none focus:border-qupu-orange"
-      />
-      {helper && <div className="mt-2 text-xs font-semibold text-qupu-muted">{helper}</div>}
-    </label>
-  )
-}
-
-function AdminSelect({
+function PillSelect({
+  icon,
   label,
   value,
   onChange,
   options,
 }: {
+  icon: string
   label: string
   value: string
   onChange: (value: string) => void
@@ -459,40 +469,28 @@ function AdminSelect({
 }) {
   return (
     <label className="block">
-      <span className="text-sm font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
-      <select
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-2 w-full rounded-[1.2rem] border border-qupu-peach bg-qupu-shell px-4 py-3 text-qupu-ink outline-none focus:border-qupu-orange"
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  )
-}
-
-function ToggleRow({
-  label,
-  checked,
-  onChange,
-}: {
-  label: string
-  checked: boolean
-  onChange: (checked: boolean) => void
-}) {
-  return (
-    <label className="flex items-center justify-between rounded-[1.25rem] bg-qupu-shell px-4 py-4">
-      <span className="font-semibold text-qupu-purple">{label}</span>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(event) => onChange(event.target.checked)}
-        className="h-5 w-5 accent-qupu-orange"
-      />
+      <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
+      <div className="relative mt-2">
+        <i
+          className={`${icon} pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-base text-qupu-muted`}
+          aria-hidden="true"
+        />
+        <i
+          className="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-qupu-muted"
+          aria-hidden="true"
+        />
+        <select
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="w-full appearance-none rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </label>
   )
 }
