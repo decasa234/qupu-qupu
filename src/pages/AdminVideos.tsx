@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Pencil, Plus, Save, Trash2 } from 'lucide-react'
+import Reveal from '../components/Reveal'
+import SkeletonCard from '../components/SkeletonCard'
+// Temporary: removed in Tasks 7-8 of the auth-pages redesign plan
+import { Pencil, Save, Trash2 } from 'lucide-react'
 import api from '../lib/api'
 import { slugify } from '../lib/youtube'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
@@ -166,31 +169,56 @@ export default function AdminVideosPage() {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-[2.5rem] border border-qupu-peach bg-white p-6 shadow-soft sm:p-8">
-        <div className="text-sm font-bold uppercase tracking-[0.24em] text-qupu-orange">Admin</div>
-        <h1 className="mt-2 font-display text-4xl font-bold text-qupu-purple">
-          Video catalog dan badge rule QUPU
-        </h1>
-        <p className="mt-3 max-w-2xl text-qupu-muted">
-          Tambah video baru, edit metadata, dan atur tier badge per video tanpa menyentuh database manual.
-        </p>
-      </section>
+      <Reveal>
+        <section className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8 lg:p-10">
+          <i className="fa-solid fa-star pointer-events-none absolute left-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+          <i className="fa-solid fa-star pointer-events-none absolute right-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+          <i className="fa-solid fa-star pointer-events-none absolute left-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+          <i className="fa-solid fa-star pointer-events-none absolute right-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                Admin · Videos
+              </div>
+              <h1 className="mt-3 font-display text-4xl font-bold text-qupu-brand-blue sm:text-5xl">
+                Kelola video QUPU
+              </h1>
+              <p className="mt-3 max-w-2xl text-base font-medium text-qupu-muted">
+                Tambah video baru, edit metadata, dan atur tier badge per video tanpa menyentuh database manual.
+              </p>
+            </div>
+
+            <div className="relative hidden h-44 lg:block">
+              <img
+                src="/hero-mascot.png"
+                alt=""
+                draggable={false}
+                className="pointer-events-none absolute -right-6 -top-4 h-48 w-auto select-none drop-shadow-[0_18px_30px_rgba(120,60,0,0.18)]"
+              />
+            </div>
+          </div>
+        </section>
+      </Reveal>
 
       <div className="grid gap-6 xl:grid-cols-[0.88fr_1.12fr]">
-        <div className="rounded-[2rem] border border-qupu-peach bg-white p-6 shadow-soft">
+        <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
           <div className="mb-5 flex items-center justify-between gap-3">
             <div>
-              <div className="text-sm font-bold uppercase tracking-[0.2em] text-qupu-orange">Editor</div>
-              <h2 className="font-display text-3xl font-bold text-qupu-purple">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <i className="fa-solid fa-circle-info" aria-hidden="true" />
+                Editor
+              </div>
+              <h2 className="mt-1 font-display text-3xl font-bold text-qupu-brand-blue">
                 {editingId ? 'Edit video' : 'Tambah video'}
               </h2>
             </div>
             <button
               type="button"
               onClick={startCreate}
-              className="inline-flex items-center gap-2 rounded-full bg-qupu-cream px-4 py-2 text-sm font-bold text-qupu-purple"
+              className="inline-flex items-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-transparent px-4 py-[6px] font-display text-sm font-extrabold text-qupu-brand-orange transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-brand-orange hover:text-white"
             >
-              <Plus className="h-4 w-4" />
+              <i className="fa-solid fa-plus text-xs" aria-hidden="true" />
               Form baru
             </button>
           </div>
@@ -326,10 +354,13 @@ export default function AdminVideosPage() {
           </form>
         </div>
 
-        <div className="rounded-[2rem] border border-qupu-peach bg-white p-6 shadow-soft">
-          <div className="mb-5 text-sm font-bold uppercase tracking-[0.2em] text-qupu-orange">Catalog</div>
+        <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
+          <div className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+            <i className="fa-solid fa-rectangle-list" aria-hidden="true" />
+            Catalog
+          </div>
           {loading ? (
-            <div className="h-64 animate-pulse rounded-[1.5rem] bg-qupu-cream" />
+            <SkeletonCard height="h-64" />
           ) : (
             <div className="grid gap-4">
               {videos.map((video) => (
