@@ -155,3 +155,22 @@ CREATE TABLE IF NOT EXISTS pending_registrations (
 
 CREATE INDEX IF NOT EXISTS idx_pending_registrations_email ON pending_registrations(email);
 CREATE INDEX IF NOT EXISTS idx_pending_registrations_expires_at ON pending_registrations(expires_at);
+
+CREATE TABLE IF NOT EXISTS youtube_channel_cache (
+  playlist_id VARCHAR(64) PRIMARY KEY,
+  payload JSONB NOT NULL,
+  fetched_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  expires_at TIMESTAMPTZ NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_youtube_channel_cache_expires_at ON youtube_channel_cache(expires_at);
+
+CREATE TABLE IF NOT EXISTS request_rate_limits (
+  user_id UUID NOT NULL,
+  route VARCHAR(64) NOT NULL,
+  window_started_at TIMESTAMPTZ NOT NULL,
+  count INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (user_id, route)
+);
+
+CREATE INDEX IF NOT EXISTS idx_request_rate_limits_window ON request_rate_limits(window_started_at);
