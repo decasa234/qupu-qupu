@@ -24,6 +24,7 @@ import {
   listChannelVideosCached,
   paginateChannelItems,
 } from '../services/youtubeChannel.js'
+import { bulkImportAsDrafts } from '../services/youtubeChannelImport.js'
 import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
 const router = Router()
@@ -224,6 +225,33 @@ router.get(
         return
       }
       console.error('Channel listing error:', error)
+      res.status(500).json({ success: false, error: 'internal_error' })
+    }
+  },
+)
+
+const channelImportSchema = Joi.object({
+  youtubeVideoIds: Joi.array()
+    .items(Joi.string().min(8).max(20).regex(/^[A-Za-z0-9_-]+$/))
+    .min(1)
+    .max(50)
+    .required(),
+})
+
+router.post(
+  '/youtube-channel/import',
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = channelImportSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+
+      const results = await bulkImportAsDrafts(value.youtubeVideoIds)
+      res.json({ success: true, data: { results } })
+    } catch (error: unknown) {
+      console.error('Bulk import error:', error)
       res.status(500).json({ success: false, error: 'internal_error' })
     }
   },
