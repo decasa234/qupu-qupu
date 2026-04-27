@@ -55,16 +55,27 @@ CREATE TABLE IF NOT EXISTS videos (
   youtube_url VARCHAR(500) NOT NULL,
   youtube_video_id VARCHAR(32) NOT NULL,
   thumbnail_url VARCHAR(500),
-  subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE RESTRICT,
-  age_group_id UUID NOT NULL REFERENCES age_groups(id) ON DELETE RESTRICT,
-  number_of_questions INTEGER NOT NULL CHECK (number_of_questions > 0),
+  -- Drafts (is_published=false) may leave subject_id, age_group_id, and
+  -- number_of_questions NULL; the videos_publish_required CHECK below
+  -- enforces they're populated before is_published can flip to true.
+  -- See db/migrations/0007_video_drafts.sql for the migration history.
+  subject_id UUID REFERENCES subjects(id) ON DELETE RESTRICT,
+  age_group_id UUID REFERENCES age_groups(id) ON DELETE RESTRICT,
+  number_of_questions INTEGER CHECK (number_of_questions IS NULL OR number_of_questions > 0),
   difficulty VARCHAR(20) NOT NULL DEFAULT 'medium' CHECK (difficulty IN ('easy', 'medium', 'hard')),
   is_published BOOLEAN NOT NULL DEFAULT TRUE,
   is_featured BOOLEAN NOT NULL DEFAULT FALSE,
   sort_order INTEGER NOT NULL DEFAULT 0,
   published_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  CONSTRAINT videos_publish_required CHECK (
+    is_published = false OR (
+      subject_id IS NOT NULL
+      AND age_group_id IS NOT NULL
+      AND number_of_questions IS NOT NULL
+    )
+  )
 );
 
 CREATE TABLE IF NOT EXISTS video_badge_rules (
@@ -118,6 +129,7 @@ CREATE INDEX IF NOT EXISTS idx_children_parent ON children(parent_user_id);
 CREATE INDEX IF NOT EXISTS idx_videos_subject ON videos(subject_id);
 CREATE INDEX IF NOT EXISTS idx_videos_age_group ON videos(age_group_id);
 CREATE INDEX IF NOT EXISTS idx_videos_published ON videos(is_published, published_at DESC);
+CREATE UNIQUE INDEX IF NOT EXISTS videos_youtube_video_id_unique ON videos(youtube_video_id);
 CREATE INDEX IF NOT EXISTS idx_video_badge_rules_video ON video_badge_rules(video_id);
 CREATE INDEX IF NOT EXISTS idx_score_attempts_child_created ON score_attempts(child_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_score_attempts_video ON score_attempts(video_id);
