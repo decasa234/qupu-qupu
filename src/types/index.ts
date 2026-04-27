@@ -61,17 +61,20 @@ export interface VideoCard {
   youtubeUrl: string
   youtubeVideoId: string
   thumbnailUrl: string
-  numberOfQuestions: number
+  // Drafts (isPublished=false) may have null subject/ageGroup/numberOfQuestions.
+  // Public catalog endpoints filter to isPublished=true, so consumers there see
+  // non-null values at runtime; admin pages must guard the null cases.
+  numberOfQuestions: number | null
   difficulty: 'easy' | 'medium' | 'hard'
   isFeatured: boolean
   isPublished: boolean
   sortOrder: number
   publishedAt?: string | null
-  subject: SubjectOption
+  subject: SubjectOption | null
   ageGroup: {
     id: string
     name: string
-  }
+  } | null
 }
 
 export interface VideoDetail extends VideoCard {
@@ -186,9 +189,12 @@ export interface AdminVideoFormValues {
   slug: string
   youtubeUrl: string
   thumbnailUrl: string
+  // In draft mode (isPublished=false) these may be empty/null — the server
+  // accepts the relaxed shape and the editor only enforces them when the
+  // admin flips isPublished to true.
   subjectId: string
   ageGroupId: string
-  numberOfQuestions: number
+  numberOfQuestions: number | null
   difficulty: 'easy' | 'medium' | 'hard'
   description: string
   isPublished: boolean
@@ -199,6 +205,32 @@ export interface AdminVideoFormValues {
     maxCorrect: number | null
     badgeCount: number
   }>
+}
+
+export interface ChannelVideoItem {
+  id: string
+  title: string
+  publishedAt: string | null
+  thumbnailUrl: string
+  alreadyImported: boolean
+  available: boolean
+  unavailableReason?: string
+}
+
+export interface ChannelVideoListResponse {
+  items: ChannelVideoItem[]
+  page: number
+  pageCount: number
+  total: number
+}
+
+export type ImportResultStatus = 'created' | 'already_imported' | 'error'
+
+export interface ImportResult {
+  youtubeVideoId: string
+  status: ImportResultStatus
+  videoId?: string
+  error?: string
 }
 
 export interface ApiResponse<T> {

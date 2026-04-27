@@ -10,7 +10,10 @@ interface VideoRow {
   youtube_url: string
   youtube_video_id: string
   thumbnail_url: string | null
-  number_of_questions: number
+  // Drafts (is_published=false) may have NULL number_of_questions, subject_id,
+  // and age_group_id. The publish-time CHECK constraint guarantees they're
+  // populated whenever is_published=true.
+  number_of_questions: number | null
   difficulty: 'easy' | 'medium' | 'hard'
   is_published: boolean
   is_featured: boolean
@@ -18,12 +21,12 @@ interface VideoRow {
   published_at: string | null
   created_at: string
   updated_at: string
-  subject_id: string
-  subject_name: string
-  subject_slug: string
-  subject_color_hex: string
-  age_group_id: string
-  age_group_name: string
+  subject_id: string | null
+  subject_name: string | null
+  subject_slug: string | null
+  subject_color_hex: string | null
+  age_group_id: string | null
+  age_group_name: string | null
 }
 
 interface BadgeRangeRow {
@@ -39,15 +42,16 @@ interface VideoInput {
   slug?: string
   youtubeUrl: string
   thumbnailUrl?: string
-  subjectId: string
-  ageGroupId: string
-  numberOfQuestions: number
+  // Required when isPublished is true; may be null/undefined for drafts.
+  subjectId?: string | null
+  ageGroupId?: string | null
+  numberOfQuestions?: number | null
   difficulty: 'easy' | 'medium' | 'hard'
   description?: string
   isPublished?: boolean
   isFeatured?: boolean
   sortOrder?: number
-  badgeRanges: Array<{
+  badgeRanges?: Array<{
     minCorrect: number
     maxCorrect: number | null
     badgeCount: number
@@ -78,11 +82,24 @@ const VIDEO_SELECT = `
     ag.id AS age_group_id,
     ag.name AS age_group_name
   FROM videos v
-  JOIN subjects s ON s.id = v.subject_id
-  JOIN age_groups ag ON ag.id = v.age_group_id
+  LEFT JOIN subjects s ON s.id = v.subject_id
+  LEFT JOIN age_groups ag ON ag.id = v.age_group_id
 `
 
 function mapVideoCard(row: VideoRow) {
+  const subject =
+    row.subject_id && row.subject_name && row.subject_slug && row.subject_color_hex
+      ? {
+          id: row.subject_id,
+          name: row.subject_name,
+          slug: row.subject_slug,
+          colorHex: row.subject_color_hex,
+        }
+      : null
+  const ageGroup =
+    row.age_group_id && row.age_group_name
+      ? { id: row.age_group_id, name: row.age_group_name }
+      : null
   return {
     id: row.id,
     slug: row.slug,
@@ -97,16 +114,8 @@ function mapVideoCard(row: VideoRow) {
     isPublished: row.is_published,
     sortOrder: row.sort_order,
     publishedAt: row.published_at,
-    subject: {
-      id: row.subject_id,
-      name: row.subject_name,
-      slug: row.subject_slug,
-      colorHex: row.subject_color_hex,
-    },
-    ageGroup: {
-      id: row.age_group_id,
-      name: row.age_group_name,
-    },
+    subject,
+    ageGroup,
   }
 }
 
@@ -298,8 +307,40 @@ function normalizeVideoInput(input: VideoInput) {
     throw new Error('Invalid YouTube URL')
   }
 
-  const slug = slugify(input.slug?.trim() || input.title)
-  const badgeRanges = [...input.badgeRanges].sort((a, b) => a.minCorrect - b.minCorrect)
+  const slug = slugify(input.slug?.trim() || input.title) || youtubeVideoId.toLowerCase()
+  const isPublished = input.isPublished ?? true
+  const badgeRanges = [...(input.badgeRanges ?? [])].sort((a, b) => a.minCorrect - b.minCorrect)
+
+  // Draft mode: only YouTube-derived fields are validated. The publish-time
+  // CHECK constraint and the publish branch below enforce the full invariant
+  // when isPublished flips to true.
+  if (!isPublished) {
+    return {
+      ...input,
+      slug,
+      youtubeVideoId,
+      thumbnailUrl: input.thumbnailUrl?.trim() || buildYouTubeThumbnail(youtubeVideoId),
+      isPublished: false,
+      subjectId: input.subjectId ?? null,
+      ageGroupId: input.ageGroupId ?? null,
+      numberOfQuestions: input.numberOfQuestions ?? null,
+      badgeRanges,
+    }
+  }
+
+  // Publish mode: full validation. QUPU-fields and badge ranges must be
+  // populated and consistent.
+  if (!input.subjectId) {
+    throw new Error('Subject is required to publish a video')
+  }
+  if (!input.ageGroupId) {
+    throw new Error('Age group is required to publish a video')
+  }
+  if (!input.numberOfQuestions || input.numberOfQuestions <= 0) {
+    throw new Error('Number of questions is required to publish a video')
+  }
+
+  const numberOfQuestions = input.numberOfQuestions
 
   if (badgeRanges.length === 0) {
     throw new Error('At least one badge range is required')
@@ -312,7 +353,7 @@ function normalizeVideoInput(input: VideoInput) {
       throw new Error('Badge range minimum cannot be negative')
     }
 
-    if (range.minCorrect > input.numberOfQuestions) {
+    if (range.minCorrect > numberOfQuestions) {
       throw new Error('Badge range minimum cannot exceed the question count')
     }
 
@@ -320,7 +361,7 @@ function normalizeVideoInput(input: VideoInput) {
       throw new Error('Badge range max cannot be less than min')
     }
 
-    if (range.maxCorrect !== null && range.maxCorrect > input.numberOfQuestions) {
+    if (range.maxCorrect !== null && range.maxCorrect > numberOfQuestions) {
       throw new Error('Badge range maximum cannot exceed the question count')
     }
 
@@ -330,7 +371,7 @@ function normalizeVideoInput(input: VideoInput) {
 
     if (index > 0) {
       const previous = badgeRanges[index - 1]
-      const previousMax = previous.maxCorrect ?? input.numberOfQuestions
+      const previousMax = previous.maxCorrect ?? numberOfQuestions
 
       if (range.minCorrect <= previousMax) {
         throw new Error('Badge ranges must not overlap')
@@ -343,6 +384,10 @@ function normalizeVideoInput(input: VideoInput) {
     slug,
     youtubeVideoId,
     thumbnailUrl: input.thumbnailUrl?.trim() || buildYouTubeThumbnail(youtubeVideoId),
+    isPublished: true,
+    subjectId: input.subjectId,
+    ageGroupId: input.ageGroupId,
+    numberOfQuestions,
     badgeRanges,
   }
 }
@@ -350,7 +395,7 @@ function normalizeVideoInput(input: VideoInput) {
 async function syncVideoBadgeRanges(
   client: PoolClient,
   videoId: string,
-  badgeRanges: VideoInput['badgeRanges'],
+  badgeRanges: NonNullable<VideoInput['badgeRanges']>,
 ) {
   await client.query('DELETE FROM video_badge_rules WHERE video_id = $1', [videoId])
 
@@ -397,11 +442,11 @@ export async function createVideo(input: VideoInput) {
         normalized.youtubeUrl,
         normalized.youtubeVideoId,
         normalized.thumbnailUrl,
-        normalized.subjectId,
-        normalized.ageGroupId,
-        normalized.numberOfQuestions,
+        normalized.subjectId ?? null,
+        normalized.ageGroupId ?? null,
+        normalized.numberOfQuestions ?? null,
         normalized.difficulty,
-        normalized.isPublished ?? true,
+        normalized.isPublished,
         normalized.isFeatured ?? false,
         normalized.sortOrder ?? 0,
       ],
@@ -465,11 +510,11 @@ export async function updateVideo(videoId: string, input: VideoInput) {
         normalized.youtubeUrl,
         normalized.youtubeVideoId,
         normalized.thumbnailUrl,
-        normalized.subjectId,
-        normalized.ageGroupId,
-        normalized.numberOfQuestions,
+        normalized.subjectId ?? null,
+        normalized.ageGroupId ?? null,
+        normalized.numberOfQuestions ?? null,
         normalized.difficulty,
-        normalized.isPublished ?? true,
+        normalized.isPublished,
         normalized.isFeatured ?? false,
         normalized.sortOrder ?? 0,
       ],

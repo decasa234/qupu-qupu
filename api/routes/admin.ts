@@ -27,20 +27,47 @@ const badgeRangeSchema = Joi.object({
   badgeCount: Joi.number().integer().min(0).required(),
 })
 
+// Drafts (isPublished=false) may omit subjectId, ageGroupId, numberOfQuestions,
+// and badgeRanges. The DB CHECK constraint and `normalizeVideoInput` enforce
+// that the publish transition has all four populated.
 const videoSchema = Joi.object({
   title: Joi.string().min(3).max(200).required(),
   slug: Joi.string().allow('', null),
   youtubeUrl: Joi.string().uri().required(),
   thumbnailUrl: Joi.string().uri().allow('', null),
-  subjectId: Joi.string().uuid().required(),
-  ageGroupId: Joi.string().uuid().required(),
-  numberOfQuestions: Joi.number().integer().min(1).required(),
+  subjectId: Joi.string()
+    .uuid()
+    .when('isPublished', {
+      is: true,
+      then: Joi.required(),
+      otherwise: Joi.string().uuid().allow(null, '').optional(),
+    }),
+  ageGroupId: Joi.string()
+    .uuid()
+    .when('isPublished', {
+      is: true,
+      then: Joi.required(),
+      otherwise: Joi.string().uuid().allow(null, '').optional(),
+    }),
+  numberOfQuestions: Joi.number()
+    .integer()
+    .when('isPublished', {
+      is: true,
+      then: Joi.number().integer().min(1).required(),
+      otherwise: Joi.number().integer().min(1).allow(null).optional(),
+    }),
   difficulty: Joi.string().valid('easy', 'medium', 'hard').required(),
   description: Joi.string().allow('', null),
   isPublished: Joi.boolean().required(),
   isFeatured: Joi.boolean().required(),
   sortOrder: Joi.number().integer().min(0).required(),
-  badgeRanges: Joi.array().items(badgeRangeSchema).min(1).required(),
+  badgeRanges: Joi.array()
+    .items(badgeRangeSchema)
+    .when('isPublished', {
+      is: true,
+      then: Joi.array().items(badgeRangeSchema).min(1).required(),
+      otherwise: Joi.array().items(badgeRangeSchema).optional().default([]),
+    }),
 })
 
 router.use(authenticateToken, requireAdmin)
