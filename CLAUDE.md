@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - No test runner is configured.
 - Database bootstrap is manual: apply `db/schema.sql` then `db/seed.sql` against the Postgres instance in `DATABASE_URL`. For an existing DB, apply migrations in `db/migrations/` in numeric order. Fresh installs of `db/schema.sql` already include all migration changes. The `supabase/migrations` folder is legacy and not part of the current flow.
 
-Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`, `APP_ORIGIN`, `VITE_API_BASE_URL`. Optional but required for Google sign-in: `GOOGLE_CLIENT_ID` (server) and `VITE_GOOGLE_CLIENT_ID` (client) — same Google Cloud Web OAuth client id. Required for password registration OTP email delivery: `RESEND_API_KEY` and `RESEND_FROM`.
+Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`, `APP_ORIGIN`, `VITE_API_BASE_URL`. Optional but required for Google sign-in: `GOOGLE_CLIENT_ID` (server) and `VITE_GOOGLE_CLIENT_ID` (client) — same Google Cloud Web OAuth client id. Required for password registration OTP email delivery: `RESEND_API_KEY` and `RESEND_FROM`. Required for the admin YouTube channel picker and single-video importer: `YOUTUBE_API_KEY`. Optional: `YOUTUBE_CHANNEL_HANDLE` (default `@qupuid`; must match `/^@[A-Za-z0-9_.-]{1,50}$/`) and `YOUTUBE_UPLOADS_PLAYLIST_ID` (skips the `channels.list` resolution call — recommended on Vercel serverless).
 
 ## Architecture
 
@@ -30,7 +30,7 @@ Single repo with two halves sharing one `tsconfig.json` (`include: ["src", "api"
 - `/api/users/me` — authenticated profile read/update.
 - `/api/public` — unauthenticated meta + video list/detail for the catalog.
 - `/api/me` — authenticated member endpoints: submit quiz score, progress, badges.
-- `/api/admin` — admin-only video CRUD. The whole router is gated by `authenticateToken` + `requireAdmin`.
+- `/api/admin` — admin-only video CRUD plus channel-import endpoints (`GET /youtube-channel/videos` lists every upload on the configured channel with cached `alreadyImported` + `available` annotations; `POST /youtube-channel/import` bulk-creates drafts from selected video IDs and returns per-row `{ status, error? }`). The whole router is gated by `authenticateToken` + `requireAdmin`. The listing endpoint also runs through a Postgres-backed sliding-window rate limiter (`api/lib/rateLimit.ts`, 30/min per admin) and a 10-minute Postgres cache (`youtube_channel_cache`) so quota stays bounded across all serverless instances.
 - `/api/meta` — legacy lookups (subjects/age-groups/badge-families); `/api/public/meta` is the preferred aggregate.
 
 Routes are thin: validate with Joi, delegate to `api/services/*`. Put SQL and business rules in services, not route handlers.
@@ -52,7 +52,11 @@ The `executor` parameter is how services thread a transaction client through hel
 
 ### Core domain (see `db/schema.sql`)
 
-A **video** belongs to one `subject`, one `age_group`, and one `badge_family`. Each video has exactly **3 `video_badge_rules`**, one per tier (1/2/3) of its badge family, with non-overlapping `[min_correct, max_correct]` ranges over the question count. `normalizeVideoInput` in `services/videos.ts` enforces these invariants on create/update.
+A **video** has YouTube fields (`youtube_url`, `youtube_video_id`, `slug`, `title`) plus QUPU-specific fields (`subject_id`, `age_group_id`, `number_of_questions`) and one or more `video_badge_rules` rows defining non-overlapping `[min_correct, max_correct]` ranges with a `badge_count` per range.
+
+**Draft semantic**: `is_published = false` rows may have `subject_id`, `age_group_id`, and `number_of_questions` as NULL and zero `video_badge_rules` rows. The `videos_publish_required` CHECK constraint enforces all three are populated whenever `is_published = true`; `normalizeVideoInput` in `services/videos.ts` runs the full badge-range validation only on the publish branch. `youtube_video_id` is UNIQUE at the DB layer (`videos_youtube_video_id_unique`), so the bulk-import service catches `23505` and returns `status: "already_imported"` for duplicates.
+
+`VIDEO_SELECT` uses LEFT JOINs on `subjects` and `age_groups` so draft rows are returned by `listAdminVideos` and `getAdminVideoById`. Public catalog reads filter `is_published = TRUE`, so the LEFT JOIN nulls never reach members at runtime — but `mapVideoCard` emits `subject: null` / `ageGroup: null` for any draft an admin loads.
 
 When a user submits a score (`services/member.ts` `submitVideoScore`):
 1. Insert a `score_attempts` row.
@@ -63,7 +67,7 @@ When a user submits a score (`services/member.ts` `submitVideoScore`):
 
 ### Frontend routes (`src/App.tsx`)
 
-`/` (Home), `/videos/:slug`, `/login`, `/register`, `/dashboard` (protected), `/badges` (protected), `/admin/videos` (admin-only). Unknown paths redirect to `/`.
+`/` (Home), `/videos/:slug`, `/login`, `/register`, `/dashboard` (protected), `/badges` (protected), `/admin/videos` (admin-only catalog + editor — has a "Draft / Diterbitkan / Semua" filter chip and an "Impor dari YouTube" button), `/admin/videos/import` (admin-only YouTube channel picker — multi-select rows then "Import N sebagai draft"). Unknown paths redirect to `/`.
 
 ## Documented Solutions
 
