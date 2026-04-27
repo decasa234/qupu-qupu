@@ -107,6 +107,9 @@ CREATE TABLE IF NOT EXISTS analytics_events (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Drop the legacy table-level UNIQUE on users.email (no-op on fresh installs;
+-- self-heals databases bootstrapped before the partial-index switchover).
+ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key;
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE UNIQUE INDEX IF NOT EXISTS users_email_password_unique ON users(email) WHERE password_hash IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_users_phone ON users(phone);
