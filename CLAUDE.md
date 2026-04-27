@@ -10,9 +10,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run check` — typecheck only (`tsc --noEmit`). Use this for quick validation.
 - `npm run lint` — ESLint (flat config in `eslint.config.js`).
 - No test runner is configured.
-- Database bootstrap is manual: apply `db/schema.sql` then `db/seed.sql` against the Postgres instance in `DATABASE_URL`. The `supabase/migrations` folder is legacy and not part of the current flow.
+- Database bootstrap is manual: apply `db/schema.sql` then `db/seed.sql` against the Postgres instance in `DATABASE_URL`. For an existing DB, apply migrations in `db/migrations/` in numeric order. Fresh installs of `db/schema.sql` already include all migration changes. The `supabase/migrations` folder is legacy and not part of the current flow.
 
-Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`, `APP_ORIGIN`, `VITE_API_BASE_URL`.
+Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`, `APP_ORIGIN`, `VITE_API_BASE_URL`. Optional but required for Google sign-in: `GOOGLE_CLIENT_ID` (server) and `VITE_GOOGLE_CLIENT_ID` (client) — same Google Cloud Web OAuth client id. Required for password registration OTP email delivery: `RESEND_API_KEY` and `RESEND_FROM`.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ Single repo with two halves sharing one `tsconfig.json` (`include: ["src", "api"
 
 ### API surface (mounted in `api/app.ts`)
 
-- `/api/auth` — register/login (bcrypt + JWT, 15m access + 7d refresh).
+- `/api/auth` — `POST /register-init` + `POST /register-verify` + `POST /register-resend` (email-OTP gated registration via Resend), `POST /login` (only matches rows with `password_hash IS NOT NULL`), `POST /google` (no email-based linking — Google and password are separate identities, may share an email string). Access token expiry is role-aware: 12h hard cap for `admin`, 7d for everyone else. Admin sessions also have a 15-minute frontend idle-timeout via `src/hooks/useIdleLogout.ts`. Refresh token is 30d but plumbing is currently unused — frontend reuses the access token directly until it expires.
 - `/api/users/me` — authenticated profile read/update.
 - `/api/public` — unauthenticated meta + video list/detail for the catalog.
 - `/api/me` — authenticated member endpoints: submit quiz score, progress, badges.
