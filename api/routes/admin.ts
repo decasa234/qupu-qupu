@@ -18,6 +18,13 @@ import {
 } from '../services/admin.js'
 import { getAnalyticsOverview } from '../services/analytics.js'
 import { fetchYouTubeMetadata } from '../services/youtubeImport.js'
+import {
+  YouTubeMisconfiguredError,
+  YouTubeUnavailableError,
+  listChannelVideosCached,
+  paginateChannelItems,
+} from '../services/youtubeChannel.js'
+import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
 const router = Router()
 
@@ -175,6 +182,52 @@ router.get('/youtube-import', async (req: AuthRequest, res: Response): Promise<v
     })
   }
 })
+
+// ===== YouTube channel listing =====
+
+router.get(
+  '/youtube-channel/videos',
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      try {
+        await enforceRateLimit(req.user.id, 'youtube-channel-videos', {
+          max: 30,
+          windowSeconds: 60,
+        })
+      } catch (error) {
+        if (error instanceof RateLimitError) {
+          res.set('Retry-After', String(error.retryAfterSeconds))
+          res.status(429).json({
+            success: false,
+            error: 'rate_limited',
+            retryAfter: error.retryAfterSeconds,
+          })
+          return
+        }
+        throw error
+      }
+
+      const pageRaw = typeof req.query.page === 'string' ? parseInt(req.query.page, 10) : 1
+      const page = Number.isFinite(pageRaw) ? Math.max(1, pageRaw) : 1
+
+      const { items: allItems } = await listChannelVideosCached()
+      const result = paginateChannelItems(allItems, page)
+
+      res.json({ success: true, data: result })
+    } catch (error: unknown) {
+      if (error instanceof YouTubeUnavailableError) {
+        res.status(502).json({ success: false, error: 'youtube_unavailable' })
+        return
+      }
+      if (error instanceof YouTubeMisconfiguredError) {
+        res.status(500).json({ success: false, error: 'server_misconfigured' })
+        return
+      }
+      console.error('Channel listing error:', error)
+      res.status(500).json({ success: false, error: 'internal_error' })
+    }
+  },
+)
 
 // ===== Stats =====
 

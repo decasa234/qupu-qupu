@@ -13,8 +13,14 @@ import memberRoutes from './routes/member.js'
 import childrenRoutes from './routes/children.js'
 import adminRoutes from './routes/admin.js'
 import analyticsRoutes from './routes/analytics.js'
+import { validateChannelHandle } from './services/youtubeChannel.js'
 
 dotenv.config()
+
+// Fail fast if YOUTUBE_CHANNEL_HANDLE is set to a malformed value. The
+// Channel listing service uses this in a Google API URL via `forHandle=...`,
+// so format validation belongs at app construction, not first request.
+validateChannelHandle(process.env.YOUTUBE_CHANNEL_HANDLE)
 
 const app: express.Application = express()
 
