@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import Reveal from '../components/Reveal'
+import type { ReactNode } from 'react'
 import SkeletonCard from '../components/SkeletonCard'
-import PillField from '../components/PillField'
-import Toggle from '../components/Toggle'
+import BadgeCurve from '../components/BadgeCurve'
+import AdminPageHeader from '../components/admin/AdminPageHeader'
+import ConfirmDangerousAction from '../components/ConfirmDangerousAction'
 import api from '../lib/api'
 import { slugify } from '../lib/youtube'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
+
+const INPUT =
+  'w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500'
 
 const EMPTY_FORM: AdminVideoFormValues = {
   title: '',
@@ -14,17 +18,16 @@ const EMPTY_FORM: AdminVideoFormValues = {
   thumbnailUrl: '',
   subjectId: '',
   ageGroupId: '',
-  badgeFamilyId: '',
   numberOfQuestions: 10,
   difficulty: 'easy',
   description: '',
   isPublished: true,
   isFeatured: false,
   sortOrder: 0,
-  badgeRules: [
-    { tier: 1, minCorrect: 1, maxCorrect: 5 },
-    { tier: 2, minCorrect: 6, maxCorrect: 10 },
-    { tier: 3, minCorrect: 11, maxCorrect: null },
+  badgeRanges: [
+    { minCorrect: 0, maxCorrect: 4, badgeCount: 1 },
+    { minCorrect: 5, maxCorrect: 7, badgeCount: 2 },
+    { minCorrect: 8, maxCorrect: null, badgeCount: 3 },
   ],
 }
 
@@ -36,6 +39,8 @@ export default function AdminVideosPage() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState<VideoDetail | null>(null)
+  const [importing, setImporting] = useState(false)
 
   const refresh = useCallback(async () => {
     setLoading(true)
@@ -52,7 +57,6 @@ export default function AdminVideosPage() {
           ...state,
           subjectId: state.subjectId || metaResponse.data.data.subjects[0].id,
           ageGroupId: state.ageGroupId || metaResponse.data.data.ageGroups[0].id,
-          badgeFamilyId: state.badgeFamilyId || metaResponse.data.data.badgeFamilies[0].id,
         }))
       }
     } catch (error) {
@@ -66,20 +70,63 @@ export default function AdminVideosPage() {
     void refresh()
   }, [refresh])
 
-  const subjectOptions = meta?.subjects ?? []
-  const ageGroupOptions = meta?.ageGroups ?? []
-  const badgeOptions = meta?.badgeFamilies ?? []
+  const subjectOptions = useMemo(() => meta?.subjects ?? [], [meta])
+  const ageGroupOptions = useMemo(() => meta?.ageGroups ?? [], [meta])
 
   const titlePreview = useMemo(() => form.slug || slugify(form.title), [form.slug, form.title])
+
+  const selectedSubject = useMemo(
+    () => subjectOptions.find((subject) => subject.id === form.subjectId) ?? null,
+    [subjectOptions, form.subjectId],
+  )
 
   function startCreate() {
     setEditingId(null)
     setMessage('')
+    const firstSubject = subjectOptions[0]
+    const template = firstSubject?.defaultBadgeRanges ?? []
     setForm({
       ...EMPTY_FORM,
-      subjectId: subjectOptions[0]?.id ?? '',
+      subjectId: firstSubject?.id ?? '',
       ageGroupId: ageGroupOptions[0]?.id ?? '',
-      badgeFamilyId: badgeOptions[0]?.id ?? '',
+      badgeRanges:
+        template.length > 0 ? template.map((r) => ({ ...r })) : EMPTY_FORM.badgeRanges,
+    })
+  }
+
+  function applyTemplate() {
+    const subject = subjectOptions.find((s) => s.id === form.subjectId)
+    const template = subject?.defaultBadgeRanges ?? []
+    if (template.length === 0) {
+      setMessage(`Subject "${subject?.name ?? ''}" belum punya template.`)
+      return
+    }
+    setForm((s) => ({
+      ...s,
+      badgeRanges: template.map((r) => ({ ...r })),
+    }))
+    setMessage(`Template ${subject?.name ?? ''} diterapkan.`)
+  }
+
+  function handleSubjectChange(subjectId: string) {
+    const subject = subjectOptions.find((s) => s.id === subjectId)
+    setForm((s) => {
+      const isCreating = editingId === null
+      const isPristine =
+        JSON.stringify(s.badgeRanges) === JSON.stringify(EMPTY_FORM.badgeRanges) ||
+        s.badgeRanges.length === 0
+      const shouldApplyTemplate =
+        subject &&
+        subject.defaultBadgeRanges &&
+        subject.defaultBadgeRanges.length > 0 &&
+        (isCreating || isPristine)
+      return {
+        ...s,
+        subjectId,
+        badgeRanges: shouldApplyTemplate
+          ? subject.defaultBadgeRanges!.map((r) => ({ ...r }))
+          : s.badgeRanges,
+      }
     })
   }
 
@@ -93,19 +140,51 @@ export default function AdminVideosPage() {
       thumbnailUrl: video.thumbnailUrl,
       subjectId: video.subject.id,
       ageGroupId: video.ageGroup.id,
-      badgeFamilyId: video.badgeFamily.id,
       numberOfQuestions: video.numberOfQuestions,
       difficulty: video.difficulty,
       description: video.description ?? '',
       isPublished: video.isPublished,
       isFeatured: video.isFeatured,
       sortOrder: video.sortOrder,
-      badgeRules: video.badgeRules.map((rule) => ({
-        tier: rule.tier,
-        minCorrect: rule.minCorrect,
-        maxCorrect: rule.maxCorrect,
+      badgeRanges: video.badgeRanges.map((range) => ({
+        minCorrect: range.minCorrect,
+        maxCorrect: range.maxCorrect,
+        badgeCount: range.badgeCount,
       })),
     })
+  }
+
+  function addRange() {
+    setForm((state) => {
+      const last = state.badgeRanges[state.badgeRanges.length - 1]
+      const fallbackMin = last
+        ? Math.min((last.maxCorrect ?? state.numberOfQuestions) + 1, state.numberOfQuestions)
+        : 0
+      const nextCount = last ? last.badgeCount + 1 : 1
+      return {
+        ...state,
+        badgeRanges: [
+          ...state.badgeRanges,
+          { minCorrect: fallbackMin, maxCorrect: null, badgeCount: nextCount },
+        ],
+      }
+    })
+  }
+
+  function removeRange(index: number) {
+    setForm((state) => ({
+      ...state,
+      badgeRanges: state.badgeRanges.filter((_, i) => i !== index),
+    }))
+  }
+
+  function updateRange(index: number, patch: Partial<AdminVideoFormValues['badgeRanges'][number]>) {
+    setForm((state) => ({
+      ...state,
+      badgeRanges: state.badgeRanges.map((range, i) =>
+        i === index ? { ...range, ...patch } : range,
+      ),
+    }))
   }
 
   async function handleSubmit(event: React.FormEvent) {
@@ -119,12 +198,13 @@ export default function AdminVideosPage() {
         slug: form.slug || slugify(form.title),
         numberOfQuestions: Number(form.numberOfQuestions),
         sortOrder: Number(form.sortOrder),
-        badgeRules: form.badgeRules.map((rule) => ({
-          tier: rule.tier,
-          minCorrect: Number(rule.minCorrect),
-          maxCorrect: rule.maxCorrect === null || rule.maxCorrect === undefined
-            ? null
-            : Number(rule.maxCorrect),
+        badgeRanges: form.badgeRanges.map((range) => ({
+          minCorrect: Number(range.minCorrect),
+          maxCorrect:
+            range.maxCorrect === null || range.maxCorrect === undefined
+              ? null
+              : Number(range.maxCorrect),
+          badgeCount: Number(range.badgeCount),
         })),
       }
 
@@ -153,239 +233,289 @@ export default function AdminVideosPage() {
     }
   }
 
-  async function handleDelete(videoId: string) {
+  async function handleYouTubeImport() {
+    if (!form.youtubeUrl.trim()) {
+      setMessage('Isi dulu YouTube URL.')
+      return
+    }
+    setImporting(true)
+    setMessage('')
     try {
-      await api.delete(`/admin/videos/${videoId}`)
-      setMessage('Video berhasil dihapus.')
+      const response = await api.get('/admin/youtube-import', {
+        params: { url: form.youtubeUrl.trim() },
+      })
+      const meta = response.data.data as {
+        videoId: string
+        title: string
+        description: string
+        thumbnailUrl: string
+        publishedAt: string | null
+      }
+      setForm((state) => ({
+        ...state,
+        title: meta.title,
+        slug: state.slug || slugify(meta.title),
+        description: meta.description,
+        thumbnailUrl: meta.thumbnailUrl,
+      }))
+      setMessage('Metadata YouTube berhasil diimpor.')
+    } catch (error: unknown) {
+      const text =
+        typeof error === 'object' &&
+        error !== null &&
+        'response' in error &&
+        typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
+          ? (error as { response: { data: { error: string } } }).response.data.error
+          : 'Gagal impor dari YouTube.'
+      setMessage(text)
+    } finally {
+      setImporting(false)
+    }
+  }
+
+  async function performDelete() {
+    if (!confirmDelete) return
+    try {
+      await api.delete(`/admin/videos/${confirmDelete.id}`)
+      setMessage(`Video "${confirmDelete.title}" dihapus.`)
       await refresh()
-      if (editingId === videoId) {
+      if (editingId === confirmDelete.id) {
         startCreate()
       }
     } catch (error) {
       console.error('Failed to delete video:', error)
       setMessage('Gagal menghapus video.')
+    } finally {
+      setConfirmDelete(null)
     }
   }
 
   return (
-    <div className="space-y-8">
-      <Reveal>
-        <section className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8 lg:p-10">
-          <i className="fa-solid fa-star pointer-events-none absolute left-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute right-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute left-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute right-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+    <div className="space-y-5">
+      <AdminPageHeader
+        eyebrow="Admin · Videos"
+        title="Kelola video QUPU"
+        description="Tambah video, edit metadata, atur range badge. Warna badge otomatis dari subject."
+      />
 
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-                Admin · Videos
-              </div>
-              <h1 className="mt-3 font-display text-4xl font-bold text-qupu-brand-blue sm:text-5xl">
-                Kelola video QUPU
-              </h1>
-              <p className="mt-3 max-w-2xl text-base font-medium text-qupu-muted">
-                Tambah video baru, edit metadata, dan atur tier badge per video tanpa menyentuh database manual.
-              </p>
-            </div>
-
-            <div className="relative hidden h-44 lg:block">
-              <img
-                src="/hero-mascot.png"
-                alt=""
-                draggable={false}
-                className="pointer-events-none absolute -right-6 -top-4 h-48 w-auto select-none drop-shadow-[0_18px_30px_rgba(120,60,0,0.18)]"
-              />
-            </div>
-          </div>
-        </section>
-      </Reveal>
-
-      <div className="grid gap-6 xl:grid-cols-[0.88fr_1.12fr]">
-        <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-                <i className="fa-solid fa-circle-info" aria-hidden="true" />
-                Editor
-              </div>
-              <h2 className="mt-1 font-display text-3xl font-bold text-qupu-brand-blue">
-                {editingId ? 'Edit video' : 'Tambah video'}
-              </h2>
-            </div>
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+        <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">
+              {editingId ? 'Edit video' : 'Tambah video'}
+            </h2>
             <button
               type="button"
               onClick={startCreate}
-              className="inline-flex items-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-transparent px-4 py-[6px] font-display text-sm font-extrabold text-qupu-brand-orange transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-brand-orange hover:text-white"
+              className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
             >
-              <i className="fa-solid fa-plus text-xs" aria-hidden="true" />
-              Form baru
+              + Form baru
             </button>
           </div>
 
-          <form className="grid gap-4" onSubmit={handleSubmit}>
-            <PillField icon="fa-solid fa-film" label="Judul video" value={form.title} onChange={(value) => setForm((state) => ({ ...state, title: value }))} />
-            <PillField icon="fa-solid fa-link" label="Slug" value={form.slug} onChange={(value) => setForm((state) => ({ ...state, slug: value }))} helper={`Preview: ${titlePreview || '-'}`} />
-            <PillField icon="fa-brands fa-youtube" label="YouTube URL" value={form.youtubeUrl} onChange={(value) => setForm((state) => ({ ...state, youtubeUrl: value }))} />
-            <PillField icon="fa-solid fa-image" label="Thumbnail URL" value={form.thumbnailUrl} onChange={(value) => setForm((state) => ({ ...state, thumbnailUrl: value }))} />
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <PillSelect
-                icon="fa-solid fa-book"
-                label="Subject"
-                value={form.subjectId}
-                onChange={(value) => setForm((state) => ({ ...state, subjectId: value }))}
-                options={subjectOptions.map((subject) => ({ value: subject.id, label: subject.name }))}
-              />
-              <PillSelect
-                icon="fa-solid fa-children"
-                label="Age group"
-                value={form.ageGroupId}
-                onChange={(value) => setForm((state) => ({ ...state, ageGroupId: value }))}
-                options={ageGroupOptions.map((group) => ({ value: group.id, label: group.name }))}
-              />
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <PillField
-                icon="fa-solid fa-list-ol"
-                label="Jumlah soal"
-                type="number"
-                value={String(form.numberOfQuestions)}
-                onChange={(value) => setForm((state) => ({ ...state, numberOfQuestions: Number(value) }))}
-              />
-              <PillSelect
-                icon="fa-solid fa-gauge-high"
-                label="Difficulty"
-                value={form.difficulty}
-                onChange={(value) => setForm((state) => ({ ...state, difficulty: value as AdminVideoFormValues['difficulty'] }))}
-                options={[
-                  { value: 'easy', label: 'easy' },
-                  { value: 'medium', label: 'medium' },
-                  { value: 'hard', label: 'hard' },
-                ]}
-              />
-              <PillField
-                icon="fa-solid fa-sort"
-                label="Sort order"
-                type="number"
-                value={String(form.sortOrder)}
-                onChange={(value) => setForm((state) => ({ ...state, sortOrder: Number(value) }))}
-              />
-            </div>
-
-            <PillSelect
-              icon="fa-solid fa-medal"
-              label="Badge family"
-              value={form.badgeFamilyId}
-              onChange={(value) => setForm((state) => ({ ...state, badgeFamilyId: value }))}
-              options={badgeOptions.map((family) => ({ value: family.id, label: family.name }))}
-            />
-
-            <label className="block">
-              <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Deskripsi</span>
-              <textarea
-                value={form.description}
-                onChange={(event) => setForm((state) => ({ ...state, description: event.target.value }))}
-                rows={4}
-                className="mt-2 w-full rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell px-5 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
-              />
-            </label>
-
-            <div className="grid gap-4 rounded-[1.75rem] bg-qupu-shell p-5">
-              <div className="flex items-center gap-2 font-display text-base font-extrabold text-qupu-brand-blue">
-                <i className="fa-solid fa-medal text-qupu-brand-orange" aria-hidden="true" />
-                Rule badge per tier
+          <form className="grid gap-3" onSubmit={handleSubmit}>
+            <Field label="Judul video">
+              <input className={INPUT} value={form.title} onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))} />
+            </Field>
+            <Field label="Slug" hint={`Preview: ${titlePreview || '-'}`}>
+              <input className={INPUT} value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
+            </Field>
+            <Field
+              label="YouTube URL"
+              hint="Klik Pull untuk auto-fill judul, deskripsi, dan thumbnail dari YouTube."
+            >
+              <div className="flex min-w-0 gap-2">
+                <input
+                  className={INPUT}
+                  value={form.youtubeUrl}
+                  onChange={(e) => setForm((s) => ({ ...s, youtubeUrl: e.target.value }))}
+                />
+                <button
+                  type="button"
+                  onClick={handleYouTubeImport}
+                  disabled={importing || !form.youtubeUrl.trim()}
+                  className="shrink-0 rounded-md bg-slate-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {importing ? 'Impor...' : 'Pull'}
+                </button>
               </div>
-              {form.badgeRules.map((rule, index) => {
-                const tierColor =
-                  rule.tier === 1
-                    ? 'bg-qupu-brand-blue text-white'
-                    : rule.tier === 2
-                    ? 'bg-qupu-brand-orange text-white'
-                    : 'bg-qupu-brand-yellow text-qupu-brand-blue'
+            </Field>
+            <Field label="Thumbnail URL">
+              <input className={INPUT} value={form.thumbnailUrl} onChange={(e) => setForm((s) => ({ ...s, thumbnailUrl: e.target.value }))} />
+            </Field>
 
-                return (
-                  <div
-                    key={rule.tier}
-                    className="grid items-end gap-3 rounded-[1.5rem] bg-white p-4 sm:grid-cols-[auto_1fr_1fr]"
-                  >
-                    <span
-                      className={`inline-flex h-12 items-center justify-center rounded-full px-4 font-display text-sm font-extrabold uppercase tracking-[0.16em] ${tierColor}`}
-                    >
-                      Tier {rule.tier}
-                    </span>
-                    <PillField
-                      icon="fa-solid fa-hashtag"
-                      label="Min benar"
-                      type="number"
-                      value={String(rule.minCorrect)}
-                      onChange={(value) =>
-                        setForm((state) => ({
-                          ...state,
-                          badgeRules: state.badgeRules.map((item, itemIndex) =>
-                            itemIndex === index ? { ...item, minCorrect: Number(value) } : item,
-                          ),
-                        }))
-                      }
-                    />
-                    <PillField
-                      icon="fa-solid fa-hashtag"
-                      label="Max benar"
-                      type="number"
-                      value={rule.maxCorrect === null ? '' : String(rule.maxCorrect)}
-                      onChange={(value) =>
-                        setForm((state) => ({
-                          ...state,
-                          badgeRules: state.badgeRules.map((item, itemIndex) =>
-                            itemIndex === index
-                              ? { ...item, maxCorrect: value === '' ? null : Number(value) }
-                              : item,
-                          ),
-                        }))
-                      }
-                      helper={rule.tier === 3 ? 'Kosongkan untuk tier terakhir tanpa batas.' : undefined}
-                    />
-                  </div>
-                )
-              })}
+            <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+              <Field label="Subject">
+                <select
+                  className={INPUT}
+                  value={form.subjectId}
+                  onChange={(e) => handleSubjectChange(e.target.value)}
+                >
+                  {subjectOptions.map((subject) => (
+                    <option key={subject.id} value={subject.id}>{subject.name}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Age group">
+                <select
+                  className={INPUT}
+                  value={form.ageGroupId}
+                  onChange={(e) => setForm((s) => ({ ...s, ageGroupId: e.target.value }))}
+                >
+                  {ageGroupOptions.map((group) => (
+                    <option key={group.id} value={group.id}>{group.name}</option>
+                  ))}
+                </select>
+              </Field>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Toggle
-                label="Publish video"
+            <div className="grid min-w-0 gap-3 sm:grid-cols-3">
+              <Field label="Jumlah soal">
+                <input
+                  type="number"
+                  className={INPUT}
+                  value={String(form.numberOfQuestions)}
+                  onChange={(e) => setForm((s) => ({ ...s, numberOfQuestions: Number(e.target.value) }))}
+                />
+              </Field>
+              <Field label="Difficulty">
+                <select
+                  className={INPUT}
+                  value={form.difficulty}
+                  onChange={(e) => setForm((s) => ({ ...s, difficulty: e.target.value as AdminVideoFormValues['difficulty'] }))}
+                >
+                  <option value="easy">easy</option>
+                  <option value="medium">medium</option>
+                  <option value="hard">hard</option>
+                </select>
+              </Field>
+              <Field label="Sort">
+                <input
+                  type="number"
+                  className={INPUT}
+                  value={String(form.sortOrder)}
+                  onChange={(e) => setForm((s) => ({ ...s, sortOrder: Number(e.target.value) }))}
+                />
+              </Field>
+            </div>
+
+            <Field label="Deskripsi">
+              <textarea
+                rows={3}
+                className={INPUT}
+                value={form.description}
+                onChange={(e) => setForm((s) => ({ ...s, description: e.target.value }))}
+              />
+            </Field>
+
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2">
+                  {selectedSubject && (
+                    <BadgeCurve color={selectedSubject.colorHex} size={28} label={selectedSubject.name} />
+                  )}
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold uppercase tracking-[0.14em] text-slate-700">Badge ranges</div>
+                    <div className="truncate text-[11px] text-slate-500">
+                      {selectedSubject ? `Subject: ${selectedSubject.name}` : 'Pilih subject dulu'}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex shrink-0 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={applyTemplate}
+                    disabled={
+                      !selectedSubject?.defaultBadgeRanges ||
+                      selectedSubject.defaultBadgeRanges.length === 0
+                    }
+                    title="Apply this subject's template"
+                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Apply template
+                  </button>
+                  <button
+                    type="button"
+                    onClick={addRange}
+                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+                  >
+                    + Range
+                  </button>
+                </div>
+              </div>
+
+              {form.badgeRanges.length === 0 && (
+                <div className="mt-2 rounded-md bg-white px-3 py-2 text-xs text-slate-500">
+                  Belum ada range.
+                </div>
+              )}
+
+              <div className="mt-2 grid gap-2">
+                {form.badgeRanges.map((range, index) => (
+                  <div key={index} className="grid items-end gap-2 rounded-md bg-white p-2 sm:grid-cols-[auto_1fr_1fr_1fr_auto]">
+                    <span className="inline-flex h-9 items-center rounded bg-slate-100 px-2 font-mono text-[10px] font-bold uppercase text-slate-700">
+                      R{index + 1}
+                    </span>
+                    <Field label="Min">
+                      <input
+                        type="number"
+                        className={INPUT}
+                        value={String(range.minCorrect)}
+                        onChange={(e) => updateRange(index, { minCorrect: Number(e.target.value) })}
+                      />
+                    </Field>
+                    <Field label="Max" >
+                      <input
+                        type="number"
+                        className={INPUT}
+                        value={range.maxCorrect === null ? '' : String(range.maxCorrect)}
+                        onChange={(e) => updateRange(index, { maxCorrect: e.target.value === '' ? null : Number(e.target.value) })}
+                      />
+                    </Field>
+                    <Field label="Badge">
+                      <input
+                        type="number"
+                        className={INPUT}
+                        value={String(range.badgeCount)}
+                        onChange={(e) => updateRange(index, { badgeCount: Number(e.target.value) })}
+                      />
+                    </Field>
+                    <button
+                      type="button"
+                      onClick={() => removeRange(index)}
+                      aria-label="Hapus range"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-red-200 bg-white text-red-500 transition hover:bg-red-50"
+                    >
+                      <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-2 sm:grid-cols-2">
+              <AdminToggle
+                label="Publish"
                 helper="Tampil di katalog publik."
                 checked={form.isPublished}
                 onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
-                iconOn="fa-solid fa-eye"
-                iconOff="fa-solid fa-eye-slash"
               />
-              <Toggle
-                label="Featured di landing"
+              <AdminToggle
+                label="Featured"
                 helper="Muncul di home Video Terbaru."
                 checked={form.isFeatured}
                 onChange={(checked) => setForm((state) => ({ ...state, isFeatured: checked }))}
-                iconOn="fa-solid fa-star"
-                iconOff="fa-regular fa-star"
               />
             </div>
 
             {message && (
               <div
-                className={`flex items-center gap-3 rounded-[1.25rem] px-4 py-3 text-sm font-semibold ${
+                className={`rounded-md px-3 py-2 text-sm ${
                   message.toLowerCase().startsWith('gagal')
-                    ? 'bg-red-50 text-red-600'
+                    ? 'bg-red-50 text-red-700'
                     : 'bg-emerald-50 text-emerald-700'
                 }`}
               >
-                <i
-                  className={`${
-                    message.toLowerCase().startsWith('gagal')
-                      ? 'fa-solid fa-triangle-exclamation'
-                      : 'fa-solid fa-circle-check'
-                  } text-base`}
-                  aria-hidden="true"
-                />
                 {message}
               </div>
             )}
@@ -393,142 +523,145 @@ export default function AdminVideosPage() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60"
+              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800 disabled:opacity-50"
             >
-              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
-                <i className="fa-solid fa-floppy-disk text-base text-qupu-brand-blue" aria-hidden="true" />
-              </span>
               {saving ? 'Menyimpan...' : editingId ? 'Update video' : 'Buat video'}
             </button>
           </form>
         </div>
 
-        <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
-          <div className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-            <i className="fa-solid fa-rectangle-list" aria-hidden="true" />
-            Catalog
+        <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Catalog</h2>
+            <span className="text-xs text-slate-500">{videos.length} video</span>
           </div>
           {loading ? (
             <SkeletonCard height="h-64" />
           ) : (
             <div className="grid gap-4">
-              {videos.map((video) => (
-                <div
-                  key={video.id}
-                  className="rounded-[1.75rem] border-2 border-transparent bg-qupu-shell p-4 transition-colors hover:border-qupu-brand-orange/40"
-                >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex gap-4">
-                      <div className="relative h-24 w-36 shrink-0 overflow-hidden rounded-[1.25rem] border-2 border-qupu-peach">
-                        <img
-                          src={video.thumbnailUrl}
-                          alt={video.title}
-                          className="h-full w-full object-cover"
-                        />
+              {videos.map((video) => {
+                const totalRanges = video.badgeRanges.length
+                const maxBadges = video.badgeRanges.reduce(
+                  (max, range) => Math.max(max, range.badgeCount),
+                  0,
+                )
+                return (
+                  <div
+                    key={video.id}
+                    className="rounded-lg border border-slate-200 bg-white p-3 transition-colors hover:border-slate-300"
+                  >
+                    <div className="flex gap-3">
+                      <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-slate-200">
+                        <img src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
                         <span
-                          className={`absolute left-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${
-                            video.isPublished
-                              ? 'bg-emerald-500 text-white'
-                              : 'bg-qupu-muted text-white'
-                          }`}
+                          className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase ${video.isPublished ? 'bg-emerald-500 text-white' : 'bg-slate-500 text-white'}`}
                         >
-                          <i
-                            className={
-                              video.isPublished
-                                ? 'fa-solid fa-circle-check'
-                                : 'fa-solid fa-circle-pause'
-                            }
-                            aria-hidden="true"
-                          />
                           {video.isPublished ? 'Live' : 'Draft'}
                         </span>
                       </div>
-                      <div>
-                        <div className="flex flex-wrap gap-2">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
                           <span
-                            className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-white"
+                            className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase text-white"
                             style={{ backgroundColor: video.subject.colorHex }}
                           >
                             {video.subject.name}
                           </span>
-                          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-qupu-brand-blue">
+                          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-slate-700">
                             {video.ageGroup.name}
                           </span>
                         </div>
-                        <div className="mt-2 font-display text-base font-extrabold text-qupu-brand-blue">
+                        <div className="mt-1 line-clamp-2 text-sm font-semibold text-slate-900">
                           {video.title}
                         </div>
-                        <div className="mt-1 text-sm font-medium text-qupu-muted">
-                          {video.badgeFamily.name} • {video.numberOfQuestions} soal
+                        <div className="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500">
+                          <BadgeCurve color={video.subject.colorHex} size={16} />
+                          {totalRanges} range · max {maxBadges} badge · {video.numberOfQuestions} soal
                         </div>
                       </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={() => startEdit(video)}
-                        className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-extrabold text-white shadow-subscribe transition-transform hover:-translate-y-0.5 active:translate-y-0"
-                      >
-                        <i className="fa-solid fa-pencil text-xs" aria-hidden="true" />
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(video.id)}
-                        className="inline-flex items-center gap-2 rounded-full border-[3px] border-red-500 bg-transparent px-4 py-[6px] font-display text-sm font-extrabold text-red-500 transition-all hover:-translate-y-0.5 hover:bg-red-500 hover:text-white"
-                      >
-                        <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
-                        Hapus
-                      </button>
+                      <div className="flex shrink-0 flex-col gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => startEdit(video)}
+                          className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmDelete(video)}
+                          className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50"
+                        >
+                          Hapus
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           )}
         </div>
       </div>
+
+      <ConfirmDangerousAction
+        open={!!confirmDelete}
+        title={`Hapus video "${confirmDelete?.title ?? ''}"?`}
+        description="Semua skor + badge unlock yang terhubung ke video ini ikut terhapus."
+        requiredText={confirmDelete?.slug ?? ''}
+        confirmLabel="Hapus video"
+        onConfirm={performDelete}
+        onClose={() => setConfirmDelete(null)}
+      />
     </div>
   )
 }
 
-function PillSelect({
-  icon,
+function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
+  return (
+    <label className="grid min-w-0 gap-1">
+      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600">{label}</span>
+      {children}
+      {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
+    </label>
+  )
+}
+
+function AdminToggle({
   label,
-  value,
+  helper,
+  checked,
   onChange,
-  options,
 }: {
-  icon: string
   label: string
-  value: string
-  onChange: (value: string) => void
-  options: Array<{ value: string; label: string }>
+  helper?: string
+  checked: boolean
+  onChange: (checked: boolean) => void
 }) {
   return (
-    <label className="block">
-      <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
-      <div className="relative mt-2">
-        <i
-          className={`${icon} pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-base text-qupu-muted`}
-          aria-hidden="true"
-        />
-        <i
-          className="fa-solid fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-qupu-muted"
-          aria-hidden="true"
-        />
-        <select
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
-        >
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+    <label className="flex cursor-pointer items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+      <div className="min-w-0">
+        <div className="text-sm font-semibold text-slate-900">{label}</div>
+        {helper && <div className="text-[11px] text-slate-500">{helper}</div>}
       </div>
+      <span className="relative inline-flex h-5 w-9 shrink-0 items-center">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(event) => onChange(event.target.checked)}
+          className="peer sr-only"
+        />
+        <span
+          className={`absolute inset-0 rounded-full transition-colors ${
+            checked ? 'bg-slate-900' : 'bg-slate-300'
+          }`}
+        />
+        <span
+          className={`relative inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
+            checked ? 'translate-x-[18px]' : 'translate-x-[3px]'
+          }`}
+        />
+      </span>
     </label>
   )
 }
