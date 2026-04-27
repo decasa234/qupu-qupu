@@ -14,6 +14,7 @@ import AdminSubjectsPage from './pages/admin/AdminSubjects'
 import AdminAgeGroupsPage from './pages/admin/AdminAgeGroups'
 import AdminUsersPage from './pages/admin/AdminUsers'
 import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
+import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import OnboardingChild from './pages/OnboardingChild'
 import { useAuthStore } from './store/authStore'
 
@@ -94,6 +95,7 @@ export default function App() {
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboardPage />} />
             <Route path="videos" element={<AdminVideosPage />} />
+            <Route path="videos/import" element={<AdminImportVideosPage />} />
             <Route path="subjects" element={<AdminSubjectsPage />} />
             <Route path="age-groups" element={<AdminAgeGroupsPage />} />
             <Route path="users" element={<AdminUsersPage />} />
