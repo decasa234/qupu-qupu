@@ -1,18 +1,22 @@
 // src/pages/VideoDetail.tsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api'
+import { trackEvent } from '../lib/analytics'
 import { formatDateLabel } from '../lib/youtube'
 import Reveal from '../components/Reveal'
 import Slider from '../components/Slider'
-import ChildModal from '../components/ChildModal'
+import AuthModal from '../components/AuthModal'
+import BadgeCurve from '../components/BadgeCurve'
+import ChildNamePrompt from '../components/ChildNamePrompt'
+import { clearPendingScore, readPendingScore, savePendingScore } from '../lib/pendingScore'
 import { useAuthStore } from '../store/authStore'
-import type { Child, ScoreAttemptResult, VideoDetail } from '../types'
+import type { ScoreAttemptResult, VideoDetail } from '../types'
 
 export default function VideoDetailPage() {
   const { slug = '' } = useParams()
   const navigate = useNavigate()
-  const { isAuthenticated, activeChildId, children, addChild, setActiveChild } = useAuthStore()
+  const { isAuthenticated, activeChildId, children } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
 
   const [video, setVideo] = useState<VideoDetail | null>(null)
@@ -23,7 +27,14 @@ export default function VideoDetailPage() {
   const [saving, setSaving] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [result, setResult] = useState<ScoreAttemptResult | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [authModalOpen, setAuthModalOpen] = useState(false)
+  const [childPromptOpen, setChildPromptOpen] = useState(false)
+
+  const replayInFlightRef = useRef(false)
+
+  useEffect(() => {
+    trackEvent('page_view', { slug })
+  }, [slug])
 
   useEffect(() => {
     async function load() {
@@ -43,50 +54,95 @@ export default function VideoDetailPage() {
     void load()
   }, [slug])
 
-  const previewTier = useMemo(() => {
-    if (!video) return null
-    return (
-      [...video.badgeRules]
-        .sort((a, b) => b.tier - a.tier)
-        .find(
-          (rule) =>
-            score >= rule.minCorrect &&
-            (rule.maxCorrect === null || score <= rule.maxCorrect),
-        ) ?? null
-    )
+  const predictedBadgeCount = useMemo(() => {
+    if (!video) return 0
+    const matched = [...video.badgeRanges]
+      .sort((a, b) => b.badgeCount - a.badgeCount)
+      .find(
+        (range) =>
+          score >= range.minCorrect &&
+          (range.maxCorrect === null || score <= range.maxCorrect),
+      )
+    return matched?.badgeCount ?? 0
   }, [score, video])
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    if (!video || !activeChildId) return
-
+  const submitScore = async (videoId: string, childId: string, correctAnswers: number) => {
     setSaving(true)
     setSubmitError('')
-
     try {
       const response = await api.post('/me/video-scores', {
-        childId: activeChildId,
-        videoId: video.id,
-        correctAnswers: score,
+        childId,
+        videoId,
+        correctAnswers,
       })
       setResult(response.data.data)
+      clearPendingScore()
     } catch (submitErr: unknown) {
       const nextError =
         typeof submitErr === 'object' &&
         submitErr !== null &&
         'response' in submitErr &&
         typeof (submitErr as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (submitErr as { response?: { data?: { error?: string } } }).response?.data?.error
+          ? (submitErr as { response: { data: { error: string } } }).response.data.error
           : 'Gagal menyimpan skor.'
       setSubmitError(nextError)
+      clearPendingScore()
     } finally {
       setSaving(false)
     }
   }
 
-  const handleChildCreated = (child: Child) => {
-    addChild(child)
-    setActiveChild(child.id)
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!video) return
+
+    if (!isAuthenticated) {
+      trackEvent('score_submit_attempt_anon', { slug, correctAnswers: score })
+      savePendingScore({ videoId: video.id, slug, correctAnswers: score })
+      setAuthModalOpen(true)
+      return
+    }
+
+    if (!activeChildId) {
+      savePendingScore({ videoId: video.id, slug, correctAnswers: score })
+      setChildPromptOpen(true)
+      return
+    }
+
+    trackEvent('score_submit_attempt', { slug, correctAnswers: score })
+    await submitScore(video.id, activeChildId, score)
+  }
+
+  useEffect(() => {
+    if (!video) return
+    if (!isAuthenticated) return
+    if (replayInFlightRef.current) return
+
+    const pending = readPendingScore()
+    if (!pending) return
+    if (pending.videoId !== video.id) return
+
+    if (!activeChildId) {
+      setChildPromptOpen(true)
+      return
+    }
+
+    replayInFlightRef.current = true
+    setScore(pending.correctAnswers)
+    setAuthModalOpen(false)
+    setChildPromptOpen(false)
+    void submitScore(video.id, activeChildId, pending.correctAnswers).finally(() => {
+      replayInFlightRef.current = false
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, activeChildId, video?.id])
+
+  const handleAuthenticated = () => {
+    setAuthModalOpen(false)
+  }
+
+  const handleChildCreated = () => {
+    setChildPromptOpen(false)
   }
 
   if (loading) {
@@ -122,6 +178,11 @@ export default function VideoDetailPage() {
       </Reveal>
     )
   }
+
+  const scoreOwnerLabel = activeChild?.name ?? 'anak'
+  const ownerColor = activeChild?.avatarColor ?? '#FB923C'
+  const sortedRanges = [...video.badgeRanges].sort((a, b) => a.minCorrect - b.minCorrect)
+  const maxBadgeCount = sortedRanges.reduce((max, range) => Math.max(max, range.badgeCount), 0)
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
@@ -173,50 +234,42 @@ export default function VideoDetailPage() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-                  Badge Family
+                  Badge {video.subject.name}
                 </div>
                 <div className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue">
-                  {video.badgeFamily.name}
+                  {maxBadgeCount === 0
+                    ? 'Range badge'
+                    : `Sampai ${maxBadgeCount} badge`}
                 </div>
-                {video.badgeFamily.description && (
-                  <p className="mt-2 text-xs font-medium text-qupu-muted">
-                    {video.badgeFamily.description}
-                  </p>
-                )}
+                <p className="mt-2 text-xs font-medium text-qupu-muted">
+                  Skor benar menentukan jumlah badge {video.subject.name} yang anak dapat dari video ini.
+                </p>
               </div>
-              <span
-                className="shrink-0 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
-                style={{ backgroundColor: video.badgeFamily.colorHex }}
-              >
-                3 Tier
-              </span>
+              <BadgeCurve color={video.subject.colorHex} size={64} label={`Badge ${video.subject.name}`} />
             </div>
 
             <div className="mt-5 space-y-3">
-              {video.badgeRules.map((rule, index) => (
-                <Reveal key={rule.badgeTierId} delay={0.05 * (index + 1)}>
+              {sortedRanges.map((range, index) => (
+                <Reveal key={range.id ?? index} delay={0.05 * (index + 1)}>
                   <div className="flex items-center justify-between rounded-[1.25rem] bg-qupu-cream px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <span
-                        className="flex h-9 w-9 items-center justify-center rounded-full text-white shadow-sm"
-                        style={{ backgroundColor: rule.colorHex }}
-                      >
-                        <i className="fa-solid fa-star text-sm" aria-hidden="true" />
-                      </span>
+                      <BadgeCurve color={video.subject.colorHex} size={36} />
                       <div>
                         <div className="text-sm font-bold text-qupu-brand-blue">
-                          Tier {rule.tier} · {rule.name}
+                          {range.minCorrect} – {range.maxCorrect ?? `${video.numberOfQuestions}+`} jawaban benar
                         </div>
                         <div className="text-xs text-qupu-muted">
-                          {rule.minCorrect} – {rule.maxCorrect ?? `${video.numberOfQuestions}+`} jawaban benar
+                          {range.badgeCount === 0
+                            ? 'Belum dapat badge'
+                            : `${range.badgeCount} badge ${video.subject.name}`}
                         </div>
                       </div>
                     </div>
                     <span
                       className="rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
-                      style={{ backgroundColor: rule.colorHex }}
+                      style={{ backgroundColor: video.subject.colorHex }}
                     >
-                      Unlock
+                      {range.badgeCount}×
                     </span>
                   </div>
                 </Reveal>
@@ -227,58 +280,7 @@ export default function VideoDetailPage() {
 
         <Reveal delay={0.05}>
           <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-7">
-            {!isAuthenticated && (
-              <div className="text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-                  <i className="fa-solid fa-lock text-xl" aria-hidden="true" />
-                </div>
-                <h2 className="mt-4 font-display text-xl font-bold text-qupu-brand-blue">
-                  Login untuk menyimpan progres
-                </h2>
-                <p className="mt-2 text-sm text-qupu-muted">
-                  Video tetap bisa ditonton oleh siapa pun, tapi badge dan progres butuh akun.
-                </p>
-                <div className="mt-5 grid gap-3">
-                  <Link
-                    to="/register"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-3 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
-                  >
-                    <i className="fa-solid fa-user-plus text-sm" aria-hidden="true" />
-                    Buat akun QUPU
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-blue transition-colors hover:bg-qupu-brand-blue hover:text-white"
-                  >
-                    Sudah punya akun? Login
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {isAuthenticated && !activeChild && (
-              <div className="text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-                  <i className="fa-solid fa-user-plus text-xl" aria-hidden="true" />
-                </div>
-                <h2 className="mt-4 font-display text-xl font-bold text-qupu-brand-blue">
-                  Pilih profil anak dulu
-                </h2>
-                <p className="mt-2 text-sm text-qupu-muted">
-                  Tambahkan atau pilih profil anak untuk menyimpan skor.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(true)}
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-3 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
-                >
-                  <i className="fa-solid fa-plus text-sm" aria-hidden="true" />
-                  Tambah profil anak
-                </button>
-              </div>
-            )}
-
-            {isAuthenticated && activeChild && !result && (
+            {!result && (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
@@ -287,10 +289,10 @@ export default function VideoDetailPage() {
                   <div className="mt-1 flex items-center gap-3">
                     <span
                       className="h-7 w-7 rounded-full border-2 border-white shadow-sm"
-                      style={{ backgroundColor: activeChild.avatarColor ?? '#FB923C' }}
+                      style={{ backgroundColor: ownerColor }}
                     />
                     <h2 className="font-display text-2xl font-bold text-qupu-brand-blue">
-                      Skor {activeChild.name}
+                      Skor {scoreOwnerLabel}
                     </h2>
                   </div>
                   <p className="mt-2 text-xs text-qupu-muted">
@@ -306,26 +308,31 @@ export default function VideoDetailPage() {
                 />
 
                 <div
-                  key={previewTier?.tier ?? 'none'}
+                  key={predictedBadgeCount}
                   className="rounded-[1.5rem] px-4 py-4 transition-colors"
                   style={{
-                    backgroundColor: previewTier ? `${previewTier.colorHex}1F` : '#FFF2DF',
+                    backgroundColor:
+                      predictedBadgeCount > 0 ? `${video.subject.colorHex}1F` : '#FFF2DF',
                   }}
                 >
-                  {previewTier ? (
+                  {predictedBadgeCount > 0 ? (
                     <div className="flex items-center gap-3">
-                      <span
-                        className="flex h-10 w-10 items-center justify-center rounded-full text-white shadow-sm"
-                        style={{ backgroundColor: previewTier.colorHex }}
-                      >
-                        <i className="fa-solid fa-star text-sm" aria-hidden="true" />
-                      </span>
+                      <div className="flex items-center -space-x-2">
+                        {Array.from({ length: Math.min(predictedBadgeCount, 4) }).map((_, idx) => (
+                          <BadgeCurve key={idx} color={video.subject.colorHex} size={36} />
+                        ))}
+                        {predictedBadgeCount > 4 && (
+                          <span className="ml-1 inline-flex h-9 items-center rounded-full bg-white px-2 font-display text-xs font-extrabold text-qupu-brand-blue shadow-sm">
+                            +{predictedBadgeCount - 4}
+                          </span>
+                        )}
+                      </div>
                       <div>
                         <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-muted">
-                          Akan terbuka
+                          Akan dapat
                         </div>
                         <div className="font-display text-base font-extrabold text-qupu-brand-blue">
-                          Tier {previewTier.tier} · {previewTier.name}
+                          {predictedBadgeCount} badge {video.subject.name}
                         </div>
                       </div>
                     </div>
@@ -369,20 +376,31 @@ export default function VideoDetailPage() {
                   {result.attempt.correctAnswers} / {result.attempt.totalQuestions} jawaban benar
                 </div>
 
-                {result.unlockedBadge ? (
-                  <div className="relative mx-auto inline-flex items-center gap-3 overflow-visible rounded-full px-5 py-3 text-white shadow-sm" style={{ backgroundColor: result.unlockedBadge.colorHex }}>
-                    <i className="fa-solid fa-star pointer-events-none absolute -left-3 -top-3 text-2xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-                    <i className="fa-solid fa-star pointer-events-none absolute -right-3 -bottom-2 text-base text-qupu-brand-yellow/80" aria-hidden="true" />
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-base" style={{ color: result.unlockedBadge.colorHex }}>
-                      <i className="fa-solid fa-trophy" aria-hidden="true" />
-                    </span>
-                    <div className="text-left">
-                      <div className="text-[10px] font-bold uppercase tracking-[0.18em]">
-                        {result.unlockedBadge.familyName}
-                      </div>
-                      <div className="font-display text-base font-extrabold">
-                        Tier {result.unlockedBadge.tier} · {result.unlockedBadge.tierName}
-                      </div>
+                {result.earnedBadgeCount > 0 ? (
+                  <div className="space-y-3">
+                    <div className="flex justify-center -space-x-3">
+                      {Array.from({ length: Math.min(result.earnedBadgeCount, 5) }).map((_, idx) => (
+                        <BadgeCurve key={idx} color={result.subject.colorHex} size={56} />
+                      ))}
+                      {result.earnedBadgeCount > 5 && (
+                        <span className="ml-1 inline-flex h-14 items-center rounded-full bg-white px-3 font-display text-base font-extrabold text-qupu-brand-blue shadow-sm">
+                          +{result.earnedBadgeCount - 5}
+                        </span>
+                      )}
+                    </div>
+                    <div
+                      className="mx-auto inline-flex items-center gap-2 rounded-full px-4 py-2 text-white shadow-sm"
+                      style={{ backgroundColor: result.subject.colorHex }}
+                    >
+                      <i className="fa-solid fa-trophy text-sm" aria-hidden="true" />
+                      <span className="font-display text-sm font-extrabold">
+                        {result.earnedBadgeCount} badge {result.subject.name}
+                      </span>
+                    </div>
+                    <div className="text-sm font-semibold text-qupu-brand-blue">
+                      {result.isUpgrade
+                        ? `Naik dari ${result.previousBadgeCount} badge — kerja bagus!`
+                        : `Sudah pernah dapat ${result.previousBadgeCount} badge dari video ini.`}
                     </div>
                   </div>
                 ) : (
@@ -390,14 +408,6 @@ export default function VideoDetailPage() {
                     Belum ada badge yang terbuka dari skor ini. Coba lagi dengan hasil lebih tinggi.
                   </div>
                 )}
-
-                <div className="text-sm font-semibold text-qupu-brand-blue">
-                  {result.unlockedBadge
-                    ? result.isUpgrade
-                      ? 'Badge naik tier — kerja bagus!'
-                      : 'Badge untuk hasil ini sudah tersimpan.'
-                    : 'Skor tetap tercatat di progres.'}
-                </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <button
@@ -426,13 +436,16 @@ export default function VideoDetailPage() {
         </Reveal>
       </div>
 
-      <ChildModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onCreated={handleChildCreated}
+      <AuthModal
+        open={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onAuthenticated={handleAuthenticated}
       />
 
-
+      <ChildNamePrompt
+        open={childPromptOpen}
+        onCreated={handleChildCreated}
+      />
     </div>
   )
 }

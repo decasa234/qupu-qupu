@@ -48,9 +48,14 @@ type NavItem = {
   to: string
 }
 
-const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS_PARENT: NavItem[] = [
   { label: 'Beranda', to: '/' },
   { label: 'Kategori', to: '/#kategori' },
+  { label: 'Video', to: '/videos' },
+]
+
+const NAV_ITEMS_ADMIN: NavItem[] = [
+  { label: 'Beranda', to: '/' },
   { label: 'Video', to: '/videos' },
 ]
 
@@ -59,6 +64,7 @@ export default function Navbar() {
   const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useAuthStore()
   const isAdmin = user?.role === 'admin'
+  const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS_PARENT
   const activeSection = useScrollSpy(SCROLL_SPY_IDS)
 
   const handleLogout = () => {
@@ -74,16 +80,16 @@ export default function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <NavItemLink key={item.to} item={item} activeSection={activeSection} />
           ))}
-          {isAuthenticated && (
+          {isAuthenticated && !isAdmin && (
             <NavItemLink
               item={{ label: 'Dashboard', to: '/dashboard' }}
               activeSection={activeSection}
             />
           )}
-          {isAuthenticated && (
+          {isAuthenticated && !isAdmin && (
             <NavItemLink
               item={{ label: 'Badge', to: '/badges' }}
               activeSection={activeSection}
@@ -91,14 +97,14 @@ export default function Navbar() {
           )}
           {isAdmin && (
             <NavItemLink
-              item={{ label: 'Admin', to: '/admin/videos' }}
+              item={{ label: 'Admin', to: '/admin/dashboard' }}
               activeSection={activeSection}
             />
           )}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          {isAuthenticated && <ChildSwitcher />}
+          {isAuthenticated && !isAdmin && <ChildSwitcher />}
           {isAuthenticated ? (
             <button
               type="button"
@@ -141,29 +147,29 @@ export default function Navbar() {
       {open && (
         <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border-2 border-qupu-peach bg-white px-5 py-5 shadow-clay lg:hidden">
           <div className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <MobileLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
                 {item.label}
               </MobileLink>
             ))}
-            {isAuthenticated && (
+            {isAuthenticated && !isAdmin && (
               <MobileLink icon={LayoutDashboard} to="/dashboard" onClick={() => setOpen(false)}>
                 Dashboard
               </MobileLink>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && !isAdmin && (
               <MobileLink icon={Trophy} to="/badges" onClick={() => setOpen(false)}>
                 Badge
               </MobileLink>
             )}
             {isAdmin && (
-              <MobileLink icon={Shield} to="/admin/videos" onClick={() => setOpen(false)}>
+              <MobileLink icon={Shield} to="/admin/dashboard" onClick={() => setOpen(false)}>
                 Admin
               </MobileLink>
             )}
           </div>
 
-          {isAuthenticated && (
+          {isAuthenticated && !isAdmin && (
             <div className="mt-5 border-t border-qupu-peach pt-4">
               <ChildSwitcher />
             </div>

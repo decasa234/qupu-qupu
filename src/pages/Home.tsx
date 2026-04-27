@@ -4,8 +4,11 @@ import { ArrowRight, Star } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { id as idLocale } from 'date-fns/locale'
 import api from '../lib/api'
+import { trackEvent } from '../lib/analytics'
 import { cn } from '../lib/utils'
+import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
+import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
 
 const FEATURES = [
@@ -69,6 +72,10 @@ export default function Home() {
   const [videos, setVideos] = useState<VideoCardType[]>([])
 
   useEffect(() => {
+    trackEvent('page_view')
+  }, [])
+
+  useEffect(() => {
     async function load() {
       try {
         const featured = await api.get('/public/videos', { params: { featured: 'true' } })
@@ -98,6 +105,9 @@ export default function Home() {
       </Reveal>
       <Reveal delay={0.1}>
         <CategoriesSection />
+      </Reveal>
+      <Reveal delay={0.05}>
+        <ScoreBadgeCtaSection />
       </Reveal>
       <Reveal delay={0.05}>
         <VideosSection videos={videos} />
@@ -479,6 +489,255 @@ function LandingVideoCard({ video }: { video: VideoCardType }) {
         )}
       </p>
     </Link>
+  )
+}
+
+/* ==================== SCORE + BADGE CTA ==================== */
+
+function ScoreBadgeCtaSection() {
+  const { isAuthenticated } = useAuthStore()
+  const [subjects, setSubjects] = useState<Array<{ id: string; name: string; colorHex: string }>>([])
+
+  useEffect(() => {
+    async function loadSubjects() {
+      try {
+        const response = await api.get('/public/meta')
+        const list = (response.data?.data?.subjects ?? []) as Array<{
+          id: string
+          name: string
+          colorHex: string
+        }>
+        setSubjects(list.slice(0, 5))
+      } catch (error) {
+        console.error('Failed to load subjects for CTA:', error)
+      }
+    }
+    void loadSubjects()
+  }, [])
+
+  const steps = [
+    {
+      icon: 'fa-brands fa-youtube',
+      iconBg: 'bg-red-500',
+      ribbon: 'bg-red-500',
+      title: 'Tonton',
+      desc: 'Pilih video QUPU favorit anak.',
+    },
+    {
+      icon: 'fa-solid fa-sliders',
+      iconBg: 'bg-qupu-brand-blue',
+      ribbon: 'bg-qupu-brand-blue',
+      title: 'Isi Skor',
+      desc: 'Geser jumlah jawaban benar setelah video.',
+    },
+    {
+      icon: 'fa-solid fa-trophy',
+      iconBg: 'bg-qupu-brand-orange',
+      ribbon: 'bg-qupu-brand-orange',
+      title: 'Kumpul Badge',
+      desc: 'Makin tinggi skor, makin banyak badge per video.',
+    },
+  ]
+
+  return (
+    <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#FFF6E5] via-[#FFE8C9] to-[#FFD8A8] px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
+      <CtaRays />
+      <CtaStars />
+
+      <img
+        src="/achievement-right.png"
+        alt=""
+        draggable={false}
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-4 -right-6 z-0 hidden h-auto w-56 select-none drop-shadow-[0_14px_30px_rgba(120,60,0,0.22)] xl:block"
+      />
+
+      <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_1.5fr]">
+        <div className="space-y-5">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange shadow-sm">
+            <i className="fa-solid fa-sparkles text-xs" aria-hidden="true" />
+            Catat Progres Anak
+          </div>
+          <h2 className="font-display text-3xl font-extrabold leading-tight text-qupu-brand-blue sm:text-4xl lg:text-[2.75rem]">
+            Tonton, isi skor,
+            <br />
+            dapat <span className="relative inline-block">
+              <span className="relative z-10 text-qupu-brand-orange">badge</span>
+              <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-qupu-brand-yellow/70" aria-hidden="true" />
+            </span>!
+          </h2>
+          <p className="max-w-md text-sm font-semibold leading-relaxed text-qupu-brand-blue/80 sm:text-base">
+            Tiap subject punya badge sendiri. Skor benar anak menentukan jumlah badge yang dia kumpulkan per video — semakin tinggi skor, semakin banyak badge.
+          </p>
+
+          {subjects.length > 0 && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
+              <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-muted">
+                Subjects:
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {subjects.map((subject) => (
+                  <span
+                    key={subject.id}
+                    className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-[11px] font-extrabold text-qupu-brand-blue shadow-sm"
+                  >
+                    <BadgeCurve color={subject.colorHex} size={20} />
+                    {subject.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-3 pt-3">
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                    <i className="fa-solid fa-gauge text-base text-qupu-brand-blue" aria-hidden="true" />
+                  </span>
+                  Lihat Progres Anak
+                </Link>
+                <Link
+                  to="/badges"
+                  className="inline-flex cursor-pointer items-center gap-3 rounded-full border-[3px] border-qupu-brand-orange bg-white/80 px-6 py-[10px] font-display text-base font-extrabold text-qupu-brand-orange transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-brand-orange hover:text-white"
+                >
+                  <i className="fa-solid fa-trophy text-base" aria-hidden="true" />
+                  Koleksi Badge
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                    <i className="fa-solid fa-user-plus text-base text-qupu-brand-orange" aria-hidden="true" />
+                  </span>
+                  Daftar Gratis
+                </Link>
+                <Link
+                  to="/videos"
+                  className="inline-flex cursor-pointer items-center gap-3 rounded-full border-[3px] border-qupu-brand-blue bg-white/80 px-6 py-[10px] font-display text-base font-extrabold text-qupu-brand-blue transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-brand-blue hover:text-white"
+                >
+                  <i className="fa-brands fa-youtube text-base" aria-hidden="true" />
+                  Mulai Tonton
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="relative">
+          <CtaJourneyConnector />
+          <div className="relative grid gap-5 sm:grid-cols-3">
+            {steps.map((step, index) => (
+              <div
+                key={step.title}
+                className="group relative rounded-[1.75rem] border-[3px] border-white/70 bg-white p-6 text-center shadow-[5px_6px_0_0_rgba(38,59,85,0.10)] transition-transform duration-200 hover:-translate-y-1"
+                style={{ transform: `translateY(${index === 1 ? '0.75rem' : '0'})` }}
+              >
+                <span
+                  className={cn(
+                    'absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-white shadow-sm',
+                    step.ribbon,
+                  )}
+                >
+                  Langkah {index + 1}
+                </span>
+                <span
+                  className={cn(
+                    'mx-auto mt-2 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-md transition-transform duration-200 group-hover:scale-105',
+                    step.iconBg,
+                  )}
+                >
+                  <i className={cn(step.icon, 'text-2xl')} aria-hidden="true" />
+                </span>
+                <div className="mt-4 font-display text-lg font-extrabold text-qupu-brand-blue">
+                  {step.title}
+                </div>
+                <p className="mt-1 text-xs font-semibold leading-relaxed text-qupu-muted">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CtaRays() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-30 mix-blend-soft-light"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <pattern id="cta-rays" width="28" height="100%" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="3" height="100%" fill="#FFFFFF" opacity="0.6" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#cta-rays)" />
+    </svg>
+  )
+}
+
+function CtaStars() {
+  return (
+    <>
+      <i
+        className="fa-solid fa-star pointer-events-none absolute left-6 top-6 text-2xl text-qupu-brand-yellow drop-shadow-sm"
+        aria-hidden="true"
+      />
+      <i
+        className="fa-solid fa-star pointer-events-none absolute left-1/4 top-3 text-sm text-qupu-brand-yellow/70"
+        aria-hidden="true"
+      />
+      <i
+        className="fa-solid fa-star pointer-events-none absolute right-12 top-10 text-lg text-qupu-brand-yellow drop-shadow-sm"
+        aria-hidden="true"
+      />
+      <i
+        className="fa-solid fa-star pointer-events-none absolute bottom-8 left-12 text-base text-qupu-brand-yellow/80"
+        aria-hidden="true"
+      />
+      <i
+        className="fa-solid fa-star pointer-events-none absolute bottom-12 right-1/4 text-xs text-qupu-brand-yellow/70"
+        aria-hidden="true"
+      />
+      <i
+        className="fa-solid fa-star pointer-events-none absolute bottom-6 right-10 text-2xl text-qupu-brand-yellow drop-shadow-sm"
+        aria-hidden="true"
+      />
+    </>
+  )
+}
+
+function CtaJourneyConnector() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-x-6 top-1/2 hidden h-8 -translate-y-1/2 sm:block"
+      viewBox="0 0 600 32"
+      fill="none"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M40 16 Q150 -10 300 20 T560 12"
+        stroke="#FB923C"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray="2 8"
+        opacity="0.55"
+      />
+    </svg>
   )
 }
 

@@ -3,7 +3,7 @@ export type UserRole = 'student' | 'teacher' | 'parent' | 'admin'
 export interface User {
   id: string
   email: string
-  phone: string
+  phone: string | null
   name: string
   age: number | null
   age_group_id?: string | null
@@ -29,7 +29,14 @@ export interface Child {
 export interface SubjectOption {
   id: string
   name: string
+  slug?: string
   colorHex: string
+  description?: string | null
+  defaultBadgeRanges?: Array<{
+    minCorrect: number
+    maxCorrect: number | null
+    badgeCount: number
+  }>
 }
 
 export interface AgeGroupOption {
@@ -39,22 +46,11 @@ export interface AgeGroupOption {
   maxAge: number
 }
 
-export interface BadgeFamily {
+export interface VideoBadgeRange {
   id: string
-  name: string
-  slug: string
-  colorHex: string
-  description?: string | null
-}
-
-export interface VideoBadgeRule {
-  badgeTierId: string
-  tier: number
-  name: string
-  iconName: string
-  colorHex: string
   minCorrect: number
   maxCorrect: number | null
+  badgeCount: number
 }
 
 export interface VideoCard {
@@ -76,12 +72,11 @@ export interface VideoCard {
     id: string
     name: string
   }
-  badgeFamily: BadgeFamily
 }
 
 export interface VideoDetail extends VideoCard {
   embedUrl: string
-  badgeRules: VideoBadgeRule[]
+  badgeRanges: VideoBadgeRange[]
 }
 
 export interface ScoreAttemptResult {
@@ -92,23 +87,23 @@ export interface ScoreAttemptResult {
     scorePercentage: number
     createdAt: string
   }
-  unlockedBadge: null | {
-    familyId: string
-    familyName: string
-    tier: number
-    tierName: string
-    colorHex: string
-    iconName: string
-  }
+  earnedBadgeCount: number
+  finalBadgeCount: number
+  previousBadgeCount: number
   isUpgrade: boolean
+  subject: {
+    id: string
+    name: string
+    slug: string
+    colorHex: string
+  }
 }
 
 export interface ProgressSummary {
   attemptsCount: number
   averageScore: number
   videosCompleted: number
-  badgesUnlocked: number
-  tierThreeUnlocks: number
+  badgesTotal: number
 }
 
 export interface RecentAttempt {
@@ -129,20 +124,29 @@ export interface VideoProgress {
   videoSlug: string
   bestScore: number
   bestCorrectAnswers: number
+  badgeCount: number
   latestAttemptAt: string
-  unlockedTier: null | {
-    tier: number
+  subject: {
+    id: string
     name: string
     colorHex: string
-    familyName: string
-    familyColorHex: string
   }
+}
+
+export interface SubjectBadgeTotal {
+  id: string
+  name: string
+  slug: string
+  colorHex: string
+  totalBadges: number
+  videosWithBadges: number
 }
 
 export interface MemberProgress {
   summary: ProgressSummary
   recentAttempts: RecentAttempt[]
   videoProgress: VideoProgress[]
+  subjectTotals: SubjectBadgeTotal[]
   child: {
     id: string
     name: string
@@ -151,20 +155,20 @@ export interface MemberProgress {
   } | null
 }
 
-export interface BadgeUnlockFamily {
+export interface SubjectBadgeGroup {
   id: string
   name: string
   slug: string
   colorHex: string
+  description: string | null
+  totalBadges: number
   unlocks: Array<{
     videoId: string
     videoTitle: string
     videoSlug: string
-    tierId: string
-    tier: number
-    tierName: string
-    colorHex: string
-    iconName: string
+    badgeCount: number
+    bestCorrectAnswers: number
+    totalQuestions: number
     unlockedAt: string
   }>
 }
@@ -172,7 +176,6 @@ export interface BadgeUnlockFamily {
 export interface PublicMeta {
   subjects: SubjectOption[]
   ageGroups: AgeGroupOption[]
-  badgeFamilies: BadgeFamily[]
   stats: {
     featuredVideos: number
   }
@@ -185,17 +188,16 @@ export interface AdminVideoFormValues {
   thumbnailUrl: string
   subjectId: string
   ageGroupId: string
-  badgeFamilyId: string
   numberOfQuestions: number
   difficulty: 'easy' | 'medium' | 'hard'
   description: string
   isPublished: boolean
   isFeatured: boolean
   sortOrder: number
-  badgeRules: Array<{
-    tier: number
+  badgeRanges: Array<{
     minCorrect: number
     maxCorrect: number | null
+    badgeCount: number
   }>
 }
 

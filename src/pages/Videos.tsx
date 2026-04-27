@@ -1,12 +1,16 @@
 // src/pages/Videos.tsx
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import api from '../lib/api'
+import { trackEvent } from '../lib/analytics'
 import VideoCard from '../components/VideoCard'
 import Reveal from '../components/Reveal'
+import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
 
 export default function VideosPage() {
+  const { isAuthenticated } = useAuthStore()
   const [search, setSearch] = useState('')
   const [videos, setVideos] = useState<VideoCardType[]>([])
   const [loading, setLoading] = useState(true)
@@ -14,6 +18,10 @@ export default function VideosPage() {
   const abortRef = useRef<AbortController | null>(null)
 
   const debouncedSearch = useDebounced(search, 250)
+
+  useEffect(() => {
+    trackEvent('page_view')
+  }, [])
 
   useEffect(() => {
     async function load() {
@@ -73,10 +81,10 @@ export default function VideosPage() {
                 Katalog Video
               </div>
               <h1 className="font-display text-4xl font-extrabold text-qupu-brand-blue sm:text-5xl">
-                Cari video QUPU favorit anak
+                Cari video QUPU favoritmu!
               </h1>
               <p className="max-w-xl text-base font-semibold leading-relaxed text-qupu-muted">
-                Ketik judul, topik, atau tempel link YouTube — kami akan cocokkan dengan video yang ada di QUPU.
+                Ketik judul, topik, atau tempel link YouTube — QUPU akan menyajikan videonya buat kamu.
               </p>
 
               <div className="relative">
@@ -109,15 +117,48 @@ export default function VideosPage() {
                   Link YouTube terdeteksi
                 </div>
               )}
+
+              <div className="flex flex-wrap items-center gap-3 rounded-[1.5rem] border-[2px] border-dashed border-qupu-brand-blue/30 bg-qupu-cream/70 px-4 py-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-qupu-brand-orange text-white shadow-sm">
+                  <i className="fa-solid fa-trophy text-sm" aria-hidden="true" />
+                </span>
+                <div className="flex-1 min-w-[180px]">
+                  <div className="font-display text-sm font-extrabold text-qupu-brand-blue">
+                    Tonton + isi skor = badge anak
+                  </div>
+                  <p className="text-xs font-semibold text-qupu-muted">
+                    {isAuthenticated
+                      ? 'Lihat progres dan koleksi badge anak di dashboard.'
+                      : 'Daftar gratis untuk simpan skor dan kumpulkan badge.'}
+                  </p>
+                </div>
+                {isAuthenticated ? (
+                  <Link
+                    to="/dashboard"
+                    className="inline-flex shrink-0 items-center gap-2 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-white shadow-subscribe transition-transform hover:-translate-y-0.5"
+                  >
+                    <i className="fa-solid fa-gauge text-sm" aria-hidden="true" />
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    to="/register"
+                    className="inline-flex shrink-0 items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
+                  >
+                    <i className="fa-solid fa-user-plus text-sm" aria-hidden="true" />
+                    Daftar Gratis
+                  </Link>
+                )}
+              </div>
             </div>
 
-            <div className="hidden justify-center lg:flex">
+            <div className="hidden justify-center lg:flex lg:-my-6 xl:-my-10">
               <img
                 src="/hero-mascot.png"
                 alt=""
                 draggable={false}
                 aria-hidden="true"
-                className="h-auto w-full max-w-[280px] select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.2)]"
+                className="h-auto w-full max-w-[440px] select-none drop-shadow-[0_14px_30px_rgba(120,60,0,0.22)] lg:scale-110 xl:scale-125"
               />
             </div>
           </div>

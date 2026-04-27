@@ -4,6 +4,7 @@ import api from '../lib/api'
 import { formatDateLabel } from '../lib/youtube'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
+import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
 import type { MemberProgress } from '../types'
@@ -85,6 +86,8 @@ export default function DashboardPage() {
     )
   }
 
+  const subjectsWithBadges = progress.subjectTotals.filter((subject) => subject.totalBadges > 0)
+
   return (
     <div className="space-y-8">
       <Reveal>
@@ -107,7 +110,7 @@ export default function DashboardPage() {
                 Progres belajar {activeChild.name} di QUPU.
               </h1>
               <p className="mt-3 max-w-2xl text-base font-medium text-qupu-muted">
-                Pantau video yang sudah dikerjakan, lihat badge terbaru, lalu lanjutkan ke tantangan berikutnya. Ganti profil di navbar untuk lihat progres anak lainnya.
+                Pantau video yang sudah dikerjakan, lihat badge per subject, lalu lanjutkan ke tantangan berikutnya. Ganti profil di navbar untuk lihat progres anak lainnya.
               </p>
             </div>
 
@@ -115,7 +118,7 @@ export default function DashboardPage() {
               <SummaryCard icon={SUMMARY_ICONS.attempts} title="Attempt tersimpan" value={progress.summary.attemptsCount} />
               <SummaryCard icon={SUMMARY_ICONS.average} title="Rata-rata skor" value={`${progress.summary.averageScore}%`} />
               <SummaryCard icon={SUMMARY_ICONS.videos} title="Video selesai" value={progress.summary.videosCompleted} />
-              <SummaryCard icon={SUMMARY_ICONS.badges} title="Badge kebuka" value={progress.summary.badgesUnlocked} />
+              <SummaryCard icon={SUMMARY_ICONS.badges} title="Total badge" value={progress.summary.badgesTotal} />
             </div>
           </div>
         </section>
@@ -202,13 +205,17 @@ export default function DashboardPage() {
                             Best score {item.bestScore}% • terakhir {formatDateLabel(item.latestAttemptAt)}
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          {item.unlockedTier ? (
-                            <span
-                              className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white"
-                              style={{ backgroundColor: item.unlockedTier.colorHex }}
-                            >
-                              {item.unlockedTier.familyName} • Tier {item.unlockedTier.tier}
+                        <div className="flex items-center gap-3">
+                          <span
+                            className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white"
+                            style={{ backgroundColor: item.subject.colorHex }}
+                          >
+                            {item.subject.name}
+                          </span>
+                          {item.badgeCount > 0 ? (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-display text-sm font-extrabold text-qupu-brand-blue shadow-soft">
+                              <BadgeCurve color={item.subject.colorHex} size={20} />
+                              {item.badgeCount}×
                             </span>
                           ) : (
                             <span className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">
@@ -241,23 +248,60 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="mt-5 rounded-[1.5rem] bg-qupu-shell px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-qupu-brand-orange shadow-soft">
-                    <i className="fa-solid fa-award text-base" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <div className="font-bold text-qupu-brand-blue">Tier 3 unlocks</div>
-                    <div className="text-sm font-medium text-qupu-muted">
-                      {activeChild.name} sudah membuka {progress.summary.tierThreeUnlocks} badge tertinggi.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 text-sm font-medium text-qupu-muted">
+              <div className="mt-5 text-sm font-medium text-qupu-muted">
                 Ingin lihat progres anak lain? Ganti profil dari switcher di navbar.
               </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <div className={INNER_CARD}>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <i className="fa-solid fa-medal" aria-hidden="true" />
+                Badge per subject
+              </div>
+              <h2 className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue">Koleksi {activeChild.name}</h2>
+
+              {subjectsWithBadges.length === 0 ? (
+                <p className="mt-4 text-sm font-medium text-qupu-muted">
+                  Belum ada badge yang terkumpul. Selesaikan video di halaman Video untuk dapat badge.
+                </p>
+              ) : (
+                <div className="mt-5 grid gap-3">
+                  {subjectsWithBadges.map((subject) => (
+                    <div
+                      key={subject.id}
+                      className="flex items-center justify-between gap-3 rounded-[1.25rem] bg-qupu-shell px-4 py-3"
+                    >
+                      <div className="flex items-center gap-3">
+                        <BadgeCurve color={subject.colorHex} size={36} />
+                        <div>
+                          <div className="font-display text-base font-extrabold text-qupu-brand-blue">
+                            {subject.name}
+                          </div>
+                          <div className="text-xs font-semibold text-qupu-muted">
+                            Dari {subject.videosWithBadges} video
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="rounded-full px-3 py-1 font-display text-sm font-extrabold text-white"
+                        style={{ backgroundColor: subject.colorHex }}
+                      >
+                        {subject.totalBadges}×
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <Link
+                to="/badges"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-transparent px-4 py-2 font-display text-sm font-extrabold text-qupu-brand-blue transition-colors hover:bg-qupu-brand-blue hover:text-white"
+              >
+                Lihat semua badge
+                <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true" />
+              </Link>
             </div>
           </Reveal>
         </div>

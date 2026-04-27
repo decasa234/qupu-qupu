@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import BrandLogo from './BrandLogo'
 import api from '../lib/api'
+import { useAdminIdleLogout } from '../hooks/useIdleLogout'
 import { useAuthStore } from '../store/authStore'
 import type { Child } from '../types'
 
@@ -21,6 +22,8 @@ export default function Layout() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const setChildren = useAuthStore((state) => state.setChildren)
 
+  useAdminIdleLogout()
+
   useEffect(() => {
     if (!isAuthenticated) return
 
@@ -36,7 +39,7 @@ export default function Layout() {
   }, [isAuthenticated, setChildren])
 
   return (
-    <div className="min-h-screen bg-qupu-cream text-qupu-ink">
+    <div className="flex min-h-screen flex-col bg-qupu-cream text-qupu-ink">
       <ScrollToTop />
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-[-6rem] top-[-4rem] h-72 w-72 rounded-full bg-qupu-orange/20 blur-3xl" />
@@ -46,7 +49,7 @@ export default function Layout() {
 
       <Navbar />
 
-      <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-36 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-36 sm:px-6 lg:px-8">
         <Outlet />
       </main>
 

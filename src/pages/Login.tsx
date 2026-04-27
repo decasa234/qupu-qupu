@@ -1,40 +1,61 @@
 // src/pages/Login.tsx
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
+import { trackEvent } from '../lib/analytics'
 import AuthCard from '../components/AuthCard'
+import GoogleSignInButton from '../components/GoogleSignInButton'
 import PillField from '../components/PillField'
 import { useAuthStore } from '../store/authStore'
 import type { AuthPayload, Child } from '../types'
 
 export default function Login() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const expired = searchParams.get('expired') === '1'
   const { login } = useAuthStore()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const finishAuthAndRoute = async (payload: AuthPayload) => {
+    login(payload.user, payload.token)
+
+    let children: Child[] = []
+    try {
+      const childrenResponse = await api.get('/me/children')
+      children = childrenResponse.data.data.children ?? []
+    } catch (childrenError) {
+      console.error('Failed to load children after login:', childrenError)
+    }
+
+    useAuthStore.getState().setChildren(children)
+    navigate(children.length === 0 ? '/onboarding/child' : '/dashboard', { replace: true })
+  }
+
+  const handleGoogleAuthenticated = async (payload: AuthPayload) => {
+    setLoading(true)
+    setError('')
+    try {
+      await finishAuthAndRoute(payload)
+      trackEvent('google_login_completed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    trackEvent('login_button_click')
     setLoading(true)
     setError('')
 
     try {
       const response = await api.post('/auth/login', { email, password })
       const payload = response.data.data as AuthPayload
-      login(payload.user, payload.token)
-
-      let children: Child[] = []
-      try {
-        const childrenResponse = await api.get('/me/children')
-        children = childrenResponse.data.data.children ?? []
-      } catch (childrenError) {
-        console.error('Failed to load children after login:', childrenError)
-      }
-
-      useAuthStore.getState().setChildren(children)
-      navigate(children.length === 0 ? '/onboarding/child' : '/dashboard', { replace: true })
+      await finishAuthAndRoute(payload)
+      trackEvent('login_completed')
     } catch (requestError: unknown) {
       const nextError =
         typeof requestError === 'object' &&
@@ -64,6 +85,22 @@ export default function Login() {
         </span>
       }
     >
+      <div className="space-y-5">
+        {expired && (
+          <div className="rounded-[1.25rem] bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-700">
+            <i className="fa-solid fa-clock mr-2" aria-hidden="true" />
+            Sesi kamu sudah berakhir. Silakan login lagi.
+          </div>
+        )}
+
+        <GoogleSignInButton onAuthenticated={handleGoogleAuthenticated} onError={setError} />
+
+        <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-muted">
+          <span className="h-px flex-1 bg-qupu-peach" />
+          atau
+          <span className="h-px flex-1 bg-qupu-peach" />
+        </div>
+
       <form className="space-y-4" onSubmit={handleSubmit}>
         <PillField
           label="Email"
@@ -101,6 +138,7 @@ export default function Login() {
           {loading ? 'Sedang masuk...' : 'Masuk ke akun'}
         </button>
       </form>
+      </div>
     </AuthCard>
   )
 }

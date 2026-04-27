@@ -4,29 +4,26 @@ import api from '../lib/api'
 import { formatDateLabel } from '../lib/youtube'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
+import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
-import type { BadgeUnlockFamily } from '../types'
-
-const TIER_ICON: Record<string, string> = {
-  Sparkles: 'fa-solid fa-star',
-  Star: 'fa-solid fa-trophy',
-  Crown: 'fa-solid fa-crown',
-}
+import type { SubjectBadgeGroup } from '../types'
 
 const INNER_CARD =
   'rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]'
 
+const BADGE_PREVIEW_LIMIT = 8
+
 export default function BadgesPage() {
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
-  const [families, setFamilies] = useState<BadgeUnlockFamily[]>([])
+  const [groups, setGroups] = useState<SubjectBadgeGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
     if (!activeChildId) {
-      setFamilies([])
+      setGroups([])
       setLoading(false)
       return
     }
@@ -39,7 +36,7 @@ export default function BadgesPage() {
         const response = await api.get('/me/badges', {
           params: { childId: activeChildId },
         })
-        setFamilies(response.data.data.families ?? [])
+        setGroups(response.data.data.families ?? [])
       } catch (loadError) {
         console.error('Failed to load badges:', loadError)
         setError('Gagal memuat badge.')
@@ -76,6 +73,9 @@ export default function BadgesPage() {
     return <SkeletonCard />
   }
 
+  const totalBadges = groups.reduce((sum, group) => sum + group.totalBadges, 0)
+  const subjectsWithBadges = groups.filter((group) => group.totalBadges > 0)
+
   return (
     <div className="space-y-8">
       <Reveal>
@@ -95,10 +95,10 @@ export default function BadgesPage() {
                 Badge {activeChild.name}
               </div>
               <h1 className="mt-3 font-display text-4xl font-bold text-qupu-brand-blue sm:text-5xl">
-                Semua reward QUPU yang sudah {activeChild.name} buka.
+                {totalBadges} badge dikumpulkan {activeChild.name}.
               </h1>
               <p className="mt-3 max-w-2xl text-base font-medium text-qupu-muted">
-                Badge dikumpulkan per family. Tiap video bisa menaikkan tier kalau hasilnya lebih baik. Ganti profil di navbar untuk lihat koleksi anak lain.
+                Setiap subject punya satu desain badge. Skor lebih tinggi di tiap video = lebih banyak badge subject itu. Ganti profil di navbar untuk lihat koleksi anak lain.
               </p>
             </div>
 
@@ -118,7 +118,7 @@ export default function BadgesPage() {
         <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">{error}</div>
       )}
 
-      {families.length === 0 ? (
+      {subjectsWithBadges.length === 0 ? (
         <Reveal delay={0.05}>
           <section className="relative overflow-hidden rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-10 text-center shadow-[5px_6px_0_0_#FFD3B1]">
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
@@ -141,69 +141,67 @@ export default function BadgesPage() {
         </Reveal>
       ) : (
         <div className="grid gap-6">
-          {families.map((family, familyIndex) => (
-            <Reveal key={family.id} delay={0.05 + familyIndex * 0.05}>
+          {subjectsWithBadges.map((group, groupIndex) => (
+            <Reveal key={group.id} delay={0.05 + groupIndex * 0.05}>
               <section className={INNER_CARD}>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <div
-                      className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white"
-                      style={{ backgroundColor: family.colorHex }}
-                    >
-                      <i className="fa-solid fa-medal" aria-hidden="true" />
-                      {family.name}
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-center gap-4">
+                    <BadgeCurve color={group.colorHex} size={64} label={`Badge ${group.name}`} />
+                    <div>
+                      <div
+                        className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white"
+                        style={{ backgroundColor: group.colorHex }}
+                      >
+                        <i className="fa-solid fa-medal" aria-hidden="true" />
+                        {group.name}
+                      </div>
+                      <h2 className="mt-2 font-display text-3xl font-bold text-qupu-brand-blue">
+                        {group.totalBadges} badge
+                      </h2>
+                      <p className="text-sm font-semibold text-qupu-muted">
+                        Dari {group.unlocks.length} video {group.name}.
+                      </p>
                     </div>
-                    <h2 className="mt-3 font-display text-3xl font-bold text-qupu-brand-blue">
-                      {family.unlocks.length} unlock tersimpan
-                    </h2>
                   </div>
                 </div>
 
                 <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                  {family.unlocks.map((unlock) => {
-                    const iconClass = TIER_ICON[unlock.iconName] ?? 'fa-solid fa-star'
-                    const isTopTier = unlock.tier === 3
-
-                    return (
-                      <div
-                        key={unlock.tierId + unlock.videoId}
-                        className="relative rounded-[1.5rem] bg-qupu-shell px-5 py-4"
-                      >
-                        {isTopTier && (
-                          <>
-                            <i
-                              className="fa-solid fa-star pointer-events-none absolute -left-2 -top-2 text-base text-qupu-brand-yellow drop-shadow-sm"
-                              aria-hidden="true"
-                            />
-                            <i
-                              className="fa-solid fa-star pointer-events-none absolute -right-2 -top-3 text-sm text-qupu-brand-yellow drop-shadow-sm"
-                              aria-hidden="true"
-                            />
-                          </>
-                        )}
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-3">
-                            <span
-                              className="flex h-11 w-11 items-center justify-center rounded-full text-white shadow-soft"
-                              style={{ backgroundColor: unlock.colorHex }}
-                            >
-                              <i className={`${iconClass} text-base`} aria-hidden="true" />
-                            </span>
-                            <div>
-                              <div className="font-bold text-qupu-brand-blue">{unlock.videoTitle}</div>
-                              <div className="text-sm font-medium text-qupu-muted">
-                                Tier {unlock.tier} • {unlock.tierName}
-                              </div>
+                  {group.unlocks.map((unlock) => (
+                    <Link
+                      key={unlock.videoId}
+                      to={`/videos/${unlock.videoSlug}`}
+                      className="rounded-[1.5rem] border-2 border-transparent bg-qupu-shell px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-qupu-brand-orange/40"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center -space-x-2">
+                            {Array.from({ length: Math.min(unlock.badgeCount, BADGE_PREVIEW_LIMIT) }).map((_, idx) => (
+                              <BadgeCurve key={idx} color={group.colorHex} size={28} />
+                            ))}
+                            {unlock.badgeCount > BADGE_PREVIEW_LIMIT && (
+                              <span className="ml-1 inline-flex h-7 items-center rounded-full bg-white px-2 font-display text-[11px] font-extrabold text-qupu-brand-blue shadow-sm">
+                                +{unlock.badgeCount - BADGE_PREVIEW_LIMIT}
+                              </span>
+                            )}
+                          </div>
+                          <div>
+                            <div className="font-bold text-qupu-brand-blue">{unlock.videoTitle}</div>
+                            <div className="text-sm font-medium text-qupu-muted">
+                              {unlock.bestCorrectAnswers}/{unlock.totalQuestions} benar
                             </div>
                           </div>
-                          <div className="text-right text-xs font-medium text-qupu-muted">
-                            <div className="uppercase tracking-[0.18em]">Unlock</div>
-                            <div className="font-semibold text-qupu-brand-blue">{formatDateLabel(unlock.unlockedAt)}</div>
+                        </div>
+                        <div className="text-right text-xs font-medium text-qupu-muted">
+                          <div className="font-display text-lg font-extrabold text-qupu-brand-orange">
+                            {unlock.badgeCount}×
+                          </div>
+                          <div className="font-semibold text-qupu-brand-blue">
+                            {formatDateLabel(unlock.unlockedAt)}
                           </div>
                         </div>
                       </div>
-                    )
-                  })}
+                    </Link>
+                  ))}
                 </div>
               </section>
             </Reveal>

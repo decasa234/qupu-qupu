@@ -1,5 +1,6 @@
 // src/components/VideoCard.tsx
 import { Link } from 'react-router-dom'
+import BadgeCurve from './BadgeCurve'
 import type { VideoCard as VideoCardType } from '../types'
 
 interface VideoCardProps {
@@ -51,9 +52,12 @@ export default function VideoCard({ video }: VideoCardProps) {
         </div>
 
         <div className="flex items-center justify-between rounded-[1.25rem] bg-qupu-cream px-4 py-2.5">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Badge</div>
-            <div className="text-sm font-bold text-qupu-brand-blue">{video.badgeFamily.name}</div>
+          <div className="flex items-center gap-2">
+            <BadgeCurve color={video.subject.colorHex} size={28} />
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Badge</div>
+              <div className="text-sm font-bold text-qupu-brand-blue">{video.subject.name}</div>
+            </div>
           </div>
           <Link
             to={`/videos/${video.slug}`}
