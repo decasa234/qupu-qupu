@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import SkeletonCard from '../components/SkeletonCard'
 import BadgeCurve from '../components/BadgeCurve'
 import AdminPageHeader from '../components/admin/AdminPageHeader'
@@ -7,6 +8,8 @@ import ConfirmDangerousAction from '../components/ConfirmDangerousAction'
 import api from '../lib/api'
 import { slugify } from '../lib/youtube'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
+
+type CatalogFilter = 'all' | 'draft' | 'published'
 
 const INPUT =
   'w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500'
@@ -41,6 +44,10 @@ export default function AdminVideosPage() {
   const [saving, setSaving] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState<VideoDetail | null>(null)
   const [importing, setImporting] = useState(false)
+  const [filter, setFilter] = useState<CatalogFilter>('all')
+  // True when the currently-edited row was already published when loaded —
+  // we lock the Publish toggle to prevent destructive unpublish in v1.
+  const [originallyPublished, setOriginallyPublished] = useState(false)
 
   const refresh = useCallback(async () => {
     setLoading(true)
@@ -83,6 +90,7 @@ export default function AdminVideosPage() {
   function startCreate() {
     setEditingId(null)
     setMessage('')
+    setOriginallyPublished(false)
     const firstSubject = subjectOptions[0]
     const template = firstSubject?.defaultBadgeRanges ?? []
     setForm({
@@ -133,13 +141,14 @@ export default function AdminVideosPage() {
   function startEdit(video: VideoDetail) {
     setEditingId(video.id)
     setMessage('')
+    setOriginallyPublished(video.isPublished)
     setForm({
       title: video.title,
       slug: video.slug,
       youtubeUrl: video.youtubeUrl,
       thumbnailUrl: video.thumbnailUrl,
-      subjectId: video.subject.id,
-      ageGroupId: video.ageGroup.id,
+      subjectId: video.subject?.id ?? '',
+      ageGroupId: video.ageGroup?.id ?? '',
       numberOfQuestions: video.numberOfQuestions,
       difficulty: video.difficulty,
       description: video.description ?? '',
@@ -192,11 +201,37 @@ export default function AdminVideosPage() {
     setSaving(true)
     setMessage('')
 
+    // Client-side publish-validation mirror: when admin tries to publish, every
+    // QUPU-required field must be populated. The server runs the same checks
+    // (normalizeVideoInput + DB CHECK constraint) but blocking client-side
+    // gives the admin a clearer error than a 400 round-trip.
+    if (form.isPublished) {
+      const missing: string[] = []
+      if (!form.subjectId) missing.push('Subject')
+      if (!form.ageGroupId) missing.push('Age group')
+      if (!form.numberOfQuestions || Number(form.numberOfQuestions) <= 0) {
+        missing.push('Jumlah soal')
+      }
+      if (form.badgeRanges.length === 0) missing.push('Badge ranges')
+      if (missing.length > 0) {
+        setMessage(`Lengkapi field berikut sebelum publish: ${missing.join(', ')}.`)
+        setSaving(false)
+        return
+      }
+    }
+
     try {
       const payload = {
         ...form,
         slug: form.slug || slugify(form.title),
-        numberOfQuestions: Number(form.numberOfQuestions),
+        subjectId: form.subjectId || null,
+        ageGroupId: form.ageGroupId || null,
+        numberOfQuestions:
+          form.numberOfQuestions === null ||
+          form.numberOfQuestions === undefined ||
+          (form.numberOfQuestions as unknown as string) === ''
+            ? null
+            : Number(form.numberOfQuestions),
         sortOrder: Number(form.sortOrder),
         badgeRanges: form.badgeRanges.map((range) => ({
           minCorrect: Number(range.minCorrect),
@@ -290,12 +325,29 @@ export default function AdminVideosPage() {
     }
   }
 
+  const filteredVideos = useMemo(() => {
+    if (filter === 'all') return videos
+    if (filter === 'draft') return videos.filter((v) => !v.isPublished)
+    return videos.filter((v) => v.isPublished)
+  }, [videos, filter])
+
+  const draftCount = useMemo(() => videos.filter((v) => !v.isPublished).length, [videos])
+
   return (
     <div className="space-y-5">
       <AdminPageHeader
         eyebrow="Admin · Videos"
         title="Kelola video QUPU"
         description="Tambah video, edit metadata, atur range badge. Warna badge otomatis dari subject."
+        actions={
+          <Link
+            to="/admin/videos/import"
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            <i className="fa-brands fa-youtube text-rose-500" aria-hidden="true" />
+            Impor dari YouTube
+          </Link>
+        }
       />
 
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
@@ -496,8 +548,13 @@ export default function AdminVideosPage() {
             <div className="grid gap-2 sm:grid-cols-2">
               <AdminToggle
                 label="Publish"
-                helper="Tampil di katalog publik."
+                helper={
+                  originallyPublished
+                    ? 'Sudah dipublikasikan — unpublish belum didukung di v1.'
+                    : 'Aktifkan untuk publish setelah subject, age group, dan badge ranges lengkap.'
+                }
                 checked={form.isPublished}
+                disabled={originallyPublished}
                 onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
               />
               <AdminToggle
@@ -531,15 +588,39 @@ export default function AdminVideosPage() {
         </div>
 
         <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Catalog</h2>
-            <span className="text-xs text-slate-500">{videos.length} video</span>
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">
+              Catalog
+            </h2>
+            <div className="flex items-center gap-3">
+              <div className="inline-flex rounded-md border border-slate-300 bg-white p-0.5 text-xs font-semibold">
+                {(['all', 'draft', 'published'] as CatalogFilter[]).map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => setFilter(option)}
+                    className={`rounded px-2.5 py-1 transition-colors ${
+                      filter === option
+                        ? 'bg-slate-900 text-white'
+                        : 'text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    {option === 'all'
+                      ? 'Semua'
+                      : option === 'draft'
+                        ? `Draft${draftCount > 0 ? ` (${draftCount})` : ''}`
+                        : 'Diterbitkan'}
+                  </button>
+                ))}
+              </div>
+              <span className="text-xs text-slate-500">{filteredVideos.length} video</span>
+            </div>
           </div>
           {loading ? (
             <SkeletonCard height="h-64" />
           ) : (
             <div className="grid gap-4">
-              {videos.map((video) => {
+              {filteredVideos.map((video) => {
                 const totalRanges = video.badgeRanges.length
                 const maxBadges = video.badgeRanges.reduce(
                   (max, range) => Math.max(max, range.badgeCount),
@@ -552,31 +633,52 @@ export default function AdminVideosPage() {
                   >
                     <div className="flex gap-3">
                       <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-slate-200">
-                        <img src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
+                        <img
+                          src={video.thumbnailUrl}
+                          alt={video.title}
+                          className="h-full w-full object-cover"
+                        />
                         <span
-                          className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase ${video.isPublished ? 'bg-emerald-500 text-white' : 'bg-slate-500 text-white'}`}
+                          className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase ${
+                            video.isPublished
+                              ? 'bg-emerald-500 text-white'
+                              : 'bg-amber-500 text-white'
+                          }`}
                         >
-                          {video.isPublished ? 'Live' : 'Draft'}
+                          {video.isPublished ? 'Published' : 'Draft'}
                         </span>
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span
-                            className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase text-white"
-                            style={{ backgroundColor: video.subject.colorHex }}
-                          >
-                            {video.subject.name}
-                          </span>
-                          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-slate-700">
-                            {video.ageGroup.name}
-                          </span>
+                          {video.subject ? (
+                            <span
+                              className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase text-white"
+                              style={{ backgroundColor: video.subject.colorHex }}
+                            >
+                              {video.subject.name}
+                            </span>
+                          ) : (
+                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-amber-800">
+                              Belum subject
+                            </span>
+                          )}
+                          {video.ageGroup ? (
+                            <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-slate-700">
+                              {video.ageGroup.name}
+                            </span>
+                          ) : (
+                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-amber-800">
+                              Belum age group
+                            </span>
+                          )}
                         </div>
                         <div className="mt-1 line-clamp-2 text-sm font-semibold text-slate-900">
                           {video.title}
                         </div>
                         <div className="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500">
-                          <BadgeCurve color={video.subject.colorHex} size={16} />
-                          {totalRanges} range · max {maxBadges} badge · {video.numberOfQuestions} soal
+                          {video.subject && <BadgeCurve color={video.subject.colorHex} size={16} />}
+                          {totalRanges} range · max {maxBadges} badge ·{' '}
+                          {video.numberOfQuestions ?? '—'} soal
                         </div>
                       </div>
                       <div className="flex shrink-0 flex-col gap-1.5">
@@ -599,6 +701,15 @@ export default function AdminVideosPage() {
                   </div>
                 )
               })}
+              {filteredVideos.length === 0 && (
+                <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+                  {filter === 'draft'
+                    ? 'Belum ada draft. Impor dari YouTube untuk membuat draft baru.'
+                    : filter === 'published'
+                      ? 'Belum ada video terbit.'
+                      : 'Belum ada video.'}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -631,15 +742,21 @@ function AdminToggle({
   label,
   helper,
   checked,
+  disabled,
   onChange,
 }: {
   label: string
   helper?: string
   checked: boolean
+  disabled?: boolean
   onChange: (checked: boolean) => void
 }) {
   return (
-    <label className="flex cursor-pointer items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2.5">
+    <label
+      className={`flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2.5 ${
+        disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
+      }`}
+    >
       <div className="min-w-0">
         <div className="text-sm font-semibold text-slate-900">{label}</div>
         {helper && <div className="text-[11px] text-slate-500">{helper}</div>}
@@ -648,6 +765,7 @@ function AdminToggle({
         <input
           type="checkbox"
           checked={checked}
+          disabled={disabled}
           onChange={(event) => onChange(event.target.checked)}
           className="peer sr-only"
         />
