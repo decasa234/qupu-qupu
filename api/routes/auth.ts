@@ -3,10 +3,26 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Joi from 'joi'
 import { queryOne } from '../db.js'
+import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
+import {
+  RegistrationError,
+  initRegistration,
+  resendOtp,
+  verifyOtp,
+} from '../services/registration.js'
 
 const router = Router()
 
-const registerSchema = Joi.object({
+const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+})
+
+const googleSchema = Joi.object({
+  idToken: Joi.string().required(),
+})
+
+const initSchema = Joi.object({
   email: Joi.string().email().required(),
   phone: Joi.string().required(),
   name: Joi.string().min(2).max(50).required(),
@@ -14,90 +30,97 @@ const registerSchema = Joi.object({
   password: Joi.string().min(8).required(),
 })
 
-const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
+const verifySchema = Joi.object({
+  pendingId: Joi.string().uuid().required(),
+  otp: Joi.string().length(6).pattern(/^\d{6}$/).required(),
+})
+
+const resendSchema = Joi.object({
+  pendingId: Joi.string().uuid().required(),
 })
 
 function issueToken(user: { id: string; email: string; role: string }) {
+  // Admins get a 12h hard cap on the backend; the frontend enforces a 30m idle
+  // timeout (auto-logout on inactivity). Parents stay logged in for 7d.
+  const expiresIn = user.role === 'admin' ? '12h' : '7d'
   return jwt.sign(user, process.env.JWT_SECRET || 'secret', {
-    expiresIn: '15m',
+    expiresIn,
   })
 }
 
 function issueRefreshToken(userId: string) {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET || 'secret', {
-    expiresIn: '7d',
+    expiresIn: '30d',
   })
 }
 
-router.post('/register', async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { error, value } = registerSchema.validate(req.body)
+function handleRegistrationError(res: Response, error: unknown): void {
+  if (error instanceof RegistrationError) {
+    res.status(error.status).json({ success: false, error: error.message })
+    return
+  }
+  console.error('Registration error:', error)
+  res.status(500).json({ success: false, error: 'Internal server error' })
+}
 
+router.post('/register-init', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { error, value } = initSchema.validate(req.body)
     if (error) {
       res.status(400).json({ success: false, error: error.details[0].message })
       return
     }
 
-    const existingUser = await queryOne<{ id: string }>(
-      'SELECT id FROM users WHERE email = $1 OR phone = $2',
-      [value.email, value.phone],
-    )
+    const result = await initRegistration({
+      email: value.email,
+      phone: value.phone,
+      name: value.name,
+      age: value.age ?? null,
+      password: value.password,
+    })
 
-    if (existingUser) {
-      res.status(409).json({ success: false, error: 'Email or phone already registered' })
+    res.status(201).json({ success: true, data: result })
+  } catch (error) {
+    handleRegistrationError(res, error)
+  }
+})
+
+router.post('/register-verify', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { error, value } = verifySchema.validate(req.body)
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
       return
     }
 
-    const ageGroup =
-      value.age !== undefined && value.age !== null
-        ? await queryOne<{ id: string }>(
-            `
-              SELECT id
-              FROM age_groups
-              WHERE min_age <= $1 AND max_age >= $1
-              ORDER BY min_age ASC
-              LIMIT 1
-            `,
-            [value.age],
-          )
-        : null
-
-    const passwordHash = await bcrypt.hash(value.password, 12)
-
-    const newUser = await queryOne<{
-      id: string
-      email: string
-      name: string
-      role: string
-      phone: string
-      age: number | null
-    }>(
-      `
-        INSERT INTO users (email, phone, name, age, age_group_id, password_hash, role)
-        VALUES ($1, $2, $3, $4, $5, $6, 'parent')
-        RETURNING id, email, name, role, phone, age
-      `,
-      [value.email, value.phone, value.name, value.age ?? null, ageGroup?.id ?? null, passwordHash],
-    )
-
-    if (!newUser) {
-      throw new Error('Failed to create user')
-    }
+    const user = await verifyOtp({ pendingId: value.pendingId, otp: value.otp })
 
     res.status(201).json({
       success: true,
-      message: 'Registration successful',
       data: {
-        user: newUser,
-        token: issueToken(newUser),
-        refreshToken: issueRefreshToken(newUser.id),
+        user,
+        token: issueToken(user),
+        refreshToken: issueRefreshToken(user.id),
       },
     })
   } catch (error) {
-    console.error('Registration error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
+    handleRegistrationError(res, error)
+  }
+})
+
+router.post('/register-resend', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { error, value } = resendSchema.validate(req.body)
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
+      return
+    }
+
+    const result = await resendOtp({ pendingId: value.pendingId })
+
+    res.json({ success: true, data: result })
+  } catch (error) {
+    handleRegistrationError(res, error)
   }
 })
 
@@ -115,20 +138,25 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
       email: string
       name: string
       role: string
-      phone: string
+      phone: string | null
       age: number | null
-      password_hash: string
+      password_hash: string | null
     }>(
       `
         SELECT id, email, name, role, phone, age, password_hash
         FROM users
-        WHERE email = $1
+        WHERE email = $1 AND password_hash IS NOT NULL
       `,
       [value.email],
     )
 
     if (!user) {
       res.status(401).json({ success: false, error: 'Invalid email or password' })
+      return
+    }
+
+    if (!user.password_hash) {
+      res.status(401).json({ success: false, error: 'Akun ini terdaftar via Google. Silakan masuk dengan Google.' })
       return
     }
 
@@ -158,6 +186,47 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     })
   } catch (error) {
     console.error('Login error:', error)
+    res.status(500).json({ success: false, error: 'Internal server error' })
+  }
+})
+
+router.post('/google', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { error, value } = googleSchema.validate(req.body)
+
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
+      return
+    }
+
+    let claims
+    try {
+      claims = await verifyGoogleIdToken(value.idToken)
+    } catch (verifyErr) {
+      console.error('Google ID token verification failed:', verifyErr)
+      res.status(401).json({ success: false, error: 'Invalid Google credential' })
+      return
+    }
+
+    let user
+    try {
+      user = await findOrCreateGoogleUser(claims)
+    } catch (linkErr) {
+      const message = linkErr instanceof Error ? linkErr.message : 'Unable to sign in with Google'
+      res.status(409).json({ success: false, error: message })
+      return
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        user,
+        token: issueToken(user),
+        refreshToken: issueRefreshToken(user.id),
+      },
+    })
+  } catch (error) {
+    console.error('Google auth error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })
