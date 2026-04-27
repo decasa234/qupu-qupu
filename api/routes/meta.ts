@@ -23,14 +23,4 @@ router.get('/age-groups', async (_req: Request, res: Response): Promise<void> =>
   }
 })
 
-router.get('/badge-families', async (_req: Request, res: Response): Promise<void> => {
-  try {
-    const meta = await listMeta()
-    res.json({ success: true, data: meta.badgeFamilies })
-  } catch (error) {
-    console.error('Get badge families error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
-  }
-})
-
 export default router

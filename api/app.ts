@@ -12,6 +12,7 @@ import publicRoutes from './routes/public.js'
 import memberRoutes from './routes/member.js'
 import childrenRoutes from './routes/children.js'
 import adminRoutes from './routes/admin.js'
+import analyticsRoutes from './routes/analytics.js'
 
 dotenv.config()
 
@@ -33,6 +34,7 @@ app.use('/api/public', publicRoutes)
 app.use('/api/me', memberRoutes)
 app.use('/api/me/children', childrenRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/analytics', analyticsRoutes)
 
 app.use('/api/health', (_req: Request, res: Response): void => {
   res.status(200).json({
