@@ -2,7 +2,7 @@ import { Router, type Request, type Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Joi from 'joi'
-import rateLimit from 'express-rate-limit'
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit'
 import { queryOne } from '../db.js'
 import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
 import {
@@ -46,7 +46,7 @@ const resendSchema = Joi.object({
 const registerIpLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 3,
-  keyGenerator: (req) => `register-ip:${req.ip}`,
+  keyGenerator: (req) => `register-ip:${ipKeyGenerator(req.ip ?? '')}`,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
