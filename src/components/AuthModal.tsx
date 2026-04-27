@@ -5,6 +5,15 @@ import { trackEvent } from '../lib/analytics'
 import GoogleSignInButton from './GoogleSignInButton'
 import OtpInput from './OtpInput'
 import PillField from './PillField'
+import {
+  type RegistrationErrors,
+  sanitizePhoneInput,
+  validateEmail,
+  validateName,
+  validatePassword,
+  validatePhone,
+  validateRegistrationForm,
+} from '../lib/registerValidation'
 import { useAuthStore } from '../store/authStore'
 import type { AuthPayload, Child } from '../types'
 
@@ -27,11 +36,17 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
   const [error, setError] = useState('')
   const [registerStep, setRegisterStep] = useState<'form' | 'otp'>('form')
   const [pendingId, setPendingId] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<RegistrationErrors>({})
+
+  const setFieldError = (field: keyof RegistrationErrors, message: string | undefined) => {
+    setFieldErrors((prev) => ({ ...prev, [field]: message }))
+  }
 
   useEffect(() => {
     if (!open) {
       setRegisterStep('form')
       setPendingId(null)
+      setFieldErrors({})
     }
   }, [open])
 
@@ -84,6 +99,12 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
 
   const handleRegister = async (event: React.FormEvent) => {
     event.preventDefault()
+    const errors = validateRegistrationForm({ name, email, phone, password })
+    setFieldErrors(errors)
+    if (Object.keys(errors).length > 0) {
+      setError('Periksa lagi data yang belum sesuai.')
+      return
+    }
     trackEvent('register_button_click')
     setLoading(true)
     setError('')
@@ -274,41 +295,64 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
               </div>
             </div>
           ) : (
-            <form className="space-y-3" onSubmit={handleRegister}>
+            <form className="space-y-3" onSubmit={handleRegister} noValidate>
               <PillField
                 label="Nama orang tua"
                 icon="fa-solid fa-user"
                 value={name}
-                onChange={setName}
+                onChange={(value) => {
+                  setName(value)
+                  if (fieldErrors.name) setFieldError('name', validateName(value))
+                }}
+                onBlur={() => setFieldError('name', validateName(name))}
+                error={fieldErrors.name}
                 placeholder="Nama kamu"
-                required
               />
               <PillField
                 label="Email"
                 icon="fa-solid fa-envelope"
                 type="email"
                 value={email}
-                onChange={setEmail}
+                onChange={(value) => {
+                  setEmail(value)
+                  if (fieldErrors.email) setFieldError('email', validateEmail(value))
+                }}
+                onBlur={() => setFieldError('email', validateEmail(email))}
+                error={fieldErrors.email}
                 placeholder="orangtua@contoh.com"
-                required
+                autoComplete="email"
               />
               <PillField
                 label="No. HP"
                 icon="fa-solid fa-phone"
                 type="tel"
+                inputMode="numeric"
+                maxLength={13}
                 value={phone}
-                onChange={setPhone}
-                placeholder="0812xxxx"
-                required
+                onChange={(value) => {
+                  const digits = sanitizePhoneInput(value)
+                  setPhone(digits)
+                  if (fieldErrors.phone) setFieldError('phone', validatePhone(digits))
+                }}
+                onBlur={() => setFieldError('phone', validatePhone(phone))}
+                error={fieldErrors.phone}
+                placeholder="0812xxxxxxxx"
+                helper={fieldErrors.phone ? undefined : '10–13 digit, mulai dari 08.'}
+                autoComplete="tel"
               />
               <PillField
                 label="Password"
                 icon="fa-solid fa-lock"
                 type="password"
                 value={password}
-                onChange={setPassword}
+                onChange={(value) => {
+                  setPassword(value)
+                  if (fieldErrors.password) setFieldError('password', validatePassword(value))
+                }}
+                onBlur={() => setFieldError('password', validatePassword(password))}
+                error={fieldErrors.password}
                 placeholder="minimal 8 karakter"
-                required
+                autoComplete="new-password"
               />
               {error && (
                 <div className="rounded-[1.25rem] bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">

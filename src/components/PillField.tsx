@@ -6,12 +6,16 @@ interface PillFieldProps {
   icon: string
   value: string
   onChange: (value: string) => void
+  onBlur?: () => void
   placeholder?: string
   type?: HTMLInputTypeAttribute
   required?: boolean
   helper?: string
+  error?: string
   name?: string
   autoComplete?: string
+  inputMode?: 'text' | 'numeric' | 'decimal' | 'tel' | 'email' | 'url' | 'search'
+  maxLength?: number
 }
 
 export default function PillField({
@@ -19,13 +23,21 @@ export default function PillField({
   icon,
   value,
   onChange,
+  onBlur,
   placeholder,
   type = 'text',
   required = false,
   helper,
+  error,
   name,
   autoComplete,
+  inputMode,
+  maxLength,
 }: PillFieldProps) {
+  const borderClass = error
+    ? 'border-red-300 focus:border-red-500'
+    : 'border-qupu-peach focus:border-qupu-brand-orange'
+
   return (
     <label className="block">
       <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">{label}</span>
@@ -39,13 +51,21 @@ export default function PillField({
           value={value}
           name={name}
           autoComplete={autoComplete}
+          inputMode={inputMode}
+          maxLength={maxLength}
           required={required}
           onChange={(event) => onChange(event.target.value)}
+          onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
+          aria-invalid={error ? 'true' : undefined}
+          className={`w-full rounded-full border-2 bg-qupu-shell px-12 py-3 text-qupu-ink outline-none transition-colors ${borderClass}`}
         />
       </div>
-      {helper && <p className="mt-2 text-xs font-semibold text-qupu-muted">{helper}</p>}
+      {error ? (
+        <p className="mt-2 text-xs font-semibold text-red-600">{error}</p>
+      ) : helper ? (
+        <p className="mt-2 text-xs font-semibold text-qupu-muted">{helper}</p>
+      ) : null}
     </label>
   )
 }

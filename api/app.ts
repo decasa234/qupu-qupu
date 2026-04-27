@@ -24,6 +24,11 @@ validateChannelHandle(process.env.YOUTUBE_CHANNEL_HANDLE)
 
 const app: express.Application = express()
 
+// Required for express-rate-limit to identify the real client IP behind
+// Vercel/Nginx/Cloudflare proxies. Reads X-Forwarded-For trustingly only one
+// hop deep; harmless when running locally without a proxy.
+app.set('trust proxy', 1)
+
 app.use(
   cors({
     origin: process.env.APP_ORIGIN || true,

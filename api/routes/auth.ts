@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Joi from 'joi'
+import rateLimit from 'express-rate-limit'
 import { queryOne } from '../db.js'
 import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
 import {
@@ -39,6 +40,39 @@ const resendSchema = Joi.object({
   pendingId: Joi.string().uuid().required(),
 })
 
+// Layer 1: per-IP rate limit. 3 register-init/register-resend per IP per hour.
+// Memory store; resets on serverless cold start. Add Redis store for prod
+// hardening once traffic warrants it.
+const registerIpLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  keyGenerator: (req) => `register-ip:${req.ip}`,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Terlalu banyak percobaan dari IP ini. Coba lagi nanti.',
+  },
+})
+
+// Layer 2: per-email rate limit on register-init only. 5 sends per email per
+// 24h. Same memory-store caveat applies; resets on cold start.
+const registerEmailLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000,
+  max: 5,
+  keyGenerator: (req) => {
+    const email = typeof req.body?.email === 'string' ? req.body.email.toLowerCase().trim() : ''
+    return `register-email:${email}`
+  },
+  skip: (req) => !req.body?.email,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Terlalu banyak percobaan untuk email ini. Coba lagi besok.',
+  },
+})
+
 function issueToken(user: { id: string; email: string; role: string }) {
   // Admins get a 12h hard cap on the backend; the frontend enforces a 30m idle
   // timeout (auto-logout on inactivity). Parents stay logged in for 7d.
@@ -63,7 +97,7 @@ function handleRegistrationError(res: Response, error: unknown): void {
   res.status(500).json({ success: false, error: 'Internal server error' })
 }
 
-router.post('/register-init', async (req: Request, res: Response): Promise<void> => {
+router.post('/register-init', registerIpLimiter, registerEmailLimiter, async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = initSchema.validate(req.body)
     if (error) {
@@ -108,7 +142,7 @@ router.post('/register-verify', async (req: Request, res: Response): Promise<voi
   }
 })
 
-router.post('/register-resend', async (req: Request, res: Response): Promise<void> => {
+router.post('/register-resend', registerIpLimiter, async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = resendSchema.validate(req.body)
     if (error) {

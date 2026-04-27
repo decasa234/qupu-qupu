@@ -7,6 +7,15 @@ import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
 import OtpInput from '../components/OtpInput'
 import PillField from '../components/PillField'
+import {
+  type RegistrationErrors,
+  sanitizePhoneInput,
+  validateEmail,
+  validateName,
+  validatePassword,
+  validatePhone,
+  validateRegistrationForm,
+} from '../lib/registerValidation'
 import { useAuthStore } from '../store/authStore'
 import type { AuthPayload, Child } from '../types'
 
@@ -23,9 +32,14 @@ export default function Register() {
   const { login } = useAuthStore()
   const [step, setStep] = useState<Step>('credentials')
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' })
+  const [fieldErrors, setFieldErrors] = useState<RegistrationErrors>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [pending, setPending] = useState<PendingState | null>(null)
+
+  const setFieldError = (field: keyof RegistrationErrors, message: string | undefined) => {
+    setFieldErrors((prev) => ({ ...prev, [field]: message }))
+  }
 
   const handleGoogleAuthenticated = async (payload: AuthPayload) => {
     setLoading(true)
@@ -51,6 +65,12 @@ export default function Register() {
 
   const handleInit = async (event: React.FormEvent) => {
     event.preventDefault()
+    const errors = validateRegistrationForm(form)
+    setFieldErrors(errors)
+    if (Object.keys(errors).length > 0) {
+      setError('Periksa lagi data yang belum sesuai.')
+      return
+    }
     trackEvent('register_button_click')
     setLoading(true)
     setError('')
@@ -176,41 +196,64 @@ export default function Register() {
           <span className="h-px flex-1 bg-qupu-peach" />
         </div>
 
-        <form className="space-y-4" onSubmit={handleInit}>
+        <form className="space-y-4" onSubmit={handleInit} noValidate>
           <PillField
             label="Nama orang tua"
             icon="fa-solid fa-user"
             value={form.name}
-            onChange={(value) => setForm((state) => ({ ...state, name: value }))}
+            onChange={(value) => {
+              setForm((state) => ({ ...state, name: value }))
+              if (fieldErrors.name) setFieldError('name', validateName(value))
+            }}
+            onBlur={() => setFieldError('name', validateName(form.name))}
+            error={fieldErrors.name}
             placeholder="Nama kamu"
-            required
           />
           <PillField
             label="Email"
             icon="fa-solid fa-envelope"
             type="email"
             value={form.email}
-            onChange={(value) => setForm((state) => ({ ...state, email: value }))}
+            onChange={(value) => {
+              setForm((state) => ({ ...state, email: value }))
+              if (fieldErrors.email) setFieldError('email', validateEmail(value))
+            }}
+            onBlur={() => setFieldError('email', validateEmail(form.email))}
+            error={fieldErrors.email}
             placeholder="orangtua@contoh.com"
-            required
+            autoComplete="email"
           />
           <PillField
             label="No. HP"
             icon="fa-solid fa-phone"
             type="tel"
+            inputMode="numeric"
+            maxLength={13}
             value={form.phone}
-            onChange={(value) => setForm((state) => ({ ...state, phone: value }))}
-            placeholder="0812xxxx"
-            required
+            onChange={(value) => {
+              const digits = sanitizePhoneInput(value)
+              setForm((state) => ({ ...state, phone: digits }))
+              if (fieldErrors.phone) setFieldError('phone', validatePhone(digits))
+            }}
+            onBlur={() => setFieldError('phone', validatePhone(form.phone))}
+            error={fieldErrors.phone}
+            placeholder="0812xxxxxxxx"
+            helper={fieldErrors.phone ? undefined : '10–13 digit, mulai dari 08.'}
+            autoComplete="tel"
           />
           <PillField
             label="Password"
             icon="fa-solid fa-lock"
             type="password"
             value={form.password}
-            onChange={(value) => setForm((state) => ({ ...state, password: value }))}
+            onChange={(value) => {
+              setForm((state) => ({ ...state, password: value }))
+              if (fieldErrors.password) setFieldError('password', validatePassword(value))
+            }}
+            onBlur={() => setFieldError('password', validatePassword(form.password))}
+            error={fieldErrors.password}
             placeholder="minimal 8 karakter"
-            required
+            autoComplete="new-password"
           />
 
           {error && (
