@@ -8,6 +8,15 @@ interface Props {
 }
 
 export default function RecentAttemptsCompact({ attempts, childName }: Props) {
+  const dedupedAttempts: RecentAttempt[] = []
+  const seen = new Set<string>()
+  for (const attempt of attempts) {
+    if (seen.has(attempt.videoSlug)) continue
+    seen.add(attempt.videoSlug)
+    dedupedAttempts.push(attempt)
+    if (dedupedAttempts.length >= 5) break
+  }
+
   return (
     <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
       <div className="flex items-start justify-between gap-3">
@@ -35,7 +44,7 @@ export default function RecentAttemptsCompact({ attempts, childName }: Props) {
         </p>
       ) : (
         <div className="mt-5 grid gap-3">
-          {attempts.slice(0, 5).map((attempt) => (
+          {dedupedAttempts.map((attempt) => (
             <div
               key={attempt.id}
               className="flex flex-col gap-2 rounded-[1.25rem] bg-qupu-shell px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
