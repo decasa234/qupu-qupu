@@ -287,32 +287,6 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
       ),
     ])
 
-    const subjectTotals = await query<{
-      subject_id: string
-      subject_name: string
-      subject_slug: string
-      subject_color_hex: string
-      total_badges: string
-      videos_with_badges: string
-    }>(
-      `
-        SELECT
-          s.id AS subject_id,
-          s.name AS subject_name,
-          s.slug AS subject_slug,
-          s.color_hex AS subject_color_hex,
-          COALESCE(SUM(ubu.badge_count), 0) AS total_badges,
-          COUNT(DISTINCT CASE WHEN ubu.badge_count > 0 THEN ubu.video_id END) AS videos_with_badges
-        FROM subjects s
-        LEFT JOIN videos v ON v.subject_id = s.id
-        LEFT JOIN user_badge_unlocks ubu ON ubu.video_id = v.id AND ubu.child_id = $1
-        GROUP BY s.id, s.name, s.slug, s.color_hex
-        ORDER BY s.name ASC
-      `,
-      [childId],
-      client,
-    )
-
     const subjectStatRows = await query<{
       subject_id: string
       subject_name: string
@@ -440,14 +414,6 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
           name: item.subject_name,
           colorHex: item.subject_color_hex,
         },
-      })),
-      subjectTotals: subjectTotals.map((item) => ({
-        id: item.subject_id,
-        name: item.subject_name,
-        slug: item.subject_slug,
-        colorHex: item.subject_color_hex,
-        totalBadges: Number(item.total_badges),
-        videosWithBadges: Number(item.videos_with_badges),
       })),
       child: child
         ? {

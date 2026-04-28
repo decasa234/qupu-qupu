@@ -136,15 +136,6 @@ export interface VideoProgress {
   }
 }
 
-export interface SubjectBadgeTotal {
-  id: string
-  name: string
-  slug: string
-  colorHex: string
-  totalBadges: number
-  videosWithBadges: number
-}
-
 export type Predikat = 'SANGAT_BAIK' | 'BAIK' | 'CUKUP' | 'KURANG' | 'BELUM_MULAI'
 
 export interface SubjectStatVideo {
@@ -176,7 +167,6 @@ export interface MemberProgress {
   summary: ProgressSummary
   recentAttempts: RecentAttempt[]
   videoProgress: VideoProgress[]
-  subjectTotals: SubjectBadgeTotal[]
   subjectStats: SubjectStat[]
   periodStart: string
   periodEnd: string
