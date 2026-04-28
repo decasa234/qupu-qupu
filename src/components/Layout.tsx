@@ -60,7 +60,7 @@ export default function Layout() {
 
 function SiteFooter() {
   return (
-    <footer className="relative mt-8 overflow-hidden bg-qupu-brand-blue text-white">
+    <footer data-app-footer className="relative mt-8 overflow-hidden bg-qupu-brand-blue text-white">
       {/* cloud top */}
       <svg
         className="absolute inset-x-0 top-0 h-12 w-full text-qupu-cream"

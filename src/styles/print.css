@@ -1,0 +1,34 @@
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #1F3A8A !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  [data-print-hide],
+  header[data-app-nav],
+  footer[data-app-footer] {
+    display: none !important;
+  }
+
+  details:not([open]) > summary ~ * {
+    display: block !important;
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .print-page-break {
+    break-after: page;
+  }
+}
