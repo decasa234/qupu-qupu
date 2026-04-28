@@ -77,6 +77,22 @@ export async function submitVideoScore(input: {
       throw new Error(`Correct answers must be between 0 and ${video.number_of_questions}`)
     }
 
+    const existingUnlock = await queryOne<{
+      id: string
+      badge_count: number
+      correct_answers: number
+    }>(
+      `
+        SELECT id, badge_count, correct_answers
+        FROM user_badge_unlocks
+        WHERE child_id = $1 AND video_id = $2
+      `,
+      [input.childId, input.videoId],
+      client,
+    )
+
+    const isCorrection = existingUnlock !== null
+
     const scorePercentage = Number(
       ((input.correctAnswers / video.number_of_questions) * 100).toFixed(2),
     )
@@ -86,22 +102,28 @@ export async function submitVideoScore(input: {
       created_at: string
     }>(
       `
-        INSERT INTO score_attempts (child_id, video_id, correct_answers, total_questions, score_percentage)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO score_attempts
+          (child_id, video_id, correct_answers, total_questions, score_percentage, is_correction)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id, created_at
       `,
-      [input.childId, input.videoId, input.correctAnswers, video.number_of_questions, scorePercentage],
+      [
+        input.childId,
+        input.videoId,
+        input.correctAnswers,
+        video.number_of_questions,
+        scorePercentage,
+        isCorrection,
+      ],
       client,
     )
 
     const matchedRange = await queryOne<{
       id: string
       badge_count: number
-      min_correct: number
-      max_correct: number | null
     }>(
       `
-        SELECT id, badge_count, min_correct, max_correct
+        SELECT id, badge_count
         FROM video_badge_rules
         WHERE video_id = $1
           AND $2 >= min_correct
@@ -114,40 +136,22 @@ export async function submitVideoScore(input: {
     )
 
     const earnedBadgeCount = matchedRange?.badge_count ?? 0
-
-    const existingUnlock = await queryOne<{
-      id: string
-      badge_count: number
-      best_correct_answers: number
-    }>(
-      `
-        SELECT id, badge_count, best_correct_answers
-        FROM user_badge_unlocks
-        WHERE child_id = $1 AND video_id = $2
-      `,
-      [input.childId, input.videoId],
-      client,
-    )
-
     const previousBadgeCount = existingUnlock?.badge_count ?? 0
-    const isUpgrade = earnedBadgeCount > previousBadgeCount
-    const finalBadgeCount = Math.max(earnedBadgeCount, previousBadgeCount)
+    const previousCorrectAnswers = existingUnlock?.correct_answers ?? null
 
-    if (isUpgrade || !existingUnlock) {
-      await client.query(
-        `
-          INSERT INTO user_badge_unlocks (child_id, video_id, badge_count, best_correct_answers, unlocked_at, updated_at)
-          VALUES ($1, $2, $3, $4, NOW(), NOW())
-          ON CONFLICT (child_id, video_id)
-          DO UPDATE
-          SET
-            badge_count = GREATEST(user_badge_unlocks.badge_count, EXCLUDED.badge_count),
-            best_correct_answers = GREATEST(user_badge_unlocks.best_correct_answers, EXCLUDED.best_correct_answers),
-            updated_at = NOW()
-        `,
-        [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
-      )
-    }
+    await client.query(
+      `
+        INSERT INTO user_badge_unlocks
+          (child_id, video_id, badge_count, correct_answers, unlocked_at, updated_at)
+        VALUES ($1, $2, $3, $4, NOW(), NOW())
+        ON CONFLICT (child_id, video_id)
+        DO UPDATE SET
+          badge_count = EXCLUDED.badge_count,
+          correct_answers = EXCLUDED.correct_answers,
+          updated_at = NOW()
+      `,
+      [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
+    )
 
     return {
       attempt: {
@@ -158,9 +162,11 @@ export async function submitVideoScore(input: {
         createdAt: attempt?.created_at ?? new Date().toISOString(),
       },
       earnedBadgeCount,
-      finalBadgeCount,
+      finalBadgeCount: earnedBadgeCount,
       previousBadgeCount,
-      isUpgrade,
+      previousCorrectAnswers,
+      isCorrection,
+      isUpgrade: earnedBadgeCount > previousBadgeCount,
       subject: {
         id: video.subject_id,
         name: video.subject_name,
