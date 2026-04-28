@@ -258,13 +258,13 @@ function HeroBlueBackdrop() {
 function HeroCloudCurve() {
   return (
     <svg
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 w-full lg:h-40"
       viewBox="0 0 1200 160"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M0,90 Q150,40 300,70 T600,60 T900,80 T1200,70 L1200,160 L0,160 Z"
+        d="M0,90 Q150,40 300,70 T600,50 T900,40 T1200,30 L1200,160 L0,160 Z"
         fill="#FFF2DF"
         opacity="1"
       />
