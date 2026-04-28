@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
+import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
 import TrophyShelf from '../components/badges/TrophyShelf'
@@ -90,34 +91,53 @@ export default function BadgesPage() {
     .slice(0, 3)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <Reveal>
-        <header className="rounded-3xl border-[3px] border-qupu-cream bg-qupu-brand-blue p-5 text-white shadow-[6px_8px_0_0_#FFD3B1]">
-          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <header className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/70 bg-gradient-to-br from-qupu-cream via-qupu-shell to-qupu-peach/60 p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8">
+          <i
+            className="fa-solid fa-star pointer-events-none absolute left-6 top-5 text-base text-qupu-brand-yellow drop-shadow-sm"
+            aria-hidden="true"
+          />
+          <i
+            className="fa-solid fa-star pointer-events-none absolute right-6 top-6 text-sm text-qupu-orange/70"
+            aria-hidden="true"
+          />
+          <i
+            className="fa-solid fa-sparkles pointer-events-none absolute left-1/3 bottom-5 text-sm text-qupu-brand-yellow/80"
+            aria-hidden="true"
+          />
+
+          <div className="relative grid gap-6 sm:grid-cols-[1.4fr_1fr] sm:items-center">
             <div>
-              <div className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-qupu-brand-orange">
-                Ruang trofi
+              <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <i className="fa-solid fa-trophy" aria-hidden="true" />
+                Ruang Trofi
               </div>
-              <div className="mt-1 font-display text-3xl font-extrabold">
+              <h1 className="mt-2 font-display text-4xl font-extrabold leading-tight text-qupu-brand-blue sm:text-5xl">
                 Hebat, {activeChild.name}!
-              </div>
-              <div className="mt-1 text-xs text-qupu-cream">
-                {totalBadges} badge dari {groupsWithAny.length} subject · keep going!
-              </div>
+              </h1>
+              <p className="mt-2 text-sm font-semibold text-qupu-muted sm:text-base">
+                {totalBadges} badge dari {groupsWithAny.length} subject · ayo kumpulin lebih banyak!
+              </p>
             </div>
-            <div className="flex gap-2">
-              {latestThree.map((u) => (
-                <Link
-                  key={`${u.subjectId}-${u.videoId}`}
-                  to={`/videos/${u.videoSlug}`}
-                  className="h-11 w-11 rounded-full border-[3px] border-white"
-                  style={{
-                    background: `radial-gradient(circle at 30% 30%, ${u.subjectColor}33, ${u.subjectColor})`,
-                  }}
-                  aria-label={u.videoTitle}
-                />
-              ))}
-            </div>
+
+            {latestThree.length > 0 && (
+              <div className="flex items-end justify-start gap-3 sm:justify-end">
+                {latestThree.map((u, idx) => (
+                  <Link
+                    key={`${u.subjectId}-${u.videoId}`}
+                    to={`/videos/${u.videoSlug}`}
+                    aria-label={u.videoTitle}
+                    className="transition-transform hover:-translate-y-1"
+                    style={{
+                      transform: idx === 1 ? 'translateY(-6px)' : undefined,
+                    }}
+                  >
+                    <BadgeCurve color={u.subjectColor} size={64} label={u.videoTitle} />
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </header>
       </Reveal>
@@ -133,9 +153,9 @@ export default function BadgesPage() {
           Belum ada subject yang tersedia. Cek halaman Video.
         </p>
       ) : (
-        <div className="grid gap-3">
-          {groups.map((group) => (
-            <Reveal key={group.id} delay={0.05}>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((group, idx) => (
+            <Reveal key={group.id} delay={0.05 + idx * 0.04}>
               <TrophyShelf group={group} />
             </Reveal>
           ))}
