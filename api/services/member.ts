@@ -239,6 +239,8 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
         total_questions: number | null
       }>(
         `
+          -- best_attempts: latest score_attempts row per video for this child.
+          -- Aliased as "best_*" for back-compat with the existing read-mapping.
           WITH best_attempts AS (
             SELECT DISTINCT ON (sa.video_id)
               sa.video_id,
@@ -247,7 +249,7 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
               sa.created_at AS latest_attempt_at
             FROM score_attempts sa
             WHERE sa.child_id = $1
-            ORDER BY sa.video_id, sa.score_percentage DESC, sa.correct_answers DESC, sa.created_at DESC
+            ORDER BY sa.video_id, sa.created_at DESC
           )
           SELECT
             ba.video_id,
@@ -501,7 +503,7 @@ export async function getMemberBadges(parentUserId: string, childId: string) {
           v.slug AS video_slug,
           v.subject_id,
           ubu.badge_count,
-          ubu.best_correct_answers,
+          ubu.correct_answers AS best_correct_answers,
           v.number_of_questions AS total_questions,
           ubu.unlocked_at
         FROM user_badge_unlocks ubu
