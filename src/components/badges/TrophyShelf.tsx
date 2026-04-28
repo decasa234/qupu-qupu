@@ -49,7 +49,7 @@ export default function TrophyShelf({ group }: { group: SubjectBadgeGroup }) {
 
   return (
     <section
-      className="group relative overflow-hidden rounded-[1.75rem] border-[3px] border-dashed p-4 shadow-[5px_6px_0_0_#FFD3B1] transition-all duration-200 hover:-translate-y-1"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border-[3px] border-dashed p-4 shadow-[5px_6px_0_0_#FFD3B1] transition-all duration-200 hover:-translate-y-1"
       style={{
         borderColor,
         backgroundImage: `linear-gradient(160deg, ${tintTop} 0%, ${tintBottom} 100%)`,

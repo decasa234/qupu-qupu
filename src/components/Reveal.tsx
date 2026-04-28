@@ -5,9 +5,11 @@ import { motion } from 'framer-motion'
 export default function Reveal({
   children,
   delay = 0,
+  className,
 }: {
   children: ReactNode
   delay?: number
+  className?: string
 }) {
   return (
     <motion.div
@@ -21,6 +23,7 @@ export default function Reveal({
         mass: 0.9,
         delay,
       }}
+      className={className}
     >
       {children}
     </motion.div>
