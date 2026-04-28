@@ -553,3 +553,45 @@ export async function getMemberBadges(parentUserId: string, childId: string) {
     }))
   })
 }
+
+export async function getMemberVideoScore(
+  parentUserId: string,
+  childId: string,
+  videoId: string,
+) {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+
+    const row = await queryOne<{
+      correct_answers: number
+      badge_count: number
+      total_questions: number
+      score_percentage: number
+      latest_attempt_at: string
+    }>(
+      `
+        SELECT
+          ubu.correct_answers,
+          ubu.badge_count,
+          v.number_of_questions AS total_questions,
+          ROUND((ubu.correct_answers::NUMERIC / v.number_of_questions) * 100, 2) AS score_percentage,
+          ubu.updated_at AS latest_attempt_at
+        FROM user_badge_unlocks ubu
+        JOIN videos v ON v.id = ubu.video_id
+        WHERE ubu.child_id = $1 AND ubu.video_id = $2
+      `,
+      [childId, videoId],
+      client,
+    )
+
+    if (!row) return null
+
+    return {
+      correctAnswers: row.correct_answers,
+      totalQuestions: row.total_questions,
+      badgeCount: row.badge_count,
+      scorePercentage: Number(row.score_percentage),
+      latestAttemptAt: row.latest_attempt_at,
+    }
+  })
+}
