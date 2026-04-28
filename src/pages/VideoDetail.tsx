@@ -11,7 +11,7 @@ import BadgeCurve from '../components/BadgeCurve'
 import ChildNamePrompt from '../components/ChildNamePrompt'
 import { clearPendingScore, readPendingScore, savePendingScore } from '../lib/pendingScore'
 import { useAuthStore } from '../store/authStore'
-import type { ScoreAttemptResult, VideoDetail } from '../types'
+import type { ScoreAttemptResult, VideoDetail, VideoScoreState } from '../types'
 
 export default function VideoDetailPage() {
   const { slug = '' } = useParams()
@@ -29,6 +29,8 @@ export default function VideoDetailPage() {
   const [result, setResult] = useState<ScoreAttemptResult | null>(null)
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [childPromptOpen, setChildPromptOpen] = useState(false)
+  const [existingScore, setExistingScore] = useState<VideoScoreState | null>(null)
+  const [editing, setEditing] = useState(false)
 
   const replayInFlightRef = useRef(false)
 
@@ -54,6 +56,37 @@ export default function VideoDetailPage() {
     void load()
   }, [slug])
 
+  useEffect(() => {
+    if (!isAuthenticated || !activeChildId || !video) {
+      setExistingScore(null)
+      return
+    }
+
+    let cancelled = false
+
+    async function lookup() {
+      try {
+        const response = await api.get('/me/video-scores', {
+          params: { childId: activeChildId, videoId: video!.id },
+        })
+        if (!cancelled) {
+          const data = response.data?.data as VideoScoreState | null
+          setExistingScore(data)
+          if (data) setScore(data.correctAnswers)
+        }
+      } catch (lookupError) {
+        console.error('Failed to look up existing score:', lookupError)
+        if (!cancelled) setExistingScore(null)
+      }
+    }
+
+    void lookup()
+
+    return () => {
+      cancelled = true
+    }
+  }, [isAuthenticated, activeChildId, video])
+
   const predictedBadgeCount = useMemo(() => {
     if (!video) return 0
     const matched = [...video.badgeRanges]
@@ -75,8 +108,17 @@ export default function VideoDetailPage() {
         videoId,
         correctAnswers,
       })
-      setResult(response.data.data)
+      const submitted = response.data.data as ScoreAttemptResult
+      setResult(submitted)
       clearPendingScore()
+      setExistingScore({
+        correctAnswers: submitted.attempt.correctAnswers,
+        totalQuestions: submitted.attempt.totalQuestions,
+        badgeCount: submitted.earnedBadgeCount,
+        scorePercentage: submitted.attempt.scorePercentage,
+        latestAttemptAt: submitted.attempt.createdAt,
+      })
+      setEditing(false)
     } catch (submitErr: unknown) {
       const nextError =
         typeof submitErr === 'object' &&
@@ -280,7 +322,7 @@ export default function VideoDetailPage() {
 
         <Reveal delay={0.05}>
           <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-7">
-            {!result && (
+            {!result && (existingScore === null || editing) && (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
@@ -298,6 +340,11 @@ export default function VideoDetailPage() {
                   <p className="mt-2 text-xs text-qupu-muted">
                     Geser untuk masukkan jumlah jawaban benar (0 – {video.numberOfQuestions}).
                   </p>
+                  {editing && (
+                    <p className="mt-1 text-[11px] font-semibold text-qupu-brand-orange">
+                      Mengubah skor yang sudah tersimpan.
+                    </p>
+                  )}
                 </div>
 
                 <Slider
@@ -358,9 +405,51 @@ export default function VideoDetailPage() {
                   <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
                     <i className="fa-solid fa-floppy-disk text-base text-qupu-brand-blue" aria-hidden="true" />
                   </span>
-                  {saving ? 'Menyimpan...' : `Simpan skor ${score}/${video.numberOfQuestions}`}
+                  {saving
+                    ? 'Menyimpan...'
+                    : editing
+                      ? `Update skor ${score}/${video.numberOfQuestions}`
+                      : `Simpan skor ${score}/${video.numberOfQuestions}`}
                 </button>
               </form>
+            )}
+
+            {!result && existingScore !== null && !editing && (
+              <div className="space-y-4">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                  Sudah selesai
+                </div>
+                <div className="font-display text-5xl font-extrabold leading-none text-qupu-brand-blue">
+                  {existingScore.correctAnswers}
+                  <span className="text-2xl text-qupu-muted">/{existingScore.totalQuestions}</span>
+                </div>
+                <div className="text-xs font-semibold text-qupu-muted">
+                  {existingScore.scorePercentage}% benar · {existingScore.badgeCount}× badge {video.subject.name}
+                </div>
+                {existingScore.badgeCount > 0 && (
+                  <div className="flex items-center -space-x-2">
+                    {Array.from({ length: Math.min(existingScore.badgeCount, 5) }).map((_, idx) => (
+                      <BadgeCurve key={idx} color={video.subject.colorHex} size={36} />
+                    ))}
+                    {existingScore.badgeCount > 5 && (
+                      <span className="ml-1 inline-flex h-9 items-center rounded-full bg-white px-2 font-display text-xs font-extrabold text-qupu-brand-blue shadow-sm">
+                        +{existingScore.badgeCount - 5}
+                      </span>
+                    )}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditing(true)
+                    setSubmitError('')
+                  }}
+                  className="inline-flex items-center gap-2 text-sm font-bold text-qupu-brand-orange underline-offset-4 hover:underline"
+                >
+                  <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
+                  Ubah skor
+                </button>
+              </div>
             )}
 
             {result && (
@@ -398,9 +487,13 @@ export default function VideoDetailPage() {
                       </span>
                     </div>
                     <div className="text-sm font-semibold text-qupu-brand-blue">
-                      {result.isUpgrade
-                        ? `Naik dari ${result.previousBadgeCount} badge — kerja bagus!`
-                        : `Sudah pernah dapat ${result.previousBadgeCount} badge dari video ini.`}
+                      {!result.isCorrection
+                        ? `Yes! ${result.earnedBadgeCount}× badge baru.`
+                        : result.earnedBadgeCount > result.previousBadgeCount
+                          ? `Skor naik. ${result.previousBadgeCount}× → ${result.earnedBadgeCount}× badge!`
+                          : result.earnedBadgeCount < result.previousBadgeCount
+                            ? `Skor di-koreksi. ${result.previousBadgeCount}× → ${result.earnedBadgeCount}× badge.`
+                            : `Skor di-update: ${result.attempt.correctAnswers}/${result.attempt.totalQuestions} benar.`}
                     </div>
                   </div>
                 ) : (
@@ -422,12 +515,13 @@ export default function VideoDetailPage() {
                     type="button"
                     onClick={() => {
                       setResult(null)
-                      setScore(0)
+                      setEditing(true)
+                      setScore(existingScore?.correctAnswers ?? 0)
                     }}
                     className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-orange transition-colors hover:bg-qupu-brand-orange hover:text-white"
                   >
-                    <i className="fa-solid fa-rotate-left text-sm" aria-hidden="true" />
-                    Coba skor lain
+                    <i className="fa-solid fa-pen-to-square text-sm" aria-hidden="true" />
+                    Ubah skor
                   </button>
                 </div>
               </div>

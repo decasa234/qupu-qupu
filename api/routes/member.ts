@@ -1,7 +1,12 @@
 import { Router, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
-import { getMemberBadges, getMemberProgress, submitVideoScore } from '../services/member.js'
+import {
+  getMemberBadges,
+  getMemberProgress,
+  getMemberVideoScore,
+  submitVideoScore,
+} from '../services/member.js'
 
 const router = Router()
 
@@ -13,6 +18,11 @@ const scoreSchema = Joi.object({
 
 const childIdQuerySchema = Joi.object({
   childId: Joi.string().uuid().required(),
+}).unknown(true)
+
+const videoScoreLookupSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  videoId: Joi.string().uuid().required(),
 }).unknown(true)
 
 router.post('/video-scores', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
@@ -80,5 +90,29 @@ router.get('/badges', authenticateToken, async (req: AuthRequest, res: Response)
     })
   }
 })
+
+router.get(
+  '/video-scores',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = videoScoreLookupSchema.validate(req.query)
+
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+
+      const data = await getMemberVideoScore(req.user.id, value.childId, value.videoId)
+      res.json({ success: true, data })
+    } catch (lookupError: unknown) {
+      console.error('Get video score error:', lookupError)
+      res.status(400).json({
+        success: false,
+        error: lookupError instanceof Error ? lookupError.message : 'Unable to load score',
+      })
+    }
+  },
+)
 
 export default router
