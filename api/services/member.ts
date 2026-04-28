@@ -341,10 +341,14 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
           GROUP BY sa.video_id
         ),
         badges_avail_per_subject AS (
-          SELECT av.subject_id, COALESCE(SUM(vbr.badge_count), 0) AS badges_available
-          FROM available_videos av
-          LEFT JOIN video_badge_rules vbr ON vbr.video_id = av.video_id
-          GROUP BY av.subject_id
+          SELECT subject_id, COALESCE(SUM(per_video_max), 0) AS badges_available
+          FROM (
+            SELECT av.subject_id, av.video_id, COALESCE(MAX(vbr.badge_count), 0) AS per_video_max
+            FROM available_videos av
+            LEFT JOIN video_badge_rules vbr ON vbr.video_id = av.video_id
+            GROUP BY av.subject_id, av.video_id
+          ) per_video
+          GROUP BY subject_id
         )
         SELECT
           s.id AS subject_id,
