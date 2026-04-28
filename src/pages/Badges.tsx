@@ -153,7 +153,7 @@ export default function BadgesPage() {
           Belum ada subject yang tersedia. Cek halaman Video.
         </p>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((group, idx) => (
             <Reveal key={group.id} delay={0.05 + idx * 0.04}>
               <TrophyShelf group={group} />
