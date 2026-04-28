@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS score_attempts (
   correct_answers INTEGER NOT NULL CHECK (correct_answers >= 0),
   total_questions INTEGER NOT NULL CHECK (total_questions > 0),
   score_percentage NUMERIC(5,2) NOT NULL CHECK (score_percentage >= 0 AND score_percentage <= 100),
+  is_correction BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -102,7 +103,7 @@ CREATE TABLE IF NOT EXISTS user_badge_unlocks (
   child_id UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
   video_id UUID NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
   badge_count INTEGER NOT NULL DEFAULT 0 CHECK (badge_count >= 0),
-  best_correct_answers INTEGER NOT NULL CHECK (best_correct_answers >= 0),
+  correct_answers INTEGER NOT NULL CHECK (correct_answers >= 0),
   unlocked_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (child_id, video_id)
