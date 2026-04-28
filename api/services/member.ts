@@ -8,6 +8,16 @@ interface ProgressRow {
   badges_total: string
 }
 
+type Predikat = 'SANGAT_BAIK' | 'BAIK' | 'CUKUP' | 'KURANG' | 'BELUM_MULAI'
+
+function computePredikat(videosAttempted: number, averageBestScore: number | null): Predikat {
+  if (videosAttempted === 0 || averageBestScore === null) return 'BELUM_MULAI'
+  if (averageBestScore >= 85) return 'SANGAT_BAIK'
+  if (averageBestScore >= 70) return 'BAIK'
+  if (averageBestScore >= 55) return 'CUKUP'
+  return 'KURANG'
+}
+
 async function assertChildOwnership(
   executor: PoolClient,
   parentUserId: string,
@@ -165,7 +175,7 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
 
-    const [summary, recentAttempts, videoProgress, child] = await Promise.all([
+    const [summary, recentAttempts, videoProgress, child, periodRow] = await Promise.all([
       queryOne<ProgressRow>(
         `
           SELECT
@@ -220,6 +230,7 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
         subject_name: string
         subject_color_hex: string
         latest_attempt_at: string
+        total_questions: number | null
       }>(
         `
           WITH best_attempts AS (
@@ -236,6 +247,7 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
             ba.video_id,
             v.title AS video_title,
             v.slug AS video_slug,
+            v.number_of_questions AS total_questions,
             ba.best_score,
             ba.best_correct_answers,
             ubu.badge_count,
@@ -259,6 +271,17 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
         avatar_color: string | null
       }>(
         'SELECT id, name, age_group_id, avatar_color FROM children WHERE id = $1',
+        [childId],
+        client,
+      ),
+      queryOne<{ period_start: string }>(
+        `
+          SELECT COALESCE(MIN(sa.created_at), c.created_at) AS period_start
+          FROM children c
+          LEFT JOIN score_attempts sa ON sa.child_id = c.id
+          WHERE c.id = $1
+          GROUP BY c.created_at
+        `,
         [childId],
         client,
       ),
@@ -289,6 +312,98 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
       [childId],
       client,
     )
+
+    const subjectStatRows = await query<{
+      subject_id: string
+      subject_name: string
+      subject_slug: string
+      subject_color_hex: string
+      total_videos_available: string
+      videos_attempted: string
+      average_best_score: string | null
+      badges_earned: string
+      badges_available: string
+    }>(
+      `
+        WITH child_age AS (
+          SELECT age_group_id FROM children WHERE id = $1
+        ),
+        available_videos AS (
+          SELECT v.id AS video_id, v.subject_id
+          FROM videos v, child_age
+          WHERE v.is_published = TRUE
+            AND (child_age.age_group_id IS NULL OR v.age_group_id = child_age.age_group_id)
+        ),
+        best_per_video AS (
+          SELECT sa.video_id, MAX(sa.score_percentage) AS best_score
+          FROM score_attempts sa
+          WHERE sa.child_id = $1
+          GROUP BY sa.video_id
+        ),
+        badges_avail_per_subject AS (
+          SELECT av.subject_id, COALESCE(SUM(vbr.badge_count), 0) AS badges_available
+          FROM available_videos av
+          LEFT JOIN video_badge_rules vbr ON vbr.video_id = av.video_id
+          GROUP BY av.subject_id
+        )
+        SELECT
+          s.id AS subject_id,
+          s.name AS subject_name,
+          s.slug AS subject_slug,
+          s.color_hex AS subject_color_hex,
+          COUNT(DISTINCT av.video_id) AS total_videos_available,
+          COUNT(DISTINCT bpv.video_id) AS videos_attempted,
+          AVG(bpv.best_score) AS average_best_score,
+          COALESCE(SUM(ubu.badge_count), 0) AS badges_earned,
+          COALESCE(MAX(bas.badges_available), 0) AS badges_available
+        FROM subjects s
+        LEFT JOIN available_videos av ON av.subject_id = s.id
+        LEFT JOIN best_per_video bpv ON bpv.video_id = av.video_id
+        LEFT JOIN user_badge_unlocks ubu ON ubu.video_id = av.video_id AND ubu.child_id = $1
+        LEFT JOIN badges_avail_per_subject bas ON bas.subject_id = s.id
+        GROUP BY s.id, s.name, s.slug, s.color_hex
+        ORDER BY s.name ASC
+      `,
+      [childId],
+      client,
+    )
+
+    const videosBySubjectId = new Map<string, typeof videoProgress>()
+    for (const v of videoProgress) {
+      const list = videosBySubjectId.get(v.subject_id) ?? []
+      list.push(v)
+      videosBySubjectId.set(v.subject_id, list)
+    }
+
+    const subjectStats = subjectStatRows.map((row) => {
+      const videosAttempted = Number(row.videos_attempted)
+      const averageBestScore =
+        row.average_best_score === null
+          ? null
+          : Number(Number(row.average_best_score).toFixed(1))
+      return {
+        id: row.subject_id,
+        name: row.subject_name,
+        slug: row.subject_slug,
+        colorHex: row.subject_color_hex,
+        totalVideosAvailable: Number(row.total_videos_available),
+        videosAttempted,
+        averageBestScore,
+        badgesEarned: Number(row.badges_earned),
+        badgesAvailable: Number(row.badges_available),
+        predikat: computePredikat(videosAttempted, averageBestScore),
+        videos: (videosBySubjectId.get(row.subject_id) ?? []).map((v) => ({
+          videoId: v.video_id,
+          videoSlug: v.video_slug,
+          videoTitle: v.video_title,
+          bestScore: Number(v.best_score),
+          bestCorrectAnswers: v.best_correct_answers,
+          totalQuestions: v.total_questions ?? 0,
+          badgeCount: Number(v.badge_count ?? 0),
+          latestAttemptAt: v.latest_attempt_at,
+        })),
+      }
+    })
 
     return {
       summary: {
@@ -338,6 +453,9 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
             avatarColor: child.avatar_color,
           }
         : null,
+      subjectStats,
+      periodStart: periodRow?.period_start ?? new Date().toISOString(),
+      periodEnd: new Date().toISOString(),
     }
   })
 }
