@@ -443,17 +443,35 @@ export async function getMemberBadges(parentUserId: string, childId: string) {
       total_badges: string
     }>(
       `
+        WITH child_age AS (
+          SELECT age_group_id FROM children WHERE id = $1
+        ),
+        available_videos AS (
+          SELECT v.id AS video_id, v.subject_id
+          FROM videos v, child_age
+          WHERE v.is_published = TRUE
+            AND (child_age.age_group_id IS NULL OR v.age_group_id = child_age.age_group_id)
+        ),
+        per_video_max AS (
+          SELECT av.subject_id, av.video_id, COALESCE(MAX(vbr.badge_count), 0) AS badges
+          FROM available_videos av
+          LEFT JOIN video_badge_rules vbr ON vbr.video_id = av.video_id
+          GROUP BY av.subject_id, av.video_id
+        ),
+        badges_avail_per_subject AS (
+          SELECT subject_id, COALESCE(SUM(badges), 0) AS badges_available
+          FROM per_video_max
+          GROUP BY subject_id
+        )
         SELECT
           s.id AS subject_id,
           s.name AS subject_name,
           s.slug AS subject_slug,
           s.color_hex AS subject_color_hex,
           s.description AS subject_description,
-          COALESCE(SUM(ubu.badge_count), 0) AS total_badges
+          COALESCE(bas.badges_available, 0) AS total_badges
         FROM subjects s
-        LEFT JOIN videos v ON v.subject_id = s.id
-        LEFT JOIN user_badge_unlocks ubu ON ubu.video_id = v.id AND ubu.child_id = $1
-        GROUP BY s.id, s.name, s.slug, s.color_hex, s.description
+        LEFT JOIN badges_avail_per_subject bas ON bas.subject_id = s.id
         ORDER BY s.name ASC
       `,
       [childId],
