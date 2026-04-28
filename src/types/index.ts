@@ -93,13 +93,23 @@ export interface ScoreAttemptResult {
   earnedBadgeCount: number
   finalBadgeCount: number
   previousBadgeCount: number
+  previousCorrectAnswers: number | null
   isUpgrade: boolean
+  isCorrection: boolean
   subject: {
     id: string
     name: string
     slug: string
     colorHex: string
   }
+}
+
+export interface VideoScoreState {
+  correctAnswers: number
+  totalQuestions: number
+  badgeCount: number
+  scorePercentage: number
+  latestAttemptAt: string
 }
 
 export interface ProgressSummary {
