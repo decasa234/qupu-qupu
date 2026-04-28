@@ -17,7 +17,6 @@ export default function RaporVideoBreakdown({ stats }: { stats: SubjectStat[] })
         <details
           key={s.id}
           className="rounded-lg bg-qupu-shell p-3 [&[open]>summary>span:last-child]:rotate-90"
-          open
         >
           <summary className="flex cursor-pointer items-center justify-between gap-2 text-[10px] font-extrabold uppercase tracking-[0.1em]">
             <span style={{ color: s.colorHex }}>{s.name}</span>
