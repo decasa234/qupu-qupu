@@ -1,5 +1,7 @@
 interface BadgeCurveProps {
   color: string
+  // Fixed pixel size. Omit + pass className="w-full h-auto" for responsive
+  // sizing inside grid/flex cells.
   size?: number
   className?: string
   ribbonColor?: string
@@ -18,22 +20,23 @@ const INNER_PATH =
 
 export default function BadgeCurve({
   color,
-  size = 96,
+  size,
   className,
   ribbonColor = '#8B5A2B',
   innerColor,
   label,
 }: BadgeCurveProps) {
   const accent = innerColor ?? color
+  const dimensionProps =
+    size !== undefined ? { width: size, height: (size * 986) / 684 } : {}
 
   return (
     <svg
       viewBox="0 0 684 986"
-      width={size}
-      height={(size * 986) / 684}
       role={label ? 'img' : 'presentation'}
       aria-label={label}
       className={className}
+      {...dimensionProps}
     >
       <g transform="translate(-635.879218, -479.573712)">
         <g transform="matrix(-0.965926, -0.258819, 0.177142, -0.661103, 954.335908, 2086.365617)">

@@ -13,10 +13,17 @@ const PREDIKAT_FROM_RATIO = (earned: number, total: number) => {
   return { label: 'Belum Mulai', bgClass: 'bg-slate-200', textClass: 'text-slate-600' }
 }
 
+const MAX_PER_ROW = 15
+
 export default function TrophyShelf({ group }: { group: SubjectBadgeGroup }) {
   const earnedCount = group.unlocks.reduce((acc, u) => acc + u.badgeCount, 0)
   const lockedCount = Math.max(0, group.totalBadges - earnedCount)
   const chip = PREDIKAT_FROM_RATIO(earnedCount, group.totalBadges)
+
+  const tileCount = group.unlocks.length + (lockedCount > 0 ? 1 : 0)
+  // Items grow to fill the row when there are few; cap at MAX_PER_ROW so the
+  // 16th tile wraps to a second row instead of shrinking everything further.
+  const gridCols = Math.min(MAX_PER_ROW, Math.max(1, tileCount))
 
   // Pastel bg derived from subject color (very faint tint via 1A alpha = ~10%).
   // Border uses 70% alpha to keep the dashed line lively but not screaming.
@@ -59,7 +66,10 @@ export default function TrophyShelf({ group }: { group: SubjectBadgeGroup }) {
           Belum ada video di subject ini. Cek halaman Video untuk yang baru.
         </p>
       ) : (
-        <div className="mt-5 grid flex-1 grid-cols-3 gap-3 sm:grid-cols-4">
+        <div
+          className="mt-5 grid flex-1 gap-2"
+          style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
+        >
           {group.unlocks.map((u) => (
             <BadgeMedallion
               key={u.videoId}
