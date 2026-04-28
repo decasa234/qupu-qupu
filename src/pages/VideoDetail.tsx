@@ -340,6 +340,11 @@ export default function VideoDetailPage() {
                   <p className="mt-2 text-xs text-qupu-muted">
                     Geser untuk masukkan jumlah jawaban benar (0 – {video.numberOfQuestions}).
                   </p>
+                  {editing && (
+                    <p className="mt-1 text-[11px] font-semibold text-qupu-brand-orange">
+                      Mengubah skor yang sudah tersimpan.
+                    </p>
+                  )}
                 </div>
 
                 <Slider
@@ -400,7 +405,11 @@ export default function VideoDetailPage() {
                   <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
                     <i className="fa-solid fa-floppy-disk text-base text-qupu-brand-blue" aria-hidden="true" />
                   </span>
-                  {saving ? 'Menyimpan...' : `Simpan skor ${score}/${video.numberOfQuestions}`}
+                  {saving
+                    ? 'Menyimpan...'
+                    : editing
+                      ? `Update skor ${score}/${video.numberOfQuestions}`
+                      : `Simpan skor ${score}/${video.numberOfQuestions}`}
                 </button>
               </form>
             )}
@@ -478,9 +487,13 @@ export default function VideoDetailPage() {
                       </span>
                     </div>
                     <div className="text-sm font-semibold text-qupu-brand-blue">
-                      {result.isUpgrade
-                        ? `Naik dari ${result.previousBadgeCount} badge — kerja bagus!`
-                        : `Sudah pernah dapat ${result.previousBadgeCount} badge dari video ini.`}
+                      {!result.isCorrection
+                        ? `Yes! ${result.earnedBadgeCount}× badge baru.`
+                        : result.earnedBadgeCount > result.previousBadgeCount
+                          ? `Skor naik. ${result.previousBadgeCount}× → ${result.earnedBadgeCount}× badge!`
+                          : result.earnedBadgeCount < result.previousBadgeCount
+                            ? `Skor di-koreksi. ${result.previousBadgeCount}× → ${result.earnedBadgeCount}× badge.`
+                            : `Skor di-update: ${result.attempt.correctAnswers}/${result.attempt.totalQuestions} benar.`}
                     </div>
                   </div>
                 ) : (
@@ -502,12 +515,13 @@ export default function VideoDetailPage() {
                     type="button"
                     onClick={() => {
                       setResult(null)
-                      setScore(0)
+                      setEditing(true)
+                      setScore(existingScore?.correctAnswers ?? 0)
                     }}
                     className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-orange transition-colors hover:bg-qupu-brand-orange hover:text-white"
                   >
-                    <i className="fa-solid fa-rotate-left text-sm" aria-hidden="true" />
-                    Coba skor lain
+                    <i className="fa-solid fa-pen-to-square text-sm" aria-hidden="true" />
+                    Ubah skor
                   </button>
                 </div>
               </div>
