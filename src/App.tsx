@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
 import DashboardPage from './pages/Dashboard'
+import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
 import AdminVideosPage from './pages/AdminVideos'
 import AdminDashboardPage from './pages/admin/AdminDashboard'
@@ -73,6 +74,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <DashboardRouter />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="report"
+            element={
+              <ProtectedRoute>
+                <ReportPage />
               </ProtectedRoute>
             }
           />
