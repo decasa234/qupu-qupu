@@ -62,10 +62,15 @@ const NAV_ITEMS_ADMIN: NavItem[] = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, isAuthenticated, logout } = useAuthStore()
   const isAdmin = user?.role === 'admin'
   const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS_PARENT
   const activeSection = useScrollSpy(SCROLL_SPY_IDS)
+
+  useEffect(() => {
+    setOpen(false)
+  }, [location.pathname, location.hash])
 
   const handleLogout = () => {
     logout()
@@ -73,7 +78,7 @@ export default function Navbar() {
   }
 
   return (
-    <header data-app-nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border-2 border-qupu-peach bg-qupu-cream/95 px-4 backdrop-blur-md sm:px-6">
         <Link to="/" aria-label="Beranda QUPU" className="shrink-0 cursor-pointer !p-0">
           <BrandLogo />
@@ -139,31 +144,52 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
           className="inline-flex cursor-pointer rounded-full bg-white p-3 text-qupu-brand-blue shadow-soft lg:hidden"
           aria-label="Toggle navigation"
+          aria-expanded={open}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border-2 border-qupu-peach bg-white px-5 py-5 shadow-clay lg:hidden">
+        <div className="mx-auto mt-3 max-h-[calc(100dvh-6.5rem)] max-w-7xl overflow-y-auto rounded-[2rem] border-2 border-qupu-peach bg-white px-5 py-5 shadow-clay lg:hidden">
           <div className="flex flex-col gap-2">
             {navItems.map((item) => (
-              <MobileLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
+              <MobileLink
+                key={item.to}
+                to={item.to}
+                activeSection={activeSection}
+                onClick={() => setOpen(false)}
+              >
                 {item.label}
               </MobileLink>
             ))}
             {isAuthenticated && !isAdmin && (
-              <MobileLink icon={LayoutDashboard} to="/dashboard" onClick={() => setOpen(false)}>
+              <MobileLink
+                icon={LayoutDashboard}
+                to="/dashboard"
+                activeSection={activeSection}
+                onClick={() => setOpen(false)}
+              >
                 Dashboard
               </MobileLink>
             )}
             {isAuthenticated && !isAdmin && (
-              <MobileLink icon={Trophy} to="/badges" onClick={() => setOpen(false)}>
+              <MobileLink
+                icon={Trophy}
+                to="/badges"
+                activeSection={activeSection}
+                onClick={() => setOpen(false)}
+              >
                 Badge
               </MobileLink>
             )}
             {isAdmin && (
-              <MobileLink icon={Shield} to="/admin/dashboard" onClick={() => setOpen(false)}>
+              <MobileLink
+                icon={Shield}
+                to="/admin/dashboard"
+                activeSection={activeSection}
+                onClick={() => setOpen(false)}
+              >
                 Admin
               </MobileLink>
             )}
@@ -282,29 +308,49 @@ function MobileLink({
   children,
   onClick,
   icon: Icon,
+  activeSection,
 }: {
   to: string
   children: string
   onClick: () => void
   icon?: typeof Shield
+  activeSection: string | null
 }) {
   const isHash = to.includes('#')
-  const classes =
-    'flex cursor-pointer items-center gap-3 rounded-2xl bg-qupu-cream px-4 py-3 font-display font-bold text-qupu-brand-blue'
+  const location = useLocation()
+  const hashId = isHash ? to.split('#')[1] : null
+  const isActive = isHash
+    ? location.pathname === '/' && activeSection === hashId
+    : to === '/'
+      ? location.pathname === '/' && (!activeSection || activeSection === 'beranda')
+      : location.pathname === to || location.pathname.startsWith(`${to}/`)
+  const classes = cn(
+    'flex cursor-pointer items-center justify-between gap-3 rounded-2xl px-4 py-3 font-display font-bold transition-colors',
+    isActive
+      ? 'bg-qupu-brand-blue text-white'
+      : 'bg-qupu-cream text-qupu-brand-blue hover:bg-qupu-peach/70',
+  )
+  const content = (
+    <>
+      <span className="flex items-center gap-3">
+        {Icon && <Icon className="h-4 w-4" />}
+        {children}
+      </span>
+      {isActive && <span className="h-2 w-2 rounded-full bg-qupu-brand-yellow" />}
+    </>
+  )
 
   if (isHash) {
     return (
-      <a href={to} onClick={onClick} className={classes}>
-        {Icon && <Icon className="h-4 w-4" />}
-        {children}
+      <a href={to} onClick={onClick} className={classes} aria-current={isActive ? 'page' : undefined}>
+        {content}
       </a>
     )
   }
 
   return (
-    <Link to={to} onClick={onClick} className={classes}>
-      {Icon && <Icon className="h-4 w-4" />}
-      {children}
+    <Link to={to} onClick={onClick} className={classes} aria-current={isActive ? 'page' : undefined}>
+      {content}
     </Link>
   )
 }

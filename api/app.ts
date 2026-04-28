@@ -29,9 +29,17 @@ const app: express.Application = express()
 // hop deep; harmless when running locally without a proxy.
 app.set('trust proxy', 1)
 
+// APP_ORIGIN: comma-separated allowlist (e.g., "https://qupu.id,https://www.qupu.id").
+// Empty/unset → reflect any origin (dev convenience). Falls through to allow when
+// origin is in the allowlist; otherwise the cors lib blocks the response.
+const allowedOrigins = (process.env.APP_ORIGIN ?? '')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean)
+
 app.use(
   cors({
-    origin: process.env.APP_ORIGIN || true,
+    origin: allowedOrigins.length === 0 ? true : allowedOrigins,
     credentials: true,
   }),
 )

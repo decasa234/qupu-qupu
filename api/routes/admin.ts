@@ -212,7 +212,18 @@ router.get(
       const page = Number.isFinite(pageRaw) ? Math.max(1, pageRaw) : 1
 
       const { items: allItems } = await listChannelVideosCached()
-      const result = paginateChannelItems(allItems, page)
+      // Hide already-imported videos so the picker only shows new candidates.
+      // Re-sort here too — the cache may contain entries written before the
+      // sort flipped to DESC, so this keeps the order correct without waiting
+      // for cache expiry.
+      const visibleItems = allItems
+        .filter((item) => !item.alreadyImported)
+        .sort((a, b) => {
+          const ta = a.publishedAt ? new Date(a.publishedAt).getTime() : 0
+          const tb = b.publishedAt ? new Date(b.publishedAt).getTime() : 0
+          return tb - ta
+        })
+      const result = paginateChannelItems(visibleItems, page)
 
       res.json({ success: true, data: result })
     } catch (error: unknown) {

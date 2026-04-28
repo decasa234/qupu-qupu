@@ -237,10 +237,11 @@ export async function listChannelVideosCached(): Promise<{
     }
   })
 
+  // Newest first so the picker surfaces recent uploads at the top.
   items.sort((a, b) => {
     const ta = a.publishedAt ? new Date(a.publishedAt).getTime() : 0
     const tb = b.publishedAt ? new Date(b.publishedAt).getTime() : 0
-    return ta - tb
+    return tb - ta
   })
 
   const payload: CachedPayload = { items }

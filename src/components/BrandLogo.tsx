@@ -11,7 +11,7 @@ export default function BrandLogo({ className }: BrandLogoProps) {
       alt="QUPU"
       draggable={false}
       className={cn(
-        'block py-4 pb-6 h-20 select-none object-contain object-center sm:h-24 ',
+        'block h-16 select-none object-contain object-center py-3 sm:h-24 sm:py-4 sm:pb-6',
         className,
       )}
     />

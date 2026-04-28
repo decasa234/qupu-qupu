@@ -97,8 +97,14 @@ export default function VideosPage() {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="Cari judul, deskripsi, atau tempel link YouTube..."
-                  className="w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3.5 text-qupu-ink outline-none transition-colors focus:border-qupu-brand-orange"
+                  aria-label="Cari video"
+                  className="peer w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-12 py-3.5 text-qupu-ink outline-none transition-colors placeholder:text-sm placeholder:text-transparent focus:border-qupu-brand-orange sm:placeholder:text-base sm:placeholder:text-qupu-muted/60"
                 />
+                {!search && (
+                  <span className="pointer-events-none absolute left-12 right-12 top-1/2 -translate-y-1/2 truncate text-sm font-medium text-qupu-muted/60 peer-focus:hidden sm:hidden">
+                    Cari video atau tempel link...
+                  </span>
+                )}
                 {search && (
                   <button
                     type="button"

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../lib/api'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
@@ -105,6 +105,42 @@ export default function AdminImportVideosPage() {
     setSelected(new Set())
   }
 
+  // Selectable = visible rows that are still available on YouTube and not yet
+  // imported. The server filters already-imported rows from fresh fetches, but
+  // a row can also flip to alreadyImported in-place after a successful import
+  // before the user navigates away — exclude those from select-all.
+  const selectableIds = useMemo(
+    () => rows.filter((row) => row.available && !row.alreadyImported).map((row) => row.id),
+    [rows],
+  )
+  const selectedSelectableCount = useMemo(
+    () => selectableIds.reduce((count, id) => (selected.has(id) ? count + 1 : count), 0),
+    [selectableIds, selected],
+  )
+  const allOnPageSelected =
+    selectableIds.length > 0 && selectedSelectableCount === selectableIds.length
+  const someOnPageSelected =
+    selectedSelectableCount > 0 && selectedSelectableCount < selectableIds.length
+
+  const headerCheckboxRef = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    if (headerCheckboxRef.current) {
+      headerCheckboxRef.current.indeterminate = someOnPageSelected
+    }
+  }, [someOnPageSelected])
+
+  function toggleAllOnPage() {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (selectedSelectableCount === 0) {
+        for (const id of selectableIds) next.add(id)
+      } else {
+        for (const id of selectableIds) next.delete(id)
+      }
+      return next
+    })
+  }
+
   async function importSelected() {
     if (selected.size === 0 || importing) return
     setImporting(true)
@@ -163,9 +199,6 @@ export default function AdminImportVideosPage() {
     if (target < 1 || target > pageCount || target === page || loading) return
     void load(target)
   }
-
-  const allFullyImported =
-    !loading && pageCount === 1 && rows.length > 0 && rows.every((r) => r.alreadyImported)
 
   return (
     <div className="space-y-5 pb-24">
@@ -227,25 +260,26 @@ export default function AdminImportVideosPage() {
           </div>
         )}
 
-        {!loading && !error && allFullyImported && (
-          <div className="px-6 py-12 text-center text-sm text-slate-700">
-            <div className="mb-2 text-base font-semibold text-slate-900">
-              Semua video di channel sudah ada di katalog.
+        {!loading && !error && rows.length > 0 && (
+          <>
+            <div className="flex items-center gap-4 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+              <label className="inline-flex cursor-pointer items-center gap-2 text-xs font-semibold text-slate-700">
+                <input
+                  ref={headerCheckboxRef}
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-slate-400 text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
+                  checked={allOnPageSelected}
+                  disabled={importing || selectableIds.length === 0}
+                  onChange={toggleAllOnPage}
+                  aria-label="Pilih semua video di halaman ini"
+                />
+                Pilih semua di halaman ini
+              </label>
+              <span className="text-xs text-slate-500" aria-live="polite">
+                {selectedSelectableCount} / {selectableIds.length} dipilih
+              </span>
             </div>
-            <p className="mb-4 text-slate-600">
-              Tidak ada video baru untuk diimpor saat ini.
-            </p>
-            <Link
-              to="/admin/videos"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            >
-              Lihat katalog
-            </Link>
-          </div>
-        )}
-
-        {!loading && !error && !allFullyImported && rows.length > 0 && (
-          <ul className="divide-y divide-slate-200">
+            <ul className="divide-y divide-slate-200">
             {rows.map((row) => {
               const disabled = row.alreadyImported || !row.available
               const isChecked = selected.has(row.id)
@@ -309,12 +343,13 @@ export default function AdminImportVideosPage() {
                 </li>
               )
             })}
-          </ul>
+            </ul>
+          </>
         )}
 
-        {!loading && !error && rows.length === 0 && !allFullyImported && (
+        {!loading && !error && rows.length === 0 && (
           <div className="px-6 py-12 text-center text-sm text-slate-600">
-            Channel ini belum memiliki video.
+            Tidak ada video baru untuk diimpor — semua sudah ada di katalog.
           </div>
         )}
 

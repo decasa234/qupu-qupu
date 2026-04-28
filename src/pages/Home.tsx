@@ -128,10 +128,13 @@ function HeroSection() {
   return (
     <section
       id="beranda"
-      className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-36 flex w-screen items-center overflow-hidden bg-gradient-to-b from-[#F4A85D] via-[#FAC07A] to-[#FDE3C1] pb-20 pt-40 sm:pb-24 sm:pt-44 lg:pb-28 lg:pt-48"
+      className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-36 flex w-screen items-center overflow-hidden bg-gradient-to-b from-[#FFF1DD] via-[#FFE5C5] to-[#FDE3C1] pb-20 pt-36 sm:from-[#F4A85D] sm:via-[#FAC07A] sm:to-[#FDE3C1] sm:pb-24 sm:pt-44 lg:pb-28 lg:pt-48"
     >
-      <HeroRays />
-      <HeroRaysHorizontal />
+      <div className="hidden sm:contents">
+        <HeroRays />
+        <HeroRaysHorizontal />
+      </div>
+      <HeroMobileDecor />
       <HeroBackdrop />
       <HeroBlueBackdrop />
 
@@ -139,20 +142,20 @@ function HeroSection() {
       <HeroCloudCurve />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[2fr_3fr] lg:gap-6 lg:px-8">
-        <div className="space-y-6 lg:pl-8 xl:pl-16">
-          <h1 className="font-display text-6xl font-extrabold !leading-none sm:text-7xl lg:text-7xl">
-            <span className="block whitespace-nowrap text-qupu-brand-blue">Belajar Seru</span>
-            <span className="block whitespace-nowrap text-qupu-orange">Bareng QUPU!</span>
+        <div className="space-y-5 lg:pl-8 xl:pl-16">
+          <h1 className="max-w-full font-display text-5xl font-extrabold !leading-none min-[380px]:text-[3.35rem] sm:text-7xl lg:text-7xl">
+            <span className="block sm:whitespace-nowrap text-qupu-brand-blue">Belajar Seru</span>
+            <span className="block sm:whitespace-nowrap text-qupu-orange">Bareng QUPU!</span>
           </h1>
-          <p className="max-w-sm text-sm font-semibold leading-relaxed text-qupu-brand-blue-shadow /85 sm:text-base">
+          <p className="max-w-[22rem] text-sm font-semibold leading-relaxed text-qupu-brand-blue-shadow/85 sm:text-base">
             Channel YouTube edukatif untuk anak usia 5-12 tahun. Quiz seru, pengetahuan umum,
             matematika, literasi, dan game menyenangkan setiap hari!
           </p>
 
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="flex flex-wrap gap-3 pt-2 sm:gap-4">
             <Link
               to="/videos"
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
             >
               <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
                 <i className="fa-brands fa-youtube text-base text-red-600" aria-hidden="true" />
@@ -161,7 +164,7 @@ function HeroSection() {
             </Link>
             <a
               href="#kategori"
-              className="inline-flex cursor-pointer items-center gap-3 rounded-full border-[3px] border-qupu-orange bg-transparent px-6 py-[10px] font-display text-base font-extrabold text-qupu-orange transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-orange hover:text-white"
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 rounded-full border-[3px] border-qupu-orange bg-transparent px-6 py-[10px] font-display text-base font-extrabold text-qupu-orange transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-orange hover:text-white"
             >
             <i className="fa-solid fa-layer-group text-base" aria-hidden="true" />
               Lihat Kategori
@@ -266,6 +269,46 @@ function HeroCloudCurve() {
         opacity="1"
       />
     </svg>
+  )
+}
+
+function HeroMobileDecor() {
+  return (
+    <div className="pointer-events-none absolute inset-0 sm:hidden" aria-hidden="true">
+      {/* Soft color blobs for depth */}
+      <div className="absolute -right-20 top-24 h-72 w-72 rounded-full bg-qupu-orange/20 blur-3xl" />
+      <div className="absolute -left-16 top-[55%] h-56 w-56 rounded-full bg-qupu-brand-yellow/30 blur-3xl" />
+      <div className="absolute right-[-30%] bottom-24 h-64 w-64 rounded-full bg-qupu-brand-blue/10 blur-3xl" />
+
+      {/* Paper-grain dot texture */}
+      <div
+        className="absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage:
+            'radial-gradient(rgba(184, 84, 26, 0.55) 1px, transparent 1.4px)',
+          backgroundSize: '20px 20px',
+        }}
+      />
+
+      {/* Scattered playful accents */}
+      <i className="fa-solid fa-star absolute right-7 top-44 text-sm text-qupu-orange/60" aria-hidden="true" />
+      <i className="fa-solid fa-star absolute right-16 top-[19rem] text-[10px] text-qupu-brand-yellow" aria-hidden="true" />
+      <i className="fa-solid fa-star absolute left-7 top-[18rem] text-[11px] text-qupu-orange/55" aria-hidden="true" />
+      <i className="fa-solid fa-sparkles absolute right-10 top-60 text-base text-qupu-orange/40" aria-hidden="true" />
+      <i className="fa-solid fa-sparkles absolute left-10 top-[22rem] text-sm text-qupu-brand-blue/30" aria-hidden="true" />
+
+      {/* Tiny squiggle near title */}
+      <svg
+        className="absolute right-6 top-32 h-8 w-14 text-qupu-orange/45"
+        viewBox="0 0 64 32"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      >
+        <path d="M4,18 Q14,6 24,18 T44,18 T60,14" />
+      </svg>
+    </div>
   )
 }
 
@@ -378,10 +421,13 @@ function CategoriesSection() {
         </p>
       </div>
 
-      <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0">
-        {CATEGORIES.map((cat) => (
-          <CategoryCard key={cat.title} item={cat} />
-        ))}
+      <div className="relative">
+        <ScrollHint />
+        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 pr-12 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] sm:-mx-6 sm:px-6 sm:pr-16 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0">
+          {CATEGORIES.map((cat) => (
+            <CategoryCard key={cat.title} item={cat} />
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -438,10 +484,25 @@ function VideosSection({ videos }: { videos: VideoCardType[] }) {
         </Link>
       </div>
 
-      <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0">
-        {cards}
+      <div className="relative">
+        <ScrollHint />
+        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 pr-12 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] sm:-mx-6 sm:px-6 sm:pr-16 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0">
+          {cards}
+        </div>
       </div>
     </section>
+  )
+}
+
+function ScrollHint() {
+  return (
+    <>
+      <div className="pointer-events-none absolute inset-y-0 right-[-1rem] z-10 w-16 bg-gradient-to-l from-qupu-cream via-qupu-cream/90 to-transparent lg:hidden" />
+      <div className="pointer-events-none absolute right-0 top-1/2 z-20 flex -translate-y-1/2 items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-qupu-brand-blue shadow-soft lg:hidden">
+        Geser
+        <i className="fa-solid fa-chevron-right text-[9px]" aria-hidden="true" />
+      </div>
+    </>
   )
 }
 
@@ -893,10 +954,10 @@ function StatCard({
 
 function SubscribeCtaSection() {
   return (
-    <section className="relative rounded-[2rem] bg-qupu-brand-blue !px-4 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-10">
+    <section className="relative rounded-[2rem] bg-qupu-brand-blue px-5 py-7 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-10">
       <SubscribeStars />
 
-      <div className="relative flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div className="relative flex flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-5">
           <img
             src="/subs-mascot.png"
@@ -921,7 +982,7 @@ function SubscribeCtaSection() {
             href="https://www.youtube.com/@qupuid?sub_confirmation=1"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex cursor-pointer items-center gap-3 whitespace-nowrap rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex flex-1 cursor-pointer items-center justify-center gap-3 whitespace-nowrap rounded-full bg-qupu-brand-orange px-5 py-3 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0 sm:px-6 sm:text-base lg:flex-none"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
               <i className="fa-brands fa-youtube text-base text-red-600" aria-hidden="true" />
@@ -931,7 +992,7 @@ function SubscribeCtaSection() {
           <button
             type="button"
             aria-label="Notifikasi"
-            className="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-white/40 text-white transition-colors hover:border-qupu-brand-yellow hover:bg-white/10"
+            className="group flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-white/40 text-white transition-colors hover:border-qupu-brand-yellow hover:bg-white/10"
           >
             <i
               className="fa-solid fa-bell origin-top text-base transition-colors group-hover:animate-ring group-hover:text-qupu-brand-yellow"

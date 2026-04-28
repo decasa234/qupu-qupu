@@ -1,3 +1,4 @@
+import { query } from '../db.js'
 import { createVideo } from './videos.js'
 import { fetchYouTubeMetadata } from './youtubeImport.js'
 import {
@@ -14,6 +15,105 @@ import {
 
 const TITLE_MAX = 200
 const DESCRIPTION_MAX = 2000
+
+interface BadgeRangeJson {
+  minCorrect: number
+  maxCorrect: number | null
+  badgeCount: number
+}
+
+interface PrefillRule {
+  pattern: RegExp
+  subjectSlug: string
+  ageGroupName: string
+  numberOfQuestions: number
+}
+
+// Order matters: aljabar must be checked before matematika because aljabar
+// titles often contain "Kuis Matematika" in parentheses.
+//
+// Slugs and age-group names below match the live DB exactly — keep them in
+// sync with `db/scripts/prefill_existing_drafts.sql`. The seed.sql values
+// are stale (they use `-i` suffixes and a shorter age-group name).
+const PREFILL_RULES: PrefillRule[] = [
+  {
+    pattern: /beda/i,
+    subjectSlug: 'odd-one-out',
+    ageGroupName: 'Semua Usia',
+    numberOfQuestions: 60,
+  },
+  {
+    pattern: /aljabar/i,
+    subjectSlug: 'aljabar-1',
+    ageGroupName: 'Usia 5-8 ( TK-2SD )',
+    numberOfQuestions: 30,
+  },
+  {
+    pattern: /matematika/i,
+    subjectSlug: 'matematika-1',
+    ageGroupName: 'Usia 5-8 ( TK-2SD )',
+    numberOfQuestions: 20,
+  },
+]
+
+interface PrefillContext {
+  subjectsBySlug: Map<string, { id: string; defaultBadgeRanges: BadgeRangeJson[] }>
+  ageGroupsByName: Map<string, string>
+}
+
+interface ResolvedPrefill {
+  subjectId: string
+  ageGroupId: string
+  numberOfQuestions: number
+  badgeRanges: BadgeRangeJson[]
+}
+
+async function loadPrefillContext(): Promise<PrefillContext> {
+  const [subjects, ageGroups] = await Promise.all([
+    query<{ id: string; slug: string; default_badge_ranges: unknown }>(
+      'SELECT id, slug, default_badge_ranges FROM subjects',
+    ),
+    query<{ id: string; name: string }>('SELECT id, name FROM age_groups'),
+  ])
+
+  const subjectsBySlug = new Map<string, { id: string; defaultBadgeRanges: BadgeRangeJson[] }>()
+  for (const subject of subjects) {
+    subjectsBySlug.set(subject.slug, {
+      id: subject.id,
+      defaultBadgeRanges: Array.isArray(subject.default_badge_ranges)
+        ? (subject.default_badge_ranges as BadgeRangeJson[])
+        : [],
+    })
+  }
+
+  const ageGroupsByName = new Map<string, string>()
+  for (const ageGroup of ageGroups) {
+    ageGroupsByName.set(ageGroup.name, ageGroup.id)
+  }
+
+  return { subjectsBySlug, ageGroupsByName }
+}
+
+function resolvePrefill(title: string, context: PrefillContext): ResolvedPrefill | null {
+  for (const rule of PREFILL_RULES) {
+    if (!rule.pattern.test(title)) continue
+    const subject = context.subjectsBySlug.get(rule.subjectSlug)
+    const ageGroupId = context.ageGroupsByName.get(rule.ageGroupName)
+    if (!subject || !ageGroupId) {
+      console.warn(
+        `Prefill skipped for "${title}" — missing subject "${rule.subjectSlug}" or age group "${rule.ageGroupName}" in DB`,
+      )
+      return null
+    }
+    return {
+      subjectId: subject.id,
+      ageGroupId,
+      numberOfQuestions: rule.numberOfQuestions,
+      badgeRanges: subject.defaultBadgeRanges,
+    }
+  }
+  return null
+}
 
 export type ImportStatus = 'created' | 'already_imported' | 'error'
 
@@ -56,6 +156,7 @@ function buildDraftPayload(
   id: string,
   metadata: Awaited<ReturnType<typeof fetchYouTubeMetadata>>,
   slug: string,
+  prefill: ResolvedPrefill | null,
 ) {
   const sanitizedTitle = sanitizeYouTubeText(metadata.title, TITLE_MAX) || metadata.title.slice(0, TITLE_MAX)
   const sanitizedDescription = sanitizeYouTubeText(metadata.description, DESCRIPTION_MAX)
@@ -70,19 +171,19 @@ function buildDraftPayload(
     slug,
     youtubeUrl: buildYouTubeWatchUrl(id),
     thumbnailUrl,
-    subjectId: null,
-    ageGroupId: null,
-    numberOfQuestions: null,
+    subjectId: prefill?.subjectId ?? null,
+    ageGroupId: prefill?.ageGroupId ?? null,
+    numberOfQuestions: prefill?.numberOfQuestions ?? null,
     difficulty: 'medium' as const,
     description: sanitizedDescription,
     isPublished: false,
     isFeatured: false,
     sortOrder: 0,
-    badgeRanges: [],
+    badgeRanges: prefill?.badgeRanges ?? [],
   }
 }
 
-async function importOne(id: string): Promise<ImportResult> {
+async function importOne(id: string, context: PrefillContext): Promise<ImportResult> {
   let metadata: Awaited<ReturnType<typeof fetchYouTubeMetadata>>
   try {
     metadata = await fetchYouTubeMetadata(id)
@@ -91,9 +192,10 @@ async function importOne(id: string): Promise<ImportResult> {
   }
 
   const slugs = slugifyForBulk(metadata.title || id, id)
+  const prefill = resolvePrefill(metadata.title, context)
 
   try {
-    const created = await createVideo(buildDraftPayload(id, metadata, slugs.base))
+    const created = await createVideo(buildDraftPayload(id, metadata, slugs.base, prefill))
     return { youtubeVideoId: id, status: 'created', videoId: created?.id }
   } catch (error) {
     const pgError = error as PgError
@@ -106,7 +208,9 @@ async function importOne(id: string): Promise<ImportResult> {
         // youtube_video_id-suffixed slug. Postgres aborts the original
         // transaction on 23505, so the retry must call createVideo again.
         try {
-          const created = await createVideo(buildDraftPayload(id, metadata, slugs.withSuffix))
+          const created = await createVideo(
+            buildDraftPayload(id, metadata, slugs.withSuffix, prefill),
+          )
           return { youtubeVideoId: id, status: 'created', videoId: created?.id }
         } catch (retryError) {
           const retryPg = retryError as PgError
@@ -135,9 +239,10 @@ async function importOne(id: string): Promise<ImportResult> {
  * load — eviction is a single DELETE that all serverless instances see.
  */
 export async function bulkImportAsDrafts(youtubeVideoIds: string[]): Promise<ImportResult[]> {
+  const context = await loadPrefillContext()
   const results: ImportResult[] = []
   for (const id of youtubeVideoIds) {
-    results.push(await importOne(id))
+    results.push(await importOne(id, context))
   }
 
   try {
