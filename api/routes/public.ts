@@ -10,12 +10,16 @@ router.get('/meta', async (req: Request, res: Response): Promise<void> => {
       listPublicVideos({ featured: true }),
     ])
 
+    const featuredCount = Array.isArray(featuredVideos)
+      ? featuredVideos.length
+      : featuredVideos.items.length
+
     res.json({
       success: true,
       data: {
         ...meta,
         stats: {
-          featuredVideos: featuredVideos.length,
+          featuredVideos: featuredCount,
         },
       },
     })
@@ -27,13 +31,36 @@ router.get('/meta', async (req: Request, res: Response): Promise<void> => {
 
 router.get('/videos', async (req: Request, res: Response): Promise<void> => {
   try {
-    const videos = await listPublicVideos({
+    const pageRaw = typeof req.query.page === 'string' ? parseInt(req.query.page, 10) : NaN
+    const pageSizeRaw =
+      typeof req.query.pageSize === 'string' ? parseInt(req.query.pageSize, 10) : NaN
+    const paginated = Number.isFinite(pageRaw) || Number.isFinite(pageSizeRaw)
+
+    const result = await listPublicVideos({
       search: typeof req.query.search === 'string' ? req.query.search : undefined,
       subject: typeof req.query.subject === 'string' ? req.query.subject : undefined,
       featured: req.query.featured === 'true',
+      ...(paginated && {
+        page: Number.isFinite(pageRaw) ? pageRaw : 1,
+        pageSize: Number.isFinite(pageSizeRaw) ? pageSizeRaw : 12,
+      }),
     })
 
-    res.json({ success: true, data: { videos } })
+    if (Array.isArray(result)) {
+      res.json({ success: true, data: { videos: result } })
+      return
+    }
+
+    res.json({
+      success: true,
+      data: {
+        videos: result.items,
+        page: result.page,
+        pageSize: result.pageSize,
+        pageCount: result.pageCount,
+        total: result.total,
+      },
+    })
   } catch (error) {
     console.error('Public videos error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })

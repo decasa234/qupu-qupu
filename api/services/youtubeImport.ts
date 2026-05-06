@@ -1,4 +1,8 @@
-import { extractYouTubeVideoId, buildYouTubeThumbnail } from '../lib/youtube.js'
+import {
+  extractYouTubeVideoId,
+  buildYouTubeThumbnail,
+  parseIsoDurationSeconds,
+} from '../lib/youtube.js'
 
 export interface YouTubeVideoMetadata {
   videoId: string
@@ -7,6 +11,7 @@ export interface YouTubeVideoMetadata {
   thumbnailUrl: string
   publishedAt: string | null
   channelTitle: string | null
+  durationSeconds: number
 }
 
 interface YouTubeApiSnippet {
@@ -26,6 +31,7 @@ interface YouTubeApiSnippet {
 interface YouTubeApiItem {
   id: string
   snippet: YouTubeApiSnippet
+  contentDetails?: { duration: string }
 }
 
 interface YouTubeApiResponse {
@@ -43,7 +49,7 @@ export async function fetchYouTubeMetadata(input: string): Promise<YouTubeVideoM
     throw new Error('Invalid YouTube URL or video ID')
   }
 
-  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${encodeURIComponent(videoId)}&key=${encodeURIComponent(apiKey)}`
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${encodeURIComponent(videoId)}&key=${encodeURIComponent(apiKey)}`
 
   const response = await fetch(apiUrl)
   if (!response.ok) {
@@ -72,5 +78,6 @@ export async function fetchYouTubeMetadata(input: string): Promise<YouTubeVideoM
     thumbnailUrl,
     publishedAt: item.snippet.publishedAt ?? null,
     channelTitle: item.snippet.channelTitle ?? null,
+    durationSeconds: parseIsoDurationSeconds(item.contentDetails?.duration),
   }
 }

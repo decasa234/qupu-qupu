@@ -242,6 +242,7 @@ export interface ChannelVideoItem {
   title: string
   publishedAt: string | null
   thumbnailUrl: string
+  durationSeconds: number
   alreadyImported: boolean
   available: boolean
   unavailableReason?: string

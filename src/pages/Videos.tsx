@@ -9,10 +9,15 @@ import Reveal from '../components/Reveal'
 import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
 
+const PAGE_SIZE = 12
+
 export default function VideosPage() {
   const { isAuthenticated } = useAuthStore()
   const [search, setSearch] = useState('')
   const [videos, setVideos] = useState<VideoCardType[]>([])
+  const [page, setPage] = useState(1)
+  const [pageCount, setPageCount] = useState(1)
+  const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const abortRef = useRef<AbortController | null>(null)
@@ -22,6 +27,12 @@ export default function VideosPage() {
   useEffect(() => {
     trackEvent('page_view')
   }, [])
+
+  // Reset to page 1 whenever the search term changes — the previous page may
+  // not exist in the new result set.
+  useEffect(() => {
+    setPage(1)
+  }, [debouncedSearch])
 
   useEffect(() => {
     async function load() {
@@ -34,10 +45,17 @@ export default function VideosPage() {
 
       try {
         const response = await api.get('/public/videos', {
-          params: debouncedSearch ? { search: debouncedSearch } : {},
+          params: {
+            page,
+            pageSize: PAGE_SIZE,
+            ...(debouncedSearch ? { search: debouncedSearch } : {}),
+          },
           signal: controller.signal,
         })
-        setVideos(response.data.data.videos ?? [])
+        const data = response.data.data
+        setVideos(data.videos ?? [])
+        setPageCount(Math.max(1, Number(data.pageCount ?? 1)))
+        setTotal(Number(data.total ?? data.videos?.length ?? 0))
       } catch (requestError: unknown) {
         if (controller.signal.aborted) return
         console.error('Failed to load videos:', requestError)
@@ -51,7 +69,15 @@ export default function VideosPage() {
 
     void load()
     return () => abortRef.current?.abort()
-  }, [debouncedSearch])
+  }, [debouncedSearch, page])
+
+  function changePage(target: number) {
+    if (target < 1 || target > pageCount || target === page || loading) return
+    setPage(target)
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   const looksLikeYoutubeLink = useMemo(
     () => /youtube\.com|youtu\.be/i.test(search.trim()),
@@ -212,25 +238,59 @@ export default function VideosPage() {
           </section>
         </Reveal>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {videos.map((video, index) => (
-            <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{
-                type: 'spring',
-                stiffness: 95,
-                damping: 14,
-                mass: 0.9,
-                delay: index * 0.06,
-              }}
+        <>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {videos.map((video, index) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 95,
+                  damping: 14,
+                  mass: 0.9,
+                  delay: index * 0.06,
+                }}
+              >
+                <VideoCard video={video} />
+              </motion.div>
+            ))}
+          </div>
+
+          {pageCount > 1 && (
+            <nav
+              className="flex flex-wrap items-center justify-between gap-3 rounded-[1.5rem] border-2 border-qupu-peach bg-white px-5 py-3 text-sm shadow-[4px_5px_0_0_#FFD3B1]"
+              aria-label="Navigasi halaman"
             >
-              <VideoCard video={video} />
-            </motion.div>
-          ))}
-        </div>
+              <div className="font-semibold text-qupu-muted">
+                Halaman <span className="text-qupu-brand-blue">{page}</span> dari {pageCount}
+                <span className="ml-2 text-xs text-qupu-muted/70">· {total} video</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  disabled={page <= 1 || loading}
+                  onClick={() => changePage(page - 1)}
+                  className="inline-flex items-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-white px-4 py-1.5 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-qupu-brand-blue transition-colors hover:bg-qupu-brand-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-qupu-brand-blue"
+                >
+                  <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
+                  Sebelumnya
+                </button>
+                <button
+                  type="button"
+                  disabled={page >= pageCount || loading}
+                  onClick={() => changePage(page + 1)}
+                  className="inline-flex items-center gap-2 rounded-full border-[3px] border-qupu-brand-orange bg-qupu-brand-orange px-4 py-1.5 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-white transition-colors hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Selanjutnya
+                  <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true" />
+                </button>
+              </div>
+            </nav>
+          )}
+        </>
       )}
     </div>
   )

@@ -51,6 +51,10 @@ interface VideoInput {
   isPublished?: boolean
   isFeatured?: boolean
   sortOrder?: number
+  // Real YouTube upload time (snippet.publishedAt). Bulk/single import threads
+  // this through; the admin form does not expose it (UPDATE leaves the column
+  // untouched). Backfill via db/scripts/backfill_youtube_published_at.ts.
+  publishedAt?: string | null
   badgeRanges?: Array<{
     minCorrect: number
     maxCorrect: number | null
@@ -183,6 +187,8 @@ export async function listPublicVideos(options: {
   search?: string
   subject?: string
   featured?: boolean
+  page?: number
+  pageSize?: number
 } = {}) {
   const conditions = ['v.is_published = TRUE']
   const params: unknown[] = []
@@ -215,10 +221,46 @@ export async function listPublicVideos(options: {
     conditions.push('v.is_featured = TRUE')
   }
 
+  const whereClause = conditions.join(' AND ')
+
+  // Paginate when an explicit page is requested. Callers that omit page/pageSize
+  // (legacy, e.g. featured-only queries) still get the unpaginated array shape.
+  if (options.page !== undefined || options.pageSize !== undefined) {
+    const pageSize = Math.max(1, Math.min(100, options.pageSize ?? 12))
+    const page = Math.max(1, options.page ?? 1)
+    const offset = (page - 1) * pageSize
+
+    const totalRow = await queryOne<{ count: string }>(
+      `SELECT COUNT(*)::text AS count FROM videos v LEFT JOIN subjects s ON s.id = v.subject_id WHERE ${whereClause}`,
+      params,
+    )
+    const total = Number(totalRow?.count ?? 0)
+    const pageCount = Math.max(1, Math.ceil(total / pageSize))
+
+    const paginatedParams = [...params, pageSize, offset]
+    const rows = await query<VideoRow>(
+      `
+        ${VIDEO_SELECT}
+        WHERE ${whereClause}
+        ORDER BY v.is_featured DESC, v.sort_order ASC, v.published_at DESC NULLS LAST, v.created_at DESC
+        LIMIT $${paginatedParams.length - 1} OFFSET $${paginatedParams.length}
+      `,
+      paginatedParams,
+    )
+
+    return {
+      items: rows.map(mapVideoCard),
+      page,
+      pageSize,
+      pageCount,
+      total,
+    }
+  }
+
   const rows = await query<VideoRow>(
     `
       ${VIDEO_SELECT}
-      WHERE ${conditions.join(' AND ')}
+      WHERE ${whereClause}
       ORDER BY v.is_featured DESC, v.sort_order ASC, v.published_at DESC NULLS LAST, v.created_at DESC
     `,
     params,
@@ -432,7 +474,7 @@ export async function createVideo(input: VideoInput) {
           sort_order,
           published_at
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, CASE WHEN $11 THEN NOW() ELSE NULL END)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
         RETURNING id
       `,
       [
@@ -449,6 +491,7 @@ export async function createVideo(input: VideoInput) {
         normalized.isPublished,
         normalized.isFeatured ?? false,
         normalized.sortOrder ?? 0,
+        normalized.publishedAt ?? null,
       ],
       client,
     )
@@ -494,11 +537,6 @@ export async function updateVideo(videoId: string, input: VideoInput) {
           is_published = $12,
           is_featured = $13,
           sort_order = $14,
-          published_at = CASE
-            WHEN $12 = TRUE AND published_at IS NULL THEN NOW()
-            WHEN $12 = FALSE THEN NULL
-            ELSE published_at
-          END,
           updated_at = NOW()
         WHERE id = $1
       `,

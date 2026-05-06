@@ -2,6 +2,7 @@ import { query } from '../db.js'
 import { createVideo } from './videos.js'
 import { fetchYouTubeMetadata } from './youtubeImport.js'
 import {
+  SHORT_VIDEO_MAX_SECONDS,
   buildYouTubeThumbnail,
   buildYouTubeWatchUrl,
   sanitizeYouTubeText,
@@ -129,6 +130,7 @@ export type ImportErrorCode =
   | 'youtube_unavailable'
   | 'quota_exceeded'
   | 'slug_conflict'
+  | 'short_video'
   | 'import_failed'
 
 interface PgError {
@@ -179,6 +181,7 @@ function buildDraftPayload(
     isPublished: false,
     isFeatured: false,
     sortOrder: 0,
+    publishedAt: metadata.publishedAt,
     badgeRanges: prefill?.badgeRanges ?? [],
   }
 }
@@ -189,6 +192,15 @@ async function importOne(id: string, context: PrefillContext): Promise<ImportRes
     metadata = await fetchYouTubeMetadata(id)
   } catch (error) {
     return { youtubeVideoId: id, status: 'error', error: mapToErrorCode(error) }
+  }
+
+  // Defense in depth: the picker already filters Shorts at the channel
+  // listing layer, but a stale cache or direct API call could still target
+  // one. Reject before writing anything to the DB. durationSeconds === 0 is
+  // a sentinel for "could not parse" — let those through rather than
+  // blocking imports on a YouTube API quirk.
+  if (metadata.durationSeconds > 0 && metadata.durationSeconds <= SHORT_VIDEO_MAX_SECONDS) {
+    return { youtubeVideoId: id, status: 'error', error: 'short_video' }
   }
 
   const slugs = slugifyForBulk(metadata.title || id, id)

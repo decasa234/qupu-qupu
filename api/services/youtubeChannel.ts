@@ -1,5 +1,9 @@
 import { query, queryOne } from '../db.js'
-import { buildYouTubeThumbnail } from '../lib/youtube.js'
+import {
+  SHORT_VIDEO_MAX_SECONDS,
+  buildYouTubeThumbnail,
+  parseIsoDurationSeconds,
+} from '../lib/youtube.js'
 
 const CACHE_TTL_SECONDS = 600 // 10 minutes
 const PAGE_SIZE = 50
@@ -10,6 +14,7 @@ export interface ChannelItem {
   title: string
   publishedAt: string | null
   thumbnailUrl: string
+  durationSeconds: number
   alreadyImported: boolean
   available: boolean
   unavailableReason?: string
@@ -39,6 +44,9 @@ interface VideoSnippet {
       medium?: { url: string }
       default?: { url: string }
     }
+  }
+  contentDetails?: {
+    duration: string
   }
 }
 
@@ -151,7 +159,7 @@ async function fetchVideoSnippets(
     const batch = videoIds.slice(i, i + 50)
     const url =
       `https://www.googleapis.com/youtube/v3/videos?id=${encodeURIComponent(batch.join(','))}` +
-      `&part=snippet&key=${encodeURIComponent(apiKey)}`
+      `&part=snippet,contentDetails&key=${encodeURIComponent(apiKey)}`
     let response: Response
     try {
       response = await fetch(url)
@@ -213,7 +221,7 @@ export async function listChannelVideosCached(): Promise<{
   )
   const importedIds = new Set(existingRows.map((row) => row.youtube_video_id))
 
-  const items: ChannelItem[] = playlistItems.map((it) => {
+  const allItems: ChannelItem[] = playlistItems.map((it) => {
     const id = it.contentDetails.videoId
     const snippet = snippets.get(id)
     if (!snippet?.snippet) {
@@ -222,6 +230,7 @@ export async function listChannelVideosCached(): Promise<{
         title: '(Unavailable on YouTube)',
         publishedAt: it.contentDetails.videoPublishedAt ?? null,
         thumbnailUrl: buildYouTubeThumbnail(id),
+        durationSeconds: 0,
         alreadyImported: importedIds.has(id),
         available: false,
         unavailableReason: 'Video is private, unlisted, or deleted',
@@ -232,10 +241,22 @@ export async function listChannelVideosCached(): Promise<{
       title: snippet.snippet.title,
       publishedAt: snippet.snippet.publishedAt ?? null,
       thumbnailUrl: pickBestThumbnail(snippet.snippet, id),
+      durationSeconds: parseIsoDurationSeconds(snippet.contentDetails?.duration),
       alreadyImported: importedIds.has(id),
       available: true,
     }
   })
+
+  // Drop Shorts at the source — they should never reach the picker UI or be
+  // selectable for import. Available-but-untimed items (durationSeconds === 0)
+  // pass through so a YouTube API hiccup on contentDetails doesn't hide the
+  // whole catalog.
+  const items = allItems.filter(
+    (item) =>
+      !item.available ||
+      item.durationSeconds === 0 ||
+      item.durationSeconds > SHORT_VIDEO_MAX_SECONDS,
+  )
 
   // Newest first so the picker surfaces recent uploads at the top.
   items.sort((a, b) => {

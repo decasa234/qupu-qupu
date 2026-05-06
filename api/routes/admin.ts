@@ -24,6 +24,7 @@ import {
   listChannelVideosCached,
   paginateChannelItems,
 } from '../services/youtubeChannel.js'
+import { SHORT_VIDEO_MAX_SECONDS } from '../lib/youtube.js'
 import { bulkImportAsDrafts } from '../services/youtubeChannelImport.js'
 import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
@@ -69,6 +70,11 @@ const videoSchema = Joi.object({
   isPublished: Joi.boolean().required(),
   isFeatured: Joi.boolean().required(),
   sortOrder: Joi.number().integer().min(0).required(),
+  // Real YouTube upload time. Only consumed on CREATE; UPDATE ignores it so
+  // admin edits never disturb the column. Bulk channel import threads this
+  // through automatically; the single-video form may forward it from the
+  // /youtube-import metadata response.
+  publishedAt: Joi.string().isoDate().allow(null).optional(),
   badgeRanges: Joi.array()
     .items(badgeRangeSchema)
     .when('isPublished', {
@@ -212,12 +218,19 @@ router.get(
       const page = Number.isFinite(pageRaw) ? Math.max(1, pageRaw) : 1
 
       const { items: allItems } = await listChannelVideosCached()
-      // Hide already-imported videos so the picker only shows new candidates.
-      // Re-sort here too — the cache may contain entries written before the
-      // sort flipped to DESC, so this keeps the order correct without waiting
-      // for cache expiry.
+      // Hide already-imported and Shorts so the picker only shows new
+      // long-form candidates. Filter and sort run here (not just inside the
+      // cached fetch) so existing cache entries written before these rules
+      // were added still display correctly without waiting for TTL.
+      // durationSeconds === 0 / undefined is a pass-through sentinel for
+      // older cached payloads that don't have the field — better to risk
+      // showing one Short than to hide every video on a cache miss quirk.
       const visibleItems = allItems
-        .filter((item) => !item.alreadyImported)
+        .filter((item) => {
+          if (item.alreadyImported) return false
+          const dur = item.durationSeconds ?? 0
+          return dur === 0 || dur > SHORT_VIDEO_MAX_SECONDS
+        })
         .sort((a, b) => {
           const ta = a.publishedAt ? new Date(a.publishedAt).getTime() : 0
           const tb = b.publishedAt ? new Date(b.publishedAt).getTime() : 0

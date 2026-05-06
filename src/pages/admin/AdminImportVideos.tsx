@@ -22,6 +22,7 @@ const ERROR_LABELS: Record<string, string> = {
   youtube_unavailable: 'YouTube tidak tersedia',
   quota_exceeded: 'Kuota YouTube habis',
   slug_conflict: 'Slug bentrok',
+  short_video: 'Shorts tidak diimpor',
   import_failed: 'Gagal diimpor',
 }
 

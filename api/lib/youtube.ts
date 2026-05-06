@@ -76,6 +76,19 @@ export function validateHttpsThumbnailUrl(url: string): string {
   return url
 }
 
+// YouTube returns durations in ISO 8601 (PT[h]H[m]M[s]S). Returns total
+// seconds; returns 0 for malformed input so callers can use it as a sentinel.
+export function parseIsoDurationSeconds(iso: string | null | undefined): number {
+  if (!iso) return 0
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso)
+  if (!match) return 0
+  const [, hours, minutes, seconds] = match
+  return (Number(hours) || 0) * 3600 + (Number(minutes) || 0) * 60 + (Number(seconds) || 0)
+}
+
+// Anything <= this is treated as a YouTube Short.
+export const SHORT_VIDEO_MAX_SECONDS = 120
+
 export function sanitizeYouTubeText(text: string | null | undefined, maxLen: number): string {
   if (!text) return ''
   // Strip HTML tags (simple, sufficient for YouTube title/description metadata).
