@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
-import { buildDashboardViewModel, type DashboardViewModel } from '../lib/dashboardData'
+import {
+  dashboardFromApi,
+  type DashboardApiResponse,
+  type DashboardViewModel,
+} from '../lib/dashboardData'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import Reveal from '../components/Reveal'
@@ -14,7 +18,6 @@ import DashboardSubjects from '../components/dashboard/DashboardSubjects'
 import DashboardRecommended from '../components/dashboard/DashboardRecommended'
 import DashboardAttempts from '../components/dashboard/DashboardAttempts'
 import DashboardBadges from '../components/dashboard/DashboardBadges'
-import type { MemberProgress } from '../types'
 
 export default function DashboardPage() {
   const { children, activeChildId } = useAuthStore()
@@ -36,10 +39,10 @@ export default function DashboardPage() {
       setLoading(true)
       setError('')
       try {
-        const response = await api.get('/me/progress', { params: { childId: activeChildId } })
+        const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
         if (cancelled) return
-        const progress = response.data.data as MemberProgress
-        setVm(buildDashboardViewModel(progress, activeChild!))
+        const payload = response.data.data as DashboardApiResponse
+        setVm(dashboardFromApi(payload))
       } catch (loadError) {
         if (cancelled) return
         console.error('Failed to load dashboard:', loadError)
