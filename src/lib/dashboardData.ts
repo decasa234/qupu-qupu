@@ -74,11 +74,15 @@ export interface DashboardInsight {
 export interface DashboardViewModel {
   child: { id: string; name: string; ageLabel: string }
   level: number
+  tierName: string
   xp: number
   xpToNext: number
+  totalXp: number
   streak: number
   longestStreak: number
+  recoveryEligible: boolean
   dailyGoalPct: number
+  dailyGoalQuizzes: number
   screenTimeMin: number
   favTime: string
   heatmap: number[]
@@ -89,6 +93,7 @@ export interface DashboardViewModel {
   recommended: DashboardRecommendation[]
   attempts: DashboardAttempt[]
   badges: DashboardBadge[]
+  quests: DashboardQuest[]
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -114,14 +119,30 @@ interface ApiRecommendation {
   videoSlug: string
 }
 
+export interface DashboardQuest {
+  id: string
+  code: string
+  title: string
+  description: string
+  questType: string
+  progressValue: number
+  targetValue: number
+  status: 'active' | 'completed' | 'claimed' | 'expired'
+  xpReward: number
+}
+
 export interface DashboardApiResponse {
   child: { id: string; name: string; ageLabel: string }
   level: number
+  tierName: string
   xp: number
   xpToNext: number
+  totalXp: number
   streak: number
   longestStreak: number
+  recoveryEligible: boolean
   dailyGoalPct: number
+  dailyGoalQuizzes: number
   screenTimeMin: number
   favTime: string
   heatmap: number[]
@@ -131,6 +152,7 @@ export interface DashboardApiResponse {
   recommended: ApiRecommendation[]
   attempts: DashboardAttempt[]
   badges: DashboardBadge[]
+  quests: DashboardQuest[]
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -279,11 +301,15 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
   return {
     child: payload.child,
     level: payload.level,
+    tierName: payload.tierName,
     xp: payload.xp,
     xpToNext: payload.xpToNext,
+    totalXp: payload.totalXp,
     streak: payload.streak,
     longestStreak: payload.longestStreak,
+    recoveryEligible: payload.recoveryEligible,
     dailyGoalPct: payload.dailyGoalPct,
+    dailyGoalQuizzes: payload.dailyGoalQuizzes,
     screenTimeMin: payload.screenTimeMin,
     favTime: payload.favTime,
     heatmap: payload.heatmap,
@@ -299,5 +325,6 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
     recommended: payload.recommended.map(mapRecommendation),
     attempts,
     badges: payload.badges,
+    quests: payload.quests,
   }
 }

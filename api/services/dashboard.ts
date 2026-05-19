@@ -14,6 +14,8 @@
 
 import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
+import { ensureTodaysQuests, type ActiveQuest } from './gamification/questGenerator.js'
+import { loadLevelTiers, resolveLevel } from './gamification/levelCurve.js'
 
 const HOUR_MS = 60 * 60 * 1000
 const DAY_MS = 24 * HOUR_MS
@@ -73,14 +75,30 @@ export interface DashboardBadge {
   earned: boolean
 }
 
+export interface DashboardQuest {
+  id: string
+  code: string
+  title: string
+  description: string
+  questType: string
+  progressValue: number
+  targetValue: number
+  status: 'active' | 'completed' | 'claimed' | 'expired'
+  xpReward: number
+}
+
 export interface DashboardPayload {
   child: { id: string; name: string; ageLabel: string }
   level: number
-  xp: number
-  xpToNext: number
+  tierName: string                  // e.g. "Bintang Belajar"
+  xp: number                        // XP into current level
+  xpToNext: number                  // XP needed for next level (0 if maxed)
+  totalXp: number                   // lifetime XP — used for "next tier" math
   streak: number
   longestStreak: number
+  recoveryEligible: boolean         // exposed so UI can offer streak-recovery
   dailyGoalPct: number
+  dailyGoalQuizzes: number          // target value (configurable per child)
   screenTimeMin: number
   favTime: string
   heatmap: number[]
@@ -90,6 +108,7 @@ export interface DashboardPayload {
   recommended: DashboardRecommendation[]
   attempts: DashboardAttempt[]
   badges: DashboardBadge[]
+  quests: DashboardQuest[]          // today's WIB-day quests, post-Plan 4
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -165,16 +184,12 @@ function trendPercent(current: number, previous: number): number {
   return Math.round(((current - previous) / previous) * 100)
 }
 
-function levelFromXp(xp: number): { level: number; xpInLevel: number; xpToNext: number } {
-  let level = 1
-  let needed = 200
-  let remaining = xp
-  while (remaining >= needed) {
-    remaining -= needed
-    level += 1
-    needed += 200
-  }
-  return { level, xpInLevel: remaining, xpToNext: needed }
+function wibDateString(now: Date): string {
+  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
+  const y = wibShifted.getUTCFullYear()
+  const m = String(wibShifted.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(wibShifted.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -224,6 +239,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
 
     const now = new Date()
     const today = dateOnlyWib(now)
+    const todayWib = wibDateString(now)
     const periodStart = new Date(today.getTime() - 7 * DAY_MS)
     const prevPeriodStart = new Date(today.getTime() - 14 * DAY_MS)
     const heatmapStart = new Date(today.getTime() - 27 * DAY_MS) // 28-day window inclusive
@@ -237,6 +253,9 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       subjects,
       attempts,
       recommended,
+      gamProfile,
+      tiers,
+      activeQuests,
     ] = await Promise.all([
       fetchSummaryStats(client, childId, periodStart, prevPeriodStart, today),
       fetchDayOffsets(client, childId, today),
@@ -246,23 +265,50 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       fetchSubjects(client, childId, child.ageGroupId, periodStart, prevPeriodStart),
       fetchAttempts(client, childId, now),
       fetchRecommendations(client, childId, child.ageGroupId),
+      fetchGamificationProfile(client, childId),
+      loadLevelTiers(client),
+      ensureTodaysQuests(client, childId, todayWib),
     ])
 
-    const streak = computeStreaks(dayOffsets)
-    const xp = summary.lifetimeCorrect * 5 + summary.lifetimeAttempts * 10
-    const { level, xpInLevel, xpToNext } = levelFromXp(xp)
+    // Streak from the gamification engine (Plan 1+2); fall back to the
+    // derived count only when no profile exists yet (brand-new child).
+    const derivedStreak = computeStreaks(dayOffsets)
+    const currentStreak =
+      gamProfile.currentStreakDays > 0 ? gamProfile.currentStreakDays : derivedStreak.current
+    const longestStreak = Math.max(gamProfile.longestStreakDays, derivedStreak.longest)
+    const recoveryEligible = gamProfile.preBreakStreakDays > 0
 
-    // Daily goal: 3 quizzes today by default. TODO: per-child setting.
+    // XP / level / tier from gamification_profiles + level_tiers seed.
+    const totalXp = gamProfile.totalXp
+    const resolution = resolveLevel(totalXp, tiers)
+    const level = resolution.tier.levelNumber
+    const tierName = resolution.tier.tierName
+    const xpInLevel = resolution.xpIntoCurrent
+    const xpToNext = resolution.xpToNext
+
+    // Daily goal uses the per-child configurable target (Plan 4).
     const todayAttempts = summary.todayAttempts
-    const dailyGoalPct = clamp(Math.round((todayAttempts / 3) * 100), 0, 100)
+    const dailyGoalQuizzes = child.dailyGoalQuizzes
+    const dailyGoalPct = clamp(Math.round((todayAttempts / dailyGoalQuizzes) * 100), 0, 100)
 
-    // Screen-time approximation: each question ≈ 30s. Replace if/when we
-    // start logging real session events.
+    // Screen-time approximation kept until Plan 5 lands session_events.
     const screenTimeMin = Math.round(summary.todayQuestionTotal * 0.5)
 
     const heatmap = buildHeatmap(activityByDay)
     const todayIdx = heatmap.length - 1
     const favTime = favTimeLabel(hourBuckets)
+
+    const quests: DashboardQuest[] = activeQuests.map((q: ActiveQuest) => ({
+      id: q.id,
+      code: q.code,
+      title: q.title,
+      description: q.description,
+      questType: q.questType,
+      progressValue: q.progressValue,
+      targetValue: q.targetValue,
+      status: q.status,
+      xpReward: q.xpReward,
+    }))
 
     const kpis: DashboardKpi[] = [
       {
@@ -299,7 +345,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       },
     ]
 
-    const badges = deriveBadges(summary, streak)
+    const badges = deriveBadges(summary, { current: currentStreak, longest: longestStreak })
 
     return {
       child: {
@@ -308,11 +354,15 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
         ageLabel: child.ageLabel,
       },
       level,
+      tierName,
       xp: xpInLevel,
       xpToNext,
-      streak: streak.current,
-      longestStreak: streak.longest,
+      totalXp,
+      streak: currentStreak,
+      longestStreak,
+      recoveryEligible,
       dailyGoalPct,
+      dailyGoalQuizzes,
       screenTimeMin,
       favTime,
       heatmap,
@@ -322,6 +372,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       recommended,
       attempts,
       badges,
+      quests,
     }
   })
 }
@@ -335,6 +386,7 @@ interface ChildContext {
   name: string
   ageGroupId: string | null
   ageLabel: string
+  dailyGoalQuizzes: number
 }
 
 async function fetchChild(
@@ -347,8 +399,10 @@ async function fetchChild(
     name: string
     age_group_id: string | null
     age_group_name: string | null
+    daily_goal_quizzes: number
   }>(
-    `SELECT c.id, c.name, c.age_group_id, ag.name AS age_group_name
+    `SELECT c.id, c.name, c.age_group_id, ag.name AS age_group_name,
+            c.daily_goal_quizzes
        FROM children c
        LEFT JOIN age_groups ag ON ag.id = c.age_group_id
        WHERE c.id = $1 AND c.parent_user_id = $2`,
@@ -361,6 +415,40 @@ async function fetchChild(
     name: row.name,
     ageGroupId: row.age_group_id,
     ageLabel: row.age_group_name ? `${row.age_group_name}` : 'Anak Bunda',
+    dailyGoalQuizzes: Number(row.daily_goal_quizzes),
+  }
+}
+
+interface GamificationProfileRow {
+  totalXp: number
+  currentStreakDays: number
+  longestStreakDays: number
+  preBreakStreakDays: number
+}
+
+async function fetchGamificationProfile(
+  client: PoolClient,
+  childId: string,
+): Promise<GamificationProfileRow> {
+  // LEFT JOIN-style: a child who has never submitted has no profile row.
+  // Default to zeros so the dashboard renders cleanly for new users.
+  const row = await queryOne<{
+    total_xp: number
+    current_streak_days: number
+    longest_streak_days: number
+    pre_break_streak_days: number
+  }>(
+    `SELECT total_xp, current_streak_days, longest_streak_days, pre_break_streak_days
+       FROM gamification_profiles
+       WHERE child_id = $1`,
+    [childId],
+    client,
+  )
+  return {
+    totalXp: Number(row?.total_xp ?? 0),
+    currentStreakDays: Number(row?.current_streak_days ?? 0),
+    longestStreakDays: Number(row?.longest_streak_days ?? 0),
+    preBreakStreakDays: Number(row?.pre_break_streak_days ?? 0),
   }
 }
 

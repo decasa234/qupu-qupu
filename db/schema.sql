@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS children (
   name VARCHAR(80) NOT NULL,
   age_group_id UUID REFERENCES age_groups(id) ON DELETE SET NULL,
   avatar_color VARCHAR(20),
+  daily_goal_quizzes INTEGER NOT NULL DEFAULT 3
+    CHECK (daily_goal_quizzes BETWEEN 1 AND 20),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

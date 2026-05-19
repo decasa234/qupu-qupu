@@ -12,6 +12,7 @@ import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
 import DashboardHero from '../components/dashboard/DashboardHero'
 import DashboardKpis from '../components/dashboard/DashboardKpis'
+import DashboardQuests from '../components/dashboard/DashboardQuests'
 import DashboardInsights from '../components/dashboard/DashboardInsights'
 import DashboardActivity from '../components/dashboard/DashboardActivity'
 import DashboardSubjects from '../components/dashboard/DashboardSubjects'
@@ -100,6 +101,10 @@ export default function DashboardPage() {
 
       <Reveal delay={0.05}>
         <DashboardKpis tiles={vm.kpis} />
+      </Reveal>
+
+      <Reveal delay={0.08}>
+        <DashboardQuests quests={vm.quests} childName={vm.child.name} />
       </Reveal>
 
       <Reveal delay={0.1}>

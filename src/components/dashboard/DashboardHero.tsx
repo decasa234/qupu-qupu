@@ -27,9 +27,10 @@ export default function DashboardHero({ vm }: Props) {
               aria-hidden="true"
               className="pointer-events-none h-32 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)] sm:h-40"
             />
-            <span className="absolute -bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-xs font-extrabold text-white shadow-subscribe">
+            <span className="absolute -bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-xs font-extrabold text-white shadow-subscribe">
               <i className="fa-solid fa-star text-qupu-brand-yellow" aria-hidden="true" />
               Level {vm.level}
+              {vm.tierName ? ` · ${vm.tierName}` : ''}
             </span>
           </div>
         </div>
