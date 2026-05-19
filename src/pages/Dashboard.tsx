@@ -10,6 +10,7 @@ import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
+import DashboardEmptyState from '../components/dashboard/DashboardEmptyState'
 import DashboardHero from '../components/dashboard/DashboardHero'
 import DashboardKpis from '../components/dashboard/DashboardKpis'
 import DashboardQuests from '../components/dashboard/DashboardQuests'
@@ -90,6 +91,16 @@ export default function DashboardPage() {
       <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
         {error || 'Gagal memuat dashboard.'}
       </div>
+    )
+  }
+
+  // Brand-new child with zero activity gets the empty-state hero
+  // instead of the all-zeros dashboard.
+  if (vm.totalXp === 0 && vm.streak === 0 && vm.attempts.length === 0) {
+    return (
+      <Reveal>
+        <DashboardEmptyState childName={vm.child.name} ageLabel={vm.child.ageLabel} />
+      </Reveal>
     )
   }
 

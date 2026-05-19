@@ -22,6 +22,7 @@ export interface Child {
   name: string
   ageGroupId: string | null
   avatarColor: string | null
+  dailyGoalQuizzes: number
   createdAt: string
   updatedAt: string
 }
