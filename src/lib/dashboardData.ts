@@ -72,7 +72,7 @@ export interface DashboardInsight {
 }
 
 export interface DashboardViewModel {
-  child: { id: string; name: string; ageLabel: string }
+  child: { id: string; name: string; ageLabel: string | null }
   level: number
   tierName: string
   xp: number
@@ -132,7 +132,7 @@ export interface DashboardQuest {
 }
 
 export interface DashboardApiResponse {
-  child: { id: string; name: string; ageLabel: string }
+  child: { id: string; name: string; ageLabel: string | null }
   level: number
   tierName: string
   xp: number

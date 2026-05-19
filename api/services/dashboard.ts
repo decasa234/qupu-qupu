@@ -89,7 +89,7 @@ export interface DashboardQuest {
 }
 
 export interface DashboardPayload {
-  child: { id: string; name: string; ageLabel: string }
+  child: { id: string; name: string; ageLabel: string | null }
   level: number
   tierName: string                  // e.g. "Bintang Belajar"
   xp: number                        // XP into current level
@@ -295,11 +295,13 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
     const dailyGoalPct = clamp(Math.round((todayAttempts / dailyGoalQuizzes) * 100), 0, 100)
 
     // Screen-time from real session_events (Plan 5a). Falls back to the
-    // questions-x-0.5 heuristic only when no video_close events have
-    // landed yet today — useful in dev or for kids whose browser closed
-    // before the close event fired.
+    // questions-x-0.5 heuristic only when there are NO video_close
+    // events today (sessionScreenTime === null). When events exist but
+    // round to 0 minutes (short play), we trust the real number over
+    // the heuristic — QA-004 caught the prior `> 0` check inflating
+    // short sessions to 30 min via the heuristic.
     const screenTimeMin =
-      sessionScreenTime > 0
+      sessionScreenTime !== null
         ? sessionScreenTime
         : Math.round(summary.todayQuestionTotal * 0.5)
 
@@ -394,7 +396,10 @@ interface ChildContext {
   id: string
   name: string
   ageGroupId: string | null
-  ageLabel: string
+  // Age-group display label. NULL when the child has no age group set;
+  // consumers should render the eyebrow without the suffix in that case
+  // (avoids the "Anak Bunda · Anak Bunda" duplicate from QA-002).
+  ageLabel: string | null
   dailyGoalQuizzes: number
 }
 
@@ -423,7 +428,7 @@ async function fetchChild(
     id: row.id,
     name: row.name,
     ageGroupId: row.age_group_id,
-    ageLabel: row.age_group_name ? `${row.age_group_name}` : 'Anak Bunda',
+    ageLabel: row.age_group_name ?? null,
     dailyGoalQuizzes: Number(row.daily_goal_quizzes),
   }
 }

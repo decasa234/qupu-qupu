@@ -60,17 +60,23 @@ export async function logSessionEvent(
 
 /**
  * Total screen-time in minutes for a child on a WIB day. Sums
- * duration_ms from video_close events; ignores events without a
- * duration (events sent on browser unload may lack one). Returns 0
- * for children with no events yet.
+ * duration_ms from video_close events for the day.
+ *
+ * Returns null when the child has NO video_close events today — caller
+ * should fall back to its heuristic. Returns a number (including 0)
+ * when at least one event exists. Fixes QA-004: previously short
+ * sessions rounded `<60s / 60000 = 0` minutes, indistinguishable from
+ * "no events yet", which triggered the inflated `questions × 0.5`
+ * heuristic on the dashboard.
  */
 export async function fetchScreenTimeMinutes(
   client: PoolClient,
   childId: string,
   wibToday: Date,
-): Promise<number> {
-  const row = await queryOne<{ ms_total: string }>(
-    `SELECT COALESCE(SUM(duration_ms), 0)::text AS ms_total
+): Promise<number | null> {
+  const row = await queryOne<{ ms_total: string; event_count: string }>(
+    `SELECT COALESCE(SUM(duration_ms), 0)::text AS ms_total,
+            COUNT(*)::text AS event_count
        FROM session_events
        WHERE child_id = $1
          AND event_kind = 'video_close'
@@ -79,6 +85,8 @@ export async function fetchScreenTimeMinutes(
     [childId, wibToday],
     client,
   )
+  const count = Number(row?.event_count ?? 0)
+  if (count === 0) return null
   const ms = Number(row?.ms_total ?? 0)
   return Math.round(ms / 60000)
 }

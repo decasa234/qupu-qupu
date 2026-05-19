@@ -6,7 +6,16 @@ interface Props {
 }
 
 export default function DashboardHero({ vm }: Props) {
-  const xpPct = Math.min(100, Math.round((vm.xp / Math.max(1, vm.xpToNext)) * 100))
+  // xp = XP earned past the current tier threshold.
+  // xpToNext = XP REMAINING to reach the next tier (0 at max level).
+  // levelSpan = total XP from current tier start to next tier start.
+  // QA-003: previously the label and bar used `xp / xpToNext` which
+  // mixed semantics — 95 earned + 55 remaining displayed as "95 / 55"
+  // and pushed the bar past 100% before the level was done.
+  const atMaxLevel = vm.xpToNext === 0
+  const levelSpan = Math.max(1, vm.xp + vm.xpToNext)
+  const xpPct = atMaxLevel ? 100 : Math.min(100, Math.round((vm.xp / levelSpan) * 100))
+  const xpLabel = atMaxLevel ? `${vm.xp} XP · MAX` : `${vm.xp} / ${levelSpan} XP`
   const onFire = vm.streak >= 3
 
   return (
@@ -38,7 +47,7 @@ export default function DashboardHero({ vm }: Props) {
         {/* Narrative column */}
         <div className="min-w-0">
           <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-            Anak Bunda · {vm.child.ageLabel}
+            Anak Bunda{vm.child.ageLabel ? ` · ${vm.child.ageLabel}` : ''}
           </div>
           <h1 className="mt-2 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
             {onFire ? `${vm.child.name} sedang on fire! 🔥` : `Yuk lanjutkan belajar bareng ${vm.child.name}`}
@@ -51,7 +60,7 @@ export default function DashboardHero({ vm }: Props) {
 
           <div className="mt-5 flex items-center gap-3">
             <span className="whitespace-nowrap rounded-full bg-qupu-shell px-3 py-1 text-xs font-bold text-qupu-brand-blue">
-              {vm.xp} / {vm.xpToNext} XP
+              {xpLabel}
             </span>
             <div className="relative h-3 flex-1 overflow-hidden rounded-full border-2 border-qupu-peach bg-white">
               <div

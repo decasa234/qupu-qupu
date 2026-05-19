@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 interface Props {
   childName: string
-  ageLabel: string
+  ageLabel: string | null
 }
 
 export default function DashboardEmptyState({ childName, ageLabel }: Props) {
@@ -27,7 +27,7 @@ export default function DashboardEmptyState({ childName, ageLabel }: Props) {
       />
 
       <div className="mt-2 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-        Anak Bunda · {ageLabel}
+        Anak Bunda{ageLabel ? ` · ${ageLabel}` : ''}
       </div>
       <h1 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
         Yuk mulai petualangan {childName}!
