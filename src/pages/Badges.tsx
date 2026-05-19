@@ -7,7 +7,10 @@ import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
 import TrophyShelf from '../components/badges/TrophyShelf'
+import AchievementGrid from '../components/badges/AchievementGrid'
 import type { SubjectBadgeGroup } from '../types'
+
+type BadgesTab = 'videos' | 'achievements'
 
 export default function BadgesPage() {
   const { children, activeChildId } = useAuthStore()
@@ -15,6 +18,7 @@ export default function BadgesPage() {
   const [groups, setGroups] = useState<SubjectBadgeGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [tab, setTab] = useState<BadgesTab>('videos')
 
   useEffect(() => {
     if (!activeChildId) {
@@ -142,24 +146,65 @@ export default function BadgesPage() {
         </header>
       </Reveal>
 
+      <Reveal delay={0.05}>
+        <div
+          role="tablist"
+          aria-label="Pilih tampilan badge"
+          className="inline-flex items-center gap-1 rounded-full bg-qupu-shell p-1"
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === 'videos'}
+            onClick={() => setTab('videos')}
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-display text-sm font-extrabold transition-colors ${
+              tab === 'videos'
+                ? 'bg-qupu-brand-blue text-white shadow-subscribe'
+                : 'text-qupu-brand-blue/70 hover:text-qupu-brand-blue'
+            }`}
+          >
+            <i className="fa-solid fa-trophy text-xs" aria-hidden="true" />
+            Lencana Video
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === 'achievements'}
+            onClick={() => setTab('achievements')}
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-display text-sm font-extrabold transition-colors ${
+              tab === 'achievements'
+                ? 'bg-qupu-brand-blue text-white shadow-subscribe'
+                : 'text-qupu-brand-blue/70 hover:text-qupu-brand-blue'
+            }`}
+          >
+            <i className="fa-solid fa-medal text-xs" aria-hidden="true" />
+            Pencapaian
+          </button>
+        </div>
+      </Reveal>
+
       {error && (
         <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
           {error}
         </div>
       )}
 
-      {groups.length === 0 ? (
-        <p className="rounded-3xl bg-white p-6 text-sm font-medium text-qupu-muted shadow-soft">
-          Belum ada subject yang tersedia. Cek halaman Video.
-        </p>
+      {tab === 'videos' ? (
+        groups.length === 0 ? (
+          <p className="rounded-3xl bg-white p-6 text-sm font-medium text-qupu-muted shadow-soft">
+            Belum ada subject yang tersedia. Cek halaman Video.
+          </p>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {groups.map((group, idx) => (
+              <Reveal key={group.id} delay={0.05 + idx * 0.04} className="h-full">
+                <TrophyShelf group={group} />
+              </Reveal>
+            ))}
+          </div>
+        )
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {groups.map((group, idx) => (
-            <Reveal key={group.id} delay={0.05 + idx * 0.04} className="h-full">
-              <TrophyShelf group={group} />
-            </Reveal>
-          ))}
-        </div>
+        <AchievementGrid childId={activeChildId} />
       )}
     </div>
   )
