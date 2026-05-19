@@ -9,6 +9,7 @@ import Slider from '../components/Slider'
 import AuthModal from '../components/AuthModal'
 import BadgeCurve from '../components/BadgeCurve'
 import ChildNamePrompt from '../components/ChildNamePrompt'
+import PostQuizRewardSummary from '../components/PostQuizRewardSummary'
 import { clearPendingScore, readPendingScore, savePendingScore } from '../lib/pendingScore'
 import { useAuthStore } from '../store/authStore'
 import type { ScoreAttemptResult, VideoDetail, VideoScoreState } from '../types'
@@ -31,6 +32,7 @@ export default function VideoDetailPage() {
   const [childPromptOpen, setChildPromptOpen] = useState(false)
   const [existingScore, setExistingScore] = useState<VideoScoreState | null>(null)
   const [editing, setEditing] = useState(false)
+  const [rewardModalOpen, setRewardModalOpen] = useState(false)
 
   const replayInFlightRef = useRef(false)
 
@@ -119,6 +121,12 @@ export default function VideoDetailPage() {
         latestAttemptAt: submitted.attempt.createdAt,
       })
       setEditing(false)
+      // Open the reward summary only when the backend returned a
+      // gamification block. Pre-rollout submissions (or future cases
+      // where gamification is disabled) fall back to the inline result.
+      if (submitted.gamification) {
+        setRewardModalOpen(true)
+      }
     } catch (submitErr: unknown) {
       const nextError =
         typeof submitErr === 'object' &&
@@ -540,6 +548,19 @@ export default function VideoDetailPage() {
         open={childPromptOpen}
         onCreated={handleChildCreated}
       />
+
+      {result && (
+        <PostQuizRewardSummary
+          open={rewardModalOpen}
+          result={result}
+          childName={scoreOwnerLabel}
+          onClose={() => setRewardModalOpen(false)}
+          onGoToDashboard={() => {
+            setRewardModalOpen(false)
+            navigate('/dashboard')
+          }}
+        />
+      )}
     </div>
   )
 }
