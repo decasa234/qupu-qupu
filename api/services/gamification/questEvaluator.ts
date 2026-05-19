@@ -112,14 +112,23 @@ export async function evaluateForEvent(
     const justCompleted = newProgress >= Number(row.target_value)
     const newStatus = justCompleted ? 'completed' : 'active'
 
+    // Reusing $2 across `status = $2` (varchar) and `$2 = 'completed'`
+    // (text-literal) made Postgres bail with "inconsistent types deduced
+    // for parameter $2". Compute completed_at as a separate timestamp
+    // param instead; null means "leave existing completed_at alone".
     await client.query(
       `UPDATE child_quest_instances
           SET progress_value = $1,
               status = $2,
-              completed_at = CASE WHEN $2 = 'completed' THEN NOW() ELSE completed_at END,
+              completed_at = COALESCE($3::timestamptz, completed_at),
               updated_at = NOW()
-          WHERE id = $3`,
-      [newProgress, newStatus, row.id],
+          WHERE id = $4`,
+      [
+        newProgress,
+        newStatus,
+        justCompleted ? new Date().toISOString() : null,
+        row.id,
+      ],
     )
 
     let xpAwarded = 0
