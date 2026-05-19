@@ -2,6 +2,7 @@ import { Router, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
 import {
+  getMemberAchievements,
   getMemberBadges,
   getMemberProgress,
   getMemberVideoScore,
@@ -112,6 +113,28 @@ router.get(
         success: false,
         error: lookupError instanceof Error ? lookupError.message : 'Unable to load score',
       })
+    }
+  },
+)
+
+router.get(
+  '/achievements',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = childIdQuerySchema.validate(req.query)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const data = await getMemberAchievements(req.user.id, value.childId)
+      res.json({ success: true, data })
+    } catch (achError: unknown) {
+      console.error('Get achievements error:', achError)
+      const message =
+        achError instanceof Error ? achError.message : 'Unable to load achievements'
+      const status = message === 'Child not found' ? 404 : 400
+      res.status(status).json({ success: false, error: message })
     }
   },
 )

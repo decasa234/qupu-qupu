@@ -5,6 +5,7 @@ import {
   type ProcessScoreResult,
 } from './gamification/index.js'
 import { recoverStreak } from './gamification/streakUpdater.js'
+import { listAchievementsForChild } from './gamification/achievementEvaluator.js'
 
 const HOUR_MS = 60 * 60 * 1000
 function wibDateString(now: Date): string {
@@ -225,6 +226,7 @@ export async function submitVideoScore(input: {
           recoveryEligible: gamification.streak.recoveryEligible,
         },
         completedQuests: gamification.completedQuests,
+        unlockedAchievements: gamification.unlockedAchievements,
       },
     }
   })
@@ -500,6 +502,17 @@ export async function useStreakRecoveryForChild(
     const today = wibDateString(new Date())
     const result = await recoverStreak(client, childId, today)
     return result
+  })
+}
+
+export async function getMemberAchievements(
+  parentUserId: string,
+  childId: string,
+) {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+    const achievements = await listAchievementsForChild(client, childId)
+    return { achievements }
   })
 }
 

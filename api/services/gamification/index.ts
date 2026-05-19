@@ -25,6 +25,10 @@ import type { LevelTier } from './levelCurve.js'
 import { ensureTodaysQuests } from './questGenerator.js'
 import { evaluateForEvent, type QuestProgressResult } from './questEvaluator.js'
 import { updateStreakForActivity, type StreakState } from './streakUpdater.js'
+import {
+  evaluateAchievements,
+  type UnlockedAchievement,
+} from './achievementEvaluator.js'
 
 export interface ProcessScoreInput {
   childId: string
@@ -50,6 +54,14 @@ export interface CompletedQuestSummary {
   xpAwarded: number
 }
 
+export interface UnlockedAchievementSummary {
+  id: string
+  code: string
+  title: string
+  iconKey: string | null
+  xpAwarded: number
+}
+
 export interface ProcessScoreResult {
   xpEarned: number
   ledgerEntries: RewardLedgerEntry[]
@@ -57,6 +69,7 @@ export interface ProcessScoreResult {
   levelUp: { previousLevel: number; currentLevel: number; tier: LevelTier } | null
   streak: StreakState
   completedQuests: CompletedQuestSummary[]
+  unlockedAchievements: UnlockedAchievementSummary[]
 }
 
 // XP constants (subject to tuning when Plan 6 admin lands)
@@ -252,7 +265,30 @@ export async function processScoreSubmission(
     })
   }
 
-  // Step 5: atomic profile delta. Single UPDATE, race-safe (eng review F1).
+  // Step 5: evaluate achievements. Runs after quests so that the
+  // post-submission state (badges, unlocks, events, streak) is fully
+  // applied before predicates are checked.
+  const newAchievements: UnlockedAchievement[] = await evaluateAchievements(
+    client,
+    input.childId,
+    streak,
+  )
+  const unlockedAchievements: UnlockedAchievementSummary[] = []
+  for (const ach of newAchievements) {
+    totalDelta += ach.xpAwarded
+    if (ach.xpAwarded > 0) {
+      ledgerEntries.push({ rewardType: 'ACHIEVEMENT_XP', xpDelta: ach.xpAwarded })
+    }
+    unlockedAchievements.push({
+      id: ach.id,
+      code: ach.code,
+      title: ach.title,
+      iconKey: ach.iconKey,
+      xpAwarded: ach.xpAwarded,
+    })
+  }
+
+  // Step 6: atomic profile delta. Single UPDATE, race-safe (eng review F1).
   const profileResult = await updateProfileWithDelta(client, {
     childId: input.childId,
     xpDelta: totalDelta,
@@ -266,5 +302,6 @@ export async function processScoreSubmission(
     levelUp: profileResult.levelUp,
     streak,
     completedQuests,
+    unlockedAchievements,
   }
 }
