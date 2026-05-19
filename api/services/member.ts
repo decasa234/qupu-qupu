@@ -1,5 +1,9 @@
 import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
+import {
+  processScoreSubmission,
+  type ProcessScoreResult,
+} from './gamification/index.js'
 
 interface ProgressRow {
   attempts_count: string
@@ -153,6 +157,24 @@ export async function submitVideoScore(input: {
       [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
     )
 
+    // Gamification engine — eng review decision E1: same transaction.
+    // If this throws, the score insert + badge upsert above roll back too.
+    // That's the intended atomicity: kid resubmits cleanly rather than
+    // ending up in a state with a score but no reward ledger.
+    const gamification: ProcessScoreResult = await processScoreSubmission(
+      client,
+      {
+        childId: input.childId,
+        scoreAttemptId: attempt?.id ?? '',
+        videoId: video.id,
+        correctAnswers: input.correctAnswers,
+        totalQuestions: video.number_of_questions,
+        scorePercentage,
+        isCorrection,
+        previousCorrectAnswers,
+      },
+    )
+
     return {
       attempt: {
         id: attempt?.id ?? '',
@@ -172,6 +194,20 @@ export async function submitVideoScore(input: {
         name: video.subject_name,
         slug: video.subject_slug,
         colorHex: video.subject_color_hex,
+      },
+      gamification: {
+        xpEarned: gamification.xpEarned,
+        ledgerEntries: gamification.ledgerEntries,
+        totalXp: gamification.profile.totalXp,
+        currentLevel: gamification.profile.currentLevel,
+        currentTierName: gamification.profile.currentTierName,
+        levelUp: gamification.levelUp
+          ? {
+              previousLevel: gamification.levelUp.previousLevel,
+              currentLevel: gamification.levelUp.currentLevel,
+              currentTierName: gamification.levelUp.tier.tierName,
+            }
+          : null,
       },
     }
   })
