@@ -9,6 +9,7 @@ import {
   submitVideoScore,
   useStreakRecoveryForChild,
 } from '../services/member.js'
+import { logSessionEvent } from '../services/sessionEvents.js'
 
 const router = Router()
 
@@ -133,6 +134,42 @@ router.get(
       console.error('Get achievements error:', achError)
       const message =
         achError instanceof Error ? achError.message : 'Unable to load achievements'
+      const status = message === 'Child not found' ? 404 : 400
+      res.status(status).json({ success: false, error: message })
+    }
+  },
+)
+
+const sessionEventSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  eventKind: Joi.string()
+    .valid('video_open', 'video_close', 'quiz_start', 'quiz_submit', 'dashboard_open')
+    .required(),
+  videoId: Joi.string().uuid().allow(null).optional(),
+  durationMs: Joi.number().integer().min(0).max(24 * 60 * 60 * 1000).optional(),
+  metadata: Joi.object().unknown(true).optional(),
+})
+
+router.post(
+  '/sessions/event',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = sessionEventSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      await logSessionEvent(req.user.id, value)
+      // Always 204 on success — clients fire-and-forget; we don't echo back
+      // anything they can act on.
+      res.status(204).end()
+    } catch (eventError: unknown) {
+      // Session-event failures must NEVER bubble visibly to the kid's flow.
+      // Log them, return success=false silently, and continue.
+      console.error('Session event log error:', eventError)
+      const message =
+        eventError instanceof Error ? eventError.message : 'Unable to log session event'
       const status = message === 'Child not found' ? 404 : 400
       res.status(status).json({ success: false, error: message })
     }

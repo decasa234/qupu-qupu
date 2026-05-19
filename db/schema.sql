@@ -394,3 +394,32 @@ CREATE TABLE IF NOT EXISTS child_achievements (
 
 CREATE INDEX IF NOT EXISTS idx_child_achievements_child_unlocked
   ON child_achievements (child_id, unlocked_at DESC);
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Session events (migration 0016)
+-- Per-child UX events from the frontend. Backs the dashboard's
+-- screen-time computation and future activation analytics.
+-- ─────────────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS session_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  child_id UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  event_kind VARCHAR(40) NOT NULL
+    CHECK (event_kind IN (
+      'video_open',
+      'video_close',
+      'quiz_start',
+      'quiz_submit',
+      'dashboard_open'
+    )),
+  video_id UUID REFERENCES videos(id) ON DELETE SET NULL,
+  duration_ms INTEGER CHECK (duration_ms IS NULL OR duration_ms >= 0),
+  metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+  occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_session_events_child_occurred
+  ON session_events (child_id, occurred_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_session_events_kind_occurred
+  ON session_events (event_kind, occurred_at DESC);

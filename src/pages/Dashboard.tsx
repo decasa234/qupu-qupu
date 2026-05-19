@@ -6,6 +6,7 @@ import {
   type DashboardApiResponse,
   type DashboardViewModel,
 } from '../lib/dashboardData'
+import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import Reveal from '../components/Reveal'
@@ -55,6 +56,9 @@ export default function DashboardPage() {
     }
 
     void load()
+    // Fire-and-forget activation analytics. No duration; we don't track
+    // dashboard time-on-page in Plan 5a.
+    logSessionEvent({ childId: activeChildId, eventKind: 'dashboard_open' })
 
     return () => {
       cancelled = true

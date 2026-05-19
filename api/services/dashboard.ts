@@ -16,6 +16,7 @@ import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
 import { ensureTodaysQuests, type ActiveQuest } from './gamification/questGenerator.js'
 import { loadLevelTiers, resolveLevel } from './gamification/levelCurve.js'
+import { fetchScreenTimeMinutes } from './sessionEvents.js'
 
 const HOUR_MS = 60 * 60 * 1000
 const DAY_MS = 24 * HOUR_MS
@@ -256,6 +257,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       gamProfile,
       tiers,
       activeQuests,
+      sessionScreenTime,
     ] = await Promise.all([
       fetchSummaryStats(client, childId, periodStart, prevPeriodStart, today),
       fetchDayOffsets(client, childId, today),
@@ -268,6 +270,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       fetchGamificationProfile(client, childId),
       loadLevelTiers(client),
       ensureTodaysQuests(client, childId, todayWib),
+      fetchScreenTimeMinutes(client, childId, today),
     ])
 
     // Streak from the gamification engine (Plan 1+2); fall back to the
@@ -291,8 +294,14 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
     const dailyGoalQuizzes = child.dailyGoalQuizzes
     const dailyGoalPct = clamp(Math.round((todayAttempts / dailyGoalQuizzes) * 100), 0, 100)
 
-    // Screen-time approximation kept until Plan 5 lands session_events.
-    const screenTimeMin = Math.round(summary.todayQuestionTotal * 0.5)
+    // Screen-time from real session_events (Plan 5a). Falls back to the
+    // questions-x-0.5 heuristic only when no video_close events have
+    // landed yet today — useful in dev or for kids whose browser closed
+    // before the close event fired.
+    const screenTimeMin =
+      sessionScreenTime > 0
+        ? sessionScreenTime
+        : Math.round(summary.todayQuestionTotal * 0.5)
 
     const heatmap = buildHeatmap(activityByDay)
     const todayIdx = heatmap.length - 1
