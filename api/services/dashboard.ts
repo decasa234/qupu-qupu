@@ -5,9 +5,12 @@
 // video_badge_rules, children. No new tables, no new columns.
 //
 // All queries run inside one withTransaction so they share a snapshot.
-// "Period" means the trailing 7 days from now; "previous period" is the 7
-// days before that. WIB is not used here — created_at is UTC; the heatmap
-// also reads UTC days. The 28-day window is rolling on UTC midnight.
+// All day boundaries are in Asia/Jakarta (WIB, UTC+7, no DST). "Today" is
+// the current WIB calendar day; "period" is the trailing 7 WIB days;
+// "previous period" is the 7 WIB days before that; the heatmap shows 28
+// WIB days ending today. Postgres-side day-bucketing uses
+// `AT TIME ZONE 'Asia/Jakarta'`; the JS-side boundary helper is
+// `dateOnlyWib()`.
 
 import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
@@ -97,8 +100,20 @@ function clamp(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, n))
 }
 
-function dateOnlyUtc(d: Date): Date {
-  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()))
+function dateOnlyWib(now: Date): Date {
+  // Midnight Asia/Jakarta (WIB, UTC+7, no DST) expressed as a UTC instant.
+  // Shift `now` +7h to reach WIB wall-clock, take that calendar day in UTC,
+  // then shift midnight of that day back by 7h to get the UTC instant.
+  // Indonesia has no DST so this affine shift is stable year-round; it
+  // would NOT generalize to DST timezones.
+  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
+  return new Date(
+    Date.UTC(
+      wibShifted.getUTCFullYear(),
+      wibShifted.getUTCMonth(),
+      wibShifted.getUTCDate(),
+    ) - 7 * HOUR_MS,
+  )
 }
 
 function relativeDayLabel(iso: string, now: Date): string {
@@ -208,7 +223,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
     if (!child) throw new Error('Child not found')
 
     const now = new Date()
-    const today = dateOnlyUtc(now)
+    const today = dateOnlyWib(now)
     const periodStart = new Date(today.getTime() - 7 * DAY_MS)
     const prevPeriodStart = new Date(today.getTime() - 14 * DAY_MS)
     const heatmapStart = new Date(today.getTime() - 27 * DAY_MS) // 28-day window inclusive
@@ -433,11 +448,16 @@ async function fetchSummaryStats(
 }
 
 async function fetchDayOffsets(client: PoolClient, childId: string, today: Date): Promise<number[]> {
+  // Day bucketing in WIB: convert both sides via AT TIME ZONE 'Asia/Jakarta'
+  // so the resulting subtraction is between WIB-day boundaries.
   const rows = await query<{ day_offset: string }>(
-    `SELECT DATE_PART('day', $2::timestamptz - DATE_TRUNC('day', sa.created_at))::int AS day_offset
+    `SELECT DATE_PART('day',
+              DATE_TRUNC('day', $2::timestamptz AT TIME ZONE 'Asia/Jakarta')
+              - DATE_TRUNC('day', sa.created_at AT TIME ZONE 'Asia/Jakarta')
+            )::int AS day_offset
        FROM score_attempts sa
        WHERE sa.child_id = $1
-       GROUP BY DATE_TRUNC('day', sa.created_at)
+       GROUP BY DATE_TRUNC('day', sa.created_at AT TIME ZONE 'Asia/Jakarta')
        ORDER BY day_offset ASC`,
     [childId, today],
     client,
@@ -446,8 +466,10 @@ async function fetchDayOffsets(client: PoolClient, childId: string, today: Date)
 }
 
 async function fetchHourBuckets(client: PoolClient, childId: string): Promise<number | null> {
+  // Hour-of-day in WIB so "favorite time" matches the kid's lived experience
+  // (a 22:00 WIB session shouldn't be labeled "siang" because UTC was 15:00).
   const row = await queryOne<{ hour_bucket: string }>(
-    `SELECT (EXTRACT(HOUR FROM sa.created_at)::int / 2) * 2 AS hour_bucket
+    `SELECT (EXTRACT(HOUR FROM sa.created_at AT TIME ZONE 'Asia/Jakarta')::int / 2) * 2 AS hour_bucket
        FROM score_attempts sa
        WHERE sa.child_id = $1
        GROUP BY hour_bucket
@@ -465,9 +487,17 @@ async function fetchActivityByDay(
   heatmapStart: Date,
   today: Date,
 ): Promise<Map<number, number>> {
+  // 28-day heatmap in WIB. $2 (heatmapStart) is already a WIB midnight as
+  // a UTC instant (set by dateOnlyWib + time math in getDashboard), so the
+  // ">= $2" filter compares timestamptz to timestamptz cleanly. The
+  // DATE_TRUNC inside uses AT TIME ZONE so the resulting day bucket is
+  // a WIB day.
   const rows = await query<{ day_offset: string; cnt: string }>(
     `SELECT
-        DATE_PART('day', $3::timestamptz - DATE_TRUNC('day', sa.created_at))::int AS day_offset,
+        DATE_PART('day',
+          DATE_TRUNC('day', $3::timestamptz AT TIME ZONE 'Asia/Jakarta')
+          - DATE_TRUNC('day', sa.created_at AT TIME ZONE 'Asia/Jakarta')
+        )::int AS day_offset,
         COUNT(*) AS cnt
        FROM score_attempts sa
        WHERE sa.child_id = $1 AND sa.created_at >= $2
@@ -503,7 +533,10 @@ async function fetchKpiSparklines(
     avg_score: string | null
   }>(
     `SELECT
-        DATE_PART('day', $3::timestamptz - DATE_TRUNC('day', sa.created_at))::int AS day_offset,
+        DATE_PART('day',
+          DATE_TRUNC('day', $3::timestamptz AT TIME ZONE 'Asia/Jakarta')
+          - DATE_TRUNC('day', sa.created_at AT TIME ZONE 'Asia/Jakarta')
+        )::int AS day_offset,
         COUNT(*) AS attempts,
         COUNT(DISTINCT sa.video_id) AS distinct_videos,
         COALESCE(AVG(sa.score_percentage), 0) AS avg_score
@@ -515,7 +548,10 @@ async function fetchKpiSparklines(
   )
   const badgeRows = await query<{ day_offset: string; cnt: string }>(
     `SELECT
-        DATE_PART('day', $3::timestamptz - DATE_TRUNC('day', ubu.unlocked_at))::int AS day_offset,
+        DATE_PART('day',
+          DATE_TRUNC('day', $3::timestamptz AT TIME ZONE 'Asia/Jakarta')
+          - DATE_TRUNC('day', ubu.unlocked_at AT TIME ZONE 'Asia/Jakarta')
+        )::int AS day_offset,
         COALESCE(SUM(ubu.badge_count), 0) AS cnt
        FROM user_badge_unlocks ubu
        WHERE ubu.child_id = $1 AND ubu.unlocked_at >= $2
