@@ -27,6 +27,7 @@ export type AnalyticsEventName =
   | 'register_completed'
   | 'login_completed'
   | 'google_login_completed'
+  | 'demo_quiz_submit'
 
 export function trackEvent(
   eventName: AnalyticsEventName,
