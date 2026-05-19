@@ -40,9 +40,10 @@ export interface UpdateProfileResult {
 
 /**
  * Ensures a gamification_profiles row exists for the child. Idempotent.
- * Called inside the score-submission transaction before the atomic delta.
+ * Called by the orchestrator before any other gamification work touches
+ * the profile row (streak updater, quest generator, profile delta).
  */
-async function ensureProfile(client: PoolClient, childId: string): Promise<void> {
+export async function ensureProfile(client: PoolClient, childId: string): Promise<void> {
   await client.query(
     `INSERT INTO gamification_profiles (child_id) VALUES ($1)
      ON CONFLICT (child_id) DO NOTHING`,

@@ -4,6 +4,16 @@ import {
   processScoreSubmission,
   type ProcessScoreResult,
 } from './gamification/index.js'
+import { recoverStreak } from './gamification/streakUpdater.js'
+
+const HOUR_MS = 60 * 60 * 1000
+function wibDateString(now: Date): string {
+  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
+  const y = wibShifted.getUTCFullYear()
+  const m = String(wibShifted.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(wibShifted.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
 
 interface ProgressRow {
   attempts_count: string
@@ -167,6 +177,7 @@ export async function submitVideoScore(input: {
         childId: input.childId,
         scoreAttemptId: attempt?.id ?? '',
         videoId: video.id,
+        videoSubjectId: video.subject_id,
         correctAnswers: input.correctAnswers,
         totalQuestions: video.number_of_questions,
         scorePercentage,
@@ -208,6 +219,12 @@ export async function submitVideoScore(input: {
               currentTierName: gamification.levelUp.tier.tierName,
             }
           : null,
+        streak: {
+          current: gamification.streak.currentStreakDays,
+          longest: gamification.streak.longestStreakDays,
+          recoveryEligible: gamification.streak.recoveryEligible,
+        },
+        completedQuests: gamification.completedQuests,
       },
     }
   })
@@ -471,6 +488,18 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
       periodStart: periodRow?.period_start ?? new Date().toISOString(),
       periodEnd: new Date().toISOString(),
     }
+  })
+}
+
+export async function useStreakRecoveryForChild(
+  parentUserId: string,
+  childId: string,
+) {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+    const today = wibDateString(new Date())
+    const result = await recoverStreak(client, childId, today)
+    return result
   })
 }
 

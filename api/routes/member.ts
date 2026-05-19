@@ -6,6 +6,7 @@ import {
   getMemberProgress,
   getMemberVideoScore,
   submitVideoScore,
+  useStreakRecoveryForChild,
 } from '../services/member.js'
 
 const router = Router()
@@ -111,6 +112,32 @@ router.get(
         success: false,
         error: lookupError instanceof Error ? lookupError.message : 'Unable to load score',
       })
+    }
+  },
+)
+
+const recoverySchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+})
+
+router.post(
+  '/streak-recovery',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = recoverySchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const data = await useStreakRecoveryForChild(req.user.id, value.childId)
+      res.json({ success: true, data })
+    } catch (recoveryError: unknown) {
+      console.error('Streak recovery error:', recoveryError)
+      const message =
+        recoveryError instanceof Error ? recoveryError.message : 'Unable to recover streak'
+      const status = message === 'Child not found' ? 404 : 400
+      res.status(status).json({ success: false, error: message })
     }
   },
 )
