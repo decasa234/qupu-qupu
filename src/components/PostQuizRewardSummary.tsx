@@ -15,6 +15,7 @@
 
 import { useEffect } from 'react'
 import BadgeCurve from './BadgeCurve'
+import ReferralShareCard from './ReferralShareCard'
 import type { ScoreAttemptResult } from '../types'
 
 interface Props {
@@ -255,6 +256,11 @@ export default function PostQuizRewardSummary({
               </div>
             )}
           </section>
+        )}
+
+        {/* Share moment — only on high-value events */}
+        {(isFirstQuiz || levelUp) && (
+          <ReferralShareCard childName={childName} headline={headline} />
         )}
 
         {/* CTAs */}

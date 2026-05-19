@@ -423,3 +423,27 @@ CREATE INDEX IF NOT EXISTS idx_session_events_child_occurred
 
 CREATE INDEX IF NOT EXISTS idx_session_events_kind_occurred
   ON session_events (event_kind, occurred_at DESC);
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Parent-to-parent referrals (migration 0017)
+-- ─────────────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS user_referral_codes (
+  user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  code VARCHAR(20) NOT NULL UNIQUE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_referral_codes_code
+  ON user_referral_codes (code);
+
+CREATE TABLE IF NOT EXISTS referral_uses (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  referrer_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  referred_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  used_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  CONSTRAINT referral_uses_referred_unique UNIQUE (referred_user_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_referral_uses_referrer
+  ON referral_uses (referrer_user_id, used_at DESC);

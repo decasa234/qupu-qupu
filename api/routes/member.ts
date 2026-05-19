@@ -10,6 +10,10 @@ import {
   useStreakRecoveryForChild,
 } from '../services/member.js'
 import { logSessionEvent } from '../services/sessionEvents.js'
+import {
+  getOrCreateReferralCode,
+  recordReferralUse,
+} from '../services/referrals.js'
 
 const router = Router()
 
@@ -172,6 +176,48 @@ router.post(
         eventError instanceof Error ? eventError.message : 'Unable to log session event'
       const status = message === 'Child not found' ? 404 : 400
       res.status(status).json({ success: false, error: message })
+    }
+  },
+)
+
+router.post(
+  '/referrals/generate',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const result = await getOrCreateReferralCode(req.user.id)
+      res.json({ success: true, data: result })
+    } catch (refError: unknown) {
+      console.error('Generate referral code error:', refError)
+      res.status(500).json({
+        success: false,
+        error: refError instanceof Error ? refError.message : 'Unable to generate code',
+      })
+    }
+  },
+)
+
+const referralUseSchema = Joi.object({
+  code: Joi.string().alphanum().min(4).max(20).required(),
+})
+
+router.post(
+  '/referrals/use',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = referralUseSchema.validate(req.body)
+      if (error) {
+        // Bad code shape is still "recorded:false" semantics — don't 400.
+        res.json({ success: true, data: { recorded: false, reason: 'invalid_code' } })
+        return
+      }
+      const outcome = await recordReferralUse(req.user.id, value.code)
+      res.json({ success: true, data: outcome })
+    } catch (refError: unknown) {
+      // Defensive: a referral failure must NEVER bubble visibly.
+      console.error('Record referral use error:', refError)
+      res.json({ success: true, data: { recorded: false, reason: 'invalid_code' } })
     }
   },
 )

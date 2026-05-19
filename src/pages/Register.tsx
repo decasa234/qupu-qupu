@@ -1,8 +1,9 @@
 // src/pages/Register.tsx
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { redeemPendingReferral, savePendingReferralCode } from '../lib/referralStorage'
 import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
 import OtpInput from '../components/OtpInput'
@@ -29,6 +30,7 @@ interface PendingState {
 
 export default function Register() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { login } = useAuthStore()
   const [step, setStep] = useState<Step>('credentials')
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' })
@@ -36,6 +38,13 @@ export default function Register() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [pending, setPending] = useState<PendingState | null>(null)
+
+  // Capture ?ref=CODE on mount. Persists in localStorage across the
+  // multi-step OTP flow. Redeemed after a successful register-verify.
+  useEffect(() => {
+    const ref = searchParams.get('ref')
+    if (ref) savePendingReferralCode(ref)
+  }, [searchParams])
 
   const setFieldError = (field: keyof RegistrationErrors, message: string | undefined) => {
     setFieldErrors((prev) => ({ ...prev, [field]: message }))
@@ -98,6 +107,9 @@ export default function Register() {
       const payload = response.data.data as AuthPayload
       login(payload.user, payload.token)
       trackEvent('register_completed')
+      // Best-effort referral credit. Never blocks navigation; the
+      // helper swallows errors and always clears localStorage.
+      void redeemPendingReferral()
       navigate('/onboarding/child', { replace: true })
     } catch (requestError: unknown) {
       const message = extractError(requestError, 'Verifikasi gagal.')
