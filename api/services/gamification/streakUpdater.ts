@@ -63,13 +63,17 @@ export async function updateStreakForActivity(
   childId: string,
   today: string, // YYYY-MM-DD WIB
 ): Promise<StreakState> {
+  // last_activity_date::text — a bare DATE column comes back from node-pg
+  // as a JS Date object, but daysBetweenWibDates expects a YYYY-MM-DD
+  // string (.slice on it). Casting to text pins it as a string.
   const profile = await queryOne<{
     current_streak_days: number
     longest_streak_days: number
     pre_break_streak_days: number
     last_activity_date: string | null
   }>(
-    `SELECT current_streak_days, longest_streak_days, pre_break_streak_days, last_activity_date
+    `SELECT current_streak_days, longest_streak_days, pre_break_streak_days,
+            last_activity_date::text AS last_activity_date
        FROM gamification_profiles
        WHERE child_id = $1`,
     [childId],

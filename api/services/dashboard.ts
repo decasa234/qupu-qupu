@@ -23,7 +23,10 @@ const DAY_MS = 24 * HOUR_MS
 
 export type PeerComparison = 'above' | 'avg' | 'below'
 export type AttemptAction = 'review' | 'celebrate' | 'continue'
-export type RecommendedTag = 'FOKUS' | 'TANTANGAN' | 'LANJUTAN'
+
+// Internal ranking label — picks which video to surface per slot.
+// Not exposed in the payload; the catalog-style card doesn't show it.
+type RecommendedSlot = 'weakest' | 'strongest' | 'middle'
 
 export interface DashboardKpi {
   key: 'attempts' | 'score' | 'videos' | 'badges'
@@ -39,6 +42,7 @@ export interface DashboardSubject {
   id: string
   name: string
   colorHex: string
+  started: boolean       // false when the child has never attempted this subject
   score: number          // 0-100, current period
   trend: number          // signed % vs previous period
   peer: PeerComparison
@@ -60,10 +64,10 @@ export interface DashboardAttempt {
 export interface DashboardRecommendation {
   id: string
   title: string
-  reason: string
-  tag: RecommendedTag
+  subjectName: string
   subjectColorHex: string
-  subjectInitial: string
+  thumbnailUrl: string
+  publishedAt: string | null
   videoSlug: string
 }
 
@@ -826,6 +830,9 @@ async function fetchSubjects(
       id: row.id,
       name: row.name,
       colorHex: row.color_hex,
+      // `attempted` counts videos ever attempted in this subject (no date
+      // filter) — the right "has the child started this?" signal.
+      started: attempted > 0,
       score: current,
       trend,
       peer,
@@ -883,9 +890,10 @@ async function fetchRecommendations(
   childId: string,
   ageGroupId: string | null,
 ): Promise<DashboardRecommendation[]> {
-  // For each subject the child has attempted, the lowest-scoring subject becomes
-  // FOKUS, the highest TANTANGAN, the median LANJUTAN. For each, surface a
-  // not-yet-attempted published video in that subject (matching age group if set).
+  // Rank the child's attempted subjects by average score, then surface one
+  // not-yet-attempted published video per slot (weakest / strongest /
+  // median subject, matching age group if set). The payload carries the
+  // real video thumbnail so the dashboard can render catalog-style cards.
   const subjectScores = await query<{
     subject_id: string
     subject_name: string
@@ -920,19 +928,29 @@ async function fetchRecommendations(
   const strongest = ranked[ranked.length - 1]
   const middle = ranked[Math.floor(ranked.length / 2)] ?? weakest
 
-  const slots: Array<{ subject: typeof weakest; tag: RecommendedTag; reason: string }> = [
-    { subject: weakest, tag: 'FOKUS', reason: `${weakest.name} butuh latihan ekstra minggu ini` },
-    { subject: strongest, tag: 'TANTANGAN', reason: `Siap naik level di ${strongest.name}` },
-    { subject: middle, tag: 'LANJUTAN', reason: `Lanjutkan progres ${middle.name}` },
+  const slots: Array<{ subject: typeof weakest; slot: RecommendedSlot }> = [
+    { subject: weakest, slot: 'weakest' },
+    { subject: strongest, slot: 'strongest' },
+    { subject: middle, slot: 'middle' },
   ]
 
   const picks: DashboardRecommendation[] = []
   const usedVideoIds = new Set<string>()
-  for (const slot of slots) {
-    const video = await queryOne<{ id: string; title: string; slug: string }>(
+  for (const { subject } of slots) {
+    const video = await queryOne<{
+      id: string
+      title: string
+      slug: string
+      thumbnail_url: string | null
+      published_at: string | null
+      subject_name: string
+      subject_color_hex: string
+    }>(
       `
-        SELECT v.id, v.title, v.slug
+        SELECT v.id, v.title, v.slug, v.thumbnail_url, v.published_at,
+               s.name AS subject_name, s.color_hex AS subject_color_hex
           FROM videos v
+          JOIN subjects s ON s.id = v.subject_id
           WHERE v.subject_id = $1
             AND v.is_published = TRUE
             AND ($2::uuid IS NULL OR v.age_group_id = $2)
@@ -944,7 +962,7 @@ async function fetchRecommendations(
           ORDER BY v.sort_order ASC, v.published_at DESC NULLS LAST
           LIMIT 1
       `,
-      [slot.subject.id, ageGroupId, childId, Array.from(usedVideoIds)],
+      [subject.id, ageGroupId, childId, Array.from(usedVideoIds)],
       client,
     )
     if (!video) continue
@@ -952,10 +970,10 @@ async function fetchRecommendations(
     picks.push({
       id: video.id,
       title: video.title,
-      reason: slot.reason,
-      tag: slot.tag,
-      subjectColorHex: slot.subject.colorHex,
-      subjectInitial: slot.subject.name.charAt(0).toUpperCase(),
+      subjectName: video.subject_name,
+      subjectColorHex: video.subject_color_hex,
+      thumbnailUrl: video.thumbnail_url ?? '',
+      publishedAt: video.published_at,
       videoSlug: video.slug,
     })
   }

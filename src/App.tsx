@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import AdminLayout from './components/AdminLayout'
@@ -51,7 +52,27 @@ function DashboardRouter() {
   return <DashboardPage />
 }
 
+// Minimum time the boot splash stays up, so a fast load doesn't flash it.
+const SPLASH_MIN_MS = 600
+
+function useDismissBootSplash() {
+  useEffect(() => {
+    const splash = document.getElementById('qupu-splash')
+    if (!splash) return
+    // performance.now() ≈ ms since the page started loading.
+    const remaining = Math.max(0, SPLASH_MIN_MS - performance.now())
+    const fadeTimer = window.setTimeout(() => {
+      splash.classList.add('qupu-splash--hidden')
+      // Remove after the 0.45s opacity transition completes.
+      window.setTimeout(() => splash.remove(), 500)
+    }, remaining)
+    return () => window.clearTimeout(fadeTimer)
+  }, [])
+}
+
 export default function App() {
+  useDismissBootSplash()
+
   return (
     <Router>
       <Routes>

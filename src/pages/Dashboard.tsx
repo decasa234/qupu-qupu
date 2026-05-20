@@ -15,7 +15,6 @@ import DashboardEmptyState from '../components/dashboard/DashboardEmptyState'
 import DashboardHero from '../components/dashboard/DashboardHero'
 import DashboardKpis from '../components/dashboard/DashboardKpis'
 import DashboardQuests from '../components/dashboard/DashboardQuests'
-import DashboardInsights from '../components/dashboard/DashboardInsights'
 import DashboardActivity from '../components/dashboard/DashboardActivity'
 import DashboardSubjects from '../components/dashboard/DashboardSubjects'
 import DashboardRecommended from '../components/dashboard/DashboardRecommended'
@@ -120,10 +119,6 @@ export default function DashboardPage() {
 
       <Reveal delay={0.08}>
         <DashboardQuests quests={vm.quests} childName={vm.child.name} />
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <DashboardInsights items={vm.insights} />
       </Reveal>
 
       <section className="grid gap-6 lg:grid-cols-2">

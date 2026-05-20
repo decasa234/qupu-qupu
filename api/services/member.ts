@@ -402,8 +402,16 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
         LEFT JOIN best_per_video bpv ON bpv.video_id = av.video_id
         LEFT JOIN user_badge_unlocks ubu ON ubu.video_id = av.video_id AND ubu.child_id = $1
         LEFT JOIN badges_avail_per_subject bas ON bas.subject_id = s.id
+        -- Only subjects with at least one published, age-matched video.
+        -- Mirrors fetchSubjects in dashboard.ts so the report and the
+        -- dashboard "Performa" panel list the same subjects.
+        WHERE EXISTS (SELECT 1 FROM available_videos av2 WHERE av2.subject_id = s.id)
         GROUP BY s.id, s.name, s.slug, s.color_hex
-        ORDER BY s.name ASC
+        -- Same ordering as the dashboard: highest score first, subjects
+        -- the child hasn't started last, then alphabetical.
+        ORDER BY (AVG(bpv.best_score) IS NULL),
+                 AVG(bpv.best_score) DESC NULLS LAST,
+                 s.name ASC
       `,
       [childId],
       client,
