@@ -18,6 +18,7 @@
 // score_attempt id, so HTTP retries can't double-grant.
 
 import type { PoolClient } from 'pg'
+import { wibDateString } from '../../lib/wib.js'
 import { emitEvent, type EventType } from './events.js'
 import { appendLedger } from './ledger.js'
 import { updateProfileWithDelta, type ProfileSnapshot } from './profileUpdater.js'
@@ -78,17 +79,6 @@ const XP_SCORE_IMPROVED = 10
 const XP_HIGH_SCORE = 15
 const XP_PERFECT_SCORE = 25
 const HIGH_SCORE_THRESHOLD = 80
-
-function wibDateString(now: Date): string {
-  // Plan 0 locked WIB everywhere. event_date and last_activity_date are
-  // DATE columns; we emit the WIB calendar day as YYYY-MM-DD.
-  const HOUR_MS = 60 * 60 * 1000
-  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
-  const year = wibShifted.getUTCFullYear()
-  const month = String(wibShifted.getUTCMonth() + 1).padStart(2, '0')
-  const day = String(wibShifted.getUTCDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
-}
 
 // Imports below are local to the orchestrator; ensureProfile must run
 // before streak or quest work since both read the profile row.
