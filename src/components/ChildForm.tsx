@@ -15,6 +15,7 @@ export default function ChildForm({ submitLabel, onCreated, onError }: ChildForm
   const [name, setName] = useState('')
   const [ageGroupId, setAgeGroupId] = useState('')
   const [avatarColor, setAvatarColor] = useState(AVATAR_PRESETS[0])
+  const [dailyGoal, setDailyGoal] = useState(3)
   const [ageGroups, setAgeGroups] = useState<AgeGroupOption[]>([])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -47,6 +48,7 @@ export default function ChildForm({ submitLabel, onCreated, onError }: ChildForm
         name: name.trim(),
         ageGroupId: ageGroupId || null,
         avatarColor,
+        dailyGoalQuizzes: dailyGoal,
       })
       const child = response.data.data.child as Child
       onCreated(child)
@@ -111,6 +113,32 @@ export default function ChildForm({ submitLabel, onCreated, onError }: ChildForm
               }`}
               style={{ backgroundColor: color }}
             />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">
+          Target quiz harian
+        </span>
+        <p className="mt-1 text-xs text-qupu-muted">
+          Berapa quiz per hari yang ingin Bunda jadikan target untuk anak ini?
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {[1, 2, 3, 5, 7, 10].map((value) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => setDailyGoal(value)}
+              aria-pressed={dailyGoal === value}
+              className={`min-w-[3rem] rounded-full px-4 py-2 font-display text-sm font-extrabold transition-colors ${
+                dailyGoal === value
+                  ? 'bg-qupu-brand-blue text-white shadow-subscribe'
+                  : 'bg-qupu-shell text-qupu-brand-blue/70 hover:text-qupu-brand-blue'
+              }`}
+            >
+              {value}
+            </button>
           ))}
         </div>
       </div>

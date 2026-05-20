@@ -1,5 +1,20 @@
 import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
+import {
+  processScoreSubmission,
+  type ProcessScoreResult,
+} from './gamification/index.js'
+import { recoverStreak } from './gamification/streakUpdater.js'
+import { listAchievementsForChild } from './gamification/achievementEvaluator.js'
+
+const HOUR_MS = 60 * 60 * 1000
+function wibDateString(now: Date): string {
+  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
+  const y = wibShifted.getUTCFullYear()
+  const m = String(wibShifted.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(wibShifted.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
 
 interface ProgressRow {
   attempts_count: string
@@ -153,6 +168,25 @@ export async function submitVideoScore(input: {
       [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
     )
 
+    // Gamification engine — eng review decision E1: same transaction.
+    // If this throws, the score insert + badge upsert above roll back too.
+    // That's the intended atomicity: kid resubmits cleanly rather than
+    // ending up in a state with a score but no reward ledger.
+    const gamification: ProcessScoreResult = await processScoreSubmission(
+      client,
+      {
+        childId: input.childId,
+        scoreAttemptId: attempt?.id ?? '',
+        videoId: video.id,
+        videoSubjectId: video.subject_id,
+        correctAnswers: input.correctAnswers,
+        totalQuestions: video.number_of_questions,
+        scorePercentage,
+        isCorrection,
+        previousCorrectAnswers,
+      },
+    )
+
     return {
       attempt: {
         id: attempt?.id ?? '',
@@ -172,6 +206,27 @@ export async function submitVideoScore(input: {
         name: video.subject_name,
         slug: video.subject_slug,
         colorHex: video.subject_color_hex,
+      },
+      gamification: {
+        xpEarned: gamification.xpEarned,
+        ledgerEntries: gamification.ledgerEntries,
+        totalXp: gamification.profile.totalXp,
+        currentLevel: gamification.profile.currentLevel,
+        currentTierName: gamification.profile.currentTierName,
+        levelUp: gamification.levelUp
+          ? {
+              previousLevel: gamification.levelUp.previousLevel,
+              currentLevel: gamification.levelUp.currentLevel,
+              currentTierName: gamification.levelUp.tier.tierName,
+            }
+          : null,
+        streak: {
+          current: gamification.streak.currentStreakDays,
+          longest: gamification.streak.longestStreakDays,
+          recoveryEligible: gamification.streak.recoveryEligible,
+        },
+        completedQuests: gamification.completedQuests,
+        unlockedAchievements: gamification.unlockedAchievements,
       },
     }
   })
@@ -435,6 +490,29 @@ export async function getMemberProgress(parentUserId: string, childId: string) {
       periodStart: periodRow?.period_start ?? new Date().toISOString(),
       periodEnd: new Date().toISOString(),
     }
+  })
+}
+
+export async function useStreakRecoveryForChild(
+  parentUserId: string,
+  childId: string,
+) {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+    const today = wibDateString(new Date())
+    const result = await recoverStreak(client, childId, today)
+    return result
+  })
+}
+
+export async function getMemberAchievements(
+  parentUserId: string,
+  childId: string,
+) {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+    const achievements = await listAchievementsForChild(client, childId)
+    return { achievements }
   })
 }
 

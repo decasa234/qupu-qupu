@@ -1,54 +1,69 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
+import {
+  dashboardFromApi,
+  type DashboardApiResponse,
+  type DashboardViewModel,
+} from '../lib/dashboardData'
+import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
-import SubjectMasteryCard from '../components/dashboard/SubjectMasteryCard'
-import RecentAttemptsCompact from '../components/dashboard/RecentAttemptsCompact'
-import type { MemberProgress } from '../types'
-
-const SUMMARY_ICONS = {
-  attempts: 'fa-solid fa-list-check',
-  average: 'fa-solid fa-percent',
-  videos: 'fa-solid fa-circle-check',
-  badges: 'fa-solid fa-medal',
-} as const
+import DashboardEmptyState from '../components/dashboard/DashboardEmptyState'
+import DashboardHero from '../components/dashboard/DashboardHero'
+import DashboardKpis from '../components/dashboard/DashboardKpis'
+import DashboardQuests from '../components/dashboard/DashboardQuests'
+import DashboardInsights from '../components/dashboard/DashboardInsights'
+import DashboardActivity from '../components/dashboard/DashboardActivity'
+import DashboardSubjects from '../components/dashboard/DashboardSubjects'
+import DashboardRecommended from '../components/dashboard/DashboardRecommended'
+import DashboardAttempts from '../components/dashboard/DashboardAttempts'
+import DashboardBadges from '../components/dashboard/DashboardBadges'
 
 export default function DashboardPage() {
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
-  const [progress, setProgress] = useState<MemberProgress | null>(null)
+  const [vm, setVm] = useState<DashboardViewModel | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (!activeChildId) {
-      setProgress(null)
+    if (!activeChildId || !activeChild) {
+      setVm(null)
       setLoading(false)
       return
     }
 
+    let cancelled = false
+
     async function load() {
       setLoading(true)
       setError('')
-
       try {
-        const response = await api.get('/me/progress', {
-          params: { childId: activeChildId },
-        })
-        setProgress(response.data.data as MemberProgress)
+        const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
+        if (cancelled) return
+        const payload = response.data.data as DashboardApiResponse
+        setVm(dashboardFromApi(payload))
       } catch (loadError) {
+        if (cancelled) return
         console.error('Failed to load dashboard:', loadError)
         setError('Gagal memuat dashboard.')
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
 
     void load()
-  }, [activeChildId])
+    // Fire-and-forget activation analytics. No duration; we don't track
+    // dashboard time-on-page in Plan 5a.
+    logSessionEvent({ childId: activeChildId, eventKind: 'dashboard_open' })
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeChildId, activeChild])
 
   if (!activeChildId || !activeChild) {
     return (
@@ -75,7 +90,7 @@ export default function DashboardPage() {
     return <SkeletonCard />
   }
 
-  if (error || !progress) {
+  if (error || !vm) {
     return (
       <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
         {error || 'Gagal memuat dashboard.'}
@@ -83,94 +98,55 @@ export default function DashboardPage() {
     )
   }
 
-  return (
-    <div className="space-y-8">
+  // Brand-new child with zero activity gets the empty-state hero
+  // instead of the all-zeros dashboard.
+  if (vm.totalXp === 0 && vm.streak === 0 && vm.attempts.length === 0) {
+    return (
       <Reveal>
-        <section className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8 lg:p-10">
-          <i className="fa-solid fa-star pointer-events-none absolute left-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute right-5 top-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute left-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-          <i className="fa-solid fa-star pointer-events-none absolute right-5 bottom-5 text-xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
+        <DashboardEmptyState childName={vm.child.name} ageLabel={vm.child.ageLabel} />
+      </Reveal>
+    )
+  }
 
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-                <span
-                  className="h-6 w-6 rounded-full border-2 border-white shadow-soft"
-                  style={{ backgroundColor: activeChild.avatarColor ?? '#FB923C' }}
-                />
-                Dashboard {activeChild.name}
-              </div>
-              <h1 className="mt-3 font-display text-4xl font-bold text-qupu-brand-blue sm:text-5xl">
-                Progres belajar {activeChild.name} di QUPU.
-              </h1>
-              <p className="mt-3 max-w-2xl text-base font-medium text-qupu-muted">
-                Pantau performa per subject, lihat rapor lengkap, lalu lanjutkan ke tantangan berikutnya. Ganti profil di navbar untuk lihat progres anak lainnya.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <SummaryCard icon={SUMMARY_ICONS.attempts} title="Attempt tersimpan" value={progress.summary.attemptsCount} />
-              <SummaryCard icon={SUMMARY_ICONS.average} title="Rata-rata skor" value={`${progress.summary.averageScore}%`} />
-              <SummaryCard icon={SUMMARY_ICONS.videos} title="Video selesai" value={progress.summary.videosCompleted} />
-              <SummaryCard icon={SUMMARY_ICONS.badges} title="Total badge" value={progress.summary.badgesTotal} />
-            </div>
-          </div>
-        </section>
+  return (
+    <div className="space-y-8 sm:space-y-10">
+      <Reveal>
+        <DashboardHero vm={vm} />
       </Reveal>
 
       <Reveal delay={0.05}>
-        <SubjectMasteryCard stats={progress.subjectStats} childName={activeChild.name} />
+        <DashboardKpis tiles={vm.kpis} />
       </Reveal>
 
-      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <Reveal delay={0.1}>
-          <RecentAttemptsCompact attempts={progress.recentAttempts} childName={activeChild.name} />
+      <Reveal delay={0.08}>
+        <DashboardQuests quests={vm.quests} childName={vm.child.name} />
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <DashboardInsights items={vm.insights} />
+      </Reveal>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <Reveal delay={0.05}>
+          <DashboardActivity vm={vm} />
         </Reveal>
-
-        <Reveal delay={0.15}>
-          <div className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
-            <div className="flex items-center gap-3">
-              <div
-                className="h-12 w-12 rounded-full border-4 border-white shadow-soft"
-                style={{ backgroundColor: activeChild.avatarColor ?? '#FB923C' }}
-              />
-              <div>
-                <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-                  Profil aktif
-                </div>
-                <div className="font-display text-3xl font-bold text-qupu-brand-blue">{activeChild.name}</div>
-              </div>
-            </div>
-
-            <div className="mt-5 text-sm font-medium text-qupu-muted">
-              Ingin lihat progres anak lain? Ganti profil dari switcher di navbar.
-            </div>
-          </div>
+        <Reveal delay={0.1}>
+          <DashboardSubjects subjects={vm.subjects} childName={vm.child.name} />
         </Reveal>
       </section>
-    </div>
-  )
-}
 
-function SummaryCard({
-  icon,
-  title,
-  value,
-}: {
-  icon: string
-  title: string
-  value: string | number
-}) {
-  return (
-    <div className="rounded-[1.75rem] bg-qupu-shell px-5 py-5">
-      <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-qupu-brand-orange shadow-soft">
-          <i className={`${icon} text-base`} aria-hidden="true" />
-        </span>
-        <div className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">{title}</div>
-      </div>
-      <div className="mt-3 font-display text-4xl font-bold text-qupu-brand-blue">{value}</div>
+      <Reveal delay={0.05}>
+        <DashboardRecommended items={vm.recommended} childName={vm.child.name} />
+      </Reveal>
+
+      <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <Reveal delay={0.05}>
+          <DashboardAttempts attempts={vm.attempts} childName={vm.child.name} />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <DashboardBadges badges={vm.badges} />
+        </Reveal>
+      </section>
     </div>
   )
 }

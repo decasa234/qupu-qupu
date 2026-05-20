@@ -11,6 +11,7 @@ import metaRoutes from './routes/meta.js'
 import publicRoutes from './routes/public.js'
 import memberRoutes from './routes/member.js'
 import childrenRoutes from './routes/children.js'
+import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
 import analyticsRoutes from './routes/analytics.js'
 import { validateChannelHandle } from './services/youtubeChannel.js'
@@ -50,8 +51,9 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/meta', metaRoutes)
 app.use('/api/public', publicRoutes)
-app.use('/api/me', memberRoutes)
+app.use('/api/me/dashboard', dashboardRoutes)
 app.use('/api/me/children', childrenRoutes)
+app.use('/api/me', memberRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/analytics', analyticsRoutes)
 

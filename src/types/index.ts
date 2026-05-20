@@ -22,6 +22,7 @@ export interface Child {
   name: string
   ageGroupId: string | null
   avatarColor: string | null
+  dailyGoalQuizzes: number
   createdAt: string
   updatedAt: string
 }
@@ -82,6 +83,48 @@ export interface VideoDetail extends VideoCard {
   badgeRanges: VideoBadgeRange[]
 }
 
+export interface RewardLedgerEntry {
+  rewardType: string
+  xpDelta: number
+}
+
+export interface ScoreLevelUp {
+  previousLevel: number
+  currentLevel: number
+  currentTierName: string
+}
+
+export interface ScoreCompletedQuest {
+  id: string
+  code: string
+  title: string
+  xpAwarded: number
+}
+
+export interface ScoreUnlockedAchievement {
+  id: string
+  code: string
+  title: string
+  iconKey: string | null
+  xpAwarded: number
+}
+
+export interface ScoreGamificationSummary {
+  xpEarned: number
+  ledgerEntries: RewardLedgerEntry[]
+  totalXp: number
+  currentLevel: number
+  currentTierName: string
+  levelUp: ScoreLevelUp | null
+  streak: {
+    current: number
+    longest: number
+    recoveryEligible: boolean
+  }
+  completedQuests: ScoreCompletedQuest[]
+  unlockedAchievements: ScoreUnlockedAchievement[]
+}
+
 export interface ScoreAttemptResult {
   attempt: {
     id: string
@@ -102,6 +145,7 @@ export interface ScoreAttemptResult {
     slug: string
     colorHex: string
   }
+  gamification?: ScoreGamificationSummary
 }
 
 export interface VideoScoreState {

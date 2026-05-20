@@ -7,6 +7,7 @@ import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import { cn } from '../lib/utils'
 import BadgeCurve from '../components/BadgeCurve'
+import HomeDemoQuiz from '../components/HomeDemoQuiz'
 import Reveal from '../components/Reveal'
 import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
@@ -102,6 +103,9 @@ export default function Home() {
       <HeroSection />
       <Reveal delay={0.05}>
         <FeaturesSection />
+      </Reveal>
+      <Reveal delay={0.08}>
+        <HomeDemoQuiz />
       </Reveal>
       <Reveal delay={0.1}>
         <CategoriesSection />

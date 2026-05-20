@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { redeemPendingReferral } from '../lib/referralStorage'
 import GoogleSignInButton from './GoogleSignInButton'
 import OtpInput from './OtpInput'
 import PillField from './PillField'
@@ -135,6 +136,8 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
       const payload = response.data.data as AuthPayload
       await finishAuth(payload)
       trackEvent('register_completed')
+      // Best-effort referral credit (Plan 5c). Never blocks the flow.
+      void redeemPendingReferral()
     } catch (requestError) {
       const message = extractError(requestError, 'Verifikasi gagal.')
       setError(message)

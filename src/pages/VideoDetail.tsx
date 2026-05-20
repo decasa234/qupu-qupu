@@ -9,7 +9,9 @@ import Slider from '../components/Slider'
 import AuthModal from '../components/AuthModal'
 import BadgeCurve from '../components/BadgeCurve'
 import ChildNamePrompt from '../components/ChildNamePrompt'
+import PostQuizRewardSummary from '../components/PostQuizRewardSummary'
 import { clearPendingScore, readPendingScore, savePendingScore } from '../lib/pendingScore'
+import { logSessionEvent, useVideoSessionTimer } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import type { ScoreAttemptResult, VideoDetail, VideoScoreState } from '../types'
 
@@ -31,12 +33,17 @@ export default function VideoDetailPage() {
   const [childPromptOpen, setChildPromptOpen] = useState(false)
   const [existingScore, setExistingScore] = useState<VideoScoreState | null>(null)
   const [editing, setEditing] = useState(false)
+  const [rewardModalOpen, setRewardModalOpen] = useState(false)
 
   const replayInFlightRef = useRef(false)
 
   useEffect(() => {
     trackEvent('page_view', { slug })
   }, [slug])
+
+  // Pair video_open with video_close on unmount; computes duration_ms.
+  // No-op while video or child isn't ready, so safe with conditional ids.
+  useVideoSessionTimer(activeChildId, video?.id ?? null)
 
   useEffect(() => {
     async function load() {
@@ -111,6 +118,19 @@ export default function VideoDetailPage() {
       const submitted = response.data.data as ScoreAttemptResult
       setResult(submitted)
       clearPendingScore()
+      // Fire-and-forget session event for activation analytics. The
+      // gamification engine already emits its own ledger/event rows;
+      // this is the lighter-weight session_events stream.
+      logSessionEvent({
+        childId,
+        eventKind: 'quiz_submit',
+        videoId,
+        metadata: {
+          correctAnswers,
+          scorePercentage: submitted.attempt.scorePercentage,
+          isCorrection: submitted.isCorrection,
+        },
+      })
       setExistingScore({
         correctAnswers: submitted.attempt.correctAnswers,
         totalQuestions: submitted.attempt.totalQuestions,
@@ -119,6 +139,12 @@ export default function VideoDetailPage() {
         latestAttemptAt: submitted.attempt.createdAt,
       })
       setEditing(false)
+      // Open the reward summary only when the backend returned a
+      // gamification block. Pre-rollout submissions (or future cases
+      // where gamification is disabled) fall back to the inline result.
+      if (submitted.gamification) {
+        setRewardModalOpen(true)
+      }
     } catch (submitErr: unknown) {
       const nextError =
         typeof submitErr === 'object' &&
@@ -540,6 +566,19 @@ export default function VideoDetailPage() {
         open={childPromptOpen}
         onCreated={handleChildCreated}
       />
+
+      {result && (
+        <PostQuizRewardSummary
+          open={rewardModalOpen}
+          result={result}
+          childName={scoreOwnerLabel}
+          onClose={() => setRewardModalOpen(false)}
+          onGoToDashboard={() => {
+            setRewardModalOpen(false)
+            navigate('/dashboard')
+          }}
+        />
+      )}
     </div>
   )
 }
