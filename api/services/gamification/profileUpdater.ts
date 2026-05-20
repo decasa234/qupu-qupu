@@ -66,7 +66,8 @@ async function fetchSnapshot(
     last_activity_date: string | null
   }>(
     `SELECT child_id, total_xp, current_level, current_tier_id,
-            current_streak_days, longest_streak_days, last_activity_date
+            current_streak_days, longest_streak_days,
+            last_activity_date::text AS last_activity_date
        FROM gamification_profiles
        WHERE child_id = $1`,
     [childId],

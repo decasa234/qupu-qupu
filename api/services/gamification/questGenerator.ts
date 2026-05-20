@@ -95,13 +95,12 @@ async function findWeakestSubject(
 async function fetchChildContext(
   client: PoolClient,
   childId: string,
-): Promise<{ ageGroupId: string | null; currentStreak: number; lastQuestRefreshDate: string | null }> {
+): Promise<{ ageGroupId: string | null; currentStreak: number }> {
   const row = await queryOne<{
     age_group_id: string | null
     current_streak_days: number
-    last_quest_refresh_date: string | null
   }>(
-    `SELECT c.age_group_id, gp.current_streak_days, gp.last_quest_refresh_date
+    `SELECT c.age_group_id, gp.current_streak_days
        FROM children c
        LEFT JOIN gamification_profiles gp ON gp.child_id = c.id
        WHERE c.id = $1`,
@@ -111,7 +110,6 @@ async function fetchChildContext(
   return {
     ageGroupId: row?.age_group_id ?? null,
     currentStreak: Number(row?.current_streak_days ?? 0),
-    lastQuestRefreshDate: row?.last_quest_refresh_date ?? null,
   }
 }
 

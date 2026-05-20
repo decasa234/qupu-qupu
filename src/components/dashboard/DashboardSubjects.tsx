@@ -49,6 +49,36 @@ export default function DashboardSubjects({ subjects, childName }: Props) {
 
       <div className="mt-5 grid gap-3">
         {subjects.map((s) => {
+          const subjectChip = (
+            <span
+              className="flex h-11 w-11 items-center justify-center rounded-[0.85rem] font-display text-base font-extrabold text-white shadow-soft"
+              style={{ backgroundColor: s.colorHex }}
+              aria-hidden="true"
+            >
+              {s.name.charAt(0).toUpperCase()}
+            </span>
+          )
+
+          // Not-started subjects have no real score — showing "0%" + a
+          // -100% trend reads as a failing grade, which is wrong. Render
+          // a neutral "Belum dimulai" row instead, no bar, no peer pill.
+          if (!s.started) {
+            return (
+              <div
+                key={s.id}
+                className="grid grid-cols-[2.75rem_1fr_auto] items-center gap-3 rounded-[1.25rem] bg-qupu-shell p-4"
+              >
+                {subjectChip}
+                <strong className="truncate font-display text-base text-qupu-brand-blue">
+                  {s.name}
+                </strong>
+                <span className="whitespace-nowrap rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-qupu-muted">
+                  Belum dimulai
+                </span>
+              </div>
+            )
+          }
+
           const isOpen = openId === s.id
           const trendSymbol = s.trend > 0 ? '▲' : s.trend < 0 ? '▼' : '·'
           const trendClass = s.trend > 0 ? 'text-emerald-600' : s.trend < 0 ? 'text-rose-600' : 'text-qupu-muted'
@@ -64,13 +94,7 @@ export default function DashboardSubjects({ subjects, childName }: Props) {
                 aria-expanded={isOpen}
                 className="grid w-full grid-cols-[2.75rem_1fr_auto] items-center gap-3 text-left"
               >
-                <span
-                  className="flex h-11 w-11 items-center justify-center rounded-[0.85rem] font-display text-base font-extrabold text-white shadow-soft"
-                  style={{ backgroundColor: s.colorHex }}
-                  aria-hidden="true"
-                >
-                  {s.name.charAt(0).toUpperCase()}
-                </span>
+                {subjectChip}
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <strong className="truncate font-display text-base text-qupu-brand-blue">{s.name}</strong>

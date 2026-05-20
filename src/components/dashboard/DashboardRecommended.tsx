@@ -1,28 +1,81 @@
 import { Link } from 'react-router-dom'
-import type { DashboardRecommendation, RecommendedTag } from '../../lib/dashboardData'
+import { formatDistanceToNow } from 'date-fns'
+import { id as idLocale } from 'date-fns/locale'
+import type { DashboardRecommendation } from '../../lib/dashboardData'
 
 interface Props {
   items: DashboardRecommendation[]
   childName: string
 }
 
-const TAG_STYLES: Record<RecommendedTag, string> = {
-  FOKUS:     'bg-qupu-brand-orange text-white',
-  TANTANGAN: 'bg-[#8A5BF0] text-white',
-  LANJUTAN:  'bg-qupu-brand-blue text-white',
+// Matches the landing page's "Video Terbaru dari QUPU" card
+// (src/pages/Home.tsx LandingVideoCard): real thumbnail, subject pill,
+// play-button hover, title, subject + relative date footer.
+function RecommendedCard({ rec }: { rec: DashboardRecommendation }) {
+  const date = rec.publishedAt
+    ? formatDistanceToNow(new Date(rec.publishedAt), { addSuffix: true, locale: idLocale })
+    : ''
+
+  return (
+    <Link to={rec.href} className="group block cursor-pointer space-y-2.5">
+      <div className="relative aspect-video overflow-hidden rounded-2xl border-[3px] border-qupu-brand-blue/15 bg-qupu-cream shadow-[4px_5px_0_0_#FFD3B1] transition-all duration-200 group-hover:-translate-y-1 group-hover:border-qupu-brand-orange">
+        {rec.thumbnailUrl ? (
+          <img
+            src={rec.thumbnailUrl}
+            alt={rec.title}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center"
+            style={{ backgroundColor: rec.subjectColorHex }}
+            aria-hidden="true"
+          >
+            <i className="fa-solid fa-circle-play text-4xl text-white/85" />
+          </div>
+        )}
+        <div
+          className="absolute left-2 top-2 rounded-md px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-white shadow-sm"
+          style={{ backgroundColor: rec.subjectColorHex }}
+        >
+          {rec.subjectName}
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-qupu-brand-orange shadow-clay-orange">
+            <i className="fa-solid fa-play text-base text-white" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+      <h3 className="line-clamp-2 font-display text-sm font-bold leading-tight text-qupu-brand-blue group-hover:text-qupu-brand-orange">
+        {rec.title}
+      </h3>
+      <p className="flex items-center gap-2 text-xs">
+        <span className="font-semibold" style={{ color: rec.subjectColorHex }}>
+          {rec.subjectName}
+        </span>
+        {date && (
+          <>
+            <span className="text-qupu-muted/60">•</span>
+            <span className="font-medium text-qupu-muted">{date}</span>
+          </>
+        )}
+      </p>
+    </Link>
+  )
 }
 
 export default function DashboardRecommended({ items, childName }: Props) {
   if (items.length === 0) return null
 
   return (
-    <article className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1]">
-      <header className="flex items-start justify-between gap-3">
+    <section className="space-y-4">
+      <header className="flex items-center justify-between gap-3">
         <div>
-          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+          <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
             Rekomendasi Video
           </div>
-          <h2 className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue sm:text-3xl">
+          <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue sm:text-2xl">
             Direkomendasikan untuk {childName}
           </h2>
         </div>
@@ -35,38 +88,11 @@ export default function DashboardRecommended({ items, childName }: Props) {
         </Link>
       </header>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((rec) => (
-          <Link
-            key={rec.id}
-            to={rec.href}
-            className="group flex flex-col overflow-hidden rounded-[1.5rem] border-[3px] border-qupu-shell bg-white shadow-[3px_4px_0_0_#FFD3B1] transition-all duration-200 hover:-translate-y-1 hover:border-qupu-brand-orange"
-          >
-            <div
-              className="relative flex aspect-video items-center justify-center text-white"
-              style={{ backgroundColor: rec.subjectColorHex }}
-            >
-              <span className="font-display text-5xl font-extrabold opacity-90" aria-hidden="true">
-                {rec.subjectInitial}
-              </span>
-              <span className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] ${TAG_STYLES[rec.tag]}`}>
-                {rec.tag}
-              </span>
-              <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-clay-orange">
-                  <i className="fa-solid fa-play text-lg text-qupu-brand-orange" aria-hidden="true" />
-                </span>
-              </span>
-            </div>
-            <div className="space-y-2 p-4">
-              <h3 className="line-clamp-2 font-display text-base font-extrabold leading-tight text-qupu-brand-blue group-hover:text-qupu-brand-orange">
-                {rec.title}
-              </h3>
-              <p className="text-xs font-medium text-qupu-muted">{rec.reason}</p>
-            </div>
-          </Link>
+          <RecommendedCard key={rec.id} rec={rec} />
         ))}
       </div>
-    </article>
+    </section>
   )
 }
