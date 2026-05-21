@@ -1002,14 +1002,15 @@ function deriveBadges(summary: SummaryStats, streak: { current: number; longest:
   const lifetimeAttempts = summary.lifetimeAttempts
   const totalBadges = summary.badgesTotal
   return [
-    { id: 'first-quiz',  name: 'Pertama Kali',  description: 'Quiz pertama',     colorHex: '#F0853A', icon: '🎯', earned: lifetimeAttempts >= 1 },
-    { id: 'streak-3',    name: 'Streak 3 Hari', description: '3 hari berturut',  colorHex: '#FF6B6B', icon: '🔥', earned: streak.longest >= 3 },
-    { id: 'streak-5',    name: 'Streak 5 Hari', description: '5 hari berturut',  colorHex: '#F0853A', icon: '🔥', earned: streak.longest >= 5 },
-    { id: 'ten-quiz',    name: '10 Quiz',       description: '10 quiz selesai',  colorHex: '#58CC02', icon: '✅', earned: lifetimeAttempts >= 10 },
-    { id: 'twenty-five', name: '25 Quiz',       description: '25 quiz selesai',  colorHex: '#8A5BF0', icon: '🏆', earned: lifetimeAttempts >= 25 },
-    { id: 'fifty',       name: '50 Quiz',       description: '50 quiz selesai',  colorHex: '#FFDD55', icon: '⭐', earned: lifetimeAttempts >= 50 },
-    { id: 'streak-10',   name: 'Streak 10',     description: '10 hari berturut', colorHex: '#FF6B6B', icon: '🔥', earned: streak.longest >= 10 },
-    { id: 'star',        name: 'Bintang',       description: `${totalBadges} badge`, colorHex: '#FFDD55', icon: '⭐', earned: totalBadges >= 5 },
+    // `icon` is a Font Awesome class; rendered as <i> by DashboardBadges.
+    { id: 'first-quiz',  name: 'Pertama Kali',  description: 'Quiz pertama',     colorHex: '#F0853A', icon: 'fa-solid fa-bullseye',     earned: lifetimeAttempts >= 1 },
+    { id: 'streak-3',    name: 'Streak 3 Hari', description: '3 hari berturut',  colorHex: '#FF6B6B', icon: 'fa-solid fa-fire',         earned: streak.longest >= 3 },
+    { id: 'streak-5',    name: 'Streak 5 Hari', description: '5 hari berturut',  colorHex: '#F0853A', icon: 'fa-solid fa-fire',         earned: streak.longest >= 5 },
+    { id: 'ten-quiz',    name: '10 Quiz',       description: '10 quiz selesai',  colorHex: '#58CC02', icon: 'fa-solid fa-circle-check', earned: lifetimeAttempts >= 10 },
+    { id: 'twenty-five', name: '25 Quiz',       description: '25 quiz selesai',  colorHex: '#8A5BF0', icon: 'fa-solid fa-trophy',       earned: lifetimeAttempts >= 25 },
+    { id: 'fifty',       name: '50 Quiz',       description: '50 quiz selesai',  colorHex: '#FFDD55', icon: 'fa-solid fa-star',         earned: lifetimeAttempts >= 50 },
+    { id: 'streak-10',   name: 'Streak 10',     description: '10 hari berturut', colorHex: '#FF6B6B', icon: 'fa-solid fa-fire',         earned: streak.longest >= 10 },
+    { id: 'star',        name: 'Bintang',       description: `${totalBadges} badge`, colorHex: '#FFDD55', icon: 'fa-solid fa-star',     earned: totalBadges >= 5 },
   ]
 }
 

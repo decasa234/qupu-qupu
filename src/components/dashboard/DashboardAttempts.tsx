@@ -8,7 +8,7 @@ interface Props {
 
 const ACTION_LABELS: Record<AttemptAction, string> = {
   review:    'Diskusikan',
-  celebrate: '🎉 Rayakan',
+  celebrate: 'Rayakan',
   continue:  'Lanjutkan',
 }
 

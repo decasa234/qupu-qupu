@@ -26,7 +26,7 @@ export default function DashboardQuests({ quests, childName }: Props) {
   if (quests.length === 0) {
     return (
       <section className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-blue/30 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] text-center">
-        <div className="text-2xl" aria-hidden="true">🎯</div>
+        <div className="text-2xl" aria-hidden="true"><i className="fa-solid fa-bullseye" /></div>
         <h3 className="mt-2 font-display text-lg font-extrabold text-qupu-brand-blue">
           Quest harian dimulai dari quiz pertama
         </h3>

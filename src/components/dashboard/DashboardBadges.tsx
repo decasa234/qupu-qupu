@@ -39,7 +39,7 @@ export default function DashboardBadges({ badges }: Props) {
               style={{ backgroundColor: b.earned ? b.colorHex : '#E5E0D8' }}
               aria-hidden="true"
             >
-              {b.earned ? b.icon : '🔒'}
+              <i className={b.earned ? `${b.icon} text-white` : 'fa-solid fa-lock text-qupu-muted'} />
             </span>
             <strong className="font-display text-xs text-qupu-brand-blue">{b.name}</strong>
             <span className="text-[10px] font-medium text-qupu-muted">{b.description}</span>

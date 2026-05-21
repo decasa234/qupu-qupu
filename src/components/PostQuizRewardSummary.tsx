@@ -26,20 +26,21 @@ interface Props {
   onGoToDashboard: () => void
 }
 
+// Maps an achievement icon_key to a Font Awesome class.
 const ACHIEVEMENT_ICON: Record<string, string> = {
-  target: '🎯',
-  fire: '🔥',
-  star: '⭐',
-  crown: '👑',
-  'check-circle': '✅',
-  shapes: '🔷',
-  'arrow-up': '⬆️',
-  medal: '🏅',
+  target: 'fa-solid fa-bullseye',
+  fire: 'fa-solid fa-fire',
+  star: 'fa-solid fa-star',
+  crown: 'fa-solid fa-crown',
+  'check-circle': 'fa-solid fa-circle-check',
+  shapes: 'fa-solid fa-shapes',
+  'arrow-up': 'fa-solid fa-arrow-up',
+  medal: 'fa-solid fa-medal',
 }
 
 function iconFor(iconKey: string | null): string {
-  if (!iconKey) return '🏅'
-  return ACHIEVEMENT_ICON[iconKey] ?? '🏅'
+  if (!iconKey) return 'fa-solid fa-medal'
+  return ACHIEVEMENT_ICON[iconKey] ?? 'fa-solid fa-medal'
 }
 
 export default function PostQuizRewardSummary({
@@ -73,7 +74,7 @@ export default function PostQuizRewardSummary({
 
   // Mascot headline priority: first-quiz → level-up → perfect score → achievement → quest → default.
   const headline = (() => {
-    if (isFirstQuiz) return `Quiz pertama ${childName} selesai! 🎉`
+    if (isFirstQuiz) return `Quiz pertama ${childName} selesai!`
     if (levelUp) return `${childName} naik level — ${levelUp.currentTierName}!`
     if (isPerfect) return `Skor sempurna! 100%!`
     if (gam && gam.unlockedAchievements.length > 0) return `Pencapaian baru: ${gam.unlockedAchievements[0].title}`
@@ -148,8 +149,8 @@ export default function PostQuizRewardSummary({
         {levelUp && (
           <section className="mt-4 rounded-[1.5rem] border-[3px] border-qupu-brand-yellow/70 bg-qupu-brand-yellow/15 px-5 py-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-qupu-brand-yellow text-2xl shadow-soft" aria-hidden="true">
-                🌟
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-qupu-brand-yellow text-2xl text-white shadow-soft" aria-hidden="true">
+                <i className="fa-solid fa-star" />
               </span>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
@@ -178,8 +179,8 @@ export default function PostQuizRewardSummary({
                   key={a.id}
                   className="flex items-center gap-3 rounded-[1.25rem] border-[2px] border-qupu-brand-orange/40 bg-white px-4 py-3"
                 >
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-qupu-shell text-2xl shadow-soft" aria-hidden="true">
-                    {iconFor(a.iconKey)}
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-qupu-shell text-2xl text-qupu-brand-orange shadow-soft" aria-hidden="true">
+                    <i className={iconFor(a.iconKey)} />
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="font-display text-sm font-extrabold text-qupu-brand-blue">
@@ -248,7 +249,7 @@ export default function PostQuizRewardSummary({
                   Koin didapat
                 </div>
                 <div className="mt-0.5 font-display text-2xl font-extrabold">
-                  🪙 +{gam.coinsEarned}
+                  <i className="fa-solid fa-coins" aria-hidden="true" /> +{gam.coinsEarned}
                 </div>
                 <div className="text-[10px] font-semibold text-white/80">
                   Total {gam.coinBalance} koin
@@ -261,7 +262,7 @@ export default function PostQuizRewardSummary({
                   Streak
                 </div>
                 <div className="mt-0.5 font-display text-2xl font-extrabold">
-                  🔥 {gam.streak.current}
+                  <i className="fa-solid fa-fire" aria-hidden="true" /> {gam.streak.current}
                 </div>
                 <div className="text-[10px] font-semibold text-white/80">
                   Hari berturut-turut

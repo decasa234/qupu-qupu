@@ -34,20 +34,21 @@ interface AchievementsResponse {
   achievements: AchievementListItem[]
 }
 
+// Maps an achievement icon_key to a Font Awesome class.
 const ICON_GLYPH: Record<string, string> = {
-  target: '🎯',
-  fire: '🔥',
-  star: '⭐',
-  crown: '👑',
-  'check-circle': '✅',
-  shapes: '🔷',
-  'arrow-up': '⬆️',
-  medal: '🏅',
+  target: 'fa-solid fa-bullseye',
+  fire: 'fa-solid fa-fire',
+  star: 'fa-solid fa-star',
+  crown: 'fa-solid fa-crown',
+  'check-circle': 'fa-solid fa-circle-check',
+  shapes: 'fa-solid fa-shapes',
+  'arrow-up': 'fa-solid fa-arrow-up',
+  medal: 'fa-solid fa-medal',
 }
 
 function glyph(iconKey: string | null): string {
-  if (!iconKey) return '🏅'
-  return ICON_GLYPH[iconKey] ?? '🏅'
+  if (!iconKey) return 'fa-solid fa-medal'
+  return ICON_GLYPH[iconKey] ?? 'fa-solid fa-medal'
 }
 
 function unlockedDateLabel(iso: string | null): string {
@@ -214,12 +215,12 @@ function AchievementCard({ item, state }: { item: AchievementListItem; state: Ca
         <span
           className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full text-2xl shadow-soft ${
             state === 'unlocked'
-              ? 'bg-qupu-brand-yellow'
-              : 'bg-qupu-shell grayscale opacity-70'
+              ? 'bg-qupu-brand-yellow text-white'
+              : 'bg-qupu-shell text-qupu-brand-blue/60 grayscale opacity-70'
           }`}
           aria-hidden="true"
         >
-          {glyph(item.iconKey)}
+          <i className={glyph(item.iconKey)} />
         </span>
         <div className="min-w-0 flex-1">
           <h3 className="font-display text-base font-extrabold text-qupu-brand-blue sm:text-lg">
