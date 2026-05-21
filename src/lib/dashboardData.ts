@@ -27,6 +27,7 @@ export interface DashboardSubject {
   trend: number          // signed % vs previous period
   peer: PeerComparison
   mastery: number        // 0-100
+  badgesEarned: number   // total badges the child earned in this subject
   subtopics: Array<{ name: string; score: number }>
 }
 

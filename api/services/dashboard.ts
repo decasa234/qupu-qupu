@@ -47,6 +47,7 @@ export interface DashboardSubject {
   trend: number          // signed % vs previous period
   peer: PeerComparison
   mastery: number        // 0-100
+  badgesEarned: number   // total badges the child earned in this subject
   subtopics: Array<{ name: string; score: number }>
 }
 
@@ -699,6 +700,7 @@ interface SubjectRow {
   mastery_videos_attempted: string
   mastery_videos_available: string
   peer_avg: string | null
+  badges_earned: string
 }
 
 async function fetchSubjects(
@@ -762,6 +764,13 @@ async function fetchSubjects(
         SELECT subject_id, AVG(best_score) AS avg_score
           FROM peer_best_per_video
           GROUP BY subject_id
+      ),
+      badges_per_subject AS (
+        SELECT v.subject_id, COALESCE(SUM(ubu.badge_count), 0) AS badges_earned
+          FROM user_badge_unlocks ubu
+          JOIN videos v ON v.id = ubu.video_id
+          WHERE ubu.child_id = $1
+          GROUP BY v.subject_id
       )
       SELECT
         s.id,
@@ -771,7 +780,8 @@ async function fetchSubjects(
         ps.avg_score AS prev_score,
         COALESCE(av_attempted.cnt, 0) AS mastery_videos_attempted,
         COALESCE(av_total.cnt, 0) AS mastery_videos_available,
-        pa.avg_score AS peer_avg
+        pa.avg_score AS peer_avg,
+        COALESCE(bps.badges_earned, 0) AS badges_earned
       FROM subjects s
       LEFT JOIN current_scores cs ON cs.subject_id = s.id
       LEFT JOIN prev_scores ps ON ps.subject_id = s.id
@@ -782,6 +792,7 @@ async function fetchSubjects(
         SELECT subject_id, COUNT(*) AS cnt FROM available_videos GROUP BY subject_id
       ) av_total ON av_total.subject_id = s.id
       LEFT JOIN peer_avg pa ON pa.subject_id = s.id
+      LEFT JOIN badges_per_subject bps ON bps.subject_id = s.id
       WHERE EXISTS (SELECT 1 FROM available_videos av WHERE av.subject_id = s.id)
       ORDER BY (cs.avg_score IS NULL), cs.avg_score DESC NULLS LAST, s.name ASC
     `,
@@ -842,6 +853,7 @@ async function fetchSubjects(
       trend,
       peer,
       mastery,
+      badgesEarned: Number(row.badges_earned),
       subtopics: subtopicList,
     }
   })
