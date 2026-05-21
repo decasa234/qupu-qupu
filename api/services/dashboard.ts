@@ -373,6 +373,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       xp: xpInLevel,
       xpToNext,
       totalXp,
+      coinBalance: gamProfile.coinBalance,
       streak: currentStreak,
       longestStreak,
       recoveryEligible,
@@ -439,6 +440,7 @@ async function fetchChild(
 
 interface GamificationProfileRow {
   totalXp: number
+  coinBalance: number
   currentStreakDays: number
   longestStreakDays: number
   preBreakStreakDays: number
@@ -452,11 +454,13 @@ async function fetchGamificationProfile(
   // Default to zeros so the dashboard renders cleanly for new users.
   const row = await queryOne<{
     total_xp: number
+    coin_balance: number
     current_streak_days: number
     longest_streak_days: number
     pre_break_streak_days: number
   }>(
-    `SELECT total_xp, current_streak_days, longest_streak_days, pre_break_streak_days
+    `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days,
+            pre_break_streak_days
        FROM gamification_profiles
        WHERE child_id = $1`,
     [childId],
@@ -464,6 +468,7 @@ async function fetchGamificationProfile(
   )
   return {
     totalXp: Number(row?.total_xp ?? 0),
+    coinBalance: Number(row?.coin_balance ?? 0),
     currentStreakDays: Number(row?.current_streak_days ?? 0),
     longestStreakDays: Number(row?.longest_streak_days ?? 0),
     preBreakStreakDays: Number(row?.pre_break_streak_days ?? 0),

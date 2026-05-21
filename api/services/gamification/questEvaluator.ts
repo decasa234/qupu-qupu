@@ -36,6 +36,7 @@ export interface QuestProgressResult {
   targetValue: number
   justCompleted: boolean
   xpAwarded: number
+  coinsAwarded: number
 }
 
 interface ActiveQuestRow {
@@ -46,6 +47,7 @@ interface ActiveQuestRow {
   target_metric: string
   target_value: number
   xp_reward: number
+  coin_reward: number
   progress_value: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   title_rendered: string
@@ -90,6 +92,7 @@ export async function evaluateForEvent(
             qt.target_metric,
             cqi.target_value,
             qt.xp_reward,
+            qt.coin_reward,
             cqi.progress_value,
             cqi.status,
             cqi.title_rendered,
@@ -132,17 +135,25 @@ export async function evaluateForEvent(
     )
 
     let xpAwarded = 0
-    if (justCompleted && Number(row.xp_reward) > 0) {
-      // Append daily quest XP; idempotent on the quest instance id.
+    let coinsAwarded = 0
+    if (
+      justCompleted &&
+      (Number(row.xp_reward) > 0 || Number(row.coin_reward) > 0)
+    ) {
+      // Append daily quest XP + coins; idempotent on the quest instance id.
       const led = await appendLedger(client, {
         childId: event.childId,
         rewardType: 'DAILY_QUEST_XP',
         sourceType: 'child_quest_instance',
         sourceId: row.id,
         xpDelta: Number(row.xp_reward),
+        coinDelta: Number(row.coin_reward),
         metadata: { questCode: row.code, questType: row.quest_type },
       })
-      if (led.appended) xpAwarded = led.xpDelta
+      if (led.appended) {
+        xpAwarded = led.xpDelta
+        coinsAwarded = led.coinDelta
+      }
     }
 
     results.push({
@@ -154,6 +165,7 @@ export async function evaluateForEvent(
       targetValue: Number(row.target_value),
       justCompleted,
       xpAwarded,
+      coinsAwarded,
     })
   }
 

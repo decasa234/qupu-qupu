@@ -447,3 +447,26 @@ CREATE TABLE IF NOT EXISTS referral_uses (
 
 CREATE INDEX IF NOT EXISTS idx_referral_uses_referrer
   ON referral_uses (referrer_user_id, used_at DESC);
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Coins (migration 0018)
+-- Earn-only currency riding the gamification engine alongside XP. The
+-- spend side (avatar shop) is deferred — see TODOS.md.
+-- ─────────────────────────────────────────────────────────────────────
+
+ALTER TABLE reward_ledger
+  ADD COLUMN IF NOT EXISTS coin_delta INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE gamification_profiles
+  ADD COLUMN IF NOT EXISTS coin_balance INTEGER NOT NULL DEFAULT 0
+    CHECK (coin_balance >= 0);
+
+ALTER TABLE quest_templates
+  ADD COLUMN IF NOT EXISTS coin_reward INTEGER NOT NULL DEFAULT 0
+    CHECK (coin_reward >= 0);
+
+UPDATE quest_templates SET coin_reward = 10 WHERE code = 'daily_completion_1';
+UPDATE quest_templates SET coin_reward = 15 WHERE code = 'daily_high_score';
+UPDATE quest_templates SET coin_reward = 20 WHERE code = 'daily_subject_focus';
+UPDATE quest_templates SET coin_reward = 15 WHERE code = 'daily_improvement';
+UPDATE quest_templates SET coin_reward = 5  WHERE code = 'daily_streak_keeper';

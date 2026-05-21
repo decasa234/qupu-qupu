@@ -79,6 +79,7 @@ export interface DashboardViewModel {
   xp: number
   xpToNext: number
   totalXp: number
+  coinBalance: number
   streak: number
   longestStreak: number
   recoveryEligible: boolean
@@ -126,6 +127,7 @@ export interface DashboardApiResponse {
   xp: number
   xpToNext: number
   totalXp: number
+  coinBalance: number
   streak: number
   longestStreak: number
   recoveryEligible: boolean
@@ -192,6 +194,7 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
     xp: payload.xp,
     xpToNext: payload.xpToNext,
     totalXp: payload.totalXp,
+    coinBalance: payload.coinBalance,
     streak: payload.streak,
     longestStreak: payload.longestStreak,
     recoveryEligible: payload.recoveryEligible,

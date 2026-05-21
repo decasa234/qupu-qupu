@@ -72,12 +72,18 @@ export default function DashboardHero({ vm }: Props) {
           </div>
 
           {/* Horizontal stat strip */}
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
               <div className="font-display text-3xl font-extrabold text-qupu-brand-blue">
                 <span className="text-2xl" aria-hidden="true">🔥</span> {vm.streak}
               </div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Streak</div>
+            </div>
+            <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
+              <div className="font-display text-3xl font-extrabold text-qupu-brand-blue">
+                <span className="text-2xl" aria-hidden="true">🪙</span> {vm.coinBalance}
+              </div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Koin</div>
             </div>
             <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
               <GoalRing pct={vm.dailyGoalPct} />

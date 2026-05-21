@@ -226,8 +226,8 @@ export default function PostQuizRewardSummary({
           </section>
         )}
 
-        {/* Section 5 — XP earned + streak */}
-        {gam && (gam.xpEarned > 0 || gam.streak.current > 0) && (
+        {/* Section 5 — XP earned + coins + streak */}
+        {gam && (gam.xpEarned > 0 || gam.coinsEarned > 0 || gam.streak.current > 0) && (
           <section className="mt-4 grid grid-cols-2 gap-3">
             {gam.xpEarned > 0 && (
               <div className="rounded-[1.25rem] bg-qupu-brand-blue px-4 py-3 text-white">
@@ -239,6 +239,19 @@ export default function PostQuizRewardSummary({
                 </div>
                 <div className="text-[10px] font-semibold text-white/80">
                   Total {gam.totalXp} XP
+                </div>
+              </div>
+            )}
+            {gam.coinsEarned > 0 && (
+              <div className="rounded-[1.25rem] bg-amber-500 px-4 py-3 text-white">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                  Koin didapat
+                </div>
+                <div className="mt-0.5 font-display text-2xl font-extrabold">
+                  🪙 +{gam.coinsEarned}
+                </div>
+                <div className="text-[10px] font-semibold text-white/80">
+                  Total {gam.coinBalance} koin
                 </div>
               </div>
             )}

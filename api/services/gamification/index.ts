@@ -46,6 +46,7 @@ export interface ProcessScoreInput {
 export interface RewardLedgerEntry {
   rewardType: string
   xpDelta: number
+  coinDelta: number
 }
 
 export interface CompletedQuestSummary {
@@ -65,6 +66,7 @@ export interface UnlockedAchievementSummary {
 
 export interface ProcessScoreResult {
   xpEarned: number
+  coinsEarned: number
   ledgerEntries: RewardLedgerEntry[]
   profile: ProfileSnapshot
   levelUp: { previousLevel: number; currentLevel: number; tier: LevelTier } | null
@@ -79,6 +81,11 @@ const XP_SCORE_IMPROVED = 10
 const XP_HIGH_SCORE = 15
 const XP_PERFECT_SCORE = 25
 const HIGH_SCORE_THRESHOLD = 80
+
+// Coin constant. Quest coin payouts live on quest_templates.coin_reward;
+// quiz completion is a flat coin grant (eng review D5). Earn rate is a
+// tuning question (design doc OQ2).
+const COIN_QUIZ_COMPLETION = 5
 
 // Imports below are local to the orchestrator; ensureProfile must run
 // before streak or quest work since both read the profile row.
@@ -118,6 +125,7 @@ export async function processScoreSubmission(
   const ledgerEntries: RewardLedgerEntry[] = []
   const allQuestResults: QuestProgressResult[] = []
   let totalDelta = 0
+  let totalCoinDelta = 0
 
   // Step 1: ensure profile + advance streak. Streak uses pre-submission
   // state (last_activity_date) so it must run before the quest evaluator
@@ -167,11 +175,17 @@ export async function processScoreSubmission(
       sourceType: 'score_attempt',
       sourceId: input.scoreAttemptId,
       xpDelta: XP_QUIZ_COMPLETION,
+      coinDelta: COIN_QUIZ_COMPLETION,
       metadata: { videoId: input.videoId },
     })
     if (completion.appended) {
       totalDelta += completion.xpDelta
-      ledgerEntries.push({ rewardType: 'QUIZ_COMPLETION_XP', xpDelta: completion.xpDelta })
+      totalCoinDelta += completion.coinDelta
+      ledgerEntries.push({
+        rewardType: 'QUIZ_COMPLETION_XP',
+        xpDelta: completion.xpDelta,
+        coinDelta: completion.coinDelta,
+      })
     }
 
     if (input.scorePercentage === 100) {
@@ -188,7 +202,11 @@ export async function processScoreSubmission(
       })
       if (perfect.appended) {
         totalDelta += perfect.xpDelta
-        ledgerEntries.push({ rewardType: 'PERFECT_SCORE_XP', xpDelta: perfect.xpDelta })
+        ledgerEntries.push({
+          rewardType: 'PERFECT_SCORE_XP',
+          xpDelta: perfect.xpDelta,
+          coinDelta: perfect.coinDelta,
+        })
       }
     } else if (input.scorePercentage >= HIGH_SCORE_THRESHOLD) {
       const highQuestResults = await emitAndEvaluate(
@@ -204,7 +222,11 @@ export async function processScoreSubmission(
       })
       if (high.appended) {
         totalDelta += high.xpDelta
-        ledgerEntries.push({ rewardType: 'HIGH_SCORE_XP', xpDelta: high.xpDelta })
+        ledgerEntries.push({
+          rewardType: 'HIGH_SCORE_XP',
+          xpDelta: high.xpDelta,
+          coinDelta: high.coinDelta,
+        })
       }
     }
   } else {
@@ -226,7 +248,11 @@ export async function processScoreSubmission(
       })
       if (improved.appended) {
         totalDelta += improved.xpDelta
-        ledgerEntries.push({ rewardType: 'SCORE_IMPROVED_XP', xpDelta: improved.xpDelta })
+        ledgerEntries.push({
+          rewardType: 'SCORE_IMPROVED_XP',
+          xpDelta: improved.xpDelta,
+          coinDelta: improved.coinDelta,
+        })
       }
     }
   }
@@ -244,8 +270,13 @@ export async function processScoreSubmission(
   const completedQuests: CompletedQuestSummary[] = []
   for (const q of completedById.values()) {
     totalDelta += q.xpAwarded
-    if (q.xpAwarded > 0) {
-      ledgerEntries.push({ rewardType: 'DAILY_QUEST_XP', xpDelta: q.xpAwarded })
+    totalCoinDelta += q.coinsAwarded
+    if (q.xpAwarded > 0 || q.coinsAwarded > 0) {
+      ledgerEntries.push({
+        rewardType: 'DAILY_QUEST_XP',
+        xpDelta: q.xpAwarded,
+        coinDelta: q.coinsAwarded,
+      })
     }
     completedQuests.push({
       id: q.questId,
@@ -267,7 +298,11 @@ export async function processScoreSubmission(
   for (const ach of newAchievements) {
     totalDelta += ach.xpAwarded
     if (ach.xpAwarded > 0) {
-      ledgerEntries.push({ rewardType: 'ACHIEVEMENT_XP', xpDelta: ach.xpAwarded })
+      ledgerEntries.push({
+        rewardType: 'ACHIEVEMENT_XP',
+        xpDelta: ach.xpAwarded,
+        coinDelta: 0,
+      })
     }
     unlockedAchievements.push({
       id: ach.id,
@@ -282,11 +317,13 @@ export async function processScoreSubmission(
   const profileResult = await updateProfileWithDelta(client, {
     childId: input.childId,
     xpDelta: totalDelta,
+    coinDelta: totalCoinDelta,
     activityDate: eventDate,
   })
 
   return {
     xpEarned: totalDelta,
+    coinsEarned: totalCoinDelta,
     ledgerEntries,
     profile: profileResult.after,
     levelUp: profileResult.levelUp,

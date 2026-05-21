@@ -201,8 +201,10 @@ export async function submitVideoScore(input: {
       },
       gamification: {
         xpEarned: gamification.xpEarned,
+        coinsEarned: gamification.coinsEarned,
         ledgerEntries: gamification.ledgerEntries,
         totalXp: gamification.profile.totalXp,
+        coinBalance: gamification.profile.coinBalance,
         currentLevel: gamification.profile.currentLevel,
         currentTierName: gamification.profile.currentTierName,
         levelUp: gamification.levelUp
