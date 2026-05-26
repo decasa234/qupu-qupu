@@ -18,6 +18,9 @@ import AdminUsersPage from './pages/admin/AdminUsers'
 import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
 import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import OnboardingChild from './pages/OnboardingChild'
+import AppShell from './components/AppShell'
+import ShopPage from './pages/Shop'
+import MePage from './pages/Me'
 import { useAuthStore } from './store/authStore'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -76,6 +79,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
+        {/* Marketing + auth + video + onboarding — keep marketing Layout */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="videos" element={<VideosPage />} />
@@ -90,49 +94,43 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardRouter />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="report"
-            element={
-              <ProtectedRoute>
-                <ReportPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="badges"
-            element={
-              <ProtectedRoute>
-                <BadgesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="admin"
-            element={
-              <AdminRoute>
-                <AdminLayout />
-              </AdminRoute>
-            }
-          >
-            <Route index element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboardPage />} />
-            <Route path="videos" element={<AdminVideosPage />} />
-            <Route path="videos/import" element={<AdminImportVideosPage />} />
-            <Route path="subjects" element={<AdminSubjectsPage />} />
-            <Route path="age-groups" element={<AdminAgeGroupsPage />} />
-            <Route path="users" element={<AdminUsersPage />} />
-            <Route path="analytics" element={<AdminAnalyticsPage />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <AppShell />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<DashboardRouter />} />
+          <Route path="report" element={<ReportPage />} />
+          <Route path="badges" element={<BadgesPage />} />
+          <Route path="shop" element={<ShopPage />} />
+          <Route path="me" element={<MePage />} />
+        </Route>
+
+        {/* Admin — untouched */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="videos" element={<AdminVideosPage />} />
+          <Route path="videos/import" element={<AdminImportVideosPage />} />
+          <Route path="subjects" element={<AdminSubjectsPage />} />
+          <Route path="age-groups" element={<AdminAgeGroupsPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="analytics" element={<AdminAnalyticsPage />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   )
