@@ -6,6 +6,7 @@ import {
   type DashboardApiResponse,
   type DashboardViewModel,
 } from '../lib/dashboardData'
+import { fetchShopItems, type ShopItemForChild } from '../lib/shopApi'
 import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
@@ -20,6 +21,23 @@ export default function DashboardPage() {
   const [vm, setVm] = useState<DashboardViewModel | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [affordable, setAffordable] = useState<ShopItemForChild[]>([])
+
+  useEffect(() => {
+    if (!activeChildId) return
+    let cancelled = false
+    fetchShopItems(activeChildId)
+      .then((items) => {
+        if (cancelled) return
+        const list = items
+          .filter((i) => !i.owned && i.affordable)
+          .sort((a, b) => a.coinPrice - b.coinPrice)
+          .slice(0, 3)
+        setAffordable(list)
+      })
+      .catch(() => { /* shop endpoint failure must not break dashboard */ })
+    return () => { cancelled = true }
+  }, [activeChildId])
 
   useEffect(() => {
     if (!activeChildId || !activeChild) {
@@ -127,7 +145,7 @@ export default function DashboardPage() {
       </section>
 
       <MissionStrip quests={vm.quests} childName={vm.child.name} />
-      <ShopTeaser coinBalance={vm.coinBalance} />
+      <ShopTeaser coinBalance={vm.coinBalance} affordableItems={affordable} />
 
       <Link
         to="/report"
