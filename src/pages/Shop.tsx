@@ -58,14 +58,22 @@ export default function ShopPage() {
 
   if (!activeChildId) {
     return (
-      <p className="text-sm font-medium text-qupu-muted">Pilih profil anak dulu.</p>
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <p className="text-sm font-medium text-qupu-muted">Pilih profil anak dulu.</p>
+      </div>
     )
   }
 
-  if (items === null) return <SkeletonCard />
+  if (items === null) {
+    return (
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <SkeletonCard />
+      </div>
+    )
+  }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-4 sm:max-w-lg">
       <section className="sticky top-12 z-20 -mx-4 bg-qupu-shell px-4 pb-2 pt-3">
         <div className="flex items-center justify-between gap-2">
           <h1 className="font-display text-xl font-extrabold text-qupu-brand-blue">Toko QUPU</h1>

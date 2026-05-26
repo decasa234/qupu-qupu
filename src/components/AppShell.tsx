@@ -12,7 +12,7 @@ export default function AppShell() {
   return (
     <div className="flex min-h-screen flex-col bg-qupu-shell">
       <TopStatStrip />
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-4 px-4 py-4 sm:max-w-lg">
+      <main className="flex w-full flex-1 flex-col px-4 py-4">
         <Outlet />
       </main>
       <BottomTabBar />

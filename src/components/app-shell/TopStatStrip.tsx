@@ -13,10 +13,12 @@ export default function TopStatStrip() {
   const level = stats?.level ?? 1
 
   return (
-    <div className="sticky top-0 z-30 flex items-center justify-around border-b-[3px] border-qupu-peach bg-white px-3 py-2">
-      <Pill icon="fa-solid fa-fire" color="text-qupu-brand-orange" value={streak} />
-      <Pill icon="fa-solid fa-coins" color="text-qupu-brand-yellow" value={coins} />
-      <Pill icon="fa-solid fa-star" color="text-qupu-brand-blue" value={`Lv ${level}`} />
+    <div className="sticky top-0 z-30 border-b-[3px] border-qupu-peach bg-white">
+      <div className="mx-auto flex w-full max-w-lg items-center justify-around px-3 py-2">
+        <Pill icon="fa-solid fa-fire" color="text-qupu-brand-orange" value={streak} />
+        <Pill icon="fa-solid fa-coins" color="text-qupu-brand-yellow" value={coins} />
+        <Pill icon="fa-solid fa-star" color="text-qupu-brand-blue" value={`Lv ${level}`} />
+      </div>
     </div>
   )
 }

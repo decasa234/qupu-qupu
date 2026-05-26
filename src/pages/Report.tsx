@@ -95,17 +95,25 @@ export default function ReportPage() {
     )
   }
 
-  if (loading) return <SkeletonCard />
+  if (loading) {
+    return (
+      <div className="mx-auto w-full max-w-4xl">
+        <SkeletonCard />
+      </div>
+    )
+  }
   if (error || !progress) {
     return (
-      <div className="rounded-3xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
-        {error || 'Gagal memuat rapor.'}
+      <div className="mx-auto w-full max-w-4xl">
+        <div className="rounded-3xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
+          {error || 'Gagal memuat rapor.'}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto w-full max-w-4xl space-y-4">
       <div className="flex items-center justify-between gap-3" data-print-hide>
         <Link to="/dashboard" className="text-sm font-bold text-qupu-brand-blue underline">
           ← Kembali ke dashboard

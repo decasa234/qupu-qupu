@@ -107,19 +107,25 @@ export default function DashboardPage() {
   }
 
   if (loading) {
-    return <SkeletonCard />
+    return (
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <SkeletonCard />
+      </div>
+    )
   }
 
   if (error || !vm) {
     return (
-      <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
-        {error || 'Gagal memuat dashboard.'}
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
+          {error || 'Gagal memuat dashboard.'}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-4 sm:max-w-lg">
       {/* Profile hero */}
       <section className="rounded-[2rem] bg-gradient-to-br from-qupu-brand-blue to-[#2c3f74] p-5 text-white shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="flex items-center gap-4">

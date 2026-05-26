@@ -21,34 +21,36 @@ const TABS: TabDef[] = [
 export default function BottomTabBar() {
   return (
     <nav
-      className="sticky bottom-0 z-30 flex justify-around border-t-[3px] border-qupu-peach bg-white pt-2"
+      className="sticky bottom-0 z-30 border-t-[3px] border-qupu-peach bg-white pt-2"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 0.75rem)' }}
     >
-      {TABS.map((tab) => (
-        <NavLink
-          key={tab.to}
-          to={tab.to}
-          className={({ isActive }) =>
-            `flex flex-col items-center gap-0.5 px-3 text-[10px] font-extrabold uppercase tracking-[0.12em] ${
-              isActive ? 'text-qupu-brand-orange' : 'text-qupu-muted'
-            }`
-          }
-        >
-          {({ isActive }) => (
-            <>
-              <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full text-base ${
-                  isActive ? 'bg-qupu-peach text-qupu-brand-orange' : 'text-qupu-muted'
-                }`}
-                aria-hidden="true"
-              >
-                <i className={tab.icon} />
-              </span>
-              <span>{tab.label}</span>
-            </>
-          )}
-        </NavLink>
-      ))}
+      <div className="mx-auto flex w-full max-w-lg justify-around">
+        {TABS.map((tab) => (
+          <NavLink
+            key={tab.to}
+            to={tab.to}
+            className={({ isActive }) =>
+              `flex flex-col items-center gap-0.5 px-3 text-[10px] font-extrabold uppercase tracking-[0.12em] ${
+                isActive ? 'text-qupu-brand-orange' : 'text-qupu-muted'
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`flex h-7 w-7 items-center justify-center rounded-full text-base ${
+                    isActive ? 'bg-qupu-peach text-qupu-brand-orange' : 'text-qupu-muted'
+                  }`}
+                  aria-hidden="true"
+                >
+                  <i className={tab.icon} />
+                </span>
+                <span>{tab.label}</span>
+              </>
+            )}
+          </NavLink>
+        ))}
+      </div>
     </nav>
   )
 }
