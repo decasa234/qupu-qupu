@@ -71,6 +71,7 @@ export interface DashboardQuest {
   targetValue: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
+  coinReward: number   // surfaced from quest_templates.coin_reward
 }
 
 export interface DashboardViewModel {

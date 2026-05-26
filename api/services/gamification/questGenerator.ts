@@ -30,6 +30,7 @@ export interface ActiveQuest {
   targetValue: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
+  coinReward: number
   metadata: Record<string, unknown>
 }
 
@@ -42,13 +43,14 @@ interface QuestTemplate {
   target_metric: string
   target_value: number
   xp_reward: number
+  coin_reward: number
   metadata: Record<string, unknown>
 }
 
 async function fetchTemplates(client: PoolClient): Promise<Map<string, QuestTemplate>> {
   const rows = await query<QuestTemplate>(
     `SELECT id, code, title, description, quest_type, target_metric,
-            target_value, xp_reward, metadata
+            target_value, xp_reward, coin_reward, metadata
        FROM quest_templates
        WHERE is_active = TRUE AND cadence = 'daily'`,
     [],
@@ -188,6 +190,7 @@ export async function ensureTodaysQuests(
     target_value: number
     status: 'active' | 'completed' | 'claimed' | 'expired'
     xp_reward: number
+    coin_reward: number
     metadata: Record<string, unknown>
   }>(
     `SELECT cqi.id,
@@ -201,6 +204,7 @@ export async function ensureTodaysQuests(
             cqi.target_value,
             cqi.status,
             qt.xp_reward,
+            qt.coin_reward,
             cqi.metadata
        FROM child_quest_instances cqi
        JOIN quest_templates qt ON qt.id = cqi.quest_template_id
@@ -223,6 +227,7 @@ export async function ensureTodaysQuests(
       targetValue: Number(r.target_value),
       status: r.status,
       xpReward: Number(r.xp_reward),
+      coinReward: Number(r.coin_reward),
       metadata: r.metadata ?? {},
     }))
   }

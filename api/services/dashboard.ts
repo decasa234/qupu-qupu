@@ -91,6 +91,7 @@ export interface DashboardQuest {
   targetValue: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
+  coinReward: number   // surfaced from quest_templates.coin_reward
 }
 
 export interface DashboardPayload {
@@ -324,6 +325,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       targetValue: q.targetValue,
       status: q.status,
       xpReward: q.xpReward,
+      coinReward: q.coinReward,
     }))
 
     const kpis: DashboardKpi[] = [
