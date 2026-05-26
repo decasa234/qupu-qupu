@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
+import LoadingOverlay from './components/LoadingOverlay'
+import { useLoadingState } from './hooks/useLoadingState'
 import AdminLayout from './components/AdminLayout'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -47,6 +49,16 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+function RouteLoadingTrigger() {
+  const location = useLocation()
+  useEffect(() => {
+    useLoadingState.getState().start()
+    const t = window.setTimeout(() => useLoadingState.getState().stop(), 50)
+    return () => window.clearTimeout(t)
+  }, [location.pathname])
+  return null
+}
+
 function DashboardRouter() {
   const { user } = useAuthStore()
   if (user?.role === 'admin') {
@@ -78,6 +90,8 @@ export default function App() {
 
   return (
     <Router>
+      <RouteLoadingTrigger />
+      <LoadingOverlay />
       <Routes>
         {/* Marketing + auth + video + onboarding — keep marketing Layout */}
         <Route path="/" element={<Layout />}>

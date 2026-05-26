@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
+import { useLoadingState } from '../hooks/useLoadingState'
 
 const baseURL =
   import.meta.env.VITE_API_BASE_URL?.trim() || 'http://localhost:3001/api'
@@ -13,18 +14,26 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
+    useLoadingState.getState().start()
     const token = localStorage.getItem('auth_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
-  (error) => Promise.reject(error),
+  (error) => {
+    useLoadingState.getState().stop()
+    return Promise.reject(error)
+  },
 )
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    useLoadingState.getState().stop()
+    return response
+  },
   (error) => {
+    useLoadingState.getState().stop()
     if (error.response?.status === 401 || error.response?.status === 403) {
       const url: string = error.config?.url ?? ''
       const isAuthEndpoint = url.startsWith('/auth/')
