@@ -18,6 +18,7 @@ export type RewardType =
   | 'DAILY_QUEST_XP'        // Plan 2
   | 'ACHIEVEMENT_XP'        // Plan 3
   | 'STREAK_BONUS_XP'       // Plan 2
+  | 'SHOP_PURCHASE'
 
 export interface AppendLedgerInput {
   childId: string
