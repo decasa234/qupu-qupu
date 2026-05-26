@@ -3,11 +3,11 @@
 // Profil tab destination. Phase A: child switcher + settings shortcut +
 // inventory placeholder. Phase D wires the real InventoryGrid into
 // the #koleksi section.
-import { Link } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import InventoryGrid from '../components/me/InventoryGrid'
 
 export default function MePage() {
-  const { user } = useAuthStore()
+  const { user, activeChildId } = useAuthStore()
 
   return (
     <div className="flex flex-col gap-4">
@@ -19,15 +19,14 @@ export default function MePage() {
 
       <section id="koleksi" className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Koleksi saya</div>
-        <p className="mt-2 text-sm font-medium text-qupu-muted">
-          Belum ada item. Selesaikan misi dan tukar koinmu di toko.
-        </p>
-        <Link
-          to="/shop"
-          className="mt-3 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 font-display text-sm font-extrabold text-white shadow-subscribe"
-        >
-          <i className="fa-solid fa-bag-shopping" aria-hidden="true" /> Buka toko
-        </Link>
+        <h2 className="mt-1 font-display text-lg font-extrabold text-qupu-brand-blue">Item yang sudah dimiliki</h2>
+        <div className="mt-3">
+          {activeChildId ? (
+            <InventoryGrid childId={activeChildId} />
+          ) : (
+            <p className="text-sm font-medium text-qupu-muted">Pilih profil anak dulu untuk melihat koleksi.</p>
+          )}
+        </div>
       </section>
     </div>
   )
