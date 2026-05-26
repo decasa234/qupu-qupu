@@ -470,3 +470,53 @@ UPDATE quest_templates SET coin_reward = 15 WHERE code = 'daily_high_score';
 UPDATE quest_templates SET coin_reward = 20 WHERE code = 'daily_subject_focus';
 UPDATE quest_templates SET coin_reward = 15 WHERE code = 'daily_improvement';
 UPDATE quest_templates SET coin_reward = 5  WHERE code = 'daily_streak_keeper';
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Shop catalog + per-child inventory (migration 0019)
+-- shop_items is the mock catalog; child_inventory uses
+-- UNIQUE (child_id, shop_item_id) as the purchase idempotency guard.
+-- coin_balance debits happen atomically against gamification_profiles
+-- (CHECK >= 0 from migration 0018).
+-- ─────────────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS shop_items (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug          TEXT NOT NULL UNIQUE,
+  name          TEXT NOT NULL,
+  description   TEXT NOT NULL,
+  kind          TEXT NOT NULL CHECK (kind IN ('worksheet','ebook','coloring','sticker','audio')),
+  coin_price    INT  NOT NULL CHECK (coin_price > 0),
+  thumbnail_url TEXT,
+  sort_order    INT  NOT NULL DEFAULT 0,
+  is_active     BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_shop_items_active_sort
+  ON shop_items (is_active, sort_order) WHERE is_active = TRUE;
+
+CREATE TABLE IF NOT EXISTS child_inventory (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  child_id      UUID NOT NULL REFERENCES children(id)    ON DELETE CASCADE,
+  shop_item_id  UUID NOT NULL REFERENCES shop_items(id)  ON DELETE RESTRICT,
+  coins_spent   INT  NOT NULL CHECK (coins_spent >= 0),
+  acquired_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (child_id, shop_item_id)
+);
+CREATE INDEX IF NOT EXISTS idx_child_inventory_child
+  ON child_inventory (child_id, acquired_at DESC);
+
+INSERT INTO shop_items (slug, name, description, kind, coin_price, sort_order) VALUES
+  ('worksheet-aksara-1',   'Paket Aksara 1',     'Lembar latihan menulis huruf A–M.',           'worksheet', 100, 10),
+  ('worksheet-aksara-2',   'Paket Aksara 2',     'Lembar latihan menulis huruf N–Z.',           'worksheet', 100, 11),
+  ('worksheet-angka-1',    'Paket Angka 1',      'Latihan menulis dan menghitung 1–20.',        'worksheet', 100, 12),
+  ('worksheet-angka-2',    'Paket Angka 2',      'Soal cerita penjumlahan untuk pemula.',       'worksheet', 100, 13),
+  ('ebook-petualangan',    'Cerita Petualangan', 'E-book cerita pendek bergambar.',             'ebook',     200, 20),
+  ('ebook-sains',          'Sains Seru',         'E-book pengantar konsep sains untuk anak.',   'ebook',     200, 21),
+  ('ebook-dongeng',        'Kumpulan Dongeng',   'Lima dongeng pilihan dengan ilustrasi.',      'ebook',     200, 22),
+  ('coloring-hewan',       'Mewarnai: Hewan',    'Buku mewarnai bertema hewan kebun binatang.', 'coloring',  150, 30),
+  ('coloring-kendaraan',   'Mewarnai: Kendaraan','Buku mewarnai bertema kendaraan.',            'coloring',  150, 31),
+  ('sticker-mascot',       'Stiker Mascot',      'Paket stiker tokoh QUPU.',                    'sticker',    50, 40),
+  ('sticker-musim',        'Stiker Musim',       'Paket stiker bertema empat musim.',           'sticker',    50, 41),
+  ('audio-cerita',         'Audio: Dongeng',     'Audio dongeng 10 menit untuk pengantar tidur.','audio',    300, 50)
+ON CONFLICT (slug) DO NOTHING;
