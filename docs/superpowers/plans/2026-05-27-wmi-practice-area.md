@@ -4,6 +4,8 @@
 
 **Goal:** Ship the kid-driven WMI past-paper practice surface defined in `docs/superpowers/specs/2026-05-27-wmi-practice-area-design.md` — drill + exam + bilingual spoiler + math glossary, all members-only, in child-profile context, with no badge/quest wiring in v1.
 
+_Progress 2026-05-27: Implemented Tasks 1-20 in code and verified with `npm run check` plus `npm run build`. DB/manual smoke steps remain pending because this workspace has no `DATABASE_URL` and `psql` is not installed on PATH; `npm run seed:wmi` currently stops at `DATABASE_URL is required`._
+
 **Architecture:** New migration `0018_wmi_practice.sql` adds five tables (`wmi_papers`, `wmi_questions`, `wmi_glossary_terms`, `wmi_exam_sessions`, `wmi_attempts`). Two new Express routers — `wmi-public.ts` (`/api/public/wmi/*` for glossary + figures) and `wmi-member.ts` (`/api/me/wmi/*` for papers + drill + attempts + sessions, every endpoint taking explicit `childId`). Frontend adds five pages under `/latihan/wmi/*`, a `wmiStore` zustand slice that caches the glossary, a pure markup parser for `[[slug]]` glossary tags, and a shared `WmiQuestionView` used by drill/exam/review. Seed content lives in `db/seed/wmi/` and is upserted via a new `npm run seed:wmi` script.
 
 **Tech Stack:** Express + pg (ESM with `.js` import suffixes), React 18 + Vite + Tailwind + React Router 7, Joi for server validation, zustand + axios on the client, Postgres via the existing `pg.Pool`. No new dependencies.

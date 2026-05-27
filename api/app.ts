@@ -9,7 +9,9 @@ import authRoutes from './routes/auth.js'
 import userRoutes from './routes/users.js'
 import metaRoutes from './routes/meta.js'
 import publicRoutes from './routes/public.js'
+import wmiPublicRoutes from './routes/wmi-public.js'
 import memberRoutes from './routes/member.js'
+import wmiMemberRoutes from './routes/wmi-member.js'
 import childrenRoutes from './routes/children.js'
 import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
@@ -51,8 +53,10 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/meta', metaRoutes)
 app.use('/api/public', publicRoutes)
+app.use('/api/public/wmi', wmiPublicRoutes)
 app.use('/api/me/dashboard', dashboardRoutes)
 app.use('/api/me/children', childrenRoutes)
+app.use('/api/me/wmi', wmiMemberRoutes)
 app.use('/api/me', memberRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/analytics', analyticsRoutes)

@@ -1,0 +1,72 @@
+import api from './api'
+import type {
+  WmiAttemptInput,
+  WmiAttemptResult,
+  WmiExamSession,
+  WmiExamSnapshot,
+  WmiGlossaryTerm,
+  WmiGrade,
+  WmiPaperDetail,
+  WmiPaperSummary,
+  WmiQuestion,
+} from '../types/wmi'
+
+function unwrap<T>(response: { data: { success: boolean; data: T; error?: string } }): T {
+  if (!response.data.success) throw new Error(response.data.error ?? 'Request failed')
+  return response.data.data
+}
+
+export async function fetchGlossary(): Promise<WmiGlossaryTerm[]> {
+  const response = await api.get('/public/wmi/glossary')
+  return unwrap<{ terms: WmiGlossaryTerm[] }>(response).terms
+}
+
+export async function fetchPapers(childId: string, grade: WmiGrade): Promise<WmiPaperSummary[]> {
+  const response = await api.get('/me/wmi/papers', { params: { childId, grade } })
+  return unwrap<{ papers: WmiPaperSummary[] }>(response).papers
+}
+
+export async function fetchPaperDetail(childId: string, paperId: string): Promise<WmiPaperDetail> {
+  const response = await api.get(`/me/wmi/papers/${paperId}`, { params: { childId } })
+  return unwrap<WmiPaperDetail>(response)
+}
+
+export async function fetchDrillQuestion(
+  childId: string,
+  grade: WmiGrade,
+  excludeQuestionId?: string,
+): Promise<WmiQuestion> {
+  const response = await api.get('/me/wmi/drill/next', {
+    params: { childId, grade, excludeQuestionId },
+  })
+  return unwrap<{ question: WmiQuestion }>(response).question
+}
+
+export async function submitAttempt(input: WmiAttemptInput): Promise<WmiAttemptResult> {
+  const response = await api.post('/me/wmi/attempts', input)
+  return unwrap<WmiAttemptResult>(response)
+}
+
+export async function startExamSession(
+  childId: string,
+  paperId: string,
+): Promise<WmiExamSnapshot> {
+  const response = await api.post('/me/wmi/exam/sessions', { childId, paper_id: paperId })
+  return unwrap<WmiExamSnapshot>(response)
+}
+
+export async function fetchExamSession(
+  childId: string,
+  sessionId: string,
+): Promise<WmiExamSnapshot> {
+  const response = await api.get(`/me/wmi/exam/sessions/${sessionId}`, { params: { childId } })
+  return unwrap<WmiExamSnapshot>(response)
+}
+
+export async function completeExamSession(
+  childId: string,
+  sessionId: string,
+): Promise<WmiExamSession> {
+  const response = await api.patch(`/me/wmi/exam/sessions/${sessionId}/complete`, { childId })
+  return unwrap<{ session: WmiExamSession }>(response).session
+}

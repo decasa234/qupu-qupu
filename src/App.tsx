@@ -10,6 +10,11 @@ import VideosPage from './pages/Videos'
 import DashboardPage from './pages/Dashboard'
 import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
+import WmiHubPage from './pages/WmiHub'
+import WmiDrillPage from './pages/WmiDrill'
+import WmiPaperDetailPage from './pages/WmiPaperDetail'
+import WmiExamPage from './pages/WmiExam'
+import WmiExamReviewPage from './pages/WmiExamReview'
 import AdminVideosPage from './pages/AdminVideos'
 import AdminDashboardPage from './pages/admin/AdminDashboard'
 import AdminSubjectsPage from './pages/admin/AdminSubjects'
@@ -103,6 +108,46 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <ReportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="latihan/wmi"
+            element={
+              <ProtectedRoute>
+                <WmiHubPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="latihan/wmi/drill"
+            element={
+              <ProtectedRoute>
+                <WmiDrillPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="latihan/wmi/papers/:id"
+            element={
+              <ProtectedRoute>
+                <WmiPaperDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="latihan/wmi/exam/:sessionId"
+            element={
+              <ProtectedRoute>
+                <WmiExamPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="latihan/wmi/exam/:sessionId/review"
+            element={
+              <ProtectedRoute>
+                <WmiExamReviewPage />
               </ProtectedRoute>
             }
           />

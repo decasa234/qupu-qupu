@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview --port 5176",
     "check": "tsc --noEmit",
+    "seed:wmi": "tsx db/seed/wmi/load.ts",
     "server:dev": "nodemon",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
   },

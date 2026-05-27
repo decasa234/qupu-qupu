@@ -1,5 +1,5 @@
-import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
+import { assertChildOwnership } from '../lib/childOwnership.js'
 import {
   processScoreSubmission,
   type ProcessScoreResult,
@@ -31,22 +31,6 @@ function computePredikat(videosAttempted: number, averageBestScore: number | nul
   if (averageBestScore >= 70) return 'BAIK'
   if (averageBestScore >= 55) return 'CUKUP'
   return 'KURANG'
-}
-
-async function assertChildOwnership(
-  executor: PoolClient,
-  parentUserId: string,
-  childId: string,
-): Promise<void> {
-  const owned = await queryOne<{ id: string }>(
-    'SELECT id FROM children WHERE id = $1 AND parent_user_id = $2',
-    [childId, parentUserId],
-    executor,
-  )
-
-  if (!owned) {
-    throw new Error('Child not found')
-  }
 }
 
 export async function submitVideoScore(input: {
