@@ -550,8 +550,13 @@ CREATE TABLE IF NOT EXISTS wmi_concepts (
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT wmi_concepts_grades_valid CHECK (
-    grades <@ ARRAY[0,1,2,3]::SMALLINT[] AND array_length(grades, 1) > 0
+    grades <@ ARRAY[0,1,2,3]::SMALLINT[] AND cardinality(grades) > 0
   )
+);
+
+ALTER TABLE wmi_concepts DROP CONSTRAINT IF EXISTS wmi_concepts_grades_valid;
+ALTER TABLE wmi_concepts ADD CONSTRAINT wmi_concepts_grades_valid CHECK (
+  grades <@ ARRAY[0,1,2,3]::SMALLINT[] AND cardinality(grades) > 0
 );
 
 CREATE TABLE IF NOT EXISTS wmi_concept_instances (
