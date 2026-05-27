@@ -49,30 +49,36 @@ export default function BadgesPage() {
 
   if (!activeChildId || !activeChild) {
     return (
-      <AuthCard
-        mascotSrc="/hero-mascot.png"
-        eyebrow="Badge"
-        title="Pilih profil anak dulu"
-        subtitle="Badge dikumpulkan per anak. Pilih profil dari switcher di navbar untuk lihat koleksi badge-nya."
-      >
-        <Link
-          to="/onboarding/child"
-          className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+      <div className="mx-auto w-full max-w-4xl">
+        <AuthCard
+          mascotSrc="/hero-mascot.png"
+          eyebrow="Badge"
+          title="Pilih profil anak dulu"
+          subtitle="Badge dikumpulkan per anak. Pilih profil dari switcher di navbar untuk lihat koleksi badge-nya."
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
-            <i
-              className="fa-solid fa-user-plus text-base text-qupu-brand-orange"
-              aria-hidden="true"
-            />
-          </span>
-          Tambah profil anak
-        </Link>
-      </AuthCard>
+          <Link
+            to="/onboarding/child"
+            className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+              <i
+                className="fa-solid fa-user-plus text-base text-qupu-brand-orange"
+                aria-hidden="true"
+              />
+            </span>
+            Tambah profil anak
+          </Link>
+        </AuthCard>
+      </div>
     )
   }
 
   if (loading) {
-    return <SkeletonCard />
+    return (
+      <div className="mx-auto w-full max-w-4xl">
+        <SkeletonCard />
+      </div>
+    )
   }
 
   const totalBadges = groups.reduce(
@@ -95,7 +101,7 @@ export default function BadgesPage() {
     .slice(0, 3)
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto w-full max-w-4xl space-y-8">
       <Reveal>
         <header className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/70 bg-gradient-to-br from-qupu-cream via-qupu-shell to-qupu-peach/60 p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8">
           <i
