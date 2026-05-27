@@ -53,8 +53,17 @@ function RouteLoadingTrigger() {
   const location = useLocation()
   useEffect(() => {
     useLoadingState.getState().start()
-    const t = window.setTimeout(() => useLoadingState.getState().stop(), 50)
-    return () => window.clearTimeout(t)
+    let stopped = false
+    const stopOnce = () => {
+      if (stopped) return
+      stopped = true
+      useLoadingState.getState().stop()
+    }
+    const t = window.setTimeout(stopOnce, 50)
+    return () => {
+      window.clearTimeout(t)
+      stopOnce()
+    }
   }, [location.pathname])
   return null
 }
