@@ -30,7 +30,7 @@ export default function DashboardActivity({ vm }: Props) {
 
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
           <div className="rounded-[1.25rem] bg-gradient-to-br from-qupu-brand-orange to-[#D66B23] p-4 text-white shadow-[3px_4px_0_0_#FFD3B1]">
-            <div className="text-3xl" aria-hidden="true">🔥</div>
+            <div className="text-3xl" aria-hidden="true"><i className="fa-solid fa-fire" /></div>
             <div className="mt-2 font-display text-4xl font-extrabold leading-none">{vm.streak}</div>
             <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/85">
               Hari berturut

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PeerPill from './primitives/PeerPill'
+import BadgeCurve from '../BadgeCurve'
 import type { DashboardSubject } from '../../lib/dashboardData'
 
 interface Props {
@@ -49,13 +50,22 @@ export default function DashboardSubjects({ subjects, childName }: Props) {
 
       <div className="mt-5 grid gap-3">
         {subjects.map((s) => {
+          // Subject badge: QUPU's BadgeCurve medallion tinted to the subject
+          // colour, with a count pill of badges the child earned here. Greyed
+          // when the child has earned none yet.
+          const earnedBadge = s.badgesEarned > 0
           const subjectChip = (
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-[0.85rem] font-display text-base font-extrabold text-white shadow-soft"
-              style={{ backgroundColor: s.colorHex }}
-              aria-hidden="true"
-            >
-              {s.name.charAt(0).toUpperCase()}
+            <span className="relative block w-full" aria-hidden="true">
+              <BadgeCurve
+                color={earnedBadge ? s.colorHex : '#CBD5E1'}
+                ribbonColor={earnedBadge ? undefined : '#94A3B8'}
+                className="block h-auto w-full"
+              />
+              {earnedBadge && (
+                <span className="absolute right-0 top-0 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-qupu-brand-orange px-1 font-display text-[10px] font-extrabold text-white shadow-sm">
+                  {s.badgesEarned}
+                </span>
+              )}
             </span>
           )
 
@@ -66,7 +76,7 @@ export default function DashboardSubjects({ subjects, childName }: Props) {
             return (
               <div
                 key={s.id}
-                className="grid grid-cols-[2.75rem_1fr_auto] items-center gap-3 rounded-[1.25rem] bg-qupu-shell p-4"
+                className="grid grid-cols-[3rem_1fr_auto] items-center gap-3 rounded-[1.25rem] bg-qupu-shell p-4"
               >
                 {subjectChip}
                 <strong className="truncate font-display text-base text-qupu-brand-blue">
@@ -92,7 +102,7 @@ export default function DashboardSubjects({ subjects, childName }: Props) {
                 type="button"
                 onClick={() => setOpenId(isOpen ? null : s.id)}
                 aria-expanded={isOpen}
-                className="grid w-full grid-cols-[2.75rem_1fr_auto] items-center gap-3 text-left"
+                className="grid w-full grid-cols-[3rem_1fr_auto] items-center gap-3 text-left"
               >
                 {subjectChip}
                 <div className="min-w-0">

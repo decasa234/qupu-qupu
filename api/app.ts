@@ -16,6 +16,7 @@ import childrenRoutes from './routes/children.js'
 import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
 import analyticsRoutes from './routes/analytics.js'
+import shopRoutes, { inventoryRouter as inventoryRoutes } from './routes/shop.js'
 import { validateChannelHandle } from './services/youtubeChannel.js'
 
 dotenv.config()
@@ -54,7 +55,9 @@ app.use('/api/users', userRoutes)
 app.use('/api/meta', metaRoutes)
 app.use('/api/public/wmi', wmiPublicRoutes)
 app.use('/api/public', publicRoutes)
+app.use('/api/shop', shopRoutes)
 app.use('/api/me/dashboard', dashboardRoutes)
+app.use('/api/me/inventory', inventoryRoutes)
 app.use('/api/me/children', childrenRoutes)
 app.use('/api/me/wmi', wmiMemberRoutes)
 app.use('/api/me', memberRoutes)

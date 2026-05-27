@@ -27,6 +27,7 @@ export interface DashboardSubject {
   trend: number          // signed % vs previous period
   peer: PeerComparison
   mastery: number        // 0-100
+  badgesEarned: number   // total badges the child earned in this subject
   subtopics: Array<{ name: string; score: number }>
 }
 
@@ -70,6 +71,7 @@ export interface DashboardQuest {
   targetValue: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
+  coinReward: number   // surfaced from quest_templates.coin_reward
 }
 
 export interface DashboardViewModel {
@@ -79,6 +81,7 @@ export interface DashboardViewModel {
   xp: number
   xpToNext: number
   totalXp: number
+  coinBalance: number
   streak: number
   longestStreak: number
   recoveryEligible: boolean
@@ -126,6 +129,7 @@ export interface DashboardApiResponse {
   xp: number
   xpToNext: number
   totalXp: number
+  coinBalance: number
   streak: number
   longestStreak: number
   recoveryEligible: boolean
@@ -192,6 +196,7 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
     xp: payload.xp,
     xpToNext: payload.xpToNext,
     totalXp: payload.totalXp,
+    coinBalance: payload.coinBalance,
     streak: payload.streak,
     longestStreak: payload.longestStreak,
     recoveryEligible: payload.recoveryEligible,

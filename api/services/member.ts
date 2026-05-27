@@ -6,15 +6,7 @@ import {
 } from './gamification/index.js'
 import { recoverStreak } from './gamification/streakUpdater.js'
 import { listAchievementsForChild } from './gamification/achievementEvaluator.js'
-
-const HOUR_MS = 60 * 60 * 1000
-function wibDateString(now: Date): string {
-  const wibShifted = new Date(now.getTime() + 7 * HOUR_MS)
-  const y = wibShifted.getUTCFullYear()
-  const m = String(wibShifted.getUTCMonth() + 1).padStart(2, '0')
-  const d = String(wibShifted.getUTCDate()).padStart(2, '0')
-  return `${y}-${m}-${d}`
-}
+import { wibDateString } from '../lib/wib.js'
 
 interface ProgressRow {
   attempts_count: string
@@ -193,8 +185,10 @@ export async function submitVideoScore(input: {
       },
       gamification: {
         xpEarned: gamification.xpEarned,
+        coinsEarned: gamification.coinsEarned,
         ledgerEntries: gamification.ledgerEntries,
         totalXp: gamification.profile.totalXp,
+        coinBalance: gamification.profile.coinBalance,
         currentLevel: gamification.profile.currentLevel,
         currentTierName: gamification.profile.currentTierName,
         levelUp: gamification.levelUp

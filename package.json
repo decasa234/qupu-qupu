@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview --port 5176",
     "check": "tsc --noEmit",
+    "test": "vitest run",
     "seed:wmi": "tsx db/seed/wmi/load.ts",
     "server:dev": "nodemon",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
@@ -64,6 +65,7 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.1.7"
   }
 }

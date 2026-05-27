@@ -74,7 +74,7 @@ export default function ReferralShareCard({ childName, headline }: Props) {
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xl text-white shadow-soft"
           aria-hidden="true"
         >
-          📣
+          <i className="fa-solid fa-bullhorn" />
         </span>
         <div className="min-w-0 flex-1">
           <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-700">

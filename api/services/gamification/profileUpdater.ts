@@ -2,8 +2,8 @@
 //
 // Atomic profile mutator. The eng review locked this pattern:
 // `UPDATE ... SET total_xp = total_xp + $delta` is the ONLY safe way to
-// increment XP under concurrent submissions. Read-then-write loses
-// concurrent increments.
+// increment XP and coin balance under concurrent submissions.
+// Read-then-write loses concurrent increments.
 //
 // Level/tier recompute happens in two steps inside the same transaction:
 //   1. Atomic XP delta → returns the new total_xp
@@ -18,6 +18,7 @@ import { loadLevelTiers, resolveLevel, type LevelTier } from './levelCurve.js'
 export interface ProfileSnapshot {
   childId: string
   totalXp: number
+  coinBalance: number
   currentLevel: number
   currentTierId: string | null
   currentTierName: string
@@ -29,6 +30,7 @@ export interface ProfileSnapshot {
 export interface UpdateProfileInput {
   childId: string
   xpDelta: number
+  coinDelta: number
   activityDate: string // YYYY-MM-DD WIB
 }
 
@@ -59,13 +61,14 @@ async function fetchSnapshot(
   const row = await queryOne<{
     child_id: string
     total_xp: number
+    coin_balance: number
     current_level: number
     current_tier_id: string | null
     current_streak_days: number
     longest_streak_days: number
     last_activity_date: string | null
   }>(
-    `SELECT child_id, total_xp, current_level, current_tier_id,
+    `SELECT child_id, total_xp, coin_balance, current_level, current_tier_id,
             current_streak_days, longest_streak_days,
             last_activity_date::text AS last_activity_date
        FROM gamification_profiles
@@ -78,6 +81,7 @@ async function fetchSnapshot(
   return {
     childId: row.child_id,
     totalXp: Number(row.total_xp),
+    coinBalance: Number(row.coin_balance),
     currentLevel: Number(row.current_level),
     currentTierId: row.current_tier_id,
     currentTierName: resolution.tier.tierName,
@@ -96,19 +100,22 @@ export async function updateProfileWithDelta(
   await ensureProfile(client, input.childId)
   const before = await fetchSnapshot(client, input.childId, tiers)
 
-  // Step 1: atomic XP delta. Returns the new total_xp from a single UPDATE.
-  const xpRow = await queryOne<{ total_xp: number }>(
+  // Step 1: atomic XP + coin delta. One UPDATE, race-safe — both columns
+  // increment in place, never read-then-write.
+  const xpRow = await queryOne<{ total_xp: number; coin_balance: number }>(
     `UPDATE gamification_profiles
         SET total_xp = total_xp + $1,
-            last_activity_date = $2,
+            coin_balance = coin_balance + $2,
+            last_activity_date = $3,
             updated_at = NOW()
-        WHERE child_id = $3
-        RETURNING total_xp`,
-    [input.xpDelta, input.activityDate, input.childId],
+        WHERE child_id = $4
+        RETURNING total_xp, coin_balance`,
+    [input.xpDelta, input.coinDelta, input.activityDate, input.childId],
     client,
   )
   if (!xpRow) throw new Error('gamification_profile UPDATE returned no row')
   const newTotalXp = Number(xpRow.total_xp)
+  const newCoinBalance = Number(xpRow.coin_balance)
 
   // Step 2: resolve level from new total. If it changed, write current_level
   // and current_tier_id. Still atomic — same transaction, same row.
@@ -131,6 +138,7 @@ export async function updateProfileWithDelta(
   const after: ProfileSnapshot = {
     ...before,
     totalXp: newTotalXp,
+    coinBalance: newCoinBalance,
     currentLevel: resolution.tier.levelNumber,
     currentTierId: resolution.tier.id,
     currentTierName: resolution.tier.tierName,

@@ -86,6 +86,7 @@ export interface VideoDetail extends VideoCard {
 export interface RewardLedgerEntry {
   rewardType: string
   xpDelta: number
+  coinDelta: number
 }
 
 export interface ScoreLevelUp {
@@ -111,8 +112,10 @@ export interface ScoreUnlockedAchievement {
 
 export interface ScoreGamificationSummary {
   xpEarned: number
+  coinsEarned: number
   ledgerEntries: RewardLedgerEntry[]
   totalXp: number
+  coinBalance: number
   currentLevel: number
   currentTierName: string
   levelUp: ScoreLevelUp | null

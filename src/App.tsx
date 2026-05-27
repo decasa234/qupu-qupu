@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
+import LoadingOverlay from './components/LoadingOverlay'
+import { useLoadingState } from './hooks/useLoadingState'
 import AdminLayout from './components/AdminLayout'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -23,6 +25,9 @@ import AdminUsersPage from './pages/admin/AdminUsers'
 import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
 import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import OnboardingChild from './pages/OnboardingChild'
+import AppShell from './components/AppShell'
+import ShopPage from './pages/Shop'
+import MePage from './pages/Me'
 import { useAuthStore } from './store/authStore'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -49,6 +54,25 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+function RouteLoadingTrigger() {
+  const location = useLocation()
+  useEffect(() => {
+    useLoadingState.getState().start()
+    let stopped = false
+    const stopOnce = () => {
+      if (stopped) return
+      stopped = true
+      useLoadingState.getState().stop()
+    }
+    const t = window.setTimeout(stopOnce, 50)
+    return () => {
+      window.clearTimeout(t)
+      stopOnce()
+    }
+  }, [location.pathname])
+  return null
+}
+
 function DashboardRouter() {
   const { user } = useAuthStore()
   if (user?.role === 'admin') {
@@ -57,21 +81,37 @@ function DashboardRouter() {
   return <DashboardPage />
 }
 
-// Minimum time the boot splash stays up, so a fast load doesn't flash it.
-const SPLASH_MIN_MS = 600
+// Boot splash dismisses when the React LoadingOverlay is ready to take
+// over — specifically when useLoadingState.visible first flips to false
+// (i.e. all in-flight work has settled + the 500ms tail). This avoids
+// the "two loaders" effect where the splash hides on its own fixed
+// timer while the React overlay is still showing (or vice versa).
+// A 10s safety dismisses the splash regardless, in case the loading
+// state never settles.
+const SPLASH_SAFETY_MS = 10000
 
 function useDismissBootSplash() {
   useEffect(() => {
     const splash = document.getElementById('qupu-splash')
     if (!splash) return
-    // performance.now() ≈ ms since the page started loading.
-    const remaining = Math.max(0, SPLASH_MIN_MS - performance.now())
-    const fadeTimer = window.setTimeout(() => {
+
+    let dismissed = false
+    const dismiss = () => {
+      if (dismissed) return
+      dismissed = true
       splash.classList.add('qupu-splash--hidden')
-      // Remove after the 0.45s opacity transition completes.
       window.setTimeout(() => splash.remove(), 500)
-    }, remaining)
-    return () => window.clearTimeout(fadeTimer)
+    }
+
+    const unsubscribe = useLoadingState.subscribe((state) => {
+      if (!state.visible) dismiss()
+    })
+    const safety = window.setTimeout(dismiss, SPLASH_SAFETY_MS)
+
+    return () => {
+      unsubscribe()
+      window.clearTimeout(safety)
+    }
   }, [])
 }
 
@@ -80,7 +120,10 @@ export default function App() {
 
   return (
     <Router>
+      <RouteLoadingTrigger />
+      <LoadingOverlay />
       <Routes>
+        {/* Marketing + auth + video + onboarding — keep marketing Layout */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="videos" element={<VideosPage />} />
@@ -95,89 +138,48 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardRouter />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="report"
-            element={
-              <ProtectedRoute>
-                <ReportPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="latihan/wmi"
-            element={
-              <ProtectedRoute>
-                <WmiHubPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="latihan/wmi/drill"
-            element={
-              <ProtectedRoute>
-                <WmiDrillPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="latihan/wmi/papers/:id"
-            element={
-              <ProtectedRoute>
-                <WmiPaperDetailPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="latihan/wmi/exam/:sessionId"
-            element={
-              <ProtectedRoute>
-                <WmiExamPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="latihan/wmi/exam/:sessionId/review"
-            element={
-              <ProtectedRoute>
-                <WmiExamReviewPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="badges"
-            element={
-              <ProtectedRoute>
-                <BadgesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="admin"
-            element={
-              <AdminRoute>
-                <AdminLayout />
-              </AdminRoute>
-            }
-          >
-            <Route index element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboardPage />} />
-            <Route path="videos" element={<AdminVideosPage />} />
-            <Route path="videos/import" element={<AdminImportVideosPage />} />
-            <Route path="subjects" element={<AdminSubjectsPage />} />
-            <Route path="age-groups" element={<AdminAgeGroupsPage />} />
-            <Route path="users" element={<AdminUsersPage />} />
-            <Route path="analytics" element={<AdminAnalyticsPage />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <AppShell />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<DashboardRouter />} />
+          <Route path="report" element={<ReportPage />} />
+          <Route path="badges" element={<BadgesPage />} />
+          <Route path="shop" element={<ShopPage />} />
+          <Route path="me" element={<MePage />} />
+          <Route path="latihan/wmi" element={<WmiHubPage />} />
+          <Route path="latihan/wmi/drill" element={<WmiDrillPage />} />
+          <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />
+          <Route path="latihan/wmi/exam/:sessionId" element={<WmiExamPage />} />
+          <Route path="latihan/wmi/exam/:sessionId/review" element={<WmiExamReviewPage />} />
+        </Route>
+
+        {/* Admin — untouched */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="videos" element={<AdminVideosPage />} />
+          <Route path="videos/import" element={<AdminImportVideosPage />} />
+          <Route path="subjects" element={<AdminSubjectsPage />} />
+          <Route path="age-groups" element={<AdminAgeGroupsPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="analytics" element={<AdminAnalyticsPage />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   )

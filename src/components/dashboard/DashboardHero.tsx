@@ -47,7 +47,7 @@ export default function DashboardHero({ vm }: Props) {
             Anak Bunda{vm.child.ageLabel ? ` · ${vm.child.ageLabel}` : ''}
           </div>
           <h1 className="mt-1.5 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
-            {onFire ? `${vm.child.name} sedang on fire! 🔥` : `Yuk lanjutkan belajar bareng ${vm.child.name}`}
+            {onFire ? `${vm.child.name} sedang on fire!` : `Yuk lanjutkan belajar bareng ${vm.child.name}`}
           </h1>
           <p className="mt-2 text-sm font-medium text-qupu-muted sm:text-base">
             {onFire
@@ -72,12 +72,18 @@ export default function DashboardHero({ vm }: Props) {
           </div>
 
           {/* Horizontal stat strip */}
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
               <div className="font-display text-3xl font-extrabold text-qupu-brand-blue">
-                <span className="text-2xl" aria-hidden="true">🔥</span> {vm.streak}
+                <i className="fa-solid fa-fire text-2xl" aria-hidden="true" /> {vm.streak}
               </div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Streak</div>
+            </div>
+            <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
+              <div className="font-display text-3xl font-extrabold text-qupu-brand-blue">
+                <i className="fa-solid fa-coins text-2xl" aria-hidden="true" /> {vm.coinBalance}
+              </div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Koin</div>
             </div>
             <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
               <GoalRing pct={vm.dailyGoalPct} />
@@ -85,7 +91,7 @@ export default function DashboardHero({ vm }: Props) {
             </div>
             <div className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-center">
               <div className="font-display text-3xl font-extrabold text-qupu-brand-blue">
-                <span className="text-2xl" aria-hidden="true">⏱</span> {vm.screenTimeMin}m
+                <i className="fa-solid fa-stopwatch text-2xl" aria-hidden="true" /> {vm.screenTimeMin}m
               </div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Hari ini</div>
             </div>

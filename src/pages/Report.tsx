@@ -11,6 +11,16 @@ import RaporVideoBreakdown from '../components/report/RaporVideoBreakdown'
 import RaporNote from '../components/report/RaporNote'
 import RaporFooter from '../components/report/RaporFooter'
 import PrintButton from '../components/report/PrintButton'
+import DashboardKpis from '../components/dashboard/DashboardKpis'
+import DashboardActivity from '../components/dashboard/DashboardActivity'
+import DashboardSubjects from '../components/dashboard/DashboardSubjects'
+import DashboardRecommended from '../components/dashboard/DashboardRecommended'
+import DashboardAttempts from '../components/dashboard/DashboardAttempts'
+import {
+  dashboardFromApi,
+  type DashboardApiResponse,
+  type DashboardViewModel,
+} from '../lib/dashboardData'
 import type { MemberProgress } from '../types'
 
 export default function ReportPage() {
@@ -20,6 +30,22 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [ageGroupName, setAgeGroupName] = useState<string | null>(null)
+  const [vm, setVm] = useState<DashboardViewModel | null>(null)
+
+  useEffect(() => {
+    if (!activeChildId) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
+        if (cancelled) return
+        setVm(dashboardFromApi(response.data.data as DashboardApiResponse))
+      } catch (err) {
+        console.error('Failed to load dashboard sections for report:', err)
+      }
+    })()
+    return () => { cancelled = true }
+  }, [activeChildId])
 
   useEffect(() => {
     if (!activeChildId) {
@@ -69,17 +95,25 @@ export default function ReportPage() {
     )
   }
 
-  if (loading) return <SkeletonCard />
+  if (loading) {
+    return (
+      <div className="mx-auto w-full max-w-4xl">
+        <SkeletonCard />
+      </div>
+    )
+  }
   if (error || !progress) {
     return (
-      <div className="rounded-3xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
-        {error || 'Gagal memuat rapor.'}
+      <div className="mx-auto w-full max-w-4xl">
+        <div className="rounded-3xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
+          {error || 'Gagal memuat rapor.'}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto w-full max-w-4xl space-y-4">
       <div className="flex items-center justify-between gap-3" data-print-hide>
         <Link to="/dashboard" className="text-sm font-bold text-qupu-brand-blue underline">
           ← Kembali ke dashboard
@@ -118,6 +152,18 @@ export default function ReportPage() {
 
         <RaporFooter />
       </article>
+
+      {vm && (
+        <>
+          <DashboardKpis tiles={vm.kpis} />
+          <section className="grid gap-6 lg:grid-cols-2">
+            <DashboardActivity vm={vm} />
+            <DashboardSubjects subjects={vm.subjects} childName={vm.child.name} />
+          </section>
+          <DashboardRecommended items={vm.recommended} childName={vm.child.name} />
+          <DashboardAttempts attempts={vm.attempts} childName={vm.child.name} />
+        </>
+      )}
     </div>
   )
 }

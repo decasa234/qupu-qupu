@@ -6,20 +6,14 @@ import {
   type DashboardApiResponse,
   type DashboardViewModel,
 } from '../lib/dashboardData'
+import { fetchShopItems, type ShopItemForChild } from '../lib/shopApi'
 import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import AuthCard from '../components/AuthCard'
-import Reveal from '../components/Reveal'
 import SkeletonCard from '../components/SkeletonCard'
-import DashboardEmptyState from '../components/dashboard/DashboardEmptyState'
-import DashboardHero from '../components/dashboard/DashboardHero'
-import DashboardKpis from '../components/dashboard/DashboardKpis'
-import DashboardQuests from '../components/dashboard/DashboardQuests'
-import DashboardActivity from '../components/dashboard/DashboardActivity'
-import DashboardSubjects from '../components/dashboard/DashboardSubjects'
-import DashboardRecommended from '../components/dashboard/DashboardRecommended'
-import DashboardAttempts from '../components/dashboard/DashboardAttempts'
-import DashboardBadges from '../components/dashboard/DashboardBadges'
+import MissionStrip from '../components/dashboard/MissionStrip'
+import ShopTeaser from '../components/dashboard/ShopTeaser'
 
 export default function DashboardPage() {
   const { children, activeChildId } = useAuthStore()
@@ -27,6 +21,23 @@ export default function DashboardPage() {
   const [vm, setVm] = useState<DashboardViewModel | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [affordable, setAffordable] = useState<ShopItemForChild[]>([])
+
+  useEffect(() => {
+    if (!activeChildId) return
+    let cancelled = false
+    fetchShopItems(activeChildId)
+      .then((items) => {
+        if (cancelled) return
+        const list = items
+          .filter((i) => !i.owned && i.affordable)
+          .sort((a, b) => a.coinPrice - b.coinPrice)
+          .slice(0, 3)
+        setAffordable(list)
+      })
+      .catch(() => { /* shop endpoint failure must not break dashboard */ })
+    return () => { cancelled = true }
+  }, [activeChildId])
 
   useEffect(() => {
     if (!activeChildId || !activeChild) {
@@ -44,7 +55,17 @@ export default function DashboardPage() {
         const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
         if (cancelled) return
         const payload = response.data.data as DashboardApiResponse
-        setVm(dashboardFromApi(payload))
+        const vmNew = dashboardFromApi(payload)
+        if (cancelled) return
+        setVm(vmNew)
+        useGamificationStats.getState().setStats({
+          streak: vmNew.streak,
+          coinBalance: vmNew.coinBalance,
+          level: vmNew.level,
+          tierName: vmNew.tierName,
+          xp: vmNew.xp,
+          xpToNext: vmNew.xpToNext,
+        })
       } catch (loadError) {
         if (cancelled) return
         console.error('Failed to load dashboard:', loadError)
@@ -86,62 +107,58 @@ export default function DashboardPage() {
   }
 
   if (loading) {
-    return <SkeletonCard />
-  }
-
-  if (error || !vm) {
     return (
-      <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
-        {error || 'Gagal memuat dashboard.'}
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <SkeletonCard />
       </div>
     )
   }
 
-  // Brand-new child with zero activity gets the empty-state hero
-  // instead of the all-zeros dashboard.
-  if (vm.totalXp === 0 && vm.streak === 0 && vm.attempts.length === 0) {
+  if (error || !vm) {
     return (
-      <Reveal>
-        <DashboardEmptyState childName={vm.child.name} ageLabel={vm.child.ageLabel} />
-      </Reveal>
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
+          {error || 'Gagal memuat dashboard.'}
+        </div>
+      </div>
     )
   }
 
   return (
-    <div className="space-y-8 sm:space-y-10">
-      <Reveal>
-        <DashboardHero vm={vm} />
-      </Reveal>
-
-      <Reveal delay={0.05}>
-        <DashboardKpis tiles={vm.kpis} />
-      </Reveal>
-
-      <Reveal delay={0.08}>
-        <DashboardQuests quests={vm.quests} childName={vm.child.name} />
-      </Reveal>
-
-      <section className="grid gap-6 lg:grid-cols-2">
-        <Reveal delay={0.05}>
-          <DashboardActivity vm={vm} />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <DashboardSubjects subjects={vm.subjects} childName={vm.child.name} />
-        </Reveal>
+    <div className="mx-auto flex w-full max-w-md flex-col gap-4 sm:max-w-lg">
+      {/* Profile hero */}
+      <section className="rounded-[2rem] bg-gradient-to-br from-qupu-brand-blue to-[#2c3f74] p-5 text-white shadow-[5px_6px_0_0_#FFD3B1]">
+        <div className="flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-qupu-peach text-2xl text-qupu-brand-blue">
+            <i className="fa-solid fa-user-astronaut" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/70">
+              {vm.tierName}
+            </div>
+            <h2 className="font-display text-xl font-extrabold">Hai, {vm.child.name}!</h2>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/15">
+              <div
+                className="h-full rounded-full bg-qupu-brand-yellow"
+                style={{ width: `${Math.min(100, Math.round((vm.xp / Math.max(1, vm.xpToNext)) * 100))}%` }}
+              />
+            </div>
+            <div className="mt-1 text-[11px] font-medium text-white/70">
+              {vm.xp} / {vm.xpToNext} XP · Level {vm.level}
+            </div>
+          </div>
+        </div>
       </section>
 
-      <Reveal delay={0.05}>
-        <DashboardRecommended items={vm.recommended} childName={vm.child.name} />
-      </Reveal>
+      <MissionStrip quests={vm.quests} childName={vm.child.name} />
+      <ShopTeaser coinBalance={vm.coinBalance} affordableItems={affordable} />
 
-      <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <Reveal delay={0.05}>
-          <DashboardAttempts attempts={vm.attempts} childName={vm.child.name} />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <DashboardBadges badges={vm.badges} />
-        </Reveal>
-      </section>
+      <Link
+        to="/report"
+        className="self-start text-xs font-bold uppercase tracking-[0.18em] text-qupu-brand-orange underline-offset-4 hover:underline"
+      >
+        Lihat rapor lengkap →
+      </Link>
     </div>
   )
 }

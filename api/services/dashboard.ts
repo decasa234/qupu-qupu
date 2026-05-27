@@ -47,6 +47,7 @@ export interface DashboardSubject {
   trend: number          // signed % vs previous period
   peer: PeerComparison
   mastery: number        // 0-100
+  badgesEarned: number   // total badges the child earned in this subject
   subtopics: Array<{ name: string; score: number }>
 }
 
@@ -90,6 +91,7 @@ export interface DashboardQuest {
   targetValue: number
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
+  coinReward: number   // surfaced from quest_templates.coin_reward
 }
 
 export interface DashboardPayload {
@@ -323,6 +325,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       targetValue: q.targetValue,
       status: q.status,
       xpReward: q.xpReward,
+      coinReward: q.coinReward,
     }))
 
     const kpis: DashboardKpi[] = [
@@ -373,6 +376,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       xp: xpInLevel,
       xpToNext,
       totalXp,
+      coinBalance: gamProfile.coinBalance,
       streak: currentStreak,
       longestStreak,
       recoveryEligible,
@@ -439,6 +443,7 @@ async function fetchChild(
 
 interface GamificationProfileRow {
   totalXp: number
+  coinBalance: number
   currentStreakDays: number
   longestStreakDays: number
   preBreakStreakDays: number
@@ -452,11 +457,13 @@ async function fetchGamificationProfile(
   // Default to zeros so the dashboard renders cleanly for new users.
   const row = await queryOne<{
     total_xp: number
+    coin_balance: number
     current_streak_days: number
     longest_streak_days: number
     pre_break_streak_days: number
   }>(
-    `SELECT total_xp, current_streak_days, longest_streak_days, pre_break_streak_days
+    `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days,
+            pre_break_streak_days
        FROM gamification_profiles
        WHERE child_id = $1`,
     [childId],
@@ -464,6 +471,7 @@ async function fetchGamificationProfile(
   )
   return {
     totalXp: Number(row?.total_xp ?? 0),
+    coinBalance: Number(row?.coin_balance ?? 0),
     currentStreakDays: Number(row?.current_streak_days ?? 0),
     longestStreakDays: Number(row?.longest_streak_days ?? 0),
     preBreakStreakDays: Number(row?.pre_break_streak_days ?? 0),
@@ -694,6 +702,7 @@ interface SubjectRow {
   mastery_videos_attempted: string
   mastery_videos_available: string
   peer_avg: string | null
+  badges_earned: string
 }
 
 async function fetchSubjects(
@@ -757,6 +766,13 @@ async function fetchSubjects(
         SELECT subject_id, AVG(best_score) AS avg_score
           FROM peer_best_per_video
           GROUP BY subject_id
+      ),
+      badges_per_subject AS (
+        SELECT v.subject_id, COALESCE(SUM(ubu.badge_count), 0) AS badges_earned
+          FROM user_badge_unlocks ubu
+          JOIN videos v ON v.id = ubu.video_id
+          WHERE ubu.child_id = $1
+          GROUP BY v.subject_id
       )
       SELECT
         s.id,
@@ -766,7 +782,8 @@ async function fetchSubjects(
         ps.avg_score AS prev_score,
         COALESCE(av_attempted.cnt, 0) AS mastery_videos_attempted,
         COALESCE(av_total.cnt, 0) AS mastery_videos_available,
-        pa.avg_score AS peer_avg
+        pa.avg_score AS peer_avg,
+        COALESCE(bps.badges_earned, 0) AS badges_earned
       FROM subjects s
       LEFT JOIN current_scores cs ON cs.subject_id = s.id
       LEFT JOIN prev_scores ps ON ps.subject_id = s.id
@@ -777,6 +794,7 @@ async function fetchSubjects(
         SELECT subject_id, COUNT(*) AS cnt FROM available_videos GROUP BY subject_id
       ) av_total ON av_total.subject_id = s.id
       LEFT JOIN peer_avg pa ON pa.subject_id = s.id
+      LEFT JOIN badges_per_subject bps ON bps.subject_id = s.id
       WHERE EXISTS (SELECT 1 FROM available_videos av WHERE av.subject_id = s.id)
       ORDER BY (cs.avg_score IS NULL), cs.avg_score DESC NULLS LAST, s.name ASC
     `,
@@ -837,6 +855,7 @@ async function fetchSubjects(
       trend,
       peer,
       mastery,
+      badgesEarned: Number(row.badges_earned),
       subtopics: subtopicList,
     }
   })
@@ -985,14 +1004,15 @@ function deriveBadges(summary: SummaryStats, streak: { current: number; longest:
   const lifetimeAttempts = summary.lifetimeAttempts
   const totalBadges = summary.badgesTotal
   return [
-    { id: 'first-quiz',  name: 'Pertama Kali',  description: 'Quiz pertama',     colorHex: '#F0853A', icon: '🎯', earned: lifetimeAttempts >= 1 },
-    { id: 'streak-3',    name: 'Streak 3 Hari', description: '3 hari berturut',  colorHex: '#FF6B6B', icon: '🔥', earned: streak.longest >= 3 },
-    { id: 'streak-5',    name: 'Streak 5 Hari', description: '5 hari berturut',  colorHex: '#F0853A', icon: '🔥', earned: streak.longest >= 5 },
-    { id: 'ten-quiz',    name: '10 Quiz',       description: '10 quiz selesai',  colorHex: '#58CC02', icon: '✅', earned: lifetimeAttempts >= 10 },
-    { id: 'twenty-five', name: '25 Quiz',       description: '25 quiz selesai',  colorHex: '#8A5BF0', icon: '🏆', earned: lifetimeAttempts >= 25 },
-    { id: 'fifty',       name: '50 Quiz',       description: '50 quiz selesai',  colorHex: '#FFDD55', icon: '⭐', earned: lifetimeAttempts >= 50 },
-    { id: 'streak-10',   name: 'Streak 10',     description: '10 hari berturut', colorHex: '#FF6B6B', icon: '🔥', earned: streak.longest >= 10 },
-    { id: 'star',        name: 'Bintang',       description: `${totalBadges} badge`, colorHex: '#FFDD55', icon: '⭐', earned: totalBadges >= 5 },
+    // `icon` is a Font Awesome class; rendered as <i> by DashboardBadges.
+    { id: 'first-quiz',  name: 'Pertama Kali',  description: 'Quiz pertama',     colorHex: '#F0853A', icon: 'fa-solid fa-bullseye',     earned: lifetimeAttempts >= 1 },
+    { id: 'streak-3',    name: 'Streak 3 Hari', description: '3 hari berturut',  colorHex: '#FF6B6B', icon: 'fa-solid fa-fire',         earned: streak.longest >= 3 },
+    { id: 'streak-5',    name: 'Streak 5 Hari', description: '5 hari berturut',  colorHex: '#F0853A', icon: 'fa-solid fa-fire',         earned: streak.longest >= 5 },
+    { id: 'ten-quiz',    name: '10 Quiz',       description: '10 quiz selesai',  colorHex: '#58CC02', icon: 'fa-solid fa-circle-check', earned: lifetimeAttempts >= 10 },
+    { id: 'twenty-five', name: '25 Quiz',       description: '25 quiz selesai',  colorHex: '#8A5BF0', icon: 'fa-solid fa-trophy',       earned: lifetimeAttempts >= 25 },
+    { id: 'fifty',       name: '50 Quiz',       description: '50 quiz selesai',  colorHex: '#FFDD55', icon: 'fa-solid fa-star',         earned: lifetimeAttempts >= 50 },
+    { id: 'streak-10',   name: 'Streak 10',     description: '10 hari berturut', colorHex: '#FF6B6B', icon: 'fa-solid fa-fire',         earned: streak.longest >= 10 },
+    { id: 'star',        name: 'Bintang',       description: `${totalBadges} badge`, colorHex: '#FFDD55', icon: 'fa-solid fa-star',     earned: totalBadges >= 5 },
   ]
 }
 
