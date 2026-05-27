@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Menu, Shield, Trophy, X } from 'lucide-react'
+import { BookOpen, LayoutDashboard, Menu, Shield, Trophy, X } from 'lucide-react'
 import BrandLogo from './BrandLogo'
 import ChildSwitcher from './ChildSwitcher'
 import { useAuthStore } from '../store/authStore'
@@ -96,6 +96,12 @@ export default function Navbar() {
           )}
           {isAuthenticated && !isAdmin && (
             <NavItemLink
+              item={{ label: 'Latihan', to: '/latihan/wmi' }}
+              activeSection={activeSection}
+            />
+          )}
+          {isAuthenticated && !isAdmin && (
+            <NavItemLink
               item={{ label: 'Badge', to: '/badges' }}
               activeSection={activeSection}
             />
@@ -171,6 +177,16 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
               >
                 Dashboard
+              </MobileLink>
+            )}
+            {isAuthenticated && !isAdmin && (
+              <MobileLink
+                icon={BookOpen}
+                to="/latihan/wmi"
+                activeSection={activeSection}
+                onClick={() => setOpen(false)}
+              >
+                Latihan
               </MobileLink>
             )}
             {isAuthenticated && !isAdmin && (
