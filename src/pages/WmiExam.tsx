@@ -26,9 +26,19 @@ export default function WmiExam() {
   useEffect(() => {
     if (!activeChildId || !sessionId) return
     fetchExamSession(activeChildId, sessionId)
-      .then(setSnapshot)
+      .then((snap) => {
+        if (snap.session.completed_at) {
+          navigate(`/latihan/wmi/exam/${sessionId}/review`, { replace: true })
+          return
+        }
+        setSnapshot(snap)
+      })
       .catch((err) => setError(err instanceof Error ? err.message : 'Gagal memuat ujian'))
-  }, [activeChildId, sessionId])
+  }, [activeChildId, sessionId, navigate])
+
+  useEffect(() => {
+    setLookedUpTerms([])
+  }, [currentIndex])
 
   const attemptsByQuestion = useMemo(() => {
     return new Map(snapshot?.submittedAttempts.map((attempt) => [attempt.question_id, attempt]) ?? [])

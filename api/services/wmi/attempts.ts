@@ -72,7 +72,8 @@ export async function submitWmiAttempt(
             is_correct = EXCLUDED.is_correct,
             time_taken_ms = EXCLUDED.time_taken_ms,
             revealed_id_translation = EXCLUDED.revealed_id_translation,
-            looked_up_terms = EXCLUDED.looked_up_terms
+            looked_up_terms = EXCLUDED.looked_up_terms,
+            created_at = NOW()
         `,
         [
           input.childId,

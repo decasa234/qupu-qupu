@@ -115,29 +115,33 @@ export async function getWmiDrillQuestion(
   parentUserId: string,
   childId: string,
   grade: number,
-  excludeQuestionId?: string,
 ) {
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
-    const params: unknown[] = [grade]
-    const excludeClause = excludeQuestionId ? 'AND q.id <> $2' : ''
-    if (excludeQuestionId) params.push(excludeQuestionId)
 
     let question = await queryOne<WmiQuestionDto>(
       `
+        WITH recent AS (
+          SELECT question_id
+          FROM wmi_attempts
+          WHERE child_id = $1 AND mode = 'drill'
+          ORDER BY created_at DESC
+          LIMIT 20
+        )
         SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
                q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty
         FROM wmi_questions q
         JOIN wmi_papers p ON p.id = q.paper_id
-        WHERE p.grade = $1 ${excludeClause}
+        WHERE p.grade = $2
+          AND q.id NOT IN (SELECT question_id FROM recent)
         ORDER BY random()
         LIMIT 1
       `,
-      params,
+      [childId, grade],
       client,
     )
 
-    if (!question && excludeQuestionId) {
+    if (!question) {
       question = await queryOne<WmiQuestionDto>(
         `
           SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,

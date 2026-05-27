@@ -8,8 +8,8 @@ import { useWmiStore } from '../store/wmiStore'
 import type { WmiAttemptResult, WmiGrade, WmiQuestion } from '../types/wmi'
 
 function parseGrade(raw: string | null): WmiGrade {
-  const n = Number(raw ?? 1)
-  return n === 0 || n === 2 || n === 3 ? n : 1
+  const n = Number(raw ?? 0)
+  return n === 1 || n === 2 || n === 3 ? n : 0
 }
 
 export default function WmiDrill() {
@@ -26,7 +26,7 @@ export default function WmiDrill() {
   const [error, setError] = useState<string | null>(null)
   const askedAt = useRef(Date.now())
 
-  const loadQuestion = useCallback(async (exclude?: string) => {
+  const loadQuestion = useCallback(async () => {
     if (!activeChildId) return
     setSelected(null)
     setFeedback(null)
@@ -34,7 +34,7 @@ export default function WmiDrill() {
     setRevealed(false)
     setError(null)
     try {
-      setQuestion(await fetchDrillQuestion(activeChildId, grade, exclude))
+      setQuestion(await fetchDrillQuestion(activeChildId, grade))
       askedAt.current = Date.now()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Gagal memuat soal')
@@ -106,7 +106,7 @@ export default function WmiDrill() {
           correctAnswer={feedback.correct_answer}
           hintEn={feedback.hint_en}
           hintId={feedback.hint_id}
-          onNext={() => loadQuestion(question.id)}
+          onNext={() => loadQuestion()}
         />
       )}
     </div>

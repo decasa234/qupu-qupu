@@ -34,10 +34,9 @@ export async function fetchPaperDetail(childId: string, paperId: string): Promis
 export async function fetchDrillQuestion(
   childId: string,
   grade: WmiGrade,
-  excludeQuestionId?: string,
 ): Promise<WmiQuestion> {
   const response = await api.get('/me/wmi/drill/next', {
-    params: { childId, grade, excludeQuestionId },
+    params: { childId, grade },
   })
   return unwrap<{ question: WmiQuestion }>(response).question
 }

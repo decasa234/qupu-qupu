@@ -19,9 +19,7 @@ const papersQuerySchema = childQuerySchema.keys({
   grade: Joi.number().integer().min(0).max(3).required(),
 })
 
-const drillQuerySchema = papersQuerySchema.keys({
-  excludeQuestionId: Joi.string().uuid().optional(),
-})
+const drillQuerySchema = papersQuerySchema
 
 const startSessionSchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -32,8 +30,10 @@ const attemptSchema = Joi.object({
   childId: Joi.string().uuid().required(),
   question_id: Joi.string().uuid().required(),
   mode: Joi.string().valid('drill', 'exam').required(),
-  session_id: Joi.string().uuid().allow(null).optional(),
-  selected_answer: Joi.string().trim().min(1).required(),
+  session_id: Joi.string()
+    .uuid()
+    .when('mode', { is: 'exam', then: Joi.required(), otherwise: Joi.allow(null).optional() }),
+  selected_answer: Joi.string().trim().min(1).max(200).required(),
   time_taken_ms: Joi.number().integer().min(0).allow(null).optional(),
   revealed_id_translation: Joi.boolean().optional(),
   looked_up_terms: Joi.array().items(Joi.string().pattern(/^[a-z0-9-]+$/)).default([]),
@@ -89,12 +89,7 @@ router.get('/drill/next', authenticateToken, async (req: AuthRequest, res: Respo
       res.status(400).json({ success: false, error: error.details[0].message })
       return
     }
-    const question = await getWmiDrillQuestion(
-      req.user.id,
-      value.childId,
-      value.grade,
-      value.excludeQuestionId,
-    )
+    const question = await getWmiDrillQuestion(req.user.id, value.childId, value.grade)
     res.json({ success: true, data: { question } })
   } catch (error) {
     console.error('WMI drill error:', error)
