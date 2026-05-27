@@ -76,21 +76,37 @@ function DashboardRouter() {
   return <DashboardPage />
 }
 
-// Minimum time the boot splash stays up, so a fast load doesn't flash it.
-const SPLASH_MIN_MS = 600
+// Boot splash dismisses when the React LoadingOverlay is ready to take
+// over — specifically when useLoadingState.visible first flips to false
+// (i.e. all in-flight work has settled + the 500ms tail). This avoids
+// the "two loaders" effect where the splash hides on its own fixed
+// timer while the React overlay is still showing (or vice versa).
+// A 10s safety dismisses the splash regardless, in case the loading
+// state never settles.
+const SPLASH_SAFETY_MS = 10000
 
 function useDismissBootSplash() {
   useEffect(() => {
     const splash = document.getElementById('qupu-splash')
     if (!splash) return
-    // performance.now() ≈ ms since the page started loading.
-    const remaining = Math.max(0, SPLASH_MIN_MS - performance.now())
-    const fadeTimer = window.setTimeout(() => {
+
+    let dismissed = false
+    const dismiss = () => {
+      if (dismissed) return
+      dismissed = true
       splash.classList.add('qupu-splash--hidden')
-      // Remove after the 0.45s opacity transition completes.
       window.setTimeout(() => splash.remove(), 500)
-    }, remaining)
-    return () => window.clearTimeout(fadeTimer)
+    }
+
+    const unsubscribe = useLoadingState.subscribe((state) => {
+      if (!state.visible) dismiss()
+    })
+    const safety = window.setTimeout(dismiss, SPLASH_SAFETY_MS)
+
+    return () => {
+      unsubscribe()
+      window.clearTimeout(safety)
+    }
   }, [])
 }
 

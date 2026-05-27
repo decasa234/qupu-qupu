@@ -40,7 +40,13 @@ function clearSafetyTimer() {
 
 export const useLoadingState = create<LoadingState>((set, get) => ({
   inflightCount: 0,
-  visible: false,
+  // Starts true so the React loader is already painted by the time
+  // useDismissBootSplash hands off from the inline boot splash —
+  // zero blank frame between the two. The RouteLoadingTrigger's
+  // mount-time pulse drives the first true→false transition once
+  // any page-level fetches settle (or after 50ms + 500ms tail on a
+  // fetch-less page).
+  visible: true,
   start: () => {
     clearHideTimer()
     const wasVisible = get().visible
