@@ -12,20 +12,36 @@ describe('count-objects', () => {
       const params = concept.generate(mulberry32(seed))
       expect(() => concept.paramsSchema.parse(params)).not.toThrow()
       const rendered = concept.render(params)
-      const answerChoice = rendered.choices_en?.find((c) => c.label === rendered.answer)
-      expect(answerChoice).toBeDefined()
-      expect(answerChoice?.text).toBe(String(params.n))
+      for (const choices of [rendered.choices_en, rendered.choices_id]) {
+        const answerChoice = choices?.find((c) => c.label === rendered.answer)
+        expect(answerChoice).toBeDefined()
+        expect(answerChoice?.text).toBe(String(params.n))
+      }
     }
   })
 
-  test('MC: choices contain the answer label, all four labels distinct', () => {
+  test('MC: exactly four choices with distinct labels/texts and correct answer label', () => {
     for (let seed = 1; seed <= 50; seed++) {
       const r = concept.render(concept.generate(mulberry32(seed)))
       expect(r.answer_type).toBe('multiple_choice')
-      const labels = (r.choices_en ?? []).map((c) => c.label)
-      expect(new Set(labels).size).toBe(labels.length)
-      expect(labels).toContain(r.answer)
+      for (const choices of [r.choices_en, r.choices_id]) {
+        expect(choices).toHaveLength(4)
+        const labels = (choices ?? []).map((c) => c.label)
+        const texts = (choices ?? []).map((c) => c.text)
+        expect(new Set(labels).size).toBe(4)
+        expect(new Set(texts).size).toBe(4)
+        expect(labels).toContain(r.answer)
+      }
     }
+  })
+
+  test('correct answer label varies by generated offset', () => {
+    const labels = new Set<string>()
+    for (let seed = 1; seed <= 100; seed++) {
+      const r = concept.render(concept.generate(mulberry32(seed)))
+      labels.add(r.answer)
+    }
+    expect(labels.size).toBeGreaterThan(1)
   })
 
   test('grades include 0', () => {
