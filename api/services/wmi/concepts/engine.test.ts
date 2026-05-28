@@ -41,7 +41,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   })
 
   test('does not return an answer field', async () => {
-    const q = await getNextConceptQuestion(parentUserId, childId) as Record<string, unknown>
+    const q = await getNextConceptQuestion(parentUserId, childId) as unknown as Record<string, unknown>
     expect(q.answer).toBeUndefined()
   })
 
