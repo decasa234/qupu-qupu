@@ -187,5 +187,83 @@ async function fallbackOldestAttempted(
   )
 }
 
+export async function submitConceptVote(
+  parentUserId: string,
+  childId: string,
+  conceptInstanceId: string,
+  vote: 1 | -1,
+): Promise<{ upvotes: number; downvotes: number }> {
+  return withTransaction(async (client) => {
+    await assertChildOwnership(client, parentUserId, childId)
+
+    const instance = await queryOne<{ concept_slug: string }>(
+      'SELECT concept_slug FROM wmi_concept_instances WHERE id = $1',
+      [conceptInstanceId],
+      client,
+    )
+    if (!instance) throw new Error('Question not found')
+
+    const previous = await queryOne<{ vote: number }>(
+      `SELECT vote FROM wmi_concept_votes
+       WHERE child_id = $1 AND concept_instance_id = $2`,
+      [childId, conceptInstanceId],
+      client,
+    )
+    const previousVote = previous?.vote ?? null
+
+    await client.query(
+      `
+      INSERT INTO wmi_concept_votes (child_id, concept_instance_id, vote)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (child_id, concept_instance_id)
+      DO UPDATE SET vote = EXCLUDED.vote, voted_at = NOW()
+      `,
+      [childId, conceptInstanceId, vote],
+    )
+
+    const counts = await queryOne<{ upvotes: string; downvotes: string }>(
+      `
+      UPDATE wmi_concept_instances
+      SET upvotes   = (SELECT count(*) FROM wmi_concept_votes
+                       WHERE concept_instance_id = $1 AND vote = 1),
+          downvotes = (SELECT count(*) FROM wmi_concept_votes
+                       WHERE concept_instance_id = $1 AND vote = -1)
+      WHERE id = $1
+      RETURNING upvotes::text, downvotes::text
+      `,
+      [conceptInstanceId],
+      client,
+    )
+    if (!counts) throw new Error('Question not found')
+
+    // Adjust aggregate counters on wmi_concepts
+    let upDelta = 0
+    let downDelta = 0
+    if (previousVote === null) {
+      if (vote === 1) upDelta = 1
+      else downDelta = 1
+    } else if (previousVote === 1 && vote === -1) {
+      upDelta = -1
+      downDelta = 1
+    } else if (previousVote === -1 && vote === 1) {
+      upDelta = 1
+      downDelta = -1
+    }
+    if (upDelta !== 0 || downDelta !== 0) {
+      await client.query(
+        `
+        UPDATE wmi_concepts
+        SET total_upvotes   = total_upvotes   + $2,
+            total_downvotes = total_downvotes + $3
+        WHERE slug = $1
+        `,
+        [instance.concept_slug, upDelta, downDelta],
+      )
+    }
+
+    return { upvotes: Number(counts.upvotes), downvotes: Number(counts.downvotes) }
+  })
+}
+
 void CONCEPTS // keep the import alive for tree-shake awareness
 void query
