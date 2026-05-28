@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeAll, beforeEach, afterAll } from 'vitest'
 import { randomUUID } from 'node:crypto'
-import { pool, query, queryOne, withTransaction } from '../../../db.js'
+import { pool, queryOne, withTransaction } from '../../../db.js'
 import { ensureBootstrapped, _resetBootstrapForTesting } from './bootstrap.js'
 import { getNextConceptQuestion, submitConceptVote } from './engine.js'
 
@@ -23,8 +23,8 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     )
     parentUserId = user!.id
     const child = await queryOne<{ id: string }>(
-      `INSERT INTO children (parent_user_id, name, grade) VALUES ($1, $2, $3) RETURNING id`,
-      [parentUserId, `Kid ${tag}`, 1],
+      `INSERT INTO children (parent_user_id, name) VALUES ($1, $2) RETURNING id`,
+      [parentUserId, `Kid ${tag}`],
     )
     childId = child!.id
   })
@@ -34,26 +34,25 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   })
 
   test('serves an unculled instance for kid grade', async () => {
-    const q = await getNextConceptQuestion(parentUserId, childId)
+    const q = await getNextConceptQuestion(parentUserId, childId, 1)
     expect(q.concept_instance_id).toBeTruthy()
     expect(q.body_id).toBeTruthy()
     expect(q.answer_type === 'multiple_choice' || q.answer_type === 'fill_in').toBe(true)
   })
 
   test('does not return an answer field', async () => {
-    const q = await getNextConceptQuestion(parentUserId, childId) as unknown as Record<string, unknown>
+    const q = await getNextConceptQuestion(parentUserId, childId, 1) as unknown as Record<string, unknown>
     expect(q.answer).toBeUndefined()
   })
 
   test('throws when no concept for kid grade', async () => {
-    await query(`UPDATE children SET grade = 99 WHERE id = $1`, [childId])
-    await expect(getNextConceptQuestion(parentUserId, childId)).rejects.toThrow(
+    await expect(getNextConceptQuestion(parentUserId, childId, 99)).rejects.toThrow(
       /konsep belum tersedia/,
     )
   })
 
   test('vote upserts and recomputes counts', async () => {
-    const q = await getNextConceptQuestion(parentUserId, childId)
+    const q = await getNextConceptQuestion(parentUserId, childId, 1)
     const a = await submitConceptVote(parentUserId, childId, q.concept_instance_id, 1)
     expect(a.upvotes).toBeGreaterThanOrEqual(1)
     const b = await submitConceptVote(parentUserId, childId, q.concept_instance_id, -1)
@@ -72,14 +71,14 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
       `INSERT INTO users (email, name, role) VALUES ($1, $2, 'parent') RETURNING id`,
       [`other-${randomUUID().slice(0,6)}@example.com`, 'Other'],
     )
-    const q = await getNextConceptQuestion(parentUserId, childId)
+    const q = await getNextConceptQuestion(parentUserId, childId, 1)
     await expect(
       submitConceptVote(otherUser!.id, childId, q.concept_instance_id, 1),
     ).rejects.toThrow(/Child not found/)
   })
 
   test('crossing 5 votes with 3 downvotes flips is_culled', async () => {
-    const q = await getNextConceptQuestion(parentUserId, childId)
+    const q = await getNextConceptQuestion(parentUserId, childId, 1)
     // Seed 5 votes total directly to test is_culled trigger
     for (let i = 0; i < 5; i++) {
       const tag = randomUUID().slice(0, 8)
@@ -88,7 +87,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
         [`v${i}-${tag}@example.com`, `V${i}`],
       )
       const c = await queryOne<{ id: string }>(
-        `INSERT INTO children (parent_user_id, name, grade) VALUES ($1, $2, 1) RETURNING id`,
+        `INSERT INTO children (parent_user_id, name) VALUES ($1, $2) RETURNING id`,
         [u!.id, `Kid V${i}`],
       )
       // 3 downvotes + 2 upvotes → cull

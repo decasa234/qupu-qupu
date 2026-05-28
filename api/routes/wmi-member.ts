@@ -185,6 +185,11 @@ router.patch('/exam/sessions/:id/complete', authenticateToken, async (req: AuthR
   }
 })
 
+const konsepNextQuerySchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  grade: Joi.number().integer().min(0).max(3).required(),
+}).unknown(true)
+
 const voteSchema = Joi.object({
   childId: Joi.string().uuid().required(),
   concept_instance_id: Joi.string().uuid().required(),
@@ -196,12 +201,12 @@ router.get(
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-      const { error, value } = childQuerySchema.validate(req.query)
+      const { error, value } = konsepNextQuerySchema.validate(req.query)
       if (error) {
         res.status(400).json({ success: false, error: error.details[0].message })
         return
       }
-      const question = await getNextConceptQuestion(req.user.id, value.childId)
+      const question = await getNextConceptQuestion(req.user.id, value.childId, value.grade)
       res.json({ success: true, data: { question } })
     } catch (error) {
       console.error('WMI konsep next error:', error)

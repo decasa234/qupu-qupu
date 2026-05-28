@@ -10,7 +10,7 @@ import type { WmiAttemptResult, WmiConceptQuestion, WmiQuestion } from '../types
 
 export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
-  const { loadGlossary } = useWmiStore()
+  const { loadGlossary, selectedGrade } = useWmiStore()
   const [question, setQuestion] = useState<WmiConceptQuestion | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<WmiAttemptResult | null>(null)
@@ -27,13 +27,13 @@ export default function WmiKonsepDrill() {
     setRevealed(false)
     setError(null)
     try {
-      const q = await fetchConceptNext(activeChildId)
+      const q = await fetchConceptNext(activeChildId, selectedGrade)
       setQuestion(q)
       askedAt.current = Date.now()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Gagal memuat soal')
     }
-  }, [activeChildId])
+  }, [activeChildId, selectedGrade])
 
   useEffect(() => {
     loadGlossary().catch(() => {})

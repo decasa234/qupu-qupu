@@ -73,8 +73,11 @@ export async function completeExamSession(
   return unwrap<{ session: WmiExamSession }>(response).session
 }
 
-export async function fetchConceptNext(childId: string): Promise<WmiConceptQuestion> {
-  const response = await api.get('/me/wmi/konsep/next', { params: { childId } })
+export async function fetchConceptNext(
+  childId: string,
+  grade: WmiGrade,
+): Promise<WmiConceptQuestion> {
+  const response = await api.get('/me/wmi/konsep/next', { params: { childId, grade } })
   return unwrap<{ question: WmiConceptQuestion }>(response).question
 }
 

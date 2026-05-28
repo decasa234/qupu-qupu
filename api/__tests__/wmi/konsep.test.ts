@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest'
 import { randomUUID } from 'node:crypto'
 import jwt from 'jsonwebtoken'
-import { pool, query, queryOne } from '../../db.js'
+import { pool, queryOne } from '../../db.js'
 import app from '../../app.js'
 import {
   ensureBootstrapped,
@@ -30,8 +30,8 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     )
     parentUserId = user!.id
     const child = await queryOne<{ id: string }>(
-      `INSERT INTO children (parent_user_id, name, grade) VALUES ($1, $2, $3) RETURNING id`,
-      [parentUserId, `Kid ${tag}`, 1],
+      `INSERT INTO children (parent_user_id, name) VALUES ($1, $2) RETURNING id`,
+      [parentUserId, `Kid ${tag}`],
     )
     childId = child!.id
     token = jwt.sign({ id: parentUserId, email: `konsep-http-${tag}@example.com`, role: 'parent' }, process.env.JWT_SECRET!, { expiresIn: '7d' })
@@ -56,7 +56,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   test('GET /konsep/next returns a question without leaking answer', async () => {
     const res = await request(app)
       .get('/api/me/wmi/konsep/next')
-      .query({ childId })
+      .query({ childId, grade: 1 })
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(200)
     expect(res.body.data.question.concept_instance_id).toBeTruthy()
@@ -66,7 +66,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   test('POST /attempts mode=concept records an attempt', async () => {
     const next = await request(app)
       .get('/api/me/wmi/konsep/next')
-      .query({ childId })
+      .query({ childId, grade: 1 })
       .set('Authorization', `Bearer ${token}`)
     const instanceId = next.body.data.question.concept_instance_id
     const res = await request(app)
@@ -93,7 +93,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   test('POST /attempts rejects question_id when mode=concept', async () => {
     const next = await request(app)
       .get('/api/me/wmi/konsep/next')
-      .query({ childId })
+      .query({ childId, grade: 1 })
       .set('Authorization', `Bearer ${token}`)
     const instanceId = next.body.data.question.concept_instance_id
     const res = await request(app)
@@ -112,7 +112,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   test('POST /konsep/vote upserts and returns counts', async () => {
     const next = await request(app)
       .get('/api/me/wmi/konsep/next')
-      .query({ childId })
+      .query({ childId, grade: 1 })
       .set('Authorization', `Bearer ${token}`)
     const instanceId = next.body.data.question.concept_instance_id
     const res = await request(app)
@@ -131,14 +131,11 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     expect(res.status).toBe(400)
   })
 
-  test('GET /konsep/next returns 404 when grade has no concepts', async () => {
-    await query(`UPDATE children SET grade = 99 WHERE id = $1`, [childId])
+  test('GET /konsep/next rejects out-of-range grade', async () => {
     const res = await request(app)
       .get('/api/me/wmi/konsep/next')
-      .query({ childId })
+      .query({ childId, grade: 99 })
       .set('Authorization', `Bearer ${token}`)
-    // sendError maps 'konsep belum tersedia' -> 400 by default in v1. Verify what the
-    // existing sendError mapping does for this message; if it maps to 400, accept 400.
-    expect([400, 404]).toContain(res.status)
+    expect(res.status).toBe(400)
   })
 })

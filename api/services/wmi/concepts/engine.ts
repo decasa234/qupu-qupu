@@ -23,18 +23,12 @@ const MAX_DUPE_RETRIES = 5
 export async function getNextConceptQuestion(
   parentUserId: string,
   childId: string,
+  grade: number,
 ): Promise<ConceptQuestion> {
   await ensureBootstrapped()
 
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
-
-    const kidRow = await queryOne<{ grade: number | null }>(
-      'SELECT grade FROM children WHERE id = $1',
-      [childId],
-      client,
-    )
-    const grade = kidRow?.grade ?? 0
 
     const conceptRow = await queryOne<{ slug: string }>(
       `
