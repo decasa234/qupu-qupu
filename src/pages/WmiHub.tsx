@@ -43,6 +43,16 @@ export default function WmiHub() {
         Mulai Drill
       </Link>
 
+      <Link
+        to="/latihan/wmi/konsep"
+        className="mt-4 block rounded-xl border-2 border-qupu-cream-dark bg-white p-5 text-center font-bold text-qupu-brand-blue hover:bg-qupu-cream"
+      >
+        🧠 Latihan Konsep
+        <p className="mt-1 text-sm font-normal text-gray-600">
+          Soal latihan otomatis untuk anak Grade 0–3.
+        </p>
+      </Link>
+
       <h2 className="mt-6 text-lg font-semibold">Latihan Soal Ujian</h2>
       {error && <div className="mt-2 rounded bg-red-50 p-3 text-sm text-red-700">{error}</div>}
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
