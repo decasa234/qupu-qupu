@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import WmiFeedbackPanel from '../components/wmi/WmiFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
+import WmiExplainer from '../components/wmi/WmiExplainer'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { fetchConceptNext, submitConceptAttempt, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -121,6 +122,11 @@ export default function WmiKonsepDrill() {
       />
       {feedback && (
         <>
+          <WmiExplainer
+            slug={question.concept_slug}
+            params={question.params}
+            correctAnswer={feedback.correct_answer}
+          />
           <WmiFeedbackPanel
             isCorrect={feedback.is_correct}
             correctAnswer={feedback.correct_answer}
