@@ -1,7 +1,7 @@
 export type WmiGrade = 0 | 1 | 2 | 3
 export type WmiRound = 'semifinal' | 'final'
 export type WmiAnswerType = 'multiple_choice' | 'fill_in'
-export type WmiMode = 'drill' | 'exam'
+export type WmiMode = 'drill' | 'exam' | 'concept'
 
 export interface WmiChoice {
   label: string
@@ -92,4 +92,32 @@ export interface WmiAttemptResult {
   correct_answer: string
   hint_en: string | null
   hint_id: string | null
+}
+
+export interface WmiConceptQuestion {
+  concept_instance_id: string
+  concept_slug: string
+  params: unknown
+  body_en: string
+  body_id: string
+  answer_type: 'multiple_choice' | 'fill_in'
+  choices_en: WmiChoice[] | null
+  choices_id: WmiChoice[] | null
+  hint_en: string | null
+  hint_id: string | null
+}
+
+export interface WmiConceptVoteResult {
+  upvotes: number
+  downvotes: number
+}
+
+export interface WmiConceptAttemptInput {
+  childId: string
+  concept_instance_id: string
+  mode: 'concept'
+  selected_answer: string
+  time_taken_ms?: number
+  revealed_id_translation?: boolean
+  looked_up_terms?: string[]
 }
