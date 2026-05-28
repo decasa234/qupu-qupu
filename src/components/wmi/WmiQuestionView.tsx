@@ -5,6 +5,8 @@ import WmiAnswerChoice from './WmiAnswerChoice'
 import WmiFigure from './WmiFigure'
 import WmiGlossaryTerm from './WmiGlossaryTerm'
 import WmiTranslationSpoiler from './WmiTranslationSpoiler'
+import WmiBreakdownView from './WmiBreakdownView'
+import WmiBreakdownToggle from './WmiBreakdownToggle'
 
 interface Props {
   question: WmiQuestion
@@ -13,6 +15,8 @@ interface Props {
   highlight?: { correct: string | null; wrongPicked: string | null }
   disabled?: boolean
   revealed?: boolean
+  breakdownActive?: boolean
+  onToggleBreakdown?: () => void
   onPickChoice: (label: string) => void
   onSubmitFillIn: (answer: string) => void
   onLookupTerm: (slug: string) => void
@@ -42,6 +46,8 @@ export default function WmiQuestionView({
   highlight,
   disabled,
   revealed = false,
+  breakdownActive = false,
+  onToggleBreakdown,
   onPickChoice,
   onSubmitFillIn,
   onLookupTerm,
@@ -55,8 +61,15 @@ export default function WmiQuestionView({
     <article className="rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
       <div className="text-sm font-bold text-qupu-muted">Soal {question.number}</div>
       <div className="mt-2 text-lg font-semibold text-gray-900">
-        <MarkupText text={question.body_en} onLookup={onLookupTerm} />
+        {breakdownActive ? (
+          <WmiBreakdownView text={question.body_en} lang="en" onLookup={onLookupTerm} />
+        ) : (
+          <MarkupText text={question.body_en} onLookup={onLookupTerm} />
+        )}
       </div>
+      {onToggleBreakdown && (
+        <WmiBreakdownToggle active={breakdownActive} onToggle={onToggleBreakdown} />
+      )}
       <WmiFigure src={question.figure_url} />
 
       {question.answer_type === 'multiple_choice' ? (
@@ -102,7 +115,11 @@ export default function WmiQuestionView({
 
       <WmiTranslationSpoiler revealed={revealed} onReveal={onRevealTranslation}>
         <div className="font-semibold">
-          <MarkupText text={question.body_id} onLookup={onLookupTerm} />
+          {breakdownActive ? (
+            <WmiBreakdownView text={question.body_id} lang="id" onLookup={onLookupTerm} />
+          ) : (
+            <MarkupText text={question.body_id} onLookup={onLookupTerm} />
+          )}
         </div>
         {choicesId.length > 0 && (
           <div className="mt-3 grid gap-2 text-sm">

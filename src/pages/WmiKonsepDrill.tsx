@@ -16,6 +16,7 @@ export default function WmiKonsepDrill() {
   const [feedback, setFeedback] = useState<WmiAttemptResult | null>(null)
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState(false)
+  const [breakdown, setBreakdown] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const askedAt = useRef(Date.now())
 
@@ -25,6 +26,7 @@ export default function WmiKonsepDrill() {
     setFeedback(null)
     setLookedUpTerms([])
     setRevealed(false)
+    setBreakdown(false)
     setError(null)
     try {
       const q = await fetchConceptNext(activeChildId, selectedGrade)
@@ -110,6 +112,8 @@ export default function WmiKonsepDrill() {
         }
         disabled={Boolean(feedback)}
         revealed={revealed}
+        breakdownActive={breakdown}
+        onToggleBreakdown={() => setBreakdown((value) => !value)}
         onPickChoice={submit}
         onSubmitFillIn={submit}
         onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}
