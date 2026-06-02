@@ -1,4 +1,4 @@
-import { query, queryOne, withTransaction } from '../db.js'
+import { pool, query, queryOne, withTransaction } from '../db.js'
 import { assertChildOwnership } from '../lib/childOwnership.js'
 import {
   processScoreSubmission,
@@ -6,6 +6,7 @@ import {
 } from './gamification/index.js'
 import { recoverStreak } from './gamification/streakUpdater.js'
 import { listAchievementsForChild } from './gamification/achievementEvaluator.js'
+import { claimLoginBonus, type LoginBonusResult } from './gamification/loginBonus.js'
 import { wibDateString } from '../lib/wib.js'
 
 interface ProgressRow {
@@ -25,6 +26,20 @@ function computePredikat(videosAttempted: number, averageBestScore: number | nul
   return 'KURANG'
 }
 
+// Distinct set of videos a child has ever attempted. An attempt row is the
+// only "watched" signal in the schema (no separate progress table), so the
+// video library buckets watched/unwatched off this.
+export async function getWatchedVideoIds(
+  parentUserId: string,
+  childId: string,
+): Promise<string[]> {
+  await assertChildOwnership(pool, parentUserId, childId)
+  const rows = await query<{ video_id: string }>(
+    'SELECT DISTINCT video_id FROM score_attempts WHERE child_id = $1',
+    [childId],
+  )
+  return rows.map((row) => row.video_id)
+}
 export async function submitVideoScore(input: {
   userId: string
   childId: string
@@ -489,6 +504,16 @@ export async function useStreakRecoveryForChild(
     const result = await recoverStreak(client, childId, today)
     return result
   })
+}
+
+export async function claimLoginBonusForChild(
+  parentUserId: string,
+  childId: string,
+): Promise<LoginBonusResult> {
+  // Ownership check runs on the shared pool — claimLoginBonus opens its own
+  // transaction, so we deliberately do not nest one here.
+  await assertChildOwnership(pool, parentUserId, childId)
+  return claimLoginBonus(childId)
 }
 
 export async function getMemberAchievements(

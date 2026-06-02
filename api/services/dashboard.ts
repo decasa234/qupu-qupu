@@ -16,6 +16,7 @@ import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
 import { ensureTodaysQuests, type ActiveQuest } from './gamification/questGenerator.js'
 import { loadLevelTiers, resolveLevel } from './gamification/levelCurve.js'
+import { hasClaimedLoginBonus, LOGIN_BONUS_COINS } from './gamification/loginBonus.js'
 import { fetchScreenTimeMinutes } from './sessionEvents.js'
 
 const HOUR_MS = 60 * 60 * 1000
@@ -104,6 +105,7 @@ export interface DashboardPayload {
   streak: number
   longestStreak: number
   recoveryEligible: boolean         // exposed so UI can offer streak-recovery
+  loginBonus: { claimedToday: boolean; coinReward: number }
   dailyGoalPct: number
   dailyGoalQuizzes: number          // target value (configurable per child)
   screenTimeMin: number
@@ -264,6 +266,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       tiers,
       activeQuests,
       sessionScreenTime,
+      loginClaimedToday,
     ] = await Promise.all([
       fetchSummaryStats(client, childId, periodStart, prevPeriodStart, today),
       fetchDayOffsets(client, childId, today),
@@ -277,6 +280,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       loadLevelTiers(client),
       ensureTodaysQuests(client, childId, todayWib),
       fetchScreenTimeMinutes(client, childId, today),
+      hasClaimedLoginBonus(client, childId, todayWib),
     ])
 
     // Streak from the gamification engine (Plan 1+2); fall back to the
@@ -380,6 +384,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       streak: currentStreak,
       longestStreak,
       recoveryEligible,
+      loginBonus: { claimedToday: loginClaimedToday, coinReward: LOGIN_BONUS_COINS },
       dailyGoalPct,
       dailyGoalQuizzes,
       screenTimeMin,
@@ -537,7 +542,8 @@ async function fetchSummaryStats(
         (SELECT COUNT(*) FROM score_attempts sa
            WHERE sa.child_id = $1) AS lifetime_attempts,
         (SELECT COUNT(*) FROM score_attempts sa
-           WHERE sa.child_id = $1 AND sa.created_at >= $4) AS today_attempts,
+           WHERE sa.child_id = $1 AND sa.created_at >= $4
+             AND sa.is_correction = FALSE) AS today_attempts,
         (SELECT COALESCE(SUM(sa.total_questions), 0) FROM score_attempts sa
            WHERE sa.child_id = $1 AND sa.created_at >= $4) AS today_question_total
     `,

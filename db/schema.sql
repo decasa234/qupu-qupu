@@ -604,3 +604,18 @@ INSERT INTO shop_items (slug, name, description, kind, coin_price, sort_order) V
   ('sticker-musim',        'Stiker Musim',       'Paket stiker bertema empat musim.',           'sticker',    50, 41),
   ('audio-cerita',         'Audio: Dongeng',     'Audio dongeng 10 menit untuk pengantar tidur.','audio',    300, 50)
 ON CONFLICT (slug) DO NOTHING;
+
+-- daily_login_claims — once-per-WIB-day coin grant claimed from the Home
+-- "Hadiah Login" card. UNIQUE(child_id, claim_date) is the idempotency guard.
+-- Claiming credits gamification_profiles.coin_balance + reward_ledger but
+-- never touches last_activity_date (a login bonus is not a learning activity).
+CREATE TABLE IF NOT EXISTS daily_login_claims (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  child_id      UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  claim_date    DATE NOT NULL,
+  coins_awarded INT  NOT NULL CHECK (coins_awarded >= 0),
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (child_id, claim_date)
+);
+CREATE INDEX IF NOT EXISTS idx_daily_login_claims_child
+  ON daily_login_claims (child_id, claim_date DESC);

@@ -2,10 +2,12 @@ import { Router, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
 import {
+  claimLoginBonusForChild,
   getMemberAchievements,
   getMemberBadges,
   getMemberProgress,
   getMemberVideoScore,
+  getWatchedVideoIds,
   submitVideoScore,
   useStreakRecoveryForChild,
 } from '../services/member.js'
@@ -77,6 +79,30 @@ router.get('/progress', authenticateToken, async (req: AuthRequest, res: Respons
     })
   }
 })
+
+router.get(
+  '/watched-video-ids',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = childIdQuerySchema.validate(req.query)
+
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+
+      const videoIds = await getWatchedVideoIds(req.user.id, value.childId)
+      res.json({ success: true, data: { videoIds } })
+    } catch (watchedError: unknown) {
+      console.error('Get watched video ids error:', watchedError)
+      const message =
+        watchedError instanceof Error ? watchedError.message : 'Unable to load watched videos'
+      const status = message === 'Child not found' ? 404 : 400
+      res.status(status).json({ success: false, error: message })
+    }
+  },
+)
 
 router.get('/badges', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -242,6 +268,32 @@ router.post(
       console.error('Streak recovery error:', recoveryError)
       const message =
         recoveryError instanceof Error ? recoveryError.message : 'Unable to recover streak'
+      const status = message === 'Child not found' ? 404 : 400
+      res.status(status).json({ success: false, error: message })
+    }
+  },
+)
+
+const loginBonusSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+})
+
+router.post(
+  '/login-bonus',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = loginBonusSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const data = await claimLoginBonusForChild(req.user.id, value.childId)
+      res.json({ success: true, data })
+    } catch (bonusError: unknown) {
+      console.error('Login bonus claim error:', bonusError)
+      const message =
+        bonusError instanceof Error ? bonusError.message : 'Unable to claim login bonus'
       const status = message === 'Child not found' ? 404 : 400
       res.status(status).json({ success: false, error: message })
     }

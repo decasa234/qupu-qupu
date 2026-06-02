@@ -1,12 +1,12 @@
-import type { PoolClient } from 'pg'
-import { queryOne } from '../db.js'
+import { queryOne, type DbExecutor } from '../db.js'
 
 /**
  * Throws "Child not found" if the supplied childId is not owned by the
- * supplied parentUserId.
+ * supplied parentUserId. Accepts any DbExecutor (the shared pool or a
+ * transaction client) so callers can run it inside or outside a transaction.
  */
 export async function assertChildOwnership(
-  executor: PoolClient,
+  executor: DbExecutor,
   parentUserId: string,
   childId: string,
 ): Promise<void> {

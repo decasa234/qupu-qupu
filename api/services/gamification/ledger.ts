@@ -19,6 +19,7 @@ export type RewardType =
   | 'ACHIEVEMENT_XP'        // Plan 3
   | 'STREAK_BONUS_XP'       // Plan 2
   | 'SHOP_PURCHASE'
+  | 'LOGIN_BONUS_COIN'      // daily login bonus (coins-only, no XP)
 
 export interface AppendLedgerInput {
   childId: string

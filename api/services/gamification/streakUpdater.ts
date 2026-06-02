@@ -139,6 +139,38 @@ export async function updateStreakForActivity(
   }
 }
 
+// Read the current streak without advancing it. Used on the score-correction
+// path: editing a previously-scored quiz must NOT count as a new day of
+// activity, but the quest evaluator still needs the current streak value.
+export async function readStreakState(
+  client: PoolClient,
+  childId: string,
+): Promise<StreakState> {
+  const profile = await queryOne<{
+    current_streak_days: number
+    longest_streak_days: number
+    pre_break_streak_days: number
+    last_activity_date: string | null
+  }>(
+    `SELECT current_streak_days, longest_streak_days, pre_break_streak_days,
+            last_activity_date::text AS last_activity_date
+       FROM gamification_profiles
+       WHERE child_id = $1`,
+    [childId],
+    client,
+  )
+  if (!profile) {
+    throw new Error('gamification_profile missing — call ensureProfile first')
+  }
+  return {
+    currentStreakDays: Number(profile.current_streak_days),
+    longestStreakDays: Number(profile.longest_streak_days),
+    preBreakStreakDays: Number(profile.pre_break_streak_days),
+    lastActivityDate: profile.last_activity_date,
+    recoveryEligible: false,
+  }
+}
+
 export interface RecoveryResult {
   recovered: boolean
   reason?: 'not_eligible' | 'cap_reached' | 'no_pre_break_value'
