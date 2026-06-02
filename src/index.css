@@ -76,3 +76,70 @@
   0%   { transform: translate3d(0, -10vh, 0) rotate(0deg);   opacity: 1; }
   100% { transform: translate3d(0, 110vh, 0) rotate(540deg); opacity: 0.6; }
 }
+
+/* Streak flame: a quick squash-and-pop when the card is tapped. */
+@keyframes flame-pop {
+  0%   { transform: scale(1)   rotate(0deg); }
+  25%  { transform: scale(1.35) rotate(-8deg); }
+  50%  { transform: scale(0.92) rotate(6deg); }
+  75%  { transform: scale(1.14) rotate(-3deg); }
+  100% { transform: scale(1)   rotate(0deg); }
+}
+.animate-flame-pop { animation: flame-pop 0.6s ease-in-out; }
+
+/* Spark particles that burst outward from the flame on tap. Each spark sets
+   --dx / --dy inline for its direction. */
+@keyframes spark-burst {
+  0%   { transform: translate3d(0, 0, 0) scale(0.4); opacity: 1; }
+  100% { transform: translate3d(var(--dx), var(--dy), 0) scale(1); opacity: 0; }
+}
+.animate-spark { animation: spark-burst 0.6s ease-out forwards; }
+
+/* Daily goal ring sweep: animates the conic-gradient fill via --goal-deg. */
+@property --goal-deg {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes goal-fill {
+  from { --goal-deg: 0deg; }
+}
+.animate-goal-fill { animation: goal-fill 1s ease-out; }
+
+/* Recent-badge shine: a soft diagonal gleam that sweeps every few seconds. */
+@keyframes badge-shine {
+  0%        { transform: translateX(-130%) skewX(-18deg); }
+  60%, 100% { transform: translateX(130%)  skewX(-18deg); }
+}
+.badge-shine {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 70%
+  );
+  animation: badge-shine 3.2s ease-in-out infinite;
+}
+
+/* Post-quiz reward modal entrance. Backdrop fades, the card springs in with a
+   slight overshoot, and the mascot bounces a beat behind it. Confetti reuses
+   the `fall` keyframe above. */
+@keyframes reward-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-reward-fade { animation: reward-fade 0.25s ease-out both; }
+
+@keyframes reward-pop {
+  0%   { transform: scale(0.86) translateY(18px); opacity: 0; }
+  60%  { transform: scale(1.02) translateY(0);    opacity: 1; }
+  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+.animate-reward-pop { animation: reward-pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes reward-mascot {
+  0%   { transform: scale(0.55) rotate(-10deg); opacity: 0; }
+  55%  { transform: scale(1.14) rotate(5deg);   opacity: 1; }
+  100% { transform: scale(1)    rotate(0deg);   opacity: 1; }
+}
+.animate-reward-mascot { animation: reward-mascot 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both; }

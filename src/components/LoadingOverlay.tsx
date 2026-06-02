@@ -11,14 +11,32 @@
 // globally in index.html's <style> block; they survive after the boot
 // splash element is removed because they're @keyframes rules, not
 // scoped declarations.
+//
+// Suppressed on member AppShell routes (dashboard/library/quiz/report/
+// badges/shop/me): those pages own their own per-component skeletons, so the
+// fullscreen overlay popping on every route change + API call felt heavy.
+// It still covers boot, auth, marketing, and admin routes. Note this only
+// gates rendering — useLoadingState keeps ticking, so the boot-splash
+// handoff in App.tsx (which subscribes to the store) is unaffected.
+import { useLocation } from 'react-router-dom'
 import { useLoadingState } from '../hooks/useLoadingState'
 
 const BOB = 'qupu-bob 1.5s ease-in-out infinite'
 const DOT = 'qupu-dot 1.1s ease-in-out infinite'
 const TWINKLE = 'qupu-twinkle 1.9s ease-in-out infinite'
 
+// Route prefixes that render inside <AppShell> and supply their own loading UI.
+const APP_SHELL_PREFIXES = ['/dashboard', '/library', '/quiz', '/report', '/badges', '/shop', '/me']
+
 export default function LoadingOverlay() {
   const visible = useLoadingState((s) => s.visible)
+  const { pathname } = useLocation()
+  const suppressed = APP_SHELL_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  )
+
+  if (suppressed) return null
+
   return (
     <div
       role="status"

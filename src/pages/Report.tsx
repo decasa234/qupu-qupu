@@ -11,16 +11,6 @@ import RaporVideoBreakdown from '../components/report/RaporVideoBreakdown'
 import RaporNote from '../components/report/RaporNote'
 import RaporFooter from '../components/report/RaporFooter'
 import PrintButton from '../components/report/PrintButton'
-import DashboardKpis from '../components/dashboard/DashboardKpis'
-import DashboardActivity from '../components/dashboard/DashboardActivity'
-import DashboardSubjects from '../components/dashboard/DashboardSubjects'
-import DashboardRecommended from '../components/dashboard/DashboardRecommended'
-import DashboardAttempts from '../components/dashboard/DashboardAttempts'
-import {
-  dashboardFromApi,
-  type DashboardApiResponse,
-  type DashboardViewModel,
-} from '../lib/dashboardData'
 import type { MemberProgress } from '../types'
 
 export default function ReportPage() {
@@ -30,22 +20,6 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [ageGroupName, setAgeGroupName] = useState<string | null>(null)
-  const [vm, setVm] = useState<DashboardViewModel | null>(null)
-
-  useEffect(() => {
-    if (!activeChildId) return
-    let cancelled = false
-    ;(async () => {
-      try {
-        const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
-        if (cancelled) return
-        setVm(dashboardFromApi(response.data.data as DashboardApiResponse))
-      } catch (err) {
-        console.error('Failed to load dashboard sections for report:', err)
-      }
-    })()
-    return () => { cancelled = true }
-  }, [activeChildId])
 
   useEffect(() => {
     if (!activeChildId) {
@@ -97,14 +71,14 @@ export default function ReportPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto w-full max-w-4xl">
+      <div className="mx-auto w-full">
         <SkeletonCard />
       </div>
     )
   }
   if (error || !progress) {
     return (
-      <div className="mx-auto w-full max-w-4xl">
+      <div className="mx-auto w-full">
         <div className="rounded-3xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
           {error || 'Gagal memuat rapor.'}
         </div>
@@ -113,15 +87,19 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-4">
+    <div className="mx-auto w-full space-y-4">
       <div className="flex items-center justify-between gap-3" data-print-hide>
-        <Link to="/dashboard" className="text-sm font-bold text-qupu-brand-blue underline">
-          ← Kembali ke dashboard
+        <Link
+          to="/me"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
+          Kembali
         </Link>
         <PrintButton />
       </div>
 
-      <article className="rounded-2xl bg-white p-6 shadow-soft print:p-0 print:shadow-none">
+      <article className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1] sm:p-6 print:p-0 print:shadow-none">
         <RaporHeader
           childName={activeChild.name}
           ageGroupName={ageGroupName}
@@ -152,18 +130,6 @@ export default function ReportPage() {
 
         <RaporFooter />
       </article>
-
-      {vm && (
-        <>
-          <DashboardKpis tiles={vm.kpis} />
-          <section className="grid gap-6 lg:grid-cols-2">
-            <DashboardActivity vm={vm} />
-            <DashboardSubjects subjects={vm.subjects} childName={vm.child.name} />
-          </section>
-          <DashboardRecommended items={vm.recommended} childName={vm.child.name} />
-          <DashboardAttempts attempts={vm.attempts} childName={vm.child.name} />
-        </>
-      )}
     </div>
   )
 }

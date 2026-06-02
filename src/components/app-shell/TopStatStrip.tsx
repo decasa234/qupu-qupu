@@ -13,20 +13,20 @@ export default function TopStatStrip() {
   const level = stats?.level ?? 1
 
   return (
-    <div className="sticky top-0 z-30 border-b-[3px] border-qupu-peach bg-white">
+    <div className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]">
       <div className="mx-auto flex w-full max-w-lg items-center justify-around px-3 py-2">
-        <Pill icon="fa-solid fa-fire" color="text-qupu-brand-orange" value={streak} />
-        <Pill icon="fa-solid fa-coins" color="text-qupu-brand-yellow" value={coins} />
-        <Pill icon="fa-solid fa-star" color="text-qupu-brand-blue" value={`Lv ${level}`} />
+        <Pill icon="fa-solid fa-fire" value={streak} />
+        <Pill icon="fa-solid fa-coins" value={coins} />
+        <Pill icon="fa-solid fa-star" value={`Lv ${level}`} />
       </div>
     </div>
   )
 }
 
-function Pill({ icon, color, value }: { icon: string; color: string; value: number | string }) {
+function Pill({ icon, value }: { icon: string; value: number | string }) {
   return (
-    <div className="flex items-center gap-1.5 font-display text-sm font-extrabold text-qupu-brand-blue">
-      <i className={`${icon} ${color} text-base`} aria-hidden="true" />
+    <div className="flex items-center gap-1.5 font-display text-sm font-extrabold text-white">
+      <i className={`${icon} text-base text-qupu-brand-yellow`} aria-hidden="true" />
       <span>{value}</span>
     </div>
   )

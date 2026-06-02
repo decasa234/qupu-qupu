@@ -138,7 +138,7 @@ export default function AchievementGrid({ childId }: Props) {
             kicker="Sudah dibuka"
             title={`${buckets.unlocked.length} pencapaian`}
           />
-          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid gap-4">
             {buckets.unlocked.map((a, idx) => (
               <Reveal key={a.code} delay={0.03 + idx * 0.03} className="h-full">
                 <AchievementCard item={a} state="unlocked" />
@@ -154,7 +154,7 @@ export default function AchievementGrid({ childId }: Props) {
             kicker="Sedikit lagi"
             title={`${buckets.almost.length} hampir terbuka`}
           />
-          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid gap-4">
             {buckets.almost.map((a, idx) => (
               <Reveal key={a.code} delay={0.03 + idx * 0.03} className="h-full">
                 <AchievementCard item={a} state="almost" />
@@ -170,7 +170,7 @@ export default function AchievementGrid({ childId }: Props) {
             kicker="Belum dibuka"
             title={`${buckets.locked.length} pencapaian terkunci`}
           />
-          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid gap-4">
             {buckets.locked.map((a, idx) => (
               <Reveal key={a.code} delay={0.03 + idx * 0.02} className="h-full">
                 <AchievementCard item={a} state="locked" />

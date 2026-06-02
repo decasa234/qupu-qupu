@@ -9,6 +9,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
+import MemberVideosPage from './pages/MemberVideos'
+import QuizPage from './pages/Quiz'
 import DashboardPage from './pages/Dashboard'
 import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
@@ -73,6 +75,14 @@ function RouteLoadingTrigger() {
   return null
 }
 
+function HomeRoute() {
+  const { isAuthenticated } = useAuthStore()
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
+  return <Home />
+}
+
 function DashboardRouter() {
   const { user } = useAuthStore()
   if (user?.role === 'admin') {
@@ -125,7 +135,7 @@ export default function App() {
       <Routes>
         {/* Marketing + auth + video + onboarding — keep marketing Layout */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<HomeRoute />} />
           <Route path="videos" element={<VideosPage />} />
           <Route path="videos/:slug" element={<VideoDetailPage />} />
           <Route path="login" element={<Login />} />
@@ -149,6 +159,8 @@ export default function App() {
           }
         >
           <Route path="dashboard" element={<DashboardRouter />} />
+          <Route path="library" element={<MemberVideosPage />} />
+          <Route path="quiz/:slug" element={<QuizPage />} />
           <Route path="report" element={<ReportPage />} />
           <Route path="badges" element={<BadgesPage />} />
           <Route path="shop" element={<ShopPage />} />

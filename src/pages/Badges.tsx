@@ -117,7 +117,7 @@ export default function BadgesPage() {
             aria-hidden="true"
           />
 
-          <div className="relative grid gap-6 sm:grid-cols-[1.4fr_1fr] sm:items-center">
+          <div className="relative grid gap-6">
             <div>
               <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange">
                 <i className="fa-solid fa-trophy" aria-hidden="true" />
@@ -201,7 +201,7 @@ export default function BadgesPage() {
             Belum ada subject yang tersedia. Cek halaman Video.
           </p>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4">
             {groups.map((group, idx) => (
               <Reveal key={group.id} delay={0.05 + idx * 0.04} className="h-full">
                 <TrophyShelf group={group} />

@@ -4,6 +4,8 @@
 // `GET /api/me/dashboard` (api/services/dashboard.ts); this module just
 // types the response and adapts it into the view model.
 
+import api from './api'
+
 export type PeerComparison = 'above' | 'avg' | 'below'
 export type AttemptAction = 'review' | 'celebrate' | 'continue'
 
@@ -85,6 +87,7 @@ export interface DashboardViewModel {
   streak: number
   longestStreak: number
   recoveryEligible: boolean
+  loginBonus: LoginBonusState
   dailyGoalPct: number
   dailyGoalQuizzes: number
   screenTimeMin: number
@@ -97,6 +100,11 @@ export interface DashboardViewModel {
   attempts: DashboardAttempt[]
   badges: DashboardBadge[]
   quests: DashboardQuest[]
+}
+
+export interface LoginBonusState {
+  claimedToday: boolean
+  coinReward: number
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -133,6 +141,7 @@ export interface DashboardApiResponse {
   streak: number
   longestStreak: number
   recoveryEligible: boolean
+  loginBonus: LoginBonusState
   dailyGoalPct: number
   dailyGoalQuizzes: number
   screenTimeMin: number
@@ -180,13 +189,29 @@ function mapRecommendation(r: ApiRecommendation): DashboardRecommendation {
     subjectColorHex: r.subjectColorHex,
     thumbnailUrl: r.thumbnailUrl,
     publishedAt: r.publishedAt,
-    href: `/videos/${r.videoSlug}`,
+    href: `/quiz/${r.videoSlug}`,
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────
 // API → View model
 // ─────────────────────────────────────────────────────────────────────
+
+// ─────────────────────────────────────────────────────────────────────
+// Daily login bonus claim
+// ─────────────────────────────────────────────────────────────────────
+
+export interface LoginBonusClaimResult {
+  claimed: boolean
+  alreadyClaimedToday: boolean
+  coinsAwarded: number
+  coinBalance: number
+}
+
+export async function claimLoginBonus(childId: string): Promise<LoginBonusClaimResult> {
+  const res = await api.post('/me/login-bonus', { childId })
+  return res.data.data as LoginBonusClaimResult
+}
 
 export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewModel {
   return {
@@ -200,6 +225,7 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
     streak: payload.streak,
     longestStreak: payload.longestStreak,
     recoveryEligible: payload.recoveryEligible,
+    loginBonus: payload.loginBonus,
     dailyGoalPct: payload.dailyGoalPct,
     dailyGoalQuizzes: payload.dailyGoalQuizzes,
     screenTimeMin: payload.screenTimeMin,

@@ -2,20 +2,58 @@
 //
 // Member-route chrome. Replaces <Layout> for /dashboard /shop /badges
 // /report /me. Mobile-first phone-shell layout: sticky top stats, scrollable
-// body, sticky bottom nav. Survives at any width — desktop polish (left rail)
-// is deliberately deferred.
+// body, sticky bottom nav. On lg+ the narrow column is framed as a "device"
+// and the surrounding gutters are filled with brand decoration so it reads as
+// an intentional phone mockup, not a mobile page stranded on a wide monitor.
 import { Outlet } from 'react-router-dom'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
 
 export default function AppShell() {
   return (
-    <div className="flex min-h-screen flex-col bg-qupu-shell">
+    <div className="flex min-h-screen flex-col bg-qupu-cream">
       <TopStatStrip />
-      <main className="flex w-full flex-1 flex-col px-4 py-4">
-        <Outlet />
+      <main className="relative flex w-full flex-1 flex-col px-4 py-4">
+        <DesktopBackdrop />
+        <div className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col sm:max-w-lg lg:my-6 lg:max-w-[460px] lg:rounded-[2.75rem] lg:bg-[#FFF8F0] lg:p-4 lg:shadow-[8px_10px_0_0_#FFD3B1] lg:ring-1 lg:ring-[#FFE3CC]">
+          <Outlet />
+        </div>
       </main>
       <BottomTabBar />
+    </div>
+  )
+}
+
+// Decorative-only layer for the empty desktop gutters. Self-clips with its own
+// overflow-hidden (it is a sibling *behind* the content column, never an
+// ancestor) so sticky page headers inside the column keep working. lg-only and
+// pointer-events-none — zero impact on mobile and on interaction.
+function DesktopBackdrop() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden lg:block"
+    >
+      {/* soft colour blobs */}
+      <div className="absolute -left-10 top-10 h-64 w-64 rounded-full bg-qupu-brand-yellow/25 blur-3xl" />
+      <div className="absolute -right-8 top-1/3 h-72 w-72 rounded-full bg-qupu-brand-orange/15 blur-3xl" />
+      <div className="absolute bottom-0 left-1/4 h-56 w-56 rounded-full bg-qupu-brand-blue/10 blur-3xl" />
+
+      {/* star constellation — kept inside the gutters (well clear of the centred frame) */}
+      <i className="fa-solid fa-star absolute left-[7%] top-[14%] text-3xl text-qupu-brand-yellow/80" />
+      <i className="fa-solid fa-star absolute left-[15%] top-[42%] text-base text-qupu-brand-orange/50" />
+      <i className="fa-solid fa-star absolute left-[5%] bottom-[20%] text-2xl text-qupu-brand-yellow/70" />
+      <i className="fa-solid fa-star absolute right-[8%] top-[12%] text-2xl text-qupu-brand-yellow/80" />
+      <i className="fa-solid fa-star absolute right-[16%] top-[38%] text-lg text-qupu-brand-orange/45" />
+      <i className="fa-solid fa-star absolute right-[6%] top-[58%] text-xl text-qupu-brand-yellow/70" />
+
+      {/* mascot peeking from the right gutter */}
+      <img
+        src="/hero-mascot.png"
+        alt=""
+        draggable={false}
+        className="absolute bottom-[10%] right-[4%] h-40 w-auto -rotate-6 select-none drop-shadow-[0_12px_28px_rgba(120,60,0,0.22)] xl:h-52"
+      />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import {
+  claimLoginBonus,
   dashboardFromApi,
   type DashboardApiResponse,
   type DashboardViewModel,
@@ -12,7 +13,8 @@ import { useAuthStore } from '../store/authStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
 import AuthCard from '../components/AuthCard'
 import SkeletonCard from '../components/SkeletonCard'
-import MissionStrip from '../components/dashboard/MissionStrip'
+import HomeActionCards from '../components/dashboard/HomeActionCards'
+import DashboardHighlights from '../components/dashboard/DashboardHighlights'
 import ShopTeaser from '../components/dashboard/ShopTeaser'
 
 export default function DashboardPage() {
@@ -22,6 +24,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [affordable, setAffordable] = useState<ShopItemForChild[]>([])
+  const [loginClaimed, setLoginClaimed] = useState(false)
+  const [claimingLogin, setClaimingLogin] = useState(false)
 
   useEffect(() => {
     if (!activeChildId) return
@@ -58,6 +62,7 @@ export default function DashboardPage() {
         const vmNew = dashboardFromApi(payload)
         if (cancelled) return
         setVm(vmNew)
+        setLoginClaimed(vmNew.loginBonus.claimedToday)
         useGamificationStats.getState().setStats({
           streak: vmNew.streak,
           coinBalance: vmNew.coinBalance,
@@ -108,7 +113,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+      <div className="w-full">
         <SkeletonCard />
       </div>
     )
@@ -116,7 +121,7 @@ export default function DashboardPage() {
 
   if (error || !vm) {
     return (
-      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+      <div className="w-full">
         <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
           {error || 'Gagal memuat dashboard.'}
         </div>
@@ -124,41 +129,89 @@ export default function DashboardPage() {
     )
   }
 
+  const recommended = vm.recommended[0] ?? null
+
+  // vm.xp = XP earned into the current level; vm.xpToNext = XP still needed
+  // for the next level. The progress bar spans the WHOLE level, so the
+  // denominator is the level span (into + remaining), not the remaining
+  // alone — otherwise the bar pegs at 100% the moment xp passes the midpoint.
+  const atMaxLevel = vm.xpToNext <= 0
+  const levelSpan = vm.xp + vm.xpToNext
+  const xpPercent = atMaxLevel
+    ? 100
+    : Math.min(100, Math.round((vm.xp / Math.max(1, levelSpan)) * 100))
+
+  async function handleClaimLoginBonus() {
+    if (!activeChildId || loginClaimed || claimingLogin) return
+    setClaimingLogin(true)
+    try {
+      const result = await claimLoginBonus(activeChildId)
+      setLoginClaimed(true)
+      useGamificationStats.getState().patchCoinBalance(result.coinBalance)
+    } catch (claimError) {
+      console.error('Failed to claim login bonus:', claimError)
+    } finally {
+      setClaimingLogin(false)
+    }
+  }
+
   return (
-    <div className="mx-auto flex w-full max-w-md flex-col gap-4 sm:max-w-lg">
-      {/* Profile hero */}
-      <section className="rounded-[2rem] bg-gradient-to-br from-qupu-brand-blue to-[#2c3f74] p-5 text-white shadow-[5px_6px_0_0_#FFD3B1]">
-        <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-qupu-peach text-2xl text-qupu-brand-blue">
+    <div className="w-full max-w-[390px] self-center pb-6">
+      <section className="relative overflow-hidden rounded-[2.25rem] bg-qupu-brand-orange p-4 text-white shadow-[0_7px_0_0_#C46123]">
+        <div className="absolute -right-8 -top-10 h-32 w-32 rounded-full bg-qupu-brand-yellow/35" />
+        <div className="absolute -bottom-14 -left-10 h-32 w-32 rounded-full bg-white/12" />
+        <div className="relative flex items-start justify-between gap-4">
+          <div className="min-w-0 pt-1">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">
+              {vm.tierName}
+            </p>
+            <h1 className="mt-1 font-display text-[2rem] font-black leading-[0.95] tracking-tight">
+              Hai, {vm.child.name}!
+            </h1>
+            <p className="mt-2 max-w-[13rem] text-xs font-bold leading-tight text-white/80">
+              Pilih satu aksi, kumpulkan XP, dan buka hadiah berikutnya.
+            </p>
+          </div>
+          <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-[1.6rem] bg-[#FFF8F0] text-4xl text-qupu-brand-blue shadow-[inset_0_-4px_0_#FFD3B1]">
             <i className="fa-solid fa-user-astronaut" aria-hidden="true" />
           </div>
-          <div className="flex-1">
-            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/70">
-              {vm.tierName}
+        </div>
+
+        <div className="relative mt-5 rounded-[1.5rem] bg-qupu-brand-blue p-3 shadow-[0_4px_0_0_#0E1430]">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[10px] font-black uppercase tracking-[0.16em] text-qupu-brand-yellow">
+                Level {vm.level}
+              </div>
+              <div className="mt-1 text-xs font-bold text-white/80">
+                {atMaxLevel ? `${vm.xp} XP · level maks` : `${vm.xp} / ${levelSpan} XP`}
+              </div>
             </div>
-            <h2 className="font-display text-xl font-extrabold">Hai, {vm.child.name}!</h2>
-            <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/15">
-              <div
-                className="h-full rounded-full bg-qupu-brand-yellow"
-                style={{ width: `${Math.min(100, Math.round((vm.xp / Math.max(1, vm.xpToNext)) * 100))}%` }}
-              />
+            <div className="rounded-full bg-white px-3 py-1 text-[11px] font-black text-qupu-brand-blue">
+              {atMaxLevel ? 'MAKS' : `${xpPercent}%`}
             </div>
-            <div className="mt-1 text-[11px] font-medium text-white/70">
-              {vm.xp} / {vm.xpToNext} XP · Level {vm.level}
-            </div>
+          </div>
+          <div className="mt-3 h-3 overflow-hidden rounded-full bg-white/15">
+            <div
+              className="h-full rounded-full bg-qupu-brand-yellow"
+              style={{ width: `${xpPercent}%` }}
+            />
           </div>
         </div>
       </section>
 
-      <MissionStrip quests={vm.quests} childName={vm.child.name} />
-      <ShopTeaser coinBalance={vm.coinBalance} affordableItems={affordable} />
-
-      <Link
-        to="/report"
-        className="self-start text-xs font-bold uppercase tracking-[0.18em] text-qupu-brand-orange underline-offset-4 hover:underline"
-      >
-        Lihat rapor lengkap →
-      </Link>
+      <div className="mt-5 space-y-5">
+        <HomeActionCards
+          streak={vm.streak}
+          recommended={recommended}
+          loginBonusReward={vm.loginBonus.coinReward}
+          loginBonusClaimed={loginClaimed}
+          loginBonusClaiming={claimingLogin}
+          onClaimLoginBonus={handleClaimLoginBonus}
+        />
+        <DashboardHighlights vm={vm} />
+        <ShopTeaser coinBalance={vm.coinBalance} affordableItems={affordable} />
+      </div>
     </div>
   )
 }

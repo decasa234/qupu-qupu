@@ -13,7 +13,8 @@
 // First-quiz variant: when unlockedAchievements contains 'first_quiz',
 // the headline becomes the celebration moment for a brand-new learner.
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import BadgeCurve from './BadgeCurve'
 import ReferralShareCard from './ReferralShareCard'
 import type { ScoreAttemptResult } from '../types'
@@ -71,6 +72,8 @@ export default function PostQuizRewardSummary({
   const isFirstQuiz = gam?.unlockedAchievements.some((a) => a.code === 'first_quiz') ?? false
   const isPerfect = result.attempt.scorePercentage === 100
   const levelUp = gam?.levelUp ?? null
+  // Bigger confetti burst for the standout moments.
+  const bigCelebration = isFirstQuiz || !!levelUp || isPerfect
 
   // Mascot headline priority: first-quiz → level-up → perfect score → achievement → quest → default.
   const headline = (() => {
@@ -83,7 +86,7 @@ export default function PostQuizRewardSummary({
     return `Skor disimpan untuk ${childName}.`
   })()
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -94,10 +97,13 @@ export default function PostQuizRewardSummary({
         type="button"
         aria-label="Tutup"
         onClick={onClose}
-        className="absolute inset-0 bg-qupu-brand-blue/60 backdrop-blur-sm"
+        className="animate-reward-fade absolute inset-0 bg-qupu-brand-blue/60 backdrop-blur-sm"
       />
 
-      <div className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] sm:p-8">
+      {/* Celebration confetti — rains over the whole viewport, never blocks taps. */}
+      <RewardConfetti pieces={bigCelebration ? 64 : 38} />
+
+      <div className="animate-reward-pop relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] [scrollbar-width:none] sm:p-8 [&::-webkit-scrollbar]:hidden">
         {/* Mascot + headline */}
         <div className="text-center">
           <img
@@ -105,7 +111,7 @@ export default function PostQuizRewardSummary({
             alt=""
             aria-hidden="true"
             draggable={false}
-            className="pointer-events-none mx-auto h-28 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)]"
+            className="animate-reward-mascot pointer-events-none mx-auto h-28 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)]"
           />
           <h2 className="mt-3 font-display text-2xl font-extrabold text-qupu-brand-blue sm:text-3xl">
             {headline}
@@ -296,6 +302,47 @@ export default function PostQuizRewardSummary({
           </button>
         </div>
       </div>
+    </div>,
+    document.body,
+  )
+}
+
+// Brand-palette confetti for the reward moment. Pieces are generated once per
+// mount (the modal unmounts when closed, so each open gets a fresh burst) and
+// rain down via the shared `fall` keyframe. pointer-events-none so taps fall
+// through to the card / backdrop beneath.
+const CONFETTI_COLORS = ['#FFDD55', '#F0853A', '#30598A', '#22C55E', '#EF4444', '#FB923C']
+
+function RewardConfetti({ pieces }: { pieces: number }) {
+  const bits = useMemo(
+    () =>
+      Array.from({ length: pieces }, (_, i) => ({
+        left: Math.random() * 100,
+        color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+        delay: Math.random() * 0.5,
+        duration: 2.4 + Math.random() * 1.8,
+        size: 7 + Math.random() * 7,
+        round: i % 3 === 0,
+      })),
+    [pieces],
+  )
+
+  return (
+    <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
+      {bits.map((b, i) => (
+        <span
+          key={i}
+          className="absolute top-0 block"
+          style={{
+            left: `${b.left}%`,
+            width: `${b.size}px`,
+            height: `${b.size * 1.4}px`,
+            backgroundColor: b.color,
+            borderRadius: b.round ? '9999px' : '2px',
+            animation: `fall ${b.duration}s linear ${b.delay}s forwards`,
+          }}
+        />
+      ))}
     </div>
   )
 }
