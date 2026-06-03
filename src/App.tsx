@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import CookieConsentBanner from './components/CookieConsentBanner'
 import Layout from './components/Layout'
 import LoadingOverlay from './components/LoadingOverlay'
 import { useLoadingState } from './hooks/useLoadingState'
@@ -135,6 +136,7 @@ export default function App() {
     <Router>
       <RouteLoadingTrigger />
       <LoadingOverlay />
+      <CookieConsentBanner />
       <Routes>
         {/* Marketing + auth + video + onboarding — keep marketing Layout */}
         <Route path="/" element={<Layout />}>

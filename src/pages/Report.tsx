@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import api from '../lib/api'
+import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import SkeletonCard from '../components/SkeletonCard'
@@ -53,11 +53,11 @@ export default function ReportPage() {
       try {
         const [progressRes, metaRes] = await Promise.all([
           api.get('/me/progress', { params: { childId: activeChildId } }),
-          api.get('/public/meta'),
+          getCachedPublic<{ data?: { ageGroups?: Array<{ id: string; name: string }> } }>('/public/meta'),
         ])
         const data = progressRes.data.data as MemberProgress
         setProgress(data)
-        const ageGroups: Array<{ id: string; name: string }> = metaRes.data.data?.ageGroups ?? []
+        const ageGroups: Array<{ id: string; name: string }> = metaRes.data?.ageGroups ?? []
         setAgeGroupName(
           ageGroups.find((g) => g.id === data.child?.ageGroupId)?.name ?? null,
         )

@@ -17,6 +17,7 @@ import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
 import analyticsRoutes from './routes/analytics.js'
 import shopRoutes, { inventoryRouter as inventoryRoutes } from './routes/shop.js'
+import { applyCacheControl } from './middleware/cacheControl.js'
 import { validateChannelHandle } from './services/youtubeChannel.js'
 
 dotenv.config()
@@ -47,6 +48,7 @@ app.use(
     credentials: true,
   }),
 )
+app.use(applyCacheControl)
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 

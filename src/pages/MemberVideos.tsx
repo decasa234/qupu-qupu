@@ -12,7 +12,7 @@
 // needs the full set anyway.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import api from '../lib/api'
+import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import type { SubjectOption, VideoCard as VideoCardType } from '../types'
 
@@ -60,15 +60,17 @@ export default function MemberVideosPage() {
 
       try {
         const [videosRes, metaRes] = await Promise.all([
-          api.get('/public/videos', {
+          getCachedPublic<{ data: { videos?: VideoCardType[] } }>('/public/videos', {
             params: { page: 1, pageSize: 100 },
             signal: controller.signal,
           }),
-          api.get('/public/meta', { signal: controller.signal }),
+          getCachedPublic<{ data: { subjects?: SubjectOption[] } }>('/public/meta', {
+            signal: controller.signal,
+          }),
         ])
-        const list: VideoCardType[] = videosRes.data.data.videos ?? []
+        const list: VideoCardType[] = videosRes.data.videos ?? []
         setVideos(list)
-        setSubjects(metaRes.data.data.subjects ?? [])
+        setSubjects(metaRes.data.subjects ?? [])
       } catch (requestError: unknown) {
         if (controller.signal.aborted) return
         console.error('Failed to load videos:', requestError)

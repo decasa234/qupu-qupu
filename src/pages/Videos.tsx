@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import api from '../lib/api'
+import { getCachedPublic } from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import VideoCard from '../components/VideoCard'
 import Reveal from '../components/Reveal'
@@ -44,7 +44,9 @@ export default function VideosPage() {
       setError('')
 
       try {
-        const response = await api.get('/public/videos', {
+        const response = await getCachedPublic<{
+          data: { videos?: VideoCardType[]; pageCount?: number; total?: number }
+        }>('/public/videos', {
           params: {
             page,
             pageSize: PAGE_SIZE,
@@ -52,7 +54,7 @@ export default function VideosPage() {
           },
           signal: controller.signal,
         })
-        const data = response.data.data
+        const data = response.data
         setVideos(data.videos ?? [])
         setPageCount(Math.max(1, Number(data.pageCount ?? 1)))
         setTotal(Number(data.total ?? data.videos?.length ?? 0))
