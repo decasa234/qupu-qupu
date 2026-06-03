@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import WmiFeedbackPanel from '../components/wmi/WmiFeedbackPanel'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import WmiConceptFeedbackPanel from '../components/wmi/WmiConceptFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
 import WmiExplainer from '../components/wmi/WmiExplainer'
@@ -18,6 +18,7 @@ export default function WmiKonsepDrill() {
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState(false)
   const [breakdown, setBreakdown] = useState(false)
+  const [questionLang, setQuestionLang] = useState<'en' | 'id'>('en')
   const [error, setError] = useState<string | null>(null)
   const askedAt = useRef(Date.now())
 
@@ -28,6 +29,7 @@ export default function WmiKonsepDrill() {
     setLookedUpTerms([])
     setRevealed(false)
     setBreakdown(false)
+    setQuestionLang('en')
     setError(null)
     try {
       const q = await fetchConceptNext(activeChildId, selectedGrade)
@@ -71,11 +73,16 @@ export default function WmiKonsepDrill() {
     await submitConceptVote(activeChildId, question.concept_instance_id, vote)
   }
 
+  const Illustration = question ? getIllustration(question.concept_slug) : null
+  const hintSteps = useMemo(() => {
+    const steps = questionLang === 'id' ? feedback?.hint_steps_id : feedback?.hint_steps_en
+    const fallback = questionLang === 'id' ? feedback?.hint_id : feedback?.hint_en
+    return steps?.length ? steps : fallback ? [fallback] : []
+  }, [feedback, questionLang])
+
   if (!activeChildId) return <div className="p-6 text-center">Pilih profil anak dulu.</div>
   if (error) return <div className="mx-auto max-w-xl p-6 text-center text-red-600">{error}</div>
   if (!question) return <div className="p-6 text-center">Memuat soal...</div>
-
-  const Illustration = getIllustration(question.concept_slug)
 
   // Adapt the concept question to WmiQuestionView's expected props.
   const adapted: WmiQuestion = {
@@ -119,6 +126,7 @@ export default function WmiKonsepDrill() {
         onSubmitFillIn={submit}
         onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}
         onRevealTranslation={() => setRevealed(true)}
+        onLanguageChange={setQuestionLang}
       />
       {feedback && (
         <>
@@ -127,11 +135,11 @@ export default function WmiKonsepDrill() {
             params={question.params}
             correctAnswer={feedback.correct_answer}
           />
-          <WmiFeedbackPanel
+          <WmiConceptFeedbackPanel
             isCorrect={feedback.is_correct}
             correctAnswer={feedback.correct_answer}
-            hintEn={feedback.hint_en}
-            hintId={feedback.hint_id}
+            hintSteps={hintSteps}
+            lang={questionLang}
             onNext={loadNext}
           />
           <WmiVoteButtons onVote={onVote} />

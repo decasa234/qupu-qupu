@@ -571,6 +571,8 @@ CREATE TABLE IF NOT EXISTS wmi_concept_instances (
   answer          TEXT NOT NULL,
   hint_en         TEXT,
   hint_id         TEXT,
+  hint_steps_en   JSONB,
+  hint_steps_id   JSONB,
   served_count    INT NOT NULL DEFAULT 0,
   upvotes         INT NOT NULL DEFAULT 0,
   downvotes       INT NOT NULL DEFAULT 0,

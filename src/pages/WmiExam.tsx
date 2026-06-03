@@ -17,6 +17,7 @@ export default function WmiExam() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
+  const [breakdown, setBreakdown] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function WmiExam() {
 
   useEffect(() => {
     setLookedUpTerms([])
+    setBreakdown(false)
   }, [currentIndex])
 
   const attemptsByQuestion = useMemo(() => {
@@ -116,6 +118,8 @@ export default function WmiExam() {
         selectedChoice={attempt?.selected_answer ?? null}
         fillValue={attempt?.selected_answer ?? ''}
         revealed={Boolean(revealed[question.id])}
+        breakdownActive={breakdown}
+        onToggleBreakdown={() => setBreakdown((value) => !value)}
         onPickChoice={saveAnswer}
         onSubmitFillIn={saveAnswer}
         onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}

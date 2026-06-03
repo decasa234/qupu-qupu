@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
+import { stripSectionLabels } from '../../lib/wmiBreakdown'
 import WmiAnswerChoice from './WmiAnswerChoice'
 import WmiFigure from './WmiFigure'
 import WmiGlossaryTerm from './WmiGlossaryTerm'
-import WmiTranslationSpoiler from './WmiTranslationSpoiler'
 import WmiBreakdownView from './WmiBreakdownView'
 import WmiBreakdownToggle from './WmiBreakdownToggle'
+import WmiLanguageToggle from './WmiLanguageToggle'
 
 interface Props {
   question: WmiQuestion
@@ -21,6 +22,7 @@ interface Props {
   onSubmitFillIn: (answer: string) => void
   onLookupTerm: (slug: string) => void
   onRevealTranslation: () => void
+  onLanguageChange?: (lang: 'en' | 'id') => void
 }
 
 function MarkupText({ text, onLookup }: { text: string; onLookup: (slug: string) => void }) {
@@ -52,24 +54,47 @@ export default function WmiQuestionView({
   onSubmitFillIn,
   onLookupTerm,
   onRevealTranslation,
+  onLanguageChange,
 }: Props) {
   const [localFill, setLocalFill] = useState(fillValue)
-  const choices = question.choices_en ?? []
-  const choicesId = question.choices_id ?? []
+  // Active display language. Starts English; the translation toggle swaps it in
+  // place. Reset whenever the question changes (review starts pre-revealed in id).
+  const [lang, setLang] = useState<'en' | 'id'>(revealed ? 'id' : 'en')
+  useEffect(() => {
+    const next = revealed ? 'id' : 'en'
+    setLang(next)
+    onLanguageChange?.(next)
+  }, [question.id, revealed, onLanguageChange])
+
+  const isId = lang === 'id'
+  const body = isId ? question.body_id : question.body_en
+  const choices: WmiChoice[] = (isId ? question.choices_id : question.choices_en) ?? []
+
+  const toggleLang = () => {
+    setLang((current) => {
+      const next = current === 'en' ? 'id' : 'en'
+      if (next === 'id') onRevealTranslation()
+      onLanguageChange?.(next)
+      return next
+    })
+  }
 
   return (
-    <article className="rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
-      <div className="text-sm font-bold text-qupu-muted">Soal {question.number}</div>
-      <div className="mt-2 text-lg font-semibold text-gray-900">
-        {breakdownActive ? (
-          <WmiBreakdownView text={question.body_en} lang="en" onLookup={onLookupTerm} />
-        ) : (
-          <MarkupText text={question.body_en} onLookup={onLookupTerm} />
+    <article className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
+      <div className="absolute right-3 top-3 flex items-center gap-2">
+        <WmiLanguageToggle lang={lang} onToggle={toggleLang} />
+        {onToggleBreakdown && (
+          <WmiBreakdownToggle active={breakdownActive} onToggle={onToggleBreakdown} />
         )}
       </div>
-      {onToggleBreakdown && (
-        <WmiBreakdownToggle active={breakdownActive} onToggle={onToggleBreakdown} />
-      )}
+      <div className="pr-28 text-sm font-bold text-qupu-muted">Soal {question.number}</div>
+      <div className="mt-2 text-lg font-semibold text-gray-900">
+        {breakdownActive ? (
+          <WmiBreakdownView text={body} lang={lang} onLookup={onLookupTerm} />
+        ) : (
+          <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
+        )}
+      </div>
       <WmiFigure src={question.figure_url} />
 
       {question.answer_type === 'multiple_choice' ? (
@@ -112,25 +137,6 @@ export default function WmiQuestionView({
           </button>
         </form>
       )}
-
-      <WmiTranslationSpoiler revealed={revealed} onReveal={onRevealTranslation}>
-        <div className="font-semibold">
-          {breakdownActive ? (
-            <WmiBreakdownView text={question.body_id} lang="id" onLookup={onLookupTerm} />
-          ) : (
-            <MarkupText text={question.body_id} onLookup={onLookupTerm} />
-          )}
-        </div>
-        {choicesId.length > 0 && (
-          <div className="mt-3 grid gap-2 text-sm">
-            {choicesId.map((choice) => (
-              <div key={choice.label}>
-                <strong>{choice.label}.</strong> <MarkupText text={choice.text} onLookup={onLookupTerm} />
-              </div>
-            ))}
-          </div>
-        )}
-      </WmiTranslationSpoiler>
     </article>
   )
 }

@@ -6,6 +6,7 @@ import digitSum from './digit-sum/index.js'
 import shapePerimeterSquare from './shape-perimeter-square/index.js'
 import placeValue from './place-value/index.js'
 import multiplicationSmall from './multiplication-small/index.js'
+import storySum from './story-sum/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -17,6 +18,7 @@ export const CONCEPTS = {
   'shape-perimeter-square': shapePerimeterSquare,
   'place-value': placeValue,
   'multiplication-small': multiplicationSmall,
+  'story-sum': storySum,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

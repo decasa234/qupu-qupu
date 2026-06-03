@@ -39,6 +39,16 @@ export function render(params: Params) {
     answer: answerLabel,
     hint_en: 'Add up all four sides.',
     hint_id: 'Jumlahkan keempat sisi.',
+    hint_steps_en: [
+      'Perimeter means the distance around the outside.',
+      `A square has 4 equal sides, and each side is ${params.side}.`,
+      `${params.side} + ${params.side} + ${params.side} + ${params.side} = ${correct}.`,
+    ],
+    hint_steps_id: [
+      'Keliling artinya jarak mengelilingi bagian luar bentuk.',
+      `Persegi punya 4 sisi sama panjang, dan tiap sisi ${params.side}.`,
+      `${params.side} + ${params.side} + ${params.side} + ${params.side} = ${correct}.`,
+    ],
   }
 }
 

@@ -17,6 +17,8 @@ export interface Rendered {
   answer: string
   hint_en: string | null
   hint_id: string | null
+  hint_steps_en?: string[] | null
+  hint_steps_id?: string[] | null
 }
 
 export interface ConceptMeta {

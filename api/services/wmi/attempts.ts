@@ -27,6 +27,8 @@ export interface WmiAttemptResult {
   correct_answer: string
   hint_en: string | null
   hint_id: string | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
 }
 
 function isCorrectAnswer(expected: string, selected: string): boolean {
@@ -43,6 +45,8 @@ export async function submitWmiAttempt(
     let answer: string
     let hint_en: string | null
     let hint_id: string | null
+    let hint_steps_en: string[] | null
+    let hint_steps_id: string[] | null
 
     if (input.mode === 'concept') {
       if (!input.conceptInstanceId) {
@@ -51,8 +55,14 @@ export async function submitWmiAttempt(
       if (input.questionId) {
         throw new Error('questionId must not be set when mode is concept')
       }
-      const inst = await queryOne<{ answer: string; hint_en: string | null; hint_id: string | null }>(
-        'SELECT answer, hint_en, hint_id FROM wmi_concept_instances WHERE id = $1',
+      const inst = await queryOne<{
+        answer: string
+        hint_en: string | null
+        hint_id: string | null
+        hint_steps_en: string[] | null
+        hint_steps_id: string[] | null
+      }>(
+        'SELECT answer, hint_en, hint_id, hint_steps_en, hint_steps_id FROM wmi_concept_instances WHERE id = $1',
         [input.conceptInstanceId],
         client,
       )
@@ -60,6 +70,8 @@ export async function submitWmiAttempt(
       answer = inst.answer
       hint_en = inst.hint_en
       hint_id = inst.hint_id
+      hint_steps_en = inst.hint_steps_en
+      hint_steps_id = inst.hint_steps_id
     } else {
       if (!input.questionId) {
         throw new Error('questionId is required for drill/exam attempts')
@@ -72,6 +84,8 @@ export async function submitWmiAttempt(
       answer = question.answer
       hint_en = question.hint_en
       hint_id = question.hint_id
+      hint_steps_en = null
+      hint_steps_id = null
 
       if (input.mode === 'exam') {
         if (!input.sessionId) throw new Error('sessionId is required for exam attempts')
@@ -157,6 +171,6 @@ export async function submitWmiAttempt(
       )
     }
 
-    return { is_correct: correct, correct_answer: answer, hint_en, hint_id }
+    return { is_correct: correct, correct_answer: answer, hint_en, hint_id, hint_steps_en, hint_steps_id }
   })
 }

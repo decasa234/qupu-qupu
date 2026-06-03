@@ -49,6 +49,16 @@ export function render(params: Params) {
     answer: answerLabel,
     hint_en: 'Count one at a time, point at each object.',
     hint_id: 'Hitung satu per satu, tunjuk tiap benda.',
+    hint_steps_en: [
+      `Count the ${KIND_EN[params.kind]} one by one.`,
+      'Touch or point at each object as you count.',
+      `The last number you say is ${n}.`,
+    ],
+    hint_steps_id: [
+      `Hitung ${params.kind} satu per satu.`,
+      'Sentuh atau tunjuk tiap benda saat menghitung.',
+      `Angka terakhir yang kamu sebut adalah ${n}.`,
+    ],
   }
 }
 

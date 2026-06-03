@@ -16,6 +16,8 @@ export interface ConceptQuestion {
   choices_id: unknown
   hint_en: string | null
   hint_id: string | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
 }
 
 const MAX_DUPE_RETRIES = 5
@@ -74,6 +76,8 @@ export async function getNextConceptQuestion(
       choices_id: instance.choices_id,
       hint_en: instance.hint_en,
       hint_id: instance.hint_id,
+      hint_steps_en: instance.hint_steps_en,
+      hint_steps_id: instance.hint_steps_id,
     }
   })
 }
@@ -88,6 +92,8 @@ interface InstanceRow {
   choices_id: unknown
   hint_en: string | null
   hint_id: string | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
 }
 
 async function pickExistingInstance(
@@ -98,12 +104,14 @@ async function pickExistingInstance(
   return queryOne<InstanceRow>(
     `
     SELECT i.id, i.params, i.body_en, i.body_id, i.answer_type,
-           i.choices_en, i.choices_id, i.hint_en, i.hint_id
+           i.choices_en, i.choices_id, i.hint_en, i.hint_id,
+           i.hint_steps_en, i.hint_steps_id
     FROM wmi_concept_instances i
     LEFT JOIN wmi_attempts a
       ON a.concept_instance_id = i.id AND a.child_id = $2
     WHERE i.concept_slug = $1
       AND i.is_culled = FALSE
+      AND ($1 <> 'story-sum' OR i.params ? 'start')
       AND a.id IS NULL
     ORDER BY i.served_count ASC, random()
     LIMIT 1
@@ -135,11 +143,11 @@ async function generateAndPersist(
       `
       INSERT INTO wmi_concept_instances
         (concept_slug, params, body_en, body_id, answer_type,
-         choices_en, choices_id, answer, hint_en, hint_id)
-      VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10)
+         choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id)
+      VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb)
       ON CONFLICT (concept_slug, params) DO NOTHING
       RETURNING id, params, body_en, body_id, answer_type,
-                choices_en, choices_id, hint_en, hint_id
+                choices_en, choices_id, hint_en, hint_id, hint_steps_en, hint_steps_id
       `,
       [
         conceptSlug,
@@ -152,6 +160,8 @@ async function generateAndPersist(
         r.answer,
         r.hint_en,
         r.hint_id,
+        r.hint_steps_en ? JSON.stringify(r.hint_steps_en) : null,
+        r.hint_steps_id ? JSON.stringify(r.hint_steps_id) : null,
       ],
       client,
     )
@@ -168,11 +178,14 @@ async function fallbackOldestAttempted(
   return queryOne<InstanceRow>(
     `
     SELECT i.id, i.params, i.body_en, i.body_id, i.answer_type,
-           i.choices_en, i.choices_id, i.hint_en, i.hint_id
+           i.choices_en, i.choices_id, i.hint_en, i.hint_id,
+           i.hint_steps_en, i.hint_steps_id
     FROM wmi_concept_instances i
     JOIN wmi_attempts a
       ON a.concept_instance_id = i.id AND a.child_id = $2
-    WHERE i.concept_slug = $1 AND i.is_culled = FALSE
+    WHERE i.concept_slug = $1
+      AND i.is_culled = FALSE
+      AND ($1 <> 'story-sum' OR i.params ? 'start')
     ORDER BY a.created_at ASC
     LIMIT 1
     `,

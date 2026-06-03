@@ -8,9 +8,16 @@ export default function WmiBreakdownToggle({ active, onToggle }: Props) {
     <button
       type="button"
       onClick={onToggle}
-      className="mt-2 rounded-lg border-2 border-qupu-brand-blue px-3 py-1 text-sm font-bold text-qupu-brand-blue"
+      aria-pressed={active}
+      aria-label={active ? 'Tampilkan soal utuh' : 'Pecah soal'}
+      title={active ? 'Soal utuh' : 'Pecah soal'}
+      className={`flex h-9 w-9 items-center justify-center rounded-full border-2 font-display text-lg font-bold transition-colors ${
+        active
+          ? 'border-qupu-brand-blue bg-qupu-brand-blue text-white'
+          : 'border-qupu-brand-blue bg-white text-qupu-brand-blue'
+      }`}
     >
-      {active ? 'Soal utuh' : 'Pecah soal'}
+      Q
     </button>
   )
 }

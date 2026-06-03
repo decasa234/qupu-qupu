@@ -19,10 +19,19 @@ export function ensureBootstrapped(): Promise<void> {
 }
 
 async function doBootstrap(): Promise<void> {
+  await ensureConceptInstanceHintStepColumns()
   await upsertConcepts()
   for (const slug of ALL_SLUGS) {
     await seedConcept(slug, CONCEPTS[slug] as ConceptLogic<unknown>)
   }
+}
+
+async function ensureConceptInstanceHintStepColumns(): Promise<void> {
+  await query(`
+    ALTER TABLE wmi_concept_instances
+      ADD COLUMN IF NOT EXISTS hint_steps_en JSONB,
+      ADD COLUMN IF NOT EXISTS hint_steps_id JSONB
+  `)
 }
 
 async function upsertConcepts(): Promise<void> {
@@ -62,8 +71,8 @@ async function seedConcept(slug: string, concept: ConceptLogic<unknown>): Promis
         `
         INSERT INTO wmi_concept_instances
           (concept_slug, params, body_en, body_id, answer_type,
-           choices_en, choices_id, answer, hint_en, hint_id)
-        VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10)
+           choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id)
+        VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb)
         ON CONFLICT (concept_slug, params) DO NOTHING
         `,
         [
@@ -77,6 +86,8 @@ async function seedConcept(slug: string, concept: ConceptLogic<unknown>): Promis
           r.answer,
           r.hint_en,
           r.hint_id,
+          r.hint_steps_en ? JSON.stringify(r.hint_steps_en) : null,
+          r.hint_steps_id ? JSON.stringify(r.hint_steps_id) : null,
         ],
       )
     } catch (err) {
