@@ -5,6 +5,7 @@ import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
 import WmiExplainer from '../components/wmi/WmiExplainer'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
+import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { fetchConceptNext, submitConceptAttempt, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -45,6 +46,9 @@ export default function WmiKonsepDrill() {
   const [breakdown, setBreakdown] = useState(false)
   const [questionLang, setQuestionLang] = useState<'en' | 'id'>('en')
   const [error, setError] = useState<string | null>(null)
+  // Session history: one entry per answered question (true = correct). Persists
+  // across questions for this visit so the dot strip marks what's been done.
+  const [results, setResults] = useState<boolean[]>([])
   const askedAt = useRef(Date.now())
 
   const loadNext = useCallback(async () => {
@@ -93,6 +97,7 @@ export default function WmiKonsepDrill() {
         looked_up_terms: lookedUpTerms,
       })
       setFeedback(saved)
+      setResults((prev) => [...prev, saved.is_correct])
       if (saved.gamification) syncStatStrip(saved.gamification)
     } catch (err) {
       setSelected(null)
@@ -111,6 +116,18 @@ export default function WmiKonsepDrill() {
     const fallback = questionLang === 'id' ? feedback?.hint_id : feedback?.hint_en
     return steps?.length ? steps : fallback ? [fallback] : []
   }, [feedback, questionLang])
+
+  // Session marker strip: answered questions (correct/wrong) + the active one.
+  const recentResults = results.slice(-24)
+  const resultOffset = results.length - recentResults.length
+  const sessionDots: WmiDot[] = recentResults.map((correct, index): WmiDot => ({
+    key: `r-${resultOffset + index}`,
+    state: correct ? 'correct' : 'wrong',
+    current: feedback != null && index === recentResults.length - 1,
+  }))
+  if (!feedback && question) {
+    sessionDots.push({ key: 'current', state: 'pending', current: true })
+  }
 
   if (!activeChildId) {
     return (
@@ -132,6 +149,12 @@ export default function WmiKonsepDrill() {
       {feedback?.is_correct && <KonsepConfetti key={question?.concept_instance_id} />}
       <BackRow onBack={handleBack} />
       <KonsepHeader grade={conceptSlug ? undefined : selectedGrade} />
+
+      {sessionDots.length > 0 && (
+        <div className="mt-4">
+          <WmiDots dots={sessionDots} />
+        </div>
+      )}
 
       {error ? (
         <div className="mt-4 rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">

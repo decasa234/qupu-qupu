@@ -2,20 +2,42 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import ConceptCatalog from '../components/wmi/ConceptCatalog'
-import { fetchConceptProgress } from '../lib/wmiApi'
+import { fetchConceptProgress, fetchPapers } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
-import type { WmiConceptProgressSummary, WmiGrade } from '../types/wmi'
+import type { WmiConceptProgressSummary, WmiGrade, WmiPaperSummary } from '../types/wmi'
 
 export default function WmiHub() {
   const { activeChildId } = useAuthStore()
   const { selectedGrade, setSelectedGrade, loadGlossary } = useWmiStore()
   const [progress, setProgress] = useState<WmiConceptProgressSummary | null>(null)
   const [progressLoading, setProgressLoading] = useState(true)
+  // Drill pulls from real exam questions; a grade with no papers/questions has
+  // no drill, so we gray out the Drill button for those grades.
+  const [papers, setPapers] = useState<WmiPaperSummary[]>([])
+  const [papersLoading, setPapersLoading] = useState(true)
+  const drillAvailable = papers.some((paper) => Number(paper.question_count) > 0)
 
   useEffect(() => {
     loadGlossary().catch(() => {})
   }, [loadGlossary])
+
+  useEffect(() => {
+    if (!activeChildId) {
+      setPapers([])
+      setPapersLoading(false)
+      return
+    }
+    let cancelled = false
+    setPapersLoading(true)
+    fetchPapers(activeChildId, selectedGrade)
+      .then((data) => !cancelled && setPapers(data))
+      .catch(() => !cancelled && setPapers([]))
+      .finally(() => !cancelled && setPapersLoading(false))
+    return () => {
+      cancelled = true
+    }
+  }, [activeChildId, selectedGrade])
 
   // Concept progress is grade-independent (all concepts), so it loads once per child.
   useEffect(() => {
@@ -90,16 +112,36 @@ export default function WmiHub() {
           <span className="font-display text-base font-black leading-tight">Latihan Konsep</span>
           <span className="text-[11px] font-bold text-white/75">Soal tanpa batas · +5 XP</span>
         </Link>
-        <Link
-          to={`/latihan/wmi/drill?grade=${selectedGrade}`}
-          className="flex flex-col gap-1 rounded-[1.5rem] bg-[#FFF8F0] p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_2px_0_0_#FFD3B1]"
-        >
-          <i className="fa-solid fa-dumbbell text-xl text-qupu-brand-orange" aria-hidden="true" />
-          <span className="font-display text-base font-black leading-tight text-qupu-brand-blue">
-            Drill
-          </span>
-          <span className="text-[11px] font-bold text-qupu-brand-blue/65">Soal ujian asli</span>
-        </Link>
+        {papersLoading ? (
+          <div className="flex flex-col gap-1 rounded-[1.5rem] bg-qupu-cream p-4 text-qupu-brand-blue/50">
+            <i className="fa-solid fa-spinner fa-spin text-xl" aria-hidden="true" />
+            <span className="font-display text-base font-black leading-tight">Drill</span>
+            <span className="text-[11px] font-bold">Memuat...</span>
+          </div>
+        ) : drillAvailable ? (
+          <Link
+            to={`/latihan/wmi/drill?grade=${selectedGrade}`}
+            className="flex flex-col gap-1 rounded-[1.5rem] bg-[#FFF8F0] p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_2px_0_0_#FFD3B1]"
+          >
+            <i className="fa-solid fa-dumbbell text-xl text-qupu-brand-orange" aria-hidden="true" />
+            <span className="font-display text-base font-black leading-tight text-qupu-brand-blue">
+              Drill
+            </span>
+            <span className="text-[11px] font-bold text-qupu-brand-blue/65">Soal ujian asli</span>
+          </Link>
+        ) : (
+          <div
+            aria-disabled="true"
+            title="Belum ada soal drill untuk kelas ini"
+            className="flex cursor-not-allowed flex-col gap-1 rounded-[1.5rem] bg-qupu-cream p-4 opacity-70 ring-2 ring-[#FFE3CC]"
+          >
+            <i className="fa-solid fa-dumbbell text-xl text-qupu-muted" aria-hidden="true" />
+            <span className="font-display text-base font-black leading-tight text-qupu-muted">
+              Drill
+            </span>
+            <span className="text-[11px] font-bold text-qupu-muted">Belum tersedia</span>
+          </div>
+        )}
       </div>
 
       {/* Concept catalog */}
