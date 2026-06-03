@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import InventoryGrid from '../components/me/InventoryGrid'
 import AvatarEditor from '../components/me/AvatarEditor'
+import LevelDetail from '../components/me/LevelDetail'
 
 export default function MePage() {
   const { user, children, activeChildId, logout } = useAuthStore()
@@ -26,6 +27,8 @@ export default function MePage() {
       </section>
 
       {activeChild && <AvatarEditor child={activeChild} />}
+
+      {activeChild && <LevelDetail childId={activeChild.id} />}
 
       <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
