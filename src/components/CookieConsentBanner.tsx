@@ -32,7 +32,7 @@ export default function CookieConsentBanner() {
           <button
             type="button"
             onClick={() => chooseConsent('declined')}
-            className="font-semibold text-qupu-muted transition-colors hover:text-qupu-brand-orange"
+            className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-full px-5 py-3 font-display text-base font-extrabold text-qupu-muted transition-colors hover:text-qupu-brand-orange"
           >
             Jangan dulu
           </button>
