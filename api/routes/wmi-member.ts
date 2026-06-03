@@ -8,6 +8,7 @@ import {
   getWmiExamSession,
   startWmiExamSession,
 } from '../services/wmi/sessions.js'
+import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/concepts/engine.js'
 
 const router = Router()
 
@@ -28,11 +29,28 @@ const startSessionSchema = Joi.object({
 
 const attemptSchema = Joi.object({
   childId: Joi.string().uuid().required(),
-  question_id: Joi.string().uuid().required(),
-  mode: Joi.string().valid('drill', 'exam').required(),
+  mode: Joi.string().valid('drill', 'exam', 'concept').required(),
+  question_id: Joi.string()
+    .uuid()
+    .when('mode', {
+      is: 'concept',
+      then: Joi.forbidden(),
+      otherwise: Joi.required(),
+    }),
+  concept_instance_id: Joi.string()
+    .uuid()
+    .when('mode', {
+      is: 'concept',
+      then: Joi.required(),
+      otherwise: Joi.forbidden(),
+    }),
   session_id: Joi.string()
     .uuid()
-    .when('mode', { is: 'exam', then: Joi.required(), otherwise: Joi.allow(null).optional() }),
+    .when('mode', {
+      is: 'exam',
+      then: Joi.required(),
+      otherwise: Joi.allow(null).optional(),
+    }),
   selected_answer: Joi.string().trim().min(1).max(200).required(),
   time_taken_ms: Joi.number().integer().min(0).allow(null).optional(),
   revealed_id_translation: Joi.boolean().optional(),
@@ -107,6 +125,7 @@ router.post('/attempts', authenticateToken, async (req: AuthRequest, res: Respon
     const attempt = await submitWmiAttempt(req.user.id, {
       childId: value.childId,
       questionId: value.question_id,
+      conceptInstanceId: value.concept_instance_id,
       mode: value.mode,
       sessionId: value.session_id,
       selectedAnswer: value.selected_answer,
@@ -165,5 +184,59 @@ router.patch('/exam/sessions/:id/complete', authenticateToken, async (req: AuthR
     sendError(res, error, 'Unable to complete exam')
   }
 })
+
+const konsepNextQuerySchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  grade: Joi.number().integer().min(0).max(3).required(),
+}).unknown(true)
+
+const voteSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  concept_instance_id: Joi.string().uuid().required(),
+  vote: Joi.number().integer().valid(1, -1).required(),
+})
+
+router.get(
+  '/konsep/next',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = konsepNextQuerySchema.validate(req.query)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const question = await getNextConceptQuestion(req.user.id, value.childId, value.grade)
+      res.json({ success: true, data: { question } })
+    } catch (error) {
+      console.error('WMI konsep next error:', error)
+      sendError(res, error, 'Unable to load concept question')
+    }
+  },
+)
+
+router.post(
+  '/konsep/vote',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = voteSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const counts = await submitConceptVote(
+        req.user.id,
+        value.childId,
+        value.concept_instance_id,
+        value.vote,
+      )
+      res.json({ success: true, data: counts })
+    } catch (error) {
+      console.error('WMI konsep vote error:', error)
+      sendError(res, error, 'Unable to save vote')
+    }
+  },
+)
 
 export default router

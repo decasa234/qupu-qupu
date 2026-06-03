@@ -22,6 +22,7 @@ export default function WmiDrill() {
   const [feedback, setFeedback] = useState<WmiAttemptResult | null>(null)
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState(false)
+  const [breakdown, setBreakdown] = useState(false)
   const [streak, setStreak] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const askedAt = useRef(Date.now())
@@ -32,6 +33,7 @@ export default function WmiDrill() {
     setFeedback(null)
     setLookedUpTerms([])
     setRevealed(false)
+    setBreakdown(false)
     setError(null)
     try {
       setQuestion(await fetchDrillQuestion(activeChildId, grade))
@@ -95,6 +97,8 @@ export default function WmiDrill() {
         }
         disabled={Boolean(feedback)}
         revealed={revealed}
+        breakdownActive={breakdown}
+        onToggleBreakdown={() => setBreakdown((value) => !value)}
         onPickChoice={submit}
         onSubmitFillIn={submit}
         onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}

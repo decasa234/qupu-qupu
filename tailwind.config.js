@@ -56,9 +56,14 @@ export default {
           '70%': { transform: 'rotate(2deg)' },
           '80%': { transform: 'rotate(-1deg)' },
         },
+        rise: {
+          from: { transform: 'translateY(9px)' },
+          to: { transform: 'translateY(0)' },
+        },
       },
       animation: {
         ring: 'ring 0.9s ease-in-out',
+        rise: 'rise 0.35s cubic-bezier(.34,1.4,.5,1) both',
       },
     },
   },

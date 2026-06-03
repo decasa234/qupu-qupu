@@ -2,6 +2,9 @@ import api from './api'
 import type {
   WmiAttemptInput,
   WmiAttemptResult,
+  WmiConceptAttemptInput,
+  WmiConceptQuestion,
+  WmiConceptVoteResult,
   WmiExamSession,
   WmiExamSnapshot,
   WmiGlossaryTerm,
@@ -68,4 +71,30 @@ export async function completeExamSession(
 ): Promise<WmiExamSession> {
   const response = await api.patch(`/me/wmi/exam/sessions/${sessionId}/complete`, { childId })
   return unwrap<{ session: WmiExamSession }>(response).session
+}
+
+export async function fetchConceptNext(
+  childId: string,
+  grade: WmiGrade,
+): Promise<WmiConceptQuestion> {
+  const response = await api.get('/me/wmi/konsep/next', { params: { childId, grade } })
+  return unwrap<{ question: WmiConceptQuestion }>(response).question
+}
+
+export async function submitConceptVote(
+  childId: string,
+  conceptInstanceId: string,
+  vote: 1 | -1,
+): Promise<WmiConceptVoteResult> {
+  const response = await api.post('/me/wmi/konsep/vote', {
+    childId,
+    concept_instance_id: conceptInstanceId,
+    vote,
+  })
+  return unwrap<WmiConceptVoteResult>(response)
+}
+
+export async function submitConceptAttempt(input: WmiConceptAttemptInput): Promise<WmiAttemptResult> {
+  const response = await api.post('/me/wmi/attempts', input)
+  return unwrap<WmiAttemptResult>(response)
 }
