@@ -13,8 +13,8 @@
 // scoped declarations.
 //
 // Suppressed on member AppShell routes (dashboard/library/quiz/report/
-// badges/shop/me): those pages own their own per-component skeletons, so the
-// fullscreen overlay popping on every route change + API call felt heavy.
+// badges/shop/me/latihan): those pages own their own per-component skeletons,
+// so the fullscreen overlay popping on every route change + API call felt heavy.
 // It still covers boot, auth, marketing, and admin routes. Note this only
 // gates rendering — useLoadingState keeps ticking, so the boot-splash
 // handoff in App.tsx (which subscribes to the store) is unaffected.
@@ -26,7 +26,7 @@ const DOT = 'qupu-dot 1.1s ease-in-out infinite'
 const TWINKLE = 'qupu-twinkle 1.9s ease-in-out infinite'
 
 // Route prefixes that render inside <AppShell> and supply their own loading UI.
-const APP_SHELL_PREFIXES = ['/dashboard', '/library', '/quiz', '/report', '/badges', '/shop', '/me']
+const APP_SHELL_PREFIXES = ['/dashboard', '/library', '/quiz', '/report', '/badges', '/shop', '/me', '/latihan']
 
 export default function LoadingOverlay() {
   const visible = useLoadingState((s) => s.visible)

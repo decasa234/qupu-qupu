@@ -11,6 +11,9 @@ import WmiLanguageToggle from './WmiLanguageToggle'
 
 interface Props {
   question: WmiQuestion
+  // Replaces the default "Soal {number}" eyebrow. Konsep passes the concept
+  // name here (concept questions have no meaningful sequential number).
+  label?: string
   selectedChoice?: string | null
   fillValue?: string
   highlight?: { correct: string | null; wrongPicked: string | null }
@@ -43,6 +46,7 @@ function MarkupText({ text, onLookup }: { text: string; onLookup: (slug: string)
 
 export default function WmiQuestionView({
   question,
+  label,
   selectedChoice = null,
   fillValue = '',
   highlight,
@@ -87,7 +91,9 @@ export default function WmiQuestionView({
           <WmiBreakdownToggle active={breakdownActive} onToggle={onToggleBreakdown} />
         )}
       </div>
-      <div className="pr-28 text-sm font-bold text-qupu-muted">Soal {question.number}</div>
+      <div className="pr-28 text-sm font-bold text-qupu-muted">
+        {label ?? `Soal ${question.number}`}
+      </div>
       <div className="mt-2 text-lg font-semibold text-gray-900">
         {breakdownActive ? (
           <WmiBreakdownView text={body} lang={lang} onLookup={onLookupTerm} />

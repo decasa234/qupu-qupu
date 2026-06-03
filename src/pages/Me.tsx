@@ -29,6 +29,13 @@ export default function MePage() {
         </div>
         <div className="mt-3 flex flex-col gap-2">
           <SettingsRow
+            to="/badges"
+            icon="fa-solid fa-medal"
+            iconBg="#8A5BF0"
+            title="Badge & pencapaian"
+            subtitle="Lihat semua lencana yang terkumpul"
+          />
+          <SettingsRow
             to="/report"
             icon="fa-solid fa-chart-line"
             iconBg="#30598A"

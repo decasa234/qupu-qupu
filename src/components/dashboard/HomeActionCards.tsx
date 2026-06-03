@@ -130,6 +130,29 @@ export default function HomeActionCards({
         </Link>
       )}
 
+      {/* Latihan Konsep — promoted "main feature" entry (also a bottom tab). */}
+      <Link
+        to="/latihan/wmi/konsep"
+        className="flex items-center gap-3 rounded-[2rem] bg-[#FFF8F0] p-4 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#FFD3B1]"
+      >
+        <span className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-[1.35rem] bg-qupu-brand-orange text-2xl text-white shadow-[0_4px_0_0_#B8541A]">
+          <i className="fa-solid fa-brain" aria-hidden="true" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-lg font-black leading-[1.05] text-qupu-brand-blue">
+            Latihan Konsep
+          </h3>
+          <p className="mt-1 text-xs font-bold leading-tight text-qupu-brand-blue/65">
+            Soal tak terbatas — kumpulkan XP tiap jawaban benar.
+          </p>
+          <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
+            <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
+            +5 XP / soal
+          </span>
+        </div>
+        <i className="fa-solid fa-arrow-right text-sm text-qupu-brand-orange" aria-hidden="true" />
+      </Link>
+
       <div className="grid grid-cols-2 gap-3">
         <button
           type="button"

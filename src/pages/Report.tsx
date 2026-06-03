@@ -9,9 +9,12 @@ import RaporSummary from '../components/report/RaporSummary'
 import RaporSubjectTable from '../components/report/RaporSubjectTable'
 import RaporVideoBreakdown from '../components/report/RaporVideoBreakdown'
 import RaporNote from '../components/report/RaporNote'
+import RaporLatihan from '../components/report/RaporLatihan'
 import RaporFooter from '../components/report/RaporFooter'
 import PrintButton from '../components/report/PrintButton'
+import { fetchConceptProgress } from '../lib/wmiApi'
 import type { MemberProgress } from '../types'
+import type { WmiConceptProgressSummary } from '../types/wmi'
 
 export default function ReportPage() {
   const { children, activeChildId } = useAuthStore()
@@ -20,6 +23,23 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [ageGroupName, setAgeGroupName] = useState<string | null>(null)
+  const [latihan, setLatihan] = useState<WmiConceptProgressSummary | null>(null)
+
+  // WMI concept progress loads independently — a failure here must not break
+  // the core video-quiz rapor.
+  useEffect(() => {
+    if (!activeChildId) {
+      setLatihan(null)
+      return
+    }
+    let cancelled = false
+    fetchConceptProgress(activeChildId)
+      .then((data) => !cancelled && setLatihan(data))
+      .catch(() => !cancelled && setLatihan(null))
+    return () => {
+      cancelled = true
+    }
+  }, [activeChildId])
 
   useEffect(() => {
     if (!activeChildId) {
@@ -118,6 +138,15 @@ export default function ReportPage() {
           Rincian video per subject
         </h3>
         <RaporVideoBreakdown stats={progress.subjectStats} />
+
+        {latihan && latihan.totalConcepts > 0 && (
+          <>
+            <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
+              Latihan WMI (konsep)
+            </h3>
+            <RaporLatihan summary={latihan} />
+          </>
+        )}
 
         <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
           Catatan QUPU

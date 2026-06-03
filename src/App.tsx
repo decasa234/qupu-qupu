@@ -14,7 +14,9 @@ import QuizPage from './pages/Quiz'
 import DashboardPage from './pages/Dashboard'
 import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
+import LatihanHubPage from './pages/LatihanHub'
 import WmiHubPage from './pages/WmiHub'
+import WmiPapersPage from './pages/WmiPapers'
 import WmiDrillPage from './pages/WmiDrill'
 import WmiPaperDetailPage from './pages/WmiPaperDetail'
 import WmiExamPage from './pages/WmiExam'
@@ -166,7 +168,9 @@ export default function App() {
           <Route path="badges" element={<BadgesPage />} />
           <Route path="shop" element={<ShopPage />} />
           <Route path="me" element={<MePage />} />
+          <Route path="latihan" element={<LatihanHubPage />} />
           <Route path="latihan/wmi" element={<WmiHubPage />} />
+          <Route path="latihan/wmi/ujian" element={<WmiPapersPage />} />
           <Route path="latihan/wmi/drill" element={<WmiDrillPage />} />
           <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
           <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />

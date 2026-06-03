@@ -3,6 +3,7 @@ import type {
   WmiAttemptInput,
   WmiAttemptResult,
   WmiConceptAttemptInput,
+  WmiConceptProgressSummary,
   WmiConceptQuestion,
   WmiConceptVoteResult,
   WmiExamSession,
@@ -76,8 +77,11 @@ export async function completeExamSession(
 export async function fetchConceptNext(
   childId: string,
   grade: WmiGrade,
+  conceptSlug?: string,
 ): Promise<WmiConceptQuestion> {
-  const response = await api.get('/me/wmi/konsep/next', { params: { childId, grade } })
+  const params: Record<string, string | number> = { childId, grade }
+  if (conceptSlug) params.concept = conceptSlug
+  const response = await api.get('/me/wmi/konsep/next', { params })
   return unwrap<{ question: WmiConceptQuestion }>(response).question
 }
 
@@ -97,4 +101,9 @@ export async function submitConceptVote(
 export async function submitConceptAttempt(input: WmiConceptAttemptInput): Promise<WmiAttemptResult> {
   const response = await api.post('/me/wmi/attempts', input)
   return unwrap<WmiAttemptResult>(response)
+}
+
+export async function fetchConceptProgress(childId: string): Promise<WmiConceptProgressSummary> {
+  const response = await api.get('/me/wmi/konsep/progress', { params: { childId } })
+  return unwrap<WmiConceptProgressSummary>(response)
 }
