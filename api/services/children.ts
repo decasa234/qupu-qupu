@@ -6,6 +6,7 @@ interface ChildRow {
   name: string
   age_group_id: string | null
   avatar_color: string | null
+  avatar_icon: string | null
   daily_goal_quizzes: number
   created_at: string
   updated_at: string
@@ -17,13 +18,14 @@ export interface Child {
   name: string
   ageGroupId: string | null
   avatarColor: string | null
+  avatarIcon: string | null
   dailyGoalQuizzes: number
   createdAt: string
   updatedAt: string
 }
 
 const CHILD_COLUMNS =
-  'id, parent_user_id, name, age_group_id, avatar_color, daily_goal_quizzes, created_at, updated_at'
+  'id, parent_user_id, name, age_group_id, avatar_color, avatar_icon, daily_goal_quizzes, created_at, updated_at'
 
 function mapChild(row: ChildRow): Child {
   return {
@@ -32,6 +34,7 @@ function mapChild(row: ChildRow): Child {
     name: row.name,
     ageGroupId: row.age_group_id,
     avatarColor: row.avatar_color,
+    avatarIcon: row.avatar_icon,
     dailyGoalQuizzes: Number(row.daily_goal_quizzes),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -52,17 +55,25 @@ export async function createChild(
     name: string
     ageGroupId?: string | null
     avatarColor?: string | null
+    avatarIcon?: string | null
     dailyGoalQuizzes?: number
   },
 ): Promise<Child> {
   const goal = input.dailyGoalQuizzes ?? 3
   const row = await queryOne<ChildRow>(
     `
-      INSERT INTO children (parent_user_id, name, age_group_id, avatar_color, daily_goal_quizzes)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO children (parent_user_id, name, age_group_id, avatar_color, avatar_icon, daily_goal_quizzes)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING ${CHILD_COLUMNS}
     `,
-    [parentUserId, input.name, input.ageGroupId ?? null, input.avatarColor ?? null, goal],
+    [
+      parentUserId,
+      input.name,
+      input.ageGroupId ?? null,
+      input.avatarColor ?? null,
+      input.avatarIcon ?? null,
+      goal,
+    ],
   )
 
   if (!row) {
@@ -79,6 +90,7 @@ export async function updateChild(
     name?: string
     ageGroupId?: string | null
     avatarColor?: string | null
+    avatarIcon?: string | null
     dailyGoalQuizzes?: number
   },
 ): Promise<Child | null> {
@@ -96,6 +108,10 @@ export async function updateChild(
   if (input.avatarColor !== undefined) {
     params.push(input.avatarColor)
     sets.push(`avatar_color = $${params.length}`)
+  }
+  if (input.avatarIcon !== undefined) {
+    params.push(input.avatarIcon)
+    sets.push(`avatar_icon = $${params.length}`)
   }
   if (input.dailyGoalQuizzes !== undefined) {
     params.push(input.dailyGoalQuizzes)

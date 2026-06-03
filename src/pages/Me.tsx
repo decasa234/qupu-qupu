@@ -5,9 +5,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import InventoryGrid from '../components/me/InventoryGrid'
+import AvatarEditor from '../components/me/AvatarEditor'
 
 export default function MePage() {
-  const { user, activeChildId, logout } = useAuthStore()
+  const { user, children, activeChildId, logout } = useAuthStore()
+  const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const navigate = useNavigate()
 
   function handleLogout() {
@@ -22,6 +24,8 @@ export default function MePage() {
         <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">{user?.name ?? 'Profil'}</h2>
         <p className="mt-1 text-xs font-medium text-qupu-muted">{user?.email}</p>
       </section>
+
+      {activeChild && <AvatarEditor child={activeChild} />}
 
       <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
