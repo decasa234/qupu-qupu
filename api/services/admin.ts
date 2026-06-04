@@ -375,8 +375,8 @@ export async function getAdminDashboardStats() {
           (SELECT COUNT(*) FROM users) AS users_total,
           (SELECT COUNT(*) FROM users WHERE role = 'parent') AS parents_total,
           (SELECT COUNT(*) FROM users WHERE role = 'admin') AS admins_total,
-          (SELECT COUNT(*) FROM videos) AS videos_total,
-          (SELECT COUNT(*) FROM videos WHERE is_published = TRUE) AS videos_published,
+          (SELECT COUNT(*) FROM videos WHERE deleted_at IS NULL) AS videos_total,
+          (SELECT COUNT(*) FROM videos WHERE is_published = TRUE AND deleted_at IS NULL) AS videos_published,
           (SELECT COUNT(*) FROM score_attempts) AS attempts_total,
           (SELECT COALESCE(SUM(badge_count), 0) FROM user_badge_unlocks) AS badges_total,
           (SELECT COUNT(*) FROM children) AS children_total

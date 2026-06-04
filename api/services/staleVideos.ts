@@ -60,6 +60,7 @@ export async function findStaleVideos(): Promise<StaleVideo[]> {
       (SELECT COUNT(*) FROM score_attempts s WHERE s.video_id = v.id) AS score_attempts,
       (SELECT COUNT(*) FROM user_badge_unlocks u WHERE u.video_id = v.id) AS badge_unlocks
     FROM videos v
+    WHERE v.deleted_at IS NULL
     ORDER BY v.created_at DESC
   `)
   if (rows.length === 0) return []

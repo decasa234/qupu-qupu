@@ -5,7 +5,10 @@ interface ConfirmDangerousActionProps {
   open: boolean
   title: string
   description: string
-  requiredText: string
+  // When omitted/empty, the modal is a plain yes/no confirm. When set, the user
+  // must type this exact text to enable the confirm button (for catastrophic,
+  // hard-to-reverse actions like deleting a user or a bulk purge).
+  requiredText?: string
   confirmLabel: string
   variant?: 'danger' | 'warn'
   onConfirm: () => void | Promise<void>
@@ -16,7 +19,7 @@ export default function ConfirmDangerousAction({
   open,
   title,
   description,
-  requiredText,
+  requiredText = '',
   confirmLabel,
   variant = 'danger',
   onConfirm,
@@ -31,7 +34,8 @@ export default function ConfirmDangerousAction({
 
   if (!open) return null
 
-  const matches = typed.trim() === requiredText
+  const requiresTyping = requiredText.trim().length > 0
+  const matches = !requiresTyping || typed.trim() === requiredText
   const isDanger = variant === 'danger'
 
   const handleConfirm = async () => {
@@ -68,18 +72,22 @@ export default function ConfirmDangerousAction({
           </button>
         </div>
 
-        <div className="mt-4 rounded-lg bg-admin-sunk px-3 py-2 text-xs text-admin-muted">
-          Ketik <span className="font-mono font-semibold text-admin-ink">{requiredText}</span> untuk konfirmasi.
-        </div>
+        {requiresTyping && (
+          <>
+            <div className="mt-4 rounded-lg bg-admin-sunk px-3 py-2 text-xs text-admin-muted">
+              Ketik <span className="font-mono font-semibold text-admin-ink">{requiredText}</span> untuk konfirmasi.
+            </div>
 
-        <input
-          type="text"
-          value={typed}
-          onChange={(e) => setTyped(e.target.value)}
-          placeholder={requiredText}
-          autoFocus
-          className="mt-3 w-full rounded-lg border border-admin-edge bg-white px-3 py-2 font-mono text-sm text-admin-ink outline-none transition-colors focus:border-qupu-brand-blue focus:ring-2 focus:ring-qupu-brand-blue/25"
-        />
+            <input
+              type="text"
+              value={typed}
+              onChange={(e) => setTyped(e.target.value)}
+              placeholder={requiredText}
+              autoFocus
+              className="mt-3 w-full rounded-lg border border-admin-edge bg-white px-3 py-2 font-mono text-sm text-admin-ink outline-none transition-colors focus:border-qupu-brand-blue focus:ring-2 focus:ring-qupu-brand-blue/25"
+            />
+          </>
+        )}
 
         <div className="mt-4 flex gap-2">
           <button

@@ -302,6 +302,7 @@ export async function listAdminVideos() {
   const rows = await query<VideoRow>(
     `
       ${VIDEO_SELECT}
+      WHERE v.deleted_at IS NULL
       ORDER BY v.updated_at DESC
     `,
   )
@@ -327,7 +328,7 @@ async function getAdminVideoById(videoId: string, executor: DbExecutor) {
   const row = await queryOne<VideoRow>(
     `
       ${VIDEO_SELECT}
-      WHERE v.id = $1
+      WHERE v.id = $1 AND v.deleted_at IS NULL
     `,
     [videoId],
     executor,
@@ -564,9 +565,17 @@ export async function updateVideo(videoId: string, input: VideoInput) {
   })
 }
 
+// Soft delete: mark the row removed and unpublish it. The youtube_video_id
+// stays on record so the channel importer's "already imported" check still
+// sees it and the video never resurfaces in the import picker. Earned badges
+// and scores are preserved (the row is not removed). For a true hard delete
+// (e.g. stale-video purge), use deleteVideosByIds in services/staleVideos.ts.
 export async function deleteVideo(videoId: string) {
   const deleted = await queryOne<{ id: string }>(
-    'DELETE FROM videos WHERE id = $1 RETURNING id',
+    `UPDATE videos
+     SET deleted_at = NOW(), is_published = false, updated_at = NOW()
+     WHERE id = $1 AND deleted_at IS NULL
+     RETURNING id`,
     [videoId],
   )
 

@@ -72,6 +72,10 @@ CREATE TABLE IF NOT EXISTS videos (
   published_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  -- Soft delete: admin "Hapus" sets this (and unpublishes) instead of removing
+  -- the row, so the youtube_video_id stays on record and the import picker
+  -- never resurfaces a removed video. See db/migrations/0026_video_soft_delete.sql.
+  deleted_at TIMESTAMPTZ,
   CONSTRAINT videos_publish_required CHECK (
     is_published = false OR (
       subject_id IS NOT NULL
