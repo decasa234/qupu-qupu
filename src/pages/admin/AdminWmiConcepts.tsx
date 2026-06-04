@@ -83,6 +83,7 @@ export default function AdminWmiConcepts() {
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [savedFlash, setSavedFlash] = useState(false)
+  const [query, setQuery] = useState('')
 
   useEffect(() => {
     fetchConceptList()
@@ -147,14 +148,27 @@ export default function AdminWmiConcepts() {
     }
   }
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return concepts
+    return concepts.filter(
+      (c) =>
+        c.short_id.toLowerCase().includes(q) ||
+        c.slug.toLowerCase().includes(q) ||
+        c.name_en.toLowerCase().includes(q) ||
+        c.name_id.toLowerCase().includes(q) ||
+        c.domain_label.toLowerCase().includes(q),
+    )
+  }, [concepts, query])
+
   const grouped = useMemo(() => {
     const m = new Map<string, AdminConceptSummary[]>()
-    for (const c of concepts) {
+    for (const c of filtered) {
       if (!m.has(c.domain_label)) m.set(c.domain_label, [])
       m.get(c.domain_label)!.push(c)
     }
     return [...m.entries()]
-  }, [concepts])
+  }, [filtered])
 
   const summary = useMemo(() => {
     const counts: Record<ReviewStatus, number> = { pending: 0, approved: 0, needs_changes: 0 }
@@ -202,6 +216,24 @@ export default function AdminWmiConcepts() {
       <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
         {/* Concept sidebar, grouped by domain */}
         <aside className="rounded-xl border border-slate-200 bg-white p-2 lg:sticky lg:top-24 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
+          <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-slate-100 bg-white px-2 pb-2 pt-2">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && filtered[0]) setActiveSlug(filtered[0].slug)
+              }}
+              placeholder="Search id / name… (e.g. G14)"
+              className="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm focus:border-qupu-brand-blue focus:outline-none"
+            />
+            {query && (
+              <div className="px-1 pt-1 text-[11px] text-slate-400">
+                {filtered.length} match{filtered.length === 1 ? '' : 'es'} · Enter to open the first
+              </div>
+            )}
+          </div>
+          {grouped.length === 0 && <div className="px-2 py-3 text-sm text-slate-400">No matches.</div>}
           {grouped.map(([domain, items]) => (
             <div key={domain} className="mb-2">
               <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
