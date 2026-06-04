@@ -161,6 +161,19 @@ function shortIdNum(code: string): number {
   return Number.isNaN(n) ? 999 : n
 }
 
+// Concepts whose illustration most urgently needs a human eyeball (subtle
+// geometry where a drawing bug is most likely and hardest to catch). These get
+// a red flag on the proofreading page until reviewed.
+const HIGH_PRIORITY = new Set([
+  'clock-read-time',
+  'block-count-3d',
+  'maze-path-shortest',
+  'same-figure-identify',
+  'count-shapes-in-figure',
+  'angle-type',
+  'dice-net-fold',
+])
+
 export interface ConceptSummary {
   slug: string
   short_id: string
@@ -170,6 +183,7 @@ export interface ConceptSummary {
   grades: number[]
   domain: string
   domain_label: string
+  priority: 'high' | 'normal'
 }
 
 export function listConceptsForPreview(): ConceptSummary[] {
@@ -185,6 +199,7 @@ export function listConceptsForPreview(): ConceptSummary[] {
       grades: [...c.meta.grades],
       domain,
       domain_label: DOMAIN_LABEL[domain],
+      priority: HIGH_PRIORITY.has(slug) ? ('high' as const) : ('normal' as const),
     }
   }).sort(
     (a, b) =>

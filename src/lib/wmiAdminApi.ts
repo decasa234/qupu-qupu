@@ -13,6 +13,7 @@ export interface AdminConceptSummary {
   domain: string
   domain_label: string
   status: ReviewStatus
+  priority: 'high' | 'normal'
 }
 
 export interface ConceptReview {

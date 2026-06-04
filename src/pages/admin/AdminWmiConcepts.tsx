@@ -84,7 +84,7 @@ export default function AdminWmiConcepts() {
   const [saveError, setSaveError] = useState<string | null>(null)
   const [savedFlash, setSavedFlash] = useState(false)
   const [query, setQuery] = useState('')
-  const [reviewFilter, setReviewFilter] = useState<'all' | ReviewStatus>('all')
+  const [reviewFilter, setReviewFilter] = useState<'all' | 'urgent' | ReviewStatus>('all')
 
   useEffect(() => {
     fetchConceptList()
@@ -152,7 +152,11 @@ export default function AdminWmiConcepts() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return concepts.filter((c) => {
-      if (reviewFilter !== 'all' && c.status !== reviewFilter) return false
+      if (reviewFilter === 'urgent') {
+        if (!(c.priority === 'high' && c.status === 'pending')) return false
+      } else if (reviewFilter !== 'all' && c.status !== reviewFilter) {
+        return false
+      }
       if (!q) return true
       return (
         c.short_id.toLowerCase().includes(q) ||
@@ -178,6 +182,11 @@ export default function AdminWmiConcepts() {
     for (const c of concepts) counts[c.status] = (counts[c.status] ?? 0) + 1
     return counts
   }, [concepts])
+
+  const urgentCount = useMemo(
+    () => concepts.filter((c) => c.priority === 'high' && c.status === 'pending').length,
+    [concepts],
+  )
 
   const active = concepts.find((c) => c.slug === activeSlug) ?? null
   const sample = samples[idx] ?? null
@@ -208,6 +217,17 @@ export default function AdminWmiConcepts() {
           >
             All <span className="tabular-nums">{concepts.length}</span>
           </button>
+          {urgentCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setReviewFilter((f) => (f === 'urgent' ? 'all' : 'urgent'))}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
+                reviewFilter === 'urgent' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 hover:bg-red-100'
+              }`}
+            >
+              🚩 <span className="tabular-nums">{urgentCount}</span> Urgent
+            </button>
+          )}
           {(['pending', 'needs_changes', 'approved'] as const).map((s) => (
             <button
               key={s}
@@ -285,11 +305,25 @@ export default function AdminWmiConcepts() {
                         ? 'text-emerald-500'
                         : c.status === 'needs_changes'
                           ? 'text-amber-500'
-                          : 'text-qupu-brand-orange'
+                          : c.priority === 'high'
+                            ? 'text-red-600'
+                            : 'text-qupu-brand-orange'
                     }`}
-                    title={c.status === 'pending' ? 'Needs review' : STATUS_META[c.status]?.label}
+                    title={
+                      c.status === 'pending'
+                        ? c.priority === 'high'
+                          ? 'Needs review — urgent'
+                          : 'Needs review'
+                        : STATUS_META[c.status]?.label
+                    }
                   >
-                    {c.status === 'approved' ? '✓' : c.status === 'needs_changes' ? '⚠' : '⚑'}
+                    {c.status === 'approved'
+                      ? '✓'
+                      : c.status === 'needs_changes'
+                        ? '⚠'
+                        : c.priority === 'high'
+                          ? '🚩'
+                          : '⚑'}
                   </span>
                 </button>
               ))}
