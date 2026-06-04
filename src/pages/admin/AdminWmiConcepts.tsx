@@ -133,15 +133,22 @@ export default function AdminWmiConcepts() {
                   key={c.slug}
                   type="button"
                   onClick={() => setActiveSlug(c.slug)}
-                  className={`block w-full rounded-lg px-2.5 py-1.5 text-left text-sm font-semibold transition-colors ${
+                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
                     c.slug === activeSlug
                       ? 'bg-slate-900 text-white'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
-                  {c.name_en}
                   <span
-                    className={`ml-1 text-[10px] ${c.slug === activeSlug ? 'text-slate-300' : 'text-slate-400'}`}
+                    className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                      c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
+                    }`}
+                  >
+                    {c.short_id || '—'}
+                  </span>
+                  <span className="flex-1 truncate">{c.name_en}</span>
+                  <span
+                    className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-slate-300' : 'text-slate-400'}`}
                   >
                     G{c.grades.join('')}
                   </span>
@@ -155,6 +162,9 @@ export default function AdminWmiConcepts() {
         <div className="min-w-0">
           {active && (
             <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="rounded-md bg-slate-900 px-2.5 py-1 font-mono text-base font-extrabold text-white">
+                {active.short_id || '—'}
+              </span>
               <div>
                 <div className="font-display text-lg font-extrabold text-slate-900">
                   {active.name_en} <span className="text-slate-400">/</span> {active.name_id}

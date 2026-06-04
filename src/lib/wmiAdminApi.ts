@@ -3,6 +3,7 @@ import type { WmiChoice } from '../types/wmi'
 
 export interface AdminConceptSummary {
   slug: string
+  short_id: string
   name_en: string
   name_id: string
   description_id: string | null

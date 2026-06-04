@@ -41,8 +41,39 @@ const DOMAIN_BY_SLUG: Record<string, string> = {
   'clock-time-after': 'MEA',
 }
 
+// Short, stable recall codes: domain letter + index within domain
+// (A=Arithmetic, N=Number sense, W=Word, P=Pattern, L=Logic, C=Counting,
+// G=Geometry, M=Measurement, D=Data). New concepts get the next free number
+// in their domain — never renumber existing ones.
+const SHORT_ID_BY_SLUG: Record<string, string> = {
+  'single-digit-addition': 'A1',
+  'single-digit-subtraction': 'A2',
+  'multiplication-small': 'A3',
+  'arithmetic-expression-eval': 'A4',
+  'which-expression-equals': 'A5',
+  'custom-operation': 'A6',
+  'digit-sum': 'N1',
+  'place-value': 'N2',
+  'compare-order-numbers': 'N3',
+  'reverse-arithmetic-puzzle': 'N4',
+  'find-number-by-digit-sum': 'N5',
+  'story-sum': 'W1',
+  'money-shopping-change': 'W2',
+  'legs-items-rate': 'W3',
+  'pattern-next': 'P1',
+  'count-objects': 'C1',
+  'shape-perimeter-square': 'G1',
+  'clock-time-after': 'M1',
+}
+
+function shortIdNum(code: string): number {
+  const n = parseInt(code.slice(1), 10)
+  return Number.isNaN(n) ? 999 : n
+}
+
 export interface ConceptSummary {
   slug: string
+  short_id: string
   name_en: string
   name_id: string
   description_id: string | null
@@ -57,6 +88,7 @@ export function listConceptsForPreview(): ConceptSummary[] {
     const domain = DOMAIN_BY_SLUG[slug] ?? 'OTHER'
     return {
       slug,
+      short_id: SHORT_ID_BY_SLUG[slug] ?? '',
       name_en: c.meta.name_en,
       name_id: c.meta.name_id,
       description_id: c.meta.description_id ?? null,
@@ -67,6 +99,7 @@ export function listConceptsForPreview(): ConceptSummary[] {
   }).sort(
     (a, b) =>
       DOMAIN_ORDER.indexOf(a.domain) - DOMAIN_ORDER.indexOf(b.domain) ||
+      shortIdNum(a.short_id) - shortIdNum(b.short_id) ||
       a.name_en.localeCompare(b.name_en),
   )
 }
