@@ -1,4 +1,3 @@
-import { query } from '../db.js'
 import { createVideo } from './videos.js'
 import { fetchYouTubeMetadata } from './youtubeImport.js'
 import {
@@ -13,108 +12,15 @@ import {
   invalidateChannelListingCache,
   resolveUploadsPlaylistId,
 } from './youtubeChannel.js'
+import {
+  loadPrefillContext,
+  resolvePrefill,
+  type PrefillContext,
+  type ResolvedPrefill,
+} from './draftPrefill.js'
 
 const TITLE_MAX = 200
 const DESCRIPTION_MAX = 2000
-
-interface BadgeRangeJson {
-  minCorrect: number
-  maxCorrect: number | null
-  badgeCount: number
-}
-
-interface PrefillRule {
-  pattern: RegExp
-  subjectSlug: string
-  ageGroupName: string
-  numberOfQuestions: number
-}
-
-// Order matters: aljabar must be checked before matematika because aljabar
-// titles often contain "Kuis Matematika" in parentheses.
-//
-// Slugs and age-group names below match the live DB exactly — keep them in
-// sync with `db/scripts/prefill_existing_drafts.sql`. The seed.sql values
-// are stale (they use `-i` suffixes and a shorter age-group name).
-const PREFILL_RULES: PrefillRule[] = [
-  {
-    pattern: /beda/i,
-    subjectSlug: 'odd-one-out',
-    ageGroupName: 'Semua Usia',
-    numberOfQuestions: 60,
-  },
-  {
-    pattern: /aljabar/i,
-    subjectSlug: 'aljabar-1',
-    ageGroupName: 'Usia 5-8 ( TK-2SD )',
-    numberOfQuestions: 30,
-  },
-  {
-    pattern: /matematika/i,
-    subjectSlug: 'matematika-1',
-    ageGroupName: 'Usia 5-8 ( TK-2SD )',
-    numberOfQuestions: 20,
-  },
-]
-
-interface PrefillContext {
-  subjectsBySlug: Map<string, { id: string; defaultBadgeRanges: BadgeRangeJson[] }>
-  ageGroupsByName: Map<string, string>
-}
-
-interface ResolvedPrefill {
-  subjectId: string
-  ageGroupId: string
-  numberOfQuestions: number
-  badgeRanges: BadgeRangeJson[]
-}
-
-async function loadPrefillContext(): Promise<PrefillContext> {
-  const [subjects, ageGroups] = await Promise.all([
-    query<{ id: string; slug: string; default_badge_ranges: unknown }>(
-      'SELECT id, slug, default_badge_ranges FROM subjects',
-    ),
-    query<{ id: string; name: string }>('SELECT id, name FROM age_groups'),
-  ])
-
-  const subjectsBySlug = new Map<string, { id: string; defaultBadgeRanges: BadgeRangeJson[] }>()
-  for (const subject of subjects) {
-    subjectsBySlug.set(subject.slug, {
-      id: subject.id,
-      defaultBadgeRanges: Array.isArray(subject.default_badge_ranges)
-        ? (subject.default_badge_ranges as BadgeRangeJson[])
-        : [],
-    })
-  }
-
-  const ageGroupsByName = new Map<string, string>()
-  for (const ageGroup of ageGroups) {
-    ageGroupsByName.set(ageGroup.name, ageGroup.id)
-  }
-
-  return { subjectsBySlug, ageGroupsByName }
-}
-
-function resolvePrefill(title: string, context: PrefillContext): ResolvedPrefill | null {
-  for (const rule of PREFILL_RULES) {
-    if (!rule.pattern.test(title)) continue
-    const subject = context.subjectsBySlug.get(rule.subjectSlug)
-    const ageGroupId = context.ageGroupsByName.get(rule.ageGroupName)
-    if (!subject || !ageGroupId) {
-      console.warn(
-        `Prefill skipped for "${title}" — missing subject "${rule.subjectSlug}" or age group "${rule.ageGroupName}" in DB`,
-      )
-      return null
-    }
-    return {
-      subjectId: subject.id,
-      ageGroupId,
-      numberOfQuestions: rule.numberOfQuestions,
-      badgeRanges: subject.defaultBadgeRanges,
-    }
-  }
-  return null
-}
 
 export type ImportStatus = 'created' | 'already_imported' | 'error'
 

@@ -1,10 +1,10 @@
-import { Router, type Request, type Response } from 'express'
+import { Router, type Request, type Response, type NextFunction } from 'express'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import Joi from 'joi'
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit'
 import { queryOne } from '../db.js'
 import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
+import { signToken } from '../lib/jwt.js'
+import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
 import {
   RegistrationError,
   initRegistration,
@@ -13,6 +13,10 @@ import {
 } from '../services/registration.js'
 
 const router = Router()
+
+// A precomputed bcrypt hash used only to equalize timing on the
+// unknown-email login path (see /login) — never matches any real password.
+const DUMMY_BCRYPT_HASH = bcrypt.hashSync('qupu-timing-equalizer', 12)
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -40,52 +44,52 @@ const resendSchema = Joi.object({
   pendingId: Joi.string().uuid().required(),
 })
 
-// Layer 1: per-IP rate limit. 3 register-init/register-resend per IP per hour.
-// Memory store; resets on serverless cold start. Add Redis store for prod
-// hardening once traffic warrants it.
-const registerIpLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 3,
-  keyGenerator: (req) => `register-ip:${ipKeyGenerator(req.ip ?? '')}`,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: {
-    success: false,
-    error: 'Terlalu banyak percobaan dari IP ini. Coba lagi nanti.',
-  },
-})
+// Durable, Postgres-backed rate limiting — shared across all serverless
+// instances, unlike an in-memory store that resets on every cold start.
+// Fails closed: a DB error blocks the request (auth needs the DB anyway).
+function limitRequests(
+  routeKey: string,
+  max: number,
+  windowSeconds: number,
+  keyFn: (req: Request) => string,
+) {
+  return async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      await enforceRateLimit(keyFn(req), routeKey, { max, windowSeconds })
+      next()
+    } catch (err) {
+      if (err instanceof RateLimitError) {
+        res.set('Retry-After', String(err.retryAfterSeconds))
+        res.status(429).json({
+          success: false,
+          error: 'Terlalu banyak percobaan. Coba lagi nanti.',
+        })
+        return
+      }
+      next(err)
+    }
+  }
+}
 
-// Layer 2: per-email rate limit on register-init only. 5 sends per email per
-// 24h. Same memory-store caveat applies; resets on cold start.
-const registerEmailLimiter = rateLimit({
-  windowMs: 24 * 60 * 60 * 1000,
-  max: 5,
-  keyGenerator: (req) => {
-    const email = typeof req.body?.email === 'string' ? req.body.email.toLowerCase().trim() : ''
-    return `register-email:${email}`
-  },
-  skip: (req) => !req.body?.email,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: {
-    success: false,
-    error: 'Terlalu banyak percobaan untuk email ini. Coba lagi besok.',
-  },
-})
+const byIp = (req: Request): string => `ip:${req.ip ?? 'unknown'}`
+const byEmail = (req: Request): string =>
+  `email:${typeof req.body?.email === 'string' ? req.body.email.toLowerCase().trim() : 'unknown'}`
+const byPendingId = (req: Request): string =>
+  `pending:${typeof req.body?.pendingId === 'string' ? req.body.pendingId : 'unknown'}`
 
 function issueToken(user: { id: string; email: string; role: string }) {
-  // Admins get a 12h hard cap on the backend; the frontend enforces a 30m idle
+  // Admins get a 12h hard cap on the backend; the frontend enforces a 15m idle
   // timeout (auto-logout on inactivity). Parents stay logged in for 7d.
   const expiresIn = user.role === 'admin' ? '12h' : '7d'
-  return jwt.sign(user, process.env.JWT_SECRET || 'secret', {
-    expiresIn,
-  })
+  return signToken(user, { expiresIn })
 }
 
 function issueRefreshToken(userId: string) {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET || 'secret', {
-    expiresIn: '30d',
-  })
+  return signToken({ id: userId }, { expiresIn: '30d' })
 }
 
 function handleRegistrationError(res: Response, error: unknown): void {
@@ -97,7 +101,7 @@ function handleRegistrationError(res: Response, error: unknown): void {
   res.status(500).json({ success: false, error: 'Internal server error' })
 }
 
-router.post('/register-init', registerIpLimiter, registerEmailLimiter, async (req: Request, res: Response): Promise<void> => {
+router.post('/register-init', limitRequests('auth:register-init-ip', 5, 3600, byIp), limitRequests('auth:register-init-email', 5, 86400, byEmail), async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = initSchema.validate(req.body)
     if (error) {
@@ -119,7 +123,7 @@ router.post('/register-init', registerIpLimiter, registerEmailLimiter, async (re
   }
 })
 
-router.post('/register-verify', async (req: Request, res: Response): Promise<void> => {
+router.post('/register-verify', limitRequests('auth:register-verify', 10, 600, byIp), async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = verifySchema.validate(req.body)
     if (error) {
@@ -142,7 +146,9 @@ router.post('/register-verify', async (req: Request, res: Response): Promise<voi
   }
 })
 
-router.post('/register-resend', registerIpLimiter, async (req: Request, res: Response): Promise<void> => {
+// Keyed by pendingId so the 5-attempt OTP cap (which resendOtp resets) cannot
+// be renewed indefinitely: at most 5 resends per pending registration per hour.
+router.post('/register-resend', limitRequests('auth:register-resend', 5, 3600, byPendingId), async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = resendSchema.validate(req.body)
     if (error) {
@@ -158,7 +164,7 @@ router.post('/register-resend', registerIpLimiter, async (req: Request, res: Res
   }
 })
 
-router.post('/login', async (req: Request, res: Response): Promise<void> => {
+router.post('/login', limitRequests('auth:login', 10, 300, byIp), async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = loginSchema.validate(req.body)
 
@@ -174,7 +180,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
       role: string
       phone: string | null
       age: number | null
-      password_hash: string | null
+      password_hash: string // WHERE password_hash IS NOT NULL guarantees non-null
     }>(
       `
         SELECT id, email, name, role, phone, age, password_hash
@@ -185,12 +191,10 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     )
 
     if (!user) {
+      // Run a dummy compare so an unknown email takes the same time as a
+      // wrong password — closes the user-enumeration timing side-channel.
+      await bcrypt.compare(value.password, DUMMY_BCRYPT_HASH)
       res.status(401).json({ success: false, error: 'Invalid email or password' })
-      return
-    }
-
-    if (!user.password_hash) {
-      res.status(401).json({ success: false, error: 'Akun ini terdaftar via Google. Silakan masuk dengan Google.' })
       return
     }
 
@@ -224,7 +228,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
   }
 })
 
-router.post('/google', async (req: Request, res: Response): Promise<void> => {
+router.post('/google', limitRequests('auth:google', 20, 300, byIp), async (req: Request, res: Response): Promise<void> => {
   try {
     const { error, value } = googleSchema.validate(req.body)
 

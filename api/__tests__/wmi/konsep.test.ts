@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest'
 import { randomUUID } from 'node:crypto'
-import jwt from 'jsonwebtoken'
+import { signToken } from '../../lib/jwt.js'
 import { pool, queryOne } from '../../db.js'
 import app from '../../app.js'
 import {
@@ -34,7 +34,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
       [parentUserId, `Kid ${tag}`],
     )
     childId = child!.id
-    token = jwt.sign({ id: parentUserId, email: `konsep-http-${tag}@example.com`, role: 'parent' }, process.env.JWT_SECRET!, { expiresIn: '7d' })
+    token = signToken({ id: parentUserId, email: `konsep-http-${tag}@example.com`, role: 'parent' }, { expiresIn: '7d' })
   })
 
   afterAll(async () => {

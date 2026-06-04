@@ -19,19 +19,14 @@ export function ensureBootstrapped(): Promise<void> {
 }
 
 async function doBootstrap(): Promise<void> {
-  await ensureConceptInstanceHintStepColumns()
+  // NOTE: schema (DDL) is owned by db/schema.sql + db/migrations (the
+  // hint_steps columns come from migration 0023). This bootstrap no longer
+  // runs DDL at request time — it only upserts concept rows and seeds the
+  // idempotent starter instance pool.
   await upsertConcepts()
   for (const slug of ALL_SLUGS) {
     await seedConcept(slug, CONCEPTS[slug] as ConceptLogic<unknown>)
   }
-}
-
-async function ensureConceptInstanceHintStepColumns(): Promise<void> {
-  await query(`
-    ALTER TABLE wmi_concept_instances
-      ADD COLUMN IF NOT EXISTS hint_steps_en JSONB,
-      ADD COLUMN IF NOT EXISTS hint_steps_id JSONB
-  `)
 }
 
 async function upsertConcepts(): Promise<void> {

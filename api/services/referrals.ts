@@ -12,6 +12,7 @@
 //      to /api/me/referrals/use. Self-referrals, duplicates, and
 //      invalid codes are silently swallowed by the route handler.
 
+import { randomInt } from 'node:crypto'
 import { queryOne, withTransaction } from '../db.js'
 
 export interface ReferralCodeResult {
@@ -20,11 +21,12 @@ export interface ReferralCodeResult {
 }
 
 function generateRandomCode(): string {
-  // 8 chars, alphanumeric, uppercase. Plenty of entropy for v1 scale.
+  // 8 chars, alphanumeric, uppercase. CSPRNG (crypto.randomInt) so codes are
+  // not predictable from one another. Plenty of entropy for v1 scale.
   const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789' // skip easy-confuse glyphs
   let out = ''
   for (let i = 0; i < 8; i++) {
-    out += alphabet[Math.floor(Math.random() * alphabet.length)]
+    out += alphabet[randomInt(alphabet.length)]
   }
   return out
 }

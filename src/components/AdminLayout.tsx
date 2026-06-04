@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { ToastProvider } from './admin/Toast'
 
 const NAV = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: 'fa-solid fa-gauge' },
@@ -14,6 +16,7 @@ const NAV = [
 export default function AdminLayout() {
   const navigate = useNavigate()
   const { user, logout } = useAuthStore()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   function handleLogout() {
     logout()
@@ -22,61 +25,107 @@ export default function AdminLayout() {
     navigate('/login', { replace: true })
   }
 
-  return (
-    <div className="grid min-w-0 gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <aside className="rounded-xl border border-slate-200 bg-white p-3 lg:sticky lg:top-24 lg:self-start">
-        <div className="px-2 pb-3 pt-1">
-          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
-            QUPU Admin
-          </div>
-          <div className="mt-0.5 font-display text-base font-extrabold text-slate-900">
-            Control Panel
-          </div>
-        </div>
-        <nav className="grid gap-0.5">
-          {NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                  isActive
-                    ? 'bg-slate-900 text-white'
-                    : 'text-slate-700 hover:bg-slate-100'
-                }`
-              }
-            >
-              <i className={`${item.icon} w-4 text-center text-sm`} aria-hidden="true" />
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+  function navLinks(onNavigate?: () => void) {
+    return (
+      <nav className="grid gap-0.5">
+        {NAV.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                isActive
+                  ? 'bg-qupu-brand-blue text-white'
+                  : 'text-admin-muted hover:bg-admin-sunk hover:text-admin-ink'
+              }`
+            }
+          >
+            <i className={`${item.icon} w-4 text-center text-sm`} aria-hidden="true" />
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+    )
+  }
 
-        <div className="mt-3 border-t border-slate-200 pt-3">
-          {user?.email && (
-            <div className="px-2 pb-2">
-              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
-                Masuk sebagai
-              </div>
-              <div className="truncate text-xs font-semibold text-slate-700" title={user.email}>
-                {user.email}
-              </div>
+  function accountBlock(onNavigate?: () => void) {
+    return (
+      <div className="border-t border-admin-line pt-3">
+        {user?.email && (
+          <div className="px-2 pb-2">
+            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-admin-faint">
+              Masuk sebagai
             </div>
-          )}
+            <div className="truncate text-xs font-semibold text-admin-ink" title={user.email}>
+              {user.email}
+            </div>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() => {
+            onNavigate?.()
+            handleLogout()
+          }}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-admin-muted transition-colors hover:bg-admin-sunk hover:text-red-600"
+        >
+          <i className="fa-solid fa-right-from-bracket w-4 text-center text-sm" aria-hidden="true" />
+          Logout
+        </button>
+      </div>
+    )
+  }
+
+  function wordmark() {
+    return (
+      <div>
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
+          QUPU Admin
+        </div>
+        <div className="font-display text-base font-extrabold text-qupu-brand-blue">Control Panel</div>
+      </div>
+    )
+  }
+
+  return (
+    <ToastProvider>
+      <div className="min-h-screen bg-admin-bg text-admin-ink">
+        {/* Mobile top bar */}
+        <header className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-admin-line bg-admin-card/95 px-4 py-3 backdrop-blur lg:hidden">
+          {wordmark()}
           <button
             type="button"
-            onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-red-600"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Buka menu"
+            aria-expanded={menuOpen}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-admin-edge bg-white text-admin-ink"
           >
-            <i className="fa-solid fa-right-from-bracket w-4 text-center text-sm" aria-hidden="true" />
-            Logout
+            <i className={`fa-solid ${menuOpen ? 'fa-xmark' : 'fa-bars'}`} aria-hidden="true" />
           </button>
-        </div>
-      </aside>
+        </header>
 
-      <main className="min-w-0">
-        <Outlet />
-      </main>
-    </div>
+        {/* Mobile slide-down nav */}
+        {menuOpen && (
+          <div className="border-b border-admin-line bg-admin-card px-4 py-3 lg:hidden">
+            {navLinks(() => setMenuOpen(false))}
+            <div className="mt-3">{accountBlock(() => setMenuOpen(false))}</div>
+          </div>
+        )}
+
+        <div className="mx-auto grid min-w-0 max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[230px_minmax(0,1fr)] lg:px-8">
+          {/* Desktop sidebar */}
+          <aside className="hidden self-start rounded-2xl border border-admin-line bg-admin-card p-3 shadow-admin-soft lg:sticky lg:top-6 lg:block">
+            <div className="px-2 pb-3 pt-1">{wordmark()}</div>
+            {navLinks()}
+            <div className="mt-3">{accountBlock()}</div>
+          </aside>
+
+          <main className="min-w-0">
+            <Outlet />
+          </main>
+        </div>
+      </div>
+    </ToastProvider>
   )
 }

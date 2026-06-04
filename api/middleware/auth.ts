@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import { verifyToken } from '../lib/jwt.js'
 
 export interface AuthUser {
   id: string
@@ -24,17 +24,17 @@ export const authenticateToken = (
     return
   }
 
-  const jwtSecret = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production'
-
-  jwt.verify(token, jwtSecret, (err, user) => {
-    if (err || !user || typeof user === 'string') {
+  try {
+    const decoded = verifyToken(token)
+    if (!decoded || typeof decoded === 'string') {
       res.status(403).json({ success: false, error: 'Invalid or expired token' })
       return
     }
-
-    req.user = user as AuthUser
+    req.user = decoded as AuthUser
     next()
-  })
+  } catch {
+    res.status(403).json({ success: false, error: 'Invalid or expired token' })
+  }
 }
 
 export const requireAdmin = (
