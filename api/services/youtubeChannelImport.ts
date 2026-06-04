@@ -87,9 +87,11 @@ async function loadPrefillContext(): Promise<PrefillContext> {
     })
   }
 
+  // Key by trimmed name: some age-group rows carry stray trailing whitespace
+  // (e.g. "Semua Usia "), which would otherwise break the exact-match lookup.
   const ageGroupsByName = new Map<string, string>()
   for (const ageGroup of ageGroups) {
-    ageGroupsByName.set(ageGroup.name, ageGroup.id)
+    ageGroupsByName.set(ageGroup.name.trim(), ageGroup.id)
   }
 
   return { subjectsBySlug, ageGroupsByName }
@@ -98,8 +100,8 @@ async function loadPrefillContext(): Promise<PrefillContext> {
 function resolvePrefill(title: string, context: PrefillContext): ResolvedPrefill | null {
   for (const rule of PREFILL_RULES) {
     if (!rule.pattern.test(title)) continue
-    const subject = context.subjectsBySlug.get(rule.subjectSlug)
-    const ageGroupId = context.ageGroupsByName.get(rule.ageGroupName)
+    const subject = context.subjectsBySlug.get(rule.subjectSlug.trim())
+    const ageGroupId = context.ageGroupsByName.get(rule.ageGroupName.trim())
     if (!subject || !ageGroupId) {
       console.warn(
         `Prefill skipped for "${title}" — missing subject "${rule.subjectSlug}" or age group "${rule.ageGroupName}" in DB`,
