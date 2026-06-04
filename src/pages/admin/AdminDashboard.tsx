@@ -4,6 +4,7 @@ import api from '../../lib/api'
 import { formatDateLabel } from '../../lib/youtube'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
 import BadgeCurve from '../../components/BadgeCurve'
+import { Panel, SectionHeading, Skeleton, StatCard, Tag } from '../../components/admin/ui'
 
 interface AdminStats {
   counts: {
@@ -44,7 +45,7 @@ interface AdminStats {
   }>
 }
 
-const PANEL = 'rounded-xl border border-slate-200 bg-white p-4'
+const PANEL_LINK = 'text-xs font-semibold text-admin-muted transition-colors hover:text-qupu-brand-blue'
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<AdminStats | null>(null)
@@ -77,48 +78,72 @@ export default function AdminDashboardPage() {
       />
 
       {loading ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
-          Memuat...
+        <div className="space-y-5">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <Skeleton className="h-24 rounded-2xl" />
+            <Skeleton className="h-24 rounded-2xl" />
+            <Skeleton className="h-24 rounded-2xl" />
+            <Skeleton className="h-24 rounded-2xl" />
+          </div>
+          <div className="grid gap-4 xl:grid-cols-2">
+            <Skeleton className="h-52 rounded-2xl" />
+            <Skeleton className="h-52 rounded-2xl" />
+          </div>
         </div>
       ) : error || !stats ? (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-600">
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-700">
           {error}
         </div>
       ) : (
         <>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <Stat icon="fa-solid fa-users" label="Total Users" value={stats.counts.usersTotal} hint={`${stats.counts.parentsTotal} parent · ${stats.counts.adminsTotal} admin`} />
-            <Stat icon="fa-solid fa-film" label="Videos" value={stats.counts.videosTotal} hint={`${stats.counts.videosPublished} published`} />
-            <Stat icon="fa-solid fa-list-check" label="Attempts" value={stats.counts.attemptsTotal} hint={`${stats.counts.childrenTotal} children`} />
-            <Stat icon="fa-solid fa-medal" label="Badges Awarded" value={stats.counts.badgesTotal} />
+            <StatCard
+              icon="fa-solid fa-users"
+              label="Total Users"
+              value={stats.counts.usersTotal}
+              hint={`${stats.counts.parentsTotal} parent · ${stats.counts.adminsTotal} admin`}
+            />
+            <StatCard
+              icon="fa-solid fa-film"
+              label="Videos"
+              value={stats.counts.videosTotal}
+              hint={`${stats.counts.videosPublished} published`}
+            />
+            <StatCard
+              icon="fa-solid fa-list-check"
+              label="Attempts"
+              value={stats.counts.attemptsTotal}
+              hint={`${stats.counts.childrenTotal} children`}
+            />
+            <StatCard icon="fa-solid fa-medal" label="Badges Awarded" value={stats.counts.badgesTotal} />
           </div>
 
           <div className="grid gap-4 xl:grid-cols-2">
-            <div className={PANEL}>
-              <div className="flex items-center justify-between">
-                <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Recent attempts</h2>
-                <Link to="/admin/videos" className="text-xs font-semibold text-slate-600 hover:text-slate-900">Videos →</Link>
-              </div>
+            <Panel>
+              <SectionHeading
+                right={
+                  <Link to="/admin/videos" className={PANEL_LINK}>
+                    Videos →
+                  </Link>
+                }
+              >
+                Recent attempts
+              </SectionHeading>
               {stats.recentAttempts.length === 0 ? (
-                <p className="mt-3 text-sm text-slate-500">Belum ada attempt.</p>
+                <p className="mt-3 text-sm text-admin-muted">Belum ada attempt.</p>
               ) : (
-                <ul className="mt-3 divide-y divide-slate-100">
+                <ul className="mt-3 divide-y divide-admin-line">
                   {stats.recentAttempts.map((a) => (
                     <li key={a.id} className="flex items-center justify-between gap-3 py-2 text-sm">
                       <div className="min-w-0 flex-1">
-                        <div className="truncate font-semibold text-slate-900">{a.videoTitle}</div>
-                        <div className="truncate text-xs text-slate-500">
+                        <div className="truncate font-semibold text-admin-ink">{a.videoTitle}</div>
+                        <div className="truncate text-xs text-admin-muted">
                           {a.childName} · {a.correctAnswers}/{a.totalQuestions} · {formatDateLabel(a.createdAt)}
                         </div>
                       </div>
                       <div className="flex shrink-0 items-center gap-1.5">
-                        <span
-                          className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
-                          style={{ backgroundColor: a.subjectColorHex }}
-                        >
-                          {a.subjectName}
-                        </span>
-                        <span className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-bold text-slate-700">
+                        <Tag color={a.subjectColorHex}>{a.subjectName}</Tag>
+                        <span className="rounded bg-admin-sunk px-1.5 py-0.5 font-mono text-[11px] font-bold text-admin-ink">
                           {a.scorePercentage}%
                         </span>
                       </div>
@@ -126,78 +151,68 @@ export default function AdminDashboardPage() {
                   ))}
                 </ul>
               )}
-            </div>
+            </Panel>
 
-            <div className={PANEL}>
-              <div className="flex items-center justify-between">
-                <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Recent signups</h2>
-                <Link to="/admin/users" className="text-xs font-semibold text-slate-600 hover:text-slate-900">Users →</Link>
-              </div>
+            <Panel>
+              <SectionHeading
+                right={
+                  <Link to="/admin/users" className={PANEL_LINK}>
+                    Users →
+                  </Link>
+                }
+              >
+                Recent signups
+              </SectionHeading>
               {stats.recentSignups.length === 0 ? (
-                <p className="mt-3 text-sm text-slate-500">Belum ada user baru.</p>
+                <p className="mt-3 text-sm text-admin-muted">Belum ada user baru.</p>
               ) : (
-                <ul className="mt-3 divide-y divide-slate-100">
+                <ul className="mt-3 divide-y divide-admin-line">
                   {stats.recentSignups.map((u) => (
                     <li key={u.id} className="flex items-center justify-between gap-3 py-2 text-sm">
                       <div className="min-w-0 flex-1">
-                        <div className="truncate font-semibold text-slate-900">{u.name}</div>
-                        <div className="truncate text-xs text-slate-500">{u.email}</div>
+                        <div className="truncate font-semibold text-admin-ink">{u.name}</div>
+                        <div className="truncate text-xs text-admin-muted">{u.email}</div>
                       </div>
                       <div className="flex shrink-0 items-center gap-1.5">
-                        <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${u.role === 'admin' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}>
-                          {u.role}
-                        </span>
-                        <span className="text-[11px] text-slate-500">{formatDateLabel(u.createdAt)}</span>
+                        <Tag tone={u.role === 'admin' ? 'ink' : 'neutral'}>{u.role}</Tag>
+                        <span className="text-[11px] text-admin-muted">{formatDateLabel(u.createdAt)}</span>
                       </div>
                     </li>
                   ))}
                 </ul>
               )}
-            </div>
+            </Panel>
           </div>
 
-          <div className={PANEL}>
-            <div className="flex items-center justify-between">
-              <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Top subjects</h2>
-              <Link to="/admin/subjects" className="text-xs font-semibold text-slate-600 hover:text-slate-900">Subjects →</Link>
-            </div>
+          <Panel>
+            <SectionHeading
+              right={
+                <Link to="/admin/subjects" className={PANEL_LINK}>
+                  Subjects →
+                </Link>
+              }
+            >
+              Top subjects
+            </SectionHeading>
             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {stats.topSubjects.map((s) => (
-                <div key={s.id} className="flex items-center gap-3 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
+                <div
+                  key={s.id}
+                  className="flex items-center gap-3 rounded-xl border border-admin-line bg-admin-sunk px-3 py-2"
+                >
                   <BadgeCurve color={s.colorHex} size={32} />
                   <div className="min-w-0">
-                    <div className="truncate font-semibold text-slate-900">{s.name}</div>
-                    <div className="text-[11px] text-slate-500">{s.totalBadges} badge · {s.totalVideos} video</div>
+                    <div className="truncate font-semibold text-admin-ink">{s.name}</div>
+                    <div className="text-[11px] text-admin-muted">
+                      {s.totalBadges} badge · {s.totalVideos} video
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
         </>
       )}
-    </div>
-  )
-}
-
-function Stat({
-  icon,
-  label,
-  value,
-  hint,
-}: {
-  icon: string
-  label: string
-  value: number
-  hint?: string
-}) {
-  return (
-    <div className={PANEL}>
-      <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-        <i className={icon} aria-hidden="true" />
-        {label}
-      </div>
-      <div className="mt-2 font-display text-2xl font-extrabold text-slate-900">{value}</div>
-      {hint && <div className="mt-0.5 text-[11px] text-slate-500">{hint}</div>}
     </div>
   )
 }

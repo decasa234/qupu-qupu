@@ -50,26 +50,26 @@ export default function ConfirmDangerousAction({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl"
+        className="w-full max-w-md rounded-2xl border border-admin-line bg-admin-card p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-display text-lg font-extrabold text-slate-900">{title}</h3>
-            <p className="mt-1 text-sm text-slate-600">{description}</p>
+            <h3 className="font-display text-lg font-extrabold text-admin-ink">{title}</h3>
+            <p className="mt-1 text-sm text-admin-muted">{description}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="rounded-full p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+            className="rounded-full p-1.5 text-admin-faint transition-colors hover:bg-admin-sunk hover:text-admin-ink"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="mt-4 rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-700">
-          Ketik <span className="font-mono font-semibold text-slate-900">{requiredText}</span> untuk konfirmasi.
+        <div className="mt-4 rounded-lg bg-admin-sunk px-3 py-2 text-xs text-admin-muted">
+          Ketik <span className="font-mono font-semibold text-admin-ink">{requiredText}</span> untuk konfirmasi.
         </div>
 
         <input
@@ -78,7 +78,7 @@ export default function ConfirmDangerousAction({
           onChange={(e) => setTyped(e.target.value)}
           placeholder={requiredText}
           autoFocus
-          className="mt-3 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 outline-none focus:border-slate-500"
+          className="mt-3 w-full rounded-lg border border-admin-edge bg-white px-3 py-2 font-mono text-sm text-admin-ink outline-none transition-colors focus:border-qupu-brand-blue focus:ring-2 focus:ring-qupu-brand-blue/25"
         />
 
         <div className="mt-4 flex gap-2">
@@ -86,7 +86,7 @@ export default function ConfirmDangerousAction({
             type="button"
             onClick={onClose}
             disabled={working}
-            className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-60"
+            className="flex-1 rounded-lg border border-admin-edge bg-white px-4 py-2 text-sm font-semibold text-admin-ink transition hover:bg-admin-sunk disabled:opacity-60"
           >
             Batal
           </button>
