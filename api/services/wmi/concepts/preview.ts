@@ -61,8 +61,11 @@ const DOMAIN_BY_SLUG: Record<string, string> = {
   'shape-perimeter-square': 'GEO',
   'dice-opposite-faces': 'GEO',
   'direction-orientation': 'GEO',
+  'shape-perimeter-rectangle': 'GEO',
   'clock-time-after': 'MEA',
   'unit-conversion': 'MEA',
+  'clock-read-time': 'MEA',
+  'bar-chart-compare': 'DAT',
 }
 
 // Short, stable recall codes: domain letter + index within domain
@@ -110,8 +113,11 @@ const SHORT_ID_BY_SLUG: Record<string, string> = {
   'shape-perimeter-square': 'G1',
   'dice-opposite-faces': 'G2',
   'direction-orientation': 'G3',
+  'shape-perimeter-rectangle': 'G4',
   'clock-time-after': 'M1',
   'unit-conversion': 'M2',
+  'clock-read-time': 'M3',
+  'bar-chart-compare': 'D1',
 }
 
 function shortIdNum(code: string): number {

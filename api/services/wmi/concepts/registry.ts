@@ -40,6 +40,9 @@ import perfectSquareSearch from './perfect-square-search/index.js'
 import productOfConsecutive from './product-of-consecutive/index.js'
 import budgetSelection from './budget-selection/index.js'
 import sumPartitionSplit from './sum-partition-split/index.js'
+import clockReadTime from './clock-read-time/index.js'
+import shapePerimeterRectangle from './shape-perimeter-rectangle/index.js'
+import barChartCompare from './bar-chart-compare/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -85,6 +88,9 @@ export const CONCEPTS = {
   'product-of-consecutive': productOfConsecutive,
   'budget-selection': budgetSelection,
   'sum-partition-split': sumPartitionSplit,
+  'clock-read-time': clockReadTime,
+  'shape-perimeter-rectangle': shapePerimeterRectangle,
+  'bar-chart-compare': barChartCompare,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
