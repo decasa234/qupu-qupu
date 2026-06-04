@@ -68,10 +68,13 @@ const DOMAIN_BY_SLUG: Record<string, string> = {
   'perimeter-area-composed': 'GEO',
   'block-count-3d': 'GEO',
   'count-polygon-sides': 'GEO',
+  'symmetry-count': 'GEO',
+  'angle-type': 'GEO',
   'clock-time-after': 'MEA',
   'unit-conversion': 'MEA',
   'clock-read-time': 'MEA',
   'bar-chart-compare': 'DAT',
+  'tally-marks-count': 'DAT',
 }
 
 // Short, stable recall codes: domain letter + index within domain
@@ -126,10 +129,13 @@ const SHORT_ID_BY_SLUG: Record<string, string> = {
   'perimeter-area-composed': 'G6',
   'block-count-3d': 'G7',
   'count-polygon-sides': 'G8',
+  'symmetry-count': 'G9',
+  'angle-type': 'G10',
   'clock-time-after': 'M1',
   'unit-conversion': 'M2',
   'clock-read-time': 'M3',
   'bar-chart-compare': 'D1',
+  'tally-marks-count': 'D2',
 }
 
 function shortIdNum(code: string): number {

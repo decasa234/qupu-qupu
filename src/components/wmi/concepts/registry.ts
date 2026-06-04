@@ -10,6 +10,9 @@ import VennSetMembership from './venn-set-membership'
 import BlockCount3d from './block-count-3d'
 import NumberLineJumps from './number-line-jumps'
 import CountPolygonSides from './count-polygon-sides'
+import SymmetryCount from './symmetry-count'
+import AngleType from './angle-type'
+import TallyMarksCount from './tally-marks-count'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -23,6 +26,9 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'block-count-3d': BlockCount3d,
   'number-line-jumps': NumberLineJumps,
   'count-polygon-sides': CountPolygonSides,
+  'symmetry-count': SymmetryCount,
+  'angle-type': AngleType,
+  'tally-marks-count': TallyMarksCount,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {

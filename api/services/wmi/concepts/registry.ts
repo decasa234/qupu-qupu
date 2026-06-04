@@ -49,6 +49,9 @@ import vennSetMembership from './venn-set-membership/index.js'
 import blockCount3d from './block-count-3d/index.js'
 import numberLineJumps from './number-line-jumps/index.js'
 import countPolygonSides from './count-polygon-sides/index.js'
+import symmetryCount from './symmetry-count/index.js'
+import angleType from './angle-type/index.js'
+import tallyMarksCount from './tally-marks-count/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -103,6 +106,9 @@ export const CONCEPTS = {
   'block-count-3d': blockCount3d,
   'number-line-jumps': numberLineJumps,
   'count-polygon-sides': countPolygonSides,
+  'symmetry-count': symmetryCount,
+  'angle-type': angleType,
+  'tally-marks-count': tallyMarksCount,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
