@@ -18,7 +18,7 @@ interface Props {
 
 export default function DashboardHighlights({ vm }: Props) {
   return (
-    <section className="space-y-3">
+    <section className="space-y-4">
       <div className="px-1">
         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
           Progresmu

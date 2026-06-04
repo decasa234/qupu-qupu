@@ -5,9 +5,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import InventoryGrid from '../components/me/InventoryGrid'
+import AvatarEditor from '../components/me/AvatarEditor'
+import LevelDetail from '../components/me/LevelDetail'
 
 export default function MePage() {
-  const { user, activeChildId, logout } = useAuthStore()
+  const { user, children, activeChildId, logout } = useAuthStore()
+  const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const navigate = useNavigate()
 
   function handleLogout() {
@@ -23,11 +26,22 @@ export default function MePage() {
         <p className="mt-1 text-xs font-medium text-qupu-muted">{user?.email}</p>
       </section>
 
+      {activeChild && <AvatarEditor child={activeChild} />}
+
+      {activeChild && <LevelDetail childId={activeChild.id} />}
+
       <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
           Pengaturan
         </div>
         <div className="mt-3 flex flex-col gap-2">
+          <SettingsRow
+            to="/badges"
+            icon="fa-solid fa-medal"
+            iconBg="#8A5BF0"
+            title="Badge & pencapaian"
+            subtitle="Lihat semua lencana yang terkumpul"
+          />
           <SettingsRow
             to="/report"
             icon="fa-solid fa-chart-line"

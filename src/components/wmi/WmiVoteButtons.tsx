@@ -9,7 +9,7 @@ export default function WmiVoteButtons({ onVote }: WmiVoteButtonsProps) {
   const [busy, setBusy] = useState(false)
 
   async function pick(v: 1 | -1) {
-    if (busy) return
+    if (busy || picked !== null) return
     setBusy(true)
     try {
       await onVote(v)
@@ -20,24 +20,33 @@ export default function WmiVoteButtons({ onVote }: WmiVoteButtonsProps) {
   }
 
   return (
-    <div className="mt-3 flex items-center justify-center gap-3">
+    <div className="mt-4 flex items-center justify-center gap-3">
+      <span className="text-xs font-bold text-qupu-muted">Soal ini gimana?</span>
       <button
         type="button"
         onClick={() => pick(1)}
-        disabled={busy}
-        className={`rounded-full px-4 py-2 text-2xl ${picked === 1 ? 'bg-qupu-cream' : 'bg-gray-100'} disabled:opacity-50`}
+        disabled={busy || picked !== null}
+        className={`flex h-10 w-10 items-center justify-center rounded-full text-base transition-transform active:translate-y-0.5 disabled:active:translate-y-0 ${
+          picked === 1
+            ? 'bg-emerald-500 text-white shadow-[0_3px_0_0_#0f7a52]'
+            : 'bg-white text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]'
+        } ${picked === -1 ? 'opacity-40' : ''}`}
         aria-label="Suka soal ini"
       >
-        👍
+        <i className="fa-solid fa-thumbs-up" aria-hidden="true" />
       </button>
       <button
         type="button"
         onClick={() => pick(-1)}
-        disabled={busy}
-        className={`rounded-full px-4 py-2 text-2xl ${picked === -1 ? 'bg-qupu-cream' : 'bg-gray-100'} disabled:opacity-50`}
+        disabled={busy || picked !== null}
+        className={`flex h-10 w-10 items-center justify-center rounded-full text-base transition-transform active:translate-y-0.5 disabled:active:translate-y-0 ${
+          picked === -1
+            ? 'bg-rose-500 text-white shadow-[0_3px_0_0_#9f1239]'
+            : 'bg-white text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]'
+        } ${picked === 1 ? 'opacity-40' : ''}`}
         aria-label="Tidak suka soal ini"
       >
-        👎
+        <i className="fa-solid fa-thumbs-down" aria-hidden="true" />
       </button>
     </div>
   )

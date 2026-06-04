@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios, { type AxiosRequestConfig } from 'axios'
 import { useAuthStore } from '../store/authStore'
 import { useLoadingState } from '../hooks/useLoadingState'
+import { getCachedValue, makeCacheKey, setCachedValue } from './clientCache'
 
 const baseURL =
   import.meta.env.VITE_API_BASE_URL?.trim() || 'http://localhost:3001/api'
@@ -56,5 +57,19 @@ api.interceptors.response.use(
     return Promise.reject(error)
   },
 )
+
+export async function getCachedPublic<T>(
+  url: string,
+  config?: AxiosRequestConfig,
+  ttlMs = 60000,
+): Promise<T> {
+  const key = makeCacheKey(url, config?.params)
+  const cachedValue = getCachedValue<T>(key)
+  if (cachedValue !== null) return cachedValue
+
+  const response = await api.get<T>(url, config)
+  setCachedValue(key, response.data, ttlMs)
+  return response.data
+}
 
 export default api

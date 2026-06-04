@@ -87,6 +87,17 @@ export interface WmiAttemptInput {
   looked_up_terms?: string[]
 }
 
+export interface WmiConceptReward {
+  xpEarned: number
+  coinsEarned: number
+  totalXp: number
+  coinBalance: number
+  level: number
+  tierName: string
+  levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
+  streak: { current: number; longest: number }
+}
+
 export interface WmiAttemptResult {
   is_correct: boolean
   correct_answer: string
@@ -94,11 +105,15 @@ export interface WmiAttemptResult {
   hint_id: string | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  // Present only for concept attempts — XP/coins/streak granted for this answer.
+  gamification?: WmiConceptReward
 }
 
 export interface WmiConceptQuestion {
   concept_instance_id: string
   concept_slug: string
+  concept_name_id: string
+  concept_name_en: string
   params: unknown
   body_en: string
   body_id: string
@@ -114,6 +129,33 @@ export interface WmiConceptQuestion {
 export interface WmiConceptVoteResult {
   upvotes: number
   downvotes: number
+}
+
+export type WmiConceptStatus = 'mastered' | 'in_progress' | 'not_started'
+
+export interface WmiConceptProgress {
+  slug: string
+  nameEn: string
+  nameId: string
+  descriptionId: string | null
+  grades: number[]
+  attempts: number
+  correct: number
+  status: WmiConceptStatus
+  progress: number
+  lastAttemptAt: string | null
+}
+
+export interface WmiConceptProgressSummary {
+  masteryTarget: number
+  totalConcepts: number
+  mastered: number
+  inProgress: number
+  notStarted: number
+  totalCorrect: number
+  totalAttempts: number
+  overallProgress: number
+  concepts: WmiConceptProgress[]
 }
 
 export interface WmiConceptAttemptInput {

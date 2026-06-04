@@ -18,6 +18,7 @@ const KNOWN_EVENTS = new Set([
   'register_completed',
   'login_completed',
   'google_login_completed',
+  'demo_quiz_submit',
 ])
 
 export async function logEvent(input: LogEventInput): Promise<void> {

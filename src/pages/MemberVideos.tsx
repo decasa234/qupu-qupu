@@ -12,7 +12,7 @@
 // needs the full set anyway.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import api from '../lib/api'
+import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import type { SubjectOption, VideoCard as VideoCardType } from '../types'
 
@@ -60,15 +60,17 @@ export default function MemberVideosPage() {
 
       try {
         const [videosRes, metaRes] = await Promise.all([
-          api.get('/public/videos', {
+          getCachedPublic<{ data: { videos?: VideoCardType[] } }>('/public/videos', {
             params: { page: 1, pageSize: 100 },
             signal: controller.signal,
           }),
-          api.get('/public/meta', { signal: controller.signal }),
+          getCachedPublic<{ data: { subjects?: SubjectOption[] } }>('/public/meta', {
+            signal: controller.signal,
+          }),
         ])
-        const list: VideoCardType[] = videosRes.data.data.videos ?? []
+        const list: VideoCardType[] = videosRes.data.videos ?? []
         setVideos(list)
-        setSubjects(metaRes.data.data.subjects ?? [])
+        setSubjects(metaRes.data.subjects ?? [])
       } catch (requestError: unknown) {
         if (controller.signal.aborted) return
         console.error('Failed to load videos:', requestError)
@@ -147,22 +149,24 @@ export default function MemberVideosPage() {
 
   return (
     <div className="flex w-full flex-col gap-4 pb-8">
-      <section className="sticky top-12 z-20 -mx-2 rounded-b-[2rem] bg-[#FFF8F0] px-4 pb-4 pt-4 shadow-[0_5px_0_0_rgba(196,97,35,0.28)] lg:top-0">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
-              Tonton &amp; belajar
-            </p>
-            <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
-              Video QUPU
-            </h1>
-          </div>
-          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-black text-white">
-            <i className="fa-solid fa-circle-play" aria-hidden="true" /> {videos.length}
-          </span>
+      {/* Title is intentionally NOT sticky — it scrolls away under the top stat
+          strip instead of colliding with it. Only the filter bar below pins. */}
+      <div className="flex items-start justify-between gap-3 px-1 pt-1">
+        <div>
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
+            Tonton &amp; belajar
+          </p>
+          <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
+            Video QUPU
+          </h1>
         </div>
+        <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-black text-white">
+          <i className="fa-solid fa-clapperboard" aria-hidden="true" /> {videos.length}
+        </span>
+      </div>
 
-        <div className="relative mt-4">
+      <section className="sticky top-12 z-20 -mx-2 rounded-[1.75rem] bg-[#FFF8F0] px-4 pb-4 pt-4 shadow-[0_5px_0_0_rgba(196,97,35,0.28)] lg:top-0">
+        <div className="relative">
           <i
             className="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-qupu-muted"
             aria-hidden="true"
@@ -344,20 +348,43 @@ function EmptyState({ segment, hasFilter }: { segment: Segment; hasFilter: boole
 }
 
 function MemberVideoCard({ video, watched }: { video: VideoCardType; watched: boolean }) {
+  const [thumbBroken, setThumbBroken] = useState(false)
   const subjectColor = video.subject?.colorHex ?? '#30598A'
   const subjectName = video.subject?.name ?? 'Video'
+  const showFallback = thumbBroken || !video.thumbnailUrl
   return (
     <Link
       to={`/quiz/${video.slug}`}
       className="group block overflow-hidden rounded-[1.5rem] bg-white shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_2px_0_0_#FFD3B1]"
     >
       <div className="relative aspect-video overflow-hidden bg-qupu-cream">
-        <img
-          src={video.thumbnailUrl}
-          alt={video.title}
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
+        {showFallback ? (
+          <div
+            className="flex h-full w-full items-center justify-center"
+            style={{ background: `linear-gradient(135deg, ${subjectColor}26, #FFF2DF)` }}
+          >
+            <i
+              className="fa-solid fa-clapperboard text-4xl"
+              style={{ color: subjectColor }}
+              aria-hidden="true"
+            />
+          </div>
+        ) : (
+          <img
+            src={video.thumbnailUrl}
+            alt={video.title}
+            loading="lazy"
+            className="h-full w-full object-cover"
+            onError={() => setThumbBroken(true)}
+            onLoad={(event) => {
+              // YouTube returns a 120×90 grey placeholder (HTTP 200) when a
+              // thumbnail size is missing — treat that as broken.
+              if (event.currentTarget.naturalWidth > 0 && event.currentTarget.naturalWidth <= 120) {
+                setThumbBroken(true)
+              }
+            }}
+          />
+        )}
         <span
           className="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-white shadow-sm"
           style={{ backgroundColor: subjectColor }}

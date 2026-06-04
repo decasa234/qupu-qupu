@@ -9,6 +9,7 @@ const createSchema = Joi.object({
   name: Joi.string().min(1).max(80).required(),
   ageGroupId: Joi.string().uuid().allow(null).optional(),
   avatarColor: Joi.string().max(20).allow(null).optional(),
+  avatarIcon: Joi.string().pattern(/^[a-z0-9-]+$/).max(40).allow(null).optional(),
   dailyGoalQuizzes: Joi.number().integer().min(1).max(20).optional(),
 })
 
@@ -16,6 +17,7 @@ const updateSchema = Joi.object({
   name: Joi.string().min(1).max(80).optional(),
   ageGroupId: Joi.string().uuid().allow(null).optional(),
   avatarColor: Joi.string().max(20).allow(null).optional(),
+  avatarIcon: Joi.string().pattern(/^[a-z0-9-]+$/).max(40).allow(null).optional(),
   dailyGoalQuizzes: Joi.number().integer().min(1).max(20).optional(),
 }).min(1)
 
