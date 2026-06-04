@@ -16,6 +16,9 @@ function column(nums: number[], x: number, cy: number, cls: string) {
 
 export default function VennSetMembershipIllustration({ params }: { params: unknown }) {
   const p = params as VennParams
+  const aOnly = p.aOnly ?? []
+  const both = p.both ?? []
+  const bOnly = p.bOnly ?? []
   const w = 260
   const h = 170
   const r = 70
@@ -29,9 +32,9 @@ export default function VennSetMembershipIllustration({ params }: { params: unkn
         <circle cx={bxc} cy={cyc} r={r} fill="none" stroke="currentColor" strokeWidth={3} className="text-qupu-brand-orange" />
         <text x={axc - r + 14} y={cyc - r + 6} fontSize="16" fontWeight="bold" className="fill-qupu-brand-blue">A</text>
         <text x={bxc + r - 22} y={cyc - r + 6} fontSize="16" fontWeight="bold" className="fill-qupu-brand-orange">B</text>
-        {column(p.aOnly, axc - r / 2 - 6, cyc, 'fill-qupu-brand-blue')}
-        {column(p.both, (axc + bxc) / 2, cyc, 'fill-slate-700')}
-        {column(p.bOnly, bxc + r / 2 + 6, cyc, 'fill-qupu-brand-orange')}
+        {column(aOnly, axc - r / 2 - 6, cyc, 'fill-qupu-brand-blue')}
+        {column(both, (axc + bxc) / 2, cyc, 'fill-slate-700')}
+        {column(bOnly, bxc + r / 2 + 6, cyc, 'fill-qupu-brand-orange')}
       </svg>
     </div>
   )
