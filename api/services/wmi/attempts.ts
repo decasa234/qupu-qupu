@@ -2,6 +2,7 @@ import { queryOne, withTransaction } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
 import { getWmiQuestionAnswer } from './papers.js'
+import { isCorrectAnswer } from './answerMatch.js'
 
 export interface WmiAttemptInput {
   childId: string
@@ -32,10 +33,6 @@ export interface WmiAttemptResult {
   hint_steps_id: string[] | null
   // Present only for concept attempts — XP/coins/streak granted for this answer.
   gamification?: ConceptRewardResult
-}
-
-function isCorrectAnswer(expected: string, selected: string): boolean {
-  return expected.trim().toLowerCase() === selected.trim().toLowerCase()
 }
 
 export async function submitWmiAttempt(
