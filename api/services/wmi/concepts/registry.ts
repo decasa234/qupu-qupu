@@ -16,6 +16,14 @@ import reverseArithmeticPuzzle from './reverse-arithmetic-puzzle/index.js'
 import moneyShoppingChange from './money-shopping-change/index.js'
 import findNumberByDigitSum from './find-number-by-digit-sum/index.js'
 import customOperation from './custom-operation/index.js'
+import alternatingChainEval from './alternating-chain-eval/index.js'
+import mistakenDigitCorrection from './mistaken-digit-correction/index.js'
+import buildNumberFromDigitClues from './build-number-from-digit-clues/index.js'
+import moreOrLessByK from './more-or-less-by-k/index.js'
+import divisibilityMultipleProperty from './divisibility-multiple-property/index.js'
+import positionInLine from './position-in-line/index.js'
+import assignmentCycle from './assignment-cycle/index.js'
+import distanceRateTime from './distance-rate-time/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -37,6 +45,14 @@ export const CONCEPTS = {
   'money-shopping-change': moneyShoppingChange,
   'find-number-by-digit-sum': findNumberByDigitSum,
   'custom-operation': customOperation,
+  'alternating-chain-eval': alternatingChainEval,
+  'mistaken-digit-correction': mistakenDigitCorrection,
+  'build-number-from-digit-clues': buildNumberFromDigitClues,
+  'more-or-less-by-k': moreOrLessByK,
+  'divisibility-multiple-property': divisibilityMultipleProperty,
+  'position-in-line': positionInLine,
+  'assignment-cycle': assignmentCycle,
+  'distance-rate-time': distanceRateTime,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
