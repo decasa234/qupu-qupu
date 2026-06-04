@@ -1,59 +1,59 @@
 import type { ReactNode } from 'react'
 
 interface BlockParams {
-  front: number[]
-  back: number[]
+  depth: number
+  width: number
+  heights: number[]
 }
 
-const S = 24
-const O = S * 0.34 // depth offset for the top/right faces
+const TW = 22 // tile half-width
+const TH = 11 // tile half-height (2:1 isometric)
+const TZ = 24 // cube height in px
 
-function Cube({ x, y }: { x: number; y: number }) {
+function Cube({ cx, cy, keyId }: { cx: number; cy: number; keyId: string }) {
+  const top = `${cx},${cy - TH} ${cx + TW},${cy} ${cx},${cy + TH} ${cx - TW},${cy}`
+  const left = `${cx - TW},${cy} ${cx},${cy + TH} ${cx},${cy + TH + TZ} ${cx - TW},${cy + TZ}`
+  const right = `${cx + TW},${cy} ${cx},${cy + TH} ${cx},${cy + TH + TZ} ${cx + TW},${cy + TZ}`
   return (
-    <g>
-      <polygon points={`${x},${y} ${x + O},${y - O} ${x + S + O},${y - O} ${x + S},${y}`} className="fill-qupu-peach stroke-qupu-brand-blue" strokeWidth={1.5} />
-      <polygon points={`${x + S},${y} ${x + S + O},${y - O} ${x + S + O},${y + S - O} ${x + S},${y + S}`} className="fill-qupu-cream-dark stroke-qupu-brand-blue" strokeWidth={1.5} />
-      <rect x={x} y={y} width={S} height={S} className="fill-qupu-shell stroke-qupu-brand-blue" strokeWidth={1.5} />
+    <g key={keyId}>
+      <polygon points={left} className="fill-qupu-cream-dark stroke-qupu-brand-blue" strokeWidth={1.5} />
+      <polygon points={right} className="fill-qupu-shell stroke-qupu-brand-blue" strokeWidth={1.5} />
+      <polygon points={top} className="fill-qupu-peach stroke-qupu-brand-blue" strokeWidth={1.5} />
     </g>
   )
 }
 
 export default function BlockCount3dIllustration({ params }: { params: unknown }) {
   const p = params as BlockParams
-  const front = p.front ?? []
-  const back = p.back ?? []
-  const width = Math.max(front.length, back.length)
-  const pitch = S + O + 8
-  const maxFront = Math.max(0, ...front)
-  const maxBack = Math.max(0, ...back)
-  // back row is shifted up-and-right (into the gaps) so it reads as "behind"
-  const backDX = pitch * 0.5
-  const backDY = S * 0.9
-  const padTop = O + 4
-  const padLeft = 8
-  const baseY = padTop + Math.max(maxFront, maxBack) * S + backDY
-  const w = padLeft + width * pitch + backDX + O + 8
-  const h = baseY + 8
+  const depth = p.depth ?? 0
+  const width = p.width ?? 0
+  const heights = p.heights ?? []
+  const H = (r: number, c: number) => heights[r * width + c] ?? 0
+  const maxH = Math.max(1, ...heights)
 
-  const back2: ReactNode[] = []
-  back.forEach((height, col) => {
-    for (let j = 0; j < height; j++) {
-      back2.push(<Cube key={`b-${col}-${j}`} x={padLeft + col * pitch + backDX} y={baseY - backDY - (j + 1) * S} />)
+  const ox = depth * TW + 4
+  const oy = (maxH - 1) * TZ + TH + 6
+  const cubes: { r: number; c: number; z: number }[] = []
+  for (let r = 0; r < depth; r++) {
+    for (let c = 0; c < width; c++) {
+      for (let z = 0; z < H(r, c); z++) cubes.push({ r, c, z })
     }
-  })
-  const front2: ReactNode[] = []
-  front.forEach((height, col) => {
-    for (let j = 0; j < height; j++) {
-      front2.push(<Cube key={`f-${col}-${j}`} x={padLeft + col * pitch} y={baseY - (j + 1) * S} />)
-    }
+  }
+  // painter order: back-to-front (smaller r+c first), then bottom-to-top
+  cubes.sort((a, b) => a.r + a.c - (b.r + b.c) || a.z - b.z)
+
+  const els: ReactNode[] = cubes.map(({ r, c, z }) => {
+    const cx = ox + (c - r) * TW
+    const cy = oy + (c + r) * TH - z * TZ
+    return <Cube key={`${r}-${c}-${z}`} cx={cx} cy={cy} keyId={`${r}-${c}-${z}`} />
   })
 
+  const vbW = ox + width * TW + 6
+  const vbH = oy + (width + depth - 2) * TH + TH + TZ + 6
   return (
     <div className="my-4 flex justify-center">
-      <svg viewBox={`0 0 ${w} ${h}`} width={Math.min(320, w * 1.4)} role="img" aria-label="Balok ditumpuk dua baris">
-        {/* back row first so the front row overlaps it */}
-        {back2}
-        {front2}
+      <svg viewBox={`0 0 ${vbW} ${vbH}`} width={Math.min(300, vbW * 1.3)} role="img" aria-label="Tumpukan balok 3D">
+        {els}
       </svg>
     </div>
   )
