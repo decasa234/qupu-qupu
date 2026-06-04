@@ -1,14 +1,17 @@
 import type { ReactNode } from 'react'
 
-interface BlockParams {
+interface Group {
   depth: number
   width: number
   heights: number[]
 }
+interface BlockParams {
+  groups: Group[]
+}
 
-const TW = 22 // tile half-width
-const TH = 11 // tile half-height (2:1 isometric)
-const TZ = 24 // cube height in px
+const TW = 20
+const TH = 10
+const TZ = 22
 
 function Cube({ cx, cy, keyId }: { cx: number; cy: number; keyId: string }) {
   const top = `${cx},${cy - TH} ${cx + TW},${cy} ${cx},${cy + TH} ${cx - TW},${cy}`
@@ -25,34 +28,47 @@ function Cube({ cx, cy, keyId }: { cx: number; cy: number; keyId: string }) {
 
 export default function BlockCount3dIllustration({ params }: { params: unknown }) {
   const p = params as BlockParams
-  const depth = p.depth ?? 0
-  const width = p.width ?? 0
-  const heights = p.heights ?? []
-  const H = (r: number, c: number) => heights[r * width + c] ?? 0
-  const maxH = Math.max(1, ...heights)
+  const groups = p.groups ?? []
+  const gap = 24
+  let runningX = 0
+  const els: ReactNode[] = []
+  let minX = Infinity
+  let minY = Infinity
+  let maxX = -Infinity
+  let maxY = -Infinity
 
-  const ox = depth * TW + 4
-  const oy = (maxH - 1) * TZ + TH + 6
-  const cubes: { r: number; c: number; z: number }[] = []
-  for (let r = 0; r < depth; r++) {
-    for (let c = 0; c < width; c++) {
-      for (let z = 0; z < H(r, c); z++) cubes.push({ r, c, z })
+  groups.forEach((g, gi) => {
+    const { depth, width, heights } = g
+    const H = (r: number, c: number) => heights[r * width + c]
+    const offsetX = runningX + depth * TW
+    const offsetY = -((width - 1) + (depth - 1)) * TH // align each group's front-bottom to y=0
+    const cubes: { r: number; c: number; z: number }[] = []
+    for (let r = 0; r < depth; r++) {
+      for (let c = 0; c < width; c++) {
+        for (let z = 0; z < H(r, c); z++) cubes.push({ r, c, z })
+      }
     }
-  }
-  // painter order: back-to-front (smaller r+c first), then bottom-to-top
-  cubes.sort((a, b) => a.r + a.c - (b.r + b.c) || a.z - b.z)
-
-  const els: ReactNode[] = cubes.map(({ r, c, z }) => {
-    const cx = ox + (c - r) * TW
-    const cy = oy + (c + r) * TH - z * TZ
-    return <Cube key={`${r}-${c}-${z}`} cx={cx} cy={cy} keyId={`${r}-${c}-${z}`} />
+    cubes.sort((a, b) => a.r + a.c - (b.r + b.c) || a.z - b.z)
+    for (const { r, c, z } of cubes) {
+      const cx = offsetX + (c - r) * TW
+      const cy = offsetY + (c + r) * TH - z * TZ
+      els.push(<Cube key={`${gi}-${r}-${c}-${z}`} cx={cx} cy={cy} keyId={`${gi}-${r}-${c}-${z}`} />)
+      minX = Math.min(minX, cx - TW)
+      maxX = Math.max(maxX, cx + TW)
+      minY = Math.min(minY, cy - TH)
+      maxY = Math.max(maxY, cy + TH + TZ)
+    }
+    runningX = runningX + (depth + width) * TW + gap
   })
 
-  const vbW = ox + width * TW + 6
-  const vbH = oy + (width + depth - 2) * TH + TH + TZ + 6
+  const pad = 5
+  const vbX = minX - pad
+  const vbY = minY - pad
+  const vbW = maxX - minX + pad * 2
+  const vbH = maxY - minY + pad * 2
   return (
     <div className="my-4 flex justify-center">
-      <svg viewBox={`0 0 ${vbW} ${vbH}`} width={Math.min(300, vbW * 1.3)} role="img" aria-label="Tumpukan balok 3D">
+      <svg viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`} width={Math.min(340, vbW * 1.2)} role="img" aria-label="Beberapa kelompok balok">
         {els}
       </svg>
     </div>
