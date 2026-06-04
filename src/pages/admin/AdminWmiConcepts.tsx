@@ -3,6 +3,8 @@ import WmiQuestionView from '../../components/wmi/WmiQuestionView'
 import WmiExplainer from '../../components/wmi/WmiExplainer'
 import { getIllustration } from '../../components/wmi/concepts/registry'
 import { getExplainer } from '../../components/wmi/concepts/explainers/registry'
+import AdminPageHeader from '../../components/admin/AdminPageHeader'
+import { Button, Input, Panel, SectionHeading, Textarea } from '../../components/admin/ui'
 import {
   fetchConceptList,
   fetchConceptReview,
@@ -22,7 +24,7 @@ const STATUS_META: Record<
   ReviewStatus,
   { dot: string; label: string; ring: string; active: string }
 > = {
-  pending: { dot: 'bg-slate-300', label: 'Pending', ring: 'border-slate-300 text-slate-600', active: 'bg-slate-600 text-white' },
+  pending: { dot: 'bg-admin-edge', label: 'Pending', ring: 'border-admin-edge text-admin-muted', active: 'bg-qupu-brand-blue text-white' },
   approved: { dot: 'bg-emerald-500', label: 'Approved', ring: 'border-emerald-300 text-emerald-700', active: 'bg-emerald-600 text-white' },
   needs_changes: { dot: 'bg-amber-500', label: 'Needs changes', ring: 'border-amber-300 text-amber-700', active: 'bg-amber-600 text-white' },
 }
@@ -47,22 +49,23 @@ function adapt(slug: string, s: AdminConceptSample): WmiQuestion {
 function Chip({ on, label }: { on: boolean; label: string }) {
   return (
     <span
-      className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
-        on ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${
+        on ? 'bg-emerald-100 text-emerald-700' : 'bg-admin-sunk text-admin-faint'
       }`}
     >
-      {on ? '✓ ' : '— '}
+      <i className={`fa-solid ${on ? 'fa-check' : 'fa-minus'} text-[9px]`} aria-hidden="true" />
       {label}
     </span>
   )
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4">
-      <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">{title}</h3>
-      {children}
-    </section>
+    <Panel>
+      <SectionHeading>{title}</SectionHeading>
+      {hint && <p className="mt-1 text-xs text-admin-muted">{hint}</p>}
+      <div className="mt-3">{children}</div>
+    </Panel>
   )
 }
 
@@ -196,23 +199,22 @@ export default function AdminWmiConcepts() {
   const dirty = !review || status !== review.status || notes !== review.notes
 
   return (
-    <div>
-      <div className="mb-4">
-        <h1 className="font-display text-2xl font-extrabold text-slate-900">WMI Concept Proofreading</h1>
-        <p className="text-sm text-slate-500">
-          Every registered generator, grouped by domain. Preview generated questions with answers,
-          breakdown, step-by-step, and animation. Samples are generated live; your review verdict &
-          notes per concept are saved.
-        </p>
-      </div>
+    <div className="space-y-5">
+      <AdminPageHeader
+        eyebrow="Admin · WMI"
+        title="WMI Concept Proofreading"
+        description="Every registered generator, grouped by domain. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
+      />
 
       {concepts.length > 0 && (
-        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
           <button
             type="button"
             onClick={() => setReviewFilter('all')}
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
-              reviewFilter === 'all' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              reviewFilter === 'all'
+                ? 'bg-qupu-brand-blue text-white'
+                : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
             }`}
           >
             All <span className="tabular-nums">{concepts.length}</span>
@@ -225,7 +227,8 @@ export default function AdminWmiConcepts() {
                 reviewFilter === 'urgent' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 hover:bg-red-100'
               }`}
             >
-              🚩 <span className="tabular-nums">{urgentCount}</span> Urgent
+              <i className="fa-solid fa-flag text-[11px]" aria-hidden="true" />
+              <span className="tabular-nums">{urgentCount}</span> Urgent
             </button>
           )}
           {(['pending', 'needs_changes', 'approved'] as const).map((s) => (
@@ -234,26 +237,30 @@ export default function AdminWmiConcepts() {
               type="button"
               onClick={() => setReviewFilter((f) => (f === s ? 'all' : s))}
               className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
-                reviewFilter === s ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                reviewFilter === s
+                  ? 'bg-qupu-brand-blue text-white'
+                  : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
               }`}
             >
               <span className={`h-2 w-2 rounded-full ${STATUS_META[s].dot}`} />
               <span className="tabular-nums">{summary[s]}</span> {s === 'pending' ? 'Needs review' : STATUS_META[s].label}
             </button>
           ))}
-          <span className="text-slate-400">· click to filter</span>
+          <span className="text-admin-faint">· click to filter</span>
         </div>
       )}
 
       {listError && (
-        <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{listError}</div>
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-700">
+          {listError}
+        </div>
       )}
 
       <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
         {/* Concept sidebar, grouped by domain */}
-        <aside className="rounded-xl border border-slate-200 bg-white p-2 lg:sticky lg:top-24 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
-          <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-slate-100 bg-white px-2 pb-2 pt-2">
-            <input
+        <aside className="rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
+          <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-admin-line bg-admin-card px-2 pb-2 pt-2">
+            <Input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -261,18 +268,17 @@ export default function AdminWmiConcepts() {
                 if (e.key === 'Enter' && filtered[0]) setActiveSlug(filtered[0].slug)
               }}
               placeholder="Search id / name… (e.g. G14)"
-              className="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm focus:border-qupu-brand-blue focus:outline-none"
             />
             {query && (
-              <div className="px-1 pt-1 text-[11px] text-slate-400">
+              <div className="px-1 pt-1 text-[11px] text-admin-faint">
                 {filtered.length} match{filtered.length === 1 ? '' : 'es'} · Enter to open the first
               </div>
             )}
           </div>
-          {grouped.length === 0 && <div className="px-2 py-3 text-sm text-slate-400">No matches.</div>}
+          {grouped.length === 0 && <div className="px-2 py-3 text-sm text-admin-faint">No matches.</div>}
           {grouped.map(([domain, items]) => (
             <div key={domain} className="mb-2">
-              <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-admin-faint">
                 {domain}
               </div>
               {items.map((c) => (
@@ -282,33 +288,34 @@ export default function AdminWmiConcepts() {
                   onClick={() => setActiveSlug(c.slug)}
                   className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
                     c.slug === activeSlug
-                      ? 'bg-slate-900 text-white'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      ? 'bg-qupu-brand-blue text-white'
+                      : 'text-admin-ink hover:bg-admin-sunk'
                   }`}
                 >
                   <span
                     className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
-                      c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
+                      c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
                     }`}
                   >
                     {c.short_id || '—'}
                   </span>
                   <span className="flex-1 truncate">{c.name_en}</span>
                   <span
-                    className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-slate-300' : 'text-slate-400'}`}
+                    className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
                   >
                     G{c.grades.join('')}
                   </span>
-                  <span
-                    className={`shrink-0 text-xs leading-none ${
+                  <i
+                    className={`fa-solid shrink-0 text-xs leading-none ${
                       c.status === 'approved'
-                        ? 'text-emerald-500'
+                        ? 'fa-check text-emerald-500'
                         : c.status === 'needs_changes'
-                          ? 'text-amber-500'
+                          ? 'fa-triangle-exclamation text-amber-500'
                           : c.priority === 'high'
-                            ? 'text-red-600'
-                            : 'text-qupu-brand-orange'
+                            ? 'fa-flag text-red-600'
+                            : 'fa-flag text-qupu-brand-orange'
                     }`}
+                    aria-hidden="true"
                     title={
                       c.status === 'pending'
                         ? c.priority === 'high'
@@ -316,15 +323,7 @@ export default function AdminWmiConcepts() {
                           : 'Needs review'
                         : STATUS_META[c.status]?.label
                     }
-                  >
-                    {c.status === 'approved'
-                      ? '✓'
-                      : c.status === 'needs_changes'
-                        ? '⚠'
-                        : c.priority === 'high'
-                          ? '🚩'
-                          : '⚑'}
-                  </span>
+                  />
                 </button>
               ))}
             </div>
@@ -332,17 +331,17 @@ export default function AdminWmiConcepts() {
         </aside>
 
         {/* Preview panel */}
-        <div className="min-w-0">
+        <div className="min-w-0 space-y-3">
           {active && (
-            <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-              <span className="rounded-md bg-slate-900 px-2.5 py-1 font-mono text-base font-extrabold text-white">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="rounded-md bg-qupu-brand-blue px-2.5 py-1 font-mono text-base font-extrabold text-white">
                 {active.short_id || '—'}
               </span>
               <div>
-                <div className="font-display text-lg font-extrabold text-slate-900">
-                  {active.name_en} <span className="text-slate-400">/</span> {active.name_id}
+                <div className="font-display text-lg font-extrabold text-admin-ink">
+                  {active.name_en} <span className="text-admin-faint">/</span> {active.name_id}
                 </div>
-                <code className="text-xs text-slate-500">{active.slug}</code>
+                <code className="text-xs text-admin-muted">{active.slug}</code>
               </div>
               <div className="flex flex-wrap items-center gap-1.5">
                 <Chip on label={`Grades ${active.grades.join(', ')}`} />
@@ -355,107 +354,106 @@ export default function AdminWmiConcepts() {
 
           {/* Review — editable verdict + notes, saved per concept */}
           {active && (
-            <div className="mb-3">
-              <Section title="Review — saved verdict & notes">
-                {reviewLoading ? (
-                  <div className="text-sm text-slate-400">Memuat review…</div>
-                ) : (
-                  <div className="grid gap-3">
-                    <div className="flex flex-wrap gap-2">
-                      {STATUS_ORDER.map((s) => {
-                        const m = STATUS_META[s]
-                        const on = status === s
-                        return (
-                          <button
-                            key={s}
-                            type="button"
-                            onClick={() => setStatus(s)}
-                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-bold transition-colors ${
-                              on ? `border-transparent ${m.active}` : `bg-white ${m.ring} hover:bg-slate-50`
-                            }`}
-                          >
-                            <span className={`h-2 w-2 rounded-full ${on ? 'bg-white' : m.dot}`} />
-                            {m.label}
-                          </button>
-                        )
-                      })}
-                    </div>
-                    <textarea
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      rows={4}
-                      placeholder="Notes / corrections for this concept — what's wrong, the suggested fix, edge cases to handle…"
-                      className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-qupu-brand-blue focus:outline-none"
-                    />
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button
-                        type="button"
-                        onClick={saveReview}
-                        disabled={saving || !dirty}
-                        className="rounded-lg bg-qupu-brand-blue px-4 py-2 text-sm font-bold text-white hover:opacity-90 disabled:opacity-40"
-                      >
-                        {saving ? 'Saving…' : dirty ? 'Save review' : 'Saved'}
-                      </button>
-                      {savedFlash && <span className="text-sm font-semibold text-emerald-600">✓ Saved</span>}
-                      {saveError && <span className="text-sm text-red-600">{saveError}</span>}
-                      {review?.updated_at && (
-                        <span className="text-xs text-slate-400">
-                          Last saved {new Date(review.updated_at).toLocaleString()}
-                          {review.reviewed_by ? ` by ${review.reviewed_by}` : ''}
-                        </span>
-                      )}
-                    </div>
+            <Section title="Review — saved verdict & notes">
+              {reviewLoading ? (
+                <div className="text-sm text-admin-faint">Memuat review…</div>
+              ) : (
+                <div className="grid gap-3">
+                  <div className="flex flex-wrap gap-2">
+                    {STATUS_ORDER.map((s) => {
+                      const m = STATUS_META[s]
+                      const on = status === s
+                      return (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => setStatus(s)}
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-bold transition-colors ${
+                            on ? `border-transparent ${m.active}` : `bg-admin-card ${m.ring} hover:bg-admin-sunk`
+                          }`}
+                        >
+                          <span className={`h-2 w-2 rounded-full ${on ? 'bg-white' : m.dot}`} />
+                          {m.label}
+                        </button>
+                      )
+                    })}
                   </div>
-                )}
-              </Section>
-            </div>
+                  <Textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={4}
+                    placeholder="Notes / corrections for this concept — what's wrong, the suggested fix, edge cases to handle…"
+                  />
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Button type="button" onClick={saveReview} disabled={saving || !dirty} loading={saving}>
+                      {dirty ? 'Save review' : 'Saved'}
+                    </Button>
+                    {savedFlash && (
+                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-600">
+                        <i className="fa-solid fa-check" aria-hidden="true" /> Saved
+                      </span>
+                    )}
+                    {saveError && <span className="text-sm text-rose-600">{saveError}</span>}
+                    {review?.updated_at && (
+                      <span className="text-xs text-admin-faint">
+                        Last saved {new Date(review.updated_at).toLocaleString()}
+                        {review.reviewed_by ? ` by ${review.reviewed_by}` : ''}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </Section>
           )}
 
           {/* Sample navigation */}
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <button
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
               type="button"
+              variant="secondary"
+              icon="fa-solid fa-chevron-left"
               onClick={() => setIdx((i) => (i - 1 + samples.length) % Math.max(1, samples.length))}
               disabled={samples.length < 2}
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-slate-100 disabled:opacity-40"
             >
-              ‹ Prev
-            </button>
-            <span className="text-sm font-semibold text-slate-600">
+              Prev
+            </Button>
+            <span className="text-sm font-semibold text-admin-muted">
               {samples.length ? `Sample ${idx + 1} / ${samples.length}` : '—'}
-              {sample && <span className="ml-1 text-xs text-slate-400">seed {sample.seed}</span>}
+              {sample && <span className="ml-1 text-xs text-admin-faint">seed {sample.seed}</span>}
             </span>
-            <button
+            <Button
               type="button"
+              variant="secondary"
               onClick={() => setIdx((i) => (i + 1) % Math.max(1, samples.length))}
               disabled={samples.length < 2}
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-slate-100 disabled:opacity-40"
             >
-              Next ›
-            </button>
-            <button
+              Next <i className="fa-solid fa-chevron-right" aria-hidden="true" />
+            </Button>
+            <Button
               type="button"
+              icon="fa-solid fa-rotate-right"
               onClick={() => activeSlug && loadSamples(activeSlug)}
-              className="rounded-lg bg-qupu-brand-blue px-3 py-1.5 text-sm font-bold text-white hover:opacity-90"
             >
-              ↻ New samples
-            </button>
+              New samples
+            </Button>
           </div>
 
-          {loading && <div className="p-6 text-center text-slate-500">Membuat contoh…</div>}
+          {loading && <div className="p-6 text-center text-admin-muted">Membuat contoh…</div>}
           {sampleError && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{sampleError}</div>
+            <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-700">
+              {sampleError}
+            </div>
           )}
 
           {!loading && sample && (
             <div className="grid gap-4">
               {sample.error ? (
-                <div className="rounded-lg bg-red-50 p-4 text-sm text-red-700">
+                <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
                   Generator error on seed {sample.seed}: {sample.error}
                 </div>
               ) : (
                 <>
-                  <Section title="Question (toggle EN/ID and breakdown in the card)">
+                  <Section title="Question" hint="Toggle EN/ID and breakdown inside the card.">
                     {activeSlug && (
                       <WmiQuestionView
                         question={adapt(activeSlug, sample)}
@@ -477,14 +475,14 @@ export default function AdminWmiConcepts() {
                     </Section>
                   )}
 
-                  <Section title="Answer & params (proofreading)">
+                  <Section title="Answer & params">
                     <div className="text-sm">
-                      <span className="font-bold text-slate-500">Answer:</span>{' '}
+                      <span className="font-bold text-admin-muted">Answer:</span>{' '}
                       <span className="rounded bg-emerald-50 px-2 py-0.5 font-mono font-bold text-emerald-700">
                         {sample.answer}
                       </span>
                     </div>
-                    <pre className="mt-2 overflow-auto rounded-lg bg-slate-50 p-2 text-xs text-slate-600">
+                    <pre className="mt-2 overflow-auto rounded-lg bg-admin-sunk p-2 text-xs text-admin-muted">
                       {JSON.stringify(sample.params, null, 1)}
                     </pre>
                   </Section>
@@ -496,14 +494,14 @@ export default function AdminWmiConcepts() {
                         <Steps label="ID" steps={sample.hint_steps_id} fallback={sample.hint_id} />
                       </div>
                     ) : (
-                      <div className="text-sm text-slate-600">
+                      <div className="text-sm text-admin-muted">
                         <div>
-                          <span className="font-bold text-slate-400">Hint EN:</span> {sample.hint_en ?? '—'}
+                          <span className="font-bold text-admin-faint">Hint EN:</span> {sample.hint_en ?? '—'}
                         </div>
                         <div>
-                          <span className="font-bold text-slate-400">Hint ID:</span> {sample.hint_id ?? '—'}
+                          <span className="font-bold text-admin-faint">Hint ID:</span> {sample.hint_id ?? '—'}
                         </div>
-                        <div className="mt-1 text-xs text-slate-400">
+                        <div className="mt-1 text-xs text-admin-faint">
                           (No multi-step hints authored for this concept yet.)
                         </div>
                       </div>
@@ -519,7 +517,7 @@ export default function AdminWmiConcepts() {
                         correctAnswer={sample.answer ?? ''}
                       />
                     ) : (
-                      <div className="text-sm text-slate-400">No animation authored for this concept yet.</div>
+                      <div className="text-sm text-admin-faint">No animation authored for this concept yet.</div>
                     )}
                   </Section>
                 </>
@@ -543,15 +541,15 @@ function Steps({
 }) {
   return (
     <div>
-      <div className="mb-1 text-[11px] font-bold uppercase text-slate-400">{label}</div>
+      <div className="mb-1 text-[11px] font-bold uppercase text-admin-faint">{label}</div>
       {steps?.length ? (
-        <ol className="list-decimal space-y-1 pl-5 text-sm text-slate-700">
+        <ol className="list-decimal space-y-1 pl-5 text-sm text-admin-ink">
           {steps.map((s, i) => (
             <li key={i}>{s}</li>
           ))}
         </ol>
       ) : (
-        <div className="text-sm text-slate-600">{fallback ?? '—'}</div>
+        <div className="text-sm text-admin-muted">{fallback ?? '—'}</div>
       )}
     </div>
   )

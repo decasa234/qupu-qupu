@@ -59,26 +59,6 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-// Allowlisted reviewers (besides admins) who may open the WMI concept
-// proofreading page — without being granted the rest of the admin panel.
-const CONCEPT_REVIEWER_EMAILS = ['johan@decasa.co.id']
-
-function canReviewConcepts(user: { role?: string; email?: string } | null): boolean {
-  if (!user) return false
-  return user.role === 'admin' || CONCEPT_REVIEWER_EMAILS.includes((user.email ?? '').toLowerCase())
-}
-
-function ConceptReviewRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user } = useAuthStore()
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
-  if (!canReviewConcepts(user)) {
-    return <Navigate to="/dashboard" replace />
-  }
-  return <>{children}</>
-}
-
 function HomeRoute() {
   const { isAuthenticated } = useAuthStore()
   if (isAuthenticated) {
@@ -196,15 +176,17 @@ export default function App() {
           <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
         </Route>
 
-        {/* Concept proofreading — admins + allowlisted reviewers (e.g. johan), standalone */}
+        {/* Concept proofreading — admin-only, standalone full-width view */}
         <Route
           path="/wmi-concepts"
           element={
-            <ConceptReviewRoute>
-              <div className="mx-auto min-h-screen max-w-7xl p-4 lg:p-6">
-                <AdminWmiConceptsPage />
+            <AdminRoute>
+              <div className="min-h-screen bg-admin-bg text-admin-ink">
+                <div className="mx-auto max-w-7xl p-4 lg:p-6">
+                  <AdminWmiConceptsPage />
+                </div>
               </div>
-            </ConceptReviewRoute>
+            </AdminRoute>
           }
         />
 

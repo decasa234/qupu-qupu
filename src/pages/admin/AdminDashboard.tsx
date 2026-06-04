@@ -77,6 +77,25 @@ export default function AdminDashboardPage() {
         description="Snapshot user, video, attempt, dan badge."
       />
 
+      <Link
+        to="/admin/wmi-concepts"
+        className="group flex items-center gap-3 rounded-2xl border border-admin-line bg-admin-card p-4 shadow-admin-soft transition-colors hover:border-qupu-brand-blue/40 hover:bg-admin-sunk sm:p-5"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-qupu-brand-blue/10 text-qupu-brand-blue">
+          <i className="fa-solid fa-flask text-base" aria-hidden="true" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="font-display text-sm font-extrabold text-admin-ink">WMI Concept Proofreading</div>
+          <div className="text-xs text-admin-muted">
+            Preview every concept generator and save a verdict &amp; notes per concept.
+          </div>
+        </div>
+        <i
+          className="fa-solid fa-arrow-right text-admin-faint transition-transform group-hover:translate-x-0.5 group-hover:text-qupu-brand-blue"
+          aria-hidden="true"
+        />
+      </Link>
+
       {loading ? (
         <div className="space-y-5">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

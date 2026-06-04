@@ -1,6 +1,6 @@
-import { Router, type Request, type Response, type NextFunction } from 'express'
+import { Router, type Request, type Response } from 'express'
 import Joi from 'joi'
-import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
+import { authenticateToken, requireAdmin, type AuthRequest } from '../middleware/auth.js'
 import { listConceptsForPreview, sampleConcept } from '../services/wmi/concepts/preview.js'
 import { ALL_SLUGS } from '../services/wmi/concepts/registry.js'
 import {
@@ -13,20 +13,8 @@ const VALID_SLUGS = new Set<string>(ALL_SLUGS)
 
 const router = Router()
 
-// Concept proofreading is open to admins plus an allowlist of named reviewers
-// (not full admins). Add emails here to grant proofreading access.
-const REVIEWER_EMAILS = new Set(['johan@decasa.co.id'])
-
-function requireConceptReviewer(req: AuthRequest, res: Response, next: NextFunction): void {
-  const user = req.user
-  if (user && (user.role === 'admin' || REVIEWER_EMAILS.has(user.email.toLowerCase()))) {
-    next()
-    return
-  }
-  res.status(403).json({ success: false, error: 'Concept review access required' })
-}
-
-router.use(authenticateToken, requireConceptReviewer)
+// Concept proofreading is admin-only — same gate as the rest of /api/admin.
+router.use(authenticateToken, requireAdmin)
 
 router.get('/concepts', async (_req: Request, res: Response): Promise<void> => {
   let statuses: Record<string, string> = {}
