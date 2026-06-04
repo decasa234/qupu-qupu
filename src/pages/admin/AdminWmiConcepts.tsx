@@ -84,6 +84,7 @@ export default function AdminWmiConcepts() {
   const [saveError, setSaveError] = useState<string | null>(null)
   const [savedFlash, setSavedFlash] = useState(false)
   const [query, setQuery] = useState('')
+  const [reviewFilter, setReviewFilter] = useState<'all' | ReviewStatus>('all')
 
   useEffect(() => {
     fetchConceptList()
@@ -150,16 +151,18 @@ export default function AdminWmiConcepts() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return concepts
-    return concepts.filter(
-      (c) =>
+    return concepts.filter((c) => {
+      if (reviewFilter !== 'all' && c.status !== reviewFilter) return false
+      if (!q) return true
+      return (
         c.short_id.toLowerCase().includes(q) ||
         c.slug.toLowerCase().includes(q) ||
         c.name_en.toLowerCase().includes(q) ||
         c.name_id.toLowerCase().includes(q) ||
-        c.domain_label.toLowerCase().includes(q),
-    )
-  }, [concepts, query])
+        c.domain_label.toLowerCase().includes(q)
+      )
+    })
+  }, [concepts, query, reviewFilter])
 
   const grouped = useMemo(() => {
     const m = new Map<string, AdminConceptSummary[]>()
@@ -196,16 +199,29 @@ export default function AdminWmiConcepts() {
 
       {concepts.length > 0 && (
         <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
-          {(['approved', 'needs_changes', 'pending'] as const).map((s) => (
-            <span
+          <button
+            type="button"
+            onClick={() => setReviewFilter('all')}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
+              reviewFilter === 'all' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            }`}
+          >
+            All <span className="tabular-nums">{concepts.length}</span>
+          </button>
+          {(['pending', 'needs_changes', 'approved'] as const).map((s) => (
+            <button
               key={s}
-              className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-700"
+              type="button"
+              onClick={() => setReviewFilter((f) => (f === s ? 'all' : s))}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
+                reviewFilter === s ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
             >
               <span className={`h-2 w-2 rounded-full ${STATUS_META[s].dot}`} />
-              <span className="tabular-nums">{summary[s]}</span> {STATUS_META[s].label}
-            </span>
+              <span className="tabular-nums">{summary[s]}</span> {s === 'pending' ? 'Needs review' : STATUS_META[s].label}
+            </button>
           ))}
-          <span className="text-slate-400">· {concepts.length} total</span>
+          <span className="text-slate-400">· click to filter</span>
         </div>
       )}
 
@@ -264,9 +280,17 @@ export default function AdminWmiConcepts() {
                     G{c.grades.join('')}
                   </span>
                   <span
-                    className={`h-2 w-2 shrink-0 rounded-full ${STATUS_META[c.status]?.dot ?? 'bg-slate-300'}`}
-                    title={STATUS_META[c.status]?.label ?? 'Pending'}
-                  />
+                    className={`shrink-0 text-xs leading-none ${
+                      c.status === 'approved'
+                        ? 'text-emerald-500'
+                        : c.status === 'needs_changes'
+                          ? 'text-amber-500'
+                          : 'text-qupu-brand-orange'
+                    }`}
+                    title={c.status === 'pending' ? 'Needs review' : STATUS_META[c.status]?.label}
+                  >
+                    {c.status === 'approved' ? '✓' : c.status === 'needs_changes' ? '⚠' : '⚑'}
+                  </span>
                 </button>
               ))}
             </div>
