@@ -156,6 +156,12 @@ export default function AdminWmiConcepts() {
     return [...m.entries()]
   }, [concepts])
 
+  const summary = useMemo(() => {
+    const counts: Record<ReviewStatus, number> = { pending: 0, approved: 0, needs_changes: 0 }
+    for (const c of concepts) counts[c.status] = (counts[c.status] ?? 0) + 1
+    return counts
+  }, [concepts])
+
   const active = concepts.find((c) => c.slug === activeSlug) ?? null
   const sample = samples[idx] ?? null
   const Illustration = activeSlug ? getIllustration(activeSlug) : null
@@ -173,6 +179,21 @@ export default function AdminWmiConcepts() {
           notes per concept are saved.
         </p>
       </div>
+
+      {concepts.length > 0 && (
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
+          {(['approved', 'needs_changes', 'pending'] as const).map((s) => (
+            <span
+              key={s}
+              className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-700"
+            >
+              <span className={`h-2 w-2 rounded-full ${STATUS_META[s].dot}`} />
+              <span className="tabular-nums">{summary[s]}</span> {STATUS_META[s].label}
+            </span>
+          ))}
+          <span className="text-slate-400">· {concepts.length} total</span>
+        </div>
+      )}
 
       {listError && (
         <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{listError}</div>
