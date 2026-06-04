@@ -43,6 +43,9 @@ import sumPartitionSplit from './sum-partition-split/index.js'
 import clockReadTime from './clock-read-time/index.js'
 import shapePerimeterRectangle from './shape-perimeter-rectangle/index.js'
 import barChartCompare from './bar-chart-compare/index.js'
+import rectangleAreaGrid from './rectangle-area-grid/index.js'
+import perimeterAreaComposed from './perimeter-area-composed/index.js'
+import vennSetMembership from './venn-set-membership/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -91,6 +94,9 @@ export const CONCEPTS = {
   'clock-read-time': clockReadTime,
   'shape-perimeter-rectangle': shapePerimeterRectangle,
   'bar-chart-compare': barChartCompare,
+  'rectangle-area-grid': rectangleAreaGrid,
+  'perimeter-area-composed': perimeterAreaComposed,
+  'venn-set-membership': vennSetMembership,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

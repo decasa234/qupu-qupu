@@ -4,6 +4,9 @@ import ShapePerimeterSquare from './shape-perimeter-square'
 import ClockReadTime from './clock-read-time'
 import ShapePerimeterRectangle from './shape-perimeter-rectangle'
 import BarChartCompare from './bar-chart-compare'
+import RectangleAreaGrid from './rectangle-area-grid'
+import PerimeterAreaComposed from './perimeter-area-composed'
+import VennSetMembership from './venn-set-membership'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -11,6 +14,9 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'clock-read-time': ClockReadTime,
   'shape-perimeter-rectangle': ShapePerimeterRectangle,
   'bar-chart-compare': BarChartCompare,
+  'rectangle-area-grid': RectangleAreaGrid,
+  'perimeter-area-composed': PerimeterAreaComposed,
+  'venn-set-membership': VennSetMembership,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {
