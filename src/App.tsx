@@ -176,20 +176,6 @@ export default function App() {
           <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
         </Route>
 
-        {/* Concept proofreading — admin-only, standalone full-width view */}
-        <Route
-          path="/wmi-concepts"
-          element={
-            <AdminRoute>
-              <div className="min-h-screen bg-admin-bg text-admin-ink">
-                <div className="mx-auto max-w-7xl p-4 lg:p-6">
-                  <AdminWmiConceptsPage />
-                </div>
-              </div>
-            </AdminRoute>
-          }
-        />
-
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
