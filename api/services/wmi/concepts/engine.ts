@@ -8,6 +8,8 @@ import type { ConceptLogic } from './types.js'
 export interface ConceptQuestion {
   concept_instance_id: string
   concept_slug: string
+  concept_name_id: string
+  concept_name_en: string
   params: unknown
   body_en: string
   body_id: string
@@ -26,24 +28,38 @@ export async function getNextConceptQuestion(
   parentUserId: string,
   childId: string,
   grade: number,
+  requestedSlug?: string,
 ): Promise<ConceptQuestion> {
   await ensureBootstrapped()
 
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
 
-    const conceptRow = await queryOne<{ slug: string }>(
-      `
-      SELECT slug FROM wmi_concepts
-      WHERE enabled = TRUE AND $1::SMALLINT = ANY(grades)
-      ORDER BY random()
-      LIMIT 1
-      `,
-      [grade],
-      client,
-    )
+    // When a specific concept is requested (tapping a concept in the catalog),
+    // serve that concept directly — grade-independent. Otherwise pick a random
+    // enabled concept for the grade.
+    const conceptRow = requestedSlug
+      ? await queryOne<{ slug: string; name_id: string; name_en: string }>(
+          `SELECT slug, name_id, name_en FROM wmi_concepts WHERE slug = $1 AND enabled = TRUE`,
+          [requestedSlug],
+          client,
+        )
+      : await queryOne<{ slug: string; name_id: string; name_en: string }>(
+          `
+          SELECT slug, name_id, name_en FROM wmi_concepts
+          WHERE enabled = TRUE AND $1::SMALLINT = ANY(grades)
+          ORDER BY random()
+          LIMIT 1
+          `,
+          [grade],
+          client,
+        )
     if (!conceptRow) {
-      throw new Error(`konsep belum tersedia untuk kelas ${grade}`)
+      throw new Error(
+        requestedSlug
+          ? `konsep ${requestedSlug} tidak tersedia`
+          : `konsep belum tersedia untuk kelas ${grade}`,
+      )
     }
     const conceptSlug = conceptRow.slug
 
@@ -68,6 +84,8 @@ export async function getNextConceptQuestion(
     return {
       concept_instance_id: instance.id,
       concept_slug: conceptSlug,
+      concept_name_id: conceptRow.name_id,
+      concept_name_en: conceptRow.name_en,
       params: instance.params,
       body_en: instance.body_en,
       body_id: instance.body_id,

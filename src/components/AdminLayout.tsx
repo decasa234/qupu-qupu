@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
 
 const NAV = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: 'fa-solid fa-gauge' },
@@ -11,6 +12,16 @@ const NAV = [
 ]
 
 export default function AdminLayout() {
+  const navigate = useNavigate()
+  const { user, logout } = useAuthStore()
+
+  function handleLogout() {
+    logout()
+    // AdminRoute also redirects once isAuthenticated flips false; navigating
+    // explicitly avoids a flash of the guarded page in between.
+    navigate('/login', { replace: true })
+  }
+
   return (
     <div className="grid min-w-0 gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
       <aside className="rounded-xl border border-slate-200 bg-white p-3 lg:sticky lg:top-24 lg:self-start">
@@ -40,6 +51,27 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
+
+        <div className="mt-3 border-t border-slate-200 pt-3">
+          {user?.email && (
+            <div className="px-2 pb-2">
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                Masuk sebagai
+              </div>
+              <div className="truncate text-xs font-semibold text-slate-700" title={user.email}>
+                {user.email}
+              </div>
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-red-600"
+          >
+            <i className="fa-solid fa-right-from-bracket w-4 text-center text-sm" aria-hidden="true" />
+            Logout
+          </button>
+        </div>
       </aside>
 
       <main className="min-w-0">

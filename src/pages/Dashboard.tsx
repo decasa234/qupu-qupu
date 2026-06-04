@@ -11,6 +11,7 @@ import { fetchShopItems, type ShopItemForChild } from '../lib/shopApi'
 import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
+import { avatarIconClass, DEFAULT_AVATAR_COLOR } from '../lib/avatars'
 import AuthCard from '../components/AuthCard'
 import SkeletonCard from '../components/SkeletonCard'
 import HomeActionCards from '../components/dashboard/HomeActionCards'
@@ -172,9 +173,14 @@ export default function DashboardPage() {
               Pilih satu aksi, kumpulkan XP, dan buka hadiah berikutnya.
             </p>
           </div>
-          <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-[1.6rem] bg-[#FFF8F0] text-4xl text-qupu-brand-blue shadow-[inset_0_-4px_0_#FFD3B1]">
-            <i className="fa-solid fa-user-astronaut" aria-hidden="true" />
-          </div>
+          <Link
+            to="/me"
+            aria-label="Ubah avatar di Profil"
+            className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-[1.6rem] text-4xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.15)] transition-transform active:translate-y-0.5"
+            style={{ backgroundColor: activeChild.avatarColor ?? DEFAULT_AVATAR_COLOR }}
+          >
+            <i className={avatarIconClass(activeChild.avatarIcon)} aria-hidden="true" />
+          </Link>
         </div>
 
         <div className="relative mt-5 rounded-[1.5rem] bg-qupu-brand-blue p-3 shadow-[0_4px_0_0_#0E1430]">
@@ -200,7 +206,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <div className="mt-5 space-y-5">
+      <div className="mt-4 space-y-4">
         <HomeActionCards
           streak={vm.streak}
           recommended={recommended}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import WmiExamProgressBar from '../components/wmi/WmiExamProgressBar'
+import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import { completeExamSession, fetchExamSession, submitAttempt } from '../lib/wmiApi'
@@ -64,6 +64,16 @@ export default function WmiExam() {
   const attempt = attemptsByQuestion.get(question.id) as WmiSubmittedAttempt | undefined
   const total = snapshot.paper.questions.length
 
+  // Question navigator: answered (navy) vs not-yet (outline), current ringed,
+  // tap to jump. Correctness stays hidden until the review (blind exam).
+  const navDots: WmiDot[] = snapshot.paper.questions.map((q, index): WmiDot => ({
+    key: q.id,
+    state: attemptsByQuestion.has(q.id) ? 'answered' : 'pending',
+    current: index === currentIndex,
+    onClick: () => setCurrentIndex(index),
+    label: `Soal ${index + 1}`,
+  }))
+
   const saveAnswer = async (answer: string) => {
     if (!activeChildId || !sessionId) return
     try {
@@ -110,7 +120,7 @@ export default function WmiExam() {
             onExpire={finish}
           />
         </div>
-        <WmiExamProgressBar current={currentIndex} total={total} />
+        <WmiDots dots={navDots} />
       </header>
 
       <WmiQuestionView

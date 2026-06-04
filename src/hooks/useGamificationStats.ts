@@ -20,6 +20,9 @@ interface StatsState {
   stats: GamificationStats | null
   setStats: (s: GamificationStats) => void
   patchCoinBalance: (newBalance: number) => void
+  // Merge a partial update into the current stats (e.g. after a konsep answer
+  // grants XP/coins/streak). No-op if stats haven't been loaded yet.
+  patchStats: (partial: Partial<GamificationStats>) => void
 }
 
 export const useGamificationStats = create<StatsState>((set) => ({
@@ -29,4 +32,6 @@ export const useGamificationStats = create<StatsState>((set) => ({
     set((state) =>
       state.stats ? { stats: { ...state.stats, coinBalance: newBalance } } : state,
     ),
+  patchStats: (partial) =>
+    set((state) => (state.stats ? { stats: { ...state.stats, ...partial } } : state)),
 }))

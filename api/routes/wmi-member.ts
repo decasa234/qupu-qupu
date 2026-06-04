@@ -9,6 +9,7 @@ import {
   startWmiExamSession,
 } from '../services/wmi/sessions.js'
 import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/concepts/engine.js'
+import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 
 const router = Router()
 
@@ -188,6 +189,7 @@ router.patch('/exam/sessions/:id/complete', authenticateToken, async (req: AuthR
 const konsepNextQuerySchema = Joi.object({
   childId: Joi.string().uuid().required(),
   grade: Joi.number().integer().min(0).max(3).required(),
+  concept: Joi.string().pattern(/^[a-z0-9-]+$/).optional(),
 }).unknown(true)
 
 const voteSchema = Joi.object({
@@ -206,11 +208,35 @@ router.get(
         res.status(400).json({ success: false, error: error.details[0].message })
         return
       }
-      const question = await getNextConceptQuestion(req.user.id, value.childId, value.grade)
+      const question = await getNextConceptQuestion(
+        req.user.id,
+        value.childId,
+        value.grade,
+        value.concept,
+      )
       res.json({ success: true, data: { question } })
     } catch (error) {
       console.error('WMI konsep next error:', error)
       sendError(res, error, 'Unable to load concept question')
+    }
+  },
+)
+
+router.get(
+  '/konsep/progress',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = childQuerySchema.validate(req.query)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const progress = await getConceptProgress(req.user.id, value.childId)
+      res.json({ success: true, data: progress })
+    } catch (error) {
+      console.error('WMI konsep progress error:', error)
+      sendError(res, error, 'Unable to load concept progress')
     }
   },
 )

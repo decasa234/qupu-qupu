@@ -11,6 +11,7 @@ import {
   submitVideoScore,
   useStreakRecoveryForChild,
 } from '../services/member.js'
+import { getGamificationSummary } from '../services/gamification/summary.js'
 import { logSessionEvent } from '../services/sessionEvents.js'
 import {
   getOrCreateReferralCode,
@@ -56,6 +57,26 @@ router.post('/video-scores', authenticateToken, async (req: AuthRequest, res: Re
     res.status(400).json({
       success: false,
       error: error instanceof Error ? error.message : 'Unable to save score',
+    })
+  }
+})
+
+router.get('/gamification', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { error, value } = childIdQuerySchema.validate(req.query)
+
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
+      return
+    }
+
+    const data = await getGamificationSummary(req.user.id, value.childId)
+    res.json({ success: true, data })
+  } catch (error: unknown) {
+    console.error('Get gamification summary error:', error)
+    res.status(400).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unable to load gamification',
     })
   }
 })

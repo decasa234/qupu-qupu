@@ -1,5 +1,6 @@
 import { queryOne, withTransaction } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
+import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
 import { getWmiQuestionAnswer } from './papers.js'
 
 export interface WmiAttemptInput {
@@ -29,6 +30,8 @@ export interface WmiAttemptResult {
   hint_id: string | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  // Present only for concept attempts — XP/coins/streak granted for this answer.
+  gamification?: ConceptRewardResult
 }
 
 function isCorrectAnswer(expected: string, selected: string): boolean {
@@ -171,6 +174,26 @@ export async function submitWmiAttempt(
       )
     }
 
-    return { is_correct: correct, correct_answer: answer, hint_en, hint_id, hint_steps_en, hint_steps_id }
+    // Concept (konsep) attempts feed the gamification economy: streak on any
+    // answer, XP + coins on a correct one. Runs in this same transaction so a
+    // failed grant rolls back the attempt insert too.
+    let gamification: ConceptRewardResult | undefined
+    if (input.mode === 'concept') {
+      gamification = await awardConceptReward(client, {
+        childId: input.childId,
+        conceptInstanceId: input.conceptInstanceId as string,
+        isCorrect: correct,
+      })
+    }
+
+    return {
+      is_correct: correct,
+      correct_answer: answer,
+      hint_en,
+      hint_id,
+      hint_steps_en,
+      hint_steps_id,
+      gamification,
+    }
   })
 }

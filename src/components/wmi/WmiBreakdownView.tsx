@@ -27,19 +27,20 @@ const SECTION_STYLE: Record<SectionKind, { tint: string; tab: string; ink: strin
   plain: { tint: 'bg-gray-100', tab: 'bg-gray-400', ink: 'text-white' },
 }
 
-const SECTION_EMOJI: Record<SectionKind, string> = {
-  start: '📖',
-  mystery: '🔮',
-  add: '➕',
-  'take-away': '➖',
-  give: '🎁',
-  compare: '⚖️',
-  clue: '🔍',
-  share: '🍰',
-  now: '👉',
-  find: '🎯',
-  extra: '📎',
-  example: '💡',
+// Font Awesome class per section kind (no emoji glyphs — house style).
+const SECTION_ICON: Record<SectionKind, string> = {
+  start: 'fa-solid fa-book-open',
+  mystery: 'fa-solid fa-wand-magic-sparkles',
+  add: 'fa-solid fa-plus',
+  'take-away': 'fa-solid fa-minus',
+  give: 'fa-solid fa-gift',
+  compare: 'fa-solid fa-scale-balanced',
+  clue: 'fa-solid fa-magnifying-glass',
+  share: 'fa-solid fa-divide',
+  now: 'fa-solid fa-hand-point-right',
+  find: 'fa-solid fa-bullseye',
+  extra: 'fa-solid fa-paperclip',
+  example: 'fa-solid fa-lightbulb',
   plain: '',
 }
 
@@ -129,9 +130,12 @@ export default function WmiBreakdownView({ text, lang, onLookup }: Props) {
           <div key={`${section.kind}-${sectionIndex}`} className="relative animate-rise">
             {label && (
               <span
-                className={`absolute -top-4 left-3 z-10 rounded-t-lg border border-black/5 px-3 py-1 font-display text-xs font-extrabold shadow-sm ${style.tab} ${style.ink}`}
+                className={`absolute -top-4 left-3 z-10 inline-flex items-center gap-1 rounded-t-lg border border-black/5 px-3 py-1 font-display text-xs font-extrabold shadow-sm ${style.tab} ${style.ink}`}
               >
-                {SECTION_EMOJI[section.kind]} {label}
+                {SECTION_ICON[section.kind] && (
+                  <i className={SECTION_ICON[section.kind]} aria-hidden="true" />
+                )}
+                {label}
               </span>
             )}
             <div className={`rounded-xl border border-black/5 px-3.5 pb-3 pt-4 shadow-sm ${style.tint}`}>

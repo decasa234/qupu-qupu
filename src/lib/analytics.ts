@@ -1,4 +1,5 @@
 import api from './api'
+import { hasAnalyticsConsent } from './cookieConsent'
 
 const SESSION_KEY = 'qupu_session_id'
 
@@ -33,6 +34,8 @@ export function trackEvent(
   eventName: AnalyticsEventName,
   metadata?: Record<string, unknown>,
 ): void {
+  if (!hasAnalyticsConsent()) return
+
   void postEvent(eventName, metadata)
 }
 

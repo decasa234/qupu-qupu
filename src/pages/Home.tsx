@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { id as idLocale } from 'date-fns/locale'
-import api from '../lib/api'
+import { getCachedPublic } from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import { cn } from '../lib/utils'
 import BadgeCurve from '../components/BadgeCurve'
@@ -79,16 +79,19 @@ export default function Home() {
   useEffect(() => {
     async function load() {
       try {
-        const featured = await api.get('/public/videos', { params: { featured: 'true' } })
-        const featuredList: VideoCardType[] = featured.data.data.videos ?? []
+        const featured = await getCachedPublic<{ data: { videos?: VideoCardType[] } }>(
+          '/public/videos',
+          { params: { featured: 'true' } },
+        )
+        const featuredList: VideoCardType[] = featured.data.videos ?? []
 
         if (featuredList.length >= 5) {
           setVideos(featuredList.slice(0, 5))
           return
         }
 
-        const response = await api.get('/public/videos')
-        const all: VideoCardType[] = response.data.data.videos ?? []
+        const response = await getCachedPublic<{ data: { videos?: VideoCardType[] } }>('/public/videos')
+        const all: VideoCardType[] = response.data.videos ?? []
         setVideos(all.slice(0, 5))
       } catch (error) {
         console.error('Failed to load home videos:', error)
@@ -566,8 +569,12 @@ function ScoreBadgeCtaSection() {
   useEffect(() => {
     async function loadSubjects() {
       try {
-        const response = await api.get('/public/meta')
-        const list = (response.data?.data?.subjects ?? []) as Array<{
+        const response = await getCachedPublic<{ data?: { subjects?: Array<{
+          id: string
+          name: string
+          colorHex: string
+        }> } }>('/public/meta')
+        const list = (response.data?.subjects ?? []) as Array<{
           id: string
           name: string
           colorHex: string

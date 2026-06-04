@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import WmiFeedbackPanel from '../components/wmi/WmiFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
+import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import { fetchDrillQuestion, submitAttempt } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -24,6 +25,7 @@ export default function WmiDrill() {
   const [revealed, setRevealed] = useState(false)
   const [breakdown, setBreakdown] = useState(false)
   const [streak, setStreak] = useState(0)
+  const [results, setResults] = useState<boolean[]>([])
   const [error, setError] = useState<string | null>(null)
   const askedAt = useRef(Date.now())
 
@@ -66,6 +68,7 @@ export default function WmiDrill() {
       })
       setFeedback(saved)
       setStreak((value) => (saved.is_correct ? value + 1 : 0))
+      setResults((prev) => [...prev, saved.is_correct])
     } catch (err) {
       setSelected(null)
       setError(err instanceof Error ? err.message : 'Gagal menyimpan jawaban')
@@ -76,6 +79,18 @@ export default function WmiDrill() {
   if (error) return <div className="mx-auto max-w-xl p-6 text-center text-red-600">{error}</div>
   if (!question) return <div className="p-6 text-center">Memuat soal...</div>
 
+  // Session marker strip: answered questions (correct/wrong) + the active one.
+  const recentResults = results.slice(-24)
+  const resultOffset = results.length - recentResults.length
+  const sessionDots: WmiDot[] = recentResults.map((correct, index): WmiDot => ({
+    key: `r-${resultOffset + index}`,
+    state: correct ? 'correct' : 'wrong',
+    current: feedback != null && index === recentResults.length - 1,
+  }))
+  if (!feedback) {
+    sessionDots.push({ key: 'current', state: 'pending', current: true })
+  }
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-4 flex items-center justify-between">
@@ -83,6 +98,9 @@ export default function WmiDrill() {
         <span className="rounded-full bg-qupu-cream px-3 py-1 text-sm font-bold text-qupu-brand-blue">
           Streak {streak}
         </span>
+      </div>
+      <div className="mb-4">
+        <WmiDots dots={sessionDots} />
       </div>
       <WmiQuestionView
         question={question}
