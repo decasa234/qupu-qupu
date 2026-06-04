@@ -46,6 +46,9 @@ import barChartCompare from './bar-chart-compare/index.js'
 import rectangleAreaGrid from './rectangle-area-grid/index.js'
 import perimeterAreaComposed from './perimeter-area-composed/index.js'
 import vennSetMembership from './venn-set-membership/index.js'
+import blockCount3d from './block-count-3d/index.js'
+import numberLineJumps from './number-line-jumps/index.js'
+import countPolygonSides from './count-polygon-sides/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -97,6 +100,9 @@ export const CONCEPTS = {
   'rectangle-area-grid': rectangleAreaGrid,
   'perimeter-area-composed': perimeterAreaComposed,
   'venn-set-membership': vennSetMembership,
+  'block-count-3d': blockCount3d,
+  'number-line-jumps': numberLineJumps,
+  'count-polygon-sides': countPolygonSides,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
