@@ -1,6 +1,8 @@
 import api from './api'
 import type { WmiChoice } from '../types/wmi'
 
+export type ReviewStatus = 'pending' | 'approved' | 'needs_changes'
+
 export interface AdminConceptSummary {
   slug: string
   short_id: string
@@ -10,6 +12,15 @@ export interface AdminConceptSummary {
   grades: number[]
   domain: string
   domain_label: string
+  status: ReviewStatus
+}
+
+export interface ConceptReview {
+  concept_slug: string
+  status: ReviewStatus
+  notes: string
+  reviewed_by: string | null
+  updated_at: string | null
 }
 
 export interface AdminConceptSample {
@@ -42,4 +53,18 @@ export async function fetchConceptSamples(
     params: { count, ...(seed != null ? { seed } : {}) },
   })
   return { baseSeed: data.data.baseSeed, samples: data.data.samples }
+}
+
+export async function fetchConceptReview(slug: string): Promise<ConceptReview> {
+  const { data } = await api.get(`/admin/wmi/concepts/${slug}/review`)
+  return data.data.review
+}
+
+export async function saveConceptReview(
+  slug: string,
+  status: ReviewStatus,
+  notes: string,
+): Promise<ConceptReview> {
+  const { data } = await api.put(`/admin/wmi/concepts/${slug}/review`, { status, notes })
+  return data.data.review
 }

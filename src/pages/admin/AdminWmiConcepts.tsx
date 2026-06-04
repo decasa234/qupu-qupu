@@ -5,13 +5,27 @@ import { getIllustration } from '../../components/wmi/concepts/registry'
 import { getExplainer } from '../../components/wmi/concepts/explainers/registry'
 import {
   fetchConceptList,
+  fetchConceptReview,
   fetchConceptSamples,
+  saveConceptReview,
   type AdminConceptSample,
   type AdminConceptSummary,
+  type ConceptReview,
+  type ReviewStatus,
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
 
 const noop = () => {}
+
+const STATUS_ORDER = ['pending', 'approved', 'needs_changes'] as const
+const STATUS_META: Record<
+  ReviewStatus,
+  { dot: string; label: string; ring: string; active: string }
+> = {
+  pending: { dot: 'bg-slate-300', label: 'Pending', ring: 'border-slate-300 text-slate-600', active: 'bg-slate-600 text-white' },
+  approved: { dot: 'bg-emerald-500', label: 'Approved', ring: 'border-emerald-300 text-emerald-700', active: 'bg-emerald-600 text-white' },
+  needs_changes: { dot: 'bg-amber-500', label: 'Needs changes', ring: 'border-amber-300 text-amber-700', active: 'bg-amber-600 text-white' },
+}
 
 function adapt(slug: string, s: AdminConceptSample): WmiQuestion {
   return {
@@ -61,6 +75,14 @@ export default function AdminWmiConcepts() {
   const [listError, setListError] = useState<string | null>(null)
   const [sampleError, setSampleError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  // Review (editable + saved)
+  const [review, setReview] = useState<ConceptReview | null>(null)
+  const [status, setStatus] = useState<ReviewStatus>('pending')
+  const [notes, setNotes] = useState('')
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [savedFlash, setSavedFlash] = useState(false)
 
   useEffect(() => {
     fetchConceptList()
@@ -91,6 +113,40 @@ export default function AdminWmiConcepts() {
     if (activeSlug) loadSamples(activeSlug)
   }, [activeSlug, loadSamples])
 
+  useEffect(() => {
+    if (!activeSlug) return
+    setReviewLoading(true)
+    setSaveError(null)
+    setSavedFlash(false)
+    fetchConceptReview(activeSlug)
+      .then((r) => {
+        setReview(r)
+        setStatus(r.status)
+        setNotes(r.notes)
+      })
+      .catch((e) => setSaveError(e instanceof Error ? e.message : 'Gagal memuat review'))
+      .finally(() => setReviewLoading(false))
+  }, [activeSlug])
+
+  const saveReview = async () => {
+    if (!activeSlug) return
+    setSaving(true)
+    setSaveError(null)
+    try {
+      const saved = await saveConceptReview(activeSlug, status, notes)
+      setReview(saved)
+      setConcepts((cs) =>
+        cs.map((c) => (c.slug === activeSlug ? { ...c, status: saved.status } : c)),
+      )
+      setSavedFlash(true)
+      window.setTimeout(() => setSavedFlash(false), 1800)
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Gagal menyimpan review')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const grouped = useMemo(() => {
     const m = new Map<string, AdminConceptSummary[]>()
     for (const c of concepts) {
@@ -105,6 +161,7 @@ export default function AdminWmiConcepts() {
   const Illustration = activeSlug ? getIllustration(activeSlug) : null
   const hasExplainer = activeSlug ? Boolean(getExplainer(activeSlug)) : false
   const hasSteps = Boolean(sample?.hint_steps_en?.length || sample?.hint_steps_id?.length)
+  const dirty = !review || status !== review.status || notes !== review.notes
 
   return (
     <div>
@@ -112,7 +169,8 @@ export default function AdminWmiConcepts() {
         <h1 className="font-display text-2xl font-extrabold text-slate-900">WMI Concept Proofreading</h1>
         <p className="text-sm text-slate-500">
           Every registered generator, grouped by domain. Preview generated questions with answers,
-          breakdown, step-by-step, and animation. Samples are generated live — nothing is saved.
+          breakdown, step-by-step, and animation. Samples are generated live; your review verdict &
+          notes per concept are saved.
         </p>
       </div>
 
@@ -152,6 +210,10 @@ export default function AdminWmiConcepts() {
                   >
                     G{c.grades.join('')}
                   </span>
+                  <span
+                    className={`h-2 w-2 shrink-0 rounded-full ${STATUS_META[c.status]?.dot ?? 'bg-slate-300'}`}
+                    title={STATUS_META[c.status]?.label ?? 'Pending'}
+                  />
                 </button>
               ))}
             </div>
@@ -177,6 +239,64 @@ export default function AdminWmiConcepts() {
                 <Chip on={hasExplainer} label="Animation" />
                 <Chip on={hasSteps} label="Step-by-step" />
               </div>
+            </div>
+          )}
+
+          {/* Review — editable verdict + notes, saved per concept */}
+          {active && (
+            <div className="mb-3">
+              <Section title="Review — saved verdict & notes">
+                {reviewLoading ? (
+                  <div className="text-sm text-slate-400">Memuat review…</div>
+                ) : (
+                  <div className="grid gap-3">
+                    <div className="flex flex-wrap gap-2">
+                      {STATUS_ORDER.map((s) => {
+                        const m = STATUS_META[s]
+                        const on = status === s
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => setStatus(s)}
+                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-bold transition-colors ${
+                              on ? `border-transparent ${m.active}` : `bg-white ${m.ring} hover:bg-slate-50`
+                            }`}
+                          >
+                            <span className={`h-2 w-2 rounded-full ${on ? 'bg-white' : m.dot}`} />
+                            {m.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                    <textarea
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      rows={4}
+                      placeholder="Notes / corrections for this concept — what's wrong, the suggested fix, edge cases to handle…"
+                      className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-qupu-brand-blue focus:outline-none"
+                    />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={saveReview}
+                        disabled={saving || !dirty}
+                        className="rounded-lg bg-qupu-brand-blue px-4 py-2 text-sm font-bold text-white hover:opacity-90 disabled:opacity-40"
+                      >
+                        {saving ? 'Saving…' : dirty ? 'Save review' : 'Saved'}
+                      </button>
+                      {savedFlash && <span className="text-sm font-semibold text-emerald-600">✓ Saved</span>}
+                      {saveError && <span className="text-sm text-red-600">{saveError}</span>}
+                      {review?.updated_at && (
+                        <span className="text-xs text-slate-400">
+                          Last saved {new Date(review.updated_at).toLocaleString()}
+                          {review.reviewed_by ? ` by ${review.reviewed_by}` : ''}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </Section>
             </div>
           )}
 

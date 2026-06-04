@@ -621,6 +621,16 @@ CREATE TABLE IF NOT EXISTS wmi_concept_votes (
 CREATE INDEX IF NOT EXISTS idx_wmi_concept_votes_instance
   ON wmi_concept_votes (concept_instance_id);
 
+-- Per-concept proofreading verdict + notes (one latest record per concept).
+CREATE TABLE IF NOT EXISTS wmi_concept_reviews (
+  concept_slug  TEXT PRIMARY KEY,
+  status        TEXT NOT NULL DEFAULT 'pending'
+                  CHECK (status IN ('pending', 'approved', 'needs_changes')),
+  notes         TEXT NOT NULL DEFAULT '',
+  reviewed_by   TEXT,
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 ALTER TABLE wmi_attempts ALTER COLUMN question_id DROP NOT NULL;
 
 ALTER TABLE wmi_attempts
