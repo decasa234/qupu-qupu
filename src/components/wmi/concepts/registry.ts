@@ -16,6 +16,9 @@ import TallyMarksCount from './tally-marks-count'
 import GridPathSteps from './grid-path-steps'
 import MoneyCoinsTotal from './money-coins-total'
 import SameFigureIdentify from './same-figure-identify'
+import DiceNetFold from './dice-net-fold'
+import ScaleRead from './scale-read'
+import FractionOfRegion from './fraction-of-region'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -35,6 +38,9 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'grid-path-steps': GridPathSteps,
   'money-coins-total': MoneyCoinsTotal,
   'same-figure-identify': SameFigureIdentify,
+  'dice-net-fold': DiceNetFold,
+  'scale-read': ScaleRead,
+  'fraction-of-region': FractionOfRegion,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {

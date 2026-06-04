@@ -55,6 +55,9 @@ import tallyMarksCount from './tally-marks-count/index.js'
 import gridPathSteps from './grid-path-steps/index.js'
 import moneyCoinsTotal from './money-coins-total/index.js'
 import sameFigureIdentify from './same-figure-identify/index.js'
+import diceNetFold from './dice-net-fold/index.js'
+import scaleRead from './scale-read/index.js'
+import fractionOfRegion from './fraction-of-region/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -115,6 +118,9 @@ export const CONCEPTS = {
   'grid-path-steps': gridPathSteps,
   'money-coins-total': moneyCoinsTotal,
   'same-figure-identify': sameFigureIdentify,
+  'dice-net-fold': diceNetFold,
+  'scale-read': scaleRead,
+  'fraction-of-region': fractionOfRegion,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
