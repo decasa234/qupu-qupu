@@ -17,8 +17,15 @@ import {
   getOrCreateReferralCode,
   recordReferralUse,
 } from '../services/referrals.js'
+import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
 
 const router = Router()
+
+// Maps a thrown service error to an HTTP status. Ownership failures
+// ('Child not found') are 404 everywhere; everything else is a 400.
+function statusForError(message: string): number {
+  return message === 'Child not found' ? 404 : 400
+}
 
 const scoreSchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -74,10 +81,8 @@ router.get('/gamification', authenticateToken, async (req: AuthRequest, res: Res
     res.json({ success: true, data })
   } catch (error: unknown) {
     console.error('Get gamification summary error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to load gamification',
-    })
+    const message = error instanceof Error ? error.message : 'Unable to load gamification'
+    res.status(statusForError(message)).json({ success: false, error: message })
   }
 })
 
@@ -94,10 +99,8 @@ router.get('/progress', authenticateToken, async (req: AuthRequest, res: Respons
     res.json({ success: true, data })
   } catch (error: unknown) {
     console.error('Get progress error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to load progress',
-    })
+    const message = error instanceof Error ? error.message : 'Unable to load progress'
+    res.status(statusForError(message)).json({ success: false, error: message })
   }
 })
 
@@ -138,10 +141,8 @@ router.get('/badges', authenticateToken, async (req: AuthRequest, res: Response)
     res.json({ success: true, data: { families } })
   } catch (error: unknown) {
     console.error('Get badges error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to load badges',
-    })
+    const message = error instanceof Error ? error.message : 'Unable to load badges'
+    res.status(statusForError(message)).json({ success: false, error: message })
   }
 })
 
@@ -161,10 +162,8 @@ router.get(
       res.json({ success: true, data })
     } catch (lookupError: unknown) {
       console.error('Get video score error:', lookupError)
-      res.status(400).json({
-        success: false,
-        error: lookupError instanceof Error ? lookupError.message : 'Unable to load score',
-      })
+      const message = lookupError instanceof Error ? lookupError.message : 'Unable to load score'
+      res.status(statusForError(message)).json({ success: false, error: message })
     }
   },
 )
@@ -235,11 +234,9 @@ router.post(
       const result = await getOrCreateReferralCode(req.user.id)
       res.json({ success: true, data: result })
     } catch (refError: unknown) {
+      // Don't leak internal error detail (e.g. the retry-exhausted message).
       console.error('Generate referral code error:', refError)
-      res.status(500).json({
-        success: false,
-        error: refError instanceof Error ? refError.message : 'Unable to generate code',
-      })
+      res.status(500).json({ success: false, error: 'Unable to generate code' })
     }
   },
 )
@@ -253,6 +250,18 @@ router.post(
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
+      // Rate-limit per user so a valid code cannot be probed in bulk.
+      try {
+        await enforceRateLimit(req.user.id, 'referrals:use', { max: 10, windowSeconds: 3600 })
+      } catch (limitErr) {
+        if (limitErr instanceof RateLimitError) {
+          res.set('Retry-After', String(limitErr.retryAfterSeconds))
+          res.status(429).json({ success: false, error: 'Terlalu banyak percobaan. Coba lagi nanti.' })
+          return
+        }
+        throw limitErr
+      }
+
       const { error, value } = referralUseSchema.validate(req.body)
       if (error) {
         // Bad code shape is still "recorded:false" semantics — don't 400.
@@ -260,7 +269,9 @@ router.post(
         return
       }
       const outcome = await recordReferralUse(req.user.id, value.code)
-      res.json({ success: true, data: outcome })
+      // Only surface whether it was recorded — never echo the referrer's
+      // internal user id (it would turn a valid code into a UUID-disclosure oracle).
+      res.json({ success: true, data: { recorded: outcome.recorded } })
     } catch (refError: unknown) {
       // Defensive: a referral failure must NEVER bubble visibly.
       console.error('Record referral use error:', refError)

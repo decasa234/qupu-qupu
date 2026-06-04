@@ -14,6 +14,7 @@
 
 import type { PoolClient } from 'pg'
 import { queryOne, withTransaction } from '../../db.js'
+import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { wibDateString } from '../../lib/wib.js'
 import { appendLedger } from './ledger.js'
 import { ensureProfile } from './profileUpdater.js'
@@ -49,10 +50,16 @@ export async function hasClaimedLoginBonus(
   return Boolean(row)
 }
 
-export async function claimLoginBonus(childId: string): Promise<LoginBonusResult> {
+export async function claimLoginBonus(
+  childId: string,
+  parentUserId: string,
+): Promise<LoginBonusResult> {
   const today = wibDateString(new Date())
 
   return withTransaction(async (client) => {
+    // Ownership is asserted INSIDE the claim transaction so the check and the
+    // coin credit share one connection/snapshot (no assert→mutate gap).
+    await assertChildOwnership(client, parentUserId, childId)
     await ensureProfile(client, childId)
 
     // Idempotency-checked insert. Empty RETURNING ⇒ already claimed today.

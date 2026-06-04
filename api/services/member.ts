@@ -152,8 +152,10 @@ export async function submitVideoScore(input: {
         VALUES ($1, $2, $3, $4, NOW(), NOW())
         ON CONFLICT (child_id, video_id)
         DO UPDATE SET
-          badge_count = EXCLUDED.badge_count,
-          correct_answers = EXCLUDED.correct_answers,
+          -- Upgrade-only: a later, lower-scoring attempt (e.g. a correction)
+          -- must never downgrade an already-earned badge tier or best score.
+          badge_count = GREATEST(user_badge_unlocks.badge_count, EXCLUDED.badge_count),
+          correct_answers = GREATEST(user_badge_unlocks.correct_answers, EXCLUDED.correct_answers),
           updated_at = NOW()
       `,
       [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
@@ -510,10 +512,9 @@ export async function claimLoginBonusForChild(
   parentUserId: string,
   childId: string,
 ): Promise<LoginBonusResult> {
-  // Ownership check runs on the shared pool — claimLoginBonus opens its own
-  // transaction, so we deliberately do not nest one here.
-  await assertChildOwnership(pool, parentUserId, childId)
-  return claimLoginBonus(childId)
+  // Ownership is asserted inside claimLoginBonus's transaction (atomic with
+  // the coin credit), so we no longer pre-check on the shared pool here.
+  return claimLoginBonus(childId, parentUserId)
 }
 
 export async function getMemberAchievements(

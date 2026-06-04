@@ -173,12 +173,14 @@ CREATE TABLE IF NOT EXISTS youtube_channel_cache (
 
 CREATE INDEX IF NOT EXISTS idx_youtube_channel_cache_expires_at ON youtube_channel_cache(expires_at);
 
+-- limit_key is an opaque string: a user id for admin routes, or an
+-- IP/email/pending-derived key for unauthenticated auth + analytics routes.
 CREATE TABLE IF NOT EXISTS request_rate_limits (
-  user_id UUID NOT NULL,
+  limit_key TEXT NOT NULL,
   route VARCHAR(64) NOT NULL,
   window_started_at TIMESTAMPTZ NOT NULL,
   count INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (user_id, route)
+  PRIMARY KEY (limit_key, route)
 );
 
 CREATE INDEX IF NOT EXISTS idx_request_rate_limits_window ON request_rate_limits(window_started_at);
