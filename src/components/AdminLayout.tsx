@@ -7,6 +7,7 @@ const NAV = [
   { to: '/admin/age-groups', label: 'Age Groups', icon: 'fa-solid fa-children' },
   { to: '/admin/users', label: 'Users', icon: 'fa-solid fa-users' },
   { to: '/admin/analytics', label: 'Analytics', icon: 'fa-solid fa-chart-line' },
+  { to: '/admin/wmi-concepts', label: 'WMI Concepts', icon: 'fa-solid fa-flask' },
 ]
 
 export default function AdminLayout() {

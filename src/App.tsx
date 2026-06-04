@@ -27,6 +27,7 @@ import AdminAgeGroupsPage from './pages/admin/AdminAgeGroups'
 import AdminUsersPage from './pages/admin/AdminUsers'
 import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
 import AdminImportVideosPage from './pages/admin/AdminImportVideos'
+import AdminWmiConceptsPage from './pages/admin/AdminWmiConcepts'
 import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
@@ -191,6 +192,7 @@ export default function App() {
           <Route path="age-groups" element={<AdminAgeGroupsPage />} />
           <Route path="users" element={<AdminUsersPage />} />
           <Route path="analytics" element={<AdminAnalyticsPage />} />
+          <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
