@@ -4,25 +4,26 @@ interface AngleParams {
 
 export default function AngleTypeIllustration({ params }: { params: unknown }) {
   const p = params as AngleParams
-  const w = 200
+  const w = 240
   const h = 150
-  const vx = 40 // vertex
-  const vy = h - 30
-  const len = 130
+  // Vertex placed so both rays fit for any angle in 10..170 deg.
+  const vx = 118
+  const vy = 128
+  const len = 108
   const rad = (p.degrees * Math.PI) / 180
-  // ray 1 horizontal to the right; ray 2 rotated CCW (up) by `degrees`
+  // ray 1 horizontal to the right; ray 2 rotated counter-clockwise (up) by `degrees`
   const x1 = vx + len
   const y1 = vy
   const x2 = vx + len * Math.cos(rad)
   const y2 = vy - len * Math.sin(rad)
-  const arcR = 28
+  const arcR = 26
   const ax = vx + arcR
   const ay = vy
   const bx = vx + arcR * Math.cos(rad)
   const by = vy - arcR * Math.sin(rad)
   return (
     <div className="my-4 flex justify-center">
-      <svg viewBox={`0 0 ${w} ${h}`} width="220" role="img" aria-label={`Sudut ${p.degrees} derajat`}>
+      <svg viewBox={`0 0 ${w} ${h}`} width="240" role="img" aria-label={`Sudut ${p.degrees} derajat`}>
         <line x1={vx} y1={vy} x2={x1} y2={y1} stroke="currentColor" strokeWidth={3} strokeLinecap="round" className="text-qupu-brand-blue" />
         <line x1={vx} y1={vy} x2={x2} y2={y2} stroke="currentColor" strokeWidth={3} strokeLinecap="round" className="text-qupu-brand-blue" />
         <path d={`M ${ax} ${ay} A ${arcR} ${arcR} 0 0 0 ${bx} ${by}`} fill="none" stroke="currentColor" strokeWidth={2} className="text-qupu-brand-orange" />
