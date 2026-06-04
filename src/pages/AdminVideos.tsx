@@ -1,53 +1,109 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import SkeletonCard from '../components/SkeletonCard'
 import BadgeCurve from '../components/BadgeCurve'
 import AdminPageHeader from '../components/admin/AdminPageHeader'
 import ConfirmDangerousAction from '../components/ConfirmDangerousAction'
+import { useToast } from '../components/admin/Toast'
+import {
+  Button,
+  buttonClass,
+  EmptyState,
+  Input,
+  Panel,
+  SectionHeading,
+  SegmentedControl,
+  Select,
+  Skeleton,
+  Tag,
+} from '../components/admin/ui'
+import VideoEditor, { emptyVideoForm } from '../components/admin/VideoEditor'
 import api from '../lib/api'
-import { slugify } from '../lib/youtube'
+import { getApiErrorCode, getApiErrorMessage } from '../lib/apiError'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
 
 type CatalogFilter = 'all' | 'draft' | 'published'
 
-const INPUT =
-  'w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500'
+interface StaleVideo {
+  id: string
+  youtubeVideoId: string
+  title: string
+  isPublished: boolean
+  scoreAttempts: number
+  badgeUnlocks: number
+}
 
-const EMPTY_FORM: AdminVideoFormValues = {
-  title: '',
-  slug: '',
-  youtubeUrl: '',
-  thumbnailUrl: '',
-  subjectId: '',
-  ageGroupId: '',
-  numberOfQuestions: 10,
-  difficulty: 'easy',
-  description: '',
-  isPublished: true,
-  isFeatured: false,
-  sortOrder: 0,
-  badgeRanges: [
-    { minCorrect: 0, maxCorrect: 4, badgeCount: 1 },
-    { minCorrect: 5, maxCorrect: 7, badgeCount: 2 },
-    { minCorrect: 8, maxCorrect: null, badgeCount: 3 },
-  ],
+// A draft is publish-ready once all four publish-gated fields are present.
+function isComplete(video: VideoDetail): boolean {
+  return Boolean(video.subject && video.ageGroup && video.numberOfQuestions && video.badgeRanges.length > 0)
+}
+
+function formFromVideo(video: VideoDetail): AdminVideoFormValues {
+  return {
+    title: video.title,
+    slug: video.slug,
+    youtubeUrl: video.youtubeUrl,
+    thumbnailUrl: video.thumbnailUrl,
+    subjectId: video.subject?.id ?? '',
+    ageGroupId: video.ageGroup?.id ?? '',
+    numberOfQuestions: video.numberOfQuestions,
+    difficulty: video.difficulty,
+    description: video.description ?? '',
+    isPublished: video.isPublished,
+    isFeatured: video.isFeatured,
+    sortOrder: video.sortOrder,
+    badgeRanges: video.badgeRanges.map((r) => ({
+      minCorrect: r.minCorrect,
+      maxCorrect: r.maxCorrect,
+      badgeCount: r.badgeCount,
+    })),
+  }
+}
+
+// Full PUT payload from an existing video, with optional field overrides — used
+// by quick-publish and the bulk actions, which reuse the validated update path.
+function payloadFromVideo(video: VideoDetail, overrides: Record<string, unknown> = {}) {
+  return {
+    title: video.title,
+    slug: video.slug,
+    youtubeUrl: video.youtubeUrl,
+    thumbnailUrl: video.thumbnailUrl,
+    subjectId: video.subject?.id ?? null,
+    ageGroupId: video.ageGroup?.id ?? null,
+    numberOfQuestions: video.numberOfQuestions,
+    difficulty: video.difficulty,
+    description: video.description ?? '',
+    isPublished: video.isPublished,
+    isFeatured: video.isFeatured,
+    sortOrder: video.sortOrder,
+    badgeRanges: video.badgeRanges.map((r) => ({
+      minCorrect: r.minCorrect,
+      maxCorrect: r.maxCorrect,
+      badgeCount: r.badgeCount,
+    })),
+    ...overrides,
+  }
 }
 
 export default function AdminVideosPage() {
+  const toast = useToast()
   const [meta, setMeta] = useState<PublicMeta | null>(null)
   const [videos, setVideos] = useState<VideoDetail[]>([])
-  const [form, setForm] = useState<AdminVideoFormValues>(EMPTY_FORM)
-  const [editingId, setEditingId] = useState<string | null>(null)
-  const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [confirmDelete, setConfirmDelete] = useState<VideoDetail | null>(null)
-  const [importing, setImporting] = useState(false)
   const [filter, setFilter] = useState<CatalogFilter>('all')
-  // True when the currently-edited row was already published when loaded —
-  // we lock the Publish toggle to prevent destructive unpublish in v1.
-  const [originallyPublished, setOriginallyPublished] = useState(false)
+  const [editingId, setEditingId] = useState<string | 'new' | null>(null)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [confirmDelete, setConfirmDelete] = useState<VideoDetail | null>(null)
+  const [busyId, setBusyId] = useState<string | null>(null)
+  const [bulkBusy, setBulkBusy] = useState(false)
+  const [autoCompleting, setAutoCompleting] = useState(false)
+  const [bulkSubjectId, setBulkSubjectId] = useState('')
+  const [bulkAgeGroupId, setBulkAgeGroupId] = useState('')
+  const [bulkQuestions, setBulkQuestions] = useState('')
+
+  // Stale-video scan (deleted/private on YouTube).
+  const [scanning, setScanning] = useState(false)
+  const [staleVideos, setStaleVideos] = useState<StaleVideo[] | null>(null)
+  const [confirmPurge, setConfirmPurge] = useState(false)
 
   const refresh = useCallback(async () => {
     setLoading(true)
@@ -56,22 +112,14 @@ export default function AdminVideosPage() {
         api.get('/public/meta'),
         api.get('/admin/videos'),
       ])
-
       setMeta(metaResponse.data.data)
       setVideos(videosResponse.data.data.videos)
-      if (!editingId && metaResponse.data.data.subjects[0]) {
-        setForm((state) => ({
-          ...state,
-          subjectId: state.subjectId || metaResponse.data.data.subjects[0].id,
-          ageGroupId: state.ageGroupId || metaResponse.data.data.ageGroups[0].id,
-        }))
-      }
     } catch (error) {
       console.error('Failed to load admin videos:', error)
     } finally {
       setLoading(false)
     }
-  }, [editingId])
+  }, [])
 
   useEffect(() => {
     void refresh()
@@ -79,251 +127,6 @@ export default function AdminVideosPage() {
 
   const subjectOptions = useMemo(() => meta?.subjects ?? [], [meta])
   const ageGroupOptions = useMemo(() => meta?.ageGroups ?? [], [meta])
-
-  const titlePreview = useMemo(() => form.slug || slugify(form.title), [form.slug, form.title])
-
-  const selectedSubject = useMemo(
-    () => subjectOptions.find((subject) => subject.id === form.subjectId) ?? null,
-    [subjectOptions, form.subjectId],
-  )
-
-  function startCreate() {
-    setEditingId(null)
-    setMessage('')
-    setOriginallyPublished(false)
-    const firstSubject = subjectOptions[0]
-    const template = firstSubject?.defaultBadgeRanges ?? []
-    setForm({
-      ...EMPTY_FORM,
-      subjectId: firstSubject?.id ?? '',
-      ageGroupId: ageGroupOptions[0]?.id ?? '',
-      badgeRanges:
-        template.length > 0 ? template.map((r) => ({ ...r })) : EMPTY_FORM.badgeRanges,
-    })
-  }
-
-  function applyTemplate() {
-    const subject = subjectOptions.find((s) => s.id === form.subjectId)
-    const template = subject?.defaultBadgeRanges ?? []
-    if (template.length === 0) {
-      setMessage(`Subject "${subject?.name ?? ''}" belum punya template.`)
-      return
-    }
-    setForm((s) => ({
-      ...s,
-      badgeRanges: template.map((r) => ({ ...r })),
-    }))
-    setMessage(`Template ${subject?.name ?? ''} diterapkan.`)
-  }
-
-  function handleSubjectChange(subjectId: string) {
-    const subject = subjectOptions.find((s) => s.id === subjectId)
-    setForm((s) => {
-      const isCreating = editingId === null
-      const isPristine =
-        JSON.stringify(s.badgeRanges) === JSON.stringify(EMPTY_FORM.badgeRanges) ||
-        s.badgeRanges.length === 0
-      const shouldApplyTemplate =
-        subject &&
-        subject.defaultBadgeRanges &&
-        subject.defaultBadgeRanges.length > 0 &&
-        (isCreating || isPristine)
-      return {
-        ...s,
-        subjectId,
-        badgeRanges: shouldApplyTemplate
-          ? subject.defaultBadgeRanges!.map((r) => ({ ...r }))
-          : s.badgeRanges,
-      }
-    })
-  }
-
-  function startEdit(video: VideoDetail) {
-    setEditingId(video.id)
-    setMessage('')
-    setOriginallyPublished(video.isPublished)
-    setForm({
-      title: video.title,
-      slug: video.slug,
-      youtubeUrl: video.youtubeUrl,
-      thumbnailUrl: video.thumbnailUrl,
-      subjectId: video.subject?.id ?? '',
-      ageGroupId: video.ageGroup?.id ?? '',
-      numberOfQuestions: video.numberOfQuestions,
-      difficulty: video.difficulty,
-      description: video.description ?? '',
-      isPublished: video.isPublished,
-      isFeatured: video.isFeatured,
-      sortOrder: video.sortOrder,
-      badgeRanges: video.badgeRanges.map((range) => ({
-        minCorrect: range.minCorrect,
-        maxCorrect: range.maxCorrect,
-        badgeCount: range.badgeCount,
-      })),
-    })
-  }
-
-  function addRange() {
-    setForm((state) => {
-      const last = state.badgeRanges[state.badgeRanges.length - 1]
-      const fallbackMin = last
-        ? Math.min((last.maxCorrect ?? state.numberOfQuestions) + 1, state.numberOfQuestions)
-        : 0
-      const nextCount = last ? last.badgeCount + 1 : 1
-      return {
-        ...state,
-        badgeRanges: [
-          ...state.badgeRanges,
-          { minCorrect: fallbackMin, maxCorrect: null, badgeCount: nextCount },
-        ],
-      }
-    })
-  }
-
-  function removeRange(index: number) {
-    setForm((state) => ({
-      ...state,
-      badgeRanges: state.badgeRanges.filter((_, i) => i !== index),
-    }))
-  }
-
-  function updateRange(index: number, patch: Partial<AdminVideoFormValues['badgeRanges'][number]>) {
-    setForm((state) => ({
-      ...state,
-      badgeRanges: state.badgeRanges.map((range, i) =>
-        i === index ? { ...range, ...patch } : range,
-      ),
-    }))
-  }
-
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
-    setSaving(true)
-    setMessage('')
-
-    // Client-side publish-validation mirror: when admin tries to publish, every
-    // QUPU-required field must be populated. The server runs the same checks
-    // (normalizeVideoInput + DB CHECK constraint) but blocking client-side
-    // gives the admin a clearer error than a 400 round-trip.
-    if (form.isPublished) {
-      const missing: string[] = []
-      if (!form.subjectId) missing.push('Subject')
-      if (!form.ageGroupId) missing.push('Age group')
-      if (!form.numberOfQuestions || Number(form.numberOfQuestions) <= 0) {
-        missing.push('Jumlah soal')
-      }
-      if (form.badgeRanges.length === 0) missing.push('Badge ranges')
-      if (missing.length > 0) {
-        setMessage(`Lengkapi field berikut sebelum publish: ${missing.join(', ')}.`)
-        setSaving(false)
-        return
-      }
-    }
-
-    try {
-      const payload = {
-        ...form,
-        slug: form.slug || slugify(form.title),
-        subjectId: form.subjectId || null,
-        ageGroupId: form.ageGroupId || null,
-        numberOfQuestions:
-          form.numberOfQuestions === null ||
-          form.numberOfQuestions === undefined ||
-          (form.numberOfQuestions as unknown as string) === ''
-            ? null
-            : Number(form.numberOfQuestions),
-        sortOrder: Number(form.sortOrder),
-        badgeRanges: form.badgeRanges.map((range) => ({
-          minCorrect: Number(range.minCorrect),
-          maxCorrect:
-            range.maxCorrect === null || range.maxCorrect === undefined
-              ? null
-              : Number(range.maxCorrect),
-          badgeCount: Number(range.badgeCount),
-        })),
-      }
-
-      if (editingId) {
-        await api.put(`/admin/videos/${editingId}`, payload)
-        setMessage('Video berhasil diperbarui.')
-      } else {
-        await api.post('/admin/videos', payload)
-        setMessage('Video berhasil dibuat.')
-      }
-
-      await refresh()
-      startCreate()
-    } catch (error: unknown) {
-      console.error('Failed to save video:', error)
-      const nextMessage =
-        typeof error === 'object' &&
-        error !== null &&
-        'response' in error &&
-        typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (error as { response?: { data?: { error?: string } } }).response?.data?.error
-          : 'Gagal menyimpan video.'
-      setMessage(nextMessage)
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  async function handleYouTubeImport() {
-    if (!form.youtubeUrl.trim()) {
-      setMessage('Isi dulu YouTube URL.')
-      return
-    }
-    setImporting(true)
-    setMessage('')
-    try {
-      const response = await api.get('/admin/youtube-import', {
-        params: { url: form.youtubeUrl.trim() },
-      })
-      const meta = response.data.data as {
-        videoId: string
-        title: string
-        description: string
-        thumbnailUrl: string
-        publishedAt: string | null
-      }
-      setForm((state) => ({
-        ...state,
-        title: meta.title,
-        slug: state.slug || slugify(meta.title),
-        description: meta.description,
-        thumbnailUrl: meta.thumbnailUrl,
-      }))
-      setMessage('Metadata YouTube berhasil diimpor.')
-    } catch (error: unknown) {
-      const text =
-        typeof error === 'object' &&
-        error !== null &&
-        'response' in error &&
-        typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (error as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal impor dari YouTube.'
-      setMessage(text)
-    } finally {
-      setImporting(false)
-    }
-  }
-
-  async function performDelete() {
-    if (!confirmDelete) return
-    try {
-      await api.delete(`/admin/videos/${confirmDelete.id}`)
-      setMessage(`Video "${confirmDelete.title}" dihapus.`)
-      await refresh()
-      if (editingId === confirmDelete.id) {
-        startCreate()
-      }
-    } catch (error) {
-      console.error('Failed to delete video:', error)
-      setMessage('Gagal menghapus video.')
-    } finally {
-      setConfirmDelete(null)
-    }
-  }
 
   const filteredVideos = useMemo(() => {
     if (filter === 'all') return videos
@@ -333,453 +136,512 @@ export default function AdminVideosPage() {
 
   const draftCount = useMemo(() => videos.filter((v) => !v.isPublished).length, [videos])
 
+  const staleTotals = useMemo(() => {
+    const list = staleVideos ?? []
+    return {
+      scores: list.reduce((sum, v) => sum + v.scoreAttempts, 0),
+      badges: list.reduce((sum, v) => sum + v.badgeUnlocks, 0),
+    }
+  }, [staleVideos])
+
+  const allFilteredSelected =
+    filteredVideos.length > 0 && filteredVideos.every((v) => selected.has(v.id))
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  function toggleSelectAll() {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (filteredVideos.every((v) => next.has(v.id))) {
+        filteredVideos.forEach((v) => next.delete(v.id))
+      } else {
+        filteredVideos.forEach((v) => next.add(v.id))
+      }
+      return next
+    })
+  }
+
+  function onEditorSaved() {
+    setEditingId(null)
+    void refresh()
+  }
+
+  async function quickPublish(video: VideoDetail) {
+    setBusyId(video.id)
+    try {
+      await api.put(`/admin/videos/${video.id}`, payloadFromVideo(video, { isPublished: true }))
+      toast.success(`"${video.title}" diterbitkan.`)
+      await refresh()
+    } catch (error) {
+      toast.error(getApiErrorMessage(error, 'Gagal menerbitkan video.'))
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  async function bulkApply() {
+    if (!bulkSubjectId && !bulkAgeGroupId && !bulkQuestions.trim()) {
+      toast.error('Pilih subject, age group, atau jumlah soal dulu.')
+      return
+    }
+    const subject = subjectOptions.find((s) => s.id === bulkSubjectId)
+    const targets = videos.filter((v) => selected.has(v.id))
+    setBulkBusy(true)
+    let ok = 0
+    let fail = 0
+    await Promise.all(
+      targets.map(async (video) => {
+        const overrides: Record<string, unknown> = {}
+        if (bulkSubjectId) overrides.subjectId = bulkSubjectId
+        if (bulkAgeGroupId) overrides.ageGroupId = bulkAgeGroupId
+        if (bulkQuestions.trim()) overrides.numberOfQuestions = Number(bulkQuestions)
+        // Fill the subject's badge template for videos that have none yet, so a
+        // bulk subject assignment can make drafts publish-ready in one pass.
+        if (bulkSubjectId && subject?.defaultBadgeRanges?.length && video.badgeRanges.length === 0) {
+          overrides.badgeRanges = subject.defaultBadgeRanges.map((r) => ({ ...r }))
+        }
+        try {
+          await api.put(`/admin/videos/${video.id}`, payloadFromVideo(video, overrides))
+          ok += 1
+        } catch {
+          fail += 1
+        }
+      }),
+    )
+    setBulkBusy(false)
+    if (fail) toast.error(`${ok} diperbarui, ${fail} gagal.`)
+    else toast.success(`${ok} video diperbarui.`)
+    setSelected(new Set())
+    setBulkSubjectId('')
+    setBulkAgeGroupId('')
+    setBulkQuestions('')
+    await refresh()
+  }
+
+  async function bulkPublish() {
+    const targets = videos.filter((v) => selected.has(v.id) && !v.isPublished)
+    if (targets.length === 0) {
+      toast.error('Tidak ada draft terpilih untuk diterbitkan.')
+      return
+    }
+    setBulkBusy(true)
+    let ok = 0
+    let skipped = 0
+    await Promise.all(
+      targets.map(async (video) => {
+        try {
+          await api.put(`/admin/videos/${video.id}`, payloadFromVideo(video, { isPublished: true }))
+          ok += 1
+        } catch {
+          skipped += 1
+        }
+      }),
+    )
+    setBulkBusy(false)
+    if (skipped) toast.error(`${ok} diterbitkan, ${skipped} dilewati (belum lengkap).`)
+    else toast.success(`${ok} video diterbitkan.`)
+    setSelected(new Set())
+    await refresh()
+  }
+
+  async function autoComplete() {
+    setAutoCompleting(true)
+    try {
+      const response = await api.post('/admin/videos/autocomplete-drafts')
+      const { completed, total } = response.data.data as { completed: number; total: number }
+      if (completed === 0) {
+        toast.info(`Tidak ada draft yang cocok dengan aturan judul (dari ${total} draft).`)
+      } else {
+        toast.success(`${completed} dari ${total} draft dilengkapi otomatis.`)
+      }
+      await refresh()
+    } catch (error) {
+      toast.error(getApiErrorMessage(error, 'Gagal melengkapi otomatis.'))
+    } finally {
+      setAutoCompleting(false)
+    }
+  }
+
+  async function performDelete() {
+    if (!confirmDelete) return
+    try {
+      await api.delete(`/admin/videos/${confirmDelete.id}`)
+      toast.success(`Video "${confirmDelete.title}" dihapus.`)
+      if (editingId === confirmDelete.id) setEditingId(null)
+      await refresh()
+    } catch (error) {
+      console.error('Failed to delete video:', error)
+      toast.error('Gagal menghapus video.')
+    } finally {
+      setConfirmDelete(null)
+    }
+  }
+
+  async function scanStale() {
+    setScanning(true)
+    try {
+      const response = await api.get('/admin/videos/stale')
+      setStaleVideos(response.data.data.videos as StaleVideo[])
+    } catch (error) {
+      const code = getApiErrorCode(error)
+      if (code === 'rate_limited') toast.error('Terlalu sering scan. Tunggu sebentar lalu coba lagi.')
+      else if (code === 'server_misconfigured') toast.error('YouTube belum dikonfigurasi di server.')
+      else toast.error('Gagal scan — YouTube tidak dapat diakses.')
+    } finally {
+      setScanning(false)
+    }
+  }
+
+  async function purgeStale() {
+    if (!staleVideos || staleVideos.length === 0) return
+    try {
+      const response = await api.post('/admin/videos/stale/delete', {
+        ids: staleVideos.map((v) => v.id),
+      })
+      const deleted = response.data.data.deleted as number
+      toast.success(`${deleted} video usang dihapus.`)
+      setStaleVideos(null)
+      setConfirmPurge(false)
+      await refresh()
+    } catch (error) {
+      toast.error(getApiErrorMessage(error, 'Gagal menghapus video usang.'))
+    }
+  }
+
   return (
     <div className="space-y-5">
       <AdminPageHeader
         eyebrow="Admin · Videos"
         title="Kelola video QUPU"
-        description="Tambah video, edit metadata, atur range badge. Warna badge otomatis dari subject."
+        description="Tambah video, lengkapi draft, dan terbitkan. Warna badge otomatis dari subject."
         actions={
-          <Link
-            to="/admin/videos/import"
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-          >
-            <i className="fa-brands fa-youtube text-rose-500" aria-hidden="true" />
-            Impor dari YouTube
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              type="button"
+              icon="fa-solid fa-plus"
+              onClick={() => setEditingId(editingId === 'new' ? null : 'new')}
+            >
+              Tambah video
+            </Button>
+            <Button
+              variant="secondary"
+              type="button"
+              icon="fa-solid fa-broom"
+              loading={scanning}
+              onClick={scanStale}
+            >
+              Scan usang
+            </Button>
+            <Link to="/admin/videos/import" className={buttonClass('secondary')}>
+              <i className="fa-brands fa-youtube text-rose-500" aria-hidden="true" />
+              Impor dari YouTube
+            </Link>
+          </div>
         }
       />
 
-      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-        <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">
-              {editingId ? 'Edit video' : 'Tambah video'}
-            </h2>
-            <button
-              type="button"
-              onClick={startCreate}
-              className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              + Form baru
-            </button>
-          </div>
-
-          <form className="grid gap-3" onSubmit={handleSubmit}>
-            <Field label="Judul video">
-              <input className={INPUT} value={form.title} onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))} />
-            </Field>
-            <Field label="Slug" hint={`Preview: ${titlePreview || '-'}`}>
-              <input className={INPUT} value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
-            </Field>
-            <Field
-              label="YouTube URL"
-              hint="Klik Pull untuk auto-fill judul, deskripsi, dan thumbnail dari YouTube."
-            >
-              <div className="flex min-w-0 gap-2">
-                <input
-                  className={INPUT}
-                  value={form.youtubeUrl}
-                  onChange={(e) => setForm((s) => ({ ...s, youtubeUrl: e.target.value }))}
-                />
-                <button
-                  type="button"
-                  onClick={handleYouTubeImport}
-                  disabled={importing || !form.youtubeUrl.trim()}
-                  className="shrink-0 rounded-md bg-slate-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {importing ? 'Impor...' : 'Pull'}
-                </button>
-              </div>
-            </Field>
-            <Field label="Thumbnail URL">
-              <input className={INPUT} value={form.thumbnailUrl} onChange={(e) => setForm((s) => ({ ...s, thumbnailUrl: e.target.value }))} />
-            </Field>
-
-            <div className="grid min-w-0 gap-3 sm:grid-cols-2">
-              <Field label="Subject">
-                <select
-                  className={INPUT}
-                  value={form.subjectId}
-                  onChange={(e) => handleSubjectChange(e.target.value)}
-                >
-                  {subjectOptions.map((subject) => (
-                    <option key={subject.id} value={subject.id}>{subject.name}</option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="Age group">
-                <select
-                  className={INPUT}
-                  value={form.ageGroupId}
-                  onChange={(e) => setForm((s) => ({ ...s, ageGroupId: e.target.value }))}
-                >
-                  {ageGroupOptions.map((group) => (
-                    <option key={group.id} value={group.id}>{group.name}</option>
-                  ))}
-                </select>
-              </Field>
-            </div>
-
-            <div className="grid min-w-0 gap-3 sm:grid-cols-3">
-              <Field label="Jumlah soal">
-                <input
-                  type="number"
-                  className={INPUT}
-                  value={String(form.numberOfQuestions)}
-                  onChange={(e) => setForm((s) => ({ ...s, numberOfQuestions: Number(e.target.value) }))}
-                />
-              </Field>
-              <Field label="Difficulty">
-                <select
-                  className={INPUT}
-                  value={form.difficulty}
-                  onChange={(e) => setForm((s) => ({ ...s, difficulty: e.target.value as AdminVideoFormValues['difficulty'] }))}
-                >
-                  <option value="easy">easy</option>
-                  <option value="medium">medium</option>
-                  <option value="hard">hard</option>
-                </select>
-              </Field>
-              <Field label="Sort">
-                <input
-                  type="number"
-                  className={INPUT}
-                  value={String(form.sortOrder)}
-                  onChange={(e) => setForm((s) => ({ ...s, sortOrder: Number(e.target.value) }))}
-                />
-              </Field>
-            </div>
-
-            <Field label="Deskripsi">
-              <textarea
-                rows={3}
-                className={INPUT}
-                value={form.description}
-                onChange={(e) => setForm((s) => ({ ...s, description: e.target.value }))}
-              />
-            </Field>
-
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2">
-                  {selectedSubject && (
-                    <BadgeCurve color={selectedSubject.colorHex} size={28} label={selectedSubject.name} />
-                  )}
-                  <div className="min-w-0">
-                    <div className="text-xs font-bold uppercase tracking-[0.14em] text-slate-700">Badge ranges</div>
-                    <div className="truncate text-[11px] text-slate-500">
-                      {selectedSubject ? `Subject: ${selectedSubject.name}` : 'Pilih subject dulu'}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex shrink-0 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={applyTemplate}
-                    disabled={
-                      !selectedSubject?.defaultBadgeRanges ||
-                      selectedSubject.defaultBadgeRanges.length === 0
-                    }
-                    title="Apply this subject's template"
-                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    Apply template
-                  </button>
-                  <button
-                    type="button"
-                    onClick={addRange}
-                    className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-                  >
-                    + Range
-                  </button>
-                </div>
-              </div>
-
-              {form.badgeRanges.length === 0 && (
-                <div className="mt-2 rounded-md bg-white px-3 py-2 text-xs text-slate-500">
-                  Belum ada range.
-                </div>
-              )}
-
-              <div className="mt-2 grid gap-2">
-                {form.badgeRanges.map((range, index) => (
-                  <div key={index} className="grid items-end gap-2 rounded-md bg-white p-2 sm:grid-cols-[auto_1fr_1fr_1fr_auto]">
-                    <span className="inline-flex h-9 items-center rounded bg-slate-100 px-2 font-mono text-[10px] font-bold uppercase text-slate-700">
-                      R{index + 1}
-                    </span>
-                    <Field label="Min">
-                      <input
-                        type="number"
-                        className={INPUT}
-                        value={String(range.minCorrect)}
-                        onChange={(e) => updateRange(index, { minCorrect: Number(e.target.value) })}
-                      />
-                    </Field>
-                    <Field label="Max" >
-                      <input
-                        type="number"
-                        className={INPUT}
-                        value={range.maxCorrect === null ? '' : String(range.maxCorrect)}
-                        onChange={(e) => updateRange(index, { maxCorrect: e.target.value === '' ? null : Number(e.target.value) })}
-                      />
-                    </Field>
-                    <Field label="Badge">
-                      <input
-                        type="number"
-                        className={INPUT}
-                        value={String(range.badgeCount)}
-                        onChange={(e) => updateRange(index, { badgeCount: Number(e.target.value) })}
-                      />
-                    </Field>
-                    <button
-                      type="button"
-                      onClick={() => removeRange(index)}
-                      aria-label="Hapus range"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-red-200 bg-white text-red-500 transition hover:bg-red-50"
-                    >
-                      <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-2 sm:grid-cols-2">
-              <AdminToggle
-                label="Publish"
-                helper={
-                  originallyPublished
-                    ? 'Sudah dipublikasikan — unpublish belum didukung di v1.'
-                    : 'Aktifkan untuk publish setelah subject, age group, dan badge ranges lengkap.'
-                }
-                checked={form.isPublished}
-                disabled={originallyPublished}
-                onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
-              />
-              <AdminToggle
-                label="Featured"
-                helper="Muncul di home Video Terbaru."
-                checked={form.isFeatured}
-                onChange={(checked) => setForm((state) => ({ ...state, isFeatured: checked }))}
-              />
-            </div>
-
-            {message && (
-              <div
-                className={`rounded-md px-3 py-2 text-sm ${
-                  message.toLowerCase().startsWith('gagal')
-                    ? 'bg-red-50 text-red-700'
-                    : 'bg-emerald-50 text-emerald-700'
-                }`}
-              >
-                {message}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={saving}
-              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800 disabled:opacity-50"
-            >
-              {saving ? 'Menyimpan...' : editingId ? 'Update video' : 'Buat video'}
-            </button>
-          </form>
-        </div>
-
-        <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4">
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">
-              Catalog
-            </h2>
-            <div className="flex items-center gap-3">
-              <div className="inline-flex rounded-md border border-slate-300 bg-white p-0.5 text-xs font-semibold">
-                {(['all', 'draft', 'published'] as CatalogFilter[]).map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setFilter(option)}
-                    className={`rounded px-2.5 py-1 transition-colors ${
-                      filter === option
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-700 hover:bg-slate-100'
-                    }`}
-                  >
-                    {option === 'all'
-                      ? 'Semua'
-                      : option === 'draft'
-                        ? `Draft${draftCount > 0 ? ` (${draftCount})` : ''}`
-                        : 'Diterbitkan'}
-                  </button>
-                ))}
-              </div>
-              <span className="text-xs text-slate-500">{filteredVideos.length} video</span>
-            </div>
-          </div>
-          {loading ? (
-            <SkeletonCard height="h-64" />
+      {staleVideos !== null && (
+        <Panel className="border-amber-200">
+          <SectionHeading
+            right={
+              <Button variant="ghost" size="sm" type="button" onClick={() => setStaleVideos(null)}>
+                Tutup
+              </Button>
+            }
+          >
+            Video usang di YouTube
+          </SectionHeading>
+          {staleVideos.length === 0 ? (
+            <EmptyState
+              className="mt-3"
+              icon="fa-solid fa-circle-check"
+              title="Tidak ada video usang"
+              hint="Semua video di katalog masih tersedia di YouTube."
+            />
           ) : (
-            <div className="grid gap-4">
-              {filteredVideos.map((video) => {
-                const totalRanges = video.badgeRanges.length
-                const maxBadges = video.badgeRanges.reduce(
-                  (max, range) => Math.max(max, range.badgeCount),
-                  0,
-                )
-                return (
-                  <div
-                    key={video.id}
-                    className="rounded-lg border border-slate-200 bg-white p-3 transition-colors hover:border-slate-300"
-                  >
-                    <div className="flex gap-3">
-                      <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-slate-200">
-                        <img
-                          src={video.thumbnailUrl}
-                          alt={video.title}
-                          className="h-full w-full object-cover"
-                        />
-                        <span
-                          className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase ${
-                            video.isPublished
-                              ? 'bg-emerald-500 text-white'
-                              : 'bg-amber-500 text-white'
-                          }`}
-                        >
-                          {video.isPublished ? 'Published' : 'Draft'}
-                        </span>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          {video.subject ? (
-                            <span
-                              className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase text-white"
-                              style={{ backgroundColor: video.subject.colorHex }}
-                            >
-                              {video.subject.name}
-                            </span>
-                          ) : (
-                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-amber-800">
-                              Belum subject
-                            </span>
-                          )}
-                          {video.ageGroup ? (
-                            <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-slate-700">
-                              {video.ageGroup.name}
-                            </span>
-                          ) : (
-                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-amber-800">
-                              Belum age group
-                            </span>
-                          )}
-                        </div>
-                        <div className="mt-1 line-clamp-2 text-sm font-semibold text-slate-900">
-                          {video.title}
-                        </div>
-                        <div className="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500">
-                          {video.subject && <BadgeCurve color={video.subject.colorHex} size={16} />}
-                          {totalRanges} range · max {maxBadges} badge ·{' '}
-                          {video.numberOfQuestions ?? '—'} soal
-                        </div>
-                      </div>
-                      <div className="flex shrink-0 flex-col gap-1.5">
-                        <button
-                          type="button"
-                          onClick={() => startEdit(video)}
-                          className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setConfirmDelete(video)}
-                          className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50"
-                        >
-                          Hapus
-                        </button>
+            <>
+              <p className="mt-2 text-sm text-admin-muted">
+                {staleVideos.length} video sudah tidak ada di YouTube (dihapus atau diprivat).
+                Menghapusnya juga menghapus {staleTotals.scores} skor + {staleTotals.badges} badge yang
+                sudah didapat anak.
+              </p>
+              <ul className="mt-3 divide-y divide-admin-line">
+                {staleVideos.map((video) => (
+                  <li key={video.id} className="flex items-center justify-between gap-3 py-2">
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-semibold text-admin-ink">{video.title}</div>
+                      <div className="text-[11px] text-admin-muted">
+                        {video.youtubeVideoId} · {video.scoreAttempts} skor · {video.badgeUnlocks} badge
                       </div>
                     </div>
-                  </div>
-                )
-              })}
-              {filteredVideos.length === 0 && (
-                <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
-                  {filter === 'draft'
-                    ? 'Belum ada draft. Impor dari YouTube untuk membuat draft baru.'
-                    : filter === 'published'
-                      ? 'Belum ada video terbit.'
-                      : 'Belum ada video.'}
-                </div>
-              )}
-            </div>
+                    <Tag tone={video.isPublished ? 'brand' : 'neutral'}>
+                      {video.isPublished ? 'Published' : 'Draft'}
+                    </Tag>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 flex justify-end">
+                <Button
+                  variant="danger"
+                  type="button"
+                  icon="fa-solid fa-trash"
+                  onClick={() => setConfirmPurge(true)}
+                >
+                  Hapus {staleVideos.length} video usang
+                </Button>
+              </div>
+            </>
           )}
-        </div>
-      </div>
+        </Panel>
+      )}
+
+      {editingId === 'new' && meta && (
+        <Panel className="border-qupu-brand-blue/30">
+          <div className="mb-3 font-display text-sm font-extrabold uppercase tracking-[0.16em] text-admin-ink">
+            Tambah video baru
+          </div>
+          <VideoEditor
+            key="new"
+            meta={meta}
+            mode="create"
+            initial={emptyVideoForm(meta)}
+            onSaved={onEditorSaved}
+            onCancel={() => setEditingId(null)}
+          />
+        </Panel>
+      )}
+
+      <Panel>
+        <SectionHeading
+          right={
+            <div className="flex items-center gap-3">
+              <SegmentedControl<CatalogFilter>
+                value={filter}
+                onChange={setFilter}
+                options={[
+                  { value: 'all', label: 'Semua' },
+                  { value: 'draft', label: `Draft${draftCount > 0 ? ` (${draftCount})` : ''}` },
+                  { value: 'published', label: 'Diterbitkan' },
+                ]}
+              />
+              <span className="text-xs text-admin-muted">{filteredVideos.length} video</span>
+            </div>
+          }
+        >
+          Catalog
+        </SectionHeading>
+
+        {!loading && filteredVideos.length > 0 && (
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-xs font-semibold text-admin-muted">
+              <input
+                type="checkbox"
+                checked={allFilteredSelected}
+                onChange={toggleSelectAll}
+                className="h-4 w-4 rounded border-admin-edge text-qupu-brand-blue focus:ring-qupu-brand-blue/30"
+                aria-label="Pilih semua video yang tampil"
+              />
+              Pilih semua
+            </label>
+            {draftCount > 0 && (
+              <Button
+                variant="secondary"
+                size="sm"
+                type="button"
+                icon="fa-solid fa-wand-magic-sparkles"
+                loading={autoCompleting}
+                onClick={autoComplete}
+                title="Lengkapi subject / age group / soal draft dari pola judul"
+              >
+                Lengkapi otomatis
+              </Button>
+            )}
+          </div>
+        )}
+
+        {selected.size > 0 && (
+          <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl border border-qupu-brand-blue/20 bg-qupu-brand-blue/5 p-3">
+            <span className="text-sm font-semibold text-admin-ink">{selected.size} dipilih</span>
+            <div className="w-40">
+              <Select value={bulkSubjectId} onChange={(e) => setBulkSubjectId(e.target.value)}>
+                <option value="">Subject…</option>
+                {subjectOptions.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-40">
+              <Select value={bulkAgeGroupId} onChange={(e) => setBulkAgeGroupId(e.target.value)}>
+                <option value="">Age group…</option>
+                {ageGroupOptions.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-24">
+              <Input
+                type="number"
+                placeholder="Soal"
+                value={bulkQuestions}
+                onChange={(e) => setBulkQuestions(e.target.value)}
+              />
+            </div>
+            <Button variant="secondary" size="sm" type="button" loading={bulkBusy} onClick={bulkApply}>
+              Terapkan
+            </Button>
+            <Button size="sm" type="button" loading={bulkBusy} onClick={bulkPublish}>
+              Terbitkan
+            </Button>
+            <Button variant="ghost" size="sm" type="button" onClick={() => setSelected(new Set())}>
+              Batal
+            </Button>
+          </div>
+        )}
+
+        {loading ? (
+          <div className="mt-3 grid gap-3">
+            <Skeleton className="h-20 rounded-xl" />
+            <Skeleton className="h-20 rounded-xl" />
+            <Skeleton className="h-20 rounded-xl" />
+          </div>
+        ) : filteredVideos.length === 0 ? (
+          <EmptyState
+            className="mt-3"
+            icon="fa-solid fa-film"
+            title={
+              filter === 'draft'
+                ? 'Belum ada draft'
+                : filter === 'published'
+                  ? 'Belum ada video terbit'
+                  : 'Belum ada video'
+            }
+            hint="Tambah video atau impor dari YouTube."
+          />
+        ) : (
+          <div className="mt-3 grid gap-3">
+            {filteredVideos.map((video) => {
+              const totalRanges = video.badgeRanges.length
+              const maxBadges = video.badgeRanges.reduce((max, r) => Math.max(max, r.badgeCount), 0)
+              const open = editingId === video.id
+              return (
+                <div key={video.id} className="rounded-xl border border-admin-line bg-admin-card">
+                  <div className="flex items-start gap-3 p-3">
+                    <input
+                      type="checkbox"
+                      checked={selected.has(video.id)}
+                      onChange={() => toggleSelect(video.id)}
+                      className="mt-1 h-4 w-4 shrink-0 rounded border-admin-edge text-qupu-brand-blue focus:ring-qupu-brand-blue/30"
+                      aria-label={`Pilih ${video.title}`}
+                    />
+                    <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-admin-line">
+                      <img src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
+                      <span
+                        className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase text-white ${
+                          video.isPublished ? 'bg-emerald-500' : 'bg-amber-500'
+                        }`}
+                      >
+                        {video.isPublished ? 'Published' : 'Draft'}
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {video.subject ? (
+                          <Tag color={video.subject.colorHex}>{video.subject.name}</Tag>
+                        ) : (
+                          <Tag tone="warn">Belum subject</Tag>
+                        )}
+                        {video.ageGroup ? (
+                          <Tag tone="neutral">{video.ageGroup.name}</Tag>
+                        ) : (
+                          <Tag tone="warn">Belum age group</Tag>
+                        )}
+                      </div>
+                      <div className="mt-1 line-clamp-2 text-sm font-semibold text-admin-ink">{video.title}</div>
+                      <div className="mt-1 flex items-center gap-1.5 text-[11px] text-admin-muted">
+                        {video.subject && <BadgeCurve color={video.subject.colorHex} size={16} />}
+                        {totalRanges} range · max {maxBadges} badge · {video.numberOfQuestions ?? '—'} soal
+                      </div>
+                    </div>
+                    <div className="flex shrink-0 flex-col gap-1.5">
+                      {!video.isPublished && isComplete(video) && (
+                        <Button
+                          size="sm"
+                          type="button"
+                          icon="fa-solid fa-paper-plane"
+                          loading={busyId === video.id}
+                          onClick={() => quickPublish(video)}
+                        >
+                          Terbitkan
+                        </Button>
+                      )}
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        type="button"
+                        onClick={() => setEditingId(open ? null : video.id)}
+                      >
+                        {open ? 'Tutup' : 'Edit'}
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        type="button"
+                        onClick={() => setConfirmDelete(video)}
+                      >
+                        Hapus
+                      </Button>
+                    </div>
+                  </div>
+                  {open && meta && (
+                    <div className="border-t border-admin-line p-3">
+                      <VideoEditor
+                        key={video.id}
+                        meta={meta}
+                        mode="edit"
+                        videoId={video.id}
+                        initial={formFromVideo(video)}
+                        originallyPublished={video.isPublished}
+                        onSaved={onEditorSaved}
+                        onCancel={() => setEditingId(null)}
+                      />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </Panel>
 
       <ConfirmDangerousAction
         open={!!confirmDelete}
         title={`Hapus video "${confirmDelete?.title ?? ''}"?`}
-        description="Semua skor + badge unlock yang terhubung ke video ini ikut terhapus."
-        requiredText={confirmDelete?.slug ?? ''}
+        description="Video disembunyikan dari katalog dan tidak akan muncul lagi saat impor dari YouTube. Skor & badge anak tetap tersimpan."
         confirmLabel="Hapus video"
         onConfirm={performDelete}
         onClose={() => setConfirmDelete(null)}
       />
+
+      <ConfirmDangerousAction
+        open={confirmPurge}
+        title={`Hapus ${staleVideos?.length ?? 0} video usang?`}
+        description={`Permanen. ${staleTotals.scores} skor + ${staleTotals.badges} badge yang sudah didapat anak ikut terhapus.`}
+        requiredText={`hapus ${staleVideos?.length ?? 0}`}
+        confirmLabel="Hapus permanen"
+        onConfirm={purgeStale}
+        onClose={() => setConfirmPurge(false)}
+      />
     </div>
-  )
-}
-
-function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
-  return (
-    <label className="grid min-w-0 gap-1">
-      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600">{label}</span>
-      {children}
-      {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
-    </label>
-  )
-}
-
-function AdminToggle({
-  label,
-  helper,
-  checked,
-  disabled,
-  onChange,
-}: {
-  label: string
-  helper?: string
-  checked: boolean
-  disabled?: boolean
-  onChange: (checked: boolean) => void
-}) {
-  return (
-    <label
-      className={`flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2.5 ${
-        disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
-      }`}
-    >
-      <div className="min-w-0">
-        <div className="text-sm font-semibold text-slate-900">{label}</div>
-        {helper && <div className="text-[11px] text-slate-500">{helper}</div>}
-      </div>
-      <span className="relative inline-flex h-5 w-9 shrink-0 items-center">
-        <input
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          onChange={(event) => onChange(event.target.checked)}
-          className="peer sr-only"
-        />
-        <span
-          className={`absolute inset-0 rounded-full transition-colors ${
-            checked ? 'bg-slate-900' : 'bg-slate-300'
-          }`}
-        />
-        <span
-          className={`relative inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
-            checked ? 'translate-x-[18px]' : 'translate-x-[3px]'
-          }`}
-        />
-      </span>
-    </label>
   )
 }

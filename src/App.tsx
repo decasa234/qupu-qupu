@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import CookieConsentBanner from './components/CookieConsentBanner'
 import Layout from './components/Layout'
-import LoadingOverlay from './components/LoadingOverlay'
-import { useLoadingState } from './hooks/useLoadingState'
 import AdminLayout from './components/AdminLayout'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -61,25 +59,6 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-function RouteLoadingTrigger() {
-  const location = useLocation()
-  useEffect(() => {
-    useLoadingState.getState().start()
-    let stopped = false
-    const stopOnce = () => {
-      if (stopped) return
-      stopped = true
-      useLoadingState.getState().stop()
-    }
-    const t = window.setTimeout(stopOnce, 50)
-    return () => {
-      window.clearTimeout(t)
-      stopOnce()
-    }
-  }, [location.pathname])
-  return null
-}
-
 function HomeRoute() {
   const { isAuthenticated } = useAuthStore()
   if (isAuthenticated) {
@@ -96,13 +75,11 @@ function DashboardRouter() {
   return <DashboardPage />
 }
 
-// Boot splash dismisses when the React LoadingOverlay is ready to take
-// over — specifically when useLoadingState.visible first flips to false
-// (i.e. all in-flight work has settled + the 500ms tail). This avoids
-// the "two loaders" effect where the splash hides on its own fixed
-// timer while the React overlay is still showing (or vice versa).
-// A 10s safety dismisses the splash regardless, in case the loading
-// state never settles.
+// The inline boot splash (#qupu-splash in index.html) is the only loader:
+// it covers the initial HTML -> React handoff on first page load, then fades
+// out once React has mounted and painted the first route. Pages own their own
+// loading states (skeletons) from there on. A 10s safety dismisses it
+// regardless, in case the first paint never lands.
 const SPLASH_SAFETY_MS = 10000
 
 function useDismissBootSplash() {
@@ -118,13 +95,13 @@ function useDismissBootSplash() {
       window.setTimeout(() => splash.remove(), 500)
     }
 
-    const unsubscribe = useLoadingState.subscribe((state) => {
-      if (!state.visible) dismiss()
-    })
+    // This effect runs after the first route has committed to the DOM, so the
+    // page is already painted underneath the splash. Fade it on the next frame.
+    const raf = window.requestAnimationFrame(dismiss)
     const safety = window.setTimeout(dismiss, SPLASH_SAFETY_MS)
 
     return () => {
-      unsubscribe()
+      window.cancelAnimationFrame(raf)
       window.clearTimeout(safety)
     }
   }, [])
@@ -135,8 +112,6 @@ export default function App() {
 
   return (
     <Router>
-      <RouteLoadingTrigger />
-      <LoadingOverlay />
       <CookieConsentBanner />
       <Routes>
         {/* Marketing + auth + video + onboarding — keep marketing Layout */}

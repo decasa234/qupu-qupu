@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { slugify } from '../../lib/youtube'
+import { getApiErrorMessage } from '../../lib/apiError'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
 import BadgeCurve from '../../components/BadgeCurve'
 import ConfirmDangerousAction from '../../components/ConfirmDangerousAction'
+import { useToast } from '../../components/admin/Toast'
+import { Button, EmptyState, Field, Input, Panel, SectionHeading, Skeleton, Textarea } from '../../components/admin/ui'
+import { BadgeRangeEditor } from '../../components/admin/BadgeRangeEditor'
 
 interface BadgeRange {
   minCorrect: number
@@ -36,17 +40,14 @@ const EMPTY_FORM: FormState = {
   description: '',
   defaultBadgeRanges: [],
 }
-const PANEL = 'rounded-xl border border-slate-200 bg-white p-4'
-const INPUT =
-  'w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500'
 
 export default function AdminSubjectsPage() {
+  const toast = useToast()
   const [subjects, setSubjects] = useState<AdminSubject[]>([])
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState('')
   const [confirmDelete, setConfirmDelete] = useState<AdminSubject | null>(null)
 
   async function refresh() {
@@ -68,7 +69,6 @@ export default function AdminSubjectsPage() {
   function startCreate() {
     setEditingId(null)
     setForm(EMPTY_FORM)
-    setMessage('')
   }
 
   function startEdit(subject: AdminSubject) {
@@ -80,7 +80,6 @@ export default function AdminSubjectsPage() {
       description: subject.description ?? '',
       defaultBadgeRanges: subject.defaultBadgeRanges.map((r) => ({ ...r })),
     })
-    setMessage('')
   }
 
   function addRange() {
@@ -115,7 +114,6 @@ export default function AdminSubjectsPage() {
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
     setSaving(true)
-    setMessage('')
     const payload = {
       ...form,
       slug: form.slug || slugify(form.name),
@@ -129,15 +127,15 @@ export default function AdminSubjectsPage() {
     try {
       if (editingId) {
         await api.put(`/admin/subjects/${editingId}`, payload)
-        setMessage('Subject diperbarui.')
+        toast.success('Subject diperbarui.')
       } else {
         await api.post('/admin/subjects', payload)
-        setMessage('Subject dibuat.')
+        toast.success('Subject dibuat.')
       }
       await refresh()
       startCreate()
     } catch (error: unknown) {
-      setMessage(extractErr(error, 'Gagal menyimpan.'))
+      toast.error(getApiErrorMessage(error, 'Gagal menyimpan.'))
     } finally {
       setSaving(false)
     }
@@ -149,9 +147,9 @@ export default function AdminSubjectsPage() {
       await api.delete(`/admin/subjects/${confirmDelete.id}`)
       await refresh()
       if (editingId === confirmDelete.id) startCreate()
-      setMessage(`${confirmDelete.name} dihapus.`)
+      toast.success(`${confirmDelete.name} dihapus.`)
     } catch (error: unknown) {
-      setMessage(extractErr(error, 'Gagal menghapus.'))
+      toast.error(getApiErrorMessage(error, 'Gagal menghapus.'))
     } finally {
       setConfirmDelete(null)
     }
@@ -165,39 +163,34 @@ export default function AdminSubjectsPage() {
         description="Subject menentukan warna badge untuk semua video di kategori itu."
       />
 
-      {message && (
-        <div className={`rounded-lg px-3 py-2 text-sm ${message.toLowerCase().startsWith('gagal') ? 'bg-red-50 text-red-700' : 'bg-emerald-50 text-emerald-700'}`}>
-          {message}
-        </div>
-      )}
-
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-        <div className={PANEL}>
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">
-              {editingId ? 'Edit subject' : 'Tambah subject'}
-            </h2>
-            {editingId && (
-              <button type="button" onClick={startCreate} className="text-xs font-semibold text-slate-600 hover:text-slate-900">
-                Batal
-              </button>
-            )}
-          </div>
+        <Panel>
+          <SectionHeading
+            right={
+              editingId && (
+                <Button variant="ghost" size="sm" type="button" onClick={startCreate}>
+                  Batal
+                </Button>
+              )
+            }
+          >
+            {editingId ? 'Edit subject' : 'Tambah subject'}
+          </SectionHeading>
 
-          <div className="mt-3 flex items-center gap-3 rounded-lg border border-slate-100 bg-slate-50 p-3">
+          <div className="mt-3 flex items-center gap-3 rounded-xl border border-admin-line bg-admin-sunk p-3">
             <BadgeCurve color={form.colorHex} size={48} />
             <div className="min-w-0">
-              <div className="truncate font-semibold text-slate-900">{form.name || 'Nama subject'}</div>
-              <div className="text-[11px] text-slate-500">{form.colorHex}</div>
+              <div className="truncate font-semibold text-admin-ink">{form.name || 'Nama subject'}</div>
+              <div className="text-[11px] text-admin-muted">{form.colorHex}</div>
             </div>
           </div>
 
           <form className="mt-3 grid gap-3" onSubmit={handleSubmit}>
-            <Field label="Nama">
-              <input className={INPUT} value={form.name} onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))} required />
+            <Field label="Nama" required>
+              <Input value={form.name} onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))} required />
             </Field>
             <Field label="Slug" hint={`Preview: ${form.slug || slugify(form.name) || '-'}`}>
-              <input className={INPUT} value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
+              <Input value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
             </Field>
             <Field label="Warna">
               <div className="flex items-center gap-2">
@@ -205,152 +198,85 @@ export default function AdminSubjectsPage() {
                   type="color"
                   value={form.colorHex}
                   onChange={(e) => setForm((s) => ({ ...s, colorHex: e.target.value.toUpperCase() }))}
-                  className="h-9 w-12 cursor-pointer rounded-md border border-slate-300"
+                  className="h-9 w-12 shrink-0 cursor-pointer rounded-lg border border-admin-edge bg-white"
                 />
-                <input
+                <Input
                   type="text"
                   value={form.colorHex}
                   onChange={(e) => setForm((s) => ({ ...s, colorHex: e.target.value.toUpperCase() }))}
-                  className={`${INPUT} font-mono`}
+                  className="font-mono"
                   placeholder="#XXXXXX"
                 />
               </div>
             </Field>
             <Field label="Deskripsi">
-              <textarea
-                className={INPUT}
+              <Textarea
                 rows={3}
                 value={form.description}
                 onChange={(e) => setForm((s) => ({ ...s, description: e.target.value }))}
               />
             </Field>
 
-            <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
-              <div className="flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-700">
-                    Default badge ranges
-                  </div>
-                  <div className="text-[11px] text-slate-500">
-                    Template diisi otomatis saat tambah video baru di subject ini.
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={addRange}
-                  className="shrink-0 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-                >
-                  + Range
-                </button>
-              </div>
-              {form.defaultBadgeRanges.length === 0 ? (
-                <div className="mt-2 rounded-md bg-white px-3 py-2 text-xs text-slate-500">
-                  Belum ada template. Admin video harus isi range manual.
-                </div>
-              ) : (
-                <div className="mt-2 grid gap-2">
-                  {form.defaultBadgeRanges.map((range, index) => (
-                    <div
-                      key={index}
-                      className="grid items-end gap-2 rounded-md bg-white p-2 sm:grid-cols-[auto_1fr_1fr_1fr_auto]"
-                    >
-                      <span className="inline-flex h-9 items-center rounded bg-slate-100 px-2 font-mono text-[10px] font-bold uppercase text-slate-700">
-                        R{index + 1}
-                      </span>
-                      <Field label="Min">
-                        <input
-                          type="number"
-                          className={INPUT}
-                          value={String(range.minCorrect)}
-                          onChange={(e) => updateRange(index, { minCorrect: Number(e.target.value) })}
-                        />
-                      </Field>
-                      <Field label="Max" hint={index === form.defaultBadgeRanges.length - 1 ? 'Kosong = tanpa batas' : undefined}>
-                        <input
-                          type="number"
-                          className={INPUT}
-                          value={range.maxCorrect === null ? '' : String(range.maxCorrect)}
-                          onChange={(e) =>
-                            updateRange(index, {
-                              maxCorrect: e.target.value === '' ? null : Number(e.target.value),
-                            })
-                          }
-                        />
-                      </Field>
-                      <Field label="Badge">
-                        <input
-                          type="number"
-                          className={INPUT}
-                          value={String(range.badgeCount)}
-                          onChange={(e) => updateRange(index, { badgeCount: Number(e.target.value) })}
-                        />
-                      </Field>
-                      <button
-                        type="button"
-                        onClick={() => removeRange(index)}
-                        aria-label="Hapus range"
-                        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-red-200 bg-white text-red-500 transition hover:bg-red-50"
-                      >
-                        <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <BadgeRangeEditor
+              ranges={form.defaultBadgeRanges}
+              onAdd={addRange}
+              onRemove={removeRange}
+              onUpdate={updateRange}
+              title="Default badge ranges"
+              subtitle="Template diisi otomatis saat tambah video baru di subject ini."
+              emptyHint="Belum ada template. Admin video harus isi range manual."
+              unlimitedMaxHint
+            />
 
-            <button
-              type="submit"
-              disabled={saving}
-              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800 disabled:opacity-50"
-            >
+            <Button type="submit" loading={saving}>
               {saving ? 'Menyimpan...' : editingId ? 'Update' : 'Buat subject'}
-            </button>
+            </Button>
           </form>
-        </div>
+        </Panel>
 
-        <div className={PANEL}>
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">Daftar</h2>
-            <span className="text-xs text-slate-500">{subjects.length} subject</span>
-          </div>
+        <Panel>
+          <SectionHeading right={<span className="text-xs text-admin-muted">{subjects.length} subject</span>}>
+            Daftar
+          </SectionHeading>
           {loading ? (
-            <p className="mt-3 text-sm text-slate-500">Memuat...</p>
+            <div className="mt-3 grid gap-2">
+              <Skeleton className="h-12" />
+              <Skeleton className="h-12" />
+              <Skeleton className="h-12" />
+            </div>
+          ) : subjects.length === 0 ? (
+            <EmptyState
+              className="mt-3"
+              icon="fa-solid fa-shapes"
+              title="Belum ada subject"
+              hint="Tambah kategori pertama lewat form di samping."
+            />
           ) : (
-            <ul className="mt-3 divide-y divide-slate-100">
-              {subjects.map((s) => (
-                <li key={s.id} className="flex items-center justify-between gap-3 py-2.5">
+            <ul className="mt-3 divide-y divide-admin-line">
+              {subjects.map((subject) => (
+                <li key={subject.id} className="flex items-center justify-between gap-3 py-2.5">
                   <div className="flex min-w-0 items-center gap-3">
-                    <BadgeCurve color={s.colorHex} size={32} />
+                    <BadgeCurve color={subject.colorHex} size={32} />
                     <div className="min-w-0">
-                      <div className="truncate font-semibold text-slate-900">{s.name}</div>
-                      <div className="text-[11px] text-slate-500">
-                        {s.slug} · {s.videoCount} video · {s.defaultBadgeRanges.length} range template
+                      <div className="truncate font-semibold text-admin-ink">{subject.name}</div>
+                      <div className="text-[11px] text-admin-muted">
+                        {subject.slug} · {subject.videoCount} video · {subject.defaultBadgeRanges.length} range template
                       </div>
                     </div>
                   </div>
                   <div className="flex shrink-0 gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => startEdit(s)}
-                      className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-                    >
+                    <Button variant="secondary" size="sm" type="button" onClick={() => startEdit(subject)}>
                       Edit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setConfirmDelete(s)}
-                      className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50"
-                    >
+                    </Button>
+                    <Button variant="danger" size="sm" type="button" onClick={() => setConfirmDelete(subject)}>
                       Hapus
-                    </button>
+                    </Button>
                   </div>
                 </li>
               ))}
-              {subjects.length === 0 && <li className="py-3 text-sm text-slate-500">Belum ada subject.</li>}
             </ul>
           )}
-        </div>
+        </Panel>
       </div>
 
       <ConfirmDangerousAction
@@ -368,26 +294,4 @@ export default function AdminSubjectsPage() {
       />
     </div>
   )
-}
-
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
-  return (
-    <label className="grid gap-1">
-      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600">{label}</span>
-      {children}
-      {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
-    </label>
-  )
-}
-
-function extractErr(error: unknown, fallback: string): string {
-  if (
-    typeof error === 'object' &&
-    error !== null &&
-    'response' in error &&
-    typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-  ) {
-    return (error as { response: { data: { error: string } } }).response.data.error
-  }
-  return fallback
 }

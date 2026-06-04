@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { formatDateLabel } from '../../lib/youtube'
+import { getApiErrorMessage } from '../../lib/apiError'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
 import ConfirmDangerousAction from '../../components/ConfirmDangerousAction'
+import { useToast } from '../../components/admin/Toast'
+import { Button, EmptyState, Panel, SectionHeading, Skeleton, Tag } from '../../components/admin/ui'
 import { useAuthStore } from '../../store/authStore'
 
 interface AdminUser {
@@ -22,14 +25,12 @@ type Action =
   | { type: 'demote'; user: AdminUser }
   | { type: 'delete'; user: AdminUser }
 
-const PANEL = 'rounded-xl border border-slate-200 bg-white p-4'
-
 export default function AdminUsersPage() {
+  const toast = useToast()
   const { user: me } = useAuthStore()
   const [users, setUsers] = useState<AdminUser[]>([])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
-  const [message, setMessage] = useState('')
   const [pendingAction, setPendingAction] = useState<Action | null>(null)
 
   async function refresh(searchTerm?: string) {
@@ -61,15 +62,15 @@ export default function AdminUsersPage() {
     try {
       if (type === 'delete') {
         await api.delete(`/admin/users/${user.id}`)
-        setMessage(`${user.email} dihapus.`)
+        toast.success(`${user.email} dihapus.`)
       } else {
         const role = type === 'promote' ? 'admin' : 'parent'
         await api.put(`/admin/users/${user.id}/role`, { role })
-        setMessage(`${user.email} → ${role}.`)
+        toast.success(`${user.email} → ${role}.`)
       }
       await refresh(search.trim() || undefined)
     } catch (error: unknown) {
-      setMessage(extractErr(error, 'Aksi gagal.'))
+      toast.error(getApiErrorMessage(error, 'Aksi gagal.'))
     } finally {
       setPendingAction(null)
     }
@@ -83,38 +84,43 @@ export default function AdminUsersPage() {
         description="Promosikan akun jadi admin atau hapus akun. Hapus akun = hapus semua data anak + progres."
       />
 
-      {message && (
-        <div className={`rounded-lg px-3 py-2 text-sm ${message.toLowerCase().includes('gagal') ? 'bg-red-50 text-red-700' : 'bg-emerald-50 text-emerald-700'}`}>
-          {message}
-        </div>
-      )}
-
-      <div className={PANEL}>
+      <Panel>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="font-display text-sm font-extrabold uppercase tracking-[0.16em] text-slate-700">{users.length} users</h2>
-          </div>
+          <SectionHeading>{users.length} users</SectionHeading>
           <div className="relative w-full sm:max-w-xs">
-            <i className="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400" aria-hidden="true" />
+            <i
+              className="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-admin-faint"
+              aria-hidden="true"
+            />
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari email atau nama..."
-              className="w-full rounded-md border border-slate-300 bg-white px-9 py-2 text-sm text-slate-900 outline-none focus:border-slate-500"
+              className="w-full rounded-lg border border-admin-edge bg-white py-2 pl-9 pr-3 text-sm text-admin-ink placeholder:text-admin-faint outline-none transition-colors focus:border-qupu-brand-blue focus:ring-2 focus:ring-qupu-brand-blue/25"
             />
           </div>
         </div>
 
         {loading ? (
-          <p className="mt-3 text-sm text-slate-500">Memuat...</p>
+          <div className="mt-3 grid gap-2">
+            <Skeleton className="h-12" />
+            <Skeleton className="h-12" />
+            <Skeleton className="h-12" />
+            <Skeleton className="h-12" />
+          </div>
         ) : users.length === 0 ? (
-          <p className="mt-3 text-sm text-slate-500">Tidak ada user yang cocok.</p>
+          <EmptyState
+            className="mt-3"
+            icon="fa-solid fa-user-slash"
+            title="Tidak ada user yang cocok"
+            hint="Coba kata kunci lain atau kosongkan pencarian."
+          />
         ) : (
           <div className="mt-3 overflow-x-auto">
             <table className="w-full min-w-[640px] text-sm">
               <thead>
-                <tr className="border-b border-slate-200 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+                <tr className="border-b border-admin-line text-left text-[11px] font-bold uppercase tracking-[0.14em] text-admin-muted">
                   <th className="py-2 pr-3">User</th>
                   <th className="py-2 pr-3">Role</th>
                   <th className="py-2 pr-3">Auth</th>
@@ -122,67 +128,73 @@ export default function AdminUsersPage() {
                   <th className="py-2 pr-3 text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-admin-line">
                 {users.map((user) => {
                   const isSelf = user.id === me?.id
                   return (
                     <tr key={user.id}>
                       <td className="py-2.5 pr-3">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-slate-900">{user.name}</span>
-                          {isSelf && (
-                            <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold uppercase text-slate-700">Kamu</span>
-                          )}
+                          <span className="font-semibold text-admin-ink">{user.name}</span>
+                          {isSelf && <Tag tone="neutral">Kamu</Tag>}
                         </div>
-                        <div className="truncate text-[11px] text-slate-500">{user.email}{user.phone ? ` · ${user.phone}` : ''}</div>
+                        <div className="truncate text-[11px] text-admin-muted">
+                          {user.email}
+                          {user.phone ? ` · ${user.phone}` : ''}
+                        </div>
                       </td>
                       <td className="py-2.5 pr-3">
-                        <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${user.role === 'admin' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}>
-                          {user.role}
-                        </span>
+                        <Tag tone={user.role === 'admin' ? 'ink' : 'neutral'}>{user.role}</Tag>
                       </td>
                       <td className="py-2.5 pr-3">
                         <div className="flex flex-wrap gap-1">
                           {user.hasGoogle && (
-                            <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700"><i className="fa-brands fa-google mr-0.5" aria-hidden="true" />Google</span>
+                            <Tag tone="neutral">
+                              <i className="fa-brands fa-google mr-0.5" aria-hidden="true" />
+                              Google
+                            </Tag>
                           )}
                           {user.hasPassword && (
-                            <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700"><i className="fa-solid fa-key mr-0.5" aria-hidden="true" />Password</span>
+                            <Tag tone="neutral">
+                              <i className="fa-solid fa-key mr-0.5" aria-hidden="true" />
+                              Password
+                            </Tag>
                           )}
-                          {!user.hasGoogle && !user.hasPassword && (
-                            <span className="rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">No auth</span>
-                          )}
+                          {!user.hasGoogle && !user.hasPassword && <Tag tone="warn">No auth</Tag>}
                         </div>
                       </td>
-                      <td className="py-2.5 pr-3 text-[11px] text-slate-500">{formatDateLabel(user.createdAt)}</td>
+                      <td className="py-2.5 pr-3 text-[11px] text-admin-muted">{formatDateLabel(user.createdAt)}</td>
                       <td className="py-2.5 pr-3">
                         <div className="flex justify-end gap-1.5">
                           {user.role === 'admin' ? (
-                            <button
+                            <Button
+                              variant="secondary"
+                              size="sm"
                               type="button"
                               disabled={isSelf}
                               onClick={() => setPendingAction({ type: 'demote', user })}
-                              className="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                               Demote
-                            </button>
+                            </Button>
                           ) : (
-                            <button
+                            <Button
+                              variant="primary"
+                              size="sm"
                               type="button"
                               onClick={() => setPendingAction({ type: 'promote', user })}
-                              className="rounded-md bg-slate-900 px-2.5 py-1 text-xs font-bold text-white transition hover:bg-slate-800"
                             >
                               Promote
-                            </button>
+                            </Button>
                           )}
-                          <button
+                          <Button
+                            variant="danger"
+                            size="sm"
                             type="button"
                             disabled={isSelf}
                             onClick={() => setPendingAction({ type: 'delete', user })}
-                            className="rounded-md border border-red-200 bg-white px-2.5 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             Hapus
-                          </button>
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -192,7 +204,7 @@ export default function AdminUsersPage() {
             </table>
           </div>
         )}
-      </div>
+      </Panel>
 
       <ConfirmDangerousAction
         open={!!pendingAction}
@@ -239,16 +251,4 @@ function pendingActionLabel(action: Action): string {
     case 'delete':
       return 'Hapus permanen'
   }
-}
-
-function extractErr(error: unknown, fallback: string): string {
-  if (
-    typeof error === 'object' &&
-    error !== null &&
-    'response' in error &&
-    typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-  ) {
-    return (error as { response: { data: { error: string } } }).response.data.error
-  }
-  return fallback
 }
