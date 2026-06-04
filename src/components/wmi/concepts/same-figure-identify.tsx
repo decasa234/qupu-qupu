@@ -7,7 +7,7 @@ interface SameFigParams {
   validIndex: number
 }
 
-const S = 16
+const S = 13
 
 function dims(cells: Cell[]): [number, number] {
   return [Math.max(...cells.map((c) => c[0])) + 1, Math.max(...cells.map((c) => c[1])) + 1]
@@ -41,14 +41,15 @@ export default function SameFigureIdentifyIllustration({ params }: { params: unk
   const labels = ['A', 'B', 'C', 'D']
   const slotW = 78
   const width = 4 * slotW
-  const optTop = 92
-  const optH = 60
+  const optTop = 96
+  const optH = 72
+  const height = optTop + optH + 26
   return (
     <div className="my-4 flex justify-center">
-      <svg viewBox={`0 0 ${width} 178`} width="320" role="img" aria-label="Cocokkan bentuk yang sama">
+      <svg viewBox={`0 0 ${width} ${height}`} width="320" role="img" aria-label="Cocokkan bentuk yang sama">
         {/* target */}
-        {centered(p.target ?? [], 0, 8, width, 64, 't')}
-        <line x1={20} y1={80} x2={width - 20} y2={80} stroke="currentColor" strokeWidth={1} className="text-qupu-muted" />
+        {centered(p.target ?? [], 0, 8, width, 72, 't')}
+        <line x1={20} y1={86} x2={width - 20} y2={86} stroke="currentColor" strokeWidth={1} className="text-qupu-muted" />
         {/* options A-D */}
         {options.map((cells, i) => (
           <g key={i}>

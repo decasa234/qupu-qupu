@@ -18,14 +18,15 @@ export const meta = {
   description_id: 'Pilih bentuk yang sama (diputar, bukan dibalik).',
 } as const
 
-// An L-tetromino is chiral: its rotations are all "the same" shape, while its
-// mirror image (a J) can never be reached by rotation — so the correct option
-// is correct BY CONSTRUCTION, no folding/geometry check needed.
-const BASE: Cell[] = [
-  [0, 0],
-  [0, 1],
-  [0, 2],
-  [1, 2],
+// Each base shape is chiral with no rotational symmetry: its 4 rotations are
+// all "the same" shape, while its mirror image is never reachable by rotation —
+// so the correct option is correct BY CONSTRUCTION (the test enforces both the
+// chirality and that all 4 options are distinct).
+const SHAPES: Cell[][] = [
+  [[0, 0], [0, 1], [0, 2], [1, 2]], // L-tetromino
+  [[0, 0], [0, 1], [0, 2], [0, 3], [1, 3]], // L-pentomino
+  [[0, 0], [0, 1], [1, 1], [1, 2], [1, 3]], // N-pentomino
+  [[1, 0], [1, 1], [1, 2], [1, 3], [0, 1]], // Y-pentomino
 ]
 
 function rot90(cells: Cell[]): Cell[] {
@@ -48,10 +49,11 @@ function rotN(cells: Cell[], n: number): Cell[] {
 }
 
 export function generate(rng: Rng): Params {
-  const target = normalize(BASE)
+  const base = rng.pick(SHAPES)
+  const target = normalize(base)
   const r = rng.pick([1, 2, 3] as const) // a real turn (not the identity)
-  const correct = rotN(BASE, r)
-  const reflected = reflect(BASE)
+  const correct = rotN(base, r)
+  const reflected = reflect(base)
   const distRots = rng.shuffle([0, 1, 2, 3]).slice(0, 3)
   const distractors = distRots.map((d) => rotN(reflected, d))
   const all = [correct, ...distractors]
