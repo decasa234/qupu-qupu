@@ -24,6 +24,14 @@ import divisibilityMultipleProperty from './divisibility-multiple-property/index
 import positionInLine from './position-in-line/index.js'
 import assignmentCycle from './assignment-cycle/index.js'
 import distanceRateTime from './distance-rate-time/index.js'
+import operatorFill from './operator-fill/index.js'
+import whichMightBe from './which-might-be/index.js'
+import rangeCountEvaluate from './range-count-evaluate/index.js'
+import unitConversion from './unit-conversion/index.js'
+import weightBalanceWord from './weight-balance-word/index.js'
+import lackingMoneyShared from './lacking-money-shared/index.js'
+import digitFrequency from './digit-frequency/index.js'
+import oddEvenReasoning from './odd-even-reasoning/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -53,6 +61,14 @@ export const CONCEPTS = {
   'position-in-line': positionInLine,
   'assignment-cycle': assignmentCycle,
   'distance-rate-time': distanceRateTime,
+  'operator-fill': operatorFill,
+  'which-might-be': whichMightBe,
+  'range-count-evaluate': rangeCountEvaluate,
+  'unit-conversion': unitConversion,
+  'weight-balance-word': weightBalanceWord,
+  'lacking-money-shared': lackingMoneyShared,
+  'digit-frequency': digitFrequency,
+  'odd-even-reasoning': oddEvenReasoning,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
