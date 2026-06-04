@@ -29,7 +29,7 @@ function Cube({ cx, cy, keyId }: { cx: number; cy: number; keyId: string }) {
 export default function BlockCount3dIllustration({ params }: { params: unknown }) {
   const p = params as BlockParams
   const groups = p.groups ?? []
-  const gap = 24
+  const gap = 56 // wide gutter so each group reads as a fully separate pile
   let runningX = 0
   const els: ReactNode[] = []
   let minX = Infinity
@@ -68,7 +68,7 @@ export default function BlockCount3dIllustration({ params }: { params: unknown }
   const vbH = maxY - minY + pad * 2
   return (
     <div className="my-4 flex justify-center">
-      <svg viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`} width={Math.min(340, vbW * 1.2)} role="img" aria-label="Beberapa kelompok balok">
+      <svg viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`} width={Math.min(460, Math.max(180, vbW))} role="img" aria-label="Beberapa kelompok balok yang terpisah">
         {els}
       </svg>
     </div>
