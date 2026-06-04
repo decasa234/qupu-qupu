@@ -27,6 +27,7 @@ import {
 import { SHORT_VIDEO_MAX_SECONDS } from '../lib/youtube.js'
 import { bulkImportAsDrafts } from '../services/youtubeChannelImport.js'
 import { deleteVideosByIds, findStaleVideos } from '../services/staleVideos.js'
+import { autocompleteDrafts } from '../services/draftPrefill.js'
 import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
 const router = Router()
@@ -331,6 +332,18 @@ router.post('/videos/stale/delete', async (req: AuthRequest, res: Response): Pro
     res.json({ success: true, data: { deleted } })
   } catch (error) {
     console.error('Stale video delete error:', error)
+    res.status(500).json({ success: false, error: 'internal_error' })
+  }
+})
+
+// Apply title-pattern prefill rules to every incomplete draft (fills subject /
+// age group / question count / badge template; never auto-publishes).
+router.post('/videos/autocomplete-drafts', async (_req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const result = await autocompleteDrafts()
+    res.json({ success: true, data: result })
+  } catch (error) {
+    console.error('Autocomplete drafts error:', error)
     res.status(500).json({ success: false, error: 'internal_error' })
   }
 })
