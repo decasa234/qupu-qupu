@@ -32,6 +32,14 @@ import weightBalanceWord from './weight-balance-word/index.js'
 import lackingMoneyShared from './lacking-money-shared/index.js'
 import digitFrequency from './digit-frequency/index.js'
 import oddEvenReasoning from './odd-even-reasoning/index.js'
+import numberPyramid from './number-pyramid/index.js'
+import diceOppositeFaces from './dice-opposite-faces/index.js'
+import directionOrientation from './direction-orientation/index.js'
+import combinationProductSum from './combination-product-sum/index.js'
+import perfectSquareSearch from './perfect-square-search/index.js'
+import productOfConsecutive from './product-of-consecutive/index.js'
+import budgetSelection from './budget-selection/index.js'
+import sumPartitionSplit from './sum-partition-split/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -69,6 +77,14 @@ export const CONCEPTS = {
   'lacking-money-shared': lackingMoneyShared,
   'digit-frequency': digitFrequency,
   'odd-even-reasoning': oddEvenReasoning,
+  'number-pyramid': numberPyramid,
+  'dice-opposite-faces': diceOppositeFaces,
+  'direction-orientation': directionOrientation,
+  'combination-product-sum': combinationProductSum,
+  'perfect-square-search': perfectSquareSearch,
+  'product-of-consecutive': productOfConsecutive,
+  'budget-selection': budgetSelection,
+  'sum-partition-split': sumPartitionSplit,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
