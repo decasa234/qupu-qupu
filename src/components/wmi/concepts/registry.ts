@@ -19,6 +19,9 @@ import SameFigureIdentify from './same-figure-identify'
 import DiceNetFold from './dice-net-fold'
 import ScaleRead from './scale-read'
 import FractionOfRegion from './fraction-of-region'
+import MazePathShortest from './maze-path-shortest'
+import CountShapesInFigure from './count-shapes-in-figure'
+import CountRectanglesGrid from './count-rectangles-grid'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -41,6 +44,9 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'dice-net-fold': DiceNetFold,
   'scale-read': ScaleRead,
   'fraction-of-region': FractionOfRegion,
+  'maze-path-shortest': MazePathShortest,
+  'count-shapes-in-figure': CountShapesInFigure,
+  'count-rectangles-grid': CountRectanglesGrid,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {

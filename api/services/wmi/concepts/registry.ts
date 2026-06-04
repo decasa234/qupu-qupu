@@ -58,6 +58,9 @@ import sameFigureIdentify from './same-figure-identify/index.js'
 import diceNetFold from './dice-net-fold/index.js'
 import scaleRead from './scale-read/index.js'
 import fractionOfRegion from './fraction-of-region/index.js'
+import mazePathShortest from './maze-path-shortest/index.js'
+import countShapesInFigure from './count-shapes-in-figure/index.js'
+import countRectanglesGrid from './count-rectangles-grid/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -121,6 +124,9 @@ export const CONCEPTS = {
   'dice-net-fold': diceNetFold,
   'scale-read': scaleRead,
   'fraction-of-region': fractionOfRegion,
+  'maze-path-shortest': mazePathShortest,
+  'count-shapes-in-figure': countShapesInFigure,
+  'count-rectangles-grid': countRectanglesGrid,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
