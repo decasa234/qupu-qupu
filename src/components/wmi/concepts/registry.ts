@@ -13,6 +13,9 @@ import CountPolygonSides from './count-polygon-sides'
 import SymmetryCount from './symmetry-count'
 import AngleType from './angle-type'
 import TallyMarksCount from './tally-marks-count'
+import GridPathSteps from './grid-path-steps'
+import MoneyCoinsTotal from './money-coins-total'
+import SameFigureIdentify from './same-figure-identify'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -29,6 +32,9 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'symmetry-count': SymmetryCount,
   'angle-type': AngleType,
   'tally-marks-count': TallyMarksCount,
+  'grid-path-steps': GridPathSteps,
+  'money-coins-total': MoneyCoinsTotal,
+  'same-figure-identify': SameFigureIdentify,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {

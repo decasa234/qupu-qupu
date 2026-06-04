@@ -52,6 +52,9 @@ import countPolygonSides from './count-polygon-sides/index.js'
 import symmetryCount from './symmetry-count/index.js'
 import angleType from './angle-type/index.js'
 import tallyMarksCount from './tally-marks-count/index.js'
+import gridPathSteps from './grid-path-steps/index.js'
+import moneyCoinsTotal from './money-coins-total/index.js'
+import sameFigureIdentify from './same-figure-identify/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -109,6 +112,9 @@ export const CONCEPTS = {
   'symmetry-count': symmetryCount,
   'angle-type': angleType,
   'tally-marks-count': tallyMarksCount,
+  'grid-path-steps': gridPathSteps,
+  'money-coins-total': moneyCoinsTotal,
+  'same-figure-identify': sameFigureIdentify,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
