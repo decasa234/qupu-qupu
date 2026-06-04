@@ -26,6 +26,7 @@ import {
 } from '../services/youtubeChannel.js'
 import { SHORT_VIDEO_MAX_SECONDS } from '../lib/youtube.js'
 import { bulkImportAsDrafts } from '../services/youtubeChannelImport.js'
+import { deleteVideosByIds, findStaleVideos } from '../services/staleVideos.js'
 import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
 const router = Router()
@@ -280,6 +281,59 @@ router.post(
     }
   },
 )
+
+// ===== Stale videos (source gone from YouTube) =====
+
+// Scan the catalog for videos whose YouTube source is deleted/private. Hits the
+// YouTube API, so it's rate-limited per admin to keep quota bounded.
+router.get('/videos/stale', async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    try {
+      await enforceRateLimit(req.user.id, 'videos-stale-scan', { max: 10, windowSeconds: 60 })
+    } catch (error) {
+      if (error instanceof RateLimitError) {
+        res.set('Retry-After', String(error.retryAfterSeconds))
+        res.status(429).json({
+          success: false,
+          error: 'rate_limited',
+          retryAfter: error.retryAfterSeconds,
+        })
+        return
+      }
+      throw error
+    }
+
+    const videos = await findStaleVideos()
+    res.json({ success: true, data: { videos } })
+  } catch (error: unknown) {
+    if (error instanceof YouTubeMisconfiguredError) {
+      res.status(500).json({ success: false, error: 'server_misconfigured' })
+      return
+    }
+    console.error('Stale video scan error:', error)
+    res.status(502).json({ success: false, error: 'youtube_unavailable' })
+  }
+})
+
+const staleDeleteSchema = Joi.object({
+  ids: Joi.array().items(Joi.string().uuid()).min(1).max(500).required(),
+})
+
+// Hard-delete the given video ids (cascades to scores + earned badges).
+router.post('/videos/stale/delete', async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { error, value } = staleDeleteSchema.validate(req.body)
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
+      return
+    }
+    const deleted = await deleteVideosByIds(value.ids)
+    res.json({ success: true, data: { deleted } })
+  } catch (error) {
+    console.error('Stale video delete error:', error)
+    res.status(500).json({ success: false, error: 'internal_error' })
+  }
+})
 
 // ===== Stats =====
 
