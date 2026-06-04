@@ -15,6 +15,7 @@ import wmiMemberRoutes from './routes/wmi-member.js'
 import childrenRoutes from './routes/children.js'
 import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
+import wmiAdminRoutes from './routes/wmi-admin.js'
 import analyticsRoutes from './routes/analytics.js'
 import shopRoutes, { inventoryRouter as inventoryRoutes } from './routes/shop.js'
 import { applyCacheControl } from './middleware/cacheControl.js'
@@ -63,6 +64,7 @@ app.use('/api/me/inventory', inventoryRoutes)
 app.use('/api/me/children', childrenRoutes)
 app.use('/api/me/wmi', wmiMemberRoutes)
 app.use('/api/me', memberRoutes)
+app.use('/api/admin/wmi', wmiAdminRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/analytics', analyticsRoutes)
 

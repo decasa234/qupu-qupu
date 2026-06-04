@@ -7,6 +7,15 @@ import shapePerimeterSquare from './shape-perimeter-square/index.js'
 import placeValue from './place-value/index.js'
 import multiplicationSmall from './multiplication-small/index.js'
 import storySum from './story-sum/index.js'
+import arithmeticExpressionEval from './arithmetic-expression-eval/index.js'
+import compareOrderNumbers from './compare-order-numbers/index.js'
+import clockTimeAfter from './clock-time-after/index.js'
+import legsItemsRate from './legs-items-rate/index.js'
+import whichExpressionEquals from './which-expression-equals/index.js'
+import reverseArithmeticPuzzle from './reverse-arithmetic-puzzle/index.js'
+import moneyShoppingChange from './money-shopping-change/index.js'
+import findNumberByDigitSum from './find-number-by-digit-sum/index.js'
+import customOperation from './custom-operation/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -19,6 +28,15 @@ export const CONCEPTS = {
   'place-value': placeValue,
   'multiplication-small': multiplicationSmall,
   'story-sum': storySum,
+  'arithmetic-expression-eval': arithmeticExpressionEval,
+  'compare-order-numbers': compareOrderNumbers,
+  'clock-time-after': clockTimeAfter,
+  'legs-items-rate': legsItemsRate,
+  'which-expression-equals': whichExpressionEquals,
+  'reverse-arithmetic-puzzle': reverseArithmeticPuzzle,
+  'money-shopping-change': moneyShoppingChange,
+  'find-number-by-digit-sum': findNumberByDigitSum,
+  'custom-operation': customOperation,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS
