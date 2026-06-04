@@ -1,6 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 import { useAuthStore } from '../store/authStore'
-import { useLoadingState } from '../hooks/useLoadingState'
 import { getCachedValue, makeCacheKey, setCachedValue } from './clientCache'
 
 const baseURL =
@@ -13,28 +12,17 @@ const api = axios.create({
   },
 })
 
-api.interceptors.request.use(
-  (config) => {
-    useLoadingState.getState().start()
-    const token = localStorage.getItem('auth_token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-  },
-  (error) => {
-    useLoadingState.getState().stop()
-    return Promise.reject(error)
-  },
-)
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('auth_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
 
 api.interceptors.response.use(
-  (response) => {
-    useLoadingState.getState().stop()
-    return response
-  },
+  (response) => response,
   (error) => {
-    useLoadingState.getState().stop()
     if (error.response?.status === 401 || error.response?.status === 403) {
       const url: string = error.config?.url ?? ''
       const isAuthEndpoint = url.startsWith('/auth/')
