@@ -43,4 +43,11 @@ describe('buildWalkSteps', () => {
     expect(buildWalkSteps(PARAMS, 'en').steps[0].caption).toContain('start')
     expect(buildWalkSteps(PARAMS, 'id').steps[0].caption).toContain('mulai')
   })
+
+  test('does not throw on stale/mismatched params (missing steps array)', () => {
+    const stale = { target: 12, exprs: [] } as unknown as WalkParams
+    expect(() => buildWalkSteps(stale, 'en')).not.toThrow()
+    const s = buildWalkSteps(stale, 'en')
+    expect(s.steps.length).toBeGreaterThan(0)
+  })
 })

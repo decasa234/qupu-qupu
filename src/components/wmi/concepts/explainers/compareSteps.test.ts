@@ -34,4 +34,14 @@ describe('buildCompareSteps', () => {
     expect(buildCompareSteps(PARAMS, 'en').steps[0].caption).toContain('which')
     expect(buildCompareSteps(PARAMS, 'id').steps[0].caption).toContain('mana')
   })
+
+  test('does not throw on stale/mismatched params (missing exprs)', () => {
+    // Mirrors the proofreading-page race where a different concept's params
+    // briefly reach this explainer. Must degrade, not crash.
+    const stale = { mode: 'sum-list', a: 1, b: 2 } as unknown as CompareParams
+    expect(() => buildCompareSteps(stale, 'en')).not.toThrow()
+    const s = buildCompareSteps(stale, 'en')
+    expect(s.rows).toEqual([])
+    expect(s.steps.length).toBeGreaterThan(0)
+  })
 })

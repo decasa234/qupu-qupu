@@ -51,9 +51,14 @@ const LABELS = ['A', 'B', 'C', 'D']
 // spotlights the match.
 export function buildCompareSteps(p: CompareParams, lang: Lang): CompareStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
-  const rows: CompareRow[] = p.exprs.map((e, i) => {
+  // Defensive: params can momentarily be stale/mismatched (e.g. the
+  // proofreading page swaps the slug a render before fresh samples arrive),
+  // so never assume the nested array is present.
+  const target = typeof p?.target === 'number' ? p.target : NaN
+  const exprs = Array.isArray(p?.exprs) ? p.exprs : []
+  const rows: CompareRow[] = exprs.map((e, i) => {
     const value = evalExpr(e)
-    return { label: LABELS[i] ?? '?', text: exprText(e), value, match: value === p.target }
+    return { label: LABELS[i] ?? '?', text: exprText(e), value, match: value === target }
   })
   const matchIdx = rows.findIndex((r) => r.match)
   const answer = matchIdx >= 0 ? rows[matchIdx].label : ''
@@ -61,7 +66,7 @@ export function buildCompareSteps(p: CompareParams, lang: Lang): CompareStoryboa
   const steps: CompareStep[] = [
     {
       evaluated: 0, spotlight: false,
-      caption: t(`which equals ${p.target}?`, `mana yang hasilnya ${p.target}?`),
+      caption: t(`which equals ${target}?`, `mana yang hasilnya ${target}?`),
       hold: 1300, result: false,
     },
   ]
@@ -74,9 +79,9 @@ export function buildCompareSteps(p: CompareParams, lang: Lang): CompareStoryboa
   })
   steps.push({
     evaluated: rows.length, spotlight: true,
-    caption: t(`${answer} equals ${p.target}`, `${answer} sama dengan ${p.target}`),
+    caption: t(`${answer} equals ${target}`, `${answer} sama dengan ${target}`),
     hold: 0, result: true,
   })
 
-  return { target: p.target, rows, answer, steps, finalIndex: steps.length - 1 }
+  return { target, rows, answer, steps, finalIndex: steps.length - 1 }
 }

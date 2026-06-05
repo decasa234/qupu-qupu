@@ -36,8 +36,13 @@ export interface WalkStoryboard {
 // track is scaled to the visited range so the marker always stays in view.
 export function buildWalkSteps(p: WalkParams, lang: Lang): WalkStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
-  const positions: number[] = [p.start]
-  for (const s of p.steps) {
+  // Defensive: params can momentarily be stale/mismatched (e.g. the
+  // proofreading page swaps the slug a render before fresh samples arrive),
+  // so never assume the chain array is present.
+  const start = typeof p?.start === 'number' ? p.start : 0
+  const chain = Array.isArray(p?.steps) ? p.steps : []
+  const positions: number[] = [start]
+  for (const s of chain) {
     const prev = positions[positions.length - 1]
     positions.push(s.op === '+' ? prev + s.n : prev - s.n)
   }
@@ -48,16 +53,16 @@ export function buildWalkSteps(p: WalkParams, lang: Lang): WalkStoryboard {
 
   const steps: WalkBeat[] = [
     {
-      frac: frac(p.start), total: p.start, hop: null,
-      caption: t(`start at ${p.start}`, `mulai di ${p.start}`),
+      frac: frac(start), total: start, hop: null,
+      caption: t(`start at ${start}`, `mulai di ${start}`),
       hold: 1300, result: false,
     },
   ]
-  p.steps.forEach((s, i) => {
+  chain.forEach((s, i) => {
     const prev = positions[i]
     const cur = positions[i + 1]
     const sym = s.op === '+' ? '+' : '−'
-    const last = i === p.steps.length - 1
+    const last = i === chain.length - 1
     steps.push({
       frac: frac(cur), total: cur, hop: `${sym}${s.n}`,
       caption: `${prev} ${sym} ${s.n} = ${cur}`,
@@ -65,5 +70,5 @@ export function buildWalkSteps(p: WalkParams, lang: Lang): WalkStoryboard {
     })
   })
 
-  return { start: p.start, min, max, answer: positions[positions.length - 1], steps, finalIndex: steps.length - 1 }
+  return { start, min, max, answer: positions[positions.length - 1], steps, finalIndex: steps.length - 1 }
 }

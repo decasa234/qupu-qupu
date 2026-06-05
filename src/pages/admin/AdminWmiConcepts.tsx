@@ -73,6 +73,10 @@ export default function AdminWmiConcepts() {
   const [concepts, setConcepts] = useState<AdminConceptSummary[]>([])
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
   const [samples, setSamples] = useState<AdminConceptSample[]>([])
+  // Which concept the loaded `samples` belong to. Used to avoid rendering a
+  // sample (and its animation) for the previous concept during the render
+  // between an activeSlug change and the async sample reload completing.
+  const [samplesSlug, setSamplesSlug] = useState<string | null>(null)
   const [idx, setIdx] = useState(0)
   const [breakdown, setBreakdown] = useState(false)
   const [listError, setListError] = useState<string | null>(null)
@@ -105,6 +109,7 @@ export default function AdminWmiConcepts() {
     try {
       const { samples: next } = await fetchConceptSamples(slug, 8, seed)
       setSamples(next)
+      setSamplesSlug(slug)
       setIdx(0)
     } catch (e) {
       setSampleError(e instanceof Error ? e.message : 'Gagal membuat contoh soal')
@@ -445,7 +450,7 @@ export default function AdminWmiConcepts() {
             </div>
           )}
 
-          {!loading && sample && (
+          {!loading && sample && samplesSlug === activeSlug && (
             <div className="grid gap-4">
               {sample.error ? (
                 <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
