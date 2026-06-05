@@ -24,6 +24,7 @@ export function Toolbar({
             value={search.value}
             onChange={(e) => search.onChange(e.target.value)}
             placeholder={search.placeholder ?? 'Cari…'}
+            aria-label={search.placeholder ?? 'Cari'}
             className="pl-8"
           />
         </div>
