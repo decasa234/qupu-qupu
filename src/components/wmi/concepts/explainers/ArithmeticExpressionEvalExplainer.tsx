@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildExpressionSteps, type ExprParams } from './expressionSteps'
 
@@ -33,34 +33,33 @@ export default function ArithmeticExpressionEvalExplainer({ params, lang = 'en' 
   }, [story, reduce])
 
   const step = story.steps[index] ?? story.steps[story.finalIndex]
-  const lastIdx = story.lines.length - 1
 
   const ariaLabel =
     lang === 'id'
-      ? 'Cara berpikir: kerjakan perkalian dulu, lalu hitung dari kiri ke kanan.'
-      : 'Strategy: do the multiplications first, then work left to right.'
+      ? 'Cara berpikir: kelompokkan dan kerjakan satu bagian dulu (perkalian sebelum tambah/kurang).'
+      : 'Strategy: group and resolve one chunk at a time (products before +/−).'
+
+  const groupStyle = step.result
+    ? { background: '#D1FAE5', color: '#065F46', boxShadow: 'inset 0 0 0 2px #10B981' }
+    : { background: '#FFE1C2', color: '#9A3412', boxShadow: 'inset 0 0 0 2px #F97316' }
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex flex-col items-center gap-3">
-        <div className="flex min-h-[120px] flex-col items-center justify-center gap-1.5">
-          {story.lines.slice(0, step.linesShown).map((line, i) => {
-            const isResult = i === lastIdx
-            const isCurrent = i === step.linesShown - 1
-            return (
-              <motion.div
+      <div className="flex flex-col items-center gap-4">
+        <LayoutGroup>
+          <div className="flex min-h-[64px] flex-wrap items-center justify-center gap-1 font-display text-xl font-black tabular-nums">
+            {step.tokens.map((tk, i) => (
+              <motion.span
                 key={i}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: isCurrent ? 1 : 0.45, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="font-display text-lg font-extrabold tabular-nums"
-                style={{ color: isResult ? '#065F46' : '#30598A' }}
+                layout
+                className={tk.active ? 'rounded-lg px-2 py-1' : 'px-0.5'}
+                style={tk.active ? groupStyle : { color: '#30598A' }}
               >
-                {line}
-              </motion.div>
-            )
-          })}
-        </div>
+                {tk.text}
+              </motion.span>
+            ))}
+          </div>
+        </LayoutGroup>
 
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
