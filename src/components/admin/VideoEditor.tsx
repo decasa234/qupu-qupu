@@ -4,7 +4,7 @@ import { slugify } from '../../lib/youtube'
 import { getApiErrorMessage } from '../../lib/apiError'
 import BadgeCurve from '../BadgeCurve'
 import { useToast } from './Toast'
-import { Button, Field, Input, Select, Textarea } from './ui'
+import { Button, Field, Input, Select, SectionHeading, Textarea } from './ui'
 import { BadgeRangeEditor } from './BadgeRangeEditor'
 import type { AdminVideoFormValues, PublicMeta } from '../../types'
 
@@ -210,133 +210,147 @@ export default function VideoEditor({
   }
 
   return (
-    <form className="grid gap-3 rounded-xl border border-admin-line bg-admin-sunk p-4" onSubmit={handleSubmit}>
-      <Field label="Judul video">
-        <Input value={form.title} onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))} />
-      </Field>
-      <Field label="Slug" hint={`Preview: ${titlePreview || '-'}`}>
-        <Input value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
-      </Field>
-      <Field label="YouTube URL" hint="Klik Pull untuk auto-fill judul, deskripsi, dan thumbnail dari YouTube.">
-        <div className="flex min-w-0 gap-2">
-          <Input value={form.youtubeUrl} onChange={(e) => setForm((s) => ({ ...s, youtubeUrl: e.target.value }))} />
-          <Button
-            type="button"
-            onClick={handleYouTubeImport}
-            loading={importing}
-            disabled={!form.youtubeUrl.trim()}
-            className="shrink-0"
-          >
-            {importing ? 'Impor...' : 'Pull'}
-          </Button>
+    <form className="space-y-6 rounded-xl border border-admin-line bg-admin-sunk p-4" onSubmit={handleSubmit}>
+      {/* ── Identitas ─────────────────────────────────────────────── */}
+      <section className="space-y-3">
+        <SectionHeading>Identitas</SectionHeading>
+        <Field label="Judul video">
+          <Input value={form.title} onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))} />
+        </Field>
+        <Field label="Slug" hint={`Preview: ${titlePreview || '-'}`}>
+          <Input value={form.slug} onChange={(e) => setForm((s) => ({ ...s, slug: e.target.value }))} />
+        </Field>
+        <Field label="YouTube URL" hint="Klik Pull untuk auto-fill judul, deskripsi, dan thumbnail dari YouTube.">
+          <div className="flex min-w-0 gap-2">
+            <Input value={form.youtubeUrl} onChange={(e) => setForm((s) => ({ ...s, youtubeUrl: e.target.value }))} />
+            <Button
+              type="button"
+              onClick={handleYouTubeImport}
+              loading={importing}
+              disabled={!form.youtubeUrl.trim()}
+              className="shrink-0"
+            >
+              {importing ? 'Impor...' : 'Pull'}
+            </Button>
+          </div>
+        </Field>
+        <Field label="Thumbnail URL">
+          <Input value={form.thumbnailUrl} onChange={(e) => setForm((s) => ({ ...s, thumbnailUrl: e.target.value }))} />
+        </Field>
+        <Field label="Deskripsi">
+          <Textarea
+            rows={3}
+            value={form.description}
+            onChange={(e) => setForm((s) => ({ ...s, description: e.target.value }))}
+          />
+        </Field>
+      </section>
+
+      {/* ── Klasifikasi ───────────────────────────────────────────── */}
+      <section className="space-y-3">
+        <SectionHeading>Klasifikasi</SectionHeading>
+        <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+          <Field label="Subject">
+            <Select value={form.subjectId} onChange={(e) => handleSubjectChange(e.target.value)}>
+              <option value="">— pilih subject —</option>
+              {subjectOptions.map((subject) => (
+                <option key={subject.id} value={subject.id}>
+                  {subject.name}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Field label="Age group">
+            <Select value={form.ageGroupId} onChange={(e) => setForm((s) => ({ ...s, ageGroupId: e.target.value }))}>
+              <option value="">— pilih age group —</option>
+              {ageGroupOptions.map((group) => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </Select>
+          </Field>
         </div>
-      </Field>
-      <Field label="Thumbnail URL">
-        <Input value={form.thumbnailUrl} onChange={(e) => setForm((s) => ({ ...s, thumbnailUrl: e.target.value }))} />
-      </Field>
+        <div className="grid min-w-0 gap-3 sm:grid-cols-3">
+          <Field label="Jumlah soal">
+            <Input
+              type="number"
+              value={form.numberOfQuestions ?? ''}
+              onChange={(e) => setForm((s) => ({ ...s, numberOfQuestions: Number(e.target.value) }))}
+            />
+          </Field>
+          <Field label="Difficulty">
+            <Select
+              value={form.difficulty}
+              onChange={(e) => setForm((s) => ({ ...s, difficulty: e.target.value as AdminVideoFormValues['difficulty'] }))}
+            >
+              <option value="easy">easy</option>
+              <option value="medium">medium</option>
+              <option value="hard">hard</option>
+            </Select>
+          </Field>
+          <Field label="Sort">
+            <Input
+              type="number"
+              value={String(form.sortOrder)}
+              onChange={(e) => setForm((s) => ({ ...s, sortOrder: Number(e.target.value) }))}
+            />
+          </Field>
+        </div>
+      </section>
 
-      <div className="grid min-w-0 gap-3 sm:grid-cols-2">
-        <Field label="Subject">
-          <Select value={form.subjectId} onChange={(e) => handleSubjectChange(e.target.value)}>
-            <option value="">— pilih subject —</option>
-            {subjectOptions.map((subject) => (
-              <option key={subject.id} value={subject.id}>
-                {subject.name}
-              </option>
-            ))}
-          </Select>
-        </Field>
-        <Field label="Age group">
-          <Select value={form.ageGroupId} onChange={(e) => setForm((s) => ({ ...s, ageGroupId: e.target.value }))}>
-            <option value="">— pilih age group —</option>
-            {ageGroupOptions.map((group) => (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            ))}
-          </Select>
-        </Field>
-      </div>
-
-      <div className="grid min-w-0 gap-3 sm:grid-cols-3">
-        <Field label="Jumlah soal">
-          <Input
-            type="number"
-            value={form.numberOfQuestions ?? ''}
-            onChange={(e) => setForm((s) => ({ ...s, numberOfQuestions: Number(e.target.value) }))}
-          />
-        </Field>
-        <Field label="Difficulty">
-          <Select
-            value={form.difficulty}
-            onChange={(e) => setForm((s) => ({ ...s, difficulty: e.target.value as AdminVideoFormValues['difficulty'] }))}
-          >
-            <option value="easy">easy</option>
-            <option value="medium">medium</option>
-            <option value="hard">hard</option>
-          </Select>
-        </Field>
-        <Field label="Sort">
-          <Input
-            type="number"
-            value={String(form.sortOrder)}
-            onChange={(e) => setForm((s) => ({ ...s, sortOrder: Number(e.target.value) }))}
-          />
-        </Field>
-      </div>
-
-      <Field label="Deskripsi">
-        <Textarea
-          rows={3}
-          value={form.description}
-          onChange={(e) => setForm((s) => ({ ...s, description: e.target.value }))}
-        />
-      </Field>
-
-      <BadgeRangeEditor
-        ranges={form.badgeRanges}
-        onAdd={addRange}
-        onRemove={removeRange}
-        onUpdate={updateRange}
-        subtitle={selectedSubject ? `Subject: ${selectedSubject.name}` : 'Pilih subject dulu'}
-        leading={
-          selectedSubject ? (
-            <BadgeCurve color={selectedSubject.colorHex} size={28} label={selectedSubject.name} />
-          ) : undefined
-        }
-        headerActions={
-          <Button
-            variant="secondary"
-            size="sm"
-            type="button"
-            onClick={applyTemplate}
-            disabled={!selectedSubject?.defaultBadgeRanges || selectedSubject.defaultBadgeRanges.length === 0}
-            title="Apply this subject's template"
-          >
-            Apply template
-          </Button>
-        }
-      />
-
-      <div className="grid gap-2 sm:grid-cols-2">
-        <AdminToggle
-          label="Publish"
-          helper={
-            originallyPublished
-              ? 'Sudah dipublikasikan — unpublish belum didukung di v1.'
-              : 'Aktifkan untuk publish setelah subject, age group, dan badge ranges lengkap.'
+      {/* ── Badge ranges ──────────────────────────────────────────── */}
+      <section className="space-y-3">
+        <SectionHeading>Badge ranges</SectionHeading>
+        <BadgeRangeEditor
+          ranges={form.badgeRanges}
+          onAdd={addRange}
+          onRemove={removeRange}
+          onUpdate={updateRange}
+          subtitle={selectedSubject ? `Subject: ${selectedSubject.name}` : 'Pilih subject dulu'}
+          leading={
+            selectedSubject ? (
+              <BadgeCurve color={selectedSubject.colorHex} size={28} label={selectedSubject.name} />
+            ) : undefined
           }
-          checked={form.isPublished}
-          disabled={originallyPublished}
-          onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
+          headerActions={
+            <Button
+              variant="secondary"
+              size="sm"
+              type="button"
+              onClick={applyTemplate}
+              disabled={!selectedSubject?.defaultBadgeRanges || selectedSubject.defaultBadgeRanges.length === 0}
+              title="Apply this subject's template"
+            >
+              Apply template
+            </Button>
+          }
         />
-        <AdminToggle
-          label="Featured"
-          helper="Muncul di home Video Terbaru."
-          checked={form.isFeatured}
-          onChange={(checked) => setForm((state) => ({ ...state, isFeatured: checked }))}
-        />
-      </div>
+      </section>
+
+      {/* ── Publikasi ─────────────────────────────────────────────── */}
+      <section className="space-y-3">
+        <SectionHeading>Publikasi</SectionHeading>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <AdminToggle
+            label="Publish"
+            helper={
+              originallyPublished
+                ? 'Sudah dipublikasikan — unpublish belum didukung di v1.'
+                : 'Aktifkan untuk publish setelah subject, age group, dan badge ranges lengkap.'
+            }
+            checked={form.isPublished}
+            disabled={originallyPublished}
+            onChange={(checked) => setForm((state) => ({ ...state, isPublished: checked }))}
+          />
+          <AdminToggle
+            label="Featured"
+            helper="Muncul di home Video Terbaru."
+            checked={form.isFeatured}
+            onChange={(checked) => setForm((state) => ({ ...state, isFeatured: checked }))}
+          />
+        </div>
+      </section>
 
       <div className="flex items-center justify-end gap-2">
         <Button variant="ghost" type="button" onClick={onCancel}>
