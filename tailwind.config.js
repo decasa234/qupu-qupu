@@ -41,8 +41,11 @@ export default {
         'admin-faint': '#A99F92', // tertiary text / placeholder
       },
       fontFamily: {
-        sans: ['Nunito', 'sans-serif'],
-        display: ['"Baloo 2"', 'sans-serif'],
+        // Symbol fallbacks (Segoe UI Symbol / Apple Symbols / Noto) so glyphs
+        // missing from Nunito & Baloo 2 — e.g. ◎ × − used in WMI concepts —
+        // still render via per-glyph fallback instead of showing blank.
+        sans: ['Nunito', '"Segoe UI Symbol"', '"Apple Symbols"', '"Noto Sans Symbols2"', 'sans-serif'],
+        display: ['"Baloo 2"', '"Segoe UI Symbol"', '"Apple Symbols"', '"Noto Sans Symbols2"', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 18px 40px rgba(30, 58, 138, 0.12)',
