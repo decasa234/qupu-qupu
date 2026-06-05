@@ -1,11 +1,15 @@
 import type { ComponentType } from 'react'
 import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
 import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
+import BuildNumberExplainer from './BuildNumberExplainer'
 import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
+import FindDigitSumExplainer from './FindDigitSumExplainer'
+import FindMultipleExplainer from './FindMultipleExplainer'
 import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
+import MoreLessExplainer from './MoreLessExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
 import PlaceValueExplainer from './PlaceValueExplainer'
 import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
@@ -34,11 +38,15 @@ export interface ExplainerProps {
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'alternating-chain-eval': AlternatingChainEvalExplainer,
   'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
+  'build-number-from-digit-clues': BuildNumberExplainer,
   'compare-order-numbers': CompareOrderExplainer,
   'count-objects': CountObjectsExplainer,
   'custom-operation': CustomOperationExplainer,
   'digit-sum': DigitSumExplainer,
+  'divisibility-multiple-property': FindMultipleExplainer,
+  'find-number-by-digit-sum': FindDigitSumExplainer,
   'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
+  'more-or-less-by-k': MoreLessExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
   'place-value': PlaceValueExplainer,
   'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
