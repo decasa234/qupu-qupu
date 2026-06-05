@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import BadgeCurve from '../components/BadgeCurve'
 import AdminPageHeader from '../components/admin/AdminPageHeader'
 import ConfirmDangerousAction from '../components/ConfirmDangerousAction'
+import { Drawer } from '../components/admin/Drawer'
 import { useToast } from '../components/admin/Toast'
 import { Toolbar } from '../components/admin/Toolbar'
 import {
@@ -426,22 +427,6 @@ export default function AdminVideosPage() {
         </Panel>
       )}
 
-      {editingId === 'new' && meta && (
-        <Panel className="border-qupu-brand-blue/30">
-          <div className="mb-3 font-display text-sm font-extrabold uppercase tracking-[0.16em] text-admin-ink">
-            Tambah video baru
-          </div>
-          <VideoEditor
-            key="new"
-            meta={meta}
-            mode="create"
-            initial={emptyVideoForm(meta)}
-            onSaved={onEditorSaved}
-            onCancel={() => setEditingId(null)}
-          />
-        </Panel>
-      )}
-
       <Panel>
         <SectionHeading>Catalog</SectionHeading>
 
@@ -593,7 +578,6 @@ export default function AdminVideosPage() {
             {filteredVideos.map((video) => {
               const totalRanges = video.badgeRanges.length
               const maxBadges = video.badgeRanges.reduce((max, r) => Math.max(max, r.badgeCount), 0)
-              const open = editingId === video.id
               return (
                 <div key={video.id} className="rounded-xl border border-admin-line bg-admin-card">
                   <div className="flex items-start gap-3 p-3">
@@ -649,9 +633,9 @@ export default function AdminVideosPage() {
                         variant="secondary"
                         size="sm"
                         type="button"
-                        onClick={() => setEditingId(open ? null : video.id)}
+                        onClick={() => setEditingId(video.id)}
                       >
-                        {open ? 'Tutup' : 'Edit'}
+                        Edit
                       </Button>
                       <Button
                         variant="danger"
@@ -663,20 +647,6 @@ export default function AdminVideosPage() {
                       </Button>
                     </div>
                   </div>
-                  {open && meta && (
-                    <div className="border-t border-admin-line p-3">
-                      <VideoEditor
-                        key={video.id}
-                        meta={meta}
-                        mode="edit"
-                        videoId={video.id}
-                        initial={formFromVideo(video)}
-                        originallyPublished={video.isPublished}
-                        onSaved={onEditorSaved}
-                        onCancel={() => setEditingId(null)}
-                      />
-                    </div>
-                  )}
                 </div>
               )
             })}
@@ -709,6 +679,31 @@ export default function AdminVideosPage() {
           </div>
         )}
       </Panel>
+
+      {meta && editingId && (() => {
+        const isNew = editingId === 'new'
+        const target = isNew ? null : videos.find((v) => v.id === editingId) ?? null
+        if (!isNew && !target) return null
+        return (
+          <Drawer
+            open
+            onClose={() => setEditingId(null)}
+            title={isNew ? 'Tambah video' : 'Edit video'}
+            width="lg"
+          >
+            <VideoEditor
+              key={editingId}
+              meta={meta}
+              mode={isNew ? 'create' : 'edit'}
+              initial={isNew ? emptyVideoForm(meta) : formFromVideo(target!)}
+              videoId={isNew ? undefined : target!.id}
+              originallyPublished={isNew ? undefined : target!.isPublished}
+              onSaved={onEditorSaved}
+              onCancel={() => setEditingId(null)}
+            />
+          </Drawer>
+        )
+      })()}
 
       <ConfirmDangerousAction
         open={!!confirmDelete}
