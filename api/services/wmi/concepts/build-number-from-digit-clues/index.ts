@@ -38,15 +38,28 @@ export function generate(rng: Rng): Params {
 export function render(params: Params) {
   const word = params.dir === 'more' ? 'more than' : 'less than'
   const wordId = params.dir === 'more' ? 'lebih dari' : 'kurang dari'
+  const built = 10 * params.tens + params.units
+  const dirEn = params.dir === 'more' ? 'up' : 'down'
+  const dirId = params.dir === 'more' ? 'naik' : 'turun'
+  const sign = params.dir === 'more' ? '+' : '−'
+  const ans = targetNumber(params)
   return {
-    body_en: `A two-digit number has ${params.units} in the ones place and ${params.tens} in the tens place. What number is ${params.k} ${word} it?`,
-    body_id: `Sebuah bilangan dua angka memiliki ${params.units} pada tempat satuan dan ${params.tens} pada tempat puluhan. Bilangan berapakah yang ${params.k} ${wordId} bilangan itu?`,
+    body_en: `A two-digit number has ${params.tens} in the tens place and ${params.units} in the ones place. Find: Which number is ${params.k} ${word} it?`,
+    body_id: `Sebuah bilangan dua angka memiliki ${params.tens} pada tempat puluhan dan ${params.units} pada tempat satuan. Cari: Bilangan manakah yang ${params.k} ${wordId} bilangan itu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(targetNumber(params)),
-    hint_en: `First build the number: tens digit ${params.tens}, ones digit ${params.units}.`,
-    hint_id: `Bentuk dulu bilangannya: angka puluhan ${params.tens}, angka satuan ${params.units}.`,
+    answer: String(ans),
+    hint_en: `First build the number, then count ${params.k} ${dirEn} from it.`,
+    hint_id: `Bentuk dulu bilangannya, lalu hitung ${params.k} ${dirId} darinya.`,
+    hint_steps_en: [
+      `Build the number: ${params.tens} tens and ${params.units} ones = ${built}.`,
+      `Count ${params.k} ${dirEn}: ${built} ${sign} ${params.k} = ${ans}.`,
+    ],
+    hint_steps_id: [
+      `Bentuk bilangannya: ${params.tens} puluhan dan ${params.units} satuan = ${built}.`,
+      `Hitung ${params.k} ${dirId}: ${built} ${sign} ${params.k} = ${ans}.`,
+    ],
   }
 }
 
