@@ -3,6 +3,16 @@
 Date: 2026-06-05
 Status: approved (design); ready for implementation plan
 
+> **Amendment (2026-06-05):** During execution we found another session had
+> already shipped the **A1 `make-ten` explainer** as **framer-motion over DOM**
+> (Tailwind `<div>`/`motion.span` with `layout`/`layoutId` magic-move, a
+> `lang`-aware `buildMakeTenSteps()` storyboard, a self-contained component, and a
+> styled caption box). For consistency the standard and the N1 design are updated
+> from "framer-motion over **SVG**" to **framer-motion over DOM, matching A1**.
+> N1 now uses a `buildDigitSumSteps(n, lang)` storyboard + a self-contained
+> Tailwind/motion component (no separate `shared.tsx`, no SVG). The framework
+> (framer-motion) and the concrete-dots pedagogy are unchanged.
+
 ## Problem
 
 Concept **N1 = `digit-sum`** (`api/services/wmi/concepts/digit-sum/`) asks for the
