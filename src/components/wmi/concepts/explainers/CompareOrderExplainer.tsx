@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
+import { Fragment, useMemo } from 'react'
+import { LayoutGroup, motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildCompareOrderSteps } from './compareOrderSteps'
+import { useBeatControl } from './useBeatControl'
 
 interface CompareParams {
   x: number
@@ -60,32 +61,13 @@ function Gt() {
   )
 }
 
-export default function CompareOrderExplainer({ params, lang = 'en' }: ExplainerProps) {
+export default function CompareOrderExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
   const p = params as CompareParams
   const story = useMemo(() => buildCompareOrderSteps(p.x, p.y, p.z, lang), [p.x, p.y, p.z, lang])
-  const reduce = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, stepMs: STEP_MS })
 
-  useEffect(() => {
-    if (reduce) {
-      setIndex(story.finalIndex)
-      return
-    }
-    setIndex(0)
-    let i = 0
-    const id = window.setInterval(() => {
-      i += 1
-      if (i > story.finalIndex) {
-        window.clearInterval(id)
-        return
-      }
-      setIndex(i)
-    }, STEP_MS)
-    return () => window.clearInterval(id)
-  }, [story, reduce])
-
-  const step = story.steps[index] ?? story.steps[story.finalIndex]
-  const display = step.ordered ? story.ordered : story.given
+  const beat = story.steps[index] ?? story.steps[story.finalIndex]
+  const display = beat.ordered ? story.ordered : story.given
 
   const ariaLabel =
     lang === 'id'
@@ -99,8 +81,8 @@ export default function CompareOrderExplainer({ params, lang = 'en' }: Explainer
           <div className="flex items-end justify-center gap-3">
             {display.map((value, i) => (
               <Fragment key={value}>
-                {i > 0 && step.showGt && <Gt />}
-                <Card value={value} showBar={step.showBars} />
+                {i > 0 && beat.showGt && <Gt />}
+                <Card value={value} showBar={beat.showBars} />
               </Fragment>
             ))}
           </div>
@@ -110,12 +92,12 @@ export default function CompareOrderExplainer({ params, lang = 'en' }: Explainer
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
           style={
-            step.result
+            beat.result
               ? { background: '#D1FAE5', borderColor: GREEN, color: '#065F46' }
               : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
           }
         >
-          {step.caption}
+          {beat.caption}
         </div>
       </div>
     </div>

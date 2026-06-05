@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
-import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
+import { LayoutGroup, motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildDigitSumSteps } from './digitSumSteps'
+import { useBeatControl } from './useBeatControl'
 
 interface DigitSumParams {
   n: number
@@ -45,31 +46,12 @@ function Tile({ digit, color }: { digit: number; color: string }) {
   )
 }
 
-export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProps) {
+export default function DigitSumExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
   const p = params as DigitSumParams
   const story = useMemo(() => buildDigitSumSteps(p.n, lang), [p.n, lang])
-  const reduce = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, stepMs: STEP_MS })
 
-  useEffect(() => {
-    if (reduce) {
-      setIndex(story.finalIndex)
-      return
-    }
-    setIndex(0)
-    let i = 0
-    const id = window.setInterval(() => {
-      i += 1
-      if (i > story.finalIndex) {
-        window.clearInterval(id)
-        return
-      }
-      setIndex(i)
-    }, STEP_MS)
-    return () => window.clearInterval(id)
-  }, [story, reduce])
-
-  const step = story.steps[index] ?? story.steps[story.finalIndex]
+  const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const { tens, ones, sum, n } = story
 
   // Blue (tens) dots then orange (ones) dots; stable layoutIds across the merge.
@@ -86,7 +68,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
       <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
         <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
           {/* the whole number */}
-          {step.showNumber && (
+          {beat.showNumber && (
             <motion.div
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -98,22 +80,22 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
           )}
 
           {/* digit tiles (+ between them until they merge) */}
-          {step.showTiles && (
+          {beat.showTiles && (
             <div className="flex items-center gap-4">
               <Tile digit={tens} color={BLUE} />
-              {!step.merged && <span className="font-display text-2xl font-extrabold text-qupu-muted">+</span>}
+              {!beat.merged && <span className="font-display text-2xl font-extrabold text-qupu-muted">+</span>}
               <Tile digit={ones} color={ORANGE} />
             </div>
           )}
 
           {/* dots: two groups under the tiles, or one merged grid */}
-          {step.showDots && !step.merged && (
+          {beat.showDots && !beat.merged && (
             <div className="flex items-start gap-10">
               <div className="grid w-16 grid-cols-3 justify-items-center gap-1">{blueDots}</div>
               <div className="grid w-16 grid-cols-3 justify-items-center gap-1">{orangeDots}</div>
             </div>
           )}
-          {step.showDots && step.merged && (
+          {beat.showDots && beat.merged && (
             <div className="grid grid-cols-5 justify-items-center gap-1.5">
               {blueDots}
               {orangeDots}
@@ -121,7 +103,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
           )}
 
           {/* number sentence on the result beat */}
-          {step.showResult && (
+          {beat.showResult && (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -139,12 +121,12 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
           <div
             className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
             style={
-              step.result
+              beat.result
                 ? { background: '#D1FAE5', borderColor: GREEN, color: '#065F46' }
                 : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
             }
           >
-            {step.caption}
+            {beat.caption}
           </div>
         </div>
       </div>

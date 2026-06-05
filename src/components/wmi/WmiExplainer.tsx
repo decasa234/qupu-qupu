@@ -12,7 +12,22 @@ interface Props {
 export default function WmiExplainer({ slug, params, correctAnswer, lang }: Props) {
   const Explainer = getExplainer(slug)
   const [replayKey, setReplayKey] = useState(0)
+  const [count, setCount] = useState(0)
+  const [current, setCurrent] = useState(0)
+  // undefined = auto-play; a number = the carousel is driving the beat manually.
+  const [step, setStep] = useState<number | undefined>(undefined)
   if (!Explainer) return null
+
+  const cur = step ?? current
+  const go = (i: number) => setStep(Math.max(0, Math.min(count - 1, i)))
+  const replay = () => {
+    setStep(undefined)
+    setCurrent(0)
+    setReplayKey((k) => k + 1)
+  }
+
+  const roundBtn =
+    'flex h-8 w-8 items-center justify-center rounded-full border-2 border-qupu-brand-blue bg-white font-display text-lg font-extrabold text-qupu-brand-blue transition disabled:opacity-30'
 
   return (
     <motion.div
@@ -23,15 +38,58 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
     >
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-sm font-bold text-qupu-brand-blue">Penjelasan</div>
-        <button
-          type="button"
-          onClick={() => setReplayKey((value) => value + 1)}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-qupu-brand-orange bg-white px-3 py-1.5 font-display text-xs font-extrabold text-qupu-brand-orange transition-transform hover:-translate-y-0.5"
-        >
-          Replay
-        </button>
+        {count <= 1 && (
+          <button
+            type="button"
+            onClick={replay}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-qupu-brand-orange bg-white px-3 py-1.5 font-display text-xs font-extrabold text-qupu-brand-orange transition-transform hover:-translate-y-0.5"
+          >
+            Replay
+          </button>
+        )}
       </div>
-      <Explainer key={replayKey} params={params} correctAnswer={correctAnswer} lang={lang} />
+
+      <Explainer
+        key={replayKey}
+        params={params}
+        correctAnswer={correctAnswer}
+        lang={lang}
+        step={step}
+        onStepCount={setCount}
+        onStepChange={setCurrent}
+      />
+
+      {count > 1 && (
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
+          <button type="button" aria-label="Langkah sebelumnya" className={roundBtn} onClick={() => go(cur - 1)} disabled={cur <= 0}>
+            ‹
+          </button>
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            {Array.from({ length: count }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Langkah ${i + 1}`}
+                aria-current={i === cur}
+                onClick={() => go(i)}
+                className="h-2.5 rounded-full transition-all"
+                style={{ width: i === cur ? 22 : 10, background: i === cur ? '#2f6df0' : '#cbd5e1' }}
+              />
+            ))}
+          </div>
+          <button type="button" aria-label="Langkah berikutnya" className={roundBtn} onClick={() => go(cur + 1)} disabled={cur >= count - 1}>
+            ›
+          </button>
+          <button
+            type="button"
+            aria-label="Ulang dari awal"
+            onClick={replay}
+            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-qupu-brand-orange bg-white text-sm font-extrabold text-qupu-brand-orange transition hover:-translate-y-0.5"
+          >
+            ↻
+          </button>
+        </div>
+      )}
     </motion.div>
   )
 }

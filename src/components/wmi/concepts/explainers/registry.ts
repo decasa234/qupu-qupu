@@ -18,6 +18,12 @@ export interface ExplainerProps {
   params: unknown
   correctAnswer: string
   lang?: 'en' | 'id'
+  /** Controlled current beat. When set, the explainer shows this beat and does not auto-advance. */
+  step?: number
+  /** Reports the explainer's total beat count (for the carousel dots). */
+  onStepCount?: (count: number) => void
+  /** Reports the current beat index as it changes. */
+  onStepChange?: (index: number) => void
 }
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {

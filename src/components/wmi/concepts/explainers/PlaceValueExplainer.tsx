@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
+import { motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildPlaceValueSteps } from './placeValueSteps'
+import { useBeatControl } from './useBeatControl'
 
 interface PlaceValueParams {
   n: number
@@ -53,31 +54,12 @@ function Rod({ index }: { index: number }) {
   )
 }
 
-export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerProps) {
+export default function PlaceValueExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
   const p = params as PlaceValueParams
   const story = useMemo(() => buildPlaceValueSteps(p.n, lang), [p.n, lang])
-  const reduce = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, stepMs: STEP_MS })
 
-  useEffect(() => {
-    if (reduce) {
-      setIndex(story.finalIndex)
-      return
-    }
-    setIndex(0)
-    let i = 0
-    const id = window.setInterval(() => {
-      i += 1
-      if (i > story.finalIndex) {
-        window.clearInterval(id)
-        return
-      }
-      setIndex(i)
-    }, STEP_MS)
-    return () => window.clearInterval(id)
-  }, [story, reduce])
-
-  const step = story.steps[index] ?? story.steps[story.finalIndex]
+  const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const { tens, ones, tensValue, n } = story
   const placeTens = lang === 'id' ? 'puluhan' : 'tens'
   const placeOnes = lang === 'id' ? 'satuan' : 'ones'
@@ -91,7 +73,7 @@ export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerPr
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
       <div className="flex min-h-[250px] flex-col items-center justify-center gap-4">
         {/* the whole number */}
-        {step.showNumber && (
+        {beat.showNumber && (
           <motion.div
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -103,7 +85,7 @@ export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerPr
         )}
 
         {/* digit tiles with place labels */}
-        {step.showTiles && (
+        {beat.showTiles && (
           <div className="flex items-start gap-4">
             <Tile digit={tens} color={BLUE} place={placeTens} />
             <Tile digit={ones} color={ORANGE} place={placeOnes} />
@@ -111,16 +93,16 @@ export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerPr
         )}
 
         {/* base-ten rods (tens) next to the ones units */}
-        {(step.showRods || step.showOnes) && (
+        {(beat.showRods || beat.showOnes) && (
           <div className="flex items-end justify-center gap-8">
-            {step.showRods && (
+            {beat.showRods && (
               <div className="flex items-end gap-2">
-                {Array.from({ length: step.rodsRevealed }, (_, r) => (
+                {Array.from({ length: beat.rodsRevealed }, (_, r) => (
                   <Rod key={r} index={r} />
                 ))}
               </div>
             )}
-            {step.showOnes && (
+            {beat.showOnes && (
               <div className="grid grid-cols-3 justify-items-center gap-1">
                 {Array.from({ length: ones }, (_, k) => (
                   <motion.span
@@ -138,7 +120,7 @@ export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerPr
         )}
 
         {/* result */}
-        {step.showResult && (
+        {beat.showResult && (
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -153,12 +135,12 @@ export default function PlaceValueExplainer({ params, lang = 'en' }: ExplainerPr
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
           style={
-            step.result
+            beat.result
               ? { background: '#D1FAE5', borderColor: GREEN, color: '#065F46' }
               : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
           }
         >
-          {step.caption}
+          {beat.caption}
         </div>
       </div>
     </div>
