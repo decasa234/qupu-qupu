@@ -10,9 +10,9 @@ import type { AdminVideoFormValues, PublicMeta } from '../../types'
 
 /*
  * The full video editor (all fields + badge ranges + publish/featured). Used
- * both for creating a new video and for editing an existing one inline under
- * its catalog card. The parent owns which row is open and remounts this with a
- * `key` so form state resets per target.
+ * both for creating a new video and for editing an existing one inside a Drawer.
+ * The parent owns which row is open and remounts this with a `key` so form
+ * state resets per target.
  */
 
 export function emptyVideoForm(meta: PublicMeta): AdminVideoFormValues {

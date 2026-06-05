@@ -22,7 +22,7 @@ export interface CatalogPage<T> {
 export interface CatalogVideoRow {
   title: string
   isPublished: boolean
-  /** ISO date string used for 'updated' sort (desc). Not present on VideoCard; add at call-site. */
+  /** ISO date string used for 'updated' sort (desc). Optional in this structural row type; provided by VideoCard. */
   updatedAt?: string | null
   youtubeVideoId?: string | null
   subject?: { id: string } | null

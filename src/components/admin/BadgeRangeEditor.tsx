@@ -3,9 +3,10 @@ import { Input } from './ui'
 
 /*
  * Shared badge-range editor. The row grid (R-chip + Min/Max/Badge + delete) was
- * previously copy-pasted verbatim into AdminVideos and AdminSubjects; this is the
- * single implementation. The differing header content (subject swatch, "Apply
- * template" button, etc.) is passed in via `leading` / `headerActions`.
+ * previously copy-pasted verbatim into AdminSubjects; AdminVideos now consumes it
+ * via VideoEditor. This is the single implementation. The differing header content
+ * (subject swatch, "Apply template" button, etc.) is passed in via `leading` /
+ * `headerActions`.
  */
 
 export interface EditableBadgeRange {

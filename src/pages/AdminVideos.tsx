@@ -21,6 +21,7 @@ import {
 import VideoEditor, { emptyVideoForm } from '../components/admin/VideoEditor'
 import api from '../lib/api'
 import { filterSortPaginateVideos, type CatalogSort } from '../lib/adminVideoCatalog'
+import { statusTone } from '../lib/adminStatus'
 import { getApiErrorCode, getApiErrorMessage } from '../lib/apiError'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
 
@@ -406,9 +407,7 @@ export default function AdminVideosPage() {
                         {video.youtubeVideoId} · {video.scoreAttempts} skor · {video.badgeUnlocks} badge
                       </div>
                     </div>
-                    <Tag tone={video.isPublished ? 'brand' : 'neutral'}>
-                      {video.isPublished ? 'Published' : 'Draft'}
-                    </Tag>
+                    {(() => { const st = statusTone(video.isPublished ? 'published' : 'draft'); return <Tag tone={st.tone}>{st.label}</Tag> })()}
                   </li>
                 ))}
               </ul>
@@ -590,16 +589,10 @@ export default function AdminVideosPage() {
                     />
                     <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-admin-line">
                       <img src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
-                      <span
-                        className={`absolute left-1 top-1 rounded px-1 py-0.5 text-[9px] font-bold uppercase text-white ${
-                          video.isPublished ? 'bg-emerald-500' : 'bg-amber-500'
-                        }`}
-                      >
-                        {video.isPublished ? 'Published' : 'Draft'}
-                      </span>
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-1.5">
+                        {(() => { const st = statusTone(video.isPublished ? 'published' : 'draft'); return <Tag tone={st.tone}>{st.label}</Tag> })()}
                         {video.subject ? (
                           <Tag color={video.subject.colorHex}>{video.subject.name}</Tag>
                         ) : (
