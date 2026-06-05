@@ -8,6 +8,7 @@ import DigitSumExplainer from './DigitSumExplainer'
 import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
 import PlaceValueExplainer from './PlaceValueExplainer'
+import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
@@ -40,6 +41,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
   'place-value': PlaceValueExplainer,
+  'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
