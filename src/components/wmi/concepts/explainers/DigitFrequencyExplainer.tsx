@@ -4,82 +4,93 @@ import type { ExplainerProps } from './registry'
 import { buildDigitFrequencySteps } from './digitFrequencySteps'
 import { useBeatControl } from './useBeatControl'
 
+interface DigitFrequencyParams {
+  a: number
+  b: number
+  d: number
+}
+
+const BLUE = '#2f6df0'
 const ORANGE = '#F97316'
 const GREEN = '#10B981'
 const PURPLE = '#341857'
-const MUTED = '#9aa3b2'
+const STEP_MS = 1900
 
 export default function DigitFrequencyExplainer(props: ExplainerProps) {
   const { params, lang = 'en' } = props
-  const p = params as { a: number; b: number; d: number }
-
+  const p = params as DigitFrequencyParams
   const story = useMemo(() => buildDigitFrequencySteps(p.a, p.b, p.d, lang), [p.a, p.b, p.d, lang])
-  const index = useBeatControl(story.finalIndex, { ...props, stepMs: 1900 })
+  const index = useBeatControl(story.finalIndex, { ...props, stepMs: STEP_MS })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
+  const { numbers, d, onesCount, tensCount, answer } = story
+  const rule = lang === 'id' ? story.ruleId : story.ruleEn
 
-  const showHighlight = beat.phase !== 'range'
-  const showTally = beat.phase === 'count' || beat.phase === 'result'
-  const digitChar = String(p.d)
+  const showOnes = beat.phase === 'ones' || beat.phase === 'tens' || beat.phase === 'result'
+  const showTens = beat.phase === 'tens' || beat.phase === 'result'
 
   const ariaLabel =
     lang === 'id'
-      ? `Cara menghitung berapa kali angka ${p.d} muncul dari ${p.a} sampai ${p.b}.`
-      : `How to count how many times digit ${p.d} appears from ${p.a} to ${p.b}.`
+      ? `Cara berpikir: hitung angka ${d} di tempat satuan dan puluhan secara terpisah.`
+      : `Strategy: count the digit ${d} in the ones place and the tens place separately.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
       <div className="flex min-h-[210px] flex-col items-center justify-center gap-3">
-        {/* Number chips grid */}
+        {/* the rule */}
+        <div
+          className="rounded-xl border-2 px-3 py-2 text-center font-display text-xs font-extrabold"
+          style={{ background: '#FFF4E8', borderColor: ORANGE, color: '#8a4b1d' }}
+        >
+          {rule}
+        </div>
+
+        {/* number grid with per-place highlighting */}
         <div className="flex flex-wrap justify-center gap-1">
-          {story.numbers.map((n) => {
-            const chars = String(n).split('')
+          {numbers.map((n) => {
+            const str = String(n)
+            const onesChar = str.slice(-1)
+            const tensChar = str.length > 1 ? str.slice(0, -1) : ''
+            const onesHit = showOnes && n % 10 === d
+            const tensHit = showTens && n >= 10 && Math.floor(n / 10) % 10 === d
             return (
-              <motion.div
+              <span
                 key={n}
-                initial={{ scale: 0.7, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 26 }}
-                className="flex items-center rounded-lg border-2 px-1 py-0.5 font-display text-sm font-extrabold"
-                style={{ borderColor: PURPLE, background: 'white' }}
+                className="inline-flex overflow-hidden rounded-[3px] border text-[11px] font-extrabold"
+                style={{ borderColor: '#e6dcc6', color: PURPLE }}
               >
-                {chars.map((ch, ci) => (
-                  <span
-                    key={ci}
-                    className="rounded px-0.5"
-                    style={
-                      showHighlight && ch === digitChar
-                        ? { background: ORANGE, color: 'white' }
-                        : { color: PURPLE }
-                    }
-                  >
-                    {ch}
+                {tensChar && (
+                  <span className="px-[3px] py-[1px]" style={{ background: tensHit ? BLUE : 'transparent', color: tensHit ? '#fff' : PURPLE }}>
+                    {tensChar}
                   </span>
-                ))}
-              </motion.div>
+                )}
+                <span className="px-[3px] py-[1px]" style={{ background: onesHit ? ORANGE : 'transparent', color: onesHit ? '#fff' : PURPLE }}>
+                  {onesChar}
+                </span>
+              </span>
             )
           })}
         </div>
 
-        {/* Tally / counter */}
-        {showTally && (
-          <motion.div
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 26 }}
-            className="flex items-center gap-2 font-display font-extrabold"
-          >
-            <span style={{ color: ORANGE, fontSize: '1.25rem' }}>{p.d}</span>
-            <span style={{ color: MUTED, fontSize: '1.25rem' }}>×</span>
-            <span
-              className="text-3xl"
-              style={{ color: beat.phase === 'result' ? GREEN : PURPLE }}
-            >
-              {story.answer}
+        {/* running sub-counts / sum */}
+        <div className="flex items-center gap-3 font-display text-sm font-extrabold">
+          {showOnes && (
+            <span style={{ color: ORANGE }}>
+              {lang === 'id' ? 'satuan' : 'ones'}: {onesCount}
             </span>
-          </motion.div>
-        )}
+          )}
+          {showTens && (
+            <span style={{ color: BLUE }}>
+              {lang === 'id' ? 'puluhan' : 'tens'}: {tensCount}
+            </span>
+          )}
+          {beat.result && (
+            <motion.span initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} style={{ color: GREEN }}>
+              = {answer}
+            </motion.span>
+          )}
+        </div>
 
-        {/* Caption box */}
+        {/* caption */}
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
           style={
