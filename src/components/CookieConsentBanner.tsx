@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { getCookieConsent, setCookieConsent } from '@/lib/cookieConsent'
 
 export default function CookieConsentBanner() {
+  const location = useLocation()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -13,6 +15,7 @@ export default function CookieConsentBanner() {
     setVisible(false)
   }
 
+  if (location.pathname.startsWith('/admin')) return null
   if (!visible) return null
 
   return (
