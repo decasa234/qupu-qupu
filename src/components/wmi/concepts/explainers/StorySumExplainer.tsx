@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import type { ExplainerProps } from './registry'
+import { useBeatControl } from './useBeatControl'
 
 interface StorySumParams {
   start: number
@@ -70,10 +71,10 @@ function fruitLetter(value: string): string {
   return value.slice(0, 1).toUpperCase()
 }
 
-export default function StorySumExplainer({ params, correctAnswer }: ExplainerProps) {
+export default function StorySumExplainer(props: ExplainerProps) {
+  const { params, correctAnswer } = props
   const p = params as StorySumParams
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const [frame, setFrame] = useState(0)
 
   const beats = useMemo<Beat[]>(() => {
     const afterMorning = p.start - p.giveMorning
@@ -88,24 +89,8 @@ export default function StorySumExplainer({ params, correctAnswer }: ExplainerPr
     ]
   }, [correctAnswer, p])
 
-  useEffect(() => {
-    let cancelled = false
-    let timer = 0
-    const run = (next: number) => {
-      setFrame(next)
-      const hold = beats[next]?.hold ?? 0
-      if (hold > 0 && next < beats.length - 1) {
-        timer = window.setTimeout(() => {
-          if (!cancelled) run(next + 1)
-        }, hold)
-      }
-    }
-    timer = window.setTimeout(() => run(0), 200)
-    return () => {
-      cancelled = true
-      window.clearTimeout(timer)
-    }
-  }, [beats])
+  const holds = useMemo(() => beats.map((b) => b.hold), [beats])
+  const frame = useBeatControl(beats.length - 1, { ...props, holds })
 
   useEffect(() => {
     const canvas = canvasRef.current
