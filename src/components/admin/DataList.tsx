@@ -5,7 +5,14 @@ export type DataListColumn<T> = {
   key: string
   header: ReactNode
   cell: (row: T) => ReactNode
-  /** On mobile cards, which slot this column fills. */
+  /**
+   * On mobile cards, which slot this column fills. When omitted the column
+   * renders as a meta cell (header shown as a small label beside the value).
+   * This is intentional — every column appears on mobile so no admin data or
+   * actions are ever hidden on a phone. Explicitly tag a column `role: 'meta'`
+   * (or omit `role`) for meta cells; use 'title', 'subtitle', or 'actions'
+   * for the other named slots.
+   */
   role?: 'title' | 'subtitle' | 'meta' | 'actions'
   align?: 'left' | 'right'
   thClassName?: string
@@ -62,6 +69,7 @@ export function DataList<T>({
               {columns.map((c) => (
                 <th
                   key={c.key}
+                  scope="col"
                   className={`pb-2 pr-4 text-[11px] font-bold uppercase tracking-[0.14em] text-admin-muted ${
                     c.align === 'right' ? 'text-right' : ''
                   } ${c.hideBelow ? HIDE[c.hideBelow] : ''} ${c.thClassName ?? ''}`}
