@@ -12,6 +12,8 @@ export interface MakeTenStep {
   /** Glow the empty cells (the "needs N more to fill the ten" beat). */
   highlightEmpty: boolean
   caption: string
+  /** How long to hold this beat on screen, in ms (0 = final beat, holds). */
+  hold: number
   result: boolean
 }
 
@@ -51,65 +53,66 @@ export function buildMakeTenSteps(aRaw: number, bRaw: number, lang: Lang): MakeT
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
   const steps: MakeTenStep[] = []
 
-  // Steps 1 and 2 are intentionally state-identical — two caption beats
-  // ("start with N" → "add M") before any chips move. The component advances
-  // by step index and renders each caption, so both beats are shown.
-
-  // 1. The bigger number fills the frame first.
-  steps.push({
-    blue: big, orange: 0, loose: small, split: null, highlightEmpty: bridges,
-    caption: t(
-      big > small ? `start with the bigger number: ${big}` : `start with ${big}`,
-      big > small ? `mulai dari yang besar: ${big}` : `mulai dari ${big}`,
-    ),
-    result: false,
-  })
-
-  // 2. Introduce the second addend as loose chips.
-  steps.push({
-    blue: big, orange: 0, loose: small, split: null, highlightEmpty: bridges,
-    caption: t(`add ${small}`, `tambah ${small}`),
-    result: false,
-  })
-
+  // Beats are deliberately few and unhurried — each `hold` keeps a beat on
+  // screen long enough to read. The split and the bridge-slide (the crux of
+  // a sum over ten) get the most time.
   if (bridges) {
-    // 3. Split the second addend into "completes the ten" + "leftover".
+    // 1. The bigger number fills the frame; show how many cells still need it.
+    steps.push({
+      blue: big, orange: 0, loose: small, split: null, highlightEmpty: true,
+      caption: t(
+        `start with ${big} — ${completesTen} more makes ten`,
+        `mulai dari ${big} — ${completesTen} lagi jadi sepuluh`,
+      ),
+      hold: 1800, result: false,
+    })
+    // 2. Split the second addend: the part that completes the ten + the rest.
     steps.push({
       blue: big, orange: 0, loose: small, split: [bridge, leftover], highlightEmpty: true,
-      caption: t(`${small} = ${bridge} + ${leftover}`, `${small} = ${bridge} + ${leftover}`),
-      result: false,
+      caption: t(
+        `split ${small} into ${bridge} and ${leftover}`,
+        `pecah ${small} jadi ${bridge} dan ${leftover}`,
+      ),
+      hold: 2400, result: false,
     })
-    // 4. Slide the bridge chips in — the ten is now full.
+    // 3. The completing part slides in — the ten is now full.
     steps.push({
       blue: big, orange: bridge, loose: leftover, split: [bridge, leftover], highlightEmpty: false,
-      caption: t(`${bridge} completes the ten → 10`, `${bridge} melengkapi sepuluh → 10`),
-      result: false,
+      caption: t(
+        `${bridge} fills the ten → now 10`,
+        `${bridge} mengisi sepuluh → sekarang 10`,
+      ),
+      hold: 2400, result: false,
     })
-    // 5. The leftover chips remain.
-    steps.push({
-      blue: big, orange: bridge, loose: leftover, split: null, highlightEmpty: false,
-      caption: t(`${leftover} left over`, `sisa ${leftover}`),
-      result: false,
-    })
-    // 6. Result: 10 + leftover = sum.
+    // 4. Result: the full ten plus the leftover.
     steps.push({
       blue: big, orange: bridge, loose: leftover, split: null, highlightEmpty: false,
       caption: t(`10 + ${leftover} = ${sum}`, `10 + ${leftover} = ${sum}`),
-      result: true,
+      hold: 0, result: true,
     })
   } else if (sum === 10) {
     // Perfect ten: the two parts fill the frame exactly.
     steps.push({
+      blue: big, orange: 0, loose: small, split: null, highlightEmpty: true,
+      caption: t(`start with ${big}, add ${small}`, `mulai dari ${big}, tambah ${small}`),
+      hold: 1700, result: false,
+    })
+    steps.push({
       blue: big, orange: small, loose: 0, split: null, highlightEmpty: false,
-      caption: t(`they make exactly ten → 10`, `pas sepuluh → 10`),
-      result: true,
+      caption: t(`they make exactly ten → 10`, `pas jadi sepuluh → 10`),
+      hold: 0, result: true,
     })
   } else {
     // Under ten: combine in one frame, no bridge needed.
     steps.push({
+      blue: big, orange: 0, loose: small, split: null, highlightEmpty: false,
+      caption: t(`start with ${big}, add ${small}`, `mulai dari ${big}, tambah ${small}`),
+      hold: 1700, result: false,
+    })
+    steps.push({
       blue: big, orange: small, loose: 0, split: null, highlightEmpty: false,
-      caption: t(`still room in the ten → ${sum}`, `masih muat dalam sepuluh → ${sum}`),
-      result: true,
+      caption: t(`still under ten → ${sum}`, `masih di bawah sepuluh → ${sum}`),
+      hold: 0, result: true,
     })
   }
 

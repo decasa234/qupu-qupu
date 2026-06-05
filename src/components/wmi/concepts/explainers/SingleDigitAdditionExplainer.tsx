@@ -11,7 +11,6 @@ interface AddParams {
 const BLUE = '#2f6df0'
 const ORANGE = '#F97316'
 const EMPTY_BORDER = '#E6DCC6'
-const STEP_MS = 900
 
 function Chip({ color, layoutId }: { color: string; layoutId?: string }) {
   return (
@@ -20,7 +19,7 @@ function Chip({ color, layoutId }: { color: string; layoutId?: string }) {
       layoutId={layoutId}
       initial={layoutId ? false : { scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 26 }}
       className="block h-6 w-6 rounded-full"
       style={{ background: color }}
     />
@@ -33,25 +32,34 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
   const reduce = useReducedMotion()
   const [index, setIndex] = useState(0)
 
+  // Auto-advance through the beats, holding each for its own duration so the
+  // key moves (the split and the bridge slide) stay on screen long enough.
   useEffect(() => {
     if (reduce) {
       setIndex(story.finalIndex)
       return
     }
-    setIndex(0)
-    let i = 0
-    const id = window.setInterval(() => {
-      i += 1
-      if (i > story.finalIndex) {
-        window.clearInterval(id)
-        return
+    let cancelled = false
+    let timer = 0
+    const run = (next: number) => {
+      setIndex(next)
+      const hold = story.steps[next]?.hold ?? 0
+      if (hold > 0 && next < story.finalIndex) {
+        timer = window.setTimeout(() => {
+          if (!cancelled) run(next + 1)
+        }, hold)
       }
-      setIndex(i)
-    }, STEP_MS)
-    return () => window.clearInterval(id)
+    }
+    timer = window.setTimeout(() => run(0), 300)
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+    }
   }, [story, reduce])
 
   const step = story.steps[index] ?? story.steps[story.finalIndex]
+  const tenFull = step.blue + step.orange === 10
+  const [splitFills, splitLeft] = step.split ?? [0, 0]
 
   // Ten-frame cells: blue chips, then orange (bridged) chips, then empty.
   // Orange cell chips share a layoutId with the loose pile chips so they
@@ -73,11 +81,38 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
     )
   })
 
-  // Loose pile: the second-addend chips not yet placed, indexed AFTER the
-  // ones already in the frame so layoutIds stay unique across the swap.
-  const loose = Array.from({ length: step.loose }, (_, k) => (
-    <Chip key={`add-${step.orange + k}`} color={ORANGE} layoutId={`add-${step.orange + k}`} />
-  ))
+  // A loose chip carrying a stable layoutId so it can slide into the frame.
+  const looseChip = (id: number) => <Chip key={`add-${id}`} color={ORANGE} layoutId={`add-${id}`} />
+
+  // During the split beat the loose chips become two labelled groups — the
+  // part that completes the ten (ringed) and the leftover — so the breakdown
+  // of a sum over ten is concrete. Otherwise they sit in one row.
+  const showSplitGroups = step.split !== null && step.orange === 0
+  const looseArea = showSplitGroups ? (
+    <div className="flex items-end gap-3">
+      <div className="flex flex-col items-center gap-1">
+        <div className="flex gap-1.5 rounded-lg p-1.5 ring-2 ring-qupu-brand-orange">
+          {Array.from({ length: splitFills }, (_, k) => looseChip(k))}
+        </div>
+        <span className="text-[11px] font-extrabold" style={{ color: ORANGE }}>
+          {splitFills} {lang === 'id' ? '→ isi sepuluh' : '→ fills ten'}
+        </span>
+      </div>
+      <span className="pb-4 font-display text-base font-extrabold text-qupu-muted">+</span>
+      <div className="flex flex-col items-center gap-1">
+        <div className="flex gap-1.5 p-1.5">
+          {Array.from({ length: splitLeft }, (_, k) => looseChip(splitFills + k))}
+        </div>
+        <span className="text-[11px] font-extrabold text-qupu-muted">
+          {splitLeft} {lang === 'id' ? 'sisa' : 'left'}
+        </span>
+      </div>
+    </div>
+  ) : (
+    <div className="flex min-h-[24px] items-center gap-1.5">
+      {Array.from({ length: step.loose }, (_, k) => looseChip(step.orange + k))}
+    </div>
+  )
 
   const ariaLabel =
     lang === 'id'
@@ -90,24 +125,24 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
     <LayoutGroup>
       <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
         <div className="flex flex-col items-center gap-3">
-          {/* Ten-frame */}
-          <div className="grid grid-cols-5 gap-1.5">{cells}</div>
+          {/* Ten-frame, with a "10" badge once it is full */}
+          <div className="flex items-center gap-3">
+            <div className="grid grid-cols-5 gap-1.5">{cells}</div>
+            {tenFull && (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+                className="flex h-9 w-9 items-center justify-center rounded-full font-display text-sm font-black text-white"
+                style={{ background: '#10B981' }}
+              >
+                10
+              </motion.div>
+            )}
+          </div>
 
-          {/* Number-bond split of the second addend */}
-          {step.split && (
-            <div className="flex items-center gap-2 font-display text-sm font-extrabold text-qupu-brand-blue">
-              <span>{story.small}</span>
-              <span className="text-qupu-muted">=</span>
-              <span style={{ color: ORANGE }}>{step.split[0]}</span>
-              <span className="text-qupu-muted">+</span>
-              <span style={{ color: ORANGE }}>{step.split[1]}</span>
-            </div>
-          )}
-
-          {/* Loose pile */}
-          {step.loose > 0 && (
-            <div className="flex min-h-[24px] items-center gap-1.5">{loose}</div>
-          )}
+          {/* Loose chips (grouped into the split during the breakdown beat) */}
+          {step.loose > 0 && looseArea}
 
           {/* Caption */}
           <div
