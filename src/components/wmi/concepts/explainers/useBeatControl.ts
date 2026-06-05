@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
 export interface BeatControl {
-  /** Controlled current beat. When provided, auto-play is disabled (the parent owns the beat). */
+  /** Controlled current beat (shown when not playing). */
   step?: number
-  /** Reports the total beat count once the storyboard is known. */
+  /** When true, auto-advance from `step` toward the last beat. */
+  playing?: boolean
   onStepCount?: (count: number) => void
-  /** Reports the current beat index as it changes (auto-play or controlled). */
   onStepChange?: (index: number) => void
+  /** Called once a play-through reaches the last beat. */
+  onPlayEnd?: () => void
   /** Uniform auto-advance interval in ms (used when `holds` is not given). */
   stepMs?: number
   /** Optional per-beat hold durations in ms; element i = time spent on beat i before advancing. */
@@ -15,25 +17,26 @@ export interface BeatControl {
 }
 
 /**
- * Drives an explainer's current beat. Auto-plays when uncontrolled; when `step`
- * is provided the parent owns the beat (used by the WmiExplainer carousel). It
- * reports the total beat count and the current beat so the parent can render a
- * carousel + dot indicators. Honors reduced-motion by jumping to the last beat.
+ * Drives an explainer's current beat. When `playing` is true it auto-advances
+ * from `step` to the last beat (honoring reduced-motion by jumping to the end);
+ * otherwise it shows the controlled `step`. Reports the total beat count and the
+ * current beat so the parent can render a play/pause + dot carousel.
  */
 export function useBeatControl(finalIndex: number, opts: BeatControl = {}): number {
-  const { step, onStepCount, onStepChange, stepMs = 1700, holds } = opts
+  const { step = 0, playing = false, onStepCount, onStepChange, onPlayEnd, stepMs = 1700, holds } = opts
   const reduce = useReducedMotion()
-  const [autoIndex, setAutoIndex] = useState(0)
+  const [autoIndex, setAutoIndex] = useState(step)
 
-  const controlled = step !== undefined
-  const index = controlled ? Math.max(0, Math.min(finalIndex, step as number)) : Math.min(autoIndex, finalIndex)
+  const index = playing ? Math.min(autoIndex, finalIndex) : Math.max(0, Math.min(finalIndex, step))
 
-  // Keep callbacks in refs so they are not effect dependencies (avoids re-runs
+  // Callbacks in refs so they are not effect deps (avoids re-runs / play restarts
   // when the parent passes fresh inline functions).
   const countRef = useRef(onStepCount)
   countRef.current = onStepCount
   const changeRef = useRef(onStepChange)
   changeRef.current = onStepChange
+  const endRef = useRef(onPlayEnd)
+  endRef.current = onPlayEnd
 
   useEffect(() => {
     countRef.current?.(finalIndex + 1)
@@ -43,27 +46,32 @@ export function useBeatControl(finalIndex: number, opts: BeatControl = {}): numb
     changeRef.current?.(index)
   }, [index])
 
+  // Run a play-through whenever `playing` flips true; it begins at the current `step`.
   useEffect(() => {
-    if (controlled) return
-    if (reduce) {
+    if (!playing) return
+    let i = Math.max(0, Math.min(finalIndex, step))
+    setAutoIndex(i)
+    if (reduce || i >= finalIndex) {
       setAutoIndex(finalIndex)
+      endRef.current?.()
       return
     }
-    setAutoIndex(0)
-    let i = 0
     let timer = 0
     const tick = () => {
-      if (i >= finalIndex) return
       const wait = holds?.[i] ?? stepMs
       timer = window.setTimeout(() => {
         i += 1
         setAutoIndex(i)
+        if (i >= finalIndex) {
+          endRef.current?.()
+          return
+        }
         tick()
       }, wait)
     }
     tick()
     return () => window.clearTimeout(timer)
-  }, [controlled, reduce, finalIndex, stepMs, holds])
+  }, [playing, step, finalIndex, reduce, stepMs, holds])
 
   return index
 }

@@ -46,10 +46,11 @@ function Tile({ digit, color }: { digit: number; color: string }) {
   )
 }
 
-export default function DigitSumExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
+export default function DigitSumExplainer(props: ExplainerProps) {
+  const { params, lang = 'en' } = props
   const p = params as DigitSumParams
   const story = useMemo(() => buildDigitSumSteps(p.n, lang), [p.n, lang])
-  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, stepMs: STEP_MS })
+  const index = useBeatControl(story.finalIndex, { ...props, stepMs: STEP_MS })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const { tens, ones, sum, n } = story

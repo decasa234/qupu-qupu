@@ -13,13 +13,32 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
   const Explainer = getExplainer(slug)
   const [replayKey, setReplayKey] = useState(0)
   const [count, setCount] = useState(0)
-  // The carousel drives the beat manually — converted explainers never auto-play.
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(0) // manual position / where a play-through begins
+  const [current, setCurrent] = useState(0) // the beat actually on screen
+  const [playing, setPlaying] = useState(true) // autostart on first load
   if (!Explainer) return null
 
-  const cur = step
-  const go = (i: number) => setStep(Math.max(0, Math.min(count - 1, i)))
-  const replay = () => {
+  const cur = current
+  const last = count - 1
+  const go = (i: number) => {
+    setPlaying(false)
+    setStep(Math.max(0, Math.min(last, i)))
+  }
+  const togglePlay = () => {
+    if (playing) {
+      setStep(current) // pause where we are
+      setPlaying(false)
+    } else {
+      setStep(current >= last ? 0 : current) // replay from start if we're at the end
+      setPlaying(true)
+    }
+  }
+  const onPlayEnd = () => {
+    setStep(last)
+    setPlaying(false)
+  }
+  // Fallback for explainers that don't report a beat count (auto-play internally).
+  const replayFallback = () => {
     setStep(0)
     setReplayKey((k) => k + 1)
   }
@@ -39,7 +58,7 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
         {count <= 1 && (
           <button
             type="button"
-            onClick={replay}
+            onClick={replayFallback}
             className="inline-flex items-center gap-2 rounded-full border-2 border-qupu-brand-orange bg-white px-3 py-1.5 font-display text-xs font-extrabold text-qupu-brand-orange transition-transform hover:-translate-y-0.5"
           >
             Replay
@@ -53,11 +72,22 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
         correctAnswer={correctAnswer}
         lang={lang}
         step={step}
+        playing={playing}
         onStepCount={setCount}
+        onStepChange={setCurrent}
+        onPlayEnd={onPlayEnd}
       />
 
       {count > 1 && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
+          <button
+            type="button"
+            aria-label={playing ? 'Jeda' : 'Putar'}
+            onClick={togglePlay}
+            className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-qupu-brand-orange bg-white text-sm font-extrabold text-qupu-brand-orange transition hover:-translate-y-0.5"
+          >
+            {playing ? '❚❚' : '▶'}
+          </button>
           <button type="button" aria-label="Langkah sebelumnya" className={roundBtn} onClick={() => go(cur - 1)} disabled={cur <= 0}>
             ‹
           </button>
@@ -74,16 +104,8 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
               />
             ))}
           </div>
-          <button type="button" aria-label="Langkah berikutnya" className={roundBtn} onClick={() => go(cur + 1)} disabled={cur >= count - 1}>
+          <button type="button" aria-label="Langkah berikutnya" className={roundBtn} onClick={() => go(cur + 1)} disabled={cur >= last}>
             ›
-          </button>
-          <button
-            type="button"
-            aria-label="Ulang dari awal"
-            onClick={replay}
-            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-qupu-brand-orange bg-white text-sm font-extrabold text-qupu-brand-orange transition hover:-translate-y-0.5"
-          >
-            ↻
           </button>
         </div>
       )}

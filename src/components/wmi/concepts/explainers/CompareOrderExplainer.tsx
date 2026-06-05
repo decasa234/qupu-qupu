@@ -61,10 +61,11 @@ function Gt() {
   )
 }
 
-export default function CompareOrderExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
+export default function CompareOrderExplainer(props: ExplainerProps) {
+  const { params, lang = 'en' } = props
   const p = params as CompareParams
   const story = useMemo(() => buildCompareOrderSteps(p.x, p.y, p.z, lang), [p.x, p.y, p.z, lang])
-  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, stepMs: STEP_MS })
+  const index = useBeatControl(story.finalIndex, { ...props, stepMs: STEP_MS })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const display = beat.ordered ? story.ordered : story.given
