@@ -3,6 +3,8 @@ import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
 import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
 import BudgetSelectionExplainer from './BudgetSelectionExplainer'
 import BuildNumberExplainer from './BuildNumberExplainer'
+import ClockReadTimeExplainer from './ClockReadTimeExplainer'
+import ClockTimeAfterExplainer from './ClockTimeAfterExplainer'
 import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
@@ -19,15 +21,20 @@ import MoneyChangeExplainer from './MoneyChangeExplainer'
 import MoneyCoinsTotalExplainer from './MoneyCoinsTotalExplainer'
 import MoreLessExplainer from './MoreLessExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
+import NumberLineJumpsExplainer from './NumberLineJumpsExplainer'
+import NumberPyramidExplainer from './NumberPyramidExplainer'
 import OddEvenExplainer from './OddEvenExplainer'
+import PatternNextExplainer from './PatternNextExplainer'
 import PerfectSquareExplainer from './PerfectSquareExplainer'
 import PlaceValueExplainer from './PlaceValueExplainer'
 import ProductConsecutiveExplainer from './ProductConsecutiveExplainer'
 import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
+import ScaleReadExplainer from './ScaleReadExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
 import StorySumExplainer from './StorySumExplainer'
+import UnitConversionExplainer from './UnitConversionExplainer'
 import WeightBalanceExplainer from './WeightBalanceExplainer'
 import WhichExpressionEqualsExplainer from './WhichExpressionEqualsExplainer'
 
@@ -52,6 +59,8 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
   'budget-selection': BudgetSelectionExplainer,
   'build-number-from-digit-clues': BuildNumberExplainer,
+  'clock-read-time': ClockReadTimeExplainer,
+  'clock-time-after': ClockTimeAfterExplainer,
   'compare-order-numbers': CompareOrderExplainer,
   'count-objects': CountObjectsExplainer,
   'custom-operation': CustomOperationExplainer,
@@ -68,15 +77,20 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'money-shopping-change': MoneyChangeExplainer,
   'more-or-less-by-k': MoreLessExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
+  'number-line-jumps': NumberLineJumpsExplainer,
+  'number-pyramid': NumberPyramidExplainer,
   'odd-even-reasoning': OddEvenExplainer,
+  'pattern-next': PatternNextExplainer,
   'perfect-square-search': PerfectSquareExplainer,
   'place-value': PlaceValueExplainer,
   'product-of-consecutive': ProductConsecutiveExplainer,
   'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
+  'scale-read': ScaleReadExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
   'story-sum': StorySumExplainer,
+  'unit-conversion': UnitConversionExplainer,
   'weight-balance-word': WeightBalanceExplainer,
   'which-expression-equals': WhichExpressionEqualsExplainer,
 }
