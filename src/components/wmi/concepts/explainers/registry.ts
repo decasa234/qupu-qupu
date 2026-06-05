@@ -5,13 +5,18 @@ import BuildNumberExplainer from './BuildNumberExplainer'
 import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
+import DigitFrequencyExplainer from './DigitFrequencyExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
 import FindDigitSumExplainer from './FindDigitSumExplainer'
 import FindMultipleExplainer from './FindMultipleExplainer'
+import FractionRegionExplainer from './FractionRegionExplainer'
 import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
 import MoreLessExplainer from './MoreLessExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
+import OddEvenExplainer from './OddEvenExplainer'
+import PerfectSquareExplainer from './PerfectSquareExplainer'
 import PlaceValueExplainer from './PlaceValueExplainer'
+import ProductConsecutiveExplainer from './ProductConsecutiveExplainer'
 import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
@@ -42,13 +47,18 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'compare-order-numbers': CompareOrderExplainer,
   'count-objects': CountObjectsExplainer,
   'custom-operation': CustomOperationExplainer,
+  'digit-frequency': DigitFrequencyExplainer,
   'digit-sum': DigitSumExplainer,
   'divisibility-multiple-property': FindMultipleExplainer,
   'find-number-by-digit-sum': FindDigitSumExplainer,
+  'fraction-of-region': FractionRegionExplainer,
   'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
   'more-or-less-by-k': MoreLessExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
+  'odd-even-reasoning': OddEvenExplainer,
+  'perfect-square-search': PerfectSquareExplainer,
   'place-value': PlaceValueExplainer,
+  'product-of-consecutive': ProductConsecutiveExplainer,
   'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
