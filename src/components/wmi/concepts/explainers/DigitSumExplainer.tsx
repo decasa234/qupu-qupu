@@ -114,7 +114,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
             </div>
           )}
           {step.showDots && step.merged && (
-            <div className="flex max-w-[260px] flex-wrap justify-center gap-1.5">
+            <div className="grid grid-cols-5 justify-items-center gap-1.5">
               {blueDots}
               {orangeDots}
             </div>
