@@ -13,16 +13,14 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
   const Explainer = getExplainer(slug)
   const [replayKey, setReplayKey] = useState(0)
   const [count, setCount] = useState(0)
-  const [current, setCurrent] = useState(0)
-  // undefined = auto-play; a number = the carousel is driving the beat manually.
-  const [step, setStep] = useState<number | undefined>(undefined)
+  // The carousel drives the beat manually — converted explainers never auto-play.
+  const [step, setStep] = useState(0)
   if (!Explainer) return null
 
-  const cur = step ?? current
+  const cur = step
   const go = (i: number) => setStep(Math.max(0, Math.min(count - 1, i)))
   const replay = () => {
-    setStep(undefined)
-    setCurrent(0)
+    setStep(0)
     setReplayKey((k) => k + 1)
   }
 
@@ -56,7 +54,6 @@ export default function WmiExplainer({ slug, params, correctAnswer, lang }: Prop
         lang={lang}
         step={step}
         onStepCount={setCount}
-        onStepChange={setCurrent}
       />
 
       {count > 1 && (
