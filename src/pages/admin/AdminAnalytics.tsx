@@ -98,7 +98,7 @@ export default function AdminAnalyticsPage() {
 
       {loading || !overview ? (
         <div className="space-y-5">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
             {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-24 rounded-2xl" />
             ))}
@@ -108,7 +108,7 @@ export default function AdminAnalyticsPage() {
         </div>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
             <StatCard
               icon="fa-solid fa-eye"
               label="Unique visitors"

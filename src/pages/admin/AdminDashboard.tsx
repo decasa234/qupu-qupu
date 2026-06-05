@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
 
       {loading ? (
         <div className="space-y-5">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Skeleton className="h-24 rounded-2xl" />
             <Skeleton className="h-24 rounded-2xl" />
             <Skeleton className="h-24 rounded-2xl" />
@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
         </div>
       ) : (
         <>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <StatCard
               icon="fa-solid fa-users"
               label="Total Users"
