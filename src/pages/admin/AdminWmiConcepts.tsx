@@ -88,6 +88,10 @@ export default function AdminWmiConcepts() {
   const [savedFlash, setSavedFlash] = useState(false)
   const [query, setQuery] = useState('')
   const [reviewFilter, setReviewFilter] = useState<'all' | 'urgent' | ReviewStatus>('all')
+  // Mobile-only: track whether user has explicitly opened a concept detail view.
+  // activeSlug is auto-set on load (desktop convenience), but on mobile we want
+  // the list to show first; only switch to detail when the user taps a row.
+  const [mobileShowDetail, setMobileShowDetail] = useState(false)
 
   useEffect(() => {
     fetchConceptList()
@@ -258,14 +262,14 @@ export default function AdminWmiConcepts() {
 
       <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
         {/* Concept sidebar, grouped by domain */}
-        <aside className="rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
+        <aside className={`rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-admin-line bg-admin-card px-2 pb-2 pt-2">
             <Input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && filtered[0]) setActiveSlug(filtered[0].slug)
+                if (e.key === 'Enter' && filtered[0]) { setActiveSlug(filtered[0].slug); setMobileShowDetail(true) }
               }}
               placeholder="Search id / name… (e.g. G14)"
             />
@@ -285,7 +289,7 @@ export default function AdminWmiConcepts() {
                 <button
                   key={c.slug}
                   type="button"
-                  onClick={() => setActiveSlug(c.slug)}
+                  onClick={() => { setActiveSlug(c.slug); setMobileShowDetail(true) }}
                   className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
                     c.slug === activeSlug
                       ? 'bg-qupu-brand-blue text-white'
@@ -331,7 +335,14 @@ export default function AdminWmiConcepts() {
         </aside>
 
         {/* Preview panel */}
-        <div className="min-w-0 space-y-3">
+        <div className={`min-w-0 space-y-3 ${mobileShowDetail ? 'block' : 'hidden lg:block'}`}>
+          <button
+            type="button"
+            onClick={() => setMobileShowDetail(false)}
+            className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-qupu-brand-blue lg:hidden"
+          >
+            <i className="fa-solid fa-chevron-left" aria-hidden="true" /> Daftar konsep
+          </button>
           {active && (
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <span className="rounded-md bg-qupu-brand-blue px-2.5 py-1 font-mono text-base font-extrabold text-white">
