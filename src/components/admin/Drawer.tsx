@@ -37,7 +37,7 @@ export function Drawer({
   const widthCls = width === 'lg' ? 'sm:max-w-2xl' : 'sm:max-w-md'
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true" aria-labelledby="admin-drawer-title">
       <button
         type="button"
         aria-label="Tutup"
@@ -50,7 +50,7 @@ export function Drawer({
         className={`relative flex h-full w-full ${widthCls} flex-col bg-admin-bg shadow-2xl outline-none`}
       >
         <div className="flex items-center justify-between gap-3 border-b border-admin-line bg-admin-card px-4 py-3">
-          <div className="font-display text-base font-extrabold text-qupu-brand-blue">{title}</div>
+          <div id="admin-drawer-title" className="font-display text-base font-extrabold text-qupu-brand-blue">{title}</div>
           <button
             type="button"
             onClick={onClose}
