@@ -1,6 +1,8 @@
 import type { ComponentType } from 'react'
 import CountObjectsExplainer from './CountObjectsExplainer'
+import CustomOperationExplainer from './CustomOperationExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
+import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
@@ -14,7 +16,9 @@ export interface ExplainerProps {
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'count-objects': CountObjectsExplainer,
+  'custom-operation': CustomOperationExplainer,
   'digit-sum': DigitSumExplainer,
+  'multiplication-small': MultiplicationSmallExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
