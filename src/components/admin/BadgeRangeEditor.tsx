@@ -110,6 +110,9 @@ export function BadgeRangeEditor({
               </button>
             </div>
           ))}
+          {unlimitedMaxHint && (
+            <p className="text-[11px] text-admin-faint">Kosong di baris terakhir = tanpa batas.</p>
+          )}
         </div>
       )}
     </div>
