@@ -102,7 +102,6 @@ export default function AdminVideosPage() {
   const [bulkAgeGroupId, setBulkAgeGroupId] = useState('')
   const [bulkQuestions, setBulkQuestions] = useState('')
 
-  // Stale-video scan (deleted/private on YouTube).
   // Catalog search / filter / sort / pagination
   const [search, setSearch] = useState('')
   const [subjectId, setSubjectId] = useState('')

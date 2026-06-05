@@ -118,6 +118,7 @@ function mapVideoCard(row: VideoRow) {
     isPublished: row.is_published,
     sortOrder: row.sort_order,
     publishedAt: row.published_at,
+    updatedAt: row.updated_at,
     subject,
     ageGroup,
   }

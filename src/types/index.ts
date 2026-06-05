@@ -72,6 +72,7 @@ export interface VideoCard {
   isPublished: boolean
   sortOrder: number
   publishedAt?: string | null
+  updatedAt: string
   subject: SubjectOption | null
   ageGroup: {
     id: string
