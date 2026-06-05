@@ -4,6 +4,7 @@ import BadgeCurve from '../components/BadgeCurve'
 import AdminPageHeader from '../components/admin/AdminPageHeader'
 import ConfirmDangerousAction from '../components/ConfirmDangerousAction'
 import { useToast } from '../components/admin/Toast'
+import { Toolbar } from '../components/admin/Toolbar'
 import {
   Button,
   buttonClass,
@@ -18,6 +19,7 @@ import {
 } from '../components/admin/ui'
 import VideoEditor, { emptyVideoForm } from '../components/admin/VideoEditor'
 import api from '../lib/api'
+import { filterSortPaginateVideos, type CatalogSort } from '../lib/adminVideoCatalog'
 import { getApiErrorCode, getApiErrorMessage } from '../lib/apiError'
 import type { AdminVideoFormValues, PublicMeta, VideoDetail } from '../types'
 
@@ -101,6 +103,15 @@ export default function AdminVideosPage() {
   const [bulkQuestions, setBulkQuestions] = useState('')
 
   // Stale-video scan (deleted/private on YouTube).
+  // Catalog search / filter / sort / pagination
+  const [search, setSearch] = useState('')
+  const [subjectId, setSubjectId] = useState('')
+  const [ageGroupId, setAgeGroupId] = useState('')
+  const [sort, setSort] = useState<CatalogSort>('updated')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 24
+
+  // Stale-video scan (deleted/private on YouTube).
   const [scanning, setScanning] = useState(false)
   const [staleVideos, setStaleVideos] = useState<StaleVideo[] | null>(null)
   const [confirmPurge, setConfirmPurge] = useState(false)
@@ -128,11 +139,25 @@ export default function AdminVideosPage() {
   const subjectOptions = useMemo(() => meta?.subjects ?? [], [meta])
   const ageGroupOptions = useMemo(() => meta?.ageGroups ?? [], [meta])
 
-  const filteredVideos = useMemo(() => {
-    if (filter === 'all') return videos
-    if (filter === 'draft') return videos.filter((v) => !v.isPublished)
-    return videos.filter((v) => v.isPublished)
-  }, [videos, filter])
+  const catalog = useMemo(
+    () =>
+      filterSortPaginateVideos(videos, {
+        search,
+        status: filter,
+        subjectId,
+        ageGroupId,
+        sort,
+        page,
+        pageSize: PAGE_SIZE,
+      }),
+    [videos, search, filter, subjectId, ageGroupId, sort, page],
+  )
+  const filteredVideos = catalog.items
+
+  // Reset to page 1 whenever any filter/sort criterion changes
+  useEffect(() => {
+    setPage(1)
+  }, [search, filter, subjectId, ageGroupId, sort])
 
   const draftCount = useMemo(() => videos.filter((v) => !v.isPublished).length, [videos])
 
@@ -419,9 +444,12 @@ export default function AdminVideosPage() {
       )}
 
       <Panel>
-        <SectionHeading
-          right={
-            <div className="flex items-center gap-3">
+        <SectionHeading>Catalog</SectionHeading>
+
+        <Toolbar
+          search={{ value: search, onChange: setSearch, placeholder: 'Cari judul / YouTube ID…' }}
+          filters={
+            <>
               <SegmentedControl<CatalogFilter>
                 value={filter}
                 onChange={setFilter}
@@ -431,12 +459,45 @@ export default function AdminVideosPage() {
                   { value: 'published', label: 'Diterbitkan' },
                 ]}
               />
-              <span className="text-xs text-admin-muted">{filteredVideos.length} video</span>
-            </div>
+              <Select
+                value={subjectId}
+                onChange={(e) => setSubjectId(e.target.value)}
+                aria-label="Filter subject"
+              >
+                <option value="">Semua subject</option>
+                {meta?.subjects.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                value={ageGroupId}
+                onChange={(e) => setAgeGroupId(e.target.value)}
+                aria-label="Filter usia"
+              >
+                <option value="">Semua usia</option>
+                {meta?.ageGroups.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                  </option>
+                ))}
+              </Select>
+            </>
           }
-        >
-          Catalog
-        </SectionHeading>
+          sort={
+            <Select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as CatalogSort)}
+              aria-label="Urutkan"
+            >
+              <option value="updated">Terbaru diperbarui</option>
+              <option value="title">Judul A–Z</option>
+              <option value="status">Status</option>
+            </Select>
+          }
+          trailing={`${catalog.total} video`}
+        />
 
         {!loading && filteredVideos.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
@@ -620,6 +681,32 @@ export default function AdminVideosPage() {
                 </div>
               )
             })}
+          </div>
+        )}
+
+        {catalog.pageCount > 1 && (
+          <div className="mt-4 flex items-center justify-center gap-2 text-sm">
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={catalog.page <= 1}
+              onClick={() => setPage((p) => p - 1)}
+              icon="fa-solid fa-chevron-left"
+            >
+              Prev
+            </Button>
+            <span className="text-admin-muted">
+              Hal {catalog.page} / {catalog.pageCount}
+            </span>
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={catalog.page >= catalog.pageCount}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Next
+              <i className="fa-solid fa-chevron-right ml-1" aria-hidden="true" />
+            </Button>
           </div>
         )}
       </Panel>
