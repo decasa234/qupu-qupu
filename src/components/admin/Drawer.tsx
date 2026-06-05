@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 
 export function Drawer({
   open,
@@ -36,13 +37,13 @@ export function Drawer({
 
   const widthCls = width === 'lg' ? 'sm:max-w-2xl' : 'sm:max-w-md'
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true" aria-labelledby="admin-drawer-title">
       <button
         type="button"
         aria-label="Tutup"
         onClick={onClose}
-        className="absolute inset-0 bg-admin-ink/30 backdrop-blur-[1px]"
+        className="absolute inset-0 bg-admin-ink/50 backdrop-blur-[1px]"
       />
       <div
         ref={panelRef}
@@ -67,6 +68,7 @@ export function Drawer({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
