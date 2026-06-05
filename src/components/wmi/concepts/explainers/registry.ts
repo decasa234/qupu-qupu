@@ -3,6 +3,7 @@ import CountObjectsExplainer from './CountObjectsExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
+import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
 import StorySumExplainer from './StorySumExplainer'
 
 export interface ExplainerProps {
@@ -16,6 +17,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'digit-sum': DigitSumExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
+  'single-digit-subtraction': SingleDigitSubtractionExplainer,
   'story-sum': StorySumExplainer,
 }
 
