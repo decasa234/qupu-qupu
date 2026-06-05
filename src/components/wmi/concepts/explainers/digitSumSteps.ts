@@ -1,4 +1,4 @@
-export type Lang = 'en' | 'id'
+import type { Lang } from './makeTenSteps'
 
 export interface DigitSumStep {
   showNumber: boolean

@@ -18,6 +18,11 @@ describe('buildDigitSumSteps', () => {
     expect(last.result).toBe(true)
     expect(last.caption).toContain('11')
     expect(sb.finalIndex).toBe(sb.steps.length - 1)
+    // step 0 shows only the number; later steps never re-show it
+    expect(sb.steps[0].showTiles).toBe(false)
+    for (let i = 1; i <= sb.finalIndex; i++) {
+      expect(sb.steps[i].showNumber).toBe(false)
+    }
   })
 
   test('language switches the caption text', () => {
