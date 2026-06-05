@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import CountObjectsExplainer from './CountObjectsExplainer'
+import DigitSumExplainer from './DigitSumExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import StorySumExplainer from './StorySumExplainer'
@@ -12,6 +13,7 @@ export interface ExplainerProps {
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'count-objects': CountObjectsExplainer,
+  'digit-sum': DigitSumExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'story-sum': StorySumExplainer,
