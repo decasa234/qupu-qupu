@@ -39,15 +39,41 @@ export function render(params: Params) {
   for (let i = 0; i < 4; i++) texts.push(i === pos ? correct : distractors[di++])
   const choices: WmiChoice[] = labels.map((label, i) => ({ label, text: texts[i] }))
 
+  // hint_steps: work through place-value comparison step by step
+  const hiTens = Math.floor(hi / 10)
+  const midTens = Math.floor(mid / 10)
+  const loTens = Math.floor(lo / 10)
+
+  let step1_en: string
+  let step1_id: string
+  if (hiTens === midTens && midTens === loTens) {
+    // All share the same tens digit — compare ones
+    step1_en = `All three numbers have the same tens digit (${hiTens}), so compare the ones digits: ${hi % 10}, ${mid % 10}, and ${lo % 10}.`
+    step1_id = `Ketiga bilangan memiliki angka puluhan yang sama (${hiTens}), jadi bandingkan angka satuannya: ${hi % 10}, ${mid % 10}, dan ${lo % 10}.`
+  } else {
+    step1_en = `Look at the tens digits: ${hi} has ${hiTens} tens, ${mid} has ${midTens} tens, ${lo} has ${loTens} tens.`
+    step1_id = `Perhatikan angka puluhannya: ${hi} punya ${hiTens} puluhan, ${mid} punya ${midTens} puluhan, ${lo} punya ${loTens} puluhan.`
+  }
+
+  // Step 2: establish the full ordering
+  const step2_en = `Order largest to smallest: ${hi} > ${mid} > ${lo}.`
+  const step2_id = `Urutan dari terbesar ke terkecil: ${hi} > ${mid} > ${lo}.`
+
+  // Step 3: identify the correct choice
+  const step3_en = `Only one chain matches this order — that is the correct statement.`
+  const step3_id = `Hanya satu pilihan yang sesuai urutan ini — itulah pernyataan yang benar.`
+
   return {
-    body_en: 'Which statement is correct?',
-    body_id: 'Pernyataan manakah yang benar?',
+    body_en: `Three numbers are shown in each statement below. Find: Which ordering statement is correct?`,
+    body_id: `Tiga bilangan ditampilkan dalam setiap pernyataan berikut. Cari: Pernyataan urutan manakah yang benar?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[pos],
-    hint_en: 'A “>” chain is true only when each number is bigger than the next. Order them largest to smallest.',
-    hint_id: 'Rantai “>” benar hanya jika setiap bilangan lebih besar dari berikutnya. Urutkan dari terbesar ke terkecil.',
+    hint_en: `Compare the tens digits first — the number with the larger tens digit is greater; if tens are equal, compare the ones digits.`,
+    hint_id: `Bandingkan angka puluhan terlebih dahulu — bilangan dengan puluhan lebih besar bernilai lebih besar; jika puluhannya sama, bandingkan angka satuannya.`,
+    hint_steps_en: [step1_en, step2_en, step3_en],
+    hint_steps_id: [step1_id, step2_id, step3_id],
   }
 }
 
