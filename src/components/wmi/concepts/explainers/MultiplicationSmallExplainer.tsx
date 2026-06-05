@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
+import { motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildArraySteps } from './arraySteps'
+import { useBeatControl } from './useBeatControl'
 
 interface MulParams {
   a: number
@@ -10,37 +11,12 @@ interface MulParams {
 
 const BLUE = '#2f6df0'
 
-export default function MultiplicationSmallExplainer({ params, lang = 'en' }: ExplainerProps) {
+export default function MultiplicationSmallExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
   const p = params as MulParams
   const story = useMemo(() => buildArraySteps(p.a, p.b), [p.a, p.b])
-  const reduce = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, holds: story.steps.map((s) => s.hold) })
 
-  // Auto-advance, holding each beat for its own duration.
-  useEffect(() => {
-    if (reduce) {
-      setIndex(story.finalIndex)
-      return
-    }
-    let cancelled = false
-    let timer = 0
-    const run = (next: number) => {
-      setIndex(next)
-      const hold = story.steps[next]?.hold ?? 0
-      if (hold > 0 && next < story.finalIndex) {
-        timer = window.setTimeout(() => {
-          if (!cancelled) run(next + 1)
-        }, hold)
-      }
-    }
-    timer = window.setTimeout(() => run(0), 300)
-    return () => {
-      cancelled = true
-      window.clearTimeout(timer)
-    }
-  }, [story, reduce])
-
-  const step = story.steps[index] ?? story.steps[story.finalIndex]
+  const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const { a, b } = story
 
   const ariaLabel =
@@ -56,7 +32,7 @@ export default function MultiplicationSmallExplainer({ params, lang = 'en' }: Ex
             <div key={r} className="flex gap-1.5">
               {Array.from({ length: b }, (_, c) => (
                 <div key={c} className="flex h-7 w-7 items-center justify-center">
-                  {r < step.rows && (
+                  {r < beat.rows && (
                     <motion.span
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -74,12 +50,12 @@ export default function MultiplicationSmallExplainer({ params, lang = 'en' }: Ex
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-base font-extrabold tabular-nums"
           style={
-            step.result
+            beat.result
               ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
               : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
           }
         >
-          {step.caption}
+          {beat.caption}
         </div>
       </div>
     </div>

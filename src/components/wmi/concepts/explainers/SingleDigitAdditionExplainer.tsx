@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
-import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
+import { LayoutGroup, motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildMakeTenSteps } from './makeTenSteps'
+import { useBeatControl } from './useBeatControl'
 
 interface AddParams {
   a: number
@@ -26,54 +27,28 @@ function Chip({ color, layoutId }: { color: string; layoutId?: string }) {
   )
 }
 
-export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: ExplainerProps) {
+export default function SingleDigitAdditionExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
   const p = params as AddParams
   const story = useMemo(() => buildMakeTenSteps(p.a, p.b, lang), [p.a, p.b, lang])
-  const reduce = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, holds: story.steps.map((s) => s.hold) })
 
-  // Auto-advance through the beats, holding each for its own duration so the
-  // key moves (the split and the bridge slide) stay on screen long enough.
-  useEffect(() => {
-    if (reduce) {
-      setIndex(story.finalIndex)
-      return
-    }
-    let cancelled = false
-    let timer = 0
-    const run = (next: number) => {
-      setIndex(next)
-      const hold = story.steps[next]?.hold ?? 0
-      if (hold > 0 && next < story.finalIndex) {
-        timer = window.setTimeout(() => {
-          if (!cancelled) run(next + 1)
-        }, hold)
-      }
-    }
-    timer = window.setTimeout(() => run(0), 300)
-    return () => {
-      cancelled = true
-      window.clearTimeout(timer)
-    }
-  }, [story, reduce])
-
-  const step = story.steps[index] ?? story.steps[story.finalIndex]
-  const tenFull = step.blue + step.orange === 10
-  const [splitFills, splitLeft] = step.split ?? [0, 0]
+  const beat = story.steps[index] ?? story.steps[story.finalIndex]
+  const tenFull = beat.blue + beat.orange === 10
+  const [splitFills, splitLeft] = beat.split ?? [0, 0]
 
   // Ten-frame cells: blue chips, then orange (bridged) chips, then empty.
   // Orange cell chips share a layoutId with the loose pile chips so they
   // visibly slide from the pile into the frame when the bridge step fires.
   const cells = Array.from({ length: 10 }, (_, cellIndex) => {
-    const isBlue = cellIndex < step.blue
-    const orangeSlot = cellIndex - step.blue
-    const isOrange = !isBlue && orangeSlot < step.orange
+    const isBlue = cellIndex < beat.blue
+    const orangeSlot = cellIndex - beat.blue
+    const isOrange = !isBlue && orangeSlot < beat.orange
     const isEmpty = !isBlue && !isOrange
     return (
       <div
         key={cellIndex}
         className="flex h-9 w-9 items-center justify-center rounded-md border-2 bg-white"
-        style={{ borderColor: isEmpty && step.highlightEmpty ? ORANGE : EMPTY_BORDER }}
+        style={{ borderColor: isEmpty && beat.highlightEmpty ? ORANGE : EMPTY_BORDER }}
       >
         {isBlue && <Chip color={BLUE} />}
         {isOrange && <Chip color={ORANGE} layoutId={`add-${orangeSlot}`} />}
@@ -87,7 +62,7 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
   // During the split beat the loose chips become two labelled groups — the
   // part that completes the ten (ringed) and the leftover — so the breakdown
   // of a sum over ten is concrete. Otherwise they sit in one row.
-  const showSplitGroups = step.split !== null && step.orange === 0
+  const showSplitGroups = beat.split !== null && beat.orange === 0
   const looseArea = showSplitGroups ? (
     <div className="flex items-end gap-3">
       <div className="flex flex-col items-center gap-1">
@@ -110,7 +85,7 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
     </div>
   ) : (
     <div className="flex min-h-[24px] items-center gap-1.5">
-      {Array.from({ length: step.loose }, (_, k) => looseChip(step.orange + k))}
+      {Array.from({ length: beat.loose }, (_, k) => looseChip(beat.orange + k))}
     </div>
   )
 
@@ -142,18 +117,18 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
           </div>
 
           {/* Loose chips (grouped into the split during the breakdown beat) */}
-          {step.loose > 0 && looseArea}
+          {beat.loose > 0 && looseArea}
 
           {/* Caption */}
           <div
             className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
             style={
-              step.result
+              beat.result
                 ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
                 : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
             }
           >
-            {step.caption}
+            {beat.caption}
           </div>
         </div>
       </div>
