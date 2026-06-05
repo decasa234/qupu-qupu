@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
@@ -16,6 +17,7 @@ export interface ExplainerProps {
 }
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
+  'compare-order-numbers': CompareOrderExplainer,
   'count-objects': CountObjectsExplainer,
   'custom-operation': CustomOperationExplainer,
   'digit-sum': DigitSumExplainer,
