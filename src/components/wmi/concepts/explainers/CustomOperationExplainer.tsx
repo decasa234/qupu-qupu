@@ -4,7 +4,7 @@ import type { ExplainerProps } from './registry'
 import { buildSubstituteSteps, type SubParams } from './substituteSteps'
 import { useBeatControl } from './useBeatControl'
 
-// Nunito (font-display) lacks the ◎ / × / − glyphs, so list symbol-capable
+// Nunito (font-display) lacks the ★ / × / − glyphs, so list symbol-capable
 // fallbacks; the browser fills missing glyphs from these.
 const MATH_FONT = '"Nunito", "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols2", sans-serif'
 const BLUE = '#2f6df0'
@@ -60,13 +60,13 @@ export default function CustomOperationExplainer({ params, correctAnswer, lang =
 
           <Row show={beat.showExample} label={lang === 'id' ? 'Contoh' : 'Example'}>
             <span style={{ color: MUTED }}>
-              {e1} ◎ {e2} = {exampleSub} = {exampleVal}
+              {e1} ★ {e2} = {exampleSub} = {exampleVal}
             </span>
           </Row>
 
           <Row show={beat.showSub} label={lang === 'id' ? 'Soalmu' : 'Your problem'}>
             <span>
-              <span style={{ color: ORANGE }}>{c}</span> ◎ <span style={{ color: ORANGE }}>{d}</span> = {sub}
+              <span style={{ color: ORANGE }}>{c}</span> ★ <span style={{ color: ORANGE }}>{d}</span> = {sub}
               {beat.showResult && (
                 <>
                   {' = '}

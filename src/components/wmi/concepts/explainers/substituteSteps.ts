@@ -10,12 +10,12 @@ interface Rule {
 // explainer needs the rule text, the substituted expression, and (to show the
 // worked example) the numeric value of the rule applied.
 const RULES: Record<string, Rule> = {
-  'mul-minus-b': { def: 'a ◎ b = a × b − b', sub: (a, b) => `${a} × ${b} − ${b}`, fn: (a, b) => a * b - b },
-  'mul-plus-sum': { def: 'a ◎ b = a × b + a + b', sub: (a, b) => `${a} × ${b} + ${a} + ${b}`, fn: (a, b) => a * b + a + b },
-  'double-first-plus': { def: 'a ◎ b = a + a + b', sub: (a, b) => `${a} + ${a} + ${b}`, fn: (a, b) => a + a + b },
-  'sum-times-two': { def: 'a ◎ b = (a + b) × 2', sub: (a, b) => `(${a} + ${b}) × 2`, fn: (a, b) => (a + b) * 2 },
+  'mul-minus-b': { def: 'a ★ b = a × b − b', sub: (a, b) => `${a} × ${b} − ${b}`, fn: (a, b) => a * b - b },
+  'mul-plus-sum': { def: 'a ★ b = a × b + a + b', sub: (a, b) => `${a} × ${b} + ${a} + ${b}`, fn: (a, b) => a * b + a + b },
+  'double-first-plus': { def: 'a ★ b = a + a + b', sub: (a, b) => `${a} + ${a} + ${b}`, fn: (a, b) => a + a + b },
+  'sum-times-two': { def: 'a ★ b = (a + b) × 2', sub: (a, b) => `(${a} + ${b}) × 2`, fn: (a, b) => (a + b) * 2 },
 }
-const FALLBACK: Rule = { def: 'a ◎ b = …', sub: (a, b) => `${a} ◎ ${b}`, fn: () => NaN }
+const FALLBACK: Rule = { def: 'a ★ b = …', sub: (a, b) => `${a} ★ ${b}`, fn: () => NaN }
 
 export interface SubParams {
   formula: string
@@ -79,7 +79,7 @@ export function buildSubstituteSteps(p: SubParams, answer: string, lang: Lang): 
     // 2. See the rule worked on the example.
     {
       showRule: true, showExample: true, showSub: false, showResult: false,
-      caption: t(`example: ${e1} ◎ ${e2} = ${exampleVal}`, `contoh: ${e1} ◎ ${e2} = ${exampleVal}`),
+      caption: t(`example: ${e1} ★ ${e2} = ${exampleVal}`, `contoh: ${e1} ★ ${e2} = ${exampleVal}`),
       hold: 2300, result: false,
     },
     // 3. Put your own numbers in, the same way.
@@ -91,7 +91,7 @@ export function buildSubstituteSteps(p: SubParams, answer: string, lang: Lang): 
     // 4. Compute the result.
     {
       showRule: true, showExample: true, showSub: true, showResult: true,
-      caption: `${c} ◎ ${d} = ${answer}`,
+      caption: `${c} ★ ${d} = ${answer}`,
       hold: 0, result: true,
     },
   ]

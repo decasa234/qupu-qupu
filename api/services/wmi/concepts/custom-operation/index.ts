@@ -3,10 +3,10 @@ import type { ConceptLogic, Rng } from '../types.js'
 
 type Formula = { id: string; fn: (a: number, b: number) => number; def: string }
 const FORMULAS: readonly Formula[] = [
-  { id: 'mul-minus-b', fn: (a, b) => a * b - b, def: 'a ◎ b = a × b − b' },
-  { id: 'mul-plus-sum', fn: (a, b) => a * b + a + b, def: 'a ◎ b = a × b + a + b' },
-  { id: 'double-first-plus', fn: (a, b) => a + a + b, def: 'a ◎ b = a + a + b' },
-  { id: 'sum-times-two', fn: (a, b) => (a + b) * 2, def: 'a ◎ b = (a + b) × 2' },
+  { id: 'mul-minus-b', fn: (a, b) => a * b - b, def: 'a ★ b = a × b − b' },
+  { id: 'mul-plus-sum', fn: (a, b) => a * b + a + b, def: 'a ★ b = a × b + a + b' },
+  { id: 'double-first-plus', fn: (a, b) => a + a + b, def: 'a ★ b = a + a + b' },
+  { id: 'sum-times-two', fn: (a, b) => (a + b) * 2, def: 'a ★ b = (a + b) × 2' },
 ] as const
 const IDS = FORMULAS.map((f) => f.id)
 const BY_ID = Object.fromEntries(FORMULAS.map((f) => [f.id, f]))
@@ -47,8 +47,8 @@ export function render(params: Params) {
   const example = f.fn(params.e1, params.e2)
   const answer = f.fn(params.c, params.d)
   return {
-    body_en: `A new operation is defined as ${f.def}. For example, ${params.e1} ◎ ${params.e2} = ${example}. Compute ${params.c} ◎ ${params.d}.`,
-    body_id: `Sebuah operasi baru didefinisikan sebagai ${f.def}. Contohnya, ${params.e1} ◎ ${params.e2} = ${example}. Hitunglah ${params.c} ◎ ${params.d}.`,
+    body_en: `A new operation is defined as ${f.def}. For example, ${params.e1} ★ ${params.e2} = ${example}. Compute ${params.c} ★ ${params.d}.`,
+    body_id: `Sebuah operasi baru didefinisikan sebagai ${f.def}. Contohnya, ${params.e1} ★ ${params.e2} = ${example}. Hitunglah ${params.c} ★ ${params.d}.`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,

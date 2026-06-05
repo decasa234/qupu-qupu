@@ -6,7 +6,7 @@ const P: SubParams = { formula: 'mul-minus-b', e1: 2, e2: 3, c: 3, d: 5 }
 describe('buildSubstituteSteps', () => {
   test('renders the rule def, the example, and the substituted expression', () => {
     const s = buildSubstituteSteps(P, '10', 'en')
-    expect(s.def).toContain('◎')
+    expect(s.def).toContain('★')
     expect(s.exampleSub).toBe('2 × 3 − 3')
     expect(s.exampleVal).toBe(3) // 2×3 − 3
     expect(s.sub).toBe('3 × 5 − 5')

@@ -42,7 +42,7 @@ export default {
       },
       fontFamily: {
         // Symbol fallbacks (Segoe UI Symbol / Apple Symbols / Noto) so glyphs
-        // missing from Nunito & Baloo 2 — e.g. ◎ × − used in WMI concepts —
+        // missing from Nunito & Baloo 2 — e.g. ★ × − used in WMI concepts —
         // still render via per-glyph fallback instead of showing blank.
         sans: ['Nunito', '"Segoe UI Symbol"', '"Apple Symbols"', '"Noto Sans Symbols2"', 'sans-serif'],
         display: ['"Baloo 2"', '"Segoe UI Symbol"', '"Apple Symbols"', '"Noto Sans Symbols2"', 'sans-serif'],
