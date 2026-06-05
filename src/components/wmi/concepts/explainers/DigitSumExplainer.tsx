@@ -9,6 +9,8 @@ interface DigitSumParams {
 
 const BLUE = '#2f6df0'
 const ORANGE = '#F97316'
+const GREEN = '#10B981'
+const PURPLE = '#341857'
 const STEP_MS = 1200
 
 // A single counting dot. layoutId lets the dot slide from its per-tile group
@@ -89,7 +91,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="font-display text-6xl font-extrabold"
-              style={{ color: '#341857' }}
+              style={{ color: PURPLE }}
             >
               {n}
             </motion.div>
@@ -129,7 +131,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
               <span className="text-qupu-muted"> + </span>
               <span style={{ color: ORANGE }}>{ones}</span>
               <span className="text-qupu-muted"> = </span>
-              <span style={{ color: '#10B981' }}>{sum}</span>
+              <span style={{ color: GREEN }}>{sum}</span>
             </motion.div>
           )}
 
@@ -138,7 +140,7 @@ export default function DigitSumExplainer({ params, lang = 'en' }: ExplainerProp
             className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
             style={
               step.result
-                ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+                ? { background: '#D1FAE5', borderColor: GREEN, color: '#065F46' }
                 : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
             }
           >
