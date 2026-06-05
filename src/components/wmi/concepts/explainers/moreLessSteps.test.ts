@@ -2,78 +2,45 @@ import { describe, test, expect } from 'vitest'
 import { buildMoreLessSteps } from './moreLessSteps'
 
 describe('buildMoreLessSteps', () => {
-  test('more: answer is x + k', () => {
-    const sb = buildMoreLessSteps(30, 10, 'more', 'en')
-    expect(sb.answer).toBe(40)
-  })
-
-  test('less: answer is x - k', () => {
-    const sb = buildMoreLessSteps(50, 15, 'less', 'en')
-    expect(sb.answer).toBe(35)
-  })
-
-  test('lo >= 0 and lo <= min(x, answer)', () => {
-    const sb = buildMoreLessSteps(20, 8, 'more', 'en')
-    expect(sb.lo).toBeGreaterThanOrEqual(0)
-    expect(sb.lo).toBeLessThanOrEqual(Math.min(sb.x, sb.answer))
-  })
-
-  test('lo >= 0 even when x - k - margin would go negative', () => {
-    const sb = buildMoreLessSteps(10, 8, 'less', 'en')
-    expect(sb.lo).toBeGreaterThanOrEqual(0)
-  })
-
-  test('hi >= max(x, answer)', () => {
-    const sb = buildMoreLessSteps(30, 12, 'more', 'en')
-    expect(sb.hi).toBeGreaterThanOrEqual(Math.max(sb.x, sb.answer))
-  })
-
-  test('4 phases in order: start, hop, land, result', () => {
-    const sb = buildMoreLessSteps(40, 20, 'more', 'en')
-    expect(sb.steps.map((s) => s.phase)).toEqual(['start', 'hop', 'land', 'result'])
-  })
-
-  test('last step has result:true and caption contains answer', () => {
-    const sb = buildMoreLessSteps(60, 25, 'more', 'en')
+  test('more with carry regroups 10 ones into a ten', () => {
+    const sb = buildMoreLessSteps(48, 15, 'more', 'en')
+    expect(sb.answer).toBe(63)
+    expect(sb.steps.map((s) => s.phase)).toContain('regroup')
     const last = sb.steps[sb.finalIndex]
     expect(last.result).toBe(true)
-    expect(last.caption).toContain(String(sb.answer))
+    expect(last.main).toEqual({ tens: 6, ones: 3 })
+    expect(last.caption).toContain('63')
   })
 
-  test('finalIndex is steps.length - 1', () => {
-    const sb = buildMoreLessSteps(100, 30, 'less', 'en')
+  test('more without carry skips the regroup beat', () => {
+    const sb = buildMoreLessSteps(23, 14, 'more', 'en')
+    expect(sb.answer).toBe(37)
+    expect(sb.steps.map((s) => s.phase)).not.toContain('regroup')
+    expect(sb.steps[sb.finalIndex].main).toEqual({ tens: 3, ones: 7 })
+  })
+
+  test('less with borrow breaks a ten', () => {
+    const sb = buildMoreLessSteps(42, 15, 'less', 'en')
+    expect(sb.answer).toBe(27)
+    expect(sb.steps.map((s) => s.phase)).toContain('borrow')
+    expect(sb.steps[sb.finalIndex].main).toEqual({ tens: 2, ones: 7 })
+  })
+
+  test('less without borrow skips the break-a-ten beat', () => {
+    const sb = buildMoreLessSteps(48, 15, 'less', 'en')
+    expect(sb.answer).toBe(33)
+    expect(sb.steps.map((s) => s.phase)).not.toContain('borrow')
+    expect(sb.steps[sb.finalIndex].main).toEqual({ tens: 3, ones: 3 })
+  })
+
+  test('every non-result step has result:false and the last is result:true', () => {
+    const sb = buildMoreLessSteps(48, 15, 'more', 'en')
+    expect(sb.steps.slice(0, -1).every((s) => !s.result)).toBe(true)
     expect(sb.finalIndex).toBe(sb.steps.length - 1)
   })
 
-  test('language switch: id uses "Mulai"', () => {
-    const sb = buildMoreLessSteps(50, 10, 'more', 'id')
-    expect(sb.steps[0].caption).toContain('Mulai')
-  })
-
-  test('language switch: en uses "Start"', () => {
-    const sb = buildMoreLessSteps(50, 10, 'more', 'en')
-    expect(sb.steps[0].caption).toContain('Start')
-  })
-
-  test('language switch: id hop uses "lebih" for more', () => {
-    const sb = buildMoreLessSteps(30, 5, 'more', 'id')
-    expect(sb.steps[1].caption).toContain('lebih')
-  })
-
-  test('language switch: id hop uses "kurang" for less', () => {
-    const sb = buildMoreLessSteps(30, 5, 'less', 'id')
-    expect(sb.steps[1].caption).toContain('kurang')
-  })
-
-  test('language switch: en hop uses "more"/"forward" for more direction', () => {
-    const sb = buildMoreLessSteps(30, 5, 'more', 'en')
-    expect(sb.steps[1].caption).toContain('more')
-    expect(sb.steps[1].caption).toContain('forward')
-  })
-
-  test('language switch: en hop uses "less"/"back" for less direction', () => {
-    const sb = buildMoreLessSteps(30, 5, 'less', 'en')
-    expect(sb.steps[1].caption).toContain('less')
-    expect(sb.steps[1].caption).toContain('back')
+  test('language switches the caption text', () => {
+    expect(buildMoreLessSteps(48, 15, 'more', 'id').steps[0].caption).toContain('Mulai')
+    expect(buildMoreLessSteps(48, 15, 'more', 'en').steps[0].caption).toContain('Start')
   })
 })
