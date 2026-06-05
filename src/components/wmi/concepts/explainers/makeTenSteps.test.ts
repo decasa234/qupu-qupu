@@ -69,5 +69,17 @@ describe('buildMakeTenSteps', () => {
     const story = buildMakeTenSteps(0, 99, 'en')
     expect(story.big).toBe(9)
     expect(story.small).toBe(1)
+    expect(story.steps.length).toBeGreaterThan(0)
+    expect(story.steps[story.finalIndex].result).toBe(true)
+    for (const s of story.steps) {
+      expect(s.blue + s.orange + s.loose).toBe(10)
+    }
+  })
+
+  test('non-finite input clamps safely', () => {
+    const story = buildMakeTenSteps(NaN, 5, 'en')
+    expect(Number.isFinite(story.big)).toBe(true)
+    expect(Number.isFinite(story.sum)).toBe(true)
+    expect(story.steps[story.finalIndex].caption).not.toContain('NaN')
   })
 })

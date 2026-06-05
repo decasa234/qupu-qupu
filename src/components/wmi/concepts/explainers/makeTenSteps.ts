@@ -19,7 +19,7 @@ export interface MakeTenStoryboard {
   big: number
   small: number
   sum: number
-  /** Chips needed to fill the ten once `big` is placed (10 - big). */
+  /** Chips needed to fill the ten once `big` is placed (= `bridge` when sum > 10). */
   completesTen: number
   /** Portion of `small` that completes the ten. */
   bridge: number
@@ -28,10 +28,12 @@ export interface MakeTenStoryboard {
   /** True when the sum crosses ten and the bridge animation plays. */
   bridges: boolean
   steps: MakeTenStep[]
+  /** Index of the last step (always steps.length − 1; the result beat). */
   finalIndex: number
 }
 
 function clamp(n: number): number {
+  if (!Number.isFinite(n)) return 1
   return Math.max(1, Math.min(9, Math.round(n)))
 }
 
@@ -49,10 +51,17 @@ export function buildMakeTenSteps(aRaw: number, bRaw: number, lang: Lang): MakeT
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
   const steps: MakeTenStep[] = []
 
+  // Steps 1 and 2 are intentionally state-identical — two caption beats
+  // ("start with N" → "add M") before any chips move. The component advances
+  // by step index and renders each caption, so both beats are shown.
+
   // 1. The bigger number fills the frame first.
   steps.push({
     blue: big, orange: 0, loose: small, split: null, highlightEmpty: bridges,
-    caption: t(`start with the bigger number: ${big}`, `mulai dari yang besar: ${big}`),
+    caption: t(
+      big > small ? `start with the bigger number: ${big}` : `start with ${big}`,
+      big > small ? `mulai dari yang besar: ${big}` : `mulai dari ${big}`,
+    ),
     result: false,
   })
 
