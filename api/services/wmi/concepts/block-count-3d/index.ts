@@ -84,15 +84,42 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const groupTotals = params.groups.map(groupCubes)
+  const grandTotal = groupTotals.reduce((a, b) => a + b, 0)
+  const n = params.groups.length
+
+  // Build a natural ordinal list: "Group 1 has X blocks, Group 2 has Y, …"
+  const groupSummaryEn = groupTotals
+    .map((t, i) => `Group ${i + 1} has ${t} block${t !== 1 ? 's' : ''}`)
+    .join('; ')
+  const groupSummaryId = groupTotals
+    .map((t, i) => `Kelompok ${i + 1} memiliki ${t} balok`)
+    .join('; ')
+
+  const additionEn = groupTotals.join(' + ')
+  const additionId = groupTotals.join(' + ')
+
   return {
-    body_en: 'Count. How many blocks are there in the picture?',
-    body_id: 'Hitung. Ada berapa balok pada gambar?',
+    body_en: `Find: How many blocks are there in total in the figure shown?`,
+    body_id: `Cari: Ada berapa balok seluruhnya pada gambar yang ditunjukkan?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(total(params)),
-    hint_en: 'The stacks are solid (no hidden gaps). You can see the top of every stack — count each one down to the floor, then add the groups.',
-    hint_id: 'Tumpukannya padat (tidak ada rongga). Kamu bisa melihat puncak tiap tumpukan — hitung tiap tumpukan sampai ke lantai, lalu jumlahkan semua kelompok.',
+    answer: String(grandTotal),
+    hint_en: `Every stack is solid — look at the top of each column and count straight down to the floor, then add all the groups together.`,
+    hint_id: `Setiap tumpukan padat — lihat puncak tiap kolom dan hitung langsung ke bawah sampai lantai, lalu jumlahkan semua kelompok.`,
+    hint_steps_en: [
+      `The figure is split into ${n} separate group${n !== 1 ? 's' : ''} of stacked blocks. You will count each group on its own.`,
+      `In each group, look at every column (stack) from left to right. Each column is solid from top to bottom — no hidden gaps — so count its blocks straight down. Add up all columns in a group to get that group's total.`,
+      `${groupSummaryEn}.`,
+      `Add the groups: ${additionEn} = ${grandTotal} blocks in total.`,
+    ],
+    hint_steps_id: [
+      `Gambar dibagi menjadi ${n} kelompok tumpukan balok yang terpisah. Hitung masing-masing kelompok satu per satu.`,
+      `Pada setiap kelompok, perhatikan tiap kolom (tumpukan) dari kiri ke kanan. Tiap kolom padat dari atas sampai bawah — tidak ada rongga — jadi hitung baloknya lurus ke bawah. Jumlahkan semua kolom dalam satu kelompok untuk mendapat total kelompok itu.`,
+      `${groupSummaryId}.`,
+      `Jumlahkan semua kelompok: ${additionId} = ${grandTotal} balok seluruhnya.`,
+    ],
   }
 }
 

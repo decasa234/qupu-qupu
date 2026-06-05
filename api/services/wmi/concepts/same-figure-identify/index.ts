@@ -67,14 +67,26 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const choices = labels.map((label) => ({ label, text: label }))
   return {
-    body_en: 'The shape at the top can be turned, but not flipped over. Which shape below (A, B, C, or D) is the SAME shape?',
-    body_id: 'Bentuk di atas boleh diputar, tetapi tidak boleh dibalik. Bentuk manakah di bawah (A, B, C, atau D) yang SAMA?',
+    body_en: 'The figure shown can be [[rotation|rotated]] to any angle, but must NOT be [[reflection|flipped]] (mirrored). Find: Which option — A, B, C, or D — is the SAME figure as the one shown?',
+    body_id: 'Bangun yang ditampilkan boleh di[[rotation|putar]] ke sudut mana pun, tetapi TIDAK boleh di[[reflection|balik]] (dicerminkan). Cari: Pilihan manakah — A, B, C, atau D — yang merupakan bangun SAMA dengan yang ditampilkan?',
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[params.validIndex],
-    hint_en: 'A flipped (mirror) shape is different. Find the one you could rotate to match.',
-    hint_id: 'Bentuk yang dibalik (cermin) itu berbeda. Cari yang bisa diputar agar cocok.',
+    hint_en: 'Pick one distinguishing "arm" of the figure and track which way it points — a flipped option will have that arm on the opposite side no matter how you rotate it.',
+    hint_id: 'Pilih satu "lengan" khas pada bangun dan perhatikan ke arah mana ia menunjuk — pilihan yang dibalik akan memiliki lengan itu di sisi yang berlawanan, tidak peduli bagaimana kamu memutarnya.',
+    hint_steps_en: [
+      'Count the squares (or segments) in the figure — every option must have the same count; eliminate any that differ.',
+      'Pick the longest arm of the figure and note which side it bends toward (left or right).',
+      'Try rotating each option in your mind: if the bend stays on the same side after turning, the overall shape matches; if it flips to the other side, that option is a mirror image and is wrong.',
+      `Only one option survives both checks — that is option ${labels[params.validIndex]}.`,
+    ],
+    hint_steps_id: [
+      'Hitung kotak (atau segmen) pada bangun — setiap pilihan harus memiliki jumlah yang sama; eliminasi pilihan yang berbeda.',
+      'Pilih lengan terpanjang bangun dan catat ke sisi mana ia menekuk (kiri atau kanan).',
+      'Coba putar setiap pilihan dalam pikiranmu: jika tekukan tetap berada di sisi yang sama setelah diputar, bentuk tersebut cocok; jika tekukan berpindah ke sisi lain, pilihan itu adalah bayangan cermin dan salah.',
+      `Hanya satu pilihan yang lolos kedua pemeriksaan — itulah pilihan ${labels[params.validIndex]}.`,
+    ],
   }
 }
 
