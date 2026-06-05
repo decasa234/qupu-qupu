@@ -19,6 +19,8 @@ export interface OddEvenStep {
 export interface OddEvenStoryboard {
   options: { x: number; y: number }[]
   checks: ParityCheck[]
+  ruleEn: string
+  ruleId: string
   correctIndex: number
   steps: OddEvenStep[]
   finalIndex: number
@@ -90,5 +92,13 @@ export function buildOddEvenSteps(options: { x: number; y: number }[], lang: Lan
     },
   ]
 
-  return { options, checks, correctIndex, steps, finalIndex: steps.length - 1 }
+  return {
+    options,
+    checks,
+    ruleEn: 'A sum is odd only when one number is odd and the other is even.',
+    ruleId: 'Jumlah ganjil hanya jika satu bilangan ganjil dan satu genap.',
+    correctIndex,
+    steps,
+    finalIndex: steps.length - 1,
+  }
 }
