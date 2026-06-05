@@ -103,17 +103,24 @@ export function buildMakeTenSteps(aRaw: number, bRaw: number, lang: Lang): MakeT
       hold: 0, result: true,
     })
   } else {
-    // Under ten: combine in one frame, no bridge needed.
+    // Under ten: no make-ten needed — just add the second addend one chip at
+    // a time and count up.
     steps.push({
       blue: big, orange: 0, loose: small, split: null, highlightEmpty: false,
-      caption: t(`start with ${big}, add ${small}`, `mulai dari ${big}, tambah ${small}`),
-      hold: 1700, result: false,
+      caption: t(`start with ${big}`, `mulai dari ${big}`),
+      hold: 1200, result: false,
     })
-    steps.push({
-      blue: big, orange: small, loose: 0, split: null, highlightEmpty: false,
-      caption: t(`still under ten → ${sum}`, `masih di bawah sepuluh → ${sum}`),
-      hold: 0, result: true,
-    })
+    for (let i = 1; i <= small; i++) {
+      const last = i === small
+      steps.push({
+        blue: big, orange: i, loose: small - i, split: null, highlightEmpty: false,
+        caption: last
+          ? t(`${big} + ${small} = ${sum}`, `${big} + ${small} = ${sum}`)
+          : `${big + i}`,
+        hold: last ? 0 : 1000,
+        result: last,
+      })
+    }
   }
 
   return { big, small, sum, completesTen, bridge, leftover, bridges, steps, finalIndex: steps.length - 1 }
