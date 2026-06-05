@@ -18,7 +18,7 @@ function Chip({ color, layoutId }: { color: string; layoutId?: string }) {
     <motion.span
       layout
       layoutId={layoutId}
-      initial={{ scale: 0, opacity: 0 }}
+      initial={layoutId ? false : { scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       className="block h-6 w-6 rounded-full"
@@ -76,7 +76,7 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
   // Loose pile: the second-addend chips not yet placed, indexed AFTER the
   // ones already in the frame so layoutIds stay unique across the swap.
   const loose = Array.from({ length: step.loose }, (_, k) => (
-    <Chip key={k} color={ORANGE} layoutId={`add-${step.orange + k}`} />
+    <Chip key={`add-${step.orange + k}`} color={ORANGE} layoutId={`add-${step.orange + k}`} />
   ))
 
   const ariaLabel =
@@ -84,6 +84,8 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en' }: Ex
       ? 'Cara berpikir: jadikan sepuluh dulu, lalu tambah sisanya.'
       : 'Strategy: make a ten first, then add what is left.'
 
+  // LayoutGroup scopes the shared `layoutId`s so the bridge-chip slide stays
+  // isolated if more than one explainer ever renders on the same page.
   return (
     <LayoutGroup>
       <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
