@@ -24,15 +24,32 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { n } = params
+  const answer = nextSquareAbove(n)
+  const answerRoot = Math.floor(Math.sqrt(n)) + 1
+  const prevRoot = answerRoot - 1
+
   return {
-    body_en: `What is the smallest perfect square that is greater than ${params.n}?`,
-    body_id: `Berapakah bilangan kuadrat sempurna terkecil yang lebih besar dari ${params.n}?`,
+    body_en: `Find: What is the smallest [[perfect-square|perfect square]] greater than ${n}?`,
+    body_id: `Cari: Berapakah [[perfect-square|bilangan kuadrat sempurna]] terkecil yang lebih besar dari ${n}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(nextSquareAbove(params.n)),
-    hint_en: 'A perfect square is a number times itself (1, 4, 9, 16, 25, …). Find the first one past n.',
-    hint_id: 'Bilangan kuadrat adalah bilangan dikali dirinya (1, 4, 9, 16, 25, …). Cari yang pertama melewati n.',
+    answer: String(answer),
+    hint_en: `List perfect squares in order and stop at the first one that exceeds ${n}.`,
+    hint_id: `Urutkan bilangan kuadrat sempurna dan berhenti di yang pertama melebihi ${n}.`,
+    hint_steps_en: [
+      `A [[perfect-square|perfect square]] is n × n: 1, 4, 9, 16, 25, …`,
+      `${prevRoot} × ${prevRoot} = ${prevRoot * prevRoot}, which is ≤ ${n}.`,
+      `${answerRoot} × ${answerRoot} = ${answer}, which is > ${n}.`,
+      `So the smallest perfect square greater than ${n} is ${answer}.`,
+    ],
+    hint_steps_id: [
+      `[[perfect-square|Bilangan kuadrat sempurna]] adalah n × n: 1, 4, 9, 16, 25, …`,
+      `${prevRoot} × ${prevRoot} = ${prevRoot * prevRoot}, nilainya ≤ ${n}.`,
+      `${answerRoot} × ${answerRoot} = ${answer}, nilainya > ${n}.`,
+      `Jadi bilangan kuadrat sempurna terkecil yang lebih besar dari ${n} adalah ${answer}.`,
+    ],
   }
 }
 
