@@ -7,10 +7,10 @@ import { useBeatControl } from './useBeatControl'
 const GREEN = '#065F46'
 const MUTED = '#9aa3b2'
 
-export default function WhichExpressionEqualsExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
+export default function WhichExpressionEqualsExplainer({ params, lang = 'en', step, playing, onStepCount, onStepChange, onPlayEnd }: ExplainerProps) {
   const p = params as CompareParams
   const story = useMemo(() => buildCompareSteps(p, lang), [p, lang])
-  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, holds: story.steps.map((s) => s.hold) })
+  const index = useBeatControl(story.finalIndex, { step, playing, onStepCount, onStepChange, onPlayEnd, holds: story.steps.map((s) => s.hold) })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 

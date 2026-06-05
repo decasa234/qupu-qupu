@@ -4,10 +4,10 @@ import type { ExplainerProps } from './registry'
 import { buildCorrectionSteps, type CorrectionParams } from './correctionSteps'
 import { useBeatControl } from './useBeatControl'
 
-export default function MistakenDigitCorrectionExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
+export default function MistakenDigitCorrectionExplainer({ params, lang = 'en', step, playing, onStepCount, onStepChange, onPlayEnd }: ExplainerProps) {
   const p = params as CorrectionParams
   const story = useMemo(() => buildCorrectionSteps(p, lang), [p, lang])
-  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, holds: story.steps.map((s) => s.hold) })
+  const index = useBeatControl(story.finalIndex, { step, playing, onStepCount, onStepChange, onPlayEnd, holds: story.steps.map((s) => s.hold) })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const lastIdx = story.lines.length - 1

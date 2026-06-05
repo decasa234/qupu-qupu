@@ -11,10 +11,10 @@ interface MulParams {
 
 const BLUE = '#2f6df0'
 
-export default function MultiplicationSmallExplainer({ params, lang = 'en', step, onStepCount, onStepChange }: ExplainerProps) {
+export default function MultiplicationSmallExplainer({ params, lang = 'en', step, playing, onStepCount, onStepChange, onPlayEnd }: ExplainerProps) {
   const p = params as MulParams
   const story = useMemo(() => buildArraySteps(p.a, p.b), [p.a, p.b])
-  const index = useBeatControl(story.finalIndex, { step, onStepCount, onStepChange, holds: story.steps.map((s) => s.hold) })
+  const index = useBeatControl(story.finalIndex, { step, playing, onStepCount, onStepChange, onPlayEnd, holds: story.steps.map((s) => s.hold) })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const { a, b } = story
