@@ -11,6 +11,7 @@ import FindDigitSumExplainer from './FindDigitSumExplainer'
 import FindMultipleExplainer from './FindMultipleExplainer'
 import FractionRegionExplainer from './FractionRegionExplainer'
 import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
+import MoneyCoinsTotalExplainer from './MoneyCoinsTotalExplainer'
 import MoreLessExplainer from './MoreLessExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
 import OddEvenExplainer from './OddEvenExplainer'
@@ -53,6 +54,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'find-number-by-digit-sum': FindDigitSumExplainer,
   'fraction-of-region': FractionRegionExplainer,
   'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
+  'money-coins-total': MoneyCoinsTotalExplainer,
   'more-or-less-by-k': MoreLessExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
   'odd-even-reasoning': OddEvenExplainer,
