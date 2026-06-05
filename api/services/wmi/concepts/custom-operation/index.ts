@@ -47,14 +47,24 @@ export function render(params: Params) {
   const example = f.fn(params.e1, params.e2)
   const answer = f.fn(params.c, params.d)
   return {
-    body_en: `A new operation is defined as ${f.def}. For example, ${params.e1} ★ ${params.e2} = ${example}. Compute ${params.c} ★ ${params.d}.`,
-    body_id: `Sebuah operasi baru didefinisikan sebagai ${f.def}. Contohnya, ${params.e1} ★ ${params.e2} = ${example}. Hitunglah ${params.c} ★ ${params.d}.`,
+    body_en: `A new operation is defined as ${f.def}. Example: ${params.e1} ★ ${params.e2} = ${example}. Find: Compute ${params.c} ★ ${params.d}.`,
+    body_id: `Sebuah operasi baru didefinisikan sebagai ${f.def}. Contoh: ${params.e1} ★ ${params.e2} = ${example}. Cari: Hitunglah ${params.c} ★ ${params.d}.`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(answer),
-    hint_en: 'Substitute your two numbers into the rule shown, exactly like the example.',
-    hint_id: 'Masukkan dua bilanganmu ke dalam aturan yang diberikan, persis seperti contoh.',
+    hint_en: 'Put your two numbers into the rule, exactly like the example.',
+    hint_id: 'Masukkan dua bilanganmu ke dalam aturan, persis seperti contoh.',
+    hint_steps_en: [
+      `Read the rule: ${f.def}.`,
+      `The example shows ${params.e1} ★ ${params.e2} = ${example}.`,
+      `Do the same with your numbers: ${params.c} ★ ${params.d} = ${answer}.`,
+    ],
+    hint_steps_id: [
+      `Baca aturannya: ${f.def}.`,
+      `Contohnya ${params.e1} ★ ${params.e2} = ${example}.`,
+      `Lakukan hal yang sama dengan bilanganmu: ${params.c} ★ ${params.d} = ${answer}.`,
+    ],
   }
 }
 

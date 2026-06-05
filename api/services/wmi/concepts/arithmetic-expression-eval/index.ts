@@ -52,16 +52,50 @@ function expr(p: Params, times: string): string {
 }
 
 export function render(params: Params) {
-  const answer = evaluate(params)
+  const p = params
+  const answer = evaluate(p)
+  let hint_steps_en: string[]
+  let hint_steps_id: string[]
+  if (p.mode === 'sum-list') {
+    const s1 = p.a + p.b
+    const s2 = p.c + p.d
+    hint_steps_en = [
+      `Group into easy pairs: (${p.a} + ${p.b}) + (${p.c} + ${p.d}).`,
+      `${p.a} + ${p.b} = ${s1} and ${p.c} + ${p.d} = ${s2}.`,
+      `${s1} + ${s2} = ${answer}.`,
+    ]
+    hint_steps_id = [
+      `Kelompokkan menjadi pasangan mudah: (${p.a} + ${p.b}) + (${p.c} + ${p.d}).`,
+      `${p.a} + ${p.b} = ${s1} dan ${p.c} + ${p.d} = ${s2}.`,
+      `${s1} + ${s2} = ${answer}.`,
+    ]
+  } else if (p.mode === 'product-plus') {
+    const prod = p.a * p.b
+    hint_steps_en = [`Do the product first: ${p.a} × ${p.b} = ${prod}.`, `Then add: ${prod} + ${p.c} = ${answer}.`]
+    hint_steps_id = [`Kerjakan perkalian dulu: ${p.a} × ${p.b} = ${prod}.`, `Lalu tambah: ${prod} + ${p.c} = ${answer}.`]
+  } else {
+    const p1 = p.a * p.b
+    const p2 = p.c * p.d
+    hint_steps_en = [
+      `Do both products first: ${p.a} × ${p.b} = ${p1} and ${p.c} × ${p.d} = ${p2}.`,
+      `Then subtract: ${p1} − ${p2} = ${answer}.`,
+    ]
+    hint_steps_id = [
+      `Kerjakan kedua perkalian dulu: ${p.a} × ${p.b} = ${p1} dan ${p.c} × ${p.d} = ${p2}.`,
+      `Lalu kurangi: ${p1} − ${p2} = ${answer}.`,
+    ]
+  }
   return {
-    body_en: `Compute ${expr(params, '×')}.`,
-    body_id: `Hitunglah ${expr(params, '×')}.`,
+    body_en: `Find: Compute ${expr(params, '×')}.`,
+    body_id: `Cari: Hitunglah ${expr(params, '×')}.`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(answer),
-    hint_en: 'Do the multiplications first, then add or subtract from left to right.',
-    hint_id: 'Kerjakan perkalian dahulu, lalu jumlahkan atau kurangkan dari kiri ke kanan.',
+    hint_en: p.mode === 'sum-list' ? 'Group the numbers into easy pairs.' : 'Do the multiplication first, then add or subtract.',
+    hint_id: p.mode === 'sum-list' ? 'Kelompokkan bilangan menjadi pasangan yang mudah.' : 'Kerjakan perkalian dahulu, lalu tambah atau kurang.',
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 
