@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { slugify } from '../../lib/youtube'
 import { getApiErrorMessage } from '../../lib/apiError'
-import AdminPageHeader from '../../components/admin/AdminPageHeader'
+import { PageScaffold } from '../../components/admin/PageScaffold'
 import BadgeCurve from '../../components/BadgeCurve'
 import ConfirmDangerousAction from '../../components/ConfirmDangerousAction'
 import { useToast } from '../../components/admin/Toast'
@@ -156,13 +156,12 @@ export default function AdminSubjectsPage() {
   }
 
   return (
-    <div className="space-y-5">
-      <AdminPageHeader
-        eyebrow="Admin · Subjects"
-        title="Kategori video & warna badge"
-        description="Subject menentukan warna badge untuk semua video di kategori itu."
-      />
-
+    <PageScaffold
+      eyebrow="Admin · Subjects"
+      title="Kategori video & warna badge"
+      description="Subject menentukan warna badge untuk semua video di kategori itu."
+    >
+      <div className="space-y-5">
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         <Panel>
           <SectionHeading
@@ -292,6 +291,7 @@ export default function AdminSubjectsPage() {
         onConfirm={performDelete}
         onClose={() => setConfirmDelete(null)}
       />
-    </div>
+      </div>
+    </PageScaffold>
   )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { getApiErrorMessage } from '../../lib/apiError'
-import AdminPageHeader from '../../components/admin/AdminPageHeader'
+import { PageScaffold } from '../../components/admin/PageScaffold'
 import ConfirmDangerousAction from '../../components/ConfirmDangerousAction'
 import { useToast } from '../../components/admin/Toast'
 import { Button, EmptyState, Field, Input, Panel, SectionHeading, Skeleton, Textarea } from '../../components/admin/ui'
@@ -99,13 +99,12 @@ export default function AdminAgeGroupsPage() {
   }
 
   return (
-    <div className="space-y-5">
-      <AdminPageHeader
-        eyebrow="Admin · Age Groups"
-        title="Rentang usia"
-        description="Tag video ke rentang usia. Edit atau tambah sesuai kebutuhan."
-      />
-
+    <PageScaffold
+      eyebrow="Admin · Age Groups"
+      title="Rentang usia"
+      description="Tag video ke rentang usia. Edit atau tambah sesuai kebutuhan."
+    >
+      <div className="space-y-5">
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         <Panel>
           <SectionHeading
@@ -208,6 +207,7 @@ export default function AdminAgeGroupsPage() {
         onConfirm={performDelete}
         onClose={() => setConfirmDelete(null)}
       />
-    </div>
+      </div>
+    </PageScaffold>
   )
 }

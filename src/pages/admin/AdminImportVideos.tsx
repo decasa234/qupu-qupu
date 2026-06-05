@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../lib/api'
 import { getApiErrorCode } from '../../lib/apiError'
-import AdminPageHeader from '../../components/admin/AdminPageHeader'
+import { PageScaffold } from '../../components/admin/PageScaffold'
 import { Button, buttonClass, EmptyState, Panel, Tag } from '../../components/admin/ui'
 import type { ChannelVideoItem, ChannelVideoListResponse, ImportResult } from '../../types'
 
@@ -197,18 +197,19 @@ export default function AdminImportVideosPage() {
   }
 
   return (
-    <div className="space-y-5 pb-24">
-      <AdminPageHeader
-        eyebrow="Admin"
-        title="Impor dari YouTube"
-        description="Pilih video dari channel QUPU yang ingin diimpor sebagai draft. Anda dapat melengkapi subject, kelompok usia, dan badge ranges nanti dari editor video."
-        actions={
-          <Link to="/admin/videos" className={buttonClass('secondary')}>
-            <i className="fa-solid fa-arrow-left" aria-hidden="true" />
-            Kembali ke Videos
-          </Link>
-        }
-      />
+    <PageScaffold
+      eyebrow="Admin"
+      title="Impor dari YouTube"
+      description="Pilih video dari channel QUPU yang ingin diimpor sebagai draft. Anda dapat melengkapi subject, kelompok usia, dan badge ranges nanti dari editor video."
+      narrow
+      actions={
+        <Link to="/admin/videos" className={buttonClass('secondary')}>
+          <i className="fa-solid fa-arrow-left" aria-hidden="true" />
+          Kembali ke Videos
+        </Link>
+      }
+    >
+      <div className="space-y-5 pb-24">
 
       {error && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
@@ -383,6 +384,7 @@ export default function AdminImportVideosPage() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </PageScaffold>
   )
 }
