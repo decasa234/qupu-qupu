@@ -11,7 +11,7 @@ const BLUE = '#2f6df0'
 const ORANGE = '#F97316'
 const GREEN = '#10B981'
 const PURPLE = '#341857'
-const STEP_MS = 1200
+const STEP_MS = 1900
 
 // A single counting dot. layoutId lets the dot slide from its per-tile group
 // into the merged group (magic-move); initial={false} so it slides, not pops.

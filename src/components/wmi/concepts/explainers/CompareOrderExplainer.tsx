@@ -13,7 +13,7 @@ const BLUE = '#2f6df0'
 const GREEN = '#10B981'
 const MUTED = '#9aa3b2'
 const PURPLE = '#341857'
-const STEP_MS = 1300
+const STEP_MS = 1900
 const MAX_BAR = 104
 
 // A number card with a value-proportional bar above it. layoutId lets the card
