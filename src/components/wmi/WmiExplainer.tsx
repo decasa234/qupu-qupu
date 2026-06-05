@@ -6,9 +6,10 @@ interface Props {
   slug: string
   params: unknown
   correctAnswer: string
+  lang?: 'en' | 'id'
 }
 
-export default function WmiExplainer({ slug, params, correctAnswer }: Props) {
+export default function WmiExplainer({ slug, params, correctAnswer, lang }: Props) {
   const Explainer = getExplainer(slug)
   const [replayKey, setReplayKey] = useState(0)
   if (!Explainer) return null
@@ -30,7 +31,7 @@ export default function WmiExplainer({ slug, params, correctAnswer }: Props) {
           Replay
         </button>
       </div>
-      <Explainer key={replayKey} params={params} correctAnswer={correctAnswer} />
+      <Explainer key={replayKey} params={params} correctAnswer={correctAnswer} lang={lang} />
     </motion.div>
   )
 }

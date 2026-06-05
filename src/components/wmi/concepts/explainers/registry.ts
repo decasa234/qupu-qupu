@@ -6,6 +6,7 @@ import StorySumExplainer from './StorySumExplainer'
 export interface ExplainerProps {
   params: unknown
   correctAnswer: string
+  lang?: 'en' | 'id'
 }
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
