@@ -191,24 +191,30 @@ export default function AdminAnalyticsPage() {
             {overview.traffic.length === 0 ? (
               <p className="text-sm text-admin-muted">Belum ada traffic di rentang ini.</p>
             ) : (
-              <div className="flex h-40 items-end gap-2 overflow-x-auto pb-2">
-                {overview.traffic.map((day) => {
-                  const max = Math.max(...overview.traffic.map((d) => d.pageViews), 1)
-                  const heightPct = Math.max(4, Math.round((day.pageViews / max) * 100))
-                  return (
-                    <div key={day.day} className="flex min-w-[40px] flex-1 flex-col items-center gap-2">
-                      <div className="text-[10px] font-bold text-qupu-brand-orange">{day.pageViews}</div>
-                      <div
-                        className="w-full rounded-t-md bg-qupu-brand-blue"
-                        style={{ height: `${heightPct}%` }}
-                        title={`${day.visitors} visitors · ${day.pageViews} page views`}
-                      />
-                      <div className="text-[10px] font-semibold text-admin-muted">
-                        {new Date(day.day).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-[10px] font-semibold text-admin-faint">
+                  <span>Maks {Math.max(...overview.traffic.map((d) => d.pageViews), 0)} page views/hari</span>
+                  <span>{overview.traffic.length} hari</span>
+                </div>
+                <div className="flex h-40 items-end gap-2 overflow-x-auto rounded-lg bg-admin-sunk/60 p-3">
+                  {overview.traffic.map((day) => {
+                    const max = Math.max(...overview.traffic.map((d) => d.pageViews), 1)
+                    const heightPct = day.pageViews === 0 ? 2 : Math.max(12, Math.round((day.pageViews / max) * 100))
+                    return (
+                      <div key={day.day} className="flex min-w-[40px] flex-1 flex-col items-center justify-end gap-1">
+                        <div className="text-[10px] font-bold text-qupu-brand-orange">{day.pageViews}</div>
+                        <div
+                          className="w-full rounded-t-md bg-qupu-brand-blue"
+                          style={{ height: `${heightPct}%` }}
+                          title={`${day.visitors} visitors · ${day.pageViews} page views`}
+                        />
+                        <div className="text-[10px] font-semibold text-admin-muted">
+                          {new Date(day.day).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })}
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
               </div>
             )}
           </Panel>
