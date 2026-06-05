@@ -3,6 +3,7 @@ import CountObjectsExplainer from './CountObjectsExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
 import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
+import PlaceValueExplainer from './PlaceValueExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
@@ -19,6 +20,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'custom-operation': CustomOperationExplainer,
   'digit-sum': DigitSumExplainer,
   'multiplication-small': MultiplicationSmallExplainer,
+  'place-value': PlaceValueExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
