@@ -634,6 +634,7 @@ CREATE TABLE IF NOT EXISTS wmi_concept_reviews (
                   CHECK (status IN ('pending', 'approved', 'needs_changes')),
   notes         TEXT NOT NULL DEFAULT '',
   reviewed_by   TEXT,
+  wmi_refined   BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

@@ -6,6 +6,7 @@ import { ALL_SLUGS } from '../services/wmi/concepts/registry.js'
 import {
   getConceptReview,
   listConceptReviewStatuses,
+  listWmiRefinedSlugs,
   upsertConceptReview,
 } from '../services/wmi/concepts/reviews.js'
 
@@ -18,8 +19,10 @@ router.use(authenticateToken, requireAdmin)
 
 router.get('/concepts', async (_req: Request, res: Response): Promise<void> => {
   let statuses: Record<string, string> = {}
+  let refined = new Set<string>()
   try {
     statuses = await listConceptReviewStatuses()
+    refined = await listWmiRefinedSlugs()
   } catch (e) {
     // Reviews table may not be migrated yet — degrade to all-pending so the
     // proofreading page still loads.
@@ -28,6 +31,7 @@ router.get('/concepts', async (_req: Request, res: Response): Promise<void> => {
   const concepts = listConceptsForPreview().map((c) => ({
     ...c,
     status: statuses[c.slug] ?? 'pending',
+    wmi_refined: refined.has(c.slug),
   }))
   res.json({ success: true, data: { concepts } })
 })

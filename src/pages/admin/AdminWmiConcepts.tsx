@@ -310,6 +310,15 @@ export default function AdminWmiConcepts() {
                   >
                     G{c.grades.join('')}
                   </span>
+                  {c.wmi_refined && (
+                    <i
+                      className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
+                        c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
+                      }`}
+                      aria-hidden="true"
+                      title="WMI Refined"
+                    />
+                  )}
                   <i
                     className={`fa-solid shrink-0 text-xs leading-none ${
                       c.status === 'approved'

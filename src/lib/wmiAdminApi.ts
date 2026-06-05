@@ -14,6 +14,7 @@ export interface AdminConceptSummary {
   domain_label: string
   status: ReviewStatus
   priority: 'high' | 'normal'
+  wmi_refined: boolean
 }
 
 export interface ConceptReview {
