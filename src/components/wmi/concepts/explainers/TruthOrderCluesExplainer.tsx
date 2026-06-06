@@ -6,6 +6,7 @@ import { useBeatControl } from './useBeatControl'
 
 interface TruthOrderParams {
   order: string[]
+  clueOrder?: number[]
 }
 
 const BLUE = '#30598A'
@@ -67,7 +68,7 @@ function NameCard({
               : '0 0 0 0px transparent',
         }}
         transition={SPRING}
-        className="flex h-11 min-w-[72px] items-center justify-center rounded-xl border-2 px-3 font-display text-base font-extrabold"
+        className="flex h-10 min-w-[58px] items-center justify-center rounded-xl border-2 px-2 font-display text-sm font-extrabold"
         style={{
           borderColor,
           background: bgColor,
@@ -88,7 +89,7 @@ function Arrow() {
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={SPRING}
-      className="self-center pb-5 font-display text-xl font-extrabold"
+      className="self-center pb-4 font-display text-lg font-extrabold"
       style={{ color: MUTED_TEXT }}
     >
       {'→'}
@@ -107,7 +108,7 @@ function PlaceholderCard({ position }: { position: number }) {
         {position}
       </div>
       <div
-        className="flex h-11 min-w-[72px] items-center justify-center rounded-xl border-2 border-dashed px-3 font-display text-base font-extrabold"
+        className="flex h-10 min-w-[58px] items-center justify-center rounded-xl border-2 border-dashed px-2 font-display text-sm font-extrabold"
         style={{
           borderColor: MUTED_BORDER,
           background: MUTED_BG,
@@ -125,9 +126,9 @@ export default function TruthOrderCluesExplainer(props: ExplainerProps) {
   const p = (params ?? {}) as TruthOrderParams
 
   const story = useMemo(
-    () => buildTruthOrderSteps(Array.isArray(p.order) ? p.order : [], lang),
+    () => buildTruthOrderSteps(Array.isArray(p.order) ? p.order : [], Array.isArray(p.clueOrder) ? p.clueOrder : [], lang),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(p.order), lang],
+    [JSON.stringify(p.order), JSON.stringify(p.clueOrder), lang],
   )
 
   const index = useBeatControl(story.finalIndex, {
