@@ -2,71 +2,39 @@ import { describe, test, expect } from 'vitest'
 import { buildBudgetSteps } from './budgetSteps'
 
 describe('buildBudgetSteps', () => {
-  test('affordable = price <= budget for each check', () => {
-    const prices = [120, 300, 80, 260]
-    const budget = 250
-    const sb = buildBudgetSteps(prices, budget, 'en')
-    sb.checks.forEach((c) => expect(c.affordable).toBe(c.price <= budget))
+  test('answer = biggest pair total within budget; winner is that pair', () => {
+    // prices 30,90,100,250, budget 200 → pairs ≤200: 120,130,190 → 190 (90+100)
+    const sb = buildBudgetSteps([30, 90, 100, 250], 200, 'en')
+    expect(sb.answer).toBe(190)
+    expect([...sb.winner].sort((a, b) => a - b)).toEqual([90, 100])
   })
 
-  test('answer = max of affordable prices', () => {
-    // prices [120,300,80,260], budget 250 → affordable [120,80] → answer 120
-    const sb = buildBudgetSteps([120, 300, 80, 260], 250, 'en')
-    expect(sb.answer).toBe(120)
+  test('tries pair totals from largest down, rejecting over-budget ones until the winner', () => {
+    const sb = buildBudgetSteps([30, 90, 100, 250], 200, 'en')
+    // intro beat carries no pair
+    expect(sb.steps[0].pair).toBeNull()
+    // every non-intro beat before the last is over budget (✗), the last is the winner
+    const pairBeats = sb.steps.slice(1)
+    expect(pairBeats.every((s, i) => (i < pairBeats.length - 1 ? s.fits === false : s.fits === true))).toBe(true)
+    // sums strictly descending across the tried pairs
+    const sums = pairBeats.map((s) => s.sum as number)
+    expect(sums).toEqual([...sums].sort((a, b) => b - a))
   })
 
-  test('winnerIndex points to the answer price in the prices array', () => {
-    const prices = [120, 300, 80, 260]
-    const budget = 250
-    const sb = buildBudgetSteps(prices, budget, 'en')
-    expect(sb.winnerIndex).toBe(0) // prices[0] === 120
-    expect(prices[sb.winnerIndex]).toBe(sb.answer)
-  })
-
-  test('checked sequence is [0,1,2,3,4,4]', () => {
-    const sb = buildBudgetSteps([120, 300, 80, 260], 250, 'en')
-    expect(sb.steps.map((s) => s.checked)).toEqual([0, 1, 2, 3, 4, 4])
-  })
-
-  test('last step has result:true and answer in caption', () => {
-    const sb = buildBudgetSteps([120, 300, 80, 260], 250, 'en')
+  test('last step is the result and names the winning total', () => {
+    const sb = buildBudgetSteps([30, 90, 100, 250], 200, 'en')
     const last = sb.steps[sb.finalIndex]
     expect(last.result).toBe(true)
-    expect(last.caption).toContain('120')
+    expect(last.fits).toBe(true)
+    expect(last.caption).toContain('190')
     expect(sb.finalIndex).toBe(sb.steps.length - 1)
   })
 
-  test('finalIndex is always steps.length - 1', () => {
-    const sb = buildBudgetSteps([50, 200, 150, 300], 175, 'en')
-    expect(sb.finalIndex).toBe(sb.steps.length - 1)
-    expect(sb.steps.length).toBe(6)
-  })
-
-  test('language switch: id uses "Coret", en uses "Cross"', () => {
-    const id = buildBudgetSteps([120, 300, 80, 260], 250, 'id')
-    const en = buildBudgetSteps([120, 300, 80, 260], 250, 'en')
-    expect(id.steps[0].caption).toContain('Coret')
-    expect(en.steps[0].caption).toContain('Cross')
-  })
-
-  test('language switch: id result caption uses "termahal"', () => {
-    const id = buildBudgetSteps([120, 300, 80, 260], 250, 'id')
-    const last = id.steps[id.finalIndex]
-    expect(last.caption).toContain('termahal')
-  })
-
-  test('different prices/budget: answer = max affordable', () => {
-    // prices [50,200,150,300], budget 175 → affordable [50,150] → answer 150
-    const sb = buildBudgetSteps([50, 200, 150, 300], 175, 'en')
-    expect(sb.answer).toBe(150)
-    expect(sb.checks.filter((c) => c.affordable).map((c) => c.price)).toEqual([50, 150])
-  })
-
-  test('winnerIndex correct for second example', () => {
-    // prices [50,200,150,300], budget 175 → answer 150 at index 2
-    const prices = [50, 200, 150, 300]
-    const sb = buildBudgetSteps(prices, 175, 'en')
-    expect(sb.winnerIndex).toBe(2)
-    expect(prices[sb.winnerIndex]).toBe(150)
+  test('language switch: en uses "Best pair", id uses "Pasangan terbaik"', () => {
+    const en = buildBudgetSteps([30, 90, 100, 250], 200, 'en')
+    const id = buildBudgetSteps([30, 90, 100, 250], 200, 'id')
+    expect(en.steps[en.finalIndex].caption).toContain('Best pair')
+    expect(id.steps[id.finalIndex].caption).toContain('Pasangan terbaik')
+    expect(id.steps[0].caption).toContain('Beli dua tiket')
   })
 })

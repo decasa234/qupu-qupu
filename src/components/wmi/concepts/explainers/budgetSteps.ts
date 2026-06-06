@@ -1,77 +1,69 @@
 import type { Lang } from './makeTenSteps'
 
-export interface BudgetCheck {
-  price: number
-  affordable: boolean
+export interface BudgetStep {
+  caption: string
+  result: boolean
+  /** The two ticket prices being tried this beat (null on the intro beat). */
+  pair: [number, number] | null
+  sum: number | null
+  fits: boolean | null
 }
 
 export interface BudgetStoryboard {
   prices: number[]
   budget: number
-  checks: BudgetCheck[]
   answer: number
-  winnerIndex: number
-  ruleEn: string
-  ruleId: string
-  steps: { checked: number; result: boolean; caption: string }[]
+  winner: [number, number]
+  steps: BudgetStep[]
   finalIndex: number
 }
 
+// W7: buy two different tickets, spending the most you can within budget. The
+// storyboard tries pair totals from the largest down, rejecting any over budget,
+// until the first (and therefore biggest) pair that fits — the answer.
 export function buildBudgetSteps(prices: number[], budget: number, lang: Lang): BudgetStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  const ruleEn = `Cross out prices above ${budget}, then pick the largest left.`
-  const ruleId = `Coret harga di atas ${budget}, lalu pilih yang terbesar.`
-
-  const checks: BudgetCheck[] = prices.map((price) => ({
-    price,
-    affordable: price <= budget,
-  }))
-
-  const affordablePrices = prices.filter((p) => p <= budget)
-  const answer = Math.max(...affordablePrices)
-  const winnerIndex = prices.indexOf(answer)
-
-  const steps: { checked: number; result: boolean; caption: string }[] = []
-
-  // Beat 0: intro / rule
-  steps.push({ checked: 0, result: false, caption: t(ruleEn, ruleId) })
-
-  // Beats 1..4: reveal each price check
-  for (let i = 0; i < 4; i++) {
-    const c = checks[i]
-    const mark = c.affordable ? '✓' : '✗'
-    const captionEn = c.affordable
-      ? `${c.price} ≤ ${budget} ${mark}`
-      : `${c.price} > ${budget} ${mark}`
-    const captionId = c.affordable
-      ? `${c.price} ≤ ${budget} ${mark}`
-      : `${c.price} > ${budget} ${mark}`
-    steps.push({
-      checked: i + 1,
-      result: false,
-      caption: t(captionEn, captionId),
-    })
+  const pairs: { a: number; b: number; sum: number }[] = []
+  for (let i = 0; i < prices.length; i++) {
+    for (let j = i + 1; j < prices.length; j++) {
+      pairs.push({ a: prices[i], b: prices[j], sum: prices[i] + prices[j] })
+    }
   }
+  pairs.sort((x, y) => y.sum - x.sum) // largest total first
 
-  // Beat 5: result
-  steps.push({
-    checked: 4,
-    result: true,
-    caption: t(
-      `${answer} is the most expensive you can afford.`,
-      `${answer} adalah termahal yang terjangkau.`,
-    ),
-  })
+  let winnerIdx = pairs.findIndex((pr) => pr.sum <= budget)
+  if (winnerIdx === -1) winnerIdx = pairs.length - 1 // defensive; generate guarantees one fits
+  const winner = pairs[winnerIdx]
+  const answer = winner.sum
+
+  const steps: BudgetStep[] = [
+    {
+      caption: t(
+        `Buy two tickets — find the biggest total that fits ${budget}.`,
+        `Beli dua tiket — cari total terbesar yang muat dalam ${budget}.`,
+      ),
+      result: false,
+      pair: null,
+      sum: null,
+      fits: null,
+    },
+  ]
+
+  for (let k = 0; k <= winnerIdx; k++) {
+    const pr = pairs[k]
+    const isWinner = k === winnerIdx
+    const caption = isWinner
+      ? t(`Best pair: ${pr.a} + ${pr.b} = ${pr.sum}.`, `Pasangan terbaik: ${pr.a} + ${pr.b} = ${pr.sum}.`)
+      : t(`${pr.a} + ${pr.b} = ${pr.sum} > ${budget} ✗`, `${pr.a} + ${pr.b} = ${pr.sum} > ${budget} ✗`)
+    steps.push({ caption, result: isWinner, pair: [pr.a, pr.b], sum: pr.sum, fits: isWinner })
+  }
 
   return {
     prices,
     budget,
-    checks,
     answer,
-    winnerIndex,
-    ruleEn,
-    ruleId,
+    winner: [winner.a, winner.b],
     steps,
     finalIndex: steps.length - 1,
   }
