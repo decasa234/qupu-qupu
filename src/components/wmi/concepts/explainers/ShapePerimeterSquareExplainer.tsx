@@ -19,9 +19,9 @@ export default function ShapePerimeterSquareExplainer(props: ExplainerProps) {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const x = 60
-    const y = 30
     const len = 120
+    const x = (canvas.width - len) / 2
+    const y = 30
     const corners: Array<[number, number]> = [
       [x, y],
       [x + len, y],
@@ -52,7 +52,8 @@ export default function ShapePerimeterSquareExplainer(props: ExplainerProps) {
 
     ctx.fillStyle = '#30598A'
     ctx.font = 'bold 22px Nunito, sans-serif'
-    ctx.fillText(`${side} x ${highlighted} = ${side * highlighted}`, x, y + len + 36)
+    ctx.textAlign = 'center'
+    ctx.fillText(`${side} × ${highlighted} = ${side * highlighted}`, x + len / 2, y + len + 36)
   }, [highlighted, side])
 
   return <canvas ref={canvasRef} width={300} height={220} className="mx-auto block" />
