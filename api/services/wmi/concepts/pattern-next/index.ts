@@ -35,14 +35,24 @@ export function render(params: Params) {
   const seqText = seq.join(', ')
 
   return {
-    body_en: `What number comes next? ${seqText}, ?`,
-    body_id: `Berapa angka berikutnya? ${seqText}, ?`,
+    body_en: `${seqText}, ?\n\nFind: What number comes next in the sequence?`,
+    body_id: `${seqText}, ?\n\nCari: Angka berapa yang muncul berikutnya dalam barisan ini?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
     answer: answerLabel,
-    hint_en: 'Look at the difference between consecutive numbers.',
-    hint_id: 'Lihat selisih antara angka yang berurutan.',
+    hint_en: `Find the rule by looking at the difference between each pair of consecutive terms.`,
+    hint_id: `Temukan aturannya dengan melihat selisih antara setiap dua suku yang berurutan.`,
+    hint_steps_en: [
+      `The sequence starts at ${params.start}.`,
+      `Each term increases by ${params.step}: ${seq[0]} → ${seq[1]} → ${seq[2]}.`,
+      `Add ${params.step} to the last term: ${seq[2]} + ${params.step} = ${correct}.`,
+    ],
+    hint_steps_id: [
+      `Barisan dimulai dari ${params.start}.`,
+      `Setiap suku bertambah ${params.step}: ${seq[0]} → ${seq[1]} → ${seq[2]}.`,
+      `Tambahkan ${params.step} ke suku terakhir: ${seq[2]} + ${params.step} = ${correct}.`,
+    ],
   }
 }
 

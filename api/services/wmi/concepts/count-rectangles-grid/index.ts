@@ -27,15 +27,38 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { cols, rows } = params
+  const vLines = cols + 1          // vertical lines
+  const hLines = rows + 1          // horizontal lines
+  const c2 = (n: number) => (n * (n - 1)) / 2
+  const vPairs = c2(vLines)        // C(cols+1, 2)
+  const hPairs = c2(hLines)        // C(rows+1, 2)
+
   return {
-    body_en: 'How many rectangles of any size are in this grid?',
-    body_id: 'Ada berapa persegi panjang segala ukuran dalam kisi ini?',
+    body_en:
+      `The grid below has ${cols} column${cols > 1 ? 's' : ''} and ${rows} row${rows > 1 ? 's' : ''}.\n\nFind: How many rectangles of any size are in the grid?`,
+    body_id:
+      `Kisi di bawah memiliki ${cols} kolom dan ${rows} baris.\n\nCari: Ada berapa persegi panjang dari semua ukuran dalam kisi tersebut?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(rectangleCount(params)),
-    hint_en: 'Count singles, then 1×2s, 2×2s, and so on — every size counts.',
-    hint_id: 'Hitung yang satuan, lalu 1×2, 2×2, dan seterusnya — semua ukuran dihitung.',
+    hint_en:
+      `Choose 2 of the ${vLines} vertical lines and 2 of the ${hLines} horizontal lines — each pair of choices defines exactly one rectangle.`,
+    hint_id:
+      `Pilih 2 dari ${vLines} garis vertikal dan 2 dari ${hLines} garis horizontal — setiap pasangan pilihan menentukan tepat satu persegi panjang.`,
+    hint_steps_en: [
+      `The grid has ${vLines} vertical lines and ${hLines} horizontal lines.`,
+      `Pairs of vertical lines: C(${vLines}, 2) = ${vPairs}.`,
+      `Pairs of horizontal lines: C(${hLines}, 2) = ${hPairs}.`,
+      `Total rectangles: ${vPairs} × ${hPairs} = ${rectangleCount(params)}.`,
+    ],
+    hint_steps_id: [
+      `Kisi memiliki ${vLines} garis vertikal dan ${hLines} garis horizontal.`,
+      `Pasangan garis vertikal: C(${vLines}, 2) = ${vPairs}.`,
+      `Pasangan garis horizontal: C(${hLines}, 2) = ${hPairs}.`,
+      `Total persegi panjang: ${vPairs} × ${hPairs} = ${rectangleCount(params)}.`,
+    ],
   }
 }
 

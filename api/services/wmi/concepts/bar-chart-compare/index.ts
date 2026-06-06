@@ -40,15 +40,28 @@ export function generate(rng: Rng): Params {
 export function render(params: Params) {
   const a = params.items[params.iA].emoji
   const b = params.items[params.iB].emoji
+  const vA = params.items[params.iA].value
+  const vB = params.items[params.iB].value
+  const diff = difference(params)
   return {
-    body_en: `Look at the bar chart. How many more ${a} are there than ${b}?`,
-    body_id: `Lihat diagram batang. Berapa lebih banyak ${a} daripada ${b}?`,
+    body_en: `Look at the [[bar-chart|bar chart]] shown. Find: How many more ${a} are there than ${b}?`,
+    body_id: `Perhatikan [[bar-chart|diagram batang]] yang ditunjukkan. Cari: Ada berapa lebih banyak ${a} daripada ${b}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(difference(params)),
-    hint_en: 'Read the height of each bar, then subtract the smaller from the larger.',
-    hint_id: 'Baca tinggi tiap batang, lalu kurangkan yang lebih kecil dari yang lebih besar.',
+    answer: String(diff),
+    hint_en: `Read each bar's height from the chart, then subtract the shorter bar from the taller one.`,
+    hint_id: `Baca tinggi tiap batang dari diagram, lalu kurangkan batang yang lebih pendek dari yang lebih tinggi.`,
+    hint_steps_en: [
+      `Read the ${a} bar: its height is ${vA}.`,
+      `Read the ${b} bar: its height is ${vB}.`,
+      `Subtract: ${vA} − ${vB} = ${diff}. There are ${diff} more ${a} than ${b}.`,
+    ],
+    hint_steps_id: [
+      `Baca batang ${a}: tingginya adalah ${vA}.`,
+      `Baca batang ${b}: tingginya adalah ${vB}.`,
+      `Kurangkan: ${vA} − ${vB} = ${diff}. Ada ${diff} lebih banyak ${a} daripada ${b}.`,
+    ],
   }
 }
 
