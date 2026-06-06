@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useMemo, type ReactNode } from 'react'
+import { motion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { buildVisualPatternSteps, type ShapeName } from './visualPatternSteps'
 import { useBeatControl } from './useBeatControl'
@@ -32,7 +32,7 @@ function ShapeIcon({ shape, size = 36, fill = 'none', stroke, strokeWidth = 2.5 
   const c = s / 2
   const r = s * 0.4
 
-  let path: React.ReactNode
+  let path: ReactNode
 
   if (shape === 'circle') {
     path = <circle cx={c} cy={c} r={r} fill={fill} stroke={stroke} strokeWidth={strokeWidth} />
@@ -99,23 +99,22 @@ function ShapeIcon({ shape, size = 36, fill = 'none', stroke, strokeWidth = 2.5 
 
 interface ShapeChipProps {
   shape: ShapeName
-  /** Tint index 0..N-1 for the alternating cycle highlight (beat 2). */
-  repeatGroup?: number
+  /** When true, paint the column tint so each column reads as one repeating shape. */
   highlighted: boolean
+  /** Color of this chip's grid column (the cycle position's shape color). */
+  columnColor?: string
   isAnswer: boolean
   isQuestion: boolean
+  size?: number
   layoutId?: string
 }
 
-function ShapeChip({ shape, highlighted, repeatGroup, isAnswer, isQuestion, layoutId }: ShapeChipProps) {
+function ShapeChip({ shape, highlighted, columnColor, isAnswer, isQuestion, size = 46, layoutId }: ShapeChipProps) {
   const color = shapeColor(shape)
-
-  // Highlight tint for cycle-bracketing — alternate two tints
-  const tints = ['rgba(48,89,138,0.12)', 'rgba(124,58,237,0.12)']
-  const tintBg = highlighted && repeatGroup !== undefined ? tints[repeatGroup % 2] : 'white'
-
-  const borderColor = isAnswer ? GREEN : highlighted ? color : '#CBD5E1'
-  const bg = isAnswer ? '#D1FAE5' : tintBg
+  const col = columnColor ?? color
+  const borderColor = isAnswer ? GREEN : highlighted ? col : '#CBD5E1'
+  // 8-digit hex alpha: '1f' ≈ 12% column tint.
+  const bg = isAnswer ? '#D1FAE5' : highlighted ? `${col}1f` : 'white'
 
   return (
     <motion.div
@@ -125,24 +124,15 @@ function ShapeChip({ shape, highlighted, repeatGroup, isAnswer, isQuestion, layo
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 380, damping: 28 }}
       className="flex items-center justify-center rounded-xl border-[2.5px]"
-      style={{
-        width: 48,
-        height: 48,
-        borderColor,
-        background: bg,
-      }}
+      style={{ width: size, height: size, borderColor, background: bg }}
     >
       {isQuestion ? (
-        <span
-          style={{ fontSize: 24, fontWeight: 900, color: '#94A3B8', lineHeight: 1 }}
-        >
-          ?
-        </span>
+        <span style={{ fontSize: size * 0.5, fontWeight: 900, color: '#94A3B8', lineHeight: 1 }}>?</span>
       ) : (
         <ShapeIcon
           shape={shape}
-          size={30}
-          fill={isAnswer ? '#10B981' : color + '33'}
+          size={size * 0.62}
+          fill={isAnswer ? '#10B981' : `${color}33`}
           stroke={isAnswer ? GREEN : color}
           strokeWidth={2.5}
         />
@@ -171,96 +161,77 @@ export default function VisualPatternNextExplainer(props: ExplainerProps) {
   const showCycleHighlight = phase === 'cycle' || phase === 'answer'
   const showAnswer = phase === 'answer'
 
+  // One column per cycle position, so every row is exactly one repeat and each
+  // column is always the same shape — the repetition reads vertically.
+  const cols = Math.max(2, story.cycle.length)
+  const CELL = 46
+  const cellCount = story.shown + 1 // sequence cells + the "?" cell
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${cols}, ${CELL}px)`,
+    gap: 8,
+    justifyContent: 'center',
+  } as const
+
   const ariaLabel =
     lang === 'id'
-      ? `Pola gambar berulang: ${story.cycle.join(', ')}. Setelah ${story.shown} bentuk, berikutnya ${story.next}.`
-      : `Visual pattern with repeating unit: ${story.cycle.join(', ')}. After ${story.shown} shapes, the next is ${story.next}.`
+      ? `Pola gambar berulang: ${story.cycle.join(', ')}. Disusun dalam grid, tiap kolom bentuk yang sama. Setelah ${story.shown} bentuk, berikutnya ${story.next}.`
+      : `Visual pattern with repeating unit ${story.cycle.join(', ')}, laid out in a grid so each column is the same shape. After ${story.shown} shapes, the next is ${story.next}.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
 
-        {/* Sequence row + "?" chip */}
-        <div className="flex flex-wrap items-center justify-center gap-2 px-2">
-          {story.sequence.map((shape, i) => {
-            const repeatGroup = Math.floor(i / story.cycle.length)
+        {/* Repeating-unit header — its columns line up with the grid below */}
+        {showCycleHighlight && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center gap-1"
+          >
+            <span
+              className="rounded-full px-3 py-0.5 text-xs font-extrabold"
+              style={{ background: '#E1EFFB', color: BLUE, border: `1.5px solid ${BLUE}` }}
+            >
+              {lang === 'id' ? 'pola berulang ↓' : 'repeating unit ↓'}
+            </span>
+            <div style={gridStyle}>
+              {story.cycle.map((shape, cIdx) => (
+                <ShapeChip
+                  key={cIdx}
+                  shape={shape}
+                  highlighted
+                  columnColor={shapeColor(shape)}
+                  isAnswer={false}
+                  isQuestion={false}
+                  size={38}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* The sequence laid out in a grid: each row is one repeat of the unit */}
+        <div style={gridStyle}>
+          {Array.from({ length: cellCount }, (_, i) => {
+            const colIdx = i % cols
+            const columnColor = shapeColor(story.cycle[colIdx])
+            const isLast = i === story.shown
             return (
               <ShapeChip
                 key={i}
-                shape={shape}
-                highlighted={showCycleHighlight}
-                repeatGroup={repeatGroup}
-                isAnswer={false}
-                isQuestion={false}
-                layoutId={`seq-${i}`}
+                shape={isLast ? story.next : story.sequence[i]}
+                highlighted={isLast ? showAnswer : showCycleHighlight}
+                columnColor={columnColor}
+                isAnswer={isLast && showAnswer}
+                isQuestion={isLast && !showAnswer}
+                layoutId={isLast ? 'question-box' : `seq-${i}`}
+                size={CELL}
               />
             )
           })}
-
-          {/* The "?" box — or the revealed answer */}
-          <AnimatePresence mode="wait">
-            {showAnswer ? (
-              <ShapeChip
-                key="answer-chip"
-                shape={story.next}
-                highlighted={false}
-                isAnswer={true}
-                isQuestion={false}
-                layoutId="question-box"
-              />
-            ) : (
-              <ShapeChip
-                key="question-chip"
-                shape={story.next}
-                highlighted={false}
-                isAnswer={false}
-                isQuestion={true}
-                layoutId="question-box"
-              />
-            )}
-          </AnimatePresence>
         </div>
-
-        {/* Cycle bracket row — appears on beat 2 */}
-        <AnimatePresence>
-          {showCycleHighlight && (
-            <motion.div
-              key="cycle-row"
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center gap-1"
-            >
-              <span
-                className="rounded-full px-3 py-1 text-xs font-extrabold"
-                style={{ background: '#E1EFFB', color: BLUE, border: `1.5px solid ${BLUE}` }}
-              >
-                {lang === 'id' ? 'pola berulang' : 'repeating unit'}:
-              </span>
-              {story.cycle.map((shape, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-center rounded-lg border-2"
-                  style={{
-                    width: 36,
-                    height: 36,
-                    borderColor: i % 2 === 0 ? BLUE : VIOLET,
-                    background: i % 2 === 0 ? 'rgba(48,89,138,0.10)' : 'rgba(124,58,237,0.10)',
-                  }}
-                >
-                  <ShapeIcon
-                    shape={shape}
-                    size={22}
-                    fill={shapeColor(shape) + '33'}
-                    stroke={shapeColor(shape)}
-                    strokeWidth={2}
-                  />
-                </div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Caption strip */}
         <div
