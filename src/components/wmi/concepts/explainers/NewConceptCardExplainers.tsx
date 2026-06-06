@@ -6,6 +6,7 @@ import { useLogicBeat } from './useLogicBeat'
 import type { BasicStep } from './logicSteps'
 import { buildMissingAddendStory } from './missingAddendStory'
 import { buildArrangeDigitsStory } from './arrangeDigitsStory'
+import { buildEquivalentFractionStory } from './equivalentFractionStory'
 
 function makeStory(lines: string[]): { steps: BasicStep[]; finalIndex: number } {
   const steps = lines.map((caption, i): BasicStep => ({ phase: String(i), caption, hold: i === lines.length - 1 ? 0 : 1000, result: i === lines.length - 1 }))
@@ -253,7 +254,115 @@ export function RopeWrapsRatioExplainer(props: ExplainerProps) {
 
 export function EquivalentFractionFillExplainer(props: ExplainerProps) {
   const p = props.params as { num: number; den: number; m: number }
-  return <GenericCard {...props} title="equivalent fraction" chips={[`${p.num}/${p.den}`, `x ${p.m}`, `${p.num * p.m}/${p.den * p.m}`]} lines={[`${p.den} x ${p.m} = ${p.den * p.m}.`, `${p.num} x ${p.m} = ${p.num * p.m}.`]} />
+  const lang = props.lang ?? 'en'
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+  const story = useMemo(() => buildEquivalentFractionStory(p.num, p.den, p.m, lang), [p.num, p.den, p.m, lang])
+  const { beat } = useLogicBeat(story, props)
+  const { num, den, m, newDen, answer } = story
+
+  const phase = beat.phase
+  const showBottom = phase !== 'show'
+  const emphBottom = phase === 'denom'
+  const showTop = phase === 'same' || phase === 'solve' || phase === 'answer'
+  const emphTop = phase === 'same' || phase === 'solve'
+  const reveal = phase === 'answer'
+
+  // SVG layout
+  const VW = 320
+  const leftX = 70
+  const rightX = 250
+  const numY = 70
+  const barY = 96
+  const denY = 122
+  const ORANGE = '#F97316'
+  const SKY = '#0284c7'
+  const PURPLE = '#341857'
+
+  const box = (cx: number, cy: number, fill: string, stroke: string, text: string | number, textFill: string, key: string) => (
+    <g key={key}>
+      <rect x={cx - 22} y={cy - 20} width={44} height={40} rx={10} fill={fill} stroke={stroke} strokeWidth={3} />
+      <text x={cx} y={cy + 7} textAnchor="middle" fontSize={22} fontWeight={800} fill={textFill}>
+        {text}
+      </text>
+    </g>
+  )
+
+  // ×m connector arc + label + arrowhead pointing at the right box.
+  const arc = (y: number, dir: -1 | 1, active: boolean, shown: boolean) => {
+    const bow = dir === -1 ? y - 34 : y + 34
+    const color = active ? ORANGE : '#cbd5e1'
+    const labelY = dir === -1 ? y - 38 : y + 42
+    return (
+      <motion.g
+        initial={false}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={{ duration: 0.35 }}
+      >
+        <path
+          d={`M ${leftX} ${y} Q ${(leftX + rightX) / 2} ${bow} ${rightX} ${y}`}
+          fill="none"
+          stroke={color}
+          strokeWidth={active ? 3.5 : 2.5}
+          strokeLinecap="round"
+        />
+        <polygon
+          points={`${rightX - 8},${y - 6} ${rightX + 2},${y} ${rightX - 8},${y + 6}`}
+          fill={color}
+        />
+        <g transform={`translate(${(leftX + rightX) / 2}, ${labelY})`}>
+          <rect x={-22} y={-13} width={44} height={26} rx={9} fill={active ? '#FFF4E8' : '#f1f5f9'} stroke={color} strokeWidth={2} />
+          <text x={0} y={6} textAnchor="middle" fontSize={15} fontWeight={800} fill={active ? '#8a4b1d' : '#94a3b8'}>
+            ×{m}
+          </text>
+        </g>
+      </motion.g>
+    )
+  }
+
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4"
+      role="img"
+      aria-label={T(
+        `Equivalent fraction: ${den} × ${m} = ${newDen}, so multiply the top by ${m} too: ${num} × ${m} = ${answer}, giving ${num}/${den} = ${answer}/${newDen}.`,
+        `Pecahan senilai: ${den} × ${m} = ${newDen}, jadi kalikan bagian atas dengan ${m} juga: ${num} × ${m} = ${answer}, sehingga ${num}/${den} = ${answer}/${newDen}.`,
+      )}
+    >
+      <svg viewBox={`0 0 ${VW} 180`} width="100%" style={{ maxWidth: 340, overflow: 'visible' }} aria-hidden="true">
+        {/* Top ×m arc */}
+        {arc(numY - 24, -1, emphTop, showTop)}
+        {/* Bottom ×m arc */}
+        {arc(denY + 24, 1, emphBottom, showBottom)}
+
+        {/* Left fraction */}
+        {box(leftX, numY, '#FFF7ED', ORANGE, num, '#9a3412', 'lnum')}
+        <line x1={leftX - 24} y1={barY} x2={leftX + 24} y2={barY} stroke={PURPLE} strokeWidth={3} strokeLinecap="round" />
+        {box(leftX, denY, '#EFF6FF', SKY, den, '#075985', 'lden')}
+
+        {/* Equals */}
+        <text x={(leftX + rightX) / 2} y={barY + 8} textAnchor="middle" fontSize={26} fontWeight={800} fill="#94a3b8">=</text>
+
+        {/* Right fraction */}
+        {reveal
+          ? box(rightX, numY, '#D1FAE5', '#10B981', answer, '#065F46', 'rnum')
+          : box(rightX, numY, '#FFFBEB', '#FBBF24', '?', '#92400e', 'rnum')}
+        <line x1={rightX - 24} y1={barY} x2={rightX + 24} y2={barY} stroke={PURPLE} strokeWidth={3} strokeLinecap="round" />
+        {box(rightX, denY, '#EFF6FF', SKY, newDen, '#075985', 'rden')}
+      </svg>
+
+      {/* Caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
+      </div>
+    </div>
+  )
 }
 
 export function TableLookupCombineExplainer(props: ExplainerProps) {
