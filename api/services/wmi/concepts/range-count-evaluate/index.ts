@@ -45,16 +45,60 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
-  const list = params.exprs.map((e) => `${e.x} ${e.op === '+' ? '+' : '−'} ${e.y}`).join(',  ')
+  const { lo, hi, exprs } = params
+
+  // Format the list of expressions (e.g. "12 + 8,  30 − 5,  ...")
+  const list = exprs.map((e) => `${e.x} ${e.op === '+' ? '+' : '−'} ${e.y}`).join(',  ')
+
+  // Build hint steps
+  // Step 1: evaluate each expression and show the result
+  const evalLines = exprs
+    .map((e, i) => {
+      const v = evalExpr(e)
+      return `(${i + 1}) ${e.x} ${e.op === '+' ? '+' : '−'} ${e.y} = ${v}`
+    })
+    .join(';  ')
+
+  // Step 2: identify which values are in [lo, hi]
+  const inRange = exprs
+    .map((e, i) => ({ idx: i + 1, val: evalExpr(e) }))
+    .filter(({ val }) => val >= lo && val <= hi)
+
+  const count = inRange.length
+
+  const inRangeStr =
+    inRange.length === 0
+      ? 'none'
+      : inRange.map(({ idx, val }) => `(${idx}) = ${val}`).join(', ')
+
+  const inRangeStrId =
+    inRange.length === 0
+      ? 'tidak ada'
+      : inRange.map(({ idx, val }) => `(${idx}) = ${val}`).join(', ')
+
+  const hint_steps_en = [
+    `Evaluate each expression: ${evalLines}.`,
+    `Identify which results fall in [${lo}, ${hi}]: ${inRangeStr}.`,
+    `Count them: there ${count === 1 ? 'is' : 'are'} ${count} value${count === 1 ? '' : 's'} in the range.`,
+  ]
+
+  const hint_steps_id = [
+    `Hitung setiap ekspresi: ${evalLines}.`,
+    `Tentukan hasil yang berada di antara ${lo} dan ${hi}: ${inRangeStrId}.`,
+    `Hitung jumlahnya: terdapat ${count} nilai${count === 1 ? '' : ''} yang masuk dalam rentang.`,
+  ]
+
   return {
-    body_en: `How many of these have a value between ${params.lo} and ${params.hi} (inclusive)?  ${list}`,
-    body_id: `Berapa banyak dari berikut ini yang nilainya antara ${params.lo} dan ${params.hi} (termasuk batas)?  ${list}`,
+    body_en: `The ${exprs.length} expressions below each produce a whole-number result.\n\nFind: How many of the expressions below have a value between ${lo} and ${hi} (inclusive)?\n\n${list}`,
+    body_id: `Sebanyak ${exprs.length} ekspresi di bawah ini masing-masing menghasilkan suatu bilangan bulat.\n\nCari: Berapa banyak ekspresi di bawah ini yang hasilnya bernilai antara ${lo} dan ${hi} (termasuk batas)?\n\n${list}`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(countInRange(params)),
-    hint_en: 'Work out each expression, then count how many land in the range.',
-    hint_id: 'Hitung setiap ekspresi, lalu hitung berapa yang masuk dalam rentang.',
+    hint_en: 'Try evaluating each expression one at a time, then mark the ones whose result lands inside the given range.',
+    hint_id: 'Coba hitung setiap ekspresi satu per satu, lalu tandai yang hasilnya masuk ke dalam rentang yang diberikan.',
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 

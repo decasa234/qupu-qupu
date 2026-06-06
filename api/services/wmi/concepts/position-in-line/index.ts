@@ -31,15 +31,30 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const total = lineLength(params)
+  const frontGroup = params.fromFront - 1
+  const backGroup = params.fromBack - 1
   return {
-    body_en: `In a line of children, counting from the front ${params.name} is at position ${params.fromFront}, and counting from the back ${params.name} is at position ${params.fromBack}. How many children are in the line?`,
-    body_id: `Dalam sebuah barisan anak, dihitung dari depan ${params.name} berada di posisi ${params.fromFront}, dan dihitung dari belakang ${params.name} berada di posisi ${params.fromBack}. Berapa banyak anak dalam barisan itu?`,
+    body_en: `${params.name} is standing in a line of children. Counting from the front, ${params.name} is in position ${params.fromFront}. Counting from the back, ${params.name} is in position ${params.fromBack}.\nFind: How many children are in the line?`,
+    body_id: `${params.name} berdiri dalam sebuah barisan anak. Dihitung dari depan, ${params.name} berada di urutan ke-${params.fromFront}. Dihitung dari belakang, ${params.name} berada di urutan ke-${params.fromBack}.\nCari: Berapa banyak anak dalam barisan itu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(lineLength(params)),
-    hint_en: 'Add the two positions, then subtract 1 so the child is not counted twice.',
-    hint_id: 'Jumlahkan kedua posisi, lalu kurangi 1 agar anak itu tidak terhitung dua kali.',
+    answer: String(total),
+    hint_en: `Think of ${params.name}'s position as splitting the line into three parts: the children in front, ${params.name} in the middle, and the children behind — then count the total.`,
+    hint_id: `Bayangkan posisi ${params.name} membagi barisan menjadi tiga bagian: anak-anak di depan, ${params.name} sendiri, dan anak-anak di belakang — lalu hitung seluruhnya.`,
+    hint_steps_en: [
+      `Children strictly in front of ${params.name}: ${params.fromFront} − 1 = ${frontGroup}.`,
+      `Children strictly behind ${params.name}: ${params.fromBack} − 1 = ${backGroup}.`,
+      `Add the two groups plus ${params.name} in the middle: ${frontGroup} + 1 + ${backGroup} = ${total}.`,
+      `There are ${total} children in the line.`,
+    ],
+    hint_steps_id: [
+      `Anak yang berada tepat di depan ${params.name}: ${params.fromFront} − 1 = ${frontGroup} anak.`,
+      `Anak yang berada tepat di belakang ${params.name}: ${params.fromBack} − 1 = ${backGroup} anak.`,
+      `Jumlahkan keduanya ditambah ${params.name} sendiri: ${frontGroup} + 1 + ${backGroup} = ${total}.`,
+      `Jadi, ada ${total} anak dalam barisan itu.`,
+    ],
   }
 }
 
