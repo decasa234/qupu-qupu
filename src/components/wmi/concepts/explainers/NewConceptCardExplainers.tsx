@@ -36,7 +36,6 @@ export function MissingAddendExplainer(props: ExplainerProps) {
   const beforeSwitch = beat.phase === 'equation' || beat.phase === 'isolate'
   const isolating = beat.phase === 'isolate'
   const switching = beat.phase === 'switch'
-  const showSolve = beat.phase === 'solve' || beat.phase === 'answer'
   const reveal = beat.phase === 'answer'
 
   const spring = { type: 'spring', stiffness: 380, damping: 30 } as const
@@ -47,8 +46,8 @@ export function MissingAddendExplainer(props: ExplainerProps) {
       className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-6"
       role="img"
       aria-label={T(
-        `Solve ? + ${b} = ${sum}: switch +${b} across the = sign where it becomes −${b}, so ? = ${sum} − ${b} = ${a}.`,
-        `Selesaikan ? + ${b} = ${sum}: pindahkan +${b} melewati tanda = sehingga menjadi −${b}, jadi ? = ${sum} − ${b} = ${a}.`,
+        `Solve ? + ${b} = ${sum}: switch +${b} across the = sign where it becomes −${b}, so ? = ${a}.`,
+        `Selesaikan ? + ${b} = ${sum}: pindahkan +${b} melewati tanda = sehingga menjadi −${b}, jadi ? = ${a}.`,
       )}
     >
       {/* Equation — the +b term slides across the = sign and flips to −b */}
@@ -111,20 +110,16 @@ export function MissingAddendExplainer(props: ExplainerProps) {
               <span className="ml-1">{T('when it crosses =', 'saat melewati =')}</span>
             </motion.div>
           )}
-          {showSolve && (
+          {reveal && (
             <motion.div
-              key="solve"
+              key="answer"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-2xl font-black"
+              className="text-3xl font-black"
             >
               <span className="text-slate-400">? = </span>
-              <span className="text-violet-700">{sum}</span>
-              <span className="text-slate-400"> − </span>
-              <span className="text-rose-500">{b}</span>
-              <span className="text-slate-400"> = </span>
               <span className="text-emerald-700">{a}</span>
             </motion.div>
           )}

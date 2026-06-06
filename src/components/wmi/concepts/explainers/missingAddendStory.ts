@@ -12,6 +12,8 @@ export interface MissingAddendStory {
 
 // A9: solve the missing addend by switching the known term across the equals
 // sign — the basic rule being that a term flips sign when it crosses (+ ↔ −).
+// After the switch the equation reads ? = sum − b (shown in the equation row),
+// so the final beat just states the result ? = a rather than re-deriving it.
 export function buildMissingAddendStory(
   p: MissingAddendParams,
   lang: 'en' | 'id' = 'en',
@@ -36,11 +38,6 @@ export function buildMissingAddendStory(
       phase: 'switch',
       caption: T(`Crossing the = sign, +${b} becomes −${b}.`, `Melewati tanda =, +${b} menjadi −${b}.`),
       hold: 1900,
-    },
-    {
-      phase: 'solve',
-      caption: T(`Now ? = ${sum} − ${b} = ${a}.`, `Sekarang ? = ${sum} − ${b} = ${a}.`),
-      hold: 1700,
     },
     {
       phase: 'answer',

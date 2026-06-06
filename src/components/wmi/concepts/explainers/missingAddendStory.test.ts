@@ -8,15 +8,16 @@ describe('buildMissingAddendStory', () => {
     expect(story.a).toBe(23)
     expect(story.b).toBe(19)
     expect(story.sum).toBe(42)
-    expect(story.finalIndex).toBe(4)
-    expect(story.steps.map((step) => step.phase)).toEqual(['equation', 'isolate', 'switch', 'solve', 'answer'])
+    expect(story.finalIndex).toBe(3)
+    expect(story.steps.map((step) => step.phase)).toEqual(['equation', 'isolate', 'switch', 'answer'])
     expect(story.steps.map((step) => step.caption)).toEqual([
       'Find the missing number: ? + 19 = 42.',
       'To get ? by itself, switch +19 across the = sign.',
       'Crossing the = sign, +19 becomes −19.',
-      'Now ? = 42 − 19 = 23.',
       'So ? = 23.',
     ])
+    // The result beat states ? = a directly; it does NOT re-derive "sum − b = a".
+    expect(story.steps.at(-1)?.caption).not.toMatch(/−\s*19\s*=/)
     expect(story.steps.slice(0, -1).every((step) => step.hold >= 1300)).toBe(true)
     expect(story.steps.at(-1)?.hold).toBe(0)
     expect(story.steps.at(-1)?.result).toBe(true)
