@@ -3,6 +3,7 @@ import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
 import AngleTypeExplainer from './AngleTypeExplainer'
 import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
 import BarChartCompareExplainer from './BarChartCompareExplainer'
+import BlockCount3dExplainer from './BlockCount3dExplainer'
 import BudgetSelectionExplainer from './BudgetSelectionExplainer'
 import BuildNumberExplainer from './BuildNumberExplainer'
 import ClockReadTimeExplainer from './ClockReadTimeExplainer'
@@ -11,14 +12,19 @@ import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
 import CountPolygonSidesExplainer from './CountPolygonSidesExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
+import DiceNetFoldExplainer from './DiceNetFoldExplainer'
+import DiceOppositeFacesExplainer from './DiceOppositeFacesExplainer'
 import DigitFrequencyExplainer from './DigitFrequencyExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
+import DirectionOrientationExplainer from './DirectionOrientationExplainer'
 import DistanceRateTimeExplainer from './DistanceRateTimeExplainer'
 import FindDigitSumExplainer from './FindDigitSumExplainer'
 import FindMultipleExplainer from './FindMultipleExplainer'
 import FractionRegionExplainer from './FractionRegionExplainer'
+import GridPathStepsExplainer from './GridPathStepsExplainer'
 import LackingMoneyExplainer from './LackingMoneyExplainer'
 import LegsExplainer from './LegsExplainer'
+import MazePathShortestExplainer from './MazePathShortestExplainer'
 import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
 import MoneyChangeExplainer from './MoneyChangeExplainer'
 import MoneyCoinsTotalExplainer from './MoneyCoinsTotalExplainer'
@@ -34,6 +40,7 @@ import PlaceValueExplainer from './PlaceValueExplainer'
 import ProductConsecutiveExplainer from './ProductConsecutiveExplainer'
 import RectangleAreaGridExplainer from './RectangleAreaGridExplainer'
 import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
+import SameFigureIdentifyExplainer from './SameFigureIdentifyExplainer'
 import ScaleReadExplainer from './ScaleReadExplainer'
 import ShapePerimeterRectangleExplainer from './ShapePerimeterRectangleExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
@@ -67,6 +74,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'angle-type': AngleTypeExplainer,
   'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
   'bar-chart-compare': BarChartCompareExplainer,
+  'block-count-3d': BlockCount3dExplainer,
   'budget-selection': BudgetSelectionExplainer,
   'build-number-from-digit-clues': BuildNumberExplainer,
   'clock-read-time': ClockReadTimeExplainer,
@@ -75,14 +83,19 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'count-objects': CountObjectsExplainer,
   'count-polygon-sides': CountPolygonSidesExplainer,
   'custom-operation': CustomOperationExplainer,
+  'dice-net-fold': DiceNetFoldExplainer,
+  'dice-opposite-faces': DiceOppositeFacesExplainer,
   'digit-frequency': DigitFrequencyExplainer,
   'digit-sum': DigitSumExplainer,
+  'direction-orientation': DirectionOrientationExplainer,
   'distance-rate-time': DistanceRateTimeExplainer,
   'divisibility-multiple-property': FindMultipleExplainer,
   'find-number-by-digit-sum': FindDigitSumExplainer,
   'fraction-of-region': FractionRegionExplainer,
+  'grid-path-steps': GridPathStepsExplainer,
   'lacking-money-shared': LackingMoneyExplainer,
   'legs-items-rate': LegsExplainer,
+  'maze-path-shortest': MazePathShortestExplainer,
   'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
   'money-coins-total': MoneyCoinsTotalExplainer,
   'money-shopping-change': MoneyChangeExplainer,
@@ -98,6 +111,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'product-of-consecutive': ProductConsecutiveExplainer,
   'rectangle-area-grid': RectangleAreaGridExplainer,
   'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
+  'same-figure-identify': SameFigureIdentifyExplainer,
   'scale-read': ScaleReadExplainer,
   'shape-perimeter-rectangle': ShapePerimeterRectangleExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,

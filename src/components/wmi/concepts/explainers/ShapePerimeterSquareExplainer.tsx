@@ -7,8 +7,8 @@ interface ShapePerimeterSquareParams {
 }
 
 export default function ShapePerimeterSquareExplainer(props: ExplainerProps) {
-  const p = props.params as ShapePerimeterSquareParams
-  const side = Math.max(1, p.side)
+  const p = (props.params ?? {}) as ShapePerimeterSquareParams
+  const side = Math.max(1, Number.isFinite(p.side) ? p.side : 1)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   // One beat per highlighted edge (1..4).
   const index = useBeatControl(3, { ...props, stepMs: 800 })
