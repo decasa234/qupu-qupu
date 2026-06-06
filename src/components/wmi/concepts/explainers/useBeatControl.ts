@@ -37,6 +37,11 @@ export function useBeatControl(finalIndex: number, opts: BeatControl = {}): numb
   changeRef.current = onStepChange
   const endRef = useRef(onPlayEnd)
   endRef.current = onPlayEnd
+  // Read hold durations through a ref so a freshly-built `holds` array on each
+  // render does NOT restart the play effect (which would reset autoplay to the
+  // first beat on every advance). Callers pass `story.steps.map(...)` inline.
+  const holdsRef = useRef(holds)
+  holdsRef.current = holds
 
   useEffect(() => {
     countRef.current?.(finalIndex + 1)
@@ -58,7 +63,7 @@ export function useBeatControl(finalIndex: number, opts: BeatControl = {}): numb
     }
     let timer = 0
     const tick = () => {
-      const wait = holds?.[i] ?? stepMs
+      const wait = holdsRef.current?.[i] ?? stepMs
       timer = window.setTimeout(() => {
         i += 1
         setAutoIndex(i)
@@ -71,7 +76,7 @@ export function useBeatControl(finalIndex: number, opts: BeatControl = {}): numb
     }
     tick()
     return () => window.clearTimeout(timer)
-  }, [playing, step, finalIndex, reduce, stepMs, holds])
+  }, [playing, step, finalIndex, reduce, stepMs])
 
   return index
 }
