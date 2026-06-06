@@ -44,27 +44,49 @@ function drawZone(
   ctx.fillText(label, x + 16, y + 26)
 }
 
+// Lay `count` items out in a grid that fits INSIDE the given zone (below its
+// label), shrinking the cells/radius as needed so nothing spills over.
 function drawItems(
   ctx: CanvasRenderingContext2D,
   count: number,
-  x: number,
-  y: number,
+  zoneX: number,
+  zoneY: number,
+  zoneW: number,
+  zoneH: number,
   color: string,
   label: string,
 ) {
+  if (count <= 0) return
+  const padX = 14
+  const padTop = 34 // clear the zone label
+  const padBottom = 12
+  const areaX = zoneX + padX
+  const areaY = zoneY + padTop
+  const areaW = zoneW - padX * 2
+  const areaH = zoneH - padTop - padBottom
+
+  const cols = Math.min(count, Math.max(1, Math.round(Math.sqrt((count * areaW) / areaH))))
+  const rows = Math.ceil(count / cols)
+  const cell = Math.min(areaW / cols, areaH / rows, 34)
+  const radius = Math.max(5, Math.min(12, cell * 0.4))
+  const startX = areaX + (areaW - cols * cell) / 2 + cell / 2
+  const startY = areaY + (areaH - rows * cell) / 2 + cell / 2
+
+  ctx.textAlign = 'center'
   for (let i = 0; i < count; i++) {
-    const cx = x + (i % 6) * 34
-    const cy = y + Math.floor(i / 6) * 34
+    const cx = startX + (i % cols) * cell
+    const cy = startY + Math.floor(i / cols) * cell
     ctx.beginPath()
     ctx.fillStyle = color
-    ctx.arc(cx, cy, 12, 0, Math.PI * 2)
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2)
     ctx.fill()
-    ctx.fillStyle = '#fff'
-    ctx.font = '800 11px Nunito, sans-serif'
-    ctx.textAlign = 'center'
-    ctx.fillText(label, cx, cy + 4)
-    ctx.textAlign = 'left'
+    if (radius >= 8) {
+      ctx.fillStyle = '#fff'
+      ctx.font = `800 ${Math.round(radius * 0.95)}px Nunito, sans-serif`
+      ctx.fillText(label, cx, cy + radius * 0.35)
+    }
   }
+  ctx.textAlign = 'left'
 }
 
 function fruitLetter(value: string): string {
@@ -105,8 +127,8 @@ export default function StorySumExplainer(props: ExplainerProps) {
 
     drawZone(ctx, 18, 24, 212, 150, 'Keranjang', '#FFF6EC', '#F97316')
     drawZone(ctx, 250, 24, 172, 150, 'Meja', '#F3F4F6', '#9CA3AF')
-    drawItems(ctx, beat.basket, 50, 78, '#F97316', fruitLetter(p.fruit_id))
-    drawItems(ctx, beat.table, 282, 84, '#EF4444', fruitLetter(p.distractor_id))
+    drawItems(ctx, beat.basket, 18, 24, 212, 150, '#F97316', fruitLetter(p.fruit_id))
+    drawItems(ctx, beat.table, 250, 24, 172, 150, '#EF4444', fruitLetter(p.distractor_id))
 
     ctx.fillStyle = beat.result ? '#D1FAE5' : '#E1EFFB'
     ctx.strokeStyle = beat.result ? '#10B981' : '#30598A'
