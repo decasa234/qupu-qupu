@@ -34,15 +34,27 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const visible = params.t + params.f + params.r
+  const hidden = 21 - visible
   return {
-    body_en: `On a standard die, opposite faces add up to 7. You can see the top (${params.t}), the front (${params.f}), and the right (${params.r}). What is the total of the three hidden faces?`,
-    body_id: `Pada dadu standar, sisi yang berlawanan berjumlah 7. Kamu dapat melihat sisi atas (${params.t}), depan (${params.f}), dan kanan (${params.r}). Berapa jumlah ketiga sisi yang tersembunyi?`,
+    body_en: `A standard die shows top ${params.t}, front ${params.f}, and right ${params.r}. Find: What is the total of the three hidden faces?`,
+    body_id: `Sebuah dadu standar menampilkan sisi atas ${params.t}, depan ${params.f}, dan kanan ${params.r}. Cari: Berapa jumlah ketiga sisi yang tersembunyi?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(hiddenSum(params)),
-    hint_en: 'All six faces total 1+2+3+4+5+6 = 21. Subtract the three you can see.',
-    hint_id: 'Keenam sisi berjumlah 1+2+3+4+5+6 = 21. Kurangi tiga sisi yang terlihat.',
+    hint_en: `On a standard die, opposite faces always add up to 7, so all six faces together total 21.`,
+    hint_id: `Pada dadu standar, sisi yang berhadapan selalu berjumlah 7, sehingga keenam sisi semuanya berjumlah 21.`,
+    hint_steps_en: [
+      `All six faces of a die sum to 1+2+3+4+5+6 = 21.`,
+      `Add the three visible faces: ${params.t} + ${params.f} + ${params.r} = ${visible}.`,
+      `Subtract from 21: 21 − ${visible} = ${hidden}.`,
+    ],
+    hint_steps_id: [
+      `Keenam sisi dadu berjumlah 1+2+3+4+5+6 = 21.`,
+      `Jumlahkan tiga sisi yang terlihat: ${params.t} + ${params.f} + ${params.r} = ${visible}.`,
+      `Kurangi dari 21: 21 − ${visible} = ${hidden}.`,
+    ],
   }
 }
 

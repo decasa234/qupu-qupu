@@ -39,15 +39,50 @@ export function generate(rng: Rng): Params {
 export function render(params: Params) {
   const r = resultTime(params)
   const hWord = params.addHour === 1 ? 'hour' : 'hours'
+  const jamWord = params.addHour === 1 ? 'jam' : 'jam'
+
+  // Compute intermediate carry values for hint_steps
+  const rawMin = params.minute + params.addMin
+  const carryHour = rawMin >= 60 ? 1 : 0
+  const resultMin = rawMin % 60
+  const rawHour = params.hour + params.addHour + carryHour
+  const wrappedHour = rawHour > 12 ? rawHour - 12 : rawHour
+
+  // EN hint steps
+  const minStep_en = carryHour === 1
+    ? `Add the minutes: ${params.minute} + ${params.addMin} = ${rawMin}. That is more than 60, so carry 1 hour and keep ${rawMin} − 60 = ${resultMin} minutes.`
+    : `Add the minutes: ${params.minute} + ${params.addMin} = ${resultMin}. No carry needed.`
+  const hourStep_en = rawHour > 12
+    ? `Add the hours: ${params.hour} + ${params.addHour}${carryHour ? ' + 1 carried' : ''} = ${rawHour}. Past 12, so ${rawHour} − 12 = ${wrappedHour}.`
+    : `Add the hours: ${params.hour} + ${params.addHour}${carryHour ? ' + 1 carried' : ''} = ${wrappedHour}.`
+
+  // ID hint steps
+  const minStep_id = carryHour === 1
+    ? `Tambahkan menitnya: ${params.minute} + ${params.addMin} = ${rawMin}. Lebih dari 60, jadi simpan 1 jam dan sisa menit = ${rawMin} − 60 = ${resultMin}.`
+    : `Tambahkan menitnya: ${params.minute} + ${params.addMin} = ${resultMin}. Tidak perlu simpanan.`
+  const hourStep_id = rawHour > 12
+    ? `Tambahkan jamnya: ${params.hour} + ${params.addHour}${carryHour ? ' + 1 simpanan' : ''} = ${rawHour}. Melewati 12, jadi ${rawHour} − 12 = ${wrappedHour}.`
+    : `Tambahkan jamnya: ${params.hour} + ${params.addHour}${carryHour ? ' + 1 simpanan' : ''} = ${wrappedHour}.`
+
   return {
-    body_en: `A clock shows ${fmtTime(params.hour, params.minute)}. What time will it show ${params.addHour} ${hWord} and ${params.addMin} minutes later? (Answer like 3:15.)`,
-    body_id: `Sebuah jam menunjukkan ${fmtTime(params.hour, params.minute)}. Pukul berapa ${params.addHour} jam dan ${params.addMin} menit kemudian? (Jawab seperti 3:15.)`,
+    body_en: `A clock shows ${fmtTime(params.hour, params.minute)}. It is now ${params.addHour} ${hWord} and ${params.addMin} minutes later.\n\nFind: What time does the clock show now?`,
+    body_id: `Sebuah jam menunjukkan ${fmtTime(params.hour, params.minute)}. Sekarang sudah ${params.addHour} ${jamWord} dan ${params.addMin} menit berlalu.\n\nCari: Pukul berapa jam itu sekarang?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: fmtTime(r.hour, r.minute),
-    hint_en: 'Add the minutes first (carry into the next hour if you pass 60), then add the hours; past 12 keep counting from 1.',
-    hint_id: 'Tambahkan menitnya dulu (jika melewati 60, naik satu jam), lalu tambahkan jamnya; jika melewati 12 hitung lagi dari 1.',
+    hint_en: 'Add the minutes first, carrying into the next hour when the total reaches 60; then add the hours, wrapping back to 1 after 12.',
+    hint_id: 'Tambahkan menitnya lebih dulu; jika totalnya mencapai 60, naikan satu jam dan ambil sisanya; lalu tambahkan jamnya dan mulai dari 1 lagi setelah 12.',
+    hint_steps_en: [
+      minStep_en,
+      hourStep_en,
+      `The later time is ${fmtTime(r.hour, r.minute)}.`,
+    ],
+    hint_steps_id: [
+      minStep_id,
+      hourStep_id,
+      `Waktu yang dicari adalah pukul ${fmtTime(r.hour, r.minute)}.`,
+    ],
   }
 }
 
