@@ -17,10 +17,10 @@ export const meta = {
 
 export function generate(rng: Rng): Params {
   const max = rng.pick([20, 50] as const)
-  // Land 1–4 small ticks past a 5-mark, so the arrow is never on a numbered
-  // (big) tick — you always have to count the small ticks.
-  const base = rng.int(0, max / 5 - 1) * 5
-  const value = base + rng.int(1, 4)
+  // Land exactly on a half-mark (a ×5 tick, never a numbered ×10 mark):
+  // 5, 15, 25, … — read straight off the mark, never in between.
+  const k = rng.int(0, Math.floor((max - 5) / 10))
+  const value = 5 + k * 10
   return { max, value }
 }
 
@@ -32,8 +32,8 @@ export function render(params: Params) {
     choices_en: null,
     choices_id: null,
     answer: String(params.value),
-    hint_en: 'Find the numbered marks the arrow is between, jump to the nearest 5-mark, then count the small ticks.',
-    hint_id: 'Cari angka di antara mana panah berada, loncat ke garis lima terdekat, lalu hitung garis-garis kecilnya.',
+    hint_en: 'The arrow sits on a half-mark, exactly halfway between two numbered marks.',
+    hint_id: 'Panah berada pada garis tengah, tepat di antara dua angka.',
   }
 }
 

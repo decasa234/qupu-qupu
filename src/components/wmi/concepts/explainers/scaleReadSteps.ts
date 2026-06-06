@@ -1,6 +1,6 @@
 import type { Lang } from './makeTenSteps'
 
-export type ScalePhase = 'show' | 'between' | 'count' | 'result'
+export type ScalePhase = 'show' | 'between' | 'half' | 'result'
 
 export interface ScaleStep {
   phase: ScalePhase
@@ -14,8 +14,6 @@ export interface ScaleStoryboard {
   /** Nearest lower numbered (×10) mark. */
   lo: number
   hi: number
-  /** Nearest lower 5-mark (a big or medium tick) — where the small-tick count starts. */
-  base5: number
   steps: ScaleStep[]
   finalIndex: number
 }
@@ -23,8 +21,6 @@ export interface ScaleStoryboard {
 export function buildScaleReadSteps(max: number, value: number, lang: Lang): ScaleStoryboard {
   const lo = Math.floor(value / 10) * 10
   const hi = Math.min(max, lo + 10)
-  const base5 = Math.floor(value / 5) * 5
-  const ticks = value - base5
 
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
@@ -40,10 +36,10 @@ export function buildScaleReadSteps(max: number, value: number, lang: Lang): Sca
       result: false,
     },
     {
-      phase: 'count',
+      phase: 'half',
       caption: t(
-        `Jump to the ${base5} mark, then count ${ticks} small tick${ticks !== 1 ? 's' : ''}.`,
-        `Loncat ke garis ${base5}, lalu hitung ${ticks} garis kecil.`,
+        `It sits on the half-mark, exactly between them → ${value}.`,
+        `Panah tepat di garis tengah keduanya → ${value}.`,
       ),
       result: false,
     },
@@ -54,5 +50,5 @@ export function buildScaleReadSteps(max: number, value: number, lang: Lang): Sca
     },
   ]
 
-  return { max, value, lo, hi, base5, steps, finalIndex: steps.length - 1 }
+  return { max, value, lo, hi, steps, finalIndex: steps.length - 1 }
 }

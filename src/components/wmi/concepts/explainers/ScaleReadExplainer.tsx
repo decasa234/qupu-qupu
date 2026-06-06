@@ -34,7 +34,7 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, stepMs: 1900 })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  const { max, value, lo, hi, base5 } = story
+  const { max, value, lo, hi } = story
   const phase = beat.phase
 
   const ariaLabel =
@@ -50,7 +50,7 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
 
   function tickColor(v: number): string {
     if (phase === 'between' && (v === lo || v === hi)) return BLUE
-    if (phase === 'count' && v >= base5 && v <= value) return ORANGE
+    if (phase === 'half' && v === value) return ORANGE
     if (phase === 'result' && v === value) return GREEN
     return MUTED
   }
@@ -89,8 +89,7 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
 
             const shouldAnimate =
               (phase === 'between' && (v === lo || v === hi)) ||
-              (phase === 'count' && v >= base5 && v <= value) ||
-              (phase === 'result' && v === value)
+              ((phase === 'half' || phase === 'result') && v === value)
 
             return (
               <g key={v}>
@@ -110,12 +109,12 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
                     y={BASELINE_Y + 16}
                     textAnchor="middle"
                     fontSize={kind === 'major' ? 10 : 8}
-                    fontWeight={shouldAnimate || v === base5 ? 700 : 400}
+                    fontWeight={shouldAnimate || v === value ? 700 : 400}
                     animate={{
                       fill:
                         phase === 'between' && (v === lo || v === hi)
                           ? BLUE
-                          : (phase === 'count' || phase === 'result') && v === base5
+                          : (phase === 'half' || phase === 'result') && v === value
                             ? phase === 'result'
                               ? GREEN
                               : ORANGE
@@ -151,7 +150,7 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
                   transition={{ duration: 0.3 }}
                 />
                 {/* Value label above arrow */}
-                {(phase === 'count' || phase === 'result') && (
+                {(phase === 'half' || phase === 'result') && (
                   <motion.text
                     x={ax}
                     y={arrowY - 5}
