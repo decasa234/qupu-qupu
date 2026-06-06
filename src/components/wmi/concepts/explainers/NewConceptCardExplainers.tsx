@@ -7,6 +7,9 @@ import type { BasicStep } from './logicSteps'
 import { buildMissingAddendStory } from './missingAddendStory'
 import { buildArrangeDigitsStory } from './arrangeDigitsStory'
 import { buildEquivalentFractionStory } from './equivalentFractionStory'
+import MakeGroupsLeftoverExplainerImpl from './MakeGroupsLeftoverExplainer'
+import NetProgressCyclesExplainerReal from './NetProgressCyclesExplainer'
+import TableLookupCombineExplainerImpl from './TableLookupCombineExplainer'
 
 function makeStory(lines: string[]): { steps: BasicStep[]; finalIndex: number } {
   const steps = lines.map((caption, i): BasicStep => ({ phase: String(i), caption, hold: i === lines.length - 1 ? 0 : 1000, result: i === lines.length - 1 }))
@@ -225,12 +228,7 @@ export function ArrangeDigitsExplainer(props: ExplainerProps) {
   )
 }
 
-export function VisualPatternNextExplainer(props: ExplainerProps) {
-  const p = props.params as { cycle: string[]; shown: number }
-  const icon: Record<string, string> = { circle: '○', triangle: '△', square: '□', star: '☆' }
-  const next = p.cycle[p.shown % p.cycle.length]
-  return <GenericCard {...props} title="visual pattern" chips={p.cycle.map((x) => icon[x])} lines={[`Cycle: ${p.cycle.map((x) => icon[x]).join(' ')}.`, `Next is ${icon[next]}.`]} />
-}
+export { default as VisualPatternNextExplainer } from './VisualPatternNextExplainer'
 
 export function ShapeTransformationRuleExplainer(props: ExplainerProps) {
   const p = props.params as { shape: string; transform: 'turn' | 'flip' }
@@ -241,16 +239,10 @@ export function ShapeTransformationRuleExplainer(props: ExplainerProps) {
 }
 
 export function NetProgressCyclesExplainer(props: ExplainerProps) {
-  const p = props.params as { up: number; down: number; cycles: number }
-  const net = p.up - p.down
-  return <GenericCard {...props} title="net progress" chips={[`up ${p.up}`, `down ${p.down}`, `net ${net}`]} lines={[`${p.up} - ${p.down} = ${net}.`, `${net} x ${p.cycles} = ${net * p.cycles}.`]} />
+  return <NetProgressCyclesExplainerReal {...props} />
 }
 
-export function RopeWrapsRatioExplainer(props: ExplainerProps) {
-  const p = props.params as { aWraps: number; bWraps: number; bSecond: number }
-  const ans = (p.bSecond * p.aWraps) / p.bWraps
-  return <GenericCard {...props} title="rope ratio" chips={[`A ${p.aWraps}`, `B ${p.bWraps}`, `B ${p.bSecond}`]} lines={[`A/B = ${p.aWraps}/${p.bWraps}.`, `${p.bSecond} x ${p.aWraps} / ${p.bWraps} = ${ans}.`]} />
-}
+export { default as RopeWrapsRatioExplainer } from './RopeWrapsRatioExplainer'
 
 export function EquivalentFractionFillExplainer(props: ExplainerProps) {
   const p = props.params as { num: number; den: number; m: number }
@@ -366,20 +358,11 @@ export function EquivalentFractionFillExplainer(props: ExplainerProps) {
 }
 
 export function TableLookupCombineExplainer(props: ExplainerProps) {
-  const p = props.params as { apples: number; oranges: number; mode: 'sum' | 'diff' }
-  const ans = p.mode === 'sum' ? p.apples + p.oranges : p.apples - p.oranges
-  return <GenericCard {...props} title="table lookup" chips={[`apples ${p.apples}`, `oranges ${p.oranges}`, String(ans)]} lines={[`Read both table values.`, `${p.apples} ${p.mode === 'sum' ? '+' : '-'} ${p.oranges} = ${ans}.`]} />
+  return <TableLookupCombineExplainerImpl {...props} />
 }
 
-export function TruthOrderCluesExplainer(props: ExplainerProps) {
-  const p = props.params as { order: string[] }
-  return <GenericCard {...props} title="order clues" chips={p.order} lines={[`Chain the clues.`, `${p.order.join(' -> ')}.`, `${p.order[0]} is first.`]} />
-}
+export { default as TruthOrderCluesExplainer } from './TruthOrderCluesExplainer'
 
 export function MakeGroupsLeftoverExplainer(props: ExplainerProps) {
-  const p = props.params as { total: number; groupSize: number }
-  const groups = Math.floor(p.total / p.groupSize)
-  const used = groups * p.groupSize
-  const left = p.total - used
-  return <GenericCard {...props} title="groups leftover" chips={[`${p.total}`, `groups of ${p.groupSize}`, `left ${left}`]} lines={[`${groups} x ${p.groupSize} = ${used}.`, `${p.total} - ${used} = ${left}.`]} />
+  return <MakeGroupsLeftoverExplainerImpl {...props} />
 }
