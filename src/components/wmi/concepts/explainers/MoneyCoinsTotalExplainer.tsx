@@ -38,7 +38,7 @@ export default function MoneyCoinsTotalExplainer({ params, lang = 'en', step, pl
   const index = useBeatControl(story.finalIndex, { step, playing, onStepCount, onStepChange, onPlayEnd, holds: story.steps.map((s) => s.hold) })
 
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
-  const { coins, groups, total } = story
+  const { coins, groups, total, needed } = story
 
   // Original coin indices per denomination, descending — used for the
   // clustered layout (each coin keeps its index-based layoutId).
@@ -49,8 +49,8 @@ export default function MoneyCoinsTotalExplainer({ params, lang = 'en', step, pl
 
   const ariaLabel =
     lang === 'id'
-      ? 'Cara berpikir: kelompokkan koin senilai sama, hitung tiap kelompok, lalu jumlahkan.'
-      : 'Strategy: group coins of equal value, count each group, then add the groups.'
+      ? `Cara berpikir: kelompokkan koin senilai sama dan jumlahkan menjadi ${total} sen, lalu 100 − ${total} = ${needed} sen untuk melengkapi satu dolar.`
+      : `Strategy: group coins of equal value and add them to ${total}¢, then 100 − ${total} = ${needed}¢ to complete a dollar.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
@@ -93,9 +93,22 @@ export default function MoneyCoinsTotalExplainer({ params, lang = 'en', step, pl
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             className="font-display text-lg font-black tabular-nums"
+            style={{ color: beat.showDollar ? '#30598A' : GREEN }}
+          >
+            {groups.map((g) => g.subtotal).join(' + ')} = {total}¢
+          </motion.div>
+        )}
+
+        {beat.showDollar && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 360, damping: 24 }}
+            className="font-display text-2xl font-black tabular-nums"
             style={{ color: GREEN }}
           >
-            {groups.map((g) => g.subtotal).join(' + ')} = {total}
+            <span style={{ color: '#9aa3b2' }}>100 − {total} = </span>
+            {needed}¢
           </motion.div>
         )}
 
