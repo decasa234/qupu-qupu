@@ -31,16 +31,47 @@ export function buildAssignmentCycleSteps(p: { cycle: number; n: number }, lang:
   const cycle = Math.max(3, Math.min(5, Math.round(p.cycle || 3)))
   const n = Math.max(1, Math.round(p.n || 1))
   const labels = LABELS.slice(0, cycle)
-  const shifted = n - 1
-  const remainder = shifted % cycle
-  const answer = labels[remainder]
+  const t = (en: string, id: string) => (lang === 'id' ? id : en)
+
+  // Kid-friendly: skip-count the full trips around the circle, then count the
+  // leftover students one at a time. No remainders, no 0-based shifting.
+  const fullTrips = Math.floor(n / cycle)
+  const leftover = n - fullTrips * cycle // 0..cycle-1
+  const lastFull = fullTrips * cycle
+  const answerSeat = leftover === 0 ? cycle - 1 : leftover - 1
+  const answer = labels[answerSeat]
+
+  const mult: number[] = []
+  for (let k = 1; k <= fullTrips; k++) mult.push(k * cycle)
+  const multiplesStr = fullTrips <= 5 ? mult.join(', ') : `${cycle}, ${2 * cycle}, ${3 * cycle}, …, ${lastFull}`
+
+  const countOn: string[] = []
+  for (let i = 1; i <= leftover; i++) countOn.push(`${lastFull + i}→${labels[i - 1]}`)
+  const countOnStr = countOn.join(', ')
+
   const steps: BasicStep[] = [
-    { phase: 'pattern', caption: lang === 'id' ? `Pola berulang: ${labels.join(', ')}.` : `Repeating pattern: ${labels.join(', ')}.`, hold: 1000 },
-    { phase: 'shift', caption: lang === 'id' ? `Geser nomor: ${n} - 1 = ${shifted}.` : `Shift the number: ${n} - 1 = ${shifted}.`, hold: 1000 },
-    { phase: 'remainder', caption: lang === 'id' ? `${shifted} dibagi ${cycle} sisa ${remainder}.` : `${shifted} divided by ${cycle} leaves remainder ${remainder}.`, hold: 1200 },
-    finalStep(lang === 'id' ? `Sisa ${remainder} menunjuk huruf ${answer}.` : `Remainder ${remainder} points to ${answer}.`),
+    { phase: 'pattern', caption: t(`The letters repeat: ${labels.join(', ')}, then start again.`, `Huruf berulang: ${labels.join(', ')}, lalu mulai lagi.`), hold: 1700 },
   ]
-  return { cycle, n, labels, shifted, remainder, answer, steps, finalIndex: steps.length - 1 }
+  if (fullTrips >= 1) {
+    steps.push({
+      phase: 'rounds',
+      caption: t(
+        `Each full trip is ${cycle}. Skip-count: ${multiplesStr}. Student ${lastFull} lands on ${labels[cycle - 1]}.`,
+        `Tiap putaran ${cycle}. Hitung lompat: ${multiplesStr}. Siswa ke-${lastFull} berhenti di ${labels[cycle - 1]}.`,
+      ),
+      hold: 2300,
+    })
+  }
+  if (leftover > 0) {
+    steps.push({
+      phase: 'count',
+      caption: t(`Count on the rest: ${countOnStr}.`, `Lanjut hitung sisanya: ${countOnStr}.`),
+      hold: 2000,
+    })
+  }
+  steps.push(finalStep(t(`Student ${n} calls out ${answer}.`, `Siswa ke-${n} menyebutkan ${answer}.`)))
+
+  return { cycle, n, labels, fullTrips, lastFull, leftover, answerSeat, answer, multiplesStr, countOnStr, steps, finalIndex: steps.length - 1 }
 }
 
 function evalSigns(nums: number[], signs: ('+' | '-')[]): number {

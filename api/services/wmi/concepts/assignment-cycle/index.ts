@@ -32,10 +32,49 @@ export function render(params: Params) {
   const seq = LABELS.slice(0, cycle).join(', ')
   const seqFull = `${seq}, ${seq}, …`
 
-  // Work out the hint steps from params
-  const remainder = (n - 1) % cycle          // 0-based index into pattern
-  const posInCycle = remainder + 1            // 1-based label position (matches LABELS index visually)
-  const answer = labelAt(params)              // e.g. "C"
+  // Kid-friendly walkthrough: skip-count the full trips around the circle, then
+  // count the leftover students one at a time. No remainders / 0-based shifting.
+  const answer = labelAt(params) // e.g. "C"
+  const fullTrips = Math.floor(n / cycle)
+  const leftover = n - fullTrips * cycle
+  const lastFull = fullTrips * cycle
+  const lastLetter = LABELS[cycle - 1]
+
+  const mult: number[] = []
+  for (let k = 1; k <= fullTrips; k++) mult.push(k * cycle)
+  const multiplesStr = fullTrips <= 5 ? mult.join(', ') : `${cycle}, ${2 * cycle}, ${3 * cycle}, …, ${lastFull}`
+
+  const countOn = (arrow: string) => {
+    const parts: string[] = []
+    for (let i = 1; i <= leftover; i++) parts.push(`${lastFull + i}${arrow}${LABELS[i - 1]}`)
+    return parts.join(', ')
+  }
+
+  const hint_steps_en =
+    leftover === 0
+      ? [
+          `The letters ${seq} repeat every ${cycle} students.`,
+          `Skip-count the full trips: ${multiplesStr}.`,
+          `Student ${n} finishes a full trip exactly, on the last letter ${answer}.`,
+        ]
+      : [
+          `The letters ${seq} repeat every ${cycle} students.`,
+          `Skip-count the full trips: ${multiplesStr}. Student ${lastFull} lands on ${lastLetter}.`,
+          `Count on the leftover: ${countOn(' → ')}. So student ${n} calls out ${answer}.`,
+        ]
+
+  const hint_steps_id =
+    leftover === 0
+      ? [
+          `Huruf ${seq} berulang setiap ${cycle} siswa.`,
+          `Hitung lompat putaran penuh: ${multiplesStr}.`,
+          `Siswa ke-${n} tepat menyelesaikan satu putaran, pada huruf terakhir ${answer}.`,
+        ]
+      : [
+          `Huruf ${seq} berulang setiap ${cycle} siswa.`,
+          `Hitung lompat putaran penuh: ${multiplesStr}. Siswa ke-${lastFull} berhenti di ${lastLetter}.`,
+          `Lanjut hitung sisanya: ${countOn(' → ')}. Jadi siswa ke-${n} menyebutkan ${answer}.`,
+        ]
 
   return {
     body_en: `${params.cycle} students sit in a circle and call out letters in order: ${seqFull} The sequence repeats from the beginning once all ${cycle} have spoken.\n\nFind: What letter does student number ${n} call out?`,
@@ -44,20 +83,10 @@ export function render(params: Params) {
     choices_en: null,
     choices_id: null,
     answer: labelAt(params),
-    hint_en: `Think about the cycle length: after every ${cycle} students the pattern starts over, so use the remainder when you divide the student's number by ${cycle}.`,
-    hint_id: `Perhatikan panjang siklusnya: setiap ${cycle} siswa pola dimulai kembali, jadi gunakan sisa pembagian nomor siswa dengan ${cycle}.`,
-    hint_steps_en: [
-      `The pattern ${seq} repeats every ${cycle} students.`,
-      `Shift to a 0-based position: ${n} − 1 = ${n - 1}.`,
-      `Divide by the cycle length: ${n - 1} ÷ ${cycle} leaves remainder ${remainder}. (Remainder 0 means the last letter in the cycle, ${LABELS[cycle - 1]}.)`,
-      `Count to position ${remainder + 1} in the pattern (${seq}): student ${n} calls out ${answer}.`,
-    ],
-    hint_steps_id: [
-      `Pola ${seq} berulang setiap ${cycle} siswa.`,
-      `Geser ke posisi berbasis 0: ${n} − 1 = ${n - 1}.`,
-      `Bagi dengan panjang siklus: ${n - 1} ÷ ${cycle} menyisakan ${remainder}. (Sisa 0 berarti huruf terakhir dalam siklus, ${LABELS[cycle - 1]}.)`,
-      `Hitung ke posisi ${posInCycle} dalam pola (${seq}): siswa ke-${n} menyebutkan huruf ${answer}.`,
-    ],
+    hint_en: `The letters repeat every ${cycle} students. Skip-count the full trips around the circle, then count the few leftover students one at a time.`,
+    hint_id: `Huruf berulang setiap ${cycle} siswa. Hitung lompat putaran penuh mengelilingi lingkaran, lalu hitung sedikit sisa siswa satu per satu.`,
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 

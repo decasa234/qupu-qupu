@@ -26,7 +26,7 @@ export default function AssignmentCycleExplainer(props: ExplainerProps) {
   const story = useMemo(() => buildAssignmentCycleSteps((params ?? {}) as Params, lang), [params, lang])
   const { beat } = useLogicBeat(story, props)
 
-  const { cycle, labels, shifted, remainder } = story
+  const { cycle, labels, fullTrips, lastFull, leftover, answerSeat } = story
   const phase = beat.phase
 
   // SVG layout
@@ -37,12 +37,16 @@ export default function AssignmentCycleExplainer(props: ExplainerProps) {
   const SLOT_R = 18
   const TOKEN_R = 10
 
-  // Token position: starts at slot 0 (top), hops to `remainder` during 'remainder' phase
-  const tokenSlotIndex = phase === 'pattern' || phase === 'shift' ? 0 : remainder
+  // Token walks: starts at top, sits on the last letter after the full trips,
+  // then steps forward onto the answer seat as we count on the leftover.
+  const tokenSlotIndex =
+    phase === 'rounds' ? cycle - 1 : phase === 'count' || phase === 'result' ? answerSeat : 0
   const tokenPos = slotCoords(tokenSlotIndex, cycle, RING_R, CX, CY)
 
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+
   return (
-    <LogicFrame beat={beat} label="Repeating cycle strategy">
+    <LogicFrame beat={beat} label={T('Repeating cycle', 'Pola berulang')}>
       <svg
         width={SIZE}
         height={SIZE}
@@ -51,24 +55,24 @@ export default function AssignmentCycleExplainer(props: ExplainerProps) {
         aria-hidden="true"
       >
         {/* Ring connector */}
-        <circle
-          cx={CX}
-          cy={CY}
-          r={RING_R}
-          fill="none"
-          stroke={SLATE}
-          strokeWidth={2}
-          strokeDasharray="4 3"
-        />
+        <circle cx={CX} cy={CY} r={RING_R} fill="none" stroke={SLATE} strokeWidth={2} strokeDasharray="4 3" />
 
-        {/* Slot circles + labels */}
+        {/* Seat circles + labels */}
         {labels.map((label, i) => {
+          const isLastInTrip = phase === 'rounds' && i === cycle - 1
+          const isCounting = phase === 'count' && i === answerSeat
+          const isResult = phase === 'result' && i === answerSeat
+          const active = isLastInTrip || isCounting
+          const fillColor = isResult ? '#D1FAE5' : active ? '#FFF7ED' : '#fff'
+          const strokeColor = isResult ? GREEN : active ? ORANGE : SLATE
+          const textColor = isResult ? '#065F46' : active ? ORANGE : BLUE
           const pos = slotCoords(i, cycle, RING_R, CX, CY)
-          const isActive = phase === 'remainder' && i === remainder
-          const isResult = (phase === 'result') && i === remainder
-          const fillColor = isResult ? '#D1FAE5' : isActive ? '#FFF7ED' : '#fff'
-          const strokeColor = isResult ? GREEN : isActive ? ORANGE : SLATE
-          const textColor = isResult ? '#065F46' : isActive ? ORANGE : BLUE
+
+          // Student number landing under a seat: lastFull on the last seat during
+          // 'rounds'; the leftover student numbers during 'count'.
+          let underNum: number | null = null
+          if (phase === 'rounds' && i === cycle - 1 && fullTrips >= 1) underNum = lastFull
+          if (phase === 'count' && i < leftover) underNum = lastFull + i + 1
 
           return (
             <g key={label}>
@@ -78,94 +82,64 @@ export default function AssignmentCycleExplainer(props: ExplainerProps) {
                 r={SLOT_R}
                 fill={fillColor}
                 stroke={strokeColor}
-                strokeWidth={isActive || isResult ? 2.5 : 1.5}
-                animate={{
-                  r: isActive || isResult ? SLOT_R + 2 : SLOT_R,
-                  fill: fillColor,
-                  stroke: strokeColor,
-                }}
+                strokeWidth={active || isResult ? 2.5 : 1.5}
+                animate={{ r: active || isResult ? SLOT_R + 2 : SLOT_R, fill: fillColor, stroke: strokeColor }}
                 transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               />
-              <text
-                x={pos.x}
-                y={pos.y + 5}
-                textAnchor="middle"
-                fontSize={13}
-                fontWeight="800"
-                fill={textColor}
-                fontFamily="system-ui, sans-serif"
-              >
+              <text x={pos.x} y={pos.y + 5} textAnchor="middle" fontSize={13} fontWeight="800" fill={textColor} fontFamily="system-ui, sans-serif">
                 {label}
               </text>
-              {/* Position index hint (0-based) shown during pattern phase */}
-              {phase === 'pattern' && (
-                <text
-                  x={pos.x}
-                  y={pos.y + SLOT_R + 10}
-                  textAnchor="middle"
-                  fontSize={9}
-                  fill={SLATE}
-                  fontFamily="system-ui, sans-serif"
-                >
-                  {i}
+              {underNum !== null && (
+                <text x={pos.x} y={pos.y + SLOT_R + 12} textAnchor="middle" fontSize={10} fontWeight="800" fill={ORANGE} fontFamily="system-ui, sans-serif">
+                  {underNum}
                 </text>
               )}
             </g>
           )
         })}
 
-        {/* Token — animated to correct slot */}
+        {/* Walking token */}
         <AnimatePresence>
-          {(phase === 'remainder' || phase === 'result') && (
+          {(phase === 'rounds' || phase === 'count' || phase === 'result') && (
             <motion.circle
               key="token"
-              cx={tokenPos.x}
-              cy={tokenPos.y}
               r={TOKEN_R}
               fill={phase === 'result' ? GREEN : ORANGE}
               opacity={0.82}
               initial={{ cx: slotCoords(0, cycle, RING_R, CX, CY).x, cy: slotCoords(0, cycle, RING_R, CX, CY).y, scale: 0.6, opacity: 0 }}
               animate={{ cx: tokenPos.x, cy: tokenPos.y, scale: 1, opacity: 0.82 }}
               exit={{ scale: 0.5, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 140, damping: 16, duration: 0.55 }}
+              transition={{ type: 'spring', stiffness: 140, damping: 16 }}
             />
           )}
         </AnimatePresence>
 
-        {/* Center display — changes per phase */}
+        {/* Center display */}
         {phase === 'pattern' && (
-          <text x={CX} y={CY - 6} textAnchor="middle" fontSize={9} fill={BLUE} fontFamily="system-ui, sans-serif" fontWeight="700">
-            {labels.join(',')}
-          </text>
-        )}
-        {phase === 'pattern' && (
-          <text x={CX} y={CY + 7} textAnchor="middle" fontSize={9} fill={SLATE} fontFamily="system-ui, sans-serif">
-            repeats…
-          </text>
-        )}
-
-        {phase === 'shift' && (
           <>
-            <text x={CX} y={CY - 8} textAnchor="middle" fontSize={10} fill={BLUE} fontFamily="system-ui, sans-serif" fontWeight="700">
-              n − 1
+            <text x={CX} y={CY - 4} textAnchor="middle" fontSize={11} fill={BLUE} fontFamily="system-ui, sans-serif" fontWeight="700">
+              {labels.join(', ')}
             </text>
-            <text x={CX} y={CY + 8} textAnchor="middle" fontSize={13} fill={ORANGE} fontFamily="system-ui, sans-serif" fontWeight="900">
-              = {shifted}
+            <text x={CX} y={CY + 11} textAnchor="middle" fontSize={9} fill={SLATE} fontFamily="system-ui, sans-serif">
+              {T('repeats…', 'berulang…')}
             </text>
           </>
         )}
-
-        {phase === 'remainder' && (
+        {phase === 'rounds' && (
           <>
-            <text x={CX} y={CY - 8} textAnchor="middle" fontSize={9} fill={BLUE} fontFamily="system-ui, sans-serif" fontWeight="700">
-              {shifted} mod {cycle}
+            <text x={CX} y={CY - 4} textAnchor="middle" fontSize={9} fill={SLATE} fontFamily="system-ui, sans-serif" fontWeight="700">
+              {T('full trips', 'putaran penuh')}
             </text>
-            <text x={CX} y={CY + 8} textAnchor="middle" fontSize={13} fill={ORANGE} fontFamily="system-ui, sans-serif" fontWeight="900">
-              = {remainder}
+            <text x={CX} y={CY + 13} textAnchor="middle" fontSize={16} fill={ORANGE} fontFamily="system-ui, sans-serif" fontWeight="900">
+              {lastFull}
             </text>
           </>
         )}
-
+        {phase === 'count' && (
+          <text x={CX} y={CY + 6} textAnchor="middle" fontSize={12} fill={ORANGE} fontFamily="system-ui, sans-serif" fontWeight="800">
+            +{leftover}
+          </text>
+        )}
         {phase === 'result' && (
           <text x={CX} y={CY + 6} textAnchor="middle" fontSize={20} fill={GREEN} fontFamily="system-ui, sans-serif" fontWeight="900">
             {story.answer}
