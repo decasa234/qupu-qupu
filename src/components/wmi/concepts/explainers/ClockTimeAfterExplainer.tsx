@@ -5,45 +5,51 @@ import { buildClockAfterSteps } from './clockAfterSteps'
 import { useBeatControl } from './useBeatControl'
 
 const BLUE = '#2f6df0'
+const ORANGE = '#F97316'
 const GREEN = '#10B981'
 const PURPLE = '#341857'
-const HAND_LEN = 36
 
 function toRad(deg: number) {
   return (deg * Math.PI) / 180
 }
 
+// Animate a hand's angle so its tip sweeps along the arc (true rotation about
+// the centre — no SVG transform-origin quirks).
+function useHandAngle(target: number) {
+  const angle = useMotionValue(target)
+  useEffect(() => {
+    const controls = animate(angle, target, { type: 'spring', stiffness: 55, damping: 14 })
+    return () => controls.stop()
+  }, [angle, target])
+  return angle
+}
+
 export default function ClockTimeAfterExplainer(props: ExplainerProps) {
   const { params, lang = 'en' } = props
-  const p = params as { hour: number; add: number }
+  const p = params as { hour: number; minute: number; addHour: number; addMin: number }
 
-  const story = useMemo(() => buildClockAfterSteps(p.hour, p.add, lang), [p.hour, p.add, lang])
+  const story = useMemo(
+    () => buildClockAfterSteps(p.hour, p.minute, p.addHour, p.addMin, lang),
+    [p.hour, p.minute, p.addHour, p.addMin, lang],
+  )
   const index = useBeatControl(story.finalIndex, { ...props, stepMs: 1900 })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
-
-  // The hand sits at the start hour on 'show'/'add', then sweeps forward by
-  // add×30° (clockwise, through 12 if it wraps) on 'wrap'/'result'.
-  const startAngle = (story.hour % 12) * 30
-  const atStart = beat.phase === 'show' || beat.phase === 'add'
-  const handAngle = atStart ? startAngle : startAngle + story.add * 30
-
-  // Animate the ANGLE and derive the hand tip from it, so the tip travels along
-  // the circular arc — a true rotation about the centre (no transform-origin
-  // quirks, which is why the previous version looked wrong).
-  const angle = useMotionValue(handAngle)
-  useEffect(() => {
-    const controls = animate(angle, handAngle, { type: 'spring', stiffness: 55, damping: 14 })
-    return () => controls.stop()
-  }, [angle, handAngle])
-  const tipX = useTransform(angle, (a) => 70 + HAND_LEN * Math.sin(toRad(a)))
-  const tipY = useTransform(angle, (a) => 70 - HAND_LEN * Math.cos(toRad(a)))
-
   const isResult = beat.result
+
+  const minAngle = useHandAngle(beat.minAngle)
+  const hourAngle = useHandAngle(beat.hourAngle)
+  const minTipX = useTransform(minAngle, (a) => 70 + 50 * Math.sin(toRad(a)))
+  const minTipY = useTransform(minAngle, (a) => 70 - 50 * Math.cos(toRad(a)))
+  const hourTipX = useTransform(hourAngle, (a) => 70 + 34 * Math.sin(toRad(a)))
+  const hourTipY = useTransform(hourAngle, (a) => 70 - 34 * Math.cos(toRad(a)))
+
+  const minuteActive = beat.phase === 'minutes'
+  const hourActive = beat.phase === 'hours'
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: jam menunjukkan pukul ${story.hour}, maju ${story.add} jam, hasilnya pukul ${story.result}.`
-      : `Explainer: clock shows ${story.hour} o'clock, count forward ${story.add} hours, result is ${story.result} o'clock.`
+      ? `Penjelasan: jam ${story.startStr}, maju ${p.addHour} jam ${p.addMin} menit, hasilnya ${story.resultStr}.`
+      : `Explainer: clock ${story.startStr}, forward ${p.addHour} hours ${p.addMin} minutes, result ${story.resultStr}.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
@@ -75,11 +81,31 @@ export default function ClockTimeAfterExplainer(props: ExplainerProps) {
           <text x={70} y={122} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontWeight="bold" fill={PURPLE}>6</text>
           <text x={20} y={72} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontWeight="bold" fill={PURPLE}>9</text>
 
-          {/* Hour hand — tip sweeps along the arc (true rotation about the centre) */}
-          <motion.line x1={70} y1={70} x2={tipX} y2={tipY} stroke={isResult ? GREEN : BLUE} strokeWidth={5} strokeLinecap="round" />
+          {/* Minute hand — long, orange (dimmed while the hour hand is the focus) */}
+          <motion.line
+            x1={70}
+            y1={70}
+            x2={minTipX}
+            y2={minTipY}
+            stroke={isResult ? GREEN : ORANGE}
+            strokeWidth={minuteActive ? 5 : 4}
+            strokeLinecap="round"
+            opacity={hourActive ? 0.5 : 1}
+          />
+          {/* Hour hand — short, blue (dimmed while the minute hand is the focus) */}
+          <motion.line
+            x1={70}
+            y1={70}
+            x2={hourTipX}
+            y2={hourTipY}
+            stroke={isResult ? GREEN : BLUE}
+            strokeWidth={5}
+            strokeLinecap="round"
+            opacity={minuteActive ? 0.5 : 1}
+          />
 
           {/* Center dot */}
-          <circle cx={70} cy={70} r={4} fill={BLUE} />
+          <circle cx={70} cy={70} r={4} fill={PURPLE} />
         </svg>
 
         {/* Caption box */}
