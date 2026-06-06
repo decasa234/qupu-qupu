@@ -12,16 +12,6 @@ function toRad(deg: number) {
   return (deg * Math.PI) / 180
 }
 
-/** Hour-hand endpoint. angle=0 points up (12 o'clock). */
-function handEnd(hour: number) {
-  const deg = (hour % 12) * 30
-  const rad = toRad(deg)
-  return {
-    x: 70 + 38 * Math.sin(rad),
-    y: 70 - 38 * Math.cos(rad),
-  }
-}
-
 export default function ClockTimeAfterExplainer(props: ExplainerProps) {
   const { params, lang = 'en' } = props
   const p = params as { hour: number; add: number }
@@ -30,11 +20,11 @@ export default function ClockTimeAfterExplainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, stepMs: 1900 })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  // On 'show' and 'add' show the start hour; on 'wrap' and 'result' show the result hour.
-  const displayedHour =
-    beat.phase === 'show' || beat.phase === 'add' ? story.hour : story.result
-
-  const end = handEnd(displayedHour)
+  // The hand sweeps clockwise: it sits at the start hour on 'show'/'add', then
+  // rotates forward by add×30° (through 12 if it wraps) on 'wrap'/'result'.
+  const startAngle = (story.hour % 12) * 30
+  const atStart = beat.phase === 'show' || beat.phase === 'add'
+  const handAngle = atStart ? startAngle : startAngle + story.add * 30
 
   const ariaLabel =
     lang === 'id'
@@ -72,16 +62,15 @@ export default function ClockTimeAfterExplainer(props: ExplainerProps) {
           <text x={70} y={122} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontWeight="bold" fill={PURPLE}>6</text>
           <text x={20} y={72} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontWeight="bold" fill={PURPLE}>9</text>
 
-          {/* Hour hand — animated */}
-          <motion.line
-            x1={70}
-            y1={70}
-            animate={{ x2: end.x, y2: end.y }}
-            transition={{ type: 'spring', stiffness: 200, damping: 22 }}
-            stroke={BLUE}
-            strokeWidth={5}
-            strokeLinecap="round"
-          />
+          {/* Hour hand — rotates clockwise around the clock center */}
+          <motion.g
+            style={{ transformOrigin: '70px 70px' }}
+            initial={false}
+            animate={{ rotate: handAngle }}
+            transition={{ type: 'spring', stiffness: 70, damping: 15 }}
+          >
+            <line x1={70} y1={70} x2={70} y2={34} stroke={isResult ? GREEN : BLUE} strokeWidth={5} strokeLinecap="round" />
+          </motion.g>
 
           {/* Center dot */}
           <circle cx={70} cy={70} r={4} fill={BLUE} />
