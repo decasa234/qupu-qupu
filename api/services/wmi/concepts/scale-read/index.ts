@@ -17,10 +17,10 @@ export const meta = {
 
 export function generate(rng: Rng): Params {
   const max = rng.pick([20, 50] as const)
-  // Land exactly on a half-mark (a ×5 tick, never a numbered ×10 mark):
-  // 5, 15, 25, … — read straight off the mark, never in between.
-  const k = rng.int(0, Math.floor((max - 5) / 10))
-  const value = 5 + k * 10
+  // The scale has 10 divisions, numbered every other one (= max/5). Land on an
+  // ODD division — exactly halfway between two numbered marks — so it matches
+  // the question's grid (never on a numbered mark, never between ticks).
+  const value = (max / 10) * rng.pick([1, 3, 5, 7, 9] as const)
   return { max, value }
 }
 

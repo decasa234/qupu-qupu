@@ -19,8 +19,10 @@ export interface ScaleStoryboard {
 }
 
 export function buildScaleReadSteps(max: number, value: number, lang: Lang): ScaleStoryboard {
-  const lo = Math.floor(value / 10) * 10
-  const hi = Math.min(max, lo + 10)
+  // value sits on an odd division, exactly between two numbered marks (= max/5 apart).
+  const div = max / 10
+  const lo = value - div
+  const hi = value + div
 
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 

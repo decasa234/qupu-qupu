@@ -42,11 +42,10 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
       ? `Cara membaca skala: panah menunjuk ke ${value} pada skala 0 sampai ${max}.`
       : `Reading a scale: the arrow points to ${value} on a scale from 0 to ${max}.`
 
-  // Build tick marks: big (×10, numbered), medium (×5), small (×1).
-  const ticks: { v: number; kind: 'major' | 'medium' | 'minor' }[] = []
-  for (let v = 0; v <= max; v++) {
-    ticks.push({ v, kind: v % 10 === 0 ? 'major' : v % 5 === 0 ? 'medium' : 'minor' })
-  }
+  // Ticks match the question's grid: 10 divisions, numbered every other (= max/5).
+  const div = max / 10
+  const ticks: { v: number; major: boolean }[] = []
+  for (let i = 0; i <= 10; i++) ticks.push({ v: i * div, major: i % 2 === 0 })
 
   function tickColor(v: number): string {
     if (phase === 'between' && (v === lo || v === hi)) return BLUE
@@ -55,8 +54,8 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
     return MUTED
   }
 
-  function tickHeight(kind: 'major' | 'medium' | 'minor'): number {
-    return kind === 'major' ? 14 : kind === 'medium' ? 10 : 6
+  function tickHeight(major: boolean): number {
+    return major ? 14 : 9
   }
 
   return (
@@ -80,12 +79,11 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
           />
 
           {/* Tick marks */}
-          {ticks.map(({ v, kind }) => {
+          {ticks.map(({ v, major }) => {
             const x = px(v, max)
-            const h = tickHeight(kind)
+            const h = tickHeight(major)
             const color = tickColor(v)
-            const strokeW = kind === 'major' ? 2 : kind === 'medium' ? 1.5 : 1
-            const labeled = v % 5 === 0 // number every big and medium mark
+            const strokeW = major ? 2.5 : 1.5
 
             const shouldAnimate =
               (phase === 'between' && (v === lo || v === hi)) ||
@@ -103,25 +101,14 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
                   animate={{ stroke: color, strokeWidth: shouldAnimate ? strokeW + 1.5 : strokeW }}
                   transition={{ duration: 0.3 }}
                 />
-                {labeled && (
+                {major && (
                   <motion.text
                     x={x}
                     y={BASELINE_Y + 16}
                     textAnchor="middle"
-                    fontSize={kind === 'major' ? 10 : 8}
-                    fontWeight={shouldAnimate || v === value ? 700 : 400}
-                    animate={{
-                      fill:
-                        phase === 'between' && (v === lo || v === hi)
-                          ? BLUE
-                          : (phase === 'half' || phase === 'result') && v === value
-                            ? phase === 'result'
-                              ? GREEN
-                              : ORANGE
-                            : kind === 'major'
-                              ? PURPLE
-                              : MUTED,
-                    }}
+                    fontSize={10}
+                    fontWeight={shouldAnimate ? 700 : 400}
+                    animate={{ fill: phase === 'between' && (v === lo || v === hi) ? BLUE : PURPLE }}
                     transition={{ duration: 0.3 }}
                   >
                     {v}

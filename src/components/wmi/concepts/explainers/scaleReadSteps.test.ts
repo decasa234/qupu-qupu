@@ -2,11 +2,13 @@ import { describe, test, expect } from 'vitest'
 import { buildScaleReadSteps } from './scaleReadSteps'
 
 describe('buildScaleReadSteps', () => {
-  test('lo/hi: value 45 → lo 40, hi 50; value is the halfway mark', () => {
-    const sb = buildScaleReadSteps(50, 45, 'en')
-    expect(sb.lo).toBe(40)
-    expect(sb.hi).toBe(50)
-    expect(sb.lo + 5).toBe(sb.value)
+  test('lo/hi are the bounding numbered marks; value is exactly halfway', () => {
+    const a = buildScaleReadSteps(50, 45, 'en') // div 5
+    expect([a.lo, a.hi]).toEqual([40, 50])
+    expect((a.lo + a.hi) / 2).toBe(a.value)
+    const b = buildScaleReadSteps(20, 6, 'en') // div 2 (question numbers every 4)
+    expect([b.lo, b.hi]).toEqual([4, 8])
+    expect((b.lo + b.hi) / 2).toBe(b.value)
   })
 
   test('4 phases: show, between, half, result; last is the result', () => {

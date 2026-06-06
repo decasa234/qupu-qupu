@@ -7,14 +7,15 @@ describe('scale-read', () => {
     expect(concept.generate(mulberry32(7))).toEqual(concept.generate(mulberry32(7)))
   })
 
-  test('100 seeds: value is on a half-mark (×5, never ×10), strictly inside', () => {
+  test('100 seeds: value on an odd division, halfway between two numbered marks', () => {
     for (let seed = 1; seed <= 100; seed++) {
       const p = concept.generate(mulberry32(seed))
       expect(() => concept.paramsSchema.parse(p)).not.toThrow()
       expect(p.value).toBeGreaterThan(0)
       expect(p.value).toBeLessThan(p.max)
-      expect(p.value % 5).toBe(0) // on a 5-mark
-      expect(p.value % 10).toBe(5) // an odd multiple of 5 → never a numbered ×10 mark
+      const div = p.max / 10
+      expect(p.value % div).toBe(0) // sits on a division of the question's grid
+      expect((p.value / div) % 2).toBe(1) // an ODD division → never on a numbered mark
       const r = concept.render(p)
       expect(r.answer_type).toBe('fill_in')
       expect(r.answer).toBe(String(p.value))
