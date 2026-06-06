@@ -22,15 +22,28 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   const total = params.sugar + params.bottles * params.perBottle
+  const remaining = total - params.sugar
   return {
-    body_en: `A bag of sugar and ${params.bottles} bottles of milk weigh ${total} g in total. The sugar weighs ${params.sugar} g. How many grams does one bottle of milk weigh?`,
-    body_id: `Sekantong gula dan ${params.bottles} botol susu memiliki berat total ${total} g. Gula itu beratnya ${params.sugar} g. Berapa gram berat satu botol susu?`,
+    body_en: `A bag of sugar and ${params.bottles} identical [[bottle|bottles]] of milk are placed on a [[balance-scale|balance scale]]. Together they weigh ${total} g in total. The bag of sugar alone weighs ${params.sugar} g.\nFind: How many grams does one bottle of milk weigh?`,
+    body_id: `Sekantong gula dan ${params.bottles} [[bottle|botol]] susu yang identik diletakkan di atas [[balance-scale|timbangan]]. Bersama-sama beratnya ${total} g. Kantong gula saja beratnya ${params.sugar} g.\nCari: Berapa gram berat satu botol susu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(params.perBottle),
-    hint_en: 'Subtract the sugar first, then share what is left among the bottles.',
-    hint_id: 'Kurangi berat gula dulu, lalu bagi sisanya ke semua botol.',
+    hint_en: `Remove the sugar's weight from the total first — what remains belongs equally to each bottle.`,
+    hint_id: 'Kurangi berat gula dari total terlebih dahulu — sisanya terbagi rata ke setiap botol.',
+    hint_steps_en: [
+      `Total weight of everything: ${total} g`,
+      `Remove the sugar: ${total} − ${params.sugar} = ${remaining} g for the bottles`,
+      `Divide equally among ${params.bottles} bottles: ${remaining} ÷ ${params.bottles} = ${params.perBottle} g`,
+      `One bottle of milk weighs ${params.perBottle} g.`,
+    ],
+    hint_steps_id: [
+      `Berat total semua benda: ${total} g`,
+      `Kurangi berat gula: ${total} − ${params.sugar} = ${remaining} g untuk semua botol`,
+      `Bagi rata ke ${params.bottles} botol: ${remaining} ÷ ${params.bottles} = ${params.perBottle} g`,
+      `Satu botol susu beratnya ${params.perBottle} g.`,
+    ],
   }
 }
 

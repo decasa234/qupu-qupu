@@ -39,14 +39,24 @@ export function generate(rng: Rng): Params {
 export function render(params: Params) {
   const change = params.pay - params.cost
   return {
-    body_en: `${params.name} buys a ${params.item_en} that costs ${params.cost} dollars and pays with ${params.pay} dollars. How much change does ${params.name} get?`,
-    body_id: `${params.name} membeli sebuah ${params.item_id} seharga ${params.cost} dolar dan membayar dengan ${params.pay} dolar. Berapa kembalian yang ${params.name} terima?`,
+    body_en: `${params.name} wants to buy a ${params.item_en} priced at $${params.cost}. She pays the cashier $${params.pay}.\n\nFind: How much change does ${params.name} receive?`,
+    body_id: `${params.name} ingin membeli sebuah ${params.item_id} seharga $${params.cost}. Ia membayar kasir dengan $${params.pay}.\n\nCari: Berapa uang kembalian yang diterima ${params.name}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(change),
-    hint_en: 'Change is the money paid minus the price.',
-    hint_id: 'Kembalian adalah uang yang dibayar dikurangi harga.',
+    hint_en: `Think about what the cashier does: subtract the price from the amount paid to find the change.`,
+    hint_id: `Bayangkan apa yang dilakukan kasir: kurangkan harga barang dari uang yang dibayarkan untuk menemukan kembaliannya.`,
+    hint_steps_en: [
+      `Price of the ${params.item_en}: $${params.cost}`,
+      `Amount paid: $${params.pay}`,
+      `Change = amount paid − price = $${params.pay} − $${params.cost} = $${change}`,
+    ],
+    hint_steps_id: [
+      `Harga ${params.item_id}: $${params.cost}`,
+      `Uang yang dibayarkan: $${params.pay}`,
+      `Kembalian = uang dibayar − harga = $${params.pay} − $${params.cost} = $${change}`,
+    ],
   }
 }
 

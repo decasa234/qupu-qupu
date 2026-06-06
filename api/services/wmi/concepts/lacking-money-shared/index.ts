@@ -26,16 +26,25 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   // cake price = lackA + lackB; A's money = price - lackA = lackB.
+  const price = params.lackA + params.lackB
   const answer = params.lackB
   return {
-    body_en: `${params.nameA} and ${params.nameB} want to buy the same cake. ${params.nameA} is short ${params.lackA} dollars, and ${params.nameB} is short ${params.lackB} dollars. If they put their money together it is exactly enough for one cake. How much money does ${params.nameA} have?`,
-    body_id: `${params.nameA} dan ${params.nameB} ingin membeli kue yang sama. ${params.nameA} kurang ${params.lackA} dolar, dan ${params.nameB} kurang ${params.lackB} dolar. Jika uang mereka digabung, pas untuk satu kue. Berapa uang yang dimiliki ${params.nameA}?`,
+    body_en: `${params.nameA} and ${params.nameB} each want to buy the same cake, but neither has enough money alone. ${params.nameA} is $${params.lackA} short, and ${params.nameB} is $${params.lackB} short. When they combine their money it is exactly enough to buy one cake. Find: How much money does ${params.nameA} have?`,
+    body_id: `${params.nameA} dan ${params.nameB} masing-masing ingin membeli kue yang sama, tetapi keduanya tidak punya cukup uang. ${params.nameA} kurang Rp${params.lackA}, dan ${params.nameB} kurang Rp${params.lackB}. Ketika uang mereka digabungkan, tepat cukup untuk membeli satu kue. Cari: Berapa uang yang dimiliki ${params.nameA}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(answer),
-    hint_en: 'Together they are short (lackA + lackB), which equals one cake — so that is the price.',
-    hint_id: 'Bersama mereka kurang (kurangA + kurangB), yang sama dengan satu kue — jadi itulah harganya.',
+    hint_en: `Try working out the price of the cake first — think about what their combined shortfall tells you.`,
+    hint_id: `Coba cari harga kuenya terlebih dahulu — pikirkan apa yang diungkapkan total kekurangan mereka berdua.`,
+    hint_steps_en: [
+      `The two shortfalls together equal exactly one cake price, so price = $${params.lackA} + $${params.lackB} = $${price}.`,
+      `${params.nameA} is $${params.lackA} short of that price, so ${params.nameA}'s money = $${price} − $${params.lackA} = $${answer}.`,
+    ],
+    hint_steps_id: [
+      `Kekurangan keduanya bersama-sama tepat sama dengan harga satu kue, jadi harga kue = Rp${params.lackA} + Rp${params.lackB} = Rp${price}.`,
+      `${params.nameA} kurang Rp${params.lackA} dari harga itu, sehingga uang ${params.nameA} = Rp${price} − Rp${params.lackA} = Rp${answer}.`,
+    ],
   }
 }
 

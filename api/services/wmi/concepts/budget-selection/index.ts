@@ -30,15 +30,38 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   const list = params.prices.join(', ')
+  const affordable = params.prices.filter((p) => p <= params.budget)
+  const tooExpensive = params.prices.filter((p) => p > params.budget)
+  const answer = bestAffordable(params)
+
+  const affordableList = affordable.join(', ')
+  const tooExpensiveList = tooExpensive.join(', ')
+
+  const hint_steps_en = [
+    `List all four prices: ${list}.`,
+    `Cross out prices above the budget of ${params.budget}: ${tooExpensiveList}.`,
+    `The remaining prices that fit the budget are: ${affordableList}.`,
+    `The largest of these is ${answer}, so the answer is ${answer}.`,
+  ]
+
+  const hint_steps_id = [
+    `Catat keempat harga: ${list}.`,
+    `Coret harga yang melebihi anggaran ${params.budget}: ${tooExpensiveList}.`,
+    `Harga yang masih terjangkau adalah: ${affordableList}.`,
+    `Yang terbesar di antaranya adalah ${answer}, sehingga jawaban adalah ${answer}.`,
+  ]
+
   return {
-    body_en: `Four tickets are sold at these prices: ${list} dollars. With a budget of ${params.budget} dollars, what is the price of the most expensive ticket you can afford?`,
-    body_id: `Empat tiket dijual dengan harga: ${list} dolar. Dengan anggaran ${params.budget} dolar, berapa harga tiket termahal yang masih dapat kamu beli?`,
+    body_en: `A ticket booth offers four seats at prices of ${list} dollars. You have a budget of ${params.budget} dollars.\n\nFind: What is the highest price you can pay for a ticket without exceeding your budget?`,
+    body_id: `Sebuah loket tiket menawarkan empat kursi dengan harga ${list} dolar. Kamu memiliki anggaran sebesar ${params.budget} dolar.\n\nCari: Berapa harga tiket tertinggi yang dapat kamu beli tanpa melampaui anggaranmu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(bestAffordable(params)),
-    hint_en: 'Ignore any price above your budget, then pick the largest of the rest.',
-    hint_id: 'Abaikan harga di atas anggaran, lalu pilih yang terbesar dari sisanya.',
+    answer: String(answer),
+    hint_en: 'First rule out every price that is too high, then find the greatest price among those that remain.',
+    hint_id: 'Singkirkan terlebih dahulu harga yang terlalu mahal, lalu cari harga terbesar dari yang tersisa.',
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 

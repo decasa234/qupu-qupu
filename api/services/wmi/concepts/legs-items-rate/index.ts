@@ -49,15 +49,32 @@ export function render(params: Params) {
     .join(' ')
   const notesID = items.filter((it) => it.a.note).map((it) => `Seekor ${it.a.id} memiliki ${it.a.legs} kaki.`).join(' ')
 
+  const partialEN = items.map((it) => String(it.n * it.a.legs))
+  const partialID = items.map((it) => String(it.n * it.a.legs))
+
+  const hintStepsEN = [
+    ...items.map((it) => {
+      const label = it.n === 1 ? `1 ${it.a.en1}` : `${it.n} ${it.a.en}`
+      return `${label}: ${it.n} x ${it.a.legs} = ${it.n * it.a.legs} legs`
+    }),
+    `Add them up: ${partialEN.join(' + ')} = ${answer}`,
+  ]
+  const hintStepsID = [
+    ...items.map((it) => `${it.n} ekor ${it.a.id}: ${it.n} x ${it.a.legs} = ${it.n * it.a.legs} kaki`),
+    `Jumlahkan: ${partialID.join(' + ')} = ${answer}`,
+  ]
+
   return {
-    body_en: `How many legs do ${joinEN} have in total?${notesEN ? ' (' + notesEN + ')' : ''}`,
-    body_id: `Berapa jumlah kaki dari ${joinID} seluruhnya?${notesID ? ' (' + notesID + ')' : ''}`,
+    body_en: `A farmer has ${joinEN}.${notesEN ? ' (' + notesEN + ')' : ''} Find: How many legs are there altogether?`,
+    body_id: `Seorang peternak memiliki ${joinID}.${notesID ? ' (' + notesID + ')' : ''} Cari: Berapa jumlah kaki seluruhnya?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(answer),
-    hint_en: 'Multiply each animal’s count by its number of legs, then add the totals.',
-    hint_id: 'Kalikan jumlah tiap hewan dengan banyak kakinya, lalu jumlahkan semuanya.',
+    hint_en: 'Count the legs from each group separately, then add all the groups together.',
+    hint_id: 'Hitung kaki dari setiap kelompok hewan secara terpisah, lalu jumlahkan semuanya.',
+    hint_steps_en: hintStepsEN,
+    hint_steps_id: hintStepsID,
   }
 }
 
