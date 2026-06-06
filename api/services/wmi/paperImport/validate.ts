@@ -8,7 +8,7 @@ export function validatePaper(paper: PaperFile, presentFigures: Set<string>): st
   const numbers = paper.questions.map((q) => q.number)
   for (let i = 0; i < numbers.length; i++) {
     if (numbers[i] !== i + 1) {
-      problems.push(`numbering not contiguous at position ${i + 1} (found ${numbers[i]}, expected ${i + 1})`)
+      problems.push(`numbering not contiguous at position ${i + 1} (found ${numbers[i]}, expected ${i + 1}; later numbers may also be off)`)
       break
     }
   }

@@ -9,6 +9,7 @@ function cells(row: string): string[] {
 
 function parseSection(section: string): Record<number, string> {
   const out: Record<number, string> = {}
+  // Each section is a series of two-row tables: row 0 = question numbers, row 1 = answers.
   for (const [, inner] of section.matchAll(/<table>([\s\S]*?)<\/table>/g)) {
     const rows = [...inner.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((m) => m[1])
     if (rows.length < 2) continue
@@ -16,7 +17,7 @@ function parseSection(section: string): Record<number, string> {
     const ans = cells(rows[1])
     for (let i = 0; i < nums.length; i++) {
       const n = Number(nums[i])
-      if (Number.isInteger(n) && ans[i] !== undefined && ans[i] !== '') out[n] = ans[i]
+      if (Number.isInteger(n) && n > 0 && ans[i] !== undefined && ans[i] !== '') out[n] = ans[i]
     }
   }
   return out
