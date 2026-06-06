@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
 import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
+import BarChartCompareExplainer from './BarChartCompareExplainer'
 import BudgetSelectionExplainer from './BudgetSelectionExplainer'
 import BuildNumberExplainer from './BuildNumberExplainer'
 import ClockReadTimeExplainer from './ClockReadTimeExplainer'
@@ -34,6 +35,7 @@ import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
 import StorySumExplainer from './StorySumExplainer'
+import TallyMarksCountExplainer from './TallyMarksCountExplainer'
 import UnitConversionExplainer from './UnitConversionExplainer'
 import WeightBalanceExplainer from './WeightBalanceExplainer'
 import WhichExpressionEqualsExplainer from './WhichExpressionEqualsExplainer'
@@ -57,6 +59,7 @@ export interface ExplainerProps {
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'alternating-chain-eval': AlternatingChainEvalExplainer,
   'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
+  'bar-chart-compare': BarChartCompareExplainer,
   'budget-selection': BudgetSelectionExplainer,
   'build-number-from-digit-clues': BuildNumberExplainer,
   'clock-read-time': ClockReadTimeExplainer,
@@ -90,6 +93,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
   'story-sum': StorySumExplainer,
+  'tally-marks-count': TallyMarksCountExplainer,
   'unit-conversion': UnitConversionExplainer,
   'weight-balance-word': WeightBalanceExplainer,
   'which-expression-equals': WhichExpressionEqualsExplainer,
