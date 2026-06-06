@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
+import AngleTypeExplainer from './AngleTypeExplainer'
 import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
 import BarChartCompareExplainer from './BarChartCompareExplainer'
 import BudgetSelectionExplainer from './BudgetSelectionExplainer'
@@ -8,6 +9,7 @@ import ClockReadTimeExplainer from './ClockReadTimeExplainer'
 import ClockTimeAfterExplainer from './ClockTimeAfterExplainer'
 import CompareOrderExplainer from './CompareOrderExplainer'
 import CountObjectsExplainer from './CountObjectsExplainer'
+import CountPolygonSidesExplainer from './CountPolygonSidesExplainer'
 import CustomOperationExplainer from './CustomOperationExplainer'
 import DigitFrequencyExplainer from './DigitFrequencyExplainer'
 import DigitSumExplainer from './DigitSumExplainer'
@@ -27,14 +29,18 @@ import NumberPyramidExplainer from './NumberPyramidExplainer'
 import OddEvenExplainer from './OddEvenExplainer'
 import PatternNextExplainer from './PatternNextExplainer'
 import PerfectSquareExplainer from './PerfectSquareExplainer'
+import PerimeterAreaComposedExplainer from './PerimeterAreaComposedExplainer'
 import PlaceValueExplainer from './PlaceValueExplainer'
 import ProductConsecutiveExplainer from './ProductConsecutiveExplainer'
+import RectangleAreaGridExplainer from './RectangleAreaGridExplainer'
 import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
 import ScaleReadExplainer from './ScaleReadExplainer'
+import ShapePerimeterRectangleExplainer from './ShapePerimeterRectangleExplainer'
 import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
 import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
 import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
 import StorySumExplainer from './StorySumExplainer'
+import SymmetryCountExplainer from './SymmetryCountExplainer'
 import TallyMarksCountExplainer from './TallyMarksCountExplainer'
 import UnitConversionExplainer from './UnitConversionExplainer'
 import WeightBalanceExplainer from './WeightBalanceExplainer'
@@ -58,6 +64,7 @@ export interface ExplainerProps {
 
 export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'alternating-chain-eval': AlternatingChainEvalExplainer,
+  'angle-type': AngleTypeExplainer,
   'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
   'bar-chart-compare': BarChartCompareExplainer,
   'budget-selection': BudgetSelectionExplainer,
@@ -66,6 +73,7 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'clock-time-after': ClockTimeAfterExplainer,
   'compare-order-numbers': CompareOrderExplainer,
   'count-objects': CountObjectsExplainer,
+  'count-polygon-sides': CountPolygonSidesExplainer,
   'custom-operation': CustomOperationExplainer,
   'digit-frequency': DigitFrequencyExplainer,
   'digit-sum': DigitSumExplainer,
@@ -85,14 +93,18 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'odd-even-reasoning': OddEvenExplainer,
   'pattern-next': PatternNextExplainer,
   'perfect-square-search': PerfectSquareExplainer,
+  'perimeter-area-composed': PerimeterAreaComposedExplainer,
   'place-value': PlaceValueExplainer,
   'product-of-consecutive': ProductConsecutiveExplainer,
+  'rectangle-area-grid': RectangleAreaGridExplainer,
   'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
   'scale-read': ScaleReadExplainer,
+  'shape-perimeter-rectangle': ShapePerimeterRectangleExplainer,
   'shape-perimeter-square': ShapePerimeterSquareExplainer,
   'single-digit-addition': SingleDigitAdditionExplainer,
   'single-digit-subtraction': SingleDigitSubtractionExplainer,
   'story-sum': StorySumExplainer,
+  'symmetry-count': SymmetryCountExplainer,
   'tally-marks-count': TallyMarksCountExplainer,
   'unit-conversion': UnitConversionExplainer,
   'weight-balance-word': WeightBalanceExplainer,
