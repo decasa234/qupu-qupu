@@ -35,13 +35,13 @@ export function render(params: Params) {
       `Consecutive numbers differ by 1, so call them n and n + 1; their product is n × (n + 1) = ${product}.`,
       `Estimate: √${product} ≈ ${sqrtFloor}, so try n = ${sqrtFloor}.`,
       `Check: ${sqrtFloor} × ${sqrtFloor + 1} = ${sqrtFloor * (sqrtFloor + 1)}.`,
-      `${sqrtFloor * (sqrtFloor + 1) === product ? `That equals ${product}, so the two numbers are ${sqrtFloor} and ${sqrtFloor + 1}; the larger is **${sqrtFloor + 1}**.` : `Adjust: try n = ${n}; ${n} × ${n + 1} = ${product} ✓. The larger number is **${n + 1}**.`}`,
+      `${sqrtFloor * (sqrtFloor + 1) === product ? `That equals ${product}, so the two numbers are ${sqrtFloor} and ${sqrtFloor + 1}; the larger is ${sqrtFloor + 1}.` : `Adjust: try n = ${n}; ${n} × ${n + 1} = ${product} ✓. The larger number is ${n + 1}.`}`,
     ],
     hint_steps_id: [
       `Bilangan berurutan berselisih 1, sebut saja n dan n + 1; hasil kalinya n × (n + 1) = ${product}.`,
       `Perkiraan: √${product} ≈ ${sqrtFloor}, coba n = ${sqrtFloor}.`,
       `Periksa: ${sqrtFloor} × ${sqrtFloor + 1} = ${sqrtFloor * (sqrtFloor + 1)}.`,
-      `${sqrtFloor * (sqrtFloor + 1) === product ? `Hasilnya ${product}, jadi kedua bilangannya adalah ${sqrtFloor} dan ${sqrtFloor + 1}; yang lebih besar adalah **${sqrtFloor + 1}**.` : `Sesuaikan: coba n = ${n}; ${n} × ${n + 1} = ${product} ✓. Bilangan yang lebih besar adalah **${n + 1}**.`}`,
+      `${sqrtFloor * (sqrtFloor + 1) === product ? `Hasilnya ${product}, jadi kedua bilangannya adalah ${sqrtFloor} dan ${sqrtFloor + 1}; yang lebih besar adalah ${sqrtFloor + 1}.` : `Sesuaikan: coba n = ${n}; ${n} × ${n + 1} = ${product} ✓. Bilangan yang lebih besar adalah ${n + 1}.`}`,
     ],
   }
 }
