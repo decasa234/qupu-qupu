@@ -8,47 +8,67 @@ const BLUE = '#2f6df0'
 const ORANGE = '#F97316'
 const GREEN = '#10B981'
 const PURPLE = '#341857'
-const MUTED = '#9aa3b2'
+const MUTED = '#cbd5e1'
+
+// SVG geometry — centres are aligned so each parent sits exactly over the two
+// children it sums (so connectors always meet block centres, any digit count).
+const VW = 300
+const VH = 190
+const BW = 54
+const BH = 42
+const HALF_W = BW / 2
+const HALF_H = BH / 2
+
+const BOTTOM = [60, 150, 240].map((x) => ({ x, y: 158 }))
+const MIDDLE = [105, 195].map((x) => ({ x, y: 96 })) // midpoints of bottom pairs
+const TOP = { x: 150, y: 34 } // midpoint of the middle pair
 
 function Block({
+  cx,
+  cy,
   value,
-  color = BLUE,
-  visible = true,
+  color,
+  fill,
+  textColor,
+  delay = 0,
 }: {
+  cx: number
+  cy: number
   value: number | string
-  color?: string
-  visible?: boolean
+  color: string
+  fill: string
+  textColor: string
+  delay?: number
 }) {
-  if (!visible) {
-    return <div className="h-12 min-w-[3rem]" />
-  }
   return (
-    <motion.div
-      initial={{ scale: 0.6, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 26 }}
-      className="flex h-12 min-w-[3rem] items-center justify-center rounded-xl border-[3px] bg-white px-3 font-display text-2xl font-extrabold"
-      style={{ borderColor: color, color: PURPLE }}
+    <motion.g
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 26, delay }}
     >
-      {value}
-    </motion.div>
+      <rect x={cx - HALF_W} y={cy - HALF_H} width={BW} height={BH} rx={10} fill={fill} stroke={color} strokeWidth={3} />
+      <text x={cx} y={cy + 8} textAnchor="middle" fontSize={22} fontWeight={800} fill={textColor} fontFamily="system-ui, sans-serif">
+        {value}
+      </text>
+    </motion.g>
   )
 }
 
-function ConnectorLine({ left, right }: { left?: boolean; right?: boolean }) {
+function Connector({ from, to, active }: { from: { x: number; y: number }; to: { x: number; y: number }; active: boolean }) {
+  // from = child (lower) top edge → to = parent (upper) bottom edge
   return (
-    <div className="flex items-end justify-center gap-0" style={{ width: '4.5rem', height: '1.25rem' }}>
-      {left && (
-        <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
-          <line x1="18" y1="0" x2="0" y2="20" stroke={MUTED} strokeWidth="2" />
-        </svg>
-      )}
-      {right && (
-        <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
-          <line x1="18" y1="0" x2="36" y2="20" stroke={MUTED} strokeWidth="2" />
-        </svg>
-      )}
-    </div>
+    <motion.line
+      x1={from.x}
+      y1={from.y - HALF_H}
+      x2={to.x}
+      y2={to.y + HALF_H}
+      stroke={active ? ORANGE : MUTED}
+      strokeWidth={active ? 3 : 2}
+      strokeLinecap="round"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, stroke: active ? ORANGE : MUTED }}
+      transition={{ duration: 0.3 }}
+    />
   )
 }
 
@@ -64,7 +84,11 @@ export default function NumberPyramidExplainer(props: ExplainerProps) {
 
   const showMiddle = phase === 'middle' || phase === 'top' || phase === 'result'
   const showTop = phase === 'top' || phase === 'result'
+  const midActive = phase === 'middle'
+  const topActive = phase === 'top'
   const topColor = phase === 'result' ? GREEN : BLUE
+  const topFill = phase === 'result' ? '#D1FAE5' : '#fff'
+  const topText = phase === 'result' ? '#065F46' : PURPLE
 
   const ariaLabel =
     lang === 'id'
@@ -74,54 +98,40 @@ export default function NumberPyramidExplainer(props: ExplainerProps) {
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
       <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
-        {/* Pyramid visual */}
-        <div className="flex flex-col items-center gap-0">
-          {/* Top row — 1 block */}
-          <div className="flex items-center justify-center" style={{ minHeight: '3rem' }}>
-            {showTop ? (
-              <Block value={top} color={topColor} />
-            ) : (
-              <div className="h-12 min-w-[3rem]" />
-            )}
-          </div>
-
-          {/* Connector lines: top to middle */}
-          {showTop && showMiddle && (
-            <div className="flex items-end" style={{ gap: '3rem' }}>
-              <ConnectorLine left />
-              <ConnectorLine right />
-            </div>
+        <svg viewBox={`0 0 ${VW} ${VH}`} width="100%" style={{ maxWidth: 320 }} aria-hidden="true">
+          {/* Connectors bottom → middle (only once the middle row is shown) */}
+          {showMiddle && (
+            <>
+              <Connector from={BOTTOM[0]} to={MIDDLE[0]} active={midActive} />
+              <Connector from={BOTTOM[1]} to={MIDDLE[0]} active={midActive} />
+              <Connector from={BOTTOM[1]} to={MIDDLE[1]} active={midActive} />
+              <Connector from={BOTTOM[2]} to={MIDDLE[1]} active={midActive} />
+            </>
+          )}
+          {/* Connectors middle → top */}
+          {showTop && (
+            <>
+              <Connector from={MIDDLE[0]} to={TOP} active={topActive} />
+              <Connector from={MIDDLE[1]} to={TOP} active={topActive} />
+            </>
           )}
 
-          {/* Middle row — 2 blocks */}
-          <div className="flex items-center justify-center gap-6" style={{ minHeight: '3rem' }}>
-            {showMiddle ? (
-              <>
-                <Block value={mid[0]} color={ORANGE} />
-                <Block value={mid[1]} color={ORANGE} />
-              </>
-            ) : (
-              <>
-                <div className="h-12 min-w-[3rem]" />
-                <div className="h-12 min-w-[3rem]" />
-              </>
-            )}
-          </div>
+          {/* Bottom row — always visible */}
+          <Block cx={BOTTOM[0].x} cy={BOTTOM[0].y} value={a} color={BLUE} fill="#EFF4FF" textColor={PURPLE} />
+          <Block cx={BOTTOM[1].x} cy={BOTTOM[1].y} value={b} color={BLUE} fill="#EFF4FF" textColor={PURPLE} />
+          <Block cx={BOTTOM[2].x} cy={BOTTOM[2].y} value={c} color={BLUE} fill="#EFF4FF" textColor={PURPLE} />
 
-          {/* Connector lines: middle to bottom */}
-          <div className="flex items-end" style={{ gap: '1.5rem' }}>
-            <ConnectorLine left />
-            <ConnectorLine left right />
-            <ConnectorLine right />
-          </div>
+          {/* Middle row */}
+          {showMiddle && (
+            <>
+              <Block cx={MIDDLE[0].x} cy={MIDDLE[0].y} value={mid[0]} color={ORANGE} fill="#FFF7ED" textColor={PURPLE} />
+              <Block cx={MIDDLE[1].x} cy={MIDDLE[1].y} value={mid[1]} color={ORANGE} fill="#FFF7ED" textColor={PURPLE} delay={0.08} />
+            </>
+          )}
 
-          {/* Bottom row — 3 blocks (always visible) */}
-          <div className="flex items-center justify-center gap-3">
-            <Block value={a} color={BLUE} />
-            <Block value={b} color={BLUE} />
-            <Block value={c} color={BLUE} />
-          </div>
-        </div>
+          {/* Top */}
+          {showTop && <Block cx={TOP.x} cy={TOP.y} value={top} color={topColor} fill={topFill} textColor={topText} />}
+        </svg>
 
         {/* Caption */}
         <div
