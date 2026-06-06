@@ -121,6 +121,43 @@ export function buildDirectionTurnSteps(
     })
   }
 
+  // Shortcut explanation for big rotations (more than 180°). Teaches the smart
+  // reductions an olympiad tutor would use: drop whole circles (every 4 turns
+  // returns to the start), and a 270° clockwise turn equals one quarter-turn
+  // the other way. The arrow holds on the final direction while we explain.
+  const finalHeading = startHeading + turns * 90
+  if (turns >= 3) {
+    const fullCircles = Math.floor(turns / 4)
+    if (turns >= 4) {
+      steps.push({
+        dirIndex: finalDirIndex,
+        headingDeg: finalHeading,
+        caption: t(
+          netTurns === 0
+            ? `Shortcut: every 4 turns is one full circle. ${turns} turns = ${fullCircles} full circle${fullCircles > 1 ? 's' : ''}, right back to ${startNameEN}.`
+            : `Shortcut: every 4 turns is one full circle. ${turns} = ${fullCircles}×4 + ${netTurns}, so only ${netTurns} turn${netTurns > 1 ? 's' : ''} change your direction.`,
+          netTurns === 0
+            ? `Pintasan: setiap 4 putaran adalah satu lingkaran penuh. ${turns} putaran = ${fullCircles} lingkaran penuh, kembali tepat ke ${startNameID}.`
+            : `Pintasan: setiap 4 putaran adalah satu lingkaran penuh. ${turns} = ${fullCircles}×4 + ${netTurns}, jadi hanya ${netTurns} putaran yang mengubah arah.`,
+        ),
+        hold: 2400,
+        result: false,
+      })
+    }
+    if (netTurns === 3) {
+      steps.push({
+        dirIndex: finalDirIndex,
+        headingDeg: finalHeading,
+        caption: t(
+          `Shortcut: 3 quarter-turns clockwise (270°) is the same as 1 the other way (90° counter-clockwise) — both face ${finalNameEN}.`,
+          `Pintasan: 3 putaran searah jarum jam (270°) sama dengan 1 putaran arah sebaliknya (90° berlawanan jarum jam) — sama-sama menghadap ${finalNameID}.`,
+        ),
+        hold: 2400,
+        result: false,
+      })
+    }
+  }
+
   // Final result beat
   const resultHeadingDeg = steps[steps.length - 1].headingDeg
   const resultCaption = t(
