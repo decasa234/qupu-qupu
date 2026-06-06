@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { LogicFrame, Pill } from './LogicVisuals'
 import { useLogicBeat } from './useLogicBeat'
@@ -30,79 +31,116 @@ export function MissingAddendExplainer(props: ExplainerProps) {
   const { beat } = useLogicBeat(story, props)
   const { sum } = story
 
-  const showBar = beat.phase !== 'equation'
-  const removeKnown = beat.phase === 'inverse' || beat.phase === 'solve' || beat.phase === 'answer'
+  // Before the switch the +b term sits on the left of the = sign; after it,
+  // it has crossed to the right and flipped to −b.
+  const beforeSwitch = beat.phase === 'equation' || beat.phase === 'isolate'
+  const isolating = beat.phase === 'isolate'
+  const switching = beat.phase === 'switch'
   const showSolve = beat.phase === 'solve' || beat.phase === 'answer'
   const reveal = beat.phase === 'answer'
 
-  const missingBox = `grid h-14 w-14 place-items-center rounded-2xl border-4 text-3xl font-black shadow-sm transition-all ${reveal ? 'border-emerald-400 bg-emerald-100 text-emerald-700' : 'border-amber-300 bg-amber-100 text-amber-700'}`
+  const spring = { type: 'spring', stiffness: 380, damping: 30 } as const
+  const missingBox = `grid h-16 w-16 place-items-center rounded-2xl border-4 text-4xl font-black shadow-sm transition-colors ${reveal ? 'border-emerald-400 bg-emerald-100 text-emerald-700' : 'border-amber-300 bg-amber-100 text-amber-700'}`
 
   return (
     <div
-      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4"
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-6"
       role="img"
       aria-label={T(
-        `Find the missing addend: the whole ${sum} minus the known part ${b} gives ${a}.`,
-        `Cari bilangan yang hilang: seluruh ${sum} dikurangi bagian diketahui ${b} sama dengan ${a}.`,
+        `Solve ? + ${b} = ${sum}: switch +${b} across the = sign where it becomes −${b}, so ? = ${sum} − ${b} = ${a}.`,
+        `Selesaikan ? + ${b} = ${sum}: pindahkan +${b} melewati tanda = sehingga menjadi −${b}, jadi ? = ${sum} − ${b} = ${a}.`,
       )}
     >
-      <div className="flex w-full flex-col items-center gap-5">
-        {/* Equation row */}
-        <div className="flex items-center gap-2 text-3xl font-black text-slate-800">
-          <span className={missingBox}>{reveal ? a : '?'}</span>
-          <span className="text-slate-400">+</span>
-          <span className="grid h-14 min-w-14 place-items-center rounded-2xl border-4 border-sky-300 bg-sky-100 px-2 text-sky-700">{b}</span>
-          <span className="text-slate-400">=</span>
-          <span className="grid h-14 min-w-14 place-items-center rounded-2xl border-4 border-violet-300 bg-violet-100 px-2 text-violet-700">{sum}</span>
-        </div>
+      {/* Equation — the +b term slides across the = sign and flips to −b */}
+      <div className="flex min-h-[5.5rem] flex-wrap items-center justify-center gap-2 text-4xl font-black text-slate-700">
+        <motion.span layout transition={spring} className={missingBox}>
+          {reveal ? a : '?'}
+        </motion.span>
 
-        {/* Part–whole bar model */}
-        <div className={`flex w-full max-w-sm flex-col gap-2 transition-opacity duration-500 ${showBar ? 'opacity-100' : 'opacity-30'}`}>
-          {/* Whole */}
-          <div className="flex h-12 items-center justify-center rounded-2xl border-4 border-violet-300 bg-violet-100 text-2xl font-black text-violet-700">
-            {sum}
-          </div>
-          {/* Two parts */}
-          <div className="flex gap-2">
-            <div
-              style={{ flex: Math.max(1, a) }}
-              className={`flex h-12 min-w-[3rem] items-center justify-center rounded-2xl border-4 text-2xl font-black transition-all ${reveal ? 'border-emerald-400 bg-emerald-100 text-emerald-700' : 'border-amber-300 bg-amber-100 text-amber-700'}`}
-            >
-              {reveal ? a : '?'}
-            </div>
-            <div
-              style={{ flex: Math.max(1, b) }}
-              className={`flex h-12 min-w-[3rem] items-center justify-center rounded-2xl border-4 text-2xl font-black transition-all ${removeKnown ? 'border-rose-300 bg-rose-50 text-rose-400 opacity-50' : 'border-sky-300 bg-sky-100 text-sky-700'}`}
-            >
-              {b}
-            </div>
-          </div>
-          {/* Part labels */}
-          <div className="flex gap-2 px-1 text-xs font-bold text-slate-500">
-            <div style={{ flex: Math.max(1, a) }} className="min-w-[3rem] text-center">{T('missing part', 'bagian hilang')}</div>
-            <div style={{ flex: Math.max(1, b) }} className="min-w-[3rem] text-center">{T('known part', 'bagian diketahui')}</div>
-          </div>
-          {/* Inverse arithmetic */}
-          <div className={`text-center text-xl font-black transition-opacity duration-300 ${showSolve ? 'opacity-100' : 'opacity-0'}`}>
-            <span className="text-violet-700">{sum}</span>
-            <span className="text-slate-400"> − </span>
-            <span className="text-rose-500">{b}</span>
-            <span className="text-slate-400"> = </span>
-            <span className="text-emerald-700">{a}</span>
-          </div>
-        </div>
+        {beforeSwitch && (
+          <motion.span
+            layout
+            layoutId="movable-term"
+            transition={spring}
+            className={`grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 px-3 text-3xl font-black transition-colors ${isolating ? 'border-sky-400 bg-sky-100 text-sky-700 ring-4 ring-sky-200' : 'border-emerald-300 bg-emerald-50 text-emerald-700'}`}
+          >
+            +{b}
+          </motion.span>
+        )}
 
-        {/* Step-by-step */}
-        <div className="rounded-2xl border border-admin-line bg-admin-card p-4 shadow-admin-soft sm:p-5">
-          <ol className="space-y-3 text-left text-sm font-bold text-admin-text">
-            {story.steps.map((step, index) => (
-              <li key={step.phase} className={`flex gap-3 transition-all ${step.phase === beat.phase ? 'text-admin-accent' : 'text-admin-muted'}`}>
-                <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-black ${step.phase === beat.phase ? 'bg-admin-accent text-white' : 'bg-admin-subtle text-admin-muted'}`}>{index + 1}</span>
-                <span>{step.caption}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <motion.span layout transition={spring} className="px-1 text-slate-400">=</motion.span>
+
+        <motion.span
+          layout
+          transition={spring}
+          className="grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 border-violet-300 bg-violet-100 px-3 text-violet-700"
+        >
+          {sum}
+        </motion.span>
+
+        {!beforeSwitch && (
+          <motion.span
+            layout
+            layoutId="movable-term"
+            transition={spring}
+            initial={{ scale: 1 }}
+            animate={switching ? { scale: [1, 1.18, 1] } : { scale: 1 }}
+            className="grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 border-rose-300 bg-rose-100 px-3 text-3xl font-black text-rose-600"
+          >
+            −{b}
+          </motion.span>
+        )}
+      </div>
+
+      {/* Basic rule callout — only while the term is crossing */}
+      <div className="flex min-h-[3rem] items-center justify-center">
+        <AnimatePresence mode="wait">
+          {switching && (
+            <motion.div
+              key="rule"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-2 rounded-xl border-2 px-4 py-2 font-display text-base font-extrabold"
+              style={{ background: '#FFF4E8', borderColor: '#F97316', color: '#8a4b1d' }}
+            >
+              <span className="text-emerald-600">+</span>
+              <span aria-hidden>→</span>
+              <span className="text-rose-600">−</span>
+              <span className="ml-1">{T('when it crosses =', 'saat melewati =')}</span>
+            </motion.div>
+          )}
+          {showSolve && (
+            <motion.div
+              key="solve"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-2xl font-black"
+            >
+              <span className="text-slate-400">? = </span>
+              <span className="text-violet-700">{sum}</span>
+              <span className="text-slate-400"> − </span>
+              <span className="text-rose-500">{b}</span>
+              <span className="text-slate-400"> = </span>
+              <span className="text-emerald-700">{a}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Single caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
       </div>
     </div>
   )

@@ -10,9 +10,8 @@ export interface MissingAddendStory {
   finalIndex: number
 }
 
-// A9 (grades 1–2): teach the missing addend with a part–whole model and the
-// inverse operation — the whole minus the known part gives the missing part —
-// NOT algebraic "move it across the equals sign" transposition.
+// A9: solve the missing addend by switching the known term across the equals
+// sign — the basic rule being that a term flips sign when it crosses (+ ↔ −).
 export function buildMissingAddendStory(
   p: MissingAddendParams,
   lang: 'en' | 'id' = 'en',
@@ -26,27 +25,21 @@ export function buildMissingAddendStory(
     {
       phase: 'equation',
       caption: T(`Find the missing number: ? + ${b} = ${sum}.`, `Cari bilangan yang hilang: ? + ${b} = ${sum}.`),
+      hold: 1600,
+    },
+    {
+      phase: 'isolate',
+      caption: T(`To get ? by itself, switch +${b} across the = sign.`, `Agar ? sendiri, pindahkan +${b} melewati tanda =.`),
       hold: 1700,
     },
     {
-      phase: 'parts',
-      caption: T(
-        `? and ${b} are two parts that together make ${sum}.`,
-        `? dan ${b} adalah dua bagian yang bersama membentuk ${sum}.`,
-      ),
-      hold: 1800,
-    },
-    {
-      phase: 'inverse',
-      caption: T(
-        `To find a missing part, subtract the part you know.`,
-        `Untuk mencari bagian yang hilang, kurangi bagian yang diketahui.`,
-      ),
+      phase: 'switch',
+      caption: T(`Crossing the = sign, +${b} becomes −${b}.`, `Melewati tanda =, +${b} menjadi −${b}.`),
       hold: 1900,
     },
     {
       phase: 'solve',
-      caption: T(`Whole minus known part: ${sum} − ${b} = ${a}.`, `Seluruh dikurangi bagian diketahui: ${sum} − ${b} = ${a}.`),
+      caption: T(`Now ? = ${sum} − ${b} = ${a}.`, `Sekarang ? = ${sum} − ${b} = ${a}.`),
       hold: 1700,
     },
     {
