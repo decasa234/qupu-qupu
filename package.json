@@ -11,6 +11,7 @@
     "check": "tsc --noEmit",
     "test": "vitest run",
     "seed:wmi": "tsx db/seed/wmi/load.ts",
+    "wmi:validate": "tsx db/seed/wmi/validate-papers.ts",
     "server:dev": "nodemon",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
   },
