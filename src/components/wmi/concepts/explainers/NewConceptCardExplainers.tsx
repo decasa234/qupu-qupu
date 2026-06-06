@@ -5,6 +5,7 @@ import { LogicFrame, Pill } from './LogicVisuals'
 import { useLogicBeat } from './useLogicBeat'
 import type { BasicStep } from './logicSteps'
 import { buildMissingAddendStory } from './missingAddendStory'
+import { buildArrangeDigitsStory } from './arrangeDigitsStory'
 
 function makeStory(lines: string[]): { steps: BasicStep[]; finalIndex: number } {
   const steps = lines.map((caption, i): BasicStep => ({ phase: String(i), caption, hold: i === lines.length - 1 ? 0 : 1000, result: i === lines.length - 1 }))
@@ -143,8 +144,84 @@ export function MissingAddendExplainer(props: ExplainerProps) {
 
 export function ArrangeDigitsExplainer(props: ExplainerProps) {
   const p = props.params as { digits: number[]; rank: number }
-  const list = p.digits.flatMap((a) => p.digits.filter((b) => b !== a).map((b) => a * 10 + b)).sort((a, b) => a - b)
-  return <GenericCard {...props} title="arrange digits" chips={list.map(String)} lines={[`Make all 2-digit numbers.`, `Sort: ${list.join(', ')}.`, `Rank ${p.rank} is ${list[p.rank - 1]}.`]} />
+  const lang = props.lang ?? 'en'
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+  const story = useMemo(() => buildArrangeDigitsStory(p.digits, p.rank, lang), [p.digits, p.rank, lang])
+  const { beat } = useLogicBeat(story, props)
+  const { digits, rank, formed, sorted, answer } = story
+
+  const phase = beat.phase
+  const showNumbers = phase !== 'digits'
+  const counting = phase === 'count'
+  const reveal = phase === 'answer'
+  // Numbers appear in formation order, then slide into sorted order from 'sort' on.
+  const ordered = phase === 'form' ? formed : sorted
+  const spring = { type: 'spring', stiffness: 380, damping: 30 } as const
+
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-5"
+      role="img"
+      aria-label={T(
+        `Make every 2-digit number from ${digits.join(', ')}, sort them, and take the number at rank ${rank}: ${answer}.`,
+        `Buat setiap bilangan 2 angka dari ${digits.join(', ')}, urutkan, dan ambil bilangan urutan ke-${rank}: ${answer}.`,
+      )}
+    >
+      {/* Source digits */}
+      <div className="flex items-center gap-2">
+        <span className="mr-1 text-xs font-bold uppercase tracking-wide text-slate-400">{T('digits', 'angka')}</span>
+        {digits.map((d, i) => (
+          <div key={i} className="grid h-11 w-11 place-items-center rounded-2xl border-4 border-sky-300 bg-sky-100 text-2xl font-black text-sky-700">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Formed numbers — reorder into sorted position, then count to the rank */}
+      <div className="flex min-h-[4rem] flex-wrap items-center justify-center gap-2">
+        {showNumbers &&
+          ordered.map((num) => {
+            const sortedIdx = sorted.indexOf(num)
+            const isAnswer = sortedIdx === rank - 1
+            const inCount = (counting || reveal) && sortedIdx < rank
+            const cls = reveal && isAnswer
+              ? 'border-emerald-400 bg-emerald-100 text-emerald-700'
+              : counting && isAnswer
+                ? 'border-amber-400 bg-amber-100 text-amber-700 ring-4 ring-amber-200'
+                : inCount
+                  ? 'border-violet-300 bg-violet-50 text-violet-700'
+                  : 'border-slate-200 bg-white text-slate-700'
+            return (
+              <motion.div
+                key={num}
+                layout
+                transition={spring}
+                className={`relative grid h-12 w-14 place-items-center rounded-2xl border-4 text-xl font-black transition-colors ${cls}`}
+              >
+                {num}
+                {inCount && (
+                  <span className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-slate-900 text-[10px] font-black text-white">
+                    {sortedIdx + 1}
+                  </span>
+                )}
+              </motion.div>
+            )
+          })}
+      </div>
+
+      {/* Caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
+      </div>
+    </div>
+  )
 }
 
 export function VisualPatternNextExplainer(props: ExplainerProps) {
