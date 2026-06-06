@@ -3,8 +3,8 @@ import type { Lang } from './makeTenSteps'
 export type DiceOppositePhase =
   | 'rule'
   | 'visible'
-  | 'pairs'
-  | 'subtract'
+  | 'opposites'
+  | 'add'
   | 'result'
 
 export interface DiceOppositeStep {
@@ -18,6 +18,10 @@ export interface DiceOppositeStoryboard {
   t: number
   f: number
   r: number
+  /** Opposite (hidden) face of each shown face = 7 − shown. */
+  tOpp: number
+  fOpp: number
+  rOpp: number
   visible: number
   hidden: number
   steps: DiceOppositeStep[]
@@ -38,8 +42,12 @@ export function buildDiceOppositeSteps(
   const t = clampFace(tRaw)
   const f = clampFace(fRaw)
   const r = clampFace(rRaw)
+  // Each hidden face is directly opposite a shown face, and opposite faces add to 7.
+  const tOpp = 7 - t
+  const fOpp = 7 - f
+  const rOpp = 7 - r
   const visible = t + f + r
-  const hidden = 21 - visible
+  const hidden = tOpp + fOpp + rOpp // = 21 − visible
 
   const T = (en: string, id: string) => (lang === 'id' ? id : en)
 
@@ -63,19 +71,19 @@ export function buildDiceOppositeSteps(
       result: false,
     },
     {
-      phase: 'pairs',
+      phase: 'opposites',
       caption: T(
-        'All 6 faces together: 1+2+3+4+5+6 = 21.',
-        'Keenam sisi berjumlah: 1+2+3+4+5+6 = 21.',
+        `Each hidden face is 7 − the shown one: ${tOpp}, ${fOpp}, ${rOpp}.`,
+        `Setiap sisi tersembunyi = 7 − sisi terlihat: ${tOpp}, ${fOpp}, ${rOpp}.`,
       ),
-      hold: 2200,
+      hold: 2400,
       result: false,
     },
     {
-      phase: 'subtract',
+      phase: 'add',
       caption: T(
-        `Visible: ${t}+${f}+${r} = ${visible}. Hidden = 21 − ${visible}.`,
-        `Terlihat: ${t}+${f}+${r} = ${visible}. Tersembunyi = 21 − ${visible}.`,
+        `Add the hidden faces: ${tOpp} + ${fOpp} + ${rOpp} = ${hidden}.`,
+        `Jumlahkan sisi tersembunyi: ${tOpp} + ${fOpp} + ${rOpp} = ${hidden}.`,
       ),
       hold: 2400,
       result: false,
@@ -91,5 +99,5 @@ export function buildDiceOppositeSteps(
     },
   ]
 
-  return { t, f, r, visible, hidden, steps, finalIndex: steps.length - 1 }
+  return { t, f, r, tOpp, fOpp, rOpp, visible, hidden, steps, finalIndex: steps.length - 1 }
 }

@@ -282,19 +282,14 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
   })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  const { t, f, r, visible, hidden } = story
+  const { t, f, r, tOpp, fOpp, rOpp, hidden } = story
   const phase = beat.phase
 
   const T = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  // Opposite of each visible face
-  const tOpp = 7 - t
-  const fOpp = 7 - f
-  const rOpp = 7 - r
-
   const ariaLabel = T(
-    `Strategy: all 6 die faces sum to 21; subtract the 3 visible faces (${t}+${f}+${r}=${visible}) to find the hidden total (${hidden}).`,
-    `Strategi: keenam sisi dadu berjumlah 21; kurangi 3 sisi yang terlihat (${t}+${f}+${r}=${visible}) untuk menemukan jumlah sisi tersembunyi (${hidden}).`,
+    `Strategy: each hidden face is 7 − its shown face (${t}→${tOpp}, ${f}→${fOpp}, ${r}→${rOpp}); add them to find the hidden total (${hidden}).`,
+    `Strategi: setiap sisi tersembunyi adalah 7 − sisi yang terlihat (${t}→${tOpp}, ${f}→${fOpp}, ${r}→${rOpp}); jumlahkan untuk mendapat total tersembunyi (${hidden}).`,
   )
 
   return (
@@ -330,31 +325,26 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
           </motion.div>
         )}
 
-        {/* === BEATS: visible / pairs / subtract / result — show isometric die === */}
-        {(phase === 'visible' || phase === 'pairs' || phase === 'subtract' || phase === 'result') && (
+        {/* === BEAT: visible — show isometric die with all three faces lit === */}
+        {phase === 'visible' && (
           <motion.div
             key="iso-die"
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: 'spring', stiffness: 360, damping: 28 }}
           >
-            <IsometricDie
-              top={t}
-              front={f}
-              right={r}
-              highlight={phase === 'visible' ? 'all' : 'none'}
-            />
+            <IsometricDie top={t} front={f} right={r} highlight="all" />
           </motion.div>
         )}
 
-        {/* === BEAT: pairs — show the 3 visible + 3 opposite face pairs as flat tiles === */}
-        {phase === 'pairs' && (
+        {/* === BEAT: opposites — each shown face drops to its hidden opposite (7 − shown) === */}
+        {phase === 'opposites' && (
           <motion.div
-            key="face-pairs"
+            key="opposites"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
-            className="flex items-center gap-4"
+            transition={{ duration: 0.35 }}
+            className="flex items-start gap-5"
           >
             {(
               [
@@ -362,8 +352,14 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
                 [f, fOpp, T('front', 'depan')],
                 [r, rOpp, T('right', 'kanan')],
               ] as [number, number, string][]
-            ).map(([vis, opp, lbl]) => (
-              <div key={lbl} className="flex items-center gap-1">
+            ).map(([vis, opp, lbl], i) => (
+              <motion.div
+                key={lbl}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15 + i * 0.2, type: 'spring', stiffness: 320, damping: 24 }}
+                className="flex flex-col items-center gap-1"
+              >
                 <FlatFace
                   value={vis}
                   label={lbl}
@@ -371,9 +367,14 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
                   borderColor={BLUE}
                   textColor={PURPLE}
                 />
-                <span className="font-display text-xs font-bold" style={{ color: MUTED }}>
-                  +
-                </span>
+                <div className="flex flex-col items-center leading-none">
+                  <span className="font-display text-[11px] font-bold" style={{ color: MUTED }}>
+                    7 − {vis}
+                  </span>
+                  <span className="text-lg font-extrabold leading-none" style={{ color: GREEN }}>
+                    ↓
+                  </span>
+                </div>
                 <FlatFace
                   value={opp}
                   label={`${opp}`}
@@ -381,30 +382,33 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
                   borderColor={GREEN}
                   textColor="#065F46"
                 />
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         )}
 
-        {/* === BEAT: subtract — arithmetic breakdown === */}
-        {phase === 'subtract' && (
+        {/* === BEAT: add — sum the three hidden (opposite) faces === */}
+        {phase === 'add' && (
           <motion.div
-            key="subtract-eq"
+            key="add-eq"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
-            className="flex flex-col items-center gap-1"
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="flex flex-col items-center gap-2"
           >
-            <div className="font-display text-base font-extrabold" style={{ color: MUTED }}>
-              21 {T('total', 'total')}
+            <div className="flex items-center gap-3">
+              <FlatFace value={tOpp} label={`${tOpp}`} faceColor="#F0FDF4" borderColor={GREEN} textColor="#065F46" />
+              <span className="font-display text-lg font-extrabold" style={{ color: MUTED }}>+</span>
+              <FlatFace value={fOpp} label={`${fOpp}`} faceColor="#F0FDF4" borderColor={GREEN} textColor="#065F46" />
+              <span className="font-display text-lg font-extrabold" style={{ color: MUTED }}>+</span>
+              <FlatFace value={rOpp} label={`${rOpp}`} faceColor="#F0FDF4" borderColor={GREEN} textColor="#065F46" />
             </div>
-            <div className="font-display text-lg font-extrabold" style={{ color: PURPLE }}>
-              <span style={{ color: MUTED }}>21 − </span>
-              <span style={{ color: BLUE }}>{t}</span>
-              <span style={{ color: MUTED }}>−</span>
-              <span style={{ color: BLUE }}>{f}</span>
-              <span style={{ color: MUTED }}>−</span>
-              <span style={{ color: BLUE }}>{r}</span>
+            <div className="font-display text-xl font-extrabold">
+              <span style={{ color: GREEN }}>{tOpp}</span>
+              <span style={{ color: MUTED }}> + </span>
+              <span style={{ color: GREEN }}>{fOpp}</span>
+              <span style={{ color: MUTED }}> + </span>
+              <span style={{ color: GREEN }}>{rOpp}</span>
               <span style={{ color: MUTED }}> = </span>
               <span style={{ color: PURPLE }}>{hidden}</span>
             </div>
