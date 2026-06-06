@@ -16,9 +16,11 @@ export const meta = {
 } as const
 
 export function generate(rng: Rng): Params {
-  const max = rng.pick([20, 50, 100] as const)
-  // value sits on a minor tick (a tenth of the scale), strictly inside it
-  const value = (max / 10) * rng.int(1, 9)
+  const max = rng.pick([20, 50] as const)
+  // Land 1–4 small ticks past a 5-mark, so the arrow is never on a numbered
+  // (big) tick — you always have to count the small ticks.
+  const base = rng.int(0, max / 5 - 1) * 5
+  const value = base + rng.int(1, 4)
   return { max, value }
 }
 
@@ -30,8 +32,8 @@ export function render(params: Params) {
     choices_en: null,
     choices_id: null,
     answer: String(params.value),
-    hint_en: 'Find the numbered marks the arrow is between, then count the small ticks.',
-    hint_id: 'Cari angka di antara mana panah berada, lalu hitung garis-garis kecilnya.',
+    hint_en: 'Find the numbered marks the arrow is between, jump to the nearest 5-mark, then count the small ticks.',
+    hint_id: 'Cari angka di antara mana panah berada, loncat ke garis lima terdekat, lalu hitung garis-garis kecilnya.',
   }
 }
 

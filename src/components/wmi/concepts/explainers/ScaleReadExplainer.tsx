@@ -34,7 +34,7 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, stepMs: 1900 })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  const { max, value, lo, hi } = story
+  const { max, value, lo, hi, base5 } = story
   const phase = beat.phase
 
   const ariaLabel =
@@ -42,21 +42,21 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
       ? `Cara membaca skala: panah menunjuk ke ${value} pada skala 0 sampai ${max}.`
       : `Reading a scale: the arrow points to ${value} on a scale from 0 to ${max}.`
 
-  // Build tick marks
-  const ticks: { v: number; isMajor: boolean }[] = []
+  // Build tick marks: big (×10, numbered), medium (×5), small (×1).
+  const ticks: { v: number; kind: 'major' | 'medium' | 'minor' }[] = []
   for (let v = 0; v <= max; v++) {
-    ticks.push({ v, isMajor: v % 10 === 0 })
+    ticks.push({ v, kind: v % 10 === 0 ? 'major' : v % 5 === 0 ? 'medium' : 'minor' })
   }
 
   function tickColor(v: number): string {
     if (phase === 'between' && (v === lo || v === hi)) return BLUE
-    if (phase === 'count' && v > lo && v <= value) return ORANGE
+    if (phase === 'count' && v >= base5 && v <= value) return ORANGE
     if (phase === 'result' && v === value) return GREEN
     return MUTED
   }
 
-  function tickHeight(isMajor: boolean): number {
-    return isMajor ? 14 : 7
+  function tickHeight(kind: 'major' | 'medium' | 'minor'): number {
+    return kind === 'major' ? 14 : kind === 'medium' ? 10 : 6
   }
 
   return (
@@ -80,16 +80,16 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
           />
 
           {/* Tick marks */}
-          {ticks.map(({ v, isMajor }) => {
+          {ticks.map(({ v, kind }) => {
             const x = px(v, max)
-            const h = tickHeight(isMajor)
+            const h = tickHeight(kind)
             const color = tickColor(v)
-            const strokeW = isMajor ? 2 : 1
+            const strokeW = kind === 'major' ? 2 : kind === 'medium' ? 1.5 : 1
+            const labeled = v % 5 === 0 // number every big and medium mark
 
-            // For phase 'between', animate the bounding marks; for 'count', animate counted ticks
             const shouldAnimate =
               (phase === 'between' && (v === lo || v === hi)) ||
-              (phase === 'count' && v > lo && v <= value) ||
+              (phase === 'count' && v >= base5 && v <= value) ||
               (phase === 'result' && v === value)
 
             return (
@@ -104,22 +104,24 @@ export default function ScaleReadExplainer(props: ExplainerProps) {
                   animate={{ stroke: color, strokeWidth: shouldAnimate ? strokeW + 1.5 : strokeW }}
                   transition={{ duration: 0.3 }}
                 />
-                {isMajor && (
+                {labeled && (
                   <motion.text
                     x={x}
                     y={BASELINE_Y + 16}
                     textAnchor="middle"
-                    fontSize={10}
-                    fontWeight={shouldAnimate || (phase === 'between' && (v === lo || v === hi)) ? 700 : 400}
+                    fontSize={kind === 'major' ? 10 : 8}
+                    fontWeight={shouldAnimate || v === base5 ? 700 : 400}
                     animate={{
                       fill:
                         phase === 'between' && (v === lo || v === hi)
                           ? BLUE
-                          : phase === 'count' && v === lo
-                            ? ORANGE
-                            : phase === 'result' && v === lo
+                          : (phase === 'count' || phase === 'result') && v === base5
+                            ? phase === 'result'
                               ? GREEN
-                              : PURPLE,
+                              : ORANGE
+                            : kind === 'major'
+                              ? PURPLE
+                              : MUTED,
                     }}
                     transition={{ duration: 0.3 }}
                   >
