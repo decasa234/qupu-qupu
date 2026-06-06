@@ -97,64 +97,28 @@ export function buildDirectionTurnSteps(
     result: false,
   })
 
-  if (turns > 4 && netTurns === 0) {
-    // Full circles only — net displacement is 0
-    const fullCircles = Math.floor(turns / 4)
-    const circleCaption = t(
-      `${turns} turns = ${fullCircles} full circle${fullCircles > 1 ? 's' : ''} — back to ${finalNameEN}.`,
-      `${turns} putaran = ${fullCircles} lingkaran penuh — kembali ke ${finalNameID}.`,
-    )
+  // One beat per quarter-turn — EVERY turn is animated, even the ones that
+  // complete a full circle. The arrow keeps spinning clockwise (heading keeps
+  // accumulating +90) so the child sees each individual rotation.
+  for (let i = 1; i <= turns; i++) {
+    const curDirIndex = (start + i) % 4
+    const curNameEN = DIRS_EN[curDirIndex]
+    const curNameID = DIRS_ID[curDirIndex]
+    const lap = i % 4 === 0 // this turn lands back on a full circle
     steps.push({
-      dirIndex: finalDirIndex,
-      headingDeg: startHeading,
-      caption: circleCaption,
-      hold: 2200,
+      dirIndex: curDirIndex,
+      headingDeg: startHeading + i * 90,
+      caption: t(
+        lap
+          ? `Turn ${i} of ${turns}: facing ${curNameEN} — full circle!`
+          : `Turn ${i} of ${turns}: now facing ${curNameEN}.`,
+        lap
+          ? `Putaran ${i} dari ${turns}: menghadap ${curNameID} — satu lingkaran penuh!`
+          : `Putaran ${i} dari ${turns}: sekarang menghadap ${curNameID}.`,
+      ),
+      hold: 1300,
       result: false,
     })
-  } else {
-    // Determine how many individual turn beats to animate
-    const animateTurns = netTurns === 0 ? 0 : netTurns
-    const prefixCaption =
-      turns > 4
-        ? t(
-            `${turns} turns = ${Math.floor(turns / 4)} full circle${Math.floor(turns / 4) > 1 ? 's' : ''} + ${netTurns} extra. Applying ${netTurns}:`,
-            `${turns} putaran = ${Math.floor(turns / 4)} lingkaran penuh + ${netTurns} sisa. Menerapkan ${netTurns}:`,
-          )
-        : null
-
-    if (prefixCaption) {
-      steps.push({
-        dirIndex: start,
-        headingDeg: startHeading,
-        caption: prefixCaption,
-        hold: 2000,
-        result: false,
-      })
-    }
-
-    // One beat per net quarter-turn (clockwise)
-    for (let i = 1; i <= animateTurns; i++) {
-      const curDirIndex = (start + i) % 4
-      const curNameEN = DIRS_EN[curDirIndex]
-      const curNameID = DIRS_ID[curDirIndex]
-      // Accumulate heading: each step adds 90° clockwise
-      // We want the arrow to spin smoothly so we keep adding 90 rather than
-      // jumping around (framer-motion will take the shortest path unless we
-      // accumulate; accumulating from startHeading is correct for 1–3 net turns).
-      const headingDeg = startHeading + i * 90
-
-      const turnCaption = t(
-        `Turn ${i}: now facing ${curNameEN}.`,
-        `Putaran ${i}: sekarang menghadap ${curNameID}.`,
-      )
-      steps.push({
-        dirIndex: curDirIndex,
-        headingDeg,
-        caption: turnCaption,
-        hold: i < animateTurns ? 1600 : 1800,
-        result: false,
-      })
-    }
   }
 
   // Final result beat

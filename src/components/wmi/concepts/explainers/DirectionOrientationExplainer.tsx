@@ -113,9 +113,12 @@ export default function DirectionOrientationExplainer(props: ExplainerProps) {
             </text>
           ))}
 
-          {/* Rotating arrow group — rotates around compass centre */}
+          {/* Rotating arrow group — pivots on the compass centre. transform-box:
+              view-box makes transform-origin use viewBox user units, so the
+              arrow always rotates around (CX, CY) regardless of browser. */}
           <motion.g
-            style={{ originX: `${CX}px`, originY: `${CY}px` }}
+            style={{ transformBox: 'view-box', transformOrigin: `${CX}px ${CY}px` }}
+            initial={{ rotate: story.steps[0].headingDeg }}
             animate={{ rotate: beat.headingDeg }}
             transition={{ type: 'spring', stiffness: 90, damping: 18 }}
           >
