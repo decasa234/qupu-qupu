@@ -39,6 +39,7 @@ export interface WmiPaperSummary {
   year: number
   grade: WmiGrade
   round: WmiRound
+  variant: 'A' | 'B'
   title: string
   source_url: string | null
   recommended_duration_min: number

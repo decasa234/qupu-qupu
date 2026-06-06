@@ -21,29 +21,7 @@ interface GlossaryTerm {
   example_id?: string
 }
 
-interface PaperQuestion {
-  number: number
-  body_en: string
-  body_id: string
-  answer_type: 'multiple_choice' | 'fill_in'
-  choices_en?: Array<{ label: string; text: string }>
-  choices_id?: Array<{ label: string; text: string }>
-  answer: string
-  figure_url?: string
-  hint_en?: string
-  hint_id?: string
-  difficulty?: number
-}
-
-interface PaperFile {
-  year: number
-  grade: number
-  round: 'semifinal' | 'final'
-  title: string
-  source_url?: string
-  recommended_duration_min: number
-  questions: PaperQuestion[]
-}
+import type { PaperFile, PaperQuestion } from '../../../api/services/wmi/paperImport/types.js'
 
 const MARKUP_RE = /\[\[([a-z0-9-]+)(?:\|[^\]]*)?\]\]/g
 
@@ -135,9 +113,9 @@ async function main(): Promise<void> {
       const paperRow = await client.query<{ id: string }>(
         `
           INSERT INTO wmi_papers
-            (year, grade, round, title, source_url, recommended_duration_min, question_count, updated_at)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
-          ON CONFLICT (year, grade, round) DO UPDATE SET
+            (year, grade, round, variant, title, source_url, recommended_duration_min, question_count, updated_at)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
+          ON CONFLICT (year, grade, round, variant) DO UPDATE SET
             title = EXCLUDED.title,
             source_url = EXCLUDED.source_url,
             recommended_duration_min = EXCLUDED.recommended_duration_min,
@@ -149,6 +127,7 @@ async function main(): Promise<void> {
           paper.year,
           paper.grade,
           paper.round,
+          paper.variant,
           paper.title,
           paper.source_url ?? null,
           paper.recommended_duration_min,

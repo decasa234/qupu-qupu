@@ -26,6 +26,7 @@ export interface WmiPaperRow {
   year: number
   grade: number
   round: 'semifinal' | 'final'
+  variant: 'A' | 'B'
   title: string
   source_url: string | null
   recommended_duration_min: number
@@ -49,7 +50,7 @@ export async function listWmiPapers(
     await assertChildOwnership(client, parentUserId, childId)
     return query<WmiPaperRow & { best_score: string | null }>(
       `
-        SELECT p.id, p.year, p.grade, p.round, p.title, p.source_url,
+        SELECT p.id, p.year, p.grade, p.round, p.variant, p.title, p.source_url,
                p.recommended_duration_min, p.question_count,
                MAX(
                  CASE
@@ -62,7 +63,7 @@ export async function listWmiPapers(
         LEFT JOIN wmi_exam_sessions s ON s.paper_id = p.id AND s.child_id = $1
         WHERE p.grade = $2
         GROUP BY p.id
-        ORDER BY p.year DESC, p.round ASC
+        ORDER BY p.year DESC, p.round ASC, p.variant ASC
       `,
       [childId, grade],
       client,
@@ -79,7 +80,7 @@ export async function getWmiPaperDetail(
     await assertChildOwnership(client, parentUserId, childId)
     const paper = await queryOne<WmiPaperRow>(
       `
-        SELECT id, year, grade, round, title, source_url, recommended_duration_min, question_count
+        SELECT id, year, grade, round, variant, title, source_url, recommended_duration_min, question_count
         FROM wmi_papers
         WHERE id = $1
       `,

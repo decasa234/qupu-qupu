@@ -10,7 +10,7 @@ export default function WmiPaperCard({ paper }: { paper: WmiPaperSummary }) {
     >
       <div className="flex items-center justify-between gap-3">
         <strong>
-          {paper.year} {paper.round === 'final' ? 'Final' : 'Semifinal'}
+          {paper.year} {paper.round === 'final' ? 'Final' : 'Semifinal'} · Paper {paper.variant}
         </strong>
         <span className="text-xs text-gray-500">{paper.question_count} soal</span>
       </div>
