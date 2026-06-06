@@ -482,13 +482,14 @@ CREATE TABLE IF NOT EXISTS wmi_papers (
   year                     SMALLINT NOT NULL CHECK (year BETWEEN 2019 AND 2099),
   grade                    SMALLINT NOT NULL CHECK (grade BETWEEN 0 AND 3),
   round                    TEXT NOT NULL CHECK (round IN ('semifinal','final')),
+  variant                  TEXT NOT NULL DEFAULT 'A' CHECK (variant IN ('A','B')),
   title                    TEXT NOT NULL,
   source_url               TEXT,
   recommended_duration_min SMALLINT NOT NULL DEFAULT 60,
   question_count           SMALLINT NOT NULL DEFAULT 0,
   created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT wmi_papers_year_grade_round_unique UNIQUE (year, grade, round)
+  CONSTRAINT wmi_papers_year_grade_round_variant_unique UNIQUE (year, grade, round, variant)
 );
 
 CREATE TABLE IF NOT EXISTS wmi_questions (
