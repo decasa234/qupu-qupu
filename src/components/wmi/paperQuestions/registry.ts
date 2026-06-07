@@ -26,6 +26,8 @@ import KenKenGridIllustration from './KenKenGridIllustration'
 import KenKenExplainer from './KenKenExplainer'
 import ArrowGridIllustration from './ArrowGridIllustration'
 import ArrowGridExplainer from './ArrowGridExplainer'
+import ShapeEquationIllustration from './ShapeEquationIllustration'
+import ShapeEquationExplainer from './ShapeEquationExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -41,6 +43,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
   'WMI-19F1-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
   'WMI-19F1-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
+  'WMI-19F1-Q18': { Illustration: ShapeEquationIllustration, Explainer: ShapeEquationExplainer },
   'WMI-19F1-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
   'WMI-19F1-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
   'WMI-19F1-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
