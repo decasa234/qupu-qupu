@@ -7,6 +7,7 @@ import {
   type AdminPaperSummary, type AdminPaperQuestion, type PaperReview, type ReviewStatus,
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
+import { paperCode } from '../../lib/wmiPaperCode'
 
 // WmiQuestionView requires interaction handlers; this is a read-only preview, so they no-op.
 const noop = () => {}
@@ -190,6 +191,13 @@ export default function AdminWmiDrill() {
                     <span
                       className={`h-2 w-2 shrink-0 rounded-full ${STATUS_META[p.status].dot}`}
                     />
+                    <span
+                      className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                        p.id === activePaperId ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
+                      }`}
+                    >
+                      {paperCode(p)}
+                    </span>
                     <span className="flex-1 truncate">
                       {p.year} {p.round === 'final' ? 'Final' : 'Semifinal'}
                     </span>
@@ -210,6 +218,9 @@ export default function AdminWmiDrill() {
           <div className="min-w-0 space-y-4">
             {activePaper && (
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span className="rounded px-1.5 py-0.5 font-mono text-xs font-bold bg-admin-sunk text-admin-muted">
+                  {paperCode(activePaper)}
+                </span>
                 <div className="font-display text-lg font-extrabold text-admin-ink">
                   {activePaper.title}
                 </div>
