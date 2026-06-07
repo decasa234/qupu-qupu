@@ -1,6 +1,7 @@
 import { query, queryOne } from '../../db.js'
 import type { ReviewStatus } from './concepts/reviews.js'
 import type { WmiChoice } from './papers.js'
+import { questionCode } from './paperCode.js'
 
 export type AdminPaperSummary = {
   id: string
@@ -36,6 +37,7 @@ export type AdminPaperQuestion = {
   hint_en: string | null
   hint_id: string | null
   difficulty: number | null
+  code?: string
 }
 
 // All papers (every grade), each with its review status (default 'pending').
@@ -50,14 +52,20 @@ export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
 }
 
 export async function listAdminPaperQuestions(paperId: string): Promise<AdminPaperQuestion[]> {
-  return query<AdminPaperQuestion>(
-    `SELECT id, paper_id, number, body_en, body_id, answer_type, choices_en, choices_id,
-            answer, figure_url, hint_en, hint_id, difficulty
-     FROM wmi_questions
-     WHERE paper_id = $1
-     ORDER BY number ASC`,
+  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number }>(
+    `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
+            q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty,
+            p.year, p.round, p.grade
+     FROM wmi_questions q
+     JOIN wmi_papers p ON p.id = q.paper_id
+     WHERE q.paper_id = $1
+     ORDER BY q.number ASC`,
     [paperId],
   )
+  return rows.map(({ year, round, grade, ...q }) => ({
+    ...q,
+    code: questionCode({ year, round, grade }, q.number),
+  }))
 }
 
 export async function getPaperReview(paperId: string): Promise<PaperReview | null> {

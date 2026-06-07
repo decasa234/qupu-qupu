@@ -1,5 +1,6 @@
 import { query, queryOne, withTransaction, type DbExecutor } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
+import { questionCode } from './paperCode.js'
 
 export interface WmiChoice {
   label: string
@@ -19,6 +20,7 @@ export interface WmiQuestionDto {
   hint_en: string | null
   hint_id: string | null
   difficulty: number | null
+  code?: string
 }
 
 export interface WmiPaperRow {
@@ -98,18 +100,23 @@ export async function listWmiQuestionsForPaper(
   paperId: string,
   executor?: DbExecutor,
 ): Promise<WmiQuestionDto[]> {
-  const rows = await query<WmiQuestionDto>(
+  const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
     `
-      SELECT id, paper_id, number, body_en, body_id, answer_type, choices_en, choices_id,
-             figure_url, hint_en, hint_id, difficulty
-      FROM wmi_questions
-      WHERE paper_id = $1
-      ORDER BY number ASC
+      SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
+             q.figure_url, q.hint_en, q.hint_id, q.difficulty,
+             p.year, p.round, p.grade
+      FROM wmi_questions q
+      JOIN wmi_papers p ON p.id = q.paper_id
+      WHERE q.paper_id = $1
+      ORDER BY q.number ASC
     `,
     [paperId],
     executor,
   )
-  return rows.map(normalizeQuestion)
+  return rows.map(({ year, round, grade, ...q }) => ({
+    ...normalizeQuestion(q),
+    code: questionCode({ year, round, grade }, q.number),
+  }))
 }
 
 export async function getWmiDrillQuestion(
@@ -120,7 +127,7 @@ export async function getWmiDrillQuestion(
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
 
-    let question = await queryOne<WmiQuestionDto>(
+    let question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
       `
         WITH recent AS (
           SELECT question_id
@@ -130,7 +137,8 @@ export async function getWmiDrillQuestion(
           LIMIT 20
         )
         SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty
+               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty,
+               p.year, p.round, p.grade
         FROM wmi_questions q
         JOIN wmi_papers p ON p.id = q.paper_id
         WHERE p.grade = $2
@@ -143,10 +151,11 @@ export async function getWmiDrillQuestion(
     )
 
     if (!question) {
-      question = await queryOne<WmiQuestionDto>(
+      question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
         `
           SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty
+                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty,
+                 p.year, p.round, p.grade
           FROM wmi_questions q
           JOIN wmi_papers p ON p.id = q.paper_id
           WHERE p.grade = $1
@@ -159,7 +168,8 @@ export async function getWmiDrillQuestion(
     }
 
     if (!question) throw new Error('No WMI questions found for this grade')
-    return normalizeQuestion(question)
+    const { year, round, grade: g, ...q } = question
+    return { ...normalizeQuestion(q), code: questionCode({ year, round, grade: g }, q.number) }
   })
 }
 
