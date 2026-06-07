@@ -14,6 +14,10 @@ import SecondLongestIllustration from './SecondLongestIllustration'
 import SecondLongestExplainer from './SecondLongestExplainer'
 import CountSquaresIllustration from './CountSquaresIllustration'
 import CountSquaresExplainer from './CountSquaresExplainer'
+import NumberPatternIllustration from './NumberPatternIllustration'
+import NumberPatternExplainer from './NumberPatternExplainer'
+import PathGridIllustration from './PathGridIllustration'
+import PathGridExplainer from './PathGridExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -25,9 +29,11 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1-Q4': { Illustration: SecondLongestIllustration, Explainer: SecondLongestExplainer },
   'WMI-19F1-Q6': { Illustration: ClockReadIllustration, Explainer: ClockReadExplainer },
   'WMI-19F1-Q8': { Illustration: WhiteCircleSquareIllustration, Explainer: WhiteCircleSquareExplainer },
+  'WMI-19F1-Q10': { Illustration: NumberPatternIllustration, Explainer: NumberPatternExplainer },
   'WMI-19F1-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
   'WMI-19F1-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
   'WMI-19F1-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
+  'WMI-19F1-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
