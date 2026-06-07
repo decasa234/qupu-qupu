@@ -29,6 +29,7 @@ import AdminUsersPage from './pages/admin/AdminUsers'
 import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
 import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import AdminWmiConceptsPage from './pages/admin/AdminWmiConcepts'
+import AdminWmiDrillPage from './pages/admin/AdminWmiDrill'
 import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
@@ -174,6 +175,7 @@ export default function App() {
           <Route path="users" element={<AdminUsersPage />} />
           <Route path="analytics" element={<AdminAnalyticsPage />} />
           <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
+          <Route path="wmi-drill" element={<AdminWmiDrillPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
