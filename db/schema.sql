@@ -514,6 +514,8 @@ CREATE TABLE IF NOT EXISTS wmi_questions (
   figure_url  TEXT,
   hint_en     TEXT,
   hint_id     TEXT,
+  hint_steps_en JSONB,
+  hint_steps_id JSONB,
   difficulty  SMALLINT CHECK (difficulty IS NULL OR difficulty BETWEEN 1 AND 3),
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
