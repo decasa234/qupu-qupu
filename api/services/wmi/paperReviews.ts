@@ -37,6 +37,8 @@ export type AdminPaperQuestion = {
   hint_en: string | null
   hint_id: string | null
   difficulty: number | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
   code?: string
 }
 
@@ -54,7 +56,7 @@ export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
 export async function listAdminPaperQuestions(paperId: string): Promise<AdminPaperQuestion[]> {
   const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number }>(
     `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
-            q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty,
+            q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id,
             p.year, p.round, p.grade
      FROM wmi_questions q
      JOIN wmi_papers p ON p.id = q.paper_id
