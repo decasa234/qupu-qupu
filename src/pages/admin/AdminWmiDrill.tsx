@@ -22,8 +22,9 @@ const STATUS_META: Record<
   needs_changes: { dot: 'bg-amber-500', label: 'Needs changes', ring: 'border-amber-300 text-amber-700', active: 'bg-amber-600 text-white' },
 }
 
-// AdminPaperQuestion is a superset of WmiQuestion (adds `answer`), so it satisfies
-// the WmiQuestion shape directly — no adapter needed.
+// AdminPaperQuestion is a superset of WmiQuestion (adds `answer`). Project it to a
+// WmiQuestion, keeping `code` so per-question custom visuals (illustration/animation)
+// resolve in the admin preview just like on the member side.
 function toWmiQuestion(q: AdminPaperQuestion): WmiQuestion {
   return {
     id: q.id,
@@ -38,6 +39,7 @@ function toWmiQuestion(q: AdminPaperQuestion): WmiQuestion {
     hint_en: q.hint_en,
     hint_id: q.hint_id,
     difficulty: q.difficulty,
+    code: q.code,
   }
 }
 
