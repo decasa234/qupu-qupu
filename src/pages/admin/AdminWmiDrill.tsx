@@ -22,25 +22,12 @@ const STATUS_META: Record<
   needs_changes: { dot: 'bg-amber-500', label: 'Needs changes', ring: 'border-amber-300 text-amber-700', active: 'bg-amber-600 text-white' },
 }
 
-// AdminPaperQuestion is a superset of WmiQuestion (adds `answer`). Project it to a
-// WmiQuestion, keeping `code` so per-question custom visuals (illustration/animation)
-// resolve in the admin preview just like on the member side.
+// AdminPaperQuestion is a superset of WmiQuestion (it adds `answer`). Spread it so
+// every WmiQuestion field — including code and hint_steps_* used by the per-question
+// visuals/steps — flows through without having to enumerate fields (which silently
+// dropped new fields in the past).
 function toWmiQuestion(q: AdminPaperQuestion): WmiQuestion {
-  return {
-    id: q.id,
-    paper_id: q.paper_id,
-    number: q.number,
-    body_en: q.body_en,
-    body_id: q.body_id,
-    answer_type: q.answer_type,
-    choices_en: q.choices_en,
-    choices_id: q.choices_id,
-    figure_url: q.figure_url,
-    hint_en: q.hint_en,
-    hint_id: q.hint_id,
-    difficulty: q.difficulty,
-    code: q.code,
-  }
+  return { ...q }
 }
 
 export default function AdminWmiDrill() {
