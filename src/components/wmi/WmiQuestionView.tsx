@@ -9,6 +9,7 @@ import WmiBreakdownView from './WmiBreakdownView'
 import WmiBreakdownToggle from './WmiBreakdownToggle'
 import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
+import WmiSteps from './WmiSteps'
 import { getQuestionIllustration, getQuestionExplainer } from './paperQuestions/registry'
 
 interface Props {
@@ -88,19 +89,23 @@ export default function WmiQuestionView({
   const Illustration = getQuestionIllustration(question.code)
   const QuestionExplainer = getQuestionExplainer(question.code)
 
+  const [internalBreakdown, setInternalBreakdown] = useState(false)
+  const breakdownControlled = onToggleBreakdown != null
+  const bdActive = breakdownControlled ? breakdownActive : internalBreakdown
+  const handleBreakdownToggle = breakdownControlled ? onToggleBreakdown : () => setInternalBreakdown((v) => !v)
+  const stepList = lang === 'id' ? question.hint_steps_id : question.hint_steps_en
+
   return (
     <article className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
       <div className="absolute right-3 top-3 flex items-center gap-2">
         <WmiLanguageToggle lang={lang} onToggle={toggleLang} />
-        {onToggleBreakdown && (
-          <WmiBreakdownToggle active={breakdownActive} onToggle={onToggleBreakdown} />
-        )}
+        <WmiBreakdownToggle active={bdActive} onToggle={handleBreakdownToggle} />
       </div>
       <div className="pr-28 text-sm font-bold text-qupu-muted">
         {label ?? `Soal ${question.number}`}
       </div>
       <div className="mt-2 text-lg font-semibold text-gray-900">
-        {breakdownActive ? (
+        {bdActive ? (
           <WmiBreakdownView text={body} lang={lang} onLookup={onLookupTerm} />
         ) : (
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
@@ -148,6 +153,7 @@ export default function WmiQuestionView({
           </button>
         </form>
       )}
+      {revealed && stepList && stepList.length > 0 && <WmiSteps steps={stepList} lang={lang} />}
       {revealed && QuestionExplainer && (
         <WmiExplainer explainer={QuestionExplainer} params={{}} correctAnswer="" lang={lang} />
       )}
