@@ -9,6 +9,8 @@ export interface PaperQuestion {
   figure_url?: string
   hint_en?: string
   hint_id?: string
+  hint_steps_en?: string[]
+  hint_steps_id?: string[]
   difficulty?: number
 }
 

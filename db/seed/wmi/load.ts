@@ -141,8 +141,8 @@ async function main(): Promise<void> {
           `
             INSERT INTO wmi_questions
               (paper_id, number, body_en, body_id, answer_type, choices_en, choices_id, answer,
-               figure_url, hint_en, hint_id, difficulty, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW())
+               figure_url, hint_en, hint_id, hint_steps_en, hint_steps_id, difficulty, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, NOW())
             ON CONFLICT (paper_id, number) DO UPDATE SET
               body_en = EXCLUDED.body_en,
               body_id = EXCLUDED.body_id,
@@ -153,6 +153,8 @@ async function main(): Promise<void> {
               figure_url = EXCLUDED.figure_url,
               hint_en = EXCLUDED.hint_en,
               hint_id = EXCLUDED.hint_id,
+              hint_steps_en = EXCLUDED.hint_steps_en,
+              hint_steps_id = EXCLUDED.hint_steps_id,
               difficulty = EXCLUDED.difficulty,
               updated_at = NOW()
           `,
@@ -168,6 +170,8 @@ async function main(): Promise<void> {
             question.figure_url ?? null,
             question.hint_en ?? null,
             question.hint_id ?? null,
+            question.hint_steps_en ? JSON.stringify(question.hint_steps_en) : null,
+            question.hint_steps_id ? JSON.stringify(question.hint_steps_id) : null,
             question.difficulty ?? null,
           ],
         )
