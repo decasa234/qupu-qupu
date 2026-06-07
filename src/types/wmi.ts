@@ -32,6 +32,7 @@ export interface WmiQuestion {
   hint_en: string | null
   hint_id: string | null
   difficulty: number | null
+  code?: string
 }
 
 export interface WmiPaperSummary {
