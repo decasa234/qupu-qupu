@@ -3,14 +3,24 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { ToastProvider } from './admin/Toast'
 
-const NAV = [
+type NavLeaf = { to: string; label: string; icon: string }
+type NavGroup = { group: string; children: NavLeaf[] }
+type NavEntry = NavLeaf | NavGroup
+
+const NAV: NavEntry[] = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: 'fa-solid fa-gauge' },
   { to: '/admin/videos', label: 'Videos', icon: 'fa-solid fa-film' },
   { to: '/admin/subjects', label: 'Subjects', icon: 'fa-solid fa-shapes' },
   { to: '/admin/age-groups', label: 'Age Groups', icon: 'fa-solid fa-children' },
   { to: '/admin/users', label: 'Users', icon: 'fa-solid fa-users' },
   { to: '/admin/analytics', label: 'Analytics', icon: 'fa-solid fa-chart-line' },
-  { to: '/admin/wmi-concepts', label: 'WMI Concepts', icon: 'fa-solid fa-flask' },
+  {
+    group: 'WMI',
+    children: [
+      { to: '/admin/wmi-concepts', label: 'Concepts', icon: 'fa-solid fa-flask' },
+      { to: '/admin/wmi-drill', label: 'Drill', icon: 'fa-solid fa-file-pen' },
+    ],
+  },
 ]
 
 export default function AdminLayout() {
@@ -26,25 +36,37 @@ export default function AdminLayout() {
   }
 
   function navLinks(onNavigate?: () => void) {
+    const leaf = (item: NavLeaf) => (
+      <NavLink
+        key={item.to}
+        to={item.to}
+        onClick={onNavigate}
+        className={({ isActive }) =>
+          `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+            isActive
+              ? 'bg-qupu-brand-blue text-white'
+              : 'text-admin-muted hover:bg-admin-sunk hover:text-admin-ink'
+          }`
+        }
+      >
+        <i className={`${item.icon} w-4 text-center text-sm`} aria-hidden="true" />
+        {item.label}
+      </NavLink>
+    )
     return (
       <nav className="grid gap-0.5">
-        {NAV.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            onClick={onNavigate}
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                isActive
-                  ? 'bg-qupu-brand-blue text-white'
-                  : 'text-admin-muted hover:bg-admin-sunk hover:text-admin-ink'
-              }`
-            }
-          >
-            <i className={`${item.icon} w-4 text-center text-sm`} aria-hidden="true" />
-            {item.label}
-          </NavLink>
-        ))}
+        {NAV.map((entry) =>
+          'group' in entry ? (
+            <div key={entry.group} className="mt-2">
+              <div className="px-3 pb-1 pt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-admin-faint">
+                {entry.group}
+              </div>
+              <div className="grid gap-0.5">{entry.children.map(leaf)}</div>
+            </div>
+          ) : (
+            leaf(entry)
+          ),
+        )}
       </nav>
     )
   }
