@@ -8,6 +8,8 @@ import WmiGlossaryTerm from './WmiGlossaryTerm'
 import WmiBreakdownView from './WmiBreakdownView'
 import WmiBreakdownToggle from './WmiBreakdownToggle'
 import WmiLanguageToggle from './WmiLanguageToggle'
+import WmiExplainer from './WmiExplainer'
+import { getQuestionIllustration, getQuestionExplainer } from './paperQuestions/registry'
 
 interface Props {
   question: WmiQuestion
@@ -83,6 +85,9 @@ export default function WmiQuestionView({
     })
   }
 
+  const Illustration = getQuestionIllustration(question.code)
+  const QuestionExplainer = getQuestionExplainer(question.code)
+
   return (
     <article className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
       <div className="absolute right-3 top-3 flex items-center gap-2">
@@ -101,7 +106,7 @@ export default function WmiQuestionView({
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      <WmiFigure src={question.figure_url} />
+      {Illustration ? <Illustration /> : <WmiFigure src={question.figure_url} />}
 
       {question.answer_type === 'multiple_choice' ? (
         <div className="mt-4 grid gap-3">
@@ -142,6 +147,9 @@ export default function WmiQuestionView({
             Submit
           </button>
         </form>
+      )}
+      {revealed && QuestionExplainer && (
+        <WmiExplainer explainer={QuestionExplainer} params={{}} correctAnswer="" lang={lang} />
       )}
     </article>
   )
