@@ -19,7 +19,6 @@ export interface StarPos {
 
 export function starPositions(rows: readonly number[] = STAR_ROWS): StarPos[] {
   const out: StarPos[] = []
-  let n = 0
   rows.forEach((count, row) => {
     for (let i = 0; i < count; i++) {
       out.push({
@@ -29,7 +28,6 @@ export function starPositions(rows: readonly number[] = STAR_ROWS): StarPos[] {
         color: STAR_COLOR,
         tilt: 0,
       })
-      n++
     }
   })
   return out
