@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
-import CandyRowsIllustration from './CandyRowsIllustration'
-import CandyCountExplainer from './CandyCountExplainer'
+import StarRowsIllustration from './StarRowsIllustration'
+import StarCountExplainer from './StarCountExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -9,7 +9,7 @@ interface QuestionVisual {
 }
 
 const VISUALS: Record<string, QuestionVisual> = {
-  'WMI-19F1-Q1': { Illustration: CandyRowsIllustration, Explainer: CandyCountExplainer },
+  'WMI-19F1-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {

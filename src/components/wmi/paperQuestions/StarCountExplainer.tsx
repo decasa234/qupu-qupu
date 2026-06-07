@@ -1,31 +1,31 @@
 import { useMemo } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
 import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import { Candy, candyPositions, VIEW_W, VIEW_H } from './candyVisual'
-import { buildCandyCountSteps } from './candyCountSteps'
+import { Star, starPositions, VIEW_W, VIEW_H } from './starVisual'
+import { buildStarCountSteps } from './starCountSteps'
 
 const GREEN = '#10B981'
 
-export default function CandyCountExplainer(props: ExplainerProps) {
+export default function StarCountExplainer(props: ExplainerProps) {
   const lang = props.lang ?? 'en'
-  const story = useMemo(() => buildCandyCountSteps(lang), [lang])
+  const story = useMemo(() => buildStarCountSteps(lang), [lang])
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
-  const positions = useMemo(() => candyPositions(), [])
+  const positions = useMemo(() => starPositions(), [])
 
   const ariaLabel =
     lang === 'id'
-      ? `Hitung permen baris demi baris: ${story.rows.join(' + ')} = ${story.total}.`
-      : `Count the candies row by row: ${story.rows.join(' + ')} = ${story.total}.`
+      ? `Hitung bintang baris demi baris: ${story.rows.join(' + ')} = ${story.total}.`
+      : `Count the stars row by row: ${story.rows.join(' + ')} = ${story.total}.`
 
   return (
-    <div className="mx-auto w-full max-w-[460px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[520px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
-        <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width="100%" style={{ maxWidth: 460 }} aria-hidden="true">
+        <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width="100%" style={{ maxWidth: 520 }} aria-hidden="true">
           {positions.map((p, i) => {
             const dim = beat.row !== null && p.row !== beat.row
             const counted = beat.phase === 'result' || (beat.row !== null && p.row <= beat.row)
-            return <Candy key={i} cx={p.cx} cy={p.cy} color={counted || beat.phase === 'show' ? p.color : '#cbd5e1'} opacity={dim ? 0.3 : 1} />
+            return <Star key={i} cx={p.cx} cy={p.cy} color={counted || beat.phase === 'show' ? p.color : '#cbd5e1'} tilt={p.tilt} opacity={dim ? 0.3 : 1} />
           })}
         </svg>
 

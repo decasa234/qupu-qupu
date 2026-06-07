@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest'
-import { buildCandyCountSteps } from './candyCountSteps'
+import { buildStarCountSteps } from './starCountSteps'
 
-describe('buildCandyCountSteps', () => {
-  test('counts the rows with running totals 22, 44, 48 and ends at 48', () => {
-    const sb = buildCandyCountSteps('en')
+describe('buildStarCountSteps', () => {
+  test('counts the rows with running totals 22, 44, 48 and ends at 48 stars', () => {
+    const sb = buildStarCountSteps('en')
     expect(sb.rows).toEqual([22, 22, 4])
     expect(sb.total).toBe(48)
     expect(sb.steps.map((s) => s.phase)).toEqual(['show', 'row', 'row', 'row', 'result'])
@@ -11,10 +11,11 @@ describe('buildCandyCountSteps', () => {
     const last = sb.steps[sb.finalIndex]
     expect(last.result).toBe(true)
     expect(last.caption).toContain('22 + 22 + 4 = 48')
+    expect(last.caption).toContain('stars')
   })
 
   test('Indonesian captions', () => {
-    const sb = buildCandyCountSteps('id')
+    const sb = buildStarCountSteps('id')
     expect(sb.steps[0].caption.toLowerCase()).toContain('hitung')
   })
 })

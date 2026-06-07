@@ -1,10 +1,10 @@
 import type { Lang } from '../concepts/explainers/makeTenSteps'
-import { CANDY_ROWS, CANDY_TOTAL } from './candyVisual'
+import { STAR_ROWS, STAR_TOTAL } from './starVisual'
 
-export type CandyPhase = 'show' | 'row' | 'result'
+export type StarPhase = 'show' | 'row' | 'result'
 
-export interface CandyStep {
-  phase: CandyPhase
+export interface StarStep {
+  phase: StarPhase
   row: number | null
   running: number
   caption: string
@@ -12,20 +12,20 @@ export interface CandyStep {
   result: boolean
 }
 
-export interface CandyStoryboard {
+export interface StarStoryboard {
   rows: number[]
   total: number
-  steps: CandyStep[]
+  steps: StarStep[]
   finalIndex: number
 }
 
-export function buildCandyCountSteps(lang: Lang): CandyStoryboard {
-  const rows = [...CANDY_ROWS]
-  const total = CANDY_TOTAL
+export function buildStarCountSteps(lang: Lang): StarStoryboard {
+  const rows = [...STAR_ROWS]
+  const total = STAR_TOTAL
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  const steps: CandyStep[] = [
-    { phase: 'show', row: null, running: 0, hold: 1500, result: false, caption: t('How many candies are there?', 'Ada berapa banyak permen? Hitung!') },
+  const steps: StarStep[] = [
+    { phase: 'show', row: null, running: 0, hold: 1500, result: false, caption: t('How many stars are there?', 'Ada berapa banyak bintang? Hitung!') },
   ]
   let running = 0
   rows.forEach((count, i) => {
@@ -45,7 +45,7 @@ export function buildCandyCountSteps(lang: Lang): CandyStoryboard {
     running: total,
     hold: 0,
     result: true,
-    caption: t(`${rows.join(' + ')} = ${total} candies.`, `${rows.join(' + ')} = ${total} permen.`),
+    caption: t(`${rows.join(' + ')} = ${total} stars.`, `${rows.join(' + ')} = ${total} bintang.`),
   })
 
   return { rows, total, steps, finalIndex: steps.length - 1 }
