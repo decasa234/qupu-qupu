@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import type { ComponentType } from 'react'
 import { motion } from 'framer-motion'
 import { getExplainer } from './concepts/explainers/registry'
+import type { ExplainerProps } from './concepts/explainers/registry'
 
 interface Props {
-  slug: string
+  slug?: string
+  explainer?: ComponentType<ExplainerProps>
   params: unknown
   correctAnswer: string
   lang?: 'en' | 'id'
 }
 
-export default function WmiExplainer({ slug, params, correctAnswer, lang }: Props) {
-  const Explainer = getExplainer(slug)
+export default function WmiExplainer({ slug, explainer, params, correctAnswer, lang }: Props) {
+  const Explainer = explainer ?? (slug ? getExplainer(slug) : null)
   const [replayKey, setReplayKey] = useState(0)
   const [count, setCount] = useState(0)
   const [step, setStep] = useState(0) // manual position / where a play-through begins
