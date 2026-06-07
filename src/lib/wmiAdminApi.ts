@@ -97,6 +97,8 @@ export interface AdminPaperQuestion {
   hint_id: string | null
   difficulty: number | null
   code?: string
+  hint_steps_en?: string[] | null
+  hint_steps_id?: string[] | null
 }
 
 export interface PaperReview {
