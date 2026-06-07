@@ -1,7 +1,7 @@
 export const STAR_ROWS = [22, 22, 4] as const
 export const STAR_TOTAL = STAR_ROWS.reduce((s, n) => s + n, 0) // 48
 
-const COLORS = ['#F59E0B', '#2f6df0', '#EC4899', '#10B981', '#A855F7']
+const STAR_COLOR = '#F59E0B'
 const PAD_X = 24
 const GAP = 24
 const R = 9
@@ -26,8 +26,8 @@ export function starPositions(rows: readonly number[] = STAR_ROWS): StarPos[] {
         row,
         cx: PAD_X + R + i * GAP,
         cy: ROW_Y[row] ?? ROW_Y[ROW_Y.length - 1],
-        color: COLORS[n % COLORS.length],
-        tilt: ((n * 41) % 25) - 12,
+        color: STAR_COLOR,
+        tilt: 0,
       })
       n++
     }
