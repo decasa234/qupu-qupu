@@ -492,6 +492,15 @@ CREATE TABLE IF NOT EXISTS wmi_papers (
   CONSTRAINT wmi_papers_year_grade_round_variant_unique UNIQUE (year, grade, round, variant)
 );
 
+CREATE TABLE IF NOT EXISTS wmi_paper_reviews (
+  paper_id    UUID PRIMARY KEY REFERENCES wmi_papers(id) ON DELETE CASCADE,
+  status      TEXT NOT NULL DEFAULT 'pending'
+                CHECK (status IN ('pending','approved','needs_changes')),
+  notes       TEXT NOT NULL DEFAULT '',
+  reviewed_by TEXT,
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS wmi_questions (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   paper_id    UUID NOT NULL REFERENCES wmi_papers(id) ON DELETE CASCADE,
