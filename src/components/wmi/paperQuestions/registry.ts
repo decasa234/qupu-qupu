@@ -18,6 +18,10 @@ import NumberPatternIllustration from './NumberPatternIllustration'
 import NumberPatternExplainer from './NumberPatternExplainer'
 import PathGridIllustration from './PathGridIllustration'
 import PathGridExplainer from './PathGridExplainer'
+import NumberFlowIllustration from './NumberFlowIllustration'
+import NumberFlowExplainer from './NumberFlowExplainer'
+import LockCodeIllustration from './LockCodeIllustration'
+import LockCodeExplainer from './LockCodeExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -34,6 +38,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
   'WMI-19F1-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
   'WMI-19F1-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
+  'WMI-19F1-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
+  'WMI-19F1-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
