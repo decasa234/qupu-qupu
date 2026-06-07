@@ -22,6 +22,10 @@ import NumberFlowIllustration from './NumberFlowIllustration'
 import NumberFlowExplainer from './NumberFlowExplainer'
 import LockCodeIllustration from './LockCodeIllustration'
 import LockCodeExplainer from './LockCodeExplainer'
+import KenKenGridIllustration from './KenKenGridIllustration'
+import KenKenExplainer from './KenKenExplainer'
+import ArrowGridIllustration from './ArrowGridIllustration'
+import ArrowGridExplainer from './ArrowGridExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -40,6 +44,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
   'WMI-19F1-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
   'WMI-19F1-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
+  'WMI-19F1-Q24': { Illustration: KenKenGridIllustration, Explainer: KenKenExplainer },
+  'WMI-19F1-Q25': { Illustration: ArrowGridIllustration, Explainer: ArrowGridExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
