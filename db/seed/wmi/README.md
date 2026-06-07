@@ -40,9 +40,17 @@ Each source set is a folder pair: `<Year> WMI <Round> G0N Paper <A|B>/` (questio
 and `<Year> WMI <Round> G0N Answer Key/` (answers). Each folder has `full.md`
 (markdown, bilingual English + Chinese), `images/` (figures), and JSON metadata.
 
-Produce one `papers/<year>-<round>-g<grade>-<variant>.json` per paper.
+**"Paper A" and "Paper B" are the two SECTIONS of one exam, not variants.**
+Paper A = the multiple-choice "Logical Reasoning" section; Paper B = the fill-in
+"Applications" section; the single Answer Key folder covers both. Merge them into
+**one** `papers/<year>-<round>-g<grade>.json` with continuous numbering: Paper A
+questions first (`multiple_choice`), then Paper B questions (`fill_in`). The
+`variant` field stays `"A"` on every paper (the column exists for possible future
+real variants; we don't surface it). Lower grades vary — follow the ACTUAL
+question/answer counts per grade (e.g. G0 uses 3 picture-choices ①②③, not A–D —
+see the deferred-G0 note at the end).
 
-**Procedure per paper:**
+**Procedure per exam (merging both section folders):**
 
 1. **Answers.** Run the answer-key parser on the answer-key `full.md` to get the
    number→answer maps (Reasoning A–D; Applications numeric):
@@ -51,11 +59,12 @@ Produce one `papers/<year>-<round>-g<grade>-<variant>.json` per paper.
    npx tsx -e "import('node:fs').then(async fs=>{const {parseAnswerKey}=await import('./api/services/wmi/paperImport/answerKey.ts');console.log(JSON.stringify(parseAnswerKey(fs.readFileSync(process.argv[1],'utf8')),null,1))})" "wmiPastPaper/2019 WMI Final G01 Answer Key/full.md"
    ```
 
-2. **Questions.** Read the paper `full.md`. It has two sections: **Logical
-   Reasoning** (multiple-choice, numbered 1–15) and **Applications** (fill-in,
-   numbered 1–10). For each question emit a `PaperQuestion`:
-   - **Renumber continuously:** Reasoning → `number` 1–15 (`answer_type:
-     "multiple_choice"`); Applications → `number` 16–25 (`answer_type: "fill_in"`).
+2. **Questions.** Read BOTH section files: `... Paper A/full.md` (the
+   multiple-choice section) and `... Paper B/full.md` (the fill-in section). For
+   each question emit a `PaperQuestion`:
+   - **Renumber continuously across both files:** Paper A → `number` 1..M
+     (`answer_type: "multiple_choice"`); Paper B → `number` M+1.. (`answer_type:
+     "fill_in"`), where M is Paper A's actual question count (typically 15).
    - `body_en` = the English stem, cleaned of OCR noise. **Drop the duplicated
      Chinese lines.** **Plain text only — no `[[ ]]` glossary markup.**
    - `body_id` = a natural Indonesian translation of the stem.
@@ -74,10 +83,17 @@ Produce one `papers/<year>-<round>-g<grade>-<variant>.json` per paper.
    ```bash
    npx tsx -e "import('node:fs').then(fs=>fs.copyFileSync(process.argv[1],process.argv[2]))" "wmiPastPaper/2019 WMI Final G01 Paper A/images/<hash>.jpg" "db/seed/wmi/figures/2019-final-g1-a-q1.jpg"
    ```
+   (figure filenames keep the `-a-` infix from `figureName(meta, …)` with `variant: "A"` — that's fine; they're opaque keys.)
 
 4. **Paper header:** `year`, `grade` (G00→0…G03→3), `round` (Prelim→`semifinal`,
-   Final→`final`), `variant` (`A`/`B`), `recommended_duration_min` (from the paper
-   if stated, else 60), `title` = `WMI <year> Grade <grade> <Round> — Paper <variant>`.
+   Final→`final`), `variant: "A"`, `recommended_duration_min` (from the paper
+   if stated, else 60), `title` = `WMI <year> Grade <grade> <Round>`.
+
+### Deferred: Grade 0 (G00)
+
+G0 papers use 3 picture-choices labelled ①②③ (not A–D) and are heavily
+figure-driven with irregular numbering. They need the validator relaxed to accept
+3-option MC (labels A–C) before import. Deferred from the first slice (G1–G3).
 
 5. **Validate:** `npm run wmi:validate` until the paper reports `✓`.
 

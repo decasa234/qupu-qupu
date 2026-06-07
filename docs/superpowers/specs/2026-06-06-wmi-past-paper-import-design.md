@@ -173,6 +173,23 @@ db/seed/wmi/load.ts  →  wmi_papers / wmi_questions  →  papers API  →  app
 - **Figure name collisions** → stable deterministic naming keyed by
   year/round/grade/variant/number.
 
+## Amendment (2026-06-07, during implementation)
+
+Discovered during extraction that **"Paper A" and "Paper B" are the two _sections_
+of one exam, not parallel variants**: Paper A is the multiple-choice section, Paper
+B is the fill-in section, and a single Answer Key covers both. The earlier "variant
+A/B" framing (and the user-approved variant decision) was therefore based on a wrong
+assumption. Corrected model (user-approved 2026-06-07):
+
+- **Merge** Paper A (MC) + Paper B (fill-in) into **one** paper per (year, grade,
+  round) with continuous numbering — the real full exam. One file
+  `papers/<year>-<round>-g<grade>.json`.
+- The `variant` column/field is kept (harmless, always `'A'`) but **not surfaced**
+  in the UI — no schema revert, room for genuine future variants.
+- **G0 deferred** from the first slice: it uses 3 picture-choices (①②③) and
+  irregular formatting; needs the validator relaxed to 3-option MC. First slice
+  shipped = **2019 Final, grades 1–3** (3 full exams, 75 questions).
+
 ## Out of scope
 
 - No runtime LLM service. No re-architecture of the papers feature, API, or UI
