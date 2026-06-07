@@ -10,6 +10,10 @@ import BalanceScaleIllustration from './BalanceScaleIllustration'
 import BalanceScaleExplainer from './BalanceScaleExplainer'
 import ShapeCountChartIllustration from './ShapeCountChartIllustration'
 import ShapeCountChartExplainer from './ShapeCountChartExplainer'
+import SecondLongestIllustration from './SecondLongestIllustration'
+import SecondLongestExplainer from './SecondLongestExplainer'
+import CountSquaresIllustration from './CountSquaresIllustration'
+import CountSquaresExplainer from './CountSquaresExplainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -18,10 +22,12 @@ interface QuestionVisual {
 
 const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
+  'WMI-19F1-Q4': { Illustration: SecondLongestIllustration, Explainer: SecondLongestExplainer },
   'WMI-19F1-Q6': { Illustration: ClockReadIllustration, Explainer: ClockReadExplainer },
   'WMI-19F1-Q8': { Illustration: WhiteCircleSquareIllustration, Explainer: WhiteCircleSquareExplainer },
   'WMI-19F1-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
   'WMI-19F1-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
+  'WMI-19F1-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
