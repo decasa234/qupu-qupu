@@ -3,7 +3,7 @@ import Reveal from '@/components/Reveal'
 import WmiConceptDemo from '@/components/wmi/marketing/WmiConceptDemo'
 import WmiTrustStats from '@/components/wmi/marketing/WmiTrustStats'
 import WmiTestimonials from '@/components/wmi/marketing/WmiTestimonials'
-import { FOUNDER, TESTIMONIALS } from '@/data/wmiMarketing'
+import { TESTIMONIALS } from '@/data/wmiMarketing'
 
 const LEARN_STEPS = [
   {
@@ -32,60 +32,99 @@ const WHY = [
   { icon: 'fa-solid fa-child-reaching', text: 'Dirancang untuk anak Kelas 0–3, dengan bahasa & visual yang ramah anak.' },
 ]
 
+/** A scatter of brand-yellow star sprinkles for emphasis surfaces. */
+function Sprinkles() {
+  return (
+    <>
+      <i className="fa-solid fa-star pointer-events-none absolute left-8 top-9 text-base text-qupu-brand-yellow/80" aria-hidden="true" />
+      <i className="fa-solid fa-star pointer-events-none absolute right-1/4 top-7 text-xs text-qupu-brand-yellow/60" aria-hidden="true" />
+      <i className="fa-solid fa-star pointer-events-none absolute left-1/3 bottom-10 text-sm text-qupu-brand-yellow/70" aria-hidden="true" />
+      <i className="fa-solid fa-star pointer-events-none absolute right-10 bottom-14 text-lg text-qupu-brand-yellow/70" aria-hidden="true" />
+    </>
+  )
+}
+
 export default function LatihanWmiPage() {
   return (
     <div className="space-y-12 sm:space-y-16">
       {/* 1 · Hero */}
-      <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#FFF6E5] via-[#FFE8C9] to-[#FFD8A8] px-6 py-12 text-center shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
-        <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange shadow-sm">
-          <i className="fa-solid fa-medal" aria-hidden="true" />
-          Latihan WMI
-        </span>
-        <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight text-qupu-brand-blue sm:text-5xl">
-          Olimpiade matematika, dimainkan seperti game
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-sm font-semibold leading-relaxed text-qupu-brand-blue/80 sm:text-base">
-          Anak belajar konsep olimpiade matematika WMI lewat animasi seru — paham caranya, bukan sekadar hafal.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link
-            to="/register"
-            className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
-          >
-            <i className="fa-solid fa-user-plus" aria-hidden="true" />
-            Daftar Gratis
-          </Link>
-          <a
-            href="#demo"
-            className="inline-flex items-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-white/80 px-6 py-[10px] font-display text-base font-extrabold text-qupu-brand-blue transition-all hover:-translate-y-0.5 hover:bg-qupu-brand-blue hover:text-white"
-          >
-            <i className="fa-solid fa-play" aria-hidden="true" />
-            Main Demo
-          </a>
+      <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#FFF6E5] via-[#FFE8C9] to-[#FFD8A8] px-6 py-14 text-center shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-20">
+        <Sprinkles />
+        <img
+          src="/hero-mascot.png"
+          alt=""
+          draggable={false}
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-3 -right-3 hidden h-44 w-auto select-none drop-shadow-[0_14px_30px_rgba(120,60,0,0.22)] lg:block"
+        />
+
+        <div className="relative">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange shadow-sm">
+            <i className="fa-solid fa-medal" aria-hidden="true" />
+            Latihan WMI
+          </span>
+          <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight text-qupu-brand-blue sm:text-5xl lg:text-[3.25rem]">
+            Olimpiade matematika,{' '}
+            <span className="relative inline-block">
+              <span className="relative z-10 text-qupu-brand-orange">dimainkan seperti game</span>
+              <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-qupu-brand-yellow/70" aria-hidden="true" />
+            </span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-sm font-semibold leading-relaxed text-qupu-brand-blue/80 sm:text-base">
+            Anak belajar konsep olimpiade matematika WMI lewat animasi seru — paham caranya, bukan sekadar hafal.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/register"
+              className="inline-flex min-h-12 items-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                <i className="fa-solid fa-user-plus text-qupu-brand-orange" aria-hidden="true" />
+              </span>
+              Daftar Gratis
+            </Link>
+            <a
+              href="#demo"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-qupu-brand-blue bg-white/80 px-6 py-[10px] font-display text-base font-extrabold text-qupu-brand-blue transition-all duration-150 hover:-translate-y-0.5 hover:bg-qupu-brand-blue hover:text-white"
+            >
+              <i className="fa-solid fa-play" aria-hidden="true" />
+              Main Demo
+            </a>
+          </div>
         </div>
       </section>
 
       {/* 2 · Live demo */}
       <Reveal delay={0.05}>
-        <section id="demo" className="scroll-mt-24">
-          <WmiConceptDemo />
+        <section id="demo" className="scroll-mt-24 text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Coba Langsung</div>
+          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
+            Mainkan satu konsep sekarang
+          </h2>
+          <p className="mx-auto mt-2 max-w-lg text-sm font-semibold text-qupu-muted">
+            Tanpa daftar — lihat sendiri serunya belajar WMI.
+          </p>
+          <div className="mt-7">
+            <WmiConceptDemo />
+          </div>
         </section>
       </Reveal>
 
       {/* 3 · Apa itu WMI? */}
       <Reveal delay={0.05}>
-        <section className="mx-auto max-w-4xl">
-          <h2 className="text-center font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
-            Apa itu WMI?
-          </h2>
+        <section className="mx-auto max-w-4xl text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Kenapa WMI</div>
+          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">Apa itu WMI?</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {WHY.map((w) => (
               <div
                 key={w.text}
-                className="rounded-[1.75rem] border-[3px] border-qupu-peach bg-white p-6 text-center shadow-[5px_6px_0_0_rgba(38,59,85,0.08)]"
+                className="rounded-[1.75rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1] transition-transform duration-200 hover:-translate-y-1"
               >
-                <i className={`${w.icon} text-3xl text-qupu-brand-orange`} aria-hidden="true" />
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-qupu-brand-blue/90">{w.text}</p>
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-qupu-cream text-2xl text-qupu-brand-orange">
+                  <i className={w.icon} aria-hidden="true" />
+                </span>
+                <p className="mt-4 text-sm font-semibold leading-relaxed text-qupu-brand-blue/90">{w.text}</p>
               </div>
             ))}
           </div>
@@ -94,18 +133,17 @@ export default function LatihanWmiPage() {
 
       {/* 4 · Cara belajarnya */}
       <Reveal delay={0.05}>
-        <section className="overflow-hidden rounded-[2.5rem] bg-qupu-cream px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10">
-          <h2 className="text-center font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
-            Cara belajarnya
-          </h2>
-          <p className="mx-auto mt-2 max-w-xl text-center text-sm font-semibold text-qupu-muted">
+        <section className="relative overflow-hidden rounded-[2.5rem] bg-qupu-cream px-6 py-12 text-center shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
+          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Perjalanan Belajar</div>
+          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">Cara belajarnya</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm font-semibold text-qupu-muted">
             Tiga langkah seru — semuanya pakai XP, badge, dan confetti.
           </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <div className="mt-9 grid gap-5 sm:grid-cols-3">
             {LEARN_STEPS.map((s, i) => (
               <div
                 key={s.title}
-                className="relative rounded-[1.75rem] border-[3px] border-white bg-white p-6 text-center shadow-[5px_6px_0_0_rgba(38,59,85,0.10)]"
+                className="relative rounded-[1.75rem] border-[3px] border-white bg-white p-6 text-center shadow-[5px_6px_0_0_rgba(38,59,85,0.10)] transition-transform duration-200 hover:-translate-y-1"
               >
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-white">
                   Langkah {i + 1}
@@ -123,61 +161,64 @@ export default function LatihanWmiPage() {
 
       {/* 5 · Angka QUPU (true stats) */}
       <Reveal delay={0.05}>
-        <section className="mx-auto max-w-5xl">
-          <h2 className="text-center font-display text-2xl font-extrabold text-qupu-brand-blue sm:text-3xl">
+        <section className="mx-auto max-w-5xl text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Sudah Siap</div>
+          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
             Yang sudah siap untuk anak
           </h2>
-          <div className="mt-6">
+          <div className="mt-7">
             <WmiTrustStats />
           </div>
         </section>
       </Reveal>
 
-      {/* 6 · Cerita pendiri (placeholder) */}
-      <Reveal delay={0.05}>
-        <section className="mx-auto max-w-3xl rounded-[2rem] border-[3px] border-qupu-peach bg-white p-6 shadow-[5px_6px_0_0_rgba(38,59,85,0.08)] sm:p-8">
-          <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-qupu-cream text-3xl text-qupu-brand-blue">
-              <i className="fa-solid fa-chalkboard-user" aria-hidden="true" />
-            </div>
-            <div>
-              <div className="font-display text-lg font-extrabold text-qupu-brand-blue">{FOUNDER.name}</div>
-              <div className="text-xs font-bold uppercase tracking-wide text-qupu-brand-orange">{FOUNDER.role}</div>
-              <p className="mt-3 text-sm font-semibold leading-relaxed text-qupu-brand-blue/90">{FOUNDER.story}</p>
-            </div>
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 7 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
+      {/* 6 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
       {TESTIMONIALS.length > 0 && (
         <Reveal delay={0.05}>
           <WmiTestimonials />
         </Reveal>
       )}
 
-      {/* 8 · Closing CTA */}
+      {/* 7 · Closing CTA */}
       <Reveal delay={0.05}>
-        <section className="overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-12 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
-          <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Jadi salah satu keluarga pertama</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed text-white/90 sm:text-base">
-            Coba Latihan WMI gratis hari ini. Tidak perlu kartu kredit.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
-            >
-              <i className="fa-solid fa-user-plus" aria-hidden="true" />
-              Daftar Gratis
-            </Link>
-            <Link
-              to="/harga"
-              className="inline-flex items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
-            >
-              <i className="fa-solid fa-tag" aria-hidden="true" />
-              Lihat Harga
-            </Link>
+        <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
+          <Sprinkles />
+          <img
+            src="/subs-mascot.png"
+            alt=""
+            draggable={false}
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-2 -left-3 hidden h-36 w-auto select-none drop-shadow-[0_12px_26px_rgba(0,0,0,0.25)] lg:block"
+          />
+          <div className="relative">
+            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+              Jadi salah satu{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10 text-qupu-brand-yellow">keluarga pertama</span>
+                <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-white/15" aria-hidden="true" />
+              </span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed text-white/90 sm:text-base">
+              Coba Latihan WMI gratis hari ini. Tidak perlu kartu kredit.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link
+                to="/register"
+                className="inline-flex min-h-12 items-center gap-3 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                  <i className="fa-solid fa-user-plus text-qupu-brand-orange" aria-hidden="true" />
+                </span>
+                Daftar Gratis
+              </Link>
+              <Link
+                to="/harga"
+                className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
+              >
+                <i className="fa-solid fa-tag" aria-hidden="true" />
+                Lihat Harga
+              </Link>
+            </div>
           </div>
         </section>
       </Reveal>
