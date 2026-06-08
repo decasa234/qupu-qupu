@@ -24,24 +24,25 @@ async function doBootstrap(): Promise<void> {
   // hint_steps columns come from migration 0023). This bootstrap no longer
   // runs DDL at request time — it only upserts concept rows and seeds the
   // idempotent starter instance pool.
-  await upsertThemes()
+  await upsertSubjects()
   await upsertConcepts()
   for (const slug of ALL_SLUGS) {
     await seedConcept(slug, CONCEPTS[slug] as ConceptLogic<unknown>)
   }
 }
 
-async function upsertThemes(): Promise<void> {
+async function upsertSubjects(): Promise<void> {
   await withTransaction(async (client) => {
     for (const s of SUBJECTS) {
       await client.query(
-        `INSERT INTO wmi_themes (theme_key, name_id, name_en, color_hex, icon_key, sort_order)
-         VALUES ($1,$2,$3,$4,$5,$6)
-         ON CONFLICT (theme_key) DO UPDATE SET
+        `INSERT INTO wmi_subjects (subject_key, grade, name_id, name_en, color_hex, icon_key, sort_order)
+         VALUES ($1,$2,$3,$4,$5,$6,$7)
+         ON CONFLICT (subject_key) DO UPDATE SET
+           grade = EXCLUDED.grade,
            name_id = EXCLUDED.name_id, name_en = EXCLUDED.name_en,
            color_hex = EXCLUDED.color_hex, icon_key = EXCLUDED.icon_key,
            sort_order = EXCLUDED.sort_order`,
-        [s.subjectKey, s.name_id, s.name_en, s.color_hex, s.icon_key, s.sortOrder],
+        [s.subjectKey, s.grade, s.name_id, s.name_en, s.color_hex, s.icon_key, s.sortOrder],
       )
     }
   })
@@ -53,12 +54,12 @@ async function upsertConcepts(): Promise<void> {
       const c = CONCEPTS[slug]
       const cur = CURRICULUM[slug as keyof typeof CURRICULUM]
       await client.query(
-        `INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades, theme_key, difficulty, sort_order)
+        `INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades, subject_key, difficulty, sort_order)
          VALUES ($1,$2,$3,$4,$5::SMALLINT[],$6,$7,$8)
          ON CONFLICT (slug) DO UPDATE SET
            name_en = EXCLUDED.name_en, name_id = EXCLUDED.name_id,
            description_id = EXCLUDED.description_id, grades = EXCLUDED.grades,
-           theme_key = EXCLUDED.theme_key, difficulty = EXCLUDED.difficulty,
+           subject_key = EXCLUDED.subject_key, difficulty = EXCLUDED.difficulty,
            sort_order = EXCLUDED.sort_order, updated_at = NOW()`,
         [
           c.meta.slug,

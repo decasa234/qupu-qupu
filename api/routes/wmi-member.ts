@@ -201,12 +201,11 @@ const voteSchema = Joi.object({
   vote: Joi.number().integer().valid(1, -1).required(),
 })
 
-const WMI_THEME_KEYS = SUBJECTS.map((s) => s.subjectKey)
+const WMI_SUBJECT_KEYS = SUBJECTS.map((s) => s.subjectKey)
 
 const chapterTestStartSchema = Joi.object({
   childId: Joi.string().uuid().required(),
-  grade: Joi.number().integer().min(0).max(3).required(),
-  theme_key: Joi.string().valid(...WMI_THEME_KEYS).required(),
+  subject_key: Joi.string().valid(...WMI_SUBJECT_KEYS).required(),
 })
 const chapterTestSubmitSchema = chapterTestStartSchema.keys({
   answers: Joi.array().items(Joi.object({
@@ -287,7 +286,7 @@ router.post(
         res.status(400).json({ success: false, error: error.details[0].message })
         return
       }
-      const out = await startChapterTest(req.user.id, value.childId, value.grade, value.theme_key)
+      const out = await startChapterTest(req.user.id, value.childId, value.subject_key)
       res.json({ success: true, data: out })
     } catch (error) {
       console.error('WMI chapter-test start error:', error)
@@ -306,7 +305,7 @@ router.post(
         res.status(400).json({ success: false, error: error.details[0].message })
         return
       }
-      const out = await submitChapterTest(req.user.id, value.childId, value.grade, value.theme_key, value.answers)
+      const out = await submitChapterTest(req.user.id, value.childId, value.subject_key, value.answers)
       res.status(201).json({ success: true, data: out })
     } catch (error) {
       console.error('WMI chapter-test submit error:', error)
