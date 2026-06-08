@@ -44,6 +44,10 @@ import AnimalWeightsG2Illustration from './AnimalWeightsG2Illustration'
 import AnimalWeightsG2Explainer from './AnimalWeightsG2Explainer'
 import SubtractionShapesG2Illustration from './SubtractionShapesG2Illustration'
 import SubtractionShapesG2Explainer from './SubtractionShapesG2Explainer'
+import CountSquaresG2Illustration from './CountSquaresG2Illustration'
+import CountSquaresG2Explainer from './CountSquaresG2Explainer'
+import BalanceTwoScalesG2Illustration from './BalanceTwoScalesG2Illustration'
+import BalanceTwoScalesG2Explainer from './BalanceTwoScalesG2Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -73,6 +77,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F2A-Q13': { Illustration: TrianglePatternG2Illustration, Explainer: TrianglePatternG2Explainer },
   'WMI-19F2A-Q14': { Illustration: AnimalWeightsG2Illustration, Explainer: AnimalWeightsG2Explainer },
   'WMI-19F2A-Q15': { Illustration: SubtractionShapesG2Illustration, Explainer: SubtractionShapesG2Explainer },
+  'WMI-19F2A-Q17': { Illustration: CountSquaresG2Illustration, Explainer: CountSquaresG2Explainer },
+  'WMI-19F2A-Q20': { Illustration: BalanceTwoScalesG2Illustration, Explainer: BalanceTwoScalesG2Explainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
