@@ -233,7 +233,7 @@ export default function QuizPage() {
       <BackRow onBack={handleBack} />
 
       {/* Video */}
-      <div className="overflow-hidden rounded-[1.5rem] bg-qupu-cream shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-embed" className="overflow-hidden rounded-[1.5rem] bg-qupu-cream shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="aspect-video">
           <iframe
             src={video.embedUrl}
@@ -267,7 +267,7 @@ export default function QuizPage() {
       </div>
 
       {/* Badge ranges */}
-      <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-badges" className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
@@ -311,7 +311,7 @@ export default function QuizPage() {
       </div>
 
       {/* Score entry / completed / result */}
-      <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-score" className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
         {!result && (existingScore === null || editing) && (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
