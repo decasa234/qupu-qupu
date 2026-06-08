@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildPerimeterAreaComposedBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -55,6 +56,7 @@ export function render(params: Params) {
       `Luas sudut yang dipotong: ${cw} × ${ch} = ${cutArea} cm²`,
       `Luas bangun L: ${fullArea} − ${cutArea} = ${result} cm²`,
     ],
+    breakdown: buildPerimeterAreaComposedBreakdown(params),
   }
 }
 

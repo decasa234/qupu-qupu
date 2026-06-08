@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildClockReadTimeBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   hour: z.number().int().min(1).max(12),
@@ -61,6 +62,7 @@ export function render(params: Params) {
       `Perhatikan jarum panjang (menit) — jarum ini menunjukkan ${minuteWord_id}, jadi menitnya adalah ${params.minute === 0 ? '00' : params.minute}.`,
       `Gabungkan keduanya: waktu yang ditunjukkan adalah pukul ${correct}.`,
     ],
+    breakdown: buildClockReadTimeBreakdown(params),
   }
 }
 

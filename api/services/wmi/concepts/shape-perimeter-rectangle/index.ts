@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildShapePerimeterRectangleBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -49,6 +50,7 @@ export function render(params: Params) {
       `Jumlahkan semuanya: ${params.w} + ${params.h} + ${params.w} + ${params.h} = 2 × (${params.w} + ${params.h}).`,
       `2 × ${params.w + params.h} = ${p} cm.`,
     ],
+    breakdown: buildShapePerimeterRectangleBreakdown(params),
   }
 }
 

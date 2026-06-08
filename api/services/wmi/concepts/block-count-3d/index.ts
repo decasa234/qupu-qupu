@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildBlockCount3dBreakdown } from './breakdown.js'
 
 // Each group is a SOLID monotone staircase (a plane partition): heights are
 // non-increasing as you move toward the front and toward the right. That
@@ -120,6 +121,7 @@ export function render(params: Params) {
       `${groupSummaryId}.`,
       `Jumlahkan semua kelompok: ${additionId} = ${grandTotal} balok seluruhnya.`,
     ],
+    breakdown: buildBlockCount3dBreakdown(params),
   }
 }
 
