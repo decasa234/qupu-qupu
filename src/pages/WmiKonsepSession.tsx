@@ -250,7 +250,7 @@ export default function WmiKonsepSession() {
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-base"
                     style={{ background: to.bg, color: to.fg }}
                   >
-                    <i className={`${to.iconPrefix} ${to.icon}`} aria-hidden="true" />
+                    <i className={`${to.iconPrefix} ${to.icon}${to.iconExtra ? ` ${to.iconExtra}` : ''}`} aria-hidden="true" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="font-display text-[13px] font-black leading-tight text-qupu-brand-blue">{cg.nameId}</div>
@@ -310,26 +310,36 @@ export default function WmiKonsepSession() {
       {/* Confetti on correct answer — re-mount per question via key */}
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${idx}`} />}
 
-      {/* Top row: quit button + question counter */}
-      <div className="mb-3 flex items-center justify-between px-1">
-        <button
-          type="button"
-          onClick={handleQuit}
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-xmark text-xs" aria-hidden="true" />
-          Keluar
-        </button>
-        <span className="font-display text-xs font-black text-qupu-brand-blue">
-          {idx + 1} / {SESSION_SIZE}
-        </span>
+      {/* Top row: quit button + single progress indicator */}
+      <div className="mb-3 px-1">
+        <div className="mb-1.5 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={handleQuit}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            <i className="fa-solid fa-xmark text-xs" aria-hidden="true" />
+            Keluar
+          </button>
+          <span className="font-display text-xs font-black text-qupu-brand-blue">
+            Soal {idx + 1} / {SESSION_SIZE}
+          </span>
+        </div>
+        {/* Slim progress bar */}
+        <div className="h-2 overflow-hidden rounded-full bg-[#F1E4CC]">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${((idx + 1) / SESSION_SIZE) * 100}%`,
+              background: 'linear-gradient(90deg, #6BCC2A 0%, #58A700 100%)',
+            }}
+          />
+        </div>
       </div>
 
-      {/* Showcase band: progress + concept info */}
+      {/* Showcase band: concept info */}
       <KonsepSessionShowcase
-        concept={{ nameId: currentPlanItem.nameId, tier: currentPlanItem.tier, pct: currentPlanItem.pct, tags: currentPlanItem.tags }}
-        answered={idx}
-        total={SESSION_SIZE}
+        concept={{ nameId: currentPlanItem.nameId, tier: currentPlanItem.tier, tags: currentPlanItem.tags }}
       />
 
       {/* Question card area */}
@@ -341,6 +351,7 @@ export default function WmiKonsepSession() {
             <WmiQuestionView
               question={adaptConceptQuestion(question)}
               label={question.concept_name_id}
+              hideConceptTitle
               selectedChoice={selected}
               highlight={
                 feedback

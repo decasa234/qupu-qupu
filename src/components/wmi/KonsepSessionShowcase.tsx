@@ -5,55 +5,41 @@ import type { WmiComprehensionTier } from '../../types/wmi'
 interface ShowcaseConcept {
   nameId: string
   tier: WmiComprehensionTier
-  pct: number
   tags: string[]
 }
 
 interface Props {
   concept: ShowcaseConcept
-  answered: number
-  total: number
 }
 
-export default function KonsepSessionShowcase({ concept, answered, total }: Props) {
+export default function KonsepSessionShowcase({ concept }: Props) {
   const stage = PLANT_STAGES[concept.tier]
-  const progressPct = total > 0 ? Math.round((answered / total) * 100) : 0
 
   return (
-    <div className="mx-auto w-full max-w-[460px] space-y-3 px-1">
-      {/* Progress counter + bar */}
-      <div>
-        <div className="mb-1 flex items-center justify-between">
-          <span className="font-display text-[12px] font-bold text-qupu-muted">
-            Soal {answered} / {total}
-          </span>
-          <span className="font-display text-[12px] font-black text-qupu-brand-blue">
-            {progressPct}%
-          </span>
-        </div>
-        <div className="h-2.5 overflow-hidden rounded-full bg-[#F1E4CC]">
-          <div
-            className="h-full rounded-full transition-all duration-500"
-            style={{
-              width: `${progressPct}%`,
-              background: 'linear-gradient(90deg, #6BCC2A 0%, #58A700 100%)',
-            }}
-          />
-        </div>
-      </div>
-
+    <div className="mx-auto w-full max-w-[460px] px-1">
       {/* Showcase band */}
-      <div className="rounded-[1.5rem] bg-white p-3.5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
-        <div className="flex items-center gap-3">
-          {/* Plant tile */}
+      <div className="rounded-[1.25rem] bg-white p-3 shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+        <div className="flex items-center gap-2.5">
+          {/* Plant tile — animated with subtle watering bob */}
           <span
-            className={`relative flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-[16px] border-2 text-[22px] ${stage.dashed ? 'border-dashed border-black/20' : 'border-black/10'}`}
+            className={`relative flex h-[44px] w-[44px] flex-shrink-0 items-center justify-center rounded-[13px] border-2 text-[19px] ${stage.dashed ? 'border-dashed border-black/20' : 'border-black/10'}`}
             style={{ background: stage.bg, color: stage.fg }}
           >
-            <i className={`${stage.iconPrefix} ${stage.icon}`} aria-hidden="true" />
+            {/* Water droplet that drips down on loop */}
+            <span
+              className="animate-drop-drip pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-sky-400"
+              aria-hidden="true"
+            >
+              <i className="fa-solid fa-droplet" />
+            </span>
+
+            <i
+              className={`animate-plant-bob ${stage.iconPrefix} ${stage.icon}${stage.iconExtra ? ` ${stage.iconExtra}` : ''}`}
+              aria-hidden="true"
+            />
             {stage.crown && (
               <i
-                className="fa-solid fa-crown absolute -right-1.5 -top-2 text-[13px] text-qupu-orange"
+                className="fa-solid fa-crown absolute -right-1.5 -top-2 text-[11px] text-qupu-orange"
                 aria-hidden="true"
               />
             )}
@@ -61,10 +47,10 @@ export default function KonsepSessionShowcase({ concept, answered, total }: Prop
 
           {/* Text block */}
           <div className="min-w-0 flex-1">
-            <div className="text-[9.5px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">
-              Sedang Menumbuhkan
+            <div className="text-[9px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">
+              Sedang menumbuhkan
             </div>
-            <div className="font-display text-[14px] font-black leading-tight text-qupu-brand-blue">
+            <div className="font-display text-[13px] font-black leading-tight text-qupu-brand-blue">
               {concept.nameId}
             </div>
 
@@ -85,14 +71,6 @@ export default function KonsepSessionShowcase({ concept, answered, total }: Prop
                 })}
               </div>
             )}
-
-            {/* Mini growth bar */}
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#F1E4CC]">
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${concept.pct}%`, background: '#58A700' }}
-              />
-            </div>
           </div>
         </div>
       </div>

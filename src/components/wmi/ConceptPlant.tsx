@@ -20,7 +20,7 @@ export default function ConceptPlant({ concept, disabled, onClick }: Props) {
         className={`relative flex h-[60px] w-[60px] items-center justify-center rounded-[18px] border-2 text-[25px] border-black/10 ${stage.dashed ? 'border-dashed' : ''}`}
         style={{ background: stage.bg, color: stage.fg }}
       >
-        <i className={`${stage.iconPrefix} ${stage.icon}`} aria-hidden="true" />
+        <i className={`${stage.iconPrefix} ${stage.icon}${stage.iconExtra ? ` ${stage.iconExtra}` : ''}`} aria-hidden="true" />
         {stage.crown && (
           <i
             className="fa-solid fa-crown absolute -right-1.5 -top-2 text-[13px] text-qupu-orange"

@@ -19,6 +19,9 @@ interface Props {
   // Replaces the default "Soal {number}" eyebrow. Konsep passes the concept
   // name here (concept questions have no meaningful sequential number).
   label?: string
+  /** When true, hides the label/eyebrow line (use in the concept session where
+   *  the concept name is already shown in the KonsepSessionShowcase). */
+  hideConceptTitle?: boolean
   selectedChoice?: string | null
   fillValue?: string
   highlight?: { correct: string | null; wrongPicked: string | null }
@@ -56,6 +59,7 @@ function MarkupText({ text, onLookup }: { text: string; onLookup: (slug: string)
 export default function WmiQuestionView({
   question,
   label,
+  hideConceptTitle = false,
   selectedChoice = null,
   fillValue = '',
   highlight,
@@ -111,9 +115,11 @@ export default function WmiQuestionView({
         <WmiLanguageToggle lang={lang} onToggle={toggleLang} />
         <WmiBreakdownToggle active={bdActive} onToggle={handleBreakdownToggle} />
       </div>
-      <div className="pr-28 text-sm font-bold text-qupu-muted">
-        {label ?? `Soal ${question.number}`}
-      </div>
+      {!hideConceptTitle && (
+        <div className="pr-28 text-sm font-bold text-qupu-muted">
+          {label ?? `Soal ${question.number}`}
+        </div>
+      )}
       <div className="mt-2 text-lg font-semibold text-gray-900">
         {bdActive ? (
           question.breakdown ? (
