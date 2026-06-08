@@ -4,7 +4,7 @@ import WmiConceptDemo from '@/components/wmi/marketing/WmiConceptDemo'
 import WmiTrustStats from '@/components/wmi/marketing/WmiTrustStats'
 import WmiPricingSection from '@/components/wmi/marketing/WmiPricingSection'
 import WmiTestimonials from '@/components/wmi/marketing/WmiTestimonials'
-import { FOUNDER } from '@/data/wmiMarketing'
+import { FOUNDER, TESTIMONIALS } from '@/data/wmiMarketing'
 
 const LEARN_STEPS = [
   {
@@ -150,10 +150,12 @@ export default function LatihanWmiPage() {
         </section>
       </Reveal>
 
-      {/* 7 · Testimonials (dormant; renders null in V1) */}
-      <Reveal delay={0.05}>
-        <WmiTestimonials />
-      </Reveal>
+      {/* 7 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
+      {TESTIMONIALS.length > 0 && (
+        <Reveal delay={0.05}>
+          <WmiTestimonials />
+        </Reveal>
+      )}
 
       {/* 8 · Pricing */}
       <Reveal delay={0.05}>
