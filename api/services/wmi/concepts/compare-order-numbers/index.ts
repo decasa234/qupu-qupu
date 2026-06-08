@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildCompareOrderNumbersBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -74,6 +75,7 @@ export function render(params: Params) {
     hint_id: `Bandingkan angka puluhan terlebih dahulu — bilangan dengan puluhan lebih besar bernilai lebih besar; jika puluhannya sama, bandingkan angka satuannya.`,
     hint_steps_en: [step1_en, step2_en, step3_en],
     hint_steps_id: [step1_id, step2_id, step3_id],
+    breakdown: buildCompareOrderNumbersBreakdown(params),
   }
 }
 

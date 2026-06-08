@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMoneyShoppingChangeBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -57,6 +58,7 @@ export function render(params: Params) {
       `Uang yang dibayarkan: $${params.pay}`,
       `Kembalian = uang dibayar − harga = $${params.pay} − $${params.cost} = $${change}`,
     ],
+    breakdown: buildMoneyShoppingChangeBreakdown(params),
   }
 }
 
