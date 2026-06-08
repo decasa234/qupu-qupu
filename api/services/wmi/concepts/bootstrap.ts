@@ -1,5 +1,5 @@
 import { query, queryOne, withTransaction } from '../../../db.js'
-import { CURRICULUM, THEMES } from './curriculum.js'
+import { CURRICULUM, SUBJECTS } from './curriculum.js'
 import { ALL_SLUGS, CONCEPTS } from './registry.js'
 import { mulberry32 } from './rng.js'
 import type { ConceptLogic } from './types.js'
@@ -33,7 +33,7 @@ async function doBootstrap(): Promise<void> {
 
 async function upsertThemes(): Promise<void> {
   await withTransaction(async (client) => {
-    for (const t of THEMES) {
+    for (const s of SUBJECTS) {
       await client.query(
         `INSERT INTO wmi_themes (theme_key, name_id, name_en, color_hex, icon_key, sort_order)
          VALUES ($1,$2,$3,$4,$5,$6)
@@ -41,7 +41,7 @@ async function upsertThemes(): Promise<void> {
            name_id = EXCLUDED.name_id, name_en = EXCLUDED.name_en,
            color_hex = EXCLUDED.color_hex, icon_key = EXCLUDED.icon_key,
            sort_order = EXCLUDED.sort_order`,
-        [t.themeKey, t.name_id, t.name_en, t.color_hex, t.icon_key, t.sort_order],
+        [s.subjectKey, s.name_id, s.name_en, s.color_hex, s.icon_key, s.sortOrder],
       )
     }
   })
@@ -66,7 +66,7 @@ async function upsertConcepts(): Promise<void> {
           c.meta.name_id,
           c.meta.description_id ?? null,
           c.meta.grades as readonly number[],
-          cur.themeKey,
+          cur.subjectKey,
           cur.difficulty,
           cur.sortOrder,
         ],

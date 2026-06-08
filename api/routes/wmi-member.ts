@@ -12,7 +12,7 @@ import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/conce
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
-import { THEMES } from '../services/wmi/concepts/curriculum.js'
+import { SUBJECTS } from '../services/wmi/concepts/curriculum.js'
 
 const router = Router()
 
@@ -201,7 +201,7 @@ const voteSchema = Joi.object({
   vote: Joi.number().integer().valid(1, -1).required(),
 })
 
-const WMI_THEME_KEYS = THEMES.map((t) => t.themeKey)
+const WMI_THEME_KEYS = SUBJECTS.map((s) => s.subjectKey)
 
 const chapterTestStartSchema = Joi.object({
   childId: Joi.string().uuid().required(),
