@@ -79,6 +79,7 @@ export default function WmiKonsepSession() {
 
   // Session commit state
   const [committing, setCommitting] = useState(false)
+  const [commitError, setCommitError] = useState(false)
   const [result, setResult] = useState<WmiKonsepSessionResult | null>(null)
 
   // Prevent double-submit
@@ -152,26 +153,37 @@ export default function WmiKonsepSession() {
     }
   }
 
+  // ── Session commit (dedicated, retryable) ─────────────────────────────────
+  const commitSession = useCallback(async (finalAnswers: { concept_instance_id: string; selected_answer: string }[]) => {
+    if (!activeChildId || !subjectKey || committing) return
+    setCommitError(false)
+    setCommitting(true)
+    try {
+      const sessionResult = await commitKonsepSession(activeChildId, subjectKey, finalAnswers)
+      setResult(sessionResult)
+    } catch {
+      setCommitError(true)
+    } finally {
+      setCommitting(false)
+    }
+  }, [activeChildId, subjectKey, committing])
+
   // ── "Lanjut" button ────────────────────────────────────────────────────────
-  const handleLanjut = async () => {
+  const handleLanjut = () => {
     if (!question || !feedback || !plan) return
+    // Guard: if answers are already fully banked, the commit path owns this UI — never append again
+    if (answers.length >= SESSION_SIZE) return
 
     const newAnswers = [...answers, { concept_instance_id: question.concept_instance_id, selected_answer: selected ?? '' }]
-    setAnswers(newAnswers)
 
     if (idx < SESSION_SIZE - 1) {
+      setAnswers(newAnswers)
       setIdx((i) => i + 1)
       // question fetch triggered by idx effect
     } else {
-      // 20th question — commit
-      if (!activeChildId || !subjectKey || committing) return
-      setCommitting(true)
-      try {
-        const sessionResult = await commitKonsepSession(activeChildId, subjectKey, newAnswers)
-        setResult(sessionResult)
-      } finally {
-        setCommitting(false)
-      }
+      // 20th question answered — bank the final array ONCE, then commit
+      setAnswers(newAnswers)
+      void commitSession(newAnswers)
     }
   }
 
@@ -382,19 +394,38 @@ export default function WmiKonsepSession() {
                   </p>
                 )}
 
-                {/* Lanjut button */}
-                <button
-                  type="button"
-                  onClick={handleLanjut}
-                  disabled={committing}
-                  className="mt-4 w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] disabled:opacity-50 transition-transform active:translate-y-0.5"
-                >
-                  {committing
-                    ? 'Menyimpan…'
-                    : idx < SESSION_SIZE - 1
-                    ? 'Lanjut'
-                    : 'Selesaikan Sesi'}
-                </button>
+                {/* Lanjut / commit area */}
+                {answers.length >= SESSION_SIZE ? (
+                  // Final answer already banked — show commit/loading/retry state only
+                  <div className="mt-4 space-y-2">
+                    {commitError && (
+                      <p className="text-center text-xs font-semibold text-rose-600">
+                        <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+                        Gagal menyimpan sesi. Coba lagi.
+                      </p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => void commitSession(answers)}
+                      disabled={committing}
+                      className="w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] disabled:opacity-50 transition-transform active:translate-y-0.5"
+                    >
+                      {committing
+                        ? 'Menyimpan…'
+                        : commitError
+                        ? 'Coba lagi'
+                        : 'Selesaikan Sesi'}
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleLanjut}
+                    className="mt-4 w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+                  >
+                    Lanjut
+                  </button>
+                )}
               </div>
             )}
           </div>
