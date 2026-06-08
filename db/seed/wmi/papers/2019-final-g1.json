@@ -468,7 +468,37 @@
         "Periksa bentuk luarnya: harus persegi.",
         "Periksa bentuk di tengahnya: harus lingkaran putih.",
         "Pilihan B punya lingkaran putih di dalam persegi abu-abu."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the figures below",
+            "phrase_id": "Manakah dari gambar-gambar di bawah ini",
+            "note_en": "We must pick the right picture.",
+            "note_id": "Kita harus pilih gambar yang benar."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "white circle in the middle of a gray square",
+            "phrase_id": "lingkaran putih di tengah persegi berwarna abu-abu",
+            "note_en": "The inside must be a white circle and the outside a gray square.",
+            "note_id": "Bagian dalam harus lingkaran putih dan luarnya persegi abu-abu."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Inside shape", "label_id": "Bentuk dalam", "value": "white circle" },
+          { "label_en": "Outside shape", "label_id": "Bentuk luar", "value": "gray square" }
+        ],
+        "strategy": { "name_en": "Check the outside shape, then the inside shape", "name_id": "Periksa bentuk luar, lalu bentuk dalam" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "A has the white circle right, but the outside is a triangle, not a square.",
+          "why_id": "A sudah benar lingkaran putihnya, tapi luarnya segitiga, bukan persegi."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 9,
@@ -499,7 +529,40 @@
         "Naik 6 lantai berarti menambah 6.",
         "12 + 6 = 18.",
         "Jadi kamu berada di lantai 18."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which floor will you be on",
+            "phrase_id": "Di lantai berapa kamu berada",
+            "note_en": "We need the floor you end up on.",
+            "note_id": "Kita cari lantai tempat kamu berhenti."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "from the 12th floor",
+            "phrase_id": "dari lantai 12",
+            "note_en": "You start on floor 12.",
+            "note_id": "Kamu mulai di lantai 12."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "go up 6 floors",
+            "phrase_id": "naik 6 lantai lagi",
+            "note_en": "Going up means we add 6.",
+            "note_id": "Naik berarti kita tambah 6."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Starting floor", "label_id": "Lantai awal", "value": "12" },
+          { "label_en": "Floors up", "label_id": "Lantai naik", "value": "6" }
+        ],
+        "strategy": { "name_en": "Going up means add", "name_id": "Naik berarti menambah" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 10,
@@ -531,7 +594,37 @@
         "Baris ★ dimulai dari 64, jadi 64, 65, 66, lalu ★.",
         "Setelah 66 datang 67.",
         "Jadi ★ = 67."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find ★",
+            "phrase_id": "temukan ★",
+            "note_en": "We need the number where the star is.",
+            "note_id": "Kita cari bilangan di tempat bintangnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the figure below",
+            "phrase_id": "gambar di bawah ini",
+            "note_en": "The numbers in the grid go up by 1 each step.",
+            "note_id": "Bilangan pada petak bertambah 1 tiap langkah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Step size", "label_id": "Besar lompatan", "value": "+1" },
+          { "label_en": "Just before ★", "label_id": "Tepat sebelum ★", "value": "66" }
+        ],
+        "strategy": { "name_en": "Count up by 1 along the row", "name_id": "Hitung naik 1 di sepanjang baris" },
+        "trap": {
+          "wrong": "66",
+          "why_en": "66 is the number just before ★ — go one more step to reach 67.",
+          "why_id": "66 adalah bilangan tepat sebelum ★ — maju satu langkah lagi jadi 67."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 11,
@@ -563,7 +656,32 @@
         "Jumlahkan berat pada sisi yang lebih berat.",
         "? harus membuat sisi lainnya sama dengan jumlah itu.",
         "Berat yang hilang adalah 3."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how heavy should ? be",
+            "phrase_id": "berapa berat ?",
+            "note_en": "We need the missing weight marked ?.",
+            "note_id": "Kita cari berat yang hilang bertanda ?."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "make the scales balance",
+            "phrase_id": "timbangan menjadi seimbang",
+            "note_en": "Both sides must weigh exactly the same.",
+            "note_id": "Kedua sisi harus sama persis beratnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sides must be", "label_id": "Kedua sisi harus", "value": "equal" }
+        ],
+        "strategy": { "name_en": "Balance means both sides are equal", "name_id": "Seimbang berarti kedua sisi sama" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 12,
@@ -594,7 +712,44 @@
         "Angka puluhan harus 3 kali angka satuan.",
         "Coba satuan = 2: maka puluhan = 3 x 2 = 6, jadi 62.",
         "62 ada di antara 50 dan 90, jadi bilangannya 62."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find this 2-digit number",
+            "phrase_id": "Tentukan bilangan dua angka tersebut",
+            "note_en": "We need the secret 2-digit number.",
+            "note_id": "Kita cari bilangan dua angka yang dimaksud."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "between 50 and 90",
+            "phrase_id": "terletak antara 50 dan 90",
+            "note_en": "The number must be bigger than 50 and smaller than 90.",
+            "note_id": "Bilangannya harus lebih dari 50 dan kurang dari 90."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "tens digit is 3 times its units digit",
+            "phrase_id": "angka puluhannya 3 kali angka satuannya",
+            "note_en": "The tens digit equals 3 times the units digit.",
+            "note_id": "Angka puluhan sama dengan 3 kali angka satuan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Range", "label_id": "Rentang", "value": "50 to 90" },
+          { "label_en": "Tens digit", "label_id": "Angka puluhan", "value": "3 x units" }
+        ],
+        "strategy": { "name_en": "Try each units digit until both rules fit", "name_id": "Coba tiap angka satuan sampai kedua aturan cocok" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "31 has tens = 3 times units, but 31 is not between 50 and 90.",
+          "why_id": "31 memang puluhan = 3 kali satuan, tapi 31 tidak antara 50 dan 90."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 13,
@@ -627,7 +782,37 @@
         "Pada tempat puluhan: 60, 61, 62, 63, 64, 65, 66, 67, 68, 69 memberi sepuluh angka 6.",
         "Jumlahkan: 5 + 10 = 15.",
         "Jadi ada 15 angka 6 yang ditulis."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many 6's will be written?",
+            "phrase_id": "Berapa banyak angka 6 yang tertulis?",
+            "note_en": "We count every single digit 6 we write.",
+            "note_id": "Kita hitung setiap angka 6 yang kita tulis."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "numbers 100, 99, 98, …, 50",
+            "phrase_id": "bilangan 100, 99, 98, …, 50",
+            "note_en": "We write every number from 50 up to 100.",
+            "note_id": "Kita tulis setiap bilangan dari 50 sampai 100."
+          }
+        ],
+        "quantities": [
+          { "label_en": "6 in the ones place", "label_id": "Angka 6 di satuan", "value": "5 (56, 66, 76, 86, 96)" },
+          { "label_en": "6 in the tens place", "label_id": "Angka 6 di puluhan", "value": "10 (60 to 69)" }
+        ],
+        "strategy": { "name_en": "Count 6's in the ones place and the tens place", "name_id": "Hitung angka 6 di satuan dan di puluhan" },
+        "trap": {
+          "wrong": "D",
+          "why_en": "10 only counts the tens-place 6's (60 to 69) and forgets the ones-place 6's.",
+          "why_id": "10 hanya menghitung angka 6 di puluhan (60 sampai 69) dan lupa yang di satuan."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
     },
     {
       "number": 14,
