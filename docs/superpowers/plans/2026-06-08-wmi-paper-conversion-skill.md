@@ -332,32 +332,34 @@ git commit -m "feat(skill): add wmi-paper-conversion quality-gate checklists"
 **Files:**
 - Modify (only if the sweep finds a broken reference): `.claude/skills/wmi-paper-conversion/SKILL.md` and/or `.claude/skills/wmi-paper-conversion/references/checklists.md`
 
-- [ ] **Step 1: Sweep every backtick'd repo path mentioned in the skill and assert it exists**
+- [ ] **Step 1: Sweep every backtick'd repo path mentioned in the skill and assert it resolves**
 
-Run:
-```bash
-npx tsx -e '
-import { promises as fs } from "node:fs";
+The skill uses contextual path shorthands (e.g. `paperImport/answerKey.ts` lives under `api/services/wmi/`; `references/checklists.md` is relative to the skill dir), so resolve a token if it equals a tracked path OR if some tracked path ends with it. Use a script file — the RTK proxy mangles inline `npx tsx -e`.
+
+Write `sweep.ts` and run `npx tsx sweep.ts`:
+```ts
+import { readFileSync } from 'node:fs'
+import { execSync } from 'node:child_process'
+const tracked = execSync('git ls-files', { encoding: 'utf8' }).split('\n').map(s => s.trim()).filter(Boolean)
+const trackedSet = new Set(tracked)
 const files = [
-  ".claude/skills/wmi-paper-conversion/SKILL.md",
-  ".claude/skills/wmi-paper-conversion/references/checklists.md",
-];
-const re = /`([A-Za-z0-9_./-]+\.(?:ts|tsx|json|md|sql))`/g;
-let bad = 0;
+  '.claude/skills/wmi-paper-conversion/SKILL.md',
+  '.claude/skills/wmi-paper-conversion/references/checklists.md',
+]
+const re = /`([A-Za-z0-9_./-]+\.(?:ts|tsx|json|md|sql))`/g
+let bad = 0
 for (const f of files) {
-  const text = await fs.readFile(f, "utf8");
-  for (const m of text.matchAll(re)) {
-    const p = m[1];
-    if (p.includes("/") === false) continue;       // bare filenames like full.md
-    if (p.startsWith("<")) continue;
-    try { await fs.access(p); } catch { console.error("MISSING", p, "in", f); bad++; }
+  for (const m of readFileSync(f, 'utf8').matchAll(re)) {
+    const p = m[1]
+    if (!p.includes('/')) continue // bare filenames (e.g. full.md) — contextual, skip
+    if (trackedSet.has(p) || tracked.some(t => t.endsWith('/' + p))) continue
+    console.error('MISSING', p, 'in', f); bad++
   }
 }
-console.log(bad ? `FAIL ${bad} missing` : "all referenced paths resolve");
-process.exit(bad ? 1 : 0);
-'
+console.log(bad ? `FAIL ${bad} missing` : 'all referenced paths resolve')
+process.exit(bad ? 1 : 0)
 ```
-Expected: `all referenced paths resolve`. If any `MISSING` is printed, fix that path in the skill file (correct the path to the real one) and re-run until it passes.
+Expected: `all referenced paths resolve`. If any `MISSING` prints, fix that path in the skill file (use the real repo path) and re-run until it passes.
 
 - [ ] **Step 2: Confirm the documented validation gate passes on the repo as-is**
 
