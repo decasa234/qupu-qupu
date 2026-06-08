@@ -11,6 +11,8 @@ import {
 import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/concepts/engine.js'
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
+import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
+import { THEMES } from '../services/wmi/concepts/curriculum.js'
 
 const router = Router()
 
@@ -199,6 +201,20 @@ const voteSchema = Joi.object({
   vote: Joi.number().integer().valid(1, -1).required(),
 })
 
+const WMI_THEME_KEYS = THEMES.map((t) => t.themeKey)
+
+const chapterTestStartSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  grade: Joi.number().integer().min(0).max(3).required(),
+  theme_key: Joi.string().valid(...WMI_THEME_KEYS).required(),
+})
+const chapterTestSubmitSchema = chapterTestStartSchema.keys({
+  answers: Joi.array().items(Joi.object({
+    concept_instance_id: Joi.string().uuid().required(),
+    selected_answer: Joi.string().trim().min(1).max(200).required(),
+  })).min(1).required(),
+})
+
 router.get(
   '/konsep/next',
   authenticateToken,
@@ -257,6 +273,44 @@ router.get(
     } catch (error) {
       console.error('WMI garden error:', error)
       sendError(res, error, 'Unable to load garden')
+    }
+  },
+)
+
+router.post(
+  '/chapter-test/start',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = chapterTestStartSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const out = await startChapterTest(req.user.id, value.childId, value.grade, value.theme_key)
+      res.json({ success: true, data: out })
+    } catch (error) {
+      console.error('WMI chapter-test start error:', error)
+      sendError(res, error, 'Unable to start test')
+    }
+  },
+)
+
+router.post(
+  '/chapter-test/submit',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = chapterTestSubmitSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const out = await submitChapterTest(req.user.id, value.childId, value.grade, value.theme_key, value.answers)
+      res.status(201).json({ success: true, data: out })
+    } catch (error) {
+      console.error('WMI chapter-test submit error:', error)
+      sendError(res, error, 'Unable to submit test')
     }
   },
 )
