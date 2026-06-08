@@ -1,6 +1,6 @@
 ---
 name: qupu-math-problem-creation
-description: Use when authoring or upgrading a QUPU WMI math problem or concept — building or improving its color-coded clickable breakdown, in-card illustration, step-by-step hints, post-answer animation, or trap note. Triggers on requests like "adapt this question", "add an illustration/animation/breakdown for concept X", "make a WMI problem", or working in api/services/wmi/concepts or src/components/wmi.
+description: Use when authoring or upgrading a QUPU WMI math problem or concept — building or improving its color-coded clickable breakdown, in-card illustration, step-by-step hints, post-answer animation, or trap note. Triggers on requests like "adapt this question", "add an illustration/animation/breakdown for concept X", "make a WMI problem", or working in api/services/wmi/concepts or src/components/wmi. To convert a whole past-paper end-to-end (import + enrich a full paper), use wmi-paper-conversion.
 ---
 
 # QUPU Math Problem Creation
