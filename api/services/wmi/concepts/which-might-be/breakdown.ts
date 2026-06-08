@@ -16,7 +16,6 @@ export function buildWhichMightBeBreakdown(params: Params): Breakdown {
   const correctIdx = params.options.findIndex((n) => satisfies(n, params))
   const answerLabel = LABELS[correctIdx]
   const answerVal = params.options[correctIdx]
-  const digitSum = (n: number) => Math.floor(n / 10) + (n % 10)
 
   const highlights: BreakdownHighlight[] = [
     // condition — clue 1: parity

@@ -11,8 +11,6 @@ export function buildFindNumberByDigitSumBreakdown(params: Params): Breakdown {
   const correctIdx = params.options.findIndex((n) => digitSum(n) === k)
   const correctLabel = ['A', 'B', 'C', 'D'][correctIdx]
   const correct = params.options[correctIdx]
-  const t = Math.floor(correct / 10)
-  const u = correct % 10
 
   const highlights: BreakdownHighlight[] = [
     {

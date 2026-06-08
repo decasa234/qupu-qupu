@@ -7,7 +7,7 @@ import type { Params } from './index.js'
 // Each highlight phrase MUST be an exact substring of the DISPLAY body (after
 // stripSectionLabels — the "Find:" / "Cari:" labels are removed).
 export function buildStorySumBreakdown(params: Params): Breakdown {
-  const { start, distractor, giveMorning, giveLunch, name, fruit_en, fruit_id, distractor_en, distractor_id } = params
+  const { start, distractor, giveMorning, giveLunch, fruit_en, fruit_id, distractor_en, distractor_id } = params
   const afterMorning = start - giveMorning
   const answer = afterMorning - giveLunch
 

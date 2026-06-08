@@ -2,7 +2,6 @@ import type { Breakdown, BreakdownHighlight } from '../types.js'
 import { categoryIndex, type Params } from './index.js'
 
 const CAT_EN = ['acute', 'right', 'obtuse'] as const
-const CAT_ID = ['lancip', 'siku-siku', 'tumpul'] as const
 const LABELS = ['A', 'B', 'C'] as const
 
 // Authored decomposition of an angle-type problem: classify the angle in the
@@ -19,7 +18,6 @@ const LABELS = ['A', 'B', 'C'] as const
 export function buildAngleTypeBreakdown(params: Params): Breakdown {
   const cat = categoryIndex(params.degrees)
   const catEN = CAT_EN[cat]
-  const catID = CAT_ID[cat]
   const answerLabel = LABELS[cat]
 
   const ruleEN =
