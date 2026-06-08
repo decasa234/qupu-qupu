@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildPositionInLineBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   name: z.string().min(1),
@@ -55,6 +56,7 @@ export function render(params: Params) {
       `Jumlahkan keduanya ditambah ${params.name} sendiri: ${frontGroup} + 1 + ${backGroup} = ${total}.`,
       `Jadi, ada ${total} anak dalam barisan itu.`,
     ],
+    breakdown: buildPositionInLineBreakdown(params),
   }
 }
 

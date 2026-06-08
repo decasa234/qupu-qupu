@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildFindNumberByDigitSumBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   k: z.number().int().min(4).max(15),
@@ -70,6 +71,7 @@ export function render(params: Params) {
       `Hanya ${correct} yang menghasilkan ${t} + ${u} = ${params.k}.`,
       `Jadi jawabannya adalah ${correct}.`,
     ],
+    breakdown: buildFindNumberByDigitSumBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMistakenDigitCorrectionBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -56,6 +57,7 @@ export function render(params: Params) {
       `Jadi hasil ${got} terlalu besar sebanyak ${delta}.`,
       `Hasil yang benar: ${got} − ${delta} = ${params.correct}.`,
     ],
+    breakdown: buildMistakenDigitCorrectionBreakdown(params),
   }
 }
 
