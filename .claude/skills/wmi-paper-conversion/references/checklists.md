@@ -31,7 +31,7 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
 - Any mismatch → stop and surface to the user; do not guess.
 
 ## Gate 3 · Step-quality
-- 3–5 short, grade-appropriate `hint_steps_en/id`.
+- Aim for 3–5 short, grade-appropriate `hint_steps_en/id`.
 - The arithmetic reconciles with `quantities`, and the final line states the
   `answer`.
 
@@ -41,7 +41,8 @@ Fields (type `Breakdown` in `api/services/wmi/concepts/types.ts`, mirrored to
 `needsVisual`, `highlights[{category, phrase_en, phrase_id, note_en, note_id}]`,
 `quantities[{label_en, label_id, value}]`,
 `strategy{name_en, name_id, conceptSlug?}`,
-`trap{wrong, why_en, why_id} | null`, `answer{form, unit, value}`.
+`trap{wrong, why_en, why_id} | null`, `answer{form, unit, value}`,
+`vocab?: string[]` (optional glossary chips).
 
 - `category` ∈ `fact` | `condition` | `question`.
 - Every `phrase_en/id` is an **exact substring of the display body** — the text
@@ -62,23 +63,20 @@ Run from the repo root. DB-touching commands use `dangerouslyDisableSandbox: tru
 - **Typecheck:** `npm run check`
 - **Lint:** `npm run lint` — 0 errors; `react-refresh/only-export-components`
   warnings are expected and OK.
-- **SSR smoke** — render the new illustration + explainer to `<svg>` in en+id. Put
-  the harness INSIDE the project tree so `react-dom` resolves, then delete it:
-  ```bash
-  cat > "__smoke.tsx" <<'EOF'
+- **SSR smoke** — render the new illustration + explainer to `<svg>` in en+id. Create
+  `__smoke.tsx` at the repo root (so `react-dom` and the `@/` alias resolve) with the
+  content below, run `npx tsx __smoke.tsx`, then delete it. Expected: four `true` lines.
+  ```ts
   import { renderToStaticMarkup } from 'react-dom/server'
   import { createElement as h } from 'react'
   import Illustration from '@/components/wmi/paperQuestions/<Thing>Illustration'
   import Explainer from '@/components/wmi/paperQuestions/<Thing>Explainer'
-  const p = { isActive: true, replayNonce: 0, correctAnswer: '', params: {} } as any
+  const p = { correctAnswer: '', params: {} } as any
   for (const lang of ['en', 'id'] as const) {
     console.log('illus', lang, renderToStaticMarkup(h(Illustration)).includes('<svg'))
     console.log('expl ', lang, renderToStaticMarkup(h(Explainer, { ...p, lang })).includes('<svg'))
   }
-  EOF
-  npx tsx "__smoke.tsx"; rm -f "__smoke.tsx"
   ```
-  Expected: all four lines print `true`.
 - **Reseed + smoke:** `npm run seed:wmi`, then confirm the question's
   `breakdown` / `hint_steps` are present and well-formed.
 - **Paper validation:** `npm run wmi:validate` → ✓.
