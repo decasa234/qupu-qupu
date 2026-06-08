@@ -40,6 +40,10 @@ import EqualPartsG2Illustration from './EqualPartsG2Illustration'
 import EqualPartsG2Explainer from './EqualPartsG2Explainer'
 import TrianglePatternG2Illustration from './TrianglePatternG2Illustration'
 import TrianglePatternG2Explainer from './TrianglePatternG2Explainer'
+import AnimalWeightsG2Illustration from './AnimalWeightsG2Illustration'
+import AnimalWeightsG2Explainer from './AnimalWeightsG2Explainer'
+import SubtractionShapesG2Illustration from './SubtractionShapesG2Illustration'
+import SubtractionShapesG2Explainer from './SubtractionShapesG2Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -67,6 +71,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F2A-Q8': { Illustration: ClockReadG2Illustration, Explainer: ClockReadG2Explainer },
   'WMI-19F2A-Q10': { Illustration: EqualPartsG2Illustration, Explainer: EqualPartsG2Explainer },
   'WMI-19F2A-Q13': { Illustration: TrianglePatternG2Illustration, Explainer: TrianglePatternG2Explainer },
+  'WMI-19F2A-Q14': { Illustration: AnimalWeightsG2Illustration, Explainer: AnimalWeightsG2Explainer },
+  'WMI-19F2A-Q15': { Illustration: SubtractionShapesG2Illustration, Explainer: SubtractionShapesG2Explainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
