@@ -44,9 +44,10 @@ after each batch (Phase 6).
 - Verify gstack: `test -d ~/.claude/skills/gstack/bin && echo OK`.
 - Locate the three source folders (Paper A, Paper B, Answer Key) under
   `wmiPastPaper/`.
-- Compute the code with `paperCode({year, round, grade, variant:'A'})` → e.g.
-  `WMI-19F1A` — and the seed filename `<year>-<round>-g<grade>.json` (e.g.
-  `2019-final-g1.json`).
+- Compute the **paper code** with `paperCode({year, round, grade, variant:'A'})`
+  → e.g. `WMI-19F1A`. Each question's **registry key** is that plus `-Q<number>`
+  (e.g. `WMI-19F1A-Q18`). The seed filename is `<year>-<round>-g<grade>.json` —
+  match the existing files in `db/seed/wmi/papers/` (e.g. `2019-final-g1.json`).
 - Confirm grade is **G1–G3**. **G0 is deferred** — its ①②③ 3-option format needs
   the validator relaxed first (see README "Deferred: Grade 0").
 
@@ -54,7 +55,7 @@ after each batch (Phase 6).
 Follow `db/seed/wmi/README.md` → "Importing real past papers" exactly:
 1. Parse the answer key with `parseAnswerKey` (`paperImport/answerKey.ts`) →
    number→answer maps.
-2. Read both section `full.md`. Emit `PaperQuestion[]` (`paperImport/types.ts`):
+2. Read both sections' `full.md` (Paper A and Paper B). Emit `PaperQuestion[]` (`paperImport/types.ts`):
    continuous renumber (Paper A multiple-choice `1..M`, Paper B fill-in `M+1..`);
    `body_en` cleaned of OCR noise with the **duplicated Chinese dropped**; plain
    text, no `[[ ]]` markup; `body_id` a natural Indonesian translation;
@@ -98,9 +99,10 @@ The guided loop still owns import, wiring, verification, and review. The `Workfl
 tool requires explicit user opt-in.
 
 ### Phase 4 · Wire
-- Register `{ Illustration, Explainer }` by `code` in
-  `src/components/wmi/paperQuestions/registry.ts` (add the imports + a
-  `VISUALS['<code>']` entry).
+- Register `{ Illustration, Explainer }` by the **question** code in
+  `src/components/wmi/paperQuestions/registry.ts` — the key is
+  `paperCode + '-Q' + number` (e.g. `VISUALS['WMI-19F1A-Q18']`, **not** the bare
+  paper code). Add the component imports + the `VISUALS[...]` entry.
 - Merge each question's `breakdown` + `hint_steps_en/id` + reworded stem into the
   paper's seed JSON.
 - `npm run seed:wmi`.
