@@ -8,6 +8,7 @@ export interface User {
   age: number | null
   age_group_id?: string | null
   role: UserRole
+  plan?: 'free' | 'premium' | 'pro'
 }
 
 export interface AuthPayload {

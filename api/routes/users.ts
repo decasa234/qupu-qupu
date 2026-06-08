@@ -22,9 +22,10 @@ router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
       age: number
       role: string
       age_group_id: string | null
+      plan: string
     }>(
       `
-        SELECT id, email, phone, name, age, role, age_group_id
+        SELECT id, email, phone, name, age, role, age_group_id, plan
         FROM users
         WHERE id = $1
       `,
