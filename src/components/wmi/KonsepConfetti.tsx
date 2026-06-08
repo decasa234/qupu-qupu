@@ -4,11 +4,18 @@
 // correct submission (parent keys it), so every correct answer gets a new rain.
 // Reuses the global `fall` keyframe (index.css). pointer-events-none — never
 // blocks the "Next question" tap underneath.
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const COLORS = ['#FFDD55', '#F0853A', '#30598A', '#22C55E', '#FB923C']
 
 export default function KonsepConfetti({ pieces = 40 }: { pieces?: number }) {
+  const [show, setShow] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShow(false), 2500)
+    return () => clearTimeout(t)
+  }, [])
+
   const bits = useMemo(
     () =>
       Array.from({ length: pieces }, (_, i) => ({
@@ -21,6 +28,8 @@ export default function KonsepConfetti({ pieces = 40 }: { pieces?: number }) {
       })),
     [pieces],
   )
+
+  if (!show) return null
 
   return (
     <div
