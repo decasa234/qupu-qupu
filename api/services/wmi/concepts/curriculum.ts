@@ -37,147 +37,177 @@ export const SUBJECTS: SubjectDef[] = [
   { subjectKey: 'g3-pengukuran',    grade: 3, name_id: 'Pengukuran Lanjut',            name_en: 'Advanced Measurement',     color_hex: '#14746F', icon_key: 'ruler',                sortOrder: 21 },
 ]
 
+export interface TagDef {
+  key: string
+  name_id: string
+  name_en: string
+  color_hex: string
+}
+
+export const TAGS: TagDef[] = [
+  { key: 'arithmetic',    name_id: 'Aritmetika',     name_en: 'Arithmetic',     color_hex: '#30598A' },
+  { key: 'place-value',   name_id: 'Nilai Tempat',   name_en: 'Place Value',    color_hex: '#3F6BA0' },
+  { key: 'fractions',     name_id: 'Pecahan',        name_en: 'Fractions',      color_hex: '#E0A000' },
+  { key: 'decimals',      name_id: 'Desimal',        name_en: 'Decimals',       color_hex: '#C9920A' },
+  { key: 'number-theory', name_id: 'Teori Bilangan', name_en: 'Number Theory',  color_hex: '#6B4FAE' },
+  { key: 'patterns',      name_id: 'Pola',           name_en: 'Patterns',       color_hex: '#7C5CBF' },
+  { key: 'geometry',      name_id: 'Geometri',       name_en: 'Geometry',       color_hex: '#2E8B6B' },
+  { key: 'measurement',   name_id: 'Pengukuran',     name_en: 'Measurement',    color_hex: '#14746F' },
+  { key: 'data',          name_id: 'Data & Diagram', name_en: 'Data & Charts',  color_hex: '#C2575B' },
+  { key: 'logic',         name_id: 'Logika',         name_en: 'Logic',          color_hex: '#B5497E' },
+  { key: 'counting',      name_id: 'Membilang',      name_en: 'Counting',       color_hex: '#4C84C4' },
+  { key: 'money',         name_id: 'Uang',           name_en: 'Money',          color_hex: '#E8843C' },
+  { key: 'spatial',       name_id: 'Ruang & Jalur',  name_en: 'Spatial',        color_hex: '#3E8E7E' },
+  { key: 'word-problem',  name_id: 'Soal Cerita',    name_en: 'Word Problem',   color_hex: '#5B8DEF' },
+]
+
+export type TagKey =
+  | 'arithmetic' | 'place-value' | 'fractions' | 'decimals' | 'number-theory'
+  | 'patterns' | 'geometry' | 'measurement' | 'data' | 'logic'
+  | 'counting' | 'money' | 'spatial' | 'word-problem'
+
 export interface ConceptCurriculum {
   subjectKey: string   // must be one of SUBJECTS[].subjectKey; its grade is the concept's home grade
   difficulty: 1 | 2 | 3
   sortOrder: number    // order within the subject; lower = earlier/easier
+  tags: TagKey[]
 }
 
 export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   // ── Grade 1: g1-hitung (Menghitung & Urutan Bilangan) ────────────────────
   // grades [0]  → home: grade 1, g1-hitung (former grade-0 concept placed in lowest grade)
-  'count-objects':                  { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 10 },
+  'count-objects':                  { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 10, tags: ['counting'] },
   // grades [1,2]
-  'compare-order-numbers':          { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 20 },
-  'more-or-less-by-k':              { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 30 },
-  'number-line-jumps':              { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 40 },
-  'position-in-line':               { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 50 },
-  'digit-sum':                      { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 60 },
-  'arrange-digits-to-form-number':  { subjectKey: 'g1-hitung',        difficulty: 2, sortOrder: 70 },
+  'compare-order-numbers':          { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 20, tags: ['counting', 'arithmetic'] },
+  'more-or-less-by-k':              { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 30, tags: ['counting', 'arithmetic'] },
+  'number-line-jumps':              { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 40, tags: ['counting', 'arithmetic'] },
+  'position-in-line':               { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 50, tags: ['counting'] },
+  'digit-sum':                      { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 60, tags: ['arithmetic', 'place-value'] },
+  'arrange-digits-to-form-number':  { subjectKey: 'g1-hitung',        difficulty: 2, sortOrder: 70, tags: ['place-value', 'arithmetic'] },
 
   // ── Grade 1: g1-tambah-kurang (Penjumlahan & Pengurangan) ────────────────
   // grades [1,2]
-  'single-digit-addition':          { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 10 },
-  'single-digit-subtraction':       { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 20 },
-  'missing-addend':                 { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 30 },
-  'make-groups-leftover':           { subjectKey: 'g1-tambah-kurang', difficulty: 2, sortOrder: 40 },
+  'single-digit-addition':          { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 10, tags: ['arithmetic'] },
+  'single-digit-subtraction':       { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 20, tags: ['arithmetic'] },
+  'missing-addend':                 { subjectKey: 'g1-tambah-kurang', difficulty: 1, sortOrder: 30, tags: ['arithmetic'] },
+  'make-groups-leftover':           { subjectKey: 'g1-tambah-kurang', difficulty: 2, sortOrder: 40, tags: ['arithmetic', 'counting'] },
 
   // ── Grade 1: g1-pola (Pola & Barisan) ────────────────────────────────────
   // grades [1,2]
-  'pattern-next':                   { subjectKey: 'g1-pola',          difficulty: 1, sortOrder: 10 },
-  'visual-pattern-next':            { subjectKey: 'g1-pola',          difficulty: 1, sortOrder: 20 },
-  'shape-transformation-rule':      { subjectKey: 'g1-pola',          difficulty: 2, sortOrder: 30 },
+  'pattern-next':                   { subjectKey: 'g1-pola',          difficulty: 1, sortOrder: 10, tags: ['patterns'] },
+  'visual-pattern-next':            { subjectKey: 'g1-pola',          difficulty: 1, sortOrder: 20, tags: ['patterns'] },
+  'shape-transformation-rule':      { subjectKey: 'g1-pola',          difficulty: 2, sortOrder: 30, tags: ['patterns', 'geometry'] },
 
   // ── Grade 1: g1-bentuk (Bentuk & Simetri Dasar) ──────────────────────────
   // grades [0,1] / [1,2] / [1,2,3]
-  'count-polygon-sides':            { subjectKey: 'g1-bentuk',        difficulty: 1, sortOrder: 10 },
-  'symmetry-count':                 { subjectKey: 'g1-bentuk',        difficulty: 1, sortOrder: 20 },
-  'block-count-3d':                 { subjectKey: 'g1-bentuk',        difficulty: 2, sortOrder: 30 },
+  'count-polygon-sides':            { subjectKey: 'g1-bentuk',        difficulty: 1, sortOrder: 10, tags: ['geometry'] },
+  'symmetry-count':                 { subjectKey: 'g1-bentuk',        difficulty: 1, sortOrder: 20, tags: ['geometry', 'spatial'] },
+  'block-count-3d':                 { subjectKey: 'g1-bentuk',        difficulty: 2, sortOrder: 30, tags: ['geometry', 'spatial'] },
 
   // ── Grade 1: g1-pecahan (Pecahan Dasar) ──────────────────────────────────
   // grades [1,2]
-  'fraction-of-region':             { subjectKey: 'g1-pecahan',       difficulty: 1, sortOrder: 10 },
+  'fraction-of-region':             { subjectKey: 'g1-pecahan',       difficulty: 1, sortOrder: 10, tags: ['fractions', 'geometry'] },
 
   // ── Grade 1: g1-jam-data (Jam, Turus & Diagram) ──────────────────────────
   // grades [1,2] / [1,2,3]
-  'clock-read-time':                { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 10 },
-  'tally-marks-count':              { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 20 },
-  'bar-chart-compare':              { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 30 },
+  'clock-read-time':                { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 10, tags: ['measurement'] },
+  'tally-marks-count':              { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 20, tags: ['data', 'counting'] },
+  'bar-chart-compare':              { subjectKey: 'g1-jam-data',      difficulty: 1, sortOrder: 30, tags: ['data'] },
 
   // ── Grade 1: g1-cerita (Soal Cerita Sederhana) ───────────────────────────
   // grades [1,2]
-  'story-sum':                      { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 10 },
-  'which-expression-equals':        { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 20 },
-  'table-lookup-combine':           { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 30 },
+  'story-sum':                      { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 10, tags: ['word-problem', 'arithmetic'] },
+  'which-expression-equals':        { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 20, tags: ['word-problem', 'arithmetic'] },
+  'table-lookup-combine':           { subjectKey: 'g1-cerita',        difficulty: 1, sortOrder: 30, tags: ['word-problem', 'data'] },
 
   // ── Grade 2: g2-nilai-tempat (Nilai Tempat & Bilangan) ───────────────────
   // grades [2,3]
-  'place-value':                    { subjectKey: 'g2-nilai-tempat',  difficulty: 1, sortOrder: 10 },
-  'build-number-from-digit-clues':  { subjectKey: 'g2-nilai-tempat',  difficulty: 2, sortOrder: 20 },
-  'find-number-by-digit-sum':       { subjectKey: 'g2-nilai-tempat',  difficulty: 2, sortOrder: 30 },
+  'place-value':                    { subjectKey: 'g2-nilai-tempat',  difficulty: 1, sortOrder: 10, tags: ['place-value', 'arithmetic'] },
+  'build-number-from-digit-clues':  { subjectKey: 'g2-nilai-tempat',  difficulty: 2, sortOrder: 20, tags: ['place-value', 'logic'] },
+  'find-number-by-digit-sum':       { subjectKey: 'g2-nilai-tempat',  difficulty: 2, sortOrder: 30, tags: ['place-value', 'arithmetic'] },
 
   // ── Grade 2: g2-operasi (Operasi & Ekspresi Hitung) ──────────────────────
   // grades [2,3]
-  'arithmetic-expression-eval':     { subjectKey: 'g2-operasi',       difficulty: 1, sortOrder: 10 },
-  'alternating-chain-eval':         { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 20 },
-  'operator-fill':                  { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 30 },
-  'custom-operation':               { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 40 },
-  'mistaken-digit-correction':      { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 50 },
+  'arithmetic-expression-eval':     { subjectKey: 'g2-operasi',       difficulty: 1, sortOrder: 10, tags: ['arithmetic'] },
+  'alternating-chain-eval':         { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 20, tags: ['arithmetic'] },
+  'operator-fill':                  { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 30, tags: ['arithmetic', 'logic'] },
+  'custom-operation':               { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 40, tags: ['arithmetic', 'logic'] },
+  'mistaken-digit-correction':      { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 50, tags: ['arithmetic', 'place-value'] },
 
   // ── Grade 2: g2-keliling-luas (Keliling & Luas) ──────────────────────────
   // grades [2,3]
-  'shape-perimeter-square':         { subjectKey: 'g2-keliling-luas', difficulty: 1, sortOrder: 10 },
-  'shape-perimeter-rectangle':      { subjectKey: 'g2-keliling-luas', difficulty: 1, sortOrder: 20 },
-  'rectangle-area-grid':            { subjectKey: 'g2-keliling-luas', difficulty: 2, sortOrder: 30 },
+  'shape-perimeter-square':         { subjectKey: 'g2-keliling-luas', difficulty: 1, sortOrder: 10, tags: ['geometry', 'measurement'] },
+  'shape-perimeter-rectangle':      { subjectKey: 'g2-keliling-luas', difficulty: 1, sortOrder: 20, tags: ['geometry', 'measurement'] },
+  'rectangle-area-grid':            { subjectKey: 'g2-keliling-luas', difficulty: 2, sortOrder: 30, tags: ['geometry', 'measurement'] },
 
   // ── Grade 2: g2-geometri (Geometri & Bangun Ruang) ───────────────────────
   // grades [2,3] / [1,2,3]
-  'angle-type':                     { subjectKey: 'g2-geometri',      difficulty: 1, sortOrder: 10 },
-  'same-figure-identify':           { subjectKey: 'g2-geometri',      difficulty: 1, sortOrder: 20 },
-  'count-shapes-in-figure':         { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 30 },
-  'dice-opposite-faces':            { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 40 },
-  'grid-path-steps':                { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 50 },
+  'angle-type':                     { subjectKey: 'g2-geometri',      difficulty: 1, sortOrder: 10, tags: ['geometry'] },
+  'same-figure-identify':           { subjectKey: 'g2-geometri',      difficulty: 1, sortOrder: 20, tags: ['geometry', 'spatial'] },
+  'count-shapes-in-figure':         { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 30, tags: ['geometry', 'counting'] },
+  'dice-opposite-faces':            { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 40, tags: ['geometry', 'spatial'] },
+  'grid-path-steps':                { subjectKey: 'g2-geometri',      difficulty: 2, sortOrder: 50, tags: ['spatial', 'counting'] },
 
   // ── Grade 2: g2-pengukuran (Pengukuran & Skala) ──────────────────────────
   // grades [2,3]
-  'unit-conversion':                { subjectKey: 'g2-pengukuran',    difficulty: 1, sortOrder: 10 },
-  'clock-time-after':               { subjectKey: 'g2-pengukuran',    difficulty: 2, sortOrder: 20 },
+  'unit-conversion':                { subjectKey: 'g2-pengukuran',    difficulty: 1, sortOrder: 10, tags: ['measurement'] },
+  'clock-time-after':               { subjectKey: 'g2-pengukuran',    difficulty: 2, sortOrder: 20, tags: ['measurement'] },
 
   // ── Grade 2: g2-logika (Logika & Penalaran) ──────────────────────────────
   // grades [2,3]
-  'odd-even-reasoning':             { subjectKey: 'g2-logika',        difficulty: 1, sortOrder: 10 },
-  'divisibility-multiple-property': { subjectKey: 'g2-logika',        difficulty: 1, sortOrder: 20 },
-  'which-might-be':                 { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 30 },
-  'assignment-cycle':               { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 40 },
-  'direction-orientation':          { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 50 },
+  'odd-even-reasoning':             { subjectKey: 'g2-logika',        difficulty: 1, sortOrder: 10, tags: ['logic', 'number-theory'] },
+  'divisibility-multiple-property': { subjectKey: 'g2-logika',        difficulty: 1, sortOrder: 20, tags: ['logic', 'number-theory'] },
+  'which-might-be':                 { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 30, tags: ['logic'] },
+  'assignment-cycle':               { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 40, tags: ['logic'] },
+  'direction-orientation':          { subjectKey: 'g2-logika',        difficulty: 2, sortOrder: 50, tags: ['logic', 'spatial'] },
 
   // ── Grade 2: g2-uang-cerita (Uang & Soal Cerita) ─────────────────────────
   // grades [2,3] / [2]
-  'money-shopping-change':          { subjectKey: 'g2-uang-cerita',   difficulty: 1, sortOrder: 10 },
-  'money-coins-total':              { subjectKey: 'g2-uang-cerita',   difficulty: 1, sortOrder: 20 },
-  'legs-items-rate':                { subjectKey: 'g2-uang-cerita',   difficulty: 2, sortOrder: 30 },
-  'equivalent-fraction-fill':       { subjectKey: 'g2-uang-cerita',   difficulty: 2, sortOrder: 40 },
+  'money-shopping-change':          { subjectKey: 'g2-uang-cerita',   difficulty: 1, sortOrder: 10, tags: ['money', 'word-problem'] },
+  'money-coins-total':              { subjectKey: 'g2-uang-cerita',   difficulty: 1, sortOrder: 20, tags: ['money', 'arithmetic'] },
+  'legs-items-rate':                { subjectKey: 'g2-uang-cerita',   difficulty: 2, sortOrder: 30, tags: ['arithmetic', 'word-problem'] },
+  'equivalent-fraction-fill':       { subjectKey: 'g2-uang-cerita',   difficulty: 2, sortOrder: 40, tags: ['fractions', 'number-theory'] },
 
   // ── Grade 2: g2-data (Diagram, Tabel & Data) ─────────────────────────────
   // grades [2,3] / [2]
-  'venn-set-membership':            { subjectKey: 'g2-data',          difficulty: 2, sortOrder: 10 },
-  'net-progress-cycles':            { subjectKey: 'g2-data',          difficulty: 2, sortOrder: 20 },
+  'venn-set-membership':            { subjectKey: 'g2-data',          difficulty: 2, sortOrder: 10, tags: ['data', 'logic'] },
+  'net-progress-cycles':            { subjectKey: 'g2-data',          difficulty: 2, sortOrder: 20, tags: ['arithmetic', 'word-problem'] },
 
   // ── Grade 3: g3-perkalian (Perkalian, Faktor & Kelipatan) ────────────────
   // grades [3]
-  'multiplication-small':           { subjectKey: 'g3-perkalian',     difficulty: 1, sortOrder: 10 },
-  'combination-product-sum':        { subjectKey: 'g3-perkalian',     difficulty: 2, sortOrder: 20 },
-  'perfect-square-search':          { subjectKey: 'g3-perkalian',     difficulty: 2, sortOrder: 30 },
-  'product-of-consecutive':         { subjectKey: 'g3-perkalian',     difficulty: 3, sortOrder: 40 },
+  'multiplication-small':           { subjectKey: 'g3-perkalian',     difficulty: 1, sortOrder: 10, tags: ['arithmetic', 'number-theory'] },
+  'combination-product-sum':        { subjectKey: 'g3-perkalian',     difficulty: 2, sortOrder: 20, tags: ['arithmetic', 'number-theory'] },
+  'perfect-square-search':          { subjectKey: 'g3-perkalian',     difficulty: 2, sortOrder: 30, tags: ['arithmetic', 'number-theory'] },
+  'product-of-consecutive':         { subjectKey: 'g3-perkalian',     difficulty: 3, sortOrder: 40, tags: ['arithmetic', 'number-theory'] },
 
   // ── Grade 3: g3-bilangan (Bilangan & Pola Lanjut) ────────────────────────
   // grades [3] and pulled-up [2,3]
-  'digit-frequency':                { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 10 },
-  'number-pyramid':                 { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 20 },
-  'sum-partition-split':            { subjectKey: 'g3-bilangan',      difficulty: 3, sortOrder: 30 },
-  'reverse-arithmetic-puzzle':      { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 40 },
+  'digit-frequency':                { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 10, tags: ['number-theory', 'arithmetic'] },
+  'number-pyramid':                 { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 20, tags: ['number-theory', 'arithmetic'] },
+  'sum-partition-split':            { subjectKey: 'g3-bilangan',      difficulty: 3, sortOrder: 30, tags: ['number-theory', 'arithmetic'] },
+  'reverse-arithmetic-puzzle':      { subjectKey: 'g3-bilangan',      difficulty: 2, sortOrder: 40, tags: ['logic', 'arithmetic'] },
 
   // ── Grade 3: g3-geometri (Geometri Lanjut) ───────────────────────────────
   // grades [3] and pulled-up [2,3]
-  'count-rectangles-grid':          { subjectKey: 'g3-geometri',      difficulty: 3, sortOrder: 10 },
-  'perimeter-area-composed':        { subjectKey: 'g3-geometri',      difficulty: 2, sortOrder: 20 },
-  'dice-net-fold':                  { subjectKey: 'g3-geometri',      difficulty: 2, sortOrder: 30 },
+  'count-rectangles-grid':          { subjectKey: 'g3-geometri',      difficulty: 3, sortOrder: 10, tags: ['geometry', 'spatial'] },
+  'perimeter-area-composed':        { subjectKey: 'g3-geometri',      difficulty: 2, sortOrder: 20, tags: ['geometry', 'measurement'] },
+  'dice-net-fold':                  { subjectKey: 'g3-geometri',      difficulty: 2, sortOrder: 30, tags: ['geometry', 'spatial'] },
 
   // ── Grade 3: g3-logika (Logika & Strategi) ───────────────────────────────
   // grades [2,3]
-  'maze-path-shortest':             { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 10 },
-  'truth-order-clues':              { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 20 },
-  'budget-selection':               { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 30 },
-  'range-count-evaluate':           { subjectKey: 'g3-logika',        difficulty: 3, sortOrder: 40 },
+  'maze-path-shortest':             { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 10, tags: ['spatial', 'logic'] },
+  'truth-order-clues':              { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 20, tags: ['logic'] },
+  'budget-selection':               { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 30, tags: ['money', 'logic'] },
+  'range-count-evaluate':           { subjectKey: 'g3-logika',        difficulty: 3, sortOrder: 40, tags: ['logic', 'arithmetic'] },
 
   // ── Grade 3: g3-cerita-multi (Soal Cerita Multi-langkah) ─────────────────
   // grades [2,3]
-  'distance-rate-time':             { subjectKey: 'g3-cerita-multi',  difficulty: 2, sortOrder: 10 },
-  'lacking-money-shared':           { subjectKey: 'g3-cerita-multi',  difficulty: 2, sortOrder: 20 },
-  'rope-wraps-ratio':               { subjectKey: 'g3-cerita-multi',  difficulty: 3, sortOrder: 30 },
+  'distance-rate-time':             { subjectKey: 'g3-cerita-multi',  difficulty: 2, sortOrder: 10, tags: ['measurement', 'word-problem'] },
+  'lacking-money-shared':           { subjectKey: 'g3-cerita-multi',  difficulty: 2, sortOrder: 20, tags: ['money', 'word-problem'] },
+  'rope-wraps-ratio':               { subjectKey: 'g3-cerita-multi',  difficulty: 3, sortOrder: 30, tags: ['word-problem', 'arithmetic'] },
 
   // ── Grade 3: g3-pengukuran (Pengukuran Lanjut) ───────────────────────────
   // grades [2,3] / [2]
-  'weight-balance-word':            { subjectKey: 'g3-pengukuran',    difficulty: 1, sortOrder: 10 },
-  'scale-read':                     { subjectKey: 'g3-pengukuran',    difficulty: 2, sortOrder: 20 },
+  'weight-balance-word':            { subjectKey: 'g3-pengukuran',    difficulty: 1, sortOrder: 10, tags: ['measurement', 'logic'] },
+  'scale-read':                     { subjectKey: 'g3-pengukuran',    difficulty: 2, sortOrder: 20, tags: ['measurement'] },
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { ALL_SLUGS } from './registry.js'
-import { SUBJECTS, CURRICULUM } from './curriculum.js'
+import { SUBJECTS, CURRICULUM, TAGS } from './curriculum.js'
 
 const SUBJECT_KEYS = new Set(SUBJECTS.map((s) => s.subjectKey))
 
@@ -20,5 +20,13 @@ describe('wmi curriculum (per-grade subjects)', () => {
     const used = new Set(ALL_SLUGS.map((s) => CURRICULUM[s]?.subjectKey))
     const empty = SUBJECTS.filter((s) => !used.has(s.subjectKey)).map((s) => s.subjectKey)
     expect(empty).toEqual([])
+  })
+  it('every concept has at least one valid tag', () => {
+    const valid = new Set(TAGS.map((t) => t.key))
+    const bad = ALL_SLUGS.filter((s) => {
+      const tags = CURRICULUM[s]?.tags
+      return !tags || tags.length === 0 || tags.some((t) => !valid.has(t))
+    })
+    expect(bad).toEqual([])
   })
 })
