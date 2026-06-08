@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCombinationProductSumBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -45,6 +46,7 @@ export function render(params: Params) {
       `Kalikan setiap pasangan sampai hasilnya ${product}: ${params.x} × ${params.y} = ${product}. ✓`,
       `Kedua bilangan adalah ${params.x} dan ${params.y}. Bilangan yang lebih besar adalah ${params.y}.`,
     ],
+    breakdown: buildCombinationProductSumBreakdown(params),
   }
 }
 
