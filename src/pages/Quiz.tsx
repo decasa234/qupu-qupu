@@ -180,7 +180,7 @@ export default function QuizPage() {
         subtitle="Kuis dan badge dihitung per anak. Pilih profil dari switcher di navbar untuk mulai."
       >
         <Link
-          to="/onboarding/child"
+          to="/onboard/child"
           className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
         >
           Tambah profil anak

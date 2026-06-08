@@ -57,7 +57,7 @@ export default function BadgesPage() {
           subtitle="Badge dikumpulkan per anak. Pilih profil dari switcher di navbar untuk lihat koleksi badge-nya."
         >
           <Link
-            to="/onboarding/child"
+            to="/onboard/child"
             className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">

@@ -30,7 +30,6 @@ import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
 import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import AdminWmiConceptsPage from './pages/admin/AdminWmiConcepts'
 import OnboardingChild from './pages/OnboardingChild'
-import Mulai from './pages/Mulai'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
@@ -122,9 +121,8 @@ export default function App() {
           <Route path="videos/:slug" element={<VideoDetailPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="mulai" element={<Mulai />} />
           <Route
-            path="onboarding/child"
+            path="onboard/child"
             element={
               <ProtectedRoute>
                 <OnboardingChild />

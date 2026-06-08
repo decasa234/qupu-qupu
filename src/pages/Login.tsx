@@ -31,7 +31,7 @@ export default function Login() {
     }
 
     useAuthStore.getState().setChildren(children)
-    navigate(children.length === 0 ? '/onboarding/child' : '/dashboard', { replace: true })
+    navigate(children.length === 0 ? '/onboard/child' : '/dashboard', { replace: true })
   }
 
   const handleGoogleAuthenticated = async (payload: AuthPayload) => {
