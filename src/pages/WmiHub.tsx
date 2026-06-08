@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import ChapterGarden from '../components/wmi/ChapterGarden'
+import ConceptInfoModal from '../components/wmi/ConceptInfoModal'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
-import type { WmiGarden, WmiGrade } from '../types/wmi'
+import type { WmiGarden, WmiGardenConcept, WmiGrade } from '../types/wmi'
 
 export default function WmiHub() {
   const { activeChildId } = useAuthStore()
@@ -13,6 +14,7 @@ export default function WmiHub() {
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
   const [loading, setLoading] = useState(true)
+  const [infoConcept, setInfoConcept] = useState<WmiGardenConcept | null>(null)
 
   useEffect(() => { loadGlossary().catch(() => {}) }, [loadGlossary])
 
@@ -88,8 +90,8 @@ export default function WmiHub() {
                 key={ch.subjectKey}
                 chapter={ch}
                 index={i}
-                nextConceptSlug={garden.nextConceptSlug}
-                onConceptClick={(slug) => navigate(`/latihan/wmi/konsep?concept=${slug}`)}
+                onConceptInfo={(c) => setInfoConcept(c)}
+                onStartSession={(subjectKey) => navigate(`/latihan/wmi/sesi/${subjectKey}`)}
                 onStartTest={(subjectKey) => navigate(`/latihan/wmi/tes/${subjectKey}`)}
               />
             ))
@@ -113,6 +115,15 @@ export default function WmiHub() {
           <span className="text-[11px] font-bold text-qupu-brand-blue/65">Paper WMI asli per kelas</span>
         </Link>
       </div>
+
+      {infoConcept && (
+        <ConceptInfoModal
+          childId={activeChildId}
+          grade={selectedGrade}
+          concept={infoConcept}
+          onClose={() => setInfoConcept(null)}
+        />
+      )}
     </div>
   )
 }

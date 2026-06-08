@@ -1,15 +1,15 @@
 import ConceptPlant from './ConceptPlant'
-import type { WmiGardenChapter } from '../../types/wmi'
+import type { WmiGardenChapter, WmiGardenConcept } from '../../types/wmi'
 
 interface Props {
   chapter: WmiGardenChapter
   index: number
-  nextConceptSlug: string | null
-  onConceptClick: (slug: string) => void
+  onConceptInfo: (concept: WmiGardenConcept) => void
+  onStartSession: (subjectKey: string) => void
   onStartTest: (subjectKey: string) => void
 }
 
-export default function ChapterGarden({ chapter, index, nextConceptSlug, onConceptClick, onStartTest }: Props) {
+export default function ChapterGarden({ chapter, index, onConceptInfo, onStartSession, onStartTest }: Props) {
   const locked = !chapter.unlocked
   return (
     <div
@@ -29,7 +29,7 @@ export default function ChapterGarden({ chapter, index, nextConceptSlug, onConce
             {chapter.nameId}
           </div>
           <div className="text-[10.5px] font-bold text-qupu-muted">
-            Bab {index + 1} · {locked ? `${chapter.total} konsep` : 'ketuk tanaman untuk berlatih'}
+            Bab {index + 1} · {locked ? `${chapter.total} konsep` : 'ketuk tanaman untuk info'}
           </div>
         </div>
         <div className={`font-display text-sm font-black ${locked ? 'text-[#AAB2BF]' : 'text-[#58A700]'}`}>
@@ -44,9 +44,19 @@ export default function ChapterGarden({ chapter, index, nextConceptSlug, onConce
           </div>
           <div className="flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {chapter.concepts.map((c) => (
-              <ConceptPlant key={c.slug} concept={c} isNext={c.slug === nextConceptSlug} onClick={onConceptClick} />
+              <ConceptPlant key={c.slug} concept={c} onClick={onConceptInfo} />
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => onStartSession(chapter.subjectKey)}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-blue p-3 font-display text-[13px] font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+          >
+            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white text-[11px] text-qupu-brand-orange">
+              <i className={`fa-solid ${chapter.grownCount > 0 ? 'fa-rotate-right' : 'fa-play'}`} aria-hidden="true" />
+            </span>
+            {chapter.grownCount > 0 ? 'Lanjutkan' : 'Mulai Latihan'}
+          </button>
         </>
       )}
 
