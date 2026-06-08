@@ -120,7 +120,7 @@ export default function WmiQuestionView({
           {label ?? `Soal ${question.number}`}
         </div>
       )}
-      <div className="mt-2 text-lg font-semibold text-gray-900">
+      <div className={`${hideConceptTitle ? 'mt-12' : 'mt-2'} text-lg font-semibold text-gray-900`}>
         {bdActive ? (
           question.breakdown ? (
             <WmiAuthoredBreakdown breakdown={question.breakdown} text={body} lang={lang} />

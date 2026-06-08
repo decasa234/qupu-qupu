@@ -3,9 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
+import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
 import { PLANT_STAGES } from '../components/wmi/plantStages'
 import PlantIcon from '../components/wmi/PlantIcon'
-import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer } from '../lib/wmiApi'
+import { getIllustration } from '../components/wmi/concepts/registry'
+import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import type {
   WmiConceptQuestion,
@@ -188,6 +190,11 @@ export default function WmiKonsepSession() {
     }
   }
 
+  // ── Vote ───────────────────────────────────────────────────────────────────
+  const onVote = async (vote: 1 | -1) => {
+    if (activeChildId && question) await submitConceptVote(activeChildId, question.concept_instance_id, vote)
+  }
+
   // ── Quit ───────────────────────────────────────────────────────────────────
   const handleQuit = () => {
     if (window.confirm('Keluar sesi? Progres sesi ini akan hilang.')) {
@@ -353,6 +360,8 @@ export default function WmiKonsepSession() {
               question={adaptConceptQuestion(question)}
               label={question.concept_name_id}
               hideConceptTitle
+              conceptIllustration={getIllustration(question.concept_slug)}
+              conceptIllustrationParams={question.params}
               selectedChoice={selected}
               highlight={
                 feedback
@@ -405,6 +414,9 @@ export default function WmiKonsepSession() {
                     {feedback.hint_id ?? feedback.hint_en}
                   </p>
                 )}
+
+                {/* Vote buttons */}
+                <WmiVoteButtons onVote={onVote} />
 
                 {/* Lanjut / commit area */}
                 {answers.length >= SESSION_SIZE ? (
