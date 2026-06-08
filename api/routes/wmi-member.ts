@@ -12,6 +12,7 @@ import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/conce
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
+import { gradeConceptAnswer, commitKonsepSession, SESSION_SIZE } from '../services/wmi/concepts/session.js'
 import { SUBJECTS } from '../services/wmi/concepts/curriculum.js'
 
 const router = Router()
@@ -334,6 +335,80 @@ router.post(
     } catch (error) {
       console.error('WMI konsep vote error:', error)
       sendError(res, error, 'Unable to save vote')
+    }
+  },
+)
+
+const konsepGradeSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  concept_instance_id: Joi.string().uuid().required(),
+  selected_answer: Joi.string().trim().min(1).max(200).required(),
+})
+
+const konsepCommitSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  subject_key: Joi.string().valid(...WMI_SUBJECT_KEYS).required(),
+  answers: Joi.array()
+    .length(SESSION_SIZE)
+    .items(
+      Joi.object({
+        concept_instance_id: Joi.string().uuid().required(),
+        selected_answer: Joi.string().trim().min(1).max(200).required(),
+      }),
+    )
+    .required(),
+})
+
+router.post(
+  '/konsep/grade',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = konsepGradeSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const out = await gradeConceptAnswer(
+        req.user.id,
+        value.childId,
+        value.concept_instance_id,
+        value.selected_answer,
+      )
+      res.json({ success: true, data: out })
+    } catch (error) {
+      console.error('WMI konsep grade error:', error)
+      sendError(res, error, 'Unable to grade')
+    }
+  },
+)
+
+router.post(
+  '/konsep/commit',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = konsepCommitSchema.validate(req.body)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const answers = value.answers.map(
+        (a: { concept_instance_id: string; selected_answer: string }) => ({
+          conceptInstanceId: a.concept_instance_id,
+          selectedAnswer: a.selected_answer,
+        }),
+      )
+      const out = await commitKonsepSession(
+        req.user.id,
+        value.childId,
+        value.subject_key,
+        answers,
+      )
+      res.status(201).json({ success: true, data: out })
+    } catch (error) {
+      console.error('WMI konsep commit error:', error)
+      sendError(res, error, 'Unable to commit session')
     }
   },
 )
