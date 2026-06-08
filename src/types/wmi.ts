@@ -224,6 +224,8 @@ export interface WmiGardenConcept {
   tier: WmiComprehensionTier
   pct: number
   tags: string[]
+  attempts: number
+  correct: number
 }
 export interface WmiGardenChapter {
   subjectKey: string
