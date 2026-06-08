@@ -123,15 +123,17 @@ export default function App() {
           <Route path="videos/:slug" element={<VideoDetailPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route
-            path="onboarding/child"
-            element={
-              <ProtectedRoute>
-                <OnboardingChild />
-              </ProtectedRoute>
-            }
-          />
         </Route>
+
+        {/* Onboarding — full-screen, no chrome, locked until completed */}
+        <Route
+          path="/onboard/child"
+          element={
+            <ProtectedRoute>
+              <OnboardingChild />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
         <Route

@@ -100,7 +100,7 @@ export default function DashboardPage() {
         subtitle="Gunakan switcher di navbar untuk menambahkan atau memilih profil anak. Setiap anak punya progres dan badge sendiri."
       >
         <Link
-          to="/onboarding/child"
+          to="/onboard/child"
           className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
         >
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">

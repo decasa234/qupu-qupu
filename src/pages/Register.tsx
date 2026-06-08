@@ -66,7 +66,7 @@ export default function Register() {
       }
 
       useAuthStore.getState().setChildren(children)
-      navigate(children.length === 0 ? '/onboarding/child' : '/dashboard', { replace: true })
+      navigate(children.length === 0 ? '/onboard/child' : '/dashboard', { replace: true })
     } finally {
       setLoading(false)
     }
@@ -110,7 +110,7 @@ export default function Register() {
       // Best-effort referral credit. Never blocks navigation; the
       // helper swallows errors and always clears localStorage.
       void redeemPendingReferral()
-      navigate('/onboarding/child', { replace: true })
+      navigate('/onboard/child', { replace: true })
     } catch (requestError: unknown) {
       const message = extractError(requestError, 'Verifikasi gagal.')
       setError(message)

@@ -180,7 +180,7 @@ export default function QuizPage() {
         subtitle="Kuis dan badge dihitung per anak. Pilih profil dari switcher di navbar untuk mulai."
       >
         <Link
-          to="/onboarding/child"
+          to="/onboard/child"
           className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-qupu-brand-blue px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
         >
           Tambah profil anak
@@ -233,7 +233,7 @@ export default function QuizPage() {
       <BackRow onBack={handleBack} />
 
       {/* Video */}
-      <div className="overflow-hidden rounded-[1.5rem] bg-qupu-cream shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-embed" className="overflow-hidden rounded-[1.5rem] bg-qupu-cream shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="aspect-video">
           <iframe
             src={video.embedUrl}
@@ -267,7 +267,7 @@ export default function QuizPage() {
       </div>
 
       {/* Badge ranges */}
-      <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-badges" className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
@@ -311,7 +311,7 @@ export default function QuizPage() {
       </div>
 
       {/* Score entry / completed / result */}
-      <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+      <div data-tour="video-score" className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
         {!result && (existingScore === null || editing) && (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>

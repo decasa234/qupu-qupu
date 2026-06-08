@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import BrandLogo from './BrandLogo'
 import api from '../lib/api'
@@ -21,6 +21,8 @@ function ScrollToTop() {
 export default function Layout() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const setChildren = useAuthStore((state) => state.setChildren)
+  const role = useAuthStore((state) => state.user?.role)
+  const childrenCount = useAuthStore((state) => state.children.length)
 
   useAdminIdleLogout()
 
@@ -37,6 +39,12 @@ export default function Layout() {
         console.error('Failed to load children:', error)
       })
   }, [isAuthenticated, setChildren])
+
+  // Lock: a signed-in member with no child profile must finish onboarding
+  // before browsing anywhere. Admins are exempt (they manage, not onboard).
+  if (isAuthenticated && role !== 'admin' && childrenCount === 0) {
+    return <Navigate to="/onboard/child" replace />
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-qupu-cream text-qupu-ink">

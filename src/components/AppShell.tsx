@@ -5,11 +5,23 @@
 // body, sticky bottom nav. On lg+ the narrow column is framed as a "device"
 // and the surrounding gutters are filled with brand decoration so it reads as
 // an intentional phone mockup, not a mobile page stranded on a wide monitor.
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
+import OnboardingTour from './onboarding/OnboardingTour'
 
 export default function AppShell() {
+  const childrenCount = useAuthStore((state) => state.children.length)
+  const role = useAuthStore((state) => state.user?.role)
+
+  // Gate: a member with no child profile yet must complete /onboard/child
+  // before reaching any member surface (can't skip the first step). Admins
+  // are exempt — they manage the app rather than onboard a child.
+  if (childrenCount === 0 && role !== 'admin') {
+    return <Navigate to="/onboard/child" replace />
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-qupu-cream">
       <TopStatStrip />
@@ -20,6 +32,7 @@ export default function AppShell() {
         </div>
       </main>
       <BottomTabBar />
+      <OnboardingTour />
     </div>
   )
 }
