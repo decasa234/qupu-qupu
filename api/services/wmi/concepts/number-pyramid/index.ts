@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildNumberPyramidBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   a: z.number().int().min(1).max(20),
@@ -48,6 +49,7 @@ export function render(params: Params) {
       `Blok kanan baris tengah: ${params.b} + ${params.c} = ${mid2}.`,
       `Blok puncak: ${mid1} + ${mid2} = ${top}.`,
     ],
+    breakdown: buildNumberPyramidBreakdown(params),
   }
 }
 

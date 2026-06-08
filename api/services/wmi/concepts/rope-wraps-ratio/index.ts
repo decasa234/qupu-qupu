@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildRopeWrapsRatioBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({ aWraps: z.number().int().min(2).max(6), bWraps: z.number().int().min(4).max(12), bSecond: z.number().int().min(4).max(18) })
 export type Params = z.infer<typeof paramsSchema>
@@ -36,6 +37,7 @@ export function render(p: Params) {
       `Tiang B naik dari ${p.bWraps} ke ${p.bSecond}: ${p.bSecond} ÷ ${p.bWraps} = ${scale} kali lipat.`,
       `Tiang A naik dengan cara yang sama: ${p.aWraps} × ${scale} = ${ans}.`,
     ],
+    breakdown: buildRopeWrapsRatioBreakdown(p),
   }
 }
 export default { meta, paramsSchema, generate, render } satisfies ConceptLogic<Params>

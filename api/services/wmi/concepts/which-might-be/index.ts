@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildWhichMightBeBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   lo: z.number().int().min(1).max(99),
@@ -94,6 +95,7 @@ export function render(params: Params) {
     hint_id: `Coba setiap pilihan satu per satu — periksa apakah bilangannya ganjil, terletak ketat di antara ${params.lo} dan ${params.hi}, dan jumlah digitnya ${params.k}.`,
     hint_steps_en: stepLines_en,
     hint_steps_id: stepLines_id,
+    breakdown: buildWhichMightBeBreakdown(params),
   }
 }
 

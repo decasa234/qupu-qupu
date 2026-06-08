@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildRangeCountEvaluateBreakdown } from './breakdown.js'
 
 const exprSchema = z.object({ op: z.enum(['+', '-']), x: z.number().int().min(1).max(99), y: z.number().int().min(1).max(99) })
 const paramsSchema = z.object({
@@ -99,6 +100,7 @@ export function render(params: Params) {
     hint_id: 'Coba hitung setiap ekspresi satu per satu, lalu tandai yang hasilnya masuk ke dalam rentang yang diberikan.',
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildRangeCountEvaluateBreakdown(params),
   }
 }
 

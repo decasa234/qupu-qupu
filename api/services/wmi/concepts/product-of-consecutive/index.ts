@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildProductOfConsecutiveBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   k: z.number().int().min(3).max(20),
@@ -43,6 +44,7 @@ export function render(params: Params) {
       `Periksa: ${sqrtFloor} × ${sqrtFloor + 1} = ${sqrtFloor * (sqrtFloor + 1)}.`,
       `${sqrtFloor * (sqrtFloor + 1) === product ? `Hasilnya ${product}, jadi kedua bilangannya adalah ${sqrtFloor} dan ${sqrtFloor + 1}; yang lebih besar adalah ${sqrtFloor + 1}.` : `Sesuaikan: coba n = ${n}; ${n} × ${n + 1} = ${product} ✓. Bilangan yang lebih besar adalah ${n + 1}.`}`,
     ],
+    breakdown: buildProductOfConsecutiveBreakdown(params),
   }
 }
 

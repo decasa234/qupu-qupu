@@ -242,6 +242,7 @@ export interface ConceptSample {
   hint_id?: string | null
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
+  breakdown?: import('./types.js').Breakdown | null
   error?: string
 }
 
@@ -268,6 +269,7 @@ export function sampleConcept(slug: string, count: number, baseSeed: number): Co
         hint_id: r.hint_id,
         hint_steps_en: r.hint_steps_en ?? null,
         hint_steps_id: r.hint_steps_id ?? null,
+        breakdown: r.breakdown ?? null,
       })
     } catch (e) {
       out.push({ seed, error: e instanceof Error ? e.message : String(e) })

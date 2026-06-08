@@ -1,6 +1,7 @@
 import { query, queryOne, withTransaction, type DbExecutor } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { questionCode } from './paperCode.js'
+import type { Breakdown } from './concepts/types.js'
 
 export interface WmiChoice {
   label: string
@@ -22,6 +23,7 @@ export interface WmiQuestionDto {
   difficulty: number | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  breakdown: Breakdown | null
   code?: string
 }
 
@@ -102,11 +104,11 @@ export async function listWmiQuestionsForPaper(
   paperId: string,
   executor?: DbExecutor,
 ): Promise<WmiQuestionDto[]> {
-  const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
+  const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
     `
       SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
-             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id,
-             p.year, p.round, p.grade
+             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+             p.year, p.round, p.grade, p.variant
       FROM wmi_questions q
       JOIN wmi_papers p ON p.id = q.paper_id
       WHERE q.paper_id = $1
@@ -115,9 +117,9 @@ export async function listWmiQuestionsForPaper(
     [paperId],
     executor,
   )
-  return rows.map(({ year, round, grade, ...q }) => ({
+  return rows.map(({ year, round, grade, variant, ...q }) => ({
     ...normalizeQuestion(q),
-    code: questionCode({ year, round, grade }, q.number),
+    code: questionCode({ year, round, grade, variant }, q.number),
   }))
 }
 
@@ -129,7 +131,7 @@ export async function getWmiDrillQuestion(
   return withTransaction(async (client) => {
     await assertChildOwnership(client, parentUserId, childId)
 
-    let question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
+    let question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
       `
         WITH recent AS (
           SELECT question_id
@@ -139,8 +141,8 @@ export async function getWmiDrillQuestion(
           LIMIT 20
         )
         SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id,
-               p.year, p.round, p.grade
+               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+               p.year, p.round, p.grade, p.variant
         FROM wmi_questions q
         JOIN wmi_papers p ON p.id = q.paper_id
         WHERE p.grade = $2
@@ -153,11 +155,11 @@ export async function getWmiDrillQuestion(
     )
 
     if (!question) {
-      question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number }>(
+      question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
         `
           SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id,
-                 p.year, p.round, p.grade
+                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+                 p.year, p.round, p.grade, p.variant
           FROM wmi_questions q
           JOIN wmi_papers p ON p.id = q.paper_id
           WHERE p.grade = $1
@@ -170,8 +172,8 @@ export async function getWmiDrillQuestion(
     }
 
     if (!question) throw new Error('No WMI questions found for this grade')
-    const { year, round, grade: g, ...q } = question
-    return { ...normalizeQuestion(q), code: questionCode({ year, round, grade: g }, q.number) }
+    const { year, round, grade: g, variant, ...q } = question
+    return { ...normalizeQuestion(q), code: questionCode({ year, round, grade: g, variant }, q.number) }
   })
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildBuildNumberFromDigitCluesBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -60,6 +61,7 @@ export function render(params: Params) {
       `Bentuk bilangannya: ${params.tens} puluhan dan ${params.units} satuan = ${built}.`,
       `Hitung ${params.k} ${dirId}: ${built} ${sign} ${params.k} = ${ans}.`,
     ],
+    breakdown: buildBuildNumberFromDigitCluesBreakdown(params),
   }
 }
 

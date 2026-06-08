@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildWhichExpressionEqualsBreakdown } from './breakdown.js'
 
 const exprSchema = z.object({
   op: z.enum(['+', '-']),
@@ -77,6 +78,7 @@ export function render(params: Params) {
       `${exprText(correct)} = ${params.target}.`,
       `Jadi jawabannya ${labels[correctIdx]}.`,
     ],
+    breakdown: buildWhichExpressionEqualsBreakdown(params),
   }
 }
 

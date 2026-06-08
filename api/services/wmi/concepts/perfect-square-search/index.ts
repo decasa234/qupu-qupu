@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildPerfectSquareSearchBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   n: z.number().int().min(10).max(400),
@@ -50,6 +51,7 @@ export function render(params: Params) {
       `${answerRoot} × ${answerRoot} = ${answer}, nilainya > ${n}.`,
       `Jadi bilangan kuadrat sempurna terkecil yang lebih besar dari ${n} adalah ${answer}.`,
     ],
+    breakdown: buildPerfectSquareSearchBreakdown(params),
   }
 }
 

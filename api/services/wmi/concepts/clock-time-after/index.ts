@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildClockTimeAfterBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   hour: z.number().int().min(1).max(12),
@@ -83,6 +84,7 @@ export function render(params: Params) {
       hourStep_id,
       `Waktu yang dicari adalah pukul ${fmtTime(r.hour, r.minute)}.`,
     ],
+    breakdown: buildClockTimeAfterBreakdown(params),
   }
 }
 

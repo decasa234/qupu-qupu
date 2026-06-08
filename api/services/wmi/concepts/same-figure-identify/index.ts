@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildSameFigureIdentifyBreakdown } from './breakdown.js'
 
 type Cell = [number, number]
 const cell = z.tuple([z.number().int(), z.number().int()])
@@ -87,6 +88,7 @@ export function render(params: Params) {
       'Coba putar setiap pilihan dalam pikiranmu: jika tekukan tetap berada di sisi yang sama setelah diputar, bentuk tersebut cocok; jika tekukan berpindah ke sisi lain, pilihan itu adalah bayangan cermin dan salah.',
       `Hanya satu pilihan yang lolos kedua pemeriksaan — itulah pilihan ${labels[params.validIndex]}.`,
     ],
+    breakdown: buildSameFigureIdentifyBreakdown(params),
   }
 }
 

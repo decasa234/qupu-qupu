@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMoreOrLessByKBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -56,6 +57,7 @@ export function render(params: Params) {
       `"${k} ${wordId} ${x}" artinya ${x} ${op} ${k}.`,
       `${x} ${op} ${k} = ${ans}.`,
     ],
+    breakdown: buildMoreOrLessByKBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildVennSetMembershipBreakdown } from './breakdown.js'
 
 const numList = z.array(z.number().int().min(1).max(20))
 const paramsSchema = z.object({
@@ -61,6 +62,7 @@ export function render(params: Params) {
       `Bilangan irisan (${bothList}) dimiliki oleh kedua lingkaran, jadi TIDAK dihitung.`,
       `Jumlahkan bilangan bagian A saja: ${addStr} = ${aOnlySum}.`,
     ],
+    breakdown: buildVennSetMembershipBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildUnitConversionBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   mode: z.enum(['m-cm', 'kg-g', 'dollar-cent']),
@@ -37,8 +38,8 @@ export function render(params: Params) {
   const ans = answerValue(params)
   const bigPart = params.big * u.factor
   return {
-    body_en: `Find: How many ${u.smallEn} are in ${params.big} ${u.bigEn} and ${params.small} ${u.smallEn}?`,
-    body_id: `Cari: Berapa ${u.smallId} dalam ${params.big} ${u.bigId} dan ${params.small} ${u.smallId}?`,
+    body_en: `Remember that 1 ${u.bigEn} = ${u.factor} ${u.smallEn}.\n\nFind: How many ${u.smallEn} are in ${params.big} ${u.bigEn} and ${params.small} ${u.smallEn}?`,
+    body_id: `Ingat bahwa 1 ${u.bigId} = ${u.factor} ${u.smallId}.\n\nCari: Berapa ${u.smallId} dalam ${params.big} ${u.bigId} dan ${params.small} ${u.smallId}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
@@ -55,6 +56,7 @@ export function render(params: Params) {
       `Tambahkan sisa ${u.smallId}: ${bigPart} + ${params.small} = ${ans} ${u.smallId}`,
       `Jawaban: ${ans} ${u.smallId}`,
     ],
+    breakdown: buildUnitConversionBreakdown(params),
   }
 }
 

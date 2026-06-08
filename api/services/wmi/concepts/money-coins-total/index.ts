@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMoneyCoinsTotalBreakdown } from './breakdown.js'
 
 const COIN_VALUES = [1, 5, 10, 25] as const
 const DOLLAR = 100
@@ -71,6 +72,7 @@ export function render(params: Params) {
       `Jumlahkan subtotal: ${additionStr} = ${sum}.`,
       `Lengkapi satu dolar: 100 − ${sum} = ${need}.`,
     ],
+    breakdown: buildMoneyCoinsTotalBreakdown(params),
   }
 }
 

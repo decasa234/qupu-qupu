@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildScaleReadBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   max: z.number().int().min(20).max(100),
@@ -34,6 +35,7 @@ export function render(params: Params) {
     answer: String(params.value),
     hint_en: 'The arrow sits on a half-mark, exactly halfway between two numbered marks.',
     hint_id: 'Panah berada pada garis tengah, tepat di antara dua angka.',
+    breakdown: buildScaleReadBreakdown(params),
   }
 }
 

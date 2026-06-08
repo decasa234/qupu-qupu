@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMultiplicationSmallBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   a: z.number().int().min(2).max(5),
@@ -42,6 +43,7 @@ export function render(params: Params) {
       `Hitung lompat ${b}: ${seq}.`,
       `Jadi ${a} × ${b} = ${product}.`,
     ],
+    breakdown: buildMultiplicationSmallBreakdown(params),
   }
 }
 

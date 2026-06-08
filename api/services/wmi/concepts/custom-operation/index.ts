@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCustomOperationBreakdown } from './breakdown.js'
 
 type Formula = { id: string; fn: (a: number, b: number) => number; def: string }
 const FORMULAS: readonly Formula[] = [
@@ -30,6 +31,11 @@ export const meta = {
 
 export function applyFormula(id: string, a: number, b: number): number {
   return (BY_ID[id] as Formula).fn(a, b)
+}
+
+// The human-readable rule string for a formula id, e.g. "a ★ b = a × b − b".
+export function formulaDef(id: string): string {
+  return (BY_ID[id] as Formula).def
 }
 
 export function generate(rng: Rng): Params {
@@ -65,6 +71,7 @@ export function render(params: Params) {
       `Contohnya ${params.e1} ★ ${params.e2} = ${example}.`,
       `Lakukan hal yang sama dengan bilanganmu: ${params.c} ★ ${params.d} = ${answer}.`,
     ],
+    breakdown: buildCustomOperationBreakdown(params),
   }
 }
 

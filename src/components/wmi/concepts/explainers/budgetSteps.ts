@@ -7,6 +7,8 @@ export interface BudgetStep {
   pair: [number, number] | null
   sum: number | null
   fits: boolean | null
+  /** How long to hold this beat on screen, in ms (the winner lingers longest). */
+  hold: number
 }
 
 export interface BudgetStoryboard {
@@ -47,6 +49,7 @@ export function buildBudgetSteps(prices: number[], budget: number, lang: Lang): 
       pair: null,
       sum: null,
       fits: null,
+      hold: 2000,
     },
   ]
 
@@ -56,7 +59,9 @@ export function buildBudgetSteps(prices: number[], budget: number, lang: Lang): 
     const caption = isWinner
       ? t(`Best pair: ${pr.a} + ${pr.b} = ${pr.sum}.`, `Pasangan terbaik: ${pr.a} + ${pr.b} = ${pr.sum}.`)
       : t(`${pr.a} + ${pr.b} = ${pr.sum} > ${budget} ✗`, `${pr.a} + ${pr.b} = ${pr.sum} > ${budget} ✗`)
-    steps.push({ caption, result: isWinner, pair: [pr.a, pr.b], sum: pr.sum, fits: isWinner })
+    // The winner is the last beat (holds = 0). Over-budget tries linger a touch
+    // longer so the bust → meter overflow reads clearly.
+    steps.push({ caption, result: isWinner, pair: [pr.a, pr.b], sum: pr.sum, fits: isWinner, hold: isWinner ? 0 : 2100 })
   }
 
   return {

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildDistanceRateTimeBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   mode: z.enum(['distance', 'time']),
@@ -46,6 +47,7 @@ export function render(params: Params) {
         `Substitusi: jarak = ${params.rate} × ${params.t}`,
         `Jawaban: jarak = ${dist} km`,
       ],
+      breakdown: buildDistanceRateTimeBreakdown(params),
     }
   }
   const distance = params.rate * params.t
@@ -70,6 +72,7 @@ export function render(params: Params) {
       `Substitusi: waktu = ${distance} ÷ ${params.rate}`,
       `Jawaban: waktu = ${params.t} jam`,
     ],
+    breakdown: buildDistanceRateTimeBreakdown(params),
   }
 }
 

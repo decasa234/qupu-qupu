@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildLegsItemsRateBreakdown } from './breakdown.js'
 
-type Animal = { key: string; en: string; en1: string; id: string; legs: number; note: boolean }
+export type Animal = { key: string; en: string; en1: string; id: string; legs: number; note: boolean }
 const ANIMALS: readonly Animal[] = [
   { key: 'cat', en: 'cats', en1: 'cat', id: 'kucing', legs: 4, note: false },
   { key: 'dog', en: 'dogs', en1: 'dog', id: 'anjing', legs: 4, note: false },
@@ -12,7 +13,7 @@ const ANIMALS: readonly Animal[] = [
   { key: 'ant', en: 'ants', en1: 'ant', id: 'semut', legs: 6, note: true },
 ] as const
 const KEYS = ANIMALS.map((a) => a.key)
-const BY_KEY = Object.fromEntries(ANIMALS.map((a) => [a.key, a]))
+export const ANIMALS_BY_KEY: Record<string, Animal> = Object.fromEntries(ANIMALS.map((a) => [a.key, a]))
 
 const paramsSchema = z
   .object({
@@ -37,7 +38,7 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
-  const items = params.kinds.map((k, i) => ({ a: BY_KEY[k] as Animal, n: params.counts[i] }))
+  const items = params.kinds.map((k, i) => ({ a: ANIMALS_BY_KEY[k] as Animal, n: params.counts[i] }))
   const answer = items.reduce((sum, it) => sum + it.n * it.a.legs, 0)
   const listEN = items.map((it) => `${it.n} ${it.n === 1 ? it.a.en1 : it.a.en}`)
   const listID = items.map((it) => `${it.n} ekor ${it.a.id}`)
@@ -75,6 +76,7 @@ export function render(params: Params) {
     hint_id: 'Hitung kaki dari setiap kelompok hewan secara terpisah, lalu jumlahkan semuanya.',
     hint_steps_en: hintStepsEN,
     hint_steps_id: hintStepsID,
+    breakdown: buildLegsItemsRateBreakdown(params),
   }
 }
 

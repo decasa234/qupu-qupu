@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildAlternatingChainEvalBreakdown } from './breakdown.js'
 
 const stepSchema = z.object({ op: z.enum(['+', '-']), n: z.number().int().min(1).max(99) })
 const paramsSchema = z.object({
@@ -68,6 +69,7 @@ export function render(params: Params) {
     hint_id: 'Jaga jumlah berjalan, kerjakan dari kiri ke kanan satu langkah demi satu.',
     hint_steps_en: stepsEn,
     hint_steps_id: stepsId,
+    breakdown: buildAlternatingChainEvalBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildDirectionOrientationBreakdown } from './breakdown.js'
 
 const DIRS = ['North', 'East', 'South', 'West'] as const
 const DIRS_ID = ['Utara', 'Timur', 'Selatan', 'Barat'] as const
@@ -107,6 +108,7 @@ export function render(params: Params) {
     hint_id: `Coba ikuti urutan searah jarum jam satu putaran demi satu — Utara, Timur, Selatan, Barat — dan hitung setiap putaran 90° dari arah awalmu.`,
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildDirectionOrientationBreakdown(params),
   }
 }
 

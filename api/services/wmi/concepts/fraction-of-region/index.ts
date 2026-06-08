@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildFractionOfRegionBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -51,6 +52,7 @@ export function render(params: Params) {
       `${parts} − ${shaded} = ${notShaded}.`,
       `Ada ${notShaded} bagian yang tidak diarsir.`,
     ],
+    breakdown: buildFractionOfRegionBreakdown(params),
   }
 }
 

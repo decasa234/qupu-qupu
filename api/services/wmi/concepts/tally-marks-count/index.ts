@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildTallyMarksCountBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   n: z.number().int().min(3).max(34),
@@ -75,6 +76,7 @@ export function render(params: Params) {
     hint_id: `Setiap kelompok turus utuh — empat turus tegak disilang satu garis miring — bernilai 5. Hitung kelompok yang bernilai 5, lalu tambahkan turus yang tersisa.`,
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildTallyMarksCountBreakdown(params),
   }
 }
 

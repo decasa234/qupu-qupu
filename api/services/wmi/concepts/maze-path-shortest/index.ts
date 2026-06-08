@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildMazePathShortestBreakdown } from './breakdown.js'
 
-type Cell = [number, number]
+export type Cell = [number, number]
 const cell = z.tuple([z.number().int(), z.number().int()])
 const paramsSchema = z.object({
   cols: z.number().int().min(4).max(6),
@@ -112,6 +113,7 @@ export function render(params: Params) {
             `Dengan menelusuri kotak-kotak kosong langkah demi langkah, jalur terpendeknya adalah ${steps} langkah.`,
           ]),
     ],
+    breakdown: buildMazePathShortestBreakdown(params),
   }
 }
 

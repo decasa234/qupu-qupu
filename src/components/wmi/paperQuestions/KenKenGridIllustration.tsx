@@ -1,9 +1,17 @@
 // "Fill 1-4 so every row & column differs (KenKen-style)" figure for WMI-19F1-Q24.
-// Reconstructed from the real figure: a 4x4 grid carved into thick-outlined cages.
-// Each cage's top-left corner shows a target and a +/- operator:
-//   10+ (top-left 2 cells), 1- (top middle 2 cells), 6+ (centre 2 cells),
-//   2- (left), 3- (a centre cell), 6+ (lower-middle 2 cells).
-// Two squares are pre-filled in the figure: a 1 (top-right) and a 3 (bottom-middle).
+// Reconstructed from the real figure (db/seed/wmi/figures/2019-final-g1-a-q24.jpg)
+// by reading the thick cage walls edge-by-edge: a 4x4 grid carved into thick-outlined
+// cages. Each cage's top-left corner shows a target with a +/- operator. The unique
+// solution is rows 4231 / 2413 / 3142 / 1324 (row 0 top, col 0 left); every cage below
+// is contiguous and its arithmetic is satisfied by that grid:
+//   10+ : (0,0)+(1,0)+(1,1) = 4+2+4 = 10   (L-shape, top-left)
+//   1-  : (0,1)+(0,2)       = 2,3  differ by 1
+//   6+  : (1,2)+(1,3)+(2,3) = 1+3+2 = 6     (L-shape, upper-right)
+//   2-  : (2,0)+(3,0)       = 3,1  differ by 2
+//   3-  : (2,1)+(2,2)       = 1,4  differ by 3
+//   6+  : (3,2)+(3,3)       = 2+4  = 6      (bottom-right pair)
+// Two squares are single-cell givens: a 1 at (0,3) (top-right) and a 3 at (3,1)
+// (bottom-middle). Together the cages tile all 16 cells exactly once.
 // The four answer cells are marked A, B, C, D; the answer is ABCD = 2134.
 //
 // Grid coordinates: row 0 = top, col 0 = left.
@@ -50,22 +58,22 @@ export const ANSWER_CELLS: ReadonlyArray<{ label: string; row: number; col: numb
 
 export const KK_ANSWER = ANSWER_CELLS.map((c) => c.value).join('') // "2134"
 
-// Thick cage borders: list of [row, col, side] edges that get a heavy stroke.
+// Thick cage borders. We draw a heavy outline around each cage region (set of cells).
 // 'T'=top, 'R'=right, 'B'=bottom, 'L'=left edge of that cell.
-// Cages: 10+ {(0,0),(1,0)} | 1- {(0,1),(0,2)} | top-right {(0,3),(1,3)}
-//        6+ {(1,1),(1,2)}  | 2- {(2,0),(3,0)}  | 3- {(2,1),(2,2)}
-//        lower-mid 6+ {(3,1),(3,2)} | leftovers {(2,3),(3,3)}
+// Cages (matching the scan's thick walls; see derivation above):
+//   10+ {(0,0),(1,0),(1,1)}  | 1- {(0,1),(0,2)}   | given-1 {(0,3)}
+//   6+  {(1,2),(1,3),(2,3)}  | 2- {(2,0),(3,0)}   | 3- {(2,1),(2,2)}
+//   given-3 {(3,1)}          | 6+ {(3,2),(3,3)}
 type Side = 'T' | 'R' | 'B' | 'L'
-// Each cage is a set of cells; we draw a heavy outline around each cage region.
 const CAGES: ReadonlyArray<ReadonlyArray<[number, number]>> = [
-  [[0, 0], [1, 0]],
+  [[0, 0], [1, 0], [1, 1]],
   [[0, 1], [0, 2]],
-  [[0, 3], [1, 3]],
-  [[1, 1], [1, 2]],
+  [[0, 3]],
+  [[1, 2], [1, 3], [2, 3]],
   [[2, 0], [3, 0]],
   [[2, 1], [2, 2]],
-  [[3, 1], [3, 2]],
-  [[2, 3], [3, 3]],
+  [[3, 1]],
+  [[3, 2], [3, 3]],
 ]
 
 function cageEdges(cells: ReadonlyArray<[number, number]>): Array<{ x1: number; y1: number; x2: number; y2: number }> {
