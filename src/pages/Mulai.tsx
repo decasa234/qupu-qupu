@@ -1,25 +1,20 @@
 // src/pages/Mulai.tsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import { saveDemoSelections } from '../lib/demoStorage'
-import {
-  bandForAgeGroup,
-  FALLBACK_GRADES,
-  getDemoQuestions,
-} from '../lib/demoQuestions'
+import { FALLBACK_GRADES } from '../lib/demoQuestions'
 import { useAuthStore } from '../store/authStore'
 import type { AgeGroupOption, PublicMeta, SubjectOption } from '../types'
 import ProgressDots from '../components/onboarding/ProgressDots'
 import WhoStep from '../components/onboarding/WhoStep'
-import SampleQuiz from '../components/onboarding/SampleQuiz'
-import WinMoment from '../components/onboarding/WinMoment'
-import MiniTour from '../components/onboarding/MiniTour'
+import WmiWalkthrough from '../components/onboarding/WmiWalkthrough'
+import VideosWalkthrough from '../components/onboarding/VideosWalkthrough'
 import PlanReveal from '../components/onboarding/PlanReveal'
 
-type Step = 'who' | 'quiz' | 'win' | 'tour' | 'plan'
-const STEP_ORDER: Step[] = ['who', 'quiz', 'win', 'tour', 'plan']
+type Step = 'who' | 'wmi' | 'videos' | 'plan'
+const STEP_ORDER: Step[] = ['who', 'wmi', 'videos', 'plan']
 
 export default function Mulai() {
   const navigate = useNavigate()
@@ -55,11 +50,6 @@ export default function Mulai() {
     }
   }, [])
 
-  const questions = useMemo(
-    () => getDemoQuestions(bandForAgeGroup(grade)),
-    [grade],
-  )
-
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />
   }
@@ -68,7 +58,7 @@ export default function Mulai() {
     setChildName(name)
     setGrade(group)
     trackEvent('demo_grade_selected', { gradeName: group.name })
-    setStep('quiz')
+    setStep('wmi')
   }
 
   function handleSignup() {
@@ -90,11 +80,8 @@ export default function Mulai() {
       <ProgressDots total={STEP_ORDER.length} current={currentIndex} />
 
       {step === 'who' && <WhoStep ageGroups={ageGroups} onSubmit={handleWhoSubmit} />}
-      {step === 'quiz' && (
-        <SampleQuiz questions={questions} onComplete={() => setStep('win')} />
-      )}
-      {step === 'win' && <WinMoment onContinue={() => setStep('tour')} />}
-      {step === 'tour' && <MiniTour onContinue={() => setStep('plan')} />}
+      {step === 'wmi' && <WmiWalkthrough onComplete={() => setStep('videos')} />}
+      {step === 'videos' && <VideosWalkthrough onComplete={() => setStep('plan')} />}
       {step === 'plan' && (
         <PlanReveal
           childName={childName}

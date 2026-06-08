@@ -6,21 +6,20 @@
 // the existing ChildForm (seeded with the name + grade collected in WhoStep).
 // Used by OnboardingChild for new signups that did NOT come through the
 // pre-signup /mulai demo.
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { trackEvent } from '../../lib/analytics'
-import { bandForAgeGroup, FALLBACK_GRADES, getDemoQuestions } from '../../lib/demoQuestions'
+import { FALLBACK_GRADES } from '../../lib/demoQuestions'
 import type { AgeGroupOption, Child, PublicMeta } from '../../types'
 import AuthCard from '../AuthCard'
 import ChildForm from '../ChildForm'
 import ProgressDots from './ProgressDots'
 import WhoStep from './WhoStep'
-import SampleQuiz from './SampleQuiz'
-import WinMoment from './WinMoment'
-import MiniTour from './MiniTour'
+import WmiWalkthrough from './WmiWalkthrough'
+import VideosWalkthrough from './VideosWalkthrough'
 
-type Step = 'who' | 'quiz' | 'win' | 'tour' | 'form'
-const STEP_ORDER: Step[] = ['who', 'quiz', 'win', 'tour', 'form']
+type Step = 'who' | 'wmi' | 'videos' | 'form'
+const STEP_ORDER: Step[] = ['who', 'wmi', 'videos', 'form']
 
 interface OnboardingGuidedProps {
   onCreated: (child: Child) => void
@@ -53,14 +52,13 @@ export default function OnboardingGuided({ onCreated }: OnboardingGuidedProps) {
     }
   }, [])
 
-  const questions = useMemo(() => getDemoQuestions(bandForAgeGroup(grade)), [grade])
   const currentIndex = STEP_ORDER.indexOf(step)
 
   function handleWhoSubmit(name: string, group: AgeGroupOption) {
     setChildName(name)
     setGrade(group)
     trackEvent('demo_grade_selected', { gradeName: group.name, variant: 'post_signup' })
-    setStep('quiz')
+    setStep('wmi')
   }
 
   // Only a real (non-sentinel) age group id can seed the child profile select.
@@ -90,11 +88,8 @@ export default function OnboardingGuided({ onCreated }: OnboardingGuidedProps) {
       <ProgressDots total={STEP_ORDER.length} current={currentIndex} />
 
       {step === 'who' && <WhoStep ageGroups={ageGroups} onSubmit={handleWhoSubmit} />}
-      {step === 'quiz' && (
-        <SampleQuiz questions={questions} onComplete={() => setStep('win')} />
-      )}
-      {step === 'win' && <WinMoment onContinue={() => setStep('tour')} />}
-      {step === 'tour' && <MiniTour onContinue={() => setStep('form')} />}
+      {step === 'wmi' && <WmiWalkthrough onComplete={() => setStep('videos')} />}
+      {step === 'videos' && <VideosWalkthrough onComplete={() => setStep('form')} />}
     </div>
   )
 }
