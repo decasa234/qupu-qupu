@@ -5,7 +5,6 @@ import type {
   WmiChapterTestQuestion,
   WmiChapterTestResult,
   WmiConceptAttemptInput,
-  WmiConceptGrown,
   WmiConceptProgressSummary,
   WmiConceptQuestion,
   WmiConceptVoteResult,
