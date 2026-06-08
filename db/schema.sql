@@ -602,6 +602,7 @@ CREATE TABLE IF NOT EXISTS wmi_concepts (
   subject_key       TEXT REFERENCES wmi_subjects(subject_key),
   difficulty        SMALLINT CHECK (difficulty IS NULL OR difficulty BETWEEN 1 AND 3),
   sort_order        INT NOT NULL DEFAULT 0,
+  tags              TEXT[] NOT NULL DEFAULT '{}'::text[],
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT wmi_concepts_grades_valid CHECK (
@@ -669,6 +670,7 @@ CREATE TABLE IF NOT EXISTS wmi_chapter_tests (
 CREATE INDEX IF NOT EXISTS wmi_chapter_tests_pass_idx
   ON wmi_chapter_tests (child_id, subject_key) WHERE passed;
 CREATE INDEX IF NOT EXISTS wmi_concepts_grades_gin ON wmi_concepts USING GIN (grades);
+CREATE INDEX IF NOT EXISTS wmi_concepts_tags_gin ON wmi_concepts USING GIN (tags);
 
 CREATE TABLE IF NOT EXISTS wmi_concept_votes (
   id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),

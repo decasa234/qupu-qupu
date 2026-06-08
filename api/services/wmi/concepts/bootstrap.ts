@@ -54,13 +54,13 @@ async function upsertConcepts(): Promise<void> {
       const c = CONCEPTS[slug]
       const cur = CURRICULUM[slug as keyof typeof CURRICULUM]
       await client.query(
-        `INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades, subject_key, difficulty, sort_order)
-         VALUES ($1,$2,$3,$4,$5::SMALLINT[],$6,$7,$8)
+        `INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades, subject_key, difficulty, sort_order, tags)
+         VALUES ($1,$2,$3,$4,$5::SMALLINT[],$6,$7,$8,$9::text[])
          ON CONFLICT (slug) DO UPDATE SET
            name_en = EXCLUDED.name_en, name_id = EXCLUDED.name_id,
            description_id = EXCLUDED.description_id, grades = EXCLUDED.grades,
            subject_key = EXCLUDED.subject_key, difficulty = EXCLUDED.difficulty,
-           sort_order = EXCLUDED.sort_order, updated_at = NOW()`,
+           sort_order = EXCLUDED.sort_order, tags = EXCLUDED.tags, updated_at = NOW()`,
         [
           c.meta.slug,
           c.meta.name_en,
@@ -70,6 +70,7 @@ async function upsertConcepts(): Promise<void> {
           cur.subjectKey,
           cur.difficulty,
           cur.sortOrder,
+          cur.tags,
         ],
       )
     }
