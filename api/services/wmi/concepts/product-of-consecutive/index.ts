@@ -19,16 +19,30 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
-  const product = params.k * (params.k + 1)
+  const n = params.k
+  const product = n * (n + 1)
+  const sqrtFloor = Math.floor(Math.sqrt(product))
   return {
-    body_en: `Two consecutive whole numbers have a product of ${product}. What is the larger of the two numbers?`,
-    body_id: `Dua bilangan bulat berurutan memiliki hasil kali ${product}. Berapakah bilangan yang lebih besar dari keduanya?`,
+    body_en: `Two consecutive whole numbers have a product of ${product}. Find: What is the larger of the two numbers?`,
+    body_id: `Dua bilangan bulat berurutan memiliki hasil kali ${product}. Cari: Bilangan yang lebih besar dari keduanya?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(params.k + 1),
-    hint_en: 'Consecutive numbers are one apart, like 7 and 8. Their product is close to a square.',
-    hint_id: 'Bilangan berurutan berselisih satu, seperti 7 dan 8. Hasil kalinya dekat dengan kuadrat.',
+    answer: String(n + 1),
+    hint_en: `The product of two consecutive numbers is just above a perfect square — try the whole number nearest to √${product}.`,
+    hint_id: `Hasil kali dua bilangan berurutan selalu sedikit di atas kuadrat sempurna — coba bilangan bulat terdekat dari √${product}.`,
+    hint_steps_en: [
+      `Consecutive numbers differ by 1, so call them n and n + 1; their product is n × (n + 1) = ${product}.`,
+      `Estimate: √${product} ≈ ${sqrtFloor}, so try n = ${sqrtFloor}.`,
+      `Check: ${sqrtFloor} × ${sqrtFloor + 1} = ${sqrtFloor * (sqrtFloor + 1)}.`,
+      `${sqrtFloor * (sqrtFloor + 1) === product ? `That equals ${product}, so the two numbers are ${sqrtFloor} and ${sqrtFloor + 1}; the larger is ${sqrtFloor + 1}.` : `Adjust: try n = ${n}; ${n} × ${n + 1} = ${product} ✓. The larger number is ${n + 1}.`}`,
+    ],
+    hint_steps_id: [
+      `Bilangan berurutan berselisih 1, sebut saja n dan n + 1; hasil kalinya n × (n + 1) = ${product}.`,
+      `Perkiraan: √${product} ≈ ${sqrtFloor}, coba n = ${sqrtFloor}.`,
+      `Periksa: ${sqrtFloor} × ${sqrtFloor + 1} = ${sqrtFloor * (sqrtFloor + 1)}.`,
+      `${sqrtFloor * (sqrtFloor + 1) === product ? `Hasilnya ${product}, jadi kedua bilangannya adalah ${sqrtFloor} dan ${sqrtFloor + 1}; yang lebih besar adalah ${sqrtFloor + 1}.` : `Sesuaikan: coba n = ${n}; ${n} × ${n + 1} = ${product} ✓. Bilangan yang lebih besar adalah ${n + 1}.`}`,
+    ],
   }
 }
 

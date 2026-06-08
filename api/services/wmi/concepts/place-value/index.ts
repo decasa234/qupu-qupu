@@ -33,14 +33,24 @@ export function render(params: Params) {
   const answerLabel = labels[values.indexOf(correct)]
 
   return {
-    body_en: `In the number ${params.n}, what is the value of the tens digit?`,
-    body_id: `Pada bilangan ${params.n}, berapa nilai angka di tempat puluhan?`,
+    body_en: `The number ${params.n} has two digits. Find: What is the value of the tens digit?`,
+    body_id: `Bilangan ${params.n} memiliki dua angka. Cari: Berapa nilai angka di tempat puluhan?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
     answer: answerLabel,
-    hint_en: 'The tens digit is the one on the left in a two-digit number.',
-    hint_id: 'Angka puluhan adalah angka di kiri pada bilangan dua angka.',
+    hint_en: `Think about which digit sits in the tens place, then multiply it by 10 to find its value.`,
+    hint_id: `Perhatikan angka yang berada di tempat puluhan, lalu kalikan dengan 10 untuk menemukan nilainya.`,
+    hint_steps_en: [
+      `Write out the place of each digit: ${params.n} = ${tensDigit} tens and ${ones} ones.`,
+      `The tens digit is ${tensDigit}.`,
+      `Value of the tens digit = ${tensDigit} × 10 = ${correct}.`,
+    ],
+    hint_steps_id: [
+      `Tuliskan nilai tempat setiap angka: ${params.n} = ${tensDigit} puluhan dan ${ones} satuan.`,
+      `Angka di tempat puluhan adalah ${tensDigit}.`,
+      `Nilai angka puluhan = ${tensDigit} × 10 = ${correct}.`,
+    ],
   }
 }
 

@@ -47,15 +47,27 @@ export function generate(rng: Rng): Params {
 export function render(params: Params) {
   const expr =
     `${params.start} ` + params.steps.map((s) => `${s.op === '+' ? '+' : '−'} ${s.n}`).join(' ')
+  const stepsEn: string[] = [`Start at ${params.start}.`]
+  const stepsId: string[] = [`Mulai dari ${params.start}.`]
+  let running = params.start
+  for (const s of params.steps) {
+    const prev = running
+    const sym = s.op === '+' ? '+' : '−'
+    running = s.op === '+' ? running + s.n : running - s.n
+    stepsEn.push(`${prev} ${sym} ${s.n} = ${running}.`)
+    stepsId.push(`${prev} ${sym} ${s.n} = ${running}.`)
+  }
   return {
-    body_en: `Compute ${expr}.`,
-    body_id: `Hitunglah ${expr}.`,
+    body_en: `Find: Compute ${expr}.`,
+    body_id: `Cari: Hitunglah ${expr}.`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(evaluate(params)),
-    hint_en: 'Work from left to right, one step at a time.',
-    hint_id: 'Kerjakan dari kiri ke kanan, satu langkah demi satu.',
+    hint_en: 'Keep a running total, working from left to right one step at a time.',
+    hint_id: 'Jaga jumlah berjalan, kerjakan dari kiri ke kanan satu langkah demi satu.',
+    hint_steps_en: stepsEn,
+    hint_steps_id: stepsId,
   }
 }
 

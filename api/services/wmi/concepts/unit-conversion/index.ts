@@ -34,15 +34,27 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   const u = UNITS[params.mode]
+  const ans = answerValue(params)
+  const bigPart = params.big * u.factor
   return {
-    body_en: `How many ${u.smallEn} are there in ${params.big} ${u.bigEn} ${params.small} ${u.smallEn}?`,
-    body_id: `Ada berapa ${u.smallId} dalam ${params.big} ${u.bigId} ${params.small} ${u.smallId}?`,
+    body_en: `Find: How many ${u.smallEn} are in ${params.big} ${u.bigEn} and ${params.small} ${u.smallEn}?`,
+    body_id: `Cari: Berapa ${u.smallId} dalam ${params.big} ${u.bigId} dan ${params.small} ${u.smallId}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(answerValue(params)),
-    hint_en: `1 ${u.bigEn} = ${u.factor} ${u.smallEn}.`,
-    hint_id: `1 ${u.bigId} = ${u.factor} ${u.smallId}.`,
+    answer: String(ans),
+    hint_en: `To convert, remember 1 ${u.bigEn} = ${u.factor} ${u.smallEn} — multiply the bigger unit by ${u.factor}, then add the leftover ${u.smallEn}.`,
+    hint_id: `Untuk mengonversi, ingat 1 ${u.bigId} = ${u.factor} ${u.smallId} — kalikan satuan besar dengan ${u.factor}, lalu tambahkan sisa ${u.smallId}-nya.`,
+    hint_steps_en: [
+      `Convert the ${u.bigEn}: ${params.big} × ${u.factor} = ${bigPart} ${u.smallEn}`,
+      `Add the extra ${u.smallEn}: ${bigPart} + ${params.small} = ${ans} ${u.smallEn}`,
+      `Answer: ${ans} ${u.smallEn}`,
+    ],
+    hint_steps_id: [
+      `Ubah ${u.bigId}: ${params.big} × ${u.factor} = ${bigPart} ${u.smallId}`,
+      `Tambahkan sisa ${u.smallId}: ${bigPart} + ${params.small} = ${ans} ${u.smallId}`,
+      `Jawaban: ${ans} ${u.smallId}`,
+    ],
   }
 }
 

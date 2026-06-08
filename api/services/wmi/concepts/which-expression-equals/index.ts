@@ -57,15 +57,26 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const choices: WmiChoice[] = labels.map((label, i) => ({ label, text: exprText(params.exprs[i]) }))
   const correctIdx = params.exprs.findIndex((e) => evalExpr(e) === params.target)
+  const correct = params.exprs[correctIdx]
   return {
-    body_en: `Which expression equals ${params.target}?`,
-    body_id: `Ekspresi manakah yang hasilnya ${params.target}?`,
+    body_en: `Find: Which expression equals ${params.target}?`,
+    body_id: `Cari: Ekspresi manakah yang hasilnya ${params.target}?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[correctIdx],
-    hint_en: 'Work out each expression, then find the one that matches the target.',
-    hint_id: 'Hitung setiap ekspresi, lalu cari yang sama dengan target.',
+    hint_en: `Work out each option, then find the one that equals ${params.target}.`,
+    hint_id: `Hitung setiap pilihan, lalu cari yang hasilnya ${params.target}.`,
+    hint_steps_en: [
+      'Work out each option, one at a time.',
+      `${exprText(correct)} = ${params.target}.`,
+      `So the answer is ${labels[correctIdx]}.`,
+    ],
+    hint_steps_id: [
+      'Hitung setiap pilihan satu per satu.',
+      `${exprText(correct)} = ${params.target}.`,
+      `Jadi jawabannya ${labels[correctIdx]}.`,
+    ],
   }
 }
 

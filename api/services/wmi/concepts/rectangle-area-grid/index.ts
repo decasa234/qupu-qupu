@@ -24,15 +24,27 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { w, h } = params
+  const total = area(params)
   return {
-    body_en: `The grid below is drawn with 1 cm squares. How many small squares are there in total (the area, in square cm)?`,
-    body_id: `Kisi di bawah ini terdiri dari persegi berukuran 1 cm. Ada berapa persegi kecil seluruhnya (luasnya, dalam cm persegi)?`,
+    body_en: `The grid below shows a rectangle made of 1 cm × 1 cm unit squares. Find: How many unit squares does the rectangle cover?`,
+    body_id: `Kisi di bawah menunjukkan persegi panjang yang terdiri dari persegi satuan 1 cm × 1 cm. Cari: Berapa banyak persegi satuan yang menutupi persegi panjang itu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(area(params)),
-    hint_en: 'Count the squares in one row, then multiply by the number of rows.',
-    hint_id: 'Hitung persegi dalam satu baris, lalu kalikan dengan banyak baris.',
+    answer: String(total),
+    hint_en: `Multiply the number of columns by the number of rows to find the total squares.`,
+    hint_id: `Kalikan jumlah kolom dengan jumlah baris untuk menemukan total persegi.`,
+    hint_steps_en: [
+      `Count the columns across the top: ${w} columns.`,
+      `Count the rows down the side: ${h} rows.`,
+      `Multiply: ${w} × ${h} = ${total} unit squares.`,
+    ],
+    hint_steps_id: [
+      `Hitung kolom di bagian atas: ${w} kolom.`,
+      `Hitung baris di bagian samping: ${h} baris.`,
+      `Kalikan: ${w} × ${h} = ${total} persegi satuan.`,
+    ],
   }
 }
 

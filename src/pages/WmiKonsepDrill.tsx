@@ -205,6 +205,7 @@ export default function WmiKonsepDrill() {
                 slug={question.concept_slug}
                 params={question.params}
                 correctAnswer={feedback.correct_answer}
+                lang={questionLang}
               />
               <WmiConceptFeedbackPanel
                 isCorrect={feedback.is_correct}

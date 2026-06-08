@@ -28,15 +28,29 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { parts, shaded } = params
+  const notShaded = unshaded(params)
   return {
-    body_en: `The bar is divided into ${params.parts} equal parts. How many parts are NOT shaded?`,
-    body_id: `Batang ini dibagi menjadi ${params.parts} bagian sama besar. Berapa bagian yang TIDAK diarsir?`,
+    body_en: `A shape is divided into ${parts} equal parts and ${shaded} part${shaded === 1 ? ' is' : 's are'} shaded. Find: How many parts are NOT shaded?`,
+    body_id: `Sebuah bangun dibagi menjadi ${parts} bagian sama besar dan ${shaded} bagian diarsir. Cari: Berapa bagian yang TIDAK diarsir?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(unshaded(params)),
-    hint_en: `Count the empty parts, or take ${params.parts} minus the shaded parts.`,
-    hint_id: `Hitung bagian yang kosong, atau ${params.parts} dikurangi bagian yang diarsir.`,
+    answer: String(notShaded),
+    hint_en: `Subtract the shaded parts from the total: the unshaded count is what is left over.`,
+    hint_id: `Kurangi bagian yang diarsir dari seluruh bagian: bagian yang tidak diarsir adalah sisanya.`,
+    hint_steps_en: [
+      `The shape has ${parts} equal parts in total.`,
+      `${shaded} part${shaded === 1 ? ' is' : 's are'} shaded, so the rest are not shaded.`,
+      `${parts} − ${shaded} = ${notShaded}.`,
+      `There ${notShaded === 1 ? 'is' : 'are'} ${notShaded} part${notShaded === 1 ? '' : 's'} not shaded.`,
+    ],
+    hint_steps_id: [
+      `Bangun tersebut memiliki ${parts} bagian sama besar.`,
+      `${shaded} bagian diarsir, sehingga sisanya tidak diarsir.`,
+      `${parts} − ${shaded} = ${notShaded}.`,
+      `Ada ${notShaded} bagian yang tidak diarsir.`,
+    ],
   }
 }
 

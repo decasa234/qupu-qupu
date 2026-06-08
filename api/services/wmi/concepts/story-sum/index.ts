@@ -64,36 +64,32 @@ export function render(params: Params) {
   const answer = afterMorning - giveLunch
   return {
     body_en:
-      `Start: ${name} has ${start} ${fruit_en} in a basket. ` +
-      `Extra: ${name}'s mother puts ${distractor} ${distractor_en} on the table, but not in the basket. ` +
-      `Give: In the morning, ${name} gives ${giveMorning} ${fruit_en} to a sibling. ` +
-      `Give: At lunch, ${name} gives ${giveLunch} ${fruit_en} to a friend. ` +
+      `${name} has ${start} ${fruit_en} in a basket. ` +
+      `On the table there are also ${distractor} ${distractor_en}, but those are not in the basket. ` +
+      `In the morning ${name} gives ${giveMorning} ${fruit_en} to a sibling, and at lunch gives ${giveLunch} more ${fruit_en} to a friend. ` +
       `Find: How many ${fruit_en} are left in the basket?`,
     body_id:
-      `Mulai: ${name} punya ${start} ${fruit_id} di dalam keranjang. ` +
-      `Tambahan: Ibu ${name} menaruh ${distractor} ${distractor_id} di atas meja, tetapi tidak di keranjang. ` +
-      `Beri: Pagi hari, ${name} memberi ${giveMorning} ${fruit_id} kepada adiknya. ` +
-      `Beri: Saat makan siang, ${name} memberi ${giveLunch} ${fruit_id} kepada temannya. ` +
+      `${name} punya ${start} ${fruit_id} di dalam keranjang. ` +
+      `Di atas meja ada ${distractor} ${distractor_id}, tetapi ${distractor_id} itu tidak berada di keranjang. ` +
+      `Pagi hari ${name} memberi ${giveMorning} ${fruit_id} kepada adiknya, dan saat makan siang memberi ${giveLunch} ${fruit_id} lagi kepada temannya. ` +
       `Cari: Berapa ${fruit_id} yang tersisa di keranjang?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(answer),
-    hint_en: 'Track only the fruit in the basket. Ignore the extra fruit on the table.',
-    hint_id: 'Ikuti hanya buah di dalam keranjang. Abaikan buah tambahan di meja.',
+    hint_en: `Focus only on the ${fruit_en} inside the basket — the ${distractor_en} on the table are a distraction.`,
+    hint_id: `Perhatikan hanya ${fruit_id} yang ada di dalam keranjang — ${distractor_id} di meja adalah pengecoh.`,
     hint_steps_en: [
-      `${name} starts with ${start} ${fruit_en} in the basket.`,
-      `Careful: the ${distractor} ${distractor_en} are on the table, not in the basket. Do not count them.`,
-      `In the morning ${name} gives ${giveMorning}: ${start} − ${giveMorning} = ${afterMorning}.`,
-      `At lunch ${name} gives ${giveLunch} more: ${afterMorning} − ${giveLunch} = ${answer}.`,
-      `So ${answer} ${fruit_en} are left in the basket.`,
+      `${name} starts with ${start} ${fruit_en} in the basket. The ${distractor} ${distractor_en} on the table are not counted.`,
+      `Morning: ${name} gives away ${giveMorning} ${fruit_en}, so ${start} − ${giveMorning} = ${afterMorning} remain.`,
+      `Lunch: ${name} gives away ${giveLunch} more, so ${afterMorning} − ${giveLunch} = ${answer} remain.`,
+      `Answer: ${answer} ${fruit_en} are left in the basket.`,
     ],
     hint_steps_id: [
-      `${name} mulai dengan ${start} ${fruit_id} di dalam keranjang.`,
-      `Hati-hati: ${distractor} ${distractor_id} ada di meja, bukan di keranjang. Jangan ikut dihitung.`,
-      `Pagi hari ${name} memberi ${giveMorning}: ${start} − ${giveMorning} = ${afterMorning}.`,
-      `Saat makan siang ${name} memberi ${giveLunch} lagi: ${afterMorning} − ${giveLunch} = ${answer}.`,
-      `Jadi tersisa ${answer} ${fruit_id} di dalam keranjang.`,
+      `${name} mulai dengan ${start} ${fruit_id} di keranjang. ${distractor} ${distractor_id} di meja tidak dihitung.`,
+      `Pagi: ${name} memberi ${giveMorning} ${fruit_id}, sehingga ${start} − ${giveMorning} = ${afterMorning} tersisa.`,
+      `Makan siang: ${name} memberi ${giveLunch} lagi, sehingga ${afterMorning} − ${giveLunch} = ${answer} tersisa.`,
+      `Jawaban: ${answer} ${fruit_id} tersisa di dalam keranjang.`,
     ],
   }
 }

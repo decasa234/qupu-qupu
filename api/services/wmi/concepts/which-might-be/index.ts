@@ -44,15 +44,56 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const choices: WmiChoice[] = labels.map((label, i) => ({ label, text: String(params.options[i]) }))
   const correctIdx = params.options.findIndex((n) => satisfies(n, params))
+  const answerLabel = labels[correctIdx]
+  const answerVal = params.options[correctIdx]
+  const ds = (n: number) => `${Math.floor(n / 10)} + ${n % 10} = ${Math.floor(n / 10) + (n % 10)}`
+
+  // Build hint steps: check each option in A–D order, mark pass/fail per clue
+  const stepLines_en: string[] = []
+  const stepLines_id: string[] = []
+  for (let i = 0; i < 4; i++) {
+    const n = params.options[i]
+    const lbl = labels[i]
+    const isOdd = n % 2 === 1
+    const inRange = n > params.lo && n < params.hi
+    const digitOk = Math.floor(n / 10) + (n % 10) === params.k
+    if (isOdd && inRange && digitOk) {
+      stepLines_en.push(
+        `${lbl}. ${n}: odd ✓, between ${params.lo} and ${params.hi} ✓, digit sum ${ds(n)} ✓ — fits all three clues.`
+      )
+      stepLines_id.push(
+        `${lbl}. ${n}: ganjil ✓, antara ${params.lo} dan ${params.hi} ✓, jumlah digit ${ds(n)} ✓ — memenuhi semua petunjuk.`
+      )
+    } else {
+      const fails_en: string[] = []
+      const fails_id: string[] = []
+      if (!isOdd) { fails_en.push('not odd'); fails_id.push('bukan ganjil') }
+      if (!inRange) { fails_en.push(`not between ${params.lo} and ${params.hi}`); fails_id.push(`tidak antara ${params.lo} dan ${params.hi}`) }
+      if (!digitOk) { fails_en.push(`digit sum ${ds(n)} ≠ ${params.k}`); fails_id.push(`jumlah digit ${ds(n)} ≠ ${params.k}`) }
+      stepLines_en.push(`${lbl}. ${n}: ${fails_en.join(', ')} ✗`)
+      stepLines_id.push(`${lbl}. ${n}: ${fails_id.join(', ')} ✗`)
+    }
+  }
+  stepLines_en.push(`Answer: ${answerLabel} (${answerVal}) is the only number that satisfies all three clues.`)
+  stepLines_id.push(`Jawaban: ${answerLabel} (${answerVal}) adalah satu-satunya bilangan yang memenuhi semua petunjuk.`)
+
   return {
-    body_en: `A lucky number is an odd number between ${params.lo} and ${params.hi}, and the sum of its digits is ${params.k}. Which number below might it be?`,
-    body_id: `Sebuah bilangan keberuntungan adalah bilangan ganjil antara ${params.lo} dan ${params.hi}, dan jumlah digitnya ${params.k}. Bilangan manakah di bawah ini yang mungkin?`,
+    body_en: [
+      `Clue: A mystery number is odd, greater than ${params.lo} and less than ${params.hi}, and the sum of its digits equals ${params.k}.`,
+      `Find: Which of the following could be the mystery number?`,
+    ].join('\n'),
+    body_id: [
+      `Petunjuk: Sebuah bilangan misterius adalah bilangan ganjil, lebih dari ${params.lo} dan kurang dari ${params.hi}, dan jumlah digitnya sama dengan ${params.k}.`,
+      `Cari: Manakah bilangan berikut yang mungkin merupakan bilangan misterius tersebut?`,
+    ].join('\n'),
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
-    answer: labels[correctIdx],
-    hint_en: 'Check each option against all three clues: odd, in range, and digit sum.',
-    hint_id: 'Periksa tiap pilihan terhadap ketiga petunjuk: ganjil, dalam rentang, dan jumlah digit.',
+    answer: answerLabel,
+    hint_en: `Try each option in turn — check whether it is odd, falls strictly between ${params.lo} and ${params.hi}, and has a digit sum of ${params.k}.`,
+    hint_id: `Coba setiap pilihan satu per satu — periksa apakah bilangannya ganjil, terletak ketat di antara ${params.lo} dan ${params.hi}, dan jumlah digitnya ${params.k}.`,
+    hint_steps_en: stepLines_en,
+    hint_steps_id: stepLines_id,
   }
 }
 

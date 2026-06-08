@@ -30,17 +30,32 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
-  const word = params.dir === 'more' ? 'more than' : 'less than'
-  const wordId = params.dir === 'more' ? 'lebih dari' : 'kurang dari'
+  const { x, k, dir } = params
+  const ans = result(params)
+  const word = dir === 'more' ? 'more than' : 'less than'
+  const wordId = dir === 'more' ? 'lebih dari' : 'kurang dari'
+  const op = dir === 'more' ? '+' : '−'
   return {
-    body_en: `What number is ${params.k} ${word} ${params.x}?`,
-    body_id: `Bilangan berapakah yang ${params.k} ${wordId} ${params.x}?`,
+    body_en: `A number is ${k} ${word} ${x}. Find: What is that number?`,
+    body_id: `Suatu bilangan adalah ${k} ${wordId} ${x}. Cari: Bilangan apakah itu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(result(params)),
-    hint_en: params.dir === 'more' ? 'Add the two numbers.' : 'Subtract to go lower.',
-    hint_id: params.dir === 'more' ? 'Jumlahkan kedua bilangan.' : 'Kurangkan untuk menjadi lebih kecil.',
+    answer: String(ans),
+    hint_en: dir === 'more'
+      ? `When a number is k more than another, add k to that number.`
+      : `When a number is k less than another, subtract k from that number.`,
+    hint_id: dir === 'more'
+      ? `Jika suatu bilangan adalah k lebih dari bilangan lain, tambahkan k pada bilangan itu.`
+      : `Jika suatu bilangan adalah k kurang dari bilangan lain, kurangkan k dari bilangan itu.`,
+    hint_steps_en: [
+      `"${k} ${word} ${x}" means ${x} ${op} ${k}.`,
+      `${x} ${op} ${k} = ${ans}.`,
+    ],
+    hint_steps_id: [
+      `"${k} ${wordId} ${x}" artinya ${x} ${op} ${k}.`,
+      `${x} ${op} ${k} = ${ans}.`,
+    ],
   }
 }
 

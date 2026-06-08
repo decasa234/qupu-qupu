@@ -2,43 +2,71 @@ import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
 
 const paramsSchema = z.object({
-  prices: z.array(z.number().int().min(20).max(500)).length(4),
-  budget: z.number().int().min(20).max(500),
+  prices: z.array(z.number().int().min(20).max(300)).length(4),
+  budget: z.number().int().min(40).max(500),
 })
 export type Params = z.infer<typeof paramsSchema>
 
 export const meta = {
   slug: 'budget-selection',
-  name_en: 'Most expensive option within a budget',
-  name_id: 'Pilihan termahal dalam anggaran',
+  name_en: 'Most you can spend on two tickets',
+  name_id: 'Belanja terbesar untuk dua tiket',
   grades: [2, 3] as const,
-  description_id: 'Pilih barang termahal yang masih terjangkau dengan anggaran.',
+  description_id: 'Pilih dua tiket berbeda dengan total terbesar yang masih dalam anggaran.',
 } as const
 
-export function bestAffordable(p: Params): number {
-  return Math.max(...p.prices.filter((price) => price <= p.budget))
+// The greatest total of two different tickets that does not exceed the budget.
+export function bestTwo(p: Params): number {
+  let best = 0
+  for (let i = 0; i < p.prices.length; i++) {
+    for (let j = i + 1; j < p.prices.length; j++) {
+      const sum = p.prices[i] + p.prices[j]
+      if (sum <= p.budget && sum > best) best = sum
+    }
+  }
+  return best
 }
 
 export function generate(rng: Rng): Params {
-  const pool = rng.shuffle(Array.from({ length: 47 }, (_, i) => (i + 4) * 10)) // 40..500 step 10
+  const pool = rng.shuffle(Array.from({ length: 23 }, (_, i) => (i + 3) * 10)) // 30..250 step 10
   const prices = pool.slice(0, 4)
   const sorted = [...prices].sort((a, b) => a - b)
-  const i = rng.int(0, 2) // ensure at least one affordable, at least one too dear
-  const budget = sorted[i] + rng.int(0, sorted[i + 1] - sorted[i] - 1)
+  const minPair = sorted[0] + sorted[1]
+  const maxPair = sorted[2] + sorted[3]
+  // Budget covers at least the two cheapest, but never the two priciest, so the
+  // solver has to compare pair totals instead of just grabbing the top two.
+  const budget = minPair + rng.int(0, maxPair - minPair - 1)
   return { prices, budget }
 }
 
 export function render(params: Params) {
   const list = params.prices.join(', ')
+  const answer = bestTwo(params)
+  const desc = [...params.prices].sort((a, b) => b - a)
+  const topPair = desc[0] + desc[1]
+
+  const hint_steps_en = [
+    `List the four prices: ${list}.`,
+    `The two priciest total ${desc[0]} + ${desc[1]} = ${topPair}, which is more than your ${params.budget} budget.`,
+    `Check pair totals and keep the biggest one that still fits the budget: ${answer}.`,
+  ]
+  const hint_steps_id = [
+    `Catat keempat harga: ${list}.`,
+    `Dua termahal berjumlah ${desc[0]} + ${desc[1]} = ${topPair}, lebih dari anggaran ${params.budget}.`,
+    `Periksa total pasangan dan ambil yang terbesar yang masih muat: ${answer}.`,
+  ]
+
   return {
-    body_en: `Four tickets are sold at these prices: ${list} dollars. With a budget of ${params.budget} dollars, what is the price of the most expensive ticket you can afford?`,
-    body_id: `Empat tiket dijual dengan harga: ${list} dolar. Dengan anggaran ${params.budget} dolar, berapa harga tiket termahal yang masih dapat kamu beli?`,
+    body_en: `A ticket booth offers four seats at prices of ${list} dollars. You have a budget of ${params.budget} dollars and you want to buy two different tickets.\n\nFind: What is the most you can spend on two tickets without exceeding your budget?`,
+    body_id: `Sebuah loket tiket menawarkan empat kursi dengan harga ${list} dolar. Kamu memiliki anggaran ${params.budget} dolar dan ingin membeli dua tiket berbeda.\n\nCari: Berapa jumlah terbesar yang dapat kamu belanjakan untuk dua tiket tanpa melampaui anggaranmu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(bestAffordable(params)),
-    hint_en: 'Ignore any price above your budget, then pick the largest of the rest.',
-    hint_id: 'Abaikan harga di atas anggaran, lalu pilih yang terbesar dari sisanya.',
+    answer: String(answer),
+    hint_en: 'Pair the tickets starting from the two most expensive; take the biggest pair total that still fits the budget.',
+    hint_id: 'Pasangkan tiket mulai dari dua termahal; ambil total pasangan terbesar yang masih dalam anggaran.',
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 

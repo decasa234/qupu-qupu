@@ -36,15 +36,47 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C'] as const
   const choicesEN: WmiChoice[] = labels.map((label, i) => ({ label, text: CATS[i].en }))
   const choicesID: WmiChoice[] = labels.map((label, i) => ({ label, text: CATS[i].id }))
+  const cat = categoryIndex(params.degrees)
+  const catEN = CATS[cat].en
+  const catID = CATS[cat].id
+
   return {
-    body_en: 'What kind of angle is shown?',
-    body_id: 'Sudut jenis apa yang ditunjukkan?',
+    body_en: 'Find: What [[angle-type|type]] of angle is shown in the figure?',
+    body_id: 'Cari: Apa [[angle-type|jenis]] sudut yang ditunjukkan pada gambar?',
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
-    answer: labels[categoryIndex(params.degrees)],
-    hint_en: 'A right angle is a square corner (90°); smaller is acute, larger is obtuse.',
-    hint_id: 'Sudut siku-siku seperti pojok persegi (90°); lebih kecil itu lancip, lebih besar itu tumpul.',
+    answer: labels[cat],
+    hint_en: 'Compare the angle to a square corner — that square corner is exactly 90°.',
+    hint_id: 'Bandingkan sudut itu dengan pojok persegi — pojok persegi tepat 90°.',
+    hint_steps_en: [
+      'Look at the angle in the figure and imagine a square corner (90°) next to it.',
+      params.degrees < 90
+        ? 'The angle opens less than a square corner, so it is smaller than 90°.'
+        : params.degrees === 90
+          ? 'The angle matches a square corner exactly — it is 90°.'
+          : 'The angle opens more than a square corner, so it is larger than 90°.',
+      params.degrees < 90
+        ? 'An angle smaller than 90° is called acute.'
+        : params.degrees === 90
+          ? 'An angle of exactly 90° is called a right angle.'
+          : 'An angle larger than 90° (but less than 180°) is called obtuse.',
+      `The angle shown is ${catEN}.`,
+    ],
+    hint_steps_id: [
+      'Perhatikan sudut pada gambar, lalu bayangkan pojok persegi (90°) di sebelahnya.',
+      params.degrees < 90
+        ? 'Sudut itu terbuka lebih sempit dari pojok persegi, jadi ukurannya kurang dari 90°.'
+        : params.degrees === 90
+          ? 'Sudut itu persis sama dengan pojok persegi — ukurannya tepat 90°.'
+          : 'Sudut itu terbuka lebih lebar dari pojok persegi, jadi ukurannya lebih dari 90°.',
+      params.degrees < 90
+        ? 'Sudut yang lebih kecil dari 90° disebut sudut lancip.'
+        : params.degrees === 90
+          ? 'Sudut yang tepat 90° disebut sudut siku-siku.'
+          : 'Sudut yang lebih besar dari 90° (tetapi kurang dari 180°) disebut sudut tumpul.',
+      `Sudut yang ditunjukkan adalah sudut ${catID}.`,
+    ],
   }
 }
 

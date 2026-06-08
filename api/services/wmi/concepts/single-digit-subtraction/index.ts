@@ -22,15 +22,25 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { a, b } = params
+  const left = a - b
   return {
-    body_en: `What is ${params.a} − ${params.b}?`,
-    body_id: `Berapa ${params.a} − ${params.b}?`,
+    body_en: `Find: What is ${a} − ${b}?`,
+    body_id: `Cari: Berapa ${a} − ${b}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(params.a - params.b),
-    hint_en: 'Count down from the larger number.',
-    hint_id: 'Hitung mundur dari angka yang lebih besar.',
+    answer: String(left),
+    hint_en: 'Start from the whole and take the part away.',
+    hint_id: 'Mulai dari keseluruhan, lalu ambil sebagian.',
+    hint_steps_en: [
+      `Start with the whole: ${a}.`,
+      `Take ${b} away: ${a} − ${b} = ${left}.`,
+    ],
+    hint_steps_id: [
+      `Mulai dari keseluruhan: ${a}.`,
+      `Ambil ${b}: ${a} − ${b} = ${left}.`,
+    ],
   }
 }
 

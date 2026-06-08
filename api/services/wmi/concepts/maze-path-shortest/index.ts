@@ -61,16 +61,57 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
-  const steps = shortestSteps(params.cols, params.rows, params.walls as Cell[])
+  const { cols, rows, walls } = params
+  const steps = shortestSteps(cols, rows, walls as Cell[])
+  const manhattan = (cols - 1) + (rows - 1)
+  const extra = steps - manhattan   // 0 on an open grid; positive when walls force a detour
   return {
-    body_en: 'Find the fewest steps from the dot to the flag. Move up, down, left, or right — you cannot pass through a black square.',
-    body_id: 'Cari langkah paling sedikit dari titik ke bendera. Bergerak atas, bawah, kiri, atau kanan — tidak bisa melewati kotak hitam.',
+    body_en:
+      `The grid shown is ${cols} columns wide and ${rows} rows tall. ` +
+      `A dot marks the top-left corner; a flag marks the bottom-right corner. ` +
+      `Black squares are walls you cannot enter. ` +
+      `Find: What is the fewest number of steps to walk from the dot to the flag, moving only up, down, left, or right?`,
+    body_id:
+      `Kisi yang ditampilkan memiliki ${cols} kolom dan ${rows} baris. ` +
+      `Titik menandai sudut kiri atas; bendera menandai sudut kanan bawah. ` +
+      `Kotak hitam adalah dinding yang tidak boleh dimasuki. ` +
+      `Cari: Berapa langkah paling sedikit untuk berjalan dari titik ke bendera, bergerak hanya ke atas, bawah, kiri, atau kanan?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(steps),
-    hint_en: 'Trace open squares around the walls; count one step per square you move into.',
-    hint_id: 'Telusuri kotak kosong mengelilingi dinding; hitung satu langkah tiap kotak yang dimasuki.',
+    hint_en: extra === 0
+      ? 'On an open grid the shortest route goes straight across and straight down — no detours needed.'
+      : 'Trace your finger along open squares; whenever a wall blocks the straight route, go one square around it.',
+    hint_id: extra === 0
+      ? 'Pada kisi terbuka, rute terpendek langsung ke kanan lalu ke bawah — tidak perlu memutar.'
+      : 'Telusuri kotak-kotak kosong; setiap kali dinding menghalangi jalur lurus, putar satu kotak mengelilinginya.',
+    hint_steps_en: [
+      `The grid is ${cols} columns wide and ${rows} rows tall, so you must travel at least ${cols - 1} steps right and ${rows - 1} steps down.`,
+      `Without any walls the minimum is ${cols - 1} + ${rows - 1} = ${manhattan} steps.`,
+      ...(extra === 0
+        ? [
+            `No wall blocks the direct path in this grid, so the straight route of ${manhattan} steps works.`,
+            `The shortest path is ${steps} steps.`,
+          ]
+        : [
+            `Some walls block the direct path, so you must detour around them — adding ${extra} extra step${extra === 1 ? '' : 's'} (each detour around a single wall costs 2 extra steps but reuses the space gained elsewhere, netting ${extra} total).`,
+            `Tracing the open squares step by step, the shortest path is ${steps} steps.`,
+          ]),
+    ],
+    hint_steps_id: [
+      `Kisi berukuran ${cols} kolom × ${rows} baris, sehingga kamu harus menempuh setidaknya ${cols - 1} langkah ke kanan dan ${rows - 1} langkah ke bawah.`,
+      `Tanpa dinding, jarak minimum adalah ${cols - 1} + ${rows - 1} = ${manhattan} langkah.`,
+      ...(extra === 0
+        ? [
+            `Tidak ada dinding yang menghalangi jalur langsung pada kisi ini, sehingga rute lurus ${manhattan} langkah bisa digunakan.`,
+            `Jalur terpendeknya adalah ${steps} langkah.`,
+          ]
+        : [
+            `Beberapa dinding menghalangi jalur langsung, sehingga kamu harus memutar — menambah ${extra} langkah ekstra.`,
+            `Dengan menelusuri kotak-kotak kosong langkah demi langkah, jalur terpendeknya adalah ${steps} langkah.`,
+          ]),
+    ],
   }
 }
 

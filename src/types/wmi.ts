@@ -32,6 +32,9 @@ export interface WmiQuestion {
   hint_en: string | null
   hint_id: string | null
   difficulty: number | null
+  code?: string
+  hint_steps_en?: string[] | null
+  hint_steps_id?: string[] | null
 }
 
 export interface WmiPaperSummary {
@@ -39,6 +42,7 @@ export interface WmiPaperSummary {
   year: number
   grade: WmiGrade
   round: WmiRound
+  variant: 'A' | 'B'
   title: string
   source_url: string | null
   recommended_duration_min: number

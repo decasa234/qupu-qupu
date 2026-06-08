@@ -38,14 +38,24 @@ export function render(params: Params) {
   const delta = (params.wrong - params.right) * placeValue(params.place)
   const got = params.correct + delta // misread digit was larger, so the wrong sum is too big
   return {
-    body_en: `While adding two numbers, ${params.name} misread the ${params.place} digit of one number as ${params.wrong} instead of ${params.right}. The sum she got was ${got}. What should the correct sum be?`,
-    body_id: `Saat menjumlahkan dua bilangan, ${params.name} salah membaca angka ${params.place === 'units' ? 'satuan' : 'puluhan'} pada salah satu bilangan menjadi ${params.wrong} bukan ${params.right}. Hasil yang ia peroleh adalah ${got}. Berapakah hasil yang seharusnya?`,
+    body_en: `While adding two numbers, ${params.name} misread the ${params.place} digit of one number as ${params.wrong} instead of ${params.right}. The sum she got was ${got}. Find: What should the correct sum be?`,
+    body_id: `Saat menjumlahkan dua bilangan, ${params.name} salah membaca angka ${params.place === 'units' ? 'satuan' : 'puluhan'} pada salah satu bilangan menjadi ${params.wrong} bukan ${params.right}. Hasil yang ia peroleh adalah ${got}. Cari: Berapakah hasil yang seharusnya?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(params.correct),
-    hint_en: `The wrong digit made one number ${delta} too big, so the sum is ${delta} too big.`,
-    hint_id: `Angka yang salah membuat satu bilangan ${delta} lebih besar, jadi hasilnya ${delta} terlalu besar.`,
+    hint_en: `Work out how much too big the misread made the number, then subtract that from the sum.`,
+    hint_id: `Cari tahu seberapa besar kelebihan akibat salah baca, lalu kurangi dari hasilnya.`,
+    hint_steps_en: [
+      `The misread made one number too big by (${params.wrong} − ${params.right}) × ${placeValue(params.place)} = ${delta}.`,
+      `So the sum ${got} is ${delta} too big.`,
+      `Correct sum: ${got} − ${delta} = ${params.correct}.`,
+    ],
+    hint_steps_id: [
+      `Salah baca membuat satu bilangan terlalu besar sebanyak (${params.wrong} − ${params.right}) × ${placeValue(params.place)} = ${delta}.`,
+      `Jadi hasil ${got} terlalu besar sebanyak ${delta}.`,
+      `Hasil yang benar: ${got} − ${delta} = ${params.correct}.`,
+    ],
   }
 }
 

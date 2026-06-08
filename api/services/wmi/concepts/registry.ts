@@ -61,6 +61,16 @@ import fractionOfRegion from './fraction-of-region/index.js'
 import mazePathShortest from './maze-path-shortest/index.js'
 import countShapesInFigure from './count-shapes-in-figure/index.js'
 import countRectanglesGrid from './count-rectangles-grid/index.js'
+import missingAddend from './missing-addend/index.js'
+import arrangeDigitsToFormNumber from './arrange-digits-to-form-number/index.js'
+import visualPatternNext from './visual-pattern-next/index.js'
+import shapeTransformationRule from './shape-transformation-rule/index.js'
+import netProgressCycles from './net-progress-cycles/index.js'
+import ropeWrapsRatio from './rope-wraps-ratio/index.js'
+import equivalentFractionFill from './equivalent-fraction-fill/index.js'
+import tableLookupCombine from './table-lookup-combine/index.js'
+import truthOrderClues from './truth-order-clues/index.js'
+import makeGroupsLeftover from './make-groups-leftover/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -127,6 +137,16 @@ export const CONCEPTS = {
   'maze-path-shortest': mazePathShortest,
   'count-shapes-in-figure': countShapesInFigure,
   'count-rectangles-grid': countRectanglesGrid,
+  'missing-addend': missingAddend,
+  'arrange-digits-to-form-number': arrangeDigitsToFormNumber,
+  'visual-pattern-next': visualPatternNext,
+  'shape-transformation-rule': shapeTransformationRule,
+  'net-progress-cycles': netProgressCycles,
+  'rope-wraps-ratio': ropeWrapsRatio,
+  'equivalent-fraction-fill': equivalentFractionFill,
+  'table-lookup-combine': tableLookupCombine,
+  'truth-order-clues': truthOrderClues,
+  'make-groups-leftover': makeGroupsLeftover,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

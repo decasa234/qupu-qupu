@@ -40,15 +40,30 @@ export function render(params: Params) {
     text: `${params.options[i].x} + ${params.options[i].y}`,
   }))
   const correctIdx = params.options.findIndex((p) => (p.x + p.y) % 2 === 1)
+  const { x, y } = params.options[correctIdx]
+  const parityOf = (n: number) => (n % 2 === 1 ? 'odd' : 'even')
+  const paritasDari = (n: number) => (n % 2 === 1 ? 'ganjil' : 'genap')
   return {
-    body_en: 'Which of these has an odd answer?',
-    body_id: 'Penjumlahan manakah yang hasilnya ganjil?',
+    body_en: `Four addition expressions are shown below. Find: Which expression gives an odd answer?`,
+    body_id: `Empat ekspresi penjumlahan ditampilkan di bawah ini. Cari: Ekspresi mana yang hasilnya ganjil?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[correctIdx],
-    hint_en: 'A sum is odd only when one number is odd and the other is even.',
-    hint_id: 'Jumlah bersifat ganjil hanya jika satu bilangan ganjil dan yang lain genap.',
+    hint_en: `Check the parity of each addend — a sum is odd only when one addend is odd and the other is even.`,
+    hint_id: `Periksa paritas setiap suku — hasil penjumlahan ganjil hanya jika satu suku ganjil dan satu suku genap.`,
+    hint_steps_en: [
+      `Rule: odd + even = odd; odd + odd = even; even + even = even.`,
+      `Check each option by looking at whether each addend ends in an odd or even digit.`,
+      `Option ${labels[correctIdx]}: ${x} is ${parityOf(x)} and ${y} is ${parityOf(y)}, so ${x} + ${y} is odd.`,
+      `The other three options each have two addends of the same parity, giving an even sum.`,
+    ],
+    hint_steps_id: [
+      `Aturan: ganjil + genap = ganjil; ganjil + ganjil = genap; genap + genap = genap.`,
+      `Periksa setiap pilihan dengan melihat apakah setiap suku berakhir dengan angka ganjil atau genap.`,
+      `Pilihan ${labels[correctIdx]}: ${x} bersifat ${paritasDari(x)} dan ${y} bersifat ${paritasDari(y)}, sehingga ${x} + ${y} hasilnya ganjil.`,
+      `Ketiga pilihan lainnya memiliki dua suku dengan paritas yang sama, sehingga hasilnya genap.`,
+    ],
   }
 }
 

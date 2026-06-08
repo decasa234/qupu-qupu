@@ -32,15 +32,81 @@ export function render(params: Params) {
   // label is language-neutral (A–D) while each language shows its own words.
   const choicesEN: WmiChoice[] = LABELS.map((label, i) => ({ label, text: DIRS[i] }))
   const choicesID: WmiChoice[] = LABELS.map((label, i) => ({ label, text: DIRS_ID[i] }))
+
+  const startEN = DIRS[params.start]
+  const startID = DIRS_ID[params.start]
+  const fi = finalIndex(params)
+  const answerEN = DIRS[fi]
+  const answerID = DIRS_ID[fi]
+  const { turns } = params
+
+  // Build hint_steps: 2–3 plain-text steps tracing the clockwise turns.
+  // Reduce turns mod 4 first; if the remainder is 0 the result is the start.
+  const net = turns % 4
+  let hint_steps_en: string[]
+  let hint_steps_id: string[]
+
+  if (turns > 4) {
+    const fullCircles = Math.floor(turns / 4)
+    if (net === 0) {
+      hint_steps_en = [
+        `${turns} turns is ${turns} ÷ 4 = ${fullCircles} full circles with 0 turns left over.`,
+        `A full circle brings you back to where you started.`,
+        `You end up facing ${answerEN}.`,
+      ]
+      hint_steps_id = [
+        `${turns} putaran sama dengan ${turns} ÷ 4 = ${fullCircles} lingkaran penuh, sisa 0 putaran.`,
+        `Satu lingkaran penuh kembali ke arah awal.`,
+        `Kamu akhirnya menghadap ${answerID}.`,
+      ]
+    } else {
+      const chainEN: string[] = []
+      const chainID: string[] = []
+      for (let i = 1; i <= net; i++) {
+        chainEN.push(DIRS[(params.start + i) % 4])
+        chainID.push(DIRS_ID[(params.start + i) % 4])
+      }
+      hint_steps_en = [
+        `${turns} turns is ${fullCircles} full circle${fullCircles > 1 ? 's' : ''} plus ${net} extra turn${net > 1 ? 's' : ''}.`,
+        `Starting from ${startEN}, ${net} clockwise turn${net > 1 ? 's' : ''}: ${startEN} → ${chainEN.join(' → ')}.`,
+        `You end up facing ${answerEN}.`,
+      ]
+      hint_steps_id = [
+        `${turns} putaran adalah ${fullCircles} lingkaran penuh ditambah ${net} putaran sisa.`,
+        `Dari ${startID}, ${net} putaran searah jarum jam: ${startID} → ${chainID.join(' → ')}.`,
+        `Kamu akhirnya menghadap ${answerID}.`,
+      ]
+    }
+  } else {
+    const chainEN: string[] = []
+    const chainID: string[] = []
+    for (let i = 1; i <= turns; i++) {
+      chainEN.push(DIRS[(params.start + i) % 4])
+      chainID.push(DIRS_ID[(params.start + i) % 4])
+    }
+    hint_steps_en = [
+      `Start facing ${startEN} and count ${turns} clockwise turn${turns > 1 ? 's' : ''}: ${startEN} → ${chainEN.join(' → ')}.`,
+      `Each turn moves one step in the order North → East → South → West → North.`,
+      `You end up facing ${answerEN}.`,
+    ]
+    hint_steps_id = [
+      `Mulai dari ${startID}, hitung ${turns} putaran searah jarum jam: ${startID} → ${chainID.join(' → ')}.`,
+      `Setiap putaran maju satu langkah dalam urutan Utara → Timur → Selatan → Barat → Utara.`,
+      `Kamu akhirnya menghadap ${answerID}.`,
+    ]
+  }
+
   return {
-    body_en: `You are facing ${DIRS[params.start]}. You make ${params.turns} quarter-turn(s) clockwise (each turn is 90°). Which direction are you facing now?`,
-    body_id: `Kamu menghadap ke ${DIRS_ID[params.start]}. Kamu berputar ${params.turns} kali seperempat putaran searah jarum jam (tiap putaran 90°). Sekarang kamu menghadap ke arah mana?`,
+    body_en: `You are facing ${startEN}. You make ${turns} quarter-turn${turns > 1 ? 's' : ''} clockwise (each turn is 90°). Find: Which direction are you facing now?`,
+    body_id: `Kamu menghadap ke ${startID}. Kamu berputar ${turns} kali seperempat putaran searah jarum jam (tiap putaran 90°). Cari: Sekarang kamu menghadap ke arah mana?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
-    answer: LABELS[finalIndex(params)],
-    hint_en: 'Clockwise order is North → East → South → West. Four turns bring you back.',
-    hint_id: 'Urutan searah jarum jam: Utara → Timur → Selatan → Barat. Empat putaran kembali ke awal.',
+    answer: LABELS[fi],
+    hint_en: `Try stepping through the clockwise order one turn at a time — North, East, South, West — and count off each 90° turn from your starting direction.`,
+    hint_id: `Coba ikuti urutan searah jarum jam satu putaran demi satu — Utara, Timur, Selatan, Barat — dan hitung setiap putaran 90° dari arah awalmu.`,
+    hint_steps_en,
+    hint_steps_id,
   }
 }
 

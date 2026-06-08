@@ -482,13 +482,23 @@ CREATE TABLE IF NOT EXISTS wmi_papers (
   year                     SMALLINT NOT NULL CHECK (year BETWEEN 2019 AND 2099),
   grade                    SMALLINT NOT NULL CHECK (grade BETWEEN 0 AND 3),
   round                    TEXT NOT NULL CHECK (round IN ('semifinal','final')),
+  variant                  TEXT NOT NULL DEFAULT 'A' CHECK (variant IN ('A','B')),
   title                    TEXT NOT NULL,
   source_url               TEXT,
   recommended_duration_min SMALLINT NOT NULL DEFAULT 60,
   question_count           SMALLINT NOT NULL DEFAULT 0,
   created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT wmi_papers_year_grade_round_unique UNIQUE (year, grade, round)
+  CONSTRAINT wmi_papers_year_grade_round_variant_unique UNIQUE (year, grade, round, variant)
+);
+
+CREATE TABLE IF NOT EXISTS wmi_paper_reviews (
+  paper_id    UUID PRIMARY KEY REFERENCES wmi_papers(id) ON DELETE CASCADE,
+  status      TEXT NOT NULL DEFAULT 'pending'
+                CHECK (status IN ('pending','approved','needs_changes')),
+  notes       TEXT NOT NULL DEFAULT '',
+  reviewed_by TEXT,
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS wmi_questions (
@@ -504,6 +514,8 @@ CREATE TABLE IF NOT EXISTS wmi_questions (
   figure_url  TEXT,
   hint_en     TEXT,
   hint_id     TEXT,
+  hint_steps_en JSONB,
+  hint_steps_id JSONB,
   difficulty  SMALLINT CHECK (difficulty IS NULL OR difficulty BETWEEN 1 AND 3),
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -634,6 +646,7 @@ CREATE TABLE IF NOT EXISTS wmi_concept_reviews (
                   CHECK (status IN ('pending', 'approved', 'needs_changes')),
   notes         TEXT NOT NULL DEFAULT '',
   reviewed_by   TEXT,
+  wmi_refined   BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

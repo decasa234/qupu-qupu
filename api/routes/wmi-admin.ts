@@ -6,8 +6,15 @@ import { ALL_SLUGS } from '../services/wmi/concepts/registry.js'
 import {
   getConceptReview,
   listConceptReviewStatuses,
+  listWmiRefinedSlugs,
   upsertConceptReview,
 } from '../services/wmi/concepts/reviews.js'
+import {
+  getPaperReview,
+  listAdminPaperQuestions,
+  listPapersForAdmin,
+  upsertPaperReview,
+} from '../services/wmi/paperReviews.js'
 
 const VALID_SLUGS = new Set<string>(ALL_SLUGS)
 
@@ -18,8 +25,10 @@ router.use(authenticateToken, requireAdmin)
 
 router.get('/concepts', async (_req: Request, res: Response): Promise<void> => {
   let statuses: Record<string, string> = {}
+  let refined = new Set<string>()
   try {
     statuses = await listConceptReviewStatuses()
+    refined = await listWmiRefinedSlugs()
   } catch (e) {
     // Reviews table may not be migrated yet — degrade to all-pending so the
     // proofreading page still loads.
@@ -28,6 +37,7 @@ router.get('/concepts', async (_req: Request, res: Response): Promise<void> => {
   const concepts = listConceptsForPreview().map((c) => ({
     ...c,
     status: statuses[c.slug] ?? 'pending',
+    wmi_refined: refined.has(c.slug),
   }))
   res.json({ success: true, data: { concepts } })
 })
@@ -113,6 +123,86 @@ router.get('/concepts/:slug/samples', (req: Request, res: Response): void => {
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Unable to sample concept'
     res.status(message === 'Concept not found' ? 404 : 400).json({ success: false, error: message })
+  }
+})
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+router.get('/papers', async (_req: Request, res: Response): Promise<void> => {
+  try {
+    const papers = await listPapersForAdmin()
+    res.json({ success: true, data: { papers } })
+  } catch (e) {
+    console.error('WMI admin papers error:', e)
+    res.status(500).json({ success: false, error: 'Unable to load papers' })
+  }
+})
+
+router.get('/papers/:id/questions', async (req: Request, res: Response): Promise<void> => {
+  if (!UUID_RE.test(req.params.id)) {
+    res.status(404).json({ success: false, error: 'Paper not found' })
+    return
+  }
+  try {
+    const questions = await listAdminPaperQuestions(req.params.id)
+    if (questions.length === 0) {
+      res.status(404).json({ success: false, error: 'Paper not found' })
+      return
+    }
+    res.json({ success: true, data: { questions } })
+  } catch (e) {
+    console.error('WMI admin paper questions error:', e)
+    res.status(500).json({ success: false, error: 'Unable to load questions' })
+  }
+})
+
+router.get('/papers/:id/review', async (req: Request, res: Response): Promise<void> => {
+  if (!UUID_RE.test(req.params.id)) {
+    res.status(404).json({ success: false, error: 'Paper not found' })
+    return
+  }
+  try {
+    const review = await getPaperReview(req.params.id)
+    res.json({
+      success: true,
+      data: {
+        review:
+          review ?? {
+            paper_id: req.params.id,
+            status: 'pending',
+            notes: '',
+            reviewed_by: null,
+            updated_at: null,
+          },
+      },
+    })
+  } catch (e) {
+    console.error('WMI admin paper review load error:', e)
+    res.status(500).json({ success: false, error: 'Unable to load review' })
+  }
+})
+
+router.put('/papers/:id/review', async (req: AuthRequest, res: Response): Promise<void> => {
+  if (!UUID_RE.test(req.params.id)) {
+    res.status(404).json({ success: false, error: 'Paper not found' })
+    return
+  }
+  const { error, value } = reviewSchema.validate(req.body)
+  if (error) {
+    res.status(400).json({ success: false, error: error.details[0].message })
+    return
+  }
+  try {
+    const review = await upsertPaperReview(
+      req.params.id,
+      value.status,
+      value.notes,
+      req.user?.email ?? null,
+    )
+    res.json({ success: true, data: { review } })
+  } catch (e) {
+    console.error('WMI admin paper review save error:', e)
+    res.status(500).json({ success: false, error: 'Unable to save review' })
   }
 })
 

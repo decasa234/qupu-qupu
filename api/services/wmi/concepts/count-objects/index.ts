@@ -41,23 +41,23 @@ export function render(params: Params) {
   const answerLabel = labels[valuePool.indexOf(n)]
 
   return {
-    body_en: `How many ${KIND_EN[params.kind]} do you see?`,
-    body_id: `Ada berapa ${params.kind} yang kamu lihat?`,
+    body_en: `The figure shows a group of ${KIND_EN[params.kind]}. Find: How many ${KIND_EN[params.kind]} are there in all?`,
+    body_id: `Gambar menunjukkan sekumpulan ${params.kind}. Cari: Ada berapa ${params.kind} seluruhnya?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
     answer: answerLabel,
-    hint_en: 'Count one at a time, point at each object.',
-    hint_id: 'Hitung satu per satu, tunjuk tiap benda.',
+    hint_en: `Count the ${KIND_EN[params.kind]} carefully — try counting them in small groups.`,
+    hint_id: `Hitung ${params.kind} dengan teliti — coba hitung dalam kelompok kecil.`,
     hint_steps_en: [
-      `Count the ${KIND_EN[params.kind]} one by one.`,
-      'Touch or point at each object as you count.',
-      `The last number you say is ${n}.`,
+      `Point to each ${KIND_EN[params.kind].slice(0, -1)} and count aloud: 1, 2, 3, …`,
+      `Group them in twos or threes to avoid losing your place.`,
+      `Add the groups together. The total is ${n}.`,
     ],
     hint_steps_id: [
-      `Hitung ${params.kind} satu per satu.`,
-      'Sentuh atau tunjuk tiap benda saat menghitung.',
-      `Angka terakhir yang kamu sebut adalah ${n}.`,
+      `Tunjuk setiap ${params.kind} dan hitung keras-keras: 1, 2, 3, …`,
+      `Kelompokkan dua atau tiga sekaligus agar tidak terlewat.`,
+      `Jumlahkan semua kelompok. Totalnya adalah ${n}.`,
     ],
   }
 }

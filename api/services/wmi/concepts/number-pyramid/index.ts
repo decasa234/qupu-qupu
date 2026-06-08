@@ -26,15 +26,28 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const mid1 = params.a + params.b
+  const mid2 = params.b + params.c
+  const top = topNumber(params)
   return {
-    body_en: `In a number pyramid the bottom row is ${params.a}, ${params.b}, ${params.c}. Each block above is the sum of the two blocks directly below it. What number is at the top?`,
-    body_id: `Dalam piramida bilangan, baris paling bawah adalah ${params.a}, ${params.b}, ${params.c}. Setiap blok di atas adalah jumlah dua blok tepat di bawahnya. Bilangan berapa yang ada di puncak?`,
+    body_en: `A number pyramid has three rows. The bottom row shows three blocks: ${params.a}, ${params.b}, ${params.c}. Each block is the sum of the two blocks directly below it.\nFind: What number is at the top of the pyramid?`,
+    body_id: `Sebuah piramida bilangan memiliki tiga baris. Baris paling bawah menunjukkan tiga blok: ${params.a}, ${params.b}, ${params.c}. Setiap blok adalah jumlah dua blok tepat di bawahnya.\nCari: Bilangan berapa yang ada di puncak piramida?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(topNumber(params)),
-    hint_en: `Middle row: ${params.a + params.b} and ${params.b + params.c}; add them for the top.`,
-    hint_id: `Baris tengah: ${params.a + params.b} dan ${params.b + params.c}; jumlahkan untuk puncak.`,
+    answer: String(top),
+    hint_en: `Fill in the middle row first — each block is the sum of its two neighbours below — then add those two to reach the top.`,
+    hint_id: `Isi baris tengah terlebih dahulu — setiap blok adalah jumlah dua blok di bawahnya — lalu jumlahkan keduanya untuk mendapatkan puncak.`,
+    hint_steps_en: [
+      `Left block of the middle row: ${params.a} + ${params.b} = ${mid1}.`,
+      `Right block of the middle row: ${params.b} + ${params.c} = ${mid2}.`,
+      `Top block: ${mid1} + ${mid2} = ${top}.`,
+    ],
+    hint_steps_id: [
+      `Blok kiri baris tengah: ${params.a} + ${params.b} = ${mid1}.`,
+      `Blok kanan baris tengah: ${params.b} + ${params.c} = ${mid2}.`,
+      `Blok puncak: ${mid1} + ${mid2} = ${top}.`,
+    ],
   }
 }
 

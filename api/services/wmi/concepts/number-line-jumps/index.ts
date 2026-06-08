@@ -25,15 +25,28 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { start, step, jumps } = params
+  const ans = landing(params)
+  const total = step * jumps
   return {
-    body_en: `A frog starts at ${params.start} on the number line and makes ${params.jumps} equal jumps of ${params.step} to the right. What number does it land on?`,
-    body_id: `Seekor katak mulai di ${params.start} pada garis bilangan dan melompat ${params.jumps} kali sebesar ${params.step} ke kanan. Di bilangan berapa ia berhenti?`,
+    body_en: `The number line shows a frog starting at ${start}. It makes ${jumps} equal jumps of ${step} to the right. Find: Where does the frog land?`,
+    body_id: `Garis bilangan menunjukkan seekor katak mulai di ${start}. Katak melompat ${jumps} kali, setiap lompatan sejauh ${step} ke kanan. Cari: Di bilangan berapa katak berhenti?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(landing(params)),
-    hint_en: 'Each jump adds the same amount. Add the step that many times to the start.',
-    hint_id: 'Setiap lompatan menambah jumlah yang sama. Tambahkan langkah itu sebanyak lompatan ke titik awal.',
+    answer: String(ans),
+    hint_en: 'Count all the jumps as one total distance, then add it to the starting number.',
+    hint_id: 'Hitung semua lompatan sebagai satu jarak total, lalu tambahkan ke bilangan awal.',
+    hint_steps_en: [
+      `Each jump moves ${step} to the right.`,
+      `${jumps} jumps of ${step} gives a total distance of ${jumps} × ${step} = ${total}.`,
+      `Add the total distance to the start: ${start} + ${total} = ${ans}.`,
+    ],
+    hint_steps_id: [
+      `Setiap lompatan bergerak ${step} ke kanan.`,
+      `${jumps} lompatan sebesar ${step} menghasilkan jarak total ${jumps} × ${step} = ${total}.`,
+      `Tambahkan jarak total ke bilangan awal: ${start} + ${total} = ${ans}.`,
+    ],
   }
 }
 

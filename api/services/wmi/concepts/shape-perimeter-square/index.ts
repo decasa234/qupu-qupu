@@ -31,23 +31,23 @@ export function render(params: Params) {
   const answerLabel = labels[values.indexOf(correct)]
 
   return {
-    body_en: `What is the [[perimeter]] of a square with side ${params.side}?`,
-    body_id: `Berapa [[perimeter|keliling]] dari persegi dengan sisi ${params.side}?`,
+    body_en: `Find: What is the [[perimeter]] of the square shown in the figure, if each side is ${params.side} cm?`,
+    body_id: `Cari: Berapa [[perimeter|keliling]] persegi pada gambar, jika setiap sisinya ${params.side} cm?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choicesEN,
     choices_id: choicesID,
     answer: answerLabel,
-    hint_en: 'Add up all four sides.',
-    hint_id: 'Jumlahkan keempat sisi.',
+    hint_en: 'Trace all the way around the square — a square has four equal sides, so add the same length four times.',
+    hint_id: 'Telusuri seluruh sisi persegi — persegi memiliki empat sisi sama panjang, jadi tambahkan panjang yang sama sebanyak empat kali.',
     hint_steps_en: [
-      'Perimeter means the distance around the outside.',
-      `A square has 4 equal sides, and each side is ${params.side}.`,
-      `${params.side} + ${params.side} + ${params.side} + ${params.side} = ${correct}.`,
+      `The [[perimeter]] is the total distance around the outside of the shape.`,
+      `A square has 4 equal sides, and each side measures ${params.side} cm, so: ${params.side} + ${params.side} + ${params.side} + ${params.side} = 4 × ${params.side}.`,
+      `4 × ${params.side} = ${correct} cm.`,
     ],
     hint_steps_id: [
-      'Keliling artinya jarak mengelilingi bagian luar bentuk.',
-      `Persegi punya 4 sisi sama panjang, dan tiap sisi ${params.side}.`,
-      `${params.side} + ${params.side} + ${params.side} + ${params.side} = ${correct}.`,
+      `[[perimeter|Keliling]] adalah jarak total mengelilingi bagian luar bangun.`,
+      `Persegi punya 4 sisi sama panjang, dan tiap sisi ${params.side} cm, maka: ${params.side} + ${params.side} + ${params.side} + ${params.side} = 4 × ${params.side}.`,
+      `4 × ${params.side} = ${correct} cm.`,
     ],
   }
 }

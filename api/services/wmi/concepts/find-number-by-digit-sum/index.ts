@@ -45,15 +45,31 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const choices: WmiChoice[] = labels.map((label, i) => ({ label, text: String(params.options[i]) }))
   const correctIdx = params.options.findIndex((n) => digitSum(n) === params.k)
+  const correct = params.options[correctIdx]
+  const t = Math.floor(correct / 10)
+  const u = correct % 10
+
   return {
-    body_en: `Which number has digits that add up to ${params.k}?`,
-    body_id: `Bilangan manakah yang jumlah digitnya ${params.k}?`,
+    body_en: `Each option is a two-digit number. Find: Which number has a digit sum equal to ${params.k}?`,
+    body_id: `Setiap pilihan adalah bilangan dua angka. Cari: Bilangan manakah yang jumlah digitnya sama dengan ${params.k}?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[correctIdx],
-    hint_en: 'Add the tens digit and the ones digit of each number.',
-    hint_id: 'Jumlahkan angka puluhan dan angka satuan dari setiap bilangan.',
+    hint_en: `For each option, split it into its tens digit and ones digit, then add them — you are looking for a sum of ${params.k}.`,
+    hint_id: `Untuk setiap pilihan, pisahkan angka puluhan dan angka satuannya, lalu jumlahkan — kamu mencari yang totalnya ${params.k}.`,
+    hint_steps_en: [
+      `The digit sum of a two-digit number is: tens digit + ones digit.`,
+      `Check each option: add its tens digit and ones digit.`,
+      `Only ${correct} gives ${t} + ${u} = ${params.k}.`,
+      `So the answer is ${correct}.`,
+    ],
+    hint_steps_id: [
+      `Jumlah digit suatu bilangan dua angka adalah: angka puluhan + angka satuan.`,
+      `Periksa setiap pilihan: jumlahkan angka puluhan dan angka satuannya.`,
+      `Hanya ${correct} yang menghasilkan ${t} + ${u} = ${params.k}.`,
+      `Jadi jawabannya adalah ${correct}.`,
+    ],
   }
 }
 

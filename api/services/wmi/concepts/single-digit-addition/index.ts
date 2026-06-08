@@ -20,15 +20,36 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { a, b } = params
+  const big = Math.max(a, b)
+  const small = Math.min(a, b)
+  const sum = a + b
+  const bridges = sum > 10
+  const need = 10 - big
+  const rest = small - need
   return {
-    body_en: `What is ${params.a} + ${params.b}?`,
-    body_id: `Berapa ${params.a} + ${params.b}?`,
+    body_en: `Find: What is ${a} + ${b}?`,
+    body_id: `Cari: Berapa ${a} + ${b}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(params.a + params.b),
-    hint_en: 'Count up from the larger number.',
-    hint_id: 'Hitung naik dari angka yang lebih besar.',
+    answer: String(sum),
+    hint_en: bridges ? 'Make a ten first, then add what is left.' : 'Count on from the bigger number.',
+    hint_id: bridges ? 'Jadikan sepuluh dulu, lalu tambahkan sisanya.' : 'Hitung maju dari angka yang lebih besar.',
+    hint_steps_en: bridges
+      ? [
+          `Start with the bigger number, ${big}.`,
+          `Take ${need} from ${small} to make ten: ${big} + ${need} = 10.`,
+          `Add what is left: 10 + ${rest} = ${sum}.`,
+        ]
+      : [`Start with the bigger number, ${big}.`, `Count on ${small}: ${big} + ${small} = ${sum}.`],
+    hint_steps_id: bridges
+      ? [
+          `Mulai dari yang lebih besar, ${big}.`,
+          `Ambil ${need} dari ${small} agar jadi sepuluh: ${big} + ${need} = 10.`,
+          `Tambahkan sisanya: 10 + ${rest} = ${sum}.`,
+        ]
+      : [`Mulai dari yang lebih besar, ${big}.`, `Hitung maju ${small}: ${big} + ${small} = ${sum}.`],
   }
 }
 

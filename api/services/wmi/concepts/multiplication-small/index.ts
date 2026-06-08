@@ -20,15 +20,28 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const { a, b } = params
+  const product = a * b
+  const seq = Array.from({ length: a }, (_, i) => (i + 1) * b).join(', ')
   return {
-    body_en: `What is ${params.a} × ${params.b}?`,
-    body_id: `Berapa ${params.a} × ${params.b}?`,
+    body_en: `Find: What is ${a} × ${b}?`,
+    body_id: `Cari: Berapa ${a} × ${b}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(params.a * params.b),
-    hint_en: 'Add the first number to itself that many times.',
-    hint_id: 'Tambahkan angka pertama sebanyak angka kedua.',
+    answer: String(product),
+    hint_en: `Think of ${a} equal groups of ${b}, then skip-count.`,
+    hint_id: `Bayangkan ${a} kelompok berisi ${b}, lalu hitung lompat.`,
+    hint_steps_en: [
+      `${a} × ${b} means ${a} groups of ${b}.`,
+      `Skip-count by ${b}: ${seq}.`,
+      `So ${a} × ${b} = ${product}.`,
+    ],
+    hint_steps_id: [
+      `${a} × ${b} berarti ${a} kelompok berisi ${b}.`,
+      `Hitung lompat ${b}: ${seq}.`,
+      `Jadi ${a} × ${b} = ${product}.`,
+    ],
   }
 }
 

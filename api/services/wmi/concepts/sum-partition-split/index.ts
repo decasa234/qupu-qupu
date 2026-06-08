@@ -21,15 +21,28 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   const total = (params.k + 1) * params.small
+  const parts = params.k + 1
   return {
-    body_en: `Two children share ${total} stickers. One child gets ${params.k} times as many as the other. How many stickers does the child with fewer get?`,
-    body_id: `Dua anak berbagi ${total} stiker. Satu anak mendapat ${params.k} kali lipat dari yang lain. Berapa stiker yang diterima anak yang lebih sedikit?`,
+    body_en: `Rina and Doni share ${total} stickers between them. Doni receives exactly ${params.k} times as many stickers as Rina.\n\nFind: How many stickers does Rina receive?`,
+    body_id: `Rina dan Doni berbagi ${total} stiker di antara mereka. Doni menerima tepat ${params.k} kali lebih banyak stiker daripada Rina.\n\nCari: Berapa stiker yang diterima Rina?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(params.small),
-    hint_en: `Think of the total as ${params.k + 1} equal parts; the smaller share is one part.`,
-    hint_id: `Anggap total sebagai ${params.k + 1} bagian sama; bagian yang lebih kecil adalah satu bagian.`,
+    hint_en: `Write the two shares as 1 part and ${params.k} parts, then ask: if ${parts} equal parts make ${total}, what is one part?`,
+    hint_id: `Tuliskan dua bagian sebagai 1 bagian dan ${params.k} bagian, lalu tanyakan: jika ${parts} bagian sama berjumlah ${total}, berapa satu bagian?`,
+    hint_steps_en: [
+      `Let Rina's share = 1 part. Then Doni's share = ${params.k} parts. Together: 1 + ${params.k} = ${parts} parts.`,
+      `All ${parts} parts equal the total: ${parts} parts = ${total} stickers.`,
+      `One part = ${total} ÷ ${parts} = ${params.small} stickers.`,
+      `Rina receives ${params.small} stickers.`,
+    ],
+    hint_steps_id: [
+      `Misalkan bagian Rina = 1 bagian. Maka bagian Doni = ${params.k} bagian. Totalnya: 1 + ${params.k} = ${parts} bagian.`,
+      `Semua ${parts} bagian sama dengan total: ${parts} bagian = ${total} stiker.`,
+      `Satu bagian = ${total} ÷ ${parts} = ${params.small} stiker.`,
+      `Rina menerima ${params.small} stiker.`,
+    ],
   }
 }
 

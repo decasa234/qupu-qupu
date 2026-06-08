@@ -16,9 +16,11 @@ export const meta = {
 } as const
 
 export function generate(rng: Rng): Params {
-  const max = rng.pick([20, 50, 100] as const)
-  // value sits on a minor tick (a tenth of the scale), strictly inside it
-  const value = (max / 10) * rng.int(1, 9)
+  const max = rng.pick([20, 50] as const)
+  // The scale has 10 divisions, numbered every other one (= max/5). Land on an
+  // ODD division — exactly halfway between two numbered marks — so it matches
+  // the question's grid (never on a numbered mark, never between ticks).
+  const value = (max / 10) * rng.pick([1, 3, 5, 7, 9] as const)
   return { max, value }
 }
 
@@ -30,8 +32,8 @@ export function render(params: Params) {
     choices_en: null,
     choices_id: null,
     answer: String(params.value),
-    hint_en: 'Find the numbered marks the arrow is between, then count the small ticks.',
-    hint_id: 'Cari angka di antara mana panah berada, lalu hitung garis-garis kecilnya.',
+    hint_en: 'The arrow sits on a half-mark, exactly halfway between two numbered marks.',
+    hint_id: 'Panah berada pada garis tengah, tepat di antara dua angka.',
   }
 }
 

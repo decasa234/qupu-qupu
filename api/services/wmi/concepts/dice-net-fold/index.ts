@@ -46,14 +46,26 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const choices = labels.map((label) => ({ label, text: label }))
   return {
-    body_en: 'Which of these nets (A, B, C, or D) can be folded into a cube?',
-    body_id: 'Jaring-jaring manakah (A, B, C, atau D) yang dapat dilipat menjadi sebuah kubus?',
+    body_en: `Four flat shapes made of 6 squares are shown as nets A, B, C, and D.\n\nFind: Which net can be folded along its edges to form a closed cube?`,
+    body_id: `Empat bangun datar yang terdiri dari 6 persegi ditunjukkan sebagai jaring A, B, C, dan D.\n\nCari: Jaring manakah yang dapat dilipat sepanjang sisinya membentuk kubus tertutup?`,
     answer_type: 'multiple_choice' as const,
     choices_en: choices,
     choices_id: choices,
     answer: labels[params.validIndex],
-    hint_en: 'A cube net has 6 squares with no 2×2 block, and folds without overlap.',
-    hint_id: 'Jaring kubus punya 6 persegi tanpa blok 2×2, dan terlipat tanpa bertumpuk.',
+    hint_en: 'Look for the net that has no 2×2 square block anywhere in it — a valid cube net always folds without any face overlapping another.',
+    hint_id: 'Carilah jaring yang tidak memiliki blok 2×2 di mana pun — jaring kubus yang benar selalu terlipat tanpa ada bidang yang saling menumpuk.',
+    hint_steps_en: [
+      'Count the squares in each net: every cube net must have exactly 6 squares.',
+      'Scan each net for a 2×2 block (four squares forming a small square). Any net containing a 2×2 block cannot fold into a cube — two faces would overlap.',
+      'Also reject any net that is a straight 1×6 strip or a 2×3 rectangle — these cannot wrap around all six faces of a cube.',
+      'The one net with no 2×2 block and no rectangular strip shape is the valid net; that is the correct answer.',
+    ],
+    hint_steps_id: [
+      'Hitung persegi di setiap jaring: setiap jaring kubus harus memiliki tepat 6 persegi.',
+      'Periksa setiap jaring apakah terdapat blok 2×2 (empat persegi yang membentuk kotak kecil). Jaring yang mengandung blok 2×2 tidak dapat dilipat menjadi kubus — dua bidang akan saling menumpuk.',
+      'Tolak juga jaring yang berbentuk strip lurus 1×6 atau persegi panjang 2×3 — bentuk-bentuk ini tidak dapat menutup semua enam sisi kubus.',
+      'Satu-satunya jaring yang tidak memiliki blok 2×2 dan bukan strip persegi panjang adalah jaring yang benar; itulah jawaban yang tepat.',
+    ],
   }
 }
 

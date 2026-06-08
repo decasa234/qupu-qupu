@@ -34,15 +34,33 @@ export function generate(rng: Rng): Params {
 }
 
 export function render(params: Params) {
+  const aOnlyList = params.aOnly.join(', ')
+  const bothList = params.both.join(', ')
+  const bOnlyList = params.bOnly.join(', ')
+  const aOnlySum = answerSum(params)
+
+  // Build a running addition string, e.g. "4 + 7 + 14"
+  const addStr = params.aOnly.join(' + ')
+
   return {
-    body_en: 'In the diagram, circle A and circle B overlap. Find the sum of the numbers that are inside A but NOT inside B.',
-    body_id: 'Dalam diagram, lingkaran A dan lingkaran B saling tumpang tindih. Cari jumlah bilangan yang berada di dalam A tetapi TIDAK di dalam B.',
+    body_en: `A Venn diagram shows two overlapping circles, A and B. Circle A only (not in B) contains: ${aOnlyList}. The overlap (in both A and B) contains: ${bothList}. Circle B only (not in A) contains: ${bOnlyList}.\n\nFind: What is the sum of all numbers that belong to circle A but NOT to circle B?`,
+    body_id: `Sebuah diagram Venn menunjukkan dua lingkaran yang saling bertumpang tindih, A dan B. Lingkaran A saja (tidak di B) berisi: ${aOnlyList}. Irisan (di A dan B) berisi: ${bothList}. Lingkaran B saja (tidak di A) berisi: ${bOnlyList}.\n\nCari: Berapa jumlah semua bilangan yang termasuk lingkaran A tetapi TIDAK termasuk lingkaran B?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
-    answer: String(answerSum(params)),
-    hint_en: 'Use only the numbers in the part of A that does not overlap B.',
-    hint_id: 'Gunakan hanya bilangan di bagian A yang tidak bertumpang tindih dengan B.',
+    answer: String(aOnlySum),
+    hint_en: 'Focus only on the region of A that does not overlap B — the numbers shared with B do not count.',
+    hint_id: 'Fokus hanya pada bagian A yang tidak bertumpang tindih dengan B — bilangan yang dimiliki bersama B tidak dihitung.',
+    hint_steps_en: [
+      `The numbers in A only (not shared with B) are: ${aOnlyList}.`,
+      `The overlap numbers (${bothList}) belong to both circles, so they are NOT counted.`,
+      `Add the A-only numbers: ${addStr} = ${aOnlySum}.`,
+    ],
+    hint_steps_id: [
+      `Bilangan di bagian A saja (tidak di irisan) adalah: ${aOnlyList}.`,
+      `Bilangan irisan (${bothList}) dimiliki oleh kedua lingkaran, jadi TIDAK dihitung.`,
+      `Jumlahkan bilangan bagian A saja: ${addStr} = ${aOnlySum}.`,
+    ],
   }
 }
 

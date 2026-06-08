@@ -1,0 +1,368 @@
+import { useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import type { ExplainerProps } from './registry'
+import { LogicFrame, Pill } from './LogicVisuals'
+import { useLogicBeat } from './useLogicBeat'
+import type { BasicStep } from './logicSteps'
+import { buildMissingAddendStory } from './missingAddendStory'
+import { buildArrangeDigitsStory } from './arrangeDigitsStory'
+import { buildEquivalentFractionStory } from './equivalentFractionStory'
+import MakeGroupsLeftoverExplainerImpl from './MakeGroupsLeftoverExplainer'
+import NetProgressCyclesExplainerReal from './NetProgressCyclesExplainer'
+import TableLookupCombineExplainerImpl from './TableLookupCombineExplainer'
+
+function makeStory(lines: string[]): { steps: BasicStep[]; finalIndex: number } {
+  const steps = lines.map((caption, i): BasicStep => ({ phase: String(i), caption, hold: i === lines.length - 1 ? 0 : 1000, result: i === lines.length - 1 }))
+  return { steps, finalIndex: steps.length - 1 }
+}
+
+function GenericCard(props: ExplainerProps & { title: string; lines: string[]; chips: string[] }) {
+  const story = useMemo(() => makeStory(props.lines), [props.lines])
+  const { beat } = useLogicBeat(story, props)
+  return (
+    <LogicFrame beat={beat} label={props.title}>
+      <div className="flex flex-wrap justify-center gap-2">
+        {props.chips.map((chip, i) => <Pill key={`${chip}-${i}`} active={beat.phase === String(i)} good={beat.result}>{chip}</Pill>)}
+      </div>
+    </LogicFrame>
+  )
+}
+
+export function MissingAddendExplainer(props: ExplainerProps) {
+  const { a, b } = props.params as { a: number; b: number }
+  const lang = props.lang ?? 'en'
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+  const story = useMemo(() => buildMissingAddendStory({ a, b }, lang), [a, b, lang])
+  const { beat } = useLogicBeat(story, props)
+  const { sum } = story
+
+  // Before the switch the +b term sits on the left of the = sign; after it,
+  // it has crossed to the right and flipped to −b.
+  const beforeSwitch = beat.phase === 'equation' || beat.phase === 'isolate'
+  const isolating = beat.phase === 'isolate'
+  const switching = beat.phase === 'switch'
+  const reveal = beat.phase === 'answer'
+
+  const spring = { type: 'spring', stiffness: 380, damping: 30 } as const
+  const missingBox = `grid h-16 w-16 place-items-center rounded-2xl border-4 text-4xl font-black shadow-sm transition-colors ${reveal ? 'border-emerald-400 bg-emerald-100 text-emerald-700' : 'border-amber-300 bg-amber-100 text-amber-700'}`
+
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-6"
+      role="img"
+      aria-label={T(
+        `Solve ? + ${b} = ${sum}: switch +${b} across the = sign where it becomes −${b}, so ? = ${a}.`,
+        `Selesaikan ? + ${b} = ${sum}: pindahkan +${b} melewati tanda = sehingga menjadi −${b}, jadi ? = ${a}.`,
+      )}
+    >
+      {/* Equation — the +b term slides across the = sign and flips to −b */}
+      <div className="flex min-h-[5.5rem] flex-wrap items-center justify-center gap-2 text-4xl font-black text-slate-700">
+        <motion.span layout transition={spring} className={missingBox}>
+          {reveal ? a : '?'}
+        </motion.span>
+
+        {beforeSwitch && (
+          <motion.span
+            layout
+            layoutId="movable-term"
+            transition={spring}
+            className={`grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 px-3 text-3xl font-black transition-colors ${isolating ? 'border-sky-400 bg-sky-100 text-sky-700 ring-4 ring-sky-200' : 'border-emerald-300 bg-emerald-50 text-emerald-700'}`}
+          >
+            +{b}
+          </motion.span>
+        )}
+
+        <motion.span layout transition={spring} className="px-1 text-slate-400">=</motion.span>
+
+        <motion.span
+          layout
+          transition={spring}
+          className="grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 border-violet-300 bg-violet-100 px-3 text-violet-700"
+        >
+          {sum}
+        </motion.span>
+
+        {!beforeSwitch && (
+          <motion.span
+            layout
+            layoutId="movable-term"
+            transition={spring}
+            initial={{ scale: 1 }}
+            animate={switching ? { scale: [1, 1.18, 1] } : { scale: 1 }}
+            className="grid h-14 min-w-[3.5rem] place-items-center rounded-2xl border-4 border-rose-300 bg-rose-100 px-3 text-3xl font-black text-rose-600"
+          >
+            −{b}
+          </motion.span>
+        )}
+      </div>
+
+      {/* Basic rule callout — only while the term is crossing */}
+      <div className="flex min-h-[3rem] items-center justify-center">
+        <AnimatePresence mode="wait">
+          {switching && (
+            <motion.div
+              key="rule"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-2 rounded-xl border-2 px-4 py-2 font-display text-base font-extrabold"
+              style={{ background: '#FFF4E8', borderColor: '#F97316', color: '#8a4b1d' }}
+            >
+              <span className="text-emerald-600">+</span>
+              <span aria-hidden>→</span>
+              <span className="text-rose-600">−</span>
+              <span className="ml-1">{T('when it crosses =', 'saat melewati =')}</span>
+            </motion.div>
+          )}
+          {reveal && (
+            <motion.div
+              key="answer"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-3xl font-black"
+            >
+              <span className="text-slate-400">? = </span>
+              <span className="text-emerald-700">{a}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Single caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
+      </div>
+    </div>
+  )
+}
+
+export function ArrangeDigitsExplainer(props: ExplainerProps) {
+  const p = props.params as { digits: number[]; rank: number }
+  const lang = props.lang ?? 'en'
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+  const story = useMemo(() => buildArrangeDigitsStory(p.digits, p.rank, lang), [p.digits, p.rank, lang])
+  const { beat } = useLogicBeat(story, props)
+  const { digits, rank, formed, sorted, answer } = story
+
+  const phase = beat.phase
+  const showNumbers = phase !== 'digits'
+  const counting = phase === 'count'
+  const reveal = phase === 'answer'
+  // Numbers appear in formation order, then slide into sorted order from 'sort' on.
+  const ordered = phase === 'form' ? formed : sorted
+  const spring = { type: 'spring', stiffness: 380, damping: 30 } as const
+
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-5"
+      role="img"
+      aria-label={T(
+        `Make every 2-digit number from ${digits.join(', ')}, sort them, and take the number at rank ${rank}: ${answer}.`,
+        `Buat setiap bilangan 2 angka dari ${digits.join(', ')}, urutkan, dan ambil bilangan urutan ke-${rank}: ${answer}.`,
+      )}
+    >
+      {/* Source digits */}
+      <div className="flex items-center gap-2">
+        <span className="mr-1 text-xs font-bold uppercase tracking-wide text-slate-400">{T('digits', 'angka')}</span>
+        {digits.map((d, i) => (
+          <div key={i} className="grid h-11 w-11 place-items-center rounded-2xl border-4 border-sky-300 bg-sky-100 text-2xl font-black text-sky-700">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Formed numbers — reorder into sorted position, then count to the rank */}
+      <div className="flex min-h-[4rem] flex-wrap items-center justify-center gap-2">
+        {showNumbers &&
+          ordered.map((num) => {
+            const sortedIdx = sorted.indexOf(num)
+            const isAnswer = sortedIdx === rank - 1
+            const inCount = (counting || reveal) && sortedIdx < rank
+            const cls = reveal && isAnswer
+              ? 'border-emerald-400 bg-emerald-100 text-emerald-700'
+              : counting && isAnswer
+                ? 'border-amber-400 bg-amber-100 text-amber-700 ring-4 ring-amber-200'
+                : inCount
+                  ? 'border-violet-300 bg-violet-50 text-violet-700'
+                  : 'border-slate-200 bg-white text-slate-700'
+            return (
+              <motion.div
+                key={num}
+                layout
+                transition={spring}
+                className={`relative grid h-12 w-14 place-items-center rounded-2xl border-4 text-xl font-black transition-colors ${cls}`}
+              >
+                {num}
+                {inCount && (
+                  <span className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-slate-900 text-[10px] font-black text-white">
+                    {sortedIdx + 1}
+                  </span>
+                )}
+              </motion.div>
+            )
+          })}
+      </div>
+
+      {/* Caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
+      </div>
+    </div>
+  )
+}
+
+export { default as VisualPatternNextExplainer } from './VisualPatternNextExplainer'
+
+export function ShapeTransformationRuleExplainer(props: ExplainerProps) {
+  const p = props.params as { shape: string; transform: 'turn' | 'flip' }
+  const turn: Record<string, string> = { '▲': '▶', '▶': '▼', '■': '■' }
+  const flip: Record<string, string> = { '▲': '▼', '▶': '◀', '■': '■' }
+  const ans = (p.transform === 'turn' ? turn : flip)[p.shape]
+  return <GenericCard {...props} title="shape rule" chips={[p.shape, p.transform, ans]} lines={[`Rule: ${p.transform}.`, `${p.shape} -> ${ans}.`]} />
+}
+
+export function NetProgressCyclesExplainer(props: ExplainerProps) {
+  return <NetProgressCyclesExplainerReal {...props} />
+}
+
+export { default as RopeWrapsRatioExplainer } from './RopeWrapsRatioExplainer'
+
+export function EquivalentFractionFillExplainer(props: ExplainerProps) {
+  const p = props.params as { num: number; den: number; m: number }
+  const lang = props.lang ?? 'en'
+  const T = (en: string, id: string) => (lang === 'id' ? id : en)
+  const story = useMemo(() => buildEquivalentFractionStory(p.num, p.den, p.m, lang), [p.num, p.den, p.m, lang])
+  const { beat } = useLogicBeat(story, props)
+  const { num, den, m, newDen, answer } = story
+
+  const phase = beat.phase
+  const showBottom = phase !== 'show'
+  const emphBottom = phase === 'denom'
+  const showTop = phase === 'same' || phase === 'solve' || phase === 'answer'
+  const emphTop = phase === 'same' || phase === 'solve'
+  const reveal = phase === 'answer'
+
+  // SVG layout
+  const VW = 320
+  const leftX = 70
+  const rightX = 250
+  const numY = 70
+  const barY = 96
+  const denY = 122
+  const ORANGE = '#F97316'
+  const SKY = '#0284c7'
+  const PURPLE = '#341857'
+
+  const box = (cx: number, cy: number, fill: string, stroke: string, text: string | number, textFill: string, key: string) => (
+    <g key={key}>
+      <rect x={cx - 22} y={cy - 20} width={44} height={40} rx={10} fill={fill} stroke={stroke} strokeWidth={3} />
+      <text x={cx} y={cy + 7} textAnchor="middle" fontSize={22} fontWeight={800} fill={textFill}>
+        {text}
+      </text>
+    </g>
+  )
+
+  // ×m connector arc + label + arrowhead pointing at the right box.
+  const arc = (y: number, dir: -1 | 1, active: boolean, shown: boolean) => {
+    const bow = dir === -1 ? y - 34 : y + 34
+    const color = active ? ORANGE : '#cbd5e1'
+    const labelY = dir === -1 ? y - 38 : y + 42
+    return (
+      <motion.g
+        initial={false}
+        animate={{ opacity: shown ? 1 : 0 }}
+        transition={{ duration: 0.35 }}
+      >
+        <path
+          d={`M ${leftX} ${y} Q ${(leftX + rightX) / 2} ${bow} ${rightX} ${y}`}
+          fill="none"
+          stroke={color}
+          strokeWidth={active ? 3.5 : 2.5}
+          strokeLinecap="round"
+        />
+        <polygon
+          points={`${rightX - 8},${y - 6} ${rightX + 2},${y} ${rightX - 8},${y + 6}`}
+          fill={color}
+        />
+        <g transform={`translate(${(leftX + rightX) / 2}, ${labelY})`}>
+          <rect x={-22} y={-13} width={44} height={26} rx={9} fill={active ? '#FFF4E8' : '#f1f5f9'} stroke={color} strokeWidth={2} />
+          <text x={0} y={6} textAnchor="middle" fontSize={15} fontWeight={800} fill={active ? '#8a4b1d' : '#94a3b8'}>
+            ×{m}
+          </text>
+        </g>
+      </motion.g>
+    )
+  }
+
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4"
+      role="img"
+      aria-label={T(
+        `Equivalent fraction: ${den} × ${m} = ${newDen}, so multiply the top by ${m} too: ${num} × ${m} = ${answer}, giving ${num}/${den} = ${answer}/${newDen}.`,
+        `Pecahan senilai: ${den} × ${m} = ${newDen}, jadi kalikan bagian atas dengan ${m} juga: ${num} × ${m} = ${answer}, sehingga ${num}/${den} = ${answer}/${newDen}.`,
+      )}
+    >
+      <svg viewBox={`0 0 ${VW} 180`} width="100%" style={{ maxWidth: 340, overflow: 'visible' }} aria-hidden="true">
+        {/* Top ×m arc */}
+        {arc(numY - 24, -1, emphTop, showTop)}
+        {/* Bottom ×m arc */}
+        {arc(denY + 24, 1, emphBottom, showBottom)}
+
+        {/* Left fraction */}
+        {box(leftX, numY, '#FFF7ED', ORANGE, num, '#9a3412', 'lnum')}
+        <line x1={leftX - 24} y1={barY} x2={leftX + 24} y2={barY} stroke={PURPLE} strokeWidth={3} strokeLinecap="round" />
+        {box(leftX, denY, '#EFF6FF', SKY, den, '#075985', 'lden')}
+
+        {/* Equals */}
+        <text x={(leftX + rightX) / 2} y={barY + 8} textAnchor="middle" fontSize={26} fontWeight={800} fill="#94a3b8">=</text>
+
+        {/* Right fraction */}
+        {reveal
+          ? box(rightX, numY, '#D1FAE5', '#10B981', answer, '#065F46', 'rnum')
+          : box(rightX, numY, '#FFFBEB', '#FBBF24', '?', '#92400e', 'rnum')}
+        <line x1={rightX - 24} y1={barY} x2={rightX + 24} y2={barY} stroke={PURPLE} strokeWidth={3} strokeLinecap="round" />
+        {box(rightX, denY, '#EFF6FF', SKY, newDen, '#075985', 'rden')}
+      </svg>
+
+      {/* Caption */}
+      <div
+        className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+        style={
+          beat.result
+            ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+            : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+        }
+      >
+        {beat.caption}
+      </div>
+    </div>
+  )
+}
+
+export function TableLookupCombineExplainer(props: ExplainerProps) {
+  return <TableLookupCombineExplainerImpl {...props} />
+}
+
+export { default as TruthOrderCluesExplainer } from './TruthOrderCluesExplainer'
+
+export function MakeGroupsLeftoverExplainer(props: ExplainerProps) {
+  return <MakeGroupsLeftoverExplainerImpl {...props} />
+}

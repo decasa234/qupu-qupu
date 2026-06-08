@@ -26,27 +26,50 @@ export function generate(rng: Rng): Params {
 
 export function render(params: Params) {
   if (params.mode === 'distance') {
+    const dist = params.rate * params.t
     return {
-      body_en: `A car travels ${params.rate} km each hour. How far does it travel in ${params.t} hours?`,
-      body_id: `Sebuah mobil menempuh ${params.rate} km setiap jam. Berapa jarak yang ditempuh dalam ${params.t} jam?`,
+      body_en: `A car moves at a constant [[speed|speed]] of ${params.rate} km/h.\nFind: How far does it travel in ${params.t} hours?`,
+      body_id: `Sebuah mobil bergerak dengan [[speed|kecepatan]] tetap ${params.rate} km/jam.\nCari: Berapa jarak yang ditempuh dalam ${params.t} jam?`,
       answer_type: 'fill_in' as const,
       choices_en: null,
       choices_id: null,
-      answer: String(params.rate * params.t),
-      hint_en: 'Distance = speed × time.',
-      hint_id: 'Jarak = kecepatan × waktu.',
+      answer: String(dist),
+      hint_en: 'Apply the [[distance-formula|distance formula]]: distance = speed × time.',
+      hint_id: 'Gunakan [[distance-formula|rumus jarak]]: jarak = kecepatan × waktu.',
+      hint_steps_en: [
+        `Write the formula: distance = speed × time`,
+        `Substitute: distance = ${params.rate} × ${params.t}`,
+        `Answer: distance = ${dist} km`,
+      ],
+      hint_steps_id: [
+        `Tulis rumus: jarak = kecepatan × waktu`,
+        `Substitusi: jarak = ${params.rate} × ${params.t}`,
+        `Jawaban: jarak = ${dist} km`,
+      ],
     }
   }
   const distance = params.rate * params.t
   return {
-    body_en: `A car travels ${params.rate} km each hour. How many hours does it take to travel ${distance} km?`,
-    body_id: `Sebuah mobil menempuh ${params.rate} km setiap jam. Berapa jam waktu yang dibutuhkan untuk menempuh ${distance} km?`,
+    body_en: `A car moves at a constant [[speed|speed]] of ${params.rate} km/h and covers ${distance} km.\nFind: How many hours does the trip take?`,
+    body_id: `Sebuah mobil bergerak dengan [[speed|kecepatan]] tetap ${params.rate} km/jam dan menempuh jarak ${distance} km.\nCari: Berapa jam waktu yang dibutuhkan untuk perjalanan itu?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
     answer: String(params.t),
-    hint_en: 'Time = distance ÷ speed.',
-    hint_id: 'Waktu = jarak ÷ kecepatan.',
+    hint_en: 'Rearrange the [[distance-formula|distance formula]]: time = distance ÷ speed.',
+    hint_id: 'Ubah [[distance-formula|rumus jarak]]: waktu = jarak ÷ kecepatan.',
+    hint_steps_en: [
+      `Start with: distance = speed × time`,
+      `Rearrange: time = distance ÷ speed`,
+      `Substitute: time = ${distance} ÷ ${params.rate}`,
+      `Answer: time = ${params.t} hours`,
+    ],
+    hint_steps_id: [
+      `Mulai dari: jarak = kecepatan × waktu`,
+      `Ubah: waktu = jarak ÷ kecepatan`,
+      `Substitusi: waktu = ${distance} ÷ ${params.rate}`,
+      `Jawaban: waktu = ${params.t} jam`,
+    ],
   }
 }
 
