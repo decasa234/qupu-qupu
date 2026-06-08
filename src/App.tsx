@@ -21,6 +21,7 @@ import WmiPaperDetailPage from './pages/WmiPaperDetail'
 import WmiExamPage from './pages/WmiExam'
 import WmiExamReviewPage from './pages/WmiExamReview'
 import WmiKonsepDrill from './pages/WmiKonsepDrill'
+import WmiChapterTest from './pages/WmiChapterTest'
 import AdminVideosPage from './pages/AdminVideos'
 import AdminDashboardPage from './pages/admin/AdminDashboard'
 import AdminSubjectsPage from './pages/admin/AdminSubjects'
@@ -155,6 +156,7 @@ export default function App() {
           <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />
           <Route path="latihan/wmi/exam/:sessionId" element={<WmiExamPage />} />
           <Route path="latihan/wmi/exam/:sessionId/review" element={<WmiExamReviewPage />} />
+          <Route path="latihan/wmi/tes/:grade/:themeKey" element={<WmiChapterTest />} />
         </Route>
 
         {/* Admin — untouched */}
