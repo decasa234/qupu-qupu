@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import WmiExplainer from '../WmiExplainer'
 import { DEMO_CONCEPTS } from '@/data/wmiMarketing'
 
-export default function WmiConceptDemo() {
-  const [active, setActive] = useState(0)
+export default function WmiConceptDemo({ initialIndex = 0 }: { initialIndex?: number } = {}) {
+  const [active, setActive] = useState(initialIndex)
   const concept = DEMO_CONCEPTS[active]
 
   return (

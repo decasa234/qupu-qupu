@@ -4,7 +4,7 @@ const BULLETS = [
   'Konsep WMI asli untuk anak Kelas 1–3',
   'Penjelasan penyelesaian masalah beranimasi',
   'Assisted highlight + hint langkah demi langkah',
-  'XP & Achievement — belajar untuk dapatkan rewards',
+  'XP & Achievement, belajar untuk dapatkan rewards',
 ]
 
 export default function LatihanWmiSection() {
