@@ -9,11 +9,19 @@ interface ChildFormProps {
   submitLabel: string
   onCreated: (child: Child) => void
   onError?: (message: string) => void
+  initialName?: string
+  initialAgeGroupId?: string
 }
 
-export default function ChildForm({ submitLabel, onCreated, onError }: ChildFormProps) {
-  const [name, setName] = useState('')
-  const [ageGroupId, setAgeGroupId] = useState('')
+export default function ChildForm({
+  submitLabel,
+  onCreated,
+  onError,
+  initialName = '',
+  initialAgeGroupId = '',
+}: ChildFormProps) {
+  const [name, setName] = useState(initialName)
+  const [ageGroupId, setAgeGroupId] = useState(initialAgeGroupId)
   const [avatarColor, setAvatarColor] = useState(AVATAR_PRESETS[0])
   const [dailyGoal, setDailyGoal] = useState(3)
   const [ageGroups, setAgeGroups] = useState<AgeGroupOption[]>([])
