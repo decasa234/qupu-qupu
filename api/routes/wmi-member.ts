@@ -10,6 +10,7 @@ import {
 } from '../services/wmi/sessions.js'
 import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/concepts/engine.js'
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
+import { getGarden } from '../services/wmi/concepts/garden.js'
 
 const router = Router()
 
@@ -237,6 +238,25 @@ router.get(
     } catch (error) {
       console.error('WMI konsep progress error:', error)
       sendError(res, error, 'Unable to load concept progress')
+    }
+  },
+)
+
+router.get(
+  '/garden',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = papersQuerySchema.validate(req.query)
+      if (error) {
+        res.status(400).json({ success: false, error: error.details[0].message })
+        return
+      }
+      const garden = await getGarden(req.user.id, value.childId, value.grade)
+      res.json({ success: true, data: garden })
+    } catch (error) {
+      console.error('WMI garden error:', error)
+      sendError(res, error, 'Unable to load garden')
     }
   },
 )

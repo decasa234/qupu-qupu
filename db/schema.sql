@@ -667,6 +667,7 @@ CREATE TABLE IF NOT EXISTS wmi_chapter_tests (
 );
 CREATE INDEX IF NOT EXISTS wmi_chapter_tests_pass_idx
   ON wmi_chapter_tests (child_id, grade, theme_key) WHERE passed;
+CREATE INDEX IF NOT EXISTS wmi_concepts_grades_gin ON wmi_concepts USING GIN (grades);
 
 CREATE TABLE IF NOT EXISTS wmi_concept_votes (
   id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
