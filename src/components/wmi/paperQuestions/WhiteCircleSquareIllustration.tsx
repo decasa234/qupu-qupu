@@ -8,7 +8,7 @@ export const Q8_GREEN = '#10B981'
 export type Q8Option = 'A' | 'B' | 'C' | 'D'
 
 // Each option drawn in a 0..100 box, outer gray shape + inner white shape.
-function DrawA() {
+export function DrawA() {
   // gray triangle, white circle inside
   return (
     <>
@@ -17,7 +17,7 @@ function DrawA() {
     </>
   )
 }
-function DrawB() {
+export function DrawB() {
   // gray square (rotated 45° = diamond), white circle inside
   return (
     <>
@@ -26,7 +26,7 @@ function DrawB() {
     </>
   )
 }
-function DrawC() {
+export function DrawC() {
   // gray circle, white triangle inside
   return (
     <>
@@ -35,7 +35,7 @@ function DrawC() {
     </>
   )
 }
-function DrawD() {
+export function DrawD() {
   // gray circle, white square inside
   return (
     <>
@@ -81,14 +81,6 @@ export function ShapeOptions({ highlight }: { highlight?: Q8Option }) {
   )
 }
 
-export default function WhiteCircleSquareIllustration() {
-  return (
-    <div
-      className="my-4 flex justify-center"
-      role="img"
-      aria-label="Four figures: (A) a white circle in a gray triangle, (B) a white circle in a gray square shown as a diamond, (C) a white triangle in a gray circle, (D) a white square in a gray circle."
-    >
-      <ShapeOptions />
-    </div>
-  )
-}
+// No standalone illustration is registered for Q8 — the four options ARE the
+// figures (rendered as the answer choices via WhiteCircleSquareOption). The
+// post-answer explainer reuses ShapeOptions to recap and ring B.

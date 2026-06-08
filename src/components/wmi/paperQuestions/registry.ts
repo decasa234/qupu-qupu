@@ -2,11 +2,11 @@ import type { ComponentType } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
 import type { WmiChoice } from '../../../types/wmi'
 import ShapeCountOption from './ShapeCountOption'
+import WhiteCircleSquareOption from './WhiteCircleSquareOption'
 import StarRowsIllustration from './StarRowsIllustration'
 import StarCountExplainer from './StarCountExplainer'
 import ClockReadIllustration from './ClockReadIllustration'
 import ClockReadExplainer from './ClockReadExplainer'
-import WhiteCircleSquareIllustration from './WhiteCircleSquareIllustration'
 import WhiteCircleSquareExplainer from './WhiteCircleSquareExplainer'
 import BalanceScaleIllustration from './BalanceScaleIllustration'
 import BalanceScaleExplainer from './BalanceScaleExplainer'
@@ -68,7 +68,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1A-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
   'WMI-19F1A-Q4': { Illustration: SecondLongestIllustration, Explainer: SecondLongestExplainer },
   'WMI-19F1A-Q6': { Illustration: ClockReadIllustration, Explainer: ClockReadExplainer },
-  'WMI-19F1A-Q8': { Illustration: WhiteCircleSquareIllustration, Explainer: WhiteCircleSquareExplainer },
+  'WMI-19F1A-Q8': { Explainer: WhiteCircleSquareExplainer },
   'WMI-19F1A-Q10': { Illustration: NumberPatternIllustration, Explainer: NumberPatternExplainer },
   'WMI-19F1A-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
   'WMI-19F1A-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
@@ -102,6 +102,7 @@ type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 
 const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
   'WMI-19F1A-Q15': ShapeCountOption,
+  'WMI-19F1A-Q8': WhiteCircleSquareOption,
 }
 
 export function getQuestionChoiceRenderer(code?: string): ChoiceRenderer | null {
