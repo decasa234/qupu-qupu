@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildPlaceValueBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   n: z.number().int().min(10).max(99),
@@ -18,7 +19,10 @@ export function generate(rng: Rng): Params {
   return { n: rng.int(10, 99) }
 }
 
-export function render(params: Params) {
+// Shared solver so render() and the authored breakdown bind to the same numbers
+// (the anti-drift glue). `correct` is the VALUE of the tens digit (digit × 10);
+// `tensDigit` is the digit itself — the tempting wrong answer.
+export function solvePlaceValue(params: Params) {
   const tensDigit = Math.floor(params.n / 10)
   const ones = params.n % 10
   const correct = tensDigit * 10
@@ -28,9 +32,14 @@ export function render(params: Params) {
   const labels = ['A', 'B', 'C', 'D'] as const
   const values = [correct, ...distractors].slice(0, 4)
   while (values.length < 4) values.push(values[values.length - 1] + 1)
+  const answerLabel = labels[values.indexOf(correct)]
+  return { tensDigit, ones, correct, labels, values, answerLabel }
+}
+
+export function render(params: Params) {
+  const { tensDigit, ones, correct, labels, values, answerLabel } = solvePlaceValue(params)
   const choicesEN = labels.map((label, i) => ({ label, text: String(values[i]) }))
   const choicesID = labels.map((label, i) => ({ label, text: String(values[i]) }))
-  const answerLabel = labels[values.indexOf(correct)]
 
   return {
     body_en: `The number ${params.n} has two digits. Find: What is the value of the tens digit?`,
@@ -51,6 +60,7 @@ export function render(params: Params) {
       `Angka di tempat puluhan adalah ${tensDigit}.`,
       `Nilai angka puluhan = ${tensDigit} × 10 = ${correct}.`,
     ],
+    breakdown: buildPlaceValueBreakdown(params),
   }
 }
 

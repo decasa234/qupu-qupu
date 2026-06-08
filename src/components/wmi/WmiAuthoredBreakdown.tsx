@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
+import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import type { Breakdown, BreakdownCategory } from '../../types/wmi'
 
 type Lang = 'en' | 'id'
@@ -88,7 +89,13 @@ export default function WmiAuthoredBreakdown({
   const highlights = breakdown.highlights
   const [selected, setSelected] = useState<number | null>(null)
 
-  const clean = stripSectionLabels(text).replace(/\s+/g, ' ').trim()
+  // Display text = body with section labels removed AND glossary [[...]] markup
+  // resolved to its display label, so highlight phrases match what the kid sees.
+  const clean = parseWmiMarkup(stripSectionLabels(text))
+    .map((seg) => seg.text)
+    .join('')
+    .replace(/\s+/g, ' ')
+    .trim()
   const phrases = highlights.map((hl) => (isId ? hl.phrase_id : hl.phrase_en))
   const segments = segment(clean, phrases)
 

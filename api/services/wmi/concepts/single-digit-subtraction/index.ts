@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildSingleDigitSubtractionBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   a: z.number().int().min(2).max(9),
@@ -41,6 +42,7 @@ export function render(params: Params) {
       `Mulai dari keseluruhan: ${a}.`,
       `Ambil ${b}: ${a} − ${b} = ${left}.`,
     ],
+    breakdown: buildSingleDigitSubtractionBreakdown(params),
   }
 }
 

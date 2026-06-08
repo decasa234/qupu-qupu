@@ -37,7 +37,7 @@ Run the designer first; it sets `needsVisual` and the brief the others read. Ski
 type BreakdownCategory = 'fact' | 'condition' | 'question'   // extensible; renderer colours by category
 interface BreakdownHighlight {
   category: BreakdownCategory
-  phrase_en: string; phrase_id: string   // MUST be exact substrings of the rendered body
+  phrase_en: string; phrase_id: string   // MUST be exact substrings of the DISPLAY body (see below)
   note_en: string;   note_id: string     // short kid note shown on click
 }
 interface Breakdown {
@@ -51,7 +51,11 @@ interface Breakdown {
 }
 ```
 
-Build it **parametrically** from `params` (like `hint_steps`), never hardcoded to one instance. Verify every `phrase_*` is a real substring of `body_en`/`body_id`.
+Build it **parametrically** from `params` (like `hint_steps`), never hardcoded to one instance.
+
+**Display body:** highlight phrases must match the text the kid *sees*, which is the body after `stripSectionLabels` AND resolving glossary `[[slug|label]]` → `label` (and `[[slug]]` → `slug`). So highlight `keliling`, not `[[perimeter|keliling]]`. Verify with: `parseWmiMarkup(stripSectionLabels(body)).map(s=>s.text).join('')`.
+
+**Multiple-choice concepts:** `render().answer` is the choice **label** (e.g. `"A"`), not the number. Use `answer.form: 'choice'`, `answer.value = <label>`, so `answer.value === sample.answer`.
 
 ## Content rules (hard-won — follow them)
 
@@ -86,7 +90,7 @@ Then have the user review at **Admin → WMI Concepts → \<concept\>** (or **WM
 
 ## Common mistakes
 
-- Highlight phrase isn't an exact body substring → it silently won't highlight. Test across seeds.
+- Highlight phrase isn't an exact substring of the **display** body (forgot to resolve `[[glossary]]` markup, or matched a section label) → it silently won't highlight. Test across seeds against the display text.
 - Forcing a trap on every problem → only add real ones.
 - Rebuilding `WmiAuthoredBreakdown`/`WmiTrapNote`/`WmiQuestionView` → they're done; just feed them a `breakdown`.
 - Illustration with a background box or emoji → clean SVG in the card.
