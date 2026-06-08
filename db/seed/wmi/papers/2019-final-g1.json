@@ -96,7 +96,36 @@
         "Bandingkan dulu angka puluhannya: 37, 73, 56, 65.",
         "73 punya angka puluhan terbesar (7).",
         "Jadi 73 yang paling besar."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "the largest",
+            "phrase_id": "paling besar",
+            "note_en": "We must pick the biggest number.",
+            "note_id": "Kita harus pilih bilangan terbesar."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "numbers below",
+            "phrase_id": "bilangan-bilangan di bawah",
+            "note_en": "Only choose from the four numbers given.",
+            "note_id": "Pilih hanya dari empat bilangan yang ada."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers to compare", "label_id": "Bilangan yang dibandingkan", "value": "37, 73, 56, 65" }
+        ],
+        "strategy": { "name_en": "Compare the tens digit first", "name_id": "Bandingkan angka puluhan dulu" },
+        "trap": {
+          "wrong": "37",
+          "why_en": "37 has the same digits as 73 but flipped — only 73 has 7 in the tens place.",
+          "why_id": "37 punya angka yang sama dengan 73 tapi terbalik — hanya 73 yang punya 7 di puluhan."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 3,
@@ -127,7 +156,37 @@
         "Terus tambah 4: 56, 60, 64, 68, 72, 76, 80.",
         "★ adalah bilangan ke-5 dalam barisan.",
         "Dihitung dari awal, bilangan ke-5 adalah 72."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find ★",
+            "phrase_id": "temukan ★",
+            "note_en": "We need the number that goes where the star is.",
+            "note_id": "Kita cari bilangan di tempat bintangnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "56 → 60",
+            "phrase_id": "56 → 60",
+            "note_en": "Each jump adds 4: 56 to 60 is +4.",
+            "note_id": "Setiap lompatan menambah 4: 56 ke 60 itu +4."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Step size", "label_id": "Besar lompatan", "value": "+4" },
+          { "label_en": "Sequence", "label_id": "Barisan", "value": "56, 60, 64, 68, 72, 76, 80" }
+        ],
+        "strategy": { "name_en": "Find the +4 pattern and count along", "name_id": "Cari pola +4 lalu hitung sepanjang barisan" },
+        "trap": {
+          "wrong": "70",
+          "why_en": "70 jumps by tens, but the real pattern adds 4 each time.",
+          "why_id": "70 melompat per puluhan, padahal polanya menambah 4 tiap kali."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 4,
@@ -159,7 +218,36 @@
         "Temukan dulu yang paling panjang.",
         "Lalu cari yang panjangnya nomor dua setelah itu.",
         "Batang kedua terpanjang adalah A."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "second longest",
+            "phrase_id": "kedua terpanjang",
+            "note_en": "Find the one that is long, but not the longest.",
+            "note_id": "Cari yang panjang, tapi bukan yang paling panjang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the figure",
+            "phrase_id": "gambar",
+            "note_en": "Compare the lengths of the bars in the picture.",
+            "note_id": "Bandingkan panjang batang pada gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Bars to compare", "label_id": "Batang yang dibandingkan", "value": "A, B, C, D" }
+        ],
+        "strategy": { "name_en": "Find the longest, then the next one", "name_id": "Cari yang terpanjang, lalu yang berikutnya" },
+        "trap": {
+          "wrong": "the longest bar",
+          "why_en": "It is easy to pick the longest bar — but we want the second longest.",
+          "why_id": "Mudah tergoda memilih batang terpanjang — padahal kita cari yang kedua terpanjang."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
     },
     {
       "number": 5,
@@ -190,7 +278,44 @@
         "Untuk mencari jumlah awal, kurangi 5 yang datang.",
         "13 - 5 = 8.",
         "Jadi mula-mula ada 8 ekor burung."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "( ) birds in the tree originally",
+            "phrase_id": "( ) ekor burung di pohon",
+            "note_en": "We need how many birds were there at the start.",
+            "note_id": "Kita cari berapa burung di awal."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "5 birds fly to the tree",
+            "phrase_id": "Datang 5 ekor burung lagi",
+            "note_en": "5 more birds came after the start.",
+            "note_id": "Datang 5 burung lagi setelah awal."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "total of 13 birds",
+            "phrase_id": "total 13 ekor burung",
+            "note_en": "After they came, there are 13 in all.",
+            "note_id": "Setelah datang, semuanya jadi 13."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Birds now", "label_id": "Burung sekarang", "value": "13" },
+          { "label_en": "Birds that came", "label_id": "Burung yang datang", "value": "5" }
+        ],
+        "strategy": { "name_en": "Work backwards: subtract what was added", "name_id": "Mundur: kurangi yang ditambahkan" },
+        "trap": {
+          "wrong": "10",
+          "why_en": "Do not add 5 + 13 or guess a round number — take 5 away from 13 to get 8.",
+          "why_id": "Jangan tambah 5 + 13 atau tebak angka bulat — kurangi 5 dari 13 jadi 8."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 6,
@@ -222,7 +347,37 @@
         "Jarum jam yang pendek baru lewat 12, jadi jamnya 12.",
         "Gabungkan: jam 12 dan 30 menit.",
         "Waktunya pukul 12:30."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What time is it?",
+            "phrase_id": "Pukul berapa sekarang?",
+            "note_en": "We need to read the time on the clock.",
+            "note_id": "Kita perlu membaca waktu pada jam."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the clock on the right",
+            "phrase_id": "jam di sebelah kanan",
+            "note_en": "Look at both hands on the clock picture.",
+            "note_id": "Lihat kedua jarum pada gambar jam."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Minute hand points to", "label_id": "Jarum menit ke", "value": "6 (= 30 min)" },
+          { "label_en": "Hour hand near", "label_id": "Jarum jam dekat", "value": "12" }
+        ],
+        "strategy": { "name_en": "Read the hour hand, then the minute hand", "name_id": "Baca jarum jam, lalu jarum menit" },
+        "trap": {
+          "wrong": "12:06",
+          "why_en": "The long hand on 6 means 30 minutes, not 6 minutes.",
+          "why_id": "Jarum panjang di angka 6 berarti 30 menit, bukan 6 menit."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 7,
@@ -253,7 +408,36 @@
         "Periksa satu per satu: 14 + 5 = 19, 16 - 9 = 7, 3 + 7 = 10.",
         "Sekarang coba 10 - 1 = 9.",
         "Jadi 10 - 1 adalah yang nilainya 9."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "= ?",
+            "phrase_id": "= ?",
+            "note_en": "Find the choice that gives this answer.",
+            "note_id": "Cari pilihan yang menghasilkan jawaban ini."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "9",
+            "phrase_id": "9",
+            "note_en": "The choice must equal 9.",
+            "note_id": "Pilihannya harus sama dengan 9."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Target value", "label_id": "Nilai yang dicari", "value": "9" }
+        ],
+        "strategy": { "name_en": "Work out each choice and check for 9", "name_id": "Hitung tiap pilihan lalu cari yang 9" },
+        "trap": {
+          "wrong": "3 + 7",
+          "why_en": "3 + 7 = 10, which is close to 9 but not equal — only 10 - 1 = 9.",
+          "why_id": "3 + 7 = 10, dekat dengan 9 tapi tidak sama — hanya 10 - 1 = 9."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 8,
