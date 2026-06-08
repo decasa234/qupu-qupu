@@ -29,6 +29,15 @@ export type AnalyticsEventName =
   | 'login_completed'
   | 'google_login_completed'
   | 'demo_quiz_submit'
+  | 'demo_started'
+  | 'demo_grade_selected'
+  | 'demo_question_answered'
+  | 'demo_badge_earned'
+  | 'demo_tour_viewed'
+  | 'demo_plan_viewed'
+  | 'demo_signup_click'
+  | 'demo_skipped'
+  | 'onboarding_child_created'
 
 export function trackEvent(
   eventName: AnalyticsEventName,
