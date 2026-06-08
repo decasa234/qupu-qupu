@@ -1,5 +1,5 @@
 import api from './api'
-import type { WmiChoice } from '../types/wmi'
+import type { WmiChoice, Breakdown } from '../types/wmi'
 
 export type ReviewStatus = 'pending' | 'approved' | 'needs_changes'
 
@@ -38,6 +38,7 @@ export interface AdminConceptSample {
   hint_id?: string | null
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
+  breakdown?: Breakdown | null
   error?: string
 }
 

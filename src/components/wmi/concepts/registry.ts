@@ -22,6 +22,7 @@ import FractionOfRegion from './fraction-of-region'
 import MazePathShortest from './maze-path-shortest'
 import CountShapesInFigure from './count-shapes-in-figure'
 import CountRectanglesGrid from './count-rectangles-grid'
+import BudgetSelection from './budget-selection'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
   'count-objects': CountObjects,
@@ -47,6 +48,7 @@ export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> =
   'maze-path-shortest': MazePathShortest,
   'count-shapes-in-figure': CountShapesInFigure,
   'count-rectangles-grid': CountRectanglesGrid,
+  'budget-selection': BudgetSelection,
 }
 
 export function getIllustration(slug: string): ComponentType<{ params: unknown }> | null {

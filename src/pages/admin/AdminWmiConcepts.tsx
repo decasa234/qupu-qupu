@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import WmiQuestionView from '../../components/wmi/WmiQuestionView'
 import WmiExplainer from '../../components/wmi/WmiExplainer'
+import WmiTrapNote from '../../components/wmi/WmiTrapNote'
 import { getIllustration } from '../../components/wmi/concepts/registry'
 import { getExplainer } from '../../components/wmi/concepts/explainers/registry'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
@@ -43,6 +44,7 @@ function adapt(slug: string, s: AdminConceptSample): WmiQuestion {
     hint_en: s.hint_en ?? null,
     hint_id: s.hint_id ?? null,
     difficulty: null,
+    breakdown: s.breakdown ?? null,
   }
 }
 
@@ -474,6 +476,8 @@ export default function AdminWmiConcepts() {
                         disabled
                         highlight={{ correct: sample.answer ?? null, wrongPicked: null }}
                         breakdownActive={breakdown}
+                        conceptIllustration={Illustration}
+                        conceptIllustrationParams={sample.params}
                         onToggleBreakdown={() => setBreakdown((v) => !v)}
                         onPickChoice={noop}
                         onSubmitFillIn={noop}
@@ -481,13 +485,10 @@ export default function AdminWmiConcepts() {
                         onRevealTranslation={noop}
                       />
                     )}
+                    <p className="mt-1 text-xs text-admin-faint">
+                      Click <span className="font-bold">Q</span> to see the kid-friendly breakdown; the illustration sits in the card.
+                    </p>
                   </Section>
-
-                  {Illustration && (
-                    <Section title="Illustration">
-                      <Illustration params={sample.params} />
-                    </Section>
-                  )}
 
                   <Section title="Answer & params">
                     <div className="text-sm">
@@ -518,6 +519,12 @@ export default function AdminWmiConcepts() {
                         <div className="mt-1 text-xs text-admin-faint">
                           (No multi-step hints authored for this concept yet.)
                         </div>
+                      </div>
+                    )}
+                    {sample.breakdown?.trap && (
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                        <WmiTrapNote trap={sample.breakdown.trap} lang="en" />
+                        <WmiTrapNote trap={sample.breakdown.trap} lang="id" />
                       </div>
                     )}
                   </Section>
