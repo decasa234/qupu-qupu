@@ -117,16 +117,16 @@ export async function fetchGarden(childId: string, grade: WmiGrade): Promise<Wmi
 }
 
 export async function startChapterTest(
-  childId: string, grade: WmiGrade, themeKey: string,
+  childId: string, subjectKey: string,
 ): Promise<{ questions: WmiChapterTestQuestion[] }> {
-  const response = await api.post('/me/wmi/chapter-test/start', { childId, grade, theme_key: themeKey })
+  const response = await api.post('/me/wmi/chapter-test/start', { childId, subject_key: subjectKey })
   return unwrap<{ questions: WmiChapterTestQuestion[] }>(response)
 }
 
 export async function submitChapterTest(
-  childId: string, grade: WmiGrade, themeKey: string,
+  childId: string, subjectKey: string,
   answers: { concept_instance_id: string; selected_answer: string }[],
 ): Promise<WmiChapterTestResult> {
-  const response = await api.post('/me/wmi/chapter-test/submit', { childId, grade, theme_key: themeKey, answers })
+  const response = await api.post('/me/wmi/chapter-test/submit', { childId, subject_key: subjectKey, answers })
   return unwrap<WmiChapterTestResult>(response)
 }

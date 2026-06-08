@@ -1,17 +1,19 @@
 import type { WmiGrade } from '../../types/wmi'
 
-const GRADES: WmiGrade[] = [0, 1, 2, 3]
+const DEFAULT_GRADES: WmiGrade[] = [1, 2, 3]
 
 export default function WmiGradeChips({
   selected,
   onSelect,
+  grades = DEFAULT_GRADES,
 }: {
   selected: WmiGrade
   onSelect: (grade: WmiGrade) => void
+  grades?: WmiGrade[]
 }) {
   return (
     <div className="flex flex-wrap gap-2">
-      {GRADES.map((grade) => (
+      {grades.map((grade) => (
         <button
           key={grade}
           type="button"

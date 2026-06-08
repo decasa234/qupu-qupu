@@ -2,11 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { startChapterTest, submitChapterTest } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
-import type { WmiChapterTestQuestion, WmiChapterTestResult, WmiGrade } from '../types/wmi'
+import type { WmiChapterTestQuestion, WmiChapterTestResult } from '../types/wmi'
 
 export default function WmiChapterTest() {
-  const { grade, themeKey } = useParams()
-  const g = Number(grade) as WmiGrade
+  const { subjectKey } = useParams()
   const { activeChildId } = useAuthStore()
   const navigate = useNavigate()
   const [questions, setQuestions] = useState<WmiChapterTestQuestion[]>([])
@@ -17,15 +16,15 @@ export default function WmiChapterTest() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    if (!activeChildId || !themeKey) return
+    if (!activeChildId || !subjectKey) return
     let cancelled = false
     setLoading(true)
-    startChapterTest(activeChildId, g, themeKey)
+    startChapterTest(activeChildId, subjectKey)
       .then((d) => !cancelled && setQuestions(d.questions))
       .catch(() => !cancelled && setQuestions([]))
       .finally(() => !cancelled && setLoading(false))
     return () => { cancelled = true }
-  }, [activeChildId, themeKey, g])
+  }, [activeChildId, subjectKey])
 
   const current = questions[idx]
   const allAnswered = useMemo(
@@ -34,14 +33,14 @@ export default function WmiChapterTest() {
   )
 
   async function finish() {
-    if (!activeChildId || !themeKey) return
+    if (!activeChildId || !subjectKey) return
     setSubmitting(true)
     try {
       const payload = questions.map((q) => ({
         concept_instance_id: q.concept_instance_id,
         selected_answer: answers[q.concept_instance_id] ?? '',
       }))
-      setResult(await submitChapterTest(activeChildId, g, themeKey, payload))
+      setResult(await submitChapterTest(activeChildId, subjectKey, payload))
     } finally { setSubmitting(false) }
   }
 

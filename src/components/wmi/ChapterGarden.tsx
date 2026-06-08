@@ -6,7 +6,7 @@ interface Props {
   index: number
   nextConceptSlug: string | null
   onConceptClick: (slug: string) => void
-  onStartTest: (themeKey: string) => void
+  onStartTest: (subjectKey: string) => void
 }
 
 export default function ChapterGarden({ chapter, index, nextConceptSlug, onConceptClick, onStartTest }: Props) {
@@ -58,7 +58,7 @@ export default function ChapterGarden({ chapter, index, nextConceptSlug, onConce
           </div>
           <button
             type="button"
-            onClick={() => onStartTest(chapter.themeKey)}
+            onClick={() => onStartTest(chapter.subjectKey)}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-blue p-3 font-display text-[13px] font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
           >
             <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white text-[11px] text-qupu-brand-orange">

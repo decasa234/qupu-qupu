@@ -183,7 +183,7 @@ export interface WmiGardenConcept {
   pct: number
 }
 export interface WmiGardenChapter {
-  themeKey: string
+  subjectKey: string
   nameId: string
   nameEn: string
   colorHex: string

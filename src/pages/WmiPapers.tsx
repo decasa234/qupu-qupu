@@ -67,7 +67,7 @@ export default function WmiPapers() {
       </section>
 
       <div className="mt-4">
-        <WmiGradeChips selected={selectedGrade} onSelect={(grade: WmiGrade) => setSelectedGrade(grade)} />
+        <WmiGradeChips selected={selectedGrade} onSelect={(grade: WmiGrade) => setSelectedGrade(grade)} grades={[0, 1, 2, 3]} />
       </div>
 
       {error && <div className="mt-3 rounded-[1.25rem] bg-red-50 p-3 text-sm text-red-700">{error}</div>}

@@ -85,12 +85,12 @@ export default function WmiHub() {
           ) : garden && garden.chapters.length > 0 ? (
             garden.chapters.map((ch, i) => (
               <ChapterGarden
-                key={ch.themeKey}
+                key={ch.subjectKey}
                 chapter={ch}
                 index={i}
                 nextConceptSlug={garden.nextConceptSlug}
                 onConceptClick={(slug) => navigate(`/latihan/wmi/konsep?concept=${slug}`)}
-                onStartTest={(themeKey) => navigate(`/latihan/wmi/tes/${selectedGrade}/${themeKey}`)}
+                onStartTest={(subjectKey) => navigate(`/latihan/wmi/tes/${subjectKey}`)}
               />
             ))
           ) : (

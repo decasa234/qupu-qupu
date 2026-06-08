@@ -156,7 +156,7 @@ export default function App() {
           <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />
           <Route path="latihan/wmi/exam/:sessionId" element={<WmiExamPage />} />
           <Route path="latihan/wmi/exam/:sessionId/review" element={<WmiExamReviewPage />} />
-          <Route path="latihan/wmi/tes/:grade/:themeKey" element={<WmiChapterTest />} />
+          <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
         </Route>
 
         {/* Admin — untouched */}
