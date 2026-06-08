@@ -5,6 +5,7 @@ import type {
   WmiChapterTestQuestion,
   WmiChapterTestResult,
   WmiConceptAttemptInput,
+  WmiConceptGrown,
   WmiConceptProgressSummary,
   WmiConceptQuestion,
   WmiConceptVoteResult,
@@ -13,6 +14,8 @@ import type {
   WmiGarden,
   WmiGlossaryTerm,
   WmiGrade,
+  WmiKonsepGradeResult,
+  WmiKonsepSessionResult,
   WmiPaperDetail,
   WmiPaperSummary,
   WmiQuestion,
@@ -129,4 +132,23 @@ export async function submitChapterTest(
 ): Promise<WmiChapterTestResult> {
   const response = await api.post('/me/wmi/chapter-test/submit', { childId, subject_key: subjectKey, answers })
   return unwrap<WmiChapterTestResult>(response)
+}
+
+export async function gradeConceptAnswer(
+  childId: string, conceptInstanceId: string, selectedAnswer: string,
+): Promise<WmiKonsepGradeResult> {
+  const response = await api.post('/me/wmi/konsep/grade', {
+    childId, concept_instance_id: conceptInstanceId, selected_answer: selectedAnswer,
+  })
+  return unwrap<WmiKonsepGradeResult>(response)
+}
+
+export async function commitKonsepSession(
+  childId: string, subjectKey: string,
+  answers: { concept_instance_id: string; selected_answer: string }[],
+): Promise<WmiKonsepSessionResult> {
+  const response = await api.post('/me/wmi/konsep/commit', {
+    childId, subject_key: subjectKey, answers,
+  })
+  return unwrap<WmiKonsepSessionResult>(response)
 }

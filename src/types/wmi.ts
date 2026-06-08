@@ -259,3 +259,30 @@ export interface WmiChapterTestResult {
   correct: number
   total: number
 }
+
+export interface WmiKonsepGradeResult {
+  is_correct: boolean
+  correct_answer: string
+  hint_en: string | null
+  hint_id: string | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
+}
+export interface WmiConceptGrown {
+  slug: string
+  nameId: string
+  fromTier: number
+  toTier: number
+}
+export interface WmiKonsepSessionResult {
+  correct: number
+  total: number
+  xpEarned: number
+  coinsEarned: number
+  conceptsGrown: WmiConceptGrown[]
+  level: number
+  tierName: string
+  coinBalance: number
+  levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
+  streak: { current: number; longest: number }
+}
