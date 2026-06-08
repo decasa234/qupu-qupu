@@ -50,6 +50,7 @@ type NavItem = {
 
 const NAV_ITEMS_PARENT: NavItem[] = [
   { label: 'Beranda', to: '/' },
+  { label: 'Latihan WMI', to: '/wmi' },
   { label: 'Kategori', to: '/#kategori' },
   { label: 'Video', to: '/videos' },
 ]

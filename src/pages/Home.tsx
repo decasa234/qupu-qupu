@@ -9,6 +9,8 @@ import { cn } from '../lib/utils'
 import BadgeCurve from '../components/BadgeCurve'
 import HomeDemoQuiz from '../components/HomeDemoQuiz'
 import Reveal from '../components/Reveal'
+import LatihanWmiSection from '../components/wmi/marketing/LatihanWmiSection'
+import WmiPricingSection from '../components/wmi/marketing/WmiPricingSection'
 import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
 
@@ -117,10 +119,16 @@ export default function Home() {
         <ScoreBadgeCtaSection />
       </Reveal>
       <Reveal delay={0.05}>
+        <LatihanWmiSection />
+      </Reveal>
+      <Reveal delay={0.05}>
         <VideosSection videos={videos} />
       </Reveal>
       <Reveal delay={0.05}>
         <StatsBannerSection />
+      </Reveal>
+      <Reveal delay={0.05}>
+        <WmiPricingSection />
       </Reveal>
       <Reveal delay={0.05}>
         <SubscribeCtaSection />
