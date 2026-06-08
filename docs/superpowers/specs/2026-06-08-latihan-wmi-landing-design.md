@@ -97,7 +97,8 @@ Three deliverables, all on the **logged-out marketing surface**, fully decoupled
 ## 6. Component design (all new; under `src/components/wmi/marketing/` unless noted)
 
 ### `WmiConceptDemo.tsx` — no-login sandbox
-- Renders a curated explainer via `getExplainer(slug)` with hardcoded `params` + `correctAnswer` from
+- A thin tabbed wrapper around the existing self-contained `src/components/wmi/WmiExplainer.tsx` (explainer +
+  Replay + step controls, no auth/network/router), fed a curated `slug` + hardcoded `params` + `correctAnswer` from
   `src/data/wmiMarketing.ts`. `lang="id"`. Drives step/play with `useBeatControl` (same hook the member
   drill uses). Replay button; tab toggle between the ~2 featured concepts; step-dots.
 - **Featured concepts (primary):** `money-shopping-change` (Belanja & Kembalian) and `dice-net-fold`
@@ -150,7 +151,7 @@ Three deliverables, all on the **logged-out marketing surface**, fully decoupled
   standard `{ success, data }` shape used elsewhere.
 
 ### 7.2 Plan scaffolding (dormant hook, no gating)
-- Migration `db/migrations/0033_user_plan.sql`:
+- Migration `db/migrations/0034_user_plan.sql` (0033 is already taken by `wmi_curriculum.sql`):
   ```sql
   ALTER TABLE users
     ADD COLUMN IF NOT EXISTS plan TEXT NOT NULL DEFAULT 'free'
