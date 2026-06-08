@@ -1,6 +1,6 @@
 ---
 name: wmi-paper-conversion
-description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/paperQuestions. Golden reference: WMI-19F1A.
+description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/paperQuestions. Golden reference: WMI-19F1A. For a single question or concept (not a whole paper), use qupu-math-problem-creation instead.
 ---
 
 # WMI Paper Conversion
