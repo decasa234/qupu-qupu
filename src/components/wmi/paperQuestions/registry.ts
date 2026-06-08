@@ -48,6 +48,10 @@ import CountSquaresG2Illustration from './CountSquaresG2Illustration'
 import CountSquaresG2Explainer from './CountSquaresG2Explainer'
 import BalanceTwoScalesG2Illustration from './BalanceTwoScalesG2Illustration'
 import BalanceTwoScalesG2Explainer from './BalanceTwoScalesG2Explainer'
+import LockCodeG2Illustration from './LockCodeG2Illustration'
+import LockCodeG2Explainer from './LockCodeG2Explainer'
+import SumTo2019G2Illustration from './SumTo2019G2Illustration'
+import SumTo2019G2Explainer from './SumTo2019G2Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -79,6 +83,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F2A-Q15': { Illustration: SubtractionShapesG2Illustration, Explainer: SubtractionShapesG2Explainer },
   'WMI-19F2A-Q17': { Illustration: CountSquaresG2Illustration, Explainer: CountSquaresG2Explainer },
   'WMI-19F2A-Q20': { Illustration: BalanceTwoScalesG2Illustration, Explainer: BalanceTwoScalesG2Explainer },
+  'WMI-19F2A-Q22': { Illustration: LockCodeG2Illustration, Explainer: LockCodeG2Explainer },
+  'WMI-19F2A-Q23': { Illustration: SumTo2019G2Illustration, Explainer: SumTo2019G2Explainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
