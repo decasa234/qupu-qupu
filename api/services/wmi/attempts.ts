@@ -3,6 +3,7 @@ import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
 import { getWmiQuestionAnswer } from './papers.js'
 import { isCorrectAnswer } from './answerMatch.js'
+import { upsertConceptProgress } from './concepts/conceptProgress.js'
 
 export interface WmiAttemptInput {
   childId: string
@@ -47,6 +48,7 @@ export async function submitWmiAttempt(
     let hint_id: string | null
     let hint_steps_en: string[] | null
     let hint_steps_id: string[] | null
+    let conceptSlug: string | null = null
 
     if (input.mode === 'concept') {
       if (!input.conceptInstanceId) {
@@ -61,8 +63,9 @@ export async function submitWmiAttempt(
         hint_id: string | null
         hint_steps_en: string[] | null
         hint_steps_id: string[] | null
+        concept_slug: string
       }>(
-        'SELECT answer, hint_en, hint_id, hint_steps_en, hint_steps_id FROM wmi_concept_instances WHERE id = $1',
+        'SELECT answer, hint_en, hint_id, hint_steps_en, hint_steps_id, concept_slug FROM wmi_concept_instances WHERE id = $1',
         [input.conceptInstanceId],
         client,
       )
@@ -72,6 +75,7 @@ export async function submitWmiAttempt(
       hint_id = inst.hint_id
       hint_steps_en = inst.hint_steps_en
       hint_steps_id = inst.hint_steps_id
+      conceptSlug = inst.concept_slug
     } else {
       if (!input.questionId) {
         throw new Error('questionId is required for drill/exam attempts')
@@ -176,6 +180,7 @@ export async function submitWmiAttempt(
     // failed grant rolls back the attempt insert too.
     let gamification: ConceptRewardResult | undefined
     if (input.mode === 'concept') {
+      await upsertConceptProgress(client, input.childId, conceptSlug as string, correct)
       gamification = await awardConceptReward(client, {
         childId: input.childId,
         conceptInstanceId: input.conceptInstanceId as string,
