@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { fetchConceptNext } from '../../lib/wmiApi'
 import type { WmiGardenConcept, WmiGrade } from '../../types/wmi'
 import { PLANT_STAGES } from './plantStages'
+import PlantIcon from './PlantIcon'
 import { tagLabel } from './tagLabels'
 
 interface Props {
@@ -56,7 +57,7 @@ export default function ConceptInfoModal({ childId, grade, concept, onClose }: P
             className={`relative flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-[16px] border-2 text-[22px] ${stage.dashed ? 'border-dashed border-black/20' : 'border-black/10'}`}
             style={{ background: stage.bg, color: stage.fg }}
           >
-            <i className={`${stage.iconPrefix} ${stage.icon}${stage.iconExtra ? ` ${stage.iconExtra}` : ''}`} aria-hidden="true" />
+            <PlantIcon tier={concept.tier} />
             {stage.crown && (
               <i
                 className="fa-solid fa-crown absolute -right-1.5 -top-2 text-[13px] text-qupu-orange"

@@ -4,6 +4,7 @@ import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import { PLANT_STAGES } from '../components/wmi/plantStages'
+import PlantIcon from '../components/wmi/PlantIcon'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import type {
@@ -250,7 +251,7 @@ export default function WmiKonsepSession() {
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-base"
                     style={{ background: to.bg, color: to.fg }}
                   >
-                    <i className={`${to.iconPrefix} ${to.icon}${to.iconExtra ? ` ${to.iconExtra}` : ''}`} aria-hidden="true" />
+                    <PlantIcon tier={cg.toTier as 0 | 1 | 2 | 3 | 4} />
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="font-display text-[13px] font-black leading-tight text-qupu-brand-blue">{cg.nameId}</div>
