@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildDiceNetFoldBreakdown } from './breakdown.js'
 
 type Cell = [number, number]
 const cell = z.tuple([z.number().int(), z.number().int()])
@@ -66,6 +67,7 @@ export function render(params: Params) {
       'Tolak juga jaring yang berbentuk strip lurus 1×6 atau persegi panjang 2×3 — bentuk-bentuk ini tidak dapat menutup semua enam sisi kubus.',
       'Satu-satunya jaring yang tidak memiliki blok 2×2 dan bukan strip persegi panjang adalah jaring yang benar; itulah jawaban yang tepat.',
     ],
+    breakdown: buildDiceNetFoldBreakdown(params),
   }
 }
 
