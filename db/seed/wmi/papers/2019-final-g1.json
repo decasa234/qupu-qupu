@@ -843,7 +843,37 @@
         "Coba kurang lalu tambah: 12 - 6 + 7.",
         "12 - 6 = 6, lalu 6 + 7 = 13.",
         "Jadi tandanya kurang dan tambah."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What math symbols should be filled",
+            "phrase_id": "Tanda operasi apa yang harus diisikan",
+            "note_en": "We need the two signs that go in the boxes.",
+            "note_id": "Kita cari dua tanda yang masuk ke kotak."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "12 □ 6 □ 7 = 13",
+            "phrase_id": "12 □ 6 □ 7 = 13",
+            "note_en": "The whole thing must come out to 13.",
+            "note_id": "Hasil seluruhnya harus 13."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers", "label_id": "Bilangan", "value": "12, 6, 7" },
+          { "label_en": "Target answer", "label_id": "Hasil yang dicari", "value": "13" }
+        ],
+        "strategy": { "name_en": "Try each pair of signs until it makes 13", "name_id": "Coba tiap pasang tanda sampai hasilnya 13" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "+ , + gives 12 + 6 + 7 = 25, which is too big — only - , + makes 13.",
+          "why_id": "+ , + memberi 12 + 6 + 7 = 25, terlalu besar — hanya - , + yang jadi 13."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 15,
@@ -875,7 +905,37 @@
         "Hitung lingkaran, lalu persegi, lalu segitiga, lalu batang.",
         "Cocokkan hitunganmu dengan diagram yang sesuai untuk semuanya.",
         "Diagram C menunjukkan 10 lingkaran, 7 persegi, 4 segitiga, dan 6 batang."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the charts correctly counts",
+            "phrase_id": "Diagram manakah yang menghitung",
+            "note_en": "We pick the chart with the right counts.",
+            "note_id": "Kita pilih diagram dengan hitungan yang benar."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the shapes",
+            "phrase_id": "bangun-bangun",
+            "note_en": "Count each kind of shape in the picture.",
+            "note_id": "Hitung setiap jenis bangun pada gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Shape kinds to count", "label_id": "Jenis bangun dihitung", "value": "circle, square, triangle, bar" },
+          { "label_en": "Correct counts", "label_id": "Hitungan benar", "value": "10, 7, 4, 6" }
+        ],
+        "strategy": { "name_en": "Count one shape type at a time, then match the chart", "name_id": "Hitung satu jenis bangun sekaligus, lalu cocokkan diagram" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "A looks almost right but says 8 squares — careful counting gives only 7.",
+          "why_id": "A terlihat hampir benar tapi menulis 8 persegi — hitungan teliti hanya 7."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 16,
@@ -896,7 +956,32 @@
         "126 + 48 = 174, lalu 174 + 38 = 212.",
         "212 + 28 = 240.",
         "Jadi jumlahnya 240."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Compute",
+            "phrase_id": "Hitunglah",
+            "note_en": "We need to add all five numbers.",
+            "note_id": "Kita perlu menjumlahkan kelima bilangan."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "68 + 58 + 48 + 38 + 28",
+            "phrase_id": "68 + 58 + 48 + 38 + 28",
+            "note_en": "These are the five numbers to add.",
+            "note_id": "Inilah lima bilangan yang dijumlahkan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers to add", "label_id": "Bilangan dijumlahkan", "value": "68, 58, 48, 38, 28" }
+        ],
+        "strategy": { "name_en": "Add the numbers one step at a time", "name_id": "Jumlahkan bilangan satu langkah sekali" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "240" }
+      }
     },
     {
       "number": 17,
@@ -916,7 +1001,36 @@
         "Pertama hitung persegi kecil, lalu persegi lebih besar yang terbentuk dari beberapa persegi kecil.",
         "Jangan lupa persegi terbesar di sekeliling seluruh gambar.",
         "Menjumlahkan persegi dari semua ukuran menghasilkan 15."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many squares",
+            "phrase_id": "Ada berapa banyak persegi",
+            "note_en": "We need the total number of squares.",
+            "note_id": "Kita cari jumlah seluruh persegi."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "different sizes",
+            "phrase_id": "berbagai ukuran",
+            "note_en": "Count small squares and big ones made of small ones too.",
+            "note_id": "Hitung persegi kecil dan persegi besar dari gabungannya juga."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Count by", "label_id": "Hitung berdasarkan", "value": "each size" }
+        ],
+        "strategy": { "name_en": "Group squares by size and add them up", "name_id": "Kelompokkan persegi per ukuran lalu jumlahkan" },
+        "trap": {
+          "wrong": "9",
+          "why_en": "Counting only the small squares misses the bigger squares made of several small ones.",
+          "why_id": "Menghitung persegi kecil saja melewatkan persegi besar dari gabungan beberapa kecil."
+        },
+        "answer": { "form": "number", "unit": null, "value": "15" }
+      }
     },
     {
       "number": 18,
@@ -936,7 +1050,33 @@
         "Gunakan jumlah-jumlah yang diberikan untuk mencari nilai setiap bentuk satu per satu.",
         "Setelah tahu nilai bentuknya, jumlahkan segitiga dan bintang.",
         "Segitiga + bintang = 13."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the value of triangle + star",
+            "phrase_id": "tentukan nilai segitiga + bintang",
+            "note_en": "We need the triangle's value plus the star's value.",
+            "note_id": "Kita cari nilai segitiga ditambah nilai bintang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the three given totals",
+            "phrase_id": "ketiga jumlah yang diberikan",
+            "note_en": "Each total tells us what some shapes add up to.",
+            "note_id": "Setiap jumlah memberi tahu hasil penjumlahan bentuknya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Shapes to find", "label_id": "Bentuk yang dicari", "value": "triangle, star" },
+          { "label_en": "Clues given", "label_id": "Petunjuk diberikan", "value": "3 totals" }
+        ],
+        "strategy": { "name_en": "Find each shape's value, then add them", "name_id": "Cari nilai tiap bentuk, lalu jumlahkan" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "13" }
+      }
     },
     {
       "number": 19,
@@ -956,7 +1096,32 @@
         "Periksa lompatan antara bilangan yang sudah bisa kamu lihat.",
         "Gunakan aturan yang sama untuk maju sampai ke kotak ★.",
         "Mengikuti jalur menghasilkan ★ = 33."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find ★",
+            "phrase_id": "temukan ★",
+            "note_en": "We need the number in the star cell.",
+            "note_id": "Kita cari bilangan di kotak bintang."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Follow the path through the grid",
+            "phrase_id": "Ikuti jalur pada petak",
+            "note_en": "Move along the path in order, step by step.",
+            "note_id": "Bergerak sepanjang jalur secara berurutan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Target cell", "label_id": "Kotak yang dicari", "value": "★" }
+        ],
+        "strategy": { "name_en": "Find the step rule, then follow it to the star", "name_id": "Cari aturan lompatan, lalu ikuti sampai bintang" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "33" }
+      }
     },
     {
       "number": 20,
