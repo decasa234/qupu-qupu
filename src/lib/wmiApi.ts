@@ -2,12 +2,15 @@ import api from './api'
 import type {
   WmiAttemptInput,
   WmiAttemptResult,
+  WmiChapterTestQuestion,
+  WmiChapterTestResult,
   WmiConceptAttemptInput,
   WmiConceptProgressSummary,
   WmiConceptQuestion,
   WmiConceptVoteResult,
   WmiExamSession,
   WmiExamSnapshot,
+  WmiGarden,
   WmiGlossaryTerm,
   WmiGrade,
   WmiPaperDetail,
@@ -106,4 +109,24 @@ export async function submitConceptAttempt(input: WmiConceptAttemptInput): Promi
 export async function fetchConceptProgress(childId: string): Promise<WmiConceptProgressSummary> {
   const response = await api.get('/me/wmi/konsep/progress', { params: { childId } })
   return unwrap<WmiConceptProgressSummary>(response)
+}
+
+export async function fetchGarden(childId: string, grade: WmiGrade): Promise<WmiGarden> {
+  const response = await api.get('/me/wmi/garden', { params: { childId, grade } })
+  return unwrap<WmiGarden>(response)
+}
+
+export async function startChapterTest(
+  childId: string, grade: WmiGrade, themeKey: string,
+): Promise<{ questions: WmiChapterTestQuestion[] }> {
+  const response = await api.post('/me/wmi/chapter-test/start', { childId, grade, theme_key: themeKey })
+  return unwrap<{ questions: WmiChapterTestQuestion[] }>(response)
+}
+
+export async function submitChapterTest(
+  childId: string, grade: WmiGrade, themeKey: string,
+  answers: { concept_instance_id: string; selected_answer: string }[],
+): Promise<WmiChapterTestResult> {
+  const response = await api.post('/me/wmi/chapter-test/submit', { childId, grade, theme_key: themeKey, answers })
+  return unwrap<WmiChapterTestResult>(response)
 }

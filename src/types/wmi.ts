@@ -171,3 +171,48 @@ export interface WmiConceptAttemptInput {
   revealed_id_translation?: boolean
   looked_up_terms?: string[]
 }
+
+export type WmiComprehensionTier = 0 | 1 | 2 | 3 | 4
+
+export interface WmiGardenConcept {
+  slug: string
+  nameId: string
+  nameEn: string
+  difficulty: number
+  tier: WmiComprehensionTier
+  pct: number
+}
+export interface WmiGardenChapter {
+  themeKey: string
+  nameId: string
+  nameEn: string
+  colorHex: string
+  iconKey: string
+  concepts: WmiGardenConcept[]
+  meanPct: number
+  grownCount: number
+  total: number
+  unlocked: boolean
+  testedOut: boolean
+}
+export interface WmiGarden {
+  grade: WmiGrade
+  chapters: WmiGardenChapter[]
+  nextConceptSlug: string | null
+}
+
+export interface WmiChapterTestQuestion {
+  concept_instance_id: string
+  concept_slug: string
+  body_id: string
+  body_en: string
+  answer_type: WmiAnswerType
+  choices_id: WmiChoice[] | null
+  choices_en: WmiChoice[] | null
+}
+export interface WmiChapterTestResult {
+  passed: boolean
+  score_pct: number
+  correct: number
+  total: number
+}
