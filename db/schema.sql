@@ -575,14 +575,15 @@ CREATE UNIQUE INDEX IF NOT EXISTS uniq_wmi_attempts_exam_per_question
 -- WMI Concept Generator (migration 0021)
 -- ---------------------------------------------------------------------
 
--- Theme lookup (the 5 chapters) — migration 0033
-CREATE TABLE IF NOT EXISTS wmi_themes (
-  theme_key   TEXT PRIMARY KEY,
+-- Per-grade subjects — migration 0034
+CREATE TABLE IF NOT EXISTS wmi_subjects (
+  subject_key TEXT PRIMARY KEY,
+  grade       SMALLINT NOT NULL CHECK (grade BETWEEN 1 AND 3),
   name_id     TEXT NOT NULL,
   name_en     TEXT NOT NULL,
   color_hex   VARCHAR(7)  NOT NULL,
   icon_key    VARCHAR(80) NOT NULL,
-  sort_order  INT  NOT NULL DEFAULT 0,
+  sort_order  INT NOT NULL DEFAULT 0,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -597,7 +598,7 @@ CREATE TABLE IF NOT EXISTS wmi_concepts (
   total_served      INT NOT NULL DEFAULT 0,
   total_upvotes     INT NOT NULL DEFAULT 0,
   total_downvotes   INT NOT NULL DEFAULT 0,
-  theme_key         TEXT REFERENCES wmi_themes(theme_key),
+  subject_key       TEXT REFERENCES wmi_subjects(subject_key),
   difficulty        SMALLINT CHECK (difficulty IS NULL OR difficulty BETWEEN 1 AND 3),
   sort_order        INT NOT NULL DEFAULT 0,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -655,18 +656,17 @@ CREATE TABLE IF NOT EXISTS wmi_concept_progress (
   PRIMARY KEY (child_id, concept_slug)
 );
 
--- Tes Bab (chapter test-out) results — migration 0033
+-- Tes Bab (chapter test-out) results — migration 0034
 CREATE TABLE IF NOT EXISTS wmi_chapter_tests (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   child_id    UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
-  grade       SMALLINT NOT NULL CHECK (grade BETWEEN 0 AND 3),
-  theme_key   TEXT NOT NULL REFERENCES wmi_themes(theme_key) ON DELETE CASCADE,
+  subject_key TEXT NOT NULL REFERENCES wmi_subjects(subject_key),
   score_pct   SMALLINT NOT NULL CHECK (score_pct BETWEEN 0 AND 100),
   passed      BOOLEAN NOT NULL,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS wmi_chapter_tests_pass_idx
-  ON wmi_chapter_tests (child_id, grade, theme_key) WHERE passed;
+  ON wmi_chapter_tests (child_id, subject_key) WHERE passed;
 CREATE INDEX IF NOT EXISTS wmi_concepts_grades_gin ON wmi_concepts USING GIN (grades);
 
 CREATE TABLE IF NOT EXISTS wmi_concept_votes (
