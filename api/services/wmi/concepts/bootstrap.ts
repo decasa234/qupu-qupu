@@ -1,4 +1,5 @@
 import { query, queryOne, withTransaction } from '../../../db.js'
+import { CURRICULUM, THEMES } from './curriculum.js'
 import { ALL_SLUGS, CONCEPTS } from './registry.js'
 import { mulberry32 } from './rng.js'
 import type { ConceptLogic } from './types.js'
@@ -23,33 +24,51 @@ async function doBootstrap(): Promise<void> {
   // hint_steps columns come from migration 0023). This bootstrap no longer
   // runs DDL at request time — it only upserts concept rows and seeds the
   // idempotent starter instance pool.
+  await upsertThemes()
   await upsertConcepts()
   for (const slug of ALL_SLUGS) {
     await seedConcept(slug, CONCEPTS[slug] as ConceptLogic<unknown>)
   }
 }
 
+async function upsertThemes(): Promise<void> {
+  await withTransaction(async (client) => {
+    for (const t of THEMES) {
+      await client.query(
+        `INSERT INTO wmi_themes (theme_key, name_id, name_en, color_hex, icon_key, sort_order)
+         VALUES ($1,$2,$3,$4,$5,$6)
+         ON CONFLICT (theme_key) DO UPDATE SET
+           name_id = EXCLUDED.name_id, name_en = EXCLUDED.name_en,
+           color_hex = EXCLUDED.color_hex, icon_key = EXCLUDED.icon_key,
+           sort_order = EXCLUDED.sort_order`,
+        [t.themeKey, t.name_id, t.name_en, t.color_hex, t.icon_key, t.sort_order],
+      )
+    }
+  })
+}
+
 async function upsertConcepts(): Promise<void> {
   await withTransaction(async (client) => {
     for (const slug of ALL_SLUGS) {
       const c = CONCEPTS[slug]
+      const cur = CURRICULUM[slug as keyof typeof CURRICULUM]
       await client.query(
-        `
-        INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades)
-        VALUES ($1, $2, $3, $4, $5::SMALLINT[])
-        ON CONFLICT (slug) DO UPDATE SET
-          name_en = EXCLUDED.name_en,
-          name_id = EXCLUDED.name_id,
-          description_id = EXCLUDED.description_id,
-          grades = EXCLUDED.grades,
-          updated_at = NOW()
-        `,
+        `INSERT INTO wmi_concepts (slug, name_en, name_id, description_id, grades, theme_key, difficulty, sort_order)
+         VALUES ($1,$2,$3,$4,$5::SMALLINT[],$6,$7,$8)
+         ON CONFLICT (slug) DO UPDATE SET
+           name_en = EXCLUDED.name_en, name_id = EXCLUDED.name_id,
+           description_id = EXCLUDED.description_id, grades = EXCLUDED.grades,
+           theme_key = EXCLUDED.theme_key, difficulty = EXCLUDED.difficulty,
+           sort_order = EXCLUDED.sort_order, updated_at = NOW()`,
         [
           c.meta.slug,
           c.meta.name_en,
           c.meta.name_id,
           c.meta.description_id ?? null,
           c.meta.grades as readonly number[],
+          cur.themeKey,
+          cur.difficulty,
+          cur.sortOrder,
         ],
       )
     }
