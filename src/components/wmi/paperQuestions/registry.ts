@@ -35,20 +35,20 @@ interface QuestionVisual {
 }
 
 const VISUALS: Record<string, QuestionVisual> = {
-  'WMI-19F1-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
-  'WMI-19F1-Q4': { Illustration: SecondLongestIllustration, Explainer: SecondLongestExplainer },
-  'WMI-19F1-Q6': { Illustration: ClockReadIllustration, Explainer: ClockReadExplainer },
-  'WMI-19F1-Q8': { Illustration: WhiteCircleSquareIllustration, Explainer: WhiteCircleSquareExplainer },
-  'WMI-19F1-Q10': { Illustration: NumberPatternIllustration, Explainer: NumberPatternExplainer },
-  'WMI-19F1-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
-  'WMI-19F1-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
-  'WMI-19F1-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
-  'WMI-19F1-Q18': { Illustration: ShapeEquationIllustration, Explainer: ShapeEquationExplainer },
-  'WMI-19F1-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
-  'WMI-19F1-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
-  'WMI-19F1-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
-  'WMI-19F1-Q24': { Illustration: KenKenGridIllustration, Explainer: KenKenExplainer },
-  'WMI-19F1-Q25': { Illustration: ArrowGridIllustration, Explainer: ArrowGridExplainer },
+  'WMI-19F1A-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
+  'WMI-19F1A-Q4': { Illustration: SecondLongestIllustration, Explainer: SecondLongestExplainer },
+  'WMI-19F1A-Q6': { Illustration: ClockReadIllustration, Explainer: ClockReadExplainer },
+  'WMI-19F1A-Q8': { Illustration: WhiteCircleSquareIllustration, Explainer: WhiteCircleSquareExplainer },
+  'WMI-19F1A-Q10': { Illustration: NumberPatternIllustration, Explainer: NumberPatternExplainer },
+  'WMI-19F1A-Q11': { Illustration: BalanceScaleIllustration, Explainer: BalanceScaleExplainer },
+  'WMI-19F1A-Q15': { Illustration: ShapeCountChartIllustration, Explainer: ShapeCountChartExplainer },
+  'WMI-19F1A-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
+  'WMI-19F1A-Q18': { Illustration: ShapeEquationIllustration, Explainer: ShapeEquationExplainer },
+  'WMI-19F1A-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
+  'WMI-19F1A-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
+  'WMI-19F1A-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
+  'WMI-19F1A-Q24': { Illustration: KenKenGridIllustration, Explainer: KenKenExplainer },
+  'WMI-19F1A-Q25': { Illustration: ArrowGridIllustration, Explainer: ArrowGridExplainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
