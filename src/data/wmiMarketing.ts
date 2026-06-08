@@ -34,6 +34,13 @@ export const DEMO_CONCEPTS: DemoConcept[] = [
     correctAnswer: 'A',
     caption: 'Anak membayangkan jaring-jaring terlipat menjadi kubus, melatih nalar ruang.',
   },
+  {
+    slug: 'count-rectangles-grid',
+    label: 'Hitung Persegi',
+    params: { cols: 3, rows: 3 },
+    correctAnswer: '14',
+    caption: 'Anak menghitung persegi dari semua ukuran, yang kecil sampai yang besar.',
+  },
 ]
 
 export const FREE_TIER = {
@@ -82,29 +89,20 @@ export interface Testimonial {
 export const TESTIMONIALS: Testimonial[] = []
 
 // ---- /wmi challenge hook (the "smarter than a 2nd grader?" question) ----
-// A real WMI dice-net concept: which 6-square net folds into a closed cube?
-// Net A is the only valid one. Cells are [col, row]; the thumbnail renderer
-// normalizes the bounding box. This is the same concept the demo slide animates.
-export type NetCell = [number, number]
-
-export interface NetOption {
-  label: 'A' | 'B' | 'C' | 'D'
-  cells: NetCell[]
-}
-
+// A real WMI count-squares concept: how many squares of ALL sizes fit in a 3x3
+// grid? Parents say 9 (the unit cells); the answer is 9 + 4 + 1 = 14. The demo
+// slide animates this exact concept, highlighting squares size by size.
 export const HOOK_QUESTION = {
   eyebrow: 'Latihan WMI · Tantangan',
   title: 'Lebih pintar dari anak Kelas 2?',
-  prompt: 'Empat jaring dari 6 persegi. Mana yang bisa dilipat menjadi kubus tertutup?',
-  options: [
-    { label: 'A', cells: [[0, 1], [1, 1], [2, 1], [3, 1], [2, 0], [0, 2]] },
-    { label: 'B', cells: [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1]] },
-    { label: 'C', cells: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]] },
-    { label: 'D', cells: [[0, 0], [1, 0], [0, 1], [1, 1], [2, 1], [3, 1]] },
-  ] as NetOption[],
-  answer: 'A' as const,
-  // Index of dice-net-fold inside DEMO_CONCEPTS, so the demo opens on this concept.
-  demoIndex: 1,
+  prompt: 'Pada kisi 3×3 di bawah, ada berapa persegi dari semua ukuran?',
+  grid: { rows: 3, cols: 3 },
+  options: ['9', '13', '14', '16'],
+  answer: '14',
+  // Shown after answering, to make the trap click.
+  reveal: '9 ukuran 1×1, 4 ukuran 2×2, 1 ukuran 3×3 = 14',
+  // Index of count-rectangles-grid inside DEMO_CONCEPTS, so the demo opens on it.
+  demoIndex: 2,
 }
 
 // ---- concept mastery tree (illustrative; public page shows the journey, not real data) ----

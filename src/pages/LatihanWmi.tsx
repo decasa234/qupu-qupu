@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Reveal from '@/components/Reveal'
 import WmiChallenge from '@/components/wmi/marketing/WmiChallenge'
-import WmiTrustStats from '@/components/wmi/marketing/WmiTrustStats'
 import WmiTestimonials from '@/components/wmi/marketing/WmiTestimonials'
 import { TESTIMONIALS } from '@/data/wmiMarketing'
 
@@ -26,28 +25,12 @@ const LEARN_STEPS = [
   },
 ]
 
-// What the child actually builds — the persuasion that matters to a parent.
+// What the child actually builds: the persuasion that matters to a parent.
 const OUTCOMES = [
-  {
-    icon: 'fa-solid fa-diagram-project',
-    skill: 'Penalaran logis',
-    benefit: 'Berpikir runut dan teratur, menimbang dulu sebelum menjawab, bukan asal menebak.',
-  },
-  {
-    icon: 'fa-solid fa-puzzle-piece',
-    skill: 'Pemecahan masalah',
-    benefit: 'Memecah soal sulit menjadi langkah-langkah kecil yang bisa diselesaikan.',
-  },
-  {
-    icon: 'fa-solid fa-cube',
-    skill: 'Nalar ruang',
-    benefit: 'Membayangkan bentuk, pola, dan ruang di kepala, fondasi geometri dan sains.',
-  },
-  {
-    icon: 'fa-solid fa-fire',
-    skill: 'Tekun & percaya diri',
-    benefit: 'Berani mencoba soal menantang dan tidak menyerah saat belum ketemu.',
-  },
+  { icon: 'fa-solid fa-diagram-project', iconBg: 'bg-qupu-brand-blue', skill: 'Penalaran logis', benefit: 'Berpikir runut, bukan menebak.' },
+  { icon: 'fa-solid fa-puzzle-piece', iconBg: 'bg-qupu-brand-orange', skill: 'Pemecahan masalah', benefit: 'Memecah soal sulit jadi langkah kecil.' },
+  { icon: 'fa-solid fa-cube', iconBg: 'bg-qupu-brand-blue', skill: 'Nalar ruang', benefit: 'Membayangkan bentuk dan ruang.' },
+  { icon: 'fa-solid fa-fire', iconBg: 'bg-qupu-brand-orange', skill: 'Tekun & percaya diri', benefit: 'Berani coba, tak gampang menyerah.' },
 ]
 
 /** A scatter of brand-yellow star sprinkles for emphasis surfaces. */
@@ -78,8 +61,7 @@ export default function LatihanWmiPage() {
                 Bukan soal jadi juara olimpiade. Soal cara berpikir yang menempel seumur hidup.
               </h2>
               <p className="mt-4 max-w-md text-sm font-semibold leading-relaxed text-qupu-brand-blue/80 sm:text-base">
-                WMI (World Mathematics Invitation) adalah kompetisi matematika internasional untuk anak. Di QUPU,
-                anak belajar konsepnya sebagai latihan berpikir, bukan menghafal rumus.
+                WMI adalah kompetisi matematika internasional untuk anak. Di QUPU, konsepnya jadi latihan berpikir, bukan hafalan.
               </p>
               <Link
                 to="/register"
@@ -92,22 +74,20 @@ export default function LatihanWmiPage() {
               </Link>
             </div>
 
-            <ul>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {OUTCOMES.map((o) => (
-                <li
+                <div
                   key={o.skill}
-                  className="flex items-start gap-4 border-b-2 border-qupu-peach/60 py-4 first:pt-0 last:border-b-0 last:pb-0"
+                  className="group rounded-[1.5rem] border-[3px] border-qupu-brand-blue/10 bg-white p-5 shadow-[4px_5px_0_0_#FFD3B1] transition-transform duration-200 hover:-translate-y-1.5"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-xl text-qupu-brand-orange shadow-[3px_4px_0_0_#FFD3B1]">
+                  <span className={`flex h-11 w-11 items-center justify-center rounded-2xl text-lg text-white shadow-md transition-transform duration-200 group-hover:scale-110 ${o.iconBg}`}>
                     <i className={o.icon} aria-hidden="true" />
                   </span>
-                  <div>
-                    <div className="font-display text-lg font-extrabold text-qupu-brand-blue">{o.skill}</div>
-                    <p className="mt-0.5 text-sm font-semibold leading-relaxed text-qupu-muted">{o.benefit}</p>
-                  </div>
-                </li>
+                  <div className="mt-3 font-display text-base font-extrabold text-qupu-brand-blue">{o.skill}</div>
+                  <p className="mt-0.5 text-xs font-semibold leading-relaxed text-qupu-muted">{o.benefit}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className="mt-8 rounded-2xl bg-white/70 px-5 py-4 text-center text-sm font-bold text-qupu-brand-blue">
@@ -145,20 +125,7 @@ export default function LatihanWmiPage() {
         </section>
       </Reveal>
 
-      {/* 4 · Angka QUPU (true stats) */}
-      <Reveal delay={0.05}>
-        <section className="text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Sudah Siap</div>
-          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
-            Yang sudah siap untuk anak
-          </h2>
-          <div className="mt-7">
-            <WmiTrustStats />
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 5 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
+      {/* 4 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
       {TESTIMONIALS.length > 0 && (
         <Reveal delay={0.05}>
           <WmiTestimonials />
