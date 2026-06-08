@@ -36,7 +36,36 @@
         "22 + 22 = 44.",
         "44 + 4 = 48.",
         "Jadi ada 48 bintang."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many",
+            "phrase_id": "berapa banyak",
+            "note_en": "We need the total number of stars.",
+            "note_id": "Kita perlu jumlah total bintangnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "stars",
+            "phrase_id": "bintang",
+            "note_en": "Count every star in the picture.",
+            "note_id": "Hitung setiap bintang pada gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Stars per row", "label_id": "Bintang per baris", "value": "22, 22, 4" }
+        ],
+        "strategy": { "name_en": "Count in groups, then add", "name_id": "Hitung berkelompok, lalu jumlahkan" },
+        "trap": {
+          "wrong": "44",
+          "why_en": "That is only 22 + 22 — it forgets the row of 4 stars.",
+          "why_id": "Itu hanya 22 + 22 — lupa baris berisi 4 bintang."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 2,

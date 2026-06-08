@@ -100,6 +100,7 @@ export interface AdminPaperQuestion {
   code?: string
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
+  breakdown?: Breakdown | null
 }
 
 export interface PaperReview {

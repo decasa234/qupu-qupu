@@ -1,3 +1,5 @@
+import type { Breakdown } from '../concepts/types.js'
+
 export interface PaperQuestion {
   number: number
   body_en: string
@@ -11,6 +13,7 @@ export interface PaperQuestion {
   hint_id?: string
   hint_steps_en?: string[]
   hint_steps_id?: string[]
+  breakdown?: Breakdown
   difficulty?: number
 }
 
