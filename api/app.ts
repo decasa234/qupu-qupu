@@ -67,9 +67,24 @@ if (allowedOrigins.length === 0 && process.env.NODE_ENV === 'production') {
   )
 }
 
+// In development (NODE_ENV !== 'production') also reflect any localhost /
+// 127.0.0.1 origin regardless of port, so a Vite dev server that hops to
+// 5174/5175/... isn't blocked by CORS. Production stays on the strict allowlist.
+const isDevLocalhostOrigin = (origin: string): boolean =>
+  process.env.NODE_ENV !== 'production' &&
+  /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+
 app.use(
   cors({
-    origin: allowedOrigins.length === 0 ? true : allowedOrigins,
+    origin: (origin, callback) => {
+      // No Origin header → same-origin or non-browser client (curl, SSR). Allow.
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.length === 0) return callback(null, true)
+      if (allowedOrigins.includes(origin) || isDevLocalhostOrigin(origin)) {
+        return callback(null, true)
+      }
+      return callback(null, false)
+    },
     credentials: true,
   }),
 )
