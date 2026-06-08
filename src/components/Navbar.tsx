@@ -53,6 +53,7 @@ const NAV_ITEMS_PARENT: NavItem[] = [
   { label: 'Latihan WMI', to: '/wmi' },
   { label: 'Kategori', to: '/#kategori' },
   { label: 'Video', to: '/videos' },
+  { label: 'Harga', to: '/harga' },
 ]
 
 const NAV_ITEMS_ADMIN: NavItem[] = [

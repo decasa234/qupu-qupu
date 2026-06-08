@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import Reveal from '@/components/Reveal'
 import WmiConceptDemo from '@/components/wmi/marketing/WmiConceptDemo'
 import WmiTrustStats from '@/components/wmi/marketing/WmiTrustStats'
-import WmiPricingSection from '@/components/wmi/marketing/WmiPricingSection'
 import WmiTestimonials from '@/components/wmi/marketing/WmiTestimonials'
 import { FOUNDER, TESTIMONIALS } from '@/data/wmiMarketing'
 
@@ -157,25 +156,29 @@ export default function LatihanWmiPage() {
         </Reveal>
       )}
 
-      {/* 8 · Pricing */}
-      <Reveal delay={0.05}>
-        <WmiPricingSection />
-      </Reveal>
-
-      {/* 9 · Closing CTA */}
+      {/* 8 · Closing CTA */}
       <Reveal delay={0.05}>
         <section className="overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-12 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
           <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Jadi salah satu keluarga pertama</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed text-white/90 sm:text-base">
             Coba Latihan WMI gratis hari ini. Tidak perlu kartu kredit.
           </p>
-          <Link
-            to="/register"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
-          >
-            <i className="fa-solid fa-user-plus" aria-hidden="true" />
-            Daftar Gratis
-          </Link>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform hover:-translate-y-0.5"
+            >
+              <i className="fa-solid fa-user-plus" aria-hidden="true" />
+              Daftar Gratis
+            </Link>
+            <Link
+              to="/harga"
+              className="inline-flex items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
+            >
+              <i className="fa-solid fa-tag" aria-hidden="true" />
+              Lihat Harga
+            </Link>
+          </div>
         </section>
       </Reveal>
     </div>
