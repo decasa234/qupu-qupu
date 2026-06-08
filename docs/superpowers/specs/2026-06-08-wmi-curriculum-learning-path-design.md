@@ -112,3 +112,28 @@ A reviewable seed assigns all 73 concepts a `theme_key`, `difficulty` (1–3), a
 - Comprehension climbs with practice, never visibly drops, and top tiers require accuracy.
 - Locked chapters can be entered either by growing the prior chapter to 70% or by passing a Tes Bab.
 - No stuck spinner anywhere on the hub.
+
+---
+
+## Amendment (2026-06-08, post-slice-1): modular per-grade subjects + drop Grade 0
+
+Supersedes the "5 global themes + multi-grade concepts" model above.
+
+**Decisions:**
+- **Drop Grade 0.** Picker is Grade 1/2/3. `count-objects` (and any grade-0 concept) moves to Grade 1.
+- **Subjects are per-grade and specific.** Each grade owns its own list of specific subjects (no shared global themes). Subject names cover all topic varieties at that grade's level.
+- **Single home per concept.** Each concept belongs to exactly one grade + one subject (no multi-grade spanning in the garden). Home grades are assigned by difficulty (basic→G1, intermediate→G2, advanced→G3) so each grade lands ~24 concepts spanning all topic types (avoids the lopsided "by lowest grade" split where G2≈38 / G3≈7).
+
+**Approved subject taxonomy (exact concept→subject assignment finalized in build w/ coverage test):**
+- **Grade 1 — Fondasi:** Menghitung & Urutan Bilangan · Penjumlahan & Pengurangan · Pola & Barisan · Bentuk & Simetri Dasar · Pecahan Dasar · Jam, Turus & Diagram · Soal Cerita Sederhana
+- **Grade 2 — Pengembangan:** Nilai Tempat & Bilangan · Operasi & Ekspresi Hitung · Keliling & Luas · Geometri & Bangun Ruang · Pengukuran & Skala · Logika & Penalaran · Uang & Soal Cerita · Diagram, Tabel & Data
+- **Grade 3 — Lanjutan:** Perkalian, Faktor & Kelipatan · Bilangan & Pola Lanjut · Geometri Lanjut · Logika & Strategi · Soal Cerita Multi-langkah · Pengukuran Lanjut
+
+**Data model change (migration 0034, supersedes 0033's theme model):**
+- Replace `wmi_themes` with **`wmi_subjects(subject_key TEXT PK, grade SMALLINT, name_id, name_en, color_hex, icon_key, sort_order)`** — `subject_key` globally unique (grade-prefixed, e.g. `g1-hitung`); grade lives on the subject.
+- `wmi_concepts`: drop `theme_key`; add `subject_key TEXT REFERENCES wmi_subjects(subject_key)`. A concept's grade is derived from its subject (no separate home_grade column). Keep `difficulty`, `sort_order`.
+- `wmi_chapter_tests`: `theme_key` → `subject_key`; the `grade` column is dropped (grade is derivable from the subject). Table is empty, so no data migration needed.
+- `wmi_concept_progress` unchanged (per child×concept).
+
+**Code changes:** `curriculum.ts` → `SUBJECTS` (per-grade) + `CURRICULUM` (slug → {subjectKey, difficulty, sortOrder}); `bootstrap.ts` seeds `wmi_subjects` and stamps `subject_key`; `garden.ts` filters `JOIN wmi_subjects s ON s.subject_key=c.subject_key WHERE s.grade=$grade`, groups by subject; `chapterTest.ts` keys off `subject_key`; frontend renames `themeKey`→`subjectKey`, grade chips show 1–3 (default 1). Re-run migration + backfill against the DB.
+

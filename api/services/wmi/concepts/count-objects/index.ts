@@ -19,7 +19,7 @@ export const meta = {
   slug: 'count-objects',
   name_en: 'Counting objects',
   name_id: 'Menghitung benda',
-  grades: [0] as const,
+  grades: [1] as const,
   description_id: 'Hitung benda yang muncul di gambar.',
 } as const
 

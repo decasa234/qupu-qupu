@@ -44,7 +44,7 @@ describe('count-objects', () => {
     expect(labels.size).toBeGreaterThan(1)
   })
 
-  test('grades include 0', () => {
-    expect(concept.meta.grades).toContain(0)
+  test('grades include 1', () => {
+    expect(concept.meta.grades).toContain(1)
   })
 })
