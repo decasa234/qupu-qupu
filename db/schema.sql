@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255),
   google_sub VARCHAR(255) UNIQUE,
   role VARCHAR(20) NOT NULL DEFAULT 'parent' CHECK (role IN ('student', 'teacher', 'parent', 'admin')),
+  plan TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free', 'premium', 'pro')),
   is_verified BOOLEAN NOT NULL DEFAULT FALSE,
   verification_token VARCHAR(255),
   reset_token VARCHAR(255),
