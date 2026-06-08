@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildAngleTypeBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   degrees: z.number().int().min(10).max(170),
@@ -77,6 +78,7 @@ export function render(params: Params) {
           : 'Sudut yang lebih besar dari 90° (tetapi kurang dari 180°) disebut sudut tumpul.',
       `Sudut yang ditunjukkan adalah sudut ${catID}.`,
     ],
+    breakdown: buildAngleTypeBreakdown(params),
   }
 }
 

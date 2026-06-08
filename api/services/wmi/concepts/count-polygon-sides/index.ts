@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCountPolygonSidesBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   sides: z.number().int().min(3).max(8),
@@ -60,6 +61,7 @@ export function render(params: Params) {
       `Bangun pada gambar memiliki ${sides} tepi lurus, jadi bangun itu memiliki ${sides} sisi.`,
       `Bangun datar bersisi ${sides} disebut ${nameId}. Jawaban: ${sides}.`,
     ],
+    breakdown: buildCountPolygonSidesBreakdown(params),
   }
 }
 

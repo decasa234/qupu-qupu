@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildSymmetryCountBreakdown } from './breakdown.js'
 
 const KINDS = [
   'equilateral-triangle',
@@ -137,6 +138,7 @@ export function render(params: Params) {
     hint_id: 'Garis simetri melipat bangun sehingga kedua bagiannya saling menutupi dengan tepat.',
     hint_steps_en: STEPS_EN[params.kind],
     hint_steps_id: STEPS_ID[params.kind],
+    breakdown: buildSymmetryCountBreakdown(params),
   }
 }
 
