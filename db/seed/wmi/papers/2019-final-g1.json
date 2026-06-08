@@ -1140,7 +1140,40 @@
         "Susun dari yang terkecil: 12, 13, 14, 21, 23, ...",
         "Hitung sampai bilangan kelima dalam daftar.",
         "Bilangan kelima adalah 23."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What is the fifth number?",
+            "phrase_id": "Bilangan ke-5 adalah?",
+            "note_en": "We need the 5th number in the sorted list.",
+            "note_id": "Kita cari bilangan ke-5 dalam daftar terurut."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the digits 1, 2, 3, and 4",
+            "phrase_id": "angka 1, 2, 3, dan 4",
+            "note_en": "We build numbers using these four digits.",
+            "note_id": "Kita susun bilangan dari empat angka ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two digits are different",
+            "phrase_id": "kedua angkanya berbeda",
+            "note_en": "The two digits must not be the same.",
+            "note_id": "Kedua angkanya tidak boleh sama."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Digits allowed", "label_id": "Angka boleh dipakai", "value": "1, 2, 3, 4" },
+          { "label_en": "Sorted list", "label_id": "Daftar terurut", "value": "12, 13, 14, 21, 23, ..." }
+        ],
+        "strategy": { "name_en": "List the numbers smallest first, then count to the fifth", "name_id": "Susun dari terkecil, lalu hitung sampai yang kelima" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "23" }
+      }
     },
     {
       "number": 21,
@@ -1159,7 +1192,40 @@
         "Dari 1, bilangan 5, 9, 13, 17, 21 naik 4 setiap kali.",
         "Bilangan 6 tidak cocok dengan pola +4 ini.",
         "Jadi hapus 6, dan sisanya naik 4 secara teratur."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which number should be deleted?",
+            "phrase_id": "Bilangan manakah yang harus dihapus?",
+            "note_en": "We need the one number that breaks the pattern.",
+            "note_id": "Kita cari satu bilangan yang merusak polanya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1, 5, 6, 9, 13, 17, and 21",
+            "phrase_id": "1, 5, 6, 9, 13, 17, dan 21",
+            "note_en": "These are all the numbers we start with.",
+            "note_id": "Inilah semua bilangan awalnya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "form a regular sequence",
+            "phrase_id": "membentuk barisan yang berpola teratur",
+            "note_en": "After deleting, the rest must jump by the same step.",
+            "note_id": "Setelah dihapus, sisanya harus melompat sama besar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers given", "label_id": "Bilangan diberikan", "value": "1, 5, 6, 9, 13, 17, 21" },
+          { "label_en": "Steady step", "label_id": "Lompatan tetap", "value": "+4" }
+        ],
+        "strategy": { "name_en": "Find the steady +4 step and spot the misfit", "name_id": "Cari lompatan tetap +4 dan temukan yang tak cocok" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "6" }
+      }
     },
     {
       "number": 22,
@@ -1179,7 +1245,40 @@
         "Gunakan 14 di kiri dan 23 di kanan untuk mencari bilangan kotak yang hilang.",
         "Lalu jumlahkan semua bilangan yang masuk ke apel.",
         "Nilai pada apel adalah 20."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the value at the apple",
+            "phrase_id": "Tentukan nilai pada gambar apel",
+            "note_en": "We need the number that belongs at the apple.",
+            "note_id": "Kita cari bilangan di gambar apel."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "must add up to the number shown above it",
+            "phrase_id": "harus berjumlah sama dengan bilangan di atasnya",
+            "note_en": "Numbers flowing into a box must add to the number on top.",
+            "note_id": "Bilangan yang masuk ke kotak harus sejumlah bilangan di atasnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "14 on the left side, 23 on the right side",
+            "phrase_id": "14 di sisi kiri, 23 di sisi kanan",
+            "note_en": "These two totals help us find the missing boxes.",
+            "note_id": "Dua jumlah ini membantu cari kotak yang hilang."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Left total", "label_id": "Jumlah kiri", "value": "14" },
+          { "label_en": "Right total", "label_id": "Jumlah kanan", "value": "23" }
+        ],
+        "strategy": { "name_en": "Use each total to fill the boxes, then add into the apple", "name_id": "Pakai tiap jumlah untuk isi kotak, lalu jumlahkan ke apel" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "20" }
+      }
     },
     {
       "number": 23,
@@ -1199,7 +1298,40 @@
         "Tersisa hanya 2, 5, 7, 9, 0 sebagai angka yang mungkin.",
         "Dari 753 ada dua angka benar, dan dari 347 hanya 7 yang pas di tempatnya.",
         "Periksa setiap petunjuk sampai satu-satunya kode yang cocok adalah 527."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the code",
+            "phrase_id": "tentukan kodenya",
+            "note_en": "We need the secret 3-digit lock code.",
+            "note_id": "Kita cari kode rahasia 3 angka."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "164: no digit is correct",
+            "phrase_id": "164: tidak ada angka yang benar",
+            "note_en": "None of 1, 6, 4 are in the code, so cross them out.",
+            "note_id": "1, 6, 4 tidak ada di kode, jadi coret semuanya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "753: two digits are correct",
+            "phrase_id": "753: dua angka benar",
+            "note_en": "Two of these digits really are in the code.",
+            "note_id": "Dua dari angka ini benar-benar ada di kode."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Code length", "label_id": "Panjang kode", "value": "3 digits" },
+          { "label_en": "Ruled out", "label_id": "Dicoret", "value": "1, 3, 4, 6, 8" }
+        ],
+        "strategy": { "name_en": "Cross out the bad digits, then test what's left against every clue", "name_id": "Coret angka yang salah, lalu uji sisanya pada tiap petunjuk" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "527" }
+      }
     },
     {
       "number": 24,
@@ -1219,7 +1351,40 @@
         "Mulai dari bingkai yang hanya punya satu cara untuk jumlah atau selisihnya.",
         "Isi bingkai itu, lalu pakai aturan baris dan kolom untuk melengkapi sisanya.",
         "Baca kotak pojok A, B, C, D untuk mendapat 2134."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the 4-digit number ABCD made from the corner cells",
+            "phrase_id": "Tentukan bilangan empat angka ABCD dari kotak-kotak pojoknya",
+            "note_en": "We read the four corner cells to make ABCD.",
+            "note_id": "Kita baca empat kotak pojok untuk membentuk ABCD."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "every row and every column are all different",
+            "phrase_id": "setiap baris dan setiap kolom semuanya berbeda",
+            "note_en": "Each row and column uses 1, 2, 3, 4 once each.",
+            "note_id": "Tiap baris dan kolom memakai 1, 2, 3, 4 sekali saja."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the sum or the difference of the numbers in that frame",
+            "phrase_id": "jumlah atau selisih angka-angka di dalam bingkai itu",
+            "note_en": "Each bold frame tells the sum or difference inside it.",
+            "note_id": "Tiap bingkai tebal memberi jumlah atau selisih di dalamnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers allowed", "label_id": "Angka boleh dipakai", "value": "1, 2, 3, 4" },
+          { "label_en": "Corners to read", "label_id": "Pojok dibaca", "value": "A, B, C, D" }
+        ],
+        "strategy": { "name_en": "Solve the easy frames first, then use the row-column rule", "name_id": "Selesaikan bingkai mudah dulu, lalu pakai aturan baris-kolom" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "2134" }
+      }
     },
     {
       "number": 25,
@@ -1239,7 +1404,39 @@
         "Untuk setiap panah, hitung berapa banyak bilangan berbeda yang muncul ke arah itu.",
         "Panah dua arah menjumlahkan bilangan berbeda yang terlihat di kedua sisi.",
         "Membaca panah A, B, C, D berurutan menghasilkan 2211."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the 4-digit number ABCD",
+            "phrase_id": "tentukan bilangan empat angka ABCD",
+            "note_en": "We read arrows A, B, C, D to make the number.",
+            "note_id": "Kita baca panah A, B, C, D untuk membentuk bilangannya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the number of different numbers seen in the direction it points",
+            "phrase_id": "banyaknya bilangan berbeda yang terlihat ke arah panah itu menunjuk",
+            "note_en": "Each arrow counts the different numbers it can see.",
+            "note_id": "Tiap panah menghitung bilangan berbeda yang bisa dilihatnya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "both pointed directions combined",
+            "phrase_id": "kedua arah digabungkan",
+            "note_en": "A two-way arrow counts both directions together.",
+            "note_id": "Panah dua arah menghitung kedua arah sekaligus."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Arrows to read", "label_id": "Panah dibaca", "value": "A, B, C, D" }
+        ],
+        "strategy": { "name_en": "Use the example, then count different numbers per arrow", "name_id": "Pakai contoh, lalu hitung bilangan berbeda tiap panah" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "2211" }
+      }
     }
   ]
 }
