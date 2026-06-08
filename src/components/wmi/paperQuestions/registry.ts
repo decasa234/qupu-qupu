@@ -28,6 +28,10 @@ import ArrowGridIllustration from './ArrowGridIllustration'
 import ArrowGridExplainer from './ArrowGridExplainer'
 import ShapeEquationIllustration from './ShapeEquationIllustration'
 import ShapeEquationExplainer from './ShapeEquationExplainer'
+import CardsSmallestNumberIllustration from './CardsSmallestNumberIllustration'
+import CardsSmallestNumberExplainer from './CardsSmallestNumberExplainer'
+import ShapeCountG2Illustration from './ShapeCountG2Illustration'
+import ShapeCountG2Explainer from './ShapeCountG2Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -49,6 +53,8 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1A-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
   'WMI-19F1A-Q24': { Illustration: KenKenGridIllustration, Explainer: KenKenExplainer },
   'WMI-19F1A-Q25': { Illustration: ArrowGridIllustration, Explainer: ArrowGridExplainer },
+  'WMI-19F2A-Q2': { Illustration: CardsSmallestNumberIllustration, Explainer: CardsSmallestNumberExplainer },
+  'WMI-19F2A-Q4': { Illustration: ShapeCountG2Illustration, Explainer: ShapeCountG2Explainer },
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
