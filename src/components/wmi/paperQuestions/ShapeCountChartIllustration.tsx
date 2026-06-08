@@ -1,4 +1,4 @@
-// Shape-count chart figure for WMI-19F1-Q15.
+// Shape-count figure for WMI-19F1A-Q15 (and the same-type WMI-19F2A-Q4).
 // Answer C: Circle 10, Square 7, Triangle 4, Bar (small rectangle) 6.
 export type ShapeKind = 'circle' | 'square' | 'triangle' | 'bar'
 
@@ -16,10 +16,97 @@ export const SHAPE_ROWS: ShapeRow[] = [
   { kind: 'bar', count: 6, symbol: '▬', color: '#7C3AED' },
 ]
 
+// ---- A single shape glyph -------------------------------------------------
+export function ShapeGlyph({
+  kind,
+  cx,
+  cy,
+  color,
+  r = 11,
+  opacity = 1,
+}: {
+  kind: ShapeKind
+  cx: number
+  cy: number
+  color: string
+  r?: number
+  opacity?: number
+}) {
+  switch (kind) {
+    case 'circle':
+      return <circle cx={cx} cy={cy} r={r} fill={color} opacity={opacity} />
+    case 'square':
+      return <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} rx={2} fill={color} opacity={opacity} />
+    case 'triangle':
+      return (
+        <polygon
+          points={`${cx},${cy - r} ${cx - r},${cy + r} ${cx + r},${cy + r}`}
+          fill={color}
+          opacity={opacity}
+        />
+      )
+    case 'bar':
+      return <rect x={cx - r} y={cy - 4} width={r * 2} height={8} rx={2} fill={color} opacity={opacity} />
+  }
+}
+
+// ---- Standalone scattered figure (the in-card illustration; NO chart) ------
+export const SCATTER_FIG_W = 448
+export const SCATTER_FIG_H = 172
+
+interface FigureItem {
+  kind: ShapeKind
+  color: string
+  cx: number
+  cy: number
+}
+
+// All shapes mixed together (not grouped) across a 9×3 grid, with deterministic
+// jitter, so it reads as a real scatter the kid has to count by kind.
+export function figureScatter(): FigureItem[] {
+  const grouped: { kind: ShapeKind; color: string }[] = []
+  for (const row of SHAPE_ROWS) {
+    for (let i = 0; i < row.count; i++) grouped.push({ kind: row.kind, color: row.color })
+  }
+  const n = grouped.length // 27
+  const cols = 9
+  const out: FigureItem[] = []
+  for (let s = 0; s < n; s++) {
+    // (s * 11) mod 27 is a bijection (gcd(11,27)=1) → spreads each kind around.
+    const item = grouped[(s * 11) % n]
+    const col = s % cols
+    const line = Math.floor(s / cols)
+    const jx = (((s * 7) % 5) - 2) * 3
+    const jy = (((s * 13) % 5) - 2) * 3
+    out.push({
+      kind: item.kind,
+      color: item.color,
+      cx: 32 + col * 46 + jx,
+      cy: 34 + line * 50 + jy,
+    })
+  }
+  return out
+}
+
+export function ShapeScatterFigure() {
+  return (
+    <svg
+      viewBox={`0 0 ${SCATTER_FIG_W} ${SCATTER_FIG_H}`}
+      width="100%"
+      style={{ maxWidth: 480, display: 'block', margin: '0 auto' }}
+      aria-hidden="true"
+    >
+      {figureScatter().map((it, i) => (
+        <ShapeGlyph key={i} kind={it.kind} cx={it.cx} cy={it.cy} color={it.color} />
+      ))}
+    </svg>
+  )
+}
+
+// ---- Combined scatter + bar chart (used ONLY by the post-answer explainer) --
 export const SHAPE_VIEW_W = 420
 export const SHAPE_VIEW_H = 220
 
-// ---- Scatter (left) layout -------------------------------------------------
 const SCATTER_X0 = 14
 const SCATTER_Y0 = 18
 const SCATTER_COLS = 5
@@ -42,7 +129,6 @@ export function scatterItems(): ScatterItem[] {
     for (let i = 0; i < row.count; i++) {
       const col = n % SCATTER_COLS
       const line = Math.floor(n / SCATTER_COLS)
-      // tiny deterministic jitter so it reads as a "group", not a grid
       const jx = ((n * 7) % 5) - 2
       const jy = ((n * 13) % 5) - 2
       out.push({
@@ -58,27 +144,9 @@ export function scatterItems(): ScatterItem[] {
 }
 
 function ScatterShape({ item, dim }: { item: ScatterItem; dim: boolean }) {
-  const o = dim ? 0.18 : 1
-  const r = 9
-  switch (item.kind) {
-    case 'circle':
-      return <circle cx={item.cx} cy={item.cy} r={r} fill={item.color} opacity={o} />
-    case 'square':
-      return <rect x={item.cx - r} y={item.cy - r} width={r * 2} height={r * 2} rx={2} fill={item.color} opacity={o} />
-    case 'triangle':
-      return (
-        <polygon
-          points={`${item.cx},${item.cy - r} ${item.cx - r},${item.cy + r} ${item.cx + r},${item.cy + r}`}
-          fill={item.color}
-          opacity={o}
-        />
-      )
-    case 'bar':
-      return <rect x={item.cx - r} y={item.cy - 4} width={r * 2} height={8} rx={2} fill={item.color} opacity={o} />
-  }
+  return <ShapeGlyph kind={item.kind} cx={item.cx} cy={item.cy} color={item.color} r={9} opacity={dim ? 0.18 : 1} />
 }
 
-// ---- Bar chart (right) layout ---------------------------------------------
 const CHART_X = SCATTER_W + 30
 const CHART_Y0 = 28
 const ROW_H = 40
@@ -161,14 +229,10 @@ export function ShapeCountChart({ activeRow = null, showAll = false }: ShapeChar
 }
 
 export default function ShapeCountChartIllustration() {
-  const label = SHAPE_ROWS.map((r) => `${r.kind} ${r.count}`).join(', ')
+  const label = SHAPE_ROWS.map((r) => `${r.count} ${r.kind}${r.count === 1 ? '' : 's'}`).join(', ')
   return (
-    <div
-      className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
-      role="img"
-      aria-label={`A group of shapes and a bar chart of their counts: ${label}.`}
-    >
-      <ShapeCountChart showAll />
+    <div className="my-4 flex justify-center" role="img" aria-label={`A scattered group of shapes to count: ${label}.`}>
+      <ShapeScatterFigure />
     </div>
   )
 }

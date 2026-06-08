@@ -1,5 +1,7 @@
 import type { ComponentType } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
+import type { WmiChoice } from '../../../types/wmi'
+import ShapeCountOption from './ShapeCountOption'
 import StarRowsIllustration from './StarRowsIllustration'
 import StarCountExplainer from './StarCountExplainer'
 import ClockReadIllustration from './ClockReadIllustration'
@@ -91,6 +93,19 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F2A-Q23': { Illustration: SumTo2019G2Illustration, Explainer: SumTo2019G2Explainer },
   'WMI-19F2A-Q24': { Illustration: KenKenG2Illustration, Explainer: KenKenG2Explainer },
   'WMI-19F2A-Q25': { Illustration: ArrowGridG2Illustration, Explainer: ArrowGridG2Explainer },
+}
+
+// Optional per-question renderer for the A/B/C/D choice content. When present,
+// it replaces the plain choice text (e.g. shape-count options drawn as bar
+// charts). The renderer binds to the choice's own text so it can't drift.
+type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
+
+const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
+  'WMI-19F1A-Q15': ShapeCountOption,
+}
+
+export function getQuestionChoiceRenderer(code?: string): ChoiceRenderer | null {
+  return (code && CHOICE_RENDERERS[code]) || null
 }
 
 export function getQuestionIllustration(code?: string): ComponentType | null {
