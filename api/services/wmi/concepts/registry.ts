@@ -1,4 +1,3 @@
-import countObjects from './count-objects/index.js'
 import singleDigitAddition from './single-digit-addition/index.js'
 import singleDigitSubtraction from './single-digit-subtraction/index.js'
 import patternNext from './pattern-next/index.js'
@@ -74,7 +73,6 @@ import makeGroupsLeftover from './make-groups-leftover/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
-  'count-objects': countObjects,
   'single-digit-addition': singleDigitAddition,
   'single-digit-subtraction': singleDigitSubtraction,
   'pattern-next': patternNext,

@@ -11,7 +11,6 @@ import ClockReadTimeExplainer from './ClockReadTimeExplainer'
 import ClockTimeAfterExplainer from './ClockTimeAfterExplainer'
 import CombinationProductSumExplainer from './CombinationProductSumExplainer'
 import CompareOrderExplainer from './CompareOrderExplainer'
-import CountObjectsExplainer from './CountObjectsExplainer'
 import CountPolygonSidesExplainer from './CountPolygonSidesExplainer'
 import CountRectanglesGridExplainer from './CountRectanglesGridExplainer'
 import CountShapesInFigureExplainer from './CountShapesInFigureExplainer'
@@ -105,7 +104,6 @@ export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
   'clock-time-after': ClockTimeAfterExplainer,
   'combination-product-sum': CombinationProductSumExplainer,
   'compare-order-numbers': CompareOrderExplainer,
-  'count-objects': CountObjectsExplainer,
   'count-polygon-sides': CountPolygonSidesExplainer,
   'count-rectangles-grid': CountRectanglesGridExplainer,
   'count-shapes-in-figure': CountShapesInFigureExplainer,

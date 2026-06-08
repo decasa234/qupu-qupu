@@ -1,5 +1,4 @@
 import type { ComponentType } from 'react'
-import CountObjects from './count-objects'
 import ShapePerimeterSquare from './shape-perimeter-square'
 import ClockReadTime from './clock-read-time'
 import ShapePerimeterRectangle from './shape-perimeter-rectangle'
@@ -25,7 +24,6 @@ import CountRectanglesGrid from './count-rectangles-grid'
 import BudgetSelection from './budget-selection'
 
 export const ILLUSTRATIONS: Record<string, ComponentType<{ params: unknown }>> = {
-  'count-objects': CountObjects,
   'shape-perimeter-square': ShapePerimeterSquare,
   'clock-read-time': ClockReadTime,
   'shape-perimeter-rectangle': ShapePerimeterRectangle,

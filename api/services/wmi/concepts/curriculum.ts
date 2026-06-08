@@ -75,8 +75,6 @@ export interface ConceptCurriculum {
 
 export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   // ── Grade 1: g1-hitung (Menghitung & Urutan Bilangan) ────────────────────
-  // grades [0]  → home: grade 1, g1-hitung (former grade-0 concept placed in lowest grade)
-  'count-objects':                  { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 10, tags: ['counting'] },
   // grades [1,2]
   'compare-order-numbers':          { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 20, tags: ['counting', 'arithmetic'] },
   'more-or-less-by-k':              { subjectKey: 'g1-hitung',        difficulty: 1, sortOrder: 30, tags: ['counting', 'arithmetic'] },
