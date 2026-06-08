@@ -1,9 +1,10 @@
 // src/components/onboarding/ChildOnboardingWizard.tsx
 //
 // Beautified, gated multi-step child-profile setup used on /onboard/child.
-// Steps: name -> grade -> avatar (icon + color) -> daily goal. Each step gates
-// the next (the primary button is disabled until the step is complete), and a
-// live avatar preview builds as the parent goes. Creates the real child via
+// Steps: name -> grade -> avatar -> daily goal. Each step gates the next (the
+// primary button is disabled until the step is complete), and a live avatar
+// preview builds as the parent goes. Grade is asked as TK / SD (Kelas 1-6) and
+// mapped to the nearest age group for storage. Creates the real child via
 // POST /me/children and hands the result back through onCreated.
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
@@ -16,6 +17,7 @@ import {
 } from '../../lib/avatars'
 import type { AgeGroupOption, Child } from '../../types'
 import ProgressDots from './ProgressDots'
+import Slider from '../Slider'
 
 interface ChildOnboardingWizardProps {
   onCreated: (child: Child) => void
@@ -26,16 +28,27 @@ type StepKey = 'name' | 'grade' | 'avatar' | 'goal'
 const STEPS: { key: StepKey; eyebrow: string; title: string; subtitle: string }[] = [
   { key: 'name', eyebrow: 'Langkah 1 dari 4', title: 'Siapa nama anak?', subtitle: 'Nama ini muncul di dashboard dan koleksi badge anak.' },
   { key: 'grade', eyebrow: 'Langkah 2 dari 4', title: 'Anak kelas berapa?', subtitle: 'Kami sesuaikan soal dan video dengan kelasnya.' },
-  { key: 'avatar', eyebrow: 'Langkah 3 dari 4', title: 'Pilih avatar', subtitle: 'Pilih hewan dan warna favorit anak.' },
+  { key: 'avatar', eyebrow: 'Langkah 3 dari 4', title: 'Pilih avatar', subtitle: '' },
   { key: 'goal', eyebrow: 'Langkah 4 dari 4', title: 'Target harian', subtitle: 'Berapa kuis per hari? Bisa diubah kapan saja.' },
 ]
 
-const GOAL_OPTIONS = [1, 2, 3, 5, 7, 10]
+// TK + SD (Kelas 1-6). `age` is a representative age used to map onto the
+// backend's age_groups (the child profile stores age_group_id, not a grade).
+const GRADE_OPTIONS = [
+  { key: 'tk', label: 'TK', age: 5 },
+  { key: 'sd1', label: 'Kelas 1', age: 6 },
+  { key: 'sd2', label: 'Kelas 2', age: 7 },
+  { key: 'sd3', label: 'Kelas 3', age: 8 },
+  { key: 'sd4', label: 'Kelas 4', age: 9 },
+  { key: 'sd5', label: 'Kelas 5', age: 10 },
+  { key: 'sd6', label: 'Kelas 6', age: 11 },
+]
 
 export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWizardProps) {
   const [stepIndex, setStepIndex] = useState(0)
   const [name, setName] = useState('')
-  const [ageGroupId, setAgeGroupId] = useState('')
+  const [gradeTrack, setGradeTrack] = useState<'' | 'tk' | 'sd'>('')
+  const [gradeKey, setGradeKey] = useState('')
   const [avatarColor, setAvatarColor] = useState(DEFAULT_AVATAR_COLOR)
   const [avatarIcon, setAvatarIcon] = useState(DEFAULT_AVATAR_SLUG)
   const [dailyGoal, setDailyGoal] = useState(3)
@@ -48,14 +61,14 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
       .get('/public/meta')
       .then((response) => setAgeGroups(response.data.data.ageGroups ?? []))
       .catch(() => {
-        /* grade step still renders; just no options to choose yet */
+        /* grade still selectable; we map to an age group only if available */
       })
   }, [])
 
   const step = STEPS[stepIndex]
   const isLast = stepIndex === STEPS.length - 1
   const canAdvance =
-    step.key === 'name' ? name.trim().length > 0 : step.key === 'grade' ? Boolean(ageGroupId) : true
+    step.key === 'name' ? name.trim().length > 0 : step.key === 'grade' ? gradeKey !== '' : true
 
   function handleNext() {
     if (!canAdvance) return
@@ -66,13 +79,22 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
     void submit()
   }
 
+  // Map the chosen grade to the nearest age group (by representative age). The
+  // child profile stores age_group_id, so a non-UUID grade can't be sent.
+  function resolveAgeGroupId(): string | null {
+    const grade = GRADE_OPTIONS.find((g) => g.key === gradeKey)
+    if (!grade) return null
+    const match = ageGroups.find((g) => grade.age >= g.minAge && grade.age <= g.maxAge)
+    return match?.id ?? null
+  }
+
   async function submit() {
     setSaving(true)
     setError('')
     try {
       const response = await api.post('/me/children', {
         name: name.trim(),
-        ageGroupId: ageGroupId || null,
+        ageGroupId: resolveAgeGroupId(),
         avatarColor,
         avatarIcon,
         dailyGoalQuizzes: dailyGoal,
@@ -100,11 +122,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
         aria-hidden="true"
         className="pointer-events-none absolute -right-4 -top-12 z-10 h-28 w-auto select-none drop-shadow-[0_10px_24px_rgba(120,60,0,0.25)] sm:-right-6 sm:-top-14 sm:h-32"
       />
-      <i className="fa-solid fa-star pointer-events-none absolute -left-4 top-8 text-2xl text-qupu-brand-yellow drop-shadow-sm" aria-hidden="true" />
-      <i className="fa-solid fa-star pointer-events-none absolute right-12 -top-3 text-base text-qupu-brand-yellow/80" aria-hidden="true" />
-      <i className="fa-solid fa-star pointer-events-none absolute -left-2 bottom-16 text-sm text-qupu-brand-yellow/70" aria-hidden="true" />
-
-      <div className="relative rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-7 shadow-[6px_8px_0_0_#FFD3B1] sm:p-9">
+      <div className="relative rounded-[2.5rem] bg-white p-7 shadow-[10px_12px_0_0_#C46123] sm:p-9">
         <ProgressDots total={STEPS.length} current={stepIndex} />
 
         <div className="mt-5 flex items-center gap-4">
@@ -118,7 +136,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
             </h1>
           </div>
         </div>
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">{step.subtitle}</p>
+        {step.subtitle && <p className="mt-3 text-sm font-semibold text-qupu-muted">{step.subtitle}</p>}
 
         <div className="mt-6">
           {step.key === 'name' && (
@@ -138,51 +156,51 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
           )}
 
           {step.key === 'grade' && (
-            <div className="grid grid-cols-1 gap-2">
-              {ageGroups.length === 0 && (
-                <p className="text-sm font-semibold text-qupu-muted">Memuat pilihan kelas…</p>
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                <GradeButton
+                  active={gradeTrack === 'tk'}
+                  label="TK"
+                  onClick={() => {
+                    setGradeTrack('tk')
+                    setGradeKey('tk')
+                  }}
+                />
+                <GradeButton
+                  active={gradeTrack === 'sd'}
+                  label="SD"
+                  hint="Kelas 1–6"
+                  onClick={() => {
+                    setGradeTrack('sd')
+                    setGradeKey('')
+                  }}
+                />
+              </div>
+
+              {gradeTrack === 'sd' && (
+                <div className="grid grid-cols-3 gap-2">
+                  {GRADE_OPTIONS.filter((g) => g.key !== 'tk').map((g) => (
+                    <button
+                      key={g.key}
+                      type="button"
+                      aria-pressed={gradeKey === g.key}
+                      onClick={() => setGradeKey(g.key)}
+                      className={`rounded-[1.25rem] border-2 px-2 py-2.5 font-display text-sm font-extrabold transition-colors ${
+                        gradeKey === g.key
+                          ? 'border-qupu-brand-blue bg-qupu-brand-blue text-white shadow-subscribe'
+                          : 'border-qupu-peach bg-qupu-shell text-qupu-brand-blue hover:border-qupu-brand-blue'
+                      }`}
+                    >
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
               )}
-              {ageGroups.map((group) => {
-                const active = ageGroupId === group.id
-                return (
-                  <button
-                    key={group.id}
-                    type="button"
-                    onClick={() => setAgeGroupId(group.id)}
-                    aria-pressed={active}
-                    className={`flex items-center justify-between rounded-[1.25rem] border-2 px-5 py-3 text-left font-display text-base font-extrabold transition-colors ${
-                      active
-                        ? 'border-qupu-brand-blue bg-qupu-brand-blue text-white shadow-subscribe'
-                        : 'border-qupu-peach bg-qupu-shell text-qupu-brand-blue hover:border-qupu-brand-blue'
-                    }`}
-                  >
-                    {group.name}
-                    {active && <i className="fa-solid fa-circle-check" aria-hidden="true" />}
-                  </button>
-                )
-              })}
             </div>
           )}
 
           {step.key === 'avatar' && (
             <div className="space-y-5">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Warna</span>
-                <div className="mt-2 flex flex-wrap gap-3">
-                  {AVATAR_COLORS.map((color) => (
-                    <button
-                      key={color}
-                      type="button"
-                      aria-label={`Warna ${color}`}
-                      onClick={() => setAvatarColor(color)}
-                      className={`h-10 w-10 cursor-pointer rounded-full border-[3px] transition-transform hover:scale-110 ${
-                        avatarColor === color ? 'border-qupu-brand-blue' : 'border-transparent'
-                      }`}
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-              </div>
               <div>
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Hewan</span>
                 <div className="mt-2 grid grid-cols-5 gap-2 sm:grid-cols-7">
@@ -207,26 +225,40 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
                   })}
                 </div>
               </div>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Warna</span>
+                <div className="mt-2 flex flex-wrap gap-3">
+                  {AVATAR_COLORS.map((color) => (
+                    <button
+                      key={color}
+                      type="button"
+                      aria-label={`Warna ${color}`}
+                      onClick={() => setAvatarColor(color)}
+                      className={`h-10 w-10 cursor-pointer rounded-full border-[3px] transition-transform hover:scale-110 ${
+                        avatarColor === color ? 'border-qupu-brand-blue' : 'border-transparent'
+                      }`}
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
           {step.key === 'goal' && (
-            <div className="flex flex-wrap gap-2">
-              {GOAL_OPTIONS.map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  aria-pressed={dailyGoal === value}
-                  onClick={() => setDailyGoal(value)}
-                  className={`min-w-[3.25rem] rounded-full px-4 py-2.5 font-display text-sm font-extrabold transition-colors ${
-                    dailyGoal === value
-                      ? 'bg-qupu-brand-blue text-white shadow-subscribe'
-                      : 'bg-qupu-shell text-qupu-brand-blue/70 hover:text-qupu-brand-blue'
-                  }`}
-                >
-                  {value}
-                </button>
-              ))}
+            <div className="pt-1">
+              <Slider
+                value={dailyGoal}
+                min={1}
+                max={10}
+                step={1}
+                onChange={setDailyGoal}
+                ariaLabel="Target kuis harian"
+              />
+              <div className="mt-1 flex justify-between px-3 text-[11px] font-bold uppercase tracking-[0.14em] text-qupu-muted">
+                <span>Santai</span>
+                <span>Giat</span>
+              </div>
             </div>
           )}
         </div>
@@ -264,6 +296,36 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
         </div>
       </div>
     </div>
+  )
+}
+
+function GradeButton({
+  active,
+  label,
+  hint,
+  onClick,
+}: {
+  active: boolean
+  label: string
+  hint?: string
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={`flex flex-col items-center justify-center rounded-[1.25rem] border-2 px-4 py-4 font-display font-extrabold transition-colors ${
+        active
+          ? 'border-qupu-brand-blue bg-qupu-brand-blue text-white shadow-subscribe'
+          : 'border-qupu-peach bg-qupu-shell text-qupu-brand-blue hover:border-qupu-brand-blue'
+      }`}
+    >
+      <span className="text-lg">{label}</span>
+      {hint && (
+        <span className={`text-[11px] font-bold ${active ? 'text-white/80' : 'text-qupu-muted'}`}>{hint}</span>
+      )}
+    </button>
   )
 }
 

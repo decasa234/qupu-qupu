@@ -13,10 +13,12 @@ import OnboardingTour from './onboarding/OnboardingTour'
 
 export default function AppShell() {
   const childrenCount = useAuthStore((state) => state.children.length)
+  const role = useAuthStore((state) => state.user?.role)
 
   // Gate: a member with no child profile yet must complete /onboard/child
-  // before reaching any member surface (can't skip the first step).
-  if (childrenCount === 0) {
+  // before reaching any member surface (can't skip the first step). Admins
+  // are exempt — they manage the app rather than onboard a child.
+  if (childrenCount === 0 && role !== 'admin') {
     return <Navigate to="/onboard/child" replace />
   }
 

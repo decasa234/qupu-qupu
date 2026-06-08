@@ -157,7 +157,24 @@ export async function getWmiDrillQuestion(
       )
     }
 
-    if (!question) throw new Error('No WMI questions found for this grade')
+    // Final fallback: any question from any grade. A child should never hit a
+    // 400 just because their exact grade has not been seeded with papers yet
+    // (e.g. a new TK/grade-0 profile when only grade-1 papers exist).
+    if (!question) {
+      question = await queryOne<WmiQuestionDto>(
+        `
+          SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
+                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty
+          FROM wmi_questions q
+          ORDER BY random()
+          LIMIT 1
+        `,
+        [],
+        client,
+      )
+    }
+
+    if (!question) throw new Error('No WMI questions found')
     return normalizeQuestion(question)
   })
 }
