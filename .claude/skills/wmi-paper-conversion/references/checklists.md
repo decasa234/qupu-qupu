@@ -65,7 +65,9 @@ Run from the repo root. DB-touching commands use `dangerouslyDisableSandbox: tru
   warnings are expected and OK.
 - **SSR smoke** — render the new illustration + explainer to `<svg>` in en+id. Create
   `__smoke.tsx` at the repo root (so `react-dom` and the `@/` alias resolve) with the
-  content below, run `npx tsx __smoke.tsx`, then delete it. Expected: four `true` lines.
+  content below, run `npx tsx __smoke.tsx`, then delete it. Expected: four `true` lines
+  (for an explainer-only question with no `Illustration`, drop the `Illustration` import
+  and its two lines, and expect two).
   ```ts
   import { renderToStaticMarkup } from 'react-dom/server'
   import { createElement as h } from 'react'

@@ -82,7 +82,9 @@ Use the **qupu-math-problem-creation** skill for the craft of each role:
   stem is noisy). Highlights must be exact substrings of the display body.
 - **Step-explainer** → `hint_steps_en/id` (3–5 steps; arithmetic lands the answer).
 - **Illustrator** (needsVisual only) → `<Thing>Illustration.tsx` + a co-exported
-  shared visual primitive. Faithful reconstruction — see `references/checklists.md`
+  shared visual primitive. Check Gate 1's *reconstruction* criteria now (figure
+  matches the source); its *on-screen* criteria (viewBox headroom, centering, border
+  consistency) are checked once rendered, in Phase 5. See `references/checklists.md`
   § Gate 1.
 - **Animator** (needsVisual only) → `<thing>Steps.ts` + `<Thing>Explainer.tsx`
   importing the primitive.
@@ -95,20 +97,23 @@ enrich the visual questions with an inline `Workflow` `pipeline()`:
 - designer + step-explainer return structured data only;
 - after it returns, the controller (main session) serially applies the shared-file
   edits (`registry.ts`, the seed JSON), then reseeds.
-The guided loop still owns import, wiring, verification, and review. The `Workflow`
-tool requires explicit user opt-in.
+The guided loop still owns import, wiring, verification, and review. Non-visual
+questions (`needsVisual: false`) always stay in the guided loop regardless of opt-in
+— they produce only `breakdown` + `hint_steps` (no files to parallelize). The
+`Workflow` tool requires explicit user opt-in.
 
 ### Phase 4 · Wire
 - Register `{ Illustration, Explainer }` by the **question** code in
   `src/components/wmi/paperQuestions/registry.ts` — the key is
   `paperCode + '-Q' + number` (e.g. `VISUALS['WMI-19F1A-Q18']`, **not** the bare
   paper code). Add the component imports + the `VISUALS[...]` entry.
-- Merge each question's `breakdown` + `hint_steps_en/id` + reworded stem into the
-  paper's seed JSON.
+- Merge each question's `breakdown` + `hint_steps_en/id` + any reworded `body_en/id`
+  into the paper's seed JSON.
 - `npm run seed:wmi`.
 
 ### Phase 5 · Verify
-Run the four gates and the verification commands in `references/checklists.md`:
+Run all four gates (Gate 1 Layout, Gate 2 Answer-correctness, Gate 3 Step-quality,
+Gate 4 Breakdown schema) and the verification commands in `references/checklists.md`:
 `npm run check`, `npm run lint` (0 errors), the SSR smoke, reseed smoke,
 `npm run wmi:validate`.
 
