@@ -137,3 +137,15 @@ Supersedes the "5 global themes + multi-grade concepts" model above.
 
 **Code changes:** `curriculum.ts` → `SUBJECTS` (per-grade) + `CURRICULUM` (slug → {subjectKey, difficulty, sortOrder}); `bootstrap.ts` seeds `wmi_subjects` and stamps `subject_key`; `garden.ts` filters `JOIN wmi_subjects s ON s.subject_key=c.subject_key WHERE s.grade=$grade`, groups by subject; `chapterTest.ts` keys off `subject_key`; frontend renames `themeKey`→`subjectKey`, grade chips show 1–3 (default 1). Re-run migration + backfill against the DB.
 
+---
+
+## Amendment 2 (2026-06-08, later): WMI problem tags (subjects stay)
+
+Decision: do NOT re-sequence WMI into a basic-math prerequisite ladder — WMI is enrichment, not a teaching sequence. A real **basic curriculum** (prerequisite ladder) is a **separate future track**, decoupled from WMI. Subjects remain the WMI grouping. Add a cross-cutting **tag** classification so problems can be filtered/grouped by topic independent of their subject/grade.
+
+- **Controlled tag vocabulary (14):** `arithmetic`, `place-value`, `fractions`, `decimals`, `number-theory`, `patterns`, `geometry`, `measurement`, `data`, `logic`, `counting`, `money`, `spatial`, `word-problem`. (`decimals` is in the vocab even though the current WMI set has ~no decimal problems yet.)
+- Each concept gets `tags: TagKey[]` (1–3, many-to-many) in `curriculum.ts` (`TAGS` def + `TagKey` union). Coverage test: every concept has ≥1 valid tag.
+- DB: `wmi_concepts.tags TEXT[]` (migration 0035) + GIN index; `bootstrap` stamps tags from `CURRICULUM`. Garden API returns `tags` per concept. Tag the 73 **concepts** first; **paper questions** later.
+- Subjects/grades unchanged; tags are additive.
+
+
