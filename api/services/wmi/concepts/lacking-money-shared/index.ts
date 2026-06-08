@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildLackingMoneySharedBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   nameA: z.string().min(1),
@@ -45,6 +46,7 @@ export function render(params: Params) {
       `Kekurangan keduanya bersama-sama tepat sama dengan harga satu kue, jadi harga kue = Rp${params.lackA} + Rp${params.lackB} = Rp${price}.`,
       `${params.nameA} kurang Rp${params.lackA} dari harga itu, sehingga uang ${params.nameA} = Rp${price} − Rp${params.lackA} = Rp${answer}.`,
     ],
+    breakdown: buildLackingMoneySharedBreakdown(params),
   }
 }
 

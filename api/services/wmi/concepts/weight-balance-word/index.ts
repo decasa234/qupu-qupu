@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildWeightBalanceWordBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   bottles: z.number().int().min(2).max(8),
@@ -44,6 +45,7 @@ export function render(params: Params) {
       `Bagi rata ke ${params.bottles} botol: ${remaining} ÷ ${params.bottles} = ${params.perBottle} g`,
       `Satu botol susu beratnya ${params.perBottle} g.`,
     ],
+    breakdown: buildWeightBalanceWordBreakdown(params),
   }
 }
 
