@@ -42,7 +42,7 @@ export const FREE_TIER = {
     'Semua video edukatif QUPU',
     'Latihan WMI: konsep, drill & ujian',
     'XP, badge & progres anak',
-    'Untuk anak Kelas 0–3',
+    'Untuk anak Kelas 1–3',
   ],
   cta: 'Daftar Gratis',
 }

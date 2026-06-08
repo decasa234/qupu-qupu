@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 
 const BULLETS = [
-  'Konsep WMI asli untuk anak Kelas 0–3',
-  'Belajar langkah demi langkah, bukan menghafal',
-  'XP, badge & confetti — anak ketagihan belajar',
+  'Konsep WMI asli untuk anak Kelas 1–3',
+  'Penjelasan penyelesaian masalah beranimasi',
+  'Assisted highlight + hint langkah demi langkah',
+  'XP & Achievement — belajar untuk dapatkan rewards',
 ]
 
 export default function LatihanWmiSection() {

@@ -32,7 +32,7 @@ export default function WmiTrustStats() {
   const grades =
     stats.gradeMin != null && stats.gradeMax != null
       ? `Kelas ${stats.gradeMin}–${stats.gradeMax}`
-      : 'Kelas 0–3'
+      : 'Kelas 1–3'
 
   const items = [
     { icon: 'fa-solid fa-lightbulb', value: `${stats.concepts}+`, label: 'Konsep interaktif' },

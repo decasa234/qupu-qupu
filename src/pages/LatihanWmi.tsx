@@ -29,7 +29,30 @@ const LEARN_STEPS = [
 const WHY = [
   { icon: 'fa-solid fa-earth-asia', text: 'WMI (World Mathematics Invitation) adalah kompetisi matematika internasional untuk anak.' },
   { icon: 'fa-solid fa-brain', text: 'Melatih nalar & pemecahan masalah — bukan menghafal rumus.' },
-  { icon: 'fa-solid fa-child-reaching', text: 'Dirancang untuk anak Kelas 0–3, dengan bahasa & visual yang ramah anak.' },
+  { icon: 'fa-solid fa-child-reaching', text: 'Dirancang untuk anak Kelas 1–3, dengan bahasa & visual yang ramah anak.' },
+]
+
+const FEATURES = [
+  {
+    icon: 'fa-solid fa-wand-magic-sparkles',
+    title: 'Penjelasan beranimasi',
+    desc: 'Setiap soal punya animasi penyelesaian langkah demi langkah — anak melihat caranya, bukan cuma jawabannya.',
+  },
+  {
+    icon: 'fa-solid fa-highlighter',
+    title: 'Assisted highlight',
+    desc: 'Bagian penting soal disorot otomatis, membantu anak fokus pada inti masalah.',
+  },
+  {
+    icon: 'fa-solid fa-list-ol',
+    title: 'Hint bertahap',
+    desc: 'Petunjuk muncul selangkah demi selangkah saat anak butuh — tanpa langsung membocorkan jawaban.',
+  },
+  {
+    icon: 'fa-solid fa-trophy',
+    title: 'XP & Achievement',
+    desc: 'Kumpulkan XP dan buka achievement — belajar jadi seru untuk dapatkan rewards.',
+  },
 ]
 
 /** A scatter of brand-yellow star sprinkles for emphasis surfaces. */
@@ -110,7 +133,32 @@ export default function LatihanWmiPage() {
         </section>
       </Reveal>
 
-      {/* 3 · Apa itu WMI? */}
+      {/* 3 · Fitur unggulan */}
+      <Reveal delay={0.05}>
+        <section className="mx-auto max-w-5xl text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Bukan sekadar latihan soal</div>
+          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">Dibimbing sampai paham</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm font-semibold text-qupu-muted">
+            Fitur yang menuntun anak mengerti caranya — seperti animasi yang kamu lihat di demo di atas.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-[1.75rem] border-[3px] border-qupu-brand-blue/15 bg-white p-6 text-left shadow-[5px_6px_0_0_#FFD3B1] transition-transform duration-200 hover:-translate-y-1"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-qupu-cream text-xl text-qupu-brand-orange">
+                  <i className={f.icon} aria-hidden="true" />
+                </span>
+                <div className="mt-3 font-display text-base font-extrabold text-qupu-brand-blue">{f.title}</div>
+                <p className="mt-1 text-xs font-semibold leading-relaxed text-qupu-muted">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* 4 · Apa itu WMI? */}
       <Reveal delay={0.05}>
         <section className="mx-auto max-w-4xl text-center">
           <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Kenapa WMI</div>
