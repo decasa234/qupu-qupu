@@ -12,6 +12,7 @@ import { useAuthStore } from '../store/authStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
 import { useWmiStore } from '../store/wmiStore'
 import type { WmiAttemptResult, WmiConceptQuestion, WmiConceptReward, WmiQuestion } from '../types/wmi'
+import { tagLabel } from '../components/wmi/tagLabels'
 
 // Push a konsep reward into the top stat strip. If the strip was never
 // hydrated (e.g. the kid deep-linked straight to konsep via the bottom tab),
@@ -178,6 +179,19 @@ export default function WmiKonsepDrill() {
           {Illustration && (
             <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell p-4 shadow-[5px_6px_0_0_#FFD3B1]">
               <Illustration params={question.params} />
+            </div>
+          )}
+          {question.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {question.tags.map((t) => {
+                const { name_id, color_hex } = tagLabel(t)
+                return (
+                  <span key={t} className="rounded-full px-2 py-0.5 text-[10px] font-bold"
+                    style={{ backgroundColor: `${color_hex}1A`, color: color_hex }}>
+                    {name_id}
+                  </span>
+                )
+              })}
             </div>
           )}
           <WmiQuestionView

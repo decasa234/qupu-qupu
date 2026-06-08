@@ -159,6 +159,7 @@ export interface WmiConceptQuestion {
   concept_slug: string
   concept_name_id: string
   concept_name_en: string
+  tags: string[]
   params: unknown
   body_en: string
   body_id: string
@@ -222,6 +223,7 @@ export interface WmiGardenConcept {
   difficulty: number
   tier: WmiComprehensionTier
   pct: number
+  tags: string[]
 }
 export interface WmiGardenChapter {
   subjectKey: string

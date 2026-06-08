@@ -10,6 +10,7 @@ export interface ConceptQuestion {
   concept_slug: string
   concept_name_id: string
   concept_name_en: string
+  tags: string[]
   params: unknown
   body_en: string
   body_id: string
@@ -39,14 +40,14 @@ export async function getNextConceptQuestion(
     // serve that concept directly — grade-independent. Otherwise pick a random
     // enabled concept for the grade.
     const conceptRow = requestedSlug
-      ? await queryOne<{ slug: string; name_id: string; name_en: string }>(
-          `SELECT slug, name_id, name_en FROM wmi_concepts WHERE slug = $1 AND enabled = TRUE`,
+      ? await queryOne<{ slug: string; name_id: string; name_en: string; tags: string[] | null }>(
+          `SELECT slug, name_id, name_en, tags FROM wmi_concepts WHERE slug = $1 AND enabled = TRUE`,
           [requestedSlug],
           client,
         )
-      : await queryOne<{ slug: string; name_id: string; name_en: string }>(
+      : await queryOne<{ slug: string; name_id: string; name_en: string; tags: string[] | null }>(
           `
-          SELECT slug, name_id, name_en FROM wmi_concepts
+          SELECT slug, name_id, name_en, tags FROM wmi_concepts
           WHERE enabled = TRUE AND $1::SMALLINT = ANY(grades)
           ORDER BY random()
           LIMIT 1
@@ -86,6 +87,7 @@ export async function getNextConceptQuestion(
       concept_slug: conceptSlug,
       concept_name_id: conceptRow.name_id,
       concept_name_en: conceptRow.name_en,
+      tags: conceptRow.tags ?? [],
       params: instance.params,
       body_en: instance.body_en,
       body_id: instance.body_id,

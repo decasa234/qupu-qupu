@@ -12,6 +12,7 @@ export interface GardenConcept {
   difficulty: number
   tier: number
   pct: number
+  tags: string[]
 }
 export interface GardenChapter {
   subjectKey: string
@@ -36,6 +37,7 @@ interface Row {
   subject_key: string; name_id: string; name_en: string; color_hex: string; icon_key: string
   subject_sort: number; slug: string; c_name_id: string; c_name_en: string
   difficulty: number | null; sort_order: number; best_tier: number | null; pct: number | null
+  tags: string[] | null
 }
 
 export async function getGarden(parentUserId: string, childId: string, grade: number): Promise<Garden> {
@@ -45,7 +47,7 @@ export async function getGarden(parentUserId: string, childId: string, grade: nu
 
   const rows = await query<Row>(
     `SELECT s.subject_key, s.name_id, s.name_en, s.color_hex, s.icon_key, s.sort_order AS subject_sort,
-            c.slug, c.name_id AS c_name_id, c.name_en AS c_name_en, c.difficulty, c.sort_order,
+            c.slug, c.name_id AS c_name_id, c.name_en AS c_name_en, c.difficulty, c.sort_order, c.tags,
             p.best_tier, p.comprehension_pct AS pct
      FROM wmi_concepts c
      JOIN wmi_subjects s ON s.subject_key = c.subject_key
@@ -75,7 +77,7 @@ export async function getGarden(parentUserId: string, childId: string, grade: nu
     const tier = r.best_tier ?? 0
     const pct = r.pct ?? 0
     ch.concepts.push({ slug: r.slug, nameId: r.c_name_id, nameEn: r.c_name_en,
-      difficulty: r.difficulty ?? 1, tier, pct })
+      difficulty: r.difficulty ?? 1, tier, pct, tags: r.tags ?? [] })
   }
 
   const chapters = [...bySubject.values()]
