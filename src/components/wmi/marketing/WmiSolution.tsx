@@ -44,7 +44,7 @@ export default function WmiSolution({ className, onDone }: WmiSolutionProps) {
 
   return (
     <section
-      className={`flex min-h-screen items-center px-4 py-12 sm:py-16${className ? ` ${className}` : ''}`}
+      className={`px-4 py-6 sm:py-8${className ? ` ${className}` : ''}`}
       aria-labelledby="wmi-solution-heading"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
