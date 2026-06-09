@@ -12,6 +12,14 @@ export interface GamificationTierInfo {
   themeKey: string | null
 }
 
+// Non-null whenever the child's last streak break is recoverable
+// (broke with a one-day skip). `eligible` already accounts for the
+// backend's 30-day usage cap.
+export interface GamificationStreakRecovery {
+  eligible: boolean
+  previousStreak: number
+}
+
 export interface GamificationSummary {
   level: number
   tierName: string
@@ -22,12 +30,27 @@ export interface GamificationSummary {
   coinBalance: number
   streak: number
   longestStreak: number
+  streakRecovery: GamificationStreakRecovery | null
   tiers: GamificationTierInfo[]
 }
 
 export async function fetchGamificationSummary(childId: string): Promise<GamificationSummary> {
   const res = await api.get('/me/gamification', { params: { childId } })
   return res.data.data as GamificationSummary
+}
+
+// Mirrors api/services/gamification/streakUpdater.ts RecoveryResult — the
+// shape returned by POST /me/streak-recovery.
+export interface StreakRecoveryResult {
+  recovered: boolean
+  reason?: 'not_eligible' | 'cap_reached' | 'no_pre_break_value'
+  currentStreakDays: number
+  longestStreakDays: number
+}
+
+export async function recoverStreak(childId: string): Promise<StreakRecoveryResult> {
+  const res = await api.post('/me/streak-recovery', { childId })
+  return res.data.data as StreakRecoveryResult
 }
 
 // Mirrors api/services/gamification/quests.ts DailyQuestItem — the shape

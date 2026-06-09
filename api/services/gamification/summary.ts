@@ -8,12 +8,20 @@
 import { pool, queryOne } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { loadLevelTiers, resolveLevel } from './levelCurve.js'
+import { checkRecoveryUsedRecently } from './streakUpdater.js'
 
 export interface GamificationTierInfo {
   level: number
   name: string
   minXp: number
   themeKey: string | null
+}
+
+// Non-null whenever a recoverable break exists (pre_break_streak_days > 0).
+// `eligible` mirrors recoverStreak's actual gate: the 30-day usage cap.
+export interface GamificationStreakRecovery {
+  eligible: boolean
+  previousStreak: number
 }
 
 export interface GamificationSummary {
@@ -26,6 +34,7 @@ export interface GamificationSummary {
   coinBalance: number
   streak: number
   longestStreak: number
+  streakRecovery: GamificationStreakRecovery | null
   tiers: GamificationTierInfo[]
 }
 
@@ -42,14 +51,27 @@ export async function getGamificationSummary(
       coin_balance: number
       current_streak_days: number
       longest_streak_days: number
+      pre_break_streak_days: number
     }>(
-      `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days
+      `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days,
+              pre_break_streak_days
          FROM gamification_profiles WHERE child_id = $1`,
       [childId],
       client,
     )
     const totalXp = Number(profile?.total_xp ?? 0)
     const resolution = resolveLevel(totalXp, tiers)
+
+    // Streak recovery: pre_break_streak_days is set when the streak broke
+    // with a one-day skip (streakUpdater gap === 2). Mirror recoverStreak's
+    // gate — preBreak > 0 AND no recovery used in the rolling 30 days — so
+    // the UI never offers a recovery the endpoint would refuse.
+    const preBreak = Number(profile?.pre_break_streak_days ?? 0)
+    let streakRecovery: GamificationStreakRecovery | null = null
+    if (preBreak > 0) {
+      const usedRecently = await checkRecoveryUsedRecently(client, childId)
+      streakRecovery = { eligible: !usedRecently, previousStreak: preBreak }
+    }
     return {
       level: resolution.tier.levelNumber,
       tierName: resolution.tier.tierName,
@@ -60,6 +82,7 @@ export async function getGamificationSummary(
       coinBalance: Number(profile?.coin_balance ?? 0),
       streak: Number(profile?.current_streak_days ?? 0),
       longestStreak: Number(profile?.longest_streak_days ?? 0),
+      streakRecovery,
       tiers: tiers.map((tier) => ({
         level: tier.levelNumber,
         name: tier.tierName,

@@ -4,6 +4,7 @@ import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import ChapterGarden from '../components/wmi/ChapterGarden'
 import ConceptInfoModal from '../components/wmi/ConceptInfoModal'
 import DailyQuestsPanel from '../components/me/DailyQuestsPanel'
+import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/StreakRecoveryModal'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -43,6 +44,11 @@ export default function WmiHub() {
   const [garden, setGarden] = useState<WmiGarden | null>(null)
   const [loading, setLoading] = useState(true)
   const [infoConcept, setInfoConcept] = useState<WmiGardenConcept | null>(null)
+
+  // Streak-recovery prompt (modal shows at most once per eligibility window;
+  // a summary fetch failure simply means no prompt — the garden is unaffected).
+  const { prompt: recoveryPrompt, dismiss: dismissRecovery } =
+    useStreakRecoveryPrompt(activeChildId)
 
   useEffect(() => { loadGlossary().catch(() => {}) }, [loadGlossary])
 
@@ -208,6 +214,14 @@ export default function WmiHub() {
           grade={selectedGrade}
           concept={infoConcept}
           onClose={() => setInfoConcept(null)}
+        />
+      )}
+
+      {recoveryPrompt && (
+        <StreakRecoveryModal
+          childId={activeChildId}
+          previousStreak={recoveryPrompt.previousStreak}
+          onClose={dismissRecovery}
         />
       )}
     </div>

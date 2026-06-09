@@ -46,7 +46,10 @@ function daysBetweenWibDates(a: string, b: string): number {
   return Math.round((dB - dA) / (24 * 60 * 60 * 1000))
 }
 
-async function checkRecoveryUsedRecently(client: PoolClient, childId: string): Promise<boolean> {
+export async function checkRecoveryUsedRecently(
+  client: PoolClient,
+  childId: string,
+): Promise<boolean> {
   // Rolling 30 days from now.
   const row = await queryOne<{ recent: string }>(
     `SELECT COUNT(*)::text AS recent
