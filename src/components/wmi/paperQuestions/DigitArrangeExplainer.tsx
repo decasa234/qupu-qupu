@@ -1,30 +1,30 @@
 import { useMemo } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
 import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import { KenKenFigure } from './KenKenGridIllustration'
-import { buildKenKenSteps } from './kenKenSteps'
+import { DigitArrangeFigure, ANSWER } from './DigitArrangeIllustration'
+import { buildDigitArrangeSteps } from './digitArrangeSteps'
 
 const GREEN = '#10B981'
 
-export default function KenKenExplainer(props: ExplainerProps) {
+export default function DigitArrangeExplainer(props: ExplainerProps) {
   const lang = props.lang ?? 'en'
-  const story = useMemo(() => buildKenKenSteps(lang), [lang])
+  const story = useMemo(() => buildDigitArrangeSteps(lang), [lang])
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: isi kisi 1–4 tanpa pengulangan — ABCD = ${story.answer}.`
-      : `Explainer: fill the 1–4 grid with no repeats — ABCD = ${story.answer}.`
+      ? `Penjelasan: bilangan dua angka dari 1, 2, 3, 4 diurutkan dari terkecil — yang ke-5 adalah ${ANSWER}.`
+      : `Explainer: two-digit numbers from 1, 2, 3, 4 listed smallest-first — the 5th is ${ANSWER}.`
 
   return (
-    <div className="mx-auto w-full max-w-[400px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[300px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
-        <KenKenFigure filledRows={beat.filledRows} activeRow={beat.activeRow} markAnswers={beat.markAnswers} />
+        <DigitArrangeFigure revealedRows={beat.revealedRows} countIndex={beat.countIndex} result={beat.result} />
 
         {beat.result && (
           <div className="font-display text-2xl font-black tabular-nums" style={{ color: GREEN }}>
-            {story.answer}
+            {ANSWER}
           </div>
         )}
 

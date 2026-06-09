@@ -95,24 +95,29 @@ function arrowPoints(row: number, col: number, dir: Dir): string {
   return base.map((p) => rot(p)).map(([ax, ay]) => `${x + ax},${y + ay}`).join(' ')
 }
 
-/** Outline path of a two-way (up+down) block arrow. */
+/**
+ * Outline path of a two-way (up+down) block arrow: a vertical shaft with a
+ * triangular arrowhead pointing out at BOTH the top and the bottom. Traced
+ * clockwise from the top tip.
+ */
 function twoWayPoints(row: number, col: number): string {
   const x = ccx(col)
   const y = ccy(row)
-  const s = AG_CELL * 0.36
-  const w = AG_CELL * 0.13
-  const h = AG_CELL * 0.24
+  const s = AG_CELL * 0.36 // half total length (tip to tip)
+  const w = AG_CELL * 0.13 // half shaft width
+  const h = AG_CELL * 0.25 // half head width (h > w → barbs jut past the shaft)
+  const hl = AG_CELL * 0.22 // head length
   const pts: Array<[number, number]> = [
-    [-w, -s + h * 0.0],
-    [-h, -s + h],
-    [0, -s],
-    [h, -s + h],
-    [w, -s + h * 0.0],
-    [w, s - h * 0.0],
-    [h, s - h],
-    [0, s],
-    [-h, s - h],
-    [-w, s - h * 0.0],
+    [0, -s], //         top tip
+    [h, -s + hl], //    top-right barb
+    [w, -s + hl], //    shaft top-right
+    [w, s - hl], //     shaft bottom-right
+    [h, s - hl], //     bottom-right barb
+    [0, s], //          bottom tip
+    [-h, s - hl], //    bottom-left barb
+    [-w, s - hl], //    shaft bottom-left
+    [-w, -s + hl], //   shaft top-left
+    [-h, -s + hl], //   top-left barb
   ]
   return pts.map(([ax, ay]) => `${x + ax},${y + ay}`).join(' ')
 }
