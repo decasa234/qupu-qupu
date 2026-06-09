@@ -10,6 +10,8 @@ import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
 import LatihanWmiPage from './pages/LatihanWmi'
 import HargaPage from './pages/Harga'
+import PrivasiPage from './pages/Privasi'
+import KetentuanPage from './pages/Ketentuan'
 import MemberVideosPage from './pages/MemberVideos'
 import QuizPage from './pages/Quiz'
 import DashboardPage from './pages/Dashboard'
@@ -128,6 +130,8 @@ export default function App() {
           <Route path="videos/:slug" element={<VideoDetailPage />} />
           <Route path="wmi" element={<LatihanWmiPage />} />
           <Route path="harga" element={<HargaPage />} />
+          <Route path="privasi" element={<PrivasiPage />} />
+          <Route path="ketentuan" element={<KetentuanPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>

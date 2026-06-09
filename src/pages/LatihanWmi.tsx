@@ -8,6 +8,7 @@ import WmiSolution from '@/components/wmi/marketing/WmiSolution'
 import WmiFeaturesTour from '@/components/wmi/marketing/WmiFeaturesTour'
 import WmiMasteryTree from '@/components/wmi/marketing/WmiMasteryTree'
 import WmiTestimonialsMarquee from '@/components/wmi/marketing/WmiTestimonialsMarquee'
+import { TESTIMONIALS } from '@/data/wmiMarketing'
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -114,12 +115,16 @@ export default function LatihanWmiPage() {
           )}
         </AnimatePresence>
 
-        {/* 3 + 4 · Testimonials + closing CTA — only after the visitor answers */}
+        {/* 3 + 4 · Testimonials + closing CTA — only after the visitor answers.
+            The testimonials block is skipped entirely while TESTIMONIALS is
+            empty (real, consented quotes only — no empty Reveal shell). */}
         {answered && (
           <>
-            <Reveal delay={0.05}>
-              <WmiTestimonialsMarquee />
-            </Reveal>
+            {TESTIMONIALS.length > 0 && (
+              <Reveal delay={0.05}>
+                <WmiTestimonialsMarquee />
+              </Reveal>
+            )}
 
             <Reveal delay={0.05}>
           <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">

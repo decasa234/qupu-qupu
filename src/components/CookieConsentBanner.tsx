@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { getCookieConsent, setCookieConsent } from '@/lib/cookieConsent'
 
 export default function CookieConsentBanner() {
@@ -22,7 +22,12 @@ export default function CookieConsentBanner() {
     <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4 sm:px-6 sm:pb-6">
       <div className="mx-auto flex max-w-4xl flex-col gap-4 rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[6px_8px_0_0_#FFD3B1] sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <p className="text-sm font-semibold leading-relaxed text-qupu-muted sm:text-base">
-          Kami memakai cache penting supaya QUPU lebih cepat. Untuk cookie analitik dan preferensi tambahan, boleh kami aktifkan?
+          Kami memakai cache penting supaya QUPU lebih cepat. Untuk cookie analitik dan preferensi
+          tambahan, boleh kami aktifkan? Selengkapnya di{' '}
+          <Link to="/privasi" className="font-bold text-qupu-brand-orange hover:underline">
+            Kebijakan Privasi
+          </Link>
+          .
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:shrink-0">
           <button

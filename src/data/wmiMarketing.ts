@@ -65,38 +65,16 @@ export const COMING_SOON: string[] = [
   'Bimbingan personal',
 ]
 
-export interface FounderInfo {
-  name: string
-  role: string
-  story: string
-  photoUrl?: string
-}
-
-// PLACEHOLDER — replace with the real founder/educator story before launch.
-export const FOUNDER: FounderInfo = {
-  name: '[Nama Pendiri]',
-  role: '[Pendidik & Pendiri QUPU]',
-  story:
-    'PLACEHOLDER: ceritakan kenapa QUPU dibuat, latar belakang pendidik, dan kenapa konsep ' +
-    'olimpiade WMI penting untuk anak. Ganti teks ini sebelum peluncuran.',
-}
-
 export interface Testimonial {
   quote: string
   author: string
   role: string
 }
 
-// SAMPLE testimonials — believable placeholders. TODO: replace with real,
-// consented parent/teacher quotes before launch.
-export const TESTIMONIALS: Testimonial[] = [
-  { quote: 'Anakku jadi nggak takut soal cerita. Dia malah minta soal yang lebih susah.', author: 'Rina', role: 'Ibu dari Kayla, Kelas 2' },
-  { quote: 'Penjelasan langkah demi langkahnya bikin dia "oh, gitu!" sendiri, bukan dihafal.', author: 'Andre', role: 'Ayah dari Bima, Kelas 3' },
-  { quote: 'Fitur sorotan dan dwibahasanya membantu di kelas saya. Anak fokus ke inti soal.', author: 'Sari', role: 'Guru SD' },
-  { quote: 'Tiap hari dia ngumpulin XP. Belajar matematika jadi seperti main game.', author: 'Maya', role: 'Ibu dari Rafa, Kelas 1' },
-  { quote: 'Soal olimpiade yang dulu bikin pusing, sekarang dia kerjakan sambil senyum.', author: 'Dewi', role: 'Ibu dari Nadia, Kelas 3' },
-  { quote: 'Yang saya suka, dia belajar cara berpikir, bukan cuma jawaban.', author: 'Hendra', role: 'Ayah dari Alya, Kelas 2' },
-]
+// INTENTIONALLY EMPTY — real, consented parent/teacher quotes only. Never ship
+// fabricated testimonials. When real quotes exist (with written consent to
+// publish name + role), add them here and the /wmi marquee renders again.
+export const TESTIMONIALS: Testimonial[] = []
 
 // ---- real assisted-highlight question (the count-squares concept), for the
 // "Features tour" — shown via the real WmiAuthoredBreakdown + WmiLanguageToggle.

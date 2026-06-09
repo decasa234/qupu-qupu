@@ -287,6 +287,18 @@ export default function Register() {
             </span>
             {loading ? 'Mengirim kode...' : 'Kirim kode verifikasi'}
           </button>
+
+          <p className="text-center text-xs font-medium leading-relaxed text-qupu-muted">
+            Dengan mendaftar, kamu menyetujui{' '}
+            <Link to="/ketentuan" className="font-bold text-qupu-brand-orange hover:underline">
+              Syarat &amp; Ketentuan
+            </Link>{' '}
+            dan{' '}
+            <Link to="/privasi" className="font-bold text-qupu-brand-orange hover:underline">
+              Kebijakan Privasi
+            </Link>
+            .
+          </p>
         </form>
       </div>
     </AuthCard>

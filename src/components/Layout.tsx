@@ -88,32 +88,33 @@ function SiteFooter() {
           </p>
         </div>
 
+        {/* Only link sections that actually exist (Home ids: beranda, kategori,
+            video) or real routes — no dead anchors. */}
         <FooterCol title="Navigasi">
           <FooterLink href="/">Beranda</FooterLink>
-          <FooterLink href="/#tentang">Tentang</FooterLink>
           <FooterLink href="/#kategori">Kategori</FooterLink>
           <FooterLink href="/videos">Video</FooterLink>
-          <FooterLink href="/#faq">FAQ</FooterLink>
-          <FooterLink href="/#kontak">Kontak</FooterLink>
+          <FooterLink href="/wmi">Latihan WMI</FooterLink>
+          <FooterLink href="/harga">Harga</FooterLink>
         </FooterCol>
 
+        {/* Only channels that really exist — add others when real handles do. */}
         <FooterCol title="Ikuti Kami">
           <FooterSocial
             href="https://www.youtube.com/@qupuid"
             iconClass="fa-brands fa-youtube"
             label="YouTube"
           />
-          <FooterSocial href="#" iconClass="fa-brands fa-instagram" label="Instagram" />
-          <FooterSocial href="#" iconClass="fa-brands fa-tiktok" label="TikTok" />
-          <FooterSocial href="#" iconClass="fa-brands fa-facebook" label="Facebook" />
-        </FooterCol>
-
-        <FooterCol title="Website">
           <FooterSocial
             href="https://www.qupu.id"
             iconClass="fa-solid fa-globe"
             label="www.qupu.id"
           />
+        </FooterCol>
+
+        <FooterCol title="Legal">
+          <FooterLink href="/privasi">Kebijakan Privasi</FooterLink>
+          <FooterLink href="/ketentuan">Syarat &amp; Ketentuan</FooterLink>
         </FooterCol>
       </div>
 
