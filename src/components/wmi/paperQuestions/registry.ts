@@ -20,6 +20,7 @@ import NumberPatternIllustration from './NumberPatternIllustration'
 import NumberPatternExplainer from './NumberPatternExplainer'
 import PathGridIllustration from './PathGridIllustration'
 import PathGridExplainer from './PathGridExplainer'
+import DigitArrangeExplainer from './DigitArrangeExplainer'
 import NumberFlowIllustration from './NumberFlowIllustration'
 import NumberFlowExplainer from './NumberFlowExplainer'
 import LockCodeIllustration from './LockCodeIllustration'
@@ -75,6 +76,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-19F1A-Q17': { Illustration: CountSquaresIllustration, Explainer: CountSquaresExplainer },
   'WMI-19F1A-Q18': { Illustration: ShapeEquationIllustration, Explainer: ShapeEquationExplainer },
   'WMI-19F1A-Q19': { Illustration: PathGridIllustration, Explainer: PathGridExplainer },
+  'WMI-19F1A-Q20': { Explainer: DigitArrangeExplainer },
   'WMI-19F1A-Q22': { Illustration: NumberFlowIllustration, Explainer: NumberFlowExplainer },
   'WMI-19F1A-Q23': { Illustration: LockCodeIllustration, Explainer: LockCodeExplainer },
   'WMI-19F1A-Q24': { Illustration: KenKenGridIllustration, Explainer: KenKenExplainer },

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +46,11 @@
   a {
     @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-qupu-orange/30;
   }
+}
+
+/* Immersive WMI intro: hide the global footer until the visitor answers. */
+body[data-wmi-hide-footer='true'] [data-app-footer] {
+  display: none;
 }
 
 @layer utilities {

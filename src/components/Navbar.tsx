@@ -6,7 +6,7 @@ import ChildSwitcher from './ChildSwitcher'
 import { useAuthStore } from '../store/authStore'
 import { cn } from '../lib/utils'
 
-const SCROLL_SPY_IDS = ['beranda', 'kategori']
+const SCROLL_SPY_IDS = ['beranda']
 
 function useScrollSpy(ids: string[]) {
   const [active, setActive] = useState<string | null>(null)
@@ -46,12 +46,14 @@ function useScrollSpy(ids: string[]) {
 type NavItem = {
   label: string
   to: string
+  badge?: string
 }
 
 const NAV_ITEMS_PARENT: NavItem[] = [
   { label: 'Beranda', to: '/' },
-  { label: 'Kategori', to: '/#kategori' },
-  { label: 'Video', to: '/videos' },
+  { label: 'Latihan WMI', to: '/wmi', badge: 'New' },
+  { label: 'Tonton', to: '/videos' },
+  { label: 'Harga', to: '/harga' },
 ]
 
 const NAV_ITEMS_ADMIN: NavItem[] = [
@@ -79,7 +81,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border-2 border-qupu-peach bg-qupu-cream/95 px-4 backdrop-blur-md sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-white/50 bg-qupu-cream/70 px-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65),0_8px_28px_rgba(48,89,138,0.12)] backdrop-blur-xl sm:px-6">
         <Link to="/" aria-label="Beranda QUPU" className="shrink-0 cursor-pointer !p-0">
           <BrandLogo />
         </Link>
@@ -163,6 +165,7 @@ export default function Navbar() {
               <MobileLink
                 key={item.to}
                 to={item.to}
+                badge={item.badge}
                 activeSection={activeSection}
                 onClick={() => setOpen(false)}
               >
@@ -256,6 +259,20 @@ export default function Navbar() {
   )
 }
 
+function NewBadge({ children }: { children: string }) {
+  return (
+    <span className="relative inline-flex shrink-0 items-center">
+      <span
+        className="absolute inset-0 rounded-full bg-qupu-brand-orange/60 motion-safe:animate-ping"
+        aria-hidden="true"
+      />
+      <span className="relative rounded-full bg-qupu-brand-orange px-1.5 py-[2px] text-[9px] font-extrabold uppercase leading-none tracking-wide text-white shadow-[0_1px_0_0_#d96a22]">
+        {children}
+      </span>
+    </span>
+  )
+}
+
 function NavItemLink({
   item,
   activeSection,
@@ -269,6 +286,13 @@ function NavItemLink({
     'text-qupu-brand-orange underline decoration-qupu-brand-orange decoration-[3px] underline-offset-[10px]'
   const idleClass = 'text-qupu-muted hover:text-qupu-brand-orange'
 
+  const labelContent = (
+    <span className="inline-flex items-center gap-1.5">
+      {item.label}
+      {item.badge ? <NewBadge>{item.badge}</NewBadge> : null}
+    </span>
+  )
+
   if (isHash) {
     const sectionId = item.to.split('#')[1]
     const isActive = location.pathname === '/' && activeSection === sectionId
@@ -281,7 +305,7 @@ function NavItemLink({
           isActive ? activeClass : idleClass,
         )}
       >
-        {item.label}
+        {labelContent}
       </a>
     )
   }
@@ -314,7 +338,7 @@ function NavItemLink({
         isActive ? activeClass : idleClass,
       )}
     >
-      {item.label}
+      {labelContent}
     </NavLink>
   )
 }
@@ -325,12 +349,14 @@ function MobileLink({
   onClick,
   icon: Icon,
   activeSection,
+  badge,
 }: {
   to: string
   children: string
   onClick: () => void
   icon?: typeof Shield
   activeSection: string | null
+  badge?: string
 }) {
   const isHash = to.includes('#')
   const location = useLocation()
@@ -348,9 +374,10 @@ function MobileLink({
   )
   const content = (
     <>
-      <span className="flex items-center gap-3">
+      <span className="flex items-center gap-2.5">
         {Icon && <Icon className="h-4 w-4" />}
         {children}
+        {badge ? <NewBadge>{badge}</NewBadge> : null}
       </span>
       {isActive && <span className="h-2 w-2 rounded-full bg-qupu-brand-yellow" />}
     </>

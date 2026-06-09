@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
+import LatihanWmiPage from './pages/LatihanWmi'
+import HargaPage from './pages/Harga'
 import MemberVideosPage from './pages/MemberVideos'
 import QuizPage from './pages/Quiz'
 import DashboardPage from './pages/Dashboard'
@@ -122,6 +124,8 @@ export default function App() {
           <Route index element={<HomeRoute />} />
           <Route path="videos" element={<VideosPage />} />
           <Route path="videos/:slug" element={<VideoDetailPage />} />
+          <Route path="wmi" element={<LatihanWmiPage />} />
+          <Route path="harga" element={<HargaPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
