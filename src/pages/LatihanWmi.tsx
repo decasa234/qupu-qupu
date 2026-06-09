@@ -56,6 +56,13 @@ export default function LatihanWmiPage() {
     }
   }, [answered])
 
+  // Hide the global footer during the immersive intro; reveal it once answered.
+  useEffect(() => {
+    if (answered) document.body.removeAttribute('data-wmi-hide-footer')
+    else document.body.setAttribute('data-wmi-hide-footer', 'true')
+    return () => document.body.removeAttribute('data-wmi-hide-footer')
+  }, [answered])
+
   // When the Penjelasan animations finish, glide down to the features tour.
   const scrollToFeatures = useCallback(() => {
     if (userScrolledRef.current) return

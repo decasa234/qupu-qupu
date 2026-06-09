@@ -48,6 +48,11 @@
   }
 }
 
+/* Immersive WMI intro: hide the global footer until the visitor answers. */
+body[data-wmi-hide-footer='true'] [data-app-footer] {
+  display: none;
+}
+
 @layer utilities {
   .surface-grid {
     background-image:
