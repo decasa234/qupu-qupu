@@ -124,17 +124,19 @@ export const COUNT_SQUARES_QUESTION = {
   bodyEn: 'The grid below has 3 columns and 3 rows.\n\nFind: How many squares of any size are in the grid?',
   bodyId: 'Kisi di bawah memiliki 3 kolom dan 3 baris.\n\nCari: Ada berapa persegi dari semua ukuran dalam kisi tersebut?',
   breakdown: COUNT_SQUARES_BREAKDOWN,
+  // Progressive HINTS (nudges, not the worked solution) — they never reveal the
+  // per-size counts or the total.
   hintStepsEn: [
-    '1×1 squares: 3 × 3 = 9.',
-    '2×2 squares: 2 × 2 = 4.',
-    '3×3 squares: 1 × 1 = 1.',
-    'Total squares: 9 + 4 + 1 = 14.',
+    'Careful: do not only count the smallest boxes. Bigger squares hide inside the grid too.',
+    'Count by size. Look for 1×1 squares first, then 2×2, then the whole 3×3.',
+    'For each bigger size, slide its frame across the grid and count how many positions fit.',
+    'Found every size? Add your counts together to reach the answer.',
   ],
   hintStepsId: [
-    'Persegi 1×1: 3 × 3 = 9.',
-    'Persegi 2×2: 2 × 2 = 4.',
-    'Persegi 3×3: 1 × 1 = 1.',
-    'Total persegi: 9 + 4 + 1 = 14.',
+    'Hati-hati, jangan cuma hitung kotak terkecil. Ada persegi besar yang tersembunyi juga.',
+    'Hitung per ukuran. Cari persegi 1×1 dulu, lalu 2×2, lalu 3×3 utuh.',
+    'Untuk tiap ukuran besar, geser bingkainya ke seluruh kisi dan hitung ada berapa posisi.',
+    'Sudah dapat semua ukuran? Jumlahkan hitunganmu untuk mendapat jawabannya.',
   ],
 }
 
