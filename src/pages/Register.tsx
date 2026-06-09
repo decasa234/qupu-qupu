@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import { redeemPendingReferral, savePendingReferralCode } from '../lib/referralStorage'
+import { resolvePostLoginRoute } from '../lib/postLoginRoute'
 import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
 import OtpInput from '../components/OtpInput'
@@ -66,7 +67,9 @@ export default function Register() {
       }
 
       useAuthStore.getState().setChildren(children)
-      navigate(children.length === 0 ? '/onboard/child' : '/dashboard', { replace: true })
+      // Google sign-in here can be an existing account with children — route
+      // it like a login. Fresh accounts (0 children) still hit onboarding.
+      navigate(resolvePostLoginRoute(payload.user.role, children.length), { replace: true })
     } finally {
       setLoading(false)
     }

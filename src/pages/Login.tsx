@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { resolvePostLoginRoute } from '../lib/postLoginRoute'
 import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
 import PillField from '../components/PillField'
@@ -31,7 +32,7 @@ export default function Login() {
     }
 
     useAuthStore.getState().setChildren(children)
-    navigate(children.length === 0 ? '/onboard/child' : '/dashboard', { replace: true })
+    navigate(resolvePostLoginRoute(payload.user.role, children.length), { replace: true })
   }
 
   const handleGoogleAuthenticated = async (payload: AuthPayload) => {

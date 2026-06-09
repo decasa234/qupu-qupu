@@ -38,6 +38,7 @@ import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
+import { resolvePostLoginRoute } from './lib/postLoginRoute'
 import { useAuthStore } from './store/authStore'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -65,9 +66,11 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
 }
 
 function HomeRoute() {
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, user, children } = useAuthStore()
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
+    // Members land in the WMI garden; admins on the admin dashboard;
+    // members without a child profile go finish onboarding first.
+    return <Navigate to={resolvePostLoginRoute(user?.role ?? '', children.length)} replace />
   }
   return <Home />
 }

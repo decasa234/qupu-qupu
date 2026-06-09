@@ -6,11 +6,38 @@ import ConceptInfoModal from '../components/wmi/ConceptInfoModal'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
-import type { WmiGarden, WmiGardenConcept, WmiGrade } from '../types/wmi'
+import type { WmiGarden, WmiGardenChapter, WmiGardenConcept, WmiGrade } from '../types/wmi'
+
+// The single top recommendation: which chapter should the dominant
+// "Lanjutkan" hero point at? Priority:
+//   1. the last-started subject (per-child, persisted) — if it exists in the
+//      current grade's garden, is unlocked and not fully grown;
+//   2. the chapter containing the garden's nextConceptSlug;
+//   3. the first unlocked chapter that isn't fully grown;
+//   4. null — every unlocked chapter is fully grown (campur variant).
+function pickResumeChapter(
+  garden: WmiGarden,
+  lastSubjectKey: string | null,
+): WmiGardenChapter | null {
+  const resumable = (ch: WmiGardenChapter | undefined) =>
+    ch && ch.unlocked && ch.grownCount < ch.total ? ch : null
+
+  const last = resumable(garden.chapters.find((ch) => ch.subjectKey === lastSubjectKey))
+  if (last) return last
+
+  if (garden.nextConceptSlug) {
+    const next = resumable(
+      garden.chapters.find((ch) => ch.concepts.some((c) => c.slug === garden.nextConceptSlug)),
+    )
+    if (next) return next
+  }
+
+  return garden.chapters.find((ch) => ch.unlocked && ch.grownCount < ch.total) ?? null
+}
 
 export default function WmiHub() {
   const { activeChildId } = useAuthStore()
-  const { selectedGrade, setSelectedGrade, loadGlossary } = useWmiStore()
+  const { selectedGrade, setSelectedGrade, lastSubjectKey, loadGlossary } = useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
   const [loading, setLoading] = useState(true)
@@ -39,6 +66,9 @@ export default function WmiHub() {
 
   const grownTotal = garden?.chapters.reduce((s, c) => s + c.grownCount, 0) ?? 0
   const conceptTotal = garden?.chapters.reduce((s, c) => s + c.total, 0) ?? 0
+
+  const hasUnlocked = !!garden && garden.chapters.some((ch) => ch.unlocked)
+  const resumeChapter = garden ? pickResumeChapter(garden, lastSubjectKey) : null
 
   return (
     <div className="w-full max-w-[460px] self-center pb-6">
@@ -69,6 +99,56 @@ export default function WmiHub() {
         <p className="px-1 pb-2 text-[10px] font-black uppercase tracking-[0.16em] text-qupu-brand-orange">Pilih kelas</p>
         <WmiGradeChips selected={selectedGrade} onSelect={(g: WmiGrade) => setSelectedGrade(g)} />
       </div>
+
+      {/* Resume hero — the single dominant "1 tap to a session" recommendation.
+          ChapterGarden keeps its contextual per-chapter buttons; this is the
+          top-of-page pick (last subject → nextConceptSlug → first unlocked). */}
+      {!loading && hasUnlocked && (
+        resumeChapter ? (
+          <section className="mt-4 rounded-[2rem] bg-white p-5 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
+              Lanjutkan belajar
+            </p>
+            <h2 className="mt-1 font-display text-xl font-black leading-tight text-qupu-brand-blue">
+              {resumeChapter.nameId}
+            </h2>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#F1E4CC]">
+              <div
+                className="h-full rounded-full bg-[#58A700]"
+                style={{ width: `${resumeChapter.meanPct}%` }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate(`/latihan/wmi/sesi/${resumeChapter.subjectKey}`)}
+              className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
+                <i className="fa-solid fa-play" aria-hidden="true" />
+              </span>
+              {resumeChapter.grownCount === 0 ? 'Mulai' : 'Lanjutkan'}
+            </button>
+          </section>
+        ) : (
+          <section className="mt-4 rounded-[2rem] bg-white p-5 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
+              Kebun penuh
+            </p>
+            <h2 className="mt-1 font-display text-xl font-black leading-tight text-qupu-brand-blue">
+              Semua tumbuh! Latihan campur?
+            </h2>
+            <Link
+              to="/latihan/wmi/konsep"
+              className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
+                <i className="fa-solid fa-shuffle" aria-hidden="true" />
+              </span>
+              Latihan Campur
+            </Link>
+          </section>
+        )
+      )}
 
       <div className="mt-6">
         <div className="flex items-center justify-between px-1">

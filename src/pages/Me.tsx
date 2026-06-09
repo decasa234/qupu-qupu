@@ -1,7 +1,8 @@
 // src/pages/Me.tsx
 //
 // Profil tab destination. Sections: account header, a Pengaturan menu
-// (Rapor → /report, Keluar → logout), and the owned-items collection.
+// (Rapor → /report, Rapor & Statistik → /dashboard, Keluar → logout),
+// and the owned-items collection.
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import InventoryGrid from '../components/me/InventoryGrid'
@@ -48,6 +49,13 @@ export default function MePage() {
             iconBg="#30598A"
             title="Rapor belajar"
             subtitle="Lihat progres & nilai lengkap"
+          />
+          <SettingsRow
+            to="/dashboard"
+            icon="fa-solid fa-chart-pie"
+            iconBg="#0E7490"
+            title="Rapor & Statistik"
+            subtitle="Ringkasan belajar, kuis & misi harian"
           />
           <SettingsRow
             onClick={handleLogout}
