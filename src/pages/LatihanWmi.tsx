@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import Reveal from '@/components/Reveal'
@@ -27,6 +27,8 @@ export default function LatihanWmiPage() {
   const [answered, setAnswered] = useState(false)
   const reduce = useReducedMotion()
   const revealRef = useRef<HTMLDivElement>(null)
+  const featuresRef = useRef<HTMLDivElement>(null)
+  const userScrolledRef = useRef(false)
 
   // After answering, let the hero feedback play, then glide to the reveal.
   useEffect(() => {
@@ -36,6 +38,29 @@ export default function LatihanWmiPage() {
     }, 1100)
     return () => clearTimeout(t)
   }, [answered, reduce])
+
+  // Once the visitor scrolls themselves, never yank them with the auto-scroll.
+  useEffect(() => {
+    if (!answered) return
+    userScrolledRef.current = false
+    const mark = () => {
+      userScrolledRef.current = true
+    }
+    window.addEventListener('wheel', mark, { passive: true })
+    window.addEventListener('touchmove', mark, { passive: true })
+    window.addEventListener('keydown', mark)
+    return () => {
+      window.removeEventListener('wheel', mark)
+      window.removeEventListener('touchmove', mark)
+      window.removeEventListener('keydown', mark)
+    }
+  }, [answered])
+
+  // When the Penjelasan animations finish, glide down to the features tour.
+  const scrollToFeatures = useCallback(() => {
+    if (userScrolledRef.current) return
+    featuresRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
+  }, [reduce])
 
   return (
     <div className="relative">
@@ -57,9 +82,11 @@ export default function LatihanWmiPage() {
               className="scroll-mt-24 space-y-14 sm:space-y-20"
             >
               <Reveal delay={0.05}>
-                <WmiSolution />
+                <WmiSolution onDone={scrollToFeatures} />
               </Reveal>
-              <WmiFeaturesTour />
+              <div ref={featuresRef}>
+                <WmiFeaturesTour />
+              </div>
               <Reveal delay={0.05}>
                 <section className="mx-auto max-w-5xl rounded-[2.5rem] bg-qupu-cream px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
                   <WmiMasteryTree />

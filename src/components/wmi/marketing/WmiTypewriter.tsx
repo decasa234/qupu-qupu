@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
 /** Char-by-char typewriter. Instant + cursor-free when reduced-motion is on. */
@@ -8,19 +8,24 @@ export default function WmiTypewriter({
   startDelay = 0,
   className,
   cursorClassName,
+  onDone,
 }: {
   text: string
   speed?: number
   startDelay?: number
   className?: string
   cursorClassName?: string
+  onDone?: () => void
 }) {
   const reduce = useReducedMotion()
   const [n, setN] = useState(reduce ? text.length : 0)
+  const onDoneRef = useRef(onDone)
+  onDoneRef.current = onDone
 
   useEffect(() => {
     if (reduce) {
       setN(text.length)
+      onDoneRef.current?.()
       return
     }
     setN(0)
@@ -30,7 +35,10 @@ export default function WmiTypewriter({
       interval = setInterval(() => {
         i += 1
         setN(i)
-        if (i >= text.length) clearInterval(interval)
+        if (i >= text.length) {
+          clearInterval(interval)
+          onDoneRef.current?.()
+        }
       }, speed)
     }, startDelay)
     return () => {
