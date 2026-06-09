@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import ChapterGarden from '../components/wmi/ChapterGarden'
 import ConceptInfoModal from '../components/wmi/ConceptInfoModal'
+import DailyQuestsPanel from '../components/me/DailyQuestsPanel'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -149,6 +150,11 @@ export default function WmiHub() {
           </section>
         )
       )}
+
+      {/* "Misi Hari Ini" — daily quest goals. Fetches independently and
+          renders nothing on failure, so the garden never looks broken
+          because quests failed. */}
+      <DailyQuestsPanel childId={activeChildId} variant="garden" />
 
       <div className="mt-6">
         <div className="flex items-center justify-between px-1">

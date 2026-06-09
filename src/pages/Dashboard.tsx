@@ -14,6 +14,7 @@ import { useGamificationStats } from '../hooks/useGamificationStats'
 import { avatarIconClass, DEFAULT_AVATAR_COLOR } from '../lib/avatars'
 import AuthCard from '../components/AuthCard'
 import SkeletonCard from '../components/SkeletonCard'
+import DailyQuestsPanel from '../components/me/DailyQuestsPanel'
 import HomeActionCards from '../components/dashboard/HomeActionCards'
 import DashboardHighlights from '../components/dashboard/DashboardHighlights'
 import ShopTeaser from '../components/dashboard/ShopTeaser'
@@ -207,6 +208,11 @@ export default function DashboardPage() {
       </section>
 
       <div className="mt-4 space-y-4">
+        {/* "Misi Hari Ini" — first card. Fetches /me/quests itself: the
+            dashboard payload's vm.quests uses a different shape
+            (progressValue/targetValue/status), so an independent fetch is
+            simpler than adapting it. Renders nothing on failure. */}
+        <DailyQuestsPanel childId={activeChildId} variant="dashboard" />
         <HomeActionCards
           streak={vm.streak}
           recommended={recommended}
