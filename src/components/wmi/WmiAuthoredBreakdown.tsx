@@ -107,6 +107,12 @@ export default function WmiAuthoredBreakdown({
 
   return (
     <div className="mt-4">
+      {pulseHint && (
+        <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-orange/10 px-2.5 py-1 text-xs font-extrabold text-qupu-brand-orange">
+          <i className="fa-solid fa-hand-pointer" aria-hidden="true" />
+          Ketuk bagian berwarna untuk lihat artinya
+        </div>
+      )}
       <motion.p
         initial="hidden"
         animate="shown"
@@ -144,7 +150,7 @@ export default function WmiAuthoredBreakdown({
               style={pulseHint && !isSel ? { animationDelay: `${0.4 + s.hi * 0.45}s` } : undefined}
               className={`cursor-pointer rounded-md px-1.5 font-extrabold ${
                 isSel ? `ring-2 ring-offset-1 ${cat.ring}` : ''
-              }${pulseHint ? ' inline-block' : ''}${pulseHint && !isSel ? ' motion-safe:animate-tapPop' : ''}`}
+              }${pulseHint ? ' inline-block underline decoration-dashed decoration-2 underline-offset-[3px]' : ''}${pulseHint && !isSel ? ' motion-safe:animate-tapPop' : ''}`}
             >
               {s.text}
             </motion.span>
