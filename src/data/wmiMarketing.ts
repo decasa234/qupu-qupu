@@ -124,6 +124,18 @@ export const COUNT_SQUARES_QUESTION = {
   bodyEn: 'The grid below has 3 columns and 3 rows.\n\nFind: How many squares of any size are in the grid?',
   bodyId: 'Kisi di bawah memiliki 3 kolom dan 3 baris.\n\nCari: Ada berapa persegi dari semua ukuran dalam kisi tersebut?',
   breakdown: COUNT_SQUARES_BREAKDOWN,
+  hintStepsEn: [
+    '1×1 squares: 3 × 3 = 9.',
+    '2×2 squares: 2 × 2 = 4.',
+    '3×3 squares: 1 × 1 = 1.',
+    'Total squares: 9 + 4 + 1 = 14.',
+  ],
+  hintStepsId: [
+    'Persegi 1×1: 3 × 3 = 9.',
+    'Persegi 2×2: 2 × 2 = 4.',
+    'Persegi 3×3: 1 × 1 = 1.',
+    'Total persegi: 9 + 4 + 1 = 14.',
+  ],
 }
 
 // ---- /wmi challenge hook (the "smarter than a 2nd grader?" question) ----

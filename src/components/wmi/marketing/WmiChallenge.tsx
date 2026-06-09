@@ -1,67 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import WmiTypewriter from './WmiTypewriter'
 import { HOOK_QUESTION } from '@/data/wmiMarketing'
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
-/** Char-by-char typewriter for the headline (instant + cursor-free when reduced). */
-function Typewriter({ text, reduce }: { text: string; reduce: boolean }) {
-  const [n, setN] = useState(reduce ? text.length : 0)
-  useEffect(() => {
-    if (reduce) {
-      setN(text.length)
-      return
-    }
-    setN(0)
-    let i = 0
-    const id = setInterval(() => {
-      i += 1
-      setN(i)
-      if (i >= text.length) clearInterval(id)
-    }, 55)
-    return () => clearInterval(id)
-  }, [text, reduce])
-  const done = n >= text.length
-  return (
-    <span aria-label={text}>
-      <span aria-hidden="true">{text.slice(0, n)}</span>
-      {!done && (
-        <span
-          aria-hidden="true"
-          className="ml-1 inline-block w-[3px] animate-pulse rounded bg-qupu-brand-yellow align-middle"
-          style={{ height: '0.9em' }}
-        />
-      )}
-    </span>
-  )
-}
-
 /** The 3x3 grid the question is about, with an eye-catching staggered entrance. */
 function GridFigure({ rows, cols, reduce }: { rows: number; cols: number; reduce: boolean }) {
-  const u = 46
+  const u = 62
   const w = cols * u
   const h = rows * u
   const cells: Array<[number, number]> = []
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) cells.push([c, r])
   return (
     <div className="relative">
-      {/* one-time highlight ring flash */}
       {!reduce && (
         <motion.div
           aria-hidden="true"
-          className="absolute inset-0 rounded-[1.5rem] ring-4 ring-qupu-brand-yellow"
+          className="absolute inset-0 rounded-[1.75rem] ring-4 ring-qupu-brand-yellow"
           initial={{ opacity: 0.7, scale: 0.9 }}
           animate={{ opacity: 0, scale: 1.35 }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
         />
       )}
       <motion.div
-        className="rounded-[1.5rem] bg-white/10 p-4 ring-1 ring-white/20"
+        className="rounded-[1.75rem] bg-white/10 p-5 ring-1 ring-white/20"
         initial={reduce ? false : { opacity: 0, scale: 0.7, rotate: -4 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ type: 'spring', stiffness: 140, damping: 14, mass: 0.7 }}
       >
-        <svg viewBox={`-3 -3 ${w + 6} ${h + 6}`} width={w} height={h} className="drop-shadow-[0_6px_14px_rgba(0,0,0,0.18)]" aria-hidden="true">
+        <svg viewBox={`-3 -3 ${w + 6} ${h + 6}`} width={w} height={h} className="drop-shadow-[0_8px_18px_rgba(0,0,0,0.2)]" aria-hidden="true">
           {cells.map(([c, r], i) => (
             <motion.rect
               key={i}
@@ -69,10 +37,10 @@ function GridFigure({ rows, cols, reduce }: { rows: number; cols: number; reduce
               y={r * u}
               width={u}
               height={u}
-              rx={6}
+              rx={8}
               fill="rgba(255,255,255,0.14)"
               stroke="#ffffff"
-              strokeWidth={3}
+              strokeWidth={3.5}
               initial={reduce ? false : { opacity: 0, scale: 0.3 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: reduce ? 0 : 0.35 + 0.07 * i, duration: 0.3, ease: EASE }}
@@ -87,9 +55,12 @@ function GridFigure({ rows, cols, reduce }: { rows: number; cols: number; reduce
 
 export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) => void }) {
   const [picked, setPicked] = useState<string | null>(null)
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const reduce = useReducedMotion()
   const answered = picked !== null
   const correct = picked === HOOK_QUESTION.answer
+  const showCursor = cursor !== null && !answered
 
   const pick = (value: string) => {
     if (answered) return
@@ -97,11 +68,45 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
     onAnswer?.(value)
   }
 
+  const onMove = (e: React.MouseEvent) => {
+    if (answered) return
+    const r = sectionRef.current?.getBoundingClientRect()
+    if (!r) return
+    setCursor({ x: e.clientX - r.left, y: e.clientY - r.top })
+  }
+
   return (
-    <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-10 text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-12">
+    <section
+      ref={sectionRef}
+      onMouseMove={onMove}
+      onMouseLeave={() => setCursor(null)}
+      className={
+        'relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-10 text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-12 ' +
+        (showCursor ? 'cursor-none' : '')
+      }
+    >
       <i className="fa-solid fa-star pointer-events-none absolute left-8 top-9 text-base text-qupu-brand-yellow/70" aria-hidden="true" />
       <i className="fa-solid fa-star pointer-events-none absolute right-10 top-12 text-xs text-qupu-brand-yellow/50" aria-hidden="true" />
       <i className="fa-solid fa-star pointer-events-none absolute bottom-10 right-1/4 text-sm text-qupu-brand-yellow/60" aria-hidden="true" />
+
+      {/* custom in-card cursor that nudges toward the answer options */}
+      {showCursor && cursor && (
+        <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+          <motion.div
+            className="absolute"
+            style={{ left: cursor.x, top: cursor.y }}
+            animate={{ scale: reduce ? 1 : [1, 1.12, 1] }}
+            transition={reduce ? undefined : { duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <span className="absolute flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-qupu-brand-orange text-white shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+              <i className="fa-solid fa-hand-pointer text-sm" />
+            </span>
+            <span className="absolute left-6 top-3 whitespace-nowrap rounded-full bg-qupu-brand-yellow px-2.5 py-1 font-display text-[11px] font-extrabold text-[#5a4a00] shadow-md">
+              Pilih jawabanmu!
+            </span>
+          </motion.div>
+        </div>
+      )}
 
       <div className="relative mx-auto max-w-3xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#5a4a00]">
@@ -109,12 +114,12 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
           {HOOK_QUESTION.eyebrow}
         </span>
         <h1 className="mt-4 min-h-[1.2em] font-display text-3xl font-extrabold leading-tight sm:text-5xl">
-          <Typewriter text={HOOK_QUESTION.title} reduce={!!reduce} />
+          <WmiTypewriter text={HOOK_QUESTION.title} cursorClassName="ml-1 inline-block w-[3px] animate-pulse rounded bg-qupu-brand-yellow align-middle" />
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm font-semibold text-white/90 sm:text-base">{HOOK_QUESTION.prompt}</p>
+        <p className="mx-auto mt-4 max-w-xl text-base font-semibold text-white/90 sm:text-xl">{HOOK_QUESTION.prompt}</p>
 
         {/* options (left) + problem (right) */}
-        <div className="mt-8 grid items-center gap-6 lg:grid-cols-2">
+        <div className="mt-9 grid items-center gap-8 lg:grid-cols-2">
           <div className="order-2 flex flex-col gap-3 lg:order-1">
             {HOOK_QUESTION.options.map((opt, i) => {
               const isAnswer = opt === HOOK_QUESTION.answer
@@ -137,7 +142,7 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
                   whileHover={answered || reduce ? undefined : { x: 4, scale: 1.02 }}
                   whileTap={answered ? undefined : { scale: 0.97 }}
                   className={
-                    'flex items-center justify-between rounded-[1.25rem] border-[3px] bg-white px-5 py-4 font-display text-2xl font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qupu-brand-yellow focus-visible:ring-offset-2 ' +
+                    'flex items-center justify-between rounded-[1.25rem] border-[3px] bg-white px-6 py-5 font-display text-2xl font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qupu-brand-yellow focus-visible:ring-offset-2 ' +
                     (state === 'idle'
                       ? 'border-white/60 text-qupu-brand-blue '
                       : state === 'right'
