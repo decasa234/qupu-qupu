@@ -96,13 +96,14 @@ export default function LatihanWmiPage() {
           )}
         </AnimatePresence>
 
-        {/* 3 · Testimonials marquee */}
-        <Reveal delay={0.05}>
-          <WmiTestimonialsMarquee />
-        </Reveal>
+        {/* 3 + 4 · Testimonials + closing CTA — only after the visitor answers */}
+        {answered && (
+          <>
+            <Reveal delay={0.05}>
+              <WmiTestimonialsMarquee />
+            </Reveal>
 
-        {/* 4 · Closing CTA */}
-        <Reveal delay={0.05}>
+            <Reveal delay={0.05}>
           <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
             <Sprinkles />
             <img
@@ -143,7 +144,9 @@ export default function LatihanWmiPage() {
               </div>
             </div>
           </section>
-        </Reveal>
+            </Reveal>
+          </>
+        )}
       </div>
     </div>
   )

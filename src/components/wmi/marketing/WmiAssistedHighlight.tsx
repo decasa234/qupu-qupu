@@ -32,7 +32,7 @@ export default function WmiAssistedHighlight() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-[11px] uppercase tracking-[0.22em] text-qupu-muted">QUESTION</div>
-          <div className="mt-0.5 font-display text-xl font-extrabold text-qupu-brand-blue">Soal 45603</div>
+          <div className="mt-0.5 font-display text-xl font-extrabold text-qupu-brand-blue">Soal 1</div>
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <WmiLanguageToggle lang={lang} onToggle={() => setLang((l) => (l === 'en' ? 'id' : 'en'))} />
@@ -42,7 +42,7 @@ export default function WmiAssistedHighlight() {
 
       {/* Body: authored breakdown (highlighting) when active, plain sentence otherwise */}
       {active ? (
-        <WmiAuthoredBreakdown breakdown={COUNT_SQUARES_QUESTION.breakdown} text={body} lang={lang} />
+        <WmiAuthoredBreakdown breakdown={COUNT_SQUARES_QUESTION.breakdown} text={body} lang={lang} pulseHint />
       ) : (
         <p className="mt-4 rounded-xl border border-black/5 bg-qupu-cream/60 px-4 py-3 text-lg leading-relaxed text-qupu-ink">
           {plainSentence}

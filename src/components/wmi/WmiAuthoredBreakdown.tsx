@@ -80,10 +80,13 @@ export default function WmiAuthoredBreakdown({
   breakdown,
   text,
   lang,
+  pulseHint = false,
 }: {
   breakdown: Breakdown
   text: string
   lang: Lang
+  /** When true, the highlighted spans gently pop to hint that they're tappable. */
+  pulseHint?: boolean
 }) {
   const isId = lang === 'id'
   const highlights = breakdown.highlights
@@ -138,9 +141,10 @@ export default function WmiAuthoredBreakdown({
                 hidden: { backgroundColor: 'rgba(255,255,255,0)', color: INK },
                 shown: { backgroundColor: cat.soft, color: cat.text },
               }}
+              style={pulseHint && !isSel ? { animationDelay: `${0.4 + s.hi * 0.45}s` } : undefined}
               className={`cursor-pointer rounded-md px-1.5 font-extrabold ${
                 isSel ? `ring-2 ring-offset-1 ${cat.ring}` : ''
-              }`}
+              }${pulseHint ? ' inline-block' : ''}${pulseHint && !isSel ? ' motion-safe:animate-tapPop' : ''}`}
             >
               {s.text}
             </motion.span>

@@ -76,10 +76,15 @@ export default {
           from: { transform: 'translateY(9px)' },
           to: { transform: 'translateY(0)' },
         },
+        tapPop: {
+          '0%, 14%, 100%': { transform: 'scale(1)' },
+          '6%': { transform: 'scale(1.08)' },
+        },
       },
       animation: {
         ring: 'ring 0.9s ease-in-out',
         rise: 'rise 0.35s cubic-bezier(.34,1.4,.5,1) both',
+        tapPop: 'tapPop 2.4s ease-in-out infinite',
       },
     },
   },

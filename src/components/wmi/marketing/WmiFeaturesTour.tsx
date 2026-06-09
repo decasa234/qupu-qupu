@@ -13,9 +13,9 @@ interface FeatureRow {
 }
 
 const FEATURES: FeatureRow[] = [
-  { icon: 'fa-solid fa-highlighter', title: 'Sorotan terbantu', desc: 'Bagian penting soal disorot otomatis.' },
-  { icon: 'fa-solid fa-language', title: 'Dwibahasa', desc: 'Soal & penjelasan dalam Indonesia dan Inggris.' },
-  { icon: 'fa-solid fa-list-ol', title: 'Hint bertahap', desc: 'Petunjuk muncul selangkah demi selangkah.' },
+  { icon: 'fa-solid fa-highlighter', title: 'Sorotan Pembantu', desc: 'Bagian penting soal disorot otomatis.' },
+  { icon: 'fa-solid fa-language', title: 'Dua Bahasa', desc: 'Soal & penjelasan dalam Indonesia dan Inggris.' },
+  { icon: 'fa-solid fa-list-ol', title: 'Petunjuk Bertahap', desc: 'Petunjuk muncul selangkah demi selangkah.' },
   { icon: 'fa-solid fa-circle-play', title: 'Putar & ulang', desc: 'Animasi solusi bisa diputar ulang kapan saja.' },
 ]
 
@@ -62,11 +62,13 @@ function MiniLangCard({ tag, sentence }: { tag: string; sentence: string }) {
 }
 
 /**
- * HINT BERTAHAP showcase: reveals the hint steps one at a time with a
- * sequential stagger (reduced-motion safe).
+ * PETUNJUK BERTAHAP showcase: a "show hint" button that reveals the hint steps
+ * one at a time on each tap, then resets.
  */
-function HintBertahapShowcase({ reduce }: { reduce: boolean }) {
+function PetunjukBertahapShowcase({ reduce }: { reduce: boolean }) {
   const steps = COUNT_SQUARES_QUESTION.hintStepsId
+  const [shown, setShown] = useState(0)
+  const allShown = shown >= steps.length
 
   return (
     <div className="rounded-2xl border border-black/5 bg-white p-5">
@@ -75,22 +77,55 @@ function HintBertahapShowcase({ reduce }: { reduce: boolean }) {
         Petunjuk
       </div>
 
-      <ol className="mt-4 space-y-3">
-        {steps.map((step, i) => (
-          <motion.li
-            key={step}
-            initial={reduce ? false : { opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={reduce ? undefined : { duration: 0.35, delay: 0.15 + i * 0.45, ease: 'easeOut' }}
-            className="flex items-start gap-3"
-          >
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-qupu-brand-orange font-display text-sm font-extrabold text-white">
-              {i + 1}
-            </span>
-            <span className="pt-0.5 text-base font-semibold leading-relaxed text-qupu-muted">{step}</span>
-          </motion.li>
-        ))}
-      </ol>
+      {shown === 0 ? (
+        <p className="mt-3 text-sm font-semibold leading-relaxed text-qupu-muted">
+          Petunjuk muncul satu per satu. Ketuk tombol untuk membuka langkah berikutnya.
+        </p>
+      ) : (
+        <ol className="mt-4 space-y-3">
+          {steps.slice(0, shown).map((step, i) => (
+            <motion.li
+              key={step}
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={reduce ? undefined : { duration: 0.3, ease: 'easeOut' }}
+              className="flex items-start gap-3"
+            >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-qupu-brand-orange font-display text-sm font-extrabold text-white">
+                {i + 1}
+              </span>
+              <span className="pt-0.5 text-base font-semibold leading-relaxed text-qupu-muted">{step}</span>
+            </motion.li>
+          ))}
+        </ol>
+      )}
+
+      <div className="mt-4 flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setShown((s) => (s >= steps.length ? 0 : s + 1))}
+          className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+        >
+          {allShown ? (
+            <>
+              <i className="fa-solid fa-rotate-right" aria-hidden="true" /> Ulangi
+            </>
+          ) : shown === 0 ? (
+            <>
+              <i className="fa-solid fa-lightbulb" aria-hidden="true" /> Tampilkan petunjuk
+            </>
+          ) : (
+            <>
+              <i className="fa-solid fa-chevron-down" aria-hidden="true" /> Petunjuk berikutnya
+            </>
+          )}
+        </button>
+        {shown > 0 && (
+          <span className="font-display text-xs font-extrabold text-qupu-muted">
+            {Math.min(shown, steps.length)}/{steps.length}
+          </span>
+        )}
+      </div>
     </div>
   )
 }
@@ -109,7 +144,7 @@ function Showcase({ index, reduce }: { index: number; reduce: boolean }) {
     case 1:
       return <DwibahasaShowcase />
     case 2:
-      return <HintBertahapShowcase reduce={reduce} />
+      return <PetunjukBertahapShowcase reduce={reduce} />
     case 3:
       return <PutarUlangShowcase />
     case 0:
@@ -259,15 +294,6 @@ export default function WmiFeaturesTour() {
               ))}
             </ul>
 
-            <p className="mt-5 flex items-center gap-2 text-xs font-semibold text-qupu-muted">
-              <motion.i
-                className="fa-solid fa-arrow-down-long text-qupu-brand-orange"
-                animate={{ y: [0, 4, 0] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-                aria-hidden="true"
-              />
-              Gulir untuk melihat tiap fitur bekerja
-            </p>
           </div>
 
           {/* RIGHT: showcase that steps with scroll direction */}
@@ -291,6 +317,18 @@ export default function WmiFeaturesTour() {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* bottom-center scroll cue — hidden on the last feature */}
+        {activeIndex < FEATURES.length - 1 && (
+          <motion.div
+            className="pointer-events-none absolute bottom-7 left-1/2 -translate-x-1/2 text-qupu-brand-orange"
+            animate={{ y: [0, 9, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            aria-hidden="true"
+          >
+            <i className="fa-solid fa-angles-down text-2xl" />
+          </motion.div>
+        )}
       </div>
     </div>
   )
