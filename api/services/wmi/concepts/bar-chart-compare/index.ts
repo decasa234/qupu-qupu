@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildBarChartCompareBreakdown } from './breakdown.js'
 
 const itemSchema = z.object({ emoji: z.string().min(1), value: z.number().int().min(1).max(9) })
 const paramsSchema = z.object({
@@ -62,6 +63,7 @@ export function render(params: Params) {
       `Baca batang ${b}: tingginya adalah ${vB}.`,
       `Kurangkan: ${vA} − ${vB} = ${diff}. Ada ${diff} lebih banyak ${a} daripada ${b}.`,
     ],
+    breakdown: buildBarChartCompareBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildOddEvenReasoningBreakdown } from './breakdown.js'
 
 const pairSchema = z.object({ x: z.number().int().min(1).max(40), y: z.number().int().min(1).max(40) })
 const paramsSchema = z.object({ options: z.array(pairSchema).length(4) })
@@ -64,6 +65,7 @@ export function render(params: Params) {
       `Pilihan ${labels[correctIdx]}: ${x} bersifat ${paritasDari(x)} dan ${y} bersifat ${paritasDari(y)}, sehingga ${x} + ${y} hasilnya ganjil.`,
       `Ketiga pilihan lainnya memiliki dua suku dengan paritas yang sama, sehingga hasilnya genap.`,
     ],
+    breakdown: buildOddEvenReasoningBreakdown(params),
   }
 }
 

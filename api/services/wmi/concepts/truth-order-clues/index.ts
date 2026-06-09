@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildTruthOrderCluesBreakdown } from './breakdown.js'
 
 const NAMES = ['Amy', 'Ben', 'Cody', 'Dina', 'Evan'] as const
 
@@ -23,7 +24,7 @@ export function answer(p: Params): string {
 }
 
 // The consecutive "X is before Y" clues, presented in the scrambled clueOrder.
-function shownClues(p: Params): [string, string][] {
+export function shownClues(p: Params): [string, string][] {
   const consecutive = p.order.slice(0, -1).map((name, i) => [name, p.order[i + 1]] as [string, string])
   return p.clueOrder.map((i) => consecutive[i])
 }
@@ -62,6 +63,7 @@ export function render(p: Params) {
       `Sambungkan petunjuk menjadi satu barisan: ${chain}.`,
       `${first} paling depan, jadi ${first} yang pertama.`,
     ],
+    breakdown: buildTruthOrderCluesBreakdown(p),
   }
 }
 

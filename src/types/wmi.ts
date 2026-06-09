@@ -19,6 +19,46 @@ export interface WmiGlossaryTerm {
   example_id: string | null
 }
 
+// Authored problem decomposition (question-designer output). Mirrors the backend
+// definition in api/services/wmi/concepts/types.ts — keep the two in sync.
+export type BreakdownCategory = 'fact' | 'condition' | 'question'
+export interface BreakdownHighlight {
+  category: BreakdownCategory
+  phrase_en: string
+  phrase_id: string
+  note_en: string
+  note_id: string
+}
+export interface BreakdownQuantity {
+  label_en: string
+  label_id: string
+  value: string
+}
+export interface BreakdownStrategy {
+  conceptSlug?: string
+  name_en: string
+  name_id: string
+}
+export interface BreakdownTrap {
+  wrong: string
+  why_en: string
+  why_id: string
+}
+export interface BreakdownAnswer {
+  form: 'number' | 'choice' | 'unit'
+  unit: string | null
+  value: string
+}
+export interface Breakdown {
+  needsVisual: boolean
+  highlights: BreakdownHighlight[]
+  quantities: BreakdownQuantity[]
+  strategy: BreakdownStrategy
+  trap: BreakdownTrap | null
+  answer: BreakdownAnswer
+  vocab?: string[]
+}
+
 export interface WmiQuestion {
   id: string
   paper_id: string
@@ -35,6 +75,7 @@ export interface WmiQuestion {
   code?: string
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
+  breakdown?: Breakdown | null
 }
 
 export interface WmiPaperSummary {

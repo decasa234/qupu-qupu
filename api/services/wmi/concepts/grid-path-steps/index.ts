@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildGridPathStepsBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   cols: z.number().int().min(4).max(6),
@@ -96,6 +97,7 @@ export function render(params: Params) {
       `Hitung jarak tegak: berapa baris jaraknya antara titik dan bendera? Itu ${vSteps} langkah ke ${vDirId}.`,
       `${stepDescId} Jumlahkan: ${hSteps} + ${vSteps} = ${total} langkah.`,
     ],
+    breakdown: buildGridPathStepsBreakdown(params),
   }
 }
 

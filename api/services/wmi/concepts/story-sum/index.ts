@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildStorySumBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -91,6 +92,7 @@ export function render(params: Params) {
       `Makan siang: ${name} memberi ${giveLunch} lagi, sehingga ${afterMorning} − ${giveLunch} = ${answer} tersisa.`,
       `Jawaban: ${answer} ${fruit_id} tersisa di dalam keranjang.`,
     ],
+    breakdown: buildStorySumBreakdown(params),
   }
 }
 

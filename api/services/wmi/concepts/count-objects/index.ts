@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCountObjectsBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   n: z.number().int().min(2).max(9),
@@ -59,6 +60,7 @@ export function render(params: Params) {
       `Kelompokkan dua atau tiga sekaligus agar tidak terlewat.`,
       `Jumlahkan semua kelompok. Totalnya adalah ${n}.`,
     ],
+    breakdown: buildCountObjectsBreakdown(params),
   }
 }
 

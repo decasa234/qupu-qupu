@@ -69,6 +69,10 @@ When a user submits a score (`services/member.ts` `submitVideoScore`):
 
 `/` (Home), `/videos/:slug`, `/login`, `/register`, `/dashboard` (protected), `/badges` (protected), `/admin/videos` (admin-only catalog + editor — has a "Draft / Diterbitkan / Semua" filter chip and an "Impor dari YouTube" button), `/admin/videos/import` (admin-only YouTube channel picker — multi-select rows then "Import N sebagai draft"). Unknown paths redirect to `/`.
 
+## Authoring WMI math problems
+
+Use the **`qupu-math-problem-creation`** skill (`.claude/skills/qupu-math-problem-creation/`) whenever adding or upgrading a WMI concept or paper question's breakdown, illustration, step-by-step, animation, or trap. It encodes the four-role method (question-designer → illustrator / step-explainer / animator, all binding to `params`) and the content rules; W7 (`budget-selection`) is the reference implementation.
+
 ## Documented Solutions
 
 `docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas.

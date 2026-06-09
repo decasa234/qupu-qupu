@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
 import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import { CountSquaresFigure } from './CountSquaresIllustration'
+import { CountSquaresFigure, sizeColor } from './CountSquaresIllustration'
 import { buildCountSquaresSteps } from './countSquaresSteps'
 
 const GREEN = '#10B981'
@@ -11,6 +11,10 @@ export default function CountSquaresExplainer(props: ExplainerProps) {
   const story = useMemo(() => buildCountSquaresSteps(lang), [lang])
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
+
+  // Each counting iteration takes the colour of the square size it's tallying.
+  const counting = beat.phase === 'count' && beat.size != null
+  const accent = counting ? sizeColor(beat.size).stroke : '#2f6df0'
 
   const ariaLabel =
     lang === 'id'
@@ -23,7 +27,7 @@ export default function CountSquaresExplainer(props: ExplainerProps) {
         <CountSquaresFigure highlightSize={beat.phase === 'count' ? beat.size : null} />
 
         {beat.running > 0 && (
-          <div className="font-display text-2xl font-black tabular-nums" style={{ color: beat.result ? GREEN : '#2f6df0' }}>
+          <div className="font-display text-2xl font-black tabular-nums" style={{ color: beat.result ? GREEN : accent }}>
             {beat.running}
           </div>
         )}
@@ -33,7 +37,9 @@ export default function CountSquaresExplainer(props: ExplainerProps) {
           style={
             beat.result
               ? { background: '#D1FAE5', borderColor: GREEN, color: '#065F46' }
-              : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+              : counting
+                ? { background: '#FFFFFF', borderColor: accent, color: accent }
+                : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
           }
         >
           {beat.caption}

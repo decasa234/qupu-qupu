@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildAssignmentCycleBreakdown } from './breakdown.js'
 
 const LABELS = ['A', 'B', 'C', 'D', 'E'] as const
 
@@ -87,6 +88,7 @@ export function render(params: Params) {
     hint_id: `Huruf berulang setiap ${cycle} siswa. Hitung lompat putaran penuh mengelilingi lingkaran, lalu hitung sedikit sisa siswa satu per satu.`,
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildAssignmentCycleBreakdown(params),
   }
 }
 

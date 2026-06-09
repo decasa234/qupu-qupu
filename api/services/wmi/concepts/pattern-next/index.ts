@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildPatternNextBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   start: z.number().int().min(1).max(9),
@@ -53,6 +54,7 @@ export function render(params: Params) {
       `Setiap suku bertambah ${params.step}: ${seq[0]} → ${seq[1]} → ${seq[2]}.`,
       `Tambahkan ${params.step} ke suku terakhir: ${seq[2]} + ${params.step} = ${correct}.`,
     ],
+    breakdown: buildPatternNextBreakdown(params),
   }
 }
 

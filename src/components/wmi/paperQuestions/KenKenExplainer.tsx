@@ -20,7 +20,7 @@ export default function KenKenExplainer(props: ExplainerProps) {
   return (
     <div className="mx-auto w-full max-w-[400px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
-        <KenKenFigure filled={beat.filled} active={beat.active} />
+        <KenKenFigure filledRows={beat.filledRows} activeRow={beat.activeRow} markAnswers={beat.markAnswers} />
 
         {beat.result && (
           <div className="font-display text-2xl font-black tabular-nums" style={{ color: GREEN }}>

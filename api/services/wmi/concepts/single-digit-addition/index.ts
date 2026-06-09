@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildSingleDigitAdditionBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   a: z.number().int().min(1).max(9),
@@ -50,6 +51,7 @@ export function render(params: Params) {
           `Tambahkan sisanya: 10 + ${rest} = ${sum}.`,
         ]
       : [`Mulai dari yang lebih besar, ${big}.`, `Hitung maju ${small}: ${big} + ${small} = ${sum}.`],
+    breakdown: buildSingleDigitAdditionBreakdown(params),
   }
 }
 

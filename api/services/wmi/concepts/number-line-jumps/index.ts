@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildNumberLineJumpsBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   start: z.number().int().min(0).max(10),
@@ -47,6 +48,7 @@ export function render(params: Params) {
       `${jumps} lompatan sebesar ${step} menghasilkan jarak total ${jumps} × ${step} = ${total}.`,
       `Tambahkan jarak total ke bilangan awal: ${start} + ${total} = ${ans}.`,
     ],
+    breakdown: buildNumberLineJumpsBreakdown(params),
   }
 }
 

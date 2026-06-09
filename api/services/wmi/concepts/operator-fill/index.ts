@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildOperatorFillBreakdown } from './breakdown.js'
 
 const signTriple = z.array(z.enum(['+', '-'])).length(3)
 const paramsSchema = z.object({
@@ -93,6 +94,7 @@ export function render(params: Params) {
     hint_id: 'Substitusikan tanda dari setiap pilihan ke dalam persamaan dan periksa apakah hasilnya sama dengan target.',
     hint_steps_en: trimmed_en,
     hint_steps_id: trimmed_id,
+    breakdown: buildOperatorFillBreakdown(params),
   }
 }
 

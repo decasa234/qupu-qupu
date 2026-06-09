@@ -1,6 +1,7 @@
 import { query, queryOne } from '../../db.js'
 import type { ReviewStatus } from './concepts/reviews.js'
 import type { WmiChoice } from './papers.js'
+import type { Breakdown } from './concepts/types.js'
 import { questionCode } from './paperCode.js'
 
 export type AdminPaperSummary = {
@@ -39,6 +40,7 @@ export type AdminPaperQuestion = {
   difficulty: number | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  breakdown: Breakdown | null
   code?: string
 }
 
@@ -54,19 +56,19 @@ export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
 }
 
 export async function listAdminPaperQuestions(paperId: string): Promise<AdminPaperQuestion[]> {
-  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number }>(
+  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
     `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
-            q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id,
-            p.year, p.round, p.grade
+            q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+            p.year, p.round, p.grade, p.variant
      FROM wmi_questions q
      JOIN wmi_papers p ON p.id = q.paper_id
      WHERE q.paper_id = $1
      ORDER BY q.number ASC`,
     [paperId],
   )
-  return rows.map(({ year, round, grade, ...q }) => ({
+  return rows.map(({ year, round, grade, variant, ...q }) => ({
     ...q,
-    code: questionCode({ year, round, grade }, q.number),
+    code: questionCode({ year, round, grade, variant }, q.number),
   }))
 }
 

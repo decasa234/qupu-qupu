@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildRectangleAreaGridBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   w: z.number().int().min(2).max(10),
@@ -27,8 +28,8 @@ export function render(params: Params) {
   const { w, h } = params
   const total = area(params)
   return {
-    body_en: `The grid below shows a rectangle made of 1 cm × 1 cm unit squares. Find: How many unit squares does the rectangle cover?`,
-    body_id: `Kisi di bawah menunjukkan persegi panjang yang terdiri dari persegi satuan 1 cm × 1 cm. Cari: Berapa banyak persegi satuan yang menutupi persegi panjang itu?`,
+    body_en: `The grid below shows a rectangle made of 1 cm × 1 cm unit squares. It is ${w} squares wide and ${h} squares tall. Find: What is the [[area]] of the rectangle, in unit squares?`,
+    body_id: `Kisi di bawah menunjukkan persegi panjang yang terdiri dari persegi satuan 1 cm × 1 cm. Lebarnya ${w} persegi dan tingginya ${h} persegi. Cari: Berapa [[area|luas]] persegi panjang tersebut, dalam persegi satuan?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
@@ -45,6 +46,7 @@ export function render(params: Params) {
       `Hitung baris di bagian samping: ${h} baris.`,
       `Kalikan: ${w} × ${h} = ${total} persegi satuan.`,
     ],
+    breakdown: buildRectangleAreaGridBreakdown(params),
   }
 }
 

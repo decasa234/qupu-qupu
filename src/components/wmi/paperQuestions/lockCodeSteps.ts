@@ -85,15 +85,15 @@ export function buildLockCodeSteps(lang: Lang): LockStoryboard {
       result: false,
     },
     {
-      // 392 row index 1: only 2 (col2) survives -> 2 is the third "in-code" digit.
+      // 392 (row 1): the surviving digits 2 and 9 both fit this clue; the official code uses 2.
       phase: 'deduce',
       slots: [null, null, p2],
       crossEliminated: true,
       highlight: ['1-2'],
       solved: false,
       caption: t(
-        '392 has 1 correct in the wrong place. Only 2 survives — so the digits are 5, 2 and 7.',
-        '392 punya 1 angka benar di tempat salah. Hanya 2 yang tersisa — jadi angkanya 5, 2, dan 7.',
+        '392 has 1 correct in the wrong place — the official code puts 2 in the middle.',
+        '392 punya 1 angka benar di tempat salah — kode resmi menempatkan 2 di tengah.',
       ),
       hold: 2600,
       result: false,

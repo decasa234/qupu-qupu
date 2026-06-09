@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildSumPartitionSplitBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   small: z.number().int().min(2).max(40),
@@ -43,6 +44,7 @@ export function render(params: Params) {
       `Satu bagian = ${total} ÷ ${parts} = ${params.small} stiker.`,
       `Rina menerima ${params.small} stiker.`,
     ],
+    breakdown: buildSumPartitionSplitBreakdown(params),
   }
 }
 

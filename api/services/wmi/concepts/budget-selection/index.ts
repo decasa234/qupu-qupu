@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildBudgetBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   prices: z.array(z.number().int().min(20).max(300)).length(4),
@@ -46,14 +47,14 @@ export function render(params: Params) {
   const topPair = desc[0] + desc[1]
 
   const hint_steps_en = [
-    `List the four prices: ${list}.`,
-    `The two priciest total ${desc[0]} + ${desc[1]} = ${topPair}, which is more than your ${params.budget} budget.`,
-    `Check pair totals and keep the biggest one that still fits the budget: ${answer}.`,
+    `Buy 2 different tickets, stay within ${params.budget}.`,
+    `Skip the 2 priciest — ${desc[0]} + ${desc[1]} = ${topPair} is too much.`,
+    `Biggest pair that fits is ${answer}.`,
   ]
   const hint_steps_id = [
-    `Catat keempat harga: ${list}.`,
-    `Dua termahal berjumlah ${desc[0]} + ${desc[1]} = ${topPair}, lebih dari anggaran ${params.budget}.`,
-    `Periksa total pasangan dan ambil yang terbesar yang masih muat: ${answer}.`,
+    `Beli 2 tiket berbeda, jangan lebih dari ${params.budget}.`,
+    `Lewati 2 termahal — ${desc[0]} + ${desc[1]} = ${topPair} terlalu besar.`,
+    `Pasangan terbesar yang muat: ${answer}.`,
   ]
 
   return {
@@ -67,6 +68,7 @@ export function render(params: Params) {
     hint_id: 'Pasangkan tiket mulai dari dua termahal; ambil total pasangan terbesar yang masih dalam anggaran.',
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildBudgetBreakdown(params),
   }
 }
 

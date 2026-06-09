@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCountShapesInFigureBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   segments: z.number().int().min(2).max(5),
@@ -58,8 +59,8 @@ export function render(params: Params) {
   stepLines_id.push(`Jumlahkan: ${additionID} = ${total} segitiga.`)
 
   return {
-    body_en: `Find: How many triangles are in the figure shown?`,
-    body_id: `Cari: Ada berapa segitiga dalam gambar yang ditunjukkan?`,
+    body_en: `Count every triangle in the figure, including the larger triangles made by combining sections.\n\nFind: How many triangles are in the figure shown?`,
+    body_id: `Hitung setiap segitiga dalam gambar, termasuk segitiga lebih besar yang terbentuk dari gabungan beberapa bagian.\n\nCari: Ada berapa segitiga dalam gambar yang ditunjukkan?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
@@ -68,6 +69,7 @@ export function render(params: Params) {
     hint_id: 'Hitung secara sistematis — mulai dari segitiga terkecil, lalu hitung yang lebih besar yang terbentuk dari gabungan beberapa bagian.',
     hint_steps_en: stepLines_en,
     hint_steps_id: stepLines_id,
+    breakdown: buildCountShapesInFigureBreakdown(params),
   }
 }
 

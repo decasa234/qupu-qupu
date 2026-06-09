@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildDigitFrequencyBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   a: z.number().int().min(1).max(60),
@@ -104,6 +105,7 @@ export function render(params: Params) {
       step2Id,
       step3Id,
     ],
+    breakdown: buildDigitFrequencyBreakdown(params),
   }
 }
 

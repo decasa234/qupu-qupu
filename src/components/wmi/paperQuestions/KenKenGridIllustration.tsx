@@ -1,9 +1,17 @@
 // "Fill 1-4 so every row & column differs (KenKen-style)" figure for WMI-19F1-Q24.
-// Reconstructed from the real figure: a 4x4 grid carved into thick-outlined cages.
-// Each cage's top-left corner shows a target and a +/- operator:
-//   10+ (top-left 2 cells), 1- (top middle 2 cells), 6+ (centre 2 cells),
-//   2- (left), 3- (a centre cell), 6+ (lower-middle 2 cells).
-// Two squares are pre-filled in the figure: a 1 (top-right) and a 3 (bottom-middle).
+// Reconstructed from the real figure (db/seed/wmi/figures/2019-final-g1-a-q24.jpg)
+// by reading the thick cage walls edge-by-edge: a 4x4 grid carved into thick-outlined
+// cages. Each cage's top-left corner shows a target with a +/- operator. The unique
+// solution is rows 4231 / 2413 / 3142 / 1324 (row 0 top, col 0 left); every cage below
+// is contiguous and its arithmetic is satisfied by that grid:
+//   10+ : (0,0)+(1,0)+(1,1) = 4+2+4 = 10   (L-shape, top-left)
+//   1-  : (0,1)+(0,2)       = 2,3  differ by 1
+//   6+  : (1,2)+(1,3)+(2,3) = 1+3+2 = 6     (L-shape, upper-right)
+//   2-  : (2,0)+(3,0)       = 3,1  differ by 2
+//   3-  : (2,1)+(2,2)       = 1,4  differ by 3
+//   6+  : (3,2)+(3,3)       = 2+4  = 6      (bottom-right pair)
+// Two squares are single-cell givens: a 1 at (0,3) (top-right) and a 3 at (3,1)
+// (bottom-middle). Together the cages tile all 16 cells exactly once.
 // The four answer cells are marked A, B, C, D; the answer is ABCD = 2134.
 //
 // Grid coordinates: row 0 = top, col 0 = left.
@@ -50,22 +58,34 @@ export const ANSWER_CELLS: ReadonlyArray<{ label: string; row: number; col: numb
 
 export const KK_ANSWER = ANSWER_CELLS.map((c) => c.value).join('') // "2134"
 
-// Thick cage borders: list of [row, col, side] edges that get a heavy stroke.
+/**
+ * The unique completed grid (row 0 top, col 0 left). Every row and column holds
+ * 1–4 once, every cage's arithmetic is satisfied, and the givens / ABCD cells
+ * agree with it (see the derivation in the file header).
+ */
+export const KK_SOLUTION: ReadonlyArray<ReadonlyArray<number>> = [
+  [4, 2, 3, 1],
+  [2, 4, 1, 3],
+  [3, 1, 4, 2],
+  [1, 3, 2, 4],
+]
+
+// Thick cage borders. We draw a heavy outline around each cage region (set of cells).
 // 'T'=top, 'R'=right, 'B'=bottom, 'L'=left edge of that cell.
-// Cages: 10+ {(0,0),(1,0)} | 1- {(0,1),(0,2)} | top-right {(0,3),(1,3)}
-//        6+ {(1,1),(1,2)}  | 2- {(2,0),(3,0)}  | 3- {(2,1),(2,2)}
-//        lower-mid 6+ {(3,1),(3,2)} | leftovers {(2,3),(3,3)}
+// Cages (matching the scan's thick walls; see derivation above):
+//   10+ {(0,0),(1,0),(1,1)}  | 1- {(0,1),(0,2)}   | given-1 {(0,3)}
+//   6+  {(1,2),(1,3),(2,3)}  | 2- {(2,0),(3,0)}   | 3- {(2,1),(2,2)}
+//   given-3 {(3,1)}          | 6+ {(3,2),(3,3)}
 type Side = 'T' | 'R' | 'B' | 'L'
-// Each cage is a set of cells; we draw a heavy outline around each cage region.
 const CAGES: ReadonlyArray<ReadonlyArray<[number, number]>> = [
-  [[0, 0], [1, 0]],
+  [[0, 0], [1, 0], [1, 1]],
   [[0, 1], [0, 2]],
-  [[0, 3], [1, 3]],
-  [[1, 1], [1, 2]],
+  [[0, 3]],
+  [[1, 2], [1, 3], [2, 3]],
   [[2, 0], [3, 0]],
   [[2, 1], [2, 2]],
-  [[3, 1], [3, 2]],
-  [[2, 3], [3, 3]],
+  [[3, 1]],
+  [[3, 2], [3, 3]],
 ]
 
 function cageEdges(cells: ReadonlyArray<[number, number]>): Array<{ x1: number; y1: number; x2: number; y2: number }> {
@@ -90,13 +110,21 @@ function cageEdges(cells: ReadonlyArray<[number, number]>): Array<{ x1: number; 
 }
 
 export interface KenKenFigureProps {
-  /** How many of the ABCD answer cells are filled in (0..4), in ABCD order. */
-  filled?: number
-  /** Highlight the cell at this answer index (0..3) while it is being filled. */
-  active?: number | null
+  /** How many top rows have their digits filled in (0..4). Givens always show. */
+  filledRows?: number
+  /** Row currently being filled — highlighted blue. */
+  activeRow?: number | null
+  /** Tint the four ABCD answer cells green and tag them A/B/C/D. */
+  markAnswers?: boolean
 }
 
-export function KenKenFigure({ filled = 0, active = null }: KenKenFigureProps) {
+const GIVEN_SET = new Set(GIVENS.map((g) => `${g.row},${g.col}`))
+const GIVEN_VALUE = new Map(GIVENS.map((g) => [`${g.row},${g.col}`, g.value]))
+const ANSWER_BY_CELL = new Map(ANSWER_CELLS.map((c) => [`${c.row},${c.col}`, c]))
+
+export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = false }: KenKenFigureProps) {
+  const isShown = (r: number, c: number) => r < filledRows || GIVEN_SET.has(`${r},${c}`)
+
   return (
     <svg
       viewBox={`0 0 ${KK_VIEW} ${KK_VIEW}`}
@@ -104,35 +132,27 @@ export function KenKenFigure({ filled = 0, active = null }: KenKenFigureProps) {
       style={{ maxWidth: 360, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* Thin grid cells. */}
+      {/* Thin grid cells, with active-row and answer-cell tints. */}
       {Array.from({ length: KK_N }).map((_, r) =>
-        Array.from({ length: KK_N }).map((__, c) => (
-          <rect
-            key={`g-${r}-${c}`}
-            x={px(c)}
-            y={py(r)}
-            width={KK_CELL}
-            height={KK_CELL}
-            fill="white"
-            stroke="#CBD5E1"
-            strokeWidth={1}
-          />
-        )),
+        Array.from({ length: KK_N }).map((__, c) => {
+          const isAnswer = markAnswers && ANSWER_BY_CELL.has(`${r},${c}`)
+          const isActive = activeRow === r
+          const fill = isAnswer ? GREEN_FILL : isActive ? '#E1EFFB' : 'white'
+          const stroke = isAnswer ? GREEN : isActive ? '#30598A' : '#CBD5E1'
+          return (
+            <rect
+              key={`g-${r}-${c}`}
+              x={px(c)}
+              y={py(r)}
+              width={KK_CELL}
+              height={KK_CELL}
+              fill={fill}
+              stroke={stroke}
+              strokeWidth={isAnswer ? 2.5 : isActive ? 2 : 1}
+            />
+          )
+        }),
       )}
-
-      {/* Lit answer cells (filled so far). */}
-      {ANSWER_CELLS.slice(0, Math.max(0, Math.min(filled, ANSWER_CELLS.length))).map((cell, i) => (
-        <rect
-          key={`lit-${i}`}
-          x={px(cell.col)}
-          y={py(cell.row)}
-          width={KK_CELL}
-          height={KK_CELL}
-          fill={GREEN_FILL}
-          stroke={GREEN}
-          strokeWidth={active === i ? 3.5 : 2.5}
-        />
-      ))}
 
       {/* Heavy cage outlines. */}
       {CAGES.map((cells, ci) =>
@@ -167,43 +187,67 @@ export function KenKenFigure({ filled = 0, active = null }: KenKenFigureProps) {
         </text>
       ))}
 
-      {/* Pre-filled given numbers. */}
-      {GIVENS.map((g, i) => (
+      {/* Cell digits: givens always; solved digits as their row fills. */}
+      {Array.from({ length: KK_N }).map((_, r) =>
+        Array.from({ length: KK_N }).map((__, c) => {
+          if (!isShown(r, c)) return null
+          const key = `${r},${c}`
+          const value = GIVEN_VALUE.get(key) ?? KK_SOLUTION[r][c]
+          const isAnswer = markAnswers && ANSWER_BY_CELL.has(key)
+          const isGiven = GIVEN_SET.has(key)
+          return (
+            <text
+              key={`v-${r}-${c}`}
+              x={cx(c)}
+              y={cy(r)}
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="font-display"
+              fontSize={KK_CELL * 0.5}
+              fontWeight={isAnswer ? 900 : 800}
+              fill={isAnswer ? '#065F46' : isGiven ? GIVEN : INK}
+            >
+              {value}
+            </text>
+          )
+        }),
+      )}
+
+      {/* Faint A/B/C/D markers on answer cells that are not yet filled, so the
+          unsolved puzzle still shows which cells form ABCD. */}
+      {ANSWER_CELLS.filter((cell) => !isShown(cell.row, cell.col)).map((cell) => (
         <text
-          key={`given-${i}`}
-          x={cx(g.col)}
-          y={cy(g.row)}
+          key={`mark-${cell.label}`}
+          x={cx(cell.col)}
+          y={cy(cell.row)}
           textAnchor="middle"
           dominantBaseline="central"
           className="font-display"
-          fontSize={KK_CELL * 0.5}
-          fontWeight={800}
-          fill={INK}
+          fontSize={KK_CELL * 0.34}
+          fontWeight={700}
+          fontStyle="italic"
+          fill={GIVEN}
         >
-          {g.value}
+          {cell.label}
         </text>
       ))}
 
-      {/* Answer cells: faint A/B/C/D marker, or the filled digit once revealed. */}
-      {ANSWER_CELLS.map((cell, i) => {
-        const isFilled = i < filled
-        return (
+      {/* ABCD tags in the answer cells once the grid is solved. */}
+      {markAnswers &&
+        ANSWER_CELLS.map((cell) => (
           <text
-            key={`ans-${i}`}
-            x={cx(cell.col)}
-            y={cy(cell.row)}
-            textAnchor="middle"
-            dominantBaseline="central"
+            key={`tag-${cell.label}`}
+            x={px(cell.col) + KK_CELL - 5}
+            y={py(cell.row) + KK_CELL - 4}
+            textAnchor="end"
             className="font-display"
-            fontSize={isFilled ? KK_CELL * 0.5 : KK_CELL * 0.34}
-            fontWeight={isFilled ? 900 : 700}
-            fontStyle={isFilled ? 'normal' : 'italic'}
-            fill={isFilled ? (active === i ? GREEN : INK) : GIVEN}
+            fontSize={KK_CELL * 0.24}
+            fontWeight={800}
+            fill={GREEN}
           >
-            {isFilled ? cell.value : cell.label}
+            {cell.label}
           </text>
-        )
-      })}
+        ))}
     </svg>
   )
 }

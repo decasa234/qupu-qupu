@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildCountRectanglesGridBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   cols: z.number().int().min(2).max(4),
@@ -58,6 +59,7 @@ export function render(params: Params) {
       ...parts.map((part) => `Persegi ${part.size}×${part.size}: ${cols - part.size + 1} × ${rows - part.size + 1} = ${part.count}.`),
       `Total persegi: ${sumText} = ${total}.`,
     ],
+    breakdown: buildCountRectanglesGridBreakdown(params),
   }
 }
 

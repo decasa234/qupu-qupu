@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng, WmiChoice } from '../types.js'
+import { buildDivisibilityMultiplePropertyBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   d: z.number().int().min(2).max(12),
@@ -111,6 +112,7 @@ export function render(params: Params) {
     hint_id: `Gunakan aturan [[divisibility|keterbagian]] untuk ${d} dan uji setiap pilihan — hanya satu yang habis dibagi.`,
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildDivisibilityMultiplePropertyBreakdown(params),
   }
 }
 

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildArithmeticExpressionEvalBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   mode: z.enum(['sum-list', 'product-plus', 'product-diff']),
@@ -96,6 +97,7 @@ export function render(params: Params) {
     hint_id: p.mode === 'sum-list' ? 'Kelompokkan bilangan menjadi pasangan yang mudah.' : 'Kerjakan perkalian dahulu, lalu tambah atau kurang.',
     hint_steps_en,
     hint_steps_id,
+    breakdown: buildArithmeticExpressionEvalBreakdown(params),
   }
 }
 

@@ -74,6 +74,17 @@ const gy = (y: number) => PAD + y * CELL
 const GREEN = '#10B981'
 const GREEN_FILL = 'rgba(16,185,129,0.18)'
 
+// A distinct colour per square size, so each counting iteration reads differently.
+const SIZE_COLORS: Record<number, { stroke: string; fill: string }> = {
+  1: { stroke: '#2563EB', fill: 'rgba(37,99,235,0.20)' },
+  2: { stroke: '#D97706', fill: 'rgba(217,119,6,0.20)' },
+  3: { stroke: '#7C3AED', fill: 'rgba(124,58,237,0.20)' },
+  4: { stroke: '#DB2777', fill: 'rgba(219,39,114,0.20)' },
+}
+export function sizeColor(size: number): { stroke: string; fill: string } {
+  return SIZE_COLORS[size] ?? { stroke: GREEN, fill: GREEN_FILL }
+}
+
 export interface CountSquaresFigureProps {
   /** Highlight every square of this size (the size currently being tallied). */
   highlightSize?: number | null
@@ -95,20 +106,23 @@ export function CountSquaresFigure({ highlightSize = null, highlightSquare = nul
       style={{ maxWidth: 240, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* Highlighted squares (drawn under the figure lines) */}
-      {highlights.map((s, i) => (
-        <rect
-          key={`hl-${i}`}
-          x={gx(s.x)}
-          y={gy(s.y)}
-          width={s.size * CELL}
-          height={s.size * CELL}
-          fill={GREEN_FILL}
-          stroke={GREEN}
-          strokeWidth={2.5}
-          rx={1}
-        />
-      ))}
+      {/* Highlighted squares (drawn under the figure lines), coloured by size */}
+      {highlights.map((s, i) => {
+        const c = sizeColor(s.size)
+        return (
+          <rect
+            key={`hl-${i}`}
+            x={gx(s.x)}
+            y={gy(s.y)}
+            width={s.size * CELL}
+            height={s.size * CELL}
+            fill={c.fill}
+            stroke={c.stroke}
+            strokeWidth={3}
+            rx={1}
+          />
+        )
+      })}
 
       {/* Figure: every drawn unit edge */}
       {H_EDGES.map(([x, y], i) => (

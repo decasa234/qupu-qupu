@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildDigitSumBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   n: z.number().int().min(10).max(99),
@@ -39,6 +40,7 @@ export function render(params: Params) {
       `Angka puluhan dari ${params.n} adalah ${tens}; angka satuannya adalah ${ones}.`,
       `Jumlahkan: ${tens} + ${ones} = ${sum}.`,
     ],
+    breakdown: buildDigitSumBreakdown(params),
   }
 }
 

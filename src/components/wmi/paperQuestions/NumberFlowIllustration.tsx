@@ -26,8 +26,8 @@ const BOX = 46
 const ROW_Y = 110 // y of the four-box row (top edge)
 const BOX_XS = [22, 100, 186, 264] // left x of each of the four boxes: [outerL, innerL(9), innerR(8), outerR]
 const TOP_Y = 26 // y of the top numbers (14, 23)
-const TOP_LEFT_X = BOX_XS[0] + BOX_XS[1] + BOX / 2 // centred above its two children
-const TOP_RIGHT_X = BOX_XS[2] + BOX_XS[3] + BOX / 2
+const TOP_LEFT_X = (BOX_XS[0] + BOX_XS[1]) / 2 + BOX / 2 // centred above its two children (boxes 0 & 1)
+const TOP_RIGHT_X = (BOX_XS[2] + BOX_XS[3]) / 2 + BOX / 2 // centred above its two children (boxes 2 & 3)
 const APPLE_X = NF_VIEW_W / 2 - BOX / 2
 const APPLE_Y = 184
 

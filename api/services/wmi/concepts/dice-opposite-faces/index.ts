@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildDiceOppositeFacesBreakdown } from './breakdown.js'
 
 const paramsSchema = z
   .object({
@@ -55,6 +56,7 @@ export function render(params: Params) {
       `Jumlahkan tiga sisi yang terlihat: ${params.t} + ${params.f} + ${params.r} = ${visible}.`,
       `Kurangi dari 21: 21 − ${visible} = ${hidden}.`,
     ],
+    breakdown: buildDiceOppositeFacesBreakdown(params),
   }
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
@@ -6,11 +6,13 @@ import WmiAnswerChoice from './WmiAnswerChoice'
 import WmiFigure from './WmiFigure'
 import WmiGlossaryTerm from './WmiGlossaryTerm'
 import WmiBreakdownView from './WmiBreakdownView'
+import WmiAuthoredBreakdown from './WmiAuthoredBreakdown'
 import WmiBreakdownToggle from './WmiBreakdownToggle'
 import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
 import WmiSteps from './WmiSteps'
-import { getQuestionIllustration, getQuestionExplainer } from './paperQuestions/registry'
+import WmiTrapNote from './WmiTrapNote'
+import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer } from './paperQuestions/registry'
 
 interface Props {
   question: WmiQuestion
@@ -23,6 +25,10 @@ interface Props {
   disabled?: boolean
   revealed?: boolean
   breakdownActive?: boolean
+  // Concept questions have no paper-registry code; the host passes the concept's
+  // illustration (looked up by slug) so it renders inside the problem card.
+  conceptIllustration?: ComponentType<{ params: unknown }> | null
+  conceptIllustrationParams?: unknown
   onToggleBreakdown?: () => void
   onPickChoice: (label: string) => void
   onSubmitFillIn: (answer: string) => void
@@ -56,6 +62,8 @@ export default function WmiQuestionView({
   disabled,
   revealed = false,
   breakdownActive = false,
+  conceptIllustration = null,
+  conceptIllustrationParams,
   onToggleBreakdown,
   onPickChoice,
   onSubmitFillIn,
@@ -87,7 +95,9 @@ export default function WmiQuestionView({
   }
 
   const Illustration = getQuestionIllustration(question.code)
+  const ConceptIllustration = conceptIllustration
   const QuestionExplainer = getQuestionExplainer(question.code)
+  const ChoiceContent = getQuestionChoiceRenderer(question.code)
 
   const [internalBreakdown, setInternalBreakdown] = useState(false)
   const breakdownControlled = onToggleBreakdown != null
@@ -106,12 +116,22 @@ export default function WmiQuestionView({
       </div>
       <div className="mt-2 text-lg font-semibold text-gray-900">
         {bdActive ? (
-          <WmiBreakdownView text={body} lang={lang} onLookup={onLookupTerm} />
+          question.breakdown ? (
+            <WmiAuthoredBreakdown breakdown={question.breakdown} text={body} lang={lang} />
+          ) : (
+            <WmiBreakdownView text={body} lang={lang} onLookup={onLookupTerm} />
+          )
         ) : (
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      {Illustration ? <Illustration /> : <WmiFigure src={question.figure_url} />}
+      {Illustration ? (
+        <Illustration />
+      ) : ConceptIllustration ? (
+        <ConceptIllustration params={conceptIllustrationParams} />
+      ) : (
+        <WmiFigure src={question.figure_url} />
+      )}
 
       {question.answer_type === 'multiple_choice' ? (
         <div className="mt-4 grid gap-3">
@@ -125,7 +145,11 @@ export default function WmiQuestionView({
               disabled={disabled}
               onPick={onPickChoice}
             >
-              <MarkupText text={choice.text} onLookup={onLookupTerm} />
+              {ChoiceContent ? (
+                <ChoiceContent choice={choice} />
+              ) : (
+                <MarkupText text={choice.text} onLookup={onLookupTerm} />
+              )}
             </WmiAnswerChoice>
           ))}
         </div>
@@ -154,6 +178,7 @@ export default function WmiQuestionView({
         </form>
       )}
       {revealed && stepList && stepList.length > 0 && <WmiSteps steps={stepList} lang={lang} />}
+      {revealed && question.breakdown?.trap && <WmiTrapNote trap={question.breakdown.trap} lang={lang} />}
       {revealed && QuestionExplainer && (
         <WmiExplainer explainer={QuestionExplainer} params={{}} correctAnswer="" lang={lang} />
       )}

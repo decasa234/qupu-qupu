@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
+import { buildReverseArithmeticPuzzleBreakdown } from './breakdown.js'
 
 const paramsSchema = z.object({
   d: z.number().int().min(2).max(3),
@@ -52,6 +53,7 @@ export function render(params: Params) {
       `Balik langkahnya: ${params.r} + ${base} = ${number}.`,
       `Jumlahkan digit ${number}: ${String(number).split('').join(' + ')} = ${answer}.`,
     ],
+    breakdown: buildReverseArithmeticPuzzleBreakdown(params),
   }
 }
 
