@@ -131,7 +131,7 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
                   type="button"
                   disabled={answered}
                   onClick={() => pick(opt)}
-                  aria-label={`Jawaban ${opt}`}
+                  aria-label={`Jawaban ${['A', 'B', 'C', 'D'][i] ?? ''}: ${opt}`}
                   initial={reduce ? false : { opacity: 0, x: -24 }}
                   animate={{
                     opacity: state === 'dim' ? 0.5 : 1,
@@ -139,12 +139,13 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
                     scale: state === 'right' && !reduce ? [1, 1.06, 1] : 1,
                   }}
                   transition={{ delay: reduce ? 0 : 0.15 + 0.08 * i, duration: 0.3, ease: EASE }}
-                  whileHover={answered || reduce ? undefined : { x: 4, scale: 1.02 }}
+                  whileHover={answered || reduce ? undefined : { x: 6, scale: 1.035 }}
                   whileTap={answered ? undefined : { scale: 0.97 }}
                   className={
-                    'flex items-center justify-between rounded-[1.25rem] border-[3px] bg-white px-6 py-5 font-display text-2xl font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qupu-brand-yellow focus-visible:ring-offset-2 ' +
+                    'group flex items-center justify-between rounded-[1.25rem] border-[3px] bg-white px-5 py-4 font-display text-2xl font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qupu-brand-yellow focus-visible:ring-offset-2 ' +
+                    (showCursor ? 'cursor-none ' : '') +
                     (state === 'idle'
-                      ? 'border-white/60 text-qupu-brand-blue '
+                      ? 'border-white/60 text-qupu-brand-blue hover:border-qupu-brand-orange '
                       : state === 'right'
                         ? 'border-green-500 text-green-600 '
                         : state === 'wrong'
@@ -152,10 +153,31 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
                           : 'border-qupu-peach text-qupu-brand-blue/55 ')
                   }
                 >
-                  <span>{opt}</span>
+                  <span className="flex items-center gap-3">
+                    <span
+                      className={
+                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg transition-all duration-200 ' +
+                        (state === 'idle'
+                          ? 'bg-qupu-brand-blue/10 text-qupu-brand-blue group-hover:scale-110 group-hover:bg-qupu-brand-orange group-hover:text-white '
+                          : state === 'right'
+                            ? 'bg-green-500 text-white '
+                            : state === 'wrong'
+                              ? 'bg-red-400 text-white '
+                              : 'bg-qupu-peach/50 text-qupu-brand-blue/55 ')
+                      }
+                    >
+                      {['A', 'B', 'C', 'D'][i] ?? ''}
+                    </span>
+                    <span>{opt}</span>
+                  </span>
                   {state === 'right' && <i className="fa-solid fa-circle-check text-xl text-green-500" aria-hidden="true" />}
                   {state === 'wrong' && <i className="fa-solid fa-circle-xmark text-xl text-red-400" aria-hidden="true" />}
-                  {state === 'idle' && <i className="fa-solid fa-chevron-right text-base text-qupu-brand-blue/40" aria-hidden="true" />}
+                  {state === 'idle' && (
+                    <i
+                      className="fa-solid fa-chevron-right text-base text-qupu-brand-blue/40 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-qupu-brand-orange"
+                      aria-hidden="true"
+                    />
+                  )}
                 </motion.button>
               )
             })}
