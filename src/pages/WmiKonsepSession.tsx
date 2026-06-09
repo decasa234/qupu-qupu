@@ -8,6 +8,12 @@ import { PLANT_STAGES } from '../components/wmi/plantStages'
 import PlantIcon from '../components/wmi/PlantIcon'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
+import {
+  clearKonsepSession,
+  readKonsepSession,
+  saveKonsepSession,
+  type SavedKonsepSession,
+} from '../lib/konsepSessionStorage'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import type {
@@ -42,6 +48,13 @@ function buildPlan(concepts: WmiGardenConcept[]): WmiGardenConcept[] {
   return plan
 }
 
+interface ResumeOffer {
+  saved: SavedKonsepSession
+  plan: WmiGardenConcept[]
+  /** Chapter concepts, kept so "Mulai baru" can build a fresh plan without refetching. */
+  concepts: WmiGardenConcept[]
+}
+
 function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
   return {
     id: question.concept_instance_id,
@@ -73,13 +86,18 @@ export default function WmiKonsepSession() {
   const [plan, setPlan] = useState<WmiGardenConcept[] | null>(null)
   const [gardenError, setGardenError] = useState<string | null>(null)
 
+  // Interrupted-session resume offer (set before plan when a fresh record exists)
+  const [resumeOffer, setResumeOffer] = useState<ResumeOffer | null>(null)
+
   // Per-question state
   const [idx, setIdx] = useState(0)
   const [question, setQuestion] = useState<WmiConceptQuestion | null>(null)
   const [loadingQ, setLoadingQ] = useState(false)
+  const [questionError, setQuestionError] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<WmiKonsepGradeResult | null>(null)
   const [submittingAnswer, setSubmittingAnswer] = useState(false)
+  const [gradeError, setGradeError] = useState(false)
   const [answers, setAnswers] = useState<{ concept_instance_id: string; selected_answer: string }[]>([])
 
   // Session commit state
@@ -89,6 +107,9 @@ export default function WmiKonsepSession() {
 
   // Prevent double-submit
   const submittingRef = useRef(false)
+
+  // When this session started — written into every persisted snapshot
+  const startedAtRef = useRef(Date.now())
 
   // ── Step 1: load garden → build plan ──────────────────────────────────────
   useEffect(() => {
@@ -105,7 +126,39 @@ export default function WmiKonsepSession() {
           setGardenError('Belum ada konsep untuk bab ini.')
           return
         }
+
+        // Interrupted session for this subsection + child? Offer to resume first.
+        const saved = readKonsepSession(subjectKey, activeChildId)
+        if (saved) {
+          const bySlug = new Map(chapter.concepts.map((c) => [c.slug, c]))
+          const rebuilt: WmiGardenConcept[] = []
+          for (const slug of saved.planSlugs) {
+            const concept = bySlug.get(slug)
+            if (concept) rebuilt.push(concept)
+          }
+          // Legit snapshots: mid-session (answers === idx, next question is
+          // plan[idx]) or fully answered awaiting commit (20 answers, idx 19).
+          const consistent =
+            saved.answers.length === saved.idx ||
+            (saved.answers.length === SESSION_SIZE && saved.idx === SESSION_SIZE - 1)
+          const valid =
+            saved.planSlugs.length === SESSION_SIZE &&
+            rebuilt.length === SESSION_SIZE &&
+            saved.idx >= 0 &&
+            saved.idx < SESSION_SIZE &&
+            saved.answers.length > 0 &&
+            consistent
+          if (valid) {
+            setResumeOffer({ saved, plan: rebuilt, concepts: chapter.concepts })
+            setLastSubjectKey(subjectKey)
+            return
+          }
+          // Concept content changed or record is unusable — start fresh.
+          clearKonsepSession(subjectKey)
+        }
+
         // Build the plan ONCE here; never rebuild
+        startedAtRef.current = Date.now()
         setPlan(buildPlan(chapter.concepts))
         // Session actually starts now — remember it per child for resume.
         setLastSubjectKey(subjectKey)
@@ -126,12 +179,14 @@ export default function WmiKonsepSession() {
     setQuestion(null)
     setSelected(null)
     setFeedback(null)
+    setQuestionError(false)
+    setGradeError(false)
     try {
       const q = await fetchConceptNext(activeChildId, grade, planItem.slug)
       setQuestion(q)
-    } catch (err) {
-      // surface via null question + gardenError
-      setGardenError(err instanceof Error ? err.message : 'Gagal memuat soal.')
+    } catch {
+      // Inline retry inside the live session — never the fatal screen.
+      setQuestionError(true)
     } finally {
       setLoadingQ(false)
     }
@@ -139,8 +194,11 @@ export default function WmiKonsepSession() {
 
   useEffect(() => {
     if (!plan) return
+    // All answers already banked (restored fully-answered session) — the
+    // commit panel owns the UI; there is no next question to fetch.
+    if (answers.length > idx) return
     fetchQuestion(plan[idx])
-  }, [plan, idx, fetchQuestion])
+  }, [plan, idx, answers.length, fetchQuestion])
 
   // ── Answer submission ──────────────────────────────────────────────────────
   const handleAnswer = async (answer: string) => {
@@ -148,12 +206,13 @@ export default function WmiKonsepSession() {
     submittingRef.current = true
     setSubmittingAnswer(true)
     setSelected(answer)
+    setGradeError(false)
     try {
       const fb = await gradeConceptAnswer(activeChildId!, question.concept_instance_id, answer)
       setFeedback(fb)
     } catch {
-      // reset so user can retry
-      setSelected(null)
+      // Keep the selection and surface the failure — the kid re-submits.
+      setGradeError(true)
     } finally {
       submittingRef.current = false
       setSubmittingAnswer(false)
@@ -167,6 +226,7 @@ export default function WmiKonsepSession() {
     setCommitting(true)
     try {
       const sessionResult = await commitKonsepSession(activeChildId, subjectKey, finalAnswers)
+      clearKonsepSession(subjectKey)
       setResult(sessionResult)
     } catch {
       setCommitError(true)
@@ -177,11 +237,22 @@ export default function WmiKonsepSession() {
 
   // ── "Lanjut" button ────────────────────────────────────────────────────────
   const handleLanjut = () => {
-    if (!question || !feedback || !plan) return
+    if (!question || !feedback || !plan || !subjectKey || !activeChildId) return
     // Guard: if answers are already fully banked, the commit path owns this UI — never append again
     if (answers.length >= SESSION_SIZE) return
 
     const newAnswers = [...answers, { concept_instance_id: question.concept_instance_id, selected_answer: selected ?? '' }]
+    const nextIdx = idx < SESSION_SIZE - 1 ? idx + 1 : idx
+
+    // Snapshot progress so a refresh/crash can offer resume (best-effort).
+    saveKonsepSession({
+      childId: activeChildId,
+      subjectKey,
+      planSlugs: plan.map((c) => c.slug),
+      answers: newAnswers,
+      idx: nextIdx,
+      startedAt: startedAtRef.current,
+    })
 
     if (idx < SESSION_SIZE - 1) {
       setAnswers(newAnswers)
@@ -194,6 +265,26 @@ export default function WmiKonsepSession() {
     }
   }
 
+  // ── Resume offer handlers ──────────────────────────────────────────────────
+  const handleResume = () => {
+    if (!resumeOffer) return
+    startedAtRef.current = resumeOffer.saved.startedAt
+    setAnswers(resumeOffer.saved.answers)
+    setIdx(resumeOffer.saved.idx)
+    setPlan(resumeOffer.plan)
+    setResumeOffer(null)
+    // Question fetch for plan[idx] fires via the idx effect (skipped when all
+    // answers are already banked — the commit panel takes over instead).
+  }
+
+  const handleStartFresh = () => {
+    if (!resumeOffer || !subjectKey) return
+    clearKonsepSession(subjectKey)
+    startedAtRef.current = Date.now()
+    setPlan(buildPlan(resumeOffer.concepts))
+    setResumeOffer(null)
+  }
+
   // ── Vote ───────────────────────────────────────────────────────────────────
   const onVote = async (vote: 1 | -1) => {
     if (activeChildId && question) await submitConceptVote(activeChildId, question.concept_instance_id, vote)
@@ -202,9 +293,23 @@ export default function WmiKonsepSession() {
   // ── Quit ───────────────────────────────────────────────────────────────────
   const handleQuit = () => {
     if (window.confirm('Keluar sesi? Progres sesi ini akan hilang.')) {
+      if (subjectKey) clearKonsepSession(subjectKey)
       navigate('/latihan/wmi')
     }
   }
+
+  // ── Unload guard while progress is at stake ────────────────────────────────
+  const sessionActive = answers.length > 0 && !result
+  useEffect(() => {
+    if (!sessionActive) return
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      // Chrome requires returnValue to be set for the confirmation dialog.
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [sessionActive])
 
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
@@ -312,6 +417,40 @@ export default function WmiKonsepSession() {
     )
   }
 
+  // ── Resume offer (interrupted session found) ───────────────────────────────
+  if (resumeOffer) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6">
+        <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+            <i className="fa-solid fa-clock-rotate-left text-2xl" aria-hidden="true" />
+          </div>
+          <h1 className="mt-3 font-display text-xl font-black text-qupu-brand-blue">
+            Lanjutkan sesi yang terputus?
+          </h1>
+          <p className="mt-1 text-sm font-semibold text-qupu-muted">
+            {resumeOffer.saved.answers.length} dari {SESSION_SIZE} terjawab
+          </p>
+          <button
+            type="button"
+            onClick={handleResume}
+            className="mt-4 w-full rounded-full bg-qupu-brand-orange py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+          >
+            <i className="fa-solid fa-play me-2 text-sm" aria-hidden="true" />
+            Lanjutkan
+          </button>
+          <button
+            type="button"
+            onClick={handleStartFresh}
+            className="mt-2 w-full rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            Mulai baru
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   if (!plan) return null
 
   const currentPlanItem = plan[idx]
@@ -356,7 +495,47 @@ export default function WmiKonsepSession() {
 
       {/* Question card area */}
       <div className="mt-4">
-        {loadingQ || !question ? (
+        {questionError ? (
+          /* Inline retry — the session (progress bar + showcase) stays alive */
+          <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+              <i className="fa-solid fa-wifi text-xl" aria-hidden="true" />
+            </div>
+            <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat soal. Periksa koneksimu.</p>
+            <button
+              type="button"
+              onClick={() => void fetchQuestion(currentPlanItem)}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+            >
+              <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
+              Coba lagi
+            </button>
+          </div>
+        ) : answers.length >= SESSION_SIZE && !feedback ? (
+          /* Restored fully-answered session — nothing left but the commit */
+          <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+              <i className="fa-solid fa-flag-checkered text-xl" aria-hidden="true" />
+            </div>
+            <p className="mt-3 text-sm font-semibold text-qupu-muted">
+              Semua {SESSION_SIZE} soal sudah terjawab. Simpan hasil sesimu!
+            </p>
+            {commitError && (
+              <p className="mt-2 text-xs font-semibold text-rose-600">
+                <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+                Gagal menyimpan sesi. Coba lagi.
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={() => void commitSession(answers)}
+              disabled={committing}
+              className="mt-4 w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] disabled:opacity-50 transition-transform active:translate-y-0.5"
+            >
+              {committing ? 'Menyimpan…' : commitError ? 'Coba lagi' : 'Selesaikan Sesi'}
+            </button>
+          </div>
+        ) : loadingQ || !question ? (
           <QuestionSkeleton />
         ) : (
           <div className="space-y-4">
@@ -378,6 +557,27 @@ export default function WmiKonsepSession() {
               onLookupTerm={() => {}}
               onRevealTranslation={() => {}}
             />
+
+            {/* Grading failed — keep the question interactive and say so */}
+            {gradeError && !feedback && (
+              <div className="rounded-[1.25rem] border-2 border-rose-200 bg-rose-50 p-3 text-center">
+                <p className="text-sm font-bold text-rose-600">
+                  <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+                  Jawaban belum terkirim. Coba lagi.
+                </p>
+                {selected && (
+                  <button
+                    type="button"
+                    onClick={() => void handleAnswer(selected)}
+                    disabled={submittingAnswer}
+                    className="mt-2 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#C46123] disabled:opacity-50 transition-transform active:translate-y-0.5"
+                  >
+                    <i className="fa-solid fa-rotate-right text-xs" aria-hidden="true" />
+                    Kirim lagi
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* Feedback panel (shown after answer) */}
             {feedback && (
