@@ -1,47 +1,48 @@
 // src/components/onboarding/ChildOnboardingWizard.tsx
 //
-// Beautified, gated multi-step child-profile setup used on /onboard/child.
-// Steps: name -> grade -> avatar -> daily goal. Each step gates the next (the
-// primary button is disabled until the step is complete), and a live avatar
-// preview builds as the parent goes. Grade is asked as TK / SD (Kelas 1-6) and
-// mapped to the nearest age group for storage. Creates the real child via
-// POST /me/children and hands the result back through onCreated.
+// Minimal, gated 2-step child-profile setup used on /onboard/child.
+// Steps: name -> grade. Avatar and daily goal get sensible defaults (avatar is
+// editable later on /me); the goal is to get the child to their first question
+// as fast as possible. Grade is asked as TK / SD (Kelas 1-6) and mapped two
+// ways: to the nearest age group for storage (the profile stores
+// age_group_id), and to a WMI grade (1-3) handed back through onCreated so the
+// caller can pin the garden's difficulty for the new child.
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import {
-  AVATAR_COLORS,
-  AVATAR_OPTIONS,
   avatarIconClass,
   DEFAULT_AVATAR_COLOR,
   DEFAULT_AVATAR_SLUG,
 } from '../../lib/avatars'
 import type { AgeGroupOption, Child } from '../../types'
+import type { WmiGrade } from '../../types/wmi'
 import ProgressDots from './ProgressDots'
-import Slider from '../Slider'
 
 interface ChildOnboardingWizardProps {
-  onCreated: (child: Child) => void
+  onCreated: (child: Child, wmiGrade: WmiGrade) => void
 }
 
-type StepKey = 'name' | 'grade' | 'avatar' | 'goal'
+type StepKey = 'name' | 'grade'
 
 const STEPS: { key: StepKey; eyebrow: string; title: string; subtitle: string }[] = [
-  { key: 'name', eyebrow: 'Langkah 1 dari 4', title: 'Siapa nama anak?', subtitle: 'Nama ini muncul di dashboard dan koleksi badge anak.' },
-  { key: 'grade', eyebrow: 'Langkah 2 dari 4', title: 'Anak kelas berapa?', subtitle: 'Kami sesuaikan soal dan video dengan kelasnya.' },
-  { key: 'avatar', eyebrow: 'Langkah 3 dari 4', title: 'Pilih avatar', subtitle: '' },
-  { key: 'goal', eyebrow: 'Langkah 4 dari 4', title: 'Target harian', subtitle: 'Berapa kuis per hari? Bisa diubah kapan saja.' },
+  { key: 'name', eyebrow: 'Langkah 1 dari 2', title: 'Siapa nama anak?', subtitle: 'Nama ini muncul di dashboard dan koleksi badge anak.' },
+  { key: 'grade', eyebrow: 'Langkah 2 dari 2', title: 'Anak kelas berapa?', subtitle: 'Kami sesuaikan soal dan video dengan kelasnya.' },
 ]
+
+const DEFAULT_DAILY_GOAL = 3
 
 // TK + SD (Kelas 1-6). `age` is a representative age used to map onto the
 // backend's age_groups (the child profile stores age_group_id, not a grade).
-const GRADE_OPTIONS = [
-  { key: 'tk', label: 'TK', age: 5 },
-  { key: 'sd1', label: 'Kelas 1', age: 6 },
-  { key: 'sd2', label: 'Kelas 2', age: 7 },
-  { key: 'sd3', label: 'Kelas 3', age: 8 },
-  { key: 'sd4', label: 'Kelas 4', age: 9 },
-  { key: 'sd5', label: 'Kelas 5', age: 10 },
-  { key: 'sd6', label: 'Kelas 6', age: 11 },
+// `wmiGrade` is the WMI difficulty pin (clamped 1-3, same clamp as
+// lib/childGrade.ts): TK/Kelas 1 -> 1, Kelas 2 -> 2, Kelas 3+ -> 3.
+const GRADE_OPTIONS: { key: string; label: string; age: number; wmiGrade: WmiGrade }[] = [
+  { key: 'tk', label: 'TK', age: 5, wmiGrade: 1 },
+  { key: 'sd1', label: 'Kelas 1', age: 6, wmiGrade: 1 },
+  { key: 'sd2', label: 'Kelas 2', age: 7, wmiGrade: 2 },
+  { key: 'sd3', label: 'Kelas 3', age: 8, wmiGrade: 3 },
+  { key: 'sd4', label: 'Kelas 4', age: 9, wmiGrade: 3 },
+  { key: 'sd5', label: 'Kelas 5', age: 10, wmiGrade: 3 },
+  { key: 'sd6', label: 'Kelas 6', age: 11, wmiGrade: 3 },
 ]
 
 export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWizardProps) {
@@ -49,9 +50,6 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
   const [name, setName] = useState('')
   const [gradeTrack, setGradeTrack] = useState<'' | 'tk' | 'sd'>('')
   const [gradeKey, setGradeKey] = useState('')
-  const [avatarColor, setAvatarColor] = useState(DEFAULT_AVATAR_COLOR)
-  const [avatarIcon, setAvatarIcon] = useState(DEFAULT_AVATAR_SLUG)
-  const [dailyGoal, setDailyGoal] = useState(3)
   const [ageGroups, setAgeGroups] = useState<AgeGroupOption[]>([])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -68,7 +66,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
   const step = STEPS[stepIndex]
   const isLast = stepIndex === STEPS.length - 1
   const canAdvance =
-    step.key === 'name' ? name.trim().length > 0 : step.key === 'grade' ? gradeKey !== '' : true
+    step.key === 'name' ? name.trim().length > 0 : gradeKey !== ''
 
   function handleNext() {
     if (!canAdvance) return
@@ -95,11 +93,12 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
       const response = await api.post('/me/children', {
         name: name.trim(),
         ageGroupId: resolveAgeGroupId(),
-        avatarColor,
-        avatarIcon,
-        dailyGoalQuizzes: dailyGoal,
+        avatarColor: DEFAULT_AVATAR_COLOR,
+        avatarIcon: DEFAULT_AVATAR_SLUG,
+        dailyGoalQuizzes: DEFAULT_DAILY_GOAL,
       })
-      onCreated(response.data.data.child as Child)
+      const wmiGrade = GRADE_OPTIONS.find((g) => g.key === gradeKey)?.wmiGrade ?? 1
+      onCreated(response.data.data.child as Child, wmiGrade)
     } catch (submitError: unknown) {
       const message =
         typeof submitError === 'object' &&
@@ -126,7 +125,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
         <ProgressDots total={STEPS.length} current={stepIndex} />
 
         <div className="mt-5 flex items-center gap-4">
-          <AvatarPreview color={avatarColor} icon={avatarIcon} />
+          <AvatarPreview color={DEFAULT_AVATAR_COLOR} icon={DEFAULT_AVATAR_SLUG} />
           <div className="min-w-0">
             <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
               {step.eyebrow}
@@ -196,69 +195,6 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
                   ))}
                 </div>
               )}
-            </div>
-          )}
-
-          {step.key === 'avatar' && (
-            <div className="space-y-5">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Hewan</span>
-                <div className="mt-2 grid grid-cols-5 gap-2 sm:grid-cols-7">
-                  {AVATAR_OPTIONS.map((option) => {
-                    const active = avatarIcon === option.slug
-                    return (
-                      <button
-                        key={option.slug}
-                        type="button"
-                        aria-label={option.label}
-                        aria-pressed={active}
-                        onClick={() => setAvatarIcon(option.slug)}
-                        className={`flex aspect-square items-center justify-center rounded-[1.25rem] border-2 text-lg transition-colors ${
-                          active
-                            ? 'border-qupu-brand-blue bg-qupu-sky/50 text-qupu-brand-blue'
-                            : 'border-qupu-peach bg-qupu-shell text-qupu-muted hover:border-qupu-brand-blue'
-                        }`}
-                      >
-                        <i className={option.icon} aria-hidden="true" />
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-              <div>
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">Warna</span>
-                <div className="mt-2 flex flex-wrap gap-3">
-                  {AVATAR_COLORS.map((color) => (
-                    <button
-                      key={color}
-                      type="button"
-                      aria-label={`Warna ${color}`}
-                      onClick={() => setAvatarColor(color)}
-                      className={`h-10 w-10 cursor-pointer rounded-full border-[3px] transition-transform hover:scale-110 ${
-                        avatarColor === color ? 'border-qupu-brand-blue' : 'border-transparent'
-                      }`}
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {step.key === 'goal' && (
-            <div className="pt-1">
-              <Slider
-                value={dailyGoal}
-                min={1}
-                max={10}
-                step={1}
-                onChange={setDailyGoal}
-                ariaLabel="Target kuis harian"
-              />
-              <div className="mt-1 flex justify-between px-3 text-[11px] font-bold uppercase tracking-[0.14em] text-qupu-muted">
-                <span>Santai</span>
-                <span>Giat</span>
-              </div>
             </div>
           )}
         </div>

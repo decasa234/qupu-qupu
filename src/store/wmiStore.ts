@@ -20,6 +20,11 @@ interface WmiState {
   glossary: Record<string, WmiGlossaryTerm>
   glossaryLoaded: boolean
   setSelectedGrade: (grade: WmiGrade) => void
+  // Pin a grade for a specific child (not necessarily the resolved/active
+  // one) — used by onboarding right after creating a child, before AppShell's
+  // syncChildGrade effect has run for the new id. The persisted pin then wins
+  // over inference on every later sync.
+  pinGradeForChild: (childId: string, grade: WmiGrade) => void
   syncChildGrade: (childId: string, inferredGrade: WmiGrade) => void
   setLastSubjectKey: (subjectKey: string) => void
   loadGlossary: () => Promise<void>
@@ -41,6 +46,11 @@ export const useWmiStore = create<WmiState>()(
           gradeByChild: state.activeChildKey
             ? { ...state.gradeByChild, [state.activeChildKey]: grade }
             : state.gradeByChild,
+        })),
+      pinGradeForChild: (childId, grade) =>
+        set((state) => ({
+          gradeByChild: { ...state.gradeByChild, [childId]: grade },
+          ...(state.activeChildKey === childId ? { selectedGrade: grade } : {}),
         })),
       syncChildGrade: (childId, inferredGrade) =>
         set((state) => ({

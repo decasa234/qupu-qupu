@@ -14,7 +14,6 @@ import { inferWmiGrade } from '../lib/childGrade'
 import type { AgeGroupOption } from '../types'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
-import OnboardingTour from './onboarding/OnboardingTour'
 
 export default function AppShell() {
   const children = useAuthStore((state) => state.children)
@@ -68,7 +67,6 @@ export default function AppShell() {
         </div>
       </main>
       <BottomTabBar />
-      <OnboardingTour />
     </div>
   )
 }

@@ -3,12 +3,34 @@ import { Link, useNavigate } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import ChapterGarden from '../components/wmi/ChapterGarden'
 import ConceptInfoModal from '../components/wmi/ConceptInfoModal'
+import GardenCoachMark from '../components/onboarding/GardenCoachMark'
 import DailyQuestsPanel from '../components/me/DailyQuestsPanel'
 import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/StreakRecoveryModal'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import type { WmiGarden, WmiGardenChapter, WmiGardenConcept, WmiGrade } from '../types/wmi'
+
+// One-time coach-mark on the resume hero ("first question is the tutorial").
+// Shown until any interaction — bubble tap, X, or the hero button — marks it
+// done. Storage failures (private mode) skip it rather than nag every visit.
+const COACHMARK_KEY = 'qupu_garden_coachmark'
+
+function isCoachMarkDone(): boolean {
+  try {
+    return localStorage.getItem(COACHMARK_KEY) === 'done'
+  } catch {
+    return true
+  }
+}
+
+function markCoachMarkDone(): void {
+  try {
+    localStorage.setItem(COACHMARK_KEY, 'done')
+  } catch {
+    /* storage unavailable — nothing to persist */
+  }
+}
 
 // The single top recommendation: which chapter should the dominant
 // "Lanjutkan" hero point at? Priority:
@@ -44,6 +66,12 @@ export default function WmiHub() {
   const [garden, setGarden] = useState<WmiGarden | null>(null)
   const [loading, setLoading] = useState(true)
   const [infoConcept, setInfoConcept] = useState<WmiGardenConcept | null>(null)
+
+  const [showCoachMark, setShowCoachMark] = useState(() => !isCoachMarkDone())
+  const dismissCoachMark = () => {
+    markCoachMarkDone()
+    setShowCoachMark(false)
+  }
 
   // Streak-recovery prompt (modal shows at most once per eligibility window;
   // a summary fetch failure simply means no prompt — the garden is unaffected).
@@ -125,10 +153,14 @@ export default function WmiHub() {
                 style={{ width: `${resumeChapter.meanPct}%` }}
               />
             </div>
+            {showCoachMark && <GardenCoachMark onDismiss={dismissCoachMark} />}
             <button
               type="button"
-              onClick={() => navigate(`/latihan/wmi/sesi/${resumeChapter.subjectKey}`)}
-              className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+              onClick={() => {
+                if (showCoachMark) dismissCoachMark()
+                navigate(`/latihan/wmi/sesi/${resumeChapter.subjectKey}`)
+              }}
+              className={`${showCoachMark ? 'mt-3 animate-tapPop' : 'mt-4'} flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5`}
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
                 <i className="fa-solid fa-play" aria-hidden="true" />

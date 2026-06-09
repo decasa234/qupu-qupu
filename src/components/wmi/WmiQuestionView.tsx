@@ -110,8 +110,8 @@ export default function WmiQuestionView({
   const stepList = lang === 'id' ? question.hint_steps_id : question.hint_steps_en
 
   return (
-    <article data-tour="wmi-question" className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
-      <div data-tour="wmi-language" className="absolute right-3 top-3 flex items-center gap-2">
+    <article className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
+      <div className="absolute right-3 top-3 flex items-center gap-2">
         <WmiLanguageToggle lang={lang} onToggle={toggleLang} />
         <WmiBreakdownToggle active={bdActive} onToggle={handleBreakdownToggle} />
       </div>
@@ -140,7 +140,7 @@ export default function WmiQuestionView({
       )}
 
       {question.answer_type === 'multiple_choice' ? (
-        <div data-tour="wmi-choices" className="mt-4 grid gap-3">
+        <div className="mt-4 grid gap-3">
           {choices.map((choice: WmiChoice) => (
             <WmiAnswerChoice
               key={choice.label}
@@ -161,7 +161,6 @@ export default function WmiQuestionView({
         </div>
       ) : (
         <form
-          data-tour="wmi-choices"
           className="mt-4 flex flex-col gap-3 sm:flex-row"
           onSubmit={(event) => {
             event.preventDefault()

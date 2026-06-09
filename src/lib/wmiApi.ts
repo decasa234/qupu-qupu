@@ -17,7 +17,6 @@ import type {
   WmiKonsepSessionResult,
   WmiPaperDetail,
   WmiPaperSummary,
-  WmiQuestion,
 } from '../types/wmi'
 
 function unwrap<T>(response: { data: { success: boolean; data: T; error?: string } }): T {
@@ -38,16 +37,6 @@ export async function fetchPapers(childId: string, grade: WmiGrade): Promise<Wmi
 export async function fetchPaperDetail(childId: string, paperId: string): Promise<WmiPaperDetail> {
   const response = await api.get(`/me/wmi/papers/${paperId}`, { params: { childId } })
   return unwrap<WmiPaperDetail>(response)
-}
-
-export async function fetchDrillQuestion(
-  childId: string,
-  grade: WmiGrade,
-): Promise<WmiQuestion> {
-  const response = await api.get('/me/wmi/drill/next', {
-    params: { childId, grade },
-  })
-  return unwrap<{ question: WmiQuestion }>(response).question
 }
 
 export async function submitAttempt(input: WmiAttemptInput): Promise<WmiAttemptResult> {

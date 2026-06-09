@@ -3,27 +3,25 @@ import { useNavigate } from 'react-router-dom'
 import ChildOnboardingWizard from '../components/onboarding/ChildOnboardingWizard'
 import { trackEvent } from '../lib/analytics'
 import { useAuthStore } from '../store/authStore'
-import { useTourStore } from '../store/tourStore'
+import { useWmiStore } from '../store/wmiStore'
 import type { Child } from '../types'
+import type { WmiGrade } from '../types/wmi'
 
 export default function OnboardingChild() {
   const navigate = useNavigate()
-  const { children, addChild, setActiveChild } = useAuthStore()
-  const startTour = useTourStore((state) => state.startTour)
+  const { addChild, setActiveChild } = useAuthStore()
+  const pinGradeForChild = useWmiStore((state) => state.pinGradeForChild)
 
-  const handleCreated = (child: Child) => {
-    const isFirstChild = children.length === 0
+  const handleCreated = (child: Child, wmiGrade: WmiGrade) => {
     addChild(child)
     setActiveChild(child.id)
+    // Pin the wizard's grade choice for this child so the garden opens at the
+    // real grade (age groups alone can't distinguish Kelas 1/2/3).
+    pinGradeForChild(child.id, wmiGrade)
     trackEvent('onboarding_child_created')
-
-    if (isFirstChild) {
-      // First profile => kick off the spotlight tour on the real pages.
-      startTour()
-      navigate('/latihan/wmi/drill', { replace: true })
-    } else {
-      navigate('/dashboard', { replace: true })
-    }
+    // The garden is the app's landing — a one-time coach-mark there points at
+    // the first session, so the first question is the tutorial.
+    navigate('/latihan/wmi', { replace: true })
   }
 
   return (

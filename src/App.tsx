@@ -18,7 +18,6 @@ import BadgesPage from './pages/Badges'
 import LatihanHubPage from './pages/LatihanHub'
 import WmiHubPage from './pages/WmiHub'
 import WmiPapersPage from './pages/WmiPapers'
-import WmiDrillPage from './pages/WmiDrill'
 import WmiPaperDetailPage from './pages/WmiPaperDetail'
 import WmiExamPage from './pages/WmiExam'
 import WmiExamReviewPage from './pages/WmiExamReview'
@@ -161,7 +160,6 @@ export default function App() {
           <Route path="latihan" element={<LatihanHubPage />} />
           <Route path="latihan/wmi" element={<WmiHubPage />} />
           <Route path="latihan/wmi/ujian" element={<WmiPapersPage />} />
-          <Route path="latihan/wmi/drill" element={<WmiDrillPage />} />
           <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
           <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />
           <Route path="latihan/wmi/exam/:sessionId" element={<WmiExamPage />} />
