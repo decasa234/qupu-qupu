@@ -59,9 +59,7 @@ export default function LatihanWmiPage() {
               <Reveal delay={0.05}>
                 <WmiSolution />
               </Reveal>
-              <Reveal delay={0.05}>
-                <WmiFeaturesTour />
-              </Reveal>
+              <WmiFeaturesTour />
               <Reveal delay={0.05}>
                 <section className="mx-auto max-w-5xl rounded-[2.5rem] bg-qupu-cream px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
                   <WmiMasteryTree />

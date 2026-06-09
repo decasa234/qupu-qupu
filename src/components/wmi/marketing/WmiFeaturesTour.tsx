@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import { COUNT_SQUARES_QUESTION } from '@/data/wmiMarketing'
 import WmiAssistedHighlight from '@/components/wmi/marketing/WmiAssistedHighlight'
 import WmiExplainer from '@/components/wmi/WmiExplainer'
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
 interface FeatureRow {
   icon: string
@@ -102,122 +104,194 @@ function PutarUlangShowcase() {
   )
 }
 
+function Showcase({ index, reduce }: { index: number; reduce: boolean }) {
+  switch (index) {
+    case 1:
+      return <DwibahasaShowcase />
+    case 2:
+      return <HintBertahapShowcase reduce={reduce} />
+    case 3:
+      return <PutarUlangShowcase />
+    case 0:
+    default:
+      return <WmiAssistedHighlight />
+  }
+}
+
+/** One row in the feature rail. `onSelect` is undefined in the static fallback. */
+function FeatureItem({
+  feature,
+  index,
+  active,
+  onSelect,
+}: {
+  feature: FeatureRow
+  index: number
+  active: boolean
+  onSelect?: (i: number) => void
+}) {
+  const inner = (
+    <>
+      <span
+        className={[
+          'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xl transition',
+          active ? 'bg-qupu-brand-orange text-white' : 'bg-qupu-cream text-qupu-brand-orange',
+        ].join(' ')}
+      >
+        <i className={feature.icon} aria-hidden="true" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="font-display text-base font-extrabold text-qupu-brand-blue">{feature.title}</div>
+        <p className="mt-0.5 text-sm font-semibold leading-relaxed text-qupu-muted">{feature.desc}</p>
+      </div>
+      {active && (
+        <i className="fa-solid fa-chevron-right mt-3 shrink-0 text-qupu-brand-orange" aria-hidden="true" />
+      )}
+    </>
+  )
+
+  const cls = [
+    'flex w-full items-start gap-4 rounded-[1.5rem] border-[3px] p-4 text-left transition-all duration-300',
+    active
+      ? 'border-qupu-brand-orange bg-white shadow-[3px_4px_0_0_#FFD3B1]'
+      : 'border-transparent bg-white/70',
+  ].join(' ')
+
+  if (!onSelect) return <div className={cls}>{inner}</div>
+  return (
+    <button type="button" onClick={() => onSelect(index)} aria-pressed={active} className={cls + ' hover:bg-white'}>
+      {inner}
+    </button>
+  )
+}
+
+/** True while the viewport is at least `px` wide (live-updating). */
+function useMinWidth(px: number): boolean {
+  const query = `(min-width: ${px}px)`
+  const [match, setMatch] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const onChange = () => setMatch(mq.matches)
+    onChange()
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [query])
+  return match
+}
+
 /**
- * "Features tour" section (header-less): a vertical list of four SELECTABLE
- * feature buttons on the left that AUTO-ITERATE while the section is in view
- * (pausing on hover), and a showcase panel on the right whose illustration
- * swaps to match the active feature. On mobile they stack.
+ * "Features tour" (header-less). On large screens it's a SCROLL-PINNED,
+ * full-bleed section: the card stays centered and full-height while you scroll,
+ * and scrolling down/up steps forward/back through the features (the showcase
+ * swaps to match). On small screens or with reduced-motion it degrades to a
+ * plain stacked list (no scroll-jacking).
  */
 export default function WmiFeaturesTour() {
   const reduce = useReducedMotion() ?? false
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const isDesktop = useMinWidth(1024)
+  const pinned = isDesktop && !reduce
+
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { amount: 0.4 })
-  const autoplaying = !reduce && inView && !paused
+  const idxRef = useRef(0)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [dir, setDir] = useState(1)
 
-  // Auto-iterate through the features while in view (pause on hover / reduced-motion).
-  useEffect(() => {
-    if (!autoplaying) return
-    const id = setInterval(() => setActiveIndex((i) => (i + 1) % FEATURES.length), 3200)
-    return () => clearInterval(id)
-  }, [autoplaying])
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
-  const showcase = (() => {
-    switch (activeIndex) {
-      case 1:
-        return <DwibahasaShowcase />
-      case 2:
-        return <HintBertahapShowcase reduce={reduce} />
-      case 3:
-        return <PutarUlangShowcase />
-      case 0:
-      default:
-        return <WmiAssistedHighlight />
+  useMotionValueEvent(scrollYProgress, 'change', (p) => {
+    const i = Math.max(0, Math.min(FEATURES.length - 1, Math.floor(p * FEATURES.length)))
+    if (i !== idxRef.current) {
+      setDir(i > idxRef.current ? 1 : -1)
+      idxRef.current = i
+      setActiveIndex(i)
     }
-  })()
+  })
+
+  // Click a feature -> smooth-scroll to the middle of its scroll band.
+  const jump = (i: number) => {
+    const el = ref.current
+    if (!el) return
+    const range = el.offsetHeight - window.innerHeight
+    if (range <= 0) return
+    const p = (i + 0.5) / FEATURES.length
+    const top = el.getBoundingClientRect().top + window.scrollY + p * range
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
+  // Fallback: plain stacked list, each feature with its showcase. No pinning.
+  if (!pinned) {
+    return (
+      <section className="space-y-10">
+        {FEATURES.map((f, i) => (
+          <div key={f.title} className="space-y-4">
+            <FeatureItem feature={f} index={i} active />
+            <Showcase index={i} reduce={reduce} />
+          </div>
+        ))}
+      </section>
+    )
+  }
 
   return (
-    <section ref={ref}>
-      <div
-        className="grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        {/* LEFT: selectable feature list (auto-iterates on scroll) */}
-        <ul className="space-y-4">
-          {FEATURES.map((f, i) => {
-            const active = i === activeIndex
-            return (
-              <motion.li
-                key={f.title}
-                initial={reduce ? false : { opacity: 0, x: -18 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={reduce ? undefined : { duration: 0.4, delay: i * 0.09, ease: 'easeOut' }}
+    <div ref={ref} className="relative ml-[calc(50%-50vw)] w-screen" style={{ height: `${FEATURES.length * 100}vh` }}>
+      <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:px-8">
+          {/* LEFT: scroll progress + feature rail */}
+          <div>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="font-display text-sm font-extrabold text-qupu-brand-orange">
+                Fitur {activeIndex + 1}
+                <span className="text-qupu-brand-blue/40"> / {FEATURES.length}</span>
+              </span>
+              <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-qupu-brand-orange/15">
+                <motion.span
+                  className="block h-full origin-left rounded-full bg-qupu-brand-orange"
+                  style={{ scaleX: scrollYProgress }}
+                />
+              </span>
+            </div>
+
+            <ul className="space-y-3">
+              {FEATURES.map((f, i) => (
+                <li key={f.title}>
+                  <FeatureItem feature={f} index={i} active={i === activeIndex} onSelect={jump} />
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-5 flex items-center gap-2 text-xs font-semibold text-qupu-muted">
+              <motion.i
+                className="fa-solid fa-arrow-down-long text-qupu-brand-orange"
+                animate={{ y: [0, 4, 0] }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+                aria-hidden="true"
+              />
+              Gulir untuk melihat tiap fitur bekerja
+            </p>
+          </div>
+
+          {/* RIGHT: showcase that steps with scroll direction */}
+          <div className="relative">
+            <AnimatePresence mode="wait" custom={dir}>
+              <motion.div
+                key={activeIndex}
+                custom={dir}
+                variants={{
+                  enter: (d: number) => ({ opacity: 0, y: d > 0 ? 32 : -32 }),
+                  center: { opacity: 1, y: 0 },
+                  exit: (d: number) => ({ opacity: 0, y: d > 0 ? -32 : 32 }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.32, ease: EASE }}
               >
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex(i)}
-                  aria-pressed={active}
-                  className={[
-                    'relative flex w-full items-start gap-4 overflow-hidden rounded-[1.5rem] border-[3px] p-4 text-left transition',
-                    active
-                      ? 'border-qupu-brand-orange bg-white shadow-[3px_4px_0_0_#FFD3B1]'
-                      : 'border-transparent bg-white/70 hover:bg-white',
-                  ].join(' ')}
-                >
-                  <span
-                    className={[
-                      'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xl transition',
-                      active ? 'bg-qupu-brand-orange text-white' : 'bg-qupu-cream text-qupu-brand-orange',
-                    ].join(' ')}
-                  >
-                    <i className={f.icon} aria-hidden="true" />
-                  </span>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="font-display text-base font-extrabold text-qupu-brand-blue">{f.title}</div>
-                    <p className="mt-0.5 text-sm font-semibold leading-relaxed text-qupu-muted">{f.desc}</p>
-                  </div>
-
-                  {active && (
-                    <i className="fa-solid fa-chevron-right mt-3 shrink-0 text-qupu-brand-orange" aria-hidden="true" />
-                  )}
-
-                  {/* auto-iterate progress bar */}
-                  {active && autoplaying && (
-                    <span className="absolute inset-x-4 bottom-1.5 h-1 overflow-hidden rounded-full bg-qupu-brand-orange/20">
-                      <motion.span
-                        key={activeIndex}
-                        className="block h-full rounded-full bg-qupu-brand-orange"
-                        initial={{ width: '0%' }}
-                        animate={{ width: '100%' }}
-                        transition={{ duration: 3.2, ease: 'linear' }}
-                      />
-                    </span>
-                  )}
-                </button>
-              </motion.li>
-            )
-          })}
-        </ul>
-
-        {/* RIGHT: showcase panel that swaps with the active feature */}
-        <div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={reduce ? false : { opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, x: -12 }}
-              transition={{ duration: reduce ? 0 : 0.28, ease: 'easeOut' }}
-            >
-              {showcase}
-            </motion.div>
-          </AnimatePresence>
+                <Showcase index={activeIndex} reduce={reduce} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
