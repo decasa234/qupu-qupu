@@ -5,7 +5,16 @@
 // against the incoming event) and the dashboard read (so the panel
 // always has 3 slots to show).
 //
-// Smart-select rule for the 3 active slots per child per WIB day:
+// Smart-select rule for the 3 active slots per child per WIB day.
+//
+// Garden-first (post-migration 0037, the WMI garden is the landing
+// surface): when the three konsep templates are seeded, the daily slots
+// are exactly those three — all completable in one 20-question session:
+//   - `konsep_answers_10` : answer 10 konsep questions
+//   - `konsep_session_1`  : finish one full session
+//   - `konsep_grow_1`     : grow one concept plant to a new tier
+//
+// Legacy video-quiz slots (used only when 0037 hasn't been applied):
 //   - Slot 1: `daily_completion_1` (always — easy entry)
 //   - Slot 2: `daily_subject_focus` personalized to weakest subject if
 //     the kid has played before; else `daily_high_score` as fallback
@@ -17,6 +26,7 @@
 
 import type { PoolClient } from 'pg'
 import { query, queryOne } from '../../db.js'
+import { wibDateString } from '../../lib/wib.js'
 
 export interface ActiveQuest {
   id: string
@@ -31,6 +41,7 @@ export interface ActiveQuest {
   status: 'active' | 'completed' | 'claimed' | 'expired'
   xpReward: number
   coinReward: number
+  claimedAt: string | null
   metadata: Record<string, unknown>
 }
 
@@ -125,11 +136,30 @@ function renderSubjectFocusTitle(template: QuestTemplate, subjectName: string): 
   return template.title.replace(/\{\{subject\}\}/g, subjectName)
 }
 
+// The garden-first daily trio (migration 0037). All three are completable
+// in a single committed konsep session, which is the Duolingo-style cascade
+// the "Misi Hari Ini" panel celebrates.
+const KONSEP_QUEST_CODES = ['konsep_answers_10', 'konsep_session_1', 'konsep_grow_1'] as const
+
 async function pickSlots(
   client: PoolClient,
   childId: string,
   templates: Map<string, QuestTemplate>,
 ): Promise<SlotPick[]> {
+  // Garden-first: if every konsep template exists (0037 applied), the day's
+  // slots are exactly the konsep trio. On a pre-0037 database this falls
+  // through to the legacy video-quiz slot logic unchanged.
+  const konsepTemplates = KONSEP_QUEST_CODES
+    .map((code) => templates.get(code))
+    .filter((t): t is QuestTemplate => Boolean(t))
+  if (konsepTemplates.length === KONSEP_QUEST_CODES.length) {
+    return konsepTemplates.map((template) => ({
+      template,
+      titleRendered: template.title,
+      metadata: {},
+    }))
+  }
+
   const ctx = await fetchChildContext(client, childId)
   const picks: SlotPick[] = []
 
@@ -191,6 +221,7 @@ export async function ensureTodaysQuests(
     status: 'active' | 'completed' | 'claimed' | 'expired'
     xp_reward: number
     coin_reward: number
+    claimed_at: string | null
     metadata: Record<string, unknown>
   }>(
     `SELECT cqi.id,
@@ -205,6 +236,7 @@ export async function ensureTodaysQuests(
             cqi.status,
             qt.xp_reward,
             qt.coin_reward,
+            cqi.claimed_at,
             cqi.metadata
        FROM child_quest_instances cqi
        JOIN quest_templates qt ON qt.id = cqi.quest_template_id
@@ -228,6 +260,7 @@ export async function ensureTodaysQuests(
       status: r.status,
       xpReward: Number(r.xp_reward),
       coinReward: Number(r.coin_reward),
+      claimedAt: r.claimed_at,
       metadata: r.metadata ?? {},
     }))
   }
@@ -265,4 +298,16 @@ export async function ensureTodaysQuests(
 
   // Re-fetch so caller sees what's actually in the DB after generation.
   return ensureTodaysQuests(client, childId, today)
+}
+
+/**
+ * Ensure today's quests exist for a child, resolving "today" in WIB here.
+ * Factored out of the dashboard service so GET /api/me/quests and the
+ * dashboard share one entry point. Caller supplies the transaction client.
+ */
+export async function ensureDailyQuests(
+  client: PoolClient,
+  childId: string,
+): Promise<ActiveQuest[]> {
+  return ensureTodaysQuests(client, childId, wibDateString(new Date()))
 }

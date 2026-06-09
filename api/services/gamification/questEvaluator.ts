@@ -25,6 +25,11 @@ export interface QuestEventInput {
   eventSourceId: string
   videoSubjectId?: string | null
   currentStreakDays?: number
+  // How much progress this event represents. Defaults to 1 (the video-quiz
+  // contract: one event = one unit). WMI konsep sessions batch 20 graded
+  // answers into a single KONSEP_QUESTION_ANSWERED event, so they pass the
+  // real count instead of emitting 20 rows.
+  incrementBy?: number
 }
 
 export interface QuestProgressResult {
@@ -76,6 +81,13 @@ function questMatches(
   return true
 }
 
+// Pure progress step: clamp to target, never move backwards, treat a
+// missing/invalid incrementBy as 1.
+function nextProgress(progress: number, target: number, incrementBy?: number): number {
+  const step = Math.max(1, Math.floor(incrementBy ?? 1))
+  return Math.min(progress + step, target)
+}
+
 export async function evaluateForEvent(
   client: PoolClient,
   today: string, // YYYY-MM-DD WIB
@@ -111,7 +123,11 @@ export async function evaluateForEvent(
   for (const row of rows) {
     if (!questMatches(row, event)) continue
 
-    const newProgress = Math.min(Number(row.progress_value) + 1, Number(row.target_value))
+    const newProgress = nextProgress(
+      Number(row.progress_value),
+      Number(row.target_value),
+      event.incrementBy,
+    )
     const justCompleted = newProgress >= Number(row.target_value)
     const newStatus = justCompleted ? 'completed' : 'active'
 
@@ -171,3 +187,5 @@ export async function evaluateForEvent(
 
   return results
 }
+
+export const __test__ = { questMatches, nextProgress }

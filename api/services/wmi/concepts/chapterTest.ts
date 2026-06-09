@@ -1,12 +1,30 @@
 import type { PoolClient } from 'pg'
-import { pool, query, withTransaction } from '../../../db.js'
+import { pool, query, queryOne, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
+import { wibDateString } from '../../../lib/wib.js'
 import { isCorrectAnswer } from '../answerMatch.js'
+import { emitEvent } from '../../gamification/events.js'
+import { appendLedger } from '../../gamification/ledger.js'
+import { ensureProfile, updateProfileWithDelta } from '../../gamification/profileUpdater.js'
+import { updateStreakForActivity } from '../../gamification/streakUpdater.js'
+import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
+import {
+  evaluateForEvent,
+  type QuestProgressResult,
+} from '../../gamification/questEvaluator.js'
+import { evaluateAchievements } from '../../gamification/achievementEvaluator.js'
 
 const TEST_SIZE = 6
 const PASS_PCT = 70
 const SEED_TIER = 2          // Berlatih head-start on pass
 const SEED_PCT = 35
+
+// Tes Bab pass reward — granted once per (child, chapter). The ledger
+// source is the FIRST passed wmi_chapter_tests row for the pair, so both
+// HTTP retries and repeat passes of the same chapter hit the UNIQUE
+// (child_id, reward_type, source_type, source_id) key and no-op.
+const CHAPTER_TEST_XP = 30
+const CHAPTER_TEST_COINS = 50
 
 export interface ChapterTestQuestion {
   concept_instance_id: string
@@ -38,10 +56,19 @@ export async function startChapterTest(
   return { questions: shuffled }
 }
 
+export interface ChapterTestResult {
+  passed: boolean
+  score_pct: number
+  correct: number
+  total: number
+  xp_earned: number
+  coins_earned: number
+}
+
 export async function submitChapterTest(
   parentUserId: string, childId: string, subjectKey: string,
   answers: { concept_instance_id: string; selected_answer: string }[],
-): Promise<{ passed: boolean; score_pct: number; correct: number; total: number }> {
+): Promise<ChapterTestResult> {
   return withTransaction(async (client: PoolClient) => {
     await assertChildOwnership(client, parentUserId, childId)
     if (answers.length === 0) throw new Error('No answers submitted')
@@ -81,11 +108,17 @@ export async function submitChapterTest(
     const scorePct = Math.round((correct / total) * 100)
     const passed = scorePct >= PASS_PCT
 
-    await client.query(
+    const testRow = await queryOne<{ id: string }>(
       `INSERT INTO wmi_chapter_tests (child_id, subject_key, score_pct, passed)
-       VALUES ($1,$2,$3,$4)`,
+       VALUES ($1,$2,$3,$4)
+       RETURNING id`,
       [childId, subjectKey, scorePct, passed],
+      client,
     )
+    if (!testRow) throw new Error('Failed to record chapter test')
+
+    let xpEarned = 0
+    let coinsEarned = 0
 
     if (passed) {
       await client.query(
@@ -98,7 +131,89 @@ export async function submitChapterTest(
            updated_at = NOW()`,
         [childId, subjectKey, SEED_TIER, SEED_PCT],
       )
+
+      // ── Gamification (same transaction; mirrors gamification/concept.ts) ──
+      const today = wibDateString(new Date())
+      await ensureProfile(client, childId)
+      // Passing a Tes Bab counts as today's learning activity; the streak
+      // must advance BEFORE updateProfileWithDelta stamps last_activity_date.
+      const streak = await updateStreakForActivity(client, childId, today)
+
+      // Ledger grant keyed to the FIRST passed test row for this
+      // (child, chapter). On the first pass that is the row inserted above
+      // (visible inside this transaction); on any later pass or retry the
+      // same id resolves again and the ledger UNIQUE makes it a no-op.
+      const firstPass = await queryOne<{ id: string }>(
+        `SELECT id FROM wmi_chapter_tests
+           WHERE child_id = $1 AND subject_key = $2 AND passed
+           ORDER BY created_at ASC, id ASC
+           LIMIT 1`,
+        [childId, subjectKey],
+        client,
+      )
+      const led = await appendLedger(client, {
+        childId,
+        rewardType: 'CHAPTER_TEST_XP',
+        sourceType: 'wmi_chapter_test',
+        sourceId: firstPass?.id ?? testRow.id,
+        xpDelta: CHAPTER_TEST_XP,
+        coinDelta: CHAPTER_TEST_COINS,
+        metadata: { subjectKey, scorePct },
+      })
+      if (led.appended) {
+        xpEarned = led.xpDelta
+        coinsEarned = led.coinDelta
+      }
+
+      // Event + evaluators, exactly like the video/konsep paths.
+      await emitEvent(client, {
+        childId,
+        eventType: 'CHAPTER_TEST_PASSED',
+        sourceType: 'wmi_chapter_test',
+        sourceId: testRow.id,
+        eventDate: today,
+        metadata: { subjectKey, scorePct },
+      })
+      await ensureTodaysQuests(client, childId, today)
+      const questResults = await evaluateForEvent(client, today, {
+        childId,
+        eventType: 'CHAPTER_TEST_PASSED',
+        eventSourceType: 'wmi_chapter_test',
+        eventSourceId: testRow.id,
+        currentStreakDays: streak.currentStreakDays,
+      })
+      const completedById = new Map<string, QuestProgressResult>()
+      for (const q of questResults) {
+        if (q.justCompleted && !completedById.has(q.questId)) {
+          completedById.set(q.questId, q)
+        }
+      }
+      for (const q of completedById.values()) {
+        xpEarned += q.xpAwarded
+        coinsEarned += q.coinsAwarded
+      }
+
+      const newAchievements = await evaluateAchievements(client, childId, streak)
+      for (const ach of newAchievements) {
+        xpEarned += ach.xpAwarded
+      }
+
+      // Always run the profile delta — even at 0/0 it stamps
+      // last_activity_date = today so tomorrow's streak gap is correct.
+      await updateProfileWithDelta(client, {
+        childId,
+        xpDelta: xpEarned,
+        coinDelta: coinsEarned,
+        activityDate: today,
+      })
     }
-    return { passed, score_pct: scorePct, correct, total }
+    return {
+      passed,
+      score_pct: scorePct,
+      correct,
+      total,
+      xp_earned: xpEarned,
+      coins_earned: coinsEarned,
+    }
   })
 }

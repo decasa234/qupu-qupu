@@ -15,8 +15,19 @@ export type EventType =
   | 'HIGH_SCORE_REACHED'      // >= 80%
   | 'PERFECT_SCORE_REACHED'   // 100%
   | 'DAILY_ACTIVITY_RECORDED'
+  // WMI garden events (migration 0037). gamification_events.event_type is
+  // an unconstrained VARCHAR(80), so no DDL change is needed for these.
+  | 'KONSEP_SESSION_COMPLETED' // one committed 20-question konsep session
+  | 'KONSEP_QUESTION_ANSWERED' // batch marker; metadata.count = answers graded
+  | 'KONSEP_CONCEPT_GROWN'     // batch marker; metadata.count = concepts that hit a new tier
+  | 'CHAPTER_TEST_PASSED'      // Tes Bab >= 70%
 
-export type SourceType = 'score_attempt' | 'video_first_complete' | 'daily_activity'
+export type SourceType =
+  | 'score_attempt'
+  | 'video_first_complete'
+  | 'daily_activity'
+  | 'wmi_session'        // anchor = first wmi_attempts row of the committed session
+  | 'wmi_chapter_test'   // anchor = wmi_chapter_tests row
 
 export interface EmitEventInput {
   childId: string

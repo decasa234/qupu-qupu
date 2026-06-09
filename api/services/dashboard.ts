@@ -14,7 +14,7 @@
 
 import type { PoolClient } from 'pg'
 import { query, queryOne, withTransaction } from '../db.js'
-import { ensureTodaysQuests, type ActiveQuest } from './gamification/questGenerator.js'
+import { ensureDailyQuests, type ActiveQuest } from './gamification/questGenerator.js'
 import { loadLevelTiers, resolveLevel } from './gamification/levelCurve.js'
 import { hasClaimedLoginBonus, LOGIN_BONUS_COINS } from './gamification/loginBonus.js'
 import { fetchScreenTimeMinutes } from './sessionEvents.js'
@@ -278,7 +278,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       fetchRecommendations(client, childId, child.ageGroupId),
       fetchGamificationProfile(client, childId),
       loadLevelTiers(client),
-      ensureTodaysQuests(client, childId, todayWib),
+      ensureDailyQuests(client, childId),
       fetchScreenTimeMinutes(client, childId, today),
       hasClaimedLoginBonus(client, childId, todayWib),
     ])

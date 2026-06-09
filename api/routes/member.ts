@@ -12,6 +12,7 @@ import {
   useStreakRecoveryForChild,
 } from '../services/member.js'
 import { getGamificationSummary } from '../services/gamification/summary.js'
+import { getDailyQuestsForChild } from '../services/gamification/quests.js'
 import { logSessionEvent } from '../services/sessionEvents.js'
 import {
   getOrCreateReferralCode,
@@ -82,6 +83,26 @@ router.get('/gamification', authenticateToken, async (req: AuthRequest, res: Res
   } catch (error: unknown) {
     console.error('Get gamification summary error:', error)
     const message = error instanceof Error ? error.message : 'Unable to load gamification'
+    res.status(statusForError(message)).json({ success: false, error: message })
+  }
+})
+
+// "Misi Hari Ini" — ensures today's quest instances exist, then returns
+// them for the daily-quest panel (garden top card + first dashboard card).
+router.get('/quests', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { error, value } = childIdQuerySchema.validate(req.query)
+
+    if (error) {
+      res.status(400).json({ success: false, error: error.details[0].message })
+      return
+    }
+
+    const data = await getDailyQuestsForChild(req.user.id, value.childId)
+    res.json({ success: true, data })
+  } catch (error: unknown) {
+    console.error('Get daily quests error:', error)
+    const message = error instanceof Error ? error.message : 'Unable to load quests'
     res.status(statusForError(message)).json({ success: false, error: message })
   }
 })

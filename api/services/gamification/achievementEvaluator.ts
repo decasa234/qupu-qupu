@@ -18,11 +18,17 @@
 //   - subjects_tried        : COUNT(DISTINCT v.subject_id) >= target_value
 //   - improvement_first     : SCORE_IMPROVED event present
 //   - badges_total          : SUM(badge_count) >= target_value
+//
+// WMI garden types (migration 0037):
+//   - concept_mahir_first        : COUNT(wmi_concept_progress at tier >= Mahir) >= target_value
+//   - chapter_test_passed_first  : COUNT(passed wmi_chapter_tests) >= target_value
+//   - konsep_sessions_completed  : COUNT(KONSEP_SESSION_COMPLETED events) >= target_value
 
 import type { PoolClient } from 'pg'
 import { query, queryOne } from '../../db.js'
 import { appendLedger } from './ledger.js'
 import type { StreakState } from './streakUpdater.js'
+import { PROFICIENT_TIER } from '../wmi/concepts/comprehension.js'
 
 export interface UnlockedAchievement {
   id: string
@@ -38,6 +44,9 @@ interface AchievementState {
   badgesSum: number                 // SUM(badge_count)
   distinctSubjects: number
   eventTypes: Set<string>           // distinct gamification_events.event_type
+  mahirConcepts: number             // COUNT(wmi_concept_progress) at tier >= Mahir
+  chapterTestsPassed: number        // COUNT(wmi_chapter_tests) where passed
+  konsepSessions: number            // COUNT(KONSEP_SESSION_COMPLETED events)
 }
 
 interface AchievementTemplate {
@@ -62,6 +71,9 @@ async function fetchAchievementState(
     badges_sum: string
     distinct_subjects: string
     event_types: string[] | null
+    mahir_concepts: string
+    chapter_tests_passed: string
+    konsep_sessions: string
   }>(
     `SELECT
        (SELECT COUNT(*)::text FROM user_badge_unlocks WHERE child_id = $1) AS unlocks_count,
@@ -71,8 +83,14 @@ async function fetchAchievementState(
           JOIN videos v ON v.id = ubu.video_id
           WHERE ubu.child_id = $1) AS distinct_subjects,
        (SELECT array_agg(DISTINCT event_type)
-          FROM gamification_events WHERE child_id = $1) AS event_types`,
-    [childId],
+          FROM gamification_events WHERE child_id = $1) AS event_types,
+       (SELECT COUNT(*)::text FROM wmi_concept_progress
+          WHERE child_id = $1 AND best_tier >= $2) AS mahir_concepts,
+       (SELECT COUNT(*)::text FROM wmi_chapter_tests
+          WHERE child_id = $1 AND passed) AS chapter_tests_passed,
+       (SELECT COUNT(*)::text FROM gamification_events
+          WHERE child_id = $1 AND event_type = 'KONSEP_SESSION_COMPLETED') AS konsep_sessions`,
+    [childId, PROFICIENT_TIER],
     client,
   )
   return {
@@ -80,6 +98,9 @@ async function fetchAchievementState(
     badgesSum: Number(row?.badges_sum ?? 0),
     distinctSubjects: Number(row?.distinct_subjects ?? 0),
     eventTypes: new Set(row?.event_types ?? []),
+    mahirConcepts: Number(row?.mahir_concepts ?? 0),
+    chapterTestsPassed: Number(row?.chapter_tests_passed ?? 0),
+    konsepSessions: Number(row?.konsep_sessions ?? 0),
   }
 }
 
@@ -108,6 +129,12 @@ function predicateSatisfied(
       return state.eventTypes.has('SCORE_IMPROVED')
     case 'badges_total':
       return state.badgesSum >= template.target_value
+    case 'concept_mahir_first':
+      return state.mahirConcepts >= template.target_value
+    case 'chapter_test_passed_first':
+      return state.chapterTestsPassed >= template.target_value
+    case 'konsep_sessions_completed':
+      return state.konsepSessions >= template.target_value
     default:
       return false
   }
@@ -222,6 +249,12 @@ function progressFor(
       return state.eventTypes.has('PERFECT_SCORE_REACHED') ? 1 : 0
     case 'improvement_first':
       return state.eventTypes.has('SCORE_IMPROVED') ? 1 : 0
+    case 'concept_mahir_first':
+      return state.mahirConcepts
+    case 'chapter_test_passed_first':
+      return state.chapterTestsPassed
+    case 'konsep_sessions_completed':
+      return state.konsepSessions
     default:
       return 0
   }
@@ -285,3 +318,5 @@ export async function listAchievementsForChild(
     }
   })
 }
+
+export const __test__ = { predicateSatisfied, progressFor }
