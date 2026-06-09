@@ -138,7 +138,7 @@ export default function WmiChallenge({ onAnswer }: { onAnswer?: (value: string) 
       className={
         'relative overflow-hidden bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] text-white ' +
         (expanded
-          ? 'ml-[calc(50%-50vw)] -mt-36 flex min-h-screen w-screen items-center justify-center px-6 py-28 sm:px-10 '
+          ? 'ml-[calc(50%-50vw)] -mt-36 -mb-16 flex min-h-screen w-screen items-center justify-center px-6 py-28 sm:px-10 '
           : 'px-6 py-10 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-12 ') +
         (showCursor ? 'cursor-none' : '')
       }
