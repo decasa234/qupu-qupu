@@ -6,7 +6,7 @@ import ChildSwitcher from './ChildSwitcher'
 import { useAuthStore } from '../store/authStore'
 import { cn } from '../lib/utils'
 
-const SCROLL_SPY_IDS = ['beranda', 'kategori']
+const SCROLL_SPY_IDS = ['beranda']
 
 function useScrollSpy(ids: string[]) {
   const [active, setActive] = useState<string | null>(null)
@@ -46,13 +46,13 @@ function useScrollSpy(ids: string[]) {
 type NavItem = {
   label: string
   to: string
+  badge?: string
 }
 
 const NAV_ITEMS_PARENT: NavItem[] = [
   { label: 'Beranda', to: '/' },
-  { label: 'Latihan WMI', to: '/wmi' },
-  { label: 'Kategori', to: '/#kategori' },
-  { label: 'Video', to: '/videos' },
+  { label: 'Latihan WMI', to: '/wmi', badge: 'New' },
+  { label: 'Tonton', to: '/videos' },
   { label: 'Harga', to: '/harga' },
 ]
 
@@ -165,6 +165,7 @@ export default function Navbar() {
               <MobileLink
                 key={item.to}
                 to={item.to}
+                badge={item.badge}
                 activeSection={activeSection}
                 onClick={() => setOpen(false)}
               >
@@ -258,6 +259,20 @@ export default function Navbar() {
   )
 }
 
+function NewBadge({ children }: { children: string }) {
+  return (
+    <span className="relative inline-flex shrink-0 items-center">
+      <span
+        className="absolute inset-0 rounded-full bg-qupu-brand-orange/60 motion-safe:animate-ping"
+        aria-hidden="true"
+      />
+      <span className="relative rounded-full bg-qupu-brand-orange px-1.5 py-[2px] text-[9px] font-extrabold uppercase leading-none tracking-wide text-white shadow-[0_1px_0_0_#d96a22]">
+        {children}
+      </span>
+    </span>
+  )
+}
+
 function NavItemLink({
   item,
   activeSection,
@@ -271,6 +286,13 @@ function NavItemLink({
     'text-qupu-brand-orange underline decoration-qupu-brand-orange decoration-[3px] underline-offset-[10px]'
   const idleClass = 'text-qupu-muted hover:text-qupu-brand-orange'
 
+  const labelContent = (
+    <span className="inline-flex items-center gap-1.5">
+      {item.label}
+      {item.badge ? <NewBadge>{item.badge}</NewBadge> : null}
+    </span>
+  )
+
   if (isHash) {
     const sectionId = item.to.split('#')[1]
     const isActive = location.pathname === '/' && activeSection === sectionId
@@ -283,7 +305,7 @@ function NavItemLink({
           isActive ? activeClass : idleClass,
         )}
       >
-        {item.label}
+        {labelContent}
       </a>
     )
   }
@@ -316,7 +338,7 @@ function NavItemLink({
         isActive ? activeClass : idleClass,
       )}
     >
-      {item.label}
+      {labelContent}
     </NavLink>
   )
 }
@@ -327,12 +349,14 @@ function MobileLink({
   onClick,
   icon: Icon,
   activeSection,
+  badge,
 }: {
   to: string
   children: string
   onClick: () => void
   icon?: typeof Shield
   activeSection: string | null
+  badge?: string
 }) {
   const isHash = to.includes('#')
   const location = useLocation()
@@ -350,9 +374,10 @@ function MobileLink({
   )
   const content = (
     <>
-      <span className="flex items-center gap-3">
+      <span className="flex items-center gap-2.5">
         {Icon && <Icon className="h-4 w-4" />}
         {children}
+        {badge ? <NewBadge>{badge}</NewBadge> : null}
       </span>
       {isActive && <span className="h-2 w-2 rounded-full bg-qupu-brand-yellow" />}
     </>
