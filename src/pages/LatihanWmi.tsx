@@ -64,13 +64,19 @@ export default function LatihanWmiPage() {
   }, [answered])
 
   // When the Penjelasan animations finish, glide down to the features tour.
-  // Use an explicit scrollTo (not scrollIntoView) so the html scroll-padding-top
-  // doesn't stack with the section's own top padding and overshoot.
+  // The features section is pulled up to overlap the Penjelasan's empty bottom
+  // (small gap), so we land on the Penjelasan's bottom: that scrolls it just
+  // off-screen while the overlapping features card sits centered in view. Falls
+  // back to the features wrapper top. Explicit scrollTo avoids the html
+  // scroll-padding-top stacking and overshooting.
   const scrollToFeatures = useCallback(() => {
     if (userScrolledRef.current) return
     const el = featuresRef.current
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY
+    const sol = document.querySelector('section[aria-labelledby="wmi-solution-heading"]')
+    const top = sol
+      ? sol.getBoundingClientRect().bottom + window.scrollY
+      : el.getBoundingClientRect().top + window.scrollY
     window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
   }, [reduce])
 

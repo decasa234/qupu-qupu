@@ -268,9 +268,13 @@ export default function WmiFeaturesTour() {
   }
 
   return (
-    <div ref={ref} className="relative ml-[calc(50%-50vw)] w-screen" style={{ height: `${FEATURES.length * 100}vh` }}>
+    <div
+      ref={ref}
+      className="pointer-events-none relative -mt-[26vh] ml-[calc(50%-50vw)] w-screen"
+      style={{ height: `${FEATURES.length * 100}vh` }}
+    >
       <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:px-8">
+        <div className="pointer-events-auto mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:px-8">
           {/* LEFT: scroll progress + feature rail */}
           <div>
             <div className="mb-5 flex items-center gap-3">
