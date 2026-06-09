@@ -1,37 +1,15 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import Reveal from '@/components/Reveal'
+import WmiBackdrop from '@/components/wmi/marketing/WmiBackdrop'
 import WmiChallenge from '@/components/wmi/marketing/WmiChallenge'
-import WmiTestimonials from '@/components/wmi/marketing/WmiTestimonials'
-import { TESTIMONIALS } from '@/data/wmiMarketing'
+import WmiSolution from '@/components/wmi/marketing/WmiSolution'
+import WmiFeaturesTour from '@/components/wmi/marketing/WmiFeaturesTour'
+import WmiMasteryTree from '@/components/wmi/marketing/WmiMasteryTree'
+import WmiTestimonialsMarquee from '@/components/wmi/marketing/WmiTestimonialsMarquee'
 
-const LEARN_STEPS = [
-  {
-    icon: 'fa-solid fa-lightbulb',
-    bg: 'bg-qupu-brand-yellow',
-    title: 'Konsep',
-    desc: 'Pelajari satu konsep WMI lewat animasi langkah demi langkah.',
-  },
-  {
-    icon: 'fa-solid fa-dumbbell',
-    bg: 'bg-qupu-brand-blue',
-    title: 'Drill',
-    desc: 'Latihan soal asli sebanyak yang anak mau, sambil kumpulkan XP.',
-  },
-  {
-    icon: 'fa-solid fa-trophy',
-    bg: 'bg-qupu-brand-orange',
-    title: 'Ujian',
-    desc: 'Coba paket ujian WMI sungguhan dan raih badge.',
-  },
-]
-
-// What the child actually builds: the persuasion that matters to a parent.
-const OUTCOMES = [
-  { icon: 'fa-solid fa-diagram-project', iconBg: 'bg-qupu-brand-blue', skill: 'Penalaran logis', benefit: 'Berpikir runut, bukan menebak.' },
-  { icon: 'fa-solid fa-puzzle-piece', iconBg: 'bg-qupu-brand-orange', skill: 'Pemecahan masalah', benefit: 'Memecah soal sulit jadi langkah kecil.' },
-  { icon: 'fa-solid fa-cube', iconBg: 'bg-qupu-brand-blue', skill: 'Nalar ruang', benefit: 'Membayangkan bentuk dan ruang.' },
-  { icon: 'fa-solid fa-fire', iconBg: 'bg-qupu-brand-orange', skill: 'Tekun & percaya diri', benefit: 'Berani coba, tak gampang menyerah.' },
-]
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
 /** A scatter of brand-yellow star sprinkles for emphasis surfaces. */
 function Sprinkles() {
@@ -46,135 +24,102 @@ function Sprinkles() {
 }
 
 export default function LatihanWmiPage() {
+  const [answered, setAnswered] = useState(false)
+  const reduce = useReducedMotion()
+  const revealRef = useRef<HTMLDivElement>(null)
+
+  // After answering, let the hero feedback play, then glide to the reveal.
+  useEffect(() => {
+    if (!answered) return
+    const t = setTimeout(() => {
+      revealRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
+    }, 1100)
+    return () => clearTimeout(t)
+  }, [answered, reduce])
+
   return (
-    <div className="space-y-14 sm:space-y-20">
-      {/* 1 · Challenge hook + reveal carousel (this is the page header) */}
-      <WmiChallenge />
+    <div className="relative">
+      <WmiBackdrop />
 
-      {/* 2 · Kenapa anak perlu ini (persuasive, editorial — not a card grid) */}
-      <Reveal delay={0.05}>
-        <section className="overflow-hidden rounded-[2.5rem] bg-qupu-cream px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Kenapa anak perlu ini</div>
-              <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight text-qupu-brand-blue sm:text-[2.6rem]">
-                Bukan soal jadi juara olimpiade. Soal cara berpikir yang menempel seumur hidup.
-              </h2>
-              <p className="mt-4 max-w-md text-sm font-semibold leading-relaxed text-qupu-brand-blue/80 sm:text-base">
-                WMI adalah kompetisi matematika internasional untuk anak. Di QUPU, konsepnya jadi latihan berpikir, bukan hafalan.
-              </p>
-              <Link
-                to="/register"
-                className="mt-6 inline-flex min-h-12 items-center gap-3 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
-                  <i className="fa-solid fa-user-plus text-qupu-brand-orange" aria-hidden="true" />
-                </span>
-                Mulai gratis
-              </Link>
-            </div>
+      <div className="relative space-y-14 sm:space-y-20">
+        {/* 1 · Challenge hook (page header) */}
+        <WmiChallenge onAnswer={() => setAnswered(true)} />
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {OUTCOMES.map((o) => (
-                <div
-                  key={o.skill}
-                  className="group rounded-[1.5rem] border-[3px] border-qupu-brand-blue/10 bg-white p-5 shadow-[4px_5px_0_0_#FFD3B1] transition-transform duration-200 hover:-translate-y-1.5"
-                >
-                  <span className={`flex h-11 w-11 items-center justify-center rounded-2xl text-lg text-white shadow-md transition-transform duration-200 group-hover:scale-110 ${o.iconBg}`}>
-                    <i className={o.icon} aria-hidden="true" />
-                  </span>
-                  <div className="mt-3 font-display text-base font-extrabold text-qupu-brand-blue">{o.skill}</div>
-                  <p className="mt-0.5 text-xs font-semibold leading-relaxed text-qupu-muted">{o.benefit}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* 2 · Unwrapped after answering: Problem solve -> Features tour -> Level up */}
+        <AnimatePresence initial={false}>
+          {answered && (
+            <motion.div
+              key="reveal"
+              ref={revealRef}
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0 : 0.45, ease: EASE }}
+              className="scroll-mt-24 space-y-14 sm:space-y-20"
+            >
+              <Reveal delay={0.05}>
+                <WmiSolution />
+              </Reveal>
+              <Reveal delay={0.05}>
+                <WmiFeaturesTour />
+              </Reveal>
+              <Reveal delay={0.05}>
+                <section className="mx-auto max-w-5xl rounded-[2.5rem] bg-qupu-cream px-6 py-12 shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
+                  <WmiMasteryTree />
+                </section>
+              </Reveal>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          <div className="mt-8 rounded-2xl bg-white/70 px-5 py-4 text-center text-sm font-bold text-qupu-brand-blue">
-            <i className="fa-solid fa-graduation-cap mr-2 text-qupu-brand-orange" aria-hidden="true" />
-            Keterampilan yang menolong anak di sekolah, ujian, dan kehidupan sehari-hari.
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 3 · Cara belajarnya */}
-      <Reveal delay={0.05}>
-        <section className="relative overflow-hidden rounded-[2.5rem] bg-qupu-cream px-6 py-12 text-center shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-14">
-          <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Perjalanan Belajar</div>
-          <h2 className="mt-1 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">Cara belajarnya</h2>
-          <p className="mx-auto mt-2 max-w-xl text-sm font-semibold text-qupu-muted">
-            Tiga langkah seru: semuanya pakai XP, badge, dan confetti.
-          </p>
-          <div className="mt-9 grid gap-5 sm:grid-cols-3">
-            {LEARN_STEPS.map((s, i) => (
-              <div
-                key={s.title}
-                className="relative rounded-[1.75rem] border-[3px] border-white bg-white p-6 text-center shadow-[5px_6px_0_0_rgba(38,59,85,0.10)] transition-transform duration-200 hover:-translate-y-1"
-              >
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-white">
-                  Langkah {i + 1}
-                </span>
-                <span className={`mx-auto mt-2 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-md ${s.bg}`}>
-                  <i className={`${s.icon} text-2xl`} aria-hidden="true" />
-                </span>
-                <div className="mt-4 font-display text-lg font-extrabold text-qupu-brand-blue">{s.title}</div>
-                <p className="mt-1 text-xs font-semibold leading-relaxed text-qupu-muted">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 4 · Testimonials (dormant; the whole band is omitted while empty in V1) */}
-      {TESTIMONIALS.length > 0 && (
+        {/* 3 · Testimonials marquee */}
         <Reveal delay={0.05}>
-          <WmiTestimonials />
+          <WmiTestimonialsMarquee />
         </Reveal>
-      )}
 
-      {/* 6 · Closing CTA */}
-      <Reveal delay={0.05}>
-        <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
-          <Sprinkles />
-          <img
-            src="/subs-mascot.png"
-            alt=""
-            draggable={false}
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-2 -left-3 hidden h-36 w-auto select-none drop-shadow-[0_12px_26px_rgba(0,0,0,0.25)] lg:block"
-          />
-          <div className="relative">
-            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
-              Jadi salah satu{' '}
-              <span className="relative inline-block">
-                <span className="relative z-10 text-qupu-brand-yellow">keluarga pertama</span>
-                <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-white/15" aria-hidden="true" />
-              </span>
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed text-white/90 sm:text-base">
-              Coba Latihan WMI gratis hari ini. Tidak perlu kartu kredit.
-            </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <Link
-                to="/register"
-                className="inline-flex min-h-12 items-center gap-3 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
-                  <i className="fa-solid fa-user-plus text-qupu-brand-orange" aria-hidden="true" />
+        {/* 4 · Closing CTA */}
+        <Reveal delay={0.05}>
+          <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
+            <Sprinkles />
+            <img
+              src="/subs-mascot.png"
+              alt=""
+              draggable={false}
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-2 -left-3 hidden h-36 w-auto select-none drop-shadow-[0_12px_26px_rgba(0,0,0,0.25)] lg:block"
+            />
+            <div className="relative">
+              <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+                Jadi salah satu{' '}
+                <span className="relative inline-block">
+                  <span className="relative z-10 text-qupu-brand-yellow">keluarga pertama</span>
+                  <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-white/15" aria-hidden="true" />
                 </span>
-                Daftar Gratis
-              </Link>
-              <Link
-                to="/harga"
-                className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
-              >
-                <i className="fa-solid fa-tag" aria-hidden="true" />
-                Lihat Harga
-              </Link>
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-relaxed text-white/90 sm:text-base">
+                Coba Latihan WMI gratis hari ini. Tidak perlu kartu kredit.
+              </p>
+              <div className="mt-7 flex flex-wrap justify-center gap-3">
+                <Link
+                  to="/register"
+                  className="inline-flex min-h-12 items-center gap-3 rounded-full bg-qupu-brand-orange px-7 py-3 font-display text-base font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
+                    <i className="fa-solid fa-user-plus text-qupu-brand-orange" aria-hidden="true" />
+                  </span>
+                  Daftar Gratis
+                </Link>
+                <Link
+                  to="/harga"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
+                >
+                  <i className="fa-solid fa-tag" aria-hidden="true" />
+                  Lihat Harga
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-      </Reveal>
+          </section>
+        </Reveal>
+      </div>
     </div>
   )
 }

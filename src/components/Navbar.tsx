@@ -81,7 +81,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border-2 border-qupu-peach bg-qupu-cream/95 px-4 backdrop-blur-md sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-white/50 bg-qupu-cream/70 px-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65),0_8px_28px_rgba(48,89,138,0.12)] backdrop-blur-xl sm:px-6">
         <Link to="/" aria-label="Beranda QUPU" className="shrink-0 cursor-pointer !p-0">
           <BrandLogo />
         </Link>

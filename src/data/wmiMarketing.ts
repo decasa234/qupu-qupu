@@ -1,3 +1,5 @@
+import type { Breakdown } from '@/types/wmi'
+
 // Editable marketing content for the public "Latihan WMI" surface.
 // Pure presentational data — no network, no secrets.
 
@@ -85,8 +87,44 @@ export interface Testimonial {
   role: string
 }
 
-// Ships EMPTY in V1 — WmiTestimonials renders nothing until real quotes exist.
-export const TESTIMONIALS: Testimonial[] = []
+// SAMPLE testimonials — believable placeholders. TODO: replace with real,
+// consented parent/teacher quotes before launch.
+export const TESTIMONIALS: Testimonial[] = [
+  { quote: 'Anakku jadi nggak takut soal cerita. Dia malah minta soal yang lebih susah.', author: 'Rina', role: 'Ibu dari Kayla, Kelas 2' },
+  { quote: 'Penjelasan langkah demi langkahnya bikin dia "oh, gitu!" sendiri, bukan dihafal.', author: 'Andre', role: 'Ayah dari Bima, Kelas 3' },
+  { quote: 'Fitur sorotan dan dwibahasanya membantu di kelas saya. Anak fokus ke inti soal.', author: 'Sari', role: 'Guru SD' },
+  { quote: 'Tiap hari dia ngumpulin XP. Belajar matematika jadi seperti main game.', author: 'Maya', role: 'Ibu dari Rafa, Kelas 1' },
+  { quote: 'Soal olimpiade yang dulu bikin pusing, sekarang dia kerjakan sambil senyum.', author: 'Dewi', role: 'Ibu dari Nadia, Kelas 3' },
+  { quote: 'Yang saya suka, dia belajar cara berpikir, bukan cuma jawaban.', author: 'Hendra', role: 'Ayah dari Alya, Kelas 2' },
+]
+
+// ---- real assisted-highlight question (the count-squares concept), for the
+// "Features tour" — shown via the real WmiAuthoredBreakdown + WmiLanguageToggle.
+const COUNT_SQUARES_BREAKDOWN: Breakdown = {
+  needsVisual: true,
+  highlights: [
+    { category: 'question', phrase_en: 'How many squares', phrase_id: 'Ada berapa persegi', note_en: 'Find the total number of squares in the grid.', note_id: 'Cari jumlah seluruh persegi dalam kisi.' },
+    { category: 'condition', phrase_en: 'of any size', phrase_id: 'dari semua ukuran', note_en: 'Count small 1×1 squares and bigger squares made of several cells.', note_id: 'Hitung persegi kecil 1×1 dan persegi besar dari beberapa sel.' },
+    { category: 'fact', phrase_en: '3 columns and 3 rows', phrase_id: '3 kolom dan 3 baris', note_en: 'The grid is 3 by 3, so it has 9 small cells.', note_id: 'Kisi 3 kali 3, jadi ada 9 sel kecil.' },
+  ],
+  quantities: [
+    { label_en: 'Columns', label_id: 'Kolom', value: '3' },
+    { label_en: 'Rows', label_id: 'Baris', value: '3' },
+    { label_en: 'Answer', label_id: 'Jawaban', value: '14' },
+  ],
+  strategy: { conceptSlug: 'count-rectangles-grid', name_en: 'Count squares by size, then add', name_id: 'Hitung persegi per ukuran, lalu jumlahkan' },
+  trap: { wrong: '9', why_en: '9 counts only the 1×1 cells and misses the bigger squares; the total is 14.', why_id: '9 hanya menghitung sel 1×1 dan melewatkan persegi besar; totalnya 14.' },
+  answer: { form: 'number', unit: null, value: '14' },
+  vocab: ['square', 'grid'],
+}
+
+export const COUNT_SQUARES_QUESTION = {
+  code: 'count-rectangles-grid',
+  grid: { cols: 3, rows: 3 },
+  bodyEn: 'The grid below has 3 columns and 3 rows.\n\nFind: How many squares of any size are in the grid?',
+  bodyId: 'Kisi di bawah memiliki 3 kolom dan 3 baris.\n\nCari: Ada berapa persegi dari semua ukuran dalam kisi tersebut?',
+  breakdown: COUNT_SQUARES_BREAKDOWN,
+}
 
 // ---- /wmi challenge hook (the "smarter than a 2nd grader?" question) ----
 // A real WMI count-squares concept: how many squares of ALL sizes fit in a 3x3
