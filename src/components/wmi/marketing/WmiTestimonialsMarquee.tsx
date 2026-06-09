@@ -1,16 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, useAnimationControls, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useAnimationFrame, useMotionValue, useReducedMotion } from 'framer-motion'
 import { TESTIMONIALS, type Testimonial } from '@/data/wmiMarketing'
 
-const LOOP_DURATION = 35
+const SPEED = 42 // px per second — slow, calm drift
 
 function TestimonialCard({ quote, author, role }: Testimonial) {
   return (
     <figure className="flex w-[300px] shrink-0 flex-col rounded-[1.75rem] border-[3px] border-qupu-peach bg-white p-6 shadow-[5px_6px_0_0_rgba(38,59,85,0.08)] sm:w-[340px]">
       <i className="fa-solid fa-quote-left mb-3 text-2xl text-qupu-brand-orange" aria-hidden="true" />
-      <blockquote className="text-sm font-semibold leading-relaxed text-qupu-brand-blue/90">
-        {quote}
-      </blockquote>
+      <blockquote className="text-sm font-semibold leading-relaxed text-qupu-brand-blue/90">{quote}</blockquote>
       <figcaption className="mt-4 text-xs font-bold text-qupu-muted">
         {author} · {role}
       </figcaption>
@@ -21,9 +19,7 @@ function TestimonialCard({ quote, author, role }: Testimonial) {
 function SectionHeader() {
   return (
     <header className="mb-8 text-center">
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
-        Kata mereka
-      </p>
+      <p className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">Kata mereka</p>
       <h2 className="mt-2 font-display text-2xl font-extrabold text-qupu-brand-blue sm:text-3xl">
         Apa kata orang tua &amp; guru
       </h2>
@@ -31,44 +27,59 @@ function SectionHeader() {
   )
 }
 
+/**
+ * Smooth infinite testimonials marquee. A continuous rAF loop drives a single
+ * motion value (so pausing holds position and resuming never snaps back to the
+ * start), the wrap distance is measured exactly for a seamless loop, and the
+ * track is draggable (drag pauses the loop, then resumes from where it lands).
+ */
 export default function WmiTestimonialsMarquee() {
-  const reduceMotion = useReducedMotion()
-  const controls = useAnimationControls()
+  const reduce = useReducedMotion()
+  const x = useMotionValue(0)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const wrapRef = useRef(0) // exact distance of one full set (for a seamless wrap)
+  const draggingRef = useRef(false)
   const [paused, setPaused] = useState(false)
-  const [draggable, setDraggable] = useState(false)
 
   const isEmpty = TESTIMONIALS.length === 0
 
-  const start = useCallback(() => {
-    controls.start({
-      x: ['0%', '-50%'],
-      transition: { duration: LOOP_DURATION, ease: 'linear', repeat: Infinity },
-    })
-  }, [controls])
-
+  // Measure the seamless wrap distance = left-offset of the first duplicated card.
   useEffect(() => {
-    if (reduceMotion || isEmpty) return
-    if (paused) {
-      controls.stop()
-    } else {
-      start()
+    if (isEmpty) return
+    const measure = () => {
+      const track = trackRef.current
+      if (!track) return
+      const first = track.children[0] as HTMLElement | undefined
+      const dup = track.children[TESTIMONIALS.length] as HTMLElement | undefined
+      if (first && dup) wrapRef.current = dup.offsetLeft - first.offsetLeft
     }
-  }, [reduceMotion, isEmpty, paused, start, controls])
+    measure()
+    const ro = new ResizeObserver(measure)
+    if (trackRef.current) ro.observe(trackRef.current)
+    return () => ro.disconnect()
+  }, [isEmpty])
+
+  useAnimationFrame((_, delta) => {
+    if (reduce || paused || draggingRef.current) return
+    const wrap = wrapRef.current
+    if (!wrap) return
+    let next = x.get() - (SPEED * delta) / 1000
+    while (next <= -wrap) next += wrap
+    while (next > 0) next -= wrap
+    x.set(next)
+  })
 
   if (isEmpty) return null
-
   const items = [...TESTIMONIALS, ...TESTIMONIALS]
 
-  if (reduceMotion) {
+  if (reduce) {
     return (
       <section className="py-4">
         <SectionHeader />
-        <div className="relative">
-          <div className="flex gap-5 overflow-x-auto px-4 pb-2">
-            {TESTIMONIALS.map((t, i) => (
-              <TestimonialCard key={`${t.author}-${i}`} {...t} />
-            ))}
-          </div>
+        <div className="flex gap-5 overflow-x-auto px-4 pb-2">
+          {TESTIMONIALS.map((t, i) => (
+            <TestimonialCard key={`${t.author}-${i}`} {...t} />
+          ))}
         </div>
       </section>
     )
@@ -83,19 +94,23 @@ export default function WmiTestimonialsMarquee() {
         onMouseLeave={() => setPaused(false)}
       >
         <motion.div
-          className="flex w-max gap-5"
-          style={{ cursor: draggable ? 'grabbing' : 'grab' }}
-          animate={controls}
+          ref={trackRef}
+          className="flex w-max cursor-grab gap-5 [will-change:transform] active:cursor-grabbing"
+          style={{ x }}
           drag="x"
-          dragElastic={0.08}
-          dragConstraints={{ left: -2000, right: 0 }}
+          dragElastic={0.04}
+          dragMomentum={false}
           onDragStart={() => {
-            setDraggable(true)
-            setPaused(true)
+            draggingRef.current = true
           }}
           onDragEnd={() => {
-            setDraggable(false)
-            setPaused(false)
+            draggingRef.current = false
+            const wrap = wrapRef.current
+            if (wrap) {
+              let v = x.get() % wrap
+              if (v > 0) v -= wrap
+              x.set(v)
+            }
           }}
         >
           {items.map((t, i) => (

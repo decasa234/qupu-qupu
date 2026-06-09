@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import Reveal from '@/components/Reveal'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import { COUNT_SQUARES_QUESTION } from '@/data/wmiMarketing'
 import WmiAssistedHighlight from '@/components/wmi/marketing/WmiAssistedHighlight'
 import WmiExplainer from '@/components/wmi/WmiExplainer'
@@ -104,14 +103,25 @@ function PutarUlangShowcase() {
 }
 
 /**
- * "Features tour" section: a centered header with a vertical list of four
- * SELECTABLE feature buttons on the left, and a showcase panel on the right
- * whose illustration swaps to match the selected feature. On mobile they stack,
- * the showcase below the list.
+ * "Features tour" section (header-less): a vertical list of four SELECTABLE
+ * feature buttons on the left that AUTO-ITERATE while the section is in view
+ * (pausing on hover), and a showcase panel on the right whose illustration
+ * swaps to match the active feature. On mobile they stack.
  */
 export default function WmiFeaturesTour() {
   const reduce = useReducedMotion() ?? false
   const [activeIndex, setActiveIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { amount: 0.4 })
+  const autoplaying = !reduce && inView && !paused
+
+  // Auto-iterate through the features while in view (pause on hover / reduced-motion).
+  useEffect(() => {
+    if (!autoplaying) return
+    const id = setInterval(() => setActiveIndex((i) => (i + 1) % FEATURES.length), 3200)
+    return () => clearInterval(id)
+  }, [autoplaying])
 
   const showcase = (() => {
     switch (activeIndex) {
@@ -128,66 +138,73 @@ export default function WmiFeaturesTour() {
   })()
 
   return (
-    <section>
-      {/* Centered header */}
-      <Reveal className="mx-auto max-w-2xl text-center">
-        <div className="text-xs font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Tur fitur</div>
-        <h2 className="mt-2 font-display text-3xl font-extrabold text-qupu-brand-blue sm:text-4xl">
-          Yang bikin anak paham
-        </h2>
-        <p className="mt-2 text-sm font-semibold text-qupu-muted sm:text-base">
-          Ketuk tiap fitur untuk melihatnya bekerja.
-        </p>
-      </Reveal>
-
-      <div className="mt-10 grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]">
-        {/* LEFT: selectable feature list */}
-        <Reveal>
-          <ul className="space-y-4">
-            {FEATURES.map((f, i) => {
-              const active = i === activeIndex
-              return (
-                <li key={f.title}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveIndex(i)}
-                    aria-pressed={active}
+    <section ref={ref}>
+      <div
+        className="grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* LEFT: selectable feature list (auto-iterates on scroll) */}
+        <ul className="space-y-4">
+          {FEATURES.map((f, i) => {
+            const active = i === activeIndex
+            return (
+              <motion.li
+                key={f.title}
+                initial={reduce ? false : { opacity: 0, x: -18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={reduce ? undefined : { duration: 0.4, delay: i * 0.09, ease: 'easeOut' }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  aria-pressed={active}
+                  className={[
+                    'relative flex w-full items-start gap-4 overflow-hidden rounded-[1.5rem] border-[3px] p-4 text-left transition',
+                    active
+                      ? 'border-qupu-brand-orange bg-white shadow-[3px_4px_0_0_#FFD3B1]'
+                      : 'border-transparent bg-white/70 hover:bg-white',
+                  ].join(' ')}
+                >
+                  <span
                     className={[
-                      'flex w-full items-start gap-4 rounded-[1.5rem] border-[3px] p-4 text-left transition',
-                      active
-                        ? 'border-qupu-brand-orange bg-white shadow-[3px_4px_0_0_#FFD3B1]'
-                        : 'border-transparent bg-white/70 hover:bg-white',
+                      'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xl transition',
+                      active ? 'bg-qupu-brand-orange text-white' : 'bg-qupu-cream text-qupu-brand-orange',
                     ].join(' ')}
                   >
-                    <span
-                      className={[
-                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xl transition',
-                        active ? 'bg-qupu-brand-orange text-white' : 'bg-qupu-cream text-qupu-brand-orange',
-                      ].join(' ')}
-                    >
-                      <i className={f.icon} aria-hidden="true" />
-                    </span>
+                    <i className={f.icon} aria-hidden="true" />
+                  </span>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="font-display text-base font-extrabold text-qupu-brand-blue">{f.title}</div>
-                      <p className="mt-0.5 text-sm font-semibold leading-relaxed text-qupu-muted">{f.desc}</p>
-                    </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-display text-base font-extrabold text-qupu-brand-blue">{f.title}</div>
+                    <p className="mt-0.5 text-sm font-semibold leading-relaxed text-qupu-muted">{f.desc}</p>
+                  </div>
 
-                    {active && (
-                      <i
-                        className="fa-solid fa-chevron-right mt-3 shrink-0 text-qupu-brand-orange"
-                        aria-hidden="true"
+                  {active && (
+                    <i className="fa-solid fa-chevron-right mt-3 shrink-0 text-qupu-brand-orange" aria-hidden="true" />
+                  )}
+
+                  {/* auto-iterate progress bar */}
+                  {active && autoplaying && (
+                    <span className="absolute inset-x-4 bottom-1.5 h-1 overflow-hidden rounded-full bg-qupu-brand-orange/20">
+                      <motion.span
+                        key={activeIndex}
+                        className="block h-full rounded-full bg-qupu-brand-orange"
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 3.2, ease: 'linear' }}
                       />
-                    )}
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </Reveal>
+                    </span>
+                  )}
+                </button>
+              </motion.li>
+            )
+          })}
+        </ul>
 
-        {/* RIGHT: showcase panel that swaps with the selected feature */}
-        <Reveal delay={0.1}>
+        {/* RIGHT: showcase panel that swaps with the active feature */}
+        <div>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -199,7 +216,7 @@ export default function WmiFeaturesTour() {
               {showcase}
             </motion.div>
           </AnimatePresence>
-        </Reveal>
+        </div>
       </div>
     </section>
   )
