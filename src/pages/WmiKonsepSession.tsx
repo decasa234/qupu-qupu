@@ -9,6 +9,7 @@ import PlantIcon from '../components/wmi/PlantIcon'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
+import { useWmiStore } from '../store/wmiStore'
 import type {
   WmiConceptQuestion,
   WmiGardenConcept,
@@ -61,6 +62,7 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
 export default function WmiKonsepSession() {
   const { subjectKey } = useParams<{ subjectKey: string }>()
   const { activeChildId } = useAuthStore()
+  const setLastSubjectKey = useWmiStore((state) => state.setLastSubjectKey)
   const navigate = useNavigate()
 
   // Derive grade from subjectKey prefix (g1-…, g2-…, g3-…)
@@ -105,6 +107,8 @@ export default function WmiKonsepSession() {
         }
         // Build the plan ONCE here; never rebuild
         setPlan(buildPlan(chapter.concepts))
+        // Session actually starts now — remember it per child for resume.
+        setLastSubjectKey(subjectKey)
       })
       .catch((err) => {
         if (!cancelled) setGardenError(err instanceof Error ? err.message : 'Gagal memuat data konsep.')

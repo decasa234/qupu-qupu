@@ -1,26 +1,80 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { fetchGlossary } from '../lib/wmiApi'
 import type { WmiGlossaryTerm, WmiGrade } from '../types/wmi'
 
 interface WmiState {
+  // Resolved grade for the active child. Consumers keep reading/writing this
+  // exactly as before (WmiHub, WmiPapers, WmiKonsepDrill...).
   selectedGrade: WmiGrade
+  // Child the store is currently resolved for (set by syncChildGrade; not
+  // persisted — AppShell re-syncs on mount/child switch/rehydration).
+  activeChildKey: string | null
+  // Per-child manual grade picks — persisted. Inference never writes here;
+  // only an explicit setSelectedGrade (grade chip tap) pins a child's grade.
+  gradeByChild: Record<string, WmiGrade>
+  // Per-child last started session subject — persisted (resume block, M2).
+  lastSubjectKeyByChild: Record<string, string>
+  // Resolved lastSubjectKey for the active child (mirror, not persisted).
+  lastSubjectKey: string | null
   glossary: Record<string, WmiGlossaryTerm>
   glossaryLoaded: boolean
   setSelectedGrade: (grade: WmiGrade) => void
+  syncChildGrade: (childId: string, inferredGrade: WmiGrade) => void
+  setLastSubjectKey: (subjectKey: string) => void
   loadGlossary: () => Promise<void>
 }
 
-export const useWmiStore = create<WmiState>((set, get) => ({
-  selectedGrade: 1,
-  glossary: {},
-  glossaryLoaded: false,
-  setSelectedGrade: (grade) => set({ selectedGrade: grade }),
-  loadGlossary: async () => {
-    if (get().glossaryLoaded) return
-    const terms = await fetchGlossary()
-    set({
-      glossaryLoaded: true,
-      glossary: Object.fromEntries(terms.map((term) => [term.slug, term])),
-    })
-  },
-}))
+export const useWmiStore = create<WmiState>()(
+  persist(
+    (set, get) => ({
+      selectedGrade: 1,
+      activeChildKey: null,
+      gradeByChild: {},
+      lastSubjectKeyByChild: {},
+      lastSubjectKey: null,
+      glossary: {},
+      glossaryLoaded: false,
+      setSelectedGrade: (grade) =>
+        set((state) => ({
+          selectedGrade: grade,
+          gradeByChild: state.activeChildKey
+            ? { ...state.gradeByChild, [state.activeChildKey]: grade }
+            : state.gradeByChild,
+        })),
+      syncChildGrade: (childId, inferredGrade) =>
+        set((state) => ({
+          activeChildKey: childId,
+          selectedGrade: state.gradeByChild[childId] ?? inferredGrade,
+          lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
+        })),
+      setLastSubjectKey: (subjectKey) =>
+        set((state) =>
+          state.activeChildKey
+            ? {
+                lastSubjectKey: subjectKey,
+                lastSubjectKeyByChild: {
+                  ...state.lastSubjectKeyByChild,
+                  [state.activeChildKey]: subjectKey,
+                },
+              }
+            : { lastSubjectKey: subjectKey },
+        ),
+      loadGlossary: async () => {
+        if (get().glossaryLoaded) return
+        const terms = await fetchGlossary()
+        set({
+          glossaryLoaded: true,
+          glossary: Object.fromEntries(terms.map((term) => [term.slug, term])),
+        })
+      },
+    }),
+    {
+      name: 'wmi-prefs',
+      partialize: (state) => ({
+        gradeByChild: state.gradeByChild,
+        lastSubjectKeyByChild: state.lastSubjectKeyByChild,
+      }),
+    },
+  ),
+)

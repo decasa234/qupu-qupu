@@ -5,15 +5,51 @@
 // body, sticky bottom nav. On lg+ the narrow column is framed as a "device"
 // and the surrounding gutters are filled with brand decoration so it reads as
 // an intentional phone mockup, not a mobile page stranded on a wide monitor.
+import { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { useWmiStore } from '../store/wmiStore'
+import { getCachedPublic } from '../lib/api'
+import { inferWmiGrade } from '../lib/childGrade'
+import type { AgeGroupOption } from '../types'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
 import OnboardingTour from './onboarding/OnboardingTour'
 
 export default function AppShell() {
-  const childrenCount = useAuthStore((state) => state.children.length)
+  const children = useAuthStore((state) => state.children)
+  const activeChildId = useAuthStore((state) => state.activeChildId)
   const role = useAuthStore((state) => state.user?.role)
+  const syncChildGrade = useWmiStore((state) => state.syncChildGrade)
+  const childrenCount = children.length
+
+  // Age groups are needed to reverse the onboarding wizard's grade→ageGroup
+  // mapping (a child profile only stores ageGroupId). Cached for 60s by
+  // getCachedPublic, so this is cheap across remounts.
+  const [ageGroups, setAgeGroups] = useState<AgeGroupOption[] | null>(null)
+  useEffect(() => {
+    let cancelled = false
+    getCachedPublic<{ data?: { ageGroups?: AgeGroupOption[] } }>('/public/meta')
+      .then((meta) => {
+        if (!cancelled) setAgeGroups(meta.data?.ageGroups ?? [])
+      })
+      .catch(() => {
+        /* inference falls back to grade 1; persisted picks still win */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  // Single sync point for the per-child WMI grade: covers login, child
+  // switching (ChildSwitcher → authStore.setActiveChild) and cold-load
+  // rehydration, because AppShell wraps every member route. A persisted
+  // manual pick (gradeByChild) always wins over the inferred grade.
+  useEffect(() => {
+    if (!activeChildId) return
+    const child = children.find((c) => c.id === activeChildId) ?? null
+    syncChildGrade(activeChildId, inferWmiGrade(child, ageGroups))
+  }, [activeChildId, children, ageGroups, syncChildGrade])
 
   // Gate: a member with no child profile yet must complete /onboard/child
   // before reaching any member surface (can't skip the first step). Admins
