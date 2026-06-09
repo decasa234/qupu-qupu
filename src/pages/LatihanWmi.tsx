@@ -64,9 +64,14 @@ export default function LatihanWmiPage() {
   }, [answered])
 
   // When the Penjelasan animations finish, glide down to the features tour.
+  // Use an explicit scrollTo (not scrollIntoView) so the html scroll-padding-top
+  // doesn't stack with the section's own top padding and overshoot.
   const scrollToFeatures = useCallback(() => {
     if (userScrolledRef.current) return
-    featuresRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
+    const el = featuresRef.current
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
   }, [reduce])
 
   return (
@@ -86,7 +91,7 @@ export default function LatihanWmiPage() {
               initial={reduce ? false : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduce ? 0 : 0.45, ease: EASE }}
-              className="scroll-mt-24 space-y-14 sm:space-y-20"
+              className="scroll-mt-24 space-y-6 sm:space-y-8"
             >
               <Reveal delay={0.05}>
                 <WmiSolution onDone={scrollToFeatures} />
