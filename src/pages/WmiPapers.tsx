@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import WmiPaperCard from '../components/wmi/WmiPaperCard'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchPapers } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -13,6 +14,7 @@ import { useWmiStore } from '../store/wmiStore'
 import type { WmiGrade, WmiPaperSummary } from '../types/wmi'
 
 export default function WmiPapers() {
+  useDocumentTitle('Soal Ujian')
   const navigate = useNavigate()
   const { activeChildId } = useAuthStore()
   const { selectedGrade, setSelectedGrade } = useWmiStore()

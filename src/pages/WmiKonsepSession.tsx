@@ -82,6 +82,8 @@ export default function WmiKonsepSession() {
   const { subjectKey } = useParams<{ subjectKey: string }>()
   const { activeChildId } = useAuthStore()
   const setLastSubjectKey = useWmiStore((state) => state.setLastSubjectKey)
+  const preferredLang = useWmiStore((state) => state.preferredLang)
+  const setPreferredLang = useWmiStore((state) => state.setPreferredLang)
   const navigate = useNavigate()
 
   // Derive grade from subjectKey prefix (g1-…, g2-…, g3-…)
@@ -589,10 +591,12 @@ export default function WmiKonsepSession() {
                   : undefined
               }
               disabled={Boolean(feedback) || submittingAnswer}
+              initialLang={preferredLang}
               onPickChoice={handleAnswer}
               onSubmitFillIn={handleAnswer}
               onLookupTerm={() => {}}
               onRevealTranslation={() => {}}
+              onUserToggleLanguage={setPreferredLang}
             />
 
             {/* Grading failed — keep the question interactive and say so */}

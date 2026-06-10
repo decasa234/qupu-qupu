@@ -93,6 +93,9 @@ export interface WmiPaperSummary {
 
 export interface WmiPaperDetail extends Omit<WmiPaperSummary, 'best_score'> {
   questions: WmiQuestion[]
+  // Resumable (started, never completed) exam session for this child —
+  // present on the /papers/:id detail read, absent in exam snapshots.
+  openSession?: { id: string; started_at: string } | null
 }
 
 export interface WmiExamSession {

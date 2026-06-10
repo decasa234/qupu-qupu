@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState, type ComponentType } from 'react'
+import { Suspense, useEffect, useRef, useState, type ComponentType } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
@@ -29,6 +29,9 @@ interface Props {
   disabled?: boolean
   revealed?: boolean
   breakdownActive?: boolean
+  /** Sticky per-child starting language. Ignored while `revealed` forces 'id'.
+   *  Defaults to 'en' — competition prep keeps English-first. */
+  initialLang?: 'en' | 'id'
   // Concept questions have no paper-registry code; the host passes the concept's
   // illustration (looked up by slug) so it renders inside the problem card.
   conceptIllustration?: ComponentType<{ params: unknown }> | null
@@ -39,6 +42,9 @@ interface Props {
   onLookupTerm: (slug: string) => void
   onRevealTranslation: () => void
   onLanguageChange?: (lang: 'en' | 'id') => void
+  /** Fires only on a manual EN/ID toggle tap (never on per-question resets) —
+   *  hosts persist the sticky language preference here. */
+  onUserToggleLanguage?: (lang: 'en' | 'id') => void
 }
 
 function MarkupText({ text, onLookup }: { text: string; onLookup: (slug: string) => void }) {
@@ -67,6 +73,7 @@ export default function WmiQuestionView({
   disabled,
   revealed = false,
   breakdownActive = false,
+  initialLang,
   conceptIllustration = null,
   conceptIllustrationParams,
   onToggleBreakdown,
@@ -75,13 +82,26 @@ export default function WmiQuestionView({
   onLookupTerm,
   onRevealTranslation,
   onLanguageChange,
+  onUserToggleLanguage,
 }: Props) {
   const [localFill, setLocalFill] = useState(fillValue)
-  // Active display language. Starts English; the translation toggle swaps it in
-  // place. Reset whenever the question changes (review starts pre-revealed in id).
-  const [lang, setLang] = useState<'en' | 'id'>(revealed ? 'id' : 'en')
+  // Active display language. Starts in the child's sticky preference (default
+  // English); the translation toggle swaps it in place. Reset whenever the
+  // question changes (review starts pre-revealed in id).
+  const resolvedInitial = revealed ? 'id' : initialLang ?? 'en'
+  const [lang, setLang] = useState<'en' | 'id'>(resolvedInitial)
+  // The language this question STARTED in — reveal telemetry only fires on a
+  // true EN→ID reveal. An ID-default question toggled around is not a reveal.
+  const startLangRef = useRef<'en' | 'id'>(resolvedInitial)
+  // Read through a ref inside the reset effect: a manual toggle writes the
+  // sticky preference back to the store, which re-renders with a new
+  // initialLang mid-question — that must not reset the view (or rewrite the
+  // question's start language).
+  const initialLangRef = useRef(initialLang)
+  initialLangRef.current = initialLang
   useEffect(() => {
-    const next = revealed ? 'id' : 'en'
+    const next = revealed ? 'id' : initialLangRef.current ?? 'en'
+    startLangRef.current = next
     setLang(next)
     onLanguageChange?.(next)
   }, [question.id, revealed, onLanguageChange])
@@ -91,12 +111,11 @@ export default function WmiQuestionView({
   const choices: WmiChoice[] = (isId ? question.choices_id : question.choices_en) ?? []
 
   const toggleLang = () => {
-    setLang((current) => {
-      const next = current === 'en' ? 'id' : 'en'
-      if (next === 'id') onRevealTranslation()
-      onLanguageChange?.(next)
-      return next
-    })
+    const next = lang === 'en' ? 'id' : 'en'
+    if (next === 'id' && startLangRef.current === 'en') onRevealTranslation()
+    onLanguageChange?.(next)
+    onUserToggleLanguage?.(next)
+    setLang(next)
   }
 
   const Illustration = getQuestionIllustration(question.code)
@@ -111,7 +130,7 @@ export default function WmiQuestionView({
   const stepList = lang === 'id' ? question.hint_steps_id : question.hint_steps_en
 
   return (
-    <article className="relative rounded-xl border-2 border-qupu-cream-dark bg-white p-4">
+    <article className="relative rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]">
       <div className="absolute right-3 top-3 flex items-center gap-2">
         <WmiLanguageToggle lang={lang} onToggle={toggleLang} />
         <WmiBreakdownToggle active={bdActive} onToggle={handleBreakdownToggle} />
@@ -191,13 +210,13 @@ export default function WmiQuestionView({
             value={localFill}
             disabled={disabled}
             onChange={(event) => setLocalFill(event.target.value)}
-            className="min-w-0 flex-1 rounded-lg border-2 border-qupu-cream-dark px-3 py-2"
-            placeholder="Jawaban"
+            className="min-w-0 flex-1 rounded-full border-2 border-qupu-peach bg-qupu-shell px-4 py-2.5 font-semibold focus:border-qupu-brand-orange focus:outline-none disabled:opacity-60"
+            placeholder="Jawabanmu"
           />
           <button
             type="submit"
             disabled={disabled || !localFill.trim()}
-            className="rounded-lg bg-qupu-brand-blue px-4 py-2 font-bold text-white disabled:opacity-50"
+            className="rounded-full bg-qupu-brand-blue px-5 py-2.5 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5 disabled:opacity-50"
           >
             Jawab
           </button>

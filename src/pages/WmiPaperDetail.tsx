@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchPaperDetail, startExamSession } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -12,6 +13,7 @@ export default function WmiPaperDetail() {
   const [paper, setPaper] = useState<Detail | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [starting, setStarting] = useState(false)
+  useDocumentTitle(paper?.title)
 
   useEffect(() => {
     if (!activeChildId || !id) return
@@ -32,26 +34,89 @@ export default function WmiPaperDetail() {
     }
   }
 
-  if (error) return <div className="mx-auto max-w-xl p-6 text-center text-red-600">{error}</div>
-  if (!paper) return <div className="p-6 text-center">Memuat...</div>
+  if (!activeChildId) {
+    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
+  }
+  if (error) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      </div>
+    )
+  }
+  if (!paper) {
+    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat…</div>
+  }
+
+  const openSession = paper.openSession ?? null
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 text-center">
-      <Link to="/latihan/wmi" className="text-sm font-bold text-qupu-brand-blue underline">
-        Kembali
-      </Link>
-      <h1 className="mt-3 font-display text-2xl font-bold text-qupu-brand-blue">{paper.title}</h1>
-      <p className="mt-2 text-sm text-gray-600">
-        {paper.questions.length} soal - {paper.recommended_duration_min} menit
-      </p>
-      <button
-        type="button"
-        onClick={startExam}
-        disabled={starting}
-        className="mt-6 rounded-lg bg-qupu-brand-blue px-8 py-3 text-lg font-bold text-white disabled:opacity-50"
-      >
-        {starting ? 'Memulai...' : 'Mulai Ujian'}
-      </button>
+    <div className="w-full max-w-[460px] self-center pb-6">
+      <div className="mb-3">
+        <Link
+          to="/latihan/wmi/ujian"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
+          Kembali
+        </Link>
+      </div>
+
+      <section className="rounded-[2rem] bg-white p-6 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[1.35rem] bg-qupu-cream text-2xl text-qupu-brand-blue shadow-[inset_0_-4px_0_#FFD3B1]">
+          <i className="fa-solid fa-file-pen" aria-hidden="true" />
+        </div>
+        <h1 className="mt-3 font-display text-2xl font-black leading-tight text-qupu-brand-blue">
+          {paper.title}
+        </h1>
+        <div className="mt-3 flex flex-wrap justify-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-qupu-sky px-3 py-1 text-xs font-bold text-qupu-brand-blue">
+            <i className="fa-solid fa-list-ol" aria-hidden="true" />
+            {paper.questions.length} soal
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-qupu-cream px-3 py-1 text-xs font-bold text-qupu-brand-orange">
+            <i className="fa-solid fa-stopwatch" aria-hidden="true" />
+            {paper.recommended_duration_min} menit
+          </span>
+        </div>
+
+        {openSession ? (
+          <>
+            <p className="mt-4 text-sm font-semibold text-qupu-muted">
+              Ada ujian yang belum selesai — jawabanmu masih tersimpan.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate(`/latihan/wmi/exam/${openSession.id}`)}
+              className="mt-3 w-full rounded-full bg-qupu-brand-orange py-3 font-display text-lg font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+            >
+              <i className="fa-solid fa-play me-2 text-sm" aria-hidden="true" />
+              Lanjutkan Ujian
+            </button>
+            <button
+              type="button"
+              onClick={startExam}
+              disabled={starting}
+              className="mt-2 w-full rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 disabled:opacity-50"
+            >
+              {starting ? 'Memulai…' : 'Mulai dari Awal'}
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={startExam}
+            disabled={starting}
+            className="mt-5 w-full rounded-full bg-qupu-brand-blue py-3 font-display text-lg font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5 disabled:opacity-50"
+          >
+            <i className="fa-solid fa-play me-2 text-sm" aria-hidden="true" />
+            {starting ? 'Memulai…' : 'Mulai Ujian'}
+          </button>
+        )}
+      </section>
     </div>
   )
 }

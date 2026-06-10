@@ -18,7 +18,7 @@ import { tagLabel } from '../components/wmi/tagLabels'
 
 export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
-  const { loadGlossary, selectedGrade } = useWmiStore()
+  const { loadGlossary, selectedGrade, preferredLang, setPreferredLang } = useWmiStore()
   // Konsep drills exist for grades 1-3 only (grade 0 is just for the papers
   // page) — clamp like WmiHub's clampGardenGrade so a stale grade-0 pin
   // can't request a grade the engine has no concepts for.
@@ -35,7 +35,7 @@ export default function WmiKonsepDrill() {
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState(false)
   const [breakdown, setBreakdown] = useState(false)
-  const [questionLang, setQuestionLang] = useState<'en' | 'id'>('en')
+  const [questionLang, setQuestionLang] = useState<'en' | 'id'>(preferredLang)
   const [error, setError] = useState<string | null>(null)
   // Session history: one entry per answered question (true = correct). Persists
   // across questions for this visit so the dot strip marks what's been done.
@@ -49,7 +49,9 @@ export default function WmiKonsepDrill() {
     setLookedUpTerms([])
     setRevealed(false)
     setBreakdown(false)
-    setQuestionLang('en')
+    // getState() (not the subscribed value): preferredLang in the deps would
+    // make a mid-question toggle refetch the question.
+    setQuestionLang(useWmiStore.getState().preferredLang)
     setError(null)
     setQuestion(null)
     try {
@@ -212,12 +214,14 @@ export default function WmiKonsepDrill() {
             disabled={Boolean(feedback)}
             revealed={revealed}
             breakdownActive={breakdown}
+            initialLang={preferredLang}
             onToggleBreakdown={() => setBreakdown((value) => !value)}
             onPickChoice={submit}
             onSubmitFillIn={submit}
             onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}
             onRevealTranslation={() => setRevealed(true)}
             onLanguageChange={setQuestionLang}
+            onUserToggleLanguage={setPreferredLang}
           />
           {feedback && (
             <>

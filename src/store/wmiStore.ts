@@ -17,6 +17,11 @@ interface WmiState {
   lastSubjectKeyByChild: Record<string, string>
   // Resolved lastSubjectKey for the active child (mirror, not persisted).
   lastSubjectKey: string | null
+  // Per-child sticky question language — persisted. Default is 'en'
+  // (competition prep); every manual EN/ID toggle pins the child's choice.
+  langByChild: Record<string, 'en' | 'id'>
+  // Resolved question language for the active child (mirror, not persisted).
+  preferredLang: 'en' | 'id'
   glossary: Record<string, WmiGlossaryTerm>
   glossaryLoaded: boolean
   setSelectedGrade: (grade: WmiGrade) => void
@@ -27,6 +32,7 @@ interface WmiState {
   pinGradeForChild: (childId: string, grade: WmiGrade) => void
   syncChildGrade: (childId: string, inferredGrade: WmiGrade) => void
   setLastSubjectKey: (subjectKey: string) => void
+  setPreferredLang: (lang: 'en' | 'id') => void
   loadGlossary: () => Promise<void>
 }
 
@@ -38,6 +44,8 @@ export const useWmiStore = create<WmiState>()(
       gradeByChild: {},
       lastSubjectKeyByChild: {},
       lastSubjectKey: null,
+      langByChild: {},
+      preferredLang: 'en',
       glossary: {},
       glossaryLoaded: false,
       setSelectedGrade: (grade) =>
@@ -61,6 +69,7 @@ export const useWmiStore = create<WmiState>()(
           activeChildKey: childId,
           selectedGrade: state.gradeByChild[childId] ?? inferredGrade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
+          preferredLang: state.langByChild[childId] ?? 'en',
         })),
       setLastSubjectKey: (subjectKey) =>
         set((state) =>
@@ -73,6 +82,15 @@ export const useWmiStore = create<WmiState>()(
                 },
               }
             : { lastSubjectKey: subjectKey },
+        ),
+      setPreferredLang: (lang) =>
+        set((state) =>
+          state.activeChildKey
+            ? {
+                preferredLang: lang,
+                langByChild: { ...state.langByChild, [state.activeChildKey]: lang },
+              }
+            : { preferredLang: lang },
         ),
       loadGlossary: async () => {
         if (get().glossaryLoaded) return
@@ -88,6 +106,7 @@ export const useWmiStore = create<WmiState>()(
       partialize: (state) => ({
         gradeByChild: state.gradeByChild,
         lastSubjectKeyByChild: state.lastSubjectKeyByChild,
+        langByChild: state.langByChild,
       }),
     },
   ),

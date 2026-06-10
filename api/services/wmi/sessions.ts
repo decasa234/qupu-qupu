@@ -33,6 +33,20 @@ export async function startWmiExamSession(
     )
     if (!paper) throw new Error('Paper not found')
 
+    // Starting fresh supersedes any resumable session for this child+paper —
+    // mark it abandoned so the paper page stops offering "Lanjutkan Ujian"
+    // for a run the child explicitly walked away from.
+    await query(
+      `
+        UPDATE wmi_exam_sessions
+        SET abandoned = TRUE
+        WHERE child_id = $1 AND paper_id = $2
+          AND completed_at IS NULL AND abandoned = FALSE
+      `,
+      [childId, paperId],
+      client,
+    )
+
     const session = await queryOne<WmiExamSessionRow>(
       `
         INSERT INTO wmi_exam_sessions (child_id, paper_id, total_questions)

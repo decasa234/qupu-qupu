@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import WmiExamReviewItem from '../components/wmi/WmiExamReviewItem'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchExamSession, startExamSession } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -8,6 +9,7 @@ import { useWmiStore } from '../store/wmiStore'
 import type { WmiExamSnapshot } from '../types/wmi'
 
 export default function WmiExamReview() {
+  useDocumentTitle('Review Ujian')
   const { sessionId } = useParams()
   const navigate = useNavigate()
   const { activeChildId } = useAuthStore()
@@ -41,21 +43,38 @@ export default function WmiExamReview() {
     }
   }
 
-  if (error) return <div className="mx-auto max-w-xl p-6 text-center text-red-600">{error}</div>
-  if (!snapshot) return <div className="p-6 text-center">Memuat hasil...</div>
+  if (error) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      </div>
+    )
+  }
+  if (!snapshot) {
+    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat hasil…</div>
+  }
 
   const score = snapshot.session.correct_count ?? snapshot.submittedAttempts.filter((a) => a.is_correct).length
   const total = snapshot.paper.questions.length
   const pct = total ? Math.round((score / total) * 100) : 0
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6">
-      <header className="mb-5 rounded-lg bg-qupu-cream/60 p-4 text-center">
-        <div className="text-3xl font-bold text-qupu-brand-blue">
-          {score} / {total}
-        </div>
-        <div className="text-sm text-gray-600">
-          {pct}% - {snapshot.paper.title}
+    <div className="w-full max-w-[460px] self-center pb-8">
+      <header className="relative mb-4 overflow-hidden rounded-[2rem] bg-qupu-brand-blue p-5 text-center text-white shadow-[0_6px_0_0_#0E1430]">
+        <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-qupu-brand-yellow/25" />
+        <div className="relative">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
+            Hasil Ujian
+          </p>
+          <div className="mt-1 font-display text-4xl font-black">
+            {score} / {total}
+          </div>
+          <p className="mt-1 text-xs font-bold text-white/80">
+            {pct}% · {snapshot.paper.title}
+          </p>
         </div>
       </header>
       <div className="space-y-3">
@@ -64,10 +83,19 @@ export default function WmiExamReview() {
         ))}
       </div>
       <div className="mt-6 flex justify-between gap-3">
-        <Link to="/latihan/wmi" className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-700">
-          Kembali ke Latihan
+        <Link
+          to="/latihan/wmi/ujian"
+          className="rounded-full bg-white px-5 py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-arrow-left me-2 text-xs" aria-hidden="true" />
+          Kembali
         </Link>
-        <button type="button" onClick={restartPaper} className="rounded-lg bg-qupu-brand-blue px-4 py-2 font-bold text-white">
+        <button
+          type="button"
+          onClick={restartPaper}
+          className="rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-rotate-right me-2 text-sm" aria-hidden="true" />
           Coba lagi
         </button>
       </div>

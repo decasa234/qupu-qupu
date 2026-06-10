@@ -10,21 +10,27 @@ export default function WmiExamReviewItem({
   attempt: WmiSubmittedAttempt | undefined
 }) {
   const [open, setOpen] = useState(false)
-  const icon = attempt ? (attempt.is_correct ? 'OK' : 'X') : '-'
-  const tone = attempt ? (attempt.is_correct ? 'text-green-600' : 'text-red-600') : 'text-gray-500'
+  const icon = attempt ? (attempt.is_correct ? 'fa-check' : 'fa-xmark') : 'fa-minus'
+  const tone = attempt
+    ? attempt.is_correct
+      ? 'bg-[#58A700] text-white'
+      : 'bg-rose-400 text-white'
+    : 'bg-qupu-cream text-qupu-muted'
 
   return (
-    <div className="rounded-lg border border-gray-200 p-3">
+    <div className="rounded-[1.5rem] bg-white p-3 shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
         className="flex w-full items-center justify-between gap-3 text-left"
       >
-        <span className="flex items-center gap-3">
-          <span className={`font-bold ${tone}`}>{icon}</span>
-          <strong>Soal {question.number}</strong>
+        <span className="flex min-w-0 items-center gap-3">
+          <span className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${tone}`}>
+            <i className={`fa-solid ${icon} text-sm`} aria-hidden="true" />
+          </span>
+          <strong className="font-display font-black text-qupu-brand-blue">Soal {question.number}</strong>
         </span>
-        <span className="text-sm text-gray-500">
+        <span className="truncate text-xs font-semibold text-qupu-muted">
           {attempt ? `Jawabanmu: ${attempt.selected_answer}` : 'Tidak dijawab'}
         </span>
       </button>
@@ -45,8 +51,11 @@ export default function WmiExamReviewItem({
             onRevealTranslation={() => {}}
             revealed
           />
-          {!attempt?.is_correct && question.hint_en && (
-            <p className="mt-2 text-sm italic text-gray-600">{question.hint_en}</p>
+          {!attempt?.is_correct && (question.hint_id ?? question.hint_en) && (
+            <p className="mt-2 rounded-[1.25rem] bg-qupu-cream/60 p-3 text-sm font-semibold text-qupu-muted">
+              <i className="fa-solid fa-lightbulb me-2 text-qupu-brand-orange" aria-hidden="true" />
+              {question.hint_id ?? question.hint_en}
+            </p>
           )}
         </div>
       )}

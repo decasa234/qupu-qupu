@@ -95,8 +95,24 @@ export async function getWmiPaperDetail(
     )
     if (!paper) throw new Error('Paper not found')
 
-    const questions = await listWmiQuestionsForPaper(paper.id, client)
-    return { ...paper, questions }
+    const [questions, openSession] = await Promise.all([
+      listWmiQuestionsForPaper(paper.id, client),
+      // Resumable exam for this child: started but never completed. The exam
+      // page restores its submitted attempts from the session snapshot.
+      queryOne<{ id: string; started_at: string }>(
+        `
+          SELECT id, started_at
+          FROM wmi_exam_sessions
+          WHERE paper_id = $1 AND child_id = $2
+            AND completed_at IS NULL AND abandoned = FALSE
+          ORDER BY started_at DESC
+          LIMIT 1
+        `,
+        [paper.id, childId],
+        client,
+      ),
+    ])
+    return { ...paper, questions, openSession: openSession ?? null }
   })
 }
 

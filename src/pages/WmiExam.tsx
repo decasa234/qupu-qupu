@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { completeExamSession, fetchExamSession, submitAttempt } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -10,10 +11,11 @@ import { useWmiStore } from '../store/wmiStore'
 import type { WmiExamSnapshot, WmiSubmittedAttempt } from '../types/wmi'
 
 export default function WmiExam() {
+  useDocumentTitle('Ujian')
   const { sessionId } = useParams()
   const navigate = useNavigate()
   const { activeChildId } = useAuthStore()
-  const { loadGlossary } = useWmiStore()
+  const { loadGlossary, preferredLang, setPreferredLang } = useWmiStore()
   const [snapshot, setSnapshot] = useState<WmiExamSnapshot | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
@@ -34,6 +36,11 @@ export default function WmiExam() {
           return
         }
         setSnapshot(snap)
+        // Resuming an open session lands on the first unanswered question
+        // (prior answers are restored from submittedAttempts).
+        const answered = new Set(snap.submittedAttempts.map((a) => a.question_id))
+        const firstOpen = snap.paper.questions.findIndex((q) => !answered.has(q.id))
+        if (firstOpen > 0) setCurrentIndex(firstOpen)
       })
       .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat ujian')))
   }, [activeChildId, sessionId, navigate])
@@ -42,6 +49,20 @@ export default function WmiExam() {
     setLookedUpTerms([])
     setBreakdown(false)
   }, [currentIndex])
+
+  // Refresh/close guard while the exam is live. The session itself stays
+  // resumable (completed_at IS NULL) — this only prevents accidental exits.
+  const examActive = snapshot != null && !snapshot.session.completed_at
+  useEffect(() => {
+    if (!examActive) return
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      // Chrome requires returnValue to be set for the confirmation dialog.
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [examActive])
 
   const attemptsByQuestion = useMemo(() => {
     return new Map(snapshot?.submittedAttempts.map((attempt) => [attempt.question_id, attempt]) ?? [])
@@ -57,9 +78,31 @@ export default function WmiExam() {
     }
   }, [activeChildId, navigate, sessionId])
 
-  if (!activeChildId) return <div className="p-6 text-center">Pilih profil anak dulu.</div>
-  if (error) return <div className="mx-auto max-w-xl p-6 text-center text-red-600">{error}</div>
-  if (!snapshot) return <div className="p-6 text-center">Memuat ujian...</div>
+  // Explicit exit: the session is NOT abandoned — the paper page offers
+  // "Lanjutkan Ujian" and the snapshot restores every submitted answer.
+  const exitExam = () => {
+    if (!snapshot) return
+    if (window.confirm('Keluar ujian? Kamu bisa lanjutkan nanti.')) {
+      navigate(`/latihan/wmi/papers/${snapshot.paper.id}`)
+    }
+  }
+
+  if (!activeChildId) {
+    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
+  }
+  if (error) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      </div>
+    )
+  }
+  if (!snapshot) {
+    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat ujian…</div>
+  }
 
   const question = snapshot.paper.questions[currentIndex]
   const attempt = attemptsByQuestion.get(question.id) as WmiSubmittedAttempt | undefined
@@ -111,16 +154,26 @@ export default function WmiExam() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6">
+    <div className="w-full max-w-[460px] self-center pb-8">
       <header className="mb-4 space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="font-display text-xl font-bold text-qupu-brand-blue">{snapshot.paper.title}</h1>
+          <button
+            type="button"
+            onClick={exitExam}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            <i className="fa-solid fa-xmark text-xs" aria-hidden="true" />
+            Keluar
+          </button>
           <WmiExamTimer
             startedAt={snapshot.session.started_at}
             durationMin={snapshot.paper.recommended_duration_min}
             onExpire={finish}
           />
         </div>
+        <h1 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
+          {snapshot.paper.title}
+        </h1>
         <WmiDots dots={navDots} />
       </header>
 
@@ -130,11 +183,13 @@ export default function WmiExam() {
         fillValue={attempt?.selected_answer ?? ''}
         revealed={Boolean(revealed[question.id])}
         breakdownActive={breakdown}
+        initialLang={preferredLang}
         onToggleBreakdown={() => setBreakdown((value) => !value)}
         onPickChoice={saveAnswer}
         onSubmitFillIn={saveAnswer}
         onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}
         onRevealTranslation={() => setRevealed((state) => ({ ...state, [question.id]: true }))}
+        onUserToggleLanguage={setPreferredLang}
       />
 
       <div className="mt-5 flex justify-between gap-3">
@@ -142,7 +197,7 @@ export default function WmiExam() {
           type="button"
           disabled={currentIndex === 0}
           onClick={() => setCurrentIndex((index) => Math.max(0, index - 1))}
-          className="rounded-lg bg-gray-100 px-4 py-2 font-bold text-gray-700 disabled:opacity-50"
+          className="rounded-full bg-white px-5 py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 disabled:opacity-50"
         >
           Sebelumnya
         </button>
@@ -150,12 +205,16 @@ export default function WmiExam() {
           <button
             type="button"
             onClick={() => setCurrentIndex((index) => Math.min(total - 1, index + 1))}
-            className="rounded-lg bg-qupu-brand-blue px-4 py-2 font-bold text-white"
+            className="rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
           >
             Lanjut
           </button>
         ) : (
-          <button type="button" onClick={finish} className="rounded-lg bg-green-600 px-4 py-2 font-bold text-white">
+          <button
+            type="button"
+            onClick={finish}
+            className="rounded-full bg-[#58A700] px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] transition-transform active:translate-y-0.5"
+          >
             Selesai
           </button>
         )}
