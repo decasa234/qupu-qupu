@@ -8,8 +8,8 @@
   "questions": [
     {
       "number": 1,
-      "body_en": "Think and find ★.\n441 → ( ) → 421 → 411 → ( ) → ( ★ )",
-      "body_id": "Pikirkan dan temukan ★.\n441 → ( ) → 421 → 411 → ( ) → ( ★ )",
+      "body_en": "Think and find ★.\n441 → (___) → 421 → 411 → (___) → ( ★ )",
+      "body_id": "Pikirkan dan temukan ★.\n441 → (___) → 421 → 411 → (___) → ( ★ )",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "431" },
@@ -35,7 +35,37 @@
         "Setiap langkah bilangannya berkurang 10.",
         "Isi bagian kosong secara urut: 441, 431, 421, 411, 401, 391.",
         "Jadi ★ = 391."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find ★",
+            "phrase_id": "temukan ★",
+            "note_en": "We need the number where the star is.",
+            "note_id": "Kita cari bilangan di tempat bintangnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "441 → (___) → 421 → 411",
+            "phrase_id": "441 → (___) → 421 → 411",
+            "note_en": "Each step the number goes down by 10.",
+            "note_id": "Tiap langkah bilangannya turun 10."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Step size", "label_id": "Besar lompatan", "value": "-10" },
+          { "label_en": "Sequence", "label_id": "Barisan", "value": "441, 431, 421, 411, 401, 391" }
+        ],
+        "strategy": { "name_en": "Find the -10 pattern and fill the gaps in order", "name_id": "Cari pola -10 lalu isi yang kosong secara urut" },
+        "trap": {
+          "wrong": "401",
+          "why_en": "401 is the number just before ★ — take one more step of -10 to reach 391.",
+          "why_id": "401 adalah bilangan tepat sebelum ★ — maju satu langkah -10 lagi jadi 391."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 2,
@@ -67,12 +97,49 @@
         "Angka terkecil yang bisa diletakkan di depan (tidak boleh 0) adalah 2.",
         "Letakkan 0 di tempat puluhan agar bilangannya tetap kecil.",
         "Lalu angka sisa terkecil, 5, diletakkan di belakang: 205."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "smallest such 3-digit number",
+            "phrase_id": "bilangan tiga angka terkecil",
+            "note_en": "We want the smallest number we can build.",
+            "note_id": "Kita ingin bilangan terkecil yang bisa dibentuk."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "without repetition",
+            "phrase_id": "tanpa pengulangan",
+            "note_en": "Each card may be used at most once.",
+            "note_id": "Tiap kartu hanya boleh dipakai satu kali."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "three cards from the four cards below",
+            "phrase_id": "tiga kartu dari empat kartu di bawah ini",
+            "note_en": "Pick 3 of the 4 cards shown in the picture.",
+            "note_id": "Pilih 3 dari 4 kartu pada gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hundreds digit", "label_id": "Angka ratusan", "value": "smallest, not 0" },
+          { "label_en": "Smallest number", "label_id": "Bilangan terkecil", "value": "205" }
+        ],
+        "strategy": { "name_en": "Put the smallest digits in the highest places (no leading 0)", "name_id": "Taruh angka terkecil di tempat tertinggi (tanpa 0 di depan)" },
+        "trap": {
+          "wrong": "202",
+          "why_en": "202 reuses the digit 2, but the cards must be used without repetition.",
+          "why_id": "202 memakai angka 2 dua kali, padahal kartu tidak boleh diulang."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 3,
-      "body_en": "There are 92 people in the museum originally. 34 people leave, and then ( ) people come. Now there are 87 people in the museum.",
-      "body_id": "Mula-mula ada 92 orang di dalam ruang pameran. Sebanyak 34 orang pergi, lalu datang ( ) orang. Sekarang ada 87 orang di dalam ruang pameran.",
+      "body_en": "There are 92 people in the museum originally. 34 people leave, and then (___) people come. Now there are 87 people in the museum.",
+      "body_id": "Mula-mula ada 92 orang di dalam ruang pameran. Sebanyak 34 orang pergi, lalu datang (___) orang. Sekarang ada 87 orang di dalam ruang pameran.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "39" },
@@ -98,7 +165,52 @@
         "34 orang pergi: 92 − 34 = 58.",
         "Sekarang ada 58 orang, dan setelah beberapa datang menjadi 87.",
         "Jadi 87 − 58 = 29 orang yang datang."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "(___) people come",
+            "phrase_id": "datang (___) orang",
+            "note_en": "We need how many people came in.",
+            "note_id": "Kita cari berapa orang yang datang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "92 people in the museum originally",
+            "phrase_id": "92 orang di dalam ruang pameran",
+            "note_en": "Start with 92 people.",
+            "note_id": "Mula-mula ada 92 orang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "34 people leave",
+            "phrase_id": "34 orang pergi",
+            "note_en": "34 go away first.",
+            "note_id": "34 orang pergi lebih dulu."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Now there are 87 people",
+            "phrase_id": "Sekarang ada 87 orang",
+            "note_en": "After people come, the total is 87.",
+            "note_id": "Setelah ada yang datang, totalnya 87."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Start", "label_id": "Awal", "value": "92" },
+          { "label_en": "Left", "label_id": "Pergi", "value": "34" },
+          { "label_en": "End", "label_id": "Akhir", "value": "87" }
+        ],
+        "strategy": { "name_en": "Subtract who left, then count up to the new total", "name_id": "Kurangi yang pergi, lalu hitung naik sampai total baru" },
+        "trap": {
+          "wrong": "39",
+          "why_en": "39 mixes the steps up — take away the 34 who left first (92 - 34 = 58), then 87 - 58 = 29 came.",
+          "why_id": "39 mencampur langkahnya — kurangi dulu 34 yang pergi (92 - 34 = 58), lalu 87 - 58 = 29 yang datang."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 4,
@@ -130,7 +242,36 @@
         "Lingkaran: 10.",
         "Persegi: 7, Segitiga: 4, Persegi panjang: 6.",
         "Diagram yang cocok adalah C."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the charts is correct?",
+            "phrase_id": "Diagram manakah yang benar?",
+            "note_en": "Pick the chart with the right counts.",
+            "note_id": "Pilih diagram dengan hitungan yang benar."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Count the shapes",
+            "phrase_id": "Hitunglah bangun-bangunnya",
+            "note_en": "Count each kind of shape in the picture.",
+            "note_id": "Hitung setiap jenis bangun pada gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Correct counts", "label_id": "Hitungan benar", "value": "circle 10, square 7, triangle 4, rectangle 6" }
+        ],
+        "strategy": { "name_en": "Count one shape type at a time, then match the chart", "name_id": "Hitung satu jenis bangun sekaligus, lalu cocokkan diagram" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "A looks almost right but says 8 squares — careful counting gives only 7.",
+          "why_id": "A terlihat hampir benar tapi menulis 8 persegi — hitungan teliti hanya 7."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 5,
@@ -162,7 +303,29 @@
         "Hitung gambar satu per satu, bergerak ke kiri dari ★: 1, 2, 3, …",
         "Lanjutkan sampai mencapai gambar ke-9.",
         "Gambar ke-9 dihitung dari ★ adalah pilihan D."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "9th figure counting from ★",
+            "phrase_id": "Gambar ke-9 dihitung dari ★",
+            "note_en": "Find the 9th picture, counting from the star.",
+            "note_id": "Cari gambar ke-9, dihitung dari bintang."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Position", "label_id": "Posisi", "value": "9th from ★" }
+        ],
+        "strategy": { "name_en": "Find the repeating pattern, then count to the 9th", "name_id": "Cari pola yang berulang, lalu hitung sampai ke-9" },
+        "trap": {
+          "wrong": "the ★ itself",
+          "why_en": "Do not count the ★ as number 1 — the first picture after it is number 1.",
+          "why_id": "Jangan hitung ★ sebagai nomor 1 — gambar pertama setelahnya adalah nomor 1."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 6,
@@ -193,7 +356,45 @@
         "15 × 4 = 60.",
         "Cari berapa lebih kecilnya: 90 − 60 = 30.",
         "Jadi 15 × 4 lebih kecil 30 daripada 15 × 6."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How much less",
+            "phrase_id": "Berapa lebih kecil",
+            "note_en": "Find the difference between the two products.",
+            "note_id": "Cari selisih kedua hasil kali."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "15 × 4",
+            "phrase_id": "15 × 4",
+            "note_en": "The smaller product: 15 × 4 = 60.",
+            "note_id": "Hasil kali yang kecil: 15 × 4 = 60."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "15 × 6",
+            "phrase_id": "15 × 6",
+            "note_en": "The larger product: 15 × 6 = 90.",
+            "note_id": "Hasil kali yang besar: 15 × 6 = 90."
+          }
+        ],
+        "quantities": [
+          { "label_en": "15 × 6", "label_id": "15 × 6", "value": "90" },
+          { "label_en": "15 × 4", "label_id": "15 × 4", "value": "60" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "30" }
+        ],
+        "strategy": { "name_en": "Same 15 each time: the gap is 15 × (6 - 4) = 15 × 2", "name_id": "15 sama tiap kali: selisihnya 15 × (6 - 4) = 15 × 2" },
+        "trap": {
+          "wrong": "2",
+          "why_en": "2 is only 6 - 4 — but each group is 15, so the gap is 15 × 2 = 30.",
+          "why_id": "2 hanya 6 - 4 — tapi tiap kelompok bernilai 15, jadi selisihnya 15 × 2 = 30."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 7,
@@ -224,7 +425,32 @@
         "19 × 2 = 38, 63 − 45 = 18, 5 + 15 + 13 = 33.",
         "52 + 14 − 38 = 66 − 38 = 28.",
         "Hanya C yang sama dengan 28."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "= ?",
+            "phrase_id": "= ?",
+            "note_en": "Find the choice that works out to this number.",
+            "note_id": "Cari pilihan yang hasilnya bilangan ini."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "28",
+            "phrase_id": "28",
+            "note_en": "The choice must equal 28.",
+            "note_id": "Pilihannya harus sama dengan 28."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Target value", "label_id": "Nilai yang dicari", "value": "28" }
+        ],
+        "strategy": { "name_en": "Work out each choice and find the one equal to 28", "name_id": "Hitung tiap pilihan lalu cari yang sama dengan 28" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 8,
@@ -256,7 +482,37 @@
         "Lihat jarum menit: menunjuk ke 9, yang berarti 45 menit.",
         "Gabungkan keduanya.",
         "Waktunya pukul 06:45."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What time is it?",
+            "phrase_id": "Pukul berapa sekarang?",
+            "note_en": "We need to read the time on the clock.",
+            "note_id": "Kita perlu membaca waktu pada jam."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the clock on the right",
+            "phrase_id": "jam di sebelah kanan",
+            "note_en": "Look at both hands on the clock picture.",
+            "note_id": "Lihat kedua jarum pada gambar jam."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hour hand", "label_id": "Jarum jam", "value": "just before 7 (= 6)" },
+          { "label_en": "Minute hand points to", "label_id": "Jarum menit ke", "value": "9 (= 45 min)" }
+        ],
+        "strategy": { "name_en": "Read the hour hand, then the minute hand", "name_id": "Baca jarum jam, lalu jarum menit" },
+        "trap": {
+          "wrong": "07:45",
+          "why_en": "The hour hand has not reached 7 yet, so the hour is 6 — not 7.",
+          "why_id": "Jarum jam belum sampai ke 7, jadi jamnya 6 — bukan 7."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
     },
     {
       "number": 9,
@@ -287,7 +543,41 @@
         "○ + ○ + ○ = 18, jadi ○ = 6.",
         "☆ + ☆ + ☆ + ☆ = 20, jadi ☆ = 5; dan △ + ○ = 14, jadi △ = 8.",
         "△ + ☆ = 8 + 5 = 13."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find △ + ☆",
+            "phrase_id": "Tentukan △ + ☆",
+            "note_en": "We need the triangle's value plus the star's value.",
+            "note_id": "Kita cari nilai segitiga ditambah nilai bintang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "○ + ○ + ○ = 18",
+            "phrase_id": "○ + ○ + ○ = 18",
+            "note_en": "Three circles make 18, so one circle = 6.",
+            "note_id": "Tiga lingkaran berjumlah 18, jadi satu lingkaran = 6."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "△ + ○ = 14",
+            "phrase_id": "△ + ○ = 14",
+            "note_en": "Triangle + circle = 14, and circle = 6, so triangle = 8.",
+            "note_id": "Segitiga + lingkaran = 14, dan lingkaran = 6, jadi segitiga = 8."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Circle", "label_id": "Lingkaran", "value": "6" },
+          { "label_en": "Star", "label_id": "Bintang", "value": "5" },
+          { "label_en": "Triangle", "label_id": "Segitiga", "value": "8" }
+        ],
+        "strategy": { "name_en": "Find each shape's value, then add triangle + star", "name_id": "Cari nilai tiap bentuk, lalu jumlahkan segitiga + bintang" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 10,
@@ -319,7 +609,36 @@
         "Periksa potongan-potongan pada setiap gambar.",
         "Pada C potongan-potongannya tidak semuanya berukuran sama.",
         "Jadi C tidak dibagi menjadi 4 bagian yang sama besar."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "not divided into four equal parts",
+            "phrase_id": "tidak dibagi menjadi empat bagian yang sama besar",
+            "note_en": "We need the ODD one out — the one that is NOT in 4 equal parts.",
+            "note_id": "Kita cari yang berbeda — yang TIDAK terbagi 4 sama besar."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "equal parts",
+            "phrase_id": "bagian yang sama besar",
+            "note_en": "Equal means all four pieces are the same size.",
+            "note_id": "Sama besar berarti keempat potongannya seukuran."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Parts needed", "label_id": "Bagian dibutuhkan", "value": "4 equal" }
+        ],
+        "strategy": { "name_en": "Check each shape — are all four pieces the same size?", "name_id": "Periksa tiap bangun — apakah keempat potongannya sama besar?" },
+        "trap": {
+          "wrong": "an equally-split figure",
+          "why_en": "The word is NOT — pick the one whose 4 pieces are unequal, not a correctly-divided one.",
+          "why_id": "Kata kuncinya TIDAK — pilih yang keempat potongannya tidak sama, bukan yang terbagi rata."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 11,
@@ -350,7 +669,44 @@
         "Kalikan angka terakhirnya: 1×3=3, 3×5=15, 5×7=35, 7×9=63, 9×1=9.",
         "Hasil kalinya bisa berakhiran 3, 5, atau 9.",
         "Tidak pernah berakhiran 7, jadi jawabannya 7."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "cannot be which of the numbers below",
+            "phrase_id": "tidak mungkin merupakan bilangan yang mana di bawah ini",
+            "note_en": "Find the units digit that can NEVER happen.",
+            "note_id": "Cari angka satuan yang TIDAK pernah bisa terjadi."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two random successive odd numbers",
+            "phrase_id": "dua bilangan ganjil berurutan",
+            "note_en": "Two odd numbers in a row, like 5 and 7.",
+            "note_id": "Dua bilangan ganjil berurutan, misalnya 5 dan 7."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "units digit of their product",
+            "phrase_id": "Angka satuan dari hasil kalinya",
+            "note_en": "Only the last digit of the product matters.",
+            "note_id": "Hanya angka terakhir dari hasil kalinya yang penting."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Last-digit pairs", "label_id": "Pasangan satuan", "value": "1&3, 3&5, 5&7, 7&9, 9&1" },
+          { "label_en": "Possible last digits", "label_id": "Satuan yang mungkin", "value": "3, 5, 9" }
+        ],
+        "strategy": { "name_en": "Only the last digits matter — multiply each odd pair's last digits", "name_id": "Hanya angka satuan yang penting — kalikan satuan tiap pasangan ganjil" },
+        "trap": {
+          "wrong": "5",
+          "why_en": "5 CAN be a units digit (e.g. 3 × 5 = 15) — the question asks which can NEVER happen, which is 7.",
+          "why_id": "5 BISA jadi angka satuan (misal 3 × 5 = 15) — yang ditanya yang TIDAK pernah bisa, yaitu 7."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 12,
@@ -381,7 +737,45 @@
         "Masih ada 50 cm yang belum terukur.",
         "Tambahkan: 3 m + 50 cm.",
         "Papan tulisnya 3 m 50 cm."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How long is the blackboard",
+            "phrase_id": "Berapa panjang papan tulis",
+            "note_en": "We need the total length in m and cm.",
+            "note_id": "Kita cari panjang totalnya dalam m dan cm."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "ruler is used 3 times",
+            "phrase_id": "Penggaris dipakai sebanyak 3 kali",
+            "note_en": "Each full length is 1 m, so 3 times is 3 m.",
+            "note_id": "Tiap panjang penuh 1 m, jadi 3 kali = 3 m."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "50 cm left to measure",
+            "phrase_id": "tersisa 50 cm",
+            "note_en": "There is still 50 cm more after the 3 lengths.",
+            "note_id": "Masih ada 50 cm lagi setelah 3 panjang penuh."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Full lengths", "label_id": "Panjang penuh", "value": "1 m × 3 = 3 m" },
+          { "label_en": "Left over", "label_id": "Sisa", "value": "50 cm" },
+          { "label_en": "Total", "label_id": "Total", "value": "3 m 50 cm" }
+        ],
+        "strategy": { "name_en": "Add up the full ruler lengths, then the leftover", "name_id": "Jumlahkan panjang penuh penggaris, lalu sisanya" },
+        "trap": {
+          "wrong": "3 m",
+          "why_en": "3 m forgets the extra 50 cm still left to measure — add it on for 3 m 50 cm.",
+          "why_id": "3 m lupa sisa 50 cm yang belum terukur — tambahkan jadi 3 m 50 cm."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 13,
@@ -413,7 +807,37 @@
         "Setiap gambar baru menambah satu lebih banyak dari sebelumnya (+3, +4, +5, +6, +7).",
         "Jadi gambar (5) = 21, dan gambar (6) = 21 + 7.",
         "Gambar (6) memiliki 28 segitiga."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "in picture (6)",
+            "phrase_id": "pada gambar (6)",
+            "note_en": "We need the triangle count in the 6th picture.",
+            "note_id": "Kita cari jumlah segitiga pada gambar ke-6."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "according to the pattern",
+            "phrase_id": "mengikuti polanya",
+            "note_en": "Each picture follows the same growing rule.",
+            "note_id": "Tiap gambar mengikuti aturan tumbuh yang sama."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Count per picture", "label_id": "Jumlah per gambar", "value": "3, 6, 10, 15, 21, 28" },
+          { "label_en": "Jump grows by", "label_id": "Lompatan bertambah", "value": "+3, +4, +5, +6, +7" }
+        ],
+        "strategy": { "name_en": "The jump grows by 1 each time — add +7 to reach picture 6", "name_id": "Lompatannya bertambah 1 tiap kali — tambah +7 untuk gambar ke-6" },
+        "trap": {
+          "wrong": "21",
+          "why_en": "21 is picture (5) — take one more step (+7) to reach picture (6) = 28.",
+          "why_id": "21 adalah gambar (5) — maju satu langkah lagi (+7) ke gambar (6) = 28."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 14,
@@ -445,12 +869,41 @@
         "Hewan yang lebih berat menekan sisinya ke bawah.",
         "Susun hewan-hewan dari yang terberat ke yang teringan.",
         "Urutan C yang benar."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "from the heaviest to the lightest",
+            "phrase_id": "dari yang terberat ke yang teringan",
+            "note_en": "Order the animals heaviest first, lightest last.",
+            "note_id": "Urutkan hewan dari terberat dulu, teringan terakhir."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the figures below",
+            "phrase_id": "gambar-gambar di bawah ini",
+            "note_en": "The balance pictures show which animal is heavier.",
+            "note_id": "Gambar timbangan menunjukkan hewan mana lebih berat."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Order", "label_id": "Urutan", "value": "heaviest → lightest" }
+        ],
+        "strategy": { "name_en": "Each balance tells who is heavier — chain them into one order", "name_id": "Tiap timbangan memberi tahu siapa lebih berat — rangkai jadi satu urutan" },
+        "trap": {
+          "wrong": "the reverse order",
+          "why_en": "Heaviest comes FIRST — an order that starts with the lightest is backwards.",
+          "why_id": "Yang terberat di DEPAN — urutan yang mulai dari teringan itu terbalik."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
     },
     {
       "number": 15,
-      "body_en": "Look at the subtraction in the figure. Each shape stands for a digit. Find square + circle.\n  □ 3\n-  6 ○\n------\n  2 4",
-      "body_id": "Perhatikan pengurangan pada gambar. Setiap bentuk mewakili sebuah angka. Tentukan nilai persegi + lingkaran.\n  □ 3\n-  6 ○\n------\n  2 4",
+      "body_en": "Look at the subtraction in the figure. Each shape stands for a digit. Find square + circle.",
+      "body_id": "Perhatikan pengurangan pada gambar. Setiap bentuk mewakili sebuah angka. Tentukan nilai persegi + lingkaran.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "14" },
@@ -477,7 +930,38 @@
         "Setelah meminjam, kolom puluhan menjadi □ − 1 − 6 = 2.",
         "Jadi □ − 7 = 2, sehingga □ = 9.",
         "□ + ○ = 9 + 9 = 18."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find square + circle",
+            "phrase_id": "Tentukan nilai persegi + lingkaran",
+            "note_en": "We need the square's digit plus the circle's digit.",
+            "note_id": "Kita cari angka persegi ditambah angka lingkaran."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each shape stands for a digit",
+            "phrase_id": "Setiap bentuk mewakili sebuah angka",
+            "note_en": "The square and circle are single hidden digits.",
+            "note_id": "Persegi dan lingkaran adalah angka tunggal yang tersembunyi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Circle ○", "label_id": "Lingkaran ○", "value": "9" },
+          { "label_en": "Square □", "label_id": "Persegi □", "value": "9" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "18" }
+        ],
+        "strategy": { "name_en": "Do the ones column first (it borrows), then the tens", "name_id": "Kerjakan kolom satuan dulu (meminjam), lalu puluhan" },
+        "trap": {
+          "wrong": "17",
+          "why_en": "17 forgets the borrow — the ones column borrows 1, so the tens is □ - 1 - 6 = 2, giving □ = 9 (not 8).",
+          "why_id": "17 lupa meminjam — kolom satuan meminjam 1, jadi puluhan □ - 1 - 6 = 2, sehingga □ = 9 (bukan 8)."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
     },
     {
       "number": 16,
@@ -496,7 +980,34 @@
         "Jadi jumlahnya adalah 148 × 5.",
         "148 × 5 = 740.",
         "Jumlahnya 740."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Compute",
+            "phrase_id": "Hitunglah",
+            "note_en": "Add all five numbers.",
+            "note_id": "Jumlahkan kelima bilangan."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "168 + 158 + 148 + 138 + 128",
+            "phrase_id": "168 + 158 + 148 + 138 + 128",
+            "note_en": "The numbers step down by 10, with 148 in the middle.",
+            "note_id": "Bilangannya turun 10 tiap langkah, dengan 148 di tengah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Middle number", "label_id": "Bilangan tengah", "value": "148" },
+          { "label_en": "How many", "label_id": "Banyaknya", "value": "5" },
+          { "label_en": "Total", "label_id": "Jumlah", "value": "148 × 5 = 740" }
+        ],
+        "strategy": { "name_en": "Equal steps: the total is the middle number × how many", "name_id": "Langkah sama: jumlahnya = bilangan tengah × banyaknya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "740" }
+      }
     },
     {
       "number": 17,
@@ -516,7 +1027,36 @@
         "Pertama persegi kecil, lalu persegi besar yang terbentuk dari beberapa persegi kecil.",
         "Jumlahkan semua ukuran.",
         "Seluruhnya ada 18 persegi."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many squares",
+            "phrase_id": "Ada berapa banyak persegi",
+            "note_en": "We need the total number of squares.",
+            "note_id": "Kita cari jumlah seluruh persegi."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "different sizes",
+            "phrase_id": "berbagai ukuran",
+            "note_en": "Count small squares and bigger ones made of small ones too.",
+            "note_id": "Hitung persegi kecil dan persegi besar dari gabungannya juga."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Count by", "label_id": "Hitung berdasarkan", "value": "each size" }
+        ],
+        "strategy": { "name_en": "Group squares by size and add them up", "name_id": "Kelompokkan persegi per ukuran lalu jumlahkan" },
+        "trap": {
+          "wrong": "only the small squares",
+          "why_en": "Counting just the unit squares misses the bigger squares made of several small ones.",
+          "why_id": "Menghitung persegi satuan saja melewatkan persegi besar dari gabungan beberapa kecil."
+        },
+        "answer": { "form": "number", "unit": null, "value": "18" }
+      }
     },
     {
       "number": 18,
@@ -535,7 +1075,52 @@
         "Jadi kambing hitam saat itu = 54 + 28 = 82.",
         "Tambahkan kembali 8 yang lari: 82 + 8 = 90.",
         "Mula-mula ada 90 kambing hitam."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many black goats were there originally?",
+            "phrase_id": "Berapa ekor kambing hitam mula-mula?",
+            "note_en": "We need the starting number of black goats.",
+            "note_id": "Kita cari jumlah awal kambing hitam."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "54 white goats",
+            "phrase_id": "54 ekor kambing putih",
+            "note_en": "There are 54 white goats.",
+            "note_id": "Ada 54 ekor kambing putih."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "8 black goats run away",
+            "phrase_id": "8 ekor kambing hitam lari",
+            "note_en": "8 black goats leave the field.",
+            "note_id": "8 ekor kambing hitam pergi dari padang."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "28 more black goats than white goats",
+            "phrase_id": "28 ekor lebih banyak daripada kambing putih",
+            "note_en": "After they leave, black is 28 more than white.",
+            "note_id": "Setelah pergi, hitam 28 lebih banyak dari putih."
+          }
+        ],
+        "quantities": [
+          { "label_en": "White goats", "label_id": "Kambing putih", "value": "54" },
+          { "label_en": "Extra black (after)", "label_id": "Hitam lebih (setelah)", "value": "28" },
+          { "label_en": "Ran away", "label_id": "Yang lari", "value": "8" }
+        ],
+        "strategy": { "name_en": "Find black after the 8 left (54 + 28), then add the 8 back", "name_id": "Cari hitam setelah 8 lari (54 + 28), lalu tambahkan 8 kembali" },
+        "trap": {
+          "wrong": "82",
+          "why_en": "82 is the count AFTER 8 ran away — add those 8 back to get the original 90.",
+          "why_id": "82 adalah jumlah SETELAH 8 lari — tambahkan 8 itu kembali jadi 90 mula-mula."
+        },
+        "answer": { "form": "number", "unit": null, "value": "90" }
+      }
     },
     {
       "number": 19,
@@ -554,7 +1139,52 @@
         "Satu bendera kuning berada di antara setiap pasang bendera merah.",
         "Di sekeliling lingkaran juga ada 20 celah, jadi 20 bendera kuning.",
         "Total = 20 + 20 = 40 bendera."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many red flags and yellow flags are there in total",
+            "phrase_id": "Ada berapa banyak bendera merah dan bendera kuning seluruhnya",
+            "note_en": "We need the total of red plus yellow flags.",
+            "note_id": "Kita cari jumlah bendera merah ditambah kuning."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "circumference of a circular flower bed is 100 m",
+            "phrase_id": "Keliling sebuah taman bunga berbentuk lingkaran adalah 100 m",
+            "note_en": "The path around the circle is 100 m long.",
+            "note_id": "Keliling lingkarannya 100 m."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "red flag is placed every 5 m",
+            "phrase_id": "bendera merah dipasang setiap 5 m",
+            "note_en": "A red flag every 5 m around the circle.",
+            "note_id": "Bendera merah tiap 5 m mengelilingi lingkaran."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "between every two red flags",
+            "phrase_id": "di antara setiap dua bendera merah",
+            "note_en": "One yellow flag sits in each gap.",
+            "note_id": "Satu bendera kuning di tiap celah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Red flags", "label_id": "Bendera merah", "value": "100 ÷ 5 = 20" },
+          { "label_en": "Yellow flags", "label_id": "Bendera kuning", "value": "20 (one per gap)" },
+          { "label_en": "Total", "label_id": "Total", "value": "40" }
+        ],
+        "strategy": { "name_en": "Around a circle, flags = gaps: 20 red and 20 yellow", "name_id": "Di lingkaran, jumlah bendera = jumlah celah: 20 merah dan 20 kuning" },
+        "trap": {
+          "wrong": "39",
+          "why_en": "On a straight path 20 flags make 19 gaps — but around a CIRCLE the ends join, so there are 20 gaps (20 yellow).",
+          "why_id": "Di jalur lurus 20 bendera punya 19 celah — tapi di LINGKARAN ujungnya bertemu, jadi ada 20 celah (20 kuning)."
+        },
+        "answer": { "form": "number", "unit": null, "value": "40" }
+      }
     },
     {
       "number": 20,
@@ -574,7 +1204,44 @@
         "Timbangan pertama: itu ditambah 3 bola putih = 180 g; kedua: itu ditambah 1 bola putih = 120 g.",
         "Selisihnya adalah 2 bola putih: 180 − 120 = 60 g.",
         "Jadi 1 bola putih = 60 ÷ 2 = 30 g."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many grams does one white ball weigh",
+            "phrase_id": "Berapa gram berat satu bola putih",
+            "note_en": "We need the weight of a single white ball.",
+            "note_id": "Kita cari berat satu bola putih."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3 black balls, 2 dotted balls, and 3 white balls together weigh 180 g",
+            "phrase_id": "3 bola hitam, 2 bola berbintik, dan 3 bola putih beratnya 180 g",
+            "note_en": "First scale: this whole group weighs 180 g.",
+            "note_id": "Timbangan pertama: seluruh kelompok ini beratnya 180 g."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2 dotted balls, 3 black balls, and 1 white ball together weigh 120 g",
+            "phrase_id": "2 bola berbintik, 3 bola hitam, dan 1 bola putih beratnya 120 g",
+            "note_en": "Second scale: same black + dotted balls, but only 1 white — 120 g.",
+            "note_id": "Timbangan kedua: bola hitam + berbintik sama, tapi hanya 1 putih — 120 g."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Difference = 2 white", "label_id": "Selisih = 2 putih", "value": "180 − 120 = 60 g" },
+          { "label_en": "One white ball", "label_id": "Satu bola putih", "value": "60 ÷ 2 = 30 g" }
+        ],
+        "strategy": { "name_en": "Both scales share the same black + dotted balls — subtract to leave only white", "name_id": "Kedua timbangan punya bola hitam + berbintik sama — kurangkan agar tersisa putih saja" },
+        "trap": {
+          "wrong": "60",
+          "why_en": "60 g is the weight of 2 white balls (180 − 120) — one white ball is half of that, 30 g.",
+          "why_id": "60 g adalah berat 2 bola putih (180 − 120) — satu bola putih setengahnya, 30 g."
+        },
+        "answer": { "form": "number", "unit": null, "value": "30" }
+      }
     },
     {
       "number": 21,
@@ -593,7 +1260,60 @@
         "Bilangan ke-5 adalah 23.",
         "Bilangan ke-11 adalah 42.",
         "42 − 23 = 19."
-      ]
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How much greater is the 11th number than the 5th number",
+            "phrase_id": "Berapa lebih besar bilangan ke-11 dibandingkan bilangan ke-5",
+            "note_en": "We need the 11th number minus the 5th number.",
+            "note_id": "Kita cari bilangan ke-11 dikurangi bilangan ke-5."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the digits 1, 2, 3, and 4",
+            "phrase_id": "angka 1, 2, 3, dan 4",
+            "note_en": "Build 2-digit numbers from these four digits.",
+            "note_id": "Susun bilangan dua angka dari empat angka ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two digits are different",
+            "phrase_id": "kedua angkanya berbeda",
+            "note_en": "The two digits must not be the same.",
+            "note_id": "Kedua angkanya tidak boleh sama."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2-digit numbers",
+            "phrase_id": "bilangan dua angka",
+            "note_en": "Build every two-digit number from these digits.",
+            "note_id": "Bentuk setiap bilangan dua angka dari angka-angka ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "ascending order",
+            "phrase_id": "terkecil ke terbesar",
+            "note_en": "Sort them smallest to largest before counting positions.",
+            "note_id": "Urutkan dari terkecil ke terbesar sebelum menghitung posisi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sorted list", "label_id": "Daftar terurut", "value": "12, 13, 14, 21, 23, 24, 31, 32, 34, 41, 42, 43" },
+          { "label_en": "5th", "label_id": "ke-5", "value": "23" },
+          { "label_en": "11th", "label_id": "ke-11", "value": "42" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "42 − 23 = 19" }
+        ],
+        "strategy": { "name_en": "List the numbers smallest-first, then take the 5th and 11th", "name_id": "Susun bilangan dari terkecil, lalu ambil yang ke-5 dan ke-11" },
+        "trap": {
+          "wrong": "counting 11, 22, 33, 44",
+          "why_en": "The two digits must be different, so 11, 22, 33, 44 are not in the list — they would shift the positions.",
+          "why_id": "Kedua angka harus berbeda, jadi 11, 22, 33, 44 tidak masuk daftar — itu akan menggeser urutannya."
+        },
+        "answer": { "form": "number", "unit": null, "value": "19" }
+      }
     },
     {
       "number": 22,
@@ -603,17 +1323,50 @@
       "answer": "527",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q22.jpg",
       "hint_steps_en": [
-        "Clue 164 has no correct digit, so 1, 6, and 4 are not in the code.",
-        "Use the other clues to place the remaining digits.",
-        "The digits 5, 2, 7 fit every clue in the right spots.",
-        "The code is 527."
+        "164 has 0 correct → cross out 1, 6, 4. Then 415 has 1 correct, and its 4 and 1 are crossed → 5 is in the code.",
+        "753 has 2 correct: 5 plus 7 or 3. It can't be 3 (347 wants it in the right place while 392 wants it wrong, and 753 would then have 3 correct) → 7 is in the code.",
+        "347's correct-and-right-place digit is therefore 7 → 7 is the LAST digit. 392's correct digit is 2, in the WRONG place — the clue shows it last, so 2 moves to the middle.",
+        "5 takes the first spot: the code is 527."
       ],
       "hint_steps_id": [
-        "Petunjuk 164 tidak punya angka yang benar, jadi 1, 6, dan 4 tidak ada dalam kode.",
-        "Gunakan petunjuk lainnya untuk menempatkan angka yang tersisa.",
-        "Angka 5, 2, 7 cocok dengan semua petunjuk di tempat yang tepat.",
-        "Kodenya adalah 527."
-      ]
+        "164 punya 0 benar → coret 1, 6, 4. Lalu 415 punya 1 benar, dan 4 serta 1-nya sudah dicoret → 5 ada di kode.",
+        "753 punya 2 angka benar: 5 plus 7 atau 3. Tak mungkin 3 (347 minta di tempat benar sedangkan 392 minta salah, dan 753 jadi punya 3 benar) → 7 ada di kode.",
+        "Angka benar-dan-tepat 347 berarti 7 → 7 angka TERAKHIR. Angka benar 392 adalah 2, di tempat SALAH — petunjuk menulisnya terakhir, jadi 2 pindah ke tengah.",
+        "5 mengisi tempat pertama: kodenya 527."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the code",
+            "phrase_id": "tentukan kodenya",
+            "note_en": "We need the 3-digit lock code.",
+            "note_id": "Kita cari kode gembok 3 angka."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3-digit code",
+            "phrase_id": "kode 3 angka",
+            "note_en": "The code has exactly three digits.",
+            "note_id": "Kodenya tepat tiga angka."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "164: no digit is correct",
+            "phrase_id": "164: tidak ada angka yang benar",
+            "note_en": "So 1, 6, and 4 are not in the code — start here.",
+            "note_id": "Jadi 1, 6, dan 4 tidak ada di kode — mulai dari sini."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Eliminated", "label_id": "Disingkirkan", "value": "1, 6, 4" },
+          { "label_en": "Code", "label_id": "Kode", "value": "527" }
+        ],
+        "strategy": { "name_en": "Start with the clue that has no correct digit, then place the rest", "name_id": "Mulai dari petunjuk tanpa angka benar, lalu tempatkan sisanya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "527" }
+      }
     },
     {
       "number": 23,
@@ -623,17 +1376,53 @@
       "answer": "1589",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q23.jpg",
       "hint_steps_en": [
-        "You want the 4-digit number as big as possible while all three numbers add to 2019.",
-        "Make the 2-digit and 3-digit numbers small so the 4-digit one can be large.",
-        "Balancing the digits (0 must be used), the 4-digit number can be 1589.",
-        "The largest possible 4-digit number is 1589."
+        "Only the 4-digit number reaches the thousands, and the others take at least 100 + 10 — so it starts with 1, and the hundreds column must carry (1 + 1 = 2).",
+        "Hundreds: the two hundreds digits must make 10, and the 3-digit can't start with 0 or 1. Try big first: 8+2, 7+2, 6+4, 6+3 — the leftover digits never fit the tens and ones columns. Only 5+4 works.",
+        "With 5+4 the leftovers are 0, 2, 3, 7, 8, 9 (6 unused): tens 8+0+2 = 10 (writes 1 with the carry) and ones 9+3+7 = 19 (writes 9, carries 1) — give the biggest digits, 8 and 9, to the 4-digit number.",
+        "So the largest 4-digit number is 1589, with 403 + 27: check 27 + 403 + 1589 = 2019. ✓"
       ],
       "hint_steps_id": [
-        "Kamu ingin bilangan empat angka sebesar mungkin sementara ketiga bilangan berjumlah 2019.",
-        "Buat bilangan dua angka dan tiga angka kecil agar bilangan empat angkanya bisa besar.",
-        "Dengan menyeimbangkan angka-angka (0 harus dipakai), bilangan empat angkanya bisa 1589.",
-        "Bilangan empat angka terbesar yang mungkin adalah 1589."
-      ]
+        "Hanya bilangan 4 angka yang sampai ribuan, dan dua lainnya minimal 100 + 10 — jadi ia mulai dengan 1, dan kolom ratusan harus menyimpan (1 + 1 = 2).",
+        "Ratusan: dua angka ratusan harus berjumlah 10, dan bilangan 3 angka tak boleh mulai 0 atau 1. Coba dari terbesar: 8+2, 7+2, 6+4, 6+3 — angka sisanya tak pernah pas untuk kolom puluhan dan satuan. Hanya 5+4 yang berhasil.",
+        "Dengan 5+4 sisa angkanya 0, 2, 3, 7, 8, 9 (6 tak dipakai): puluhan 8+0+2 = 10 (menulis 1 dengan simpanan) dan satuan 9+3+7 = 19 (menulis 9, menyimpan 1) — beri angka terbesar, 8 dan 9, ke bilangan 4 angka.",
+        "Jadi bilangan 4 angka terbesar adalah 1589, dengan 403 + 27: cek 27 + 403 + 1589 = 2019. ✓"
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "largest possible value of the 4-digit number",
+            "phrase_id": "nilai terbesar yang mungkin untuk bilangan empat angka",
+            "note_en": "We want the biggest the 4-digit number can be.",
+            "note_id": "Kita ingin bilangan empat angka sebesar mungkin."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "sum of these three numbers is 2019",
+            "phrase_id": "jumlah ketiga bilangan itu adalah 2019",
+            "note_en": "The three numbers must add up to 2019.",
+            "note_id": "Ketiga bilangan harus berjumlah 2019."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "digit 0 must be used",
+            "phrase_id": "Angka 0 harus dipakai",
+            "note_en": "The digit 0 has to appear somewhere.",
+            "note_id": "Angka 0 harus muncul di salah satu bilangan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Three numbers add to", "label_id": "Jumlah tiga bilangan", "value": "2019" },
+          { "label_en": "Hundreds pair", "label_id": "Pasangan ratusan", "value": "5 + 4 (8+2, 7+2, 6+4, 6+3 all fail)" },
+          { "label_en": "Tens", "label_id": "Puluhan", "value": "8 + 0 + 2 = 10" },
+          { "label_en": "Ones", "label_id": "Satuan", "value": "9 + 3 + 7 = 19" },
+          { "label_en": "Largest 4-digit", "label_id": "4-angka terbesar", "value": "1589" }
+        ],
+        "strategy": { "name_en": "Work the columns: it starts with 1; try the hundreds pair from the biggest down — only 5+4 fits", "name_id": "Kerjakan per kolom: mulai dengan 1; coba pasangan ratusan dari yang terbesar — hanya 5+4 yang pas" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "1589" }
+      }
     },
     {
       "number": 24,
@@ -643,17 +1432,50 @@
       "answer": "2134",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q24.jpg",
       "hint_steps_en": [
-        "Each row and each column uses 1, 2, 3, 4 exactly once.",
-        "Use the + and − cage hints to fill the bold frames.",
-        "Solve cell by cell until the whole grid is filled.",
-        "The four corners read 2, 1, 3, 4 → 2134."
+        "The top row already has its 1, so its other cells are 2, 3, 4 — and the 1− pair must be {2,3} or {3,4}.",
+        "If the pair were {3,4}, the top-left would be 2 and the 10+ cage would need 8 from two different cells (max 7) — impossible. So the top-left is 4, A = 2, and the pair is {2,3}.",
+        "The given 3 orders the {2,3} pair; then columns force C = 3, D = 4, B = 1.",
+        "The corners read A, B, C, D = 2, 1, 3, 4 → 2134."
       ],
       "hint_steps_id": [
-        "Setiap baris dan setiap kolom memakai 1, 2, 3, 4 tepat satu kali.",
-        "Gunakan petunjuk + dan − pada bingkai untuk mengisi bingkai bergaris tebal.",
-        "Selesaikan kotak demi kotak sampai seluruh petak terisi.",
-        "Keempat pojoknya terbaca 2, 1, 3, 4 → 2134."
-      ]
+        "Baris atas sudah punya 1, jadi kotak lainnya 2, 3, 4 — dan pasangan 1− pasti {2,3} atau {3,4}.",
+        "Kalau pasangannya {3,4}, kiri-atas jadi 2 dan bingkai 10+ butuh 8 dari dua kotak berbeda (maksimal 7) — tidak mungkin. Jadi kiri-atas 4, A = 2, dan pasangannya {2,3}.",
+        "Angka 3 yang diberikan mengurutkan pasangan {2,3}; lalu kolom memaksa C = 3, D = 4, B = 1.",
+        "Pojok-pojoknya A, B, C, D = 2, 1, 3, 4 → 2134."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the 4-digit number ABCD made from the corner cells",
+            "phrase_id": "Tentukan bilangan empat angka ABCD dari kotak-kotak pojoknya",
+            "note_en": "Read the four corner cells to get ABCD.",
+            "note_id": "Baca keempat kotak pojok untuk mendapat ABCD."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "every row and every column are all different",
+            "phrase_id": "setiap baris dan setiap kolom semuanya berbeda",
+            "note_en": "Each row and column uses 1, 2, 3, 4 once.",
+            "note_id": "Tiap baris dan kolom memakai 1, 2, 3, 4 sekali."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the sum or the difference of the numbers in that frame",
+            "phrase_id": "jumlah atau selisih angka-angka di dalam bingkai",
+            "note_en": "Each bold frame's + or - hint constrains its numbers.",
+            "note_id": "Petunjuk + atau - tiap bingkai membatasi angka-angkanya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each row/column", "label_id": "Tiap baris/kolom", "value": "1, 2, 3, 4 once" },
+          { "label_en": "Corners ABCD", "label_id": "Pojok ABCD", "value": "2134" }
+        ],
+        "strategy": { "name_en": "The 10+ cage pins the top-left 4 — then rows and columns cascade", "name_id": "Bingkai 10+ memastikan kiri-atas 4 — lalu baris dan kolom berantai" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "2134" }
+      }
     },
     {
       "number": 25,
@@ -663,17 +1485,43 @@
       "answer": "2211",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q25.jpg",
       "hint_steps_en": [
-        "Each arrow tells how many different numbers you can see looking that way.",
-        "Fill the grid so every row and column has different numbers and all the arrow counts match.",
-        "Check each arrow's count against your grid.",
-        "The four corners read 2, 2, 1, 1 → 2211."
+        "Arrows that point at just ONE cell see 1 number — they are all 1.",
+        "C points at two cells that are both 1 → C = 1. The given 2 sees C = 1 and B, so B must differ: B = 2.",
+        "B = 2 sees a 1 and A, so A = 2; A = 2 makes the top-right 2, and D sees 2 and 2 → D = 1.",
+        "A, B, C, D = 2, 2, 1, 1 → 2211."
       ],
       "hint_steps_id": [
-        "Setiap panah menunjukkan berapa banyak bilangan berbeda yang terlihat ke arah itu.",
-        "Isi petak agar setiap baris dan kolom punya bilangan berbeda dan semua hitungan panah cocok.",
-        "Periksa hitungan setiap panah terhadap petakmu.",
-        "Keempat pojoknya terbaca 2, 2, 1, 1 → 2211."
-      ]
+        "Panah yang menunjuk SATU kotak melihat 1 bilangan — semuanya bernilai 1.",
+        "C menunjuk dua kotak yang sama-sama 1 → C = 1. Angka 2 yang diberikan melihat C = 1 dan B, jadi B harus beda: B = 2.",
+        "B = 2 melihat 1 dan A, jadi A = 2; A = 2 membuat kanan-atas 2, dan D melihat 2 dan 2 → D = 1.",
+        "A, B, C, D = 2, 2, 1, 1 → 2211."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the 4-digit number ABCD",
+            "phrase_id": "tentukan bilangan empat angka ABCD",
+            "note_en": "Read the four corner cells to get ABCD.",
+            "note_id": "Baca keempat kotak pojok untuk mendapat ABCD."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the number of different numbers seen in the direction it points",
+            "phrase_id": "banyaknya bilangan berbeda yang terlihat ke arah panah itu menunjuk",
+            "note_en": "Each arrow counts the different numbers it can see that way.",
+            "note_id": "Tiap panah menghitung bilangan berbeda yang terlihat ke arah itu."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each arrow", "label_id": "Tiap panah", "value": "= different numbers it sees" },
+          { "label_en": "Corners ABCD", "label_id": "Pojok ABCD", "value": "2211" }
+        ],
+        "strategy": { "name_en": "Start from arrows that see only ONE cell, then chain the rest", "name_id": "Mulai dari panah yang melihat SATU kotak saja, lalu rangkai sisanya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "2211" }
+      }
     }
   ]
 }

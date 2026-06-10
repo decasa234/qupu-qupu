@@ -129,8 +129,8 @@
     },
     {
       "number": 3,
-      "body_en": "Think and find ★.\n56 → 60 → ( ) → ( ) → ( ★ ) → ( ) → 80",
-      "body_id": "Pikirkan dan temukan ★.\n56 → 60 → ( ) → ( ) → ( ★ ) → ( ) → 80",
+      "body_en": "Think and find ★.\n56 → 60 → (___) → (___) → ( ★ ) → (___) → 80",
+      "body_id": "Pikirkan dan temukan ★.\n56 → 60 → (___) → (___) → ( ★ ) → (___) → 80",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "70" },
@@ -251,8 +251,8 @@
     },
     {
       "number": 5,
-      "body_en": "There are ( ) birds in the tree originally. 5 birds fly to the tree, and there are a total of 13 birds in the tree now.",
-      "body_id": "Mula-mula ada ( ) ekor burung di pohon. Datang 5 ekor burung lagi, dan sekarang ada total 13 ekor burung di pohon.",
+      "body_en": "There are (___) birds in the tree originally. 5 birds fly to the tree, and there are a total of 13 birds in the tree now.",
+      "body_id": "Mula-mula ada (___) ekor burung di pohon. Datang 5 ekor burung lagi, dan sekarang ada total 13 ekor burung di pohon.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "6" },
@@ -284,8 +284,8 @@
         "highlights": [
           {
             "category": "question",
-            "phrase_en": "( ) birds in the tree originally",
-            "phrase_id": "( ) ekor burung di pohon",
+            "phrase_en": "(___) birds in the tree originally",
+            "phrase_id": "(___) ekor burung di pohon",
             "note_en": "We need how many birds were there at the start.",
             "note_id": "Kita cari berapa burung di awal."
           },
@@ -702,16 +702,16 @@
       ],
       "answer": "C",
       "hint_steps_en": [
-        "The number is between 50 and 90, so the tens digit is 5, 6, 7, or 8.",
-        "The tens digit must be 3 times the units digit.",
-        "Try units = 2: then tens = 3 x 2 = 6, giving 62.",
-        "62 is between 50 and 90, so the number is 62."
+        "The tens digit must be 3 times the units digit — try each units digit.",
+        "Units 1 → tens 3 → 31: not between 50 and 90. ✗",
+        "Units 2 → tens 6 → 62: between 50 and 90 ✓ (units 3 gives 93 — too big).",
+        "So the number is 62."
       ],
       "hint_steps_id": [
-        "Bilangannya antara 50 dan 90, jadi angka puluhannya 5, 6, 7, atau 8.",
-        "Angka puluhan harus 3 kali angka satuan.",
-        "Coba satuan = 2: maka puluhan = 3 x 2 = 6, jadi 62.",
-        "62 ada di antara 50 dan 90, jadi bilangannya 62."
+        "Angka puluhan harus 3 kali angka satuan — coba tiap angka satuan.",
+        "Satuan 1 → puluhan 3 → 31: tidak di antara 50 dan 90. ✗",
+        "Satuan 2 → puluhan 6 → 62: di antara 50 dan 90 ✓ (satuan 3 memberi 93 — terlalu besar).",
+        "Jadi bilangannya 62."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -944,16 +944,16 @@
       "answer_type": "fill_in",
       "answer": "240",
       "hint_steps_en": [
-        "Every number ends in 8 — the units are all the same.",
-        "Shortcut: multiply the units, 8 × 5 = 40.",
-        "Then add the tens: 60 + 50 + 40 + 30 + 20 = 200.",
-        "200 + 40 = 240."
+        "The five numbers step down by 10, with 48 exactly in the middle.",
+        "68 gives 20 to 28 and 58 gives 10 to 38 — every number levels out to 48.",
+        "So the total is 48 × 5.",
+        "48 × 5 = 240."
       ],
       "hint_steps_id": [
-        "Setiap bilangan berakhir dengan 8 — satuannya semua sama.",
-        "Cara cepat: kalikan satuannya, 8 × 5 = 40.",
-        "Lalu jumlahkan puluhannya: 60 + 50 + 40 + 30 + 20 = 200.",
-        "200 + 40 = 240."
+        "Kelima bilangan turun 10 tiap langkah, dengan 48 tepat di tengah.",
+        "68 memberi 20 ke 28 dan 58 memberi 10 ke 38 — semua bilangan menjadi 48.",
+        "Jadi jumlahnya 48 × 5.",
+        "48 × 5 = 240."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -1038,16 +1038,16 @@
       "answer": "13",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q18.jpg",
       "hint_steps_en": [
-        "Each picture shape stands for a hidden number.",
-        "Use the first totals to find the value of each shape one at a time.",
-        "Once you know the shapes, add the triangle and the star together.",
-        "Triangle + star = 13."
+        "○ + ○ + ○ = 18, so one circle = 18 ÷ 3 = 6.",
+        "☆ + ☆ + ☆ + ☆ = 20, so one star = 20 ÷ 4 = 5.",
+        "△ + ○ = 14 and ○ = 6, so the triangle = 14 − 6 = 8.",
+        "Triangle + star = 8 + 5 = 13."
       ],
       "hint_steps_id": [
-        "Setiap bentuk gambar mewakili sebuah bilangan yang tersembunyi.",
-        "Gunakan jumlah-jumlah yang diberikan untuk mencari nilai setiap bentuk satu per satu.",
-        "Setelah tahu nilai bentuknya, jumlahkan segitiga dan bintang.",
-        "Segitiga + bintang = 13."
+        "○ + ○ + ○ = 18, jadi satu lingkaran = 18 ÷ 3 = 6.",
+        "☆ + ☆ + ☆ + ☆ = 20, jadi satu bintang = 20 ÷ 4 = 5.",
+        "△ + ○ = 14 dan ○ = 6, jadi segitiga = 14 − 6 = 8.",
+        "Segitiga + bintang = 8 + 5 = 13."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1084,16 +1084,16 @@
       "answer": "33",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q19.jpg",
       "hint_steps_en": [
-        "Find the rule that turns one number into the next along the path.",
-        "Check the step between the numbers you can already see.",
-        "Use that same rule to move forward until you reach the ★ cell.",
-        "Following the path gives ★ = 33."
+        "Walk the path: 99 → 93 → 87 — each step drops by 6.",
+        "Keep subtracting 6 along the path: 99, 93, 87, 81, 75, 69, 63, 57, 51, 45, 39, 33, …",
+        "The ★ is the 12th cell on the path: 99 − 6 × 11 = 33.",
+        "So ★ = 33."
       ],
       "hint_steps_id": [
-        "Temukan aturan yang mengubah satu bilangan menjadi bilangan berikutnya di sepanjang jalur.",
-        "Periksa lompatan antara bilangan yang sudah bisa kamu lihat.",
-        "Gunakan aturan yang sama untuk maju sampai ke kotak ★.",
-        "Mengikuti jalur menghasilkan ★ = 33."
+        "Susuri jalurnya: 99 → 93 → 87 — tiap langkah turun 6.",
+        "Terus kurangi 6 sepanjang jalur: 99, 93, 87, 81, 75, 69, 63, 57, 51, 45, 39, 33, …",
+        "★ adalah kotak ke-12 pada jalur: 99 − 6 × 11 = 33.",
+        "Jadi ★ = 33."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1233,16 +1233,16 @@
       "answer": "20",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q22.jpg",
       "hint_steps_en": [
-        "Each box must equal the number written above it.",
-        "Use 14 on the left and 23 on the right to find the missing box numbers.",
-        "Then add up all the numbers that flow into the apple.",
-        "The value at the apple is 20."
+        "14 splits into a blank box and 9, so that blank = 14 − 9 = 5.",
+        "23 splits into 8 and a blank box, so that blank = 23 − 8 = 15.",
+        "Only the two blank boxes flow down into the apple.",
+        "Apple = 5 + 15 = 20."
       ],
       "hint_steps_id": [
-        "Setiap kotak harus sama dengan bilangan yang tertulis di atasnya.",
-        "Gunakan 14 di kiri dan 23 di kanan untuk mencari bilangan kotak yang hilang.",
-        "Lalu jumlahkan semua bilangan yang masuk ke apel.",
-        "Nilai pada apel adalah 20."
+        "14 terbagi menjadi kotak kosong dan 9, jadi kotak kosong itu = 14 − 9 = 5.",
+        "23 terbagi menjadi 8 dan kotak kosong, jadi kotak itu = 23 − 8 = 15.",
+        "Hanya dua kotak kosong yang mengalir turun ke apel.",
+        "Apel = 5 + 15 = 20."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1286,16 +1286,16 @@
       "answer": "527",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q23.jpg",
       "hint_steps_en": [
-        "The clues 164 and 831 have no correct digits, so cross out 1, 6, 4, 8, 3.",
-        "That leaves only 0, 2, 5, 7, 9 as possible digits.",
-        "From 753 two digits are correct, and from 347 the 7 sits in the right place — so 5 and 7 are in the code.",
-        "Trying the clues, the official code is 527."
+        "164 and 831 have 0 correct → cross out 1, 6, 4, 8, 3; only 0, 2, 5, 7, 9 remain.",
+        "753 has 2 correct and its 3 is crossed out → 7 and 5 are both in the code.",
+        "347: only its 7 survives, and it is in the RIGHT place → 7 is the last digit.",
+        "392: its surviving digit 2 is in the WRONG place — the clue shows it last, so 2 moves to the middle and 5 takes the front: 527."
       ],
       "hint_steps_id": [
-        "Petunjuk 164 dan 831 tidak ada angka benar, jadi coret 1, 6, 4, 8, 3.",
-        "Tersisa hanya 0, 2, 5, 7, 9 sebagai angka yang mungkin.",
-        "Dari 753 ada dua angka benar, dan dari 347 angka 7 berada di tempat yang tepat — jadi 5 dan 7 ada dalam kode.",
-        "Setelah mencoba petunjuk, kode resminya adalah 527."
+        "164 dan 831 punya 0 benar → coret 1, 6, 4, 8, 3; tersisa 0, 2, 5, 7, 9.",
+        "753 punya 2 angka benar dan 3-nya sudah dicoret → 7 dan 5 keduanya ada di kode.",
+        "347: hanya 7 yang tersisa, dan di tempat BENAR → 7 angka terakhir.",
+        "392: angka 2 yang tersisa berada di tempat SALAH — petunjuk menulisnya terakhir, jadi 2 pindah ke tengah dan 5 di depan: 527."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1339,16 +1339,16 @@
       "answer": "2134",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q24.jpg",
       "hint_steps_en": [
-        "Every row and every column must use 1, 2, 3, 4 once each.",
-        "Start with frames that have only one way to make their sum or difference.",
-        "Fill those in, then use the row and column rule to finish the rest.",
-        "Read the corner cells A, B, C, D to get 2134."
+        "The top row already has its 1, so its other cells are 2, 3, 4 — and the 1− pair must be {2,3} or {3,4}.",
+        "If the pair were {3,4}, the top-left would be 2 and the 10+ cage would need 8 from two different cells (max 7) — impossible. So the top-left is 4, A = 2, and the pair is {2,3}.",
+        "The given 3 orders the {2,3} pair; then columns force C = 3, D = 4, B = 1.",
+        "The corners read A, B, C, D = 2, 1, 3, 4 → 2134."
       ],
       "hint_steps_id": [
-        "Setiap baris dan kolom harus memakai 1, 2, 3, 4 masing-masing sekali.",
-        "Mulai dari bingkai yang hanya punya satu cara untuk jumlah atau selisihnya.",
-        "Isi bingkai itu, lalu pakai aturan baris dan kolom untuk melengkapi sisanya.",
-        "Baca kotak pojok A, B, C, D untuk mendapat 2134."
+        "Baris atas sudah punya 1, jadi kotak lainnya 2, 3, 4 — dan pasangan 1− pasti {2,3} atau {3,4}.",
+        "Kalau pasangannya {3,4}, kiri-atas jadi 2 dan bingkai 10+ butuh 8 dari dua kotak berbeda (maksimal 7) — tidak mungkin. Jadi kiri-atas 4, A = 2, dan pasangannya {2,3}.",
+        "Angka 3 yang diberikan mengurutkan pasangan {2,3}; lalu kolom memaksa C = 3, D = 4, B = 1.",
+        "Pojok-pojoknya A, B, C, D = 2, 1, 3, 4 → 2134."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1379,7 +1379,7 @@
           { "label_en": "Numbers allowed", "label_id": "Angka boleh dipakai", "value": "1, 2, 3, 4" },
           { "label_en": "Corners to read", "label_id": "Pojok dibaca", "value": "A, B, C, D" }
         ],
-        "strategy": { "name_en": "Solve the easy frames first, then use the row-column rule", "name_id": "Selesaikan bingkai mudah dulu, lalu pakai aturan baris-kolom" },
+        "strategy": { "name_en": "The 10+ cage pins the top-left 4 — then rows and columns cascade", "name_id": "Bingkai 10+ memastikan kiri-atas 4 — lalu baris dan kolom berantai" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "2134" }
       }
@@ -1392,16 +1392,16 @@
       "answer": "2211",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q25.jpg",
       "hint_steps_en": [
-        "Look at the example to see how an arrow counts the different numbers it can see.",
-        "For each arrow, count how many different numbers appear in that direction.",
-        "A two-way arrow adds up the different numbers seen on both sides.",
-        "Reading the arrows A, B, C, D in order gives 2211."
+        "Arrows that point at just ONE cell see 1 number — they are all 1.",
+        "C points at two cells that are both 1 → C = 1. The given 2 sees C = 1 and B, so B must differ: B = 2.",
+        "B = 2 sees a 1 and A, so A = 2; A = 2 makes the top-right 2, and D sees 2 and 2 → D = 1.",
+        "A, B, C, D = 2, 2, 1, 1 → 2211."
       ],
       "hint_steps_id": [
-        "Lihat contohnya untuk memahami cara panah menghitung bilangan berbeda yang terlihat.",
-        "Untuk setiap panah, hitung berapa banyak bilangan berbeda yang muncul ke arah itu.",
-        "Panah dua arah menjumlahkan bilangan berbeda yang terlihat di kedua sisi.",
-        "Membaca panah A, B, C, D berurutan menghasilkan 2211."
+        "Panah yang menunjuk SATU kotak melihat 1 bilangan — semuanya bernilai 1.",
+        "C menunjuk dua kotak yang sama-sama 1 → C = 1. Angka 2 yang diberikan melihat C = 1 dan B, jadi B harus beda: B = 2.",
+        "B = 2 melihat 1 dan A, jadi A = 2; A = 2 membuat kanan-atas 2, dan D melihat 2 dan 2 → D = 1.",
+        "A, B, C, D = 2, 2, 1, 1 → 2211."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1431,7 +1431,7 @@
         "quantities": [
           { "label_en": "Arrows to read", "label_id": "Panah dibaca", "value": "A, B, C, D" }
         ],
-        "strategy": { "name_en": "Use the example, then count different numbers per arrow", "name_id": "Pakai contoh, lalu hitung bilangan berbeda tiap panah" },
+        "strategy": { "name_en": "Start from arrows that see only ONE cell, then chain the rest", "name_id": "Mulai dari panah yang melihat SATU kotak saja, lalu rangkai sisanya" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "2211" }
       }
