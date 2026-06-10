@@ -1,10 +1,19 @@
 import type { PoolClient } from 'pg'
-import { pool, queryOne, withTransaction } from '../../../db.js'
+import { pool, query, queryOne, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { wibDateString } from '../../../lib/wib.js'
 import { isCorrectAnswer } from '../answerMatch.js'
-import { upsertConceptProgress } from './conceptProgress.js'
-import { awardConceptReward } from '../../gamification/concept.js'
+import {
+  EMPTY_PROGRESS,
+  applyAnswers,
+  lockConceptProgress,
+  upsertConceptProgressRows,
+  type ConceptProgressNext,
+} from './conceptProgress.js'
+import {
+  CONCEPT_CORRECT_COINS,
+  CONCEPT_CORRECT_XP,
+} from '../../gamification/concept.js'
 import { emitEvent, type EventType } from '../../gamification/events.js'
 import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
 import {
@@ -12,8 +21,11 @@ import {
   type QuestProgressResult,
 } from '../../gamification/questEvaluator.js'
 import { evaluateAchievements } from '../../gamification/achievementEvaluator.js'
-import { readStreakState } from '../../gamification/streakUpdater.js'
-import { updateProfileWithDelta } from '../../gamification/profileUpdater.js'
+import { updateStreakForActivity } from '../../gamification/streakUpdater.js'
+import {
+  ensureProfile,
+  updateProfileWithDelta,
+} from '../../gamification/profileUpdater.js'
 
 export const SESSION_SIZE = 20
 
@@ -98,253 +110,398 @@ export interface SessionResult {
   unlockedAchievements: UnlockedAchievement[]
 }
 
+// Pure grouping helper (exported for unit tests): per-concept answer
+// sequences keyed by slug in first-touch order, preserving the in-session
+// answer order within each concept.
+export function groupResultsBySlug(
+  graded: { conceptSlug: string; isCorrect: boolean }[],
+): Map<string, boolean[]> {
+  const out = new Map<string, boolean[]>()
+  for (const g of graded) {
+    const seq = out.get(g.conceptSlug)
+    if (seq) seq.push(g.isCorrect)
+    else out.set(g.conceptSlug, [g.isCorrect])
+  }
+  return out
+}
+
+// A stored result is non-empty iff the owning commit finished (it UPDATEs
+// the row before COMMIT); '{}'::jsonb only ever exists uncommitted.
+function isStoredSessionResult(value: unknown): value is SessionResult {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as { total?: unknown }).total === 'number'
+  )
+}
+
 // Commit a finished session ATOMICALLY: only here do comprehension + XP bank.
+// Idempotent on the client-generated sessionId (P1.5): a re-POST (timeout
+// retry, lost response) returns the stored result verbatim — no new
+// attempts, progress, rewards, events, or quest/achievement evaluation.
 export async function commitKonsepSession(
   parentUserId: string,
   childId: string,
   subjectKey: string,
+  sessionId: string,
   answers: { conceptInstanceId: string; selectedAnswer: string }[],
 ): Promise<SessionResult> {
   if (answers.length !== SESSION_SIZE) {
     throw new Error(`Expected ${SESSION_SIZE} answers, received ${answers.length}`)
   }
+  // Round-trips (typical warm path) for the batched core, in order:
+  //   1 ownership check          2 session-id claim
+  //   3 instance batch fetch     4 attempts batch insert
+  //   5 progress batch lock      6 progress batch upsert
+  //   7 ensureProfile            8+9 streak read + write
+  //   10 ledger batch insert     11-13 profile delta (inner ensureProfile +
+  //   snapshot + UPDATE)         14 result cache write
+  // = 14 (was ~140: 20 answers x ~7 queries each). Conditional extras: +1
+  // level UPDATE on level-up, +1 cold level_tiers load, +1
+  // recovery-eligibility check on a 2-day streak gap. The M2
+  // events/quests/achievements block below is already aggregate (one event +
+  // evaluation per event TYPE, not per answer) and is unchanged.
   return withTransaction(async (client: PoolClient) => {
     await assertChildOwnership(client, parentUserId, childId)
 
-    let correct = 0
-    let xpEarned = 0
-    let coinsEarned = 0
-    const grown = new Map<string, ConceptGrown>()
-    let last: Awaited<ReturnType<typeof awardConceptReward>> | undefined
-    let levelUp: SessionResult['levelUp'] = null
-    let processedCount = 0
-    let anchorAttemptId: string | null = null
-
-    for (const a of answers) {
-      const inst = await queryOne<{
-        answer: string
-        concept_slug: string
-        name_id: string
+    // ── Idempotency claim — FIRST write of the transaction ───────────────
+    // Under READ COMMITTED a concurrent commit with the same id blocks on
+    // the primary key here until the in-flight owner resolves; after a
+    // conflict the stored row is the committed winner's, final result
+    // included (claim + work + result write are one transaction).
+    const claimed = await queryOne<{ session_id: string }>(
+      `INSERT INTO wmi_konsep_sessions (session_id, child_id, subject_key, result)
+       VALUES ($1, $2, $3, '{}'::jsonb)
+       ON CONFLICT (session_id) DO NOTHING
+       RETURNING session_id`,
+      [sessionId, childId, subjectKey],
+      client,
+    )
+    if (!claimed) {
+      const stored = await queryOne<{
+        child_id: string
         subject_key: string
+        result: unknown
       }>(
-        `SELECT i.answer, i.concept_slug, c.name_id, c.subject_key
-         FROM wmi_concept_instances i JOIN wmi_concepts c ON c.slug = i.concept_slug
-         WHERE i.id = $1`,
-        [a.conceptInstanceId],
+        'SELECT child_id, subject_key, result FROM wmi_konsep_sessions WHERE session_id = $1',
+        [sessionId],
         client,
       )
-      // Defensive: ignore off-subject or unknown instances.
-      if (!inst || inst.subject_key !== subjectKey) continue
-
-      const isC = isCorrectAnswer(inst.answer, a.selectedAnswer)
-      if (isC) correct++
-
-      const before = await queryOne<{ best_tier: number }>(
-        'SELECT best_tier FROM wmi_concept_progress WHERE child_id = $1 AND concept_slug = $2',
-        [childId, inst.concept_slug],
-        client,
-      )
-      const fromTier = before?.best_tier ?? 0
-
-      const attemptRow = await client.query<{ id: string }>(
-        `INSERT INTO wmi_attempts
-           (child_id, concept_instance_id, mode, selected_answer, is_correct,
-            time_taken_ms, revealed_id_translation, looked_up_terms)
-         VALUES ($1, $2, 'concept', $3, $4, $5, $6, $7)
-         RETURNING id`,
-        [childId, a.conceptInstanceId, a.selectedAnswer, isC, null, false, []],
-      )
-      // First attempt row of this POST anchors the session's gamification
-      // events (its id becomes their source_id). Note this is NOT replay
-      // protection: a full re-POST inserts brand-new attempt rows, so
-      // attempts and events run again — XP/coins stay bounded by the
-      // per-instance reward ledger, but quest/streak counters inflate.
-      // Request-level dedupe is deferred.
-      if (!anchorAttemptId) anchorAttemptId = attemptRow.rows[0]?.id ?? null
-      processedCount++
-
-      await upsertConceptProgress(client, childId, inst.concept_slug, isC)
-      const reward = await awardConceptReward(client, {
-        childId,
-        conceptInstanceId: a.conceptInstanceId,
-        isCorrect: isC,
-      })
-      last = reward
-      xpEarned += reward.xpEarned
-      coinsEarned += reward.coinsEarned
-      if (reward.levelUp) levelUp = reward.levelUp
-
-      const after = await queryOne<{ best_tier: number }>(
-        'SELECT best_tier FROM wmi_concept_progress WHERE child_id = $1 AND concept_slug = $2',
-        [childId, inst.concept_slug],
-        client,
-      )
-      const toTier = after?.best_tier ?? fromTier
-      if (toTier > fromTier) {
-        const existing = grown.get(inst.concept_slug)
-        grown.set(inst.concept_slug, {
-          slug: inst.concept_slug,
-          nameId: inst.name_id,
-          fromTier: existing?.fromTier ?? fromTier,
-          toTier,
-        })
+      // A session id is private to the child+subject that started it —
+      // never serve another child's result on an id collision.
+      if (stored && (stored.child_id !== childId || stored.subject_key !== subjectKey)) {
+        throw new Error('Konsep session conflict')
       }
+      if (stored && isStoredSessionResult(stored.result)) {
+        return stored.result
+      }
+      // Defensive: the claim conflicted but no committed result exists
+      // (winner rolled back between our INSERT unblocking and this read).
+      // publicError maps this to the generic retryable Indonesian copy.
+      throw new Error('Konsep session still processing')
     }
 
-    // ── Gamification loop (mirrors processScoreSubmission steps 2-6) ──
-    // One session = one KONSEP_SESSION_COMPLETED event plus batch markers
-    // for answered questions and grown concepts, each idempotent on the
-    // first attempt row of the session. Quest evaluation + achievement
-    // evaluation run on the SAME transaction client, so a failure rolls
-    // the whole commit back.
+    // ── Batch fetch + grade: ONE query for all distinct instances ────────
+    const distinctIds = [...new Set(answers.map((a) => a.conceptInstanceId))]
+    const instRows = await query<{
+      id: string
+      answer: string
+      concept_slug: string
+      name_id: string
+      subject_key: string
+    }>(
+      `SELECT i.id, i.answer, i.concept_slug, c.name_id, c.subject_key
+       FROM wmi_concept_instances i JOIN wmi_concepts c ON c.slug = i.concept_slug
+       WHERE i.id = ANY($1::uuid[])`,
+      [distinctIds],
+      client,
+    )
+    const instById = new Map(instRows.map((r) => [r.id, r]))
+
+    interface GradedAnswer {
+      conceptInstanceId: string
+      selectedAnswer: string
+      conceptSlug: string
+      nameId: string
+      isCorrect: boolean
+    }
+    const graded: GradedAnswer[] = []
+    for (const a of answers) {
+      const inst = instById.get(a.conceptInstanceId)
+      // Defensive: ignore off-subject or unknown instances.
+      if (!inst || inst.subject_key !== subjectKey) continue
+      graded.push({
+        conceptInstanceId: a.conceptInstanceId,
+        selectedAnswer: a.selectedAnswer,
+        conceptSlug: inst.concept_slug,
+        nameId: inst.name_id,
+        isCorrect: isCorrectAnswer(inst.answer, a.selectedAnswer),
+      })
+    }
+    const correct = graded.filter((g) => g.isCorrect).length
+    const processedCount = graded.length
+
+    let xpEarned = 0
+    let coinsEarned = 0
+    const grownList: ConceptGrown[] = []
+    let levelUp: SessionResult['levelUp'] = null
+    let level = 1
+    let tierName = ''
+    let coinBalance = 0
+    let streakOut = { current: 0, longest: 0 }
     const completedQuests: CompletedQuest[] = []
     const unlockedAchievements: UnlockedAchievement[] = []
 
-    if (anchorAttemptId) {
-      // `let` narrowing doesn't survive into closures — pin the anchor.
-      const sessionAnchorId = anchorAttemptId
+    if (processedCount > 0) {
+      // ── ONE multi-VALUES insert for all attempts ────────────────────────
+      const attemptParams: unknown[] = [childId]
+      const attemptValues = graded.map((g) => {
+        const base = attemptParams.length
+        attemptParams.push(g.conceptInstanceId, g.selectedAnswer, g.isCorrect)
+        return `($1, $${base + 1}, 'concept', $${base + 2}, $${base + 3}, NULL, FALSE, '{}'::text[])`
+      })
+      const attemptRes = await client.query<{ id: string }>(
+        `INSERT INTO wmi_attempts
+           (child_id, concept_instance_id, mode, selected_answer, is_correct,
+            time_taken_ms, revealed_id_translation, looked_up_terms)
+         VALUES ${attemptValues.join(', ')}
+         RETURNING id`,
+        attemptParams,
+      )
+      // First attempt row anchors the session's gamification events (its id
+      // becomes their source_id). Replay protection lives in the session-id
+      // claim above — a re-POST never reaches this insert.
+      const anchorAttemptId = attemptRes.rows[0]?.id ?? null
+
+      // ── Per-concept progress: ONE lock, JS fold, ONE multi-row upsert ──
+      // applyAnswers replays each concept's answer sequence exactly like N
+      // sequential upsertConceptProgress calls (unit-tested equivalence).
+      const bySlug = groupResultsBySlug(graded)
+      const nameBySlug = new Map(graded.map((g) => [g.conceptSlug, g.nameId]))
+      const prevBySlug = await lockConceptProgress(client, childId, [...bySlug.keys()])
+      const progressRows: { conceptSlug: string; next: ConceptProgressNext }[] = []
+      for (const [slug, results] of bySlug) {
+        const prev = prevBySlug.get(slug) ?? EMPTY_PROGRESS
+        const next = applyAnswers(prev, results)
+        progressRows.push({ conceptSlug: slug, next })
+        // Tier before = the FOR UPDATE read; after = the post-fold value.
+        if (next.best_tier > prev.best_tier) {
+          grownList.push({
+            slug,
+            nameId: nameBySlug.get(slug) ?? slug,
+            fromTier: prev.best_tier,
+            toTier: next.best_tier,
+          })
+        }
+      }
+      await upsertConceptProgressRows(client, childId, progressRows)
+
+      // ── Rewards: hoisted profile/streak + ONE batched ledger insert ────
+      // Mirrors awardConceptReward exactly (same amounts, same per-instance
+      // (child, CONCEPT_COMPLETION_XP, concept_attempt, instance_id) ledger
+      // keys) but runs the shared primitives once per commit instead of once
+      // per answer:
+      //   - streak: any answered question counts as today's activity; the
+      //     19 follow-up per-answer calls were gap-0 no-ops anyway.
+      //   - ledger: one row per DISTINCT correct instance — a repeat of the
+      //     same instance never double-grants (the old second appendLedger
+      //     call returned appended=false).
+      //   - profile: one delta summing only the APPENDED rows.
       const today = wibDateString(new Date())
-      const grownConcepts = [...grown.values()]
+      await ensureProfile(client, childId)
+      const streakState = await updateStreakForActivity(client, childId, today)
 
-      // awardConceptReward already ran ensureProfile + the streak update
-      // per answer; read the resulting streak state for the evaluators.
-      const streak = await readStreakState(client, childId)
-
-      // Quest slots must exist before they can progress (video path step 2).
-      await ensureTodaysQuests(client, childId, today)
-
-      const emitAndEvaluate = async (
-        eventType: EventType,
-        metadata: Record<string, unknown>,
-        incrementBy: number,
-      ): Promise<QuestProgressResult[]> => {
-        await emitEvent(client, {
-          childId,
-          eventType,
-          sourceType: 'wmi_session',
-          sourceId: sessionAnchorId,
-          eventDate: today,
-          metadata,
-        })
-        return evaluateForEvent(client, today, {
-          childId,
-          eventType,
-          eventSourceType: 'wmi_session',
-          eventSourceId: sessionAnchorId,
-          currentStreakDays: streak.currentStreakDays,
-          incrementBy,
-        })
+      const correctInstanceIds = [
+        ...new Set(graded.filter((g) => g.isCorrect).map((g) => g.conceptInstanceId)),
+      ]
+      if (correctInstanceIds.length > 0) {
+        const ledgerRes = await client.query<{ xp_delta: number; coin_delta: number }>(
+          `INSERT INTO reward_ledger
+             (child_id, reward_type, source_type, source_id, xp_delta, coin_delta, metadata)
+           SELECT $1, 'CONCEPT_COMPLETION_XP', 'concept_attempt', src.id, $2, $3, '{}'::jsonb
+           FROM unnest($4::uuid[]) AS src(id)
+           ON CONFLICT (child_id, reward_type, source_type, source_id) DO NOTHING
+           RETURNING xp_delta, coin_delta`,
+          [childId, CONCEPT_CORRECT_XP, CONCEPT_CORRECT_COINS, correctInstanceIds],
+        )
+        for (const row of ledgerRes.rows) {
+          xpEarned += Number(row.xp_delta)
+          coinsEarned += Number(row.coin_delta)
+        }
       }
 
-      const allQuestResults: QuestProgressResult[] = []
-      allQuestResults.push(
-        ...(await emitAndEvaluate(
-          'KONSEP_SESSION_COMPLETED',
-          {
-            subjectKey,
-            questionsAnswered: processedCount,
-            correctCount: correct,
-            conceptsGrownCount: grownConcepts.length,
-          },
-          1,
-        )),
-      )
-      allQuestResults.push(
-        ...(await emitAndEvaluate(
-          'KONSEP_QUESTION_ANSWERED',
-          { subjectKey, count: processedCount },
-          processedCount,
-        )),
-      )
-      if (grownConcepts.length > 0) {
+      // Always run the profile delta — even at 0/0 it stamps
+      // last_activity_date = today (so tomorrow's streak gap is correct) and
+      // returns the canonical balances/level for the result payload.
+      const profile = await updateProfileWithDelta(client, {
+        childId,
+        xpDelta: xpEarned,
+        coinDelta: coinsEarned,
+        activityDate: today,
+      })
+      if (profile.levelUp) {
+        levelUp = {
+          previousLevel: profile.levelUp.previousLevel,
+          currentLevel: profile.levelUp.currentLevel,
+          tierName: profile.levelUp.tier.tierName,
+        }
+      }
+      level = profile.after.currentLevel
+      tierName = profile.after.currentTierName
+      coinBalance = profile.after.coinBalance
+      streakOut = {
+        current: streakState.currentStreakDays,
+        longest: streakState.longestStreakDays,
+      }
+
+      // ── Gamification block (mirrors processScoreSubmission steps 2-6) ──
+      // One session = one KONSEP_SESSION_COMPLETED event plus batch markers
+      // for answered questions and grown concepts, each idempotent on the
+      // first attempt row of the session. Quest evaluation + achievement
+      // evaluation run on the SAME transaction client, so a failure rolls
+      // the whole commit back.
+      if (anchorAttemptId) {
+        const sessionAnchorId = anchorAttemptId
+
+        // Quest slots must exist before they can progress (video path step 2).
+        await ensureTodaysQuests(client, childId, today)
+
+        const emitAndEvaluate = async (
+          eventType: EventType,
+          metadata: Record<string, unknown>,
+          incrementBy: number,
+        ): Promise<QuestProgressResult[]> => {
+          await emitEvent(client, {
+            childId,
+            eventType,
+            sourceType: 'wmi_session',
+            sourceId: sessionAnchorId,
+            eventDate: today,
+            metadata,
+          })
+          return evaluateForEvent(client, today, {
+            childId,
+            eventType,
+            eventSourceType: 'wmi_session',
+            eventSourceId: sessionAnchorId,
+            currentStreakDays: streakState.currentStreakDays,
+            incrementBy,
+          })
+        }
+
+        const allQuestResults: QuestProgressResult[] = []
         allQuestResults.push(
           ...(await emitAndEvaluate(
-            'KONSEP_CONCEPT_GROWN',
-            { subjectKey, count: grownConcepts.length, slugs: grownConcepts.map((g) => g.slug) },
-            grownConcepts.length,
+            'KONSEP_SESSION_COMPLETED',
+            {
+              subjectKey,
+              questionsAnswered: processedCount,
+              correctCount: correct,
+              conceptsGrownCount: grownList.length,
+            },
+            1,
           )),
         )
-      }
-
-      // Quest completions append their own ledger rows inside the
-      // evaluator (idempotent on the quest instance id); sum the awarded
-      // XP/coins for one final profile delta. Dedupe by quest id — the
-      // same quest can only complete once per window.
-      let bonusXp = 0
-      let bonusCoins = 0
-      const completedById = new Map<string, QuestProgressResult>()
-      for (const q of allQuestResults) {
-        if (q.justCompleted && !completedById.has(q.questId)) {
-          completedById.set(q.questId, q)
+        allQuestResults.push(
+          ...(await emitAndEvaluate(
+            'KONSEP_QUESTION_ANSWERED',
+            { subjectKey, count: processedCount },
+            processedCount,
+          )),
+        )
+        if (grownList.length > 0) {
+          allQuestResults.push(
+            ...(await emitAndEvaluate(
+              'KONSEP_CONCEPT_GROWN',
+              { subjectKey, count: grownList.length, slugs: grownList.map((g) => g.slug) },
+              grownList.length,
+            )),
+          )
         }
-      }
-      for (const q of completedById.values()) {
-        bonusXp += q.xpAwarded
-        bonusCoins += q.coinsAwarded
-        completedQuests.push({
-          id: q.questId,
-          code: q.code,
-          title: q.title,
-          xpAwarded: q.xpAwarded,
-          coinsAwarded: q.coinsAwarded,
-        })
-      }
 
-      // Achievements run last so the post-session state (progress rows,
-      // events, streak) is fully applied before predicates are checked.
-      const newAchievements = await evaluateAchievements(client, childId, streak)
-      for (const ach of newAchievements) {
-        bonusXp += ach.xpAwarded
-        unlockedAchievements.push({
-          id: ach.id,
-          code: ach.code,
-          title: ach.title,
-          iconKey: ach.iconKey,
-          xpAwarded: ach.xpAwarded,
-        })
-      }
-
-      if (bonusXp > 0 || bonusCoins > 0) {
-        const profile = await updateProfileWithDelta(client, {
-          childId,
-          xpDelta: bonusXp,
-          coinDelta: bonusCoins,
-          activityDate: today,
-        })
-        xpEarned += bonusXp
-        coinsEarned += bonusCoins
-        if (profile.levelUp) {
-          levelUp = {
-            previousLevel: profile.levelUp.previousLevel,
-            currentLevel: profile.levelUp.currentLevel,
-            tierName: profile.levelUp.tier.tierName,
+        // Quest completions append their own ledger rows inside the
+        // evaluator (idempotent on the quest instance id); sum the awarded
+        // XP/coins for one final profile delta. Dedupe by quest id — the
+        // same quest can only complete once per window.
+        let bonusXp = 0
+        let bonusCoins = 0
+        const completedById = new Map<string, QuestProgressResult>()
+        for (const q of allQuestResults) {
+          if (q.justCompleted && !completedById.has(q.questId)) {
+            completedById.set(q.questId, q)
           }
         }
-        if (last) {
-          last = {
-            ...last,
-            totalXp: profile.after.totalXp,
-            coinBalance: profile.after.coinBalance,
-            level: profile.after.currentLevel,
-            tierName: profile.after.currentTierName,
+        for (const q of completedById.values()) {
+          bonusXp += q.xpAwarded
+          bonusCoins += q.coinsAwarded
+          completedQuests.push({
+            id: q.questId,
+            code: q.code,
+            title: q.title,
+            xpAwarded: q.xpAwarded,
+            coinsAwarded: q.coinsAwarded,
+          })
+        }
+
+        // Achievements run last so the post-session state (progress rows,
+        // events, streak) is fully applied before predicates are checked.
+        const newAchievements = await evaluateAchievements(client, childId, streakState)
+        for (const ach of newAchievements) {
+          bonusXp += ach.xpAwarded
+          unlockedAchievements.push({
+            id: ach.id,
+            code: ach.code,
+            title: ach.title,
+            iconKey: ach.iconKey,
+            xpAwarded: ach.xpAwarded,
+          })
+        }
+
+        if (bonusXp > 0 || bonusCoins > 0) {
+          const bonusProfile = await updateProfileWithDelta(client, {
+            childId,
+            xpDelta: bonusXp,
+            coinDelta: bonusCoins,
+            activityDate: today,
+          })
+          xpEarned += bonusXp
+          coinsEarned += bonusCoins
+          if (bonusProfile.levelUp) {
+            levelUp = {
+              previousLevel: bonusProfile.levelUp.previousLevel,
+              currentLevel: bonusProfile.levelUp.currentLevel,
+              tierName: bonusProfile.levelUp.tier.tierName,
+            }
           }
+          level = bonusProfile.after.currentLevel
+          tierName = bonusProfile.after.currentTierName
+          coinBalance = bonusProfile.after.coinBalance
         }
       }
     }
 
-    return {
+    const result: SessionResult = {
       correct,
       total: SESSION_SIZE,
       xpEarned,
       coinsEarned,
-      conceptsGrown: [...grown.values()],
-      level: last?.level ?? 1,
-      tierName: last?.tierName ?? '',
-      coinBalance: last?.coinBalance ?? 0,
+      conceptsGrown: grownList,
+      level,
+      tierName,
+      coinBalance,
       levelUp,
-      streak: last?.streak ?? { current: 0, longest: 0 },
+      streak: streakOut,
       completedQuests,
       unlockedAchievements,
     }
+
+    // Persist the result for replays BEFORE returning — same transaction as
+    // the claim, so a committed claim row always carries the final result.
+    await client.query(
+      'UPDATE wmi_konsep_sessions SET result = $2::jsonb WHERE session_id = $1',
+      [sessionId, JSON.stringify(result)],
+    )
+
+    return result
   })
 }

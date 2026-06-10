@@ -10,6 +10,7 @@ import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import {
   clearKonsepSession,
+  generateKonsepSessionId,
   readKonsepSession,
   saveKonsepSession,
   type SavedKonsepSession,
@@ -112,6 +113,11 @@ export default function WmiKonsepSession() {
   // When this session started — written into every persisted snapshot
   const startedAtRef = useRef(Date.now())
 
+  // Commit idempotency key, generated when the session STARTS and persisted
+  // in the snapshot: a retried or resumed commit sends the SAME id, so the
+  // server returns the stored result instead of re-banking 20 attempts.
+  const sessionIdRef = useRef(generateKonsepSessionId())
+
   // The child this in-memory session belongs to, captured when the session
   // starts. If the parent switches profiles mid-session, child A's answers
   // must never commit as child B: bail back to the garden (the unmount drops
@@ -176,6 +182,7 @@ export default function WmiKonsepSession() {
 
         // Build the plan ONCE here; never rebuild
         startedAtRef.current = Date.now()
+        sessionIdRef.current = generateKonsepSessionId()
         setPlan(buildPlan(chapter.concepts))
         // Session actually starts now — remember it per child for resume.
         setLastSubjectKey(subjectKey)
@@ -245,7 +252,12 @@ export default function WmiKonsepSession() {
     setCommitError(false)
     setCommitting(true)
     try {
-      const sessionResult = await commitKonsepSession(activeChildId, subjectKey, finalAnswers)
+      const sessionResult = await commitKonsepSession(
+        activeChildId,
+        subjectKey,
+        sessionIdRef.current,
+        finalAnswers,
+      )
       clearKonsepSession(subjectKey, activeChildId)
       // The commit response carries fresh streak/coins/level — push them into
       // the top stat strip immediately, stamped for the committing child.
@@ -276,6 +288,7 @@ export default function WmiKonsepSession() {
     saveKonsepSession({
       childId: activeChildId,
       subjectKey,
+      sessionId: sessionIdRef.current,
       planSlugs: plan.map((c) => c.slug),
       answers: newAnswers,
       idx: nextIdx,
@@ -297,6 +310,9 @@ export default function WmiKonsepSession() {
   const handleResume = () => {
     if (!resumeOffer) return
     startedAtRef.current = resumeOffer.saved.startedAt
+    // Same id as the interrupted run — a fully-answered snapshot whose
+    // commit already landed server-side replays the stored result.
+    sessionIdRef.current = resumeOffer.saved.sessionId
     setAnswers(resumeOffer.saved.answers)
     setIdx(resumeOffer.saved.idx)
     setPlan(resumeOffer.plan)
@@ -309,6 +325,7 @@ export default function WmiKonsepSession() {
     if (!resumeOffer || !subjectKey || !activeChildId) return
     clearKonsepSession(subjectKey, activeChildId)
     startedAtRef.current = Date.now()
+    sessionIdRef.current = generateKonsepSessionId()
     setPlan(buildPlan(resumeOffer.concepts))
     setResumeOffer(null)
   }

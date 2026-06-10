@@ -16,10 +16,33 @@ export interface SavedKonsepAnswer {
 export interface SavedKonsepSession {
   childId: string
   subjectKey: string
+  // Idempotency key for /konsep/commit, generated when the session STARTS.
+  // A resumed session retries the commit with the SAME id, so the server
+  // returns the stored result instead of re-banking 20 attempts. Snapshots
+  // saved before this field existed fail validation and start fresh.
+  sessionId: string
   planSlugs: string[]
   answers: SavedKonsepAnswer[]
   idx: number
   startedAt: number
+}
+
+// UUID v4 for the commit idempotency key. crypto.randomUUID is unavailable
+// in non-secure contexts (e.g. LAN-IP dev on http), so fall back to
+// getRandomValues with the v4 version/variant bits set.
+export function generateKonsepSessionId(): string {
+  const c = typeof crypto !== 'undefined' ? crypto : undefined
+  if (c?.randomUUID) return c.randomUUID()
+  const bytes = new Uint8Array(16)
+  if (c?.getRandomValues) {
+    c.getRandomValues(bytes)
+  } else {
+    for (let i = 0; i < 16; i++) bytes[i] = Math.floor(Math.random() * 256)
+  }
+  bytes[6] = (bytes[6] & 0x0f) | 0x40
+  bytes[8] = (bytes[8] & 0x3f) | 0x80
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
 }
 
 function getStorage(): Storage | null {
@@ -99,6 +122,8 @@ function isSavedKonsepSession(value: unknown): value is SavedKonsepSession {
   return (
     typeof v.childId === 'string' &&
     typeof v.subjectKey === 'string' &&
+    typeof v.sessionId === 'string' &&
+    v.sessionId.length > 0 &&
     Array.isArray(v.planSlugs) &&
     v.planSlugs.every((slug) => typeof slug === 'string') &&
     Array.isArray(v.answers) &&

@@ -132,11 +132,14 @@ export async function gradeConceptAnswer(
 }
 
 export async function commitKonsepSession(
-  childId: string, subjectKey: string,
+  childId: string, subjectKey: string, sessionId: string,
   answers: { concept_instance_id: string; selected_answer: string }[],
 ): Promise<WmiKonsepSessionResult> {
+  // session_id is the idempotency key: retries (and resumed sessions) MUST
+  // send the same id so the server replays the stored result instead of
+  // re-banking the attempts.
   const response = await api.post('/me/wmi/konsep/commit', {
-    childId, subject_key: subjectKey, answers,
+    childId, subject_key: subjectKey, session_id: sessionId, answers,
   })
   return unwrap<WmiKonsepSessionResult>(response)
 }

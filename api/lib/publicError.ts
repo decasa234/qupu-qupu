@@ -34,6 +34,12 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
     status: 400,
     message: 'Belum ada soal untuk bab ini.',
   },
+  // Konsep commit replayed with a session_id that belongs to a different
+  // child/subject — reject without leaking the stored result.
+  'Konsep session conflict': {
+    status: 409,
+    message: 'Sesi latihan ini tidak cocok dengan profil anak.',
+  },
 }
 
 export function resolvePublicError(error: unknown): PublicError {

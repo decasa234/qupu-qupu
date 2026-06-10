@@ -323,6 +323,9 @@ const konsepGradeSchema = Joi.object({
 const konsepCommitSchema = Joi.object({
   childId: Joi.string().uuid().required(),
   subject_key: Joi.string().valid(...WMI_SUBJECT_KEYS).required(),
+  // Client-generated when the session STARTS; survives in the resume
+  // snapshot so a retried commit replays with the SAME id (idempotency key).
+  session_id: Joi.string().uuid().required(),
   answers: Joi.array()
     .length(SESSION_SIZE)
     .items(
@@ -378,6 +381,7 @@ router.post(
         req.user.id,
         value.childId,
         value.subject_key,
+        value.session_id,
         answers,
       )
       res.status(201).json({ success: true, data: out })

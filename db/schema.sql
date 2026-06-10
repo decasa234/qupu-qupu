@@ -659,6 +659,19 @@ CREATE TABLE IF NOT EXISTS wmi_concept_progress (
   PRIMARY KEY (child_id, concept_slug)
 );
 
+-- Konsep session commit idempotency — migration 0039.
+-- The client generates session_id when a 20-question session starts; the
+-- commit transaction claims it (INSERT ... ON CONFLICT DO NOTHING) and writes
+-- the final SessionResult JSON before COMMIT. A retried commit conflicts and
+-- returns the stored result verbatim — no duplicate attempts/events/quests.
+CREATE TABLE IF NOT EXISTS wmi_konsep_sessions (
+  session_id  UUID PRIMARY KEY,
+  child_id    UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  subject_key TEXT NOT NULL,
+  result      JSONB NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- Tes Bab (chapter test-out) results — migration 0034
 CREATE TABLE IF NOT EXISTS wmi_chapter_tests (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),

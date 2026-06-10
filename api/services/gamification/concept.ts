@@ -25,8 +25,11 @@ import { updateStreakForActivity } from './streakUpdater.js'
 
 // Flat per-correct-answer grant. Deliberately much smaller than a video quiz
 // completion (25 XP + 5 coins, one-time) since konsep is unbounded.
-const CONCEPT_CORRECT_XP = 5
-const CONCEPT_CORRECT_COINS = 1
+// Exported: the batched session commit (wmi/concepts/session.ts) writes the
+// same per-instance ledger rows in one multi-VALUES insert — amounts and
+// idempotency keys MUST stay in lockstep with awardConceptReward.
+export const CONCEPT_CORRECT_XP = 5
+export const CONCEPT_CORRECT_COINS = 1
 
 export interface ConceptRewardResult {
   xpEarned: number

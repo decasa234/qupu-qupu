@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import {
   clearKonsepSession,
+  generateKonsepSessionId,
   readKonsepSession,
   saveKonsepSession,
   type SavedKonsepSession,
@@ -28,6 +29,7 @@ function makeSession(overrides: Partial<SavedKonsepSession> = {}): SavedKonsepSe
   return {
     childId: 'child-1',
     subjectKey: 'g1-add-sub',
+    sessionId: '6f1f5a44-3c86-4e0e-8f3b-1c2d3e4f5a6b',
     planSlugs: Array.from({ length: 20 }, (_, i) => `concept-${i % 4}`),
     answers: [{ concept_instance_id: 'ci-1', selected_answer: 'A' }],
     idx: 1,
@@ -105,6 +107,24 @@ describe('konsepSessionStorage', () => {
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
     expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
+  })
+
+  test('pre-sessionId snapshots (old shape) are invalid — cleared, start fresh', () => {
+    const legacy = { ...makeSession() } as Record<string, unknown>
+    delete legacy.sessionId
+    storage.setItem('qupu_konsep_session:child-1:g1-add-sub', JSON.stringify(legacy))
+
+    expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
+  })
+
+  test('generateKonsepSessionId returns unique v4-shaped UUIDs', () => {
+    const a = generateKonsepSessionId()
+    const b = generateKonsepSessionId()
+    const v4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    expect(a).toMatch(v4)
+    expect(b).toMatch(v4)
+    expect(a).not.toBe(b)
   })
 
   test('malformed shapes are cleared and return null', () => {
