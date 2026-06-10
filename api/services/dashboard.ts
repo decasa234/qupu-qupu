@@ -104,6 +104,7 @@ export interface DashboardPayload {
   totalXp: number                   // lifetime XP — used for "next tier" math
   streak: number
   longestStreak: number
+  streakShields: number             // owned streak shields (0..2, P1.2)
   recoveryEligible: boolean         // exposed so UI can offer streak-recovery
   loginBonus: { claimedToday: boolean; coinReward: number }
   dailyGoalPct: number
@@ -383,6 +384,7 @@ export async function getDashboard(parentUserId: string, childId: string): Promi
       coinBalance: gamProfile.coinBalance,
       streak: currentStreak,
       longestStreak,
+      streakShields: gamProfile.streakShields,
       recoveryEligible,
       loginBonus: { claimedToday: loginClaimedToday, coinReward: LOGIN_BONUS_COINS },
       dailyGoalPct,
@@ -452,6 +454,7 @@ interface GamificationProfileRow {
   currentStreakDays: number
   longestStreakDays: number
   preBreakStreakDays: number
+  streakShields: number
 }
 
 async function fetchGamificationProfile(
@@ -466,9 +469,10 @@ async function fetchGamificationProfile(
     current_streak_days: number
     longest_streak_days: number
     pre_break_streak_days: number
+    streak_shields: number
   }>(
     `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days,
-            pre_break_streak_days
+            pre_break_streak_days, streak_shields
        FROM gamification_profiles
        WHERE child_id = $1`,
     [childId],
@@ -480,6 +484,7 @@ async function fetchGamificationProfile(
     currentStreakDays: Number(row?.current_streak_days ?? 0),
     longestStreakDays: Number(row?.longest_streak_days ?? 0),
     preBreakStreakDays: Number(row?.pre_break_streak_days ?? 0),
+    streakShields: Number(row?.streak_shields ?? 0),
   }
 }
 

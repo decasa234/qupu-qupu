@@ -6,6 +6,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import type { ShopItem } from '../../lib/shopApi'
+import { STREAK_SHIELD_SLUG } from '../../lib/shopApi'
 
 interface Props {
   item: ShopItem
@@ -19,6 +20,8 @@ const CONFETTI = Array.from({ length: 24 }, (_, i) => ({
 }))
 
 export default function PurchaseCelebration({ item, onDismiss }: Props) {
+  const isShield = item.slug === STREAK_SHIELD_SLUG
+
   useEffect(() => {
     const t = window.setTimeout(onDismiss, 2500)
     return () => window.clearTimeout(t)
@@ -39,12 +42,17 @@ export default function PurchaseCelebration({ item, onDismiss }: Props) {
           />
         ))}
       </div>
-      <i className="fa-solid fa-gift text-6xl text-qupu-brand-yellow" aria-hidden="true" />
+      <i
+        className={`fa-solid ${isShield ? 'fa-shield-halved' : 'fa-gift'} text-6xl text-qupu-brand-yellow`}
+        aria-hidden="true"
+      />
       <h2 className="font-display text-3xl font-extrabold">Hore!</h2>
       <p className="font-display text-xl font-extrabold">
         Kamu dapat <span className="text-qupu-brand-yellow">{item.name}</span>
       </p>
-      <p className="text-sm font-medium opacity-80">Tersimpan di inventaris kamu</p>
+      <p className="text-sm font-medium opacity-80">
+        {isShield ? 'Aktif otomatis saat kamu absen 1 hari' : 'Tersimpan di inventaris kamu'}
+      </p>
       <Link
         to="/me#koleksi"
         className="z-10 mt-2 inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-5 py-2 font-display text-sm font-extrabold text-qupu-brand-blue"

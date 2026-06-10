@@ -34,6 +34,8 @@ export interface GamificationSummary {
   coinBalance: number
   streak: number
   longestStreak: number
+  // Streak shields owned (0..2) — auto-consumed on a missed day (P1.2).
+  streakShields: number
   streakRecovery: GamificationStreakRecovery | null
   tiers: GamificationTierInfo[]
 }
@@ -52,9 +54,10 @@ export async function getGamificationSummary(
       current_streak_days: number
       longest_streak_days: number
       pre_break_streak_days: number
+      streak_shields: number
     }>(
       `SELECT total_xp, coin_balance, current_streak_days, longest_streak_days,
-              pre_break_streak_days
+              pre_break_streak_days, streak_shields
          FROM gamification_profiles WHERE child_id = $1`,
       [childId],
       client,
@@ -82,6 +85,7 @@ export async function getGamificationSummary(
       coinBalance: Number(profile?.coin_balance ?? 0),
       streak: Number(profile?.current_streak_days ?? 0),
       longestStreak: Number(profile?.longest_streak_days ?? 0),
+      streakShields: Number(profile?.streak_shields ?? 0),
       streakRecovery,
       tiers: tiers.map((tier) => ({
         level: tier.levelNumber,

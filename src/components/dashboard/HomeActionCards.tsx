@@ -4,6 +4,8 @@ import type { DashboardRecommendation } from '../../lib/dashboardData'
 
 interface Props {
   streak: number
+  // Streak shields owned (0..2) — auto-consume when a day is missed.
+  streakShields: number
   recommended: DashboardRecommendation | null
   loginBonusReward: number
   loginBonusClaimed: boolean
@@ -23,6 +25,7 @@ const STREAK_SPARKS = Array.from({ length: 8 }, (_, i) => {
 
 export default function HomeActionCards({
   streak,
+  streakShields,
   recommended,
   loginBonusReward,
   loginBonusClaimed,
@@ -233,11 +236,21 @@ export default function HomeActionCards({
               </span>
             )}
           </span>
+          {streakShields > 0 && (
+            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-black text-qupu-brand-yellow">
+              <i className="fa-solid fa-shield-halved text-[9px]" aria-hidden="true" />
+              x{streakShields}
+            </span>
+          )}
           <h3 className="mt-3 font-display text-base font-black leading-none">
             {streak} Hari Streak
           </h3>
           <p className="mt-1 text-[11px] font-semibold leading-tight text-white/70">
-            {streak > 0 ? 'Jaga apinya tetap menyala!' : 'Mulai streak pertamamu!'}
+            {streakShields > 0
+              ? `Aman! ${streakShields} pelindung siap jaga streak-mu.`
+              : streak > 0
+                ? 'Jaga apinya tetap menyala!'
+                : 'Mulai streak pertamamu!'}
           </p>
           <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
             <i className="fa-solid fa-hand-pointer text-[9px]" aria-hidden="true" />

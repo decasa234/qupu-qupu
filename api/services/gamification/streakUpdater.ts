@@ -5,6 +5,12 @@
 // Streak rule:
 //   - If today is already counted (last_activity_date == today), no-op.
 //   - If yesterday (today - 1) is the last activity, increment streak.
+//   - Shields (P1.2, migration 0038): on ANY missed-day gap, if the child
+//     owns enough streak_shields to cover EVERY missed day, consume that
+//     many shields and continue the streak as if the days were
+//     consecutive (audit row in reward_ledger, 0 XP / 0 coins). Partial
+//     coverage consumes NOTHING — don't waste shields on an unsalvageable
+//     break — and falls through to the break rules below.
 //   - If exactly one day was skipped (last_activity_date == today - 2):
 //     streak is BROKEN here. We reset to 1 (today counts) AND record the
 //     prior streak value in `pre_break_streak_days` so the kid can
@@ -17,9 +23,13 @@
 //     row in the last 30 days for this child.
 //   - On recovery: streak becomes pre_break_streak_days + 1 (the prior
 //     streak + today's day). pre_break_streak_days cleared.
+//   - Shields are the PROACTIVE protection; recovery stays the reactive
+//     fallback and still works whenever shields were 0 (or not enough).
 
+import { createHash } from 'node:crypto'
 import type { PoolClient } from 'pg'
 import { queryOne } from '../../db.js'
+import { appendLedger } from './ledger.js'
 
 export interface StreakState {
   currentStreakDays: number
@@ -44,6 +54,60 @@ function daysBetweenWibDates(a: string, b: string): number {
     Number(b.slice(8, 10)),
   )
   return Math.round((dB - dA) / (24 * 60 * 60 * 1000))
+}
+
+// The WIB dates strictly between `a` and `b` (the missed days a shield
+// covers). Both inputs are YYYY-MM-DD; output is YYYY-MM-DD ascending.
+function wibDatesBetween(a: string, b: string): string[] {
+  const dayMs = 24 * 60 * 60 * 1000
+  const start = Date.UTC(
+    Number(a.slice(0, 4)),
+    Number(a.slice(5, 7)) - 1,
+    Number(a.slice(8, 10)),
+  )
+  const end = Date.UTC(
+    Number(b.slice(0, 4)),
+    Number(b.slice(5, 7)) - 1,
+    Number(b.slice(8, 10)),
+  )
+  const out: string[] = []
+  for (let t = start + dayMs; t < end; t += dayMs) {
+    out.push(new Date(t).toISOString().slice(0, 10))
+  }
+  return out
+}
+
+// reward_ledger.source_id is a UUID column, but the shield-consumption
+// audit row's natural idempotency key is (child, date) — so derive a
+// stable UUID-shaped value from that seed. Same seed → same id → the
+// UNIQUE (child_id, reward_type, source_type, source_id) key absorbs
+// retries.
+function deterministicUuid(seed: string): string {
+  const h = createHash('md5').update(seed).digest('hex')
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`
+}
+
+export interface ShieldConsumptionDecision {
+  consume: number // how many shields to spend (0 unless fully covered)
+  covered: boolean // true iff shields cover EVERY missed day
+}
+
+/**
+ * Pure consume decision for a missed-day gap.
+ *
+ * `gapDays` = WIB days between last activity and today (>= 2 means at
+ * least one day was missed; missedDays = gapDays - 1). Shields only fire
+ * when they cover the WHOLE gap — partial coverage would burn shields on
+ * a streak that breaks anyway, so it consumes nothing.
+ */
+export function resolveShieldConsumption(
+  gapDays: number,
+  shields: number,
+): ShieldConsumptionDecision {
+  if (gapDays < 2) return { consume: 0, covered: false }
+  const missedDays = gapDays - 1
+  if (shields >= missedDays) return { consume: missedDays, covered: true }
+  return { consume: 0, covered: false }
 }
 
 export async function checkRecoveryUsedRecently(
@@ -73,9 +137,11 @@ export async function updateStreakForActivity(
     current_streak_days: number
     longest_streak_days: number
     pre_break_streak_days: number
+    streak_shields: number
     last_activity_date: string | null
   }>(
     `SELECT current_streak_days, longest_streak_days, pre_break_streak_days,
+            streak_shields,
             last_activity_date::text AS last_activity_date
        FROM gamification_profiles
        WHERE child_id = $1`,
@@ -90,7 +156,10 @@ export async function updateStreakForActivity(
   const prevStreak = Number(profile.current_streak_days)
   const longest = Number(profile.longest_streak_days)
 
-  let newStreak: number
+  // Initialized to the reset value; every branch below overwrites it
+  // explicitly (the initializer keeps TS definite-assignment happy across
+  // the shieldUsed flag, which it can't correlate).
+  let newStreak = 1
   let newPreBreak = 0
   let recoveryEligible = false
 
@@ -108,16 +177,61 @@ export async function updateStreakForActivity(
       // Consecutive day → continue streak.
       newStreak = prevStreak + 1
       newPreBreak = 0 // Clear any prior pre-break value.
-    } else if (gap === 2) {
-      // Skipped exactly one day → recovery eligible.
-      const usedRecently = await checkRecoveryUsedRecently(client, childId)
-      newStreak = 1
-      newPreBreak = usedRecently ? 0 : prevStreak
-      recoveryEligible = !usedRecently && prevStreak > 0
     } else {
-      // Gap > 1 day → reset, no recovery offered.
-      newStreak = 1
-      newPreBreak = 0
+      // gap >= 2 → at least one day was missed. Shields first: if the
+      // child owns enough to cover EVERY missed day (and has a streak
+      // worth protecting), consume them and continue as if the days were
+      // consecutive. Runs inside the caller's transaction; the decrement
+      // is guarded (`streak_shields >= $n`) so a concurrent consumer
+      // can't double-spend — on a miss we fall through to the break path.
+      const decision = resolveShieldConsumption(gap, Number(profile.streak_shields))
+      let shieldUsed = false
+      if (decision.covered && prevStreak > 0) {
+        const dec = await queryOne<{ streak_shields: number }>(
+          `UPDATE gamification_profiles
+              SET streak_shields = streak_shields - $1,
+                  updated_at = NOW()
+              WHERE child_id = $2 AND streak_shields >= $1
+              RETURNING streak_shields`,
+          [decision.consume, childId],
+          client,
+        )
+        if (dec) {
+          shieldUsed = true
+          newStreak = prevStreak + 1
+          newPreBreak = 0
+          // 0-coin audit row, idempotent on (child, today) via the
+          // deterministic source UUID.
+          await appendLedger(client, {
+            childId,
+            rewardType: 'STREAK_SHIELD_CONSUMED',
+            sourceType: 'streak_shield',
+            sourceId: deterministicUuid(`streak-shield:${childId}:${today}`),
+            xpDelta: 0,
+            coinDelta: 0,
+            metadata: {
+              coveredDates: wibDatesBetween(lastActivity, today),
+              shieldsConsumed: decision.consume,
+              shieldsRemaining: Number(dec.streak_shields),
+              activityDate: today,
+              streakPreserved: prevStreak + 1,
+            },
+          })
+        }
+      }
+      if (!shieldUsed) {
+        if (gap === 2) {
+          // Skipped exactly one day → recovery eligible.
+          const usedRecently = await checkRecoveryUsedRecently(client, childId)
+          newStreak = 1
+          newPreBreak = usedRecently ? 0 : prevStreak
+          recoveryEligible = !usedRecently && prevStreak > 0
+        } else {
+          // Gap > 1 day → reset, no recovery offered.
+          newStreak = 1
+          newPreBreak = 0
+        }
+      }
     }
   }
 
@@ -252,4 +366,4 @@ export async function recoverStreak(
   }
 }
 
-export const __test__ = { daysBetweenWibDates }
+export const __test__ = { daysBetweenWibDates, wibDatesBetween, deterministicUuid }

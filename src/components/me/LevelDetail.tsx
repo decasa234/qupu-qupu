@@ -110,9 +110,10 @@ export default function LevelDetail({ childId }: { childId: string }) {
         )}
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2">
+      <div className="mt-4 grid grid-cols-3 gap-2">
         <MiniStat icon="fa-solid fa-coins" label="Koin" value={summary.coinBalance} />
         <MiniStat icon="fa-solid fa-fire" label="Streak" value={`${summary.streak} hari`} />
+        <MiniStat icon="fa-solid fa-shield-halved" label="Pelindung" value={`x${summary.streakShields}`} />
       </div>
 
       <div className="mt-4">

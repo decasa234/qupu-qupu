@@ -61,6 +61,12 @@ router.post('/purchase', async (req: Request, res: Response): Promise<void> => {
       res.json({ success: true, data: result }); return
     case 'insufficient_funds':
       res.status(400).json({ success: false, error: 'Insufficient coins', data: result }); return
+    case 'shield_cap':
+      res.status(400).json({
+        success: false,
+        error: 'Pelindung Streak kamu sudah penuh (maksimal 2). Pakai dulu sebelum beli lagi.',
+        data: result,
+      }); return
     case 'not_found':
       res.status(404).json({ success: false, error: 'Item not found' }); return
     case 'not_available':

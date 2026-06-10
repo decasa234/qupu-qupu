@@ -54,6 +54,7 @@ export default function WmiChapterTest() {
           .then((summary) => {
             useGamificationStats.getState().setStats(childId, {
               streak: summary.streak,
+              streakShields: summary.streakShields ?? 0,
               coinBalance: summary.coinBalance,
               level: summary.level,
               tierName: summary.tierName,

@@ -4,13 +4,13 @@
 // inventories are small (<20 items expected).
 
 import { query } from '../../db.js'
-import type { InventoryItem } from './types.js'
+import type { InventoryItem, ShopItemKind } from './types.js'
 
 interface Row {
   inventory_id: string
   item_id: string
   name: string
-  kind: 'worksheet' | 'ebook' | 'coloring' | 'sticker' | 'audio'
+  kind: ShopItemKind
   thumbnail_url: string | null
   acquired_at: Date
 }

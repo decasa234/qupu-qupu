@@ -70,6 +70,7 @@ export function useStreakRecoveryPrompt(childId: string | null): {
         // another child's) is older than this payload for this child.
         useGamificationStats.getState().setStats(childId, {
           streak: summary.streak,
+          streakShields: summary.streakShields ?? 0,
           coinBalance: summary.coinBalance,
           level: summary.level,
           tierName: summary.tierName,

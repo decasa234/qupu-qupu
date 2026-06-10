@@ -16,6 +16,7 @@ const KIND_TINT: Record<ShopItemForChild['kind'], string> = {
   coloring:  'bg-[oklch(0.84_0.08_52)] text-[oklch(0.45_0.08_260)]',
   sticker:   'bg-[oklch(0.78_0.12_160)] text-[oklch(0.38_0.08_185)]',
   audio:     'bg-[oklch(0.78_0.12_5)] text-[oklch(0.42_0.08_330)]',
+  powerup:   'bg-[oklch(0.62_0.16_255)] text-white',
 }
 
 const KIND_ICON: Record<ShopItemForChild['kind'], string> = {
@@ -24,6 +25,7 @@ const KIND_ICON: Record<ShopItemForChild['kind'], string> = {
   coloring: 'fa-solid fa-palette',
   sticker: 'fa-solid fa-note-sticky',
   audio: 'fa-solid fa-headphones',
+  powerup: 'fa-solid fa-shield-halved',
 }
 
 const KIND_LABEL: Record<ShopItemForChild['kind'], string> = {
@@ -32,6 +34,7 @@ const KIND_LABEL: Record<ShopItemForChild['kind'], string> = {
   coloring: 'Mewarnai',
   sticker: 'Stiker',
   audio: 'Audio',
+  powerup: 'Power-Up',
 }
 
 export default function ShopItemCard({ item, balance, onTap }: Props) {
@@ -73,7 +76,13 @@ export default function ShopItemCard({ item, balance, onTap }: Props) {
           <i className="fa-solid fa-check" aria-hidden="true" /> Dimiliki
         </span>
       )}
-      {!item.owned && !item.affordable && (
+      {/* Repurchasable shield: show the owned count instead of "Dimiliki". */}
+      {!item.owned && (item.shieldCount ?? 0) > 0 && (
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[oklch(0.52_0.14_155)] px-2.5 py-1 text-[10px] font-black text-white shadow-[0_2px_0_0_rgba(10,80,55,0.25)]">
+          <i className="fa-solid fa-shield-halved" aria-hidden="true" /> x{item.shieldCount}
+        </span>
+      )}
+      {!item.owned && !(item.shieldCount ?? 0) && !item.affordable && (
         <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2.5 py-1 text-[10px] font-black text-white shadow-[0_2px_0_0_#0E1430]">
           +{shortBy} koin
         </span>

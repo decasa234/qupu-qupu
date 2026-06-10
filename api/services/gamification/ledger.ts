@@ -22,6 +22,7 @@ export type RewardType =
   | 'LOGIN_BONUS_COIN'      // daily login bonus (coins-only, no XP)
   | 'CONCEPT_COMPLETION_XP' // WMI konsep drill — flat grant per correct answer
   | 'CHAPTER_TEST_XP'       // Tes Bab pass — once per (child, chapter)
+  | 'STREAK_SHIELD_CONSUMED' // 0-coin audit row: shield(s) covered missed day(s)
 
 export interface AppendLedgerInput {
   childId: string

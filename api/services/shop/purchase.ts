@@ -15,17 +15,33 @@
 //   4. appendLedger SHOP_PURCHASE with negative coin_delta, idempotent
 //      on the new inventory row id.
 //   5. Return purchased.
+//
+// The streak shield (slug 'streak_shield', P1.2) takes a different branch
+// after step 1: it is repurchasable (consumed by streakUpdater), so
+// child_inventory's UNIQUE guard doesn't apply. Delivery = streak_shields
+// increment on the row-locked profile, cap-checked BEFORE the debit, both
+// in one conditional UPDATE so debit and delivery are atomic.
 
+import { randomUUID } from 'node:crypto'
+import type { PoolClient } from 'pg'
 import { queryOne, withTransaction } from '../../db.js'
 import { appendLedger } from '../gamification/ledger.js'
-import { InsufficientFundsError, type PurchaseResult, type ShopItem } from './types.js'
+import { ensureProfile } from '../gamification/profileUpdater.js'
+import {
+  InsufficientFundsError,
+  MAX_STREAK_SHIELDS,
+  STREAK_SHIELD_SLUG,
+  type PurchaseResult,
+  type ShopItem,
+  type ShopItemKind,
+} from './types.js'
 
 interface ItemRow {
   id: string
   slug: string
   name: string
   description: string
-  kind: 'worksheet' | 'ebook' | 'coloring' | 'sticker' | 'audio'
+  kind: ShopItemKind
   coin_price: number
   thumbnail_url: string | null
   sort_order: number
@@ -62,6 +78,11 @@ export async function purchaseItem(
       if (!item) return { status: 'not_found' }
       if (!item.is_active) return { status: 'not_available' }
       const mapped = mapItem(item)
+
+      // Streak shield: profile-counter delivery, no inventory row.
+      if (mapped.slug === STREAK_SHIELD_SLUG) {
+        return purchaseStreakShield(client, childId, mapped)
+      }
 
       // 2. Idempotency-checked insert.
       const inv = await queryOne<{ id: string }>(
@@ -125,5 +146,75 @@ export async function purchaseItem(
       return { status: 'insufficient_funds', balance: err.currentBalance, price: err.price }
     }
     throw err
+  }
+}
+
+// Shield branch, inside the caller's transaction (the shop_items row is
+// already locked). Steps:
+//   1. ensureProfile + SELECT ... FOR UPDATE — serializes concurrent shield
+//      purchases AND streakUpdater consumption for this child.
+//   2. Cap check BEFORE any debit → shield_cap, no coins move.
+//   3. One conditional UPDATE debits coins and increments streak_shields
+//      together (atomic delivery; `streak_shields < cap` is belt-and-braces
+//      under the row lock, and the 0..2 CHECK backs it at the DB layer).
+//   4. SHOP_PURCHASE ledger row. Each purchase is a distinct event (the
+//      shield is consumable), so the source id is a fresh UUID rather than
+//      an inventory-row anchor.
+async function purchaseStreakShield(
+  client: PoolClient,
+  childId: string,
+  item: ShopItem,
+): Promise<PurchaseResult> {
+  await ensureProfile(client, childId)
+  const profile = await queryOne<{ streak_shields: number; coin_balance: number }>(
+    `SELECT streak_shields, coin_balance FROM gamification_profiles
+       WHERE child_id = $1 FOR UPDATE`,
+    [childId],
+    client,
+  )
+  const shields = Number(profile?.streak_shields ?? 0)
+  const balance = Number(profile?.coin_balance ?? 0)
+
+  if (shields >= MAX_STREAK_SHIELDS) {
+    return { status: 'shield_cap', balance, shields, item }
+  }
+
+  const debit = await queryOne<{ coin_balance: number; streak_shields: number }>(
+    `UPDATE gamification_profiles
+        SET coin_balance = coin_balance - $1,
+            streak_shields = streak_shields + 1,
+            updated_at = NOW()
+        WHERE child_id = $2 AND coin_balance >= $1 AND streak_shields < $3
+        RETURNING coin_balance, streak_shields`,
+    [item.coinPrice, childId, MAX_STREAK_SHIELDS],
+    client,
+  )
+  if (!debit) {
+    // Row is locked, so the only way the conditional UPDATE misses is the
+    // balance guard.
+    throw new InsufficientFundsError(item.coinPrice, balance)
+  }
+
+  await appendLedger(client, {
+    childId,
+    rewardType: 'SHOP_PURCHASE',
+    sourceType: 'streak_shield_purchase',
+    sourceId: randomUUID(),
+    xpDelta: 0,
+    coinDelta: -item.coinPrice,
+    metadata: {
+      itemSlug: item.slug,
+      itemName: item.name,
+      itemKind: item.kind,
+      streakShieldsAfter: Number(debit.streak_shields),
+    },
+  })
+
+  return {
+    status: 'purchased',
+    balance: Number(debit.coin_balance),
+    inventoryId: null,
+    item,
+    streakShields: Number(debit.streak_shields),
   }
 }

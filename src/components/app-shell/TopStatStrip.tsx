@@ -11,13 +11,25 @@ import { useGamificationStats } from '../../hooks/useGamificationStats'
 export default function TopStatStrip() {
   const stats = useGamificationStats((s) => s.stats)
   const streak = stats?.streak ?? 0
+  const shields = stats?.streakShields ?? 0
   const coins = stats?.coinBalance ?? 0
   const level = stats?.level ?? 1
 
   return (
     <div className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]">
       <div className="mx-auto flex w-full max-w-lg items-center justify-around px-3 py-2">
-        <Pill icon="fa-solid fa-fire" value={streak} label={`${streak} hari streak`} />
+        <div
+          className="flex items-center gap-1.5"
+          aria-label={`${streak} hari streak${shields > 0 ? `, ${shields} pelindung streak` : ''}`}
+        >
+          <Pill icon="fa-solid fa-fire" value={streak} />
+          {shields > 0 && (
+            <span className="inline-flex items-center gap-0.5 rounded-full bg-white/20 px-1.5 py-0.5 font-display text-[10px] font-extrabold text-white">
+              <i className="fa-solid fa-shield-halved text-[9px] text-qupu-brand-yellow" aria-hidden="true" />
+              {shields}
+            </span>
+          )}
+        </div>
         <Pill icon="fa-solid fa-coins" value={coins} to="/shop" label={`${coins} koin — buka toko`} />
         <Pill icon="fa-solid fa-star" value={`Lv ${level}`} to="/me" label={`Level ${level} — lihat profil`} />
       </div>

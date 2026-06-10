@@ -95,7 +95,9 @@ describe.skipIf(!RUN)('shop purchase', () => {
       [fx.childId, itemId],
     )
     expect(inv).toHaveLength(1)
-    expect(await countLedger(fx.childId, result.inventoryId)).toBe(1)
+    // Generic items always create an inventory row (null only for the shield).
+    expect(result.inventoryId).not.toBeNull()
+    expect(await countLedger(fx.childId, result.inventoryId!)).toBe(1)
     expect(await fetchBalance(fx.childId)).toBe(100)
   })
 

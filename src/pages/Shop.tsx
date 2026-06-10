@@ -13,13 +13,25 @@ import PurchaseSheet from '../components/shop/PurchaseSheet'
 import PurchaseCelebration from '../components/shop/PurchaseCelebration'
 import SkeletonCard from '../components/SkeletonCard'
 
-const KINDS = ['Semua', 'worksheet', 'ebook', 'coloring', 'sticker', 'audio'] as const
-type Filter = typeof KINDS[number]
+// Indonesian chip labels for the kinds that can appear in the (deliverable-
+// only) listing. Chips are derived from the fetched items so empty legacy
+// categories never render as dead filters.
+const KIND_CHIP_LABEL: Record<ShopItemForChild['kind'], string> = {
+  worksheet: 'Worksheet',
+  ebook: 'E-book',
+  coloring: 'Mewarnai',
+  sticker: 'Stiker',
+  audio: 'Audio',
+  powerup: 'Power-Up',
+}
+
+type Filter = 'Semua' | ShopItemForChild['kind']
 
 export default function ShopPage() {
   const { activeChildId } = useAuthStore()
   const stats = useGamificationStats((s) => s.stats)
   const patchCoinBalance = useGamificationStats((s) => s.patchCoinBalance)
+  const patchStats = useGamificationStats((s) => s.patchStats)
   const balance = stats?.coinBalance ?? 0
 
   const [items, setItems] = useState<ShopItemForChild[] | null>(null)
@@ -34,6 +46,13 @@ export default function ShopPage() {
     return () => { cancelled = true }
   }, [activeChildId])
 
+  // Filter chips derived from what the shop actually serves ('Semua' +
+  // present kinds, in listing order).
+  const kinds = useMemo<Filter[]>(() => {
+    if (!items) return ['Semua']
+    return ['Semua', ...new Set(items.map((i) => i.kind))]
+  }, [items])
+
   const filtered = useMemo(() => {
     if (!items) return []
     return filter === 'Semua' ? items : items.filter((i) => i.kind === filter)
@@ -43,12 +62,24 @@ export default function ShopPage() {
     if (!activeChildId) return
     if (result.status === 'purchased') {
       patchCoinBalance(activeChildId, result.balance)
+      if (typeof result.streakShields === 'number') {
+        patchStats(activeChildId, { streakShields: result.streakShields })
+      }
       setCelebrate(result)
-      fetchShopItems(activeChildId).then(setItems) // refresh owned flags
+      fetchShopItems(activeChildId).then(setItems) // refresh owned flags + shield count
       setSheetItem(null)
     } else if (result.status === 'already_owned') {
       patchCoinBalance(activeChildId, result.balance)
       setSheetItem(null)
+    } else if (result.status === 'shield_cap') {
+      // Cap reached (no debit happened). Refresh — including the open
+      // sheet's item, whose shieldCount drives the "sudah penuh" state.
+      patchCoinBalance(activeChildId, result.balance)
+      patchStats(activeChildId, { streakShields: result.shields })
+      fetchShopItems(activeChildId).then((data) => {
+        setItems(data)
+        setSheetItem((prev) => (prev ? data.find((i) => i.id === prev.id) ?? prev : prev))
+      })
     } else if (result.status === 'insufficient_funds') {
       patchCoinBalance(activeChildId, result.balance)
       // sheet stays open; CTA will re-render as disabled after the next fetch
@@ -96,27 +127,31 @@ export default function ShopPage() {
             </Link>
           </div>
         </div>
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {KINDS.map((k) => (
-            <button
-              key={k}
-              type="button"
-              onClick={() => setFilter(k)}
-              className={`whitespace-nowrap rounded-full px-3.5 py-2 font-display text-[10px] font-black uppercase tracking-[0.08em] transition-colors ${
-                filter === k
-                  ? 'bg-qupu-brand-blue text-white shadow-[0_2px_0_0_#0E1430]'
-                  : 'bg-white text-qupu-brand-blue/75 shadow-[0_1px_0_0_rgba(29,42,77,0.08)]'
-              }`}
-            >
-              {k}
-            </button>
-          ))}
-        </div>
+        {kinds.length > 2 && (
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {kinds.map((k) => (
+              <button
+                key={k}
+                type="button"
+                onClick={() => setFilter(k)}
+                className={`whitespace-nowrap rounded-full px-3.5 py-2 font-display text-[10px] font-black uppercase tracking-[0.08em] transition-colors ${
+                  filter === k
+                    ? 'bg-qupu-brand-blue text-white shadow-[0_2px_0_0_#0E1430]'
+                    : 'bg-white text-qupu-brand-blue/75 shadow-[0_1px_0_0_rgba(29,42,77,0.08)]'
+                }`}
+              >
+                {k === 'Semua' ? 'Semua' : KIND_CHIP_LABEL[k]}
+              </button>
+            ))}
+          </div>
+        )}
       </section>
 
       {filtered.length === 0 ? (
         <p className="rounded-[1.5rem] bg-[#FFF8F0] p-4 text-sm font-semibold text-qupu-brand-blue">
-          Tidak ada item di kategori ini.
+          {items.length === 0
+            ? 'Toko sedang menyiapkan barang baru. Cek lagi nanti, ya!'
+            : 'Tidak ada item di kategori ini.'}
         </p>
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:gap-4">

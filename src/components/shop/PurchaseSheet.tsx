@@ -6,7 +6,7 @@
 import { useState } from 'react'
 import BottomSheet from './BottomSheet'
 import type { PurchaseResult, ShopItemForChild } from '../../lib/shopApi'
-import { purchaseShopItem } from '../../lib/shopApi'
+import { MAX_STREAK_SHIELDS, STREAK_SHIELD_SLUG, purchaseShopItem } from '../../lib/shopApi'
 
 interface Props {
   open: boolean
@@ -24,6 +24,9 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
   if (!item) return null
   const affordable = balance >= item.coinPrice
   const owned = item.owned
+  const isShield = item.slug === STREAK_SHIELD_SLUG
+  const shieldCount = item.shieldCount ?? 0
+  const shieldAtCap = isShield && shieldCount >= MAX_STREAK_SHIELDS
 
   async function handleBuy() {
     if (!item) return
@@ -54,7 +57,22 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
           <i className="fa-solid fa-coins" aria-hidden="true" /> {item.coinPrice} koin
         </div>
 
-        {owned ? (
+        {isShield && (
+          <div className="flex items-center gap-2 rounded-[1.25rem] bg-qupu-shell p-3 text-sm font-bold text-qupu-brand-blue">
+            <i className="fa-solid fa-shield-halved text-qupu-brand-orange" aria-hidden="true" />
+            Kamu punya {shieldCount}/{MAX_STREAK_SHIELDS}. Aktif otomatis saat kamu absen 1 hari.
+          </div>
+        )}
+
+        {shieldAtCap ? (
+          <button
+            type="button"
+            onClick={onClose}
+            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
+          >
+            <i className="fa-solid fa-shield-halved" aria-hidden="true" /> Pelindungmu sudah penuh
+          </button>
+        ) : owned ? (
           <button
             type="button"
             onClick={onClose}

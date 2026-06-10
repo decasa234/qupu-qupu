@@ -857,3 +857,25 @@ VALUES
    'Sebulan penuh latihan tanpa putus. Luar biasa!',
    'streak_threshold', 30, 300, 'fire', 14, '{}'::jsonb)
 ON CONFLICT (code) DO NOTHING;
+
+-- ─────────────────────────────────────────────────────────────────────
+-- "Pelindung Streak" — streak shield (migration 0038)
+-- Purchasable shield that auto-consumes when the kid misses day(s): if
+-- shields cover EVERY missed day the streak continues unbroken
+-- (api/services/gamification/streakUpdater.ts). Ownership lives on
+-- gamification_profiles (cap 2); delivery = streak_shields increment.
+-- ─────────────────────────────────────────────────────────────────────
+
+ALTER TABLE gamification_profiles
+  ADD COLUMN IF NOT EXISTS streak_shields SMALLINT NOT NULL DEFAULT 0
+    CHECK (streak_shields BETWEEN 0 AND 2);
+
+ALTER TABLE shop_items DROP CONSTRAINT IF EXISTS shop_items_kind_check;
+ALTER TABLE shop_items ADD CONSTRAINT shop_items_kind_check
+  CHECK (kind IN ('worksheet','ebook','coloring','sticker','audio','powerup'));
+
+INSERT INTO shop_items (slug, name, description, kind, coin_price, sort_order) VALUES
+  ('streak_shield', 'Pelindung Streak',
+   'Melindungi streak-mu saat absen 1 hari. Otomatis terpakai.',
+   'powerup', 150, 1)
+ON CONFLICT (slug) DO NOTHING;

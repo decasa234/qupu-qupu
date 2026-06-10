@@ -15,6 +15,8 @@ import { create } from 'zustand'
 
 export interface GamificationStats {
   streak: number
+  // Streak shields owned (0..2) — shown as a chip next to the streak flame.
+  streakShields: number
   coinBalance: number
   level: number
   tierName: string
@@ -67,5 +69,5 @@ export function syncStatStrip(
 ): void {
   const store = useGamificationStats.getState()
   if (store.stats && store.statsChildId === childId) store.patchStats(childId, next)
-  else store.setStats(childId, { ...next, xp: 0, xpToNext: 0 })
+  else store.setStats(childId, { streakShields: 0, ...next, xp: 0, xpToNext: 0 })
 }

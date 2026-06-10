@@ -30,6 +30,8 @@ export interface GamificationSummary {
   coinBalance: number
   streak: number
   longestStreak: number
+  // Streak shields owned (0..2) — auto-consumed when a day is missed.
+  streakShields: number
   streakRecovery: GamificationStreakRecovery | null
   tiers: GamificationTierInfo[]
 }

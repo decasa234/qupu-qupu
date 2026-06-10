@@ -6,7 +6,11 @@
 
 import api from './api'
 
-export type ShopItemKind = 'worksheet' | 'ebook' | 'coloring' | 'sticker' | 'audio'
+export type ShopItemKind = 'worksheet' | 'ebook' | 'coloring' | 'sticker' | 'audio' | 'powerup'
+
+// The streak shield (P1.2): repurchasable power-up, owned count capped at 2.
+export const STREAK_SHIELD_SLUG = 'streak_shield'
+export const MAX_STREAK_SHIELDS = 2
 
 export interface ShopItem {
   id: string
@@ -22,6 +26,8 @@ export interface ShopItem {
 export interface ShopItemForChild extends ShopItem {
   owned: boolean
   affordable: boolean
+  // Only set on the streak-shield row: how many the child currently holds.
+  shieldCount?: number
 }
 
 export interface InventoryItem {
@@ -34,9 +40,13 @@ export interface InventoryItem {
 }
 
 export type PurchaseResult =
-  | { status: 'purchased'; balance: number; inventoryId: string; item: ShopItem }
+  // inventoryId is null for the streak shield (delivered as a profile
+  // counter, echoed in streakShields — no inventory row).
+  | { status: 'purchased'; balance: number; inventoryId: string | null; item: ShopItem; streakShields?: number }
   | { status: 'already_owned'; balance: number; item: ShopItem }
   | { status: 'insufficient_funds'; balance: number; price: number }
+  // Streak shield already at the cap — rejected before any debit.
+  | { status: 'shield_cap'; balance: number; shields: number; item: ShopItem }
   | { status: 'not_found' }
   | { status: 'not_available' }
 
@@ -50,7 +60,7 @@ export async function purchaseShopItem(childId: string, itemId: string): Promise
     const res = await api.post('/shop/purchase', { childId, itemId })
     return res.data.data as PurchaseResult
   } catch (err: unknown) {
-    // 400 insufficient_funds returns the structured payload too.
+    // 400 insufficient_funds / shield_cap return the structured payload too.
     if (
       typeof err === 'object' && err !== null && 'response' in err &&
       typeof (err as { response?: { data?: { data?: { status?: string } } } }).response?.data?.data?.status === 'string'

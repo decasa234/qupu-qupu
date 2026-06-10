@@ -36,7 +36,8 @@ export default function DashboardPage() {
       .then((items) => {
         if (cancelled) return
         const list = items
-          .filter((i) => !i.owned && i.affordable)
+          // Exclude owned items and shields already at the 2-cap.
+          .filter((i) => !i.owned && i.affordable && (i.shieldCount ?? 0) < 2)
           .sort((a, b) => a.coinPrice - b.coinPrice)
           .slice(0, 3)
         setAffordable(list)
@@ -68,6 +69,7 @@ export default function DashboardPage() {
         setLoginClaimed(vmNew.loginBonus.claimedToday)
         useGamificationStats.getState().setStats(childId, {
           streak: vmNew.streak,
+          streakShields: vmNew.streakShields,
           coinBalance: vmNew.coinBalance,
           level: vmNew.level,
           tierName: vmNew.tierName,
@@ -217,6 +219,7 @@ export default function DashboardPage() {
         <DailyQuestsPanel childId={activeChildId} variant="dashboard" />
         <HomeActionCards
           streak={vm.streak}
+          streakShields={vm.streakShields}
           recommended={recommended}
           loginBonusReward={vm.loginBonus.coinReward}
           loginBonusClaimed={loginClaimed}

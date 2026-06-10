@@ -86,6 +86,7 @@ export interface DashboardViewModel {
   coinBalance: number
   streak: number
   longestStreak: number
+  streakShields: number
   recoveryEligible: boolean
   loginBonus: LoginBonusState
   dailyGoalPct: number
@@ -140,6 +141,7 @@ export interface DashboardApiResponse {
   coinBalance: number
   streak: number
   longestStreak: number
+  streakShields: number
   recoveryEligible: boolean
   loginBonus: LoginBonusState
   dailyGoalPct: number
@@ -224,6 +226,8 @@ export function dashboardFromApi(payload: DashboardApiResponse): DashboardViewMo
     coinBalance: payload.coinBalance,
     streak: payload.streak,
     longestStreak: payload.longestStreak,
+    // ?? 0 keeps the VM safe if an older API build omits the field.
+    streakShields: payload.streakShields ?? 0,
     recoveryEligible: payload.recoveryEligible,
     loginBonus: payload.loginBonus,
     dailyGoalPct: payload.dailyGoalPct,
