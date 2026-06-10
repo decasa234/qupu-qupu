@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import WmiPaperCard from '../components/wmi/WmiPaperCard'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchPapers } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -25,7 +26,7 @@ export default function WmiPapers() {
     setLoading(true)
     fetchPapers(activeChildId, selectedGrade)
       .then(setPapers)
-      .catch((err) => setError(err instanceof Error ? err.message : 'Gagal memuat'))
+      .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat')))
       .finally(() => setLoading(false))
   }, [activeChildId, selectedGrade])
 

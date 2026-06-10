@@ -1,6 +1,7 @@
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import type { AuthPayload } from '../types'
 
 interface GoogleSignInButtonProps {
@@ -20,14 +21,7 @@ export default function GoogleSignInButton({ onAuthenticated, onError }: GoogleS
       const payload = apiResponse.data.data as AuthPayload
       onAuthenticated(payload)
     } catch (requestError: unknown) {
-      const message =
-        typeof requestError === 'object' &&
-        requestError !== null &&
-        'response' in requestError &&
-        typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (requestError as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal masuk dengan Google.'
-      onError(message)
+      onError(toIndonesianErrorMessage(requestError, 'Gagal masuk dengan Google.'))
     }
   }
 

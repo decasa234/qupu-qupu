@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { getApiResponseCode } from '../lib/apiError'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { redeemPendingReferral, savePendingReferralCode } from '../lib/referralStorage'
 import { resolvePostLoginRoute } from '../lib/postLoginRoute'
 import AuthCard from '../components/AuthCard'
@@ -92,7 +94,7 @@ export default function Register() {
       setPending({ pendingId: data.pendingId, expiresAt: data.expiresAt, email: form.email })
       setStep('otp')
     } catch (requestError: unknown) {
-      setError(extractError(requestError, 'Registrasi gagal.'))
+      setError(toIndonesianErrorMessage(requestError, 'Registrasi gagal.'))
     } finally {
       setLoading(false)
     }
@@ -115,9 +117,10 @@ export default function Register() {
       void redeemPendingReferral()
       navigate('/onboard/child', { replace: true })
     } catch (requestError: unknown) {
-      const message = extractError(requestError, 'Verifikasi gagal.')
-      setError(message)
-      if (message === 'Kode kadaluarsa.' || message === 'Terlalu banyak percobaan.') {
+      setError(toIndonesianErrorMessage(requestError, 'Verifikasi gagal.'))
+      // Flow control rides on the stable `code` field, never on display copy.
+      const code = getApiResponseCode(requestError)
+      if (code === 'OTP_EXPIRED' || code === 'OTP_LOCKED') {
         setStep('credentials')
         setPending(null)
       }
@@ -135,7 +138,7 @@ export default function Register() {
       const data = response.data.data as { expiresAt: string }
       setPending({ ...pending, expiresAt: data.expiresAt })
     } catch (requestError: unknown) {
-      setError(extractError(requestError, 'Gagal kirim ulang kode.'))
+      setError(toIndonesianErrorMessage(requestError, 'Gagal kirim ulang kode.'))
     } finally {
       setLoading(false)
     }
@@ -336,16 +339,4 @@ function ResendOtpButton({
       {ready ? 'Kirim ulang kode' : `Kirim ulang dalam ${secondsLeft}s`}
     </button>
   )
-}
-
-function extractError(requestError: unknown, fallback: string): string {
-  if (
-    typeof requestError === 'object' &&
-    requestError !== null &&
-    'response' in requestError &&
-    typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-  ) {
-    return (requestError as { response: { data: { error: string } } }).response.data.error
-  }
-  return fallback
 }

@@ -18,30 +18,72 @@ const router = Router()
 // unknown-email login path (see /login) — never matches any real password.
 const DUMMY_BCRYPT_HASH = bcrypt.hashSync('qupu-timing-equalizer', 12)
 
+// All Joi validation copy on auth routes is user-facing — keep it Indonesian.
+const emailMessages = {
+  'string.email': 'Format email tidak valid.',
+  'string.empty': 'Email wajib diisi.',
+  'any.required': 'Email wajib diisi.',
+}
+
+const pendingIdMessages = {
+  'string.guid': 'Sesi verifikasi tidak valid. Ulangi pendaftaran.',
+  'string.empty': 'Sesi verifikasi tidak valid. Ulangi pendaftaran.',
+  'any.required': 'Sesi verifikasi tidak valid. Ulangi pendaftaran.',
+}
+
 const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
+  email: Joi.string().email().required().messages(emailMessages),
+  password: Joi.string().required().messages({
+    'string.empty': 'Kata sandi wajib diisi.',
+    'any.required': 'Kata sandi wajib diisi.',
+  }),
 })
 
 const googleSchema = Joi.object({
-  idToken: Joi.string().required(),
+  idToken: Joi.string().required().messages({
+    'string.empty': 'Login Google gagal. Coba lagi.',
+    'any.required': 'Login Google gagal. Coba lagi.',
+  }),
 })
 
 const initSchema = Joi.object({
-  email: Joi.string().email().required(),
-  phone: Joi.string().required(),
-  name: Joi.string().min(2).max(50).required(),
-  age: Joi.number().min(6).max(120).optional().allow(null),
-  password: Joi.string().min(8).required(),
+  email: Joi.string().email().required().messages(emailMessages),
+  phone: Joi.string().required().messages({
+    'string.empty': 'No. HP wajib diisi.',
+    'any.required': 'No. HP wajib diisi.',
+  }),
+  name: Joi.string().min(2).max(50).required().messages({
+    'string.min': 'Nama minimal 2 karakter.',
+    'string.max': 'Nama maksimal 50 karakter.',
+    'string.empty': 'Nama wajib diisi.',
+    'any.required': 'Nama wajib diisi.',
+  }),
+  age: Joi.number().min(6).max(120).optional().allow(null).messages({
+    'number.base': 'Usia tidak valid.',
+    'number.min': 'Usia tidak valid.',
+    'number.max': 'Usia tidak valid.',
+  }),
+  password: Joi.string().min(8).required().messages({
+    'string.min': 'Kata sandi minimal 8 karakter.',
+    'string.empty': 'Kata sandi wajib diisi.',
+    'any.required': 'Kata sandi wajib diisi.',
+  }),
 })
 
+const otpMessages = {
+  'string.length': 'Kode harus 6 digit angka.',
+  'string.pattern.base': 'Kode harus 6 digit angka.',
+  'string.empty': 'Kode wajib diisi.',
+  'any.required': 'Kode wajib diisi.',
+}
+
 const verifySchema = Joi.object({
-  pendingId: Joi.string().uuid().required(),
-  otp: Joi.string().length(6).pattern(/^\d{6}$/).required(),
+  pendingId: Joi.string().uuid().required().messages(pendingIdMessages),
+  otp: Joi.string().length(6).pattern(/^\d{6}$/).required().messages(otpMessages),
 })
 
 const resendSchema = Joi.object({
-  pendingId: Joi.string().uuid().required(),
+  pendingId: Joi.string().uuid().required().messages(pendingIdMessages),
 })
 
 // Durable, Postgres-backed rate limiting — shared across all serverless
@@ -92,13 +134,22 @@ function issueRefreshToken(userId: string) {
   return signToken({ id: userId }, { expiresIn: '30d' })
 }
 
+const SERVER_ERROR_MESSAGE = 'Terjadi kesalahan pada server. Coba lagi nanti.'
+
 function handleRegistrationError(res: Response, error: unknown): void {
   if (error instanceof RegistrationError) {
-    res.status(error.status).json({ success: false, error: error.message })
+    // `code` is the stable flow-control contract (e.g. Register.tsx returns
+    // to the credentials step on OTP_EXPIRED/OTP_LOCKED); `error` is display
+    // copy and may be reworded freely.
+    res.status(error.status).json({
+      success: false,
+      error: error.message,
+      ...(error.code ? { code: error.code } : {}),
+    })
     return
   }
   console.error('Registration error:', error)
-  res.status(500).json({ success: false, error: 'Internal server error' })
+  res.status(500).json({ success: false, error: SERVER_ERROR_MESSAGE })
 }
 
 router.post('/register-init', limitRequests('auth:register-init-ip', 5, 3600, byIp), limitRequests('auth:register-init-email', 5, 86400, byEmail), async (req: Request, res: Response): Promise<void> => {
@@ -194,14 +245,14 @@ router.post('/login', limitRequests('auth:login', 10, 300, byIp), async (req: Re
       // Run a dummy compare so an unknown email takes the same time as a
       // wrong password — closes the user-enumeration timing side-channel.
       await bcrypt.compare(value.password, DUMMY_BCRYPT_HASH)
-      res.status(401).json({ success: false, error: 'Invalid email or password' })
+      res.status(401).json({ success: false, error: 'Email atau kata sandi salah' })
       return
     }
 
     const validPassword = await bcrypt.compare(value.password, user.password_hash)
 
     if (!validPassword) {
-      res.status(401).json({ success: false, error: 'Invalid email or password' })
+      res.status(401).json({ success: false, error: 'Email atau kata sandi salah' })
       return
     }
 
@@ -224,7 +275,7 @@ router.post('/login', limitRequests('auth:login', 10, 300, byIp), async (req: Re
     })
   } catch (error) {
     console.error('Login error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
+    res.status(500).json({ success: false, error: SERVER_ERROR_MESSAGE })
   }
 })
 
@@ -242,7 +293,7 @@ router.post('/google', limitRequests('auth:google', 20, 300, byIp), async (req: 
       claims = await verifyGoogleIdToken(value.idToken)
     } catch (verifyErr) {
       console.error('Google ID token verification failed:', verifyErr)
-      res.status(401).json({ success: false, error: 'Invalid Google credential' })
+      res.status(401).json({ success: false, error: 'Login Google gagal. Coba lagi.' })
       return
     }
 
@@ -250,7 +301,13 @@ router.post('/google', limitRequests('auth:google', 20, 300, byIp), async (req: 
     try {
       user = await findOrCreateGoogleUser(claims)
     } catch (linkErr) {
-      const message = linkErr instanceof Error ? linkErr.message : 'Unable to sign in with Google'
+      // Never echo a raw service message — map the one user-actionable case,
+      // mask the rest (DB failures etc.) behind generic Indonesian copy.
+      console.error('Google sign-in link failed:', linkErr)
+      const message =
+        linkErr instanceof Error && linkErr.message === 'Google email is not verified'
+          ? 'Email Google kamu belum terverifikasi.'
+          : 'Tidak bisa masuk dengan Google. Coba lagi.'
       res.status(409).json({ success: false, error: message })
       return
     }
@@ -265,7 +322,7 @@ router.post('/google', limitRequests('auth:google', 20, 300, byIp), async (req: 
     })
   } catch (error) {
     console.error('Google auth error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
+    res.status(500).json({ success: false, error: SERVER_ERROR_MESSAGE })
   }
 })
 

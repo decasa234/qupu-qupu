@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import WmiExamReviewItem from '../components/wmi/WmiExamReviewItem'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchExamSession, startExamSession } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -22,7 +23,7 @@ export default function WmiExamReview() {
     if (!activeChildId || !sessionId) return
     fetchExamSession(activeChildId, sessionId)
       .then(setSnapshot)
-      .catch((err) => setError(err instanceof Error ? err.message : 'Gagal memuat hasil'))
+      .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat hasil')))
   }, [activeChildId, sessionId])
 
   const attemptByQid = useMemo(
@@ -36,7 +37,7 @@ export default function WmiExamReview() {
       const next = await startExamSession(activeChildId, snapshot.paper.id)
       navigate(`/latihan/wmi/exam/${next.session.id}`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Gagal memulai ulang')
+      setError(toIndonesianErrorMessage(err, 'Gagal memulai ulang'))
     }
   }
 

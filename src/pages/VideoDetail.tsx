@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { trackEvent } from '../lib/analytics'
 import { formatDateLabel } from '../lib/youtube'
 import Reveal from '../components/Reveal'
@@ -146,14 +147,7 @@ export default function VideoDetailPage() {
         setRewardModalOpen(true)
       }
     } catch (submitErr: unknown) {
-      const nextError =
-        typeof submitErr === 'object' &&
-        submitErr !== null &&
-        'response' in submitErr &&
-        typeof (submitErr as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (submitErr as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal menyimpan skor.'
-      setSubmitError(nextError)
+      setSubmitError(toIndonesianErrorMessage(submitErr, 'Gagal menyimpan skor.'))
       clearPendingScore()
     } finally {
       setSaving(false)

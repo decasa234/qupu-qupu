@@ -19,14 +19,9 @@ import {
   recordReferralUse,
 } from '../services/referrals.js'
 import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
+import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 
 const router = Router()
-
-// Maps a thrown service error to an HTTP status. Ownership failures
-// ('Child not found') are 404 everywhere; everything else is a 400.
-function statusForError(message: string): number {
-  return message === 'Child not found' ? 404 : 400
-}
 
 const scoreSchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -48,7 +43,7 @@ router.post('/video-scores', authenticateToken, async (req: AuthRequest, res: Re
     const { error, value } = scoreSchema.validate(req.body)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -62,10 +57,7 @@ router.post('/video-scores', authenticateToken, async (req: AuthRequest, res: Re
     res.status(201).json({ success: true, data: result })
   } catch (error: unknown) {
     console.error('Submit video score error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to save score',
-    })
+    sendPublicError(res, error)
   }
 })
 
@@ -74,7 +66,7 @@ router.get('/gamification', authenticateToken, async (req: AuthRequest, res: Res
     const { error, value } = childIdQuerySchema.validate(req.query)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -82,8 +74,7 @@ router.get('/gamification', authenticateToken, async (req: AuthRequest, res: Res
     res.json({ success: true, data })
   } catch (error: unknown) {
     console.error('Get gamification summary error:', error)
-    const message = error instanceof Error ? error.message : 'Unable to load gamification'
-    res.status(statusForError(message)).json({ success: false, error: message })
+    sendPublicError(res, error)
   }
 })
 
@@ -94,7 +85,7 @@ router.get('/quests', authenticateToken, async (req: AuthRequest, res: Response)
     const { error, value } = childIdQuerySchema.validate(req.query)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -102,8 +93,7 @@ router.get('/quests', authenticateToken, async (req: AuthRequest, res: Response)
     res.json({ success: true, data })
   } catch (error: unknown) {
     console.error('Get daily quests error:', error)
-    const message = error instanceof Error ? error.message : 'Unable to load quests'
-    res.status(statusForError(message)).json({ success: false, error: message })
+    sendPublicError(res, error)
   }
 })
 
@@ -112,7 +102,7 @@ router.get('/progress', authenticateToken, async (req: AuthRequest, res: Respons
     const { error, value } = childIdQuerySchema.validate(req.query)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -120,8 +110,7 @@ router.get('/progress', authenticateToken, async (req: AuthRequest, res: Respons
     res.json({ success: true, data })
   } catch (error: unknown) {
     console.error('Get progress error:', error)
-    const message = error instanceof Error ? error.message : 'Unable to load progress'
-    res.status(statusForError(message)).json({ success: false, error: message })
+    sendPublicError(res, error)
   }
 })
 
@@ -133,7 +122,7 @@ router.get(
       const { error, value } = childIdQuerySchema.validate(req.query)
 
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
 
@@ -141,10 +130,7 @@ router.get(
       res.json({ success: true, data: { videoIds } })
     } catch (watchedError: unknown) {
       console.error('Get watched video ids error:', watchedError)
-      const message =
-        watchedError instanceof Error ? watchedError.message : 'Unable to load watched videos'
-      const status = message === 'Child not found' ? 404 : 400
-      res.status(status).json({ success: false, error: message })
+      sendPublicError(res, watchedError)
     }
   },
 )
@@ -154,7 +140,7 @@ router.get('/badges', authenticateToken, async (req: AuthRequest, res: Response)
     const { error, value } = childIdQuerySchema.validate(req.query)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -162,8 +148,7 @@ router.get('/badges', authenticateToken, async (req: AuthRequest, res: Response)
     res.json({ success: true, data: { families } })
   } catch (error: unknown) {
     console.error('Get badges error:', error)
-    const message = error instanceof Error ? error.message : 'Unable to load badges'
-    res.status(statusForError(message)).json({ success: false, error: message })
+    sendPublicError(res, error)
   }
 })
 
@@ -175,7 +160,7 @@ router.get(
       const { error, value } = videoScoreLookupSchema.validate(req.query)
 
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
 
@@ -183,8 +168,7 @@ router.get(
       res.json({ success: true, data })
     } catch (lookupError: unknown) {
       console.error('Get video score error:', lookupError)
-      const message = lookupError instanceof Error ? lookupError.message : 'Unable to load score'
-      res.status(statusForError(message)).json({ success: false, error: message })
+      sendPublicError(res, lookupError)
     }
   },
 )
@@ -196,17 +180,14 @@ router.get(
     try {
       const { error, value } = childIdQuerySchema.validate(req.query)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const data = await getMemberAchievements(req.user.id, value.childId)
       res.json({ success: true, data })
     } catch (achError: unknown) {
       console.error('Get achievements error:', achError)
-      const message =
-        achError instanceof Error ? achError.message : 'Unable to load achievements'
-      const status = message === 'Child not found' ? 404 : 400
-      res.status(status).json({ success: false, error: message })
+      sendPublicError(res, achError)
     }
   },
 )
@@ -228,7 +209,7 @@ router.post(
     try {
       const { error, value } = sessionEventSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       await logSessionEvent(req.user.id, value)
@@ -239,10 +220,7 @@ router.post(
       // Session-event failures must NEVER bubble visibly to the kid's flow.
       // Log them, return success=false silently, and continue.
       console.error('Session event log error:', eventError)
-      const message =
-        eventError instanceof Error ? eventError.message : 'Unable to log session event'
-      const status = message === 'Child not found' ? 404 : 400
-      res.status(status).json({ success: false, error: message })
+      sendPublicError(res, eventError)
     }
   },
 )
@@ -257,7 +235,7 @@ router.post(
     } catch (refError: unknown) {
       // Don't leak internal error detail (e.g. the retry-exhausted message).
       console.error('Generate referral code error:', refError)
-      res.status(500).json({ success: false, error: 'Unable to generate code' })
+      res.status(500).json({ success: false, error: 'Gagal membuat kode referral. Coba lagi.' })
     }
   },
 )
@@ -312,17 +290,14 @@ router.post(
     try {
       const { error, value } = recoverySchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const data = await useStreakRecoveryForChild(req.user.id, value.childId)
       res.json({ success: true, data })
     } catch (recoveryError: unknown) {
       console.error('Streak recovery error:', recoveryError)
-      const message =
-        recoveryError instanceof Error ? recoveryError.message : 'Unable to recover streak'
-      const status = message === 'Child not found' ? 404 : 400
-      res.status(status).json({ success: false, error: message })
+      sendPublicError(res, recoveryError)
     }
   },
 )
@@ -338,17 +313,14 @@ router.post(
     try {
       const { error, value } = loginBonusSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const data = await claimLoginBonusForChild(req.user.id, value.childId)
       res.json({ success: true, data })
     } catch (bonusError: unknown) {
       console.error('Login bonus claim error:', bonusError)
-      const message =
-        bonusError instanceof Error ? bonusError.message : 'Unable to claim login bonus'
-      const status = message === 'Child not found' ? 404 : 400
-      res.status(status).json({ success: false, error: message })
+      sendPublicError(res, bonusError)
     }
   },
 )

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import api from '../lib/api'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import PillField from './PillField'
 import { useAuthStore } from '../store/authStore'
 import type { Child } from '../types'
@@ -31,14 +32,7 @@ export default function ChildNamePrompt({ open, onCreated, onClose }: ChildNameP
       addChild(child)
       onCreated(child)
     } catch (requestError: unknown) {
-      const message =
-        typeof requestError === 'object' &&
-        requestError !== null &&
-        'response' in requestError &&
-        typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (requestError as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal menambah profil anak.'
-      setError(message)
+      setError(toIndonesianErrorMessage(requestError, 'Gagal menambah profil anak.'))
     } finally {
       setLoading(false)
     }

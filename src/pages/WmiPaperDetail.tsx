@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchPaperDetail, startExamSession } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import type { WmiPaperDetail as Detail } from '../types/wmi'
@@ -16,7 +17,7 @@ export default function WmiPaperDetail() {
     if (!activeChildId || !id) return
     fetchPaperDetail(activeChildId, id)
       .then(setPaper)
-      .catch((err) => setError(err instanceof Error ? err.message : 'Gagal memuat'))
+      .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat')))
   }, [activeChildId, id])
 
   const startExam = async () => {
@@ -26,7 +27,7 @@ export default function WmiPaperDetail() {
       const snapshot = await startExamSession(activeChildId, paper.id)
       navigate(`/latihan/wmi/exam/${snapshot.session.id}`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Gagal memulai')
+      setError(toIndonesianErrorMessage(err, 'Gagal memulai'))
       setStarting(false)
     }
   }

@@ -179,7 +179,7 @@ export default function WmiQuestionView({
             disabled={disabled || !localFill.trim()}
             className="rounded-lg bg-qupu-brand-blue px-4 py-2 font-bold text-white disabled:opacity-50"
           >
-            Submit
+            Jawab
           </button>
         </form>
       )}

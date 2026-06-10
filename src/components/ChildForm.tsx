@@ -1,6 +1,7 @@
 // src/components/ChildForm.tsx
 import { useEffect, useState } from 'react'
 import api from '../lib/api'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import type { AgeGroupOption, Child } from '../types'
 
 const AVATAR_PRESETS = ['#FB923C', '#F472B6', '#60A5FA', '#34D399', '#A78BFA', '#F59E0B']
@@ -61,13 +62,7 @@ export default function ChildForm({
       const child = response.data.data.child as Child
       onCreated(child)
     } catch (submitError: unknown) {
-      const nextError =
-        typeof submitError === 'object' &&
-        submitError !== null &&
-        'response' in submitError &&
-        typeof (submitError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (submitError as { response?: { data?: { error?: string } } }).response?.data?.error
-          : 'Gagal menambahkan anak.'
+      const nextError = toIndonesianErrorMessage(submitError, 'Gagal menambahkan anak.')
       setError(nextError)
       onError?.(nextError)
     } finally {

@@ -6,6 +6,7 @@ import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
 import { getIllustration } from '../components/wmi/concepts/registry'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import {
   clearKonsepSession,
@@ -180,7 +181,7 @@ export default function WmiKonsepSession() {
         setLastSubjectKey(subjectKey)
       })
       .catch((err) => {
-        if (!cancelled) setGardenError(err instanceof Error ? err.message : 'Gagal memuat data konsep.')
+        if (!cancelled) setGardenError(toIndonesianErrorMessage(err, 'Gagal memuat data konsep.'))
       })
       .finally(() => { if (!cancelled) setLoadingGarden(false) })
 

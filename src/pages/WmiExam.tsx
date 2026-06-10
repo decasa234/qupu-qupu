@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { completeExamSession, fetchExamSession, submitAttempt } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
@@ -34,7 +35,7 @@ export default function WmiExam() {
         }
         setSnapshot(snap)
       })
-      .catch((err) => setError(err instanceof Error ? err.message : 'Gagal memuat ujian'))
+      .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat ujian')))
   }, [activeChildId, sessionId, navigate])
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function WmiExam() {
       await completeExamSession(activeChildId, sessionId)
       navigate(`/latihan/wmi/exam/${sessionId}/review`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Gagal menyelesaikan ujian')
+      setError(toIndonesianErrorMessage(err, 'Gagal menyelesaikan ujian'))
     }
   }, [activeChildId, navigate, sessionId])
 
@@ -105,7 +106,7 @@ export default function WmiExam() {
           : current,
       )
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Gagal menyimpan jawaban')
+      setError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban'))
     }
   }
 

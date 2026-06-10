@@ -7,6 +7,7 @@ import WmiExplainer from '../components/wmi/WmiExplainer'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import { getIllustration } from '../components/wmi/concepts/registry'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchConceptNext, submitConceptAttempt, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { syncStatStrip } from '../hooks/useGamificationStats'
@@ -51,7 +52,7 @@ export default function WmiKonsepDrill() {
       setQuestion(q)
       askedAt.current = Date.now()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Gagal memuat soal')
+      setError(toIndonesianErrorMessage(err, 'Gagal memuat soal'))
     }
   }, [activeChildId, selectedGrade, conceptSlug])
 
@@ -94,7 +95,7 @@ export default function WmiKonsepDrill() {
       }
     } catch (err) {
       setSelected(null)
-      setError(err instanceof Error ? err.message : 'Gagal menyimpan jawaban')
+      setError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban'))
     }
   }
 

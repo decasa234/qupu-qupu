@@ -23,3 +23,15 @@ export function getApiErrorCode(error: unknown): string | null {
 export function getApiErrorMessage(error: unknown, fallback: string): string {
   return getApiErrorCode(error) ?? fallback
 }
+
+/** The server's stable machine-readable `code` field (e.g. `OTP_EXPIRED`),
+ *  or null. Use this — never the human message — for flow control. */
+export function getApiResponseCode(error: unknown): string | null {
+  if (typeof error === 'object' && error !== null && 'response' in error) {
+    const shaped = error as { response?: { data?: { code?: unknown } } }
+    if (typeof shaped.response?.data?.code === 'string') {
+      return shaped.response.data.code
+    }
+  }
+  return null
+}

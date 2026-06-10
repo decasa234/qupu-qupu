@@ -14,6 +14,7 @@ import { getGarden } from '../services/wmi/concepts/garden.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
 import { gradeConceptAnswer, commitKonsepSession, SESSION_SIZE } from '../services/wmi/concepts/session.js'
 import { SUBJECTS } from '../services/wmi/concepts/curriculum.js'
+import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 
 const router = Router()
 
@@ -60,31 +61,22 @@ const attemptSchema = Joi.object({
   looked_up_terms: Joi.array().items(Joi.string().pattern(/^[a-z0-9-]+$/)).default([]),
 })
 
-function sendError(res: Response, error: unknown, fallback: string): void {
-  const message = error instanceof Error ? error.message : fallback
-  const status =
-    message === 'Child not found' ||
-    message === 'Paper not found' ||
-    message === 'Question not found'
-      ? 404
-      : message === 'Sesi ujian ini milik profil anak yang lain'
-        ? 403
-        : 400
-  res.status(status).json({ success: false, error: message })
-}
+// Error responses go through the shared allowlist in api/lib/publicError.ts:
+// known sentinels keep their historical status (404/403/400) and get
+// Indonesian copy; anything unrecognized becomes a generic Indonesian 400.
 
 router.get('/papers', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { error, value } = papersQuerySchema.validate(req.query)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const papers = await listWmiPapers(req.user.id, value.childId, value.grade)
     res.json({ success: true, data: { papers } })
   } catch (error) {
     console.error('WMI papers error:', error)
-    sendError(res, error, 'Unable to load papers')
+    sendPublicError(res, error)
   }
 })
 
@@ -92,14 +84,14 @@ router.get('/papers/:id', authenticateToken, async (req: AuthRequest, res: Respo
   try {
     const { error, value } = childQuerySchema.validate(req.query)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const paper = await getWmiPaperDetail(req.user.id, value.childId, req.params.id)
     res.json({ success: true, data: paper })
   } catch (error) {
     console.error('WMI paper detail error:', error)
-    sendError(res, error, 'Unable to load paper')
+    sendPublicError(res, error)
   }
 })
 
@@ -107,7 +99,7 @@ router.post('/attempts', authenticateToken, async (req: AuthRequest, res: Respon
   try {
     const { error, value } = attemptSchema.validate(req.body)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const attempt = await submitWmiAttempt(req.user.id, {
@@ -124,7 +116,7 @@ router.post('/attempts', authenticateToken, async (req: AuthRequest, res: Respon
     res.status(201).json({ success: true, data: attempt })
   } catch (error) {
     console.error('WMI attempt error:', error)
-    sendError(res, error, 'Unable to save attempt')
+    sendPublicError(res, error)
   }
 })
 
@@ -132,14 +124,14 @@ router.post('/exam/sessions', authenticateToken, async (req: AuthRequest, res: R
   try {
     const { error, value } = startSessionSchema.validate(req.body)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const snapshot = await startWmiExamSession(req.user.id, value.childId, value.paper_id)
     res.status(201).json({ success: true, data: snapshot })
   } catch (error) {
     console.error('WMI start session error:', error)
-    sendError(res, error, 'Unable to start exam')
+    sendPublicError(res, error)
   }
 })
 
@@ -147,14 +139,14 @@ router.get('/exam/sessions/:id', authenticateToken, async (req: AuthRequest, res
   try {
     const { error, value } = childQuerySchema.validate(req.query)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const snapshot = await getWmiExamSession(req.user.id, value.childId, req.params.id)
     res.json({ success: true, data: snapshot })
   } catch (error) {
     console.error('WMI get session error:', error)
-    sendError(res, error, 'Unable to load exam')
+    sendPublicError(res, error)
   }
 })
 
@@ -162,14 +154,14 @@ router.patch('/exam/sessions/:id/complete', authenticateToken, async (req: AuthR
   try {
     const { error, value } = childQuerySchema.validate(req.body)
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
     const session = await completeWmiExamSession(req.user.id, value.childId, req.params.id)
     res.json({ success: true, data: { session } })
   } catch (error) {
     console.error('WMI complete session error:', error)
-    sendError(res, error, 'Unable to complete exam')
+    sendPublicError(res, error)
   }
 })
 
@@ -205,7 +197,7 @@ router.get(
     try {
       const { error, value } = konsepNextQuerySchema.validate(req.query)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const question = await getNextConceptQuestion(
@@ -217,7 +209,7 @@ router.get(
       res.json({ success: true, data: { question } })
     } catch (error) {
       console.error('WMI konsep next error:', error)
-      sendError(res, error, 'Unable to load concept question')
+      sendPublicError(res, error)
     }
   },
 )
@@ -229,14 +221,14 @@ router.get(
     try {
       const { error, value } = childQuerySchema.validate(req.query)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const progress = await getConceptProgress(req.user.id, value.childId)
       res.json({ success: true, data: progress })
     } catch (error) {
       console.error('WMI konsep progress error:', error)
-      sendError(res, error, 'Unable to load concept progress')
+      sendPublicError(res, error)
     }
   },
 )
@@ -248,14 +240,14 @@ router.get(
     try {
       const { error, value } = papersQuerySchema.validate(req.query)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const garden = await getGarden(req.user.id, value.childId, value.grade)
       res.json({ success: true, data: garden })
     } catch (error) {
       console.error('WMI garden error:', error)
-      sendError(res, error, 'Unable to load garden')
+      sendPublicError(res, error)
     }
   },
 )
@@ -267,14 +259,14 @@ router.post(
     try {
       const { error, value } = chapterTestStartSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const out = await startChapterTest(req.user.id, value.childId, value.subject_key)
       res.json({ success: true, data: out })
     } catch (error) {
       console.error('WMI chapter-test start error:', error)
-      sendError(res, error, 'Unable to start test')
+      sendPublicError(res, error)
     }
   },
 )
@@ -286,14 +278,14 @@ router.post(
     try {
       const { error, value } = chapterTestSubmitSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const out = await submitChapterTest(req.user.id, value.childId, value.subject_key, value.answers)
       res.status(201).json({ success: true, data: out })
     } catch (error) {
       console.error('WMI chapter-test submit error:', error)
-      sendError(res, error, 'Unable to submit test')
+      sendPublicError(res, error)
     }
   },
 )
@@ -305,7 +297,7 @@ router.post(
     try {
       const { error, value } = voteSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const counts = await submitConceptVote(
@@ -317,7 +309,7 @@ router.post(
       res.json({ success: true, data: counts })
     } catch (error) {
       console.error('WMI konsep vote error:', error)
-      sendError(res, error, 'Unable to save vote')
+      sendPublicError(res, error)
     }
   },
 )
@@ -349,7 +341,7 @@ router.post(
     try {
       const { error, value } = konsepGradeSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const out = await gradeConceptAnswer(
@@ -361,7 +353,7 @@ router.post(
       res.json({ success: true, data: out })
     } catch (error) {
       console.error('WMI konsep grade error:', error)
-      sendError(res, error, 'Unable to grade')
+      sendPublicError(res, error)
     }
   },
 )
@@ -373,7 +365,7 @@ router.post(
     try {
       const { error, value } = konsepCommitSchema.validate(req.body)
       if (error) {
-        res.status(400).json({ success: false, error: error.details[0].message })
+        sendValidationError(res, error)
         return
       }
       const answers = value.answers.map(
@@ -391,7 +383,7 @@ router.post(
       res.status(201).json({ success: true, data: out })
     } catch (error) {
       console.error('WMI konsep commit error:', error)
-      sendError(res, error, 'Unable to commit session')
+      sendPublicError(res, error)
     }
   },
 )

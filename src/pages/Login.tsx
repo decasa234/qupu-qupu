@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { resolvePostLoginRoute } from '../lib/postLoginRoute'
 import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
@@ -58,14 +59,7 @@ export default function Login() {
       await finishAuthAndRoute(payload)
       trackEvent('login_completed')
     } catch (requestError: unknown) {
-      const nextError =
-        typeof requestError === 'object' &&
-        requestError !== null &&
-        'response' in requestError &&
-        typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (requestError as { response?: { data?: { error?: string } } }).response?.data?.error
-          : 'Login gagal.'
-      setError(nextError)
+      setError(toIndonesianErrorMessage(requestError, 'Login gagal.'))
     } finally {
       setLoading(false)
     }

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import api from '../lib/api'
 import { trackEvent } from '../lib/analytics'
+import { getApiResponseCode } from '../lib/apiError'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { redeemPendingReferral } from '../lib/referralStorage'
 import GoogleSignInButton from './GoogleSignInButton'
 import OtpInput from './OtpInput'
@@ -92,7 +94,7 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
       await finishAuth(payload)
       trackEvent('login_completed')
     } catch (requestError) {
-      setError(extractError(requestError, 'Login gagal.'))
+      setError(toIndonesianErrorMessage(requestError, 'Login gagal.'))
     } finally {
       setLoading(false)
     }
@@ -121,7 +123,7 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
       setPendingId(data.pendingId)
       setRegisterStep('otp')
     } catch (requestError) {
-      setError(extractError(requestError, 'Registrasi gagal.'))
+      setError(toIndonesianErrorMessage(requestError, 'Registrasi gagal.'))
     } finally {
       setLoading(false)
     }
@@ -139,9 +141,10 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
       // Best-effort referral credit (Plan 5c). Never blocks the flow.
       void redeemPendingReferral()
     } catch (requestError) {
-      const message = extractError(requestError, 'Verifikasi gagal.')
-      setError(message)
-      if (message === 'Kode kadaluarsa.' || message === 'Terlalu banyak percobaan.') {
+      setError(toIndonesianErrorMessage(requestError, 'Verifikasi gagal.'))
+      // Flow control rides on the stable `code` field, never on display copy.
+      const code = getApiResponseCode(requestError)
+      if (code === 'OTP_EXPIRED' || code === 'OTP_LOCKED') {
         setRegisterStep('form')
         setPendingId(null)
       }
@@ -157,7 +160,7 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
     try {
       await api.post('/auth/register-resend', { pendingId })
     } catch (requestError) {
-      setError(extractError(requestError, 'Gagal kirim ulang kode.'))
+      setError(toIndonesianErrorMessage(requestError, 'Gagal kirim ulang kode.'))
     } finally {
       setLoading(false)
     }
@@ -375,16 +378,4 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
       </div>
     </div>
   )
-}
-
-function extractError(requestError: unknown, fallback: string): string {
-  if (
-    typeof requestError === 'object' &&
-    requestError !== null &&
-    'response' in requestError &&
-    typeof (requestError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-  ) {
-    return (requestError as { response: { data: { error: string } } }).response.data.error
-  }
-  return fallback
 }

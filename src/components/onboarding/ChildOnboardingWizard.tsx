@@ -9,6 +9,7 @@
 // caller can pin the garden's difficulty for the new child.
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
+import { toIndonesianErrorMessage } from '../../lib/errorMessage'
 import {
   avatarIconClass,
   DEFAULT_AVATAR_COLOR,
@@ -100,14 +101,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
       const wmiGrade = GRADE_OPTIONS.find((g) => g.key === gradeKey)?.wmiGrade ?? 1
       onCreated(response.data.data.child as Child, wmiGrade)
     } catch (submitError: unknown) {
-      const message =
-        typeof submitError === 'object' &&
-        submitError !== null &&
-        'response' in submitError &&
-        typeof (submitError as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (submitError as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal menyimpan profil anak.'
-      setError(message)
+      setError(toIndonesianErrorMessage(submitError, 'Gagal menyimpan profil anak.'))
       setSaving(false)
     }
   }

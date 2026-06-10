@@ -10,11 +10,18 @@ const MAX_OTP_ATTEMPTS = 5
 const OTP_BCRYPT_COST = 10
 const PASSWORD_BCRYPT_COST = 12
 
+// Stable machine-readable codes for the OTP failures the frontend must
+// branch on (returning the user to the credentials step). The human
+// `message` is display copy only — never string-match it client-side.
+export type RegistrationErrorCode = 'OTP_EXPIRED' | 'OTP_LOCKED' | 'OTP_INVALID'
+
 export class RegistrationError extends Error {
   status: number
-  constructor(status: number, message: string) {
+  code?: RegistrationErrorCode
+  constructor(status: number, message: string, code?: RegistrationErrorCode) {
     super(message)
     this.status = status
+    this.code = code
   }
 }
 
@@ -160,12 +167,12 @@ export async function verifyOtp(input: VerifyInput): Promise<VerifyResult['user'
     )
 
     if (!pending) {
-      throw new RegistrationError(400, 'Kode kadaluarsa.')
+      throw new RegistrationError(400, 'Kode kadaluarsa.', 'OTP_EXPIRED')
     }
 
     if (pending.attempts_count >= MAX_OTP_ATTEMPTS) {
       await client.query(`DELETE FROM pending_registrations WHERE id = $1`, [pending.id])
-      throw new RegistrationError(429, 'Terlalu banyak percobaan.')
+      throw new RegistrationError(429, 'Terlalu banyak percobaan.', 'OTP_LOCKED')
     }
 
     const matches = await bcrypt.compare(input.otp, pending.otp_hash)
@@ -174,7 +181,7 @@ export async function verifyOtp(input: VerifyInput): Promise<VerifyResult['user'
         `UPDATE pending_registrations SET attempts_count = attempts_count + 1 WHERE id = $1`,
         [pending.id],
       )
-      throw new RegistrationError(400, 'Kode salah.')
+      throw new RegistrationError(400, 'Kode salah.', 'OTP_INVALID')
     }
 
     const conflict = await findExistingPasswordUser(client, pending.email, pending.phone)
@@ -254,7 +261,7 @@ export async function resendOtp(input: ResendInput): Promise<{ expiresAt: string
     )
 
     if (!pending) {
-      throw new RegistrationError(400, 'Kode kadaluarsa.')
+      throw new RegistrationError(400, 'Kode kadaluarsa.', 'OTP_EXPIRED')
     }
 
     const lastSent = new Date(pending.last_sent_at).getTime()

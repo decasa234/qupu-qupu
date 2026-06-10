@@ -14,6 +14,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api'
+import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import Slider from '../components/Slider'
 import BadgeCurve from '../components/BadgeCurve'
 import AuthCard from '../components/AuthCard'
@@ -145,14 +146,7 @@ export default function QuizPage() {
         setRewardModalOpen(true)
       }
     } catch (submitErr: unknown) {
-      const nextError =
-        typeof submitErr === 'object' &&
-        submitErr !== null &&
-        'response' in submitErr &&
-        typeof (submitErr as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-          ? (submitErr as { response: { data: { error: string } } }).response.data.error
-          : 'Gagal menyimpan skor.'
-      setSubmitError(nextError)
+      setSubmitError(toIndonesianErrorMessage(submitErr, 'Gagal menyimpan skor.'))
     } finally {
       setSaving(false)
     }
