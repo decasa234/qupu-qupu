@@ -4,7 +4,11 @@ import { wibDateString } from '../../lib/wib.js'
 import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
 import { emitEvent } from '../gamification/events.js'
 import { ensureTodaysQuests } from '../gamification/questGenerator.js'
-import { evaluateForEvent } from '../gamification/questEvaluator.js'
+import {
+  evaluateForEvent,
+  type QuestProgressResult,
+} from '../gamification/questEvaluator.js'
+import { updateProfileWithDelta } from '../gamification/profileUpdater.js'
 import { getWmiQuestionAnswer } from './papers.js'
 import { isCorrectAnswer } from './answerMatch.js'
 import { upsertConceptProgress } from './concepts/conceptProgress.js'
@@ -196,15 +200,17 @@ export async function submitWmiAttempt(
         isCorrect: correct,
       })
 
-      // Latihan Campur quest wire: a CORRECT drill answer also progresses the
-      // konsep daily quests (e.g. konsep_answers_10), mirroring the session
-      // commit's KONSEP_QUESTION_ANSWERED emission. Idempotent on the attempt
-      // row inserted above (each POST creates a fresh row — same accepted
+      // Latihan Campur quest wire: ANY graded drill answer progresses the
+      // konsep daily quests (e.g. konsep_answers_10 — "Jawab N soal"),
+      // mirroring the session commit, which counts every graded answer in its
+      // KONSEP_QUESTION_ANSWERED emission. XP/coins stay correct-only (that's
+      // awardConceptReward's job above). Idempotent on the attempt row
+      // inserted above (each POST creates a fresh row — same accepted
       // trade-off as the session path: no request-level dedupe, but the
       // per-instance reward ledger keeps XP/coins bounded). Quests only —
       // achievements are NOT evaluated per drill answer (too hot a path);
       // they catch up on the next session commit or chapter-test pass.
-      if (correct && conceptAttemptId) {
+      if (conceptAttemptId) {
         const today = wibDateString(new Date())
         await emitEvent(client, {
           childId: input.childId,
@@ -216,9 +222,7 @@ export async function submitWmiAttempt(
         })
         // Quest slots must exist before they can progress.
         await ensureTodaysQuests(client, input.childId, today)
-        // Drill response shape stays unchanged — completion results are
-        // intentionally dropped (no in-drill quest celebration).
-        await evaluateForEvent(client, today, {
+        const questResults = await evaluateForEvent(client, today, {
           childId: input.childId,
           eventType: 'KONSEP_QUESTION_ANSWERED',
           eventSourceType: 'wmi_attempt',
@@ -226,6 +230,47 @@ export async function submitWmiAttempt(
           currentStreakDays: gamification.streak.current,
           incrementBy: 1,
         })
+
+        // Quest completions append their own DAILY_QUEST_XP ledger rows
+        // inside the evaluator; the profile delta must follow in the SAME
+        // transaction or the ledger and gamification_profiles drift apart
+        // (mirrors chapterTest.ts / session.ts). Dedupe by quest id — the
+        // same quest can only complete once per window.
+        const completedById = new Map<string, QuestProgressResult>()
+        for (const q of questResults) {
+          if (q.justCompleted && !completedById.has(q.questId)) {
+            completedById.set(q.questId, q)
+          }
+        }
+        let bonusXp = 0
+        let bonusCoins = 0
+        for (const q of completedById.values()) {
+          bonusXp += q.xpAwarded
+          bonusCoins += q.coinsAwarded
+        }
+        if (bonusXp > 0 || bonusCoins > 0) {
+          const bonusProfile = await updateProfileWithDelta(client, {
+            childId: input.childId,
+            xpDelta: bonusXp,
+            coinDelta: bonusCoins,
+            activityDate: today,
+          })
+          // Fold the quest bonus into the response's gamification payload so
+          // the drill stat strip lands on the post-bonus totals immediately.
+          gamification.xpEarned += bonusXp
+          gamification.coinsEarned += bonusCoins
+          gamification.totalXp = bonusProfile.after.totalXp
+          gamification.coinBalance = bonusProfile.after.coinBalance
+          gamification.level = bonusProfile.after.currentLevel
+          gamification.tierName = bonusProfile.after.currentTierName
+          if (bonusProfile.levelUp) {
+            gamification.levelUp = {
+              previousLevel: bonusProfile.levelUp.previousLevel,
+              currentLevel: bonusProfile.levelUp.currentLevel,
+              tierName: bonusProfile.levelUp.tier.tierName,
+            }
+          }
+        }
       }
     }
 

@@ -19,6 +19,10 @@ import { tagLabel } from '../components/wmi/tagLabels'
 export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
   const { loadGlossary, selectedGrade } = useWmiStore()
+  // Konsep drills exist for grades 1-3 only (grade 0 is just for the papers
+  // page) — clamp like WmiHub's clampGardenGrade so a stale grade-0 pin
+  // can't request a grade the engine has no concepts for.
+  const drillGrade = (selectedGrade < 1 ? 1 : selectedGrade > 3 ? 3 : selectedGrade) as typeof selectedGrade
   const navigate = useNavigate()
   const location = useLocation()
   const [searchParams] = useSearchParams()
@@ -49,13 +53,13 @@ export default function WmiKonsepDrill() {
     setError(null)
     setQuestion(null)
     try {
-      const q = await fetchConceptNext(activeChildId, selectedGrade, conceptSlug)
+      const q = await fetchConceptNext(activeChildId, drillGrade, conceptSlug)
       setQuestion(q)
       askedAt.current = Date.now()
     } catch (err) {
       setError(toIndonesianErrorMessage(err, 'Gagal memuat soal'))
     }
-  }, [activeChildId, selectedGrade, conceptSlug])
+  }, [activeChildId, drillGrade, conceptSlug])
 
   function handleBack() {
     if (location.key === 'default') navigate('/latihan/wmi')
@@ -143,7 +147,7 @@ export default function WmiKonsepDrill() {
     <div className="relative w-full max-w-[440px] self-center pb-6">
       {feedback?.is_correct && <KonsepConfetti key={question?.concept_instance_id} />}
       <BackRow onBack={handleBack} />
-      <KonsepHeader grade={conceptSlug ? undefined : selectedGrade} />
+      <KonsepHeader grade={conceptSlug ? undefined : drillGrade} />
 
       {sessionDots.length > 0 && (
         <div className="mt-4">
@@ -285,7 +289,7 @@ function KonsepHeader({ grade }: { grade?: number }) {
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">WMI · Konsep</p>
           <h1 className="font-display text-2xl font-black leading-none">Latihan Konsep</h1>
           <p className="mt-1 text-xs font-bold text-white/80">
-            {grade !== undefined ? `Grade ${grade} · ` : ''}+5 XP tiap jawaban benar
+            {grade !== undefined ? `Tingkat ${grade} · ` : ''}+5 XP tiap jawaban benar
           </p>
         </div>
       </div>

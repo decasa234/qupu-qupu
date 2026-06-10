@@ -31,7 +31,14 @@ export default function InventoryGrid({ childId }: Props) {
 
   useEffect(() => {
     let cancelled = false
-    fetchInventory(childId).then((data) => { if (!cancelled) setItems(data) })
+    fetchInventory(childId)
+      .then((data) => { if (!cancelled) setItems(data) })
+      // Quiet failure: render the empty-collection state instead of an
+      // eternal "Memuat koleksi…" — the /me page must not look broken.
+      .catch((err) => {
+        console.error('Inventory load failed:', err)
+        if (!cancelled) setItems([])
+      })
     fetchGamificationSummary(childId)
       .then((summary) => { if (!cancelled) setShieldCount(summary.streakShields ?? 0) })
       .catch(() => { /* shield tile just stays hidden */ })

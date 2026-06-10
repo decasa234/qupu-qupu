@@ -6,12 +6,14 @@
 // collection.
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import InventoryGrid from '../components/me/InventoryGrid'
 import AvatarEditor from '../components/me/AvatarEditor'
 import ChildrenManager from '../components/me/ChildrenManager'
 import LevelDetail from '../components/me/LevelDetail'
 
 export default function MePage() {
+  useDocumentTitle('Profil')
   const { user, children, activeChildId, logout } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const navigate = useNavigate()

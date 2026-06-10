@@ -122,10 +122,11 @@ export default function ChildForm({
 
       <div>
         <span className="text-xs font-bold uppercase tracking-[0.18em] text-qupu-muted">
-          Target quiz harian
+          Target aktivitas harian
         </span>
         <p className="mt-1 text-xs text-qupu-muted">
-          Berapa quiz per hari yang ingin Bunda jadikan target untuk anak ini?
+          Berapa aktivitas belajar (quiz, soal latihan, atau tes) per hari yang ingin Bunda
+          jadikan target untuk anak ini?
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {[1, 2, 3, 5, 7, 10].map((value) => (

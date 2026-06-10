@@ -26,6 +26,7 @@ import {
   ensureProfile,
   updateProfileWithDelta,
 } from '../../gamification/profileUpdater.js'
+import { loadLevelTiers, resolveLevel } from '../../gamification/levelCurve.js'
 
 export const SESSION_SIZE = 20
 
@@ -104,10 +105,16 @@ export interface SessionResult {
   level: number
   tierName: string
   coinBalance: number
+  // Streak shields owned after the commit — lets the FE stat strip show the
+  // shield chip without an extra summary fetch.
+  streakShields: number
   levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
   streak: { current: number; longest: number }
   completedQuests: CompletedQuest[]
   unlockedAchievements: UnlockedAchievement[]
+  // True when this response is a REPLAY of an already-committed session
+  // (idempotency hit) — the FE skips celebration analytics + stat-strip sync.
+  replayed?: boolean
 }
 
 // Pure grouping helper (exported for unit tests): per-concept answer
@@ -158,9 +165,13 @@ export async function commitKonsepSession(
   //   snapshot + UPDATE)         14 result cache write
   // = 14 (was ~140: 20 answers x ~7 queries each). Conditional extras: +1
   // level UPDATE on level-up, +1 cold level_tiers load, +1
-  // recovery-eligibility check on a 2-day streak gap. The M2
+  // recovery-eligibility check on a 2-day streak gap, +1-2 shield-consume
+  // writes when updateStreakForActivity burns a streak shield. The M2
   // events/quests/achievements block below is already aggregate (one event +
-  // evaluation per event TYPE, not per answer) and is unchanged.
+  // evaluation per event TYPE, not per answer) but still adds roughly 8-16
+  // more round-trips on top of the batched core (2 per emit+evaluate pair,
+  // 1 per quest progress UPDATE, 1 per completion ledger row, achievement
+  // predicates + unlock inserts, and the bonus profile delta).
   return withTransaction(async (client: PoolClient) => {
     await assertChildOwnership(client, parentUserId, childId)
 
@@ -193,7 +204,9 @@ export async function commitKonsepSession(
         throw new Error('Konsep session conflict')
       }
       if (stored && isStoredSessionResult(stored.result)) {
-        return stored.result
+        // Replay of an already-committed session: nothing was re-banked, so
+        // the FE should not re-fire analytics or re-sync the stat strip.
+        return { ...stored.result, replayed: true }
       }
       // Defensive: the claim conflicted but no committed result exists
       // (winner rolled back between our INSERT unblocking and this read).
@@ -248,9 +261,41 @@ export async function commitKonsepSession(
     let level = 1
     let tierName = ''
     let coinBalance = 0
+    let streakShields = 0
     let streakOut = { current: 0, longest: 0 }
     const completedQuests: CompletedQuest[] = []
     const unlockedAchievements: UnlockedAchievement[] = []
+
+    if (processedCount === 0) {
+      // Nothing banked (every submitted instance was off-subject/unknown) —
+      // but the result payload must still carry the child's REAL profile
+      // numbers: the FE pushes them into the stat strip, and fabricated
+      // zeros would wipe real balances. One read, no writes (no activity
+      // happened, so last_activity_date must NOT be stamped).
+      const profileRow = await queryOne<{
+        total_xp: number
+        coin_balance: number
+        current_streak_days: number
+        longest_streak_days: number
+        streak_shields: number
+      }>(
+        `SELECT total_xp, coin_balance, current_streak_days,
+                longest_streak_days, streak_shields
+           FROM gamification_profiles WHERE child_id = $1`,
+        [childId],
+        client,
+      )
+      const tiers = await loadLevelTiers(client)
+      const resolution = resolveLevel(Number(profileRow?.total_xp ?? 0), tiers)
+      level = resolution.tier.levelNumber
+      tierName = resolution.tier.tierName
+      coinBalance = Number(profileRow?.coin_balance ?? 0)
+      streakShields = Number(profileRow?.streak_shields ?? 0)
+      streakOut = {
+        current: Number(profileRow?.current_streak_days ?? 0),
+        longest: Number(profileRow?.longest_streak_days ?? 0),
+      }
+    }
 
     if (processedCount > 0) {
       // ── ONE multi-VALUES insert for all attempts ────────────────────────
@@ -478,6 +523,16 @@ export async function commitKonsepSession(
           coinBalance = bonusProfile.after.coinBalance
         }
       }
+
+      // Shields can change inside this commit (updateStreakForActivity may
+      // consume one on a gap day) — read the post-commit count so the FE
+      // shield chip is truthful without a follow-up summary fetch.
+      const shieldRow = await queryOne<{ streak_shields: number }>(
+        'SELECT streak_shields FROM gamification_profiles WHERE child_id = $1',
+        [childId],
+        client,
+      )
+      streakShields = Number(shieldRow?.streak_shields ?? 0)
     }
 
     const result: SessionResult = {
@@ -489,6 +544,7 @@ export async function commitKonsepSession(
       level,
       tierName,
       coinBalance,
+      streakShields,
       levelUp,
       streak: streakOut,
       completedQuests,

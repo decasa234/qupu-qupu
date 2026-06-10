@@ -7,8 +7,12 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     proxy: {
+      // Dev proxy to the local API (api/server.ts on 3001) per CLAUDE.md.
+      // Note: src/lib/api.ts uses an absolute baseURL, so this proxy only
+      // matters for relative /api/... calls — but it must never point at
+      // production.
       '/api': {
-        target: 'https://api.qupu.id/api',
+        target: 'http://localhost:3001',
         changeOrigin: true,
       },
     },

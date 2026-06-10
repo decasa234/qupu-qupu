@@ -42,6 +42,7 @@ export type AnalyticsEventName =
   | 'session_start'
   | 'session_commit'
   | 'session_commit_failed'
+  | 'session_commit_conflict'
   | 'session_resume_offered'
   | 'session_resumed'
   | 'quest_panel_view'

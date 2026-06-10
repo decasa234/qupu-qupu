@@ -63,13 +63,20 @@ export const useGamificationStats = create<StatsState>((set) => ({
 // Push a reward/commit payload into the top stat strip. If the strip already
 // holds this child's stats, merge; otherwise seed it so the totals aren't
 // stuck at zero (e.g. the kid deep-linked straight into a drill/session via
-// the bottom tab). The xp bar — not shown in the strip — refreshes on the
-// next dashboard load.
+// the bottom tab). `streakShields` is optional — when the payload knows the
+// real count (session commit, summary fetch) the cold seed uses it instead
+// of a placeholder 0. The xp bar — not shown in the strip — refreshes on
+// the next dashboard load.
 export function syncStatStrip(
   childId: string,
-  next: Pick<GamificationStats, 'streak' | 'coinBalance' | 'level' | 'tierName'>,
+  next: Pick<GamificationStats, 'streak' | 'coinBalance' | 'level' | 'tierName'> &
+    Partial<Pick<GamificationStats, 'streakShields'>>,
 ): void {
+  const { streakShields, ...core } = next
+  // An undefined shield count must never clobber a known one in the patch
+  // path, nor leak `undefined` into the seeded stats object.
+  const patch = streakShields === undefined ? core : { ...core, streakShields }
   const store = useGamificationStats.getState()
-  if (store.stats && store.statsChildId === childId) store.patchStats(childId, next)
-  else store.setStats(childId, { streakShields: 0, ...next, xp: 0, xpToNext: 0 })
+  if (store.stats && store.statsChildId === childId) store.patchStats(childId, patch)
+  else store.setStats(childId, { streakShields: streakShields ?? 0, ...core, xp: 0, xpToNext: 0 })
 }

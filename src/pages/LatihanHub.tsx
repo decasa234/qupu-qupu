@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchConceptProgress } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { WmiConceptProgressSummary } from '../types/wmi'
 
 export default function LatihanHub() {
+  useDocumentTitle('Latihan')
   const { activeChildId } = useAuthStore()
   const [progress, setProgress] = useState<WmiConceptProgressSummary | null>(null)
   const [loading, setLoading] = useState(true)
@@ -63,7 +65,7 @@ export default function LatihanHub() {
 const WHY_GOOD = [
   { icon: 'fa-solid fa-medal', text: 'Soal bergaya olimpiade matematika internasional (WMI).' },
   { icon: 'fa-solid fa-lightbulb', text: 'Melatih logika & pemecahan masalah, bukan sekadar hafalan.' },
-  { icon: 'fa-solid fa-stairs', text: 'Bertahap dari Grade 0–3 — cocok untuk TK hingga SD awal.' },
+  { icon: 'fa-solid fa-stairs', text: 'Bertahap dari Tingkat 0–3 — cocok untuk TK hingga SD awal.' },
   { icon: 'fa-solid fa-comments', text: 'Umpan balik langkah-demi-langkah saat jawaban belum tepat.' },
 ]
 

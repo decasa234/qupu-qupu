@@ -39,7 +39,18 @@ export function getIllustration(slug: string): IllustrationComponent | null {
   if (!load) return null
   let component = illustrationCache.get(slug)
   if (!component) {
-    component = lazy(load)
+    // Chunk-load resilience: retry the import once (transient network blip),
+    // and on a second failure EVICT the slug so a later render gets a fresh
+    // lazy() instead of React's cached rejection — otherwise one failed
+    // fetch would permanently kill this figure for the whole tab session.
+    component = lazy(() =>
+      load()
+        .catch(() => load())
+        .catch((err) => {
+          illustrationCache.delete(slug)
+          throw err
+        }),
+    )
     illustrationCache.set(slug, component)
   }
   return component

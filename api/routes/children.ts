@@ -1,6 +1,11 @@
 import { Router, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
+import {
+  GENERIC_USER_ERROR,
+  sendPublicError,
+  sendValidationError,
+} from '../lib/publicError.js'
 import { createChild, deleteChild, listChildren, updateChild } from '../services/children.js'
 
 const router = Router()
@@ -27,7 +32,7 @@ router.get('/', authenticateToken, async (req: AuthRequest, res: Response): Prom
     res.json({ success: true, data: { children } })
   } catch (error) {
     console.error('List children error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
+    res.status(500).json({ success: false, error: GENERIC_USER_ERROR })
   }
 })
 
@@ -36,7 +41,7 @@ router.post('/', authenticateToken, async (req: AuthRequest, res: Response): Pro
     const { error, value } = createSchema.validate(req.body)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
@@ -44,10 +49,7 @@ router.post('/', authenticateToken, async (req: AuthRequest, res: Response): Pro
     res.status(201).json({ success: true, data: { child } })
   } catch (error: unknown) {
     console.error('Create child error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to create child',
-    })
+    sendPublicError(res, error)
   }
 })
 
@@ -56,24 +58,22 @@ router.patch('/:id', authenticateToken, async (req: AuthRequest, res: Response):
     const { error, value } = updateSchema.validate(req.body)
 
     if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
+      sendValidationError(res, error)
       return
     }
 
     const child = await updateChild(req.user.id, req.params.id, value)
 
     if (!child) {
-      res.status(404).json({ success: false, error: 'Child not found' })
+      // Same status + copy as the 'Child not found' allowlist entry.
+      sendPublicError(res, new Error('Child not found'))
       return
     }
 
     res.json({ success: true, data: { child } })
   } catch (error: unknown) {
     console.error('Update child error:', error)
-    res.status(400).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unable to update child',
-    })
+    sendPublicError(res, error)
   }
 })
 
@@ -82,14 +82,14 @@ router.delete('/:id', authenticateToken, async (req: AuthRequest, res: Response)
     const deleted = await deleteChild(req.user.id, req.params.id)
 
     if (!deleted) {
-      res.status(404).json({ success: false, error: 'Child not found' })
+      sendPublicError(res, new Error('Child not found'))
       return
     }
 
     res.json({ success: true, data: { deleted: true } })
   } catch (error) {
     console.error('Delete child error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
+    res.status(500).json({ success: false, error: GENERIC_USER_ERROR })
   }
 })
 

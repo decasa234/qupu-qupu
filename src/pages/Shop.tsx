@@ -6,6 +6,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { useGamificationStats } from '../hooks/useGamificationStats'
 import { fetchShopItems, type ShopItemForChild, type PurchaseResult } from '../lib/shopApi'
 import ShopItemCard from '../components/shop/ShopItemCard'
@@ -28,6 +29,7 @@ const KIND_CHIP_LABEL: Record<ShopItemForChild['kind'], string> = {
 type Filter = 'Semua' | ShopItemForChild['kind']
 
 export default function ShopPage() {
+  useDocumentTitle('Toko')
   const { activeChildId } = useAuthStore()
   const stats = useGamificationStats((s) => s.stats)
   const patchCoinBalance = useGamificationStats((s) => s.patchCoinBalance)
@@ -35,6 +37,8 @@ export default function ShopPage() {
   const balance = stats?.coinBalance ?? 0
 
   const [items, setItems] = useState<ShopItemForChild[] | null>(null)
+  const [loadError, setLoadError] = useState(false)
+  const [loadTick, setLoadTick] = useState(0)
   const [filter, setFilter] = useState<Filter>('Semua')
   const [sheetItem, setSheetItem] = useState<ShopItemForChild | null>(null)
   const [celebrate, setCelebrate] = useState<PurchaseResult | null>(null)
@@ -42,9 +46,14 @@ export default function ShopPage() {
   useEffect(() => {
     if (!activeChildId) return
     let cancelled = false
-    fetchShopItems(activeChildId).then((data) => { if (!cancelled) setItems(data) })
+    setLoadError(false)
+    fetchShopItems(activeChildId)
+      .then((data) => { if (!cancelled) setItems(data) })
+      // A failed catalog load must NOT leave the skeleton forever — show a
+      // retry state instead (loadTick re-runs this effect).
+      .catch(() => { if (!cancelled) setLoadError(true) })
     return () => { cancelled = true }
-  }, [activeChildId])
+  }, [activeChildId, loadTick])
 
   // Filter chips derived from what the shop actually serves ('Semua' +
   // present kinds, in listing order).
@@ -91,6 +100,27 @@ export default function ShopPage() {
     return (
       <div className="mx-auto w-full max-w-md sm:max-w-lg">
         <p className="text-sm font-medium text-qupu-muted">Pilih profil anak dulu.</p>
+      </div>
+    )
+  }
+
+  if (items === null && loadError) {
+    return (
+      <div className="mx-auto w-full max-w-md sm:max-w-lg">
+        <div className="rounded-[1.5rem] bg-[#FFF8F0] p-5 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+            <i className="fa-solid fa-circle-exclamation text-xl" aria-hidden="true" />
+          </div>
+          <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat toko. Coba lagi, ya.</p>
+          <button
+            type="button"
+            onClick={() => setLoadTick((t) => t + 1)}
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+          >
+            <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
+            Coba lagi
+          </button>
+        </div>
       </div>
     )
   }

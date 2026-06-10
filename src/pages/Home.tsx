@@ -10,6 +10,7 @@ import BadgeCurve from '../components/BadgeCurve'
 import HomeDemoQuiz from '../components/HomeDemoQuiz'
 import Reveal from '../components/Reveal'
 import LatihanWmiSection from '../components/wmi/marketing/LatihanWmiSection'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { useAuthStore } from '../store/authStore'
 import type { VideoCard as VideoCardType } from '../types'
 
@@ -71,6 +72,9 @@ const CATEGORIES: CategoryItem[] = [
 ]
 
 export default function Home() {
+  // Default marketing title — also clears stale per-route titles (e.g.
+  // "Toko · QUPU") when the user navigates back home.
+  useDocumentTitle()
   const [videos, setVideos] = useState<VideoCardType[]>([])
 
   useEffect(() => {

@@ -2,7 +2,9 @@
 //
 // Home-screen "interesting stuff" block, mobile-first for the AppShell phone
 // frame. Three stacked cards:
-//   1. Daily goal ring   — today's quiz target with an animated conic fill.
+//   1. Daily goal ring   — today's activity target with an animated conic
+//      fill. The unit is "aktivitas" (video quizzes + WMI answers + chapter
+//      tests all count), so the copy must stay activity-neutral.
 //   2. Streak week strip  — last 7 days from the heatmap, today highlighted.
 //   3. Recent badges row  — newest earned badges, links to the Badge tab.
 // All derived from the existing dashboard view model; no new API.
@@ -57,8 +59,8 @@ function DailyGoalCard({ vm }: Props) {
           <span className="font-display text-lg font-black leading-none text-qupu-brand-blue">
             {done}/{target}
           </span>
-          <span className="text-[8px] font-black uppercase tracking-[0.1em] text-qupu-muted">
-            quiz
+          <span className="text-[8px] font-black uppercase tracking-[0.04em] text-qupu-muted">
+            aktivitas
           </span>
         </div>
       </div>
@@ -71,8 +73,8 @@ function DailyGoalCard({ vm }: Props) {
           {complete
             ? 'Target tercapai!'
             : remaining === 1
-              ? 'Tinggal 1 quiz lagi!'
-              : `Ayo, ${remaining} quiz lagi!`}
+              ? 'Tinggal 1 aktivitas lagi!'
+              : `Ayo, ${remaining} aktivitas lagi!`}
         </h3>
         <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#FFE3CC]">
           <div

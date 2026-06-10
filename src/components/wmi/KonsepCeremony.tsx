@@ -153,6 +153,8 @@ export default function KonsepCeremony({ result, onDone }: Props) {
         {visible('quests') && result.completedQuests.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
             <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Misi selesai!</p>
+            {/* The per-row rewards are a breakdown, not extra on top */}
+            <p className="text-[9px] font-semibold text-qupu-muted">termasuk dalam total XP di atas</p>
             {result.completedQuests.map((q) => (
               <div
                 key={q.id}
@@ -183,6 +185,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
         {visible('unlocks') && result.unlockedAchievements.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
             <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Pencapaian baru</p>
+            <p className="text-[9px] font-semibold text-qupu-muted">termasuk dalam total XP di atas</p>
             {result.unlockedAchievements.map((a) => (
               <div
                 key={a.id}

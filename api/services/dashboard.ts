@@ -559,6 +559,12 @@ async function fetchSummaryStats(
           (SELECT COUNT(*) FROM wmi_attempts wa
              WHERE wa.child_id = $1 AND wa.created_at >= $4
                AND wa.mode = 'concept')
+          +
+          -- A Tes Bab counts as 1 activity unit. Invariant: anything that
+          -- can advance the streak (a passed chapter test does) must also
+          -- move the daily goal + light the heatmap.
+          (SELECT COUNT(*) FROM wmi_chapter_tests ct
+             WHERE ct.child_id = $1 AND ct.created_at >= $4)
         ) AS today_attempts,
         (SELECT COALESCE(SUM(sa.total_questions), 0) FROM score_attempts sa
            WHERE sa.child_id = $1 AND sa.created_at >= $4) AS today_question_total
@@ -628,7 +634,9 @@ async function fetchActivityByDay(
   // ">= $2" filter compares timestamptz to timestamptz cleanly. The
   // DATE_TRUNC inside uses AT TIME ZONE so the resulting day bucket is
   // a WIB day. Activity = video quiz attempts UNION WMI konsep answers
-  // (P1.10) — a WMI-only day must light up the heatmap too.
+  // (P1.10) UNION WMI chapter tests — a WMI-only or Tes-Bab-only day must
+  // light up the heatmap too (a passed test advances the streak, so the
+  // heatmap can never show an empty day inside a live streak).
   const rows = await query<{ day_offset: string; cnt: string }>(
     `SELECT
         DATE_PART('day',
@@ -643,6 +651,9 @@ async function fetchActivityByDay(
          SELECT wa.created_at FROM wmi_attempts wa
            WHERE wa.child_id = $1 AND wa.created_at >= $2
              AND wa.mode = 'concept'
+         UNION ALL
+         SELECT ct.created_at FROM wmi_chapter_tests ct
+           WHERE ct.child_id = $1 AND ct.created_at >= $2
        ) t
        GROUP BY day_offset`,
     [childId, heatmapStart, today],

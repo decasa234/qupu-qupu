@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { isAxiosError } from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
@@ -108,6 +109,9 @@ export default function WmiKonsepSession() {
   // Session commit state
   const [committing, setCommitting] = useState(false)
   const [commitError, setCommitError] = useState(false)
+  // 409: the session id was already committed by a DIFFERENT child/subject
+  // (e.g. another device) — terminal, no retry loop.
+  const [commitConflict, setCommitConflict] = useState(false)
   const [result, setResult] = useState<WmiKonsepSessionResult | null>(null)
 
   // Prevent double-submit
@@ -266,19 +270,37 @@ export default function WmiKonsepSession() {
       clearKonsepSession(subjectKey, activeChildId)
       // The commit response carries fresh streak/coins/level — push them into
       // the top stat strip immediately, stamped for the committing child.
-      syncStatStrip(activeChildId, {
-        streak: sessionResult.streak.current,
-        coinBalance: sessionResult.coinBalance,
-        level: sessionResult.level,
-        tierName: sessionResult.tierName,
-      })
+      // Skipped on a REPLAY (idempotency hit): the stored numbers are from
+      // the original commit and may be staler than what the strip shows now.
+      if (!sessionResult.replayed) {
+        syncStatStrip(activeChildId, {
+          streak: sessionResult.streak.current,
+          coinBalance: sessionResult.coinBalance,
+          level: sessionResult.level,
+          tierName: sessionResult.tierName,
+          ...(typeof sessionResult.streakShields === 'number'
+            ? { streakShields: sessionResult.streakShields }
+            : {}),
+        })
+      }
       setResult(sessionResult)
-      trackEvent('session_commit', {
-        subjectKey,
-        correct: sessionResult.correct,
-        total: sessionResult.total,
-      })
-    } catch {
+      if (!sessionResult.replayed) {
+        trackEvent('session_commit', {
+          subjectKey,
+          correct: sessionResult.correct,
+          total: sessionResult.total,
+        })
+      }
+    } catch (err) {
+      // 409 = this session id belongs to another child/subject (committed
+      // from a different device/profile). Retrying can never succeed —
+      // drop the snapshot and show the terminal screen.
+      if (isAxiosError(err) && err.response?.status === 409) {
+        clearKonsepSession(subjectKey, activeChildId)
+        setCommitConflict(true)
+        trackEvent('session_commit_conflict', { subjectKey })
+        return
+      }
       setCommitError(true)
       trackEvent('session_commit_failed', { subjectKey })
     } finally {
@@ -377,6 +399,27 @@ export default function WmiKonsepSession() {
           <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
         </div>
         <p className="mt-3 text-sm font-semibold text-qupu-muted">Pilih profil anak dulu untuk mulai latihan.</p>
+      </div>
+    )
+  }
+
+  // ── Commit conflict (409): session already saved elsewhere — terminal ──────
+  if (commitConflict) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-cloud-arrow-up text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">
+          Sesi ini sudah tersimpan dari perangkat lain.
+        </p>
+        <Link
+          to="/latihan/wmi"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-seedling text-sm" aria-hidden="true" />
+          Kembali ke Kebun
+        </Link>
       </div>
     )
   }

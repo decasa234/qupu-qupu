@@ -114,7 +114,16 @@ export function getExplainer(slug: string): ExplainerComponent | null {
   if (!load) return null
   let component = explainerCache.get(slug)
   if (!component) {
-    component = lazy(load)
+    // Chunk-load resilience: one retry, then evict so a later render can
+    // start fresh instead of replaying React's cached rejection forever.
+    component = lazy(() =>
+      load()
+        .catch(() => load())
+        .catch((err) => {
+          explainerCache.delete(slug)
+          throw err
+        }),
+    )
     explainerCache.set(slug, component)
   }
   return component

@@ -11,6 +11,10 @@ export interface AuthRequest extends Request {
   user?: AuthUser
 }
 
+// Member-facing 401 body. Some 4xx error bodies do reach screens via
+// toIndonesianErrorMessage, so this must be Indonesian like the rest.
+const SESSION_EXPIRED_ERROR = 'Sesi kamu sudah berakhir. Masuk lagi, ya.'
+
 export const authenticateToken = (
   req: AuthRequest,
   res: Response,
@@ -20,7 +24,7 @@ export const authenticateToken = (
   const token = authHeader && authHeader.split(' ')[1]
 
   if (!token) {
-    res.status(401).json({ success: false, error: 'Access token required' })
+    res.status(401).json({ success: false, error: SESSION_EXPIRED_ERROR })
     return
   }
 
@@ -31,13 +35,13 @@ export const authenticateToken = (
       // The frontend interceptor force-logs-out on 401 only (P1.7); 403 is
       // reserved for authorization denials on a valid session (requireAdmin,
       // child-ownership checks) and must not wipe the session.
-      res.status(401).json({ success: false, error: 'Invalid or expired token' })
+      res.status(401).json({ success: false, error: SESSION_EXPIRED_ERROR })
       return
     }
     req.user = decoded as AuthUser
     next()
   } catch {
-    res.status(401).json({ success: false, error: 'Invalid or expired token' })
+    res.status(401).json({ success: false, error: SESSION_EXPIRED_ERROR })
   }
 }
 

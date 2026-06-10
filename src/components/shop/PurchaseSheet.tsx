@@ -5,6 +5,7 @@
 // modal) to keep it phone-native. CTA is disabled when unaffordable.
 import { useState } from 'react'
 import BottomSheet from './BottomSheet'
+import { toIndonesianErrorMessage } from '../../lib/errorMessage'
 import type { PurchaseResult, ShopItemForChild } from '../../lib/shopApi'
 import { MAX_STREAK_SHIELDS, STREAK_SHIELD_SLUG, purchaseShopItem } from '../../lib/shopApi'
 
@@ -20,6 +21,7 @@ interface Props {
 export default function PurchaseSheet({ open, onClose, item, childId, balance, onPurchased }: Props) {
   const [confirming, setConfirming] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [buyError, setBuyError] = useState<string | null>(null)
 
   if (!item) return null
   const affordable = balance >= item.coinPrice
@@ -31,9 +33,14 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
   async function handleBuy() {
     if (!item) return
     setSubmitting(true)
+    setBuyError(null)
     try {
       const result = await purchaseShopItem(childId, item.id)
       onPurchased(result)
+    } catch (err) {
+      // Network/5xx — purchaseShopItem already unwraps the structured 400s.
+      // Surface it inline; the sheet stays open so the kid can retry.
+      setBuyError(toIndonesianErrorMessage(err, 'Gagal menukar koin. Coba lagi, ya.'))
     } finally {
       setSubmitting(false)
       setConfirming(false)
@@ -41,7 +48,7 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
   }
 
   return (
-    <BottomSheet open={open} onClose={() => { setConfirming(false); onClose() }}>
+    <BottomSheet open={open} onClose={() => { setConfirming(false); setBuyError(null); onClose() }}>
       <div className="space-y-3">
         <div className="flex h-40 items-center justify-center rounded-[1.25rem] bg-qupu-shell">
           {item.thumbnailUrl ? (
@@ -56,6 +63,13 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
         <div className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-3 py-1 font-display text-sm font-extrabold text-qupu-brand-blue">
           <i className="fa-solid fa-coins" aria-hidden="true" /> {item.coinPrice} koin
         </div>
+
+        {buyError && (
+          <div className="rounded-[1.25rem] border-2 border-rose-200 bg-rose-50 p-3 text-center text-sm font-bold text-rose-600">
+            <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+            {buyError}
+          </div>
+        )}
 
         {isShield && (
           <div className="flex items-center gap-2 rounded-[1.25rem] bg-qupu-shell p-3 text-sm font-bold text-qupu-brand-blue">

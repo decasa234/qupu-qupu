@@ -40,6 +40,13 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
     status: 409,
     message: 'Sesi latihan ini tidak cocok dengan profil anak.',
   },
+  // Ownership denial used by the shop/inventory routes (valid session,
+  // childId not owned by the authenticated parent) — 403, not 401, so the
+  // FE interceptor keeps the session alive.
+  'Child does not belong to user': {
+    status: 403,
+    message: 'Profil anak ini tidak ada di akunmu.',
+  },
 }
 
 export function resolvePublicError(error: unknown): PublicError {

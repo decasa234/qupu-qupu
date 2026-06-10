@@ -145,12 +145,30 @@ const illustrationCache = new Map<string, LazyExoticComponent<ComponentType>>()
 const explainerCache = new Map<string, LazyExoticComponent<ComponentType<ExplainerProps>>>()
 const choiceRendererCache = new Map<string, LazyExoticComponent<ChoiceRenderer>>()
 
+// Chunk-load resilience: retry the import once (transient network blip), and
+// on a second failure EVICT the code from the cache so a later render gets a
+// fresh lazy() instead of React's cached rejection — one failed fetch must
+// not permanently kill the visual for the whole tab session.
+function withRetryAndEviction<T>(
+  code: string,
+  load: Loader<T>,
+  cache: Map<string, unknown>,
+): Loader<T> {
+  return () =>
+    load()
+      .catch(() => load())
+      .catch((err) => {
+        cache.delete(code)
+        throw err
+      })
+}
+
 export function getQuestionChoiceRenderer(code?: string): ChoiceRenderer | null {
   const load = code ? CHOICE_RENDERERS[code] : undefined
   if (!code || !load) return null
   let component = choiceRendererCache.get(code)
   if (!component) {
-    component = lazy(load)
+    component = lazy(withRetryAndEviction(code, load, choiceRendererCache))
     choiceRendererCache.set(code, component)
   }
   return component
@@ -161,7 +179,7 @@ export function getQuestionIllustration(code?: string): ComponentType | null {
   if (!code || !load) return null
   let component = illustrationCache.get(code)
   if (!component) {
-    component = lazy(load)
+    component = lazy(withRetryAndEviction(code, load, illustrationCache))
     illustrationCache.set(code, component)
   }
   return component
@@ -172,7 +190,7 @@ export function getQuestionExplainer(code?: string): ComponentType<ExplainerProp
   if (!code || !load) return null
   let component = explainerCache.get(code)
   if (!component) {
-    component = lazy(load)
+    component = lazy(withRetryAndEviction(code, load, explainerCache))
     explainerCache.set(code, component)
   }
   return component

@@ -304,8 +304,14 @@ export interface WmiKonsepSessionResult {
   level: number
   tierName: string
   coinBalance: number
+  // Streak shields owned after the commit. Optional: results stored before
+  // this field existed replay without it.
+  streakShields?: number
   levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
   streak: { current: number; longest: number }
   completedQuests: WmiCompletedQuest[]
   unlockedAchievements: WmiUnlockedAchievement[]
+  // True when the server replayed an already-committed session (idempotency
+  // hit) — skip celebration analytics + stat-strip sync.
+  replayed?: boolean
 }

@@ -14,19 +14,25 @@ export default function WmiChapterTest() {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [idx, setIdx] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
+  const [loadTick, setLoadTick] = useState(0)
   const [result, setResult] = useState<WmiChapterTestResult | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   useEffect(() => {
     if (!activeChildId || !subjectKey) return
     let cancelled = false
     setLoading(true)
+    setLoadError(false)
     startChapterTest(activeChildId, subjectKey)
       .then((d) => !cancelled && setQuestions(d.questions))
-      .catch(() => !cancelled && setQuestions([]))
+      // A failed fetch is NOT "no questions exist" — show a retry state,
+      // never the misleading "Tes belum tersedia" copy.
+      .catch(() => !cancelled && setLoadError(true))
       .finally(() => !cancelled && setLoading(false))
     return () => { cancelled = true }
-  }, [activeChildId, subjectKey])
+  }, [activeChildId, subjectKey, loadTick])
 
   const current = questions[idx]
   const allAnswered = useMemo(
@@ -38,6 +44,7 @@ export default function WmiChapterTest() {
     if (!activeChildId || !subjectKey) return
     const childId = activeChildId
     setSubmitting(true)
+    setSubmitError(false)
     try {
       const payload = questions.map((q) => ({
         concept_instance_id: q.concept_instance_id,
@@ -64,11 +71,33 @@ export default function WmiChapterTest() {
           })
           .catch(() => { /* stat strip refresh is best-effort */ })
       }
+    } catch {
+      // Answers stay in state — the kid just taps "Selesai" again.
+      setSubmitError(true)
     } finally { setSubmitting(false) }
   }
 
   if (!activeChildId) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
   if (loading) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat tes…</div>
+
+  if (loadError) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat tes. Coba lagi.</p>
+        <button
+          type="button"
+          onClick={() => setLoadTick((t) => t + 1)}
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
+          Coba lagi
+        </button>
+      </div>
+    )
+  }
 
   if (result) {
     return (
@@ -137,6 +166,12 @@ export default function WmiChapterTest() {
           )}
         </div>
       </div>
+      {submitError && (
+        <p className="mt-3 text-center text-xs font-semibold text-rose-600">
+          <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+          Gagal mengirim jawaban. Coba lagi.
+        </p>
+      )}
       <div className="mt-4 flex gap-3">
         {idx > 0 && (
           <button onClick={() => setIdx((i) => i - 1)} className="flex-1 rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue ring-2 ring-[#FFE3CC]">Sebelumnya</button>
