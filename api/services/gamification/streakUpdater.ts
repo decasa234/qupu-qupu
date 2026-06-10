@@ -26,9 +26,9 @@
 //   - Shields are the PROACTIVE protection; recovery stays the reactive
 //     fallback and still works whenever shields were 0 (or not enough).
 
-import { createHash } from 'node:crypto'
 import type { PoolClient } from 'pg'
 import { queryOne } from '../../db.js'
+import { deterministicUuid } from '../../lib/deterministicUuid.js'
 import { appendLedger } from './ledger.js'
 
 export interface StreakState {
@@ -77,15 +77,9 @@ function wibDatesBetween(a: string, b: string): string[] {
   return out
 }
 
-// reward_ledger.source_id is a UUID column, but the shield-consumption
-// audit row's natural idempotency key is (child, date) — so derive a
-// stable UUID-shaped value from that seed. Same seed → same id → the
-// UNIQUE (child_id, reward_type, source_type, source_id) key absorbs
-// retries.
-function deterministicUuid(seed: string): string {
-  const h = createHash('md5').update(seed).digest('hex')
-  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`
-}
+// The shield-consumption audit row's natural idempotency key is
+// (child, date); deterministicUuid (shared lib) turns that seed into the
+// UUID-shaped source_id the ledger's unique key needs.
 
 export interface ShieldConsumptionDecision {
   consume: number // how many shields to spend (0 unless fully covered)

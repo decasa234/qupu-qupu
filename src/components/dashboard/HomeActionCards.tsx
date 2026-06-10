@@ -58,8 +58,8 @@ export default function HomeActionCards({
           in the concept garden, so the dashboard's primary action points
           there, ahead of the video recommendation. Mirrors the video card's
           footer (reward chip + "Mulai" pill) so the pair reads aligned.
-          "+5 XP tiap benar" matches CONCEPT_CORRECT_XP on both the session
-          and drill paths. */}
+          The XP chip stays amount-free: per-answer XP is mastery-scaled
+          (conceptXpForTier, P2.1), so a fixed "+5" would lie. */}
       <Link
         to="/latihan/wmi"
         className="block rounded-[2rem] bg-[#FFF8F0] p-4 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#FFD3B1]"
@@ -80,7 +80,7 @@ export default function HomeActionCards({
         <div className="mt-3 flex items-center justify-between gap-3">
           <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
             <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
-            +5 XP tiap benar
+            XP tiap jawaban benar
           </span>
           <span className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 text-sm font-black text-white shadow-[0_3px_0_0_#B8541A]">
             Mulai

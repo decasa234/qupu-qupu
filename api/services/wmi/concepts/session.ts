@@ -12,7 +12,8 @@ import {
 } from './conceptProgress.js'
 import {
   CONCEPT_CORRECT_COINS,
-  CONCEPT_CORRECT_XP,
+  conceptXpForTier,
+  grantTierUpBonuses,
 } from '../../gamification/concept.js'
 import { emitEvent, type EventType } from '../../gamification/events.js'
 import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
@@ -78,6 +79,10 @@ export interface ConceptGrown {
   nameId: string
   fromTier: number
   toTier: number
+  // One-time tier-up bonus XP granted by THIS commit for the crossed tiers
+  // (0 when a concurrent path already paid it) — folded into xpEarned, shown
+  // on the ceremony's growth beat.
+  bonusXp: number
 }
 
 export interface CompletedQuest {
@@ -164,7 +169,8 @@ export async function commitKonsepSession(
   //   10 ledger batch insert     11-13 profile delta (inner ensureProfile +
   //   snapshot + UPDATE)         14 result cache write
   // = 14 (was ~140: 20 answers x ~7 queries each). Conditional extras: +1
-  // level UPDATE on level-up, +1 cold level_tiers load, +1
+  // level UPDATE on level-up, +1 per tier crossed (one-time tier-up bonus
+  // ledger append — at most a few per session ever), +1 cold level_tiers load, +1
   // recovery-eligibility check on a 2-day streak gap, +1-2 shield-consume
   // writes when updateStreakForActivity burns a streak shield. The M2
   // events/quests/achievements block below is already aggregate (one event +
@@ -336,6 +342,7 @@ export async function commitKonsepSession(
             nameId: nameBySlug.get(slug) ?? slug,
             fromTier: prev.best_tier,
             toTier: next.best_tier,
+            bonusXp: 0, // filled below once the tier-up ledger rows land
           })
         }
       }
@@ -360,19 +367,46 @@ export async function commitKonsepSession(
         ...new Set(graded.filter((g) => g.isCorrect).map((g) => g.conceptInstanceId)),
       ]
       if (correctInstanceIds.length > 0) {
+        // Mastery-scaled XP (P2.1): every answer in this session prices at
+        // the concept's PRE-SESSION tier (the FOR UPDATE read above) — simple
+        // and consistent, mid-session tier rises don't reprice answers.
+        // Idempotency keys are unchanged; only the amounts vary.
+        const slugByInstance = new Map(graded.map((g) => [g.conceptInstanceId, g.conceptSlug]))
+        const xpByInstance = correctInstanceIds.map((id) => {
+          const slug = slugByInstance.get(id)
+          const prev = (slug ? prevBySlug.get(slug) : undefined) ?? EMPTY_PROGRESS
+          return conceptXpForTier(prev.best_tier)
+        })
         const ledgerRes = await client.query<{ xp_delta: number; coin_delta: number }>(
           `INSERT INTO reward_ledger
              (child_id, reward_type, source_type, source_id, xp_delta, coin_delta, metadata)
-           SELECT $1, 'CONCEPT_COMPLETION_XP', 'concept_attempt', src.id, $2, $3, '{}'::jsonb
-           FROM unnest($4::uuid[]) AS src(id)
+           SELECT $1, 'CONCEPT_COMPLETION_XP', 'concept_attempt', src.id, src.xp, $2, '{}'::jsonb
+           FROM unnest($3::uuid[], $4::int[]) AS src(id, xp)
            ON CONFLICT (child_id, reward_type, source_type, source_id) DO NOTHING
            RETURNING xp_delta, coin_delta`,
-          [childId, CONCEPT_CORRECT_XP, CONCEPT_CORRECT_COINS, correctInstanceIds],
+          [childId, CONCEPT_CORRECT_COINS, correctInstanceIds, xpByInstance],
         )
         for (const row of ledgerRes.rows) {
           xpEarned += Number(row.xp_delta)
           coinsEarned += Number(row.coin_delta)
         }
+      }
+
+      // ── One-time tier-up bonuses (P2.1) ────────────────────────────────
+      // A fold can jump multiple tiers; each crossed tier grants once ever
+      // (ledger-idempotent on tier-up:<child>:<slug>:<tier>). Folded into
+      // this commit's totals + per-concept bonusXp for the ceremony beat.
+      for (const grown of grownList) {
+        const grant = await grantTierUpBonuses(
+          client,
+          childId,
+          grown.slug,
+          grown.fromTier,
+          grown.toTier,
+        )
+        grown.bonusXp = grant.xp
+        xpEarned += grant.xp
+        coinsEarned += grant.coins
       }
 
       // Always run the profile delta — even at 0/0 it stamps

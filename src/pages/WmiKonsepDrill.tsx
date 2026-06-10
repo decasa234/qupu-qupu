@@ -289,7 +289,7 @@ function KonsepHeader({ grade }: { grade?: number }) {
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">WMI · Konsep</p>
           <h1 className="font-display text-2xl font-black leading-none">Latihan Konsep</h1>
           <p className="mt-1 text-xs font-bold text-white/80">
-            {grade !== undefined ? `Tingkat ${grade} · ` : ''}+5 XP tiap jawaban benar
+            {grade !== undefined ? `Tingkat ${grade} · ` : ''}Makin baru konsepnya, makin besar XP-nya
           </p>
         </div>
       </div>

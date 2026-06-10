@@ -43,6 +43,12 @@ function RewardChips({ reward, lang }: { reward?: WmiConceptReward | null; lang:
           +{reward.coinsEarned}
         </span>
       )}
+      {reward.tierUp && (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#58A700] px-3 py-1.5 font-display text-sm font-extrabold text-white">
+          <i className="fa-solid fa-arrow-up" aria-hidden="true" />
+          {lang === 'id' ? 'Naik tingkat!' : 'Tier up!'}
+        </span>
+      )}
       {reward.levelUp && (
         <span className="inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-yellow px-3 py-1.5 font-display text-sm font-extrabold text-qupu-brand-blue">
           <i className="fa-solid fa-star" aria-hidden="true" />

@@ -115,14 +115,17 @@ export async function upsertConceptProgressRows(
 
 // Upserts the materialized per-(child, concept) comprehension. Monotonic:
 // best_tier and comprehension_pct never decrease. Runs inside the caller's tx.
+// Returns the tier before/after this answer so the reward path can price the
+// XP at the pre-answer tier and detect tier crossings (P2.1).
 export async function upsertConceptProgress(
   client: PoolClient,
   childId: string,
   conceptSlug: string,
   isCorrect: boolean,
-): Promise<void> {
+): Promise<{ prevTier: number; newTier: number }> {
   const locked = await lockConceptProgress(client, childId, [conceptSlug])
   const prev = locked.get(conceptSlug) ?? EMPTY_PROGRESS
   const next = applyAnswers(prev, [isCorrect])
   await upsertConceptProgressRows(client, childId, [{ conceptSlug, next }])
+  return { prevTier: prev.best_tier, newTier: next.best_tier }
 }

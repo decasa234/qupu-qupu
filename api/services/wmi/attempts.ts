@@ -193,11 +193,22 @@ export async function submitWmiAttempt(
     // failed grant rolls back the attempt insert too.
     let gamification: ConceptRewardResult | undefined
     if (input.mode === 'concept') {
-      await upsertConceptProgress(client, input.childId, conceptSlug as string, correct)
+      // The upsert reports the tier before/after this answer: the base XP is
+      // priced at the PRE-answer tier, and a rise grants the one-time
+      // tier-up bonus inside awardConceptReward (ledger-idempotent).
+      const tierChange = await upsertConceptProgress(
+        client,
+        input.childId,
+        conceptSlug as string,
+        correct,
+      )
       gamification = await awardConceptReward(client, {
         childId: input.childId,
         conceptInstanceId: input.conceptInstanceId as string,
         isCorrect: correct,
+        conceptSlug: conceptSlug as string,
+        tierBefore: tierChange.prevTier,
+        tierAfter: tierChange.newTier,
       })
 
       // Latihan Campur quest wire: ANY graded drill answer progresses the

@@ -141,6 +141,10 @@ export interface WmiConceptReward {
   tierName: string
   levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
   streak: { current: number; longest: number }
+  // Set when this answer crossed one or more concept tiers — the one-time
+  // bonus is already folded into xpEarned/coinsEarned. Optional: older
+  // responses predate the field.
+  tierUp?: { toTier: number; bonusXp: number; bonusCoins: number } | null
 }
 
 export interface WmiAttemptResult {
@@ -279,6 +283,9 @@ export interface WmiConceptGrown {
   nameId: string
   fromTier: number
   toTier: number
+  // One-time tier-up bonus XP granted by this commit (shown on the growth
+  // beat). Optional: results stored before this field existed replay without it.
+  bonusXp?: number
 }
 // Mirrors CompletedQuest / UnlockedAchievement in api/services/wmi/concepts/session.ts.
 export interface WmiCompletedQuest {

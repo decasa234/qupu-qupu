@@ -20,7 +20,8 @@ export type RewardType =
   | 'STREAK_BONUS_XP'       // Plan 2
   | 'SHOP_PURCHASE'
   | 'LOGIN_BONUS_COIN'      // daily login bonus (coins-only, no XP)
-  | 'CONCEPT_COMPLETION_XP' // WMI konsep drill — flat grant per correct answer
+  | 'CONCEPT_COMPLETION_XP' // WMI konsep — mastery-scaled grant per correct answer
+  | 'CONCEPT_TIER_UP_XP'    // one-time bonus when a concept crosses a tier (P2.1)
   | 'CHAPTER_TEST_XP'       // Tes Bab pass — once per (child, chapter)
   | 'STREAK_SHIELD_CONSUMED' // 0-coin audit row: shield(s) covered missed day(s)
 

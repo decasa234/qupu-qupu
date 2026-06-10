@@ -278,6 +278,9 @@ function GrowthRow({ grown, instant }: { grown: WmiConceptGrown; instant: boolea
   const stage = PLANT_STAGES[tier]
   const from = PLANT_STAGES[fromTier]
   const to = PLANT_STAGES[toTier]
+  // One-time tier-up bonus XP (P2.1) — already folded into the XP beat's
+  // total; this chip explains WHY the number jumped.
+  const bonusXp = grown.bonusXp ?? 0
 
   return (
     <div className="flex items-center gap-3 rounded-[1.25rem] bg-white p-3 text-left shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
@@ -294,6 +297,12 @@ function GrowthRow({ grown, instant }: { grown: WmiConceptGrown; instant: boolea
           {from.labelId} <i className="fa-solid fa-arrow-right mx-0.5 text-[8px]" aria-hidden="true" /> {to.labelId}
         </div>
       </div>
+      {bonusXp > 0 && (
+        <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+          <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+          +{bonusXp} XP — {to.labelId}!
+        </span>
+      )}
     </div>
   )
 }
