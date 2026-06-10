@@ -1,15 +1,58 @@
 // src/components/app-shell/TopStatStrip.tsx
 //
 // Sticky chrome at the top of every <AppShell> route. Reads stats from
-// useGamificationStats; renders three pills. No internal data fetch —
-// the hook is populated by Dashboard.tsx and refreshed by purchase /
-// score-submit events elsewhere. Coins link to the shop, level links to
-// the profile (where XP detail + tiering live).
+// useGamificationStats; renders three pills. Populated by Dashboard.tsx and
+// refreshed by purchase / score-submit events elsewhere — and SELF-HYDRATES
+// (P1.10) when nothing has filled the store yet, so a cold deep link
+// straight into the garden/drill/shop never shows zeroed pills. Coins link
+// to the shop, level links to the profile (where XP detail + tiering live).
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchGamificationSummary } from '../../lib/gamificationApi'
 import { useGamificationStats } from '../../hooks/useGamificationStats'
+import { useAuthStore } from '../../store/authStore'
+
+// Module-level guard: StrictMode double-effects (or a future second consumer)
+// must not fire concurrent hydration fetches for the same child.
+let hydratingChildId: string | null = null
 
 export default function TopStatStrip() {
   const stats = useGamificationStats((s) => s.stats)
+  const activeChildId = useAuthStore((s) => s.activeChildId)
+
+  // Self-hydration: stats === null means no surface has fetched yet (cold
+  // mount or post-child-switch reset). Fetch the summary once; failures are
+  // silent — the strip keeps neutral zeros and the next surface fetch
+  // (dashboard) repopulates. The deps stay unchanged on failure, so this
+  // never retry-loops.
+  useEffect(() => {
+    if (stats !== null || !activeChildId) return
+    if (hydratingChildId === activeChildId) return
+    hydratingChildId = activeChildId
+    fetchGamificationSummary(activeChildId)
+      .then((summary) => {
+        // Seed only if still empty — a surface fetch that landed in the
+        // meantime is at least as fresh; don't clobber it.
+        const store = useGamificationStats.getState()
+        if (store.stats === null) {
+          store.setStats(activeChildId, {
+            streak: summary.streak,
+            streakShields: summary.streakShields ?? 0,
+            coinBalance: summary.coinBalance,
+            level: summary.level,
+            tierName: summary.tierName,
+            xp: summary.xpIntoCurrent,
+            xpToNext: summary.xpToNext,
+          })
+        }
+      })
+      .catch(() => {
+        /* silent — zeros remain until another surface fetches */
+      })
+      .finally(() => {
+        if (hydratingChildId === activeChildId) hydratingChildId = null
+      })
+  }, [stats, activeChildId])
   const streak = stats?.streak ?? 0
   const shields = stats?.streakShields ?? 0
   const coins = stats?.coinBalance ?? 0

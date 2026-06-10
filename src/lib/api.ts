@@ -23,7 +23,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+    // Only 401 (invalid/expired token) wipes the session. 403 means the
+    // session is VALID but this action is not allowed — reject normally so
+    // the caller can show an error message without losing the in-progress
+    // session (P1.7).
+    if (error.response?.status === 401) {
       const url: string = error.config?.url ?? ''
       const isAuthEndpoint = url.startsWith('/auth/')
       const wasLoggedIn = useAuthStore.getState().isAuthenticated

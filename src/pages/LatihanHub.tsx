@@ -138,20 +138,23 @@ function WmiCourseCard({
           </div>
         </div>
 
+        {/* Primary goes to the garden (/latihan/wmi) — the course home with
+            per-chapter sessions; the drill (Latihan Campur) stays reachable
+            as the secondary. */}
         <div className="mt-5 grid gap-2.5">
           <Link
-            to="/latihan/wmi/konsep"
+            to="/latihan/wmi"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-3.5 font-display text-lg font-black text-white shadow-[0_5px_0_0_#B8541A] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_0_#B8541A]"
           >
             <i className="fa-solid fa-play text-base" aria-hidden="true" />
             Main Sekarang!
           </Link>
           <Link
-            to="/latihan/wmi"
+            to="/latihan/wmi/konsep"
             className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-qupu-brand-blue/20 bg-white px-5 py-2.5 font-display text-sm font-extrabold text-qupu-brand-blue transition-colors hover:bg-qupu-shell"
           >
-            <i className="fa-solid fa-list-check text-sm" aria-hidden="true" />
-            Lihat semua konsep & ujian
+            <i className="fa-solid fa-shuffle text-sm" aria-hidden="true" />
+            Latihan Campur — soal acak
           </Link>
         </div>
       </div>

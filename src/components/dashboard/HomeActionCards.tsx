@@ -54,6 +54,41 @@ export default function HomeActionCards({
         </span>
       </div>
 
+      {/* Latihan WMI — the FIRST action (P1.11): the member core loop lives
+          in the concept garden, so the dashboard's primary action points
+          there, ahead of the video recommendation. Mirrors the video card's
+          footer (reward chip + "Mulai" pill) so the pair reads aligned.
+          "+5 XP tiap benar" matches CONCEPT_CORRECT_XP on both the session
+          and drill paths. */}
+      <Link
+        to="/latihan/wmi"
+        className="block rounded-[2rem] bg-[#FFF8F0] p-4 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#FFD3B1]"
+      >
+        <div className="flex items-center gap-3">
+          <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.25rem] bg-qupu-brand-orange text-2xl text-white shadow-[0_4px_0_0_#B8541A]">
+            <i className="fa-solid fa-brain" aria-hidden="true" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <h3 className="font-display text-lg font-black leading-[1.05] text-qupu-brand-blue">
+              Lanjutkan Latihan WMI
+            </h3>
+            <p className="mt-1 text-xs font-bold leading-tight text-qupu-brand-blue/65">
+              Tumbuhkan kebun konsepmu — kumpulkan XP tiap jawaban benar.
+            </p>
+          </div>
+        </div>
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
+            <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
+            +5 XP tiap benar
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 text-sm font-black text-white shadow-[0_3px_0_0_#B8541A]">
+            Mulai
+            <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true" />
+          </span>
+        </div>
+      </Link>
+
       {recommended ? (
         <Link
           to={recommended.href}
@@ -132,37 +167,6 @@ export default function HomeActionCards({
           <i className="fa-solid fa-arrow-right text-sm text-white/70" aria-hidden="true" />
         </Link>
       )}
-
-      {/* Latihan Konsep — mirrors the recommended-video card's footer (reward
-          chip + "Mulai" pill) so the two primary actions read as an aligned pair. */}
-      <Link
-        to="/latihan/wmi/konsep"
-        className="block rounded-[2rem] bg-[#FFF8F0] p-4 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#FFD3B1]"
-      >
-        <div className="flex items-center gap-3">
-          <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.25rem] bg-qupu-brand-orange text-2xl text-white shadow-[0_4px_0_0_#B8541A]">
-            <i className="fa-solid fa-brain" aria-hidden="true" />
-          </span>
-          <div className="min-w-0 flex-1">
-            <h3 className="font-display text-lg font-black leading-[1.05] text-qupu-brand-blue">
-              Latihan Konsep
-            </h3>
-            <p className="mt-1 text-xs font-bold leading-tight text-qupu-brand-blue/65">
-              Soal matematika tak terbatas — kumpulkan XP tiap jawaban benar.
-            </p>
-          </div>
-        </div>
-        <div className="mt-3 flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
-            <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
-            +5 XP / soal
-          </span>
-          <span className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 text-sm font-black text-white shadow-[0_3px_0_0_#B8541A]">
-            Mulai
-            <i className="fa-solid fa-arrow-right text-xs" aria-hidden="true" />
-          </span>
-        </div>
-      </Link>
 
       <div className="grid grid-cols-2 gap-4">
         <button

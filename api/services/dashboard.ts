@@ -1,7 +1,8 @@
 // api/services/dashboard.ts
 //
 // Parent-dashboard read service. Derives the full dashboard payload from
-// existing tables — score_attempts, user_badge_unlocks, videos, subjects,
+// existing tables — score_attempts, wmi_attempts (konsep mode, for the
+// daily goal + heatmap), user_badge_unlocks, videos, subjects,
 // video_badge_rules, children. No new tables, no new columns.
 //
 // All queries run inside one withTransaction so they share a snapshot.
@@ -546,9 +547,19 @@ async function fetchSummaryStats(
            WHERE sa.child_id = $1) AS lifetime_correct,
         (SELECT COUNT(*) FROM score_attempts sa
            WHERE sa.child_id = $1) AS lifetime_attempts,
-        (SELECT COUNT(*) FROM score_attempts sa
-           WHERE sa.child_id = $1 AND sa.created_at >= $4
-             AND sa.is_correction = FALSE) AS today_attempts,
+        (
+          (SELECT COUNT(*) FROM score_attempts sa
+             WHERE sa.child_id = $1 AND sa.created_at >= $4
+               AND sa.is_correction = FALSE)
+          +
+          -- WMI konsep answers count toward today's activity too (P1.10) —
+          -- a WMI-only day must move the daily-goal ring, not just video
+          -- quizzes. $4 is WIB midnight as a UTC instant, same boundary for
+          -- both timestamptz columns.
+          (SELECT COUNT(*) FROM wmi_attempts wa
+             WHERE wa.child_id = $1 AND wa.created_at >= $4
+               AND wa.mode = 'concept')
+        ) AS today_attempts,
         (SELECT COALESCE(SUM(sa.total_questions), 0) FROM score_attempts sa
            WHERE sa.child_id = $1 AND sa.created_at >= $4) AS today_question_total
     `,
@@ -616,16 +627,23 @@ async function fetchActivityByDay(
   // a UTC instant (set by dateOnlyWib + time math in getDashboard), so the
   // ">= $2" filter compares timestamptz to timestamptz cleanly. The
   // DATE_TRUNC inside uses AT TIME ZONE so the resulting day bucket is
-  // a WIB day.
+  // a WIB day. Activity = video quiz attempts UNION WMI konsep answers
+  // (P1.10) — a WMI-only day must light up the heatmap too.
   const rows = await query<{ day_offset: string; cnt: string }>(
     `SELECT
         DATE_PART('day',
           DATE_TRUNC('day', $3::timestamptz AT TIME ZONE 'Asia/Jakarta')
-          - DATE_TRUNC('day', sa.created_at AT TIME ZONE 'Asia/Jakarta')
+          - DATE_TRUNC('day', t.created_at AT TIME ZONE 'Asia/Jakarta')
         )::int AS day_offset,
         COUNT(*) AS cnt
-       FROM score_attempts sa
-       WHERE sa.child_id = $1 AND sa.created_at >= $2
+       FROM (
+         SELECT sa.created_at FROM score_attempts sa
+           WHERE sa.child_id = $1 AND sa.created_at >= $2
+         UNION ALL
+         SELECT wa.created_at FROM wmi_attempts wa
+           WHERE wa.child_id = $1 AND wa.created_at >= $2
+             AND wa.mode = 'concept'
+       ) t
        GROUP BY day_offset`,
     [childId, heatmapStart, today],
     client,

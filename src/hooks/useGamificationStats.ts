@@ -5,6 +5,8 @@
 // useGamificationStats() to render the top stat strip without each one
 // fetching independently. The actual fetch happens in Dashboard.tsx (and
 // after-purchase / after-score events trigger a refresh via the same hook).
+// TopStatStrip additionally SELF-HYDRATES from /me/gamification when the
+// store is empty (P1.10), so cold deep links never render zeroed stats.
 //
 // The store is CHILD-AWARE: every write stamps the child the numbers belong
 // to (statsChildId). Patches aimed at a different child than the stamped one
