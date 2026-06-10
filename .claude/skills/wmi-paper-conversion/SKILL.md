@@ -77,6 +77,21 @@ pure number/word → `false`. Visual questions get an illustration + explainer; 
 question gets a breakdown + steps.
 
 ### Phase 3 · Enrich (per question; batchable)
+**Reuse before you build.** Before creating any illustration or explainer, check
+whether the *same* problem already exists in another paper/grade (same values,
+figure, and answer — e.g. a G1 question reused for G2). If so, point the registry
+at the existing `Illustration`/`Explainer` instead of recreating them — the
+registry can map several `code`s to one component pair (cf. `WMI-19F2A-Q9` reusing
+the G1 shape-equation figure, and `WMI-19F2A-Q25` reusing the G1 arrow grid). Only
+build new components when the puzzle genuinely differs (different cages, clues,
+arrows, or numbers — a matching final answer alone is not enough).
+
+**Deduce, don't assert.** Breakdowns, `hint_steps`, and explainer storyboards must
+derive the answer from prior facts — a chain a kid can follow (givens →
+eliminations → result). Captions like "working through the clues, X must be 4"
+fail Gate 3; show the deduction, including the failed tries when the method is
+elimination.
+
 Use the **qupu-math-problem-creation** skill for the craft of each role:
 - **Designer** → the `breakdown` object (+ a reworded `body_en/id` stem if the OCR
   stem is noisy). Highlights must be exact substrings of the display body.

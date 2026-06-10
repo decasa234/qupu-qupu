@@ -34,6 +34,11 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
 - Aim for 3–5 short, grade-appropriate `hint_steps_en/id`.
 - The arithmetic reconciles with `quantities`, and the final line states the
   `answer`.
+- **Deductive chain:** each step follows logically from facts already
+  established (givens, eliminations, arithmetic) — the answer is *derived*,
+  never asserted. "Working through the clues, X must be 4" is a failed gate.
+- When the method is try-and-eliminate, the failed candidates appear with the
+  reason each fails (in the steps AND the explainer beats).
 
 ## Gate 4 · Breakdown schema
 Fields (type `Breakdown` in `api/services/wmi/concepts/types.ts`, mirrored to
