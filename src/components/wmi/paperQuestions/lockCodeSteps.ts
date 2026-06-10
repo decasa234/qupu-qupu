@@ -92,8 +92,8 @@ export function buildLockCodeSteps(lang: Lang): LockStoryboard {
       highlight: ['1-2'],
       solved: false,
       caption: t(
-        '392 has 1 correct in the wrong place — the official code puts 2 in the middle.',
-        '392 punya 1 angka benar di tempat salah — kode resmi menempatkan 2 di tengah.',
+        '392 has 1 correct in the WRONG place — the official solution takes 2. The clue shows 2 LAST, so it moves to the middle.',
+        '392 punya 1 angka benar di tempat SALAH — solusi resmi memakai 2. Petunjuk menulis 2 TERAKHIR, jadi ia pindah ke tengah.',
       ),
       hold: 2600,
       result: false,
@@ -106,8 +106,8 @@ export function buildLockCodeSteps(lang: Lang): LockStoryboard {
       highlight: [],
       solved: false,
       caption: t(
-        'With 7 fixed at the end, placing 5 then 2 matches the official code.',
-        'Dengan 7 di akhir, menempatkan 5 lalu 2 cocok dengan kode resmi.',
+        'With 7 last and 2 in the middle, 5 fills the first spot: 5 2 7.',
+        'Dengan 7 di akhir dan 2 di tengah, 5 mengisi tempat pertama: 5 2 7.',
       ),
       hold: 2100,
       result: false,

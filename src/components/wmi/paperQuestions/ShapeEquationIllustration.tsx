@@ -96,14 +96,21 @@ export function ShapeGlyph({
   return <polygon points={pts.join(' ')} fill={fill} stroke={stroke} strokeWidth={2.5} strokeLinejoin="round" opacity={opacity} />
 }
 
-export const EQ_VIEW_W = 360
-export const EQ_VIEW_H = 230
+export const EQ_VIEW_W = 416 // wide enough for the roomier equations + the right-hand badge column
+export const EQ_VIEW_H = 244 // bottom breathing room under the asked row
 
 const ROW_Y = [44, 100, 156] // y-centre of the three equation rows
 const ASKED_Y = 208
 
-const GLYPH_GAP = 44
+const GLYPH_GAP = 54 // wide enough that the '+' between shapes has clear breathing room
 const LEFT_PAD = 26
+
+// The question figure has no solved-badge column, so its equations would hug
+// the left edge with dead space on the right. CENTER_SHIFT nudges the whole
+// equation block right to centre it, and FIGURE_DIVIDER_X2 ends the divider
+// just under the widest row's total instead of out in the empty column.
+const CENTER_SHIFT = 49
+const FIGURE_DIVIDER_X2 = 298
 
 /** x-positions for a row's glyphs, the '+' separators, the '=', and the total. */
 export function layoutRow(shapes: ShapeKind[]) {
@@ -152,9 +159,16 @@ export interface ShapeEquationDiagramProps {
   highlightRow?: number | null
   /** Shapes whose value has been solved — shown as a legend of "shape = n" badges. */
   solved?: ShapeKind[]
+  /**
+   * Centre the equation block (question figure has no badge column, so without
+   * this the equations hug the left edge). Implies no solved-value badges.
+   */
+  centered?: boolean
 }
 
-export function ShapeEquationDiagram({ revealAnswer = false, highlightRow = null, solved = [] }: ShapeEquationDiagramProps) {
+export function ShapeEquationDiagram({ revealAnswer = false, highlightRow = null, solved = [], centered = false }: ShapeEquationDiagramProps) {
+  const dx = centered ? CENTER_SHIFT : 0
+  const dividerX2 = centered ? FIGURE_DIVIDER_X2 : EQ_VIEW_W - 20
   return (
     <svg
       viewBox={`0 0 ${EQ_VIEW_W} ${EQ_VIEW_H}`}
@@ -162,26 +176,29 @@ export function ShapeEquationDiagram({ revealAnswer = false, highlightRow = null
       style={{ maxWidth: 420, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {EQUATIONS.map((eq, i) => (
-        <EquationRow
-          key={i}
-          eq={eq}
-          y={ROW_Y[i]}
-          dim={highlightRow !== null && highlightRow !== i}
-          filled={highlightRow === i}
-        />
-      ))}
+      <g transform={dx ? `translate(${dx}, 0)` : undefined}>
+        {EQUATIONS.map((eq, i) => (
+          <EquationRow
+            key={i}
+            eq={eq}
+            y={ROW_Y[i]}
+            dim={highlightRow !== null && highlightRow !== i}
+            filled={highlightRow === i}
+          />
+        ))}
 
-      {/* divider above the asked row */}
-      <line x1={LEFT_PAD - 6} y1={ASKED_Y - 24} x2={EQ_VIEW_W - 20} y2={ASKED_Y - 24} stroke="#CBD5E1" strokeWidth={1.5} />
+        {/* divider above the asked row */}
+        <line x1={LEFT_PAD - 6} y1={ASKED_Y - 24} x2={dividerX2} y2={ASKED_Y - 24} stroke="#CBD5E1" strokeWidth={1.5} />
 
-      {/* asked: △ + ☆ = ? (or 13) */}
-      <AskedRow y={ASKED_Y} reveal={revealAnswer} />
+        {/* asked: △ + ☆ = ? (or 13) */}
+        <AskedRow y={ASKED_Y} reveal={revealAnswer} />
+      </g>
 
       {/* solved-value legend, right column */}
-      {solved.map((kind, i) => (
-        <SolvedBadge key={kind} kind={kind} x={EQ_VIEW_W - 78} y={36 + i * 40} />
-      ))}
+      {!centered &&
+        solved.map((kind, i) => (
+          <SolvedBadge key={kind} kind={kind} x={EQ_VIEW_W - 78} y={36 + i * 40} />
+        ))}
     </svg>
   )
 }
@@ -235,7 +252,7 @@ export default function ShapeEquationIllustration() {
       role="img"
       aria-label="Three shape equations: circle plus circle plus circle equals 18; triangle plus circle equals 14; star plus star plus star plus star equals 20. Find triangle plus star."
     >
-      <ShapeEquationDiagram />
+      <ShapeEquationDiagram centered />
     </div>
   )
 }

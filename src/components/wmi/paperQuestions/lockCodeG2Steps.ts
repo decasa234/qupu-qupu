@@ -9,6 +9,8 @@ export interface LockStepG2 {
   slots: (string | null)[]
   /** Cross out eliminated digits in the clue rows. */
   crossEliminated: boolean
+  /** Extra digit characters to cross out (deduced out, beyond the 164 clue). */
+  extraCrossed?: string[]
   /** Guess digits to highlight as "fits": set of "rowIndex-colIndex". */
   highlight: string[]
   /** Mark the lock as solved (green). */
@@ -73,29 +75,72 @@ export function buildLockCodeG2Steps(lang: Lang): LockStoryboardG2 {
       result: false,
     },
     {
-      // 347 row index 0: 1 correct in the right place. 4 is out; this is 7 in the 3rd spot.
-      phase: 'place',
-      slots: [null, null, p2],
+      // 753 row index 2: 2 correct. 5 is known in the code, so the other is 7 or 3.
+      phase: 'deduce',
+      slots: [null, null, null],
       crossEliminated: true,
-      highlight: ['0-2'],
+      highlight: ['2-1'],
       solved: false,
       caption: t(
-        '347 has 1 correct in the right place. 4 is gone, so 7 is the last digit (3 is not in the code).',
-        '347 punya 1 angka benar di tempat tepat. 4 sudah dicoret, jadi 7 angka terakhir (3 tidak ada di kode).',
+        '753 has 2 correct digits. We know 5 is in the code, so the other one is 7 or 3.',
+        '753 punya 2 angka benar. Kita tahu 5 ada di kode, jadi satunya lagi 7 atau 3.',
       ),
-      hold: 2700,
+      hold: 2500,
       result: false,
     },
     {
-      // 753 row index 2: 2 correct -> 7 (col0) and 5 (col1); 3 (col2) is not in the code.
+      // 4a — suppose 3 IS in the code: 347 (right place) would put it in the first spot.
       phase: 'deduce',
-      slots: [null, null, p2],
+      slots: [null, null, null],
       crossEliminated: true,
-      highlight: ['2-0', '2-1'],
+      highlight: ['0-0'],
       solved: false,
       caption: t(
-        '753 has 2 correct: they are 5 and 7, so 3 is not in the code.',
-        '753 punya 2 angka benar: yaitu 5 dan 7, jadi 3 tidak ada di kode.',
+        'Could 3 be in the code? 347 has 1 digit correct AND in the right place — that would put 3 in the first spot.',
+        'Mungkinkah 3 ada di kode? 347 punya 1 angka benar DAN di tempat tepat — itu menaruh 3 di tempat pertama.',
+      ),
+      hold: 2600,
+      result: false,
+    },
+    {
+      // 4b — but 392 has 3 in the first spot too, with its correct digit in the WRONG place.
+      phase: 'deduce',
+      slots: [null, null, null],
+      crossEliminated: true,
+      highlight: ['0-0', '1-0'],
+      solved: false,
+      caption: t(
+        'But 392 also has 3 in the first spot — and its 1 correct digit is in the WRONG spot. 3 cannot be right here and wrong there.',
+        'Tapi 392 juga punya 3 di tempat pertama — dan 1 angka benarnya di tempat SALAH. 3 tak bisa benar di sini tetapi salah di sana.',
+      ),
+      hold: 2800,
+      result: false,
+    },
+    {
+      // 4c — and 3 would over-fill 753's count (it would be 3 correct, not 2).
+      phase: 'deduce',
+      slots: [null, null, null],
+      crossEliminated: true,
+      highlight: ['2-0', '2-1', '2-2'],
+      solved: false,
+      caption: t(
+        'And if 3 were correct, 753 would have 7, 5 AND 3 — that is 3 correct, but 753 says only 2.',
+        'Dan jika 3 benar, 753 akan punya 7, 5, DAN 3 — itu 3 angka benar, padahal 753 cuma 2.',
+      ),
+      hold: 2800,
+      result: false,
+    },
+    {
+      // 4d — conclusion: cross out 3; 753's two correct are 5 and 7; 347 places 7 last.
+      phase: 'place',
+      slots: [null, null, p2],
+      crossEliminated: true,
+      extraCrossed: ['3'],
+      highlight: ['0-2', '2-0', '2-1'],
+      solved: false,
+      caption: t(
+        'So 3 is crossed out. The 2 correct in 753 are 5 and 7, and 347 puts 7 in the last spot.',
+        'Jadi 3 dicoret. Dua angka benar di 753 adalah 5 dan 7, dan 347 menaruh 7 di tempat terakhir.',
       ),
       hold: 2600,
       result: false,
@@ -105,6 +150,7 @@ export function buildLockCodeG2Steps(lang: Lang): LockStoryboardG2 {
       phase: 'place',
       slots: [null, p1, p2],
       crossEliminated: true,
+      extraCrossed: ['3'],
       highlight: ['1-2'],
       solved: false,
       caption: t(
@@ -119,6 +165,7 @@ export function buildLockCodeG2Steps(lang: Lang): LockStoryboardG2 {
       phase: 'place',
       slots: [p0, p1, p2],
       crossEliminated: true,
+      extraCrossed: ['3'],
       highlight: [],
       solved: false,
       caption: t(
@@ -132,6 +179,7 @@ export function buildLockCodeG2Steps(lang: Lang): LockStoryboardG2 {
       phase: 'result',
       slots: [p0, p1, p2],
       crossEliminated: true,
+      extraCrossed: ['3'],
       highlight: [],
       solved: true,
       caption: t(`The code is ${LOCK_CODE_G2}.`, `Kodenya adalah ${LOCK_CODE_G2}.`),

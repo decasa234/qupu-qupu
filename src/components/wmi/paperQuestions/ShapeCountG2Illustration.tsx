@@ -163,15 +163,57 @@ export function ShapeCountG2Chart({ activeRow = null, showAll = false }: G2Shape
   )
 }
 
+// ---- Illustration: scatter only (the question is to COUNT the jumble) -------
+// The in-card figure shows just the scattered shapes — NO chart. The four bar
+// charts are the A–D answer options (rendered by ShapeCountOption); a chart in
+// the figure would pre-reveal the answer. Shapes are spread full-width and
+// jumbled (a coprime permutation) so counting each kind is a real task.
+const ILLUS_W = 420
+const ILLUS_H = 168
+const ILLUS_COLS = 9
+const ILLUS_ROWS = 3 // 9 × 3 = 27 = total shape count
+const ILLUS_MX = 30
+const ILLUS_MY = 26
+
+function illusScatterItems(): G2ScatterItem[] {
+  const flat: { kind: G2ShapeKind; color: string }[] = []
+  for (const row of G2_SHAPE_ROWS) for (let i = 0; i < row.count; i++) flat.push({ kind: row.kind, color: row.color })
+  const N = flat.length // 27
+  const dx = (ILLUS_W - 2 * ILLUS_MX) / ILLUS_COLS
+  const dy = (ILLUS_H - 2 * ILLUS_MY) / ILLUS_ROWS
+  return flat.map((s, n) => {
+    const cell = (n * 7) % N // gcd(7, 27) = 1 → a bijection that jumbles the kinds
+    const col = cell % ILLUS_COLS
+    const line = Math.floor(cell / ILLUS_COLS)
+    const jx = ((n * 11) % 7) - 3
+    const jy = ((n * 5) % 7) - 3
+    return {
+      kind: s.kind,
+      color: s.color,
+      cx: ILLUS_MX + col * dx + dx / 2 + jx,
+      cy: ILLUS_MY + line * dy + dy / 2 + jy,
+    }
+  })
+}
+
 export default function ShapeCountG2Illustration() {
   const label = G2_SHAPE_ROWS.map((r) => `${r.kind} ${r.count}`).join(', ')
   return (
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label={`A group of shapes and a bar chart of their counts: ${label}.`}
+      aria-label={`A jumbled group of shapes to count and organise: ${label}.`}
     >
-      <ShapeCountG2Chart showAll />
+      <svg
+        viewBox={`0 0 ${ILLUS_W} ${ILLUS_H}`}
+        width="100%"
+        style={{ maxWidth: ILLUS_W, display: 'block', margin: '0 auto' }}
+        aria-hidden="true"
+      >
+        {illusScatterItems().map((it, i) => (
+          <G2ScatterShape key={i} item={it} dim={false} />
+        ))}
+      </svg>
     </div>
   )
 }

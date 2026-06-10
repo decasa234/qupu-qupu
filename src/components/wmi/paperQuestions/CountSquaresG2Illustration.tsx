@@ -104,19 +104,9 @@ export function CountSquaresG2Figure({ highlightSize = null, highlightSquare = n
       style={{ maxWidth: 240, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* Highlighted squares (drawn under the figure lines) */}
+      {/* Highlighted square fills, under the grid lines */}
       {highlights.map((s, i) => (
-        <rect
-          key={`hl-${i}`}
-          x={gx(s.x)}
-          y={gy(s.y)}
-          width={s.size * CELL}
-          height={s.size * CELL}
-          fill={GREEN_FILL}
-          stroke={GREEN}
-          strokeWidth={2.5}
-          rx={1}
-        />
+        <rect key={`fill-${i}`} x={gx(s.x)} y={gy(s.y)} width={s.size * CELL} height={s.size * CELL} fill={GREEN_FILL} rx={1} />
       ))}
 
       {/* Figure: every drawn unit edge */}
@@ -125,6 +115,21 @@ export function CountSquaresG2Figure({ highlightSize = null, highlightSquare = n
       ))}
       {V_EDGES.map(([x, y], i) => (
         <line key={`v-${i}`} x1={gx(x)} y1={gy(y)} x2={gx(x)} y2={gy(y + 1)} stroke="#1F2937" strokeWidth={2.5} strokeLinecap="square" />
+      ))}
+
+      {/* Highlighted square borders, drawn ON TOP of the grid so they stand out */}
+      {highlights.map((s, i) => (
+        <rect
+          key={`bd-${i}`}
+          x={gx(s.x)}
+          y={gy(s.y)}
+          width={s.size * CELL}
+          height={s.size * CELL}
+          fill="none"
+          stroke={GREEN}
+          strokeWidth={4}
+          rx={1}
+        />
       ))}
     </svg>
   )

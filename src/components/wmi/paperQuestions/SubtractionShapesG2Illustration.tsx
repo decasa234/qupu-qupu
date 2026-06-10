@@ -70,7 +70,7 @@ function Digit({ x, y, children }: { x: number; y: number; children: string }) {
 export interface SubtractionDiagramProps {
   /** Highlight a column: 'units' | 'tens' | null. */
   activeColumn?: 'units' | 'tens' | null
-  /** Show the borrowed '1' tick over the units / crossed tens digit. */
+  /** Show the borrowed '1' tick over the units 3 (the □ is never crossed out). */
   showBorrow?: boolean
   /** Reveal the solved ○ value (replaces the circle glyph with its digit). */
   revealCircle?: boolean
@@ -102,14 +102,12 @@ export function SubtractionDiagram({
       {revealSquare ? <Digit x={TENS_X} y={ROW_Y[0]}>{String(SQUARE_VALUE)}</Digit> : <SquareGlyph cx={TENS_X} cy={ROW_Y[0]} highlight={tensActive} />}
       <Digit x={UNITS_X} y={ROW_Y[0]}>3</Digit>
 
-      {/* Borrow annotation: small ¹ above the units 3, and a slash on the tens □. */}
+      {/* Borrow annotation: small ¹ above the units 3 (the borrow into the ones).
+          The □ is the unknown we are solving for, so it is NOT crossed out. */}
       {showBorrow && (
-        <>
-          <text x={UNITS_X - 18} y={ROW_Y[0] - 22} fontSize={15} fontWeight={800} textAnchor="middle" fill="#DC2626">
-            1
-          </text>
-          <line x1={TENS_X - 14} y1={ROW_Y[0] + 16} x2={TENS_X + 14} y2={ROW_Y[0] - 16} stroke="#DC2626" strokeWidth={2} />
-        </>
+        <text x={UNITS_X - 18} y={ROW_Y[0] - 22} fontSize={15} fontWeight={800} textAnchor="middle" fill="#DC2626">
+          1
+        </text>
       )}
 
       {/* Row 2 (subtrahend): − 6 ○ */}

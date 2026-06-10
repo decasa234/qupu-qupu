@@ -18,9 +18,10 @@ const UP = '#341857'
 const INK = '#1F2937'
 
 /**
- * One picture: a stack of `rows` rows. Row r (0-indexed from the top) holds
- * (r+1) upward triangles and r downward triangles between them — together
- * 1+2+…+rows = T(rows) small triangles, all of unit side `s`.
+ * One picture: a triangular pile of `rows` rows of UPWARD triangles only. Row r
+ * (0-indexed from the top) holds (r+1) upward ▲'s, so rows 1..rows give
+ * 1+2+…+rows = T(rows) small triangles — exactly the ▲'s the puzzle counts.
+ * The inverted gaps between them are left empty, as in the paper.
  * Drawn centred horizontally, growing downward from `topY`.
  */
 export function TriangleStack({
@@ -43,21 +44,12 @@ export function TriangleStack({
     const rowY = topY + r * h
     // left edge of this row so it stays centred under the apex
     const x0 = cx - ((r + 1) * s) / 2
-    // (r+1) upward triangles
+    // (r+1) upward triangles — only the ▲'s the puzzle counts (no inverted ones)
     for (let i = 0; i <= r; i++) {
       const x = x0 + i * s
       tris.push({
         pts: `${x + s / 2},${rowY} ${x},${rowY + h} ${x + s},${rowY + h}`,
         down: false,
-      })
-    }
-    // r downward triangles nested between the upward ones
-    for (let i = 0; i < r; i++) {
-      const x = x0 + (i + 1) * s
-      // apex points down; top edge spans [x - s, x], bottom vertex at x - s/2
-      tris.push({
-        pts: `${x - s},${rowY} ${x},${rowY} ${x - s / 2},${rowY + h}`,
-        down: true,
       })
     }
   }

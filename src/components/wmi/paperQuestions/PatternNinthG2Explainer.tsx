@@ -3,7 +3,6 @@ import type { ExplainerProps } from '../concepts/explainers/registry'
 import { useBeatControl } from '../concepts/explainers/useBeatControl'
 import {
   FOODS,
-  ANSWER_FOOD,
   FoodGlyph,
   StarMarker,
   foodX,
@@ -11,19 +10,12 @@ import {
   ROW_Y,
   ROW_VIEW_W,
   ROW_VIEW_H,
+  ANSWER_OPTIONS,
 } from './PatternNinthG2Illustration'
 import { buildPatternNinthG2Steps } from './patternNinthG2Steps'
 
 const GREEN = '#10B981'
 const PURPLE = '#341857'
-
-/** Answer options A/B/C/D as drawn in the original figure. D is the answer (🍡). */
-const OPTIONS: { label: 'A' | 'B' | 'C' | 'D'; emoji: string }[] = [
-  { label: 'A', emoji: '🍣' },
-  { label: 'B', emoji: '🍤' },
-  { label: 'C', emoji: '🍥' },
-  { label: 'D', emoji: ANSWER_FOOD }, // 🍡
-]
 
 export default function PatternNinthG2Explainer(props: ExplainerProps) {
   const lang = props.lang ?? 'en'
@@ -73,7 +65,7 @@ export default function PatternNinthG2Explainer(props: ExplainerProps) {
 
         {/* Answer options A B C D. */}
         <svg viewBox="0 0 540 70" width="100%" style={{ maxWidth: 420 }} aria-hidden="true">
-          {OPTIONS.map((opt, i) => {
+          {ANSWER_OPTIONS.map((opt, i) => {
             const cx = 80 + i * 130
             const chosen = beat.highlightOption === opt.label
             return (
