@@ -4,7 +4,9 @@
 // (switch active child / add a child), a Pengaturan menu (Rapor → /report,
 // Statistik & Misi Harian → /dashboard, Keluar → logout), and the owned-items
 // collection.
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import api from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import InventoryGrid from '../components/me/InventoryGrid'
@@ -70,6 +72,7 @@ export default function MePage() {
             title="Statistik & Misi Harian"
             subtitle="Ringkasan belajar, kuis & misi harian"
           />
+          <NotifyEmailRow />
           <SettingsRow
             onClick={handleLogout}
             icon="fa-solid fa-right-from-bracket"
@@ -92,6 +95,82 @@ export default function MePage() {
           )}
         </div>
       </section>
+    </div>
+  )
+}
+
+// Parent email-notification opt-out (P2.5). Default ON (the DB default), so
+// the switch renders enabled immediately and the GET only corrects it for
+// parents who already opted out. The PUT is optimistic with rollback —
+// matching the row layout of SettingsRow but with a switch instead of a
+// chevron.
+function NotifyEmailRow() {
+  const [enabled, setEnabled] = useState(true)
+  const [busy, setBusy] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    api
+      .get('/users/me')
+      .then((res) => {
+        const value = res.data?.data?.notify_email
+        if (!cancelled && typeof value === 'boolean') setEnabled(value)
+      })
+      .catch(() => {
+        // Leave the default-on state; the toggle still works.
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  async function handleToggle() {
+    if (busy) return
+    const next = !enabled
+    setEnabled(next)
+    setBusy(true)
+    try {
+      await api.put('/users/me', { notify_email: next })
+    } catch {
+      setEnabled(!next) // roll back on failure
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div className="flex items-center gap-3 rounded-[1.25rem] bg-qupu-shell px-3 py-2.5">
+      <span
+        className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[0.9rem] text-base text-white"
+        style={{ backgroundColor: '#D97706' }}
+      >
+        <i className="fa-solid fa-envelope" aria-hidden="true" />
+      </span>
+      <span className="min-w-0 flex-1 text-left">
+        <span className="block font-display text-sm font-extrabold leading-tight text-qupu-brand-blue">
+          Email pengingat &amp; rangkuman mingguan
+        </span>
+        <span className="block text-[11px] font-semibold text-qupu-muted">
+          Pengingat streak &amp; rangkuman belajar tiap Senin
+        </span>
+      </span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={enabled}
+        aria-label="Email pengingat & rangkuman mingguan"
+        onClick={handleToggle}
+        disabled={busy}
+        className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+          enabled ? 'bg-qupu-brand-orange' : 'bg-qupu-brand-blue/20'
+        } ${busy ? 'opacity-60' : ''}`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+            enabled ? 'left-[1.375rem]' : 'left-0.5'
+          }`}
+        />
+      </button>
     </div>
   )
 }

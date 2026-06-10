@@ -10,6 +10,9 @@ const updateProfileSchema = Joi.object({
   age: Joi.number().min(6).max(16),
   phone: Joi.string(),
   email: Joi.string().email(),
+  // Parent notification opt-out (P2.5): streak-at-risk reminders + the
+  // Monday weekly digest. Toggled from the Me page.
+  notify_email: Joi.boolean(),
 })
 
 router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
@@ -23,9 +26,10 @@ router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
       role: string
       age_group_id: string | null
       plan: string
+      notify_email: boolean
     }>(
       `
-        SELECT id, email, phone, name, age, role, age_group_id, plan
+        SELECT id, email, phone, name, age, role, age_group_id, plan, notify_email
         FROM users
         WHERE id = $1
       `,
@@ -75,6 +79,7 @@ router.put('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
       age: number
       role: string
       age_group_id: string | null
+      notify_email: boolean
     }>(
       `
         UPDATE users
@@ -84,11 +89,20 @@ router.put('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
           phone = COALESCE($4, phone),
           email = COALESCE($5, email),
           age_group_id = COALESCE($6, age_group_id),
+          notify_email = COALESCE($7, notify_email),
           updated_at = NOW()
         WHERE id = $1
-        RETURNING id, email, phone, name, age, role, age_group_id
+        RETURNING id, email, phone, name, age, role, age_group_id, notify_email
       `,
-      [req.user.id, value.name ?? null, value.age ?? null, value.phone ?? null, value.email ?? null, ageGroupId ?? null],
+      [
+        req.user.id,
+        value.name ?? null,
+        value.age ?? null,
+        value.phone ?? null,
+        value.email ?? null,
+        ageGroupId ?? null,
+        value.notify_email ?? null,
+      ],
     )
 
     res.json({ success: true, data: user })

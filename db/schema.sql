@@ -945,3 +945,24 @@ VALUES
    'Bab pertamamu yang 100% tumbuh — semua tanaman di satu bab mencapai tingkat Mahir.',
    'gold_chapter_first', 1, 200, 'trophy', 17, '{}'::jsonb)
 ON CONFLICT (code) DO NOTHING;
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Parent notification channel (migration 0043)
+-- users.notify_email is the opt-out for the parent email loop
+-- (streak-at-risk + Monday weekly digest, Me-page toggle).
+-- notification_log makes the daily cron idempotent: one row per
+-- (parent, kind, WIB date); the dispatcher only sends when its
+-- INSERT ... ON CONFLICT DO NOTHING actually appended.
+-- ─────────────────────────────────────────────────────────────────────
+
+ALTER TABLE users
+  ADD COLUMN IF NOT EXISTS notify_email BOOLEAN NOT NULL DEFAULT TRUE;
+
+CREATE TABLE IF NOT EXISTS notification_log (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  kind TEXT NOT NULL,            -- 'streak_at_risk' | 'weekly_digest'
+  wib_date DATE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, kind, wib_date)
+);
