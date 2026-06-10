@@ -1,12 +1,18 @@
 import { queryOne, withTransaction } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { wibDateString } from '../../lib/wib.js'
+import {
+  chestThresholdsToGrant,
+  grantChapterChests,
+} from '../gamification/chapterChest.js'
 import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
 import { emitEvent } from '../gamification/events.js'
+import { updateProfileWithDelta } from '../gamification/profileUpdater.js'
 import { ensureTodaysQuests } from '../gamification/questGenerator.js'
 import { evaluateForEvent } from '../gamification/questEvaluator.js'
 import { getWmiQuestionAnswer } from './papers.js'
 import { isCorrectAnswer } from './answerMatch.js'
+import { PROFICIENT_TIER } from './concepts/comprehension.js'
 import { upsertConceptProgress } from './concepts/conceptProgress.js'
 
 export interface WmiAttemptInput {
@@ -53,6 +59,7 @@ export async function submitWmiAttempt(
     let hint_steps_en: string[] | null
     let hint_steps_id: string[] | null
     let conceptSlug: string | null = null
+    let conceptSubjectKey: string | null = null
 
     if (input.mode === 'concept') {
       if (!input.conceptInstanceId) {
@@ -68,8 +75,13 @@ export async function submitWmiAttempt(
         hint_steps_en: string[] | null
         hint_steps_id: string[] | null
         concept_slug: string
+        subject_key: string | null
       }>(
-        'SELECT answer, hint_en, hint_id, hint_steps_en, hint_steps_id, concept_slug FROM wmi_concept_instances WHERE id = $1',
+        `SELECT i.answer, i.hint_en, i.hint_id, i.hint_steps_en, i.hint_steps_id,
+                i.concept_slug, c.subject_key
+           FROM wmi_concept_instances i
+           JOIN wmi_concepts c ON c.slug = i.concept_slug
+          WHERE i.id = $1`,
         [input.conceptInstanceId],
         client,
       )
@@ -80,6 +92,7 @@ export async function submitWmiAttempt(
       hint_steps_en = inst.hint_steps_en
       hint_steps_id = inst.hint_steps_id
       conceptSlug = inst.concept_slug
+      conceptSubjectKey = inst.subject_key
     } else {
       if (!input.questionId) {
         throw new Error('questionId is required for drill/exam attempts')
@@ -97,8 +110,13 @@ export async function submitWmiAttempt(
 
       if (input.mode === 'exam') {
         if (!input.sessionId) throw new Error('sessionId is required for exam attempts')
-        const session = await queryOne<{ id: string; child_id: string; completed_at: string | null }>(
-          'SELECT id, child_id, completed_at FROM wmi_exam_sessions WHERE id = $1',
+        const session = await queryOne<{
+          id: string
+          child_id: string
+          completed_at: string | null
+          abandoned: boolean
+        }>(
+          'SELECT id, child_id, completed_at, abandoned FROM wmi_exam_sessions WHERE id = $1',
           [input.sessionId],
           client,
         )
@@ -106,6 +124,9 @@ export async function submitWmiAttempt(
           throw new Error('Sesi ujian ini milik profil anak yang lain')
         }
         if (session.completed_at) throw new Error('Exam session already completed')
+        // Starting a fresh run marks the old session abandoned (sessions.ts);
+        // a stale tab must not keep writing answers into it.
+        if (session.abandoned) throw new Error('Exam session abandoned')
       }
     }
 
@@ -206,6 +227,73 @@ export async function submitWmiAttempt(
         tierBefore: tierChange.prevTier,
         tierAfter: tierChange.newTier,
       })
+
+      // ── Chapter chests on the drill path ─────────────────────────────
+      // Mirrors the session-commit chest block (session.ts): a drill answer
+      // can push a chapter past 50%/100% grown between session commits, and
+      // without this the chest would stay orphaned until a future commit's
+      // self-heal. Runs ONLY when this answer crossed Mahir (rare), costs one
+      // chapter COUNT, and grants through the SAME deterministic ledger keys
+      // (chest:<child>:<subjectKey>:<threshold>) so the two paths can never
+      // double-pay each other.
+      if (
+        conceptSubjectKey &&
+        tierChange.prevTier < PROFICIENT_TIER &&
+        tierChange.newTier >= PROFICIENT_TIER
+      ) {
+        const chapterRow = await queryOne<{ total: number; grown: number }>(
+          `SELECT COUNT(*)::int AS total,
+                  COUNT(*) FILTER (WHERE p.best_tier >= $3)::int AS grown
+             FROM wmi_concepts c
+             LEFT JOIN wmi_concept_progress p
+               ON p.concept_slug = c.slug AND p.child_id = $1
+            WHERE c.subject_key = $2 AND c.enabled = TRUE`,
+          [input.childId, conceptSubjectKey, PROFICIENT_TIER],
+          client,
+        )
+        const grownAfter = Number(chapterRow?.grown ?? 0)
+        const total = Number(chapterRow?.total ?? 0)
+        const thresholds = chestThresholdsToGrant(grownAfter - 1, grownAfter, total)
+        const granted = await grantChapterChests(
+          client,
+          input.childId,
+          conceptSubjectKey,
+          thresholds,
+        )
+        let chestXp = 0
+        let chestCoins = 0
+        for (const chest of granted) {
+          chestXp += chest.xp
+          chestCoins += chest.coins
+        }
+        if (chestXp > 0 || chestCoins > 0) {
+          // awardConceptReward already stamped today's activity — null keeps
+          // this a pure balance credit. Fold into the gamification payload so
+          // the FE stat strip stays truthful without a follow-up fetch.
+          const profile = await updateProfileWithDelta(client, {
+            childId: input.childId,
+            xpDelta: chestXp,
+            coinDelta: chestCoins,
+            activityDate: null,
+          })
+          gamification = {
+            ...gamification,
+            xpEarned: gamification.xpEarned + chestXp,
+            coinsEarned: gamification.coinsEarned + chestCoins,
+            totalXp: profile.after.totalXp,
+            coinBalance: profile.after.coinBalance,
+            level: profile.after.currentLevel,
+            tierName: profile.after.currentTierName,
+            levelUp: profile.levelUp
+              ? {
+                  previousLevel: profile.levelUp.previousLevel,
+                  currentLevel: profile.levelUp.currentLevel,
+                  tierName: profile.levelUp.tier.tierName,
+                }
+              : gamification.levelUp,
+          }
+        }
+      }
 
       // Latihan Campur quest wire: ANY graded drill answer progresses the
       // konsep daily quests (e.g. konsep_answers_10 — "Jawab N soal"),

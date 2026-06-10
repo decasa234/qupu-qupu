@@ -27,6 +27,8 @@
 import type { PoolClient } from 'pg'
 import { query, queryOne } from '../../db.js'
 import { wibDateString } from '../../lib/wib.js'
+import { appendLedger } from './ledger.js'
+import { updateProfileWithDelta } from './profileUpdater.js'
 
 export interface ActiveQuest {
   id: string
@@ -202,6 +204,79 @@ async function pickSlots(
   return picks
 }
 
+// Auto-claim completed-but-unclaimed instances from PAST windows. The panel
+// only lists TODAY's instances and the ceremony tells kids "klaim nanti", so
+// a quest completed late yesterday would otherwise be forfeited at WIB
+// midnight. Runs on the generation branch only (the first touch of a new WIB
+// day), inside the caller's transaction.
+//
+// Reuses the claim path's exact idempotency: the DAILY_QUEST_XP ledger row is
+// keyed to the instance id, so an instance the kid DID claim (or a concurrent
+// sweep) collides on the ledger UNIQUE and credits nothing twice. Balances
+// fold in via ONE profile delta with activityDate: null — an auto-claim is
+// not learning activity, the streak must never advance from it.
+async function autoClaimPastQuests(
+  client: PoolClient,
+  childId: string,
+  today: string,
+): Promise<void> {
+  const pending = await query<{
+    id: string
+    code: string
+    quest_type: string
+    xp_reward: number
+    coin_reward: number
+  }>(
+    `SELECT cqi.id, qt.code, qt.quest_type, qt.xp_reward, qt.coin_reward
+       FROM child_quest_instances cqi
+       JOIN quest_templates qt ON qt.id = cqi.quest_template_id
+      WHERE cqi.child_id = $1
+        AND cqi.window_start < $2
+        AND cqi.completed_at IS NOT NULL
+        AND cqi.claimed_at IS NULL
+      FOR UPDATE OF cqi`,
+    [childId, today],
+    client,
+  )
+  if (pending.length === 0) return
+
+  let xpDelta = 0
+  let coinDelta = 0
+  for (const quest of pending) {
+    const led = await appendLedger(client, {
+      childId,
+      rewardType: 'DAILY_QUEST_XP',
+      sourceType: 'child_quest_instance',
+      sourceId: quest.id,
+      xpDelta: Number(quest.xp_reward),
+      coinDelta: Number(quest.coin_reward),
+      metadata: { questCode: quest.code, questType: quest.quest_type, autoClaimed: true },
+    })
+    if (led.appended) {
+      xpDelta += led.xpDelta
+      coinDelta += led.coinDelta
+    }
+  }
+
+  // Stamp regardless of whether the ledger appended (a collided row means it
+  // was paid long ago) — mirrors claimQuestReward's stamping rule.
+  await client.query(
+    `UPDATE child_quest_instances
+        SET claimed_at = NOW(), status = 'claimed', updated_at = NOW()
+      WHERE id = ANY($1::uuid[])`,
+    [pending.map((q) => q.id)],
+  )
+
+  if (xpDelta > 0 || coinDelta > 0) {
+    await updateProfileWithDelta(client, {
+      childId,
+      xpDelta,
+      coinDelta,
+      activityDate: null,
+    })
+  }
+}
+
 export async function ensureTodaysQuests(
   client: PoolClient,
   childId: string,
@@ -264,6 +339,11 @@ export async function ensureTodaysQuests(
       metadata: r.metadata ?? {},
     }))
   }
+
+  // First touch of a new WIB day: yesterday's earned-but-unclaimed rewards
+  // just arrive (the panel needn't show them; balances move) before today's
+  // slots are generated. Same transaction as generation.
+  await autoClaimPastQuests(client, childId, today)
 
   // Generate: pick slots, then INSERT ON CONFLICT (idempotent under race).
   const templates = await fetchTemplates(client)

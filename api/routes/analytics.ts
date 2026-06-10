@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from 'express'
 import Joi from 'joi'
 import { verifyToken } from '../lib/jwt.js'
-import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
+import { clientIp, enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
 import { logEvent } from '../services/analytics.js'
 
 const router = Router()
@@ -36,8 +36,9 @@ router.post('/events', async (req: Request, res: Response): Promise<void> => {
     // Rate-limit per client IP (endpoint is unauthenticated). Fail OPEN on a
     // limiter DB error — analytics is best-effort and must not block on infra.
     try {
+      // clientIp prefers Vercel's unspoofable x-vercel-forwarded-for header.
       await enforceRateLimit(
-        `analytics-ip:${req.ip ?? 'unknown'}`,
+        `analytics-ip:${clientIp(req)}`,
         'analytics:events',
         { max: 120, windowSeconds: 60 },
       )

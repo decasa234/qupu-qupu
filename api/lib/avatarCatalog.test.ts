@@ -54,6 +54,13 @@ describe('requiredAvatarLevel', () => {
     expect(requiredAvatarLevel(null, null)).toBe(0)
     expect(requiredAvatarLevel(undefined, undefined)).toBe(0)
   })
+
+  it('gates colors case-insensitively (hex-case bypass)', () => {
+    expect(requiredAvatarLevel(null, '#a78bfa')).toBe(5)
+    expect(requiredAvatarLevel(null, '#f59e0b')).toBe(10)
+    expect(requiredAvatarLevel(null, '#A78bFa')).toBe(5)
+    expect(requiredAvatarLevel('dragon', '#a78bfa')).toBe(20)
+  })
 })
 
 describe('isAvatarUnlocked (FE gate)', () => {

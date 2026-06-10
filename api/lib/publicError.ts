@@ -38,6 +38,12 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
     message: 'Sesi ujian ini milik profil anak yang lain',
   },
   'Exam session already completed': { status: 400, message: 'Sesi ujian ini sudah selesai.' },
+  // A fresh run for the same paper marks the old session abandoned — a stale
+  // tab must not keep writing answers into it.
+  'Exam session abandoned': {
+    status: 400,
+    message: 'Sesi ujian ini sudah ditinggalkan. Mulai ujian baru ya.',
+  },
   'No concepts available for this chapter': {
     status: 400,
     message: 'Belum ada soal untuk bab ini.',

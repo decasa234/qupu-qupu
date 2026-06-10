@@ -140,14 +140,19 @@ describe.skipIf(!RUN)('runDailyNotifications', () => {
     const mondayNoonWib = new Date(`${thisWeek.start}T12:00:00+07:00`)
     const insideLastWeek = new Date(thisWeek.startUtc.getTime() - 3 * DAY_MS)
 
-    // fx child: 25 base XP + a 20 XP tier-up + one session, all last week.
+    // fx child: 25 base XP + TWO tier-up rows for the SAME concept (a
+    // multi-tier jump, metadata.conceptSlug as grantTierUpBonuses writes it)
+    // + one session, all last week. The digest must count the concept ONCE.
     await query(
       `INSERT INTO reward_ledger
          (child_id, reward_type, source_type, source_id, xp_delta, coin_delta, metadata, created_at)
        VALUES
-         ($1, 'CONCEPT_COMPLETION_XP', 'test_grant', $2, 25, 0, '{}'::jsonb, $4),
-         ($1, 'CONCEPT_TIER_UP_XP', 'concept_tier_up', $3, 20, 0, '{}'::jsonb, $4)`,
-      [fx.childId, randomUUID(), randomUUID(), insideLastWeek],
+         ($1, 'CONCEPT_COMPLETION_XP', 'test_grant', $2, 25, 0, '{}'::jsonb, $5),
+         ($1, 'CONCEPT_TIER_UP_XP', 'concept_tier_up', $3, 5, 0,
+          '{"conceptSlug":"digest-test-concept","tier":2}'::jsonb, $5),
+         ($1, 'CONCEPT_TIER_UP_XP', 'concept_tier_up', $4, 15, 0,
+          '{"conceptSlug":"digest-test-concept","tier":3}'::jsonb, $5)`,
+      [fx.childId, randomUUID(), randomUUID(), randomUUID(), insideLastWeek],
     )
     await query(
       `INSERT INTO wmi_konsep_sessions (session_id, child_id, subject_key, result, created_at)

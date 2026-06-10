@@ -496,10 +496,13 @@ export async function commitKonsepSession(
         coinDelta: SESSION_DROP_MIN + randomInt(SESSION_DROP_MAX - SESSION_DROP_MIN + 1),
         metadata: { subjectKey },
       })
-      sessionDrop = dropLed.coinDelta
-      // Fold only an APPENDED grant into the banked delta (an unreachable-in-
-      // practice duplicate means the coins were already credited elsewhere).
-      if (dropLed.appended) coinsEarned += dropLed.coinDelta
+      // Fold (and surface) only an APPENDED grant — an unreachable-in-
+      // practice duplicate means the coins were already credited elsewhere,
+      // so the result must not celebrate a drop this commit never banked.
+      if (dropLed.appended) {
+        sessionDrop = dropLed.coinDelta
+        coinsEarned += dropLed.coinDelta
+      }
 
       // Always run the profile delta — even at 0/0 it stamps
       // last_activity_date = today (so tomorrow's streak gap is correct) and

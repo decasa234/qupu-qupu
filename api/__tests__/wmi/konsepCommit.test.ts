@@ -13,7 +13,7 @@
 //   - chapter chests grant once per (child, chapter, threshold) across
 //     replays; every commit rolls a 2-6 coin session drop exactly once.
 
-import { describe, test, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { describe, test, expect, beforeAll, beforeEach, afterEach, afterAll } from 'vitest'
 import { randomUUID } from 'node:crypto'
 import request from 'supertest'
 import { signToken } from '../../lib/jwt.js'
@@ -32,10 +32,23 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   let childId: string
   let siblingId: string
   let token: string
+  const createdSubjectKeys: string[] = []
 
   beforeAll(async () => {
     _resetBootstrapForTesting()
     await ensureBootstrapped()
+  })
+
+  // Synthetic chapters MUST be removed: they are enabled grade-1 concepts
+  // with no registered generator, so a leaked row breaks any other suite
+  // whose random concept pick lands on it (engine/konsep "tidak bisa
+  // membuat soal" flakes).
+  afterEach(async () => {
+    for (const subjectKey of createdSubjectKeys) {
+      await query(`DELETE FROM wmi_concepts WHERE subject_key = $1`, [subjectKey])
+      await query(`DELETE FROM wmi_subjects WHERE subject_key = $1`, [subjectKey])
+    }
+    createdSubjectKeys.length = 0
   })
 
   beforeEach(async () => {
@@ -404,6 +417,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   async function createSyntheticChapter() {
     const tag = randomUUID().slice(0, 8)
     const subjectKey = `g1-chest-${tag}`
+    createdSubjectKeys.push(subjectKey)
     await query(
       `INSERT INTO wmi_subjects (subject_key, grade, name_id, name_en, color_hex, icon_key, sort_order)
        VALUES ($1, 1, 'Bab Peti', 'Chest Chapter', '#123456', 'star', 999)`,

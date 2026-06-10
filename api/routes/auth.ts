@@ -4,7 +4,7 @@ import Joi from 'joi'
 import { queryOne } from '../db.js'
 import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
 import { signToken } from '../lib/jwt.js'
-import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
+import { clientIp, enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
 import {
   RegistrationError,
   initRegistration,
@@ -117,7 +117,8 @@ function limitRequests(
   }
 }
 
-const byIp = (req: Request): string => `ip:${req.ip ?? 'unknown'}`
+// clientIp prefers Vercel's unspoofable x-vercel-forwarded-for header.
+const byIp = (req: Request): string => `ip:${clientIp(req)}`
 const byEmail = (req: Request): string =>
   `email:${typeof req.body?.email === 'string' ? req.body.email.toLowerCase().trim() : 'unknown'}`
 const byPendingId = (req: Request): string =>

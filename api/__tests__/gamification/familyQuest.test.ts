@@ -24,6 +24,7 @@ import { wibWeek } from '../../lib/wib.js'
 import {
   ensureFamilyQuest,
   getFamilyQuestStatus,
+  sweepExpiredFamilyQuests,
   FAMILY_QUEST_TARGET_XP,
   FAMILY_QUEST_REWARD_COINS,
 } from '../../services/gamification/familyQuest.js'
@@ -42,6 +43,7 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
   let childB: string
   let token: string
   const createdUserIds: string[] = []
+  const createdSubjectKeys: string[] = []
 
   beforeAll(async () => {
     _resetBootstrapForTesting()
@@ -76,6 +78,13 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     // users → children → ledger/profiles/quests cascade.
     await query(`DELETE FROM users WHERE id = ANY($1::uuid[])`, [createdUserIds])
     createdUserIds.length = 0
+    // Synthetic chapters MUST be removed: an enabled grade-1 concept with no
+    // registered generator breaks any suite whose random pick lands on it.
+    for (const subjectKey of createdSubjectKeys) {
+      await query(`DELETE FROM wmi_concepts WHERE subject_key = $1`, [subjectKey])
+      await query(`DELETE FROM wmi_subjects WHERE subject_key = $1`, [subjectKey])
+    }
+    createdSubjectKeys.length = 0
   })
 
   afterAll(async () => {
@@ -226,12 +235,90 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     }
   })
 
+  // ── Expired-week settlement (P2 review item 3) ───────────────────────
+
+  const DAY_MS = 24 * 60 * 60 * 1000
+
+  // Insert an unsettled quest for LAST WIB week, optionally with enough
+  // last-week XP to cross the target.
+  async function insertExpiredQuest(targetXp: number) {
+    const lastWeek = wibWeek(new Date(Date.now() - 7 * DAY_MS))
+    const quest = await queryOne<{ id: string }>(
+      `INSERT INTO family_quests (user_id, week_start, target_xp, reward_coins)
+       VALUES ($1, $2, $3, $4) RETURNING id`,
+      [parentUserId, lastWeek.start, targetXp, FAMILY_QUEST_REWARD_COINS],
+    )
+    return { questId: quest!.id, lastWeek }
+  }
+
+  test('an expired-but-earned quest settles lazily on the next status read', async () => {
+    const { questId, lastWeek } = await insertExpiredQuest(60)
+    // XP earned INSIDE last week — never seen by the current-week probes.
+    await grantXp(childA, 40, new Date(lastWeek.startUtc.getTime() + 3_600_000))
+    await grantXp(childB, 25, new Date(lastWeek.startUtc.getTime() + 7_200_000))
+
+    const status = await getFamilyQuestStatus(parentUserId)
+    // The CURRENT week's quest is fresh and untouched by last week's XP.
+    expect(status.quest!.id).not.toBe(questId)
+    expect(status.quest!.progressXp).toBe(0)
+    expect(status.quest!.completed).toBe(false)
+
+    // Last week's quest was stamped and paid — once per child.
+    const expired = (await questRows(parentUserId)).find((r) => r.id === questId)!
+    expect(expired.completed_at).not.toBeNull()
+    expect(expired.rewarded_at).not.toBeNull()
+    for (const childId of [childA, childB]) {
+      const payouts = await payoutRows(childId)
+      expect(payouts).toHaveLength(1)
+      expect(await coinBalance(childId)).toBe(FAMILY_QUEST_REWARD_COINS)
+    }
+
+    // Replayed reads never pay twice.
+    await getFamilyQuestStatus(parentUserId)
+    expect(await payoutRows(childA)).toHaveLength(1)
+  })
+
+  test('an expired quest BELOW target never pays', async () => {
+    const { questId, lastWeek } = await insertExpiredQuest(FAMILY_QUEST_TARGET_XP)
+    await grantXp(childA, 10, new Date(lastWeek.startUtc.getTime() + 3_600_000))
+    // Current-week XP must NOT count toward the expired window (kept below
+    // the current quest's own target so neither week settles).
+    await grantXp(childB, 20)
+
+    await getFamilyQuestStatus(parentUserId)
+    const expired = (await questRows(parentUserId)).find((r) => r.id === questId)!
+    expect(expired.rewarded_at).toBeNull()
+    expect(await payoutRows(childA)).toHaveLength(0)
+  })
+
+  test('the cron sweep settles expired quests and reports counts', async () => {
+    const { questId, lastWeek } = await insertExpiredQuest(50)
+    await grantXp(childA, 60, new Date(lastWeek.startUtc.getTime() + 3_600_000))
+
+    // Global sweep (other suites may leave unsettled rows — assert ours).
+    const sweep = await sweepExpiredFamilyQuests()
+    expect(sweep.probed).toBeGreaterThanOrEqual(1)
+    expect(sweep.settled).toBeGreaterThanOrEqual(1)
+
+    const expired = (await questRows(parentUserId)).find((r) => r.id === questId)!
+    expect(expired.rewarded_at).not.toBeNull()
+    for (const childId of [childA, childB]) {
+      expect(await payoutRows(childId)).toHaveLength(1)
+    }
+
+    // A second sweep no longer probes this account and pays nothing more.
+    await sweepExpiredFamilyQuests()
+    expect(await payoutRows(childA)).toHaveLength(1)
+    expect(await payoutRows(childB)).toHaveLength(1)
+  })
+
   // ── The konsep-commit hook (synthetic chapter, same pattern as
   //    konsepCommit.test.ts) ──────────────────────────────────────────────
 
   async function createSyntheticConcept() {
     const tag = randomUUID().slice(0, 8)
     const subjectKey = `g1-family-${tag}`
+    createdSubjectKeys.push(subjectKey)
     await query(
       `INSERT INTO wmi_subjects (subject_key, grade, name_id, name_en, color_hex, icon_key, sort_order)
        VALUES ($1, 1, 'Bab Keluarga', 'Family Chapter', '#123456', 'star', 998)`,

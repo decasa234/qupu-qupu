@@ -97,9 +97,11 @@ export async function runDailyNotifications(
     parent_name: string
     child_name: string
     streak_days: number
+    streak_shields: number
   }>(
     `SELECT u.id AS user_id, u.email, u.name AS parent_name,
-            c.name AS child_name, gp.current_streak_days AS streak_days
+            c.name AS child_name, gp.current_streak_days AS streak_days,
+            gp.streak_shields
        FROM users u
        JOIN children c ON c.parent_user_id = u.id
        JOIN gamification_profiles gp ON gp.child_id = c.id
@@ -112,7 +114,13 @@ export async function runDailyNotifications(
 
   const atRiskByParent = bucketByParent(
     atRiskRows,
-    (row): AtRiskChild => ({ childName: row.child_name, streakDays: row.streak_days }),
+    (row): AtRiskChild => ({
+      childName: row.child_name,
+      streakDays: row.streak_days,
+      // A shielded child's streak isn't really about to break — the template
+      // softens the copy instead of crying wolf.
+      shields: Number(row.streak_shields),
+    }),
   )
   for (const [userId, bucket] of atRiskByParent) {
     if (!(await appendNotificationLog(userId, 'streak_at_risk', today))) {
@@ -147,7 +155,12 @@ export async function runDailyNotifications(
       `SELECT u.id AS user_id, u.email, u.name AS parent_name,
               c.name AS child_name,
               COALESCE(SUM(rl.xp_delta), 0)::int AS xp,
-              COUNT(rl.id) FILTER (WHERE rl.reward_type = 'CONCEPT_TIER_UP_XP')::int
+              -- DISTINCT on the slug carried in the tier-up metadata
+              -- (grantTierUpBonuses): a concept jumping multiple tiers in a
+              -- week writes multiple ledger rows but is ONE "konsep naik
+              -- tingkat" in the digest.
+              COUNT(DISTINCT rl.metadata->>'conceptSlug')
+                FILTER (WHERE rl.reward_type = 'CONCEPT_TIER_UP_XP')::int
                 AS concepts_grown,
               (SELECT COUNT(*)::int FROM wmi_konsep_sessions ks
                 WHERE ks.child_id = c.id

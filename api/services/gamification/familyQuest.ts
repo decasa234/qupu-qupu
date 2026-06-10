@@ -185,6 +185,86 @@ export async function settleFamilyQuestAtCommit(
   return { questId: quest.id, coinsByChild }
 }
 
+/**
+ * Settle an EXPIRED family quest: rewarded_at IS NULL with week_start before
+ * the current WIB week. Without this, a family that crosses the target late
+ * Sunday (or whose settle probe was skip-locked) loses the payout forever at
+ * week rollover — the lazy paths only ever probe the CURRENT week.
+ *
+ * Bounded: probes just the LATEST such row (an older stray settles on a
+ * subsequent call). Progress is summed over THAT quest's own week window
+ * [Monday 00:00 WIB, +7d), and payment reuses completeAndPay — same
+ * rewarded_at CAS + idempotent per-(quest, child) ledger keys, so this can
+ * never double-pay a quest the current-week paths already settled.
+ *
+ * Must run inside a transaction (the probe takes the quest row lock).
+ */
+export async function settleExpiredFamilyQuests(
+  client: PoolClient,
+  userId: string,
+  now: Date = new Date(),
+): Promise<FamilyQuestSettlement | null> {
+  const currentWeek = wibWeek(now)
+  const quest = await queryOne<QuestRow & { week_start: string }>(
+    `SELECT id, target_xp, reward_coins, week_start::text AS week_start
+       FROM family_quests
+      WHERE user_id = $1 AND rewarded_at IS NULL AND week_start < $2
+      ORDER BY week_start DESC
+      LIMIT 1
+      FOR UPDATE SKIP LOCKED`,
+    [userId, currentWeek.start],
+    client,
+  )
+  if (!quest) return null
+
+  // week_start is the WIB Monday (wibWeek.start); WIB is UTC+7, no DST.
+  const weekStartUtc = new Date(`${quest.week_start}T00:00:00+07:00`)
+  const weekEndUtc = new Date(weekStartUtc.getTime() + 7 * 24 * 60 * 60 * 1000)
+  const row = await queryOne<{ xp: string }>(
+    `SELECT COALESCE(SUM(rl.xp_delta), 0)::text AS xp
+       FROM reward_ledger rl
+       JOIN children c ON c.id = rl.child_id
+      WHERE c.parent_user_id = $1
+        AND rl.created_at >= $2 AND rl.created_at < $3`,
+    [userId, weekStartUtc, weekEndUtc],
+    client,
+  )
+  if (Number(row?.xp ?? 0) < Number(quest.target_xp)) return null
+
+  const coinsByChild = await completeAndPay(client, userId, quest)
+  return { questId: quest.id, coinsByChild }
+}
+
+export interface ExpiredFamilyQuestSweep {
+  probed: number // accounts holding an unsettled past-week quest
+  settled: number // accounts actually paid by this sweep
+}
+
+/**
+ * Daily-cron sweep (GET /api/cron/notifications): settle expired-but-earned
+ * family quests for EVERY account. One discovery query; the loop is bounded
+ * by the number of accounts with an unsettled past quest, each settled in
+ * its own short transaction.
+ */
+export async function sweepExpiredFamilyQuests(
+  now: Date = new Date(),
+): Promise<ExpiredFamilyQuestSweep> {
+  const currentWeek = wibWeek(now)
+  const users = await query<{ user_id: string }>(
+    `SELECT DISTINCT user_id FROM family_quests
+      WHERE rewarded_at IS NULL AND week_start < $1`,
+    [currentWeek.start],
+  )
+  let settled = 0
+  for (const row of users) {
+    const settlement = await withTransaction((client) =>
+      settleExpiredFamilyQuests(client, row.user_id, now),
+    )
+    if (settlement) settled += 1
+  }
+  return { probed: users.length, settled }
+}
+
 export interface FamilyQuestStatus {
   quest: {
     id: string
@@ -205,6 +285,10 @@ export interface FamilyQuestStatus {
 export async function getFamilyQuestStatus(userId: string): Promise<FamilyQuestStatus> {
   const week = wibWeek(new Date())
   return withTransaction(async (client) => {
+    // Lazy expired-quest settle BEFORE the current-week logic: a payout
+    // earned last week but never stamped must land the moment anyone in the
+    // family opens the panel again.
+    await settleExpiredFamilyQuests(client, userId)
     await ensureFamilyQuest(client, userId, week.start)
     const quest = await queryOne<QuestRow & { completed_at: string | null; rewarded_at: string | null }>(
       `SELECT id, target_xp, reward_coins, completed_at, rewarded_at

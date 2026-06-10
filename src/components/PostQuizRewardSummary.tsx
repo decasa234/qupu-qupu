@@ -81,7 +81,7 @@ export default function PostQuizRewardSummary({
     if (levelUp) return `${childName} naik level — ${levelUp.currentTierName}!`
     if (isPerfect) return `Skor sempurna! 100%!`
     if (gam && gam.unlockedAchievements.length > 0) return `Pencapaian baru: ${gam.unlockedAchievements[0].title}`
-    if (gam && gam.completedQuests.length > 0) return `Quest selesai untuk ${childName}!`
+    if (gam && gam.completedQuests.length > 0) return `Misi selesai untuk ${childName}!`
     if (result.earnedBadgeCount > 0) return `Yes! Badge baru untuk ${childName}.`
     return `Skor disimpan untuk ${childName}.`
   })()

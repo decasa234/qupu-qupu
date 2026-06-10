@@ -17,6 +17,10 @@ export interface NotificationTemplate {
 export interface AtRiskChild {
   childName: string
   streakDays: number
+  // Streak shields owned (gamification_profiles.streak_shields). When > 0
+  // the streak is protected even if today is missed, so the copy softens —
+  // crying wolf would teach parents to ignore the channel.
+  shields: number
 }
 
 export interface DigestRow {
@@ -69,10 +73,14 @@ export function streakAtRisk(input: {
   const lines = input.children
     .map((child) => {
       const name = safeName(child.childName, 'si kecil')
+      const tail =
+        child.shields > 0
+          ? `— Pelindung Streak siap menjaga, tapi latihan singkat hari ini tetap seru!`
+          : `tinggal beberapa jam lagi! Ajak ${name} latihan sebentar yuk.`
       return `
         <p style="margin:0 0 12px">
           <span style="font-weight:bold;color:${BRAND_ORANGE}">Streak ${child.streakDays} hari ${name}</span>
-          tinggal beberapa jam lagi! Ajak ${name} latihan sebentar yuk.
+          ${tail}
         </p>
       `
     })

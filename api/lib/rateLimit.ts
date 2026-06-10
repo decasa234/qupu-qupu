@@ -1,4 +1,19 @@
+import type { Request } from 'express'
 import { query } from '../db.js'
+
+/**
+ * Trusted client IP for ip-keyed rate-limit buckets. On Vercel,
+ * `x-vercel-forwarded-for` is set by the platform itself at the edge —
+ * client-supplied values are overwritten, so it cannot be spoofed (unlike
+ * `x-forwarded-for`, which a client can prepend bogus hops to and shift what
+ * `req.ip` resolves to under `trust proxy`). Falls back to `req.ip` for
+ * local dev where the Vercel header doesn't exist.
+ */
+export function clientIp(req: Request): string {
+  const header = req.headers['x-vercel-forwarded-for']
+  const raw = Array.isArray(header) ? header[0] : header
+  return raw?.split(',')[0]?.trim() || req.ip || 'unknown'
+}
 
 export class RateLimitError extends Error {
   constructor(public readonly retryAfterSeconds: number) {

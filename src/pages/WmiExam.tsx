@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
@@ -68,15 +68,34 @@ export default function WmiExam() {
     return new Map(snapshot?.submittedAttempts.map((attempt) => [attempt.question_id, attempt]) ?? [])
   }, [snapshot])
 
+  // Fired-once guard: the timer's expiry, the timeout beat below, and the
+  // "Selesai" button can all reach finish() — only the first call submits.
+  const finishingRef = useRef(false)
   const finish = useCallback(async () => {
-    if (!activeChildId || !sessionId) return
+    if (!activeChildId || !sessionId || finishingRef.current) return
+    finishingRef.current = true
     try {
       await completeExamSession(activeChildId, sessionId)
       navigate(`/latihan/wmi/exam/${sessionId}/review`)
     } catch (err) {
+      // Allow a manual retry after a failed submit.
+      finishingRef.current = false
       setError(toIndonesianErrorMessage(err, 'Gagal menyelesaikan ujian'))
     }
   }, [activeChildId, navigate, sessionId])
+
+  // Time's up (live expiry OR resuming an already-expired session): never
+  // silently auto-submit — show a brief "Waktu habis" beat so the kid sees
+  // WHY the exam ends, then complete ONCE and route to the review.
+  const [timeUp, setTimeUp] = useState(false)
+  const handleExpire = useCallback(() => setTimeUp(true), [])
+  useEffect(() => {
+    if (!timeUp) return
+    const id = window.setTimeout(() => {
+      void finish()
+    }, 1800)
+    return () => window.clearTimeout(id)
+  }, [timeUp, finish])
 
   // Explicit exit: the session is NOT abandoned — the paper page offers
   // "Lanjutkan Ujian" and the snapshot restores every submitted answer.
@@ -102,6 +121,19 @@ export default function WmiExam() {
   }
   if (!snapshot) {
     return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat ujian…</div>
+  }
+  if (timeUp) {
+    return (
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-hourglass-end text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 font-display text-lg font-black text-qupu-brand-blue">
+          Waktu habis — ujian dikumpulkan otomatis.
+        </p>
+        <p className="mt-1 text-sm font-semibold text-qupu-muted">Menyiapkan hasil ujianmu…</p>
+      </div>
+    )
   }
 
   const question = snapshot.paper.questions[currentIndex]
@@ -168,7 +200,7 @@ export default function WmiExam() {
           <WmiExamTimer
             startedAt={snapshot.session.started_at}
             durationMin={snapshot.paper.recommended_duration_min}
-            onExpire={finish}
+            onExpire={handleExpire}
           />
         </div>
         <h1 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">

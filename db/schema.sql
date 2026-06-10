@@ -966,3 +966,14 @@ CREATE TABLE IF NOT EXISTS notification_log (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (user_id, kind, wib_date)
 );
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Chapter-chest backfill (migration 0044) — data-only, no DDL.
+-- Heals (child, subject) pairs that crossed the 50%/100%-grown chest
+-- thresholds via the drill path before attempts.ts evaluated chests
+-- there: inserts the deterministic CHAPTER_CHEST_XP ledger rows
+-- (md5('chest:<child>:<subjectKey>:<threshold>')::uuid, matching
+-- api/lib/deterministicUuid.ts) and credits profiles for the rows that
+-- actually appended. Fresh installs have no data to backfill, so this
+-- file intentionally mirrors nothing.
+-- ─────────────────────────────────────────────────────────────────────

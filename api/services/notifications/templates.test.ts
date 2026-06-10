@@ -11,7 +11,7 @@ describe('streakAtRisk template', () => {
   it('renders the child name, streak length, and parent greeting', () => {
     const tpl = streakAtRisk({
       parentName: 'Bu Sari',
-      children: [{ childName: 'Raka', streakDays: 7 }],
+      children: [{ childName: 'Raka', streakDays: 7, shields: 0 }],
     })
     expect(tpl.subject).toContain('Raka')
     expect(tpl.subject).toContain('7')
@@ -24,8 +24,8 @@ describe('streakAtRisk template', () => {
     const tpl = streakAtRisk({
       parentName: 'Pak Budi',
       children: [
-        { childName: 'Raka', streakDays: 12 },
-        { childName: 'Dina', streakDays: 4 },
+        { childName: 'Raka', streakDays: 12, shields: 0 },
+        { childName: 'Dina', streakDays: 4, shields: 0 },
       ],
     })
     expect(tpl.html).toContain('Streak 12 hari Raka')
@@ -34,10 +34,25 @@ describe('streakAtRisk template', () => {
     expect(tpl.subject).not.toContain('Raka')
   })
 
+  it('softens the copy when the child owns a streak shield', () => {
+    const tpl = streakAtRisk({
+      parentName: 'Bu Sari',
+      children: [
+        { childName: 'Raka', streakDays: 7, shields: 1 },
+        { childName: 'Dina', streakDays: 4, shields: 0 },
+      ],
+    })
+    // Shielded child: protected framing, no "hampir putus" urgency line.
+    expect(tpl.html).toContain('Pelindung Streak siap menjaga')
+    // Unshielded sibling keeps the urgent copy.
+    expect(tpl.html).toContain('Ajak Dina latihan sebentar yuk')
+    expect(tpl.html).not.toContain('Ajak Raka latihan sebentar yuk')
+  })
+
   it('escapes HTML in names', () => {
     const tpl = streakAtRisk({
       parentName: '<script>x</script>',
-      children: [{ childName: '<b>Raka</b>', streakDays: 3 }],
+      children: [{ childName: '<b>Raka</b>', streakDays: 3, shields: 0 }],
     })
     expect(tpl.html).not.toContain('<script>')
     expect(tpl.html).not.toContain('<b>Raka</b>')

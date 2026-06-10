@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   startedAt: string
@@ -10,18 +10,36 @@ const LOW_TIME_MS = 5 * 60 * 1000
 
 export default function WmiExamTimer({ startedAt, durationMin, onExpire }: Props) {
   const [remainingMs, setRemainingMs] = useState(durationMin * 60 * 1000)
+  // Fires onExpire at most once per (startedAt, durationMin) window — without
+  // this the 1s interval would re-fire it every tick at zero.
+  const firedRef = useRef(false)
 
   useEffect(() => {
     const started = new Date(startedAt).getTime()
     const total = durationMin * 60 * 1000
+    firedRef.current = false
+    let intervalId: number | undefined
     const tick = () => {
       const next = Math.max(0, started + total - Date.now())
       setRemainingMs(next)
-      if (next === 0) onExpire()
+      if (next === 0) {
+        // Stop at zero: clear the interval and fire exactly once. Covers the
+        // resume-of-an-expired-session case too (the synchronous first tick
+        // fires before the interval is even created).
+        if (intervalId !== undefined) window.clearInterval(intervalId)
+        if (!firedRef.current) {
+          firedRef.current = true
+          onExpire()
+        }
+      }
     }
     tick()
-    const id = window.setInterval(tick, 1000)
-    return () => window.clearInterval(id)
+    if (!firedRef.current) {
+      intervalId = window.setInterval(tick, 1000)
+    }
+    return () => {
+      if (intervalId !== undefined) window.clearInterval(intervalId)
+    }
   }, [durationMin, onExpire, startedAt])
 
   const minutes = Math.floor(remainingMs / 60000)

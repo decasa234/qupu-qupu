@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from 'express'
-import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
+import { clientIp, enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
 
 // Generous per-IP cap for unauthenticated read endpoints. 120/min is far
 // above any legitimate browsing pattern (the SPA batches its public reads)
@@ -22,7 +22,8 @@ export function publicRateLimit(routeGroup: string) {
   const route = `public:${routeGroup}`
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      await enforceRateLimit(`ip:${req.ip ?? 'unknown'}`, route, PUBLIC_LIMIT)
+      // clientIp prefers Vercel's unspoofable x-vercel-forwarded-for header.
+      await enforceRateLimit(`ip:${clientIp(req)}`, route, PUBLIC_LIMIT)
       next()
     } catch (err) {
       if (err instanceof RateLimitError) {
