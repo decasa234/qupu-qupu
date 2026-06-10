@@ -1,6 +1,27 @@
 import ConceptPlant from './ConceptPlant'
 import type { WmiGardenChapter, WmiGardenConcept } from '../../types/wmi'
 
+// Chapter-chest marker (P2.2): a small chest pinned on the growth bar at the
+// 50% and 100% milestones. Purely derived from existing garden data — the
+// backend grants the chest exactly when grown share reaches the threshold,
+// so `grownCount * 100 >= threshold * total` IS the earned state (same
+// integer math as chestThresholdsToGrant; no extra fetch).
+function ChestMarker({ threshold, earned }: { threshold: 50 | 100; earned: boolean }) {
+  return (
+    <span
+      className={`pointer-events-none absolute top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-[9px] ring-2 ${
+        earned
+          ? 'bg-amber-500 text-white ring-amber-300'
+          : 'bg-white text-[#C3B89B] ring-[#EFE2CC]'
+      } ${threshold === 50 ? 'left-1/2 -translate-x-1/2' : 'right-0 translate-x-1/4'}`}
+      title={earned ? `Peti ${threshold}% terbuka` : `Peti ${threshold}%`}
+      aria-hidden="true"
+    >
+      <i className="fa-solid fa-box-open" />
+    </span>
+  )
+}
+
 interface Props {
   chapter: WmiGardenChapter
   index: number
@@ -39,8 +60,12 @@ export default function ChapterGarden({ chapter, index, onConceptInfo, onStartSe
 
       {!locked && (
         <>
-          <div className="my-3 h-2 overflow-hidden rounded-full bg-[#F1E4CC]">
-            <div className="h-full rounded-full bg-[#58A700]" style={{ width: `${chapter.meanPct}%` }} />
+          <div className="relative my-3">
+            <div className="h-2 overflow-hidden rounded-full bg-[#F1E4CC]">
+              <div className="h-full rounded-full bg-[#58A700]" style={{ width: `${chapter.meanPct}%` }} />
+            </div>
+            <ChestMarker threshold={50} earned={chapter.grownCount * 100 >= 50 * chapter.total && chapter.total > 0} />
+            <ChestMarker threshold={100} earned={chapter.total > 0 && chapter.grownCount >= chapter.total} />
           </div>
           <div className="flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {chapter.concepts.map((c) => (

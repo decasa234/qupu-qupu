@@ -12,7 +12,7 @@ import {
   useStreakRecoveryForChild,
 } from '../services/member.js'
 import { getGamificationSummary } from '../services/gamification/summary.js'
-import { getDailyQuestsForChild } from '../services/gamification/quests.js'
+import { claimQuestReward, getDailyQuestsForChild } from '../services/gamification/quests.js'
 import { logSessionEvent } from '../services/sessionEvents.js'
 import {
   getOrCreateReferralCode,
@@ -96,6 +96,32 @@ router.get('/quests', authenticateToken, async (req: AuthRequest, res: Response)
     sendPublicError(res, error)
   }
 })
+
+const questIdParamSchema = Joi.object({
+  id: Joi.string().uuid().required(),
+}).unknown(true)
+
+// Claim ritual (P2.2): the ONLY place quest rewards move balances. Ownership
+// is derived from the instance's child inside the service (the child must
+// belong to the authenticated parent); double-taps return alreadyClaimed.
+router.post(
+  '/quests/:id/claim',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = questIdParamSchema.validate(req.params)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const data = await claimQuestReward(req.user.id, value.id)
+      res.json({ success: true, data })
+    } catch (claimError: unknown) {
+      console.error('Quest claim error:', claimError)
+      sendPublicError(res, claimError)
+    }
+  },
+)
 
 router.get('/progress', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {

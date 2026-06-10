@@ -46,6 +46,7 @@ export type AnalyticsEventName =
   | 'session_resume_offered'
   | 'session_resumed'
   | 'quest_panel_view'
+  | 'quest_claimed'
   | 'streak_recovery_shown'
   | 'streak_recovered'
   | 'ceremony_done'

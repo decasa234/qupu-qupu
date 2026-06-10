@@ -11,12 +11,15 @@
 //   - `streak` progresses on QUIZ_SCORE_SUBMITTED only when the
 //     metadata.min_current_streak threshold is satisfied.
 //
-// On completion: status → 'completed' AND a DAILY_QUEST_XP ledger row
-// is appended (idempotent on the quest instance id).
+// On completion: status → 'completed' and completed_at is stamped — and
+// NOTHING is paid out here (P2.2 claim ritual). The reward grants on an
+// explicit POST /me/quests/:id/claim (see quests.ts claimQuestReward), which
+// appends the DAILY_QUEST_XP ledger row keyed to the instance id — the SAME
+// key the old auto-grant used, so historical auto-paid rows collide on the
+// ledger UNIQUE and can never pay twice.
 
 import type { PoolClient } from 'pg'
 import { query } from '../../db.js'
-import { appendLedger } from './ledger.js'
 
 export interface QuestEventInput {
   childId: string
@@ -40,8 +43,11 @@ export interface QuestProgressResult {
   progressValue: number
   targetValue: number
   justCompleted: boolean
-  xpAwarded: number
-  coinsAwarded: number
+  // CLAIMABLE template reward — NOT paid by this evaluation (P2.2 claim
+  // ritual). Callers must fold ZERO of this into profile deltas; it exists
+  // so completion UIs can show what the kid will get when they claim.
+  rewardXp: number
+  rewardCoins: number
 }
 
 interface ActiveQuestRow {
@@ -150,28 +156,9 @@ export async function evaluateForEvent(
       ],
     )
 
-    let xpAwarded = 0
-    let coinsAwarded = 0
-    if (
-      justCompleted &&
-      (Number(row.xp_reward) > 0 || Number(row.coin_reward) > 0)
-    ) {
-      // Append daily quest XP + coins; idempotent on the quest instance id.
-      const led = await appendLedger(client, {
-        childId: event.childId,
-        rewardType: 'DAILY_QUEST_XP',
-        sourceType: 'child_quest_instance',
-        sourceId: row.id,
-        xpDelta: Number(row.xp_reward),
-        coinDelta: Number(row.coin_reward),
-        metadata: { questCode: row.code, questType: row.quest_type },
-      })
-      if (led.appended) {
-        xpAwarded = led.xpDelta
-        coinsAwarded = led.coinDelta
-      }
-    }
-
+    // No payout here: completion only stamps completed_at. The reward pays
+    // on the explicit claim (quests.ts claimQuestReward) — rewardXp/-Coins
+    // below are display-only claimable amounts.
     results.push({
       questId: row.id,
       code: row.code,
@@ -180,8 +167,8 @@ export async function evaluateForEvent(
       progressValue: newProgress,
       targetValue: Number(row.target_value),
       justCompleted,
-      xpAwarded,
-      coinsAwarded,
+      rewardXp: Number(row.xp_reward),
+      rewardCoins: Number(row.coin_reward),
     })
   }
 

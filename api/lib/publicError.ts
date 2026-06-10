@@ -25,6 +25,9 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
   'Question not found': { status: 404, message: 'Soal tidak ditemukan.' },
   'Video not found': { status: 400, message: 'Video tidak ditemukan.' },
   'Concept not found': { status: 400, message: 'Konsep tidak ditemukan.' },
+  // Quest claim ritual (P2.2)
+  'Quest not found': { status: 404, message: 'Misi tidak ditemukan.' },
+  'Quest not completed': { status: 400, message: 'Misi belum selesai.' },
   'Sesi ujian ini milik profil anak yang lain': {
     status: 403,
     message: 'Sesi ujian ini milik profil anak yang lain',

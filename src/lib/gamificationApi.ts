@@ -74,3 +74,24 @@ export async function fetchDailyQuests(childId: string): Promise<DailyQuest[]> {
   const res = await api.get('/me/quests', { params: { childId } })
   return (res.data.data as { quests: DailyQuest[] }).quests
 }
+
+// Mirrors api/services/gamification/quests.ts QuestClaimResult — the shape
+// returned by POST /me/quests/:id/claim (P2.2 claim ritual). A double-tap
+// returns alreadyClaimed with the canonical balances, never an error.
+export interface QuestClaimResult {
+  claimed: boolean
+  alreadyClaimed: boolean
+  xp: number
+  coins: number
+  totalXp: number
+  coinBalance: number
+  level: number
+  tierName: string
+  levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
+  streak: { current: number; longest: number }
+}
+
+export async function claimDailyQuest(questId: string): Promise<QuestClaimResult> {
+  const res = await api.post(`/me/quests/${questId}/claim`)
+  return res.data.data as QuestClaimResult
+}

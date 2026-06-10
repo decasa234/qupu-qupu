@@ -53,7 +53,10 @@ export interface CompletedQuestSummary {
   id: string
   code: string
   title: string
-  xpAwarded: number
+  // CLAIMABLE reward (P2.2): completion no longer auto-pays — the kid claims
+  // it from the Misi Hari Ini panel. Display-only; never folded into totals.
+  rewardXp: number
+  rewardCoins: number
 }
 
 export interface UnlockedAchievementSummary {
@@ -261,10 +264,11 @@ export async function processScoreSubmission(
     }
   }
 
-  // Step 4: sum quest XP into the total delta. Deduplicate quest results
-  // by quest id (each event may match multiple quests, but a quest can
-  // only complete once per window — appendLedger inside questEvaluator
-  // already enforces idempotency on the ledger row).
+  // Step 4: collect completed quests for the reward summary. Deduplicate by
+  // quest id (each event may match multiple quests, but a quest can only
+  // complete once per window). NOTHING is folded into the deltas here (P2.2
+  // claim ritual): completion just stamps completed_at; the reward pays out
+  // on POST /me/quests/:id/claim.
   const completedById = new Map<string, QuestProgressResult>()
   for (const q of allQuestResults) {
     if (q.justCompleted && !completedById.has(q.questId)) {
@@ -273,20 +277,12 @@ export async function processScoreSubmission(
   }
   const completedQuests: CompletedQuestSummary[] = []
   for (const q of completedById.values()) {
-    totalDelta += q.xpAwarded
-    totalCoinDelta += q.coinsAwarded
-    if (q.xpAwarded > 0 || q.coinsAwarded > 0) {
-      ledgerEntries.push({
-        rewardType: 'DAILY_QUEST_XP',
-        xpDelta: q.xpAwarded,
-        coinDelta: q.coinsAwarded,
-      })
-    }
     completedQuests.push({
       id: q.questId,
       code: q.code,
       title: q.title,
-      xpAwarded: q.xpAwarded,
+      rewardXp: q.rewardXp,
+      rewardCoins: q.rewardCoins,
     })
   }
 

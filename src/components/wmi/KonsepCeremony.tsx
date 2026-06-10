@@ -9,9 +9,12 @@
 //   2. xp      — XP count-up (+ "Naik ke <tier>!" flourish on level-up)
 //   3. coins   — coin count-up + new balance
 //   4. streak  — flame pulse + current streak
-//   5. quests  — completed daily-quest rows        (only if any)
+//   5. quests  — completed daily-quest rows        (only if any; rewards are
+//                CLAIMED from the Misi Hari Ini panel, not auto-included)
 //   6. unlocks — achievement rows                  (only if any)
 //   7. growth  — PlantIcon from→to tier morph rows (only if any)
+//   8. chests  — "Peti Bab terbuka!" chapter chest (only if any)
+//   9. drop    — small end-of-session coin drop    (only if granted)
 //
 // Beats auto-advance (~800 ms); tapping anywhere skips ahead immediately.
 // Reduced-motion users get every beat at once (no timers, no count-ups —
@@ -34,7 +37,16 @@ interface Props {
   onDone: () => void
 }
 
-type BeatId = 'score' | 'xp' | 'coins' | 'streak' | 'quests' | 'unlocks' | 'growth'
+type BeatId =
+  | 'score'
+  | 'xp'
+  | 'coins'
+  | 'streak'
+  | 'quests'
+  | 'unlocks'
+  | 'growth'
+  | 'chests'
+  | 'drop'
 
 const BEAT_MS = 800
 
@@ -70,6 +82,8 @@ export default function KonsepCeremony({ result, onDone }: Props) {
     if (result.completedQuests.length > 0) list.push('quests')
     if (result.unlockedAchievements.length > 0) list.push('unlocks')
     if (result.conceptsGrown.length > 0) list.push('growth')
+    if ((result.chests?.length ?? 0) > 0) list.push('chests')
+    if ((result.sessionDrop ?? 0) > 0) list.push('drop')
     return list
   }, [result])
 
@@ -149,35 +163,41 @@ export default function KonsepCeremony({ result, onDone }: Props) {
           </div>
         )}
 
-        {/* Beat 5 — completed quests */}
+        {/* Beat 5 — completed quests (rewards claim-gated, P2.2) */}
         {visible('quests') && result.completedQuests.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Misi selesai!</p>
-            {/* The per-row rewards are a breakdown, not extra on top */}
-            <p className="text-[9px] font-semibold text-qupu-muted">termasuk dalam total XP di atas</p>
-            {result.completedQuests.map((q) => (
-              <div
-                key={q.id}
-                className="flex items-center gap-2.5 rounded-[1.25rem] bg-white p-3 text-left shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]"
-              >
-                <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#58A700] text-[10px] text-white">
-                  <i className="fa-solid fa-check" aria-hidden="true" />
-                </span>
-                <p className="min-w-0 flex-1 truncate text-xs font-bold text-qupu-brand-blue">{q.title}</p>
-                {q.xpAwarded > 0 && (
-                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
-                    <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
-                    +{q.xpAwarded} XP
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">
+              Misi selesai — klaim hadiahmu di Kebun!
+            </p>
+            {result.completedQuests.map((q) => {
+              // New results carry the CLAIMABLE amounts; replayed pre-ritual
+              // results still have the old auto-granted fields.
+              const xp = q.rewardXp ?? q.xpAwarded ?? 0
+              const coins = q.rewardCoins ?? q.coinsAwarded ?? 0
+              return (
+                <div
+                  key={q.id}
+                  className="flex items-center gap-2.5 rounded-[1.25rem] bg-white p-3 text-left shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]"
+                >
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#58A700] text-[10px] text-white">
+                    <i className="fa-solid fa-check" aria-hidden="true" />
                   </span>
-                )}
-                {q.coinsAwarded > 0 && (
-                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
-                    <i className="fa-solid fa-coins" aria-hidden="true" />
-                    +{q.coinsAwarded}
-                  </span>
-                )}
-              </div>
-            ))}
+                  <p className="min-w-0 flex-1 truncate text-xs font-bold text-qupu-brand-blue">{q.title}</p>
+                  {xp > 0 && (
+                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                      <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                      +{xp} XP
+                    </span>
+                  )}
+                  {coins > 0 && (
+                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                      <i className="fa-solid fa-coins" aria-hidden="true" />
+                      +{coins}
+                    </span>
+                  )}
+                </div>
+              )
+            })}
           </div>
         )}
 
@@ -212,6 +232,53 @@ export default function KonsepCeremony({ result, onDone }: Props) {
             {result.conceptsGrown.map((cg) => (
               <GrowthRow key={cg.slug} grown={cg} instant={reduced} />
             ))}
+          </div>
+        )}
+
+        {/* Beat 8 — chapter chest(s) opened (50% / 100% grown). Rewards are
+            already folded into the XP/coin beats above. fa-treasure-chest is
+            Pro-only, so the free fa-box-open plays the chest. */}
+        {visible('chests') && (result.chests?.length ?? 0) > 0 && (
+          <div className="animate-reward-pop w-full space-y-2">
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Peti Bab terbuka!</p>
+            {(result.chests ?? []).map((chest) => (
+              <div
+                key={chest.threshold}
+                className="flex items-center gap-3 rounded-[1.25rem] border-2 border-amber-300 bg-amber-50 p-3 text-left shadow-[0_4px_0_0_#FFD3B1]"
+              >
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-amber-500 text-base text-white">
+                  <i className="fa-solid fa-box-open" aria-hidden="true" />
+                </span>
+                <p className="min-w-0 flex-1 font-display text-[13px] font-black leading-tight text-qupu-brand-blue">
+                  Kebun bab {chest.threshold}% tumbuh!
+                </p>
+                {chest.coins > 0 && (
+                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                    <i className="fa-solid fa-coins" aria-hidden="true" />
+                    +{chest.coins}
+                  </span>
+                )}
+                {chest.xp > 0 && (
+                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                    <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                    +{chest.xp} XP
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Beat 9 — variable session drop: a small chest right before the
+            button. Already folded into the coin beat's total. */}
+        {visible('drop') && (result.sessionDrop ?? 0) > 0 && (
+          <div className="animate-reward-pop inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+            <i className="fa-solid fa-box-open text-amber-500" aria-hidden="true" />
+            Bonus sesi
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+              <i className="fa-solid fa-coins" aria-hidden="true" />
+              +{result.sessionDrop} koin
+            </span>
           </div>
         )}
 

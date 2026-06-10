@@ -31,7 +31,11 @@ export interface UpdateProfileInput {
   childId: string
   xpDelta: number
   coinDelta: number
-  activityDate: string // YYYY-MM-DD WIB
+  // YYYY-MM-DD WIB stamped into last_activity_date. Pass null to PRESERVE
+  // the existing value: claim-style grants (quest claim) are not learning
+  // activity — stamping today would make a later real session see a gap-0
+  // day and silently skip the streak increment.
+  activityDate: string | null
 }
 
 export interface UpdateProfileResult {
@@ -101,12 +105,13 @@ export async function updateProfileWithDelta(
   const before = await fetchSnapshot(client, input.childId, tiers)
 
   // Step 1: atomic XP + coin delta. One UPDATE, race-safe — both columns
-  // increment in place, never read-then-write.
+  // increment in place, never read-then-write. NULL activityDate preserves
+  // the existing last_activity_date (claim grants, see UpdateProfileInput).
   const xpRow = await queryOne<{ total_xp: number; coin_balance: number }>(
     `UPDATE gamification_profiles
         SET total_xp = total_xp + $1,
             coin_balance = coin_balance + $2,
-            last_activity_date = $3,
+            last_activity_date = COALESCE($3, last_activity_date),
             updated_at = NOW()
         WHERE child_id = $4
         RETURNING total_xp, coin_balance`,
@@ -142,7 +147,7 @@ export async function updateProfileWithDelta(
     currentLevel: resolution.tier.levelNumber,
     currentTierId: resolution.tier.id,
     currentTierName: resolution.tier.tierName,
-    lastActivityDate: input.activityDate,
+    lastActivityDate: input.activityDate ?? before.lastActivityDate,
   }
 
   const levelUp =

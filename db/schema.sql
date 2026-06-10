@@ -343,6 +343,11 @@ CREATE TABLE IF NOT EXISTS child_quest_instances (
   title_rendered VARCHAR(200) NOT NULL,
   metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
   completed_at TIMESTAMPTZ,
+  -- Claim ritual (migration 0040): completion only stamps completed_at; the
+  -- reward pays out on POST /me/quests/:id/claim, which stamps claimed_at and
+  -- appends the DAILY_QUEST_XP ledger row keyed to this instance id. NULL
+  -- claimed_at + non-NULL completed_at = claimable. (0040 backfilled
+  -- claimed_at for instances auto-paid before the ritual existed.)
   claimed_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),

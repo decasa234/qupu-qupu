@@ -102,7 +102,10 @@ export interface ScoreCompletedQuest {
   id: string
   code: string
   title: string
-  xpAwarded: number
+  // CLAIMABLE reward (P2.2) — paid via the Misi Hari Ini claim button, NOT
+  // included in this submission's totals.
+  rewardXp: number
+  rewardCoins: number
 }
 
 export interface ScoreUnlockedAchievement {

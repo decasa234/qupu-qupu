@@ -1,8 +1,10 @@
 // src/components/me/DailyQuestsPanel.tsx
 //
-// "Misi Hari Ini" — compact, read-only daily-quest card rendered at the top
-// of the WMI garden and as the first Dashboard card. Quests auto-grant today
-// (the claim ritual is P1), so there is no claim button.
+// "Misi Hari Ini" — compact daily-quest card rendered at the top of the WMI
+// garden and as the first Dashboard card. Since P2.2, quest rewards are
+// claim-gated: a completed-unclaimed quest shows a bouncing "Klaim" pill;
+// tapping it pays the reward (POST /me/quests/:id/claim), flips the row to
+// claimed, and patches the top stat strip with the fresh balances.
 //
 // Resilience contract: fetches GET /me/quests on mount; on ANY failure (or
 // an empty quest list) it renders NOTHING, so the host page never looks
@@ -10,7 +12,8 @@
 
 import { useEffect, useState } from 'react'
 import { trackEvent } from '../../lib/analytics'
-import { fetchDailyQuests, type DailyQuest } from '../../lib/gamificationApi'
+import { claimDailyQuest, fetchDailyQuests, type DailyQuest } from '../../lib/gamificationApi'
+import { syncStatStrip } from '../../hooks/useGamificationStats'
 
 interface Props {
   childId: string
@@ -25,6 +28,7 @@ function progressPct(quest: DailyQuest): number {
 export default function DailyQuestsPanel({ childId, variant = 'garden' }: Props) {
   const [quests, setQuests] = useState<DailyQuest[] | null>(null)
   const [loading, setLoading] = useState(true)
+  const [claimingId, setClaimingId] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -42,6 +46,37 @@ export default function DailyQuestsPanel({ childId, variant = 'garden' }: Props)
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [childId, variant])
+
+  const handleClaim = async (quest: DailyQuest) => {
+    if (claimingId) return
+    setClaimingId(quest.id)
+    try {
+      const res = await claimDailyQuest(quest.id)
+      // Flip the row to claimed locally (also on alreadyClaimed — the reward
+      // is gone either way) and push the canonical balances into the strip.
+      setQuests((prev) =>
+        prev
+          ? prev.map((q) =>
+              q.id === quest.id ? { ...q, claimedAt: new Date().toISOString() } : q,
+            )
+          : prev,
+      )
+      syncStatStrip(childId, {
+        streak: res.streak.current,
+        coinBalance: res.coinBalance,
+        level: res.level,
+        tierName: res.tierName,
+      })
+      if (res.claimed) {
+        trackEvent('quest_claimed', { questId: quest.id, xp: res.xp, coins: res.coins })
+      }
+    } catch {
+      // Claim failed (offline, expired session...) — keep the pill so the
+      // kid can retry; the reward is never lost.
+    } finally {
+      setClaimingId(null)
+    }
+  }
 
   // The garden stacks sections with their own top margin; the dashboard
   // column already provides spacing via space-y-4.
@@ -81,46 +116,66 @@ export default function DailyQuestsPanel({ childId, variant = 'garden' }: Props)
       </div>
 
       <ul className="mt-3 space-y-2.5">
-        {quests.map((quest) => (
-          <li key={quest.id} className="flex items-center gap-2.5">
-            <span
-              className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
-                quest.completed
-                  ? 'bg-[#58A700] text-[9px] text-white'
-                  : 'ring-2 ring-inset ring-[#FFE3CC]'
-              }`}
-            >
-              {quest.completed && <i className="fa-solid fa-check" aria-hidden="true" />}
-            </span>
-            <div className={`min-w-0 flex-1 ${quest.completed ? 'opacity-60' : ''}`}>
-              <div className="flex items-center justify-between gap-2">
-                <p className="min-w-0 truncate text-xs font-bold text-qupu-brand-blue" title={quest.description}>
-                  {quest.title}
-                </p>
-                <span className="flex flex-shrink-0 items-center gap-1">
-                  {quest.rewardXp > 0 && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
-                      <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
-                      +{quest.rewardXp} XP
-                    </span>
-                  )}
-                  {quest.rewardCoins > 0 && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
-                      <i className="fa-solid fa-coins" aria-hidden="true" />
-                      +{quest.rewardCoins}
-                    </span>
-                  )}
-                </span>
+        {quests.map((quest) => {
+          const claimable = quest.completed && !quest.claimedAt
+          return (
+            <li key={quest.id} className="flex items-center gap-2.5">
+              <span
+                className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
+                  quest.completed
+                    ? 'bg-[#58A700] text-[9px] text-white'
+                    : 'ring-2 ring-inset ring-[#FFE3CC]'
+                }`}
+              >
+                {quest.completed && <i className="fa-solid fa-check" aria-hidden="true" />}
+              </span>
+              <div className={`min-w-0 flex-1 ${quest.completed && !claimable ? 'opacity-60' : ''}`}>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="min-w-0 truncate text-xs font-bold text-qupu-brand-blue" title={quest.description}>
+                    {quest.title}
+                  </p>
+                  <span className="flex flex-shrink-0 items-center gap-1">
+                    {claimable ? (
+                      // Claim ritual (P2.2): the reward pays out on this tap.
+                      <button
+                        type="button"
+                        onClick={() => void handleClaim(quest)}
+                        disabled={claimingId !== null}
+                        className={`inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-3 py-1 text-[10px] font-extrabold text-white shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60 ${
+                          claimingId === null ? 'animate-bounce' : ''
+                        }`}
+                      >
+                        <i className="fa-solid fa-gift" aria-hidden="true" />
+                        {claimingId === quest.id ? 'Mengklaim…' : 'Klaim'}
+                      </button>
+                    ) : (
+                      <>
+                        {quest.rewardXp > 0 && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                            <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                            +{quest.rewardXp} XP
+                          </span>
+                        )}
+                        {quest.rewardCoins > 0 && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                            <i className="fa-solid fa-coins" aria-hidden="true" />
+                            +{quest.rewardCoins}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </span>
+                </div>
+                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#F1E4CC]">
+                  <div
+                    className={`h-full rounded-full ${quest.completed ? 'bg-[#58A700]' : 'bg-qupu-brand-orange'}`}
+                    style={{ width: `${progressPct(quest)}%` }}
+                  />
+                </div>
               </div>
-              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#F1E4CC]">
-                <div
-                  className={`h-full rounded-full ${quest.completed ? 'bg-[#58A700]' : 'bg-qupu-brand-orange'}`}
-                  style={{ width: `${progressPct(quest)}%` }}
-                />
-              </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ul>
     </section>
   )

@@ -23,6 +23,8 @@ export type RewardType =
   | 'CONCEPT_COMPLETION_XP' // WMI konsep — mastery-scaled grant per correct answer
   | 'CONCEPT_TIER_UP_XP'    // one-time bonus when a concept crosses a tier (P2.1)
   | 'CHAPTER_TEST_XP'       // Tes Bab pass — once per (child, chapter)
+  | 'CHAPTER_CHEST_XP'      // chapter 50%/100%-grown chest — once per (child, chapter, threshold) (P2.2)
+  | 'SESSION_DROP_COIN'     // variable 2-6 coin drop at konsep session commit (P2.2)
   | 'STREAK_SHIELD_CONSUMED' // 0-coin audit row: shield(s) covered missed day(s)
 
 export interface AppendLedgerInput {

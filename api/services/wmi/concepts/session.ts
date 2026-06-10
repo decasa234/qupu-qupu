@@ -1,8 +1,11 @@
+import { randomInt } from 'node:crypto'
 import type { PoolClient } from 'pg'
 import { pool, query, queryOne, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
+import { deterministicUuid } from '../../../lib/deterministicUuid.js'
 import { wibDateString } from '../../../lib/wib.js'
 import { isCorrectAnswer } from '../answerMatch.js'
+import { PROFICIENT_TIER } from './comprehension.js'
 import {
   EMPTY_PROGRESS,
   applyAnswers,
@@ -15,6 +18,12 @@ import {
   conceptXpForTier,
   grantTierUpBonuses,
 } from '../../gamification/concept.js'
+import {
+  chestThresholdsToGrant,
+  grantChapterChests,
+  type GrantedChest,
+} from '../../gamification/chapterChest.js'
+import { appendLedger } from '../../gamification/ledger.js'
 import { emitEvent, type EventType } from '../../gamification/events.js'
 import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
 import {
@@ -89,8 +98,10 @@ export interface CompletedQuest {
   id: string
   code: string
   title: string
-  xpAwarded: number
-  coinsAwarded: number
+  // CLAIMABLE reward (P2.2): completion no longer auto-pays — the kid claims
+  // it from the Misi Hari Ini panel. Display-only; never folded into totals.
+  rewardXp: number
+  rewardCoins: number
 }
 
 export interface UnlockedAchievement {
@@ -117,10 +128,21 @@ export interface SessionResult {
   streak: { current: number; longest: number }
   completedQuests: CompletedQuest[]
   unlockedAchievements: UnlockedAchievement[]
+  // Chapter chests opened by THIS commit (50%/100% grown, once ever per
+  // (child, chapter, threshold)) — already folded into xpEarned/coinsEarned.
+  chests: GrantedChest[]
+  // Variable session drop: 2-6 coins rolled server-side at commit, already
+  // folded into coinsEarned. 0 when nothing was banked.
+  sessionDrop: number
   // True when this response is a REPLAY of an already-committed session
   // (idempotency hit) — the FE skips celebration analytics + stat-strip sync.
   replayed?: boolean
 }
+
+// Variable session drop bounds (inclusive): a tiny chest at the end of every
+// completed session — variable reward without ever punishing anyone.
+const SESSION_DROP_MIN = 2
+const SESSION_DROP_MAX = 6
 
 // Pure grouping helper (exported for unit tests): per-concept answer
 // sequences keyed by slug in first-touch order, preserving the in-session
@@ -166,18 +188,22 @@ export async function commitKonsepSession(
   //   3 instance batch fetch     4 attempts batch insert
   //   5 progress batch lock      6 progress batch upsert
   //   7 ensureProfile            8+9 streak read + write
-  //   10 ledger batch insert     11-13 profile delta (inner ensureProfile +
-  //   snapshot + UPDATE)         14 result cache write
-  // = 14 (was ~140: 20 answers x ~7 queries each). Conditional extras: +1
+  //   10 ledger batch insert     11 session-drop ledger append (P2.2 —
+  //   every commit)              12-14 profile delta (inner ensureProfile +
+  //   snapshot + UPDATE)         15 result cache write
+  // = 15 (was ~140: 20 answers x ~7 queries each). Conditional extras: +1
   // level UPDATE on level-up, +1 per tier crossed (one-time tier-up bonus
-  // ledger append — at most a few per session ever), +1 cold level_tiers load, +1
+  // ledger append — at most a few per session ever), +1 chapter grown COUNT
+  // plus +1 ledger append per due chest ONLY when a concept newly reached
+  // Mahir this commit (chest block below), +1 cold level_tiers load, +1
   // recovery-eligibility check on a 2-day streak gap, +1-2 shield-consume
   // writes when updateStreakForActivity burns a streak shield. The M2
   // events/quests/achievements block below is already aggregate (one event +
-  // evaluation per event TYPE, not per answer) but still adds roughly 8-16
+  // evaluation per event TYPE, not per answer) but still adds roughly 8-14
   // more round-trips on top of the batched core (2 per emit+evaluate pair,
-  // 1 per quest progress UPDATE, 1 per completion ledger row, achievement
-  // predicates + unlock inserts, and the bonus profile delta).
+  // 1 per quest progress UPDATE — completion no longer writes a ledger row
+  // (P2.2 claim ritual) — achievement predicates + unlock inserts, and the
+  // achievement bonus profile delta).
   return withTransaction(async (client: PoolClient) => {
     await assertChildOwnership(client, parentUserId, childId)
 
@@ -271,6 +297,8 @@ export async function commitKonsepSession(
     let streakOut = { current: 0, longest: 0 }
     const completedQuests: CompletedQuest[] = []
     const unlockedAchievements: UnlockedAchievement[] = []
+    const chests: GrantedChest[] = []
+    let sessionDrop = 0
 
     if (processedCount === 0) {
       // Nothing banked (every submitted instance was off-subject/unknown) —
@@ -409,6 +437,62 @@ export async function commitKonsepSession(
         coinsEarned += grant.coins
       }
 
+      // ── Chapter chests (P2.2) ──────────────────────────────────────────
+      // Grown share = best_tier >= Mahir over the chapter's enabled concepts.
+      // Round-trip budget: ZERO extra queries unless this commit grew a
+      // concept to Mahir+ (most commits don't); then ONE chapter COUNT —
+      // run AFTER the progress upsert so it sees this commit's rows, giving
+      // the AFTER state directly. BEFORE is derived from the fold (after −
+      // newly grown), so no second count is needed. Each due threshold adds
+      // one ledger append (at most twice ever per (child, chapter), plus
+      // rare self-heal no-ops — see chestThresholdsToGrant).
+      const newlyGrownToMahir = grownList.filter(
+        (g) => g.fromTier < PROFICIENT_TIER && g.toTier >= PROFICIENT_TIER,
+      ).length
+      if (newlyGrownToMahir > 0) {
+        const chapterRow = await queryOne<{ total: number; grown: number }>(
+          `SELECT COUNT(*)::int AS total,
+                  COUNT(*) FILTER (WHERE p.best_tier >= $3)::int AS grown
+             FROM wmi_concepts c
+             LEFT JOIN wmi_concept_progress p
+               ON p.concept_slug = c.slug AND p.child_id = $1
+            WHERE c.subject_key = $2 AND c.enabled = TRUE`,
+          [childId, subjectKey, PROFICIENT_TIER],
+          client,
+        )
+        const grownAfter = Number(chapterRow?.grown ?? 0)
+        const total = Number(chapterRow?.total ?? 0)
+        const thresholds = chestThresholdsToGrant(
+          grownAfter - newlyGrownToMahir,
+          grownAfter,
+          total,
+        )
+        const granted = await grantChapterChests(client, childId, subjectKey, thresholds)
+        for (const chest of granted) {
+          chests.push(chest)
+          xpEarned += chest.xp
+          coinsEarned += chest.coins
+        }
+      }
+
+      // ── Variable session drop (P2.2) ───────────────────────────────────
+      // 2-6 coins, rolled server-side. Ledger-idempotent on the session id
+      // (belt-and-braces — the session-id claim above already guarantees a
+      // replay never reaches this code; the key protects crash-replay edges).
+      const dropLed = await appendLedger(client, {
+        childId,
+        rewardType: 'SESSION_DROP_COIN',
+        sourceType: 'wmi_konsep_session',
+        sourceId: deterministicUuid(`session-drop:${sessionId}`),
+        xpDelta: 0,
+        coinDelta: SESSION_DROP_MIN + randomInt(SESSION_DROP_MAX - SESSION_DROP_MIN + 1),
+        metadata: { subjectKey },
+      })
+      sessionDrop = dropLed.coinDelta
+      // Fold only an APPENDED grant into the banked delta (an unreachable-in-
+      // practice duplicate means the coins were already credited elsewhere).
+      if (dropLed.appended) coinsEarned += dropLed.coinDelta
+
       // Always run the profile delta — even at 0/0 it stamps
       // last_activity_date = today (so tomorrow's streak gap is correct) and
       // returns the canonical balances/level for the result payload.
@@ -498,12 +582,11 @@ export async function commitKonsepSession(
           )
         }
 
-        // Quest completions append their own ledger rows inside the
-        // evaluator (idempotent on the quest instance id); sum the awarded
-        // XP/coins for one final profile delta. Dedupe by quest id — the
-        // same quest can only complete once per window.
-        let bonusXp = 0
-        let bonusCoins = 0
+        // Quest completions pay NOTHING here (P2.2 claim ritual): the
+        // evaluator only stamps completed_at; the reward grants on
+        // POST /me/quests/:id/claim. Collect them for the ceremony beat
+        // (claimable amounts, display-only). Dedupe by quest id — the same
+        // quest can only complete once per window.
         const completedById = new Map<string, QuestProgressResult>()
         for (const q of allQuestResults) {
           if (q.justCompleted && !completedById.has(q.questId)) {
@@ -511,19 +594,20 @@ export async function commitKonsepSession(
           }
         }
         for (const q of completedById.values()) {
-          bonusXp += q.xpAwarded
-          bonusCoins += q.coinsAwarded
           completedQuests.push({
             id: q.questId,
             code: q.code,
             title: q.title,
-            xpAwarded: q.xpAwarded,
-            coinsAwarded: q.coinsAwarded,
+            rewardXp: q.rewardXp,
+            rewardCoins: q.rewardCoins,
           })
         }
 
         // Achievements run last so the post-session state (progress rows,
         // events, streak) is fully applied before predicates are checked.
+        // They are the ONLY remaining auto-paid bonus here — quests moved to
+        // the claim ritual above.
+        let bonusXp = 0
         const newAchievements = await evaluateAchievements(client, childId, streakState)
         for (const ach of newAchievements) {
           bonusXp += ach.xpAwarded
@@ -536,15 +620,14 @@ export async function commitKonsepSession(
           })
         }
 
-        if (bonusXp > 0 || bonusCoins > 0) {
+        if (bonusXp > 0) {
           const bonusProfile = await updateProfileWithDelta(client, {
             childId,
             xpDelta: bonusXp,
-            coinDelta: bonusCoins,
+            coinDelta: 0,
             activityDate: today,
           })
           xpEarned += bonusXp
-          coinsEarned += bonusCoins
           if (bonusProfile.levelUp) {
             levelUp = {
               previousLevel: bonusProfile.levelUp.previousLevel,
@@ -583,6 +666,8 @@ export async function commitKonsepSession(
       streak: streakOut,
       completedQuests,
       unlockedAchievements,
+      chests,
+      sessionDrop,
     }
 
     // Persist the result for replays BEFORE returning — same transaction as

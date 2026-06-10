@@ -8,10 +8,7 @@ import { appendLedger } from '../../gamification/ledger.js'
 import { ensureProfile, updateProfileWithDelta } from '../../gamification/profileUpdater.js'
 import { updateStreakForActivity } from '../../gamification/streakUpdater.js'
 import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
-import {
-  evaluateForEvent,
-  type QuestProgressResult,
-} from '../../gamification/questEvaluator.js'
+import { evaluateForEvent } from '../../gamification/questEvaluator.js'
 import { evaluateAchievements } from '../../gamification/achievementEvaluator.js'
 
 const TEST_SIZE = 6
@@ -165,7 +162,9 @@ export async function submitChapterTest(
         coinsEarned = led.coinDelta
       }
 
-      // Event + evaluators, exactly like the video/konsep paths.
+      // Event + evaluators, exactly like the video/konsep paths. Quest
+      // completion pays NOTHING here (P2.2 claim ritual): the evaluator only
+      // stamps completed_at; the reward grants on POST /me/quests/:id/claim.
       await emitEvent(client, {
         childId,
         eventType: 'CHAPTER_TEST_PASSED',
@@ -175,23 +174,13 @@ export async function submitChapterTest(
         metadata: { subjectKey, scorePct },
       })
       await ensureTodaysQuests(client, childId, today)
-      const questResults = await evaluateForEvent(client, today, {
+      await evaluateForEvent(client, today, {
         childId,
         eventType: 'CHAPTER_TEST_PASSED',
         eventSourceType: 'wmi_chapter_test',
         eventSourceId: testRow.id,
         currentStreakDays: streak.currentStreakDays,
       })
-      const completedById = new Map<string, QuestProgressResult>()
-      for (const q of questResults) {
-        if (q.justCompleted && !completedById.has(q.questId)) {
-          completedById.set(q.questId, q)
-        }
-      }
-      for (const q of completedById.values()) {
-        xpEarned += q.xpAwarded
-        coinsEarned += q.coinsAwarded
-      }
 
       const newAchievements = await evaluateAchievements(client, childId, streak)
       for (const ach of newAchievements) {

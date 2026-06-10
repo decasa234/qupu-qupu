@@ -292,8 +292,14 @@ export interface WmiCompletedQuest {
   id: string
   code: string
   title: string
-  xpAwarded: number
-  coinsAwarded: number
+  // CLAIMABLE reward (P2.2) — paid via the Misi Hari Ini claim button, NOT
+  // included in this commit's totals.
+  rewardXp?: number
+  rewardCoins?: number
+  // Legacy auto-grant amounts — only on results stored before the claim
+  // ritual (replayed sessions); those WERE included in the totals.
+  xpAwarded?: number
+  coinsAwarded?: number
 }
 export interface WmiUnlockedAchievement {
   id: string
@@ -318,6 +324,12 @@ export interface WmiKonsepSessionResult {
   streak: { current: number; longest: number }
   completedQuests: WmiCompletedQuest[]
   unlockedAchievements: WmiUnlockedAchievement[]
+  // Chapter chests opened by this commit (50%/100% grown) — already folded
+  // into xpEarned/coinsEarned. Optional: pre-P2.2 stored results lack it.
+  chests?: { threshold: number; coins: number; xp: number }[]
+  // Variable 2-6 coin session drop, already folded into coinsEarned.
+  // Optional: pre-P2.2 stored results lack it.
+  sessionDrop?: number
   // True when the server replayed an already-committed session (idempotency
   // hit) — skip celebration analytics + stat-strip sync.
   replayed?: boolean

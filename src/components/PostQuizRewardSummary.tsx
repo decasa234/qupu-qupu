@@ -204,12 +204,17 @@ export default function PostQuizRewardSummary({
           </section>
         )}
 
-        {/* Section 4 — Quest completions */}
+        {/* Section 4 — Quest completions. Rewards are claim-gated (P2.2):
+            the chips show what the kid gets when they tap Klaim on the
+            Misi Hari Ini panel — they are NOT in the XP total below. */}
         {gam && gam.completedQuests.length > 0 && (
           <section className="mt-4 space-y-2">
             <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-              Quest selesai
+              Misi selesai
             </div>
+            <p className="text-[11px] font-semibold text-qupu-muted">
+              Klaim hadiahnya di panel Misi Hari Ini!
+            </p>
             <div className="space-y-2">
               {gam.completedQuests.map((q) => (
                 <div
@@ -222,9 +227,14 @@ export default function PostQuizRewardSummary({
                   <div className="flex-1 min-w-0 font-display text-sm font-bold text-qupu-brand-blue truncate">
                     {q.title}
                   </div>
-                  {q.xpAwarded > 0 && (
+                  {q.rewardXp > 0 && (
                     <span className="whitespace-nowrap rounded-full bg-emerald-600 px-2.5 py-0.5 font-display text-[11px] font-extrabold text-white">
-                      +{q.xpAwarded} XP
+                      +{q.rewardXp} XP
+                    </span>
+                  )}
+                  {q.rewardCoins > 0 && (
+                    <span className="whitespace-nowrap rounded-full bg-amber-500 px-2.5 py-0.5 font-display text-[11px] font-extrabold text-white">
+                      <i className="fa-solid fa-coins" aria-hidden="true" /> +{q.rewardCoins}
                     </span>
                   )}
                 </div>
