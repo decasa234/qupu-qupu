@@ -21,6 +21,7 @@ import {
   validateRegistrationForm,
 } from '../lib/registerValidation'
 import { useAuthStore } from '../store/authStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { AuthPayload, Child } from '../types'
 
 type Step = 'credentials' | 'otp'
@@ -32,6 +33,7 @@ interface PendingState {
 }
 
 export default function Register() {
+  useDocumentTitle('Daftar')
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { login } = useAuthStore()

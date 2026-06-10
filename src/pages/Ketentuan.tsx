@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import LegalPage, { LegalList, LegalSection, LegalText } from '@/components/LegalPage'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 // Kontak resmi — TODO: konfirmasi alamat email ini aktif sebelum dipublikasikan
 // luas; ganti di satu tempat ini jika alamatnya berbeda.
 const CONTACT_EMAIL = 'halo@qupu.id'
 
 export default function KetentuanPage() {
+  useDocumentTitle('Syarat & Ketentuan')
   return (
     <LegalPage
       eyebrow="Legal"

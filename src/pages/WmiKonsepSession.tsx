@@ -19,6 +19,7 @@ import {
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import { syncStatStrip } from '../hooks/useGamificationStats'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type {
   WmiConceptQuestion,
   WmiGardenConcept,
@@ -76,6 +77,7 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
 }
 
 export default function WmiKonsepSession() {
+  useDocumentTitle('Latihan')
   const { subjectKey } = useParams<{ subjectKey: string }>()
   const { activeChildId } = useAuthStore()
   const setLastSubjectKey = useWmiStore((state) => state.setLastSubjectKey)

@@ -9,6 +9,7 @@ import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/S
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { WmiGarden, WmiGardenChapter, WmiGardenConcept, WmiGrade } from '../types/wmi'
 
 // One-time coach-mark on the resume hero ("first question is the tutorial").
@@ -65,6 +66,7 @@ function clampGardenGrade(grade: WmiGrade): WmiGrade {
 }
 
 export default function WmiHub() {
+  useDocumentTitle('Kebun Konsep')
   const { activeChildId } = useAuthStore()
   const { selectedGrade, setSelectedGrade, gradeByChild, lastSubjectKey, loadGlossary } =
     useWmiStore()

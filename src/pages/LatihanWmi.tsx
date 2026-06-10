@@ -9,6 +9,7 @@ import WmiFeaturesTour from '@/components/wmi/marketing/WmiFeaturesTour'
 import WmiMasteryTree from '@/components/wmi/marketing/WmiMasteryTree'
 import WmiTestimonialsMarquee from '@/components/wmi/marketing/WmiTestimonialsMarquee'
 import { TESTIMONIALS } from '@/data/wmiMarketing'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -25,6 +26,7 @@ function Sprinkles() {
 }
 
 export default function LatihanWmiPage() {
+  useDocumentTitle('Latihan WMI untuk Anak')
   const [answered, setAnswered] = useState(false)
   const reduce = useReducedMotion()
   const revealRef = useRef<HTMLDivElement>(null)

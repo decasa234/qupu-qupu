@@ -11,6 +11,7 @@ import { fetchShopItems, type ShopItemForChild } from '../lib/shopApi'
 import { logSessionEvent } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import { avatarIconClass, DEFAULT_AVATAR_COLOR } from '../lib/avatars'
 import AuthCard from '../components/AuthCard'
 import SkeletonCard from '../components/SkeletonCard'
@@ -20,6 +21,7 @@ import DashboardHighlights from '../components/dashboard/DashboardHighlights'
 import ShopTeaser from '../components/dashboard/ShopTeaser'
 
 export default function DashboardPage() {
+  useDocumentTitle('Statistik')
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const [vm, setVm] = useState<DashboardViewModel | null>(null)
@@ -101,7 +103,7 @@ export default function DashboardPage() {
         mascotSrc="/hero-mascot.png"
         eyebrow="Dashboard"
         title="Pilih profil anak dulu"
-        subtitle="Gunakan switcher di navbar untuk menambahkan atau memilih profil anak. Setiap anak punya progres dan badge sendiri."
+        subtitle="Tambahkan atau ganti profil anak di halaman Profil. Setiap anak punya progres dan badge sendiri."
       >
         <Link
           to="/onboard/child"

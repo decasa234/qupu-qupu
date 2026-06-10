@@ -54,7 +54,7 @@ export default function BadgesPage() {
           mascotSrc="/hero-mascot.png"
           eyebrow="Badge"
           title="Pilih profil anak dulu"
-          subtitle="Badge dikumpulkan per anak. Pilih profil dari switcher di navbar untuk lihat koleksi badge-nya."
+          subtitle="Badge dikumpulkan per anak. Ganti profil anak di halaman Profil untuk lihat koleksi badge-nya."
         >
           <Link
             to="/onboard/child"

@@ -171,7 +171,7 @@ export default function QuizPage() {
         mascotSrc="/hero-mascot.png"
         eyebrow="Kuis"
         title="Pilih profil anak dulu"
-        subtitle="Kuis dan badge dihitung per anak. Pilih profil dari switcher di navbar untuk mulai."
+        subtitle="Kuis dan badge dihitung per anak. Ganti profil anak di halaman Profil untuk mulai."
       >
         <Link
           to="/onboard/child"

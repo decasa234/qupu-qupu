@@ -1,10 +1,12 @@
 import LegalPage, { LegalList, LegalSection, LegalText } from '@/components/LegalPage'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 // Kontak resmi — TODO: konfirmasi alamat email ini aktif sebelum dipublikasikan
 // luas; ganti di satu tempat ini jika alamatnya berbeda.
 const CONTACT_EMAIL = 'halo@qupu.id'
 
 export default function PrivasiPage() {
+  useDocumentTitle('Kebijakan Privasi')
   return (
     <LegalPage
       eyebrow="Legal"

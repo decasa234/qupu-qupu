@@ -1,12 +1,14 @@
 // src/pages/Me.tsx
 //
-// Profil tab destination. Sections: account header, a Pengaturan menu
-// (Rapor → /report, Statistik & Misi Harian → /dashboard, Keluar → logout),
-// and the owned-items collection.
+// Profil tab destination. Sections: account header, child profile management
+// (switch active child / add a child), a Pengaturan menu (Rapor → /report,
+// Statistik & Misi Harian → /dashboard, Keluar → logout), and the owned-items
+// collection.
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import InventoryGrid from '../components/me/InventoryGrid'
 import AvatarEditor from '../components/me/AvatarEditor'
+import ChildrenManager from '../components/me/ChildrenManager'
 import LevelDetail from '../components/me/LevelDetail'
 
 export default function MePage() {
@@ -26,6 +28,8 @@ export default function MePage() {
         <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">{user?.name ?? 'Profil'}</h2>
         <p className="mt-1 text-xs font-medium text-qupu-muted">{user?.email}</p>
       </section>
+
+      <ChildrenManager />
 
       {activeChild && <AvatarEditor child={activeChild} />}
 

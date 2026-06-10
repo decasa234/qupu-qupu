@@ -77,7 +77,7 @@ export default function ReportPage() {
         mascotSrc="/hero-mascot.png"
         eyebrow="Rapor"
         title="Pilih profil anak dulu"
-        subtitle="Rapor dibuat per anak. Pilih profil dari switcher di navbar."
+        subtitle="Rapor dibuat per anak. Ganti profil anak di halaman Profil."
       >
         <Link
           to="/onboard/child"

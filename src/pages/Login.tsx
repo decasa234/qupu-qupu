@@ -9,9 +9,11 @@ import AuthCard from '../components/AuthCard'
 import GoogleSignInButton from '../components/GoogleSignInButton'
 import PillField from '../components/PillField'
 import { useAuthStore } from '../store/authStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { AuthPayload, Child } from '../types'
 
 export default function Login() {
+  useDocumentTitle('Masuk')
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const expired = searchParams.get('expired') === '1'
