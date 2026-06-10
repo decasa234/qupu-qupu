@@ -1,78 +1,4 @@
-import type { ComponentType } from 'react'
-import AlternatingChainEvalExplainer from './AlternatingChainEvalExplainer'
-import AngleTypeExplainer from './AngleTypeExplainer'
-import ArithmeticExpressionEvalExplainer from './ArithmeticExpressionEvalExplainer'
-import AssignmentCycleExplainer from './AssignmentCycleExplainer'
-import BarChartCompareExplainer from './BarChartCompareExplainer'
-import BlockCount3dExplainer from './BlockCount3dExplainer'
-import BudgetSelectionExplainer from './BudgetSelectionExplainer'
-import BuildNumberExplainer from './BuildNumberExplainer'
-import ClockReadTimeExplainer from './ClockReadTimeExplainer'
-import ClockTimeAfterExplainer from './ClockTimeAfterExplainer'
-import CombinationProductSumExplainer from './CombinationProductSumExplainer'
-import CompareOrderExplainer from './CompareOrderExplainer'
-import CountPolygonSidesExplainer from './CountPolygonSidesExplainer'
-import CountRectanglesGridExplainer from './CountRectanglesGridExplainer'
-import CountShapesInFigureExplainer from './CountShapesInFigureExplainer'
-import CustomOperationExplainer from './CustomOperationExplainer'
-import DiceNetFoldExplainer from './DiceNetFoldExplainer'
-import DiceOppositeFacesExplainer from './DiceOppositeFacesExplainer'
-import DigitFrequencyExplainer from './DigitFrequencyExplainer'
-import DigitSumExplainer from './DigitSumExplainer'
-import DirectionOrientationExplainer from './DirectionOrientationExplainer'
-import DistanceRateTimeExplainer from './DistanceRateTimeExplainer'
-import FindDigitSumExplainer from './FindDigitSumExplainer'
-import FindMultipleExplainer from './FindMultipleExplainer'
-import FractionRegionExplainer from './FractionRegionExplainer'
-import GridPathStepsExplainer from './GridPathStepsExplainer'
-import LackingMoneyExplainer from './LackingMoneyExplainer'
-import LegsExplainer from './LegsExplainer'
-import MazePathShortestExplainer from './MazePathShortestExplainer'
-import MistakenDigitCorrectionExplainer from './MistakenDigitCorrectionExplainer'
-import MoneyChangeExplainer from './MoneyChangeExplainer'
-import MoneyCoinsTotalExplainer from './MoneyCoinsTotalExplainer'
-import MoreLessExplainer from './MoreLessExplainer'
-import MultiplicationSmallExplainer from './MultiplicationSmallExplainer'
-import {
-  ArrangeDigitsExplainer,
-  EquivalentFractionFillExplainer,
-  MakeGroupsLeftoverExplainer,
-  MissingAddendExplainer,
-  NetProgressCyclesExplainer,
-  RopeWrapsRatioExplainer,
-  TableLookupCombineExplainer,
-  TruthOrderCluesExplainer,
-  VisualPatternNextExplainer,
-} from './NewConceptCardExplainers'
-import ShapeTransformationRuleExplainer from './ShapeTransformationRuleExplainer'
-import NumberLineJumpsExplainer from './NumberLineJumpsExplainer'
-import NumberPyramidExplainer from './NumberPyramidExplainer'
-import OddEvenExplainer from './OddEvenExplainer'
-import OperatorFillExplainer from './OperatorFillExplainer'
-import PatternNextExplainer from './PatternNextExplainer'
-import PerfectSquareExplainer from './PerfectSquareExplainer'
-import PerimeterAreaComposedExplainer from './PerimeterAreaComposedExplainer'
-import PlaceValueExplainer from './PlaceValueExplainer'
-import PositionInLineExplainer from './PositionInLineExplainer'
-import ProductConsecutiveExplainer from './ProductConsecutiveExplainer'
-import RangeCountEvaluateExplainer from './RangeCountEvaluateExplainer'
-import RectangleAreaGridExplainer from './RectangleAreaGridExplainer'
-import ReverseArithmeticExplainer from './ReverseArithmeticExplainer'
-import SameFigureIdentifyExplainer from './SameFigureIdentifyExplainer'
-import ScaleReadExplainer from './ScaleReadExplainer'
-import ShapePerimeterRectangleExplainer from './ShapePerimeterRectangleExplainer'
-import ShapePerimeterSquareExplainer from './ShapePerimeterSquareExplainer'
-import SingleDigitAdditionExplainer from './SingleDigitAdditionExplainer'
-import SingleDigitSubtractionExplainer from './SingleDigitSubtractionExplainer'
-import StorySumExplainer from './StorySumExplainer'
-import SymmetryCountExplainer from './SymmetryCountExplainer'
-import SumPartitionSplitExplainer from './SumPartitionSplitExplainer'
-import TallyMarksCountExplainer from './TallyMarksCountExplainer'
-import UnitConversionExplainer from './UnitConversionExplainer'
-import VennSetMembershipExplainer from './VennSetMembershipExplainer'
-import WeightBalanceExplainer from './WeightBalanceExplainer'
-import WhichExpressionEqualsExplainer from './WhichExpressionEqualsExplainer'
-import WhichMightBeExplainer from './WhichMightBeExplainer'
+import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
 
 export interface ExplainerProps {
   params: unknown
@@ -90,81 +16,106 @@ export interface ExplainerProps {
   onPlayEnd?: () => void
 }
 
-export const EXPLAINERS: Record<string, ComponentType<ExplainerProps>> = {
-  'alternating-chain-eval': AlternatingChainEvalExplainer,
-  'angle-type': AngleTypeExplainer,
-  'arrange-digits-to-form-number': ArrangeDigitsExplainer,
-  'arithmetic-expression-eval': ArithmeticExpressionEvalExplainer,
-  'assignment-cycle': AssignmentCycleExplainer,
-  'bar-chart-compare': BarChartCompareExplainer,
-  'block-count-3d': BlockCount3dExplainer,
-  'budget-selection': BudgetSelectionExplainer,
-  'build-number-from-digit-clues': BuildNumberExplainer,
-  'clock-read-time': ClockReadTimeExplainer,
-  'clock-time-after': ClockTimeAfterExplainer,
-  'combination-product-sum': CombinationProductSumExplainer,
-  'compare-order-numbers': CompareOrderExplainer,
-  'count-polygon-sides': CountPolygonSidesExplainer,
-  'count-rectangles-grid': CountRectanglesGridExplainer,
-  'count-shapes-in-figure': CountShapesInFigureExplainer,
-  'custom-operation': CustomOperationExplainer,
-  'dice-net-fold': DiceNetFoldExplainer,
-  'dice-opposite-faces': DiceOppositeFacesExplainer,
-  'digit-frequency': DigitFrequencyExplainer,
-  'digit-sum': DigitSumExplainer,
-  'direction-orientation': DirectionOrientationExplainer,
-  'distance-rate-time': DistanceRateTimeExplainer,
-  'divisibility-multiple-property': FindMultipleExplainer,
-  'equivalent-fraction-fill': EquivalentFractionFillExplainer,
-  'find-number-by-digit-sum': FindDigitSumExplainer,
-  'fraction-of-region': FractionRegionExplainer,
-  'grid-path-steps': GridPathStepsExplainer,
-  'lacking-money-shared': LackingMoneyExplainer,
-  'legs-items-rate': LegsExplainer,
-  'make-groups-leftover': MakeGroupsLeftoverExplainer,
-  'maze-path-shortest': MazePathShortestExplainer,
-  'mistaken-digit-correction': MistakenDigitCorrectionExplainer,
-  'missing-addend': MissingAddendExplainer,
-  'money-coins-total': MoneyCoinsTotalExplainer,
-  'money-shopping-change': MoneyChangeExplainer,
-  'more-or-less-by-k': MoreLessExplainer,
-  'multiplication-small': MultiplicationSmallExplainer,
-  'net-progress-cycles': NetProgressCyclesExplainer,
-  'number-line-jumps': NumberLineJumpsExplainer,
-  'number-pyramid': NumberPyramidExplainer,
-  'odd-even-reasoning': OddEvenExplainer,
-  'operator-fill': OperatorFillExplainer,
-  'pattern-next': PatternNextExplainer,
-  'perfect-square-search': PerfectSquareExplainer,
-  'perimeter-area-composed': PerimeterAreaComposedExplainer,
-  'place-value': PlaceValueExplainer,
-  'position-in-line': PositionInLineExplainer,
-  'product-of-consecutive': ProductConsecutiveExplainer,
-  'range-count-evaluate': RangeCountEvaluateExplainer,
-  'rectangle-area-grid': RectangleAreaGridExplainer,
-  'reverse-arithmetic-puzzle': ReverseArithmeticExplainer,
-  'rope-wraps-ratio': RopeWrapsRatioExplainer,
-  'same-figure-identify': SameFigureIdentifyExplainer,
-  'scale-read': ScaleReadExplainer,
-  'shape-perimeter-rectangle': ShapePerimeterRectangleExplainer,
-  'shape-perimeter-square': ShapePerimeterSquareExplainer,
-  'shape-transformation-rule': ShapeTransformationRuleExplainer,
-  'single-digit-addition': SingleDigitAdditionExplainer,
-  'single-digit-subtraction': SingleDigitSubtractionExplainer,
-  'story-sum': StorySumExplainer,
-  'symmetry-count': SymmetryCountExplainer,
-  'sum-partition-split': SumPartitionSplitExplainer,
-  'table-lookup-combine': TableLookupCombineExplainer,
-  'tally-marks-count': TallyMarksCountExplainer,
-  'unit-conversion': UnitConversionExplainer,
-  'venn-set-membership': VennSetMembershipExplainer,
-  'truth-order-clues': TruthOrderCluesExplainer,
-  'visual-pattern-next': VisualPatternNextExplainer,
-  'weight-balance-word': WeightBalanceExplainer,
-  'which-might-be': WhichMightBeExplainer,
-  'which-expression-equals': WhichExpressionEqualsExplainer,
+type ExplainerComponent = ComponentType<ExplainerProps>
+type ExplainerLoader = () => Promise<{ default: ExplainerComponent }>
+
+// A handful of small explainers live as named exports in one shared module;
+// re-shape them into the `{ default }` form lazy() expects.
+const shared = (
+  pick: (m: typeof import('./NewConceptCardExplainers')) => ExplainerComponent,
+): ExplainerLoader => {
+  return () => import('./NewConceptCardExplainers').then((m) => ({ default: pick(m) }))
 }
 
-export function getExplainer(slug: string): ComponentType<ExplainerProps> | null {
-  return EXPLAINERS[slug] ?? null
+// Lazy loader per concept slug — explainers (and their framer-motion heavy
+// beat machinery) are code-split out of the main bundle and only downloaded
+// when the feedback/penjelasan panel for that concept renders.
+const EXPLAINER_LOADERS: Record<string, ExplainerLoader> = {
+  'alternating-chain-eval': () => import('./AlternatingChainEvalExplainer'),
+  'angle-type': () => import('./AngleTypeExplainer'),
+  'arrange-digits-to-form-number': shared((m) => m.ArrangeDigitsExplainer),
+  'arithmetic-expression-eval': () => import('./ArithmeticExpressionEvalExplainer'),
+  'assignment-cycle': () => import('./AssignmentCycleExplainer'),
+  'bar-chart-compare': () => import('./BarChartCompareExplainer'),
+  'block-count-3d': () => import('./BlockCount3dExplainer'),
+  'budget-selection': () => import('./BudgetSelectionExplainer'),
+  'build-number-from-digit-clues': () => import('./BuildNumberExplainer'),
+  'clock-read-time': () => import('./ClockReadTimeExplainer'),
+  'clock-time-after': () => import('./ClockTimeAfterExplainer'),
+  'combination-product-sum': () => import('./CombinationProductSumExplainer'),
+  'compare-order-numbers': () => import('./CompareOrderExplainer'),
+  'count-polygon-sides': () => import('./CountPolygonSidesExplainer'),
+  'count-rectangles-grid': () => import('./CountRectanglesGridExplainer'),
+  'count-shapes-in-figure': () => import('./CountShapesInFigureExplainer'),
+  'custom-operation': () => import('./CustomOperationExplainer'),
+  'dice-net-fold': () => import('./DiceNetFoldExplainer'),
+  'dice-opposite-faces': () => import('./DiceOppositeFacesExplainer'),
+  'digit-frequency': () => import('./DigitFrequencyExplainer'),
+  'digit-sum': () => import('./DigitSumExplainer'),
+  'direction-orientation': () => import('./DirectionOrientationExplainer'),
+  'distance-rate-time': () => import('./DistanceRateTimeExplainer'),
+  'divisibility-multiple-property': () => import('./FindMultipleExplainer'),
+  'equivalent-fraction-fill': shared((m) => m.EquivalentFractionFillExplainer),
+  'find-number-by-digit-sum': () => import('./FindDigitSumExplainer'),
+  'fraction-of-region': () => import('./FractionRegionExplainer'),
+  'grid-path-steps': () => import('./GridPathStepsExplainer'),
+  'lacking-money-shared': () => import('./LackingMoneyExplainer'),
+  'legs-items-rate': () => import('./LegsExplainer'),
+  'make-groups-leftover': shared((m) => m.MakeGroupsLeftoverExplainer),
+  'maze-path-shortest': () => import('./MazePathShortestExplainer'),
+  'mistaken-digit-correction': () => import('./MistakenDigitCorrectionExplainer'),
+  'missing-addend': shared((m) => m.MissingAddendExplainer),
+  'money-coins-total': () => import('./MoneyCoinsTotalExplainer'),
+  'money-shopping-change': () => import('./MoneyChangeExplainer'),
+  'more-or-less-by-k': () => import('./MoreLessExplainer'),
+  'multiplication-small': () => import('./MultiplicationSmallExplainer'),
+  'net-progress-cycles': shared((m) => m.NetProgressCyclesExplainer),
+  'number-line-jumps': () => import('./NumberLineJumpsExplainer'),
+  'number-pyramid': () => import('./NumberPyramidExplainer'),
+  'odd-even-reasoning': () => import('./OddEvenExplainer'),
+  'operator-fill': () => import('./OperatorFillExplainer'),
+  'pattern-next': () => import('./PatternNextExplainer'),
+  'perfect-square-search': () => import('./PerfectSquareExplainer'),
+  'perimeter-area-composed': () => import('./PerimeterAreaComposedExplainer'),
+  'place-value': () => import('./PlaceValueExplainer'),
+  'position-in-line': () => import('./PositionInLineExplainer'),
+  'product-of-consecutive': () => import('./ProductConsecutiveExplainer'),
+  'range-count-evaluate': () => import('./RangeCountEvaluateExplainer'),
+  'rectangle-area-grid': () => import('./RectangleAreaGridExplainer'),
+  'reverse-arithmetic-puzzle': () => import('./ReverseArithmeticExplainer'),
+  'rope-wraps-ratio': () => import('./RopeWrapsRatioExplainer'),
+  'same-figure-identify': () => import('./SameFigureIdentifyExplainer'),
+  'scale-read': () => import('./ScaleReadExplainer'),
+  'shape-perimeter-rectangle': () => import('./ShapePerimeterRectangleExplainer'),
+  'shape-perimeter-square': () => import('./ShapePerimeterSquareExplainer'),
+  'shape-transformation-rule': () => import('./ShapeTransformationRuleExplainer'),
+  'single-digit-addition': () => import('./SingleDigitAdditionExplainer'),
+  'single-digit-subtraction': () => import('./SingleDigitSubtractionExplainer'),
+  'story-sum': () => import('./StorySumExplainer'),
+  'symmetry-count': () => import('./SymmetryCountExplainer'),
+  'sum-partition-split': () => import('./SumPartitionSplitExplainer'),
+  'table-lookup-combine': shared((m) => m.TableLookupCombineExplainer),
+  'tally-marks-count': () => import('./TallyMarksCountExplainer'),
+  'unit-conversion': () => import('./UnitConversionExplainer'),
+  'venn-set-membership': () => import('./VennSetMembershipExplainer'),
+  'truth-order-clues': () => import('./TruthOrderCluesExplainer'),
+  'visual-pattern-next': () => import('./VisualPatternNextExplainer'),
+  'weight-balance-word': () => import('./WeightBalanceExplainer'),
+  'which-might-be': () => import('./WhichMightBeExplainer'),
+  'which-expression-equals': () => import('./WhichExpressionEqualsExplainer'),
+}
+
+// Memoize the lazy wrapper per slug so re-renders get the same component
+// identity (a fresh lazy() each render would remount and restart the beats).
+const explainerCache = new Map<string, LazyExoticComponent<ExplainerComponent>>()
+
+export function getExplainer(slug: string): ExplainerComponent | null {
+  const load = EXPLAINER_LOADERS[slug]
+  if (!load) return null
+  let component = explainerCache.get(slug)
+  if (!component) {
+    component = lazy(load)
+    explainerCache.set(slug, component)
+  }
+  return component
 }

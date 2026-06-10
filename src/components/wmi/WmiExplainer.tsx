@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import type { ComponentType } from 'react'
 import { motion } from 'framer-motion'
 import { getExplainer } from './concepts/explainers/registry'
@@ -69,17 +69,21 @@ export default function WmiExplainer({ slug, explainer, params, correctAnswer, l
         )}
       </div>
 
-      <Explainer
-        key={replayKey}
-        params={params}
-        correctAnswer={correctAnswer}
-        lang={lang}
-        step={step}
-        playing={playing}
-        onStepCount={setCount}
-        onStepChange={setCurrent}
-        onPlayEnd={onPlayEnd}
-      />
+      {/* Explainers come from lazy registries — render nothing (the header is
+          already visible) until the chunk arrives. */}
+      <Suspense fallback={null}>
+        <Explainer
+          key={replayKey}
+          params={params}
+          correctAnswer={correctAnswer}
+          lang={lang}
+          step={step}
+          playing={playing}
+          onStepCount={setCount}
+          onStepChange={setCurrent}
+          onPlayEnd={onPlayEnd}
+        />
+      </Suspense>
 
       {count > 1 && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-3">

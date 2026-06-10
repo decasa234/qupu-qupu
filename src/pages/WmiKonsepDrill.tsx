@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import WmiConceptFeedbackPanel from '../components/wmi/WmiConceptFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
@@ -171,7 +171,10 @@ export default function WmiKonsepDrill() {
         <div className="mt-4 space-y-4">
           {Illustration && (
             <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell p-4 shadow-[5px_6px_0_0_#FFD3B1]">
-              <Illustration params={question.params} />
+              {/* Lazy registry chunk — a late pop-in is fine. */}
+              <Suspense fallback={null}>
+                <Illustration params={question.params} />
+              </Suspense>
             </div>
           )}
           {question.tags.length > 0 && (

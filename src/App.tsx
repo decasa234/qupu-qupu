@@ -1,17 +1,13 @@
-import { useEffect } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import CookieConsentBanner from './components/CookieConsentBanner'
 import Layout from './components/Layout'
-import AdminLayout from './components/AdminLayout'
+import RouteFallback from './components/RouteFallback'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
-import LatihanWmiPage from './pages/LatihanWmi'
-import HargaPage from './pages/Harga'
-import PrivasiPage from './pages/Privasi'
-import KetentuanPage from './pages/Ketentuan'
 import MemberVideosPage from './pages/MemberVideos'
 import QuizPage from './pages/Quiz'
 import DashboardPage from './pages/Dashboard'
@@ -19,28 +15,44 @@ import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
 import LatihanHubPage from './pages/LatihanHub'
 import WmiHubPage from './pages/WmiHub'
-import WmiPapersPage from './pages/WmiPapers'
-import WmiPaperDetailPage from './pages/WmiPaperDetail'
-import WmiExamPage from './pages/WmiExam'
-import WmiExamReviewPage from './pages/WmiExamReview'
 import WmiKonsepDrill from './pages/WmiKonsepDrill'
 import WmiKonsepSession from './pages/WmiKonsepSession'
 import WmiChapterTest from './pages/WmiChapterTest'
-import AdminVideosPage from './pages/AdminVideos'
-import AdminDashboardPage from './pages/admin/AdminDashboard'
-import AdminSubjectsPage from './pages/admin/AdminSubjects'
-import AdminAgeGroupsPage from './pages/admin/AdminAgeGroups'
-import AdminUsersPage from './pages/admin/AdminUsers'
-import AdminAnalyticsPage from './pages/admin/AdminAnalytics'
-import AdminImportVideosPage from './pages/admin/AdminImportVideos'
-import AdminWmiConceptsPage from './pages/admin/AdminWmiConcepts'
-import AdminWmiDrillPage from './pages/admin/AdminWmiDrill'
 import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
 import { resolvePostLoginRoute } from './lib/postLoginRoute'
 import { useAuthStore } from './store/authStore'
+
+// Lazy boundaries — keep the member core (garden/session/drill/dashboard/Me)
+// eager: it's the post-login hot path and must never flash a route spinner.
+// Marketing heavies (WMI demo pages pull the explainer stack), the exam stack,
+// and the entire admin subtree load on demand.
+const LatihanWmiPage = lazy(() => import('./pages/LatihanWmi'))
+const HargaPage = lazy(() => import('./pages/Harga'))
+const PrivasiPage = lazy(() => import('./pages/Privasi'))
+const KetentuanPage = lazy(() => import('./pages/Ketentuan'))
+const WmiPapersPage = lazy(() => import('./pages/WmiPapers'))
+const WmiPaperDetailPage = lazy(() => import('./pages/WmiPaperDetail'))
+const WmiExamPage = lazy(() => import('./pages/WmiExam'))
+const WmiExamReviewPage = lazy(() => import('./pages/WmiExamReview'))
+const AdminLayout = lazy(() => import('./components/AdminLayout'))
+const AdminVideosPage = lazy(() => import('./pages/AdminVideos'))
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboard'))
+const AdminSubjectsPage = lazy(() => import('./pages/admin/AdminSubjects'))
+const AdminAgeGroupsPage = lazy(() => import('./pages/admin/AdminAgeGroups'))
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsers'))
+const AdminAnalyticsPage = lazy(() => import('./pages/admin/AdminAnalytics'))
+const AdminImportVideosPage = lazy(() => import('./pages/admin/AdminImportVideos'))
+const AdminWmiConceptsPage = lazy(() => import('./pages/admin/AdminWmiConcepts'))
+const AdminWmiDrillPage = lazy(() => import('./pages/admin/AdminWmiDrill'))
+
+// Wraps a lazy page in Suspense at its render position (the layout's outlet),
+// so the surrounding chrome stays put while the chunk loads.
+function suspended(node: React.ReactNode) {
+  return <Suspense fallback={<RouteFallback />}>{node}</Suspense>
+}
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuthStore()
@@ -128,10 +140,10 @@ export default function App() {
           <Route index element={<HomeRoute />} />
           <Route path="videos" element={<VideosPage />} />
           <Route path="videos/:slug" element={<VideoDetailPage />} />
-          <Route path="wmi" element={<LatihanWmiPage />} />
-          <Route path="harga" element={<HargaPage />} />
-          <Route path="privasi" element={<PrivasiPage />} />
-          <Route path="ketentuan" element={<KetentuanPage />} />
+          <Route path="wmi" element={suspended(<LatihanWmiPage />)} />
+          <Route path="harga" element={suspended(<HargaPage />)} />
+          <Route path="privasi" element={suspended(<PrivasiPage />)} />
+          <Route path="ketentuan" element={suspended(<KetentuanPage />)} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
@@ -163,21 +175,23 @@ export default function App() {
           <Route path="me" element={<MePage />} />
           <Route path="latihan" element={<LatihanHubPage />} />
           <Route path="latihan/wmi" element={<WmiHubPage />} />
-          <Route path="latihan/wmi/ujian" element={<WmiPapersPage />} />
+          <Route path="latihan/wmi/ujian" element={suspended(<WmiPapersPage />)} />
           <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
-          <Route path="latihan/wmi/papers/:id" element={<WmiPaperDetailPage />} />
-          <Route path="latihan/wmi/exam/:sessionId" element={<WmiExamPage />} />
-          <Route path="latihan/wmi/exam/:sessionId/review" element={<WmiExamReviewPage />} />
+          <Route path="latihan/wmi/papers/:id" element={suspended(<WmiPaperDetailPage />)} />
+          <Route path="latihan/wmi/exam/:sessionId" element={suspended(<WmiExamPage />)} />
+          <Route path="latihan/wmi/exam/:sessionId/review" element={suspended(<WmiExamReviewPage />)} />
           <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
           <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
         </Route>
 
-        {/* Admin — untouched */}
+        {/* Admin — one lazy boundary for the whole subtree (layout + pages) */}
         <Route
           path="/admin"
           element={
             <AdminRoute>
-              <AdminLayout />
+              <Suspense fallback={<RouteFallback />}>
+                <AdminLayout />
+              </Suspense>
             </AdminRoute>
           }
         >

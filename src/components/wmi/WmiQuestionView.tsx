@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentType } from 'react'
+import { Suspense, useEffect, useState, type ComponentType } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
@@ -131,13 +131,16 @@ export default function WmiQuestionView({
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      {Illustration ? (
-        <Illustration />
-      ) : ConceptIllustration ? (
-        <ConceptIllustration params={conceptIllustrationParams} />
-      ) : (
-        <WmiFigure src={question.figure_url} />
-      )}
+      {/* Illustrations come from lazy registries — a late pop-in is fine. */}
+      <Suspense fallback={null}>
+        {Illustration ? (
+          <Illustration />
+        ) : ConceptIllustration ? (
+          <ConceptIllustration params={conceptIllustrationParams} />
+        ) : (
+          <WmiFigure src={question.figure_url} />
+        )}
+      </Suspense>
 
       {question.answer_type === 'multiple_choice' ? (
         <div className="mt-4 grid gap-3">
@@ -152,7 +155,10 @@ export default function WmiQuestionView({
               onPick={onPickChoice}
             >
               {ChoiceContent ? (
-                <ChoiceContent choice={choice} />
+                // Lazy renderer — show the plain choice text until it loads.
+                <Suspense fallback={<MarkupText text={choice.text} onLookup={onLookupTerm} />}>
+                  <ChoiceContent choice={choice} />
+                </Suspense>
               ) : (
                 <MarkupText text={choice.text} onLookup={onLookupTerm} />
               )}
