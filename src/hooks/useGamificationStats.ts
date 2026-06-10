@@ -5,6 +5,12 @@
 // useGamificationStats() to render the top stat strip without each one
 // fetching independently. The actual fetch happens in Dashboard.tsx (and
 // after-purchase / after-score events trigger a refresh via the same hook).
+//
+// The store is CHILD-AWARE: every write stamps the child the numbers belong
+// to (statsChildId). Patches aimed at a different child than the stamped one
+// are dropped, and AppShell resets the store whenever the active child stops
+// matching the stamp — so sibling A's streak/coins can never render for B,
+// and a freshly logged-in parent never sees the previous account's numbers.
 import { create } from 'zustand'
 
 export interface GamificationStats {
@@ -18,20 +24,48 @@ export interface GamificationStats {
 
 interface StatsState {
   stats: GamificationStats | null
-  setStats: (s: GamificationStats) => void
-  patchCoinBalance: (newBalance: number) => void
+  /** Child the current stats belong to — null exactly when stats is null. */
+  statsChildId: string | null
+  /** Full overwrite, stamped with the child these numbers were fetched for. */
+  setStats: (childId: string, s: GamificationStats) => void
+  patchCoinBalance: (childId: string, newBalance: number) => void
   // Merge a partial update into the current stats (e.g. after a konsep answer
-  // grants XP/coins/streak). No-op if stats haven't been loaded yet.
-  patchStats: (partial: Partial<GamificationStats>) => void
+  // grants XP/coins/streak). No-op if stats haven't been loaded yet or the
+  // loaded stats belong to a different child.
+  patchStats: (childId: string, partial: Partial<GamificationStats>) => void
+  /** Drop everything (logout / child switch) — the next fetch repopulates. */
+  reset: () => void
 }
 
 export const useGamificationStats = create<StatsState>((set) => ({
   stats: null,
-  setStats: (s) => set({ stats: s }),
-  patchCoinBalance: (newBalance) =>
+  statsChildId: null,
+  setStats: (childId, s) => set({ stats: s, statsChildId: childId }),
+  patchCoinBalance: (childId, newBalance) =>
     set((state) =>
-      state.stats ? { stats: { ...state.stats, coinBalance: newBalance } } : state,
+      state.stats && state.statsChildId === childId
+        ? { stats: { ...state.stats, coinBalance: newBalance } }
+        : state,
     ),
-  patchStats: (partial) =>
-    set((state) => (state.stats ? { stats: { ...state.stats, ...partial } } : state)),
+  patchStats: (childId, partial) =>
+    set((state) =>
+      state.stats && state.statsChildId === childId
+        ? { stats: { ...state.stats, ...partial } }
+        : state,
+    ),
+  reset: () => set({ stats: null, statsChildId: null }),
 }))
+
+// Push a reward/commit payload into the top stat strip. If the strip already
+// holds this child's stats, merge; otherwise seed it so the totals aren't
+// stuck at zero (e.g. the kid deep-linked straight into a drill/session via
+// the bottom tab). The xp bar — not shown in the strip — refreshes on the
+// next dashboard load.
+export function syncStatStrip(
+  childId: string,
+  next: Pick<GamificationStats, 'streak' | 'coinBalance' | 'level' | 'tierName'>,
+): void {
+  const store = useGamificationStats.getState()
+  if (store.stats && store.statsChildId === childId) store.patchStats(childId, next)
+  else store.setStats(childId, { ...next, xp: 0, xpToNext: 0 })
+}

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import type { Child, User } from '../types'
 
 interface AuthState {
@@ -32,6 +33,9 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         localStorage.removeItem('auth_token')
+        // Drop the cached stat-strip numbers — a different parent logging in
+        // on this device must never see the previous account's stats.
+        useGamificationStats.getState().reset()
         set({
           user: null,
           token: null,

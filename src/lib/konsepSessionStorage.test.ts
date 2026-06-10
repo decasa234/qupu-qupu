@@ -66,18 +66,31 @@ describe('konsepSessionStorage', () => {
     expect(readKonsepSession('g1-add-sub', 'child-1')).toEqual(session)
   })
 
-  test('a different child cannot resume — record is cleared', () => {
-    saveKonsepSession(makeSession())
+  test('a different child cannot resume — and the original record survives', () => {
+    const session = makeSession()
+    saveKonsepSession(session)
 
     expect(readKonsepSession('g1-add-sub', 'child-2')).toBeNull()
-    expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
+    expect(readKonsepSession('g1-add-sub', 'child-1')).toEqual(session)
+  })
+
+  test('siblings keep independent snapshots for the same subjectKey', () => {
+    const sessionA = makeSession()
+    const sessionB = makeSession({ childId: 'child-2', idx: 5 })
+    saveKonsepSession(sessionA)
+    saveKonsepSession(sessionB)
+
+    // B's save + clear never clobbers A's interrupted session.
+    clearKonsepSession('g1-add-sub', 'child-2')
+    expect(readKonsepSession('g1-add-sub', 'child-2')).toBeNull()
+    expect(readKonsepSession('g1-add-sub', 'child-1')).toEqual(sessionA)
   })
 
   test('stale records (>2h) are ignored and cleared', () => {
     saveKonsepSession(makeSession({ startedAt: Date.now() - 3 * 60 * 60 * 1000 }))
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
-    expect(storage.getItem('qupu_konsep_session:g1-add-sub')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
   })
 
   test('records just under 2h are still resumable', () => {
@@ -88,27 +101,37 @@ describe('konsepSessionStorage', () => {
   })
 
   test('corrupt JSON is cleared and returns null', () => {
-    storage.setItem('qupu_konsep_session:g1-add-sub', '{not json')
+    storage.setItem('qupu_konsep_session:child-1:g1-add-sub', '{not json')
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
-    expect(storage.getItem('qupu_konsep_session:g1-add-sub')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
   })
 
   test('malformed shapes are cleared and return null', () => {
     storage.setItem(
-      'qupu_konsep_session:g1-add-sub',
+      'qupu_konsep_session:child-1:g1-add-sub',
       JSON.stringify({ subjectKey: 'g1-add-sub', childId: 'child-1', answers: [{ bad: true }], planSlugs: [], idx: 0, startedAt: Date.now() }),
     )
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
-    expect(storage.getItem('qupu_konsep_session:g1-add-sub')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
+  })
+
+  test('a record whose embedded childId disagrees with its key is corrupt — cleared', () => {
+    storage.setItem(
+      'qupu_konsep_session:child-1:g1-add-sub',
+      JSON.stringify(makeSession({ childId: 'child-2' })),
+    )
+
+    expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
   })
 
   test('clearKonsepSession removes only the targeted subjectKey', () => {
     saveKonsepSession(makeSession())
     saveKonsepSession(makeSession({ subjectKey: 'g1-geometry' }))
 
-    clearKonsepSession('g1-add-sub')
+    clearKonsepSession('g1-add-sub', 'child-1')
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
     expect(readKonsepSession('g1-geometry', 'child-1')).not.toBeNull()
@@ -125,7 +148,7 @@ describe('konsepSessionStorage', () => {
 
     expect(() => saveKonsepSession(makeSession())).not.toThrow()
     expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
-    expect(() => clearKonsepSession('g1-add-sub')).not.toThrow()
+    expect(() => clearKonsepSession('g1-add-sub', 'child-1')).not.toThrow()
   })
 
   test('does not throw without a window (SSR safety)', () => {

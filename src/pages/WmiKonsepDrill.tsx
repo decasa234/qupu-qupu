@@ -9,26 +9,10 @@ import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { fetchConceptNext, submitConceptAttempt, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
-import { useGamificationStats } from '../hooks/useGamificationStats'
+import { syncStatStrip } from '../hooks/useGamificationStats'
 import { useWmiStore } from '../store/wmiStore'
-import type { WmiAttemptResult, WmiConceptQuestion, WmiConceptReward, WmiQuestion } from '../types/wmi'
+import type { WmiAttemptResult, WmiConceptQuestion, WmiQuestion } from '../types/wmi'
 import { tagLabel } from '../components/wmi/tagLabels'
-
-// Push a konsep reward into the top stat strip. If the strip was never
-// hydrated (e.g. the kid deep-linked straight to konsep via the bottom tab),
-// seed it from the reward so the totals aren't stuck at zero — the xp bar
-// (not shown in the strip) refreshes on the next dashboard load.
-function syncStatStrip(reward: WmiConceptReward) {
-  const store = useGamificationStats.getState()
-  const next = {
-    streak: reward.streak.current,
-    coinBalance: reward.coinBalance,
-    level: reward.level,
-    tierName: reward.tierName,
-  }
-  if (store.stats) store.patchStats(next)
-  else store.setStats({ ...next, xp: 0, xpToNext: 0 })
-}
 
 export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
@@ -99,7 +83,15 @@ export default function WmiKonsepDrill() {
       })
       setFeedback(saved)
       setResults((prev) => [...prev, saved.is_correct])
-      if (saved.gamification) syncStatStrip(saved.gamification)
+      // Stamped with the child who answered (closed over at submit time).
+      if (saved.gamification) {
+        syncStatStrip(activeChildId, {
+          streak: saved.gamification.streak.current,
+          coinBalance: saved.gamification.coinBalance,
+          level: saved.gamification.level,
+          tierName: saved.gamification.tierName,
+        })
+      }
     } catch (err) {
       setSelected(null)
       setError(err instanceof Error ? err.message : 'Gagal menyimpan jawaban')

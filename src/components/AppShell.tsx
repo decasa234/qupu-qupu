@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import { getCachedPublic } from '../lib/api'
 import { inferWmiGrade } from '../lib/childGrade'
 import type { AgeGroupOption } from '../types'
@@ -49,6 +50,18 @@ export default function AppShell() {
     const child = children.find((c) => c.id === activeChildId) ?? null
     syncChildGrade(activeChildId, inferWmiGrade(child, ageGroups))
   }, [activeChildId, children, ageGroups, syncChildGrade])
+
+  // The top stat strip must never show another child's numbers. Stats are
+  // stamped with the child they were fetched for; whenever that stamp stops
+  // matching the active child (switch, removal), drop them — the next surface
+  // that fetches (garden streak hook, dashboard) repopulates for the new
+  // child, and the strip shows neutral zeros in between.
+  const statsChildId = useGamificationStats((s) => s.statsChildId)
+  useEffect(() => {
+    if (statsChildId !== null && statsChildId !== activeChildId) {
+      useGamificationStats.getState().reset()
+    }
+  }, [statsChildId, activeChildId])
 
   // Gate: a member with no child profile yet must complete /onboard/child
   // before reaching any member surface (can't skip the first step). Admins

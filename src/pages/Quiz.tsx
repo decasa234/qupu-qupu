@@ -141,7 +141,7 @@ export default function QuizPage() {
       // hook is built for this after-score update); xp/level/streak refresh on
       // the next dashboard load since the score payload omits xpToNext.
       if (submitted.gamification) {
-        useGamificationStats.getState().patchCoinBalance(submitted.gamification.coinBalance)
+        useGamificationStats.getState().patchCoinBalance(childId, submitted.gamification.coinBalance)
         setRewardModalOpen(true)
       }
     } catch (submitErr: unknown) {

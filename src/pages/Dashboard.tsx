@@ -53,19 +53,20 @@ export default function DashboardPage() {
     }
 
     let cancelled = false
+    const childId = activeChildId
 
     async function load() {
       setLoading(true)
       setError('')
       try {
-        const response = await api.get('/me/dashboard', { params: { childId: activeChildId } })
+        const response = await api.get('/me/dashboard', { params: { childId } })
         if (cancelled) return
         const payload = response.data.data as DashboardApiResponse
         const vmNew = dashboardFromApi(payload)
         if (cancelled) return
         setVm(vmNew)
         setLoginClaimed(vmNew.loginBonus.claimedToday)
-        useGamificationStats.getState().setStats({
+        useGamificationStats.getState().setStats(childId, {
           streak: vmNew.streak,
           coinBalance: vmNew.coinBalance,
           level: vmNew.level,
@@ -145,11 +146,12 @@ export default function DashboardPage() {
 
   async function handleClaimLoginBonus() {
     if (!activeChildId || loginClaimed || claimingLogin) return
+    const childId = activeChildId
     setClaimingLogin(true)
     try {
-      const result = await claimLoginBonus(activeChildId)
+      const result = await claimLoginBonus(childId)
       setLoginClaimed(true)
-      useGamificationStats.getState().patchCoinBalance(result.coinBalance)
+      useGamificationStats.getState().patchCoinBalance(childId, result.coinBalance)
     } catch (claimError) {
       console.error('Failed to claim login bonus:', claimError)
     } finally {

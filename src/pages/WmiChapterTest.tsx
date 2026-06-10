@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { startChapterTest, submitChapterTest } from '../lib/wmiApi'
+import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import type { WmiChapterTestQuestion, WmiChapterTestResult } from '../types/wmi'
 
 export default function WmiChapterTest() {
@@ -34,13 +36,33 @@ export default function WmiChapterTest() {
 
   async function finish() {
     if (!activeChildId || !subjectKey) return
+    const childId = activeChildId
     setSubmitting(true)
     try {
       const payload = questions.map((q) => ({
         concept_instance_id: q.concept_instance_id,
         selected_answer: answers[q.concept_instance_id] ?? '',
       }))
-      setResult(await submitChapterTest(activeChildId, subjectKey, payload))
+      const testResult = await submitChapterTest(childId, subjectKey, payload)
+      setResult(testResult)
+      if (testResult.passed) {
+        // A pass awards rewards but the test response carries no balances —
+        // refresh the top stat strip from the summary endpoint, stamped for
+        // the child who took the test. Fire-and-forget: a failure just
+        // leaves the strip stale until the next surface fetches.
+        fetchGamificationSummary(childId)
+          .then((summary) => {
+            useGamificationStats.getState().setStats(childId, {
+              streak: summary.streak,
+              coinBalance: summary.coinBalance,
+              level: summary.level,
+              tierName: summary.tierName,
+              xp: summary.xpIntoCurrent,
+              xpToNext: summary.xpToNext,
+            })
+          })
+          .catch(() => { /* stat strip refresh is best-effort */ })
+      }
     } finally { setSubmitting(false) }
   }
 

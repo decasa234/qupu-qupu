@@ -42,15 +42,15 @@ export default function ShopPage() {
   function handlePurchased(result: PurchaseResult) {
     if (!activeChildId) return
     if (result.status === 'purchased') {
-      patchCoinBalance(result.balance)
+      patchCoinBalance(activeChildId, result.balance)
       setCelebrate(result)
       fetchShopItems(activeChildId).then(setItems) // refresh owned flags
       setSheetItem(null)
     } else if (result.status === 'already_owned') {
-      patchCoinBalance(result.balance)
+      patchCoinBalance(activeChildId, result.balance)
       setSheetItem(null)
     } else if (result.status === 'insufficient_funds') {
-      patchCoinBalance(result.balance)
+      patchCoinBalance(activeChildId, result.balance)
       // sheet stays open; CTA will re-render as disabled after the next fetch
       fetchShopItems(activeChildId).then(setItems)
     }

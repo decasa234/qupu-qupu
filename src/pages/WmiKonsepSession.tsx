@@ -16,6 +16,7 @@ import {
 } from '../lib/konsepSessionStorage'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
+import { syncStatStrip } from '../hooks/useGamificationStats'
 import type {
   WmiConceptQuestion,
   WmiGardenConcept,
@@ -111,6 +112,22 @@ export default function WmiKonsepSession() {
   // When this session started — written into every persisted snapshot
   const startedAtRef = useRef(Date.now())
 
+  // The child this in-memory session belongs to, captured when the session
+  // starts. If the parent switches profiles mid-session, child A's answers
+  // must never commit as child B: bail back to the garden (the unmount drops
+  // all in-memory state; A's snapshot stays resumable under A's storage key).
+  const sessionChildIdRef = useRef(activeChildId)
+  useEffect(() => {
+    if (sessionChildIdRef.current === null) {
+      // No child was active when we mounted — adopt the first one selected.
+      sessionChildIdRef.current = activeChildId
+      return
+    }
+    if (activeChildId !== sessionChildIdRef.current) {
+      navigate('/latihan/wmi', { replace: true })
+    }
+  }, [activeChildId, navigate])
+
   // ── Step 1: load garden → build plan ──────────────────────────────────────
   useEffect(() => {
     if (!activeChildId || !subjectKey) return
@@ -154,7 +171,7 @@ export default function WmiKonsepSession() {
             return
           }
           // Concept content changed or record is unusable — start fresh.
-          clearKonsepSession(subjectKey)
+          clearKonsepSession(subjectKey, activeChildId)
         }
 
         // Build the plan ONCE here; never rebuild
@@ -222,11 +239,22 @@ export default function WmiKonsepSession() {
   // ── Session commit (dedicated, retryable) ─────────────────────────────────
   const commitSession = useCallback(async (finalAnswers: { concept_instance_id: string; selected_answer: string }[]) => {
     if (!activeChildId || !subjectKey || committing) return
+    // Airtight cross-child guard: the child-switch effect navigates away on a
+    // mismatch, but never let a race commit child A's answers under child B.
+    if (activeChildId !== sessionChildIdRef.current) return
     setCommitError(false)
     setCommitting(true)
     try {
       const sessionResult = await commitKonsepSession(activeChildId, subjectKey, finalAnswers)
-      clearKonsepSession(subjectKey)
+      clearKonsepSession(subjectKey, activeChildId)
+      // The commit response carries fresh streak/coins/level — push them into
+      // the top stat strip immediately, stamped for the committing child.
+      syncStatStrip(activeChildId, {
+        streak: sessionResult.streak.current,
+        coinBalance: sessionResult.coinBalance,
+        level: sessionResult.level,
+        tierName: sessionResult.tierName,
+      })
       setResult(sessionResult)
     } catch {
       setCommitError(true)
@@ -278,8 +306,8 @@ export default function WmiKonsepSession() {
   }
 
   const handleStartFresh = () => {
-    if (!resumeOffer || !subjectKey) return
-    clearKonsepSession(subjectKey)
+    if (!resumeOffer || !subjectKey || !activeChildId) return
+    clearKonsepSession(subjectKey, activeChildId)
     startedAtRef.current = Date.now()
     setPlan(buildPlan(resumeOffer.concepts))
     setResumeOffer(null)
@@ -293,7 +321,7 @@ export default function WmiKonsepSession() {
   // ── Quit ───────────────────────────────────────────────────────────────────
   const handleQuit = () => {
     if (window.confirm('Keluar sesi? Progres sesi ini akan hilang.')) {
-      if (subjectKey) clearKonsepSession(subjectKey)
+      if (subjectKey && activeChildId) clearKonsepSession(subjectKey, activeChildId)
       navigate('/latihan/wmi')
     }
   }

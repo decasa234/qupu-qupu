@@ -64,19 +64,18 @@ export function useStreakRecoveryPrompt(childId: string | null): {
     fetchGamificationSummary(childId)
       .then((summary) => {
         if (cancelled) return
-        // Seed the top stat strip if nothing hydrated it yet — the garden is
-        // now the landing surface, so Dashboard's fetch may never have run.
-        const store = useGamificationStats.getState()
-        if (!store.stats) {
-          store.setStats({
-            streak: summary.streak,
-            coinBalance: summary.coinBalance,
-            level: summary.level,
-            tierName: summary.tierName,
-            xp: summary.xpIntoCurrent,
-            xpToNext: summary.xpToNext,
-          })
-        }
+        // Hydrate the top stat strip from this freshly fetched summary — the
+        // garden is the landing surface, so Dashboard's fetch may never have
+        // run. ALWAYS overwrite: whatever the store holds (stale numbers, or
+        // another child's) is older than this payload for this child.
+        useGamificationStats.getState().setStats(childId, {
+          streak: summary.streak,
+          coinBalance: summary.coinBalance,
+          level: summary.level,
+          tierName: summary.tierName,
+          xp: summary.xpIntoCurrent,
+          xpToNext: summary.xpToNext,
+        })
         const recovery = summary.streakRecovery
         if (!recovery || !recovery.eligible || recovery.previousStreak <= 0) return
         if (readDismissed(childId) === windowIdentity(recovery.previousStreak)) return
@@ -134,9 +133,9 @@ export default function StreakRecoveryModal({ childId, previousStreak, onClose }
       return
     }
     // Refresh the stat strip immediately so the fire pill shows the
-    // restored count the instant the celebration appears.
-    const store = useGamificationStats.getState()
-    if (store.stats) store.patchStats({ streak: result.currentStreakDays })
+    // restored count the instant the celebration appears. (patchStats no-ops
+    // unless the store already holds this child's stats.)
+    useGamificationStats.getState().patchStats(childId, { streak: result.currentStreakDays })
     setRestoredStreak(result.currentStreakDays)
     setPhase('success')
     closeTimerRef.current = setTimeout(onClose, 1800)
