@@ -13,6 +13,8 @@ import {
 } from '../services/member.js'
 import { getGamificationSummary } from '../services/gamification/summary.js'
 import { claimQuestReward, getDailyQuestsForChild } from '../services/gamification/quests.js'
+import { getFamilyLeaderboard } from '../services/gamification/familyLeaderboard.js'
+import { getFamilyQuestStatus } from '../services/gamification/familyQuest.js'
 import { logSessionEvent } from '../services/sessionEvents.js'
 import {
   getOrCreateReferralCode,
@@ -119,6 +121,41 @@ router.post(
     } catch (claimError: unknown) {
       console.error('Quest claim error:', claimError)
       sendPublicError(res, claimError)
+    }
+  },
+)
+
+// ── Family surfaces (P2.3) — ACCOUNT-scoped: parent auth only, no childId.
+// Both are account-private by construction (only the authenticated parent's
+// own children appear), which is what keeps them COPPA-safe.
+
+// "Papan Keluarga" — this account's children ranked by this WIB week's XP.
+router.get(
+  '/family/leaderboard',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const data = await getFamilyLeaderboard(req.user.id)
+      res.json({ success: true, data })
+    } catch (leaderboardError: unknown) {
+      console.error('Get family leaderboard error:', leaderboardError)
+      sendPublicError(res, leaderboardError)
+    }
+  },
+)
+
+// "Misi Keluarga" — this week's co-op quest. Lazily creates the quest for
+// >= 2-children accounts and settles completion + payout when due.
+router.get(
+  '/family/quest',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const data = await getFamilyQuestStatus(req.user.id)
+      res.json({ success: true, data })
+    } catch (questError: unknown) {
+      console.error('Get family quest error:', questError)
+      sendPublicError(res, questError)
     }
   },
 )

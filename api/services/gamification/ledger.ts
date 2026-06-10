@@ -26,6 +26,7 @@ export type RewardType =
   | 'CHAPTER_CHEST_XP'      // chapter 50%/100%-grown chest — once per (child, chapter, threshold) (P2.2)
   | 'SESSION_DROP_COIN'     // variable 2-6 coin drop at konsep session commit (P2.2)
   | 'STREAK_SHIELD_CONSUMED' // 0-coin audit row: shield(s) covered missed day(s)
+  | 'FAMILY_QUEST_COIN'     // Misi Keluarga payout — once per (quest, child) (P2.3)
 
 export interface AppendLedgerInput {
   childId: string

@@ -330,6 +330,10 @@ export interface WmiKonsepSessionResult {
   // Variable 2-6 coin session drop, already folded into coinsEarned.
   // Optional: pre-P2.2 stored results lack it.
   sessionDrop?: number
+  // True when this commit completed + paid out the weekly Misi Keluarga
+  // (P2.3); the committing child's coin share is already folded into
+  // coinsEarned/coinBalance. Optional: older stored results lack it.
+  familyQuestCompleted?: boolean
   // True when the server replayed an already-committed session (idempotency
   // hit) — skip celebration analytics + stat-strip sync.
   replayed?: boolean

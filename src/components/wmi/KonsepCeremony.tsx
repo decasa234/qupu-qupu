@@ -15,6 +15,8 @@
 //   7. growth  — PlantIcon from→to tier morph rows (only if any)
 //   8. chests  — "Peti Bab terbuka!" chapter chest (only if any)
 //   9. drop    — small end-of-session coin drop    (only if granted)
+//  10. family  — "Misi Keluarga selesai!"          (only when this commit
+//                completed + paid out the weekly family quest)
 //
 // Beats auto-advance (~800 ms); tapping anywhere skips ahead immediately.
 // Reduced-motion users get every beat at once (no timers, no count-ups —
@@ -47,6 +49,7 @@ type BeatId =
   | 'growth'
   | 'chests'
   | 'drop'
+  | 'family'
 
 const BEAT_MS = 800
 
@@ -84,6 +87,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
     if (result.conceptsGrown.length > 0) list.push('growth')
     if ((result.chests?.length ?? 0) > 0) list.push('chests')
     if ((result.sessionDrop ?? 0) > 0) list.push('drop')
+    if (result.familyQuestCompleted) list.push('family')
     return list
   }, [result])
 
@@ -279,6 +283,16 @@ export default function KonsepCeremony({ result, onDone }: Props) {
               <i className="fa-solid fa-coins" aria-hidden="true" />
               +{result.sessionDrop} koin
             </span>
+          </div>
+        )}
+
+        {/* Beat 10 — Misi Keluarga completed by THIS session (P2.3). Every
+            child was paid server-side; this child's share is already in the
+            coin beat's total. */}
+        {visible('family') && result.familyQuestCompleted && (
+          <div className="animate-reward-pop inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+            <i className="fa-solid fa-people-group text-qupu-brand-orange" aria-hidden="true" />
+            Misi Keluarga selesai! Hadiah koin untuk semua.
           </div>
         )}
 

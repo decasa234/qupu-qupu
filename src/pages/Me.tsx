@@ -10,6 +10,8 @@ import useDocumentTitle from '../hooks/useDocumentTitle'
 import InventoryGrid from '../components/me/InventoryGrid'
 import AvatarEditor from '../components/me/AvatarEditor'
 import ChildrenManager from '../components/me/ChildrenManager'
+import FamilyLeaderboard from '../components/me/FamilyLeaderboard'
+import FamilyQuestCard from '../components/me/FamilyQuestCard'
 import LevelDetail from '../components/me/LevelDetail'
 
 export default function MePage() {
@@ -32,6 +34,11 @@ export default function MePage() {
       </section>
 
       <ChildrenManager />
+
+      {/* Family surfaces (P2.3) — both render nothing for accounts with
+          fewer than 2 children. */}
+      <FamilyLeaderboard />
+      <FamilyQuestCard />
 
       {activeChild && <AvatarEditor child={activeChild} />}
 

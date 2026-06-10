@@ -897,3 +897,25 @@ INSERT INTO shop_items (slug, name, description, kind, coin_price, sort_order) V
    'Melindungi streak-mu saat absen 1 hari. Otomatis terpakai.',
    'powerup', 150, 1)
 ON CONFLICT (slug) DO NOTHING;
+
+-- ─────────────────────────────────────────────────────────────────────
+-- "Misi Keluarga" — weekly family co-op quest (migration 0041)
+-- One quest per account (parent user) per WIB week (week_start = WIB
+-- Monday). Progress = SUM of every child's reward_ledger xp_delta inside
+-- the week, so no progress column exists. rewarded_at is the payout race
+-- gate (UPDATE ... WHERE rewarded_at IS NULL RETURNING — one winner);
+-- per-child payout ledger rows (FAMILY_QUEST_COIN) are keyed
+-- deterministicUuid('family-quest:<questId>:<childId>') on top.
+-- ─────────────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS family_quests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  week_start DATE NOT NULL,
+  target_xp INT NOT NULL,
+  reward_coins INT NOT NULL,
+  completed_at TIMESTAMPTZ,
+  rewarded_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, week_start)
+);

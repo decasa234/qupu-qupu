@@ -95,3 +95,43 @@ export async function claimDailyQuest(questId: string): Promise<QuestClaimResult
   const res = await api.post(`/me/quests/${questId}/claim`)
   return res.data.data as QuestClaimResult
 }
+
+// ── Family surfaces (P2.3) — account-scoped, no childId ──────────────────
+
+// Mirrors api/services/gamification/familyLeaderboard.ts. avatarIcon is the
+// raw Child avatar slug — resolve with avatarIconClass() before rendering.
+export interface FamilyLeaderboardEntry {
+  childId: string
+  name: string
+  avatarIcon: string | null
+  avatarColor: string | null
+  weeklyXp: number
+  rank: number
+}
+
+export interface FamilyLeaderboard {
+  week: { start: string; end: string }
+  entries: FamilyLeaderboardEntry[]
+}
+
+export async function fetchFamilyLeaderboard(): Promise<FamilyLeaderboard> {
+  const res = await api.get('/me/family/leaderboard')
+  return res.data.data as FamilyLeaderboard
+}
+
+// Mirrors api/services/gamification/familyQuest.ts FamilyQuestStatus.
+// `quest` is null for accounts with fewer than 2 children.
+export interface FamilyQuest {
+  id: string
+  weekStart: string
+  weekEnd: string
+  targetXp: number
+  rewardCoinsPerChild: number
+  progressXp: number
+  completed: boolean
+}
+
+export async function fetchFamilyQuest(): Promise<FamilyQuest | null> {
+  const res = await api.get('/me/family/quest')
+  return (res.data.data as { quest: FamilyQuest | null }).quest
+}

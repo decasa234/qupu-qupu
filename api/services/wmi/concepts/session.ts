@@ -24,6 +24,7 @@ import {
   type GrantedChest,
 } from '../../gamification/chapterChest.js'
 import { appendLedger } from '../../gamification/ledger.js'
+import { settleFamilyQuestAtCommit } from '../../gamification/familyQuest.js'
 import { emitEvent, type EventType } from '../../gamification/events.js'
 import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
 import {
@@ -134,6 +135,10 @@ export interface SessionResult {
   // Variable session drop: 2-6 coins rolled server-side at commit, already
   // folded into coinsEarned. 0 when nothing was banked.
   sessionDrop: number
+  // True when THIS commit completed and paid out the weekly Misi Keluarga
+  // (P2.3) — the committing child's own coin share is already folded into
+  // coinsEarned/coinBalance. Absent on older stored results.
+  familyQuestCompleted?: boolean
   // True when this response is a REPLAY of an already-committed session
   // (idempotency hit) — the FE skips celebration analytics + stat-strip sync.
   replayed?: boolean
@@ -197,7 +202,9 @@ export async function commitKonsepSession(
   // plus +1 ledger append per due chest ONLY when a concept newly reached
   // Mahir this commit (chest block below), +1 cold level_tiers load, +1
   // recovery-eligibility check on a 2-day streak gap, +1-2 shield-consume
-  // writes when updateStreakForActivity burns a streak shield. The M2
+  // writes when updateStreakForActivity burns a streak shield, +1 Misi
+  // Keluarga probe (P2.3 — +1 weekly-sum only while a family quest is
+  // active; the payout block fires once per account-week ever). The M2
   // events/quests/achievements block below is already aggregate (one event +
   // evaluation per event TYPE, not per answer) but still adds roughly 8-14
   // more round-trips on top of the batched core (2 per emit+evaluate pair,
@@ -299,6 +306,7 @@ export async function commitKonsepSession(
     const unlockedAchievements: UnlockedAchievement[] = []
     const chests: GrantedChest[] = []
     let sessionDrop = 0
+    let familyQuestCompleted = false
 
     if (processedCount === 0) {
       // Nothing banked (every submitted instance was off-subject/unknown) —
@@ -641,6 +649,24 @@ export async function commitKonsepSession(
         }
       }
 
+      // ── Misi Keluarga settle (P2.3) ────────────────────────────────────
+      // Round-trip budget: ONE probe on every commit (FOR UPDATE SKIP
+      // LOCKED — empty when the account has no quest this week, it is
+      // already rewarded, or a concurrent settler holds it); +1 weekly-sum
+      // query only while an active quest exists; the stamp + per-child
+      // payout block (+4) fires at most once per account-week ever. This
+      // commit's XP is already in the ledger above, so the sum sees it.
+      const familySettle = await settleFamilyQuestAtCommit(client, parentUserId, new Date())
+      if (familySettle) {
+        familyQuestCompleted = true
+        // Fold the committing child's own share so the ceremony's coin
+        // beat and the stat-strip sync stay truthful; the siblings' shares
+        // land directly on their balances.
+        const ownShare = familySettle.coinsByChild.get(childId) ?? 0
+        coinsEarned += ownShare
+        coinBalance += ownShare
+      }
+
       // Shields can change inside this commit (updateStreakForActivity may
       // consume one on a gap day) — read the post-commit count so the FE
       // shield chip is truthful without a follow-up summary fetch.
@@ -668,6 +694,8 @@ export async function commitKonsepSession(
       unlockedAchievements,
       chests,
       sessionDrop,
+      // Only stamped when true — older stored results replay without it.
+      ...(familyQuestCompleted ? { familyQuestCompleted: true } : {}),
     }
 
     // Persist the result for replays BEFORE returning — same transaction as
