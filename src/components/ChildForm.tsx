@@ -2,9 +2,15 @@
 import { useEffect, useState } from 'react'
 import api from '../lib/api'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
+import { AVATAR_COLOR_OPTIONS, isAvatarUnlocked } from '../lib/avatars'
 import type { AgeGroupOption, Child } from '../types'
 
-const AVATAR_PRESETS = ['#FB923C', '#F472B6', '#60A5FA', '#34D399', '#A78BFA', '#F59E0B']
+// A brand-new child starts at gamification level 1, so the create form only
+// offers the ungated catalog colors — level-gated ones unlock later via
+// AvatarEditor on the Profil page (the API enforces the same gate).
+const AVATAR_PRESETS = AVATAR_COLOR_OPTIONS.filter((option) =>
+  isAvatarUnlocked(option.minLevel, 1),
+).map((option) => option.value)
 
 interface ChildFormProps {
   submitLabel: string

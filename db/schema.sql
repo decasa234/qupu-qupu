@@ -919,3 +919,29 @@ CREATE TABLE IF NOT EXISTS family_quests (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (user_id, week_start)
 );
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Achievement extensions (migration 0042)
+-- streak_100 and garden_10_mahir ride existing evaluator types
+-- (streak_threshold / concept_mahir_first — both compare against
+-- target_value). first_gold_chapter uses the new gold_chapter_first
+-- type: chapters where EVERY enabled concept of the subject is at
+-- best_tier >= Mahir for the child (achievementEvaluator.ts).
+-- ─────────────────────────────────────────────────────────────────────
+
+INSERT INTO achievement_templates
+  (code, title, description, achievement_type, target_value, xp_reward, icon_key, sort_order, metadata)
+VALUES
+  ('streak_100',
+   'Streak 100 Hari',
+   'Seratus hari berturut-turut latihan tanpa putus. Legenda QUPU!',
+   'streak_threshold', 100, 1000, 'fire', 15, '{}'::jsonb),
+  ('garden_10_mahir',
+   '10 Tanaman Mahir',
+   'Sepuluh konsep di kebun belajarmu mencapai tingkat Mahir.',
+   'concept_mahir_first', 10, 300, 'tree', 16, '{}'::jsonb),
+  ('first_gold_chapter',
+   'Bab Emas Pertama',
+   'Bab pertamamu yang 100% tumbuh — semua tanaman di satu bab mencapai tingkat Mahir.',
+   'gold_chapter_first', 1, 200, 'trophy', 17, '{}'::jsonb)
+ON CONFLICT (code) DO NOTHING;

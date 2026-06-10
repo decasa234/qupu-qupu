@@ -23,6 +23,12 @@
 //   - concept_mahir_first        : COUNT(wmi_concept_progress at tier >= Mahir) >= target_value
 //   - chapter_test_passed_first  : COUNT(passed wmi_chapter_tests) >= target_value
 //   - konsep_sessions_completed  : COUNT(KONSEP_SESSION_COMPLETED events) >= target_value
+//
+// Long-arc extensions (migration 0042):
+//   - gold_chapter_first         : COUNT(chapters where EVERY enabled concept
+//                                  is at tier >= Mahir) >= target_value
+//   (streak_100 / garden_10_mahir are seed-only — they ride
+//    streak_threshold / concept_mahir_first with bigger target_values.)
 
 import type { PoolClient } from 'pg'
 import { query, queryOne } from '../../db.js'
@@ -47,6 +53,7 @@ interface AchievementState {
   mahirConcepts: number             // COUNT(wmi_concept_progress) at tier >= Mahir
   chapterTestsPassed: number        // COUNT(wmi_chapter_tests) where passed
   konsepSessions: number            // COUNT(KONSEP_SESSION_COMPLETED events)
+  goldChapters: number              // COUNT(chapters with EVERY enabled concept >= Mahir)
 }
 
 interface AchievementTemplate {
@@ -74,7 +81,14 @@ async function fetchAchievementState(
     mahir_concepts: string
     chapter_tests_passed: string
     konsep_sessions: string
+    gold_chapters: string
   }>(
+    // gold_chapters: a chapter is "gold" when EVERY enabled concept assigned
+    // to that subject_key is at best_tier >= Mahir for this child. The LEFT
+    // JOIN keeps never-attempted concepts in the per-chapter COUNT(*) (their
+    // p.best_tier is NULL, so the FILTER never counts them) — a chapter with
+    // any unattempted or below-Mahir concept therefore fails the HAVING
+    // equality and never counts as gold.
     `SELECT
        (SELECT COUNT(*)::text FROM user_badge_unlocks WHERE child_id = $1) AS unlocks_count,
        (SELECT COALESCE(SUM(badge_count), 0)::text FROM user_badge_unlocks WHERE child_id = $1) AS badges_sum,
@@ -89,7 +103,16 @@ async function fetchAchievementState(
        (SELECT COUNT(*)::text FROM wmi_chapter_tests
           WHERE child_id = $1 AND passed) AS chapter_tests_passed,
        (SELECT COUNT(*)::text FROM gamification_events
-          WHERE child_id = $1 AND event_type = 'KONSEP_SESSION_COMPLETED') AS konsep_sessions`,
+          WHERE child_id = $1 AND event_type = 'KONSEP_SESSION_COMPLETED') AS konsep_sessions,
+       (SELECT COUNT(*)::text FROM (
+          SELECT c.subject_key
+            FROM wmi_concepts c
+            LEFT JOIN wmi_concept_progress p
+              ON p.concept_slug = c.slug AND p.child_id = $1
+           WHERE c.enabled AND c.subject_key IS NOT NULL
+           GROUP BY c.subject_key
+          HAVING COUNT(*) = COUNT(*) FILTER (WHERE p.best_tier >= $2)
+        ) fully_grown) AS gold_chapters`,
     [childId, PROFICIENT_TIER],
     client,
   )
@@ -101,6 +124,7 @@ async function fetchAchievementState(
     mahirConcepts: Number(row?.mahir_concepts ?? 0),
     chapterTestsPassed: Number(row?.chapter_tests_passed ?? 0),
     konsepSessions: Number(row?.konsep_sessions ?? 0),
+    goldChapters: Number(row?.gold_chapters ?? 0),
   }
 }
 
@@ -135,6 +159,8 @@ function predicateSatisfied(
       return state.chapterTestsPassed >= template.target_value
     case 'konsep_sessions_completed':
       return state.konsepSessions >= template.target_value
+    case 'gold_chapter_first':
+      return state.goldChapters >= template.target_value
     default:
       return false
   }
@@ -255,6 +281,8 @@ function progressFor(
       return state.chapterTestsPassed
     case 'konsep_sessions_completed':
       return state.konsepSessions
+    case 'gold_chapter_first':
+      return state.goldChapters
     default:
       return 0
   }
@@ -319,4 +347,4 @@ export async function listAchievementsForChild(
   })
 }
 
-export const __test__ = { predicateSatisfied, progressFor }
+export const __test__ = { predicateSatisfied, progressFor, fetchAchievementState }

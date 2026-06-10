@@ -1,6 +1,8 @@
 // Pure predicate logic for the WMI achievement types added in migration
 // 0037 (concept_mahir_first, chapter_test_passed_first,
-// konsep_sessions_completed) plus the extended streak family.
+// konsep_sessions_completed) plus the extended streak family and the
+// migration-0042 long-arc extensions (streak_100 / garden_10_mahir /
+// first_gold_chapter via the gold_chapter_first type).
 
 import { describe, it, expect } from 'vitest'
 import { __test__ } from './achievementEvaluator.js'
@@ -35,6 +37,7 @@ function state(overrides: Partial<State> = {}): State {
     mahirConcepts: 0,
     chapterTestsPassed: 0,
     konsepSessions: 0,
+    goldChapters: 0,
     ...overrides,
   }
 }
@@ -80,11 +83,36 @@ describe('WMI achievement predicates', () => {
   })
 })
 
+describe('0042 long-arc achievement predicates', () => {
+  it('streak_100 rides streak_threshold with target 100 from the seed row', () => {
+    const tpl = template({ achievement_type: 'streak_threshold', target_value: 100 })
+    expect(predicateSatisfied(tpl, state(), { ...noStreak, currentStreakDays: 99 })).toBe(false)
+    expect(predicateSatisfied(tpl, state(), { ...noStreak, currentStreakDays: 100 })).toBe(true)
+  })
+
+  it('garden_10_mahir rides concept_mahir_first with target 10', () => {
+    const tpl = template({ achievement_type: 'concept_mahir_first', target_value: 10 })
+    expect(predicateSatisfied(tpl, state({ mahirConcepts: 9 }), noStreak)).toBe(false)
+    expect(predicateSatisfied(tpl, state({ mahirConcepts: 10 }), noStreak)).toBe(true)
+  })
+
+  it('gold_chapter_first fires only when a whole chapter is grown', () => {
+    const tpl = template({ achievement_type: 'gold_chapter_first', target_value: 1 })
+    // Lots of Mahir plants spread across chapters is NOT enough — the SQL
+    // aggregate only counts chapters where EVERY enabled concept is grown.
+    expect(predicateSatisfied(tpl, state({ mahirConcepts: 25, goldChapters: 0 }), noStreak)).toBe(
+      false,
+    )
+    expect(predicateSatisfied(tpl, state({ goldChapters: 1 }), noStreak)).toBe(true)
+  })
+})
+
 describe('WMI achievement progress', () => {
   it('reports raw counters for the new types', () => {
-    const s = state({ mahirConcepts: 2, chapterTestsPassed: 1, konsepSessions: 3 })
+    const s = state({ mahirConcepts: 2, chapterTestsPassed: 1, konsepSessions: 3, goldChapters: 1 })
     expect(progressFor(template({ achievement_type: 'concept_mahir_first' }), s, noStreak)).toBe(2)
     expect(progressFor(template({ achievement_type: 'chapter_test_passed_first' }), s, noStreak)).toBe(1)
     expect(progressFor(template({ achievement_type: 'konsep_sessions_completed' }), s, noStreak)).toBe(3)
+    expect(progressFor(template({ achievement_type: 'gold_chapter_first' }), s, noStreak)).toBe(1)
   })
 })

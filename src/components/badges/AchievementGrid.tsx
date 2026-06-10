@@ -44,6 +44,12 @@ const ICON_GLYPH: Record<string, string> = {
   shapes: 'fa-solid fa-shapes',
   'arrow-up': 'fa-solid fa-arrow-up',
   medal: 'fa-solid fa-medal',
+  // WMI garden achievements (0037) + long-arc extensions (0042).
+  seedling: 'fa-solid fa-seedling',
+  'graduation-cap': 'fa-solid fa-graduation-cap',
+  dumbbell: 'fa-solid fa-dumbbell',
+  tree: 'fa-solid fa-tree',
+  trophy: 'fa-solid fa-trophy',
 }
 
 function glyph(iconKey: string | null): string {

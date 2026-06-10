@@ -1,4 +1,5 @@
 import { query, queryOne } from '../db.js'
+import { requiredAvatarLevel } from '../lib/avatarCatalog.js'
 
 interface ChildRow {
   id: string
@@ -59,6 +60,13 @@ export async function createChild(
     dailyGoalQuizzes?: number
   },
 ): Promise<Child> {
+  // Level-gated avatar items (P2.4): a brand-new child is always level 1,
+  // so any gated icon/color is rejected outright. The FE never offers them
+  // here — this guards forged requests.
+  if (requiredAvatarLevel(input.avatarIcon, input.avatarColor) > 1) {
+    throw new Error('Avatar item locked')
+  }
+
   const goal = input.dailyGoalQuizzes ?? 3
   const row = await queryOne<ChildRow>(
     `
@@ -94,6 +102,27 @@ export async function updateChild(
     dailyGoalQuizzes?: number
   },
 ): Promise<Child | null> {
+  // Level-gated avatar items (P2.4): when a gated icon/color is requested,
+  // check the child's gamification level (defense-in-depth — AvatarEditor
+  // already blocks locked picks). The lookup is ownership-scoped so a
+  // non-owned childId still resolves to 'Child not found', never a level
+  // probe. current_level is the cached level on gamification_profiles; a
+  // child with no profile yet (no activity) is level 1.
+  const neededLevel = requiredAvatarLevel(input.avatarIcon, input.avatarColor)
+  if (neededLevel > 1) {
+    const owned = await queryOne<{ current_level: number | null }>(
+      `SELECT gp.current_level
+         FROM children c
+         LEFT JOIN gamification_profiles gp ON gp.child_id = c.id
+         WHERE c.id = $1 AND c.parent_user_id = $2`,
+      [childId, parentUserId],
+    )
+    if (!owned) return null
+    if (Number(owned.current_level ?? 1) < neededLevel) {
+      throw new Error('Avatar item locked')
+    }
+  }
+
   const sets: string[] = []
   const params: unknown[] = [childId, parentUserId]
 

@@ -28,6 +28,11 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
   // Quest claim ritual (P2.2)
   'Quest not found': { status: 404, message: 'Misi tidak ditemukan.' },
   'Quest not completed': { status: 400, message: 'Misi belum selesai.' },
+  // Level-gated avatar items (P2.4) — forged pick of a locked icon/color.
+  'Avatar item locked': {
+    status: 400,
+    message: 'Avatar ini masih terkunci. Naikkan level dulu untuk membukanya!',
+  },
   'Sesi ujian ini milik profil anak yang lain': {
     status: 403,
     message: 'Sesi ujian ini milik profil anak yang lain',
