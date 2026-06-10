@@ -21,6 +21,7 @@ import analyticsRoutes from './routes/analytics.js'
 import cronRoutes from './routes/cron.js'
 import shopRoutes, { inventoryRouter as inventoryRoutes } from './routes/shop.js'
 import { applyCacheControl } from './middleware/cacheControl.js'
+import { publicRateLimit } from './middleware/publicRateLimit.js'
 import { validateChannelHandle } from './services/youtubeChannel.js'
 import { assertJwtSecret } from './lib/jwt.js'
 
@@ -67,11 +68,12 @@ if (allowedOrigins.length === 0 && process.env.NODE_ENV === 'production') {
   )
 }
 
-// In development (NODE_ENV !== 'production') also reflect any localhost /
+// Only when NODE_ENV === 'development' (explicit opt-in — nodemon sets it;
+// an unset NODE_ENV no longer reflects) also accept any localhost /
 // 127.0.0.1 origin regardless of port, so a Vite dev server that hops to
 // 5174/5175/... isn't blocked by CORS. Production stays on the strict allowlist.
 const isDevLocalhostOrigin = (origin: string): boolean =>
-  process.env.NODE_ENV !== 'production' &&
+  process.env.NODE_ENV === 'development' &&
   /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
 
 app.use(
@@ -97,7 +99,11 @@ app.use(express.urlencoded({ extended: true, limit: '1mb' }))
 
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
-app.use('/api/meta', metaRoutes)
+// Generous per-IP rate limits on the unauthenticated read surface. One
+// limiter bucket per route-group ('meta' covers /api/meta/*, 'catalog'
+// covers everything under /api/public/* including /api/public/wmi).
+app.use('/api/meta', publicRateLimit('meta'), metaRoutes)
+app.use('/api/public', publicRateLimit('catalog'))
 app.use('/api/public/wmi', wmiPublicRoutes)
 app.use('/api/public', publicRoutes)
 app.use('/api/shop', shopRoutes)

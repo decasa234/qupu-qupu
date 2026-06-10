@@ -71,7 +71,7 @@ function TicketCard({
           textAnchor="middle"
           fontSize="20"
           fontWeight="800"
-          fontFamily='"Baloo 2", sans-serif'
+          fontFamily="Fredoka, sans-serif"
           fill={priceColor}
         >
           {`$${value}`}
