@@ -38,6 +38,18 @@ export type AnalyticsEventName =
   | 'demo_signup_click'
   | 'demo_skipped'
   | 'onboarding_child_created'
+  // Member funnel (konsep session + retention loops)
+  | 'session_start'
+  | 'session_commit'
+  | 'session_commit_failed'
+  | 'session_resume_offered'
+  | 'session_resumed'
+  | 'quest_panel_view'
+  | 'streak_recovery_shown'
+  | 'streak_recovered'
+  | 'ceremony_done'
+  // Client-side error reports (see reportClientError)
+  | 'client_error'
 
 export function trackEvent(
   eventName: AnalyticsEventName,
@@ -62,4 +74,34 @@ async function postEvent(
   } catch {
     // analytics is best-effort; never throw
   }
+}
+
+// ── Client error reporting ───────────────────────────────────────────────────
+// Rides the same consent-gated transport as trackEvent: no consent → silent
+// drop (never queued, never sent). Throttled to MAX_ERROR_REPORTS per page
+// session and deduplicated by scope+message so a render-loop crash can't
+// flood the analytics endpoint.
+
+const MAX_ERROR_REPORTS = 10
+const MAX_MESSAGE_CHARS = 500
+const MAX_STACK_CHARS = 1024
+
+let errorReportCount = 0
+const reportedErrorSignatures = new Set<string>()
+
+export function reportClientError(scope: string, message: string, stack?: string): void {
+  if (!hasAnalyticsConsent()) return
+
+  const safeMessage = String(message ?? 'unknown').slice(0, MAX_MESSAGE_CHARS)
+  const signature = `${scope}:${safeMessage}`
+  if (reportedErrorSignatures.has(signature)) return
+  if (errorReportCount >= MAX_ERROR_REPORTS) return
+  reportedErrorSignatures.add(signature)
+  errorReportCount += 1
+
+  void postEvent('client_error', {
+    scope,
+    message: safeMessage,
+    stack: stack ? String(stack).slice(0, MAX_STACK_CHARS) : null,
+  })
 }

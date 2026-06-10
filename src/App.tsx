@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import CookieConsentBanner from './components/CookieConsentBanner'
+import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import RouteFallback from './components/RouteFallback'
 import Home from './pages/Home'
@@ -134,81 +135,85 @@ export default function App() {
   return (
     <Router>
       <CookieConsentBanner />
-      <Routes>
-        {/* Marketing + auth + video + onboarding — keep marketing Layout */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomeRoute />} />
-          <Route path="videos" element={<VideosPage />} />
-          <Route path="videos/:slug" element={<VideoDetailPage />} />
-          <Route path="wmi" element={suspended(<LatihanWmiPage />)} />
-          <Route path="harga" element={suspended(<HargaPage />)} />
-          <Route path="privasi" element={suspended(<PrivasiPage />)} />
-          <Route path="ketentuan" element={suspended(<KetentuanPage />)} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
+      {/* Top-level boundary: a route-level render crash shows the friendly
+          Indonesian reload card instead of a white screen. */}
+      <ErrorBoundary scope="app">
+        <Routes>
+          {/* Marketing + auth + video + onboarding — keep marketing Layout */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomeRoute />} />
+            <Route path="videos" element={<VideosPage />} />
+            <Route path="videos/:slug" element={<VideoDetailPage />} />
+            <Route path="wmi" element={suspended(<LatihanWmiPage />)} />
+            <Route path="harga" element={suspended(<HargaPage />)} />
+            <Route path="privasi" element={suspended(<PrivasiPage />)} />
+            <Route path="ketentuan" element={suspended(<KetentuanPage />)} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
 
-        {/* Onboarding — full-screen, no chrome, locked until completed */}
-        <Route
-          path="/onboard/child"
-          element={
-            <ProtectedRoute>
-              <OnboardingChild />
-            </ProtectedRoute>
-          }
-        />
+          {/* Onboarding — full-screen, no chrome, locked until completed */}
+          <Route
+            path="/onboard/child"
+            element={
+              <ProtectedRoute>
+                <OnboardingChild />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
-        <Route
-          element={
-            <ProtectedRoute>
-              <AppShell />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="dashboard" element={<DashboardRouter />} />
-          <Route path="library" element={<MemberVideosPage />} />
-          <Route path="quiz/:slug" element={<QuizPage />} />
-          <Route path="report" element={<ReportPage />} />
-          <Route path="badges" element={<BadgesPage />} />
-          <Route path="shop" element={<ShopPage />} />
-          <Route path="me" element={<MePage />} />
-          <Route path="latihan" element={<LatihanHubPage />} />
-          <Route path="latihan/wmi" element={<WmiHubPage />} />
-          <Route path="latihan/wmi/ujian" element={suspended(<WmiPapersPage />)} />
-          <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
-          <Route path="latihan/wmi/papers/:id" element={suspended(<WmiPaperDetailPage />)} />
-          <Route path="latihan/wmi/exam/:sessionId" element={suspended(<WmiExamPage />)} />
-          <Route path="latihan/wmi/exam/:sessionId/review" element={suspended(<WmiExamReviewPage />)} />
-          <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
-          <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
-        </Route>
+          {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppShell />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<DashboardRouter />} />
+            <Route path="library" element={<MemberVideosPage />} />
+            <Route path="quiz/:slug" element={<QuizPage />} />
+            <Route path="report" element={<ReportPage />} />
+            <Route path="badges" element={<BadgesPage />} />
+            <Route path="shop" element={<ShopPage />} />
+            <Route path="me" element={<MePage />} />
+            <Route path="latihan" element={<LatihanHubPage />} />
+            <Route path="latihan/wmi" element={<WmiHubPage />} />
+            <Route path="latihan/wmi/ujian" element={suspended(<WmiPapersPage />)} />
+            <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
+            <Route path="latihan/wmi/papers/:id" element={suspended(<WmiPaperDetailPage />)} />
+            <Route path="latihan/wmi/exam/:sessionId" element={suspended(<WmiExamPage />)} />
+            <Route path="latihan/wmi/exam/:sessionId/review" element={suspended(<WmiExamReviewPage />)} />
+            <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
+            <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
+          </Route>
 
-        {/* Admin — one lazy boundary for the whole subtree (layout + pages) */}
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <Suspense fallback={<RouteFallback />}>
-                <AdminLayout />
-              </Suspense>
-            </AdminRoute>
-          }
-        >
-          <Route index element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="dashboard" element={<AdminDashboardPage />} />
-          <Route path="videos" element={<AdminVideosPage />} />
-          <Route path="videos/import" element={<AdminImportVideosPage />} />
-          <Route path="subjects" element={<AdminSubjectsPage />} />
-          <Route path="age-groups" element={<AdminAgeGroupsPage />} />
-          <Route path="users" element={<AdminUsersPage />} />
-          <Route path="analytics" element={<AdminAnalyticsPage />} />
-          <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
-          <Route path="wmi-drill" element={<AdminWmiDrillPage />} />
-        </Route>
+          {/* Admin — one lazy boundary for the whole subtree (layout + pages) */}
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Suspense fallback={<RouteFallback />}>
+                  <AdminLayout />
+                </Suspense>
+              </AdminRoute>
+            }
+          >
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboardPage />} />
+            <Route path="videos" element={<AdminVideosPage />} />
+            <Route path="videos/import" element={<AdminImportVideosPage />} />
+            <Route path="subjects" element={<AdminSubjectsPage />} />
+            <Route path="age-groups" element={<AdminAgeGroupsPage />} />
+            <Route path="users" element={<AdminUsersPage />} />
+            <Route path="analytics" element={<AdminAnalyticsPage />} />
+            <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
+            <Route path="wmi-drill" element={<AdminWmiDrillPage />} />
+          </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ErrorBoundary>
     </Router>
   )
 }

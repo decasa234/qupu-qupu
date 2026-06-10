@@ -1,5 +1,6 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import ErrorBoundary from '../components/ErrorBoundary'
 import WmiConceptFeedbackPanel from '../components/wmi/WmiConceptFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
@@ -170,12 +171,17 @@ export default function WmiKonsepDrill() {
       ) : (
         <div className="mt-4 space-y-4">
           {Illustration && (
-            <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell p-4 shadow-[5px_6px_0_0_#FFD3B1]">
-              {/* Lazy registry chunk — a late pop-in is fine. */}
-              <Suspense fallback={null}>
-                <Illustration params={question.params} />
-              </Suspense>
-            </div>
+            /* Boundary outside the card: a crashing illustration removes the
+               whole card (no empty shell), the question stays usable. Keyed
+               per question so the next one gets a fresh chance to render. */
+            <ErrorBoundary key={question.concept_instance_id} scope="illustration" fallback={null}>
+              <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+                {/* Lazy registry chunk — a late pop-in is fine. */}
+                <Suspense fallback={null}>
+                  <Illustration params={question.params} />
+                </Suspense>
+              </div>
+            </ErrorBoundary>
           )}
           {question.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">

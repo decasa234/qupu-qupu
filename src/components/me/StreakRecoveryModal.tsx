@@ -11,6 +11,7 @@
 // the modal for the rest of today, but a NEW break (different streak value
 // or a later day) prompts again.
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { trackEvent } from '../../lib/analytics'
 import {
   fetchGamificationSummary,
   recoverStreak,
@@ -119,6 +120,11 @@ export default function StreakRecoveryModal({ childId, previousStreak, onClose }
     }
   }, [])
 
+  // The modal mounting IS the "shown" moment (the prompt hook gates it).
+  useEffect(() => {
+    trackEvent('streak_recovery_shown', { previousStreak })
+  }, [previousStreak])
+
   const handleRecover = async () => {
     setPhase('busy')
     let result: StreakRecoveryResult
@@ -139,6 +145,7 @@ export default function StreakRecoveryModal({ childId, previousStreak, onClose }
     useGamificationStats.getState().patchStats(childId, { streak: result.currentStreakDays })
     setRestoredStreak(result.currentStreakDays)
     setPhase('success')
+    trackEvent('streak_recovered', { restoredStreak: result.currentStreakDays })
     closeTimerRef.current = setTimeout(onClose, 1800)
   }
 

@@ -1,6 +1,7 @@
 import { Suspense, useState } from 'react'
 import type { ComponentType } from 'react'
 import { motion } from 'framer-motion'
+import ErrorBoundary from '../ErrorBoundary'
 import { getExplainer } from './concepts/explainers/registry'
 import type { ExplainerProps } from './concepts/explainers/registry'
 
@@ -70,20 +71,24 @@ export default function WmiExplainer({ slug, explainer, params, correctAnswer, l
       </div>
 
       {/* Explainers come from lazy registries — render nothing (the header is
-          already visible) until the chunk arrives. */}
-      <Suspense fallback={null}>
-        <Explainer
-          key={replayKey}
-          params={params}
-          correctAnswer={correctAnswer}
-          lang={lang}
-          step={step}
-          playing={playing}
-          onStepCount={setCount}
-          onStepChange={setCurrent}
-          onPlayEnd={onPlayEnd}
-        />
-      </Suspense>
+          already visible) until the chunk arrives. The boundary (outside
+          Suspense) also swallows a crashing explainer: the answer feedback
+          must stay readable even when the animation breaks. */}
+      <ErrorBoundary scope="illustration" fallback={null}>
+        <Suspense fallback={null}>
+          <Explainer
+            key={replayKey}
+            params={params}
+            correctAnswer={correctAnswer}
+            lang={lang}
+            step={step}
+            playing={playing}
+            onStepCount={setCount}
+            onStepChange={setCurrent}
+            onPlayEnd={onPlayEnd}
+          />
+        </Suspense>
+      </ErrorBoundary>
 
       {count > 1 && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-3">

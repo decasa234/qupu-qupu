@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState, type ComponentType } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
+import ErrorBoundary from '../ErrorBoundary'
 import WmiAnswerChoice from './WmiAnswerChoice'
 import WmiFigure from './WmiFigure'
 import WmiGlossaryTerm from './WmiGlossaryTerm'
@@ -131,16 +132,21 @@ export default function WmiQuestionView({
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      {/* Illustrations come from lazy registries — a late pop-in is fine. */}
-      <Suspense fallback={null}>
-        {Illustration ? (
-          <Illustration />
-        ) : ConceptIllustration ? (
-          <ConceptIllustration params={conceptIllustrationParams} />
-        ) : (
-          <WmiFigure src={question.figure_url} />
-        )}
-      </Suspense>
+      {/* Illustrations come from lazy registries — a late pop-in is fine.
+          Boundary (keyed per question so one crash doesn't hide the next
+          question's illustration) sits OUTSIDE Suspense: a broken illustration
+          vanishes, the question stays fully usable. */}
+      <ErrorBoundary key={question.id} scope="illustration" fallback={null}>
+        <Suspense fallback={null}>
+          {Illustration ? (
+            <Illustration />
+          ) : ConceptIllustration ? (
+            <ConceptIllustration params={conceptIllustrationParams} />
+          ) : (
+            <WmiFigure src={question.figure_url} />
+          )}
+        </Suspense>
+      </ErrorBoundary>
 
       {question.answer_type === 'multiple_choice' ? (
         <div className="mt-4 grid gap-3">
@@ -155,10 +161,18 @@ export default function WmiQuestionView({
               onPick={onPickChoice}
             >
               {ChoiceContent ? (
-                // Lazy renderer — show the plain choice text until it loads.
-                <Suspense fallback={<MarkupText text={choice.text} onLookup={onLookupTerm} />}>
-                  <ChoiceContent choice={choice} />
-                </Suspense>
+                // Lazy renderer — show the plain choice text until it loads,
+                // and ALSO if the renderer crashes (the choice must stay
+                // pickable, so the fallback is text, not nothing).
+                <ErrorBoundary
+                  key={`${question.id}-${choice.label}`}
+                  scope="illustration"
+                  fallback={<MarkupText text={choice.text} onLookup={onLookupTerm} />}
+                >
+                  <Suspense fallback={<MarkupText text={choice.text} onLookup={onLookupTerm} />}>
+                    <ChoiceContent choice={choice} />
+                  </Suspense>
+                </ErrorBoundary>
               ) : (
                 <MarkupText text={choice.text} onLookup={onLookupTerm} />
               )}

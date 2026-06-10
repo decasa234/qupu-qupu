@@ -9,6 +9,7 @@
 // broken because quests failed.
 
 import { useEffect, useState } from 'react'
+import { trackEvent } from '../../lib/analytics'
 import { fetchDailyQuests, type DailyQuest } from '../../lib/gamificationApi'
 
 interface Props {
@@ -30,11 +31,17 @@ export default function DailyQuestsPanel({ childId, variant = 'garden' }: Props)
     setLoading(true)
     setQuests(null)
     fetchDailyQuests(childId)
-      .then((list) => { if (!cancelled) setQuests(list) })
+      .then((list) => {
+        if (cancelled) return
+        setQuests(list)
+        // Funnel: the panel only counts as "viewed" when it actually renders
+        // quests (an empty/failed fetch renders nothing).
+        if (list.length > 0) trackEvent('quest_panel_view', { variant, questCount: list.length })
+      })
       .catch(() => { if (!cancelled) setQuests(null) })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [childId])
+  }, [childId, variant])
 
   // The garden stacks sections with their own top margin; the dashboard
   // column already provides spacing via space-y-4.

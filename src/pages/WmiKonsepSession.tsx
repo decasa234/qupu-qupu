@@ -6,6 +6,7 @@ import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
 import { getIllustration } from '../components/wmi/concepts/registry'
+import { trackEvent } from '../lib/analytics'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import {
@@ -174,6 +175,7 @@ export default function WmiKonsepSession() {
           if (valid) {
             setResumeOffer({ saved, plan: rebuilt, concepts: chapter.concepts })
             setLastSubjectKey(subjectKey)
+            trackEvent('session_resume_offered', { subjectKey, answered: saved.answers.length })
             return
           }
           // Concept content changed or record is unusable — start fresh.
@@ -186,6 +188,7 @@ export default function WmiKonsepSession() {
         setPlan(buildPlan(chapter.concepts))
         // Session actually starts now — remember it per child for resume.
         setLastSubjectKey(subjectKey)
+        trackEvent('session_start', { subjectKey })
       })
       .catch((err) => {
         if (!cancelled) setGardenError(toIndonesianErrorMessage(err, 'Gagal memuat data konsep.'))
@@ -268,8 +271,14 @@ export default function WmiKonsepSession() {
         tierName: sessionResult.tierName,
       })
       setResult(sessionResult)
+      trackEvent('session_commit', {
+        subjectKey,
+        correct: sessionResult.correct,
+        total: sessionResult.total,
+      })
     } catch {
       setCommitError(true)
+      trackEvent('session_commit_failed', { subjectKey })
     } finally {
       setCommitting(false)
     }
@@ -317,6 +326,7 @@ export default function WmiKonsepSession() {
     setIdx(resumeOffer.saved.idx)
     setPlan(resumeOffer.plan)
     setResumeOffer(null)
+    trackEvent('session_resumed', { subjectKey, answered: resumeOffer.saved.answers.length })
     // Question fetch for plan[idx] fires via the idx effect (skipped when all
     // answers are already banked — the commit panel takes over instead).
   }
@@ -328,6 +338,7 @@ export default function WmiKonsepSession() {
     sessionIdRef.current = generateKonsepSessionId()
     setPlan(buildPlan(resumeOffer.concepts))
     setResumeOffer(null)
+    trackEvent('session_start', { subjectKey })
   }
 
   // ── Vote ───────────────────────────────────────────────────────────────────

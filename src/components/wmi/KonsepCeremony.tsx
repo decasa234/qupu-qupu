@@ -19,6 +19,7 @@
 // The footer button appears at the last beat.
 
 import { useEffect, useMemo, useState } from 'react'
+import { trackEvent } from '../../lib/analytics'
 import KonsepConfetti from './KonsepConfetti'
 import PlantIcon from './PlantIcon'
 import { PLANT_STAGES } from './plantStages'
@@ -217,6 +218,9 @@ export default function KonsepCeremony({ result, onDone }: Props) {
             type="button"
             onClick={(e) => {
               e.stopPropagation()
+              // The kid sat through (or skipped to) the full ceremony and is
+              // heading back — the habit-loop beat completed.
+              trackEvent('ceremony_done', { correct: result.correct, total: result.total })
               onDone()
             }}
             className="animate-reward-pop mt-2 inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
