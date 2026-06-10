@@ -1,6 +1,10 @@
 import { queryOne, withTransaction } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
+import { wibDateString } from '../../lib/wib.js'
 import { awardConceptReward, type ConceptRewardResult } from '../gamification/concept.js'
+import { emitEvent } from '../gamification/events.js'
+import { ensureTodaysQuests } from '../gamification/questGenerator.js'
+import { evaluateForEvent } from '../gamification/questEvaluator.js'
 import { getWmiQuestionAnswer } from './papers.js'
 import { isCorrectAnswer } from './answerMatch.js'
 import { upsertConceptProgress } from './concepts/conceptProgress.js'
@@ -107,6 +111,7 @@ export async function submitWmiAttempt(
 
     const correct = isCorrectAnswer(answer, input.selectedAnswer)
     const terms = input.lookedUpTerms ?? []
+    let conceptAttemptId: string | null = null
 
     if (input.mode === 'exam') {
       await client.query(
@@ -138,12 +143,15 @@ export async function submitWmiAttempt(
         ],
       )
     } else if (input.mode === 'concept') {
-      await client.query(
+      // RETURNING id: the attempt row anchors this answer's gamification
+      // event below (its id becomes the event's source_id).
+      const attemptRow = await client.query<{ id: string }>(
         `
           INSERT INTO wmi_attempts
             (child_id, concept_instance_id, mode, selected_answer, is_correct,
              time_taken_ms, revealed_id_translation, looked_up_terms)
           VALUES ($1, $2, 'concept', $3, $4, $5, $6, $7)
+          RETURNING id
         `,
         [
           input.childId,
@@ -155,6 +163,7 @@ export async function submitWmiAttempt(
           terms,
         ],
       )
+      conceptAttemptId = attemptRow.rows[0]?.id ?? null
     } else {
       await client.query(
         `
@@ -186,6 +195,38 @@ export async function submitWmiAttempt(
         conceptInstanceId: input.conceptInstanceId as string,
         isCorrect: correct,
       })
+
+      // Latihan Campur quest wire: a CORRECT drill answer also progresses the
+      // konsep daily quests (e.g. konsep_answers_10), mirroring the session
+      // commit's KONSEP_QUESTION_ANSWERED emission. Idempotent on the attempt
+      // row inserted above (each POST creates a fresh row — same accepted
+      // trade-off as the session path: no request-level dedupe, but the
+      // per-instance reward ledger keeps XP/coins bounded). Quests only —
+      // achievements are NOT evaluated per drill answer (too hot a path);
+      // they catch up on the next session commit or chapter-test pass.
+      if (correct && conceptAttemptId) {
+        const today = wibDateString(new Date())
+        await emitEvent(client, {
+          childId: input.childId,
+          eventType: 'KONSEP_QUESTION_ANSWERED',
+          sourceType: 'wmi_attempt',
+          sourceId: conceptAttemptId,
+          eventDate: today,
+          metadata: { conceptSlug, mode: 'drill', count: 1 },
+        })
+        // Quest slots must exist before they can progress.
+        await ensureTodaysQuests(client, input.childId, today)
+        // Drill response shape stays unchanged — completion results are
+        // intentionally dropped (no in-drill quest celebration).
+        await evaluateForEvent(client, today, {
+          childId: input.childId,
+          eventType: 'KONSEP_QUESTION_ANSWERED',
+          eventSourceType: 'wmi_attempt',
+          eventSourceId: conceptAttemptId,
+          currentStreakDays: gamification.streak.current,
+          incrementBy: 1,
+        })
+      }
     }
 
     return {

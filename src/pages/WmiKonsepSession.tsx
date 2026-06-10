@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
-import { PLANT_STAGES } from '../components/wmi/plantStages'
-import PlantIcon from '../components/wmi/PlantIcon'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import {
@@ -351,73 +350,9 @@ export default function WmiKonsepSession() {
     )
   }
 
-  // ── Result screen ──────────────────────────────────────────────────────────
+  // ── Result screen: staged reward ceremony ──────────────────────────────────
   if (result) {
-    return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        {/* Trophy icon */}
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-qupu-brand-orange text-3xl text-white shadow-[0_6px_0_0_#C46123]">
-          <i className="fa-solid fa-trophy" aria-hidden="true" />
-        </div>
-
-        <h1 className="mt-4 font-display text-2xl font-black text-qupu-brand-blue">Sesi selesai!</h1>
-        <p className="mt-1 text-sm font-semibold text-qupu-muted">
-          {result.correct} dari {result.total} jawaban benar
-        </p>
-
-        {/* XP earned */}
-        <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-qupu-cream px-4 py-2 font-display font-black text-qupu-brand-orange ring-2 ring-[#FFE3CC]">
-          <i className="fa-solid fa-star text-sm" aria-hidden="true" />
-          +{result.xpEarned} XP
-        </div>
-
-        {/* Level-up note */}
-        {result.levelUp && (
-          <div className="mt-3 rounded-[1.25rem] bg-qupu-brand-blue p-3 text-sm font-bold text-white shadow-[0_3px_0_0_#0E1430]">
-            <i className="fa-solid fa-arrow-up me-1" aria-hidden="true" />
-            Level naik ke Level {result.levelUp.currentLevel} — {result.levelUp.tierName}!
-          </div>
-        )}
-
-        {/* Concepts grown */}
-        {result.conceptsGrown.length > 0 && (
-          <div className="mt-4 space-y-2 text-left">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Konsep Tumbuh</p>
-            {result.conceptsGrown.map((cg) => {
-              const from = PLANT_STAGES[cg.fromTier as 0 | 1 | 2 | 3 | 4]
-              const to = PLANT_STAGES[cg.toTier as 0 | 1 | 2 | 3 | 4]
-              return (
-                <div
-                  key={cg.slug}
-                  className="flex items-center gap-3 rounded-[1.25rem] bg-white p-3 shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]"
-                >
-                  <span
-                    className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-base"
-                    style={{ background: to.bg, color: to.fg }}
-                  >
-                    <PlantIcon tier={cg.toTier as 0 | 1 | 2 | 3 | 4} />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="font-display text-[13px] font-black leading-tight text-qupu-brand-blue">{cg.nameId}</div>
-                    <div className="mt-0.5 text-[10px] font-bold text-qupu-muted">
-                      {from.labelId} <i className="fa-solid fa-arrow-right mx-0.5 text-[8px]" aria-hidden="true" /> {to.labelId}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
-
-        <Link
-          to="/latihan/wmi"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430]"
-        >
-          <i className="fa-solid fa-seedling text-sm" aria-hidden="true" />
-          Kembali ke Kebun
-        </Link>
-      </div>
-    )
+    return <KonsepCeremony result={result} onDone={() => navigate('/latihan/wmi')} />
   }
 
   // ── Loading / error states ─────────────────────────────────────────────────

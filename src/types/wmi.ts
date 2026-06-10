@@ -260,6 +260,10 @@ export interface WmiChapterTestResult {
   score_pct: number
   correct: number
   total: number
+  // Granted once per (child, chapter) on the FIRST pass — 0 on repeat passes
+  // where the backend reward ledger no-op'd.
+  xp_earned: number
+  coins_earned: number
 }
 
 export interface WmiKonsepGradeResult {
@@ -276,6 +280,21 @@ export interface WmiConceptGrown {
   fromTier: number
   toTier: number
 }
+// Mirrors CompletedQuest / UnlockedAchievement in api/services/wmi/concepts/session.ts.
+export interface WmiCompletedQuest {
+  id: string
+  code: string
+  title: string
+  xpAwarded: number
+  coinsAwarded: number
+}
+export interface WmiUnlockedAchievement {
+  id: string
+  code: string
+  title: string
+  iconKey: string | null
+  xpAwarded: number
+}
 export interface WmiKonsepSessionResult {
   correct: number
   total: number
@@ -287,4 +306,6 @@ export interface WmiKonsepSessionResult {
   coinBalance: number
   levelUp: { previousLevel: number; currentLevel: number; tierName: string } | null
   streak: { current: number; longest: number }
+  completedQuests: WmiCompletedQuest[]
+  unlockedAchievements: WmiUnlockedAchievement[]
 }

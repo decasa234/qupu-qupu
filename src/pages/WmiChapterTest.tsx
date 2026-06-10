@@ -81,6 +81,23 @@ export default function WmiChapterTest() {
         <p className="mt-1 text-sm font-semibold text-qupu-muted">
           Skor {result.score_pct}% ({result.correct}/{result.total}). {result.passed ? 'Bab ini sekarang terbuka.' : 'Butuh >70%. Coba lagi atau tumbuhkan bab sebelumnya.'}
         </p>
+        {/* First-pass reward chips — 0 on repeat passes, so nothing renders */}
+        {(result.xp_earned > 0 || result.coins_earned > 0) && (
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {result.xp_earned > 0 && (
+              <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-1.5 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
+                <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                +{result.xp_earned} XP
+              </span>
+            )}
+            {result.coins_earned > 0 && (
+              <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-4 py-1.5 font-display text-sm font-black text-white shadow-[0_3px_0_0_#B45309]">
+                <i className="fa-solid fa-coins" aria-hidden="true" />
+                +{result.coins_earned} koin
+              </span>
+            )}
+          </div>
+        )}
         <Link to="/latihan/wmi" className="mt-6 inline-flex rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430]">
           Kembali ke Kebun
         </Link>

@@ -28,6 +28,7 @@ export type SourceType =
   | 'daily_activity'
   | 'wmi_session'        // anchor = first wmi_attempts row of the committed session
   | 'wmi_chapter_test'   // anchor = wmi_chapter_tests row
+  | 'wmi_attempt'        // anchor = a single wmi_attempts row (Latihan Campur concept drill)
 
 export interface EmitEventInput {
   childId: string
