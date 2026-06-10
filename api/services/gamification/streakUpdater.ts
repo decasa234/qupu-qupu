@@ -181,43 +181,49 @@ export async function updateStreakForActivity(
       // gap >= 2 → at least one day was missed. Shields first: if the
       // child owns enough to cover EVERY missed day (and has a streak
       // worth protecting), consume them and continue as if the days were
-      // consecutive. Runs inside the caller's transaction; the decrement
-      // is guarded (`streak_shields >= $n`) so a concurrent consumer
-      // can't double-spend — on a miss we fall through to the break path.
+      // consecutive. Concurrency: the LEDGER row is written first — its
+      // deterministic (child, today) source UUID makes the unique index the
+      // serialization point. The first transaction appends and decrements;
+      // a concurrent loser blocks on the index, gets appended=false, and
+      // treats the day as already covered (streak continues, NO second
+      // decrement). This avoids both double-spend and the break-path
+      // fall-through, without taking the profile row lock early (which
+      // would invert lock ordering vs the session-commit path).
       const decision = resolveShieldConsumption(gap, Number(profile.streak_shields))
       let shieldUsed = false
       if (decision.covered && prevStreak > 0) {
-        const dec = await queryOne<{ streak_shields: number }>(
-          `UPDATE gamification_profiles
-              SET streak_shields = streak_shields - $1,
-                  updated_at = NOW()
-              WHERE child_id = $2 AND streak_shields >= $1
-              RETURNING streak_shields`,
-          [decision.consume, childId],
-          client,
-        )
-        if (dec) {
-          shieldUsed = true
-          newStreak = prevStreak + 1
-          newPreBreak = 0
-          // 0-coin audit row, idempotent on (child, today) via the
-          // deterministic source UUID.
-          await appendLedger(client, {
-            childId,
-            rewardType: 'STREAK_SHIELD_CONSUMED',
-            sourceType: 'streak_shield',
-            sourceId: deterministicUuid(`streak-shield:${childId}:${today}`),
-            xpDelta: 0,
-            coinDelta: 0,
-            metadata: {
-              coveredDates: wibDatesBetween(lastActivity, today),
-              shieldsConsumed: decision.consume,
-              shieldsRemaining: Number(dec.streak_shields),
-              activityDate: today,
-              streakPreserved: prevStreak + 1,
-            },
-          })
+        const led = await appendLedger(client, {
+          childId,
+          rewardType: 'STREAK_SHIELD_CONSUMED',
+          sourceType: 'streak_shield',
+          sourceId: deterministicUuid(`streak-shield:${childId}:${today}`),
+          xpDelta: 0,
+          coinDelta: 0,
+          metadata: {
+            coveredDates: wibDatesBetween(lastActivity, today),
+            shieldsConsumed: decision.consume,
+            activityDate: today,
+            streakPreserved: prevStreak + 1,
+          },
+        })
+        if (led.appended) {
+          // We own today's consumption: decrement (guarded; with the ledger
+          // serialization the guard is belt-and-suspenders).
+          await queryOne<{ streak_shields: number }>(
+            `UPDATE gamification_profiles
+                SET streak_shields = streak_shields - $1,
+                    updated_at = NOW()
+                WHERE child_id = $2 AND streak_shields >= $1
+                RETURNING streak_shields`,
+            [decision.consume, childId],
+            client,
+          )
         }
+        // Whether we appended or a concurrent transaction already consumed
+        // for today, the day is covered: the streak continues either way.
+        shieldUsed = true
+        newStreak = prevStreak + 1
+        newPreBreak = 0
       }
       if (!shieldUsed) {
         if (gap === 2) {
