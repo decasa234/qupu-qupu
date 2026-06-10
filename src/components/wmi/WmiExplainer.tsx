@@ -94,19 +94,37 @@ export default function WmiExplainer({ slug, explainer, params, correctAnswer, l
           <button type="button" aria-label="Langkah sebelumnya" className={roundBtn} onClick={() => go(cur - 1)} disabled={cur <= 0}>
             ‹
           </button>
-          <div className="flex flex-wrap items-center justify-center gap-1.5">
-            {Array.from({ length: count }, (_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Langkah ${i + 1}`}
-                aria-current={i === cur}
-                onClick={() => go(i)}
-                className="h-2.5 rounded-full transition-all"
-                style={{ width: i === cur ? 22 : 10, background: i === cur ? '#2f6df0' : '#cbd5e1' }}
+          {count > 12 ? (
+            // Long explainers: a dot per beat would overflow — use a slider + counter.
+            <div className="flex items-center gap-2">
+              <input
+                type="range"
+                min={0}
+                max={last}
+                value={cur}
+                onChange={(e) => go(Number(e.target.value))}
+                aria-label="Langkah"
+                className="h-2.5 w-36 cursor-pointer accent-[#2f6df0] sm:w-44"
               />
-            ))}
-          </div>
+              <span className="font-display text-xs font-extrabold tabular-nums text-qupu-brand-blue">
+                {cur + 1}/{count}
+              </span>
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              {Array.from({ length: count }, (_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Langkah ${i + 1}`}
+                  aria-current={i === cur}
+                  onClick={() => go(i)}
+                  className="h-2.5 rounded-full transition-all"
+                  style={{ width: i === cur ? 22 : 10, background: i === cur ? '#2f6df0' : '#cbd5e1' }}
+                />
+              ))}
+            </div>
+          )}
           <button type="button" aria-label="Langkah berikutnya" className={roundBtn} onClick={() => go(cur + 1)} disabled={cur >= last}>
             ›
           </button>

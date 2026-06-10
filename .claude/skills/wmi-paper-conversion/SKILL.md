@@ -92,6 +92,36 @@ eliminations → result). Captions like "working through the clues, X must be 4"
 fail Gate 3; show the deduction, including the failed tries when the method is
 elimination.
 
+**Logic-grid puzzles: solver first.** For mathdoku/KenKen, skyscrapers, and
+similar constraint grids, write a throwaway backtracking solver *before* any
+component code (temp script, run with `npx tsx`, delete after). It must confirm
+(a) your cage/clue reading of the scan yields a **unique** solution, (b) the
+lettered cells reproduce the answer key, and (c) which cells the A/B/C/D
+watermarks sit in — letter positions read off a scan are routinely one cell off,
+and only the solved grid disambiguates them. Then hardcode the verified solution
+in the illustration header with a proof comment, and re-verify it in the SSR
+smoke (Latin rows/cols + every cage/clue + ABCD). Worked references:
+`Mathdoku5G3Illustration.tsx`, `SkyscraperG3Illustration.tsx` (WMI-19F3A Q24/Q25).
+
+**Pace for one idea per beat.** Enumerations (count the squares/triangles) reveal
+**one object per beat** with a running counter — never a whole class at once.
+Try-and-eliminate shows **one candidate per beat** (`102×9=918 ✓` gets its own
+beat, as does each ✗). Every mark or step shows the concrete arithmetic that
+creates it ("1+2 = 3", not "the small pairs"). Many short beats beat few dense
+ones: the player (`WmiExplainer.tsx`) automatically switches from step-dots to a
+range slider above 12 beats, so beat count is not a constraint. Pin invariant
+rules (e.g. dice partners adding to 7) as a persistent legend above the board
+instead of repeating them in captions. Worked references: `DotSquaresG3Explainer`
+(29 squares, 31 beats), `MShapeLinesG3Explainer` (10 triangles one-by-one),
+`DieSumsG3Explainer` (legend + concrete sums).
+
+**Missing or wrong source figure.** When a question references a figure the OCR
+set doesn't include, the registry `Illustration` becomes the figure (no
+`figure_url`). If your independent solution disagrees with the key because the
+body misdescribes the missing figure, stop and ask the user for the real figure
+— do not fabricate one that forces the key (WMI-19F3A Q17: key said 10, "triangle
+below" was actually an M shape; body reworded to "figure below").
+
 Use the **qupu-math-problem-creation** skill for the craft of each role:
 - **Designer** → the `breakdown` object (+ a reworded `body_en/id` stem if the OCR
   stem is noisy). Highlights must be exact substrings of the display body.
@@ -146,6 +176,9 @@ batch.
 | Illustration + primitive + explainer + steps | `src/components/wmi/paperQuestions/ShapeEquationIllustration.tsx`, `ShapeEquationExplainer.tsx`, `shapeEquationSteps.ts` (Q18) |
 | Registry wiring | `src/components/wmi/paperQuestions/registry.ts` |
 | Layout-fix lessons | Q18 centering; Q23 `src/components/wmi/paperQuestions/LockCodeIllustration.tsx` viewBox headroom |
+| Solver-verified logic grid (solution + proof header, deduction explainer) | `src/components/wmi/paperQuestions/Mathdoku5G3Illustration.tsx` + `Mathdoku5G3Explainer.tsx`, `SkyscraperG3Illustration.tsx` + `SkyscraperG3Explainer.tsx` |
+| One-object-per-beat enumeration with running counter | `src/components/wmi/paperQuestions/DotSquaresG3Explainer.tsx`, `MShapeLinesG3Explainer.tsx` |
+| Per-candidate elimination beats | `src/components/wmi/paperQuestions/VerticalMultG3Explainer.tsx` |
 
 ## Gates & verification
 

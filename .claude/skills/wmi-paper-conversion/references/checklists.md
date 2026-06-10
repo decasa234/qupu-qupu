@@ -29,6 +29,16 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
 - The count of answers must equal the count of questions.
 - Figure-dependent answers must follow from the reconstructed figure.
 - Any mismatch → stop and surface to the user; do not guess.
+- **Logic grids (mathdoku, skyscrapers, …):** "independently solve" means a
+  throwaway backtracking solver, not hand-solving — it must show the cage/clue
+  reading is **uniquely solvable** and that the lettered cells reproduce the key.
+  A hand-derivation that reaches the key can still rest on a misread cage; only
+  uniqueness proves the reading. The solver also fixes where A/B/C/D actually sit
+  (scan watermarks are routinely one cell off).
+- **Combinatorial counts** (how many squares/triangles): enumerate by code in the
+  illustration module and export the total (cf. `allDotSquares()` /
+  `DS_TOTAL` in `DotSquaresG3Illustration.tsx`); the explainer sums the same
+  enumeration, never a hand-counted constant.
 
 ## Gate 3 · Step-quality
 - Aim for 3–5 short, grade-appropriate `hint_steps_en/id`.
@@ -39,6 +49,17 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
   never asserted. "Working through the clues, X must be 4" is a failed gate.
 - When the method is try-and-eliminate, the failed candidates appear with the
   reason each fails (in the steps AND the explainer beats).
+- **Explainer pacing — one idea per beat.** Each beat introduces ONE object,
+  candidate, or deduction, with the concrete arithmetic in the caption
+  ("1+2 = 3", "102 × 9 = 918 ✓"). Enumerations reveal one item per beat with a
+  running counter; never flash a whole class of shapes at once. Don't compress
+  to keep the beat count low — `WmiExplainer` switches to a slider above 12
+  beats, so 15–30 short beats are fine.
+- **Deduction-puzzle breakdowns read as a chain.** For logic grids, the
+  `quantities` array is the ordered derivation — each entry's label names the
+  clue used and why the value is forced; the value is the resulting
+  row/cell ("Column of C (top arrow 3, bottom arrow 2)" → "1 3 4 2 → C = 3").
+  Final values alone ("A = 4, B = 1, …") fail review.
 
 ## Gate 4 · Breakdown schema
 Fields (type `Breakdown` in `api/services/wmi/concepts/types.ts`, mirrored to
@@ -60,10 +81,21 @@ Fields (type `Breakdown` in `api/services/wmi/concepts/types.ts`, mirrored to
 - `trap` is `null` unless a genuine tempting wrong answer exists.
 - For multiple-choice questions, `answer.form: 'choice'` and `answer.value` is the
   choice label (e.g. `"B"`).
+- **Scope bulk glyph replacements.** When normalising operators in seed text
+  (`x`→`×`, `-`→`−`), replace whole tokens (`"20x"`, `"4− = {1,5}"`), never bare
+  `"4-"` — a blanket replace once corrupted "4-digit" to "4−digit" and broke the
+  highlight-substring gate. Re-run the substring check after any such pass.
 
 ## Verification commands
 Run from the repo root. DB-touching commands use `dangerouslyDisableSandbox: true`
 (LAN Postgres).
+
+Temp scripts (smoke, solvers, seed patches): create them with the **Write tool**,
+not inline `npx tsx -e` or bash heredocs — the RTK shell hook mangles both. Put
+them at the repo root when they import repo modules (out-of-tree scripts can't
+resolve `react`/`@/*` or use top-level await under tsx's CJS transform); delete
+after running. Seed-JSON edits are safest as a small Python/Node script that
+loads, mutates, and re-dumps the JSON (`ensure_ascii=False, indent=2`).
 
 - **Typecheck:** `npm run check`
 - **Lint:** `npm run lint` — 0 errors; `react-refresh/only-export-components`
