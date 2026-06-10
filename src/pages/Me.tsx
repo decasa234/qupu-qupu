@@ -1,7 +1,7 @@
 // src/pages/Me.tsx
 //
 // Profil tab destination. Sections: account header, a Pengaturan menu
-// (Rapor → /report, Rapor & Statistik → /dashboard, Keluar → logout),
+// (Rapor → /report, Statistik & Misi Harian → /dashboard, Keluar → logout),
 // and the owned-items collection.
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
@@ -54,7 +54,7 @@ export default function MePage() {
             to="/dashboard"
             icon="fa-solid fa-chart-pie"
             iconBg="#0E7490"
-            title="Rapor & Statistik"
+            title="Statistik & Misi Harian"
             subtitle="Ringkasan belajar, kuis & misi harian"
           />
           <SettingsRow

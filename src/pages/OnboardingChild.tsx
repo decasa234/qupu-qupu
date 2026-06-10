@@ -11,6 +11,7 @@ export default function OnboardingChild() {
   const navigate = useNavigate()
   const { addChild, setActiveChild } = useAuthStore()
   const pinGradeForChild = useWmiStore((state) => state.pinGradeForChild)
+  const syncChildGrade = useWmiStore((state) => state.syncChildGrade)
 
   const handleCreated = (child: Child, wmiGrade: WmiGrade) => {
     addChild(child)
@@ -18,6 +19,10 @@ export default function OnboardingChild() {
     // Pin the wizard's grade choice for this child so the garden opens at the
     // real grade (age groups alone can't distinguish Kelas 1/2/3).
     pinGradeForChild(child.id, wmiGrade)
+    // Resolve selectedGrade/activeChildKey for the new child NOW, before
+    // navigating — otherwise the garden's first fetch runs with the previous
+    // child's grade until AppShell's sync effect catches up (grade-1 flash).
+    syncChildGrade(child.id, wmiGrade)
     trackEvent('onboarding_child_created')
     // The garden is the app's landing — a one-time coach-mark there points at
     // the first session, so the first question is the tutorial.

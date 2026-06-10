@@ -1,7 +1,7 @@
 import { Router, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
-import { getWmiDrillQuestion, getWmiPaperDetail, listWmiPapers } from '../services/wmi/papers.js'
+import { getWmiPaperDetail, listWmiPapers } from '../services/wmi/papers.js'
 import { submitWmiAttempt } from '../services/wmi/attempts.js'
 import {
   completeWmiExamSession,
@@ -24,8 +24,6 @@ const childQuerySchema = Joi.object({
 const papersQuerySchema = childQuerySchema.keys({
   grade: Joi.number().integer().min(0).max(3).required(),
 })
-
-const drillQuerySchema = papersQuerySchema
 
 const startSessionSchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -102,21 +100,6 @@ router.get('/papers/:id', authenticateToken, async (req: AuthRequest, res: Respo
   } catch (error) {
     console.error('WMI paper detail error:', error)
     sendError(res, error, 'Unable to load paper')
-  }
-})
-
-router.get('/drill/next', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
-  try {
-    const { error, value } = drillQuerySchema.validate(req.query)
-    if (error) {
-      res.status(400).json({ success: false, error: error.details[0].message })
-      return
-    }
-    const question = await getWmiDrillQuestion(req.user.id, value.childId, value.grade)
-    res.json({ success: true, data: { question } })
-  } catch (error) {
-    console.error('WMI drill error:', error)
-    sendError(res, error, 'Unable to load drill question')
   }
 })
 
@@ -212,7 +195,7 @@ const chapterTestSubmitSchema = chapterTestStartSchema.keys({
   answers: Joi.array().items(Joi.object({
     concept_instance_id: Joi.string().uuid().required(),
     selected_answer: Joi.string().trim().min(1).max(200).required(),
-  })).min(1).required(),
+  })).min(1).max(30).required(),
 })
 
 router.get(

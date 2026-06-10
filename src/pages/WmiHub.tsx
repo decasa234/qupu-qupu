@@ -59,13 +59,28 @@ function pickResumeChapter(
   return garden.chapters.find((ch) => ch.unlocked && ch.grownCount < ch.total) ?? null
 }
 
+// Garden grades are 1-3 only (grade 0 exists just for the papers page).
+function clampGardenGrade(grade: WmiGrade): WmiGrade {
+  return grade < 1 ? 1 : grade > 3 ? 3 : grade
+}
+
 export default function WmiHub() {
   const { activeChildId } = useAuthStore()
-  const { selectedGrade, setSelectedGrade, lastSubjectKey, loadGlossary } = useWmiStore()
+  const { selectedGrade, setSelectedGrade, gradeByChild, lastSubjectKey, loadGlossary } =
+    useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
+  const [fetchTick, setFetchTick] = useState(0)
   const [infoConcept, setInfoConcept] = useState<WmiGardenConcept | null>(null)
+
+  // Read the persisted per-child pin directly so a pinned child renders the
+  // right grade on cold load even before AppShell's syncChildGrade effect
+  // runs (no wrong-grade first fetch). Chip taps still go through
+  // setSelectedGrade, which also updates the pin.
+  const pinnedGrade = activeChildId ? gradeByChild[activeChildId] : undefined
+  const effectiveGrade = clampGardenGrade(pinnedGrade ?? selectedGrade)
 
   const [showCoachMark, setShowCoachMark] = useState(() => !isCoachMarkDone())
   const dismissCoachMark = () => {
@@ -84,12 +99,17 @@ export default function WmiHub() {
     if (!activeChildId) { setGarden(null); setLoading(false); return }
     let cancelled = false
     setLoading(true)
-    fetchGarden(activeChildId, selectedGrade)
+    setLoadError(false)
+    fetchGarden(activeChildId, effectiveGrade)
       .then((d) => !cancelled && setGarden(d))
-      .catch(() => !cancelled && setGarden(null))
+      .catch(() => {
+        if (cancelled) return
+        setGarden(null)
+        setLoadError(true)
+      })
       .finally(() => !cancelled && setLoading(false))
     return () => { cancelled = true }
-  }, [activeChildId, selectedGrade])
+  }, [activeChildId, effectiveGrade, fetchTick])
 
   if (!activeChildId) {
     return (
@@ -102,20 +122,16 @@ export default function WmiHub() {
   const grownTotal = garden?.chapters.reduce((s, c) => s + c.grownCount, 0) ?? 0
   const conceptTotal = garden?.chapters.reduce((s, c) => s + c.total, 0) ?? 0
 
+  // A garden with any grown concept means this isn't a first-timer — never
+  // show the coach-mark there, even if the localStorage flag was never set
+  // (e.g. veteran on a fresh device).
+  const coachMarkVisible = showCoachMark && grownTotal === 0
+
   const hasUnlocked = !!garden && garden.chapters.some((ch) => ch.unlocked)
   const resumeChapter = garden ? pickResumeChapter(garden, lastSubjectKey) : null
 
   return (
     <div className="w-full max-w-[460px] self-center pb-6">
-      <div className="mb-3">
-        <Link
-          to="/latihan"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" /> Kembali
-        </Link>
-      </div>
-
       <section className="relative overflow-hidden rounded-[2rem] bg-qupu-brand-orange p-5 text-white shadow-[0_6px_0_0_#C46123]">
         <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-qupu-brand-yellow/35" />
         <div className="relative flex items-center gap-3">
@@ -132,7 +148,10 @@ export default function WmiHub() {
 
       <div className="mt-4 rounded-[1.5rem] bg-[#FFF8F0] p-3 ring-2 ring-[#FFE3CC]">
         <p className="px-1 pb-2 text-[10px] font-black uppercase tracking-[0.16em] text-qupu-brand-orange">Pilih kelas</p>
-        <WmiGradeChips selected={selectedGrade} onSelect={(g: WmiGrade) => setSelectedGrade(g)} />
+        <WmiGradeChips selected={effectiveGrade} onSelect={(g: WmiGrade) => setSelectedGrade(g)} />
+        <p className="mt-2 px-1 text-xs font-semibold text-qupu-muted">
+          Kelas 3&ndash;6 mulai dari Tingkat 3.
+        </p>
       </div>
 
       {/* Resume hero — the single dominant "1 tap to a session" recommendation.
@@ -153,14 +172,14 @@ export default function WmiHub() {
                 style={{ width: `${resumeChapter.meanPct}%` }}
               />
             </div>
-            {showCoachMark && <GardenCoachMark onDismiss={dismissCoachMark} />}
+            {coachMarkVisible && <GardenCoachMark onDismiss={dismissCoachMark} />}
             <button
               type="button"
               onClick={() => {
                 if (showCoachMark) dismissCoachMark()
                 navigate(`/latihan/wmi/sesi/${resumeChapter.subjectKey}`)
               }}
-              className={`${showCoachMark ? 'mt-3 animate-tapPop' : 'mt-4'} flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5`}
+              className={`${coachMarkVisible ? 'mt-3 animate-tapPop' : 'mt-4'} flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5`}
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
                 <i className="fa-solid fa-play" aria-hidden="true" />
@@ -208,6 +227,20 @@ export default function WmiHub() {
             <div className="space-y-3" aria-hidden="true">
               {[0, 1, 2].map((i) => <div key={i} className="h-28 animate-pulse rounded-[1.5rem] bg-qupu-cream" />)}
             </div>
+          ) : loadError ? (
+            <div className="rounded-[1.5rem] bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+              <p className="text-sm font-bold text-qupu-brand-blue">
+                Gagal memuat kebun. Periksa koneksimu.
+              </p>
+              <button
+                type="button"
+                onClick={() => setFetchTick((t) => t + 1)}
+                className="mt-3 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2.5 font-display text-sm font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+              >
+                <i className="fa-solid fa-rotate-right" aria-hidden="true" />
+                Coba lagi
+              </button>
+            </div>
           ) : garden && garden.chapters.length > 0 ? (
             garden.chapters.map((ch, i) => (
               <ChapterGarden
@@ -215,7 +248,11 @@ export default function WmiHub() {
                 chapter={ch}
                 index={i}
                 onConceptInfo={(c) => setInfoConcept(c)}
-                onStartSession={(subjectKey) => navigate(`/latihan/wmi/sesi/${subjectKey}`)}
+                onStartSession={(subjectKey) => {
+                  // Any session start counts as having seen the tutorial.
+                  if (showCoachMark) dismissCoachMark()
+                  navigate(`/latihan/wmi/sesi/${subjectKey}`)
+                }}
                 onStartTest={(subjectKey) => navigate(`/latihan/wmi/tes/${subjectKey}`)}
               />
             ))
@@ -243,13 +280,16 @@ export default function WmiHub() {
       {infoConcept && (
         <ConceptInfoModal
           childId={activeChildId}
-          grade={selectedGrade}
+          grade={effectiveGrade}
           concept={infoConcept}
           onClose={() => setInfoConcept(null)}
         />
       )}
 
-      {recoveryPrompt && (
+      {/* Never stack on top of the concept-info modal. Safe to gate the
+          render: useStreakRecoveryPrompt keeps `prompt` set until an explicit
+          dismiss/close, so it re-shows once infoConcept closes. */}
+      {recoveryPrompt && !infoConcept && (
         <StreakRecoveryModal
           childId={activeChildId}
           previousStreak={recoveryPrompt.previousStreak}

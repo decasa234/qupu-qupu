@@ -6,10 +6,14 @@ export default function WmiGradeChips({
   selected,
   onSelect,
   grades = DEFAULT_GRADES,
+  // Garden levels are "Tingkat" (they don't map 1:1 to school grades);
+  // WmiPapers overrides with "Grade" — the real WMI paper-grade labels.
+  labelPrefix = 'Tingkat',
 }: {
   selected: WmiGrade
   onSelect: (grade: WmiGrade) => void
   grades?: WmiGrade[]
+  labelPrefix?: string
 }) {
   return (
     <div className="flex flex-wrap gap-2">
@@ -22,7 +26,7 @@ export default function WmiGradeChips({
             selected === grade ? 'bg-qupu-brand-blue text-white' : 'bg-qupu-cream text-qupu-brand-blue'
           }`}
         >
-          Grade {grade}
+          {labelPrefix} {grade}
         </button>
       ))}
     </div>

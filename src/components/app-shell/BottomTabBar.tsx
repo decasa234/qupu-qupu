@@ -4,8 +4,8 @@
 // time: each tab declares route prefixes, and the tab whose matched prefix is
 // the LONGEST wins. That lets Belajar (/latihan/wmi/*) sit inside Main's
 // /latihan/* prefix without double-highlighting — /latihan/wmi/sesi/x lights
-// Belajar, /latihan and /latihan/foo light Main. /dashboard (now reached from
-// Profil's "Rapor & Statistik") lights Profil.
+// Belajar, /latihan and /latihan/foo light Main. /dashboard (reached from
+// Profil's "Statistik & Misi Harian") and /report light Profil.
 import { NavLink, useLocation } from 'react-router-dom'
 
 interface TabDef {
@@ -20,7 +20,7 @@ const TABS: TabDef[] = [
   { to: '/latihan/wmi', label: 'Belajar', icon: 'fa-solid fa-seedling' },
   { to: '/library',     label: 'Video',   icon: 'fa-solid fa-clapperboard' },
   { to: '/latihan',     label: 'Main',    icon: 'fa-solid fa-gamepad' },
-  { to: '/me',          label: 'Profil',  icon: 'fa-solid fa-user', activePrefixes: ['/me', '/badges', '/dashboard'] },
+  { to: '/me',          label: 'Profil',  icon: 'fa-solid fa-user', activePrefixes: ['/me', '/badges', '/dashboard', '/report'] },
 ]
 
 // Longest matched prefix length for this tab on the given path (0 = no match).

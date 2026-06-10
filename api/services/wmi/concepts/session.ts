@@ -154,9 +154,12 @@ export async function commitKonsepSession(
          RETURNING id`,
         [childId, a.conceptInstanceId, a.selectedAnswer, isC, null, false, []],
       )
-      // First attempt row anchors the session's gamification events: a
-      // stable UUID for the (child, event_type, source_type, source_id)
-      // idempotency key within this transaction.
+      // First attempt row of this POST anchors the session's gamification
+      // events (its id becomes their source_id). Note this is NOT replay
+      // protection: a full re-POST inserts brand-new attempt rows, so
+      // attempts and events run again — XP/coins stay bounded by the
+      // per-instance reward ledger, but quest/streak counters inflate.
+      // Request-level dedupe is deferred.
       if (!anchorAttemptId) anchorAttemptId = attemptRow.rows[0]?.id ?? null
       processedCount++
 

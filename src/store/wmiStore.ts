@@ -43,9 +43,13 @@ export const useWmiStore = create<WmiState>()(
       setSelectedGrade: (grade) =>
         set((state) => ({
           selectedGrade: grade,
-          gradeByChild: state.activeChildKey
-            ? { ...state.gradeByChild, [state.activeChildKey]: grade }
-            : state.gradeByChild,
+          // Only grades 1-3 are garden grades. Grade 0 exists solely for the
+          // papers page (TK papers) — picking it there must not pin the
+          // child's garden to an empty grade-0 landing.
+          gradeByChild:
+            state.activeChildKey && grade >= 1 && grade <= 3
+              ? { ...state.gradeByChild, [state.activeChildKey]: grade }
+              : state.gradeByChild,
         })),
       pinGradeForChild: (childId, grade) =>
         set((state) => ({
