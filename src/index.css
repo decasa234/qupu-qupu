@@ -100,6 +100,16 @@ body[data-wmi-hide-footer='true'] [data-app-footer] {
 }
 .animate-spark { animation: spark-burst 0.6s ease-out forwards; }
 
+/* Parent-PIN pad: dots row shakes sideways on a wrong PIN. */
+@keyframes pin-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-6px); }
+  80%      { transform: translateX(6px); }
+}
+.animate-pin-shake { animation: pin-shake 0.4s ease-in-out; }
+
 /* Daily goal ring sweep: animates the conic-gradient fill via --goal-deg. */
 @property --goal-deg {
   syntax: '<angle>';

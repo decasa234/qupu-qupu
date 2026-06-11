@@ -10,16 +10,25 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
-import { getCachedPublic } from '../lib/api'
+import api, { getCachedPublic } from '../lib/api'
 import { inferWmiGrade } from '../lib/childGrade'
 import type { AgeGroupOption } from '../types'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
+import SetPinModal from './parent/SetPinModal'
+import { markParentUnlocked } from '../lib/parentUnlock'
+
+// "Nanti saja" on the set-PIN prompt silences it for the rest of this
+// browser session (sessionStorage, per user) — it re-appears next session.
+function pinSkipKey(userId: string): string {
+  return `qupu_parent_pin_skip:${userId}`
+}
 
 export default function AppShell() {
   const children = useAuthStore((state) => state.children)
   const activeChildId = useAuthStore((state) => state.activeChildId)
-  const role = useAuthStore((state) => state.user?.role)
+  const user = useAuthStore((state) => state.user)
+  const role = user?.role
   const syncChildGrade = useWmiStore((state) => state.syncChildGrade)
   const childrenCount = children.length
 
@@ -63,6 +72,51 @@ export default function AppShell() {
     }
   }, [statsChildId, activeChildId])
 
+  // Parent PIN set-at-sign-in prompt. AppShell wraps every member route, so
+  // this fires on the garden landing. The persisted user may predate the
+  // pinSet field, so confirm with a fresh GET /users/me (also keeps a PIN
+  // set on another device from re-prompting here) before showing the modal.
+  const userId = user?.id ?? null
+  const pinSet = user?.pinSet
+  const updateUser = useAuthStore((state) => state.updateUser)
+  const [showSetPin, setShowSetPin] = useState(false)
+  useEffect(() => {
+    if (role !== 'parent' || pinSet || !userId) return
+    let skipped = false
+    try {
+      skipped = sessionStorage.getItem(pinSkipKey(userId)) === '1'
+    } catch {
+      /* private mode — treat as not skipped */
+    }
+    if (skipped) return
+    let cancelled = false
+    api
+      .get('/users/me')
+      .then((res) => {
+        const fresh = res.data?.data?.pinSet
+        if (cancelled || typeof fresh !== 'boolean') return
+        updateUser({ pinSet: fresh })
+        if (!fresh) setShowSetPin(true)
+      })
+      .catch(() => {
+        /* offline — no prompt this time; next mount retries */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [role, pinSet, userId, updateUser])
+
+  function skipSetPin() {
+    if (userId) {
+      try {
+        sessionStorage.setItem(pinSkipKey(userId), '1')
+      } catch {
+        /* private mode — may re-prompt on next mount; harmless */
+      }
+    }
+    setShowSetPin(false)
+  }
+
   // Gate: a member with no child profile yet must complete /onboard/child
   // before reaching any member surface (can't skip the first step). Admins
   // are exempt — they manage the app rather than onboard a child.
@@ -80,6 +134,17 @@ export default function AppShell() {
         </div>
       </main>
       <BottomTabBar />
+      {showSetPin ? (
+        <SetPinModal
+          onClose={() => setShowSetPin(false)}
+          onSuccess={() => {
+            // Setting the PIN at sign-in counts as proving you're the
+            // parent — the Me-page parent area stays unlocked this session.
+            if (userId) markParentUnlocked(userId)
+          }}
+          onSkip={skipSetPin}
+        />
+      ) : null}
     </div>
   )
 }

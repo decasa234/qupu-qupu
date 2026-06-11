@@ -9,6 +9,10 @@ export interface User {
   age_group_id?: string | null
   role: UserRole
   plan?: 'free' | 'premium' | 'pro'
+  // Parent PIN: true once a 4-digit PIN protects the parent area. Hydrated
+  // from GET /users/me (login responses don't carry it) and flipped locally
+  // after a successful set.
+  pinSet?: boolean
 }
 
 export interface AuthPayload {

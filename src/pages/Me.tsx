@@ -1,9 +1,9 @@
 // src/pages/Me.tsx
 //
-// Profil tab destination. Sections: account header, child profile management
-// (switch active child / add a child), a Pengaturan menu (Rapor → /report,
-// Statistik & Misi Harian → /dashboard, Keluar → logout), and the owned-items
-// collection.
+// Profil tab destination. Sections: account header, the parent area
+// (child profile management + the Pengaturan menu — PIN-locked behind
+// ParentGate because the kid shares the parent's session), the kid-facing
+// family/avatar/level surfaces, and the owned-items collection.
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../lib/api'
@@ -15,12 +15,15 @@ import ChildrenManager from '../components/me/ChildrenManager'
 import FamilyLeaderboard from '../components/me/FamilyLeaderboard'
 import FamilyQuestCard from '../components/me/FamilyQuestCard'
 import LevelDetail from '../components/me/LevelDetail'
+import ParentGate from '../components/parent/ParentGate'
+import SetPinModal from '../components/parent/SetPinModal'
 
 export default function MePage() {
   useDocumentTitle('Profil')
   const { user, children, activeChildId, logout } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const navigate = useNavigate()
+  const [showChangePin, setShowChangePin] = useState(false)
 
   function handleLogout() {
     logout()
@@ -35,7 +38,62 @@ export default function MePage() {
         <p className="mt-1 text-xs font-medium text-qupu-muted">{user?.email}</p>
       </section>
 
-      <ChildrenManager />
+      {/* Parent area: child management + the Pengaturan menu. While locked,
+          ParentGate collapses both into one "Pengaturan Orang Tua" card. */}
+      <ParentGate>
+        <ChildrenManager />
+
+        <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
+          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+            Pengaturan
+          </div>
+          <div className="mt-3 flex flex-col gap-2">
+            <SettingsRow
+              to="/badges"
+              icon="fa-solid fa-medal"
+              iconBg="#8A5BF0"
+              title="Badge & pencapaian"
+              subtitle="Lihat semua lencana yang terkumpul"
+            />
+            <SettingsRow
+              to="/report"
+              icon="fa-solid fa-chart-line"
+              iconBg="#30598A"
+              title="Rapor belajar"
+              subtitle="Lihat progres & nilai lengkap"
+            />
+            <SettingsRow
+              to="/dashboard"
+              icon="fa-solid fa-chart-pie"
+              iconBg="#0E7490"
+              title="Statistik & Misi Harian"
+              subtitle="Ringkasan belajar, kuis & misi harian"
+            />
+            <NotifyEmailRow />
+            {user?.role === 'parent' && (
+              <SettingsRow
+                onClick={() => setShowChangePin(true)}
+                icon="fa-solid fa-key"
+                iconBg="#E0762E"
+                title="Ubah PIN"
+                subtitle="Ganti PIN pengaturan orang tua"
+              />
+            )}
+            <SettingsRow
+              onClick={handleLogout}
+              icon="fa-solid fa-right-from-bracket"
+              iconBg="#E11D48"
+              title="Keluar"
+              subtitle="Keluar dari akun ini"
+              danger
+            />
+          </div>
+        </section>
+      </ParentGate>
+
+      {showChangePin && (
+        <SetPinModal mode="change" onClose={() => setShowChangePin(false)} />
+      )}
 
       {/* Family surfaces (P2.3) — both render nothing for accounts with
           fewer than 2 children. */}
@@ -45,44 +103,6 @@ export default function MePage() {
       {activeChild && <AvatarEditor child={activeChild} />}
 
       {activeChild && <LevelDetail childId={activeChild.id} />}
-
-      <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-        <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-          Pengaturan
-        </div>
-        <div className="mt-3 flex flex-col gap-2">
-          <SettingsRow
-            to="/badges"
-            icon="fa-solid fa-medal"
-            iconBg="#8A5BF0"
-            title="Badge & pencapaian"
-            subtitle="Lihat semua lencana yang terkumpul"
-          />
-          <SettingsRow
-            to="/report"
-            icon="fa-solid fa-chart-line"
-            iconBg="#30598A"
-            title="Rapor belajar"
-            subtitle="Lihat progres & nilai lengkap"
-          />
-          <SettingsRow
-            to="/dashboard"
-            icon="fa-solid fa-chart-pie"
-            iconBg="#0E7490"
-            title="Statistik & Misi Harian"
-            subtitle="Ringkasan belajar, kuis & misi harian"
-          />
-          <NotifyEmailRow />
-          <SettingsRow
-            onClick={handleLogout}
-            icon="fa-solid fa-right-from-bracket"
-            iconBg="#E11D48"
-            title="Keluar"
-            subtitle="Keluar dari akun ini"
-            danger
-          />
-        </div>
-      </section>
 
       <section id="koleksi" className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Koleksi saya</div>

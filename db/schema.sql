@@ -977,3 +977,13 @@ CREATE TABLE IF NOT EXISTS notification_log (
 -- actually appended. Fresh installs have no data to backfill, so this
 -- file intentionally mirrors nothing.
 -- ─────────────────────────────────────────────────────────────────────
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Parent PIN (migration 0045) — kid-proofing the parent area.
+-- The parent's logged-in session is shared with the kid; a 4-digit PIN
+-- (bcrypt hash, never exposed — only the derived `pinSet` boolean)
+-- gates the parent-only sections of the Me/Profil page.
+-- ─────────────────────────────────────────────────────────────────────
+
+ALTER TABLE users
+  ADD COLUMN IF NOT EXISTS parent_pin_hash VARCHAR(255);
