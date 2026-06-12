@@ -11,8 +11,6 @@ import VideoDetailPage from './pages/VideoDetail'
 import VideosPage from './pages/Videos'
 import MemberVideosPage from './pages/MemberVideos'
 import QuizPage from './pages/Quiz'
-import DashboardPage from './pages/Dashboard'
-import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
 import MainCatalogPage from './pages/MainCatalog'
 import WmiArenaPage from './pages/WmiArena'
@@ -46,6 +44,9 @@ const WmiPapersPage = lazy(() => import('./pages/WmiPapers'))
 const WmiPaperDetailPage = lazy(() => import('./pages/WmiPaperDetail'))
 const WmiExamPage = lazy(() => import('./pages/WmiExam'))
 const WmiExamReviewPage = lazy(() => import('./pages/WmiExamReview'))
+// Parent dashboard pulls the full Dashboard + Report stacks — lazy, and
+// mounted OUTSIDE AppShell (no kid tab bar, PIN-locked inside the page).
+const ParentDashboardPage = lazy(() => import('./pages/parent/ParentDashboard'))
 const AdminLayout = lazy(() => import('./components/AdminLayout'))
 const AdminVideosPage = lazy(() => import('./pages/AdminVideos'))
 const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboard'))
@@ -121,7 +122,7 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (user?.role !== 'admin') {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/belajar" replace />
   }
 
   return <>{children}</>
@@ -140,14 +141,6 @@ function HomeRoute() {
     return <Navigate to={resolvePostLoginRoute(user?.role ?? '', children.length)} replace />
   }
   return <Home />
-}
-
-function DashboardRouter() {
-  const { user } = useAuthStore()
-  if (user?.role === 'admin') {
-    return <Navigate to="/admin/dashboard" replace />
-  }
-  return <DashboardPage />
 }
 
 // The inline boot splash (#qupu-splash in index.html) is the only loader:
@@ -216,6 +209,17 @@ export default function App() {
             }
           />
 
+          {/* Parent dashboard — full-screen, outside AppShell (no kid tab
+              bar); PIN gate + re-lock-on-leave live inside the page. */}
+          <Route
+            path="/parent"
+            element={
+              <ProtectedRoute>
+                {suspended(<ParentDashboardPage />)}
+              </ProtectedRoute>
+            }
+          />
+
           {/* Member routes — wrapped in AppShell (sticky stat strip + bottom nav) */}
           <Route
             element={
@@ -241,9 +245,9 @@ export default function App() {
             <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
             <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
 
-            {/* Task 7 moves these under /parent and flips them to redirects */}
-            <Route path="dashboard" element={<DashboardRouter />} />
-            <Route path="report" element={<ReportPage />} />
+            {/* Old standalone pages now live inside /parent */}
+            <Route path="dashboard" element={<Navigate to="/parent" replace />} />
+            <Route path="report" element={<Navigate to="/parent" replace />} />
 
             {/* Legacy paths → new canonical paths */}
             <Route path="latihan/wmi" element={<Navigate to="/belajar" replace />} />

@@ -16,7 +16,6 @@ import type { AgeGroupOption } from '../types'
 import TopStatStrip from './app-shell/TopStatStrip'
 import BottomTabBar from './app-shell/BottomTabBar'
 import SetPinModal from './parent/SetPinModal'
-import { markParentUnlocked } from '../lib/parentUnlock'
 
 // "Nanti saja" on the set-PIN prompt silences it for the rest of this
 // browser session (sessionStorage, per user) — it re-appears next session.
@@ -144,16 +143,11 @@ export default function AppShell() {
         </div>
       </main>
       <BottomTabBar />
+      {/* Setting the PIN at sign-in no longer pre-unlocks anything — the
+          /parent gate always asks for the PIN (unlock state is never
+          persisted). */}
       {showSetPin ? (
-        <SetPinModal
-          onClose={() => setShowSetPin(false)}
-          onSuccess={() => {
-            // Setting the PIN at sign-in counts as proving you're the
-            // parent — the Me-page parent area stays unlocked this session.
-            if (userId) markParentUnlocked(userId)
-          }}
-          onSkip={skipSetPin}
-        />
+        <SetPinModal onClose={() => setShowSetPin(false)} onSkip={skipSetPin} />
       ) : null}
     </div>
   )
