@@ -74,7 +74,7 @@ export default function TopStatStrip() {
           )}
         </div>
         <Pill icon="fa-solid fa-coins" value={coins} to="/shop" label={`${coins} koin — buka toko`} />
-        <Pill icon="fa-solid fa-star" value={`Lv ${level}`} to="/me" label={`Level ${level} — lihat profil`} />
+        <Pill icon="fa-solid fa-star" value={`Lv ${level}`} to="/profil" label={`Level ${level} — lihat profil`} />
       </div>
     </div>
   )

@@ -7,10 +7,10 @@ describe('resolvePostLoginRoute', () => {
     expect(resolvePostLoginRoute('admin', 2)).toBe('/admin/dashboard')
   })
 
-  test('member with at least one child lands in the WMI garden', () => {
-    expect(resolvePostLoginRoute('parent', 1)).toBe('/latihan/wmi')
-    expect(resolvePostLoginRoute('parent', 3)).toBe('/latihan/wmi')
-    expect(resolvePostLoginRoute('student', 1)).toBe('/latihan/wmi')
+  test('member with at least one child lands on the Belajar path', () => {
+    expect(resolvePostLoginRoute('parent', 1)).toBe('/belajar')
+    expect(resolvePostLoginRoute('parent', 3)).toBe('/belajar')
+    expect(resolvePostLoginRoute('student', 1)).toBe('/belajar')
   })
 
   test('member with no children goes to child onboarding', () => {

@@ -26,7 +26,7 @@ export default function OnboardingChild() {
     trackEvent('onboarding_child_created')
     // The garden is the app's landing — a one-time coach-mark there points at
     // the first session, so the first question is the tutorial.
-    navigate('/latihan/wmi', { replace: true })
+    navigate('/belajar', { replace: true })
   }
 
   return (

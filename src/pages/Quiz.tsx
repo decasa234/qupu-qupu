@@ -161,7 +161,7 @@ export default function QuizPage() {
   function handleBack() {
     // location.key === 'default' means this is the first entry (deep link /
     // refresh) with no in-app history to pop — fall back to the library.
-    if (location.key === 'default') navigate('/library')
+    if (location.key === 'default') navigate('/video')
     else navigate(-1)
   }
 
@@ -206,7 +206,7 @@ export default function QuizPage() {
             {loadError || 'Coba pilih kuis lain dari perpustakaan.'}
           </p>
           <Link
-            to="/library"
+            to="/video"
             className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2.5 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform active:translate-y-0.5"
           >
             <i className="fa-solid fa-book-open text-sm" aria-hidden="true" />

@@ -128,7 +128,7 @@ export default function WmiChapterTest() {
             )}
           </div>
         )}
-        <Link to="/latihan/wmi" className="mt-6 inline-flex rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430]">
+        <Link to="/belajar" className="mt-6 inline-flex rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430]">
           Kembali ke Kebun
         </Link>
       </div>
@@ -142,7 +142,7 @@ export default function WmiChapterTest() {
   return (
     <div className="mx-auto w-full max-w-[460px] p-4">
       <div className="mb-3 flex items-center justify-between">
-        <button onClick={() => navigate('/latihan/wmi')} className="text-sm font-bold text-qupu-muted"><i className="fa-solid fa-xmark" aria-hidden="true" /> Keluar</button>
+        <button onClick={() => navigate('/belajar')} className="text-sm font-bold text-qupu-muted"><i className="fa-solid fa-xmark" aria-hidden="true" /> Keluar</button>
         <span className="text-xs font-black text-qupu-brand-blue">Soal {idx + 1}/{questions.length}</span>
       </div>
       <div className="rounded-[1.5rem] bg-white p-5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">

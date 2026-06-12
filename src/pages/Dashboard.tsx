@@ -183,7 +183,7 @@ export default function DashboardPage() {
             </p>
           </div>
           <Link
-            to="/me"
+            to="/profil"
             aria-label="Ubah avatar di Profil"
             className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-[1.6rem] text-4xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.15)] transition-transform active:translate-y-0.5"
             style={{ backgroundColor: activeChild.avatarColor ?? DEFAULT_AVATAR_COLOR }}

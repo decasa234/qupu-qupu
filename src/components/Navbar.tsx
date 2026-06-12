@@ -98,7 +98,7 @@ export default function Navbar() {
           )}
           {isAuthenticated && !isAdmin && (
             <NavItemLink
-              item={{ label: 'Latihan', to: '/latihan/wmi' }}
+              item={{ label: 'Latihan', to: '/belajar' }}
               activeSection={activeSection}
             />
           )}
@@ -185,7 +185,7 @@ export default function Navbar() {
             {isAuthenticated && !isAdmin && (
               <MobileLink
                 icon={BookOpen}
-                to="/latihan/wmi"
+                to="/belajar"
                 activeSection={activeSection}
                 onClick={() => setOpen(false)}
               >

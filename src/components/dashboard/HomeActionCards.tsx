@@ -61,7 +61,7 @@ export default function HomeActionCards({
           The XP chip stays amount-free: per-answer XP is mastery-scaled
           (conceptXpForTier, P2.1), so a fixed "+5" would lie. */}
       <Link
-        to="/latihan/wmi"
+        to="/belajar"
         className="block rounded-[2rem] bg-[#FFF8F0] p-4 shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#FFD3B1]"
       >
         <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ export default function HomeActionCards({
         </Link>
       ) : (
         <Link
-          to="/library"
+          to="/video"
           className="flex items-center gap-3 rounded-[2rem] bg-qupu-brand-blue p-4 text-white shadow-[0_6px_0_0_#0E1430] transition-transform active:translate-y-0.5 active:shadow-[0_3px_0_0_#0E1430]"
         >
           <span className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-[1.35rem] bg-qupu-brand-orange text-2xl text-white shadow-[0_4px_0_0_#B8541A]">

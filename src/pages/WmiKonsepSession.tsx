@@ -139,7 +139,7 @@ export default function WmiKonsepSession() {
       return
     }
     if (activeChildId !== sessionChildIdRef.current) {
-      navigate('/latihan/wmi', { replace: true })
+      navigate('/belajar', { replace: true })
     }
   }, [activeChildId, navigate])
 
@@ -376,7 +376,7 @@ export default function WmiKonsepSession() {
   const handleQuit = () => {
     if (window.confirm('Keluar sesi? Progres sesi ini akan hilang.')) {
       if (subjectKey && activeChildId) clearKonsepSession(subjectKey, activeChildId)
-      navigate('/latihan/wmi')
+      navigate('/belajar')
     }
   }
 
@@ -416,7 +416,7 @@ export default function WmiKonsepSession() {
           Sesi ini sudah tersimpan dari perangkat lain.
         </p>
         <Link
-          to="/latihan/wmi"
+          to="/belajar"
           className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
         >
           <i className="fa-solid fa-seedling text-sm" aria-hidden="true" />
@@ -428,7 +428,7 @@ export default function WmiKonsepSession() {
 
   // ── Result screen: staged reward ceremony ──────────────────────────────────
   if (result) {
-    return <KonsepCeremony result={result} onDone={() => navigate('/latihan/wmi')} />
+    return <KonsepCeremony result={result} onDone={() => navigate('/belajar')} />
   }
 
   // ── Loading / error states ─────────────────────────────────────────────────
@@ -448,7 +448,7 @@ export default function WmiKonsepSession() {
           <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
         </div>
         <p className="mt-3 text-sm font-semibold text-qupu-muted">{gardenError}</p>
-        <Link to="/latihan/wmi" className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+        <Link to="/belajar" className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
           <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
           Kembali ke Kebun
         </Link>

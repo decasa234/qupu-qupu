@@ -223,22 +223,32 @@ export default function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="dashboard" element={<DashboardRouter />} />
-            <Route path="library" element={<MemberVideosPage />} />
-            <Route path="quiz/:slug" element={<QuizPage />} />
-            <Route path="report" element={<ReportPage />} />
+            {/* 3-tab structure: Belajar (skill tree) / Main (arena) / Profil */}
+            <Route path="belajar" element={<WmiHubPage />} /> {/* Task 5 swaps in BelajarPath */}
+            <Route path="main" element={<LatihanHubPage />} /> {/* Task 4 swaps in MainCatalog */}
+            <Route path="wmi-arena/campur" element={<WmiKonsepDrill />} />
+            <Route path="video" element={<MemberVideosPage />} />
+            <Route path="profil" element={<MePage />} />
             <Route path="badges" element={<BadgesPage />} />
             <Route path="shop" element={<ShopPage />} />
-            <Route path="me" element={<MePage />} />
-            <Route path="latihan" element={<LatihanHubPage />} />
-            <Route path="latihan/wmi" element={<WmiHubPage />} />
+            <Route path="quiz/:slug" element={<QuizPage />} />
             <Route path="latihan/wmi/ujian" element={suspended(<WmiPapersPage />)} />
-            <Route path="latihan/wmi/konsep" element={<WmiKonsepDrill />} />
             <Route path="latihan/wmi/papers/:id" element={suspended(<WmiPaperDetailPage />)} />
             <Route path="latihan/wmi/exam/:sessionId" element={suspended(<WmiExamPage />)} />
             <Route path="latihan/wmi/exam/:sessionId/review" element={suspended(<WmiExamReviewPage />)} />
             <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
             <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
+
+            {/* Task 7 moves these under /parent and flips them to redirects */}
+            <Route path="dashboard" element={<DashboardRouter />} />
+            <Route path="report" element={<ReportPage />} />
+
+            {/* Legacy paths → new canonical paths */}
+            <Route path="latihan/wmi" element={<Navigate to="/belajar" replace />} />
+            <Route path="latihan" element={<Navigate to="/main" replace />} />
+            <Route path="latihan/wmi/konsep" element={<Navigate to="/wmi-arena/campur" replace />} />
+            <Route path="library" element={<Navigate to="/video" replace />} />
+            <Route path="me" element={<Navigate to="/profil" replace />} />
           </Route>
 
           {/* Admin — one lazy boundary for the whole subtree (layout + pages) */}

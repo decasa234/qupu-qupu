@@ -1,11 +1,11 @@
 // src/components/app-shell/BottomTabBar.tsx
 //
-// Sticky bottom nav for <AppShell>. Four tabs. Exactly one tab is active at a
+// Sticky bottom nav for <AppShell>. Three tabs. Exactly one tab is active at a
 // time: each tab declares route prefixes, and the tab whose matched prefix is
-// the LONGEST wins. That lets Belajar (/latihan/wmi/*) sit inside Main's
-// /latihan/* prefix without double-highlighting — /latihan/wmi/sesi/x lights
-// Belajar, /latihan and /latihan/foo light Main. /dashboard (reached from
-// Profil's "Statistik & Misi Harian") and /report light Profil.
+// the LONGEST wins. Learning sessions launched from the path
+// (/latihan/wmi/sesi|tes) light Belajar; arena surfaces (ujian/papers/exam,
+// /wmi-arena, /video, /quiz) light Main. /dashboard (reached from Profil's
+// "Statistik & Misi Harian") and /report light Profil.
 import { NavLink, useLocation } from 'react-router-dom'
 
 interface TabDef {
@@ -17,10 +17,32 @@ interface TabDef {
 }
 
 const TABS: TabDef[] = [
-  { to: '/latihan/wmi', label: 'Belajar', icon: 'fa-solid fa-seedling' },
-  { to: '/library',     label: 'Video',   icon: 'fa-solid fa-clapperboard' },
-  { to: '/latihan',     label: 'Main',    icon: 'fa-solid fa-gamepad' },
-  { to: '/me',          label: 'Profil',  icon: 'fa-solid fa-user', activePrefixes: ['/me', '/badges', '/dashboard', '/report'] },
+  {
+    to: '/belajar',
+    label: 'Belajar',
+    icon: 'fa-solid fa-play',
+    activePrefixes: ['/belajar', '/latihan/wmi/sesi', '/latihan/wmi/tes'],
+  },
+  {
+    to: '/main',
+    label: 'Main',
+    icon: 'fa-solid fa-gamepad',
+    activePrefixes: [
+      '/main',
+      '/wmi-arena',
+      '/video',
+      '/quiz',
+      '/latihan/wmi/ujian',
+      '/latihan/wmi/papers',
+      '/latihan/wmi/exam',
+    ],
+  },
+  {
+    to: '/profil',
+    label: 'Profil',
+    icon: 'fa-solid fa-user',
+    activePrefixes: ['/profil', '/badges', '/shop', '/dashboard', '/report'],
+  },
 ]
 
 // Longest matched prefix length for this tab on the given path (0 = no match).

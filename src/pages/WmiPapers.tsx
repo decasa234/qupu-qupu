@@ -45,7 +45,7 @@ export default function WmiPapers() {
       <div className="mb-3">
         <button
           type="button"
-          onClick={() => navigate('/latihan/wmi')}
+          onClick={() => navigate('/main')}
           className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
         >
           <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />

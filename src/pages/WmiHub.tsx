@@ -198,7 +198,7 @@ export default function WmiHub() {
               Semua tumbuh! Latihan campur?
             </h2>
             <Link
-              to="/latihan/wmi/konsep"
+              to="/wmi-arena/campur"
               className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
@@ -267,7 +267,7 @@ export default function WmiHub() {
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-3">
-        <Link to="/latihan/wmi/konsep" className="flex flex-col gap-1 rounded-[1.5rem] bg-white p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5">
+        <Link to="/wmi-arena/campur" className="flex flex-col gap-1 rounded-[1.5rem] bg-white p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5">
           <i className="fa-solid fa-shuffle text-xl text-qupu-orange" aria-hidden="true" />
           <span className="font-display text-base font-black leading-tight text-qupu-brand-blue">Latihan Campur</span>
           <span className="text-[11px] font-bold text-qupu-brand-blue/65">Soal acak semua konsep</span>

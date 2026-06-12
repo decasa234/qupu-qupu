@@ -64,7 +64,7 @@ export default function WmiKonsepDrill() {
   }, [activeChildId, drillGrade, conceptSlug])
 
   function handleBack() {
-    if (location.key === 'default') navigate('/latihan/wmi')
+    if (location.key === 'default') navigate('/main')
     else navigate(-1)
   }
 
