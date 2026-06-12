@@ -8,7 +8,7 @@
 // Visually calmer than the kid surfaces: slate text on cream, denser copy,
 // Fredoka kept for headings.
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
 import { useAuthStore } from '../../store/authStore'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
@@ -31,11 +31,13 @@ export default function ParentDashboard() {
   // Re-lock on every mount: state (not storage) by design.
   const [unlocked, setUnlocked] = useState(false)
 
-  // Only parent-role accounts are PIN-gated (kids share the parent session;
-  // admins / legacy roles were never PIN-gated before either).
-  const gated = user?.role === 'parent'
+  // Only parent accounts may enter /parent at all — any other role is
+  // bounced to the kid surface instead of skipping the PIN gate.
+  if (user?.role !== 'parent') {
+    return <Navigate to="/belajar" replace />
+  }
 
-  if (gated && !unlocked) {
+  if (!unlocked) {
     return <PinEntryGate onUnlock={() => setUnlocked(true)} />
   }
 

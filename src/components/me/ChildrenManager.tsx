@@ -79,15 +79,20 @@ export default function ChildrenManager() {
 
   async function handleGradeSelect(grade: number) {
     if (!activeChild || gradeSaving || activeChild.grade === grade) return
+    // Pin the child id NOW — `activeChild` is captured at render time and can
+    // go stale if the parent switches children while the PATCH is in flight.
+    const childId = activeChild.id
     setGradeSaving(true)
     setGradeError('')
     try {
-      const response = await api.patch(`/me/children/${activeChild.id}`, { grade })
+      const response = await api.patch(`/me/children/${childId}`, { grade })
       const updated = response.data.data.child as Child
       updateChildInStore(updated)
-      // The saved child is the ACTIVE one: re-pin the WMI garden grade
-      // atomically so the garden refetches at the new level.
-      adoptChildGrade(activeChild.id, clampToWmiGrade(grade))
+      // Re-pin the WMI garden grade only if the saved child is STILL the
+      // active one (read the store imperatively — the closure may be stale).
+      if (useAuthStore.getState().activeChildId === childId) {
+        adoptChildGrade(childId, clampToWmiGrade(grade))
+      }
     } catch (saveError) {
       setGradeError(toIndonesianErrorMessage(saveError, 'Gagal menyimpan kelas.'))
     } finally {

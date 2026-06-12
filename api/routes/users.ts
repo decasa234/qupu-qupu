@@ -193,6 +193,9 @@ router.post('/me/pin', authenticateToken, async (req: AuthRequest, res: Response
           return
         }
       } else if (typeof value.password === 'string') {
+        // Same brute-force cap as the current_pin branch — an authenticated
+        // session must not be able to grind the account password here.
+        await enforceRateLimit(`user:${req.user.id}`, PIN_VERIFY_ROUTE, PIN_VERIFY_LIMIT)
         if (!user.password_hash) {
           res.status(400).json({
             success: false,
