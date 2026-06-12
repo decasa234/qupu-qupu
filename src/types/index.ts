@@ -28,6 +28,7 @@ export interface Child {
   ageGroupId: string | null
   avatarColor: string | null
   avatarIcon: string | null
+  grade: number | null
   dailyGoalQuizzes: number
   createdAt: string
   updatedAt: string

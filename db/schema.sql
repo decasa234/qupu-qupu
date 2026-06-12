@@ -45,6 +45,10 @@ CREATE TABLE IF NOT EXISTS children (
   age_group_id UUID REFERENCES age_groups(id) ON DELETE SET NULL,
   avatar_color VARCHAR(20),
   avatar_icon VARCHAR(40),
+  -- School grade chosen at onboarding (0 = TK, 1-6 = SD Kelas 1-6).
+  -- Nullable: legacy rows keep NULL and fall back to age-group inference.
+  grade SMALLINT
+    CHECK (grade IS NULL OR (grade >= 0 AND grade <= 6)),
   daily_goal_quizzes INTEGER NOT NULL DEFAULT 3
     CHECK (daily_goal_quizzes BETWEEN 1 AND 20),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
