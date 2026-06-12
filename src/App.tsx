@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react'
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import CookieConsentBanner from './components/CookieConsentBanner'
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
@@ -23,7 +23,6 @@ import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
-import { resolvePostLoginRoute } from './lib/postLoginRoute'
 import { useAuthStore } from './store/authStore'
 
 // Lazy boundaries — keep the member core (garden/session/drill/dashboard/Me)
@@ -55,6 +54,46 @@ function suspended(node: React.ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{node}</Suspense>
 }
 
+// qupu-admin branch: the ENTIRE app is admin-only. Every route except /login
+// requires an authenticated user with role 'admin' — including the marketing
+// landing pages, which admins can still browse after signing in. Members and
+// anonymous visitors are always sent to /login.
+function AdminOnlyGate({ children }: { children: React.ReactNode }) {
+  const location = useLocation()
+  const { isAuthenticated, user, logout } = useAuthStore()
+
+  if (location.pathname === '/login') {
+    return <>{children}</>
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
+  }
+
+  if (user?.role !== 'admin') {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#FFF8F0] px-6">
+        <div className="w-full max-w-sm rounded-3xl bg-white p-8 text-center ring-2 ring-[#FFE3CC] [box-shadow:0_6px_0_#FFD3B1]">
+          <i className="fa-solid fa-user-shield mb-4 text-4xl text-[#F59E0B]" aria-hidden="true" />
+          <h1 className="font-display text-xl font-bold text-slate-800">Akses khusus admin</h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Halaman ini hanya bisa diakses oleh akun admin QUPU.
+          </p>
+          <button
+            type="button"
+            onClick={logout}
+            className="mt-6 w-full rounded-2xl bg-[#F59E0B] px-4 py-3 font-display font-bold text-white transition hover:brightness-105"
+          >
+            Keluar
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  return <>{children}</>
+}
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuthStore()
 
@@ -80,12 +119,8 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
 }
 
 function HomeRoute() {
-  const { isAuthenticated, user, children } = useAuthStore()
-  if (isAuthenticated) {
-    // Members land in the WMI garden; admins on the admin dashboard;
-    // members without a child profile go finish onboarding first.
-    return <Navigate to={resolvePostLoginRoute(user?.role ?? '', children.length)} replace />
-  }
+  // qupu-admin branch: the gate guarantees whoever reaches "/" is an admin,
+  // and admins are allowed to browse the landing page — no redirect.
   return <Home />
 }
 
@@ -138,6 +173,7 @@ export default function App() {
       {/* Top-level boundary: a route-level render crash shows the friendly
           Indonesian reload card instead of a white screen. */}
       <ErrorBoundary scope="app">
+        <AdminOnlyGate>
         <Routes>
           {/* Marketing + auth + video + onboarding — keep marketing Layout */}
           <Route path="/" element={<Layout />}>
@@ -213,6 +249,7 @@ export default function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </AdminOnlyGate>
       </ErrorBoundary>
     </Router>
   )
