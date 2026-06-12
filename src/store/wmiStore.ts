@@ -31,6 +31,10 @@ interface WmiState {
   // over inference on every later sync.
   pinGradeForChild: (childId: string, grade: WmiGrade) => void
   syncChildGrade: (childId: string, inferredGrade: WmiGrade) => void
+  // pinGradeForChild + syncChildGrade in one atomic set — used by AppShell
+  // when the child has an authoritative server-persisted school grade, so the
+  // pin write and the active-child resolution can't be observed half-applied.
+  adoptChildGrade: (childId: string, grade: WmiGrade) => void
   setLastSubjectKey: (subjectKey: string) => void
   setPreferredLang: (lang: 'en' | 'id') => void
   loadGlossary: () => Promise<void>
@@ -68,6 +72,17 @@ export const useWmiStore = create<WmiState>()(
         set((state) => ({
           activeChildKey: childId,
           selectedGrade: state.gradeByChild[childId] ?? inferredGrade,
+          lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
+          preferredLang: state.langByChild[childId] ?? 'en',
+        })),
+      adoptChildGrade: (childId, grade) =>
+        set((state) => ({
+          // Pin first-class: the server grade overwrites any stale local pin,
+          // so the resolved grade is unconditionally `grade` (the pin being
+          // written in this same pass is what syncChildGrade would read).
+          gradeByChild: { ...state.gradeByChild, [childId]: grade },
+          activeChildKey: childId,
+          selectedGrade: grade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
           preferredLang: state.langByChild[childId] ?? 'en',
         })),

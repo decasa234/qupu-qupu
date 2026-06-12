@@ -30,7 +30,7 @@ export default function AppShell() {
   const user = useAuthStore((state) => state.user)
   const role = user?.role
   const syncChildGrade = useWmiStore((state) => state.syncChildGrade)
-  const pinGradeForChild = useWmiStore((state) => state.pinGradeForChild)
+  const adoptChildGrade = useWmiStore((state) => state.adoptChildGrade)
   const childrenCount = children.length
 
   // Age groups are needed to reverse the onboarding wizard's grade→ageGroup
@@ -60,11 +60,15 @@ export default function AppShell() {
     if (!activeChildId) return
     const child = children.find((c) => c.id === activeChildId) ?? null
     const inferred = inferWmiGrade(child, ageGroups)
-    // A server-persisted school grade is authoritative: pin it so a stale
-    // localStorage pin can't shadow the server value on later syncs.
-    if (typeof child?.grade === 'number') pinGradeForChild(activeChildId, inferred)
-    syncChildGrade(activeChildId, inferred)
-  }, [activeChildId, children, ageGroups, syncChildGrade, pinGradeForChild])
+    // A server-persisted school grade is authoritative: adopt it (pin +
+    // resolve in one atomic store update) so a stale localStorage pin can't
+    // shadow the server value on later syncs.
+    if (typeof child?.grade === 'number') {
+      adoptChildGrade(activeChildId, inferred)
+    } else {
+      syncChildGrade(activeChildId, inferred)
+    }
+  }, [activeChildId, children, ageGroups, syncChildGrade, adoptChildGrade])
 
   // The top stat strip must never show another child's numbers. Stats are
   // stamped with the child they were fetched for; whenever that stamp stops
