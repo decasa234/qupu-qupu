@@ -16,6 +16,25 @@ A QUPU math problem is authored by **four roles that all bind to the same `param
 
 Run the designer first; it sets `needsVisual` and the brief the others read. Skip illustrator/animator for pure number/word problems (`needsVisual: false`).
 
+## Orchestration — dispatch the roles to global agents
+
+Each role is persisted as a global subagent (in `~/.claude/agents/`). Dispatch them with the Agent tool — they launch fresh with no conversation context, so **put the brief in the prompt**: the concept `slug` or paper `code`, the `params` shape + a concrete sample, the target file paths, and (for roles 2–4) the question-designer's returned brief (`quantities` / `strategy` / `answer` / `needsVisual`).
+
+| Role | `subagent_type` | Returns / writes |
+|---|---|---|
+| 1. question-designer | `qupu-question-designer` | returns the `breakdown` (code or seed JSON) + clean stem + brief |
+| 2. illustrator | `qupu-illustrator` | writes its own `index.tsx` / `*Illustration.tsx`; reports registry line |
+| 3. step-explainer | `qupu-step-explainer` | returns `hint_steps_en` / `hint_steps_id` |
+| 4. animator | `qupu-animator` | writes its own `*Steps.ts` + `*Explainer.tsx`; reports registry line |
+
+**Sequencing:**
+1. Run **`qupu-question-designer` alone first** and read its `needsVisual` + brief.
+2. Then dispatch the rest **in one parallel batch** (one message, multiple Agent calls): `qupu-step-explainer` always; `qupu-illustrator` + `qupu-animator` only if `needsVisual` (they write *separate new files*, so they never conflict).
+3. **The controller does all shared-file wiring serially** after the agents return — write `breakdown.ts` + wire `render()` (or drop `breakdown`/`hint_steps` into seed JSON), and add the registry lines the illustrator/animator reported (`concepts/registry.ts`, `concepts/explainers/registry.ts`, or `paperQuestions/registry.ts`). This is why roles 1 & 3 return data instead of editing.
+4. Run the Verification suite below.
+
+(You can still perform any role inline yourself instead of dispatching — the agents just package each role's rules so they run in parallel cleanly.)
+
 ## The canonical example — copy it
 
 **W7 = `budget-selection`** is the reference implementation. Read these and mirror the structure for any new problem:

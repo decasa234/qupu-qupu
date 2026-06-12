@@ -9,23 +9,24 @@
 // a red dashed curved arrow shows the block rolling right, one quarter-turn
 // (one side) at a time.
 //
-// Canonical mechanics (EVERY face is wet except the BOTTOM — the face the
-// block stands on is the only dry one). Square "1" is the very cell the block
-// stands on (front col 3 — the strip extends two empty columns to its left,
-// like the scan), so the dry bottom covers it and it never gets paint.
-// Numbered squares: front cols 3 ("1"), 5 ("3"), 6 ("4"), 8 ("5"); back col 4
-// ("2"):
-//   FRONT single cube (standing f3 on its dry bottom):
-//     roll 1 → f4, wet RIGHT face down  → stamps an EMPTY square
-//     roll 2 → f5, wet TOP down         → stamps "3"
-//     roll 3 → f6, wet LEFT down        → stamps "4"
-//     roll 4 → f7, dry BOTTOM down      → no paint; "5" (f8) is never reached
-//   BACK 2-cube stack (standing b3 on its dry bottom):
-//     roll 1 → lies b4–b5, wet RIGHT faces → stamps "2" (b4) + b5
-//     roll 2 → stands b6, wet TOP          → stamps an empty square
-//     roll 3 → lies b7–b8, wet LEFT faces  → stamps two empty squares
-//     roll 4 → stands b9, dry BOTTOM       → nothing
-// Every wet side is now used; the paint is finished before "5".
+// Canonical mechanics (confirmed with the reviewer): the paint has SPILLED on
+// the floor and the block stands in the puddle — so its BOTTOM faces are
+// soaked and its LEFT sides are painted too; the TOP and RIGHT sides are dry.
+// The block starts at the VERY LEFT (column 1 of both rows): the SINGLE cube
+// in the numbered front row (1/3/4/5), the 2-cube STACK behind it in square
+// 2's row (the farther row). Numbered squares: front cols 3 ("1"), 4 ("3"),
+// 5 ("4"), 7 ("5"); back col 5 ("2"):
+//   FRONT single cube (standing f1):
+//     roll 1 → f2, dry RIGHT  → no paint
+//     roll 2 → f3, dry TOP — it lands right ON "1" → "1" stays clean!
+//     roll 3 → f4, wet LEFT   → stamps "3"!
+//     roll 4 → f5, soaked BOTTOM → stamps "4"!
+//   BACK 2-cube stack (standing b1):
+//     roll 1 → lies b2–b3, dry RIGHT faces → no paint
+//     roll 2 → stands b4, dry TOP          → nothing
+//     roll 3 → lies b5–b6, wet LEFT faces  → stamps "2" (b5) + b6
+//     roll 4 → stands b7, soaked BOTTOM    → stamps an empty square
+// Every painted side is now used; "5" (f7) is never reached.
 // Painted squares: 2, 3, 4 → answer "234". 1 and 5 stay clean.
 
 export const PAINT_ANSWER = '234'
@@ -36,11 +37,11 @@ const CELL_W = 48 // cell width along x; cubes share this edge length
 const CUBE = 48
 const DEPTH_X = -20 // one row "into" the page shifts left…
 const DEPTH_Y = -22 // …and up
-const COLS = 9
+const COLS = 8
 const ORIGIN_X = 48 // front-left corner of the front row, column 1
 const ORIGIN_Y = 240
 
-export const PAINT_VIEW_W = 492
+export const PAINT_VIEW_W = 446
 export const PAINT_VIEW_H = 262
 
 const PURPLE_FRONT = '#8B7CC8'
@@ -73,17 +74,15 @@ function cellCenter(col: number, row: number) {
   return { x: x + CELL_W / 2 + DEPTH_X / 2, y: y + DEPTH_Y / 2 }
 }
 
-// Numbered floor squares, in their canonical figure positions.
-// "1" is front column 3 — the very cell the block stands on (its label peeks
-// out at the block's front base edge); columns 1–2 are the empty strip cells
-// to the block's left, like the scan. Note the GAPS: front columns 4, 7 and
-// 9 carry no number — "3"/"4" sit on columns 5–6 and "5" is out on column 8.
+// Numbered floor squares, in their canonical figure positions (matching the
+// printed paper): the block stands on column 1; "1", "3", "4" run adjacent on
+// front columns 3–5 and "5" is out on column 7; "2" is back column 5.
 const CELL_LABELS: Array<{ label: string; col: number; row: number }> = [
   { label: '1', col: 3, row: 0 },
-  { label: '2', col: 4, row: 1 },
-  { label: '3', col: 5, row: 0 },
-  { label: '4', col: 6, row: 0 },
-  { label: '5', col: 8, row: 0 },
+  { label: '2', col: 5, row: 1 },
+  { label: '3', col: 4, row: 0 },
+  { label: '4', col: 5, row: 0 },
+  { label: '5', col: 7, row: 0 },
 ]
 
 /** One pseudo-3D wet-painted cube standing on floor cell (col, row), stack level k. */
@@ -132,7 +131,7 @@ export default function PaintRoll20Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="An L-shaped block of 3 wet purple cubes stands at the very left end of a 2-row strip of floor squares: a single cube on the front row standing right on square 1, plus a 2-cube tall stack behind it on the back row. Every face is wet except the bottom each piece stands on. A red dashed arrow shows the block rolling to the right, one quarter-turn at a time, toward the numbered squares 2, 3, 4 and 5. A dripping paint bucket sits above the strip."
+      aria-label="An L-shaped block of 3 purple cubes stands at the very left end of a 2-row strip of floor squares: a single cube on the front row plus a 2-cube tall stack behind it on the farther row. The paint has spilled into a puddle the block stands in, so its bottoms and left sides are wet while the tops and right sides are dry. A red dashed arrow shows the block rolling to the right, one quarter-turn at a time, toward the numbered squares 1, 2, 3, 4 and 5. A dripping paint bucket sits above the strip."
     >
       <svg
         viewBox={`0 0 ${PAINT_VIEW_W} ${PAINT_VIEW_H}`}
@@ -145,9 +144,8 @@ export default function PaintRoll20Illustration() {
           <polygon key={`c${col}-${row}`} points={cellPoints(col, row)} fill="#FFFFFF" stroke={FLOOR_STROKE} strokeWidth={1.5} />
         ))}
 
-        {/* italic square numbers in their canonical cells (except "1", which
-            sits UNDER the block and is drawn after it so it can peek out) */}
-        {CELL_LABELS.filter((c) => c.label !== '1').map((c) => {
+        {/* italic square numbers in their canonical cells */}
+        {CELL_LABELS.map((c) => {
           const { x, y } = cellCenter(c.col, c.row)
           return (
             <text
@@ -166,43 +164,37 @@ export default function PaintRoll20Illustration() {
           )
         })}
 
-        {/* the L-block standing on column 3 of both rows (two empty strip
-            cells to its left, like the scan): 2-cube stack on the back row
-            first, then the single cube in front */}
-        <PaintedCube col={3} row={1} level={0} />
-        <PaintedCube col={3} row={1} level={1} />
-        <PaintedCube col={3} row={0} level={0} />
+        {/* spilled-paint puddle the block stands in (the base gets soaked) */}
+        <ellipse
+          cx={ORIGIN_X + CELL_W * 0.5 + DEPTH_X * 0.5}
+          cy={ORIGIN_Y + DEPTH_Y * 0.4}
+          rx={CELL_W * 0.9}
+          ry={11}
+          fill={PURPLE_FRONT}
+          opacity={0.55}
+          stroke={OUTLINE}
+          strokeWidth={1.5}
+        />
 
-        {/* square "1" peeking out at the block's front base edge — the block
-            stands right on it, so its dry bottom covers it */}
-        <text
-          x={ORIGIN_X + CELL_W * 2 + CELL_W * 0.66}
-          y={ORIGIN_Y + 8}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize={19}
-          fontWeight={800}
-          fontStyle="italic"
-          fill={OUTLINE}
-          stroke="#FFFFFF"
-          strokeWidth={4}
-          paintOrder="stroke"
-        >
-          1
-        </text>
+        {/* the L-block at the very left, standing on column 1 of both rows:
+            the 2-cube stack on the back row first (the farther row, square
+            2's), then the single cube on the numbered front row */}
+        <PaintedCube col={1} row={1} level={0} />
+        <PaintedCube col={1} row={1} level={1} />
+        <PaintedCube col={1} row={0} level={0} />
 
         {/* red dashed quarter-turn arrow: the block tips over to the right */}
         <path
-          d="M 206 100 Q 268 82 290 152"
+          d="M 112 100 Q 174 82 196 152"
           fill="none"
           stroke={ARROW_RED}
           strokeWidth={4}
           strokeDasharray="9 7"
           strokeLinecap="round"
         />
-        <polygon points="295,170 282,150 302,148" fill={ARROW_RED} />
+        <polygon points="201,170 188,150 208,148" fill={ARROW_RED} />
 
-        <PaintBucket x={376} y={52} />
+        <PaintBucket x={290} y={52} />
       </svg>
     </div>
   )
@@ -211,36 +203,37 @@ export default function PaintRoll20Illustration() {
 // ---- top-down diagram for the step-by-step explainer -----------------------
 
 /**
- * Cell keys for the top-down 2×9 grid: 'f3' = front row column 3 (square "1",
- * under the block; columns 1–2 are the empty cells to its left), 'b4' = back
- * row column 4 (square "2"), …
+ * Cell keys for the top-down 2×8 grid: 'f3' = front row column 3 (square
+ * "1"), 'b5' = back row column 5 (square "2"), … The block starts on
+ * column 1 of both rows.
  */
-export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`
 
 const KEY_LABEL: Partial<Record<PaintCellKey, string>> = {
   f3: '1',
-  b4: '2',
-  f5: '3',
-  f6: '4',
-  f8: '5',
+  b5: '2',
+  f4: '3',
+  f5: '4',
+  f7: '5',
 }
 
 // Footprint of each rolling piece after n quarter-turns (top-down cell keys).
-// Front single cube:  f3 → f4 → f5 → f6 → f7.
-// Back 2-cube stack:  stands b3 → lies b4–b5 → stands b6 → lies b7–b8 → stands b9.
-const FRONT_FOOTPRINT: PaintCellKey[][] = [['f3'], ['f4'], ['f5'], ['f6'], ['f7']]
-const BACK_FOOTPRINT: PaintCellKey[][] = [['b3'], ['b4', 'b5'], ['b6'], ['b7', 'b8'], ['b9']]
+// Front single cube:  f1 → f2 → f3 → f4 → f5.
+// Back 2-cube stack:  stands b1 → lies b2–b3 → stands b4 → lies b5–b6 → stands b7.
+const FRONT_FOOTPRINT: PaintCellKey[][] = [['f1'], ['f2'], ['f3'], ['f4'], ['f5']]
+const BACK_FOOTPRINT: PaintCellKey[][] = [['b1'], ['b2', 'b3'], ['b4'], ['b5', 'b6'], ['b7']]
 
-// Which face lands on the floor after each roll (only the BOTTOM the block
-// stood on is dry — right, top and left are all wet, so rolls 1–3 stamp and
-// roll 4 brings the dry bottom back down).
-const LANDING_WET: Array<boolean | null> = [null, true, true, true, false]
+// Which face lands on the floor after each roll. The block stands in the
+// spilled paint, so its LEFT sides and BOTTOMS are wet; the RIGHT sides
+// (roll 1) and TOPS (roll 2) are dry, then rolls 3 (lefts) and 4 (bottoms)
+// stamp.
+const LANDING_WET: Array<boolean | null> = [null, false, false, true, true]
 
 const D_CELL_W = 48
 const D_CELL_H = 42
 const D_LEFT = 14
 const D_TOP = 26
-const D_COLS = 9
+const D_COLS = 8
 const DIAGRAM_W = D_LEFT * 2 + D_CELL_W * D_COLS
 const DIAGRAM_H = D_TOP + D_CELL_H * 2 + 16
 

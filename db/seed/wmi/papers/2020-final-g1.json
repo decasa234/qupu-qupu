@@ -1260,18 +1260,18 @@
       "answer": "234",
       "figure_url": "/api/public/wmi/figures/2020-final-g1-a-q22.jpg",
       "hint_steps_en": [
-        "Only the BOTTOM is dry — the face the block stands on. Every other face is wet. The block stands right on square 1, so the dry bottom covers it: square 1 never gets paint.",
-        "Roll 1: the wet RIGHT sides stamp — the front cube hits an empty square, and the tall stack behind paints square 2 and the square next to it.",
-        "Roll 2: the wet TOPS land — the front cube stamps square 3; the stack stamps an empty square behind.",
-        "Roll 3: the wet LEFT sides land — the front cube stamps square 4; the stack stamps more empty squares behind.",
-        "Roll 4: only the dry bottoms are left, and the paint is finished — square 5 never gets paint. Painted: 2, 3, 4 → write 234."
+        "The paint has SPILLED — and the block stands in the puddle! So its BOTTOM is soaked, and its LEFT side is painted too. The top and right sides are dry. The block starts at the very left.",
+        "Roll 1: the block flops onto its RIGHT sides — they are dry, so the squares it lands on stay clean.",
+        "Roll 2: the dry TOPS come down — the small cube lands right ON square 1. Dry side, so square 1 stays clean!",
+        "Roll 3: now the wet LEFT sides land — the small cube stamps square 3, and the tall stack behind stamps square 2 (and the square next to it)!",
+        "Roll 4: the soaked BOTTOMS land — the small cube stamps square 4; the stack stamps an empty square. Every painted side is used now, so square 5, further along, never gets paint. Painted: 2, 3, 4 → write 234."
       ],
       "hint_steps_id": [
-        "Hanya ALASNYA yang kering — sisi tempat balok berdiri. Semua sisi lainnya basah. Balok berdiri tepat di atas kotak 1, jadi alas yang kering menutupinya: kotak 1 tidak pernah kena cat.",
-        "Gulingan 1: sisi KANAN yang basah mengecap — kubus depan mengenai kotak kosong, dan tumpukan tinggi di belakang mengecat kotak 2 serta kotak di sebelahnya.",
-        "Gulingan 2: sisi ATAS yang basah menempel — kubus depan mengecap kotak 3; tumpukan mengecap kotak kosong di belakang.",
-        "Gulingan 3: sisi KIRI yang basah menempel — kubus depan mengecap kotak 4; tumpukan mengecap kotak kosong lagi di belakang.",
-        "Gulingan 4: tinggal alas yang kering, dan catnya sudah habis — kotak 5 tidak pernah kena cat. Yang terkena cat: 2, 3, 4 → tulis 234."
+        "Catnya TUMPAH — dan balok berdiri di genangannya! Jadi ALAS balok basah kuyup, dan sisi KIRI-nya juga bercat. Sisi atas dan kanan kering. Balok mulai dari ujung paling kiri.",
+        "Gulingan 1: balok rebah ke sisi KANAN-nya — sisi itu kering, jadi kotak yang ditimpanya tetap bersih.",
+        "Gulingan 2: sisi ATAS yang kering menempel — kubus kecil mendarat tepat DI kotak 1. Sisinya kering, jadi kotak 1 tetap bersih!",
+        "Gulingan 3: kini sisi KIRI yang basah menempel — kubus kecil mengecap kotak 3, dan tumpukan tinggi di belakang mengecap kotak 2 (serta kotak di sebelahnya)!",
+        "Gulingan 4: ALAS yang basah menempel — kubus kecil mengecap kotak 4; tumpukan mengecap kotak kosong. Semua sisi bercat sudah terpakai, jadi kotak 5 yang lebih jauh tidak pernah kena cat. Yang terkena cat: 2, 3, 4 → tulis 234."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1280,8 +1280,8 @@
             "category": "fact",
             "phrase_en": "wet paint",
             "phrase_id": "bercat basah",
-            "note_en": "Every face is wet except the bottom — the face the block stands on stays dry.",
-            "note_id": "Semua sisi basah kecuali alasnya — sisi tempat balok berdiri tetap kering."
+            "note_en": "The spilled paint soaks the block's bottom, and its left side is painted too — the top and right sides are dry.",
+            "note_id": "Cat yang tumpah membasahi alas balok, dan sisi kirinya juga bercat — sisi atas dan kanan kering."
           },
           {
             "category": "condition",
@@ -1299,16 +1299,16 @@
           }
         ],
         "quantities": [
-          { "label_en": "Block", "label_id": "Balok", "value": "1 cube in front + 2-cube stack behind, standing on square 1" },
-          { "label_en": "Wet faces", "label_id": "Sisi yang basah", "value": "all except the bottom it stands on" },
+          { "label_en": "Block", "label_id": "Balok", "value": "1 cube in the numbered row + 2-cube stack behind, starting at the far left" },
+          { "label_en": "Wet faces", "label_id": "Sisi yang basah", "value": "left sides + bottoms (it stands in the spilled paint)" },
           { "label_en": "Painted squares", "label_id": "Kotak terkena cat", "value": "2, 3, 4" },
-          { "label_en": "Dry squares", "label_id": "Kotak yang kering", "value": "1 (under the dry bottom), 5 (paint finished before it)" }
+          { "label_en": "Dry squares", "label_id": "Kotak yang kering", "value": "1 (the dry top lands on it), 5 (paint used up before it)" }
         ],
         "strategy": { "name_en": "Roll one side at a time and track the wet faces", "name_id": "Gulingkan satu sisi demi satu sisi dan ikuti sisi yang basah" },
         "trap": {
           "wrong": "12345",
-          "why_en": "Square 1 hides under the dry bottom, and the paint is finished before the block reaches square 5 — not every square it touches gets paint.",
-          "why_id": "Kotak 1 tersembunyi di bawah alas yang kering, dan catnya habis sebelum balok mencapai kotak 5 — tidak semua kotak yang disentuh kena cat."
+          "why_en": "The dry right and top sides land on the first squares — including square 1 — and the paint is used up before square 5. Not every square it touches gets paint.",
+          "why_id": "Sisi kanan dan atas yang kering menimpa kotak-kotak pertama — termasuk kotak 1 — dan catnya habis sebelum kotak 5. Tidak semua kotak yang disentuh kena cat."
         },
         "answer": { "form": "number", "unit": null, "value": "234" }
       }

@@ -213,6 +213,288 @@ import KenKen20Illustration from './KenKen20Illustration'
 import KenKen20Explainer from './KenKen20Explainer'
 import ThreeScales20Illustration from './ThreeScales20Illustration'
 import ThreeScales20Explainer from './ThreeScales20Explainer'
+import {
+  ComputeChain20G3Explainer,
+  UnderThreeHundred20G3Explainer,
+  SmallestFraction20G3Explainer,
+  OddRun20G3Explainer,
+  ClockBridge20G3Explainer,
+  PerimeterSquare20G3Explainer,
+  WhichWrong20G3Explainer,
+  DivisionList20G3Explainer,
+  GreedyDigits20G3Explainer,
+  NinetyNines20G3Explainer,
+  DigitErrors20G3Explainer,
+  Cryptarithm20G3Explainer,
+  PasswordFigures20G3Explainer,
+  SumTo999G3Explainer,
+} from './tryCheckExplainers20G3'
+import {
+  SumCard20G3Illustration,
+  BoxUnder300G3Illustration,
+  FractionBarsG3Illustration,
+  OddRunG3Illustration,
+  TripTimeG3Illustration,
+  PerimeterSquareG3Illustration,
+  FourLawsG3Illustration,
+  DivisionChipsG3Illustration,
+  DigitStripG3Illustration,
+  NinetyNinesG3Illustration,
+  DigitErrorsG3Illustration,
+  CryptarithmG3Illustration,
+  PasswordCluesG3Illustration,
+  SumGrid999G3Illustration,
+} from './cards20G3Illustrations'
+import {
+  WGridsG3Illustration,
+  LampRowG3Illustration,
+  BoatGridG3Illustration,
+  TempTableG3Illustration,
+  ShapeAdditionG3Illustration,
+  CirclePatternG3Illustration,
+} from './scenes20G3Illustrations'
+import {
+  QuiltSquaresG3Illustration,
+  ThreeRectanglesG3Illustration,
+  SpiralGridG3Illustration,
+  FootballTableG3Illustration,
+} from './puzzles20G3Illustrations'
+import {
+  LargestResult21G1Explainer,
+  BusStop21G1Explainer,
+  DigitCount21G1Explainer,
+  ParkingLot21G1Explainer,
+  OddBox21G1Explainer,
+  ComputeChain21G1Explainer,
+  TensUnits21G1Explainer,
+  ShapeCross21G1Explainer,
+} from './tryCheckExplainers21G1'
+import {
+  FourSubtractions21Illustration,
+  NumberStrip21Illustration,
+  TicketQueue21Illustration,
+  ShapeCross21Illustration,
+} from './cards21G1Illustrations'
+import {
+  AppleGrid21Illustration,
+  FruitRow21Illustration,
+  Baskets21Illustration,
+  PaintGrid21Illustration,
+  TriangleGrid21Illustration,
+  RopeBars21Illustration,
+  Scales21Illustration,
+} from './scenes21G1Illustrations'
+import {
+  Balloons21Illustration,
+  ChainDiagram21Illustration,
+  BigCube21Illustration,
+  Circles22Illustration,
+  Mobile21Illustration,
+  RabbitMaze21Illustration,
+} from './puzzles21G1Illustrations'
+import {
+  AppleGrid21Explainer,
+  FruitPattern21Explainer,
+  Baskets21Explainer,
+  NumberStrip21Explainer,
+  PaintGrid21Explainer,
+  TriangleFill21Explainer,
+  RopePairs21Explainer,
+  TicketQueue21Explainer,
+  Seesaws21Explainer,
+  QueueMiddle21Explainer,
+} from './visualExplainers21G1'
+import {
+  Solids21Explainer,
+  Balloons21Explainer,
+  Chains21Explainer,
+  BigCube21Explainer,
+  Circles22Explainer,
+  Mobile21Explainer,
+  RabbitMaze21Explainer,
+} from './puzzleExplainers21G1'
+import { SolidOption21, FruitPairOption21, RopePairOption21, SeesawOption21 } from './options21G1'
+import {
+  MatchProduct21G2Explainer,
+  CrossCount21G2Explainer,
+  CalendarDays21G2Explainer,
+  SkipCount21G2Explainer,
+  TwoClocks21G2Explainer,
+  TripleBox21G2Explainer,
+  BobQueue21G2Explainer,
+  TwoPillars21G2Explainer,
+  BeeButterfly21G2Explainer,
+  RunningTotal21G2Explainer,
+  FiveCards21G2Explainer,
+  Repdigit21G2Explainer,
+  CubeFaces21G2Explainer,
+} from './tryCheckExplainers21G2'
+import {
+  MatchProduct21G2Illustration,
+  CrossArray21G2Illustration,
+  Calendar21G2Illustration,
+  SkipCount21G2Illustration,
+  TwoClocks21G2Illustration,
+  TripleBox21G2Illustration,
+  Pillars21G2Illustration,
+  BeeButterfly21G2Illustration,
+  RunningTotal21G2Illustration,
+  FiveCards21G2Illustration,
+  Staircase21G2Illustration,
+  CubeFaces21G2Illustration,
+} from './cards21G2Illustrations'
+import {
+  Lines21G2Illustration,
+  Money21G2Illustration,
+  Words21G2Illustration,
+  Pieces21G2Illustration,
+  BoxNet21G2Illustration,
+} from './scenes21G2Illustrations'
+import {
+  ChainDiagram21G2Illustration,
+  BigCube21G2Illustration,
+  Hexagons21G2Illustration,
+  Tower21G2Illustration,
+  RabbitMaze21G2Illustration,
+  Sudoku21G2Illustration,
+} from './puzzles21G2Illustrations'
+import {
+  Lines21G2Explainer,
+  AppleProduct21G2Explainer,
+  Money21G2Explainer,
+  Letters21G2Explainer,
+  Pieces21G2Explainer,
+  BoxNet21G2Explainer,
+} from './visualExplainers21G2'
+import {
+  Chains21G2Explainer,
+  BigCube21G2Explainer,
+  Hexagons21G2Explainer,
+  Tower21G2Explainer,
+  RabbitMaze21G2Explainer,
+  Sudoku21G2Explainer,
+} from './puzzleExplainers21G2'
+import { LineOption21G2 } from './options21G2'
+import {
+  Compute21G3Explainer,
+  DigitsAB21G3Explainer,
+  FactorNine21G3Explainer,
+  Bundles21G3Explainer,
+  ClockTrip21G3Explainer,
+  Starfish21G3Explainer,
+  Archery21G3Explainer,
+  SnakeDeal21G3Explainer,
+  SevenChain21G3Explainer,
+  EvenSum21G3Explainer,
+  Factor202121G3Explainer,
+  TripleABC21G3Explainer,
+} from './tryCheckExplainers21G3'
+import {
+  Compute21G3Illustration,
+  DigitsAB21G3Illustration,
+  FactorNine21G3Illustration,
+  Bundles21G3Illustration,
+  ClockTrip21G3Illustration,
+  Starfish21G3Illustration,
+  Archery21G3Illustration,
+  SnakeDeal21G3Illustration,
+  SevenChain21G3Illustration,
+  EvenSum21G3Illustration,
+  Factor202121G3Illustration,
+  TripleABC21G3Illustration,
+} from './cards21G3Illustrations'
+import {
+  StarGrid21G3Illustration,
+  ChocolateBar21G3Illustration,
+  NotchedSquare21G3Illustration,
+  DivingTable21G3Illustration,
+  ShadedGrids21G3Illustration,
+  Shelves21G3Illustration,
+  TallyMoney21G3Illustration,
+  FruitEquations21G3Illustration,
+  HexRings21G3Illustration,
+  SixRectangles21G3Illustration,
+} from './scenes21G3Illustrations'
+import { StreetMap21G3Illustration, RabbitMaze21G3Illustration } from './puzzles21G3Illustrations'
+import {
+  Star21G3Explainer,
+  Chocolate21G3Explainer,
+  Notch21G3Explainer,
+  Diving21G3Explainer,
+  ShadedGrids21G3Explainer,
+  Shelves21G3Explainer,
+  Tally21G3Explainer,
+  Fruits21G3Explainer,
+  Hex21G3Explainer,
+  SixRects21G3Explainer,
+} from './visualExplainers21G3'
+import { StreetMap21G3Explainer, RabbitMaze21G3Explainer } from './puzzleExplainers21G3'
+import { ShadedOption21G3 } from './options21G3'
+import WGridCountG3Explainer, {
+  LampGapsG3Explainer,
+  BoatAreaG3Explainer,
+  TempChartsG3Explainer,
+  ShapeAddG3Explainer,
+  CirclePatternG3Explainer,
+  ThreeRectanglesG3Explainer,
+} from './visualExplainers20G3'
+import QuiltSquaresG3Explainer, { SpiralGridG3Explainer, FootballG3Explainer } from './gridExplainers20G3'
+import { WGridOption20G3, TempChartOption20G3, PatternOption20G3 } from './options20G3'
+import {
+  Balance22G2Illustration,
+  BallOption22G2,
+  Balls22G2Illustration,
+  CardHands22G2Illustration,
+  ChildrenOrder22G2Illustration,
+  Cups22G2Illustration,
+  EggPath22G2Illustration,
+  Flowchart22G2Illustration,
+  MirrorBlocks22G2Illustration,
+  PaperStack22G2Illustration,
+  PasswordDial22G2Illustration,
+  SeatGrid22G2Illustration,
+  ShapeAddition22G2Illustration,
+  Shark22G2Illustration,
+  Soldiers22G2Illustration,
+  Targets22G2Illustration,
+  TCover22G2Illustration,
+  ThickLineOption22G2,
+  ThickLines22G2Illustration,
+} from './paper22G2Visuals'
+import {
+  Balance22G2Explainer,
+  Balls22G2Explainer,
+  CardHands22G2Explainer,
+  ChildrenOrder22G2Explainer,
+  Cups22G2Explainer,
+  EggPath22G2Explainer,
+  Flowchart22G2Explainer,
+  MirrorBlocks22G2Explainer,
+  PaperStack22G2Explainer,
+  PasswordDial22G2Explainer,
+  SeatGrid22G2Explainer,
+  ShapeAddition22G2Explainer,
+  Shark22G2Explainer,
+  Soldiers22G2Explainer,
+  Targets22G2Explainer,
+  TCover22G2Explainer,
+  ThickLines22G2Explainer,
+} from './paper22G2Explainers'
+// 2022 G3 (WMI-22F3A) — Paper A batch
+import PieThirds22G3Illustration from './PieThirds22G3Illustration'
+import NestedTri22G3Illustration from './NestedTri22G3Illustration'
+import StreetMap22G3Illustration from './StreetMap22G3Illustration'
+import PaintedArea22G3Illustration, { PaintedArea22G3Option } from './PaintedArea22G3Illustration'
+import HalfShadeGrid22G3Illustration, { HalfShade22G3Option } from './HalfShadeGrid22G3Illustration'
+import CubeNet22G3Illustration from './CubeNet22G3Illustration'
+import ChampionMedian22G3Illustration from './ChampionMedian22G3Illustration'
+import PieThirds22G3Explainer from './PieThirds22G3Explainer'
+import NestedTri22G3Explainer from './NestedTri22G3Explainer'
+import StreetMap22G3Explainer from './StreetMap22G3Explainer'
+import PaintedArea22G3Explainer from './PaintedArea22G3Explainer'
+import HalfShadeGrid22G3Explainer from './HalfShadeGrid22G3Explainer'
+import CubeNet22G3Explainer from './CubeNet22G3Explainer'
+import ChampionMedian22G3Explainer from './ChampionMedian22G3Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -358,6 +640,137 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-20F2A-Q23': { Illustration: SudokuExprG2Illustration },
   'WMI-20F2A-Q24': { Illustration: NineCards20G2Illustration, Explainer: CardCombos20G2Explainer },
   'WMI-20F2A-Q25': { Illustration: DigitGridG2Illustration },
+  'WMI-20F3A-Q1': { Illustration: SumCard20G3Illustration, Explainer: ComputeChain20G3Explainer },
+  'WMI-20F3A-Q2': { Illustration: WGridsG3Illustration, Explainer: WGridCountG3Explainer },
+  'WMI-20F3A-Q3': { Illustration: BoxUnder300G3Illustration, Explainer: UnderThreeHundred20G3Explainer },
+  'WMI-20F3A-Q4': { Illustration: FractionBarsG3Illustration, Explainer: SmallestFraction20G3Explainer },
+  'WMI-20F3A-Q5': { Illustration: LampRowG3Illustration, Explainer: LampGapsG3Explainer },
+  'WMI-20F3A-Q6': { Illustration: OddRunG3Illustration, Explainer: OddRun20G3Explainer },
+  'WMI-20F3A-Q7': { Illustration: BoatGridG3Illustration, Explainer: BoatAreaG3Explainer },
+  'WMI-20F3A-Q8': { Illustration: TempTableG3Illustration, Explainer: TempChartsG3Explainer },
+  'WMI-20F3A-Q9': { Illustration: TripTimeG3Illustration, Explainer: ClockBridge20G3Explainer },
+  'WMI-20F3A-Q10': { Illustration: PerimeterSquareG3Illustration, Explainer: PerimeterSquare20G3Explainer },
+  'WMI-20F3A-Q11': { Illustration: FourLawsG3Illustration, Explainer: WhichWrong20G3Explainer },
+  'WMI-20F3A-Q12': { Illustration: DivisionChipsG3Illustration, Explainer: DivisionList20G3Explainer },
+  'WMI-20F3A-Q13': { Illustration: ShapeAdditionG3Illustration, Explainer: ShapeAddG3Explainer },
+  'WMI-20F3A-Q14': { Illustration: CirclePatternG3Illustration, Explainer: CirclePatternG3Explainer },
+  'WMI-20F3A-Q15': { Illustration: DigitStripG3Illustration, Explainer: GreedyDigits20G3Explainer },
+  'WMI-20F3A-Q16': { Illustration: NinetyNinesG3Illustration, Explainer: NinetyNines20G3Explainer },
+  'WMI-20F3A-Q17': { Illustration: QuiltSquaresG3Illustration, Explainer: QuiltSquaresG3Explainer },
+  'WMI-20F3A-Q18': { Illustration: DigitErrorsG3Illustration, Explainer: DigitErrors20G3Explainer },
+  'WMI-20F3A-Q19': { Illustration: CryptarithmG3Illustration, Explainer: Cryptarithm20G3Explainer },
+  'WMI-20F3A-Q20': { Illustration: ThreeRectanglesG3Illustration, Explainer: ThreeRectanglesG3Explainer },
+  // Q21 is the identical nine-cards puzzle as 2020 G2 Q24 (same cards, sum 62,
+  // 4 ways via drop-3-sum-29) — reuse that figure + explainer.
+  'WMI-20F3A-Q21': { Illustration: NineCards20G2Illustration, Explainer: CardCombos20G2Explainer },
+  'WMI-20F3A-Q22': { Illustration: SpiralGridG3Illustration, Explainer: SpiralGridG3Explainer },
+  'WMI-20F3A-Q23': { Illustration: FootballTableG3Illustration, Explainer: FootballG3Explainer },
+  'WMI-20F3A-Q24': { Illustration: PasswordCluesG3Illustration, Explainer: PasswordFigures20G3Explainer },
+  'WMI-20F3A-Q25': { Illustration: SumGrid999G3Illustration, Explainer: SumTo999G3Explainer },
+  'WMI-21F1A-Q1': { Illustration: FourSubtractions21Illustration, Explainer: LargestResult21G1Explainer },
+  'WMI-21F1A-Q2': { Illustration: AppleGrid21Illustration, Explainer: AppleGrid21Explainer },
+  'WMI-21F1A-Q3': { Explainer: Solids21Explainer },
+  'WMI-21F1A-Q4': { Illustration: FruitRow21Illustration, Explainer: FruitPattern21Explainer },
+  'WMI-21F1A-Q5': { Illustration: Baskets21Illustration, Explainer: Baskets21Explainer },
+  'WMI-21F1A-Q6': { Illustration: NumberStrip21Illustration, Explainer: NumberStrip21Explainer },
+  'WMI-21F1A-Q7': { Illustration: PaintGrid21Illustration, Explainer: PaintGrid21Explainer },
+  'WMI-21F1A-Q8': { Illustration: TriangleGrid21Illustration, Explainer: TriangleFill21Explainer },
+  'WMI-21F1A-Q9': { Explainer: BusStop21G1Explainer },
+  'WMI-21F1A-Q10': { Illustration: RopeBars21Illustration, Explainer: RopePairs21Explainer },
+  'WMI-21F1A-Q11': { Explainer: TicketQueue21Explainer },
+  'WMI-21F1A-Q12': { Explainer: DigitCount21G1Explainer },
+  'WMI-21F1A-Q13': { Explainer: ParkingLot21G1Explainer },
+  'WMI-21F1A-Q14': { Illustration: Scales21Illustration, Explainer: Seesaws21Explainer },
+  'WMI-21F1A-Q15': { Explainer: OddBox21G1Explainer },
+  'WMI-21F1A-Q16': { Explainer: ComputeChain21G1Explainer },
+  'WMI-21F1A-Q17': { Explainer: TensUnits21G1Explainer },
+  'WMI-21F1A-Q18': { Illustration: Balloons21Illustration, Explainer: Balloons21Explainer },
+  'WMI-21F1A-Q19': { Illustration: ChainDiagram21Illustration, Explainer: Chains21Explainer },
+  'WMI-21F1A-Q20': { Explainer: QueueMiddle21Explainer },
+  'WMI-21F1A-Q21': { Illustration: BigCube21Illustration, Explainer: BigCube21Explainer },
+  'WMI-21F1A-Q22': { Illustration: Circles22Illustration, Explainer: Circles22Explainer },
+  'WMI-21F1A-Q23': { Illustration: ShapeCross21Illustration, Explainer: ShapeCross21G1Explainer },
+  'WMI-21F1A-Q24': { Illustration: Mobile21Illustration, Explainer: Mobile21Explainer },
+  'WMI-21F1A-Q25': { Illustration: RabbitMaze21Illustration, Explainer: RabbitMaze21Explainer },
+  'WMI-21F2A-Q1': { Illustration: MatchProduct21G2Illustration, Explainer: MatchProduct21G2Explainer },
+  'WMI-21F2A-Q2': { Illustration: Lines21G2Illustration, Explainer: Lines21G2Explainer },
+  'WMI-21F2A-Q3': { Illustration: CrossArray21G2Illustration, Explainer: CrossCount21G2Explainer },
+  'WMI-21F2A-Q4': { Illustration: Calendar21G2Illustration, Explainer: CalendarDays21G2Explainer },
+  'WMI-21F2A-Q5': { Illustration: SkipCount21G2Illustration, Explainer: SkipCount21G2Explainer },
+  'WMI-21F2A-Q6': { Illustration: TwoClocks21G2Illustration, Explainer: TwoClocks21G2Explainer },
+  'WMI-21F2A-Q7': { Illustration: TripleBox21G2Illustration, Explainer: TripleBox21G2Explainer },
+  'WMI-21F2A-Q8': { Illustration: TicketQueue21Illustration, Explainer: BobQueue21G2Explainer },
+  // Q9 reuses the 2021 G1 apple-grid figure (same printed grid); the explainer
+  // marks the left and top-right neighbours instead.
+  'WMI-21F2A-Q9': { Illustration: AppleGrid21Illustration, Explainer: AppleProduct21G2Explainer },
+  'WMI-21F2A-Q10': { Illustration: Pillars21G2Illustration, Explainer: TwoPillars21G2Explainer },
+  'WMI-21F2A-Q11': { Illustration: Money21G2Illustration, Explainer: Money21G2Explainer },
+  'WMI-21F2A-Q12': { Illustration: BeeButterfly21G2Illustration, Explainer: BeeButterfly21G2Explainer },
+  'WMI-21F2A-Q13': { Illustration: Words21G2Illustration, Explainer: Letters21G2Explainer },
+  'WMI-21F2A-Q14': { Illustration: Pieces21G2Illustration, Explainer: Pieces21G2Explainer },
+  'WMI-21F2A-Q15': { Illustration: BoxNet21G2Illustration, Explainer: BoxNet21G2Explainer },
+  'WMI-21F2A-Q16': { Illustration: RunningTotal21G2Illustration, Explainer: RunningTotal21G2Explainer },
+  'WMI-21F2A-Q17': { Illustration: ChainDiagram21G2Illustration, Explainer: Chains21G2Explainer },
+  'WMI-21F2A-Q18': { Illustration: BigCube21G2Illustration, Explainer: BigCube21G2Explainer },
+  'WMI-21F2A-Q19': { Illustration: Hexagons21G2Illustration, Explainer: Hexagons21G2Explainer },
+  'WMI-21F2A-Q20': { Illustration: FiveCards21G2Illustration, Explainer: FiveCards21G2Explainer },
+  'WMI-21F2A-Q21': { Illustration: Staircase21G2Illustration, Explainer: Repdigit21G2Explainer },
+  'WMI-21F2A-Q22': { Illustration: CubeFaces21G2Illustration, Explainer: CubeFaces21G2Explainer },
+  'WMI-21F2A-Q23': { Illustration: Tower21G2Illustration, Explainer: Tower21G2Explainer },
+  'WMI-21F2A-Q24': { Illustration: RabbitMaze21G2Illustration, Explainer: RabbitMaze21G2Explainer },
+  'WMI-21F2A-Q25': { Illustration: Sudoku21G2Illustration, Explainer: Sudoku21G2Explainer },
+  'WMI-21F3A-Q1': { Illustration: Compute21G3Illustration, Explainer: Compute21G3Explainer },
+  'WMI-21F3A-Q2': { Illustration: DigitsAB21G3Illustration, Explainer: DigitsAB21G3Explainer },
+  'WMI-21F3A-Q3': { Illustration: FactorNine21G3Illustration, Explainer: FactorNine21G3Explainer },
+  'WMI-21F3A-Q4': { Illustration: Bundles21G3Illustration, Explainer: Bundles21G3Explainer },
+  'WMI-21F3A-Q5': { Illustration: StarGrid21G3Illustration, Explainer: Star21G3Explainer },
+  'WMI-21F3A-Q6': { Illustration: ChocolateBar21G3Illustration, Explainer: Chocolate21G3Explainer },
+  'WMI-21F3A-Q7': { Illustration: NotchedSquare21G3Illustration, Explainer: Notch21G3Explainer },
+  'WMI-21F3A-Q8': { Illustration: ClockTrip21G3Illustration, Explainer: ClockTrip21G3Explainer },
+  'WMI-21F3A-Q9': { Illustration: Starfish21G3Illustration, Explainer: Starfish21G3Explainer },
+  'WMI-21F3A-Q10': { Illustration: Archery21G3Illustration, Explainer: Archery21G3Explainer },
+  'WMI-21F3A-Q11': { Illustration: DivingTable21G3Illustration, Explainer: Diving21G3Explainer },
+  'WMI-21F3A-Q12': { Illustration: ShadedGrids21G3Illustration, Explainer: ShadedGrids21G3Explainer },
+  'WMI-21F3A-Q13': { Illustration: Shelves21G3Illustration, Explainer: Shelves21G3Explainer },
+  'WMI-21F3A-Q14': { Illustration: SnakeDeal21G3Illustration, Explainer: SnakeDeal21G3Explainer },
+  'WMI-21F3A-Q15': { Illustration: TallyMoney21G3Illustration, Explainer: Tally21G3Explainer },
+  'WMI-21F3A-Q16': { Illustration: SevenChain21G3Illustration, Explainer: SevenChain21G3Explainer },
+  'WMI-21F3A-Q17': { Illustration: EvenSum21G3Illustration, Explainer: EvenSum21G3Explainer },
+  'WMI-21F3A-Q18': { Illustration: FruitEquations21G3Illustration, Explainer: Fruits21G3Explainer },
+  'WMI-21F3A-Q19': { Illustration: StreetMap21G3Illustration, Explainer: StreetMap21G3Explainer },
+  'WMI-21F3A-Q20': { Illustration: HexRings21G3Illustration, Explainer: Hex21G3Explainer },
+  'WMI-21F3A-Q21': { Illustration: SixRectangles21G3Illustration, Explainer: SixRects21G3Explainer },
+  'WMI-21F3A-Q22': { Illustration: Factor202121G3Illustration, Explainer: Factor202121G3Explainer },
+  'WMI-21F3A-Q23': { Illustration: TripleABC21G3Illustration, Explainer: TripleABC21G3Explainer },
+  'WMI-21F3A-Q24': { Illustration: RabbitMaze21G3Illustration, Explainer: RabbitMaze21G3Explainer },
+  // Q25 is the IDENTICAL quadruple-clue sudoku printed in the G2 paper (same
+  // givens, same quads, same answer 54123) — reuse those components.
+  'WMI-21F3A-Q25': { Illustration: Sudoku21G2Illustration, Explainer: Sudoku21G2Explainer },
+  'WMI-22F2A-Q1': { Illustration: Shark22G2Illustration, Explainer: Shark22G2Explainer },
+  'WMI-22F2A-Q3': { Illustration: PaperStack22G2Illustration, Explainer: PaperStack22G2Explainer },
+  'WMI-22F2A-Q5': { Illustration: Balls22G2Illustration, Explainer: Balls22G2Explainer },
+  'WMI-22F2A-Q8': { Illustration: ThickLines22G2Illustration, Explainer: ThickLines22G2Explainer },
+  'WMI-22F2A-Q10': { Illustration: ChildrenOrder22G2Illustration, Explainer: ChildrenOrder22G2Explainer },
+  'WMI-22F2A-Q11': { Illustration: Targets22G2Illustration, Explainer: Targets22G2Explainer },
+  'WMI-22F2A-Q12': { Illustration: EggPath22G2Illustration, Explainer: EggPath22G2Explainer },
+  'WMI-22F2A-Q15': { Illustration: Cups22G2Illustration, Explainer: Cups22G2Explainer },
+  'WMI-22F2A-Q16': { Illustration: Flowchart22G2Illustration, Explainer: Flowchart22G2Explainer },
+  'WMI-22F2A-Q17': { Illustration: Balance22G2Illustration, Explainer: Balance22G2Explainer },
+  'WMI-22F2A-Q18': { Illustration: SeatGrid22G2Illustration, Explainer: SeatGrid22G2Explainer },
+  'WMI-22F2A-Q19': { Illustration: ShapeAddition22G2Illustration, Explainer: ShapeAddition22G2Explainer },
+  'WMI-22F2A-Q20': { Illustration: PasswordDial22G2Illustration, Explainer: PasswordDial22G2Explainer },
+  'WMI-22F2A-Q21': { Illustration: CardHands22G2Illustration, Explainer: CardHands22G2Explainer },
+  'WMI-22F2A-Q23': { Illustration: Soldiers22G2Illustration, Explainer: Soldiers22G2Explainer },
+  'WMI-22F2A-Q24': { Illustration: MirrorBlocks22G2Illustration, Explainer: MirrorBlocks22G2Explainer },
+  'WMI-22F2A-Q25': { Illustration: TCover22G2Illustration, Explainer: TCover22G2Explainer },
+  // 2022 G3 (WMI-22F3A) — Paper A batch
+  'WMI-22F3A-Q2': { Illustration: PieThirds22G3Illustration, Explainer: PieThirds22G3Explainer },
+  'WMI-22F3A-Q3': { Illustration: NestedTri22G3Illustration, Explainer: NestedTri22G3Explainer },
+  'WMI-22F3A-Q4': { Illustration: StreetMap22G3Illustration, Explainer: StreetMap22G3Explainer },
+  'WMI-22F3A-Q5': { Illustration: PaintedArea22G3Illustration, Explainer: PaintedArea22G3Explainer },
+  'WMI-22F3A-Q8': { Illustration: HalfShadeGrid22G3Illustration, Explainer: HalfShadeGrid22G3Explainer },
+  'WMI-22F3A-Q11': { Illustration: CubeNet22G3Illustration, Explainer: CubeNet22G3Explainer },
+  'WMI-22F3A-Q13': { Illustration: ChampionMedian22G3Illustration, Explainer: ChampionMedian22G3Explainer },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -366,6 +779,9 @@ const VISUALS: Record<string, QuestionVisual> = {
 type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 
 const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
+  // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
+  'WMI-22F3A-Q5': PaintedArea22G3Option,
+  'WMI-22F3A-Q8': HalfShade22G3Option,
   'WMI-19F1A-Q15': ShapeCountOption,
   'WMI-19F1A-Q8': WhiteCircleSquareOption,
   // G2 Q4 is the same shape-tally task — render its A–D options as bar charts too.
@@ -386,6 +802,23 @@ const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
   'WMI-20F1A-Q15': FruitMazeOption20,
   // 2020 G2: Q7 options are clock faces with the pink arrow in four directions.
   'WMI-20F2A-Q7': ClockTurnG2Option,
+  // 2020 G3: Q2 options are letter grids, Q8 options are line charts,
+  // Q14 options are shape triples.
+  'WMI-20F3A-Q2': WGridOption20G3,
+  'WMI-20F3A-Q8': TempChartOption20G3,
+  'WMI-20F3A-Q14': PatternOption20G3,
+  // 2021 G1: Q3 options are cube solids, Q4 fruit pairs, Q10 rope pairs,
+  // Q14 seesaw claims.
+  'WMI-21F1A-Q3': SolidOption21,
+  'WMI-21F1A-Q4': FruitPairOption21,
+  'WMI-21F1A-Q10': RopePairOption21,
+  'WMI-21F1A-Q14': SeesawOption21,
+  // 2021 G2: Q2 options are the zigzag line figures.
+  'WMI-21F2A-Q2': LineOption21G2,
+  // 2021 G3: Q12 options are the shaded 3×3 grids.
+  'WMI-21F3A-Q12': ShadedOption21G3,
+  'WMI-22F2A-Q5': BallOption22G2,
+  'WMI-22F2A-Q8': ThickLineOption22G2,
 }
 
 export function getQuestionChoiceRenderer(code?: string): ChoiceRenderer | null {

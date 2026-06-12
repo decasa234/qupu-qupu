@@ -104,7 +104,9 @@ loads, mutates, and re-dumps the JSON (`ensure_ascii=False, indent=2`).
   `__smoke.tsx` at the repo root (so `react-dom` and the `@/` alias resolve) with the
   content below, run `npx tsx __smoke.tsx`, then delete it. Expected: four `true` lines
   (for an explainer-only question with no `Illustration`, drop the `Illustration` import
-  and its two lines, and expect two).
+  and its two lines, and expect two). **Batch it:** ONE `__smoke.tsx` covering ALL of
+  the batch's new components (loop over an array of `{name, Illustration?, Explainer?}`),
+  run once — never one smoke file per question.
   ```ts
   import { renderToStaticMarkup } from 'react-dom/server'
   import { createElement as h } from 'react'

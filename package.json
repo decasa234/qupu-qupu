@@ -12,6 +12,8 @@
     "test": "vitest run",
     "seed:wmi": "tsx db/seed/wmi/load.ts",
     "wmi:validate": "tsx db/seed/wmi/validate-papers.ts",
+    "wmi:scan-figures": "tsx db/seed/wmi/scan-figures.ts",
+    "wmi:index": "tsx db/seed/wmi/build-visual-index.ts",
     "server:dev": "nodemon",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
   },
@@ -28,6 +30,7 @@
     "express-rate-limit": "^8.4.1",
     "framer-motion": "^12.26.2",
     "google-auth-library": "^10.6.2",
+    "headroom-ai": "^0.22.4",
     "helmet": "^8.2.0",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
