@@ -16,7 +16,7 @@ import ReportPage from './pages/Report'
 import BadgesPage from './pages/Badges'
 import MainCatalogPage from './pages/MainCatalog'
 import WmiArenaPage from './pages/WmiArena'
-import WmiHubPage from './pages/WmiHub'
+import BelajarPathPage from './pages/BelajarPath'
 import WmiKonsepDrill from './pages/WmiKonsepDrill'
 import WmiKonsepSession from './pages/WmiKonsepSession'
 import WmiChapterTest from './pages/WmiChapterTest'
@@ -225,7 +225,7 @@ export default function App() {
             }
           >
             {/* 3-tab structure: Belajar (skill tree) / Main (arena) / Profil */}
-            <Route path="belajar" element={<WmiHubPage />} /> {/* Task 5 swaps in BelajarPath */}
+            <Route path="belajar" element={<BelajarPathPage />} />
             <Route path="main" element={<MainCatalogPage />} />
             <Route path="wmi-arena" element={<WmiArenaPage />} />
             <Route path="wmi-arena/campur" element={<WmiKonsepDrill />} />

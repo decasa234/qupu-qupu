@@ -1,10 +1,10 @@
 // src/components/onboarding/GardenCoachMark.tsx
 //
-// One-shot coach-mark for the WMI garden's resume hero. Replaces the old
-// react-joyride spectate tour with a single dismissible bubble pointing at
-// the "Mulai" button below it. It never blocks interaction: tapping the
-// bubble, the X, or the hero button itself marks it done (the once-only
-// localStorage flag lives in WmiHub) and it never shows again.
+// One-shot coach-mark for the Belajar path. A single dismissible bubble
+// rendered just above the first-timer's current node (PathTrail's coachMark
+// slot), pointing down at it. It never blocks interaction: tapping the
+// bubble, the X, or starting any session marks it done (the once-only
+// localStorage flag lives in BelajarPath) and it never shows again.
 
 export default function GardenCoachMark({ onDismiss }: { onDismiss: () => void }) {
   return (

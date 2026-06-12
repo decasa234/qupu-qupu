@@ -18,6 +18,11 @@ import { syncStatStrip } from '../../hooks/useGamificationStats'
 interface Props {
   childId: string
   variant?: 'garden' | 'dashboard'
+  /**
+   * Lifted count of completed-but-unclaimed quests (Belajar path chest
+   * badge). Called after every fetch/claim; 0 when quests fail to load.
+   */
+  onClaimableCount?: (count: number) => void
 }
 
 function progressPct(quest: DailyQuest): number {
@@ -25,10 +30,15 @@ function progressPct(quest: DailyQuest): number {
   return Math.min(100, Math.round((quest.progress / quest.target) * 100))
 }
 
-export default function DailyQuestsPanel({ childId, variant = 'garden' }: Props) {
+export default function DailyQuestsPanel({ childId, variant = 'garden', onClaimableCount }: Props) {
   const [quests, setQuests] = useState<DailyQuest[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [claimingId, setClaimingId] = useState<string | null>(null)
+
+  // Lift the claimable count whenever the quest list changes (fetch or claim).
+  useEffect(() => {
+    onClaimableCount?.(quests?.filter((q) => q.completed && !q.claimedAt).length ?? 0)
+  }, [quests, onClaimableCount])
 
   useEffect(() => {
     let cancelled = false
