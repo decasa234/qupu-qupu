@@ -195,6 +195,76 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     expect(await counts(childId)).toEqual(after1)
   })
 
+  test('a 10-answer focused session commits, banks per-answer rewards, and replays idempotently', async () => {
+    const concept = await pickConcept()
+    const instance = await fetchInstance(childId, concept.slug)
+    const sessionId = randomUUID()
+
+    // 10 straight CORRECT answers — the focused-node session size. Same
+    // per-answer economy as the 20-answer path: the fold walks best_tier
+    // 0 → 4 (tier 4 lands on the 10th correct, like the drill test), base XP
+    // prices at the PRE-session tier, tier-up bonuses grant once each.
+    const answers = Array.from({ length: 10 }, () => ({
+      concept_instance_id: instance.id,
+      selected_answer: instance.answer,
+    }))
+    const first = await request(app)
+      .post('/api/me/wmi/konsep/commit')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ childId, subject_key: concept.subject_key, session_id: sessionId, answers })
+    expect(first.status).toBe(201)
+    expect(first.body.data.total).toBe(10)
+    expect(first.body.data.correct).toBe(10)
+
+    // Exactly 10 attempt rows — the size flows through, nothing pads to 20.
+    const after1 = await counts(childId)
+    expect(after1.attempts).toBe(10)
+    expect(after1.progressAttempts).toBe(10)
+
+    // Per-answer economy unchanged: tier-0 base XP (5/1) once for the
+    // distinct instance, plus the three one-time tier-up bonuses.
+    expect(await baseXpFor(childId, instance.id)).toEqual({ xp: 5, coins: 1 })
+    expect(await tierUpRows(childId)).toEqual([
+      [5, 0],
+      [20, 5],
+      [40, 10],
+    ])
+    const grown = first.body.data.conceptsGrown.find(
+      (g: { slug: string }) => g.slug === concept.slug,
+    )
+    expect(grown).toMatchObject({ fromTier: 0, toTier: 4, bonusXp: 65 })
+
+    // Replay with the SAME session_id: stored result verbatim + replayed
+    // flag, NO new attempts / events / ledger rows.
+    const second = await request(app)
+      .post('/api/me/wmi/konsep/commit')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ childId, subject_key: concept.subject_key, session_id: sessionId, answers })
+    expect(second.status).toBe(201)
+    expect(second.body.data).toEqual({ ...first.body.data, replayed: true })
+    expect(await counts(childId)).toEqual(after1)
+  })
+
+  test('an 11-answer commit is rejected by validation', async () => {
+    const concept = await pickConcept()
+    const instance = await fetchInstance(childId, concept.slug)
+    const res = await request(app)
+      .post('/api/me/wmi/konsep/commit')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        childId,
+        subject_key: concept.subject_key,
+        session_id: randomUUID(),
+        answers: Array.from({ length: 11 }, () => ({
+          concept_instance_id: instance.id,
+          selected_answer: '0',
+        })),
+      })
+    expect(res.status).toBe(400)
+    // Nothing was banked.
+    expect((await counts(childId)).attempts).toBe(0)
+  })
+
   test('a different child replaying the session_id is rejected without the result', async () => {
     const { subjectKey, answers } = await buildSessionPayload(childId)
     const sessionId = randomUUID()

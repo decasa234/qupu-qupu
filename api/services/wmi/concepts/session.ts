@@ -39,7 +39,11 @@ import {
 } from '../../gamification/profileUpdater.js'
 import { loadLevelTiers, resolveLevel } from '../../gamification/levelCurve.js'
 
+// Accepted commit sizes — MUST mirror the client constants in
+// src/lib/konsepPlan.ts: a full chapter session is SESSION_SIZE answers; a
+// focused node session (single-concept ~80% mix) is FOCUS_SESSION_SIZE.
 export const SESSION_SIZE = 20
+export const FOCUS_SESSION_SIZE = 10
 
 export interface GradeResult {
   is_correct: boolean
@@ -185,8 +189,10 @@ export async function commitKonsepSession(
   sessionId: string,
   answers: { conceptInstanceId: string; selectedAnswer: string }[],
 ): Promise<SessionResult> {
-  if (answers.length !== SESSION_SIZE) {
-    throw new Error(`Expected ${SESSION_SIZE} answers, received ${answers.length}`)
+  if (answers.length !== SESSION_SIZE && answers.length !== FOCUS_SESSION_SIZE) {
+    throw new Error(
+      `Expected ${FOCUS_SESSION_SIZE} or ${SESSION_SIZE} answers, received ${answers.length}`,
+    )
   }
   // Round-trips (typical warm path) for the batched core, in order:
   //   1 ownership check          2 session-id claim
@@ -683,7 +689,8 @@ export async function commitKonsepSession(
 
     const result: SessionResult = {
       correct,
-      total: SESSION_SIZE,
+      // Size-derived: 20 for a full chapter session, 10 for a focused one.
+      total: answers.length,
       xpEarned,
       coinsEarned,
       conceptsGrown: grownList,

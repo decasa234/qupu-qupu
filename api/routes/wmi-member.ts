@@ -12,7 +12,12 @@ import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/conce
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
-import { gradeConceptAnswer, commitKonsepSession, SESSION_SIZE } from '../services/wmi/concepts/session.js'
+import {
+  gradeConceptAnswer,
+  commitKonsepSession,
+  SESSION_SIZE,
+  FOCUS_SESSION_SIZE,
+} from '../services/wmi/concepts/session.js'
 import { SUBJECTS } from '../services/wmi/concepts/curriculum.js'
 import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 
@@ -326,8 +331,16 @@ const konsepCommitSchema = Joi.object({
   // Client-generated when the session STARTS; survives in the resume
   // snapshot so a retried commit replays with the SAME id (idempotency key).
   session_id: Joi.string().uuid().required(),
+  // Exactly FOCUS_SESSION_SIZE (focused node session) or SESSION_SIZE (full
+  // chapter session) answers — mirrors src/lib/konsepPlan.ts.
   answers: Joi.array()
-    .length(SESSION_SIZE)
+    .min(FOCUS_SESSION_SIZE)
+    .max(SESSION_SIZE)
+    .custom((value: unknown[], helpers) =>
+      value.length === FOCUS_SESSION_SIZE || value.length === SESSION_SIZE
+        ? value
+        : helpers.error('array.length', { limit: SESSION_SIZE }),
+    )
     .items(
       Joi.object({
         concept_instance_id: Joi.string().uuid().required(),
