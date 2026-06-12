@@ -16,6 +16,8 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    allowedHosts: ['qupu.id']
+    // Also covers `vite preview` (preview.allowedHosts defaults to this).
+    // qupu.id = production; qupu.klair.id = the admin-only deploy's tunnel.
+    allowedHosts: ['qupu.id', 'qupu.klair.id']
   },
 })
