@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { isAxiosError } from 'axios'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
@@ -10,6 +10,7 @@ import { getIllustration } from '../components/wmi/concepts/registry'
 import { trackEvent } from '../lib/analytics'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { commitKonsepSession, fetchConceptNext, fetchGarden, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
+import { buildPlan, FOCUS_SESSION_SIZE } from '../lib/konsepPlan'
 import {
   clearKonsepSession,
   generateKonsepSessionId,
@@ -29,29 +30,6 @@ import type {
   WmiKonsepSessionResult,
   WmiQuestion,
 } from '../types/wmi'
-
-const SESSION_SIZE = 20
-
-function buildPlan(concepts: WmiGardenConcept[]): WmiGardenConcept[] {
-  const plan: WmiGardenConcept[] = []
-  let prev: string | null = null
-  for (let i = 0; i < SESSION_SIZE; i++) {
-    const pool = concepts.length > 1 ? concepts.filter((c) => c.slug !== prev) : concepts
-    const weights = pool.map((c) => Math.max(1, 100 - c.pct))
-    let r = Math.random() * weights.reduce((a, b) => a + b, 0)
-    let pick = pool[0]
-    for (let j = 0; j < pool.length; j++) {
-      r -= weights[j]
-      if (r <= 0) {
-        pick = pool[j]
-        break
-      }
-    }
-    plan.push(pick)
-    prev = pick.slug
-  }
-  return plan
-}
 
 interface ResumeOffer {
   saved: SavedKonsepSession
@@ -80,6 +58,10 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
 export default function WmiKonsepSession() {
   useDocumentTitle('Latihan')
   const { subjectKey } = useParams<{ subjectKey: string }>()
+  // `?fokus=<conceptSlug>` (from a Belajar skill-tree node): shorter session
+  // concentrated on that concept (~80%) with the rest as chapter review.
+  const [searchParams] = useSearchParams()
+  const focusSlug = searchParams.get('fokus') ?? undefined
   const { activeChildId } = useAuthStore()
   const setLastSubjectKey = useWmiStore((state) => state.setLastSubjectKey)
   const preferredLang = useWmiStore((state) => state.preferredLang)
@@ -149,6 +131,12 @@ export default function WmiKonsepSession() {
     let cancelled = false
     setLoadingGarden(true)
     setGardenError(null)
+    // The effect re-runs when ?fokus (or the subject) changes while this page
+    // stays mounted — drop any prior session state before building a new plan.
+    setPlan(null)
+    setResumeOffer(null)
+    setIdx(0)
+    setAnswers([])
 
     fetchGarden(activeChildId, grade)
       .then((garden) => {
@@ -169,15 +157,18 @@ export default function WmiKonsepSession() {
             if (concept) rebuilt.push(concept)
           }
           // Legit snapshots: mid-session (answers === idx, next question is
-          // plan[idx]) or fully answered awaiting commit (20 answers, idx 19).
+          // plan[idx]) or fully answered awaiting commit (total answers,
+          // idx total-1). The plan length IS the session size — snapshots of
+          // focus sessions (10) and full sessions (20) both resume.
+          const total = saved.planSlugs.length
           const consistent =
             saved.answers.length === saved.idx ||
-            (saved.answers.length === SESSION_SIZE && saved.idx === SESSION_SIZE - 1)
+            (saved.answers.length === total && saved.idx === total - 1)
           const valid =
-            saved.planSlugs.length === SESSION_SIZE &&
-            rebuilt.length === SESSION_SIZE &&
+            total > 0 &&
+            rebuilt.length === total &&
             saved.idx >= 0 &&
-            saved.idx < SESSION_SIZE &&
+            saved.idx < total &&
             saved.answers.length > 0 &&
             consistent
           if (valid) {
@@ -193,10 +184,10 @@ export default function WmiKonsepSession() {
         // Build the plan ONCE here; never rebuild
         startedAtRef.current = Date.now()
         sessionIdRef.current = generateKonsepSessionId()
-        setPlan(buildPlan(chapter.concepts))
+        setPlan(buildPlan(chapter.concepts, focusSlug ? { focusSlug, size: FOCUS_SESSION_SIZE } : undefined))
         // Session actually starts now — remember it per child for resume.
         setLastSubjectKey(subjectKey)
-        trackEvent('session_start', { subjectKey })
+        trackEvent('session_start', { subjectKey, ...(focusSlug ? { focusSlug } : {}) })
       })
       .catch((err) => {
         if (!cancelled) setGardenError(toIndonesianErrorMessage(err, 'Gagal memuat data konsep.'))
@@ -205,7 +196,7 @@ export default function WmiKonsepSession() {
 
     return () => { cancelled = true }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeChildId, subjectKey])
+  }, [activeChildId, subjectKey, focusSlug])
 
   // ── Step 2: load question for plan[idx] whenever plan/idx changes ─────────
   const fetchQuestion = useCallback(async (planItem: WmiGardenConcept) => {
@@ -314,10 +305,10 @@ export default function WmiKonsepSession() {
   const handleLanjut = () => {
     if (!question || !feedback || !plan || !subjectKey || !activeChildId) return
     // Guard: if answers are already fully banked, the commit path owns this UI — never append again
-    if (answers.length >= SESSION_SIZE) return
+    if (answers.length >= plan.length) return
 
     const newAnswers = [...answers, { concept_instance_id: question.concept_instance_id, selected_answer: selected ?? '' }]
-    const nextIdx = idx < SESSION_SIZE - 1 ? idx + 1 : idx
+    const nextIdx = idx < plan.length - 1 ? idx + 1 : idx
 
     // Snapshot progress so a refresh/crash can offer resume (best-effort).
     saveKonsepSession({
@@ -330,12 +321,12 @@ export default function WmiKonsepSession() {
       startedAt: startedAtRef.current,
     })
 
-    if (idx < SESSION_SIZE - 1) {
+    if (idx < plan.length - 1) {
       setAnswers(newAnswers)
       setIdx((i) => i + 1)
       // question fetch triggered by idx effect
     } else {
-      // 20th question answered — bank the final array ONCE, then commit
+      // Last question answered — bank the final array ONCE, then commit
       setAnswers(newAnswers)
       void commitSession(newAnswers)
     }
@@ -362,9 +353,9 @@ export default function WmiKonsepSession() {
     clearKonsepSession(subjectKey, activeChildId)
     startedAtRef.current = Date.now()
     sessionIdRef.current = generateKonsepSessionId()
-    setPlan(buildPlan(resumeOffer.concepts))
+    setPlan(buildPlan(resumeOffer.concepts, focusSlug ? { focusSlug, size: FOCUS_SESSION_SIZE } : undefined))
     setResumeOffer(null)
-    trackEvent('session_start', { subjectKey })
+    trackEvent('session_start', { subjectKey, ...(focusSlug ? { focusSlug } : {}) })
   }
 
   // ── Vote ───────────────────────────────────────────────────────────────────
@@ -468,7 +459,7 @@ export default function WmiKonsepSession() {
             Lanjutkan sesi yang terputus?
           </h1>
           <p className="mt-1 text-sm font-semibold text-qupu-muted">
-            {resumeOffer.saved.answers.length} dari {SESSION_SIZE} terjawab
+            {resumeOffer.saved.answers.length} dari {resumeOffer.plan.length} terjawab
           </p>
           <button
             type="button"
@@ -512,7 +503,7 @@ export default function WmiKonsepSession() {
             Keluar
           </button>
           <span className="font-display text-xs font-black text-qupu-brand-blue">
-            Soal {idx + 1} / {SESSION_SIZE}
+            Soal {idx + 1} / {plan.length}
           </span>
         </div>
         {/* Slim progress bar */}
@@ -520,7 +511,7 @@ export default function WmiKonsepSession() {
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{
-              width: `${((idx + 1) / SESSION_SIZE) * 100}%`,
+              width: `${((idx + 1) / plan.length) * 100}%`,
               background: 'linear-gradient(90deg, #6BCC2A 0%, #58A700 100%)',
             }}
           />
@@ -550,14 +541,14 @@ export default function WmiKonsepSession() {
               Coba lagi
             </button>
           </div>
-        ) : answers.length >= SESSION_SIZE && !feedback ? (
+        ) : answers.length >= plan.length && !feedback ? (
           /* Restored fully-answered session — nothing left but the commit */
           <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
               <i className="fa-solid fa-flag-checkered text-xl" aria-hidden="true" />
             </div>
             <p className="mt-3 text-sm font-semibold text-qupu-muted">
-              Semua {SESSION_SIZE} soal sudah terjawab. Simpan hasil sesimu!
+              Semua {plan.length} soal sudah terjawab. Simpan hasil sesimu!
             </p>
             {commitError && (
               <p className="mt-2 text-xs font-semibold text-rose-600">
@@ -664,7 +655,7 @@ export default function WmiKonsepSession() {
                 <WmiVoteButtons onVote={onVote} />
 
                 {/* Lanjut / commit area */}
-                {answers.length >= SESSION_SIZE ? (
+                {answers.length >= plan.length ? (
                   // Final answer already banked — show commit/loading/retry state only
                   <div className="mt-4 space-y-2">
                     {commitError && (

@@ -60,6 +60,23 @@ describe('konsepSessionStorage', () => {
     expect(readKonsepSession('g1-add-sub', 'child-1')).toEqual(session)
   })
 
+  test('a 10-length focus-session plan round-trips intact', () => {
+    const session = makeSession({
+      planSlugs: Array.from({ length: 10 }, (_, i) => ((i + 1) % 4 === 0 ? `review-${i}` : 'focus-concept')),
+      answers: [
+        { concept_instance_id: 'ci-1', selected_answer: 'A' },
+        { concept_instance_id: 'ci-2', selected_answer: 'B' },
+        { concept_instance_id: 'ci-3', selected_answer: 'C' },
+      ],
+      idx: 3,
+    })
+    saveKonsepSession(session)
+
+    const restored = readKonsepSession('g1-add-sub', 'child-1')
+    expect(restored).toEqual(session)
+    expect(restored?.planSlugs).toHaveLength(10)
+  })
+
   test('reading a different subjectKey returns null and leaves the record alone', () => {
     const session = makeSession()
     saveKonsepSession(session)
