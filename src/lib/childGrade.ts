@@ -1,7 +1,11 @@
 // src/lib/childGrade.ts
 //
-// Infers a child's WMI grade (1-3) from the age group stored on their
-// profile. This is the exact reverse of ChildOnboardingWizard's forward
+// Infers a child's WMI grade (1-3) for the garden. When the profile carries a
+// server-persisted school grade (children.grade: 0 = TK, 1-6 = SD Kelas),
+// that wins outright — clamped into WMI's 1-3 range. Otherwise we fall back
+// to reversing the age group stored on the profile.
+//
+// The fallback is the exact reverse of ChildOnboardingWizard's forward
 // mapping: the wizard asks TK / SD Kelas 1-6, takes a representative age per
 // choice, and stores the FIRST age group (sorted by min_age, as the API
 // returns them) whose [minAge, maxAge] contains that age. We replay that
@@ -34,10 +38,13 @@ function clampToWmiGrade(schoolGrade: number): InferredWmiGrade {
 }
 
 export function inferWmiGrade(
-  child: Pick<Child, 'ageGroupId'> | null | undefined,
+  child: Pick<Child, 'ageGroupId' | 'grade'> | null | undefined,
   ageGroups: readonly AgeGroupOption[] | null | undefined,
 ): InferredWmiGrade {
   try {
+    const persisted = child?.grade
+    if (typeof persisted === 'number') return clampToWmiGrade(persisted)
+
     const ageGroupId = child?.ageGroupId
     if (!ageGroupId || !ageGroups || ageGroups.length === 0) return 1
 

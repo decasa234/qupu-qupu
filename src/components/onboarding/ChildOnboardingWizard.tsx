@@ -33,17 +33,18 @@ const STEPS: { key: StepKey; eyebrow: string; title: string; subtitle: string }[
 const DEFAULT_DAILY_GOAL = 3
 
 // TK + SD (Kelas 1-6). `age` is a representative age used to map onto the
-// backend's age_groups (the child profile stores age_group_id, not a grade).
-// `wmiGrade` is the WMI difficulty pin (clamped 1-3, same clamp as
-// lib/childGrade.ts): TK/Kelas 1 -> 1, Kelas 2 -> 2, Kelas 3+ -> 3.
-const GRADE_OPTIONS: { key: string; label: string; age: number; wmiGrade: WmiGrade }[] = [
-  { key: 'tk', label: 'TK', age: 5, wmiGrade: 1 },
-  { key: 'sd1', label: 'Kelas 1', age: 6, wmiGrade: 1 },
-  { key: 'sd2', label: 'Kelas 2', age: 7, wmiGrade: 2 },
-  { key: 'sd3', label: 'Kelas 3', age: 8, wmiGrade: 3 },
-  { key: 'sd4', label: 'Kelas 4', age: 9, wmiGrade: 3 },
-  { key: 'sd5', label: 'Kelas 5', age: 10, wmiGrade: 3 },
-  { key: 'sd6', label: 'Kelas 6', age: 11, wmiGrade: 3 },
+// backend's age_groups; `schoolGrade` (0 = TK, 1-6 = SD Kelas) is persisted
+// verbatim on the child profile (children.grade). `wmiGrade` is the WMI
+// difficulty pin (clamped 1-3, same clamp as lib/childGrade.ts):
+// TK/Kelas 1 -> 1, Kelas 2 -> 2, Kelas 3+ -> 3.
+const GRADE_OPTIONS: { key: string; label: string; age: number; schoolGrade: number; wmiGrade: WmiGrade }[] = [
+  { key: 'tk', label: 'TK', age: 5, schoolGrade: 0, wmiGrade: 1 },
+  { key: 'sd1', label: 'Kelas 1', age: 6, schoolGrade: 1, wmiGrade: 1 },
+  { key: 'sd2', label: 'Kelas 2', age: 7, schoolGrade: 2, wmiGrade: 2 },
+  { key: 'sd3', label: 'Kelas 3', age: 8, schoolGrade: 3, wmiGrade: 3 },
+  { key: 'sd4', label: 'Kelas 4', age: 9, schoolGrade: 4, wmiGrade: 3 },
+  { key: 'sd5', label: 'Kelas 5', age: 10, schoolGrade: 5, wmiGrade: 3 },
+  { key: 'sd6', label: 'Kelas 6', age: 11, schoolGrade: 6, wmiGrade: 3 },
 ]
 
 export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWizardProps) {
@@ -94,6 +95,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
       const response = await api.post('/me/children', {
         name: name.trim(),
         ageGroupId: resolveAgeGroupId(),
+        grade: GRADE_OPTIONS.find((g) => g.key === gradeKey)?.schoolGrade ?? null,
         avatarColor: DEFAULT_AVATAR_COLOR,
         avatarIcon: DEFAULT_AVATAR_SLUG,
         dailyGoalQuizzes: DEFAULT_DAILY_GOAL,

@@ -10,8 +10,8 @@ const AGE_GROUPS: AgeGroupOption[] = [
   { id: 'g-10-12', name: 'Usia 10-12', minAge: 10, maxAge: 12 },
 ]
 
-function childWith(ageGroupId: string | null) {
-  return { ageGroupId }
+function childWith(ageGroupId: string | null, grade: number | null = null) {
+  return { ageGroupId, grade }
 }
 
 describe('inferWmiGrade', () => {
@@ -39,6 +39,19 @@ describe('inferWmiGrade', () => {
     expect(inferWmiGrade(undefined, AGE_GROUPS)).toBe(1)
     expect(inferWmiGrade(childWith('g-5-8'), null)).toBe(1)
     expect(inferWmiGrade(childWith('g-5-8'), [])).toBe(1)
+  })
+
+  test('prefers the server-persisted grade over age-group inference', () => {
+    expect(inferWmiGrade(childWith(null, 3), [])).toBe(3)
+    expect(inferWmiGrade(childWith(null, 5), [])).toBe(3) // clamped to WMI 1-3
+    expect(inferWmiGrade(childWith(null, 0), [])).toBe(1) // TK
+    // A persisted grade also beats a contradicting age-group inference.
+    expect(inferWmiGrade(childWith('g-10-12', 2), AGE_GROUPS)).toBe(2)
+  })
+
+  test('falls back to inference when grade is null', () => {
+    expect(inferWmiGrade(childWith(null, null), [])).toBe(1)
+    expect(inferWmiGrade(childWith('g-8-10', null), AGE_GROUPS)).toBe(3)
   })
 
   test('maps a finer-grained hypothetical group split to grade 2', () => {
