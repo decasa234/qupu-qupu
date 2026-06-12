@@ -150,7 +150,7 @@ export default function ShopPage() {
               <i className="fa-solid fa-coins" aria-hidden="true" /> {balance}
             </span>
             <Link
-              to="/me#koleksi"
+              to="/profil#koleksi"
               className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-black text-white"
             >
               <i className="fa-solid fa-box-archive" aria-hidden="true" /> Inventaris

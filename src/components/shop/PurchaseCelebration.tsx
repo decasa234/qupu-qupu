@@ -54,7 +54,7 @@ export default function PurchaseCelebration({ item, onDismiss }: Props) {
         {isShield ? 'Aktif otomatis saat kamu absen 1 hari' : 'Tersimpan di inventaris kamu'}
       </p>
       <Link
-        to="/me#koleksi"
+        to="/profil#koleksi"
         className="z-10 mt-2 inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-5 py-2 font-display text-sm font-extrabold text-qupu-brand-blue"
         onClick={(e) => { e.stopPropagation() }}
       >
