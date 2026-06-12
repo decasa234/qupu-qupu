@@ -5,7 +5,7 @@ import type { WmiGlossaryTerm, WmiGrade } from '../types/wmi'
 
 interface WmiState {
   // Resolved grade for the active child. Consumers keep reading/writing this
-  // exactly as before (WmiHub, WmiPapers, WmiKonsepDrill...).
+  // exactly as before (BelajarPath, WmiPapers, WmiKonsepDrill...).
   selectedGrade: WmiGrade
   // Child the store is currently resolved for (set by syncChildGrade; not
   // persisted — AppShell re-syncs on mount/child switch/rehydration).

@@ -1,17 +1,21 @@
 // src/components/wmi/path/PathNode.tsx
 //
 // One circular stop on the Belajar skill-tree path. Near-zero text by design:
-// the node communicates entirely through icon + color (plant tier for done
+// the node communicates entirely through icon + color (plant tier for open
 // concepts, lock for locked, pulsing play halo for the current stop, flag /
 // crown for chapter-test boss nodes). `label` feeds aria-label so screen
 // readers still hear the concept name.
+//
+// States: 'locked' (not tappable), 'current' (the "you are here" stop),
+// 'open' (tappable — renders the plant at whatever tier it has reached, which
+// may be tier 0; for boss nodes 'open' means the chapter test was passed).
 
 import type { Ref } from 'react'
 import PlantIcon from '../PlantIcon'
 import { plantForTier } from '../plantTier'
 import type { WmiComprehensionTier } from '../../../types/wmi'
 
-export type PathNodeState = 'locked' | 'current' | 'done'
+export type PathNodeState = 'locked' | 'current' | 'open'
 
 interface Props {
   state: PathNodeState
@@ -32,7 +36,7 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
   let circleClass = ''
 
   if (isBoss) {
-    if (state === 'done') {
+    if (state === 'open') {
       // Boss passed — gold crown.
       circleClass = 'bg-qupu-brand-yellow ring-2 ring-[#E8B400] shadow-[0_5px_0_0_#D9A800]'
       face = <i className="fa-solid fa-crown text-[#8A6400]" aria-hidden="true" />
@@ -47,7 +51,7 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
     circleClass = 'bg-[#E7E2D6] ring-2 ring-[#D8D2C2]'
     face = <i className="fa-solid fa-lock text-[16px] text-[#9AA0AC]" aria-hidden="true" />
   } else {
-    // current + done both show the plant at its tier; current adds the halo.
+    // current + open both show the plant at its tier; current adds the halo.
     circleClass =
       state === 'current'
         ? 'ring-4 ring-qupu-brand-orange shadow-[0_5px_0_0_#C46123]'
@@ -76,7 +80,7 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
         />
       )}
       <span className="relative">{face}</span>
-      {!isBoss && state === 'done' && plant.crown && (
+      {!isBoss && state === 'open' && plant.crown && (
         <i
           className="fa-solid fa-crown absolute -right-1 -top-2 text-[14px] text-qupu-orange"
           aria-hidden="true"

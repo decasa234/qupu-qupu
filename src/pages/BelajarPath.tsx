@@ -62,7 +62,13 @@ export default function BelajarPath() {
   const [questsOpen, setQuestsOpen] = useState(false)
   const [claimableCount, setClaimableCount] = useState(0)
   const currentRef = useRef<HTMLButtonElement | null>(null)
-  const autoScrolledRef = useRef(false)
+  // Auto-scroll fires once per (child, grade) path identity — switching the
+  // active child or grade re-arms it, but refetches of the same path don't.
+  // gardenKeyRef records which path the current `garden` state belongs to, so
+  // a key change never scrolls against (and burns its one shot on) the
+  // previous path's still-rendered trail.
+  const autoScrolledForRef = useRef<string | null>(null)
+  const gardenKeyRef = useRef<string | null>(null)
 
   // Read the persisted per-child pin directly so a pinned child renders the
   // right grade on cold load (no wrong-grade first fetch).
@@ -82,13 +88,19 @@ export default function BelajarPath() {
 
   useEffect(() => { loadGlossary().catch(() => {}) }, [loadGlossary])
 
+  const pathKey = `${activeChildId}:${effectiveGrade}`
+
   useEffect(() => {
     if (!activeChildId) { setGarden(null); setLoading(false); return }
     let cancelled = false
     setLoading(true)
     setLoadError(false)
     fetchGarden(activeChildId, effectiveGrade)
-      .then((d) => !cancelled && setGarden(d))
+      .then((d) => {
+        if (cancelled) return
+        gardenKeyRef.current = `${activeChildId}:${effectiveGrade}`
+        setGarden(d)
+      })
       .catch(() => {
         if (cancelled) return
         setGarden(null)
@@ -106,12 +118,14 @@ export default function BelajarPath() {
     })
   }, [])
 
-  // Auto-scroll the first rendered garden to the "you are here" node.
+  // Auto-scroll each freshly loaded path to the "you are here" node.
   useEffect(() => {
-    if (!garden || autoScrolledRef.current) return
-    autoScrolledRef.current = true
+    if (!garden || gardenKeyRef.current !== pathKey || autoScrolledForRef.current === pathKey) {
+      return
+    }
+    autoScrolledForRef.current = pathKey
     scrollToCurrent(false)
-  }, [garden, scrollToCurrent])
+  }, [garden, pathKey, scrollToCurrent])
 
   const handleClaimableCount = useCallback((count: number) => setClaimableCount(count), [])
 

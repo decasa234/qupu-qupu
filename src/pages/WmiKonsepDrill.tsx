@@ -20,7 +20,7 @@ export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
   const { loadGlossary, selectedGrade, preferredLang, setPreferredLang } = useWmiStore()
   // Konsep drills exist for grades 1-3 only (grade 0 is just for the papers
-  // page) — clamp like WmiHub's clampGardenGrade so a stale grade-0 pin
+  // page) — clamp like BelajarPath's clampGardenGrade so a stale grade-0 pin
   // can't request a grade the engine has no concepts for.
   const drillGrade = (selectedGrade < 1 ? 1 : selectedGrade > 3 ? 3 : selectedGrade) as typeof selectedGrade
   const navigate = useNavigate()

@@ -53,7 +53,7 @@ export function pickCurrentNode(
 // locked (the test IS the unlock shortcut) or fully grown (final challenge);
 // otherwise dormant while the kid grows the concepts.
 function bossState(chapter: WmiGardenChapter): PathNodeState {
-  if (chapter.testedOut) return 'done'
+  if (chapter.testedOut) return 'open'
   if (!chapter.unlocked) return 'current'
   if (chapter.total > 0 && chapter.grownCount >= chapter.total) return 'current'
   return 'locked'
@@ -158,7 +158,7 @@ export default function PathTrail({
                   ? 'locked'
                   : isCurrent
                     ? 'current'
-                    : 'done'
+                    : 'open'
                 return (
                   <div
                     key={concept.slug}
