@@ -1,9 +1,9 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import ErrorBoundary from '../components/ErrorBoundary'
 import WmiConceptFeedbackPanel from '../components/wmi/WmiConceptFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
-import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
+import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
 import WmiExplainer from '../components/wmi/WmiExplainer'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
@@ -14,7 +14,6 @@ import { useAuthStore } from '../store/authStore'
 import { syncStatStrip } from '../hooks/useGamificationStats'
 import { useWmiStore } from '../store/wmiStore'
 import type { WmiAttemptResult, WmiConceptQuestion, WmiQuestion } from '../types/wmi'
-import { tagLabel } from '../components/wmi/tagLabels'
 
 export default function WmiKonsepDrill() {
   const { activeChildId } = useAuthStore()
@@ -133,8 +132,7 @@ export default function WmiKonsepDrill() {
   if (!activeChildId) {
     return (
       <div className="w-full max-w-[440px] self-center pb-6">
-        <BackRow onBack={handleBack} />
-        <KonsepHeader />
+        <TopRow onClose={handleBack} />
         <div className="mt-4 rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
             <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
@@ -148,14 +146,9 @@ export default function WmiKonsepDrill() {
   return (
     <div className="relative w-full max-w-[440px] self-center pb-6">
       {feedback?.is_correct && <KonsepConfetti key={question?.concept_instance_id} />}
-      <BackRow onBack={handleBack} />
-      <KonsepHeader grade={conceptSlug ? undefined : drillGrade} />
-
-      {sessionDots.length > 0 && (
-        <div className="mt-4">
-          <WmiDots dots={sessionDots} />
-        </div>
-      )}
+      <TopRow onClose={handleBack}>
+        {sessionDots.length > 0 && <WmiDots dots={sessionDots} />}
+      </TopRow>
 
       {error ? (
         <div className="mt-4 rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
@@ -189,22 +182,9 @@ export default function WmiKonsepDrill() {
               </div>
             </ErrorBoundary>
           )}
-          {question.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {question.tags.map((t) => {
-                const { name_id, color_hex } = tagLabel(t)
-                return (
-                  <span key={t} className="rounded-full px-2 py-0.5 text-[10px] font-bold"
-                    style={{ backgroundColor: `${color_hex}1A`, color: color_hex }}>
-                    {name_id}
-                  </span>
-                )
-              })}
-            </div>
-          )}
           <WmiQuestionView
             question={adaptConceptQuestion(question)}
-            label={questionLang === 'id' ? question.concept_name_id : question.concept_name_en}
+            hideConceptTitle
             selectedChoice={selected}
             highlight={
               feedback
@@ -231,15 +211,19 @@ export default function WmiKonsepDrill() {
                 correctAnswer={feedback.correct_answer}
                 lang={questionLang}
               />
-              <WmiConceptFeedbackPanel
-                isCorrect={feedback.is_correct}
-                correctAnswer={feedback.correct_answer}
-                hintSteps={hintSteps}
-                lang={questionLang}
-                reward={feedback.gamification}
-                onNext={loadNext}
-              />
-              <WmiVoteButtons onVote={onVote} />
+              {/* Vote controls — collapsed behind a flag icon in the corner of the
+                  feedback panel (the panel itself has mt-5, hence top-8 here). */}
+              <div className="relative">
+                <WmiConceptFeedbackPanel
+                  isCorrect={feedback.is_correct}
+                  correctAnswer={feedback.correct_answer}
+                  hintSteps={hintSteps}
+                  lang={questionLang}
+                  reward={feedback.gamification}
+                  onNext={loadNext}
+                />
+                <WmiVoteToggle onVote={onVote} buttonClassName="absolute right-3 top-8" />
+              </div>
             </>
           )}
         </div>
@@ -266,38 +250,20 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
   }
 }
 
-function BackRow({ onBack }: { onBack: () => void }) {
+// Decluttered header: a close button plus the session dot strip — nothing else.
+function TopRow({ onClose, children }: { onClose: () => void; children?: ReactNode }) {
   return (
-    <div className="mb-3">
+    <div className="mb-3 flex items-start gap-3">
       <button
         type="button"
-        onClick={onBack}
-        className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        onClick={onClose}
+        aria-label="Keluar"
+        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
       >
-        <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-        Kembali
+        <i className="fa-solid fa-xmark" aria-hidden="true" />
       </button>
+      <div className="min-w-0 flex-1">{children}</div>
     </div>
-  )
-}
-
-function KonsepHeader({ grade }: { grade?: number }) {
-  return (
-    <section className="relative overflow-hidden rounded-[2rem] bg-qupu-brand-orange p-4 text-white shadow-[0_6px_0_0_#C46123]">
-      <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-qupu-brand-yellow/35" />
-      <div className="relative flex items-center gap-3">
-        <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.35rem] bg-[#FFF8F0] text-2xl text-qupu-brand-orange shadow-[inset_0_-4px_0_#FFD3B1]">
-          <i className="fa-solid fa-brain" aria-hidden="true" />
-        </span>
-        <div className="min-w-0">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">WMI · Konsep</p>
-          <h1 className="font-display text-2xl font-black leading-none">Latihan Konsep</h1>
-          <p className="mt-1 text-xs font-bold text-white/80">
-            {grade !== undefined ? `Tingkat ${grade} · ` : ''}Makin baru konsepnya, makin besar XP-nya
-          </p>
-        </div>
-      </div>
-    </section>
   )
 }
 

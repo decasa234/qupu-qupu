@@ -20,8 +20,8 @@ interface Props {
   // Replaces the default "Soal {number}" eyebrow. Konsep passes the concept
   // name here (concept questions have no meaningful sequential number).
   label?: string
-  /** When true, hides the label/eyebrow line (use in the concept session where
-   *  the concept name is already shown in the KonsepSessionShowcase). */
+  /** When true, hides the label/eyebrow line (used on the kid-facing konsep
+   *  session/drill screens, which keep the question card free of labels). */
   hideConceptTitle?: boolean
   selectedChoice?: string | null
   fillValue?: string

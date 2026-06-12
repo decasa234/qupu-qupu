@@ -3,9 +3,8 @@ import { isAxiosError } from 'axios'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
-import KonsepSessionShowcase from '../components/wmi/KonsepSessionShowcase'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
-import WmiVoteButtons from '../components/wmi/WmiVoteButtons'
+import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { trackEvent } from '../lib/analytics'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
@@ -491,23 +490,17 @@ export default function WmiKonsepSession() {
       {/* Confetti on correct answer — re-mount per question via key */}
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${idx}`} />}
 
-      {/* Top row: quit button + single progress indicator */}
-      <div className="mb-3 px-1">
-        <div className="mb-1.5 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={handleQuit}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-xmark text-xs" aria-hidden="true" />
-            Keluar
-          </button>
-          <span className="font-display text-xs font-black text-qupu-brand-blue">
-            Soal {idx + 1} / {plan.length}
-          </span>
-        </div>
-        {/* Slim progress bar */}
-        <div className="h-2 overflow-hidden rounded-full bg-[#F1E4CC]">
+      {/* Top row: close button + single compact progress element */}
+      <div className="mb-3 flex items-center gap-3 px-1">
+        <button
+          type="button"
+          onClick={handleQuit}
+          aria-label="Keluar"
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-xmark" aria-hidden="true" />
+        </button>
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{
@@ -516,12 +509,10 @@ export default function WmiKonsepSession() {
             }}
           />
         </div>
+        <span className="font-display text-xs font-black text-qupu-brand-blue">
+          {idx + 1} / {plan.length}
+        </span>
       </div>
-
-      {/* Showcase band: concept info */}
-      <KonsepSessionShowcase
-        concept={{ nameId: currentPlanItem.nameId, tier: currentPlanItem.tier, tags: currentPlanItem.tags }}
-      />
 
       {/* Question card area */}
       <div className="mt-4">
@@ -571,7 +562,6 @@ export default function WmiKonsepSession() {
           <div className="space-y-4">
             <WmiQuestionView
               question={adaptConceptQuestion(question)}
-              label={question.concept_name_id}
               hideConceptTitle
               conceptIllustration={getIllustration(question.concept_slug)}
               conceptIllustrationParams={question.params}
@@ -614,7 +604,7 @@ export default function WmiKonsepSession() {
             {/* Feedback panel (shown after answer) */}
             {feedback && (
               <div
-                className={`rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
+                className={`relative rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
                   feedback.is_correct
                     ? 'border-[#58A700]/40 bg-[#E8F5D6]'
                     : 'border-rose-200 bg-rose-50'
@@ -651,8 +641,8 @@ export default function WmiKonsepSession() {
                   </p>
                 )}
 
-                {/* Vote buttons */}
-                <WmiVoteButtons onVote={onVote} />
+                {/* Vote controls — collapsed behind a flag icon in the corner */}
+                <WmiVoteToggle onVote={onVote} />
 
                 {/* Lanjut / commit area */}
                 {answers.length >= plan.length ? (
