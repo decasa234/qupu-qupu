@@ -23,7 +23,15 @@ import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
+import { resolvePostLoginRoute } from './lib/postLoginRoute'
 import { useAuthStore } from './store/authStore'
+
+// Admin-only deployment variant: set VITE_ADMIN_ONLY=true at build time
+// (e.g. the admin.qupu.id Vercel project) to lock the entire app behind an
+// admin login. NOT a security boundary — the API enforces auth server-side;
+// this only keeps the admin deploy's surface clean. Production builds leave
+// the flag unset and behave normally.
+const ADMIN_ONLY = import.meta.env.VITE_ADMIN_ONLY === 'true'
 
 // Lazy boundaries — keep the member core (garden/session/drill/dashboard/Me)
 // eager: it's the post-login hot path and must never flash a route spinner.
@@ -54,15 +62,15 @@ function suspended(node: React.ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{node}</Suspense>
 }
 
-// qupu-admin branch: the ENTIRE app is admin-only. Every route except /login
-// requires an authenticated user with role 'admin' — including the marketing
-// landing pages, which admins can still browse after signing in. Members and
-// anonymous visitors are always sent to /login.
+// When ADMIN_ONLY is set, every route except /login requires an authenticated
+// user with role 'admin' — including the marketing landing pages, which admins
+// can still browse after signing in. Members and anonymous visitors are always
+// sent to /login. With the flag off this renders children untouched.
 function AdminOnlyGate({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const { isAuthenticated, user, logout } = useAuthStore()
 
-  if (location.pathname === '/login') {
+  if (!ADMIN_ONLY || location.pathname === '/login') {
     return <>{children}</>
   }
 
@@ -119,8 +127,17 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
 }
 
 function HomeRoute() {
-  // qupu-admin branch: the gate guarantees whoever reaches "/" is an admin,
-  // and admins are allowed to browse the landing page — no redirect.
+  const { isAuthenticated, user, children } = useAuthStore()
+  // Admin-only deploys let admins browse the landing page — no redirect
+  // (the gate guarantees whoever reaches "/" is an admin).
+  if (ADMIN_ONLY) {
+    return <Home />
+  }
+  if (isAuthenticated) {
+    // Members land in the WMI garden; admins on the admin dashboard;
+    // members without a child profile go finish onboarding first.
+    return <Navigate to={resolvePostLoginRoute(user?.role ?? '', children.length)} replace />
+  }
   return <Home />
 }
 
