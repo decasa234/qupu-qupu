@@ -300,8 +300,8 @@ export default function PostQuizRewardSummary({
             onClick={onGoToDashboard}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-3 font-display text-base font-extrabold text-white shadow-subscribe transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0"
           >
-            <i className="fa-solid fa-gauge text-sm" aria-hidden="true" />
-            Lihat dashboard
+            <i className="fa-solid fa-house text-sm" aria-hidden="true" />
+            Ke beranda
           </button>
           <button
             type="button"

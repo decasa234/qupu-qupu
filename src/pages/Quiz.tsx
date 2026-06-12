@@ -478,11 +478,11 @@ export default function QuizPage() {
             <div className="grid gap-2.5 pt-1">
               <button
                 type="button"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/belajar')}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-3 font-display text-sm font-extrabold text-white shadow-subscribe transition-transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <i className="fa-solid fa-house text-sm" aria-hidden="true" />
-                Ke dashboard
+                Ke beranda
               </button>
               <button
                 type="button"
@@ -509,7 +509,7 @@ export default function QuizPage() {
           onClose={() => setRewardModalOpen(false)}
           onGoToDashboard={() => {
             setRewardModalOpen(false)
-            navigate('/dashboard')
+            navigate('/belajar')
           }}
         />
       )}

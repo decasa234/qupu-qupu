@@ -1,108 +1,43 @@
 // src/pages/Me.tsx
 //
-// Profil tab destination. Sections: account header, the parent area
-// (child profile management + the Pengaturan menu — PIN-locked behind
-// ParentGate because the kid shares the parent's session), the kid-facing
-// family/avatar/level surfaces, and the owned-items collection.
+// Profil tab — kid-only since Task 7. Account management, child profiles,
+// and every parent setting moved to the PIN-locked /parent dashboard; this
+// page keeps only the kid surfaces: avatar hero + level, a 3-stat icon row,
+// a horizontal badge shelf, family cards, and the owned-items collection.
+// Declutter rule: icon + number + ≤3 words per element.
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { useAuthStore } from '../store/authStore'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import InventoryGrid from '../components/me/InventoryGrid'
 import AvatarEditor from '../components/me/AvatarEditor'
-import ChildrenManager from '../components/me/ChildrenManager'
 import FamilyLeaderboard from '../components/me/FamilyLeaderboard'
 import FamilyQuestCard from '../components/me/FamilyQuestCard'
 import LevelDetail from '../components/me/LevelDetail'
-import ParentGate from '../components/parent/ParentGate'
-import SetPinModal from '../components/parent/SetPinModal'
+import BadgeMedallion from '../components/badges/BadgeMedallion'
+import type { SubjectBadgeGroup } from '../types'
 
 export default function MePage() {
   useDocumentTitle('Profil')
-  const { user, children, activeChildId, logout } = useAuthStore()
+  const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
-  const navigate = useNavigate()
-  const [showChangePin, setShowChangePin] = useState(false)
-
-  function handleLogout() {
-    logout()
-    navigate('/login', { replace: true })
-  }
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-4 sm:max-w-lg">
-      <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-        <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Akun</div>
-        <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">{user?.name ?? 'Profil'}</h2>
-        <p className="mt-1 text-xs font-medium text-qupu-muted">{user?.email}</p>
-      </section>
+      {activeChild && <AvatarEditor child={activeChild} />}
 
-      {/* Parent area: child management + the Pengaturan menu. While locked,
-          ParentGate collapses both into one "Pengaturan Orang Tua" card. */}
-      <ParentGate>
-        <ChildrenManager />
+      {activeChild && <LevelDetail childId={activeChild.id} />}
 
-        <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
-            Pengaturan
-          </div>
-          <div className="mt-3 flex flex-col gap-2">
-            <SettingsRow
-              to="/badges"
-              icon="fa-solid fa-medal"
-              iconBg="#8A5BF0"
-              title="Badge & pencapaian"
-              subtitle="Lihat semua lencana yang terkumpul"
-            />
-            <SettingsRow
-              to="/report"
-              icon="fa-solid fa-chart-line"
-              iconBg="#30598A"
-              title="Rapor belajar"
-              subtitle="Lihat progres & nilai lengkap"
-            />
-            <SettingsRow
-              to="/dashboard"
-              icon="fa-solid fa-chart-pie"
-              iconBg="#0E7490"
-              title="Statistik & Misi Harian"
-              subtitle="Ringkasan belajar, kuis & misi harian"
-            />
-            <NotifyEmailRow />
-            {user?.role === 'parent' && (
-              <SettingsRow
-                onClick={() => setShowChangePin(true)}
-                icon="fa-solid fa-key"
-                iconBg="#E0762E"
-                title="Ubah PIN"
-                subtitle="Ganti PIN pengaturan orang tua"
-              />
-            )}
-            <SettingsRow
-              onClick={handleLogout}
-              icon="fa-solid fa-right-from-bracket"
-              iconBg="#E11D48"
-              title="Keluar"
-              subtitle="Keluar dari akun ini"
-              danger
-            />
-          </div>
-        </section>
-      </ParentGate>
+      <StatRow />
 
-      {showChangePin && (
-        <SetPinModal mode="change" onClose={() => setShowChangePin(false)} />
-      )}
+      <BadgeShelf childId={activeChildId} />
 
       {/* Family surfaces (P2.3) — both render nothing for accounts with
           fewer than 2 children. */}
       <FamilyLeaderboard />
       <FamilyQuestCard />
-
-      {activeChild && <AvatarEditor child={activeChild} />}
-
-      {activeChild && <LevelDetail childId={activeChild.id} />}
 
       <section id="koleksi" className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Koleksi saya</div>
@@ -115,128 +50,124 @@ export default function MePage() {
           )}
         </div>
       </section>
+
+      {/* Subdued doorway to the PIN-locked parent dashboard. */}
+      <Link
+        to="/parent"
+        className="mx-auto mb-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold text-qupu-muted/70 transition-colors hover:text-qupu-muted"
+      >
+        <i className="fa-solid fa-user-shield" aria-hidden="true" />
+        Orang Tua
+      </Link>
     </div>
   )
 }
 
-// Parent email-notification opt-out (P2.5). Default ON (the DB default), so
-// the switch renders enabled immediately and the GET only corrects it for
-// parents who already opted out. The PUT is optimistic with rollback —
-// matching the row layout of SettingsRow but with a switch instead of a
-// chevron.
-function NotifyEmailRow() {
-  const [enabled, setEnabled] = useState(true)
-  const [busy, setBusy] = useState(false)
+// 3-stat icon row: streak / XP / coins — numbers only, fed by the shared
+// gamification store (TopStatStrip self-hydrates it on every member mount,
+// so this is normally already populated).
+function StatRow() {
+  const stats = useGamificationStats((s) => s.stats)
+
+  const items = [
+    { icon: 'fa-solid fa-fire', color: '#F97316', label: 'Streak', value: stats?.streak ?? 0 },
+    { icon: 'fa-solid fa-bolt', color: '#8A5BF0', label: 'XP', value: stats?.xp ?? 0 },
+    { icon: 'fa-solid fa-coins', color: '#D9A406', label: 'Koin', value: stats?.coinBalance ?? 0 },
+  ]
+
+  return (
+    <section className="grid grid-cols-3 gap-3">
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="flex flex-col items-center rounded-[1.5rem] border-[3px] border-qupu-brand-blue/15 bg-white px-2 py-3 shadow-[3px_4px_0_0_#FFD3B1]"
+        >
+          <i className={`${item.icon} text-lg`} style={{ color: item.color }} aria-hidden="true" />
+          <span className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">
+            {item.value}
+          </span>
+          <span className="text-[10px] font-black uppercase tracking-[0.14em] text-qupu-muted">
+            {item.label}
+          </span>
+        </div>
+      ))}
+    </section>
+  )
+}
+
+// Horizontal shelf of the most recent badge medallions, linking to /badges.
+const SHELF_MAX = 6
+
+function BadgeShelf({ childId }: { childId: string | null }) {
+  const [unlocks, setUnlocks] = useState<
+    Array<{ videoId: string; videoTitle: string; badgeCount: number; colorHex: string; unlockedAt: string }>
+  >([])
 
   useEffect(() => {
+    if (!childId) {
+      setUnlocks([])
+      return
+    }
     let cancelled = false
     api
-      .get('/users/me')
-      .then((res) => {
-        const value = res.data?.data?.notify_email
-        if (!cancelled && typeof value === 'boolean') setEnabled(value)
+      .get('/me/badges', { params: { childId } })
+      .then((response) => {
+        if (cancelled) return
+        const groups = (response.data.data.families ?? []) as SubjectBadgeGroup[]
+        const flat = groups.flatMap((group) =>
+          group.unlocks.map((u) => ({
+            videoId: u.videoId,
+            videoTitle: u.videoTitle,
+            badgeCount: u.badgeCount,
+            colorHex: group.colorHex,
+            unlockedAt: u.unlockedAt,
+          })),
+        )
+        flat.sort((a, b) => b.unlockedAt.localeCompare(a.unlockedAt))
+        setUnlocks(flat)
       })
       .catch(() => {
-        // Leave the default-on state; the toggle still works.
+        // Shelf renders the link-only state; /badges still works.
       })
     return () => {
       cancelled = true
     }
-  }, [])
-
-  async function handleToggle() {
-    if (busy) return
-    const next = !enabled
-    setEnabled(next)
-    setBusy(true)
-    try {
-      await api.put('/users/me', { notify_email: next })
-    } catch {
-      setEnabled(!next) // roll back on failure
-    } finally {
-      setBusy(false)
-    }
-  }
+  }, [childId])
 
   return (
-    <div className="flex items-center gap-3 rounded-[1.25rem] bg-qupu-shell px-3 py-2.5">
-      <span
-        className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[0.9rem] text-base text-white"
-        style={{ backgroundColor: '#D97706' }}
-      >
-        <i className="fa-solid fa-envelope" aria-hidden="true" />
-      </span>
-      <span className="min-w-0 flex-1 text-left">
-        <span className="block font-display text-sm font-extrabold leading-tight text-qupu-brand-blue">
-          Email pengingat &amp; rangkuman mingguan
+    <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
+      <div className="flex items-center justify-between gap-3">
+        <span className="inline-flex items-center gap-2 font-display text-lg font-extrabold text-qupu-brand-blue">
+          <i className="fa-solid fa-medal text-base text-[#8A5BF0]" aria-hidden="true" />
+          {unlocks.reduce((acc, u) => acc + u.badgeCount, 0)} Badge
         </span>
-        <span className="block text-[11px] font-semibold text-qupu-muted">
-          Pengingat streak &amp; rangkuman belajar tiap Senin
-        </span>
-      </span>
-      <button
-        type="button"
-        role="switch"
-        aria-checked={enabled}
-        aria-label="Email pengingat & rangkuman mingguan"
-        onClick={handleToggle}
-        disabled={busy}
-        className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-          enabled ? 'bg-qupu-brand-orange' : 'bg-qupu-brand-blue/20'
-        } ${busy ? 'opacity-60' : ''}`}
-      >
-        <span
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
-            enabled ? 'left-[1.375rem]' : 'left-0.5'
-          }`}
-        />
-      </button>
-    </div>
-  )
-}
-
-interface SettingsRowProps {
-  icon: string
-  iconBg: string
-  title: string
-  subtitle: string
-  to?: string
-  onClick?: () => void
-  danger?: boolean
-}
-
-function SettingsRow({ icon, iconBg, title, subtitle, to, onClick, danger }: SettingsRowProps) {
-  const inner = (
-    <>
-      <span
-        className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[0.9rem] text-base text-white"
-        style={{ backgroundColor: iconBg }}
-      >
-        <i className={icon} aria-hidden="true" />
-      </span>
-      <span className="min-w-0 flex-1 text-left">
-        <span className={`block font-display text-sm font-extrabold leading-tight ${danger ? 'text-[#E11D48]' : 'text-qupu-brand-blue'}`}>
-          {title}
-        </span>
-        <span className="block text-[11px] font-semibold text-qupu-muted">{subtitle}</span>
-      </span>
-      <i className="fa-solid fa-chevron-right text-xs text-qupu-muted/60" aria-hidden="true" />
-    </>
-  )
-
-  const className =
-    'flex items-center gap-3 rounded-[1.25rem] bg-qupu-shell px-3 py-2.5 transition-transform active:translate-y-0.5'
-
-  if (to) {
-    return (
-      <Link to={to} className={className}>
-        {inner}
-      </Link>
-    )
-  }
-  return (
-    <button type="button" onClick={onClick} className={`${className} w-full`}>
-      {inner}
-    </button>
+        <Link
+          to="/badges"
+          className="inline-flex items-center gap-1.5 rounded-full bg-qupu-shell px-3 py-1.5 text-[11px] font-extrabold text-qupu-brand-orange ring-1 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          Lihat semua
+          <i className="fa-solid fa-chevron-right text-[9px]" aria-hidden="true" />
+        </Link>
+      </div>
+      {unlocks.length > 0 ? (
+        <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
+          {unlocks.slice(0, SHELF_MAX).map((u) => (
+            <div key={u.videoId} className="w-16 flex-shrink-0">
+              <BadgeMedallion
+                state="earned"
+                label={u.videoTitle}
+                colorHex={u.colorHex}
+                href="/badges"
+                badgeCount={u.badgeCount}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-3 w-16">
+          <BadgeMedallion state="locked" label="Belum ada" />
+        </div>
+      )}
+    </section>
   )
 }

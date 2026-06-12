@@ -525,11 +525,11 @@ export default function VideoDetailPage() {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <button
                     type="button"
-                    onClick={() => navigate('/dashboard')}
+                    onClick={() => navigate('/belajar')}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-blue px-5 py-3 font-display text-sm font-extrabold text-white shadow-subscribe transition-transform hover:-translate-y-0.5"
                   >
-                    <i className="fa-solid fa-gauge text-sm" aria-hidden="true" />
-                    Lihat dashboard
+                    <i className="fa-solid fa-house text-sm" aria-hidden="true" />
+                    Ke beranda
                   </button>
                   <button
                     type="button"
@@ -569,7 +569,7 @@ export default function VideoDetailPage() {
           onClose={() => setRewardModalOpen(false)}
           onGoToDashboard={() => {
             setRewardModalOpen(false)
-            navigate('/dashboard')
+            navigate('/belajar')
           }}
         />
       )}
