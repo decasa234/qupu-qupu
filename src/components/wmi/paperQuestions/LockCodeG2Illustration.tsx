@@ -32,6 +32,9 @@ export const ELIMINATED_G2 = new Set<string>(['1', '6', '4'])
 
 export const LCG2_VIEW_W = 320
 export const LCG2_VIEW_H = 340
+// The shackle arcs above y = 0; give the viewBox top headroom so its rounded
+// top isn't clipped flat by the figure box (overflow-hidden).
+const LCG2_PAD_TOP = 12
 
 const INK = '#1F2937'
 const GREEN = '#10B981'
@@ -127,6 +130,8 @@ export interface LockCodeG2FigureProps {
   slots?: (string | null)[]
   /** Cross out eliminated digits in the clue rows (digits in ELIMINATED_G2). */
   crossEliminated?: boolean
+  /** Extra digit characters to also cross out (deduced out beyond the 164 clue). */
+  extraCrossed?: Set<string>
   /** Highlight these guess digits as "surviving / fits": "rowIndex-colIndex". */
   highlight?: Set<string>
   /** Mark the lock as solved (green). */
@@ -136,12 +141,13 @@ export interface LockCodeG2FigureProps {
 export function LockCodeG2Figure({
   slots = [null, null, null],
   crossEliminated = false,
+  extraCrossed,
   highlight,
   solved = false,
 }: LockCodeG2FigureProps) {
   return (
     <svg
-      viewBox={`0 0 ${LCG2_VIEW_W} ${LCG2_VIEW_H}`}
+      viewBox={`0 ${-LCG2_PAD_TOP} ${LCG2_VIEW_W} ${LCG2_VIEW_H + LCG2_PAD_TOP}`}
       width="100%"
       style={{ maxWidth: 320, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
@@ -154,7 +160,7 @@ export function LockCodeG2Figure({
           <g key={`clue-${r}`}>
             {/* The three guess digits. */}
             {clue.guess.split('').map((ch, c) => {
-              const elim = crossEliminated && ELIMINATED_G2.has(ch)
+              const elim = crossEliminated && (ELIMINATED_G2.has(ch) || (extraCrossed?.has(ch) ?? false))
               const hot = highlight?.has(`${r}-${c}`) ?? false
               return (
                 <g key={`g-${r}-${c}`}>

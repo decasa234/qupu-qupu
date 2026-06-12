@@ -25,6 +25,7 @@ const GREEN = '#10B981'
 const GREEN_STROKE = '#10B981'
 const GIVEN = '#6B7280'
 const MARK = '#9CA3AF'
+const AMBER = '#D97706'
 
 interface Cell {
   row: number
@@ -123,15 +124,17 @@ function twoWayPoints(row: number, col: number): string {
 }
 
 export interface ArrowGridFigureProps {
-  /** How many of the ABCD answer arrows are filled (0..4), in ABCD order. */
-  filled?: number
-  /** Index (0..3) of the answer arrow being lit while it is filled. */
-  active?: number | null
+  /** Cells with a known value so far: "row-col" -> number. */
+  solved?: Record<string, number>
+  /** Cell keys being deduced on this beat (drawn in green). */
+  activeKeys?: string[]
+  /** Cell keys the active arrow is "looking at" (amber dashed ring). */
+  litKeys?: string[]
 }
 
-export function ArrowGridFigure({ filled = 0, active = null }: ArrowGridFigureProps) {
-  const litLabels = new Set(ANSWER_ARROWS.slice(0, Math.max(0, Math.min(filled, 4))).map((a) => a.label))
-  const answerIndex = (label?: string) => ANSWER_ARROWS.findIndex((a) => a.label === label)
+export function ArrowGridFigure({ solved = {}, activeKeys = [], litKeys = [] }: ArrowGridFigureProps) {
+  const activeSet = new Set(activeKeys)
+  const litSet = new Set(litKeys)
 
   return (
     <svg
@@ -140,39 +143,57 @@ export function ArrowGridFigure({ filled = 0, active = null }: ArrowGridFigurePr
       style={{ maxWidth: 360, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
+      {/* "looking at" rings (drawn under the arrows) */}
+      {CELLS.map((cell) => {
+        const key = `${cell.row}-${cell.col}`
+        if (!litSet.has(key)) return null
+        return (
+          <rect
+            key={`lit-${key}`}
+            x={px(cell.col) + 5}
+            y={py(cell.row) + 5}
+            width={AG_CELL - 10}
+            height={AG_CELL - 10}
+            rx={8}
+            fill="rgba(245,158,11,0.12)"
+            stroke={AMBER}
+            strokeWidth={2}
+            strokeDasharray="5 4"
+          />
+        )
+      })}
+
       {CELLS.map((cell, i) => {
-        const isAnswer = !!cell.label
-        const idx = answerIndex(cell.label)
-        const isLit = isAnswer && cell.label !== undefined && litLabels.has(cell.label)
-        const isActive = active !== null && idx === active
-        const stroke = isLit ? GREEN_STROKE : INK
-        const fill = isLit ? 'rgba(16,185,129,0.16)' : 'white'
+        const key = `${cell.row}-${cell.col}`
+        const isActive = activeSet.has(key)
+        const solvedVal = solved[key]
+        const isSolved = solvedVal !== undefined
+        const stroke = isActive ? GREEN_STROKE : INK
+        const fill = isActive ? 'rgba(16,185,129,0.16)' : 'white'
         const points = cell.dir === 'updown' ? twoWayPoints(cell.row, cell.col) : arrowPoints(cell.row, cell.col, cell.dir)
 
-        // Centre text: the filled value, else the faint A/B/C/D marker, else a given number.
+        // Centre: a solved value, else the given number, else the faint A/B/C/D marker.
         let centre: string | null = null
         let centreColor = INK
         let italic = false
-        if (cell.given !== undefined) {
+        let big = false
+        if (isSolved) {
+          centre = String(solvedVal)
+          centreColor = isActive ? GREEN : '#065F46'
+          big = true
+        } else if (cell.given !== undefined) {
           centre = String(cell.given)
-        } else if (isLit) {
-          centre = String(ANSWER_ARROWS[idx].value)
-          centreColor = isActive ? GREEN : INK
-        } else if (isAnswer) {
-          centre = cell.label ?? null
+          centreColor = GIVEN
+          big = true
+        } else if (cell.label) {
+          centre = cell.label
           centreColor = MARK
           italic = true
         }
 
         return (
           <g key={`cell-${i}`}>
-            <polygon
-              points={points}
-              fill={fill}
-              stroke={stroke}
-              strokeWidth={isActive ? 3.5 : 2.5}
-              strokeLinejoin="round"
-            />
+            <polygon points={points} fill={fill} stroke={stroke} strokeWidth={isActive ? 3.5 : 2.5} strokeLinejoin="round" />
             {centre && (
               <text
                 x={ccx(cell.col)}
@@ -180,10 +201,10 @@ export function ArrowGridFigure({ filled = 0, active = null }: ArrowGridFigurePr
                 textAnchor="middle"
                 dominantBaseline="central"
                 className="font-display"
-                fontSize={AG_CELL * (cell.given !== undefined || isLit ? 0.34 : 0.26)}
-                fontWeight={cell.given !== undefined || isLit ? 900 : 700}
+                fontSize={AG_CELL * (big ? 0.34 : 0.26)}
+                fontWeight={big ? 900 : 700}
                 fontStyle={italic ? 'italic' : 'normal'}
-                fill={cell.given !== undefined ? GIVEN : centreColor}
+                fill={centreColor}
               >
                 {centre}
               </text>

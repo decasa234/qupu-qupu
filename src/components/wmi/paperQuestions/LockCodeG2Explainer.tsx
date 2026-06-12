@@ -12,6 +12,7 @@ export default function LockCodeG2Explainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
   const highlight = useMemo(() => new Set(beat.highlight), [beat.highlight])
+  const extraCrossed = useMemo(() => new Set(beat.extraCrossed ?? []), [beat.extraCrossed])
 
   const ariaLabel =
     lang === 'id'
@@ -24,6 +25,7 @@ export default function LockCodeG2Explainer(props: ExplainerProps) {
         <LockCodeG2Figure
           slots={beat.slots}
           crossEliminated={beat.crossEliminated}
+          extraCrossed={extraCrossed}
           highlight={highlight}
           solved={beat.solved}
         />

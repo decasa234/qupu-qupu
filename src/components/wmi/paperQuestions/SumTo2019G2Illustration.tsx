@@ -56,32 +56,38 @@ const TOTAL_Y = RULE_Y + 14
 
 const colX = (col: number) => GRID_X0 + col * (COL_W + COL_GAP)
 
+const AMBER = '#D97706'
+
 function DigitBox({
   col,
   y,
   ch,
   filled,
-  highlight,
+  trial,
 }: {
   col: number
   y: number
   ch: string | null
   filled: boolean
-  highlight: boolean
+  /** A candidate digit being tried (not fixed) — drawn translucent amber. */
+  trial?: string | null
 }) {
-  const show = filled && ch !== null
+  // Fixed digits are GREEN (deduced, certain); trial digits are translucent
+  // amber (just simulating); everything else is a gray dashed '?'.
+  const fixed = filled && ch !== null
+  const isTrial = !fixed && trial != null
   return (
-    <g>
+    <g opacity={isTrial ? 0.55 : 1}>
       <rect
         x={colX(col)}
         y={y}
         width={COL_W}
         height={BOX_H}
         rx={7}
-        fill={highlight ? GREEN_FILL : BOX_FILL}
-        stroke={highlight ? GREEN : show ? INK : GRAY}
-        strokeWidth={highlight ? 3 : show ? 2 : 1.5}
-        strokeDasharray={show ? undefined : '4 4'}
+        fill={fixed ? GREEN_FILL : BOX_FILL}
+        stroke={fixed ? GREEN : isTrial ? AMBER : GRAY}
+        strokeWidth={fixed ? 3 : isTrial ? 2.5 : 1.5}
+        strokeDasharray={fixed ? undefined : isTrial ? '6 4' : '4 4'}
       />
       <text
         x={colX(col) + COL_W / 2}
@@ -91,43 +97,57 @@ function DigitBox({
         className="font-display"
         fontSize={26}
         fontWeight={900}
-        fill={highlight ? '#065F46' : show ? INK : GRAY}
+        fill={fixed ? '#065F46' : isTrial ? '#92400E' : GRAY}
       >
-        {show ? ch : '?'}
+        {fixed ? ch : isTrial ? trial : '?'}
       </text>
     </g>
   )
 }
 
+export interface TrialDigit {
+  row: 'top' | 'middle' | 'bottom'
+  /** Grid column (0 = thousands … 3 = units). */
+  col: number
+  ch: string
+}
+
 export interface SumTo2019G2FigureProps {
-  /** Reveal the bottom 4-digit number (1589). */
-  showBottom?: boolean
-  /** Reveal the middle 3-digit number (403). */
-  showMiddle?: boolean
-  /** Reveal the top 2-digit number (27). */
-  showTop?: boolean
+  /** How many digits of the top 2-digit number are revealed, from the left (0–2). */
+  topMask?: number
+  /** How many digits of the middle 3-digit number are revealed, from the left (0–3). */
+  midMask?: number
+  /** How many digits of the bottom 4-digit number are revealed, from the left (0–4). */
+  botMask?: number
+  /** Candidate digits being tried (translucent, not fixed). */
+  trial?: TrialDigit[]
   /** Highlight a row: 'top' | 'middle' | 'bottom' | 'total' | null. */
   highlightRow?: 'top' | 'middle' | 'bottom' | 'total' | null
+  /** Highlight a place-value column: 0 = thousands … 3 = units, or null. */
+  highlightCol?: number | null
   /** Tint the total green (solved). */
   solved?: boolean
 }
 
 export function SumTo2019G2Figure({
-  showBottom = false,
-  showMiddle = false,
-  showTop = false,
+  topMask = 0,
+  midMask = 0,
+  botMask = 0,
+  trial = [],
   highlightRow = null,
+  highlightCol = null,
   solved = false,
 }: SumTo2019G2FigureProps) {
+  const trialMap = new Map(trial.map((tr) => [`${tr.row}-${tr.col}`, tr.ch]))
   const rows: {
     key: 'top' | 'middle' | 'bottom'
     y: number
     cells: (string | null)[]
-    filled: boolean
+    mask: number
   }[] = [
-    { key: 'top', y: ROW_Y[0], cells: TOP_CELLS, filled: showTop },
-    { key: 'middle', y: ROW_Y[1], cells: MID_CELLS, filled: showMiddle },
-    { key: 'bottom', y: ROW_Y[2], cells: BOT_CELLS, filled: showBottom },
+    { key: 'top', y: ROW_Y[0], cells: TOP_CELLS, mask: topMask },
+    { key: 'middle', y: ROW_Y[1], cells: MID_CELLS, mask: midMask },
+    { key: 'bottom', y: ROW_Y[2], cells: BOT_CELLS, mask: botMask },
   ]
 
   return (
@@ -137,6 +157,21 @@ export function SumTo2019G2Figure({
       style={{ maxWidth: 300, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
+      {/* Place-value column band (the column currently being reasoned about). */}
+      {highlightCol !== null && (
+        <rect
+          x={colX(highlightCol) - 4}
+          y={ROW_Y[0] - 7}
+          width={COL_W + 8}
+          height={TOTAL_Y + BOX_H - ROW_Y[0] + 8}
+          rx={10}
+          fill="rgba(245,158,11,0.10)"
+          stroke="#D97706"
+          strokeWidth={2}
+          strokeDasharray="6 4"
+        />
+      )}
+
       {/* The "+" sign, left of the middle (3-digit) row. */}
       <text
         x={GRID_X0 - 16}
@@ -151,22 +186,23 @@ export function SumTo2019G2Figure({
         +
       </text>
 
-      {rows.map((row) =>
-        row.cells.map((ch, col) => {
+      {rows.map((row) => {
+        let seen = 0
+        return row.cells.map((ch, col) => {
           if (ch === null) return null
-          const hot = highlightRow === row.key
+          const order = seen++
           return (
             <DigitBox
               key={`${row.key}-${col}`}
               col={col}
               y={row.y}
               ch={ch}
-              filled={row.filled}
-              highlight={hot}
+              filled={order < row.mask}
+              trial={trialMap.get(`${row.key}-${col}`) ?? null}
             />
           )
-        }),
-      )}
+        })
+      })}
 
       {/* Rule line under the addends. */}
       <line

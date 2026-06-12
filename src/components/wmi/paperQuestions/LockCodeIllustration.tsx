@@ -32,6 +32,9 @@ export const ELIMINATED = new Set<string>(['1', '6', '4', '8', '3'])
 
 export const LC_VIEW_W = 320
 export const LC_VIEW_H = 340
+// The shackle arcs above y = 0; give the viewBox top headroom so its rounded
+// top isn't clipped flat by the figure box (overflow-hidden).
+const LC_PAD_TOP = 12
 
 const INK = '#1F2937'
 const GREEN = '#10B981'
@@ -141,7 +144,7 @@ export function LockCodeFigure({
 }: LockCodeFigureProps) {
   return (
     <svg
-      viewBox={`0 0 ${LC_VIEW_W} ${LC_VIEW_H}`}
+      viewBox={`0 ${-LC_PAD_TOP} ${LC_VIEW_W} ${LC_VIEW_H + LC_PAD_TOP}`}
       width="100%"
       style={{ maxWidth: 320, display: 'block', margin: '0 auto' }}
       aria-hidden="true"

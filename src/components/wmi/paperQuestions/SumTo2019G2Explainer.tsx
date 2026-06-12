@@ -21,10 +21,12 @@ export default function SumTo2019G2Explainer(props: ExplainerProps) {
     <div className="mx-auto w-full max-w-[360px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <SumTo2019G2Figure
-          showTop={beat.showTop}
-          showMiddle={beat.showMiddle}
-          showBottom={beat.showBottom}
+          topMask={beat.topMask}
+          midMask={beat.midMask}
+          botMask={beat.botMask}
+          trial={beat.trial}
           highlightRow={beat.highlightRow}
+          highlightCol={beat.highlightCol}
           solved={beat.solved}
         />
 

@@ -35,6 +35,18 @@ export const TARGET_INDEX = indexFromStar(TARGET_POSITION) // 13 - 9 = 4 → �
 /** The answer emoji, drawn as option D. */
 export const ANSWER_FOOD = FOODS[TARGET_INDEX] // 🍡
 
+/**
+ * The A–D answer options as foods, matching the original figure (D is the
+ * answer, 🍡). Shared by the explainer AND the question's choice renderer so the
+ * options can never drift between them.
+ */
+export const ANSWER_OPTIONS: { label: 'A' | 'B' | 'C' | 'D'; emoji: string }[] = [
+  { label: 'A', emoji: '🍣' },
+  { label: 'B', emoji: '🍤' },
+  { label: 'C', emoji: '🍥' },
+  { label: 'D', emoji: ANSWER_FOOD },
+]
+
 const PURPLE = '#341857'
 const STAR_FILL = '#F59E0B'
 const STAR_STROKE = '#B45309'
@@ -102,7 +114,7 @@ export default function PatternNinthG2Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A row of 13 food pictures with a star at the right end"
+      aria-label="A row of 13 food pictures with a star at the right end; only the two pictures nearest the star are numbered 1 and 2, counting from the star"
     >
       <svg
         viewBox={`0 0 ${ROW_VIEW_W} ${ROW_VIEW_H}`}
@@ -111,19 +123,26 @@ export default function PatternNinthG2Illustration() {
         aria-hidden="true"
       >
         {FOODS.map((emoji, i) => (
-          <g key={i}>
-            <FoodGlyph emoji={emoji} cx={foodX(i)} cy={ROW_Y} />
-            {/* optional small position numeral (left → right index) */}
-            <text x={foodX(i)} y={ROW_Y + 30} textAnchor="middle" fontSize={10} fill="#9CA3AF">
-              {i + 1}
-            </text>
-          </g>
+          <FoodGlyph key={i} emoji={emoji} cx={foodX(i)} cy={ROW_Y} />
+        ))}
+        {/* Only the two pictures nearest the ★ carry a numeral (counting from
+            the ★: 1 beside the star, then 2); every other picture is left blank,
+            exactly as in the paper. */}
+        {[1, 2].map((n) => (
+          <text
+            key={n}
+            x={foodX(FOODS.length - n)}
+            y={ROW_Y - 24}
+            textAnchor="middle"
+            fontSize={14}
+            fontWeight="bold"
+            fill={PURPLE}
+          >
+            {n}
+          </text>
         ))}
         {/* ★ at the far right end of the row */}
         <StarMarker cx={starX()} cy={ROW_Y} />
-        <text x={starX()} y={ROW_Y + 30} textAnchor="middle" fontSize={11} fontWeight="bold" fill={PURPLE}>
-          ★
-        </text>
       </svg>
     </div>
   )

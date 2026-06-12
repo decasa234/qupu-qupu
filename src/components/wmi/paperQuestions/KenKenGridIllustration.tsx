@@ -109,11 +109,15 @@ function cageEdges(cells: ReadonlyArray<[number, number]>): Array<{ x1: number; 
   return segs
 }
 
+const AMBER = '#D97706'
+
 export interface KenKenFigureProps {
-  /** How many top rows have their digits filled in (0..4). Givens always show. */
-  filledRows?: number
-  /** Row currently being filled — highlighted blue. */
-  activeRow?: number | null
+  /** Cells solved so far: "row-col" -> digit. Givens always show. */
+  solved?: Record<string, number>
+  /** Cell keys deduced on this beat (green tint + bold border). */
+  activeKeys?: string[]
+  /** Cell keys the current deduction is "looking at" (amber dashed ring). */
+  litKeys?: string[]
   /** Tint the four ABCD answer cells green and tag them A/B/C/D. */
   markAnswers?: boolean
 }
@@ -122,8 +126,10 @@ const GIVEN_SET = new Set(GIVENS.map((g) => `${g.row},${g.col}`))
 const GIVEN_VALUE = new Map(GIVENS.map((g) => [`${g.row},${g.col}`, g.value]))
 const ANSWER_BY_CELL = new Map(ANSWER_CELLS.map((c) => [`${c.row},${c.col}`, c]))
 
-export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = false }: KenKenFigureProps) {
-  const isShown = (r: number, c: number) => r < filledRows || GIVEN_SET.has(`${r},${c}`)
+export function KenKenFigure({ solved = {}, activeKeys = [], litKeys = [], markAnswers = false }: KenKenFigureProps) {
+  const activeSet = new Set(activeKeys)
+  const litSet = new Set(litKeys)
+  const isShown = (r: number, c: number) => solved[`${r}-${c}`] !== undefined || GIVEN_SET.has(`${r},${c}`)
 
   return (
     <svg
@@ -132,13 +138,12 @@ export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = f
       style={{ maxWidth: 360, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* Thin grid cells, with active-row and answer-cell tints. */}
+      {/* Thin grid cells, with active-cell and answer-cell tints. */}
       {Array.from({ length: KK_N }).map((_, r) =>
         Array.from({ length: KK_N }).map((__, c) => {
           const isAnswer = markAnswers && ANSWER_BY_CELL.has(`${r},${c}`)
-          const isActive = activeRow === r
-          const fill = isAnswer ? GREEN_FILL : isActive ? '#E1EFFB' : 'white'
-          const stroke = isAnswer ? GREEN : isActive ? '#30598A' : '#CBD5E1'
+          const isActive = activeSet.has(`${r}-${c}`)
+          const fill = isAnswer || isActive ? GREEN_FILL : 'white'
           return (
             <rect
               key={`g-${r}-${c}`}
@@ -147,8 +152,8 @@ export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = f
               width={KK_CELL}
               height={KK_CELL}
               fill={fill}
-              stroke={stroke}
-              strokeWidth={isAnswer ? 2.5 : isActive ? 2 : 1}
+              stroke="#CBD5E1"
+              strokeWidth={1}
             />
           )
         }),
@@ -170,6 +175,46 @@ export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = f
         )),
       )}
 
+      {/* "Looking at" rings + active borders, ON TOP of the cage lines so they
+          stay visible (inset to sit just inside the cage edge). */}
+      {Array.from({ length: KK_N }).map((_, r) =>
+        Array.from({ length: KK_N }).map((__, c) => {
+          const key = `${r}-${c}`
+          if (litSet.has(key)) {
+            return (
+              <rect
+                key={`lit-${key}`}
+                x={px(c) + 4}
+                y={py(r) + 4}
+                width={KK_CELL - 8}
+                height={KK_CELL - 8}
+                rx={6}
+                fill="none"
+                stroke={AMBER}
+                strokeWidth={2.5}
+                strokeDasharray="6 4"
+              />
+            )
+          }
+          if (activeSet.has(key)) {
+            return (
+              <rect
+                key={`act-${key}`}
+                x={px(c) + 2}
+                y={py(r) + 2}
+                width={KK_CELL - 4}
+                height={KK_CELL - 4}
+                rx={3}
+                fill="none"
+                stroke={GREEN}
+                strokeWidth={3.5}
+              />
+            )
+          }
+          return null
+        }),
+      )}
+
       {/* Cage clue labels (top-left of each cage). */}
       {CAGE_CLUES.map((clue, i) => (
         <text
@@ -187,13 +232,14 @@ export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = f
         </text>
       ))}
 
-      {/* Cell digits: givens always; solved digits as their row fills. */}
+      {/* Cell digits: givens always; deduced digits from the solved map. */}
       {Array.from({ length: KK_N }).map((_, r) =>
         Array.from({ length: KK_N }).map((__, c) => {
           if (!isShown(r, c)) return null
           const key = `${r},${c}`
-          const value = GIVEN_VALUE.get(key) ?? KK_SOLUTION[r][c]
+          const value = GIVEN_VALUE.get(key) ?? solved[`${r}-${c}`]
           const isAnswer = markAnswers && ANSWER_BY_CELL.has(key)
+          const isActive = activeSet.has(`${r}-${c}`)
           const isGiven = GIVEN_SET.has(key)
           return (
             <text
@@ -204,8 +250,8 @@ export function KenKenFigure({ filledRows = 0, activeRow = null, markAnswers = f
               dominantBaseline="central"
               className="font-display"
               fontSize={KK_CELL * 0.5}
-              fontWeight={isAnswer ? 900 : 800}
-              fill={isAnswer ? '#065F46' : isGiven ? GIVEN : INK}
+              fontWeight={isAnswer || isActive ? 900 : 800}
+              fill={isActive ? GREEN : isAnswer ? '#065F46' : isGiven ? GIVEN : INK}
             >
               {value}
             </text>
