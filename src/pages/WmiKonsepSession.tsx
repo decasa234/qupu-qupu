@@ -146,9 +146,13 @@ export default function WmiKonsepSession() {
           return
         }
 
-        // Interrupted session for this subsection + child? Offer to resume first.
+        // Interrupted session for this subsection + child? Offer to resume
+        // first — but ONLY if it targets the same ?fokus node (null = full
+        // chapter session). Tapping node B must never resume node A's
+        // half-done focus session: on a mismatch we skip the offer and build
+        // a fresh plan; the old snapshot is overwritten on the first save.
         const saved = readKonsepSession(subjectKey, activeChildId)
-        if (saved) {
+        if (saved && saved.focusSlug === (focusSlug ?? null)) {
           const bySlug = new Map(chapter.concepts.map((c) => [c.slug, c]))
           const rebuilt: WmiGardenConcept[] = []
           for (const slug of saved.planSlugs) {
@@ -314,6 +318,7 @@ export default function WmiKonsepSession() {
       childId: activeChildId,
       subjectKey,
       sessionId: sessionIdRef.current,
+      focusSlug: focusSlug ?? null,
       planSlugs: plan.map((c) => c.slug),
       answers: newAnswers,
       idx: nextIdx,

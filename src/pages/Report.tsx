@@ -16,7 +16,11 @@ import { fetchConceptProgress } from '../lib/wmiApi'
 import type { MemberProgress } from '../types'
 import type { WmiConceptProgressSummary } from '../types/wmi'
 
-export default function ReportPage() {
+// `embedded` — rendered inside the PIN-locked /parent shell (ParentDashboard):
+// hides the standalone "Kembali → /profil" row, which would otherwise eject
+// the parent into the kid app and burn the PIN unlock. PrintButton stays —
+// printing the rapor is a parent feature either way.
+export default function ReportPage({ embedded = false }: { embedded?: boolean }) {
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((c) => c.id === activeChildId) ?? null
   const [progress, setProgress] = useState<MemberProgress | null>(null)
@@ -108,14 +112,19 @@ export default function ReportPage() {
 
   return (
     <div className="mx-auto w-full space-y-4">
-      <div className="flex items-center justify-between gap-3" data-print-hide>
-        <Link
-          to="/profil"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-          Kembali
-        </Link>
+      <div
+        className={`flex items-center gap-3 ${embedded ? 'justify-end' : 'justify-between'}`}
+        data-print-hide
+      >
+        {!embedded && (
+          <Link
+            to="/profil"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
+            Kembali
+          </Link>
+        )}
         <PrintButton />
       </div>
 

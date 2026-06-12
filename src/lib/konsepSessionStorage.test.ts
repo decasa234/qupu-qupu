@@ -30,6 +30,7 @@ function makeSession(overrides: Partial<SavedKonsepSession> = {}): SavedKonsepSe
     childId: 'child-1',
     subjectKey: 'g1-add-sub',
     sessionId: '6f1f5a44-3c86-4e0e-8f3b-1c2d3e4f5a6b',
+    focusSlug: null,
     planSlugs: Array.from({ length: 20 }, (_, i) => `concept-${i % 4}`),
     answers: [{ concept_instance_id: 'ci-1', selected_answer: 'A' }],
     idx: 1,
@@ -58,6 +59,59 @@ describe('konsepSessionStorage', () => {
     saveKonsepSession(session)
 
     expect(readKonsepSession('g1-add-sub', 'child-1')).toEqual(session)
+  })
+
+  test('a focus session round-trips with its focusSlug preserved', () => {
+    const session = makeSession({
+      focusSlug: 'focus-concept',
+      planSlugs: Array.from({ length: 10 }, () => 'focus-concept'),
+      idx: 2,
+      answers: [
+        { concept_instance_id: 'ci-1', selected_answer: 'A' },
+        { concept_instance_id: 'ci-2', selected_answer: 'B' },
+      ],
+    })
+    saveKonsepSession(session)
+
+    const restored = readKonsepSession('g1-add-sub', 'child-1')
+    expect(restored).toEqual(session)
+    expect(restored?.focusSlug).toBe('focus-concept')
+  })
+
+  test('pre-focusSlug snapshots stay resumable and read back focusSlug null', () => {
+    const legacy = { ...makeSession() } as Record<string, unknown>
+    delete legacy.focusSlug
+    storage.setItem('qupu_konsep_session:child-1:g1-add-sub', JSON.stringify(legacy))
+
+    const restored = readKonsepSession('g1-add-sub', 'child-1')
+    expect(restored).not.toBeNull()
+    expect(restored?.focusSlug).toBeNull()
+    // Caller compares snapshot focusSlug against the URL's ?fokus (null for
+    // the plain chapter entry) — a legacy record must NOT match a focus entry.
+    expect(restored?.focusSlug === 'focus-concept').toBe(false)
+    expect(restored?.focusSlug === null).toBe(true)
+  })
+
+  test('a focus snapshot does not match a different focus target (null-sensitive compare)', () => {
+    const session = makeSession({ focusSlug: 'node-a' })
+    saveKonsepSession(session)
+
+    const restored = readKonsepSession('g1-add-sub', 'child-1')
+    expect(restored?.focusSlug).toBe('node-a')
+    // The session page's guard: saved.focusSlug === (urlFocusSlug ?? null).
+    expect(restored?.focusSlug === 'node-b').toBe(false)
+    expect(restored?.focusSlug === null).toBe(false)
+    expect(restored?.focusSlug === 'node-a').toBe(true)
+  })
+
+  test('a non-string, non-null focusSlug is corrupt — cleared', () => {
+    storage.setItem(
+      'qupu_konsep_session:child-1:g1-add-sub',
+      JSON.stringify({ ...makeSession(), focusSlug: 42 }),
+    )
+
+    expect(readKonsepSession('g1-add-sub', 'child-1')).toBeNull()
+    expect(storage.getItem('qupu_konsep_session:child-1:g1-add-sub')).toBeNull()
   })
 
   test('a 10-length focus-session plan round-trips intact', () => {

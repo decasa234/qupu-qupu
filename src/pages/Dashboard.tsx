@@ -22,8 +22,12 @@ import HomeActionCards from '../components/dashboard/HomeActionCards'
 import DashboardHighlights from '../components/dashboard/DashboardHighlights'
 import ShopTeaser from '../components/dashboard/ShopTeaser'
 
-export default function DashboardPage() {
-  useDocumentTitle('Statistik')
+// `embedded` — rendered inside the PIN-locked /parent shell (ParentDashboard):
+// skip the standalone document title so the shell's "Orang Tua" title stays.
+// No back/header row exists here; the kid CTAs (HomeActionCards, ShopTeaser,
+// quests) intentionally remain in both modes.
+export default function DashboardPage({ embedded = false }: { embedded?: boolean }) {
+  useDocumentTitle(embedded ? null : 'Statistik')
   const { children, activeChildId } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
   const [vm, setVm] = useState<DashboardViewModel | null>(null)

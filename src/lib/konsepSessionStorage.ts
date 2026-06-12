@@ -21,6 +21,12 @@ export interface SavedKonsepSession {
   // returns the stored result instead of re-banking 20 attempts. Snapshots
   // saved before this field existed fail validation and start fresh.
   sessionId: string
+  // Which Belajar node this session was built around (`?fokus=<slug>`), or
+  // null for a full chapter session. Lets the session page refuse to offer
+  // node A's interrupted focus session when the kid tapped node B (or the
+  // plain chapter entry). Snapshots written before this field existed are
+  // read back as focusSlug null (full-session semantics).
+  focusSlug: string | null
   planSlugs: string[]
   answers: SavedKonsepAnswer[]
   idx: number
@@ -99,7 +105,8 @@ export function readKonsepSession(subjectKey: string, childId: string): SavedKon
     return null
   }
 
-  return parsed
+  // Pre-focusSlug snapshots stay resumable as full sessions.
+  return { ...parsed, focusSlug: parsed.focusSlug ?? null }
 }
 
 export function clearKonsepSession(subjectKey: string, childId: string): void {
@@ -124,6 +131,9 @@ function isSavedKonsepSession(value: unknown): value is SavedKonsepSession {
     typeof v.subjectKey === 'string' &&
     typeof v.sessionId === 'string' &&
     v.sessionId.length > 0 &&
+    // Optional for backward compatibility — missing means "full session"
+    // (normalized to null on read).
+    (v.focusSlug === undefined || v.focusSlug === null || typeof v.focusSlug === 'string') &&
     Array.isArray(v.planSlugs) &&
     v.planSlugs.every((slug) => typeof slug === 'string') &&
     Array.isArray(v.answers) &&

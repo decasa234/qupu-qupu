@@ -31,10 +31,13 @@ export default function ParentDashboard() {
   // Re-lock on every mount: state (not storage) by design.
   const [unlocked, setUnlocked] = useState(false)
 
-  // Only parent accounts may enter /parent at all — any other role is
-  // bounced to the kid surface instead of skipping the PIN gate.
-  if (user?.role !== 'parent') {
-    return <Navigate to="/belajar" replace />
+  // Admins belong on the admin dashboard. Every OTHER authenticated role
+  // (parent, student, teacher) owns this account and may enter — the kid
+  // Profil no longer has logout/settings, so this is their only such surface.
+  // The PIN gate below applies to all of them; the PIN API
+  // (api/routes/users.ts /me/pin*) is role-agnostic, only authenticated.
+  if (user?.role === 'admin') {
+    return <Navigate to="/admin/dashboard" replace />
   }
 
   if (!unlocked) {
@@ -56,7 +59,7 @@ export default function ParentDashboard() {
         <section id="rapor" className="scroll-mt-28">
           <SectionHeading icon="fa-solid fa-chart-line" title="Rapor Belajar" />
           <div className="mt-3">
-            <ReportPage />
+            <ReportPage embedded />
           </div>
         </section>
 
@@ -64,7 +67,7 @@ export default function ParentDashboard() {
           <SectionHeading icon="fa-solid fa-chart-pie" title="Statistik & Misi Harian" />
           {/* DashboardPage centers itself with self-center → flex parent. */}
           <div className="mt-3 flex flex-col">
-            <DashboardPage />
+            <DashboardPage embedded />
           </div>
         </section>
 
@@ -145,15 +148,15 @@ function SettingsCard() {
 
       <div className="mt-4 flex flex-col gap-2">
         <NotifyEmailRow />
-        {user?.role === 'parent' && (
-          <SettingsRow
-            onClick={() => setShowChangePin(true)}
-            icon="fa-solid fa-key"
-            iconBg="#E0762E"
-            title="Ubah PIN"
-            subtitle="Ganti PIN area orang tua"
-          />
-        )}
+        {/* Anyone past the PIN gate has a PIN (the gate forces creation),
+            and the PIN API is role-agnostic — so no role gate here. */}
+        <SettingsRow
+          onClick={() => setShowChangePin(true)}
+          icon="fa-solid fa-key"
+          iconBg="#E0762E"
+          title="Ubah PIN"
+          subtitle="Ganti PIN area orang tua"
+        />
         <SettingsRow
           onClick={handleLogout}
           icon="fa-solid fa-right-from-bracket"
