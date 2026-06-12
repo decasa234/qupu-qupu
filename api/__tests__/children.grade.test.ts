@@ -11,9 +11,13 @@ import { signToken } from '../lib/jwt.js'
 import { pool, query, queryOne } from '../db.js'
 import app from '../app.js'
 
-const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
+const RUN = Boolean(process.env.TEST_DATABASE_URL)
 
-;(runIntegration ? describe : describe.skip)('children.grade (migration 0046)', () => {
+afterAll(async () => {
+  if (RUN) await pool.end()
+})
+
+describe.skipIf(!RUN)('children.grade (migration 0046)', () => {
   let parentUserId: string
   let token: string
   const createdUserIds: string[] = []
@@ -34,10 +38,6 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
     // users → children cascade.
     await query(`DELETE FROM users WHERE id = ANY($1::uuid[])`, [createdUserIds])
     createdUserIds.length = 0
-  })
-
-  afterAll(async () => {
-    await pool.end()
   })
 
   test('stores and returns grade on create/update', async () => {
