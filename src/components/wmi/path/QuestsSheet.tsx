@@ -5,6 +5,7 @@
 // stays MOUNTED while closed (hidden via CSS) so the panel's quest fetch can
 // report the claimable count for the chest badge before the sheet ever opens.
 
+import { createPortal } from 'react-dom'
 import DailyQuestsPanel from '../../me/DailyQuestsPanel'
 
 interface Props {
@@ -15,7 +16,10 @@ interface Props {
 }
 
 export default function QuestsSheet({ childId, open, onClose, onClaimableCount }: Props) {
-  return (
+  // Portaled to <body>: AppShell's content column is a `relative z-10`
+  // stacking context, so an in-tree z-50 would still paint (and hit-test)
+  // BELOW the sibling BottomTabBar (z-30). At the root level z-50 wins.
+  return createPortal(
     <div className={open ? 'fixed inset-0 z-50' : 'hidden'} aria-hidden={!open}>
       <button
         type="button"
@@ -27,7 +31,7 @@ export default function QuestsSheet({ childId, open, onClose, onClaimableCount }
         role="dialog"
         aria-modal="true"
         aria-label="Misi Hari Ini"
-        className="absolute inset-x-0 bottom-0 mx-auto max-h-[75vh] w-full max-w-[460px] animate-rise overflow-y-auto rounded-t-[2rem] bg-qupu-cream p-4 pb-7 shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
+        className="absolute inset-x-0 bottom-0 mx-auto max-h-[75vh] w-full max-w-[460px] animate-rise overflow-y-auto rounded-t-[2rem] bg-qupu-cream p-4 pb-[max(env(safe-area-inset-bottom),1.75rem)] shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
       >
         <span className="mx-auto block h-1.5 w-12 rounded-full bg-[#EFE2CC]" aria-hidden="true" />
         <div className="mt-2">
@@ -38,6 +42,7 @@ export default function QuestsSheet({ childId, open, onClose, onClaimableCount }
           />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

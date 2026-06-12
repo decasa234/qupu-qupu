@@ -179,10 +179,21 @@ export default function BelajarPath() {
 
       <div className="mt-4">
         {loading ? (
-          <div className="space-y-3" aria-hidden="true">
-            {[0, 1, 2].map((i) => (
-              <div key={i} className="h-28 animate-pulse rounded-[1.5rem] bg-qupu-cream" />
-            ))}
+          // Skeleton mirrors the real trail: a banner bar + node circles on
+          // the same zigzag lanes (pathLayout LANE) and 96px row rhythm.
+          // bg-qupu-peach/40 (house skeleton tint) — the page itself is
+          // qupu-cream, so a cream skeleton would be invisible.
+          <div aria-hidden="true">
+            <div className="h-[60px] animate-pulse rounded-[1.5rem] bg-qupu-peach/40" />
+            <div className="relative" style={{ height: 5 * 96 }}>
+              {[0.5, 0.22, 0.5, 0.78, 0.5].map((x, i) => (
+                <div
+                  key={i}
+                  className="absolute h-16 w-16 -translate-x-1/2 animate-pulse rounded-full bg-qupu-peach/40"
+                  style={{ left: `${x * 100}%`, top: i * 96 + 16 }}
+                />
+              ))}
+            </div>
           </div>
         ) : loadError ? (
           <div className="rounded-[1.5rem] bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">

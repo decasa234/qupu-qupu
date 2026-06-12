@@ -5,6 +5,7 @@
 // "Mulai" button that starts a focused session. Boss (Tes Bab) taps never
 // open this sheet — they navigate straight to the chapter test.
 
+import { createPortal } from 'react-dom'
 import PlantIcon from '../PlantIcon'
 import { plantForTier } from '../plantTier'
 import type { WmiGardenChapter, WmiGardenConcept } from '../../../types/wmi'
@@ -18,7 +19,11 @@ interface Props {
 
 export default function ConceptSheet({ concept, chapter, onStart, onClose }: Props) {
   const plant = plantForTier(concept.tier)
-  return (
+  // Portaled to <body>: AppShell's content column is a `relative z-10`
+  // stacking context, so an in-tree z-50 would still paint (and hit-test)
+  // BELOW the sibling BottomTabBar (z-30). At the root level z-50 wins, so
+  // the sheet — and its "Mulai" button — sits fully above the tab bar.
+  return createPortal(
     <div className="fixed inset-0 z-50">
       <button
         type="button"
@@ -30,7 +35,7 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
         role="dialog"
         aria-modal="true"
         aria-label={concept.nameId}
-        className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[460px] animate-rise rounded-t-[2rem] bg-white p-5 pb-7 shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
+        className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[460px] animate-rise rounded-t-[2rem] bg-white p-5 pb-[max(env(safe-area-inset-bottom),1.75rem)] shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
       >
         <span className="mx-auto block h-1.5 w-12 rounded-full bg-[#EFE2CC]" aria-hidden="true" />
         <div className="mt-4 flex items-center gap-4">
@@ -71,6 +76,7 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
           Mulai
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
