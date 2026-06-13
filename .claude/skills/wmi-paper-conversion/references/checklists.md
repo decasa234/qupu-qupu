@@ -24,6 +24,24 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
 - It renders cleanly in BOTH the question card and the explainer — they share the
   figure component.
 
+**Geometry gotchas — verify the RENDERED figure against the print, not the math:**
+- **SVG y-axis points DOWN.** A positive `rotate(θ)` lifts the LEFT end of a
+  horizontal plank. For a balance/seesaw, drive the *intended-heavier* side DOWN and
+  read the sign off the render (left-side-down = negative angle), not off the textbook
+  sign. (WMI-21F1A Q14: the figure, all four A–D options, and the explainer were all
+  upside-down from one inverted rotation sign.)
+- **Isometric stacks face front-RIGHT.** In the standard projection the corner nearest
+  the viewer is front-right; place a "short / removed" stack at the corner the print
+  shows facing front, and re-check after any rotation of the height map. (WMI-21F1A
+  Q21: the missing column had to sit at the front-right corner to match the printed
+  cube; a front-left placement looked wrong even though the height counts were right.)
+- **Match arrow style to the print.** Short arrows that sit at a path's START read
+  differently from full-length rays crossing the figure — copy whichever the scan
+  shows. (WMI-21F1A Q18 balloons: short inward start-arrows, not full lines.)
+- **Same glyph string in stem and figure.** A symbol-substitution figure must use the
+  exact glyphs the body uses (house style #2). If a stem says ☆ ○ △ □, the SVG `<text>`
+  nodes say ☆ ○ △ □ — not a recolored or emoji near-equivalent.
+
 ## Gate 2 · Answer-correctness
 - Independently solve each question; reconcile with the parsed answer-key value.
 - The count of answers must equal the count of questions.
