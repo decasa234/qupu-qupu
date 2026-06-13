@@ -14,18 +14,17 @@ export default function PaintRoll20Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: cat tumpah dan balok berdiri di genangannya, jadi alas dan sisi kirinya basah; sisi atas dan kanan kering. Balok menggelinding ke kanan seperempat putaran demi seperempat putaran: gulingan 1 sisi kanan yang kering tidak meninggalkan cat, gulingan 2 sisi atas yang kering mendarat tepat di kotak 1 sehingga kotak 1 tetap bersih, gulingan 3 sisi kiri yang basah mengecap kotak 3 dan kotak 2, gulingan 4 alas yang basah mengecap kotak 4. Catnya habis sebelum kotak 5, jadi kotak 5 tetap bersih. Jawabannya ${story.answer}.`
-      : `Explainer: the paint has spilled and the block stands in the puddle, so its bottoms and left sides are wet while the tops and right sides are dry. The block rolls right one quarter-turn at a time: roll 1 the dry right sides leave no paint, roll 2 the dry tops land right on square 1 so it stays clean, roll 3 the wet left sides stamp square 3 and square 2, roll 4 the soaked bottoms stamp square 4. The paint is used up before square 5, so it stays clean. The answer is ${story.answer}.`
+      ? `Penjelasan: cat tumpah dan balok berdiri di genangannya, jadi alas dan sisi kirinya basah. Balok menggelinding ke kanan. Tumpukan tinggi di belakang meninggalkan jejak basah panjang sepanjang baris belakang dan mengecap kotak 2; kubus kecil di depan hanya mengecap beberapa kotak, yaitu kotak 3 dan kotak 4. Kotak 1 hanya tersentuh sisi kering, dan di baris depan catnya berhenti sebelum kotak 5, jadi kotak 1 dan kotak 5 tetap bersih. Jawabannya ${story.answer}.`
+      : `Explainer: the paint has spilled and the block stands in the puddle, so its bottoms and left sides are wet. The block tumbles to the right. The tall back stack leaves a long wet trail along the whole back row and paints square 2; the little front cube stamps only a couple of squares, square 3 and square 4. Square 1 only met a dry side, and in the front row the paint stops before square 5, so squares 1 and 5 stay clean. The answer is ${story.answer}.`
 
   return (
     <div className="mx-auto w-full max-w-[470px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <PaintRollDiagram
-          rollsDone={beat.rollsDone}
           stamped={beat.stamped}
-          dryCells={beat.dryCells}
-          dryLabel={story.dryLabel}
-          wetLabel={story.wetLabel}
+          fresh={beat.fresh}
+          cleanCells={beat.cleanCells}
+          cleanLabel={story.cleanLabel}
         />
 
         <div

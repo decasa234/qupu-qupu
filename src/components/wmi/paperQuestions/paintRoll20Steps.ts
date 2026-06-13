@@ -1,16 +1,16 @@
 import type { Lang } from '../concepts/explainers/makeTenSteps'
 import { PAINT_ANSWER, type PaintCellKey } from './PaintRoll20Illustration'
 
-export type PaintRollPhase = 'stand' | 'roll1' | 'roll2' | 'roll3' | 'roll4' | 'result'
+export type PaintRollPhase = 'start' | 'roll1' | 'roll2' | 'roll3' | 'roll4' | 'result'
 
 export interface PaintRollStep {
   phase: PaintRollPhase
-  /** Quarter-turns completed so far. */
-  rollsDone: 0 | 1 | 2 | 3 | 4
-  /** Cell keys stamped purple so far (front 'f' / back 'b' row + column). */
+  /** Cumulative wet cell keys so far (front 'f' / back 'b' row + column). */
   stamped: PaintCellKey[]
-  /** Cell keys of numbered squares a DRY face landed on (they stay clean). */
-  dryCells: PaintCellKey[]
+  /** Cell keys newly wet on this beat. */
+  fresh: PaintCellKey[]
+  /** Numbered squares that stay clean (a dry side reached them). */
+  cleanCells: PaintCellKey[]
   caption: string
   hold: number
   result: boolean
@@ -18,10 +18,8 @@ export interface PaintRollStep {
 
 export interface PaintRollStoryboard {
   answer: string
-  /** Localized badge text for the dry squares. */
-  dryLabel: string
-  /** Localized chip text for a wet landing face. */
-  wetLabel: string
+  /** Localized badge text for the clean squares. */
+  cleanLabel: string
   steps: PaintRollStep[]
   finalIndex: number
 }
@@ -29,78 +27,83 @@ export interface PaintRollStoryboard {
 export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  // The block stands in the spilled paint: LEFT sides + BOTTOMS are wet, the
-  // RIGHT sides (roll 1) and TOPS (roll 2) are dry. So rolls 1–2 stamp
-  // nothing, roll 3 (lefts) stamps "3" and "2", roll 4 (bottoms) stamps "4".
-  const afterRoll3: PaintCellKey[] = ['f4', 'b5', 'b6'] // wet LEFTs: "3", "2" + empty b6
-  const afterRoll4: PaintCellKey[] = [...afterRoll3, 'f5', 'b7'] // soaked BOTTOMS: "4" + empty b7
+  // Cumulative wet cells per beat (editor-confirmed). The tall BACK stack lays a
+  // long wet trail along its whole row; the little FRONT cube only stamps f1, f6,
+  // f7, f8. So back col 5 ("2"), front col 6 ("3") and front col 7 ("4") end up
+  // wet, while front col 4 ("1", a dry side lands there) and front col 9 ("5",
+  // the front paint stops before it) stay clean.
+  const s1: PaintCellKey[] = ['b1', 'b2', 'f1']
+  const s2: PaintCellKey[] = [...s1, 'b3', 'b4']
+  const s3: PaintCellKey[] = [...s2, 'b5', 'b6', 'f6']
+  const s4: PaintCellKey[] = [...s3, 'b7', 'f7']
+  const s5: PaintCellKey[] = [...s4, 'b8', 'b9', 'f8']
 
   const steps: PaintRollStep[] = [
     {
-      phase: 'stand',
-      rollsDone: 0,
-      stamped: [],
-      dryCells: [],
-      hold: 2400,
+      phase: 'start',
+      stamped: s1,
+      fresh: s1,
+      cleanCells: [],
+      hold: 2600,
       result: false,
       caption: t(
-        'The paint has SPILLED — and the block stands in the puddle! So its BOTTOM is soaked, and its LEFT side is painted too. The top and right sides are dry. The block starts at the very left.',
-        'Catnya TUMPAH — dan balok berdiri di genangannya! Jadi ALAS balok basah kuyup, dan sisi KIRI-nya juga bercat. Sisi atas dan kanan kering. Balok mulai dari ujung paling kiri.',
+        'The paint has SPILLED and the block stands in the puddle, so its BOTTOM and LEFT side are wet. It starts at the far left: the tall back stack tips first, laying its wet side across the first two back squares.',
+        'Catnya TUMPAH dan balok berdiri di genangannya, jadi ALAS dan sisi KIRI-nya basah. Balok mulai dari ujung paling kiri: tumpukan tinggi di belakang rebah lebih dulu, menempelkan sisi basahnya pada dua kotak belakang pertama.',
       ),
     },
     {
       phase: 'roll1',
-      rollsDone: 1,
-      stamped: [],
-      dryCells: [],
+      stamped: s2,
+      fresh: ['b3', 'b4'],
+      cleanCells: [],
       hold: 2200,
       result: false,
       caption: t(
-        'Roll 1: the block flops onto its RIGHT sides — they are dry, so the squares it lands on stay clean.',
-        'Gulingan 1: balok rebah ke sisi KANAN-nya — sisi itu kering, jadi kotak yang ditimpanya tetap bersih.',
+        'It tumbles to the RIGHT. The tall back stack keeps laying down a long wet trail along the BACK row.',
+        'Balok terus menggelinding ke KANAN. Tumpukan tinggi di belakang terus meninggalkan jejak basah panjang di baris BELAKANG.',
       ),
     },
     {
       phase: 'roll2',
-      rollsDone: 2,
-      stamped: [],
-      dryCells: ['f3'],
-      hold: 2400,
+      stamped: s3,
+      fresh: ['b5', 'b6', 'f6'],
+      cleanCells: ['f4'],
+      hold: 2600,
       result: false,
       caption: t(
-        'Roll 2: the dry TOPS come down — the small cube lands right ON square 1. Dry side, so square 1 stays clean!',
-        'Gulingan 2: sisi ATAS yang kering menempel — kubus kecil mendarat tepat DI kotak 1. Sisinya kering, jadi kotak 1 tetap bersih!',
+        "Reaching the middle, the back stack's wet side paints square 2, and the little front cube stamps square 3! Square 1 only met a DRY side, so it stays clean.",
+        'Sampai di tengah, sisi basah tumpukan belakang mengecap kotak 2, dan kubus kecil depan mengecap kotak 3! Kotak 1 hanya tersentuh sisi KERING, jadi tetap bersih.',
       ),
     },
     {
       phase: 'roll3',
-      rollsDone: 3,
-      stamped: afterRoll3,
-      dryCells: ['f3'],
+      stamped: s4,
+      fresh: ['b7', 'f7'],
+      cleanCells: ['f4'],
       hold: 2400,
       result: false,
       caption: t(
-        'Roll 3: now the wet LEFT sides land — the small cube stamps square 3, and the tall stack behind stamps square 2 (and the square next to it)!',
-        'Gulingan 3: kini sisi KIRI yang basah menempel — kubus kecil mengecap kotak 3, dan tumpukan tinggi di belakang mengecap kotak 2 (serta kotak di sebelahnya)!',
+        'One more roll: the front cube stamps square 4, right next to square 3.',
+        'Satu gulingan lagi: kubus depan mengecap kotak 4, tepat di sebelah kotak 3.',
       ),
     },
     {
       phase: 'roll4',
-      rollsDone: 4,
-      stamped: afterRoll4,
-      dryCells: ['f3', 'f7'],
-      hold: 2400,
+      stamped: s5,
+      fresh: ['b8', 'b9', 'f8'],
+      cleanCells: ['f4', 'f9'],
+      hold: 2600,
       result: false,
       caption: t(
-        'Roll 4: the soaked BOTTOMS land — the small cube stamps square 4; the stack stamps an empty square. Every painted side is used now, so square 5, further along, never gets paint.',
-        'Gulingan 4: ALAS yang basah menempel — kubus kecil mengecap kotak 4; tumpukan mengecap kotak kosong. Semua sisi bercat sudah terpakai, jadi kotak 5 yang lebih jauh tidak pernah kena cat.',
+        'The block rolls off to the end. The back trail runs all the way out, but in the FRONT row the paint stops before square 5 — so square 5 stays clean too.',
+        'Balok menggelinding sampai ujung. Jejak belakang sampai ke ujung, tetapi di baris DEPAN catnya berhenti sebelum kotak 5 — jadi kotak 5 juga tetap bersih.',
       ),
     },
     {
       phase: 'result',
-      rollsDone: 4,
-      stamped: afterRoll4,
-      dryCells: ['f3', 'f7'],
+      stamped: s5,
+      fresh: [],
+      cleanCells: ['f4', 'f9'],
       hold: 0,
       result: true,
       caption: t(
@@ -112,8 +115,7 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
 
   return {
     answer: PAINT_ANSWER,
-    dryLabel: t('dry', 'kering'),
-    wetLabel: t('wet', 'basah'),
+    cleanLabel: t('clean', 'bersih'),
     steps,
     finalIndex: steps.length - 1,
   }
