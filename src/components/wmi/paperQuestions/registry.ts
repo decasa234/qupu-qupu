@@ -495,6 +495,21 @@ import PaintedArea22G3Explainer from './PaintedArea22G3Explainer'
 import HalfShadeGrid22G3Explainer from './HalfShadeGrid22G3Explainer'
 import CubeNet22G3Explainer from './CubeNet22G3Explainer'
 import ChampionMedian22G3Explainer from './ChampionMedian22G3Explainer'
+// 2022 G3 (WMI-22F3A) — Paper B batch
+import ProductTriangle22G3Illustration from './ProductTriangle22G3Illustration'
+import ProductTriangle22G3Explainer from './ProductTriangle22G3Explainer'
+import VerticalMult22G3Illustration from './VerticalMult22G3Illustration'
+import VerticalMult22G3Explainer from './VerticalMult22G3Explainer'
+import TilePieces22G3Illustration from './TilePieces22G3Illustration'
+import TilePieces22G3Explainer from './TilePieces22G3Explainer'
+import RectFrame22G3Illustration from './RectFrame22G3Illustration'
+import RectFrame22G3Explainer from './RectFrame22G3Explainer'
+import SoldierRoad22G3Illustration from './SoldierRoad22G3Illustration'
+import SoldierRoad22G3Explainer from './SoldierRoad22G3Explainer'
+import MirrorSolid22G3Illustration from './MirrorSolid22G3Illustration'
+import MirrorSolid22G3Explainer from './MirrorSolid22G3Explainer'
+import NumberGrid22G3Illustration from './NumberGrid22G3Illustration'
+import NumberGrid22G3Explainer from './NumberGrid22G3Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -771,6 +786,14 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-22F3A-Q8': { Illustration: HalfShadeGrid22G3Illustration, Explainer: HalfShadeGrid22G3Explainer },
   'WMI-22F3A-Q11': { Illustration: CubeNet22G3Illustration, Explainer: CubeNet22G3Explainer },
   'WMI-22F3A-Q13': { Illustration: ChampionMedian22G3Illustration, Explainer: ChampionMedian22G3Explainer },
+  // 2022 G3 (WMI-22F3A) — Paper B batch (Q18 deferred: ambiguous clue)
+  'WMI-22F3A-Q17': { Illustration: ProductTriangle22G3Illustration, Explainer: ProductTriangle22G3Explainer },
+  'WMI-22F3A-Q19': { Illustration: VerticalMult22G3Illustration, Explainer: VerticalMult22G3Explainer },
+  'WMI-22F3A-Q20': { Illustration: TilePieces22G3Illustration, Explainer: TilePieces22G3Explainer },
+  'WMI-22F3A-Q21': { Illustration: RectFrame22G3Illustration, Explainer: RectFrame22G3Explainer },
+  'WMI-22F3A-Q23': { Illustration: SoldierRoad22G3Illustration, Explainer: SoldierRoad22G3Explainer },
+  'WMI-22F3A-Q24': { Illustration: MirrorSolid22G3Illustration, Explainer: MirrorSolid22G3Explainer },
+  'WMI-22F3A-Q25': { Illustration: NumberGrid22G3Illustration, Explainer: NumberGrid22G3Explainer },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
