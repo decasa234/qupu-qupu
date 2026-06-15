@@ -63,10 +63,16 @@ export function buildClockAfterSteps(
       phase: 'show', minAngle: baseMin, hourAngle: baseHour, result: false,
       caption: t(`The clock shows ${startStr}.`, `Jam menunjukkan ${startStr}.`),
     },
-    {
+  ]
+  // Only show the minutes beat when minutes actually advance — a whole-hour
+  // problem (addMin === 0) skips straight to the hours beat.
+  if (addMin > 0) {
+    steps.push({
       phase: 'minutes', minAngle: minAfter, hourAngle: hourAfterMin, result: false,
       caption: t(`Forward ${addMin} minutes → ${afterMinStr}.`, `Maju ${addMin} menit → ${afterMinStr}.`),
-    },
+    })
+  }
+  steps.push(
     {
       phase: 'hours', minAngle: minAfter, hourAngle: hourFinal, result: false,
       caption: t(`Forward ${addHour} ${hWord} → ${resultStr}.`, `Maju ${addHour} jam → ${resultStr}.`),
@@ -75,7 +81,7 @@ export function buildClockAfterSteps(
       phase: 'result', minAngle: minAfter, hourAngle: hourFinal, result: true,
       caption: t(`The clock shows ${resultStr}.`, `Jam menunjukkan ${resultStr}.`),
     },
-  ]
+  )
 
   return { hour, minute, addHour, addMin, startStr, resultStr, result: final, steps, finalIndex: steps.length - 1 }
 }

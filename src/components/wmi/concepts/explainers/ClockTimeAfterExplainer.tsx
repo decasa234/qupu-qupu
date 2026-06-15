@@ -26,7 +26,16 @@ function useHandAngle(target: number) {
 
 export default function ClockTimeAfterExplainer(props: ExplainerProps) {
   const { params, lang = 'en' } = props
-  const p = params as { hour: number; minute: number; addHour: number; addMin: number }
+  // Coerce defensively: a stale stored instance (from a pre-minutes schema)
+  // can lack minute/addMin — without this the caption would read "8:undefined".
+  // (Such instances are also culled server-side; this is belt-and-suspenders.)
+  const raw = params as Partial<{ hour: number; minute: number; addHour: number; addMin: number }>
+  const p = {
+    hour: raw.hour ?? 12,
+    minute: raw.minute ?? 0,
+    addHour: raw.addHour ?? 0,
+    addMin: raw.addMin ?? 0,
+  }
 
   const story = useMemo(
     () => buildClockAfterSteps(p.hour, p.minute, p.addHour, p.addMin, lang),

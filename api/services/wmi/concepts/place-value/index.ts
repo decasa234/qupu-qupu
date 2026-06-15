@@ -22,17 +22,37 @@ export function generate(rng: Rng): Params {
 // Shared solver so render() and the authored breakdown bind to the same numbers
 // (the anti-drift glue). `correct` is the VALUE of the tens digit (digit × 10);
 // `tensDigit` is the digit itself — the tempting wrong answer.
+//
+// Builds exactly 3 DISTINCT distractors (none equal to `correct`, all > 0) so
+// the four options never collide — the old [tensDigit, ones, n−correct+1] set
+// could repeat (e.g. n=11 → tensDigit === ones, or n=10 → 1,1). The correct
+// answer is placed at a slot that varies with n, so it isn't always option A.
 export function solvePlaceValue(params: Params) {
   const tensDigit = Math.floor(params.n / 10)
   const ones = params.n % 10
   const correct = tensDigit * 10
-  const distractors = [tensDigit, ones, params.n - correct + 1].filter(
-    (v) => v !== correct && v > 0,
-  )
+
+  const distractors: number[] = []
+  const add = (v: number) => {
+    if (v > 0 && v !== correct && !distractors.includes(v) && distractors.length < 3) {
+      distractors.push(v)
+    }
+  }
+  add(tensDigit) // the digit itself (value-vs-digit trap)
+  add(ones) // the ones digit
+  add(ones * 10) // value of the ones digit (place confusion)
+  add(params.n) // the whole number
+  // Guaranteed top-up with distinct tens neighbours if the above collided.
+  for (let d = 1; distractors.length < 3; d++) {
+    add(correct + d * 10)
+    add(correct - d * 10)
+  }
+
   const labels = ['A', 'B', 'C', 'D'] as const
-  const values = [correct, ...distractors].slice(0, 4)
-  while (values.length < 4) values.push(values[values.length - 1] + 1)
-  const answerLabel = labels[values.indexOf(correct)]
+  const slot = params.n % 4
+  const values = [...distractors]
+  values.splice(slot, 0, correct) // correct at a per-n slot, distractors around it
+  const answerLabel = labels[slot]
   return { tensDigit, ones, correct, labels, values, answerLabel }
 }
 
