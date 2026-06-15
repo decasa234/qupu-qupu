@@ -5,6 +5,37 @@
   "variant": "A",
   "title": "WMI 2022 Grade 3 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; en/id parity and breakdowns are clean except Q18 (which has NO breakdown/hint_steps and a garbled clue). Verified by hand: Q6 (7 cakes), Q7 (337), Q9 (exactly 6 even numbers), Q12 (1082), Q14 (30th term = 2 via the 2,2,0 cycle), Q15 (12351 → digit sum 12), Q16 (180), Q17 (8·13·9 → 30), Q19 (256×79=20224, box-digit sum 51), Q22 (44 perfect squares ≤ 2022), Q25 (all four circle sums 18/20/26/17 match the keyed grid → 841). One blocker (Q18) + figure-dependent nits.",
+    "findings": [
+      {
+        "q": 18,
+        "severity": "blocker",
+        "gate": "answer",
+        "note": "BLOCKED (matches project memory). The question has NO breakdown and NO hint_steps — it's unenriched. Worse, the disambiguating clue 'Ada and Bella have the same number of balls in two different colours' is OCR-garbled: the three forced equal-weight combos {(1,4,1),(2,2,2),(3,0,3)} ALL contain two colours with equal counts (1&1, 2&2&2, 3&3), so the clue can't single out Carter=(1,4,1). Key 4 is not derivable from the stem as written — needs the original PDF clue, then full enrichment."
+      },
+      {
+        "q": 4,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Longest-route = 9 streets × 130 = 1170 depends on the reconstructed map; the Euler-trail argument is sound but the max wasn't re-derived against the scan this pass."
+      },
+      {
+        "q": 20,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "3×3 tilings with one 1×1 + four 2×1 = 6 (2 centre + 4 corner). The checkerboard-parity argument is sound but the per-case counts weren't exhaustively re-enumerated this pass."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Logic grid — I verified all four circle sums (18/20/26/17) are satisfied by the keyed grid (276/543/891 → 841), but full uniqueness together with the pattern-sum clues (10/13/22) wasn't proven by a solver."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

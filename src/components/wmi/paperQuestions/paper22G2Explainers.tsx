@@ -1,28 +1,67 @@
-import type { ComponentType } from 'react'
+import type { ComponentType, ReactNode } from 'react'
 import type { ExplainerProps } from '../concepts/explainers/registry'
 import { useBeatControl } from '../concepts/explainers/useBeatControl'
 import {
-  Balance22G2Illustration,
-  Balls22G2Illustration,
-  CardHands22G2Illustration,
-  ChildrenOrder22G2Illustration,
+  BalanceBoard,
+  BallRow,
+  CardHandsBoard,
   Cups22G2Illustration,
-  EggPath22G2Illustration,
-  Flowchart22G2Illustration,
-  MirrorBlocks22G2Illustration,
-  PaperStack22G2Illustration,
-  PasswordDial22G2Illustration,
-  SeatGrid22G2Illustration,
-  ShapeAddition22G2Illustration,
-  Shark22G2Illustration,
-  Soldiers22G2Illustration,
-  Targets22G2Illustration,
-  TCover22G2Illustration,
-  ThickLines22G2Illustration,
+  DialBoard,
+  DIAL_VALUES,
+  EggGrid,
+  FlowchartBoard,
+  KidsBoard,
+  LineGrid,
+  LINE_OPTS,
+  lineLength,
+  MirrorBlocksBoard,
+  PaperStackBoard,
+  Q5_BALLS,
+  Q11_TARGETS,
+  Q21_DANNY,
+  SeatGridBoard,
+  ShapeSumBoard,
+  SharkBoard,
+  SHARK_FISH,
+  SHARK_THRESHOLD,
+  SoldiersBoard,
+  TargetsBoard,
+  TCoverBoard,
 } from './paper22G2Visuals'
 
 type StepPair = { en: string; id: string }
 
+// ── Beat harness (real beat-by-beat explainers) ────────────────────────────
+type Beat = { en: string; id: string; visual: ReactNode; result?: boolean; hold?: number }
+
+function useBeatIndex(beats: Beat[], props: ExplainerProps): number {
+  return useBeatControl(beats.length - 1, {
+    ...props,
+    holds: beats.map((b, i) => b.hold ?? (i === beats.length - 1 ? 0 : 2200)),
+  })
+}
+
+function Shell({ aria, beat, lang }: { aria: string; beat: Beat; lang: 'en' | 'id' }) {
+  return (
+    <div className="mx-auto w-full max-w-[760px]" role="img" aria-label={aria}>
+      <div className="flex flex-col items-center gap-3">
+        {beat.visual}
+        <div
+          className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+          style={
+            beat.result
+              ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
+              : { background: '#E1EFFB', borderColor: '#30598A', color: '#30598A' }
+          }
+        >
+          {lang === 'id' ? beat.id : beat.en}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Legacy static factory (still used by the not-yet-redrawn questions) ─────
 function makeExplainer(
   Illustration: ComponentType,
   title: StepPair,
@@ -39,7 +78,7 @@ function makeExplainer(
       <div className="mx-auto w-full max-w-[760px]" role="img" aria-label={`${title[lang]}. ${text}`}>
         <Illustration />
         <div
-          className="mx-auto rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
+          className="mx-auto mt-3 rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"
           style={
             index === steps.length - 1
               ? { background: '#D1FAE5', borderColor: '#10B981', color: '#065F46' }
@@ -53,82 +92,177 @@ function makeExplainer(
   }
 }
 
-export const Shark22G2Explainer = makeExplainer(
-  Shark22G2Illustration,
-  { en: 'Compare the fish with 374', id: 'Bandingkan ikan dengan 374' },
-  [
-    { en: 'Check one fish at a time: only a number below 374 can be eaten.', id: 'Periksa satu ikan setiap kali: hanya bilangan di bawah 374 yang dapat dimakan.' },
-    { en: '321 and 286 are below 374.', id: '321 dan 286 berada di bawah 374.' },
-    { en: '357 is also below 374; all other fish are larger.', id: '357 juga di bawah 374; ikan lainnya lebih besar.' },
-    { en: 'Three fish can be eaten, so the answer is B.', id: 'Tiga ikan dapat dimakan, jadi jawabannya B.' },
-  ],
-)
+// ── Q1 · Shark ─────────────────────────────────────────────────────────────
+const SHARK_BELOW = SHARK_FISH.map((f) => f.value < SHARK_THRESHOLD)
+function sharkMarks(n: number): Array<'ok' | 'no' | undefined> {
+  return SHARK_FISH.map((_, i) => (i < n ? (SHARK_BELOW[i] ? 'ok' : 'no') : undefined))
+}
+export function Shark22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const v = SHARK_FISH.map((f) => f.value)
+  const beats: Beat[] = [
+    { en: `The shark eats any fish numbered below ${SHARK_THRESHOLD}. Check them one by one.`, id: `Hiu memakan ikan bernomor di bawah ${SHARK_THRESHOLD}. Periksa satu per satu.`, visual: <SharkBoard marks={sharkMarks(0)} /> },
+    { en: `${v[0]} is more than ${SHARK_THRESHOLD} — too big.`, id: `${v[0]} lebih dari ${SHARK_THRESHOLD} — terlalu besar.`, visual: <SharkBoard marks={sharkMarks(2)} /> },
+    { en: `${v[2]} is below ${SHARK_THRESHOLD} — eaten! (1)`, id: `${v[2]} di bawah ${SHARK_THRESHOLD} — dimakan! (1)`, visual: <SharkBoard marks={sharkMarks(3)} /> },
+    { en: `${v[3]} is below ${SHARK_THRESHOLD} — eaten! (2)`, id: `${v[3]} di bawah ${SHARK_THRESHOLD} — dimakan! (2)`, visual: <SharkBoard marks={sharkMarks(4)} /> },
+    { en: `${v[4]} and ${v[5]} are above ${SHARK_THRESHOLD}.`, id: `${v[4]} dan ${v[5]} di atas ${SHARK_THRESHOLD}.`, visual: <SharkBoard marks={sharkMarks(6)} /> },
+    { en: `${v[6]} is below ${SHARK_THRESHOLD} — eaten! (3)`, id: `${v[6]} di bawah ${SHARK_THRESHOLD} — dimakan! (3)`, visual: <SharkBoard marks={sharkMarks(7)} /> },
+    { en: `${v[7]} is above ${SHARK_THRESHOLD}. Three fish were below ${SHARK_THRESHOLD} — answer B.`, id: `${v[7]} di atas ${SHARK_THRESHOLD}. Tiga ikan di bawah ${SHARK_THRESHOLD} — jawaban B.`, visual: <SharkBoard marks={sharkMarks(8)} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Tiga ikan bernomor di bawah 374 — jawaban B.' : 'Three fish are numbered below 374 — answer B.'} beat={beat} lang={lang} />
+}
 
-export const PaperStack22G2Explainer = makeExplainer(
-  PaperStack22G2Illustration,
-  { en: 'Read the overlap order', id: 'Baca urutan tumpukan' },
-  [
-    { en: 'An edge covered by another sheet is lower in the stack.', id: 'Tepi yang tertutup kertas lain berada lebih bawah dalam tumpukan.' },
-    { en: 'Start at the bottom and count upward, not from the visible top sheet.', id: 'Mulai dari bawah dan hitung ke atas, bukan dari kertas teratas.' },
-    { en: 'The third sheet from the bottom carries 6.', id: 'Kertas ketiga dari bawah bernomor 6.' },
-    { en: 'Choose D.', id: 'Pilih D.' },
-  ],
-)
+// ── Q3 · Paper stack ───────────────────────────────────────────────────────
+export function PaperStack22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'When one sheet covers another’s edge, it lies on top. So the most-hidden sheets are at the bottom.', id: 'Jika satu kertas menutup tepi kertas lain, ia di atas. Jadi kertas paling tertutup ada di bawah.', visual: <PaperStackBoard /> },
+    { en: 'Reading the overlaps from the bottom up: sheet 4 is first …', id: 'Membaca tumpukan dari bawah: kertas 4 pertama …', visual: <PaperStackBoard fromBottom={1} /> },
+    { en: '… then sheet 3 is second …', id: '… lalu kertas 3 kedua …', visual: <PaperStackBoard fromBottom={2} /> },
+    { en: '… then sheet 6 is third from the bottom.', id: '… lalu kertas 6 ketiga dari bawah.', visual: <PaperStackBoard fromBottom={3} focusId={6} /> },
+    { en: 'The third sheet from the bottom shows 6 — answer D.', id: 'Kertas ketiga dari bawah bernomor 6 — jawaban D.', visual: <PaperStackBoard fromBottom={3} focusId={6} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Kertas ketiga dari bawah bernomor 6 — jawaban D.' : 'The third sheet from the bottom is 6 — answer D.'} beat={beat} lang={lang} />
+}
 
-export const Balls22G2Explainer = makeExplainer(
-  Balls22G2Illustration,
-  { en: 'Apply both ball conditions', id: 'Terapkan kedua syarat bola' },
-  [
-    { en: 'Six balls with equal black and white counts means 3 black and 3 white.', id: 'Enam bola dengan jumlah hitam dan putih sama berarti 3 hitam dan 3 putih.' },
-    { en: 'Now require more large balls than small balls.', id: 'Sekarang syaratkan bola besar lebih banyak daripada bola kecil.' },
-    { en: 'Option B has 4 large and 2 small, while keeping 3 of each colour.', id: 'Pilihan B memiliki 4 besar dan 2 kecil, serta tetap 3 untuk tiap warna.' },
-    { en: 'Only B satisfies both conditions.', id: 'Hanya B yang memenuhi kedua syarat.' },
-  ],
-)
+// ── Q12 · Egg path ─────────────────────────────────────────────────────────
+export function EggPath22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const s = (...idx: number[]) => new Set(idx)
+  const beats: Beat[] = [
+    { en: 'Start at 1. Add 1, then 2, then 3 — one more each egg.', id: 'Mulai dari 1. Tambah 1, lalu 2, lalu 3 — satu lebih tiap telur.', visual: <EggGrid /> },
+    { en: '1 +1→2, 2 +2→4, 4 +3→7.', id: '1 +1→2, 2 +2→4, 4 +3→7.', visual: <EggGrid revealed={s(2)} active={2} /> },
+    { en: '7 +4→11, 11 +5→16.', id: '7 +4→11, 11 +5→16.', visual: <EggGrid revealed={s(2)} active={5} /> },
+    { en: '16 +6→22.', id: '16 +6→22.', visual: <EggGrid revealed={s(2, 6)} active={6} /> },
+    { en: '22 +7→29, 29 +8→37.', id: '22 +7→29, 29 +8→37.', visual: <EggGrid revealed={s(2, 6)} active={8} /> },
+    { en: '37 +9→46, 46 +10→56.', id: '37 +9→46, 46 +10→56.', visual: <EggGrid revealed={s(2, 6, 9, 10)} active={10} /> },
+    { en: '56 +11→67. The ? is 67 — answer C.', id: '56 +11→67. Tanda ? adalah 67 — jawaban C.', visual: <EggGrid revealed={s(2, 6, 9, 10, 11)} active={11} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Mengikuti +1, +2, +3, … tanda ? adalah 67.' : 'Following +1, +2, +3, … the ? egg is 67.'} beat={beat} lang={lang} />
+}
 
-export const ThickLines22G2Explainer = makeExplainer(
-  ThickLines22G2Illustration,
-  { en: 'Measure every orange segment', id: 'Ukur setiap ruas oranye' },
-  [
-    { en: 'Each horizontal cell edge is 3 cm; each vertical edge is 2 cm.', id: 'Setiap sisi mendatar petak adalah 3 cm; sisi tegak 2 cm.' },
-    { en: 'Count horizontal and vertical segments separately for each option.', id: 'Hitung ruas mendatar dan tegak secara terpisah untuk tiap pilihan.' },
-    { en: 'Add the measured segments instead of judging the drawing by eye.', id: 'Jumlahkan ruas yang diukur, jangan menilai gambar dengan mata.' },
-    { en: 'Option C has the greatest total length.', id: 'Pilihan C memiliki panjang total terbesar.' },
-  ],
-)
+// ── Q16 · Flowchart ────────────────────────────────────────────────────────
+export function Flowchart22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Read the inputs: A = 65 and B = 80.', id: 'Baca masukan: A = 65 dan B = 80.', visual: <FlowchartBoard stage={0} /> },
+    { en: 'The test box checks A + B = 65 + 80 = 145.', id: 'Kotak syarat memeriksa A + B = 65 + 80 = 145.', visual: <FlowchartBoard stage={1} /> },
+    { en: 'Is 145 > 150? No — take the FALSE branch.', id: 'Apakah 145 > 150? Tidak — ambil cabang FALSE.', visual: <FlowchartBoard stage={2} /> },
+    { en: 'FALSE branch: C = B − A = 80 − 65.', id: 'Cabang FALSE: C = B − A = 80 − 65.', visual: <FlowchartBoard stage={3} /> },
+    { en: 'Output C = 15.', id: 'Keluaran C = 15.', visual: <FlowchartBoard stage={4} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? '145 tidak lebih dari 150, jadi C = B − A = 15.' : '145 is not over 150, so C = B − A = 15.'} beat={beat} lang={lang} />
+}
 
-export const ChildrenOrder22G2Explainer = makeExplainer(
-  ChildrenOrder22G2Illustration,
-  { en: 'Match names to pictured heights', id: 'Cocokkan nama dengan tinggi gambar' },
-  [
-    { en: 'Dan is tallest, so he is the starred child on the left.', id: 'Dan paling tinggi, jadi ia anak berbintang di kiri.' },
-    { en: 'The clues give Ann taller than Ken, and Ken taller than Pan.', id: 'Petunjuk memberi Ann lebih tinggi dari Ken, dan Ken lebih tinggi dari Pan.' },
-    { en: 'Among the remaining children: Pan is shortest, then Ken, then Ann.', id: 'Di antara anak tersisa: Pan paling pendek, lalu Ken, lalu Ann.' },
-    { en: 'Left to right: Dan, Pan, Ken, Ann. Answer C.', id: 'Kiri ke kanan: Dan, Pan, Ken, Ann. Jawaban C.' },
-  ],
-)
+// ── Q19 · Shape addition ───────────────────────────────────────────────────
+export function ShapeAddition22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Same shape = same digit, and the total is 2022.', id: 'Bentuk sama = angka sama, dan totalnya 2022.', visual: <ShapeSumBoard /> },
+    { en: '2022 has 4 digits but we add three 3-digit numbers — the leading 2 is a carry from the hundreds.', id: '2022 punya 4 angka padahal menjumlah tiga bilangan 3 angka — angka 2 di depan adalah simpanan dari kolom ratusan.', visual: <ShapeSumBoard col="h" /> },
+    { en: 'Hundreds: 3 × square = 18, plus a carry 2 makes 20. So square = 6.', id: 'Ratusan: 3 × persegi = 18, ditambah simpanan 2 menjadi 20. Jadi persegi = 6.', visual: <ShapeSumBoard s={6} col="h" /> },
+    { en: 'Tens: 6 + 6 + triangle + carry must total 22, so triangle = 8.', id: 'Puluhan: 6 + 6 + segitiga + simpanan harus 22, jadi segitiga = 8.', visual: <ShapeSumBoard s={6} t={8} col="t" /> },
+    { en: 'Units: 6 + 8 + circle = 22, so circle = 8.', id: 'Satuan: 6 + 8 + lingkaran = 22, jadi lingkaran = 8.', visual: <ShapeSumBoard s={6} t={8} c={8} col="u" /> },
+    { en: 'square + triangle + circle = 6 + 8 + 8 = 22. (666 + 668 + 688 = 2022.)', id: 'persegi + segitiga + lingkaran = 6 + 8 + 8 = 22. (666 + 668 + 688 = 2022.)', visual: <ShapeSumBoard s={6} t={8} c={8} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Persegi 6, segitiga 8, lingkaran 8; jumlahnya 22.' : 'Square 6, triangle 8, circle 8; their sum is 22.'} beat={beat} lang={lang} />
+}
 
-export const Targets22G2Explainer = makeExplainer(
-  Targets22G2Illustration,
-  { en: 'Score the four targets', id: 'Hitung nilai empat sasaran' },
-  [
-    { en: 'Read the ring hit by each arrow point: 10, 6, 4, or 0 for a miss.', id: 'Baca lingkaran yang terkena ujung panah: 10, 6, 4, atau 0 jika meleset.' },
-    { en: 'For the black arrow only, multiply its ring value by 3.', id: 'Hanya untuk panah hitam, kalikan nilai lingkarannya dengan 3.' },
-    { en: 'Add each player’s arrow values and compare the totals.', id: 'Jumlahkan nilai panah tiap pemain dan bandingkan totalnya.' },
-    { en: 'Celine is highest and Bob is lowest. Answer D.', id: 'Celine tertinggi dan Bob terendah. Jawaban D.' },
-  ],
-)
+// ── Q20 · Password dial ────────────────────────────────────────────────────
+export function PasswordDial22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const r = (...d: number[]) => d
+  const beats: Beat[] = [
+    { en: `The pointer starts at ${DIAL_VALUES[0]}.`, id: `Penunjuk mulai dari ${DIAL_VALUES[0]}.`, visual: <DialBoard pointerIndex={0} recorded={r()} /> },
+    { en: 'Clockwise 3 lands on 9.', id: 'Searah jarum jam 3 berhenti di 9.', visual: <DialBoard pointerIndex={3} recorded={r(9)} activeTurn={0} /> },
+    { en: 'Counter-clockwise 4 lands on 5.', id: 'Berlawanan jarum jam 4 berhenti di 5.', visual: <DialBoard pointerIndex={9} recorded={r(9, 5)} activeTurn={1} /> },
+    { en: 'Clockwise 2 lands on 3.', id: 'Searah jarum jam 2 berhenti di 3.', visual: <DialBoard pointerIndex={1} recorded={r(9, 5, 3)} activeTurn={2} /> },
+    { en: 'Clockwise 3 lands on 2.', id: 'Searah jarum jam 3 berhenti di 2.', visual: <DialBoard pointerIndex={4} recorded={r(9, 5, 3, 2)} activeTurn={3} /> },
+    { en: 'Counter-clockwise 6 lands on 8.', id: 'Berlawanan jarum jam 6 berhenti di 8.', visual: <DialBoard pointerIndex={8} recorded={r(9, 5, 3, 2, 8)} activeTurn={4} /> },
+    { en: 'Password = 95328.', id: 'Kata sandi = 95328.', visual: <DialBoard pointerIndex={8} recorded={r(9, 5, 3, 2, 8)} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Mengikuti kelima putaran menghasilkan 95328.' : 'Following the five turns gives 95328.'} beat={beat} lang={lang} />
+}
 
-export const EggPath22G2Explainer = makeExplainer(
-  EggPath22G2Illustration,
-  { en: 'Continue the growing jumps', id: 'Lanjutkan lompatan yang membesar' },
-  [
-    { en: 'The path adds +1, +2, +3, +4, and so on.', id: 'Jalur menambah +1, +2, +3, +4, dan seterusnya.' },
-    { en: 'After 16 come 22, 29, and 37.', id: 'Setelah 16 datang 22, 29, dan 37.' },
-    { en: 'Continue: 37 + 9 = 46, then 46 + 10 = 56.', id: 'Lanjutkan: 37 + 9 = 46, lalu 46 + 10 = 56.' },
-    { en: 'Finally 56 + 11 = 67. Answer C.', id: 'Terakhir 56 + 11 = 67. Jawaban C.' },
-  ],
-)
+// ── Q25 · T-cover ──────────────────────────────────────────────────────────
+export function TCover22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const winner: Array<[number, number]> = [[1, 2], [2, 2], [3, 2], [2, 3]]
+  const candA: Array<[number, number]> = [[0, 3], [1, 3], [2, 3], [1, 2]]
+  const candB: Array<[number, number]> = [[3, 0], [3, 1], [3, 2], [2, 1]]
+  const beats: Beat[] = [
+    { en: 'Each cell hides an arithmetic value — work them all out first.', id: 'Tiap petak menyembunyikan nilai hitung — hitung semuanya dulu.', visual: <TCoverBoard mode="expr" /> },
+    { en: 'Now the grid is just numbers. The T must cover 3 in a line plus 1 stem.', id: 'Sekarang kisi hanya angka. T menutup 3 segaris ditambah 1 tangkai.', visual: <TCoverBoard mode="val" /> },
+    { en: 'A tall T on the right: 35 + 9 + 57 + 43 = 144.', id: 'T tegak di kanan: 35 + 9 + 57 + 43 = 144.', visual: <TCoverBoard mode="val" cover={candA} sum={144} /> },
+    { en: 'Across the bottom: 52 + 70 + 20 + 0 = 142.', id: 'Mendatar di bawah: 52 + 70 + 20 + 0 = 142.', visual: <TCoverBoard mode="val" cover={candB} sum={142} /> },
+    { en: 'Best T: 43 + 28 + 20 + 57 = 148.', id: 'T terbaik: 43 + 28 + 20 + 57 = 148.', visual: <TCoverBoard mode="val" cover={winner} sum={148} best />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'T terbaik menutup 43, 28, 20, 57 — jumlah 148.' : 'The best T covers 43, 28, 20, 57 — sum 148.'} beat={beat} lang={lang} />
+}
+
+// ── Q5 · Balls ─────────────────────────────────────────────────────────────
+export function Balls22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Two rules: equal black & white, AND more large than small. Test each option.', id: 'Dua aturan: hitam = putih, DAN besar lebih banyak dari kecil. Uji tiap pilihan.', visual: <BallRow balls={Q5_BALLS.A} /> },
+    { en: 'A: 3 black, 3 white ✓ — but 3 large = 3 small, not more. ✗', id: 'A: 3 hitam, 3 putih ✓ — tetapi 3 besar = 3 kecil, tidak lebih. ✗', visual: <BallRow balls={Q5_BALLS.A} /> },
+    { en: 'C: colours equal ✓ — but only 2 large vs 4 small. ✗', id: 'C: warna sama ✓ — tetapi hanya 2 besar lawan 4 kecil. ✗', visual: <BallRow balls={Q5_BALLS.C} /> },
+    { en: 'D: 4 white but only 2 black — not equal. ✗', id: 'D: 4 putih tetapi hanya 2 hitam — tidak sama. ✗', visual: <BallRow balls={Q5_BALLS.D} /> },
+    { en: 'B: 3 black, 3 white, and 4 large > 2 small. ✓ — answer B.', id: 'B: 3 hitam, 3 putih, dan 4 besar > 2 kecil. ✓ — jawaban B.', visual: <BallRow balls={Q5_BALLS.B} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Hanya B memenuhi kedua aturan — jawaban B.' : 'Only B meets both rules — answer B.'} beat={beat} lang={lang} />
+}
+
+// ── Q8 · Thick lines ───────────────────────────────────────────────────────
+export function ThickLines22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const len = (k: string) => lineLength(LINE_OPTS[k])
+  const beats: Beat[] = [
+    { en: 'Don’t judge by eye — measure: each horizontal piece is 3 cm, each vertical 2 cm.', id: 'Jangan menilai dengan mata — ukur: tiap ruas mendatar 3 cm, tiap tegak 2 cm.', visual: <LineGrid option="D" /> },
+    { en: `D looks longest: 8×3 + 1×2 = ${len('D')} cm.`, id: `D tampak terpanjang: 8×3 + 1×2 = ${len('D')} cm.`, visual: <LineGrid option="D" /> },
+    { en: `But A = ${len('A')} cm and B = ${len('B')} cm.`, id: `Tetapi A = ${len('A')} cm dan B = ${len('B')} cm.`, visual: <LineGrid option="A" /> },
+    { en: `C: 8×3 + 4×2 = ${len('C')} cm — the true longest. Answer C.`, id: `C: 8×3 + 4×2 = ${len('C')} cm — yang terpanjang sebenarnya. Jawaban C.`, visual: <LineGrid option="C" />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Diukur, C terpanjang dengan 29 cm.' : 'Measured, C is longest at 29 cm.'} beat={beat} lang={lang} />
+}
+
+// ── Q10 · Children order ───────────────────────────────────────────────────
+export function ChildrenOrder22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const n = (a?: string, b?: string, c?: string, d?: string) => [a, b, c, d]
+  const beats: Beat[] = [
+    { en: 'Dan says he is the tallest — the starred boy on the left.', id: 'Dan paling tinggi — anak berbintang di kiri.', visual: <KidsBoard names={n('Dan')} ring={0} /> },
+    { en: 'The shortest child is the little girl — she must be Pan.', id: 'Anak terpendek adalah gadis kecil — pasti Pan.', visual: <KidsBoard names={n('Dan', 'Pan')} ring={1} /> },
+    { en: 'Ann > Ken, and the 4th child is taller than the 3rd, so Ann is 4th and Ken is 3rd.', id: 'Ann > Ken, dan anak ke-4 lebih tinggi dari ke-3, jadi Ann ke-4 dan Ken ke-3.', visual: <KidsBoard names={n('Dan', 'Pan', 'Ken', 'Ann')} /> },
+    { en: 'Left to right: Dan, Pan, Ken, Ann — answer C.', id: 'Kiri ke kanan: Dan, Pan, Ken, Ann — jawaban C.', visual: <KidsBoard names={n('Dan', 'Pan', 'Ken', 'Ann')} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Urutan kiri ke kanan: Dan, Pan, Ken, Ann.' : 'Order left to right: Dan, Pan, Ken, Ann.'} beat={beat} lang={lang} />
+}
+
+// ── Q11 · Targets ──────────────────────────────────────────────────────────
+export function Targets22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const T = Object.fromEntries(Q11_TARGETS.map((t) => [t.name, t.total]))
+  const all = { Alex: T.Alex, Bob: T.Bob, Celine: T.Celine, Dan: T.Dan }
+  const beats: Beat[] = [
+    { en: 'Score each player by ring — but a BLACK arrow counts 3× its ring.', id: 'Hitung tiap pemain dari lingkaran — tetapi panah HITAM bernilai 3× lingkarannya.', visual: <TargetsBoard /> },
+    { en: `Alex: 10+6+6+4+4 = ${T.Alex}. Bob: 10+6+4+4 = ${T.Bob}.`, id: `Alex: 10+6+6+4+4 = ${T.Alex}. Bob: 10+6+4+4 = ${T.Bob}.`, visual: <TargetsBoard totals={{ Alex: T.Alex, Bob: T.Bob }} /> },
+    { en: `Celine’s black arrow in 10 scores 30: 30+6+4 = ${T.Celine}. Dan’s black in 6 scores 18: 18+6+4+4 = ${T.Dan}.`, id: `Panah hitam Celine di 10 bernilai 30: 30+6+4 = ${T.Celine}. Panah hitam Dan di 6 bernilai 18: 18+6+4+4 = ${T.Dan}.`, visual: <TargetsBoard totals={all} /> },
+    { en: `Highest = Celine (${T.Celine}), lowest = Bob (${T.Bob}) — answer D.`, id: `Tertinggi = Celine (${T.Celine}), terendah = Bob (${T.Bob}) — jawaban D.`, visual: <TargetsBoard totals={all} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Celine tertinggi, Bob terendah — jawaban D.' : 'Celine highest, Bob lowest — answer D.'} beat={beat} lang={lang} />
+}
 
 export const Cups22G2Explainer = makeExplainer(
   Cups22G2Illustration,
@@ -141,101 +275,69 @@ export const Cups22G2Explainer = makeExplainer(
   ],
 )
 
-export const Flowchart22G2Explainer = makeExplainer(
-  Flowchart22G2Illustration,
-  { en: 'Follow the flowchart branch', id: 'Ikuti cabang diagram alir' },
-  [
-    { en: 'A + B = 65 + 80 = 145.', id: 'A + B = 65 + 80 = 145.' },
-    { en: '145 is not greater than 150, so the condition is false.', id: '145 tidak lebih besar dari 150, jadi syaratnya salah.' },
-    { en: 'The false branch uses C = B − A.', id: 'Cabang salah memakai C = B − A.' },
-    { en: 'C = 80 − 65 = 15.', id: 'C = 80 − 65 = 15.' },
-  ],
-)
+// ── Q17 · Balances ─────────────────────────────────────────────────────────
+export function Balance22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Three level balances: A = B+C+D, C = B+D, and A = 3D.', id: 'Tiga neraca seimbang: A = B+C+D, C = B+D, dan A = 3D.', visual: <BalanceBoard /> },
+    { en: 'Replace C with B+D in the first: A = B + (B+D) + D = 2B + 2D.', id: 'Ganti C dengan B+D pada yang pertama: A = B + (B+D) + D = 2B + 2D.', visual: <BalanceBoard /> },
+    { en: 'But A = 3D, so 2B + 2D = 3D, which gives 2B = D.', id: 'Tetapi A = 3D, jadi 2B + 2D = 3D, sehingga 2B = D.', visual: <BalanceBoard /> },
+    { en: 'One D ball balances two B balls — answer 2.', id: 'Satu bola D seimbang dengan dua bola B — jawaban 2.', visual: <BalanceBoard />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'D = 2B, jadi satu D = dua B.' : 'D = 2B, so one D = two B.'} beat={beat} lang={lang} />
+}
 
-export const Balance22G2Explainer = makeExplainer(
-  Balance22G2Illustration,
-  { en: 'Substitute equal weights', id: 'Substitusikan berat yang sama' },
-  [
-    { en: 'The second balance says C = B + D.', id: 'Neraca kedua menyatakan C = B + D.' },
-    { en: 'Then A = B + C + D = 2B + 2D.', id: 'Maka A = B + C + D = 2B + 2D.' },
-    { en: 'Another balance says A = 3D, so 2B + 2D = 3D.', id: 'Neraca lain menyatakan A = 3D, jadi 2B + 2D = 3D.' },
-    { en: 'Therefore D = 2B. One D balances two B balls.', id: 'Karena itu D = 2B. Satu D seimbang dengan dua bola B.' },
-  ],
-)
+// ── Q18 · Seat grid ────────────────────────────────────────────────────────
+export function SeatGrid22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Find the seat with A directly above and D directly to the right.', id: 'Cari tempat dengan A tepat di atas dan D tepat di kanan.', visual: <SeatGridBoard /> },
+    { en: 'At (3, 2) the cell above is A ✓.', id: 'Di (3, 2) sel di atasnya adalah A ✓.', visual: <SeatGridBoard seat={[3, 2]} above /> },
+    { en: 'And the cell to its right is D ✓ — this seat is unique.', id: 'Dan sel di kanannya adalah D ✓ — tempat ini unik.', visual: <SeatGridBoard seat={[3, 2]} above right /> },
+    { en: 'a × 2 + b = 3 × 2 + 2 = 8.', id: 'a × 2 + b = 3 × 2 + 2 = 8.', visual: <SeatGridBoard seat={[3, 2]} above right />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Tempat (3,2): 3×2+2 = 8.' : 'Seat (3,2): 3×2+2 = 8.'} beat={beat} lang={lang} />
+}
 
-export const SeatGrid22G2Explainer = makeExplainer(
-  SeatGrid22G2Illustration,
-  { en: 'Find the unique seat', id: 'Cari tempat yang unik' },
-  [
-    { en: 'Look for a cell with A directly above it.', id: 'Cari sel dengan A tepat di atasnya.' },
-    { en: 'Among those cells, require D directly to the right.', id: 'Di antara sel itu, syaratkan D tepat di kanan.' },
-    { en: 'The unique seat is (3, 2).', id: 'Tempat yang unik adalah (3, 2).' },
-    { en: 'a × 2 + b = 3 × 2 + 2 = 8.', id: 'a × 2 + b = 3 × 2 + 2 = 8.' },
-  ],
-)
+// ── Q21 · Card hands ───────────────────────────────────────────────────────
+export function CardHands22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Equal-rank cards pair off and are discarded.', id: 'Kartu bernilai sama berpasangan dan dibuang.', visual: <CardHandsBoard /> },
+    { en: 'Visible pairs: the two 9s, the two 5s, and the two Jacks.', id: 'Pasangan terlihat: dua kartu 9, dua kartu 5, dan dua Jack.', visual: <CardHandsBoard pairs /> },
+    { en: 'That leaves 2, 8, K and 3 as singles — their four partners are in Danny’s hand.', id: 'Tersisa 2, 8, K dan 3 sebagai tunggal — keempat pasangannya ada di tangan Danny.', visual: <CardHandsBoard singles /> },
+    { en: 'The one extra Jack added to the deck has no partner — also in Danny’s hand.', id: 'Satu Jack tambahan dalam dek tak punya pasangan — juga di tangan Danny.', visual: <CardHandsBoard singles /> },
+    { en: 'Danny holds 4 + 1 = 5 cards.', id: 'Danny memegang 4 + 1 = 5 kartu.', visual: <CardHandsBoard danny={Q21_DANNY} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Danny memegang 5 kartu.' : 'Danny holds 5 cards.'} beat={beat} lang={lang} />
+}
 
-export const ShapeAddition22G2Explainer = makeExplainer(
-  ShapeAddition22G2Illustration,
-  { en: 'Use the column carries', id: 'Gunakan simpanan kolom' },
-  [
-    { en: 'The thousands digit 2 comes from a carry out of the hundreds column.', id: 'Digit ribuan 2 berasal dari simpanan kolom ratusan.' },
-    { en: 'The hundreds column forces the square digit to be 9.', id: 'Kolom ratusan memaksa digit persegi bernilai 9.' },
-    { en: 'The remaining column carries give triangle + circle = 13.', id: 'Simpanan kolom lainnya memberi segitiga + lingkaran = 13.' },
-    { en: 'Square + triangle + circle = 9 + 13 = 22.', id: 'Persegi + segitiga + lingkaran = 9 + 13 = 22.' },
-  ],
-)
+// ── Q23 · Soldiers ─────────────────────────────────────────────────────────
+export function Soldiers22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'Soldiers 1, 2, 3, 4 march left toward a deep hole, then a shallow hole.', id: 'Prajurit 1, 2, 3, 4 berbaris ke kiri menuju lubang dalam, lalu lubang dangkal.', visual: <SoldiersBoard order={[1, 2, 3, 4]} /> },
+    { en: 'The deep hole needs two: 1 and 2 drop in (1 below, 2 on top); 3, 4 cross.', id: 'Lubang dalam butuh dua: 1 dan 2 masuk (1 bawah, 2 atas); 3, 4 menyeberang.', visual: <SoldiersBoard order={[3, 4]} rightHole={[1, 2]} /> },
+    { en: 'Then 2 climbs out, then 1 — joining at the back: 3, 4, 2, 1.', id: 'Lalu 2 keluar, lalu 1 — bergabung di belakang: 3, 4, 2, 1.', visual: <SoldiersBoard order={[3, 4, 2, 1]} /> },
+    { en: 'The shallow hole needs one: front soldier 3 drops in; 4, 2, 1 cross.', id: 'Lubang dangkal butuh satu: prajurit depan 3 masuk; 4, 2, 1 menyeberang.', visual: <SoldiersBoard order={[4, 2, 1]} leftHole={[3]} /> },
+    { en: '3 climbs out to the back: final order 4, 2, 1, 3 → 4213.', id: '3 keluar ke belakang: urutan akhir 4, 2, 1, 3 → 4213.', visual: <SoldiersBoard order={[4, 2, 1, 3]} />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Urutan akhir 4213.' : 'Final order 4213.'} beat={beat} lang={lang} />
+}
 
-export const PasswordDial22G2Explainer = makeExplainer(
-  PasswordDial22G2Illustration,
-  { en: 'Trace each turn', id: 'Ikuti setiap putaran' },
-  [
-    { en: 'From 0, clockwise 3 lands on 9; counterclockwise 4 lands on 5.', id: 'Dari 0, searah 3 mendarat di 9; berlawanan 4 mendarat di 5.' },
-    { en: 'Clockwise 2 lands on 3.', id: 'Searah 2 mendarat di 3.' },
-    { en: 'Clockwise 3 lands on 2.', id: 'Searah 3 mendarat di 2.' },
-    { en: 'Counterclockwise 6 lands on 8: password 95328.', id: 'Berlawanan 6 mendarat di 8: kata sandi 95328.' },
-  ],
-)
-
-export const CardHands22G2Explainer = makeExplainer(
-  CardHands22G2Illustration,
-  { en: 'Match the remaining card ranks', id: 'Pasangkan nilai kartu yang tersisa' },
-  [
-    { en: 'The visible 9s already form a pair, and the visible 5s already form a pair.', id: 'Kartu 9 yang terlihat sudah berpasangan, dan kartu 5 yang terlihat juga sudah berpasangan.' },
-    { en: 'The single visible ranks 2, J, 8, K, and 3 each need a matching card.', id: 'Nilai tunggal 2, J, 8, K, dan 3 masing-masing memerlukan satu kartu pasangan.' },
-    { en: 'Those five matching cards must be in Danny’s hand.', id: 'Kelima kartu pasangan itu harus berada di tangan Danny.' },
-    { en: 'Therefore Danny has 5 cards.', id: 'Jadi Danny memiliki 5 kartu.' },
-  ],
-)
-
-export const Soldiers22G2Explainer = makeExplainer(
-  Soldiers22G2Illustration,
-  { en: 'Simulate the marching queue', id: 'Simulasikan antrean prajurit' },
-  [
-    { en: 'Begin with the order 1, 2, 3, 4 moving left.', id: 'Mulai dengan urutan 1, 2, 3, 4 bergerak ke kiri.' },
-    { en: 'At each hole, move the front soldiers into the hole exactly as pictured.', id: 'Pada tiap lubang, pindahkan prajurit depan ke lubang tepat seperti gambar.' },
-    { en: 'Let the others pass, then reinsert the soldiers in the shown climb-out order.', id: 'Biarkan yang lain lewat, lalu masukkan kembali prajurit sesuai urutan memanjat.' },
-    { en: 'After both holes the order is 4, 2, 1, 3: 4213.', id: 'Setelah kedua lubang urutannya 4, 2, 1, 3: 4213.' },
-  ],
-)
-
-export const MirrorBlocks22G2Explainer = makeExplainer(
-  MirrorBlocks22G2Illustration,
-  { en: 'Reconcile the two mirror views', id: 'Cocokkan dua tampak cermin' },
-  [
-    { en: 'Gray pieces have length 2 and black pieces have length 3.', id: 'Balok abu-abu panjangnya 2 dan balok hitam panjangnya 3.' },
-    { en: 'Match those long pieces against both coloured projections first.', id: 'Cocokkan balok panjang itu dengan kedua proyeksi berwarna terlebih dahulu.' },
-    { en: 'Every remaining one-unit position must be a white block.', id: 'Setiap posisi satuan yang tersisa harus berupa balok putih.' },
-    { en: 'Three white 1×1×1 blocks are needed.', id: 'Diperlukan tiga balok putih 1×1×1.' },
-  ],
-)
-
-export const TCover22G2Explainer = makeExplainer(
-  TCover22G2Illustration,
-  { en: 'Search every T placement', id: 'Cari setiap posisi T' },
-  [
-    { en: 'Evaluate the arithmetic expressions in all sixteen grid cells.', id: 'Hitung nilai aritmetika pada semua enam belas petak.' },
-    { en: 'Try the T in each legal position and all four rotations.', id: 'Coba bentuk T pada setiap posisi sah dan keempat putaran.' },
-    { en: 'The best T covers 43, 28, 20, and 57.', id: 'T terbaik menutup 43, 28, 20, dan 57.' },
-    { en: '43 + 28 + 20 + 57 = 148.', id: '43 + 28 + 20 + 57 = 148.' },
-  ],
-)
+// ── Q24 · Mirror blocks ────────────────────────────────────────────────────
+export function MirrorBlocks22G2Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'en'
+  const beats: Beat[] = [
+    { en: 'The 3-D solid only shows the shape — the two mirrors give the colours: black is 3 long, gray 2 long, white single cubes.', id: 'Bentuk 3-D hanya menunjukkan rangka — kedua cermin memberi warnanya: hitam panjang 3, abu-abu 2, putih kubus tunggal.', visual: <MirrorBlocksBoard /> },
+    { en: 'The black 1×1×3 makes the 3-wide black base in the front mirror.', id: 'Balok hitam 1×1×3 membentuk alas hitam selebar 3 di cermin depan.', visual: <MirrorBlocksBoard /> },
+    { en: 'Two gray 1×1×2 blocks make the tall gray tower and the deep gray piece, matching both mirrors.', id: 'Dua balok abu-abu 1×1×2 membentuk menara tinggi dan balok dalam, cocok dengan kedua cermin.', visual: <MirrorBlocksBoard /> },
+    { en: 'Every leftover single cell must be a white 1×1×1 — there are 3 of them.', id: 'Setiap sel satuan sisa pasti balok putih 1×1×1 — ada 3 buah.', visual: <MirrorBlocksBoard />, result: true },
+  ]
+  const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
+  return <Shell aria={lang === 'id' ? 'Tiga balok putih 1×1×1 digunakan.' : 'Three white 1×1×1 blocks are used.'} beat={beat} lang={lang} />
+}

@@ -1,0 +1,1290 @@
+{
+  "year": 2023,
+  "grade": 3,
+  "round": "final",
+  "variant": "A",
+  "title": "WMI 2023 Grade 3 Final",
+  "recommended_duration_min": 90,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25 (5-choice, 90-min). Breakdowns/steps/parity are clean except Q12 and Q14 (both unenriched and blocked). Verified by hand: Q5 (26), Q7 (8 hours), Q9 (M=602973 → 27), Q10 (726), Q16 (4444), Q17 (25°), Q20 (D=792 via CRT, A=789), Q21 ({1,2,3,5}→1235), Q22 (22+67=89), Q24 (greedy → 99999785960). Two blockers below + figure-dependent nits.",
+    "findings": [
+      {
+        "q": 12,
+        "severity": "blocker",
+        "gate": "figure",
+        "note": "BLOCKED (matches project memory). No breakdown, no hint_steps, and no figure_url — the framing shape that selects three July-2023 dates is missing from the OCR, so the key A=46 ('which sum is impossible') cannot be verified or re-derived. Needs the shape from the original PDF, then enrichment."
+      },
+      {
+        "q": 14,
+        "severity": "blocker",
+        "gate": "answer",
+        "note": "BLOCKED (matches project memory). No breakdown/hint_steps; the keyed answer B=2293 conflicts with the natural computation: 5236−3471 = 1765 (which is option A), and even a digit-wise tribe subtraction (2, 2−4=−4→2̄, 3−7→4̄, 6−1=5 → '2 2̄ 4̄ 5') evaluates to 2000−200−40+5 = 1765. The interpretation that produces 2293 is unclear — needs the original-PDF wording to resolve key vs. derivation."
+      },
+      {
+        "q": 23,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Divisible-by-4 transversal count = 8 depends on the 3×3 grid's values (hint's six sets {1,9,5}/{1,4,6}/{2,8,5}/{2,4,7}/{3,8,6}/{3,9,7}); not re-derived from the scan this pass."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Right-turn-only robot maze (7×5): least squares = 31 with 5 forced repeats — figure-dependent; the hint asserts 31 without a cell-by-cell trace. Verify against the scan."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "body_en": "10000 − 23 − 203 − 2023 = ?",
+      "body_id": "10000 − 23 − 203 − 2023 = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "7741" },
+        { "label": "B", "text": "7851" },
+        { "label": "C", "text": "7751" },
+        { "label": "D", "text": "7724" },
+        { "label": "E", "text": "7641" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "7741" },
+        { "label": "B", "text": "7851" },
+        { "label": "C", "text": "7751" },
+        { "label": "D", "text": "7724" },
+        { "label": "E", "text": "7641" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "Add the three numbers being taken away: 23 + 203 + 2023 = 2249.",
+        "Subtract just once: 10000 − 2249 = 7751.",
+        "So the answer is 7751 → choice C."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan tiga bilangan yang dikurangkan: 23 + 203 + 2023 = 2249.",
+        "Kurangi sekali saja: 10000 − 2249 = 7751.",
+        "Jadi jawabannya 7751 → pilihan C."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "10000 − 23 − 203 − 2023",
+            "phrase_id": "10000 − 23 − 203 − 2023",
+            "note_en": "Take three numbers away from 10000.",
+            "note_id": "Kurangi tiga bilangan dari 10000."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Start", "label_id": "Awal", "value": "10000" },
+          { "label_en": "Take away", "label_id": "Dikurangi", "value": "23 + 203 + 2023 = 2249" },
+          { "label_en": "Result", "label_id": "Hasil", "value": "10000 − 2249 = 7751" }
+        ],
+        "strategy": { "name_en": "Add the parts you subtract, then subtract once", "name_id": "Jumlahkan bagian yang dikurangkan, lalu kurangi sekali" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 2,
+      "body_en": "Measure with your eyes instead of using measuring tools. Arrange ∠1, ∠2, ∠3, and ∠4 from the largest to the smallest.",
+      "body_id": "Ukur dengan mata, tanpa menggunakan alat ukur. Urutkan ∠1, ∠2, ∠3, dan ∠4 dari yang terbesar ke yang terkecil.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "∠3 > ∠2 > ∠1 > ∠4" },
+        { "label": "B", "text": "∠4 > ∠2 > ∠3 > ∠1" },
+        { "label": "C", "text": "∠4 > ∠3 > ∠2 > ∠1" },
+        { "label": "D", "text": "∠3 > ∠4 > ∠2 > ∠1" },
+        { "label": "E", "text": "∠3 > ∠2 > ∠4 > ∠1" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "∠3 > ∠2 > ∠1 > ∠4" },
+        { "label": "B", "text": "∠4 > ∠2 > ∠3 > ∠1" },
+        { "label": "C", "text": "∠4 > ∠3 > ∠2 > ∠1" },
+        { "label": "D", "text": "∠3 > ∠4 > ∠2 > ∠1" },
+        { "label": "E", "text": "∠3 > ∠2 > ∠4 > ∠1" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q2.jpg",
+      "hint_steps_en": [
+        "∠4 is a right angle (90°) — the only square corner, so it is the biggest.",
+        "Of the others, the M's wide bottom ∠3 is most open, then ∠2, then the W's sharp ∠1.",
+        "Largest to smallest: ∠4 > ∠3 > ∠2 > ∠1 → choice C."
+      ],
+      "hint_steps_id": [
+        "∠4 adalah sudut siku-siku (90°) — satu-satunya sudut persegi, jadi yang terbesar.",
+        "Dari sisanya, sudut bawah M yang lebar ∠3 paling terbuka, lalu ∠2, lalu ∠1 yang lancip pada W.",
+        "Dari terbesar ke terkecil: ∠4 > ∠3 > ∠2 > ∠1 → pilihan C."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Measure with your eyes",
+            "phrase_id": "Ukur dengan mata",
+            "note_en": "No ruler or protractor — judge each angle by how open it looks.",
+            "note_id": "Tanpa penggaris atau busur — nilai tiap sudut dari seberapa terbuka."
+          },
+          {
+            "category": "question",
+            "phrase_en": "from the largest to the smallest",
+            "phrase_id": "dari yang terbesar ke yang terkecil",
+            "note_en": "Order all four angles, biggest first.",
+            "note_id": "Urutkan keempat sudut, yang terbesar dulu."
+          }
+        ],
+        "quantities": [
+          { "label_en": "∠4 (corner of I)", "label_id": "∠4 (sudut huruf I)", "value": "right angle = 90° (largest)" },
+          { "label_en": "∠3 (bottom of M)", "label_id": "∠3 (bawah huruf M)", "value": "wide V" },
+          { "label_en": "∠2 (top of M)", "label_id": "∠2 (atas huruf M)", "value": "medium" },
+          { "label_en": "∠1 (bottom of W)", "label_id": "∠1 (bawah huruf W)", "value": "sharp (smallest)" },
+          { "label_en": "Order", "label_id": "Urutan", "value": "∠4 > ∠3 > ∠2 > ∠1" }
+        ],
+        "strategy": { "name_en": "The right angle is biggest; rank the rest by how open they look", "name_id": "Sudut siku-siku paling besar; urutkan sisanya dari yang paling terbuka" },
+        "trap": { "wrong": "A", "why_en": "∠4 is a right angle — the largest, so it can never be placed last.", "why_id": "∠4 adalah sudut siku-siku — yang terbesar, jadi tidak mungkin di urutan terakhir." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 3,
+      "body_en": "Jenny drinks 1/12 L of milk for breakfast on Mondays, Wednesdays, and Fridays, and 3/12 L of milk for breakfast on Tuesdays and Thursdays. How many liters of milk does she drink for breakfast from Monday to Friday?",
+      "body_id": "Jenny minum 1/12 L susu saat sarapan pada hari Senin, Rabu, dan Jumat, serta 3/12 L susu saat sarapan pada hari Selasa dan Kamis. Berapa liter susu yang ia minum saat sarapan dari Senin sampai Jumat?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "6/12" },
+        { "label": "B", "text": "11/12" },
+        { "label": "C", "text": "8/12" },
+        { "label": "D", "text": "10/12" },
+        { "label": "E", "text": "9/12" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "6/12" },
+        { "label": "B", "text": "11/12" },
+        { "label": "C", "text": "8/12" },
+        { "label": "D", "text": "10/12" },
+        { "label": "E", "text": "9/12" }
+      ],
+      "answer": "E",
+      "hint_steps_en": [
+        "Mon, Wed, Fri: 3 days × 1/12 = 3/12 L.",
+        "Tue, Thu: 2 days × 3/12 = 6/12 L.",
+        "Add them: 3/12 + 6/12 = 9/12 L → choice E."
+      ],
+      "hint_steps_id": [
+        "Sen, Rab, Jum: 3 hari × 1/12 = 3/12 L.",
+        "Sel, Kam: 2 hari × 3/12 = 6/12 L.",
+        "Jumlahkan: 3/12 + 6/12 = 9/12 L → pilihan E."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1/12 L of milk for breakfast on Mondays, Wednesdays, and Fridays",
+            "phrase_id": "1/12 L susu saat sarapan pada hari Senin, Rabu, dan Jumat",
+            "note_en": "Three days at 1/12 L each.",
+            "note_id": "Tiga hari, masing-masing 1/12 L."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3/12 L of milk for breakfast on Tuesdays and Thursdays",
+            "phrase_id": "3/12 L susu saat sarapan pada hari Selasa dan Kamis",
+            "note_en": "Two days at 3/12 L each.",
+            "note_id": "Dua hari, masing-masing 3/12 L."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Mon/Wed/Fri", "label_id": "Sen/Rab/Jum", "value": "3 × 1/12 = 3/12 L" },
+          { "label_en": "Tue/Thu", "label_id": "Sel/Kam", "value": "2 × 3/12 = 6/12 L" },
+          { "label_en": "Total", "label_id": "Total", "value": "3/12 + 6/12 = 9/12 L" }
+        ],
+        "strategy": { "name_en": "Count each day's milk, then add the twelfths", "name_id": "Hitung susu tiap hari, lalu jumlahkan per dua belas" },
+        "trap": { "wrong": "A", "why_en": "6/12 forgets the three 1/12 days — add all five days.", "why_id": "6/12 melupakan tiga hari 1/12 — jumlahkan kelima hari." },
+        "answer": { "form": "choice", "unit": null, "value": "E" }
+      }
+    },
+    {
+      "number": 4,
+      "body_en": "Two identical rectangles overlap with each other, and the overlapping part is a square. Find the perimeter of this figure.",
+      "body_id": "Dua persegi panjang yang identik saling bertumpang tindih, dan bagian yang bertumpang tindih berbentuk persegi. Tentukan keliling bangun ini.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "272" },
+        { "label": "B", "text": "292" },
+        { "label": "C", "text": "294" },
+        { "label": "D", "text": "302" },
+        { "label": "E", "text": "312" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "272" },
+        { "label": "B", "text": "292" },
+        { "label": "C", "text": "294" },
+        { "label": "D", "text": "302" },
+        { "label": "E", "text": "312" }
+      ],
+      "answer": "E",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q4.jpg",
+      "hint_steps_en": [
+        "Each rectangle is 56 × 42, so one border is 2 × (56 + 42) = 196.",
+        "The 36 is the part of a 56-side past the overlap, so the square's side is 56 − 36 = 20.",
+        "Two borders minus the 4 hidden square sides: 2 × 196 − 4 × 20 = 392 − 80 = 312 → choice E."
+      ],
+      "hint_steps_id": [
+        "Tiap persegi panjang 56 × 42, jadi satu keliling = 2 × (56 + 42) = 196.",
+        "Angka 36 adalah bagian sisi 56 di luar tumpang tindih, jadi sisi persegi = 56 − 36 = 20.",
+        "Dua keliling dikurangi 4 sisi persegi tersembunyi: 2 × 196 − 4 × 20 = 392 − 80 = 312 → pilihan E."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the overlapping part is a square",
+            "phrase_id": "bagian yang bertumpang tindih berbentuk persegi",
+            "note_en": "The shared region is a square — its 4 sides get hidden inside.",
+            "note_id": "Daerah bersama berbentuk persegi — keempat sisinya tersembunyi di dalam."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of this figure",
+            "phrase_id": "Tentukan keliling bangun ini",
+            "note_en": "Measure the whole outside border.",
+            "note_id": "Ukur seluruh keliling luarnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "One rectangle", "label_id": "Satu persegi panjang", "value": "56 × 42 → 2 × (56 + 42) = 196" },
+          { "label_en": "Overlap square side", "label_id": "Sisi persegi tumpang tindih", "value": "56 − 36 = 20" },
+          { "label_en": "Figure perimeter", "label_id": "Keliling bangun", "value": "2 × 196 − 4 × 20 = 312" }
+        ],
+        "strategy": { "name_en": "Two borders, minus the 4 hidden square sides", "name_id": "Dua keliling, dikurangi 4 sisi persegi yang tersembunyi" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "E" }
+      }
+    },
+    {
+      "number": 5,
+      "body_en": "A snail can only crawl in straight lines and make right-angle turns. Starting from point A, it crawls north for 14 cm, west for 12 cm, east for 29 cm, and south for 5 cm. At least how many centimeters must it crawl to get back to point A?",
+      "body_id": "Seekor siput hanya dapat merayap lurus dan berbelok siku-siku. Mulai dari titik A, ia merayap ke utara 14 cm, ke barat 12 cm, ke timur 29 cm, dan ke selatan 5 cm. Paling sedikit berapa sentimeter ia harus merayap untuk kembali ke titik A?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "32" },
+        { "label": "B", "text": "24" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "26" },
+        { "label": "E", "text": "34" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "32" },
+        { "label": "B", "text": "24" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "26" },
+        { "label": "E", "text": "34" }
+      ],
+      "answer": "D",
+      "hint_steps_en": [
+        "Up and down: 14 north − 5 south = 9 cm north of A.",
+        "Left and right: 29 east − 12 west = 17 cm east of A.",
+        "Shortest way back = 17 + 9 = 26 cm → choice D."
+      ],
+      "hint_steps_id": [
+        "Atas dan bawah: 14 utara − 5 selatan = 9 cm di utara A.",
+        "Kiri dan kanan: 29 timur − 12 barat = 17 cm di timur A.",
+        "Jalan pulang terpendek = 17 + 9 = 26 cm → pilihan D."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "north for 14 cm, west for 12 cm, east for 29 cm, and south for 5 cm",
+            "phrase_id": "ke utara 14 cm, ke barat 12 cm, ke timur 29 cm, dan ke selatan 5 cm",
+            "note_en": "Four right-angle moves — combine the opposite ones.",
+            "note_id": "Empat gerakan siku-siku — gabungkan yang berlawanan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "At least how many centimeters must it crawl to get back to point A?",
+            "phrase_id": "Paling sedikit berapa sentimeter ia harus merayap untuk kembali ke titik A?",
+            "note_en": "Find the shortest right-angle path home.",
+            "note_id": "Cari jalur siku-siku terpendek untuk pulang."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Net north–south", "label_id": "Selisih utara–selatan", "value": "14 − 5 = 9 cm north" },
+          { "label_en": "Net east–west", "label_id": "Selisih timur–barat", "value": "29 − 12 = 17 cm east" },
+          { "label_en": "Shortest return", "label_id": "Jarak pulang terpendek", "value": "17 + 9 = 26 cm" }
+        ],
+        "strategy": { "name_en": "Cancel opposite directions, then add what's left", "name_id": "Hilangkan arah yang berlawanan, lalu jumlahkan sisanya" },
+        "trap": { "wrong": "E", "why_en": "34 = 12 + 9 + 13 adds back travel already cancelled; only the net 17 + 9 matters.", "why_id": "34 menambahkan kembali gerak yang sudah saling meniadakan; hanya selisih 17 + 9 yang penting." },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 6,
+      "body_en": "A document has 463 pages. It takes Chen 3 days to work on 174 pages. At this speed, he continues to work for the remaining 4 days of the week. How many pages are left for him to work on next week?",
+      "body_id": "Sebuah dokumen memiliki 463 halaman. Chen membutuhkan 3 hari untuk mengerjakan 174 halaman. Dengan kecepatan ini, ia melanjutkan pekerjaannya selama 4 hari sisa minggu itu. Berapa halaman yang tersisa untuk dikerjakan minggu depan?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "57" },
+        { "label": "B", "text": "58" },
+        { "label": "C", "text": "61" },
+        { "label": "D", "text": "64" },
+        { "label": "E", "text": "54" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "57" },
+        { "label": "B", "text": "58" },
+        { "label": "C", "text": "61" },
+        { "label": "D", "text": "64" },
+        { "label": "E", "text": "54" }
+      ],
+      "answer": "A",
+      "hint_steps_en": [
+        "Chen's rate: 174 ÷ 3 = 58 pages per day.",
+        "In 4 more days he does 4 × 58 = 232 pages, so this week's total is 174 + 232 = 406.",
+        "Pages left: 463 − 406 = 57 → choice A."
+      ],
+      "hint_steps_id": [
+        "Kecepatan Chen: 174 ÷ 3 = 58 halaman per hari.",
+        "Dalam 4 hari lagi ia mengerjakan 4 × 58 = 232 halaman, jadi total minggu ini 174 + 232 = 406.",
+        "Halaman tersisa: 463 − 406 = 57 → pilihan A."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 days to work on 174 pages",
+            "phrase_id": "3 hari untuk mengerjakan 174 halaman",
+            "note_en": "This gives the daily rate.",
+            "note_id": "Ini memberi kecepatan per hari."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the remaining 4 days of the week",
+            "phrase_id": "4 hari sisa minggu itu",
+            "note_en": "Four more days at the same rate.",
+            "note_id": "Empat hari lagi dengan kecepatan sama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many pages are left for him to work on next week?",
+            "phrase_id": "Berapa halaman yang tersisa untuk dikerjakan minggu depan?",
+            "note_en": "Subtract this week's work from 463.",
+            "note_id": "Kurangi pekerjaan minggu ini dari 463."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Daily rate", "label_id": "Kecepatan harian", "value": "174 ÷ 3 = 58 pages/day" },
+          { "label_en": "Done this week", "label_id": "Selesai minggu ini", "value": "174 + 4 × 58 = 406" },
+          { "label_en": "Pages left", "label_id": "Halaman tersisa", "value": "463 − 406 = 57" }
+        ],
+        "strategy": { "name_en": "Find the daily rate, total this week, subtract from 463", "name_id": "Cari kecepatan harian, total minggu ini, kurangi dari 463" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
+    },
+    {
+      "number": 7,
+      "body_en": "The parking fees for small cars and big cars are shown below. Small car: $5 for the first hour, then $3 for each hour after. Big car: $7 for the first hour, then $5 for each hour after. Kevin parks a small car and Josh parks a big car, and their parking fees are the same. At least how many hours in total do they park their cars?",
+      "body_id": "Tarif parkir untuk mobil kecil dan mobil besar ditunjukkan di bawah. Mobil kecil: $5 untuk jam pertama, lalu $3 untuk setiap jam berikutnya. Mobil besar: $7 untuk jam pertama, lalu $5 untuk setiap jam berikutnya. Kevin memarkir mobil kecil dan Josh memarkir mobil besar, dan biaya parkir mereka sama. Paling sedikit berapa jam total mereka memarkir mobil?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "10" },
+        { "label": "D", "text": "16" },
+        { "label": "E", "text": "18" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "10" },
+        { "label": "D", "text": "16" },
+        { "label": "E", "text": "18" }
+      ],
+      "answer": "B",
+      "hint_steps_en": [
+        "Small car cost grows 5, 8, 11, 14, 17 (3 per extra hour).",
+        "Big car cost grows 7, 12, 17 (5 per extra hour).",
+        "They first match at $17: small at 5 hours, big at 3 hours → total 5 + 3 = 8 → choice B."
+      ],
+      "hint_steps_id": [
+        "Biaya mobil kecil naik 5, 8, 11, 14, 17 (3 per jam tambahan).",
+        "Biaya mobil besar naik 7, 12, 17 (5 per jam tambahan).",
+        "Pertama kali sama di $17: mobil kecil 5 jam, mobil besar 3 jam → total 5 + 3 = 8 → pilihan B."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "$5 for the first hour, then $3 for each hour after",
+            "phrase_id": "$5 untuk jam pertama, lalu $3 untuk setiap jam berikutnya",
+            "note_en": "Small-car cost = 3 × hours + 2.",
+            "note_id": "Biaya mobil kecil = 3 × jam + 2."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "$7 for the first hour, then $5 for each hour after",
+            "phrase_id": "$7 untuk jam pertama, lalu $5 untuk setiap jam berikutnya",
+            "note_en": "Big-car cost = 5 × hours + 2.",
+            "note_id": "Biaya mobil besar = 5 × jam + 2."
+          },
+          {
+            "category": "question",
+            "phrase_en": "At least how many hours in total do they park their cars?",
+            "phrase_id": "Paling sedikit berapa jam total mereka memarkir mobil?",
+            "note_en": "Add the two cars' hours at the first equal fee.",
+            "note_id": "Jumlahkan jam kedua mobil pada biaya sama pertama."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small car cost", "label_id": "Biaya mobil kecil", "value": "5, 8, 11, 14, 17" },
+          { "label_en": "Big car cost", "label_id": "Biaya mobil besar", "value": "7, 12, 17" },
+          { "label_en": "First equal fee", "label_id": "Biaya sama pertama", "value": "$17 → 5 h + 3 h = 8 hours" }
+        ],
+        "strategy": { "name_en": "List each car's running cost, match the fee, add the hours", "name_id": "Daftar biaya tiap mobil, samakan biayanya, jumlahkan jamnya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
+    },
+    {
+      "number": 8,
+      "body_en": "Each circle represents a metro station, and the number next to a line segment is the ticket price for that segment. Kelly wants to travel from station A to station B. What is the least amount of money she needs to buy a ticket?",
+      "body_id": "Setiap lingkaran mewakili sebuah stasiun metro, dan angka di samping ruas garis adalah harga tiket untuk ruas itu. Kelly ingin pergi dari stasiun A ke stasiun B. Berapa biaya tiket paling murah yang ia perlukan?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "140" },
+        { "label": "B", "text": "160" },
+        { "label": "C", "text": "150" },
+        { "label": "D", "text": "130" },
+        { "label": "E", "text": "120" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "140" },
+        { "label": "B", "text": "160" },
+        { "label": "C", "text": "150" },
+        { "label": "D", "text": "130" },
+        { "label": "E", "text": "120" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q8.jpg",
+      "hint_steps_en": [
+        "From A, the cheaper start is A → station → 50, then 20 to the hub (running 70).",
+        "From the hub, going straight to B costs 90 (total 160), but hopping via the next station costs 10 + 70 = 80 (total 150).",
+        "Cheapest A → B = 50 + 20 + 10 + 70 = 150 → choice C."
+      ],
+      "hint_steps_id": [
+        "Dari A, awal termurah A → stasiun → 50, lalu 20 ke pusat (jumlah 70).",
+        "Dari pusat, langsung ke B biayanya 90 (total 160), tetapi lewat stasiun berikut biayanya 10 + 70 = 80 (total 150).",
+        "Termurah A → B = 50 + 20 + 10 + 70 = 150 → pilihan C."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the number next to a line segment is the ticket price for that segment",
+            "phrase_id": "angka di samping ruas garis adalah harga tiket untuk ruas itu",
+            "note_en": "Add up the prices along a route.",
+            "note_id": "Jumlahkan harga di sepanjang rute."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the least amount of money she needs to buy a ticket?",
+            "phrase_id": "Berapa biaya tiket paling murah yang ia perlukan?",
+            "note_en": "Find the cheapest A → B route.",
+            "note_id": "Cari rute A → B termurah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cheapest route", "label_id": "Rute termurah", "value": "A → … → … → … → B" },
+          { "label_en": "Add the prices", "label_id": "Jumlahkan harga", "value": "50 + 20 + 10 + 70 = 150" },
+          { "label_en": "Tempting shortcut", "label_id": "Jalan pintas yang menggoda", "value": "…→B direct = 90 → 160 (dearer)" }
+        ],
+        "strategy": { "name_en": "Try routes, add segment prices, keep the cheapest", "name_id": "Coba rute, jumlahkan harga ruas, ambil yang termurah" },
+        "trap": { "wrong": "B", "why_en": "160 takes the direct 90 segment to B; hopping through the next station (10 + 70) is cheaper.", "why_id": "160 memakai ruas langsung 90 ke B; lewat stasiun berikut (10 + 70) lebih murah." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 9,
+      "body_en": "Use the six digits 0, 1, 3, 5, 7, and 9 (each exactly once) to form a 6-digit number in which the hundreds digit is 5 and the ten-thousands digit is 9. Let M be the difference between the largest and the smallest such 6-digit number. Find the sum of all the digits of M.",
+      "body_id": "Gunakan enam angka 0, 1, 3, 5, 7, dan 9 (masing-masing tepat sekali) untuk membentuk bilangan 6 angka dengan angka ratusan 5 dan angka puluhan ribu 9. Misalkan M adalah selisih antara bilangan 6 angka terbesar dan terkecil seperti itu. Tentukan jumlah semua angka dari M.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "18" },
+        { "label": "B", "text": "37" },
+        { "label": "C", "text": "22" },
+        { "label": "D", "text": "27" },
+        { "label": "E", "text": "24" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "18" },
+        { "label": "B", "text": "37" },
+        { "label": "C", "text": "22" },
+        { "label": "D", "text": "27" },
+        { "label": "E", "text": "24" }
+      ],
+      "answer": "D",
+      "hint_steps_en": [
+        "Fix 9 in the ten-thousands place and 5 in the hundreds place; fill the rest with 0, 1, 3, 7.",
+        "Largest = 793510, smallest = 190537 (it can't start with 0).",
+        "M = 793510 − 190537 = 602973; digit sum 6+0+2+9+7+3 = 27 → choice D."
+      ],
+      "hint_steps_id": [
+        "Tetapkan 9 di puluhan ribu dan 5 di ratusan; isi sisanya dengan 0, 1, 3, 7.",
+        "Terbesar = 793510, terkecil = 190537 (tidak boleh diawali 0).",
+        "M = 793510 − 190537 = 602973; jumlah angka 6+0+2+9+7+3 = 27 → pilihan D."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the hundreds digit is 5 and the ten-thousands digit is 9",
+            "phrase_id": "angka ratusan 5 dan angka puluhan ribu 9",
+            "note_en": "Two places are fixed; arrange 0,1,3,7 in the rest.",
+            "note_id": "Dua tempat tetap; susun 0,1,3,7 di sisanya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the sum of all the digits of M",
+            "phrase_id": "jumlah semua angka dari M",
+            "note_en": "Add up the digits of the difference.",
+            "note_id": "Jumlahkan angka-angka dari selisihnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Largest", "label_id": "Terbesar", "value": "793510" },
+          { "label_en": "Smallest", "label_id": "Terkecil", "value": "190537" },
+          { "label_en": "M and digit sum", "label_id": "M dan jumlah angka", "value": "602973 → 6+0+2+9+7+3 = 27" }
+        ],
+        "strategy": { "name_en": "Build the biggest and smallest, subtract, add the digits", "name_id": "Bentuk terbesar dan terkecil, kurangi, jumlahkan angkanya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 10,
+      "body_en": "When Alvin uses a calculator to solve a division problem, he accidentally swaps the first two digits of the dividend. The divisor is 6, and the quotient he gets is 576. What is the correct quotient?",
+      "body_id": "Ketika Alvin menggunakan kalkulator untuk menyelesaikan soal pembagian, ia tidak sengaja menukar dua angka pertama dari bilangan yang dibagi. Pembaginya adalah 6, dan hasil bagi yang ia peroleh adalah 576. Berapa hasil bagi yang benar?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "696" },
+        { "label": "B", "text": "686" },
+        { "label": "C", "text": "746" },
+        { "label": "D", "text": "726" },
+        { "label": "E", "text": "666" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "696" },
+        { "label": "B", "text": "686" },
+        { "label": "C", "text": "746" },
+        { "label": "D", "text": "726" },
+        { "label": "E", "text": "666" }
+      ],
+      "answer": "D",
+      "hint_steps_en": [
+        "The wrong dividend is 576 × 6 = 3456.",
+        "Un-swap the first two digits: 3456 → 4356.",
+        "Correct quotient = 4356 ÷ 6 = 726 → choice D."
+      ],
+      "hint_steps_id": [
+        "Bilangan yang dibagi yang salah = 576 × 6 = 3456.",
+        "Kembalikan dua angka pertama: 3456 → 4356.",
+        "Hasil bagi yang benar = 4356 ÷ 6 = 726 → pilihan D."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "he accidentally swaps the first two digits of the dividend",
+            "phrase_id": "ia tidak sengaja menukar dua angka pertama dari bilangan yang dibagi",
+            "note_en": "Find the wrong dividend, then un-swap.",
+            "note_id": "Cari bilangan yang salah, lalu tukar kembali."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The divisor is 6, and the quotient he gets is 576",
+            "phrase_id": "Pembaginya adalah 6, dan hasil bagi yang ia peroleh adalah 576",
+            "note_en": "Wrong dividend = 576 × 6.",
+            "note_id": "Bilangan yang salah = 576 × 6."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Wrong dividend", "label_id": "Bilangan salah", "value": "576 × 6 = 3456" },
+          { "label_en": "Correct dividend", "label_id": "Bilangan benar", "value": "3456 → 4356" },
+          { "label_en": "Correct quotient", "label_id": "Hasil bagi benar", "value": "4356 ÷ 6 = 726" }
+        ],
+        "strategy": { "name_en": "Rebuild the wrong dividend, un-swap, divide again", "name_id": "Bangun ulang bilangan salah, tukar kembali, bagi lagi" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 11,
+      "body_en": "A complete clock face has the 12 numbers on it. Milly accidentally breaks it into 4 sector-shaped pieces. The numbers on two of the pieces each add up to 26. Find the difference between the sums of the numbers on the other two pieces.",
+      "body_id": "Sebuah permukaan jam lengkap memiliki 12 angka. Milly tidak sengaja memecahkannya menjadi 4 keping berbentuk juring. Jumlah angka pada dua keping masing-masing adalah 26. Tentukan selisih antara jumlah angka pada dua keping lainnya.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "16" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "4" },
+        { "label": "D", "text": "12" },
+        { "label": "E", "text": "11" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "16" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "4" },
+        { "label": "D", "text": "12" },
+        { "label": "E", "text": "11" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q11.jpg",
+      "hint_steps_en": [
+        "All twelve numbers add to 1+2+…+12 = 78.",
+        "The two pieces summing to 26 take 26 + 26 = 52, so the other two together make 78 − 52 = 26.",
+        "Those pieces are {3,4}=7 and {9,10}=19, so the difference is 19 − 7 = 12 → choice D."
+      ],
+      "hint_steps_id": [
+        "Kedua belas angka berjumlah 1+2+…+12 = 78.",
+        "Dua keping yang berjumlah 26 mengambil 26 + 26 = 52, jadi dua keping lainnya bersama 78 − 52 = 26.",
+        "Keping itu adalah {3,4}=7 dan {9,10}=19, jadi selisihnya 19 − 7 = 12 → pilihan D."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The numbers on two of the pieces each add up to 26",
+            "phrase_id": "Jumlah angka pada dua keping masing-masing adalah 26",
+            "note_en": "Two pieces remove 52 from the total.",
+            "note_id": "Dua keping mengambil 52 dari total."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the difference between the sums of the numbers on the other two pieces",
+            "phrase_id": "selisih antara jumlah angka pada dua keping lainnya",
+            "note_en": "Split the leftover 26 into its two pieces.",
+            "note_id": "Bagi sisa 26 menjadi dua kepingnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total of 1–12", "label_id": "Total 1–12", "value": "78" },
+          { "label_en": "Other two together", "label_id": "Dua lainnya bersama", "value": "78 − 52 = 26 → {3,4}=7, {9,10}=19" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "19 − 7 = 12" }
+        ],
+        "strategy": { "name_en": "Use the total 78, subtract the two 26s, split the rest", "name_id": "Pakai total 78, kurangi dua angka 26, bagi sisanya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 12,
+      "body_en": "The calendar for July 2023 is shown. A fixed shape (it cannot be rotated) is used to frame three dates. Which of the following cannot be the sum of these three numbers?",
+      "body_id": "Kalender bulan Juli 2023 ditunjukkan. Sebuah bentuk tetap (tidak boleh diputar) digunakan untuk membingkai tiga tanggal. Manakah dari berikut ini yang tidak mungkin menjadi jumlah ketiga angka tersebut?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "46" },
+        { "label": "B", "text": "22" },
+        { "label": "C", "text": "73" },
+        { "label": "D", "text": "61" },
+        { "label": "E", "text": "64" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "46" },
+        { "label": "B", "text": "22" },
+        { "label": "C", "text": "73" },
+        { "label": "D", "text": "61" },
+        { "label": "E", "text": "64" }
+      ],
+      "answer": "A"
+    },
+    {
+      "number": 13,
+      "body_en": "Each small equilateral triangle in the figure has an area of 6 cm². Find the area of quadrilateral ABCD in cm².",
+      "body_id": "Setiap segitiga sama sisi kecil pada gambar memiliki luas 6 cm². Tentukan luas segi empat ABCD dalam cm².",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "66" },
+        { "label": "B", "text": "69" },
+        { "label": "C", "text": "72" },
+        { "label": "D", "text": "75" },
+        { "label": "E", "text": "78" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "66" },
+        { "label": "B", "text": "69" },
+        { "label": "C", "text": "72" },
+        { "label": "D", "text": "75" },
+        { "label": "E", "text": "78" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q13.jpg",
+      "hint_steps_en": [
+        "Each small triangle is 6 cm².",
+        "Quadrilateral ABCD covers exactly 12 small triangles.",
+        "Area = 12 × 6 = 72 cm² → choice C."
+      ],
+      "hint_steps_id": [
+        "Setiap segitiga kecil luasnya 6 cm².",
+        "Segi empat ABCD menutupi tepat 12 segitiga kecil.",
+        "Luas = 12 × 6 = 72 cm² → pilihan C."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "an area of 6 cm²",
+            "phrase_id": "luas 6 cm²",
+            "note_en": "One small triangle = 6 cm².",
+            "note_id": "Satu segitiga kecil = 6 cm²."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area of quadrilateral ABCD",
+            "phrase_id": "Tentukan luas segi empat ABCD",
+            "note_en": "Count the small triangles it covers.",
+            "note_id": "Hitung segitiga kecil yang ditutupinya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small triangle", "label_id": "Segitiga kecil", "value": "6 cm²" },
+          { "label_en": "Triangles in ABCD", "label_id": "Segitiga dalam ABCD", "value": "12" },
+          { "label_en": "Area", "label_id": "Luas", "value": "12 × 6 = 72 cm²" }
+        ],
+        "strategy": { "name_en": "Count the small triangles inside ABCD, then multiply by 6", "name_id": "Hitung segitiga kecil di dalam ABCD, lalu kalikan 6" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 14,
+      "body_en": "A certain tribe writes numbers with a special method for addition and subtraction: a bar over a digit means that digit is subtracted. For example, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), and 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). In this tribe, what number does the result of 5236 − 3471 represent?",
+      "body_id": "Suatu suku menulis bilangan dengan metode khusus untuk penjumlahan dan pengurangan: garis di atas sebuah angka berarti angka itu dikurangkan. Contohnya, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), dan 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). Pada suku ini, bilangan berapa yang diwakili oleh hasil dari 5236 − 3471?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "1765" },
+        { "label": "B", "text": "2293" },
+        { "label": "C", "text": "2235" },
+        { "label": "D", "text": "2343" },
+        { "label": "E", "text": "1995" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "1765" },
+        { "label": "B", "text": "2293" },
+        { "label": "C", "text": "2235" },
+        { "label": "D", "text": "2343" },
+        { "label": "E", "text": "1995" }
+      ],
+      "answer": "B"
+    },
+    {
+      "number": 15,
+      "body_en": "The figures are arranged in a pattern. Starting from START, they are arranged outward in a clockwise spiral. Which two figures are missing?",
+      "body_id": "Bangun-bangun tersebut disusun dengan suatu pola. Mulai dari START, mereka disusun ke luar membentuk spiral searah jarum jam. Dua bangun manakah yang hilang?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "gray heptagon, black square" },
+        { "label": "B", "text": "white heptagon, gray square" },
+        { "label": "C", "text": "gray square, white square" },
+        { "label": "D", "text": "white heptagon, white square" },
+        { "label": "E", "text": "white heptagon, gray heptagon" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "segi tujuh abu-abu, persegi hitam" },
+        { "label": "B", "text": "segi tujuh putih, persegi abu-abu" },
+        { "label": "C", "text": "persegi abu-abu, persegi putih" },
+        { "label": "D", "text": "segi tujuh putih, persegi putih" },
+        { "label": "E", "text": "segi tujuh putih, segi tujuh abu-abu" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q15.jpg",
+      "hint_steps_en": [
+        "Walk the spiral from START: the shapes repeat square, square, heptagon, heptagon, heptagon.",
+        "The colours repeat white, white, gray, black.",
+        "The next two cells are a white heptagon then a gray square → choice B."
+      ],
+      "hint_steps_id": [
+        "Telusuri spiral dari START: bentuknya berulang persegi, persegi, segi tujuh, segi tujuh, segi tujuh.",
+        "Warnanya berulang putih, putih, abu-abu, hitam.",
+        "Dua sel berikutnya adalah segi tujuh putih lalu persegi abu-abu → pilihan B."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "arranged outward in a clockwise spiral",
+            "phrase_id": "disusun ke luar membentuk spiral searah jarum jam",
+            "note_en": "Read the cells in spiral order from START.",
+            "note_id": "Baca sel-sel dalam urutan spiral dari START."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which two figures are missing?",
+            "phrase_id": "Dua bangun manakah yang hilang?",
+            "note_en": "Extend both the shape and colour cycles.",
+            "note_id": "Lanjutkan siklus bentuk dan warna."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Shape cycle", "label_id": "Siklus bentuk", "value": "square, square, heptagon, heptagon, heptagon" },
+          { "label_en": "Colour cycle", "label_id": "Siklus warna", "value": "white, white, gray, black" },
+          { "label_en": "Missing two", "label_id": "Dua yang hilang", "value": "white heptagon, gray square" }
+        ],
+        "strategy": { "name_en": "Find the shape cycle and the colour cycle, then extend both", "name_id": "Cari siklus bentuk dan siklus warna, lalu lanjutkan keduanya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
+    },
+    {
+      "number": 16,
+      "body_en": "Compute 2024 × 2421 − 2023 × 2420.",
+      "body_id": "Hitunglah 2024 × 2421 − 2023 × 2420.",
+      "answer_type": "fill_in",
+      "answer": "4444",
+      "hint_steps_en": [
+        "Write 2024 = 2023 + 1 and 2421 = 2420 + 1.",
+        "(2023+1)(2420+1) − 2023×2420 = 2023×2420 + 2023 + 2420 + 1 − 2023×2420.",
+        "The big product cancels: 2023 + 2420 + 1 = 4444."
+      ],
+      "hint_steps_id": [
+        "Tulis 2024 = 2023 + 1 dan 2421 = 2420 + 1.",
+        "(2023+1)(2420+1) − 2023×2420 = 2023×2420 + 2023 + 2420 + 1 − 2023×2420.",
+        "Hasil kali besar saling meniadakan: 2023 + 2420 + 1 = 4444."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Compute 2024 × 2421 − 2023 × 2420.",
+            "phrase_id": "Hitunglah 2024 × 2421 − 2023 × 2420.",
+            "note_en": "Each factor is one more than a 2023/2420 term.",
+            "note_id": "Tiap faktor satu lebih dari suku 2023/2420."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rewrite", "label_id": "Tulis ulang", "value": "2024 = 2023+1, 2421 = 2420+1" },
+          { "label_en": "Expand & cancel", "label_id": "Jabarkan & coret", "value": "2023×2420 cancels" },
+          { "label_en": "Result", "label_id": "Hasil", "value": "2023 + 2420 + 1 = 4444" }
+        ],
+        "strategy": { "name_en": "Rewrite each factor as one-more, expand, cancel the big product", "name_id": "Tulis tiap faktor sebagai satu-lebih, jabarkan, coret hasil kali besar" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "4444" }
+      }
+    },
+    {
+      "number": 17,
+      "body_en": "Triangle ABC is folded along EF, so that B maps to B' and C maps to C'. If ∠EAF = 60° and ∠B'EA = 95°, find ∠AFC' (in degrees).",
+      "body_id": "Segitiga ABC dilipat sepanjang EF, sehingga B berpindah ke B' dan C berpindah ke C'. Jika ∠EAF = 60° dan ∠B'EA = 95°, tentukan ∠AFC' (dalam derajat).",
+      "answer_type": "fill_in",
+      "answer": "25",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q17.jpg",
+      "hint_steps_en": [
+        "In triangle AEF, ∠AEF + ∠AFE = 180 − 60 = 120°.",
+        "Folding doubles the crease angles: ∠B'EA = 180 − 2∠AEF and ∠AFC' = 180 − 2∠AFE, so ∠B'EA + ∠AFC' = 2 × 60 = 120°.",
+        "∠AFC' = 120 − 95 = 25°."
+      ],
+      "hint_steps_id": [
+        "Pada segitiga AEF, ∠AEF + ∠AFE = 180 − 60 = 120°.",
+        "Lipatan menggandakan sudut lipatan: ∠B'EA = 180 − 2∠AEF dan ∠AFC' = 180 − 2∠AFE, jadi ∠B'EA + ∠AFC' = 2 × 60 = 120°.",
+        "∠AFC' = 120 − 95 = 25°."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "∠EAF = 60° and ∠B'EA = 95°",
+            "phrase_id": "∠EAF = 60° dan ∠B'EA = 95°",
+            "note_en": "The apex angle and one fold angle are given.",
+            "note_id": "Sudut puncak dan satu sudut lipatan diketahui."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find ∠AFC'",
+            "phrase_id": "tentukan ∠AFC'",
+            "note_en": "The other fold angle at F.",
+            "note_id": "Sudut lipatan lainnya di F."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Angles of AEF", "label_id": "Sudut AEF", "value": "∠AEF + ∠AFE = 180 − 60 = 120°" },
+          { "label_en": "Fold relation", "label_id": "Hubungan lipatan", "value": "∠B'EA + ∠AFC' = 2 × 60 = 120°" },
+          { "label_en": "Answer", "label_id": "Jawaban", "value": "120 − 95 = 25°" }
+        ],
+        "strategy": { "name_en": "Use the fold's doubled angles: ∠B'EA + ∠AFC' = 2∠EAF", "name_id": "Gunakan sudut ganda lipatan: ∠B'EA + ∠AFC' = 2∠EAF" },
+        "trap": null,
+        "answer": { "form": "number", "unit": "°", "value": "25" }
+      }
+    },
+    {
+      "number": 18,
+      "body_en": "Five squares are arranged side by side on a straight line. From the shortest to the longest, their side lengths are 2, 3, 4, 5, and 6. Find the area of the shaded region.",
+      "body_id": "Lima persegi disusun berdampingan pada satu garis lurus. Dari yang terpendek ke terpanjang, panjang sisinya adalah 2, 3, 4, 5, dan 6. Tentukan luas daerah yang diarsir.",
+      "answer_type": "fill_in",
+      "answer": "45",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q18.jpg",
+      "hint_steps_en": [
+        "Each shaded triangle has base s and height s, so its area is s²/2 — half of its square.",
+        "The five squares total 4 + 9 + 16 + 25 + 36 = 90.",
+        "Shaded = half of 90 = 45."
+      ],
+      "hint_steps_id": [
+        "Setiap segitiga yang diarsir beralas s dan tinggi s, jadi luasnya s²/2 — setengah perseginya.",
+        "Kelima persegi berjumlah 4 + 9 + 16 + 25 + 36 = 90.",
+        "Daerah diarsir = setengah dari 90 = 45."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "their side lengths are 2, 3, 4, 5, and 6",
+            "phrase_id": "panjang sisinya adalah 2, 3, 4, 5, dan 6",
+            "note_en": "The square areas are 4, 9, 16, 25, 36.",
+            "note_id": "Luas perseginya 4, 9, 16, 25, 36."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area of the shaded region",
+            "phrase_id": "Tentukan luas daerah yang diarsir",
+            "note_en": "Each fan triangle is half its square.",
+            "note_id": "Tiap segitiga kipas adalah setengah perseginya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each triangle", "label_id": "Tiap segitiga", "value": "s²/2 = half its square" },
+          { "label_en": "Squares total", "label_id": "Total persegi", "value": "4 + 9 + 16 + 25 + 36 = 90" },
+          { "label_en": "Shaded", "label_id": "Diarsir", "value": "90 ÷ 2 = 45" }
+        ],
+        "strategy": { "name_en": "Each fan triangle is half its square, so shade = half the total area", "name_id": "Tiap segitiga kipas setengah perseginya, jadi arsir = setengah luas total" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "45" }
+      }
+    },
+    {
+      "number": 19,
+      "body_en": "The figure is made up of 4 identical rectangles. The perimeter of the whole figure is 48 cm and its area is 90 cm². Find the perimeter of one rectangle in cm.",
+      "body_id": "Bangun tersebut tersusun dari 4 persegi panjang yang identik. Keliling seluruh bangun adalah 48 cm dan luasnya 90 cm². Tentukan keliling satu persegi panjang dalam cm.",
+      "answer_type": "fill_in",
+      "answer": "19.5",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q19.jpg",
+      "hint_steps_en": [
+        "The pinwheel's perimeter is 4(L+W) + 4(L−W) = 8L = 48, so L = 6.",
+        "Its area is 4 × L × W = 90, so L × W = 22.5 and W = 22.5 ÷ 6 = 3.75.",
+        "One rectangle's perimeter = 2 × (6 + 3.75) = 19.5 cm."
+      ],
+      "hint_steps_id": [
+        "Keliling kincir = 4(L+W) + 4(L−W) = 8L = 48, jadi L = 6.",
+        "Luasnya = 4 × L × W = 90, jadi L × W = 22.5 dan W = 22.5 ÷ 6 = 3.75.",
+        "Keliling satu persegi panjang = 2 × (6 + 3.75) = 19.5 cm."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The perimeter of the whole figure is 48 cm and its area is 90 cm²",
+            "phrase_id": "Keliling seluruh bangun adalah 48 cm dan luasnya 90 cm²",
+            "note_en": "Two equations for the rectangle's sides L and W.",
+            "note_id": "Dua persamaan untuk sisi L dan W persegi panjang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of one rectangle in cm",
+            "phrase_id": "Tentukan keliling satu persegi panjang dalam cm",
+            "note_en": "Compute 2(L + W).",
+            "note_id": "Hitung 2(L + W)."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Long side L", "label_id": "Sisi panjang L", "value": "8L = 48 → L = 6" },
+          { "label_en": "Short side W", "label_id": "Sisi pendek W", "value": "4LW = 90 → W = 3.75" },
+          { "label_en": "One rectangle", "label_id": "Satu persegi panjang", "value": "2 × (6 + 3.75) = 19.5" }
+        ],
+        "strategy": { "name_en": "Pinwheel perimeter is 8L and area is 4LW — solve for L and W", "name_id": "Keliling kincir 8L dan luas 4LW — selesaikan L dan W" },
+        "trap": null,
+        "answer": { "form": "number", "unit": "cm", "value": "19.5" }
+      }
+    },
+    {
+      "number": 20,
+      "body_en": "A, B, C, and D are four consecutive 3-digit integers with A < B < C < D. A is divisible by 3, B is divisible by 5, C is divisible by 7, and D is divisible by 9. Find the largest possible value of D.",
+      "body_id": "A, B, C, dan D adalah empat bilangan bulat tiga angka berurutan dengan A < B < C < D. A habis dibagi 3, B habis dibagi 5, C habis dibagi 7, dan D habis dibagi 9. Tentukan nilai terbesar yang mungkin untuk D.",
+      "answer_type": "fill_in",
+      "answer": "792",
+      "hint_steps_en": [
+        "Let A be the first number: A ÷ 3, (A+1) ÷ 5, (A+2) ÷ 7, (A+3) ÷ 9 all have remainder 0.",
+        "Combining these, A can be 159, 474, or 789 (they repeat every 315).",
+        "The largest with D = A+3 still a 3-digit number is A = 789, so D = 792."
+      ],
+      "hint_steps_id": [
+        "Misalkan A bilangan pertama: A ÷ 3, (A+1) ÷ 5, (A+2) ÷ 7, (A+3) ÷ 9 semua bersisa 0.",
+        "Menggabungkannya, A bisa 159, 474, atau 789 (berulang setiap 315).",
+        "Terbesar dengan D = A+3 masih 3 angka adalah A = 789, jadi D = 792."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "A is divisible by 3, B is divisible by 5, C is divisible by 7, and D is divisible by 9",
+            "phrase_id": "A habis dibagi 3, B habis dibagi 5, C habis dibagi 7, dan D habis dibagi 9",
+            "note_en": "Four remainder conditions on consecutive numbers.",
+            "note_id": "Empat syarat sisa pada bilangan berurutan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the largest possible value of D",
+            "phrase_id": "Tentukan nilai terbesar yang mungkin untuk D",
+            "note_en": "Take the biggest 3-digit solution.",
+            "note_id": "Ambil solusi 3 angka terbesar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Conditions on A", "label_id": "Syarat pada A", "value": "A÷3, (A+1)÷5, (A+2)÷7, (A+3)÷9" },
+          { "label_en": "Solutions", "label_id": "Solusi", "value": "A = 159, 474, 789 (every 315)" },
+          { "label_en": "Largest D", "label_id": "D terbesar", "value": "A = 789 → D = 792" }
+        ],
+        "strategy": { "name_en": "Turn all four conditions onto A, combine them, take the largest 3-digit A", "name_id": "Ubah keempat syarat ke A, gabungkan, ambil A 3 angka terbesar" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "792" }
+      }
+    },
+    {
+      "number": 21,
+      "body_en": "Jones plays a challenge game with 9 challenges numbered 1 to 9; each challenge is worth points equal to its number. Every player starts with 50 points. Passing a challenge earns its points; failing a challenge deducts its points. For example, passing challenge 3 gains 3 points, while failing it loses 3 points. After Jones attempts all the challenges, his total is 73 points. He fails challenges a, b, c, and d (from smallest to largest). Find the 4-digit number abcd.",
+      "body_id": "Jones bermain permainan tantangan dengan 9 tantangan bernomor 1 sampai 9; setiap tantangan bernilai poin sama dengan nomornya. Setiap pemain mulai dengan 50 poin. Lulus sebuah tantangan menambah poinnya; gagal sebuah tantangan mengurangi poinnya. Misalnya, lulus tantangan 3 menambah 3 poin, sedangkan gagal mengurangi 3 poin. Setelah Jones mencoba semua tantangan, totalnya 73 poin. Ia gagal pada tantangan a, b, c, dan d (dari terkecil ke terbesar). Tentukan bilangan 4 angka abcd.",
+      "answer_type": "fill_in",
+      "answer": "1235",
+      "hint_steps_en": [
+        "If Jones passed everything he'd have 50 + (1+2+…+9) = 95 points.",
+        "He has 73 — a drop of 22; each failed challenge i costs 2×i, so the failed numbers add to 11.",
+        "Four different challenges from 1–9 adding to 11: 1, 2, 3, 5 → abcd = 1235."
+      ],
+      "hint_steps_id": [
+        "Jika Jones lulus semua, ia punya 50 + (1+2+…+9) = 95 poin.",
+        "Ia punya 73 — turun 22; tiap tantangan gagal i mengurangi 2×i, jadi nomor yang gagal berjumlah 11.",
+        "Empat tantangan berbeda 1–9 yang berjumlah 11: 1, 2, 3, 5 → abcd = 1235."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "his total is 73 points",
+            "phrase_id": "totalnya 73 poin",
+            "note_en": "Compare with the all-pass score of 95.",
+            "note_id": "Bandingkan dengan skor lulus semua 95."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the 4-digit number abcd",
+            "phrase_id": "Tentukan bilangan 4 angka abcd",
+            "note_en": "The four failed challenge numbers in order.",
+            "note_id": "Empat nomor tantangan yang gagal, berurutan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "All passed", "label_id": "Lulus semua", "value": "50 + 45 = 95" },
+          { "label_en": "Drop", "label_id": "Penurunan", "value": "95 − 73 = 22 → fails sum 11" },
+          { "label_en": "Failed challenges", "label_id": "Tantangan gagal", "value": "1, 2, 3, 5 → 1235" }
+        ],
+        "strategy": { "name_en": "All-pass is 95; each fail costs 2× its number; find the four", "name_id": "Lulus semua 95; tiap gagal merugikan 2× nomornya; cari keempatnya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "1235" }
+      }
+    },
+    {
+      "number": 22,
+      "body_en": "The same x matchsticks can be arranged into a 1×a array of unit squares, a 2×b array of unit squares, or a 4×c array of unit squares. Given that x is less than 100, find the sum of the largest and the smallest possible values of x.",
+      "body_id": "x batang korek api yang sama dapat disusun menjadi susunan persegi satuan 1×a, susunan persegi satuan 2×b, atau susunan persegi satuan 4×c. Jika x kurang dari 100, tentukan jumlah nilai terbesar dan terkecil yang mungkin untuk x.",
+      "answer_type": "fill_in",
+      "answer": "89",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q22.jpg",
+      "hint_steps_en": [
+        "Matchsticks: a 1×a block needs 3a+1, a 2×b block needs 5b+2, a 4×c block needs 9c+4.",
+        "Under 100, the totals that fit all three layouts are x = 22 and x = 67.",
+        "Sum = 22 + 67 = 89."
+      ],
+      "hint_steps_id": [
+        "Batang korek api: blok 1×a perlu 3a+1, blok 2×b perlu 5b+2, blok 4×c perlu 9c+4.",
+        "Di bawah 100, total yang cocok ketiga susunan adalah x = 22 dan x = 67.",
+        "Jumlah = 22 + 67 = 89."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a 1×a array of unit squares, a 2×b array of unit squares, or a 4×c array of unit squares",
+            "phrase_id": "susunan persegi satuan 1×a, susunan persegi satuan 2×b, atau susunan persegi satuan 4×c",
+            "note_en": "The same x sticks must build all three.",
+            "note_id": "x batang yang sama harus membangun ketiganya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the sum of the largest and the smallest possible values of x",
+            "phrase_id": "tentukan jumlah nilai terbesar dan terkecil yang mungkin untuk x",
+            "note_en": "Add the two valid totals under 100.",
+            "note_id": "Jumlahkan dua total sah di bawah 100."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Stick counts", "label_id": "Jumlah batang", "value": "1×a: 3a+1, 2×b: 5b+2, 4×c: 9c+4" },
+          { "label_en": "Valid x < 100", "label_id": "x sah < 100", "value": "22 and 67" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "22 + 67 = 89" }
+        ],
+        "strategy": { "name_en": "Count matchsticks for each layout, find x under 100 fitting all three, add them", "name_id": "Hitung batang tiap susunan, cari x di bawah 100 yang cocok ketiganya, jumlahkan" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "89" }
+      }
+    },
+    {
+      "number": 23,
+      "body_en": "From the grid below, pick three numbers so that no two of them are in the same row or the same column, and use them to form a 3-digit number. How many of these 3-digit numbers are divisible by 4?",
+      "body_id": "Dari kisi di bawah, pilih tiga angka sehingga tidak ada dua angka yang berada di baris atau kolom yang sama, lalu gunakan untuk membentuk bilangan 3 angka. Berapa banyak bilangan 3 angka seperti itu yang habis dibagi 4?",
+      "answer_type": "fill_in",
+      "answer": "8",
+      "hint_steps_en": [
+        "Pick one number per row in different columns → 6 sets: {1,9,5}, {1,4,6}, {2,8,5}, {2,4,7}, {3,8,6}, {3,9,7}.",
+        "A number is divisible by 4 when its last two digits are; count per set: 0, 2, 2, 2, 2, 0.",
+        "Total = 8."
+      ],
+      "hint_steps_id": [
+        "Pilih satu angka per baris di kolom berbeda → 6 himpunan: {1,9,5}, {1,4,6}, {2,8,5}, {2,4,7}, {3,8,6}, {3,9,7}.",
+        "Bilangan habis dibagi 4 jika dua angka terakhirnya begitu; hitung per himpunan: 0, 2, 2, 2, 2, 0.",
+        "Total = 8."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "no two of them are in the same row or the same column",
+            "phrase_id": "tidak ada dua angka yang berada di baris atau kolom yang sama",
+            "note_en": "One number per row, distinct columns → 6 sets.",
+            "note_id": "Satu angka per baris, kolom berbeda → 6 himpunan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many of these 3-digit numbers are divisible by 4?",
+            "phrase_id": "Berapa banyak bilangan 3 angka seperti itu yang habis dibagi 4?",
+            "note_en": "Check the last two digits of each arrangement.",
+            "note_id": "Periksa dua angka terakhir tiap susunan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Transversals", "label_id": "Himpunan", "value": "6 sets, one per row" },
+          { "label_en": "Divisible-by-4 count", "label_id": "Jumlah habis dibagi 4", "value": "0, 2, 2, 2, 2, 0" },
+          { "label_en": "Total", "label_id": "Total", "value": "8" }
+        ],
+        "strategy": { "name_en": "List the 6 transversals; count arrangements whose last two digits make a multiple of 4", "name_id": "Daftar 6 himpunan; hitung susunan yang dua angka terakhirnya kelipatan 4" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "8" }
+      }
+    },
+    {
+      "number": 24,
+      "body_en": "Delete 100 digits from the number 1234567891011121314…57585960 (the whole numbers from 1 to 60 written in order). What is the largest number that can remain?",
+      "body_id": "Hapus 100 angka dari bilangan 1234567891011121314…57585960 (bilangan bulat 1 sampai 60 yang ditulis berurutan). Berapa bilangan terbesar yang dapat tersisa?",
+      "answer_type": "fill_in",
+      "answer": "99999785960",
+      "hint_steps_en": [
+        "Writing 1 to 60 in a row gives 111 digits; deleting 100 leaves 11, which we want as large as possible.",
+        "Grab the biggest digit you can as early as possible (while still leaving enough digits after it): the 9s from 9, 19, 29, 39, 49 give five leading 9s.",
+        "Filling the last 6 places greedily from what remains gives 99999785960."
+      ],
+      "hint_steps_id": [
+        "Menulis 1 sampai 60 berurutan menghasilkan 111 angka; menghapus 100 menyisakan 11, yang ingin kita buat sebesar mungkin.",
+        "Ambil angka terbesar sedini mungkin (selama masih cukup angka setelahnya): angka 9 dari 9, 19, 29, 39, 49 memberi lima angka 9 di depan.",
+        "Mengisi 6 tempat terakhir secara serakah dari sisanya menghasilkan 99999785960."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the whole numbers from 1 to 60 written in order",
+            "phrase_id": "bilangan bulat 1 sampai 60 yang ditulis berurutan",
+            "note_en": "That string is 111 digits long.",
+            "note_id": "Deret itu sepanjang 111 angka."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the largest number that can remain?",
+            "phrase_id": "Berapa bilangan terbesar yang dapat tersisa?",
+            "note_en": "Keep 11 digits in order, as large as possible.",
+            "note_id": "Sisakan 11 angka berurutan, sebesar mungkin."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total digits", "label_id": "Total angka", "value": "9 + 51×2 = 111" },
+          { "label_en": "Keep", "label_id": "Sisakan", "value": "111 − 100 = 11" },
+          { "label_en": "Largest", "label_id": "Terbesar", "value": "99999785960" }
+        ],
+        "strategy": { "name_en": "Greedily take the biggest digit as early as possible, leaving enough digits after", "name_id": "Serakah ambil angka terbesar sedini mungkin, sisakan cukup angka setelahnya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "99999785960" }
+      }
+    },
+    {
+      "number": 25,
+      "body_en": "A robot wants to pass through a square-grid maze. Its left-turn and reverse functions are broken, so it can only go straight or turn right. The same square may be passed through more than once. What is the least number of squares the robot passes through to get through the maze? (Every square it passes through is counted, including repeats.)",
+      "body_id": "Sebuah robot ingin melewati labirin kisi persegi. Fungsi belok kiri dan mundurnya rusak, jadi ia hanya bisa lurus atau belok kanan. Kotak yang sama boleh dilewati lebih dari sekali. Paling sedikit berapa banyak kotak yang dilewati robot untuk menembus labirin? (Setiap kotak yang dilewati dihitung, termasuk pengulangan.)",
+      "answer_type": "fill_in",
+      "answer": "31",
+      "figure_url": "/api/public/wmi/figures/2023-final-g3-a-q25.jpg",
+      "hint_steps_en": [
+        "The robot enters facing right and can only go straight or turn right — never left or back.",
+        "That forces one long winding route; some squares must be crossed twice because it can't turn left.",
+        "Counting every square it enters (repeats included) gives 31."
+      ],
+      "hint_steps_id": [
+        "Robot masuk menghadap kanan dan hanya bisa lurus atau belok kanan — tidak pernah kiri atau mundur.",
+        "Itu memaksa satu rute panjang berliku; beberapa kotak harus dilewati dua kali karena tak bisa belok kiri.",
+        "Menghitung setiap kotak yang dimasuki (termasuk pengulangan) menghasilkan 31."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "it can only go straight or turn right",
+            "phrase_id": "ia hanya bisa lurus atau belok kanan",
+            "note_en": "No left turn and no reverse — the route is forced.",
+            "note_id": "Tanpa belok kiri dan tanpa mundur — rutenya terpaksa."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the least number of squares the robot passes through to get through the maze?",
+            "phrase_id": "Paling sedikit berapa banyak kotak yang dilewati robot untuk menembus labirin?",
+            "note_en": "Count every square entered, repeats included.",
+            "note_id": "Hitung setiap kotak yang dimasuki, termasuk pengulangan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Maze", "label_id": "Labirin", "value": "7 × 5 grid" },
+          { "label_en": "Rule", "label_id": "Aturan", "value": "straight or right turn only" },
+          { "label_en": "Least squares", "label_id": "Kotak paling sedikit", "value": "31 (with 5 forced repeats)" }
+        ],
+        "strategy": { "name_en": "Trace the only legal route, counting every square including forced repeats", "name_id": "Telusuri satu-satunya rute sah, hitung setiap kotak termasuk pengulangan terpaksa" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "31" }
+      }
+    }
+  ]
+}

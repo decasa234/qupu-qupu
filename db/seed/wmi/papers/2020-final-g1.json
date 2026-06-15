@@ -5,6 +5,25 @@
   "variant": "A",
   "title": "WMI 2020 Grade 1 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q8 calendar (9 classes), Q16 (75 is the third-largest ≤8-stick number), Q19 (◻○=16), Q23 (48 is the unique borrow-case subtrahend). Figure-dependent answers (Q3, Q4, Q7, Q9, Q10, Q12-Q15, Q17, Q20-Q22, Q25) checked for internal consistency, not pixel-compared to scans. Only nits below.",
+    "findings": [
+      {
+        "q": 22,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Rolling-paint stamp sequence is a known-tricky mechanic (block stands in spilled puddle → bottoms+lefts wet, quarter-turn rolls). This is WMI-20F1A-Q22, recently refined. Reconstruction yields 234, consistent with the key; a final scan check of the stamp positions is still worth doing."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "4×4 cage-Sudoku — uniqueness not proven by a backtracking solver this pass. The given solved grid (2431/1324/3142/4213) is a valid Latin square and the hint_steps chain to 1222."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

@@ -5,6 +5,37 @@
   "variant": "A",
   "title": "WMI 2021 Grade 2 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; en/id parity and breakdowns are otherwise clean. Verified by hand: Q3 (n must be odd → 95 impossible), Q13 (A=8 beats E=7), Q17 (108), Q19 (opposite-product 56), Q21 (T(10)=55, T(11)=66 → 21), Q22 (7's partner 2 or 5 → 10). One real steps/clarity issue (Q20) plus an interpretation note (Q5); the rest figure-dependent and internally consistent.",
+    "findings": [
+      {
+        "q": 20,
+        "severity": "warning",
+        "gate": "steps",
+        "note": "Answer 6 is correct ONLY under a non-negative-result reading (verified min ≥0 is 58−53+1=6). But the stem never forbids negatives — if allowed, the true minimum is −67 (e.g. 13−85+5). And the English hint_steps are muddled/self-contradictory: they advise 'make the two 2-digit numbers as close as possible (51, 53)' (which yields 53−51+8=10), then write the negative intermediate '51−53+8=6'. Fix: tighten the stem to 'smallest non-negative result' and rewrite the steps around 58−53+1=6."
+      },
+      {
+        "q": 5,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Interpretation-sensitive: keyed 238 follows 'skip-count in 7s starting at 101' (107, 114, 121, …, i.e. 100+7k). Under a plain 'multiples of 7' reading, 238=34×7 would be counted and the odd-one-out would be 212 instead. The hint commits to the intended reading; consider wording the stem to make the start-at-101 grouping explicit."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Hamiltonian rabbit-maze: move string 1 1 4 3 3 4 4 4 1 2 1 4 sums to 32 and is self-consistent, but route uniqueness depends on the reconstructed grid/stones (not re-derived against the scan)."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "5×5 quad-clue Sudoku — uniqueness not proven by a backtracking solver this pass. The given solution (24135/13524/35241/41352/52413) is a valid Latin square and column 5 reads 54123."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

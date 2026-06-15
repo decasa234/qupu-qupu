@@ -5,6 +5,19 @@
   "variant": "A",
   "title": "WMI 2020 Grade 2 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q17 (5210−1052=4158), Q18 (◻×⬠=104), Q19 (cryptarithm sum 15, k=12 unique), Q20 (cloudy=13 is the unique valid weather order), Q24 (exactly 4 drop-triples sum to 29). All four .png figures (q5/q7/q8/q14/q23) exist. Figure-dependent answers checked for internal consistency, not pixel-compared to scans. Only the Sudoku-uniqueness nit below.",
+    "findings": [
+      {
+        "q": 23,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "4×4 expression-Sudoku — the grid is claimed 'forced' but uniqueness wasn't proven by a backtracking solver this pass. Givens evaluate fine (2×2=4, 1×1=1, 1+1=2, 9−8=1, 10−6=4) and the marked cells (3 and 1) sum to 4."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,
@@ -932,7 +945,60 @@
         }
       ],
       "answer": "C",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q10.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q10.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Approximately how many roses",
+            "phrase_id": "Kira-kira ada berapa bunga mawar",
+            "note_en": "Estimate — do not count every single one.",
+            "note_id": "Perkirakan — tidak perlu menghitung satu per satu."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Per row",
+            "label_id": "Tiap baris",
+            "value": "about 11–12 roses in each row"
+          },
+          {
+            "label_en": "Rows",
+            "label_id": "Baris",
+            "value": "4 rows"
+          },
+          {
+            "label_en": "Estimate",
+            "label_id": "Perkiraan",
+            "value": "~12 × 4 ≈ 48 → nearest choice 50"
+          }
+        ],
+        "strategy": {
+          "name_en": "Estimate one row, multiply by the rows, round to the nearest choice",
+          "name_id": "Perkirakan satu baris, kalikan dengan jumlah baris, bulatkan ke pilihan terdekat"
+        },
+        "trap": {
+          "wrong": "30",
+          "why_en": "An undercount — even four rows of about ten is already 40, much closer to 50.",
+          "why_id": "Terlalu sedikit — empat baris berisi sekitar sepuluh saja sudah 40, jauh lebih dekat ke 50."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Do not count every rose — estimate.",
+        "Each row has about 11–12 roses, and there are 4 rows.",
+        "About 12 × 4 ≈ 48, so the nearest answer is 50 (C)."
+      ],
+      "hint_steps_id": [
+        "Jangan hitung satu per satu — perkirakan saja.",
+        "Tiap baris berisi sekitar 11–12 mawar, dan ada 4 baris.",
+        "Sekitar 12 × 4 ≈ 48, jadi jawaban terdekat 50 (C)."
+      ]
     },
     {
       "number": 11,
@@ -1078,7 +1144,72 @@
           "text": "48"
         }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "765, ♥, ◆, 729, ♠, 705",
+            "phrase_id": "765, ♥, ◆, 729, ♠, 705",
+            "note_en": "Six terms going down by a fixed step.",
+            "note_id": "Enam suku yang turun dengan selisih tetap."
+          },
+          {
+            "category": "question",
+            "phrase_en": "♥ − ♠",
+            "phrase_id": "♥ − ♠",
+            "note_en": "Subtract the 5th term from the 2nd.",
+            "note_id": "Kurangi suku ke-5 dari suku ke-2."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Step",
+            "label_id": "Selisih",
+            "value": "765 → 729 is −36 over 3 gaps = −12 each"
+          },
+          {
+            "label_en": "Heart ♥",
+            "label_id": "Hati ♥",
+            "value": "765 − 12 = 753"
+          },
+          {
+            "label_en": "Spade ♠",
+            "label_id": "Sekop ♠",
+            "value": "729 − 12 = 717"
+          },
+          {
+            "label_en": "Difference",
+            "label_id": "Selisih",
+            "value": "753 − 717 = 36"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the constant step, fill the blanks, then subtract",
+          "name_id": "Cari selisih tetap, isi yang kosong, lalu kurangkan"
+        },
+        "trap": {
+          "wrong": "48",
+          "why_en": "♥ and ♠ are 3 steps apart, not 4: 3 × 12 = 36, not 48.",
+          "why_id": "♥ dan ♠ berjarak 3 langkah, bukan 4: 3 × 12 = 36, bukan 48."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "From 765 down to 729 is −36 across 3 gaps, so each step is −12.",
+        "So ♥ = 765 − 12 = 753 and ♠ = 729 − 12 = 717.",
+        "♥ − ♠ = 753 − 717 = 36 (B)."
+      ],
+      "hint_steps_id": [
+        "Dari 765 ke 729 turun 36 dalam 3 langkah, jadi tiap langkah −12.",
+        "Maka ♥ = 765 − 12 = 753 dan ♠ = 729 − 12 = 717.",
+        "♥ − ♠ = 753 − 717 = 36 (B)."
+      ]
     },
     {
       "number": 13,
@@ -1239,7 +1370,67 @@
         }
       ],
       "answer": "A",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q14.png"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q14.png",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The pattern grows row by row",
+            "phrase_id": "Polanya bertambah baris demi baris",
+            "note_en": "Each row is one cell longer; ends are circles, the inside are squares.",
+            "note_id": "Tiap baris bertambah satu kotak; ujungnya lingkaran, bagian dalam persegi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What are ♠ and ♥",
+            "phrase_id": "Apakah ♠ dan ♥",
+            "note_en": "Name the shape under each mark.",
+            "note_id": "Sebutkan bentuk di bawah tiap tanda."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule",
+            "label_id": "Aturan",
+            "value": "first & last cell = circle; every inside cell = square"
+          },
+          {
+            "label_en": "Heart ♥",
+            "label_id": "Hati ♥",
+            "value": "6-cell row, 5th cell → inside → square"
+          },
+          {
+            "label_en": "Spade ♠",
+            "label_id": "Sekop ♠",
+            "value": "7-cell row, 2nd cell → inside → square"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read the rule (ends are circles, insides are squares), then locate each mark",
+          "name_id": "Baca aturannya (ujung lingkaran, dalam persegi), lalu cari posisi tiap tanda"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "Both marks sit inside their rows, not at an end, so neither can be a circle.",
+          "why_id": "Kedua tanda ada di bagian dalam barisnya, bukan di ujung, jadi keduanya bukan lingkaran."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "In every row the two ends are circles and everything inside is a square.",
+        "♥ is the 5th cell of a 6-cell row — inside — so it is a square.",
+        "♠ is the 2nd cell of a 7-cell row — inside — so it is a square too → A."
+      ],
+      "hint_steps_id": [
+        "Di setiap baris, kedua ujungnya lingkaran dan semua yang di dalam persegi.",
+        "♥ adalah kotak ke-5 dari baris berisi 6 — di dalam — jadi persegi.",
+        "♠ adalah kotak ke-2 dari baris berisi 7 — di dalam — jadi persegi juga → A."
+      ]
     },
     {
       "number": 15,
@@ -1283,7 +1474,62 @@
         }
       ],
       "answer": "B",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q15.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q15.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Follow the hops on the number line",
+            "phrase_id": "Ikuti lompatan pada garis bilangan",
+            "note_en": "Start at 80 and hop to the left.",
+            "note_id": "Mulai dari 80 dan melompat ke kiri."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number goes in the box",
+            "phrase_id": "Bilangan apa yang masuk ke dalam kotak",
+            "note_en": "The value the last hop lands on.",
+            "note_id": "Nilai tempat lompatan terakhir mendarat."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Four −10 hops",
+            "label_id": "Empat lompatan −10",
+            "value": "80 → 70 → 60 → 50 → 40"
+          },
+          {
+            "label_en": "One −3 hop",
+            "label_id": "Satu lompatan −3",
+            "value": "40 − 3 = 37"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract each hop in order, starting from 80",
+          "name_id": "Kurangi tiap lompatan berurutan, mulai dari 80"
+        },
+        "trap": {
+          "wrong": "43",
+          "why_en": "43 = 40 + 3; but the last hop is −3, so it is 40 − 3 = 37.",
+          "why_id": "43 = 40 + 3; padahal lompatan terakhir −3, jadi 40 − 3 = 37."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Four hops of −10 from 80: 80, 70, 60, 50, 40.",
+        "Then one more hop of −3: 40 − 3.",
+        "40 − 3 = 37 (B)."
+      ],
+      "hint_steps_id": [
+        "Empat lompatan −10 dari 80: 80, 70, 60, 50, 40.",
+        "Lalu satu lompatan −3 lagi: 40 − 3.",
+        "40 − 3 = 37 (B)."
+      ]
     },
     {
       "number": 16,
@@ -1425,7 +1671,67 @@
       "body_id": "Setiap bilangan pada gambar menyatakan jumlah satu baris atau satu kolom. Tentukan nilai ◻ × ⬠.",
       "answer_type": "fill_in",
       "answer": "104",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q18.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q18.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the sum of a row or a column",
+            "phrase_id": "jumlah satu baris atau satu kolom",
+            "note_en": "Each edge number is the total of that line of shapes.",
+            "note_id": "Tiap bilangan di tepi adalah total bentuk pada garis itu."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the value of ◻ × ⬠",
+            "phrase_id": "nilai ◻ × ⬠",
+            "note_en": "square × pentagon.",
+            "note_id": "persegi × segilima."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pentagon ⬠",
+            "label_id": "Segilima ⬠",
+            "value": "from 2◯+⬠=50 and ◯+2⬠=37 → ⬠ = 8"
+          },
+          {
+            "label_en": "Square ◻",
+            "label_id": "Persegi ◻",
+            "value": "2⬠+◻ = 29 → ◻ = 13"
+          },
+          {
+            "label_en": "Product",
+            "label_id": "Hasil kali",
+            "value": "◻ × ⬠ = 13 × 8 = 104"
+          }
+        ],
+        "strategy": {
+          "name_en": "Turn the row/column totals into equations, then solve for each shape",
+          "name_id": "Ubah total baris/kolom menjadi persamaan, lalu cari nilai tiap bentuk"
+        },
+        "trap": {
+          "wrong": "168",
+          "why_en": "21 × 8 uses the circle (21) instead of the square; ◻ is the square (13).",
+          "why_id": "21 × 8 memakai lingkaran (21), bukan persegi; ◻ adalah persegi (13)."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "104"
+        }
+      },
+      "hint_steps_en": [
+        "The two circle-rows give 2◯+⬠ = 50 and ◯+2⬠ = 37, so the pentagon ⬠ = 8.",
+        "Row with 2 pentagons + square = 29, so the square ◻ = 13.",
+        "◻ × ⬠ = 13 × 8 = 104."
+      ],
+      "hint_steps_id": [
+        "Dua baris berlingkaran memberi 2◯+⬠ = 50 dan ◯+2⬠ = 37, jadi segilima ⬠ = 8.",
+        "Baris berisi 2 segilima + persegi = 29, jadi persegi ◻ = 13.",
+        "◻ × ⬠ = 13 × 8 = 104."
+      ]
     },
     {
       "number": 19,
@@ -1433,14 +1739,151 @@
       "body_id": "Simbol yang sama mewakili angka 1-digit yang sama. Tentukan ♣ + ♦ + ♥ + ♠.",
       "answer_type": "fill_in",
       "answer": "15",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q19.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q19.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The same symbol represents the same 1-digit number",
+            "phrase_id": "Simbol yang sama mewakili angka 1-digit yang sama",
+            "note_en": "Each suit stands for one digit everywhere it appears.",
+            "note_id": "Tiap simbol mewakili satu angka di mana pun muncul."
+          },
+          {
+            "category": "question",
+            "phrase_en": "♣ + ♦ + ♥ + ♠",
+            "phrase_id": "♣ + ♦ + ♥ + ♠",
+            "note_en": "Add the four digit-values.",
+            "note_id": "Jumlahkan keempat nilai angkanya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Repeated digits",
+            "label_id": "Angka berulang",
+            "value": "♣♣♣♣ + ♥♥♥♥ = (♣+♥) × 1111"
+          },
+          {
+            "label_en": "Match the total",
+            "label_id": "Cocokkan total",
+            "value": "(♣+♥) × 1111 = ♠333♦ → 12 × 1111 = 13332"
+          },
+          {
+            "label_en": "Read digits",
+            "label_id": "Baca angka",
+            "value": "♣ + ♥ = 12, ♠ = 1, ♦ = 2"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Jumlah",
+            "value": "12 + 1 + 2 = 15"
+          }
+        ],
+        "strategy": {
+          "name_en": "A digit repeated four times is that digit × 1111; match to ♠333♦",
+          "name_id": "Angka yang diulang empat kali sama dengan angka itu × 1111; cocokkan ke ♠333♦"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "12 is only ♣ + ♥; you still add ♠ = 1 and ♦ = 2 → 15.",
+          "why_id": "12 baru ♣ + ♥; masih harus ditambah ♠ = 1 dan ♦ = 2 → 15."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "15"
+        }
+      },
+      "hint_steps_en": [
+        "A digit written four times equals that digit × 1111, so the sum is (♣+♥) × 1111.",
+        "(♣+♥) × 1111 must equal ♠333♦: 12 × 1111 = 13332, so ♣+♥ = 12, ♠ = 1, ♦ = 2.",
+        "♣ + ♦ + ♥ + ♠ = 12 + 2 + 1 = 15."
+      ],
+      "hint_steps_id": [
+        "Angka yang ditulis empat kali sama dengan angka itu × 1111, jadi jumlahnya (♣+♥) × 1111.",
+        "(♣+♥) × 1111 harus sama dengan ♠333♦: 12 × 1111 = 13332, jadi ♣+♥ = 12, ♠ = 1, ♦ = 2.",
+        "♣ + ♦ + ♥ + ♠ = 12 + 2 + 1 = 15."
+      ]
     },
     {
       "number": 20,
       "body_en": "Jim recorded the weather for five days in a row: the 11th, 12th, 13th, 14th, and 15th of a month. The same weather never lasted two days in a row, and there were two sunny days, two rainy days, and one cloudy day. The day before a rainy day was never sunny. On which date was the cloudy day? (Write the number.)",
       "body_id": "Jim mencatat cuaca lima hari berturut-turut: tanggal 11, 12, 13, 14, dan 15 pada suatu bulan. Cuaca yang sama tidak pernah bertahan dua hari berturut-turut, dan ada dua hari cerah, dua hari hujan, serta satu hari berawan. Sehari sebelum hari hujan tidak pernah cerah. Tanggal berapa hari berawan itu? (Tulis angkanya.)",
       "answer_type": "fill_in",
-      "answer": "13"
+      "answer": "13",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The same weather never lasted two days in a row",
+            "phrase_id": "Cuaca yang sama tidak pernah bertahan dua hari berturut-turut",
+            "note_en": "No weather repeats on back-to-back days.",
+            "note_id": "Tidak ada cuaca yang berulang di hari berturutan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The day before a rainy day was never sunny",
+            "phrase_id": "Sehari sebelum hari hujan tidak pernah cerah",
+            "note_en": "A rainy day must start the run or follow a cloudy day.",
+            "note_id": "Hari hujan harus mengawali atau mengikuti hari berawan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "On which date was the cloudy day",
+            "phrase_id": "Tanggal berapa hari berawan itu",
+            "note_en": "Find the cloudy date.",
+            "note_id": "Cari tanggal hari berawan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Weather counts",
+            "label_id": "Jumlah cuaca",
+            "value": "2 sunny, 2 rainy, 1 cloudy over the 11th–15th"
+          },
+          {
+            "label_en": "Rain rule",
+            "label_id": "Aturan hujan",
+            "value": "each rainy day starts the run or follows the cloudy day"
+          },
+          {
+            "label_en": "Only one cloud",
+            "label_id": "Hanya satu berawan",
+            "value": "so one rain = the 11th; the other rain right after the cloud"
+          },
+          {
+            "label_en": "Sequence",
+            "label_id": "Urutan",
+            "value": "11 R, 12 S, 13 C, 14 R, 15 S → cloudy = 13"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use 'rain never follows sunny' to place the two rainy days",
+          "name_id": "Pakai aturan 'hujan tak pernah setelah cerah' untuk menaruh dua hari hujan"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "A cloud on the 12th forces two sunny days in a row somewhere — not allowed.",
+          "why_id": "Berawan pada tanggal 12 memaksa dua hari cerah berturutan — tidak boleh."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "13"
+        }
+      },
+      "hint_steps_en": [
+        "A rainy day can never follow a sunny day, and never another rainy day, so it starts the record or follows the cloudy day.",
+        "With only one cloudy day, one rainy day must be the 11th and the other must come right after the cloud.",
+        "The only fit without two sunny days together is 11 R, 12 S, 13 C, 14 R, 15 S → cloudy on the 13th."
+      ],
+      "hint_steps_id": [
+        "Hari hujan tak pernah setelah hari cerah, dan tak setelah hari hujan lain, jadi ia mengawali catatan atau mengikuti hari berawan.",
+        "Karena hanya ada satu hari berawan, satu hari hujan pasti tanggal 11 dan satunya tepat setelah hari berawan.",
+        "Satu-satunya susunan tanpa dua hari cerah berturutan: 11 hujan, 12 cerah, 13 berawan, 14 hujan, 15 cerah → berawan tanggal 13."
+      ]
     },
     {
       "number": 21,
@@ -1448,7 +1891,60 @@
       "body_id": "Berapa banyak gambar di bawah ini yang dapat dilipat menjadi kubus?",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q21.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q21.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many of the figures below can be folded into a cube",
+            "phrase_id": "Berapa banyak gambar di bawah ini yang dapat dilipat menjadi kubus",
+            "note_en": "Test each of the eight nets.",
+            "note_id": "Uji tiap dari delapan jaring."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Good-net rule",
+            "label_id": "Aturan jaring",
+            "value": "4 faces wrap the sides + one separate top + one separate bottom"
+          },
+          {
+            "label_en": "Fold each",
+            "label_id": "Lipat satu per satu",
+            "value": "nets 1, 2, 3, 5, 7 fold; nets 4, 6, 8 overlap"
+          },
+          {
+            "label_en": "Count",
+            "label_id": "Hitung",
+            "value": "5 nets fold into a cube"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fold each net in your head; a good net wraps 4 sides plus a separate top and bottom",
+          "name_id": "Lipat tiap jaring dalam bayangan; jaring yang baik membungkus 4 sisi plus atas dan bawah terpisah"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Nets 4, 6 and 8 look cube-like, but two faces land on the same spot when folded — only 5 work.",
+          "why_id": "Jaring 4, 6, dan 8 tampak seperti kubus, tetapi dua sisi menumpuk saat dilipat — hanya 5 yang jadi."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "A net folds into a cube when 4 squares wrap the sides and the other 2 become a separate top and bottom.",
+        "Folding each: nets 1, 2, 3, 5 and 7 close up neatly; nets 4, 6 and 8 leave two faces overlapping.",
+        "So 5 of the figures fold into a cube."
+      ],
+      "hint_steps_id": [
+        "Sebuah jaring jadi kubus jika 4 persegi membungkus sisi dan 2 sisanya menjadi atas dan bawah terpisah.",
+        "Saat dilipat: jaring 1, 2, 3, 5, dan 7 menutup rapi; jaring 4, 6, dan 8 menyisakan dua sisi yang menumpuk.",
+        "Jadi 5 gambar dapat dilipat menjadi kubus."
+      ]
     },
     {
       "number": 22,
@@ -1456,7 +1952,77 @@
       "body_id": "Seperti gambar di bawah, kelima balok beratnya 2 g, 3 g, 3 g, 3 g, dan 5 g. Dengan ketiga timbangan, tentukan ▲ + ● dalam gram.",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q22.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q22.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the five blocks weigh 2 g, 3 g, 3 g, 3 g, and 5 g",
+            "phrase_id": "kelima balok beratnya 2 g, 3 g, 3 g, 3 g, dan 5 g",
+            "note_en": "The five weights to share out among the shapes.",
+            "note_id": "Lima berat yang harus dibagikan ke bentuk-bentuk."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find ▲ + ●",
+            "phrase_id": "tentukan ▲ + ●",
+            "note_en": "triangle + circle.",
+            "note_id": "segitiga + lingkaran."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total & balance",
+            "label_id": "Total & seimbang",
+            "value": "2+3+3+3+5 = 16; balanced scale 1 → each side = 8"
+          },
+          {
+            "label_en": "Circle + star",
+            "label_id": "Lingkaran + bintang",
+            "value": "● + ★ = 8 → {3, 5}"
+          },
+          {
+            "label_en": "Scale 2",
+            "label_id": "Timbangan 2",
+            "value": "star+hexagon heavier rules out ● = 5 → ● = 3, ★ = 5"
+          },
+          {
+            "label_en": "Scale 3",
+            "label_id": "Timbangan 3",
+            "value": "triangle+circle heavier → 2▲ > 5 → ▲ = 3"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "▲ + ● = 3 + 3 = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "The balanced scale splits the total in half; the two tilts pin down each block",
+          "name_id": "Timbangan seimbang membagi total jadi dua; dua kemiringan menentukan tiap balok"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Taking ● = 5 (so ▲ = 3); but scale 2 shows star+hexagon heavier, which forces ● = 3.",
+          "why_id": "Mengira ● = 5 (jadi ▲ = 3); padahal timbangan 2 menunjukkan bintang+segienam lebih berat, sehingga ● = 3."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "All five weigh 2+3+3+3+5 = 16; scale 1 is balanced, so each side is 8 → circle + star = 8 = 3 + 5.",
+        "Scale 2 (star+hexagon heavier) rules out circle = 5, so circle = 3 and star = 5.",
+        "Scale 3 (triangle+circle heavier) forces triangle = 3, so ▲ + ● = 3 + 3 = 6."
+      ],
+      "hint_steps_id": [
+        "Kelimanya 2+3+3+3+5 = 16; timbangan 1 seimbang, jadi tiap sisi 8 → lingkaran + bintang = 8 = 3 + 5.",
+        "Timbangan 2 (bintang+segienam lebih berat) menolak lingkaran = 5, jadi lingkaran = 3 dan bintang = 5.",
+        "Timbangan 3 (segitiga+lingkaran lebih berat) memaksa segitiga = 3, jadi ▲ + ● = 3 + 3 = 6."
+      ]
     },
     {
       "number": 23,
@@ -1464,7 +2030,68 @@
       "body_id": "Gambar menunjukkan permainan Sudoku. Isi angka 1 sampai 4 di setiap kotak sehingga angka pada setiap baris dan setiap kolom tidak berulang. Tentukan jumlah dua kotak yang bertanda.",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q23.png"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q23.png",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the numbers in each row and each column do not repeat",
+            "phrase_id": "angka pada setiap baris dan setiap kolom tidak berulang",
+            "note_en": "Every row and column holds 1, 2, 3, 4 once each.",
+            "note_id": "Tiap baris dan kolom memuat 1, 2, 3, 4 masing-masing sekali."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the sum of the two marked squares",
+            "phrase_id": "jumlah dua kotak yang bertanda",
+            "note_en": "Add the ✕ cell and the ✚ cell.",
+            "note_id": "Jumlahkan kotak ✕ dan kotak ✚."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Given cells",
+            "label_id": "Sel petunjuk",
+            "value": "2×2=4, 1×1=1, 1+1=2, 9−8=1, 10−6=4"
+          },
+          {
+            "label_en": "Forced solve",
+            "label_id": "Penyelesaian terpaksa",
+            "value": "rows/columns 1–4 fill in uniquely"
+          },
+          {
+            "label_en": "Marked cells",
+            "label_id": "Sel bertanda",
+            "value": "✕ = 3, ✚ = 1"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "3 + 1 = 4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Evaluate the given expressions, then fill the Latin square by elimination",
+          "name_id": "Hitung ekspresi yang diberikan, lalu isi kotak Latin dengan eliminasi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "First read each given cell: 2×2 = 4, 1×1 = 1, 1+1 = 2, 9−8 = 1, 10−6 = 4.",
+        "Filling 1–4 with no repeats forces the whole grid; the ✕ square becomes 3 and the ✚ square becomes 1.",
+        "3 + 1 = 4."
+      ],
+      "hint_steps_id": [
+        "Hitung dulu tiap sel petunjuk: 2×2 = 4, 1×1 = 1, 1+1 = 2, 9−8 = 1, 10−6 = 4.",
+        "Mengisi 1–4 tanpa pengulangan memaksa seluruh kotak; sel ✕ menjadi 3 dan sel ✚ menjadi 1.",
+        "3 + 1 = 4."
+      ]
     },
     {
       "number": 24,
@@ -1541,7 +2168,67 @@
       "body_id": "Pada petak angka, ada berapa kelompok '2 4 6 8' seluruhnya, dibaca mendatar atau menurun?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q25.jpg"
+      "figure_url": "/api/public/wmi/figures/2020-final-g2-a-q25.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how many groups of '2 4 6 8'",
+            "phrase_id": "ada berapa kelompok '2 4 6 8'",
+            "note_en": "Count the runs of 2, 4, 6, 8 in order.",
+            "note_id": "Hitung deretan 2, 4, 6, 8 berurutan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "reading across or down",
+            "phrase_id": "dibaca mendatar atau menurun",
+            "note_en": "Only left→right and top→bottom count.",
+            "note_id": "Hanya kiri→kanan dan atas→bawah yang dihitung."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Across",
+            "label_id": "Mendatar",
+            "value": "3 runs left→right"
+          },
+          {
+            "label_en": "Down",
+            "label_id": "Menurun",
+            "value": "3 runs top→bottom"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Jumlah",
+            "value": "3 + 3 = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Scan every row left→right and every column top→bottom for 2, 4, 6, 8 in order",
+          "name_id": "Telusuri tiap baris kiri→kanan dan tiap kolom atas→bawah untuk 2, 4, 6, 8 berurutan"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "Missing the vertical runs — there are 3 across and 3 down, 6 in all.",
+          "why_id": "Lupa deretan menurun — ada 3 mendatar dan 3 menurun, 6 seluruhnya."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Look for 2, 4, 6, 8 in that exact order, reading left→right and top→bottom.",
+        "Across there are 3 such runs; down there are 3 more.",
+        "3 + 3 = 6."
+      ],
+      "hint_steps_id": [
+        "Cari 2, 4, 6, 8 dengan urutan tepat itu, dibaca kiri→kanan dan atas→bawah.",
+        "Secara mendatar ada 3 deretan; secara menurun ada 3 lagi.",
+        "3 + 3 = 6."
+      ]
     }
   ]
 }

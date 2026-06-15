@@ -5,6 +5,25 @@
   "variant": "A",
   "title": "WMI 2022 Grade 2 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; answers and en/id parity are clean. No correctness defects. Verified by hand: Q2 (27), Q6 (Sat+4=Wed), Q7 (day 7 = 192cm), Q13 (closest sum to 500 is uniquely 555 → digit sum 15), Q16 (145≤150 → 15), Q17 (D=2B → 2), Q19 (666+668+688=2022 → 22), Q20 (dial walk on rim 0/3/1/9/2/7/6/4/8/5 → 95328), Q22 (combos {(1,4,1),(2,2,2),(3,0,3)} forced). Figure-dependent answers checked for internal consistency. NOTE: this paper's hint_steps are markedly thinner than 2019–2021 (often assert the figure-read answer instead of deriving it) — it appears mid-enrichment in the working tree.",
+    "findings": [
+      {
+        "q": 25,
+        "severity": "warning",
+        "gate": "steps",
+        "note": "Representative of a paper-wide pattern: the hint asserts the best T-placement (43+28+20+57=148) without enumerating the placements. Several figure-dependent questions are similarly thin — Q1 ('compare, count → B'), Q3, Q5, Q8 ('Option C has the greatest total length'), Q11 ('Celine highest, Bob lowest'), Q21, Q23, Q24 — they state the answer rather than derive it. Answers are right but the hint_steps are below the depth set by the 2019–2021 papers; enrich before approving."
+      },
+      {
+        "q": 22,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "The three equal-weight combos {(1,4,1),(2,2,2),(3,0,3)} are uniquely forced (verified), but WHICH belongs to Carter (→ 4 red) is not deducible from the stem — it relies on figure info. Fine if the figure pins one person; worth confirming the stem/figure makes Carter's row determinate."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,
@@ -1638,14 +1657,14 @@
       "answer_type": "fill_in",
       "answer": "22",
       "hint_steps_en": [
-        "The thousands carry is 2, so the square digit is 9.",
-        "Column carries then force triangle + circle = 13.",
-        "Therefore square + triangle + circle = 9 + 13 = 22."
+        "2022 has 4 digits, so the leading 2 is a carry out of the hundreds column.",
+        "Hundreds: 3 × square = 18, plus a carry 2 makes 20, so square = 6; then the tens force triangle = 8 and the units force circle = 8.",
+        "So square + triangle + circle = 6 + 8 + 8 = 22 (666 + 668 + 688 = 2022)."
       ],
       "hint_steps_id": [
-        "Simpanan ke ribuan adalah 2, sehingga digit persegi adalah 9.",
-        "Simpanan antarkolom kemudian memaksa segitiga + lingkaran = 13.",
-        "Jadi persegi + segitiga + lingkaran = 9 + 13 = 22."
+        "2022 punya 4 angka, jadi angka 2 di depan adalah simpanan dari kolom ratusan.",
+        "Ratusan: 3 × persegi = 18, ditambah simpanan 2 menjadi 20, jadi persegi = 6; lalu puluhan memaksa segitiga = 8 dan satuan memaksa lingkaran = 8.",
+        "Jadi persegi + segitiga + lingkaran = 6 + 8 + 8 = 22 (666 + 668 + 688 = 2022)."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1669,12 +1688,17 @@
           {
             "label_en": "Square",
             "label_id": "Persegi",
-            "value": "9"
+            "value": "6"
           },
           {
-            "label_en": "Triangle + circle",
-            "label_id": "Segitiga + lingkaran",
-            "value": "13"
+            "label_en": "Triangle",
+            "label_id": "Segitiga",
+            "value": "8"
+          },
+          {
+            "label_en": "Circle",
+            "label_id": "Lingkaran",
+            "value": "8"
           },
           {
             "label_en": "Total",
@@ -1759,14 +1783,14 @@
       "answer_type": "fill_in",
       "answer": "5",
       "hint_steps_en": [
-        "The 9s already form a pair, and the 5s already form a pair.",
-        "The visible single ranks 2, J, 8, K, and 3 each need one matching card in Danny's hand.",
-        "That is 5 matching cards, so Danny has 5 cards."
+        "Equal-rank cards pair off: the two 9s, the two 5s, and the two Jacks.",
+        "That leaves 2, 8, K and 3 as singles — their four partners must be in Danny’s hand.",
+        "The one extra Jack added to the deck has no partner, so Danny holds it too: 4 + 1 = 5 cards."
       ],
       "hint_steps_id": [
-        "Kartu 9 sudah membentuk pasangan, dan kartu 5 juga sudah membentuk pasangan.",
-        "Nilai tunggal yang terlihat, yaitu 2, J, 8, K, dan 3, masing-masing memerlukan satu kartu pasangan di tangan Danny.",
-        "Ada 5 kartu pasangan, jadi Danny memiliki 5 kartu."
+        "Kartu bernilai sama berpasangan: dua kartu 9, dua kartu 5, dan dua Jack.",
+        "Tersisa 2, 8, K dan 3 sebagai tunggal — keempat pasangannya pasti ada di tangan Danny.",
+        "Satu Jack tambahan dalam dek tak punya pasangan, jadi Danny memegangnya juga: 4 + 1 = 5 kartu."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1795,17 +1819,17 @@
         ],
         "quantities": [
           {
-            "label_en": "Complete visible pairs",
-            "label_id": "Pasangan lengkap terlihat",
-            "value": "9, 5"
+            "label_en": "Pairs that discard",
+            "label_id": "Pasangan yang dibuang",
+            "value": "9, 5, J"
           },
           {
-            "label_en": "Visible ranks needing mates",
-            "label_id": "Nilai terlihat yang perlu pasangan",
-            "value": "2, J, 8, K, 3"
+            "label_en": "Singles needing mates",
+            "label_id": "Tunggal yang perlu pasangan",
+            "value": "2, 8, K, 3"
           },
           {
-            "label_en": "Danny's cards",
+            "label_en": "Danny’s cards",
             "label_id": "Kartu Danny",
             "value": "5"
           }

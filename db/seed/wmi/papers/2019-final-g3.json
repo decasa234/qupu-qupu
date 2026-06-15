@@ -5,6 +5,43 @@
   "variant": "A",
   "title": "WMI 2019 Grade 3 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. Verified exactly: Q20 red=73, Q22 102×29=2958 (unique top/multiplier), Q23 only-unseen-sum=13. One real defect: Q21's lock clues are under-constrained (same template as 2019-G1 Q23 / G2 Q22). Combinatorial maxima (Q17, Q19) rely on the figure's enumeration rather than a hand re-count; logic grids Q24/Q25 not solver-verified.",
+    "findings": [
+      {
+        "q": 21,
+        "severity": "warning",
+        "gate": "answer",
+        "note": "Identical lock-code clue set to 2019-G1 Q23 and 2019-G2 Q22 — under-constrained: 257, 527, AND 957 all satisfy all five clues. Key is 527. Re-check the original clue wording (the 2019 papers all reuse this same puzzle)."
+      },
+      {
+        "q": 17,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "'Add two lines, most triangles' — the 3+3+4=10 argument is a construction heuristic, not a proof of maximality. Answer 10 matches the key; a rigorous max-count wasn't enumerated this pass."
+      },
+      {
+        "q": 19,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Square-count 29 depends on the reconstructed 20-dot lattice and its code enumeration (DotSquaresG3Illustration / DS_TOTAL); not independently re-counted by hand this pass."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "5×5 cage grid — uniqueness not proven by a backtracking solver this pass. The hint_steps chain to 4554 and read valid."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Skyscrapers ('building mansions') — uniqueness not solver-verified this pass. The hint_steps chain to 4132 and read valid."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

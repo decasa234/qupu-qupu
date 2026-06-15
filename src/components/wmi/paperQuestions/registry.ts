@@ -138,6 +138,17 @@ import BaseTenBlocksG2Explainer, { BaseTenBlocksG2Illustration } from './BaseTen
 import ClockTurnG2Explainer from './ClockTurnG2Explainer'
 import ClockTurnG2Option from './ClockTurnG2Option'
 import FruitCountG2Explainer from './FruitCountG2Explainer'
+import RosesG2Explainer from './RosesG2Explainer'
+import HeartSpadeSeqG2Explainer from './HeartSpadeSeqG2Explainer'
+import PatternRowsG2Explainer from './PatternRowsG2Explainer'
+import NumberLineHopsG2Explainer from './NumberLineHopsG2Explainer'
+import GridSumsG2Explainer from './GridSumsG2Explainer'
+import RepdigitAddG2Explainer from './RepdigitAddG2Explainer'
+import WeatherDaysG2Explainer from './WeatherDaysG2Explainer'
+import CubeNetsG2Explainer from './CubeNetsG2Explainer'
+import BalanceScalesG2Explainer from './BalanceScalesG2Explainer'
+import SudokuExprG2Explainer from './SudokuExprG2Explainer'
+import DigitGridG2Explainer from './DigitGridG2Explainer'
 import {
   SumCard20G2Illustration,
   BubblesG2Illustration,
@@ -480,6 +491,16 @@ import {
   TCover22G2Explainer,
   ThickLines22G2Explainer,
 } from './paper22G2Explainers'
+import {
+  Compute22G2Explainer,
+  ShareCandy22G2Explainer,
+  Birthday22G2Explainer,
+  DoubleTree22G2Explainer,
+  BalanceEq22G2Explainer,
+  CardsClosest22G2Explainer,
+  DinoEggs22G2Explainer,
+  BallShare22G2Explainer,
+} from './tryCheckExplainers22G2'
 // 2022 G3 (WMI-22F3A) — Paper A batch
 import PieThirds22G3Illustration from './PieThirds22G3Illustration'
 import NestedTri22G3Illustration from './NestedTri22G3Illustration'
@@ -510,6 +531,839 @@ import MirrorSolid22G3Illustration from './MirrorSolid22G3Illustration'
 import MirrorSolid22G3Explainer from './MirrorSolid22G3Explainer'
 import NumberGrid22G3Illustration from './NumberGrid22G3Illustration'
 import NumberGrid22G3Explainer from './NumberGrid22G3Explainer'
+import {
+  Compute22G3Explainer,
+  CakeBudget22G3Explainer,
+  BlouseSkirt22G3Explainer,
+  EvenCount22G3Explainer,
+  MeetingTime22G3Explainer,
+  Visitors22G3Explainer,
+  DiffSeq22G3Explainer,
+  NinesPattern22G3Explainer,
+  NextYear22G3Explainer,
+  OpenDoors22G3Explainer,
+} from './tryCheckExplainers22G3'
+import NumberSnake22G1Illustration from './NumberSnake22G1Illustration'
+import NumberSnake22G1Explainer from './NumberSnake22G1Explainer'
+import HexTree22G1Illustration from './HexTree22G1Illustration'
+import HexTree22G1Explainer from './HexTree22G1Explainer'
+import Money22G1Illustration from './Money22G1Illustration'
+import Money22G1Explainer from './Money22G1Explainer'
+import NumberVenn22G1Illustration from './NumberVenn22G1Illustration'
+import NumberVenn22G1Explainer from './NumberVenn22G1Explainer'
+import Vases22G1Illustration from './Vases22G1Illustration'
+import Vases22G1Explainer from './Vases22G1Explainer'
+import Letters22G1Illustration from './Letters22G1Illustration'
+import Letters22G1Explainer from './Letters22G1Explainer'
+import TwoLines22G1Illustration from './TwoLines22G1Illustration'
+import TwoLines22G1Explainer from './TwoLines22G1Explainer'
+import Locks22G1Illustration from './Locks22G1Illustration'
+import Locks22G1Explainer from './Locks22G1Explainer'
+import HeightOrder22G1Illustration from './HeightOrder22G1Illustration'
+import HeightOrder22G1Explainer from './HeightOrder22G1Explainer'
+import Balance22G1Illustration from './Balance22G1Illustration'
+import Balance22G1Explainer from './Balance22G1Explainer'
+import Dial22G1Illustration from './Dial22G1Illustration'
+import Dial22G1Explainer from './Dial22G1Explainer'
+import Balls22G1Option from './Balls22G1Option'
+import Balls22G1Explainer from './Balls22G1Explainer'
+import Fruit22G1Option from './Fruit22G1Option'
+import Fruit22G1Explainer from './Fruit22G1Explainer'
+import Solid22G1Option from './Solid22G1Option'
+import Solid22G1Explainer from './Solid22G1Explainer'
+import BracketGrid22G1Illustration from './BracketGrid22G1Illustration'
+import BracketGrid22G1Explainer from './BracketGrid22G1Explainer'
+import TriCount22G1Illustration from './TriCount22G1Illustration'
+import TriCount22G1Explainer from './TriCount22G1Explainer'
+import SoldierRoad22G1Illustration from './SoldierRoad22G1Illustration'
+import SoldierRoad22G1Explainer from './SoldierRoad22G1Explainer'
+import KnightTour22G1Illustration from './KnightTour22G1Illustration'
+import KnightTour22G1Explainer from './KnightTour22G1Explainer'
+import BlockPack22G1Illustration from './BlockPack22G1Illustration'
+import BlockPack22G1Explainer from './BlockPack22G1Explainer'
+import MirrorBlocks22G1Illustration from './MirrorBlocks22G1Illustration'
+import MirrorBlocks22G1Explainer from './MirrorBlocks22G1Explainer'
+import CircleRect22G1Option from './CircleRect22G1Option'
+import CircleRect22G1Explainer from './CircleRect22G1Explainer'
+import EdgeMatch22G1Illustration from './EdgeMatch22G1Illustration'
+import EdgeMatch22G1Explainer from './EdgeMatch22G1Explainer'
+import {
+  AnimalLegs22G1Explainer,
+  LuckyNumber22G1Explainer,
+  CustomOp22G1Explainer,
+} from './tryCheckExplainers22G1'
+// 2023 G1 Final
+import GoBoard23G1Illustration from './GoBoard23G1Illustration'
+import GoBoard23G1Explainer from './GoBoard23G1Explainer'
+import NumberStrip23G1Illustration from './NumberStrip23G1Illustration'
+import NumberStrip23G1Explainer from './NumberStrip23G1Explainer'
+import ShapeAdd23G1Illustration from './ShapeAdd23G1Illustration'
+import ShapeAdd23G1Explainer from './ShapeAdd23G1Explainer'
+import StarSquares23G1Illustration from './StarSquares23G1Illustration'
+import StarSquares23G1Explainer from './StarSquares23G1Explainer'
+import ShapePattern23G1Illustration from './ShapePattern23G1Illustration'
+import ShapePattern23G1Explainer from './ShapePattern23G1Explainer'
+import PaperFold23G1Illustration from './PaperFold23G1Illustration'
+import PaperFold23G1Explainer from './PaperFold23G1Explainer'
+import GridFill23G1Illustration from './GridFill23G1Illustration'
+import GridFill23G1Explainer from './GridFill23G1Explainer'
+import MatchSquares23G1Illustration from './MatchSquares23G1Illustration'
+import MatchSquares23G1Explainer from './MatchSquares23G1Explainer'
+import FreqGrid23G1Illustration from './FreqGrid23G1Illustration'
+import FreqGrid23G1Explainer from './FreqGrid23G1Explainer'
+import Bracelets23G1Illustration from './Bracelets23G1Illustration'
+import Bracelets23G1Explainer from './Bracelets23G1Explainer'
+import RouteTree23G1Illustration from './RouteTree23G1Illustration'
+import RouteTree23G1Explainer from './RouteTree23G1Explainer'
+import RoomMaze23G1Illustration from './RoomMaze23G1Illustration'
+import RoomMaze23G1Explainer from './RoomMaze23G1Explainer'
+import SegmentCount23G1Illustration from './SegmentCount23G1Illustration'
+import SegmentCount23G1Explainer from './SegmentCount23G1Explainer'
+import PatternRules23G1Illustration from './PatternRules23G1Illustration'
+import PatternRules23G1Explainer from './PatternRules23G1Explainer'
+import RobotMaze23G1Illustration from './RobotMaze23G1Illustration'
+import RobotMaze23G1Explainer from './RobotMaze23G1Explainer'
+import MatchNum23G1Option from './MatchNum23G1Option'
+import Jigsaw23G1Illustration from './Jigsaw23G1Illustration'
+import Jigsaw23G1Explainer from './Jigsaw23G1Explainer'
+import Jigsaw23G1Option from './Jigsaw23G1Option'
+import CardStats23G1Illustration from './CardStats23G1Illustration'
+import CardStats23G1Explainer from './CardStats23G1Explainer'
+import CardStats23G1Option from './CardStats23G1Option'
+import {
+  SmallestExpr23G1Explainer,
+  AppleBaskets23G1Explainer,
+  ChangeMoney23G1Explainer,
+  BalloonTrade23G1Explainer,
+  UnitsDigit23G1Explainer,
+  SignFill23G1Explainer,
+  ColorCycle23G1Explainer,
+} from './tryCheckExplainers23G1'
+// 2024 G1 Final
+import Segments24G1Illustration from './Segments24G1Illustration'
+import Segments24G1Explainer from './Segments24G1Explainer'
+import DiceNet24G1Illustration from './DiceNet24G1Illustration'
+import DiceNet24G1Explainer from './DiceNet24G1Explainer'
+import NumberVenn24G1Illustration from './NumberVenn24G1Illustration'
+import NumberVenn24G1Explainer from './NumberVenn24G1Explainer'
+import ShapeAdd24G1Illustration from './ShapeAdd24G1Illustration'
+import ShapeAdd24G1Explainer from './ShapeAdd24G1Explainer'
+import ExprPattern24G1Illustration from './ExprPattern24G1Illustration'
+import ExprPattern24G1Explainer from './ExprPattern24G1Explainer'
+import DigitCards24G1Illustration from './DigitCards24G1Illustration'
+import DigitCards24G1Explainer from './DigitCards24G1Explainer'
+import SumCards24G1Illustration from './SumCards24G1Illustration'
+import SumCards24G1Explainer from './SumCards24G1Explainer'
+import RemoveOp24G1Illustration from './RemoveOp24G1Illustration'
+import RemoveOp24G1Explainer from './RemoveOp24G1Explainer'
+import BallTubes24G1Illustration from './BallTubes24G1Illustration'
+import BallTubes24G1Explainer from './BallTubes24G1Explainer'
+import LogicGrid24G1Illustration from './LogicGrid24G1Illustration'
+import LogicGrid24G1Explainer from './LogicGrid24G1Explainer'
+import BlockStack24G1Illustration from './BlockStack24G1Illustration'
+import BlockStack24G1Explainer from './BlockStack24G1Explainer'
+import SumGrid24G1Illustration from './SumGrid24G1Illustration'
+import AnimalMaze24G1Illustration from './AnimalMaze24G1Illustration'
+import AnimalMaze24G1Explainer from './AnimalMaze24G1Explainer'
+import AnimalMaze24G1Option from './AnimalMaze24G1Option'
+import ClockPic24G1Illustration from './ClockPic24G1Illustration'
+import ClockPic24G1Explainer from './ClockPic24G1Explainer'
+import ClockPic24G1Option from './ClockPic24G1Option'
+import CookieSort24G1Illustration from './CookieSort24G1Illustration'
+import CookieSort24G1Explainer from './CookieSort24G1Explainer'
+import BallSort24G1Illustration from './BallSort24G1Illustration'
+import BallSort24G1Explainer from './BallSort24G1Explainer'
+import {
+  EqualsFifteen24G1Explainer,
+  BuildAdd24G1Explainer,
+  CupsHandle24G1Explainer,
+  CakeShortfall24G1Explainer,
+  TwoClues24G1Explainer,
+  DigitTally24G1Explainer,
+  BusCarry24G1Explainer,
+  CoinTotals24G1Explainer,
+  ChocoLeft24G1Explainer,
+} from './tryCheckExplainers24G1'
+// 2025 G1 Final
+import LineSquares25G1Illustration from './LineSquares25G1Illustration'
+import LineSquares25G1Explainer from './LineSquares25G1Explainer'
+import CubeRecolor25G1Illustration from './CubeRecolor25G1Illustration'
+import CubeRecolor25G1Explainer from './CubeRecolor25G1Explainer'
+import DigitTriple25G1Illustration from './DigitTriple25G1Illustration'
+import DigitTriple25G1Explainer from './DigitTriple25G1Explainer'
+import TheaterSeats25G1Illustration from './TheaterSeats25G1Illustration'
+import TheaterSeats25G1Explainer from './TheaterSeats25G1Explainer'
+import Stones25G1Illustration from './Stones25G1Illustration'
+import Stones25G1Explainer from './Stones25G1Explainer'
+import AppleBoxes25G1Illustration from './AppleBoxes25G1Illustration'
+import AppleBoxes25G1Explainer from './AppleBoxes25G1Explainer'
+import BoatTranslate25G1Illustration from './BoatTranslate25G1Illustration'
+import BoatTranslate25G1Explainer from './BoatTranslate25G1Explainer'
+import NumberPattern25G1Illustration from './NumberPattern25G1Illustration'
+import NumberPattern25G1Explainer from './NumberPattern25G1Explainer'
+import FlippedRuler25G1Illustration from './FlippedRuler25G1Illustration'
+import FlippedRuler25G1Explainer from './FlippedRuler25G1Explainer'
+import ChildrenChairs25G1Illustration from './ChildrenChairs25G1Illustration'
+import ChildrenChairs25G1Explainer from './ChildrenChairs25G1Explainer'
+import BalanceScales25G1Illustration from './BalanceScales25G1Illustration'
+import BalanceScales25G1Explainer from './BalanceScales25G1Explainer'
+import SpecialTrees25G1Illustration from './SpecialTrees25G1Illustration'
+import SpecialTrees25G1Explainer from './SpecialTrees25G1Explainer'
+import ClothingPrices25G1Illustration from './ClothingPrices25G1Illustration'
+import ClothingPrices25G1Explainer from './ClothingPrices25G1Explainer'
+import HomeMap25G1Illustration from './HomeMap25G1Illustration'
+import HomeMap25G1Explainer from './HomeMap25G1Explainer'
+import NumberPyramid25G1Illustration from './NumberPyramid25G1Illustration'
+import NumberPyramid25G1Explainer from './NumberPyramid25G1Explainer'
+import CircleSums25G1Illustration from './CircleSums25G1Illustration'
+import CircleSums25G1Explainer from './CircleSums25G1Explainer'
+import HundredsChart25G1Illustration from './HundredsChart25G1Illustration'
+import HundredsChart25G1Explainer from './HundredsChart25G1Explainer'
+import HundredsChart25G1Option from './HundredsChart25G1Option'
+import ShapeSeq25G1Illustration from './ShapeSeq25G1Illustration'
+import ShapeSeq25G1Explainer from './ShapeSeq25G1Explainer'
+import ShapeSeq25G1Option from './ShapeSeq25G1Option'
+import CountFigures25G1Illustration from './CountFigures25G1Illustration'
+import CountFigures25G1Explainer from './CountFigures25G1Explainer'
+import CountFigures25G1Option from './CountFigures25G1Option'
+import {
+  OddCount25G1Explainer,
+  MiddleExpr25G1Explainer,
+  FlowerCost25G1Explainer,
+  DigitSumEight25G1Explainer,
+  BusStanding25G1Explainer,
+  AnsweredGap25G1Explainer,
+} from './tryCheckExplainers25G1'
+import Angles23G3Illustration from './Angles23G3Illustration'
+import Angles23G3Explainer from './Angles23G3Explainer'
+import OverlapRects23G3Illustration from './OverlapRects23G3Illustration'
+import OverlapRects23G3Explainer from './OverlapRects23G3Explainer'
+import SnailPath23G3Illustration from './SnailPath23G3Illustration'
+import SnailPath23G3Explainer from './SnailPath23G3Explainer'
+import ParkingFee23G3Illustration from './ParkingFee23G3Illustration'
+import ParkingFee23G3Explainer from './ParkingFee23G3Explainer'
+import MetroGraph23G3Illustration from './MetroGraph23G3Illustration'
+import MetroGraph23G3Explainer from './MetroGraph23G3Explainer'
+import ClockPieces23G3Illustration from './ClockPieces23G3Illustration'
+import ClockPieces23G3Explainer from './ClockPieces23G3Explainer'
+import TriGridQuad23G3Illustration from './TriGridQuad23G3Illustration'
+import TriGridQuad23G3Explainer from './TriGridQuad23G3Explainer'
+import Spiral23G3Illustration from './Spiral23G3Illustration'
+import Spiral23G3Explainer from './Spiral23G3Explainer'
+import SpiralOption23G3 from './SpiralOption23G3'
+import FoldTriangle23G3Illustration from './FoldTriangle23G3Illustration'
+import FoldTriangle23G3Explainer from './FoldTriangle23G3Explainer'
+import FiveSquares23G3Illustration from './FiveSquares23G3Illustration'
+import FiveSquares23G3Explainer from './FiveSquares23G3Explainer'
+import Pinwheel23G3Illustration from './Pinwheel23G3Illustration'
+import Pinwheel23G3Explainer from './Pinwheel23G3Explainer'
+import Match23G3Explainer from './Match23G3Explainer'
+import NumberGrid23G3Illustration from './NumberGrid23G3Illustration'
+import NumberGrid23G3Explainer from './NumberGrid23G3Explainer'
+import RobotMaze23G3Illustration from './RobotMaze23G3Illustration'
+import RobotMaze23G3Explainer from './RobotMaze23G3Explainer'
+import {
+  SubtractMany23G3Explainer,
+  MilkTotal23G3Explainer,
+  PagesLeft23G3Explainer,
+  DigitDiff23G3Explainer,
+  SwapDivide23G3Explainer,
+  ProductCancel23G3Explainer,
+  ConsecDiv23G3Explainer,
+  ChallengeScore23G3Explainer,
+  GreedyDelete23G3Explainer,
+} from './tryCheckExplainers23G3'
+import Cards23G2Illustration from './Cards23G2Illustration'
+import Cards23G2Explainer from './Cards23G2Explainer'
+import PeggyMap23G2Illustration from './PeggyMap23G2Illustration'
+import PeggyMap23G2Explainer from './PeggyMap23G2Explainer'
+import Lines23G2Illustration from './Lines23G2Illustration'
+import Lines23G2Explainer from './Lines23G2Explainer'
+import StarGrid23G2Illustration from './StarGrid23G2Illustration'
+import StarGrid23G2Explainer from './StarGrid23G2Explainer'
+import Matchsticks23G2Illustration from './Matchsticks23G2Illustration'
+import Matchsticks23G2Explainer from './Matchsticks23G2Explainer'
+import CardStats23G2Illustration from './CardStats23G2Illustration'
+import CardStats23G2Explainer from './CardStats23G2Explainer'
+import Pattern23G2Illustration, { Pattern23G2Option } from './Pattern23G2Illustration'
+import Pattern23G2Explainer from './Pattern23G2Explainer'
+import RobotMaze23G2Illustration from './RobotMaze23G2Illustration'
+import RobotMaze23G2Explainer from './RobotMaze23G2Explainer'
+import {
+  RoundSubtract23G2Explainer,
+  MultipleNine23G2Explainer,
+  ApplesBaskets23G2Explainer,
+  PokemonWin23G2Explainer,
+  DiceSum23G2Explainer,
+  HamburgerDeal23G2Explainer,
+  MaxExpr23G2Explainer,
+  InterleaveSeq23G2Explainer,
+  ExhibitOverlap23G2Explainer,
+  DigitCount23G2Explainer,
+  ComputeProducts23G2Explainer,
+  CryptoABCD23G2Explainer,
+  BlockSeq23G2Explainer,
+  ChallengeScore23G2Explainer,
+  UnusedDigit23G2Explainer,
+} from './tryCheckExplainers23G2'
+import Parallelogram24G2Illustration from './Parallelogram24G2Illustration'
+import Parallelogram24G2Explainer from './Parallelogram24G2Explainer'
+import AntPath24G2Illustration from './AntPath24G2Illustration'
+import AntPath24G2Explainer from './AntPath24G2Explainer'
+import GrayGrid24G2Illustration from './GrayGrid24G2Illustration'
+import GrayGrid24G2Explainer from './GrayGrid24G2Explainer'
+import Field24G2Illustration from './Field24G2Illustration'
+import Field24G2Explainer from './Field24G2Explainer'
+import Solid24G2Illustration from './Solid24G2Illustration'
+import Solid24G2Explainer from './Solid24G2Explainer'
+import Seating24G2Illustration from './Seating24G2Illustration'
+import Seating24G2Explainer from './Seating24G2Explainer'
+import Tangram24G2Illustration, { Tangram24G2Option } from './Tangram24G2Illustration'
+import Tangram24G2Explainer from './Tangram24G2Explainer'
+import TrainArrows24G2Illustration, { TrainArrows24G2Option } from './TrainArrows24G2Illustration'
+import TrainArrows24G2Explainer from './TrainArrows24G2Explainer'
+import RollingHex24G2Illustration from './RollingHex24G2Illustration'
+import RollingHex24G2Explainer from './RollingHex24G2Explainer'
+import ShapeEq24G2Illustration from './ShapeEq24G2Illustration'
+import ShapeEq24G2Explainer from './ShapeEq24G2Explainer'
+import TriSticks24G2Illustration from './TriSticks24G2Illustration'
+import TriSticks24G2Explainer from './TriSticks24G2Explainer'
+import Parking24G2Illustration from './Parking24G2Illustration'
+import Parking24G2Explainer from './Parking24G2Explainer'
+import Grid24G2Illustration from './Grid24G2Illustration'
+import Grid24G2Explainer from './Grid24G2Explainer'
+import BoardPath24G2Illustration from './BoardPath24G2Illustration'
+import BoardPath24G2Explainer from './BoardPath24G2Explainer'
+import SymbolGrid24G2Illustration from './SymbolGrid24G2Illustration'
+import SymbolGrid24G2Explainer from './SymbolGrid24G2Explainer'
+import {
+  MatchProduct24G2Explainer,
+  TreesPlan24G2Explainer,
+  TrainGap24G2Explainer,
+  TwoItems24G2Explainer,
+  RankSqueeze24G2Explainer,
+  ThreeWeights24G2Explainer,
+  GreedyEven24G2Explainer,
+  MaxOddSum24G2Explainer,
+  RockPaper24G2Explainer,
+} from './tryCheckExplainers24G2'
+import ShipBridge24G3Illustration from './ShipBridge24G3Illustration'
+import ShipBridge24G3Explainer from './ShipBridge24G3Explainer'
+import Classroom24G3Illustration from './Classroom24G3Illustration'
+import Classroom24G3Explainer from './Classroom24G3Explainer'
+import RaceTrack24G3Illustration from './RaceTrack24G3Illustration'
+import RaceTrack24G3Explainer from './RaceTrack24G3Explainer'
+import CompositeRect24G3Illustration from './CompositeRect24G3Illustration'
+import CompositeRect24G3Explainer from './CompositeRect24G3Explainer'
+import Trapezoid24G3Illustration from './Trapezoid24G3Illustration'
+import Trapezoid24G3Explainer from './Trapezoid24G3Explainer'
+import ViewTable24G3Illustration from './ViewTable24G3Illustration'
+import ViewTable24G3Explainer from './ViewTable24G3Explainer'
+import SubTriangle24G3Illustration from './SubTriangle24G3Illustration'
+import SubTriangle24G3Explainer from './SubTriangle24G3Explainer'
+import DiceNet24G3Illustration from './DiceNet24G3Illustration'
+import DiceNet24G3Explainer from './DiceNet24G3Explainer'
+import PentRoll24G3Illustration from './PentRoll24G3Illustration'
+import PentRoll24G3Explainer from './PentRoll24G3Explainer'
+import ButtonPanel24G3Illustration from './ButtonPanel24G3Illustration'
+import ButtonPanel24G3Explainer from './ButtonPanel24G3Explainer'
+import CardLayout24G3Illustration from './CardLayout24G3Illustration'
+import CardLayout24G3Explainer from './CardLayout24G3Explainer'
+import CutCount24G3Illustration from './CutCount24G3Illustration'
+import CutCount24G3Explainer from './CutCount24G3Explainer'
+import RabbitGrid24G3Illustration from './RabbitGrid24G3Illustration'
+import RabbitGrid24G3Explainer from './RabbitGrid24G3Explainer'
+import NumGrid24G3Illustration from './NumGrid24G3Illustration'
+import NumGrid24G3Explainer from './NumGrid24G3Explainer'
+import {
+  DivZero24G3Explainer,
+  BusFill24G3Explainer,
+  CigaretteTime24G3Explainer,
+  MealCombos24G3Explainer,
+  ColumnCrypto24G3Explainer,
+  MaxQuotient24G3Explainer,
+  Matchsticks24G3Explainer,
+  CardEquations24G3Explainer,
+  TreeAges24G3Explainer,
+  Palindrome24G3Explainer,
+} from './tryCheckExplainers24G3'
+import StarAdd25G2Illustration from './StarAdd25G2Illustration'
+import StarAdd25G2Explainer from './StarAdd25G2Explainer'
+import RopeRuler25G2Illustration from './RopeRuler25G2Illustration'
+import RopeRuler25G2Explainer from './RopeRuler25G2Explainer'
+import Gomoku25G2Illustration from './Gomoku25G2Illustration'
+import Gomoku25G2Explainer from './Gomoku25G2Explainer'
+import FaceSeq25G2Illustration, { FaceSeq25G2Option } from './FaceSeq25G2Illustration'
+import FaceSeq25G2Explainer from './FaceSeq25G2Explainer'
+import Ordering25G2Illustration from './Ordering25G2Illustration'
+import Ordering25G2Explainer from './Ordering25G2Explainer'
+import Cube2025G2Illustration from './Cube2025G2Illustration'
+import Cube2025G2Explainer from './Cube2025G2Explainer'
+import ProductGrid25G2Illustration from './ProductGrid25G2Illustration'
+import ProductGrid25G2Explainer from './ProductGrid25G2Explainer'
+import Roundabout25G2Illustration from './Roundabout25G2Illustration'
+import Roundabout25G2Explainer from './Roundabout25G2Explainer'
+import Jerseys25G2Illustration from './Jerseys25G2Illustration'
+import Jerseys25G2Explainer from './Jerseys25G2Explainer'
+import MoneyGrid25G2Illustration from './MoneyGrid25G2Illustration'
+import MoneyGrid25G2Explainer from './MoneyGrid25G2Explainer'
+import {
+  SortMiddle25G2Explainer,
+  Direction25G2Explainer,
+  ConsecEven25G2Explainer,
+  SquareCandy25G2Explainer,
+  ShipDirection25G2Explainer,
+  LuckyNumber25G2Explainer,
+  TornPages25G2Explainer,
+  DateBoxes25G2Explainer,
+  GreedyRemove25G2Explainer,
+  SubtractEight25G2Explainer,
+  ShapeSums25G2Explainer,
+  AppendDigits25G2Explainer,
+  ModClues25G2Explainer,
+  BalanceNumbers25G2Explainer,
+} from './tryCheckExplainers25G2'
+import RectSquare25G3Illustration from './RectSquare25G3Illustration'
+import RectSquare25G3Explainer from './RectSquare25G3Explainer'
+import StationMap25G3Illustration from './StationMap25G3Illustration'
+import StationMap25G3Explainer from './StationMap25G3Explainer'
+import Folding25G3Illustration, { Folding25G3Option } from './Folding25G3Illustration'
+import Folding25G3Explainer from './Folding25G3Explainer'
+import Assemble25G3Illustration from './Assemble25G3Illustration'
+import Assemble25G3Explainer from './Assemble25G3Explainer'
+import Coin25G3Illustration, { Coin25G3Option } from './Coin25G3Illustration'
+import Coin25G3Explainer from './Coin25G3Explainer'
+import MultGrid25G3Illustration from './MultGrid25G3Illustration'
+import MultGrid25G3Explainer from './MultGrid25G3Explainer'
+import Symmetry25G3Illustration from './Symmetry25G3Illustration'
+import Symmetry25G3Explainer from './Symmetry25G3Explainer'
+import ParaDivide25G3Illustration from './ParaDivide25G3Illustration'
+import ParaDivide25G3Explainer from './ParaDivide25G3Explainer'
+import Elephant25G3Illustration from './Elephant25G3Illustration'
+import Elephant25G3Explainer from './Elephant25G3Explainer'
+// 2019 G1 Semifinal (WMI-19P1A) — prelim
+import CubeStack19P1Illustration from './CubeStack19P1Illustration'
+import CubeStack19P1Explainer from './CubeStack19P1Explainer'
+import TriangleFill19P1Illustration from './TriangleFill19P1Illustration'
+import TriangleFill19P1Explainer from './TriangleFill19P1Explainer'
+import BalanceSub19P1Illustration from './BalanceSub19P1Illustration'
+import BalanceSub19P1Explainer from './BalanceSub19P1Explainer'
+import SymbolPos19P1Illustration from './SymbolPos19P1Illustration'
+import SymbolPos19P1Explainer from './SymbolPos19P1Explainer'
+import ArrowGrid19P1Illustration from './ArrowGrid19P1Illustration'
+import ArrowGrid19P1Explainer from './ArrowGrid19P1Explainer'
+import AppleAdd19P1Illustration from './AppleAdd19P1Illustration'
+import AppleAdd19P1Explainer from './AppleAdd19P1Explainer'
+import NumberBoard19P1Illustration from './NumberBoard19P1Illustration'
+import NumberBoard19P1Explainer from './NumberBoard19P1Explainer'
+import CylinderCount19P1Illustration from './CylinderCount19P1Illustration'
+import CylinderCount19P1Explainer from './CylinderCount19P1Explainer'
+import TrapTriangles19P1Illustration from './TrapTriangles19P1Illustration'
+import TrapTriangles19P1Explainer from './TrapTriangles19P1Explainer'
+import TilePath19P1Illustration from './TilePath19P1Illustration'
+import TilePath19P1Explainer from './TilePath19P1Explainer'
+import ShapeJoin19P1Illustration from './ShapeJoin19P1Illustration'
+import ShapeJoin19P1Explainer from './ShapeJoin19P1Explainer'
+import BeltPulley19P1Illustration from './BeltPulley19P1Illustration'
+import BeltPulley19P1Explainer from './BeltPulley19P1Explainer'
+import DigitRule19P1Illustration from './DigitRule19P1Illustration'
+import DigitRule19P1Explainer from './DigitRule19P1Explainer'
+import TilePieces19P1Illustration from './TilePieces19P1Illustration'
+import TilePieces19P1Explainer from './TilePieces19P1Explainer'
+import SymbolGrid19P1Illustration from './SymbolGrid19P1Illustration'
+import SymbolGrid19P1Explainer from './SymbolGrid19P1Explainer'
+import SquareTriangles19P1Illustration from './SquareTriangles19P1Illustration'
+import SquareTriangles19P1Explainer from './SquareTriangles19P1Explainer'
+import FlowerPiece19P1Illustration from './FlowerPiece19P1Illustration'
+import FlowerPiece19P1Explainer from './FlowerPiece19P1Explainer'
+import LetterOrder19P1Illustration from './LetterOrder19P1Illustration'
+import LetterOrder19P1Explainer from './LetterOrder19P1Explainer'
+import P19G2Q3Illustration from './P19G2Q3Illustration'
+import P19G2Q3Explainer from './P19G2Q3Explainer'
+import P19G2Q5Illustration from './P19G2Q5Illustration'
+import P19G2Q5Explainer from './P19G2Q5Explainer'
+import P19G2Q6Illustration from './P19G2Q6Illustration'
+import P19G2Q6Explainer from './P19G2Q6Explainer'
+import P19G2Q7Illustration from './P19G2Q7Illustration'
+import P19G2Q7Explainer from './P19G2Q7Explainer'
+import P19G2Q11Illustration from './P19G2Q11Illustration'
+import P19G2Q11Explainer from './P19G2Q11Explainer'
+import P19G2Q12Illustration from './P19G2Q12Illustration'
+import P19G2Q12Explainer from './P19G2Q12Explainer'
+import P19G2Q21Illustration from './P19G2Q21Illustration'
+import P19G2Q21Explainer from './P19G2Q21Explainer'
+import P19G2Q23Illustration from './P19G2Q23Illustration'
+import P19G2Q23Explainer from './P19G2Q23Explainer'
+import P19G2Q25Illustration from './P19G2Q25Illustration'
+import P19G2Q25Explainer from './P19G2Q25Explainer'
+import P19G3Q5Illustration from './P19G3Q5Illustration'
+import P19G3Q5Explainer from './P19G3Q5Explainer'
+import P19G3Q6Illustration from './P19G3Q6Illustration'
+import P19G3Q6Explainer from './P19G3Q6Explainer'
+import P19G3Q11Illustration from './P19G3Q11Illustration'
+import P19G3Q11Explainer from './P19G3Q11Explainer'
+import P19G3Q13Illustration from './P19G3Q13Illustration'
+import P19G3Q13Explainer from './P19G3Q13Explainer'
+import P19G3Q17Illustration from './P19G3Q17Illustration'
+import P19G3Q17Explainer from './P19G3Q17Explainer'
+import P19G3Q20Illustration from './P19G3Q20Illustration'
+import P19G3Q20Explainer from './P19G3Q20Explainer'
+import P19G3Q25Illustration from './P19G3Q25Illustration'
+import P19G3Q25Explainer from './P19G3Q25Explainer'
+import P20G1Q6Illustration from './P20G1Q6Illustration'
+import P20G1Q6Explainer from './P20G1Q6Explainer'
+import P20G1Q8Illustration from './P20G1Q8Illustration'
+import P20G1Q8Explainer from './P20G1Q8Explainer'
+import P20G1Q9Illustration from './P20G1Q9Illustration'
+import P20G1Q9Explainer from './P20G1Q9Explainer'
+import P20G1Q19Illustration from './P20G1Q19Illustration'
+import P20G1Q19Explainer from './P20G1Q19Explainer'
+import P20G1Q22Illustration from './P20G1Q22Illustration'
+import P20G1Q22Explainer from './P20G1Q22Explainer'
+import P20G1Q24Illustration from './P20G1Q24Illustration'
+import P20G1Q24Explainer from './P20G1Q24Explainer'
+import P20G1Q25Illustration from './P20G1Q25Illustration'
+import P20G1Q25Explainer from './P20G1Q25Explainer'
+import P20G2Q6Illustration from './P20G2Q6Illustration'
+import P20G2Q6Explainer from './P20G2Q6Explainer'
+import P20G2Q7Illustration from './P20G2Q7Illustration'
+import P20G2Q7Explainer from './P20G2Q7Explainer'
+import P20G2Q9Illustration from './P20G2Q9Illustration'
+import P20G2Q9Explainer from './P20G2Q9Explainer'
+import P20G2Q18Illustration from './P20G2Q18Illustration'
+import P20G2Q18Explainer from './P20G2Q18Explainer'
+import P20G2Q23Illustration from './P20G2Q23Illustration'
+import P20G2Q23Explainer from './P20G2Q23Explainer'
+import P20G2Q24Illustration from './P20G2Q24Illustration'
+import P20G2Q24Explainer from './P20G2Q24Explainer'
+import P20G2Q25Illustration from './P20G2Q25Illustration'
+import P20G2Q25Explainer from './P20G2Q25Explainer'
+import P20G3Q4Illustration from './P20G3Q4Illustration'
+import P20G3Q4Explainer from './P20G3Q4Explainer'
+import P20G3Q5Illustration from './P20G3Q5Illustration'
+import P20G3Q5Explainer from './P20G3Q5Explainer'
+import P20G3Q6Illustration from './P20G3Q6Illustration'
+import P20G3Q6Explainer from './P20G3Q6Explainer'
+import P20G3Q11Illustration from './P20G3Q11Illustration'
+import P20G3Q11Explainer from './P20G3Q11Explainer'
+import P20G3Q14Illustration from './P20G3Q14Illustration'
+import P20G3Q14Explainer from './P20G3Q14Explainer'
+import P20G3Q17Illustration from './P20G3Q17Illustration'
+import P20G3Q17Explainer from './P20G3Q17Explainer'
+import P20G3Q20Illustration from './P20G3Q20Illustration'
+import P20G3Q20Explainer from './P20G3Q20Explainer'
+import P20G3Q23Illustration from './P20G3Q23Illustration'
+import P20G3Q23Explainer from './P20G3Q23Explainer'
+import P21G1Q3Illustration from './P21G1Q3Illustration'
+import P21G1Q3Explainer from './P21G1Q3Explainer'
+import P21G1Q10Illustration from './P21G1Q10Illustration'
+import P21G1Q10Explainer from './P21G1Q10Explainer'
+import P21G1Q12Illustration from './P21G1Q12Illustration'
+import P21G1Q12Explainer from './P21G1Q12Explainer'
+import P21G1Q13Illustration from './P21G1Q13Illustration'
+import P21G1Q13Explainer from './P21G1Q13Explainer'
+import P21G1Q16Illustration from './P21G1Q16Illustration'
+import P21G1Q16Explainer from './P21G1Q16Explainer'
+import P21G1Q17Illustration from './P21G1Q17Illustration'
+import P21G1Q17Explainer from './P21G1Q17Explainer'
+import P21G1Q19Illustration from './P21G1Q19Illustration'
+import P21G1Q19Explainer from './P21G1Q19Explainer'
+import P21G1Q21Illustration from './P21G1Q21Illustration'
+import P21G1Q21Explainer from './P21G1Q21Explainer'
+import P21G1Q22Illustration from './P21G1Q22Illustration'
+import P21G1Q22Explainer from './P21G1Q22Explainer'
+import P21G1Q23Illustration from './P21G1Q23Illustration'
+import P21G1Q23Explainer from './P21G1Q23Explainer'
+import P21G1Q24Illustration from './P21G1Q24Illustration'
+import P21G1Q24Explainer from './P21G1Q24Explainer'
+import P21G1Q25Illustration from './P21G1Q25Illustration'
+import P21G1Q25Explainer from './P21G1Q25Explainer'
+import P21G2Q10Illustration from './P21G2Q10Illustration'
+import P21G2Q10Explainer from './P21G2Q10Explainer'
+import P21G2Q14Illustration from './P21G2Q14Illustration'
+import P21G2Q14Explainer from './P21G2Q14Explainer'
+import P21G2Q16Illustration from './P21G2Q16Illustration'
+import P21G2Q16Explainer from './P21G2Q16Explainer'
+import P21G2Q17Illustration from './P21G2Q17Illustration'
+import P21G2Q17Explainer from './P21G2Q17Explainer'
+import P21G2Q19Illustration from './P21G2Q19Illustration'
+import P21G2Q19Explainer from './P21G2Q19Explainer'
+import P21G2Q20Illustration from './P21G2Q20Illustration'
+import P21G2Q20Explainer from './P21G2Q20Explainer'
+import P21G2Q21Illustration from './P21G2Q21Illustration'
+import P21G2Q21Explainer from './P21G2Q21Explainer'
+import P21G2Q22Illustration from './P21G2Q22Illustration'
+import P21G2Q22Explainer from './P21G2Q22Explainer'
+import P21G2Q23Illustration from './P21G2Q23Illustration'
+import P21G2Q23Explainer from './P21G2Q23Explainer'
+import P21G2Q25Illustration from './P21G2Q25Illustration'
+import P21G2Q25Explainer from './P21G2Q25Explainer'
+import P21G3Q9Illustration from './P21G3Q9Illustration'
+import P21G3Q9Explainer from './P21G3Q9Explainer'
+import P21G3Q10Illustration from './P21G3Q10Illustration'
+import P21G3Q10Explainer from './P21G3Q10Explainer'
+import P21G3Q11Illustration from './P21G3Q11Illustration'
+import P21G3Q11Explainer from './P21G3Q11Explainer'
+import P21G3Q14Illustration from './P21G3Q14Illustration'
+import P21G3Q14Explainer from './P21G3Q14Explainer'
+import P21G3Q18Illustration from './P21G3Q18Illustration'
+import P21G3Q18Explainer from './P21G3Q18Explainer'
+import P21G3Q20Illustration from './P21G3Q20Illustration'
+import P21G3Q20Explainer from './P21G3Q20Explainer'
+import P21G3Q22Illustration from './P21G3Q22Illustration'
+import P21G3Q22Explainer from './P21G3Q22Explainer'
+import P21G3Q23Illustration from './P21G3Q23Illustration'
+import P21G3Q23Explainer from './P21G3Q23Explainer'
+import P21G3Q25Illustration from './P21G3Q25Illustration'
+import P21G3Q25Explainer from './P21G3Q25Explainer'
+import P22G1Q1Illustration from './P22G1Q1Illustration'
+import P22G1Q1Explainer from './P22G1Q1Explainer'
+import P22G1Q4Illustration from './P22G1Q4Illustration'
+import P22G1Q4Explainer from './P22G1Q4Explainer'
+import P22G1Q7Illustration from './P22G1Q7Illustration'
+import P22G1Q7Explainer from './P22G1Q7Explainer'
+import P22G1Q8Illustration from './P22G1Q8Illustration'
+import P22G1Q8Explainer from './P22G1Q8Explainer'
+import P22G1Q11Illustration from './P22G1Q11Illustration'
+import P22G1Q11Explainer from './P22G1Q11Explainer'
+import P22G1Q14Illustration from './P22G1Q14Illustration'
+import P22G1Q14Explainer from './P22G1Q14Explainer'
+import P22G1Q15Illustration from './P22G1Q15Illustration'
+import P22G1Q15Explainer from './P22G1Q15Explainer'
+import P22G1Q17Illustration from './P22G1Q17Illustration'
+import P22G1Q17Explainer from './P22G1Q17Explainer'
+import P22G1Q19Illustration from './P22G1Q19Illustration'
+import P22G1Q19Explainer from './P22G1Q19Explainer'
+import P22G1Q20Illustration from './P22G1Q20Illustration'
+import P22G1Q20Explainer from './P22G1Q20Explainer'
+import P22G1Q21Illustration from './P22G1Q21Illustration'
+import P22G1Q21Explainer from './P22G1Q21Explainer'
+import P22G1Q22Illustration from './P22G1Q22Illustration'
+import P22G1Q22Explainer from './P22G1Q22Explainer'
+import P22G1Q23Illustration from './P22G1Q23Illustration'
+import P22G1Q23Explainer from './P22G1Q23Explainer'
+import P22G1Q25Illustration from './P22G1Q25Illustration'
+import P22G1Q25Explainer from './P22G1Q25Explainer'
+import P22G2Q7Illustration from './P22G2Q7Illustration'
+import P22G2Q7Explainer from './P22G2Q7Explainer'
+import P22G2Q11Illustration from './P22G2Q11Illustration'
+import P22G2Q11Explainer from './P22G2Q11Explainer'
+import P22G2Q17Illustration from './P22G2Q17Illustration'
+import P22G2Q17Explainer from './P22G2Q17Explainer'
+import P22G2Q19Illustration from './P22G2Q19Illustration'
+import P22G2Q19Explainer from './P22G2Q19Explainer'
+import P22G2Q20Illustration from './P22G2Q20Illustration'
+import P22G2Q20Explainer from './P22G2Q20Explainer'
+import P22G2Q21Illustration from './P22G2Q21Illustration'
+import P22G2Q21Explainer from './P22G2Q21Explainer'
+import P22G2Q22Illustration from './P22G2Q22Illustration'
+import P22G2Q22Explainer from './P22G2Q22Explainer'
+import P22G2Q23Illustration from './P22G2Q23Illustration'
+import P22G2Q23Explainer from './P22G2Q23Explainer'
+import P22G2Q25Illustration from './P22G2Q25Illustration'
+import P22G2Q25Explainer from './P22G2Q25Explainer'
+import P22G3Q3Illustration from './P22G3Q3Illustration'
+import P22G3Q3Explainer from './P22G3Q3Explainer'
+import P22G3Q5Illustration from './P22G3Q5Illustration'
+import P22G3Q5Explainer from './P22G3Q5Explainer'
+import P22G3Q7Illustration from './P22G3Q7Illustration'
+import P22G3Q7Explainer from './P22G3Q7Explainer'
+import P22G3Q9Illustration from './P22G3Q9Illustration'
+import P22G3Q9Explainer from './P22G3Q9Explainer'
+import P22G3Q10Illustration from './P22G3Q10Illustration'
+import P22G3Q10Explainer from './P22G3Q10Explainer'
+import P22G3Q17Illustration from './P22G3Q17Illustration'
+import P22G3Q17Explainer from './P22G3Q17Explainer'
+import P22G3Q18Illustration from './P22G3Q18Illustration'
+import P22G3Q18Explainer from './P22G3Q18Explainer'
+import P22G3Q21Illustration from './P22G3Q21Illustration'
+import P22G3Q21Explainer from './P22G3Q21Explainer'
+import P22G3Q22Illustration from './P22G3Q22Illustration'
+import P22G3Q22Explainer from './P22G3Q22Explainer'
+import P22G3Q24Illustration from './P22G3Q24Illustration'
+import P22G3Q24Explainer from './P22G3Q24Explainer'
+import P23G1Q10Illustration from './P23G1Q10Illustration'
+import P23G1Q10Explainer from './P23G1Q10Explainer'
+import P23G1Q15Illustration from './P23G1Q15Illustration'
+import P23G1Q15Explainer from './P23G1Q15Explainer'
+import P23G1Q16Illustration from './P23G1Q16Illustration'
+import P23G1Q16Explainer from './P23G1Q16Explainer'
+import P23G1Q17Illustration from './P23G1Q17Illustration'
+import P23G1Q17Explainer from './P23G1Q17Explainer'
+import P23G1Q18Illustration from './P23G1Q18Illustration'
+import P23G1Q18Explainer from './P23G1Q18Explainer'
+import P23G1Q20Illustration from './P23G1Q20Illustration'
+import P23G1Q20Explainer from './P23G1Q20Explainer'
+import P23G1Q22Illustration from './P23G1Q22Illustration'
+import P23G1Q22Explainer from './P23G1Q22Explainer'
+import P23G1Q24Illustration from './P23G1Q24Illustration'
+import P23G1Q24Explainer from './P23G1Q24Explainer'
+import P23G1Q25Illustration from './P23G1Q25Illustration'
+import P23G1Q25Explainer from './P23G1Q25Explainer'
+import P23G2Q2Illustration from './P23G2Q2Illustration'
+import P23G2Q2Explainer from './P23G2Q2Explainer'
+import P23G2Q4Illustration from './P23G2Q4Illustration'
+import P23G2Q4Explainer from './P23G2Q4Explainer'
+import P23G2Q5Illustration from './P23G2Q5Illustration'
+import P23G2Q5Explainer from './P23G2Q5Explainer'
+import P23G2Q7Illustration from './P23G2Q7Illustration'
+import P23G2Q7Explainer from './P23G2Q7Explainer'
+import P23G2Q12Illustration from './P23G2Q12Illustration'
+import P23G2Q12Explainer from './P23G2Q12Explainer'
+import P23G2Q17Illustration from './P23G2Q17Illustration'
+import P23G2Q17Explainer from './P23G2Q17Explainer'
+import P23G2Q18Illustration from './P23G2Q18Illustration'
+import P23G2Q18Explainer from './P23G2Q18Explainer'
+import P23G2Q24Illustration from './P23G2Q24Illustration'
+import P23G2Q24Explainer from './P23G2Q24Explainer'
+import P23G2Q25Illustration from './P23G2Q25Illustration'
+import P23G2Q25Explainer from './P23G2Q25Explainer'
+import P23G3Q4Illustration from './P23G3Q4Illustration'
+import P23G3Q4Explainer from './P23G3Q4Explainer'
+import P23G3Q5Illustration from './P23G3Q5Illustration'
+import P23G3Q5Explainer from './P23G3Q5Explainer'
+import P23G3Q8Illustration from './P23G3Q8Illustration'
+import P23G3Q8Explainer from './P23G3Q8Explainer'
+import P23G3Q9Illustration from './P23G3Q9Illustration'
+import P23G3Q9Explainer from './P23G3Q9Explainer'
+import P23G3Q14Illustration from './P23G3Q14Illustration'
+import P23G3Q14Explainer from './P23G3Q14Explainer'
+import P23G3Q16Illustration from './P23G3Q16Illustration'
+import P23G3Q16Explainer from './P23G3Q16Explainer'
+import P23G3Q18Illustration from './P23G3Q18Illustration'
+import P23G3Q18Explainer from './P23G3Q18Explainer'
+import P23G3Q23Illustration from './P23G3Q23Illustration'
+import P23G3Q23Explainer from './P23G3Q23Explainer'
+import P23G3Q24Illustration from './P23G3Q24Illustration'
+import P23G3Q24Explainer from './P23G3Q24Explainer'
+import P23G3Q25Illustration from './P23G3Q25Illustration'
+import P23G3Q25Explainer from './P23G3Q25Explainer'
+import P24G1Q4Illustration from './P24G1Q4Illustration'
+import P24G1Q4Explainer from './P24G1Q4Explainer'
+import P24G1Q6Illustration from './P24G1Q6Illustration'
+import P24G1Q6Explainer from './P24G1Q6Explainer'
+import P24G1Q11Illustration from './P24G1Q11Illustration'
+import P24G1Q11Explainer from './P24G1Q11Explainer'
+import P24G1Q12Illustration from './P24G1Q12Illustration'
+import P24G1Q12Explainer from './P24G1Q12Explainer'
+import P24G1Q13Illustration from './P24G1Q13Illustration'
+import P24G1Q13Explainer from './P24G1Q13Explainer'
+import P24G1Q14Illustration from './P24G1Q14Illustration'
+import P24G1Q14Explainer from './P24G1Q14Explainer'
+import P24G1Q15Illustration from './P24G1Q15Illustration'
+import P24G1Q15Explainer from './P24G1Q15Explainer'
+import P24G1Q17Illustration from './P24G1Q17Illustration'
+import P24G1Q17Explainer from './P24G1Q17Explainer'
+import P24G1Q18Illustration from './P24G1Q18Illustration'
+import P24G1Q18Explainer from './P24G1Q18Explainer'
+import P24G1Q19Illustration from './P24G1Q19Illustration'
+import P24G1Q19Explainer from './P24G1Q19Explainer'
+import P24G1Q21Illustration from './P24G1Q21Illustration'
+import P24G1Q21Explainer from './P24G1Q21Explainer'
+import P24G1Q22Illustration from './P24G1Q22Illustration'
+import P24G1Q22Explainer from './P24G1Q22Explainer'
+import P24G1Q23Illustration from './P24G1Q23Illustration'
+import P24G1Q23Explainer from './P24G1Q23Explainer'
+import P24G1Q24Illustration from './P24G1Q24Illustration'
+import P24G1Q24Explainer from './P24G1Q24Explainer'
+import P24G1Q25Illustration from './P24G1Q25Illustration'
+import P24G1Q25Explainer from './P24G1Q25Explainer'
+import P24G2Q4Illustration from './P24G2Q4Illustration'
+import P24G2Q4Explainer from './P24G2Q4Explainer'
+import P24G2Q9Illustration from './P24G2Q9Illustration'
+import P24G2Q9Explainer from './P24G2Q9Explainer'
+import P24G2Q14Illustration from './P24G2Q14Illustration'
+import P24G2Q14Explainer from './P24G2Q14Explainer'
+import P24G2Q15Illustration from './P24G2Q15Illustration'
+import P24G2Q15Explainer from './P24G2Q15Explainer'
+import P24G2Q17Illustration from './P24G2Q17Illustration'
+import P24G2Q17Explainer from './P24G2Q17Explainer'
+import P24G2Q18Illustration from './P24G2Q18Illustration'
+import P24G2Q18Explainer from './P24G2Q18Explainer'
+import P24G2Q19Illustration from './P24G2Q19Illustration'
+import P24G2Q19Explainer from './P24G2Q19Explainer'
+import P24G2Q20Illustration from './P24G2Q20Illustration'
+import P24G2Q20Explainer from './P24G2Q20Explainer'
+import P24G2Q22Illustration from './P24G2Q22Illustration'
+import P24G2Q22Explainer from './P24G2Q22Explainer'
+import P24G2Q23Illustration from './P24G2Q23Illustration'
+import P24G2Q23Explainer from './P24G2Q23Explainer'
+import P24G2Q25Illustration from './P24G2Q25Illustration'
+import P24G2Q25Explainer from './P24G2Q25Explainer'
+import P24G3Q1Illustration from './P24G3Q1Illustration'
+import P24G3Q1Explainer from './P24G3Q1Explainer'
+import P24G3Q3Illustration from './P24G3Q3Illustration'
+import P24G3Q3Explainer from './P24G3Q3Explainer'
+import P24G3Q8Illustration from './P24G3Q8Illustration'
+import P24G3Q8Explainer from './P24G3Q8Explainer'
+import P24G3Q12Illustration from './P24G3Q12Illustration'
+import P24G3Q12Explainer from './P24G3Q12Explainer'
+import P24G3Q17Illustration from './P24G3Q17Illustration'
+import P24G3Q17Explainer from './P24G3Q17Explainer'
+import P24G3Q18Illustration from './P24G3Q18Illustration'
+import P24G3Q18Explainer from './P24G3Q18Explainer'
+import P24G3Q19Illustration from './P24G3Q19Illustration'
+import P24G3Q19Explainer from './P24G3Q19Explainer'
+import P24G3Q23Illustration from './P24G3Q23Illustration'
+import P24G3Q23Explainer from './P24G3Q23Explainer'
+import P25G1Q2Illustration from './P25G1Q2Illustration'
+import P25G1Q2Explainer from './P25G1Q2Explainer'
+import P25G1Q3Illustration from './P25G1Q3Illustration'
+import P25G1Q3Explainer from './P25G1Q3Explainer'
+import P25G1Q4Illustration from './P25G1Q4Illustration'
+import P25G1Q4Explainer from './P25G1Q4Explainer'
+import P25G1Q6Illustration from './P25G1Q6Illustration'
+import P25G1Q6Explainer from './P25G1Q6Explainer'
+import P25G1Q11Illustration from './P25G1Q11Illustration'
+import P25G1Q11Explainer from './P25G1Q11Explainer'
+import P25G1Q13Illustration from './P25G1Q13Illustration'
+import P25G1Q13Explainer from './P25G1Q13Explainer'
+import P25G1Q15Illustration from './P25G1Q15Illustration'
+import P25G1Q15Explainer from './P25G1Q15Explainer'
+import P25G1Q16Illustration from './P25G1Q16Illustration'
+import P25G1Q16Explainer from './P25G1Q16Explainer'
+import P25G1Q18Illustration from './P25G1Q18Illustration'
+import P25G1Q18Explainer from './P25G1Q18Explainer'
+import P25G1Q19Illustration from './P25G1Q19Illustration'
+import P25G1Q19Explainer from './P25G1Q19Explainer'
+import P25G1Q20Illustration from './P25G1Q20Illustration'
+import P25G1Q20Explainer from './P25G1Q20Explainer'
+import P25G1Q22Illustration from './P25G1Q22Illustration'
+import P25G1Q22Explainer from './P25G1Q22Explainer'
+import P25G1Q24Illustration from './P25G1Q24Illustration'
+import P25G1Q24Explainer from './P25G1Q24Explainer'
+import P25G1Q25Illustration from './P25G1Q25Illustration'
+import P25G1Q25Explainer from './P25G1Q25Explainer'
+import P25G2Q2Illustration from './P25G2Q2Illustration'
+import P25G2Q2Explainer from './P25G2Q2Explainer'
+import P25G2Q3Illustration from './P25G2Q3Illustration'
+import P25G2Q3Explainer from './P25G2Q3Explainer'
+import P25G2Q15Illustration from './P25G2Q15Illustration'
+import P25G2Q15Explainer from './P25G2Q15Explainer'
+import P25G2Q17Illustration from './P25G2Q17Illustration'
+import P25G2Q17Explainer from './P25G2Q17Explainer'
+import P25G2Q19Illustration from './P25G2Q19Illustration'
+import P25G2Q19Explainer from './P25G2Q19Explainer'
+import P25G2Q21Illustration from './P25G2Q21Illustration'
+import P25G2Q21Explainer from './P25G2Q21Explainer'
+import P25G2Q22Illustration from './P25G2Q22Illustration'
+import P25G2Q22Explainer from './P25G2Q22Explainer'
+import P25G2Q23Illustration from './P25G2Q23Illustration'
+import P25G2Q23Explainer from './P25G2Q23Explainer'
+import P25G3Q4Illustration from './P25G3Q4Illustration'
+import P25G3Q4Explainer from './P25G3Q4Explainer'
+import P25G3Q9Illustration from './P25G3Q9Illustration'
+import P25G3Q9Explainer from './P25G3Q9Explainer'
+import P25G3Q14Illustration from './P25G3Q14Illustration'
+import P25G3Q14Explainer from './P25G3Q14Explainer'
+import P25G3Q15Illustration from './P25G3Q15Illustration'
+import P25G3Q15Explainer from './P25G3Q15Explainer'
+import P25G3Q18Illustration from './P25G3Q18Illustration'
+import P25G3Q18Explainer from './P25G3Q18Explainer'
+import P25G3Q19Illustration from './P25G3Q19Illustration'
+import P25G3Q19Explainer from './P25G3Q19Explainer'
+import P25G3Q22Illustration from './P25G3Q22Illustration'
+import P25G3Q22Explainer from './P25G3Q22Explainer'
 
 interface QuestionVisual {
   Illustration?: ComponentType
@@ -517,6 +1371,238 @@ interface QuestionVisual {
 }
 
 const VISUALS: Record<string, QuestionVisual> = {
+  // 2019 G1 Semifinal (WMI-19P1A) — prelim
+  'WMI-19P1A-Q3': { Illustration: SymbolPos19P1Illustration, Explainer: SymbolPos19P1Explainer },
+  'WMI-19P1A-Q4': { Illustration: CubeStack19P1Illustration, Explainer: CubeStack19P1Explainer },
+  'WMI-19P1A-Q5': { Illustration: ArrowGrid19P1Illustration, Explainer: ArrowGrid19P1Explainer },
+  'WMI-19P1A-Q6': { Illustration: TriangleFill19P1Illustration, Explainer: TriangleFill19P1Explainer },
+  'WMI-19P1A-Q8': { Illustration: AppleAdd19P1Illustration, Explainer: AppleAdd19P1Explainer },
+  'WMI-19P1A-Q9': { Illustration: NumberBoard19P1Illustration, Explainer: NumberBoard19P1Explainer },
+  'WMI-19P1A-Q10': { Illustration: CylinderCount19P1Illustration, Explainer: CylinderCount19P1Explainer },
+  'WMI-19P1A-Q11': { Illustration: TrapTriangles19P1Illustration, Explainer: TrapTriangles19P1Explainer },
+  'WMI-19P1A-Q12': { Illustration: TilePath19P1Illustration, Explainer: TilePath19P1Explainer },
+  'WMI-19P1A-Q13': { Illustration: ShapeJoin19P1Illustration, Explainer: ShapeJoin19P1Explainer },
+  'WMI-19P1A-Q14': { Illustration: BeltPulley19P1Illustration, Explainer: BeltPulley19P1Explainer },
+  'WMI-19P1A-Q18': { Illustration: DigitRule19P1Illustration, Explainer: DigitRule19P1Explainer },
+  'WMI-19P1A-Q19': { Illustration: TilePieces19P1Illustration, Explainer: TilePieces19P1Explainer },
+  'WMI-19P1A-Q20': { Illustration: SymbolGrid19P1Illustration, Explainer: SymbolGrid19P1Explainer },
+  'WMI-19P1A-Q21': { Illustration: SquareTriangles19P1Illustration, Explainer: SquareTriangles19P1Explainer },
+  'WMI-19P1A-Q23': { Illustration: BalanceSub19P1Illustration, Explainer: BalanceSub19P1Explainer },
+  'WMI-19P1A-Q24': { Illustration: FlowerPiece19P1Illustration, Explainer: FlowerPiece19P1Explainer },
+  'WMI-19P1A-Q25': { Illustration: LetterOrder19P1Illustration, Explainer: LetterOrder19P1Explainer },
+  // 19 G2 Semifinal (WMI-19P2A)
+  'WMI-19P2A-Q3': { Illustration: P19G2Q3Illustration, Explainer: P19G2Q3Explainer },
+  'WMI-19P2A-Q5': { Illustration: P19G2Q5Illustration, Explainer: P19G2Q5Explainer },
+  'WMI-19P2A-Q6': { Illustration: P19G2Q6Illustration, Explainer: P19G2Q6Explainer },
+  'WMI-19P2A-Q7': { Illustration: P19G2Q7Illustration, Explainer: P19G2Q7Explainer },
+  'WMI-19P2A-Q11': { Illustration: P19G2Q11Illustration, Explainer: P19G2Q11Explainer },
+  'WMI-19P2A-Q12': { Illustration: P19G2Q12Illustration, Explainer: P19G2Q12Explainer },
+  'WMI-19P2A-Q21': { Illustration: P19G2Q21Illustration, Explainer: P19G2Q21Explainer },
+  'WMI-19P2A-Q23': { Illustration: P19G2Q23Illustration, Explainer: P19G2Q23Explainer },
+  'WMI-19P2A-Q25': { Illustration: P19G2Q25Illustration, Explainer: P19G2Q25Explainer },
+  // 19 G3 Semifinal (WMI-19P3A)
+  'WMI-19P3A-Q5': { Illustration: P19G3Q5Illustration, Explainer: P19G3Q5Explainer },
+  'WMI-19P3A-Q6': { Illustration: P19G3Q6Illustration, Explainer: P19G3Q6Explainer },
+  'WMI-19P3A-Q11': { Illustration: P19G3Q11Illustration, Explainer: P19G3Q11Explainer },
+  'WMI-19P3A-Q13': { Illustration: P19G3Q13Illustration, Explainer: P19G3Q13Explainer },
+  'WMI-19P3A-Q17': { Illustration: P19G3Q17Illustration, Explainer: P19G3Q17Explainer },
+  'WMI-19P3A-Q20': { Illustration: P19G3Q20Illustration, Explainer: P19G3Q20Explainer },
+  'WMI-19P3A-Q25': { Illustration: P19G3Q25Illustration, Explainer: P19G3Q25Explainer },
+  // 20 G1 Semifinal (WMI-20P1A)
+  'WMI-20P1A-Q6': { Illustration: P20G1Q6Illustration, Explainer: P20G1Q6Explainer },
+  'WMI-20P1A-Q8': { Illustration: P20G1Q8Illustration, Explainer: P20G1Q8Explainer },
+  'WMI-20P1A-Q9': { Illustration: P20G1Q9Illustration, Explainer: P20G1Q9Explainer },
+  'WMI-20P1A-Q19': { Illustration: P20G1Q19Illustration, Explainer: P20G1Q19Explainer },
+  'WMI-20P1A-Q22': { Illustration: P20G1Q22Illustration, Explainer: P20G1Q22Explainer },
+  'WMI-20P1A-Q24': { Illustration: P20G1Q24Illustration, Explainer: P20G1Q24Explainer },
+  'WMI-20P1A-Q25': { Illustration: P20G1Q25Illustration, Explainer: P20G1Q25Explainer },
+  // 20 G2 Semifinal (WMI-20P2A)
+  'WMI-20P2A-Q6': { Illustration: P20G2Q6Illustration, Explainer: P20G2Q6Explainer },
+  'WMI-20P2A-Q7': { Illustration: P20G2Q7Illustration, Explainer: P20G2Q7Explainer },
+  'WMI-20P2A-Q9': { Illustration: P20G2Q9Illustration, Explainer: P20G2Q9Explainer },
+  'WMI-20P2A-Q18': { Illustration: P20G2Q18Illustration, Explainer: P20G2Q18Explainer },
+  'WMI-20P2A-Q23': { Illustration: P20G2Q23Illustration, Explainer: P20G2Q23Explainer },
+  'WMI-20P2A-Q24': { Illustration: P20G2Q24Illustration, Explainer: P20G2Q24Explainer },
+  'WMI-20P2A-Q25': { Illustration: P20G2Q25Illustration, Explainer: P20G2Q25Explainer },
+  // 20 G3 Semifinal (WMI-20P3A)
+  'WMI-20P3A-Q4': { Illustration: P20G3Q4Illustration, Explainer: P20G3Q4Explainer },
+  'WMI-20P3A-Q5': { Illustration: P20G3Q5Illustration, Explainer: P20G3Q5Explainer },
+  'WMI-20P3A-Q6': { Illustration: P20G3Q6Illustration, Explainer: P20G3Q6Explainer },
+  'WMI-20P3A-Q11': { Illustration: P20G3Q11Illustration, Explainer: P20G3Q11Explainer },
+  'WMI-20P3A-Q14': { Illustration: P20G3Q14Illustration, Explainer: P20G3Q14Explainer },
+  'WMI-20P3A-Q17': { Illustration: P20G3Q17Illustration, Explainer: P20G3Q17Explainer },
+  'WMI-20P3A-Q20': { Illustration: P20G3Q20Illustration, Explainer: P20G3Q20Explainer },
+  'WMI-20P3A-Q23': { Illustration: P20G3Q23Illustration, Explainer: P20G3Q23Explainer },
+  // 21 G1 Semifinal (WMI-21P1A)
+  'WMI-21P1A-Q3': { Illustration: P21G1Q3Illustration, Explainer: P21G1Q3Explainer },
+  'WMI-21P1A-Q10': { Illustration: P21G1Q10Illustration, Explainer: P21G1Q10Explainer },
+  'WMI-21P1A-Q12': { Illustration: P21G1Q12Illustration, Explainer: P21G1Q12Explainer },
+  'WMI-21P1A-Q13': { Illustration: P21G1Q13Illustration, Explainer: P21G1Q13Explainer },
+  'WMI-21P1A-Q16': { Illustration: P21G1Q16Illustration, Explainer: P21G1Q16Explainer },
+  'WMI-21P1A-Q17': { Illustration: P21G1Q17Illustration, Explainer: P21G1Q17Explainer },
+  'WMI-21P1A-Q19': { Illustration: P21G1Q19Illustration, Explainer: P21G1Q19Explainer },
+  'WMI-21P1A-Q21': { Illustration: P21G1Q21Illustration, Explainer: P21G1Q21Explainer },
+  'WMI-21P1A-Q22': { Illustration: P21G1Q22Illustration, Explainer: P21G1Q22Explainer },
+  'WMI-21P1A-Q23': { Illustration: P21G1Q23Illustration, Explainer: P21G1Q23Explainer },
+  'WMI-21P1A-Q24': { Illustration: P21G1Q24Illustration, Explainer: P21G1Q24Explainer },
+  'WMI-21P1A-Q25': { Illustration: P21G1Q25Illustration, Explainer: P21G1Q25Explainer },
+  // 21 G2 Semifinal (WMI-21P2A)
+  'WMI-21P2A-Q10': { Illustration: P21G2Q10Illustration, Explainer: P21G2Q10Explainer },
+  'WMI-21P2A-Q14': { Illustration: P21G2Q14Illustration, Explainer: P21G2Q14Explainer },
+  'WMI-21P2A-Q16': { Illustration: P21G2Q16Illustration, Explainer: P21G2Q16Explainer },
+  'WMI-21P2A-Q17': { Illustration: P21G2Q17Illustration, Explainer: P21G2Q17Explainer },
+  'WMI-21P2A-Q19': { Illustration: P21G2Q19Illustration, Explainer: P21G2Q19Explainer },
+  'WMI-21P2A-Q20': { Illustration: P21G2Q20Illustration, Explainer: P21G2Q20Explainer },
+  'WMI-21P2A-Q21': { Illustration: P21G2Q21Illustration, Explainer: P21G2Q21Explainer },
+  'WMI-21P2A-Q22': { Illustration: P21G2Q22Illustration, Explainer: P21G2Q22Explainer },
+  'WMI-21P2A-Q23': { Illustration: P21G2Q23Illustration, Explainer: P21G2Q23Explainer },
+  'WMI-21P2A-Q25': { Illustration: P21G2Q25Illustration, Explainer: P21G2Q25Explainer },
+  // 21 G3 Semifinal (WMI-21P3A)
+  'WMI-21P3A-Q9': { Illustration: P21G3Q9Illustration, Explainer: P21G3Q9Explainer },
+  'WMI-21P3A-Q10': { Illustration: P21G3Q10Illustration, Explainer: P21G3Q10Explainer },
+  'WMI-21P3A-Q11': { Illustration: P21G3Q11Illustration, Explainer: P21G3Q11Explainer },
+  'WMI-21P3A-Q14': { Illustration: P21G3Q14Illustration, Explainer: P21G3Q14Explainer },
+  'WMI-21P3A-Q18': { Illustration: P21G3Q18Illustration, Explainer: P21G3Q18Explainer },
+  'WMI-21P3A-Q20': { Illustration: P21G3Q20Illustration, Explainer: P21G3Q20Explainer },
+  'WMI-21P3A-Q22': { Illustration: P21G3Q22Illustration, Explainer: P21G3Q22Explainer },
+  'WMI-21P3A-Q23': { Illustration: P21G3Q23Illustration, Explainer: P21G3Q23Explainer },
+  'WMI-21P3A-Q25': { Illustration: P21G3Q25Illustration, Explainer: P21G3Q25Explainer },
+  // 22 G1 Semifinal (WMI-22P1A)
+  'WMI-22P1A-Q1': { Illustration: P22G1Q1Illustration, Explainer: P22G1Q1Explainer },
+  'WMI-22P1A-Q4': { Illustration: P22G1Q4Illustration, Explainer: P22G1Q4Explainer },
+  'WMI-22P1A-Q7': { Illustration: P22G1Q7Illustration, Explainer: P22G1Q7Explainer },
+  'WMI-22P1A-Q8': { Illustration: P22G1Q8Illustration, Explainer: P22G1Q8Explainer },
+  'WMI-22P1A-Q11': { Illustration: P22G1Q11Illustration, Explainer: P22G1Q11Explainer },
+  'WMI-22P1A-Q14': { Illustration: P22G1Q14Illustration, Explainer: P22G1Q14Explainer },
+  'WMI-22P1A-Q15': { Illustration: P22G1Q15Illustration, Explainer: P22G1Q15Explainer },
+  'WMI-22P1A-Q17': { Illustration: P22G1Q17Illustration, Explainer: P22G1Q17Explainer },
+  'WMI-22P1A-Q19': { Illustration: P22G1Q19Illustration, Explainer: P22G1Q19Explainer },
+  'WMI-22P1A-Q20': { Illustration: P22G1Q20Illustration, Explainer: P22G1Q20Explainer },
+  'WMI-22P1A-Q21': { Illustration: P22G1Q21Illustration, Explainer: P22G1Q21Explainer },
+  'WMI-22P1A-Q22': { Illustration: P22G1Q22Illustration, Explainer: P22G1Q22Explainer },
+  'WMI-22P1A-Q23': { Illustration: P22G1Q23Illustration, Explainer: P22G1Q23Explainer },
+  'WMI-22P1A-Q25': { Illustration: P22G1Q25Illustration, Explainer: P22G1Q25Explainer },
+  // 22 G2 Semifinal (WMI-22P2A)
+  'WMI-22P2A-Q7': { Illustration: P22G2Q7Illustration, Explainer: P22G2Q7Explainer },
+  'WMI-22P2A-Q11': { Illustration: P22G2Q11Illustration, Explainer: P22G2Q11Explainer },
+  'WMI-22P2A-Q17': { Illustration: P22G2Q17Illustration, Explainer: P22G2Q17Explainer },
+  'WMI-22P2A-Q19': { Illustration: P22G2Q19Illustration, Explainer: P22G2Q19Explainer },
+  'WMI-22P2A-Q20': { Illustration: P22G2Q20Illustration, Explainer: P22G2Q20Explainer },
+  'WMI-22P2A-Q21': { Illustration: P22G2Q21Illustration, Explainer: P22G2Q21Explainer },
+  'WMI-22P2A-Q22': { Illustration: P22G2Q22Illustration, Explainer: P22G2Q22Explainer },
+  'WMI-22P2A-Q23': { Illustration: P22G2Q23Illustration, Explainer: P22G2Q23Explainer },
+  'WMI-22P2A-Q25': { Illustration: P22G2Q25Illustration, Explainer: P22G2Q25Explainer },
+  // 22 G3 Semifinal (WMI-22P3A)
+  'WMI-22P3A-Q3': { Illustration: P22G3Q3Illustration, Explainer: P22G3Q3Explainer },
+  'WMI-22P3A-Q5': { Illustration: P22G3Q5Illustration, Explainer: P22G3Q5Explainer },
+  'WMI-22P3A-Q7': { Illustration: P22G3Q7Illustration, Explainer: P22G3Q7Explainer },
+  'WMI-22P3A-Q9': { Illustration: P22G3Q9Illustration, Explainer: P22G3Q9Explainer },
+  'WMI-22P3A-Q10': { Illustration: P22G3Q10Illustration, Explainer: P22G3Q10Explainer },
+  'WMI-22P3A-Q17': { Illustration: P22G3Q17Illustration, Explainer: P22G3Q17Explainer },
+  'WMI-22P3A-Q18': { Illustration: P22G3Q18Illustration, Explainer: P22G3Q18Explainer },
+  'WMI-22P3A-Q21': { Illustration: P22G3Q21Illustration, Explainer: P22G3Q21Explainer },
+  'WMI-22P3A-Q22': { Illustration: P22G3Q22Illustration, Explainer: P22G3Q22Explainer },
+  'WMI-22P3A-Q24': { Illustration: P22G3Q24Illustration, Explainer: P22G3Q24Explainer },
+  // 23 G1 Semifinal (WMI-23P1A)
+  'WMI-23P1A-Q10': { Illustration: P23G1Q10Illustration, Explainer: P23G1Q10Explainer },
+  'WMI-23P1A-Q15': { Illustration: P23G1Q15Illustration, Explainer: P23G1Q15Explainer },
+  'WMI-23P1A-Q16': { Illustration: P23G1Q16Illustration, Explainer: P23G1Q16Explainer },
+  'WMI-23P1A-Q17': { Illustration: P23G1Q17Illustration, Explainer: P23G1Q17Explainer },
+  'WMI-23P1A-Q18': { Illustration: P23G1Q18Illustration, Explainer: P23G1Q18Explainer },
+  'WMI-23P1A-Q20': { Illustration: P23G1Q20Illustration, Explainer: P23G1Q20Explainer },
+  'WMI-23P1A-Q22': { Illustration: P23G1Q22Illustration, Explainer: P23G1Q22Explainer },
+  'WMI-23P1A-Q24': { Illustration: P23G1Q24Illustration, Explainer: P23G1Q24Explainer },
+  'WMI-23P1A-Q25': { Illustration: P23G1Q25Illustration, Explainer: P23G1Q25Explainer },
+  // 23 G2 Semifinal (WMI-23P2A)
+  'WMI-23P2A-Q2': { Illustration: P23G2Q2Illustration, Explainer: P23G2Q2Explainer },
+  'WMI-23P2A-Q4': { Illustration: P23G2Q4Illustration, Explainer: P23G2Q4Explainer },
+  'WMI-23P2A-Q5': { Illustration: P23G2Q5Illustration, Explainer: P23G2Q5Explainer },
+  'WMI-23P2A-Q7': { Illustration: P23G2Q7Illustration, Explainer: P23G2Q7Explainer },
+  'WMI-23P2A-Q12': { Illustration: P23G2Q12Illustration, Explainer: P23G2Q12Explainer },
+  'WMI-23P2A-Q17': { Illustration: P23G2Q17Illustration, Explainer: P23G2Q17Explainer },
+  'WMI-23P2A-Q18': { Illustration: P23G2Q18Illustration, Explainer: P23G2Q18Explainer },
+  'WMI-23P2A-Q24': { Illustration: P23G2Q24Illustration, Explainer: P23G2Q24Explainer },
+  'WMI-23P2A-Q25': { Illustration: P23G2Q25Illustration, Explainer: P23G2Q25Explainer },
+  // 23 G3 Semifinal (WMI-23P3A)
+  'WMI-23P3A-Q4': { Illustration: P23G3Q4Illustration, Explainer: P23G3Q4Explainer },
+  'WMI-23P3A-Q5': { Illustration: P23G3Q5Illustration, Explainer: P23G3Q5Explainer },
+  'WMI-23P3A-Q8': { Illustration: P23G3Q8Illustration, Explainer: P23G3Q8Explainer },
+  'WMI-23P3A-Q9': { Illustration: P23G3Q9Illustration, Explainer: P23G3Q9Explainer },
+  'WMI-23P3A-Q14': { Illustration: P23G3Q14Illustration, Explainer: P23G3Q14Explainer },
+  'WMI-23P3A-Q16': { Illustration: P23G3Q16Illustration, Explainer: P23G3Q16Explainer },
+  'WMI-23P3A-Q18': { Illustration: P23G3Q18Illustration, Explainer: P23G3Q18Explainer },
+  'WMI-23P3A-Q23': { Illustration: P23G3Q23Illustration, Explainer: P23G3Q23Explainer },
+  'WMI-23P3A-Q24': { Illustration: P23G3Q24Illustration, Explainer: P23G3Q24Explainer },
+  'WMI-23P3A-Q25': { Illustration: P23G3Q25Illustration, Explainer: P23G3Q25Explainer },
+  // 24 G1 Semifinal (WMI-24P1A)
+  'WMI-24P1A-Q4': { Illustration: P24G1Q4Illustration, Explainer: P24G1Q4Explainer },
+  'WMI-24P1A-Q6': { Illustration: P24G1Q6Illustration, Explainer: P24G1Q6Explainer },
+  'WMI-24P1A-Q11': { Illustration: P24G1Q11Illustration, Explainer: P24G1Q11Explainer },
+  'WMI-24P1A-Q12': { Illustration: P24G1Q12Illustration, Explainer: P24G1Q12Explainer },
+  'WMI-24P1A-Q13': { Illustration: P24G1Q13Illustration, Explainer: P24G1Q13Explainer },
+  'WMI-24P1A-Q14': { Illustration: P24G1Q14Illustration, Explainer: P24G1Q14Explainer },
+  'WMI-24P1A-Q15': { Illustration: P24G1Q15Illustration, Explainer: P24G1Q15Explainer },
+  'WMI-24P1A-Q17': { Illustration: P24G1Q17Illustration, Explainer: P24G1Q17Explainer },
+  'WMI-24P1A-Q18': { Illustration: P24G1Q18Illustration, Explainer: P24G1Q18Explainer },
+  'WMI-24P1A-Q19': { Illustration: P24G1Q19Illustration, Explainer: P24G1Q19Explainer },
+  'WMI-24P1A-Q21': { Illustration: P24G1Q21Illustration, Explainer: P24G1Q21Explainer },
+  'WMI-24P1A-Q22': { Illustration: P24G1Q22Illustration, Explainer: P24G1Q22Explainer },
+  'WMI-24P1A-Q23': { Illustration: P24G1Q23Illustration, Explainer: P24G1Q23Explainer },
+  'WMI-24P1A-Q24': { Illustration: P24G1Q24Illustration, Explainer: P24G1Q24Explainer },
+  'WMI-24P1A-Q25': { Illustration: P24G1Q25Illustration, Explainer: P24G1Q25Explainer },
+  // 24 G2 Semifinal (WMI-24P2A)
+  'WMI-24P2A-Q4': { Illustration: P24G2Q4Illustration, Explainer: P24G2Q4Explainer },
+  'WMI-24P2A-Q9': { Illustration: P24G2Q9Illustration, Explainer: P24G2Q9Explainer },
+  'WMI-24P2A-Q14': { Illustration: P24G2Q14Illustration, Explainer: P24G2Q14Explainer },
+  'WMI-24P2A-Q15': { Illustration: P24G2Q15Illustration, Explainer: P24G2Q15Explainer },
+  'WMI-24P2A-Q17': { Illustration: P24G2Q17Illustration, Explainer: P24G2Q17Explainer },
+  'WMI-24P2A-Q18': { Illustration: P24G2Q18Illustration, Explainer: P24G2Q18Explainer },
+  'WMI-24P2A-Q19': { Illustration: P24G2Q19Illustration, Explainer: P24G2Q19Explainer },
+  'WMI-24P2A-Q20': { Illustration: P24G2Q20Illustration, Explainer: P24G2Q20Explainer },
+  'WMI-24P2A-Q22': { Illustration: P24G2Q22Illustration, Explainer: P24G2Q22Explainer },
+  'WMI-24P2A-Q23': { Illustration: P24G2Q23Illustration, Explainer: P24G2Q23Explainer },
+  'WMI-24P2A-Q25': { Illustration: P24G2Q25Illustration, Explainer: P24G2Q25Explainer },
+  // 24 G3 Semifinal (WMI-24P3A)
+  'WMI-24P3A-Q1': { Illustration: P24G3Q1Illustration, Explainer: P24G3Q1Explainer },
+  'WMI-24P3A-Q3': { Illustration: P24G3Q3Illustration, Explainer: P24G3Q3Explainer },
+  'WMI-24P3A-Q8': { Illustration: P24G3Q8Illustration, Explainer: P24G3Q8Explainer },
+  'WMI-24P3A-Q12': { Illustration: P24G3Q12Illustration, Explainer: P24G3Q12Explainer },
+  'WMI-24P3A-Q17': { Illustration: P24G3Q17Illustration, Explainer: P24G3Q17Explainer },
+  'WMI-24P3A-Q18': { Illustration: P24G3Q18Illustration, Explainer: P24G3Q18Explainer },
+  'WMI-24P3A-Q19': { Illustration: P24G3Q19Illustration, Explainer: P24G3Q19Explainer },
+  'WMI-24P3A-Q23': { Illustration: P24G3Q23Illustration, Explainer: P24G3Q23Explainer },
+  // 25 G1 Semifinal (WMI-25P1A)
+  'WMI-25P1A-Q2': { Illustration: P25G1Q2Illustration, Explainer: P25G1Q2Explainer },
+  'WMI-25P1A-Q3': { Illustration: P25G1Q3Illustration, Explainer: P25G1Q3Explainer },
+  'WMI-25P1A-Q4': { Illustration: P25G1Q4Illustration, Explainer: P25G1Q4Explainer },
+  'WMI-25P1A-Q6': { Illustration: P25G1Q6Illustration, Explainer: P25G1Q6Explainer },
+  'WMI-25P1A-Q11': { Illustration: P25G1Q11Illustration, Explainer: P25G1Q11Explainer },
+  'WMI-25P1A-Q13': { Illustration: P25G1Q13Illustration, Explainer: P25G1Q13Explainer },
+  'WMI-25P1A-Q15': { Illustration: P25G1Q15Illustration, Explainer: P25G1Q15Explainer },
+  'WMI-25P1A-Q16': { Illustration: P25G1Q16Illustration, Explainer: P25G1Q16Explainer },
+  'WMI-25P1A-Q18': { Illustration: P25G1Q18Illustration, Explainer: P25G1Q18Explainer },
+  'WMI-25P1A-Q19': { Illustration: P25G1Q19Illustration, Explainer: P25G1Q19Explainer },
+  'WMI-25P1A-Q20': { Illustration: P25G1Q20Illustration, Explainer: P25G1Q20Explainer },
+  'WMI-25P1A-Q22': { Illustration: P25G1Q22Illustration, Explainer: P25G1Q22Explainer },
+  'WMI-25P1A-Q24': { Illustration: P25G1Q24Illustration, Explainer: P25G1Q24Explainer },
+  'WMI-25P1A-Q25': { Illustration: P25G1Q25Illustration, Explainer: P25G1Q25Explainer },
+  // 25 G2 Semifinal (WMI-25P2A)
+  'WMI-25P2A-Q2': { Illustration: P25G2Q2Illustration, Explainer: P25G2Q2Explainer },
+  'WMI-25P2A-Q3': { Illustration: P25G2Q3Illustration, Explainer: P25G2Q3Explainer },
+  'WMI-25P2A-Q15': { Illustration: P25G2Q15Illustration, Explainer: P25G2Q15Explainer },
+  'WMI-25P2A-Q17': { Illustration: P25G2Q17Illustration, Explainer: P25G2Q17Explainer },
+  'WMI-25P2A-Q19': { Illustration: P25G2Q19Illustration, Explainer: P25G2Q19Explainer },
+  'WMI-25P2A-Q21': { Illustration: P25G2Q21Illustration, Explainer: P25G2Q21Explainer },
+  'WMI-25P2A-Q22': { Illustration: P25G2Q22Illustration, Explainer: P25G2Q22Explainer },
+  'WMI-25P2A-Q23': { Illustration: P25G2Q23Illustration, Explainer: P25G2Q23Explainer },
+  // 25 G3 Semifinal (WMI-25P3A)
+  'WMI-25P3A-Q4': { Illustration: P25G3Q4Illustration, Explainer: P25G3Q4Explainer },
+  'WMI-25P3A-Q9': { Illustration: P25G3Q9Illustration, Explainer: P25G3Q9Explainer },
+  'WMI-25P3A-Q14': { Illustration: P25G3Q14Illustration, Explainer: P25G3Q14Explainer },
+  'WMI-25P3A-Q15': { Illustration: P25G3Q15Illustration, Explainer: P25G3Q15Explainer },
+  'WMI-25P3A-Q18': { Illustration: P25G3Q18Illustration, Explainer: P25G3Q18Explainer },
+  'WMI-25P3A-Q19': { Illustration: P25G3Q19Illustration, Explainer: P25G3Q19Explainer },
+  'WMI-25P3A-Q22': { Illustration: P25G3Q22Illustration, Explainer: P25G3Q22Explainer },
   'WMI-19F1A-Q1': { Illustration: StarRowsIllustration, Explainer: StarCountExplainer },
   'WMI-19F1A-Q2': { Explainer: LargestTensG1Explainer },
   'WMI-19F1A-Q3': { Explainer: SequenceFillG1Q3Explainer },
@@ -639,22 +1725,22 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-20F2A-Q7': { Illustration: ClockSequenceG2Illustration, Explainer: ClockTurnG2Explainer },
   'WMI-20F2A-Q8': { Illustration: FruitGridG2Illustration, Explainer: FruitCountG2Explainer },
   'WMI-20F2A-Q9': { Illustration: RangeCard20G2Illustration, Explainer: ProductRange20G2Explainer },
-  'WMI-20F2A-Q10': { Illustration: RosesG2Illustration },
+  'WMI-20F2A-Q10': { Illustration: RosesG2Illustration, Explainer: RosesG2Explainer },
   'WMI-20F2A-Q11': { Illustration: MinuteSectionsG2Illustration, Explainer: MinuteTicks20G2Explainer },
-  'WMI-20F2A-Q12': { Illustration: HeartSpadeSeqG2Illustration },
+  'WMI-20F2A-Q12': { Illustration: HeartSpadeSeqG2Illustration, Explainer: HeartSpadeSeqG2Explainer },
   'WMI-20F2A-Q13': { Illustration: DigitCluesG2Illustration, Explainer: DigitClues20G2Explainer },
-  'WMI-20F2A-Q14': { Illustration: PatternRowsG2Illustration },
-  'WMI-20F2A-Q15': { Illustration: NumberLineHopsG2Illustration },
+  'WMI-20F2A-Q14': { Illustration: PatternRowsG2Illustration, Explainer: PatternRowsG2Explainer },
+  'WMI-20F2A-Q15': { Illustration: NumberLineHopsG2Illustration, Explainer: NumberLineHopsG2Explainer },
   'WMI-20F2A-Q16': { Illustration: FivesCard20G2Illustration, Explainer: OrderOps20G2Explainer },
   'WMI-20F2A-Q17': { Illustration: DigitCards20G2Illustration, Explainer: EvenExtremes20G2Explainer },
-  'WMI-20F2A-Q18': { Illustration: GridSumsG2Illustration },
-  'WMI-20F2A-Q19': { Illustration: RepdigitAddG2Illustration },
-  'WMI-20F2A-Q20': { Illustration: WeatherDaysG2Illustration },
-  'WMI-20F2A-Q21': { Illustration: CubeNetsG2Illustration },
-  'WMI-20F2A-Q22': { Illustration: BalanceScalesG2Illustration },
-  'WMI-20F2A-Q23': { Illustration: SudokuExprG2Illustration },
+  'WMI-20F2A-Q18': { Illustration: GridSumsG2Illustration, Explainer: GridSumsG2Explainer },
+  'WMI-20F2A-Q19': { Illustration: RepdigitAddG2Illustration, Explainer: RepdigitAddG2Explainer },
+  'WMI-20F2A-Q20': { Illustration: WeatherDaysG2Illustration, Explainer: WeatherDaysG2Explainer },
+  'WMI-20F2A-Q21': { Illustration: CubeNetsG2Illustration, Explainer: CubeNetsG2Explainer },
+  'WMI-20F2A-Q22': { Illustration: BalanceScalesG2Illustration, Explainer: BalanceScalesG2Explainer },
+  'WMI-20F2A-Q23': { Illustration: SudokuExprG2Illustration, Explainer: SudokuExprG2Explainer },
   'WMI-20F2A-Q24': { Illustration: NineCards20G2Illustration, Explainer: CardCombos20G2Explainer },
-  'WMI-20F2A-Q25': { Illustration: DigitGridG2Illustration },
+  'WMI-20F2A-Q25': { Illustration: DigitGridG2Illustration, Explainer: DigitGridG2Explainer },
   'WMI-20F3A-Q1': { Illustration: SumCard20G3Illustration, Explainer: ComputeChain20G3Explainer },
   'WMI-20F3A-Q2': { Illustration: WGridsG3Illustration, Explainer: WGridCountG3Explainer },
   'WMI-20F3A-Q3': { Illustration: BoxUnder300G3Illustration, Explainer: UnderThreeHundred20G3Explainer },
@@ -762,12 +1848,19 @@ const VISUALS: Record<string, QuestionVisual> = {
   // givens, same quads, same answer 54123) — reuse those components.
   'WMI-21F3A-Q25': { Illustration: Sudoku21G2Illustration, Explainer: Sudoku21G2Explainer },
   'WMI-22F2A-Q1': { Illustration: Shark22G2Illustration, Explainer: Shark22G2Explainer },
+  'WMI-22F2A-Q2': { Explainer: Compute22G2Explainer },
   'WMI-22F2A-Q3': { Illustration: PaperStack22G2Illustration, Explainer: PaperStack22G2Explainer },
+  'WMI-22F2A-Q4': { Explainer: ShareCandy22G2Explainer },
   'WMI-22F2A-Q5': { Illustration: Balls22G2Illustration, Explainer: Balls22G2Explainer },
+  'WMI-22F2A-Q6': { Explainer: Birthday22G2Explainer },
+  'WMI-22F2A-Q7': { Explainer: DoubleTree22G2Explainer },
   'WMI-22F2A-Q8': { Illustration: ThickLines22G2Illustration, Explainer: ThickLines22G2Explainer },
+  'WMI-22F2A-Q9': { Explainer: BalanceEq22G2Explainer },
   'WMI-22F2A-Q10': { Illustration: ChildrenOrder22G2Illustration, Explainer: ChildrenOrder22G2Explainer },
   'WMI-22F2A-Q11': { Illustration: Targets22G2Illustration, Explainer: Targets22G2Explainer },
   'WMI-22F2A-Q12': { Illustration: EggPath22G2Illustration, Explainer: EggPath22G2Explainer },
+  'WMI-22F2A-Q13': { Explainer: CardsClosest22G2Explainer },
+  'WMI-22F2A-Q14': { Explainer: DinoEggs22G2Explainer },
   'WMI-22F2A-Q15': { Illustration: Cups22G2Illustration, Explainer: Cups22G2Explainer },
   'WMI-22F2A-Q16': { Illustration: Flowchart22G2Illustration, Explainer: Flowchart22G2Explainer },
   'WMI-22F2A-Q17': { Illustration: Balance22G2Illustration, Explainer: Balance22G2Explainer },
@@ -775,10 +1868,21 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-22F2A-Q19': { Illustration: ShapeAddition22G2Illustration, Explainer: ShapeAddition22G2Explainer },
   'WMI-22F2A-Q20': { Illustration: PasswordDial22G2Illustration, Explainer: PasswordDial22G2Explainer },
   'WMI-22F2A-Q21': { Illustration: CardHands22G2Illustration, Explainer: CardHands22G2Explainer },
+  'WMI-22F2A-Q22': { Explainer: BallShare22G2Explainer },
   'WMI-22F2A-Q23': { Illustration: Soldiers22G2Illustration, Explainer: Soldiers22G2Explainer },
   'WMI-22F2A-Q24': { Illustration: MirrorBlocks22G2Illustration, Explainer: MirrorBlocks22G2Explainer },
   'WMI-22F2A-Q25': { Illustration: TCover22G2Illustration, Explainer: TCover22G2Explainer },
   // 2022 G3 (WMI-22F3A) — Paper A batch
+  'WMI-22F3A-Q1': { Explainer: Compute22G3Explainer },
+  'WMI-22F3A-Q6': { Explainer: CakeBudget22G3Explainer },
+  'WMI-22F3A-Q7': { Explainer: BlouseSkirt22G3Explainer },
+  'WMI-22F3A-Q9': { Explainer: EvenCount22G3Explainer },
+  'WMI-22F3A-Q10': { Explainer: MeetingTime22G3Explainer },
+  'WMI-22F3A-Q12': { Explainer: Visitors22G3Explainer },
+  'WMI-22F3A-Q14': { Explainer: DiffSeq22G3Explainer },
+  'WMI-22F3A-Q15': { Explainer: NinesPattern22G3Explainer },
+  'WMI-22F3A-Q16': { Explainer: NextYear22G3Explainer },
+  'WMI-22F3A-Q22': { Explainer: OpenDoors22G3Explainer },
   'WMI-22F3A-Q2': { Illustration: PieThirds22G3Illustration, Explainer: PieThirds22G3Explainer },
   'WMI-22F3A-Q3': { Illustration: NestedTri22G3Illustration, Explainer: NestedTri22G3Explainer },
   'WMI-22F3A-Q4': { Illustration: StreetMap22G3Illustration, Explainer: StreetMap22G3Explainer },
@@ -794,6 +1898,242 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-22F3A-Q23': { Illustration: SoldierRoad22G3Illustration, Explainer: SoldierRoad22G3Explainer },
   'WMI-22F3A-Q24': { Illustration: MirrorSolid22G3Illustration, Explainer: MirrorSolid22G3Explainer },
   'WMI-22F3A-Q25': { Illustration: NumberGrid22G3Illustration, Explainer: NumberGrid22G3Explainer },
+
+  // 2022 G1 Final
+  'WMI-22F1A-Q1': { Illustration: Money22G1Illustration, Explainer: Money22G1Explainer },
+  'WMI-22F1A-Q2': { Illustration: Letters22G1Illustration, Explainer: Letters22G1Explainer },
+  'WMI-22F1A-Q3': { Explainer: AnimalLegs22G1Explainer },
+  'WMI-22F1A-Q4': { Illustration: NumberVenn22G1Illustration, Explainer: NumberVenn22G1Explainer },
+  'WMI-22F1A-Q5': { Explainer: Fruit22G1Explainer },
+  'WMI-22F1A-Q6': { Explainer: LuckyNumber22G1Explainer },
+  'WMI-22F1A-Q7': { Explainer: Solid22G1Explainer },
+  'WMI-22F1A-Q8': { Illustration: BlockPack22G1Illustration, Explainer: BlockPack22G1Explainer },
+  'WMI-22F1A-Q9': { Illustration: Balance22G1Illustration, Explainer: Balance22G1Explainer },
+  'WMI-22F1A-Q10': { Explainer: CircleRect22G1Explainer },
+  'WMI-22F1A-Q11': { Explainer: Balls22G1Explainer },
+  'WMI-22F1A-Q12': { Illustration: TwoLines22G1Illustration, Explainer: TwoLines22G1Explainer },
+  'WMI-22F1A-Q13': { Illustration: Locks22G1Illustration, Explainer: Locks22G1Explainer },
+  'WMI-22F1A-Q14': { Illustration: HeightOrder22G1Illustration, Explainer: HeightOrder22G1Explainer },
+  'WMI-22F1A-Q15': { Illustration: NumberSnake22G1Illustration, Explainer: NumberSnake22G1Explainer },
+  'WMI-22F1A-Q16': { Illustration: BracketGrid22G1Illustration, Explainer: BracketGrid22G1Explainer },
+  'WMI-22F1A-Q17': { Illustration: Vases22G1Illustration, Explainer: Vases22G1Explainer },
+  'WMI-22F1A-Q18': { Illustration: HexTree22G1Illustration, Explainer: HexTree22G1Explainer },
+  'WMI-22F1A-Q19': { Illustration: TriCount22G1Illustration, Explainer: TriCount22G1Explainer },
+  'WMI-22F1A-Q20': { Explainer: CustomOp22G1Explainer },
+  'WMI-22F1A-Q21': { Illustration: Dial22G1Illustration, Explainer: Dial22G1Explainer },
+  'WMI-22F1A-Q22': { Illustration: KnightTour22G1Illustration, Explainer: KnightTour22G1Explainer },
+  'WMI-22F1A-Q23': { Illustration: SoldierRoad22G1Illustration, Explainer: SoldierRoad22G1Explainer },
+  'WMI-22F1A-Q24': { Illustration: MirrorBlocks22G1Illustration, Explainer: MirrorBlocks22G1Explainer },
+  'WMI-22F1A-Q25': { Illustration: EdgeMatch22G1Illustration, Explainer: EdgeMatch22G1Explainer },
+
+  // 2023 G1 Final
+  'WMI-23F1A-Q2': { Explainer: SmallestExpr23G1Explainer },
+  'WMI-23F1A-Q4': { Explainer: AppleBaskets23G1Explainer },
+  'WMI-23F1A-Q5': { Explainer: ChangeMoney23G1Explainer },
+  'WMI-23F1A-Q7': { Explainer: BalloonTrade23G1Explainer },
+  'WMI-23F1A-Q8': { Explainer: UnitsDigit23G1Explainer },
+  'WMI-23F1A-Q9': { Explainer: SignFill23G1Explainer },
+  'WMI-23F1A-Q15': { Explainer: ColorCycle23G1Explainer },
+  'WMI-23F1A-Q1': { Illustration: GoBoard23G1Illustration, Explainer: GoBoard23G1Explainer },
+  'WMI-23F1A-Q3': { Illustration: NumberStrip23G1Illustration, Explainer: NumberStrip23G1Explainer },
+  'WMI-23F1A-Q16': { Illustration: ShapeAdd23G1Illustration, Explainer: ShapeAdd23G1Explainer },
+  'WMI-23F1A-Q19': { Illustration: StarSquares23G1Illustration, Explainer: StarSquares23G1Explainer },
+  'WMI-23F1A-Q11': { Illustration: ShapePattern23G1Illustration, Explainer: ShapePattern23G1Explainer },
+  'WMI-23F1A-Q18': { Illustration: PaperFold23G1Illustration, Explainer: PaperFold23G1Explainer },
+  'WMI-23F1A-Q21': { Illustration: GridFill23G1Illustration, Explainer: GridFill23G1Explainer },
+  'WMI-23F1A-Q23': { Illustration: MatchSquares23G1Illustration, Explainer: MatchSquares23G1Explainer },
+  'WMI-23F1A-Q6': { Illustration: FreqGrid23G1Illustration, Explainer: FreqGrid23G1Explainer },
+  'WMI-23F1A-Q12': { Illustration: Bracelets23G1Illustration, Explainer: Bracelets23G1Explainer },
+  'WMI-23F1A-Q20': { Illustration: RouteTree23G1Illustration, Explainer: RouteTree23G1Explainer },
+  'WMI-23F1A-Q22': { Illustration: RoomMaze23G1Illustration, Explainer: RoomMaze23G1Explainer },
+  'WMI-23F1A-Q17': { Illustration: SegmentCount23G1Illustration, Explainer: SegmentCount23G1Explainer },
+  'WMI-23F1A-Q24': { Illustration: PatternRules23G1Illustration, Explainer: PatternRules23G1Explainer },
+  'WMI-23F1A-Q25': { Illustration: RobotMaze23G1Illustration, Explainer: RobotMaze23G1Explainer },
+  'WMI-23F1A-Q10': { Illustration: Jigsaw23G1Illustration, Explainer: Jigsaw23G1Explainer },
+  'WMI-23F1A-Q13': { Illustration: CardStats23G1Illustration, Explainer: CardStats23G1Explainer },
+  'WMI-23F2A-Q1': { Explainer: RoundSubtract23G2Explainer },
+  'WMI-23F2A-Q3': { Explainer: MultipleNine23G2Explainer },
+  'WMI-23F2A-Q6': { Explainer: ApplesBaskets23G2Explainer },
+  'WMI-23F2A-Q7': { Explainer: PokemonWin23G2Explainer },
+  'WMI-23F2A-Q8': { Explainer: DiceSum23G2Explainer },
+  'WMI-23F2A-Q9': { Explainer: HamburgerDeal23G2Explainer },
+  'WMI-23F2A-Q10': { Explainer: MaxExpr23G2Explainer },
+  'WMI-23F2A-Q11': { Explainer: InterleaveSeq23G2Explainer },
+  'WMI-23F2A-Q13': { Explainer: ExhibitOverlap23G2Explainer },
+  'WMI-23F2A-Q14': { Explainer: DigitCount23G2Explainer },
+  'WMI-23F2A-Q16': { Explainer: ComputeProducts23G2Explainer },
+  'WMI-23F2A-Q18': { Explainer: CryptoABCD23G2Explainer },
+  'WMI-23F2A-Q20': { Explainer: BlockSeq23G2Explainer },
+  'WMI-23F2A-Q22': { Explainer: ChallengeScore23G2Explainer },
+  'WMI-23F2A-Q23': { Explainer: UnusedDigit23G2Explainer },
+  'WMI-23F2A-Q2': { Illustration: Cards23G2Illustration, Explainer: Cards23G2Explainer },
+  'WMI-23F2A-Q4': { Illustration: PeggyMap23G2Illustration, Explainer: PeggyMap23G2Explainer },
+  'WMI-23F2A-Q5': { Illustration: Lines23G2Illustration, Explainer: Lines23G2Explainer },
+  'WMI-23F2A-Q12': { Illustration: CardStats23G2Illustration, Explainer: CardStats23G2Explainer },
+  'WMI-23F2A-Q17': { Illustration: StarGrid23G2Illustration, Explainer: StarGrid23G2Explainer },
+  'WMI-23F2A-Q21': { Illustration: Matchsticks23G2Illustration, Explainer: Matchsticks23G2Explainer },
+  'WMI-23F2A-Q24': { Illustration: Pattern23G2Illustration, Explainer: Pattern23G2Explainer },
+  'WMI-23F2A-Q25': { Illustration: RobotMaze23G2Illustration, Explainer: RobotMaze23G2Explainer },
+  'WMI-24F2A-Q1': { Explainer: MatchProduct24G2Explainer },
+  'WMI-24F2A-Q5': { Explainer: TreesPlan24G2Explainer },
+  'WMI-24F2A-Q6': { Explainer: TrainGap24G2Explainer },
+  'WMI-24F2A-Q7': { Explainer: TwoItems24G2Explainer },
+  'WMI-24F2A-Q10': { Explainer: RankSqueeze24G2Explainer },
+  'WMI-24F2A-Q11': { Explainer: ThreeWeights24G2Explainer },
+  'WMI-24F2A-Q17': { Explainer: GreedyEven24G2Explainer },
+  'WMI-24F2A-Q20': { Explainer: MaxOddSum24G2Explainer },
+  'WMI-24F2A-Q22': { Explainer: RockPaper24G2Explainer },
+  'WMI-24F2A-Q2': { Illustration: Parallelogram24G2Illustration, Explainer: Parallelogram24G2Explainer },
+  'WMI-24F2A-Q3': { Illustration: AntPath24G2Illustration, Explainer: AntPath24G2Explainer },
+  'WMI-24F2A-Q4': { Illustration: GrayGrid24G2Illustration, Explainer: GrayGrid24G2Explainer },
+  'WMI-24F2A-Q8': { Illustration: Field24G2Illustration, Explainer: Field24G2Explainer },
+  'WMI-24F2A-Q9': { Illustration: Solid24G2Illustration, Explainer: Solid24G2Explainer },
+  'WMI-24F2A-Q12': { Illustration: Seating24G2Illustration, Explainer: Seating24G2Explainer },
+  'WMI-24F2A-Q13': { Illustration: Tangram24G2Illustration, Explainer: Tangram24G2Explainer },
+  'WMI-24F2A-Q14': { Illustration: TrainArrows24G2Illustration, Explainer: TrainArrows24G2Explainer },
+  'WMI-24F2A-Q15': { Illustration: RollingHex24G2Illustration, Explainer: RollingHex24G2Explainer },
+  'WMI-24F2A-Q16': { Illustration: ShapeEq24G2Illustration, Explainer: ShapeEq24G2Explainer },
+  'WMI-24F2A-Q19': { Illustration: TriSticks24G2Illustration, Explainer: TriSticks24G2Explainer },
+  'WMI-24F2A-Q21': { Illustration: Parking24G2Illustration, Explainer: Parking24G2Explainer },
+  'WMI-24F2A-Q23': { Illustration: Grid24G2Illustration, Explainer: Grid24G2Explainer },
+  'WMI-24F2A-Q24': { Illustration: BoardPath24G2Illustration, Explainer: BoardPath24G2Explainer },
+  'WMI-24F2A-Q25': { Illustration: SymbolGrid24G2Illustration, Explainer: SymbolGrid24G2Explainer },
+  'WMI-24F3A-Q1': { Explainer: DivZero24G3Explainer },
+  'WMI-24F3A-Q5': { Explainer: BusFill24G3Explainer },
+  'WMI-24F3A-Q7': { Explainer: CigaretteTime24G3Explainer },
+  'WMI-24F3A-Q11': { Explainer: MealCombos24G3Explainer },
+  'WMI-24F3A-Q13': { Explainer: ColumnCrypto24G3Explainer },
+  'WMI-24F3A-Q16': { Explainer: MaxQuotient24G3Explainer },
+  'WMI-24F3A-Q17': { Explainer: Matchsticks24G3Explainer },
+  'WMI-24F3A-Q18': { Explainer: CardEquations24G3Explainer },
+  'WMI-24F3A-Q19': { Explainer: TreeAges24G3Explainer },
+  'WMI-24F3A-Q21': { Explainer: Palindrome24G3Explainer },
+  'WMI-24F3A-Q2': { Illustration: ShipBridge24G3Illustration, Explainer: ShipBridge24G3Explainer },
+  'WMI-24F3A-Q3': { Illustration: Classroom24G3Illustration, Explainer: Classroom24G3Explainer },
+  'WMI-24F3A-Q4': { Illustration: RaceTrack24G3Illustration, Explainer: RaceTrack24G3Explainer },
+  'WMI-24F3A-Q6': { Illustration: CompositeRect24G3Illustration, Explainer: CompositeRect24G3Explainer },
+  'WMI-24F3A-Q9': { Illustration: Trapezoid24G3Illustration, Explainer: Trapezoid24G3Explainer },
+  'WMI-24F3A-Q10': { Illustration: ViewTable24G3Illustration, Explainer: ViewTable24G3Explainer },
+  'WMI-24F3A-Q12': { Illustration: SubTriangle24G3Illustration, Explainer: SubTriangle24G3Explainer },
+  'WMI-24F3A-Q14': { Illustration: DiceNet24G3Illustration, Explainer: DiceNet24G3Explainer },
+  'WMI-24F3A-Q15': { Illustration: PentRoll24G3Illustration, Explainer: PentRoll24G3Explainer },
+  'WMI-24F3A-Q20': { Illustration: ButtonPanel24G3Illustration, Explainer: ButtonPanel24G3Explainer },
+  'WMI-24F3A-Q22': { Illustration: CardLayout24G3Illustration, Explainer: CardLayout24G3Explainer },
+  'WMI-24F3A-Q23': { Illustration: CutCount24G3Illustration, Explainer: CutCount24G3Explainer },
+  'WMI-24F3A-Q24': { Illustration: RabbitGrid24G3Illustration, Explainer: RabbitGrid24G3Explainer },
+  'WMI-24F3A-Q25': { Illustration: NumGrid24G3Illustration, Explainer: NumGrid24G3Explainer },
+  'WMI-25F2A-Q1': { Explainer: SortMiddle25G2Explainer },
+  'WMI-25F2A-Q3': { Explainer: Direction25G2Explainer },
+  'WMI-25F2A-Q4': { Explainer: ConsecEven25G2Explainer },
+  'WMI-25F2A-Q6': { Explainer: SquareCandy25G2Explainer },
+  'WMI-25F2A-Q7': { Explainer: ShipDirection25G2Explainer },
+  'WMI-25F2A-Q9': { Explainer: LuckyNumber25G2Explainer },
+  'WMI-25F2A-Q10': { Explainer: TornPages25G2Explainer },
+  'WMI-25F2A-Q12': { Explainer: DateBoxes25G2Explainer },
+  'WMI-25F2A-Q14': { Explainer: GreedyRemove25G2Explainer },
+  'WMI-25F2A-Q16': { Explainer: SubtractEight25G2Explainer },
+  'WMI-25F2A-Q18': { Explainer: ShapeSums25G2Explainer },
+  'WMI-25F2A-Q21': { Explainer: AppendDigits25G2Explainer },
+  'WMI-25F2A-Q22': { Explainer: ModClues25G2Explainer },
+  'WMI-25F2A-Q25': { Explainer: BalanceNumbers25G2Explainer },
+  'WMI-25F2A-Q2': { Illustration: StarAdd25G2Illustration, Explainer: StarAdd25G2Explainer },
+  'WMI-25F2A-Q5': { Illustration: RopeRuler25G2Illustration, Explainer: RopeRuler25G2Explainer },
+  'WMI-25F2A-Q8': { Illustration: Gomoku25G2Illustration, Explainer: Gomoku25G2Explainer },
+  'WMI-25F2A-Q11': { Illustration: FaceSeq25G2Illustration, Explainer: FaceSeq25G2Explainer },
+  'WMI-25F2A-Q15': { Illustration: Ordering25G2Illustration, Explainer: Ordering25G2Explainer },
+  'WMI-25F2A-Q17': { Illustration: Cube2025G2Illustration, Explainer: Cube2025G2Explainer },
+  'WMI-25F2A-Q19': { Illustration: ProductGrid25G2Illustration, Explainer: ProductGrid25G2Explainer },
+  'WMI-25F2A-Q20': { Illustration: Roundabout25G2Illustration, Explainer: Roundabout25G2Explainer },
+  'WMI-25F2A-Q23': { Illustration: Jerseys25G2Illustration, Explainer: Jerseys25G2Explainer },
+  'WMI-25F2A-Q24': { Illustration: MoneyGrid25G2Illustration, Explainer: MoneyGrid25G2Explainer },
+  'WMI-25F3A-Q4': { Illustration: RectSquare25G3Illustration, Explainer: RectSquare25G3Explainer },
+  'WMI-25F3A-Q8': { Illustration: StationMap25G3Illustration, Explainer: StationMap25G3Explainer },
+  'WMI-25F3A-Q10': { Illustration: Folding25G3Illustration, Explainer: Folding25G3Explainer },
+  'WMI-25F3A-Q11': { Illustration: Assemble25G3Illustration, Explainer: Assemble25G3Explainer },
+  'WMI-25F3A-Q13': { Illustration: Coin25G3Illustration, Explainer: Coin25G3Explainer },
+  'WMI-25F3A-Q14': { Illustration: MultGrid25G3Illustration, Explainer: MultGrid25G3Explainer },
+  'WMI-25F3A-Q17': { Illustration: Symmetry25G3Illustration, Explainer: Symmetry25G3Explainer },
+  'WMI-25F3A-Q19': { Illustration: ParaDivide25G3Illustration, Explainer: ParaDivide25G3Explainer },
+  'WMI-25F3A-Q25': { Illustration: Elephant25G3Illustration, Explainer: Elephant25G3Explainer },
+
+  // 2024 G1 Final
+  'WMI-24F1A-Q1': { Explainer: EqualsFifteen24G1Explainer },
+  'WMI-24F1A-Q2': { Explainer: BuildAdd24G1Explainer },
+  'WMI-24F1A-Q4': { Explainer: CupsHandle24G1Explainer },
+  'WMI-24F1A-Q6': { Explainer: CakeShortfall24G1Explainer },
+  'WMI-24F1A-Q7': { Explainer: TwoClues24G1Explainer },
+  'WMI-24F1A-Q8': { Explainer: DigitTally24G1Explainer },
+  'WMI-24F1A-Q9': { Explainer: BusCarry24G1Explainer },
+  'WMI-24F1A-Q12': { Explainer: CoinTotals24G1Explainer },
+  'WMI-24F1A-Q19': { Explainer: ChocoLeft24G1Explainer },
+  'WMI-24F1A-Q3': { Illustration: Segments24G1Illustration, Explainer: Segments24G1Explainer },
+  'WMI-24F1A-Q5': { Illustration: DiceNet24G1Illustration, Explainer: DiceNet24G1Explainer },
+  'WMI-24F1A-Q10': { Illustration: NumberVenn24G1Illustration, Explainer: NumberVenn24G1Explainer },
+  'WMI-24F1A-Q15': { Illustration: ShapeAdd24G1Illustration, Explainer: ShapeAdd24G1Explainer },
+  'WMI-24F1A-Q16': { Illustration: ExprPattern24G1Illustration, Explainer: ExprPattern24G1Explainer },
+  'WMI-24F1A-Q17': { Illustration: DigitCards24G1Illustration, Explainer: DigitCards24G1Explainer },
+  'WMI-24F1A-Q18': { Illustration: SumCards24G1Illustration, Explainer: SumCards24G1Explainer },
+  'WMI-24F1A-Q23': { Illustration: RemoveOp24G1Illustration, Explainer: RemoveOp24G1Explainer },
+  'WMI-24F1A-Q20': { Illustration: BallTubes24G1Illustration, Explainer: BallTubes24G1Explainer },
+  'WMI-24F1A-Q21': { Illustration: LogicGrid24G1Illustration, Explainer: LogicGrid24G1Explainer },
+  'WMI-24F1A-Q22': { Illustration: BlockStack24G1Illustration, Explainer: BlockStack24G1Explainer },
+  'WMI-24F1A-Q25': { Illustration: SumGrid24G1Illustration },
+  'WMI-24F1A-Q11': { Illustration: AnimalMaze24G1Illustration, Explainer: AnimalMaze24G1Explainer },
+  'WMI-24F1A-Q13': { Illustration: ClockPic24G1Illustration, Explainer: ClockPic24G1Explainer },
+  'WMI-24F1A-Q14': { Illustration: CookieSort24G1Illustration, Explainer: CookieSort24G1Explainer },
+  'WMI-24F1A-Q24': { Illustration: BallSort24G1Illustration, Explainer: BallSort24G1Explainer },
+
+  // 2025 G1 Final
+  'WMI-25F1A-Q3': { Explainer: OddCount25G1Explainer },
+  'WMI-25F1A-Q4': { Explainer: MiddleExpr25G1Explainer },
+  'WMI-25F1A-Q9': { Explainer: FlowerCost25G1Explainer },
+  'WMI-25F1A-Q11': { Explainer: DigitSumEight25G1Explainer },
+  'WMI-25F1A-Q18': { Explainer: BusStanding25G1Explainer },
+  'WMI-25F1A-Q19': { Explainer: AnsweredGap25G1Explainer },
+  'WMI-25F1A-Q15': { Illustration: LineSquares25G1Illustration, Explainer: LineSquares25G1Explainer },
+  'WMI-25F1A-Q16': { Illustration: CubeRecolor25G1Illustration, Explainer: CubeRecolor25G1Explainer },
+  'WMI-25F1A-Q17': { Illustration: DigitTriple25G1Illustration, Explainer: DigitTriple25G1Explainer },
+  'WMI-25F1A-Q20': { Illustration: TheaterSeats25G1Illustration, Explainer: TheaterSeats25G1Explainer },
+  'WMI-25F1A-Q1': { Illustration: Stones25G1Illustration, Explainer: Stones25G1Explainer },
+  'WMI-25F1A-Q6': { Illustration: AppleBoxes25G1Illustration, Explainer: AppleBoxes25G1Explainer },
+  'WMI-25F1A-Q7': { Illustration: BoatTranslate25G1Illustration, Explainer: BoatTranslate25G1Explainer },
+  'WMI-25F1A-Q12': { Illustration: NumberPattern25G1Illustration, Explainer: NumberPattern25G1Explainer },
+  'WMI-25F1A-Q5': { Illustration: FlippedRuler25G1Illustration, Explainer: FlippedRuler25G1Explainer },
+  'WMI-25F1A-Q10': { Illustration: ChildrenChairs25G1Illustration, Explainer: ChildrenChairs25G1Explainer },
+  'WMI-25F1A-Q22': { Illustration: BalanceScales25G1Illustration, Explainer: BalanceScales25G1Explainer },
+  'WMI-25F1A-Q24': { Illustration: SpecialTrees25G1Illustration, Explainer: SpecialTrees25G1Explainer },
+  'WMI-25F1A-Q2': { Illustration: ClothingPrices25G1Illustration, Explainer: ClothingPrices25G1Explainer },
+  'WMI-25F1A-Q23': { Illustration: HomeMap25G1Illustration, Explainer: HomeMap25G1Explainer },
+  'WMI-25F1A-Q25': { Illustration: NumberPyramid25G1Illustration, Explainer: NumberPyramid25G1Explainer },
+  'WMI-25F1A-Q21': { Illustration: CircleSums25G1Illustration, Explainer: CircleSums25G1Explainer },
+  'WMI-25F1A-Q8': { Illustration: HundredsChart25G1Illustration, Explainer: HundredsChart25G1Explainer },
+  'WMI-25F1A-Q13': { Illustration: ShapeSeq25G1Illustration, Explainer: ShapeSeq25G1Explainer },
+  'WMI-25F1A-Q14': { Illustration: CountFigures25G1Illustration, Explainer: CountFigures25G1Explainer },
+
+  // 2023 G3 Final
+  'WMI-23F3A-Q1': { Explainer: SubtractMany23G3Explainer },
+  'WMI-23F3A-Q3': { Explainer: MilkTotal23G3Explainer },
+  'WMI-23F3A-Q6': { Explainer: PagesLeft23G3Explainer },
+  'WMI-23F3A-Q9': { Explainer: DigitDiff23G3Explainer },
+  'WMI-23F3A-Q10': { Explainer: SwapDivide23G3Explainer },
+  'WMI-23F3A-Q16': { Explainer: ProductCancel23G3Explainer },
+  'WMI-23F3A-Q20': { Explainer: ConsecDiv23G3Explainer },
+  'WMI-23F3A-Q21': { Explainer: ChallengeScore23G3Explainer },
+  'WMI-23F3A-Q24': { Explainer: GreedyDelete23G3Explainer },
+  'WMI-23F3A-Q2': { Illustration: Angles23G3Illustration, Explainer: Angles23G3Explainer },
+  'WMI-23F3A-Q4': { Illustration: OverlapRects23G3Illustration, Explainer: OverlapRects23G3Explainer },
+  'WMI-23F3A-Q5': { Illustration: SnailPath23G3Illustration, Explainer: SnailPath23G3Explainer },
+  'WMI-23F3A-Q7': { Illustration: ParkingFee23G3Illustration, Explainer: ParkingFee23G3Explainer },
+  'WMI-23F3A-Q8': { Illustration: MetroGraph23G3Illustration, Explainer: MetroGraph23G3Explainer },
+  'WMI-23F3A-Q11': { Illustration: ClockPieces23G3Illustration, Explainer: ClockPieces23G3Explainer },
+  'WMI-23F3A-Q13': { Illustration: TriGridQuad23G3Illustration, Explainer: TriGridQuad23G3Explainer },
+  'WMI-23F3A-Q15': { Illustration: Spiral23G3Illustration, Explainer: Spiral23G3Explainer },
+  'WMI-23F3A-Q17': { Illustration: FoldTriangle23G3Illustration, Explainer: FoldTriangle23G3Explainer },
+  'WMI-23F3A-Q18': { Illustration: FiveSquares23G3Illustration, Explainer: FiveSquares23G3Explainer },
+  'WMI-23F3A-Q19': { Illustration: Pinwheel23G3Illustration, Explainer: Pinwheel23G3Explainer },
+  'WMI-23F3A-Q22': { Illustration: MatchSquares23G1Illustration, Explainer: Match23G3Explainer },
+  'WMI-23F3A-Q23': { Illustration: NumberGrid23G3Illustration, Explainer: NumberGrid23G3Explainer },
+  'WMI-23F3A-Q25': { Illustration: RobotMaze23G3Illustration, Explainer: RobotMaze23G3Explainer },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -802,6 +2142,16 @@ const VISUALS: Record<string, QuestionVisual> = {
 type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 
 const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
+  // 2023 G2: Q24 options are the five candidate shape patterns.
+  'WMI-23F2A-Q24': Pattern23G2Option,
+  // 2024 G2: Q13 tangram-letter options, Q14 arrow-pair options.
+  'WMI-24F2A-Q13': Tangram24G2Option,
+  'WMI-24F2A-Q14': TrainArrows24G2Option,
+  // 2025 G2: Q11 face-stack pattern options.
+  'WMI-25F2A-Q11': FaceSeq25G2Option,
+  // 2025 G3: Q10 folded-shape options, Q13 spun-coin options.
+  'WMI-25F3A-Q10': Folding25G3Option,
+  'WMI-25F3A-Q13': Coin25G3Option,
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': PaintedArea22G3Option,
   'WMI-22F3A-Q8': HalfShade22G3Option,
@@ -842,6 +2192,28 @@ const CHOICE_RENDERERS: Record<string, ChoiceRenderer> = {
   'WMI-21F3A-Q12': ShadedOption21G3,
   'WMI-22F2A-Q5': BallOption22G2,
   'WMI-22F2A-Q8': ThickLineOption22G2,
+  // 2022 G1: Q5 fruit-group pictures, Q7 cube solids, Q10 circle/rect figures, Q11 ball sets.
+  'WMI-22F1A-Q5': Fruit22G1Option,
+  'WMI-22F1A-Q7': Solid22G1Option,
+  'WMI-22F1A-Q10': CircleRect22G1Option,
+  'WMI-22F1A-Q11': Balls22G1Option,
+
+  // 2023 G1: Q14 matchstick-number options, Q10 jigsaw pieces, Q13 candidate cards.
+  'WMI-23F1A-Q14': MatchNum23G1Option,
+  'WMI-23F1A-Q10': Jigsaw23G1Option,
+  'WMI-23F1A-Q13': CardStats23G1Option,
+
+  // 2024 G1: Q11 animal options, Q13 clock-picture options.
+  'WMI-24F1A-Q11': AnimalMaze24G1Option,
+  'WMI-24F1A-Q13': ClockPic24G1Option,
+
+  // 2025 G1: Q8 hundreds-chart fragments, Q13 shape options, Q14 figure-pair options.
+  'WMI-25F1A-Q8': HundredsChart25G1Option,
+  'WMI-25F1A-Q13': ShapeSeq25G1Option,
+  'WMI-25F1A-Q14': CountFigures25G1Option,
+
+  // 2023 G3: Q15 spiral missing-pair options
+  'WMI-23F3A-Q15': SpiralOption23G3,
 }
 
 export function getQuestionChoiceRenderer(code?: string): ChoiceRenderer | null {
