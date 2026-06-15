@@ -6,6 +6,7 @@ import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
 import WmiExplainer from '../components/wmi/WmiExplainer'
+import ConfirmModal from '../components/ConfirmModal'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { trackEvent } from '../lib/analytics'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
@@ -370,11 +371,12 @@ export default function WmiKonsepSession() {
   }
 
   // ── Quit ───────────────────────────────────────────────────────────────────
-  const handleQuit = () => {
-    if (window.confirm('Keluar sesi? Progres sesi ini akan hilang.')) {
-      if (subjectKey && activeChildId) clearKonsepSession(subjectKey, activeChildId)
-      navigate('/belajar')
-    }
+  const [showQuitConfirm, setShowQuitConfirm] = useState(false)
+  const handleQuit = () => setShowQuitConfirm(true)
+  const confirmQuit = () => {
+    setShowQuitConfirm(false)
+    if (subjectKey && activeChildId) clearKonsepSession(subjectKey, activeChildId)
+    navigate('/belajar')
   }
 
   // ── Unload guard while progress is at stake ────────────────────────────────
@@ -496,6 +498,17 @@ export default function WmiKonsepSession() {
     <div className="relative mx-auto w-full max-w-[460px] pb-8">
       {/* Confetti on correct answer — re-mount per question via key */}
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${idx}`} />}
+
+      <ConfirmModal
+        open={showQuitConfirm}
+        icon="fa-solid fa-triangle-exclamation"
+        title="Keluar sesi?"
+        message="Progresmu di sesi ini akan hilang kalau keluar sekarang."
+        cancelLabel="Lanjut Belajar"
+        confirmLabel="Keluar Sesi"
+        onClose={() => setShowQuitConfirm(false)}
+        onConfirm={confirmQuit}
+      />
 
       {/* Top row: close button + single compact progress element */}
       <div className="mb-3 flex items-center gap-3 px-1">
