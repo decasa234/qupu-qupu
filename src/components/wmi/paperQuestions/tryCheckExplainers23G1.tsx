@@ -6,6 +6,20 @@ import type { Lang } from '../concepts/explainers/makeTenSteps'
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 
+/** Q14 — which odd matchstick number becomes even by moving one stick. */
+export const MatchstickMove23G1Explainer = makeTryCheckExplainer((lang) => {
+  const t = tt(lang)
+  return {
+    intro: t('All five numbers (81, 25, 47, 59, 65) are odd. Moving exactly one matchstick changes a digit — we want an even result.', 'Kelima bilangan (81, 25, 47, 59, 65) ganjil. Memindahkan tepat satu korek mengubah angka — kita ingin hasil genap.'),
+    items: [
+      { text: t('Look at 59: the 9 is one stick away from a 0 (move its middle stick to the bottom-left)', 'Lihat 59: angka 9 hanya satu korek dari 0 (pindahkan korek tengahnya ke kiri-bawah)'), ok: null },
+      { text: t('That turns 59 into 50 — an even number', 'Itu mengubah 59 menjadi 50 — bilangan genap'), ok: true },
+    ],
+    final: t('Number D (59) becomes 50 (D).', 'Bilangan D (59) menjadi 50 (D).'),
+    aria: t('Moving one stick turns the 9 of 59 into a 0, making 50, which is even.', 'Memindahkan satu korek mengubah 9 pada 59 menjadi 0, membuat 50, yang genap.'),
+  }
+})
+
 /** Q2 — smallest of five expressions. */
 export const SmallestExpr23G1Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)

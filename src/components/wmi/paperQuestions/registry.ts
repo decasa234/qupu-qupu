@@ -638,6 +638,7 @@ import {
   UnitsDigit23G1Explainer,
   SignFill23G1Explainer,
   ColorCycle23G1Explainer,
+  MatchstickMove23G1Explainer,
 } from './tryCheckExplainers23G1'
 // 2024 G1 Final
 import Segments24G1Illustration from './Segments24G1Illustration'
@@ -663,6 +664,7 @@ import LogicGrid24G1Explainer from './LogicGrid24G1Explainer'
 import BlockStack24G1Illustration from './BlockStack24G1Illustration'
 import BlockStack24G1Explainer from './BlockStack24G1Explainer'
 import SumGrid24G1Illustration from './SumGrid24G1Illustration'
+import SumGrid24G1Explainer from './SumGrid24G1Explainer'
 import AnimalMaze24G1Illustration from './AnimalMaze24G1Illustration'
 import AnimalMaze24G1Explainer from './AnimalMaze24G1Explainer'
 import AnimalMaze24G1Option from './AnimalMaze24G1Option'
@@ -805,6 +807,7 @@ import {
   BlockSeq23G2Explainer,
   ChallengeScore23G2Explainer,
   UnusedDigit23G2Explainer,
+  GridFill23G2Explainer,
 } from './tryCheckExplainers23G2'
 import Parallelogram24G2Illustration from './Parallelogram24G2Illustration'
 import Parallelogram24G2Explainer from './Parallelogram24G2Explainer'
@@ -886,6 +889,7 @@ import {
   CardEquations24G3Explainer,
   TreeAges24G3Explainer,
   Palindrome24G3Explainer,
+  PerimeterArea24G3Explainer,
 } from './tryCheckExplainers24G3'
 import StarAdd25G2Illustration from './StarAdd25G2Illustration'
 import StarAdd25G2Explainer from './StarAdd25G2Explainer'
@@ -941,6 +945,24 @@ import ParaDivide25G3Illustration from './ParaDivide25G3Illustration'
 import ParaDivide25G3Explainer from './ParaDivide25G3Explainer'
 import Elephant25G3Illustration from './Elephant25G3Illustration'
 import Elephant25G3Explainer from './Elephant25G3Explainer'
+import {
+  Subtract25G3Explainer,
+  DivNoZero25G3Explainer,
+  MilkWeight25G3Explainer,
+  RoundTrip25G3Explainer,
+  BlackFriday25G3Explainer,
+  MisreadSum25G3Explainer,
+  TicketBudget25G3Explainer,
+  DieBottom25G3Explainer,
+  BallShare25G3Explainer,
+  ConsecProduct25G3Explainer,
+  FactorSets25G3Explainer,
+  SevenChain25G3Explainer,
+  SplitSum25G3Explainer,
+  Subsequence25G3Explainer,
+  Cryptarithm25G3Explainer,
+  SquareDigits25G3Explainer,
+} from './tryCheckExplainers25G3'
 // 2019 G1 Semifinal (WMI-19P1A) — prelim
 import CubeStack19P1Illustration from './CubeStack19P1Illustration'
 import CubeStack19P1Explainer from './CubeStack19P1Explainer'
@@ -1933,6 +1955,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-23F1A-Q7': { Explainer: BalloonTrade23G1Explainer },
   'WMI-23F1A-Q8': { Explainer: UnitsDigit23G1Explainer },
   'WMI-23F1A-Q9': { Explainer: SignFill23G1Explainer },
+  'WMI-23F1A-Q14': { Explainer: MatchstickMove23G1Explainer },
   'WMI-23F1A-Q15': { Explainer: ColorCycle23G1Explainer },
   'WMI-23F1A-Q1': { Illustration: GoBoard23G1Illustration, Explainer: GoBoard23G1Explainer },
   'WMI-23F1A-Q3': { Illustration: NumberStrip23G1Illustration, Explainer: NumberStrip23G1Explainer },
@@ -1965,6 +1988,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-23F2A-Q18': { Explainer: CryptoABCD23G2Explainer },
   'WMI-23F2A-Q20': { Explainer: BlockSeq23G2Explainer },
   'WMI-23F2A-Q22': { Explainer: ChallengeScore23G2Explainer },
+  'WMI-23F2A-Q19': { Explainer: GridFill23G2Explainer },
   'WMI-23F2A-Q23': { Explainer: UnusedDigit23G2Explainer },
   'WMI-23F2A-Q2': { Illustration: Cards23G2Illustration, Explainer: Cards23G2Explainer },
   'WMI-23F2A-Q4': { Illustration: PeggyMap23G2Illustration, Explainer: PeggyMap23G2Explainer },
@@ -2007,6 +2031,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-24F3A-Q17': { Explainer: Matchsticks24G3Explainer },
   'WMI-24F3A-Q18': { Explainer: CardEquations24G3Explainer },
   'WMI-24F3A-Q19': { Explainer: TreeAges24G3Explainer },
+  'WMI-24F3A-Q8': { Explainer: PerimeterArea24G3Explainer },
   'WMI-24F3A-Q21': { Explainer: Palindrome24G3Explainer },
   'WMI-24F3A-Q2': { Illustration: ShipBridge24G3Illustration, Explainer: ShipBridge24G3Explainer },
   'WMI-24F3A-Q3': { Illustration: Classroom24G3Illustration, Explainer: Classroom24G3Explainer },
@@ -2046,6 +2071,22 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-25F2A-Q20': { Illustration: Roundabout25G2Illustration, Explainer: Roundabout25G2Explainer },
   'WMI-25F2A-Q23': { Illustration: Jerseys25G2Illustration, Explainer: Jerseys25G2Explainer },
   'WMI-25F2A-Q24': { Illustration: MoneyGrid25G2Illustration, Explainer: MoneyGrid25G2Explainer },
+  'WMI-25F3A-Q1': { Explainer: Subtract25G3Explainer },
+  'WMI-25F3A-Q2': { Explainer: DivNoZero25G3Explainer },
+  'WMI-25F3A-Q3': { Explainer: MilkWeight25G3Explainer },
+  'WMI-25F3A-Q5': { Explainer: RoundTrip25G3Explainer },
+  'WMI-25F3A-Q6': { Explainer: BlackFriday25G3Explainer },
+  'WMI-25F3A-Q7': { Explainer: MisreadSum25G3Explainer },
+  'WMI-25F3A-Q9': { Explainer: TicketBudget25G3Explainer },
+  'WMI-25F3A-Q12': { Explainer: DieBottom25G3Explainer },
+  'WMI-25F3A-Q15': { Explainer: BallShare25G3Explainer },
+  'WMI-25F3A-Q16': { Explainer: ConsecProduct25G3Explainer },
+  'WMI-25F3A-Q18': { Explainer: FactorSets25G3Explainer },
+  'WMI-25F3A-Q20': { Explainer: SevenChain25G3Explainer },
+  'WMI-25F3A-Q21': { Explainer: SplitSum25G3Explainer },
+  'WMI-25F3A-Q22': { Explainer: Subsequence25G3Explainer },
+  'WMI-25F3A-Q23': { Explainer: Cryptarithm25G3Explainer },
+  'WMI-25F3A-Q24': { Explainer: SquareDigits25G3Explainer },
   'WMI-25F3A-Q4': { Illustration: RectSquare25G3Illustration, Explainer: RectSquare25G3Explainer },
   'WMI-25F3A-Q8': { Illustration: StationMap25G3Illustration, Explainer: StationMap25G3Explainer },
   'WMI-25F3A-Q10': { Illustration: Folding25G3Illustration, Explainer: Folding25G3Explainer },
@@ -2077,7 +2118,7 @@ const VISUALS: Record<string, QuestionVisual> = {
   'WMI-24F1A-Q20': { Illustration: BallTubes24G1Illustration, Explainer: BallTubes24G1Explainer },
   'WMI-24F1A-Q21': { Illustration: LogicGrid24G1Illustration, Explainer: LogicGrid24G1Explainer },
   'WMI-24F1A-Q22': { Illustration: BlockStack24G1Illustration, Explainer: BlockStack24G1Explainer },
-  'WMI-24F1A-Q25': { Illustration: SumGrid24G1Illustration },
+  'WMI-24F1A-Q25': { Illustration: SumGrid24G1Illustration, Explainer: SumGrid24G1Explainer },
   'WMI-24F1A-Q11': { Illustration: AnimalMaze24G1Illustration, Explainer: AnimalMaze24G1Explainer },
   'WMI-24F1A-Q13': { Illustration: ClockPic24G1Illustration, Explainer: ClockPic24G1Explainer },
   'WMI-24F1A-Q14': { Illustration: CookieSort24G1Illustration, Explainer: CookieSort24G1Explainer },

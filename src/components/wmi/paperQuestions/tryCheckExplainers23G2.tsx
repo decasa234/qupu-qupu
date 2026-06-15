@@ -9,6 +9,21 @@ import type { Lang } from '../concepts/explainers/makeTenSteps'
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 
+/** Q19 — fill 5,6,7,8 into a rising grid; how many ways. */
+export const GridFill23G2Explainer = makeTryCheckExplainer((lang) => {
+  const t = tt(lang)
+  return {
+    intro: t('The blanks form the right column (rising to 9) and the bottom row (rising to 9). Each pair must increase.', 'Kotak kosong membentuk kolom kanan (naik ke 9) dan baris bawah (naik ke 9). Tiap pasangan harus naik.'),
+    items: [
+      { text: t('Choose which 2 of 5, 6, 7, 8 go in the right column — their order is then forced (smaller on top)', 'Pilih 2 dari 5, 6, 7, 8 untuk kolom kanan — urutannya lalu pasti (kecil di atas)'), ok: null },
+      { text: t('The other 2 fill the bottom row, also in forced order', 'Dua sisanya mengisi baris bawah, juga dalam urutan pasti'), ok: null },
+      { text: t('So just count the ways to choose 2 of 4: C(4,2) = 6', 'Jadi tinggal hitung cara memilih 2 dari 4: C(4,2) = 6'), ok: true },
+    ],
+    final: t('There are 6 ways to fill the grid.', 'Ada 6 cara mengisi kisi.'),
+    aria: t('Choosing two of the four numbers for the column fixes everything, giving six ways.', 'Memilih dua dari empat bilangan untuk kolom menetapkan segalanya, memberi enam cara.'),
+  }
+})
+
 /** Q1 — 398 + 597 by rounding up; what to subtract. */
 export const RoundSubtract23G2Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)

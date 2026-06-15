@@ -7,6 +7,20 @@ import type { Lang } from '../concepts/explainers/makeTenSteps'
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 
+/** Q8 — which composite figure has perimeter = 2 × area. */
+export const PerimeterArea24G3Explainer = makeTryCheckExplainer((lang) => {
+  const t = tt(lang)
+  return {
+    intro: t('We need the perimeter ◇ to be exactly 2 × the area △. Count both for each figure.', 'Kita butuh keliling ◇ tepat 2 × luas △. Hitung keduanya untuk tiap gambar.'),
+    items: [
+      { text: t('Option C is a 2 × 2 square: area = 4 unit squares', 'Pilihan C adalah persegi 2 × 2: luas = 4 petak'), ok: null },
+      { text: t('Its perimeter = 8, and 8 = 2 × 4 ✓', 'Kelilingnya = 8, dan 8 = 2 × 4 ✓'), ok: true },
+    ],
+    final: t('Only option C has ◇ = 2△ (C).', 'Hanya pilihan C yang ◇ = 2△ (C).'),
+    aria: t('A two-by-two square has area four and perimeter eight, and eight is twice four.', 'Persegi dua kali dua punya luas empat dan keliling delapan, dan delapan dua kali empat.'),
+  }
+})
+
 /** Q1 — which quotient contains a 0. */
 export const DivZero24G3Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
