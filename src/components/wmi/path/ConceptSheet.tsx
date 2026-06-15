@@ -7,13 +7,14 @@
 // first, and tapping the open node again (handled by the parent) toggles it
 // shut. The tapped node is scrolled into the band between the top stat strip
 // and the sheet, so the kid stays focused on the very node they picked.
-// Closing is explicit: the × button or Escape. The sheet shows an animated
-// proficiency display (ConceptProgress) and one "Mulai" button that starts a
-// focused session. Boss (Tes Bab) taps never open this sheet.
+// Closing: drag the sheet down, the × button, or Escape. The sheet shows an
+// animated proficiency display (ConceptProgress) and one "Mulai" button that
+// starts a focused session. Boss (Tes Bab) taps never open this sheet.
 
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 import ConceptProgress from './ConceptProgress'
+import { useSheetDrag } from './useSheetDrag'
 import type { WmiGardenChapter, WmiGardenConcept } from '../../../types/wmi'
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 }
 
 export default function ConceptSheet({ concept, chapter, onStart, onClose }: Props) {
-  const panelRef = useRef<HTMLDivElement | null>(null)
+  const { panelRef, dragHandlers, sheetStyle } = useSheetDrag(onClose)
 
   // Focus the tapped node: scroll it to the centre of the visible band above
   // the sheet (between the sticky top stat strip and the sheet's top edge).
@@ -44,7 +45,7 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
     const delta = nodeCenterY - desiredY
     if (Math.abs(delta) < 4) return
     window.scrollBy({ top: delta, behavior: reduce ? 'auto' : 'smooth' })
-  }, [concept.slug])
+  }, [concept.slug, panelRef])
 
   // Escape closes the sheet (the trail has no catcher to tap).
   useEffect(() => {
@@ -68,27 +69,33 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
         role="dialog"
         aria-modal="false"
         aria-label={concept.nameId}
+        style={sheetStyle}
         className="pointer-events-auto absolute inset-x-0 bottom-0 mx-auto w-full max-w-[460px] animate-rise rounded-t-[2rem] bg-white p-5 pb-[max(env(safe-area-inset-bottom),1.75rem)] shadow-[0_-6px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/5"
       >
-        <span className="mx-auto block h-1.5 w-12 rounded-full bg-[#EFE2CC]" aria-hidden="true" />
-
-        {/* Explicit close — the only way out besides Escape / tapping the open node. */}
+        {/* Explicit close — drag-to-dismiss, Escape, or tapping the open node also close. */}
         <button
           type="button"
           aria-label="Tutup"
           onClick={onClose}
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-qupu-shell text-qupu-muted ring-1 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-qupu-shell text-qupu-muted ring-1 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
         >
           <i className="fa-solid fa-xmark" aria-hidden="true" />
         </button>
 
-        <div className="mt-3 text-center">
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
-            {chapter.nameId}
-          </p>
-          <h2 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
-            {concept.nameId}
-          </h2>
+        {/* Grab zone: drag the handle / header down to dismiss. */}
+        <div {...dragHandlers} className="cursor-grab touch-none select-none active:cursor-grabbing">
+          <span
+            className="mx-auto block h-1.5 w-12 rounded-full bg-[#EFE2CC]"
+            aria-hidden="true"
+          />
+          <div className="mt-3 text-center">
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+              {chapter.nameId}
+            </p>
+            <h2 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
+              {concept.nameId}
+            </h2>
+          </div>
         </div>
 
         <div className="mt-4">
