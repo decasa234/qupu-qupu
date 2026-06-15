@@ -9,24 +9,24 @@
 // a red dashed curved arrow shows the block rolling right, one quarter-turn
 // (one side) at a time.
 //
-// Canonical mechanics (confirmed with the reviewer): the paint has SPILLED on
-// the floor and the block stands in the puddle — so its BOTTOM faces are
-// soaked and its LEFT sides are painted too; the TOP and RIGHT sides are dry.
-// The block starts at the VERY LEFT (column 1 of both rows): the SINGLE cube
-// in the numbered front row (1/3/4/5), the 2-cube STACK behind it in square
-// 2's row (the farther row). Numbered squares: front cols 3 ("1"), 4 ("3"),
-// 5 ("4"), 7 ("5"); back col 5 ("2"):
-//   FRONT single cube (standing f1):
-//     roll 1 → f2, dry RIGHT  → no paint
-//     roll 2 → f3, dry TOP — it lands right ON "1" → "1" stays clean!
-//     roll 3 → f4, wet LEFT   → stamps "3"!
-//     roll 4 → f5, soaked BOTTOM → stamps "4"!
-//   BACK 2-cube stack (standing b1):
-//     roll 1 → lies b2–b3, dry RIGHT faces → no paint
-//     roll 2 → stands b4, dry TOP          → nothing
-//     roll 3 → lies b5–b6, wet LEFT faces  → stamps "2" (b5) + b6
-//     roll 4 → stands b7, soaked BOTTOM    → stamps an empty square
-// Every painted side is now used; "5" (f7) is never reached.
+// Figure layout (editor-confirmed, "0" = blank square; back row on top):
+//   back :  0 0 0 0 2 0 0 0 0   → "2" at back column 5
+//   front:  0 0 0 1 0 3 4 0 5   → "1" col 4, "3" col 6, "4" col 7, "5" col 9
+//
+// Mechanics: the paint has SPILLED and the block stands in the puddle, so its
+// BOTTOM faces are soaked and its LEFT sides are painted too; the TOP and
+// RIGHT sides are dry. The wet block tumbles to the RIGHT. As it tumbles the
+// tall BACK stack lays a long wet trail along its whole row, while the little
+// FRONT cube only stamps a few squares. The cumulative wet cells per beat
+// (editor-confirmed, "1" = wet; back row on top) are:
+//   beat 1   back 1 1 0 0 0 0 0 0 0    front 1 0 0 0 0 0 0 0 0
+//   beat 2   back 1 1 1 1 0 0 0 0 0    front 1 0 0 0 0 0 0 0 0
+//   beat 3   back 1 1 1 1 1 1 0 0 0    front 1 0 0 0 0 1 0 0 0
+//   beat 4   back 1 1 1 1 1 1 1 0 0    front 1 0 0 0 0 1 1 0 0
+//   beat 5   back 1 1 1 1 1 1 1 1 1    front 1 0 0 0 0 1 1 1 0
+// Back col 5 ("2"), front col 6 ("3"), front col 7 ("4") all end up wet, while
+// front col 4 ("1", a dry side lands there) and front col 9 ("5", the front
+// paint stops before it) stay clean.
 // Painted squares: 2, 3, 4 → answer "234". 1 and 5 stay clean.
 
 export const PAINT_ANSWER = '234'
@@ -37,11 +37,11 @@ const CELL_W = 48 // cell width along x; cubes share this edge length
 const CUBE = 48
 const DEPTH_X = -20 // one row "into" the page shifts left…
 const DEPTH_Y = -22 // …and up
-const COLS = 8
+const COLS = 9
 const ORIGIN_X = 48 // front-left corner of the front row, column 1
 const ORIGIN_Y = 240
 
-export const PAINT_VIEW_W = 446
+export const PAINT_VIEW_W = 500
 export const PAINT_VIEW_H = 262
 
 const PURPLE_FRONT = '#8B7CC8'
@@ -74,15 +74,16 @@ function cellCenter(col: number, row: number) {
   return { x: x + CELL_W / 2 + DEPTH_X / 2, y: y + DEPTH_Y / 2 }
 }
 
-// Numbered floor squares, in their canonical figure positions (matching the
-// printed paper): the block stands on column 1; "1", "3", "4" run adjacent on
-// front columns 3–5 and "5" is out on column 7; "2" is back column 5.
+// Numbered floor squares, in their canonical figure positions (editor-confirmed
+// against the printed paper): the block stands on column 1; "1" is front col 4,
+// "2" is back col 5, "3" front col 6, "4" front col 7, and "5" is out on front
+// col 9.
 const CELL_LABELS: Array<{ label: string; col: number; row: number }> = [
-  { label: '1', col: 3, row: 0 },
+  { label: '1', col: 4, row: 0 },
   { label: '2', col: 5, row: 1 },
-  { label: '3', col: 4, row: 0 },
-  { label: '4', col: 5, row: 0 },
-  { label: '5', col: 7, row: 0 },
+  { label: '3', col: 6, row: 0 },
+  { label: '4', col: 7, row: 0 },
+  { label: '5', col: 9, row: 0 },
 ]
 
 /** One pseudo-3D wet-painted cube standing on floor cell (col, row), stack level k. */
@@ -204,36 +205,24 @@ export default function PaintRoll20Illustration() {
 
 /**
  * Cell keys for the top-down 2×8 grid: 'f3' = front row column 3 (square
- * "1"), 'b5' = back row column 5 (square "2"), … The block starts on
+ * "1"), 'b4' = back row column 4 (square "2"), … The block starts on
  * column 1 of both rows.
  */
-export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`
+export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
 
 const KEY_LABEL: Partial<Record<PaintCellKey, string>> = {
-  f3: '1',
+  f4: '1',
   b5: '2',
-  f4: '3',
-  f5: '4',
-  f7: '5',
+  f6: '3',
+  f7: '4',
+  f9: '5',
 }
 
-// Footprint of each rolling piece after n quarter-turns (top-down cell keys).
-// Front single cube:  f1 → f2 → f3 → f4 → f5.
-// Back 2-cube stack:  stands b1 → lies b2–b3 → stands b4 → lies b5–b6 → stands b7.
-const FRONT_FOOTPRINT: PaintCellKey[][] = [['f1'], ['f2'], ['f3'], ['f4'], ['f5']]
-const BACK_FOOTPRINT: PaintCellKey[][] = [['b1'], ['b2', 'b3'], ['b4'], ['b5', 'b6'], ['b7']]
-
-// Which face lands on the floor after each roll. The block stands in the
-// spilled paint, so its LEFT sides and BOTTOMS are wet; the RIGHT sides
-// (roll 1) and TOPS (roll 2) are dry, then rolls 3 (lefts) and 4 (bottoms)
-// stamp.
-const LANDING_WET: Array<boolean | null> = [null, false, false, true, true]
-
-const D_CELL_W = 48
+const D_CELL_W = 44
 const D_CELL_H = 42
 const D_LEFT = 14
 const D_TOP = 26
-const D_COLS = 8
+const D_COLS = 9
 const DIAGRAM_W = D_LEFT * 2 + D_CELL_W * D_COLS
 const DIAGRAM_H = D_TOP + D_CELL_H * 2 + 16
 
@@ -247,97 +236,31 @@ function keyRect(key: PaintCellKey) {
 }
 
 export interface PaintRollDiagramProps {
-  /** Quarter-turns completed (0 = both pieces still standing on column 1). */
-  rollsDone?: 0 | 1 | 2 | 3 | 4
-  /** Cell keys already stamped purple by a wet face, e.g. ['f2', 'b2']. */
+  /** Cumulative wet (purple) cell keys so far, e.g. ['b1', 'b2', 'f1']. */
   stamped?: string[]
-  /** Cell keys of numbered squares a DRY face landed on (gray ring + badge), e.g. ['f1']. */
-  dryCells?: string[]
-  /** Localized badge text for dry squares (default "dry"). */
-  dryLabel?: string
-  /** Localized chip text for a wet landing face (default "wet"). */
-  wetLabel?: string
+  /** Cell keys newly wet on THIS beat — drawn with a bright ring to show motion. */
+  fresh?: string[]
+  /** Numbered squares a dry side reached, so they stay clean (gray dashed ring + badge). */
+  cleanCells?: string[]
+  /** Localized badge text for the clean squares (default "clean"). */
+  cleanLabel?: string
 }
 
-/** Top-down 2×7 strip: stamped cells, both pieces' current footprints, face-state chip, dry badges. */
+/** Top-down 2×8 strip: grows the cumulative purple paint trail the editor specified, beat by beat. */
 export function PaintRollDiagram({
-  rollsDone = 0,
   stamped = [],
-  dryCells = [],
-  dryLabel = 'dry',
-  wetLabel = 'wet',
+  fresh = [],
+  cleanCells = [],
+  cleanLabel = 'clean',
 }: PaintRollDiagramProps) {
   const stampedSet = new Set(stamped)
-  const drySet = new Set(dryCells)
+  const freshSet = new Set(fresh)
+  const cleanSet = new Set(cleanCells)
 
   const allKeys: PaintCellKey[] = []
   for (const r of ['b', 'f'] as const) {
     for (let c = 1; c <= D_COLS; c++) allKeys.push(`${r}${c}` as PaintCellKey)
   }
-
-  const frontFeet = FRONT_FOOTPRINT[rollsDone]
-  const backFeet = BACK_FOOTPRINT[rollsDone]
-  const landingWet = LANDING_WET[rollsDone]
-  const pieceStroke = landingWet === null ? PURPLE_LEFT : landingWet ? WET_AMBER : DRY_GRAY
-
-  const footprintOutline = (keys: PaintCellKey[], tag: string) => {
-    if (keys.length === 0) return null
-    const first = keyRect(keys[0])
-    const w = D_CELL_W * keys.length
-    return (
-      <g key={tag}>
-        <rect
-          x={first.x + 2.5}
-          y={first.y + 2.5}
-          width={w - 5}
-          height={D_CELL_H - 5}
-          rx={6}
-          fill={PURPLE_FRONT}
-          opacity={0.28}
-        />
-        <rect
-          x={first.x + 2.5}
-          y={first.y + 2.5}
-          width={w - 5}
-          height={D_CELL_H - 5}
-          rx={6}
-          fill="none"
-          stroke={pieceStroke}
-          strokeWidth={3.5}
-          strokeLinejoin="round"
-        />
-      </g>
-    )
-  }
-
-  // Face-state chip on the front piece: is the face it just landed on wet or dry?
-  const chip = (() => {
-    if (landingWet === null || frontFeet.length === 0) return null
-    // A dry badge on the footprint already says "dry" — don't double up.
-    if (!landingWet && frontFeet.some((k) => drySet.has(k))) return null
-    const first = keyRect(frontFeet[0])
-    const text = landingWet ? wetLabel : dryLabel
-    const w = 16 + text.length * 6.2
-    const cx = first.x + (D_CELL_W * frontFeet.length) / 2
-    const cy = first.y + D_CELL_H + 2
-    return (
-      <g>
-        <rect
-          x={cx - w / 2}
-          y={cy - 8}
-          width={w}
-          height={16}
-          rx={8}
-          fill={landingWet ? WET_AMBER : DRY_GRAY}
-          stroke="#FFFFFF"
-          strokeWidth={1.5}
-        />
-        <text x={cx} y={cy + 0.5} textAnchor="middle" dominantBaseline="central" fontSize={10.5} fontWeight={800} fill="#FFFFFF">
-          {text}
-        </text>
-      </g>
-    )
-  })()
 
   return (
     <svg
@@ -353,10 +276,11 @@ export function PaintRollDiagram({
         fill={ARROW_RED}
       />
 
-      {/* grid cells */}
+      {/* grid cells: cumulative purple paint; cells wet this beat get an amber ring */}
       {allKeys.map((key) => {
         const { x, y } = keyRect(key)
         const isStamped = stampedSet.has(key)
+        const isFresh = freshSet.has(key)
         const label = KEY_LABEL[key]
         return (
           <g key={key}>
@@ -370,6 +294,18 @@ export function PaintRollDiagram({
               stroke={FLOOR_STROKE}
               strokeWidth={1.5}
             />
+            {isFresh && (
+              <rect
+                x={x + 2}
+                y={y + 2}
+                width={D_CELL_W - 4}
+                height={D_CELL_H - 4}
+                rx={5}
+                fill="none"
+                stroke={WET_AMBER}
+                strokeWidth={3.5}
+              />
+            )}
             {label && (
               <text
                 x={x + D_CELL_W / 2}
@@ -388,19 +324,14 @@ export function PaintRollDiagram({
         )
       })}
 
-      {/* the pieces' current resting footprints (amber outline = wet face down, gray = dry) */}
-      {footprintOutline(backFeet, 'back')}
-      {footprintOutline(frontFeet, 'front')}
-      {chip}
-
-      {/* gray "stays clean" badges on the squares a dry face landed on */}
+      {/* gray "stays clean" badges on the numbered squares a dry side reached */}
       {allKeys
-        .filter((key) => drySet.has(key))
+        .filter((key) => cleanSet.has(key))
         .map((key) => {
           const { x, y } = keyRect(key)
-          const badgeW = 14 + dryLabel.length * 5
+          const badgeW = 14 + cleanLabel.length * 5
           return (
-            <g key={`dry-${key}`}>
+            <g key={`clean-${key}`}>
               <rect
                 x={x + 4}
                 y={y + 4}
@@ -421,7 +352,7 @@ export function PaintRollDiagram({
                 fontWeight={800}
                 fill="#FFFFFF"
               >
-                {dryLabel}
+                {cleanLabel}
               </text>
             </g>
           )

@@ -1,6 +1,6 @@
 ---
 name: wmi-paper-conversion
-description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/paperQuestions. Golden reference: WMI-19F1A. For a single question or concept (not a whole paper), use qupu-math-problem-creation instead.
+description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/paperQuestions. Golden references: WMI-20F1A (clean full Grade-1 import) and WMI-21F1A (the same, hardened through full user review). For a single question or concept (not a whole paper), use qupu-math-problem-creation instead.
 ---
 
 # WMI Paper Conversion
@@ -15,8 +15,37 @@ roles are persisted as global agents — `qupu-question-designer`, `qupu-illustr
 `qupu-step-explainer`, `qupu-animator` — that you dispatch with the Agent tool (or
 as `Workflow` `agentType`s); see Phase 3.
 
-**Golden reference = WMI-19F1A** — every phase points at the real files that prove
-the pattern. Copy them; don't re-derive.
+**Golden references = WMI-20F1A and WMI-21F1A.** Both are complete Grade-1 finals
+taken end to end; copy them, don't re-derive.
+- **WMI-20F1A** — `db/seed/wmi/papers/2020-final-g1.json`, components `*20*.tsx`
+  (one file per component). The clean full-paper import: every routine→hard pattern
+  in one paper — make-ten arithmetic, measurement, clock, thermometer, calendar,
+  spinner probability, group-counting, repeating patterns, tangram, arrow-path,
+  matchsticks, rolling paint, a KenKen logic grid (solver-first), and a 3-scale
+  balance.
+- **WMI-21F1A** — `db/seed/wmi/papers/2021-final-g1.json`, components
+  `*21*Illustrations.tsx` + `*Explainers21G1.tsx`. The same paper hardened through a
+  full round of the user's visual review. It is the reference for the **house style**
+  below and for the spatial puzzles: seesaw, balloons, number-chain, isometric cube,
+  shape-equation cross, hanging mobile.
+
+### House style (learned from review — apply to EVERY paper)
+
+1. **SVG, never raster.** Redraw every printed stem figure as a registry
+   `Illustration`; `figure_url` stays only as a fallback. A question whose figure is
+   still a `.jpg` on screen is NOT done. (`WmiQuestionView` renders the registry
+   `Illustration` over `figure_url` when both exist.)
+2. **Basic glyphs only.** Use plain geometric shapes and single-codepoint emoji
+   (● ▲ ■ ★, ⭐ 🔵 🟢). NEVER multi-codepoint / "complex" emoji (❤️, animals, VS16 or
+   skin-tone sequences) — they render differently inside SVG `<text>` than in HTML, so
+   the question stem and the figure silently drift apart. For symbol-substitution
+   puzzles (shapes standing for numbers) use ONE monochrome outline set — ☆ ○ △ □ —
+   and the IDENTICAL glyph string in body, illustration, explainer, and steps.
+3. **Image-only stem when the figure carries the data.** Strip verbal enumeration the
+   figure already shows; never leak indices, values, or answer-bearing inner lines
+   into the static figure.
+4. **The static figure shows only the problem, never the answer.** The explainer
+   reveals the answer beat by beat.
 
 ## What already exists (do NOT rebuild)
 
@@ -67,9 +96,9 @@ after each batch (Phase 6).
 - Locate the three source folders (Paper A, Paper B, Answer Key) under
   `wmiPastPaper/`.
 - Compute the **paper code** with `paperCode({year, round, grade, variant:'A'})`
-  → e.g. `WMI-19F1A`. Each question's **registry key** is that plus `-Q<number>`
-  (e.g. `WMI-19F1A-Q18`). The seed filename is `<year>-<round>-g<grade>.json` —
-  match the existing files in `db/seed/wmi/papers/` (e.g. `2019-final-g1.json`).
+  → e.g. `WMI-20F1A`. Each question's **registry key** is that plus `-Q<number>`
+  (e.g. `WMI-20F1A-Q24`). The seed filename is `<year>-<round>-g<grade>.json` —
+  match the existing files in `db/seed/wmi/papers/` (e.g. `2020-final-g1.json`).
 - Confirm grade is **G1–G3**. **G0 is deferred** — its ①②③ 3-option format needs
   the validator relaxed first (see README "Deferred: Grade 0").
 
@@ -167,7 +196,7 @@ Each role is persisted as a global agent — dispatch it with the Agent tool, or
 the role inline; either way the craft rules live in the
 **qupu-math-problem-creation** skill. The agents default to the *concept* layout,
 so when dispatching for a paper question put these paper specifics in the prompt:
-the registry **`code`** key (e.g. `WMI-19F1A-Q18`), that `breakdown` + `hint_steps`
+the registry **`code`** key (e.g. `WMI-20F1A-Q24`), that `breakdown` + `hint_steps`
 land in the **seed JSON** (not a concept `render()`), the target paths under
 `src/components/wmi/paperQuestions/`, the shared-primitive convention below, and any
 Phase-3 rule that applies (reuse-before-build, solver-first, one-idea-per-beat).
@@ -222,7 +251,7 @@ questions (`needsVisual: false`) always stay in the guided loop regardless of op
 ### Phase 4 · Wire
 - Register `{ Illustration, Explainer }` by the **question** code in
   `src/components/wmi/paperQuestions/registry.ts` — the key is
-  `paperCode + '-Q' + number` (e.g. `VISUALS['WMI-19F1A-Q18']`, **not** the bare
+  `paperCode + '-Q' + number` (e.g. `VISUALS['WMI-20F1A-Q24']`, **not** the bare
   paper code). Add the component imports + the `VISUALS[...]` entry.
 - Merge each question's `breakdown` + `hint_steps_en/id` + any reworded `body_en/id`
   into the paper's seed JSON.
@@ -242,17 +271,26 @@ batch.
 
 ## Golden-reference table
 
+Primary references are WMI-20F1A / WMI-21F1A; the G3 rows cover patterns those two
+Grade-1 papers don't contain (skyscrapers, dense enumeration, vertical multiply).
+
 | Need | Reference |
 |---|---|
-| Seed JSON shape (all fields) | `db/seed/wmi/papers/2019-final-g1.json` |
+| Whole-paper gold standard (all fields, all 25 Qs) | `db/seed/wmi/papers/2020-final-g1.json` (clean import) and `db/seed/wmi/papers/2021-final-g1.json` (review-hardened) |
 | Import procedure (md → JSON, figures, answer key) | `db/seed/wmi/README.md`, `api/services/wmi/paperImport/`, `src/lib/wmiPaperCode.ts` |
 | Per-question craft (4 roles) | `qupu-math-problem-creation` skill |
-| Illustration + primitive + explainer + steps | `src/components/wmi/paperQuestions/ShapeEquationIllustration.tsx`, `ShapeEquationExplainer.tsx`, `shapeEquationSteps.ts` (Q18) |
-| Registry wiring | `src/components/wmi/paperQuestions/registry.ts` |
-| Layout-fix lessons | Q18 centering; Q23 `src/components/wmi/paperQuestions/LockCodeIllustration.tsx` viewBox headroom |
-| Solver-verified logic grid (solution + proof header, deduction explainer) | `src/components/wmi/paperQuestions/Mathdoku5G3Illustration.tsx` + `Mathdoku5G3Explainer.tsx`, `SkyscraperG3Illustration.tsx` + `SkyscraperG3Explainer.tsx` |
-| One-object-per-beat enumeration with running counter | `src/components/wmi/paperQuestions/DotSquaresG3Explainer.tsx`, `MShapeLinesG3Explainer.tsx` |
-| Per-candidate elimination beats | `src/components/wmi/paperQuestions/VerticalMultG3Explainer.tsx` |
+| Explainer-only question (`needsVisual:false`) | `MakeTenVisual20Explainer` (WMI-20F1A-Q1), `BalletCalendar20Explainer` (Q8) |
+| One-file-per-component illustration + explainer | `CherryCount20Illustration.tsx` + `CherryCount20Explainer.tsx`; `Matchstick20*`, `Pyramid20*`, `SumGrid20*` |
+| Image-option choices (`CHOICE_RENDERERS`) | `ShapeGridOption20`, `ClockOption20`, `SpinnerOption20`, `SeesawOption21` in `registry.ts` |
+| Logic grid (solver-first) | `KenKen20Illustration.tsx` + `KenKen20Explainer.tsx` (G1 KenKen); `Mathdoku5G3*`, `SkyscraperG3*` for skyscrapers |
+| Multi-constraint balance / elimination | `ThreeScales20Illustration.tsx` (3 scales); `Scales21Illustration` + `Seesaws21Explainer` (seesaws) |
+| Rolling-paint mechanics | `PaintRoll20Illustration.tsx` + `paintRoll20Steps.ts` + `PaintRoll20Explainer.tsx` |
+| Symbol-substitution puzzle (plain shapes) | `ShapeCross21Illustration` (`cards21G1Illustrations.tsx`) + `ShapeCross21G1Explainer`; `ChainDiagram21Illustration` (`puzzles21G1Illustrations.tsx`) + `Chains21Explainer` |
+| Isometric cube count | `BigCube21Illustration` + `BigCube21Explainer` (`puzzles21G1Illustrations.tsx` / `puzzleExplainers21G1.tsx`) |
+| Per-candidate try-and-eliminate beats | `LargestResult21G1Explainer` (WMI-21F1A-Q1); `VerticalMultG3Explainer.tsx` |
+| One-object-per-beat enumeration with running counter | `DotSquaresG3Explainer.tsx`, `MShapeLinesG3Explainer.tsx` |
+| Registry wiring (`VISUALS` + `CHOICE_RENDERERS`) | `src/components/wmi/paperQuestions/registry.ts` |
+| Layout-fix lessons + geometry gotchas (viewBox headroom, centering, SVG y-axis, isometric facing) | `references/checklists.md` § Gate 1; `LockCodeIllustration.tsx` viewBox headroom |
 
 ## Gates & verification
 

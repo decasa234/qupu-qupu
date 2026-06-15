@@ -853,6 +853,35 @@ const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./ChampionMedian22G3Illustration'),
     explainer: () => import('./ChampionMedian22G3Explainer'),
   },
+  // 2022 G3 (WMI-22F3A) — Paper B batch (Q18 deferred: ambiguous clue)
+  'WMI-22F3A-Q17': {
+    illustration: () => import('./ProductTriangle22G3Illustration'),
+    explainer: () => import('./ProductTriangle22G3Explainer'),
+  },
+  'WMI-22F3A-Q19': {
+    illustration: () => import('./VerticalMult22G3Illustration'),
+    explainer: () => import('./VerticalMult22G3Explainer'),
+  },
+  'WMI-22F3A-Q20': {
+    illustration: () => import('./TilePieces22G3Illustration'),
+    explainer: () => import('./TilePieces22G3Explainer'),
+  },
+  'WMI-22F3A-Q21': {
+    illustration: () => import('./RectFrame22G3Illustration'),
+    explainer: () => import('./RectFrame22G3Explainer'),
+  },
+  'WMI-22F3A-Q23': {
+    illustration: () => import('./SoldierRoad22G3Illustration'),
+    explainer: () => import('./SoldierRoad22G3Explainer'),
+  },
+  'WMI-22F3A-Q24': {
+    illustration: () => import('./MirrorSolid22G3Illustration'),
+    explainer: () => import('./MirrorSolid22G3Explainer'),
+  },
+  'WMI-22F3A-Q25': {
+    illustration: () => import('./NumberGrid22G3Illustration'),
+    explainer: () => import('./NumberGrid22G3Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,

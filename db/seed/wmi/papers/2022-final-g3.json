@@ -1697,7 +1697,64 @@
       "body_en": "The year 2022 is made up of three 2's and one 0. At least how many years later will we welcome another year that uses these same four digits?",
       "body_id": "Tahun 2022 terdiri dari tiga angka 2 dan satu angka 0. Paling sedikit berapa tahun lagi kita akan menyambut tahun lain yang menggunakan keempat angka yang sama ini?",
       "answer_type": "fill_in",
-      "answer": "180"
+      "answer": "180",
+      "hint_steps_en": [
+        "2022 is made of the digits 2, 2, 2, 0 — find the next year after 2022 that uses exactly these four digits.",
+        "Arrange 2, 2, 2, 0 into years larger than 2022: the choices are 2202 and 2220.",
+        "The smallest one after 2022 is 2202.",
+        "2202 − 2022 = 180 years."
+      ],
+      "hint_steps_id": [
+        "2022 terdiri dari angka 2, 2, 2, 0 — cari tahun berikutnya setelah 2022 yang memakai tepat keempat angka ini.",
+        "Susun 2, 2, 2, 0 menjadi tahun yang lebih besar dari 2022: pilihannya 2202 dan 2220.",
+        "Yang terkecil setelah 2022 adalah 2202.",
+        "2202 − 2022 = 180 tahun."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "three 2's and one 0",
+            "phrase_id": "tiga angka 2 dan satu angka 0",
+            "note_en": "The new year must reuse exactly these four digits.",
+            "note_id": "Tahun baru harus memakai ulang tepat keempat angka ini."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many years later",
+            "phrase_id": "berapa tahun lagi",
+            "note_en": "Find the next valid year, then subtract 2022.",
+            "note_id": "Cari tahun valid berikutnya, lalu kurangi 2022."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "next such year",
+            "label_id": "tahun valid berikutnya",
+            "value": "2202"
+          },
+          {
+            "label_en": "2202 − 2022",
+            "label_id": "2202 − 2022",
+            "value": "180"
+          }
+        ],
+        "strategy": {
+          "name_en": "List the rearrangements just above 2022 and take the smallest",
+          "name_id": "Daftar susunan tepat di atas 2022 lalu ambil yang terkecil"
+        },
+        "trap": {
+          "wrong": "198",
+          "why_en": "Jumping to 2220 gives 198; but 2202 comes first, so the gap is only 180.",
+          "why_id": "Langsung ke 2220 memberi 198; tetapi 2202 datang lebih dulu, jadi selisihnya hanya 180."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "180"
+        }
+      }
     },
     {
       "number": 17,
@@ -1705,7 +1762,70 @@
       "body_id": "Pada setiap sisi segitiga, bilangan yang tertera adalah hasil kali dari dua bilangan di titik sudut yang dihubungkan oleh sisi itu. Tentukan jumlah ketiga bilangan di titik-titik sudut.",
       "answer_type": "fill_in",
       "answer": "30",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q17.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q17.jpg",
+      "hint_steps_en": [
+        "Each side equals the product of its two end vertices. The top vertex is shared by the 104 side and the 72 side.",
+        "Factor: 104 = 8 × 13 and 72 = 8 × 9 — the shared factor 8 is the top vertex.",
+        "Then bottom-left = 104 ÷ 8 = 13 and bottom-right = 72 ÷ 8 = 9.",
+        "Check the bottom side: 13 × 9 = 117 ✓. Sum = 8 + 13 + 9 = 30."
+      ],
+      "hint_steps_id": [
+        "Setiap sisi sama dengan hasil kali dua titik sudut ujungnya. Titik sudut atas dipakai bersama oleh sisi 104 dan sisi 72.",
+        "Faktorkan: 104 = 8 × 13 dan 72 = 8 × 9 — faktor bersama 8 adalah titik sudut atas.",
+        "Lalu bawah-kiri = 104 ÷ 8 = 13 dan bawah-kanan = 72 ÷ 8 = 9.",
+        "Cek sisi bawah: 13 × 9 = 117 ✓. Jumlah = 8 + 13 + 9 = 30."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "product of the numbers at the two vertices",
+            "phrase_id": "hasil kali dari dua bilangan di titik sudut",
+            "note_en": "Two sides meeting at a vertex share that vertex as a common factor.",
+            "note_id": "Dua sisi yang bertemu di satu titik sudut berbagi titik itu sebagai faktor bersama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of the three numbers at the vertices",
+            "phrase_id": "jumlah ketiga bilangan di titik-titik sudut",
+            "note_en": "Find each vertex, then add the three.",
+            "note_id": "Cari tiap titik sudut, lalu jumlahkan ketiganya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "top vertex",
+            "label_id": "titik atas",
+            "value": "8"
+          },
+          {
+            "label_en": "bottom-left",
+            "label_id": "bawah-kiri",
+            "value": "13"
+          },
+          {
+            "label_en": "bottom-right",
+            "label_id": "bawah-kanan",
+            "value": "9"
+          },
+          {
+            "label_en": "sum",
+            "label_id": "jumlah",
+            "value": "30"
+          }
+        ],
+        "strategy": {
+          "name_en": "Factor two sides sharing a vertex to find that vertex",
+          "name_id": "Faktorkan dua sisi yang berbagi titik sudut untuk menemukannya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "30"
+        }
+      }
     },
     {
       "number": 18,
@@ -1719,7 +1839,70 @@
       "body_en": "In the long multiplication below, a 3-digit number whose middle digit is 5 is multiplied by a 2-digit number. Some digits are hidden in boxes (□). The first partial product is 23□□, the second partial product is □□□□, and the final answer is 2022□. Find the sum of all the digits that belong in the boxes.",
       "body_id": "Pada perkalian bersusun di bawah ini, sebuah bilangan 3 angka yang angka tengahnya 5 dikalikan dengan sebuah bilangan 2 angka. Beberapa angka disembunyikan dalam kotak (□). Hasil kali sebagian pertama adalah 23□□, hasil kali sebagian kedua adalah □□□□, dan hasil akhirnya adalah 2022□. Tentukan jumlah semua angka yang berada di dalam kotak.",
       "answer_type": "fill_in",
-      "answer": "51"
+      "answer": "51",
+      "hint_steps_en": [
+        "The first partial product is 23□□ — a 3-digit number near 250 times the units digit. 256 × 9 = 2304 fits (starts with 23).",
+        "The whole product is 2022□, just over 20000. 20224 ÷ 256 = 79, so the multiplier is 79 (tens digit 7).",
+        "The second partial product is 256 × 7 = 1792 (the four boxes □□□□).",
+        "Now add every boxed digit: 2,6 (top) + 7,9 (multiplier) + 0,4 (from 2304) + 1,7,9,2 (from 1792) + 4 (last) = 51."
+      ],
+      "hint_steps_id": [
+        "Hasil kali sebagian pertama adalah 23□□ — bilangan 3 angka dekat 250 dikali angka satuan. 256 × 9 = 2304 cocok (diawali 23).",
+        "Hasil kali seluruhnya 2022□, sedikit di atas 20000. 20224 ÷ 256 = 79, jadi pengalinya 79 (angka puluhan 7).",
+        "Hasil kali sebagian kedua adalah 256 × 7 = 1792 (empat kotak □□□□).",
+        "Sekarang jumlahkan tiap angka kotak: 2,6 (atas) + 7,9 (pengali) + 0,4 (dari 2304) + 1,7,9,2 (dari 1792) + 4 (terakhir) = 51."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "middle digit is 5",
+            "phrase_id": "angka tengahnya 5",
+            "note_en": "The 3-digit number looks like 2 5 6 once solved.",
+            "note_id": "Bilangan 3 angka itu menjadi 2 5 6 setelah dipecahkan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of all the digits that belong in the boxes",
+            "phrase_id": "jumlah semua angka yang berada di dalam kotak",
+            "note_en": "Solve the multiplication first, then add only the boxed digits.",
+            "note_id": "Pecahkan perkaliannya dulu, lalu jumlahkan hanya angka di kotak."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "3-digit number",
+            "label_id": "bilangan 3 angka",
+            "value": "256"
+          },
+          {
+            "label_en": "multiplier",
+            "label_id": "pengali",
+            "value": "79"
+          },
+          {
+            "label_en": "product",
+            "label_id": "hasil kali",
+            "value": "20224"
+          },
+          {
+            "label_en": "box-digit sum",
+            "label_id": "jumlah angka kotak",
+            "value": "51"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pin the units digit from 23□□, recover the multiplier, then add box digits",
+          "name_id": "Tentukan angka satuan dari 23□□, temukan pengali, lalu jumlahkan angka kotak"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "51"
+        }
+      }
     },
     {
       "number": 20,
@@ -1727,7 +1910,72 @@
       "body_id": "Ada berapa banyak persegi 3×3 berbeda yang dapat disusun menggunakan tepat satu persegi 1×1 dan empat persegi panjang 2×1? (Dua susunan yang tampak sama setelah diputar dihitung sebagai satu susunan.)",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q20.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q20.jpg",
+      "hint_steps_en": [
+        "Colour the 3×3 like a checkerboard: 5 cells of one colour, 4 of the other. Each 2×1 covers one of each, so the lone 1×1 must sit on the majority colour — a corner or the centre.",
+        "Centre case: with the 1×1 in the middle, the ring of 8 cells tiles in 2 ways.",
+        "Corner case: with the 1×1 in a corner (all corners are the same up to rotation), there are 4 ways.",
+        "Total = 2 + 4 = 6."
+      ],
+      "hint_steps_id": [
+        "Warnai 3×3 seperti papan catur: 5 sel satu warna, 4 sel warna lain. Tiap 2×1 menutup satu dari masing-masing, jadi 1×1 yang tersisa harus di warna mayoritas — sebuah pojok atau pusat.",
+        "Kasus pusat: dengan 1×1 di tengah, cincin 8 sel tersisa tersusun dalam 2 cara.",
+        "Kasus pojok: dengan 1×1 di pojok (semua pojok sama setelah diputar), ada 4 cara.",
+        "Total = 2 + 4 = 6."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "one 1×1 square and four 2×1 rectangles",
+            "phrase_id": "satu persegi 1×1 dan empat persegi panjang 2×1",
+            "note_en": "9 cells total: 1 + 4×2 = 9.",
+            "note_id": "Total 9 sel: 1 + 4×2 = 9."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "after a rotation count as the same one",
+            "phrase_id": "setelah diputar dihitung sebagai satu susunan",
+            "note_en": "Don't double-count tilings that are just rotations of each other.",
+            "note_id": "Jangan menghitung dua kali susunan yang hanya hasil putaran satu sama lain."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different 3×3 squares",
+            "phrase_id": "Ada berapa banyak persegi 3×3 berbeda",
+            "note_en": "Count the distinct tilings.",
+            "note_id": "Hitung susunan yang berbeda."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1×1 in the centre",
+            "label_id": "1×1 di pusat",
+            "value": "2 ways"
+          },
+          {
+            "label_en": "1×1 in a corner",
+            "label_id": "1×1 di pojok",
+            "value": "4 ways"
+          },
+          {
+            "label_en": "total",
+            "label_id": "total",
+            "value": "6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use checkerboard parity to pin the 1×1, then count per case",
+          "name_id": "Pakai paritas papan catur untuk menetapkan 1×1, lalu hitung per kasus"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6"
+        }
+      }
     },
     {
       "number": 21,
@@ -1735,14 +1983,134 @@
       "body_id": "Seperti pada gambar, 4 persegi panjang mengelilingi sebuah daerah yang diarsir. Dengan menggunakan panjang sisi dan luas yang diberikan pada gambar, tentukan luas daerah yang diarsir. (Gambar tidak digambar sesuai skala.)",
       "answer_type": "fill_in",
       "answer": "30",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q21.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q21.jpg",
+      "hint_steps_en": [
+        "Find each rectangle's missing side from its area: top 56 = 7 × 8, left 45 = 9 × 5, right 48 = 8 × 6, bottom 42 = 7 × 6.",
+        "The four rectangles and the shaded region together fill one big rectangle: width 7 + 6 = 13, height 8 + 9 = 17.",
+        "Big rectangle = 13 × 17 = 221.",
+        "Subtract the four rectangles: 221 − (56 + 45 + 48 + 42) = 221 − 191 = 30."
+      ],
+      "hint_steps_id": [
+        "Cari sisi yang hilang dari tiap persegi panjang dari luasnya: atas 56 = 7 × 8, kiri 45 = 9 × 5, kanan 48 = 8 × 6, bawah 42 = 7 × 6.",
+        "Keempat persegi panjang dan daerah arsiran bersama-sama mengisi satu persegi panjang besar: lebar 7 + 6 = 13, tinggi 8 + 9 = 17.",
+        "Persegi panjang besar = 13 × 17 = 221.",
+        "Kurangi keempat persegi panjang: 221 − (56 + 45 + 48 + 42) = 221 − 191 = 30."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 rectangles surround a shaded region",
+            "phrase_id": "4 persegi panjang mengelilingi sebuah daerah yang diarsir",
+            "note_en": "Together they all pack into one big rectangle.",
+            "note_id": "Bersama-sama semuanya termuat dalam satu persegi panjang besar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the area of the shaded region",
+            "phrase_id": "tentukan luas daerah yang diarsir",
+            "note_en": "Big rectangle minus the four known rectangles.",
+            "note_id": "Persegi panjang besar dikurangi empat persegi panjang yang diketahui."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "big rectangle",
+            "label_id": "persegi panjang besar",
+            "value": "13 × 17 = 221"
+          },
+          {
+            "label_en": "four rectangles",
+            "label_id": "empat persegi panjang",
+            "value": "191"
+          },
+          {
+            "label_en": "shaded",
+            "label_id": "arsiran",
+            "value": "30"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enclose everything in one big rectangle and subtract the four",
+          "name_id": "Lingkupi semuanya dalam satu persegi panjang besar lalu kurangi keempatnya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "30"
+        }
+      }
     },
     {
       "number": 22,
       "body_en": "There are 2022 people and 2022 closed doors, both numbered 1 to 2022. Each person in turn changes every door whose number is a multiple of their own number (opening it if it is closed, closing it if it is open). Person 1 opens doors 1 to 2022; person 2 then changes doors 2, 4, 6, …, 2022; and so on, until person 2022 has had a turn. In the end, how many doors are open?",
       "body_id": "Ada 2022 orang dan 2022 pintu tertutup, keduanya bernomor 1 sampai 2022. Setiap orang secara bergiliran mengubah setiap pintu yang nomornya kelipatan dari nomornya sendiri (membukanya jika tertutup, menutupnya jika terbuka). Orang ke-1 membuka pintu 1 sampai 2022; orang ke-2 lalu mengubah pintu 2, 4, 6, …, 2022; dan seterusnya, sampai orang ke-2022 selesai. Pada akhirnya, ada berapa pintu yang terbuka?",
       "answer_type": "fill_in",
-      "answer": "44"
+      "answer": "44",
+      "hint_steps_en": [
+        "Door number d is changed once by every person whose number divides d — so it is toggled once for each divisor of d.",
+        "A door ends up OPEN only if it is toggled an odd number of times, i.e. d has an odd number of divisors.",
+        "Only perfect squares have an odd number of divisors.",
+        "Perfect squares from 1 to 2022 are 1², 2², …, 44² = 1936 (45² = 2025 is too big), so 44 doors stay open."
+      ],
+      "hint_steps_id": [
+        "Pintu nomor d diubah satu kali oleh setiap orang yang nomornya membagi d — jadi pintu itu dibalik sekali untuk tiap pembagi d.",
+        "Sebuah pintu berakhir TERBUKA hanya jika dibalik sebanyak ganjil kali, yakni d memiliki banyak pembagi yang ganjil.",
+        "Hanya bilangan kuadrat sempurna yang memiliki banyak pembagi ganjil.",
+        "Kuadrat sempurna dari 1 sampai 2022 adalah 1², 2², …, 44² = 1936 (45² = 2025 terlalu besar), jadi 44 pintu tetap terbuka."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a multiple of their own number",
+            "phrase_id": "kelipatan dari nomornya sendiri",
+            "note_en": "Door d is touched once by each of its divisors.",
+            "note_id": "Pintu d disentuh sekali oleh tiap pembaginya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many doors are open",
+            "phrase_id": "ada berapa pintu yang terbuka",
+            "note_en": "Open ⇔ toggled an odd number of times ⇔ d is a perfect square.",
+            "note_id": "Terbuka ⇔ dibalik sebanyak ganjil ⇔ d adalah kuadrat sempurna."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "open ⇔",
+            "label_id": "terbuka ⇔",
+            "value": "perfect square"
+          },
+          {
+            "label_en": "largest square ≤ 2022",
+            "label_id": "kuadrat terbesar ≤ 2022",
+            "value": "44² = 1936"
+          },
+          {
+            "label_en": "doors open",
+            "label_id": "pintu terbuka",
+            "value": "44"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count divisors by parity — odd only for perfect squares",
+          "name_id": "Hitung pembagi berdasarkan paritas — ganjil hanya untuk kuadrat sempurna"
+        },
+        "trap": {
+          "wrong": "45",
+          "why_en": "45² = 2025 is past 2022, so 45 does not count — there are 44, not 45.",
+          "why_id": "45² = 2025 melewati 2022, jadi 45 tidak terhitung — ada 44, bukan 45."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "44"
+        }
+      }
     },
     {
       "number": 23,
@@ -1750,7 +2118,83 @@
       "body_id": "Para prajurit berbaris ke kiri di sepanjang jalan yang berlubang. Ketika prajurit terdepan mencapai sebuah lubang, ia masuk ke dalamnya untuk mengisinya agar prajurit di belakangnya dapat melewatinya; lalu ia keluar dan bergabung di barisan paling belakang. Baris atas menunjukkan aturannya: prajurit 1, 2, 3 menjadi 2, 3, 1 setelah melewati satu lubang. Prajurit 1, 2, 3, 4, 5 sekarang melewati jalan pada baris bawah. Bilangan berapa yang dibentuk para prajurit (dibaca dari depan ke belakang) pada akhirnya?",
       "answer_type": "fill_in",
       "answer": "52143",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q23.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q23.jpg",
+      "hint_steps_en": [
+        "The example is a shallow hole: the front soldier fills it, the others cross, then he rejoins at the back — 1,2,3 → 2,3,1.",
+        "The two holes in the road are DEEP (the dashed line): each needs TWO soldiers stacked to reach road level.",
+        "First (right) hole: soldiers 1 then 2 drop in; soldiers 3, 4, 5 march across.",
+        "Second (left) hole: soldiers 3 then 4 drop in; soldier 5 marches across to the front.",
+        "Everyone climbs out and rejoins at the back, first hole first and top soldier first: 5, then 2, 1, then 4, 3 → 52143."
+      ],
+      "hint_steps_id": [
+        "Contohnya lubang dangkal: prajurit depan mengisinya, yang lain menyeberang, lalu ia bergabung di belakang — 1,2,3 → 2,3,1.",
+        "Dua lubang di jalan itu DALAM (garis putus-putus): masing-masing butuh DUA prajurit bertumpuk untuk mencapai permukaan.",
+        "Lubang pertama (kanan): prajurit 1 lalu 2 masuk; prajurit 3, 4, 5 menyeberang.",
+        "Lubang kedua (kiri): prajurit 3 lalu 4 masuk; prajurit 5 menyeberang ke depan.",
+        "Semua memanjat keluar dan bergabung di belakang, lubang pertama dulu dan prajurit atas dulu: 5, lalu 2, 1, lalu 4, 3 → 52143."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "soldiers 1, 2, 3 become 2, 3, 1 after crossing one hole",
+            "phrase_id": "prajurit 1, 2, 3 menjadi 2, 3, 1 setelah melewati satu lubang",
+            "note_en": "That worked example shows the climb-out rule.",
+            "note_id": "Contoh itu menunjukkan aturan memanjat keluar."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rejoins at the back of the line",
+            "phrase_id": "bergabung di barisan paling belakang",
+            "note_en": "A filler returns to the tail after the others pass.",
+            "note_id": "Pengisi kembali ke ekor setelah yang lain lewat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number do the soldiers form",
+            "phrase_id": "Bilangan berapa yang dibentuk para prajurit",
+            "note_en": "Read the final order front to back.",
+            "note_id": "Baca urutan akhir dari depan ke belakang."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "right hole holds",
+            "label_id": "lubang kanan memuat",
+            "value": "1, 2"
+          },
+          {
+            "label_en": "left hole holds",
+            "label_id": "lubang kiri memuat",
+            "value": "3, 4"
+          },
+          {
+            "label_en": "crosses to front",
+            "label_id": "menyeberang ke depan",
+            "value": "5"
+          },
+          {
+            "label_en": "final order",
+            "label_id": "urutan akhir",
+            "value": "52143"
+          }
+        ],
+        "strategy": {
+          "name_en": "Deep holes take two soldiers each; simulate fill then climb-out order",
+          "name_id": "Lubang dalam memuat dua prajurit; simulasikan pengisian lalu urutan keluar"
+        },
+        "trap": {
+          "wrong": "34512",
+          "why_en": "Treating the holes as shallow (one soldier each) gives the rotation 34512; the dashed line shows they are deep.",
+          "why_id": "Menganggap lubang dangkal (satu prajurit) memberi rotasi 34512; garis putus-putus menunjukkan lubangnya dalam."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "52143"
+        }
+      }
     },
     {
       "number": 24,
@@ -1758,7 +2202,72 @@
       "body_id": "Bangun ruang yang ditunjukkan tersusun dari kubus putih 1×1×1, balok abu-abu 1×1×2, dan balok hitam 1×1×3. Dua cermin menunjukkan bayangannya dari samping dan dari belakang. Paling banyak berapa kubus putih 1×1×1 yang dapat dimiliki bangun itu?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q24.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q24.jpg",
+      "hint_steps_en": [
+        "The two mirror shadows must be explained: a black shadow needs a black 1×1×3 block (length 3) and a gray shadow needs a gray 1×1×2 block (length 2).",
+        "Place those long blocks so both coloured shadows are covered — they are forced.",
+        "To MAXIMISE the white count, make every remaining unit cell its own white 1×1×1 cube.",
+        "That leaves at most 6 white cubes."
+      ],
+      "hint_steps_id": [
+        "Dua bayangan cermin harus dijelaskan: bayangan hitam butuh balok hitam 1×1×3 (panjang 3) dan bayangan abu-abu butuh balok abu-abu 1×1×2 (panjang 2).",
+        "Tempatkan balok panjang itu agar kedua bayangan berwarna tertutup — keduanya wajib ada.",
+        "Untuk MEMAKSIMALKAN banyak putih, jadikan setiap sel satuan sisanya kubus putih 1×1×1 sendiri.",
+        "Itu menyisakan paling banyak 6 kubus putih."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "white 1×1×1 cubes, gray 1×1×2 blocks, and black 1×1×3 blocks",
+            "phrase_id": "kubus putih 1×1×1, balok abu-abu 1×1×2, dan balok hitam 1×1×3",
+            "note_en": "White = 1 cube, gray = 2 cubes, black = 3 cubes.",
+            "note_id": "Putih = 1 kubus, abu-abu = 2 kubus, hitam = 3 kubus."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "two mirrors show its reflections",
+            "phrase_id": "Dua cermin menunjukkan bayangannya",
+            "note_en": "Each coloured shadow forces a block of that colour to exist.",
+            "note_id": "Tiap bayangan berwarna mengharuskan adanya balok warna itu."
+          },
+          {
+            "category": "question",
+            "phrase_en": "At most how many white",
+            "phrase_id": "Paling banyak berapa kubus putih",
+            "note_en": "Force the long coloured blocks, then make the rest white.",
+            "note_id": "Wajibkan balok panjang berwarna, lalu jadikan sisanya putih."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "forced black (length 3)",
+            "label_id": "hitam wajib (panjang 3)",
+            "value": "1"
+          },
+          {
+            "label_en": "forced gray (length 2)",
+            "label_id": "abu-abu wajib (panjang 2)",
+            "value": "1"
+          },
+          {
+            "label_en": "most white cubes",
+            "label_id": "kubus putih terbanyak",
+            "value": "6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Force the long coloured blocks from the shadows, fill the rest with white",
+          "name_id": "Wajibkan balok panjang berwarna dari bayangan, isi sisanya dengan putih"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6"
+        }
+      }
     },
     {
       "number": 25,
@@ -1766,7 +2275,77 @@
       "body_id": "Isikan bilangan 1 sampai 9 ke dalam sembilan persegi. Setiap bilangan di dalam lingkaran sama dengan jumlah empat persegi yang mengelilingi lingkaran itu. Selain itu, tiga persegi yang memiliki pola latar yang sama berjumlah sama dengan bilangan yang tertera di luar kotak untuk pola tersebut. Tentukan bilangan 3 angka ABC.",
       "answer_type": "fill_in",
       "answer": "841",
-      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q25.jpg"
+      "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q25.jpg",
+      "hint_steps_en": [
+        "Each circle equals the sum of its four surrounding squares (18, 20, 26, 17); each hexagon equals the sum of its three same-pattern squares (white 10, gray 13, striped 22).",
+        "Those totals check out: 10 + 13 + 22 = 45 = 1 + 2 + … + 9, so every digit is used once.",
+        "These constraints have exactly one solution: top row 2 7 6, middle 5 4 3, bottom 8 9 1.",
+        "A = 8 (bottom-left), B = 4 (centre), C = 1 (bottom-right), so ABC = 841."
+      ],
+      "hint_steps_id": [
+        "Setiap lingkaran sama dengan jumlah empat persegi di sekitarnya (18, 20, 26, 17); setiap segi enam sama dengan jumlah tiga persegi berpola sama (putih 10, abu-abu 13, garis 22).",
+        "Totalnya cocok: 10 + 13 + 22 = 45 = 1 + 2 + … + 9, jadi tiap angka dipakai sekali.",
+        "Kendala-kendala ini punya tepat satu solusi: baris atas 2 7 6, tengah 5 4 3, bawah 8 9 1.",
+        "A = 8 (bawah-kiri), B = 4 (pusat), C = 1 (bawah-kanan), jadi ABC = 841."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the sum of the four squares surrounding that circle",
+            "phrase_id": "empat persegi yang mengelilingi lingkaran itu",
+            "note_en": "Each interior circle ties four cells together.",
+            "note_id": "Tiap lingkaran dalam mengikat empat sel."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the same background pattern",
+            "phrase_id": "memiliki pola latar yang sama",
+            "note_en": "Three same-pattern cells add to the outside number.",
+            "note_id": "Tiga sel berpola sama berjumlah sama dengan bilangan di luar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the 3-digit number ABC",
+            "phrase_id": "Tentukan bilangan 3 angka ABC",
+            "note_en": "Solve the grid, then read A, B, C.",
+            "note_id": "Pecahkan kisi, lalu baca A, B, C."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "A (bottom-left)",
+            "label_id": "A (bawah-kiri)",
+            "value": "8"
+          },
+          {
+            "label_en": "B (centre)",
+            "label_id": "B (pusat)",
+            "value": "4"
+          },
+          {
+            "label_en": "C (bottom-right)",
+            "label_id": "C (bawah-kanan)",
+            "value": "1"
+          },
+          {
+            "label_en": "ABC",
+            "label_id": "ABC",
+            "value": "841"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combine the circle sums and pattern totals to pin the unique grid",
+          "name_id": "Gabungkan jumlah lingkaran dan total pola untuk menetapkan kisi tunggal"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "841"
+        }
+      }
     }
   ]
 }
