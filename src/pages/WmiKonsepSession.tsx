@@ -5,6 +5,7 @@ import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
+import WmiExplainer from '../components/wmi/WmiExplainer'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { trackEvent } from '../lib/analytics'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
@@ -51,6 +52,7 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
     hint_en: question.hint_en,
     hint_id: question.hint_id,
     difficulty: null,
+    breakdown: question.breakdown ?? null,
   }
 }
 
@@ -606,53 +608,64 @@ export default function WmiKonsepSession() {
               </div>
             )}
 
-            {/* Feedback panel (shown after answer) */}
+            {/* Feedback (after answer): verdict card → animated walkthrough → action */}
             {feedback && (
-              <div
-                className={`relative rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
-                  feedback.is_correct
-                    ? 'border-[#58A700]/40 bg-[#E8F5D6]'
-                    : 'border-rose-200 bg-rose-50'
-                }`}
-              >
-                {/* Correct / wrong badge */}
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
-                      feedback.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
-                    }`}
-                  >
-                    <i
-                      className={`fa-solid ${feedback.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`}
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <span className={`font-display font-black ${feedback.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}>
-                    {feedback.is_correct ? 'Benar!' : 'Belum tepat'}
-                  </span>
+              <>
+                <div
+                  className={`relative rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
+                    feedback.is_correct
+                      ? 'border-[#58A700]/40 bg-[#E8F5D6]'
+                      : 'border-rose-200 bg-rose-50'
+                  }`}
+                >
+                  {/* Correct / wrong badge */}
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
+                        feedback.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
+                      }`}
+                    >
+                      <i
+                        className={`fa-solid ${feedback.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`}
+                        aria-hidden="true"
+                      />
+                    </span>
+                    <span className={`font-display font-black ${feedback.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}>
+                      {feedback.is_correct ? 'Benar!' : 'Belum tepat'}
+                    </span>
+                  </div>
+
+                  {/* Correct answer (shown on wrong) */}
+                  {!feedback.is_correct && (
+                    <p className="mt-2 text-sm font-semibold text-rose-700">
+                      Jawaban benar: <span className="font-black">{feedback.correct_answer}</span>
+                    </p>
+                  )}
+
+                  {/* Hint */}
+                  {(feedback.hint_id ?? feedback.hint_en) && (
+                    <p className="mt-2 text-xs font-semibold text-qupu-muted">
+                      {feedback.hint_id ?? feedback.hint_en}
+                    </p>
+                  )}
+
+                  {/* Vote controls — collapsed behind a flag icon in the corner */}
+                  <WmiVoteToggle onVote={onVote} />
                 </div>
 
-                {/* Correct answer (shown on wrong) */}
-                {!feedback.is_correct && (
-                  <p className="mt-2 text-sm font-semibold text-rose-700">
-                    Jawaban benar: <span className="font-black">{feedback.correct_answer}</span>
-                  </p>
-                )}
-
-                {/* Hint */}
-                {(feedback.hint_id ?? feedback.hint_en) && (
-                  <p className="mt-2 text-xs font-semibold text-qupu-muted">
-                    {feedback.hint_id ?? feedback.hint_en}
-                  </p>
-                )}
-
-                {/* Vote controls — collapsed behind a flag icon in the corner */}
-                <WmiVoteToggle onVote={onVote} />
+                {/* Animated step-by-step walkthrough — self-hides when the
+                    concept has no explainer registered. */}
+                <WmiExplainer
+                  slug={question.concept_slug}
+                  params={question.params}
+                  correctAnswer={feedback.correct_answer}
+                  lang={preferredLang}
+                />
 
                 {/* Lanjut / commit area */}
                 {answers.length >= plan.length ? (
                   // Final answer already banked — show commit/loading/retry state only
-                  <div className="mt-4 space-y-2">
+                  <div className="space-y-2">
                     {commitError && (
                       <p className="text-center text-xs font-semibold text-rose-600">
                         <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
@@ -676,12 +689,12 @@ export default function WmiKonsepSession() {
                   <button
                     type="button"
                     onClick={handleLanjut}
-                    className="mt-4 w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+                    className="w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
                   >
                     Lanjut
                   </button>
                 )}
-              </div>
+              </>
             )}
           </div>
         )}

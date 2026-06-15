@@ -1,21 +1,37 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+// src/pages/WmiKonsepDrill.tsx
+//
+// /wmi-arena/campur — "Latihan Campur". A bounded round of 10 mixed-concept
+// questions that mirrors the Belajar session answering experience: green
+// progress bar, illustration inside the question card, the Benar!/Belum tepat
+// feedback card, the animated "Penjelasan" walkthrough (WmiExplainer) when one
+// exists, confetti on correct, a Lanjut flow, and an end-of-round summary.
+//
+// Unlike the Belajar chapter session this is per-answer scored (each answer
+// banks its own reward via submitConceptAttempt) — there is no chapter-keyed
+// session commit, so the summary tallies the coins/XP earned across the round
+// rather than running the staged growth ceremony. `?concept=<slug>` drills one
+// specific concept for the whole round; otherwise the grade's concepts are
+// mixed (the engine picks each question).
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import ErrorBoundary from '../components/ErrorBoundary'
-import WmiConceptFeedbackPanel from '../components/wmi/WmiConceptFeedbackPanel'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
 import WmiExplainer from '../components/wmi/WmiExplainer'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
-import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchConceptNext, submitConceptAttempt, submitConceptVote } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { syncStatStrip } from '../hooks/useGamificationStats'
 import { useWmiStore } from '../store/wmiStore'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { WmiAttemptResult, WmiConceptQuestion, WmiQuestion } from '../types/wmi'
 
+const ROUND_SIZE = 10
+
 export default function WmiKonsepDrill() {
+  useDocumentTitle('Latihan Campur')
   const { activeChildId } = useAuthStore()
   const { loadGlossary, selectedGrade, preferredLang, setPreferredLang } = useWmiStore()
   // Konsep drills exist for grades 1-3 only (grade 0 is just for the papers
@@ -25,31 +41,33 @@ export default function WmiKonsepDrill() {
   const navigate = useNavigate()
   const location = useLocation()
   const [searchParams] = useSearchParams()
-  // When present, drill this specific concept (tapped from the catalog) rather
-  // than a random one for the grade.
+  // When present, drill this specific concept (tapped from the catalog) for the
+  // whole round rather than a random mix.
   const conceptSlug = searchParams.get('concept') ?? undefined
+
+  // Round state
+  const [round, setRound] = useState(0) // bumped on "Main lagi" to re-arm the fetch
+  const [idx, setIdx] = useState(0)
+  const [results, setResults] = useState<boolean[]>([])
+  const [coinsEarned, setCoinsEarned] = useState(0)
+  const [xpEarned, setXpEarned] = useState(0)
+  const [done, setDone] = useState(false)
+
+  // Per-question state
   const [question, setQuestion] = useState<WmiConceptQuestion | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<WmiAttemptResult | null>(null)
-  const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
-  const [revealed, setRevealed] = useState(false)
-  const [breakdown, setBreakdown] = useState(false)
   const [questionLang, setQuestionLang] = useState<'en' | 'id'>(preferredLang)
   const [error, setError] = useState<string | null>(null)
-  // Session history: one entry per answered question (true = correct). Persists
-  // across questions for this visit so the dot strip marks what's been done.
-  const [results, setResults] = useState<boolean[]>([])
   const askedAt = useRef(Date.now())
+  const submittingRef = useRef(false)
 
-  const loadNext = useCallback(async () => {
+  useEffect(() => { loadGlossary().catch(() => {}) }, [loadGlossary])
+
+  const loadQuestion = useCallback(async () => {
     if (!activeChildId) return
     setSelected(null)
     setFeedback(null)
-    setLookedUpTerms([])
-    setRevealed(false)
-    setBreakdown(false)
-    // getState() (not the subscribed value): preferredLang in the deps would
-    // make a mid-question toggle refetch the question.
     setQuestionLang(useWmiStore.getState().preferredLang)
     setError(null)
     setQuestion(null)
@@ -62,21 +80,30 @@ export default function WmiKonsepDrill() {
     }
   }, [activeChildId, drillGrade, conceptSlug])
 
+  // Fetch the question for the current slot. Re-runs on idx (Lanjut) and round
+  // (Main lagi); never while the summary is up.
+  useEffect(() => {
+    if (done) return
+    void loadQuestion()
+  }, [idx, round, loadQuestion, done])
+
   function handleBack() {
-    if (location.key === 'default') navigate('/main')
+    if (location.key === 'default') navigate('/wmi-arena')
     else navigate(-1)
   }
 
-  useEffect(() => {
-    loadGlossary().catch(() => {})
-  }, [loadGlossary])
-
-  useEffect(() => {
-    loadNext()
-  }, [loadNext])
+  function restart() {
+    setResults([])
+    setCoinsEarned(0)
+    setXpEarned(0)
+    setIdx(0)
+    setDone(false)
+    setRound((r) => r + 1)
+  }
 
   const submit = async (answer: string) => {
-    if (!activeChildId || !question || feedback) return
+    if (!activeChildId || !question || feedback || submittingRef.current) return
+    submittingRef.current = true
     setSelected(answer)
     try {
       const saved = await submitConceptAttempt({
@@ -85,13 +112,14 @@ export default function WmiKonsepDrill() {
         mode: 'concept',
         selected_answer: answer,
         time_taken_ms: Date.now() - askedAt.current,
-        revealed_id_translation: revealed,
-        looked_up_terms: lookedUpTerms,
       })
       setFeedback(saved)
       setResults((prev) => [...prev, saved.is_correct])
-      // Stamped with the child who answered (closed over at submit time).
+      // Per-answer reward is banked server-side; mirror it into the top strip
+      // and tally it for the round summary. Stamped with the answering child.
       if (saved.gamification) {
+        setCoinsEarned((c) => c + (saved.gamification?.coinsEarned ?? 0))
+        setXpEarned((x) => x + (saved.gamification?.xpEarned ?? 0))
         syncStatStrip(activeChildId, {
           streak: saved.gamification.streak.current,
           coinBalance: saved.gamification.coinBalance,
@@ -102,7 +130,15 @@ export default function WmiKonsepDrill() {
     } catch (err) {
       setSelected(null)
       setError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban'))
+    } finally {
+      submittingRef.current = false
     }
+  }
+
+  const handleLanjut = () => {
+    if (!feedback) return
+    if (idx < ROUND_SIZE - 1) setIdx((i) => i + 1)
+    else setDone(true)
   }
 
   const onVote = async (vote: 1 | -1) => {
@@ -110,124 +146,190 @@ export default function WmiKonsepDrill() {
     await submitConceptVote(activeChildId, question.concept_instance_id, vote)
   }
 
-  const Illustration = question ? getIllustration(question.concept_slug) : null
-  const hintSteps = useMemo(() => {
-    const steps = questionLang === 'id' ? feedback?.hint_steps_id : feedback?.hint_steps_en
-    const fallback = questionLang === 'id' ? feedback?.hint_id : feedback?.hint_en
-    return steps?.length ? steps : fallback ? [fallback] : []
+  const hint = useMemo(() => {
+    if (!feedback) return null
+    return questionLang === 'id' ? feedback.hint_id ?? feedback.hint_en : feedback.hint_en ?? feedback.hint_id
   }, [feedback, questionLang])
 
-  // Session marker strip: answered questions (correct/wrong) + the active one.
-  const recentResults = results.slice(-24)
-  const resultOffset = results.length - recentResults.length
-  const sessionDots: WmiDot[] = recentResults.map((correct, index): WmiDot => ({
-    key: `r-${resultOffset + index}`,
-    state: correct ? 'correct' : 'wrong',
-    current: feedback != null && index === recentResults.length - 1,
-  }))
-  if (!feedback && question) {
-    sessionDots.push({ key: 'current', state: 'pending', current: true })
-  }
-
+  // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
     return (
-      <div className="w-full max-w-[440px] self-center pb-6">
-        <TopRow onClose={handleBack} />
-        <div className="mt-4 rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-            <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
+      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+          <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-qupu-muted">Pilih profil anak dulu untuk mulai latihan.</p>
+      </div>
+    )
+  }
+
+  // ── Round summary ──────────────────────────────────────────────────────────
+  if (done) {
+    const correct = results.filter(Boolean).length
+    return (
+      <div className="relative mx-auto w-full max-w-[460px] p-6">
+        {correct >= 6 && <KonsepConfetti key={`summary-${round}`} />}
+        <div className="rounded-[1.75rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-qupu-brand-yellow/30 text-3xl text-qupu-brand-orange ring-4 ring-qupu-brand-yellow/50">
+            <i className="fa-solid fa-trophy" aria-hidden="true" />
           </div>
-          <p className="mt-3 text-sm font-semibold text-qupu-muted">Pilih profil anak dulu untuk mulai latihan.</p>
+          <h1 className="mt-4 font-display text-2xl font-black text-qupu-brand-blue">Sesi selesai!</h1>
+          <p className="mt-1 font-display text-lg font-black text-[#58A700]">
+            {correct} / {ROUND_SIZE} benar
+          </p>
+
+          <div className="mt-5 flex justify-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full bg-qupu-shell px-4 py-2 font-display text-sm font-black text-qupu-brand-blue ring-1 ring-[#FFE3CC]">
+              <i className="fa-solid fa-coins text-qupu-brand-yellow" aria-hidden="true" />
+              +{coinsEarned}
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-qupu-shell px-4 py-2 font-display text-sm font-black text-qupu-brand-blue ring-1 ring-[#FFE3CC]">
+              <i className="fa-solid fa-star text-qupu-brand-orange" aria-hidden="true" />
+              +{xpEarned} XP
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={restart}
+            className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
+              <i className="fa-solid fa-rotate-right" aria-hidden="true" />
+            </span>
+            Main lagi
+          </button>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="mt-2 w-full rounded-full bg-white py-3 font-display text-sm font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            Kembali
+          </button>
         </div>
       </div>
     )
   }
 
+  // ── Active round ───────────────────────────────────────────────────────────
   return (
-    <div className="relative w-full max-w-[440px] self-center pb-6">
-      {feedback?.is_correct && <KonsepConfetti key={question?.concept_instance_id} />}
-      <TopRow onClose={handleBack}>
-        {sessionDots.length > 0 && <WmiDots dots={sessionDots} />}
-      </TopRow>
+    <div className="relative mx-auto w-full max-w-[460px] pb-8">
+      {feedback?.is_correct && <KonsepConfetti key={`confetti-${round}-${idx}`} />}
 
-      {error ? (
-        <div className="mt-4 rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-            <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
-          </div>
-          <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
-          <button
-            type="button"
-            onClick={loadNext}
-            className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2.5 font-display text-sm font-extrabold text-white shadow-[0_3px_0_0_#B8541A] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
-            Coba lagi
-          </button>
-        </div>
-      ) : !question ? (
-        <KonsepSkeleton />
-      ) : (
-        <div className="mt-4 space-y-4">
-          {Illustration && (
-            /* Boundary outside the card: a crashing illustration removes the
-               whole card (no empty shell), the question stays usable. Keyed
-               per question so the next one gets a fresh chance to render. */
-            <ErrorBoundary key={question.concept_instance_id} scope="illustration" fallback={null}>
-              <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-qupu-shell p-4 shadow-[5px_6px_0_0_#FFD3B1]">
-                {/* Lazy registry chunk — a late pop-in is fine. */}
-                <Suspense fallback={null}>
-                  <Illustration params={question.params} />
-                </Suspense>
-              </div>
-            </ErrorBoundary>
-          )}
-          <WmiQuestionView
-            question={adaptConceptQuestion(question)}
-            hideConceptTitle
-            selectedChoice={selected}
-            highlight={
-              feedback
-                ? { correct: feedback.correct_answer, wrongPicked: feedback.is_correct ? null : selected }
-                : undefined
-            }
-            disabled={Boolean(feedback)}
-            revealed={revealed}
-            breakdownActive={breakdown}
-            initialLang={preferredLang}
-            onToggleBreakdown={() => setBreakdown((value) => !value)}
-            onPickChoice={submit}
-            onSubmitFillIn={submit}
-            onLookupTerm={(slug) => setLookedUpTerms((terms) => Array.from(new Set([...terms, slug])))}
-            onRevealTranslation={() => setRevealed(true)}
-            onLanguageChange={setQuestionLang}
-            onUserToggleLanguage={setPreferredLang}
+      {/* Top row: close + green progress bar + counter (mirrors Belajar session) */}
+      <div className="mb-3 flex items-center gap-3 px-1">
+        <button
+          type="button"
+          onClick={handleBack}
+          aria-label="Keluar"
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+        >
+          <i className="fa-solid fa-xmark" aria-hidden="true" />
+        </button>
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${((idx + 1) / ROUND_SIZE) * 100}%`,
+              background: 'linear-gradient(90deg, #6BCC2A 0%, #58A700 100%)',
+            }}
           />
-          {feedback && (
-            <>
-              <WmiExplainer
-                slug={question.concept_slug}
-                params={question.params}
-                correctAnswer={feedback.correct_answer}
-                lang={questionLang}
-              />
-              {/* Vote controls — collapsed behind a flag icon in the corner of the
-                  feedback panel (the panel itself has mt-5, hence top-8 here). */}
-              <div className="relative">
-                <WmiConceptFeedbackPanel
-                  isCorrect={feedback.is_correct}
-                  correctAnswer={feedback.correct_answer}
-                  hintSteps={hintSteps}
-                  lang={questionLang}
-                  reward={feedback.gamification}
-                  onNext={loadNext}
-                />
-                <WmiVoteToggle onVote={onVote} buttonClassName="absolute right-3 top-8" />
-              </div>
-            </>
-          )}
         </div>
-      )}
+        <span className="font-display text-xs font-black text-qupu-brand-blue">
+          {idx + 1} / {ROUND_SIZE}
+        </span>
+      </div>
+
+      <div className="mt-4">
+        {error ? (
+          <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
+              <i className="fa-solid fa-wifi text-xl" aria-hidden="true" />
+            </div>
+            <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+            <button
+              type="button"
+              onClick={() => void loadQuestion()}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
+            >
+              <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
+              Coba lagi
+            </button>
+          </div>
+        ) : !question ? (
+          <QuestionSkeleton />
+        ) : (
+          <div className="space-y-4">
+            <WmiQuestionView
+              question={adaptConceptQuestion(question)}
+              hideConceptTitle
+              conceptIllustration={getIllustration(question.concept_slug)}
+              conceptIllustrationParams={question.params}
+              selectedChoice={selected}
+              highlight={
+                feedback
+                  ? { correct: feedback.correct_answer, wrongPicked: feedback.is_correct ? null : selected }
+                  : undefined
+              }
+              disabled={Boolean(feedback)}
+              initialLang={preferredLang}
+              onPickChoice={submit}
+              onSubmitFillIn={submit}
+              onLookupTerm={() => {}}
+              onRevealTranslation={() => {}}
+              onLanguageChange={setQuestionLang}
+              onUserToggleLanguage={setPreferredLang}
+            />
+
+            {feedback && (
+              <>
+                {/* Verdict */}
+                <div
+                  className={`relative rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
+                    feedback.is_correct ? 'border-[#58A700]/40 bg-[#E8F5D6]' : 'border-rose-200 bg-rose-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
+                        feedback.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
+                      }`}
+                    >
+                      <i className={`fa-solid ${feedback.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`} aria-hidden="true" />
+                    </span>
+                    <span className={`font-display font-black ${feedback.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}>
+                      {feedback.is_correct ? 'Benar!' : 'Belum tepat'}
+                    </span>
+                  </div>
+                  {!feedback.is_correct && (
+                    <p className="mt-2 text-sm font-semibold text-rose-700">
+                      Jawaban benar: <span className="font-black">{feedback.correct_answer}</span>
+                    </p>
+                  )}
+                  {hint && <p className="mt-2 text-xs font-semibold text-qupu-muted">{hint}</p>}
+                  <WmiVoteToggle onVote={onVote} />
+                </div>
+
+                {/* Animated walkthrough — self-hides when no explainer exists */}
+                <WmiExplainer
+                  slug={question.concept_slug}
+                  params={question.params}
+                  correctAnswer={feedback.correct_answer}
+                  lang={questionLang}
+                />
+
+                <button
+                  type="button"
+                  onClick={handleLanjut}
+                  className="w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+                >
+                  {idx < ROUND_SIZE - 1 ? 'Lanjut' : 'Selesai'}
+                </button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -247,31 +349,14 @@ function adaptConceptQuestion(question: WmiConceptQuestion): WmiQuestion {
     hint_en: question.hint_en,
     hint_id: question.hint_id,
     difficulty: null,
+    breakdown: question.breakdown ?? null,
   }
 }
 
-// Decluttered header: a close button plus the session dot strip — nothing else.
-function TopRow({ onClose, children }: { onClose: () => void; children?: ReactNode }) {
+function QuestionSkeleton() {
   return (
-    <div className="mb-3 flex items-start gap-3">
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Keluar"
-        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-      >
-        <i className="fa-solid fa-xmark" aria-hidden="true" />
-      </button>
-      <div className="min-w-0 flex-1">{children}</div>
-    </div>
-  )
-}
-
-function KonsepSkeleton() {
-  return (
-    <div className="mt-4 space-y-4" aria-hidden="true">
-      <div className="h-32 animate-pulse rounded-[1.5rem] bg-qupu-cream" />
-      <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
+    <div className="space-y-4" aria-hidden="true">
+      <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]">
         <div className="h-4 w-1/3 animate-pulse rounded-full bg-qupu-cream" />
         <div className="mt-3 h-6 w-4/5 animate-pulse rounded-full bg-qupu-cream" />
         <div className="mt-5 space-y-3">

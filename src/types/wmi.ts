@@ -177,6 +177,9 @@ export interface WmiConceptQuestion {
   hint_id: string | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  // Authored color-coded breakdown (recomputed server-side from params), so the
+  // konsep session/drill show the same WmiAuthoredBreakdown that papers do.
+  breakdown?: Breakdown | null
 }
 
 export interface WmiConceptVoteResult {

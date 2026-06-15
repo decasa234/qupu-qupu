@@ -3,7 +3,7 @@ import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { CONCEPTS, getConcept } from './registry.js'
 import { mulberry32 } from './rng.js'
 import { ensureBootstrapped } from './bootstrap.js'
-import type { ConceptLogic } from './types.js'
+import type { Breakdown, ConceptLogic } from './types.js'
 
 export interface ConceptQuestion {
   concept_instance_id: string
@@ -21,6 +21,10 @@ export interface ConceptQuestion {
   hint_id: string | null
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
+  // Authored color-coded breakdown (same shape papers carry), so the konsep
+  // session/drill render WmiAuthoredBreakdown instead of the auto-segmented
+  // fallback. Recomputed from params at serve time (see below), not persisted.
+  breakdown: Breakdown | null
 }
 
 const MAX_DUPE_RETRIES = 5
@@ -82,6 +86,17 @@ export async function getNextConceptQuestion(
       [conceptSlug],
     )
 
+    // The authored breakdown is a pure, deterministic function of params, so
+    // recompute it from the stored params at serve time rather than persisting a
+    // copy (mirrors the admin preview path). A render hiccup must never block
+    // question delivery, so fall back to null.
+    let breakdown: Breakdown | null = null
+    try {
+      breakdown = getConcept(conceptSlug)?.render(instance.params).breakdown ?? null
+    } catch {
+      breakdown = null
+    }
+
     return {
       concept_instance_id: instance.id,
       concept_slug: conceptSlug,
@@ -98,6 +113,7 @@ export async function getNextConceptQuestion(
       hint_id: instance.hint_id,
       hint_steps_en: instance.hint_steps_en,
       hint_steps_id: instance.hint_steps_id,
+      breakdown,
     }
   })
 }
