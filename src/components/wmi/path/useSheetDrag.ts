@@ -22,7 +22,11 @@ interface SheetDrag {
 const CLOSE_DISTANCE_RATIO = 0.28
 const CLOSE_VELOCITY = 0.55 // px per ms
 
-export function useSheetDrag(onClose: () => void): SheetDrag {
+// `open` is only needed for sheets that stay MOUNTED while closed (e.g.
+// QuestsSheet, hidden via CSS) — passing it resets the drag state each time the
+// sheet reopens so a previous dismissal's slid-off transform doesn't linger.
+// Sheets that unmount on close (ConceptSheet, ChapterSheet) omit it.
+export function useSheetDrag(onClose: () => void, open?: boolean): SheetDrag {
   const panelRef = useRef<HTMLDivElement | null>(null)
   const [dragY, setDragY] = useState(0)
   const [dragging, setDragging] = useState(false)
@@ -40,6 +44,16 @@ export function useSheetDrag(onClose: () => void): SheetDrag {
     },
     [],
   )
+
+  // Reopened (mounted-while-closed sheets) → clear leftover drag/close state.
+  useEffect(() => {
+    if (open) {
+      closing.current = false
+      setDragY(0)
+      setDragging(false)
+      setEngaged(false)
+    }
+  }, [open])
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     if (closing.current) return
