@@ -72,7 +72,9 @@ export default function AvatarEditor({ child }: { child: Child }) {
         </span>
         <div className="min-w-0">
           <h2 className="font-display text-lg font-extrabold text-qupu-brand-blue">{child.name}</h2>
-          <p className="text-xs font-semibold text-qupu-muted">Pilih hewan &amp; warna kesukaanmu.</p>
+          <p className="text-xs font-semibold text-qupu-muted">
+            Naik level untuk membuka karakter baru!
+          </p>
         </div>
       </div>
 

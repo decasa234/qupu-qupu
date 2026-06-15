@@ -12,10 +12,30 @@
 // imports both modules and fails the suite when they drift.
 
 export const AVATAR_ICON_MIN_LEVEL: Record<string, number> = {
-  'kiwi-bird': 5,
-  robot: 10,
-  astronaut: 15,
-  dragon: 20,
+  dog: 2,
+  fish: 3,
+  frog: 4,
+  shrimp: 5,
+  otter: 6,
+  cow: 7,
+  horse: 8,
+  hippo: 9,
+  crow: 10,
+  dove: 11,
+  'kiwi-bird': 12,
+  spider: 13,
+  bug: 14,
+  snowman: 15,
+  ghost: 16,
+  wizard: 17,
+  knight: 18,
+  robot: 19,
+  ninja: 20,
+  spy: 21,
+  astronaut: 22,
+  king: 23,
+  queen: 24,
+  dragon: 25,
 }
 
 export const AVATAR_COLOR_MIN_LEVEL: Record<string, number> = {

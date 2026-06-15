@@ -44,9 +44,9 @@ describe('avatar catalog FE/API sync', () => {
 
 describe('requiredAvatarLevel', () => {
   it('takes the max of the icon and color requirements', () => {
-    expect(requiredAvatarLevel('dragon', '#A78BFA')).toBe(20)
+    expect(requiredAvatarLevel('dragon', '#A78BFA')).toBe(25)
     expect(requiredAvatarLevel(null, '#F59E0B')).toBe(10)
-    expect(requiredAvatarLevel('robot', null)).toBe(10)
+    expect(requiredAvatarLevel('robot', null)).toBe(19)
   })
 
   it('treats unknown or absent values as ungated', () => {
@@ -59,7 +59,7 @@ describe('requiredAvatarLevel', () => {
     expect(requiredAvatarLevel(null, '#a78bfa')).toBe(5)
     expect(requiredAvatarLevel(null, '#f59e0b')).toBe(10)
     expect(requiredAvatarLevel(null, '#A78bFa')).toBe(5)
-    expect(requiredAvatarLevel('dragon', '#a78bfa')).toBe(20)
+    expect(requiredAvatarLevel('dragon', '#a78bfa')).toBe(25)
   })
 })
 

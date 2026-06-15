@@ -6,6 +6,7 @@
 // balances, and the full tier ladder with the current level highlighted.
 import { useEffect, useRef, useState } from 'react'
 import { fetchGamificationSummary, type GamificationSummary } from '../../lib/gamificationApi'
+import { avatarForLevel } from '../../lib/avatars'
 
 const THEME_COLOR: Record<string, string> = {
   pemula: '#94A3B8',
@@ -69,6 +70,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
     summary.tiers.find((t) => t.level === summary.level)?.themeKey,
     summary.level,
   )
+  const currentAvatar = avatarForLevel(summary.level)
 
   return (
     <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
@@ -78,10 +80,14 @@ export default function LevelDetail({ childId }: { childId: string }) {
 
       <div className="mt-3 flex items-center gap-3">
         <span
-          className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.2rem] font-display text-2xl font-black text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.15)]"
+          className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.2rem] text-3xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.15)]"
           style={{ backgroundColor: currentColor }}
         >
-          {summary.level}
+          {currentAvatar ? (
+            <i className={currentAvatar.icon} aria-hidden="true" />
+          ) : (
+            <span className="font-display text-2xl font-black">{summary.level}</span>
+          )}
         </span>
         <div className="min-w-0">
           <div className="font-display text-lg font-extrabold text-qupu-brand-blue">{summary.tierName}</div>
@@ -122,6 +128,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
           {summary.tiers.map((tier) => {
             const reached = summary.totalXp >= tier.minXp
             const isCurrent = tier.level === summary.level
+            const avatar = avatarForLevel(tier.level)
             return (
               <div
                 key={tier.level}
@@ -131,12 +138,16 @@ export default function LevelDetail({ childId }: { childId: string }) {
                 }`}
               >
                 <span
-                  className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full font-display text-xs font-black ${
+                  className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm ${
                     isCurrent ? 'bg-white text-qupu-brand-blue' : 'text-white'
                   }`}
                   style={isCurrent ? undefined : { backgroundColor: tierColor(tier.themeKey, tier.level) }}
                 >
-                  {tier.level}
+                  {avatar ? (
+                    <i className={avatar.icon} aria-hidden="true" />
+                  ) : (
+                    <span className="font-display text-xs font-black">{tier.level}</span>
+                  )}
                 </span>
                 <div className="min-w-0 flex-1">
                   <div
@@ -149,7 +160,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
                   <div
                     className={`text-[10px] font-semibold ${isCurrent ? 'text-white/80' : 'text-qupu-muted'}`}
                   >
-                    {tier.minXp} XP
+                    Level {tier.level} · {tier.minXp} XP
                   </div>
                 </div>
                 <i
