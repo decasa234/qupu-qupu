@@ -59,7 +59,10 @@ export default function TopStatStrip() {
   const level = stats?.level ?? 1
 
   return (
-    <div className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]">
+    <div
+      data-app-topbar
+      className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]"
+    >
       <div className="mx-auto flex w-full max-w-lg items-center justify-around px-3 py-2">
         <div
           className="flex items-center gap-1.5"

@@ -9,9 +9,10 @@
 import type { ReactNode, Ref } from 'react'
 import PathNode, { type PathNodeState } from './PathNode'
 import { nodeOffsets } from './pathLayout'
+import { bossState } from './pathState'
 import type { WmiGarden, WmiGardenChapter, WmiGardenConcept } from '../../../types/wmi'
 
-const ROW_H = 96
+export const ROW_H = 104
 // Backend's PROFICIENT_TIER: a concept counts as "grown" at tier >= 3 (Mahir).
 const GROWN_TIER = 3
 
@@ -48,23 +49,16 @@ export function pickCurrentNode(
   return { chapter, concept }
 }
 
-// Boss = the chapter's Tes Bab, mirroring ChapterGarden's source of truth:
-// passed when chapter.testedOut; tappable ("current") when the chapter is
-// locked (the test IS the unlock shortcut) or fully grown (final challenge);
-// otherwise dormant while the kid grows the concepts.
-function bossState(chapter: WmiGardenChapter): PathNodeState {
-  if (chapter.testedOut) return 'open'
-  if (!chapter.unlocked) return 'current'
-  if (chapter.total > 0 && chapter.grownCount >= chapter.total) return 'current'
-  return 'locked'
-}
-
 interface Props {
   garden: WmiGarden
   lastSubjectKey: string | null
   onNode: (concept: WmiGardenConcept, chapter: WmiGardenChapter) => void
   onBoss: (chapter: WmiGardenChapter) => void
+  /** Tap the chapter banner → open the curriculum-breakdown sheet. */
+  onChapter: (chapter: WmiGardenChapter) => void
   currentRef: Ref<HTMLButtonElement>
+  /** Slug of the concept whose sheet is open — spotlight that node. */
+  selectedSlug?: string | null
   /** One-shot onboarding bubble, rendered just above the current node's chapter. */
   coachMark?: ReactNode
 }
@@ -74,7 +68,9 @@ export default function PathTrail({
   lastSubjectKey,
   onNode,
   onBoss,
+  onChapter,
   currentRef,
+  selectedSlug,
   coachMark,
 }: Props) {
   const current = pickCurrentNode(garden, lastSubjectKey)
@@ -98,12 +94,15 @@ export default function PathTrail({
 
         return (
           <section key={chapter.subjectKey} className="mb-2">
-            {/* Banner row — the only canvas text */}
-            <div
-              className={`flex items-center gap-3 rounded-[1.5rem] px-4 py-3 ring-2 ${
+            {/* Banner row — tappable: opens the chapter's curriculum breakdown. */}
+            <button
+              type="button"
+              onClick={() => onChapter(chapter)}
+              aria-label={`Rincian Bab ${chapterIndex + 1} — ${chapter.nameId}, ${chapter.grownCount} dari ${chapter.total} tumbuh`}
+              className={`flex w-full items-center gap-3 rounded-[1.5rem] px-4 py-3 text-left ring-2 transition-transform active:translate-y-0.5 ${
                 chapter.unlocked
                   ? 'bg-white shadow-[0_5px_0_0_#FFD3B1] ring-[#FFE3CC]'
-                  : 'bg-[#FBF4E7] ring-[#EFE2CC]'
+                  : 'bg-[#FBF4E7] shadow-[0_5px_0_0_#EFE2CC] ring-[#EFE2CC]'
               }`}
             >
               <span
@@ -129,7 +128,11 @@ export default function PathTrail({
               >
                 {chapter.grownCount}/{chapter.total}
               </span>
-            </div>
+              <i
+                className="fa-solid fa-chevron-right flex-shrink-0 text-xs text-qupu-muted/60"
+                aria-hidden="true"
+              />
+            </button>
 
             {isCurrentChapter && coachMark}
 
@@ -162,6 +165,7 @@ export default function PathTrail({
                 return (
                   <div
                     key={concept.slug}
+                    data-node-slug={concept.slug}
                     className="absolute -translate-x-1/2 -translate-y-1/2"
                     style={{ left: `calc(${offsets[i].x * 100}%)`, top: centers[i].y }}
                   >
@@ -169,6 +173,7 @@ export default function PathTrail({
                       state={state}
                       tier={concept.tier}
                       isBoss={false}
+                      selected={selectedSlug === concept.slug}
                       label={`${concept.nameId} — ${state === 'locked' ? 'terkunci' : 'latihan'}`}
                       onClick={() => onNode(concept, chapter)}
                       anchorRef={isCurrent ? currentRef : undefined}

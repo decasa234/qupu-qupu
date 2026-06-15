@@ -12,6 +12,7 @@ import GardenCoachMark from '../components/onboarding/GardenCoachMark'
 import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/StreakRecoveryModal'
 import PathTrail, { pickCurrentNode } from '../components/wmi/path/PathTrail'
 import ConceptSheet from '../components/wmi/path/ConceptSheet'
+import ChapterSheet from '../components/wmi/path/ChapterSheet'
 import QuestsSheet from '../components/wmi/path/QuestsSheet'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
@@ -59,6 +60,7 @@ export default function BelajarPath() {
   const [loadError, setLoadError] = useState(false)
   const [fetchTick, setFetchTick] = useState(0)
   const [selected, setSelected] = useState<SelectedConcept | null>(null)
+  const [breakdownChapter, setBreakdownChapter] = useState<WmiGardenChapter | null>(null)
   const [questsOpen, setQuestsOpen] = useState(false)
   const [claimableCount, setClaimableCount] = useState(0)
   const currentRef = useRef<HTMLButtonElement | null>(null)
@@ -143,7 +145,7 @@ export default function BelajarPath() {
   const coachMarkVisible = showCoachMark && !!garden && grownTotal === 0
 
   const current = garden ? pickCurrentNode(garden, lastSubjectKey) : null
-  const sheetOpen = !!selected || questsOpen
+  const sheetOpen = !!selected || questsOpen || !!breakdownChapter
 
   const startSession = (subjectKey: string, focusSlug?: string) => {
     if (showCoachMark) dismissCoachMark()
@@ -152,7 +154,9 @@ export default function BelajarPath() {
   }
 
   return (
-    <div className="w-full max-w-[460px] self-center pb-6">
+    <div className="relative w-full max-w-[460px] self-center pb-6">
+      <BelajarBackdrop />
+      <div className="relative z-10">
       {/* Header row: title + quest chest. No grade chips, no resume hero. */}
       <div className="flex items-center justify-between px-1 pt-1">
         <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
@@ -185,12 +189,12 @@ export default function BelajarPath() {
           // qupu-cream, so a cream skeleton would be invisible.
           <div aria-hidden="true">
             <div className="h-[60px] animate-pulse rounded-[1.5rem] bg-qupu-peach/40" />
-            <div className="relative" style={{ height: 5 * 96 }}>
+            <div className="relative" style={{ height: 5 * 104 }}>
               {[0.5, 0.22, 0.5, 0.78, 0.5].map((x, i) => (
                 <div
                   key={i}
                   className="absolute h-16 w-16 -translate-x-1/2 animate-pulse rounded-full bg-qupu-peach/40"
-                  style={{ left: `${x * 100}%`, top: i * 96 + 16 }}
+                  style={{ left: `${x * 100}%`, top: i * 104 + 16 }}
                 />
               ))}
             </div>
@@ -217,7 +221,18 @@ export default function BelajarPath() {
             coachMark={
               coachMarkVisible ? <GardenCoachMark onDismiss={dismissCoachMark} /> : undefined
             }
-            onNode={(concept, chapter) => setSelected({ concept, chapter })}
+            selectedSlug={selected?.concept.slug ?? null}
+            onNode={(concept, chapter) =>
+              // Tapping the open node toggles it shut; tapping another switches
+              // the sheet to it (no need to close first).
+              setSelected((prev) =>
+                prev && prev.concept.slug === concept.slug ? null : { concept, chapter },
+              )
+            }
+            onChapter={(chapter) => {
+              setSelected(null)
+              setBreakdownChapter(chapter)
+            }}
             onBoss={(chapter) => navigate(`/latihan/wmi/tes/${chapter.subjectKey}`)}
           />
         ) : (
@@ -226,6 +241,7 @@ export default function BelajarPath() {
           </p>
         )}
       </div>
+      </div>{/* /relative z-10 content */}
 
       {/* Floating "Lanjut" — scrolls to + opens the current node's sheet. */}
       {current && !sheetOpen && (
@@ -251,6 +267,23 @@ export default function BelajarPath() {
         />
       )}
 
+      {/* Curriculum breakdown — opened from a chapter banner. Picking a concept
+          hands off to ConceptSheet (which focuses the node + shows progress). */}
+      {breakdownChapter && (
+        <ChapterSheet
+          chapter={breakdownChapter}
+          onPick={(concept) => {
+            const chapter = breakdownChapter
+            setBreakdownChapter(null)
+            setSelected({ concept, chapter })
+          }}
+          onBoss={() => {
+            navigate(`/latihan/wmi/tes/${breakdownChapter.subjectKey}`)
+          }}
+          onClose={() => setBreakdownChapter(null)}
+        />
+      )}
+
       {/* Mounted while closed so the quest fetch feeds the chest badge. */}
       <QuestsSheet
         childId={activeChildId}
@@ -268,6 +301,27 @@ export default function BelajarPath() {
           onClose={dismissRecovery}
         />
       )}
+    </div>
+  )
+}
+
+// Decorative warmth behind the trail — soft blurred colour glows + a few faint
+// star sprinkles (brand flair, never a mascot or a flat SVG path). Covers the
+// full scroll height; pointer-events-none and behind the z-10 content.
+function BelajarBackdrop() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute -left-16 top-[4%] h-56 w-56 rounded-full bg-qupu-brand-yellow/20 blur-3xl" />
+      <div className="absolute -right-20 top-[26%] h-64 w-64 rounded-full bg-qupu-brand-orange/15 blur-3xl" />
+      <div className="absolute -left-20 top-[52%] h-60 w-60 rounded-full bg-qupu-brand-blue/10 blur-3xl" />
+      <div className="absolute -right-16 top-[78%] h-56 w-56 rounded-full bg-qupu-brand-yellow/20 blur-3xl" />
+
+      <i className="fa-solid fa-star absolute left-[8%] top-[12%] text-base text-qupu-brand-yellow/50" />
+      <i className="fa-solid fa-star absolute right-[10%] top-[20%] text-xs text-qupu-brand-orange/35" />
+      <i className="fa-solid fa-star absolute left-[14%] top-[40%] text-sm text-qupu-brand-yellow/40" />
+      <i className="fa-solid fa-star absolute right-[12%] top-[55%] text-base text-qupu-brand-yellow/45" />
+      <i className="fa-solid fa-star absolute left-[10%] top-[72%] text-xs text-qupu-brand-orange/35" />
+      <i className="fa-solid fa-star absolute right-[14%] top-[86%] text-sm text-qupu-brand-yellow/40" />
     </div>
   )
 }
