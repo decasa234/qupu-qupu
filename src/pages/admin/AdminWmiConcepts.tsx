@@ -187,8 +187,8 @@ export default function AdminWmiConcepts() {
     for (const c of filtered) {
       if (!strands.has(c.strand_label)) strands.set(c.strand_label, new Map())
       const topics = strands.get(c.strand_label)!
-      if (!topics.has(c.topic_label)) topics.set(c.topic_label, [])
-      topics.get(c.topic_label)!.push(c)
+      if (!topics.has(c.topic)) topics.set(c.topic, [])
+      topics.get(c.topic)!.push(c)
     }
     return [...strands.entries()].map(
       ([strand, topics]) => [strand, [...topics.entries()]] as const,
@@ -299,7 +299,7 @@ export default function AdminWmiConcepts() {
               {topics.map(([topic, items]) => (
                 <div key={topic} className="mb-1">
                   <div className="px-2 pb-0.5 pt-1 text-[10px] font-semibold text-admin-muted">
-                    {topic}
+                    {items[0]?.topic_label ?? topic}
                   </div>
                   {items.map((c) => (
                     <button
@@ -323,6 +323,7 @@ export default function AdminWmiConcepts() {
                       <span
                         className={`shrink-0 tabular-nums text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
                         title={`Difficulty ${c.difficulty}/5`}
+                        aria-hidden="true"
                       >
                         d{c.difficulty}
                       </span>
