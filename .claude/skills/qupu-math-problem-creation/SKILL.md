@@ -30,7 +30,7 @@ Each role is persisted as a global subagent (in `~/.claude/agents/`). Dispatch t
 **Sequencing:**
 1. Run **`qupu-question-designer` alone first** and read its `needsVisual` + brief.
 2. Then dispatch the rest **in one parallel batch** (one message, multiple Agent calls): `qupu-step-explainer` always; `qupu-illustrator` + `qupu-animator` only if `needsVisual` (they write *separate new files*, so they never conflict).
-3. **The controller does all shared-file wiring serially** after the agents return — write `breakdown.ts` + wire `render()` (or drop `breakdown`/`hint_steps` into seed JSON), and add the registry lines the illustrator/animator reported (`concepts/registry.ts`, `concepts/explainers/registry.ts`, or `paperQuestions/registry.ts`). This is why roles 1 & 3 return data instead of editing.
+3. **The controller does all shared-file wiring serially** after the agents return — write `breakdown.ts` + wire `render()` (or drop `breakdown`/`hint_steps` into seed JSON), and add the registry lines the illustrator/animator reported (`concepts/registry.ts`, `concepts/explainers/registry.ts`, or `PastPapers/WMI/registry.ts`). This is why roles 1 & 3 return data instead of editing.
 4. Run the Verification suite below.
 
 (You can still perform any role inline yourself instead of dispatching — the agents just package each role's rules so they run in parallel cleanly.)
@@ -90,7 +90,7 @@ Build it **parametrically** from `params` (like `hint_steps`), never hardcoded t
 
 **Concept (runtime-generated, no DB):** `render(params)` returns `breakdown` → it flows through `preview.ts` → shows on the Q toggle automatically. Register the illustration in `concepts/registry.ts` and the explainer in `concepts/explainers/registry.ts`.
 
-**Paper question (`paperQuestions/`):** key everything by the stable `code` (`WMI-19F1A-Q1`). Register `{ Illustration, Explainer }` in `src/components/wmi/paperQuestions/registry.ts`; author `breakdown` + `hint_steps` in the paper's seed JSON, then reseed. Same `Breakdown` shape.
+**Paper question (`PastPapers/WMI/`):** key everything by the stable `code` (`WMI-19F1A-Q1`). Register `{ Illustration, Explainer }` in `src/components/wmi/PastPapers/WMI/registry.ts`; author `breakdown` + `hint_steps` in the paper's seed JSON, then reseed. Same `Breakdown` shape.
 
 **Parallel-safe split:** illustrator/animator write their *own new component files*; designer/step-explainer return data and the controller serially edits shared files (`registry.ts`, seed JSON) — avoids merge conflicts.
 

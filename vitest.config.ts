@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     environment: 'node',
-    include: ['api/**/*.test.ts', 'src/**/*.test.ts'],
+    include: ['api/**/*.test.ts', 'src/**/*.test.ts', 'db/**/*.test.ts'],
     setupFiles: ['./api/__tests__/setup.ts'],
   },
 })
