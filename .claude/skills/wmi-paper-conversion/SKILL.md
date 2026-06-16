@@ -59,15 +59,17 @@ taken end to end; copy them, don't re-derive.
 - **Per-question craft:** the `qupu-math-problem-creation` skill.
 - **Token-saving tooling:** `npm run wmi:scan-figures -- "<dir>" …` (per-question
   figure inventory from a source folder's `full.md`) and `npm run wmi:index`
-  (regenerates `src/components/wmi/PastPapers/WMI/INDEX.md`, the searchable
-  catalog of every wired illustration/explainer/option renderer).
+  (regenerates `INDEX.md` plus `EXPLAINER_POOL.md` + `pool.json` in
+  `src/components/wmi/PastPapers/WMI/` — the reuse catalog: parameterized
+  **templates** first, then every wired illustration/explainer/option renderer).
 
 ## Token budget (read once, apply everywhere)
 
 1. **Scan before you read.** `wmi:scan-figures` replaces opening every scan image;
    only open images for questions it flags.
-2. **Grep INDEX.md before building.** A keyword hit there costs ~50 tokens; a
-   rebuilt component costs ~10–30k.
+2. **Read the pool catalog before building.** Scanning `EXPLAINER_POOL.md`
+   (templates first) costs ~50 tokens; a rebuilt component costs ~10–30k. Prefer a
+   template (zero new code) → then copy-adapt the closest bespoke entry.
 3. **Slice prompts per question.** Agents get their one question + one reference
    path, never the whole paper or multiple worked examples.
 4. **Tier the models** (Phase 3 table) — `haiku`/`sonnet` for data-only and routine
@@ -142,10 +144,22 @@ printed figure but needs one. Visual questions get an illustration + explainer;
 every question gets a breakdown + steps.
 
 ### Phase 3 · Enrich (per question; batchable)
-**Reuse before you build.** Before creating any illustration or explainer, search
-the generated catalog `src/components/wmi/PastPapers/WMI/INDEX.md` (regenerate
-with `npm run wmi:index` if stale) — grep it by keyword (clock, balance, kenken,
-maze, calendar, …) instead of reading component files. If the *same* problem
+**Pool reuse pass — do this FIRST for every `needsVisual` question.** Read
+`src/components/wmi/PastPapers/WMI/EXPLAINER_POOL.md` (regenerate with
+`npm run wmi:index` if stale); it lists reusable **templates** (true zero-code
+reuse) first, then bespoke pairs grouped by tag.
+1. **Template match** (judge by its `useWhen`) → do NOT build a component. Add a
+   binding to the question in the seed JSON:
+   `"visual": { "templateId": "<id>", "params": { … } }`. `npm run wmi:validate`
+   checks `params` against the template's schema, so a bad binding fails fast.
+2. **Bespoke near-match** → copy-adapt the closest catalogued pair.
+3. **No match** → build new, and have the new illustration export a `meta` block —
+   `definePoolMeta({ id, title, summary, useWhen, tags, grades, status: 'bespoke' })`
+   (import from `./poolMeta`) — so `npm run wmi:index` adds it to the catalog.
+
+**Reuse before you build.** When copy-adapting (cases 2–3), search the catalog by
+keyword (clock, balance, kenken, maze, calendar, …) instead of reading component
+files. If the *same* problem
 already exists in another paper/grade (same values, figure, and answer — e.g. a
 G1 question reused for G2), point the registry at the existing
 `Illustration`/`Explainer` instead of recreating them — the registry can map
@@ -256,8 +270,9 @@ questions (`needsVisual: false`) always stay in the guided loop regardless of op
 - Merge each question's `breakdown` + `hint_steps_en/id` + any reworded `body_en/id`
   into the paper's seed JSON.
 - `npm run seed:wmi`.
-- `npm run wmi:index` — regenerate `INDEX.md` so the new components are findable
-  for the next paper's reuse pass. Commit it with the batch.
+- `npm run wmi:index` — regenerate `INDEX.md` + `EXPLAINER_POOL.md` + `pool.json`
+  so new components (and any new `meta` blocks) are findable for the next paper's
+  reuse pass. Commit them with the batch.
 
 ### Phase 5 · Verify
 Run all four gates (Gate 1 Layout, Gate 2 Answer-correctness, Gate 3 Step-quality,
