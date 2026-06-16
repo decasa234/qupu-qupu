@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { isAxiosError } from 'axios'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
+import ErrorRetry from '../components/ErrorRetry'
 import KonsepCeremony from '../components/wmi/KonsepCeremony'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
@@ -433,9 +436,9 @@ export default function WmiKonsepSession() {
   // ── Loading / error states ─────────────────────────────────────────────────
   if (loadingGarden) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-qupu-peach border-t-qupu-brand-orange" />
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">Memuat sesi…</p>
+      <div className="mx-auto w-full max-w-[460px] p-6">
+        <Skeleton className="h-2 w-full rounded-full" />
+        <Skeleton className="mt-6 h-64 rounded-[1.5rem]" />
       </div>
     )
   }
@@ -512,14 +515,7 @@ export default function WmiKonsepSession() {
 
       {/* Top row: close button + single compact progress element */}
       <div className="mb-3 flex items-center gap-3 px-1">
-        <button
-          type="button"
-          onClick={handleQuit}
-          aria-label="Keluar"
-          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-xmark" aria-hidden="true" />
-        </button>
+        <BackButton variant="close" onClick={handleQuit} />
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
           <div
             className="h-full rounded-full transition-all duration-500"
@@ -538,20 +534,7 @@ export default function WmiKonsepSession() {
       <div className="mt-4">
         {questionError ? (
           /* Inline retry — the session (progress bar + showcase) stays alive */
-          <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-              <i className="fa-solid fa-wifi text-xl" aria-hidden="true" />
-            </div>
-            <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat soal. Periksa koneksimu.</p>
-            <button
-              type="button"
-              onClick={() => void fetchQuestion(currentPlanItem)}
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
-            >
-              <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
-              Coba lagi
-            </button>
-          </div>
+          <ErrorRetry message="Gagal memuat soal. Periksa koneksimu." onRetry={() => void fetchQuestion(currentPlanItem)} />
         ) : answers.length >= plan.length && !feedback ? (
           /* Restored fully-answered session — nothing left but the commit */
           <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
@@ -720,11 +703,11 @@ function QuestionSkeleton() {
   return (
     <div className="space-y-4" aria-hidden="true">
       <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]">
-        <div className="h-4 w-1/3 animate-pulse rounded-full bg-qupu-cream" />
-        <div className="mt-3 h-6 w-4/5 animate-pulse rounded-full bg-qupu-cream" />
+        <Skeleton className="h-4 w-1/3" />
+        <Skeleton className="mt-3 h-6 w-4/5" />
         <div className="mt-5 space-y-3">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="h-12 animate-pulse rounded-[1.25rem] bg-qupu-cream" />
+            <Skeleton key={i} className="h-12 rounded-[1.25rem]" />
           ))}
         </div>
       </div>

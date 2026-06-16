@@ -15,6 +15,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
+import ErrorRetry from '../components/ErrorRetry'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
 import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
 import WmiExplainer from '../components/wmi/WmiExplainer'
@@ -218,14 +221,7 @@ export default function WmiKonsepDrill() {
 
       {/* Top row: close + green progress bar + counter (mirrors Belajar session) */}
       <div className="mb-3 flex items-center gap-3 px-1">
-        <button
-          type="button"
-          onClick={handleBack}
-          aria-label="Keluar"
-          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-xmark" aria-hidden="true" />
-        </button>
+        <BackButton variant="close" onClick={handleBack} />
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
           <div
             className="h-full rounded-full transition-all duration-500"
@@ -242,20 +238,7 @@ export default function WmiKonsepDrill() {
 
       <div className="mt-4">
         {error ? (
-          <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-              <i className="fa-solid fa-wifi text-xl" aria-hidden="true" />
-            </div>
-            <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
-            <button
-              type="button"
-              onClick={() => void loadQuestion()}
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
-            >
-              <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
-              Coba lagi
-            </button>
-          </div>
+          <ErrorRetry message={error ?? 'Gagal memuat. Periksa koneksimu.'} onRetry={() => void loadQuestion()} />
         ) : !question ? (
           <QuestionSkeleton />
         ) : (
@@ -357,11 +340,11 @@ function QuestionSkeleton() {
   return (
     <div className="space-y-4" aria-hidden="true">
       <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]">
-        <div className="h-4 w-1/3 animate-pulse rounded-full bg-qupu-cream" />
-        <div className="mt-3 h-6 w-4/5 animate-pulse rounded-full bg-qupu-cream" />
+        <Skeleton className="h-4 w-1/3" />
+        <Skeleton className="mt-3 h-6 w-4/5" />
         <div className="mt-5 space-y-3">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="h-12 animate-pulse rounded-[1.25rem] bg-qupu-cream" />
+            <Skeleton key={i} className="h-12 rounded-[1.25rem]" />
           ))}
         </div>
       </div>

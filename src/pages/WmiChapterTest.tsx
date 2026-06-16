@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
+import ErrorRetry from '../components/ErrorRetry'
 import { startChapterTest, submitChapterTest } from '../lib/wmiApi'
 import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
@@ -78,25 +81,15 @@ export default function WmiChapterTest() {
   }
 
   if (!activeChildId) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
-  if (loading) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat tes…</div>
+  if (loading) return (
+    <div className="mx-auto w-full max-w-[460px] p-6">
+      <Skeleton className="h-2 w-full rounded-full" />
+      <Skeleton className="mt-6 h-64 rounded-[1.5rem]" />
+    </div>
+  )
 
   if (loadError) {
-    return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
-        </div>
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat tes. Coba lagi.</p>
-        <button
-          type="button"
-          onClick={() => setLoadTick((t) => t + 1)}
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
-          Coba lagi
-        </button>
-      </div>
-    )
+    return <ErrorRetry message="Gagal memuat tes. Coba lagi." onRetry={() => setLoadTick((t) => t + 1)} />
   }
 
   if (result) {
@@ -142,7 +135,7 @@ export default function WmiChapterTest() {
   return (
     <div className="mx-auto w-full max-w-[460px] p-4">
       <div className="mb-3 flex items-center justify-between">
-        <button onClick={() => navigate('/belajar')} className="text-sm font-bold text-qupu-muted"><i className="fa-solid fa-xmark" aria-hidden="true" /> Keluar</button>
+        <BackButton variant="close" onClick={() => navigate('/belajar')} />
         <span className="text-xs font-black text-qupu-brand-blue">Soal {idx + 1}/{questions.length}</span>
       </div>
       <div className="rounded-[1.5rem] bg-white p-5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
