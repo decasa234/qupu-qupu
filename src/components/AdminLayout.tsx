@@ -14,6 +14,7 @@ const NAV: NavEntry[] = [
   { to: '/admin/age-groups', label: 'Age Groups', icon: 'fa-solid fa-children' },
   { to: '/admin/users', label: 'Users', icon: 'fa-solid fa-users' },
   { to: '/admin/analytics', label: 'Analytics', icon: 'fa-solid fa-chart-line' },
+  { to: '/admin/fundamentals', label: 'Fundamentals', icon: 'fa-solid fa-compass' },
   {
     group: 'WMI',
     children: [

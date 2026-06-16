@@ -18,6 +18,7 @@ import childrenRoutes from './routes/children.js'
 import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
 import wmiAdminRoutes from './routes/wmi-admin.js'
+import fundamentalsAdminRoutes from './routes/fundamentals-admin.js'
 import analyticsRoutes from './routes/analytics.js'
 import cronRoutes from './routes/cron.js'
 import shopRoutes, { inventoryRouter as inventoryRoutes } from './routes/shop.js'
@@ -94,6 +95,7 @@ app.use('/api/me/wmi', wmiMemberRoutes)
 app.use('/api/me/fundamentals', fundamentalsMemberRoutes)
 app.use('/api/me', memberRoutes)
 app.use('/api/admin/wmi', wmiAdminRoutes)
+app.use('/api/admin/fundamentals', fundamentalsAdminRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/analytics', analyticsRoutes)
 app.use('/api/cron', cronRoutes)

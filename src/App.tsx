@@ -33,6 +33,8 @@ import AdminImportVideosPage from './pages/admin/AdminImportVideos'
 import AdminWmiConceptsPage from './pages/admin/AdminWmiConcepts'
 import AdminWmiDrillPage from './pages/admin/AdminWmiDrill'
 import AdminWmiReviewQueuePage from './pages/admin/AdminWmiReviewQueue'
+import AdminFundamentalsPage from './pages/admin/AdminFundamentals'
+import AdminFundamentalsLessonPage from './pages/admin/AdminFundamentalsLesson'
 import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
@@ -179,6 +181,8 @@ export default function App() {
           <Route path="age-groups" element={<AdminAgeGroupsPage />} />
           <Route path="users" element={<AdminUsersPage />} />
           <Route path="analytics" element={<AdminAnalyticsPage />} />
+          <Route path="fundamentals" element={<AdminFundamentalsPage />} />
+          <Route path="fundamentals/lessons/:slug" element={<AdminFundamentalsLessonPage />} />
           <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
           <Route path="wmi-drill" element={<AdminWmiDrillPage />} />
           <Route path="wmi-review" element={<AdminWmiReviewQueuePage />} />
