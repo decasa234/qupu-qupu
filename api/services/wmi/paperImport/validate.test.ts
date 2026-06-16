@@ -34,7 +34,7 @@ describe('validatePaper', () => {
     const bad: PaperFile = {
       ...goodPaper,
       questions: [
-        { ...mc(1, 'E'), choices_en: [{ label: 'A', text: 'a' }] },
+        { ...mc(1, 'F'), choices_en: [{ label: 'A', text: 'a' }] },
         mc(3, 'B', 'missing.jpg'),
         { number: 4, body_en: 'x', body_id: 'y', answer_type: 'fill_in', answer: '' },
       ],
@@ -42,7 +42,7 @@ describe('validatePaper', () => {
     const problems = validatePaper(bad, new Set())
     expect(problems.join('\n')).toMatch(/numbering not contiguous/)
     expect(problems.join('\n')).toMatch(/Q1: .*choices_en/)
-    expect(problems.join('\n')).toMatch(/Q1: answer "E" must be A-D/)
+    expect(problems.join('\n')).toMatch(/Q1: answer "F" must be A-E/)
     expect(problems.join('\n')).toMatch(/Q3: figure_url file "missing.jpg" not found/)
     expect(problems.join('\n')).toMatch(/Q4: fill_in needs a non-empty answer/)
   })
