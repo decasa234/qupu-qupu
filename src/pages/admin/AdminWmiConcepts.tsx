@@ -17,6 +17,10 @@ import {
   type ReviewStatus,
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
+import { useReviewIssues } from '../../hooks/useReviewIssues'
+import IssuesPanel from '../../components/admin/review/IssuesPanel'
+import FlagButton from '../../components/admin/review/FlagButton'
+import { suggestVerdictClient, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
 
 const noop = () => {}
 
@@ -70,10 +74,31 @@ function Chip({ on, label }: { on: boolean; label: string }) {
   )
 }
 
-function Section({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
+function Section({
+  title,
+  hint,
+  part,
+  onFlag,
+  children,
+}: {
+  title: string
+  hint?: string
+  part?: IssuePart
+  onFlag?: (i: {
+    part: IssuePart
+    title: string
+    detail: string
+    severity: IssueSeverity
+    ai_actionable: boolean
+  }) => Promise<unknown>
+  children: React.ReactNode
+}) {
   return (
     <Panel>
-      <SectionHeading>{title}</SectionHeading>
+      <div className="flex items-center justify-between gap-2">
+        <SectionHeading>{title}</SectionHeading>
+        {part && onFlag && <FlagButton part={part} onCreate={onFlag} />}
+      </div>
       {hint && <p className="mt-1 text-xs text-admin-muted">{hint}</p>}
       <div className="mt-3">{children}</div>
     </Panel>
@@ -227,6 +252,15 @@ export default function AdminWmiConcepts() {
   const hasExplainer = activeSlug ? Boolean(getExplainer(activeSlug)) : false
   const hasSteps = Boolean(sample?.hint_steps_en?.length || sample?.hint_steps_id?.length)
   const dirty = !review || status !== review.status || notes !== review.notes
+
+  const issueTarget = activeSlug ? { target_type: 'concept' as const, concept_slug: activeSlug } : null
+  const { issues, add: addIssue, update: updateIssue } = useReviewIssues(issueTarget)
+  const suggested = suggestVerdictClient(issues)
+  const flagConcept = useCallback(
+    (i: { part: IssuePart; title: string; detail: string; severity: IssueSeverity; ai_actionable: boolean }) =>
+      addIssue({ target_type: 'concept', concept_slug: activeSlug!, ...i }),
+    [addIssue, activeSlug],
+  )
 
   return (
     <div className="space-y-5">
@@ -482,6 +516,11 @@ export default function AdminWmiConcepts() {
                       )
                     })}
                   </div>
+                  {suggested !== status && (
+                    <span className="text-xs font-semibold text-admin-faint">
+                      Suggested from issues: {suggested.replace('_', ' ')}
+                    </span>
+                  )}
                   <Textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
@@ -508,6 +547,10 @@ export default function AdminWmiConcepts() {
                 </div>
               )}
             </Section>
+          )}
+
+          {active && (
+            <IssuesPanel issues={issues} title="Issues" onUpdate={(id, patch) => updateIssue(id, patch)} />
           )}
 
           {/* Sample navigation */}
@@ -557,7 +600,7 @@ export default function AdminWmiConcepts() {
                 </div>
               ) : (
                 <>
-                  <Section title="Question" hint="Toggle EN/ID and breakdown inside the card.">
+                  <Section title="Question" hint="Toggle EN/ID and breakdown inside the card." part="stem" onFlag={flagConcept}>
                     {activeSlug && (
                       <WmiQuestionView
                         question={adapt(activeSlug, sample)}
@@ -578,7 +621,7 @@ export default function AdminWmiConcepts() {
                     </p>
                   </Section>
 
-                  <Section title="Answer & params">
+                  <Section title="Answer & params" part="answer" onFlag={flagConcept}>
                     <div className="text-sm">
                       <span className="font-bold text-admin-muted">Answer:</span>{' '}
                       <span className="rounded bg-emerald-50 px-2 py-0.5 font-mono font-bold text-emerald-700">
@@ -590,7 +633,7 @@ export default function AdminWmiConcepts() {
                     </pre>
                   </Section>
 
-                  <Section title="Step-by-step">
+                  <Section title="Step-by-step" part="steps" onFlag={flagConcept}>
                     {hasSteps ? (
                       <div className="grid gap-3 sm:grid-cols-2">
                         <Steps label="EN" steps={sample.hint_steps_en} fallback={sample.hint_en} />
@@ -617,7 +660,7 @@ export default function AdminWmiConcepts() {
                     )}
                   </Section>
 
-                  <Section title="Animation">
+                  <Section title="Animation" part="animation" onFlag={flagConcept}>
                     {hasExplainer && activeSlug ? (
                       <WmiExplainer
                         key={`${activeSlug}-${sample.seed}`}
