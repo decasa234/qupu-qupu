@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import ErrorRetry from '../components/ErrorRetry'
+import Skeleton from '../components/Skeleton'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { fetchPaperDetail, startExamSession } from '../lib/wmiApi'
@@ -15,12 +18,18 @@ export default function WmiPaperDetail() {
   const [starting, setStarting] = useState(false)
   useDocumentTitle(paper?.title)
 
-  useEffect(() => {
+  const loadPaper = useCallback(() => {
     if (!activeChildId || !id) return
+    setError(null)
+    setPaper(null)
     fetchPaperDetail(activeChildId, id)
       .then(setPaper)
       .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat')))
   }, [activeChildId, id])
+
+  useEffect(() => {
+    loadPaper()
+  }, [loadPaper])
 
   const startExam = async () => {
     if (!activeChildId || !paper) return
@@ -39,16 +48,18 @@ export default function WmiPaperDetail() {
   }
   if (error) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
-        </div>
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      <div className="mx-auto w-full max-w-[460px] p-6">
+        <ErrorRetry message={error} onRetry={loadPaper} />
       </div>
     )
   }
   if (!paper) {
-    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat…</div>
+    return (
+      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+        <Skeleton className="h-8 w-32" />
+        <Skeleton className="h-48" />
+      </div>
+    )
   }
 
   const openSession = paper.openSession ?? null
@@ -56,13 +67,7 @@ export default function WmiPaperDetail() {
   return (
     <div className="w-full max-w-[460px] self-center pb-6">
       <div className="mb-3">
-        <Link
-          to="/latihan/wmi/ujian"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-          Kembali
-        </Link>
+        <BackButton variant="back" to="/latihan/wmi/ujian" />
       </div>
 
       <section className="rounded-[2rem] bg-white p-6 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">

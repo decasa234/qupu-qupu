@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
 import WmiExamReviewItem from '../components/wmi/WmiExamReviewItem'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
@@ -54,7 +56,13 @@ export default function WmiExamReview() {
     )
   }
   if (!snapshot) {
-    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat hasil…</div>
+    return (
+      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+        <Skeleton className="h-28" />
+        <Skeleton className="h-32" />
+        <Skeleton className="h-32" />
+      </div>
+    )
   }
 
   const score = snapshot.session.correct_count ?? snapshot.submittedAttempts.filter((a) => a.is_correct).length
@@ -83,13 +91,7 @@ export default function WmiExamReview() {
         ))}
       </div>
       <div className="mt-6 flex justify-between gap-3">
-        <Link
-          to="/latihan/wmi/ujian"
-          className="rounded-full bg-white px-5 py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left me-2 text-xs" aria-hidden="true" />
-          Kembali
-        </Link>
+        <BackButton variant="back" to="/latihan/wmi/ujian" />
         <button
           type="button"
           onClick={restartPaper}

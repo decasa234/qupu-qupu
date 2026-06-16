@@ -3,7 +3,8 @@
 // Dedicated "Latihan Soal Ujian" page — the real WMI exam papers, split out of
 // the course hub into its own screen. Grade chips filter the paper list.
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
 import WmiGradeChips from '../components/wmi/WmiGradeChips'
 import WmiPaperCard from '../components/wmi/WmiPaperCard'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -15,7 +16,6 @@ import type { WmiGrade, WmiPaperSummary } from '../types/wmi'
 
 export default function WmiPapers() {
   useDocumentTitle('Soal Ujian')
-  const navigate = useNavigate()
   const { activeChildId } = useAuthStore()
   const { selectedGrade, setSelectedGrade } = useWmiStore()
   const [papers, setPapers] = useState<WmiPaperSummary[]>([])
@@ -43,14 +43,7 @@ export default function WmiPapers() {
   return (
     <div className="w-full max-w-[460px] self-center pb-6">
       <div className="mb-3">
-        <button
-          type="button"
-          onClick={() => navigate('/main')}
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-          Kembali
-        </button>
+        <BackButton variant="back" to="/main" />
       </div>
 
       <section className="relative overflow-hidden rounded-[2rem] bg-qupu-brand-blue p-5 text-white shadow-[0_6px_0_0_#0E1430]">
@@ -78,7 +71,7 @@ export default function WmiPapers() {
       <div className="mt-3 grid gap-3">
         {loading ? (
           [0, 1, 2].map((i) => (
-            <div key={i} className="h-28 animate-pulse rounded-[1.5rem] bg-qupu-cream" />
+            <Skeleton key={i} className="h-28" />
           ))
         ) : papers.length === 0 && !error ? (
           <div className="rounded-[1.5rem] border-2 border-dashed border-qupu-peach bg-white p-6 text-center text-sm text-qupu-muted">

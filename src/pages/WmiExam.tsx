@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
@@ -120,7 +122,12 @@ export default function WmiExam() {
     )
   }
   if (!snapshot) {
-    return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Memuat ujian…</div>
+    return (
+      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+        <Skeleton className="h-10 w-40" />
+        <Skeleton className="h-64" />
+      </div>
+    )
   }
   if (timeUp) {
     return (
@@ -189,14 +196,7 @@ export default function WmiExam() {
     <div className="w-full max-w-[460px] self-center pb-8">
       <header className="mb-4 space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={exitExam}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-xmark text-xs" aria-hidden="true" />
-            Keluar
-          </button>
+          <BackButton variant="close" onClick={exitExam} />
           <WmiExamTimer
             startedAt={snapshot.session.started_at}
             durationMin={snapshot.paper.recommended_duration_min}

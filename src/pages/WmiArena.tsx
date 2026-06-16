@@ -4,6 +4,7 @@
 // (endless mixed drill) and Ujian WMI (past papers). Icon + ≤3 words per
 // card; no paragraph copy.
 import { Link } from 'react-router-dom'
+import BackButton from '../components/BackButton'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 const MODES = [
@@ -17,13 +18,7 @@ export default function WmiArena() {
   return (
     <div className="flex w-full max-w-[460px] flex-1 flex-col self-center pb-6">
       <div className="mb-3">
-        <Link
-          to="/main"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-          Kembali
-        </Link>
+        <BackButton variant="back" to="/main" />
       </div>
 
       <header className="px-1 pt-1">
