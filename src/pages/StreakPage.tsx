@@ -4,7 +4,6 @@
 // model (GET /me/dashboard) for streak / longest / shields / heatmap, and the
 // existing Heatmap primitive for the activity calendar. No backend change.
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import api from '../lib/api'
 import {
   dashboardFromApi,
@@ -14,12 +13,13 @@ import {
 import Heatmap, { HeatmapLegend } from '../components/dashboard/primitives/Heatmap'
 import { useAuthStore } from '../store/authStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
+import ErrorRetry from '../components/ErrorRetry'
 
 export default function StreakPage() {
   useDocumentTitle('Streak')
   const activeChildId = useAuthStore((s) => s.activeChildId)
-  const navigate = useNavigate()
-  const location = useLocation()
   const [vm, setVm] = useState<DashboardViewModel | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -61,33 +61,18 @@ export default function StreakPage() {
   return (
     <div className="mx-auto w-full max-w-[460px] pb-8">
       <div className="mb-3 flex items-center gap-3 px-1 pt-1">
-        <button
-          type="button"
-          onClick={() => (location.key === 'default' ? navigate('/profil') : navigate(-1))}
-          aria-label="Kembali"
-          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-arrow-left" aria-hidden="true" />
-        </button>
+        <BackButton variant="back" to="/profil" />
         <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">Streak</h1>
       </div>
 
       {loading ? (
-        <div className="mt-4 space-y-4" aria-hidden="true">
-          <div className="h-32 animate-pulse rounded-[1.75rem] bg-qupu-peach/40" />
-          <div className="h-40 animate-pulse rounded-[1.75rem] bg-qupu-peach/40" />
+        <div className="mt-4 space-y-4">
+          <Skeleton className="h-32 rounded-[1.75rem]" />
+          <Skeleton className="h-40 rounded-[1.75rem]" />
         </div>
       ) : error || !vm ? (
-        <div className="mt-4 rounded-[1.5rem] bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
-          <p className="text-sm font-bold text-qupu-brand-blue">Gagal memuat streak. Periksa koneksimu.</p>
-          <button
-            type="button"
-            onClick={() => setTick((t) => t + 1)}
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2.5 font-display text-sm font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-rotate-right" aria-hidden="true" />
-            Coba lagi
-          </button>
+        <div className="mt-4">
+          <ErrorRetry message="Gagal memuat streak. Periksa koneksimu." onRetry={() => setTick((t) => t + 1)} />
         </div>
       ) : (
         <div className="mt-4 space-y-4">
