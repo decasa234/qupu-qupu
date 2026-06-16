@@ -14,6 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
+import ErrorRetry from '../components/ErrorRetry'
 import Skeleton from '../components/Skeleton'
 import type { SubjectOption, VideoCard as VideoCardType } from '../types'
 
@@ -44,6 +45,7 @@ export default function MemberVideosPage() {
   const [watchedIds, setWatchedIds] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [loadTick, setLoadTick] = useState(0)
   const abortRef = useRef<AbortController | null>(null)
 
   const debouncedSearch = useDebounced(search, 250)
@@ -83,7 +85,7 @@ export default function MemberVideosPage() {
 
     void load()
     return () => abortRef.current?.abort()
-  }, [])
+  }, [loadTick])
 
   // Watched IDs depend on the active child; refetch when the child switches.
   useEffect(() => {
@@ -246,9 +248,7 @@ export default function MemberVideosPage() {
       </section>
 
       {error && (
-        <div className="rounded-[1.25rem] bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
-          {error}
-        </div>
+        <ErrorRetry message="Gagal memuat video. Periksa koneksimu." onRetry={() => setLoadTick((t) => t + 1)} />
       )}
 
       {loading ? (

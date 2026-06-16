@@ -19,7 +19,7 @@ import Slider from '../components/Slider'
 import BadgeCurve from '../components/BadgeCurve'
 import AuthCard from '../components/AuthCard'
 import BackButton from '../components/BackButton'
-import SkeletonCard from '../components/SkeletonCard'
+import Skeleton from '../components/Skeleton'
 import PostQuizRewardSummary from '../components/PostQuizRewardSummary'
 import { logSessionEvent, useVideoSessionTimer } from '../lib/sessionLogger'
 import { useAuthStore } from '../store/authStore'
@@ -178,8 +178,9 @@ export default function QuizPage() {
 
   if (loading) {
     return (
-      <div className="w-full">
-        <SkeletonCard />
+      <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
+        <Skeleton className="aspect-video rounded-[1.75rem]" />
+        <Skeleton className="h-24" />
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import ErrorRetry from '../components/ErrorRetry'
 import Skeleton from '../components/Skeleton'
 import WmiExamReviewItem from '../components/wmi/WmiExamReviewItem'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -18,6 +19,7 @@ export default function WmiExamReview() {
   const { loadGlossary } = useWmiStore()
   const [snapshot, setSnapshot] = useState<WmiExamSnapshot | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [loadTick, setLoadTick] = useState(0)
 
   useEffect(() => {
     loadGlossary().catch(() => {})
@@ -25,10 +27,11 @@ export default function WmiExamReview() {
 
   useEffect(() => {
     if (!activeChildId || !sessionId) return
+    setError(null)
     fetchExamSession(activeChildId, sessionId)
       .then(setSnapshot)
       .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat hasil')))
-  }, [activeChildId, sessionId])
+  }, [activeChildId, sessionId, loadTick])
 
   const attemptByQid = useMemo(
     () => new Map(snapshot?.submittedAttempts.map((attempt) => [attempt.question_id, attempt]) ?? []),
@@ -47,11 +50,11 @@ export default function WmiExamReview() {
 
   if (error) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
-        </div>
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      <div className="mx-auto w-full max-w-[460px] p-6">
+        <ErrorRetry
+          message="Gagal memuat hasil. Periksa koneksimu."
+          onRetry={() => setLoadTick((t) => t + 1)}
+        />
       </div>
     )
   }

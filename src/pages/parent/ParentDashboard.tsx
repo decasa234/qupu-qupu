@@ -85,11 +85,12 @@ export default function ParentDashboard() {
 
 // Sticky top bar: back-to-kid-app link, title, anchor chips.
 function TopBar() {
+  const navigate = useNavigate()
   return (
     <header className="sticky top-0 z-40 border-b border-[#FFE3CC] bg-qupu-cream/95 px-4 pb-3 pt-4 backdrop-blur">
       <div className="mx-auto w-full max-w-lg">
         <div className="flex items-center justify-between gap-3">
-          <BackButton variant="back" to="/belajar" label="Kembali ke aplikasi anak" />
+          <BackButton variant="back" onClick={() => navigate('/belajar')} label="Kembali ke aplikasi anak" />
           <h1 className="inline-flex items-center gap-2 font-display text-base font-extrabold text-slate-800">
             <i className="fa-solid fa-user-shield text-sm text-qupu-brand-orange" aria-hidden="true" />
             Orang Tua

@@ -4,6 +4,7 @@ import api from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import BadgeCurve from '../components/BadgeCurve'
+import ErrorRetry from '../components/ErrorRetry'
 import Reveal from '../components/Reveal'
 import Skeleton from '../components/Skeleton'
 import TrophyShelf from '../components/badges/TrophyShelf'
@@ -19,6 +20,7 @@ export default function BadgesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [tab, setTab] = useState<BadgesTab>('videos')
+  const [loadTick, setLoadTick] = useState(0)
 
   useEffect(() => {
     if (!activeChildId) {
@@ -45,7 +47,7 @@ export default function BadgesPage() {
     }
 
     void load()
-  }, [activeChildId])
+  }, [activeChildId, loadTick])
 
   if (!activeChildId || !activeChild) {
     return (
@@ -190,9 +192,7 @@ export default function BadgesPage() {
       </Reveal>
 
       {error && (
-        <div className="rounded-[1.5rem] bg-red-50 px-5 py-4 text-sm font-semibold text-red-600">
-          {error}
-        </div>
+        <ErrorRetry message={error} onRetry={() => setLoadTick((t) => t + 1)} />
       )}
 
       {tab === 'videos' ? (
