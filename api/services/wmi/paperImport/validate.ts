@@ -2,11 +2,23 @@ import type { PaperFile } from './types.js'
 // Tsx-only import (this module is run solely by db/seed/wmi/validate-papers.ts, never
 // the API server) — lets us validate a question's pooled-template params at seed time.
 import { getTemplate } from '../../../../src/components/wmi/PastPapers/WMI/templates/registry.js'
+import { getBrand } from '../olympiads/registry.js'
 
 // Returns a list of human-readable problems; empty means the paper is valid.
 export function validatePaper(paper: PaperFile, presentFigures: Set<string>): string[] {
   const problems: string[] = []
   const tag = (n: number, msg: string) => `Q${n}: ${msg}`
+
+  try {
+    const brand = getBrand(paper.brand)
+    if (!brand.rounds.some((r) => r.key === paper.round)) problems.push(`unknown round "${paper.round}" for brand "${paper.brand}"`)
+    if (!brand.levels.some((l) => l.key === paper.level)) problems.push(`unknown level "${paper.level}" for brand "${paper.brand}"`)
+    if (paper.variant && brand.variants && !brand.variants.includes(paper.variant)) {
+      problems.push(`unknown variant "${paper.variant}" for brand "${paper.brand}"`)
+    }
+  } catch {
+    problems.push(`unknown brand "${paper.brand}"`)
+  }
 
   const numbers = paper.questions.map((q) => q.number)
   for (let i = 0; i < numbers.length; i++) {

@@ -11,8 +11,10 @@ const choices = [
 
 function paperWith(visual: PaperQuestion['visual']): PaperFile {
   return {
+    brand: 'wmi',
     year: 2025,
     grade: 1,
+    level: 'g1',
     round: 'semifinal',
     variant: 'A',
     title: 'test',

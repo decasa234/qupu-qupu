@@ -25,10 +25,12 @@ export interface PaperQuestion {
 }
 
 export interface PaperFile {
+  brand: string                 // brand slug; defaults handled at load time as 'wmi'
   year: number
-  grade: number
-  round: 'semifinal' | 'final'
-  variant: 'A' | 'B'
+  grade?: number                // legacy WMI; optional for other brands
+  level: string                 // brand level key (e.g. 'g2')
+  round: string                 // brand round key
+  variant?: string              // default 'A'
   title: string
   source_url?: string
   recommended_duration_min: number
