@@ -23,6 +23,11 @@ interface WmiState {
   langByChild: Record<string, 'en' | 'id'>
   // Resolved question language for the active child (mirror, not persisted).
   preferredLang: 'en' | 'id'
+  // Per-child current gamemode (WMI vs Video) — persisted. Default 'wmi'.
+  learnModeByChild: Record<string, 'wmi' | 'video'>
+  // Resolved gamemode for the active child (mirror, not persisted).
+  learnMode: 'wmi' | 'video'
+  setLearnMode: (mode: 'wmi' | 'video') => void
   glossary: Record<string, WmiGlossaryTerm>
   glossaryLoaded: boolean
   setSelectedGrade: (grade: WmiGrade) => void
@@ -51,6 +56,8 @@ export const useWmiStore = create<WmiState>()(
       lastSubjectKey: null,
       langByChild: {},
       preferredLang: 'en',
+      learnModeByChild: {},
+      learnMode: 'wmi',
       glossary: {},
       glossaryLoaded: false,
       setSelectedGrade: (grade) =>
@@ -75,6 +82,7 @@ export const useWmiStore = create<WmiState>()(
           selectedGrade: state.gradeByChild[childId] ?? inferredGrade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
           preferredLang: state.langByChild[childId] ?? 'en',
+          learnMode: state.learnModeByChild[childId] ?? 'wmi',
         })),
       adoptChildGrade: (childId, grade) =>
         set((state) => ({
@@ -86,6 +94,7 @@ export const useWmiStore = create<WmiState>()(
           selectedGrade: grade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
           preferredLang: state.langByChild[childId] ?? 'en',
+          learnMode: state.learnModeByChild[childId] ?? 'wmi',
         })),
       setLastSubjectKey: (subjectKey) =>
         set((state) =>
@@ -108,6 +117,15 @@ export const useWmiStore = create<WmiState>()(
               }
             : { preferredLang: lang },
         ),
+      setLearnMode: (mode) =>
+        set((state) =>
+          state.activeChildKey
+            ? {
+                learnMode: mode,
+                learnModeByChild: { ...state.learnModeByChild, [state.activeChildKey]: mode },
+              }
+            : { learnMode: mode },
+        ),
       loadGlossary: async () => {
         if (get().glossaryLoaded) return
         const terms = await fetchGlossary()
@@ -123,6 +141,7 @@ export const useWmiStore = create<WmiState>()(
         gradeByChild: state.gradeByChild,
         lastSubjectKeyByChild: state.lastSubjectKeyByChild,
         langByChild: state.langByChild,
+        learnModeByChild: state.learnModeByChild,
       }),
     },
   ),
