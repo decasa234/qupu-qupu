@@ -57,7 +57,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **balance**  
 - `balance-scale` (BalanceScaleExplainer) — (no description) _[WMI-19F1A-Q11]_
 - `balance-scale` (BalanceScaleIllustration) — Balance-scale figure for WMI-19F1-Q11. Left pan = 7, 2, 5 (sum 14); right pan = 3, 8, ? — balanced when ? = 3. _[WMI-19F1A-Q11]_
-- `balance-scales-g2` (BalanceScalesG2Explainer) — WMI-20F2A-Q22 — Five blocks weigh 2, 3, 3, 3, 5 g. Three scales tell us: (1) ▲+◼+⬡ = ●+★  (level)                       (2) ★+⬡ > ◼+●      (left heavier) _[WMI-20F2A-Q22]_
 - `balance-scales25-g1` (BalanceScales25G1Explainer) — Palette echoes the static balance-scales figure (raw hex, matching the scan). A small candidate chip — a ball or square glyph with the value(s) it can take. _[WMI-25F1A-Q22]_
 - `balance-scales25-g1` (BalanceScales25G1Illustration) — Three balance scales for WMI-25F1A-Q22 (2025 Grade 1 Final).  Recovered from db/seed/wmi/figures/2025-final-g1-a-q22.jpg. Two kinds of shape _[WMI-25F1A-Q22]_
 - `balance-sub19-p1` (BalanceSub19P1Explainer) — (no description) _[WMI-19P1A-Q23]_
@@ -84,6 +83,9 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **balls22**  
 - `balls22-g1` (Balls22G1Explainer) — WMI-22F1A-Q11 (Grade 1). Kiki's 4 balls must have MORE BLACK than white AND MORE LARGE than small. The animation states both rules, then walks A→D — ringing the black balls then the large balls — rejecting the sets that  _[WMI-22F1A-Q11]_
 - `balls22-g1` (Balls22G1Option) — Choice renderer for WMI-22F1A-Q11 (Grade 1). Each option A–D is a picture of four balls, where every ball has a colour (black/white) and a size (large/small). The puzzle: Kiki has more BLACK than WHITE balls AND more _[WMI-22F1A-Q11]_
+
+**base**  
+- `base-ten-blocks-g2` (BaseTenBlocksG2Explainer) — WMI-20F2A-Q5 — count the base-ten blocks one at a time with a running total: 4 flats (100 each) → 400; 6 rods (10 each) → 460; 7 unit cubes → 467. _[WMI-20F2A-Q5]_
 
 **belt**  
 - `belt-pulley19-p1` (BeltPulley19P1Explainer) — WMI-19P1A-Q14 — propagate the spin from the marked wheel along the chain of crossed belts (each crossing flips the direction): CCW → CW → CCW → CW, so wheel A spins clockwise = direction B. _[WMI-19P1A-Q14]_
@@ -188,6 +190,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **coin25**  
 - `coin25-g3` (Coin25G3Explainer) — WMI-25F3A-Q13 — post-answer animation for the spinning-coins problem. We reuse CoinFace (the same glyphs as the static figure and the answer chips) so the animation reads as the same scene coming alive. The active option _[WMI-25F3A-Q13]_
+- `coin25-g3` (Coin25G3Illustration) — In-card illustration for WMI-25F3A-Q13 (2025 Grade-3 Final).  The printed stem shows two coins side by side, each with a picture on its _[WMI-25F3A-Q13]_
 
 **composite**  
 - `composite-rect24-g3` (CompositeRect24G3Explainer) — Post-answer explainer for WMI-24F3A-Q6 (composite rectangle perimeter).  Strategy: walk the perimeter, sum all KNOWN edges (144 cm), subtract from _[WMI-24F3A-Q6]_
@@ -209,7 +212,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **cube**  
 - `cube-net22-g3` (CubeNet22G3Explainer) — CubeNet22G3Explainer — post-answer animation for WMI-22F3A-Q11 Teaches the try-and-eliminate strategy for net validity: Strip 2-3-4-5 = 4 side faces. Need exactly one top cap + one bottom cap. Remove 1 → both 6 and 7 col _[WMI-22F3A-Q11]_
 - `cube-net22-g3` (CubeNet22G3Illustration) — CubeNet22G3Illustration — WMI-22F3A-Q11 Draws the faulty 7-square cube net exactly as it appears in the source image. All 7 squares are shown with their numbers; NO square is highlighted or removed. The animator imports  _[WMI-22F3A-Q11]_
-- `cube-nets-g2` (CubeNetsG2Explainer) — WMI-20F2A-Q21 — "How many of the 8 nets fold into a cube?" Test ONE net per beat with a running "folds so far" counter. A net folds when 4 squares wrap the 4 sides and the other 2 become a separate top and bottom; it fai _[WMI-20F2A-Q21]_
 - `cube-recolor25-g1` (CubeRecolor25G1Explainer) — Colours mirror CubeRecolor25G1Illustration's fills so the animation reads as the same scene coming alive (raw hex echoes of the qupu tokens). Mini-comparison geometry: a single digit grid (3 cols × 5 rows). _[WMI-25F1A-Q16]_
 - `cube-recolor25-g1` (CubeRecolor25G1Illustration) — Cube-recolour figure for WMI-25F1A-Q16 (2025 Grade 1 Final).  "To change the design on the left (2025) into the design on the right _[WMI-25F1A-Q16]_
 - `cube-stack19-p1` (CubeStack19P1Explainer) — (no description) _[WMI-19P1A-Q4]_
@@ -248,7 +250,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `digit-arrange` (DigitArrangeExplainer) — (no description) _[WMI-19F1A-Q20]_
 - `digit-cards24-g1` (DigitCards24G1Explainer) — Echo the qupu tokens used by the static figure so the animation reads as the same scene coming alive. _[WMI-24F1A-Q17]_
 - `digit-cards24-g1` (DigitCards24G1Illustration) — WMI-24F1A-Q17 (2024 Grade 1 Final). Six number cards: 6, 0, 5, 7, 4, 2. Task (NOT shown in the static figure): pick three cards to form the SMALLEST _[WMI-24F1A-Q17]_
-- `digit-grid-g2` (DigitGridG2Explainer) — WMI-20F2A-Q25 — scan the cross-shaped digit grid for runs of 2,4,6,8 reading across (left→right) and down (top→bottom). Answer = 6. Derive across/down counts from RUNS25 so the captions stay consistent. _[WMI-20F2A-Q25]_
 - `digit-rule19-p1` (DigitRule19P1Explainer) — (no description) _[WMI-19P1A-Q18]_
 - `digit-rule19-p1` (DigitRule19P1Illustration) — Digit-rule figure for WMI-19P1A-Q18.  Source figure: db/seed/wmi/figures/2019-semifinal-g1-a-q18.jpg — _[WMI-19P1A-Q18]_
 - `digit-triple25-g1` (DigitTriple25G1Explainer) — WMI-25F1A-Q17 post-answer animation. Teaches the method, not just the answer: the spread is driven by the TENS digits, so we choose three close tens (4, 6, 7), hand the leftovers (9, 2, 0) to the units, and build 70 → 62 _[WMI-25F1A-Q17]_
@@ -281,6 +282,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **face**  
 - `face-seq25-g2` (FaceSeq25G2Explainer) — Palette tokens matching the illustration --------------------------------------------------------------------------- Layout constants — mirror the static illustration so the animation reads _[WMI-25F2A-Q11]_
+- `face-seq25-g2` (FaceSeq25G2Illustration) — In-card illustration for WMI-25F2A-Q11 (2025 Grade-2 Final).  The printed question is a horizontal sequence of bottom-aligned face stacks. _[WMI-25F2A-Q11]_
 
 **field24**  
 - `field24-g2` (Field24G2Explainer) — WMI-24F2A-Q8 — football field rectangle counter.  The field has 4 equal vertical strips (each 30 m × 60 m) plus goal-area _[WMI-24F2A-Q8]_
@@ -307,6 +309,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **folding25**  
 - `folding25-g3` (Folding25G3Explainer) — WMI-25F3A-Q10 post-answer explainer. The static figure shows a rectangle of paper and five lime shapes A–E; the question asks how many can come from ONE fold. The method is try-each-shape: walk A→B→C→D→E, show why a sing _[WMI-25F3A-Q10]_
+- `folding25-g3` (Folding25G3Illustration) — In-card illustration for WMI-25F3A-Q10 (2025 Grade-3 Final).  Reconstructed from db/seed/wmi/figures/2025-final-g3-a-q10.jpg. _[WMI-25F3A-Q10]_
 
 **fraction**  
 - `fraction-third-g3` (FractionThirdG3Explainer) — WMI-19F3A-Q2 — which picture shades exactly 1/3? Count shaded/total for each figure in turn; only B gives 2/6 = 1/3. _[WMI-19F3A-Q2]_
@@ -344,9 +347,9 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `gray-grid24-g2` (GrayGrid24G2Illustration) — GrayGrid24G2Illustration.tsx WMI 2024 Grade-2 Final Q4 — 8 × 9 grid of rectangles with 7 gray cells. Problem: "Each vertical column has 8 rectangles and each horizontal row has _[WMI-24F2A-Q4]_
 
 **grid**  
+- `grid-explainers20-g3` (gridExplainers20G3) — (no description) _[WMI-20F3A-Q17, WMI-20F3A-Q22, WMI-20F3A-Q23]_
 - `grid-fill23-g1` (GridFill23G1Explainer) — WMI-23F1A-Q21 — fill 5,6,7,8 into the 3x3 grid so rows go up → and columns go up ↓; how many ways? (answer 6). The animation mirrors the static figure (same grid via the GridFill23G1 primitive): it outlines the two const _[WMI-23F1A-Q21]_
 - `grid-fill23-g1` (GridFill23G1Illustration) — WMI-23F1A-Q21 (2023 Grade 1 Final) — "Fill 5, 6, 7, 8 into the empty squares so that every row increases left->right and every column increases top->bottom. How many different ways are there?"  Answer: 6 (fill-in). _[WMI-23F1A-Q21]_
-- `grid-sums-g2` (GridSumsG2Explainer) — WMI-20F2A-Q18 — row/column sums grid: circle=21, pentagon=8, square=13 → ◻×⬠=104. Strategy: subtract the two circle-heavy rows to isolate pentagon, then back-substitute to get square, then verify circle. Reveal one value _[WMI-20F2A-Q18]_
 
 **grid24**  
 - `grid24-g2` (Grid24G2Explainer) — Qupu colour tokens (hex echoes of fill-qupu-* used in the static figure). _[WMI-24F2A-Q23]_
@@ -357,9 +360,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **half**  
 - `half-shade-grid22-g3` (HalfShadeGrid22G3Explainer) — WMI-22F3A Q8 — Half-painted grid explainer.  Strategy: sum the painted area of the 8 fixed cells one region at a time, _[WMI-22F3A-Q8]_
-
-**heart**  
-- `heart-spade-seq-g2` (HeartSpadeSeqG2Explainer) — WMI-20F2A-Q12 — 765, ♥, ◆, 729, ♠, 705 Six terms decrease by a constant step of −12. Deduce: 765→729 spans 3 gaps → step = (765−729)/3 = 12. _[WMI-20F2A-Q12]_
+- `half-shade-grid22-g3` (HalfShadeGrid22G3Illustration) — WMI-22F3A Q8 — Half-painted grid puzzle.  Stem: a 3×3 grid where each cell is one of: _[WMI-22F3A-Q8]_
 
 **height**  
 - `height-order22-g1` (HeightOrder22G1Explainer) — Echoes the qupu tokens used in the static figure. Re-exported so the static answer is visible to readers of this module. _[WMI-22F1A-Q14]_
@@ -504,7 +505,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `number-grid22-g3` (NumberGrid22G3Illustration) — WMI-22F3A-Q25 — Number grid logic puzzle.  Fill 1..9 (each once) into a 3x3 grid of squares. The four circles sit on the _[WMI-22F3A-Q25]_
 - `number-grid23-g3` (NumberGrid23G3Explainer) — WMI-23F3A-Q23 (2023 Grade 3 Final) — animated explainer (post-answer).  Strategy: there are exactly six "transversals" — ways to pick one number per _[WMI-23F3A-Q23]_
 - `number-grid23-g3` (NumberGrid23G3Illustration) — WMI-23F3A-Q23 (2023 Grade 3 Final) — pick a transversal of a 3×3 number grid.  "From the grid below, pick three numbers so that no two of them are in the same _[WMI-23F3A-Q23]_
-- `number-line-hops-g2` (NumberLineHopsG2Explainer) — WMI-20F2A-Q15 — follow four −10 hops then one −3 hop on the number line. Start: 80. After each −10: 70, 60, 50, 40. Then 40 − 3 = 37 → answer B. Geometry matching NumberLineHopsG2Illustration in scenes20G2Illustrations.t _[WMI-20F2A-Q15]_
 - `number-pattern` (NumberPatternExplainer) — (no description) _[WMI-19F1A-Q10]_
 - `number-pattern` (NumberPatternIllustration) — "Find ★ in the number arrangement" figure for WMI-19F1-Q10. Reconstructed exactly from the real figure: a 6-column x 5-row grid where only some cells are filled (shaded). Each filled cell's value follows the rule _[WMI-19F1A-Q10]_
 - `number-pattern25-g1` (NumberPattern25G1Explainer) — (no description) _[WMI-25F1A-Q12]_
@@ -945,6 +945,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **painted**  
 - `painted-area22-g3` (PaintedArea22G3Explainer) — WMI-22F3A-Q5 — Painted-area explainer. Teaches the π-parity strategy: two figures match painted area only when they share the same number of unit quarter-circles AND the same straight-edge area. Beats walk example → key  _[WMI-22F3A-Q5]_
+- `painted-area22-g3` (PaintedArea22G3Illustration) — WMI-22F3A-Q5 — Painted-area matching puzzle. A 3×3 grid where each cell may contain an orange-painted shape. The question asks: which option has the same painted (orange) area as the example? KEY MATH PRINCIPLE ========= _[WMI-22F3A-Q5]_
 
 **paper**  
 - `paper-fold23-g1` (PaperFold23G1Explainer) — WMI-23F1A-Q18 — "Fold the square left->right, then top->bottom; read the four numbers top layer to bottom layer." (answer 3124). One fold per beat, driving the same PaperFold23G1 primitive the static figure uses (stage 0 _[WMI-23F1A-Q18]_
@@ -980,12 +981,12 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `pattern-ninth-g2` (PatternNinthG2Explainer) — (no description) _[WMI-19F2A-Q5]_
 - `pattern-ninth-g2` (PatternNinthG2Illustration) — WMI-19F2A-Q5 — "What is the 9th figure counting from ★?" The real figure is a single horizontal row of 13 distinct Japanese-food pictures with a ★ at the far RIGHT end. There is no repeating cycle; the skill is positiona _[WMI-19F2A-Q5]_
 - `pattern-ninth-g2` (PatternNinthG2Option) — Renders a WMI-19F2A-Q5 answer option as the food picture it stands for, rather than the bare letter. The label→food map (ANSWER_OPTIONS) is shared with the figure + explainer, so the options can never drift from them. Th _[WMI-19F2A-Q5]_
-- `pattern-rows-g2` (PatternRowsG2Explainer) — WMI-20F2A-Q14 — growing pattern rows (3→8 cells). Rule: end cells = orange circle (#E8965A), interior cells = purple square (#C5BCE0). ♥ is the 5th cell of the 6-cell row (interior → square). _[WMI-20F2A-Q14]_
 - `pattern-rules23-g1` (PatternRules23G1Explainer) — WMI-23F1A-Q24 post-answer explainer. Mirrors the static five-row figure by driving its co-exported primitive (litRow + accumulating verdicts), and adds a small "fold to the middle" strip that peels matching end-pairs one _[WMI-23F1A-Q24]_
 - `pattern-rules23-g1` (PatternRules23G1Illustration) — WMI-23F1A-Q24 (2023 Grade 1 Final, Paper B) — pattern-building rules.  Reconstructed from the scan _[WMI-23F1A-Q24]_
 
 **pattern23**  
 - `pattern23-g2` (Pattern23G2Explainer) — WMI-23F2A-Q24 — post-answer explainer.  A valid pattern is a palindrome (mirror) whose innermost 1–2 figures are the _[WMI-23F2A-Q24]_
+- `pattern23-g2` (Pattern23G2Illustration) — In-card illustration for WMI-23F2A-Q24 (2023 Grade-2 Final).  The printed question shows five candidate patterns A–E, each a horizontal _[WMI-23F2A-Q24]_
 
 **peggy**  
 - `peggy-map23-g2` (PeggyMap23G2Explainer) — WMI-23F2A-Q4 — Peggy's reverse-route explainer. Strategy: to find the way home, (1) reverse the ORDER of the legs, then (2) flip each direction to its opposite. Beats: 0 – intro: going to school is W → NW → S; to go home _[WMI-23F2A-Q4]_
@@ -1051,9 +1052,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `remove-op24-g1` (RemoveOp24G1Explainer) — WMI-24F1A-Q23 — post-answer animation. Try-and-eliminate from the left:   • join 9,8 → 98 makes the whole expression 106, a 3-digit number → ✗   • join 8,7 → 87 → 9 + 87 + 6 − 5 − 4 + 3 + 2 − 1 = 97, a 2-digit number ✓ _[WMI-24F1A-Q23]_
 - `remove-op24-g1` (RemoveOp24G1Illustration) — WMI-24F1A-Q23 (Grade 1) — "remove one operator card" expression.  The printed expression is built from 9 number cards and 8 operator cards: _[WMI-24F1A-Q23]_
 
-**repdigit**  
-- `repdigit-add-g2` (RepdigitAddG2Explainer) — WMI-20F2A-Q19 — ♣♣♣♣ + ♥♥♥♥ = ♠333♦ Strategy: a repdigit ×1111, so (♣+♥)×1111 = ♠333♦. Try 12×1111=13332 → middle 3,3,3 ✓ → ♣+♥=12, ♠=1, ♦=2, answer = 12+2+1 = 15. _[WMI-20F2A-Q19]_
-
 **ribbon**  
 - `ribbon-clips20` (RibbonClips20Explainer) — (no description) _[WMI-20F1A-Q3]_
 - `ribbon-clips20` (RibbonClips20Illustration) — Ribbon-measured-in-paperclips figure for WMI-20F1A-Q3.  Recovered from db/seed/wmi/figures/2020-final-g1-a-q3.jpg: a dashed box with _[WMI-20F1A-Q3]_
@@ -1079,9 +1077,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `rope-ruler25-g2` (RopeRuler25G2Illustration) — WMI-25F2A-Q5 — Rope on a ruler (measure the straight pieces, ignore curves). Static problem figure: ruler + rope only, no answer revealed. SSR-safe and deterministic — no random, no dates, no side effects. _[WMI-25F2A-Q5]_
 - `rope-square-g3` (RopeSquareG3Explainer) — WMI-19F3A-Q4 — a 192 m rope forms a square with 24 m left over. Kid-visual: the rope bar loses its 24 m tail, the 168 m that is used folds into a square, and the side is shared out: 168 ÷ 4 = 42. _[WMI-19F3A-Q4]_
 
-**roses**  
-- `roses-g2` (RosesG2Explainer) — WMI-20F2A-Q10 — estimation by rows strategy. ROSE_ROWS = [12, 12, 11, 10] → sum = 45 → nearest choice = 50 (C). _[WMI-20F2A-Q10]_
-
 **roundabout25**  
 - `roundabout25-g2` (Roundabout25G2Explainer) — Post-answer explainer for WMI-25F2A-Q20 (2025 Grade-2 Final, Q20). Strategy: name three arcs x/y/z, sum all three trips to get 2·loop = 852 → loop = 426, then subtract the known y+z = Brenda→Ashley = 332 to get _[WMI-25F2A-Q20]_
 - `roundabout25-g2` (Roundabout25G2Illustration) — Roundabout illustration for WMI-25F2A-Q20 (2025 Grade-2 Final, Question 20). Three homes sit around a counterclockwise-only roundabout. Given arc distances: Ashley->Cheryl = 207 m, Brenda->Ashley = 332 m, Cheryl->Brenda  _[WMI-25F2A-Q20]_
@@ -1101,6 +1096,9 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `scenes21-g1-illustrations` (scenes21G1Illustrations) — Scene illustrations + shared puzzle data for WMI-21F1A. _[WMI-21F1A-Q10, WMI-21F1A-Q14, WMI-21F1A-Q2, WMI-21F1A-Q4, WMI-21F1A-Q5, WMI-21F1A-Q7, WMI-21F1A-Q8, WMI-21F2A-Q9]_
 - `scenes21-g2-illustrations` (scenes21G2Illustrations) — Scene illustrations + shared data for WMI-21F2A. _[WMI-21F2A-Q11, WMI-21F2A-Q13, WMI-21F2A-Q14, WMI-21F2A-Q15, WMI-21F2A-Q2]_
 - `scenes21-g3-illustrations` (scenes21G3Illustrations) — Figure reconstructions + puzzle data for WMI-21F3A (2021 G3 final). All geometry below is pixel-verified against the source PDF scans. _[WMI-21F3A-Q11, WMI-21F3A-Q12, WMI-21F3A-Q13, WMI-21F3A-Q15, WMI-21F3A-Q18, WMI-21F3A-Q20, WMI-21F3A-Q21, WMI-21F3A-Q5, WMI-21F3A-Q6, WMI-21F3A-Q7]_
+
+**school**  
+- `school-letters-g2` (SchoolLettersG2Explainer) — WMI-20F2A-Q2 — which letters of "SCHOOL" contain a vertical line segment? Checked one letter per beat: S ✗ (curves), C ✗ (curve), H ✓ (two vertical strokes), O ✗, O ✗, L ✓ (one vertical stroke) → 2 letters. _[WMI-20F2A-Q2]_
 
 **seating24**  
 - `seating24-g2` (Seating24G2Explainer) — Post-answer explainer for WMI-24F2A-Q12 (2024 Grade-2 final) — Samuel's seat.  Reuses the static figure's `Seating24G2` primitive and drives it beat by beat _[WMI-24F2A-Q12]_
@@ -1238,9 +1236,6 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `subtraction-shapes-g2` (SubtractionShapesG2Explainer) — (no description) _[WMI-19F2A-Q15]_
 - `subtraction-shapes-g2` (SubtractionShapesG2Illustration) — WMI-19F2A-Q15 — column subtraction with shape-digits, find □ + ○. □ 3 - 6 ○ ------- 2 4 Units column needs a borrow: 3 − ○ can't make 4, so 13 − ○ = 4 → ○ = 9. Tens column after the borrow: □ − 1 − 6 = 2 → □ − 7 = 2 → □  _[WMI-19F2A-Q15]_
 
-**sudoku**  
-- `sudoku-expr-g2` (SudokuExprG2Explainer) — WMI-20F2A-Q23 — a 4×4 Latin-square ("sudoku") with expression givens. The strategy is a FORCED CHAIN ("naked single"): every step fills the ONE cell whose row + column already show three distinct digits, so the 4th is fo _[WMI-20F2A-Q23]_
-
 **sum**  
 - `sum-cards24-g1` (SumCards24G1Explainer) — Mirror the static figure's qupu tokens. _[WMI-24F1A-Q18]_
 - `sum-cards24-g1` (SumCards24G1Illustration) — WMI-24F1A-Q18 (2024 Grade 1 Final) — answer = 6 (fill-in).  "Eight number cards in a row: 7, 4, 8, 1, 5, 2, 6, 3. The number on the □-th _[WMI-24F1A-Q18]_
@@ -1266,6 +1261,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **tangram24**  
 - `tangram24-g2` (Tangram24G2Explainer) — WMI-24F2A-Q13 (HARD, tangram). The five answer figures spell WMI24; the question asks which has the MOST right angles. This post-answer explainer shows the stem target, then walks the five option figures one per beat, _[WMI-24F2A-Q13]_
+- `tangram24-g2` (Tangram24G2Illustration) — In-card illustration for WMI-24F2A-Q13 (2024 Grade-2 Final, HARD).  The printed stem shows a single elaborate tangram arrangement — a stylised _[WMI-24F2A-Q13]_
 
 **temp**  
 - `temp-chart-g3` (TempChartG3Explainer) — WMI-19F3A-Q3 — most distinct variation = the biggest swing (max − min). Each beat focuses one city, brackets its range, and compares the numbers. _[WMI-19F3A-Q3]_
@@ -1293,6 +1289,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 **train**  
 - `train-arrows24-g2` (TrainArrows24G2Explainer) — Post-answer explainer for WMI-24F2A-Q14 (2024 Grade-2 Final).  Teaches the turning rule: the toy train rolls FORWARD and every car spins the _[WMI-24F2A-Q14]_
+- `train-arrows24-g2` (TrainArrows24G2Illustration) — In-card illustration for WMI-24F2A-Q14 (2024 Grade-2 Final).  The printed stem shows a toy train running forward along a curving grey rail. _[WMI-24F2A-Q14]_
 
 **trap**  
 - `trap-triangles19-p1` (TrapTriangles19P1Explainer) — (no description) _[WMI-19P1A-Q11]_
@@ -1385,12 +1382,10 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `view-table24-g3` (ViewTable24G3Illustration) — Scene illustration for WMI-24F3A-Q10 (2024 Grade-3 Final). Reconstructed from db/seed/wmi/figures/2024-final-g3-a-q10.jpg:   A boy (Jay) stands behind a four-legged table. Four objects sit on the table: _[WMI-24F3A-Q10]_
 
 **visual**  
+- `visual-explainers20-g3` (visualExplainers20G3) — (no description) _[WMI-20F3A-Q13, WMI-20F3A-Q14, WMI-20F3A-Q2, WMI-20F3A-Q20, WMI-20F3A-Q5, WMI-20F3A-Q7, WMI-20F3A-Q8]_
 - `visual-explainers21-g1` (visualExplainers21G1) — (no description) _[WMI-21F1A-Q10, WMI-21F1A-Q11, WMI-21F1A-Q14, WMI-21F1A-Q2, WMI-21F1A-Q20, WMI-21F1A-Q4, WMI-21F1A-Q5, WMI-21F1A-Q6, WMI-21F1A-Q7, WMI-21F1A-Q8]_
 - `visual-explainers21-g2` (visualExplainers21G2) — (no description) _[WMI-21F2A-Q11, WMI-21F2A-Q13, WMI-21F2A-Q14, WMI-21F2A-Q15, WMI-21F2A-Q2, WMI-21F2A-Q9]_
 - `visual-explainers21-g3` (visualExplainers21G3) — Beat-based explainers for WMI-21F3A figure questions. _[WMI-21F3A-Q11, WMI-21F3A-Q12, WMI-21F3A-Q13, WMI-21F3A-Q15, WMI-21F3A-Q18, WMI-21F3A-Q20, WMI-21F3A-Q21, WMI-21F3A-Q5, WMI-21F3A-Q6, WMI-21F3A-Q7]_
-
-**weather**  
-- `weather-days-g2` (WeatherDaysG2Explainer) — WMI-20F2A-Q20 — five consecutive days (11–15), two sunny, two rainy, one cloudy. Rules: no two same days in a row; a rainy day can never follow a sunny day. Deduction order: _[WMI-20F2A-Q20]_
 
 **white**  
 - `white-circle-square` (WhiteCircleSquareExplainer) — (no description) _[WMI-19F1A-Q8]_

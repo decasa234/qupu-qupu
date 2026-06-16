@@ -13,43 +13,45 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { buildPoolOutputs, type PoolEntry } from './poolCatalog.js'
 import { TEMPLATES } from '../../../src/components/wmi/PastPapers/WMI/templates/registry.js'
+import { VISUALS, CHOICE_RENDERERS } from '../../../src/components/wmi/PastPapers/WMI/registry.js'
 
 const DIR = join('src', 'components', 'wmi', 'PastPapers', 'WMI')
-const REGISTRY = join(DIR, 'registry.ts')
 const OUT = join(DIR, 'INDEX.md')
 
-const src = readFileSync(REGISTRY, 'utf8')
+// --- VISUALS + CHOICE_RENDERERS are lazy code-split loaders (`() => import('./X')`).
+// Derive the file + component name from each loader's source. ---
+const importFile = new Map<string, string>() // component name -> module file
 
-// --- imports: component name -> module file ---
-const importFile = new Map<string, string>()
-for (const m of src.matchAll(/import\s+(\w+)\s+from\s+'\.\/([\w./-]+)'/g)) {
-  importFile.set(m[1], m[2])
-}
-for (const m of src.matchAll(/import\s*\{([^}]+)\}\s*from\s+'\.\/([\w./-]+)'/g)) {
-  for (const name of m[1].split(',').map((s) => s.trim()).filter(Boolean)) {
-    importFile.set(name, m[2])
-  }
-}
-
-// --- VISUALS entries ---
 interface Usage { code: string; role: 'Illustration' | 'Explainer' | 'ChoiceRenderer' }
 const usages = new Map<string, Usage[]>() // component -> usages
 function addUsage(comp: string, code: string, role: Usage['role']) {
   if (!usages.has(comp)) usages.set(comp, [])
   usages.get(comp)!.push({ code, role })
 }
-for (const m of src.matchAll(/'([A-Z0-9]+-[A-Z0-9]+-Q\d+)':\s*\{([^}]*)\}/g)) {
-  const code = m[1]
-  const ill = m[2].match(/Illustration:\s*(\w+)/)
-  const exp = m[2].match(/Explainer:\s*(\w+)/)
-  if (ill) addUsage(ill[1], code, 'Illustration')
-  if (exp) addUsage(exp[1], code, 'Explainer')
+
+// `() => import('./File')` (default export) or
+// `() => import('./File').then((m) => ({ default: m.Named }))`.
+function loaderTarget(loader?: () => Promise<unknown>): { file: string; comp: string } | null {
+  if (!loader) return null
+  const s = loader.toString()
+  const imp = s.match(/import\(['"]\.\/([\w./-]+)['"]\)/)
+  if (!imp) return null
+  const file = imp[1]
+  const named = s.match(/\bm\.(\w+)/)
+  const comp = named ? named[1] : (file.split('/').pop() ?? file)
+  importFile.set(comp, file)
+  return { file, comp }
 }
-const crBlock = src.match(/CHOICE_RENDERERS[^=]*=\s*\{([\s\S]*?)\n\}/)
-if (crBlock) {
-  for (const m of crBlock[1].matchAll(/'([A-Z0-9]+-[A-Z0-9]+-Q\d+)':\s*(\w+)/g)) {
-    addUsage(m[2], m[1], 'ChoiceRenderer')
-  }
+
+for (const [code, loaders] of Object.entries(VISUALS)) {
+  const ill = loaderTarget(loaders.illustration)
+  const exp = loaderTarget(loaders.explainer)
+  if (ill) addUsage(ill.comp, code, 'Illustration')
+  if (exp) addUsage(exp.comp, code, 'Explainer')
+}
+for (const [code, loader] of Object.entries(CHOICE_RENDERERS)) {
+  const cr = loaderTarget(loader)
+  if (cr) addUsage(cr.comp, code, 'ChoiceRenderer')
 }
 
 // --- per-file metadata: header comment + aria-labels + keywords ---
