@@ -142,7 +142,7 @@ export default function ReportPage() {
         {latihan && latihan.totalConcepts > 0 && (
           <>
             <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
-              Latihan WMI (konsep)
+              Latihan Konsep
             </h3>
             <RaporLatihan summary={latihan} />
           </>

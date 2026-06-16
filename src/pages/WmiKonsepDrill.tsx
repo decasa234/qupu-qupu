@@ -266,7 +266,7 @@ function KonsepHeader({ grade }: { grade?: number }) {
           <i className="fa-solid fa-brain" aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">WMI · Konsep</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">Olimpiade · Konsep</p>
           <h1 className="font-display text-2xl font-black leading-none">Latihan Konsep</h1>
           <p className="mt-1 text-xs font-bold text-white/80">
             {grade !== undefined ? `Grade ${grade} · ` : ''}+5 XP tiap jawaban benar

@@ -86,7 +86,7 @@ export default function WmiHub() {
           </span>
           <div className="min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">Kursus</p>
-            <h1 className="font-display text-2xl font-black leading-none">Latihan WMI</h1>
+            <h1 className="font-display text-2xl font-black leading-none">Olimpiade Matematika</h1>
             <p className="mt-0.5 text-[11px] font-bold text-white/80">
               Pikir seperti juara olimpiade.
             </p>

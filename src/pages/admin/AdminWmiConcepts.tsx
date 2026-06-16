@@ -231,8 +231,8 @@ export default function AdminWmiConcepts() {
   return (
     <div className="space-y-5">
       <AdminPageHeader
-        eyebrow="Admin · WMI"
-        title="WMI Concept Proofreading"
+        eyebrow="Admin · Konsep"
+        title="Math Olympiad Concept Proofreading"
         description="Every registered generator, grouped by olympiad strand → topic. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
       />
 

@@ -61,7 +61,7 @@ export default function LatihanHub() {
 }
 
 const WHY_GOOD = [
-  { icon: 'fa-solid fa-medal', text: 'Soal bergaya olimpiade matematika internasional (WMI).' },
+  { icon: 'fa-solid fa-medal', text: 'Soal bergaya olimpiade matematika internasional.' },
   { icon: 'fa-solid fa-lightbulb', text: 'Melatih logika & pemecahan masalah, bukan sekadar hafalan.' },
   { icon: 'fa-solid fa-stairs', text: 'Bertahap dari Grade 0–3 — cocok untuk TK hingga SD awal.' },
   { icon: 'fa-solid fa-comments', text: 'Umpan balik langkah-demi-langkah saat jawaban belum tepat.' },
@@ -90,8 +90,8 @@ function WmiCourseCard({
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
               Petualangan
             </p>
-            <h2 className="font-display text-xl font-black leading-tight">Latihan WMI</h2>
-            <p className="text-[11px] font-bold text-white/80">World Mathematics Invitation</p>
+            <h2 className="font-display text-xl font-black leading-tight">Olimpiade Matematika</h2>
+            <p className="text-[11px] font-bold text-white/80">Latihan bergaya olimpiade internasional</p>
           </div>
         </div>
       </div>
