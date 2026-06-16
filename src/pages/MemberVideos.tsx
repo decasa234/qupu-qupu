@@ -14,6 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
+import Skeleton from '../components/Skeleton'
 import type { SubjectOption, VideoCard as VideoCardType } from '../types'
 
 type Segment = 'recommended' | 'unwatched' | 'watched'
@@ -253,11 +254,7 @@ export default function MemberVideosPage() {
       {loading ? (
         <div className="flex flex-col gap-3">
           {Array.from({ length: 4 }).map((_, index) => (
-            <div
-              key={index}
-              className="aspect-[16/10] animate-pulse rounded-[1.5rem] bg-qupu-peach/40"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            />
+            <Skeleton key={index} className="aspect-[16/10] rounded-[1.5rem]" />
           ))}
         </div>
       ) : segmentVideos.length === 0 ? (

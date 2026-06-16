@@ -12,12 +12,13 @@
 // public/marketing catalog page; this is the in-app version that the
 // dashboard practice card and library cards route into.
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import Slider from '../components/Slider'
 import BadgeCurve from '../components/BadgeCurve'
 import AuthCard from '../components/AuthCard'
+import BackButton from '../components/BackButton'
 import SkeletonCard from '../components/SkeletonCard'
 import PostQuizRewardSummary from '../components/PostQuizRewardSummary'
 import { logSessionEvent, useVideoSessionTimer } from '../lib/sessionLogger'
@@ -28,7 +29,6 @@ import type { ScoreAttemptResult, VideoDetail, VideoScoreState } from '../types'
 export default function QuizPage() {
   const { slug = '' } = useParams()
   const navigate = useNavigate()
-  const location = useLocation()
   const { activeChildId, children } = useAuthStore()
   const activeChild = children.find((child) => child.id === activeChildId) ?? null
 
@@ -158,13 +158,6 @@ export default function QuizPage() {
     await submitScore(video.id, activeChildId, score)
   }
 
-  function handleBack() {
-    // location.key === 'default' means this is the first entry (deep link /
-    // refresh) with no in-app history to pop — fall back to the library.
-    if (location.key === 'default') navigate('/video')
-    else navigate(-1)
-  }
-
   if (!activeChildId || !activeChild) {
     return (
       <AuthCard
@@ -194,7 +187,7 @@ export default function QuizPage() {
   if (loadError || !video) {
     return (
       <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
-        <BackRow onBack={handleBack} />
+        <BackButton variant="back" to="/video" />
         <div className="rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
             <i className="fa-solid fa-circle-question text-2xl" aria-hidden="true" />
@@ -224,7 +217,12 @@ export default function QuizPage() {
 
   return (
     <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
-      <BackRow onBack={handleBack} />
+      <div className="flex items-center justify-between gap-3">
+        <BackButton variant="back" to="/video" />
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
+          Kuis
+        </span>
+      </div>
 
       {/* Video */}
       <div className="overflow-hidden rounded-[1.5rem] bg-qupu-cream shadow-[5px_6px_0_0_#FFD3B1]">
@@ -517,20 +515,3 @@ export default function QuizPage() {
   )
 }
 
-function BackRow({ onBack }: { onBack: () => void }) {
-  return (
-    <div className="flex items-center justify-between gap-3">
-      <button
-        type="button"
-        onClick={onBack}
-        className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-      >
-        <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-        Kembali
-      </button>
-      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
-        Kuis
-      </span>
-    </div>
-  )
-}

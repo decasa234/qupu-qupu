@@ -6,6 +6,7 @@ import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { trackEvent } from '../lib/analytics'
 import { formatDateLabel } from '../lib/youtube'
 import Reveal from '../components/Reveal'
+import Skeleton from '../components/Skeleton'
 import Slider from '../components/Slider'
 import AuthModal from '../components/AuthModal'
 import BadgeCurve from '../components/BadgeCurve'
@@ -210,8 +211,8 @@ export default function VideoDetailPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="aspect-video animate-pulse rounded-[2rem] bg-qupu-peach/40" />
-        <div className="h-48 animate-pulse rounded-[2rem] bg-qupu-peach/40" />
+        <Skeleton className="aspect-video rounded-[2rem]" />
+        <Skeleton className="h-48 rounded-[2rem]" />
       </div>
     )
   }
