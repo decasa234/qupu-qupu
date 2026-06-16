@@ -98,19 +98,19 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'digit-frequency': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'find-number-by-digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
-  'divisibility-multiple-property': { strand: 'NT', topic: 'NT-DIV', difficulty: 3, isOlympiad: true },
+  'divisibility-multiple-property': { strand: 'NT', topic: 'NT-DIV', difficulty: 4, isOlympiad: true },
   'product-of-consecutive': { strand: 'NT', topic: 'NT-DIV', difficulty: 4, isOlympiad: true },
-  'odd-even-reasoning': { strand: 'NT', topic: 'NT-PAR', difficulty: 2, isOlympiad: true },
+  'odd-even-reasoning': { strand: 'NT', topic: 'NT-PAR', difficulty: 3, isOlympiad: true },
   'perfect-square-search': { strand: 'NT', topic: 'NT-PAR', difficulty: 4, isOlympiad: true },
   'compare-order-numbers': { strand: 'NT', topic: 'NT-CMP', difficulty: 1, isOlympiad: false },
   'fraction-of-region': { strand: 'NT', topic: 'NT-FRAC', difficulty: 2, isOlympiad: false },
   'equivalent-fraction-fill': { strand: 'NT', topic: 'NT-FRAC', difficulty: 3, isOlympiad: true },
 
   // AP — Algebra & Patterns
-  'pattern-next': { strand: 'AP', topic: 'AP-NPAT', difficulty: 2, isOlympiad: true },
+  'pattern-next': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
   'number-pyramid': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
   'number-line-jumps': { strand: 'AP', topic: 'AP-NPAT', difficulty: 2, isOlympiad: false },
-  'visual-pattern-next': { strand: 'AP', topic: 'AP-VPAT', difficulty: 2, isOlympiad: true },
+  'visual-pattern-next': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: true },
   'shape-transformation-rule': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: true },
   'custom-operation': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
   'operator-fill': { strand: 'AP', topic: 'AP-FUNC', difficulty: 3, isOlympiad: true },
@@ -150,7 +150,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
 
   // LR — Logic & Reasoning
   'truth-order-clues': { strand: 'LR', topic: 'LR-DED', difficulty: 4, isOlympiad: true },
-  'position-in-line': { strand: 'LR', topic: 'LR-DED', difficulty: 2, isOlympiad: true },
+  'position-in-line': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: true },
   'assignment-cycle': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: true },
   'which-might-be': { strand: 'LR', topic: 'LR-CON', difficulty: 3, isOlympiad: true },
   'range-count-evaluate': { strand: 'LR', topic: 'LR-CON', difficulty: 3, isOlympiad: true },
