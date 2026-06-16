@@ -8,14 +8,16 @@ import type { PoolMeta } from '../poolMeta'
  */
 export interface ExplainerTemplate {
   meta: PoolMeta & { status: 'template' }
-  Illustration: ComponentType<{ params: unknown }>
+  /** Optional — non-figure templates (e.g. try-and-eliminate) have no static figure. */
+  Illustration?: ComponentType<{ params: unknown }>
   Explainer: ComponentType<ExplainerProps>
 }
 
 import CountOneByOne from './CountOneByOneTemplate'
+import TryEliminate from './TryEliminateTemplate'
 
 // Templates register here as they are built (Phase 3).
-const ALL: ExplainerTemplate[] = [CountOneByOne]
+const ALL: ExplainerTemplate[] = [CountOneByOne, TryEliminate]
 
 export const TEMPLATES: Record<string, ExplainerTemplate> = Object.fromEntries(
   ALL.map((t) => [t.meta.id, t]),

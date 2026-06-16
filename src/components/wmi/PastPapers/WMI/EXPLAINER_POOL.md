@@ -15,6 +15,12 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - use when: Question asks "how many X" and the figure is a set of discrete objects to enumerate.
 - params example: `{ "items": [{"x":40,"y":40,"shape":"dot"}, {"x":90,"y":40,"shape":"dot"}] }`
 
+### `try-and-eliminate` — Try and eliminate (deduce by checking)
+- file: `templates/try-and-eliminate`  · grades 1,2,3 · tags: deduction, non-figure, arithmetic
+- summary: Reveals candidates/facts one per beat (✓/✗/neutral) and derives the answer on screen.
+- use when: Non-figure question solved by checking candidates one at a time or chaining facts — arithmetic, "which is largest", "smallest number that…", digit rules, logic deductions.
+- params example: `{ "intro_en": "Check each option.", "intro_id": "Periksa tiap pilihan.", "items": [{"text_en":"21 > 16 ✓","text_id":"21 > 16 ✓","ok":true}], "final_en":"So 21 is largest (B).", "final_id":"Jadi 21 terbesar (B).", "aria_en":"...", "aria_id":"..." }`
+
 ## Bespoke (copy-adapt)
 
 **angles23**  
