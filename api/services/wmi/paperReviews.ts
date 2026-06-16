@@ -13,6 +13,9 @@ export type AdminPaperSummary = {
   title: string
   question_count: number
   status: ReviewStatus
+  brand: string
+  level_code: string
+  level_sort: number
 }
 
 export type PaperReview = {
@@ -49,27 +52,28 @@ export type AdminPaperQuestion = {
 export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
   return query<AdminPaperSummary>(
     `SELECT p.id, p.year, p.grade, p.round, p.variant, p.title, p.question_count,
+            p.brand, p.level_code, p.level_sort,
             COALESCE(r.status, 'pending') AS status
      FROM wmi_papers p
      LEFT JOIN wmi_paper_reviews r ON r.paper_id = p.id
-     ORDER BY p.year DESC, p.grade ASC, p.round ASC, p.variant ASC`,
+     ORDER BY p.brand ASC, p.level_sort ASC, p.year DESC, p.round ASC, p.variant ASC`,
   )
 }
 
 export async function listAdminPaperQuestions(paperId: string): Promise<AdminPaperQuestion[]> {
-  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
+  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B'; brand: string; level_code: string }>(
     `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
             q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
-            p.year, p.round, p.grade, p.variant
+            p.year, p.round, p.grade, p.variant, p.brand, p.level_code
      FROM wmi_questions q
      JOIN wmi_papers p ON p.id = q.paper_id
      WHERE q.paper_id = $1
      ORDER BY q.number ASC`,
     [paperId],
   )
-  return rows.map(({ year, round, grade, variant, ...q }) => ({
+  return rows.map(({ year, round, grade, variant, brand, level_code, ...q }) => ({
     ...q,
-    code: questionCode({ year, round, grade, variant }, q.number),
+    code: questionCode({ brand, year, round, level: level_code }, q.number),
   }))
 }
 
