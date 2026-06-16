@@ -3,23 +3,23 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { validatePaper } from '../../../api/services/wmi/paperImport/validate.js'
 import type { PaperFile } from '../../../api/services/wmi/paperImport/types.js'
+import { collectPaperFiles, withBrandDefaults } from './paperFiles.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const PAPERS = path.join(__dirname, 'papers')
 const FIGURES = path.join(__dirname, 'figures')
 
 const figures = new Set((await fs.readdir(FIGURES)).filter((f) => !f.startsWith('.')))
-const files = (await fs.readdir(PAPERS)).filter((f) => f.endsWith('.json')).sort()
+const paperFiles = await collectPaperFiles()
 
 let problemCount = 0
-for (const file of files) {
-  const paper = JSON.parse(await fs.readFile(path.join(PAPERS, file), 'utf8')) as PaperFile
+for (const { fileName, fullPath } of paperFiles) {
+  const paper = withBrandDefaults(JSON.parse(await fs.readFile(fullPath, 'utf8')) as PaperFile)
   const problems = validatePaper(paper, figures)
   if (problems.length === 0) {
-    console.log(`✓ ${file} (${paper.questions.length} questions)`)
+    console.log(`✓ ${fileName} (${paper.questions.length} questions)`)
   } else {
     problemCount += problems.length
-    console.log(`✗ ${file}`)
+    console.log(`✗ ${fileName}`)
     for (const p of problems) console.log(`    - ${p}`)
   }
 }
