@@ -8,10 +8,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchConceptProgress } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
+import { useWmiStore } from '../store/wmiStore'
 import type { WmiConceptProgressSummary } from '../types/wmi'
 
 export default function LatihanHub() {
   const { activeChildId } = useAuthStore()
+  const { selectedGrade } = useWmiStore()
   const [progress, setProgress] = useState<WmiConceptProgressSummary | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -23,14 +25,14 @@ export default function LatihanHub() {
     }
     let cancelled = false
     setLoading(true)
-    fetchConceptProgress(activeChildId)
+    fetchConceptProgress(activeChildId, selectedGrade)
       .then((data) => !cancelled && setProgress(data))
       .catch(() => !cancelled && setProgress(null))
       .finally(() => !cancelled && setLoading(false))
     return () => {
       cancelled = true
     }
-  }, [activeChildId])
+  }, [activeChildId, selectedGrade])
 
   return (
     <div className="w-full max-w-[460px] self-center pb-6">

@@ -13,11 +13,13 @@ import RaporLatihan from '../components/report/RaporLatihan'
 import RaporFooter from '../components/report/RaporFooter'
 import PrintButton from '../components/report/PrintButton'
 import { fetchConceptProgress } from '../lib/wmiApi'
+import { useWmiStore } from '../store/wmiStore'
 import type { MemberProgress } from '../types'
 import type { WmiConceptProgressSummary } from '../types/wmi'
 
 export default function ReportPage() {
   const { children, activeChildId } = useAuthStore()
+  const { selectedGrade } = useWmiStore()
   const activeChild = children.find((c) => c.id === activeChildId) ?? null
   const [progress, setProgress] = useState<MemberProgress | null>(null)
   const [loading, setLoading] = useState(true)
@@ -33,13 +35,13 @@ export default function ReportPage() {
       return
     }
     let cancelled = false
-    fetchConceptProgress(activeChildId)
+    fetchConceptProgress(activeChildId, selectedGrade)
       .then((data) => !cancelled && setLatihan(data))
       .catch(() => !cancelled && setLatihan(null))
     return () => {
       cancelled = true
     }
-  }, [activeChildId])
+  }, [activeChildId, selectedGrade])
 
   useEffect(() => {
     if (!activeChildId) {

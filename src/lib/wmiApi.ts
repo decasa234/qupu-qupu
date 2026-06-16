@@ -103,7 +103,7 @@ export async function submitConceptAttempt(input: WmiConceptAttemptInput): Promi
   return unwrap<WmiAttemptResult>(response)
 }
 
-export async function fetchConceptProgress(childId: string): Promise<WmiConceptProgressSummary> {
-  const response = await api.get('/me/wmi/konsep/progress', { params: { childId } })
+export async function fetchConceptProgress(childId: string, grade: WmiGrade): Promise<WmiConceptProgressSummary> {
+  const response = await api.get('/me/wmi/konsep/progress', { params: { childId, grade } })
   return unwrap<WmiConceptProgressSummary>(response)
 }

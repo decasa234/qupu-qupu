@@ -39,7 +39,7 @@ export default function WmiHub() {
     }
   }, [activeChildId, selectedGrade])
 
-  // Concept progress is grade-independent (all concepts), so it loads once per child.
+  // Concept progress is grade-filtered; reload whenever child or selected grade changes.
   useEffect(() => {
     if (!activeChildId) {
       setProgress(null)
@@ -48,14 +48,14 @@ export default function WmiHub() {
     }
     let cancelled = false
     setProgressLoading(true)
-    fetchConceptProgress(activeChildId)
+    fetchConceptProgress(activeChildId, selectedGrade)
       .then((data) => !cancelled && setProgress(data))
       .catch(() => !cancelled && setProgress(null))
       .finally(() => !cancelled && setProgressLoading(false))
     return () => {
       cancelled = true
     }
-  }, [activeChildId])
+  }, [activeChildId, selectedGrade])
 
   if (!activeChildId) {
     return (
