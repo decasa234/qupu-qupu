@@ -72,7 +72,7 @@ concept short-codes so the two namespaces never collide.
 
 Display order: `AR, NT, AP, CO, GE, LR`.
 
-## 5. Topic model (24 topics)
+## 5. Topic model (26 topics)
 
 Each topic belongs to exactly one strand. Topic codes are `STRAND-SHORT`.
 
@@ -288,7 +288,8 @@ verbatim.
     `isOlympiad`.
   - Add filter controls: by strand, by difficulty, by olympiad-only.
   - Keep the existing search and review-verdict behavior.
-- `src/types/wmi.ts` — update the concept-summary type to match the new
+- `src/lib/wmiAdminApi.ts` — update the `AdminConceptSummary` type (this is
+  where the concept-summary type actually lives) to match the new
   `ConceptSummary` shape.
 - `docs/wmi-concepts/taxonomy.md` — re-section under the 6 strands → topics;
   add `strand`, `topic`, `difficulty`, `isOlympiad` to each archetype entry.
