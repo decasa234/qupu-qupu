@@ -10,6 +10,7 @@ import {
   TOPICS,
   strandLabel,
   topicLabel,
+  type ConceptTags,
   type StrandCode,
 } from './taxonomy.js'
 
@@ -44,14 +45,14 @@ export interface ConceptSummary {
   strand_label: string
   topic: string
   topic_label: string
-  difficulty: number
+  difficulty: 1 | 2 | 3 | 4 | 5
   isOlympiad: boolean
   priority: 'high' | 'normal'
 }
 
 // Defensive only — the taxonomy.test.ts invariant guarantees every registered
 // concept is tagged, so this fallback should never be hit at runtime.
-const FALLBACK_TAG = { strand: 'AR' as StrandCode, topic: 'AR-OPS', difficulty: 3, isOlympiad: false }
+const FALLBACK_TAG: ConceptTags = { strand: 'AR', topic: 'AR-OPS', difficulty: 3, isOlympiad: false }
 
 export function listConceptsForPreview(): ConceptSummary[] {
   return ALL_SLUGS.map((slug) => {
