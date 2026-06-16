@@ -233,7 +233,7 @@ export default function AdminWmiConcepts() {
       <AdminPageHeader
         eyebrow="Admin · WMI"
         title="WMI Concept Proofreading"
-        description="Every registered generator, grouped by domain. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
+        description="Every registered generator, grouped by olympiad strand → topic. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
       />
 
       {concepts.length > 0 && (
@@ -327,7 +327,7 @@ export default function AdminWmiConcepts() {
       )}
 
       <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
-        {/* Concept sidebar, grouped by domain */}
+        {/* Concept sidebar, grouped by strand → topic */}
         <aside className="rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
           <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-admin-line bg-admin-card px-2 pb-2 pt-2">
             <Input
