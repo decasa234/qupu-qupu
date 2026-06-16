@@ -15,9 +15,11 @@ export interface ExplainerTemplate {
 
 import CountOneByOne from './CountOneByOneTemplate'
 import TryEliminate from './TryEliminateTemplate'
+import ClockFace from './ClockFaceTemplate'
+import HundredsChart from './HundredsChartTemplate'
 
 // Templates register here as they are built (Phase 3).
-const ALL: ExplainerTemplate[] = [CountOneByOne, TryEliminate]
+const ALL: ExplainerTemplate[] = [CountOneByOne, TryEliminate, ClockFace, HundredsChart]
 
 export const TEMPLATES: Record<string, ExplainerTemplate> = Object.fromEntries(
   ALL.map((t) => [t.meta.id, t]),

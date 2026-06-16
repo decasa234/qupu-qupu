@@ -17007,5 +17007,46 @@
     "status": "template",
     "paramsExample": "{ \"intro_en\": \"Check each option.\", \"intro_id\": \"Periksa tiap pilihan.\", \"items\": [{\"text_en\":\"21 > 16 ✓\",\"text_id\":\"21 > 16 ✓\",\"ok\":true}], \"final_en\":\"So 21 is largest (B).\", \"final_id\":\"Jadi 21 terbesar (B).\", \"aria_en\":\"...\", \"aria_id\":\"...\" }",
     "usedBy": []
+  },
+  {
+    "id": "clock-face",
+    "file": "templates/clock-face",
+    "title": "Read an analog clock",
+    "summary": "Draws an analog clock set to a given time; the explainer reads the hour hand, then the minute hand, then lands on the time.",
+    "useWhen": "Question shows or asks for a clock time — reading the hands, matching a clock to a time, or telling what time it shows.",
+    "tags": [
+      "clock",
+      "time",
+      "reading"
+    ],
+    "grades": [
+      1,
+      2,
+      3
+    ],
+    "status": "template",
+    "paramsExample": "{ \"hour\": 12, \"minute\": 30 }",
+    "usedBy": []
+  },
+  {
+    "id": "hundreds-chart",
+    "file": "templates/hundreds-chart",
+    "title": "Number chart skip-count",
+    "summary": "Draws a number grid (right +1, down +cols) and reveals a sequence of cells one per beat, building the readout — for skip-counting and number-pattern questions.",
+    "useWhen": "Question is about a 1–100 (or similar) number chart: skip-counting, number sequences/patterns, or \"right adds 1, down adds 10\" reasoning.",
+    "tags": [
+      "hundreds-chart",
+      "number-grid",
+      "skip-count",
+      "pattern"
+    ],
+    "grades": [
+      1,
+      2,
+      3
+    ],
+    "status": "template",
+    "paramsExample": "{ \"start\": 1, \"rows\": 3, \"cols\": 10, \"highlights\": [2, 4, 6, 8, 10] }",
+    "usedBy": []
   }
 ]

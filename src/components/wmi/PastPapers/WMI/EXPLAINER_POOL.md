@@ -9,11 +9,23 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 ## Templates
 
+### `clock-face` — Read an analog clock
+- file: `templates/clock-face`  · grades 1,2,3 · tags: clock, time, reading
+- summary: Draws an analog clock set to a given time; the explainer reads the hour hand, then the minute hand, then lands on the time.
+- use when: Question shows or asks for a clock time — reading the hands, matching a clock to a time, or telling what time it shows.
+- params example: `{ "hour": 12, "minute": 30 }`
+
 ### `count-one-by-one` — Count objects one by one
 - file: `templates/count-one-by-one`  · grades 1,2,3 · tags: counting, enumeration
 - summary: Reveals each object in turn with a running counter, landing on the total.
 - use when: Question asks "how many X" and the figure is a set of discrete objects to enumerate.
 - params example: `{ "items": [{"x":40,"y":40,"shape":"dot"}, {"x":90,"y":40,"shape":"dot"}] }`
+
+### `hundreds-chart` — Number chart skip-count
+- file: `templates/hundreds-chart`  · grades 1,2,3 · tags: hundreds-chart, number-grid, skip-count, pattern
+- summary: Draws a number grid (right +1, down +cols) and reveals a sequence of cells one per beat, building the readout — for skip-counting and number-pattern questions.
+- use when: Question is about a 1–100 (or similar) number chart: skip-counting, number sequences/patterns, or "right adds 1, down adds 10" reasoning.
+- params example: `{ "start": 1, "rows": 3, "cols": 10, "highlights": [2, 4, 6, 8, 10] }`
 
 ### `try-and-eliminate` — Try and eliminate (deduce by checking)
 - file: `templates/try-and-eliminate`  · grades 1,2,3 · tags: deduction, non-figure, arithmetic
