@@ -9,6 +9,10 @@ import {
 import type { WmiQuestion } from '../../types/wmi'
 import { paperCode } from '../../lib/wmiPaperCode'
 import { listBrands, getBrand, type Brand } from '../../../api/services/wmi/olympiads/registry'
+import { useReviewIssues } from '../../hooks/useReviewIssues'
+import IssuesPanel from '../../components/admin/review/IssuesPanel'
+import FlagButton from '../../components/admin/review/FlagButton'
+import type { IssuePart, IssueSeverity } from '../../lib/wmiReviewIssues'
 
 // WmiQuestionView requires interaction handlers; this is a read-only preview, so they no-op.
 const noop = () => {}
@@ -253,6 +257,28 @@ export default function AdminWmiDrill() {
   const activePaper = papers.find((p) => p.id === activePaperId) ?? null
   const currentQuestion = questions[idx] ?? null
   const dirty = !review || status !== review.status || notes !== review.notes
+
+  const issueTarget = activePaperId ? { target_type: 'paper' as const, paper_id: activePaperId } : null
+  const { issues, add: addIssue, update: updateIssue } = useReviewIssues(issueTarget)
+  const questionMeta = useMemo(
+    () => Object.fromEntries(questions.map((q) => [q.id, { code: q.code, number: q.number }])),
+    [questions],
+  )
+  const thisQuestionIssues = useMemo(
+    () => issues.filter((i) => i.question_id === currentQuestion?.id),
+    [issues, currentQuestion],
+  )
+  const [scopeAll, setScopeAll] = useState(false)
+  const flagQuestion = useCallback(
+    (i: { part: IssuePart; title: string; detail: string; severity: IssueSeverity; ai_actionable: boolean }) =>
+      addIssue({
+        target_type: 'paper_question',
+        paper_id: activePaperId!,
+        question_id: currentQuestion!.id,
+        ...i,
+      }),
+    [addIssue, activePaperId, currentQuestion],
+  )
 
   return (
     <div className="space-y-5">
@@ -543,7 +569,32 @@ export default function AdminWmiDrill() {
                       {currentQuestion.answer}
                     </span>
                   </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {(['stem', 'answer', 'choices', 'hint', 'breakdown', 'steps', 'illustration'] as IssuePart[]).map(
+                      (part) => (
+                        <FlagButton key={part} part={part} onCreate={flagQuestion} />
+                      ),
+                    )}
+                  </div>
                 </Panel>
+              )}
+
+              {activePaper && (
+                <IssuesPanel
+                  issues={scopeAll ? issues : thisQuestionIssues}
+                  title={scopeAll ? 'In this paper' : 'On this question'}
+                  questionMeta={questionMeta}
+                  onUpdate={(id, patch) => updateIssue(id, patch)}
+                />
+              )}
+              {activePaper && (
+                <button
+                  type="button"
+                  className="text-xs font-semibold text-admin-muted hover:text-admin-ink"
+                  onClick={() => setScopeAll((v) => !v)}
+                >
+                  {scopeAll ? 'Show this question only' : `Show all paper issues (${issues.length})`}
+                </button>
               )}
             </div>
           </div>
