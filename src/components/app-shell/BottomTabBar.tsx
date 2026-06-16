@@ -19,8 +19,8 @@ interface TabDef {
 const TABS: TabDef[] = [
   {
     to: '/belajar',
-    label: 'Belajar',
-    icon: 'fa-solid fa-play',
+    label: 'Home',
+    icon: 'fa-solid fa-house',
     activePrefixes: ['/belajar', '/latihan/wmi/sesi', '/latihan/wmi/tes'],
   },
   {
@@ -41,7 +41,7 @@ const TABS: TabDef[] = [
     to: '/profil',
     label: 'Profil',
     icon: 'fa-solid fa-user',
-    activePrefixes: ['/profil', '/badges', '/shop', '/dashboard', '/report'],
+    activePrefixes: ['/profil', '/badges', '/shop', '/dashboard', '/report', '/streak'],
   },
 ]
 
