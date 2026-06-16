@@ -3,7 +3,7 @@ import WmiQuestionView from '../../components/wmi/WmiQuestionView'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
 import { Button, Input, Panel, SectionHeading, Select, Textarea } from '../../components/admin/ui'
 import {
-  fetchPaperList, fetchPaperQuestions, fetchPaperReview, savePaperReview,
+  fetchPaperList, fetchPaperQuestions, fetchPaperReview, patchPaperQuestion, savePaperReview,
   type AdminPaperSummary, type AdminPaperQuestion, type PaperReview, type ReviewStatus,
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
@@ -279,6 +279,40 @@ export default function AdminWmiDrill() {
       }),
     [addIssue, activePaperId, currentQuestion],
   )
+  const [editPart, setEditPart] = useState<null | 'stem' | 'answer' | 'hint'>(null)
+  const [draft, setDraft] = useState({ body_en: '', body_id: '', answer: '', hint_en: '', hint_id: '' })
+  const openEdit = (part: 'stem' | 'answer' | 'hint') => {
+    if (!currentQuestion) return
+    setDraft({
+      body_en: currentQuestion.body_en,
+      body_id: currentQuestion.body_id,
+      answer: currentQuestion.answer,
+      hint_en: currentQuestion.hint_en ?? '',
+      hint_id: currentQuestion.hint_id ?? '',
+    })
+    setEditPart(part)
+  }
+  const saveEdit = async () => {
+    if (!currentQuestion || !activePaperId || !editPart) return
+    const qid = currentQuestion.id
+    const patch =
+      editPart === 'stem'
+        ? { body_en: draft.body_en, body_id: draft.body_id }
+        : editPart === 'answer'
+          ? { answer: draft.answer }
+          : { hint_en: draft.hint_en, hint_id: draft.hint_id }
+    await patchPaperQuestion(activePaperId, qid, patch)
+    setQuestions((qs) => qs.map((q) => (q.id === qid ? { ...q, ...patch } : q)))
+    const openIssue = issues.find(
+      (i) =>
+        i.question_id === qid &&
+        i.part === editPart &&
+        i.status !== 'verified' &&
+        i.status !== 'wont_fix',
+    )
+    if (openIssue) await updateIssue(openIssue.id, { status: 'verified' })
+    setEditPart(null)
+  }
 
   return (
     <div className="space-y-5">
@@ -576,6 +610,49 @@ export default function AdminWmiDrill() {
                       ),
                     )}
                   </div>
+                  {currentQuestion && (
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-[10px]">
+                      <span className="font-bold text-admin-faint">Quick-fix:</span>
+                      {(['stem', 'answer', 'hint'] as const).map((part) => (
+                        <button
+                          key={part}
+                          type="button"
+                          onClick={() => openEdit(part)}
+                          className="rounded-md border border-emerald-600 px-2 py-0.5 font-bold text-emerald-700 hover:bg-emerald-50"
+                        >
+                          ✎ {part}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {editPart && currentQuestion && (
+                    <div className="mt-3 grid gap-2 rounded-lg border border-emerald-500 bg-emerald-50/40 p-3">
+                      <div className="text-xs font-bold text-emerald-800">
+                        Quick-fix: {editPart} — edits the stored question row
+                      </div>
+                      {editPart === 'stem' && (
+                        <>
+                          <Textarea value={draft.body_en} onChange={(e) => setDraft((d) => ({ ...d, body_en: e.target.value }))} rows={2} aria-label="Body EN" />
+                          <Textarea value={draft.body_id} onChange={(e) => setDraft((d) => ({ ...d, body_id: e.target.value }))} rows={2} aria-label="Body ID" />
+                        </>
+                      )}
+                      {editPart === 'answer' && (
+                        <Input value={draft.answer} onChange={(e) => setDraft((d) => ({ ...d, answer: e.target.value }))} aria-label="Answer" />
+                      )}
+                      {editPart === 'hint' && (
+                        <>
+                          <Textarea value={draft.hint_en} onChange={(e) => setDraft((d) => ({ ...d, hint_en: e.target.value }))} rows={2} aria-label="Hint EN" />
+                          <Textarea value={draft.hint_id} onChange={(e) => setDraft((d) => ({ ...d, hint_id: e.target.value }))} rows={2} aria-label="Hint ID" />
+                        </>
+                      )}
+                      <div className="flex items-center gap-2">
+                        <Button type="button" onClick={saveEdit}>Save → verify issue</Button>
+                        <button type="button" className="text-xs text-admin-faint" onClick={() => setEditPart(null)}>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </Panel>
               )}
 
