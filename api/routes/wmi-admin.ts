@@ -13,6 +13,7 @@ import {
   getPaperReview,
   listAdminPaperQuestions,
   listPapersForAdmin,
+  updateQuestionFields,
   upsertPaperReview,
 } from '../services/wmi/paperReviews.js'
 import {
@@ -309,6 +310,38 @@ router.patch('/issues/:id', async (req: AuthRequest, res: Response): Promise<voi
   } catch (e) {
     console.error('WMI issue update error:', e)
     res.status(500).json({ success: false, error: 'Unable to update issue' })
+  }
+})
+
+// In-app quick-fix: edit the simple text fields of a stored question.
+const questionPatchSchema = Joi.object({
+  body_en: Joi.string().min(1),
+  body_id: Joi.string().min(1),
+  answer: Joi.string().allow(''),
+  hint_en: Joi.string().allow('', null),
+  hint_id: Joi.string().allow('', null),
+}).min(1)
+
+router.patch('/papers/:id/questions/:qid', async (req: Request, res: Response): Promise<void> => {
+  if (!UUID_RE.test(req.params.id) || !UUID_RE.test(req.params.qid)) {
+    res.status(404).json({ success: false, error: 'Not found' })
+    return
+  }
+  const { error, value } = questionPatchSchema.validate(req.body)
+  if (error) {
+    res.status(400).json({ success: false, error: error.details[0].message })
+    return
+  }
+  try {
+    const ok = await updateQuestionFields(req.params.qid, value)
+    if (!ok) {
+      res.status(404).json({ success: false, error: 'Question not found' })
+      return
+    }
+    res.json({ success: true, data: { ok: true } })
+  } catch (e) {
+    console.error('WMI question quick-fix error:', e)
+    res.status(500).json({ success: false, error: 'Unable to update question' })
   }
 })
 

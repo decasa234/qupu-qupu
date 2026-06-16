@@ -142,3 +142,12 @@ export async function savePaperReview(
   const { data } = await api.put(`/admin/wmi/papers/${paperId}/review`, { status, notes })
   return data.data.review
 }
+
+// In-app quick-fix: patch a stored question's simple text fields.
+export async function patchPaperQuestion(
+  paperId: string,
+  questionId: string,
+  patch: Partial<{ body_en: string; body_id: string; answer: string; hint_en: string | null; hint_id: string | null }>,
+): Promise<void> {
+  await api.patch(`/admin/wmi/papers/${paperId}/questions/${questionId}`, patch)
+}

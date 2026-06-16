@@ -115,3 +115,35 @@ export async function upsertPaperReview(
   )
   return row as PaperReview
 }
+
+// In-app quick-fix for the simple text fields of a stored question. Structured
+// fields (breakdown / hint_steps / visual) are intentionally NOT editable here
+// (they route to Claude Code). Returns false when nothing matched.
+export type QuestionTextPatch = Partial<{
+  body_en: string
+  body_id: string
+  answer: string
+  hint_en: string | null
+  hint_id: string | null
+}>
+
+export async function updateQuestionFields(questionId: string, patch: QuestionTextPatch): Promise<boolean> {
+  const cols: string[] = []
+  const params: unknown[] = []
+  const set = (c: string, v: unknown) => {
+    params.push(v)
+    cols.push(`${c} = $${params.length}`)
+  }
+  if (patch.body_en !== undefined) set('body_en', patch.body_en)
+  if (patch.body_id !== undefined) set('body_id', patch.body_id)
+  if (patch.answer !== undefined) set('answer', patch.answer)
+  if (patch.hint_en !== undefined) set('hint_en', patch.hint_en)
+  if (patch.hint_id !== undefined) set('hint_id', patch.hint_id)
+  if (cols.length === 0) return false
+  params.push(questionId)
+  const row = await queryOne<{ id: string }>(
+    `UPDATE wmi_questions SET ${cols.join(', ')} WHERE id = $${params.length} RETURNING id`,
+    params,
+  )
+  return Boolean(row)
+}
