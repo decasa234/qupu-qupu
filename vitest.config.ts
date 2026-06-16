@@ -1,7 +1,5 @@
 import { defineConfig } from 'vitest/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import os from 'os'
-import path from 'path'
 
 // Backend-first test setup. The coin and gamification tests run against
 // Node + Postgres, so `node` is the default environment. A frontend
@@ -17,11 +15,10 @@ export default defineConfig({
         url: 'http://localhost',
       },
     },
-    // Node 25+ has a built-in localStorage accessed via --localstorage-file.
-    // Without a valid path the global localStorage object has no methods,
-    // breaking zustand persist in jsdom test workers.
-    execArgv: [
-      `--localstorage-file=${path.join(os.tmpdir(), 'vitest-localStorage.json')}`,
-    ],
+    // Node 25+ ships a built-in Web Storage that shadows jsdom's localStorage
+    // with a method-less object (breaking zustand persist in jsdom tests).
+    // --no-webstorage disables it so jsdom's own implementation takes over —
+    // hermetic per worker, no shared file. Harmless for node-env workers.
+    execArgv: ['--no-webstorage'],
   },
 })

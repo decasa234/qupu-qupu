@@ -73,8 +73,8 @@ export default function TopStatStrip() {
           onClick={() => setLearnMode(learnMode === 'wmi' ? 'video' : 'wmi')}
           aria-label={
             learnMode === 'wmi'
-              ? 'Mode WMI — ketuk untuk ganti ke Video'
-              : 'Mode Video — ketuk untuk ganti ke WMI'
+              ? 'Mode: WMI — ketuk untuk ganti ke Video'
+              : 'Mode: Video — ketuk untuk ganti ke WMI'
           }
           className="flex h-8 flex-shrink-0 items-center justify-center gap-1.5 rounded-[12px] bg-white px-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5"
         >

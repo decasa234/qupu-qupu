@@ -4,7 +4,7 @@
 // model (GET /me/dashboard) for streak / longest / shields / heatmap, and the
 // existing Heatmap primitive for the activity calendar. No backend change.
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import api from '../lib/api'
 import {
   dashboardFromApi,
@@ -19,6 +19,7 @@ export default function StreakPage() {
   useDocumentTitle('Streak')
   const activeChildId = useAuthStore((s) => s.activeChildId)
   const navigate = useNavigate()
+  const location = useLocation()
   const [vm, setVm] = useState<DashboardViewModel | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -62,7 +63,7 @@ export default function StreakPage() {
       <div className="mb-3 flex items-center gap-3 px-1 pt-1">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => (location.key === 'default' ? navigate('/profil') : navigate(-1))}
           aria-label="Kembali"
           className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-sm text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
         >
