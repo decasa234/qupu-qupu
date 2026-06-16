@@ -10,8 +10,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildCube2025G2Steps } from './cube2025G2Steps'
 import { IsoCube, YEAR_2025, type DigitGrid } from './Cube2025G2Illustration'
 

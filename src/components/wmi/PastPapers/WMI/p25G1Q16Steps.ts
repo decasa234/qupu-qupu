@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { HANDS, LEFT_COUNTS, LEFT_TOTAL } from './P25G1Q16Illustration'
 
 export type HandPhase = 'show' | 'pickLeft' | 'add' | 'result'

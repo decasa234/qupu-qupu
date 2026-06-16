@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FIGURE_COUNTS, FIGURE_ORDER, type FigureLabel } from './P21G1Q13Illustration'
 
 // Storyboard for WMI-21P1A-Q13 — count the cubes of each figure A→B→C→D with a

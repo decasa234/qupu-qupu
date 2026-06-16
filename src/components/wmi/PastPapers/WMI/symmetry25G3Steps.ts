@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   CELLS_25G3,
   SYMMETRY_RESULTS_25G3,

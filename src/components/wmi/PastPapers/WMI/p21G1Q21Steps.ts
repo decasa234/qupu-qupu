@@ -8,7 +8,7 @@
 //
 // One idea per beat; the static grid never shows A, B, C or the answer.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P21G1Q21_ANSWER } from './P21G1Q21Illustration'
 
 export type Q21Phase = 'show' | 'solveA' | 'solveB' | 'solveC' | 'sum' | 'result'

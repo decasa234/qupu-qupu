@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-20F2A-Q7 — the pink arrow turns 1½ numbers (45°) clockwise each step:
 // 9:00 → 10:30 → (12:00, hidden behind the black hand!) → 1:30 → 3:00 → 4:30.

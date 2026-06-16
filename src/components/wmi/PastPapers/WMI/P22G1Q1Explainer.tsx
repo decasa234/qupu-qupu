@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MATCH_COUNT, Q1Diagram } from './P22G1Q1Illustration'
 import { buildP22G1Q1Steps } from './p22G1Q1Steps'
 

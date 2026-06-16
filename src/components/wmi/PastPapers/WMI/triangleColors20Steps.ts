@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, NON_BLACK_TRIANGLE_KEYS, TRIANGLE_KEYS } from './TriangleColors20Illustration'
 
 export type TrianglePhase = 'find' | 'count' | 'exclude' | 'trap' | 'result'

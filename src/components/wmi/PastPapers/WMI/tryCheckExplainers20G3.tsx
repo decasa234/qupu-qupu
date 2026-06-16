@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-20F3A (2020 Grade 3 Final) — deduction-chain explainers for the
 // questions whose reasoning is a short list of checked facts. Every answer is

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { VASE_COUNT } from './P22G1Q8Illustration'
 
 // WMI-22P1A-Q8 (2022 Semifinal Grade 1): a field strewn with vases and a few

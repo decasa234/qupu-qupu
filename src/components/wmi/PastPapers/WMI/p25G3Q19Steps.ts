@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { A_FOUR, B_THREE, C_TWO, ABC, paintedFaces, Q19_CUBES, type Cube } from './P25G3Q19Illustration'
 
 export type CubePhase = 'show' | 'four' | 'three' | 'two' | 'result'

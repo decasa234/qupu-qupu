@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { JERSEY_PHOTOS, JERSEYS_SOLUTION, type JerseyPhoto } from './Jerseys25G2Illustration'
 
 // WMI-25F2A-Q23 — seven players in a row wear jerseys 1..7. Four partial photos

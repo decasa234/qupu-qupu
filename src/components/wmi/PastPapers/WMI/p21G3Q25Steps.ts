@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q25_ANSWER, Q25_ANSWER_CELLS, Q25_SOLUTION, Q25_SUM } from './P21G3Q25Illustration'
 
 export type Q25Phase = 'show' | 'deduce' | 'answers' | 'result'

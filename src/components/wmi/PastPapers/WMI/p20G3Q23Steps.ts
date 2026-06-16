@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { A_VAL, ABC_SUM, B_VAL, C_VAL } from './P20G3Q23Illustration'
 
 export interface Q23Step {

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { DotGrid23 } from './P23G2Q18Illustration'
 import { buildP23G2Q18Steps } from './p23G2Q18Steps'
 

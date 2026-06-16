@@ -19,7 +19,7 @@
 // the answer, surfaced only by the animator after reveal. This component is a
 // pure, deterministic, SSR-safe render with no params, no random, no effects.
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 const INK = '#1F2937'
 // The scan fills every shape with the same bright lime-green. No qupu token

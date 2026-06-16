@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FRUIT_SETS, FruitGroup } from './Fruit22G1Option'
 import { buildFruit22G1Steps } from './fruit22G1Steps'
 

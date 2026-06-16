@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { HEIGHTS } from './P22G2Q17Illustration'
 
 export type Q17Phase = 'show' | 'fill' | 'result'

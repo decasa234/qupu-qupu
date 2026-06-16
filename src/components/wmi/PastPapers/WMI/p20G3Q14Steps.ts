@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { OVER_COUNT, PER_ICON, THRESHOLD, ZOO_ICONS, ZOO_TOTALS } from './P20G3Q14Illustration'
 
 export interface Q14Step {

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_LABEL, PILE_COUNT } from './P20G1Q6Illustration'
 
 export type PilePhase = 'show' | 'count' | 'result'

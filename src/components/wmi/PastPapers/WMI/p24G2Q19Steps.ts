@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Deterministic storyboard for WMI-24P2A-Q19 (matching-flower, answer E).
 //

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_SUM, BOTTOM_ROW_SUM, STAR_MIDCOL, TOP_ROW_SUM } from './P22G2Q21Illustration'
 
 // Storyboard for WMI-22P2A-Q21 — fill 1..9, outside numbers are row/column totals.

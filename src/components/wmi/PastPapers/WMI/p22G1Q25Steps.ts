@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { MAX_GROUPS, VERIFIED_PACKING } from './P22G1Q25Illustration'
 
 export type NumberGrid25Phase = 'intro' | 'pack' | 'result'

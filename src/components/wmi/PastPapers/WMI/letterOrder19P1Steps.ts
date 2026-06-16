@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_BOX, SOLUTION, type SlotState } from './LetterOrder19P1Illustration'
 
 // WMI-19P1A-Q25 — "In which box is B?" (answer C = box 5).

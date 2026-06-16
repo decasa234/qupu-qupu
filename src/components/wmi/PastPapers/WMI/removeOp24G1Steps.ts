@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F1A-Q23 (2024 Grade 1 final). The printed expression is FIXED:
 //   9 + 8 + 7 + 6 − 5 − 4 + 3 + 2 − 1

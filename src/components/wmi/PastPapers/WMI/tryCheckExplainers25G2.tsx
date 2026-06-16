@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-25F2A (2025 Grade 2 Final) — deduction-chain explainers for the
 // non-figure questions. Q13 (shape P/Q/R tiling) is NOT here: its answer

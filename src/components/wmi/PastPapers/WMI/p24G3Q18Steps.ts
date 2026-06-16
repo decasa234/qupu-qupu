@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BLOCK_A_CUBES, BLOCK_B_CUBES, SOLID_CUBES } from './P24G3Q18Illustration'
 
 export type Q18Phase = 'count' | 'rule' | 'check' | 'flagC' | 'result'

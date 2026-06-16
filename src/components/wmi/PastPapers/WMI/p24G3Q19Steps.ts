@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q19_NODES, Q19_SOLVED } from './P24G3Q19Illustration'
 
 // WMI-24P3A-Q19 storyboard.

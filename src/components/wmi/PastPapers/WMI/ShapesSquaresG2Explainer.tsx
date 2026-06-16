@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ShapesGrid, SHAPE_CELLS, SQUARE_COUNT } from './ShapesSquaresG2Illustration'
 
 // WMI-20F2A-Q3 — check each shape ONE PER BEAT: a square needs 4 sides, all the

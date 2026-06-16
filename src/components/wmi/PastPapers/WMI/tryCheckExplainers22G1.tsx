@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-22F1A (2022 Grade 1 Final) — deduction-chain explainers for the
 // non-figure questions. Every answer is derived on screen; ✗ rows show the

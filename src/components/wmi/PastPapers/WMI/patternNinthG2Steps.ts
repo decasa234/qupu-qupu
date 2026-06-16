@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FOODS, TARGET_POSITION, indexFromStar, ANSWER_FOOD } from './PatternNinthG2Illustration'
 
 export type PatternPhase = 'show' | 'count' | 'result'

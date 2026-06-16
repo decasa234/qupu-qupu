@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F3A — deduction chains for the pure-arithmetic Grade-3 questions.
 

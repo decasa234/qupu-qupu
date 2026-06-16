@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { ShapeKey } from './ThreeScales20Illustration'
 import { ANSWER, TOTAL_G } from './ThreeScales20Illustration'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PERIMETER, TALL, TOTAL_WIDTH } from './P25G3Q14Illustration'
 
 export type PerimPhase = 'show' | 'bottom' | 'left' | 'steps' | 'result'

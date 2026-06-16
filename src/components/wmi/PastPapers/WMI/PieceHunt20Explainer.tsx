@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { CircleGrid, GRID_SIZE, PieceOne, PieceTwo } from './PieceHunt20Illustration'
 import { buildPieceHunt20Steps } from './pieceHunt20Steps'
 

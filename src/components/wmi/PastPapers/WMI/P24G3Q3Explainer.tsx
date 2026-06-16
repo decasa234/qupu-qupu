@@ -6,8 +6,8 @@
  * seats the students (blue), and lands on 31 − 27 = 4 empty seats (answer C).
  */
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { BusSeatMap } from './P24G3Q3Illustration'
 import { buildP24G3Q3Steps } from './p24G3Q3Steps'
 

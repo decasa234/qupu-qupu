@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // Kid-concept visuals for the "shared factor" questions of WMI-19F3A:
 //   Q10: 26×4 + 54×4 + 10×4 — boxes of 4 POUR TOGETHER into 90 boxes of 4.

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { COMPLETE_TEN, LEFTOVER, LEFT_COUNT, RIGHT_COUNT, TOTAL } from './AppleAdd19P1Illustration'
 
 export type AppleAddPhase = 'show' | 'bridge' | 'ten' | 'result'

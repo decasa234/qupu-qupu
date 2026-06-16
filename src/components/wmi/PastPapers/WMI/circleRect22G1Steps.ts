@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FIGURES } from './CircleRect22G1Option'
 
 // Storyboard for WMI-22F1A-Q10 (Grade 1). The question: "Which figure has MORE

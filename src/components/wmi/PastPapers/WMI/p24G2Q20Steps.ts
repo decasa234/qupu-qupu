@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BOTTOM_MAX, TOP_SUMS, UNITS_DIGIT } from './P24G2Q20Illustration'
 
 // Deterministic storyboard for WMI-24P2A-Q20 (sum-pyramid, answer E = 9).

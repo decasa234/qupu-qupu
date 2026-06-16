@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { A_VALUE_Q25, AB_SUM_Q25, B_VALUE_Q25 } from './P21G2Q25Illustration'
 
 export type TilingPhase = 'intro' | 'findA' | 'findB' | 'result'

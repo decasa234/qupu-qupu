@@ -21,7 +21,7 @@
  * captions and the floor(N/3) bound can never drift from the figure.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CUBES, PACKING } from './BlockPack22G1Illustration'
 
 export type BlockPackPhase = 'model' | 'bound' | 'place' | 'result'

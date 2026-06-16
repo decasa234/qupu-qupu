@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { COLS, DEPTH, HEIGHTS, SILHOUETTE } from './P19G2Q12Illustration'
 
 // WMI-19P2A-Q12 — looking from the arrow flattens the 3-D stack into a 2-D outline.

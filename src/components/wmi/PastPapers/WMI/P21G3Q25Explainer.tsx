@@ -12,8 +12,8 @@
  */
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { KenKenP21G3Q25Figure } from './P21G3Q25Illustration'
 import { buildP21G3Q25Steps } from './p21G3Q25Steps'
 

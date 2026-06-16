@@ -7,7 +7,7 @@
 // Everything is derived from the digit grids exported by the illustration — the
 // 66 total, the 6 ends and the 60 answer all fall out of TOTAL_CUBES / END_CUBES.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   YEAR_2025,
   endCubes,

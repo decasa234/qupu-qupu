@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-23P2A-Q24 (2023 Semifinal Grade 2 Paper A) — fruit product table.
 //   apple × banana × banana = 16

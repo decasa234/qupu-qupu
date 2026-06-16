@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { UNIT_SQUARES, MIN_TILING, MIN_SQUARES } from './P23G3Q25Illustration'
 
 // WMI-23P3A-Q25 — the figure has 52 unit cells. To use as FEW squares as

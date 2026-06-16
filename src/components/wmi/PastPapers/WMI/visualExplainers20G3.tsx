@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { W_GRIDS, WGrid, LampRow, BoatGrid, MiniTempChart, TEMP_CHARTS, TEMP_FAIL, ShapeAdditionBoard } from './scenes20G3Illustrations'
 import { PatternShape, PATTERN_SHAPES } from './scenes20G3Illustrations'
 import { ThreeRectangles } from './puzzles20G3Illustrations'

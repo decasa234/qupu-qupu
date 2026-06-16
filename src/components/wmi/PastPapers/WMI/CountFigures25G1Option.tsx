@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { FigureGlyph, FIGURE_LABEL_ID, type FigureKind } from './CountFigures25G1Illustration'
 
 // CHOICE renderer for WMI-25F1A-Q14 (2025 Grade 1 Final, Paper A).

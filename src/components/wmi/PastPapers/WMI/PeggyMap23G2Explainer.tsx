@@ -17,8 +17,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { PeggyMap23G2 } from './PeggyMap23G2Illustration'
 
 // ─── colour tokens ────────────────────────────────────────────────────────────

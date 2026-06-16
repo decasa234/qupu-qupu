@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F3A-Q20 — balloons as BARS. R+B = 121, B+Y = 104, Y+R = 129.
 // The three pair-bars rearrange into two identical R+B+Y rows (354 counts every

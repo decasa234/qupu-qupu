@@ -15,8 +15,8 @@
 
 import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { BLOCK_A, BLOCK_B, PolyCube, SOLID_CUBES } from './P24G3Q18Illustration'
 import { buildP24G3Q18Steps, type OptionLabel } from './p24G3Q18Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F1A-Q10 (Grade 1): how many numbers are in BOTH the square and circle,
 // NOT in the triangle, AND larger than 40?

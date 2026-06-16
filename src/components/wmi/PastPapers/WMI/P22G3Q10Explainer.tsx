@@ -10,8 +10,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { NetGrid, VIEW_W, VIEW_H, NET_PAD } from './P22G3Q10Illustration'
 import { buildP22G3Q10Steps } from './p22G3Q10Steps'
 

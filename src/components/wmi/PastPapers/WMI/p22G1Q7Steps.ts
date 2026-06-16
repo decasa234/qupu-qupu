@@ -1,6 +1,6 @@
 // Storyboard for the WMI-22P1A-Q7 explainer: pick the longest bar, then the next
 // longest, … building B → D → C → A, then match "BDCA" to the lettered choice (C).
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ORDER_LONGEST_FIRST, ORDER_STRING, ROPES } from './P22G1Q7Illustration'
 
 export interface Q7Step {

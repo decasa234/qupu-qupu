@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BALL_SETS, type Ball, type BallMark } from './Balls22G1Option'
 
 // Storyboard for WMI-22F1A-Q11 (Grade 1). Kiki has 4 balls; the set must have

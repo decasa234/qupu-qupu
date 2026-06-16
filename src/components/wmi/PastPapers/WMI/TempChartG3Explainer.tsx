@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { TempChartFigure, CITIES, cityRange, type CityKey } from './TempChartG3Illustration'
 
 // WMI-19F3A-Q3 — most distinct variation = the biggest swing (max − min).

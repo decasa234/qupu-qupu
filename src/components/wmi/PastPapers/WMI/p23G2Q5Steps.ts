@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FILL_ORDER, FILL_ORDER_STR, TANKS } from './P23G2Q5Illustration'
 import type { Tank } from './P23G2Q5Illustration'
 

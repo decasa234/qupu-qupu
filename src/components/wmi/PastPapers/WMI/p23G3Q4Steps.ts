@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SHADED_COUNT, STRIP_COUNT } from './P23G3Q4Illustration'
 
 export type FractionPhase = 'show' | 'denominator' | 'count' | 'result'

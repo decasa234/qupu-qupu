@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q22_ANSWER, Q22_HIDDEN } from './P22G3Q22Illustration'
 
 // Storyboard for WMI-22P3A-Q22 — find the 4 shapes hidden behind the "?" box.

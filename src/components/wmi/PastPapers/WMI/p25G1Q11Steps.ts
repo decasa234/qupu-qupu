@@ -1,6 +1,6 @@
 // Storyboard for WMI-25P1A-Q11 — count the KINDS of shapes (not the total).
 // Beat-by-beat: tally each distinct kind once, building up to 6 kinds (answer C).
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { ShapeKind } from './P25G1Q11Illustration'
 import { Q11_NUM_KINDS } from './P25G1Q11Illustration'
 

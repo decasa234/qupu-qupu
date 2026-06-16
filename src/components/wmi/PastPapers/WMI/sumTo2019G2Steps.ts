@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { MAX_FOUR, BOT_NUM, MID_NUM, TOP_NUM, TOTAL, type TrialDigit } from './SumTo2019G2Illustration'
 
 // WMI-19F2A-Q23 — derive the largest 4-digit number column by column.

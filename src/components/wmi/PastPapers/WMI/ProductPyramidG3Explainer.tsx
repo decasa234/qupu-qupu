@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ProductPyramidFigure, PP_M, PP_R, PP_STAR } from './ProductPyramidG3Illustration'
 
 // WMI-19F3A-Q12 — derive ★ from the product rule, one box at a time.

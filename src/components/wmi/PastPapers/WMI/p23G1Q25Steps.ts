@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q25Phase = 'show' | 'noRotate' | 'unique' | 'read' | 'result'
 

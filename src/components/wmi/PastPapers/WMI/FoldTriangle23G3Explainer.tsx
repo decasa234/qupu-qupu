@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FoldTriangle23G3 } from './FoldTriangle23G3Illustration'
 import { buildFoldTriangle23G3Steps, ANSWER, GIVEN, type LedgerRow } from './foldTriangle23G3Steps'
 

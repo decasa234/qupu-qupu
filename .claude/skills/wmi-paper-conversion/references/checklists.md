@@ -9,7 +9,7 @@ Re-read during Phase 1 (the answer gate) and Phase 5 (all gates).
 - The numbers shown in the figure equal the question's `quantities` / `answer`.
 - When the OCR figure is ambiguous, the reconstruction must be the **unique**
   assignment consistent with the answer (see the recovery note atop
-  `src/components/wmi/paperQuestions/ShapeEquationIllustration.tsx`).
+  `src/components/wmi/PastPapers/WMI/ShapeEquationIllustration.tsx`).
 
 **On-screen — it renders cleanly:**
 - The viewBox has headroom on all four sides — no arc/stroke bleeds past an edge.
@@ -128,8 +128,8 @@ loads, mutates, and re-dumps the JSON (`ensure_ascii=False, indent=2`).
   ```ts
   import { renderToStaticMarkup } from 'react-dom/server'
   import { createElement as h } from 'react'
-  import Illustration from '@/components/wmi/paperQuestions/<Thing>Illustration'
-  import Explainer from '@/components/wmi/paperQuestions/<Thing>Explainer'
+  import Illustration from '@/components/wmi/PastPapers/WMI/<Thing>Illustration'
+  import Explainer from '@/components/wmi/PastPapers/WMI/<Thing>Explainer'
   const p = { correctAnswer: '', params: {} } as any
   for (const lang of ['en', 'id'] as const) {
     console.log('illus', lang, renderToStaticMarkup(h(Illustration)).includes('<svg'))

@@ -18,8 +18,8 @@
 
 import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SOLID_SETS, CubeSolid } from './Solid22G1Option'
 import { buildSolid22G1Steps, type SolidLabel } from './solid22G1Steps'
 

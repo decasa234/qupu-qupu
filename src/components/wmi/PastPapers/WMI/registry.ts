@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import type { WmiChoice } from '../../../types/wmi'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import type { WmiChoice } from '../../../../types/wmi'
 import ShapeCountOption from './ShapeCountOption'
 import WhiteCircleSquareOption from './WhiteCircleSquareOption'
 import StarRowsIllustration from './StarRowsIllustration'

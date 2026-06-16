@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-25P1A-Q2 — "which fraction is the shaded region?"
 // Answer A = 1/4. We split the square into 4 equal quadrants, count the total

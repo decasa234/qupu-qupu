@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q24_ANSWER, SHADED_FRAMES, GRID_N } from './P25G1Q24Illustration'
 
 // Deterministic storyboard for WMI-25P1A-Q24 (change-of-pattern → rotation).

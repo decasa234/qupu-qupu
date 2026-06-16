@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CUBE_TOTAL, REGION_COUNTS } from './P21G2Q10Illustration'
 
 const [BASE, LEFT, RIGHT] = REGION_COUNTS // [24, 2, 3]

@@ -8,7 +8,7 @@
 //   A = 3 (odd)   B = 2 (even)   C = 3 (odd)   D = 2 (even)
 // → the two odd gates are A and C.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Gate } from './P25G1Q20Illustration'
 import { gateDegree } from './P25G1Q20Illustration'
 

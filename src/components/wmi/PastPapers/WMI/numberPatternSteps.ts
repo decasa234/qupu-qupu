@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { STAR_ROW, STAR_COL, STAR_VALUE } from './NumberPatternIllustration'
 
 export type NumberPatternPhase = 'show' | 'rows' | 'cols' | 'apply' | 'result'

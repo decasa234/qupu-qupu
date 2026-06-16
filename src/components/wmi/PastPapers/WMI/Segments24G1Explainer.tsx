@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Segments24G1, SEGMENT_PATHS, SEGMENT_IDS, type SegmentId } from './Segments24G1Illustration'
 import { buildSegments24G1Steps } from './segments24G1Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FOLD_LABELS, type FoldLabel } from './Folding25G3Illustration'
 
 // WMI-25F3A-Q10 (2025 Grade-3 Final). A rectangle of paper may be rotated

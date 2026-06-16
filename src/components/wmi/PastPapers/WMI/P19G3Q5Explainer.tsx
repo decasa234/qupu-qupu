@@ -5,8 +5,8 @@
 // from the illustration so the explainer is the same picture coming alive.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Q5Strip, Q5_QMARK_INDEX, Q5_ANSWER_GLYPH, GlyphMark } from './P19G3Q5Illustration'
 import { buildP19G3Q5Steps } from './p19G3Q5Steps'
 

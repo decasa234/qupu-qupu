@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MultGrid, CELLS_22G3_Q19 } from './VerticalMult22G3Illustration'
 import { buildVerticalMult22G3Story } from './verticalMult22G3Steps'
 

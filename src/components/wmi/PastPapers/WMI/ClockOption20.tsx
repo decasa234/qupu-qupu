@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { AnalogClock20, parseClockTime } from './ClockMatch20Illustration'
 
 // Renders an answer option for the clock-matching question (WMI-20F1A-Q6) as

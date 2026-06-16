@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DESSERT_GRID, DESSERT_KINDS, DESSERT_LABEL, frequencyOfKind, type DessertKind } from './P22G1Q14Illustration'
 
 // WMI-22P1A-Q14 (2022 Semifinal Grade 1): which single dessert appears the MOST

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SHAPE_ROWS } from './ShapeCountChartIllustration'
 
 export type ShapeCountPhase = 'show' | 'count' | 'result'

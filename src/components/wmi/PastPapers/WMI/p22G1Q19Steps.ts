@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLES } from './P22G1Q19Illustration'
 
 // WMI-22P1A-Q19 — "How many triangles, big and small?" (seed answer key: C).

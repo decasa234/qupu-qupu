@@ -14,7 +14,7 @@
 // the running tally up to that total and then multiplies. Pure function of lang —
 // no Math.random, no Date. SSR-safe and deterministic.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   SMALL_TRIANGLE_CM2,
   ANSWER_TRIANGLE_COUNT,

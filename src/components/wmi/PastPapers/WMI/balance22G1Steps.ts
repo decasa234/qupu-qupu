@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const BALANCE_ANSWER = '2 bananas'
 export const BALANCE_ANSWER_ID = '2 pisang'

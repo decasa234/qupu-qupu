@@ -8,8 +8,8 @@
 // SSR-safe, deterministic.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FishTankWheel } from './P25G2Q17Illustration'
 import { buildP25G2Q17Steps } from './p25G2Q17Steps'
 

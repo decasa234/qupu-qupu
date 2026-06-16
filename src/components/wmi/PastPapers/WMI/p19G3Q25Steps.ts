@@ -3,7 +3,7 @@
 // illustration; these beats carry which cells to reveal, which piece to spotlight,
 // captions and timing.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q25_PIECES, Q25_SOLUTION } from './P19G3Q25Illustration'
 
 export type Q25Phase = 'rule' | 'pieceSum' | 'fill' | 'corners' | 'result'

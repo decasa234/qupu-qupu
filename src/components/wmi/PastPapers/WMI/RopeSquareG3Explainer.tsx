@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F3A-Q4 — a 192 m rope forms a square with 24 m left over. Kid-visual:
 // the rope bar loses its 24 m tail, the 168 m that is used folds into a square,

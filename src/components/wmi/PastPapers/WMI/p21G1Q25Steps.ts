@@ -6,7 +6,7 @@
 //
 // The result beat lights up the two marked cells (a 2 and a 3, which total 5) so
 // the sum is visible on the grid the problem already gives.
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q25Phase = 'show' | 'rotate' | 'place' | 'read' | 'result'
 

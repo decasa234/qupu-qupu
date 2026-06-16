@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { CellMark } from './P24G1Q6Illustration'
 import {
   ANSWER_DIGIT,

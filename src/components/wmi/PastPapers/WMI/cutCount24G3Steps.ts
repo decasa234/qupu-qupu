@@ -5,7 +5,7 @@
 // Pure (params + lang) → beats; everything derives from CUT_GAIN_PER_STEP and
 // CUT_STAGES so the arithmetic stays consistent with the static figure.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CUT_STAGES, CUT_GAIN_PER_STEP } from './CutCount24G3Illustration'
 
 export type CutCountPhase =

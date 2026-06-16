@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LAYER_COUNTS, TOTAL_CYLINDERS } from './CylinderCount19P1Illustration'
 
 export type CylPhase = 'show' | 'layer' | 'result'

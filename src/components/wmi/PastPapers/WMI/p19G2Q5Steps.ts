@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TOTAL_CUBES, cubesInLevel } from './P19G2Q5Illustration'
 
 // Storyboard for WMI-19P2A-Q5 — count the cube pile layer by layer.

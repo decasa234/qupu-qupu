@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ANSWER_OPTIONS, FoodGlyph } from './PatternNinthG2Illustration'
 
 // Renders a WMI-19F2A-Q5 answer option as the food picture it stands for, rather

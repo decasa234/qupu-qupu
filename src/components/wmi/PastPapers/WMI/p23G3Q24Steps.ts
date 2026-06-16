@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GRID, LINES, lineMultiplies, lineEquation, CORRECT_COUNT, type Cell } from './P23G3Q24Illustration'
 
 // WMI-23P3A-Q24 — test each of the 8 lines (3 rows, 3 columns, 2 diagonals) for

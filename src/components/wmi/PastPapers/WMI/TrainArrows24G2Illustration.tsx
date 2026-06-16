@@ -25,7 +25,7 @@
 // arrow-pair pictures, so `TrainArrows24G2Option` renders ONE option's two
 // circled arrows given its label, keyed off the co-exported OPTIONS24Q14 table.
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 const INK = '#1F2937'
 const BODY = '#F7DAD6' // salmon car body

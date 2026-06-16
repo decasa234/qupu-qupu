@@ -15,7 +15,7 @@
 //
 // Pure (lang) => storyboard. Deterministic: no Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q25_GRID, Q25_MIN_PATH, Q25_MIN_SUM, Q25_ANSWER_LETTER } from './P24G1Q25Illustration'
 
 export type Q25Phase = 'intro' | 'walk' | 'result'

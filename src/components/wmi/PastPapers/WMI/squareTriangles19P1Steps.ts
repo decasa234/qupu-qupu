@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLES, TRI_TOTAL } from './SquareTriangles19P1Illustration'
 
 // WMI-19P1A-Q21 — "How many triangles are in the figure?" (answer A = 14).

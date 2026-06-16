@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildBalletCalendar20Steps, MONDAYS, THURSDAYS } from './balletCalendar20Steps'
 import type { BalletCalStep } from './balletCalendar20Steps'
 

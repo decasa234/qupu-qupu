@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { STONE_IDS } from './Stones25G1Illustration'
 
 // WMI-25F1A-Q1 (2025 Grade 1 Final).

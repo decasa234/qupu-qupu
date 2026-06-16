@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { CubeNetsFigure, NETS21, NET_FOLD_COUNT } from './puzzles20G2Illustrations'
 
 // WMI-20F2A-Q21 — "How many of the 8 nets fold into a cube?" Test ONE net per

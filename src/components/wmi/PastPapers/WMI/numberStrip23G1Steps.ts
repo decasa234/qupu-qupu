@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { NUMBERS23 } from './NumberStrip23G1Illustration'
 
 // WMI-23F1A-Q3 (2023 G1 final). The eleven numbers are FIXED and printed:

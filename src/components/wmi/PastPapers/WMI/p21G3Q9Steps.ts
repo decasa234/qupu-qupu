@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DAY_BARS, MON_FRI_TOTAL } from './P21G3Q9Illustration'
 
 export type Q9Phase = 'show' | 'window' | 'add' | 'result'

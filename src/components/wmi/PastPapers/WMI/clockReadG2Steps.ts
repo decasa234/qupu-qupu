@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type ClockPhase = 'show' | 'hour' | 'minute' | 'result'
 

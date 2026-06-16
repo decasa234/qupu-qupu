@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24P1A-Q11 (2024 Grade-1 Semifinal). Six jagged half-square pieces (1..6);
 // pick the two that fill an empty square exactly. Answer: E ("6 + 6").

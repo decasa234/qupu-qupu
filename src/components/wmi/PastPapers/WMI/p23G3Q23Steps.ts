@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { OPS, OUTPUT, INPUT, undoOp, type Op } from './P23G3Q23Illustration'
 
 // WMI-23P3A-Q23 — work BACKWARDS from the output 60, undoing each operation in

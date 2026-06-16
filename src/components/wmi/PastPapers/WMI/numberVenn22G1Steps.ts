@@ -13,7 +13,7 @@
 // leaving) with the reason visible, then add up the keepers. The figure itself
 // is the illustrator's NumberVenn primitive — we drive it with `highlight`.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // The three sets (kept here so the arithmetic is deduced, not hard-coded).
 const CIRCLE = [2, 4, 5, 7, 9] as const

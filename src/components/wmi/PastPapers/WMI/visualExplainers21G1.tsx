@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { AppleGrid21, FruitRow21, fruitAt, Baskets21, PaintGrid21, GRID7, TriangleGrid21, TRI8_WHITE, RopeBars21, ROPES, Seesaw21 } from './scenes21G1Illustrations'
 import { NumberStrip21, QueueDots } from './cards21G1Illustrations'
 

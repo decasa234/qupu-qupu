@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLE_COUNTS } from './TrianglePatternG2Illustration'
 
 export type TrianglePatternPhase = 'intro' | 'count' | 'add' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CAKE_TOTAL, CHEESE_TOTAL, COOKIE_TOTAL, type Dessert } from './P22G2Q7Illustration'
 
 export type Q7Phase = 'show' | 'cookies' | 'cakes' | 'cheese' | 'chart' | 'result'

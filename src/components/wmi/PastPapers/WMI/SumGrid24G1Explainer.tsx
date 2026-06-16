@@ -11,8 +11,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SumGrid24G1 } from './SumGrid24G1Illustration'
 
 const CAPTION_BG_NEUTRAL = '#E1EFFB'

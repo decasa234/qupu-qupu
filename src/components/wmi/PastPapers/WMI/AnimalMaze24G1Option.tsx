@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ANIMAL_GLYPH, ANIMAL_NAME_ID, type AnimalKey } from './AnimalMaze24G1Illustration'
 
 // Renders a WMI-24F1A-Q11 answer option as the animal icon it stands for

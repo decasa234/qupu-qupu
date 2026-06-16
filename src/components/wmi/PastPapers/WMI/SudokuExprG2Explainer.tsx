@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Sudoku23Figure, SUDOKU23_GIVENS, SUDOKU23_MARKS } from './puzzles20G2Illustrations'
 
 // WMI-20F2A-Q23 — a 4×4 Latin-square ("sudoku") with expression givens.

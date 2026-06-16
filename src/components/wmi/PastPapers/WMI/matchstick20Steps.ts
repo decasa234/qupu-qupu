@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { MatchstickCandidate } from './Matchstick20Illustration'
 import { STICK_COUNT } from './Matchstick20Illustration'
 

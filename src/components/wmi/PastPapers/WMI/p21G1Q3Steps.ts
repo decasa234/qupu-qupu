@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_KINDS, type ShapeKind } from './P21G1Q3Illustration'
 
 export type ShapeKindsPhase = 'show' | 'triangle' | 'square' | 'rectangle' | 'circle' | 'result'

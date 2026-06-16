@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { AnimalMaze24G1, ANIMAL_GLYPH, type AnimalKey } from './AnimalMaze24G1Illustration'
 import { buildAnimalMaze24G1Steps } from './animalMaze24G1Steps'
 

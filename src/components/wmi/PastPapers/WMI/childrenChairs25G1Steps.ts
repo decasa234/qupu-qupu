@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CHAIR_SIZES, TOTAL_SEATS_25G1, STANDERS_25G1 } from './ChildrenChairs25G1Illustration'
 
 // WMI-25F1A-Q10 (2025 G1 final). 16 children stand above a row of 7 chairs of

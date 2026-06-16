@@ -8,8 +8,8 @@
 // plus a live "Picture k" label.  SSR-safe, deterministic.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ButterflyPattern, Q21_VIEW_H, Q21_VIEW_W } from './P25G2Q21Illustration'
 import { buildP25G2Q21Steps } from './p25G2Q21Steps'
 

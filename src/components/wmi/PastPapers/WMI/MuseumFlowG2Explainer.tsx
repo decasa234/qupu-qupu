@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F2A-Q3 — 92 people inside; 34 leave; (___) come in; now 87. Kid-visual:
 // a museum building whose door lets a "34" crowd walk out and a "?" crowd walk

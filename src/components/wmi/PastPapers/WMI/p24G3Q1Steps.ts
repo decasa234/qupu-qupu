@@ -8,7 +8,7 @@
  *   3. find the midpoint 8500,
  *   4. drop the surviving 8xxx values and keep the one nearest 8500 → 8580 (D).
  */
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type P24G3Q1Phase = 'show' | 'mustStart8' | 'midpoint' | 'tooFar' | 'result'
 

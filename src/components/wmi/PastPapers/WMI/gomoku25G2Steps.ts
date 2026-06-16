@@ -15,7 +15,7 @@
 // Stone ids match the illustration's `stoneId(col,row)` = `c{col}r{row}` so the
 // explainer can light exactly those stones via `litStones`.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { stoneId } from './Gomoku25G2Illustration'
 
 /** Winning choice letter and the empty cell it names ("5−2", col−row). */

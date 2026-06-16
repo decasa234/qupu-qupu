@@ -11,7 +11,7 @@
 // is the [rowIndex, colIndex] of the freshly-filled hexagon for that beat.
 // These are fed straight into the illustrator's <HexTree rows highlight/>.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const HEX_TREE_ANSWER = 459
 

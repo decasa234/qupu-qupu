@@ -1,6 +1,6 @@
 // Storyboard for the WMI-22P1A-Q1 explainer: count the tiles in each of the
 // six pictures, mark the ones that use exactly 8, and land on "3 pictures → C".
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FIGURES, MATCH_COUNT, TARGET_TILES, TILE_COUNTS } from './P22G1Q1Illustration'
 
 export interface Q1Step {

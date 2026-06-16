@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F1A-Q5 — (___) + 5 = 13 birds. Kid-visual: the tree holds the 13 birds
 // of "now"; the 5 newcomers are marked, then flown back out to reveal the

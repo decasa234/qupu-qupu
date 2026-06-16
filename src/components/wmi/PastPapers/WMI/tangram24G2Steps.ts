@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TANGRAM24_GLYPH, type Tangram24Label } from './Tangram24G2Illustration'
 
 // WMI-24F2A-Q13 (2024 Grade-2 Final, HARD). The five answer figures spell

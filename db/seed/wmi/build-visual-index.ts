@@ -1,5 +1,5 @@
 /**
- * Generates src/components/wmi/paperQuestions/INDEX.md — a searchable catalog
+ * Generates src/components/wmi/PastPapers/WMI/INDEX.md — a searchable catalog
  * of every illustration / explainer / option renderer wired in registry.ts.
  *
  * Purpose: "reuse before you build". Before authoring a new visual, grep this
@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
-const DIR = join('src', 'components', 'wmi', 'paperQuestions')
+const DIR = join('src', 'components', 'wmi', 'PastPapers', 'WMI')
 const REGISTRY = join(DIR, 'registry.ts')
 const OUT = join(DIR, 'INDEX.md')
 

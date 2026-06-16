@@ -5,7 +5,7 @@
 // Visualised with counters: a 2×5 ten-frame holding 9 blue dots (one empty
 // cell), 2 amber dots, 6 green dots. One amber dot slides into the empty cell
 // to complete the ten; the leftover 1 then makes 11; the 6 joins for 17.
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export interface MakeTenVisual20Step {
   /** One amber dot has moved into the ten-frame's empty cell (frame is full). */

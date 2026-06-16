@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q18_FIRST, Q18_SECOND, Q18_STEP, Q18_THIRD } from './P20G2Q18Illustration'
 
 export type Q18Phase = 'show' | 'first' | 'second' | 'gap' | 'result'

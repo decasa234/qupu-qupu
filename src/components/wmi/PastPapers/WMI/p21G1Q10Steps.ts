@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, BLACK_COUNT, WHITE_COUNT } from './P21G1Q10Illustration'
 
 export type CheckerPhase = 'show' | 'black' | 'white' | 'pair' | 'result'

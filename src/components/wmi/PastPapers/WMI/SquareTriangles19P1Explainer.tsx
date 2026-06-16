@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SquareTriFigure, TRI_TOTAL, VIEW } from './SquareTriangles19P1Illustration'
 import { buildSquareTriangles19P1Steps } from './squareTriangles19P1Steps'
 

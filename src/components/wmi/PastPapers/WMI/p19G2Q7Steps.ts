@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { NodeName } from './P19G2Q7Illustration'
 
 // WMI-19P2A-Q7 — the trapezoid is cut by dashed lines into pieces; the question

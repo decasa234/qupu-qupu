@@ -8,8 +8,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { CompositeRectFigure, PX_PER_CM, BOTTOM_W_CM, BOTTOM_H_CM, TOP_W_CM, LEDGE_CM } from './CompositeRect24G3Illustration'
 import { buildCompositeRect24G3Steps, type EdgeName } from './compositeRect24G3Steps'
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-20F2A-Q15 — follow four −10 hops then one −3 hop on the number line.
 // Start: 80. After each −10: 70, 60, 50, 40. Then 40 − 3 = 37 → answer B.

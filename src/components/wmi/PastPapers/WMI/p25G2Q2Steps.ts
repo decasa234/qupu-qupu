@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { COLS, DEPTH, HIDDEN_CUBES, ROWS, TOTAL_CUBES, VISIBLE_CUBES } from './P25G2Q2Illustration'
 
 export type CubePhase = 'show' | 'dims' | 'visible' | 'reveal' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { lockerColour } from './P23G3Q14Illustration'
 
 export type Q14Phase = 'show' | 'pattern' | 'optA' | 'reject' | 'result'

@@ -14,7 +14,7 @@
 //
 // Pure builder: (lang) => storyboard. No Math.random, no Date — SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GRID_N, ANSWER } from './LineSquares25G1Illustration'
 
 export type LineSquaresPhase = 'goal' | 'line' | 'start' | 'vert' | 'horiz' | 'result'

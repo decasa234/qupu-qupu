@@ -4,7 +4,7 @@
 // orientation (Y + triangle → triangle hanging under the Y's stem). Applying
 // the same join to T + square stacks the square under the T's stem — choice D.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type ShapeJoinPhase = 'rule' | 'operands' | 'join' | 'options' | 'result'
 

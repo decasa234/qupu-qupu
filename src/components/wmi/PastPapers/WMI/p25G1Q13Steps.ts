@@ -1,7 +1,7 @@
 // Storyboard for WMI-25P1A-Q13 — minimum squares to add to make a big square.
 // Beat-by-beat: the smallest enclosing square is 4×4 = 16; the figure has 7;
 // so add 16 − 7 = 9 (answer E).
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q13_BIG_TOTAL, Q13_GRID_SIDE, Q13_TO_ADD, Q13_USED } from './P25G1Q13Illustration'
 
 export interface Q13Step {

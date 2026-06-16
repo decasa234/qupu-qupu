@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SIX_PARTS, SIX_COUNT } from './P19G2Q21Illustration'
 
 // WMI-19P2A-Q21 — the decomposition machine counts how many ways the input can

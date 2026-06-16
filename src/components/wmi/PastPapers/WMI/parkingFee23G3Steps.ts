@@ -20,7 +20,7 @@
 // every beat shows concrete running sums; the figure reveal is driven by passing
 // smallHours / bigHours up to the matched 5 / 3 into the ParkingFee23G3 primitive.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Printed rates (from the question stem).
 export const SMALL_FIRST = 5

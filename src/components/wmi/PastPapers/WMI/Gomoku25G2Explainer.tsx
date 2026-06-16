@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GomokuBoard25G2 } from './Gomoku25G2Illustration'
 import { buildGomoku25G2Steps } from './gomoku25G2Steps'
 

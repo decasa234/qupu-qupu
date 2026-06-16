@@ -1,7 +1,7 @@
 import { useMemo, type ComponentType } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // A shared "deduce by checking" explainer: rows reveal one per beat, each a
 // candidate or fact — red ✗ when it fails, green ✓ when it works, blue when it

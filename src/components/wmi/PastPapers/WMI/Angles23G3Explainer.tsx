@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { WmiAngleLetters } from './Angles23G3Illustration'
 import { buildAngles23G3Steps, ANSWER_LABEL, ANSWER_CHOICE } from './angles23G3Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FRUIT_SETS } from './Fruit22G1Option'
 
 export const FRUIT22G1_ANSWER = 'D'

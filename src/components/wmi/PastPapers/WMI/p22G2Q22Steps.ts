@@ -4,7 +4,7 @@
 // more hop of the traced path. The final beat exits the grid to the EAST at the
 // top row, landing on the ORANGE — option A.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { tracePath } from './P22G2Q22Illustration'
 
 export interface ArrowStep {

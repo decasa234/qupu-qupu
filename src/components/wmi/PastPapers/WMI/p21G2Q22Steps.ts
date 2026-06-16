@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { BoxKey } from './P21G2Q22Illustration'
 import {
   PRODUCT_BOTTOM,

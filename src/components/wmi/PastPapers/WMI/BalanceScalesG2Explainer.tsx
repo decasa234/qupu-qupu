@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Scale22, Glyph22 } from './puzzles20G2Illustrations'
 
 // WMI-20F2A-Q22 — Five blocks weigh 2, 3, 3, 3, 5 g.

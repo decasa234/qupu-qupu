@@ -7,7 +7,7 @@
 // The explainer grows the drawn pattern 1 -> 2 -> 3 flowers while the caption
 // tracks the white count, then jumps to the rule and plugs in n = 9.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const Q21_TARGET_PICTURE = 9
 export const Q21_WHITE = (n: number) => 3 * n + 1

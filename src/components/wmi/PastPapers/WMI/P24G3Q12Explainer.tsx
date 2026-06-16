@@ -12,8 +12,8 @@
 // SSR-safe + deterministic: no window/document at module top, no Math.random/Date.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { DIFFERENCE, HETER_TOTAL, KUDZU_TOTAL, PLANT_ROWS, Q12_VIEW_W, StarRow } from './P24G3Q12Illustration'
 import { buildP24G3Q12Steps } from './p24G3Q12Steps'
 

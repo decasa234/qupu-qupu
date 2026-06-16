@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { SideKey } from './P23G3Q8Illustration'
 import { KNOWN_SUM, PERIMETER, X_VALUE } from './P23G3Q8Illustration'
 

@@ -16,8 +16,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { KnightBoard } from './KnightTour22G1Illustration'
 import { buildKnightTour22G1Steps, KNIGHT_TOUR_G1_ANSWER } from './knightTour22G1Steps'
 

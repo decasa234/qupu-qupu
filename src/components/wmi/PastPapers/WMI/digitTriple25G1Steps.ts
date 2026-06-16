@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-25F1A-Q17 (2025 Grade 1 Final).
 // Use the digits 0, 2, 4, 6, 7, 9 once each to form three 2-digit numbers and

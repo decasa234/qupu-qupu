@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MShape, M_PTS, M_X, lineHit, M_VIEW_W, M_VIEW_H, M_ANSWER } from './MShapeLinesG3Illustration'
 
 // WMI-19F3A-Q17 — the ten triangles appear ONE AT A TIME with a running count:

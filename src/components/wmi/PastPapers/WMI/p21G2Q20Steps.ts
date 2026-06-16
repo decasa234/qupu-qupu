@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ORIGINAL, W, Y, type WedgeColor } from './P21G2Q20Illustration'
 
 export type Q20Phase = 'show' | 'rule' | 'checkA' | 'checkBC' | 'checkD' | 'result'

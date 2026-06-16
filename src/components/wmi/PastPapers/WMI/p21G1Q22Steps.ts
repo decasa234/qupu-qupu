@@ -8,7 +8,7 @@
 //           row-2 yellow kite, so "?" (row1,col0) is a tall LONG-KITE.
 //   ⇒ "?" is a RED LONG-KITE — option C.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P21G1Q22_ANSWER_LETTER } from './P21G1Q22Illustration'
 
 export type Q22Phase = 'show' | 'colorRow' | 'colorCol' | 'shape' | 'result'

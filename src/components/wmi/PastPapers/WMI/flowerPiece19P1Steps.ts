@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FLOWER_PIECE, type PieceId } from './FlowerPiece19P1Illustration'
 
 // WMI-19P1A-Q24 — "Which piece carries the flower mark?" (answer D).

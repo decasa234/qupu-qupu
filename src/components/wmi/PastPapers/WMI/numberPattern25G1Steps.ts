@@ -11,7 +11,7 @@
 //
 // Pure builder — deterministic, SSR-safe: no random, no dates, no effects.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CHAIN_STEPS, ANSWER } from './NumberPattern25G1Illustration'
 
 export type NumberPattern25G1Phase = 'goal' | 'step' | 'result'

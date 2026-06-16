@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LAYER_COUNTS, TOTAL_CUBES } from './P22G1Q17Illustration'
 
 // WMI-22P1A-Q17 — "How many cubes in each layer?" (Grade 1, answer B = [4,1,1]).

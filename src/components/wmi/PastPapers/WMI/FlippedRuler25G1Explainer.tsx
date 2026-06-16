@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FlippedRuler25G1, RULER_GEOM } from './FlippedRuler25G1Illustration'
 import { buildFlippedRuler25G1Steps } from './flippedRuler25G1Steps'
 

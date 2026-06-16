@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { HIGH, HOUSE_NUMBERS, inRange, LOW, VISIT_COUNT } from './P23G2Q4Illustration'
 import type { HouseState } from './P23G2Q4Illustration'
 

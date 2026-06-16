@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { EqualPartsLabel } from './EqualPartsG2Illustration'
 
 export type EqualPartsPhase = 'intro' | 'check' | 'result'

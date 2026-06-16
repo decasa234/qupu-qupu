@@ -12,8 +12,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SoldierRoad, VIEW_W, VIEW_H } from './SoldierRoad22G1Illustration'
 import {
   buildSoldierRoad22G1Steps,

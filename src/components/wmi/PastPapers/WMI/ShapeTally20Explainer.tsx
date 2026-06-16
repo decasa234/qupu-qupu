@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { TALLY_SHAPE_COLOR, TallyShapeGlyph } from './ShapeTallyOption20'
 import { buildShapeTally20Steps, type TallyRow } from './shapeTally20Steps'
 

@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { DrawA, DrawB, DrawC, DrawD } from './WhiteCircleSquareIllustration'
 
 // Renders a WMI-19F1A-Q8 answer option as its shape-in-shape figure instead of

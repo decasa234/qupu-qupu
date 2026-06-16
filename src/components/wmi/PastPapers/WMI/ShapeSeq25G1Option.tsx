@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { FaceShape, type SeqShape, type SeqMood } from './ShapeSeq25G1Illustration'
 
 // CHOICE renderer for WMI-25F1A-Q13 (Grade 1): the A–E answer shapes for the

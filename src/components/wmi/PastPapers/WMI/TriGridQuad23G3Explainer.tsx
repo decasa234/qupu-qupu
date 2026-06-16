@@ -16,8 +16,8 @@
 
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { TriGridQuad23G3 } from './TriGridQuad23G3Illustration'
 import {
   buildTriGridQuad23G3Steps,

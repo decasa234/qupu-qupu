@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FACE_ROWS, LAYER_COUNTS, TOTAL_CUBES } from './P23G3Q18Illustration'
 
 // WMI-23P3A-Q18 — count the unit cubes of a one-cube-thick wall by sweeping up

@@ -6,8 +6,8 @@
 // is choice D. Reuses the Q11Matrix primitive with count badges + a reveal.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Q11Matrix } from './P19G3Q11Illustration'
 import { buildP19G3Q11Steps } from './p19G3Q11Steps'
 

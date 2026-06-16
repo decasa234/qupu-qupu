@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LEFT_WEIGHTS, RIGHT_KNOWN, LEFT_TOTAL, RIGHT_KNOWN_TOTAL, UNKNOWN } from './BalanceScaleIllustration'
 
 export type BalancePhase = 'show' | 'left' | 'right' | 'solve' | 'result'

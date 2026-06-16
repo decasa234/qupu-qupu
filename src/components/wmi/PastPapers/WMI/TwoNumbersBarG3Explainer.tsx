@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F3A-Q8 — bar model. The smaller number is ONE block of 19; the larger
 // is SEVEN blocks of 19 plus 15. Subtracting lines the bars up: one 19-block

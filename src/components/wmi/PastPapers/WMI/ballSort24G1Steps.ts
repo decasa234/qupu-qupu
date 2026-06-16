@@ -18,7 +18,7 @@
 //
 // Pure: no Math.random, no Date. (board, lang) -> storyboard. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { BallColor, BallSortState } from './BallSort24G1Illustration'
 import { START_STATE } from './BallSort24G1Illustration'
 

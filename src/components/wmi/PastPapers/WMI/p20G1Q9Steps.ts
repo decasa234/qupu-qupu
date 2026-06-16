@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DIFFERENCE, LONGEST, RIBBONS, SHORTEST } from './P20G1Q9Illustration'
 
 export type RibbonPhase = 'show' | 'measure' | 'longest' | 'shortest' | 'result'

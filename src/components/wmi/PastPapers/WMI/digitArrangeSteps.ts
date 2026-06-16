@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ROWS, SORTED, TARGET_INDEX, ANSWER } from './DigitArrangeIllustration'
 
 export type DigitArrangePhase = 'show' | 'build' | 'count' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FULL_GAP_CM, PENCILS, SHORTEST_CM } from './P24G1Q14Illustration'
 
 export interface PencilStep {

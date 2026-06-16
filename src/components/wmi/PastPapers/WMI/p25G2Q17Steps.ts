@@ -7,7 +7,7 @@
 //   kind B (orange) = 3 + 3 + 1 = 7,  kind A (green) = 2 + 1 + 1 = 4,  kind C = 1.
 // Biggest gap = 7 - 1 = 6  → answer E.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TANK_COUNTS } from './P25G2Q17Illustration'
 
 // Per-wedge kind for the winning grouping (index 0..6, clockwise from top).

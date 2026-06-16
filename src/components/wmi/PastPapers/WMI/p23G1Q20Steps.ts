@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { N, ORIGINAL, TOTAL_ADDED } from './P23G1Q20Illustration'
 
 // WMI-23P1A-Q20 (2023 Grade 1 Semifinal): least dots to add so every row and every

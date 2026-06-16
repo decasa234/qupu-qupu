@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ParaPolygon, PARA_DIVIDERS, PARA_POINTS, paraPoint } from './ParaDivide25G3Illustration'
 import { buildParaDivide25G3Steps } from './paraDivide25G3Steps'
 

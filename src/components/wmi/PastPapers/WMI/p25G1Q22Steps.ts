@@ -12,7 +12,7 @@
 //   Red    = area  4     = 1
 //   Largest − smallest = 7 − 1 = 6.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { AREAS, TOTAL_FISH } from './P25G1Q22Illustration'
 
 // Kind assignment per area index (the maximising grouping).

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PATH_CELLS, PG_START, PG_STEP, STAR_INDEX, STAR_VALUE, pathValue } from './PathGridIllustration'
 
 export type PathGridPhase = 'show' | 'rule' | 'walk' | 'result'

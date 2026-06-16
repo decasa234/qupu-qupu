@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { TallyShapeKind } from './ShapeTallyOption20'
 
 // Storyboard for WMI-20F1A-Q14 (count the shapes in the houses + bird + sun

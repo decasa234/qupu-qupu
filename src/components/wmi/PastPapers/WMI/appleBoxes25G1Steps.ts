@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-25F1A-Q6 (2025 G1 final). A row of SIX open trays of apples, left → right:
 //   box 1: 6   box 2: 5   box 3: 7   box 4: 8   box 5: 9   box 6: 4

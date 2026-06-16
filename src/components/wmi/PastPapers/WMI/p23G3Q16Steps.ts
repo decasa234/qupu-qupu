@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { A_VAL, ABC_SUM, B_VAL, C_LEAF, C_VAL, FLOWER, PAIRS } from './P23G3Q16Illustration'
 
 export type Q16Phase = 'show' | 'solveA' | 'solveB' | 'solveC' | 'result'

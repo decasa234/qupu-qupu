@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LINKS, WHEELS, traceSpins, type LinkKind, type Spin } from './P19G2Q11Illustration'
 
 // WMI-19P2A-Q11 — trace the spin from the arrow wheel along the chain of belts and

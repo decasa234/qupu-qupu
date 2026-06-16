@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Cell } from './P23G2Q18Illustration'
 import { ADDED_DOTS } from './P23G2Q18Illustration'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FULL_COUNT, TALLY } from './P24G1Q12Illustration'
 
 export interface DigitTallyStep {

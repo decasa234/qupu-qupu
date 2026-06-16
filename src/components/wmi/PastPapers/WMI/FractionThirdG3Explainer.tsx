@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FractionFigure, FRACTIONS } from './FractionThirdG3Option'
 
 // WMI-19F3A-Q2 — which picture shades exactly 1/3? Count shaded/total for each

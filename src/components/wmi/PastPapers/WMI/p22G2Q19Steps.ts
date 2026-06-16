@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-22P2A-Q19 — five overlapping circles, every circle totals 30.
 // Each beat reveals ONE idea, landing on ★ = 11, ◆ = 14 (answer D).

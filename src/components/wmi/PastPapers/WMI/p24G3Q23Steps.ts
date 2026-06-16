@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q23_ANSWER_LABEL, Q23_CANCEL_CELLS, Q23_GRID1, Q23_GRID2, Q23_RESULT, type Grid3 } from './P24G3Q23Illustration'
 
 // WMI-24P3A-Q23 storyboard.

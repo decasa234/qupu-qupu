@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CIRCLE_ONLY } from './P23G1Q17Illustration'
 
 // WMI-23P1A-Q17 (2023 Grade 1 Semifinal): how many DIGITS are both OUTSIDE the

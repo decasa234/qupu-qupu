@@ -6,8 +6,8 @@
 
 import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { RectFrame, PIECES } from './RectFrame22G3Illustration'
 import { buildRectFrameSteps } from './rectFrame22G3Steps'
 

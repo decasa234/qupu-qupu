@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TREE_RANKS } from './SpecialTrees25G1Illustration'
 
 // Storyboard for WMI-25F1A-Q24 (2025 G1 final).

@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { GridShapeGlyph, type GridShapeKind } from './ShapeGrid20Illustration'
 
 // Renders an answer option for the shape-grid question (WMI-20F1A-Q4) as the

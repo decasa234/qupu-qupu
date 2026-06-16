@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ArrowClock } from './ClockTurnG2Explainer'
 
 // WMI-20F2A-Q7 options drawn as clock faces. The arrow angle is keyed by the

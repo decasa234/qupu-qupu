@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PIG, MONKEY, COW, ELEPHANT, SEESAWS, ORDER_HEAVY_TO_LIGHT } from './AnimalWeightsG2Illustration'
 import type { AnimalEmoji } from './AnimalWeightsG2Illustration'
 

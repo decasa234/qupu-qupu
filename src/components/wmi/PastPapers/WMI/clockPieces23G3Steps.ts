@@ -21,7 +21,7 @@
 // Pure builder: (lang) => storyboard. No Math.random, no Date — SSR-safe and
 // deterministic. The four piece sums and total are fixed by the figure.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type PieceId = 'top' | 'right' | 'bottom' | 'left'
 

@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // CHOICE renderer for WMI-23F1A-Q14 (2023 Grade 1 Final): each option is an ODD
 // two-digit number drawn in matchsticks as 7-segment digits. The question asks

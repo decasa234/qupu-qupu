@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-20F1A-Q23: hidden-digit subtraction 8🍌 − 🍌🍓 = 36
 // (both bananas = same digit). Seed hint_steps deduction:

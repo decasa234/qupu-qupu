@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // "Evenly spaced sum" storyboard, shared by WMI-19F2A-Q16 (168+158+148+138+128)
 // and WMI-19F1A-Q16 (68+58+48+38+28). The amounts above the middle exactly fill

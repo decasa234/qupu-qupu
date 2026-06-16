@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_VERTEX, QUESTION_INDEX } from './P23G1Q16Illustration'
 
 export type Q16Phase = 'show' | 'rule' | 'step' | 'fill' | 'result'

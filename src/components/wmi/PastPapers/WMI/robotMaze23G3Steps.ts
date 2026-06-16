@@ -27,7 +27,7 @@
 // Pure (lang) => storyboard. Deterministic: walks the fixed route in order, no
 // Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SOLUTION_PATH, ANSWER, type Cell } from './RobotMaze23G3Illustration'
 
 export type RobotMazePhase = 'intro' | 'step' | 'result'

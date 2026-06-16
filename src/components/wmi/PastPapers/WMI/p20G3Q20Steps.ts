@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CUBE_SIDE, EXTRA_NEEDED, PILE, PILE_COUNT, TARGET_TOTAL, type Cell } from './P20G3Q20Illustration'
 
 export interface Q20Step {

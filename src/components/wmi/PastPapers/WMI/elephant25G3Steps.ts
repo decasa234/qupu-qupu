@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   ELEPHANT_EDGE_COUNTS,
   LONG_ARC_RECT,

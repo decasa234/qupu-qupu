@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { EQUAL_COUNT, SHAPE_CELLS } from './P21G3Q10Illustration'
 
 export type Q10Phase = 'show' | 'inspect' | 'result'

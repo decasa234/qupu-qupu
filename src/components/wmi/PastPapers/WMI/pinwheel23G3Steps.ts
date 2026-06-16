@@ -19,7 +19,7 @@
 // deterministic. All numbers are derived here from the two givens (48, 90); the
 // figure only mirrors L/W via the illustration's showDims prop.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // ---- the two givens, then everything deduced from them ---------------------
 export const WHOLE_PERIMETER = 48 // cm — perimeter of the whole pinwheel figure

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { COW_VALUE, LION_VALUE, Q25_ANSWER } from './P25G1Q25Illustration'
 
 // Deterministic storyboard for WMI-25P1A-Q25 (Lion + Cow equations).

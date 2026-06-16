@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SHAPE_AREAS, TARGET_AREA } from './P23G3Q5Illustration'
 
 export type AreaPhase = 'show' | 'measure' | 'result'

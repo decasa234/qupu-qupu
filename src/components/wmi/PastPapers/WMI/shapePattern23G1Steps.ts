@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { UNIT_LEN, ANSWER } from './ShapePattern23G1Illustration'
 
 // Storyboard for WMI-23F1A-Q11 (2023 Grade 1 final): find the position of the ▲

@@ -9,8 +9,8 @@
  */
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { DiceNetP21G3Q22, Q22_CELL } from './P21G3Q22Illustration'
 import { buildP21G3Q22Steps } from './p21G3Q22Steps'
 

@@ -16,8 +16,8 @@
 
 import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MirrorScene, WHITE_COUNT } from './MirrorBlocks22G1Illustration'
 import { buildMirrorBlocks22G1Steps } from './mirrorBlocks22G1Steps'
 

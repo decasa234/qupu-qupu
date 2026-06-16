@@ -7,8 +7,8 @@
 // reaches 13 (answer D). A running "placed" chip counts the groups.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ShapeLegend, VIEW_W, VIEW_H } from './P22G2Q25Illustration'
 import { buildP22G2Q25Steps, TARGET_SUM, ANSWER } from './p22G2Q25Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DIAMOND, DOT, Q21_ANSWER, Q21_SOLUTION, STAR } from './P22G3Q21Illustration'
 
 // Storyboard for WMI-22P3A-Q21 — fill the 3x3 grid with 1..9 (no repeats) so

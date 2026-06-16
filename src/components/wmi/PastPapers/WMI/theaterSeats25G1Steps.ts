@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-25F1A-Q20 (2025 G1 final). A row of 12 seats. Wherever Lisa sits she ends
 // up next to an occupied seat — so EVERY empty seat must already have an

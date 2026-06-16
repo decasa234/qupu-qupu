@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DEGREE, ODD_CORNERS, PERIMETER_EDGES, INTERIOR_EDGES } from './P25G2Q22Illustration'
 import type { Corner } from './P25G2Q22Illustration'
 

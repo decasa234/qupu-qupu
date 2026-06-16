@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MoneyTable } from './P22G3Q7Illustration'
 import { buildP22G3Q7Steps, ANSWER_TOTAL, ANSWER_CHOICE } from './p22G3Q7Steps'
 

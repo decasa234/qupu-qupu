@@ -2,7 +2,7 @@
 // Deterministic, language-parametric. The geometry constants live in the explainer;
 // these beats only carry phase + captions + timing.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q17Phase = 'given' | 'oneEdge' | 'allEdges' | 'star' | 'countHex' | 'result'
 

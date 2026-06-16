@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Cell, Icon } from './P23G2Q25Illustration'
 import { PIECES, SOLUTION_OFFSETS, CENTER_CELLS } from './P23G2Q25Illustration'
 

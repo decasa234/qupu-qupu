@@ -3,7 +3,7 @@
 // The three bees see the top, right-side and front views of ONE solid. The
 // method is elimination: a candidate solid must reproduce ALL three views; drop
 // any solid that fails even one. Only Solid A survives → answer A.
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q23Phase = 'show' | 'top' | 'right' | 'front' | 'eliminate' | 'result'
 

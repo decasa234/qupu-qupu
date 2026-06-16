@@ -1,7 +1,7 @@
 import { useMemo, type ComponentType } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Shared "find the step, fill the gaps" explainer for number-sequence questions.
 // Beats: show the row with gaps → discover the step from two adjacent KNOWN

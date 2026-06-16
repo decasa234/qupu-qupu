@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // WMI-19F3A-Q2 — each option is a picture: which one shades exactly 1/3?
 //   A: circle in 8 sectors, 4 shaded (1/2)

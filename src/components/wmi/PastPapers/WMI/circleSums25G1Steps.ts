@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SHADED_ANSWER } from './CircleSums25G1Illustration'
 
 // Storyboard for WMI-25F1A-Q21 (2025 G1 final).

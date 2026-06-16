@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Jigsaw23G1, PolyShape, PIECE_CELLS, cellSpan } from './Jigsaw23G1Illustration'
 import { buildJigsaw23G1Steps, type PieceView } from './jigsaw23G1Steps'
 

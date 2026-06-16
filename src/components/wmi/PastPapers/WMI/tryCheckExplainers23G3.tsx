@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-23F3A (2023 Grade 3 Final) — deduction-chain explainers for the
 // non-figure questions. Q12 and Q14 are blocked (missing figure / key

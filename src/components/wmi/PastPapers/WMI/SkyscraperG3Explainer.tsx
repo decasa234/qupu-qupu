@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SkyscraperFigure, SK_ANSWER } from './SkyscraperG3Illustration'
 
 // WMI-19F3A-Q25 — the forced chain (every cell derived, failed tries shown):

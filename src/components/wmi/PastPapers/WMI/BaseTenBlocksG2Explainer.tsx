@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-20F2A-Q5 — count the base-ten blocks one at a time with a running total:
 // 4 flats (100 each) → 400; 6 rods (10 each) → 460; 7 unit cubes → 467.

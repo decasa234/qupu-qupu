@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-21P3A (2021 Grade 3 Semifinal / prelim) — deduction-chain explainers for
 // the non-figure questions. Every answer is derived on screen; ✗ rows show the

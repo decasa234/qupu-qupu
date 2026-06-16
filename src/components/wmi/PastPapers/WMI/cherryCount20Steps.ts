@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BOTTOM_TOTAL, TOP_TOTAL, TOTAL_CHERRIES } from './CherryCount20Illustration'
 
 export type CherryPhase = 'show' | 'topCount' | 'topTotal' | 'bottomCount' | 'bottomTotal' | 'result'

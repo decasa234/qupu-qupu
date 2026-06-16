@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // The example given on the paper: pieces 1 + 2 + 3 + 6 tile the rectangle.
 export const EXAMPLE_SET = [1, 2, 3, 6] as const

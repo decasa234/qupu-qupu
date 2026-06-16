@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { QUALIFYING_ROUTES } from './RouteTree23G1Illustration'
 
 // WMI-23F1A-Q20 — "Monkey route tree". The monkey wants a BANANA but must never

@@ -7,7 +7,7 @@
 //
 // One idea per beat. The static figure shows only the scatter + the legend.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P21G1Q19_ANSWER } from './P21G1Q19Illustration'
 
 export type Q19Phase = 'show' | 'demo' | 'place' | 'count' | 'result'

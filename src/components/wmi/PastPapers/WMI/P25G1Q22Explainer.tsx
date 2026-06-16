@@ -3,8 +3,8 @@
 // the static figure coming alive. Lands on answer B = 6 (largest difference).
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FishTank, VIEW } from './P25G1Q22Illustration'
 import { buildP25G1Q22Steps } from './p25G1Q22Steps'
 

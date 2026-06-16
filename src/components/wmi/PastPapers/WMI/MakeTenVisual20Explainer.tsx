@@ -5,8 +5,8 @@
 // empty cell to complete the ten (1 amber left over), then the green 6 joins:
 // 10 + 1 = 11, 11 + 6 = 17.
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildMakeTenVisual20Steps, type MakeTenVisual20Step } from './makeTenVisual20Steps'
 
 const GREEN = '#10B981'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { MOVES } from './FruitMaze20Illustration'
 
 export type FruitMazePhase = 'intro' | 'walk' | 'result'

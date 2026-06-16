@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F2A (2024 Grade 2 Final) — deduction-chain explainers for the
 // non-figure questions. Q18 (□4+□4+□8+□9+□7 = 901 with appended zeros) is

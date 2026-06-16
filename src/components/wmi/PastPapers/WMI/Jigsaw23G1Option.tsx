@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { cellSpan, PIECE_CELLS, PolyShape, type Cell } from './Jigsaw23G1Illustration'
 
 // Renders an answer option for WMI-23F1A-Q10 (jigsaw completion) as the actual

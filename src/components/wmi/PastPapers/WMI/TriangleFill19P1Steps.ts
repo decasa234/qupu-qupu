@@ -14,7 +14,7 @@
  * from the illustration's geometry.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { EMPTY_TILES, type Tile } from './TriangleFill19P1Illustration'
 
 export interface TriangleFillStep {

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PER_ROW, TRIANGLE_TOTAL } from './P21G2Q16Illustration'
 
 export type Q16Phase = 'show' | 'bottom' | 'top' | 'result'

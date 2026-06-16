@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { RobotMaze23G3, SOLUTION_PATH } from './RobotMaze23G3Illustration'
 import { buildRobotMaze23G3Steps } from './robotMaze23G3Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q17Phase = 'show' | 'scale1' | 'scale2' | 'scale3' | 'chain' | 'result'
 

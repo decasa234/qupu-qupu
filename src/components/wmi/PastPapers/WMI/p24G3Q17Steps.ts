@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   ANSWER_MAX,
   MAX_RIGHT_ANGLES_PER_SQUARE,

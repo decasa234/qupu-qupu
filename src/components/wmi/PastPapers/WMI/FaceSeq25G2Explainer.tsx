@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FaceGlyph, FaceColumn, STEM_25G2, OPTIONS_25G2 } from './FaceSeq25G2Illustration'
 import type { Face } from './FaceSeq25G2Illustration'
 

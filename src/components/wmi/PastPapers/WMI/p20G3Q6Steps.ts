@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P20G3Q6_ANSWER, P20G3Q6_PERIMETER } from './P20G3Q6Illustration'
 import type { Q6Highlight } from './P20G3Q6Illustration'
 

@@ -9,8 +9,8 @@
 // SSR-safe, deterministic.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Q19SolidFigure } from './P25G2Q19Illustration'
 import { buildP25G2Q19Steps } from './p25G2Q19Steps'
 

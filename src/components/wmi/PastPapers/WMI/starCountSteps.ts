@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { STAR_ROWS, STAR_TOTAL } from './starVisual'
 
 export type StarPhase = 'show' | 'row' | 'result'

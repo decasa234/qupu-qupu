@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Tiling3x3 } from './TilePieces22G3Illustration'
 import { buildTilePieces22G3Steps, T1, T2, T3, T4, T5, T6 } from './tilePieces22G3Steps'
 

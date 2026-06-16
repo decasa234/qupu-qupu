@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ArrowGridDiagram } from './ArrowGrid19P1Illustration'
 import { buildArrowGrid19P1Steps } from './arrowGrid19P1Steps'
 

@@ -26,7 +26,7 @@
  *   wmiPastPaper/2022 WMI Final G03 Paper A/images/eafbe0…  (option D)
  */
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // ---------------------------------------------------------------------------
 // Cell shape types

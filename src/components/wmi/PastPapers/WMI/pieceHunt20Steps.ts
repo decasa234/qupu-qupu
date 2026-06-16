@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Canonical matches in the 3×3 grid ([row, col], 1-indexed):
 //   Piece 1 (pink-white domino), 2 matches:

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F2A-Q11 — units digit of (two successive odd numbers) product.
 // Only the LAST digits matter. The five successive odd last-digit pairs and the

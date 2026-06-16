@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { HEX_COUNT, PIECE_COUNT, RHOMBUS_COUNT } from './P23G1Q10Illustration'
 
 export type Q10Phase = 'show' | 'hexes' | 'rhombi' | 'count' | 'result'

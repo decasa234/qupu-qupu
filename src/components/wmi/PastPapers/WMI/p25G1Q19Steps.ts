@@ -9,7 +9,7 @@
 // The four squares are the exact set verified for a 3-col × 4-row grid with
 // the apple at (col 1, row 0).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export interface SquareHighlight {
   col: number

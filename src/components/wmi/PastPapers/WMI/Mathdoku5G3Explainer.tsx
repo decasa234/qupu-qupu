@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Mathdoku5Figure, MD_ANSWER } from './Mathdoku5G3Illustration'
 
 // WMI-19F3A-Q24 — the full forced chain, one deduction per beat (every digit is

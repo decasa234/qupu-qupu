@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ButtonShape, BUTTON_RULES24, type ShapeKind } from './ButtonPanel24G3Illustration'
 
 // WMI-24F3A-Q20 — five buttons rewrite shapes; one press = one step. The scan

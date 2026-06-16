@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 function Frame({ aria, children }: { aria: string; children: React.ReactNode }) {
   return (

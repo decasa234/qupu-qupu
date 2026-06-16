@@ -21,7 +21,7 @@
 // distances come straight from the primitive's BFS (pathFor / shortestPath), no
 // Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   ANIMAL_GLYPH,
   ANIMAL_NAME_ID,

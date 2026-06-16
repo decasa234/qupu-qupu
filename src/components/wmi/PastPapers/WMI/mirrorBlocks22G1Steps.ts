@@ -13,7 +13,7 @@
  * Pure function — no Math.random, no Date. SSR-safe and deterministic.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { WHITE_COUNT } from './MirrorBlocks22G1Illustration'
 
 export type MirrorBlocksPhase = 'recall' | 'black' | 'gray' | 'reveal' | 'result'

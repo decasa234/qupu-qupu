@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_LETTER } from './P19G2Q25Illustration'
 
 // WMI-19P2A-Q25 — "on which piece is the dot?" (answer C).

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F2A-Q21 — all different-digit 2-digit numbers from {1,2,3,4}, sorted.
 // 12 numbers; the 5th is 23, the 11th is 42; 42 - 23 = 19.

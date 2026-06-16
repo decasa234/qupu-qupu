@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { BallKind } from './BalanceTwoScalesG2Illustration'
 import { SCALE1, SCALE2, WHITE_BALL_G } from './BalanceTwoScalesG2Illustration'
 

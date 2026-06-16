@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LEADER_POS, ROW_LENGTH, VICE_POS } from './P24G2Q4Illustration'
 
 // Storyboard for the WMI-24P2A-Q4 explainer (animals in a row).

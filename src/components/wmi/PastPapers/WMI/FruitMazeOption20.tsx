@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { FruitGlyph, type FruitKind } from './FruitMaze20Illustration'
 
 // Renders a WMI-20F1A-Q15 answer option as the circled fruit icon from the

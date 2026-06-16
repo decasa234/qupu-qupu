@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ScaleFigure, SCALE1, SCALE2, WHITE_BALL_G } from './BalanceTwoScalesG2Illustration'
 import { buildBalanceTwoScalesG2Steps } from './balanceTwoScalesG2Steps'
 

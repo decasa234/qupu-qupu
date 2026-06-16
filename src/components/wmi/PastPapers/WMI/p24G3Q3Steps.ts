@@ -7,7 +7,7 @@
  * Filling beats seat the 27 students into the first 27 chairs so the 4 leftover
  * chairs at the end stay dark — the empty seats the question asks for.
  */
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { EMPTY_SEATS, STUDENTS, TOTAL_SEATS } from './P24G3Q3Illustration'
 
 export type P24G3Q3Phase = 'show' | 'students' | 'seats' | 'seat' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PICTURE_COUNTS } from './P25G3Q22Illustration'
 
 export type TriSeqPhase = 'show' | 'list' | 'growth' | 'extend5' | 'result'

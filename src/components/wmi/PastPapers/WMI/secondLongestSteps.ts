@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BARS, LONGEST_LABEL, SECOND_LONGEST_LABEL } from './SecondLongestIllustration'
 
 export type SecondLongestPhase = 'show' | 'longest' | 'second' | 'result'

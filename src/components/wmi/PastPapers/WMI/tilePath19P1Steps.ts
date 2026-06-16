@@ -5,7 +5,7 @@
 // edge, across the top, and around the top-right block down to B — 9 steps,
 // answer D.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TP_ROUTE, TP_STEPS } from './TilePath19P1Illustration'
 
 export interface TilePathStep {

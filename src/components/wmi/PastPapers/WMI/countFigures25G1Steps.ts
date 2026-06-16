@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { OPTION_PAIRS } from './CountFigures25G1Option'
 import type { FigureKind } from './CountFigures25G1Illustration'
 

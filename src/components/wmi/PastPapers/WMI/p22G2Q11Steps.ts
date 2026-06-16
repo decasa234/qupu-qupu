@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { NET_CELLS, OPPOSITE_PAIRS } from './P22G2Q11Illustration'
 
 export type Q11Phase = 'show' | 'pairs' | 'pick1' | 'pick2' | 'pick3' | 'result'

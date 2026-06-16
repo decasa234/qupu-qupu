@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-19P2A-Q6 — apply the shape-combination rule.
 //

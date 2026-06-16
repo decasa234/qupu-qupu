@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER_N, ANSWER_WHITE, TARGET_DIFF, grayCount, whiteCount } from './P20G3Q17Illustration'
 
 export interface Q17Step {

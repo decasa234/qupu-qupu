@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FRUIT_ROWS, type FruitKind } from './P24G1Q18Illustration'
 
 // WMI-24P1A-Q18 storyboard — keep one kind, remove the fewest.

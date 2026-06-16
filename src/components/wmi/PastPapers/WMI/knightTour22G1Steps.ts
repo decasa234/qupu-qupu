@@ -19,7 +19,7 @@
  * Pure function — no Math.random, no Date. SSR-safe and deterministic.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { KNIGHT_TOUR } from './KnightTour22G1Illustration'
 
 /** Total squares on the board (1..12), read from the verified tour. */

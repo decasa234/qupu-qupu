@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Corner } from './P20G1Q22Illustration'
 import { Q22_STAR_VALUE } from './P20G1Q22Illustration'
 

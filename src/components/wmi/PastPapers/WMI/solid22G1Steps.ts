@@ -19,7 +19,7 @@
  * SOLID_SETS so the captions can never drift from the illustrator's layout.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SOLID_SETS } from './Solid22G1Option'
 
 export type SolidLabel = 'A' | 'B' | 'C' | 'D'

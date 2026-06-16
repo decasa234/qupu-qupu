@@ -13,8 +13,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { OPTIONS24Q14, ArrowPairFigure, type Dir } from './TrainArrows24G2Illustration'
 import { buildTrainArrowsSteps, type OptionLabel } from './trainArrows24G2Steps'
 

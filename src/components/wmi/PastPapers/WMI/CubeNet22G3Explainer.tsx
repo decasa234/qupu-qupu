@@ -16,8 +16,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { SquareNet, NET_SQUARES, CELL } from './CubeNet22G3Illustration'
 import { buildCubeNet22G3Steps } from './cubeNet22G3Steps'
 

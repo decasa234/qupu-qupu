@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for the WMI-24P2A-Q9 explainer (Jimmy & Nancy face to face).
 //

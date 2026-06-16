@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, BOXED_GLYPH, BOXED_POSITION } from './SymbolPos19P1Illustration'
 
 export type SymbolPosPhase = 'show' | 'rule' | 'find' | 'result'

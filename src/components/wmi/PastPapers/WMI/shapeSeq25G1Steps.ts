@@ -12,7 +12,7 @@
 //
 // Pure (lang) => storyboard. No random/date/state — SSR-safe and deterministic.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   seqCellAt,
   SHAPE_CYCLE,

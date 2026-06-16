@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { PatternGlyph, PATTERN_CYCLE } from './PatternCycleG3Illustration'
 
 // WMI-19F3A-Q9 — group the repeating row into 4s; group ends land on 4, 8, 12…

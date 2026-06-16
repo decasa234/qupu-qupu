@@ -15,7 +15,7 @@
  * Pure function — no Math.random, no Date. SSR-safe and deterministic.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const SOLDIER_ROAD_G1_ANSWER = '3421'
 

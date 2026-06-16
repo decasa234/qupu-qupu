@@ -10,7 +10,7 @@
 //   4. Row 3: 6 → 5 → ?, so "?" must have 4 squares.
 //   5. The 4-square figure is choice D — answer D.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q11_COUNTS, Q11_ANSWER_COUNT } from './P19G3Q11Illustration'
 
 export type Q11Phase = 'show' | 'row1' | 'row2' | 'row3' | 'result'

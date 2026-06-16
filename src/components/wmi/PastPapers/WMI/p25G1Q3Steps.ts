@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SPHERE_INDEX } from './P25G1Q3Illustration'
 
 // Storyboard for WMI-25P1A-Q3 — "which figure from the left is the ball?"

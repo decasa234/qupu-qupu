@@ -19,7 +19,7 @@
 // deterministic. stickCount + the solved column counts come from the
 // illustration's exports, never re-asserted here.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { stickCount, ANSWER, SOLVED } from './MatchSquares23G1Illustration'
 
 export type BlockConfig = '1xa' | '2xb' | '4xc'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { PartKey } from './P22G2Q20Illustration'
 import { DARK_PARTS, PART_EXPR, PART_VALUE } from './P22G2Q20Illustration'
 

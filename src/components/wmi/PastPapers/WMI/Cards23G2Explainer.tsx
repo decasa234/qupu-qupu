@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { CardsRow23G2, CARDS23G2 } from './Cards23G2Illustration'
 
 // WMI-23F2A-Q2 — "Which 2 cards have a difference closest to 150?"

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { type Cube, IsoBlocks, Q20_SOLID, isoBounds } from './P19G3Q20Illustration'
 import { buildP19G3Q20Steps } from './p19G3Q20Steps'
 

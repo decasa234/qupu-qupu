@@ -6,7 +6,7 @@
 // from the smallest given (2) up to one past the largest given (must reach 7 to
 // keep the run length 6). Sum = 2+3+4+5+6+7 = 27 (answer C).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const Q15_RUN = [2, 3, 4, 5, 6, 7] as const
 export const Q15_SUM = Q15_RUN.reduce((a, b) => a + b, 0) // 27

@@ -17,7 +17,7 @@
 // deterministic. SIDES and ANSWER come from the illustration's exports; nothing
 // about the total (45) is re-asserted by hand.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, SIDES } from './FiveSquares23G3Illustration'
 
 /** What the explainer renders on a beat. */

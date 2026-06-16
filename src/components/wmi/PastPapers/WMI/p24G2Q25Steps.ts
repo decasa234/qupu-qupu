@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GRID_DIGITS, OPTIMAL_PATH, OPTIMAL_SUM } from './P24G2Q25Illustration'
 
 // Deterministic storyboard for WMI-24P2A-Q25 (robot digit-lattice, answer = A = 24).

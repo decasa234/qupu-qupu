@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PANEL_ANSWER, type Panel3x3 } from './P22G1Q15Illustration'
 
 // WMI-22P1A-Q15 — "Which figure comes next?" (Grade 1, answer B).

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BIG_SIDE, HOLE_SIDE, RECT_LONG, RECT_WIDE } from './P21G3Q20Illustration'
 
 export type PinPhase = 'show' | 'hole' | 'sum' | 'diff' | 'solve' | 'result'

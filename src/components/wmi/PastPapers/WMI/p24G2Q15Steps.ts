@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q15_SHEETS, type PaperSheet } from './P24G2Q15Illustration'
 
 // Storyboard for WMI-24P2A-Q15 (answer D = 15).

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TOTAL_CM2, WHITE_CM2 } from './P22G3Q18Illustration'
 
 // Storyboard for WMI-22P3A-Q18 — white check-mark area.

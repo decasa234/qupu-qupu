@@ -11,7 +11,7 @@
 // (all 2, "unknown") and let each clue push a bar up or down until the final
 // order {Dan:4, Pan:3, Ken:2, Ann:1} emerges.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const HEIGHT_ORDER_ANSWER = 'Dan - Pan - Ken - Ann'
 export const HEIGHT_ORDER_CHOICE = 'B'

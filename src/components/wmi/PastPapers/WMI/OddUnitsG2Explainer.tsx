@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildOddUnitsG2Steps, ODD_PAIRS, POSSIBLE_UNITS, IMPOSSIBLE_UNIT } from './oddUnitsG2Steps'
 
 const GREEN = '#10B981'

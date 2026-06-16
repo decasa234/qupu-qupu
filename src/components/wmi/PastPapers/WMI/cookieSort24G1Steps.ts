@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F1A-Q14 (Grade 1): nine numbered cookies, each with a SHAPE
 // (circle/square/triangle) and a DOT COUNT (1/2/4). Five trios are offered; a

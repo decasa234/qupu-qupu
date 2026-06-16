@@ -11,8 +11,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { EdgeBoard, SOLUTION } from './EdgeMatch22G1Illustration'
 import { buildEdgeMatch22G1Steps, EDGE_MATCH_G1_ANSWER } from './edgeMatch22G1Steps'
 

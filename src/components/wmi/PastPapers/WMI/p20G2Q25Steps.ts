@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q25_SHOWN_PATH } from './P20G2Q25Illustration'
 
 // The 1→10 walk splits at the "3": one family keeps to the LEFT inner column

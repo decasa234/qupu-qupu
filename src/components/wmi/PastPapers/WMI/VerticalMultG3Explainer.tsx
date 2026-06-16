@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { VerticalMultFigure, VM_PRODUCT } from './VerticalMultG3Illustration'
 
 // WMI-19F3A-Q22 — derive every hidden digit:

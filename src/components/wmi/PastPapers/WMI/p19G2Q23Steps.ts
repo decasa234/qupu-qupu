@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLES, TRI_TOTAL } from './P19G2Q23Illustration'
 
 // WMI-19P2A-Q23 — "count every triangle in the rocket figure" (answer B = 19).

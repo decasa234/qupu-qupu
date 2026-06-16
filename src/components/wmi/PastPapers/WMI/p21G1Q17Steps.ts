@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-21P1A-Q17 — fold the notched sheet along the dotted crease.
 // Beats: show the sheet → name the notch + crease → fold the left part over →

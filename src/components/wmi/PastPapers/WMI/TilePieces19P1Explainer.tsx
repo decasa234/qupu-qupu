@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { PLACED_FILL, TilePiece, type PieceId } from './TilePieces19P1Illustration'
 import { buildTilePieces19P1Steps } from './tilePieces19P1Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ALLY_DARTS, ALLY_TOTAL } from './P25G1Q15Illustration'
 
 export type DartPhase = 'show' | 'tally' | 'rule' | 'result'

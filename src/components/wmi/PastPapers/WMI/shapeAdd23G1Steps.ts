@@ -13,7 +13,7 @@
 //
 // Pure builder: (lang) => storyboard. No random / dates / state — SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type ShapeAdd23Phase = 'setup' | 'circle' | 'square' | 'star' | 'result'
 

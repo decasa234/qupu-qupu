@@ -20,7 +20,7 @@
 //
 // Pure builder: (lang) => storyboard. No random, no dates, SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   HOUR_NUMBER,
   MINUTE_NUMBER,

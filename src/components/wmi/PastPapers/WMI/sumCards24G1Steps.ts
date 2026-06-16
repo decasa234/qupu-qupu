@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SUM_CARDS_24G1 } from './SumCards24G1Illustration'
 
 // WMI-24F1A-Q18 (2024 Grade 1 Final) — answer = 6 (fill-in).

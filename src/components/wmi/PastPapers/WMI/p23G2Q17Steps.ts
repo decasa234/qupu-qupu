@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CIRCLE_ONLY, CIRCLE_ONLY_DIGITS } from './P23G2Q17Illustration'
 
 export type VennPhase = 'show' | 'region' | 'list' | 'count' | 'result'

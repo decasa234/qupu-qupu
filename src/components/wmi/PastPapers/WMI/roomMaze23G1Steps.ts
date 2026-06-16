@@ -20,7 +20,7 @@
 // Pure (lang) => storyboard. Deterministic: walks the fixed OPTIMAL_PATH in
 // order, no Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { OPTIMAL_PATH, ROOM_GRID } from './RoomMaze23G1Illustration'
 
 export type RoomMazePhase = 'intro' | 'step' | 'result'

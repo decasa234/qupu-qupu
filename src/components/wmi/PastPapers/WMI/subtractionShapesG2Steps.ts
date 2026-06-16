@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SQUARE_VALUE, CIRCLE_VALUE, ANSWER } from './SubtractionShapesG2Illustration'
 
 export type SubPhase = 'show' | 'units' | 'tens' | 'sum' | 'result'

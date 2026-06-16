@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { cellSpan, PIECE_FILL, PLUS_CELLS, PolyShape, type Cell } from './JoinPieces20Illustration'
 
 // Renders an answer option for WMI-20F1A-Q13 as the actual polyomino shape.

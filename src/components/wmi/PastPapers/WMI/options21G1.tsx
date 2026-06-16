@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { IsoStack, SOLIDS } from './puzzles21G1Illustrations'
 import { Seesaw21 } from './scenes21G1Illustrations'
 

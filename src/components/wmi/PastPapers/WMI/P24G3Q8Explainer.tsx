@@ -7,8 +7,8 @@
  * hexagon), which is the pictured option A.
  */
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { HexFold } from './P24G3Q8Illustration'
 import { buildP24G3Q8Steps } from './p24G3Q8Steps'
 

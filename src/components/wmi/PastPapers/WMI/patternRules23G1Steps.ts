@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PATTERNS, ROW_KEYS, isValidPattern, type Glyph } from './PatternRules23G1Illustration'
 
 // WMI-23F1A-Q24 (2023 G1 Final): which labelled rows follow the build rules?

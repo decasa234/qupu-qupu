@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, CIRCLE_VALUE, STAR_VALUE, TRIANGLE_VALUE } from './ShapeEquationIllustration'
 
 export type ShapePhase = 'show' | 'circle' | 'star' | 'triangle' | 'substitute' | 'result'

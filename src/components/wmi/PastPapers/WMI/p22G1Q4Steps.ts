@@ -1,6 +1,6 @@
 // Storyboard for the WMI-22P1A-Q4 explainer: spot the fixed 45° clockwise turn,
 // continue it one more step to 180°, then match that against the options → A.
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { NEXT_DEG, STEP_DEG } from './P22G1Q4Illustration'
 
 export interface Q4Step {

@@ -17,7 +17,7 @@
 // and SSR-safe. The hole-cell count and every piece's cell count come from the
 // illustration's exports (HOLE_GRID_CELLS / PIECE_CELLS), never re-asserted here.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { HOLE_GRID_CELLS, PIECE_CELLS } from './Jigsaw23G1Illustration'
 
 export const ANSWER = 'B'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { EqualFractionsFigure, SQUARE_VALUE, CIRCLE_VALUE, EF_ANSWER } from './EqualFractionsG3Illustration'
 
 // WMI-19F3A-Q7 — stacked fractions; derive ◻ and ◯ by scaling 3/4.

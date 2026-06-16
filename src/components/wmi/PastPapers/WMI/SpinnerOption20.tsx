@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // Renders an answer option for the spinner question (WMI-20F1A-Q9) as a small
 // square swatch matching the spinner sectors in Spinner20Illustration:

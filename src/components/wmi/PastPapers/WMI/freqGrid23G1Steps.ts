@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GRID } from './FreqGrid23G1Illustration'
 
 // WMI-23F1A-Q6 (2023 Grade 1 Final): among the numbers in the grid, find the

@@ -11,8 +11,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Shapes22G3Q9, PERIM } from './P22G3Q9Illustration'
 import { buildP22G3Q9Steps } from './p22G3Q9Steps'
 

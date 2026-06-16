@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { STAR_ANSWER } from './Pyramid20Illustration'
 
 export type PyramidPhase = 'rule' | 'clue-7' | 'clue-10' | 'row-up' | 'row-2' | 'result'

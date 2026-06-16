@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CARD_DIGITS } from './CardsSmallestNumberIllustration'
 
 // Card indices for the digits we care about. CARD_DIGITS = [6, 5, 0, 2].

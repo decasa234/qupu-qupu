@@ -7,7 +7,7 @@
  * Pure function — no Math.random, no Date. SSR-safe.
  */
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { SoldierPosition, HoleFillState } from './SoldierRoad22G3Illustration'
 
 /** Mirrors the private layout constants in SoldierRoad22G3Illustration.tsx. */

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FOUR_PAINTED_COUNT } from './P25G1Q18Illustration'
 
 export type SolidPhase = 'show' | 'rule' | 'find' | 'result'

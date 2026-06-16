@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // CHOICE renderer for WMI-22F1A-Q7 (Grade 1): "which 3D solid is different?"
 // Each option A–D is a picture of a small solid built from unit cubes, drawn in

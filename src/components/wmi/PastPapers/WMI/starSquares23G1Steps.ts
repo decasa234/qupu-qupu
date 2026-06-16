@@ -10,7 +10,7 @@
 // deterministic. Counts come from the enumeration co-exported by the
 // illustration (QUALIFYING_SQUARES), never asserted here.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { QUALIFYING_SQUARES, ANSWER, type SquareRef } from './StarSquares23G1Illustration'
 
 export interface StarSquaresStep {

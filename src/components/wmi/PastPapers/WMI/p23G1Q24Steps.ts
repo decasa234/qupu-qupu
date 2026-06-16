@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLE } from './P23G1Q24Illustration'
 
 export type PascalPhase = 'show' | 'rule' | 'parent' | 'children' | 'sum' | 'result'

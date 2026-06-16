@@ -12,7 +12,7 @@
 // Pure (lang) => storyboard. Deterministic: pairing reads stones in board order,
 // no Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { GO_STONES, stoneId } from './GoBoard23G1Illustration'
 
 export type GoBoardPhase = 'intro' | 'pair' | 'extra' | 'result'

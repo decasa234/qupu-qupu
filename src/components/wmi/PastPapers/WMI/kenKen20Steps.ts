@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { KK20_ANSWER } from './KenKen20Illustration'
 
 export interface KenKen20Step {

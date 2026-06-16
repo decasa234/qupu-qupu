@@ -283,7 +283,7 @@ export default function HalfShadeGrid22G3Illustration() {
 // Per-option choice renderer (used in CHOICE_RENDERERS)
 // ---------------------------------------------------------------------------
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 /**
  * Renders one A/B/C/D choice as a mini grid showing the full 3×3 pattern

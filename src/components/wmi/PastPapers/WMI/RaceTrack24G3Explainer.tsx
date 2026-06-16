@@ -4,8 +4,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import RaceTrack24G3Illustration, { RACE_TRACK_DATA } from './RaceTrack24G3Illustration'
 
 // ── colour tokens (mirror illustration) ──────────────────────────────────────

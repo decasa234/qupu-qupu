@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TEMP_ANSWER, type ThermometerHighlight } from './Thermometer20Illustration'
 
 export interface ThermometerStep {

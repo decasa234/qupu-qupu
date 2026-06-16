@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 /**
  * Storyboard for WMI-25F1A-Q8 (2025 Grade 1 Final).

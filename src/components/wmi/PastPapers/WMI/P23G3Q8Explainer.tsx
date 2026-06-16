@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Mountain, PERIMETER, X_VALUE } from './P23G3Q8Illustration'
 import { buildP23G3Q8Steps } from './p23G3Q8Steps'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { COIN_OPTIONS25G3, type CoinView } from './Coin25G3Illustration'
 
 // WMI-25F3A-Q13 — post-answer storyboard for the spinning-coins problem.

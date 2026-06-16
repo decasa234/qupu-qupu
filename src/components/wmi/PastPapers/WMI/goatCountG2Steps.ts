@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F2A-Q18 — two flocks compared. White = 54. After 8 black leave, black is
 // 28 MORE than white (54 + 28 = 82). The 8 that ran away were black too, so the

@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // Renders an answer option for WMI-22F1A-Q5 (Grade 1, 2022 Final Paper A).
 //

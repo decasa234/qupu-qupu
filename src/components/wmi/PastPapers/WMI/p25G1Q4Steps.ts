@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { CandleH } from './P25G1Q4Illustration'
 import { LONG_COUNT, SHORT_COUNT } from './P25G1Q4Illustration'
 

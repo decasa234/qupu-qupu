@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BIG_VALUE, DIFFERENCE, HETER_TOTAL, KUDZU_TOTAL, PLANT_ROWS } from './P24G3Q12Illustration'
 
 export type Q12Phase = 'show' | 'kudzu' | 'heter' | 'subtract' | 'result'

@@ -7,7 +7,7 @@
 // => abc = 622 (answer A).  We light the cubes group by group so the learner sees
 // WHY each count is what it is (painted faces = 6 - touching neighbours).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q19_SOLID, Q19_A, Q19_B, Q19_C, Q19_ABC, paintedFaces, type Voxel } from './P25G2Q19Illustration'
 
 // Distinct, gentle tints for the three painted-face groups.

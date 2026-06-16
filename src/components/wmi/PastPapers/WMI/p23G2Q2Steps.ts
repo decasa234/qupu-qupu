@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { APPLE_TOTAL } from './P23G2Q2Illustration'
 
 // WMI-23P2A-Q2 — "Into how many people can the 30 apples NOT be divided equally?"

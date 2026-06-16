@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { OPTIONS24G2, PatternGlyph, type PatternToken } from './Pattern23G2Illustration'
 import { buildPatternSteps, type OptionKey } from './pattern23G2Steps'
 

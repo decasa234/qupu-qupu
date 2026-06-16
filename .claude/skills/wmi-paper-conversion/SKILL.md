@@ -1,6 +1,6 @@
 ---
 name: wmi-paper-conversion
-description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/paperQuestions. Golden references: WMI-20F1A (clean full Grade-1 import) and WMI-21F1A (the same, hardened through full user review). For a single question or concept (not a whole paper), use qupu-math-problem-creation instead.
+description: Use when converting a WMI past-paper into web-ready questions — importing text/answers/figures from an OCR'd full.md, then authoring the breakdown, step-by-step, SVG illustration, and animated explainer for a whole paper. Triggers on "convert this WMI paper", "import WMI 20xx grade N", "make these past-paper questions web-ready", or working across db/seed/wmi/papers and src/components/wmi/PastPapers/WMI. Golden references: WMI-20F1A (clean full Grade-1 import) and WMI-21F1A (the same, hardened through full user review). For a single question or concept (not a whole paper), use qupu-math-problem-creation instead.
 ---
 
 # WMI Paper Conversion
@@ -59,7 +59,7 @@ taken end to end; copy them, don't re-derive.
 - **Per-question craft:** the `qupu-math-problem-creation` skill.
 - **Token-saving tooling:** `npm run wmi:scan-figures -- "<dir>" …` (per-question
   figure inventory from a source folder's `full.md`) and `npm run wmi:index`
-  (regenerates `src/components/wmi/paperQuestions/INDEX.md`, the searchable
+  (regenerates `src/components/wmi/PastPapers/WMI/INDEX.md`, the searchable
   catalog of every wired illustration/explainer/option renderer).
 
 ## Token budget (read once, apply everywhere)
@@ -83,7 +83,7 @@ taken end to end; copy them, don't re-derive.
   `<… Paper B>/full.md` + `<… Answer Key>/full.md` + each folder's `images/`.
 - **Outputs:** merged `db/seed/wmi/papers/<year>-<round>-g<grade>.json`; figures
   copied to `db/seed/wmi/figures/`; per-question `*Illustration.tsx` /
-  `*Explainer.tsx` (+ `*Steps.ts`) in `src/components/wmi/paperQuestions/`
+  `*Explainer.tsx` (+ `*Steps.ts`) in `src/components/wmi/PastPapers/WMI/`
   registered in `registry.ts`; a reseeded DB.
 
 ## Pipeline
@@ -143,7 +143,7 @@ every question gets a breakdown + steps.
 
 ### Phase 3 · Enrich (per question; batchable)
 **Reuse before you build.** Before creating any illustration or explainer, search
-the generated catalog `src/components/wmi/paperQuestions/INDEX.md` (regenerate
+the generated catalog `src/components/wmi/PastPapers/WMI/INDEX.md` (regenerate
 with `npm run wmi:index` if stale) — grep it by keyword (clock, balance, kenken,
 maze, calendar, …) instead of reading component files. If the *same* problem
 already exists in another paper/grade (same values, figure, and answer — e.g. a
@@ -198,7 +198,7 @@ the role inline; either way the craft rules live in the
 so when dispatching for a paper question put these paper specifics in the prompt:
 the registry **`code`** key (e.g. `WMI-20F1A-Q24`), that `breakdown` + `hint_steps`
 land in the **seed JSON** (not a concept `render()`), the target paths under
-`src/components/wmi/paperQuestions/`, the shared-primitive convention below, and any
+`src/components/wmi/PastPapers/WMI/`, the shared-primitive convention below, and any
 Phase-3 rule that applies (reuse-before-build, solver-first, one-idea-per-beat).
 - **Designer** (`qupu-question-designer`) → the `breakdown` object (+ a reworded
   `body_en/id` stem if the OCR stem is noisy). Highlights must be exact substrings
@@ -250,7 +250,7 @@ questions (`needsVisual: false`) always stay in the guided loop regardless of op
 
 ### Phase 4 · Wire
 - Register `{ Illustration, Explainer }` by the **question** code in
-  `src/components/wmi/paperQuestions/registry.ts` — the key is
+  `src/components/wmi/PastPapers/WMI/registry.ts` — the key is
   `paperCode + '-Q' + number` (e.g. `VISUALS['WMI-20F1A-Q24']`, **not** the bare
   paper code). Add the component imports + the `VISUALS[...]` entry.
 - Merge each question's `breakdown` + `hint_steps_en/id` + any reworded `body_en/id`
@@ -289,7 +289,7 @@ Grade-1 papers don't contain (skyscrapers, dense enumeration, vertical multiply)
 | Isometric cube count | `BigCube21Illustration` + `BigCube21Explainer` (`puzzles21G1Illustrations.tsx` / `puzzleExplainers21G1.tsx`) |
 | Per-candidate try-and-eliminate beats | `LargestResult21G1Explainer` (WMI-21F1A-Q1); `VerticalMultG3Explainer.tsx` |
 | One-object-per-beat enumeration with running counter | `DotSquaresG3Explainer.tsx`, `MShapeLinesG3Explainer.tsx` |
-| Registry wiring (`VISUALS` + `CHOICE_RENDERERS`) | `src/components/wmi/paperQuestions/registry.ts` |
+| Registry wiring (`VISUALS` + `CHOICE_RENDERERS`) | `src/components/wmi/PastPapers/WMI/registry.ts` |
 | Layout-fix lessons + geometry gotchas (viewBox headroom, centering, SVG y-axis, isometric facing) | `references/checklists.md` § Gate 1; `LockCodeIllustration.tsx` viewBox headroom |
 
 ## Gates & verification

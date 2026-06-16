@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F2A-Q12 — measure a blackboard with a 1 m ruler used 3 times, 50 cm left.
 // Three full 1 m lengths + a 50 cm leftover = 3 m 50 cm.

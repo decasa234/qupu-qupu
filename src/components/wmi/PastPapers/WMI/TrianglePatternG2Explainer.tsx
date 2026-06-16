@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { PictureCell, CELL_W, CELL_H, TRIANGLE_COUNTS } from './TrianglePatternG2Illustration'
 import { buildTrianglePatternG2Steps } from './trianglePatternG2Steps'
 

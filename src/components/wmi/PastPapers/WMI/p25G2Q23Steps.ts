@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { A_TRIANGLES, I_SQUARES, SHAPE_DIFFERENCE } from './P25G2Q23Illustration'
 
 export type DiffPhase = 'show' | 'countA' | 'countI' | 'subtract' | 'result'

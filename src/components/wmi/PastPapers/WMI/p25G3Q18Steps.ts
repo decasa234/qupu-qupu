@@ -7,7 +7,7 @@
 //   height =  8 − 2 − 2 = 4
 // Center path length = 2 × (6 + 4) = 20 cm (answer A).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   CENTER_PATH_CM,
   INNER_H_CM,

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type JoinStage = 'pieces' | 'count' | 'reject' | 'fit1' | 'fit2' | 'answer'
 

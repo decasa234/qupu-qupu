@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { MIN_DOMINOES, SHADED_COUNT, TILING } from './P23G2Q12Illustration'
 
 export type DominoPhase = 'show' | 'count' | 'pair' | 'fill' | 'result'

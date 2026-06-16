@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 /** Thursdays in October (found by ±7 hops from the anchor Thu 22). */
 export const THURSDAYS = [1, 8, 15, 22, 29]

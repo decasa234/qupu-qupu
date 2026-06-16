@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FLAG_ORDER } from './P23G1Q22Illustration'
 
 export type FlagPhase = 'show' | 'idea' | 'tally' | 'sum' | 'result'

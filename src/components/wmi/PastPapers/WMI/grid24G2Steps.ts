@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { OPTIMAL_GRID, GRID_SIZE, MAX_BLACK } from './Grid24G2Illustration'
 
 /**

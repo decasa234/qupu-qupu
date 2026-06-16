@@ -6,7 +6,7 @@
 //         20 + 🦁 + 🦁 + 🐨 = 51  →  🦁 + 🦁 + 🐨 = 31
 //         🦁 = 8, 🐨 = 15:  8 + 8 + 15 = 31 ✓
 //         🦛 = 20 − 🦁 = 20 − 8 = 12  → answer C.
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   HIPPO_VALUE,
   KOALA_VALUE,

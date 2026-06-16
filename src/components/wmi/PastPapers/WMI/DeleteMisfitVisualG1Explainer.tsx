@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F1A-Q21 — delete one number so 1, 5, 6, 9, 13, 17, 21 form a regular
 // sequence. Kid-visual: number stones with jump arcs (+4, +1, +3 …); the bad

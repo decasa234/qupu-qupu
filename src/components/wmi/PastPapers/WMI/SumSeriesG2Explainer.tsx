@@ -1,6 +1,6 @@
 import { useMemo, type ComponentType } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildSumSeriesSteps, NUMBERS, MIDDLE_INDEX } from './sumSeriesG2Steps'
 
 // "Give and take" levelling explainer for five evenly spaced numbers. Shared by

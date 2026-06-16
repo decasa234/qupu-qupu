@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-19F2A-Q19 — flags around a circular bed (circumference 100 m).
 // Red every 5 m -> 100/5 = 20 red. One yellow per gap; on a circle gaps = flags

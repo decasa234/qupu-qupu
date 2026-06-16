@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-23F1A-Q21 (2023 Grade 1 Final) — "Fill 5, 6, 7, 8 into the four empty
 // squares so every row increases left->right and every column increases

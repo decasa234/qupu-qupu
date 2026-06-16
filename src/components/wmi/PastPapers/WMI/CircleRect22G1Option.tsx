@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // CHOICE renderer for WMI-22F1A-Q10 (Grade 1):
 //   "Which figure has MORE circles than rectangles?"  (answer = A)

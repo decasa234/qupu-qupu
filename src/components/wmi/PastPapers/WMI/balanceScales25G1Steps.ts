@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, MAX_TOTAL, MIN_TOTAL } from './BalanceScales25G1Illustration'
 
 // WMI-25F1A-Q22 — three balance scales relate a green ball (b) and a yellow

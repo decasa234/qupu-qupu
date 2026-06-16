@@ -12,7 +12,7 @@
 // Pure (lang) => storyboard. Deterministic: all numbers derive from the
 // illustration constants, no Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   CIRCLE_VALUE,
   TRIANGLE_VALUE,

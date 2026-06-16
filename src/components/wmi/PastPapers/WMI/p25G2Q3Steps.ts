@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { DIFFERENCE, LONG_LEN, LONG_PENCIL, SHORT_LEN, SHORT_PENCIL } from './P25G2Q3Illustration'
 
 export type RulerPhase = 'show' | 'long' | 'short' | 'difference' | 'result'

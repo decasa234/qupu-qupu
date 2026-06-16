@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LAYER_COUNTS, TOTAL_CUBES } from './CubeStack19P1Illustration'
 
 export type CubePhase = 'show' | 'layer' | 'result'

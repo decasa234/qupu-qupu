@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { LINES2, LineFigure } from './scenes21G2Illustrations'
 
 /** WMI-21F2A Q2 — each option is a zigzag line figure. */

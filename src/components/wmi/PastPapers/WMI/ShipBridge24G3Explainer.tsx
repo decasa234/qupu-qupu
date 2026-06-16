@@ -3,8 +3,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { BRIDGE_SEGMENTS, SHIP_SEGMENTS, BRIDGE_LENGTH_M } from './ShipBridge24G3Illustration'
 
 // ── colour tokens ──────────────────────────────────────────────────────────────

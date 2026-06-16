@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 // Renders an answer option for the shape-count question (WMI-20F1A-Q14) as a
 // mini two-row table, like the source paper's options: a pink-tinted header

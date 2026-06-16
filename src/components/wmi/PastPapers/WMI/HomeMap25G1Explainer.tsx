@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { HomeMap25G1, LONGEST_TRAIL, ANSWER } from './HomeMap25G1Illustration'
 import { buildHomeMap25G1Steps, WINNER_TRAIL } from './homeMap25G1Steps'
 

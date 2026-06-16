@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { SHAPE_ROWS } from './ShapeCountChartIllustration'
 
 // Renders an answer option for the shape-count question (WMI-19F1A-Q15) as a

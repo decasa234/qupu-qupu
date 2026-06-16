@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ArrowGrid23, Q23_CELLS, GRID_VIEW } from './P20G2Q23Illustration'
 import { buildP20G2Q23Steps } from './p20G2Q23Steps'
 

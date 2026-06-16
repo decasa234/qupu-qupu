@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRIANGLES, TRI_TOTAL } from './TriCount22G1Illustration'
 
 // WMI-22F1A-Q19 — "count every triangle in the tree" (Grade 1, answer 16).

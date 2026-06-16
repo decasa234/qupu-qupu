@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ShapeOptions, Q8_GREEN, type Q8Option } from './WhiteCircleSquareIllustration'
 
 interface FigureStep {

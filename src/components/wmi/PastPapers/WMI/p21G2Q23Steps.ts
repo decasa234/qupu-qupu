@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Highlight } from './P21G2Q23Illustration'
 
 // Storyboard for WMI-21P2A-Q23 (2021 semifinal Grade 2).

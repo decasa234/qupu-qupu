@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FruitScale } from './Balance22G1Illustration'
 import { buildBalance22G1Steps, BALANCE_ANSWER, BALANCE_ANSWER_ID } from './balance22G1Steps'
 

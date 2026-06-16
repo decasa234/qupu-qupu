@@ -9,8 +9,8 @@
 
 import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { LabeledTriangle } from './NestedTri22G3Illustration'
 import { buildNestedTri22G3Steps } from './nestedTri22G3Steps'
 import type { NestedTriStep } from './nestedTri22G3Steps'

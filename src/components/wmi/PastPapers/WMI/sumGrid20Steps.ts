@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { GridShapeKind } from './SumGrid20Illustration'
 import { ANSWER, CIRCLE_VALUE, PENTAGON_VALUE, SQUARE_VALUE } from './SumGrid20Illustration'
 

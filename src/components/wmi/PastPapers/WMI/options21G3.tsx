@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ShadedFig21G3 } from './scenes21G3Illustrations'
 
 /** WMI-21F3A Q12 — each option is a shaded 3×3 grid. */

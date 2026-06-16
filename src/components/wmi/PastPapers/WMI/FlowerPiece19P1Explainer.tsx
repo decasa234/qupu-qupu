@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { AssembledFigure, PieceGlyph, FLOWER_PIECE } from './FlowerPiece19P1Illustration'
 import { buildFlowerPiece19P1Steps } from './flowerPiece19P1Steps'
 

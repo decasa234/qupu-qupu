@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { DotSquaresFigure, DS_CLASSES, DS_TOTAL } from './DotSquaresG3Illustration'
 
 // WMI-19F3A-Q19 — the squares appear ONE AT A TIME (showing all of a class at

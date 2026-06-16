@@ -8,7 +8,7 @@
 //   3. Pack as many disjoint valid groups as you can; greedy/edge-first packing
 //      squeezes one more in past 12, reaching the maximum of 13 (answer D).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export const TARGET_SUM = 16
 export const PER_GROUP = 3

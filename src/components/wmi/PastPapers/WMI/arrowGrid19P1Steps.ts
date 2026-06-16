@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, ARROW, MOVES, START, pathValues } from './ArrowGrid19P1Illustration'
 
 export type ArrowGridPhase = 'show' | 'move' | 'result'

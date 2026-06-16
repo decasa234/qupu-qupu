@@ -2,7 +2,7 @@
 // The original options were images; the key is A — the SAME solid, rotated (not
 // mirrored). These beats teach the rotate-don't-flip method and land on A.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q20Phase = 'given' | 'feature' | 'rotate' | 'mirror' | 'result'
 

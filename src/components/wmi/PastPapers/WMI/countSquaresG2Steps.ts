@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SQUARES_BY_SIZE, SQUARE_TOTAL } from './CountSquaresG2Illustration'
 
 export type CountSquaresG2Phase = 'show' | 'count' | 'result'

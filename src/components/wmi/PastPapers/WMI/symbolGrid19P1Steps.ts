@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ASKED_COL, ASKED_ROW } from './SymbolGrid19P1Illustration'
 
 export interface SymbolGridStep {

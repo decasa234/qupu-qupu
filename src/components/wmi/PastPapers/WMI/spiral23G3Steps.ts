@@ -26,7 +26,7 @@
 // SSR-safe. The position table below is the ground truth the figure is built on;
 // the two cycles are *derived* from it, then extended to predict 15 and 16.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type ShapeKind = 'square' | 'heptagon'
 export type Tone = 'white' | 'gray' | 'black'

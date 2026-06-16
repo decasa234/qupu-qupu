@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MachineRow, SIX_PARTS, SIX_COUNT, VIEW_W, ROW_H } from './P19G2Q21Illustration'
 import { buildP19G2Q21Steps } from './p19G2Q21Steps'
 

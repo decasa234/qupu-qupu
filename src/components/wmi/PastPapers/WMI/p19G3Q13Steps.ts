@@ -7,7 +7,7 @@
 //   4. Add the bottom + left: 14 + 13 = 27.
 //   5. Result: 27 + 14 + 27 = 68 cm — answer C.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   Q13_W,
   Q13_H,

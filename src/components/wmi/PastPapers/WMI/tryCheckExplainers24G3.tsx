@@ -1,5 +1,5 @@
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F3A (2024 Grade 3 Final) — deduction-chain explainers for the
 // non-figure questions. Q16's stem box-layout is mistyped (□□ ÷ □□) but the

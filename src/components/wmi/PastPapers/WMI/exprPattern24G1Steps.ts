@@ -11,7 +11,7 @@
 // drive the columns (minuend −1, subtrahend +2), then reveal results down the
 // list until the ★ row lands on 9. The winning beat is the last beat (hold 0).
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
   EXPR_COUNT,
   GIVEN_COUNT,

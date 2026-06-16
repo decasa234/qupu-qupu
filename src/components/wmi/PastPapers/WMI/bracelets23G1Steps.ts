@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 /**
  * WMI-23F1A-Q12 (2023 Grade 1 Final, Paper A) — bracelet length ordering.

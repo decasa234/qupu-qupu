@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PAINT_ANSWER, type PaintCellKey } from './PaintRoll20Illustration'
 
 export type PaintRollPhase = 'start' | 'roll1' | 'roll2' | 'roll3' | 'roll4' | 'result'

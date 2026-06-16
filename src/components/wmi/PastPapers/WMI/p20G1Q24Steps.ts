@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q24_ANSWER, Q24_DICE, Q24_PAIR_SUM, Q24_TOP_TOTAL } from './P20G1Q24Illustration'
 
 export type Q24Phase = 'show' | 'rule' | 'tops' | 'subtract' | 'result'

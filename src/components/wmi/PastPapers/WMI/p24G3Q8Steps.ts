@@ -12,7 +12,7 @@
  * The choice figures A–D were separate images (not in the seed), so the final
  * beat names the answer letter explicitly.
  */
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type P24G3Q8Phase = 'show' | 'fold1' | 'half' | 'fold2' | 'result'
 

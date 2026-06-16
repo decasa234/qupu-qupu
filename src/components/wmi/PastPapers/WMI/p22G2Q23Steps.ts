@@ -5,7 +5,7 @@
 // (joining ends is allowed) — but NOT the reversed order (flipping is banned).
 // That rotation is option A.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { RING_COLORS, RING_N } from './P22G2Q23Illustration'
 
 export interface RingStep {

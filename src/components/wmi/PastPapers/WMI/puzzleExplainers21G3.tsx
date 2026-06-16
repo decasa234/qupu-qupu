@@ -1,8 +1,8 @@
 // Beat-based explainers for WMI-21F3A puzzle questions.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { StreetMap21G3, MAP_WAYS, RabbitMaze21G3, MAZE_MOVES_G3 } from './puzzles21G3Illustrations'
 import { MOVE_NAMES_EN, MOVE_NAMES_ID } from './puzzles21G1Illustrations'
 

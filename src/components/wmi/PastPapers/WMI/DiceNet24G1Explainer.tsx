@@ -16,8 +16,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { DiceNet24G1, CELL } from './DiceNet24G1Illustration'
 import { buildDiceNet24G1Steps } from './diceNet24G1Steps'
 

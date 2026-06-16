@@ -5,7 +5,7 @@
 //   CCW → CW → CCW → CW.
 // Wheel A therefore spins CLOCKWISE, which is direction B.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BP_LINKS, BP_MARKED_SPIN, bpSpins } from './BeltPulley19P1Illustration'
 import type { Spin } from './BeltPulley19P1Illustration'
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { JerseyGlyph, JerseyPhotoFigure, JERSEYS_SOLUTION } from './Jerseys25G2Illustration'
 import { buildJerseys25G2Steps } from './jerseys25G2Steps'
 

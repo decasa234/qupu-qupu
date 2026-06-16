@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // WMI-19F3A-Q23 — every reachable sum is shown with the CONCRETE addition that
 // makes it (1+2 = 3, 6+5+4 = 15, …), marked on a 1–15 board one small group at

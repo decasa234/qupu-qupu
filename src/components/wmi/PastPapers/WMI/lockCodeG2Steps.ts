@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LOCK_CODE_G2 } from './LockCodeG2Illustration'
 
 export type LockPhaseG2 = 'show' | 'eliminate' | 'deduce' | 'place' | 'result'

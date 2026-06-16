@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { SpinnerFocus } from './Spinner20Illustration'
 
 export interface SpinnerStep {

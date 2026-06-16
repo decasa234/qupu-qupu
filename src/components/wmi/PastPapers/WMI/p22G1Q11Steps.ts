@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { REGIONS, toneOf, type RegionTone } from './P22G1Q11Illustration'
 
 // WMI-22P1A-Q11 (2022 Semifinal Grade 1): colour each of the 9 regions by its

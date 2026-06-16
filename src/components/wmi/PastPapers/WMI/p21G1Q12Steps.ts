@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ANSWER, LEG_LEN, type Leg } from './P21G1Q12Illustration'
 
 export type RoutePhase = 'show' | 'order' | 'judyHellen' | 'hellenAmy' | 'result'

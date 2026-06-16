@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { Cell } from './P21G3Q14Illustration'
 import { OPTIONS, NEXT_FRAME, ANSWER } from './P21G3Q14Illustration'
 

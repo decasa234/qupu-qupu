@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q23_ANSWER, Q23_FACES, Q23_MIN_COLORS } from './P21G3Q23Illustration'
 
 export type Q23Phase = 'show' | 'rule' | 'tryOne' | 'paintUpper' | 'paintLower' | 'check' | 'result'

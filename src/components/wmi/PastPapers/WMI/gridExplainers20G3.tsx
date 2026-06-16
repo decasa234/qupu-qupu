@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { QUILT_SQUARES, QUILT_TOTAL, QuiltBoard, SPIRAL_PATH, SPIRAL_VALUES, SPIRAL_RED, SpiralGrid, FootballBoard } from './puzzles20G3Illustrations'
 
 const GREEN = '#10B981'

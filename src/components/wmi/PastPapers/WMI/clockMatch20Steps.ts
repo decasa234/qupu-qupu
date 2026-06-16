@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Storyboard for WMI-20F1A-Q6: the digital clock shows 04:30 — which analog
 // clock matches? Captions follow the canonical hint_steps in

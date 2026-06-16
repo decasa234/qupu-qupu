@@ -7,7 +7,7 @@
 // ACEG = 6714. Everything is derived from JUMP_ORDER / VISIT_ORDER / ACEG (the
 // anti-drift glue) — nothing is hard-coded differently from the illustration.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { JUMP_ORDER_24G3, VISIT_ORDER_24G3, ACEG_24G3 } from './RabbitGrid24G3Illustration'
 
 export interface RabbitStep {

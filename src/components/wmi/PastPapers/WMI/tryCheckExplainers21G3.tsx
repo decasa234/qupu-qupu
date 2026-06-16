@@ -1,7 +1,7 @@
 // Try-check explainers for WMI-21F3A (2021 G3 final) text questions.
 
 import { makeTryCheckExplainer } from './tryCheckExplainers'
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 

@@ -11,8 +11,8 @@
 // figure. A small badge shows the running maximum. SSR-safe + deterministic.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ANSWER_MAX, Q17_VIEW_W, Square } from './P24G3Q17Illustration'
 import { buildP24G3Q17Steps } from './p24G3Q17Steps'
 

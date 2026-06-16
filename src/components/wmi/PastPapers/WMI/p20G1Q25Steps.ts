@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q25_GRID, Q25_OTHER_WAYS, Q25_TOTAL_WAYS } from './P20G1Q25Illustration'
 
 export type Q25Phase = 'show' | 'start' | 'grow' | 'reach10' | 'result'

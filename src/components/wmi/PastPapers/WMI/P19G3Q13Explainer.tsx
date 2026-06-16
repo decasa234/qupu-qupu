@@ -5,8 +5,8 @@
 // C. Reuses the Q13Figure primitive from the illustration with edge highlights.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { Q13Figure } from './P19G3Q13Illustration'
 import { buildP19G3Q13Steps } from './p19G3Q13Steps'
 

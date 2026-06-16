@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F1A-Q20 (2024 Grade 1 Final) — answer = 3 (fill-in).
 //

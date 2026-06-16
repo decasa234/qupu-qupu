@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { TRI_TOTAL } from './TrapTriangles19P1Illustration'
 
 export type TrapPhase = 'show' | 'count' | 'result'

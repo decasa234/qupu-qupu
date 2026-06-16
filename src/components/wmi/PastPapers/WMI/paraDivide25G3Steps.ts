@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { ParaPointName } from './ParaDivide25G3Illustration'
 
 // WMI-25F3A-Q19 — "How many parallelograms and trapezoids are there in the figure

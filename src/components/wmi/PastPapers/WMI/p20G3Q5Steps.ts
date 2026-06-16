@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P20G3Q5_ANSWER, P20G3Q5_FRACTION, TREE_COUNT } from './P20G3Q5Illustration'
 
 export type Q5Phase = 'show' | 'countTrees' | 'countDots' | 'ratio' | 'result'

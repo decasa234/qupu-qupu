@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { CLIPS_ANSWER } from './RibbonClips20Illustration'
 
 export interface RibbonClipsStep {

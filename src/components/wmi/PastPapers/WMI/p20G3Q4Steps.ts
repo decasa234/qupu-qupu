@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { P20G3Q4_ANSWER } from './P20G3Q4Illustration'
 
 export type Q4Phase = 'show' | 'oneArrow' | 'allTurn' | 'next' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LOCK_CODE } from './LockCodeIllustration'
 
 export type LockPhase = 'show' | 'eliminate' | 'deduce' | 'place' | 'result'

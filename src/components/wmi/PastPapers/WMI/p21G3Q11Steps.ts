@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q11_ANSWER, TRIS, triRule } from './P21G3Q11Illustration'
 
 export type Q11Phase = 'show' | 'check1' | 'check2' | 'apply' | 'result'

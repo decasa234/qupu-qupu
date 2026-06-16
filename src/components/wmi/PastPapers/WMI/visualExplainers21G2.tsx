@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { LINES2, LineFigure, lineCounts, MONEY11, Money21G2Illustration, Words21G2, countLetter, FIGURES14, CellsShape, L_PIECE, BoxNet21G2 } from './scenes21G2Illustrations'
 import { AppleGrid21 } from './scenes21G1Illustrations'
 

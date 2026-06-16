@@ -12,7 +12,7 @@ import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
 import WmiSteps from './WmiSteps'
 import WmiTrapNote from './WmiTrapNote'
-import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer } from './paperQuestions/registry'
+import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer } from './PastPapers/WMI/registry'
 
 interface Props {
   question: WmiQuestion

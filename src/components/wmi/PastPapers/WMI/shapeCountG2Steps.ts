@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { G2_SHAPE_ROWS } from './ShapeCountG2Illustration'
 
 export type ShapeCountG2Phase = 'show' | 'count' | 'result'

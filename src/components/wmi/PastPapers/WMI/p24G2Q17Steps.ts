@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q17_HALF, Q17_NUMBERS, Q17_TOTAL } from './P24G2Q17Illustration'
 
 // Storyboard for WMI-24P2A-Q17 (answer E).

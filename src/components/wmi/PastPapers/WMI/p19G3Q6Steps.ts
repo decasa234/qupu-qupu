@@ -6,7 +6,7 @@
 //   3. Subtract from the perimeter: 104 − 81 = 23.
 //   4. Result: "?" = 23 — answer C.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q6_TOP, Q6_LEFT, Q6_RIGHT, Q6_PERIMETER, Q6_BOTTOM, type Q6Side } from './P19G3Q6Illustration'
 
 export type Q6Phase = 'show' | 'known' | 'subtract' | 'result'

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FRAME1, FRAME2, FRAME3, FRAME4, FRAME5, type Voxel } from './P24G2Q22Illustration'
 
 // Deterministic storyboard for WMI-24P2A-Q22 (cube-growth sequence, answer E).

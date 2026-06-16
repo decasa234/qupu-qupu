@@ -17,7 +17,7 @@
 //
 // Pure (lang) => storyboard. Deterministic: no Math.random / Date. SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q23_ANSWER_LETTER } from './P24G1Q23Illustration'
 
 export type Q23Phase = 'show' | 'rule' | 'cancel' | 'result'

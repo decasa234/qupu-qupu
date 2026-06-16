@@ -3,8 +3,8 @@
 // as the static figure coming alive. Lands on answer D = 4 squares.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { AppleGrid, VIEW_W, VIEW_H } from './P25G1Q19Illustration'
 import { buildP25G1Q19Steps } from './p25G1Q19Steps'
 

@@ -15,7 +15,7 @@
 // deterministic. Every number is read from the illustration's own source of truth
 // (QUADRANTS / STACK_TOP_TO_BOTTOM), never asserted here.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { QUADRANTS, STACK_TOP_TO_BOTTOM, type PaperFoldStage } from './PaperFold23G1Illustration'
 
 export type PaperFoldPhase = 'plan' | 'fold' | 'result'

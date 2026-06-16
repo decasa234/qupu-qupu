@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { NEEDED, TOTAL_LEFT, TOTAL_RIGHT } from './P23G1Q18Illustration'
 
 // WMI-23P1A-Q18 (2023 Grade 1 Semifinal): how many MORE blocks turn the LEFT solid

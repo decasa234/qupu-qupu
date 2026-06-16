@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FractionStrips, SHADED_COUNT, STRIP_COUNT } from './P23G3Q4Illustration'
 import { buildP23G3Q4Steps } from './p23G3Q4Steps'
 

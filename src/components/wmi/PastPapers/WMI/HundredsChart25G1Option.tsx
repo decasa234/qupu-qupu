@@ -23,7 +23,7 @@
  * option order is fixed in the source paper. Unknown labels fall back to text.
  */
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 
 type Label = 'A' | 'B' | 'C' | 'D' | 'E'
 

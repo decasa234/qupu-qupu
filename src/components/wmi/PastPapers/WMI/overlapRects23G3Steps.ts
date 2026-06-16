@@ -19,7 +19,7 @@
 // givens; everything else (square side 20, 196, 392, 80, 312) is derived in
 // view, so the animation shows the work.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // ---- printed givens (from the static figure) -------------------------------
 export const LONG = 56 // long side of each rectangle

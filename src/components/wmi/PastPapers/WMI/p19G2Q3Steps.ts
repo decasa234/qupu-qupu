@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q3_ANSWER, Q3_PATH, START_VALUE } from './P19G2Q3Illustration'
 
 // Storyboard for WMI-19P2A-Q3 — walking the arrow path on the 61..120 grid.

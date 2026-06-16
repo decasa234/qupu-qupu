@@ -11,8 +11,8 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ExprPattern24G1 } from './ExprPattern24G1Illustration'
 import { buildExprPattern24G1Steps } from './exprPattern24G1Steps'
 

@@ -3,8 +3,8 @@
 // Answer E = 12 cm  (upper 3→7 = 4 cm, lower 3→11 = 8 cm, total 12 cm).
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 
 // ── Colour tokens (mirror the illustration) ──────────────────────────────────
 const ROPE_DARK  = '#1565C0'   // deep blue rope outline

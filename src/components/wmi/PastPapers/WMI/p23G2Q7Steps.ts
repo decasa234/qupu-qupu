@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { RIBBON_A, RIBBON_B } from './P23G2Q7Illustration'
 
 export type RibbonPhase = 'show' | 'measureA' | 'measureB' | 'subtract' | 'result'

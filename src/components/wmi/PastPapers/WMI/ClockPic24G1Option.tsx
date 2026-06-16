@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ClockPicture } from './ClockPic24G1Illustration'
 
 // WMI-24F1A-Q13 answer options A–E, each an axis-aligned square "picture":

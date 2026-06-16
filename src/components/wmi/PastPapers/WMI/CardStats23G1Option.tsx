@@ -19,7 +19,7 @@
  * stays identical across the figure, the tally tables and the options.
  */
 
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { ShapeGlyph, type CardSpec } from './CardStats23G1Illustration'
 
 // The card printed in each option, keyed by choice label (from the scans).

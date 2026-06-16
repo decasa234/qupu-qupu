@@ -1,4 +1,4 @@
-import type { WmiChoice } from '../../../types/wmi'
+import type { WmiChoice } from '../../../../types/wmi'
 import { W_GRIDS, WGrid, MiniTempChart, TEMP_CHARTS, PatternShape } from './scenes20G3Illustrations'
 
 // Choice renderers for WMI-20F3A. Each binds to the option LABEL (A–D),

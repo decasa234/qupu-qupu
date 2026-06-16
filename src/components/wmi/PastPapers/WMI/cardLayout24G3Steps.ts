@@ -11,7 +11,7 @@
 //
 // Pure function (params + lang) -> ordered beats. Deterministic, SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { POSITIONS, SOLUTION, ANSWER } from './CardLayout24G3Illustration'
 import type { Position } from './CardLayout24G3Illustration'
 

@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q22_ANSWER, Q22_STAR_VALUE } from './P21G3Q22Illustration'
 
 export type Q22Phase = 'show' | 'rule' | 'findPartner' | 'compute' | 'reveal' | 'result'

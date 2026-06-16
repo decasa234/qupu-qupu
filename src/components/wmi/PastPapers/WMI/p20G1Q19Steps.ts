@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { Q19_STAR_VALUE } from './P20G1Q19Illustration'
 
 export type Q19Phase = 'show' | 'rule1' | 'rule2' | 'apply' | 'result'

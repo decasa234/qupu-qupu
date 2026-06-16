@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { AG_ANSWER } from './ArrowGridIllustration'
 
 export interface ArrowGridStep {

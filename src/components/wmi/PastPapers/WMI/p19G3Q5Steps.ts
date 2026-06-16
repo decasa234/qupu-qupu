@@ -7,7 +7,7 @@
 //   4. The 3rd slot of the loop is △.
 //   5. Result: "?" = △ — answer C.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { LOOP, Q5_QMARK_INDEX } from './P19G3Q5Illustration'
 
 export type Q5Phase = 'show' | 'loop' | 'count' | 'slot' | 'result'

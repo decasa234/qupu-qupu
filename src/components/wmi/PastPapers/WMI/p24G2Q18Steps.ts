@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { FRUIT_GLYPH, Q18_BIGGEST, Q18_COUNTS, Q18_REMOVE, Q18_TOTAL, type FruitKind } from './P24G2Q18Illustration'
 
 // Storyboard for WMI-24P2A-Q18 (answer C = 11).

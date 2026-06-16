@@ -8,7 +8,7 @@
 //
 // Pure builder: (lang) => storyboard. No random, no dates, SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { BOAT_MATCHES, BOAT_ANSWER } from './BoatTranslate25G1Illustration'
 
 export type BoatPhase = 'goal' | 'rule' | 'reject' | 'match' | 'result'

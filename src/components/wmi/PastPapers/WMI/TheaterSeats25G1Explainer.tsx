@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { TheaterSeats25G1 } from './TheaterSeats25G1Illustration'
 import { buildTheaterSeats25G1Steps, SEAT_COUNT } from './theaterSeats25G1Steps'
 

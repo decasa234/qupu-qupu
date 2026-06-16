@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { buildTwoDigitListG2Steps, SORTED, FIFTH_INDEX, ELEVENTH_INDEX, FIFTH, ELEVENTH, DIFF } from './twoDigitListG2Steps'
 
 const GREEN = '#10B981'

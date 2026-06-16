@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { LogicGrid24G1, SHADED_CELLS } from './LogicGrid24G1Illustration'
 import { buildLogicGrid24G1Steps } from './logicGrid24G1Steps'
 

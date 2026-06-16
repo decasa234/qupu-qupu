@@ -19,7 +19,7 @@
 //
 // Pure builder: (lang) => storyboard. No random, no dates, SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { ERASER_MARK, TIP_MARK, ANSWER } from './FlippedRuler25G1Illustration'
 
 export type FlippedRulerPhase = 'goal' | 'trap' | 'eraser' | 'tip' | 'gap' | 'result'

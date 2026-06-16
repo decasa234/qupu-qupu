@@ -20,7 +20,7 @@
 //
 // Pure builder: (lang) => storyboard. No random, no dates, SSR-safe.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import type { PiecePairId, Cuboid20Props } from './P20G2Q6Illustration'
 
 export type BoxPhase = 'count' | 'faces' | 'long' | 'wide' | 'end' | 'result'

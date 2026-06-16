@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SHADED_CELLS, SHADED_SUM, SOLVED } from './LogicGrid24G1Illustration'
 
 // WMI-24F1A-Q21 (2024 Grade 1 Final) — fill 1–9 into a 3×3 grid by six clues,

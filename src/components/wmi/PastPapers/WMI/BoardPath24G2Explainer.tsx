@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { PathTrace, nodeCenter, TRACE_FILL, NODE_STROKE, NODE_TEXT } from './BoardPath24G2Illustration'
 import { buildBoardPathStory } from './boardPath24Steps'
 

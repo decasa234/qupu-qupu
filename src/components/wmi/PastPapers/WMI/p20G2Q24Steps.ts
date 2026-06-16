@@ -1,4 +1,4 @@
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Four dice; each die has top + bottom = 7, so all eight top+bottom faces total
 // 4 × 7 = 28. The four UP faces total 7 (the visible stack-top is 1; the three

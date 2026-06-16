@@ -11,7 +11,7 @@
 // plainly that 61 = 40 + 21 where 21 is the second grid's "?" — a grid the scan
 // did NOT capture, so we do NOT fabricate it.
 
-import type { Lang } from '../concepts/explainers/makeTenSteps'
+import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PRODUCT_SOLUTION25, VISIBLE_Q_VALUE25 } from './ProductGrid25G2Illustration'
 
 export type WhiteName = 'a' | 'b' | 'c' | 'd'

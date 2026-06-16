@@ -9,8 +9,8 @@
 // Pure render — no Math.random, no Date. SSR-safe. Bilingual (en/id).
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { StickBlock23G2, stickCount } from './Matchsticks23G2Illustration'
 
 // ---- colour palette (mirrors the illustration tokens) -----------------------

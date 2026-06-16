@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { ParallelogramFigure, PARALLELOGRAM24_DATA } from './Parallelogram24G2Illustration'
 
 // ── colour tokens (mirrors fill-qupu-* palette) ─────────────────────────────

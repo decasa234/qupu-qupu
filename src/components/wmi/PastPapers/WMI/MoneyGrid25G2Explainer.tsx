@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MONEY_GRID25, ROW_SUMS25, COL_SUMS25, SHADED25 } from './MoneyGrid25G2Illustration'
 import { buildMoneyGridStory, type ShadeKey } from './moneyGrid25Steps'
 

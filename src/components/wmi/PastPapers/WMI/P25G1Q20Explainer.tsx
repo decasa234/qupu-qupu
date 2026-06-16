@@ -3,8 +3,8 @@
 // as the static figure coming alive. Lands on answer C = gates A and C.
 
 import { useMemo } from 'react'
-import type { ExplainerProps } from '../concepts/explainers/registry'
-import { useBeatControl } from '../concepts/explainers/useBeatControl'
+import type { ExplainerProps } from '../../concepts/explainers/registry'
+import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { GardenPlan, VIEW_W, VIEW_H } from './P25G1Q20Illustration'
 import { buildP25G1Q20Steps } from './p25G1Q20Steps'
 
