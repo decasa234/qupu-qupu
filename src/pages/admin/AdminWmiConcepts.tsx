@@ -20,7 +20,13 @@ import type { WmiQuestion } from '../../types/wmi'
 import { useReviewIssues } from '../../hooks/useReviewIssues'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
 import FlagButton from '../../components/admin/review/FlagButton'
-import { suggestVerdictClient, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
+import {
+  fetchIssueCounts,
+  suggestVerdictClient,
+  type IssueCounts,
+  type IssuePart,
+  type IssueSeverity,
+} from '../../lib/wmiReviewIssues'
 
 const noop = () => {}
 
@@ -261,6 +267,15 @@ export default function AdminWmiConcepts() {
       addIssue({ target_type: 'concept', concept_slug: activeSlug!, ...i }),
     [addIssue, activeSlug],
   )
+  const [counts, setCounts] = useState<IssueCounts>({
+    byConcept: {},
+    byPaper: {},
+    fixedByConcept: {},
+    fixedByPaper: {},
+  })
+  useEffect(() => {
+    fetchIssueCounts().then(setCounts).catch(() => {})
+  }, [issues])
 
   return (
     <div className="space-y-5">
@@ -437,6 +452,20 @@ export default function AdminWmiConcepts() {
                           }`}
                           aria-hidden="true"
                           title="WMI Refined"
+                        />
+                      )}
+                      {counts.byConcept[c.slug] > 0 && (
+                        <span
+                          className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[9px] font-bold text-white"
+                          title={`${counts.byConcept[c.slug]} open issue(s)`}
+                        >
+                          {counts.byConcept[c.slug]}⚑
+                        </span>
+                      )}
+                      {counts.fixedByConcept[c.slug] > 0 && (
+                        <span
+                          className="h-2 w-2 shrink-0 rounded-full bg-blue-600"
+                          title="fix awaiting re-review"
                         />
                       )}
                       <i

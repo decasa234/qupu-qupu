@@ -12,7 +12,7 @@ import { listBrands, getBrand, type Brand } from '../../../api/services/wmi/olym
 import { useReviewIssues } from '../../hooks/useReviewIssues'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
 import FlagButton from '../../components/admin/review/FlagButton'
-import type { IssuePart, IssueSeverity } from '../../lib/wmiReviewIssues'
+import { fetchIssueCounts, type IssueCounts, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
 
 // WmiQuestionView requires interaction handlers; this is a read-only preview, so they no-op.
 const noop = () => {}
@@ -313,6 +313,15 @@ export default function AdminWmiDrill() {
     if (openIssue) await updateIssue(openIssue.id, { status: 'verified' })
     setEditPart(null)
   }
+  const [counts, setCounts] = useState<IssueCounts>({
+    byConcept: {},
+    byPaper: {},
+    fixedByConcept: {},
+    fixedByPaper: {},
+  })
+  useEffect(() => {
+    fetchIssueCounts().then(setCounts).catch(() => {})
+  }, [issues])
 
   return (
     <div className="space-y-5">
@@ -454,6 +463,17 @@ export default function AdminWmiDrill() {
                           <span className="flex-1 truncate">
                             {p.year} {roundLabel(p.brand, p.round)}
                           </span>
+                          {counts.byPaper[p.id] > 0 && (
+                            <span
+                              className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[9px] font-bold text-white"
+                              title={`${counts.byPaper[p.id]} open issue(s)`}
+                            >
+                              {counts.byPaper[p.id]}⚑
+                            </span>
+                          )}
+                          {counts.fixedByPaper[p.id] > 0 && (
+                            <span className="h-2 w-2 shrink-0 rounded-full bg-blue-600" title="fix awaiting re-review" />
+                          )}
                           <span
                             className={`shrink-0 text-[10px] tabular-nums ${
                               p.id === activePaperId ? 'text-white/70' : 'text-admin-faint'
