@@ -7,8 +7,8 @@ The complete catalog of math-concept **archetypes** mined from every World Mathe
 The concepts are organized into a two-level **strand → topic** structure with
 per-concept `difficulty` (1–5) and `isOlympiad` tags. The authoritative,
 machine-readable source of truth is `api/services/wmi/concepts/taxonomy.ts`;
-this section is the human reference. The full per-concept assignment is in the
-design spec, §6.
+this section is the human reference. The full per-concept assignment (every concept's strand, topic, difficulty, and isOlympiad) lives in
+that source file.
 
 ### Strands (6)
 
