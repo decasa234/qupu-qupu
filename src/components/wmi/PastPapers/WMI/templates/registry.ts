@@ -12,8 +12,10 @@ export interface ExplainerTemplate {
   Explainer: ComponentType<ExplainerProps>
 }
 
+import CountOneByOne from './CountOneByOneTemplate'
+
 // Templates register here as they are built (Phase 3).
-const ALL: ExplainerTemplate[] = []
+const ALL: ExplainerTemplate[] = [CountOneByOne]
 
 export const TEMPLATES: Record<string, ExplainerTemplate> = Object.fromEntries(
   ALL.map((t) => [t.meta.id, t]),

@@ -9,7 +9,11 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 ## Templates
 
-_(none yet)_
+### `count-one-by-one` — Count objects one by one
+- file: `templates/count-one-by-one`  · grades 1,2,3 · tags: counting, enumeration
+- summary: Reveals each object in turn with a running counter, landing on the total.
+- use when: Question asks "how many X" and the figure is a set of discrete objects to enumerate.
+- params example: `{ "items": [{"x":40,"y":40,"shape":"dot"}, {"x":90,"y":40,"shape":"dot"}] }`
 
 ## Bespoke (copy-adapt)
 

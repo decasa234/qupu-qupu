@@ -12,6 +12,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { buildPoolOutputs, type PoolEntry } from './poolCatalog.js'
+import { TEMPLATES } from '../../../src/components/wmi/PastPapers/WMI/templates/registry.js'
 
 const DIR = join('src', 'components', 'wmi', 'PastPapers', 'WMI')
 const REGISTRY = join(DIR, 'registry.ts')
@@ -172,6 +173,24 @@ for (const [file, { components }] of sorted) {
     }
   }
   poolEntries.push(entry)
+}
+
+// Templates live in the TEMPLATES registry (not VISUALS), so add them explicitly.
+const seenIds = new Set(poolEntries.map((e) => e.id))
+for (const t of Object.values(TEMPLATES)) {
+  if (seenIds.has(t.meta.id)) continue
+  poolEntries.push({
+    id: t.meta.id,
+    file: `templates/${t.meta.id}`,
+    title: t.meta.title,
+    summary: t.meta.summary,
+    useWhen: t.meta.useWhen,
+    tags: t.meta.tags,
+    grades: t.meta.grades,
+    status: 'template',
+    paramsExample: t.meta.paramsExample,
+    usedBy: [],
+  })
 }
 
 const { md: poolMd, json: poolJson } = buildPoolOutputs(poolEntries)
