@@ -18,6 +18,7 @@ import {
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
 import { useReviewIssues } from '../../hooks/useReviewIssues'
+import { useReviewKeyboard } from '../../hooks/useReviewKeyboard'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
 import FlagButton from '../../components/admin/review/FlagButton'
 import {
@@ -276,6 +277,28 @@ export default function AdminWmiConcepts() {
   useEffect(() => {
     fetchIssueCounts().then(setCounts).catch(() => {})
   }, [issues])
+  const gotoConceptDelta = (delta: number) => {
+    if (filtered.length === 0) return
+    const i = filtered.findIndex((c) => c.slug === activeSlug)
+    const next = filtered[(Math.max(0, i) + delta + filtered.length) % filtered.length]
+    if (next) setActiveSlug(next.slug)
+  }
+  const nextConceptWithIssues = () => {
+    if (filtered.length === 0) return
+    const start = filtered.findIndex((c) => c.slug === activeSlug)
+    for (let k = 1; k <= filtered.length; k++) {
+      const c = filtered[(start + k + filtered.length) % filtered.length]
+      if ((counts.byConcept[c.slug] ?? 0) > 0 || (counts.fixedByConcept[c.slug] ?? 0) > 0 || c.status === 'pending') {
+        setActiveSlug(c.slug)
+        return
+      }
+    }
+  }
+  useReviewKeyboard({
+    j: () => gotoConceptDelta(1),
+    k: () => gotoConceptDelta(-1),
+    n: nextConceptWithIssues,
+  })
 
   return (
     <div className="space-y-5">
@@ -613,6 +636,9 @@ export default function AdminWmiConcepts() {
               New samples
             </Button>
           </div>
+          <p className="text-[10px] text-admin-faint">
+            Keys: <b>j</b>/<b>k</b> move concept · <b>n</b> next with open issues
+          </p>
 
           {loading && <div className="p-6 text-center text-admin-muted">Membuat contoh…</div>}
           {sampleError && (

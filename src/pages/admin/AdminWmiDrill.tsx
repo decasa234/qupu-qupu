@@ -10,6 +10,7 @@ import type { WmiQuestion } from '../../types/wmi'
 import { paperCode } from '../../lib/wmiPaperCode'
 import { listBrands, getBrand, type Brand } from '../../../api/services/wmi/olympiads/registry'
 import { useReviewIssues } from '../../hooks/useReviewIssues'
+import { useReviewKeyboard } from '../../hooks/useReviewKeyboard'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
 import FlagButton from '../../components/admin/review/FlagButton'
 import { fetchIssueCounts, type IssueCounts, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
@@ -322,6 +323,20 @@ export default function AdminWmiDrill() {
   useEffect(() => {
     fetchIssueCounts().then(setCounts).catch(() => {})
   }, [issues])
+  const nextQuestionWithIssues = () => {
+    const ids = new Set(
+      issues
+        .filter((i) => i.status === 'open' || i.status === 'in_progress' || i.status === 'fixed')
+        .map((i) => i.question_id),
+    )
+    const found = questions.findIndex((q, n) => n > idx && ids.has(q.id))
+    if (found >= 0) setIdx(found)
+  }
+  useReviewKeyboard({
+    j: () => setIdx((i) => Math.min(questions.length - 1, i + 1)),
+    k: () => setIdx((i) => Math.max(0, i - 1)),
+    n: nextQuestionWithIssues,
+  })
 
   return (
     <div className="space-y-5">
@@ -592,6 +607,7 @@ export default function AdminWmiDrill() {
                   >
                     Next <i className="fa-solid fa-chevron-right" aria-hidden="true" />
                   </Button>
+                  <span className="text-[10px] text-admin-faint">keys: j/k question · n next w/ issues</span>
                 </div>
               )}
 
