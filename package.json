@@ -14,6 +14,8 @@
     "wmi:validate": "tsx db/seed/wmi/validate-papers.ts",
     "wmi:scan-figures": "tsx db/seed/wmi/scan-figures.ts",
     "wmi:index": "tsx db/seed/wmi/build-visual-index.ts",
+    "wmi:pool-candidates": "tsx db/seed/wmi/poolCandidates.ts",
+    "wmi:pool:check": "npm run wmi:index && git diff --exit-code src/components/wmi/PastPapers/WMI/INDEX.md src/components/wmi/PastPapers/WMI/EXPLAINER_POOL.md src/components/wmi/PastPapers/WMI/pool.json",
     "server:dev": "nodemon",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
   },
