@@ -18,7 +18,7 @@ Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`,
 
 Single repo with two halves sharing one `tsconfig.json` (`include: ["src", "api"]`):
 
-- **Frontend** (`src/`) — React 18 + Vite + Tailwind + React Router 7. Path alias `@/*` → `src/*` (via `vite-tsconfig-paths`). In dev, Vite proxies `/api` → `http://localhost:3001` (`vite.config.ts`), so the client can always call relative `/api/...` URLs.
+- **Frontend** (`src/`) — React 18 + Vite + Tailwind + React Router 7. Path alias `@/*` → `src/*` (via `vite-tsconfig-paths`). The client talks to the API via an absolute base URL: `src/lib/api.ts` uses `VITE_API_BASE_URL` (default `http://localhost:3001/api`), not relative `/api` paths. Vite's `server.proxy` (`vite.config.ts`) forwards any relative `/api/*` request to the production API (`https://api.qupu.id`) and **bypasses source-module requests** (`.ts`/`.tsx`/`.js`/`.mjs`/`.cjs`) so the frontend can import browser-safe shared modules from `api/` (e.g. `api/services/wmi/olympiads/registry.ts`) without the proxy swallowing them as 404s.
 - **Backend** (`api/`) — Express app that runs two ways from the same `app.ts`:
   - `api/server.ts` is the local dev entry (nodemon → `tsx api/server.ts`).
   - `api/index.ts` is the Vercel serverless handler; `vercel.json` rewrites `/api/(.*)` to it.
