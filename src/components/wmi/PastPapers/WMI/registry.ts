@@ -1794,3 +1794,7 @@ export function getQuestionExplainer(code?: string): ComponentType<ExplainerProp
   }
   return component
 }
+
+// Reusable explainer-pool templates (Approach A). A question binds via its
+// seed `visual: { templateId, params }`; see ./templates/registry.
+export { getTemplate, templateIds, TEMPLATES, type ExplainerTemplate } from './templates/registry'
