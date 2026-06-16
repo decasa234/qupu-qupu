@@ -22,6 +22,7 @@ import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
 import MePage from './pages/Me'
+import StreakPage from './pages/StreakPage'
 import { resolvePostLoginRoute } from './lib/postLoginRoute'
 import { useAuthStore } from './store/authStore'
 
@@ -235,6 +236,7 @@ export default function App() {
             <Route path="wmi-arena/campur" element={<WmiKonsepDrill />} />
             <Route path="video" element={<MemberVideosPage />} />
             <Route path="profil" element={<MePage />} />
+            <Route path="streak" element={<StreakPage />} />
             <Route path="badges" element={<BadgesPage />} />
             <Route path="shop" element={<ShopPage />} />
             <Route path="quiz/:slug" element={<QuizPage />} />
