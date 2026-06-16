@@ -308,6 +308,7 @@ export default function AdminWmiConcepts() {
           </select>
           <button
             type="button"
+            aria-pressed={olympiadOnly}
             onClick={() => setOlympiadOnly((v) => !v)}
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
               olympiadOnly ? 'bg-qupu-brand-orange text-white' : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
