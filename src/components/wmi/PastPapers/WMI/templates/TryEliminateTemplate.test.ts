@@ -20,7 +20,8 @@ describe('try-and-eliminate template', () => {
 
   test('paramsSchema accepts a full story and rejects a missing field', () => {
     expect(paramsSchema.safeParse(good).success).toBe(true)
-    const { final_en: _omit, ...missing } = good
+    const missing: Partial<typeof good> = { ...good }
+    delete missing.final_en
     expect(paramsSchema.safeParse(missing).success).toBe(false)
   })
 })
