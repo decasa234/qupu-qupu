@@ -108,6 +108,15 @@ Plus smokes (use a temp `.ts`/`.tsx` + `npx tsx`, not inline `-e`):
 
 Then have the user review at **Admin → WMI Concepts → \<concept\>** (or **WMI Drill** for papers).
 
+## Review issue loop
+
+The admin flags granular, per-part problems in **Admin → WMI Concepts / Drill / Review Queue** (stored in `wmi_review_issues`). To fix a batch:
+
+1. Read open, AI-actionable issues: `GET /api/admin/wmi/issues?status=open&ai_actionable=true&concept_slug=<slug>` (concepts) or `&paper_id=<uuid>` (papers). Or paste the admin's **"Copy issues for Claude"** markdown block.
+2. Resolve the source from the target + `part`: concept `slug` → `getIllustration` / `getExplainer` / generator registries; paper `question_id` → the `wmi_questions` row. Simple paper text (stem/answer/hint) the admin can quick-fix in-app; structured `breakdown` / `hint_steps` / `visual` come to you.
+3. `PATCH /api/admin/wmi/issues/<id>` to `status: "in_progress"`, apply the fix, then `PATCH` to `status: "fixed"` with a short `fix_note`.
+4. The admin re-reviews and marks it `verified`.
+
 ## Common mistakes
 
 - Highlight phrase isn't an exact substring of the **display** body (forgot to resolve `[[glossary]]` markup, or matched a section label) → it silently won't highlight. Test across seeds against the display text.

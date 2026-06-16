@@ -73,6 +73,8 @@ When a user submits a score (`services/member.ts` `submitVideoScore`):
 
 Use the **`qupu-math-problem-creation`** skill (`.claude/skills/qupu-math-problem-creation/`) whenever adding or upgrading a WMI concept or paper question's breakdown, illustration, step-by-step, animation, or trap. It encodes the four-role method (question-designer → illustrator / step-explainer / animator, all binding to `params`) and the content rules; W7 (`budget-selection`) is the reference implementation.
 
+**Review fix-loop:** the admin flags granular per-part problems in the review UI (`wmi_review_issues`, migration `0036`). To work them, read open AI-actionable issues via `GET /api/admin/wmi/issues?status=open&ai_actionable=true&concept_slug=…` (concepts) or `&paper_id=…` (papers) — or paste the admin's "Copy issues for Claude" block. Resolve the source from the target + `part` (concept `slug` → illustration/explainer/generator registries; paper `question_id` → the `wmi_questions` row), apply the fix, then `PATCH /api/admin/wmi/issues/:id` to `in_progress` then `fixed` with a `fix_note`; the admin verifies.
+
 ## Documented Solutions
 
 `docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas.
