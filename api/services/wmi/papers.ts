@@ -24,6 +24,7 @@ export interface WmiQuestionDto {
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
   breakdown: Breakdown | null
+  visual: { templateId: string; params: unknown } | null
   code?: string
 }
 
@@ -107,7 +108,7 @@ export async function listWmiQuestionsForPaper(
   const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
     `
       SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
-             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
              p.year, p.round, p.grade, p.variant
       FROM wmi_questions q
       JOIN wmi_papers p ON p.id = q.paper_id
@@ -141,7 +142,7 @@ export async function getWmiDrillQuestion(
           LIMIT 20
         )
         SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+               q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
                p.year, p.round, p.grade, p.variant
         FROM wmi_questions q
         JOIN wmi_papers p ON p.id = q.paper_id
@@ -158,7 +159,7 @@ export async function getWmiDrillQuestion(
       question = await queryOne<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
         `
           SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type,
-                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
+                 q.choices_en, q.choices_id, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
                  p.year, p.round, p.grade, p.variant
           FROM wmi_questions q
           JOIN wmi_papers p ON p.id = q.paper_id

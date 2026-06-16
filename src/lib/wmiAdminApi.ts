@@ -101,6 +101,7 @@ export interface AdminPaperQuestion {
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
   breakdown?: Breakdown | null
+  visual?: { templateId: string; params: unknown } | null
 }
 
 export interface PaperReview {
