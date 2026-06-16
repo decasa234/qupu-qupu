@@ -5,6 +5,25 @@
   "variant": "A",
   "title": "WMI 2020 Grade 3 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q13 (633+1387=2020), Q15 (min subsequence 33512), Q18 (326), Q19 (885, □=9 unique), Q20 (area cross-check 18+72=90), Q21 (4 drop-triples), Q24 (cipher→25108, ⑤=1 unique), Q25 (405 is the provable minimum — hundreds {1,2,3} is arithmetically impossible, and 405+217+368+9=999). Figure-dependent answers checked for internal consistency, not pixel-compared to scans. Only two figure-enumeration nits below.",
+    "findings": [
+      {
+        "q": 17,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Square-count 20 (12 unit + 6 straight + 2 tilted) depends on the reconstructed figure; not independently re-counted against the scan this pass."
+      },
+      {
+        "q": 22,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Spiral 1–5 number path: the four shaded cells (3,2,5,1 → 11) depend on the reconstructed spiral layout; trust the figure rather than a hand walk this pass."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

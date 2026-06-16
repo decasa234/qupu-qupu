@@ -1,0 +1,2692 @@
+{
+  "year": 2025,
+  "grade": 2,
+  "round": "final",
+  "variant": "A",
+  "title": "WMI 2025 Grade 2 Final",
+  "recommended_duration_min": 90,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25 (5-choice + fill-in, 90-min). Strong paper: verified Q2 (max★=4), Q9 (45−1−22=22), Q10 (sheets 4/5/35/57=4), Q12 (25/3+7=1/4 → 25314, unique among options), Q14 (greedy keep → 217, removed 3+8+4=15), Q16 (1521 is the first digit-sum-9 after the 2025; intermediate multiples-of-9 all sum to 18), Q18 (□=6 forced — base-sum 12, only {1,2,3,6} splits with □ largest), Q20 (CCW arcs → loop 426 → A→B=94), Q21 (99N+25=200500 → 2025), Q22 (n−2 ≡ 0 mod 60 → 62), Q24 (bill grid decomposition is unique), Q25 (k=(4v−9)/3 with v≤k forces v=9 → 9 moves). One real concern (Q19) plus figure-dependent nits.",
+    "findings": [
+      {
+        "q": 19,
+        "severity": "warning",
+        "gate": "breakdown",
+        "note": "The breakdown cannot derive its own answer: it models four white cells a/b/c/d = 6/5/7/8 (from 42, 30, 56) and computes one '?' = 5×8 = 40, but then defers the two-'?' sum to the key ('stated answer is 61 (see flag)'). 61−40 = 21, and 21 is not a product of {6,5,7,8} — so the 2×2 model is incomplete and the stated 61 is unverified. Needs the original figure to confirm both the grid shape and the answer."
+      },
+      {
+        "q": 13,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "P/Q/R tiling answer (max 5 copies of R) is entirely figure-driven: pieces-per-Q and pieces-per-R come only from the (absent in text) shapes. needsVisual is false, so a reader without the figure cannot reconstruct it; answer trusted, not re-derived."
+      },
+      {
+        "q": 17,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Exactly-4-painted-faces = 66 − 6 = 60 hinges on there being exactly 6 end/corner cubes (5 painted faces) across the '2025' solids; that count is figure-dependent and not re-verified against the scan."
+      },
+      {
+        "q": 23,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Jersey order 6124735 is consistent with all four photo clues, but the relative order of the two middle players (2 vs 4, Photo C '1,?,?,7') is fixed by the figure, not by the text clues alone; uniqueness trusted from the key."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Grid solution is unique (verified), but which four cells are the shaded A/B/C/D — giving 50+5+10+5 = 70 — is read from the figure; answer trusted on that placement."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "body_en": "Arrange these five numbers 2508, 582, 2025, 5802, and 2058 from smallest to largest. Which number is in the middle?",
+      "body_id": "Urutkan kelima bilangan 2508, 582, 2025, 5802, dan 2058 dari yang terkecil ke terbesar. Bilangan manakah yang berada di tengah?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "2058"
+        },
+        {
+          "label": "B",
+          "text": "582"
+        },
+        {
+          "label": "C",
+          "text": "5802"
+        },
+        {
+          "label": "D",
+          "text": "2025"
+        },
+        {
+          "label": "E",
+          "text": "2508"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "2058"
+        },
+        {
+          "label": "B",
+          "text": "582"
+        },
+        {
+          "label": "C",
+          "text": "5802"
+        },
+        {
+          "label": "D",
+          "text": "2025"
+        },
+        {
+          "label": "E",
+          "text": "2508"
+        }
+      ],
+      "answer": "A",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which number is in the middle",
+            "phrase_id": "Bilangan manakah yang berada di tengah",
+            "note_en": "Find the 3rd number once they are in order.",
+            "note_id": "Cari bilangan ke-3 setelah diurutkan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "from smallest to largest",
+            "phrase_id": "dari yang terkecil ke terbesar",
+            "note_en": "Sort all five numbers, smallest first.",
+            "note_id": "Urutkan kelima bilangan, terkecil dulu."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "The five numbers",
+            "label_id": "Kelima bilangan",
+            "value": "582, 2025, 2058, 2508, 5802"
+          },
+          {
+            "label_en": "Sorted order",
+            "label_id": "Urutan",
+            "value": "582 < 2025 < 2058 < 2508 < 5802"
+          },
+          {
+            "label_en": "Middle (3rd)",
+            "label_id": "Tengah (ke-3)",
+            "value": "2058 -> A"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sort the five numbers, then pick the 3rd",
+          "name_id": "Urutkan kelima bilangan, lalu ambil yang ke-3"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "2025 is the 2nd smallest, not the middle one - the middle of five is the 3rd, which is 2058.",
+          "why_id": "2025 adalah terkecil ke-2, bukan yang tengah - tengah dari lima adalah ke-3, yaitu 2058."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Line them up smallest first: 582, 2025, 2058, 2508, 5802.",
+        "582 is the only 3-digit number, so it is smallest.",
+        "Among the 2-thousands: 2025 < 2058 < 2508; 5802 is biggest.",
+        "The 3rd number is the middle one: 2058 (A)."
+      ],
+      "hint_steps_id": [
+        "Urutkan dari terkecil: 582, 2025, 2058, 2508, 5802.",
+        "582 satu-satunya bilangan 3 angka, jadi paling kecil.",
+        "Di antara 2 ribuan: 2025 < 2058 < 2508; 5802 terbesar.",
+        "Bilangan ke-3 adalah yang tengah: 2058 (A)."
+      ]
+    },
+    {
+      "number": 2,
+      "body_en": "Fill in the boxes with digits 1 to 9. Suppose the six digits in the equation cannot repeat, what is the maximum digit that ★ could be?",
+      "body_id": "Isi kotak-kotak dengan angka 1 sampai 9. Misalkan keenam angka dalam persamaan tidak boleh berulang, berapakah angka terbesar yang mungkin untuk ★?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "3"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "3"
+        }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q2.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "maximum digit that ★ could be",
+            "phrase_id": "angka terbesar yang mungkin untuk ★",
+            "note_en": "Make the star digit as big as possible.",
+            "note_id": "Buat angka bintang sebesar mungkin."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the six digits in the equation cannot repeat",
+            "phrase_id": "keenam angka dalam persamaan tidak boleh berulang",
+            "note_en": "Every digit in the sum is different.",
+            "note_id": "Tiap angka dalam penjumlahan berbeda."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "The sum",
+            "label_id": "Penjumlahan",
+            "value": "star8 + (two boxes) = 73"
+          },
+          {
+            "label_en": "Two-digit addend",
+            "label_id": "Suku dua angka",
+            "value": "box-box at least 10, so star8 at most 63 -> star at most 5"
+          },
+          {
+            "label_en": "Try star = 5",
+            "label_id": "Coba star = 5",
+            "value": "58 + 15 = 73, but 5 repeats X"
+          },
+          {
+            "label_en": "Try star = 4",
+            "label_id": "Coba star = 4",
+            "value": "48 + 25 = 73; digits 4,8,2,5,7,3 all different OK -> D"
+          }
+        ],
+        "strategy": {
+          "name_en": "Make the star big, then check the digits stay different",
+          "name_id": "Buat bintang besar, lalu cek angkanya tetap berbeda"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "A star of 7 reuses the 7 from 73, and 78 is already bigger than 73 - so 7 cannot work.",
+          "why_id": "Bintang 7 memakai ulang angka 7 dari 73, dan 78 sudah lebih besar dari 73 - jadi 7 tak bisa."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "The top number is star-8, added to a two-digit number to make 73.",
+        "The second number has two digits (at least 10), so star-8 is 63 or less.",
+        "Try star = 5: 58 + 15 = 73, but then 5 is used twice.",
+        "Try star = 4: 48 + 25 = 73, and 4, 8, 2, 5, 7, 3 are all different.",
+        "The biggest star that works is 4 (D)."
+      ],
+      "hint_steps_id": [
+        "Bilangan atas adalah bintang-8, ditambah bilangan dua angka menjadi 73.",
+        "Bilangan kedua dua angka (minimal 10), jadi bintang-8 paling besar 63.",
+        "Coba bintang = 5: 58 + 15 = 73, tetapi 5 dipakai dua kali.",
+        "Coba bintang = 4: 48 + 25 = 73, dan 4, 8, 2, 5, 7, 3 semua berbeda.",
+        "Bintang terbesar yang cocok adalah 4 (D)."
+      ]
+    },
+    {
+      "number": 3,
+      "body_en": "Pinky plays in a park. At first, she is 40 m west of the fountain. Then she runs north for 30 m and east for 70 m, and turns to face north. In which direction is the fountain from Pinky?",
+      "body_id": "Pinky bermain di taman. Mula-mula ia berada 40 m di sebelah barat air mancur. Kemudian ia berlari ke utara sejauh 30 m dan ke timur sejauh 70 m, lalu berbalik menghadap utara. Di arah manakah air mancur berada dari Pinky?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "West"
+        },
+        {
+          "label": "B",
+          "text": "North East"
+        },
+        {
+          "label": "C",
+          "text": "South West"
+        },
+        {
+          "label": "D",
+          "text": "South"
+        },
+        {
+          "label": "E",
+          "text": "South East"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "Barat"
+        },
+        {
+          "label": "B",
+          "text": "Timur Laut"
+        },
+        {
+          "label": "C",
+          "text": "Barat Daya"
+        },
+        {
+          "label": "D",
+          "text": "Selatan"
+        },
+        {
+          "label": "E",
+          "text": "Tenggara"
+        }
+      ],
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "40 m west of the fountain",
+            "phrase_id": "40 m di sebelah barat air mancur",
+            "note_en": "Pinky starts west of the fountain.",
+            "note_id": "Pinky mulai di sebelah barat air mancur."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "north for 30 m and east for 70 m",
+            "phrase_id": "ke utara sejauh 30 m dan ke timur sejauh 70 m",
+            "note_en": "The two moves after the start.",
+            "note_id": "Dua gerakan setelah mulai."
+          },
+          {
+            "category": "question",
+            "phrase_en": "In which direction is the fountain from Pinky",
+            "phrase_id": "Di arah manakah air mancur berada dari Pinky",
+            "note_en": "Point from Pinky back to the fountain.",
+            "note_id": "Tunjuk dari Pinky kembali ke air mancur."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Fountain",
+            "label_id": "Air mancur",
+            "value": "at (0, 0)"
+          },
+          {
+            "label_en": "Start",
+            "label_id": "Mulai",
+            "value": "40 m west -> (-40, 0)"
+          },
+          {
+            "label_en": "After north 30, east 70",
+            "label_id": "Setelah utara 30, timur 70",
+            "value": "(-40+70, 0+30) = (30, 30)"
+          },
+          {
+            "label_en": "Fountain from Pinky",
+            "label_id": "Air mancur dari Pinky",
+            "value": "30 m west and 30 m south -> South West -> C"
+          }
+        ],
+        "strategy": {
+          "name_en": "Track Pinky on a map, then point back to the fountain",
+          "name_id": "Lacak Pinky di peta, lalu tunjuk kembali ke air mancur"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "North East is where Pinky walked toward; the fountain is the opposite way - south and west of her.",
+          "why_id": "Timur Laut arah Pinky berjalan; air mancur arah sebaliknya - selatan dan barat darinya."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Put the fountain at the centre. Pinky starts 40 m west: position (-40, 0).",
+        "She goes 30 m north then 70 m east: she lands at (30, 30).",
+        "The fountain (0, 0) is now 30 m west and 30 m south of her.",
+        "West and south together is South West (C). Facing north does not change that."
+      ],
+      "hint_steps_id": [
+        "Letakkan air mancur di pusat. Pinky mulai 40 m ke barat: posisi (-40, 0).",
+        "Ia ke utara 30 m lalu ke timur 70 m: ia berada di (30, 30).",
+        "Air mancur (0, 0) kini 30 m di barat dan 30 m di selatan darinya.",
+        "Barat dan selatan bersama adalah Barat Daya (C). Menghadap utara tak mengubahnya."
+      ]
+    },
+    {
+      "number": 4,
+      "body_en": "The sum of three consecutive even numbers is a 2-digit number \"7□.\" Find the largest possible digit for □.",
+      "body_id": "Jumlah tiga bilangan genap berurutan adalah bilangan 2 angka \"7□.\" Temukan angka terbesar yang mungkin untuk □.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "9"
+        },
+        {
+          "label": "B",
+          "text": "5"
+        },
+        {
+          "label": "C",
+          "text": "2"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "9"
+        },
+        {
+          "label": "B",
+          "text": "5"
+        },
+        {
+          "label": "C",
+          "text": "2"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
+      ],
+      "answer": "D",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "three consecutive even numbers",
+            "phrase_id": "tiga bilangan genap berurutan",
+            "note_en": "Like 24, 26, 28 - each 2 apart.",
+            "note_id": "Seperti 24, 26, 28 - selisih 2."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2-digit number \"7□.\"",
+            "phrase_id": "bilangan 2 angka \"7□.\"",
+            "note_en": "The sum is in the seventies.",
+            "note_id": "Jumlahnya di antara 70-an."
+          },
+          {
+            "category": "question",
+            "phrase_en": "largest possible digit for □",
+            "phrase_id": "angka terbesar yang mungkin untuk □",
+            "note_en": "Pick the biggest box digit that can happen.",
+            "note_id": "Pilih angka kotak terbesar yang mungkin."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 3 evens",
+            "label_id": "Jumlah 3 genap",
+            "value": "n + (n+2) + (n+4) = 3n + 6, a multiple of 6"
+          },
+          {
+            "label_en": "Multiples of 6 in the 70s",
+            "label_id": "Kelipatan 6 di 70-an",
+            "value": "72 and 78"
+          },
+          {
+            "label_en": "72",
+            "label_id": "72",
+            "value": "22 + 24 + 26 = 72 -> box = 2"
+          },
+          {
+            "label_en": "78 (largest)",
+            "label_id": "78 (terbesar)",
+            "value": "24 + 26 + 28 = 78 -> box = 8 -> D"
+          }
+        ],
+        "strategy": {
+          "name_en": "The sum is a multiple of 6; find the largest one in the 70s",
+          "name_id": "Jumlahnya kelipatan 6; cari yang terbesar di 70-an"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "79 is not a multiple of 6, so three consecutive even numbers can never add to 79.",
+          "why_id": "79 bukan kelipatan 6, jadi tiga genap berurutan tak mungkin berjumlah 79."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Three consecutive even numbers add to 3 times the middle one, always a multiple of 6.",
+        "Multiples of 6 between 70 and 79 are 72 and 78.",
+        "78 has the bigger units digit: 24 + 26 + 28 = 78.",
+        "So the largest box digit is 8 (D)."
+      ],
+      "hint_steps_id": [
+        "Tiga genap berurutan berjumlah 3 kali bilangan tengah, selalu kelipatan 6.",
+        "Kelipatan 6 antara 70 dan 79 adalah 72 dan 78.",
+        "78 punya angka satuan lebih besar: 24 + 26 + 28 = 78.",
+        "Jadi angka kotak terbesar adalah 8 (D)."
+      ]
+    },
+    {
+      "number": 5,
+      "body_en": "Straighten the rope in the picture. Find the approximate length of the rope in cm. (The length of the curved part can be neglected.)",
+      "body_id": "Luruskan tali pada gambar. Tentukan panjang tali tersebut dalam cm. (Panjang bagian yang melengkung dapat diabaikan.)",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "8"
+        },
+        {
+          "label": "B",
+          "text": "10"
+        },
+        {
+          "label": "C",
+          "text": "11"
+        },
+        {
+          "label": "D",
+          "text": "14"
+        },
+        {
+          "label": "E",
+          "text": "12"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "8"
+        },
+        {
+          "label": "B",
+          "text": "10"
+        },
+        {
+          "label": "C",
+          "text": "11"
+        },
+        {
+          "label": "D",
+          "text": "14"
+        },
+        {
+          "label": "E",
+          "text": "12"
+        }
+      ],
+      "answer": "E",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q5.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "approximate length of the rope in cm",
+            "phrase_id": "panjang tali tersebut dalam cm",
+            "note_en": "Add the straight pieces using the ruler.",
+            "note_id": "Jumlahkan bagian lurus pakai penggaris."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The length of the curved part can be neglected",
+            "phrase_id": "Panjang bagian yang melengkung dapat diabaikan",
+            "note_en": "Only measure the straight stretches.",
+            "note_id": "Hanya ukur bagian lurusnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Upper piece",
+            "label_id": "Bagian atas",
+            "value": "about 3 cm to 7 cm = 4 cm"
+          },
+          {
+            "label_en": "Lower piece",
+            "label_id": "Bagian bawah",
+            "value": "about 5 cm to 11 cm, doubling back over the ruler"
+          },
+          {
+            "label_en": "Both pieces end-to-end",
+            "label_id": "Kedua bagian disambung",
+            "value": "about 4 cm + 8 cm = 12 cm -> E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read each straight piece on the ruler, then add the lengths",
+          "name_id": "Baca tiap bagian lurus di penggaris, lalu jumlahkan panjangnya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "The rope is two straight pieces laid over the ruler; ignore the curves.",
+        "Read each piece by its start and end marks on the ruler.",
+        "The top piece is about 4 cm and the longer piece is about 8 cm.",
+        "Straightened end-to-end: 4 + 8 is about 12 cm (E)."
+      ],
+      "hint_steps_id": [
+        "Tali terdiri dari dua bagian lurus di atas penggaris; abaikan lengkungannya.",
+        "Baca tiap bagian dari tanda awal dan akhirnya di penggaris.",
+        "Bagian atas sekitar 4 cm dan bagian yang lebih panjang sekitar 8 cm.",
+        "Diluruskan dan disambung: 4 + 8 sekitar 12 cm (E)."
+      ]
+    },
+    {
+      "number": 6,
+      "body_en": "Teacher Ted buys some candies for the students. The number of candies each student gets equals the number of students. If he buys more than 50 candies and less than 80 candies, how many candies does he buy?",
+      "body_id": "Guru Ted membeli beberapa permen untuk para siswa. Jumlah permen yang diterima tiap siswa sama dengan jumlah siswa. Jika ia membeli lebih dari 50 permen dan kurang dari 80 permen, berapa permen yang ia beli?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "77"
+        },
+        {
+          "label": "B",
+          "text": "49"
+        },
+        {
+          "label": "C",
+          "text": "56"
+        },
+        {
+          "label": "D",
+          "text": "64"
+        },
+        {
+          "label": "E",
+          "text": "63"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "77"
+        },
+        {
+          "label": "B",
+          "text": "49"
+        },
+        {
+          "label": "C",
+          "text": "56"
+        },
+        {
+          "label": "D",
+          "text": "64"
+        },
+        {
+          "label": "E",
+          "text": "63"
+        }
+      ],
+      "answer": "D",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The number of candies each student gets equals the number of students",
+            "phrase_id": "Jumlah permen yang diterima tiap siswa sama dengan jumlah siswa",
+            "note_en": "Total candies = students times students.",
+            "note_id": "Total permen = siswa kali siswa."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "more than 50 candies and less than 80 candies",
+            "phrase_id": "lebih dari 50 permen dan kurang dari 80 permen",
+            "note_en": "The total is between 50 and 80.",
+            "note_id": "Totalnya antara 50 dan 80."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many candies does he buy",
+            "phrase_id": "berapa permen yang ia beli",
+            "note_en": "Find that total number.",
+            "note_id": "Cari total itu."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total is a square number",
+            "label_id": "Total bilangan kuadrat",
+            "value": "students x students"
+          },
+          {
+            "label_en": "Squares near the range",
+            "label_id": "Kuadrat di sekitar rentang",
+            "value": "7x7 = 49 (too small), 8x8 = 64, 9x9 = 81 (too big)"
+          },
+          {
+            "label_en": "Only 64 fits 50..80",
+            "label_id": "Hanya 64 yang muat 50..80",
+            "value": "64 -> D"
+          }
+        ],
+        "strategy": {
+          "name_en": "The total must be a perfect square strictly between 50 and 80",
+          "name_id": "Totalnya harus bilangan kuadrat tepat di antara 50 dan 80"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "63 is in the range but it is not a square number, so it cannot be students times students.",
+          "why_id": "63 ada dalam rentang tetapi bukan bilangan kuadrat, jadi tak mungkin siswa kali siswa."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Each student gets as many candies as there are students, so the total is students x students.",
+        "That makes the total a square number.",
+        "Squares: 7x7 = 49 (too small), 8x8 = 64, 9x9 = 81 (too big).",
+        "Only 64 is more than 50 and less than 80 (D)."
+      ],
+      "hint_steps_id": [
+        "Tiap siswa menerima permen sebanyak jumlah siswa, jadi totalnya siswa x siswa.",
+        "Maka totalnya adalah bilangan kuadrat.",
+        "Kuadrat: 7x7 = 49 (terlalu kecil), 8x8 = 64, 9x9 = 81 (terlalu besar).",
+        "Hanya 64 yang lebih dari 50 dan kurang dari 80 (D)."
+      ]
+    },
+    {
+      "number": 7,
+      "body_en": "A cruise ship sails south on the sea. Rose stands on the front deck facing the back of the cruise ship. Which direction is to her right?",
+      "body_id": "Sebuah kapal pesiar berlayar ke selatan. Rose berdiri di dek depan menghadap ke belakang kapal. Arah manakah yang berada di sebelah kanannya?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "East"
+        },
+        {
+          "label": "B",
+          "text": "West"
+        },
+        {
+          "label": "C",
+          "text": "North"
+        },
+        {
+          "label": "D",
+          "text": "South"
+        },
+        {
+          "label": "E",
+          "text": "South East"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "Timur"
+        },
+        {
+          "label": "B",
+          "text": "Barat"
+        },
+        {
+          "label": "C",
+          "text": "Utara"
+        },
+        {
+          "label": "D",
+          "text": "Selatan"
+        },
+        {
+          "label": "E",
+          "text": "Tenggara"
+        }
+      ],
+      "answer": "A",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "sails south",
+            "phrase_id": "berlayar ke selatan",
+            "note_en": "The front of the ship points south.",
+            "note_id": "Bagian depan kapal menghadap selatan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "facing the back of the cruise ship",
+            "phrase_id": "menghadap ke belakang kapal",
+            "note_en": "Rose looks the opposite way - she faces north.",
+            "note_id": "Rose melihat arah sebaliknya - menghadap utara."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which direction is to her right",
+            "phrase_id": "Arah manakah yang berada di sebelah kanannya",
+            "note_en": "Find the direction on her right hand.",
+            "note_id": "Cari arah di sebelah tangan kanannya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Ship goes",
+            "label_id": "Kapal menuju",
+            "value": "south -> front faces south"
+          },
+          {
+            "label_en": "Rose faces the back",
+            "label_id": "Rose menghadap belakang",
+            "value": "so she faces north"
+          },
+          {
+            "label_en": "Facing north, right hand",
+            "label_id": "Menghadap utara, tangan kanan",
+            "value": "points east -> A"
+          }
+        ],
+        "strategy": {
+          "name_en": "Turn yourself to face north, then your right hand points east",
+          "name_id": "Hadapkan dirimu ke utara, lalu tangan kananmu menunjuk timur"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "West is on her LEFT when she faces north, not her right.",
+          "why_id": "Barat ada di sebelah KIRI saat menghadap utara, bukan kanan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "The ship sails south, so its front points south and its back points north.",
+        "Rose faces the back, so she faces north.",
+        "When you face north, east is on your right hand.",
+        "So the direction to her right is East (A)."
+      ],
+      "hint_steps_id": [
+        "Kapal berlayar ke selatan, jadi depannya menghadap selatan dan belakangnya ke utara.",
+        "Rose menghadap belakang, jadi ia menghadap utara.",
+        "Saat menghadap utara, timur ada di tangan kananmu.",
+        "Jadi arah di sebelah kanannya adalah Timur (A)."
+      ]
+    },
+    {
+      "number": 8,
+      "body_en": "Musa and Kody play Gomoku on grid paper. Musa uses the black stones and Kody uses the white stones. Musa goes first and they take turns placing one stone per turn. The first player to make a straight line of five stones horizontally, vertically, or diagonally wins. The white stone A is at position \"1−3.\" Which position should Musa place the black stone next in order to win?",
+      "body_id": "Musa dan Kody bermain Gomoku di kertas berpetak. Musa menggunakan batu hitam dan Kody menggunakan batu putih. Musa jalan pertama dan mereka bergantian meletakkan satu batu per giliran. Pemain pertama yang membuat garis lurus lima batu secara horizontal, vertikal, atau diagonal menang. Batu putih A berada di posisi \"1−3.\" Di posisi manakah Musa harus meletakkan batu hitam berikutnya agar menang?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "5−3"
+        },
+        {
+          "label": "B",
+          "text": "1−7"
+        },
+        {
+          "label": "C",
+          "text": "5−2"
+        },
+        {
+          "label": "D",
+          "text": "3−5"
+        },
+        {
+          "label": "E",
+          "text": "2−2"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "5−3"
+        },
+        {
+          "label": "B",
+          "text": "1−7"
+        },
+        {
+          "label": "C",
+          "text": "5−2"
+        },
+        {
+          "label": "D",
+          "text": "3−5"
+        },
+        {
+          "label": "E",
+          "text": "2−2"
+        }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q8.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "make a straight line of five stones",
+            "phrase_id": "membuat garis lurus lima batu",
+            "note_en": "Five in a row wins.",
+            "note_id": "Lima berjajar menang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which position should Musa place the black stone next in order to win",
+            "phrase_id": "Di posisi manakah Musa harus meletakkan batu hitam berikutnya agar menang",
+            "note_en": "Find the cell that completes five black stones.",
+            "note_id": "Cari kotak yang melengkapi lima batu hitam."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Black stones already down",
+            "label_id": "Batu hitam yang sudah ada",
+            "value": "include the diagonal 1-6, 2-5, 3-4, 4-3"
+          },
+          {
+            "label_en": "Four black on one diagonal",
+            "label_id": "Empat hitam satu diagonal",
+            "value": "1-6, 2-5, 3-4, 4-3 go down to the right"
+          },
+          {
+            "label_en": "Missing end of that line",
+            "label_id": "Ujung garis yang kurang",
+            "value": "next cell is 5-2"
+          },
+          {
+            "label_en": "Place at 5-2",
+            "label_id": "Letakkan di 5-2",
+            "value": "makes five in a row -> C"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the four black stones in a line, then play the empty end cell",
+          "name_id": "Cari empat batu hitam sejajar, lalu isi kotak ujung yang kosong"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "5-3 sits beside the line but does not extend the four black stones into five.",
+          "why_id": "5-3 ada di dekat garis tetapi tak memperpanjang empat batu hitam menjadi lima."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Look for a line where the black stones almost reach five.",
+        "Black stones sit at 1-6, 2-5, 3-4, and 4-3 - four in a row on a diagonal.",
+        "That diagonal goes down to the right; its next cell is 5-2.",
+        "Placing a black stone at 5-2 makes five in a row and wins (C)."
+      ],
+      "hint_steps_id": [
+        "Cari garis tempat batu hitam hampir mencapai lima.",
+        "Batu hitam ada di 1-6, 2-5, 3-4, dan 4-3 - empat sejajar pada diagonal.",
+        "Diagonal itu turun ke kanan; kotak berikutnya adalah 5-2.",
+        "Meletakkan batu hitam di 5-2 membuat lima sejajar dan menang (C)."
+      ]
+    },
+    {
+      "number": 9,
+      "body_en": "Find all 2-digit numbers whose tens digit is larger than the units digit, and one of them is Rita's lucky number. If 22 of the numbers are larger than the lucky number, how many numbers are smaller than the lucky number?",
+      "body_id": "Temukan semua bilangan 2 angka yang angka puluhannya lebih besar dari angka satuannya, dan salah satunya adalah angka keberuntungan Rita. Jika 22 dari bilangan-bilangan itu lebih besar dari angka keberuntungan, berapa banyak bilangan yang lebih kecil dari angka keberuntungan?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "33"
+        },
+        {
+          "label": "B",
+          "text": "27"
+        },
+        {
+          "label": "C",
+          "text": "32"
+        },
+        {
+          "label": "D",
+          "text": "37"
+        },
+        {
+          "label": "E",
+          "text": "22"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "33"
+        },
+        {
+          "label": "B",
+          "text": "27"
+        },
+        {
+          "label": "C",
+          "text": "32"
+        },
+        {
+          "label": "D",
+          "text": "37"
+        },
+        {
+          "label": "E",
+          "text": "22"
+        }
+      ],
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2-digit numbers whose tens digit is larger than the units digit",
+            "phrase_id": "bilangan 2 angka yang angka puluhannya lebih besar dari angka satuannya",
+            "note_en": "Numbers like 10, 21, 98 - tens beats units.",
+            "note_id": "Bilangan seperti 10, 21, 98 - puluhan lebih besar."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "22 of the numbers are larger than the lucky number",
+            "phrase_id": "22 dari bilangan-bilangan itu lebih besar dari angka keberuntungan",
+            "note_en": "22 of them sit above the lucky number.",
+            "note_id": "22 di antaranya di atas angka keberuntungan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many numbers are smaller than the lucky number",
+            "phrase_id": "berapa banyak bilangan yang lebih kecil dari angka keberuntungan",
+            "note_en": "Find how many sit below it.",
+            "note_id": "Cari berapa yang di bawahnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Count per tens digit",
+            "label_id": "Banyak per puluhan",
+            "value": "tens t gives t numbers (units 0..t-1)"
+          },
+          {
+            "label_en": "Total such numbers",
+            "label_id": "Total bilangan itu",
+            "value": "1+2+3+...+9 = 45"
+          },
+          {
+            "label_en": "Remove the lucky one and the 22 above",
+            "label_id": "Buang yang beruntung dan 22 di atasnya",
+            "value": "45 - 1 - 22 = 22"
+          },
+          {
+            "label_en": "Numbers below the lucky one",
+            "label_id": "Bilangan di bawahnya",
+            "value": "22 -> E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count all such numbers, then subtract the lucky one and the 22 above it",
+          "name_id": "Hitung semua bilangan itu, lalu kurangi yang beruntung dan 22 di atasnya"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "22 above does not mean 27 below - the total is 45, so below = 45 - 1 - 22 = 22.",
+          "why_id": "22 di atas bukan berarti 27 di bawah - totalnya 45, jadi di bawah = 45 - 1 - 22 = 22."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Count 2-digit numbers with tens > units: tens 1 gives 1, tens 2 gives 2, ..., tens 9 gives 9.",
+        "Total = 1 + 2 + ... + 9 = 45 numbers.",
+        "One of them is the lucky number, and 22 are bigger than it.",
+        "So the smaller ones = 45 - 1 - 22 = 22 (E)."
+      ],
+      "hint_steps_id": [
+        "Hitung bilangan 2 angka dengan puluhan > satuan: puluhan 1 ada 1, puluhan 2 ada 2, ..., puluhan 9 ada 9.",
+        "Total = 1 + 2 + ... + 9 = 45 bilangan.",
+        "Salah satunya angka keberuntungan, dan 22 lebih besar darinya.",
+        "Jadi yang lebih kecil = 45 - 1 - 22 = 22 (E)."
+      ]
+    },
+    {
+      "number": 10,
+      "body_en": "Eric's younger brother tore several pieces of paper from a novel by accident. Eric checks and finds that pages 8, 9, 70, 113, and 114 were torn. What is the minimum number of pieces of paper his younger brother tore from the novel?",
+      "body_id": "Adik Eric merobek beberapa lembar kertas dari sebuah novel secara tidak sengaja. Eric memeriksa dan mendapati halaman 8, 9, 70, 113, dan 114 telah dirobek. Berapakah jumlah minimum lembar kertas yang dirobek oleh adiknya dari novel itu?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "10"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "10"
+        }
+      ],
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "pages 8, 9, 70, 113, and 114 were torn",
+            "phrase_id": "halaman 8, 9, 70, 113, dan 114 telah dirobek",
+            "note_en": "These page numbers are missing.",
+            "note_id": "Nomor halaman ini hilang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "minimum number of pieces of paper",
+            "phrase_id": "jumlah minimum lembar kertas",
+            "note_en": "Each sheet of paper holds two page numbers.",
+            "note_id": "Tiap lembar kertas memuat dua nomor halaman."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sheet n holds pages",
+            "label_id": "Lembar n memuat halaman",
+            "value": "(2n-1) and 2n"
+          },
+          {
+            "label_en": "Pages 8 and 9",
+            "label_id": "Halaman 8 dan 9",
+            "value": "8 on sheet 4 (7,8); 9 on sheet 5 (9,10) -> 2 sheets"
+          },
+          {
+            "label_en": "Page 70",
+            "label_id": "Halaman 70",
+            "value": "sheet 35 (69,70) -> 1 sheet"
+          },
+          {
+            "label_en": "Pages 113 and 114",
+            "label_id": "Halaman 113 dan 114",
+            "value": "both on sheet 57 (113,114) -> 1 sheet"
+          },
+          {
+            "label_en": "Different sheets",
+            "label_id": "Lembar berbeda",
+            "value": "sheets 4, 5, 35, 57 -> 4 -> B"
+          }
+        ],
+        "strategy": {
+          "name_en": "Group page numbers onto sheets (two pages per sheet), then count the sheets",
+          "name_id": "Kelompokkan nomor halaman ke lembar (dua halaman per lembar), lalu hitung lembarnya"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "Counting 5 sheets treats every page as its own sheet, but 113 and 114 share one sheet.",
+          "why_id": "Menghitung 5 lembar menganggap tiap halaman satu lembar, padahal 113 dan 114 satu lembar."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "One sheet of paper holds two page numbers: (2n-1) and 2n.",
+        "8 is on the sheet with 7,8; 9 is on the sheet with 9,10 - two different sheets.",
+        "70 is on the sheet with 69,70 - one sheet.",
+        "113 and 114 sit on the same sheet - one sheet.",
+        "Different sheets: 4, 5, 35, 57 -> at least 4 sheets (B)."
+      ],
+      "hint_steps_id": [
+        "Satu lembar kertas memuat dua nomor halaman: (2n-1) dan 2n.",
+        "8 ada di lembar 7,8; 9 ada di lembar 9,10 - dua lembar berbeda.",
+        "70 ada di lembar 69,70 - satu lembar.",
+        "113 dan 114 ada di lembar yang sama - satu lembar.",
+        "Lembar berbeda: 4, 5, 35, 57 -> minimal 4 lembar (B)."
+      ]
+    },
+    {
+      "number": 11,
+      "body_en": "Observe the pattern of the figure. Which option should be placed at \"?\"?",
+      "body_id": "Amati pola pada gambar. Pilihan manakah yang harus diletakkan di \"?\"?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "2 happy + 1 sad (3 faces)"
+        },
+        {
+          "label": "B",
+          "text": "2 sad (2 faces)"
+        },
+        {
+          "label": "C",
+          "text": "1 happy + 1 sad (2 faces)"
+        },
+        {
+          "label": "D",
+          "text": "1 happy (1 face)"
+        },
+        {
+          "label": "E",
+          "text": "3 sad (3 faces)"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "2 senang + 1 sedih (3 wajah)"
+        },
+        {
+          "label": "B",
+          "text": "2 sedih (2 wajah)"
+        },
+        {
+          "label": "C",
+          "text": "1 senang + 1 sedih (2 wajah)"
+        },
+        {
+          "label": "D",
+          "text": "1 senang (1 wajah)"
+        },
+        {
+          "label": "E",
+          "text": "3 sedih (3 wajah)"
+        }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q11.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Observe the pattern of the figure",
+            "phrase_id": "Amati pola pada gambar",
+            "note_en": "The columns repeat in groups.",
+            "note_id": "Kolom-kolomnya berulang dalam kelompok."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which option should be placed at \"?\"",
+            "phrase_id": "Pilihan manakah yang harus diletakkan di \"?\"",
+            "note_en": "Find the group of faces that fits the gap.",
+            "note_id": "Cari kelompok wajah yang cocok di celah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Column heights",
+            "label_id": "Tinggi kolom",
+            "value": "1, 2, 3 repeating: 1,2,3, 1,?,3, 1,2,3"
+          },
+          {
+            "label_en": "The gap is the middle of a group",
+            "label_id": "Celah di tengah kelompok",
+            "value": "that slot has height 2 -> 2 faces"
+          },
+          {
+            "label_en": "Faces alternate happy/sad",
+            "label_id": "Wajah selang-seling senang/sedih",
+            "value": "the 2-face slot is 1 happy + 1 sad"
+          },
+          {
+            "label_en": "Best fit",
+            "label_id": "Paling cocok",
+            "value": "1 happy + 1 sad (2 faces) -> C"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read the repeating group, locate the gap, then match its size and faces",
+          "name_id": "Baca kelompok berulang, temukan celah, lalu cocokkan ukuran dan wajahnya"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "3 sad faces is too tall - the gap sits in the height-2 slot of the pattern, not a height-3 one.",
+          "why_id": "3 wajah sedih terlalu tinggi - celah ada di slot tinggi-2 dalam pola, bukan tinggi-3."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "The columns repeat in groups whose heights go 1, 2, 3.",
+        "The gap marked ? sits in the middle of a group, where the height is 2 - so 2 faces.",
+        "The faces alternate happy and sad, giving 1 happy + 1 sad.",
+        "That matches option C."
+      ],
+      "hint_steps_id": [
+        "Kolom-kolom berulang dalam kelompok dengan tinggi 1, 2, 3.",
+        "Celah bertanda ? ada di tengah kelompok, di mana tingginya 2 - jadi 2 wajah.",
+        "Wajahnya selang-seling senang dan sedih, memberi 1 senang + 1 sedih.",
+        "Itu cocok dengan pilihan C."
+      ]
+    },
+    {
+      "number": 12,
+      "body_en": "\"One week after □□/□ (day/month) is □/□ (day/month).\" Fill the digits 1, 2, 3, 4, and 5 in the five boxes to satisfy the condition. What is the order of these five digits from left to right?",
+      "body_id": "\"Satu minggu setelah □□/□ (tanggal/bulan) adalah □/□ (tanggal/bulan).\" Isi angka 1, 2, 3, 4, dan 5 di lima kotak untuk memenuhi kondisi tersebut. Bagaimana urutan kelima angka tersebut dari kiri ke kanan?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "23415"
+        },
+        {
+          "label": "B",
+          "text": "25314"
+        },
+        {
+          "label": "C",
+          "text": "24315"
+        },
+        {
+          "label": "D",
+          "text": "24513"
+        },
+        {
+          "label": "E",
+          "text": "15243"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "23415"
+        },
+        {
+          "label": "B",
+          "text": "25314"
+        },
+        {
+          "label": "C",
+          "text": "24315"
+        },
+        {
+          "label": "D",
+          "text": "24513"
+        },
+        {
+          "label": "E",
+          "text": "15243"
+        }
+      ],
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "One week after",
+            "phrase_id": "Satu minggu setelah",
+            "note_en": "Add 7 days to the first date.",
+            "note_id": "Tambahkan 7 hari ke tanggal pertama."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Fill the digits 1, 2, 3, 4, and 5 in the five boxes",
+            "phrase_id": "Isi angka 1, 2, 3, 4, dan 5 di lima kotak",
+            "note_en": "Use each digit once.",
+            "note_id": "Pakai tiap angka sekali."
+          },
+          {
+            "category": "question",
+            "phrase_en": "order of these five digits from left to right",
+            "phrase_id": "urutan kelima angka tersebut dari kiri ke kanan",
+            "note_en": "Write the five digits in order.",
+            "note_id": "Tulis kelima angka secara urut."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Format",
+            "label_id": "Format",
+            "value": "DD/M one week later is D/M"
+          },
+          {
+            "label_en": "Need a day near a month end",
+            "label_id": "Perlu tanggal dekat akhir bulan",
+            "value": "so +7 days rolls into the next month"
+          },
+          {
+            "label_en": "Try 25/3",
+            "label_id": "Coba 25/3",
+            "value": "25 March + 7 days = 1 April = 1/4"
+          },
+          {
+            "label_en": "Digits left to right",
+            "label_id": "Angka kiri ke kanan",
+            "value": "2 5 3 1 4 -> all of 1..5 used -> B"
+          }
+        ],
+        "strategy": {
+          "name_en": "Make the first date 7 days before a new month, using each digit once",
+          "name_id": "Buat tanggal pertama 7 hari sebelum bulan baru, tiap angka sekali"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "23/4 plus 7 days is 30/4, still the same month, so the month digit could not change as the boxes require.",
+          "why_id": "23/4 tambah 7 hari adalah 30/4, masih bulan sama, jadi angka bulan tak berubah seperti yang diminta."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The first date is two digits over one (DD/M); a week later is D/M.",
+        "Adding 7 days should jump into the next month, so the start is near the end of a month.",
+        "Try 25/3: 25 March + 7 days = 1 April, written 1/4.",
+        "Reading the boxes left to right gives 2, 5, 3, 1, 4 - all of 1..5 (B)."
+      ],
+      "hint_steps_id": [
+        "Tanggal pertama dua angka per satu (DD/M); seminggu kemudian D/M.",
+        "Menambah 7 hari harus melompat ke bulan berikutnya, jadi awalnya dekat akhir bulan.",
+        "Coba 25/3: 25 Maret + 7 hari = 1 April, ditulis 1/4.",
+        "Membaca kotak dari kiri ke kanan: 2, 5, 3, 1, 4 - semua 1..5 (B)."
+      ]
+    },
+    {
+      "number": 13,
+      "body_en": "Kaden has several pieces of shape P, and they can form 9 copies of shape Q. Find the maximum number of copies of shape R that can be formed using the same number of pieces of shape P.",
+      "body_id": "Kaden memiliki beberapa keping bentuk P, dan mereka dapat membentuk 9 salinan bentuk Q. Temukan jumlah maksimum salinan bentuk R yang dapat dibentuk menggunakan jumlah keping bentuk P yang sama.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "3"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "3"
+        }
+      ],
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "9 copies of shape Q",
+            "phrase_id": "9 salinan bentuk Q",
+            "note_en": "The pieces make exactly 9 of shape Q.",
+            "note_id": "Keping-kepingnya membuat tepat 9 bentuk Q."
+          },
+          {
+            "category": "question",
+            "phrase_en": "maximum number of copies of shape R",
+            "phrase_id": "jumlah maksimum salinan bentuk R",
+            "note_en": "Reuse the same pieces to build shape R.",
+            "note_id": "Pakai keping yang sama untuk membentuk R."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "using the same number of pieces of shape P",
+            "phrase_id": "menggunakan jumlah keping bentuk P yang sama",
+            "note_en": "The total number of P pieces stays fixed.",
+            "note_id": "Jumlah keping P tetap."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pieces used by 9 shape-Q",
+            "label_id": "Keping untuk 9 bentuk Q",
+            "value": "9 x (pieces per Q) = total P"
+          },
+          {
+            "label_en": "Pieces per shape R",
+            "label_id": "Keping per bentuk R",
+            "value": "each R needs more pieces than each Q"
+          },
+          {
+            "label_en": "Maximum shape-R",
+            "label_id": "Maksimum bentuk R",
+            "value": "total P divided by pieces-per-R, rounded down -> 5 (C)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the total P pieces from the 9 Q shapes, then divide by the pieces one R needs",
+          "name_id": "Cari total keping P dari 9 bentuk Q, lalu bagi dengan keping yang dibutuhkan satu R"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "The pieces of shape P make exactly 9 copies of shape Q, so total P = 9 x (pieces per Q).",
+        "Shape R needs more pieces than shape Q does.",
+        "Share the same total of P pieces among copies of R.",
+        "Dividing and keeping whole copies gives the most copies of R: 5 (C)."
+      ],
+      "hint_steps_id": [
+        "Keping bentuk P membuat tepat 9 salinan bentuk Q, jadi total P = 9 x (keping per Q).",
+        "Bentuk R butuh lebih banyak keping daripada bentuk Q.",
+        "Bagikan total keping P yang sama untuk salinan R.",
+        "Membagi dan menyisakan salinan utuh memberi salinan R terbanyak: 5 (C)."
+      ]
+    },
+    {
+      "number": 14,
+      "body_en": "Remove some digits from a number without changing the order of the remaining digits to make a new number. For example, removing one digit from 5431: removing 1 gives 543; removing 3 gives 541. If three digits are removed from 328417 to form the smallest possible number, find the sum of the three digits that are removed.",
+      "body_id": "Hapus beberapa angka dari sebuah bilangan tanpa mengubah urutan angka yang tersisa untuk membuat bilangan baru. Misalnya, menghapus satu angka dari 5431: menghapus 1 menghasilkan 543; menghapus 3 menghasilkan 541. Jika tiga angka dihapus dari 328417 untuk membentuk bilangan terkecil yang mungkin, tentukan jumlah ketiga angka yang dihapus.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "19"
+        },
+        {
+          "label": "B",
+          "text": "18"
+        },
+        {
+          "label": "C",
+          "text": "12"
+        },
+        {
+          "label": "D",
+          "text": "13"
+        },
+        {
+          "label": "E",
+          "text": "15"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "19"
+        },
+        {
+          "label": "B",
+          "text": "18"
+        },
+        {
+          "label": "C",
+          "text": "12"
+        },
+        {
+          "label": "D",
+          "text": "13"
+        },
+        {
+          "label": "E",
+          "text": "15"
+        }
+      ],
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "without changing the order of the remaining digits",
+            "phrase_id": "tanpa mengubah urutan angka yang tersisa",
+            "note_en": "Kept digits stay in their original order.",
+            "note_id": "Angka yang disimpan tetap urut asli."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "three digits are removed from 328417",
+            "phrase_id": "tiga angka dihapus dari 328417",
+            "note_en": "Six digits, remove 3, keep 3.",
+            "note_id": "Enam angka, hapus 3, sisakan 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of the three digits that are removed",
+            "phrase_id": "jumlah ketiga angka yang dihapus",
+            "note_en": "Add the three removed digits.",
+            "note_id": "Jumlahkan ketiga angka yang dihapus."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Keep 3 digits, smallest number",
+            "label_id": "Sisakan 3 angka, bilangan terkecil",
+            "value": "scan left to right, take the smallest leading digit"
+          },
+          {
+            "label_en": "1st kept digit",
+            "label_id": "Angka ke-1 disimpan",
+            "value": "smallest of 3,2,8,4 (with 2 left after) = 2"
+          },
+          {
+            "label_en": "2nd kept digit",
+            "label_id": "Angka ke-2 disimpan",
+            "value": "smallest of 8,4,1 = 1"
+          },
+          {
+            "label_en": "3rd kept digit",
+            "label_id": "Angka ke-3 disimpan",
+            "value": "last digit = 7 -> number 217"
+          },
+          {
+            "label_en": "Removed digits",
+            "label_id": "Angka yang dihapus",
+            "value": "3, 8, 4 -> sum 3+8+4 = 15 -> E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Greedily keep the smallest possible leading digits, then add what was removed",
+          "name_id": "Serakah simpan angka depan terkecil, lalu jumlahkan yang dihapus"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "Removing the three biggest digits would break the left-to-right order; the smallest number is 217, so the removed digits are 3, 8, 4 = 15.",
+          "why_id": "Menghapus tiga angka terbesar melanggar urutan kiri-kanan; bilangan terkecil adalah 217, jadi yang dihapus 3, 8, 4 = 15."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "From 328417, keep 3 digits in order to make the smallest number.",
+        "First kept digit: the smallest among 3,2,8,4 is 2.",
+        "Next: the smallest among 8,4,1 is 1; then the last digit 7 -> 217.",
+        "The removed digits are 3, 8, 4, and 3 + 8 + 4 = 15 (E)."
+      ],
+      "hint_steps_id": [
+        "Dari 328417, sisakan 3 angka berurutan untuk bilangan terkecil.",
+        "Angka pertama disimpan: terkecil di antara 3,2,8,4 adalah 2.",
+        "Berikutnya: terkecil di antara 8,4,1 adalah 1; lalu angka terakhir 7 -> 217.",
+        "Angka yang dihapus 3, 8, 4, dan 3 + 8 + 4 = 15 (E)."
+      ]
+    },
+    {
+      "number": 15,
+      "body_en": "Place the expressions from the five options into the blanks and arrange the results from largest to smallest. Which expression is placed at the position marked with a smiley face (the 2nd largest)?",
+      "body_id": "Letakkan ekspresi dari kelima pilihan ke dalam kotak-kotak dan urutkan hasilnya dari terbesar ke terkecil. Ekspresi manakah yang diletakkan di posisi yang ditandai dengan wajah senyum (terbesar ke-2)?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        {
+          "label": "A",
+          "text": "7 × 7"
+        },
+        {
+          "label": "B",
+          "text": "44 + 18"
+        },
+        {
+          "label": "C",
+          "text": "5 × 9"
+        },
+        {
+          "label": "D",
+          "text": "205 − 128"
+        },
+        {
+          "label": "E",
+          "text": "16 + 37"
+        }
+      ],
+      "choices_id": [
+        {
+          "label": "A",
+          "text": "7 × 7"
+        },
+        {
+          "label": "B",
+          "text": "44 + 18"
+        },
+        {
+          "label": "C",
+          "text": "5 × 9"
+        },
+        {
+          "label": "D",
+          "text": "205 − 128"
+        },
+        {
+          "label": "E",
+          "text": "16 + 37"
+        }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q15.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which expression is placed at the position marked with a smiley face",
+            "phrase_id": "Ekspresi manakah yang diletakkan di posisi yang ditandai dengan wajah senyum",
+            "note_en": "Find the 2nd-largest result.",
+            "note_id": "Cari hasil terbesar ke-2."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "arrange the results from largest to smallest",
+            "phrase_id": "urutkan hasilnya dari terbesar ke terkecil",
+            "note_en": "Work out each value first.",
+            "note_id": "Hitung tiap nilai dulu."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "A",
+            "label_id": "A",
+            "value": "7 x 7 = 49"
+          },
+          {
+            "label_en": "B",
+            "label_id": "B",
+            "value": "44 + 18 = 62"
+          },
+          {
+            "label_en": "C",
+            "label_id": "C",
+            "value": "5 x 9 = 45"
+          },
+          {
+            "label_en": "D",
+            "label_id": "D",
+            "value": "205 - 128 = 77"
+          },
+          {
+            "label_en": "E",
+            "label_id": "E",
+            "value": "16 + 37 = 53"
+          },
+          {
+            "label_en": "Largest to smallest",
+            "label_id": "Terbesar ke terkecil",
+            "value": "77, 62, 53, 49, 45"
+          },
+          {
+            "label_en": "2nd largest",
+            "label_id": "Terbesar ke-2",
+            "value": "62 = B"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compute every expression, sort largest to smallest, take the 2nd",
+          "name_id": "Hitung tiap ekspresi, urutkan terbesar ke terkecil, ambil yang ke-2"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "205 - 128 = 77 is the LARGEST, not the 2nd largest; the smiley marks the 2nd, which is 62 (B).",
+          "why_id": "205 - 128 = 77 adalah TERBESAR, bukan terbesar ke-2; wajah senyum menandai ke-2, yaitu 62 (B)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Work out each value: A 49, B 62, C 45, D 77, E 53.",
+        "Sort from largest to smallest: 77, 62, 53, 49, 45.",
+        "The smiley marks the 2nd largest, which is 62.",
+        "62 is expression B."
+      ],
+      "hint_steps_id": [
+        "Hitung tiap nilai: A 49, B 62, C 45, D 77, E 53.",
+        "Urutkan dari terbesar ke terkecil: 77, 62, 53, 49, 45.",
+        "Wajah senyum menandai terbesar ke-2, yaitu 62.",
+        "62 adalah ekspresi B."
+      ]
+    },
+    {
+      "number": 16,
+      "body_en": "This year is 2025, and the sum of its 4 digits is 2 + 0 + 2 + 5 = 9. Keep subtracting 8 from 2025. During the process, which number appears first whose four digits have a sum of 9?",
+      "body_id": "Tahun ini adalah 2025, dan jumlah 4 digitnya adalah 2 + 0 + 2 + 5 = 9. Terus kurangkan 8 dari 2025. Selama proses tersebut, bilangan manakah yang pertama kali muncul dengan jumlah empat digitnya sama dengan 9?",
+      "answer_type": "fill_in",
+      "answer": "1521",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Keep subtracting 8 from 2025",
+            "phrase_id": "Terus kurangkan 8 dari 2025",
+            "note_en": "Go 2025, 2017, 2009, ... by 8s.",
+            "note_id": "Jalan 2025, 2017, 2009, ... per 8."
+          },
+          {
+            "category": "question",
+            "phrase_en": "which number appears first whose four digits have a sum of 9",
+            "phrase_id": "bilangan manakah yang pertama kali muncul dengan jumlah empat digitnya sama dengan 9",
+            "note_en": "Find the first one (after 2025) with digit sum 9.",
+            "note_id": "Cari yang pertama (setelah 2025) berdigit jumlah 9."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Start",
+            "label_id": "Mulai",
+            "value": "2025 (digit sum 9, but we move past it)"
+          },
+          {
+            "label_en": "Subtract 8 repeatedly",
+            "label_id": "Kurangi 8 berulang",
+            "value": "2017, 2009, 2001, ... digit sums 10, 11, 3, ..."
+          },
+          {
+            "label_en": "Steps to a digit-sum of 9",
+            "label_id": "Langkah hingga jumlah digit 9",
+            "value": "2025 - 63 x 8 = 1521"
+          },
+          {
+            "label_en": "Check 1521",
+            "label_id": "Cek 1521",
+            "value": "1 + 5 + 2 + 1 = 9 -> answer 1521"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract 8 step by step and check the digit sum each time",
+          "name_id": "Kurangi 8 langkah demi langkah dan cek jumlah digitnya tiap kali"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "1521"
+        }
+      },
+      "hint_steps_en": [
+        "Start at 2025 and keep subtracting 8: 2017, 2009, 2001, ...",
+        "Check the digit sum each time; we want the first that equals 9 again.",
+        "After 63 subtractions we reach 2025 - 504 = 1521.",
+        "1 + 5 + 2 + 1 = 9, so the answer is 1521."
+      ],
+      "hint_steps_id": [
+        "Mulai dari 2025 dan terus kurangi 8: 2017, 2009, 2001, ...",
+        "Cek jumlah digitnya tiap kali; kita cari yang pertama bernilai 9 lagi.",
+        "Setelah 63 pengurangan kita mencapai 2025 - 504 = 1521.",
+        "1 + 5 + 2 + 1 = 9, jadi jawabannya 1521."
+      ]
+    },
+    {
+      "number": 17,
+      "body_en": "Oscar uses 66 small cubes to build solid figures in the shape of the year 2025 and paints them. How many small cubes have exactly four faces painted?",
+      "body_id": "Oscar menggunakan 66 kubus kecil untuk membuat figur padat berbentuk angka tahun 2025 dan mengecatnya. Berapa banyak kubus kecil yang tepat empat sisinya dicat?",
+      "answer_type": "fill_in",
+      "answer": "60",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q17.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "66 small cubes",
+            "phrase_id": "66 kubus kecil",
+            "note_en": "The 2025 shapes use 66 cubes in all.",
+            "note_id": "Bentuk 2025 memakai 66 kubus seluruhnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many small cubes have exactly four faces painted",
+            "phrase_id": "Berapa banyak kubus kecil yang tepat empat sisinya dicat",
+            "note_en": "Count cubes with exactly 4 painted faces.",
+            "note_id": "Hitung kubus dengan tepat 4 sisi dicat."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Every cube is one thick",
+            "label_id": "Tiap kubus satu lapis",
+            "value": "front and back faces are always painted (2)"
+          },
+          {
+            "label_en": "Straight-run cube",
+            "label_id": "Kubus di bagian lurus",
+            "value": "2 more side faces painted -> 4 faces total"
+          },
+          {
+            "label_en": "End or corner cube",
+            "label_id": "Kubus ujung atau sudut",
+            "value": "3 more side faces painted -> 5 faces total"
+          },
+          {
+            "label_en": "End or corner cubes",
+            "label_id": "Kubus ujung atau sudut",
+            "value": "6 of them across the 4 digits"
+          },
+          {
+            "label_en": "Exactly four faces",
+            "label_id": "Tepat empat sisi",
+            "value": "66 - 6 = 60"
+          }
+        ],
+        "strategy": {
+          "name_en": "Front and back are always painted; count cubes that expose exactly two more sides",
+          "name_id": "Depan dan belakang selalu dicat; hitung kubus yang menampakkan tepat dua sisi lagi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "60"
+        }
+      },
+      "hint_steps_en": [
+        "The shapes are one cube thick, so every cube has its front and back painted (2 faces).",
+        "A cube along a straight stretch shows 2 more side faces - exactly 4 painted.",
+        "A cube at an end or corner shows 3 more sides - 5 painted, so it does NOT count.",
+        "There are 6 such end or corner cubes, so 66 - 6 = 60 cubes have exactly four faces (60)."
+      ],
+      "hint_steps_id": [
+        "Bentuknya satu kubus tebal, jadi tiap kubus dicat depan dan belakangnya (2 sisi).",
+        "Kubus di bagian lurus menampakkan 2 sisi lagi - tepat 4 dicat.",
+        "Kubus di ujung atau sudut menampakkan 3 sisi lagi - 5 dicat, jadi TIDAK dihitung.",
+        "Ada 6 kubus ujung atau sudut seperti itu, jadi 66 - 6 = 60 kubus bersisi empat (60)."
+      ]
+    },
+    {
+      "number": 18,
+      "body_en": "Let each of the eight values □, △, ○, ◇, □ + ○, □ + ◇, △ + ○, and △ + ◇ represent a different number from 1 to 8. If □ is the largest number among □, △, ○, and ◇, find □.",
+      "body_id": "Misalkan kedelapan nilai □, △, ○, ◇, □ + ○, □ + ◇, △ + ○, dan △ + ◇ masing-masing mewakili bilangan berbeda dari 1 sampai 8. Jika □ adalah bilangan terbesar di antara □, △, ○, dan ◇, tentukan □.",
+      "answer_type": "fill_in",
+      "answer": "6",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "represent a different number from 1 to 8",
+            "phrase_id": "mewakili bilangan berbeda dari 1 sampai 8",
+            "note_en": "The 8 values are exactly 1..8, each once.",
+            "note_id": "Kedelapan nilai persis 1..8, masing-masing sekali."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "□ is the largest number",
+            "phrase_id": "□ adalah bilangan terbesar",
+            "note_en": "Box is the biggest of the four base shapes.",
+            "note_id": "Kotak terbesar di antara empat bentuk dasar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find □",
+            "phrase_id": "tentukan □",
+            "note_en": "Find the value of the box.",
+            "note_id": "Cari nilai kotak."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "All 8 values are 1..8",
+            "label_id": "Kedelapan nilai 1..8",
+            "value": "their sum is 1+2+...+8 = 36"
+          },
+          {
+            "label_en": "Sum of the 4 sums",
+            "label_id": "Jumlah keempat penjumlahan",
+            "value": "= 2 x (box + triangle + circle + diamond)"
+          },
+          {
+            "label_en": "So base + 2 x base = 36",
+            "label_id": "Jadi dasar + 2 x dasar = 36",
+            "value": "3 x (base total) = 36 -> base total = 12"
+          },
+          {
+            "label_en": "Bases summing 12 with box largest",
+            "label_id": "Dasar berjumlah 12, kotak terbesar",
+            "value": "1, 2, 3, 6 -> box = 6"
+          },
+          {
+            "label_en": "Check the sums stay 1..8",
+            "label_id": "Cek penjumlahan tetap 1..8",
+            "value": "6+1, 6+2, 3+1, 3+2 = 7,8,4,5 all new -> box = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Add all eight values to find the base total, then split it so the box is largest",
+          "name_id": "Jumlahkan kedelapan nilai untuk total dasar, lalu bagi agar kotak terbesar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "The eight values are 1 to 8, so they add to 36.",
+        "The four sums together equal 2 x (box + triangle + circle + diamond).",
+        "So base + 2 x base = 36, meaning the four base shapes add to 12.",
+        "Four different numbers adding to 12 with the largest as box: 1, 2, 3, 6 -> box = 6.",
+        "Check: 6+1, 6+2, 3+1, 3+2 give 7, 8, 4, 5 - all different from the bases (6)."
+      ],
+      "hint_steps_id": [
+        "Kedelapan nilai adalah 1 sampai 8, jadi berjumlah 36.",
+        "Keempat penjumlahan bersama sama dengan 2 x (kotak + segitiga + lingkaran + belah ketupat).",
+        "Jadi dasar + 2 x dasar = 36, berarti keempat bentuk dasar berjumlah 12.",
+        "Empat angka berbeda berjumlah 12 dengan kotak terbesar: 1, 2, 3, 6 -> kotak = 6.",
+        "Cek: 6+1, 6+2, 3+1, 3+2 memberi 7, 8, 4, 5 - semua beda dari dasar (6)."
+      ]
+    },
+    {
+      "number": 19,
+      "body_en": "Fill in the blank squares below with appropriate numbers so that the product of the two numbers in the same row or column equals the number in the shaded square of that row or column. Find the sum of the two \"?\" values.",
+      "body_id": "Isi kotak-kotak kosong di bawah dengan bilangan yang tepat sehingga hasil kali dua bilangan dalam baris atau kolom yang sama sama dengan bilangan di kotak yang diarsir pada baris atau kolom tersebut. Tentukan jumlah dari dua nilai \"?\".",
+      "answer_type": "fill_in",
+      "answer": "61",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q19.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the product of the two numbers in the same row or column equals the number in the shaded square",
+            "phrase_id": "hasil kali dua bilangan dalam baris atau kolom yang sama sama dengan bilangan di kotak yang diarsir",
+            "note_en": "Two white cells multiply to the shaded number.",
+            "note_id": "Dua kotak putih dikali sama dengan bilangan arsiran."
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of the two \"?\" values",
+            "phrase_id": "jumlah dari dua nilai \"?\"",
+            "note_en": "Add the two unknown shaded squares.",
+            "note_id": "Jumlahkan dua kotak arsiran tak diketahui."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shaded clues",
+            "label_id": "Petunjuk arsiran",
+            "value": "42 (a column), 30 (a row), 56 (a row)"
+          },
+          {
+            "label_en": "Four white cells a, b, c, d",
+            "label_id": "Empat kotak putih a, b, c, d",
+            "value": "a*c = 42, a*b = 30, c*d = 56"
+          },
+          {
+            "label_en": "Solve the white cells",
+            "label_id": "Selesaikan kotak putih",
+            "value": "a=6, b=5, c=7, d=8 (all different)"
+          },
+          {
+            "label_en": "Visible question mark",
+            "label_id": "Tanda tanya yang terlihat",
+            "value": "b*d = 5*8 = 40"
+          },
+          {
+            "label_en": "Two question-mark values",
+            "label_id": "Dua nilai tanda tanya",
+            "value": "stated answer is 61 (see flag)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the product rule to fill the white cells, then read each shaded ?",
+          "name_id": "Pakai aturan hasil kali untuk mengisi kotak putih, lalu baca tiap ? arsiran"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "61"
+        }
+      },
+      "hint_steps_en": [
+        "Each shaded square is the product of the two white cells in its row or column.",
+        "From 42, 30, and 56 the four white cells solve to 6, 5, 7, 8.",
+        "The visible question mark equals 5 x 8 = 40.",
+        "The question adds two question-mark squares; the answer key gives their sum as 61."
+      ],
+      "hint_steps_id": [
+        "Tiap kotak arsiran adalah hasil kali dua kotak putih pada baris atau kolomnya.",
+        "Dari 42, 30, dan 56 keempat kotak putih bernilai 6, 5, 7, 8.",
+        "Tanda tanya yang terlihat sama dengan 5 x 8 = 40.",
+        "Soal menjumlahkan dua kotak tanda tanya; kunci jawaban memberi jumlahnya 61."
+      ]
+    },
+    {
+      "number": 20,
+      "body_en": "Ashley's, Brenda's, and Cheryl's homes are next to a roundabout that can only be passed through in a counterclockwise direction. Ashley has to walk 207 m to Cheryl's home, Brenda has to walk 332 m to Ashley's home, and Cheryl has to walk 313 m to Brenda's home. How many meters should Ashley walk to Brenda's home?",
+      "body_id": "Rumah Ashley, Brenda, dan Cheryl berada di dekat bundaran yang hanya bisa dilewati searah berlawanan jarum jam. Ashley harus berjalan 207 m untuk sampai ke rumah Cheryl, Brenda harus berjalan 332 m untuk sampai ke rumah Ashley, dan Cheryl harus berjalan 313 m untuk sampai ke rumah Brenda. Berapa meter Ashley harus berjalan untuk sampai ke rumah Brenda?",
+      "answer_type": "fill_in",
+      "answer": "94",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q20.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "only be passed through in a counterclockwise direction",
+            "phrase_id": "hanya bisa dilewati searah berlawanan jarum jam",
+            "note_en": "You may only walk one way around.",
+            "note_id": "Hanya boleh berjalan satu arah memutar."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Ashley has to walk 207 m to Cheryl",
+            "phrase_id": "Ashley harus berjalan 207 m untuk sampai ke rumah Cheryl",
+            "note_en": "One given counterclockwise distance.",
+            "note_id": "Satu jarak berlawanan jarum jam yang diketahui."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many meters should Ashley walk to Brenda",
+            "phrase_id": "Berapa meter Ashley harus berjalan untuk sampai ke rumah Brenda",
+            "note_en": "Find the Ashley to Brenda distance.",
+            "note_id": "Cari jarak Ashley ke Brenda."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Arcs (counterclockwise order A,B,C)",
+            "label_id": "Busur (urutan A,B,C)",
+            "value": "A->B = x, B->C = y, C->A = z"
+          },
+          {
+            "label_en": "Ashley->Cheryl",
+            "label_id": "Ashley->Cheryl",
+            "value": "x + y = 207"
+          },
+          {
+            "label_en": "Brenda->Ashley",
+            "label_id": "Brenda->Ashley",
+            "value": "y + z = 332"
+          },
+          {
+            "label_en": "Cheryl->Brenda",
+            "label_id": "Cheryl->Brenda",
+            "value": "z + x = 313"
+          },
+          {
+            "label_en": "Add all three",
+            "label_id": "Jumlahkan ketiganya",
+            "value": "2(x+y+z) = 852 -> loop = 426"
+          },
+          {
+            "label_en": "Ashley->Brenda",
+            "label_id": "Ashley->Brenda",
+            "value": "x = 426 - 332 = 94"
+          }
+        ],
+        "strategy": {
+          "name_en": "Name the three arcs, add the given trips to get the loop, then subtract",
+          "name_id": "Beri nama tiga busur, jumlahkan perjalanan untuk panjang lingkaran, lalu kurangkan"
+        },
+        "trap": {
+          "wrong": "332",
+          "why_en": "332 m is Brenda to Ashley going counterclockwise; Ashley to Brenda is a different, shorter arc = 94 m.",
+          "why_id": "332 m adalah Brenda ke Ashley berlawanan jarum jam; Ashley ke Brenda busur lain yang lebih pendek = 94 m."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "94"
+        }
+      },
+      "hint_steps_en": [
+        "Walking is one-way, so name the three arcs A->B = x, B->C = y, C->A = z.",
+        "The trips given are x + y = 207, y + z = 332, z + x = 313.",
+        "Adding all three: 2 x (x+y+z) = 852, so the full loop is 426 m.",
+        "Ashley to Brenda is x = 426 - (y+z) = 426 - 332 = 94 m."
+      ],
+      "hint_steps_id": [
+        "Jalan hanya satu arah, jadi beri nama tiga busur A->B = x, B->C = y, C->A = z.",
+        "Perjalanan yang diketahui: x + y = 207, y + z = 332, z + x = 313.",
+        "Jumlahkan ketiganya: 2 x (x+y+z) = 852, jadi panjang lingkaran 426 m.",
+        "Ashley ke Brenda adalah x = 426 - (y+z) = 426 - 332 = 94 m."
+      ]
+    },
+    {
+      "number": 21,
+      "body_en": "When 25 is placed to the right of a number, the value of this number increases by 200500. What is the original value of this number?",
+      "body_id": "Ketika 25 ditempatkan di sebelah kanan sebuah bilangan, nilai bilangan tersebut bertambah 200500. Berapakah nilai asli bilangan tersebut?",
+      "answer_type": "fill_in",
+      "answer": "2025",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "25 is placed to the right of a number",
+            "phrase_id": "25 ditempatkan di sebelah kanan sebuah bilangan",
+            "note_en": "Writing 25 after it makes the number 100 times bigger plus 25.",
+            "note_id": "Menulis 25 di belakang membuat bilangan 100 kali lalu +25."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "increases by 200500",
+            "phrase_id": "bertambah 200500",
+            "note_en": "The jump in value is 200500.",
+            "note_id": "Pertambahan nilainya 200500."
+          },
+          {
+            "category": "question",
+            "phrase_en": "original value of this number",
+            "phrase_id": "nilai asli bilangan tersebut",
+            "note_en": "Find the starting number.",
+            "note_id": "Cari bilangan awalnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "New value",
+            "label_id": "Nilai baru",
+            "value": "100 x N + 25"
+          },
+          {
+            "label_en": "Increase",
+            "label_id": "Pertambahan",
+            "value": "100N + 25 - N = 99N + 25"
+          },
+          {
+            "label_en": "Set equal to 200500",
+            "label_id": "Setarakan dengan 200500",
+            "value": "99N + 25 = 200500 -> 99N = 200475"
+          },
+          {
+            "label_en": "Solve",
+            "label_id": "Selesaikan",
+            "value": "N = 200475 / 99 = 2025"
+          }
+        ],
+        "strategy": {
+          "name_en": "Appending 25 means 100 x N + 25; set the increase to 200500 and solve",
+          "name_id": "Menempel 25 berarti 100 x N + 25; setarakan pertambahan ke 200500 lalu selesaikan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "2025"
+        }
+      },
+      "hint_steps_en": [
+        "Writing 25 on the right of N makes the value 100 x N + 25.",
+        "The increase is 100N + 25 - N = 99N + 25.",
+        "Set 99N + 25 = 200500, so 99N = 200475.",
+        "200475 / 99 = 2025, so the original number is 2025."
+      ],
+      "hint_steps_id": [
+        "Menulis 25 di kanan N membuat nilainya 100 x N + 25.",
+        "Pertambahannya 100N + 25 - N = 99N + 25.",
+        "Setarakan 99N + 25 = 200500, jadi 99N = 200475.",
+        "200475 / 99 = 2025, jadi bilangan aslinya 2025."
+      ]
+    },
+    {
+      "number": 22,
+      "body_en": "A 2-digit even number is given. When 1 is added to it, it becomes a multiple of 3. When 2 is added to it, it becomes a multiple of 4. When 3 is added to it, it becomes a multiple of 5. Find this 2-digit number.",
+      "body_id": "Diberikan sebuah bilangan genap 2 angka. Jika ditambah 1, bilangan itu menjadi kelipatan 3. Jika ditambah 2, bilangan itu menjadi kelipatan 4. Jika ditambah 3, bilangan itu menjadi kelipatan 5. Tentukan bilangan 2 angka ini.",
+      "answer_type": "fill_in",
+      "answer": "62",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "1 is added to it, it becomes a multiple of 3",
+            "phrase_id": "ditambah 1, bilangan itu menjadi kelipatan 3",
+            "note_en": "n + 1 is a multiple of 3.",
+            "note_id": "n + 1 kelipatan 3."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 is added to it, it becomes a multiple of 4",
+            "phrase_id": "ditambah 2, bilangan itu menjadi kelipatan 4",
+            "note_en": "n + 2 is a multiple of 4.",
+            "note_id": "n + 2 kelipatan 4."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 is added to it, it becomes a multiple of 5",
+            "phrase_id": "ditambah 3, bilangan itu menjadi kelipatan 5",
+            "note_en": "n + 3 is a multiple of 5.",
+            "note_id": "n + 3 kelipatan 5."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find this 2-digit number",
+            "phrase_id": "Tentukan bilangan 2 angka ini",
+            "note_en": "Find the number that fits every clue.",
+            "note_id": "Cari bilangan yang cocok semua petunjuk."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rewrite the clues",
+            "label_id": "Tulis ulang petunjuk",
+            "value": "n+1 div by 3, n+2 div by 4, n+3 div by 5"
+          },
+          {
+            "label_en": "All say the same",
+            "label_id": "Semua sama",
+            "value": "n - 2 is a multiple of 3, of 4, and of 5"
+          },
+          {
+            "label_en": "So n - 2 is a multiple of 60",
+            "label_id": "Jadi n - 2 kelipatan 60",
+            "value": "smallest positive: 60"
+          },
+          {
+            "label_en": "n = 60 + 2",
+            "label_id": "n = 60 + 2",
+            "value": "62, a 2-digit even number OK"
+          }
+        ],
+        "strategy": {
+          "name_en": "Shift each clue to a common form, then use the least common multiple",
+          "name_id": "Geser tiap petunjuk ke bentuk sama, lalu pakai kelipatan persekutuan terkecil"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "62"
+        }
+      },
+      "hint_steps_en": [
+        "n + 1 is a multiple of 3, so n is 2 less than a multiple of 3, meaning n - 2 fits 3.",
+        "n + 2 multiple of 4 and n + 3 multiple of 5 likewise mean n - 2 fits 4 and 5.",
+        "So n - 2 is a multiple of 3, 4, and 5 together - a multiple of 60.",
+        "The 2-digit choice is n - 2 = 60, so n = 62 (and 62 is even)."
+      ],
+      "hint_steps_id": [
+        "n + 1 kelipatan 3, jadi n kurang 2 dari kelipatan 3, berarti n - 2 habis dibagi 3.",
+        "n + 2 kelipatan 4 dan n + 3 kelipatan 5 juga berarti n - 2 habis dibagi 4 dan 5.",
+        "Jadi n - 2 kelipatan 3, 4, dan 5 sekaligus - kelipatan 60.",
+        "Pilihan 2 angka adalah n - 2 = 60, jadi n = 62 (dan 62 genap)."
+      ]
+    },
+    {
+      "number": 23,
+      "body_en": "Seven football players stand in a row for a game and wear jerseys numbered 1 to 7. Photos are taken by 4 reporters, but due to lighting issues only a few jersey numbers are clear in each photo: Photo A shows jerseys 7, ?, 5 (3 players, left to right); Photo B shows jerseys 6, 4 (2 players visible); Photo C shows jerseys 1, ?, ?, 7 (4 players); Photo D shows jerseys 7, 3 (2 players). Find the jersey numbers of the 7 players from left to right.",
+      "body_id": "Tujuh pemain sepak bola berdiri dalam satu baris untuk pertandingan dan mengenakan jersey bernomor 1 sampai 7. Foto diambil oleh 4 reporter, tetapi karena masalah pencahayaan hanya beberapa nomor jersey yang terlihat jelas di setiap foto: Foto A memperlihatkan jersey 7, ?, 5 (3 pemain, dari kiri ke kanan); Foto B memperlihatkan jersey 6, 4 (2 pemain terlihat); Foto C memperlihatkan jersey 1, ?, ?, 7 (4 pemain); Foto D memperlihatkan jersey 7, 3 (2 pemain). Tentukan nomor jersey 7 pemain dari kiri ke kanan.",
+      "answer_type": "fill_in",
+      "answer": "6124735",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q23.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "jerseys numbered 1 to 7",
+            "phrase_id": "jersey bernomor 1 sampai 7",
+            "note_en": "Each number 1-7 appears once.",
+            "note_id": "Tiap nomor 1-7 muncul sekali."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Photo C shows jerseys 1, ?, ?, 7 (4 players)",
+            "phrase_id": "Foto C memperlihatkan jersey 1, ?, ?, 7 (4 pemain)",
+            "note_en": "1 is left of 7 with two players between.",
+            "note_id": "1 di kiri 7 dengan dua pemain di tengah."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the jersey numbers of the 7 players from left to right",
+            "phrase_id": "Tentukan nomor jersey 7 pemain dari kiri ke kanan",
+            "note_en": "Order all seven, left to right.",
+            "note_id": "Urutkan ketujuh, kiri ke kanan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Photo A: 7, ?, 5",
+            "label_id": "Foto A: 7, ?, 5",
+            "value": "7 then 5 with one between"
+          },
+          {
+            "label_en": "Photo D: 7, 3",
+            "label_id": "Foto D: 7, 3",
+            "value": "3 is right after 7 -> the gap in A is 3"
+          },
+          {
+            "label_en": "So ...7 3 5...",
+            "label_id": "Jadi ...7 3 5...",
+            "value": "positions 5,6,7 = 7,3,5"
+          },
+          {
+            "label_en": "Photo C: 1, ?, ?, 7",
+            "label_id": "Foto C: 1, ?, ?, 7",
+            "value": "1 then two players then 7 -> 1,2,4,7"
+          },
+          {
+            "label_en": "Photo B: 6, 4",
+            "label_id": "Foto B: 6, 4",
+            "value": "6 left of 4 -> 6 at the front"
+          },
+          {
+            "label_en": "Left to right",
+            "label_id": "Kiri ke kanan",
+            "value": "6 1 2 4 7 3 5 -> 6124735"
+          }
+        ],
+        "strategy": {
+          "name_en": "Place the clear photo pairs in left-to-right order until every seat is fixed",
+          "name_id": "Tempatkan pasangan foto yang jelas berurutan kiri-kanan sampai tiap posisi pasti"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "6124735"
+        }
+      },
+      "hint_steps_en": [
+        "Photo D shows 7 then 3, so 3 sits just right of 7.",
+        "Photo A shows 7, ?, 5 with one between, so the order is 7, 3, 5 at the right end.",
+        "Photo C shows 1, ?, ?, 7 with two between: 1, 2, 4, 7 fills the left.",
+        "Photo B shows 6 left of 4, so 6 goes at the very front.",
+        "Left to right: 6 1 2 4 7 3 5 -> 6124735."
+      ],
+      "hint_steps_id": [
+        "Foto D memperlihatkan 7 lalu 3, jadi 3 ada tepat di kanan 7.",
+        "Foto A memperlihatkan 7, ?, 5 dengan satu di tengah, jadi urutannya 7, 3, 5 di ujung kanan.",
+        "Foto C memperlihatkan 1, ?, ?, 7 dengan dua di tengah: 1, 2, 4, 7 mengisi kiri.",
+        "Foto B memperlihatkan 6 di kiri 4, jadi 6 di paling depan.",
+        "Kiri ke kanan: 6 1 2 4 7 3 5 -> 6124735."
+      ]
+    },
+    {
+      "number": 24,
+      "body_en": "Place a $5, $10, or $50 bill in each of the 16 squares of a 4 × 4 grid. The number in each circle equals the sum of the bills in the corresponding row or column. The column sums are $75, $65, $30, $25 and the row sums are $80, $70, $25, $20. Find the sum of the amounts in the 4 shaded squares A, B, C, and D.",
+      "body_id": "Letakkan uang kertas $5, $10, atau $50 di setiap 16 kotak pada kisi 4 × 4. Bilangan di setiap lingkaran sama dengan jumlah uang kertas pada baris atau kolom yang bersesuaian. Jumlah kolom adalah $75, $65, $30, $25 dan jumlah baris adalah $80, $70, $25, $20. Tentukan jumlah nilai uang di 4 kotak berarsir A, B, C, dan D.",
+      "answer_type": "fill_in",
+      "answer": "70",
+      "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q24.jpg",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The number in each circle equals the sum of the bills in the corresponding row or column",
+            "phrase_id": "Bilangan di setiap lingkaran sama dengan jumlah uang kertas pada baris atau kolom yang bersesuaian",
+            "note_en": "Each circle is its row or column total.",
+            "note_id": "Tiap lingkaran adalah total baris atau kolomnya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "column sums are $75, $65, $30, $25 and the row sums are $80, $70, $25, $20",
+            "phrase_id": "Jumlah kolom adalah $75, $65, $30, $25 dan jumlah baris adalah $80, $70, $25, $20",
+            "note_en": "These eight totals fix the grid.",
+            "note_id": "Kedelapan total ini menentukan kisi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of the amounts in the 4 shaded squares A, B, C, and D",
+            "phrase_id": "jumlah nilai uang di 4 kotak berarsir A, B, C, dan D",
+            "note_en": "Add the bills in A, B, C, D.",
+            "note_id": "Jumlahkan uang di A, B, C, D."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Row of $20",
+            "label_id": "Baris $20",
+            "value": "four bills summing 20 -> all $5"
+          },
+          {
+            "label_en": "Row of $80",
+            "label_id": "Baris $80",
+            "value": "50 + 10 + 10 + 10"
+          },
+          {
+            "label_en": "Row of $70",
+            "label_id": "Baris $70",
+            "value": "50 + 10 + 5 + 5"
+          },
+          {
+            "label_en": "Row of $25",
+            "label_id": "Baris $25",
+            "value": "10 + 5 + 5 + 5"
+          },
+          {
+            "label_en": "Fit to the column sums",
+            "label_id": "Cocokkan ke jumlah kolom",
+            "value": "A=50, B=5, C=10, D=5"
+          },
+          {
+            "label_en": "A + B + C + D",
+            "label_id": "A + B + C + D",
+            "value": "50 + 5 + 10 + 5 = 70"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve each row from its total, place the $50s to match the columns, then add A-D",
+          "name_id": "Selesaikan tiap baris dari totalnya, tempatkan $50 sesuai kolom, lalu jumlahkan A-D"
+        },
+        "trap": null,
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "70"
+        }
+      },
+      "hint_steps_en": [
+        "The $20 row must be four $5 bills; the $80 row is 50+10+10+10.",
+        "The $70 row is 50+10+5+5 and the $25 row is 10+5+5+5.",
+        "Placing the two $50 bills so the columns also make 75, 65, 30, 25 fixes every cell.",
+        "Then A=$50, B=$5, C=$10, D=$5, so A+B+C+D = 70."
+      ],
+      "hint_steps_id": [
+        "Baris $20 pasti empat lembar $5; baris $80 adalah 50+10+10+10.",
+        "Baris $70 adalah 50+10+5+5 dan baris $25 adalah 10+5+5+5.",
+        "Menempatkan dua lembar $50 agar kolom juga 75, 65, 30, 25 menetapkan tiap kotak.",
+        "Maka A=$50, B=$5, C=$10, D=$5, jadi A+B+C+D = 70."
+      ]
+    },
+    {
+      "number": 25,
+      "body_en": "There are four numbers 2, 0, 2, and 5 on the blackboard. If 1 is added to three of the four numbers each time, find the minimum number of times it takes for all four numbers to become equal.",
+      "body_id": "Ada empat bilangan 2, 0, 2, dan 5 di papan tulis. Jika 1 ditambahkan ke tiga dari empat bilangan tersebut setiap kalinya, tentukan jumlah minimum kali yang diperlukan agar keempat bilangan tersebut menjadi sama.",
+      "answer_type": "fill_in",
+      "answer": "9",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "four numbers 2, 0, 2, and 5",
+            "phrase_id": "empat bilangan 2, 0, 2, dan 5",
+            "note_en": "The starting numbers.",
+            "note_id": "Bilangan awalnya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1 is added to three of the four numbers each time",
+            "phrase_id": "1 ditambahkan ke tiga dari empat bilangan tersebut setiap kalinya",
+            "note_en": "Each move skips exactly one number.",
+            "note_id": "Tiap langkah melewatkan tepat satu bilangan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "minimum number of times it takes for all four numbers to become equal",
+            "phrase_id": "jumlah minimum kali yang diperlukan agar keempat bilangan tersebut menjadi sama",
+            "note_en": "Find the fewest moves to make them equal.",
+            "note_id": "Cari langkah tersedikit agar sama."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Each move adds 3 to the total",
+            "label_id": "Tiap langkah menambah 3 ke total",
+            "value": "start total 2+0+2+5 = 9"
+          },
+          {
+            "label_en": "After k moves total = 9 + 3k",
+            "label_id": "Setelah k langkah total = 9 + 3k",
+            "value": "equal value v needs 4v = 9 + 3k"
+          },
+          {
+            "label_en": "Biggest gap is from the 0",
+            "label_id": "Selisih terbesar dari 0",
+            "value": "that number needs v moves, so v <= k"
+          },
+          {
+            "label_en": "v = 9, k = 9",
+            "label_id": "v = 9, k = 9",
+            "value": "4 x 9 = 36 = 9 + 27; gaps 7,9,7,4 all <= 9 OK"
+          }
+        ],
+        "strategy": {
+          "name_en": "Each move skips one number; leave out the largest and balance the totals",
+          "name_id": "Tiap langkah lewatkan satu; sisihkan yang terbesar dan seimbangkan total"
+        },
+        "trap": {
+          "wrong": "3",
+          "why_en": "3 moves only add 9 to the total, but the 0 alone must climb by 9 - impossible in 3 moves.",
+          "why_id": "3 langkah hanya menambah 9 ke total, padahal angka 0 saja harus naik 9 - mustahil dalam 3 langkah."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Each move adds 1 to three numbers, so the total grows by 3 each time.",
+        "To make all four equal to v, we need 4v = 9 + 3k after k moves.",
+        "The number 0 must rise the most, by v, and it can gain at most 1 per move, so v is at most k.",
+        "v = 9 with k = 9 works: gaps 7, 9, 7, 4 are all 9 or less, so the answer is 9."
+      ],
+      "hint_steps_id": [
+        "Tiap langkah menambah 1 ke tiga bilangan, jadi total bertambah 3 tiap kali.",
+        "Agar keempatnya sama dengan v, perlu 4v = 9 + 3k setelah k langkah.",
+        "Angka 0 harus naik paling banyak, sebesar v, dan hanya bisa +1 tiap langkah, jadi v paling besar k.",
+        "v = 9 dengan k = 9 berhasil: selisih 7, 9, 7, 4 semua 9 atau kurang, jadi jawabannya 9."
+      ]
+    }
+  ]
+}

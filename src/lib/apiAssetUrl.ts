@@ -1,5 +1,6 @@
 const configuredApiBaseUrl =
-  import.meta.env.VITE_API_BASE_URL?.trim() || 'http://localhost:3001/api'
+  (import.meta as { env?: Record<string, string | undefined> }).env?.VITE_API_BASE_URL?.trim() ||
+  'http://localhost:3001/api'
 
 export function resolveApiAssetUrl(src: string, apiBaseUrl: string): string {
   if (!src.startsWith('/api/')) return src

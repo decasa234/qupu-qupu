@@ -5,6 +5,31 @@
   "variant": "A",
   "title": "WMI 2019 Grade 2 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean, and Q23's 1589 was verified to be the true maximum by column casework (hundreds digit 6/7/8 are all infeasible). One real defect: Q22's lock clues are under-constrained. Figure-dependent answers (Q2, Q4, Q5, Q8, Q10, Q13, Q14, Q15, Q20) checked for internal consistency, not pixel-compared to scans; logic grids Q24/Q25 not solver-verified.",
+    "findings": [
+      {
+        "q": 22,
+        "severity": "warning",
+        "gate": "answer",
+        "note": "As transcribed, the five clues are satisfied by 257, 527, AND 957 (each uses only the surviving digits, puts 7 last, gives 392 one correct-but-wrong-place digit, and 415 one correct via the 5). Key is 527 but the set is under-constrained — same template defect as 2019-G1 Q23. Re-check the original clue wording."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Mathdoku — uniqueness not proven by a backtracking solver this pass. The hint_steps derivation chains to 2134 and reads valid."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Arrow/'different-numbers-seen' grid — uniqueness not solver-verified this pass. The hint_steps derivation chains to 2211 and reads valid."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

@@ -9,23 +9,25 @@
 // a red dashed curved arrow shows the block rolling right, one quarter-turn
 // (one side) at a time.
 //
-// Figure layout (editor-confirmed, "0" = blank square; back row on top):
+// Figure layout — the in-card static figure faithfully reproduces the printed
+// scan ("0" = blank square; back row on top):
 //   back :  0 0 0 0 2 0 0 0 0   → "2" at back column 5
 //   front:  0 0 0 1 0 3 4 0 5   → "1" col 4, "3" col 6, "4" col 7, "5" col 9
+// The top-down step-by-step DIAGRAM + animation use a compact 8×2 grid (below).
 //
 // Mechanics: the paint has SPILLED and the block stands in the puddle, so its
 // BOTTOM faces are soaked and its LEFT sides are painted too; the TOP and
 // RIGHT sides are dry. The wet block tumbles to the RIGHT. As it tumbles the
 // tall BACK stack lays a long wet trail along its whole row, while the little
-// FRONT cube only stamps a few squares. The cumulative wet cells per beat
-// (editor-confirmed, "1" = wet; back row on top) are:
-//   beat 1   back 1 1 0 0 0 0 0 0 0    front 1 0 0 0 0 0 0 0 0
-//   beat 2   back 1 1 1 1 0 0 0 0 0    front 1 0 0 0 0 0 0 0 0
-//   beat 3   back 1 1 1 1 1 1 0 0 0    front 1 0 0 0 0 1 0 0 0
-//   beat 4   back 1 1 1 1 1 1 1 0 0    front 1 0 0 0 0 1 1 0 0
-//   beat 5   back 1 1 1 1 1 1 1 1 1    front 1 0 0 0 0 1 1 1 0
-// Back col 5 ("2"), front col 6 ("3"), front col 7 ("4") all end up wet, while
-// front col 4 ("1", a dry side lands there) and front col 9 ("5", the front
+// FRONT cube only stamps a few squares. The cumulative wet cells per beat in the
+// 8×2 teaching diagram (editor-confirmed, "1" = wet; back row on top) are:
+//   beat 1   back 1 1 0 0 0 0 0 0    front 1 0 0 0 0 0 0 0
+//   beat 2   back 1 1 1 0 0 0 0 0    front 1 0 0 0 0 0 0 0
+//   beat 3   back 1 1 1 1 1 0 0 0    front 1 0 0 0 1 0 0 0
+//   beat 4   back 1 1 1 1 1 1 0 0    front 1 0 0 0 1 1 0 0
+//   beat 5   back 1 1 1 1 1 1 1 1    front 1 0 0 0 1 1 1 0
+// Back col 4 ("2"), front col 5 ("3"), front col 6 ("4") all end up wet, while
+// front col 3 ("1", a dry side lands there) and front col 8 ("5", the front
 // paint stops before it) stay clean.
 // Painted squares: 2, 3, 4 → answer "234". 1 and 5 stay clean.
 
@@ -208,21 +210,21 @@ export default function PaintRoll20Illustration() {
  * "1"), 'b4' = back row column 4 (square "2"), … The block starts on
  * column 1 of both rows.
  */
-export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+export type PaintCellKey = `${'f' | 'b'}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`
 
 const KEY_LABEL: Partial<Record<PaintCellKey, string>> = {
-  f4: '1',
-  b5: '2',
-  f6: '3',
-  f7: '4',
-  f9: '5',
+  f3: '1',
+  b4: '2',
+  f5: '3',
+  f6: '4',
+  f8: '5',
 }
 
 const D_CELL_W = 44
 const D_CELL_H = 42
 const D_LEFT = 14
 const D_TOP = 26
-const D_COLS = 9
+const D_COLS = 8
 const DIAGRAM_W = D_LEFT * 2 + D_CELL_W * D_COLS
 const DIAGRAM_H = D_TOP + D_CELL_H * 2 + 16
 

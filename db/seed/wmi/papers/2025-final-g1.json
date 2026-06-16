@@ -1,0 +1,1384 @@
+{
+  "year": 2025,
+  "grade": 1,
+  "round": "final",
+  "variant": "A",
+  "title": "WMI 2025 Grade 1 Final",
+  "recommended_duration_min": 90,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25 (5-choice, 90-min); arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q2 (17−9=8 → other pair 9), Q3 (4 odds: 7/19/37/15), Q9 (2r+25 → 31 possible), Q11 (80−17=63), Q15 (line crosses 7 cells), Q17 (minimal range 21, proven optimal), Q19 (answered = 4), Q20 (3 people cover ≤9<12 → 4), Q21 (pair-sum 11 → 10), Q22 (ball∈{3,4}, square∈{5,7} → totals 8/11, diff 3). Figure-dependent answers (Q1, Q5-Q8, Q10, Q12-Q14, Q16) checked for internal consistency. Three figure-dependent extremal/path nits below.",
+    "findings": [
+      {
+        "q": 23,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Longest-trail Alex→Emma = 29 (8+6+6+9) depends on the reconstructed road lengths; maximality (that no longer legal trail exists) not re-derived against the scan this pass."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "'Special trees' count = 3 (positions 3, 4, 7) depends on the figure's 10 tree heights; not re-checked against the scan."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Pyramid all-different path → 6 (route 5→1→4→3→2→7→6) depends on the figure's number layout; route uniqueness asserted, not re-derived."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "body_en": "Look at the row of birds below. How many small birds are to the left of the big bird (the toucan)?",
+      "body_id": "Lihat barisan burung di bawah. Ada berapa burung kecil yang berada di sebelah kiri burung besar (burung tukan)?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "4" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "10" },
+        { "label": "E", "text": "7" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "4" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "10" },
+        { "label": "E", "text": "7" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q1.jpg",
+      "hint_steps_en": [
+        "Find the big bird (the toucan) in the row.",
+        "Count the small birds standing to its left, one by one.",
+        "There are 9 small birds on its left (C)."
+      ],
+      "hint_steps_id": [
+        "Temukan burung besar (burung tukan) di barisan.",
+        "Hitung burung kecil yang berdiri di sebelah kirinya, satu per satu.",
+        "Ada 9 burung kecil di sebelah kirinya (C)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the big bird (the toucan)",
+            "phrase_id": "burung besar (burung tukan)",
+            "note_en": "The toucan is the one large bird in the row.",
+            "note_id": "Tukan adalah satu-satunya burung besar di barisan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many small birds are to the left of the big bird",
+            "phrase_id": "Ada berapa burung kecil yang berada di sebelah kiri burung besar",
+            "note_en": "Count only the birds on the toucan's left side.",
+            "note_id": "Hitung hanya burung di sisi kiri tukan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Toucan position", "label_id": "Posisi tukan", "value": "10th from left" },
+          { "label_en": "Small birds on left", "label_id": "Burung kecil di kiri", "value": "9" }
+        ],
+        "strategy": { "name_en": "Locate the toucan, then count the birds to its left", "name_id": "Temukan tukan, lalu hitung burung di sebelah kirinya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 2,
+      "body_en": "A clothing store sells 4 kinds of products at the prices shown. The price difference between two of the kinds is $8. What is the price difference, in dollars, between the other two kinds?",
+      "body_id": "Sebuah toko pakaian menjual 4 jenis produk dengan harga seperti pada gambar. Selisih harga antara dua jenis adalah $8. Berapa selisih harga, dalam dolar, antara dua jenis yang lain?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "2" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "3" },
+        { "label": "E", "text": "11" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "2" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "3" },
+        { "label": "E", "text": "11" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "The four prices are $11, $17, $20, and $9.",
+        "The pair differing by $8 is $17 and $9 (17 − 9 = 8).",
+        "The other two are $11 and $20: 20 − 11 = 9 (C)."
+      ],
+      "hint_steps_id": [
+        "Keempat harganya $11, $17, $20, dan $9.",
+        "Pasangan yang berselisih $8 adalah $17 dan $9 (17 − 9 = 8).",
+        "Dua lainnya $11 dan $20: 20 − 11 = 9 (C)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 kinds of products at the prices shown",
+            "phrase_id": "4 jenis produk dengan harga seperti pada gambar",
+            "note_en": "Four products, four prices.",
+            "note_id": "Empat produk, empat harga."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The price difference between two of the kinds is $8",
+            "phrase_id": "Selisih harga antara dua jenis adalah $8",
+            "note_en": "One pair is exactly $8 apart.",
+            "note_id": "Satu pasangan berselisih tepat $8."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the price difference, in dollars, between the other two kinds?",
+            "phrase_id": "Berapa selisih harga, dalam dolar, antara dua jenis yang lain?",
+            "note_en": "Subtract the two remaining prices.",
+            "note_id": "Kurangkan dua harga yang tersisa."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Prices", "label_id": "Harga", "value": "11, 17, 20, 9" },
+          { "label_en": "$8 pair", "label_id": "Pasangan $8", "value": "17 − 9" },
+          { "label_en": "Other pair", "label_id": "Pasangan lain", "value": "20 − 11 = 9" }
+        ],
+        "strategy": { "name_en": "Find the $8 pair, then subtract the other two prices", "name_id": "Cari pasangan $8, lalu kurangkan dua harga lainnya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 3,
+      "body_en": "During the WMI competition on 7/26 (July 26), Zoey notices there are 19 female students and 37 male students who are 8 years old, just like she is. She must finish 15 problems within 40 minutes. How many of the numbers mentioned above are odd numbers?",
+      "body_id": "Pada kompetisi WMI tanggal 7/26 (26 Juli), Zoey melihat ada 19 siswa perempuan dan 37 siswa laki-laki yang berusia 8 tahun, sama seperti dia. Ia harus menyelesaikan 15 soal dalam 40 menit. Berapa banyak bilangan yang disebut di atas yang merupakan bilangan ganjil?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "5" },
+        { "label": "E", "text": "6" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "5" },
+        { "label": "E", "text": "6" }
+      ],
+      "answer": "A",
+      "hint_steps_en": [
+        "The numbers mentioned are 7, 26, 19, 37, 8, 15, 40.",
+        "The odd ones are 7, 19, 37, 15.",
+        "That is 4 odd numbers (A)."
+      ],
+      "hint_steps_id": [
+        "Bilangan yang disebut: 7, 26, 19, 37, 8, 15, 40.",
+        "Yang ganjil adalah 7, 19, 37, 15.",
+        "Itu ada 4 bilangan ganjil (A)."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many of the numbers mentioned above are odd numbers?",
+            "phrase_id": "Berapa banyak bilangan yang disebut di atas yang merupakan bilangan ganjil?",
+            "note_en": "Pick out the odd numbers and count them.",
+            "note_id": "Pilih bilangan ganjil dan hitung."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Numbers", "label_id": "Bilangan", "value": "7, 26, 19, 37, 8, 15, 40" },
+          { "label_en": "Odd ones", "label_id": "Yang ganjil", "value": "7, 19, 37, 15" },
+          { "label_en": "Count", "label_id": "Banyaknya", "value": "4" }
+        ],
+        "strategy": { "name_en": "List all the numbers, then count the odd ones", "name_id": "Daftar semua bilangan, lalu hitung yang ganjil" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
+    },
+    {
+      "number": 4,
+      "body_en": "Arrange the five expressions by their results, from largest to smallest. Which expression ends up in the middle?",
+      "body_id": "Urutkan kelima perhitungan menurut hasilnya, dari terbesar ke terkecil. Perhitungan mana yang berada di tengah?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "4 + 9" },
+        { "label": "B", "text": "15 − 4" },
+        { "label": "C", "text": "12 + 6" },
+        { "label": "D", "text": "18 − 9" },
+        { "label": "E", "text": "7 + 7" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "4 + 9" },
+        { "label": "B", "text": "15 − 4" },
+        { "label": "C", "text": "12 + 6" },
+        { "label": "D", "text": "18 − 9" },
+        { "label": "E", "text": "7 + 7" }
+      ],
+      "answer": "A",
+      "hint_steps_en": [
+        "Work out each: A 4+9=13, B 15−4=11, C 12+6=18, D 18−9=9, E 7+7=14.",
+        "Order them largest to smallest: 18, 14, 13, 11, 9.",
+        "The one in the middle (3rd) is 13 = A."
+      ],
+      "hint_steps_id": [
+        "Hitung tiap: A 4+9=13, B 15−4=11, C 12+6=18, D 18−9=9, E 7+7=14.",
+        "Urutkan dari terbesar ke terkecil: 18, 14, 13, 11, 9.",
+        "Yang di tengah (ke-3) adalah 13 = A."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which expression ends up in the middle?",
+            "phrase_id": "Perhitungan mana yang berada di tengah?",
+            "note_en": "Sort by result, then take the middle one.",
+            "note_id": "Urutkan menurut hasil, lalu ambil yang tengah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Results", "label_id": "Hasil", "value": "13, 11, 18, 9, 14" },
+          { "label_en": "Sorted", "label_id": "Terurut", "value": "18, 14, 13, 11, 9" },
+          { "label_en": "Middle", "label_id": "Tengah", "value": "13 (A)" }
+        ],
+        "strategy": { "name_en": "Work out every result, then pick the middle", "name_id": "Hitung tiap hasil, lalu pilih yang tengah" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
+    },
+    {
+      "number": 5,
+      "body_en": "Isaac wants to measure the pencil, but the ruler is flipped over (its numbers run the other way). Find the correct length of the pencil, in cm.",
+      "body_id": "Isaac ingin mengukur pensil, tetapi penggarisnya terbalik (angkanya berjalan dari arah sebaliknya). Tentukan panjang pensil yang benar, dalam cm.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "5" },
+        { "label": "E", "text": "6" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "5" },
+        { "label": "E", "text": "6" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q5.jpg",
+      "hint_steps_en": [
+        "The length is the distance between the pencil's two ends, not a single number.",
+        "The ends sit at marks 11 and 6 on the flipped ruler.",
+        "Length = 11 − 6 = 5 cm (flipping the ruler doesn't change the difference)."
+      ],
+      "hint_steps_id": [
+        "Panjang adalah jarak antara dua ujung pensil, bukan satu angka saja.",
+        "Ujung-ujungnya berada di tanda 11 dan 6 pada penggaris terbalik.",
+        "Panjang = 11 − 6 = 5 cm (membalik penggaris tidak mengubah selisihnya)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the ruler is flipped over (its numbers run the other way)",
+            "phrase_id": "penggarisnya terbalik (angkanya berjalan dari arah sebaliknya)",
+            "note_en": "The numbers count down instead of up.",
+            "note_id": "Angkanya menurun, bukan menaik."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the correct length of the pencil, in cm",
+            "phrase_id": "Tentukan panjang pensil yang benar, dalam cm",
+            "note_en": "Measure the gap between the two ends.",
+            "note_id": "Ukur jarak antara dua ujung."
+          }
+        ],
+        "quantities": [
+          { "label_en": "End marks", "label_id": "Tanda ujung", "value": "11 and 6" },
+          { "label_en": "Length", "label_id": "Panjang", "value": "11 − 6 = 5" }
+        ],
+        "strategy": { "name_en": "Measure the gap between the two ends, not one reading", "name_id": "Ukur jarak antara dua ujung, bukan satu angka" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 6,
+      "body_en": "Find the sum of the number of apples in the 4th box from the left and the number of apples in the 4th box from the right.",
+      "body_id": "Tentukan jumlah banyak apel pada kotak ke-4 dari kiri dan banyak apel pada kotak ke-4 dari kanan.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "14" },
+        { "label": "B", "text": "17" },
+        { "label": "C", "text": "13" },
+        { "label": "D", "text": "11" },
+        { "label": "E", "text": "15" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "14" },
+        { "label": "B", "text": "17" },
+        { "label": "C", "text": "13" },
+        { "label": "D", "text": "11" },
+        { "label": "E", "text": "15" }
+      ],
+      "answer": "E",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q6.jpg",
+      "hint_steps_en": [
+        "Count 4 boxes from the left: that box has 8 apples.",
+        "Count 4 boxes from the right: that box has 7 apples.",
+        "8 + 7 = 15 (E)."
+      ],
+      "hint_steps_id": [
+        "Hitung 4 kotak dari kiri: kotak itu berisi 8 apel.",
+        "Hitung 4 kotak dari kanan: kotak itu berisi 7 apel.",
+        "8 + 7 = 15 (E)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the 4th box from the left",
+            "phrase_id": "kotak ke-4 dari kiri",
+            "note_en": "Count four boxes starting at the left end.",
+            "note_id": "Hitung empat kotak mulai dari ujung kiri."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the 4th box from the right",
+            "phrase_id": "kotak ke-4 dari kanan",
+            "note_en": "Count four boxes starting at the right end.",
+            "note_id": "Hitung empat kotak mulai dari ujung kanan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of the number of apples",
+            "phrase_id": "Tentukan jumlah banyak apel",
+            "note_en": "Add the two boxes' apple counts.",
+            "note_id": "Jumlahkan apel kedua kotak."
+          }
+        ],
+        "quantities": [
+          { "label_en": "4th from left", "label_id": "Ke-4 dari kiri", "value": "8" },
+          { "label_en": "4th from right", "label_id": "Ke-4 dari kanan", "value": "7" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "15" }
+        ],
+        "strategy": { "name_en": "Find the two boxes, then add their apples", "name_id": "Cari kedua kotak, lalu jumlahkan apelnya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "E" }
+      }
+    },
+    {
+      "number": 7,
+      "body_en": "When the boat below slides (translates) across the grid, how many of the other boat figures does it land exactly on top of?",
+      "body_id": "Ketika perahu di bawah digeser (ditranslasi) melintasi petak, ada berapa gambar perahu lain yang tepat tertutupi olehnya?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "1" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "4" },
+        { "label": "E", "text": "5" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "1" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "4" },
+        { "label": "E", "text": "5" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q7.jpg",
+      "hint_steps_en": [
+        "A slide keeps a boat's size and direction — it can't turn or flip.",
+        "So the moving boat can only match boats that look exactly like it.",
+        "Two boats are exact copies, so it lands on 2 (B)."
+      ],
+      "hint_steps_id": [
+        "Geseran mempertahankan ukuran dan arah perahu — tidak bisa diputar atau dibalik.",
+        "Jadi perahu yang bergerak hanya cocok dengan perahu yang persis sama bentuknya.",
+        "Dua perahu adalah salinan persis, jadi ia menutupi 2 (B)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "slides (translates) across the grid",
+            "phrase_id": "digeser (ditranslasi) melintasi petak",
+            "note_en": "A slide moves the boat without turning it.",
+            "note_id": "Geseran memindahkan perahu tanpa memutarnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many of the other boat figures does it land exactly on top of?",
+            "phrase_id": "ada berapa gambar perahu lain yang tepat tertutupi olehnya?",
+            "note_en": "Count the boats it can exactly cover.",
+            "note_id": "Hitung perahu yang bisa tepat ia tutupi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rule", "label_id": "Aturan", "value": "slide keeps size + direction" },
+          { "label_en": "Exact copies", "label_id": "Salinan persis", "value": "2" }
+        ],
+        "strategy": { "name_en": "Only boats identical in size and direction can be matched by a slide", "name_id": "Hanya perahu yang sama ukuran dan arah yang bisa dicocokkan dengan geseran" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
+    },
+    {
+      "number": 8,
+      "body_en": "Each option is a piece cut from a hundreds chart. In which option is 35 NOT the number that belongs in the blank square?",
+      "body_id": "Setiap pilihan adalah potongan dari tabel ratusan. Pada pilihan manakah 35 BUKAN bilangan yang seharusnya mengisi kotak kosong?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Piece A" },
+        { "label": "B", "text": "Piece B" },
+        { "label": "C", "text": "Piece C" },
+        { "label": "D", "text": "Piece D" },
+        { "label": "E", "text": "Piece E" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Potongan A" },
+        { "label": "B", "text": "Potongan B" },
+        { "label": "C", "text": "Potongan C" },
+        { "label": "D", "text": "Potongan D" },
+        { "label": "E", "text": "Potongan E" }
+      ],
+      "answer": "E",
+      "hint_steps_en": [
+        "In a hundreds chart, moving right adds 1 and moving down adds 10.",
+        "Use that rule to fill each option's blank: A, B, C, and D all give 35.",
+        "In E the rule gives 26, not 35 — so the answer is E."
+      ],
+      "hint_steps_id": [
+        "Pada tabel ratusan, ke kanan bertambah 1 dan ke bawah bertambah 10.",
+        "Pakai aturan itu untuk mengisi tiap kotak kosong: A, B, C, dan D semuanya memberi 35.",
+        "Pada E aturannya memberi 26, bukan 35 — jadi jawabannya E."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a piece cut from a hundreds chart",
+            "phrase_id": "potongan dari tabel ratusan",
+            "note_en": "Right adds 1, down adds 10.",
+            "note_id": "Ke kanan tambah 1, ke bawah tambah 10."
+          },
+          {
+            "category": "question",
+            "phrase_en": "In which option is 35 NOT the number that belongs in the blank square?",
+            "phrase_id": "Pada pilihan manakah 35 BUKAN bilangan yang seharusnya mengisi kotak kosong?",
+            "note_en": "Find the one fragment where the blank isn't 35.",
+            "note_id": "Cari potongan yang kotak kosongnya bukan 35."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rule", "label_id": "Aturan", "value": "right +1, down +10" },
+          { "label_en": "A–D blank", "label_id": "Kosong A–D", "value": "35" },
+          { "label_en": "E blank", "label_id": "Kosong E", "value": "26" }
+        ],
+        "strategy": { "name_en": "Apply right +1 / down +10 to each option's blank", "name_id": "Terapkan ke kanan +1 / ke bawah +10 pada tiap kotak kosong" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "E" }
+      }
+    },
+    {
+      "number": 9,
+      "body_en": "A flower shop sells two kinds of flowers: red flowers cost $7 each and pink flowers cost $5 each. If Mom buys 5 flowers in total, how much money might she pay?",
+      "body_id": "Sebuah toko bunga menjual dua jenis bunga: bunga merah seharga $7 per tangkai dan bunga merah muda seharga $5 per tangkai. Jika Ibu membeli 5 bunga seluruhnya, berapa uang yang mungkin ia bayar?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "26" },
+        { "label": "B", "text": "37" },
+        { "label": "C", "text": "31" },
+        { "label": "D", "text": "28" },
+        { "label": "E", "text": "30" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "26" },
+        { "label": "B", "text": "37" },
+        { "label": "C", "text": "31" },
+        { "label": "D", "text": "28" },
+        { "label": "E", "text": "30" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "Red costs $7, pink costs $5; she buys 5 flowers. If r are red, the cost is 7r + 5(5 − r) = 2r + 25.",
+        "Possible totals: 25, 27, 29, 31, 33, 35.",
+        "31 is in the list (r = 3) → C."
+      ],
+      "hint_steps_id": [
+        "Merah $7, merah muda $5; ia membeli 5 bunga. Jika r merah, biayanya 7r + 5(5 − r) = 2r + 25.",
+        "Total yang mungkin: 25, 27, 29, 31, 33, 35.",
+        "31 ada di daftar (r = 3) → C."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "red flowers cost $7 each and pink flowers cost $5 each",
+            "phrase_id": "bunga merah seharga $7 per tangkai dan bunga merah muda seharga $5 per tangkai",
+            "note_en": "Two prices, $7 and $5.",
+            "note_id": "Dua harga, $7 dan $5."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "buys 5 flowers in total",
+            "phrase_id": "membeli 5 bunga seluruhnya",
+            "note_en": "The reds and pinks add up to 5.",
+            "note_id": "Merah dan merah muda berjumlah 5."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how much money might she pay?",
+            "phrase_id": "berapa uang yang mungkin ia bayar?",
+            "note_en": "Find the option that is a possible total.",
+            "note_id": "Cari pilihan yang merupakan total mungkin."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cost form", "label_id": "Bentuk biaya", "value": "2r + 25" },
+          { "label_en": "Possible totals", "label_id": "Total mungkin", "value": "25, 27, 29, 31, 33, 35" }
+        ],
+        "strategy": { "name_en": "List every possible total, then match an option", "name_id": "Daftar semua total mungkin, lalu cocokkan pilihan" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 10,
+      "body_en": "There are 16 children and 7 chairs, as shown. A single chair seats 1 child, a double chair seats 2 children, and a triple chair seats 3 children. When all the chairs are filled, how many children do not have a seat?",
+      "body_id": "Ada 16 anak dan 7 kursi, seperti pada gambar. Kursi tunggal memuat 1 anak, kursi ganda memuat 2 anak, dan kursi tiga memuat 3 anak. Ketika semua kursi terisi, berapa anak yang tidak mendapat tempat duduk?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "2" },
+        { "label": "B", "text": "5" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "4" },
+        { "label": "E", "text": "6" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "2" },
+        { "label": "B", "text": "5" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "4" },
+        { "label": "E", "text": "6" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q10.jpg",
+      "hint_steps_en": [
+        "Add up the seats: the chairs hold 1 + 1 + 1 + 2 + 2 + 1 + 3 = 11 children.",
+        "There are 16 children but only 11 seats.",
+        "So 16 − 11 = 5 children have no seat (B)."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan kursinya: kursi-kursi memuat 1 + 1 + 1 + 2 + 2 + 1 + 3 = 11 anak.",
+        "Ada 16 anak tetapi hanya 11 kursi.",
+        "Jadi 16 − 11 = 5 anak tidak mendapat tempat duduk (B)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "16 children and 7 chairs",
+            "phrase_id": "16 anak dan 7 kursi",
+            "note_en": "16 kids, 7 chairs of mixed sizes.",
+            "note_id": "16 anak, 7 kursi berbagai ukuran."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A single chair seats 1 child, a double chair seats 2 children, and a triple chair seats 3 children",
+            "phrase_id": "Kursi tunggal memuat 1 anak, kursi ganda memuat 2 anak, dan kursi tiga memuat 3 anak",
+            "note_en": "Each chair's size is its number of seats.",
+            "note_id": "Ukuran tiap kursi = banyak tempat duduknya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many children do not have a seat?",
+            "phrase_id": "berapa anak yang tidak mendapat tempat duduk?",
+            "note_en": "Children minus total seats.",
+            "note_id": "Banyak anak dikurangi total kursi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total seats", "label_id": "Total kursi", "value": "11" },
+          { "label_en": "Children", "label_id": "Anak", "value": "16" },
+          { "label_en": "Standing", "label_id": "Berdiri", "value": "5" }
+        ],
+        "strategy": { "name_en": "Total the seats, then subtract from 16", "name_id": "Totalkan kursi, lalu kurangkan dari 16" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
+    },
+    {
+      "number": 11,
+      "body_en": "Consider the 2-digit numbers in which the units digit and the tens digit add up to 8. Subtract the smallest such number from the largest such number. What is the result?",
+      "body_id": "Perhatikan bilangan dua angka yang jumlah angka satuan dan angka puluhannya adalah 8. Kurangkan bilangan terkecil dari bilangan terbesar di antaranya. Berapa hasilnya?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "62" },
+        { "label": "B", "text": "54" },
+        { "label": "C", "text": "72" },
+        { "label": "D", "text": "56" },
+        { "label": "E", "text": "63" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "62" },
+        { "label": "B", "text": "54" },
+        { "label": "C", "text": "72" },
+        { "label": "D", "text": "56" },
+        { "label": "E", "text": "63" }
+      ],
+      "answer": "E",
+      "hint_steps_en": [
+        "The 2-digit numbers whose digits add to 8: 17, 26, 35, 44, 53, 62, 71, 80.",
+        "Largest = 80, smallest = 17.",
+        "80 − 17 = 63 (E)."
+      ],
+      "hint_steps_id": [
+        "Bilangan dua angka yang angkanya berjumlah 8: 17, 26, 35, 44, 53, 62, 71, 80.",
+        "Terbesar = 80, terkecil = 17.",
+        "80 − 17 = 63 (E)."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the units digit and the tens digit add up to 8",
+            "phrase_id": "jumlah angka satuan dan angka puluhannya adalah 8",
+            "note_en": "Only 2-digit numbers with digit-sum 8.",
+            "note_id": "Hanya bilangan dua angka berjumlah angka 8."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Subtract the smallest such number from the largest such number",
+            "phrase_id": "Kurangkan bilangan terkecil dari bilangan terbesar di antaranya",
+            "note_en": "Find the biggest and smallest, then subtract.",
+            "note_id": "Cari terbesar dan terkecil, lalu kurangkan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Largest", "label_id": "Terbesar", "value": "80" },
+          { "label_en": "Smallest", "label_id": "Terkecil", "value": "17" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "63" }
+        ],
+        "strategy": { "name_en": "List the numbers with digit-sum 8, then subtract the extremes", "name_id": "Daftar bilangan berjumlah angka 8, lalu kurangkan ujung-ujungnya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "E" }
+      }
+    },
+    {
+      "number": 12,
+      "body_en": "Observe the pattern of the numbers in the figure. What number should replace the “?”",
+      "body_id": "Perhatikan pola bilangan pada gambar. Bilangan berapa yang harus menggantikan “?”",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "3" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "2" },
+        { "label": "D", "text": "8" },
+        { "label": "E", "text": "5" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "3" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "2" },
+        { "label": "D", "text": "8" },
+        { "label": "E", "text": "5" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q12.jpg",
+      "hint_steps_en": [
+        "The numbers come in pairs. The first minus the second gives the first of the next pair.",
+        "19 − 3 = 16, then 16 − 4 = 12.",
+        "12 − 6 = 6, so ? = 6 (B)."
+      ],
+      "hint_steps_id": [
+        "Bilangan berpasangan. Yang pertama dikurangi yang kedua menghasilkan yang pertama pasangan berikutnya.",
+        "19 − 3 = 16, lalu 16 − 4 = 12.",
+        "12 − 6 = 6, jadi ? = 6 (B)."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Observe the pattern of the numbers",
+            "phrase_id": "Perhatikan pola bilangan",
+            "note_en": "Each pair links to the next by subtraction.",
+            "note_id": "Tiap pasangan terhubung ke berikutnya lewat pengurangan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number should replace the “?”",
+            "phrase_id": "Bilangan berapa yang harus menggantikan “?”",
+            "note_en": "Continue the subtraction chain.",
+            "note_id": "Lanjutkan rantai pengurangannya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rule", "label_id": "Aturan", "value": "first − second = next first" },
+          { "label_en": "19 − 3", "label_id": "19 − 3", "value": "16" },
+          { "label_en": "16 − 4", "label_id": "16 − 4", "value": "12" },
+          { "label_en": "12 − 6", "label_id": "12 − 6", "value": "6" }
+        ],
+        "strategy": { "name_en": "Subtract within each pair to get the next first number", "name_id": "Kurangkan dalam tiap pasangan untuk dapat bilangan pertama berikutnya" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
+    },
+    {
+      "number": 13,
+      "body_en": "Observe the arrangement of the shapes below. Which shape should the “?” be?",
+      "body_id": "Perhatikan susunan bentuk-bentuk di bawah. Bentuk apa yang seharusnya menjadi “?”",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Shape A" },
+        { "label": "B", "text": "Shape B" },
+        { "label": "C", "text": "Shape C" },
+        { "label": "D", "text": "Shape D" },
+        { "label": "E", "text": "Shape E" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Bentuk A" },
+        { "label": "B", "text": "Bentuk B" },
+        { "label": "C", "text": "Bentuk C" },
+        { "label": "D", "text": "Bentuk D" },
+        { "label": "E", "text": "Bentuk E" }
+      ],
+      "answer": "A",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q13.jpg",
+      "hint_steps_en": [
+        "Two patterns run together: the outline shape and the face mood.",
+        "The outline shape repeats every 5 (triangle, circle, square, pentagon, diamond) — at the ? it is a diamond.",
+        "The face mood repeats every 3 (smile, frown, frown) — at the ? it is a frown. A frowning diamond is A."
+      ],
+      "hint_steps_id": [
+        "Dua pola berjalan bersama: bentuk garis luar dan ekspresi wajah.",
+        "Bentuk garis luar berulang tiap 5 (segitiga, lingkaran, persegi, segilima, belah ketupat) — pada ? berupa belah ketupat.",
+        "Ekspresi wajah berulang tiap 3 (senyum, cemberut, cemberut) — pada ? berupa cemberut. Belah ketupat cemberut adalah A."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Observe the arrangement of the shapes below",
+            "phrase_id": "Perhatikan susunan bentuk-bentuk di bawah",
+            "note_en": "Two separate cycles are hidden in the row.",
+            "note_id": "Dua siklus terpisah tersembunyi di barisan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which shape should the “?” be?",
+            "phrase_id": "Bentuk apa yang seharusnya menjadi “?”",
+            "note_en": "Solve each cycle to get the missing shape.",
+            "note_id": "Selesaikan tiap siklus untuk dapat bentuknya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Outline cycle", "label_id": "Siklus bentuk", "value": "period 5 → diamond" },
+          { "label_en": "Mood cycle", "label_id": "Siklus wajah", "value": "period 3 → frown" },
+          { "label_en": "Answer", "label_id": "Jawaban", "value": "frowning diamond = A" }
+        ],
+        "strategy": { "name_en": "Solve the shape cycle and the mood cycle separately", "name_id": "Selesaikan siklus bentuk dan siklus wajah secara terpisah" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      }
+    },
+    {
+      "number": 14,
+      "body_en": "Count the 48 figures below. Which two kinds of figures appear in equal quantity?",
+      "body_id": "Hitung 48 gambar di bawah. Dua jenis gambar manakah yang jumlahnya sama banyak?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Pair A" },
+        { "label": "B", "text": "Pair B" },
+        { "label": "C", "text": "Pair C" },
+        { "label": "D", "text": "Pair D" },
+        { "label": "E", "text": "Pair E" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Pasangan A" },
+        { "label": "B", "text": "Pasangan B" },
+        { "label": "C", "text": "Pasangan C" },
+        { "label": "D", "text": "Pasangan D" },
+        { "label": "E", "text": "Pasangan E" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q14.jpg",
+      "hint_steps_en": [
+        "Tally each kind among the 48: rose 12, cosmos 12, blue flower 6, tulip 8, x-flower 10.",
+        "Check each option's pair: only rose and cosmos match — 12 and 12.",
+        "So the equal pair is C."
+      ],
+      "hint_steps_id": [
+        "Hitung tiap jenis dari 48: mawar 12, kosmos 12, bunga biru 6, tulip 8, bunga-X 10.",
+        "Periksa pasangan tiap pilihan: hanya mawar dan kosmos yang sama — 12 dan 12.",
+        "Jadi pasangan yang sama adalah C."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Count the 48 figures below",
+            "phrase_id": "Hitung 48 gambar di bawah",
+            "note_en": "Tally how many of each kind there are.",
+            "note_id": "Hitung berapa banyak tiap jenis."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which two kinds of figures appear in equal quantity?",
+            "phrase_id": "Dua jenis gambar manakah yang jumlahnya sama banyak?",
+            "note_en": "Find the pair with the same count.",
+            "note_id": "Cari pasangan dengan jumlah yang sama."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rose / Cosmos", "label_id": "Mawar / Kosmos", "value": "12 each" },
+          { "label_en": "X-flower", "label_id": "Bunga-X", "value": "10" },
+          { "label_en": "Tulip", "label_id": "Tulip", "value": "8" },
+          { "label_en": "Blue flower", "label_id": "Bunga biru", "value": "6" }
+        ],
+        "strategy": { "name_en": "Tally every kind, then find the pair with equal counts", "name_id": "Hitung tiap jenis, lalu cari pasangan dengan jumlah sama" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      }
+    },
+    {
+      "number": 15,
+      "body_en": "There are 16 small squares arranged in a 4×4 grid. If one straight line is drawn, at most how many of the small squares can it pass through?",
+      "body_id": "Ada 16 persegi kecil yang disusun dalam petak 4×4. Jika sebuah garis lurus ditarik, paling banyak berapa persegi kecil yang dapat dilaluinya?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "7" },
+        { "label": "E", "text": "9" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "8" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "7" },
+        { "label": "E", "text": "9" }
+      ],
+      "answer": "D",
+      "hint_steps_en": [
+        "A line enters a new square each time it crosses a grid line.",
+        "A 4×4 grid has 3 inside vertical lines and 3 inside horizontal lines.",
+        "Starting in 1 square and crossing all 6 lines: 1 + 6 = 7 squares."
+      ],
+      "hint_steps_id": [
+        "Garis masuk ke kotak baru setiap kali melewati garis petak.",
+        "Petak 4×4 punya 3 garis tegak dalam dan 3 garis datar dalam.",
+        "Mulai dari 1 kotak dan melewati 6 garis: 1 + 6 = 7 kotak."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "one straight line is drawn",
+            "phrase_id": "sebuah garis lurus ditarik",
+            "note_en": "A single straight cut across the grid.",
+            "note_id": "Satu garis lurus melintasi petak."
+          },
+          {
+            "category": "question",
+            "phrase_en": "at most how many of the small squares can it pass through?",
+            "phrase_id": "paling banyak berapa persegi kecil yang dapat dilaluinya?",
+            "note_en": "Find the maximum number of cells it can cross.",
+            "note_id": "Cari jumlah kotak terbanyak yang bisa dilewati."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Inside lines", "label_id": "Garis dalam", "value": "3 + 3 = 6" },
+          { "label_en": "Squares", "label_id": "Kotak", "value": "1 + 6 = 7" }
+        ],
+        "strategy": { "name_en": "Count the grid lines the line can cross, add 1", "name_id": "Hitung garis petak yang dilewati, tambah 1" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      }
+    },
+    {
+      "number": 16,
+      "body_en": "To change the design on the left (2025) into the design on the right (0726), how many cubes must change their color?",
+      "body_id": "Untuk mengubah desain di kiri (2025) menjadi desain di kanan (0726), berapa kubus yang harus berganti warna?",
+      "answer_type": "fill_in",
+      "answer": "9",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q16.jpg",
+      "hint_steps_en": [
+        "Compare the two designs one digit at a time and count the cubes that differ.",
+        "2 → 0 changes 3 cubes, 0 → 7 changes 5, 2 → 2 changes 0, 5 → 6 changes 1.",
+        "Total: 3 + 5 + 0 + 1 = 9 cubes."
+      ],
+      "hint_steps_id": [
+        "Bandingkan kedua desain satu angka demi satu angka dan hitung kubus yang berbeda.",
+        "2 → 0 mengubah 3 kubus, 0 → 7 mengubah 5, 2 → 2 mengubah 0, 5 → 6 mengubah 1.",
+        "Total: 3 + 5 + 0 + 1 = 9 kubus."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "change the design on the left (2025) into the design on the right (0726)",
+            "phrase_id": "mengubah desain di kiri (2025) menjadi desain di kanan (0726)",
+            "note_en": "Turn one cube picture into the other.",
+            "note_id": "Ubah satu gambar kubus menjadi yang lain."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many cubes must change their color?",
+            "phrase_id": "berapa kubus yang harus berganti warna?",
+            "note_en": "Count the cubes that are different between the two.",
+            "note_id": "Hitung kubus yang berbeda antara keduanya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "2 → 0", "label_id": "2 → 0", "value": "3" },
+          { "label_en": "0 → 7", "label_id": "0 → 7", "value": "5" },
+          { "label_en": "2 → 2", "label_id": "2 → 2", "value": "0" },
+          { "label_en": "5 → 6", "label_id": "5 → 6", "value": "1" }
+        ],
+        "strategy": { "name_en": "Compare each digit's cubes and total the differences", "name_id": "Bandingkan kubus tiap angka dan jumlahkan perbedaannya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "9" }
+      }
+    },
+    {
+      "number": 17,
+      "body_en": "Use the six digits 0, 2, 4, 6, 7, and 9 to form three 2-digit numbers (each digit used once). Find the smallest possible difference between the largest and the smallest of the three numbers.",
+      "body_id": "Gunakan enam angka 0, 2, 4, 6, 7, dan 9 untuk membentuk tiga bilangan dua angka (setiap angka dipakai sekali). Tentukan selisih terkecil yang mungkin antara bilangan terbesar dan terkecil dari ketiganya.",
+      "answer_type": "fill_in",
+      "answer": "21",
+      "hint_steps_en": [
+        "To keep the three numbers close, pick three tens digits that are near each other: 4, 6, 7.",
+        "Pair them so the numbers cluster: 70, 62, 49 (0 must be a units digit).",
+        "Largest − smallest = 70 − 49 = 21."
+      ],
+      "hint_steps_id": [
+        "Agar ketiga bilangan berdekatan, pilih tiga angka puluhan yang dekat: 4, 6, 7.",
+        "Pasangkan agar bilangannya mengelompok: 70, 62, 49 (0 harus jadi angka satuan).",
+        "Terbesar − terkecil = 70 − 49 = 21."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "form three 2-digit numbers",
+            "phrase_id": "membentuk tiga bilangan dua angka",
+            "note_en": "Each digit is used once across the three numbers.",
+            "note_id": "Tiap angka dipakai sekali di ketiga bilangan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the smallest possible difference between the largest and the smallest",
+            "phrase_id": "selisih terkecil yang mungkin antara bilangan terbesar dan terkecil",
+            "note_en": "Make the three numbers as close together as possible.",
+            "note_id": "Buat ketiga bilangan sedekat mungkin."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Tens digits", "label_id": "Angka puluhan", "value": "4, 6, 7" },
+          { "label_en": "Numbers", "label_id": "Bilangan", "value": "70, 62, 49" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "70 − 49 = 21" }
+        ],
+        "strategy": { "name_en": "Choose close tens digits so the numbers cluster, then subtract", "name_id": "Pilih angka puluhan berdekatan agar bilangan mengelompok, lalu kurangkan" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "21" }
+      }
+    },
+    {
+      "number": 18,
+      "body_en": "A bus has 5 empty seats. At the next station no one gets off and 9 people get on. If 2 seats are still empty afterward, how many of the new passengers are standing?",
+      "body_id": "Sebuah bus memiliki 5 kursi kosong. Di stasiun berikutnya tidak ada yang turun dan 9 orang naik. Jika setelah itu masih ada 2 kursi kosong, berapa penumpang baru yang berdiri?",
+      "answer_type": "fill_in",
+      "answer": "6",
+      "hint_steps_en": [
+        "The bus had 5 empty seats; after everyone boards, 2 are still empty.",
+        "So 5 − 2 = 3 of the new passengers sat down.",
+        "The other 9 − 3 = 6 passengers are standing."
+      ],
+      "hint_steps_id": [
+        "Bus punya 5 kursi kosong; setelah semua naik, 2 masih kosong.",
+        "Jadi 5 − 2 = 3 penumpang baru duduk.",
+        "Sisanya 9 − 3 = 6 penumpang berdiri."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A bus has 5 empty seats",
+            "phrase_id": "Sebuah bus memiliki 5 kursi kosong",
+            "note_en": "Five seats are free to start.",
+            "note_id": "Lima kursi kosong di awal."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 seats are still empty afterward",
+            "phrase_id": "masih ada 2 kursi kosong",
+            "note_en": "So only 3 seats got filled.",
+            "note_id": "Jadi hanya 3 kursi yang terisi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many of the new passengers are standing?",
+            "phrase_id": "berapa penumpang baru yang berdiri?",
+            "note_en": "The ones who didn't get a seat.",
+            "note_id": "Yang tidak mendapat tempat duduk."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sat down", "label_id": "Duduk", "value": "5 − 2 = 3" },
+          { "label_en": "Standing", "label_id": "Berdiri", "value": "9 − 3 = 6" }
+        ],
+        "strategy": { "name_en": "Seats filled = 5 − 2; standing = 9 − that", "name_id": "Kursi terisi = 5 − 2; berdiri = 9 − itu" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "6" }
+      }
+    },
+    {
+      "number": 19,
+      "body_en": "Andrew is in a math competition. Late in the competition he notices that the number of problems he has answered is 4 more than the number he has not answered. But 20 minutes earlier, the number he had answered was 4 fewer than the number he had not answered. How many problems did Andrew answer during those 20 minutes?",
+      "body_id": "Andrew mengikuti kompetisi matematika. Menjelang akhir, ia menyadari bahwa banyak soal yang sudah ia jawab adalah 4 lebih banyak daripada yang belum ia jawab. Namun 20 menit sebelumnya, banyak soal yang sudah ia jawab adalah 4 lebih sedikit daripada yang belum ia jawab. Berapa soal yang Andrew jawab dalam 20 menit itu?",
+      "answer_type": "fill_in",
+      "answer": "4",
+      "hint_steps_en": [
+        "Now: answered = unanswered + 4, so answered = (total + 4) ÷ 2.",
+        "20 minutes ago: answered = unanswered − 4, so answered = (total − 4) ÷ 2.",
+        "Answered during those 20 minutes = (total+4)÷2 − (total−4)÷2 = 4."
+      ],
+      "hint_steps_id": [
+        "Sekarang: dijawab = belum + 4, jadi dijawab = (total + 4) ÷ 2.",
+        "20 menit lalu: dijawab = belum − 4, jadi dijawab = (total − 4) ÷ 2.",
+        "Dijawab dalam 20 menit itu = (total+4)÷2 − (total−4)÷2 = 4."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the number of problems he has answered is 4 more than the number he has not answered",
+            "phrase_id": "banyak soal yang sudah ia jawab adalah 4 lebih banyak daripada yang belum ia jawab",
+            "note_en": "Now: answered is 4 ahead of unanswered.",
+            "note_id": "Sekarang: dijawab 4 lebih banyak dari belum."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the number he had answered was 4 fewer than the number he had not answered",
+            "phrase_id": "banyak soal yang sudah ia jawab adalah 4 lebih sedikit daripada yang belum ia jawab",
+            "note_en": "20 minutes ago: answered was 4 behind.",
+            "note_id": "20 menit lalu: dijawab 4 lebih sedikit."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many problems did Andrew answer during those 20 minutes?",
+            "phrase_id": "Berapa soal yang Andrew jawab dalam 20 menit itu?",
+            "note_en": "The change in 'answered' over 20 minutes.",
+            "note_id": "Perubahan jumlah 'dijawab' dalam 20 menit."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Now answered", "label_id": "Kini dijawab", "value": "(total + 4) ÷ 2" },
+          { "label_en": "20 min ago", "label_id": "20 menit lalu", "value": "(total − 4) ÷ 2" },
+          { "label_en": "Answered in 20 min", "label_id": "Dijawab dalam 20 menit", "value": "4" }
+        ],
+        "strategy": { "name_en": "Write 'answered' both times, then subtract", "name_id": "Tulis 'dijawab' di kedua waktu, lalu kurangkan" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "4" }
+      }
+    },
+    {
+      "number": 20,
+      "body_en": "A theater row has 12 seats. When Lisa arrives, some seats are taken. No matter which empty seat she chooses, she will sit next to an occupied seat. What is the smallest number of people who could already be seated in the row?",
+      "body_id": "Sebuah baris teater memiliki 12 kursi. Saat Lisa tiba, beberapa kursi sudah terisi. Kursi kosong mana pun yang ia pilih, ia akan duduk di sebelah kursi yang terisi. Paling sedikit berapa orang yang sudah duduk di baris itu?",
+      "answer_type": "fill_in",
+      "answer": "4",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q20.jpg",
+      "hint_steps_en": [
+        "Every empty seat must have an occupied seat right next to it.",
+        "One person 'covers' their own seat and the two beside it, so people spaced every 3rd seat cover the whole row.",
+        "Seats 2, 5, 8, 11 cover all 12 — that is 4 people, and 3 would leave a gap."
+      ],
+      "hint_steps_id": [
+        "Setiap kursi kosong harus punya kursi terisi tepat di sebelahnya.",
+        "Satu orang 'menutupi' kursinya sendiri dan dua kursi di sampingnya, jadi orang yang berjarak tiap kursi ke-3 menutupi seluruh baris.",
+        "Kursi 2, 5, 8, 11 menutupi semua 12 — itu 4 orang, dan 3 akan menyisakan celah."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "she will sit next to an occupied seat",
+            "phrase_id": "ia akan duduk di sebelah kursi yang terisi",
+            "note_en": "Every empty seat touches an occupied one.",
+            "note_id": "Tiap kursi kosong bersebelahan dengan yang terisi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the smallest number of people who could already be seated",
+            "phrase_id": "Paling sedikit berapa orang yang sudah duduk",
+            "note_en": "Cover all seats with the fewest people.",
+            "note_id": "Tutupi semua kursi dengan orang paling sedikit."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Spacing", "label_id": "Jarak", "value": "every 3rd seat" },
+          { "label_en": "Occupied", "label_id": "Terisi", "value": "2, 5, 8, 11" },
+          { "label_en": "People", "label_id": "Orang", "value": "4" }
+        ],
+        "strategy": { "name_en": "Cover every empty seat with the fewest occupied neighbours", "name_id": "Tutupi tiap kursi kosong dengan tetangga terisi paling sedikit" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "4" }
+      }
+    },
+    {
+      "number": 21,
+      "body_en": "Fill the numbers 1–10 into the circles without repeating, so that the two opposite circles marked with the same figure always add up to the same sum. With some numbers already filled in, find the sum of all the numbers that could go in the shaded circle.",
+      "body_id": "Isikan bilangan 1–10 ke dalam lingkaran tanpa pengulangan, sehingga dua lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama. Dengan beberapa bilangan sudah terisi, tentukan jumlah semua bilangan yang mungkin mengisi lingkaran yang diarsir.",
+      "answer_type": "fill_in",
+      "answer": "10",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q21.jpg",
+      "hint_steps_en": [
+        "The numbers 1 to 10 add up to 55, split into 5 opposite pairs that all share one sum.",
+        "So each opposite pair must add to 55 ÷ 5 = 11.",
+        "The shaded circle is opposite the 1, so it must be 11 − 1 = 10 — the only value, so the sum is 10."
+      ],
+      "hint_steps_id": [
+        "Bilangan 1 sampai 10 berjumlah 55, dibagi menjadi 5 pasangan berseberangan yang semuanya berjumlah sama.",
+        "Jadi tiap pasangan berseberangan harus berjumlah 55 ÷ 5 = 11.",
+        "Lingkaran yang diarsir berseberangan dengan 1, jadi nilainya 11 − 1 = 10 — satu-satunya nilai, jadi jumlahnya 10."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "two opposite circles marked with the same figure always add up to the same sum",
+            "phrase_id": "dua lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama",
+            "note_en": "All five opposite pairs share one common sum.",
+            "note_id": "Kelima pasangan berseberangan berbagi satu jumlah sama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the sum of all the numbers that could go in the shaded circle",
+            "phrase_id": "tentukan jumlah semua bilangan yang mungkin mengisi lingkaran yang diarsir",
+            "note_en": "Add up every value the shaded circle could hold.",
+            "note_id": "Jumlahkan setiap nilai yang mungkin di lingkaran arsir."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total 1–10", "label_id": "Total 1–10", "value": "55" },
+          { "label_en": "Pair sum", "label_id": "Jumlah pasangan", "value": "55 ÷ 5 = 11" },
+          { "label_en": "Shaded", "label_id": "Diarsir", "value": "11 − 1 = 10" }
+        ],
+        "strategy": { "name_en": "Find the common pair-sum, then the circle opposite the 1", "name_id": "Cari jumlah pasangan, lalu lingkaran berseberangan dengan 1" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "10" }
+      }
+    },
+    {
+      "number": 22,
+      "body_en": "Look at the balance scales. The weights of the shapes are whole numbers. Find the difference between the largest possible total and the smallest possible total of the shapes' weights.",
+      "body_id": "Perhatikan timbangan-timbangan itu. Berat bentuk-bentuknya adalah bilangan bulat. Tentukan selisih antara jumlah berat terbesar yang mungkin dan terkecil yang mungkin dari bentuk-bentuk itu.",
+      "answer_type": "fill_in",
+      "answer": "3",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q22.jpg",
+      "hint_steps_en": [
+        "The scales give three rules: 2 balls > 1 square, 3 balls < 2 squares, and a ball + a square < 12.",
+        "These force the ball to be 3 or 4 and the square to be 5 or 7.",
+        "The two possible totals are 3 + 5 = 8 and 4 + 7 = 11, so the difference is 11 − 8 = 3."
+      ],
+      "hint_steps_id": [
+        "Timbangan memberi tiga aturan: 2 bola > 1 persegi, 3 bola < 2 persegi, dan satu bola + satu persegi < 12.",
+        "Ini memaksa bola bernilai 3 atau 4 dan persegi bernilai 5 atau 7.",
+        "Dua total yang mungkin adalah 3 + 5 = 8 dan 4 + 7 = 11, jadi selisihnya 11 − 8 = 3."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The weights of the shapes are whole numbers",
+            "phrase_id": "Berat bentuk-bentuknya adalah bilangan bulat",
+            "note_en": "Each weight is a whole number.",
+            "note_id": "Tiap berat adalah bilangan bulat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the difference between the largest possible total and the smallest possible total",
+            "phrase_id": "selisih antara jumlah berat terbesar yang mungkin dan terkecil yang mungkin",
+            "note_en": "Compare the biggest and smallest valid totals.",
+            "note_id": "Bandingkan total sah terbesar dan terkecil."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Ball", "label_id": "Bola", "value": "3 or 4" },
+          { "label_en": "Square", "label_id": "Persegi", "value": "5 or 7" },
+          { "label_en": "Totals", "label_id": "Total", "value": "8 and 11" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "3" }
+        ],
+        "strategy": { "name_en": "Use the scales to pin the weights, then compare the totals", "name_id": "Pakai timbangan untuk menetapkan berat, lalu bandingkan totalnya" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "3" }
+      }
+    },
+    {
+      "number": 23,
+      "body_en": "The map shows the distances between some students' homes. If Alex walks along the roads from his home to Emma's home, using each road at most once, what is the farthest distance he can walk, in cm?",
+      "body_id": "Peta menunjukkan jarak antar rumah beberapa siswa. Jika Alex berjalan menyusuri jalan dari rumahnya ke rumah Emma, memakai setiap jalan paling banyak sekali, berapa jarak terjauh yang dapat ia tempuh, dalam cm?",
+      "answer_type": "fill_in",
+      "answer": "29",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q23.jpg",
+      "hint_steps_en": [
+        "We want the LONGEST walk, so take the scenic route — not the direct one.",
+        "Alex → Sam → Donald → Leo → Emma uses the roads 8 + 6 + 6 + 9.",
+        "That totals 29 cm, the farthest possible."
+      ],
+      "hint_steps_id": [
+        "Kita ingin jalan TERPANJANG, jadi ambil rute memutar — bukan yang langsung.",
+        "Alex → Sam → Donald → Leo → Emma memakai jalan 8 + 6 + 6 + 9.",
+        "Itu berjumlah 29 cm, yang terjauh."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "using each road at most once",
+            "phrase_id": "memakai setiap jalan paling banyak sekali",
+            "note_en": "No road can be walked twice.",
+            "note_id": "Tidak ada jalan yang dilewati dua kali."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the farthest distance he can walk, in cm?",
+            "phrase_id": "berapa jarak terjauh yang dapat ia tempuh, dalam cm?",
+            "note_en": "Maximize the total road length to Emma.",
+            "note_id": "Maksimalkan total panjang jalan ke Emma."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Route", "label_id": "Rute", "value": "Alex → Sam → Donald → Leo → Emma" },
+          { "label_en": "Roads", "label_id": "Jalan", "value": "8 + 6 + 6 + 9" },
+          { "label_en": "Total", "label_id": "Total", "value": "29" }
+        ],
+        "strategy": { "name_en": "Take the longest legal trail, summing each road once", "name_id": "Ambil jejak sah terpanjang, jumlahkan tiap jalan sekali" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "29" }
+      }
+    },
+    {
+      "number": 24,
+      "body_en": "There are 10 trees of different heights in the park. Ivy looks for special trees: every tree to its west is shorter than it, and every tree to its east is taller than it. How many such special trees are there?",
+      "body_id": "Ada 10 pohon dengan tinggi berbeda di taman. Ivy mencari pohon istimewa: setiap pohon di sebelah baratnya lebih pendek, dan setiap pohon di sebelah timurnya lebih tinggi. Ada berapa pohon istimewa seperti itu?",
+      "answer_type": "fill_in",
+      "answer": "3",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q24.jpg",
+      "hint_steps_en": [
+        "A special tree must beat every tree to its west and lose to every tree to its east.",
+        "Going west to east and testing each tree, three pass: the 3rd, the 4th, and the 7th.",
+        "So there are 3 special trees."
+      ],
+      "hint_steps_id": [
+        "Pohon istimewa harus lebih tinggi dari semua pohon di baratnya dan lebih pendek dari semua di timurnya.",
+        "Dari barat ke timur dan menguji tiap pohon, tiga lolos: ke-3, ke-4, dan ke-7.",
+        "Jadi ada 3 pohon istimewa."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "every tree to its west is shorter than it, and every tree to its east is taller than it",
+            "phrase_id": "setiap pohon di sebelah baratnya lebih pendek, dan setiap pohon di sebelah timurnya lebih tinggi",
+            "note_en": "Taller than all on the left, shorter than all on the right.",
+            "note_id": "Lebih tinggi dari semua kiri, lebih pendek dari semua kanan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many such special trees are there?",
+            "phrase_id": "Ada berapa pohon istimewa seperti itu?",
+            "note_en": "Count every tree that passes the test.",
+            "note_id": "Hitung setiap pohon yang lolos uji."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Special positions", "label_id": "Posisi istimewa", "value": "3rd, 4th, 7th" },
+          { "label_en": "Count", "label_id": "Banyaknya", "value": "3" }
+        ],
+        "strategy": { "name_en": "Test each tree: taller than all west, shorter than all east", "name_id": "Uji tiap pohon: lebih tinggi dari semua barat, lebih pendek dari semua timur" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "3" }
+      }
+    },
+    {
+      "number": 25,
+      "body_en": "Start at the number square at the top of the pyramid and walk down to the bottom level. Each step goes to one of the two squares just below. If the 7 squares you pass through all contain different numbers, what number is in the square you reach on the bottom level?",
+      "body_id": "Mulai dari kotak angka di puncak piramida dan turun sampai ke tingkat paling bawah. Setiap langkah menuju salah satu dari dua kotak tepat di bawahnya. Jika 7 kotak yang dilalui semuanya berisi bilangan berbeda, bilangan berapa yang ada di kotak yang dicapai di tingkat paling bawah?",
+      "answer_type": "fill_in",
+      "answer": "6",
+      "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q25.jpg",
+      "hint_steps_en": [
+        "Walk down from the top (5); at each step pick a square whose number you haven't used yet.",
+        "The only all-different route is 5 → 1 → 4 → 3 → 2 → 7 → 6.",
+        "It lands on 6 at the bottom level."
+      ],
+      "hint_steps_id": [
+        "Turun dari puncak (5); pada tiap langkah pilih kotak yang bilangannya belum dipakai.",
+        "Satu-satunya rute yang semuanya berbeda adalah 5 → 1 → 4 → 3 → 2 → 7 → 6.",
+        "Ia mendarat di 6 di tingkat paling bawah."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the 7 squares you pass through all contain different numbers",
+            "phrase_id": "7 kotak yang dilalui semuanya berisi bilangan berbeda",
+            "note_en": "No number may repeat along the path.",
+            "note_id": "Tidak ada bilangan yang boleh berulang di jalur."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what number is in the square you reach on the bottom level?",
+            "phrase_id": "bilangan berapa yang ada di kotak yang dicapai di tingkat paling bawah?",
+            "note_en": "Read the bottom square the valid path lands on.",
+            "note_id": "Baca kotak bawah yang dicapai jalur yang sah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Path", "label_id": "Jalur", "value": "5 → 1 → 4 → 3 → 2 → 7 → 6" },
+          { "label_en": "Bottom square", "label_id": "Kotak bawah", "value": "6" }
+        ],
+        "strategy": { "name_en": "Walk down choosing only unused numbers; one route works", "name_id": "Turun memilih hanya bilangan belum dipakai; satu rute berhasil" },
+        "trap": null,
+        "answer": { "form": "number", "unit": null, "value": "6" }
+      }
+    }
+  ]
+}

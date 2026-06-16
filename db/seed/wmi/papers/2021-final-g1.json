@@ -5,6 +5,19 @@
   "variant": "A",
   "title": "WMI 2021 Grade 1 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q11 (Kim 7th from front, 5 between), Q12 (4×8=32), Q15 (B's box 11 is the odd one out), Q20 (19 students → 9 in front), Q23 (🔺4/🟣2/🔷11/🟡7 satisfies all four clue equations uniquely → 13), Q25 (move sum 32). Figure-dependent answers (Q3-Q8, Q10, Q18, Q19, Q21, Q22, Q24) checked for internal consistency; the Q14/Q18/Q21 figures had prior rendering fixes per the conversion checklist. One nit below.",
+    "findings": [
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Hamiltonian rabbit-maze path depends on the reconstructed grid + stone positions; the move string (4 3 2 3 3 4 1 4 3 4 1, sum 32) is self-consistent but the route's uniqueness wasn't re-derived against the scan this pass."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,

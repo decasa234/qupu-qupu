@@ -5,6 +5,31 @@
   "variant": "A",
   "title": "WMI 2019 Grade 1 Final",
   "recommended_duration_min": 60,
+  "review": {
+    "status": "needs_changes",
+    "reviewed_on": "2026-06-15",
+    "summary": "Re-solved all 25. Answers, breakdowns, steps, and en/id parity are clean except Q23, which is under-constrained as transcribed. Figure-dependent answers (Q1, Q4, Q6, Q10, Q11, Q15, Q17, Q18, Q19, Q22) were checked for internal consistency with their reconstructed quantities, not pixel-compared to the scans. Logic grids Q24/Q25 not solver-verified for uniqueness.",
+    "findings": [
+      {
+        "q": 23,
+        "severity": "warning",
+        "gate": "answer",
+        "note": "As transcribed, the five clues are satisfied by 257, 527, AND 957 (each uses only the surviving digits 0/2/5/7/9, puts 7 in the last place, and gives 392 exactly one correct-but-wrong-place digit). The lock figure shows only a decorative '347' padlock with no position pegs, so nothing disambiguates. Key is 527 but the puzzle is under-constrained — re-check the original clue wording; a position qualifier or a different digit was likely dropped from 392 or 753."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Mathdoku — uniqueness not proven by a backtracking solver this pass (Gate 2 wants one run against the scanned cage layout). The hint_steps derivation chains to 2134 and reads as valid."
+      },
+      {
+        "q": 25,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Arrow/'different-numbers-seen' grid — uniqueness not solver-verified against the scan this pass. The hint_steps derivation chains to 2211 and reads as valid."
+      }
+    ]
+  },
   "questions": [
     {
       "number": 1,
@@ -646,16 +671,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q11.jpg",
       "hint_steps_en": [
-        "A balanced scale means both sides weigh the same.",
-        "Add up the weights on the heavier side.",
-        "The ? must make the other side equal to that total.",
-        "The missing weight is 3."
+        "A balanced scale means both sides weigh exactly the same.",
+        "Left side: 7 + 2 + 5 = 14.",
+        "Right side so far: 3 + 8 = 11, plus the ? block.",
+        "To balance, 11 + ? must equal 14, so ? = 14 − 11 = 3."
       ],
       "hint_steps_id": [
-        "Timbangan seimbang berarti kedua sisi sama beratnya.",
-        "Jumlahkan berat pada sisi yang lebih berat.",
-        "? harus membuat sisi lainnya sama dengan jumlah itu.",
-        "Berat yang hilang adalah 3."
+        "Timbangan seimbang berarti kedua sisi sama persis beratnya.",
+        "Sisi kiri: 7 + 2 + 5 = 14.",
+        "Sisi kanan sejauh ini: 3 + 8 = 11, ditambah blok ?.",
+        "Agar seimbang, 11 + ? harus sama dengan 14, jadi ? = 14 − 11 = 3."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -753,8 +778,8 @@
     },
     {
       "number": 13,
-      "body_en": "Write the numbers 100, 99, 98, …, 50 in reverse order. How many 6's will be written?",
-      "body_id": "Tuliskan bilangan 100, 99, 98, …, 50 secara mundur. Berapa banyak angka 6 yang tertulis?",
+      "body_en": "Write the numbers 100, 99, 98, …, 50. How many 6's will be written?",
+      "body_id": "Tuliskan bilangan 100, 99, 98, …, 50. Berapa banyak angka 6 yang tertulis?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "15" },
@@ -989,16 +1014,16 @@
       "answer": "15",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q17.jpg",
       "hint_steps_en": [
-        "Count squares by size so you do not miss any.",
-        "First count the small squares, then the bigger squares made of several small ones.",
-        "Do not forget the largest square around the whole figure.",
-        "Adding up squares of every size gives 15."
+        "Count the squares by size so you do not miss any.",
+        "Smallest 1×1 squares: 9. Then the 2×2 squares (four small ones each): 4.",
+        "Bigger still: one 3×3 square, and the whole figure is one 4×4 square.",
+        "Add every size: 9 + 4 + 1 + 1 = 15."
       ],
       "hint_steps_id": [
         "Hitung persegi berdasarkan ukuran agar tidak ada yang terlewat.",
-        "Pertama hitung persegi kecil, lalu persegi lebih besar yang terbentuk dari beberapa persegi kecil.",
-        "Jangan lupa persegi terbesar di sekeliling seluruh gambar.",
-        "Menjumlahkan persegi dari semua ukuran menghasilkan 15."
+        "Persegi 1×1 terkecil: 9. Lalu persegi 2×2 (masing-masing dari empat persegi kecil): 4.",
+        "Lebih besar lagi: satu persegi 3×3, dan seluruh gambar adalah satu persegi 4×4.",
+        "Jumlahkan semua ukuran: 9 + 4 + 1 + 1 = 15."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1339,16 +1364,18 @@
       "answer": "2134",
       "figure_url": "/api/public/wmi/figures/2019-final-g1-a-q24.jpg",
       "hint_steps_en": [
-        "The top row already has its 1, so its other cells are 2, 3, 4 — and the 1− pair must be {2,3} or {3,4}.",
-        "If the pair were {3,4}, the top-left would be 2 and the 10+ cage would need 8 from two different cells (max 7) — impossible. So the top-left is 4, A = 2, and the pair is {2,3}.",
-        "The given 3 orders the {2,3} pair; then columns force C = 3, D = 4, B = 1.",
-        "The corners read A, B, C, D = 2, 1, 3, 4 → 2134."
+        "The top row already has its 1 (top-right), so its other three cells are 2, 3, 4. The 1− pair beside them is {2,3} or {3,4}.",
+        "Look at the 10+ cage: it is the top-left corner, the cell just below it — that cell is A — and A's right neighbour.",
+        "If the corner were 2, the other two cells could make at most 4 + 3 = 7, never 10. So the top-left corner is 4 (and the 1− pair is {2,3}).",
+        "The cage still needs 6 more from A and its neighbour. A sits under the corner's 4, so A ≠ 4 — that forces A = 2 and the neighbour 4.",
+        "The given 3 then orders the rest: the columns force C = 3, B = 1, D = 4. Corners A, B, C, D = 2, 1, 3, 4 → 2134."
       ],
       "hint_steps_id": [
-        "Baris atas sudah punya 1, jadi kotak lainnya 2, 3, 4 — dan pasangan 1− pasti {2,3} atau {3,4}.",
-        "Kalau pasangannya {3,4}, kiri-atas jadi 2 dan bingkai 10+ butuh 8 dari dua kotak berbeda (maksimal 7) — tidak mungkin. Jadi kiri-atas 4, A = 2, dan pasangannya {2,3}.",
-        "Angka 3 yang diberikan mengurutkan pasangan {2,3}; lalu kolom memaksa C = 3, D = 4, B = 1.",
-        "Pojok-pojoknya A, B, C, D = 2, 1, 3, 4 → 2134."
+        "Baris atas sudah punya 1 (kanan-atas), jadi tiga kotak lainnya berisi 2, 3, 4. Pasangan 1− di sebelahnya {2,3} atau {3,4}.",
+        "Perhatikan bingkai 10+: yaitu pojok kiri-atas, kotak tepat di bawahnya — kotak itulah A — dan tetangga kanan A.",
+        "Kalau pojoknya 2, dua kotak lainnya paling banyak 4 + 3 = 7, tak pernah 10. Jadi pojok kiri-atas pasti 4 (dan pasangan 1− adalah {2,3}).",
+        "Bingkai masih butuh 6 lagi dari A dan tetangganya. A berada di bawah 4 milik pojok, jadi A ≠ 4 — sehingga A = 2 dan tetangganya 4.",
+        "Angka 3 yang diberikan lalu mengurutkan sisanya: kolom memaksa C = 3, B = 1, D = 4. Pojok A, B, C, D = 2, 1, 3, 4 → 2134."
       ],
       "breakdown": {
         "needsVisual": true,

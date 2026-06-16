@@ -27,16 +27,21 @@ export interface PaintRollStoryboard {
 export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  // Cumulative wet cells per beat (editor-confirmed). The tall BACK stack lays a
-  // long wet trail along its whole row; the little FRONT cube only stamps f1, f6,
-  // f7, f8. So back col 5 ("2"), front col 6 ("3") and front col 7 ("4") end up
-  // wet, while front col 4 ("1", a dry side lands there) and front col 9 ("5",
-  // the front paint stops before it) stay clean.
+  // Cumulative wet cells per beat (editor-confirmed, 8×2 grid). The tall BACK
+  // stack lays a long wet trail along its whole row; the little FRONT cube only
+  // stamps f1, then f5, f6, f7. So back col 4 ("2"), front col 5 ("3") and front
+  // col 6 ("4") end up wet, while front col 3 ("1", a dry side lands there) and
+  // front col 8 ("5", the front paint stops before it) stay clean.
+  //   beat 1   back 1 1 0 0 0 0 0 0    front 1 0 0 0 0 0 0 0
+  //   beat 2   back 1 1 1 0 0 0 0 0    front 1 0 0 0 0 0 0 0
+  //   beat 3   back 1 1 1 1 1 0 0 0    front 1 0 0 0 1 0 0 0
+  //   beat 4   back 1 1 1 1 1 1 0 0    front 1 0 0 0 1 1 0 0
+  //   beat 5   back 1 1 1 1 1 1 1 1    front 1 0 0 0 1 1 1 0
   const s1: PaintCellKey[] = ['b1', 'b2', 'f1']
-  const s2: PaintCellKey[] = [...s1, 'b3', 'b4']
-  const s3: PaintCellKey[] = [...s2, 'b5', 'b6', 'f6']
-  const s4: PaintCellKey[] = [...s3, 'b7', 'f7']
-  const s5: PaintCellKey[] = [...s4, 'b8', 'b9', 'f8']
+  const s2: PaintCellKey[] = [...s1, 'b3']
+  const s3: PaintCellKey[] = [...s2, 'b4', 'b5', 'f5']
+  const s4: PaintCellKey[] = [...s3, 'b6', 'f6']
+  const s5: PaintCellKey[] = [...s4, 'b7', 'b8', 'f7']
 
   const steps: PaintRollStep[] = [
     {
@@ -54,7 +59,7 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
     {
       phase: 'roll1',
       stamped: s2,
-      fresh: ['b3', 'b4'],
+      fresh: ['b3'],
       cleanCells: [],
       hold: 2200,
       result: false,
@@ -66,8 +71,8 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
     {
       phase: 'roll2',
       stamped: s3,
-      fresh: ['b5', 'b6', 'f6'],
-      cleanCells: ['f4'],
+      fresh: ['b4', 'b5', 'f5'],
+      cleanCells: ['f3'],
       hold: 2600,
       result: false,
       caption: t(
@@ -78,8 +83,8 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
     {
       phase: 'roll3',
       stamped: s4,
-      fresh: ['b7', 'f7'],
-      cleanCells: ['f4'],
+      fresh: ['b6', 'f6'],
+      cleanCells: ['f3'],
       hold: 2400,
       result: false,
       caption: t(
@@ -90,8 +95,8 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
     {
       phase: 'roll4',
       stamped: s5,
-      fresh: ['b8', 'b9', 'f8'],
-      cleanCells: ['f4', 'f9'],
+      fresh: ['b7', 'b8', 'f7'],
+      cleanCells: ['f3', 'f8'],
       hold: 2600,
       result: false,
       caption: t(
@@ -103,7 +108,7 @@ export function buildPaintRoll20Steps(lang: Lang): PaintRollStoryboard {
       phase: 'result',
       stamped: s5,
       fresh: [],
-      cleanCells: ['f4', 'f9'],
+      cleanCells: ['f3', 'f8'],
       hold: 0,
       result: true,
       caption: t(

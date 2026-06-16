@@ -1,0 +1,1906 @@
+{
+  "year": 2019,
+  "grade": 1,
+  "round": "semifinal",
+  "variant": "A",
+  "title": "WMI 2019 Grade 1 Semifinal",
+  "recommended_duration_min": 60,
+  "questions": [
+    {
+      "number": 1,
+      "body_en": "Compute 15 - 9 = ( ). ( ) = ?",
+      "body_id": "Hitung 15 - 9 = ( ). ( ) = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "7" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "4" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "7" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "4" }
+      ],
+      "answer": "B",
+      "hint_steps_en": [
+        "We start at 15 and take 9 away.",
+        "First take away 5 to land on 10: 15 - 5 = 10.",
+        "We still have 4 more to take away: 10 - 4 = 6.",
+        "So 15 - 9 = 6."
+      ],
+      "hint_steps_id": [
+        "Kita mulai dari 15 dan mengurangi 9.",
+        "Kurangi 5 dulu sampai di 10: 15 - 5 = 10.",
+        "Masih sisa 4 lagi yang dikurangkan: 10 - 4 = 6.",
+        "Jadi 15 - 9 = 6."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "15 - 9",
+            "phrase_id": "15 - 9",
+            "note_en": "Start at 15 and take 9 away.",
+            "note_id": "Mulai dari 15 lalu kurangi 9."
+          },
+          {
+            "category": "question",
+            "phrase_en": "( ) = ?",
+            "phrase_id": "( ) = ?",
+            "note_en": "We need the number left after taking 9 away.",
+            "note_id": "Kita cari bilangan yang tersisa setelah dikurangi 9."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Start number",
+            "label_id": "Bilangan awal",
+            "value": "15"
+          },
+          {
+            "label_en": "Taken away",
+            "label_id": "Yang dikurangkan",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract down to ten first",
+          "name_id": "Kurangi sampai sepuluh dulu"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "Stopping at 10 and taking away one more by mistake gives 5 — but after 15 - 5 = 10 there are 4 left to remove, not 5.",
+          "why_id": "Berhenti di 10 lalu kelebihan mengurangi satu lagi memberi 5 — padahal setelah 15 - 5 = 10 sisa 4 yang dikurangkan, bukan 5."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 2,
+      "body_en": "Compute ( ) + 7 = 20. ( ) = ?",
+      "body_id": "Hitung ( ) + 7 = 20. ( ) = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "13" },
+        { "label": "B", "text": "14" },
+        { "label": "C", "text": "15" },
+        { "label": "D", "text": "16" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "13" },
+        { "label": "B", "text": "14" },
+        { "label": "C", "text": "15" },
+        { "label": "D", "text": "16" }
+      ],
+      "answer": "A",
+      "hint_steps_en": [
+        "Something plus 7 makes 20, so we work backwards.",
+        "Adding can be undone by subtracting: 20 - 7.",
+        "Take 0 then 7 away: 20 - 7 = 13.",
+        "So the box is 13, because 13 + 7 = 20."
+      ],
+      "hint_steps_id": [
+        "Suatu bilangan ditambah 7 jadi 20, jadi kita kerjakan mundur.",
+        "Penjumlahan bisa dibalik dengan pengurangan: 20 - 7.",
+        "20 - 7 = 13.",
+        "Jadi kotaknya 13, karena 13 + 7 = 20."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "+ 7 = 20",
+            "phrase_id": "+ 7 = 20",
+            "note_en": "The mystery number and 7 together make 20.",
+            "note_id": "Bilangan misteri dan 7 jika digabung jadi 20."
+          },
+          {
+            "category": "question",
+            "phrase_en": "( ) = ?",
+            "phrase_id": "( ) = ?",
+            "note_en": "Find the missing number before the + 7.",
+            "note_id": "Cari bilangan yang hilang sebelum + 7."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total",
+            "label_id": "Jumlah",
+            "value": "20"
+          },
+          {
+            "label_en": "Known part",
+            "label_id": "Bagian yang diketahui",
+            "value": "7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Undo the addition by subtracting",
+          "name_id": "Balik penjumlahan dengan pengurangan"
+        },
+        "trap": {
+          "wrong": "16",
+          "why_en": "16 + 7 = 23, which is past 20 — that comes from adding instead of subtracting back from 20.",
+          "why_id": "16 + 7 = 23, melebihi 20 — itu hasil menambah, bukan mundur dari 20."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      }
+    },
+    {
+      "number": 3,
+      "body_en": "The two rows of symbols on the right are numbered by their position. Using the same rule, what value does the symbol shown in the box stand for?",
+      "body_id": "Dua baris simbol di sebelah kanan diberi nomor menurut posisinya. Dengan aturan yang sama, nilai berapa yang diwakili oleh simbol di dalam kotak?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "7" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "4" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "7" },
+        { "label": "B", "text": "6" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "4" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q3.jpg",
+      "hint_steps_en": [
+        "Each symbol's value is just its position number, counted along the row.",
+        "Count from the start of the row until you reach the boxed symbol.",
+        "The boxed symbol sits in the 4th position.",
+        "So the symbol in the box stands for 4."
+      ],
+      "hint_steps_id": [
+        "Nilai tiap simbol adalah nomor posisinya, dihitung menyusuri baris.",
+        "Hitung dari awal baris sampai simbol di dalam kotak.",
+        "Simbol di kotak berada di posisi ke-4.",
+        "Jadi simbol di kotak bernilai 4."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "numbered by their position",
+            "phrase_id": "diberi nomor menurut posisinya",
+            "note_en": "The value of a symbol equals how far along the row it sits.",
+            "note_id": "Nilai sebuah simbol sama dengan urutannya di baris."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what value does the symbol shown in the box stand for",
+            "phrase_id": "nilai berapa yang diwakili oleh simbol di dalam kotak",
+            "note_en": "Find the position number of the boxed symbol.",
+            "note_id": "Cari nomor posisi simbol yang ada di dalam kotak."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Boxed symbol's position",
+            "label_id": "Posisi simbol di kotak",
+            "value": "4th"
+          }
+        ],
+        "strategy": {
+          "name_en": "Match the symbol to its position number",
+          "name_id": "Cocokkan simbol dengan nomor posisinya"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "Counting the start mark as position 1 by mistake shifts everything and gives 5 — count the symbols themselves from the first one.",
+          "why_id": "Salah menghitung tanda awal sebagai posisi 1 menggeser semuanya menjadi 5 — hitung simbolnya sendiri mulai dari yang pertama."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      }
+    },
+    {
+      "number": 4,
+      "body_en": "How many small cubes are there in the stack shown? = ( )",
+      "body_id": "Ada berapa kubus kecil dalam tumpukan yang ditunjukkan? = ( )",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "20" },
+        { "label": "B", "text": "19" },
+        { "label": "C", "text": "18" },
+        { "label": "D", "text": "17" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "20" },
+        { "label": "B", "text": "19" },
+        { "label": "C", "text": "18" },
+        { "label": "D", "text": "17" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q4.jpg",
+      "hint_steps_en": [
+        "Count the stack layer by layer, including the hidden cubes underneath.",
+        "Hidden cubes must be there, or the ones on top would have nothing to sit on.",
+        "Adding every layer's cubes together gives 19.",
+        "So there are 19 small cubes in the stack."
+      ],
+      "hint_steps_id": [
+        "Hitung tumpukan lapis demi lapis, termasuk kubus yang tersembunyi di bawah.",
+        "Kubus tersembunyi pasti ada, kalau tidak kubus di atas tak punya pijakan.",
+        "Menjumlahkan kubus di setiap lapis memberi 19.",
+        "Jadi ada 19 kubus kecil dalam tumpukan."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many small cubes",
+            "phrase_id": "Ada berapa kubus kecil",
+            "note_en": "Count every cube, even the ones you cannot see.",
+            "note_id": "Hitung semua kubus, termasuk yang tak terlihat."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "in the stack shown",
+            "phrase_id": "dalam tumpukan yang ditunjukkan",
+            "note_en": "It is a solid stack, so cubes on top need cubes beneath them.",
+            "note_id": "Ini tumpukan padat, jadi kubus di atas perlu kubus di bawahnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total cubes",
+            "label_id": "Total kubus",
+            "value": "19"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count layer by layer, include hidden cubes",
+          "name_id": "Hitung lapis demi lapis, masukkan kubus tersembunyi"
+        },
+        "trap": {
+          "wrong": "17",
+          "why_en": "Counting only the cubes you can see and forgetting two hidden ones underneath gives 17.",
+          "why_id": "Hanya menghitung kubus yang terlihat dan melupakan dua kubus tersembunyi di bawah memberi 17."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 5,
+      "body_en": "On the 41-100 number grid (rows of ten: 41-50, 51-60, ..., 91-100), each arrow moves one step in the grid: > goes right (+1), < goes left (-1), up-arrow goes up one row (-10), down-arrow goes down one row (+10). Following the example 92 > > up up up > up > 56, where does 49 land after 49 down down < < down down > > down > ?",
+      "body_id": "Pada kisi angka 41-100 (baris berisi sepuluh: 41-50, 51-60, ..., 91-100), setiap panah bergerak satu langkah pada kisi: > ke kanan (+1), < ke kiri (-1), panah atas naik satu baris (-10), panah bawah turun satu baris (+10). Mengikuti contoh 92 > > atas atas atas > atas > 56, di angka berapa 49 berakhir setelah 49 bawah bawah < < bawah bawah > > bawah > ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "90" },
+        { "label": "B", "text": "100" },
+        { "label": "C", "text": "99" },
+        { "label": "D", "text": "98" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "90" },
+        { "label": "B", "text": "100" },
+        { "label": "C", "text": "99" },
+        { "label": "D", "text": "98" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q5.jpg",
+      "hint_steps_en": [
+        "Start at 49. Each down adds 10 and each up subtracts 10; > adds 1 and < subtracts 1.",
+        "Add the up-and-down arrows: 5 downs make +50, no ups, so +50 to the rows.",
+        "Add the side arrows: two < make -2 and three > make +3, so +1 sideways.",
+        "Total change: 49 + 50 + 1 = 100, so 49 lands on 100."
+      ],
+      "hint_steps_id": [
+        "Mulai dari 49. Tiap bawah menambah 10 dan tiap atas mengurangi 10; > menambah 1 dan < mengurangi 1.",
+        "Jumlahkan panah naik-turun: 5 bawah berarti +50, tak ada atas, jadi +50 untuk barisnya.",
+        "Jumlahkan panah samping: dua < berarti -2 dan tiga > berarti +3, jadi +1 ke samping.",
+        "Total perubahan: 49 + 50 + 1 = 100, jadi 49 berakhir di 100."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "down-arrow goes down one row (+10)",
+            "phrase_id": "panah bawah turun satu baris (+10)",
+            "note_en": "Going down a row adds 10; going up subtracts 10.",
+            "note_id": "Turun satu baris menambah 10; naik mengurangi 10."
+          },
+          {
+            "category": "operation",
+            "phrase_en": "down down < < down down > > down >",
+            "phrase_id": "bawah bawah < < bawah bawah > > bawah >",
+            "note_en": "Five downs (+50) and net one right (+1) from the side arrows.",
+            "note_id": "Lima bawah (+50) dan total satu ke kanan (+1) dari panah samping."
+          },
+          {
+            "category": "question",
+            "phrase_en": "where does 49 land",
+            "phrase_id": "di angka berapa 49 berakhir",
+            "note_en": "Add all the steps to the starting number 49.",
+            "note_id": "Tambahkan semua langkah ke bilangan awal 49."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Start",
+            "label_id": "Awal",
+            "value": "49"
+          },
+          {
+            "label_en": "Row change",
+            "label_id": "Perubahan baris",
+            "value": "+50 (5 downs)"
+          },
+          {
+            "label_en": "Side change",
+            "label_id": "Perubahan samping",
+            "value": "+1 (3 right - 2 left)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Tally tens and ones separately, then add",
+          "name_id": "Hitung puluhan dan satuan terpisah, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "99",
+          "why_en": "Forgetting the final > and stopping at +0 sideways gives 49 + 50 = 99 — but there is one more right step.",
+          "why_id": "Lupa panah > terakhir dan berhenti di +0 ke samping memberi 49 + 50 = 99 — padahal masih ada satu langkah ke kanan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 6,
+      "body_en": "As in the figure on the right, how many more of the small triangle are needed to fill the empty space?",
+      "body_id": "Seperti pada gambar di sebelah kanan, berapa banyak segitiga kecil lagi yang diperlukan untuk mengisi ruang kosong?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "9" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "9" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q6.jpg",
+      "hint_steps_en": [
+        "See how big the whole space is in small triangles.",
+        "Count the small triangles already placed inside it.",
+        "The number still missing is the whole minus the ones already there.",
+        "That gap is exactly 7 small triangles."
+      ],
+      "hint_steps_id": [
+        "Lihat seberapa besar ruang seluruhnya dalam satuan segitiga kecil.",
+        "Hitung segitiga kecil yang sudah terpasang di dalamnya.",
+        "Yang masih kurang adalah seluruhnya dikurangi yang sudah ada.",
+        "Kekurangan itu tepat 7 segitiga kecil."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how many more of the small triangle are needed",
+            "phrase_id": "berapa banyak segitiga kecil lagi yang diperlukan",
+            "note_en": "We want only the empty part, not the whole shape.",
+            "note_id": "Kita cari bagian kosongnya saja, bukan seluruh bentuk."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "to fill the empty space",
+            "phrase_id": "untuk mengisi ruang kosong",
+            "note_en": "Each small triangle is the unit we measure the gap with.",
+            "note_id": "Setiap segitiga kecil adalah satuan untuk mengukur ruang kosong."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Small triangles still missing",
+            "label_id": "Segitiga kecil yang masih kurang",
+            "value": "7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Whole minus what is already filled",
+          "name_id": "Seluruhnya dikurangi yang sudah terisi"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Counting one of the already-placed triangles as still empty pushes the answer up to 8.",
+          "why_id": "Salah menghitung satu segitiga yang sudah terpasang sebagai kosong menaikkan jawaban jadi 8."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 7,
+      "body_en": "Which number should be written in the box to complete these number stairs? Row 1: 6. Row 2: 3, 4. Row 3: 5, 7, 2. Row 4: 1, 2, 9, ?",
+      "body_id": "Angka berapa yang harus ditulis di dalam kotak untuk melengkapi tangga angka ini? Baris 1: 6. Baris 2: 3, 4. Baris 3: 5, 7, 2. Baris 4: 1, 2, 9, ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "11" },
+        { "label": "B", "text": "10" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "8" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "11" },
+        { "label": "B", "text": "10" },
+        { "label": "C", "text": "9" },
+        { "label": "D", "text": "8" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "Each step down the stairs adds one more number to the row.",
+        "Read along the bottom row in order: 1, 2, 9, then the box.",
+        "The bottom row follows the staircase pattern, and the missing tile is 9.",
+        "So the number in the box is 9."
+      ],
+      "hint_steps_id": [
+        "Setiap turun satu anak tangga menambah satu angka di barisnya.",
+        "Baca baris paling bawah berurutan: 1, 2, 9, lalu kotaknya.",
+        "Baris bawah mengikuti pola tangga, dan ubin yang hilang adalah 9.",
+        "Jadi angka di kotak itu 9."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Row 4: 1, 2, 9, ?",
+            "phrase_id": "Baris 4: 1, 2, 9, ?",
+            "note_en": "The last row is the longest and ends with the missing tile.",
+            "note_id": "Baris terakhir paling panjang dan diakhiri ubin yang hilang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number should be written in the box",
+            "phrase_id": "Angka berapa yang harus ditulis di dalam kotak",
+            "note_en": "Find the tile that completes the bottom step.",
+            "note_id": "Cari ubin yang melengkapi anak tangga terbawah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Known tiles in row 4",
+            "label_id": "Ubin yang diketahui di baris 4",
+            "value": "1, 2, 9"
+          },
+          {
+            "label_en": "Missing tile",
+            "label_id": "Ubin yang hilang",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Follow the staircase pattern to the last tile",
+          "name_id": "Ikuti pola tangga sampai ubin terakhir"
+        },
+        "trap": {
+          "wrong": "11",
+          "why_en": "Adding nearby tiles (2 + 9) gives 11, but the stairs are filled by the position pattern, not by summing neighbours.",
+          "why_id": "Menjumlahkan ubin di dekatnya (2 + 9) memberi 11, padahal tangga diisi oleh pola posisi, bukan menjumlahkan tetangga."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    },
+    {
+      "number": 8,
+      "body_en": "How many apples are there in total? 9 apples + 8 apples = ?",
+      "body_id": "Ada berapa apel seluruhnya? 9 apel + 8 apel = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "17" },
+        { "label": "B", "text": "18" },
+        { "label": "C", "text": "19" },
+        { "label": "D", "text": "20" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "17" },
+        { "label": "B", "text": "18" },
+        { "label": "C", "text": "19" },
+        { "label": "D", "text": "20" }
+      ],
+      "answer": "A",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q8.jpg",
+      "hint_steps_en": [
+        "We add 9 apples and 8 apples together.",
+        "Make a ten: take 1 from the 8 to fill 9 up to 10.",
+        "Now it is 10 + 7 left over = 17.",
+        "So 9 + 8 = 17 apples in total."
+      ],
+      "hint_steps_id": [
+        "Kita menjumlahkan 9 apel dan 8 apel.",
+        "Buat sepuluh: ambil 1 dari 8 untuk melengkapi 9 jadi 10.",
+        "Sekarang 10 + 7 sisanya = 17.",
+        "Jadi 9 + 8 = 17 apel seluruhnya."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "9 apples + 8 apples",
+            "phrase_id": "9 apel + 8 apel",
+            "note_en": "Two groups of apples to put together.",
+            "note_id": "Dua kelompok apel yang digabungkan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many apples are there in total",
+            "phrase_id": "Ada berapa apel seluruhnya",
+            "note_en": "We want the count of both groups together.",
+            "note_id": "Kita cari jumlah kedua kelompok digabung."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First group",
+            "label_id": "Kelompok pertama",
+            "value": "9"
+          },
+          {
+            "label_en": "Second group",
+            "label_id": "Kelompok kedua",
+            "value": "8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Make a ten, then add the rest",
+          "name_id": "Buat sepuluh, lalu tambahkan sisanya"
+        },
+        "trap": {
+          "wrong": "18",
+          "why_en": "18 is 9 + 9 — it doubles the 9 instead of adding the 8.",
+          "why_id": "18 itu 9 + 9 — menggandakan 9, bukan menambah 8."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      }
+    },
+    {
+      "number": 9,
+      "body_en": "Each cell of the 2-by-4 number board (top row 4 3 1 8, bottom row 9 6 2 7) gives the value of the cell shaded black in that position. As the example shows, a black cell in one board plus a black cell in another equals the sum of their values (= 11). Using the same boards, compute (first black board) + (second black board) - (third black board) = ?",
+      "body_id": "Setiap sel pada papan angka 2x4 (baris atas 4 3 1 8, baris bawah 9 6 2 7) memberi nilai sel yang diarsir hitam pada posisi itu. Seperti contoh, sel hitam pada satu papan ditambah sel hitam pada papan lain sama dengan jumlah nilainya (= 11). Dengan papan yang sama, hitung (papan hitam pertama) + (papan hitam kedua) - (papan hitam ketiga) = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "9" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "9" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q9.jpg",
+      "hint_steps_en": [
+        "Each black cell stands for the number printed in that spot on the board.",
+        "Read off the three black cells' values from the number board.",
+        "Add the first two, then take the third away.",
+        "The two added minus the one subtracted leaves 8."
+      ],
+      "hint_steps_id": [
+        "Setiap sel hitam mewakili angka yang tercetak di posisi itu pada papan.",
+        "Baca nilai ketiga sel hitam dari papan angka.",
+        "Jumlahkan dua yang pertama, lalu kurangi yang ketiga.",
+        "Dua yang dijumlah dikurangi satu yang dikurangkan menyisakan 8."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "gives the value of the cell shaded black in that position",
+            "phrase_id": "memberi nilai sel yang diarsir hitam pada posisi itu",
+            "note_en": "A black cell's value is the number sitting in that spot of the board.",
+            "note_id": "Nilai sel hitam adalah angka yang ada di posisi itu pada papan."
+          },
+          {
+            "category": "operation",
+            "phrase_en": "(first black board) + (second black board) - (third black board)",
+            "phrase_id": "(papan hitam pertama) + (papan hitam kedua) - (papan hitam ketiga)",
+            "note_en": "Add the first two values, then subtract the third.",
+            "note_id": "Jumlahkan dua nilai pertama, lalu kurangi yang ketiga."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Board top row",
+            "label_id": "Baris atas papan",
+            "value": "4 3 1 8"
+          },
+          {
+            "label_en": "Board bottom row",
+            "label_id": "Baris bawah papan",
+            "value": "9 6 2 7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read each black cell's value, then add and subtract",
+          "name_id": "Baca nilai tiap sel hitam, lalu tambah dan kurangi"
+        },
+        "trap": {
+          "wrong": "9",
+          "why_en": "Adding all three values instead of subtracting the third overshoots the answer.",
+          "why_id": "Menjumlahkan ketiga nilai alih-alih mengurangi yang ketiga membuat hasilnya kelebihan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    },
+    {
+      "number": 10,
+      "body_en": "How many cylinders are there in the cluster shown? = ?",
+      "body_id": "Ada berapa silinder dalam kumpulan yang ditunjukkan? = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "15" },
+        { "label": "B", "text": "16" },
+        { "label": "C", "text": "17" },
+        { "label": "D", "text": "18" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "15" },
+        { "label": "B", "text": "16" },
+        { "label": "C", "text": "17" },
+        { "label": "D", "text": "18" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q10.jpg",
+      "hint_steps_en": [
+        "Count the cylinders row by row so none are double-counted.",
+        "Remember the cylinders hidden behind the front ones still count.",
+        "Adding every row of cylinders together gives 17.",
+        "So there are 17 cylinders in the cluster."
+      ],
+      "hint_steps_id": [
+        "Hitung silinder baris demi baris agar tak ada yang terhitung dua kali.",
+        "Ingat silinder yang tersembunyi di belakang tetap dihitung.",
+        "Menjumlahkan tiap baris silinder memberi 17.",
+        "Jadi ada 17 silinder dalam kumpulan."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many cylinders",
+            "phrase_id": "Ada berapa silinder",
+            "note_en": "Count every cylinder, including ones partly hidden.",
+            "note_id": "Hitung semua silinder, termasuk yang sebagian tersembunyi."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "in the cluster shown",
+            "phrase_id": "dalam kumpulan yang ditunjukkan",
+            "note_en": "The cylinders are bunched together, so look behind the front ones.",
+            "note_id": "Silinder berkumpul rapat, jadi lihat di belakang yang depan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total cylinders",
+            "label_id": "Total silinder",
+            "value": "17"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count row by row, include hidden ones",
+          "name_id": "Hitung baris demi baris, masukkan yang tersembunyi"
+        },
+        "trap": {
+          "wrong": "15",
+          "why_en": "Counting only the cylinders in plain view and missing two behind them gives 15.",
+          "why_id": "Hanya menghitung silinder yang jelas terlihat dan melewatkan dua di belakangnya memberi 15."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    },
+    {
+      "number": 11,
+      "body_en": "The trapezoid on the right is divided by the dashed lines. How many triangles are there in the figure?",
+      "body_id": "Trapesium di sebelah kanan dibagi oleh garis-garis putus-putus. Ada berapa segitiga dalam gambar tersebut?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Figure A" },
+        { "label": "B", "text": "Figure B" },
+        { "label": "C", "text": "Figure C" },
+        { "label": "D", "text": "Figure D" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Gambar A" },
+        { "label": "B", "text": "Gambar B" },
+        { "label": "C", "text": "Gambar C" },
+        { "label": "D", "text": "Gambar D" }
+      ],
+      "answer": "A",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q11.jpg",
+      "hint_steps_en": [
+        "Count the smallest single triangles first.",
+        "Then look for bigger triangles made by joining two or more small ones.",
+        "Add the small triangles and the combined ones together.",
+        "Figure A shows the correct total of triangles."
+      ],
+      "hint_steps_id": [
+        "Hitung dulu segitiga tunggal yang paling kecil.",
+        "Lalu cari segitiga besar yang terbentuk dari gabungan dua atau lebih segitiga kecil.",
+        "Jumlahkan segitiga kecil dan segitiga gabungan.",
+        "Gambar A menunjukkan jumlah segitiga yang benar."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "divided by the dashed lines",
+            "phrase_id": "dibagi oleh garis-garis putus-putus",
+            "note_en": "The dashed lines cut the trapezoid into small pieces.",
+            "note_id": "Garis putus-putus membagi trapesium jadi potongan kecil."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many triangles are there",
+            "phrase_id": "Ada berapa segitiga dalam gambar tersebut",
+            "note_en": "Count small triangles and also triangles made by combining them.",
+            "note_id": "Hitung segitiga kecil dan juga segitiga hasil gabungan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Triangle sizes to count",
+            "label_id": "Ukuran segitiga yang dihitung",
+            "value": "small and combined"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count smallest first, then combined triangles",
+          "name_id": "Hitung yang terkecil dulu, lalu gabungannya"
+        },
+        "trap": {
+          "wrong": "Figure D",
+          "why_en": "Counting only the smallest triangles and forgetting the bigger combined ones gives too few.",
+          "why_id": "Hanya menghitung segitiga terkecil dan melupakan segitiga gabungan yang besar memberi terlalu sedikit."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      }
+    },
+    {
+      "number": 12,
+      "body_en": "On the tile path from A to B (gray squares are blocked), how many steps does it take to walk along the white border from A to B? Following the example where A to B = 5, find A to B for the larger grid.",
+      "body_id": "Pada jalur ubin dari A ke B (kotak abu-abu terhalang), berapa langkah untuk berjalan menyusuri tepi putih dari A ke B? Mengikuti contoh di mana A ke B = 5, tentukan A ke B untuk kisi yang lebih besar.",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "9" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "6" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "8" },
+        { "label": "D", "text": "9" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q12.jpg",
+      "hint_steps_en": [
+        "Walk only on the white tiles, since the gray ones are blocked.",
+        "Count one step for each tile you move onto, going from A toward B.",
+        "Follow the white border all the way around and tally the moves.",
+        "The shortest path along the white border takes 9 steps."
+      ],
+      "hint_steps_id": [
+        "Berjalanlah hanya di ubin putih, karena yang abu-abu terhalang.",
+        "Hitung satu langkah tiap kali pindah ke ubin berikutnya, dari A menuju B.",
+        "Ikuti tepi putih sampai mengelilingi dan hitung langkahnya.",
+        "Jalur terpendek menyusuri tepi putih butuh 9 langkah."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "gray squares are blocked",
+            "phrase_id": "kotak abu-abu terhalang",
+            "note_en": "You cannot step on gray tiles, only white ones.",
+            "note_id": "Kamu tidak boleh menginjak ubin abu-abu, hanya yang putih."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many steps does it take to walk along the white border from A to B",
+            "phrase_id": "berapa langkah untuk berjalan menyusuri tepi putih dari A ke B",
+            "note_en": "Count one step per tile moved along the white path.",
+            "note_id": "Hitung satu langkah tiap ubin yang dilewati di jalur putih."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Example path length",
+            "label_id": "Panjang jalur contoh",
+            "value": "5"
+          },
+          {
+            "label_en": "Steps for the larger grid",
+            "label_id": "Langkah untuk kisi lebih besar",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trace the white path and count each step",
+          "name_id": "Telusuri jalur putih dan hitung tiap langkah"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Cutting across a corner skips one tile and undercounts to 8 — every white tile on the way must be stepped on.",
+          "why_id": "Memotong sudut melewatkan satu ubin dan kurang hitung jadi 8 — tiap ubin putih di jalur harus diinjak."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      }
+    },
+    {
+      "number": 13,
+      "body_en": "Following the rule shown (a Y shape plus a triangle gives a combined shape), what shape results from T plus a square?",
+      "body_id": "Mengikuti aturan yang ditunjukkan (bentuk Y ditambah segitiga menghasilkan bentuk gabungan), bentuk apa yang dihasilkan dari T ditambah persegi?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Figure A" },
+        { "label": "B", "text": "Figure B" },
+        { "label": "C", "text": "Figure C" },
+        { "label": "D", "text": "Figure D" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Gambar A" },
+        { "label": "B", "text": "Gambar B" },
+        { "label": "C", "text": "Gambar C" },
+        { "label": "D", "text": "Gambar D" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q13.jpg",
+      "hint_steps_en": [
+        "Look at the example: the Y and the triangle stack together to make one shape.",
+        "Use the same rule: place the square onto the T the same way.",
+        "Match the result against the four choices.",
+        "Figure D is the T joined with the square in the same style."
+      ],
+      "hint_steps_id": [
+        "Lihat contohnya: Y dan segitiga ditumpuk jadi satu bentuk.",
+        "Pakai aturan sama: tempelkan persegi pada T dengan cara yang sama.",
+        "Cocokkan hasilnya dengan empat pilihan.",
+        "Gambar D adalah T digabung dengan persegi dengan gaya yang sama."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a Y shape plus a triangle gives a combined shape",
+            "phrase_id": "bentuk Y ditambah segitiga menghasilkan bentuk gabungan",
+            "note_en": "The example shows exactly how two shapes are joined.",
+            "note_id": "Contoh menunjukkan persis cara dua bentuk digabung."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what shape results from T plus a square",
+            "phrase_id": "bentuk apa yang dihasilkan dari T ditambah persegi",
+            "note_en": "Apply the same joining rule to the T and the square.",
+            "note_id": "Terapkan aturan penggabungan yang sama pada T dan persegi."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shapes to combine",
+            "label_id": "Bentuk yang digabung",
+            "value": "T + square"
+          }
+        ],
+        "strategy": {
+          "name_en": "Copy the example's joining rule",
+          "name_id": "Tiru aturan penggabungan dari contoh"
+        },
+        "trap": {
+          "wrong": "Figure A",
+          "why_en": "Figure A places the square the wrong way around — the rule keeps the same orientation as the example.",
+          "why_id": "Gambar A menempatkan persegi terbalik — aturannya menjaga arah yang sama seperti contoh."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      }
+    },
+    {
+      "number": 14,
+      "body_en": "In the belt-and-pulley system shown, wheel A is at the corner. If the marked wheel turns in the direction shown, in which direction does wheel A roll?",
+      "body_id": "Pada sistem sabuk dan katrol yang ditunjukkan, roda A berada di sudut. Jika roda yang ditandai berputar ke arah yang ditunjukkan, ke arah mana roda A berputar?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Direction A" },
+        { "label": "B", "text": "Direction B" },
+        { "label": "C", "text": "Direction C" },
+        { "label": "D", "text": "Direction D" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Arah A" },
+        { "label": "B", "text": "Arah B" },
+        { "label": "C", "text": "Arah C" },
+        { "label": "D", "text": "Arah D" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q14.jpg",
+      "hint_steps_en": [
+        "A belt joining two wheels makes them turn the same way.",
+        "Start at the marked wheel and follow the belt from wheel to wheel.",
+        "Carry the turning direction along the belt until you reach wheel A.",
+        "Wheel A ends up turning in direction B."
+      ],
+      "hint_steps_id": [
+        "Sabuk yang menghubungkan dua roda membuat keduanya berputar searah.",
+        "Mulai dari roda yang ditandai dan ikuti sabuk dari roda ke roda.",
+        "Bawa arah putaran sepanjang sabuk sampai ke roda A.",
+        "Roda A akhirnya berputar ke arah B."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the marked wheel turns in the direction shown",
+            "phrase_id": "roda yang ditandai berputar ke arah yang ditunjukkan",
+            "note_en": "This is the starting wheel whose direction we know.",
+            "note_id": "Ini roda awal yang arah putarannya sudah diketahui."
+          },
+          {
+            "category": "question",
+            "phrase_en": "in which direction does wheel A roll",
+            "phrase_id": "ke arah mana roda A berputar",
+            "note_en": "Follow the belt to wheel A to find its turning direction.",
+            "note_id": "Ikuti sabuk sampai roda A untuk menemukan arah putarannya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Wheels linked by a belt",
+            "label_id": "Roda yang dihubungkan sabuk",
+            "value": "turn the same way"
+          }
+        ],
+        "strategy": {
+          "name_en": "Carry the turn direction along the belt",
+          "name_id": "Bawa arah putaran menyusuri sabuk"
+        },
+        "trap": {
+          "wrong": "Direction A",
+          "why_en": "Belt-linked wheels turn the same way, not opposite — flipping the direction gives the wrong answer A.",
+          "why_id": "Roda yang dihubungkan sabuk berputar searah, bukan berlawanan — membalik arahnya memberi jawaban salah A."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 15,
+      "body_en": "A, B, and C count off from 1 to 40 in turn (A says 1, B says 2, C says 3, A says 4, ...). How many even numbers does C say?",
+      "body_id": "A, B, dan C berhitung bergiliran dari 1 sampai 40 (A mengucap 1, B mengucap 2, C mengucap 3, A mengucap 4, ...). Berapa banyak bilangan genap yang diucapkan C?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "5" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "8" },
+        { "label": "B", "text": "7" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "5" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "C is third in line, so C says 3, then 6, then 9 — every multiple of 3.",
+        "C's numbers up to 40 are 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39.",
+        "Pick the even ones: 6, 12, 18, 24, 30, 36.",
+        "That is 6 even numbers."
+      ],
+      "hint_steps_id": [
+        "C urutan ketiga, jadi C mengucap 3, lalu 6, lalu 9 — semua kelipatan 3.",
+        "Bilangan C sampai 40: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39.",
+        "Pilih yang genap: 6, 12, 18, 24, 30, 36.",
+        "Itu 6 bilangan genap."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "C says 3",
+            "phrase_id": "C mengucap 3",
+            "note_en": "C is the 3rd speaker, so C says every multiple of 3.",
+            "note_id": "C pembicara ke-3, jadi C mengucap setiap kelipatan 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many even numbers does C say",
+            "phrase_id": "Berapa banyak bilangan genap yang diucapkan C",
+            "note_en": "Among C's numbers, count only the even ones.",
+            "note_id": "Di antara bilangan C, hitung yang genap saja."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "C's numbers",
+            "label_id": "Bilangan C",
+            "value": "3, 6, 9, ... , 39"
+          },
+          {
+            "label_en": "Even ones",
+            "label_id": "Yang genap",
+            "value": "6, 12, 18, 24, 30, 36"
+          }
+        ],
+        "strategy": {
+          "name_en": "List C's multiples of 3, then keep the even ones",
+          "name_id": "Daftar kelipatan 3 milik C, lalu ambil yang genap"
+        },
+        "trap": {
+          "wrong": "7",
+          "why_en": "Accidentally including 40 or 42 adds an extra even number — C's last number is only 39.",
+          "why_id": "Tak sengaja memasukkan 40 atau 42 menambah satu bilangan genap — bilangan terakhir C hanya 39."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    },
+    {
+      "number": 16,
+      "body_en": "Compute 12 + 15 - 9 = ( ). ( ) = ?",
+      "body_id": "Hitung 12 + 15 - 9 = ( ). ( ) = ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "12" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "18" },
+        { "label": "D", "text": "36" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "12" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "18" },
+        { "label": "D", "text": "36" }
+      ],
+      "answer": "C",
+      "hint_steps_en": [
+        "Work from left to right.",
+        "First add: 12 + 15 = 27.",
+        "Then take 9 away: 27 - 9 = 18.",
+        "So 12 + 15 - 9 = 18."
+      ],
+      "hint_steps_id": [
+        "Kerjakan dari kiri ke kanan.",
+        "Jumlahkan dulu: 12 + 15 = 27.",
+        "Lalu kurangi 9: 27 - 9 = 18.",
+        "Jadi 12 + 15 - 9 = 18."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12 + 15",
+            "phrase_id": "12 + 15",
+            "note_en": "Add these first: 12 + 15 = 27.",
+            "note_id": "Jumlahkan ini dulu: 12 + 15 = 27."
+          },
+          {
+            "category": "operation",
+            "phrase_en": "- 9",
+            "phrase_id": "- 9",
+            "note_en": "Then take 9 away from 27.",
+            "note_id": "Lalu kurangi 9 dari 27."
+          },
+          {
+            "category": "question",
+            "phrase_en": "( ) = ?",
+            "phrase_id": "( ) = ?",
+            "note_en": "We want the final result after both steps.",
+            "note_id": "Kita cari hasil akhir setelah kedua langkah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After adding",
+            "label_id": "Setelah dijumlah",
+            "value": "27"
+          },
+          {
+            "label_en": "After subtracting",
+            "label_id": "Setelah dikurangi",
+            "value": "18"
+          }
+        ],
+        "strategy": {
+          "name_en": "Add first, then subtract, left to right",
+          "name_id": "Jumlahkan dulu, lalu kurangi, dari kiri ke kanan"
+        },
+        "trap": {
+          "wrong": "36",
+          "why_en": "36 is 12 + 15 + 9 — it adds the 9 instead of subtracting it.",
+          "why_id": "36 itu 12 + 15 + 9 — menambah 9, bukan menguranginya."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    },
+    {
+      "number": 17,
+      "body_en": "Given the expression 16 + ( ) > 30, what is the minimum whole number that can go in ( )?",
+      "body_id": "Diberikan pernyataan 16 + ( ) > 30, berapa bilangan bulat terkecil yang dapat ditempatkan di ( )?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "16" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "14" },
+        { "label": "D", "text": "13" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "16" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "14" },
+        { "label": "D", "text": "13" }
+      ],
+      "answer": "B",
+      "hint_steps_en": [
+        "We need 16 plus the box to be more than 30.",
+        "First find what makes it exactly 30: 30 - 16 = 14.",
+        "So 14 gives exactly 30, which is not more than 30.",
+        "The next whole number, 15, is the smallest that goes over 30 (16 + 15 = 31)."
+      ],
+      "hint_steps_id": [
+        "Kita perlu 16 ditambah isi kotak lebih dari 30.",
+        "Cari dulu yang membuatnya tepat 30: 30 - 16 = 14.",
+        "Jadi 14 memberi tepat 30, dan itu tidak lebih dari 30.",
+        "Bilangan bulat berikutnya, 15, adalah terkecil yang melewati 30 (16 + 15 = 31)."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "16 + ( ) > 30",
+            "phrase_id": "16 + ( ) > 30",
+            "note_en": "The total must be strictly more than 30, not equal to it.",
+            "note_id": "Jumlahnya harus benar-benar lebih dari 30, bukan sama dengan 30."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the minimum whole number",
+            "phrase_id": "bilangan bulat terkecil",
+            "note_en": "We want the smallest number that still works.",
+            "note_id": "Kita cari bilangan terkecil yang masih memenuhi."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Makes exactly 30",
+            "label_id": "Membuat tepat 30",
+            "value": "14"
+          },
+          {
+            "label_en": "Smallest that goes over",
+            "label_id": "Terkecil yang melebihi",
+            "value": "15"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the equal case, then step up by one",
+          "name_id": "Cari kasus sama dulu, lalu naik satu"
+        },
+        "trap": {
+          "wrong": "14",
+          "why_en": "14 makes 16 + 14 = 30 exactly, but the sign is > (more than), so 30 is not allowed.",
+          "why_id": "14 membuat 16 + 14 = 30 tepat, tapi tandanya > (lebih dari), jadi 30 tidak boleh."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 18,
+      "body_en": "Following the rule shown (78 is valid, 70 is valid, 07 is not), and using the digits 5, 2, 0, which value goes in the box marked ?",
+      "body_id": "Mengikuti aturan yang ditunjukkan (78 sah, 70 sah, 07 tidak sah), dan menggunakan angka 5, 2, 0, nilai berapa yang masuk ke kotak bertanda ?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "5" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "7" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "4" },
+        { "label": "B", "text": "5" },
+        { "label": "C", "text": "6" },
+        { "label": "D", "text": "7" }
+      ],
+      "answer": "A",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q18.jpg",
+      "hint_steps_en": [
+        "The rule says a number cannot start with 0 (so 07 is not allowed).",
+        "Using 5, 2, 0, list the valid two-digit numbers you can build.",
+        "Count how many valid numbers there are following the rule.",
+        "The box value works out to 4."
+      ],
+      "hint_steps_id": [
+        "Aturannya: bilangan tidak boleh diawali 0 (jadi 07 tidak sah).",
+        "Dengan 5, 2, 0, daftar bilangan dua angka yang sah.",
+        "Hitung berapa banyak bilangan sah menurut aturan itu.",
+        "Nilai kotaknya adalah 4."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "78 is valid, 70 is valid, 07 is not",
+            "phrase_id": "78 sah, 70 sah, 07 tidak sah",
+            "note_en": "A valid number cannot begin with 0.",
+            "note_id": "Bilangan sah tidak boleh diawali 0."
+          },
+          {
+            "category": "question",
+            "phrase_en": "which value goes in the box marked",
+            "phrase_id": "nilai berapa yang masuk ke kotak bertanda",
+            "note_en": "Apply the no-leading-zero rule with the digits 5, 2, 0.",
+            "note_id": "Terapkan aturan tanpa nol di depan dengan angka 5, 2, 0."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Digits available",
+            "label_id": "Angka yang tersedia",
+            "value": "5, 2, 0"
+          },
+          {
+            "label_en": "Box value",
+            "label_id": "Nilai kotak",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "List only the numbers that obey the rule",
+          "name_id": "Daftar hanya bilangan yang menaati aturan"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Counting numbers that start with 0 as valid inflates the total — 0 cannot be the first digit.",
+          "why_id": "Menghitung bilangan yang diawali 0 sebagai sah menggelembungkan jumlah — 0 tak boleh jadi angka pertama."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      }
+    },
+    {
+      "number": 19,
+      "body_en": "The pieces numbered 1 to 6 are shown. As the example shows, pieces 1 + 2 + 3 + 6 tile a rectangle. Which set of four pieces can be used to form the rectangle?",
+      "body_id": "Potongan bernomor 1 sampai 6 ditunjukkan. Seperti contoh, potongan 1 + 2 + 3 + 6 menyusun sebuah persegi panjang. Kumpulan empat potongan mana yang dapat digunakan untuk membentuk persegi panjang itu?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "1 + 5 + 4 + 6" },
+        { "label": "B", "text": "2 + 3 + 4 + 6" },
+        { "label": "C", "text": "1 + 2 + 5 + 6" },
+        { "label": "D", "text": "1 + 3 + 4 + 6" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "1 + 5 + 4 + 6" },
+        { "label": "B", "text": "2 + 3 + 4 + 6" },
+        { "label": "C", "text": "1 + 2 + 5 + 6" },
+        { "label": "D", "text": "1 + 3 + 4 + 6" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q19.jpg",
+      "hint_steps_en": [
+        "The four pieces together must cover the rectangle with no gaps and no overlaps.",
+        "Count the squares: the chosen pieces' squares must add up to the rectangle's squares.",
+        "Test each set and see whose bumps and dents fit together.",
+        "Pieces 2 + 3 + 4 + 6 fit perfectly into the rectangle."
+      ],
+      "hint_steps_id": [
+        "Keempat potongan bersama harus menutup persegi panjang tanpa celah dan tanpa tumpang tindih.",
+        "Hitung perseginya: jumlah persegi potongan terpilih harus sama dengan persegi pada persegi panjang.",
+        "Coba tiap kumpulan dan lihat tonjolan serta lekuknya yang saling pas.",
+        "Potongan 2 + 3 + 4 + 6 pas sempurna mengisi persegi panjang."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "pieces 1 + 2 + 3 + 6 tile a rectangle",
+            "phrase_id": "potongan 1 + 2 + 3 + 6 menyusun sebuah persegi panjang",
+            "note_en": "The example shows what a perfect fit looks like.",
+            "note_id": "Contoh menunjukkan seperti apa susunan yang pas."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which set of four pieces can be used to form the rectangle",
+            "phrase_id": "Kumpulan empat potongan mana yang dapat digunakan untuk membentuk persegi panjang itu",
+            "note_en": "Find the four pieces that cover the rectangle with no gaps.",
+            "note_id": "Cari empat potongan yang menutup persegi panjang tanpa celah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pieces to choose",
+            "label_id": "Potongan yang dipilih",
+            "value": "4 of the 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Match total squares, then test the fit",
+          "name_id": "Cocokkan total persegi, lalu coba pasangkan"
+        },
+        "trap": {
+          "wrong": "1 + 5 + 4 + 6",
+          "why_en": "This set leaves a gap or overlaps — the bumps and dents do not line up to fill the rectangle.",
+          "why_id": "Kumpulan ini menyisakan celah atau tumpang tindih — tonjolan dan lekuknya tidak saling pas mengisi persegi panjang."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 20,
+      "body_en": "In the 4-by-4 grid of symbols on the right, each symbol is identified by its row and column. Using the same rule, which symbol is the answer?",
+      "body_id": "Pada kisi simbol 4x4 di sebelah kanan, setiap simbol dikenali dari baris dan kolomnya. Dengan aturan yang sama, simbol mana yang menjadi jawabannya?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Symbol A" },
+        { "label": "B", "text": "Symbol B" },
+        { "label": "C", "text": "Symbol C" },
+        { "label": "D", "text": "Symbol D" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Simbol A" },
+        { "label": "B", "text": "Simbol B" },
+        { "label": "C", "text": "Simbol C" },
+        { "label": "D", "text": "Simbol D" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q20.jpg",
+      "hint_steps_en": [
+        "Each symbol is found by its row number and its column number.",
+        "Read the row and column the question asks for.",
+        "Go to that exact spot in the 4-by-4 grid.",
+        "The symbol sitting there matches Symbol D."
+      ],
+      "hint_steps_id": [
+        "Setiap simbol ditemukan dari nomor baris dan nomor kolomnya.",
+        "Baca baris dan kolom yang diminta soal.",
+        "Pergi ke posisi tepat itu pada kisi 4x4.",
+        "Simbol yang ada di sana cocok dengan Simbol D."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "identified by its row and column",
+            "phrase_id": "dikenali dari baris dan kolomnya",
+            "note_en": "A symbol's address is its row paired with its column.",
+            "note_id": "Alamat simbol adalah barisnya dipasangkan dengan kolomnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "which symbol is the answer",
+            "phrase_id": "simbol mana yang menjadi jawabannya",
+            "note_en": "Locate the symbol at the asked-for row and column.",
+            "note_id": "Temukan simbol di baris dan kolom yang diminta."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Grid size",
+            "label_id": "Ukuran kisi",
+            "value": "4 × 4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the row, then slide across to the column",
+          "name_id": "Cari barisnya, lalu geser ke kolomnya"
+        },
+        "trap": {
+          "wrong": "Symbol A",
+          "why_en": "Swapping the row and column numbers lands on the wrong cell — keep row first, then column.",
+          "why_id": "Menukar nomor baris dan kolom mendarat di sel yang salah — baris dulu, baru kolom."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      }
+    },
+    {
+      "number": 21,
+      "body_en": "The square on the right is divided by straight lines. How many triangles are there in the figure? Triangle count = ( )",
+      "body_id": "Persegi di sebelah kanan dibagi oleh garis-garis lurus. Ada berapa segitiga dalam gambar tersebut? Jumlah segitiga = ( )",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "14" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "16" },
+        { "label": "D", "text": "17" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "14" },
+        { "label": "B", "text": "15" },
+        { "label": "C", "text": "16" },
+        { "label": "D", "text": "17" }
+      ],
+      "answer": "A",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q21.jpg",
+      "hint_steps_en": [
+        "First count the smallest single triangles inside the square.",
+        "Then find bigger triangles made by joining two or more small ones.",
+        "Add the small triangles and the combined triangles together.",
+        "The total comes to 14 triangles."
+      ],
+      "hint_steps_id": [
+        "Hitung dulu segitiga tunggal terkecil di dalam persegi.",
+        "Lalu cari segitiga besar dari gabungan dua atau lebih segitiga kecil.",
+        "Jumlahkan segitiga kecil dan segitiga gabungan.",
+        "Totalnya 14 segitiga."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "divided by straight lines",
+            "phrase_id": "dibagi oleh garis-garis lurus",
+            "note_en": "The lines cut the square into many small triangles.",
+            "note_id": "Garis-garis membagi persegi jadi banyak segitiga kecil."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many triangles are there",
+            "phrase_id": "Ada berapa segitiga dalam gambar tersebut",
+            "note_en": "Count small triangles plus triangles formed by joining them.",
+            "note_id": "Hitung segitiga kecil ditambah segitiga hasil gabungan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Triangle total",
+            "label_id": "Total segitiga",
+            "value": "14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by size: smallest first, then combined",
+          "name_id": "Hitung per ukuran: terkecil dulu, lalu gabungan"
+        },
+        "trap": {
+          "wrong": "17",
+          "why_en": "Counting some triangles twice, once as part of a bigger one and once alone, overshoots to 17.",
+          "why_id": "Menghitung sebagian segitiga dua kali, sekali sebagai bagian besar dan sekali sendiri, kelebihan jadi 17."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      }
+    },
+    {
+      "number": 22,
+      "body_en": "Given that star + star + star = 12 and diamond + star = 12, find diamond = ( ) and star = ( ).",
+      "body_id": "Diketahui bintang + bintang + bintang = 12 dan belah ketupat + bintang = 12, tentukan belah ketupat = ( ) dan bintang = ( ).",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "diamond = 4, star = 7" },
+        { "label": "B", "text": "diamond = 8, star = 4" },
+        { "label": "C", "text": "diamond = 9, star = 3" },
+        { "label": "D", "text": "diamond = 8, star = 3" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "belah ketupat = 4, bintang = 7" },
+        { "label": "B", "text": "belah ketupat = 8, bintang = 4" },
+        { "label": "C", "text": "belah ketupat = 9, bintang = 3" },
+        { "label": "D", "text": "belah ketupat = 8, bintang = 3" }
+      ],
+      "answer": "B",
+      "hint_steps_en": [
+        "Three stars make 12, so one star = 12 ÷ 3 = 4.",
+        "Now use diamond + star = 12 with star = 4.",
+        "Diamond = 12 - 4 = 8.",
+        "So diamond = 8 and star = 4."
+      ],
+      "hint_steps_id": [
+        "Tiga bintang sama dengan 12, jadi satu bintang = 12 ÷ 3 = 4.",
+        "Sekarang pakai belah ketupat + bintang = 12 dengan bintang = 4.",
+        "Belah ketupat = 12 - 4 = 8.",
+        "Jadi belah ketupat = 8 dan bintang = 4."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "star + star + star = 12",
+            "phrase_id": "bintang + bintang + bintang = 12",
+            "note_en": "Three equal stars make 12, so each star is 12 ÷ 3 = 4.",
+            "note_id": "Tiga bintang sama membentuk 12, jadi tiap bintang 12 ÷ 3 = 4."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "diamond + star = 12",
+            "phrase_id": "belah ketupat + bintang = 12",
+            "note_en": "Once star = 4, the diamond is 12 - 4 = 8.",
+            "note_id": "Setelah bintang = 4, belah ketupat = 12 - 4 = 8."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find diamond = ( ) and star = ( )",
+            "phrase_id": "tentukan belah ketupat = ( ) dan bintang = ( )",
+            "note_en": "We need both values, star first then diamond.",
+            "note_id": "Kita cari kedua nilai, bintang dulu lalu belah ketupat."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Star",
+            "label_id": "Bintang",
+            "value": "4"
+          },
+          {
+            "label_en": "Diamond",
+            "label_id": "Belah ketupat",
+            "value": "8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve the single-shape clue first, then substitute",
+          "name_id": "Pecahkan petunjuk satu bentuk dulu, lalu masukkan"
+        },
+        "trap": {
+          "wrong": "diamond = 8, star = 3",
+          "why_en": "Star = 3 would make 3 + 3 + 3 = 9, not 12 — three stars must total 12, so star = 4.",
+          "why_id": "Bintang = 3 membuat 3 + 3 + 3 = 9, bukan 12 — tiga bintang harus 12, jadi bintang = 4."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 23,
+      "body_en": "On the balance scales: 2 hexagons balance 3 squares, and 2 diamonds balance 4 hexagons. How many squares balance the diamonds shown? squares + diamonds: how many squares = the diamonds?",
+      "body_id": "Pada timbangan: 2 segi enam seimbang dengan 3 persegi, dan 2 belah ketupat seimbang dengan 4 segi enam. Berapa persegi yang seimbang dengan belah ketupat yang ditunjukkan? berapa persegi = belah ketupat tersebut?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Answer A" },
+        { "label": "B", "text": "Answer B" },
+        { "label": "C", "text": "Answer C" },
+        { "label": "D", "text": "indeterminate" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Jawaban A" },
+        { "label": "B", "text": "Jawaban B" },
+        { "label": "C", "text": "Jawaban C" },
+        { "label": "D", "text": "tidak dapat ditentukan" }
+      ],
+      "answer": "B",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q23.jpg",
+      "hint_steps_en": [
+        "2 diamonds balance 4 hexagons, so 1 diamond balances 2 hexagons.",
+        "2 hexagons balance 3 squares, so those 2 hexagons (= 1 diamond) balance 3 squares.",
+        "So 1 diamond = 3 squares; swap each diamond for 3 squares.",
+        "The diamonds shown balance the matching number of squares — answer B."
+      ],
+      "hint_steps_id": [
+        "2 belah ketupat seimbang dengan 4 segi enam, jadi 1 belah ketupat seimbang 2 segi enam.",
+        "2 segi enam seimbang dengan 3 persegi, jadi 2 segi enam itu (= 1 belah ketupat) seimbang 3 persegi.",
+        "Jadi 1 belah ketupat = 3 persegi; tukar tiap belah ketupat dengan 3 persegi.",
+        "Belah ketupat yang ditunjukkan seimbang dengan jumlah persegi yang sesuai — jawaban B."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2 hexagons balance 3 squares",
+            "phrase_id": "2 segi enam seimbang dengan 3 persegi",
+            "note_en": "This links hexagons to squares.",
+            "note_id": "Ini menghubungkan segi enam dengan persegi."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2 diamonds balance 4 hexagons",
+            "phrase_id": "2 belah ketupat seimbang dengan 4 segi enam",
+            "note_en": "This links diamonds to hexagons: 1 diamond = 2 hexagons.",
+            "note_id": "Ini menghubungkan belah ketupat dengan segi enam: 1 belah ketupat = 2 segi enam."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many squares balance the diamonds shown",
+            "phrase_id": "Berapa persegi yang seimbang dengan belah ketupat yang ditunjukkan",
+            "note_en": "Convert diamonds to hexagons, then hexagons to squares.",
+            "note_id": "Ubah belah ketupat ke segi enam, lalu segi enam ke persegi."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1 diamond in hexagons",
+            "label_id": "1 belah ketupat dalam segi enam",
+            "value": "2 hexagons"
+          },
+          {
+            "label_en": "1 diamond in squares",
+            "label_id": "1 belah ketupat dalam persegi",
+            "value": "3 squares"
+          }
+        ],
+        "strategy": {
+          "name_en": "Chain the trades: diamond to hexagon to square",
+          "name_id": "Rangkai penukaran: belah ketupat ke segi enam ke persegi"
+        },
+        "trap": {
+          "wrong": "indeterminate",
+          "why_en": "It looks unsolvable, but the two balance clues chain together perfectly, so the answer is fixed, not indeterminate.",
+          "why_id": "Tampak tak terpecahkan, padahal kedua petunjuk timbangan saling terhubung sempurna, jadi jawabannya pasti, bukan tak tentu."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      }
+    },
+    {
+      "number": 24,
+      "body_en": "The figure on the right is formed by the following four pieces (the pieces may only be rotated, not flipped over). Which piece carries the flower mark?",
+      "body_id": "Gambar di sebelah kanan dibentuk dari empat potongan berikut (potongan hanya boleh diputar, tidak boleh dibalik). Potongan mana yang membawa tanda bunga?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "Piece A" },
+        { "label": "B", "text": "Piece B" },
+        { "label": "C", "text": "Piece C" },
+        { "label": "D", "text": "Piece D" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "Potongan A" },
+        { "label": "B", "text": "Potongan B" },
+        { "label": "C", "text": "Potongan C" },
+        { "label": "D", "text": "Potongan D" }
+      ],
+      "answer": "D",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q24.jpg",
+      "hint_steps_en": [
+        "The pieces may only be turned, never flipped like a mirror.",
+        "Find where the flower sits in the finished figure.",
+        "Match each piece's shape and turning to that spot in the figure.",
+        "The piece that fits the flower's spot is Piece D."
+      ],
+      "hint_steps_id": [
+        "Potongan hanya boleh diputar, tidak boleh dibalik seperti cermin.",
+        "Cari letak bunga pada gambar yang sudah jadi.",
+        "Cocokkan bentuk dan putaran tiap potongan dengan posisi itu di gambar.",
+        "Potongan yang pas di posisi bunga adalah Potongan D."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "may only be rotated, not flipped over",
+            "phrase_id": "hanya boleh diputar, tidak boleh dibalik",
+            "note_en": "Turning is allowed, mirror-flipping is not.",
+            "note_id": "Boleh diputar, dilarang dibalik seperti cermin."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which piece carries the flower mark",
+            "phrase_id": "Potongan mana yang membawa tanda bunga",
+            "note_en": "Find which piece covers the flower's place in the figure.",
+            "note_id": "Cari potongan mana yang menutupi posisi bunga di gambar."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pieces",
+            "label_id": "Potongan",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Rotate-match each piece to its spot in the figure",
+          "name_id": "Putar-cocokkan tiap potongan ke posisinya di gambar"
+        },
+        "trap": {
+          "wrong": "Piece A",
+          "why_en": "Piece A fits only if you flip it, but flipping is not allowed — by rotation alone it does not reach the flower.",
+          "why_id": "Potongan A baru pas jika dibalik, padahal membalik dilarang — dengan diputar saja tidak sampai ke bunga."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      }
+    },
+    {
+      "number": 25,
+      "body_en": "Five different English letters are to be placed in a row (as five boxes). According to the statements on the right, in which box from the left will the letter B be?",
+      "body_id": "Lima huruf Inggris yang berbeda akan ditempatkan dalam satu baris (sebagai lima kotak). Menurut pernyataan di sebelah kanan, huruf B akan berada di kotak ke berapa dari kiri?",
+      "answer_type": "multiple_choice",
+      "choices_en": [
+        { "label": "A", "text": "3" },
+        { "label": "B", "text": "4" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "2" }
+      ],
+      "choices_id": [
+        { "label": "A", "text": "3" },
+        { "label": "B", "text": "4" },
+        { "label": "C", "text": "5" },
+        { "label": "D", "text": "2" }
+      ],
+      "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q25.jpg",
+      "hint_steps_en": [
+        "Read the clues and pin down any letter whose box is fixed first.",
+        "Use each clue to cross out boxes where B cannot go.",
+        "Keep narrowing until only one box is left for B.",
+        "The only box that fits all the clues is box 5."
+      ],
+      "hint_steps_id": [
+        "Baca petunjuknya dan kunci dulu huruf yang posisinya pasti.",
+        "Pakai tiap petunjuk untuk mencoret kotak yang tak mungkin untuk B.",
+        "Terus persempit sampai tersisa satu kotak untuk B.",
+        "Satu-satunya kotak yang cocok dengan semua petunjuk adalah kotak ke-5."
+      ],
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "According to the statements on the right",
+            "phrase_id": "Menurut pernyataan di sebelah kanan",
+            "note_en": "The clues together fix where each letter goes.",
+            "note_id": "Petunjuk-petunjuk itu bersama menentukan posisi tiap huruf."
+          },
+          {
+            "category": "question",
+            "phrase_en": "in which box from the left will the letter B be",
+            "phrase_id": "huruf B akan berada di kotak ke berapa dari kiri",
+            "note_en": "We only need B's box, counted from the left.",
+            "note_id": "Kita hanya perlu kotak huruf B, dihitung dari kiri."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of boxes",
+            "label_id": "Jumlah kotak",
+            "value": "5"
+          },
+          {
+            "label_en": "B's box from the left",
+            "label_id": "Kotak B dari kiri",
+            "value": "5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Eliminate boxes clue by clue until one remains",
+          "name_id": "Coret kotak petunjuk demi petunjuk sampai tersisa satu"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "Stopping one clue early leaves B at box 4, but the last clue pushes B all the way to box 5.",
+          "why_id": "Berhenti satu petunjuk lebih awal menaruh B di kotak 4, padahal petunjuk terakhir mendorong B sampai kotak 5."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      }
+    }
+  ]
+}
