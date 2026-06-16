@@ -10,8 +10,12 @@ export interface AdminConceptSummary {
   name_id: string
   description_id: string | null
   grades: number[]
-  domain: string
-  domain_label: string
+  strand: string
+  strand_label: string
+  topic: string
+  topic_label: string
+  difficulty: 1 | 2 | 3 | 4 | 5
+  isOlympiad: boolean
   status: ReviewStatus
   priority: 'high' | 'normal'
   wmi_refined: boolean

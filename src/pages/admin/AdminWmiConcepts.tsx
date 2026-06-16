@@ -173,18 +173,26 @@ export default function AdminWmiConcepts() {
         c.slug.toLowerCase().includes(q) ||
         c.name_en.toLowerCase().includes(q) ||
         c.name_id.toLowerCase().includes(q) ||
-        c.domain_label.toLowerCase().includes(q)
+        c.strand_label.toLowerCase().includes(q) ||
+        c.topic_label.toLowerCase().includes(q)
       )
     })
   }, [concepts, query, reviewFilter])
 
+  // Two-level: strand label -> topic label -> concepts. `filtered` preserves
+  // the server sort (strand order -> topic order -> short_id), so Map insertion
+  // order reflects it.
   const grouped = useMemo(() => {
-    const m = new Map<string, AdminConceptSummary[]>()
+    const strands = new Map<string, Map<string, AdminConceptSummary[]>>()
     for (const c of filtered) {
-      if (!m.has(c.domain_label)) m.set(c.domain_label, [])
-      m.get(c.domain_label)!.push(c)
+      if (!strands.has(c.strand_label)) strands.set(c.strand_label, new Map())
+      const topics = strands.get(c.strand_label)!
+      if (!topics.has(c.topic_label)) topics.set(c.topic_label, [])
+      topics.get(c.topic_label)!.push(c)
     }
-    return [...m.entries()]
+    return [...strands.entries()].map(
+      ([strand, topics]) => [strand, [...topics.entries()]] as const,
+    )
   }, [filtered])
 
   const summary = useMemo(() => {
@@ -283,64 +291,86 @@ export default function AdminWmiConcepts() {
             )}
           </div>
           {grouped.length === 0 && <div className="px-2 py-3 text-sm text-admin-faint">No matches.</div>}
-          {grouped.map(([domain, items]) => (
-            <div key={domain} className="mb-2">
+          {grouped.map(([strand, topics]) => (
+            <div key={strand} className="mb-3">
               <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-admin-faint">
-                {domain}
+                {strand}
               </div>
-              {items.map((c) => (
-                <button
-                  key={c.slug}
-                  type="button"
-                  onClick={() => setActiveSlug(c.slug)}
-                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
-                    c.slug === activeSlug
-                      ? 'bg-qupu-brand-blue text-white'
-                      : 'text-admin-ink hover:bg-admin-sunk'
-                  }`}
-                >
-                  <span
-                    className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
-                      c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
-                    }`}
-                  >
-                    {c.short_id || '—'}
-                  </span>
-                  <span className="flex-1 truncate">{c.name_en}</span>
-                  <span
-                    className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
-                  >
-                    G{c.grades.join('')}
-                  </span>
-                  {c.wmi_refined && (
-                    <i
-                      className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
-                        c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
+              {topics.map(([topic, items]) => (
+                <div key={topic} className="mb-1">
+                  <div className="px-2 pb-0.5 pt-1 text-[10px] font-semibold text-admin-muted">
+                    {topic}
+                  </div>
+                  {items.map((c) => (
+                    <button
+                      key={c.slug}
+                      type="button"
+                      onClick={() => setActiveSlug(c.slug)}
+                      className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
+                        c.slug === activeSlug
+                          ? 'bg-qupu-brand-blue text-white'
+                          : 'text-admin-ink hover:bg-admin-sunk'
                       }`}
-                      aria-hidden="true"
-                      title="WMI Refined"
-                    />
-                  )}
-                  <i
-                    className={`fa-solid shrink-0 text-xs leading-none ${
-                      c.status === 'approved'
-                        ? 'fa-check text-emerald-500'
-                        : c.status === 'needs_changes'
-                          ? 'fa-triangle-exclamation text-amber-500'
-                          : c.priority === 'high'
-                            ? 'fa-flag text-red-600'
-                            : 'fa-flag text-qupu-brand-orange'
-                    }`}
-                    aria-hidden="true"
-                    title={
-                      c.status === 'pending'
-                        ? c.priority === 'high'
-                          ? 'Needs review — urgent'
-                          : 'Needs review'
-                        : STATUS_META[c.status]?.label
-                    }
-                  />
-                </button>
+                    >
+                      <span
+                        className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                          c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
+                        }`}
+                      >
+                        {c.short_id || '—'}
+                      </span>
+                      <span className="flex-1 truncate">{c.name_en}</span>
+                      <span
+                        className={`shrink-0 tabular-nums text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                        title={`Difficulty ${c.difficulty}/5`}
+                      >
+                        d{c.difficulty}
+                      </span>
+                      {c.isOlympiad && (
+                        <span
+                          className={`shrink-0 text-[10px] leading-none ${c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-brand-orange'}`}
+                          title="Olympiad-core"
+                          aria-hidden="true"
+                        >
+                          ◆
+                        </span>
+                      )}
+                      <span
+                        className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                      >
+                        G{c.grades.join('')}
+                      </span>
+                      {c.wmi_refined && (
+                        <i
+                          className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
+                            c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
+                          }`}
+                          aria-hidden="true"
+                          title="WMI Refined"
+                        />
+                      )}
+                      <i
+                        className={`fa-solid shrink-0 text-xs leading-none ${
+                          c.status === 'approved'
+                            ? 'fa-check text-emerald-500'
+                            : c.status === 'needs_changes'
+                              ? 'fa-triangle-exclamation text-amber-500'
+                              : c.priority === 'high'
+                                ? 'fa-flag text-red-600'
+                                : 'fa-flag text-qupu-brand-orange'
+                        }`}
+                        aria-hidden="true"
+                        title={
+                          c.status === 'pending'
+                            ? c.priority === 'high'
+                              ? 'Needs review — urgent'
+                              : 'Needs review'
+                            : STATUS_META[c.status]?.label
+                        }
+                      />
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
           ))}
