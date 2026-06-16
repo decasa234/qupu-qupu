@@ -8,7 +8,7 @@ import { getBrand } from './olympiads/registry.js'
 export type AdminPaperSummary = {
   id: string
   year: number
-  grade: number
+  grade: number | null
   round: 'semifinal' | 'final'
   variant: 'A' | 'B'
   title: string

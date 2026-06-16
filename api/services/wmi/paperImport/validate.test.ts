@@ -50,14 +50,14 @@ describe('validatePaper', () => {
   test('accepts a valid SASMO paper header', () => {
     const paper = { brand: 'sasmo', year: 2019, round: 'contest', level: 'g2', variant: 'A',
       title: 'SASMO 2019 Primary 2', recommended_duration_min: 90,
-      questions: [{ number: 1, body_en: 'x', body_id: 'x', answer_type: 'fill_in', answer: '7' }] } as any
+      questions: [{ number: 1, body_en: 'x', body_id: 'x', answer_type: 'fill_in', answer: '7' }] } as PaperFile
     expect(validatePaper(paper, new Set())).toEqual([])
   })
 
   test('rejects an unknown brand', () => {
     const paper = { brand: 'nope', year: 2019, round: 'contest', level: 'g2',
       title: 't', recommended_duration_min: 90,
-      questions: [{ number: 1, body_en: 'x', body_id: 'x', answer_type: 'fill_in', answer: '7' }] } as any
+      questions: [{ number: 1, body_en: 'x', body_id: 'x', answer_type: 'fill_in', answer: '7' }] } as PaperFile
     expect(validatePaper(paper, new Set())).toContain('unknown brand "nope"')
   })
 })
