@@ -12,7 +12,7 @@ import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
 import WmiSteps from './WmiSteps'
 import WmiTrapNote from './WmiTrapNote'
-import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer } from './PastPapers/WMI/registry'
+import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer, getTemplate } from './PastPapers/WMI/registry'
 
 interface Props {
   question: WmiQuestion
@@ -99,6 +99,15 @@ export default function WmiQuestionView({
   const QuestionExplainer = getQuestionExplainer(question.code)
   const ChoiceContent = getQuestionChoiceRenderer(question.code)
 
+  // Reusable explainer-pool template binding (Approach A). When a question carries
+  // `visual: { templateId, params }`, render the template's parameterized figure +
+  // explainer instead of the per-code bespoke components. Bespoke path is unchanged
+  // (templateParams stays {} and the bespoke explainer ignores params).
+  const templateBinding = question.visual?.templateId ? getTemplate(question.visual.templateId) : null
+  const templateParams = question.visual?.params ?? {}
+  const TemplateIllustration = templateBinding?.Illustration ?? null
+  const ResolvedExplainer = templateBinding?.Explainer ?? QuestionExplainer
+
   const [internalBreakdown, setInternalBreakdown] = useState(false)
   const breakdownControlled = onToggleBreakdown != null
   const bdActive = breakdownControlled ? breakdownActive : internalBreakdown
@@ -125,7 +134,9 @@ export default function WmiQuestionView({
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      {Illustration ? (
+      {TemplateIllustration ? (
+        <TemplateIllustration params={templateParams} />
+      ) : Illustration ? (
         <Illustration />
       ) : ConceptIllustration ? (
         <ConceptIllustration params={conceptIllustrationParams} />
@@ -179,8 +190,8 @@ export default function WmiQuestionView({
       )}
       {revealed && stepList && stepList.length > 0 && <WmiSteps steps={stepList} lang={lang} />}
       {revealed && question.breakdown?.trap && <WmiTrapNote trap={question.breakdown.trap} lang={lang} />}
-      {revealed && QuestionExplainer && (
-        <WmiExplainer explainer={QuestionExplainer} params={{}} correctAnswer="" lang={lang} />
+      {revealed && ResolvedExplainer && (
+        <WmiExplainer explainer={ResolvedExplainer} params={templateParams} correctAnswer="" lang={lang} />
       )}
     </article>
   )
