@@ -20,9 +20,9 @@ import type { WmiQuestion } from '../../types/wmi'
 import { useReviewIssues } from '../../hooks/useReviewIssues'
 import { useReviewKeyboard } from '../../hooks/useReviewKeyboard'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
-import FlagButton from '../../components/admin/review/FlagButton'
 import {
   fetchIssueCounts,
+  FLAGGABLE_PARTS,
   suggestVerdictClient,
   type IssueCounts,
   type IssuePart,
@@ -81,31 +81,10 @@ function Chip({ on, label }: { on: boolean; label: string }) {
   )
 }
 
-function Section({
-  title,
-  hint,
-  part,
-  onFlag,
-  children,
-}: {
-  title: string
-  hint?: string
-  part?: IssuePart
-  onFlag?: (i: {
-    part: IssuePart
-    title: string
-    detail: string
-    severity: IssueSeverity
-    ai_actionable: boolean
-  }) => Promise<unknown>
-  children: React.ReactNode
-}) {
+function Section({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   return (
     <Panel>
-      <div className="flex items-center justify-between gap-2">
-        <SectionHeading>{title}</SectionHeading>
-        {part && onFlag && <FlagButton part={part} onCreate={onFlag} />}
-      </div>
+      <SectionHeading>{title}</SectionHeading>
       {hint && <p className="mt-1 text-xs text-admin-muted">{hint}</p>}
       <div className="mt-3">{children}</div>
     </Panel>
@@ -602,7 +581,13 @@ export default function AdminWmiConcepts() {
           )}
 
           {active && (
-            <IssuesPanel issues={issues} title="Issues" onUpdate={(id, patch) => updateIssue(id, patch)} />
+            <IssuesPanel
+              issues={issues}
+              title="Flags"
+              parts={FLAGGABLE_PARTS}
+              onCreate={flagConcept}
+              onUpdate={(id, patch) => updateIssue(id, patch)}
+            />
           )}
 
           {/* Sample navigation */}
@@ -655,7 +640,7 @@ export default function AdminWmiConcepts() {
                 </div>
               ) : (
                 <>
-                  <Section title="Question" hint="Toggle EN/ID and breakdown inside the card." part="stem" onFlag={flagConcept}>
+                  <Section title="Question" hint="Toggle EN/ID and breakdown inside the card.">
                     {activeSlug && (
                       <WmiQuestionView
                         question={adapt(activeSlug, sample)}
@@ -676,7 +661,7 @@ export default function AdminWmiConcepts() {
                     </p>
                   </Section>
 
-                  <Section title="Answer & params" part="answer" onFlag={flagConcept}>
+                  <Section title="Answer & params">
                     <div className="text-sm">
                       <span className="font-bold text-admin-muted">Answer:</span>{' '}
                       <span className="rounded bg-emerald-50 px-2 py-0.5 font-mono font-bold text-emerald-700">
@@ -688,7 +673,7 @@ export default function AdminWmiConcepts() {
                     </pre>
                   </Section>
 
-                  <Section title="Step-by-step" part="steps" onFlag={flagConcept}>
+                  <Section title="Step-by-step">
                     {hasSteps ? (
                       <div className="grid gap-3 sm:grid-cols-2">
                         <Steps label="EN" steps={sample.hint_steps_en} fallback={sample.hint_en} />
@@ -715,7 +700,7 @@ export default function AdminWmiConcepts() {
                     )}
                   </Section>
 
-                  <Section title="Animation" part="animation" onFlag={flagConcept}>
+                  <Section title="Animation">
                     {hasExplainer && activeSlug ? (
                       <WmiExplainer
                         key={`${activeSlug}-${sample.seed}`}

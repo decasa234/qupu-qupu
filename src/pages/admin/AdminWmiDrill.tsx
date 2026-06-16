@@ -12,8 +12,7 @@ import { listBrands, getBrand, type Brand } from '../../../api/services/wmi/olym
 import { useReviewIssues } from '../../hooks/useReviewIssues'
 import { useReviewKeyboard } from '../../hooks/useReviewKeyboard'
 import IssuesPanel from '../../components/admin/review/IssuesPanel'
-import FlagButton from '../../components/admin/review/FlagButton'
-import { fetchIssueCounts, type IssueCounts, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
+import { fetchIssueCounts, FLAGGABLE_PARTS, type IssueCounts, type IssuePart, type IssueSeverity } from '../../lib/wmiReviewIssues'
 
 // WmiQuestionView requires interaction handlers; this is a read-only preview, so they no-op.
 const noop = () => {}
@@ -271,13 +270,15 @@ export default function AdminWmiDrill() {
   )
   const [scopeAll, setScopeAll] = useState(false)
   const flagQuestion = useCallback(
-    (i: { part: IssuePart; title: string; detail: string; severity: IssueSeverity; ai_actionable: boolean }) =>
-      addIssue({
+    (i: { part: IssuePart; title: string; detail: string; severity: IssueSeverity; ai_actionable: boolean }) => {
+      if (!activePaperId || !currentQuestion) return Promise.resolve()
+      return addIssue({
         target_type: 'paper_question',
-        paper_id: activePaperId!,
-        question_id: currentQuestion!.id,
+        paper_id: activePaperId,
+        question_id: currentQuestion.id,
         ...i,
-      }),
+      })
+    },
     [addIssue, activePaperId, currentQuestion],
   )
   const [editPart, setEditPart] = useState<null | 'stem' | 'answer' | 'hint'>(null)
@@ -584,6 +585,26 @@ export default function AdminWmiDrill() {
                 </Panel>
               )}
 
+              {activePaper && (
+                <IssuesPanel
+                  issues={scopeAll ? issues : thisQuestionIssues}
+                  title={scopeAll ? 'Flags · in this paper' : 'Flags · on this question'}
+                  questionMeta={questionMeta}
+                  parts={FLAGGABLE_PARTS}
+                  onCreate={flagQuestion}
+                  onUpdate={(id, patch) => updateIssue(id, patch)}
+                />
+              )}
+              {activePaper && (
+                <button
+                  type="button"
+                  className="text-xs font-semibold text-admin-muted hover:text-admin-ink"
+                  onClick={() => setScopeAll((v) => !v)}
+                >
+                  {scopeAll ? 'Show this question only' : `Show all paper issues (${issues.length})`}
+                </button>
+              )}
+
               {/* Question navigation */}
               {activePaper && (
                 <div className="flex flex-wrap items-center gap-2">
@@ -639,13 +660,6 @@ export default function AdminWmiDrill() {
                       {currentQuestion.answer}
                     </span>
                   </div>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {(['stem', 'answer', 'choices', 'hint', 'breakdown', 'steps', 'illustration'] as IssuePart[]).map(
-                      (part) => (
-                        <FlagButton key={part} part={part} onCreate={flagQuestion} />
-                      ),
-                    )}
-                  </div>
                   {currentQuestion && (
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-[10px]">
                       <span className="font-bold text-admin-faint">Quick-fix:</span>
@@ -692,23 +706,6 @@ export default function AdminWmiDrill() {
                 </Panel>
               )}
 
-              {activePaper && (
-                <IssuesPanel
-                  issues={scopeAll ? issues : thisQuestionIssues}
-                  title={scopeAll ? 'In this paper' : 'On this question'}
-                  questionMeta={questionMeta}
-                  onUpdate={(id, patch) => updateIssue(id, patch)}
-                />
-              )}
-              {activePaper && (
-                <button
-                  type="button"
-                  className="text-xs font-semibold text-admin-muted hover:text-admin-ink"
-                  onClick={() => setScopeAll((v) => !v)}
-                >
-                  {scopeAll ? 'Show this question only' : `Show all paper issues (${issues.length})`}
-                </button>
-              )}
             </div>
           </div>
         </div>

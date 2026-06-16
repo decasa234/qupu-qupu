@@ -1,5 +1,13 @@
-import { Panel, SectionHeading } from '../ui'
-import { serializeIssuesForClaude, type IssueStatus, type ReviewIssue } from '../../../lib/wmiReviewIssues'
+import { useState } from 'react'
+import { Button, Input, Panel, SectionHeading, Select, Textarea } from '../ui'
+import {
+  PART_LABELS,
+  serializeIssuesForClaude,
+  type IssuePart,
+  type IssueSeverity,
+  type IssueStatus,
+  type ReviewIssue,
+} from '../../../lib/wmiReviewIssues'
 
 const SEV_DOT: Record<string, string> = {
   blocker: 'bg-rose-600',
@@ -15,36 +23,129 @@ const STATUS_CHIP: Record<IssueStatus, { cls: string; label: string }> = {
   wont_fix: { cls: 'bg-admin-sunk text-admin-muted', label: "won't fix" },
 }
 
+export type NewFlag = {
+  part: IssuePart
+  title: string
+  detail: string
+  severity: IssueSeverity
+  ai_actionable: boolean
+}
+
 export default function IssuesPanel({
   issues,
   title = 'Issues',
   questionMeta = {},
+  parts,
+  onCreate,
   onUpdate,
 }: {
   issues: ReviewIssue[]
   title?: string
   questionMeta?: Record<string, { code?: string; number: number }>
+  parts?: IssuePart[]
+  onCreate?: (i: NewFlag) => Promise<unknown>
   onUpdate: (id: string, patch: Partial<{ status: IssueStatus }>) => Promise<unknown>
 }) {
   const open = issues.filter((i) => i.status !== 'verified' && i.status !== 'wont_fix')
   const copy = () => navigator.clipboard.writeText(serializeIssuesForClaude(issues, questionMeta))
+  const canAdd = Boolean(onCreate && parts && parts.length > 0)
+
+  const [adding, setAdding] = useState(false)
+  const [part, setPart] = useState<IssuePart>(parts?.[0] ?? 'other')
+  const [flagTitle, setFlagTitle] = useState('')
+  const [detail, setDetail] = useState('')
+  const [severity, setSeverity] = useState<IssueSeverity>('warning')
+  const [aiActionable, setAiActionable] = useState(true)
+  const [saving, setSaving] = useState(false)
 
   return (
     <Panel>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <SectionHeading>
           {title} · {open.length} open
         </SectionHeading>
-        <button
-          type="button"
-          onClick={copy}
-          className="rounded-md bg-qupu-brand-orange px-2.5 py-1 text-xs font-bold text-white hover:opacity-90"
-        >
-          📋 Copy issues for Claude
-        </button>
+        <div className="flex items-center gap-2">
+          {canAdd && (
+            <button
+              type="button"
+              onClick={() => setAdding((v) => !v)}
+              className="rounded-md border border-qupu-brand-orange px-2.5 py-1 text-xs font-bold text-qupu-brand-orange hover:bg-orange-50"
+            >
+              + Add flag
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={copy}
+            className="rounded-md bg-qupu-brand-orange px-2.5 py-1 text-xs font-bold text-white hover:opacity-90"
+          >
+            📋 Copy issues for Claude
+          </button>
+        </div>
       </div>
+
+      {adding && canAdd && (
+        <div className="mt-3 grid gap-2 rounded-lg border border-qupu-brand-orange bg-orange-50/50 p-3">
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <label className="font-bold text-admin-muted">Flag type</label>
+            <Select value={part} onChange={(e) => setPart(e.target.value as IssuePart)} aria-label="Flag type">
+              {parts!.map((p) => (
+                <option key={p} value={p}>
+                  {PART_LABELS[p]}
+                </option>
+              ))}
+            </Select>
+            <Select value={severity} onChange={(e) => setSeverity(e.target.value as IssueSeverity)} aria-label="Severity">
+              <option value="blocker">Blocker</option>
+              <option value="warning">Warning</option>
+              <option value="nit">Nit</option>
+            </Select>
+            <label className="inline-flex items-center gap-1 font-semibold text-admin-muted">
+              <input type="checkbox" checked={aiActionable} onChange={(e) => setAiActionable(e.target.checked)} />
+              AI-actionable
+            </label>
+          </div>
+          <Input
+            value={flagTitle}
+            onChange={(e) => setFlagTitle(e.target.value)}
+            placeholder="What's wrong?"
+            aria-label="Issue title"
+          />
+          <Textarea
+            value={detail}
+            onChange={(e) => setDetail(e.target.value)}
+            rows={2}
+            placeholder="Detail / suggested fix (Claude reads this)"
+          />
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              disabled={!flagTitle.trim() || saving}
+              loading={saving}
+              onClick={async () => {
+                if (!onCreate) return
+                setSaving(true)
+                try {
+                  await onCreate({ part, title: flagTitle.trim(), detail: detail.trim(), severity, ai_actionable: aiActionable })
+                  setAdding(false)
+                  setFlagTitle('')
+                  setDetail('')
+                } finally {
+                  setSaving(false)
+                }
+              }}
+            >
+              Add flag
+            </Button>
+            <button type="button" className="text-xs text-admin-faint" onClick={() => setAdding(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
       {issues.length === 0 ? (
-        <p className="mt-2 text-sm text-admin-faint">No issues filed. Use ⚑ on a part to flag one.</p>
+        <p className="mt-2 text-sm text-admin-faint">No issues filed yet.</p>
       ) : (
         <ul className="mt-3 divide-y divide-admin-line">
           {issues.map((i) => {

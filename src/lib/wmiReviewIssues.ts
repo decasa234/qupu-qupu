@@ -9,6 +9,26 @@ export type IssueTargetType = 'paper' | 'paper_question' | 'concept'
 
 export const PAPER_QUICKFIX_PARTS: IssuePart[] = ['stem', 'answer', 'choices', 'hint']
 
+// Parts offered in the "Add flag" type dropdown.
+export const FLAGGABLE_PARTS: IssuePart[] = [
+  'stem', 'answer', 'choices', 'hint', 'breakdown', 'illustration',
+  'steps', 'animation', 'trap', 'meta', 'other',
+]
+
+export const PART_LABELS: Record<IssuePart, string> = {
+  stem: 'Question text (stem)',
+  answer: 'Answer',
+  choices: 'Choices',
+  hint: 'Hint',
+  breakdown: 'Breakdown',
+  illustration: 'Illustration',
+  steps: 'Step-by-step',
+  animation: 'Animation',
+  trap: 'Trap',
+  meta: 'Metadata',
+  other: 'Other',
+}
+
 export interface ReviewIssue {
   id: string
   target_type: IssueTargetType
