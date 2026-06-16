@@ -19,6 +19,7 @@ const NAV: NavEntry[] = [
     children: [
       { to: '/admin/wmi-concepts', label: 'Concepts', icon: 'fa-solid fa-flask' },
       { to: '/admin/wmi-drill', label: 'Drill', icon: 'fa-solid fa-file-pen' },
+      { to: '/admin/wmi-review', label: 'Review Queue', icon: 'fa-solid fa-list-check' },
     ],
   },
 ]
