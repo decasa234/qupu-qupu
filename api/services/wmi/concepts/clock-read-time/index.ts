@@ -13,7 +13,7 @@ export const meta = {
   slug: 'clock-read-time',
   name_en: 'Read the clock',
   name_id: 'Membaca jam',
-  grades: [1, 2, 3] as const,
+  grades: [1] as const,
   description_id: 'Baca jam analog dan pilih waktu yang ditunjukkan.',
 } as const
 

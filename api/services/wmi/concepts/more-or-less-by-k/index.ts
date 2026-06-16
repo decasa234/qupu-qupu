@@ -15,7 +15,7 @@ export const meta = {
   slug: 'more-or-less-by-k',
   name_en: 'A number more or less than another by k',
   name_id: 'Bilangan yang lebih atau kurang sebanyak k',
-  grades: [1, 2] as const,
+  grades: [1] as const,
   description_id: 'Cari bilangan yang lebih atau kurang sekian dari sebuah bilangan.',
 } as const
 

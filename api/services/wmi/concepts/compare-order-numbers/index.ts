@@ -17,7 +17,7 @@ export const meta = {
   slug: 'compare-order-numbers',
   name_en: 'Compare and order numbers',
   name_id: 'Bandingkan dan urutkan bilangan',
-  grades: [1, 2] as const,
+  grades: [1] as const,
   description_id: 'Pilih pernyataan urutan bilangan yang benar.',
 } as const
 

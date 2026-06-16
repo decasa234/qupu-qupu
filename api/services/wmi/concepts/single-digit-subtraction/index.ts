@@ -12,7 +12,7 @@ export const meta = {
   slug: 'single-digit-subtraction',
   name_en: 'Single-digit subtraction',
   name_id: 'Pengurangan satu angka',
-  grades: [1, 2] as const,
+  grades: [1] as const,
   description_id: 'Latihan mengurangi dua angka satuan.',
 } as const
 
