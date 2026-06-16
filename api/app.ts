@@ -13,6 +13,7 @@ import publicRoutes from './routes/public.js'
 import wmiPublicRoutes from './routes/wmi-public.js'
 import memberRoutes from './routes/member.js'
 import wmiMemberRoutes from './routes/wmi-member.js'
+import fundamentalsMemberRoutes from './routes/fundamentals-member.js'
 import childrenRoutes from './routes/children.js'
 import dashboardRoutes from './routes/dashboard.js'
 import adminRoutes from './routes/admin.js'
@@ -90,6 +91,7 @@ app.use('/api/me/dashboard', dashboardRoutes)
 app.use('/api/me/inventory', inventoryRoutes)
 app.use('/api/me/children', childrenRoutes)
 app.use('/api/me/wmi', wmiMemberRoutes)
+app.use('/api/me/fundamentals', fundamentalsMemberRoutes)
 app.use('/api/me', memberRoutes)
 app.use('/api/admin/wmi', wmiAdminRoutes)
 app.use('/api/admin', adminRoutes)

@@ -55,10 +55,49 @@ export default function LatihanHub() {
         </p>
       </section>
 
-      <div className="mt-5">
+      <div className="mt-5 space-y-5">
+        <FundamentalsCourseCard />
         <WmiCourseCard progress={progress} loading={loading} />
       </div>
     </div>
+  )
+}
+
+// Brand-agnostic beginner course: meta-skills (reading a question, vocabulary,
+// breaking problems down, scoring/penalty strategy). Sits above any one brand.
+function FundamentalsCourseCard() {
+  return (
+    <Link
+      to="/latihan/fundamental"
+      className="block overflow-hidden rounded-[2rem] bg-white shadow-[5px_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+    >
+      <div className="relative bg-qupu-brand-blue p-5 text-white">
+        <div className="absolute -right-6 -top-8 h-24 w-24 rounded-full bg-qupu-brand-yellow/30" />
+        <div className="relative flex items-center gap-3">
+          <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.35rem] bg-[#FFF8F0] text-2xl text-qupu-brand-blue shadow-[inset_0_-4px_0_#FFD3B1]">
+            <i className="fa-solid fa-compass" aria-hidden="true" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
+              Bekal Dasar
+            </p>
+            <h2 className="font-display text-xl font-black leading-tight">Dasar Olimpiade</h2>
+            <p className="text-[11px] font-bold text-white/80">Untuk pemula · cara menang olimpiade</p>
+          </div>
+          <i className="fa-solid fa-chevron-right text-sm text-white/70" aria-hidden="true" />
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-1.5 p-4">
+        {['Membaca soal', 'Kosakata', 'Bongkar soal', 'Strategi skor'].map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full bg-qupu-cream px-2.5 py-1 text-[11px] font-bold text-qupu-brand-blue"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </Link>
   )
 }
 

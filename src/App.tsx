@@ -21,6 +21,8 @@ import WmiPaperDetailPage from './pages/WmiPaperDetail'
 import WmiExamPage from './pages/WmiExam'
 import WmiExamReviewPage from './pages/WmiExamReview'
 import WmiKonsepDrill from './pages/WmiKonsepDrill'
+import FundamentalsHubPage from './pages/FundamentalsHub'
+import FundamentalsLessonPage from './pages/FundamentalsLesson'
 import AdminVideosPage from './pages/AdminVideos'
 import AdminDashboardPage from './pages/admin/AdminDashboard'
 import AdminSubjectsPage from './pages/admin/AdminSubjects'
@@ -149,6 +151,8 @@ export default function App() {
           <Route path="shop" element={<ShopPage />} />
           <Route path="me" element={<MePage />} />
           <Route path="latihan" element={<LatihanHubPage />} />
+          <Route path="latihan/fundamental" element={<FundamentalsHubPage />} />
+          <Route path="latihan/fundamental/:slug" element={<FundamentalsLessonPage />} />
           <Route path="latihan/wmi" element={<WmiHubPage />} />
           <Route path="latihan/wmi/ujian" element={<WmiPapersPage />} />
           <Route path="latihan/wmi/drill" element={<WmiDrillPage />} />
