@@ -141,8 +141,8 @@ async function main(): Promise<void> {
           `
             INSERT INTO wmi_questions
               (paper_id, number, body_en, body_id, answer_type, choices_en, choices_id, answer,
-               figure_url, hint_en, hint_id, hint_steps_en, hint_steps_id, breakdown, difficulty, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, NOW())
+               figure_url, hint_en, hint_id, hint_steps_en, hint_steps_id, breakdown, visual, difficulty, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, NOW())
             ON CONFLICT (paper_id, number) DO UPDATE SET
               body_en = EXCLUDED.body_en,
               body_id = EXCLUDED.body_id,
@@ -156,6 +156,7 @@ async function main(): Promise<void> {
               hint_steps_en = EXCLUDED.hint_steps_en,
               hint_steps_id = EXCLUDED.hint_steps_id,
               breakdown = EXCLUDED.breakdown,
+              visual = EXCLUDED.visual,
               difficulty = EXCLUDED.difficulty,
               updated_at = NOW()
           `,
@@ -174,6 +175,7 @@ async function main(): Promise<void> {
             question.hint_steps_en ? JSON.stringify(question.hint_steps_en) : null,
             question.hint_steps_id ? JSON.stringify(question.hint_steps_id) : null,
             question.breakdown ? JSON.stringify(question.breakdown) : null,
+            question.visual ? JSON.stringify(question.visual) : null,
             question.difficulty ?? null,
           ],
         )

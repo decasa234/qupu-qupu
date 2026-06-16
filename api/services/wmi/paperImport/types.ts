@@ -1,5 +1,11 @@
 import type { Breakdown } from '../concepts/types.js'
 
+/** Binds a question to a reusable explainer-pool template (Approach A). */
+export interface QuestionVisualBinding {
+  templateId: string
+  params: unknown
+}
+
 export interface PaperQuestion {
   number: number
   body_en: string
@@ -14,6 +20,7 @@ export interface PaperQuestion {
   hint_steps_en?: string[]
   hint_steps_id?: string[]
   breakdown?: Breakdown
+  visual?: QuestionVisualBinding
   difficulty?: number
 }
 
