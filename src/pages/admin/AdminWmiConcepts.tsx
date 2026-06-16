@@ -20,6 +20,15 @@ import type { WmiQuestion } from '../../types/wmi'
 
 const noop = () => {}
 
+const STRAND_OPTIONS: { code: string; label: string }[] = [
+  { code: 'AR', label: 'Arithmetic & Computation' },
+  { code: 'NT', label: 'Number Theory' },
+  { code: 'AP', label: 'Algebra & Patterns' },
+  { code: 'CO', label: 'Combinatorics & Counting' },
+  { code: 'GE', label: 'Geometry & Measurement' },
+  { code: 'LR', label: 'Logic & Reasoning' },
+]
+
 const STATUS_ORDER = ['pending', 'approved', 'needs_changes'] as const
 const STATUS_META: Record<
   ReviewStatus,
@@ -94,6 +103,9 @@ export default function AdminWmiConcepts() {
   const [savedFlash, setSavedFlash] = useState(false)
   const [query, setQuery] = useState('')
   const [reviewFilter, setReviewFilter] = useState<'all' | 'urgent' | ReviewStatus>('all')
+  const [strandFilter, setStrandFilter] = useState<string>('all')
+  const [difficultyFilter, setDifficultyFilter] = useState<string>('all')
+  const [olympiadOnly, setOlympiadOnly] = useState(false)
 
   useEffect(() => {
     fetchConceptList()
@@ -167,6 +179,9 @@ export default function AdminWmiConcepts() {
       } else if (reviewFilter !== 'all' && c.status !== reviewFilter) {
         return false
       }
+      if (strandFilter !== 'all' && c.strand !== strandFilter) return false
+      if (difficultyFilter !== 'all' && String(c.difficulty) !== difficultyFilter) return false
+      if (olympiadOnly && !c.isOlympiad) return false
       if (!q) return true
       return (
         c.short_id.toLowerCase().includes(q) ||
@@ -177,7 +192,7 @@ export default function AdminWmiConcepts() {
         c.topic_label.toLowerCase().includes(q)
       )
     })
-  }, [concepts, query, reviewFilter])
+  }, [concepts, query, reviewFilter, strandFilter, difficultyFilter, olympiadOnly])
 
   // Two-level: strand label -> topic label -> concepts. `filtered` preserves
   // the server sort (strand order -> topic order -> short_id), so Map insertion
@@ -262,6 +277,45 @@ export default function AdminWmiConcepts() {
             </button>
           ))}
           <span className="text-admin-faint">· click to filter</span>
+        </div>
+      )}
+
+      {concepts.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <select
+            value={strandFilter}
+            onChange={(e) => setStrandFilter(e.target.value)}
+            className="rounded-full border border-admin-line bg-admin-card px-3 py-1 font-semibold text-admin-ink"
+          >
+            <option value="all">All strands</option>
+            {STRAND_OPTIONS.map((s) => (
+              <option key={s.code} value={s.code}>
+                {s.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={difficultyFilter}
+            onChange={(e) => setDifficultyFilter(e.target.value)}
+            className="rounded-full border border-admin-line bg-admin-card px-3 py-1 font-semibold text-admin-ink"
+          >
+            <option value="all">Any difficulty</option>
+            {['1', '2', '3', '4', '5'].map((d) => (
+              <option key={d} value={d}>
+                Difficulty {d}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            onClick={() => setOlympiadOnly((v) => !v)}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
+              olympiadOnly ? 'bg-qupu-brand-orange text-white' : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
+            }`}
+          >
+            ◆ Olympiad only
+          </button>
+          <span className="text-admin-faint">· {filtered.length} shown</span>
         </div>
       )}
 
@@ -395,6 +449,8 @@ export default function AdminWmiConcepts() {
                 <Chip on={Boolean(Illustration)} label="Illustration" />
                 <Chip on={hasExplainer} label="Animation" />
                 <Chip on={hasSteps} label="Step-by-step" />
+                <Chip on label={`Difficulty ${active.difficulty}/5`} />
+                <Chip on={active.isOlympiad} label="Olympiad" />
               </div>
             </div>
           )}
