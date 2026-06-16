@@ -479,18 +479,25 @@ CREATE INDEX IF NOT EXISTS idx_referral_uses_referrer
 
 CREATE TABLE IF NOT EXISTS wmi_papers (
   id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  year                     SMALLINT NOT NULL CHECK (year BETWEEN 2019 AND 2099),
-  grade                    SMALLINT NOT NULL CHECK (grade BETWEEN 0 AND 3),
-  round                    TEXT NOT NULL CHECK (round IN ('semifinal','final')),
-  variant                  TEXT NOT NULL DEFAULT 'A' CHECK (variant IN ('A','B')),
+  brand                    TEXT NOT NULL DEFAULT 'wmi',
+  year                     SMALLINT NOT NULL CHECK (year BETWEEN 1990 AND 2099),
+  grade                    SMALLINT,
+  level_code               TEXT NOT NULL,
+  level_sort               SMALLINT NOT NULL,
+  round                    TEXT NOT NULL,
+  variant                  TEXT NOT NULL DEFAULT 'A',
   title                    TEXT NOT NULL,
   source_url               TEXT,
   recommended_duration_min SMALLINT NOT NULL DEFAULT 60,
   question_count           SMALLINT NOT NULL DEFAULT 0,
   created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT wmi_papers_year_grade_round_variant_unique UNIQUE (year, grade, round, variant)
+  CONSTRAINT wmi_papers_brand_year_level_round_variant_unique UNIQUE (brand, year, level_code, round, variant)
 );
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand ON wmi_papers(brand);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand_level ON wmi_papers(brand, level_code);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand_round ON wmi_papers(brand, round);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_year ON wmi_papers(year);
 
 CREATE TABLE IF NOT EXISTS wmi_paper_reviews (
   paper_id    UUID PRIMARY KEY REFERENCES wmi_papers(id) ON DELETE CASCADE,
