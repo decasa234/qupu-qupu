@@ -3,6 +3,7 @@ import type { ReviewStatus } from './concepts/reviews.js'
 import type { WmiChoice } from './papers.js'
 import type { Breakdown } from './concepts/types.js'
 import { questionCode } from './paperCode.js'
+import { getBrand } from './olympiads/registry.js'
 
 export type AdminPaperSummary = {
   id: string
@@ -16,6 +17,7 @@ export type AdminPaperSummary = {
   brand: string
   level_code: string
   level_sort: number
+  level_label: string
 }
 
 export type PaperReview = {
@@ -50,7 +52,7 @@ export type AdminPaperQuestion = {
 
 // All papers (every grade), each with its review status (default 'pending').
 export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
-  return query<AdminPaperSummary>(
+  const rows = await query<AdminPaperSummary>(
     `SELECT p.id, p.year, p.grade, p.round, p.variant, p.title, p.question_count,
             p.brand, p.level_code, p.level_sort,
             COALESCE(r.status, 'pending') AS status
@@ -58,20 +60,29 @@ export async function listPapersForAdmin(): Promise<AdminPaperSummary[]> {
      LEFT JOIN wmi_paper_reviews r ON r.paper_id = p.id
      ORDER BY p.brand ASC, p.level_sort ASC, p.year DESC, p.round ASC, p.variant ASC`,
   )
+  return rows.map((r) => {
+    let level_label = r.level_code
+    try {
+      level_label = getBrand(r.brand).levels.find((l) => l.key === r.level_code)?.labelId ?? r.level_code
+    } catch {
+      /* unknown brand: fall back to level_code */
+    }
+    return { ...r, level_label }
+  })
 }
 
 export async function listAdminPaperQuestions(paperId: string): Promise<AdminPaperQuestion[]> {
-  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B'; brand: string; level_code: string }>(
+  const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; brand: string; level_code: string }>(
     `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
             q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
-            p.year, p.round, p.grade, p.variant, p.brand, p.level_code
+            p.year, p.round, p.brand, p.level_code
      FROM wmi_questions q
      JOIN wmi_papers p ON p.id = q.paper_id
      WHERE q.paper_id = $1
      ORDER BY q.number ASC`,
     [paperId],
   )
-  return rows.map(({ year, round, grade, variant, brand, level_code, ...q }) => ({
+  return rows.map(({ year, round, brand, level_code, ...q }) => ({
     ...q,
     code: questionCode({ brand, year, round, level: level_code }, q.number),
   }))

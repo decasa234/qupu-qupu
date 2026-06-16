@@ -74,10 +74,13 @@ export async function saveConceptReview(
 
 export interface AdminPaperSummary {
   id: string
+  brand: string
   year: number
-  grade: number
-  round: 'semifinal' | 'final'
-  variant: 'A' | 'B'
+  grade: number | null
+  level_code: string
+  level_label: string
+  round: string
+  variant: string
   title: string
   question_count: number
   status: ReviewStatus
