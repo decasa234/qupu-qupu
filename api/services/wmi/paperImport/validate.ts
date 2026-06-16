@@ -1,4 +1,7 @@
 import type { PaperFile } from './types.js'
+// Tsx-only import (this module is run solely by db/seed/wmi/validate-papers.ts, never
+// the API server) — lets us validate a question's pooled-template params at seed time.
+import { getTemplate } from '../../../../src/components/wmi/PastPapers/WMI/templates/registry.js'
 
 // Returns a list of human-readable problems; empty means the paper is valid.
 export function validatePaper(paper: PaperFile, presentFigures: Set<string>): string[] {
@@ -37,6 +40,20 @@ export function validatePaper(paper: PaperFile, presentFigures: Set<string>): st
     if (q.figure_url) {
       const base = q.figure_url.split('/').pop() ?? ''
       if (!presentFigures.has(base)) problems.push(tag(q.number, `figure_url file "${base}" not found in figures/`))
+    }
+
+    if (q.visual) {
+      const t = getTemplate(q.visual.templateId)
+      if (!t) {
+        problems.push(tag(q.number, `unknown visual.templateId "${q.visual.templateId}"`))
+      } else if (t.meta.paramsSchema) {
+        const parsed = t.meta.paramsSchema.safeParse(q.visual.params)
+        if (!parsed.success) {
+          problems.push(
+            tag(q.number, `visual.params invalid for "${q.visual.templateId}": ${parsed.error.issues[0]?.message ?? 'schema mismatch'}`),
+          )
+        }
+      }
     }
   }
 
