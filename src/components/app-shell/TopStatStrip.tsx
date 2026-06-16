@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { fetchGamificationSummary } from '../../lib/gamificationApi'
 import { useGamificationStats } from '../../hooks/useGamificationStats'
 import { useAuthStore } from '../../store/authStore'
+import { useWmiStore } from '../../store/wmiStore'
 
 // Module-level guard: StrictMode double-effects (or a future second consumer)
 // must not fire concurrent hydration fetches for the same child.
@@ -19,6 +20,8 @@ let hydratingChildId: string | null = null
 export default function TopStatStrip() {
   const stats = useGamificationStats((s) => s.stats)
   const activeChildId = useAuthStore((s) => s.activeChildId)
+  const learnMode = useWmiStore((s) => s.learnMode)
+  const setLearnMode = useWmiStore((s) => s.setLearnMode)
 
   // Self-hydration: stats === null means no surface has fetched yet (cold
   // mount or post-child-switch reset). Fetch the summary once; failures are
@@ -63,21 +66,43 @@ export default function TopStatStrip() {
       data-app-topbar
       className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]"
     >
-      <div className="mx-auto flex w-full max-w-lg items-center justify-around px-3 py-2">
-        <div
-          className="flex items-center gap-1.5"
-          aria-label={`${streak} hari streak${shields > 0 ? `, ${shields} pelindung streak` : ''}`}
+      <div className="mx-auto flex w-full max-w-lg items-center gap-2 px-3 py-2">
+        {/* Gamemode badge — tap toggles WMI <-> Video; Main is still the full chooser. */}
+        <button
+          type="button"
+          onClick={() => setLearnMode(learnMode === 'wmi' ? 'video' : 'wmi')}
+          aria-label={
+            learnMode === 'wmi'
+              ? 'Mode WMI — ketuk untuk ganti ke Video'
+              : 'Mode Video — ketuk untuk ganti ke WMI'
+          }
+          className="flex h-8 flex-shrink-0 items-center justify-center gap-1.5 rounded-[12px] bg-white px-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5"
         >
-          <Pill icon="fa-solid fa-fire" value={streak} />
-          {shields > 0 && (
-            <span className="inline-flex items-center gap-0.5 rounded-full bg-white/20 px-1.5 py-0.5 font-display text-[10px] font-extrabold text-white">
-              <i className="fa-solid fa-shield-halved text-[9px] text-qupu-brand-yellow" aria-hidden="true" />
-              {shields}
-            </span>
+          {learnMode === 'wmi' ? (
+            <span>WMI</span>
+          ) : (
+            <i className="fa-solid fa-clapperboard text-base" aria-hidden="true" />
           )}
+        </button>
+
+        <div className="flex flex-1 items-center justify-around">
+          <Link
+            to="/streak"
+            className="flex items-center gap-1.5 rounded-full px-2 py-0.5 transition-transform active:translate-y-0.5"
+            aria-label={`${streak} hari streak${shields > 0 ? `, ${shields} pelindung streak` : ''} — lihat riwayat`}
+          >
+            <i className="fa-solid fa-fire text-base text-qupu-brand-yellow" aria-hidden="true" />
+            <span className="font-display text-sm font-extrabold text-white">{streak}</span>
+            {shields > 0 && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-white/20 px-1.5 py-0.5 font-display text-[10px] font-extrabold text-white">
+                <i className="fa-solid fa-shield-halved text-[9px] text-qupu-brand-yellow" aria-hidden="true" />
+                {shields}
+              </span>
+            )}
+          </Link>
+          <Pill icon="fa-solid fa-coins" value={coins} to="/shop" label={`${coins} koin — buka toko`} />
+          <Pill icon="fa-solid fa-star" value={`Lv ${level}`} to="/profil" label={`Level ${level} — lihat profil`} />
         </div>
-        <Pill icon="fa-solid fa-coins" value={coins} to="/shop" label={`${coins} koin — buka toko`} />
-        <Pill icon="fa-solid fa-star" value={`Lv ${level}`} to="/profil" label={`Level ${level} — lihat profil`} />
       </div>
     </div>
   )
