@@ -554,7 +554,7 @@ export interface AdminConceptSummary {
   strand_label: string
   topic: string
   topic_label: string
-  difficulty: number
+  difficulty: 1 | 2 | 3 | 4 | 5
   isOlympiad: boolean
   status: ReviewStatus
   priority: 'high' | 'normal'
@@ -595,8 +595,8 @@ Replace the existing `grouped` `useMemo` (the one building `Map<string, AdminCon
     for (const c of filtered) {
       if (!strands.has(c.strand_label)) strands.set(c.strand_label, new Map())
       const topics = strands.get(c.strand_label)!
-      if (!topics.has(c.topic_label)) topics.set(c.topic_label, [])
-      topics.get(c.topic_label)!.push(c)
+      if (!topics.has(c.topic)) topics.set(c.topic, [])
+      topics.get(c.topic)!.push(c)
     }
     return [...strands.entries()].map(
       ([strand, topics]) => [strand, [...topics.entries()]] as const,
@@ -618,7 +618,7 @@ Replace the sidebar block that starts at `{grouped.length === 0 && ...}` and end
               {topics.map(([topic, items]) => (
                 <div key={topic} className="mb-1">
                   <div className="px-2 pb-0.5 pt-1 text-[10px] font-semibold text-admin-muted">
-                    {topic}
+                    {items[0]?.topic_label ?? topic}
                   </div>
                   {items.map((c) => (
                     <button
@@ -642,6 +642,7 @@ Replace the sidebar block that starts at `{grouped.length === 0 && ...}` and end
                       <span
                         className={`shrink-0 tabular-nums text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
                         title={`Difficulty ${c.difficulty}/5`}
+                        aria-hidden="true"
                       >
                         d{c.difficulty}
                       </span>
@@ -804,6 +805,7 @@ Immediately after the closing `</div>` of the existing review-filter chip row (t
           </select>
           <button
             type="button"
+            aria-pressed={olympiadOnly}
             onClick={() => setOlympiadOnly((v) => !v)}
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
               olympiadOnly ? 'bg-qupu-brand-orange text-white' : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
@@ -857,8 +859,8 @@ In `docs/wmi-concepts/taxonomy.md`, immediately after the intro paragraph (befor
 The concepts are organized into a two-level **strand → topic** structure with
 per-concept `difficulty` (1–5) and `isOlympiad` tags. The authoritative,
 machine-readable source of truth is `api/services/wmi/concepts/taxonomy.ts`;
-this section is the human reference. The full per-concept assignment is in the
-design spec, §6.
+this section is the human reference. The full per-concept assignment (every
+concept's strand, topic, difficulty, and isOlympiad) lives in that source file.
 
 <!-- paste spec §4 strand table here -->
 <!-- paste spec §5 topic table here -->
