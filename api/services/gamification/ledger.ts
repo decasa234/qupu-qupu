@@ -21,6 +21,7 @@ export type RewardType =
   | 'SHOP_PURCHASE'
   | 'LOGIN_BONUS_COIN'      // daily login bonus (coins-only, no XP)
   | 'CONCEPT_COMPLETION_XP' // WMI konsep drill — flat grant per correct answer
+  | 'FUNDAMENTALS_LESSON_XP' // Fundamentals course — one-time grant per lesson
 
 export interface AppendLedgerInput {
   childId: string
