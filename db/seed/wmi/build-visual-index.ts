@@ -10,6 +10,8 @@
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
+import { buildPoolOutputs, type PoolEntry } from './poolCatalog.js'
 
 const DIR = join('src', 'components', 'wmi', 'PastPapers', 'WMI')
 const REGISTRY = join(DIR, 'registry.ts')
@@ -120,3 +122,61 @@ lines.push(
 
 writeFileSync(OUT, lines.join('\n'), 'utf8')
 console.log(`wrote ${OUT}: ${usages.size} components, ${byFile.size} files`)
+
+// --- pool catalog (EXPLAINER_POOL.md + pool.json) ---
+const POOL_MD = join(DIR, 'EXPLAINER_POOL.md')
+const POOL_JSON = join(DIR, 'pool.json')
+
+const poolEntries: PoolEntry[] = []
+for (const [file, { components }] of sorted) {
+  const usedBy = [...new Set([...components.values()].flat().map((u) => u.code))].sort()
+  const compNames = [...components.keys()]
+  const illName = compNames.find((c) => /Illustration$/.test(c)) ?? compNames[0]
+  const tsxPath = join(DIR, `${file}.tsx`)
+  let entry: PoolEntry | null = null
+  // Only dynamic-import files that opt in via definePoolMeta() — cheap + precise.
+  if (existsSync(tsxPath) && /definePoolMeta\s*\(/.test(readFileSync(tsxPath, 'utf8'))) {
+    try {
+      const mod = await import(pathToFileURL(tsxPath).href)
+      const meta = mod.meta ?? mod.default?.meta
+      if (meta?.id) {
+        entry = {
+          id: meta.id,
+          file,
+          title: meta.title,
+          summary: meta.summary,
+          useWhen: meta.useWhen,
+          tags: meta.tags ?? [],
+          grades: meta.grades ?? [],
+          status: meta.status ?? 'bespoke',
+          paramsExample: meta.paramsExample,
+          usedBy,
+        }
+      }
+    } catch (err) {
+      console.warn(`pool: could not import meta from ${file}: ${(err as Error).message}`)
+    }
+  }
+  if (!entry) {
+    const { desc, keywords } = fileMeta(file)
+    entry = {
+      id: keywords.replace(/\s+/g, '-') || file.toLowerCase(),
+      file,
+      title: illName ?? file,
+      summary: desc || '(no description)',
+      useWhen: '',
+      tags: keywords.split(/\s+/).filter(Boolean),
+      grades: [],
+      status: 'bespoke',
+      usedBy,
+    }
+  }
+  poolEntries.push(entry)
+}
+
+const { md: poolMd, json: poolJson } = buildPoolOutputs(poolEntries)
+writeFileSync(POOL_MD, poolMd, 'utf8')
+writeFileSync(POOL_JSON, poolJson, 'utf8')
+console.log(
+  `wrote ${POOL_MD} + ${POOL_JSON}: ${poolEntries.length} entries (${poolEntries.filter((e) => e.status === 'template').length} templates)`,
+)
