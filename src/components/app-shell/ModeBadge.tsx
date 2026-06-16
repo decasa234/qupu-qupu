@@ -55,14 +55,14 @@ export default function ModeBadge() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={`Mode: ${learnMode === 'wmi' ? 'WMI' : 'Video'} — ketuk untuk ganti mode`}
-        className="flex h-8 flex-shrink-0 items-center justify-center gap-1.5 rounded-[12px] bg-white px-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5"
+        className="flex h-8 flex-shrink-0 items-center justify-center gap-1.5 rounded-[12px] bg-white/20 px-2.5 font-display text-sm font-black text-white ring-1 ring-white/30 transition-transform active:translate-y-0.5"
       >
         {learnMode === 'wmi' ? (
           <span>WMI</span>
         ) : (
           <i className="fa-solid fa-clapperboard text-base" aria-hidden="true" />
         )}
-        <i className="fa-solid fa-chevron-down text-[10px] text-qupu-brand-blue/55" aria-hidden="true" />
+        <i className="fa-solid fa-chevron-down text-[10px] text-white/70" aria-hidden="true" />
       </button>
 
       {open &&
