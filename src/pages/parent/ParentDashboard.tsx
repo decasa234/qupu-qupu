@@ -8,9 +8,10 @@
 // Visually calmer than the kid surfaces: slate text on cream, denser copy,
 // Fredoka kept for headings.
 import { useEffect, useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
 import { useAuthStore } from '../../store/authStore'
+import BackButton from '../../components/BackButton'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
 import ChildrenManager from '../../components/me/ChildrenManager'
 import PinEntryGate from '../../components/parent/PinEntryGate'
@@ -88,13 +89,7 @@ function TopBar() {
     <header className="sticky top-0 z-40 border-b border-[#FFE3CC] bg-qupu-cream/95 px-4 pb-3 pt-4 backdrop-blur">
       <div className="mx-auto w-full max-w-lg">
         <div className="flex items-center justify-between gap-3">
-          <Link
-            to="/belajar"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-bold text-slate-600 shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-arrow-left text-[10px]" aria-hidden="true" />
-            Kembali ke aplikasi anak
-          </Link>
+          <BackButton variant="back" to="/belajar" label="Kembali ke aplikasi anak" />
           <h1 className="inline-flex items-center gap-2 font-display text-base font-extrabold text-slate-800">
             <i className="fa-solid fa-user-shield text-sm text-qupu-brand-orange" aria-hidden="true" />
             Orang Tua

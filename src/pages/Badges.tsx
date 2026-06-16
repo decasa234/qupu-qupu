@@ -5,7 +5,7 @@ import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
 import BadgeCurve from '../components/BadgeCurve'
 import Reveal from '../components/Reveal'
-import SkeletonCard from '../components/SkeletonCard'
+import Skeleton from '../components/Skeleton'
 import TrophyShelf from '../components/badges/TrophyShelf'
 import AchievementGrid from '../components/badges/AchievementGrid'
 import type { SubjectBadgeGroup } from '../types'
@@ -76,7 +76,7 @@ export default function BadgesPage() {
   if (loading) {
     return (
       <div className="mx-auto w-full max-w-4xl">
-        <SkeletonCard />
+        <Skeleton className="h-96" />
       </div>
     )
   }

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import api, { getCachedPublic } from '../lib/api'
 import { useAuthStore } from '../store/authStore'
 import AuthCard from '../components/AuthCard'
-import SkeletonCard from '../components/SkeletonCard'
+import BackButton from '../components/BackButton'
+import Skeleton from '../components/Skeleton'
 import RaporHeader from '../components/report/RaporHeader'
 import RaporSummary from '../components/report/RaporSummary'
 import RaporSubjectTable from '../components/report/RaporSubjectTable'
@@ -96,7 +97,7 @@ export default function ReportPage({ embedded = false }: { embedded?: boolean })
   if (loading) {
     return (
       <div className="mx-auto w-full">
-        <SkeletonCard />
+        <Skeleton className="h-96" />
       </div>
     )
   }
@@ -117,13 +118,7 @@ export default function ReportPage({ embedded = false }: { embedded?: boolean })
         data-print-hide
       >
         {!embedded && (
-          <Link
-            to="/profil"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-bold text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-arrow-left text-xs" aria-hidden="true" />
-            Kembali
-          </Link>
+          <BackButton variant="back" to="/profil" label="Kembali" />
         )}
         <PrintButton />
       </div>

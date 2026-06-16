@@ -12,7 +12,8 @@ import { fetchShopItems, type ShopItemForChild, type PurchaseResult } from '../l
 import ShopItemCard from '../components/shop/ShopItemCard'
 import PurchaseSheet from '../components/shop/PurchaseSheet'
 import PurchaseCelebration from '../components/shop/PurchaseCelebration'
-import SkeletonCard from '../components/SkeletonCard'
+import ErrorRetry from '../components/ErrorRetry'
+import Skeleton from '../components/Skeleton'
 
 // Indonesian chip labels for the kinds that can appear in the (deliverable-
 // only) listing. Chips are derived from the fetched items so empty legacy
@@ -107,20 +108,10 @@ export default function ShopPage() {
   if (items === null && loadError) {
     return (
       <div className="mx-auto w-full max-w-md sm:max-w-lg">
-        <div className="rounded-[1.5rem] bg-[#FFF8F0] p-5 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-            <i className="fa-solid fa-circle-exclamation text-xl" aria-hidden="true" />
-          </div>
-          <p className="mt-3 text-sm font-semibold text-qupu-muted">Gagal memuat toko. Coba lagi, ya.</p>
-          <button
-            type="button"
-            onClick={() => setLoadTick((t) => t + 1)}
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#C46123] transition-transform active:translate-y-0.5"
-          >
-            <i className="fa-solid fa-rotate-right text-sm" aria-hidden="true" />
-            Coba lagi
-          </button>
-        </div>
+        <ErrorRetry
+          message="Gagal memuat toko. Coba lagi, ya."
+          onRetry={() => setLoadTick((t) => t + 1)}
+        />
       </div>
     )
   }
@@ -128,7 +119,7 @@ export default function ShopPage() {
   if (items === null) {
     return (
       <div className="mx-auto w-full max-w-md sm:max-w-lg">
-        <SkeletonCard />
+        <Skeleton className="h-96" />
       </div>
     )
   }
