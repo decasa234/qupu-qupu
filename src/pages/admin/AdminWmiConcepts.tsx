@@ -267,7 +267,7 @@ export default function AdminWmiConcepts() {
         </div>
       )}
 
-      <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
         {/* Concept sidebar, grouped by domain */}
         <aside className={`rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-admin-line bg-admin-card px-2 pb-2 pt-2">

@@ -158,7 +158,7 @@ export default function AdminWmiDrill() {
       )}
 
       {papers.length > 0 && (
-        <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
+        <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
           {/* Paper sidebar, grouped by grade */}
           <aside className="rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto">
             {grouped.map(([grade, items]) => (
@@ -188,7 +188,7 @@ export default function AdminWmiDrill() {
                       {paperCode(p)}
                     </span>
                     <span className="flex-1 truncate">
-                      {p.year} {p.round === 'final' ? 'Final' : 'Semifinal'}
+                      {p.year} {p.round === 'final' ? 'Final' : 'Semi'}
                     </span>
                     <span
                       className={`shrink-0 text-[10px] tabular-nums ${
