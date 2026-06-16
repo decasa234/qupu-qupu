@@ -2,6 +2,81 @@
 
 The complete catalog of math-concept **archetypes** mined from every World Mathematics Invitational past paper in `wmiPastPaper/` — **2019–2025**, both Preliminary and Final rounds, Grades 00–03, Papers A (multiple-choice) and B (fill-in). Each archetype is a recurring, parameterizable question *shape*: one solution method with one parameter family, designed to become a `generate(rng)` + `render(params)` concept-generator module like the existing `story-sum`.
 
+## Olympiad strand taxonomy (current)
+
+The concepts are organized into a two-level **strand → topic** structure with
+per-concept `difficulty` (1–5) and `isOlympiad` tags. The authoritative,
+machine-readable source of truth is `api/services/wmi/concepts/taxonomy.ts`;
+this section is the human reference. The full per-concept assignment is in the
+design spec, §6.
+
+### Strands (6)
+
+Two-letter strand codes, deliberately distinct from the legacy single-letter
+concept short-codes so the two namespaces never collide.
+
+| Code | Strand EN | Strand ID |
+|---|---|---|
+| `AR` | Arithmetic & Computation | Aritmetika & Komputasi |
+| `NT` | Number Theory | Teori Bilangan |
+| `AP` | Algebra & Patterns | Aljabar & Pola |
+| `CO` | Combinatorics & Counting | Kombinatorika & Pencacahan |
+| `GE` | Geometry & Measurement | Geometri & Pengukuran |
+| `LR` | Logic & Reasoning | Logika & Penalaran |
+
+Display order: `AR, NT, AP, CO, GE, LR`.
+
+### Topics (26)
+
+Each topic belongs to exactly one strand. Topic codes are `STRAND-SHORT`.
+
+| Strand | Topic code | Topic EN | Topic ID |
+|---|---|---|---|
+| AR | `AR-OPS`   | Basic Operations          | Operasi Dasar |
+| AR | `AR-CALC`  | Multi-step Calculation    | Perhitungan Bertahap |
+| AR | `AR-INV`   | Inverse & Missing Values  | Operasi Balik & Nilai Hilang |
+| AR | `AR-STORY` | Error Correction & Story  | Koreksi Kesalahan & Soal Cerita |
+| NT | `NT-PV`    | Place Value & Digit-build | Nilai Tempat & Menyusun Angka |
+| NT | `NT-DIG`   | Digits & Digit Sums       | Angka & Jumlah Angka |
+| NT | `NT-DIV`   | Divisibility & Multiples  | Keterbagian & Kelipatan |
+| NT | `NT-PAR`   | Parity & Special Numbers  | Paritas & Bilangan Istimewa |
+| NT | `NT-CMP`   | Compare & Order           | Membandingkan & Mengurutkan |
+| NT | `NT-FRAC`  | Fractions                 | Pecahan |
+| AP | `AP-NPAT`  | Number Patterns           | Pola Bilangan |
+| AP | `AP-VPAT`  | Visual Patterns           | Pola Visual |
+| AP | `AP-FUNC`  | Function & Equation Rules | Aturan Fungsi & Persamaan |
+| AP | `AP-RATE`  | Rate & Proportion         | Laju & Perbandingan |
+| CO | `CO-OBJ`   | Counting Objects          | Mencacah Objek |
+| CO | `CO-FIG`   | Counting Figures          | Mencacah Bangun |
+| CO | `CO-ARR`   | Arrangements & Grouping   | Penyusunan & Pengelompokan |
+| GE | `GE-AREA`  | Perimeter & Area          | Keliling & Luas |
+| GE | `GE-SHAPE` | Shape Properties          | Sifat Bangun |
+| GE | `GE-3D`    | Spatial & 3D              | Spasial & 3D |
+| GE | `GE-PATH`  | Paths & Grids             | Lintasan & Kisi |
+| GE | `GE-MEAS`  | Measurement               | Pengukuran |
+| LR | `LR-DED`   | Deductive Clues           | Petunjuk Deduktif |
+| LR | `LR-CON`   | Constraints & Possibility | Batasan & Kemungkinan |
+| LR | `LR-SET`   | Sets & Data               | Himpunan & Data |
+| LR | `LR-BAL`   | Balance & Optimization    | Keseimbangan & Optimasi |
+
+### `difficulty` legend (1–5)
+
+| Level | Meaning | Example |
+|--:|---|---|
+| 1 | Foundational fluency; single step; youngest grades (G0) | single-digit-addition |
+| 2 | Routine; one idea; G1–G2 | place-value, story-sum |
+| 3 | Multi-step or needs a named strategy; G2–G3 | budget-selection, divisibility-multiple-property |
+| 4 | Needs insight / combining ideas; contest-level | custom-operation, product-of-consecutive |
+| 5 | Olympiad-hard: non-obvious insight + multiple constraints | combination-product-sum |
+
+### `isOlympiad` criteria
+
+`true` when the concept rewards genuine competition thinking — pattern-finding,
+invariants, parity arguments, systematic enumeration, working backward, or
+clever number facts — rather than rote skill or plain reading. Foundational
+fluency (`single-digit-addition`) and pure read-off tasks (`clock-read-time`,
+`bar-chart-compare`) are `false`.
+
 ## At a glance
 
 | | |
@@ -27,6 +102,11 @@ The complete catalog of math-concept **archetypes** mined from every World Mathe
 | GEO — Geometry & Spatial | 284 | 21 |
 | MEA — Measurement & Time | 52 | 6 |
 | DAT — Data, Tables & Classification | 90 | 9 |
+
+> **Note:** the 9-domain grouping above reflects the original past-paper mining
+> and the archetype catalog below. The live concept taxonomy is the 6 olympiad
+> strands in *Olympiad strand taxonomy (current)* above; see
+> `api/services/wmi/concepts/taxonomy.ts`.
 
 ## How to read an entry
 

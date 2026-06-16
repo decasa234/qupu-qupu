@@ -1,5 +1,10 @@
 # WMI Concept Taxonomy — Seed Vocabulary (Phase 0)
 
+> The 9-domain grouping in this file reflects the original past-paper mining.
+> The live concept taxonomy is the 6 olympiad strands — see
+> `api/services/wmi/concepts/taxonomy.ts` and `taxonomy.md` › *Olympiad strand
+> taxonomy (current)*.
+
 **Date:** 2026-06-03
 **Status:** Draft for review — anchors the Phase 1 fan-out
 **Source sample:** 2019 Prelim G00 (A+B), 2022 Final G01 (A+B), 2024 Prelim G02 (A+B), 2025 Final G03 (A+B), plus 2024 Final G01 A.
