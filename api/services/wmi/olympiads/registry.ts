@@ -6,8 +6,8 @@ export interface Level { key: string; code: string; labelEn: string; labelId: st
 export interface Brand {
   slug: string
   prefix: string
-  nameEn: string
-  nameId: string
+  nameEn: string  // display labels for the selector UI
+  nameId: string  // display labels for the selector UI
   rounds: Round[]
   levels: Level[]
   variants?: string[]
@@ -33,6 +33,7 @@ const WMI: Brand = {
     { key: 'semifinal', code: 'P', labelEn: 'Semifinal', labelId: 'Semifinal', sort: 0 },
     { key: 'final', code: 'F', labelEn: 'Final', labelId: 'Final', sort: 1 },
   ],
+  // WMI grades start at 0 (pre-primary tier); g0..g3 are all real.
   levels: [0, 1, 2, 3].map((g) => ({
     key: `g${g}`, code: String(g), labelEn: `Grade ${g}`, labelId: `Kelas ${g}`, sort: g, grade: g,
   })),
@@ -81,10 +82,13 @@ export function generatePaperCode(input: PaperCodeInput): string {
   const round = brand.rounds.find((r) => r.key === input.round)
   if (!round) throw new Error(`Brand "${brand.slug}" has no round "${input.round}"`)
   const levelKey = input.level ?? (input.grade != null ? `g${input.grade}` : undefined)
+  if (levelKey === undefined) throw new Error('generatePaperCode requires "level" or "grade"')
   const level = brand.levels.find((l) => l.key === levelKey)
   if (!level) throw new Error(`Brand "${brand.slug}" has no level "${levelKey}"`)
   const yy = String(input.year).slice(-2)
-  return brand.formatCode({ yy, round, level, variant: input.variant })
+  // Brands with variants default to their first variant (WMI → 'A') when none is given.
+  const variant = input.variant ?? brand.variants?.[0]
+  return brand.formatCode({ yy, round, level, variant })
 }
 
 export function generateQuestionCode(input: PaperCodeInput, n: number): string {

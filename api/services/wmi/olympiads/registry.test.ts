@@ -24,4 +24,8 @@ describe('olympiad registry', () => {
     expect(() => generatePaperCode({ brand: 'sasmo', year: 2019, round: 'final', level: 'g2' })).toThrow()
     expect(() => generatePaperCode({ brand: 'wmi', year: 2019, round: 'final', level: 'g9', variant: 'A' })).toThrow()
   })
+
+  test('throws when neither level nor grade is provided', () => {
+    expect(() => generatePaperCode({ year: 2019, round: 'final', variant: 'A' } as never)).toThrow(/requires "level" or "grade"/)
+  })
 })
