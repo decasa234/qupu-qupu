@@ -326,6 +326,7 @@ export default function AdminWmiDrill() {
                   label={`Soal ${currentQuestion.number}`}
                   disabled
                   revealed
+                  previewLang="en"
                   onPickChoice={noop}
                   onSubmitFillIn={noop}
                   onLookupTerm={noop}

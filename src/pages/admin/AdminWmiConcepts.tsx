@@ -485,6 +485,7 @@ export default function AdminWmiConcepts() {
                       <WmiQuestionView
                         question={adapt(activeSlug, sample)}
                         disabled
+                        previewLang="en"
                         highlight={{ correct: sample.answer ?? null, wrongPicked: null }}
                         breakdownActive={breakdown}
                         conceptIllustration={Illustration}

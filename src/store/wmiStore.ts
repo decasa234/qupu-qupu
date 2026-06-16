@@ -17,9 +17,9 @@ interface WmiState {
   lastSubjectKeyByChild: Record<string, string>
   // Resolved lastSubjectKey for the active child (mirror, not persisted).
   lastSubjectKey: string | null
-  // Per-child sticky question language — persisted. Default is 'id' (the app's
-  // Indonesian-first learning experience); every manual EN/ID toggle pins the
-  // child's choice (e.g. switching to EN for WMI competition prep).
+  // Per-child sticky question language — persisted. Default is 'en' (WMI
+  // competition prep is English-first); every manual EN/ID toggle pins the
+  // child's choice (e.g. switching to ID for an Indonesian-first read).
   langByChild: Record<string, 'en' | 'id'>
   // Resolved question language for the active child (mirror, not persisted).
   preferredLang: 'en' | 'id'
@@ -50,7 +50,7 @@ export const useWmiStore = create<WmiState>()(
       lastSubjectKeyByChild: {},
       lastSubjectKey: null,
       langByChild: {},
-      preferredLang: 'id',
+      preferredLang: 'en',
       glossary: {},
       glossaryLoaded: false,
       setSelectedGrade: (grade) =>
@@ -74,7 +74,7 @@ export const useWmiStore = create<WmiState>()(
           activeChildKey: childId,
           selectedGrade: state.gradeByChild[childId] ?? inferredGrade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
-          preferredLang: state.langByChild[childId] ?? 'id',
+          preferredLang: state.langByChild[childId] ?? 'en',
         })),
       adoptChildGrade: (childId, grade) =>
         set((state) => ({
@@ -85,7 +85,7 @@ export const useWmiStore = create<WmiState>()(
           activeChildKey: childId,
           selectedGrade: grade,
           lastSubjectKey: state.lastSubjectKeyByChild[childId] ?? null,
-          preferredLang: state.langByChild[childId] ?? 'id',
+          preferredLang: state.langByChild[childId] ?? 'en',
         })),
       setLastSubjectKey: (subjectKey) =>
         set((state) =>

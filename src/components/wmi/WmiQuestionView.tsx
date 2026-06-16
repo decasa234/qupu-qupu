@@ -32,6 +32,10 @@ interface Props {
   /** Sticky per-child starting language. Ignored while `revealed` forces 'id'.
    *  Defaults to 'en' — competition prep keeps English-first. */
   initialLang?: 'en' | 'id'
+  /** Admin/preview override: pins the initial display language even when
+   *  `revealed` is set (which otherwise forces 'id'). The EN/ID toggle still
+   *  works; this only sets the default. */
+  previewLang?: 'en' | 'id'
   // Concept questions have no paper-registry code; the host passes the concept's
   // illustration (looked up by slug) so it renders inside the problem card.
   conceptIllustration?: ComponentType<{ params: unknown }> | null
@@ -74,6 +78,7 @@ export default function WmiQuestionView({
   revealed = false,
   breakdownActive = false,
   initialLang,
+  previewLang,
   conceptIllustration = null,
   conceptIllustrationParams,
   onToggleBreakdown,
@@ -88,7 +93,7 @@ export default function WmiQuestionView({
   // Active display language. Starts in the child's sticky preference (default
   // English); the translation toggle swaps it in place. Reset whenever the
   // question changes (review starts pre-revealed in id).
-  const resolvedInitial = revealed ? 'id' : initialLang ?? 'en'
+  const resolvedInitial = previewLang ?? (revealed ? 'id' : initialLang ?? 'en')
   const [lang, setLang] = useState<'en' | 'id'>(resolvedInitial)
   // The language this question STARTED in — reveal telemetry only fires on a
   // true EN→ID reveal. An ID-default question toggled around is not a reveal.
@@ -100,11 +105,11 @@ export default function WmiQuestionView({
   const initialLangRef = useRef(initialLang)
   initialLangRef.current = initialLang
   useEffect(() => {
-    const next = revealed ? 'id' : initialLangRef.current ?? 'en'
+    const next = previewLang ?? (revealed ? 'id' : initialLangRef.current ?? 'en')
     startLangRef.current = next
     setLang(next)
     onLanguageChange?.(next)
-  }, [question.id, revealed, onLanguageChange])
+  }, [question.id, revealed, previewLang, onLanguageChange])
 
   const isId = lang === 'id'
   const body = isId ? question.body_id : question.body_en
