@@ -3,6 +3,10 @@ import type { Lang } from './textUtil'
 import ProseBlock from './ProseBlock'
 import TipBlock from './TipBlock'
 import CheckBlock from './CheckBlock'
+import WorkedBlock from './WorkedBlock'
+import GlossaryBlock from './GlossaryBlock'
+import ImageBlock from './ImageBlock'
+import ScoringBlock from './ScoringBlock'
 
 export type { Lang }
 
@@ -41,9 +45,15 @@ function BlockSwitch({
       return <TipBlock block={block} lang={lang} />
     case 'check':
       return <CheckBlock block={block} lang={lang} onAnswered={onCheckAnswered} />
+    case 'worked':
+      return <WorkedBlock block={block} lang={lang} />
+    case 'glossary':
+      return <GlossaryBlock block={block} lang={lang} />
+    case 'image':
+      return <ImageBlock block={block} lang={lang} />
+    case 'scoring':
+      return <ScoringBlock block={block} lang={lang} />
     default:
-      // Interactive blocks (worked / glossary / image / scoring) are wired in
-      // Phase 2; until then they render nothing rather than breaking a lesson.
       return null
   }
 }

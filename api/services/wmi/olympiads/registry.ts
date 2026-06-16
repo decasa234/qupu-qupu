@@ -3,6 +3,25 @@
 
 export interface Round { key: string; code: string; labelEn: string; labelId: string; sort: number }
 export interface Level { key: string; code: string; labelEn: string; labelId: string; sort: number; grade?: number }
+
+// Per-brand scoring rules — the single source of truth read by the Fundamentals
+// "scoring" lesson block (a brand-aware table + calculator). `penaltyPerWrong`
+// is the signed points delta per WRONG answer (≤ 0; 0 = no penalty).
+export interface ScoringSection {
+  key: string
+  labelEn: string
+  labelId: string
+  pointsPerCorrect: number
+  penaltyPerWrong: number
+  pointsPerBlank: number
+}
+export interface BrandScoring {
+  startingPoints: number
+  sections: ScoringSection[] // ≥1
+  notesEn?: string
+  notesId?: string
+}
+
 export interface Brand {
   slug: string
   prefix: string
@@ -12,7 +31,26 @@ export interface Brand {
   levels: Level[]
   variants?: string[]
   defaultDurationMin: number
+  scoring: BrandScoring
   formatCode(parts: { yy: string; round: Round; level: Level; variant?: string }): string
+}
+
+export interface SectionCount { correct: number; wrong: number; blank: number }
+
+/**
+ * Score = startingPoints + Σ_sections (correct·ppc + wrong·penalty + blank·ppb).
+ * `counts` aligns with `scoring.sections` by index; missing entries count as 0.
+ */
+export function computeScore(scoring: BrandScoring, counts: SectionCount[]): number {
+  return scoring.sections.reduce((score, s, i) => {
+    const c = counts[i] ?? { correct: 0, wrong: 0, blank: 0 }
+    return (
+      score +
+      c.correct * s.pointsPerCorrect +
+      c.wrong * s.penaltyPerWrong +
+      c.blank * s.pointsPerBlank
+    )
+  }, scoring.startingPoints)
 }
 
 export interface PaperCodeInput {
@@ -39,6 +77,26 @@ const WMI: Brand = {
   })),
   variants: ['A', 'B'],
   defaultDurationMin: 60,
+  // VERIFY against the official WMI rulebook — these are documented assumptions
+  // (point values may differ by edition/level). The structure is correct; only
+  // the numbers need confirming.
+  scoring: {
+    startingPoints: 0,
+    sections: [
+      {
+        key: 'all',
+        labelEn: 'All questions',
+        labelId: 'Semua soal',
+        pointsPerCorrect: 4,
+        penaltyPerWrong: 0,
+        pointsPerBlank: 0,
+      },
+    ],
+    notesEn:
+      'WMI does not deduct points for wrong answers, so never leave a blank — always put your best guess.',
+    notesId:
+      'WMI tidak mengurangi nilai untuk jawaban salah, jadi jangan pernah mengosongkan — selalu isi dengan tebakan terbaikmu.',
+  },
   // Compact, no separators: WMI-19F1A
   formatCode: ({ yy, round, level, variant }) => `WMI-${yy}${round.code}${level.code}${variant ?? 'A'}`,
 }
@@ -62,6 +120,34 @@ const SASMO: Brand = {
   ],
   // No variant; segmented: SASMO-19-G2
   defaultDurationMin: 90,
+  // VERIFY against the official SASMO rulebook — documented assumptions. The
+  // teaching point (Section A penalizes wrong answers, Section B does not) is
+  // the structural contrast with WMI; confirm exact point values.
+  scoring: {
+    startingPoints: 0,
+    sections: [
+      {
+        key: 'a',
+        labelEn: 'Section A (multiple choice)',
+        labelId: 'Bagian A (pilihan ganda)',
+        pointsPerCorrect: 2,
+        penaltyPerWrong: -1,
+        pointsPerBlank: 0,
+      },
+      {
+        key: 'b',
+        labelEn: 'Section B (fill-in)',
+        labelId: 'Bagian B (isian)',
+        pointsPerCorrect: 4,
+        penaltyPerWrong: 0,
+        pointsPerBlank: 0,
+      },
+    ],
+    notesEn:
+      'A wrong multiple-choice answer in Section A costs you a point, so only guess after eliminating some options. Section B (fill-in) has no penalty.',
+    notesId:
+      'Jawaban pilihan ganda yang salah di Bagian A mengurangi satu poin, jadi menebak hanya setelah menghapus beberapa pilihan. Bagian B (isian) tidak ada penalti.',
+  },
   formatCode: ({ yy, level }) => `SASMO-${yy}-${level.code}`,
 }
 
