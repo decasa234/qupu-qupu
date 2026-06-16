@@ -5,10 +5,10 @@
 // draft/unknown lesson is rejected. Returns the refreshed outline so the client
 // can update progress + unlock state in one round-trip.
 
-import { pool, query, queryOne, withTransaction } from '../../db.js'
+import { pool, queryOne, withTransaction } from '../../db.js'
 import { assertChildOwnership } from '../../lib/childOwnership.js'
 import { awardFundamentalsReward } from '../gamification/fundamentals.js'
-import { getOutline, type FundamentalsOutline } from './lessons.js'
+import { assertLessonUnlocked, getOutline, type FundamentalsOutline } from './lessons.js'
 
 export interface MarkCompleteInput {
   childId: string
@@ -23,16 +23,10 @@ export async function markComplete(
 ): Promise<FundamentalsOutline> {
   await assertChildOwnership(pool, parentUserId, input.childId)
 
-  const lesson = await queryOne<{ slug: string }>(
-    `
-    SELECT l.slug
-    FROM fundamentals_lessons l
-    JOIN fundamentals_modules m ON m.slug = l.module_slug
-    WHERE l.slug = $1 AND l.status = 'published' AND m.status = 'published'
-    `,
-    [input.lessonSlug],
-  )
-  if (!lesson) throw new Error('Lesson not found')
+  // Enforce linear unlock server-side: rejects a draft/missing lesson
+  // ('Lesson not found') and out-of-order completion ('Lesson is locked'),
+  // so a member can't self-unlock ahead or grant the reward early.
+  await assertLessonUnlocked(input.childId, input.lessonSlug)
 
   const correct = Math.max(0, Math.trunc(input.checkCorrect ?? 0))
   const total = Math.max(0, Math.trunc(input.checkTotal ?? 0))

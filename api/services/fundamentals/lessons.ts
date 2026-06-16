@@ -192,9 +192,15 @@ export async function getLesson(
   )
 
   const row = lessons[index]
-  const parsed = lessonBlocksSchema.safeParse(row.blocks ?? [])
-  // Tolerate legacy/partial rows: render whatever validates, never 500 a member.
-  const blocks = parsed.success ? parsed.data : []
+  const locked = annotated[index].locked
+  // A locked lesson never exposes its blocks (defense in depth — the route also
+  // strips them); skip parsing entirely. Otherwise tolerate legacy/partial rows:
+  // render whatever validates, never 500 a member.
+  let blocks: LessonBlock[] = []
+  if (!locked) {
+    const parsed = lessonBlocksSchema.safeParse(row.blocks ?? [])
+    blocks = parsed.success ? parsed.data : []
+  }
 
   return {
     slug: row.slug,
@@ -206,8 +212,33 @@ export async function getLesson(
     estMinutes: row.est_minutes,
     blocks,
     completed: annotated[index].completed,
-    locked: annotated[index].locked,
+    locked,
     prevSlug: index > 0 ? lessons[index - 1].slug : null,
     nextSlug: index < lessons.length - 1 ? lessons[index + 1].slug : null,
   }
+}
+
+/**
+ * Throws "Lesson not found" (missing/draft) or "Lesson is locked" (an earlier
+ * lesson in the course is incomplete) for this child. Used to gate completion
+ * so the linear-unlock rule is enforced server-side, not just in the UI.
+ */
+export async function assertLessonUnlocked(childId: string, slug: string): Promise<void> {
+  const lessons = await query<{ slug: string }>(
+    `
+    SELECT l.slug
+    FROM fundamentals_lessons l
+    JOIN fundamentals_modules m ON m.slug = l.module_slug
+    WHERE l.status = 'published' AND m.status = 'published'
+    ORDER BY m.sort_order, m.slug, l.sort_order, l.slug
+    `,
+  )
+  const index = lessons.findIndex((l) => l.slug === slug)
+  if (index === -1) throw new Error('Lesson not found')
+
+  const done = await completedSet(childId)
+  const annotated = applyLinearUnlock(
+    lessons.map((l) => ({ slug: l.slug, completed: done.has(l.slug) })),
+  )
+  if (annotated[index].locked) throw new Error('Lesson is locked')
 }

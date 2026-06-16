@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useWmiStore } from '../../../store/wmiStore'
 import { bi, Paragraphs, type Lang } from './textUtil'
 
@@ -10,11 +10,17 @@ interface GlossaryBlockData {
 
 export default function GlossaryBlock({ block, lang }: { block: GlossaryBlockData; lang: Lang }) {
   const { glossary, glossaryLoaded, loadGlossary } = useWmiStore()
+  // The store only flips `glossaryLoaded` on success; track settle locally so a
+  // failed fetch shows an empty state instead of "Loading…" forever.
+  const [settled, setSettled] = useState(false)
 
   useEffect(() => {
-    loadGlossary().catch(() => {})
+    loadGlossary()
+      .catch(() => {})
+      .finally(() => setSettled(true))
   }, [loadGlossary])
 
+  const ready = glossaryLoaded || settled
   const terms = block.term_slugs.map((s) => glossary[s]).filter(Boolean)
   const intro = bi(lang, block.intro_en, block.intro_id)
 
@@ -37,7 +43,7 @@ export default function GlossaryBlock({ block, lang }: { block: GlossaryBlockDat
 
       {terms.length === 0 ? (
         <p className="rounded-xl bg-qupu-shell px-3 py-2 text-xs font-semibold text-qupu-muted">
-          {glossaryLoaded
+          {ready
             ? lang === 'en' ? 'No terms available.' : 'Belum ada kosakata.'
             : lang === 'en' ? 'Loading words…' : 'Memuat kosakata…'}
         </p>

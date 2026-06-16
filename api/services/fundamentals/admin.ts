@@ -124,17 +124,11 @@ export async function updateModule(slug: string, patch: Record<string, unknown>)
   const cols = Object.keys(patch).filter((k) => MODULE_COLS.includes(k))
   if (cols.length === 0) return
   const sets = cols.map((c, i) => `${c} = $${i + 2}`)
-  const result = await query(
-    `UPDATE fundamentals_modules SET ${sets.join(', ')}, updated_at = NOW() WHERE slug = $1`,
+  const row = await queryOne<{ slug: string }>(
+    `UPDATE fundamentals_modules SET ${sets.join(', ')}, updated_at = NOW() WHERE slug = $1 RETURNING slug`,
     [slug, ...cols.map((c) => patch[c])],
   )
-  // pg `query` returns rows; use rowCount via a follow-up existence check.
-  void result
-  const exists = await queryOne<{ slug: string }>(
-    'SELECT slug FROM fundamentals_modules WHERE slug = $1',
-    [slug],
-  )
-  if (!exists) throw new Error('Module not found')
+  if (!row) throw new Error('Module not found')
 }
 
 export async function deleteModule(slug: string): Promise<void> {
@@ -225,21 +219,17 @@ export async function updateLesson(slug: string, patch: Record<string, unknown>)
 
   if (sets.length === 0) return
 
+  let row: { slug: string } | null
   try {
-    await query(
-      `UPDATE fundamentals_lessons SET ${sets.join(', ')}, updated_at = NOW() WHERE slug = $1`,
+    row = await queryOne<{ slug: string }>(
+      `UPDATE fundamentals_lessons SET ${sets.join(', ')}, updated_at = NOW() WHERE slug = $1 RETURNING slug`,
       values,
     )
   } catch (e) {
     if (isPgError(e, PG_FK)) throw new Error('Module not found')
     throw e
   }
-
-  const exists = await queryOne<{ slug: string }>(
-    'SELECT slug FROM fundamentals_lessons WHERE slug = $1',
-    [slug],
-  )
-  if (!exists) throw new Error('Lesson not found')
+  if (!row) throw new Error('Lesson not found')
 }
 
 export async function deleteLesson(slug: string): Promise<void> {
