@@ -92,21 +92,27 @@ spec fixes the **intent and guardrails** per concept.
 For the difficulty-1, non-olympiad concepts, narrow `meta.grades` to drop G2/G3
 (keep G0–G1) for those that currently extend upward:
 
-- Candidates: `compare-order-numbers`, `more-or-less-by-k`, `count-objects`,
-  `tally-marks-count`, `count-polygon-sides`, `angle-type`, `clock-read-time`,
-  `bar-chart-compare`. (`single-digit-addition`/`-subtraction` are already G0.)
-- Rule: keep the lowest 1–2 grades the concept currently serves; drop G3, and
-  drop G2 where the task is pure fluency. The plan reads each current
-  `meta.grades` and writes the exact capped array (no-op for any already capped).
+- Candidates (current `meta.grades` from code): `single-digit-addition` [1,2],
+  `single-digit-subtraction` [1,2], `compare-order-numbers` [1,2],
+  `more-or-less-by-k` [1,2], `tally-marks-count` [1,2] → all cap to **[1]**;
+  `clock-read-time` [1,2,3], `bar-chart-compare` [1,2,3] → cap to **[1]**;
+  `angle-type` [2,3] → cap to **[2]** (no lower grade to fall to); `count-objects`
+  [0] and `count-polygon-sides` [0,1] → already low, **unchanged**.
+- Rule: drop G3, and drop G2 where the task is pure fluency, keeping G0/G1
+  on-ramps. (Note: the A taxonomy doc said single-digit-add/sub were "G0"; the
+  code says [1,2] — the code is authoritative.)
 - Propagation: `meta.grades` is upserted into `wmi_concepts.grades` on the next
   bootstrap run (no migration needed).
 
-**Catalog effectiveness:** add a child-grade filter to `getConceptProgress`
-(`api/services/wmi/concepts/progress.ts`) — look up the child's grade and filter
-`AND $childGrade = ANY(c.grades)` — so the catalog matches the already-grade-aware
-serve. This also makes the catalog grade-appropriate generally (a younger child
-no longer sees concepts above their grade). The route contract is unchanged
-(grade is derived from the child, not a new param).
+**Catalog effectiveness:** thread the child's grade into the progress read.
+There is **no `children.grade` column** — grade is a client-supplied value
+throughout (the serve endpoint `/konsep/next` already takes a required `grade`
+query param). So: add a `grade` query param to `/konsep/progress` (mirroring
+`/konsep/next`), change `getConceptProgress(parentUserId, childId, grade)` to
+filter `AND $grade = ANY(c.grades)`, and have the frontend progress-fetch caller
+pass the child's grade (the same value it passes to the serve endpoint). This
+makes the catalog grade-appropriate generally (a younger child no longer sees
+concepts above their grade), matching the already-grade-aware serve.
 
 ## 6. Instance regeneration (non-destructive)
 
@@ -133,12 +139,20 @@ history). Instead:
   (grade-gating).
 - `api/services/wmi/concepts/taxonomy.ts` — bump `difficulty` for concepts whose
   tier rose (§4).
-- `api/services/wmi/concepts/progress.ts` — add the child-grade filter (§5);
-  update/extend `progress`-related tests if present.
+- `api/services/wmi/concepts/progress.ts` — add a `grade` param + the
+  `$grade = ANY(c.grades)` filter (§5); update/extend `progress`-related tests.
+- `api/routes/wmi-member.ts` — add required `grade` to the `/konsep/progress`
+  query schema and pass it to `getConceptProgress`.
+- frontend progress-fetch caller (`src/lib/wmiApi.ts` + the concept
+  catalog/report callers) — pass the child's grade (the same value already used
+  for the serve request).
 - Operational: re-run bootstrap (§6).
 
-No schema migration, no route-contract change, no frontend change (the catalog
-consumes the existing progress endpoint).
+No schema migration. The `/konsep/progress` route gains one query param
+(`grade`), mirroring `/konsep/next`; the frontend caller passes the grade it
+already has. The admin proofreading page samples generators **live**
+(`sampleConcept`), so hardening (§4) is verifiable there immediately — the
+re-seed (§6) only affects what learners are served.
 
 ## 8. Verification
 
