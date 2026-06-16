@@ -6,14 +6,16 @@
 // are cheaply available without an extra fetch).
 import { Link } from 'react-router-dom'
 import useDocumentTitle from '../hooks/useDocumentTitle'
+import { useWmiStore } from '../store/wmiStore'
 
 const WORLDS = [
-  { to: '/wmi-arena', icon: 'fa-solid fa-trophy', title: 'WMI', accent: '#F59E0B' },
-  { to: '/video', icon: 'fa-solid fa-clapperboard', title: 'Video', accent: '#6366F1' },
+  { to: '/wmi-arena', mode: 'wmi' as const, icon: 'fa-solid fa-trophy', title: 'WMI', accent: '#F59E0B' },
+  { to: '/video', mode: 'video' as const, icon: 'fa-solid fa-clapperboard', title: 'Video', accent: '#6366F1' },
 ]
 
 export default function MainCatalog() {
   useDocumentTitle('Main')
+  const setLearnMode = useWmiStore((s) => s.setLearnMode)
 
   return (
     <div className="flex w-full max-w-[460px] flex-1 flex-col self-center pb-6">
@@ -32,6 +34,7 @@ export default function MainCatalog() {
             key={world.to}
             to={world.to}
             className="flex flex-1 items-center gap-4 rounded-[2rem] bg-white p-6 ring-2 ring-[#FFE3CC] [box-shadow:0_6px_0_#FFD3B1] transition-transform hover:-translate-y-1 active:translate-y-0.5 active:[box-shadow:0_2px_0_#FFD3B1]"
+            onClick={() => setLearnMode(world.mode)}
           >
             <span
               className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full text-3xl"
