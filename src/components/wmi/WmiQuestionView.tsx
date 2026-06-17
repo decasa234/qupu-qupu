@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentType } from 'react'
+import { Suspense, useEffect, useState, type ComponentType } from 'react'
 import type { WmiChoice, WmiQuestion } from '../../types/wmi'
 import { parseWmiMarkup } from '../../lib/wmiMarkup'
 import { stripSectionLabels } from '../../lib/wmiBreakdown'
@@ -134,15 +134,27 @@ export default function WmiQuestionView({
           <MarkupText text={stripSectionLabels(body)} onLookup={onLookupTerm} />
         )}
       </div>
-      {TemplateIllustration ? (
-        <TemplateIllustration params={templateParams} />
-      ) : Illustration ? (
-        <Illustration />
-      ) : ConceptIllustration ? (
-        <ConceptIllustration params={conceptIllustrationParams} />
-      ) : (
-        <WmiFigure src={question.figure_url} />
-      )}
+      {/* The per-question illustration is React.lazy (code-split). Wrap it so a
+          suspend during navigation degrades to a small local loader instead of
+          unmounting the whole page (no Suspense boundary above this) — the
+          "component suspended while responding to synchronous input" crash. */}
+      <Suspense
+        fallback={
+          <div className="my-4 flex justify-center">
+            <span className="h-5 w-5 animate-spin rounded-full border-2 border-qupu-cream-dark border-t-qupu-brand-blue" />
+          </div>
+        }
+      >
+        {TemplateIllustration ? (
+          <TemplateIllustration params={templateParams} />
+        ) : Illustration ? (
+          <Illustration />
+        ) : ConceptIllustration ? (
+          <ConceptIllustration params={conceptIllustrationParams} />
+        ) : (
+          <WmiFigure src={question.figure_url} />
+        )}
+      </Suspense>
 
       {question.answer_type === 'multiple_choice' ? (
         <div className="mt-4 grid gap-3">
@@ -191,7 +203,9 @@ export default function WmiQuestionView({
       {revealed && stepList && stepList.length > 0 && <WmiSteps steps={stepList} lang={lang} />}
       {revealed && question.breakdown?.trap && <WmiTrapNote trap={question.breakdown.trap} lang={lang} />}
       {revealed && ResolvedExplainer && (
-        <WmiExplainer explainer={ResolvedExplainer} params={templateParams} correctAnswer="" lang={lang} />
+        <Suspense fallback={<div className="mt-4 h-10 animate-pulse rounded-xl bg-qupu-shell" />}>
+          <WmiExplainer explainer={ResolvedExplainer} params={templateParams} correctAnswer="" lang={lang} />
+        </Suspense>
       )}
     </article>
   )
