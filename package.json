@@ -10,6 +10,7 @@
     "preview": "vite preview --port 5176",
     "check": "tsc --noEmit",
     "test": "vitest run",
+    "seed:shells": "tsx db/seed/olympiads/generate-shells.ts",
     "seed:wmi": "tsx db/seed/wmi/load.ts",
     "wmi:validate": "tsx db/seed/wmi/validate-papers.ts",
     "wmi:scan-figures": "tsx db/seed/wmi/scan-figures.ts",
