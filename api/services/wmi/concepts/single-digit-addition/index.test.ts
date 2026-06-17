@@ -17,8 +17,7 @@ describe('single-digit-addition', () => {
     }
   })
 
-  test('grades include 1 and 2', () => {
-    expect(concept.meta.grades).toContain(1)
-    expect(concept.meta.grades).toContain(2)
+  test('grades gated to G1 only', () => {
+    expect([...concept.meta.grades]).toEqual([1])
   })
 })

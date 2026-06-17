@@ -24,6 +24,7 @@ export interface WmiQuestionDto {
   hint_steps_en: string[] | null
   hint_steps_id: string[] | null
   breakdown: Breakdown | null
+  visual: { templateId: string; params: unknown } | null
   code?: string
 }
 
@@ -67,7 +68,7 @@ export async function listWmiPapers(
                )::text AS best_score
         FROM wmi_papers p
         LEFT JOIN wmi_exam_sessions s ON s.paper_id = p.id AND s.child_id = $1
-        WHERE p.grade = $2
+        WHERE p.grade = $2 AND p.brand = 'wmi'
         GROUP BY p.id
         ORDER BY p.year DESC, p.round ASC, p.variant ASC
       `,
@@ -120,11 +121,11 @@ export async function listWmiQuestionsForPaper(
   paperId: string,
   executor?: DbExecutor,
 ): Promise<WmiQuestionDto[]> {
-  const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B' }>(
+  const rows = await query<WmiQuestionDto & { year: number; round: 'semifinal' | 'final'; grade: number; variant: 'A' | 'B'; brand: string; level_code: string }>(
     `
       SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
-             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown,
-             p.year, p.round, p.grade, p.variant
+             q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
+             p.year, p.round, p.grade, p.variant, p.brand, p.level_code
       FROM wmi_questions q
       JOIN wmi_papers p ON p.id = q.paper_id
       WHERE q.paper_id = $1
@@ -133,9 +134,9 @@ export async function listWmiQuestionsForPaper(
     [paperId],
     executor,
   )
-  return rows.map(({ year, round, grade, variant, ...q }) => ({
+  return rows.map(({ year, round, grade, variant, brand, level_code, ...q }) => ({
     ...normalizeQuestion(q),
-    code: questionCode({ year, round, grade, variant }, q.number),
+    code: questionCode({ brand, year, round, level: level_code }, q.number),
   }))
 }
 

@@ -16,7 +16,7 @@ export const meta = {
   slug: 'bar-chart-compare',
   name_en: 'Compare amounts on a bar chart',
   name_id: 'Bandingkan jumlah pada diagram batang',
-  grades: [1, 2, 3] as const,
+  grades: [1] as const,
   description_id: 'Baca diagram batang dan bandingkan dua jumlah.',
 } as const
 

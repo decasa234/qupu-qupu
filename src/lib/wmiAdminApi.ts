@@ -10,8 +10,12 @@ export interface AdminConceptSummary {
   name_id: string
   description_id: string | null
   grades: number[]
-  domain: string
-  domain_label: string
+  strand: string
+  strand_label: string
+  topic: string
+  topic_label: string
+  difficulty: 1 | 2 | 3 | 4 | 5
+  isOlympiad: boolean
   status: ReviewStatus
   priority: 'high' | 'normal'
   wmi_refined: boolean
@@ -74,10 +78,13 @@ export async function saveConceptReview(
 
 export interface AdminPaperSummary {
   id: string
+  brand: string
   year: number
-  grade: number
-  round: 'semifinal' | 'final'
-  variant: 'A' | 'B'
+  grade: number | null
+  level_code: string
+  level_label: string
+  round: string
+  variant: string
   title: string
   question_count: number
   status: ReviewStatus
@@ -101,6 +108,7 @@ export interface AdminPaperQuestion {
   hint_steps_en?: string[] | null
   hint_steps_id?: string[] | null
   breakdown?: Breakdown | null
+  visual?: { templateId: string; params: unknown } | null
 }
 
 export interface PaperReview {
@@ -133,4 +141,13 @@ export async function savePaperReview(
 ): Promise<PaperReview> {
   const { data } = await api.put(`/admin/wmi/papers/${paperId}/review`, { status, notes })
   return data.data.review
+}
+
+// In-app quick-fix: patch a stored question's simple text fields.
+export async function patchPaperQuestion(
+  paperId: string,
+  questionId: string,
+  patch: Partial<{ body_en: string; body_id: string; answer: string; hint_en: string | null; hint_id: string | null }>,
+): Promise<void> {
+  await api.patch(`/admin/wmi/papers/${paperId}/questions/${questionId}`, patch)
 }

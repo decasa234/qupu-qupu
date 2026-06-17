@@ -85,7 +85,7 @@ export default function AdminDashboardPage() {
           <i className="fa-solid fa-flask text-base" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="font-display text-sm font-extrabold text-admin-ink">WMI Concept Proofreading</div>
+          <div className="font-display text-sm font-extrabold text-admin-ink">Math Olympiad Concept Proofreading</div>
           <div className="text-xs text-admin-muted">
             Preview every concept generator and save a verdict &amp; notes per concept.
           </div>

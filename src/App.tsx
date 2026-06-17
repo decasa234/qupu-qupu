@@ -58,6 +58,7 @@ const AdminAnalyticsPage = lazy(() => import('./pages/admin/AdminAnalytics'))
 const AdminImportVideosPage = lazy(() => import('./pages/admin/AdminImportVideos'))
 const AdminWmiConceptsPage = lazy(() => import('./pages/admin/AdminWmiConcepts'))
 const AdminWmiDrillPage = lazy(() => import('./pages/admin/AdminWmiDrill'))
+const AdminWmiReviewQueuePage = lazy(() => import('./pages/admin/AdminWmiReviewQueue'))
 
 // Wraps a lazy page in Suspense at its render position (the layout's outlet),
 // so the surrounding chrome stays put while the chunk loads.
@@ -280,6 +281,7 @@ export default function App() {
             <Route path="analytics" element={<AdminAnalyticsPage />} />
             <Route path="wmi-concepts" element={<AdminWmiConceptsPage />} />
             <Route path="wmi-drill" element={<AdminWmiDrillPage />} />
+            <Route path="wmi-review" element={<AdminWmiReviewQueuePage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

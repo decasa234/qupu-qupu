@@ -17,8 +17,28 @@ import {
   type ReviewStatus,
 } from '../../lib/wmiAdminApi'
 import type { WmiQuestion } from '../../types/wmi'
+import { useReviewIssues } from '../../hooks/useReviewIssues'
+import { useReviewKeyboard } from '../../hooks/useReviewKeyboard'
+import IssuesPanel from '../../components/admin/review/IssuesPanel'
+import {
+  fetchIssueCounts,
+  FLAGGABLE_PARTS,
+  suggestVerdictClient,
+  type IssueCounts,
+  type IssuePart,
+  type IssueSeverity,
+} from '../../lib/wmiReviewIssues'
 
 const noop = () => {}
+
+const STRAND_OPTIONS: { code: string; label: string }[] = [
+  { code: 'AR', label: 'Arithmetic & Computation' },
+  { code: 'NT', label: 'Number Theory' },
+  { code: 'AP', label: 'Algebra & Patterns' },
+  { code: 'CO', label: 'Combinatorics & Counting' },
+  { code: 'GE', label: 'Geometry & Measurement' },
+  { code: 'LR', label: 'Logic & Reasoning' },
+]
 
 const STATUS_ORDER = ['pending', 'approved', 'needs_changes'] as const
 const STATUS_META: Record<
@@ -98,6 +118,9 @@ export default function AdminWmiConcepts() {
   // activeSlug is auto-set on load (desktop convenience), but on mobile we want
   // the list to show first; only switch to detail when the user taps a row.
   const [mobileShowDetail, setMobileShowDetail] = useState(false)
+  const [strandFilter, setStrandFilter] = useState<string>('all')
+  const [difficultyFilter, setDifficultyFilter] = useState<string>('all')
+  const [olympiadOnly, setOlympiadOnly] = useState(false)
 
   useEffect(() => {
     fetchConceptList()
@@ -171,24 +194,35 @@ export default function AdminWmiConcepts() {
       } else if (reviewFilter !== 'all' && c.status !== reviewFilter) {
         return false
       }
+      if (strandFilter !== 'all' && c.strand !== strandFilter) return false
+      if (difficultyFilter !== 'all' && String(c.difficulty) !== difficultyFilter) return false
+      if (olympiadOnly && !c.isOlympiad) return false
       if (!q) return true
       return (
         c.short_id.toLowerCase().includes(q) ||
         c.slug.toLowerCase().includes(q) ||
         c.name_en.toLowerCase().includes(q) ||
         c.name_id.toLowerCase().includes(q) ||
-        c.domain_label.toLowerCase().includes(q)
+        c.strand_label.toLowerCase().includes(q) ||
+        c.topic_label.toLowerCase().includes(q)
       )
     })
-  }, [concepts, query, reviewFilter])
+  }, [concepts, query, reviewFilter, strandFilter, difficultyFilter, olympiadOnly])
 
+  // Two-level: strand label -> topic label -> concepts. `filtered` preserves
+  // the server sort (strand order -> topic order -> short_id), so Map insertion
+  // order reflects it.
   const grouped = useMemo(() => {
-    const m = new Map<string, AdminConceptSummary[]>()
+    const strands = new Map<string, Map<string, AdminConceptSummary[]>>()
     for (const c of filtered) {
-      if (!m.has(c.domain_label)) m.set(c.domain_label, [])
-      m.get(c.domain_label)!.push(c)
+      if (!strands.has(c.strand_label)) strands.set(c.strand_label, new Map())
+      const topics = strands.get(c.strand_label)!
+      if (!topics.has(c.topic)) topics.set(c.topic, [])
+      topics.get(c.topic)!.push(c)
     }
-    return [...m.entries()]
+    return [...strands.entries()].map(
+      ([strand, topics]) => [strand, [...topics.entries()]] as const,
+    )
   }, [filtered])
 
   const summary = useMemo(() => {
@@ -209,12 +243,52 @@ export default function AdminWmiConcepts() {
   const hasSteps = Boolean(sample?.hint_steps_en?.length || sample?.hint_steps_id?.length)
   const dirty = !review || status !== review.status || notes !== review.notes
 
+  const issueTarget = activeSlug ? { target_type: 'concept' as const, concept_slug: activeSlug } : null
+  const { issues, add: addIssue, update: updateIssue } = useReviewIssues(issueTarget)
+  const suggested = suggestVerdictClient(issues)
+  const flagConcept = useCallback(
+    (i: { part: IssuePart; title: string; detail: string; severity: IssueSeverity; ai_actionable: boolean }) =>
+      addIssue({ target_type: 'concept', concept_slug: activeSlug!, ...i }),
+    [addIssue, activeSlug],
+  )
+  const [counts, setCounts] = useState<IssueCounts>({
+    byConcept: {},
+    byPaper: {},
+    fixedByConcept: {},
+    fixedByPaper: {},
+  })
+  useEffect(() => {
+    fetchIssueCounts().then(setCounts).catch(() => {})
+  }, [issues])
+  const gotoConceptDelta = (delta: number) => {
+    if (filtered.length === 0) return
+    const i = filtered.findIndex((c) => c.slug === activeSlug)
+    const next = filtered[(Math.max(0, i) + delta + filtered.length) % filtered.length]
+    if (next) setActiveSlug(next.slug)
+  }
+  const nextConceptWithIssues = () => {
+    if (filtered.length === 0) return
+    const start = filtered.findIndex((c) => c.slug === activeSlug)
+    for (let k = 1; k <= filtered.length; k++) {
+      const c = filtered[(start + k + filtered.length) % filtered.length]
+      if ((counts.byConcept[c.slug] ?? 0) > 0 || (counts.fixedByConcept[c.slug] ?? 0) > 0 || c.status === 'pending') {
+        setActiveSlug(c.slug)
+        return
+      }
+    }
+  }
+  useReviewKeyboard({
+    j: () => gotoConceptDelta(1),
+    k: () => gotoConceptDelta(-1),
+    n: nextConceptWithIssues,
+  })
+
   return (
     <div className="space-y-5">
       <AdminPageHeader
-        eyebrow="Admin · WMI"
-        title="WMI Concept Proofreading"
-        description="Every registered generator, grouped by domain. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
+        eyebrow="Admin · Konsep"
+        title="Math Olympiad Concept Proofreading"
+        description="Every registered generator, grouped by olympiad strand → topic. Preview generated questions with answers, breakdown, step-by-step, and animation. Samples are generated live; your review verdict & notes per concept are saved."
       />
 
       {concepts.length > 0 && (
@@ -261,6 +335,46 @@ export default function AdminWmiConcepts() {
         </div>
       )}
 
+      {concepts.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <select
+            value={strandFilter}
+            onChange={(e) => setStrandFilter(e.target.value)}
+            className="rounded-full border border-admin-line bg-admin-card px-3 py-1 font-semibold text-admin-ink"
+          >
+            <option value="all">All strands</option>
+            {STRAND_OPTIONS.map((s) => (
+              <option key={s.code} value={s.code}>
+                {s.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={difficultyFilter}
+            onChange={(e) => setDifficultyFilter(e.target.value)}
+            className="rounded-full border border-admin-line bg-admin-card px-3 py-1 font-semibold text-admin-ink"
+          >
+            <option value="all">Any difficulty</option>
+            {['1', '2', '3', '4', '5'].map((d) => (
+              <option key={d} value={d}>
+                Difficulty {d}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            aria-pressed={olympiadOnly}
+            onClick={() => setOlympiadOnly((v) => !v)}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold transition-colors ${
+              olympiadOnly ? 'bg-qupu-brand-orange text-white' : 'bg-admin-sunk text-admin-muted hover:bg-admin-line'
+            }`}
+          >
+            ◆ Olympiad only
+          </button>
+          <span className="text-admin-faint">· {filtered.length} shown</span>
+        </div>
+      )}
+
       {listError && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-700">
           {listError}
@@ -268,7 +382,7 @@ export default function AdminWmiConcepts() {
       )}
 
       <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
-        {/* Concept sidebar, grouped by domain */}
+        {/* Concept sidebar, grouped by strand → topic */}
         <aside className={`rounded-2xl border border-admin-line bg-admin-card p-2 shadow-admin-soft lg:sticky lg:top-6 lg:max-h-[80vh] lg:self-start lg:overflow-auto ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="sticky top-0 z-10 -mx-2 -mt-2 mb-1 border-b border-admin-line bg-admin-card px-2 pb-2 pt-2">
             <Input
@@ -287,64 +401,101 @@ export default function AdminWmiConcepts() {
             )}
           </div>
           {grouped.length === 0 && <div className="px-2 py-3 text-sm text-admin-faint">No matches.</div>}
-          {grouped.map(([domain, items]) => (
-            <div key={domain} className="mb-2">
+          {grouped.map(([strand, topics]) => (
+            <div key={strand} className="mb-3">
               <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-admin-faint">
-                {domain}
+                {strand}
               </div>
-              {items.map((c) => (
-                <button
-                  key={c.slug}
-                  type="button"
-                  onClick={() => { setActiveSlug(c.slug); setMobileShowDetail(true) }}
-                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
-                    c.slug === activeSlug
-                      ? 'bg-qupu-brand-blue text-white'
-                      : 'text-admin-ink hover:bg-admin-sunk'
-                  }`}
-                >
-                  <span
-                    className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
-                      c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
-                    }`}
-                  >
-                    {c.short_id || '—'}
-                  </span>
-                  <span className="flex-1 truncate">{c.name_en}</span>
-                  <span
-                    className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
-                  >
-                    G{c.grades.join('')}
-                  </span>
-                  {c.wmi_refined && (
-                    <i
-                      className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
-                        c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
+              {topics.map(([topic, items]) => (
+                <div key={topic} className="mb-1">
+                  <div className="px-2 pb-0.5 pt-1 text-[10px] font-semibold text-admin-muted">
+                    {items[0]?.topic_label ?? topic}
+                  </div>
+                  {items.map((c) => (
+                    <button
+                      key={c.slug}
+                      type="button"
+                      onClick={() => { setActiveSlug(c.slug); setMobileShowDetail(true) }}
+                      className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm font-semibold transition-colors ${
+                        c.slug === activeSlug
+                          ? 'bg-qupu-brand-blue text-white'
+                          : 'text-admin-ink hover:bg-admin-sunk'
                       }`}
-                      aria-hidden="true"
-                      title="WMI Refined"
-                    />
-                  )}
-                  <i
-                    className={`fa-solid shrink-0 text-xs leading-none ${
-                      c.status === 'approved'
-                        ? 'fa-check text-emerald-500'
-                        : c.status === 'needs_changes'
-                          ? 'fa-triangle-exclamation text-amber-500'
-                          : c.priority === 'high'
-                            ? 'fa-flag text-red-600'
-                            : 'fa-flag text-qupu-brand-orange'
-                    }`}
-                    aria-hidden="true"
-                    title={
-                      c.status === 'pending'
-                        ? c.priority === 'high'
-                          ? 'Needs review — urgent'
-                          : 'Needs review'
-                        : STATUS_META[c.status]?.label
-                    }
-                  />
-                </button>
+                    >
+                      <span
+                        className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                          c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
+                        }`}
+                      >
+                        {c.short_id || '—'}
+                      </span>
+                      <span className="flex-1 truncate">{c.name_en}</span>
+                      <span
+                        className={`shrink-0 tabular-nums text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                        title={`Difficulty ${c.difficulty}/5`}
+                        aria-hidden="true"
+                      >
+                        d{c.difficulty}
+                      </span>
+                      {c.isOlympiad && (
+                        <span
+                          className={`shrink-0 text-[10px] leading-none ${c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-brand-orange'}`}
+                          title="Olympiad-core"
+                          aria-hidden="true"
+                        >
+                          ◆
+                        </span>
+                      )}
+                      <span
+                        className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                      >
+                        G{c.grades.join('')}
+                      </span>
+                      {c.wmi_refined && (
+                        <i
+                          className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
+                            c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
+                          }`}
+                          aria-hidden="true"
+                          title="WMI Refined"
+                        />
+                      )}
+                      {counts.byConcept[c.slug] > 0 && (
+                        <span
+                          className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[9px] font-bold text-white"
+                          title={`${counts.byConcept[c.slug]} open issue(s)`}
+                        >
+                          {counts.byConcept[c.slug]}⚑
+                        </span>
+                      )}
+                      {counts.fixedByConcept[c.slug] > 0 && (
+                        <span
+                          className="h-2 w-2 shrink-0 rounded-full bg-blue-600"
+                          title="fix awaiting re-review"
+                        />
+                      )}
+                      <i
+                        className={`fa-solid shrink-0 text-xs leading-none ${
+                          c.status === 'approved'
+                            ? 'fa-check text-emerald-500'
+                            : c.status === 'needs_changes'
+                              ? 'fa-triangle-exclamation text-amber-500'
+                              : c.priority === 'high'
+                                ? 'fa-flag text-red-600'
+                                : 'fa-flag text-qupu-brand-orange'
+                        }`}
+                        aria-hidden="true"
+                        title={
+                          c.status === 'pending'
+                            ? c.priority === 'high'
+                              ? 'Needs review — urgent'
+                              : 'Needs review'
+                            : STATUS_META[c.status]?.label
+                        }
+                      />
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
           ))}
@@ -375,6 +526,8 @@ export default function AdminWmiConcepts() {
                 <Chip on={Boolean(Illustration)} label="Illustration" />
                 <Chip on={hasExplainer} label="Animation" />
                 <Chip on={hasSteps} label="Step-by-step" />
+                <Chip on label={`Difficulty ${active.difficulty}/5`} />
+                <Chip on={active.isOlympiad} label="Olympiad" />
               </div>
             </div>
           )}
@@ -405,6 +558,11 @@ export default function AdminWmiConcepts() {
                       )
                     })}
                   </div>
+                  {suggested !== status && (
+                    <span className="text-xs font-semibold text-admin-faint">
+                      Suggested from issues: {suggested.replace('_', ' ')}
+                    </span>
+                  )}
                   <Textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
@@ -431,6 +589,16 @@ export default function AdminWmiConcepts() {
                 </div>
               )}
             </Section>
+          )}
+
+          {active && (
+            <IssuesPanel
+              issues={issues}
+              title="Flags"
+              parts={FLAGGABLE_PARTS}
+              onCreate={flagConcept}
+              onUpdate={(id, patch) => updateIssue(id, patch)}
+            />
           )}
 
           {/* Sample navigation */}
@@ -464,6 +632,9 @@ export default function AdminWmiConcepts() {
               New samples
             </Button>
           </div>
+          <p className="text-[10px] text-admin-faint">
+            Keys: <b>j</b>/<b>k</b> move concept · <b>n</b> next with open issues
+          </p>
 
           {loading && <div className="p-6 text-center text-admin-muted">Membuat contoh…</div>}
           {sampleError && (

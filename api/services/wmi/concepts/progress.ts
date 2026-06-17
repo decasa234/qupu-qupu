@@ -53,6 +53,7 @@ interface ProgressRow {
 export async function getConceptProgress(
   parentUserId: string,
   childId: string,
+  grade: number,
 ): Promise<ConceptProgressSummary> {
   await ensureBootstrapped()
   // Ownership check shares the pool (no transaction needed for a read).
@@ -80,10 +81,10 @@ export async function getConceptProgress(
       WHERE a.child_id = $1 AND a.mode = 'concept'
       GROUP BY i.concept_slug
     ) s ON s.concept_slug = c.slug
-    WHERE c.enabled = TRUE
+    WHERE c.enabled = TRUE AND $2::SMALLINT = ANY(c.grades)
     ORDER BY c.grades[1] NULLS LAST, c.name_id
     `,
-    [childId],
+    [childId, grade],
   )
 
   const concepts: ConceptProgress[] = rows.map((r) => {

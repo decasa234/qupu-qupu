@@ -27,7 +27,7 @@ describe('new G1/G2 concepts', () => {
 
   test('visual-pattern-next projects the cycle', () => {
     expect(visualAnswer({ cycle: ['circle', 'triangle'], shown: 5 })).toBe('triangle')
-    expect(visualPattern.render({ cycle: ['circle', 'triangle'], shown: 5 }).answer).toBe('B')
+    expect(visualPattern.render({ mode: 'simple', cycle: ['circle', 'triangle'], shown: 5 }).answer).toBe('B')
   })
 
   test('shape-transformation-rule applies the selected transform', () => {

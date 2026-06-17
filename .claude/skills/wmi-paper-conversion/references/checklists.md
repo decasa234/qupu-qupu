@@ -88,7 +88,7 @@ Fields (type `Breakdown` in `api/services/wmi/concepts/types.ts`, mirrored to
 `trap{wrong, why_en, why_id} | null`, `answer{form, unit, value}`,
 `vocab?: string[]` (optional glossary chips).
 
-- `category` ∈ `fact` | `condition` | `question`.
+- `category` ∈ `fact` | `condition` | `question` | `object` (green; a concrete object/landmark to locate).
 - Every `phrase_en/id` is an **exact substring of the display body** — the text
   after `stripSectionLabels(body)` AND resolving glossary `[[slug|label]]`→`label`.
   Verify the display text with:

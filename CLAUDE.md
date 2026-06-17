@@ -18,7 +18,7 @@ Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`,
 
 Single repo with two halves sharing one `tsconfig.json` (`include: ["src", "api"]`):
 
-- **Frontend** (`src/`) — React 18 + Vite + Tailwind + React Router 7. Path alias `@/*` → `src/*` (via `vite-tsconfig-paths`). In dev, Vite proxies `/api` → `http://localhost:3001` (`vite.config.ts`), so the client can always call relative `/api/...` URLs.
+- **Frontend** (`src/`) — React 18 + Vite + Tailwind + React Router 7. Path alias `@/*` → `src/*` (via `vite-tsconfig-paths`). The client talks to the API via an absolute base URL: `src/lib/api.ts` uses `VITE_API_BASE_URL` (default `http://localhost:3001/api`), not relative `/api` paths. Vite's `server.proxy` (`vite.config.ts`) forwards any relative `/api/*` request to the production API (`https://api.qupu.id`) and **bypasses source-module requests** (`.ts`/`.tsx`/`.js`/`.mjs`/`.cjs`) so the frontend can import browser-safe shared modules from `api/` (e.g. `api/services/wmi/olympiads/registry.ts`) without the proxy swallowing them as 404s.
 - **Backend** (`api/`) — Express app that runs two ways from the same `app.ts`:
   - `api/server.ts` is the local dev entry (nodemon → `tsx api/server.ts`).
   - `api/index.ts` is the Vercel serverless handler; `vercel.json` rewrites `/api/(.*)` to it.
@@ -72,6 +72,8 @@ When a user submits a score (`services/member.ts` `submitVideoScore`):
 ## Authoring WMI math problems
 
 Use the **`qupu-math-problem-creation`** skill (`.claude/skills/qupu-math-problem-creation/`) whenever adding or upgrading a WMI concept or paper question's breakdown, illustration, step-by-step, animation, or trap. It encodes the four-role method (question-designer → illustrator / step-explainer / animator, all binding to `params`) and the content rules; W7 (`budget-selection`) is the reference implementation.
+
+**Review fix-loop:** the admin flags granular per-part problems in the review UI (`wmi_review_issues`, migration `0036`). To work them, read open AI-actionable issues via `GET /api/admin/wmi/issues?status=open&ai_actionable=true&concept_slug=…` (concepts) or `&paper_id=…` (papers) — or paste the admin's "Copy issues for Claude" block. Resolve the source from the target + `part` (concept `slug` → illustration/explainer/generator registries; paper `question_id` → the `wmi_questions` row), apply the fix, then `PATCH /api/admin/wmi/issues/:id` to `in_progress` then `fixed` with a `fix_note`; the admin verifies.
 
 ## Documented Solutions
 

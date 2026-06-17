@@ -13,7 +13,7 @@ import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
 import WmiSteps from './WmiSteps'
 import WmiTrapNote from './WmiTrapNote'
-import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer } from './PastPapers/WMI/registry'
+import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer, getTemplate } from './PastPapers/WMI/registry'
 
 interface Props {
   question: WmiQuestion
@@ -128,6 +128,15 @@ export default function WmiQuestionView({
   const QuestionExplainer = getQuestionExplainer(question.code)
   const ChoiceContent = getQuestionChoiceRenderer(question.code)
 
+  // Reusable explainer-pool template binding (Approach A). When a question carries
+  // `visual: { templateId, params }`, render the template's parameterized figure +
+  // explainer instead of the per-code bespoke components. Bespoke path is unchanged
+  // (templateParams stays {} and the bespoke explainer ignores params).
+  const templateBinding = question.visual?.templateId ? getTemplate(question.visual.templateId) : null
+  const templateParams = question.visual?.params ?? {}
+  const TemplateIllustration = templateBinding?.Illustration ?? null
+  const ResolvedExplainer = templateBinding?.Explainer ?? QuestionExplainer
+
   const [internalBreakdown, setInternalBreakdown] = useState(false)
   const breakdownControlled = onToggleBreakdown != null
   const bdActive = breakdownControlled ? breakdownActive : internalBreakdown
@@ -159,10 +168,20 @@ export default function WmiQuestionView({
       {/* Illustrations come from lazy registries — a late pop-in is fine.
           Boundary (keyed per question so one crash doesn't hide the next
           question's illustration) sits OUTSIDE Suspense: a broken illustration
-          vanishes, the question stays fully usable. */}
+          vanishes, the question stays fully usable. Inside, the template-driven
+          illustration wins, then the per-code registry illustration, then the
+          host-supplied concept illustration, then the static figure. */}
       <ErrorBoundary key={question.id} scope="illustration" fallback={null}>
-        <Suspense fallback={null}>
-          {Illustration ? (
+        <Suspense
+          fallback={
+            <div className="my-4 flex justify-center">
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-qupu-cream-dark border-t-qupu-brand-blue" />
+            </div>
+          }
+        >
+          {TemplateIllustration ? (
+            <TemplateIllustration params={templateParams} />
+          ) : Illustration ? (
             <Illustration />
           ) : ConceptIllustration ? (
             <ConceptIllustration params={conceptIllustrationParams} />
@@ -229,8 +248,10 @@ export default function WmiQuestionView({
       )}
       {revealed && stepList && stepList.length > 0 && <WmiSteps steps={stepList} lang={lang} />}
       {revealed && question.breakdown?.trap && <WmiTrapNote trap={question.breakdown.trap} lang={lang} />}
-      {revealed && QuestionExplainer && (
-        <WmiExplainer explainer={QuestionExplainer} params={{}} correctAnswer="" lang={lang} />
+      {revealed && ResolvedExplainer && (
+        <Suspense fallback={<div className="mt-4 h-10 animate-pulse rounded-xl bg-qupu-shell" />}>
+          <WmiExplainer explainer={ResolvedExplainer} params={templateParams} correctAnswer="" lang={lang} />
+        </Suspense>
       )}
     </article>
   )

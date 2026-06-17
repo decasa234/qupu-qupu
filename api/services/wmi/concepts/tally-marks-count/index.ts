@@ -11,7 +11,7 @@ export const meta = {
   slug: 'tally-marks-count',
   name_en: 'Read tally marks',
   name_id: 'Membaca turus',
-  grades: [1, 2] as const,
+  grades: [1] as const,
   description_id: 'Hitung turus (tally) dan tentukan bilangannya.',
 } as const
 

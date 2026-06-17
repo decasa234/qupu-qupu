@@ -17,7 +17,7 @@ export const meta = {
   slug: 'angle-type',
   name_en: 'Type of angle',
   name_id: 'Jenis sudut',
-  grades: [2, 3] as const,
+  grades: [2] as const,
   description_id: 'Kenali jenis sudut: lancip, siku-siku, atau tumpul.',
 } as const
 

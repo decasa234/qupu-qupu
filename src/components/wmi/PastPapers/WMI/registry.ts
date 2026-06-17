@@ -13,7 +13,7 @@ interface QuestionVisualLoaders {
 // code-split out of the main bundle and only downloaded when that question
 // renders (illustration) or is revealed (explainer). Components that live in
 // shared barrel files load that barrel's chunk on first use and reuse it.
-const VISUALS: Record<string, QuestionVisualLoaders> = {
+export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-19F1A-Q1': {
     illustration: () => import('./StarRowsIllustration'),
     explainer: () => import('./StarCountExplainer'),
@@ -1676,7 +1676,7 @@ const VISUALS: Record<string, QuestionVisualLoaders> = {
 // charts). The renderer binds to the choice's own text so it can't drift.
 type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 
-const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
+export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
@@ -1794,3 +1794,7 @@ export function getQuestionExplainer(code?: string): ComponentType<ExplainerProp
   }
   return component
 }
+
+// Reusable explainer-pool templates (Approach A). A question binds via its
+// seed `visual: { templateId, params }`; see ./templates/registry.
+export { getTemplate, templateIds, TEMPLATES, type ExplainerTemplate } from './templates/registry'

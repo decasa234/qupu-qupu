@@ -14,6 +14,7 @@ import RaporLatihan from '../components/report/RaporLatihan'
 import RaporFooter from '../components/report/RaporFooter'
 import PrintButton from '../components/report/PrintButton'
 import { fetchConceptProgress } from '../lib/wmiApi'
+import { useWmiStore } from '../store/wmiStore'
 import type { MemberProgress } from '../types'
 import type { WmiConceptProgressSummary } from '../types/wmi'
 
@@ -23,6 +24,7 @@ import type { WmiConceptProgressSummary } from '../types/wmi'
 // printing the rapor is a parent feature either way.
 export default function ReportPage({ embedded = false }: { embedded?: boolean }) {
   const { children, activeChildId } = useAuthStore()
+  const { selectedGrade } = useWmiStore()
   const activeChild = children.find((c) => c.id === activeChildId) ?? null
   const [progress, setProgress] = useState<MemberProgress | null>(null)
   const [loading, setLoading] = useState(true)
@@ -38,13 +40,13 @@ export default function ReportPage({ embedded = false }: { embedded?: boolean })
       return
     }
     let cancelled = false
-    fetchConceptProgress(activeChildId)
+    fetchConceptProgress(activeChildId, selectedGrade)
       .then((data) => !cancelled && setLatihan(data))
       .catch(() => !cancelled && setLatihan(null))
     return () => {
       cancelled = true
     }
-  }, [activeChildId])
+  }, [activeChildId, selectedGrade])
 
   useEffect(() => {
     if (!activeChildId) {
@@ -146,7 +148,7 @@ export default function ReportPage({ embedded = false }: { embedded?: boolean })
         {latihan && latihan.totalConcepts > 0 && (
           <>
             <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
-              Latihan WMI (konsep)
+              Latihan Konsep
             </h3>
             <RaporLatihan summary={latihan} />
           </>

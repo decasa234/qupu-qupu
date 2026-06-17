@@ -489,18 +489,25 @@ CREATE INDEX IF NOT EXISTS idx_referral_uses_referrer
 
 CREATE TABLE IF NOT EXISTS wmi_papers (
   id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  year                     SMALLINT NOT NULL CHECK (year BETWEEN 2019 AND 2099),
-  grade                    SMALLINT NOT NULL CHECK (grade BETWEEN 0 AND 3),
-  round                    TEXT NOT NULL CHECK (round IN ('semifinal','final')),
-  variant                  TEXT NOT NULL DEFAULT 'A' CHECK (variant IN ('A','B')),
+  brand                    TEXT NOT NULL DEFAULT 'wmi',
+  year                     SMALLINT NOT NULL CHECK (year BETWEEN 1990 AND 2099),
+  grade                    SMALLINT,
+  level_code               TEXT NOT NULL,
+  level_sort               SMALLINT NOT NULL,
+  round                    TEXT NOT NULL,
+  variant                  TEXT NOT NULL DEFAULT 'A',
   title                    TEXT NOT NULL,
   source_url               TEXT,
   recommended_duration_min SMALLINT NOT NULL DEFAULT 60,
   question_count           SMALLINT NOT NULL DEFAULT 0,
   created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT wmi_papers_year_grade_round_variant_unique UNIQUE (year, grade, round, variant)
+  CONSTRAINT wmi_papers_brand_year_level_round_variant_unique UNIQUE (brand, year, level_code, round, variant)
 );
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand ON wmi_papers(brand);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand_level ON wmi_papers(brand, level_code);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_brand_round ON wmi_papers(brand, round);
+CREATE INDEX IF NOT EXISTS idx_wmi_papers_year ON wmi_papers(year);
 
 CREATE TABLE IF NOT EXISTS wmi_paper_reviews (
   paper_id    UUID PRIMARY KEY REFERENCES wmi_papers(id) ON DELETE CASCADE,
@@ -527,6 +534,7 @@ CREATE TABLE IF NOT EXISTS wmi_questions (
   hint_steps_en JSONB,
   hint_steps_id JSONB,
   breakdown   JSONB,
+  visual      JSONB,
   difficulty  SMALLINT CHECK (difficulty IS NULL OR difficulty BETWEEN 1 AND 3),
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -717,6 +725,41 @@ CREATE TABLE IF NOT EXISTS wmi_concept_reviews (
   wmi_refined   BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Granular, stateful review issues layered over the per-item verdict tables
+-- (wmi_paper_reviews / wmi_concept_reviews). Human flags a problem on a
+-- specific part; Claude Code (or the human) resolves it. See migration 0036.
+CREATE TABLE IF NOT EXISTS wmi_review_issues (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  target_type   TEXT NOT NULL CHECK (target_type IN ('paper','paper_question','concept')),
+  paper_id      UUID REFERENCES wmi_papers(id)    ON DELETE CASCADE,
+  question_id   UUID REFERENCES wmi_questions(id) ON DELETE CASCADE,
+  concept_slug  TEXT,
+  part          TEXT NOT NULL CHECK (part IN
+                  ('stem','answer','choices','hint','breakdown','illustration',
+                   'steps','animation','trap','meta','other')),
+  severity      TEXT NOT NULL DEFAULT 'warning' CHECK (severity IN ('blocker','warning','nit')),
+  title         TEXT NOT NULL,
+  detail        TEXT NOT NULL DEFAULT '',
+  status        TEXT NOT NULL DEFAULT 'open'
+                  CHECK (status IN ('open','in_progress','fixed','verified','wont_fix')),
+  ai_actionable BOOLEAN NOT NULL DEFAULT TRUE,
+  fix_note      TEXT,
+  created_by    TEXT,
+  resolved_by   TEXT,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  resolved_at   TIMESTAMPTZ,
+  CHECK (
+    (target_type = 'concept'        AND concept_slug IS NOT NULL AND paper_id IS NULL     AND question_id IS NULL) OR
+    (target_type = 'paper'          AND paper_id IS NOT NULL     AND question_id IS NULL  AND concept_slug IS NULL) OR
+    (target_type = 'paper_question' AND paper_id IS NOT NULL     AND question_id IS NOT NULL AND concept_slug IS NULL)
+  )
+);
+CREATE INDEX IF NOT EXISTS idx_wmi_issues_status_ai ON wmi_review_issues (status, ai_actionable);
+CREATE INDEX IF NOT EXISTS idx_wmi_issues_paper     ON wmi_review_issues (paper_id);
+CREATE INDEX IF NOT EXISTS idx_wmi_issues_question  ON wmi_review_issues (question_id);
+CREATE INDEX IF NOT EXISTS idx_wmi_issues_concept   ON wmi_review_issues (concept_slug);
 
 ALTER TABLE wmi_attempts ALTER COLUMN question_id DROP NOT NULL;
 

@@ -53,7 +53,7 @@ Each role is persisted as a global subagent (in `~/.claude/agents/`). Dispatch t
 ## The `breakdown` data model
 
 ```ts
-type BreakdownCategory = 'fact' | 'condition' | 'question'   // extensible; renderer colours by category
+type BreakdownCategory = 'fact' | 'condition' | 'question' | 'object'   // extensible; renderer colours by category
 interface BreakdownHighlight {
   category: BreakdownCategory
   phrase_en: string; phrase_id: string   // MUST be exact substrings of the DISPLAY body (see below)
@@ -80,7 +80,7 @@ Build it **parametrically** from `params` (like `hint_steps`), never hardcoded t
 
 - **Kid-first & short.** Grade 2–3 voice. `hint_steps` = ~3 short lines that name the trap and land on the answer. Notes are one sentence.
 - **Deduce, don't assert.** The breakdown, `hint_steps`, and explainer beats must form a logical chain: every value follows from facts already established (givens, eliminations, column arithmetic). Never present the right answer without showing where it came from — "balancing the digits gives 1589" is not an explanation. If the honest method is try-and-eliminate, show the failed candidates and why each fails.
-- **Breakdown = the real problem text, not a restatement.** Highlight the words kids must focus on, color-coded by category: `fact` = blue, `condition` = yellow, `question` = purple. No tabs, no underline. The renderer fades the text in, then lights highlights one-by-one; clicking a span shows its note.
+- **Breakdown = the real problem text, not a restatement.** Highlight the words kids must focus on, color-coded by category: `fact` = blue, `condition` = yellow, `question` = purple, `object` = green (a concrete object/landmark to locate first). No tabs, no underline. The renderer fades the text in, then lights highlights one-by-one; clicking a span shows its note.
 - **Trap is optional.** Most problems have none — set `trap: null`. Only add one for a real misconception (e.g. "grab the two priciest" busting a budget).
 - **Illustration sits in the card**, no bordered/orange box — `className="my-4 flex justify-center"`, SVG only, qupu-* tokens, no emoji. Wrap in a `role="img"` div with an `aria-label`.
 - **Determinism / SSR-safe:** components must be pure renders of `params` — no `Math.random`, no `Date`.
@@ -107,6 +107,15 @@ Plus smokes (use a temp `.ts`/`.tsx` + `npx tsx`, not inline `-e`):
 - DB ops need `dangerouslyDisableSandbox: true` (LAN Postgres).
 
 Then have the user review at **Admin → WMI Concepts → \<concept\>** (or **WMI Drill** for papers).
+
+## Review issue loop
+
+The admin flags granular, per-part problems in **Admin → WMI Concepts / Drill / Review Queue** (stored in `wmi_review_issues`). To fix a batch:
+
+1. Read open, AI-actionable issues: `GET /api/admin/wmi/issues?status=open&ai_actionable=true&concept_slug=<slug>` (concepts) or `&paper_id=<uuid>` (papers). Or paste the admin's **"Copy issues for Claude"** markdown block.
+2. Resolve the source from the target + `part`: concept `slug` → `getIllustration` / `getExplainer` / generator registries; paper `question_id` → the `wmi_questions` row. Simple paper text (stem/answer/hint) the admin can quick-fix in-app; structured `breakdown` / `hint_steps` / `visual` come to you.
+3. `PATCH /api/admin/wmi/issues/<id>` to `status: "in_progress"`, apply the fix, then `PATCH` to `status: "fixed"` with a short `fix_note`.
+4. The admin re-reviews and marks it `verified`.
 
 ## Common mistakes
 

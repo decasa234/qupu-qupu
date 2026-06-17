@@ -176,6 +176,11 @@ const konsepNextQuerySchema = Joi.object({
   concept: Joi.string().pattern(/^[a-z0-9-]+$/).optional(),
 }).unknown(true)
 
+const konsepProgressQuerySchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  grade: Joi.number().integer().min(0).max(3).required(),
+}).unknown(true)
+
 const voteSchema = Joi.object({
   childId: Joi.string().uuid().required(),
   concept_instance_id: Joi.string().uuid().required(),
@@ -224,12 +229,12 @@ router.get(
   authenticateToken,
   async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-      const { error, value } = childQuerySchema.validate(req.query)
+      const { error, value } = konsepProgressQuerySchema.validate(req.query)
       if (error) {
         sendValidationError(res, error)
         return
       }
-      const progress = await getConceptProgress(req.user.id, value.childId)
+      const progress = await getConceptProgress(req.user.id, value.childId, value.grade)
       res.json({ success: true, data: progress })
     } catch (error) {
       console.error('WMI konsep progress error:', error)

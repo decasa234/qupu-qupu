@@ -1,5 +1,10 @@
 # WMI Concept Coverage Matrix
 
+> The 9-domain grouping in this file reflects the original past-paper mining.
+> The live concept taxonomy is the 6 olympiad strands — see
+> `api/services/wmi/concepts/taxonomy.ts` and `taxonomy.md` › *Olympiad strand
+> taxonomy (current)*.
+
 Archetype × grade frequency across all 1,400 past-paper questions (2019–2025, both rounds, Papers A+B). Use it to prioritize which generators to build: high-count, multi-grade archetypes pay off most.
 
 ## Domain totals

@@ -9,7 +9,6 @@ dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const GLOSSARY_PATH = path.join(__dirname, 'glossary.json')
-const PAPERS_DIR = path.join(__dirname, 'papers')
 
 interface GlossaryTerm {
   slug: string
@@ -22,6 +21,8 @@ interface GlossaryTerm {
 }
 
 import type { PaperFile, PaperQuestion } from '../../../api/services/wmi/paperImport/types.js'
+import { collectPaperFiles, withBrandDefaults } from './paperFiles.js'
+import { getBrand } from '../../../api/services/wmi/olympiads/registry.js'
 
 const MARKUP_RE = /\[\[([a-z0-9-]+)(?:\|[^\]]*)?\]\]/g
 
@@ -62,12 +63,12 @@ async function main(): Promise<void> {
 
   const glossary = await loadJson<GlossaryTerm[]>(GLOSSARY_PATH)
   const glossarySlugs = new Set(glossary.map((term) => term.slug))
-  const paperFiles = (await fs.readdir(PAPERS_DIR)).filter((f) => f.endsWith('.json')).sort()
 
+  const paperFileList = await collectPaperFiles()
   const papers = await Promise.all(
-    paperFiles.map(async (fileName) => ({
+    paperFileList.map(async ({ fileName, fullPath }) => ({
       fileName,
-      paper: await loadJson<PaperFile>(path.join(PAPERS_DIR, fileName)),
+      paper: withBrandDefaults(await loadJson<PaperFile>(fullPath)),
     })),
   )
 
@@ -110,12 +111,16 @@ async function main(): Promise<void> {
     }
 
     for (const { paper } of papers) {
+      const level = getBrand(paper.brand).levels.find((l) => l.key === paper.level)
+      if (!level) throw new Error(`${paper.brand} has no level "${paper.level}"`)
       const paperRow = await client.query<{ id: string }>(
         `
           INSERT INTO wmi_papers
-            (year, grade, round, variant, title, source_url, recommended_duration_min, question_count, updated_at)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
-          ON CONFLICT (year, grade, round, variant) DO UPDATE SET
+            (brand, year, grade, level_code, level_sort, round, variant, title, source_url, recommended_duration_min, question_count, updated_at)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+          ON CONFLICT (brand, year, level_code, round, variant) DO UPDATE SET
+            grade = EXCLUDED.grade,
+            level_sort = EXCLUDED.level_sort,
             title = EXCLUDED.title,
             source_url = EXCLUDED.source_url,
             recommended_duration_min = EXCLUDED.recommended_duration_min,
@@ -124,10 +129,13 @@ async function main(): Promise<void> {
           RETURNING id
         `,
         [
+          paper.brand,
           paper.year,
-          paper.grade,
+          paper.grade ?? null,
+          paper.level,
+          level.sort,
           paper.round,
-          paper.variant,
+          paper.variant ?? 'A',
           paper.title,
           paper.source_url ?? null,
           paper.recommended_duration_min,
@@ -141,8 +149,8 @@ async function main(): Promise<void> {
           `
             INSERT INTO wmi_questions
               (paper_id, number, body_en, body_id, answer_type, choices_en, choices_id, answer,
-               figure_url, hint_en, hint_id, hint_steps_en, hint_steps_id, breakdown, difficulty, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, NOW())
+               figure_url, hint_en, hint_id, hint_steps_en, hint_steps_id, breakdown, visual, difficulty, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, NOW())
             ON CONFLICT (paper_id, number) DO UPDATE SET
               body_en = EXCLUDED.body_en,
               body_id = EXCLUDED.body_id,
@@ -156,6 +164,7 @@ async function main(): Promise<void> {
               hint_steps_en = EXCLUDED.hint_steps_en,
               hint_steps_id = EXCLUDED.hint_steps_id,
               breakdown = EXCLUDED.breakdown,
+              visual = EXCLUDED.visual,
               difficulty = EXCLUDED.difficulty,
               updated_at = NOW()
           `,
@@ -174,6 +183,7 @@ async function main(): Promise<void> {
             question.hint_steps_en ? JSON.stringify(question.hint_steps_en) : null,
             question.hint_steps_id ? JSON.stringify(question.hint_steps_id) : null,
             question.breakdown ? JSON.stringify(question.breakdown) : null,
+            question.visual ? JSON.stringify(question.visual) : null,
             question.difficulty ?? null,
           ],
         )
