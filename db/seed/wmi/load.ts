@@ -21,7 +21,7 @@ interface GlossaryTerm {
 }
 
 import type { PaperFile, PaperQuestion } from '../../../api/services/wmi/paperImport/types.js'
-import { collectPaperFiles, withBrandDefaults } from './paperFiles.js'
+import { collectPaperFiles, withBrandDefaults, isShellDowngrade } from './paperFiles.js'
 import { getBrand } from '../../../api/services/wmi/olympiads/registry.js'
 
 const MARKUP_RE = /\[\[([a-z0-9-]+)(?:\|[^\]]*)?\]\]/g
@@ -113,6 +113,16 @@ async function main(): Promise<void> {
     for (const { paper } of papers) {
       const level = getBrand(paper.brand).levels.find((l) => l.key === paper.level)
       if (!level) throw new Error(`${paper.brand} has no level "${paper.level}"`)
+      if (paper.questions.length === 0) {
+        const existing = await client.query<{ question_count: number }>(
+          `SELECT question_count FROM wmi_papers WHERE brand=$1 AND year=$2 AND level_code=$3 AND round=$4 AND variant=$5`,
+          [paper.brand, paper.year, paper.level, paper.round, paper.variant ?? 'A'],
+        )
+        if (existing.rows[0] && isShellDowngrade(0, existing.rows[0].question_count)) {
+          console.log(`Skipped ${paper.title} — existing paper has ${existing.rows[0].question_count} questions (shell not downgrading it)`)
+          continue
+        }
+      }
       const paperRow = await client.query<{ id: string }>(
         `
           INSERT INTO wmi_papers

@@ -16,6 +16,11 @@ export function withBrandDefaults(p: PaperFile): PaperFile {
   }
 }
 
+// A shell (0 questions) must not overwrite an already-extracted paper.
+export function isShellDowngrade(incomingQuestionCount: number, existingQuestionCount: number): boolean {
+  return incomingQuestionCount === 0 && existingQuestionCount > 0
+}
+
 // Walk db/seed/<brand>/papers/*.json across every brand directory.
 export async function collectPaperFiles(): Promise<Array<{ fileName: string; brand: string; fullPath: string }>> {
   const out: Array<{ fileName: string; brand: string; fullPath: string }> = []
