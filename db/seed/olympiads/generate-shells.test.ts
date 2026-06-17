@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { simocShellFromFile, shellToPaperFile } from './generateShells.js'
+import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile } from './generateShells.js'
 
 describe('SIMOC shell mapping', () => {
   test('per-grade 2019 file → shell', () => {
@@ -25,5 +25,18 @@ describe('SIMOC shell mapping', () => {
     expect(pf.questions).toEqual([])
     expect(pf.variant).toBe('A')
     expect(pf.recommended_duration_min).toBe(75)
+  })
+})
+
+describe('SASMO shell mapping (in-repo archive)', () => {
+  test('2019-2020 bundle → 2019 shell', () => {
+    expect(sasmoShellsFromFile('SASMO-2019-2020-G2.pdf')).toEqual([{
+      brand: 'sasmo', year: 2019, level: 'g2', round: 'contest',
+      title: 'SASMO 2019 Primary 2',
+      source_url: 'docs/reference/competition-papers/sasmo/past-papers/SASMO-2019-2020-G2.pdf',
+    }])
+  })
+  test('2020-only file → 2020 shell', () => {
+    expect(sasmoShellsFromFile('SASMO-2020-G3.pdf')[0]).toMatchObject({ year: 2020, level: 'g3' })
   })
 })

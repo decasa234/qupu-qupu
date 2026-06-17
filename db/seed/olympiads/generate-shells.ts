@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs'
-import { simocShellFromFile, writeShells, type ShellInput } from './generateShells.js'
+import path from 'node:path'
+import { simocShellFromFile, sasmoShellsFromFile, writeShells, type ShellInput } from './generateShells.js'
 
 const SHARE = '/Volumes/qupusmb/PastPapers'
 
@@ -16,8 +17,17 @@ async function simoc(): Promise<ShellInput[]> {
   return out
 }
 
+async function sasmo(): Promise<ShellInput[]> {
+  const dir = path.join(process.cwd(), 'docs/reference/competition-papers/sasmo/past-papers')
+  const out: ShellInput[] = []
+  let files: string[]
+  try { files = await fs.readdir(dir) } catch { return out }
+  for (const f of files) out.push(...sasmoShellsFromFile(f))
+  return out
+}
+
 const brand = process.argv[2]
-const generators: Record<string, () => Promise<ShellInput[]>> = { simoc }
+const generators: Record<string, () => Promise<ShellInput[]>> = { simoc, sasmo }
 const gen = generators[brand]
 if (!gen) { console.error(`Usage: tsx db/seed/olympiads/generate-shells.ts <${Object.keys(generators).join('|')}>`); process.exit(1) }
 const shells = await gen()

@@ -42,6 +42,21 @@ export function simocShellFromFile(fileName: string): ShellInput | null {
   }
 }
 
+// SASMO in-repo files: "SASMO-2019-2020-G2.pdf" (take 2019), "SASMO-2020-G2.pdf" (take 2020).
+export function sasmoShellsFromFile(fileName: string): ShellInput[] {
+  const bundle = fileName.match(/^SASMO-(\d{4})-\d{4}-G(\d)\.pdf$/i)
+  const single = fileName.match(/^SASMO-(\d{4})-G(\d)\.pdf$/i)
+  const m = bundle ?? single
+  if (!m) return []
+  const year = Number(m[1])
+  const grade = Number(m[2])
+  return [{
+    brand: 'sasmo', year, level: `g${grade}`, round: 'contest',
+    title: `SASMO ${year} Primary ${grade}`,
+    source_url: `docs/reference/competition-papers/sasmo/past-papers/${fileName}`,
+  }]
+}
+
 export function shellToPaperFile(s: ShellInput): PaperFile {
   const brand = getBrand(s.brand)
   return {
