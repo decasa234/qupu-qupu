@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile } from './generateShells.js'
+import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile, iobRoundKey, iobLevelKey, iobShellsFromIndex } from './generateShells.js'
 
 describe('SIMOC shell mapping', () => {
   test('per-grade 2019 file → shell', () => {
@@ -38,5 +38,26 @@ describe('SASMO shell mapping (in-repo archive)', () => {
   })
   test('2020-only file → 2020 shell', () => {
     expect(sasmoShellsFromFile('SASMO-2020-G3.pdf')[0]).toMatchObject({ year: 2020, level: 'g3' })
+  })
+})
+
+describe('IOB shell mapping (index.csv, bilingual)', () => {
+  test('round + level key mapping', () => {
+    expect(iobRoundKey('Preliminary Exam 1')).toBe('prelim1')
+    expect(iobRoundKey('Preliminary Exam 3')).toBe('prelim3')
+    expect(iobRoundKey('Final')).toBe('final')
+    expect(iobLevelKey('TK')).toBe('tk')
+    expect(iobLevelKey('Kelas 1')).toBe('k1')
+    expect(iobLevelKey('Kelas 12')).toBe('k12')
+  })
+  test('EN + ID rows collapse to one shell with both drive ids', () => {
+    const rows = [
+      { exam: 'Preliminary Exam 1', grade: 'Kelas 1', language: 'EN', filepath: 'Preliminary Exam 1/Kelas 1 - EN.pdf', google_drive_id: 'EN1' },
+      { exam: 'Preliminary Exam 1', grade: 'Kelas 1', language: 'ID', filepath: 'Preliminary Exam 1/Kelas 1 - ID.pdf', google_drive_id: 'ID1' },
+    ]
+    const shells = iobShellsFromIndex(rows, 2025)
+    expect(shells).toHaveLength(1)
+    expect(shells[0]).toMatchObject({ brand: 'iob', year: 2025, level: 'k1', round: 'prelim1' })
+    expect(shells[0].source_url).toBe('gdrive:EN1,ID1')
   })
 })

@@ -72,6 +72,40 @@ export function shellToPaperFile(s: ShellInput): PaperFile {
   }
 }
 
+// ── IOB helpers ───────────────────────────────────────────────────────────────
+
+export type IobIndexRow = { exam: string; grade: string; language: string; filepath: string; google_drive_id: string }
+
+export function iobRoundKey(exam: string): string {
+  const m = exam.match(/Preliminary Exam (\d)/i)
+  if (m) return `prelim${m[1]}`
+  if (/final/i.test(exam)) return 'final'
+  throw new Error(`Unknown IOB exam "${exam}"`)
+}
+
+export function iobLevelKey(grade: string): string {
+  if (/^TK$/i.test(grade.trim())) return 'tk'
+  const m = grade.match(/Kelas\s+(\d+)/i)
+  if (!m) throw new Error(`Unknown IOB grade "${grade}"`)
+  return `k${m[1]}`
+}
+
+export function iobShellsFromIndex(rows: IobIndexRow[], year: number): ShellInput[] {
+  const byKey = new Map<string, { level: string; round: string; grade: string; exam: string; ids: string[] }>()
+  for (const r of rows) {
+    const level = iobLevelKey(r.grade)
+    const round = iobRoundKey(r.exam)
+    const k = `${round}|${level}`
+    if (!byKey.has(k)) byKey.set(k, { level, round, grade: r.grade, exam: r.exam, ids: [] })
+    byKey.get(k)!.ids.push(r.google_drive_id)
+  }
+  return [...byKey.values()].map((v) => ({
+    brand: 'iob', year, level: v.level, round: v.round,
+    title: `IOB Season 1 (${year}) ${v.exam} — ${v.grade}`,
+    source_url: `gdrive:${v.ids.join(',')}`,
+  }))
+}
+
 // Write one JSON per shell into db/seed/<brand>/papers/<code>.json
 export async function writeShells(brand: string, shells: ShellInput[]): Promise<number> {
   const dir = path.join(SEED_ROOT, brand, 'papers')

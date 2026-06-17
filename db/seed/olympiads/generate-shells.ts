@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import { simocShellFromFile, sasmoShellsFromFile, writeShells, type ShellInput } from './generateShells.js'
+import { simocShellFromFile, sasmoShellsFromFile, iobShellsFromIndex, writeShells, type ShellInput, type IobIndexRow } from './generateShells.js'
 
 const SHARE = '/Volumes/qupusmb/PastPapers'
 
@@ -26,8 +26,25 @@ async function sasmo(): Promise<ShellInput[]> {
   return out
 }
 
+const IOB_SEASON1_YEAR = 2025 // confirmed: Preliminary 1 on 6 December 2025 per Detail Kompetisi §5.2
+
+async function iob(): Promise<ShellInput[]> {
+  const csv = await fs.readFile(`${SHARE}/IOB Season 1/_index.csv`, 'utf8')
+  const [header, ...lines] = csv.trim().split(/\r?\n/)
+  const cols = header.split(',')
+  const rows = lines
+    .map((line) => {
+      // simple CSV: fields are quoted, no embedded commas in these data
+      const cells = line.split(',').map((c) => c.replace(/^"|"$/g, ''))
+      return Object.fromEntries(cols.map((c, i) => [c, cells[i]])) as unknown as IobIndexRow
+    })
+    // skip non-paper extras rows (exam="-", e.g. Silabus, Detail Kompetisi)
+    .filter((r) => r.exam !== '-')
+  return iobShellsFromIndex(rows, IOB_SEASON1_YEAR)
+}
+
 const brand = process.argv[2]
-const generators: Record<string, () => Promise<ShellInput[]>> = { simoc, sasmo }
+const generators: Record<string, () => Promise<ShellInput[]>> = { simoc, sasmo, iob }
 const gen = generators[brand]
 if (!gen) { console.error(`Usage: tsx db/seed/olympiads/generate-shells.ts <${Object.keys(generators).join('|')}>`); process.exit(1) }
 const shells = await gen()
