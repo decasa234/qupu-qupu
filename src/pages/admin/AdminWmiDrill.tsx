@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { startTransition, useCallback, useEffect, useMemo, useState } from 'react'
 import WmiQuestionView from '../../components/wmi/WmiQuestionView'
 import AdminPageHeader from '../../components/admin/AdminPageHeader'
 import { Button, Input, Panel, SectionHeading, Select, Textarea } from '../../components/admin/ui'
@@ -331,11 +331,11 @@ export default function AdminWmiDrill() {
         .map((i) => i.question_id),
     )
     const found = questions.findIndex((q, n) => n > idx && ids.has(q.id))
-    if (found >= 0) setIdx(found)
+    if (found >= 0) startTransition(() => setIdx(found))
   }
   useReviewKeyboard({
-    j: () => setIdx((i) => Math.min(questions.length - 1, i + 1)),
-    k: () => setIdx((i) => Math.max(0, i - 1)),
+    j: () => startTransition(() => setIdx((i) => Math.min(questions.length - 1, i + 1))),
+    k: () => startTransition(() => setIdx((i) => Math.max(0, i - 1))),
     n: nextQuestionWithIssues,
   })
 
@@ -612,7 +612,7 @@ export default function AdminWmiDrill() {
                     type="button"
                     variant="secondary"
                     icon="fa-solid fa-chevron-left"
-                    onClick={() => setIdx((i) => Math.max(0, i - 1))}
+                    onClick={() => startTransition(() => setIdx((i) => Math.max(0, i - 1)))}
                     disabled={idx === 0 || questions.length === 0}
                   >
                     Prev
@@ -623,7 +623,7 @@ export default function AdminWmiDrill() {
                   <Button
                     type="button"
                     variant="secondary"
-                    onClick={() => setIdx((i) => Math.min(questions.length - 1, i + 1))}
+                    onClick={() => startTransition(() => setIdx((i) => Math.min(questions.length - 1, i + 1)))}
                     disabled={idx >= questions.length - 1 || questions.length === 0}
                   >
                     Next <i className="fa-solid fa-chevron-right" aria-hidden="true" />
