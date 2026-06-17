@@ -1,11 +1,13 @@
 // src/pages/VideoDetail.tsx
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { isAxiosError } from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/api'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { trackEvent } from '../lib/analytics'
 import { formatDateLabel } from '../lib/youtube'
 import Reveal from '../components/Reveal'
+import ErrorRetry from '../components/ErrorRetry'
 import Skeleton from '../components/Skeleton'
 import Slider from '../components/Slider'
 import AuthModal from '../components/AuthModal'
@@ -25,7 +27,11 @@ export default function VideoDetailPage() {
 
   const [video, setVideo] = useState<VideoDetail | null>(null)
   const [loading, setLoading] = useState(true)
-  const [loadError, setLoadError] = useState('')
+  // notFound = the video is genuinely missing/unpublished (terminal); loadError
+  // = a transient network/server failure (retryable via loadTick).
+  const [notFound, setNotFound] = useState(false)
+  const [loadError, setLoadError] = useState(false)
+  const [loadTick, setLoadTick] = useState(0)
 
   const [score, setScore] = useState(0)
   const [saving, setSaving] = useState(false)
@@ -50,20 +56,28 @@ export default function VideoDetailPage() {
   useEffect(() => {
     async function load() {
       setLoading(true)
-      setLoadError('')
+      setLoadError(false)
+      setNotFound(false)
       try {
         const response = await api.get(`/public/videos/${slug}`)
         setVideo(response.data.data)
       } catch (fetchError) {
         console.error('Failed to load video:', fetchError)
-        setLoadError('Video tidak ditemukan atau belum dipublikasikan.')
+        // 404/403/410 = the video really isn't there (terminal); anything else
+        // (network drop, 5xx) is transient and should offer a retry.
+        const status = isAxiosError(fetchError) ? fetchError.response?.status : undefined
+        if (status === 404 || status === 403 || status === 410) {
+          setNotFound(true)
+        } else {
+          setLoadError(true)
+        }
       } finally {
         setLoading(false)
       }
     }
 
     void load()
-  }, [slug])
+  }, [slug, loadTick])
 
   useEffect(() => {
     if (!isAuthenticated || !activeChildId || !video) {
@@ -217,7 +231,20 @@ export default function VideoDetailPage() {
     )
   }
 
-  if (loadError || !video) {
+  if (loadError) {
+    return (
+      <Reveal>
+        <div className="mx-auto max-w-md">
+          <ErrorRetry
+            message="Gagal memuat video. Periksa koneksimu."
+            onRetry={() => setLoadTick((t) => t + 1)}
+          />
+        </div>
+      </Reveal>
+    )
+  }
+
+  if (notFound || !video) {
     return (
       <Reveal>
         <section className="rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-10 text-center shadow-[6px_8px_0_0_#FFD3B1]">
