@@ -106,7 +106,103 @@ const IOB: Brand = {
   formatCode: ({ yy, round, level }) => `IOB-${yy}-${level.code}-${round.code}`,
 }
 
-const BRANDS: Record<string, Brand> = { wmi: WMI, sasmo: SASMO, simoc: SIMOC, iob: IOB }
+const SEAMO: Brand = {
+  slug: 'seamo', prefix: 'SEAMO', nameEn: 'SEAMO', nameId: 'SEAMO',
+  rounds: [{ key: 'contest', code: '', labelEn: 'Contest', labelId: 'Kontes', sort: 0 }],
+  levels: [
+    { key: 'k', code: 'K', labelEn: 'Kindergarten', labelId: 'TK', sort: 0 },
+    { key: 'a', code: 'A', labelEn: 'Paper A (Grades 1-2)', labelId: 'Paper A (Kelas 1-2)', sort: 1 },
+    { key: 'b', code: 'B', labelEn: 'Paper B (Grades 3-4)', labelId: 'Paper B (Kelas 3-4)', sort: 2 },
+    { key: 'c', code: 'C', labelEn: 'Paper C (Grades 5-6)', labelId: 'Paper C (Kelas 5-6)', sort: 3 },
+    { key: 'd', code: 'D', labelEn: 'Paper D', labelId: 'Paper D', sort: 4 },
+    { key: 'e', code: 'E', labelEn: 'Paper E', labelId: 'Paper E', sort: 5 },
+    { key: 'f', code: 'F', labelEn: 'Paper F', labelId: 'Paper F', sort: 6 },
+  ],
+  defaultDurationMin: 90,
+  formatCode: ({ yy, level }) => `SEAMO-${yy}-${level.code}`,
+}
+
+const SEAMO_X: Brand = {
+  slug: 'seamo-x', prefix: 'SEAMOX', nameEn: 'SEAMO X', nameId: 'SEAMO X',
+  rounds: [{ key: 'contest', code: '', labelEn: 'Contest', labelId: 'Kontes', sort: 0 }],
+  levels: [
+    { key: 'a', code: 'A', labelEn: 'Paper A (Grades 1-2)', labelId: 'Paper A (Kelas 1-2)', sort: 1 },
+    { key: 'b', code: 'B', labelEn: 'Paper B (Grades 3-4)', labelId: 'Paper B (Kelas 3-4)', sort: 2 },
+    { key: 'c', code: 'C', labelEn: 'Paper C (Grades 5-6)', labelId: 'Paper C (Kelas 5-6)', sort: 3 },
+  ],
+  defaultDurationMin: 90,
+  formatCode: ({ yy, level }) => `SEAMOX-${yy}-${level.code}`,
+}
+
+const IKMC: Brand = {
+  slug: 'ikmc', prefix: 'IKMC', nameEn: 'IKMC', nameId: 'IKMC',
+  rounds: [{ key: 'contest', code: '', labelEn: 'Contest', labelId: 'Kontes', sort: 0 }],
+  levels: [
+    { key: 'preecolier', code: 'PE', labelEn: 'Pre-Ecolier (Class 1-2)', labelId: 'Pre-Ecolier (Kelas 1-2)', sort: 1, grade: 1 },
+    { key: 'ecolier', code: 'EC', labelEn: 'Ecolier (Class 3-4)', labelId: 'Ecolier (Kelas 3-4)', sort: 2, grade: 3 },
+    { key: 'benjamin', code: 'BE', labelEn: 'Benjamin (Class 5-6)', labelId: 'Benjamin (Kelas 5-6)', sort: 3 },
+    { key: 'cadet', code: 'CA', labelEn: 'Cadet (Class 7-8)', labelId: 'Cadet (Kelas 7-8)', sort: 4 },
+    { key: 'junior', code: 'JU', labelEn: 'Junior (Class 9-10)', labelId: 'Junior (Kelas 9-10)', sort: 5 },
+    { key: 'student', code: 'ST', labelEn: 'Student (Class 11-12)', labelId: 'Student (Kelas 11-12)', sort: 6 },
+  ],
+  defaultDurationMin: 120,
+  formatCode: ({ yy, level }) => `IKMC-${yy}-${level.code}`,
+}
+
+const TIMO: Brand = {
+  slug: 'timo', prefix: 'TIMO', nameEn: 'TIMO', nameId: 'TIMO',
+  rounds: [
+    { key: 'prelim', code: 'PRE', labelEn: 'Preliminary', labelId: 'Penyisihan', sort: 0 },
+    { key: 'heat', code: 'H', labelEn: 'Heat', labelId: 'Heat', sort: 1 },
+    { key: 'final', code: 'F', labelEn: 'Final', labelId: 'Final', sort: 2 },
+  ],
+  levels: [1, 2, 3, 4, 5, 6].map((g) => ({
+    key: `p${g}`, code: `P${g}`, labelEn: `Primary ${g}`, labelId: `Primary ${g}`, sort: g, grade: g,
+  })),
+  defaultDurationMin: 90,
+  formatCode: ({ yy, round, level }) => `TIMO-${yy}-${level.code}${round.code}`,
+}
+
+const OSN: Brand = {
+  slug: 'osn', prefix: 'OSN',
+  nameEn: 'Olimpiade Sains Nasional (Matematika)', nameId: 'Olimpiade Sains Nasional (Matematika)',
+  rounds: [
+    { key: 'kecamatan', code: 'KEC', labelEn: 'District', labelId: 'Kecamatan', sort: 0 },
+    { key: 'kabupaten', code: 'KAB', labelEn: 'Regency', labelId: 'Kabupaten/Kota', sort: 1 },
+    { key: 'provinsi', code: 'PROV', labelEn: 'Province', labelId: 'Provinsi', sort: 2 },
+    { key: 'nasional', code: 'NAS', labelEn: 'National', labelId: 'Nasional', sort: 3 },
+  ],
+  levels: [
+    { key: 'sd', code: 'SD', labelEn: 'Elementary (SD)', labelId: 'Sekolah Dasar (SD)', sort: 0 },
+    { key: 'smp', code: 'SMP', labelEn: 'Junior High (SMP)', labelId: 'SMP', sort: 1 },
+    { key: 'sma', code: 'SMA', labelEn: 'Senior High (SMA)', labelId: 'SMA', sort: 2 },
+  ],
+  // No `variants` array on purpose: OSN national sub-papers (teori1/teori2/eksperimen/
+  // final/semifinal) ride in the `variant` field, so arbitrary variant strings must pass
+  // the import-time validator (which only checks against `variants` when it is defined).
+  defaultDurationMin: 150,
+  formatCode: ({ yy, round, level, variant }) =>
+    `OSN-${yy}-${level.code}-${round.code}${variant && variant !== 'A' ? `-${variant.toUpperCase()}` : ''}`,
+}
+
+const HKIMO: Brand = {
+  slug: 'hkimo', prefix: 'HKIMO', nameEn: 'HKIMO', nameId: 'HKIMO',
+  rounds: [
+    { key: 'heat', code: 'H', labelEn: 'Heat', labelId: 'Heat', sort: 0 },
+    { key: 'semifinal', code: 'SF', labelEn: 'Semifinal', labelId: 'Semifinal', sort: 1 },
+    { key: 'final', code: 'F', labelEn: 'Final', labelId: 'Final', sort: 2 },
+  ],
+  levels: [1, 2, 3, 4, 5, 6].map((g) => ({
+    key: `p${g}`, code: `P${g}`, labelEn: `Primary ${g}`, labelId: `Primary ${g}`, sort: g, grade: g,
+  })),
+  defaultDurationMin: 90,
+  formatCode: ({ yy, round, level }) => `HKIMO-${yy}-${level.code}${round.code}`,
+}
+
+const BRANDS: Record<string, Brand> = {
+  wmi: WMI, sasmo: SASMO, simoc: SIMOC, iob: IOB,
+  seamo: SEAMO, 'seamo-x': SEAMO_X, ikmc: IKMC, timo: TIMO, osn: OSN, hkimo: HKIMO,
+}
 
 export function getBrand(slug: string): Brand {
   const b = BRANDS[slug]
