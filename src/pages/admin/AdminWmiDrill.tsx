@@ -490,6 +490,14 @@ export default function AdminWmiDrill() {
                           {counts.fixedByPaper[p.id] > 0 && (
                             <span className="h-2 w-2 shrink-0 rounded-full bg-blue-600" title="fix awaiting re-review" />
                           )}
+                          {p.question_count === 0 && (
+                            <span
+                              className="shrink-0 rounded-full bg-amber-100 px-1.5 text-[9px] font-bold text-amber-700"
+                              title="Belum ada soal — perlu ekstraksi"
+                            >
+                              perlu ekstraksi
+                            </span>
+                          )}
                           <span
                             className={`shrink-0 text-[10px] tabular-nums ${
                               p.id === activePaperId ? 'text-white/70' : 'text-admin-faint'
@@ -525,7 +533,7 @@ export default function AdminWmiDrill() {
                     {roundLabel(activePaper.brand, activePaper.round)}
                   </span>
                   <span className="text-xs text-admin-faint">
-                    {levelLabelOf(activePaper)} · {activePaper.year} · {activePaper.question_count} soal
+                    {levelLabelOf(activePaper)} · {activePaper.year} · {activePaper.question_count} soal{activePaper.question_count === 0 ? ' · perlu ekstraksi' : ''}
                   </span>
                 </div>
               )}
