@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import ErrorRetry from '../components/ErrorRetry'
 import Skeleton from '../components/Skeleton'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
 import WmiExamTimer from '../components/wmi/WmiExamTimer'
@@ -23,7 +24,13 @@ export default function WmiExam() {
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
   const [breakdown, setBreakdown] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  // Two distinct error channels: loadError is FATAL (the exam never loaded) and
+  // gates the whole page with a retry; actionError is NON-FATAL (a per-answer
+  // save or the final submit failed) and shows inline so the live exam stays on
+  // screen — a transient blip must never wipe the exam UI to a dead end.
+  const [loadError, setLoadError] = useState<string | null>(null)
+  const [actionError, setActionError] = useState<string | null>(null)
+  const [loadTick, setLoadTick] = useState(0)
 
   useEffect(() => {
     loadGlossary().catch(() => {})
@@ -31,6 +38,7 @@ export default function WmiExam() {
 
   useEffect(() => {
     if (!activeChildId || !sessionId) return
+    setLoadError(null)
     fetchExamSession(activeChildId, sessionId)
       .then((snap) => {
         if (snap.session.completed_at) {
@@ -44,12 +52,13 @@ export default function WmiExam() {
         const firstOpen = snap.paper.questions.findIndex((q) => !answered.has(q.id))
         if (firstOpen > 0) setCurrentIndex(firstOpen)
       })
-      .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat ujian')))
-  }, [activeChildId, sessionId, navigate])
+      .catch((err) => setLoadError(toIndonesianErrorMessage(err, 'Gagal memuat ujian')))
+  }, [activeChildId, sessionId, navigate, loadTick])
 
   useEffect(() => {
     setLookedUpTerms([])
     setBreakdown(false)
+    setActionError(null)
   }, [currentIndex])
 
   // Refresh/close guard while the exam is live. The session itself stays
@@ -80,9 +89,10 @@ export default function WmiExam() {
       await completeExamSession(activeChildId, sessionId)
       navigate(`/latihan/wmi/exam/${sessionId}/review`)
     } catch (err) {
-      // Allow a manual retry after a failed submit.
+      // Non-fatal: keep the exam on screen (the Selesai button stays) so the
+      // kid can re-tap. finishingRef reset allows the retry.
       finishingRef.current = false
-      setError(toIndonesianErrorMessage(err, 'Gagal menyelesaikan ujian'))
+      setActionError(toIndonesianErrorMessage(err, 'Gagal menyelesaikan ujian. Coba lagi.'))
     }
   }, [activeChildId, navigate, sessionId])
 
@@ -111,13 +121,10 @@ export default function WmiExam() {
   if (!activeChildId) {
     return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
   }
-  if (error) {
+  if (loadError) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
-          <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
-        </div>
-        <p className="mt-3 text-sm font-semibold text-qupu-muted">{error}</p>
+      <div className="mx-auto w-full max-w-[460px] p-6">
+        <ErrorRetry message={loadError} onRetry={() => setLoadTick((t) => t + 1)} />
       </div>
     )
   }
@@ -187,8 +194,10 @@ export default function WmiExam() {
             }
           : current,
       )
+      setActionError(null)
     } catch (err) {
-      setError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban'))
+      // Non-fatal: the exam stays on screen; re-picking the answer retries.
+      setActionError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban. Pilih lagi untuk mencoba.'))
     }
   }
 
@@ -223,6 +232,15 @@ export default function WmiExam() {
         onRevealTranslation={() => setRevealed((state) => ({ ...state, [question.id]: true }))}
         onUserToggleLanguage={setPreferredLang}
       />
+
+      {actionError && (
+        <div className="mt-4 rounded-[1.25rem] border-2 border-rose-200 bg-rose-50 p-3 text-center">
+          <p className="text-sm font-bold text-rose-600">
+            <i className="fa-solid fa-circle-exclamation me-1.5" aria-hidden="true" />
+            {actionError}
+          </p>
+        </div>
+      )}
 
       <div className="mt-5 flex justify-between gap-3">
         <button
