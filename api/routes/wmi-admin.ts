@@ -155,11 +155,9 @@ router.get('/papers/:id/questions', async (req: Request, res: Response): Promise
     return
   }
   try {
+    // A paper shell (question_count = 0) is valid — return an empty array, not 404.
+    // (Missing papers also yield []; the admin UI only requests ids from the list.)
     const questions = await listAdminPaperQuestions(req.params.id)
-    if (questions.length === 0) {
-      res.status(404).json({ success: false, error: 'Paper not found' })
-      return
-    }
     res.json({ success: true, data: { questions } })
   } catch (e) {
     console.error('WMI admin paper questions error:', e)
