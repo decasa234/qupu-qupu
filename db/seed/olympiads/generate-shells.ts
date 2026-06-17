@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import { simocShellFromFile, sasmoShellsFromFile, iobShellsFromIndex, writeShells, type ShellInput, type IobIndexRow } from './generateShells.js'
+import { simocShellFromFile, sasmoShellsFromFile, iobShellsFromIndex, writeShells, mapDirFiles, seamoShellFromFile, seamoXShellFromFile, ikmcShellFromFile, type ShellInput, type IobIndexRow } from './generateShells.js'
 
 const SHARE = '/Volumes/qupusmb/PastPapers'
 
@@ -43,8 +43,20 @@ async function iob(): Promise<ShellInput[]> {
   return iobShellsFromIndex(rows, IOB_SEASON1_YEAR)
 }
 
+async function seamo(): Promise<ShellInput[]> {
+  return mapDirFiles(path.join(process.cwd(), 'docs/reference/competition-papers/seamo/past-papers'), seamoShellFromFile)
+}
+
+async function seamoX(): Promise<ShellInput[]> {
+  return mapDirFiles(path.join(process.cwd(), 'docs/reference/competition-papers/seamo/past-papers'), seamoXShellFromFile)
+}
+
+async function ikmc(): Promise<ShellInput[]> {
+  return mapDirFiles(path.join(process.cwd(), 'docs/reference/competition-papers/ikmc'), ikmcShellFromFile)
+}
+
 const brand = process.argv[2]
-const generators: Record<string, () => Promise<ShellInput[]>> = { simoc, sasmo, iob }
+const generators: Record<string, () => Promise<ShellInput[]>> = { simoc, sasmo, iob, seamo, 'seamo-x': seamoX, ikmc }
 const gen = generators[brand]
 if (!gen) { console.error(`Usage: tsx db/seed/olympiads/generate-shells.ts <${Object.keys(generators).join('|')}>`); process.exit(1) }
 const shells = await gen()

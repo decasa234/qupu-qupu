@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile, iobRoundKey, iobLevelKey, iobShellsFromIndex } from './generateShells.js'
+import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile, iobRoundKey, iobLevelKey, iobShellsFromIndex, seamoShellFromFile, seamoXShellFromFile, ikmcShellFromFile } from './generateShells.js'
 
 describe('SIMOC shell mapping', () => {
   test('per-grade 2019 file → shell', () => {
@@ -38,6 +38,29 @@ describe('SASMO shell mapping (in-repo archive)', () => {
   })
   test('2020-only file → 2020 shell', () => {
     expect(sasmoShellsFromFile('SASMO-2020-G3.pdf')[0]).toMatchObject({ year: 2020, level: 'g3' })
+  })
+})
+
+describe('SEAMO / SEAMO-X / IKMC shell mapping', () => {
+  test('SEAMO paper A → shell', () => {
+    expect(seamoShellFromFile('SEAMO-2019-Paper-A.pdf')).toEqual({
+      brand: 'seamo', year: 2019, level: 'a', round: 'contest',
+      title: 'SEAMO 2019 Paper A',
+      source_url: 'docs/reference/competition-papers/seamo/past-papers/SEAMO-2019-Paper-A.pdf',
+    })
+  })
+  test('SEAMO ignores SEAMO-X files and Solutions PDFs', () => {
+    expect(seamoShellFromFile('SEAMO-X-2020-Paper-A.pdf')).toBeNull()
+    expect(seamoShellFromFile('SEAMO-2016-Paper-A-Solutions.pdf')).toBeNull()
+  })
+  test('SEAMO-X paper → shell (brand seamo-x); ignores plain SEAMO', () => {
+    expect(seamoXShellFromFile('SEAMO-X-2022-Paper-B.pdf')).toMatchObject({ brand: 'seamo-x', year: 2022, level: 'b', round: 'contest' })
+    expect(seamoXShellFromFile('SEAMO-2022-Paper-B.pdf')).toBeNull()
+  })
+  test('IKMC levels + skips answer key', () => {
+    expect(ikmcShellFromFile('IKMC-2023-Class1-2_PreEcolier.pdf')).toMatchObject({ brand: 'ikmc', year: 2023, level: 'preecolier', round: 'contest' })
+    expect(ikmcShellFromFile('IKMC-2023-Class3-4_Ecolier.pdf')?.level).toBe('ecolier')
+    expect(ikmcShellFromFile('IKMC-2023-AnswerKey.pdf')).toBeNull()
   })
 })
 

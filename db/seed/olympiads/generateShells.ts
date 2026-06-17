@@ -106,6 +106,50 @@ export function iobShellsFromIndex(rows: IobIndexRow[], year: number): ShellInpu
   }))
 }
 
+// Read a dir, map each file through fn, drop nulls. (Missing dir → [].)
+export async function mapDirFiles<T>(dir: string, fn: (file: string) => T | null): Promise<T[]> {
+  let files: string[]
+  try { files = await fs.readdir(dir) } catch { return [] }
+  return files.map(fn).filter((x): x is T => x !== null)
+}
+
+const SEAMO_DIR = 'docs/reference/competition-papers/seamo/past-papers'
+
+export function seamoShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^SEAMO-(\d{4})-Paper-([A-F])\.pdf$/i) // won't match SEAMO-X- or -Solutions
+  if (!m) return null
+  const year = Number(m[1]); const L = m[2].toUpperCase()
+  return {
+    brand: 'seamo', year, level: L.toLowerCase(), round: 'contest',
+    title: `SEAMO ${year} Paper ${L}`,
+    source_url: `${SEAMO_DIR}/${fileName}`,
+  }
+}
+
+export function seamoXShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^SEAMO-X-(\d{4})-Paper-([A-F])\.pdf$/i)
+  if (!m) return null
+  const year = Number(m[1]); const L = m[2].toUpperCase()
+  return {
+    brand: 'seamo-x', year, level: L.toLowerCase(), round: 'contest',
+    title: `SEAMO X ${year} Paper ${L}`,
+    source_url: `${SEAMO_DIR}/${fileName}`,
+  }
+}
+
+export function ikmcShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^IKMC-(\d{4})-(Class1-2_PreEcolier|Class3-4_Ecolier)\.pdf$/i)
+  if (!m) return null // skips IKMC-<year>-AnswerKey.pdf
+  const year = Number(m[1])
+  const level = /PreEcolier/i.test(m[2]) ? 'preecolier' : 'ecolier'
+  const label = level === 'preecolier' ? 'Pre-Ecolier' : 'Ecolier'
+  return {
+    brand: 'ikmc', year, level, round: 'contest',
+    title: `IKMC ${year} ${label}`,
+    source_url: `docs/reference/competition-papers/ikmc/${fileName}`,
+  }
+}
+
 // Write one JSON per shell into db/seed/<brand>/papers/<code>.json
 export async function writeShells(brand: string, shells: ShellInput[]): Promise<number> {
   const dir = path.join(SEED_ROOT, brand, 'papers')
