@@ -21,7 +21,7 @@ export interface WmiGlossaryTerm {
 
 // Authored problem decomposition (question-designer output). Mirrors the backend
 // definition in api/services/wmi/concepts/types.ts — keep the two in sync.
-export type BreakdownCategory = 'fact' | 'condition' | 'question'
+export type BreakdownCategory = 'fact' | 'condition' | 'question' | 'object'
 export interface BreakdownHighlight {
   category: BreakdownCategory
   phrase_en: string

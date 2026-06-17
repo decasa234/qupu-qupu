@@ -46,6 +46,17 @@ const CAT: Record<BreakdownCategory, {
     label_en: 'Find',
     label_id: 'Cari',
   },
+  // A concrete object/landmark in the problem to locate first (e.g. "the toucan").
+  // Green keeps it distinct from the fact (blue) and find (purple) spans.
+  object: {
+    soft: 'rgba(16,185,129,0.18)',
+    text: '#047857',
+    ring: 'ring-emerald-500',
+    panel: 'border-emerald-500/30 bg-emerald-50',
+    icon: 'fa-solid fa-location-dot',
+    label_en: 'Object',
+    label_id: 'Objek',
+  },
 }
 
 // Split `text` into plain / highlighted runs, tagging each highlighted run with

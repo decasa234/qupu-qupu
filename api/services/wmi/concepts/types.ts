@@ -16,7 +16,7 @@ export type WmiChoice = { label: string; text: string }
 // to reveal a short kid-friendly note about why it matters. `phrase_*` must be a
 // substring of the rendered body in that language. Categories are open-ended;
 // the renderer assigns a colour per category and falls back gracefully.
-export type BreakdownCategory = 'fact' | 'condition' | 'question'
+export type BreakdownCategory = 'fact' | 'condition' | 'question' | 'object'
 export interface BreakdownHighlight {
   category: BreakdownCategory
   phrase_en: string
