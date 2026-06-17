@@ -9,6 +9,7 @@ export type ShellInput = {
   year: number
   level: string
   round: string
+  variant?: string
   title: string
   source_url: string
 }
@@ -64,7 +65,7 @@ export function shellToPaperFile(s: ShellInput): PaperFile {
     year: s.year,
     level: s.level,
     round: s.round,
-    variant: 'A',
+    variant: s.variant ?? 'A',
     title: s.title,
     source_url: s.source_url,
     recommended_duration_min: brand.defaultDurationMin,
@@ -150,13 +151,57 @@ export function ikmcShellFromFile(fileName: string): ShellInput | null {
   }
 }
 
+// OSN: "OSN-<year>-SD-<rest>.pdf". round = first token of <rest>; national sub-papers
+// (Nasional-1, Nasional-Teori1, Nasional-Final, ...) carry the sub as `variant`.
+// "Kabupaten-KSN" → round kabupaten, no variant (KSN is just a naming tag).
+export function osnShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^OSN-(\d{4})-SD-(.+)\.pdf$/i)
+  if (!m) return null
+  const year = Number(m[1])
+  const parts = m[2].split('-')
+  const round = parts[0].toLowerCase() // kecamatan | kabupaten | provinsi | nasional
+  const variant = round === 'nasional' && parts.length > 1 ? parts.slice(1).join('-').toLowerCase() : undefined
+  return {
+    brand: 'osn', year, level: 'sd', round, variant,
+    title: `OSN ${year} SD ${m[2].replace(/-/g, ' ')}`,
+    source_url: `docs/reference/competition-papers/osn/${fileName}`,
+  }
+}
+
+// HKIMO: "hkimo-<year>-<heat|semifinal|final>-primary-<n>.pdf" (lives in primary-<n>/).
+export function hkimoShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^hkimo-(\d{4})-(heat|semifinal|final)-primary-(\d)\.pdf$/i)
+  if (!m) return null
+  const year = Number(m[1]); const round = m[2].toLowerCase(); const n = m[3]
+  return {
+    brand: 'hkimo', year, level: `p${n}`, round,
+    title: `HKIMO ${year} Primary ${n} ${round.charAt(0).toUpperCase() + round.slice(1)}`,
+    source_url: `docs/reference/competition-papers/hkimo/primary-${n}/${fileName}`,
+  }
+}
+
+// TIMO: "TIMO-<startYear>-<endYear>-Primary<n>.pdf" booklet (bundles Preliminary + Heat for
+// 2 years). One shell per level for now (year = endYear, round = heat); split at extraction.
+// Skips "TIMO-Sample-AllGroups.pdf".
+export function timoShellFromFile(fileName: string): ShellInput | null {
+  const m = fileName.match(/^TIMO-(\d{4})-(\d{4})-Primary(\d)\.pdf$/i)
+  if (!m) return null
+  const startYear = m[1]; const endYear = Number(m[2]); const n = m[3]
+  return {
+    brand: 'timo', year: endYear, level: `p${n}`, round: 'heat',
+    title: `TIMO ${startYear}-${m[2]} Primary ${n} (Preliminary + Heat booklet — split at extraction)`,
+    source_url: `docs/reference/competition-papers/timo/${fileName}`,
+  }
+}
+
 // Write one JSON per shell into db/seed/<brand>/papers/<code>.json
 export async function writeShells(brand: string, shells: ShellInput[]): Promise<number> {
   const dir = path.join(SEED_ROOT, brand, 'papers')
   await fs.mkdir(dir, { recursive: true })
   for (const s of shells) {
     const pf = shellToPaperFile(s)
-    const base = `${s.year}-${s.round}-${s.level}.json`
+    const v = s.variant && s.variant !== 'A' ? `-${s.variant}` : ''
+    const base = `${s.year}-${s.round}-${s.level}${v}.json`
     await fs.writeFile(path.join(dir, base), JSON.stringify(pf, null, 2) + '\n', 'utf8')
   }
   return shells.length

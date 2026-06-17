@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile, iobRoundKey, iobLevelKey, iobShellsFromIndex, seamoShellFromFile, seamoXShellFromFile, ikmcShellFromFile } from './generateShells.js'
+import { simocShellFromFile, shellToPaperFile, sasmoShellsFromFile, iobRoundKey, iobLevelKey, iobShellsFromIndex, seamoShellFromFile, seamoXShellFromFile, ikmcShellFromFile, osnShellFromFile, hkimoShellFromFile, timoShellFromFile } from './generateShells.js'
 
 describe('SIMOC shell mapping', () => {
   test('per-grade 2019 file → shell', () => {
@@ -61,6 +61,27 @@ describe('SEAMO / SEAMO-X / IKMC shell mapping', () => {
     expect(ikmcShellFromFile('IKMC-2023-Class1-2_PreEcolier.pdf')).toMatchObject({ brand: 'ikmc', year: 2023, level: 'preecolier', round: 'contest' })
     expect(ikmcShellFromFile('IKMC-2023-Class3-4_Ecolier.pdf')?.level).toBe('ecolier')
     expect(ikmcShellFromFile('IKMC-2023-AnswerKey.pdf')).toBeNull()
+  })
+})
+
+describe('variant support + OSN/HKIMO/TIMO mapping', () => {
+  test('shellToPaperFile carries variant (default A)', () => {
+    expect(shellToPaperFile({ brand: 'osn', year: 2024, level: 'sd', round: 'nasional', variant: 'teori1', title: 't', source_url: 's' }).variant).toBe('teori1')
+    expect(shellToPaperFile({ brand: 'osn', year: 2024, level: 'sd', round: 'provinsi', title: 't', source_url: 's' }).variant).toBe('A')
+  })
+  test('OSN round + national sub-paper variant', () => {
+    expect(osnShellFromFile('OSN-2024-SD-Provinsi.pdf')).toMatchObject({ brand: 'osn', year: 2024, level: 'sd', round: 'provinsi', variant: undefined })
+    expect(osnShellFromFile('OSN-2024-SD-Nasional-Teori1.pdf')).toMatchObject({ round: 'nasional', variant: 'teori1' })
+    expect(osnShellFromFile('OSN-2021-SD-Nasional-1.pdf')?.variant).toBe('1')
+    expect(osnShellFromFile('OSN-2020-SD-Kabupaten-KSN.pdf')).toMatchObject({ round: 'kabupaten', variant: undefined })
+  })
+  test('HKIMO heat/semifinal + level from filename', () => {
+    expect(hkimoShellFromFile('hkimo-2022-heat-primary-1.pdf')).toMatchObject({ brand: 'hkimo', year: 2022, level: 'p1', round: 'heat' })
+    expect(hkimoShellFromFile('hkimo-2023-semifinal-primary-3.pdf')).toMatchObject({ level: 'p3', round: 'semifinal' })
+  })
+  test('TIMO booklet → one shell per level; skips sample', () => {
+    expect(timoShellFromFile('TIMO-2020-2022-Primary1.pdf')).toMatchObject({ brand: 'timo', year: 2022, level: 'p1', round: 'heat' })
+    expect(timoShellFromFile('TIMO-Sample-AllGroups.pdf')).toBeNull()
   })
 })
 
