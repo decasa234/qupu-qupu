@@ -1,0 +1,11 @@
+[project]
+name = "qupu-ocr"
+version = "0.1.0"
+description = "PDF -> Markdown via PaddleOCR PP-StructureV3, for competition past-paper extraction"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "paddleocr>=3.7.0",
+    "paddlepaddle>=3.3.1",
+    "paddlex[ocr]>=3.7.1",
+    "setuptools>=82.0.1",
+]
