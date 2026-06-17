@@ -65,7 +65,48 @@ const SASMO: Brand = {
   formatCode: ({ yy, level }) => `SASMO-${yy}-${level.code}`,
 }
 
-const BRANDS: Record<string, Brand> = { wmi: WMI, sasmo: SASMO }
+const SIMOC: Brand = {
+  slug: 'simoc',
+  prefix: 'SIMOC',
+  nameEn: 'SIMOC',
+  nameId: 'SIMOC',
+  rounds: [{ key: 'contest', code: '', labelEn: 'Contest', labelId: 'Kontes', sort: 0 }],
+  levels: [
+    ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((g) => ({
+      key: `g${g}`, code: `G${g}`, labelEn: `Grade ${g}`, labelId: `Kelas ${g}`, sort: g, grade: g,
+    })),
+    { key: 'jc', code: 'JC', labelEn: 'Junior College', labelId: 'JC', sort: 11 },
+  ],
+  defaultDurationMin: 75, // TODO confirm SIMOC written-round duration
+  formatCode: ({ yy, level }) => `SIMOC-${yy}-${level.code}`,
+}
+
+// Indonesian Olympiad Battle — blended, bilingual (ID/EN), TK..Kelas 12,
+// 3 stages (Preliminary 1/2/3 -> Final -> Grand Final), 20 questions, 60 min
+// (90 min Grand Final). "Season 1" is the Mathematics season.
+const IOB: Brand = {
+  slug: 'iob',
+  prefix: 'IOB',
+  nameEn: 'Indonesian Olympiad Battle',
+  nameId: 'Indonesian Olympiad Battle',
+  rounds: [
+    { key: 'prelim1', code: 'P1', labelEn: 'Preliminary 1', labelId: 'Penyisihan 1', sort: 0 },
+    { key: 'prelim2', code: 'P2', labelEn: 'Preliminary 2', labelId: 'Penyisihan 2', sort: 1 },
+    { key: 'prelim3', code: 'P3', labelEn: 'Preliminary 3', labelId: 'Penyisihan 3', sort: 2 },
+    { key: 'final', code: 'F', labelEn: 'Final', labelId: 'Final', sort: 3 },
+    { key: 'grandfinal', code: 'GF', labelEn: 'Grand Final', labelId: 'Grand Final', sort: 4 },
+  ],
+  levels: [
+    { key: 'tk', code: 'TK', labelEn: 'Kindergarten', labelId: 'TK', sort: 0, grade: 0 },
+    ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => ({
+      key: `k${g}`, code: `K${g}`, labelEn: `Grade ${g}`, labelId: `Kelas ${g}`, sort: g, grade: g,
+    })),
+  ],
+  defaultDurationMin: 60,
+  formatCode: ({ yy, round, level }) => `IOB-${yy}-${level.code}-${round.code}`,
+}
+
+const BRANDS: Record<string, Brand> = { wmi: WMI, sasmo: SASMO, simoc: SIMOC, iob: IOB }
 
 export function getBrand(slug: string): Brand {
   const b = BRANDS[slug]

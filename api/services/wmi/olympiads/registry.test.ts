@@ -28,4 +28,17 @@ describe('olympiad registry', () => {
   test('throws when neither level nor grade is provided', () => {
     expect(() => generatePaperCode({ year: 2019, round: 'final', variant: 'A' } as never)).toThrow(/requires "level" or "grade"/)
   })
+
+  test('SIMOC per-grade segmented code', () => {
+    expect(generatePaperCode({ brand: 'simoc', year: 2019, round: 'contest', level: 'g2' })).toBe('SIMOC-19-G2')
+    expect(generatePaperCode({ brand: 'simoc', year: 2021, round: 'contest', level: 'g1' })).toBe('SIMOC-21-G1')
+    expect(getBrand('simoc').levels.find((l) => l.key === 'jc')?.code).toBe('JC')
+  })
+
+  test('IOB code carries level + round, bilingual season brand', () => {
+    expect(generatePaperCode({ brand: 'iob', year: 2025, round: 'prelim1', level: 'k1' })).toBe('IOB-25-K1-P1')
+    expect(generatePaperCode({ brand: 'iob', year: 2025, round: 'final', level: 'tk' })).toBe('IOB-25-TK-F')
+    expect(getBrand('iob').rounds.map((r) => r.key)).toEqual(['prelim1', 'prelim2', 'prelim3', 'final', 'grandfinal'])
+    expect(getBrand('iob').defaultDurationMin).toBe(60)
+  })
 })
