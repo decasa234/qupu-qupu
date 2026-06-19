@@ -102,7 +102,45 @@
         "Periksa setiap awan dan berhenti bila menemukan angka ≥ 7: A ada 8, B ada 9, C ada 7 — semua gugur.",
         "Awan D berisi 1, 3, 2, 5 — semua angka lebih kecil dari 7.",
         "Awan D adalah jawabannya."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each cloud — every number must be less than 7 (7 itself does NOT count).",
+          "intro_id": "Periksa setiap awan — setiap angka harus kurang dari 7 (angka 7 itu sendiri TIDAK termasuk).",
+          "items": [
+            {
+              "text_en": "A: has 8 — 8 ≥ 7 ✗ eliminated",
+              "text_id": "A: ada 8 — 8 ≥ 7 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "B: has 9 — 9 ≥ 7 ✗ eliminated",
+              "text_id": "B: ada 9 — 9 ≥ 7 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "C: has 7 — 7 is NOT less than 7 ✗ eliminated",
+              "text_id": "C: ada 7 — 7 TIDAK kurang dari 7 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "E: has 10, 8, 9, 7 — all ≥ 7 ✗ eliminated",
+              "text_id": "E: ada 10, 8, 9, 7 — semua ≥ 7 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "D: 1, 3, 2, 5 — all less than 7 ✓",
+              "text_id": "D: 1, 3, 2, 5 — semua kurang dari 7 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Cloud D is the only one where every number is less than 7 — answer D.",
+          "final_id": "Awan D adalah satu-satunya yang setiap angkanya kurang dari 7 — jawaban D.",
+          "aria_en": "Check each cloud for numbers greater than or equal to 7; clouds A, B, C, E all contain such numbers, only cloud D contains 1, 3, 2, 5 which are all less than 7.",
+          "aria_id": "Periksa setiap awan untuk angka yang lebih besar atau sama dengan 7; awan A, B, C, E semuanya mengandung angka tersebut, hanya awan D yang berisi 1, 3, 2, 5 yang semuanya kurang dari 7."
+        }
+      }
     },
     {
       "number": 2,
@@ -184,7 +222,40 @@
         "Kemarin = Minggu, jadi hari ini adalah satu hari setelahnya: Senin.",
         "Besok adalah satu hari lagi setelah hari ini: Selasa.",
         "Jawabannya adalah Selasa, yaitu pilihan A."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Yesterday was Sunday. Let's step forward day by day.",
+          "intro_id": "Kemarin adalah Minggu. Mari maju hari demi hari.",
+          "items": [
+            {
+              "text_en": "Yesterday = Sunday",
+              "text_id": "Kemarin = Minggu",
+              "ok": null
+            },
+            {
+              "text_en": "Today = one day after Sunday = Monday",
+              "text_id": "Hari ini = satu hari setelah Minggu = Senin",
+              "ok": null
+            },
+            {
+              "text_en": "Tomorrow = one day after Monday = Tuesday ✓",
+              "text_id": "Besok = satu hari setelah Senin = Selasa ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (Monday) is today, not tomorrow ✗",
+              "text_id": "D (Senin) adalah hari ini, bukan besok ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Tomorrow is Tuesday — answer A.",
+          "final_id": "Besok adalah Selasa — jawaban A.",
+          "aria_en": "If yesterday was Sunday then today is Monday and tomorrow is Tuesday.",
+          "aria_id": "Jika kemarin adalah Minggu maka hari ini adalah Senin dan besok adalah Selasa."
+        }
+      }
     },
     {
       "number": 3,
@@ -346,7 +417,45 @@
         "Ibu sendiri beratnya 52 kg.",
         "Berat Jumper = 60 − 52 = 8 kg.",
         "Jawabannya adalah 8 kilogram, yaitu pilihan C."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Let's check each answer choice: which one gives 60 − 52 = ?",
+          "intro_id": "Mari periksa setiap pilihan: mana yang cocok dengan 60 − 52 = ?",
+          "items": [
+            {
+              "text_en": "Together: 60 kg. Mum alone: 52 kg. Jumper = 60 − 52",
+              "text_id": "Bersama: 60 kg. Ibu sendiri: 52 kg. Jumper = 60 − 52",
+              "ok": null
+            },
+            {
+              "text_en": "A: 2 kg → 52 + 2 = 54 ≠ 60 ✗",
+              "text_id": "A: 2 kg → 52 + 2 = 54 ≠ 60 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 4 kg → 52 + 4 = 56 ≠ 60 ✗",
+              "text_id": "B: 4 kg → 52 + 4 = 56 ≠ 60 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 8 kg → 52 + 8 = 60 ✓",
+              "text_id": "C: 8 kg → 52 + 8 = 60 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 30 kg → way too heavy ✗",
+              "text_id": "D: 30 kg → terlalu berat ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Jumper weighs 8 kg — answer C.",
+          "final_id": "Berat Jumper adalah 8 kg — jawaban C.",
+          "aria_en": "Jumper's weight equals total minus mum's weight: 60 minus 52 equals 8 kilograms.",
+          "aria_id": "Berat Jumper sama dengan total dikurangi berat ibu: 60 dikurangi 52 sama dengan 8 kilogram."
+        }
+      }
     },
     {
       "number": 5,
@@ -521,7 +630,40 @@
         "Anak-anak di antara posisi 7 dan 11 berada di posisi 8, 9, 10.",
         "Itu berarti ada 3 anak di antara mereka.",
         "Jawabannya adalah 3, yaitu pilihan B."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find both positions, then count the children strictly between them.",
+          "intro_id": "Temukan kedua posisi, lalu hitung anak yang tepat ada di antara mereka.",
+          "items": [
+            {
+              "text_en": "Lucy: 7th from the front → position 7",
+              "text_id": "Lucy: ke-7 dari depan → posisi 7",
+              "ok": null
+            },
+            {
+              "text_en": "Kim: 2nd from the back in 12 → position 12 − 2 + 1 = 11",
+              "text_id": "Kim: ke-2 dari belakang dalam 12 anak → posisi 12 − 2 + 1 = 11",
+              "ok": null
+            },
+            {
+              "text_en": "Children between positions 7 and 11: positions 8, 9, 10 → 3 children",
+              "text_id": "Anak di antara posisi 7 dan 11: posisi 8, 9, 10 → 3 anak",
+              "ok": true
+            },
+            {
+              "text_en": "C (4) is wrong — 11 − 7 = 4 counts an endpoint, not just the gap",
+              "text_id": "C (4) salah — 11 − 7 = 4 menghitung salah satu ujung, bukan hanya selisihnya",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 3 children between Lucy and Kim — answer B.",
+          "final_id": "Ada 3 anak di antara Lucy dan Kim — jawaban B.",
+          "aria_en": "Lucy is at position 7, Kim is at position 11; the children strictly between them are at positions 8, 9, and 10, which is 3 children.",
+          "aria_id": "Lucy berada di posisi 7, Kim di posisi 11; anak-anak yang tepat ada di antara mereka berada di posisi 8, 9, dan 10, yaitu 3 anak."
+        }
+      }
     },
     {
       "number": 7,
@@ -687,7 +829,40 @@
         "2 pir harganya 8 sen, jadi 1 pir harganya 8 ÷ 2 = 4 sen.",
         "1 pir + 1 apel = 4 + 3 = 7 sen.",
         "Jawabannya adalah 7 sen, yaitu pilihan C."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Halve each pair price to get the price of one fruit, then add.",
+          "intro_id": "Bagi dua harga sepasang untuk mendapat harga satu buah, lalu jumlahkan.",
+          "items": [
+            {
+              "text_en": "2 apples = 6 cents → 1 apple = 6 ÷ 2 = 3 cents",
+              "text_id": "2 apel = 6 sen → 1 apel = 6 ÷ 2 = 3 sen",
+              "ok": null
+            },
+            {
+              "text_en": "2 pears = 8 cents → 1 pear = 8 ÷ 2 = 4 cents",
+              "text_id": "2 pir = 8 sen → 1 pir = 8 ÷ 2 = 4 sen",
+              "ok": null
+            },
+            {
+              "text_en": "1 apple + 1 pear = 3 + 4 = 7 cents ✓",
+              "text_id": "1 apel + 1 pir = 3 + 4 = 7 sen ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (8 cents) = price of TWO pears, not one of each ✗",
+              "text_id": "D (8 sen) = harga DUA pir, bukan masing-masing satu ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "1 pear + 1 apple = 7 cents — answer C.",
+          "final_id": "1 pir + 1 apel = 7 sen — jawaban C.",
+          "aria_en": "One apple costs 3 cents and one pear costs 4 cents; together they cost 7 cents.",
+          "aria_id": "Satu apel harganya 3 sen dan satu pir harganya 4 sen; bersama-sama harganya 7 sen."
+        }
+      }
     },
     {
       "number": 9,
@@ -1329,7 +1504,40 @@
         "Gambar menunjukkan waktu untuk tiga segmen pertama (misalnya, 3 + 4 + 5 = 12 jam).",
         "Segmen terakhir = 17 − 12 = 5 jam.",
         "Jawabannya adalah 5 jam, yaitu pilihan D."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the total journey time, subtract the known segments to get the missing one.",
+          "intro_id": "Cari total waktu perjalanan, kurangi segmen yang diketahui untuk mendapat yang belum diketahui.",
+          "items": [
+            {
+              "text_en": "Departure 6:00 AM → arrival 11:00 PM = 17 hours total",
+              "text_id": "Berangkat pukul 6:00 pagi → tiba pukul 11:00 malam = 17 jam total",
+              "ok": null
+            },
+            {
+              "text_en": "Known segments: 3 + 4 + 5 = 12 hours",
+              "text_id": "Segmen yang diketahui: 3 + 4 + 5 = 12 jam",
+              "ok": null
+            },
+            {
+              "text_en": "Missing last segment = 17 − 12 = 5 hours ✓",
+              "text_id": "Segmen terakhir yang belum diketahui = 17 − 12 = 5 jam ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (2 h): 12 + 2 = 14 ≠ 17 ✗ | B (3 h): 12 + 3 = 15 ≠ 17 ✗ | C (4 h): 12 + 4 = 16 ≠ 17 ✗",
+              "text_id": "A (2 jam): 12 + 2 = 14 ≠ 17 ✗ | B (3 jam): 12 + 3 = 15 ≠ 17 ✗ | C (4 jam): 12 + 4 = 16 ≠ 17 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The last segment is 5 hours — answer D.",
+          "final_id": "Segmen terakhir adalah 5 jam — jawaban D.",
+          "aria_en": "Total journey is 17 hours; the three known segments sum to 12 hours; the missing segment is 17 minus 12 equals 5 hours.",
+          "aria_id": "Total perjalanan adalah 17 jam; ketiga segmen yang diketahui berjumlah 12 jam; segmen yang belum diketahui adalah 17 dikurangi 12 sama dengan 5 jam."
+        }
+      }
     },
     {
       "number": 17,
@@ -1490,7 +1698,40 @@
         "Domba = 2 × 8 = 16.",
         "Total hewan = 16 + 8 = 24.",
         "Jawabannya adalah 24, yaitu pilihan D."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use both clues together: cows are half of sheep, and sheep are 8 more than cows.",
+          "intro_id": "Gunakan kedua petunjuk bersama: sapi adalah setengah dari domba, dan domba 8 lebih banyak dari sapi.",
+          "items": [
+            {
+              "text_en": "Clue 1: cows = sheep ÷ 2, so sheep = 2 × cows",
+              "text_id": "Petunjuk 1: sapi = domba ÷ 2, jadi domba = 2 × sapi",
+              "ok": null
+            },
+            {
+              "text_en": "Clue 2: sheep = cows + 8 → 2C = C + 8 → C = 8 cows",
+              "text_id": "Petunjuk 2: domba = sapi + 8 → 2S = S + 8 → S = 8 sapi",
+              "ok": null
+            },
+            {
+              "text_en": "Sheep = 2 × 8 = 16; total = 16 + 8 = 24 animals ✓",
+              "text_id": "Domba = 2 × 8 = 16; total = 16 + 8 = 24 hewan ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (16) = sheep only ✗ | C (20): 20 = 12+8, but 8 ≠ 12÷2 ✗",
+              "text_id": "A (16) = hanya domba ✗ | C (20): 20 = 12+8, tapi 8 ≠ 12÷2 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 24 animals on the farm — answer D.",
+          "final_id": "Ada 24 hewan di peternakan — jawaban D.",
+          "aria_en": "Setting cows equal to C gives 2C equals C plus 8, so C equals 8 cows and 16 sheep for a total of 24 animals.",
+          "aria_id": "Dengan sapi sama dengan S, didapat 2S sama dengan S ditambah 8, sehingga S sama dengan 8 sapi dan 16 domba dengan total 24 hewan."
+        }
+      }
     },
     {
       "number": 19,
@@ -1656,7 +1897,40 @@
         "Setiap unta bactrian menyumbang 1 punuk ekstra dibandingkan dromedari.",
         "Jadi 4 punuk ekstra berarti ada 4 unta bactrian.",
         "Jawabannya adalah 4, yaitu pilihan D."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Start by imagining all 10 camels are dromedary (1 hump each), then upgrade.",
+          "intro_id": "Mulai dengan membayangkan semua 10 unta adalah dromedari (1 punuk masing-masing), lalu tingkatkan.",
+          "items": [
+            {
+              "text_en": "If all 10 were dromedary → 10 × 1 = 10 humps",
+              "text_id": "Jika semua 10 adalah dromedari → 10 × 1 = 10 punuk",
+              "ok": null
+            },
+            {
+              "text_en": "Actual humps = 14 → 14 − 10 = 4 extra humps",
+              "text_id": "Punuk sebenarnya = 14 → 14 − 10 = 4 punuk ekstra",
+              "ok": null
+            },
+            {
+              "text_en": "Each bactrian adds 1 extra hump → 4 extra humps = 4 bactrian camels ✓",
+              "text_id": "Setiap bactrian menambah 1 punuk ekstra → 4 punuk ekstra = 4 unta bactrian ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E (5 bactrian): 5×2 + 5×1 = 15 humps ≠ 14 ✗ | C (3): 3×2 + 7×1 = 13 ≠ 14 ✗",
+              "text_id": "E (5 bactrian): 5×2 + 5×1 = 15 punuk ≠ 14 ✗ | C (3): 3×2 + 7×1 = 13 ≠ 14 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 4 bactrian camels — answer D.",
+          "final_id": "Ada 4 unta bactrian — jawaban D.",
+          "aria_en": "With all 10 as dromedary there would be 10 humps; 14 minus 10 gives 4 extra humps, meaning 4 bactrian camels.",
+          "aria_id": "Jika semua 10 adalah dromedari akan ada 10 punuk; 14 dikurangi 10 menghasilkan 4 punuk ekstra, berarti ada 4 unta bactrian."
+        }
+      }
     },
     {
       "number": 21,
@@ -1751,7 +2025,40 @@
         "Coba Elli = 2: maka Asia = 7 − 1 − 2 = 4. Cek: 1 < 2 < 4 — semua berbeda, semua positif.",
         "Coba Elli = 3: Asia = 3, tetapi Asia harus lebih besar dari Elli — tidak valid.",
         "Hanya Elli = 2 yang berlaku, jadi Elli mengumpulkan 2 kacang — jawaban B."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try each possible value for Elli (the middle collector) and check if a valid split exists.",
+          "intro_id": "Coba setiap kemungkinan nilai untuk Elli (yang di tengah) dan periksa apakah pembagian yang valid ada.",
+          "items": [
+            {
+              "text_en": "Rules: Anni < Elli < Asia, all different, all ≥ 1, total = 7",
+              "text_id": "Aturan: Anni < Elli < Asia, semua berbeda, semua ≥ 1, total = 7",
+              "ok": null
+            },
+            {
+              "text_en": "Try Elli = 2: Anni=1, Asia=4 → 1<2<4 ✓ sum=7 ✓",
+              "text_id": "Coba Elli = 2: Anni=1, Asia=4 → 1<2<4 ✓ jumlah=7 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Try Elli = 3: Anni + Asia = 4, but Asia must be > 3 → Asia ≥ 4, leaving Anni ≤ 0 ✗",
+              "text_id": "Coba Elli = 3: Anni + Asia = 4, tetapi Asia harus > 3 → Asia ≥ 4, membuat Anni ≤ 0 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Try Elli = 1: Anni must be < 1, impossible ✗ | Elli = 4+: Asia would need > 4, sum would exceed 7 ✗",
+              "text_id": "Coba Elli = 1: Anni harus < 1, tidak mungkin ✗ | Elli = 4+: Asia harus > 4, jumlah akan melebihi 7 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Only Elli = 2 works — answer B.",
+          "final_id": "Hanya Elli = 2 yang berlaku — jawaban B.",
+          "aria_en": "The only valid set of three different positive integers summing to 7 with Anni smallest and Asia largest is 1, 2, and 4; Elli collects 2 nuts.",
+          "aria_id": "Satu-satunya himpunan tiga bilangan positif berbeda yang berjumlah 7 dengan Anni terkecil dan Asia terbesar adalah 1, 2, dan 4; Elli mengumpulkan 2 kacang."
+        }
+      }
     },
     {
       "number": 22,
@@ -1856,7 +2163,40 @@
         "Puncak istana (tempat tiang masuk) berada 30 cm di bawah ujung atas: 80 − 30 = 50 cm di atas tanah.",
         "Istana berada di atas tanah, jadi tinggi istana = 50 cm.",
         "Jawabannya adalah 50 cm, yaitu pilihan C."
-      ]
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the pole length, halve it, then locate the castle top.",
+          "intro_id": "Cari panjang tiang, bagi dua, lalu tentukan puncak istana.",
+          "items": [
+            {
+              "text_en": "Pole spans 20 cm to 80 cm → total length = 80 − 20 = 60 cm",
+              "text_id": "Tiang membentang dari 20 cm hingga 80 cm → panjang total = 80 − 20 = 60 cm",
+              "ok": null
+            },
+            {
+              "text_en": "Half the pole is inside the castle → 60 ÷ 2 = 30 cm above the castle top",
+              "text_id": "Setengah tiang ada di dalam istana → 60 ÷ 2 = 30 cm di atas puncak istana",
+              "ok": null
+            },
+            {
+              "text_en": "Castle top = 80 − 30 = 50 cm above ground → castle height = 50 cm ✓",
+              "text_id": "Puncak istana = 80 − 30 = 50 cm di atas tanah → tinggi istana = 50 cm ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (40 cm): midpoint of 20 and 60, not of 20 and 80 ✗",
+              "text_id": "A (40 cm): titik tengah antara 20 dan 60, bukan antara 20 dan 80 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The sandcastle is 50 cm tall — answer C.",
+          "final_id": "Tinggi istana pasir adalah 50 cm — jawaban C.",
+          "aria_en": "The flagpole is 60 centimetres long; half of it, 30 centimetres, sticks above the castle top; so the castle top is at 80 minus 30 equals 50 centimetres above the ground.",
+          "aria_id": "Tiang bendera panjangnya 60 sentimeter; setengahnya, 30 sentimeter, menjulang di atas puncak istana; jadi puncak istana berada di 80 dikurangi 30 sama dengan 50 sentimeter di atas tanah."
+        }
+      }
     },
     {
       "number": 23,
