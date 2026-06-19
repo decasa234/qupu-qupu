@@ -1684,6 +1684,16 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./ColorSwap23Illustration'),
     explainer: () => import('./ColorSwap23Explainer'),
   },
+  // IKMC 2019 Pre-Ecolier Q14 — cube surface area (5 arrangements)
+  'IKMC-19-PE-Q14': {
+    illustration: () => import('./CubeShapes14Illustration'),
+    explainer: () => import('./CubeShapes14Explainer'),
+  },
+  // IKMC 2019 Pre-Ecolier Q12 — Maya Bee flowers (inside rect, outside triangle)
+  'IKMC-19-PE-Q12': {
+    illustration: () => import('./MayaBeeFlowers12Illustration'),
+    explainer: () => import('./MayaBeeFlowers12Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -1692,6 +1702,8 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
 type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 
 export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
+  // IKMC 2019 Pre-Ecolier Q14 — 4-cube arrangement options drawn as SVG.
+  'IKMC-19-PE-Q14': () => import('./CubeShapes14Illustration').then((m) => ({ default: m.CubeShapes14Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
