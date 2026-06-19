@@ -1669,6 +1669,11 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-23F3A-Q22': { illustration: () => import('./MatchSquares23G1Illustration'), explainer: () => import('./Match23G3Explainer') },
   'WMI-23F3A-Q23': { illustration: () => import('./NumberGrid23G3Illustration'), explainer: () => import('./NumberGrid23G3Explainer') },
   'WMI-23F3A-Q25': { illustration: () => import('./RobotMaze23G3Illustration'), explainer: () => import('./RobotMaze23G3Explainer') },
+  // IKMC 2019 Pre-Ecolier Q22 — flagpole/sandcastle height
+  'IKMC-19-PE-Q22': {
+    illustration: () => import('./FlagpoleCastle22Illustration'),
+    explainer: () => import('./FlagpoleCastle22Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
