@@ -1684,9 +1684,9 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./ColorSwap23Illustration'),
     explainer: () => import('./ColorSwap23Explainer'),
   },
-  // IKMC 2019 Pre-Ecolier Q14 — cube surface area (5 arrangements)
+  // IKMC 2019 Pre-Ecolier Q14 — the 5 cube shapes ARE the A–E options (CHOICE_RENDERERS),
+  // so there is NO stem illustration (would duplicate the options). Explainer only.
   'IKMC-19-PE-Q14': {
-    illustration: () => import('./CubeShapes14Illustration'),
     explainer: () => import('./CubeShapes14Explainer'),
   },
   // IKMC 2019 Pre-Ecolier Q12 — Maya Bee flowers (inside rect, outside triangle)
