@@ -1674,6 +1674,16 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./FlagpoleCastle22Illustration'),
     explainer: () => import('./FlagpoleCastle22Explainer'),
   },
+  // IKMC 2019 Pre-Ecolier Q17 — cat path counting (6 routes on 3×3 grid)
+  'IKMC-19-PE-Q17': {
+    illustration: () => import('./CatPath17Illustration'),
+    explainer: () => import('./CatPath17Explainer'),
+  },
+  // IKMC 2019 Pre-Ecolier Q23 — colour swap (black/grey/white grid)
+  'IKMC-19-PE-Q23': {
+    illustration: () => import('./ColorSwap23Illustration'),
+    explainer: () => import('./ColorSwap23Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
