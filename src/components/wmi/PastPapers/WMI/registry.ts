@@ -1730,6 +1730,10 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Pieces19Illustration'),
     explainer: () => import('./Pieces19Explainer'),
   },
+  'IKMC-19-PE-Q24': {
+    illustration: () => import('./NumberTable24Illustration'),
+    explainer: () => import('./NumberTable24Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
