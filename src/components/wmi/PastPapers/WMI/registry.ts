@@ -1694,6 +1694,26 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./MayaBeeFlowers12Illustration'),
     explainer: () => import('./MayaBeeFlowers12Explainer'),
   },
+  'IKMC-19-PE-Q3': {
+    illustration: () => import('./Necklace3Illustration'),
+    explainer: () => import('./Necklace3Explainer'),
+  },
+  'IKMC-19-PE-Q5': {
+    illustration: () => import('./GridCut5Illustration'),
+    explainer: () => import('./GridCut5Explainer'),
+  },
+  'IKMC-19-PE-Q7': {
+    illustration: () => import('./Socks7Illustration'),
+    explainer: () => import('./Socks7Explainer'),
+  },
+  'IKMC-19-PE-Q11': {
+    illustration: () => import('./CardStack11Illustration'),
+    explainer: () => import('./CardStack11Explainer'),
+  },
+  'IKMC-19-PE-Q15': {
+    illustration: () => import('./TileFloor15Illustration'),
+    explainer: () => import('./TileFloor15Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -1704,6 +1724,8 @@ type ChoiceRenderer = ComponentType<{ choice: WmiChoice }>
 export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   // IKMC 2019 Pre-Ecolier Q14 — 4-cube arrangement options drawn as SVG.
   'IKMC-19-PE-Q14': () => import('./CubeShapes14Illustration').then((m) => ({ default: m.CubeShapes14Option })),
+  'IKMC-19-PE-Q3': () => import('./Necklace3Illustration').then((m) => ({ default: m.Necklace3Option })),
+  'IKMC-19-PE-Q5': () => import('./GridCut5Illustration').then((m) => ({ default: m.GridCut5Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
