@@ -15,7 +15,112 @@
       "body_id": "Jika besok adalah hari Rabu, hari apa yang terjadi 4 hari yang lalu?",
       "answer_type": "fill_in",
       "answer": "Friday",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "tomorrow will be Wednesday",
+            "phrase_id": "besok adalah hari Rabu",
+            "note_en": "Tomorrow = Wednesday means today is Tuesday",
+            "note_id": "Besok = Rabu berarti hari ini adalah Selasa"
+          },
+          {
+            "category": "question",
+            "phrase_en": "which day of the week was 4 days before?",
+            "phrase_id": "hari apa yang terjadi 4 hari yang lalu?",
+            "note_en": "Count 4 days backwards from today (Tuesday)",
+            "note_id": "Hitung 4 hari ke belakang dari hari ini (Selasa)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "4 days before",
+            "phrase_id": "4 hari yang lalu",
+            "note_en": "Go back: Monday, Sunday, Saturday, Friday — that is 4 steps back from Tuesday",
+            "note_id": "Mundur: Senin, Minggu, Sabtu, Jumat — itu 4 langkah mundur dari Selasa"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Tomorrow",
+            "label_id": "Besok",
+            "value": "Wednesday"
+          },
+          {
+            "label_en": "Today",
+            "label_id": "Hari ini",
+            "value": "Tuesday (one day before Wednesday)"
+          },
+          {
+            "label_en": "4 days before today",
+            "label_id": "4 hari sebelum hari ini",
+            "value": "Tuesday → Monday → Sunday → Saturday → Friday"
+          }
+        ],
+        "strategy": {
+          "name_en": "Anchor to today, then count backwards",
+          "name_id": "Tetapkan hari ini, lalu hitung mundur"
+        },
+        "trap": {
+          "wrong": "Saturday",
+          "why_en": "Counting back from Wednesday (not from Tuesday) gives Saturday — but 4 days before means 4 days before TODAY (Tuesday), not before tomorrow.",
+          "why_id": "Menghitung mundur dari Rabu (bukan dari Selasa) menghasilkan Sabtu — tetapi 4 hari yang lalu berarti 4 hari sebelum HARI INI (Selasa), bukan sebelum besok."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Friday"
+        }
+      },
+      "hint_steps_en": [
+        "Tomorrow will be Wednesday, so today is Tuesday.",
+        "Count 4 days backwards from Tuesday: Monday (1), Sunday (2), Saturday (3), Friday (4).",
+        "4 days before today is Friday."
+      ],
+      "hint_steps_id": [
+        "Besok adalah Rabu, jadi hari ini adalah Selasa.",
+        "Hitung 4 hari ke belakang dari Selasa: Senin (1), Minggu (2), Sabtu (3), Jumat (4).",
+        "4 hari yang lalu adalah hari Jumat."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Anchor today first, then step back 4 days one at a time.",
+          "intro_id": "Tentukan hari ini terlebih dahulu, lalu mundur 4 hari satu per satu.",
+          "items": [
+            {
+              "text_en": "Tomorrow = Wednesday → Today = Tuesday",
+              "text_id": "Besok = Rabu → Hari ini = Selasa",
+              "ok": null
+            },
+            {
+              "text_en": "1 day before Tuesday = Monday",
+              "text_id": "1 hari sebelum Selasa = Senin",
+              "ok": null
+            },
+            {
+              "text_en": "2 days before = Sunday",
+              "text_id": "2 hari sebelum = Minggu",
+              "ok": null
+            },
+            {
+              "text_en": "3 days before = Saturday",
+              "text_id": "3 hari sebelum = Sabtu",
+              "ok": null
+            },
+            {
+              "text_en": "4 days before = Friday ✓",
+              "text_id": "4 hari sebelum = Jumat ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "4 days before today (Tuesday) is Friday.",
+          "final_id": "4 hari sebelum hari ini (Selasa) adalah Jumat.",
+          "aria_en": "Tomorrow is Wednesday so today is Tuesday; counting back four days from Tuesday gives Monday, Sunday, Saturday, Friday.",
+          "aria_id": "Besok adalah Rabu jadi hari ini Selasa; menghitung mundur empat hari dari Selasa menghasilkan Senin, Minggu, Sabtu, Jumat."
+        }
+      }
     },
     {
       "number": 2,
@@ -24,7 +129,109 @@
       "body_id": "Ayah Andy mempunyai 3 putra dan Andy mempunyai 5 saudara laki-laki dan perempuan. Berapa banyak putri yang dimiliki ayah Andy?",
       "answer_type": "fill_in",
       "answer": "3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Andy's father has 3 sons",
+            "phrase_id": "Ayah Andy mempunyai 3 putra",
+            "note_en": "Father has exactly 3 sons total; Andy is one of them",
+            "note_id": "Ayah mempunyai tepat 3 putra; Andy adalah salah satunya"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Andy has 5 brother(s) and sister(s)",
+            "phrase_id": "Andy mempunyai 5 saudara laki-laki dan perempuan",
+            "note_en": "Andy has 5 siblings total — so there are 6 children in the family (Andy + 5)",
+            "note_id": "Andy mempunyai 5 saudara — jadi ada 6 anak dalam keluarga (Andy + 5)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many daughter(s) does Andy's father have?",
+            "phrase_id": "Berapa banyak putri yang dimiliki ayah Andy?",
+            "note_en": "Total children minus sons gives daughters",
+            "note_id": "Total anak dikurangi putra menghasilkan putri"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total children",
+            "label_id": "Total anak",
+            "value": "Andy + 5 siblings = 6 children"
+          },
+          {
+            "label_en": "Number of sons",
+            "label_id": "Jumlah putra",
+            "value": "3 sons"
+          },
+          {
+            "label_en": "Number of daughters",
+            "label_id": "Jumlah putri",
+            "value": "6 − 3 = 3 daughters"
+          }
+        ],
+        "strategy": {
+          "name_en": "Total children minus sons = daughters",
+          "name_id": "Total anak dikurangi putra = putri"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "Andy has 5 siblings, but the family has 6 children total (Andy counts too). 6 − 3 sons = 3 daughters, not 2.",
+          "why_id": "Andy mempunyai 5 saudara, tapi keluarga punya 6 anak (Andy juga dihitung). 6 − 3 putra = 3 putri, bukan 2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3"
+        }
+      },
+      "hint_steps_en": [
+        "Andy's father has 3 sons, and Andy is one of them.",
+        "Andy has 5 siblings, so the total number of children is Andy + 5 = 6.",
+        "Daughters = total children − sons = 6 − 3 = 3.",
+        "Andy's father has 3 daughters."
+      ],
+      "hint_steps_id": [
+        "Ayah Andy mempunyai 3 putra, dan Andy adalah salah satunya.",
+        "Andy mempunyai 5 saudara, jadi total anak adalah Andy + 5 = 6.",
+        "Putri = total anak − putra = 6 − 3 = 3.",
+        "Ayah Andy mempunyai 3 putri."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the total number of children, then subtract the sons.",
+          "intro_id": "Temukan total jumlah anak, lalu kurangi jumlah putra.",
+          "items": [
+            {
+              "text_en": "Andy has 5 siblings → total children = Andy + 5 = 6",
+              "text_id": "Andy punya 5 saudara → total anak = Andy + 5 = 6",
+              "ok": null
+            },
+            {
+              "text_en": "Father has 3 sons (Andy + 2 brothers)",
+              "text_id": "Ayah punya 3 putra (Andy + 2 kakak/adik laki-laki)",
+              "ok": null
+            },
+            {
+              "text_en": "Daughters = 6 − 3 = 3 ✓",
+              "text_id": "Putri = 6 − 3 = 3 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Wrong: 5 − 3 = 2 forgets to count Andy himself ✗",
+              "text_id": "Salah: 5 − 3 = 2 lupa menghitung Andy sendiri ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Andy's father has 3 daughters.",
+          "final_id": "Ayah Andy mempunyai 3 putri.",
+          "aria_en": "Andy has 5 siblings making 6 children total; the father has 3 sons so he has 6 minus 3 equals 3 daughters.",
+          "aria_id": "Andy punya 5 saudara sehingga total 6 anak; ayah punya 3 putra jadi 6 dikurangi 3 sama dengan 3 putri."
+        }
+      }
     },
     {
       "number": 3,
@@ -33,7 +240,111 @@
       "body_id": "Mary mempunyai 16 biskuit dan Peter mempunyai 7 biskuit. Berapa banyak biskuit yang harus Peter minta dari Mary agar Peter mempunyai 5 biskuit lebih banyak dari Mary?",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Mary has 16 biscuits and Peter has 7 biscuits",
+            "phrase_id": "Mary mempunyai 16 biskuit dan Peter mempunyai 7 biskuit",
+            "note_en": "Starting amounts: Mary = 16, Peter = 7",
+            "note_id": "Jumlah awal: Mary = 16, Peter = 7"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Peter has 5 more biscuits than Mary",
+            "phrase_id": "Peter mempunyai 5 biskuit lebih banyak dari Mary",
+            "note_en": "After transfer: Peter's total = Mary's total + 5",
+            "note_id": "Setelah transfer: total Peter = total Mary + 5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many biscuit(s) does Peter have to ask Mary to give him",
+            "phrase_id": "Berapa banyak biskuit yang harus Peter minta dari Mary",
+            "note_en": "Find x: if Peter takes x from Mary, Peter = 7+x and Mary = 16−x",
+            "note_id": "Cari x: jika Peter mengambil x dari Mary, Peter = 7+x dan Mary = 16−x"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation",
+            "label_id": "Persamaan",
+            "value": "7 + x = (16 − x) + 5"
+          },
+          {
+            "label_en": "Solve",
+            "label_id": "Selesaikan",
+            "value": "7 + x = 21 − x → 2x = 14 → x = 7"
+          },
+          {
+            "label_en": "Check",
+            "label_id": "Cek",
+            "value": "Peter = 14, Mary = 9 → 14 − 9 = 5 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up balance equation, solve for x",
+          "name_id": "Buat persamaan keseimbangan, selesaikan untuk x"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "Asking for 5 gives Peter = 12 and Mary = 11; Peter is only 1 more, not 5 more. Each biscuit transferred shifts the gap by 2.",
+          "why_id": "Meminta 5 menghasilkan Peter = 12 dan Mary = 11; Peter hanya 1 lebih banyak, bukan 5 lebih banyak. Setiap biskuit yang dipindahkan menggeser selisih sebesar 2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "7"
+        }
+      },
+      "hint_steps_en": [
+        "Start: Mary = 16 biscuits, Peter = 7 biscuits.",
+        "If Peter asks for x biscuits: Peter gets 7 + x, Mary is left with 16 − x.",
+        "We need Peter = Mary + 5: so 7 + x = (16 − x) + 5.",
+        "Solve: 7 + x = 21 − x → 2x = 14 → x = 7.",
+        "Check: Peter = 14, Mary = 9 and 14 − 9 = 5. ✓"
+      ],
+      "hint_steps_id": [
+        "Awal: Mary = 16 biskuit, Peter = 7 biskuit.",
+        "Jika Peter meminta x biskuit: Peter menjadi 7 + x, Mary tersisa 16 − x.",
+        "Kita perlu Peter = Mary + 5: jadi 7 + x = (16 − x) + 5.",
+        "Selesaikan: 7 + x = 21 − x → 2x = 14 → x = 7.",
+        "Cek: Peter = 14, Mary = 9 dan 14 − 9 = 5. ✓"
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try different values of x and check: does Peter end up with exactly 5 more than Mary?",
+          "intro_id": "Coba berbagai nilai x dan periksa: apakah Peter akhirnya punya tepat 5 lebih banyak dari Mary?",
+          "items": [
+            {
+              "text_en": "x = 5: Peter = 12, Mary = 11 → difference = 1 ✗ (not 5)",
+              "text_id": "x = 5: Peter = 12, Mary = 11 → selisih = 1 ✗ (bukan 5)",
+              "ok": false
+            },
+            {
+              "text_en": "x = 6: Peter = 13, Mary = 10 → difference = 3 ✗ (not 5)",
+              "text_id": "x = 6: Peter = 13, Mary = 10 → selisih = 3 ✗ (bukan 5)",
+              "ok": false
+            },
+            {
+              "text_en": "x = 7: Peter = 14, Mary = 9 → difference = 5 ✓",
+              "text_id": "x = 7: Peter = 14, Mary = 9 → selisih = 5 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "x = 8: Peter = 15, Mary = 8 → difference = 7 ✗ (too many)",
+              "text_id": "x = 8: Peter = 15, Mary = 8 → selisih = 7 ✗ (terlalu banyak)",
+              "ok": false
+            }
+          ],
+          "final_en": "Peter must ask for 7 biscuits.",
+          "final_id": "Peter harus meminta 7 biskuit.",
+          "aria_en": "Starting with Mary 16 and Peter 7, transferring 7 biscuits gives Peter 14 and Mary 9, a difference of exactly 5.",
+          "aria_id": "Dimulai dengan Mary 16 dan Peter 7, memindahkan 7 biskuit memberi Peter 14 dan Mary 9, selisih tepat 5."
+        }
+      }
     },
     {
       "number": 4,
@@ -42,7 +353,65 @@
       "body_id": "Berapa banyak ruas garis yang ada pada poligon di bawah ini?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many line segment(s) is / are there in the polygon below?",
+            "phrase_id": "Berapa banyak ruas garis yang ada pada poligon di bawah ini?",
+            "note_en": "Count every individual straight side of the polygon",
+            "note_id": "Hitung setiap sisi lurus dari poligon"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the polygon below",
+            "phrase_id": "pada poligon di bawah ini",
+            "note_en": "A polygon's line segments are its sides — one segment connects each pair of adjacent vertices",
+            "note_id": "Ruas garis pada poligon adalah sisinya — satu ruas garis menghubungkan setiap pasang titik sudut yang berdekatan"
+          },
+          {
+            "category": "object",
+            "phrase_en": "polygon",
+            "phrase_id": "poligon",
+            "note_en": "The figure shown is a hexagon (6-sided polygon) giving 6 line segments",
+            "note_id": "Gambar yang ditunjukkan adalah heksagon (poligon 6 sisi) dengan 6 ruas garis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of vertices",
+            "label_id": "Jumlah titik sudut",
+            "value": "6"
+          },
+          {
+            "label_en": "Number of sides (line segments)",
+            "label_id": "Jumlah sisi (ruas garis)",
+            "value": "6 (one per pair of adjacent vertices)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count the sides of the polygon",
+          "name_id": "Hitung sisi poligon"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the polygon in the figure and count its corners (vertices).",
+        "Each pair of neighbouring corners is connected by one straight line segment.",
+        "The polygon has 6 sides, so there are 6 line segments."
+      ],
+      "hint_steps_id": [
+        "Lihat poligon pada gambar dan hitung sudut-sudutnya (titik sudut).",
+        "Setiap pasang titik sudut yang berdekatan dihubungkan oleh satu ruas garis lurus.",
+        "Poligon memiliki 6 sisi, jadi ada 6 ruas garis."
+      ]
     },
     {
       "number": 5,
@@ -51,7 +420,73 @@
       "body_id": "Dengan mengamati pola dari kiri ke kanan, gambar apa yang hilang?\n\n●, ■, ■, ▲, ■, ●, ■, ▲, ■, ?, ■, ■, ▲, …",
       "answer_type": "fill_in",
       "answer": "■",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "what is the missing figure?",
+            "phrase_id": "gambar apa yang hilang?",
+            "note_en": "Find the repeating cycle and use it to identify position 10",
+            "note_id": "Temukan siklus berulang dan gunakan untuk mengidentifikasi posisi ke-10"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "●, ■, ■, ▲, ■, ●, ■, ▲, ■, ?, ■, ■, ▲, …",
+            "phrase_id": "●, ■, ■, ▲, ■, ●, ■, ▲, ■, ?, ■, ■, ▲, …",
+            "note_en": "The ● appears at positions 1 and 6 (gap of 5); the cycle length is 5: ●, ■, ■, ▲, ■",
+            "note_id": "● muncul di posisi 1 dan 6 (jarak 5); panjang siklus adalah 5: ●, ■, ■, ▲, ■"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "By observing the pattern, from left to right",
+            "phrase_id": "Dengan mengamati pola dari kiri ke kanan",
+            "note_en": "Position 10 = position 5 in the cycle (10 mod 5 = 0 → last element of cycle = ■)",
+            "note_id": "Posisi 10 = posisi 5 dalam siklus (10 mod 5 = 0 → elemen terakhir siklus = ■)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cycle (length 5)",
+            "label_id": "Siklus (panjang 5)",
+            "value": "●(1), ■(2), ■(3), ▲(4), ■(5)"
+          },
+          {
+            "label_en": "Position 10 in cycle",
+            "label_id": "Posisi 10 dalam siklus",
+            "value": "10 ÷ 5 = remainder 0 → 5th element = ■"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the repeating cycle, locate position by remainder",
+          "name_id": "Identifikasi siklus berulang, tentukan posisi dengan sisa bagi"
+        },
+        "trap": {
+          "wrong": "●",
+          "why_en": "● appears at positions 1 and 6 but position 10 is the 5th slot of the second cycle, which is ■ not ●.",
+          "why_id": "● muncul di posisi 1 dan 6 tetapi posisi 10 adalah slot ke-5 dari siklus kedua, yaitu ■ bukan ●."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "■"
+        }
+      },
+      "hint_steps_en": [
+        "List the sequence and spot where ● repeats: positions 1 and 6 — gap of 5.",
+        "The repeating cycle of length 5 is: ●, ■, ■, ▲, ■.",
+        "Position 10: 10 ÷ 5 = 2 remainder 0, so it is the 5th element of the cycle.",
+        "The 5th element is ■.",
+        "The missing figure is ■."
+      ],
+      "hint_steps_id": [
+        "Tuliskan urutan dan temukan di mana ● berulang: posisi 1 dan 6 — jarak 5.",
+        "Siklus berulang dengan panjang 5 adalah: ●, ■, ■, ▲, ■.",
+        "Posisi 10: 10 ÷ 5 = 2 sisa 0, jadi ini adalah elemen ke-5 dari siklus.",
+        "Elemen ke-5 adalah ■.",
+        "Gambar yang hilang adalah ■."
+      ]
     },
     {
       "number": 6,
@@ -60,7 +495,109 @@
       "body_id": "Pilihlah 2 angka, tanpa pengulangan, dari 3, 2, 9, dan 6 untuk membentuk bilangan 2 angka. Ada berapa banyak bilangan yang berbeda?",
       "answer_type": "fill_in",
       "answer": "12",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Choose 2 digits, without repetition, from 3, 2, 9 and 6",
+            "phrase_id": "Pilihlah 2 angka, tanpa pengulangan, dari 3, 2, 9, dan 6",
+            "note_en": "4 available digits; pick 2 different ones — order matters since 32 ≠ 23",
+            "note_id": "4 angka tersedia; pilih 2 yang berbeda — urutan penting karena 32 ≠ 23"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "without repetition",
+            "phrase_id": "tanpa pengulangan",
+            "note_en": "The tens digit and units digit must be different",
+            "note_id": "Digit puluhan dan satuan harus berbeda"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different number(s) is / are there?",
+            "phrase_id": "Ada berapa banyak bilangan yang berbeda?",
+            "note_en": "This is an ordered selection (permutation): 4 × 3 = 12",
+            "note_id": "Ini adalah pemilihan terurut (permutasi): 4 × 3 = 12"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Choices for tens digit",
+            "label_id": "Pilihan untuk digit puluhan",
+            "value": "4 (any of 3, 2, 9, 6)"
+          },
+          {
+            "label_en": "Choices for units digit",
+            "label_id": "Pilihan untuk digit satuan",
+            "value": "3 (remaining digits, no repetition)"
+          },
+          {
+            "label_en": "Total 2-digit numbers",
+            "label_id": "Total bilangan 2 angka",
+            "value": "4 × 3 = 12"
+          }
+        ],
+        "strategy": {
+          "name_en": "Permutation: multiply choices for each position",
+          "name_id": "Permutasi: kalikan pilihan untuk setiap posisi"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "6 = the number of PAIRS (combinations), but 32 and 23 are different numbers — order matters, so we need permutations: 4 × 3 = 12.",
+          "why_id": "6 = jumlah PASANGAN (kombinasi), tapi 32 dan 23 adalah bilangan yang berbeda — urutan penting, jadi kita perlu permutasi: 4 × 3 = 12."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "12"
+        }
+      },
+      "hint_steps_en": [
+        "We have 4 digits: 3, 2, 9, 6. We pick 2 different digits to form a 2-digit number.",
+        "The tens digit can be any of the 4 digits: 4 choices.",
+        "The units digit can be any of the remaining 3 digits: 3 choices.",
+        "Total = 4 × 3 = 12 different 2-digit numbers."
+      ],
+      "hint_steps_id": [
+        "Kita punya 4 angka: 3, 2, 9, 6. Kita pilih 2 angka berbeda untuk membentuk bilangan 2 angka.",
+        "Digit puluhan bisa berupa salah satu dari 4 angka: 4 pilihan.",
+        "Digit satuan bisa berupa salah satu dari 3 angka yang tersisa: 3 pilihan.",
+        "Total = 4 × 3 = 12 bilangan 2 angka yang berbeda."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count the choices for each position, then multiply (order matters).",
+          "intro_id": "Hitung pilihan untuk setiap posisi, lalu kalikan (urutan penting).",
+          "items": [
+            {
+              "text_en": "Tens digit: choose from {3, 2, 9, 6} → 4 options",
+              "text_id": "Digit puluhan: pilih dari {3, 2, 9, 6} → 4 pilihan",
+              "ok": null
+            },
+            {
+              "text_en": "Units digit: any remaining digit (no repeat) → 3 options",
+              "text_id": "Digit satuan: angka yang tersisa (tanpa pengulangan) → 3 pilihan",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 4 × 3 = 12 ✓",
+              "text_id": "Total = 4 × 3 = 12 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Wrong: 6 pairs ignores that 32 and 23 are different numbers ✗",
+              "text_id": "Salah: 6 pasangan mengabaikan bahwa 32 dan 23 adalah bilangan yang berbeda ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 12 different 2-digit numbers.",
+          "final_id": "Ada 12 bilangan 2 angka yang berbeda.",
+          "aria_en": "With 4 digits and no repetition, the tens digit has 4 choices and the units digit has 3 choices, giving 4 times 3 equals 12 different two-digit numbers.",
+          "aria_id": "Dengan 4 angka tanpa pengulangan, digit puluhan memiliki 4 pilihan dan digit satuan memiliki 3 pilihan, sehingga 4 kali 3 sama dengan 12 bilangan dua angka yang berbeda."
+        }
+      }
     },
     {
       "number": 7,
@@ -69,7 +606,106 @@
       "body_id": "Pilihlah 2 angka, tanpa pengulangan, dari 2 hingga 8 untuk dijumlahkan. Ada berapa banyak bilangan 2 angka yang berbeda?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Choose 2 digits, without repetition, from 2 to 8",
+            "phrase_id": "Pilihlah 2 angka, tanpa pengulangan, dari 2 hingga 8",
+            "note_en": "Available digits: 2, 3, 4, 5, 6, 7, 8 (seven digits total)",
+            "note_id": "Angka yang tersedia: 2, 3, 4, 5, 6, 7, 8 (tujuh angka)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "to sum up",
+            "phrase_id": "untuk dijumlahkan",
+            "note_en": "Add the two chosen digits; sums range from 2+3=5 to 7+8=15",
+            "note_id": "Jumlahkan dua angka yang dipilih; jumlah berkisar dari 2+3=5 hingga 7+8=15"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different 2-digit number(s) is / are there?",
+            "phrase_id": "Ada berapa banyak bilangan 2 angka yang berbeda?",
+            "note_en": "Count only sums that are 2-digit numbers (10 to 99): these are 10, 11, 12, 13, 14, 15",
+            "note_id": "Hitung hanya jumlah yang merupakan bilangan 2 angka (10 sampai 99): yaitu 10, 11, 12, 13, 14, 15"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "All possible sums",
+            "label_id": "Semua jumlah yang mungkin",
+            "value": "5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15"
+          },
+          {
+            "label_en": "2-digit sums (≥ 10)",
+            "label_id": "Jumlah 2 angka (≥ 10)",
+            "value": "10, 11, 12, 13, 14, 15 → 6 values"
+          }
+        ],
+        "strategy": {
+          "name_en": "List all distinct sums, filter for 2-digit results",
+          "name_id": "Daftarkan semua jumlah berbeda, saring yang merupakan 2 angka"
+        },
+        "trap": {
+          "wrong": "11",
+          "why_en": "Sums range from 5 to 15 — that is 11 different values total. But the question asks only for 2-digit sums (10 and above): 10, 11, 12, 13, 14, 15 = 6 sums.",
+          "why_id": "Jumlah berkisar dari 5 hingga 15 — itu 11 nilai berbeda secara total. Tetapi soal hanya menanyakan jumlah 2 angka (10 ke atas): 10, 11, 12, 13, 14, 15 = 6 jumlah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "The available digits are 2, 3, 4, 5, 6, 7, 8.",
+        "Pick any two different digits and add them. The smallest sum is 2 + 3 = 5; the largest is 7 + 8 = 15.",
+        "All distinct sums: 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15.",
+        "The question asks how many of these are 2-digit numbers (10 or more): 10, 11, 12, 13, 14, 15.",
+        "There are 6 different 2-digit sums."
+      ],
+      "hint_steps_id": [
+        "Angka yang tersedia adalah 2, 3, 4, 5, 6, 7, 8.",
+        "Pilih dua angka berbeda dan jumlahkan. Jumlah terkecil adalah 2 + 3 = 5; terbesar adalah 7 + 8 = 15.",
+        "Semua jumlah yang berbeda: 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15.",
+        "Soal menanyakan berapa banyak yang merupakan bilangan 2 angka (10 atau lebih): 10, 11, 12, 13, 14, 15.",
+        "Ada 6 jumlah 2 angka yang berbeda."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find all sums, then keep only the 2-digit ones.",
+          "intro_id": "Temukan semua jumlah, lalu pertahankan hanya yang 2 angka.",
+          "items": [
+            {
+              "text_en": "1-digit sums: 5(2+3), 6(2+4), 7(2+5 or 3+4), 8(2+6 or 3+5), 9(2+7 or 3+6 or 4+5) — not counted ✗",
+              "text_id": "Jumlah 1 angka: 5(2+3), 6(2+4), 7(2+5 atau 3+4), 8(2+6 atau 3+5), 9(2+7 atau 3+6 atau 4+5) — tidak dihitung ✗",
+              "ok": false
+            },
+            {
+              "text_en": "10 = 2+8 or 3+7 or 4+6 ✓",
+              "text_id": "10 = 2+8 atau 3+7 atau 4+6 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "11 = 3+8 or 4+7 or 5+6 ✓",
+              "text_id": "11 = 3+8 atau 4+7 atau 5+6 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "12 = 4+8 or 5+7 ✓  |  13 = 5+8 or 6+7 ✓  |  14 = 6+8 ✓  |  15 = 7+8 ✓",
+              "text_id": "12 = 4+8 atau 5+7 ✓  |  13 = 5+8 atau 6+7 ✓  |  14 = 6+8 ✓  |  15 = 7+8 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "2-digit sums: 10, 11, 12, 13, 14, 15 — 6 different values.",
+          "final_id": "Jumlah 2 angka: 10, 11, 12, 13, 14, 15 — 6 nilai berbeda.",
+          "aria_en": "Choosing two digits without repetition from 2 to 8 and summing them gives sums from 5 to 15; the two-digit sums are 10 through 15, which is 6 different values.",
+          "aria_id": "Memilih dua angka tanpa pengulangan dari 2 hingga 8 dan menjumlahkannya menghasilkan jumlah dari 5 hingga 15; jumlah dua angka adalah 10 sampai 15, yaitu 6 nilai berbeda."
+        }
+      }
     }
   ]
 }
