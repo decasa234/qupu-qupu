@@ -15,7 +15,114 @@
       "body_id": "Jika kemarin adalah hari Jumat, hari apa dalam seminggu yang akan terjadi lusa?",
       "answer_type": "fill_in",
       "answer": "Monday",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "yesterday was Friday",
+            "phrase_id": "kemarin adalah hari Jumat",
+            "note_en": "Yesterday = Friday means today is Saturday",
+            "note_id": "Kemarin = Jumat berarti hari ini adalah Sabtu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "which day of the week will the day after tomorrow be?",
+            "phrase_id": "hari apa dalam seminggu yang akan terjadi lusa?",
+            "note_en": "Day after tomorrow = today + 2 days",
+            "note_id": "Lusa = hari ini + 2 hari"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the day after tomorrow",
+            "phrase_id": "lusa",
+            "note_en": "Not tomorrow (Sunday) but one more day: Monday",
+            "note_id": "Bukan besok (Minggu) tetapi satu hari lagi: Senin"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Yesterday",
+            "label_id": "Kemarin",
+            "value": "Friday"
+          },
+          {
+            "label_en": "Today",
+            "label_id": "Hari ini",
+            "value": "Saturday (Friday + 1)"
+          },
+          {
+            "label_en": "Tomorrow",
+            "label_id": "Besok",
+            "value": "Sunday (Saturday + 1)"
+          },
+          {
+            "label_en": "Day after tomorrow",
+            "label_id": "Lusa",
+            "value": "Monday (Sunday + 1)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count forward day by day",
+          "name_id": "Hitung maju hari per hari"
+        },
+        "trap": {
+          "wrong": "Sunday",
+          "why_en": "Sunday is tomorrow, not the day after tomorrow — you need to go two days forward from today, not one.",
+          "why_id": "Minggu adalah besok, bukan lusa — kamu perlu maju dua hari dari hari ini, bukan satu hari."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Monday"
+        }
+      },
+      "hint_steps_en": [
+        "Yesterday was Friday, so today is Saturday.",
+        "Tomorrow is one day after today: Sunday.",
+        "The day after tomorrow is one more day: Monday.",
+        "The answer is Monday."
+      ],
+      "hint_steps_id": [
+        "Kemarin adalah Jumat, jadi hari ini adalah Sabtu.",
+        "Besok adalah satu hari setelah hari ini: Minggu.",
+        "Lusa adalah satu hari lagi setelahnya: Senin.",
+        "Jawabannya adalah Senin."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Step forward from yesterday (Friday) to find the day after tomorrow.",
+          "intro_id": "Maju dari kemarin (Jumat) untuk menemukan hari lusa.",
+          "items": [
+            {
+              "text_en": "Yesterday = Friday",
+              "text_id": "Kemarin = Jumat",
+              "ok": null
+            },
+            {
+              "text_en": "Today = Saturday (Friday + 1 day)",
+              "text_id": "Hari ini = Sabtu (Jumat + 1 hari)",
+              "ok": null
+            },
+            {
+              "text_en": "Tomorrow = Sunday (Saturday + 1 day)",
+              "text_id": "Besok = Minggu (Sabtu + 1 hari)",
+              "ok": null
+            },
+            {
+              "text_en": "Day after tomorrow = Monday (Sunday + 1 day) ✓",
+              "text_id": "Lusa = Senin (Minggu + 1 hari) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The day after tomorrow is Monday.",
+          "final_id": "Lusa adalah hari Senin.",
+          "aria_en": "If yesterday was Friday then today is Saturday, tomorrow is Sunday, and the day after tomorrow is Monday.",
+          "aria_id": "Jika kemarin adalah Jumat maka hari ini adalah Sabtu, besok adalah Minggu, dan lusa adalah Senin."
+        }
+      }
     },
     {
       "number": 2,
@@ -24,7 +131,97 @@
       "body_id": "Berapa banyak hari Senin terbanyak yang mungkin ada dalam satu bulan?",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "greatest possible number of Monday(s) among one month",
+            "phrase_id": "hari Senin terbanyak yang mungkin ada dalam satu bulan",
+            "note_en": "We want the maximum — choose the best starting day and longest month",
+            "note_id": "Kita ingin yang terbanyak — pilih hari awal dan bulan terpanjang yang terbaik"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "one month",
+            "phrase_id": "satu bulan",
+            "note_en": "Months can have 28, 29, 30, or 31 days; 31-day months give the most room",
+            "note_id": "Bulan dapat memiliki 28, 29, 30, atau 31 hari; bulan dengan 31 hari memberi ruang paling banyak"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Longest month length",
+            "label_id": "Panjang bulan terpanjang",
+            "value": "31 days"
+          },
+          {
+            "label_en": "Best start day",
+            "label_id": "Hari awal terbaik",
+            "value": "Monday (so Mondays fall on 1, 8, 15, 22, 29)"
+          },
+          {
+            "label_en": "Maximum Mondays",
+            "label_id": "Hari Senin terbanyak",
+            "value": "5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try the best case: 31-day month starting on Monday",
+          "name_id": "Coba kasus terbaik: bulan 31 hari yang dimulai hari Senin"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "4 Mondays is typical, but if the month starts on Monday and has 31 days, Mondays land on 1, 8, 15, 22, 29 — that is 5 Mondays.",
+          "why_id": "4 hari Senin adalah yang biasa, tetapi jika bulan dimulai hari Senin dan punya 31 hari, Senin jatuh pada 1, 8, 15, 22, 29 — itu ada 5 hari Senin."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "A month can have up to 31 days.",
+        "If the month starts on Monday, Mondays fall on days 1, 8, 15, 22, and 29.",
+        "Day 29 ≤ 31, so all five Mondays fit in the month.",
+        "The greatest possible number of Mondays is 5."
+      ],
+      "hint_steps_id": [
+        "Sebuah bulan dapat memiliki hingga 31 hari.",
+        "Jika bulan dimulai hari Senin, Senin jatuh pada tanggal 1, 8, 15, 22, dan 29.",
+        "Tanggal 29 ≤ 31, jadi kelima hari Senin muat dalam bulan tersebut.",
+        "Jumlah hari Senin terbanyak yang mungkin adalah 5."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the starting day that packs the most Mondays into a 31-day month.",
+          "intro_id": "Temukan hari awal yang memasukkan Senin paling banyak ke dalam bulan 31 hari.",
+          "items": [
+            {
+              "text_en": "31-day month starting Monday: Mondays on 1, 8, 15, 22, 29 → 5 Mondays ✓",
+              "text_id": "Bulan 31 hari mulai Senin: Senin pada 1, 8, 15, 22, 29 → 5 Senin ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Starting any other day: the 5th Monday would fall on day 30 or 31 at best — still 5 if start is Mon or Sun",
+              "text_id": "Mulai hari lain: Senin ke-5 jatuh paling awal di hari ke-30 atau 31 — tetap 5 jika mulai Senin atau Minggu",
+              "ok": null
+            },
+            {
+              "text_en": "Starting Tuesday: Mondays on 7, 14, 21, 28 → only 4 ✗",
+              "text_id": "Mulai Selasa: Senin pada 7, 14, 21, 28 → hanya 4 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Maximum Mondays in a month is 5.",
+          "final_id": "Hari Senin terbanyak dalam satu bulan adalah 5.",
+          "aria_en": "A 31-day month starting on Monday has Mondays on the 1st, 8th, 15th, 22nd, and 29th, giving 5 Mondays.",
+          "aria_id": "Bulan 31 hari yang dimulai hari Senin memiliki Senin pada tanggal 1, 8, 15, 22, dan 29, sehingga ada 5 hari Senin."
+        }
+      }
     },
     {
       "number": 3,
@@ -33,7 +230,104 @@
       "body_id": "Seorang siswa perlu menyelesaikan Babak Penyisihan HKIMO dalam 90 menit. Berapa menit yang dibutuhkan untuk 10 siswa menyelesaikan Babak Penyisihan HKIMO secara bersamaan?",
       "answer_type": "fill_in",
       "answer": "90",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A student needs to finish HKIMO Heat Round within 90 minutes",
+            "phrase_id": "Seorang siswa perlu menyelesaikan Babak Penyisihan HKIMO dalam 90 menit",
+            "note_en": "Each student independently takes 90 minutes",
+            "note_id": "Setiap siswa secara independen membutuhkan 90 menit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "finish HKIMO Heat Round altogether",
+            "phrase_id": "menyelesaikan Babak Penyisihan HKIMO secara bersamaan",
+            "note_en": "Altogether means they all work at the same time — not one after another",
+            "note_id": "Secara bersamaan berarti mereka semua bekerja pada saat yang sama — bukan satu per satu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many minute(s) is / are required for 10 students",
+            "phrase_id": "Berapa menit yang dibutuhkan untuk 10 siswa",
+            "note_en": "All 10 students work simultaneously, so total time is still 90 minutes",
+            "note_id": "Semua 10 siswa bekerja bersamaan, jadi total waktunya tetap 90 menit"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Time for 1 student",
+            "label_id": "Waktu untuk 1 siswa",
+            "value": "90 minutes"
+          },
+          {
+            "label_en": "Students working simultaneously",
+            "label_id": "Siswa yang bekerja bersamaan",
+            "value": "10"
+          },
+          {
+            "label_en": "Total time needed",
+            "label_id": "Total waktu yang dibutuhkan",
+            "value": "90 minutes (same — they work in parallel)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Recognize parallel work — time does not multiply",
+          "name_id": "Kenali kerja paralel — waktu tidak dikalikan"
+        },
+        "trap": {
+          "wrong": "900",
+          "why_en": "Multiplying 90 × 10 = 900 assumes students work one after another. Since they all work at the same time, the time stays at 90 minutes.",
+          "why_id": "Mengalikan 90 × 10 = 900 berarti siswa bekerja satu per satu. Karena mereka semua bekerja bersamaan, waktunya tetap 90 menit."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "minutes",
+          "value": "90"
+        }
+      },
+      "hint_steps_en": [
+        "One student takes 90 minutes to finish the test.",
+        "The key word is 'altogether' — all 10 students sit the test at the same time.",
+        "When everyone works simultaneously, the total time does not change.",
+        "10 students working together still finish in 90 minutes."
+      ],
+      "hint_steps_id": [
+        "Satu siswa membutuhkan 90 menit untuk menyelesaikan tes.",
+        "Kata kuncinya adalah 'secara bersamaan' — semua 10 siswa mengerjakan tes pada saat yang sama.",
+        "Ketika semua bekerja bersamaan, total waktu tidak berubah.",
+        "10 siswa yang bekerja bersama tetap selesai dalam 90 menit."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Do the students work one after another, or all at the same time?",
+          "intro_id": "Apakah siswa bekerja satu per satu, atau semuanya pada saat yang sama?",
+          "items": [
+            {
+              "text_en": "If one after another: 90 × 10 = 900 minutes ✗ (not what the question says)",
+              "text_id": "Jika satu per satu: 90 × 10 = 900 menit ✗ (bukan yang dimaksud soal)",
+              "ok": false
+            },
+            {
+              "text_en": "The word 'altogether' means simultaneously — all 10 start and finish at the same time",
+              "text_id": "Kata 'secara bersamaan' berarti simultan — semua 10 mulai dan selesai pada waktu yang sama",
+              "ok": null
+            },
+            {
+              "text_en": "Time for 10 students working together = 90 minutes ✓",
+              "text_id": "Waktu untuk 10 siswa yang bekerja bersama = 90 menit ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "10 students working simultaneously still take 90 minutes.",
+          "final_id": "10 siswa yang bekerja bersamaan tetap membutuhkan 90 menit.",
+          "aria_en": "Because all 10 students work at the same time, the total time required is still 90 minutes.",
+          "aria_id": "Karena semua 10 siswa bekerja pada waktu yang sama, total waktu yang dibutuhkan tetap 90 menit."
+        }
+      }
     },
     {
       "number": 4,
@@ -42,7 +336,100 @@
       "body_id": "Sesuai dengan pola yang ditunjukkan di bawah ini, berapakah angka yang ada di tempat kosong?\n\n1 , 7 , 13 , 19 , 25 , 31 , __ , …",
       "answer_type": "fill_in",
       "answer": "37",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 , 7 , 13 , 19 , 25 , 31 , __ , …",
+            "phrase_id": "1 , 7 , 13 , 19 , 25 , 31 , __ , …",
+            "note_en": "The sequence starts at 1 and each term increases by 6",
+            "note_id": "Barisan dimulai dari 1 dan setiap suku bertambah 6"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the number in the blank?",
+            "phrase_id": "berapakah angka yang ada di tempat kosong?",
+            "note_en": "Find the 7th term by adding 6 to the 6th term",
+            "note_id": "Temukan suku ke-7 dengan menambah 6 pada suku ke-6"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "According to the pattern shown below",
+            "phrase_id": "Sesuai dengan pola yang ditunjukkan di bawah ini",
+            "note_en": "Find the common difference: 7−1=6, 13−7=6, confirming +6 each time",
+            "note_id": "Temukan beda: 7−1=6, 13−7=6, membuktikan +6 setiap kali"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Common difference",
+            "label_id": "Beda tiap suku",
+            "value": "+6"
+          },
+          {
+            "label_en": "6th term",
+            "label_id": "Suku ke-6",
+            "value": "31"
+          },
+          {
+            "label_en": "7th term (blank)",
+            "label_id": "Suku ke-7 (tempat kosong)",
+            "value": "31 + 6 = 37"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the common difference, then add once",
+          "name_id": "Temukan beda, lalu tambahkan sekali"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "37"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the differences: 7−1=6, 13−7=6, 19−13=6 — each term increases by 6.",
+        "The 6th term is 31.",
+        "The 7th term = 31 + 6 = 37.",
+        "The answer is 37."
+      ],
+      "hint_steps_id": [
+        "Lihat selisihnya: 7−1=6, 13−7=6, 19−13=6 — setiap suku bertambah 6.",
+        "Suku ke-6 adalah 31.",
+        "Suku ke-7 = 31 + 6 = 37.",
+        "Jawabannya adalah 37."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the rule of the pattern, then apply it to get the missing term.",
+          "intro_id": "Temukan aturan pola, lalu terapkan untuk mendapatkan suku yang hilang.",
+          "items": [
+            {
+              "text_en": "7 − 1 = 6, 13 − 7 = 6, 19 − 13 = 6 → common difference is +6",
+              "text_id": "7 − 1 = 6, 13 − 7 = 6, 19 − 13 = 6 → beda tiap suku adalah +6",
+              "ok": null
+            },
+            {
+              "text_en": "25 − 19 = 6, 31 − 25 = 6 — pattern confirmed",
+              "text_id": "25 − 19 = 6, 31 − 25 = 6 — pola terkonfirmasi",
+              "ok": null
+            },
+            {
+              "text_en": "Blank = 31 + 6 = 37 ✓",
+              "text_id": "Tempat kosong = 31 + 6 = 37 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The missing number is 37.",
+          "final_id": "Angka yang hilang adalah 37.",
+          "aria_en": "The sequence increases by 6 each time; the term after 31 is 31 plus 6 equals 37.",
+          "aria_id": "Barisan bertambah 6 setiap kali; suku setelah 31 adalah 31 plus 6 sama dengan 37."
+        }
+      }
     },
     {
       "number": 5,
@@ -51,7 +438,77 @@
       "body_id": "Sesuai dengan pola yang ditunjukkan di bawah ini, ada berapa banyak ⊕ pada kelompok ke-10?",
       "answer_type": "fill_in",
       "answer": "55",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how many ⊕ is / are there in the 10th group?",
+            "phrase_id": "ada berapa banyak ⊕ pada kelompok ke-10?",
+            "note_en": "Find the pattern formula and substitute n = 10",
+            "note_id": "Temukan rumus pola dan substitusikan n = 10"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "According to the pattern shown below",
+            "phrase_id": "Sesuai dengan pola yang ditunjukkan di bawah ini",
+            "note_en": "Group 1 has 1 symbol, group 2 has 3, group 3 has 6 — triangular numbers: group n has n(n+1)/2",
+            "note_id": "Kelompok 1 punya 1 simbol, kelompok 2 punya 3, kelompok 3 punya 6 — bilangan segitiga: kelompok n punya n(n+1)/2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Group 1",
+            "label_id": "Kelompok 1",
+            "value": "1 symbol"
+          },
+          {
+            "label_en": "Group 2",
+            "label_id": "Kelompok 2",
+            "value": "1 + 2 = 3 symbols"
+          },
+          {
+            "label_en": "Group 3",
+            "label_id": "Kelompok 3",
+            "value": "1 + 2 + 3 = 6 symbols"
+          },
+          {
+            "label_en": "Group n formula",
+            "label_id": "Rumus kelompok n",
+            "value": "1 + 2 + … + n = n(n+1)/2"
+          },
+          {
+            "label_en": "Group 10",
+            "label_id": "Kelompok 10",
+            "value": "10 × 11 / 2 = 55"
+          }
+        ],
+        "strategy": {
+          "name_en": "Triangular number formula: n(n+1)/2",
+          "name_id": "Rumus bilangan segitiga: n(n+1)/2"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "55"
+        }
+      },
+      "hint_steps_en": [
+        "Count the ⊕ symbols in each group: group 1 has 1, group 2 has 3, group 3 has 6.",
+        "The pattern is: group n has 1 + 2 + 3 + … + n symbols.",
+        "This is the triangular number formula: n(n+1)/2.",
+        "For n = 10: 10 × 11 / 2 = 110 / 2 = 55.",
+        "The answer is 55."
+      ],
+      "hint_steps_id": [
+        "Hitung simbol ⊕ di setiap kelompok: kelompok 1 ada 1, kelompok 2 ada 3, kelompok 3 ada 6.",
+        "Polanya: kelompok n memiliki 1 + 2 + 3 + … + n simbol.",
+        "Ini adalah rumus bilangan segitiga: n(n+1)/2.",
+        "Untuk n = 10: 10 × 11 / 2 = 110 / 2 = 55.",
+        "Jawabannya adalah 55."
+      ]
     },
     {
       "number": 6,
@@ -60,7 +517,93 @@
       "body_id": "Tentukan nilai dari 1 + 2 + 4 + 5 + 6 + 8 + 9.",
       "answer_type": "fill_in",
       "answer": "35",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 + 2 + 4 + 5 + 6 + 8 + 9",
+            "phrase_id": "1 + 2 + 4 + 5 + 6 + 8 + 9",
+            "note_en": "Seven numbers to add — notice 3 and 7 are missing from 1–9",
+            "note_id": "Tujuh angka untuk dijumlahkan — perhatikan 3 dan 7 tidak ada dalam barisan 1–9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tentukan nilai dari",
+            "note_en": "Compute the sum directly",
+            "note_id": "Hitung jumlahnya secara langsung"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 1 to 9",
+            "label_id": "Jumlah 1 sampai 9",
+            "value": "45"
+          },
+          {
+            "label_en": "Missing numbers",
+            "label_id": "Angka yang hilang",
+            "value": "3 + 7 = 10"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "45 − 10 = 35"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum 1–9 then subtract missing numbers",
+          "name_id": "Jumlah 1–9 lalu kurangi angka yang hilang"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "35"
+        }
+      },
+      "hint_steps_en": [
+        "The sum of all numbers from 1 to 9 is 9 × 10 / 2 = 45.",
+        "The numbers 3 and 7 are missing from this sum.",
+        "Subtract the missing numbers: 45 − 3 − 7 = 35.",
+        "The answer is 35."
+      ],
+      "hint_steps_id": [
+        "Jumlah semua angka dari 1 sampai 9 adalah 9 × 10 / 2 = 45.",
+        "Angka 3 dan 7 tidak ada dalam penjumlahan ini.",
+        "Kurangi angka yang hilang: 45 − 3 − 7 = 35.",
+        "Jawabannya adalah 35."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use a shortcut: sum 1 to 9, then subtract the missing numbers.",
+          "intro_id": "Gunakan jalan pintas: jumlahkan 1 sampai 9, lalu kurangi angka yang hilang.",
+          "items": [
+            {
+              "text_en": "1+2+3+4+5+6+7+8+9 = 45 (sum of 1 to 9)",
+              "text_id": "1+2+3+4+5+6+7+8+9 = 45 (jumlah 1 sampai 9)",
+              "ok": null
+            },
+            {
+              "text_en": "Missing from the given sum: 3 and 7 → subtract 3 + 7 = 10",
+              "text_id": "Yang tidak ada dalam penjumlahan: 3 dan 7 → kurangi 3 + 7 = 10",
+              "ok": null
+            },
+            {
+              "text_en": "45 − 10 = 35 ✓",
+              "text_id": "45 − 10 = 35 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "1 + 2 + 4 + 5 + 6 + 8 + 9 = 35.",
+          "final_id": "1 + 2 + 4 + 5 + 6 + 8 + 9 = 35.",
+          "aria_en": "The sum of 1 through 9 is 45; subtracting the missing 3 and 7 gives 45 minus 10 equals 35.",
+          "aria_id": "Jumlah 1 sampai 9 adalah 45; mengurangi angka yang hilang 3 dan 7 memberi 45 dikurangi 10 sama dengan 35."
+        }
+      }
     },
     {
       "number": 7,
@@ -69,7 +612,58 @@
       "body_id": "Tentukan nilai dari 36 + 13 − 6.",
       "answer_type": "fill_in",
       "answer": "43",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "36 + 13 − 6",
+            "phrase_id": "36 + 13 − 6",
+            "note_en": "Three-step arithmetic: add then subtract",
+            "note_id": "Aritmatika tiga langkah: tambah lalu kurangi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tentukan nilai dari",
+            "note_en": "Compute left to right",
+            "note_id": "Hitung dari kiri ke kanan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "36 + 13",
+            "label_id": "36 + 13",
+            "value": "49"
+          },
+          {
+            "label_en": "49 − 6",
+            "label_id": "49 − 6",
+            "value": "43"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compute left to right",
+          "name_id": "Hitung dari kiri ke kanan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "43"
+        }
+      },
+      "hint_steps_en": [
+        "First add: 36 + 13 = 49.",
+        "Then subtract: 49 − 6 = 43.",
+        "The answer is 43."
+      ],
+      "hint_steps_id": [
+        "Pertama tambahkan: 36 + 13 = 49.",
+        "Kemudian kurangi: 49 − 6 = 43.",
+        "Jawabannya adalah 43."
+      ]
     },
     {
       "number": 8,
@@ -78,7 +672,99 @@
       "body_id": "Tentukan nilai dari 5 − 5 + 5 − 5 + 5 − 5 + 5 − 5 + 5.",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 − 5 + 5 − 5 + 5 − 5 + 5 − 5 + 5",
+            "phrase_id": "5 − 5 + 5 − 5 + 5 − 5 + 5 − 5 + 5",
+            "note_en": "9 terms total: alternating −5 and +5 pairs, with one extra +5 at the end",
+            "note_id": "Total 9 suku: pasangan −5 dan +5 bergantian, dengan satu +5 ekstra di akhir"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tentukan nilai dari",
+            "note_en": "Group pairs that cancel to zero, then count the leftover",
+            "note_id": "Kelompokkan pasangan yang bernilai nol, lalu hitung sisanya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of terms",
+            "label_id": "Jumlah suku",
+            "value": "9"
+          },
+          {
+            "label_en": "Cancelling pairs (5−5)",
+            "label_id": "Pasangan yang saling hapus (5−5)",
+            "value": "4 pairs = 0"
+          },
+          {
+            "label_en": "Remaining term",
+            "label_id": "Suku yang tersisa",
+            "value": "+5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Group pairs that cancel, count the leftover",
+          "name_id": "Kelompokkan pasangan yang saling hapus, hitung sisanya"
+        },
+        "trap": {
+          "wrong": "0",
+          "why_en": "4 pairs of (5 − 5) cancel to 0, but there are 9 terms total — the 9th term is an extra +5 left over.",
+          "why_id": "4 pasang (5 − 5) menghasilkan 0, tetapi total ada 9 suku — suku ke-9 adalah +5 ekstra yang tersisa."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "Count the terms: 5, −5, +5, −5, +5, −5, +5, −5, +5 — that is 9 terms.",
+        "Group them in pairs: (5−5) + (5−5) + (5−5) + (5−5) + 5.",
+        "Each pair equals 0: 4 × 0 = 0.",
+        "One 5 is left over: 0 + 5 = 5.",
+        "The answer is 5."
+      ],
+      "hint_steps_id": [
+        "Hitung sukunya: 5, −5, +5, −5, +5, −5, +5, −5, +5 — ada 9 suku.",
+        "Kelompokkan berpasangan: (5−5) + (5−5) + (5−5) + (5−5) + 5.",
+        "Setiap pasang bernilai 0: 4 × 0 = 0.",
+        "Tersisa satu 5: 0 + 5 = 5.",
+        "Jawabannya adalah 5."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Group the terms in pairs that cancel to zero.",
+          "intro_id": "Kelompokkan suku dalam pasangan yang saling hapus menjadi nol.",
+          "items": [
+            {
+              "text_en": "Pair 1: 5 − 5 = 0",
+              "text_id": "Pasang 1: 5 − 5 = 0",
+              "ok": null
+            },
+            {
+              "text_en": "Pair 2: 5 − 5 = 0, Pair 3: 5 − 5 = 0, Pair 4: 5 − 5 = 0",
+              "text_id": "Pasang 2: 5 − 5 = 0, Pasang 3: 5 − 5 = 0, Pasang 4: 5 − 5 = 0",
+              "ok": null
+            },
+            {
+              "text_en": "Remaining: the last +5 has no pair → leftover = 5 ✓",
+              "text_id": "Tersisa: +5 terakhir tidak punya pasangan → sisa = 5 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "4 pairs cancel; the leftover +5 gives the answer 5.",
+          "final_id": "4 pasangan saling hapus; sisa +5 memberikan jawaban 5.",
+          "aria_en": "Nine terms alternate plus five and minus five; four pairs of five minus five cancel to zero, leaving one extra five.",
+          "aria_id": "Sembilan suku bergantian plus lima dan minus lima; empat pasangan lima minus lima saling hapus menjadi nol, menyisakan satu lima ekstra."
+        }
+      }
     },
     {
       "number": 9,
@@ -87,7 +773,55 @@
       "body_id": "Bilangan apa yang harus diisikan pada tempat kosong agar persamaan berikut benar?\n\n34 − ____ = 25",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "34 − ____ = 25",
+            "phrase_id": "34 − ____ = 25",
+            "note_en": "Blank = 34 − 25; find what was subtracted",
+            "note_id": "Tempat kosong = 34 − 25; temukan yang dikurangkan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number that should be filled in the blank",
+            "phrase_id": "Bilangan apa yang harus diisikan pada tempat kosong",
+            "note_en": "Rearrange: blank = 34 − 25",
+            "note_id": "Susun ulang: tempat kosong = 34 − 25"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Calculation",
+            "label_id": "Perhitungan",
+            "value": "34 − 25 = 9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Rearrange: missing subtrahend = minuend − difference",
+          "name_id": "Susun ulang: pengurang yang hilang = pembilang − selisih"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "The equation is 34 − □ = 25.",
+        "Rearrange to find □: □ = 34 − 25.",
+        "34 − 25 = 9.",
+        "The answer is 9."
+      ],
+      "hint_steps_id": [
+        "Persamaannya adalah 34 − □ = 25.",
+        "Susun ulang untuk mencari □: □ = 34 − 25.",
+        "34 − 25 = 9.",
+        "Jawabannya adalah 9."
+      ]
     },
     {
       "number": 10,
@@ -96,7 +830,95 @@
       "body_id": "Jika B adalah bilangan 1 digit, berapakah nilai B jika persamaan berikut benar?\n\n1 2 − B = B",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 2 − B = B",
+            "phrase_id": "1 2 − B = B",
+            "note_en": "12 minus B equals B — two B's together must equal 12",
+            "note_id": "12 dikurangi B sama dengan B — dua B bersama harus sama dengan 12"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "B is a 1-digit number",
+            "phrase_id": "B adalah bilangan 1 digit",
+            "note_en": "B must be between 1 and 9",
+            "note_id": "B harus antara 1 dan 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of B",
+            "phrase_id": "berapakah nilai B",
+            "note_en": "Solve 2B = 12 → B = 6",
+            "note_id": "Selesaikan 2B = 12 → B = 6"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation rearranged",
+            "label_id": "Persamaan disusun ulang",
+            "value": "2B = 12"
+          },
+          {
+            "label_en": "B",
+            "label_id": "B",
+            "value": "12 ÷ 2 = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Rearrange: B + B = 12, so B = 6",
+          "name_id": "Susun ulang: B + B = 12, jadi B = 6"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "The equation is 12 − B = B.",
+        "Add B to both sides: 12 = B + B = 2B.",
+        "Divide both sides by 2: B = 12 ÷ 2 = 6.",
+        "Check: 12 − 6 = 6 ✓. The answer is 6."
+      ],
+      "hint_steps_id": [
+        "Persamaannya adalah 12 − B = B.",
+        "Tambahkan B ke kedua ruas: 12 = B + B = 2B.",
+        "Bagi kedua ruas dengan 2: B = 12 ÷ 2 = 6.",
+        "Cek: 12 − 6 = 6 ✓. Jawabannya adalah 6."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try 1-digit values: 12 − B must equal B.",
+          "intro_id": "Coba nilai 1 digit: 12 − B harus sama dengan B.",
+          "items": [
+            {
+              "text_en": "B = 5: 12 − 5 = 7 ≠ 5 ✗",
+              "text_id": "B = 5: 12 − 5 = 7 ≠ 5 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B = 6: 12 − 6 = 6 = 6 ✓",
+              "text_id": "B = 6: 12 − 6 = 6 = 6 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B = 7: 12 − 7 = 5 ≠ 7 ✗",
+              "text_id": "B = 7: 12 − 7 = 5 ≠ 7 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "B = 6 is the only value where 12 − B = B.",
+          "final_id": "B = 6 adalah satu-satunya nilai di mana 12 − B = B.",
+          "aria_en": "When B equals 6, twelve minus six equals six, so B equals 6.",
+          "aria_id": "Ketika B sama dengan 6, dua belas dikurangi enam sama dengan enam, jadi B sama dengan 6."
+        }
+      }
     },
     {
       "number": 11,
@@ -105,7 +927,102 @@
       "body_id": "Amy memiliki 13 apel dan John memiliki 5 apel. Berapa banyak apel yang harus Amy berikan kepada John agar keduanya memiliki jumlah apel yang sama?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Amy has 13 apples and John has 5 apples",
+            "phrase_id": "Amy memiliki 13 apel dan John memiliki 5 apel",
+            "note_en": "Total apples = 13 + 5 = 18; after sharing equally, each should have 9",
+            "note_id": "Total apel = 13 + 5 = 18; setelah dibagi rata, masing-masing harus punya 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many apple(s) does Amy have to give John",
+            "phrase_id": "Berapa banyak apel yang harus Amy berikan kepada John",
+            "note_en": "Amy needs to go from 13 down to 9 — she gives away 13 − 9 = 4",
+            "note_id": "Amy harus turun dari 13 ke 9 — dia memberikan 13 − 9 = 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total apples",
+            "label_id": "Total apel",
+            "value": "13 + 5 = 18"
+          },
+          {
+            "label_en": "Equal share each",
+            "label_id": "Bagian masing-masing",
+            "value": "18 ÷ 2 = 9"
+          },
+          {
+            "label_en": "Apples Amy gives",
+            "label_id": "Apel yang Amy berikan",
+            "value": "13 − 9 = 4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find equal share, then compute the difference from Amy's total",
+          "name_id": "Temukan bagian yang sama, lalu hitung selisih dari total Amy"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "The difference between 13 and 5 is 8, but Amy does not give away the whole difference — she only gives half of it (4) so both end up with 9.",
+          "why_id": "Selisih antara 13 dan 5 adalah 8, tetapi Amy tidak memberikan seluruh selisihnya — dia hanya memberikan setengahnya (4) sehingga keduanya memiliki 9."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Total apples = 13 + 5 = 18.",
+        "For equal sharing, each person gets 18 ÷ 2 = 9 apples.",
+        "Amy starts with 13 and needs to end up with 9, so she gives 13 − 9 = 4 apples.",
+        "Check: Amy: 13 − 4 = 9; John: 5 + 4 = 9 ✓. The answer is 4."
+      ],
+      "hint_steps_id": [
+        "Total apel = 13 + 5 = 18.",
+        "Untuk pembagian yang sama, masing-masing mendapat 18 ÷ 2 = 9 apel.",
+        "Amy mulai dengan 13 dan harus berakhir dengan 9, jadi dia memberi 13 − 9 = 4 apel.",
+        "Cek: Amy: 13 − 4 = 9; John: 5 + 4 = 9 ✓. Jawabannya adalah 4."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the equal share first, then work out how many Amy gives away.",
+          "intro_id": "Temukan bagian yang sama terlebih dahulu, lalu hitung berapa yang Amy berikan.",
+          "items": [
+            {
+              "text_en": "Total = 13 + 5 = 18; equal share = 18 ÷ 2 = 9 each",
+              "text_id": "Total = 13 + 5 = 18; bagian sama = 18 ÷ 2 = 9 masing-masing",
+              "ok": null
+            },
+            {
+              "text_en": "Amy gives: 13 − 9 = 4 apples ✓",
+              "text_id": "Amy memberikan: 13 − 9 = 4 apel ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Check: Amy 9, John 5+4=9 ✓",
+              "text_id": "Cek: Amy 9, John 5+4=9 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Wrong shortcut: giving half the gap 8 ÷ 2 gives same result here, but don't confuse with giving 8 ✗",
+              "text_id": "Jalan pintas yang salah: memberi separuh selisih 8 ÷ 2 memberi hasil yang sama di sini, tetapi jangan bingung dengan memberi 8 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Amy gives 4 apples to John so each has 9.",
+          "final_id": "Amy memberikan 4 apel kepada John sehingga masing-masing punya 9.",
+          "aria_en": "Total is 18 apples; each should get 9; Amy has 13 so she gives 13 minus 9 equals 4 apples to John.",
+          "aria_id": "Total ada 18 apel; masing-masing harus mendapat 9; Amy punya 13 jadi dia memberi 13 dikurangi 9 sama dengan 4 apel kepada John."
+        }
+      }
     },
     {
       "number": 12,
@@ -114,7 +1031,83 @@
       "body_id": "Isi tempat kosong dengan '+' dan '−' agar persamaan berikut benar. (Tuliskan persamaan lengkap pada lembar jawaban)\n\n1 ____ 3 ____ 5 ____ 7 = 2",
       "answer_type": "fill_in",
       "answer": "1+3+5-7=2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 ____ 3 ____ 5 ____ 7 = 2",
+            "phrase_id": "1 ____ 3 ____ 5 ____ 7 = 2",
+            "note_en": "Three blanks, each must be + or −; there are 8 combinations to try",
+            "note_id": "Tiga tempat kosong, masing-masing harus + atau −; ada 8 kombinasi untuk dicoba"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Fill the lines with '+' and '−' to make the equation below correct",
+            "phrase_id": "Isi tempat kosong dengan '+' dan '−' agar persamaan berikut benar",
+            "note_en": "Find the combination of signs that makes the result equal 2",
+            "note_id": "Temukan kombinasi tanda yang membuat hasilnya sama dengan 2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Test: 1 + 3 + 5 − 7",
+            "label_id": "Coba: 1 + 3 + 5 − 7",
+            "value": "9 − 7 = 2 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic trial of sign combinations",
+          "name_id": "Percobaan sistematis kombinasi tanda"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1+3+5-7=2"
+        }
+      },
+      "hint_steps_en": [
+        "Try different combinations of + and − in the three blanks.",
+        "Test 1 + 3 + 5 − 7: first compute 1 + 3 + 5 = 9, then 9 − 7 = 2.",
+        "That equals 2, which matches the right-hand side.",
+        "The answer is 1 + 3 + 5 − 7 = 2."
+      ],
+      "hint_steps_id": [
+        "Coba berbagai kombinasi + dan − pada tiga tempat kosong.",
+        "Coba 1 + 3 + 5 − 7: pertama hitung 1 + 3 + 5 = 9, lalu 9 − 7 = 2.",
+        "Hasilnya 2, yang cocok dengan ruas kanan.",
+        "Jawabannya adalah 1 + 3 + 5 − 7 = 2."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try each sign combination until you get 2.",
+          "intro_id": "Coba setiap kombinasi tanda sampai mendapatkan 2.",
+          "items": [
+            {
+              "text_en": "1 + 3 + 5 + 7 = 16 ≠ 2 ✗",
+              "text_id": "1 + 3 + 5 + 7 = 16 ≠ 2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "1 − 3 + 5 − 7 = −4 ≠ 2 ✗",
+              "text_id": "1 − 3 + 5 − 7 = −4 ≠ 2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "1 + 3 + 5 − 7 = 9 − 7 = 2 ✓",
+              "text_id": "1 + 3 + 5 − 7 = 9 − 7 = 2 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "1 + 3 + 5 − 7 = 2 is the correct equation.",
+          "final_id": "1 + 3 + 5 − 7 = 2 adalah persamaan yang benar.",
+          "aria_en": "Placing plus between 1 and 3, plus between 3 and 5, and minus between 5 and 7 gives the sum 2.",
+          "aria_id": "Menempatkan plus antara 1 dan 3, plus antara 3 dan 5, dan minus antara 5 dan 7 menghasilkan jumlah 2."
+        }
+      }
     },
     {
       "number": 13,
@@ -123,7 +1116,78 @@
       "body_id": "Isi tempat kosong dengan '+' dan '−' agar persamaan berikut benar. (Tuliskan persamaan lengkap pada lembar jawaban)\n\n1 ____ 2 ____ 3 ____ 4 ____ 5 = 3",
       "answer_type": "fill_in",
       "answer": "1-2+3-4+5=3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 ____ 2 ____ 3 ____ 4 ____ 5 = 3",
+            "phrase_id": "1 ____ 2 ____ 3 ____ 4 ____ 5 = 3",
+            "note_en": "Four blanks with + or −; 16 combinations possible",
+            "note_id": "Empat tempat kosong dengan + atau −; 16 kombinasi mungkin"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Fill the lines with '+' and '−' to make the equation below correct",
+            "phrase_id": "Isi tempat kosong dengan '+' dan '−' agar persamaan berikut benar",
+            "note_en": "Find the combination that totals 3",
+            "note_id": "Temukan kombinasi yang totalnya 3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Test: 1 − 2 + 3 − 4 + 5",
+            "label_id": "Coba: 1 − 2 + 3 − 4 + 5",
+            "value": "(1−2) + (3−4) + 5 = −1 + (−1) + 5 = 3 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Alternating sign pattern to reach 3",
+          "name_id": "Pola tanda bergantian untuk mencapai 3"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1-2+3-4+5=3"
+        }
+      },
+      "hint_steps_en": [
+        "Try an alternating pattern: 1 − 2 + 3 − 4 + 5.",
+        "Group pairs: (1 − 2) = −1; (3 − 4) = −1; remaining: +5.",
+        "Add them: −1 + (−1) + 5 = 3.",
+        "The answer is 1 − 2 + 3 − 4 + 5 = 3."
+      ],
+      "hint_steps_id": [
+        "Coba pola bergantian: 1 − 2 + 3 − 4 + 5.",
+        "Kelompokkan berpasangan: (1 − 2) = −1; (3 − 4) = −1; sisanya: +5.",
+        "Jumlahkan: −1 + (−1) + 5 = 3.",
+        "Jawabannya adalah 1 − 2 + 3 − 4 + 5 = 3."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try an alternating minus-plus pattern to reach a sum of 3.",
+          "intro_id": "Coba pola minus-plus bergantian untuk mencapai jumlah 3.",
+          "items": [
+            {
+              "text_en": "1 + 2 + 3 + 4 + 5 = 15 ≠ 3 ✗",
+              "text_id": "1 + 2 + 3 + 4 + 5 = 15 ≠ 3 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "1 − 2 + 3 − 4 + 5: (1−2) + (3−4) + 5 = −1 − 1 + 5 = 3 ✓",
+              "text_id": "1 − 2 + 3 − 4 + 5: (1−2) + (3−4) + 5 = −1 − 1 + 5 = 3 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "1 − 2 + 3 − 4 + 5 = 3 is correct.",
+          "final_id": "1 − 2 + 3 − 4 + 5 = 3 adalah benar.",
+          "aria_en": "Using alternating minus and plus signs: one minus two plus three minus four plus five equals three.",
+          "aria_id": "Menggunakan tanda minus dan plus bergantian: satu dikurangi dua ditambah tiga dikurangi empat ditambah lima sama dengan tiga."
+        }
+      }
     },
     {
       "number": 14,
@@ -132,7 +1196,92 @@
       "body_id": "Ada berapa banyak bilangan ganjil dua digit?",
       "answer_type": "fill_in",
       "answer": "45",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many two-digit odd number(s) is / are there?",
+            "phrase_id": "Ada berapa banyak bilangan ganjil dua digit?",
+            "note_en": "Count all odd numbers from 11 to 99 inclusive",
+            "note_id": "Hitung semua bilangan ganjil dari 11 sampai 99 inklusif"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two-digit odd number",
+            "phrase_id": "bilangan ganjil dua digit",
+            "note_en": "Two-digit numbers: 10 to 99; odd ones: 11, 13, 15, …, 99",
+            "note_id": "Bilangan dua digit: 10 sampai 99; yang ganjil: 11, 13, 15, …, 99"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First two-digit odd",
+            "label_id": "Bilangan ganjil dua digit pertama",
+            "value": "11"
+          },
+          {
+            "label_en": "Last two-digit odd",
+            "label_id": "Bilangan ganjil dua digit terakhir",
+            "value": "99"
+          },
+          {
+            "label_en": "Count formula",
+            "label_id": "Rumus jumlah",
+            "value": "(99 − 11) / 2 + 1 = 88 / 2 + 1 = 44 + 1 = 45"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count arithmetic sequence: (last − first) / step + 1",
+          "name_id": "Hitung barisan aritmatika: (terakhir − pertama) / langkah + 1"
+        },
+        "trap": {
+          "wrong": "44",
+          "why_en": "Dividing 88 by 2 gives 44, but you must add 1 to include both endpoints in an inclusive count.",
+          "why_id": "Membagi 88 dengan 2 menghasilkan 44, tetapi kamu harus menambah 1 untuk menyertakan kedua titik ujung dalam hitungan inklusif."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "45"
+        }
+      },
+      "hint_steps_en": [
+        "Two-digit odd numbers start at 11 and end at 99.",
+        "They form the sequence: 11, 13, 15, …, 99 (every other number, step = 2).",
+        "Count = (99 − 11) / 2 + 1 = 88 / 2 + 1 = 44 + 1 = 45.",
+        "The answer is 45."
+      ],
+      "hint_steps_id": [
+        "Bilangan ganjil dua digit dimulai dari 11 dan berakhir di 99.",
+        "Membentuk barisan: 11, 13, 15, …, 99 (setiap dua angka sekali, langkah = 2).",
+        "Jumlah = (99 − 11) / 2 + 1 = 88 / 2 + 1 = 44 + 1 = 45.",
+        "Jawabannya adalah 45."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "List the range of two-digit odd numbers and apply the counting formula.",
+          "intro_id": "Daftarkan rentang bilangan ganjil dua digit dan terapkan rumus penghitungan.",
+          "items": [
+            {
+              "text_en": "First two-digit odd: 11; Last: 99",
+              "text_id": "Ganjil dua digit pertama: 11; Terakhir: 99",
+              "ok": null
+            },
+            {
+              "text_en": "Count = (99 − 11) ÷ 2 + 1 = 88 ÷ 2 + 1 = 44 + 1 = 45 ✓",
+              "text_id": "Jumlah = (99 − 11) ÷ 2 + 1 = 88 ÷ 2 + 1 = 44 + 1 = 45 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 45 two-digit odd numbers.",
+          "final_id": "Ada 45 bilangan ganjil dua digit.",
+          "aria_en": "Two-digit odd numbers run from 11 to 99 in steps of 2; the count is 99 minus 11 divided by 2 plus 1, which equals 45.",
+          "aria_id": "Bilangan ganjil dua digit berjalan dari 11 sampai 99 dalam langkah 2; jumlahnya adalah 99 dikurangi 11 dibagi 2 ditambah 1, sama dengan 45."
+        }
+      }
     },
     {
       "number": 15,
@@ -141,7 +1290,69 @@
       "body_id": "Tentukan apakah hasil dari 1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 + 17 + 19 + 21 adalah ganjil atau genap.",
       "answer_type": "fill_in",
       "answer": "odd",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 + 17 + 19 + 21",
+            "phrase_id": "1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 + 17 + 19 + 21",
+            "note_en": "11 consecutive odd numbers starting from 1",
+            "note_id": "11 bilangan ganjil berurutan mulai dari 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "is odd or even",
+            "phrase_id": "adalah ganjil atau genap",
+            "note_en": "Sum of first n odd numbers = n². Here n=11 → 11²=121, which is odd",
+            "note_id": "Jumlah n bilangan ganjil pertama = n². Di sini n=11 → 11²=121, yang merupakan bilangan ganjil"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of terms",
+            "label_id": "Jumlah suku",
+            "value": "11"
+          },
+          {
+            "label_en": "Sum = 11²",
+            "label_id": "Jumlah = 11²",
+            "value": "121"
+          },
+          {
+            "label_en": "121 is",
+            "label_id": "121 adalah",
+            "value": "odd (ends in 1)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum of first n odd numbers = n² — check if n² is odd or even",
+          "name_id": "Jumlah n bilangan ganjil pertama = n² — cek apakah n² ganjil atau genap"
+        },
+        "trap": {
+          "wrong": "even",
+          "why_en": "Pairing 11 terms leaves one unpaired — the sum is odd. Also 11 is odd, so 11² = 121 is odd.",
+          "why_id": "Memasangkan 11 suku menyisakan satu yang tidak berpasangan — jumlahnya ganjil. Juga 11 adalah ganjil, jadi 11² = 121 adalah ganjil."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "odd"
+        }
+      },
+      "hint_steps_en": [
+        "The sum of the first n odd numbers equals n².",
+        "Here there are 11 terms (1, 3, 5, …, 21), so the sum = 11² = 121.",
+        "121 ends in 1, so it is odd.",
+        "The answer is odd."
+      ],
+      "hint_steps_id": [
+        "Jumlah n bilangan ganjil pertama sama dengan n².",
+        "Di sini ada 11 suku (1, 3, 5, …, 21), jadi jumlahnya = 11² = 121.",
+        "121 berakhiran 1, jadi bilangan tersebut ganjil.",
+        "Jawabannya adalah ganjil (odd)."
+      ]
     },
     {
       "number": 16,
@@ -150,7 +1361,59 @@
       "body_id": "Ada berapa banyak persegi dalam gambar berikut?",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many square(s) is / are there in the figure below?",
+            "phrase_id": "Ada berapa banyak persegi dalam gambar berikut?",
+            "note_en": "Count all squares of all sizes in the figure",
+            "note_id": "Hitung semua persegi dari semua ukuran dalam gambar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the figure below",
+            "phrase_id": "dalam gambar berikut",
+            "note_en": "Include squares of different sizes: small unit squares plus any composite squares",
+            "note_id": "Sertakan persegi berbagai ukuran: persegi satuan kecil dan persegi gabungan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Count (from figure)",
+            "label_id": "Jumlah (dari gambar)",
+            "value": "9 squares total"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count systematically by size",
+          "name_id": "Hitung secara sistematis berdasarkan ukuran"
+        },
+        "trap": {
+          "wrong": "fewer than 9",
+          "why_en": "Only counting the smallest unit squares misses composite squares formed by combining multiple units.",
+          "why_id": "Hanya menghitung persegi satuan terkecil akan melewatkan persegi gabungan yang dibentuk dari beberapa satuan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure and count all squares of each size separately.",
+        "Start with the smallest unit squares, then look for 2×2 squares, and so on.",
+        "Add all sizes together to get the total.",
+        "The answer is 9."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar dan hitung semua persegi dari masing-masing ukuran secara terpisah.",
+        "Mulai dari persegi satuan terkecil, lalu cari persegi 2×2, dan seterusnya.",
+        "Jumlahkan semua ukuran untuk mendapatkan totalnya.",
+        "Jawabannya adalah 9."
+      ]
     },
     {
       "number": 17,
@@ -159,7 +1422,59 @@
       "body_id": "Paling sedikit ada berapa banyak kubus dalam gambar berikut?",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "At least how many cube(s) is / are there in the figure below?",
+            "phrase_id": "Paling sedikit ada berapa banyak kubus dalam gambar berikut?",
+            "note_en": "At least = minimum number of cubes needed to build the 3D shape shown",
+            "note_id": "Paling sedikit = jumlah minimum kubus yang dibutuhkan untuk membangun bentuk 3D yang ditampilkan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "At least",
+            "phrase_id": "Paling sedikit",
+            "note_en": "Only count visible cubes plus the minimum hidden cubes needed to support the structure",
+            "note_id": "Hanya hitung kubus yang terlihat ditambah kubus tersembunyi minimum yang diperlukan untuk menopang struktur"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Minimum cubes (from figure)",
+            "label_id": "Kubus minimum (dari gambar)",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count visible cubes and add the minimum hidden ones",
+          "name_id": "Hitung kubus yang terlihat dan tambahkan yang tersembunyi minimum"
+        },
+        "trap": {
+          "wrong": "more than 9",
+          "why_en": "The question asks for at least (minimum) — assume no hidden cubes beyond those strictly needed to support the visible ones.",
+          "why_id": "Soal menanyakan paling sedikit (minimum) — anggap tidak ada kubus tersembunyi selain yang benar-benar diperlukan untuk menopang yang terlihat."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Count the cubes visible in the figure layer by layer.",
+        "For each visible position, consider how many cubes must be below it to support it.",
+        "Take the minimum — do not add extra cubes that are not needed.",
+        "The minimum total is 9 cubes."
+      ],
+      "hint_steps_id": [
+        "Hitung kubus yang terlihat dalam gambar lapis per lapis.",
+        "Untuk setiap posisi yang terlihat, pertimbangkan berapa banyak kubus yang harus ada di bawahnya untuk menopangnya.",
+        "Ambil yang minimum — jangan tambahkan kubus ekstra yang tidak diperlukan.",
+        "Minimum totalnya adalah 9 kubus."
+      ]
     },
     {
       "number": 18,
@@ -168,7 +1483,55 @@
       "body_id": "Ada berapa banyak sisi pada poligon berikut?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many side(s) is / are there in the polygon below?",
+            "phrase_id": "Ada berapa banyak sisi pada poligon berikut?",
+            "note_en": "Count the straight-line edges of the polygon in the figure",
+            "note_id": "Hitung sisi garis lurus dari poligon dalam gambar"
+          },
+          {
+            "category": "object",
+            "phrase_en": "the polygon below",
+            "phrase_id": "poligon berikut",
+            "note_en": "A hexagon has 6 sides",
+            "note_id": "Segi enam memiliki 6 sisi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of sides",
+            "label_id": "Jumlah sisi",
+            "value": "6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trace and count each straight edge",
+          "name_id": "Telusuri dan hitung setiap sisi lurus"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the polygon in the figure.",
+        "Trace each straight-line edge one by one.",
+        "Count as you go around the polygon: you will find 6 sides.",
+        "The answer is 6."
+      ],
+      "hint_steps_id": [
+        "Lihat poligon dalam gambar.",
+        "Telusuri setiap sisi garis lurus satu per satu.",
+        "Hitung saat mengelilingi poligon: kamu akan menemukan 6 sisi.",
+        "Jawabannya adalah 6."
+      ]
     },
     {
       "number": 19,
@@ -177,7 +1540,95 @@
       "body_id": "Sesuai dengan pola yang ditunjukkan di bawah ini, apa bentuk yang mengisi tempat kosong?\n\n○ □ □ □ △ ○ □ □ □ △ ○ □ □ _ △ …",
       "answer_type": "fill_in",
       "answer": "□",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "○ □ □ □ △ ○ □ □ □ △ ○ □ □ _ △ …",
+            "phrase_id": "○ □ □ □ △ ○ □ □ □ △ ○ □ □ _ △ …",
+            "note_en": "The pattern repeats every 5 figures: ○, □, □, □, △",
+            "note_id": "Pola berulang setiap 5 gambar: ○, □, □, □, △"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the figure in the space provided?",
+            "phrase_id": "apa bentuk yang mengisi tempat kosong?",
+            "note_en": "Find which position in the 5-term cycle corresponds to the blank (position 14)",
+            "note_id": "Temukan posisi mana dalam siklus 5 suku yang sesuai dengan tempat kosong (posisi 14)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cycle length",
+            "label_id": "Panjang siklus",
+            "value": "5 (○, □, □, □, △)"
+          },
+          {
+            "label_en": "Blank position",
+            "label_id": "Posisi tempat kosong",
+            "value": "14"
+          },
+          {
+            "label_en": "14 mod 5",
+            "label_id": "14 mod 5",
+            "value": "4 (remainder 4) → 4th in cycle = □"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the repeating cycle, then use division remainder",
+          "name_id": "Temukan siklus berulang, lalu gunakan sisa pembagian"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "□"
+        }
+      },
+      "hint_steps_en": [
+        "Identify the repeating pattern: ○ □ □ □ △ — that is 5 shapes per cycle.",
+        "The blank is at position 14 in the sequence.",
+        "Divide: 14 ÷ 5 = 2 remainder 4 — so the blank is the 4th shape in the cycle.",
+        "The 4th shape in the cycle ○ □ □ □ △ is □.",
+        "The answer is □."
+      ],
+      "hint_steps_id": [
+        "Identifikasi pola berulang: ○ □ □ □ △ — itu 5 bentuk per siklus.",
+        "Tempat kosong ada di posisi 14 dalam barisan.",
+        "Bagi: 14 ÷ 5 = 2 sisa 4 — jadi tempat kosong adalah bentuk ke-4 dalam siklus.",
+        "Bentuk ke-4 dalam siklus ○ □ □ □ △ adalah □.",
+        "Jawabannya adalah □."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Identify the repeating cycle, find the position of the blank, then read off the shape.",
+          "intro_id": "Identifikasi siklus berulang, temukan posisi tempat kosong, lalu baca bentuknya.",
+          "items": [
+            {
+              "text_en": "Cycle: ○(1) □(2) □(3) □(4) △(5) — repeats every 5",
+              "text_id": "Siklus: ○(1) □(2) □(3) □(4) △(5) — berulang setiap 5",
+              "ok": null
+            },
+            {
+              "text_en": "Blank is position 14: 14 ÷ 5 = 2 remainder 4",
+              "text_id": "Tempat kosong ada di posisi 14: 14 ÷ 5 = 2 sisa 4",
+              "ok": null
+            },
+            {
+              "text_en": "Position 4 in cycle = □ ✓",
+              "text_id": "Posisi 4 dalam siklus = □ ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The missing shape is □.",
+          "final_id": "Bentuk yang hilang adalah □.",
+          "aria_en": "The pattern repeats every five shapes; the blank at position 14 corresponds to position 4 in the cycle, which is a square.",
+          "aria_id": "Pola berulang setiap lima bentuk; tempat kosong di posisi 14 sesuai dengan posisi 4 dalam siklus, yaitu persegi."
+        }
+      }
     },
     {
       "number": 20,
@@ -186,7 +1637,55 @@
       "body_id": "Sesuai dengan pola yang ditunjukkan di bawah ini, apa bentuk yang mengisi tempat kosong?",
       "answer_type": "fill_in",
       "answer": "○",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "what is the figure in the space provided?",
+            "phrase_id": "apa bentuk yang mengisi tempat kosong?",
+            "note_en": "Identify the repeating pattern in the figure and find which shape fills the blank",
+            "note_id": "Identifikasi pola berulang dalam gambar dan temukan bentuk mana yang mengisi tempat kosong"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "According to the pattern shown below",
+            "phrase_id": "Sesuai dengan pola yang ditunjukkan di bawah ini",
+            "note_en": "The figure shows a visual pattern in a grid or sequence — find the repeating rule",
+            "note_id": "Gambar menunjukkan pola visual dalam kisi atau barisan — temukan aturan berulangnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern answer",
+            "label_id": "Jawaban pola",
+            "value": "○"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the repeating pattern and apply to the blank position",
+          "name_id": "Identifikasi pola berulang dan terapkan pada posisi tempat kosong"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "○"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the pattern in the figure carefully.",
+        "Identify the rule — what shapes repeat and in what order or arrangement.",
+        "Apply the rule to find which shape belongs in the blank position.",
+        "The answer is ○."
+      ],
+      "hint_steps_id": [
+        "Perhatikan pola dalam gambar dengan seksama.",
+        "Identifikasi aturannya — bentuk apa yang berulang dan dalam urutan atau susunan apa.",
+        "Terapkan aturan untuk menemukan bentuk mana yang ada di tempat kosong.",
+        "Jawabannya adalah ○."
+      ]
     }
   ]
 }

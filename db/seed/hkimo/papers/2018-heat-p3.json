@@ -14,7 +14,58 @@
       "body_id": "Berapakah nilai bilangan yang mewakili \"?\" dalam tabel berikut?\n\n| 1 | 1 | 2 |\n| 2 | 3 | 8 |\n| 3 | 5 | 18 |\n| 4 | 7 | ? |\n| 5 | 9 | 50 |",
       "answer_type": "fill_in",
       "answer": "32",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "the value of the number to represent \"?\"",
+            "phrase_id": "nilai bilangan yang mewakili \"?\"",
+            "note_en": "Find the missing value in row 4, column 3",
+            "note_id": "Temukan nilai yang hilang di baris 4, kolom 3"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "| 5 | 9 | 50 |",
+            "phrase_id": "| 5 | 9 | 50 |",
+            "note_en": "Row 5 confirms: col3 = 2 × col1² = 2 × 25 = 50",
+            "note_id": "Baris 5 mengonfirmasi: kolom3 = 2 × kolom1² = 2 × 25 = 50"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "| 3 | 5 | 18 |",
+            "phrase_id": "| 3 | 5 | 18 |",
+            "note_en": "Row 3: 2 × 3² = 18 ✓ — the rule holds",
+            "note_id": "Baris 3: 2 × 3² = 18 ✓ — aturan berlaku"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Row 1 check", "label_id": "Cek baris 1", "value": "2 × 1² = 2 ✓" },
+          { "label_en": "Row 2 check", "label_id": "Cek baris 2", "value": "2 × 2² = 8 ✓" },
+          { "label_en": "Row 3 check", "label_id": "Cek baris 3", "value": "2 × 3² = 18 ✓" },
+          { "label_en": "Row 4 answer", "label_id": "Jawaban baris 4", "value": "2 × 4² = 32" }
+        ],
+        "strategy": { "name_en": "Find the column rule, then apply it", "name_id": "Temukan aturan kolom, lalu terapkan" },
+        "trap": {
+          "wrong": "28",
+          "why_en": "col2 = 2n−1 increases by 2 each row, but col3 grows as 2n², not linearly",
+          "why_id": "kolom2 = 2n−1 naik 2 setiap baris, tetapi kolom3 tumbuh sebagai 2n², bukan linear"
+        },
+        "answer": { "form": "value", "unit": null, "value": "32" }
+      },
+      "hint_steps_en": [
+        "Look at column 3 values: 2, 8, 18, ?, 50.",
+        "Compare with column 1: 1, 2, 3, 4, 5. Notice col3 = 2 × (col1)².",
+        "Check: 2×1²=2 ✓, 2×2²=8 ✓, 2×3²=18 ✓, 2×5²=50 ✓.",
+        "For row 4: 2 × 4² = 2 × 16 = 32."
+      ],
+      "hint_steps_id": [
+        "Lihat nilai kolom 3: 2, 8, 18, ?, 50.",
+        "Bandingkan dengan kolom 1: 1, 2, 3, 4, 5. Perhatikan kolom3 = 2 × (kolom1)².",
+        "Cek: 2×1²=2 ✓, 2×2²=8 ✓, 2×3²=18 ✓, 2×5²=50 ✓.",
+        "Untuk baris 4: 2 × 4² = 2 × 16 = 32."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +73,77 @@
       "body_id": "Berdasarkan pola berikut, ada berapa segitiga dari simbol ke-1 hingga ke-99 dari kiri?\n\n○ △ △ □ ○ △ △ □ ○ △ △ □ ○ △ △ □ …",
       "answer_type": "fill_in",
       "answer": "50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "○ △ △ □ ○ △ △ □ ○ △ △ □ ○ △ △ □ …",
+            "phrase_id": "○ △ △ □ ○ △ △ □ ○ △ △ □ ○ △ △ □ …",
+            "note_en": "The pattern repeats every 4 symbols; each group has 2 triangles",
+            "note_id": "Pola berulang setiap 4 simbol; setiap kelompok memiliki 2 segitiga"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many triangle(s) is / are there from the 1st to the 99th symbol",
+            "phrase_id": "ada berapa segitiga dari simbol ke-1 hingga ke-99",
+            "note_en": "Count triangles in 99 symbols of the repeating pattern",
+            "note_id": "Hitung segitiga dalam 99 simbol dari pola berulang"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "counting from the left",
+            "phrase_id": "dari kiri",
+            "note_en": "The remainder after dividing by 4 tells which symbols are in the final partial group",
+            "note_id": "Sisa setelah membagi 4 menunjukkan simbol mana yang ada di kelompok terakhir yang tidak lengkap"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Period", "label_id": "Periode", "value": "4 symbols per group" },
+          { "label_en": "Triangles per group", "label_id": "Segitiga per kelompok", "value": "2 (positions 2 and 3)" },
+          { "label_en": "Complete groups in 99", "label_id": "Kelompok lengkap dalam 99", "value": "99 ÷ 4 = 24 remainder 3" },
+          { "label_en": "Extra symbols", "label_id": "Simbol tambahan", "value": "3 → ○ △ △ → 2 more triangles" },
+          { "label_en": "Total triangles", "label_id": "Total segitiga", "value": "24 × 2 + 2 = 50" }
+        ],
+        "strategy": { "name_en": "Divide by period, count remainder", "name_id": "Bagi dengan periode, hitung sisa" },
+        "trap": {
+          "wrong": "49",
+          "why_en": "99 ÷ 4 = 24 r3; the 3 extra symbols are ○ △ △ which contain 2 triangles, not 1",
+          "why_id": "99 ÷ 4 = 24 sisa 3; 3 simbol tambahan adalah ○ △ △ yang mengandung 2 segitiga, bukan 1"
+        },
+        "answer": { "form": "value", "unit": null, "value": "50" }
+      },
+      "hint_steps_en": [
+        "The pattern ○ △ △ □ repeats every 4 symbols with 2 triangles per group.",
+        "Divide 99 by 4: 99 = 24 × 4 + 3, so there are 24 complete groups and 3 extra symbols.",
+        "The 3 extra symbols are ○ △ △ — that adds 2 more triangles.",
+        "Total triangles = 24 × 2 + 2 = 48 + 2 = 50."
+      ],
+      "hint_steps_id": [
+        "Pola ○ △ △ □ berulang setiap 4 simbol dengan 2 segitiga per kelompok.",
+        "Bagi 99 dengan 4: 99 = 24 × 4 + 3, jadi ada 24 kelompok lengkap dan 3 simbol tambahan.",
+        "3 simbol tambahan adalah ○ △ △ — itu menambah 2 segitiga lagi.",
+        "Total segitiga = 24 × 2 + 2 = 48 + 2 = 50."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The pattern ○ △ △ □ repeats every 4; count how many complete groups fit in 99 symbols.",
+          "intro_id": "Pola ○ △ △ □ berulang setiap 4; hitung berapa kelompok lengkap yang muat dalam 99 simbol.",
+          "items": [
+            { "text_en": "Period = 4 symbols, triangles per group = 2", "text_id": "Periode = 4 simbol, segitiga per kelompok = 2", "ok": null },
+            { "text_en": "99 ÷ 4 = 24 remainder 3 → 24 complete groups", "text_id": "99 ÷ 4 = 24 sisa 3 → 24 kelompok lengkap", "ok": null },
+            { "text_en": "24 groups × 2 triangles = 48 triangles", "text_id": "24 kelompok × 2 segitiga = 48 segitiga", "ok": null },
+            { "text_en": "Remainder 3 → symbols 97,98,99 = ○ △ △ → 2 more triangles", "text_id": "Sisa 3 → simbol 97,98,99 = ○ △ △ → 2 segitiga lagi", "ok": null },
+            { "text_en": "Total = 48 + 2 = 50 ✓", "text_id": "Total = 48 + 2 = 50 ✓", "ok": true }
+          ],
+          "final_en": "There are 50 triangles from symbol 1 to symbol 99.",
+          "final_id": "Ada 50 segitiga dari simbol ke-1 hingga ke-99.",
+          "aria_en": "The 4-symbol pattern has 2 triangles; 99 symbols gives 24 full groups plus 3 extras containing 2 triangles; total 50.",
+          "aria_id": "Pola 4 simbol memiliki 2 segitiga; 99 simbol menghasilkan 24 kelompok penuh ditambah 3 ekstra yang mengandung 2 segitiga; total 50."
+        }
+      }
     },
     {
       "number": 3,
@@ -30,7 +151,74 @@
       "body_id": "Usia Samuel 9 tahun yang lalu sama dengan usia Joseph 2 tahun ke depan. Berapa tahun lebih tua Samuel dibanding Joseph ketika Joseph berusia 25 tahun?",
       "answer_type": "fill_in",
       "answer": "11",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The age of Samuel 9 years ago is equal to the age of Joseph 2 years later",
+            "phrase_id": "Usia Samuel 9 tahun yang lalu sama dengan usia Joseph 2 tahun ke depan",
+            "note_en": "S − 9 = J + 2, so S − J = 11 always",
+            "note_id": "S − 9 = J + 2, jadi S − J = 11 selalu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much older is Samuel than Joseph when Joseph is 25 years old?",
+            "phrase_id": "Berapa tahun lebih tua Samuel dibanding Joseph ketika Joseph berusia 25 tahun?",
+            "note_en": "The age difference is constant — it does not change over time",
+            "note_id": "Selisih usia adalah konstan — tidak berubah seiring waktu"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "when Joseph is 25 years old",
+            "phrase_id": "ketika Joseph berusia 25 tahun",
+            "note_en": "This is a distractor — the difference S − J is the same at any age",
+            "note_id": "Ini adalah pengecoh — selisih S − J sama di usia berapapun"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Equation from problem", "label_id": "Persamaan dari soal", "value": "S − 9 = J + 2" },
+          { "label_en": "Age difference", "label_id": "Selisih usia", "value": "S − J = 9 + 2 = 11 years" }
+        ],
+        "strategy": { "name_en": "Age difference is constant; rearrange the equation", "name_id": "Selisih usia konstan; susun ulang persamaan" },
+        "trap": {
+          "wrong": "34",
+          "why_en": "Joseph=25 does NOT mean Samuel=25+9=34; the 9 is a past offset, not a current age gap from 25",
+          "why_id": "Joseph=25 TIDAK berarti Samuel=25+9=34; angka 9 adalah selisih waktu lalu, bukan selisih usia dari 25"
+        },
+        "answer": { "form": "value", "unit": "years", "value": "11" }
+      },
+      "hint_steps_en": [
+        "Let Samuel's current age = S and Joseph's current age = J.",
+        "The problem says: S − 9 = J + 2.",
+        "Rearranging: S − J = 9 + 2 = 11.",
+        "The age difference is always 11, regardless of their current ages.",
+        "Samuel is 11 years older than Joseph."
+      ],
+      "hint_steps_id": [
+        "Misalkan usia Samuel sekarang = S dan usia Joseph sekarang = J.",
+        "Soal mengatakan: S − 9 = J + 2.",
+        "Susun ulang: S − J = 9 + 2 = 11.",
+        "Selisih usia selalu 11, tidak peduli berapa usia mereka sekarang.",
+        "Samuel lebih tua 11 tahun dari Joseph."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up the equation and isolate the age difference.",
+          "intro_id": "Susun persamaan dan isolasi selisih usia.",
+          "items": [
+            { "text_en": "Given: Samuel (9 yr ago) = Joseph (2 yr later) → S−9 = J+2", "text_id": "Diketahui: Samuel (9 th lalu) = Joseph (2 th lagi) → S−9 = J+2", "ok": null },
+            { "text_en": "Rearrange: S − J = 9 + 2 = 11", "text_id": "Susun ulang: S − J = 9 + 2 = 11", "ok": true },
+            { "text_en": "\"when Joseph is 25\" is irrelevant — difference is constant ✓", "text_id": "\"ketika Joseph berusia 25\" tidak relevan — selisih konstan ✓", "ok": null }
+          ],
+          "final_en": "Samuel is 11 years older than Joseph.",
+          "final_id": "Samuel lebih tua 11 tahun dari Joseph.",
+          "aria_en": "From S minus 9 equals J plus 2, rearranging gives S minus J equals 11; the age gap is constant at 11 years.",
+          "aria_id": "Dari S dikurangi 9 sama dengan J ditambah 2, penyusunan ulang menghasilkan S dikurangi J sama dengan 11; selisih usia konstan 11 tahun."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +226,71 @@
       "body_id": "Sebuah pohon ditanam setiap 15 m di sepanjang jalan mulai dari salah satu ujung. Panjang jalan adalah 255 m. Berapa banyak pohon di jalan tersebut?",
       "answer_type": "fill_in",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A tree is planted every 15 m in a street from one end",
+            "phrase_id": "Sebuah pohon ditanam setiap 15 m di sepanjang jalan mulai dari salah satu ujung",
+            "note_en": "First tree is at 0 m, then 15 m, 30 m, …",
+            "note_id": "Pohon pertama di 0 m, lalu 15 m, 30 m, …"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The street is 255 m long",
+            "phrase_id": "Panjang jalan adalah 255 m",
+            "note_en": "Last tree can be at 255 m if 255 ÷ 15 is exact",
+            "note_id": "Pohon terakhir bisa di 255 m jika 255 ÷ 15 tepat habis"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many trees are there in the street?",
+            "phrase_id": "Berapa banyak pohon di jalan tersebut?",
+            "note_en": "Number of trees = number of intervals + 1 (fence-post rule)",
+            "note_id": "Jumlah pohon = jumlah interval + 1 (aturan tiang pagar)"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Number of intervals", "label_id": "Jumlah interval", "value": "255 ÷ 15 = 17" },
+          { "label_en": "Number of trees", "label_id": "Jumlah pohon", "value": "17 + 1 = 18" }
+        ],
+        "strategy": { "name_en": "Fence-post: intervals + 1", "name_id": "Aturan tiang pagar: interval + 1" },
+        "trap": {
+          "wrong": "17",
+          "why_en": "255 ÷ 15 = 17 gives the number of gaps, not trees; the tree at position 0 m adds one more",
+          "why_id": "255 ÷ 15 = 17 memberikan jumlah celah, bukan pohon; pohon di posisi 0 m menambah satu lagi"
+        },
+        "answer": { "form": "value", "unit": "trees", "value": "18" }
+      },
+      "hint_steps_en": [
+        "Trees are planted at 0, 15, 30, … metres from one end.",
+        "Divide the street length by the spacing: 255 ÷ 15 = 17 intervals.",
+        "Number of trees = number of intervals + 1 = 17 + 1 = 18."
+      ],
+      "hint_steps_id": [
+        "Pohon ditanam di 0, 15, 30, … meter dari salah satu ujung.",
+        "Bagi panjang jalan dengan jarak tanam: 255 ÷ 15 = 17 interval.",
+        "Jumlah pohon = jumlah interval + 1 = 17 + 1 = 18."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the fence-post rule: trees = intervals + 1.",
+          "intro_id": "Terapkan aturan tiang pagar: pohon = interval + 1.",
+          "items": [
+            { "text_en": "Street = 255 m, spacing = 15 m → intervals = 255 ÷ 15 = 17", "text_id": "Jalan = 255 m, jarak = 15 m → interval = 255 ÷ 15 = 17", "ok": null },
+            { "text_en": "Trees at positions 0, 15, 30, …, 255 m", "text_id": "Pohon di posisi 0, 15, 30, …, 255 m", "ok": null },
+            { "text_en": "Trees = 17 intervals + 1 = 18 ✓", "text_id": "Pohon = 17 interval + 1 = 18 ✓", "ok": true },
+            { "text_en": "17 alone is wrong — it forgets the tree at 0 m ✗", "text_id": "17 saja salah — lupa pohon di 0 m ✗", "ok": false }
+          ],
+          "final_en": "There are 18 trees in the street.",
+          "final_id": "Ada 18 pohon di jalan tersebut.",
+          "aria_en": "255 divided by 15 gives 17 intervals; adding 1 for the starting tree gives 18 trees total.",
+          "aria_id": "255 dibagi 15 menghasilkan 17 interval; tambah 1 untuk pohon awal menghasilkan total 18 pohon."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +298,60 @@
       "body_id": "Berdasarkan pola berikut, ada berapa ⊗ pada kelompok ke-10?",
       "answer_type": "fill_in",
       "answer": "181",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how many ⊗ is / are there in the 10th group?",
+            "phrase_id": "ada berapa ⊗ pada kelompok ke-10?",
+            "note_en": "Find the formula for the nth group and substitute n = 10",
+            "note_id": "Temukan rumus untuk kelompok ke-n dan substitusi n = 10"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "According to the pattern shown below",
+            "phrase_id": "Berdasarkan pola berikut",
+            "note_en": "The figure shows groups growing outward; group n has 2n²−1 symbols (cross/diamond pattern)",
+            "note_id": "Gambar menunjukkan kelompok yang tumbuh ke luar; kelompok n memiliki 2n²−1 simbol"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the 10th group",
+            "phrase_id": "kelompok ke-10",
+            "note_en": "Substitute n = 10 into the formula",
+            "note_id": "Substitusi n = 10 ke dalam rumus"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Group 1", "label_id": "Kelompok 1", "value": "1 = 2(1)²−1" },
+          { "label_en": "Group 2", "label_id": "Kelompok 2", "value": "7 = 2(2)²−1" },
+          { "label_en": "Group 3", "label_id": "Kelompok 3", "value": "17 = 2(3)²−1" },
+          { "label_en": "Group 10", "label_id": "Kelompok 10", "value": "2(10)²−1 = 200−1 = 181" }
+        ],
+        "strategy": { "name_en": "Identify the quadratic pattern, apply formula", "name_id": "Identifikasi pola kuadratik, terapkan rumus" },
+        "trap": {
+          "wrong": "180",
+          "why_en": "2×10²=200 but the formula is 2n²−1; don't forget to subtract 1",
+          "why_id": "2×10²=200 tetapi rumusnya adalah 2n²−1; jangan lupa kurangi 1"
+        },
+        "answer": { "form": "value", "unit": null, "value": "181" }
+      },
+      "hint_steps_en": [
+        "From the figure, group 1 has 1 ⊗, group 2 has 7, group 3 has 17.",
+        "Differences: +6, +10, +14, … — increasing by 4 each time (quadratic pattern).",
+        "The formula is: group n = 2n² − 1.",
+        "Check: group 1 = 2(1)−1=1 ✓; group 2 = 8−1=7 ✓; group 3 = 18−1=17 ✓.",
+        "Group 10 = 2(100) − 1 = 181."
+      ],
+      "hint_steps_id": [
+        "Dari gambar, kelompok 1 memiliki 1 ⊗, kelompok 2 memiliki 7, kelompok 3 memiliki 17.",
+        "Selisih: +6, +10, +14, … — naik 4 setiap kali (pola kuadratik).",
+        "Rumusnya: kelompok n = 2n² − 1.",
+        "Cek: kelompok 1 = 2(1)−1=1 ✓; kelompok 2 = 8−1=7 ✓; kelompok 3 = 18−1=17 ✓.",
+        "Kelompok 10 = 2(100) − 1 = 181."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +359,69 @@
       "body_id": "Tentukan nilai dari 2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 + 18.",
       "answer_type": "fill_in",
       "answer": "90",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 + 18",
+            "phrase_id": "2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 + 18",
+            "note_en": "9 consecutive even numbers starting at 2; pair opposite terms: 2+18=20, 4+16=20, etc.",
+            "note_id": "9 bilangan genap berurutan mulai dari 2; pasangkan suku yang berhadapan: 2+18=20, 4+16=20, dll."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tentukan nilai dari",
+            "note_en": "Sum the series efficiently",
+            "note_id": "Jumlahkan deret ini secara efisien"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 + 18",
+            "phrase_id": "2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 + 18",
+            "note_en": "9 terms; average = middle term = 10; sum = 9 × 10 = 90",
+            "note_id": "9 suku; rata-rata = suku tengah = 10; jumlah = 9 × 10 = 90"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Number of terms", "label_id": "Jumlah suku", "value": "9" },
+          { "label_en": "Middle term (average)", "label_id": "Suku tengah (rata-rata)", "value": "10" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "9 × 10 = 90" }
+        ],
+        "strategy": { "name_en": "Average × count (arithmetic series)", "name_id": "Rata-rata × jumlah suku (deret aritmetika)" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "90" }
+      },
+      "hint_steps_en": [
+        "There are 9 terms: 2, 4, 6, 8, 10, 12, 14, 16, 18.",
+        "For an arithmetic series, sum = average × number of terms.",
+        "Average = middle term = 10 (the 5th term).",
+        "Sum = 9 × 10 = 90."
+      ],
+      "hint_steps_id": [
+        "Ada 9 suku: 2, 4, 6, 8, 10, 12, 14, 16, 18.",
+        "Untuk deret aritmetika, jumlah = rata-rata × jumlah suku.",
+        "Rata-rata = suku tengah = 10 (suku ke-5).",
+        "Jumlah = 9 × 10 = 90."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Pair opposite terms or use average × count to sum the even numbers.",
+          "intro_id": "Pasangkan suku yang berhadapan atau gunakan rata-rata × jumlah suku.",
+          "items": [
+            { "text_en": "9 terms: 2, 4, 6, 8, 10, 12, 14, 16, 18", "text_id": "9 suku: 2, 4, 6, 8, 10, 12, 14, 16, 18", "ok": null },
+            { "text_en": "Pairs: (2+18)=20, (4+16)=20, (6+14)=20, (8+12)=20 → 4 pairs + middle 10", "text_id": "Pasangan: (2+18)=20, (4+16)=20, (6+14)=20, (8+12)=20 → 4 pasang + tengah 10", "ok": null },
+            { "text_en": "4 × 20 + 10 = 80 + 10 = 90 ✓", "text_id": "4 × 20 + 10 = 80 + 10 = 90 ✓", "ok": true }
+          ],
+          "final_en": "The sum is 90.",
+          "final_id": "Jumlahnya adalah 90.",
+          "aria_en": "The 9 even numbers from 2 to 18 sum to 90 using pairing or average times count.",
+          "aria_id": "9 bilangan genap dari 2 sampai 18 berjumlah 90 menggunakan pasangan atau rata-rata dikali jumlah suku."
+        }
+      }
     },
     {
       "number": 7,
@@ -62,7 +429,70 @@
       "body_id": "Tentukan nilai dari 81 × 16 + 27 × 52.",
       "answer_type": "fill_in",
       "answer": "2700",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "81 × 16 + 27 × 52",
+            "phrase_id": "81 × 16 + 27 × 52",
+            "note_en": "81 = 27 × 3, so factor out 27: 27(3×16 + 52) = 27(48+52) = 27×100",
+            "note_id": "81 = 27 × 3, faktorkan 27: 27(3×16 + 52) = 27(48+52) = 27×100"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of 81 × 16 + 27 × 52",
+            "phrase_id": "Tentukan nilai dari 81 × 16 + 27 × 52",
+            "note_en": "Factor to simplify before computing",
+            "note_id": "Faktorkan untuk menyederhanakan sebelum menghitung"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "81 × 16 + 27 × 52",
+            "phrase_id": "81 × 16 + 27 × 52",
+            "note_en": "Key insight: 81 = 3 × 27; group both terms under 27",
+            "note_id": "Kunci: 81 = 3 × 27; kelompokkan kedua suku di bawah 27"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rewrite 81", "label_id": "Tulis ulang 81", "value": "81 = 3 × 27" },
+          { "label_en": "Factor out 27", "label_id": "Faktorkan 27", "value": "27 × (3×16 + 52) = 27 × (48 + 52)" },
+          { "label_en": "Bracket sum", "label_id": "Jumlah dalam kurung", "value": "48 + 52 = 100" },
+          { "label_en": "Final product", "label_id": "Hasil akhir", "value": "27 × 100 = 2700" }
+        ],
+        "strategy": { "name_en": "Factor a common multiple to create a round number", "name_id": "Faktorkan kelipatan bersama untuk membuat bilangan bulat" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "2700" }
+      },
+      "hint_steps_en": [
+        "Notice that 81 = 3 × 27, so 81 × 16 = 27 × 48.",
+        "Now factor out 27: 27 × 48 + 27 × 52 = 27 × (48 + 52).",
+        "48 + 52 = 100.",
+        "27 × 100 = 2700."
+      ],
+      "hint_steps_id": [
+        "Perhatikan 81 = 3 × 27, jadi 81 × 16 = 27 × 48.",
+        "Faktorkan 27: 27 × 48 + 27 × 52 = 27 × (48 + 52).",
+        "48 + 52 = 100.",
+        "27 × 100 = 2700."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Factor 27 from both terms to get a clean multiplication.",
+          "intro_id": "Faktorkan 27 dari kedua suku untuk mendapatkan perkalian yang bersih.",
+          "items": [
+            { "text_en": "81 × 16 = (3 × 27) × 16 = 27 × 48", "text_id": "81 × 16 = (3 × 27) × 16 = 27 × 48", "ok": null },
+            { "text_en": "27 × 48 + 27 × 52 = 27 × (48 + 52) = 27 × 100", "text_id": "27 × 48 + 27 × 52 = 27 × (48 + 52) = 27 × 100", "ok": null },
+            { "text_en": "27 × 100 = 2700 ✓", "text_id": "27 × 100 = 2700 ✓", "ok": true }
+          ],
+          "final_en": "81 × 16 + 27 × 52 = 2700.",
+          "final_id": "81 × 16 + 27 × 52 = 2700.",
+          "aria_en": "Factor 27 from both terms: 27 times 48 plus 27 times 52 equals 27 times 100 equals 2700.",
+          "aria_id": "Faktorkan 27 dari kedua suku: 27 dikali 48 ditambah 27 dikali 52 sama dengan 27 dikali 100 sama dengan 2700."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +500,68 @@
       "body_id": "Tentukan nilai dari 16 × 625 × 4 ÷ 25.",
       "answer_type": "fill_in",
       "answer": "1600",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "16 × 625 × 4 ÷ 25",
+            "phrase_id": "16 × 625 × 4 ÷ 25",
+            "note_en": "625 ÷ 25 = 25; reorder to divide first, then multiply",
+            "note_id": "625 ÷ 25 = 25; susun ulang untuk membagi dulu, baru kalikan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of 16 × 625 × 4 ÷ 25",
+            "phrase_id": "Tentukan nilai dari 16 × 625 × 4 ÷ 25",
+            "note_en": "Reorder multiplication/division for easier computation",
+            "note_id": "Susun ulang perkalian/pembagian untuk komputasi yang lebih mudah"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "16 × 625 × 4 ÷ 25",
+            "phrase_id": "16 × 625 × 4 ÷ 25",
+            "note_en": "625 ÷ 25 = 25; then 16 × 25 × 4 = 16 × 100 = 1600",
+            "note_id": "625 ÷ 25 = 25; lalu 16 × 25 × 4 = 16 × 100 = 1600"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Simplify 625 ÷ 25", "label_id": "Sederhanakan 625 ÷ 25", "value": "625 ÷ 25 = 25" },
+          { "label_en": "Remaining", "label_id": "Sisa", "value": "16 × 25 × 4" },
+          { "label_en": "Group 25 × 4", "label_id": "Kelompokkan 25 × 4", "value": "25 × 4 = 100" },
+          { "label_en": "Final", "label_id": "Akhir", "value": "16 × 100 = 1600" }
+        ],
+        "strategy": { "name_en": "Reorder to divide first, then use round numbers", "name_id": "Susun ulang untuk membagi dulu, lalu gunakan bilangan bulat" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "1600" }
+      },
+      "hint_steps_en": [
+        "Reorder: 16 × 4 × 625 ÷ 25.",
+        "First simplify 625 ÷ 25 = 25.",
+        "Now: 16 × 4 × 25 = 16 × 100 = 1600."
+      ],
+      "hint_steps_id": [
+        "Susun ulang: 16 × 4 × 625 ÷ 25.",
+        "Sederhanakan dulu 625 ÷ 25 = 25.",
+        "Sekarang: 16 × 4 × 25 = 16 × 100 = 1600."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Reorder the factors to get a round number early.",
+          "intro_id": "Susun ulang faktor untuk mendapatkan bilangan bulat lebih awal.",
+          "items": [
+            { "text_en": "625 ÷ 25 = 25 (simplify first)", "text_id": "625 ÷ 25 = 25 (sederhanakan dulu)", "ok": null },
+            { "text_en": "4 × 25 = 100", "text_id": "4 × 25 = 100", "ok": null },
+            { "text_en": "16 × 100 = 1600 ✓", "text_id": "16 × 100 = 1600 ✓", "ok": true }
+          ],
+          "final_en": "16 × 625 × 4 ÷ 25 = 1600.",
+          "final_id": "16 × 625 × 4 ÷ 25 = 1600.",
+          "aria_en": "Simplify 625 divided by 25 to get 25, then 16 times 4 times 25 equals 16 times 100 equals 1600.",
+          "aria_id": "Sederhanakan 625 dibagi 25 menjadi 25, lalu 16 dikali 4 dikali 25 sama dengan 16 dikali 100 sama dengan 1600."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +569,71 @@
       "body_id": "Tentukan nilai dari 2018 − 2017 + 2016 − 2015 + 2014 − … + 2002 − 2001 + 2000.",
       "answer_type": "fill_in",
       "answer": "2009",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2018 − 2017 + 2016 − 2015 + 2014 − … + 2002 − 2001 + 2000",
+            "phrase_id": "2018 − 2017 + 2016 − 2015 + 2014 − … + 2002 − 2001 + 2000",
+            "note_en": "Alternating +/− pairs; each pair (2k) − (2k−1) = 1; plus the last term 2000",
+            "note_id": "Pasangan bergantian +/−; setiap pasangan (2k) − (2k−1) = 1; ditambah suku terakhir 2000"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tentukan nilai dari",
+            "note_en": "Group consecutive pairs to simplify",
+            "note_id": "Kelompokkan pasangan berurutan untuk menyederhanakan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2018 − 2017 + 2016 − 2015 + 2014 − … + 2002 − 2001 + 2000",
+            "phrase_id": "2018 − 2017 + 2016 − 2015 + 2014 − … + 2002 − 2001 + 2000",
+            "note_en": "9 pairs (2018→2001) each equal 1, plus 2000 standalone",
+            "note_id": "9 pasang (2018→2001) masing-masing bernilai 1, ditambah 2000 tersendiri"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each pair value", "label_id": "Nilai setiap pasang", "value": "e.g. 2018−2017=1, 2016−2015=1, …" },
+          { "label_en": "Number of pairs", "label_id": "Jumlah pasang", "value": "9 pairs (from 2018−2017 down to 2002−2001)" },
+          { "label_en": "Sum of pairs", "label_id": "Jumlah pasang", "value": "9 × 1 = 9" },
+          { "label_en": "Final term", "label_id": "Suku terakhir", "value": "+2000" },
+          { "label_en": "Total", "label_id": "Total", "value": "9 + 2000 = 2009" }
+        ],
+        "strategy": { "name_en": "Group consecutive pairs, each equals 1", "name_id": "Kelompokkan pasangan berurutan, masing-masing bernilai 1" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "2009" }
+      },
+      "hint_steps_en": [
+        "Group pairs: (2018−2017) + (2016−2015) + … + (2002−2001) + 2000.",
+        "Each pair equals 1.",
+        "Count the pairs from 2018−2017 down to 2002−2001: there are 9 pairs.",
+        "Sum = 9 × 1 + 2000 = 9 + 2000 = 2009."
+      ],
+      "hint_steps_id": [
+        "Kelompokkan pasangan: (2018−2017) + (2016−2015) + … + (2002−2001) + 2000.",
+        "Setiap pasangan bernilai 1.",
+        "Hitung pasangan dari 2018−2017 hingga 2002−2001: ada 9 pasang.",
+        "Jumlah = 9 × 1 + 2000 = 9 + 2000 = 2009."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Group consecutive pairs (each = 1), then add the last term.",
+          "intro_id": "Kelompokkan pasangan berurutan (masing-masing = 1), lalu tambahkan suku terakhir.",
+          "items": [
+            { "text_en": "(2018−2017)=1, (2016−2015)=1, …, (2002−2001)=1 → 9 pairs", "text_id": "(2018−2017)=1, (2016−2015)=1, …, (2002−2001)=1 → 9 pasang", "ok": null },
+            { "text_en": "9 pairs × 1 = 9", "text_id": "9 pasang × 1 = 9", "ok": null },
+            { "text_en": "9 + 2000 = 2009 ✓", "text_id": "9 + 2000 = 2009 ✓", "ok": true }
+          ],
+          "final_en": "The value is 2009.",
+          "final_id": "Nilainya adalah 2009.",
+          "aria_en": "9 pairs each equal 1 giving 9, plus the standalone term 2000, totals 2009.",
+          "aria_id": "9 pasang masing-masing bernilai 1 menghasilkan 9, ditambah suku tunggal 2000, totalnya 2009."
+        }
+      }
     },
     {
       "number": 10,
@@ -86,7 +641,69 @@
       "body_id": "Tentukan nilai dari 1258 + 369 + 742 + 641.",
       "answer_type": "fill_in",
       "answer": "3010",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1258 + 369 + 742 + 641",
+            "phrase_id": "1258 + 369 + 742 + 641",
+            "note_en": "Look for pairs that sum to round numbers: 1258+742=2000, 369+641=1010",
+            "note_id": "Cari pasangan yang berjumlah bilangan bulat: 1258+742=2000, 369+641=1010"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of 1258 + 369 + 742 + 641",
+            "phrase_id": "Tentukan nilai dari 1258 + 369 + 742 + 641",
+            "note_en": "Rearrange to pair complementary numbers",
+            "note_id": "Susun ulang untuk memasangkan bilangan komplementer"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1258 + 369 + 742 + 641",
+            "phrase_id": "1258 + 369 + 742 + 641",
+            "note_en": "1258+742=2000 and 369+641=1010",
+            "note_id": "1258+742=2000 dan 369+641=1010"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pair 1", "label_id": "Pasangan 1", "value": "1258 + 742 = 2000" },
+          { "label_en": "Pair 2", "label_id": "Pasangan 2", "value": "369 + 641 = 1010" },
+          { "label_en": "Total", "label_id": "Total", "value": "2000 + 1010 = 3010" }
+        ],
+        "strategy": { "name_en": "Pair complementary numbers for round sums", "name_id": "Pasangkan bilangan komplementer untuk jumlah bulat" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "3010" }
+      },
+      "hint_steps_en": [
+        "Rearrange the numbers to spot helpful pairs.",
+        "1258 + 742 = 2000 (the last three digits of each add to 1000).",
+        "369 + 641 = 1010.",
+        "Total = 2000 + 1010 = 3010."
+      ],
+      "hint_steps_id": [
+        "Susun ulang bilangan untuk menemukan pasangan yang berguna.",
+        "1258 + 742 = 2000 (tiga digit terakhir masing-masing berjumlah 1000).",
+        "369 + 641 = 1010.",
+        "Total = 2000 + 1010 = 3010."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Rearrange to find complementary pairs that sum to round numbers.",
+          "intro_id": "Susun ulang untuk menemukan pasangan komplementer yang berjumlah bilangan bulat.",
+          "items": [
+            { "text_en": "1258 + 742 = 2000", "text_id": "1258 + 742 = 2000", "ok": null },
+            { "text_en": "369 + 641 = 1010", "text_id": "369 + 641 = 1010", "ok": null },
+            { "text_en": "2000 + 1010 = 3010 ✓", "text_id": "2000 + 1010 = 3010 ✓", "ok": true }
+          ],
+          "final_en": "1258 + 369 + 742 + 641 = 3010.",
+          "final_id": "1258 + 369 + 742 + 641 = 3010.",
+          "aria_en": "Pair 1258 with 742 to get 2000 and 369 with 641 to get 1010; total is 3010.",
+          "aria_id": "Pasangkan 1258 dengan 742 menghasilkan 2000 dan 369 dengan 641 menghasilkan 1010; total 3010."
+        }
+      }
     },
     {
       "number": 11,
@@ -94,7 +711,73 @@
       "body_id": "Definisikan operasi simbol a ⊕ b = b × a − a − b. Tentukan nilai dari (16 ⊕ 9).",
       "answer_type": "fill_in",
       "answer": "119",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a ⊕ b = b × a − a − b",
+            "phrase_id": "a ⊕ b = b × a − a − b",
+            "note_en": "Custom operation: multiply b×a then subtract both a and b",
+            "note_id": "Operasi khusus: kalikan b×a lalu kurangi a dan b"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of (16 ⊕ 9)",
+            "phrase_id": "Tentukan nilai dari (16 ⊕ 9)",
+            "note_en": "Substitute a=16, b=9 into the formula",
+            "note_id": "Substitusi a=16, b=9 ke dalam rumus"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Define the operation symbol a ⊕ b = b × a − a − b",
+            "phrase_id": "Definisikan operasi simbol a ⊕ b = b × a − a − b",
+            "note_en": "Order matters: b×a means 9×16, not 16×9 (same here, but watch in other problems)",
+            "note_id": "Urutan penting: b×a berarti 9×16, bukan 16×9 (sama di sini, tapi perhatikan di soal lain)"
+          }
+        ],
+        "quantities": [
+          { "label_en": "b × a", "label_id": "b × a", "value": "9 × 16 = 144" },
+          { "label_en": "Subtract a", "label_id": "Kurangi a", "value": "144 − 16 = 128" },
+          { "label_en": "Subtract b", "label_id": "Kurangi b", "value": "128 − 9 = 119" }
+        ],
+        "strategy": { "name_en": "Substitute into the custom operation formula", "name_id": "Substitusi ke dalam rumus operasi khusus" },
+        "trap": {
+          "wrong": "128",
+          "why_en": "Forgetting to subtract b (9) after subtracting a (16) from 144",
+          "why_id": "Lupa mengurangi b (9) setelah mengurangi a (16) dari 144"
+        },
+        "answer": { "form": "value", "unit": null, "value": "119" }
+      },
+      "hint_steps_en": [
+        "The custom operation is a ⊕ b = b × a − a − b.",
+        "Substitute a=16, b=9: 9 × 16 − 16 − 9.",
+        "9 × 16 = 144.",
+        "144 − 16 − 9 = 128 − 9 = 119."
+      ],
+      "hint_steps_id": [
+        "Operasi khusus adalah a ⊕ b = b × a − a − b.",
+        "Substitusi a=16, b=9: 9 × 16 − 16 − 9.",
+        "9 × 16 = 144.",
+        "144 − 16 − 9 = 128 − 9 = 119."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Substitute a=16, b=9 into a ⊕ b = b×a − a − b step by step.",
+          "intro_id": "Substitusi a=16, b=9 ke dalam a ⊕ b = b×a − a − b langkah demi langkah.",
+          "items": [
+            { "text_en": "b × a = 9 × 16 = 144", "text_id": "b × a = 9 × 16 = 144", "ok": null },
+            { "text_en": "144 − a = 144 − 16 = 128", "text_id": "144 − a = 144 − 16 = 128", "ok": null },
+            { "text_en": "128 − b = 128 − 9 = 119 ✓", "text_id": "128 − b = 128 − 9 = 119 ✓", "ok": true }
+          ],
+          "final_en": "16 ⊕ 9 = 119.",
+          "final_id": "16 ⊕ 9 = 119.",
+          "aria_en": "Substituting a equals 16 and b equals 9: 9 times 16 minus 16 minus 9 equals 144 minus 25 equals 119.",
+          "aria_id": "Substitusi a sama dengan 16 dan b sama dengan 9: 9 dikali 16 dikurangi 16 dikurangi 9 sama dengan 144 dikurangi 25 sama dengan 119."
+        }
+      }
     },
     {
       "number": 12,
@@ -102,7 +785,73 @@
       "body_id": "Jumlah A dan B adalah 2018. Selisih A dan B adalah 902. Jika A lebih besar dari B, tentukan nilai A.",
       "answer_type": "fill_in",
       "answer": "1460",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of A and B is 2018",
+            "phrase_id": "Jumlah A dan B adalah 2018",
+            "note_en": "A + B = 2018",
+            "note_id": "A + B = 2018"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The difference between A and B is 902",
+            "phrase_id": "Selisih A dan B adalah 902",
+            "note_en": "A − B = 902 (since A is larger)",
+            "note_id": "A − B = 902 (karena A lebih besar)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the value of A",
+            "phrase_id": "tentukan nilai A",
+            "note_en": "Add the two equations to eliminate B: 2A = 2920",
+            "note_id": "Tambahkan dua persamaan untuk mengeliminasi B: 2A = 2920"
+          }
+        ],
+        "quantities": [
+          { "label_en": "A + B", "label_id": "A + B", "value": "2018" },
+          { "label_en": "A − B", "label_id": "A − B", "value": "902" },
+          { "label_en": "2A (adding equations)", "label_id": "2A (menambah persamaan)", "value": "2018 + 902 = 2920" },
+          { "label_en": "A", "label_id": "A", "value": "2920 ÷ 2 = 1460" }
+        ],
+        "strategy": { "name_en": "Add the sum and difference equations", "name_id": "Tambahkan persamaan jumlah dan selisih" },
+        "trap": {
+          "wrong": "1008",
+          "why_en": "1008 is the value of B (found by subtracting equations), not A",
+          "why_id": "1008 adalah nilai B (ditemukan dengan mengurangi persamaan), bukan A"
+        },
+        "answer": { "form": "value", "unit": null, "value": "1460" }
+      },
+      "hint_steps_en": [
+        "Write two equations: A + B = 2018 and A − B = 902.",
+        "Add them: 2A = 2018 + 902 = 2920.",
+        "A = 2920 ÷ 2 = 1460."
+      ],
+      "hint_steps_id": [
+        "Tulis dua persamaan: A + B = 2018 dan A − B = 902.",
+        "Jumlahkan: 2A = 2018 + 902 = 2920.",
+        "A = 2920 ÷ 2 = 1460."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Add the sum and difference equations to eliminate B.",
+          "intro_id": "Tambahkan persamaan jumlah dan selisih untuk mengeliminasi B.",
+          "items": [
+            { "text_en": "A + B = 2018", "text_id": "A + B = 2018", "ok": null },
+            { "text_en": "A − B = 902", "text_id": "A − B = 902", "ok": null },
+            { "text_en": "Add: 2A = 2920 → A = 1460 ✓", "text_id": "Tambahkan: 2A = 2920 → A = 1460 ✓", "ok": true },
+            { "text_en": "B = 2018 − 1460 = 558 (not the answer asked)", "text_id": "B = 2018 − 1460 = 558 (bukan yang ditanyakan)", "ok": false }
+          ],
+          "final_en": "A = 1460.",
+          "final_id": "A = 1460.",
+          "aria_en": "Adding the sum equation and difference equation gives 2A equals 2920, so A equals 1460.",
+          "aria_id": "Menambahkan persamaan jumlah dan selisih menghasilkan 2A sama dengan 2920, jadi A sama dengan 1460."
+        }
+      }
     },
     {
       "number": 13,
@@ -110,7 +859,72 @@
       "body_id": "Bilangan-bilangan berikut membentuk barisan aritmetika. Berapakah jumlah suku ke-9 dan suku ke-14?\n\n12, 15, 18, 21, 24, …",
       "answer_type": "fill_in",
       "answer": "87",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12, 15, 18, 21, 24, …",
+            "phrase_id": "12, 15, 18, 21, 24, …",
+            "note_en": "First term a₁=12, common difference d=3",
+            "note_id": "Suku pertama a₁=12, beda d=3"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the 9th term and the 14th term?",
+            "phrase_id": "Berapakah jumlah suku ke-9 dan suku ke-14?",
+            "note_en": "Use aₙ = 12 + 3(n−1) to find the 9th and 14th terms",
+            "note_id": "Gunakan aₙ = 12 + 3(n−1) untuk menemukan suku ke-9 dan ke-14"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "follow the arithmetic sequence",
+            "phrase_id": "membentuk barisan aritmetika",
+            "note_en": "Arithmetic sequence formula: aₙ = a₁ + (n−1)d",
+            "note_id": "Rumus barisan aritmetika: aₙ = a₁ + (n−1)d"
+          }
+        ],
+        "quantities": [
+          { "label_en": "9th term", "label_id": "Suku ke-9", "value": "12 + 3(8) = 12 + 24 = 36" },
+          { "label_en": "14th term", "label_id": "Suku ke-14", "value": "12 + 3(13) = 12 + 39 = 51" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "36 + 51 = 87" }
+        ],
+        "strategy": { "name_en": "Apply arithmetic sequence formula to each term", "name_id": "Terapkan rumus barisan aritmetika untuk setiap suku" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "87" }
+      },
+      "hint_steps_en": [
+        "The sequence 12, 15, 18, … has first term 12 and common difference 3.",
+        "Formula: aₙ = 12 + 3(n−1).",
+        "9th term: 12 + 3(8) = 12 + 24 = 36.",
+        "14th term: 12 + 3(13) = 12 + 39 = 51.",
+        "Sum = 36 + 51 = 87."
+      ],
+      "hint_steps_id": [
+        "Barisan 12, 15, 18, … memiliki suku pertama 12 dan beda 3.",
+        "Rumus: aₙ = 12 + 3(n−1).",
+        "Suku ke-9: 12 + 3(8) = 12 + 24 = 36.",
+        "Suku ke-14: 12 + 3(13) = 12 + 39 = 51.",
+        "Jumlah = 36 + 51 = 87."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use aₙ = 12 + 3(n−1) to find both terms, then add.",
+          "intro_id": "Gunakan aₙ = 12 + 3(n−1) untuk menemukan kedua suku, lalu jumlahkan.",
+          "items": [
+            { "text_en": "d = 15 − 12 = 3; formula aₙ = 12 + 3(n−1)", "text_id": "d = 15 − 12 = 3; rumus aₙ = 12 + 3(n−1)", "ok": null },
+            { "text_en": "a₉ = 12 + 3(8) = 36", "text_id": "a₉ = 12 + 3(8) = 36", "ok": null },
+            { "text_en": "a₁₄ = 12 + 3(13) = 51", "text_id": "a₁₄ = 12 + 3(13) = 51", "ok": null },
+            { "text_en": "36 + 51 = 87 ✓", "text_id": "36 + 51 = 87 ✓", "ok": true }
+          ],
+          "final_en": "The sum of the 9th and 14th terms is 87.",
+          "final_id": "Jumlah suku ke-9 dan ke-14 adalah 87.",
+          "aria_en": "The 9th term is 36 and the 14th term is 51; their sum is 87.",
+          "aria_id": "Suku ke-9 adalah 36 dan suku ke-14 adalah 51; jumlahnya adalah 87."
+        }
+      }
     },
     {
       "number": 14,
@@ -118,7 +932,73 @@
       "body_id": "Sebuah bilangan tiga digit bersisa 5 ketika dibagi 9. Bilangan manakah yang paling dekat dengan 400?",
       "answer_type": "fill_in",
       "answer": "401",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "has remainder 5 when divided by 9",
+            "phrase_id": "bersisa 5 ketika dibagi 9",
+            "note_en": "The number ≡ 5 (mod 9); find the multiple of 9 nearest to 400",
+            "note_id": "Bilangan ≡ 5 (mod 9); temukan kelipatan 9 terdekat dengan 400"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is such number that is closest to 400?",
+            "phrase_id": "Bilangan manakah yang paling dekat dengan 400?",
+            "note_en": "Check 400: 400 ÷ 9 = 44 remainder 4, so 400+1=401 has remainder 5",
+            "note_id": "Cek 400: 400 ÷ 9 = 44 sisa 4, jadi 400+1=401 bersisa 5"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A three-digit number",
+            "phrase_id": "Sebuah bilangan tiga digit",
+            "note_en": "Must be between 100 and 999",
+            "note_id": "Harus antara 100 dan 999"
+          }
+        ],
+        "quantities": [
+          { "label_en": "400 ÷ 9", "label_id": "400 ÷ 9", "value": "44 remainder 4 → remainder is 4, not 5" },
+          { "label_en": "401 ÷ 9", "label_id": "401 ÷ 9", "value": "44 remainder 5 ✓" },
+          { "label_en": "392 ÷ 9", "label_id": "392 ÷ 9", "value": "43 remainder 5 ✓, but |392−400|=8 > |401−400|=1" },
+          { "label_en": "Closest", "label_id": "Terdekat", "value": "401 (only 1 away from 400)" }
+        ],
+        "strategy": { "name_en": "Find nearest multiple of 9, then add the target remainder", "name_id": "Temukan kelipatan 9 terdekat, lalu tambahkan sisa yang dituju" },
+        "trap": {
+          "wrong": "392",
+          "why_en": "392 also has remainder 5 when divided by 9, but it is 8 away from 400; 401 is only 1 away",
+          "why_id": "392 juga bersisa 5 ketika dibagi 9, tetapi jaraknya 8 dari 400; 401 hanya 1 dari 400"
+        },
+        "answer": { "form": "value", "unit": null, "value": "401" }
+      },
+      "hint_steps_en": [
+        "Find the multiple of 9 nearest to 400: 9 × 44 = 396.",
+        "396 has remainder 0; to get remainder 5, add 5: 396 + 5 = 401.",
+        "Check the previous candidate: 9 × 43 = 387; 387 + 5 = 392 (8 away from 400).",
+        "401 is only 1 away from 400, so 401 is the closest."
+      ],
+      "hint_steps_id": [
+        "Temukan kelipatan 9 terdekat dengan 400: 9 × 44 = 396.",
+        "396 bersisa 0; untuk mendapat sisa 5, tambahkan 5: 396 + 5 = 401.",
+        "Cek kandidat sebelumnya: 9 × 43 = 387; 387 + 5 = 392 (jaraknya 8 dari 400).",
+        "401 hanya 1 dari 400, jadi 401 adalah yang terdekat."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find candidates with remainder 5 when divided by 9, then pick the closest to 400.",
+          "intro_id": "Temukan kandidat bersisa 5 ketika dibagi 9, lalu pilih yang terdekat dengan 400.",
+          "items": [
+            { "text_en": "9 × 43 + 5 = 392 → |392−400| = 8", "text_id": "9 × 43 + 5 = 392 → |392−400| = 8", "ok": false },
+            { "text_en": "9 × 44 + 5 = 401 → |401−400| = 1 ✓", "text_id": "9 × 44 + 5 = 401 → |401−400| = 1 ✓", "ok": true }
+          ],
+          "final_en": "401 is the three-digit number with remainder 5 closest to 400.",
+          "final_id": "401 adalah bilangan tiga digit bersisa 5 yang paling dekat dengan 400.",
+          "aria_en": "401 divided by 9 gives remainder 5 and is only 1 away from 400, making it the closest such number.",
+          "aria_id": "401 dibagi 9 bersisa 5 dan hanya 1 jauhnya dari 400, menjadikannya bilangan terdekat seperti itu."
+        }
+      }
     },
     {
       "number": 15,
@@ -126,7 +1006,74 @@
       "body_id": "Jumlah 3 bilangan ganjil berurutan adalah 69. Tentukan bilangan ganjil terkecil.",
       "answer_type": "fill_in",
       "answer": "21",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of 3 consecutive odd numbers is 69",
+            "phrase_id": "Jumlah 3 bilangan ganjil berurutan adalah 69",
+            "note_en": "Let the middle odd number be m; then (m−2)+m+(m+2)=3m=69",
+            "note_id": "Misalkan bilangan ganjil tengah adalah m; maka (m−2)+m+(m+2)=3m=69"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the smallest of the odd numbers",
+            "phrase_id": "Tentukan bilangan ganjil terkecil",
+            "note_en": "The smallest is m − 2",
+            "note_id": "Yang terkecil adalah m − 2"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 consecutive odd numbers",
+            "phrase_id": "3 bilangan ganjil berurutan",
+            "note_en": "Consecutive odd numbers differ by 2: n, n+2, n+4",
+            "note_id": "Bilangan ganjil berurutan berbeda 2: n, n+2, n+4"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum equation", "label_id": "Persamaan jumlah", "value": "n + (n+2) + (n+4) = 69" },
+          { "label_en": "Solve", "label_id": "Selesaikan", "value": "3n + 6 = 69 → 3n = 63 → n = 21" },
+          { "label_en": "Three numbers", "label_id": "Tiga bilangan", "value": "21, 23, 25" }
+        ],
+        "strategy": { "name_en": "Let n be smallest; set up sum equation", "name_id": "Misalkan n adalah yang terkecil; susun persamaan jumlah" },
+        "trap": {
+          "wrong": "23",
+          "why_en": "23 is the middle number (69÷3=23); the question asks for the smallest, which is 23−2=21",
+          "why_id": "23 adalah bilangan tengah (69÷3=23); pertanyaan meminta yang terkecil, yaitu 23−2=21"
+        },
+        "answer": { "form": "value", "unit": null, "value": "21" }
+      },
+      "hint_steps_en": [
+        "Let the three consecutive odd numbers be n, n+2, n+4.",
+        "Their sum: n + (n+2) + (n+4) = 3n + 6 = 69.",
+        "3n = 63, so n = 21.",
+        "The three numbers are 21, 23, 25. The smallest is 21."
+      ],
+      "hint_steps_id": [
+        "Misalkan tiga bilangan ganjil berurutan adalah n, n+2, n+4.",
+        "Jumlahnya: n + (n+2) + (n+4) = 3n + 6 = 69.",
+        "3n = 63, jadi n = 21.",
+        "Tiga bilangan tersebut adalah 21, 23, 25. Yang terkecil adalah 21."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Let n be the smallest odd number and solve 3n + 6 = 69.",
+          "intro_id": "Misalkan n adalah bilangan ganjil terkecil dan selesaikan 3n + 6 = 69.",
+          "items": [
+            { "text_en": "n + (n+2) + (n+4) = 69 → 3n + 6 = 69", "text_id": "n + (n+2) + (n+4) = 69 → 3n + 6 = 69", "ok": null },
+            { "text_en": "3n = 63 → n = 21", "text_id": "3n = 63 → n = 21", "ok": true },
+            { "text_en": "Check: 21+23+25=69 ✓", "text_id": "Cek: 21+23+25=69 ✓", "ok": null },
+            { "text_en": "23 is the middle term, not the smallest ✗", "text_id": "23 adalah suku tengah, bukan yang terkecil ✗", "ok": false }
+          ],
+          "final_en": "The smallest consecutive odd number is 21.",
+          "final_id": "Bilangan ganjil berurutan terkecil adalah 21.",
+          "aria_en": "Setting up the equation gives n equals 21; the three numbers are 21, 23, and 25.",
+          "aria_id": "Menyusun persamaan menghasilkan n sama dengan 21; tiga bilangan tersebut adalah 21, 23, dan 25."
+        }
+      }
     },
     {
       "number": 16,
@@ -134,7 +1081,59 @@
       "body_id": "Ada berapa persegi dalam gambar berikut?",
       "answer_type": "fill_in",
       "answer": "30",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many square(s) is / are there in the figure below?",
+            "phrase_id": "Ada berapa persegi dalam gambar berikut?",
+            "note_en": "Count all squares of every size: 1×1, 2×2, 3×3, 4×4",
+            "note_id": "Hitung semua persegi dari setiap ukuran: 1×1, 2×2, 3×3, 4×4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the figure below",
+            "phrase_id": "dalam gambar berikut",
+            "note_en": "The figure is a 4×4 grid; count overlapping squares of all sizes",
+            "note_id": "Gambar adalah grid 4×4; hitung persegi yang tumpang tindih dari semua ukuran"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "How many square(s)",
+            "phrase_id": "Ada berapa persegi",
+            "note_en": "Formula for n×n grid: 1²+2²+…+n² total squares",
+            "note_id": "Rumus untuk grid n×n: 1²+2²+…+n² total persegi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "1×1 squares", "label_id": "Persegi 1×1", "value": "4² = 16" },
+          { "label_en": "2×2 squares", "label_id": "Persegi 2×2", "value": "3² = 9" },
+          { "label_en": "3×3 squares", "label_id": "Persegi 3×3", "value": "2² = 4" },
+          { "label_en": "4×4 squares", "label_id": "Persegi 4×4", "value": "1² = 1" },
+          { "label_en": "Total", "label_id": "Total", "value": "16 + 9 + 4 + 1 = 30" }
+        ],
+        "strategy": { "name_en": "Count squares by size using the formula n²+(n−1)²+…+1²", "name_id": "Hitung persegi berdasarkan ukuran menggunakan rumus n²+(n−1)²+…+1²" },
+        "trap": {
+          "wrong": "16",
+          "why_en": "16 counts only 1×1 squares; larger squares formed by combining cells are also valid",
+          "why_id": "16 hanya menghitung persegi 1×1; persegi yang lebih besar yang terbentuk dari gabungan sel juga valid"
+        },
+        "answer": { "form": "value", "unit": null, "value": "30" }
+      },
+      "hint_steps_en": [
+        "The figure is a 4×4 grid of unit squares.",
+        "Count squares of each possible size:",
+        "1×1: 4×4 = 16; 2×2: 3×3 = 9; 3×3: 2×2 = 4; 4×4: 1×1 = 1.",
+        "Total = 16 + 9 + 4 + 1 = 30."
+      ],
+      "hint_steps_id": [
+        "Gambar adalah grid 4×4 dari persegi satuan.",
+        "Hitung persegi dari setiap ukuran yang mungkin:",
+        "1×1: 4×4 = 16; 2×2: 3×3 = 9; 3×3: 2×2 = 4; 4×4: 1×1 = 1.",
+        "Total = 16 + 9 + 4 + 1 = 30."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +1141,73 @@
       "body_id": "Sebuah piramida memiliki 2018 rusuk. Berapa banyak sisi (muka) piramida tersebut?",
       "answer_type": "fill_in",
       "answer": "1010",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A pyramid has 2018 edges",
+            "phrase_id": "Sebuah piramida memiliki 2018 rusuk",
+            "note_en": "An n-sided pyramid has n base edges + n lateral edges = 2n edges total",
+            "note_id": "Piramida n sisi memiliki n rusuk alas + n rusuk lateral = 2n rusuk total"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many face(s) does this pyramid have?",
+            "phrase_id": "Berapa banyak sisi (muka) piramida tersebut?",
+            "note_en": "An n-sided pyramid has n triangular faces + 1 base = n+1 faces",
+            "note_id": "Piramida n sisi memiliki n muka segitiga + 1 alas = n+1 muka"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2018 edges",
+            "phrase_id": "2018 rusuk",
+            "note_en": "2n = 2018 → n = 1009; faces = n+1 = 1010",
+            "note_id": "2n = 2018 → n = 1009; muka = n+1 = 1010"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Edges of n-sided pyramid", "label_id": "Rusuk piramida n sisi", "value": "2n" },
+          { "label_en": "Solve for n", "label_id": "Selesaikan untuk n", "value": "2n = 2018 → n = 1009" },
+          { "label_en": "Faces", "label_id": "Muka", "value": "n + 1 = 1009 + 1 = 1010" }
+        ],
+        "strategy": { "name_en": "Use pyramid edge/face formulas", "name_id": "Gunakan rumus rusuk/muka piramida" },
+        "trap": {
+          "wrong": "1009",
+          "why_en": "1009 is n (the base polygon sides), not the number of faces; faces = n+1",
+          "why_id": "1009 adalah n (sisi poligon alas), bukan jumlah muka; muka = n+1"
+        },
+        "answer": { "form": "value", "unit": "faces", "value": "1010" }
+      },
+      "hint_steps_en": [
+        "An n-sided pyramid has 2n edges (n base + n lateral).",
+        "Set 2n = 2018 → n = 1009.",
+        "An n-sided pyramid has n+1 faces (n triangular + 1 base).",
+        "Faces = 1009 + 1 = 1010."
+      ],
+      "hint_steps_id": [
+        "Piramida n sisi memiliki 2n rusuk (n alas + n lateral).",
+        "Atur 2n = 2018 → n = 1009.",
+        "Piramida n sisi memiliki n+1 muka (n segitiga + 1 alas).",
+        "Muka = 1009 + 1 = 1010."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply pyramid formulas: edges = 2n, faces = n+1.",
+          "intro_id": "Terapkan rumus piramida: rusuk = 2n, muka = n+1.",
+          "items": [
+            { "text_en": "An n-sided pyramid has 2n edges → 2n = 2018 → n = 1009", "text_id": "Piramida n sisi memiliki 2n rusuk → 2n = 2018 → n = 1009", "ok": null },
+            { "text_en": "Faces = n triangular + 1 base = n + 1 = 1010 ✓", "text_id": "Muka = n segitiga + 1 alas = n + 1 = 1010 ✓", "ok": true },
+            { "text_en": "1009 is the base polygon sides, not the face count ✗", "text_id": "1009 adalah sisi poligon alas, bukan jumlah muka ✗", "ok": false }
+          ],
+          "final_en": "The pyramid has 1010 faces.",
+          "final_id": "Piramida tersebut memiliki 1010 muka.",
+          "aria_en": "A pyramid with n-sided base has 2n edges and n+1 faces; with 2018 edges n is 1009, giving 1010 faces.",
+          "aria_id": "Piramida dengan alas n sisi memiliki 2n rusuk dan n+1 muka; dengan 2018 rusuk n adalah 1009, menghasilkan 1010 muka."
+        }
+      }
     },
     {
       "number": 18,
@@ -150,7 +1215,73 @@
       "body_id": "9 persegi yang masing-masing kelilingnya 48 cm membentuk sebuah persegi yang lebih besar. Berapakah keliling persegi yang lebih besar?",
       "answer_type": "fill_in",
       "answer": "144",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "9 squares whose perimeters are 48 cm",
+            "phrase_id": "9 persegi yang masing-masing kelilingnya 48 cm",
+            "note_en": "Each small square has perimeter 48 cm → side = 48 ÷ 4 = 12 cm",
+            "note_id": "Setiap persegi kecil memiliki keliling 48 cm → sisi = 48 ÷ 4 = 12 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "form a larger square",
+            "phrase_id": "membentuk sebuah persegi yang lebih besar",
+            "note_en": "9 = 3×3, so the larger square has side = 3 × 12 = 36 cm",
+            "note_id": "9 = 3×3, jadi persegi yang lebih besar memiliki sisi = 3 × 12 = 36 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the perimeter of the larger square?",
+            "phrase_id": "Berapakah keliling persegi yang lebih besar?",
+            "note_en": "Perimeter of larger square = 4 × 36 = 144 cm",
+            "note_id": "Keliling persegi yang lebih besar = 4 × 36 = 144 cm"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small square side", "label_id": "Sisi persegi kecil", "value": "48 ÷ 4 = 12 cm" },
+          { "label_en": "Large square side", "label_id": "Sisi persegi besar", "value": "3 × 12 = 36 cm (3×3 arrangement)" },
+          { "label_en": "Large square perimeter", "label_id": "Keliling persegi besar", "value": "4 × 36 = 144 cm" }
+        ],
+        "strategy": { "name_en": "Find small square side → scale up → perimeter", "name_id": "Temukan sisi persegi kecil → perbesar → keliling" },
+        "trap": {
+          "wrong": "48",
+          "why_en": "48 is the perimeter of ONE small square, not the larger combined square",
+          "why_id": "48 adalah keliling SATU persegi kecil, bukan persegi gabungan yang lebih besar"
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "144" }
+      },
+      "hint_steps_en": [
+        "Each small square has perimeter 48 cm, so its side = 48 ÷ 4 = 12 cm.",
+        "9 small squares arranged in a 3×3 grid form a larger square.",
+        "Larger square side = 3 × 12 = 36 cm.",
+        "Perimeter of larger square = 4 × 36 = 144 cm."
+      ],
+      "hint_steps_id": [
+        "Setiap persegi kecil memiliki keliling 48 cm, jadi sisinya = 48 ÷ 4 = 12 cm.",
+        "9 persegi kecil yang disusun dalam grid 3×3 membentuk persegi yang lebih besar.",
+        "Sisi persegi besar = 3 × 12 = 36 cm.",
+        "Keliling persegi besar = 4 × 36 = 144 cm."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the small square side, then scale up to the 3×3 arrangement.",
+          "intro_id": "Temukan sisi persegi kecil, lalu perbesar ke susunan 3×3.",
+          "items": [
+            { "text_en": "Small square: perimeter = 48 cm → side = 12 cm", "text_id": "Persegi kecil: keliling = 48 cm → sisi = 12 cm", "ok": null },
+            { "text_en": "9 squares in 3×3 → large square side = 3 × 12 = 36 cm", "text_id": "9 persegi dalam 3×3 → sisi persegi besar = 3 × 12 = 36 cm", "ok": null },
+            { "text_en": "Large perimeter = 4 × 36 = 144 cm ✓", "text_id": "Keliling besar = 4 × 36 = 144 cm ✓", "ok": true }
+          ],
+          "final_en": "The perimeter of the larger square is 144 cm.",
+          "final_id": "Keliling persegi yang lebih besar adalah 144 cm.",
+          "aria_en": "Each small square has side 12 centimetres; 9 of them in a 3 by 3 arrangement make a larger square with side 36 centimetres and perimeter 144 centimetres.",
+          "aria_id": "Setiap persegi kecil bersisi 12 sentimeter; 9 di antaranya dalam susunan 3 kali 3 membentuk persegi besar bersisi 36 sentimeter dan berkeliling 144 sentimeter."
+        }
+      }
     },
     {
       "number": 19,
@@ -158,7 +1289,51 @@
       "body_id": "Paling sedikit berapa persegi yang terlihat jika mengamati gambar berikut dari atas?",
       "answer_type": "fill_in",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "At least how many square(s) can be seen if observing the figure below from the top?",
+            "phrase_id": "Paling sedikit berapa persegi yang terlihat jika mengamati gambar berikut dari atas?",
+            "note_en": "Looking from the top, some cubes may hide behind others; find the minimum visible squares",
+            "note_id": "Dilihat dari atas, beberapa kubus mungkin tersembunyi di balik yang lain; temukan jumlah minimum persegi yang terlihat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "At least",
+            "phrase_id": "Paling sedikit",
+            "note_en": "Minimize: maximally stack cubes so they share the top-view footprint",
+            "note_id": "Minimalkan: tumpuk kubus semaksimal mungkin agar berbagi tapak tampak atas"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "observing the figure below from the top",
+            "phrase_id": "mengamati gambar berikut dari atas",
+            "note_en": "Top view shows one unit square per column of stacked cubes, not per cube",
+            "note_id": "Tampak atas menunjukkan satu persegi satuan per kolom tumpukan kubus, bukan per kubus"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Minimum top-view squares", "label_id": "Persegi tampak atas minimum", "value": "8 (based on 3D figure structure)" }
+        ],
+        "strategy": { "name_en": "Project the 3D figure onto a top-view grid", "name_id": "Proyeksikan gambar 3D ke grid tampak atas" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "8" }
+      },
+      "hint_steps_en": [
+        "View the 3D figure from directly above.",
+        "Each column of stacked cubes shows as exactly one square in the top view.",
+        "Count the distinct square positions visible from the top.",
+        "The minimum number of squares visible is 8."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar 3D dari tepat di atas.",
+        "Setiap kolom tumpukan kubus tampak sebagai tepat satu persegi dari tampak atas.",
+        "Hitung posisi persegi yang berbeda yang terlihat dari atas.",
+        "Jumlah minimum persegi yang terlihat adalah 8."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1341,73 @@
       "body_id": "Paling banyak berapa titik potong yang terbentuk dari 5 garis lurus pada sebuah bidang?",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 straight lines on a plane",
+            "phrase_id": "5 garis lurus pada sebuah bidang",
+            "note_en": "Each pair of lines can intersect at most once (if not parallel)",
+            "note_id": "Setiap pasang garis dapat berpotongan paling banyak sekali (jika tidak sejajar)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At most how many intersection point(s) are there",
+            "phrase_id": "Paling banyak berapa titik potong yang terbentuk",
+            "note_en": "Maximize by ensuring no two lines are parallel and no three lines meet at one point",
+            "note_id": "Maksimalkan dengan memastikan tidak ada dua garis yang sejajar dan tidak ada tiga garis yang bertemu di satu titik"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "drawing 5 straight lines",
+            "phrase_id": "dari 5 garis lurus",
+            "note_en": "Maximum intersections = C(5,2) = number of pairs of lines",
+            "note_id": "Perpotongan maksimum = C(5,2) = jumlah pasangan garis"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pairs of 5 lines", "label_id": "Pasangan dari 5 garis", "value": "C(5,2) = 5×4÷2 = 10" },
+          { "label_en": "Maximum intersections", "label_id": "Perpotongan maksimum", "value": "10" }
+        ],
+        "strategy": { "name_en": "Count pairs: C(n,2) = n(n−1)/2", "name_id": "Hitung pasangan: C(n,2) = n(n−1)/2" },
+        "trap": {
+          "wrong": "5",
+          "why_en": "5 counts intersections if each new line only crosses the previous one; but in general position each new line crosses all earlier lines",
+          "why_id": "5 menghitung perpotongan jika setiap garis baru hanya memotong yang sebelumnya; tetapi pada posisi umum setiap garis baru memotong semua garis sebelumnya"
+        },
+        "answer": { "form": "value", "unit": null, "value": "10" }
+      },
+      "hint_steps_en": [
+        "Each pair of lines can create at most 1 intersection point.",
+        "To maximize, no two lines are parallel and no three lines meet at the same point.",
+        "Number of pairs from 5 lines = C(5,2) = 5 × 4 ÷ 2 = 10.",
+        "Maximum intersection points = 10."
+      ],
+      "hint_steps_id": [
+        "Setiap pasang garis dapat menciptakan paling banyak 1 titik potong.",
+        "Untuk memaksimalkan, tidak ada dua garis yang sejajar dan tidak ada tiga garis yang bertemu di titik yang sama.",
+        "Jumlah pasangan dari 5 garis = C(5,2) = 5 × 4 ÷ 2 = 10.",
+        "Titik potong maksimum = 10."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count line pairs — each pair gives at most 1 intersection.",
+          "intro_id": "Hitung pasangan garis — setiap pasang memberikan paling banyak 1 perpotongan.",
+          "items": [
+            { "text_en": "Line 2 crosses line 1 → +1 (total 1)", "text_id": "Garis 2 memotong garis 1 → +1 (total 1)", "ok": null },
+            { "text_en": "Line 3 crosses lines 1,2 → +2 (total 3)", "text_id": "Garis 3 memotong garis 1,2 → +2 (total 3)", "ok": null },
+            { "text_en": "Line 4 crosses lines 1,2,3 → +3 (total 6)", "text_id": "Garis 4 memotong garis 1,2,3 → +3 (total 6)", "ok": null },
+            { "text_en": "Line 5 crosses lines 1,2,3,4 → +4 (total 10) ✓", "text_id": "Garis 5 memotong garis 1,2,3,4 → +4 (total 10) ✓", "ok": true }
+          ],
+          "final_en": "Maximum 10 intersection points from 5 straight lines.",
+          "final_id": "Maksimum 10 titik potong dari 5 garis lurus.",
+          "aria_en": "Five lines in general position create C(5,2) equals 10 intersection points.",
+          "aria_id": "Lima garis dalam posisi umum menciptakan C(5,2) sama dengan 10 titik potong."
+        }
+      }
     },
     {
       "number": 21,
@@ -174,7 +1415,72 @@
       "body_id": "Setelah Amy memberikan 10 apel kepada Andy dan 7 apel kepada Johnny, ketiganya memiliki jumlah apel yang sama. Semula, berapa apel yang dimiliki Johnny lebih sedikit dari Amy?",
       "answer_type": "fill_in",
       "answer": "24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "After Amy gives 10 apples to Andy and 7 apples to Johnny, they will have equal number of apples",
+            "phrase_id": "Setelah Amy memberikan 10 apel kepada Andy dan 7 apel kepada Johnny, ketiganya memiliki jumlah apel yang sama",
+            "note_en": "After giving: Amy has A−17, Andy has X+10, Johnny has Y+7, and all three are equal",
+            "note_id": "Setelah memberi: Amy memiliki A−17, Andy memiliki X+10, Johnny memiliki Y+7, dan ketiganya sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many apple(s) did Johnny have less than Amy originally?",
+            "phrase_id": "Semula, berapa apel yang dimiliki Johnny lebih sedikit dari Amy?",
+            "note_en": "Find A − Y (original difference between Amy and Johnny)",
+            "note_id": "Temukan A − Y (selisih awal antara Amy dan Johnny)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "gives 10 apples to Andy and 7 apples to Johnny",
+            "phrase_id": "memberikan 10 apel kepada Andy dan 7 apel kepada Johnny",
+            "note_en": "Amy loses 17 total; after giving, A−17 = Y+7, so A−Y = 24",
+            "note_id": "Amy kehilangan 17 total; setelah memberi, A−17 = Y+7, jadi A−Y = 24"
+          }
+        ],
+        "quantities": [
+          { "label_en": "After giving: Amy = Johnny", "label_id": "Setelah memberi: Amy = Johnny", "value": "A − 17 = Y + 7" },
+          { "label_en": "Original difference", "label_id": "Selisih awal", "value": "A − Y = 17 + 7 = 24" }
+        ],
+        "strategy": { "name_en": "Set after-giving amounts equal, solve for original difference", "name_id": "Samakan jumlah setelah memberi, selesaikan untuk selisih awal" },
+        "trap": {
+          "wrong": "17",
+          "why_en": "17 is the total Amy gave away; the difference A−Y = 17+7=24 because Johnny also gained 7",
+          "why_id": "17 adalah total yang diberikan Amy; selisih A−Y = 17+7=24 karena Johnny juga mendapat 7"
+        },
+        "answer": { "form": "value", "unit": "apples", "value": "24" }
+      },
+      "hint_steps_en": [
+        "Let Amy have A, Andy have X, Johnny have Y apples originally.",
+        "After giving: Amy has A−17, Andy has X+10, Johnny has Y+7, all equal.",
+        "From Amy = Johnny: A−17 = Y+7 → A−Y = 24.",
+        "Johnny originally had 24 fewer apples than Amy."
+      ],
+      "hint_steps_id": [
+        "Misalkan Amy memiliki A, Andy memiliki X, Johnny memiliki Y apel semula.",
+        "Setelah memberi: Amy memiliki A−17, Andy memiliki X+10, Johnny memiliki Y+7, semua sama.",
+        "Dari Amy = Johnny: A−17 = Y+7 → A−Y = 24.",
+        "Johnny semula memiliki 24 apel lebih sedikit dari Amy."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "After giving, all three are equal — set Amy's and Johnny's final amounts equal.",
+          "intro_id": "Setelah memberi, ketiganya sama — samakan jumlah akhir Amy dan Johnny.",
+          "items": [
+            { "text_en": "Amy gives away 10+7=17 apples total", "text_id": "Amy memberi 10+7=17 apel total", "ok": null },
+            { "text_en": "A−17 = Y+7 (Amy's final = Johnny's final)", "text_id": "A−17 = Y+7 (akhir Amy = akhir Johnny)", "ok": null },
+            { "text_en": "A−Y = 17+7 = 24 ✓", "text_id": "A−Y = 17+7 = 24 ✓", "ok": true }
+          ],
+          "final_en": "Johnny originally had 24 fewer apples than Amy.",
+          "final_id": "Johnny semula memiliki 24 apel lebih sedikit dari Amy.",
+          "aria_en": "Setting Amy minus 17 equal to Johnny plus 7 gives the original difference as 24 apples.",
+          "aria_id": "Menyamakan Amy dikurangi 17 dengan Johnny ditambah 7 menghasilkan selisih awal 24 apel."
+        }
+      }
     },
     {
       "number": 22,
@@ -182,7 +1488,71 @@
       "body_id": "Pilih 3 angka dari 1, 3, 4, 5, 9 untuk membentuk bilangan 3 digit. Ada berapa bilangan yang habis dibagi 5? (Pengulangan angka diperbolehkan.)",
       "answer_type": "fill_in",
       "answer": "25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Repetitions of digits are allowed",
+            "phrase_id": "Pengulangan angka diperbolehkan",
+            "note_en": "Each digit position is chosen independently from {1,3,4,5,9}",
+            "note_id": "Setiap posisi digit dipilih secara independen dari {1,3,4,5,9}"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "form 3-digit numbers",
+            "phrase_id": "membentuk bilangan 3 digit",
+            "note_en": "Hundreds digit: any of 5 choices; Tens digit: any of 5; Units digit: must be 5 (only digit divisible by 5 in the set)",
+            "note_id": "Angka ratusan: salah satu dari 5 pilihan; Angka puluhan: salah satu dari 5; Angka satuan: harus 5 (satu-satunya angka habis dibagi 5 dalam himpunan)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many number(s) that can be divisible by 5",
+            "phrase_id": "Ada berapa bilangan yang habis dibagi 5",
+            "note_en": "A number is divisible by 5 only if its last digit is 0 or 5; only 5 is available",
+            "note_id": "Bilangan habis dibagi 5 hanya jika digit terakhirnya 0 atau 5; hanya 5 yang tersedia"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hundreds digit choices", "label_id": "Pilihan digit ratusan", "value": "5 (any of 1,3,4,5,9)" },
+          { "label_en": "Tens digit choices", "label_id": "Pilihan digit puluhan", "value": "5 (any of 1,3,4,5,9)" },
+          { "label_en": "Units digit choices", "label_id": "Pilihan digit satuan", "value": "1 (must be 5)" },
+          { "label_en": "Total", "label_id": "Total", "value": "5 × 5 × 1 = 25" }
+        ],
+        "strategy": { "name_en": "Fix the units digit to 5, then count freely for hundreds and tens", "name_id": "Tetapkan digit satuan sebagai 5, lalu hitung bebas untuk ratusan dan puluhan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "25" }
+      },
+      "hint_steps_en": [
+        "A 3-digit number is divisible by 5 only if its units digit is 0 or 5.",
+        "From the set {1,3,4,5,9}, only 5 qualifies as the units digit.",
+        "Hundreds digit: 5 choices; Tens digit: 5 choices; Units digit: 1 choice (must be 5).",
+        "Total = 5 × 5 × 1 = 25."
+      ],
+      "hint_steps_id": [
+        "Bilangan 3 digit habis dibagi 5 hanya jika digit satuannya 0 atau 5.",
+        "Dari himpunan {1,3,4,5,9}, hanya 5 yang memenuhi syarat sebagai digit satuan.",
+        "Digit ratusan: 5 pilihan; Digit puluhan: 5 pilihan; Digit satuan: 1 pilihan (harus 5).",
+        "Total = 5 × 5 × 1 = 25."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Divisible by 5 → units digit must be 5. Count the remaining free choices.",
+          "intro_id": "Habis dibagi 5 → digit satuan harus 5. Hitung pilihan bebas yang tersisa.",
+          "items": [
+            { "text_en": "Units digit: only 5 qualifies → 1 choice", "text_id": "Digit satuan: hanya 5 yang memenuhi → 1 pilihan", "ok": null },
+            { "text_en": "Hundreds digit: any of {1,3,4,5,9} → 5 choices", "text_id": "Digit ratusan: salah satu dari {1,3,4,5,9} → 5 pilihan", "ok": null },
+            { "text_en": "Tens digit: any of {1,3,4,5,9} → 5 choices", "text_id": "Digit puluhan: salah satu dari {1,3,4,5,9} → 5 pilihan", "ok": null },
+            { "text_en": "Total = 5 × 5 × 1 = 25 ✓", "text_id": "Total = 5 × 5 × 1 = 25 ✓", "ok": true }
+          ],
+          "final_en": "There are 25 such 3-digit numbers divisible by 5.",
+          "final_id": "Ada 25 bilangan 3 digit yang habis dibagi 5.",
+          "aria_en": "Units digit fixed at 5, hundreds and tens each have 5 choices, giving 5 times 5 times 1 equals 25.",
+          "aria_id": "Digit satuan ditetapkan 5, ratusan dan puluhan masing-masing memiliki 5 pilihan, menghasilkan 5 dikali 5 dikali 1 sama dengan 25."
+        }
+      }
     },
     {
       "number": 23,
@@ -190,7 +1560,75 @@
       "body_id": "Bilangan-bilangan diambil dari 27 bilangan bulat 1 sampai 27. Paling sedikit berapa bilangan yang harus diambil secara acak untuk memastikan ada dua bilangan yang selisihnya habis dibagi 4?",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "two numbers whose difference is divisible by 4",
+            "phrase_id": "dua bilangan yang selisihnya habis dibagi 4",
+            "note_en": "Two numbers have difference divisible by 4 iff they share the same remainder mod 4",
+            "note_id": "Dua bilangan selisihnya habis dibagi 4 jika dan hanya jika keduanya memiliki sisa yang sama mod 4"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Numbers are drawn from the 27 integers 1 to 27",
+            "phrase_id": "Bilangan-bilangan diambil dari 27 bilangan bulat 1 sampai 27",
+            "note_en": "There are 4 residue classes mod 4: {0,1,2,3}",
+            "note_id": "Ada 4 kelas sisa mod 4: {0,1,2,3}"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At least how many number(s) is / are drawn at random to ensure",
+            "phrase_id": "Paling sedikit berapa bilangan yang harus diambil secara acak untuk memastikan",
+            "note_en": "Pigeonhole: with 4 residue classes, 5 draws guarantee two share a class",
+            "note_id": "Pigeonhole: dengan 4 kelas sisa, 5 pengambilan menjamin dua berbagi kelas"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Residue classes mod 4", "label_id": "Kelas sisa mod 4", "value": "{0,1,2,3} — 4 classes" },
+          { "label_en": "Worst case: 4 draws", "label_id": "Kasus terburuk: 4 pengambilan", "value": "One from each class — no two share a residue" },
+          { "label_en": "5th draw", "label_id": "Pengambilan ke-5", "value": "Must share a residue class with one already drawn → difference divisible by 4" }
+        ],
+        "strategy": { "name_en": "Pigeonhole principle on residue classes mod 4", "name_id": "Prinsip pigeonhole pada kelas sisa mod 4" },
+        "trap": {
+          "wrong": "4",
+          "why_en": "With 4 draws you can still pick one from each residue class (e.g. 1,2,3,4) — no pair has difference div by 4; the 5th guarantees it",
+          "why_id": "Dengan 4 pengambilan, kamu masih bisa memilih satu dari setiap kelas sisa (mis. 1,2,3,4) — tidak ada pasangan yang selisihnya habis dibagi 4; pengambilan ke-5 menjaminnya"
+        },
+        "answer": { "form": "value", "unit": null, "value": "5" }
+      },
+      "hint_steps_en": [
+        "Two numbers have a difference divisible by 4 if and only if they have the same remainder when divided by 4.",
+        "There are exactly 4 remainder classes: remainder 0, 1, 2, or 3.",
+        "Worst case: pick one number from each class — 4 numbers, none share a class.",
+        "The 5th number must land in an already-occupied class, guaranteeing a pair with difference divisible by 4.",
+        "Minimum draws needed = 5."
+      ],
+      "hint_steps_id": [
+        "Dua bilangan memiliki selisih habis dibagi 4 jika dan hanya jika keduanya memiliki sisa yang sama ketika dibagi 4.",
+        "Ada tepat 4 kelas sisa: sisa 0, 1, 2, atau 3.",
+        "Kasus terburuk: pilih satu bilangan dari setiap kelas — 4 bilangan, tidak ada yang berbagi kelas.",
+        "Bilangan ke-5 pasti masuk ke kelas yang sudah terisi, menjamin pasangan dengan selisih habis dibagi 4.",
+        "Jumlah pengambilan minimum = 5."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the pigeonhole principle: 4 residue classes mod 4, so 5 draws guarantee a match.",
+          "intro_id": "Terapkan prinsip pigeonhole: 4 kelas sisa mod 4, jadi 5 pengambilan menjamin kecocokan.",
+          "items": [
+            { "text_en": "Residue classes mod 4: {0},{1},{2},{3} — 4 classes", "text_id": "Kelas sisa mod 4: {0},{1},{2},{3} — 4 kelas", "ok": null },
+            { "text_en": "With 4 draws: can pick one per class, e.g. {4,1,2,3} — no match ✗", "text_id": "Dengan 4 pengambilan: bisa pilih satu per kelas, mis. {4,1,2,3} — tidak ada kecocokan ✗", "ok": false },
+            { "text_en": "5th draw: must share a class → difference divisible by 4 ✓", "text_id": "Pengambilan ke-5: pasti berbagi kelas → selisih habis dibagi 4 ✓", "ok": true }
+          ],
+          "final_en": "At least 5 numbers must be drawn to guarantee the condition.",
+          "final_id": "Paling sedikit 5 bilangan harus diambil untuk menjamin kondisi tersebut.",
+          "aria_en": "With 4 residue classes mod 4, drawing 4 numbers can avoid any match; the 5th guarantees two share a class and their difference is divisible by 4.",
+          "aria_id": "Dengan 4 kelas sisa mod 4, mengambil 4 bilangan bisa menghindari kecocokan; pengambilan ke-5 menjamin dua berbagi kelas dan selisih mereka habis dibagi 4."
+        }
+      }
     },
     {
       "number": 24,
@@ -198,7 +1636,73 @@
       "body_id": "Paling sedikit berapa anak dari 37 anak yang lahir pada bulan yang sama?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "37 children",
+            "phrase_id": "37 anak",
+            "note_en": "37 children distributed across 12 months",
+            "note_id": "37 anak tersebar di 12 bulan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "born in the same month",
+            "phrase_id": "lahir pada bulan yang sama",
+            "note_en": "By pigeonhole: if at most 3 per month, that covers at most 12×3=36 children",
+            "note_id": "Dengan pigeonhole: jika paling banyak 3 per bulan, itu mencakup paling banyak 12×3=36 anak"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At least how many of 37 children that was / were born in the same month?",
+            "phrase_id": "Paling sedikit berapa anak dari 37 anak yang lahir pada bulan yang sama?",
+            "note_en": "The 37th child must go to some month, making at least one month have 4 children",
+            "note_id": "Anak ke-37 harus masuk ke suatu bulan, membuat setidaknya satu bulan memiliki 4 anak"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Months", "label_id": "Bulan", "value": "12" },
+          { "label_en": "Max at 3 per month", "label_id": "Maks 3 per bulan", "value": "12 × 3 = 36 children" },
+          { "label_en": "37th child", "label_id": "Anak ke-37", "value": "Forces at least one month to have 4" },
+          { "label_en": "Guaranteed minimum", "label_id": "Minimum yang dijamin", "value": "⌈37 ÷ 12⌉ = ⌈3.08⌉ = 4" }
+        ],
+        "strategy": { "name_en": "Pigeonhole principle: ceiling(n ÷ boxes)", "name_id": "Prinsip pigeonhole: pembulatan ke atas (n ÷ kotak)" },
+        "trap": {
+          "wrong": "3",
+          "why_en": "If only 3 per month, you can fit at most 36 children; the 37th forces at least one month to 4",
+          "why_id": "Jika hanya 3 per bulan, kamu bisa menampung paling banyak 36 anak; anak ke-37 memaksa setidaknya satu bulan menjadi 4"
+        },
+        "answer": { "form": "value", "unit": "children", "value": "4" }
+      },
+      "hint_steps_en": [
+        "There are 12 months (boxes) and 37 children (pigeons).",
+        "If each month had at most 3 children: 12 × 3 = 36 — but we have 37.",
+        "The extra child must go somewhere, making at least one month have 4 children.",
+        "Minimum guaranteed = ⌈37 ÷ 12⌉ = 4."
+      ],
+      "hint_steps_id": [
+        "Ada 12 bulan (kotak) dan 37 anak (merpati).",
+        "Jika setiap bulan memiliki paling banyak 3 anak: 12 × 3 = 36 — tetapi kita memiliki 37.",
+        "Anak tambahan harus masuk ke suatu bulan, membuat setidaknya satu bulan memiliki 4 anak.",
+        "Minimum yang dijamin = ⌈37 ÷ 12⌉ = 4."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Pigeonhole: 37 children into 12 months — find the guaranteed maximum in one month.",
+          "intro_id": "Pigeonhole: 37 anak dalam 12 bulan — temukan maksimum yang dijamin dalam satu bulan.",
+          "items": [
+            { "text_en": "If max 3 per month: 12 × 3 = 36 < 37 — not enough ✗", "text_id": "Jika maks 3 per bulan: 12 × 3 = 36 < 37 — tidak cukup ✗", "ok": false },
+            { "text_en": "37th child must go to some month → that month has 4 ✓", "text_id": "Anak ke-37 harus masuk ke suatu bulan → bulan itu memiliki 4 ✓", "ok": true }
+          ],
+          "final_en": "At least 4 children were born in the same month.",
+          "final_id": "Paling sedikit 4 anak lahir pada bulan yang sama.",
+          "aria_en": "37 children into 12 months: ceiling of 37 divided by 12 is 4, so at least 4 children share a birth month.",
+          "aria_id": "37 anak dalam 12 bulan: pembulatan ke atas 37 dibagi 12 adalah 4, jadi paling sedikit 4 anak berbagi bulan lahir."
+        }
+      }
     },
     {
       "number": 25,
@@ -206,7 +1710,58 @@
       "body_id": "Jika Andy berjalan dari titik A ke titik B, setiap langkah hanya boleh bergerak ke atas atau ke kanan. Ada berapa cara?",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "each step can only move up or move right",
+            "phrase_id": "setiap langkah hanya boleh bergerak ke atas atau ke kanan",
+            "note_en": "Only right (R) and up (U) moves allowed; every path has the same total moves",
+            "note_id": "Hanya langkah ke kanan (R) dan ke atas (U) yang diperbolehkan; setiap jalur memiliki jumlah langkah total yang sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many way(s) is / are there?",
+            "phrase_id": "Ada berapa cara?",
+            "note_en": "Count distinct sequences of R and U moves from A to B",
+            "note_id": "Hitung urutan R dan U yang berbeda dari A ke B"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If Andy goes from point A to point B",
+            "phrase_id": "Jika Andy berjalan dari titik A ke titik B",
+            "note_en": "A 2×3 or 3×2 grid gives C(4,2)=6 or C(5,2)=10; answer 10 → 2 right + 3 up = C(5,2)=10",
+            "note_id": "Grid 2×3 atau 3×2 memberikan C(4,2)=6 atau C(5,2)=10; jawaban 10 → 2 kanan + 3 atas = C(5,2)=10"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Steps right (R)", "label_id": "Langkah kanan (R)", "value": "2" },
+          { "label_en": "Steps up (U)", "label_id": "Langkah atas (U)", "value": "3" },
+          { "label_en": "Total steps", "label_id": "Total langkah", "value": "5" },
+          { "label_en": "Ways = choose positions for R", "label_id": "Cara = pilih posisi untuk R", "value": "C(5,2) = 10" }
+        ],
+        "strategy": { "name_en": "Count lattice paths: C(right+up, right)", "name_id": "Hitung jalur kisi: C(kanan+atas, kanan)" },
+        "trap": {
+          "wrong": "6",
+          "why_en": "6 = C(4,2) corresponds to a 2×2 grid; the figure here requires 2R+3U giving C(5,2)=10",
+          "why_id": "6 = C(4,2) sesuai dengan grid 2×2; gambar di sini memerlukan 2R+3U menghasilkan C(5,2)=10"
+        },
+        "answer": { "form": "value", "unit": null, "value": "10" }
+      },
+      "hint_steps_en": [
+        "From A to B moving only right (R) or up (U), every path uses the same number of R's and U's.",
+        "The grid requires 2 steps right and 3 steps up (total 5 steps).",
+        "Number of paths = choose 2 positions (for R) from 5 total = C(5,2) = 10.",
+        "There are 10 different paths."
+      ],
+      "hint_steps_id": [
+        "Dari A ke B hanya bergerak ke kanan (R) atau ke atas (U), setiap jalur menggunakan jumlah R dan U yang sama.",
+        "Grid memerlukan 2 langkah ke kanan dan 3 langkah ke atas (total 5 langkah).",
+        "Jumlah jalur = pilih 2 posisi (untuk R) dari 5 total = C(5,2) = 10.",
+        "Ada 10 jalur berbeda."
+      ]
     }
   ]
 }
