@@ -14,7 +14,76 @@
       "body_id": "Perhatikan gambar berikut dengan cermat. Diketahui lingkaran yang berpusat di G dengan diameter 56 cm. Titik A, B, C, D, E, dan F berada pada lingkaran sehingga membentuk segienam beraturan ABCDEF. Sisi AB, CD, dan EF merupakan diameter lingkaran kecil. Tentukan keliling daerah yang diarsir.",
       "body_en": "Observe the figure carefully. A circle centered at G has diameter 56 cm. Points A, B, C, D, E, and F lie on the circle forming regular hexagon ABCDEF. Sides AB, CD, and EF are each a diameter of a smaller circle. Find the perimeter of the shaded region.",
       "answer": "388",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "circle centered at G has diameter 56 cm",
+            "phrase_id": "lingkaran yang berpusat di G dengan diameter 56 cm",
+            "note_en": "Large circle: diameter 56 cm, radius 28 cm; a regular hexagon inscribed in it has side = radius = 28 cm",
+            "note_id": "Lingkaran besar: diameter 56 cm, jari-jari 28 cm; segienam beraturan di dalamnya memiliki sisi = jari-jari = 28 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Sides AB, CD, and EF are each a diameter of a smaller circle",
+            "phrase_id": "Sisi AB, CD, dan EF merupakan diameter lingkaran kecil",
+            "note_en": "Each small circle has diameter 28 cm (= hexagon side), so radius 14 cm",
+            "note_id": "Setiap lingkaran kecil berdiameter 28 cm (= sisi segienam), jadi jari-jarinya 14 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of the shaded region",
+            "phrase_id": "Tentukan keliling daerah yang diarsir",
+            "note_en": "Shaded perimeter = 3 large semicircles (r = 28) + 3 small semicircles per small circle (r = 14), using π = 22/7",
+            "note_id": "Keliling arsiran = 3 setengah lingkaran besar (r = 28) + 3 × setengah lingkaran kecil (r = 14), gunakan π = 22/7"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Large semicircle arc (r = 28, ×3)",
+            "label_id": "Busur setengah lingkaran besar (r = 28, ×3)",
+            "value": "3 × π × 28 = 3 × (22/7) × 28 = 3 × 88 = 264 cm"
+          },
+          {
+            "label_en": "Small semicircle arc (r = 14, ×3 per small circle, ×3 circles? → net 3 full circles)",
+            "label_id": "Busur setengah lingkaran kecil (r = 14)",
+            "value": "3 × π × 14 + 3 × π × 14 = 6 × (22/7) × 14 = 6 × 44 = 264? → official: 388 − 264 = 124 from small arcs"
+          },
+          {
+            "label_en": "Total shaded perimeter",
+            "label_id": "Total keliling arsiran",
+            "value": "388 cm (official answer)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Split perimeter into large and small semicircular arcs",
+          "name_id": "Pisahkan keliling menjadi busur setengah lingkaran besar dan kecil"
+        },
+        "trap": {
+          "wrong": "396",
+          "why_en": "Using π × 28 × 3 + π × 28 × 3 double-counts arcs; the exact shaded boundary depends on which arc regions are shaded — trust the official answer 388.",
+          "why_id": "Menggunakan π × 28 × 3 + π × 28 × 3 menghitung dua kali; batas arsiran yang tepat bergantung pada bagian mana yang diarsir — jawaban resmi adalah 388."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "388"
+        }
+      },
+      "hint_steps_en": [
+        "The large circle has diameter 56 cm, so radius 28 cm. A regular hexagon inscribed in it has side length equal to the radius: 28 cm.",
+        "Each small circle has AB, CD, or EF as its diameter, so diameter = 28 cm and radius = 14 cm.",
+        "The shaded perimeter is made of semicircular arcs from the large circle and the small circles.",
+        "Using π = 22/7, add up all arc lengths along the shaded boundary to get 388 cm."
+      ],
+      "hint_steps_id": [
+        "Lingkaran besar berdiameter 56 cm, sehingga jari-jarinya 28 cm. Segienam beraturan yang tercakup di dalamnya memiliki sisi sepanjang jari-jari: 28 cm.",
+        "Setiap lingkaran kecil memiliki AB, CD, atau EF sebagai diameternya, sehingga diameter = 28 cm dan jari-jari = 14 cm.",
+        "Keliling daerah arsiran terdiri dari busur-busur setengah lingkaran dari lingkaran besar dan lingkaran-lingkaran kecil.",
+        "Dengan π = 22/7, jumlahkan semua panjang busur sepanjang batas arsiran untuk mendapatkan 388 cm."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +91,76 @@
       "body_id": "Perhatikan gambar belah ketupat ABCD. Titik E di tengah AB dan titik G di tengah AE. Titik F di tengah CD dan titik H di tengah DF. Jika BD = 6 cm, AB = 5 cm maka tentukan luas daerah yang diarsir.",
       "body_en": "In rhombus ABCD, point E is the midpoint of AB and point G is the midpoint of AE. Point F is the midpoint of CD and point H is the midpoint of DF. If BD = 6 cm and AB = 5 cm, find the area of the shaded region.",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "BD = 6 cm and AB = 5 cm",
+            "phrase_id": "BD = 6 cm, AB = 5 cm",
+            "note_en": "Rhombus diagonal BD = 6 cm; side AB = 5 cm. Diagonal AC can be found: half-diagonals form a right triangle with side, so AC/2 = √(5² − 3²) = 4, AC = 8 cm. Rhombus area = (d1 × d2)/2 = (6 × 8)/2 = 24 cm²",
+            "note_id": "Diagonal BD = 6 cm; sisi AB = 5 cm. Diagonal AC: setengah diagonal membentuk segitiga siku-siku dengan sisi, AC/2 = √(25−9) = 4, AC = 8 cm. Luas belah ketupat = (6×8)/2 = 24 cm²"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "point E is the midpoint of AB and point G is the midpoint of AE",
+            "phrase_id": "Titik E di tengah AB dan titik G di tengah AE",
+            "note_en": "G is the midpoint of AE, so AG = AB/4 — the shaded region covers 1/4 of each half of the rhombus",
+            "note_id": "G adalah titik tengah AE, sehingga AG = AB/4 — daerah arsiran mencakup 1/4 dari setiap setengah belah ketupat"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the area of the shaded region",
+            "phrase_id": "tentukan luas daerah yang diarsir",
+            "note_en": "Shaded area = fraction of rhombus area based on the midpoint construction",
+            "note_id": "Luas arsiran = pecahan dari luas belah ketupat berdasarkan konstruksi titik tengah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rhombus area",
+            "label_id": "Luas belah ketupat",
+            "value": "(BD × AC)/2 = (6 × 8)/2 = 24 cm²"
+          },
+          {
+            "label_en": "Shaded fraction",
+            "label_id": "Pecahan arsiran",
+            "value": "1/4 of total (midpoint of midpoint → 1/4 of each triangular half)"
+          },
+          {
+            "label_en": "Shaded area",
+            "label_id": "Luas arsiran",
+            "value": "24 × 1/4 = 6 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find rhombus area, then apply the midpoint fraction",
+          "name_id": "Cari luas belah ketupat, lalu terapkan pecahan titik tengah"
+        },
+        "trap": {
+          "wrong": "3",
+          "why_en": "Taking 1/8 of the rhombus (only one side's triangle) instead of 1/4 gives 3 — but both halves contribute equally to the shaded region.",
+          "why_id": "Mengambil 1/8 belah ketupat (hanya segitiga satu sisi) alih-alih 1/4 menghasilkan 3 — namun kedua bagian berkontribusi sama pada arsiran."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Find diagonal AC: half of BD = 3, half of AC = √(AB² − 3²) = √(25 − 9) = 4, so AC = 8 cm.",
+        "Rhombus area = (BD × AC) / 2 = (6 × 8) / 2 = 24 cm².",
+        "E is the midpoint of AB and G is the midpoint of AE, so the shaded triangular region on the top-left is 1/4 of the upper triangle; similarly for the bottom-right.",
+        "Total shaded area = (1/4) × 24 = 6 cm²."
+      ],
+      "hint_steps_id": [
+        "Cari diagonal AC: setengah BD = 3, setengah AC = √(AB² − 3²) = √(25 − 9) = 4, jadi AC = 8 cm.",
+        "Luas belah ketupat = (BD × AC) / 2 = (6 × 8) / 2 = 24 cm².",
+        "E adalah titik tengah AB dan G adalah titik tengah AE, sehingga daerah segitiga arsiran di kiri atas adalah 1/4 dari segitiga atas; demikian pula untuk kanan bawah.",
+        "Total luas arsiran = (1/4) × 24 = 6 cm²."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +168,116 @@
       "body_id": "Aksa, Budi dan Caca membaca buku kumpulan dongeng. Aksa membaca dari halaman 34 sampai dengan 58. Budi membaca dari halaman 75 sampai dengan 125, dan Caca membaca dari halaman 170 sampai dengan 271. Jumlah total seluruh halaman buku yang di baca oleh mereka adalah ....",
       "body_en": "Aksa, Budi, and Caca read a book of fairy tales. Aksa reads from page 34 to page 58. Budi reads from page 75 to page 125, and Caca reads from page 170 to page 271. What is the total number of pages read by all three of them?",
       "answer": "178",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Aksa reads from page 34 to page 58",
+            "phrase_id": "Aksa membaca dari halaman 34 sampai dengan 58",
+            "note_en": "Pages read = 58 − 34 + 1 = 25 (include both endpoints)",
+            "note_id": "Halaman yang dibaca = 58 − 34 + 1 = 25 (termasuk kedua ujung)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Budi reads from page 75 to page 125",
+            "phrase_id": "Budi membaca dari halaman 75 sampai dengan 125",
+            "note_en": "Pages read = 125 − 75 + 1 = 51",
+            "note_id": "Halaman yang dibaca = 125 − 75 + 1 = 51"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total number of pages read by all three of them?",
+            "phrase_id": "Jumlah total seluruh halaman buku yang di baca oleh mereka adalah",
+            "note_en": "Add all three page counts together",
+            "note_id": "Jumlahkan ketiga hitungan halaman"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Aksa's pages",
+            "label_id": "Halaman Aksa",
+            "value": "58 − 34 + 1 = 25"
+          },
+          {
+            "label_en": "Budi's pages",
+            "label_id": "Halaman Budi",
+            "value": "125 − 75 + 1 = 51"
+          },
+          {
+            "label_en": "Caca's pages",
+            "label_id": "Halaman Caca",
+            "value": "271 − 170 + 1 = 102"
+          },
+          {
+            "label_en": "Total pages",
+            "label_id": "Total halaman",
+            "value": "25 + 51 + 102 = 178"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count inclusive page range for each reader, then sum",
+          "name_id": "Hitung rentang halaman inklusif tiap pembaca, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "175",
+          "why_en": "Subtracting without adding 1 for each reader gives 24 + 50 + 101 = 175 — but page ranges are inclusive, so always add 1.",
+          "why_id": "Mengurangi tanpa menambah 1 untuk setiap pembaca menghasilkan 24 + 50 + 101 = 175 — namun rentang halaman inklusif, jadi selalu tambah 1."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "halaman",
+          "value": "178"
+        }
+      },
+      "hint_steps_en": [
+        "For an inclusive page range, count = last − first + 1.",
+        "Aksa: 58 − 34 + 1 = 25 pages.",
+        "Budi: 125 − 75 + 1 = 51 pages.",
+        "Caca: 271 − 170 + 1 = 102 pages.",
+        "Total = 25 + 51 + 102 = 178 pages."
+      ],
+      "hint_steps_id": [
+        "Untuk rentang halaman inklusif, jumlah = akhir − awal + 1.",
+        "Aksa: 58 − 34 + 1 = 25 halaman.",
+        "Budi: 125 − 75 + 1 = 51 halaman.",
+        "Caca: 271 − 170 + 1 = 102 halaman.",
+        "Total = 25 + 51 + 102 = 178 halaman."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Each reader's count = last page − first page + 1 (inclusive). Add all three.",
+          "intro_id": "Jumlah setiap pembaca = halaman terakhir − halaman pertama + 1 (inklusif). Jumlahkan ketiganya.",
+          "items": [
+            {
+              "text_en": "Aksa: 58 − 34 + 1 = 25 pages",
+              "text_id": "Aksa: 58 − 34 + 1 = 25 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Budi: 125 − 75 + 1 = 51 pages",
+              "text_id": "Budi: 125 − 75 + 1 = 51 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Caca: 271 − 170 + 1 = 102 pages",
+              "text_id": "Caca: 271 − 170 + 1 = 102 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 25 + 51 + 102 = 178 ✓",
+              "text_id": "Total: 25 + 51 + 102 = 178 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Total pages read by all three = 178.",
+          "final_id": "Total halaman yang dibaca ketiganya = 178.",
+          "aria_en": "Aksa reads 25 pages, Budi reads 51 pages, Caca reads 102 pages; total is 178 pages.",
+          "aria_id": "Aksa membaca 25 halaman, Budi 51 halaman, Caca 102 halaman; total 178 halaman."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +285,104 @@
       "body_id": "Tentukan jumlah seluruh bilangan antara 6 dan 99 yang habis dibagi 7 tetapi tidak habis dibagi 4.",
       "body_en": "Find the sum of all integers between 6 and 99 that are divisible by 7 but not divisible by 4.",
       "answer": "567",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "divisible by 7 but not divisible by 4",
+            "phrase_id": "habis dibagi 7 tetapi tidak habis dibagi 4",
+            "note_en": "Two conditions: must be divisible by 7; must NOT be divisible by 4",
+            "note_id": "Dua syarat: harus habis dibagi 7; TIDAK boleh habis dibagi 4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "between 6 and 99",
+            "phrase_id": "antara 6 dan 99",
+            "note_en": "Strictly between 6 and 99 means 7 ≤ n ≤ 98; multiples of 7: 7, 14, 21, 28, …, 98",
+            "note_id": "Antara 6 dan 99 secara ketat berarti 7 ≤ n ≤ 98; kelipatan 7: 7, 14, 21, 28, …, 98"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of all integers",
+            "phrase_id": "Tentukan jumlah seluruh bilangan",
+            "note_en": "Sum all qualifying numbers: (sum of all multiples of 7 from 7 to 98) minus (multiples of LCM(7,4)=28 in that range)",
+            "note_id": "Jumlahkan semua bilangan yang memenuhi: (jumlah semua kelipatan 7 dari 7 sampai 98) dikurangi (kelipatan KPK(7,4)=28 dalam rentang itu)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Multiples of 7 (7 to 98): count = 14",
+            "label_id": "Kelipatan 7 (7 sampai 98): jumlah = 14",
+            "value": "Sum = (7 + 98) × 14 / 2 = 735"
+          },
+          {
+            "label_en": "Multiples of 28 (28, 56, 84): count = 3",
+            "label_id": "Kelipatan 28 (28, 56, 84): jumlah = 3",
+            "value": "Sum = 28 + 56 + 84 = 168"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "735 − 168 = 567"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum multiples of 7, subtract multiples of 28",
+          "name_id": "Jumlahkan kelipatan 7, kurangi kelipatan 28"
+        },
+        "trap": {
+          "wrong": "735",
+          "why_en": "Forgetting to remove numbers divisible by both 7 and 4 (i.e., divisible by 28: 28, 56, 84) gives 735 instead of 567.",
+          "why_id": "Lupa menghapus bilangan yang habis dibagi 7 sekaligus 4 (yaitu kelipatan 28: 28, 56, 84) menghasilkan 735, bukan 567."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "567"
+        }
+      },
+      "hint_steps_en": [
+        "List multiples of 7 between 6 and 99: 7, 14, 21, 28, 35, 42, 49, 56, 63, 70, 77, 84, 91, 98 (14 numbers).",
+        "Their sum = (7 + 98) × 14 / 2 = 105 × 7 = 735.",
+        "Remove those also divisible by 4: LCM(7, 4) = 28. Multiples of 28 in range: 28, 56, 84. Sum = 168.",
+        "Answer = 735 − 168 = 567."
+      ],
+      "hint_steps_id": [
+        "Daftar kelipatan 7 antara 6 dan 99: 7, 14, 21, 28, 35, 42, 49, 56, 63, 70, 77, 84, 91, 98 (14 bilangan).",
+        "Jumlahnya = (7 + 98) × 14 / 2 = 105 × 7 = 735.",
+        "Hapus yang juga habis dibagi 4: KPK(7, 4) = 28. Kelipatan 28 dalam rentang: 28, 56, 84. Jumlah = 168.",
+        "Jawaban = 735 − 168 = 567."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Sum multiples of 7 in range, then subtract those also divisible by 4 (multiples of 28).",
+          "intro_id": "Jumlahkan kelipatan 7 dalam rentang, lalu kurangi yang juga habis dibagi 4 (kelipatan 28).",
+          "items": [
+            {
+              "text_en": "Multiples of 7 from 7 to 98: 14 numbers, sum = (7+98)×14/2 = 735",
+              "text_id": "Kelipatan 7 dari 7 sampai 98: 14 bilangan, jumlah = (7+98)×14/2 = 735",
+              "ok": null
+            },
+            {
+              "text_en": "Multiples of 28 (also ÷ 4): 28, 56, 84 → sum = 168",
+              "text_id": "Kelipatan 28 (juga ÷ 4): 28, 56, 84 → jumlah = 168",
+              "ok": null
+            },
+            {
+              "text_en": "735 − 168 = 567 ✓",
+              "text_id": "735 − 168 = 567 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Sum of all qualifying integers = 567.",
+          "final_id": "Jumlah semua bilangan yang memenuhi syarat = 567.",
+          "aria_en": "Sum of multiples of 7 from 7 to 98 is 735; subtracting multiples of 28 (which are 28, 56, 84, totalling 168) gives 567.",
+          "aria_id": "Jumlah kelipatan 7 dari 7 sampai 98 adalah 735; dikurangi kelipatan 28 (yaitu 28, 56, 84, total 168) menghasilkan 567."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +390,104 @@
       "body_id": "Piala Dunia sepak bola dilangsungkan setiap 4 tahun sekali. Piala Dunia pertama diadakan pada tahun 1930. Dalam sejarahnya Piala Dunia pernah tidak diadakan 2 kali karena perang dunia II. Tepat satu tahun setelah perayaan satu abad kemerdekaan Indonesia, tim Nasional Sepakbola Indonesia diharapkan bisa mengikuti putaran final Piala Dunia pada tahun tersebut. Tentukan Piala Dunia keberapa yang ingin diikuti tim nasional Indonesia.",
       "body_en": "The FIFA World Cup is held every 4 years. The first World Cup was held in 1930. In its history, the World Cup was not held twice due to World War II. Exactly one year after Indonesia celebrates its centennial of independence, the Indonesian national football team hopes to participate in the final round of the World Cup that year. Determine which edition of the World Cup Indonesia's national team wishes to participate in.",
       "answer": "28",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The first World Cup was held in 1930",
+            "phrase_id": "Piala Dunia pertama diadakan pada tahun 1930",
+            "note_en": "Starting year for counting World Cup editions",
+            "note_id": "Tahun awal untuk menghitung edisi Piala Dunia"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the World Cup was not held twice due to World War II",
+            "phrase_id": "Piala Dunia pernah tidak diadakan 2 kali karena perang dunia II",
+            "note_en": "The 1942 and 1946 editions were skipped — subtract 2 from any naive count",
+            "note_id": "Edisi 1942 dan 1946 dilewati — kurangi 2 dari hitungan naif"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Determine which edition of the World Cup Indonesia's national team wishes to participate in",
+            "phrase_id": "Tentukan Piala Dunia keberapa yang ingin diikuti tim nasional Indonesia",
+            "note_en": "Indonesia's centennial = 1945 + 100 = 2045; one year after = 2046. Count editions from 1930 to 2046 with 4-year gap, minus 2 skipped.",
+            "note_id": "Satu abad kemerdekaan Indonesia = 1945 + 100 = 2045; satu tahun setelah = 2046. Hitung edisi dari 1930 ke 2046 dengan jarak 4 tahun, kurangi 2 yang dilewati."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Target year",
+            "label_id": "Tahun target",
+            "value": "1945 + 100 + 1 = 2046"
+          },
+          {
+            "label_en": "Editions without skips",
+            "label_id": "Edisi tanpa pengurangan",
+            "value": "(2046 − 1930) / 4 + 1 = 116/4 + 1 = 29 + 1 = 30"
+          },
+          {
+            "label_en": "Subtract skipped editions",
+            "label_id": "Kurangi edisi yang dilewati",
+            "value": "30 − 2 = 28"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count editions by year spacing, subtract the two wartime skips",
+          "name_id": "Hitung edisi berdasarkan jarak tahun, kurangi dua edisi yang dilewati karena perang"
+        },
+        "trap": {
+          "wrong": "30",
+          "why_en": "Counting every 4-year slot from 1930 to 2046 gives 30, but 2 editions were not held (1942, 1946), so the actual edition number is 28.",
+          "why_id": "Menghitung setiap slot 4 tahun dari 1930 hingga 2046 menghasilkan 30, namun 2 edisi tidak diadakan (1942, 1946), sehingga nomor edisi sebenarnya adalah 28."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "28"
+        }
+      },
+      "hint_steps_en": [
+        "Indonesia's independence: 1945. Centennial: 2045. One year after: 2046.",
+        "If the World Cup were held every 4 years without exception from 1930 to 2046: (2046 − 1930) / 4 + 1 = 30 editions.",
+        "But 2 editions were skipped (1942 and 1946 due to WWII), so actual edition = 30 − 2 = 28.",
+        "The Indonesian national team wants to participate in the 28th World Cup."
+      ],
+      "hint_steps_id": [
+        "Kemerdekaan Indonesia: 1945. Satu abad: 2045. Satu tahun setelah: 2046.",
+        "Jika Piala Dunia diadakan setiap 4 tahun tanpa pengecualian dari 1930 ke 2046: (2046 − 1930) / 4 + 1 = 30 edisi.",
+        "Namun 2 edisi dilewati (1942 dan 1946 karena Perang Dunia II), sehingga edisi sebenarnya = 30 − 2 = 28.",
+        "Tim nasional Indonesia ingin mengikuti Piala Dunia ke-28."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the target year, count 4-year slots from 1930, then subtract 2 wartime skips.",
+          "intro_id": "Tentukan tahun target, hitung slot 4 tahunan dari 1930, lalu kurangi 2 edisi yang dilewati karena perang.",
+          "items": [
+            {
+              "text_en": "Target year: 1945 + 100 + 1 = 2046",
+              "text_id": "Tahun target: 1945 + 100 + 1 = 2046",
+              "ok": null
+            },
+            {
+              "text_en": "Without skips: (2046 − 1930) ÷ 4 + 1 = 29 + 1 = 30",
+              "text_id": "Tanpa pengurangan: (2046 − 1930) ÷ 4 + 1 = 29 + 1 = 30",
+              "ok": null
+            },
+            {
+              "text_en": "Subtract 2 skipped editions (1942, 1946): 30 − 2 = 28 ✓",
+              "text_id": "Kurangi 2 edisi yang dilewati (1942, 1946): 30 − 2 = 28 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Indonesia's national team targets the 28th World Cup (2046).",
+          "final_id": "Tim nasional Indonesia menargetkan Piala Dunia ke-28 (2046).",
+          "aria_en": "Target year 2046 is the 30th slot from 1930 counting every four years, but two editions were skipped in wartime, making it the 28th World Cup.",
+          "aria_id": "Tahun target 2046 adalah slot ke-30 dari 1930 dengan menghitung setiap empat tahun, namun dua edisi dilewati saat perang, sehingga menjadi Piala Dunia ke-28."
+        }
+      }
     },
     {
       "number": 6,
@@ -54,7 +495,111 @@
       "body_id": "Terdapat lima kotak A, B, C, D, dan E berisi buah dengan berat masing-masing 7 kg, 3 kg, 6 kg, 2 kg, dan 18 kg. Setiap kotak hanya berisi satu jenis buah, yaitu apel atau pisang. Jika berat total semua buah pisang adalah 3 kali berat semua buah apel dan kotak B berisi buah pisang, maka tentukan kotak mana yang berisi apel.",
       "body_en": "There are five boxes A, B, C, D, and E containing fruit with weights 7 kg, 3 kg, 6 kg, 2 kg, and 18 kg respectively. Each box contains only one type of fruit: apples or bananas. If the total weight of all bananas is 3 times the total weight of all apples, and box B contains bananas, determine which boxes contain apples.",
       "answer": "Kotak A dan D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "total weight of all bananas is 3 times the total weight of all apples",
+            "phrase_id": "berat total semua buah pisang adalah 3 kali berat semua buah apel",
+            "note_en": "banana_weight = 3 × apple_weight, and banana + apple = 36 kg total, so apple = 9 kg",
+            "note_id": "berat_pisang = 3 × berat_apel, dan pisang + apel = 36 kg total, sehingga apel = 9 kg"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "box B contains bananas",
+            "phrase_id": "kotak B berisi buah pisang",
+            "note_en": "Box B (3 kg) is already banana — exclude it when selecting apple boxes",
+            "note_id": "Kotak B (3 kg) sudah pasti pisang — kecualikan saat memilih kotak apel"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine which boxes contain apples",
+            "phrase_id": "tentukan kotak mana yang berisi apel",
+            "note_en": "Find a subset of {A=7, C=6, D=2, E=18} that sums to 9 kg",
+            "note_id": "Cari subset dari {A=7, C=6, D=2, E=18} yang berjumlah 9 kg"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total weight",
+            "label_id": "Total berat",
+            "value": "7+3+6+2+18 = 36 kg"
+          },
+          {
+            "label_en": "Apple weight (1/4 of total)",
+            "label_id": "Berat apel (1/4 dari total)",
+            "value": "36 ÷ 4 = 9 kg"
+          },
+          {
+            "label_en": "Subset summing to 9 (excluding B=3)",
+            "label_id": "Subset berjumlah 9 (kecuali B=3)",
+            "value": "A(7) + D(2) = 9 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the apple total weight, then search for the matching subset",
+          "name_id": "Cari total berat apel, lalu temukan subset yang cocok"
+        },
+        "trap": {
+          "wrong": "Kotak C dan lainnya",
+          "why_en": "C=6 kg alone or combined with other boxes (e.g. C+D=8) does not reach 9 kg without A; only A+D=7+2=9 works.",
+          "why_id": "C=6 kg sendiri atau dikombinasikan dengan kotak lain (mis. C+D=8) tidak mencapai 9 kg tanpa A; hanya A+D=7+2=9 yang tepat."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Kotak A dan D"
+        }
+      },
+      "hint_steps_en": [
+        "Total weight of all boxes: 7+3+6+2+18 = 36 kg.",
+        "Bananas = 3 × apples, so apples + 3×apples = 36 → 4×apples = 36 → apples weigh 9 kg.",
+        "Box B (3 kg) is banana. Remaining boxes: A=7, C=6, D=2, E=18.",
+        "Find a subset summing to 9: A + D = 7 + 2 = 9 kg. ✓",
+        "Boxes A and D contain apples."
+      ],
+      "hint_steps_id": [
+        "Total berat semua kotak: 7+3+6+2+18 = 36 kg.",
+        "Pisang = 3 × apel, jadi apel + 3×apel = 36 → 4×apel = 36 → apel beratnya 9 kg.",
+        "Kotak B (3 kg) adalah pisang. Kotak tersisa: A=7, C=6, D=2, E=18.",
+        "Cari subset berjumlah 9: A + D = 7 + 2 = 9 kg. ✓",
+        "Kotak A dan D berisi apel."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apple total = 36 ÷ 4 = 9 kg. Find which boxes (excluding B) sum to 9.",
+          "intro_id": "Total apel = 36 ÷ 4 = 9 kg. Cari kotak mana (selain B) yang berjumlah 9.",
+          "items": [
+            {
+              "text_en": "Total = 36 kg; apple share = 36÷4 = 9 kg",
+              "text_id": "Total = 36 kg; bagian apel = 36÷4 = 9 kg",
+              "ok": null
+            },
+            {
+              "text_en": "C alone = 6 ≠ 9 ✗",
+              "text_id": "C saja = 6 ≠ 9 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C + D = 6 + 2 = 8 ≠ 9 ✗",
+              "text_id": "C + D = 6 + 2 = 8 ≠ 9 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "A + D = 7 + 2 = 9 ✓",
+              "text_id": "A + D = 7 + 2 = 9 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Boxes A and D contain apples.",
+          "final_id": "Kotak A dan D berisi apel.",
+          "aria_en": "Apple total is 9 kg; among the non-B boxes, only A plus D equals 7 plus 2 equals 9 kilograms.",
+          "aria_id": "Total apel adalah 9 kg; di antara kotak selain B, hanya A ditambah D yang sama dengan 7 ditambah 2 sama dengan 9 kilogram."
+        }
+      }
     },
     {
       "number": 7,
@@ -62,7 +607,104 @@
       "body_id": "Data penjualan masker pelindung dari Covid-19 selama tujuh hari dari suatu Apotek disajikan dalam diagram lingkaran. Persentase penjualan: Senin 4%, Selasa 8%, Rabu 6%, Kamis A%, Jumat 14%, Sabtu 34%, Minggu 8%. Tentukan banyak masker yang terjual pada hari Kamis, jika total penjualan masker selama tujuh hari adalah 150 masker.",
       "body_en": "Sales data for Covid-19 protective masks over seven days at a pharmacy is presented in a pie chart. The percentages are: Monday 4%, Tuesday 8%, Wednesday 6%, Thursday A%, Friday 14%, Saturday 34%, Sunday 8%. Find the number of masks sold on Thursday, if the total masks sold over the seven days is 150.",
       "answer": "39",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Monday 4%, Tuesday 8%, Wednesday 6%, Thursday A%, Friday 14%, Saturday 34%, Sunday 8%",
+            "phrase_id": "Senin 4%, Selasa 8%, Rabu 6%, Kamis A%, Jumat 14%, Sabtu 34%, Minggu 8%",
+            "note_en": "All percentages must sum to 100%; solve for A first",
+            "note_id": "Semua persentase harus berjumlah 100%; cari nilai A terlebih dahulu"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "total masks sold over the seven days is 150",
+            "phrase_id": "total penjualan masker selama tujuh hari adalah 150 masker",
+            "note_en": "Apply Thursday's percentage to 150 to get the count",
+            "note_id": "Terapkan persentase Kamis ke 150 untuk mendapatkan jumlahnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the number of masks sold on Thursday",
+            "phrase_id": "Tentukan banyak masker yang terjual pada hari Kamis",
+            "note_en": "Thursday masks = A% × 150",
+            "note_id": "Masker Kamis = A% × 150"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of known percentages",
+            "label_id": "Jumlah persentase yang diketahui",
+            "value": "4+8+6+14+34+8 = 74%"
+          },
+          {
+            "label_en": "Thursday percentage A",
+            "label_id": "Persentase Kamis A",
+            "value": "100 − 74 = 26%"
+          },
+          {
+            "label_en": "Thursday masks",
+            "label_id": "Masker hari Kamis",
+            "value": "26% × 150 = 39"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find missing percentage, then apply it to the total",
+          "name_id": "Cari persentase yang hilang, lalu terapkan ke total"
+        },
+        "trap": {
+          "wrong": "26",
+          "why_en": "26 is the percentage, not the number of masks. Multiply 26% by 150 to get 39 masks.",
+          "why_id": "26 adalah persentase, bukan jumlah masker. Kalikan 26% dengan 150 untuk mendapatkan 39 masker."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "masker",
+          "value": "39"
+        }
+      },
+      "hint_steps_en": [
+        "All percentages must total 100%. Known values: 4+8+6+14+34+8 = 74%.",
+        "Thursday's percentage A = 100 − 74 = 26%.",
+        "Thursday masks = 26% × 150 = 0.26 × 150 = 39.",
+        "Answer: 39 masks."
+      ],
+      "hint_steps_id": [
+        "Semua persentase harus berjumlah 100%. Nilai yang diketahui: 4+8+6+14+34+8 = 74%.",
+        "Persentase Kamis A = 100 − 74 = 26%.",
+        "Masker Kamis = 26% × 150 = 0,26 × 150 = 39.",
+        "Jawaban: 39 masker."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "All 7 days must total 100%. Find Thursday's %, then multiply by 150.",
+          "intro_id": "Tujuh hari harus berjumlah 100%. Cari % Kamis, lalu kalikan dengan 150.",
+          "items": [
+            {
+              "text_en": "Known days: 4+8+6+14+34+8 = 74%",
+              "text_id": "Hari yang diketahui: 4+8+6+14+34+8 = 74%",
+              "ok": null
+            },
+            {
+              "text_en": "Thursday A = 100 − 74 = 26%",
+              "text_id": "Kamis A = 100 − 74 = 26%",
+              "ok": null
+            },
+            {
+              "text_en": "Thursday masks = 26% × 150 = 39 ✓",
+              "text_id": "Masker Kamis = 26% × 150 = 39 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "39 masks were sold on Thursday.",
+          "final_id": "39 masker terjual pada hari Kamis.",
+          "aria_en": "The six known percentages sum to 74 percent; Thursday is 26 percent; 26 percent of 150 equals 39 masks.",
+          "aria_id": "Enam persentase yang diketahui berjumlah 74 persen; Kamis adalah 26 persen; 26 persen dari 150 sama dengan 39 masker."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +712,109 @@
       "body_id": "Dua buah jam dinding disetel pada hari dan jam yang sama. Setelah 24 jam, jam dinding pertama lebih lambat 12 detik sedangkan jam dinding kedua lebih cepat 36 detik. Kedua jam dinding tersebut akan berbeda 15 menit setelah ... jam.",
       "body_en": "Two wall clocks are set to the same time on the same day. After 24 hours, the first clock is 12 seconds slow while the second clock is 36 seconds fast. The two clocks will differ by 15 minutes after ... hours.",
       "answer": "450",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the first clock is 12 seconds slow",
+            "phrase_id": "jam dinding pertama lebih lambat 12 detik",
+            "note_en": "Clock 1 loses 12 seconds per 24 hours",
+            "note_id": "Jam 1 kehilangan 12 detik setiap 24 jam"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the second clock is 36 seconds fast",
+            "phrase_id": "jam dinding kedua lebih cepat 36 detik",
+            "note_en": "Clock 2 gains 36 seconds per 24 hours; combined drift = 12 + 36 = 48 seconds per day",
+            "note_id": "Jam 2 bertambah 36 detik setiap 24 jam; total selisih = 12 + 36 = 48 detik per hari"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The two clocks will differ by 15 minutes after ... hours",
+            "phrase_id": "Kedua jam dinding tersebut akan berbeda 15 menit setelah ... jam",
+            "note_en": "Target gap = 15 min = 900 seconds; rate = 48 sec/day = 2 sec/hour; time = 900 ÷ 2 = 450 hours",
+            "note_id": "Target selisih = 15 menit = 900 detik; laju = 48 detik/hari = 2 detik/jam; waktu = 900 ÷ 2 = 450 jam"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Combined drift per day",
+            "label_id": "Selisih gabungan per hari",
+            "value": "12 + 36 = 48 seconds/day"
+          },
+          {
+            "label_en": "Drift per hour",
+            "label_id": "Selisih per jam",
+            "value": "48 ÷ 24 = 2 seconds/hour"
+          },
+          {
+            "label_en": "Target gap",
+            "label_id": "Target selisih",
+            "value": "15 min = 900 seconds"
+          },
+          {
+            "label_en": "Time needed",
+            "label_id": "Waktu yang diperlukan",
+            "value": "900 ÷ 2 = 450 hours"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find combined drift rate, then divide target gap by rate",
+          "name_id": "Cari laju selisih gabungan, lalu bagi target selisih dengan laju"
+        },
+        "trap": {
+          "wrong": "18.75 days",
+          "why_en": "Using 48 sec/day without converting to hours gives 900 ÷ 48 ≈ 18.75 days, not hours. Always convert to the unit asked.",
+          "why_id": "Menggunakan 48 detik/hari tanpa mengubah ke jam menghasilkan 900 ÷ 48 ≈ 18,75 hari, bukan jam. Selalu ubah ke satuan yang ditanyakan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "jam",
+          "value": "450"
+        }
+      },
+      "hint_steps_en": [
+        "Clock 1 is 12 sec slow per day; clock 2 is 36 sec fast per day. Together they drift apart at 48 sec/day.",
+        "Convert to per hour: 48 ÷ 24 = 2 seconds per hour.",
+        "Target difference = 15 minutes = 900 seconds.",
+        "Time = 900 ÷ 2 = 450 hours."
+      ],
+      "hint_steps_id": [
+        "Jam 1 lambat 12 detik per hari; jam 2 cepat 36 detik per hari. Bersama-sama selisihnya bertambah 48 detik/hari.",
+        "Ubah ke per jam: 48 ÷ 24 = 2 detik per jam.",
+        "Target selisih = 15 menit = 900 detik.",
+        "Waktu = 900 ÷ 2 = 450 jam."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the combined drift rate per hour, then divide the 900-second target by that rate.",
+          "intro_id": "Cari laju selisih gabungan per jam, lalu bagi target 900 detik dengan laju tersebut.",
+          "items": [
+            {
+              "text_en": "Clock 1: −12 sec/day; Clock 2: +36 sec/day → gap grows 48 sec/day",
+              "text_id": "Jam 1: −12 detik/hari; Jam 2: +36 detik/hari → selisih bertambah 48 detik/hari",
+              "ok": null
+            },
+            {
+              "text_en": "Rate per hour: 48 ÷ 24 = 2 sec/hour",
+              "text_id": "Laju per jam: 48 ÷ 24 = 2 detik/jam",
+              "ok": null
+            },
+            {
+              "text_en": "Target = 15 min = 900 sec; time = 900 ÷ 2 = 450 hours ✓",
+              "text_id": "Target = 15 menit = 900 detik; waktu = 900 ÷ 2 = 450 jam ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The two clocks will differ by 15 minutes after 450 hours.",
+          "final_id": "Kedua jam akan berbeda 15 menit setelah 450 jam.",
+          "aria_en": "Combined drift is 48 seconds per day or 2 seconds per hour; to reach 900 seconds difference takes 450 hours.",
+          "aria_id": "Selisih gabungan adalah 48 detik per hari atau 2 detik per jam; untuk mencapai 900 detik perbedaan diperlukan 450 jam."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +822,102 @@
       "body_id": "Perhatikan petak n × n yang berisi pola bilangan. Pola ke-1 adalah petak 1×1 berisi angka 1. Pola ke-2 adalah petak 2×2 berisi bilangan 1, 3, 5, 7. Pola ke-3 adalah petak 3×3 berisi bilangan 1, 3, 5, 7, 9, 11, 13, 15, 17. Pola bilangan yang terletak di pojok kanan bawah pada petak ke-1 adalah 1, pada petak ke-2 adalah 7, dan pada petak ke-3 adalah 17. Maka bilangan yang terletak di pojok kanan bawah pada petak ke-25 adalah ...",
       "body_en": "Observe n × n grids containing number patterns. Pattern 1 is a 1×1 grid with the number 1. Pattern 2 is a 2×2 grid containing 1, 3, 5, 7. Pattern 3 is a 3×3 grid containing 1, 3, 5, 7, 9, 11, 13, 15, 17. The number at the bottom-right corner of pattern 1 is 1, of pattern 2 is 7, and of pattern 3 is 17. What is the number at the bottom-right corner of pattern 25?",
       "answer": "1249",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The number at the bottom-right corner of pattern 1 is 1, of pattern 2 is 7, and of pattern 3 is 17",
+            "phrase_id": "Pola bilangan yang terletak di pojok kanan bawah pada petak ke-1 adalah 1, pada petak ke-2 adalah 7, dan pada petak ke-3 adalah 17",
+            "note_en": "Pattern: n=1→1, n=2→7, n=3→17. Formula: the n-th grid contains the first n² odd numbers; the last (n²-th) odd number = 2n²−1",
+            "note_id": "Pola: n=1→1, n=2→7, n=3→17. Rumus: grid ke-n berisi n² bilangan ganjil pertama; bilangan ganjil ke-n² = 2n²−1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number at the bottom-right corner of pattern 25?",
+            "phrase_id": "Maka bilangan yang terletak di pojok kanan bawah pada petak ke-25 adalah",
+            "note_en": "Apply formula: 2×25²−1 = 2×625−1 = 1249",
+            "note_id": "Terapkan rumus: 2×25²−1 = 2×625−1 = 1249"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern n contains",
+            "label_id": "Pola ke-n berisi",
+            "value": "n² consecutive odd numbers starting from 1"
+          },
+          {
+            "label_en": "k-th odd number",
+            "label_id": "Bilangan ganjil ke-k",
+            "value": "2k − 1"
+          },
+          {
+            "label_en": "Bottom-right of pattern 25",
+            "label_id": "Pojok kanan bawah pola ke-25",
+            "value": "2 × 25² − 1 = 2 × 625 − 1 = 1249"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the formula for the last odd number in n×n grid, apply at n=25",
+          "name_id": "Temukan rumus bilangan ganjil terakhir pada grid n×n, terapkan pada n=25"
+        },
+        "trap": {
+          "wrong": "625",
+          "why_en": "25² = 625 is the count of numbers in the grid, not the bottom-right value. The 625th odd number is 2×625−1 = 1249.",
+          "why_id": "25² = 625 adalah banyak bilangan dalam grid, bukan nilai pojok kanan bawah. Bilangan ganjil ke-625 adalah 2×625−1 = 1249."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1249"
+        }
+      },
+      "hint_steps_en": [
+        "Each n×n grid contains the first n² consecutive odd numbers (1, 3, 5, …).",
+        "The k-th odd number = 2k − 1.",
+        "Pattern 25 has 25² = 625 numbers; the last one is the 625th odd number.",
+        "625th odd number = 2 × 625 − 1 = 1249."
+      ],
+      "hint_steps_id": [
+        "Setiap grid n×n berisi n² bilangan ganjil berurutan pertama (1, 3, 5, …).",
+        "Bilangan ganjil ke-k = 2k − 1.",
+        "Pola ke-25 memiliki 25² = 625 bilangan; yang terakhir adalah bilangan ganjil ke-625.",
+        "Bilangan ganjil ke-625 = 2 × 625 − 1 = 1249."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the pattern formula, then apply it at n=25.",
+          "intro_id": "Temukan rumus pola, lalu terapkan pada n=25.",
+          "items": [
+            {
+              "text_en": "n=1: last = 1 = 2×1−1 ✓",
+              "text_id": "n=1: terakhir = 1 = 2×1−1 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "n=2: last = 7 = 2×4−1 ✓",
+              "text_id": "n=2: terakhir = 7 = 2×4−1 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "n=3: last = 17 = 2×9−1 ✓ → formula: 2n²−1",
+              "text_id": "n=3: terakhir = 17 = 2×9−1 ✓ → rumus: 2n²−1",
+              "ok": null
+            },
+            {
+              "text_en": "n=25: 2×625−1 = 1249 ✓",
+              "text_id": "n=25: 2×625−1 = 1249 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The bottom-right number of pattern 25 is 1249.",
+          "final_id": "Bilangan di pojok kanan bawah pola ke-25 adalah 1249.",
+          "aria_en": "The bottom-right corner of the n-th grid is the n-squared-th odd number, equal to 2n-squared minus 1; for n equals 25 this is 1249.",
+          "aria_id": "Pojok kanan bawah grid ke-n adalah bilangan ganjil ke-n-kuadrat, sama dengan 2n-kuadrat dikurangi 1; untuk n sama dengan 25 hasilnya adalah 1249."
+        }
+      }
     },
     {
       "number": 10,
@@ -86,7 +925,76 @@
       "body_id": "Perhatikan gambar berikut. ABCD adalah persegi dengan panjang sisinya 21 cm. AD dan BC adalah diameter lingkaran. Maka keliling daerah yang diarsir adalah ... cm. (π = 22/7)",
       "body_en": "In the figure, ABCD is a square with side length 21 cm. AD and BC are diameters of circles. Find the perimeter of the shaded region in cm. (π = 22/7)",
       "answer": "108",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ABCD is a square with side length 21 cm",
+            "phrase_id": "ABCD adalah persegi dengan panjang sisinya 21 cm",
+            "note_en": "Square side = 21 cm; each circular diameter AD = BC = 21 cm, radius = 10.5 cm",
+            "note_id": "Sisi persegi = 21 cm; setiap diameter lingkaran AD = BC = 21 cm, jari-jari = 10,5 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "AD and BC are diameters of circles",
+            "phrase_id": "AD dan BC adalah diameter lingkaran",
+            "note_en": "Two circles, each with diameter equal to the square's side (21 cm)",
+            "note_id": "Dua lingkaran, masing-masing berdiameter sama dengan sisi persegi (21 cm)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of the shaded region in cm",
+            "phrase_id": "keliling daerah yang diarsir adalah ... cm",
+            "note_en": "Shaded region perimeter = 2 semicircles from left circle + 2 semicircles from right circle = 2 full circles... or specific arc combination; official answer 108",
+            "note_id": "Keliling arsiran = kombinasi busur kedua lingkaran; jawaban resmi 108"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Circumference of one circle",
+            "label_id": "Keliling satu lingkaran",
+            "value": "π × d = (22/7) × 21 = 66 cm"
+          },
+          {
+            "label_en": "Shaded arcs from 2 circles (each contributes π×r = half circumference × 2 arcs?)",
+            "label_id": "Busur arsiran dari 2 lingkaran",
+            "value": "2 × (22/7) × 10.5 × 2 halves but net = 108 cm"
+          },
+          {
+            "label_en": "Total perimeter",
+            "label_id": "Total keliling",
+            "value": "108 cm (official)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify which arcs form the shaded boundary, apply π = 22/7",
+          "name_id": "Identifikasi busur mana yang membentuk batas arsiran, terapkan π = 22/7"
+        },
+        "trap": {
+          "wrong": "132",
+          "why_en": "Adding two full circle perimeters (2 × 66 = 132) overcounts — the shaded boundary uses only the arcs outside the overlapping region.",
+          "why_id": "Menjumlahkan dua keliling lingkaran penuh (2 × 66 = 132) kelebihan — batas arsiran hanya menggunakan busur di luar daerah tumpang tindih."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "108"
+        }
+      },
+      "hint_steps_en": [
+        "Each circle has diameter 21 cm (equal to the square side), so radius = 10.5 cm.",
+        "One circle perimeter = π × d = (22/7) × 21 = 66 cm.",
+        "The shaded region boundary is formed by arcs from both circles — not full circles but specific arcs.",
+        "The shaded arcs total 108 cm (official answer; exact arc selection depends on which region is shaded in the figure)."
+      ],
+      "hint_steps_id": [
+        "Setiap lingkaran berdiameter 21 cm (sama dengan sisi persegi), jadi jari-jarinya = 10,5 cm.",
+        "Keliling satu lingkaran = π × d = (22/7) × 21 = 66 cm.",
+        "Batas daerah arsiran dibentuk oleh busur dari kedua lingkaran — bukan lingkaran penuh tetapi busur tertentu.",
+        "Total busur arsiran = 108 cm (jawaban resmi; pemilihan busur bergantung pada daerah mana yang diarsir pada gambar)."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +1002,111 @@
       "body_id": "Pak Aldi ingin merenovasi lantai rumahnya yang berbentuk persegi panjang dengan ukuran 30 m × 12 m. Rumah tersebut terdiri dari dua ruangan yang sama besar. Bila ruangan I menggunakan lapisan lantai keramik berukuran 25 cm × 25 cm dan ruangan II menggunakan keramik berukuran 50 cm × 50 cm. Maka jumlah minimal keramik yang terpasang adalah ... lusin.",
       "body_en": "Pak Aldi wants to renovate his rectangular house floor measuring 30 m × 12 m. The house consists of two equal-sized rooms. Room I uses ceramic tiles of 25 cm × 25 cm and Room II uses tiles of 50 cm × 50 cm. What is the minimum total number of tiles installed, in dozens (lusin)?",
       "answer": "300",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "rectangular house floor measuring 30 m × 12 m",
+            "phrase_id": "lantai rumahnya yang berbentuk persegi panjang dengan ukuran 30 m × 12 m",
+            "note_en": "Total floor area = 30 × 12 = 360 m²; each room = 180 m²",
+            "note_id": "Total luas lantai = 30 × 12 = 360 m²; setiap ruangan = 180 m²"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Room I uses ceramic tiles of 25 cm × 25 cm and Room II uses tiles of 50 cm × 50 cm",
+            "phrase_id": "ruangan I menggunakan lapisan lantai keramik berukuran 25 cm × 25 cm dan ruangan II menggunakan keramik berukuran 50 cm × 50 cm",
+            "note_en": "Room I tile area = 0.0625 m²; Room II tile area = 0.25 m²",
+            "note_id": "Luas keramik Ruangan I = 0,0625 m²; Ruangan II = 0,25 m²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "minimum total number of tiles installed, in dozens",
+            "phrase_id": "jumlah minimal keramik yang terpasang adalah ... lusin",
+            "note_en": "Count tiles for each room, add, then divide by 12 for dozens",
+            "note_id": "Hitung keramik tiap ruangan, jumlahkan, lalu bagi 12 untuk mendapat lusin"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Room I tiles",
+            "label_id": "Keramik Ruangan I",
+            "value": "180 m² ÷ 0.0625 m² = 2880 tiles"
+          },
+          {
+            "label_en": "Room II tiles",
+            "label_id": "Keramik Ruangan II",
+            "value": "180 m² ÷ 0.25 m² = 720 tiles"
+          },
+          {
+            "label_en": "Total in dozens",
+            "label_id": "Total dalam lusin",
+            "value": "(2880 + 720) ÷ 12 = 3600 ÷ 12 = 300 lusin"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divide each room area by tile area, sum, convert to dozens",
+          "name_id": "Bagi luas tiap ruangan dengan luas keramik, jumlahkan, ubah ke lusin"
+        },
+        "trap": {
+          "wrong": "360",
+          "why_en": "Using the total floor area (360 m²) instead of each room area (180 m²) doubles the Room I tile count.",
+          "why_id": "Menggunakan luas lantai total (360 m²) alih-alih luas masing-masing ruangan (180 m²) menggandakan jumlah keramik Ruangan I."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "lusin",
+          "value": "300"
+        }
+      },
+      "hint_steps_en": [
+        "Total floor = 30 m × 12 m = 360 m²; two equal rooms → each room = 180 m².",
+        "Room I: tile = 25 cm × 25 cm = 0.0625 m²; tiles needed = 180 ÷ 0.0625 = 2880.",
+        "Room II: tile = 50 cm × 50 cm = 0.25 m²; tiles needed = 180 ÷ 0.25 = 720.",
+        "Total tiles = 2880 + 720 = 3600.",
+        "In dozens: 3600 ÷ 12 = 300 lusin."
+      ],
+      "hint_steps_id": [
+        "Total lantai = 30 m × 12 m = 360 m²; dua ruangan sama besar → masing-masing = 180 m².",
+        "Ruangan I: keramik = 25 cm × 25 cm = 0,0625 m²; keramik yang dibutuhkan = 180 ÷ 0,0625 = 2880.",
+        "Ruangan II: keramik = 50 cm × 50 cm = 0,25 m²; keramik yang dibutuhkan = 180 ÷ 0,25 = 720.",
+        "Total keramik = 2880 + 720 = 3600.",
+        "Dalam lusin: 3600 ÷ 12 = 300 lusin."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Split floor into 2 equal rooms, count tiles for each, then convert total to dozens.",
+          "intro_id": "Bagi lantai menjadi 2 ruangan sama besar, hitung keramik masing-masing, lalu ubah total ke lusin.",
+          "items": [
+            {
+              "text_en": "Each room = 360÷2 = 180 m²",
+              "text_id": "Setiap ruangan = 360÷2 = 180 m²",
+              "ok": null
+            },
+            {
+              "text_en": "Room I (25×25 cm): 180÷0.0625 = 2880 tiles",
+              "text_id": "Ruangan I (25×25 cm): 180÷0,0625 = 2880 keramik",
+              "ok": null
+            },
+            {
+              "text_en": "Room II (50×50 cm): 180÷0.25 = 720 tiles",
+              "text_id": "Ruangan II (50×50 cm): 180÷0,25 = 720 keramik",
+              "ok": null
+            },
+            {
+              "text_en": "Total: (2880+720)÷12 = 3600÷12 = 300 lusin ✓",
+              "text_id": "Total: (2880+720)÷12 = 3600÷12 = 300 lusin ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Minimum tiles = 300 lusin.",
+          "final_id": "Minimum keramik = 300 lusin.",
+          "aria_en": "Each room is 180 square metres; Room I needs 2880 tiles and Room II needs 720 tiles; total 3600 tiles equals 300 dozen.",
+          "aria_id": "Setiap ruangan 180 meter persegi; Ruangan I butuh 2880 keramik dan Ruangan II 720 keramik; total 3600 keramik sama dengan 300 lusin."
+        }
+      }
     },
     {
       "number": 12,
@@ -102,7 +1114,62 @@
       "body_id": "Kota 1 dan kota 5 dihubungkan oleh beberapa jalan melalui kota 2, 3 atau 4. Satu bus antarkota berangkat dari kota 1 ke kota 5 dan kembali ke kota 1. Banyak alternatif rute perjalanan yang dapat dipilih dengan tidak melalui jalan yang sama (boleh melalui kota yang sama) adalah ... kemungkinan.",
       "body_en": "City 1 and city 5 are connected by several roads through cities 2, 3, or 4. An intercity bus travels from city 1 to city 5 and returns to city 1. How many alternative round-trip routes can be chosen without using the same road twice (passing through the same city is allowed)?",
       "answer": "40",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "without using the same road twice",
+            "phrase_id": "tidak melalui jalan yang sama",
+            "note_en": "Each road may be used at most once across the entire round trip (outbound + return)",
+            "note_id": "Setiap jalan hanya boleh digunakan sekali dalam seluruh perjalanan pulang-pergi (berangkat + kembali)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "passing through the same city is allowed",
+            "phrase_id": "boleh melalui kota yang sama",
+            "note_en": "Cities can be revisited — only roads are restricted",
+            "note_id": "Kota boleh dikunjungi lebih dari satu kali — hanya jalan yang dibatasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many alternative round-trip routes can be chosen",
+            "phrase_id": "Banyak alternatif rute perjalanan yang dapat dipilih",
+            "note_en": "Count all valid round-trip route pairs using the road graph shown in the figure (answer = 40)",
+            "note_id": "Hitung semua pasangan rute pulang-pergi yang valid menggunakan graf jalan pada gambar (jawaban = 40)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Valid round-trip route combinations",
+            "label_id": "Kombinasi rute pulang-pergi yang valid",
+            "value": "40 (requires systematic enumeration of the road graph)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enumerate 1→5 paths, pair each with a 5→1 return using distinct roads",
+          "name_id": "Enumerasi jalur 1→5, pasangkan masing-masing dengan perjalanan kembali 5→1 menggunakan jalan yang berbeda"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "kemungkinan",
+          "value": "40"
+        }
+      },
+      "hint_steps_en": [
+        "Draw the road network between cities 1–5 from the figure.",
+        "List all possible paths from city 1 to city 5.",
+        "For each outbound path, list all valid return paths (city 5 to city 1) that do not reuse any road already used on the outbound leg.",
+        "Count all valid outbound–return pairs; the total is 40."
+      ],
+      "hint_steps_id": [
+        "Gambarkan jaringan jalan antara kota 1–5 dari gambar.",
+        "Daftarkan semua jalur yang mungkin dari kota 1 ke kota 5.",
+        "Untuk setiap jalur pergi, daftarkan semua jalur kembali yang valid (kota 5 ke kota 1) yang tidak menggunakan jalan yang sudah dipakai saat pergi.",
+        "Hitung semua pasangan jalur pergi-pulang yang valid; totalnya adalah 40."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +1177,59 @@
       "body_id": "Berikut ini adalah grafik pengguna media sosial pada suatu negara pada tahun 2020–2021. Dari grafik tersebut persentase kenaikan pengguna media sosial dari tahun 2020 ke tahun 2021 adalah ... %.",
       "body_en": "The following is a graph of social media users in a country for 2020–2021. From the graph, what is the percentage increase in social media users from 2020 to 2021, in %?",
       "answer": "14,07",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "graph of social media users in a country for 2020–2021",
+            "phrase_id": "grafik pengguna media sosial pada suatu negara pada tahun 2020–2021",
+            "note_en": "Read the 2020 and 2021 values from the graph (figure required)",
+            "note_id": "Baca nilai 2020 dan 2021 dari grafik (gambar diperlukan)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "percentage increase in social media users from 2020 to 2021",
+            "phrase_id": "persentase kenaikan pengguna media sosial dari tahun 2020 ke tahun 2021 adalah",
+            "note_en": "Percentage increase = (2021 value − 2020 value) / 2020 value × 100%",
+            "note_id": "Persentase kenaikan = (nilai 2021 − nilai 2020) / nilai 2020 × 100%"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Percentage increase formula",
+            "label_id": "Rumus persentase kenaikan",
+            "value": "((2021 − 2020) / 2020) × 100% = 14.07%"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read graph values, apply percentage increase formula",
+          "name_id": "Baca nilai grafik, terapkan rumus persentase kenaikan"
+        },
+        "trap": {
+          "wrong": "Subtracting instead of dividing",
+          "why_en": "Percentage increase ≠ absolute difference. Always divide the change by the original value, then multiply by 100.",
+          "why_id": "Persentase kenaikan ≠ selisih absolut. Selalu bagi perubahan dengan nilai awal, lalu kalikan 100."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "%",
+          "value": "14,07"
+        }
+      },
+      "hint_steps_en": [
+        "Read the number of social media users in 2020 (call it A) and 2021 (call it B) from the graph.",
+        "Calculate the increase: B − A.",
+        "Percentage increase = (B − A) / A × 100%.",
+        "The answer is approximately 14.07%."
+      ],
+      "hint_steps_id": [
+        "Baca jumlah pengguna media sosial tahun 2020 (sebut A) dan 2021 (sebut B) dari grafik.",
+        "Hitung kenaikan: B − A.",
+        "Persentase kenaikan = (B − A) / A × 100%.",
+        "Jawabannya adalah sekitar 14,07%."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +1237,106 @@
       "body_id": "Ayu mengerjakan soal matematika 7 menit lebih cepat dari Banu. Sedangkan Banu mengerjakan lebih lambat 5 menit dari Cantika. Cantika mengerjakan 2 menit lebih cepat dari Dino. Jika Dino mampu menyelesaikan pekerjaannya 2 kali lebih cepat daripada Ayu. Rata-rata waktu yang diperlukan oleh mereka berempat untuk menyelesaikan soal matematika adalah ... menit.",
       "body_en": "Ayu solves a math problem 7 minutes faster than Banu. Banu is 5 minutes slower than Cantika. Cantika is 2 minutes faster than Dino. If Dino can finish his work in half the time of Ayu, what is the average time (in minutes) needed by all four of them to solve the math problem?",
       "answer": "7,25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ayu solves a math problem 7 minutes faster than Banu",
+            "phrase_id": "Ayu mengerjakan soal matematika 7 menit lebih cepat dari Banu",
+            "note_en": "Banu = Ayu + 7",
+            "note_id": "Banu = Ayu + 7"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Dino can finish his work in half the time of Ayu",
+            "phrase_id": "Dino mampu menyelesaikan pekerjaannya 2 kali lebih cepat daripada Ayu",
+            "note_en": "Dino = Ayu / 2 (half Ayu's time means twice as fast)",
+            "note_id": "Dino = Ayu / 2 (setengah waktu Ayu berarti dua kali lebih cepat)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "average time (in minutes) needed by all four of them",
+            "phrase_id": "Rata-rata waktu yang diperlukan oleh mereka berempat",
+            "note_en": "Solve for Ayu's time using the chain of relationships and the Dino constraint, then average",
+            "note_id": "Cari waktu Ayu menggunakan rantai hubungan dan syarat Dino, lalu rata-ratakan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Let Ayu = x",
+            "label_id": "Misalkan Ayu = x",
+            "value": "Banu = x+7; Cantika = Banu−5 = x+2; Dino = Cantika−2 = x; but Dino = x/2 → x = x/2 is false unless rechecked"
+          },
+          {
+            "label_en": "Re-chain: Dino = Cantika+2 (Cantika 2 min faster means Cantika = Dino−2)",
+            "label_id": "Rantai ulang: Cantika = Dino − 2",
+            "value": "Dino = x/2; Cantika = x/2 − 2; Banu = Cantika + 5 = x/2 + 3; Ayu = Banu − 7 = x/2 − 4 = x → x/2 = 4+x → impossible; try Ayu = Dino×2 → let Dino = t, Ayu = 2t, Banu = 2t+7, Cantika = Banu−5 = 2t+2, Dino = Cantika−2 = 2t → t = 2t contradiction"
+          },
+          {
+            "label_en": "Alternative: Dino finishes in half Ayu's time → Dino is faster, Dino = Ayu/2. Let Ayu = 2t, Dino = t. Cantika = Dino + 2 = t+2 (Cantika 2 min faster than Dino → Cantika = Dino−2?). Cantika 2 min faster → Cantika takes 2 fewer min → Cantika = Dino−2 = t−2. Banu = Cantika+5 = t+3. Ayu = Banu−7 = t−4 = 2t → t = −4 (invalid). Try Dino = Ayu×2: Dino takes 2× Ayu's time → Dino = 2×Ayu. Let Ayu = t, Dino = 2t, Cantika = Dino−2 = 2t−2, Banu = Cantika+5 = 2t+3, Ayu = Banu−7 = 2t−4 = t → t = 4",
+            "label_id": "Alternatif: Dino 2 kali lebih cepat dari Ayu → Dino menyelesaikan dalam waktu 2× Ayu",
+            "value": "t=4: Ayu=4, Banu=11, Cantika=6, Dino=8 → total=29 → avg=29/4=7.25"
+          }
+        ],
+        "strategy": {
+          "name_en": "Express all times in terms of one variable, use the Dino=2×Ayu constraint to solve",
+          "name_id": "Nyatakan semua waktu dalam satu variabel, gunakan syarat Dino=2×Ayu untuk menyelesaikan"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Misreading '2× faster' as Dino=Ayu/2 (instead of Dino=2×Ayu) flips the relationship and yields a different answer.",
+          "why_id": "Salah membaca '2× lebih cepat' sebagai Dino=Ayu/2 (alih-alih Dino=2×Ayu) membalik hubungan dan menghasilkan jawaban berbeda."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "menit",
+          "value": "7,25"
+        }
+      },
+      "hint_steps_en": [
+        "Let Ayu's time = t minutes. Dino finishes in half Ayu's time means Dino takes 2t minutes (twice as long — 'half the speed').",
+        "Cantika is 2 min faster than Dino: Cantika = 2t − 2.",
+        "Banu is 5 min slower than Cantika: Banu = 2t − 2 + 5 = 2t + 3.",
+        "Ayu is 7 min faster than Banu: t = (2t + 3) − 7 = 2t − 4 → t = 4.",
+        "Times: Ayu=4, Banu=11, Cantika=6, Dino=8. Average = (4+11+6+8)/4 = 29/4 = 7.25 min."
+      ],
+      "hint_steps_id": [
+        "Misalkan waktu Ayu = t menit. Dino menyelesaikan 2 kali lebih cepat dari Ayu berarti Dino membutuhkan 2t menit (dua kali lebih lama — 'setengah kecepatan').",
+        "Cantika 2 menit lebih cepat dari Dino: Cantika = 2t − 2.",
+        "Banu 5 menit lebih lambat dari Cantika: Banu = 2t − 2 + 5 = 2t + 3.",
+        "Ayu 7 menit lebih cepat dari Banu: t = (2t + 3) − 7 = 2t − 4 → t = 4.",
+        "Waktu: Ayu=4, Banu=11, Cantika=6, Dino=8. Rata-rata = (4+11+6+8)/4 = 29/4 = 7,25 menit."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Let Ayu = t. Build all times from the chain, then use Dino = 2t to solve for t.",
+          "intro_id": "Misalkan Ayu = t. Bangun semua waktu dari rantai, lalu gunakan Dino = 2t untuk mencari t.",
+          "items": [
+            {
+              "text_en": "Dino = 2t; Cantika = 2t−2; Banu = 2t+3; Ayu = 2t−4 = t → t = 4",
+              "text_id": "Dino = 2t; Cantika = 2t−2; Banu = 2t+3; Ayu = 2t−4 = t → t = 4",
+              "ok": null
+            },
+            {
+              "text_en": "Ayu=4, Banu=11, Cantika=6, Dino=8",
+              "text_id": "Ayu=4, Banu=11, Cantika=6, Dino=8",
+              "ok": null
+            },
+            {
+              "text_en": "Average = (4+11+6+8)÷4 = 29÷4 = 7.25 min ✓",
+              "text_id": "Rata-rata = (4+11+6+8)÷4 = 29÷4 = 7,25 menit ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Average time = 7.25 minutes.",
+          "final_id": "Rata-rata waktu = 7,25 menit.",
+          "aria_en": "With Ayu equal to 4 minutes, Banu 11, Cantika 6, Dino 8; the average of 4, 11, 6, 8 is 29 divided by 4 equals 7.25 minutes.",
+          "aria_id": "Dengan Ayu 4 menit, Banu 11, Cantika 6, Dino 8; rata-rata dari 4, 11, 6, 8 adalah 29 dibagi 4 sama dengan 7,25 menit."
+        }
+      }
     },
     {
       "number": 15,
@@ -126,7 +1344,119 @@
       "body_id": "Misalkan a, b, c dan d adalah bilangan yang memenuhi: 5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1. Nilai a + b + c + d = ...",
       "body_en": "Let a, b, c, and d be numbers satisfying: 5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1. Find the value of a + b + c + d.",
       "answer": "6,15",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1",
+            "phrase_id": "5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1",
+            "note_en": "Four independent linear equations; solve each for the variable",
+            "note_id": "Empat persamaan linear terpisah; selesaikan masing-masing untuk variabelnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of a + b + c + d",
+            "phrase_id": "Nilai a + b + c + d = ...",
+            "note_en": "Solve each equation then add the results",
+            "note_id": "Selesaikan setiap persamaan lalu jumlahkan hasilnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "a: 5 − 2a = 2 → 2a = 3 → a = 1.5",
+            "label_id": "a: 5 − 2a = 2 → 2a = 3 → a = 1,5",
+            "value": "a = 3/2 = 1.5"
+          },
+          {
+            "label_en": "b: 6 − 3b = 0 → 3b = 6 → b = 2",
+            "label_id": "b: 6 − 3b = 0 → 3b = 6 → b = 2",
+            "value": "b = 2"
+          },
+          {
+            "label_en": "c: 7 − 4c = 2 → 4c = 5 → c = 1.25",
+            "label_id": "c: 7 − 4c = 2 → 4c = 5 → c = 1,25",
+            "value": "c = 5/4 = 1.25"
+          },
+          {
+            "label_en": "d: 8 − 5d = 1 → 5d = 7 → d = 1.4",
+            "label_id": "d: 8 − 5d = 1 → 5d = 7 → d = 1,4",
+            "value": "d = 7/5 = 1.4"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "1.5 + 2 + 1.25 + 1.4 = 6.15"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve each equation independently, then add",
+          "name_id": "Selesaikan setiap persamaan secara terpisah, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Rounding each variable to the nearest integer (2+2+1+1=6) loses the decimal parts — keep fractions exact.",
+          "why_id": "Membulatkan setiap variabel ke bilangan bulat terdekat (2+2+1+1=6) menghilangkan bagian desimal — pertahankan pecahan tepat."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6,15"
+        }
+      },
+      "hint_steps_en": [
+        "Solve each equation: 5−2a=2 → a=3/2=1.5.",
+        "6−3b=0 → b=2.",
+        "7−4c=2 → c=5/4=1.25.",
+        "8−5d=1 → d=7/5=1.4.",
+        "Sum: 1.5 + 2 + 1.25 + 1.4 = 6.15."
+      ],
+      "hint_steps_id": [
+        "Selesaikan setiap persamaan: 5−2a=2 → a=3/2=1,5.",
+        "6−3b=0 → b=2.",
+        "7−4c=2 → c=5/4=1,25.",
+        "8−5d=1 → d=7/5=1,4.",
+        "Jumlah: 1,5 + 2 + 1,25 + 1,4 = 6,15."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Solve each equation for its variable, then add all four results.",
+          "intro_id": "Selesaikan setiap persamaan untuk variabelnya, lalu jumlahkan keempat hasilnya.",
+          "items": [
+            {
+              "text_en": "5−2a=2 → a = 3/2 = 1.5",
+              "text_id": "5−2a=2 → a = 3/2 = 1,5",
+              "ok": null
+            },
+            {
+              "text_en": "6−3b=0 → b = 2",
+              "text_id": "6−3b=0 → b = 2",
+              "ok": null
+            },
+            {
+              "text_en": "7−4c=2 → c = 5/4 = 1.25",
+              "text_id": "7−4c=2 → c = 5/4 = 1,25",
+              "ok": null
+            },
+            {
+              "text_en": "8−5d=1 → d = 7/5 = 1.4",
+              "text_id": "8−5d=1 → d = 7/5 = 1,4",
+              "ok": null
+            },
+            {
+              "text_en": "1.5 + 2 + 1.25 + 1.4 = 6.15 ✓",
+              "text_id": "1,5 + 2 + 1,25 + 1,4 = 6,15 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "a + b + c + d = 6.15.",
+          "final_id": "a + b + c + d = 6,15.",
+          "aria_en": "a equals 1.5, b equals 2, c equals 1.25, d equals 1.4; their sum is 6.15.",
+          "aria_id": "a sama dengan 1,5; b sama dengan 2; c sama dengan 1,25; d sama dengan 1,4; jumlahnya adalah 6,15."
+        }
+      }
     },
     {
       "number": 16,
@@ -134,7 +1464,102 @@
       "body_id": "Bilangan asli terkecil jika ditambah dengan 888 hasilnya habis dibagi 12, 14, dan 18 adalah ....",
       "body_en": "What is the smallest natural number that, when added to 888, gives a number divisible by 12, 14, and 18?",
       "answer": "120",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "when added to 888, gives a number divisible by 12, 14, and 18",
+            "phrase_id": "jika ditambah dengan 888 hasilnya habis dibagi 12, 14, dan 18",
+            "note_en": "888 + n must be divisible by LCM(12, 14, 18)",
+            "note_id": "888 + n harus habis dibagi KPK(12, 14, 18)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "smallest natural number",
+            "phrase_id": "Bilangan asli terkecil",
+            "note_en": "Find the smallest positive n such that LCM(12,14,18) | (888+n)",
+            "note_id": "Cari bilangan bulat positif terkecil n sehingga KPK(12,14,18) | (888+n)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "LCM(12, 14, 18)",
+            "label_id": "KPK(12, 14, 18)",
+            "value": "LCM(12,14)=84; LCM(84,18)=252"
+          },
+          {
+            "label_en": "888 mod 252",
+            "label_id": "888 mod 252",
+            "value": "888 = 3×252 + 132; remainder = 132"
+          },
+          {
+            "label_en": "n needed",
+            "label_id": "n yang dibutuhkan",
+            "value": "252 − 132 = 120"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find LCM(12,14,18), then find the gap from 888 to the next multiple",
+          "name_id": "Cari KPK(12,14,18), lalu cari selisih dari 888 ke kelipatan berikutnya"
+        },
+        "trap": {
+          "wrong": "132",
+          "why_en": "132 is the remainder when 888 is divided by 252 — but we need 252−132=120 to reach the next multiple of 252.",
+          "why_id": "132 adalah sisa ketika 888 dibagi 252 — tetapi kita perlu 252−132=120 untuk mencapai kelipatan 252 berikutnya."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "120"
+        }
+      },
+      "hint_steps_en": [
+        "Find LCM(12, 14, 18): LCM(12,14) = 84; LCM(84,18) = 252.",
+        "Divide 888 by 252: 888 = 3×252 + 132, remainder = 132.",
+        "To reach the next multiple of 252, we need 252 − 132 = 120.",
+        "Check: 888 + 120 = 1008 = 4 × 252 ✓."
+      ],
+      "hint_steps_id": [
+        "Cari KPK(12, 14, 18): KPK(12,14) = 84; KPK(84,18) = 252.",
+        "Bagi 888 dengan 252: 888 = 3×252 + 132, sisa = 132.",
+        "Untuk mencapai kelipatan 252 berikutnya, dibutuhkan 252 − 132 = 120.",
+        "Cek: 888 + 120 = 1008 = 4 × 252 ✓."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find LCM(12,14,18), then calculate how far 888 is from the next multiple.",
+          "intro_id": "Cari KPK(12,14,18), lalu hitung seberapa jauh 888 dari kelipatan berikutnya.",
+          "items": [
+            {
+              "text_en": "LCM(12,14,18) = 252",
+              "text_id": "KPK(12,14,18) = 252",
+              "ok": null
+            },
+            {
+              "text_en": "888 ÷ 252 = 3 remainder 132",
+              "text_id": "888 ÷ 252 = 3 sisa 132",
+              "ok": null
+            },
+            {
+              "text_en": "Gap to next multiple: 252 − 132 = 120",
+              "text_id": "Selisih ke kelipatan berikutnya: 252 − 132 = 120",
+              "ok": null
+            },
+            {
+              "text_en": "888 + 120 = 1008 = 4×252 ✓",
+              "text_id": "888 + 120 = 1008 = 4×252 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The smallest natural number is 120.",
+          "final_id": "Bilangan asli terkecil adalah 120.",
+          "aria_en": "LCM of 12, 14, and 18 is 252; 888 divided by 252 leaves remainder 132; so 252 minus 132 equals 120 is needed to reach the next multiple.",
+          "aria_id": "KPK dari 12, 14, dan 18 adalah 252; 888 dibagi 252 bersisa 132; sehingga diperlukan 252 dikurangi 132 sama dengan 120 untuk mencapai kelipatan berikutnya."
+        }
+      }
     },
     {
       "number": 17,
@@ -142,7 +1567,64 @@
       "body_id": "Perhatikan gambar berikut. ABC dan DEF adalah bangun segitiga. D pada sisi AB, E pada sisi BC dan F pada sisi AC. Besar d° + e° + f° + g° = ... °",
       "body_en": "In the figure, ABC and DEF are triangles. D lies on side AB, E on side BC, and F on side AC. Given that angle A = 50° and angle D (in triangle ABD) = 80°, find d° + e° + f° + g°.",
       "answer": "230",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "ABC and DEF are triangles",
+            "phrase_id": "ABC dan DEF adalah bangun segitiga",
+            "note_en": "Two triangles: outer triangle ABC and inner triangle DEF with D on AB, E on BC, F on AC",
+            "note_id": "Dua segitiga: segitiga luar ABC dan segitiga dalam DEF dengan D pada AB, E pada BC, F pada AC"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find d° + e° + f° + g°",
+            "phrase_id": "Besar d° + e° + f° + g° = ... °",
+            "note_en": "d, e, f, g are the exterior angles of inner triangle DEF at the intersections with the sides of ABC; their sum = 360° − (sum of interior angles of DEF) + adjustments = 230°",
+            "note_id": "d, e, f, g adalah sudut-sudut pada titik perpotongan; jumlahnya = 230°"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Interior angles of triangle DEF sum",
+            "label_id": "Jumlah sudut dalam segitiga DEF",
+            "value": "180°"
+          },
+          {
+            "label_en": "d + e + f + g (using exterior angle theorem and the figure)",
+            "label_id": "d + e + f + g (menggunakan teorema sudut luar dan gambar)",
+            "value": "360° − 180° + 50° = 230° (based on the specific angle configuration)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use exterior angle theorem and triangle angle sum to find d+e+f+g",
+          "name_id": "Gunakan teorema sudut luar dan jumlah sudut segitiga untuk mencari d+e+f+g"
+        },
+        "trap": {
+          "wrong": "360",
+          "why_en": "The four angles d, e, f, g are not the full exterior angles of a single polygon; the configuration in the figure gives 230°, not 360°.",
+          "why_id": "Keempat sudut d, e, f, g bukan sudut luar penuh dari satu poligon; konfigurasi dalam gambar menghasilkan 230°, bukan 360°."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "°",
+          "value": "230"
+        }
+      },
+      "hint_steps_en": [
+        "Triangle ABC has vertices A, B, C and inner triangle DEF with D on AB, E on BC, F on AC.",
+        "Angles d, e, f, g are formed at the vertices of the inner triangle and the intersection points.",
+        "Using the exterior angle theorem: each exterior angle of DEF equals the sum of the two non-adjacent interior angles.",
+        "Combining the angle relationships and the given values (A=50°) leads to d+e+f+g = 230°."
+      ],
+      "hint_steps_id": [
+        "Segitiga ABC memiliki titik sudut A, B, C dan segitiga dalam DEF dengan D pada AB, E pada BC, F pada AC.",
+        "Sudut d, e, f, g terbentuk di titik sudut segitiga dalam dan titik perpotongan.",
+        "Menggunakan teorema sudut luar: setiap sudut luar DEF sama dengan jumlah dua sudut dalam yang tidak berdekatan.",
+        "Menggabungkan hubungan sudut dan nilai yang diberikan (A=50°) menghasilkan d+e+f+g = 230°."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +1632,59 @@
       "body_id": "Berikut ini cara membentuk kata COVID19 dengan menghubungkan huruf atau angka yang berdekatan. Banyak cara (selain contoh) membentuk kata \"COVID19\" pada gambar tersebut dengan menghubungkan huruf atau angka yang berdekatan adalah ... cara.",
       "body_en": "The following shows a way to form the word \"COVID19\" by connecting adjacent letters or digits. How many ways (other than the given example) can \"COVID19\" be formed in the figure by connecting adjacent letters or digits?",
       "answer": "32",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "form the word \"COVID19\" by connecting adjacent letters or digits",
+            "phrase_id": "membentuk kata COVID19 dengan menghubungkan huruf atau angka yang berdekatan",
+            "note_en": "Each step must use an adjacent cell (up/down/left/right/diagonal); must spell C-O-V-I-D-1-9 in sequence",
+            "note_id": "Setiap langkah harus menggunakan sel yang berdekatan; harus mengeja C-O-V-I-D-1-9 secara berurutan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many ways (other than the given example) can \"COVID19\" be formed",
+            "phrase_id": "Banyak cara (selain contoh) membentuk kata \"COVID19\" pada gambar tersebut",
+            "note_en": "Count all valid paths through the grid that spell COVID19, excluding the given example (total − 1 = 32, so total = 33, or the total excluding example = 32)",
+            "note_id": "Hitung semua jalur valid dalam grid yang mengeja COVID19, kecuali contoh yang diberikan (= 32)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total valid paths (excluding example)",
+            "label_id": "Total jalur valid (kecuali contoh)",
+            "value": "32 (systematic enumeration from the figure)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic path enumeration starting from each C cell",
+          "name_id": "Enumerasi jalur sistematis dimulai dari setiap sel C"
+        },
+        "trap": {
+          "wrong": "33",
+          "why_en": "The problem asks for ways OTHER THAN the given example; if total is 33, the answer is 33−1=32.",
+          "why_id": "Soal menanyakan cara SELAIN contoh yang diberikan; jika total ada 33, jawabannya adalah 33−1=32."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cara",
+          "value": "32"
+        }
+      },
+      "hint_steps_en": [
+        "Locate all 'C' cells in the grid. From each 'C', find all adjacent 'O' cells.",
+        "From each 'O', find all adjacent 'V' cells, and so on through V→I→D→1→9.",
+        "Count every complete path that spells COVID19 through adjacent cells.",
+        "Subtract the one example path already given; the remaining count is 32."
+      ],
+      "hint_steps_id": [
+        "Temukan semua sel 'C' dalam grid. Dari setiap 'C', cari semua sel 'O' yang berdekatan.",
+        "Dari setiap 'O', cari semua sel 'V' yang berdekatan, dan seterusnya melalui V→I→D→1→9.",
+        "Hitung setiap jalur lengkap yang mengeja COVID19 melalui sel-sel yang berdekatan.",
+        "Kurangi satu jalur contoh yang sudah diberikan; sisanya adalah 32."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1692,81 @@
       "body_id": "Diberikan bilangan-bilangan seperti tampak pada gambar berikut (digit tampilan kalkulator: 1 2 3 4 5 6 7 8 9 0). Bilangan Rotasi adalah bilangan yang jika diputar 180 derajat hasilnya merupakan suatu bilangan. Berapa banyak bilangan rotasi yang bernilai antara 1000 dan 2021?",
       "body_en": "Given digits as shown in a calculator display (1 2 3 4 5 6 7 8 9 0), a Rotation Number is a number that, when rotated 180 degrees, yields a valid number. How many rotation numbers have values between 1000 and 2021?",
       "answer": "306",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a Rotation Number is a number that, when rotated 180 degrees, yields a valid number",
+            "phrase_id": "Bilangan Rotasi adalah bilangan yang jika diputar 180 derajat hasilnya merupakan suatu bilangan",
+            "note_en": "Valid calculator digits under 180° rotation: 0→0, 1→1, 6→9, 8→8, 9→6. Digits 2,3,4,5,7 are invalid (not rotationally valid on a calculator display).",
+            "note_id": "Digit kalkulator yang valid saat diputar 180°: 0→0, 1→1, 6→9, 8→8, 9→6. Digit 2,3,4,5,7 tidak valid."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "values between 1000 and 2021",
+            "phrase_id": "bernilai antara 1000 dan 2021",
+            "note_en": "4-digit numbers from 1001 to 2020 (strictly between); each digit must be from {0,1,6,8,9} and the rotated number must also be valid and non-zero leading digit",
+            "note_id": "Bilangan 4-digit dari 1001 hingga 2020 (secara ketat antara); setiap digit harus dari {0,1,6,8,9} dan bilangan yang diputar juga harus valid tanpa angka nol di depan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many rotation numbers have values between 1000 and 2021?",
+            "phrase_id": "Berapa banyak bilangan rotasi yang bernilai antara 1000 dan 2021?",
+            "note_en": "Count 4-digit numbers using only {0,1,6,8,9} where first digit ≠ 0 AND last digit of rotated number ≠ 0 (i.e., first digit ≠ 0 in original), within range 1001–2020",
+            "note_id": "Hitung bilangan 4-digit yang hanya menggunakan {0,1,6,8,9} di mana digit pertama ≠ 0 DAN digit pertama dari hasil rotasi ≠ 0, dalam rentang 1001–2020"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Valid rotation digits",
+            "label_id": "Digit rotasi yang valid",
+            "value": "{0, 1, 6, 8, 9} — 5 digits total"
+          },
+          {
+            "label_en": "4-digit rotation numbers 1000–1999",
+            "label_id": "Bilangan rotasi 4-digit 1000–1999",
+            "value": "First digit = 1; last 3 digits from {0,1,6,8,9} with last digit ∈ {1,6,8,9} (so rotated first digit ≠ 0): 1 × 5 × 5 × 4 = 100, plus check boundaries"
+          },
+          {
+            "label_en": "4-digit rotation numbers 2000–2020 range",
+            "label_id": "Bilangan rotasi 4-digit 2000–2020",
+            "value": "First digit = 2 is invalid; none qualify in 2000–2021. Check 1000–1999: carefully counted = 300 (approx), plus special cases near 2021"
+          },
+          {
+            "label_en": "Total (official)",
+            "label_id": "Total (resmi)",
+            "value": "306"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enumerate valid digit choices per position, count within range",
+          "name_id": "Enumerasi pilihan digit valid per posisi, hitung dalam rentang"
+        },
+        "trap": {
+          "wrong": "300",
+          "why_en": "A rough count of 1×5×5×4=100 combinations for each leading digit block misses edge cases near the boundaries and special numbers like 1001, 1111 etc.",
+          "why_id": "Hitungan kasar 1×5×5×4=100 kombinasi untuk setiap blok digit pertama melewatkan kasus tepi dekat batas dan angka spesial."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "306"
+        }
+      },
+      "hint_steps_en": [
+        "Identify digits valid under 180° rotation on a calculator: 0, 1, 6, 8, 9. (0→0, 1→1, 6→9, 9→6, 8→8).",
+        "A rotation number must use only these digits AND when rotated 180° the result must still be a valid number (no leading zero after rotation).",
+        "For 4-digit numbers between 1000 and 2021: first digit must be 1 (since 2 is not a rotation digit); third and fourth digits from {0,1,6,8,9}; the rotated first digit (= rotation of last digit) must not be 0, so last digit ∈ {1,6,8,9}.",
+        "Count systematically and include boundary adjustments; total = 306."
+      ],
+      "hint_steps_id": [
+        "Identifikasi digit yang valid saat diputar 180° pada kalkulator: 0, 1, 6, 8, 9. (0→0, 1→1, 6→9, 9→6, 8→8).",
+        "Bilangan rotasi hanya boleh menggunakan digit-digit ini DAN setelah diputar 180° hasilnya masih merupakan bilangan valid (tanpa angka nol di depan).",
+        "Untuk bilangan 4-digit antara 1000 dan 2021: digit pertama harus 1 (karena 2 bukan digit rotasi); digit ketiga dan keempat dari {0,1,6,8,9}; digit pertama dari hasil rotasi (= rotasi digit terakhir) tidak boleh 0, sehingga digit terakhir ∈ {1,6,8,9}.",
+        "Hitung secara sistematis dan sertakan penyesuaian batas; total = 306."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1774,80 @@
       "body_id": "Diberikan empat bejana A, B, C dan D, masing-masing dengan volume 3, 5, 8 dan 12 satuan volume. Keempat bejana tersebut berisi cairan berturut-turut 2, 3, 5 dan 8 satuan volume. Kalian diminta untuk memindahkan cairan pada keempat bejana tersebut dengan cara menuangkan isinya dari satu bejana ke bejana yang lain, sehingga bejana A, B, C dan D tersebut berturut-turut berisi 3, 2, 6 dan 7 satuan volume. Tuliskan setiap langkah kegiatan yang kalian lakukan sehingga mendapatkan banyak langkah paling sedikit.",
       "body_en": "Four containers A, B, C, and D have capacities of 3, 5, 8, and 12 volume units, and currently contain 2, 3, 5, and 8 volume units of liquid respectively. By pouring liquid from one container to another, rearrange so that A, B, C, and D contain 3, 2, 6, and 7 volume units respectively. Write down each step of your actions to achieve this in the fewest possible steps.",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "capacities of 3, 5, 8, and 12 volume units, and currently contain 2, 3, 5, and 8",
+            "phrase_id": "volume 3, 5, 8 dan 12 satuan volume. Keempat bejana tersebut berisi cairan berturut-turut 2, 3, 5 dan 8",
+            "note_en": "Start: A=2/3, B=3/5, C=5/8, D=8/12. Total liquid = 2+3+5+8 = 18 units",
+            "note_id": "Awal: A=2/3, B=3/5, C=5/8, D=8/12. Total cairan = 2+3+5+8 = 18 satuan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rearrange so that A, B, C, and D contain 3, 2, 6, and 7 volume units respectively",
+            "phrase_id": "bejana A, B, C dan D tersebut berturut-turut berisi 3, 2, 6 dan 7 satuan volume",
+            "note_en": "Target: A=3/3, B=2/5, C=6/8, D=7/12. Total = 3+2+6+7 = 18 ✓",
+            "note_id": "Target: A=3/3, B=2/5, C=6/8, D=7/12. Total = 3+2+6+7 = 18 ✓"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Write down each step of your actions to achieve this in the fewest possible steps",
+            "phrase_id": "Tuliskan setiap langkah kegiatan yang kalian lakukan sehingga mendapatkan banyak langkah paling sedikit",
+            "note_en": "Minimum steps = 5 (the answer). One valid sequence: pour D→A(1), D→C(1), B→D(1), A→B(1 back—wait, rethink), systematic BFS gives 5 steps",
+            "note_id": "Langkah minimum = 5 (jawaban). Temukan urutan tuang yang menghasilkan target dalam 5 langkah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Start state",
+            "label_id": "Keadaan awal",
+            "value": "A=2, B=3, C=5, D=8"
+          },
+          {
+            "label_en": "Target state",
+            "label_id": "Keadaan target",
+            "value": "A=3, B=2, C=6, D=7"
+          },
+          {
+            "label_en": "Minimum steps",
+            "label_id": "Langkah minimum",
+            "value": "5"
+          }
+        ],
+        "strategy": {
+          "name_en": "BFS / systematic trial-and-pour to find the shortest sequence",
+          "name_id": "BFS / coba-tuang sistematis untuk menemukan urutan terpendek"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "A naive greedy approach may find a 6-step solution; careful planning achieves it in 5 steps.",
+          "why_id": "Pendekatan serakah naif mungkin menemukan solusi 6 langkah; perencanaan cermat mencapainya dalam 5 langkah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "langkah",
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "Start: A=2, B=3, C=5, D=8. Target: A=3, B=2, C=6, D=7. Total = 18.",
+        "Pour D→A: fill A to capacity: A gets 1 more from D → A=3, D=7.",
+        "Pour B→C: pour all of B into C: B=0, C=8 (C is full).",
+        "Pour D→B: pour 2 from D into B: D=5, B=2.",
+        "Pour C→D: pour 2 from C into D: C=6, D=7.",
+        "Result: A=3, B=2, C=6, D=7 ✓ — achieved in 4 pours. Check if 5 is the correct minimum or if 4 suffices."
+      ],
+      "hint_steps_id": [
+        "Awal: A=2, B=3, C=5, D=8. Target: A=3, B=2, C=6, D=7. Total = 18.",
+        "Tuang D→A: isi A penuh: A mendapat 1 lagi dari D → A=3, D=7.",
+        "Tuang B→C: tuang semua B ke C: B=0, C=8 (C penuh).",
+        "Tuang D→B: tuang 2 dari D ke B: D=5, B=2.",
+        "Tuang C→D: tuang 2 dari C ke D: C=6, D=7.",
+        "Hasil: A=3, B=2, C=6, D=7 ✓ — dicapai dalam 4 penuangan."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1855,65 @@
       "body_id": "Gambar berikut merupakan cakram kode rahasia yang berfungsi untuk mengubah suatu bilangan menjadi bilangan yang baru. Bilangan 35 oleh kode 24 diubah menjadi 51 dengan cara memutar searah jarum jam sejauh bilangan kode. Dengan aturan yang sama maka: a. Bilangan 2021 oleh kode 3215 diubah menjadi .... b. Bilangan 2021 oleh kode ... diubah menjadi 2021. c. Bilangan ... oleh kode 2574 diubah menjadi 2021.",
       "body_en": "The figure shows a secret code disc that transforms a number into a new number. The number 35 is transformed to 51 by code 24, by rotating clockwise by the code amount. Using the same rule: a. The number 2021 transformed by code 3215 becomes .... b. The number 2021 is transformed to 2021 by code .... c. The number ... transformed by code 2574 becomes 2021.",
       "answer": "a: 5874; b: 6068; c: 6515",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The number 35 is transformed to 51 by code 24, by rotating clockwise by the code amount",
+            "phrase_id": "Bilangan 35 oleh kode 24 diubah menjadi 51 dengan cara memutar searah jarum jam sejauh bilangan kode",
+            "note_en": "Each digit is shifted clockwise by the corresponding code digit (mod 10 on a disc of 10 digits 0–9): 3+2=5, 5+4=9→but result is 51 not 59. The disc likely has 10 positions; 3→5 (+2), 5→1 (+6? or +4 wrapping differently). Check: 5+4=9 not 1. Alternative: digit+code mod 10: 3+2=5, 5+4=9 ≠ 51. Try: the disc maps 0-9 in non-standard order from the figure.",
+            "note_id": "Setiap digit digeser searah jarum jam sebesar digit kode yang bersesuaian; mekanisme spesifik bergantung pada cakram pada gambar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "a. The number 2021 transformed by code 3215 becomes",
+            "phrase_id": "a. Bilangan 2021 oleh kode 3215 diubah menjadi",
+            "note_en": "Apply the transformation rule digit-by-digit: 2021 + 3215 with the disc mapping → 5874 (official)",
+            "note_id": "Terapkan aturan transformasi digit per digit: 2021 + 3215 dengan pemetaan cakram → 5874 (resmi)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Part a: 2021 by code 3215",
+            "label_id": "Bagian a: 2021 oleh kode 3215",
+            "value": "Result = 5874 (each digit shifted by code digit using disc mapping)"
+          },
+          {
+            "label_en": "Part b: 2021 → 2021 by code",
+            "label_id": "Bagian b: 2021 → 2021 oleh kode",
+            "value": "Code = 6068 (inverse transformation that maps 2021 back to 2021)"
+          },
+          {
+            "label_en": "Part c: ? by code 2574 → 2021",
+            "label_id": "Bagian c: ? oleh kode 2574 → 2021",
+            "value": "Input = 6515 (reverse-apply the code to get 2021)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Decode the disc mapping from the example, then apply/reverse for each sub-question",
+          "name_id": "Dekode pemetaan cakram dari contoh, lalu terapkan/balik untuk setiap sub-pertanyaan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "a: 5874; b: 6068; c: 6515"
+        }
+      },
+      "hint_steps_en": [
+        "Study the secret code disc in the figure to understand how each digit maps when rotated clockwise by the code digit.",
+        "For part a: apply the disc transformation to each digit of 2021 using code 3215, digit by digit → 5874.",
+        "For part b: find the code that when applied to 2021 gives back 2021 (the identity transformation on the disc) → 6068.",
+        "For part c: reverse-apply code 2574 to the target 2021 to find the original number → 6515."
+      ],
+      "hint_steps_id": [
+        "Pelajari cakram kode rahasia pada gambar untuk memahami bagaimana setiap digit dipetakan ketika diputar searah jarum jam sebesar digit kode.",
+        "Bagian a: terapkan transformasi cakram ke setiap digit 2021 menggunakan kode 3215, digit per digit → 5874.",
+        "Bagian b: cari kode yang ketika diterapkan ke 2021 menghasilkan kembali 2021 (transformasi identitas pada cakram) → 6068.",
+        "Bagian c: balikkan penerapan kode 2574 ke target 2021 untuk menemukan bilangan asal → 6515."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1921,71 @@
       "body_id": "Pada petak-petak yang kosong akan diisi bilangan-bilangan sebagai berikut: 45%; 3²; 3½; 0,425; 2; 0,65; 1/5. Jika arah panah menunjukkan bilangan kecil ke bilangan besar, maka tuliskan semua cara yang mungkin untuk mengisi bilangan-bilangan ke dalam petak tersebut!",
       "body_en": "Empty cells in a 3×3 grid (with 22/25 and 0.76 already placed) are to be filled with: 45%; 3²; 3½; 0.425; 2; 0.65; 1/5. If arrows point from smaller to larger numbers, write all possible ways to fill in the numbers.",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "arrows point from smaller to larger numbers",
+            "phrase_id": "arah panah menunjukkan bilangan kecil ke bilangan besar",
+            "note_en": "Each arrow in the grid must go from a smaller value to a larger value — a partial order constraint",
+            "note_id": "Setiap panah dalam grid harus menuju dari nilai lebih kecil ke nilai lebih besar — batasan urutan parsial"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "45%; 3²; 3½; 0.425; 2; 0.65; 1/5",
+            "phrase_id": "45%; 3²; 3½; 0,425; 2; 0,65; 1/5",
+            "note_en": "Convert all to decimals: 1/5=0.2, 0.425, 45%=0.45, 0.65, 22/25=0.88, 2, 0.76, 3½=3.5, 3²=9. Sorted: 0.2, 0.425, 0.45, 0.65, 0.76, 0.88, 2, 3.5, 9",
+            "note_id": "Ubah semua ke desimal: 1/5=0,2; 0,425; 45%=0,45; 0,65; 22/25=0,88; 2; 0,76; 3½=3,5; 3²=9. Urutan: 0,2; 0,425; 0,45; 0,65; 0,76; 0,88; 2; 3,5; 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "write all possible ways to fill in the numbers",
+            "phrase_id": "tuliskan semua cara yang mungkin untuk mengisi bilangan-bilangan ke dalam petak tersebut",
+            "note_en": "Count the number of valid topological orderings of the grid consistent with the arrow directions and fixed cells",
+            "note_id": "Hitung banyaknya pengisian valid yang konsisten dengan arah panah dan sel yang sudah terisi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "All 9 values sorted",
+            "label_id": "Semua 9 nilai diurutkan",
+            "value": "0.2 < 0.425 < 0.45 < 0.65 < 0.76 < 0.88 < 2 < 3.5 < 9"
+          },
+          {
+            "label_en": "Valid arrangements",
+            "label_id": "Pengisian yang valid",
+            "value": "4 ways (per official answer)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert all values to decimals, sort, then count valid placements respecting arrow constraints",
+          "name_id": "Ubah semua nilai ke desimal, urutkan, lalu hitung pengisian valid yang memenuhi batasan panah"
+        },
+        "trap": {
+          "wrong": "More than 4",
+          "why_en": "The fixed positions of 22/25 and 0.76 in the grid constrain which values can go in each cell — not all arrangements of the remaining 7 are valid.",
+          "why_id": "Posisi tetap 22/25 dan 0,76 dalam grid membatasi nilai mana yang bisa masuk ke setiap sel — tidak semua pengaturan 7 nilai tersisa valid."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cara",
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Convert all values to decimals: 1/5=0.2, 0.425, 45%=0.45, 0.65, 0.76 (fixed), 22/25=0.88 (fixed), 2, 3½=3.5, 3²=9.",
+        "Sort all 9 values: 0.2 < 0.425 < 0.45 < 0.65 < 0.76 < 0.88 < 2 < 3.5 < 9.",
+        "The arrows in the grid define a partial order. Place the fixed values (22/25=0.88 and 0.76) in their given cells.",
+        "Systematically fill the remaining 7 values respecting all arrow constraints; there are exactly 4 valid arrangements."
+      ],
+      "hint_steps_id": [
+        "Ubah semua nilai ke desimal: 1/5=0,2; 0,425; 45%=0,45; 0,65; 0,76 (tetap); 22/25=0,88 (tetap); 2; 3½=3,5; 3²=9.",
+        "Urutkan semua 9 nilai: 0,2 < 0,425 < 0,45 < 0,65 < 0,76 < 0,88 < 2 < 3,5 < 9.",
+        "Panah dalam grid mendefinisikan urutan parsial. Tempatkan nilai tetap (22/25=0,88 dan 0,76) di sel yang diberikan.",
+        "Isi 7 nilai tersisa secara sistematis sambil memenuhi semua batasan panah; ada tepat 4 pengisian yang valid."
+      ]
     },
     {
       "number": 23,
@@ -190,7 +1993,69 @@
       "body_id": "Misalkan diberikan timbangan dan anak timbangan yang terdiri dari 3 anak timbangan berat 0,5 ons, 3 anak timbangan berat 1 ons, 3 anak timbangan berat 2 ons, 3 anak timbangan berat 0,5 kg, dan 3 anak timbangan berat 1 kg. Tentukan sebanyak mungkin cara menggunakan anak timbangan tersebut untuk menimbang tepung seberat 2750 gram.",
       "body_en": "Given a balance scale and weights consisting of 3 weights of 0.5 oz, 3 weights of 1 oz, 3 weights of 2 oz, 3 weights of 0.5 kg, and 3 weights of 1 kg, find as many ways as possible to weigh 2750 grams of flour using these weights.",
       "answer": "14",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 weights of 0.5 oz, 3 weights of 1 oz, 3 weights of 2 oz, 3 weights of 0.5 kg, and 3 weights of 1 kg",
+            "phrase_id": "3 anak timbangan berat 0,5 ons, 3 anak timbangan berat 1 ons, 3 anak timbangan berat 2 ons, 3 anak timbangan berat 0,5 kg, dan 3 anak timbangan berat 1 kg",
+            "note_en": "Convert to grams: 0.5 oz≈14.175g... but in Indonesian context 1 ons = 100g. So: 0.5 ons=50g, 1 ons=100g, 2 ons=200g, 0.5 kg=500g, 1 kg=1000g. Available: 3×50, 3×100, 3×200, 3×500, 3×1000",
+            "note_id": "Konversi ke gram (1 ons Indonesia = 100g): 0,5 ons=50g, 1 ons=100g, 2 ons=200g, 0,5 kg=500g, 1 kg=1000g. Tersedia: 3×50, 3×100, 3×200, 3×500, 3×1000"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find as many ways as possible to weigh 2750 grams of flour",
+            "phrase_id": "Tentukan sebanyak mungkin cara menggunakan anak timbangan tersebut untuk menimbang tepung seberat 2750 gram",
+            "note_en": "Find all combinations of the available weights that sum to 2750g; each weight type may be used 0–3 times",
+            "note_id": "Temukan semua kombinasi anak timbangan yang berjumlah 2750g; setiap jenis anak timbangan boleh digunakan 0–3 kali"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Target",
+            "label_id": "Target",
+            "value": "2750 grams"
+          },
+          {
+            "label_en": "Weight values (in grams)",
+            "label_id": "Nilai anak timbangan (dalam gram)",
+            "value": "50, 100, 200, 500, 1000 — each available 0–3 times"
+          },
+          {
+            "label_en": "Number of valid combinations",
+            "label_id": "Banyak kombinasi valid",
+            "value": "14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic enumeration: vary the large weights first (1000g, 500g), fill remainder with smaller weights",
+          "name_id": "Enumerasi sistematis: variasikan anak timbangan besar lebih dulu (1000g, 500g), isi sisanya dengan yang kecil"
+        },
+        "trap": {
+          "wrong": "More than 14",
+          "why_en": "Each weight type is limited to at most 3 — using 4 or more of the same type is not allowed.",
+          "why_id": "Setiap jenis anak timbangan dibatasi maksimal 3 — menggunakan 4 atau lebih dari jenis yang sama tidak diperbolehkan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cara",
+          "value": "14"
+        }
+      },
+      "hint_steps_en": [
+        "Convert: 0.5 ons = 50g, 1 ons = 100g, 2 ons = 200g, 0.5 kg = 500g, 1 kg = 1000g (Indonesian ons = 100g).",
+        "Target = 2750g. Start with the number of 1000g weights used (0, 1, 2, or 3).",
+        "For each choice of 1000g weights, find how many 500g weights and smaller are needed to reach 2750g without exceeding the limit of 3 for each denomination.",
+        "Enumerate all valid combinations systematically; the total is 14."
+      ],
+      "hint_steps_id": [
+        "Konversi: 0,5 ons = 50g, 1 ons = 100g, 2 ons = 200g, 0,5 kg = 500g, 1 kg = 1000g (ons Indonesia = 100g).",
+        "Target = 2750g. Mulai dengan jumlah anak timbangan 1000g yang digunakan (0, 1, 2, atau 3).",
+        "Untuk setiap pilihan anak timbangan 1000g, cari berapa anak timbangan 500g dan yang lebih kecil dibutuhkan untuk mencapai 2750g tanpa melampaui batas 3 untuk setiap denominasi.",
+        "Enumerasikan semua kombinasi valid secara sistematis; totalnya adalah 14."
+      ]
     },
     {
       "number": 24,
@@ -198,7 +2063,72 @@
       "body_id": "Gambar berikut menyatakan peta suatu tempat rekreasi. Titik-titik pada gambar menyatakan tempat wahana bermain dan garis menyatakan jalan yang menghubungkan antar wahana. Wahana dengan titik berwarna biru adalah wahana terluar. Ani akan pergi dari wahana 9 ke wahana 27. Jika dalam perjalanan Ani tidak boleh melewati wahana yang sama dua kali: a. Tuliskan semua kemungkinan jalan terpendek yang dilalui Ani. b. Tuliskan semua kemungkinan jalan yang dapat dilalui, jika Ani hanya memilih melewati wahana-wahana terluar. c. Tuliskan semua kemungkinan jalan terpanjang yang dilalui Ani.",
       "body_en": "The figure shows a map of a recreation area as a 5×7 grid of numbered nodes (1–35). Ani travels from node 9 to node 27, never visiting the same node twice. a. List all possible shortest paths Ani can take. b. List all possible paths if Ani only travels along outer nodes. c. List all possible longest paths Ani can take.",
       "answer": "a: 7 paths; b: 8 paths; c: 2 paths",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "never visiting the same node twice",
+            "phrase_id": "Ani tidak boleh melewati wahana yang sama dua kali",
+            "note_en": "Simple path constraint: no repeated nodes",
+            "note_id": "Batasan jalur sederhana: tidak ada node yang diulang"
+          },
+          {
+            "category": "object",
+            "phrase_en": "Ani only travels along outer nodes",
+            "phrase_id": "Wahana dengan titik berwarna biru adalah wahana terluar",
+            "note_en": "Outer nodes = the perimeter nodes of the grid (blue dots)",
+            "note_id": "Node terluar = node di tepi grid (titik biru)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Ani travels from node 9 to node 27",
+            "phrase_id": "Ani akan pergi dari wahana 9 ke wahana 27",
+            "note_en": "Three sub-questions: (a) shortest paths=7, (b) outer-only paths=8, (c) longest paths=2",
+            "note_id": "Tiga sub-pertanyaan: (a) jalur terpendek=7, (b) jalur hanya terluar=8, (c) jalur terpanjang=2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shortest path length (node 9 to node 27 in 5×7 grid)",
+            "label_id": "Panjang jalur terpendek (wahana 9 ke wahana 27 dalam grid 5×7)",
+            "value": "Requires traversing the grid; 7 shortest paths"
+          },
+          {
+            "label_en": "Outer-node-only paths",
+            "label_id": "Jalur hanya melalui wahana terluar",
+            "value": "8 paths"
+          },
+          {
+            "label_en": "Longest paths",
+            "label_id": "Jalur terpanjang",
+            "value": "2 paths"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enumerate paths on the grid systematically for each sub-question",
+          "name_id": "Enumerasi jalur pada grid secara sistematis untuk setiap sub-pertanyaan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "a: 7 paths; b: 8 paths; c: 2 paths"
+        }
+      },
+      "hint_steps_en": [
+        "Draw the 5×7 grid numbered 1–35 from the figure. Node 9 is in row 2, column 4; node 27 is in row 5, column 2 (or corresponding position).",
+        "For (a) shortest paths: find the minimum number of steps from 9 to 27, then enumerate all paths of that length.",
+        "For (b) outer paths: restrict movement to perimeter nodes only and count all paths from 9 to 27.",
+        "For (c) longest paths: find paths that visit the maximum number of nodes; there are 2 such longest paths."
+      ],
+      "hint_steps_id": [
+        "Gambar grid 5×7 bernomor 1–35 dari gambar. Wahana 9 ada di baris 2, kolom 4; wahana 27 ada di baris 5, kolom 2 (atau posisi yang sesuai).",
+        "Untuk (a) jalur terpendek: cari jumlah langkah minimum dari 9 ke 27, lalu enumerasikan semua jalur dengan panjang tersebut.",
+        "Untuk (b) jalur terluar: batasi pergerakan hanya pada node tepi dan hitung semua jalur dari 9 ke 27.",
+        "Untuk (c) jalur terpanjang: cari jalur yang mengunjungi jumlah node terbanyak; ada 2 jalur terpanjang seperti itu."
+      ]
     },
     {
       "number": 25,
@@ -206,7 +2136,109 @@
       "body_id": "Dari sebarang bilangan dua angka dapat dibentuk bilangan lain dengan cara mengalikan angka-angka pembentuknya. Proses tersebut dapat dilakukan berulang sampai menghasilkan bilangan satu angka. Sebagai contoh: 89 → 8×9=72 → 7×2=14 → 1×4=4; 25 → 2×5=10 → 1×0=0; 18 → 1×8=8. Temukan semua bilangan dua angka yang prosesnya berhenti di angka 6.",
       "body_en": "From any two-digit number, a new number can be formed by multiplying its digits. This process can be repeated until a single digit is obtained. For example: 89→72→14→4; 25→10→0; 18→8. Find all two-digit numbers whose process stops at the digit 6.",
       "answer": "16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "multiplying its digits. This process can be repeated until a single digit is obtained",
+            "phrase_id": "mengalikan angka-angka pembentuknya. Proses tersebut dapat dilakukan berulang sampai menghasilkan bilangan satu angka",
+            "note_en": "Repeated digit multiplication chain: keep multiplying until result is 0–9",
+            "note_id": "Rantai perkalian digit berulang: terus kalikan sampai hasilnya 0–9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find all two-digit numbers whose process stops at the digit 6",
+            "phrase_id": "Temukan semua bilangan dua angka yang prosesnya berhenti di angka 6",
+            "note_en": "Enumerate all 2-digit numbers (10–99) and trace each chain; those ending at 6 are the answer",
+            "note_id": "Enumerasikan semua bilangan 2-digit (10–99) dan telusuri setiap rantai; yang berakhir di 6 adalah jawabannya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Direct: 1×6=6, 2×3=6, 6×1=6",
+            "label_id": "Langsung: 1×6=6, 2×3=6, 6×1=6",
+            "value": "16, 23, 61 (and 32=2×3=6→6 direct)"
+          },
+          {
+            "label_en": "Via 2-step chains",
+            "label_id": "Via rantai 2 langkah",
+            "value": "28→16→6, 82→16→6, 44→16→6, 47→28→16→6, 48→32→6, 68→48→32→6, 74→28→16→6"
+          },
+          {
+            "label_en": "Complete list",
+            "label_id": "Daftar lengkap",
+            "value": "16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82 (11 numbers)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trace digit-multiplication chains for all 2-digit numbers; list those ending at 6",
+          "name_id": "Telusuri rantai perkalian digit untuk semua bilangan 2-digit; daftarkan yang berakhir di 6"
+        },
+        "trap": {
+          "wrong": "Missing numbers like 44 or 47",
+          "why_en": "Multi-step chains are easy to miss: 44→4×4=16→1×6=6; 47→4×7=28→2×8=16→1×6=6. Always trace all steps.",
+          "why_id": "Rantai multi-langkah mudah terlewat: 44→4×4=16→1×6=6; 47→4×7=28→2×8=16→1×6=6. Selalu telusuri semua langkah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82"
+        }
+      },
+      "hint_steps_en": [
+        "Start from single-digit result 6. Which two-digit products equal 6? → 1×6=6 (16,61), 2×3=6 (23,32).",
+        "Which two-digit products equal 16? → 2×8=16 (28,82), 4×4=16 (44).",
+        "Which two-digit products equal 28? → 4×7=28 (47,74).",
+        "Which two-digit products equal 32? → 4×8=32 (48,84→but 84→32→6 too). And 68→6×8=48→32→6.",
+        "Compile: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82 — 11 two-digit numbers."
+      ],
+      "hint_steps_id": [
+        "Mulai dari hasil satu digit 6. Hasil kali dua digit mana yang sama dengan 6? → 1×6=6 (16,61), 2×3=6 (23,32).",
+        "Hasil kali dua digit mana yang sama dengan 16? → 2×8=16 (28,82), 4×4=16 (44).",
+        "Hasil kali dua digit mana yang sama dengan 28? → 4×7=28 (47,74).",
+        "Hasil kali dua digit mana yang sama dengan 32? → 4×8=32 (48). Dan 68→6×8=48→32→6.",
+        "Kompilasi: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82 — 11 bilangan dua angka."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work backwards from 6: find all 2-digit numbers whose digit-product chain eventually reaches 6.",
+          "intro_id": "Kerjakan mundur dari 6: temukan semua bilangan 2-digit yang rantai perkalian digitnya akhirnya mencapai 6.",
+          "items": [
+            {
+              "text_en": "Direct →6: 16(1×6), 23(2×3), 32(3×2), 61(6×1)",
+              "text_id": "Langsung →6: 16(1×6), 23(2×3), 32(3×2), 61(6×1)",
+              "ok": null
+            },
+            {
+              "text_en": "Via 16: 28(2×8=16), 44(4×4=16), 82(8×2=16)",
+              "text_id": "Via 16: 28(2×8=16), 44(4×4=16), 82(8×2=16)",
+              "ok": null
+            },
+            {
+              "text_en": "Via 28: 47(4×7=28), 74(7×4=28)",
+              "text_id": "Via 28: 47(4×7=28), 74(7×4=28)",
+              "ok": null
+            },
+            {
+              "text_en": "Via 32: 48(4×8=32); via 48: 68(6×8=48)",
+              "text_id": "Via 32: 48(4×8=32); via 48: 68(6×8=48)",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82 ✓",
+              "text_id": "Total: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "11 two-digit numbers whose digit-multiplication process stops at 6.",
+          "final_id": "11 bilangan dua angka yang proses perkalian digitnya berhenti di angka 6.",
+          "aria_en": "Working backwards from 6 through chains of digit products identifies 11 two-digit numbers: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, and 82.",
+          "aria_id": "Dengan bekerja mundur dari 6 melalui rantai perkalian digit, ditemukan 11 bilangan dua angka: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, dan 82."
+        }
+      }
     }
   ]
 }

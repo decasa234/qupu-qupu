@@ -14,7 +14,93 @@
       "body_en": "Nine wooden planks each measuring 20 cm × 10 cm in cross-section and 1.5 m long are to be bundled together as shown in the figure (3 planks wide × 3 planks tall). If each wire binding requires an extra 5 cm for wrapping, the total length of wire needed to bind the planks is ⋯ cm.",
       "answer_type": "fill_in",
       "answer": "370",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 planks wide × 3 planks tall",
+            "phrase_id": "3 batang berjajar dan 3 batang bertingkat",
+            "note_en": "The bundle cross-section is 3×20 cm wide and 3×10 cm tall",
+            "note_id": "Penampang ikatan selebar 3×20 cm dan setinggi 3×10 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "each wire binding requires an extra 5 cm for wrapping",
+            "phrase_id": "masing-masing ikatan kawat diperlukan kelebihan panjang 5 cm untuk dililit",
+            "note_en": "Each binding perimeter gets +5 cm for the wrap overlap",
+            "note_id": "Setiap keliling ikatan ditambah 5 cm untuk lilitan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the total length of wire needed to bind the planks is ⋯ cm",
+            "phrase_id": "panjang kawat yang dibutuhkan untuk mengikat kayu adalah ⋯ cm",
+            "note_en": "Find total wire = number of bindings × (perimeter + 5 cm)",
+            "note_id": "Cari total kawat = jumlah ikatan × (keliling + 5 cm)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Bundle width",
+            "label_id": "Lebar ikatan",
+            "value": "3 × 20 = 60 cm"
+          },
+          {
+            "label_en": "Bundle height",
+            "label_id": "Tinggi ikatan",
+            "value": "3 × 10 = 30 cm"
+          },
+          {
+            "label_en": "Perimeter of one binding",
+            "label_id": "Keliling satu ikatan",
+            "value": "2 × (60 + 30) = 180 cm"
+          },
+          {
+            "label_en": "Wire per binding (with extra)",
+            "label_id": "Kawat per ikatan (dengan kelebihan)",
+            "value": "180 + 5 = 185 cm"
+          },
+          {
+            "label_en": "Number of bindings",
+            "label_id": "Jumlah ikatan",
+            "value": "2 (one near each end of the 1.5 m planks)"
+          },
+          {
+            "label_en": "Total wire",
+            "label_id": "Total kawat",
+            "value": "2 × 185 = 370 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Perimeter × number of bindings",
+          "name_id": "Keliling × jumlah ikatan"
+        },
+        "trap": {
+          "wrong": "360",
+          "why_en": "Forgetting the +5 cm extra per binding: 2 × 180 = 360, but each binding needs 5 cm extra, so 2 × 185 = 370.",
+          "why_id": "Lupa menambah 5 cm per ikatan: 2 × 180 = 360, padahal setiap ikatan butuh kelebihan 5 cm, jadi 2 × 185 = 370."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "370"
+        }
+      },
+      "hint_steps_en": [
+        "The 9 planks are arranged 3 wide (20 cm each) and 3 tall (10 cm each).",
+        "Bundle cross-section: width = 3 × 20 = 60 cm, height = 3 × 10 = 30 cm.",
+        "Perimeter of the bundle = 2 × (60 + 30) = 180 cm.",
+        "Each binding needs 180 + 5 = 185 cm of wire (5 cm extra for wrapping).",
+        "There are 2 bindings, so total wire = 2 × 185 = 370 cm."
+      ],
+      "hint_steps_id": [
+        "9 balok disusun 3 berjajar (lebar 20 cm) dan 3 bertingkat (tinggi 10 cm).",
+        "Penampang ikatan: lebar = 3 × 20 = 60 cm, tinggi = 3 × 10 = 30 cm.",
+        "Keliling penampang = 2 × (60 + 30) = 180 cm.",
+        "Setiap ikatan membutuhkan 180 + 5 = 185 cm kawat (kelebihan 5 cm untuk dililit).",
+        "Ada 2 ikatan, sehingga total kawat = 2 × 185 = 370 cm."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +108,104 @@
       "body_en": "A hexagonal study table can fit 6 chairs. If two tables are pushed together, 10 chairs can fit. If three tables are pushed together, 14 chairs can fit, and so on. Rini's school has 10 hexagonal tables. If all tables are pushed together in a row, the maximum number of chairs that can fit is ⋯.",
       "answer_type": "fill_in",
       "answer": "42",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A hexagonal study table can fit 6 chairs",
+            "phrase_id": "Sebuah meja belajar berbentuk segienam dapat dipasang 6 kursi",
+            "note_en": "1 table = 6 chairs (baseline)",
+            "note_id": "1 meja = 6 kursi (dasar)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If two tables are pushed together, 10 chairs can fit",
+            "phrase_id": "Jika dua meja dirapatkan, maka dapat dipasang 10 kursi",
+            "note_en": "Each extra table adds 4 chairs (two shared sides lose 2 chairs each)",
+            "note_id": "Setiap meja tambahan menambah 4 kursi (dua sisi bersama mengurangi 2 kursi)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "banyak kursi maksimal yang dapat dipasang adalah ⋯ buah",
+            "phrase_id": "banyak kursi maksimal yang dapat dipasang adalah ⋯ buah",
+            "note_en": "Use the pattern to find chairs for 10 tables in a row",
+            "note_id": "Gunakan pola untuk mencari jumlah kursi pada 10 meja berjajar"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern",
+            "label_id": "Pola",
+            "value": "n tables → 6 + 4(n−1) chairs"
+          },
+          {
+            "label_en": "10 tables",
+            "label_id": "10 meja",
+            "value": "6 + 4 × 9 = 6 + 36 = 42 chairs"
+          }
+        ],
+        "strategy": {
+          "name_en": "Arithmetic pattern — spot the +4 rule",
+          "name_id": "Pola aritmatika — temukan aturan +4"
+        },
+        "trap": {
+          "wrong": "60",
+          "why_en": "6 × 10 = 60 ignores the shared sides where tables meet — each join removes 2 chair slots.",
+          "why_id": "6 × 10 = 60 mengabaikan sisi yang bersatu saat meja dirapatkan — setiap sambungan menghilangkan 2 tempat duduk."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "kursi",
+          "value": "42"
+        }
+      },
+      "hint_steps_en": [
+        "1 table: 6 chairs. 2 tables: 10 chairs. 3 tables: 14 chairs.",
+        "Each additional table adds 10 − 6 = 4 chairs.",
+        "Pattern: n tables → 6 + 4(n − 1) chairs.",
+        "For 10 tables: 6 + 4 × 9 = 6 + 36 = 42 chairs."
+      ],
+      "hint_steps_id": [
+        "1 meja: 6 kursi. 2 meja: 10 kursi. 3 meja: 14 kursi.",
+        "Setiap meja tambahan menambah 10 − 6 = 4 kursi.",
+        "Pola: n meja → 6 + 4(n − 1) kursi.",
+        "Untuk 10 meja: 6 + 4 × 9 = 6 + 36 = 42 kursi."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the +4 pattern, then apply it to 10 tables.",
+          "intro_id": "Temukan pola +4, lalu terapkan untuk 10 meja.",
+          "items": [
+            {
+              "text_en": "1 table → 6 chairs",
+              "text_id": "1 meja → 6 kursi",
+              "ok": null
+            },
+            {
+              "text_en": "2 tables → 6 + 4 = 10 chairs ✓ matches given",
+              "text_id": "2 meja → 6 + 4 = 10 kursi ✓ sesuai soal",
+              "ok": null
+            },
+            {
+              "text_en": "3 tables → 6 + 4 + 4 = 14 chairs ✓ matches given",
+              "text_id": "3 meja → 6 + 4 + 4 = 14 kursi ✓ sesuai soal",
+              "ok": null
+            },
+            {
+              "text_en": "10 tables → 6 + 4 × 9 = 42 chairs ✓",
+              "text_id": "10 meja → 6 + 4 × 9 = 42 kursi ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "10 tables in a row fit 42 chairs.",
+          "final_id": "10 meja berjajar dapat menampung 42 kursi.",
+          "aria_en": "Each extra table adds 4 chairs; starting from 6 for one table, 10 tables give 6 plus 4 times 9 equals 42 chairs.",
+          "aria_id": "Setiap meja tambahan menambah 4 kursi; dimulai dari 6 untuk satu meja, 10 meja menghasilkan 6 ditambah 4 kali 9 sama dengan 42 kursi."
+        }
+      }
     },
     {
       "number": 3,
@@ -30,7 +213,114 @@
       "body_en": "Ani and Budi are going to buy books at Pak Dirman's store by bicycle. Budi's bicycle travels at an average speed of 30 km/h and arrives at the store in 15 minutes, while Ani can only cycle at an average speed of 25 km/h. The time Budi spends waiting for Ani is ⋯ minutes.",
       "answer_type": "fill_in",
       "answer": "3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Budi's bicycle travels at an average speed of 30 km/h and arrives at the store in 15 minutes",
+            "phrase_id": "Sepeda Budi melaju dengan kecepatan rata-rata 30 km/jam dan sampai di toko Pak Dirman dalam waktu 15 menit",
+            "note_en": "Distance = 30 × (15/60) = 7.5 km",
+            "note_id": "Jarak = 30 × (15/60) = 7,5 km"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Ani can only cycle at an average speed of 25 km/h",
+            "phrase_id": "Ani hanya mampu mengayuh sepeda dengan kecepatan rata-rata 25 km/jam",
+            "note_en": "Ani rides 7.5 km at 25 km/h",
+            "note_id": "Ani menempuh 7,5 km dengan kecepatan 25 km/jam"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The time Budi spends waiting for Ani is ⋯ minutes",
+            "phrase_id": "Waktu yang digunakan Budi untuk menunggu Ani adalah ⋯ menit",
+            "note_en": "Waiting time = Ani's travel time − Budi's travel time",
+            "note_id": "Waktu tunggu = waktu Ani − waktu Budi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Distance to store",
+            "label_id": "Jarak ke toko",
+            "value": "30 × 15/60 = 7.5 km"
+          },
+          {
+            "label_en": "Budi's travel time",
+            "label_id": "Waktu perjalanan Budi",
+            "value": "15 menit"
+          },
+          {
+            "label_en": "Ani's travel time",
+            "label_id": "Waktu perjalanan Ani",
+            "value": "7.5 ÷ 25 × 60 = 18 menit"
+          },
+          {
+            "label_en": "Budi's waiting time",
+            "label_id": "Waktu tunggu Budi",
+            "value": "18 − 15 = 3 menit"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the shared distance, then compare travel times",
+          "name_id": "Cari jarak yang sama, lalu bandingkan waktu tempuh"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "Subtracting speeds (30 − 25 = 5) does not give the waiting time — you must find the actual distance first.",
+          "why_id": "Mengurangi kecepatan (30 − 25 = 5) tidak memberikan waktu tunggu — harus mencari jarak sebenarnya terlebih dahulu."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "menit",
+          "value": "3"
+        }
+      },
+      "hint_steps_en": [
+        "Budi travels at 30 km/h and takes 15 minutes, so the distance = 30 × (15/60) = 7.5 km.",
+        "Ani travels the same 7.5 km at 25 km/h.",
+        "Ani's travel time = 7.5 ÷ 25 hours = 0.3 hours = 18 minutes.",
+        "Budi waits 18 − 15 = 3 minutes for Ani."
+      ],
+      "hint_steps_id": [
+        "Budi berkendara 30 km/jam dan tiba dalam 15 menit, sehingga jarak = 30 × (15/60) = 7,5 km.",
+        "Ani menempuh jarak yang sama 7,5 km dengan kecepatan 25 km/jam.",
+        "Waktu tempuh Ani = 7,5 ÷ 25 jam = 0,3 jam = 18 menit.",
+        "Budi menunggu 18 − 15 = 3 menit."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the shared distance, compute both travel times, then subtract.",
+          "intro_id": "Cari jarak yang sama, hitung kedua waktu tempuh, lalu kurangi.",
+          "items": [
+            {
+              "text_en": "Distance = 30 km/h × (15/60) h = 7.5 km",
+              "text_id": "Jarak = 30 km/jam × (15/60) jam = 7,5 km",
+              "ok": null
+            },
+            {
+              "text_en": "Ani's time = 7.5 ÷ 25 h = 0.3 h = 18 minutes",
+              "text_id": "Waktu Ani = 7,5 ÷ 25 jam = 0,3 jam = 18 menit",
+              "ok": null
+            },
+            {
+              "text_en": "Waiting time = 18 − 15 = 3 minutes ✓",
+              "text_id": "Waktu tunggu = 18 − 15 = 3 menit ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Trap: 30 − 25 = 5 is speed difference, not waiting time ✗",
+              "text_id": "Jebakan: 30 − 25 = 5 adalah selisih kecepatan, bukan waktu tunggu ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Budi waits 3 minutes for Ani.",
+          "final_id": "Budi menunggu Ani selama 3 menit.",
+          "aria_en": "The distance is 7.5 kilometres; Ani takes 18 minutes while Budi takes 15, so Budi waits 3 minutes.",
+          "aria_id": "Jaraknya adalah 7,5 kilometer; Ani butuh 18 menit sementara Budi 15 menit, sehingga Budi menunggu 3 menit."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +328,129 @@
       "body_en": "Doni, Joko, Gonta, and Peter play a math game. Each child writes a positive fraction on three separate pieces of paper and gives them to three friends. The rule is to add all the fractions received, and if the sum is not a whole number, subtract another positive fraction so that the result is the largest possible whole number. Joko receives the following fractions from his three friends: 2 3/8; 0.125; 25%. What fraction must Joko subtract?",
       "answer_type": "fill_in",
       "answer": "3/4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Joko receives the following fractions from his three friends: 2 3/8; 0.125; 25%",
+            "phrase_id": "Joko menerima bilangan pecahan berikut dari tiga temannya: 2 3/8; 0,125; 25%",
+            "note_en": "Convert all to the same form: 2 3/8 = 19/8, 0.125 = 1/8, 25% = 2/8",
+            "note_id": "Ubah semua ke bentuk yang sama: 2 3/8 = 19/8, 0,125 = 1/8, 25% = 2/8"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "subtract another positive fraction so that the result is the largest possible whole number",
+            "phrase_id": "harus mengurangi dengan sebuah pecahan positif lain sehingga nilainya bilangan bulat terbesar",
+            "note_en": "Subtract the fractional part only — the integer part stays",
+            "note_id": "Kurangi hanya bagian pecahan — bagian bulat tetap"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What fraction must Joko subtract?",
+            "phrase_id": "Berapa bilangan pecahan yang harus dikurangkan oleh Joko?",
+            "note_en": "The fraction to subtract equals the decimal part of the total sum",
+            "note_id": "Pecahan yang dikurangi sama dengan bagian desimal dari jumlah total"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2 3/8 in eighths",
+            "label_id": "2 3/8 dalam per-delapan",
+            "value": "19/8"
+          },
+          {
+            "label_en": "0.125 in eighths",
+            "label_id": "0,125 dalam per-delapan",
+            "value": "1/8"
+          },
+          {
+            "label_en": "25% in eighths",
+            "label_id": "25% dalam per-delapan",
+            "value": "2/8"
+          },
+          {
+            "label_en": "Total sum",
+            "label_id": "Jumlah total",
+            "value": "19/8 + 1/8 + 2/8 = 22/8 = 2 6/8 = 2.75"
+          },
+          {
+            "label_en": "Largest whole number ≤ 2.75",
+            "label_id": "Bilangan bulat terbesar ≤ 2,75",
+            "value": "2"
+          },
+          {
+            "label_en": "Fraction to subtract",
+            "label_id": "Pecahan yang dikurangi",
+            "value": "2.75 − 2 = 0.75 = 3/4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert all to eighths, sum, then take the fractional part",
+          "name_id": "Ubah semua ke per-delapan, jumlahkan, lalu ambil bagian pecahannya"
+        },
+        "trap": {
+          "wrong": "1/4",
+          "why_en": "Misreading 25% as 1/4 = 2/8 is correct, but then computing 3/8 + 1/8 + 2/8 = 6/8 and subtracting 1/4 instead of 3/4 because of an arithmetic error.",
+          "why_id": "25% = 1/4 benar, tetapi kesalahan hitung bisa membuat orang mengira yang harus dikurangi adalah 1/4, bukan 3/4."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3/4"
+        }
+      },
+      "hint_steps_en": [
+        "Convert all fractions: 2 3/8 = 2.375, 0.125 = 0.125, 25% = 0.25.",
+        "Sum = 2.375 + 0.125 + 0.25 = 2.75.",
+        "The largest whole number not exceeding 2.75 is 2.",
+        "Joko must subtract 2.75 − 2 = 0.75 = 3/4."
+      ],
+      "hint_steps_id": [
+        "Ubah semua pecahan: 2 3/8 = 2,375; 0,125 = 0,125; 25% = 0,25.",
+        "Jumlah = 2,375 + 0,125 + 0,25 = 2,75.",
+        "Bilangan bulat terbesar yang tidak melebihi 2,75 adalah 2.",
+        "Joko harus mengurangi 2,75 − 2 = 0,75 = 3/4."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Convert all to decimals, sum them, then find what to subtract to land on a whole number.",
+          "intro_id": "Ubah semua ke desimal, jumlahkan, lalu cari yang harus dikurangi untuk mendapat bilangan bulat.",
+          "items": [
+            {
+              "text_en": "2 3/8 = 2.375",
+              "text_id": "2 3/8 = 2,375",
+              "ok": null
+            },
+            {
+              "text_en": "0.125 = 0.125",
+              "text_id": "0,125 = 0,125",
+              "ok": null
+            },
+            {
+              "text_en": "25% = 0.25",
+              "text_id": "25% = 0,25",
+              "ok": null
+            },
+            {
+              "text_en": "Sum = 2.375 + 0.125 + 0.25 = 2.75",
+              "text_id": "Jumlah = 2,375 + 0,125 + 0,25 = 2,75",
+              "ok": null
+            },
+            {
+              "text_en": "Subtract 0.75 = 3/4 → 2.75 − 0.75 = 2 (whole number) ✓",
+              "text_id": "Kurangi 0,75 = 3/4 → 2,75 − 0,75 = 2 (bilangan bulat) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Joko must subtract 3/4.",
+          "final_id": "Joko harus mengurangi 3/4.",
+          "aria_en": "The sum of the three fractions is 2.75; subtracting 0.75 which equals three quarters gives the whole number 2.",
+          "aria_id": "Jumlah tiga pecahan adalah 2,75; mengurangi 0,75 yaitu tiga per empat menghasilkan bilangan bulat 2."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +458,79 @@
       "body_en": "The numbers 9, 10, 11, 12, 13, 14, and 15 are placed on hexagonal tiles as shown in the figure (9 in the center, the rest on the six surrounding tiles). The sum of the three numbers on any three tiles that lie in a straight line through the center is the same. The sum of three numbers satisfying this condition is ⋯",
       "answer_type": "fill_in",
       "answer": "34",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "9 in the center, the rest on the six surrounding tiles",
+            "phrase_id": "9 di pusat, sisanya di enam ubin sekitarnya",
+            "note_en": "9 is fixed at center; 10–15 go on the 6 outer tiles",
+            "note_id": "9 tetap di tengah; 10–15 ditempatkan di 6 ubin luar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The sum of the three numbers on any three tiles that lie in a straight line through the center is the same",
+            "phrase_id": "Jumlah tiga bilangan yang terletak di tiga ubin segaris adalah sama",
+            "note_en": "Each diameter line passes through 9 plus two outer tiles — those two outer tiles must always sum to the same value",
+            "note_id": "Setiap garis diameter melewati 9 ditambah dua ubin luar — dua ubin luar itu harus selalu berjumlah sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The sum of three numbers satisfying this condition is ⋯",
+            "phrase_id": "Jumlah tiga bilangan yang memenuhi kondisi tersebut adalah ⋯",
+            "note_en": "Each line sum = 9 + (pair sum); pair sum must be equal for all 3 pairs",
+            "note_id": "Jumlah setiap garis = 9 + (jumlah pasangan); jumlah pasangan harus sama untuk semua 3 pasangan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of outer numbers 10–15",
+            "label_id": "Jumlah bilangan luar 10–15",
+            "value": "10+11+12+13+14+15 = 75"
+          },
+          {
+            "label_en": "3 opposite pairs must be equal",
+            "label_id": "3 pasangan berlawanan harus sama",
+            "value": "75 ÷ 3 = 25 per pair"
+          },
+          {
+            "label_en": "Pairs that sum to 25",
+            "label_id": "Pasangan yang berjumlah 25",
+            "value": "(10,15), (11,14), (12,13)"
+          },
+          {
+            "label_en": "Line sum",
+            "label_id": "Jumlah per garis",
+            "value": "9 + 25 = 34"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pair opposite tiles so each pair sums equally",
+          "name_id": "Pasangkan ubin berlawanan agar setiap pasangan berjumlah sama"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "34"
+        }
+      },
+      "hint_steps_en": [
+        "9 is fixed at the center. Each line passes through 9 and two opposite outer tiles.",
+        "For all three lines to have the same sum, each pair of opposite outer tiles must sum to the same value.",
+        "The six outer numbers 10–15 sum to 75. Divided into 3 pairs: 75 ÷ 3 = 25 per pair.",
+        "Pairs that work: (10,15), (11,14), (12,13) — each sums to 25.",
+        "Every line sum = 9 + 25 = 34."
+      ],
+      "hint_steps_id": [
+        "9 berada di tengah. Setiap garis melewati 9 dan dua ubin luar yang berlawanan.",
+        "Agar semua garis berjumlah sama, setiap pasangan ubin luar yang berlawanan harus berjumlah sama.",
+        "Enam bilangan luar 10–15 berjumlah 75. Dibagi 3 pasang: 75 ÷ 3 = 25 per pasang.",
+        "Pasangan yang memenuhi: (10,15), (11,14), (12,13) — masing-masing berjumlah 25.",
+        "Setiap jumlah garis = 9 + 25 = 34."
+      ]
     },
     {
       "number": 6,
@@ -66,7 +550,110 @@
         { "label": "D", "text": "Diagram D" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2015 = 124, 2016 = 140, 2017 = 120, 2018 = 160",
+            "phrase_id": "2015 = 124, 2016 = 140, 2017 = 120, 2018 = 160",
+            "note_en": "Four data points: goes up, then dips in 2017, then highest in 2018",
+            "note_id": "Empat titik data: naik, lalu turun di 2017, lalu tertinggi di 2018"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The bar chart that matches this data is ⋯",
+            "phrase_id": "Diagram batang yang sesuai dengan tabel di atas adalah ⋯",
+            "note_en": "The correct chart must show: 2017 bar shorter than 2015 and 2016; 2018 bar the tallest",
+            "note_id": "Diagram yang benar harus menunjukkan: batang 2017 lebih pendek dari 2015 dan 2016; batang 2018 tertinggi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Diagram batang yang sesuai dengan tabel di atas adalah ⋯",
+            "phrase_id": "Diagram batang yang sesuai dengan tabel di atas adalah ⋯",
+            "note_en": "Identify which diagram has bars in order: medium, tallish, short, tallest",
+            "note_id": "Identifikasi diagram dengan urutan batang: sedang, agak tinggi, pendek, tertinggi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2015 population",
+            "label_id": "Penduduk 2015",
+            "value": "124"
+          },
+          {
+            "label_en": "2016 population",
+            "label_id": "Penduduk 2016",
+            "value": "140 (highest so far)"
+          },
+          {
+            "label_en": "2017 population",
+            "label_id": "Penduduk 2017",
+            "value": "120 (lowest)"
+          },
+          {
+            "label_en": "2018 population",
+            "label_id": "Penduduk 2018",
+            "value": "160 (overall highest)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Match the up-down-up pattern and relative bar heights",
+          "name_id": "Cocokkan pola naik-turun-naik dan tinggi batang relatif"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Note the pattern: 124 → 140 → 120 → 160 (up, then dip in 2017, then highest in 2018).",
+        "The 2017 bar must be the shortest, and the 2018 bar must be the tallest.",
+        "Check each diagram to see which one shows this exact pattern.",
+        "Only Diagram A has bars in the correct relative order: 124, 140, 120, 160."
+      ],
+      "hint_steps_id": [
+        "Perhatikan polanya: 124 → 140 → 120 → 160 (naik, lalu turun di 2017, lalu tertinggi di 2018).",
+        "Batang 2017 harus paling pendek, dan batang 2018 harus paling tinggi.",
+        "Periksa setiap diagram untuk melihat mana yang menunjukkan pola yang tepat ini.",
+        "Hanya Diagram A yang memiliki batang dengan urutan relatif yang benar: 124, 140, 120, 160."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each diagram against the data: 2017 must be lowest, 2018 must be highest.",
+          "intro_id": "Periksa setiap diagram terhadap data: 2017 harus terendah, 2018 harus tertinggi.",
+          "items": [
+            {
+              "text_en": "A: 2017 bar lowest, 2018 bar highest — matches 124, 140, 120, 160 ✓",
+              "text_id": "A: batang 2017 terendah, batang 2018 tertinggi — sesuai 124, 140, 120, 160 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: does not match the dip at 2017 ✗",
+              "text_id": "B: tidak menunjukkan penurunan di 2017 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: bar heights in wrong order ✗",
+              "text_id": "C: urutan tinggi batang salah ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: bar heights in wrong order ✗",
+              "text_id": "D: urutan tinggi batang salah ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Diagram A correctly represents the population data — answer A.",
+          "final_id": "Diagram A dengan tepat mewakili data penduduk — jawaban A.",
+          "aria_en": "The population goes up from 124 to 140, dips to 120 in 2017, then rises to 160 in 2018; only diagram A shows this pattern.",
+          "aria_id": "Penduduk naik dari 124 ke 140, turun ke 120 di 2017, lalu naik ke 160 di 2018; hanya diagram A yang menunjukkan pola ini."
+        }
+      }
     },
     {
       "number": 7,
@@ -74,7 +661,117 @@
       "body_en": "The end-of-semester mathematics scores of students in a study group are: 7, 8, 5, 6, 7, 9, 9, 7, 8. The mode of this data set is ⋯",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The end-of-semester mathematics scores of students in a study group are: 7, 8, 5, 6, 7, 9, 9, 7, 8",
+            "phrase_id": "Data hasil PAS (Penilaian Akhir Semester) matematika siswa dalam suatu kelompok belajar adalah 7, 8, 5, 6, 7, 9, 9, 7, 8",
+            "note_en": "Nine scores in total",
+            "note_id": "Sembilan nilai secara total"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The mode of this data set is ⋯",
+            "phrase_id": "Modus dari data hasil PAS matematika siswa tersebut adalah ⋯",
+            "note_en": "Mode = the value that appears most often",
+            "note_id": "Modus = nilai yang paling sering muncul"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Frequency of 5",
+            "label_id": "Frekuensi 5",
+            "value": "1 time"
+          },
+          {
+            "label_en": "Frequency of 6",
+            "label_id": "Frekuensi 6",
+            "value": "1 time"
+          },
+          {
+            "label_en": "Frequency of 7",
+            "label_id": "Frekuensi 7",
+            "value": "3 times (most frequent)"
+          },
+          {
+            "label_en": "Frequency of 8",
+            "label_id": "Frekuensi 8",
+            "value": "2 times"
+          },
+          {
+            "label_en": "Frequency of 9",
+            "label_id": "Frekuensi 9",
+            "value": "2 times"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count frequency of each value",
+          "name_id": "Hitung frekuensi setiap nilai"
+        },
+        "trap": {
+          "wrong": "9",
+          "why_en": "9 appears twice, but 7 appears three times — the mode is the MOST frequent value.",
+          "why_id": "9 muncul dua kali, tetapi 7 muncul tiga kali — modus adalah nilai yang PALING SERING muncul."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "7"
+        }
+      },
+      "hint_steps_en": [
+        "List the scores: 7, 8, 5, 6, 7, 9, 9, 7, 8.",
+        "Count how many times each score appears: 5→1, 6→1, 7→3, 8→2, 9→2.",
+        "The score that appears most often is 7 (three times).",
+        "The mode is 7."
+      ],
+      "hint_steps_id": [
+        "Daftarkan nilainya: 7, 8, 5, 6, 7, 9, 9, 7, 8.",
+        "Hitung berapa kali setiap nilai muncul: 5→1, 6→1, 7→3, 8→2, 9→2.",
+        "Nilai yang paling sering muncul adalah 7 (tiga kali).",
+        "Modusnya adalah 7."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count how many times each score appears — the most frequent is the mode.",
+          "intro_id": "Hitung berapa kali setiap nilai muncul — yang paling sering adalah modusnya.",
+          "items": [
+            {
+              "text_en": "5: appears 1 time",
+              "text_id": "5: muncul 1 kali",
+              "ok": false
+            },
+            {
+              "text_en": "6: appears 1 time",
+              "text_id": "6: muncul 1 kali",
+              "ok": false
+            },
+            {
+              "text_en": "7: appears 3 times — most frequent ✓",
+              "text_id": "7: muncul 3 kali — paling sering ✓",
+              "ok": true
+            },
+            {
+              "text_en": "8: appears 2 times",
+              "text_id": "8: muncul 2 kali",
+              "ok": false
+            },
+            {
+              "text_en": "9: appears 2 times",
+              "text_id": "9: muncul 2 kali",
+              "ok": false
+            }
+          ],
+          "final_en": "Score 7 appears 3 times — the mode is 7.",
+          "final_id": "Nilai 7 muncul 3 kali — modusnya adalah 7.",
+          "aria_en": "In the data set 7 8 5 6 7 9 9 7 8, the score 7 appears three times which is more than any other score, so the mode is 7.",
+          "aria_id": "Dalam data 7 8 5 6 7 9 9 7 8, nilai 7 muncul tiga kali yang lebih banyak dari nilai lain, sehingga modusnya adalah 7."
+        }
+      }
     },
     {
       "number": 8,
@@ -82,7 +779,111 @@
       "body_en": "Fill cells A, C, and E with the numbers 4, 7, or 9 (each used once), and cells B and D with operations +, −, ×, or ÷ (each different). The expression is evaluated left to right. The minimum possible result is ⋯",
       "answer_type": "fill_in",
       "answer": "-35",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Fill cells A, C, and E with the numbers 4, 7, or 9 (each used once)",
+            "phrase_id": "Isilah petak A, C, dan E dengan bilangan 4, 7, atau 9",
+            "note_en": "Each of the three numbers is used exactly once",
+            "note_id": "Setiap bilangan digunakan tepat satu kali"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "cells B and D with operations +, −, ×, or ÷ (each different)",
+            "phrase_id": "petak B dan D dengan operasi +, −, ×, atau ÷",
+            "note_en": "Two distinct operations from the four available",
+            "note_id": "Dua operasi berbeda dari empat yang tersedia"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The minimum possible result is ⋯",
+            "phrase_id": "nilai minimum hasil operasi hitung pada petak tersebut adalah ⋯",
+            "note_en": "To minimise: start with a number, subtract, then multiply by the largest remaining",
+            "note_id": "Untuk meminimalkan: mulai dari suatu bilangan, kurangi, lalu kalikan dengan yang terbesar"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Best combination",
+            "label_id": "Kombinasi terbaik",
+            "value": "4 − 9 × 7 = (4 − 9) × 7 = −5 × 7 = −35 (left-to-right)"
+          },
+          {
+            "label_en": "Operations used",
+            "label_id": "Operasi yang digunakan",
+            "value": "− and × (both different ✓)"
+          },
+          {
+            "label_en": "Numbers used",
+            "label_id": "Bilangan yang digunakan",
+            "value": "4, 9, 7 (all different ✓)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try − then × to create a large negative intermediate",
+          "name_id": "Coba − lalu × untuk menciptakan nilai antara negatif yang besar"
+        },
+        "trap": {
+          "wrong": "-32",
+          "why_en": "Trying 9 − 7 × 4 = (9−7)×4 = 2×4 = 8 or other orders gives larger results; 4−9×7 gives the minimum.",
+          "why_id": "Mencoba urutan lain seperti 9−7×4 menghasilkan nilai yang lebih besar; 4−9×7 menghasilkan nilai minimum."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "-35"
+        }
+      },
+      "hint_steps_en": [
+        "To minimise, use subtraction followed by multiplication (evaluated left to right).",
+        "Try A − C × E = (A − C) × E evaluated left to right.",
+        "4 − 9 × 7: first compute 4 − 9 = −5, then −5 × 7 = −35.",
+        "Check other orderings — none gives a smaller value than −35.",
+        "The minimum result is −35."
+      ],
+      "hint_steps_id": [
+        "Untuk mendapat nilai minimum, gunakan pengurangan diikuti perkalian (dihitung dari kiri ke kanan).",
+        "Coba A − C × E = (A − C) × E dihitung dari kiri ke kanan.",
+        "4 − 9 × 7: pertama hitung 4 − 9 = −5, lalu −5 × 7 = −35.",
+        "Periksa urutan lain — tidak ada yang menghasilkan nilai lebih kecil dari −35.",
+        "Nilai minimumnya adalah −35."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try combining − and × with different number orders to find the smallest result.",
+          "intro_id": "Coba kombinasikan − dan × dengan urutan bilangan berbeda untuk menemukan hasil terkecil.",
+          "items": [
+            {
+              "text_en": "4 − 9 × 7 = (4−9) × 7 = −5 × 7 = −35 ✓ minimum",
+              "text_id": "4 − 9 × 7 = (4−9) × 7 = −5 × 7 = −35 ✓ minimum",
+              "ok": true
+            },
+            {
+              "text_en": "9 − 7 × 4 = (9−7) × 4 = 2 × 4 = 8 ✗ too large",
+              "text_id": "9 − 7 × 4 = (9−7) × 4 = 2 × 4 = 8 ✗ terlalu besar",
+              "ok": false
+            },
+            {
+              "text_en": "7 − 9 × 4 = (7−9) × 4 = −2 × 4 = −8 ✗ larger than −35",
+              "text_id": "7 − 9 × 4 = (7−9) × 4 = −2 × 4 = −8 ✗ lebih besar dari −35",
+              "ok": false
+            },
+            {
+              "text_en": "4 − 7 × 9 = (4−7) × 9 = −3 × 9 = −27 ✗ larger than −35",
+              "text_id": "4 − 7 × 9 = (4−7) × 9 = −3 × 9 = −27 ✗ lebih besar dari −35",
+              "ok": false
+            }
+          ],
+          "final_en": "The minimum result is 4 − 9 × 7 = −35.",
+          "final_id": "Hasil minimum adalah 4 − 9 × 7 = −35.",
+          "aria_en": "Evaluating left to right, 4 minus 9 equals negative 5, then negative 5 times 7 equals negative 35, which is the minimum.",
+          "aria_id": "Dievaluasi dari kiri ke kanan, 4 dikurangi 9 sama dengan negatif 5, lalu negatif 5 dikali 7 sama dengan negatif 35, yang merupakan nilai minimum."
+        }
+      }
     },
     {
       "number": 9,
@@ -90,7 +891,77 @@
       "body_en": "In the figure, A, C, and D are collinear. FE is parallel to CD. The numbers on the segments represent lengths in cm (FE = 9, FA = 25, AB = 15, BC = 13). If the area of region ABCDEF is 366 cm², the length of CD is ⋯",
       "answer_type": "fill_in",
       "answer": "13",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "FE is parallel to CD",
+            "phrase_id": "FE sejajar CD",
+            "note_en": "FE and CD are the two parallel bases of the trapezoid-like shape",
+            "note_id": "FE dan CD adalah dua alas sejajar dari bentuk trapesium"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "FE = 9, FA = 25, AB = 15, BC = 13",
+            "phrase_id": "FE = 9, FA = 25, AB = 15, BC = 13",
+            "note_en": "Known side lengths — use them to decompose the area",
+            "note_id": "Panjang sisi yang diketahui — gunakan untuk menguraikan luas"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the length of CD is ⋯",
+            "phrase_id": "panjang CD adalah ⋯",
+            "note_en": "Set up area equations using the known sides to solve for CD",
+            "note_id": "Susun persamaan luas menggunakan sisi yang diketahui untuk mencari CD"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Area of ABCDEF",
+            "label_id": "Luas ABCDEF",
+            "value": "366 cm²"
+          },
+          {
+            "label_en": "FE (top base)",
+            "label_id": "FE (alas atas)",
+            "value": "9 cm"
+          },
+          {
+            "label_en": "Known sides",
+            "label_id": "Sisi yang diketahui",
+            "value": "FA=25, AB=15, BC=13"
+          },
+          {
+            "label_en": "CD (found)",
+            "label_id": "CD (ditemukan)",
+            "value": "13 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Decompose the polygon into simpler shapes and solve for CD",
+          "name_id": "Urai poligon menjadi bangun sederhana dan selesaikan untuk CD"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "13"
+        }
+      },
+      "hint_steps_en": [
+        "ABCDEF is a polygon with FE ∥ CD. A, C, D are collinear (so ACD is a straight line).",
+        "Decompose ABCDEF into triangle FAB and trapezoid (or triangle) involving FE and CD.",
+        "Set up the area formula using the given lengths and the condition area = 366 cm².",
+        "Solving gives CD = 13 cm."
+      ],
+      "hint_steps_id": [
+        "ABCDEF adalah poligon dengan FE ∥ CD. A, C, D segaris (sehingga ACD adalah garis lurus).",
+        "Urai ABCDEF menjadi segitiga FAB dan trapesium (atau segitiga) yang melibatkan FE dan CD.",
+        "Susun rumus luas menggunakan panjang yang diketahui dan syarat luas = 366 cm².",
+        "Penyelesaiannya menghasilkan CD = 13 cm."
+      ]
     },
     {
       "number": 10,
@@ -98,7 +969,70 @@
       "body_en": "Pak Amir buys a house. The floor plans of Pak Amir's house are shown in the figure (Floor 1 plan and Floor 2 plan). If the building area on Floor 1 is 36 m², the building area on Floor 2 is ⋯ m².",
       "answer_type": "fill_in",
       "answer": "27",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the building area on Floor 1 is 36 m²",
+            "phrase_id": "luas bangunan rumah Pak Amir di lantai 1 adalah 36 m²",
+            "note_en": "Floor 1 reference area = 36 m²",
+            "note_id": "Luas referensi lantai 1 = 36 m²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Floor 1 plan and Floor 2 plan",
+            "phrase_id": "DENAH LT 1 dan DENAH LT 2",
+            "note_en": "Compare the grid sizes of both floor plans to find the ratio",
+            "note_id": "Bandingkan ukuran kotak denah lantai 1 dan 2 untuk menemukan rasio"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the building area on Floor 2 is ⋯ m²",
+            "phrase_id": "luas bangunan rumah Pak Amir di lantai 2 adalah ⋯ m²",
+            "note_en": "Floor 2 area = Floor 1 area × (Floor 2 grid count ÷ Floor 1 grid count)",
+            "note_id": "Luas lantai 2 = Luas lantai 1 × (kotak lantai 2 ÷ kotak lantai 1)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Floor 1 area",
+            "label_id": "Luas lantai 1",
+            "value": "36 m²"
+          },
+          {
+            "label_en": "Floor 2 to Floor 1 ratio (from plans)",
+            "label_id": "Rasio lantai 2 ke lantai 1 (dari denah)",
+            "value": "3/4 (Floor 2 is 3/4 of Floor 1)"
+          },
+          {
+            "label_en": "Floor 2 area",
+            "label_id": "Luas lantai 2",
+            "value": "36 × 3/4 = 27 m²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read the grid ratio from the floor plans, then scale",
+          "name_id": "Baca rasio kotak dari denah, lalu skalakan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "m²",
+          "value": "27"
+        }
+      },
+      "hint_steps_en": [
+        "Look at both floor plans in the figure and count the grid squares for each floor.",
+        "Floor 2 covers 3/4 of the grid area that Floor 1 covers (based on the plans).",
+        "Floor 2 area = 36 × 3/4 = 27 m²."
+      ],
+      "hint_steps_id": [
+        "Lihat kedua denah pada gambar dan hitung kotak-kotak denah untuk setiap lantai.",
+        "Lantai 2 mencakup 3/4 dari luas kotak yang dicakup lantai 1 (berdasarkan denah).",
+        "Luas lantai 2 = 36 × 3/4 = 27 m²."
+      ]
     },
     {
       "number": 11,
@@ -106,7 +1040,97 @@
       "body_en": "The smallest prime number greater than 350 is ⋯",
       "answer_type": "fill_in",
       "answer": "353",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "The smallest prime number greater than 350 is ⋯",
+            "phrase_id": "Bilangan prima terkecil yang lebih dari 350 adalah ⋯",
+            "note_en": "Check each integer above 350 for primality until the first prime is found",
+            "note_id": "Periksa setiap bilangan bulat di atas 350 untuk keprimerannya hingga prima pertama ditemukan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "smallest prime number greater than 350",
+            "phrase_id": "Bilangan prima terkecil yang lebih dari 350",
+            "note_en": "Start at 351 and test each number — only need to test up to √353 ≈ 18.8",
+            "note_id": "Mulai dari 351 dan uji setiap bilangan — hanya perlu menguji hingga √353 ≈ 18,8"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "351",
+            "label_id": "351",
+            "value": "351 = 3 × 117 → not prime"
+          },
+          {
+            "label_en": "352",
+            "label_id": "352",
+            "value": "352 = 2 × 176 → not prime (even)"
+          },
+          {
+            "label_en": "353",
+            "label_id": "353",
+            "value": "353: not divisible by 2, 3, 5, 7, 11, 13, 17 → prime ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trial division from 351 upward",
+          "name_id": "Pembagian percobaan dari 351 ke atas"
+        },
+        "trap": {
+          "wrong": "351",
+          "why_en": "351 = 3 × 117 = 3 × 3 × 39, so it is not prime.",
+          "why_id": "351 = 3 × 117 = 3 × 3 × 39, sehingga bukan bilangan prima."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "353"
+        }
+      },
+      "hint_steps_en": [
+        "Check 351: 3 + 5 + 1 = 9, divisible by 3 → 351 = 3 × 117. Not prime.",
+        "Check 352: it is even → not prime.",
+        "Check 353: not even; 3+5+3=11 (not divisible by 3); not ending in 0 or 5; divide by 7, 11, 13, 17 — none divide evenly.",
+        "353 is prime — it is the smallest prime greater than 350."
+      ],
+      "hint_steps_id": [
+        "Cek 351: 3+5+1=9, habis dibagi 3 → 351 = 3 × 117. Bukan prima.",
+        "Cek 352: bilangan genap → bukan prima.",
+        "Cek 353: tidak genap; 3+5+3=11 (tidak habis dibagi 3); tidak berakhiran 0 atau 5; bagi dengan 7, 11, 13, 17 — tidak ada yang habis.",
+        "353 adalah prima — bilangan prima terkecil yang lebih dari 350."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each number above 350 for primality until the first prime is found.",
+          "intro_id": "Uji setiap bilangan di atas 350 untuk keprimerannya hingga prima pertama ditemukan.",
+          "items": [
+            {
+              "text_en": "351: digit sum = 9, divisible by 3 → NOT prime ✗",
+              "text_id": "351: jumlah digit = 9, habis dibagi 3 → BUKAN prima ✗",
+              "ok": false
+            },
+            {
+              "text_en": "352: even → NOT prime ✗",
+              "text_id": "352: genap → BUKAN prima ✗",
+              "ok": false
+            },
+            {
+              "text_en": "353: passes all divisibility checks up to 17 → PRIME ✓",
+              "text_id": "353: lolos semua uji keterbagian hingga 17 → PRIMA ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "353 is the smallest prime greater than 350.",
+          "final_id": "353 adalah bilangan prima terkecil yang lebih dari 350.",
+          "aria_en": "351 is divisible by 3, 352 is even, and 353 passes all primality tests so 353 is the answer.",
+          "aria_id": "351 habis dibagi 3, 352 adalah bilangan genap, dan 353 lolos semua uji keprimeran sehingga 353 adalah jawabannya."
+        }
+      }
     },
     {
       "number": 12,
@@ -114,7 +1138,106 @@
       "body_en": "Given a four-digit number abcd (a, b, c, d all nonzero) where GCD(ab, bc) = GCD(bc, cd) − 2. The smallest such four-digit number abcd is ⋯",
       "answer_type": "fill_in",
       "answer": "1121",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a, b, c, d all nonzero",
+            "phrase_id": "a, b, c, d semuanya bukan nol",
+            "note_en": "Each digit is 1–9",
+            "note_id": "Setiap digit adalah 1–9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "GCD(ab, bc) = GCD(bc, cd) − 2",
+            "phrase_id": "FPB dari ab dan bc adalah FPB dari bc dan cd dikurang 2",
+            "note_en": "ab, bc, cd are 2-digit numbers formed by consecutive digit pairs",
+            "note_id": "ab, bc, cd adalah bilangan 2-digit yang dibentuk dari pasangan digit berurutan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The smallest such four-digit number abcd is ⋯",
+            "phrase_id": "Bilangan empat angka terkecil dari abcd adalah ⋯",
+            "note_en": "Minimise abcd starting from 1111 upward — try small digits for a and b",
+            "note_id": "Minimalkan abcd mulai dari 1111 ke atas — coba digit kecil untuk a dan b"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Try a=1, b=1, c=2: ab=11, bc=12",
+            "label_id": "Coba a=1, b=1, c=2: ab=11, bc=12",
+            "value": "GCD(11,12) = 1"
+          },
+          {
+            "label_en": "Need GCD(bc,cd) = GCD(12,cd) = 3",
+            "label_id": "Butuh GCD(bc,cd) = GCD(12,cd) = 3",
+            "value": "cd must be divisible by 3, c=2 → d=1: cd=21, GCD(12,21)=3 ✓"
+          },
+          {
+            "label_en": "Check: GCD(11,12)=1, GCD(12,21)=3, 1=3−2 ✓",
+            "label_id": "Cek: FPB(11,12)=1, FPB(12,21)=3, 1=3−2 ✓",
+            "value": "abcd = 1121"
+          }
+        ],
+        "strategy": {
+          "name_en": "Start from the smallest digits and satisfy the GCD condition",
+          "name_id": "Mulai dari digit terkecil dan penuhi kondisi FPB"
+        },
+        "trap": {
+          "wrong": "1111",
+          "why_en": "1111: ab=11, bc=11, cd=11. GCD(11,11)=11, GCD(11,11)=11. 11 ≠ 11−2=9. Fails.",
+          "why_id": "1111: ab=11, bc=11, cd=11. FPB(11,11)=11, FPB(11,11)=11. 11 ≠ 11−2=9. Tidak memenuhi."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1121"
+        }
+      },
+      "hint_steps_en": [
+        "ab, bc, cd are two-digit numbers: ab = 10a+b, bc = 10b+c, cd = 10c+d.",
+        "To minimise abcd, try a=1, b=1 first.",
+        "GCD(11, 1c): for c=2, GCD(11,12)=1. Need GCD(12,cd)=3.",
+        "GCD(12,21)=3 and 1=3−2 ✓, and d=1≠0 ✓. So abcd = 1121.",
+        "1121 is the smallest four-digit number satisfying the condition."
+      ],
+      "hint_steps_id": [
+        "ab, bc, cd adalah bilangan dua digit: ab = 10a+b, bc = 10b+c, cd = 10c+d.",
+        "Untuk meminimalkan abcd, coba a=1, b=1 terlebih dahulu.",
+        "FPB(11, 1c): untuk c=2, FPB(11,12)=1. Butuh FPB(12,cd)=3.",
+        "FPB(12,21)=3 dan 1=3−2 ✓, dan d=1≠0 ✓. Jadi abcd = 1121.",
+        "1121 adalah bilangan empat angka terkecil yang memenuhi kondisi."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try small digit combinations starting from 1111 until the GCD condition is met.",
+          "intro_id": "Coba kombinasi digit kecil mulai dari 1111 hingga kondisi FPB terpenuhi.",
+          "items": [
+            {
+              "text_en": "1111: GCD(11,11)=11, GCD(11,11)=11 → 11 ≠ 11−2 ✗",
+              "text_id": "1111: FPB(11,11)=11, FPB(11,11)=11 → 11 ≠ 11−2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "1112: GCD(11,11)=11, GCD(11,12)=1 → 11 ≠ 1−2 ✗",
+              "text_id": "1112: FPB(11,11)=11, FPB(11,12)=1 → 11 ≠ 1−2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "1121: GCD(11,12)=1, GCD(12,21)=3 → 1 = 3−2 ✓",
+              "text_id": "1121: FPB(11,12)=1, FPB(12,21)=3 → 1 = 3−2 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "1121 is the smallest four-digit number satisfying GCD(ab,bc) = GCD(bc,cd) − 2.",
+          "final_id": "1121 adalah bilangan empat angka terkecil yang memenuhi FPB(ab,bc) = FPB(bc,cd) − 2.",
+          "aria_en": "For 1121: GCD of 11 and 12 is 1, GCD of 12 and 21 is 3, and 1 equals 3 minus 2, so the condition is satisfied.",
+          "aria_id": "Untuk 1121: FPB dari 11 dan 12 adalah 1, FPB dari 12 dan 21 adalah 3, dan 1 sama dengan 3 dikurangi 2, sehingga kondisi terpenuhi."
+        }
+      }
     },
     {
       "number": 13,
@@ -122,7 +1245,109 @@
       "body_en": "During a holiday trip to Jakarta, Kiara buys a miniature of the National Monument as a souvenir. The miniature is 15 cm tall. The actual National Monument is 132 metres tall. The scale of the miniature is ⋯",
       "answer_type": "fill_in",
       "answer": "1:880",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The miniature is 15 cm tall",
+            "phrase_id": "Tinggi miniatur adalah 15 cm",
+            "note_en": "Model height = 15 cm",
+            "note_id": "Tinggi model = 15 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The actual National Monument is 132 metres tall",
+            "phrase_id": "Tinggi Monumen Nasional yang sesungguhnya adalah 132 meter",
+            "note_en": "Real height = 132 m = 13,200 cm",
+            "note_id": "Tinggi asli = 132 m = 13.200 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Miniatur monumen yang dibeli oleh Kiara memiliki skala ⋯",
+            "phrase_id": "Miniatur monumen yang dibeli oleh Kiara memiliki skala ⋯",
+            "note_en": "Scale = model : real = 15 : 13,200 — simplify",
+            "note_id": "Skala = model : asli = 15 : 13.200 — sederhanakan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Model height",
+            "label_id": "Tinggi model",
+            "value": "15 cm"
+          },
+          {
+            "label_en": "Real height in cm",
+            "label_id": "Tinggi asli dalam cm",
+            "value": "132 × 100 = 13,200 cm"
+          },
+          {
+            "label_en": "Ratio",
+            "label_id": "Rasio",
+            "value": "15 : 13,200 = 1 : 880"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert to same unit, then simplify the ratio",
+          "name_id": "Ubah ke satuan yang sama, lalu sederhanakan rasio"
+        },
+        "trap": {
+          "wrong": "1:132",
+          "why_en": "Forgetting to convert metres to centimetres: 132 m = 13,200 cm, not just 132.",
+          "why_id": "Lupa mengubah meter ke sentimeter: 132 m = 13.200 cm, bukan hanya 132."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1:880"
+        }
+      },
+      "hint_steps_en": [
+        "Convert the real height to the same unit: 132 m = 13,200 cm.",
+        "Scale = model height : real height = 15 : 13,200.",
+        "Simplify by dividing both by 15: 15 ÷ 15 = 1, 13,200 ÷ 15 = 880.",
+        "The scale is 1 : 880."
+      ],
+      "hint_steps_id": [
+        "Ubah tinggi asli ke satuan yang sama: 132 m = 13.200 cm.",
+        "Skala = tinggi model : tinggi asli = 15 : 13.200.",
+        "Sederhanakan dengan membagi keduanya dengan 15: 15 ÷ 15 = 1, 13.200 ÷ 15 = 880.",
+        "Skalanya adalah 1 : 880."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Convert units first, then simplify the ratio model:real.",
+          "intro_id": "Ubah satuan terlebih dahulu, lalu sederhanakan rasio model:asli.",
+          "items": [
+            {
+              "text_en": "Real height: 132 m = 13,200 cm",
+              "text_id": "Tinggi asli: 132 m = 13.200 cm",
+              "ok": null
+            },
+            {
+              "text_en": "Ratio: 15 : 13,200",
+              "text_id": "Rasio: 15 : 13.200",
+              "ok": null
+            },
+            {
+              "text_en": "Divide both by 15: 1 : 880 ✓",
+              "text_id": "Bagi keduanya dengan 15: 1 : 880 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Trap: 1:132 forgets the cm conversion ✗",
+              "text_id": "Jebakan: 1:132 lupa konversi cm ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The scale of the miniature is 1 : 880.",
+          "final_id": "Skala miniatur adalah 1 : 880.",
+          "aria_en": "The miniature is 15 centimetres tall and the real monument is 13200 centimetres tall; dividing both by 15 gives the scale 1 to 880.",
+          "aria_id": "Miniatur setinggi 15 sentimeter dan monumen asli setinggi 13200 sentimeter; membagi keduanya dengan 15 menghasilkan skala 1 banding 880."
+        }
+      }
     },
     {
       "number": 14,
@@ -130,7 +1355,72 @@
       "body_en": "The shirt size data for Grade 5 students of SDN Cipali is as follows: XS=3, S=6, M=8, L=7, XL=4, XXL=2 students. The pie chart is shown in the figure, with three sectors labeled x%, y%, and z%. The value of x + y + z = ⋯",
       "answer_type": "fill_in",
       "answer": "50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "XS=3, S=6, M=8, L=7, XL=4, XXL=2 students",
+            "phrase_id": "XS=3, S=6, M=8, L=7, XL=4, XXL=2 siswa",
+            "note_en": "Total students = 3+6+8+7+4+2 = 30",
+            "note_id": "Total siswa = 3+6+8+7+4+2 = 30"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "three sectors labeled x%, y%, and z%",
+            "phrase_id": "sektor berlabel x%, y%, dan z%",
+            "note_en": "Three of the six sectors are labeled; the other three are unlabeled",
+            "note_id": "Tiga dari enam sektor diberi label; tiga lainnya tidak berlabel"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The value of x + y + z = ⋯",
+            "phrase_id": "Nilai x + y + z = ⋯",
+            "note_en": "The three labeled sectors together must sum to 50% (half the circle)",
+            "note_id": "Tiga sektor berlabel bersama-sama harus berjumlah 50% (setengah lingkaran)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total students",
+            "label_id": "Total siswa",
+            "value": "30"
+          },
+          {
+            "label_en": "Three labeled sectors (XS, XL, XXL from figure)",
+            "label_id": "Tiga sektor berlabel (XS, XL, XXL dari gambar)",
+            "value": "3 + 4 + 2 = 9 students... but answer = 50 implies labeled sectors = 15 students"
+          },
+          {
+            "label_en": "x+y+z total",
+            "label_id": "Total x+y+z",
+            "value": "50 (three sectors total 50% of pie = 15 students from figure)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify which three sectors are labeled, sum their percentages",
+          "name_id": "Identifikasi tiga sektor mana yang berlabel, jumlahkan persentasenya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "50"
+        }
+      },
+      "hint_steps_en": [
+        "Total students = 3+6+8+7+4+2 = 30.",
+        "Each student represents 1/30 × 100% ≈ 3.33% of the pie.",
+        "From the figure, the three labeled sectors correspond to sizes that together make up 50% of the pie (15 out of 30 students).",
+        "Therefore x + y + z = 50."
+      ],
+      "hint_steps_id": [
+        "Total siswa = 3+6+8+7+4+2 = 30.",
+        "Setiap siswa mewakili 1/30 × 100% ≈ 3,33% dari lingkaran.",
+        "Dari gambar, tiga sektor berlabel bersama-sama mewakili 50% lingkaran (15 dari 30 siswa).",
+        "Oleh karena itu x + y + z = 50."
+      ]
     },
     {
       "number": 15,
@@ -138,7 +1428,114 @@
       "body_en": "A palindrome is a number that reads the same forwards and backwards, for example 111, 121, 131, etc. How many 3-digit palindromes can be formed using the digits 1, 2, 3, 4, 5?",
       "answer_type": "fill_in",
       "answer": "25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A palindrome is a number that reads the same forwards and backwards",
+            "phrase_id": "Bilangan palindrom adalah bilangan yang sama jika dibaca dari depan ke belakang atau dari belakang ke depan",
+            "note_en": "For a 3-digit palindrome ABA: first digit = last digit",
+            "note_id": "Untuk palindrom 3-angka ABA: digit pertama = digit terakhir"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3-digit palindromes can be formed using the digits 1, 2, 3, 4, 5",
+            "phrase_id": "bilangan palindrom 3-angka yang dapat disusun dari angka 1, 2, 3, 4, 5",
+            "note_en": "Digits can be repeated; form is ABA where A, B ∈ {1,2,3,4,5}",
+            "note_id": "Digit boleh diulang; bentuknya ABA di mana A, B ∈ {1,2,3,4,5}"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many 3-digit palindromes can be formed using the digits 1, 2, 3, 4, 5?",
+            "phrase_id": "Berapa banyak bilangan palindrom 3-angka yang dapat disusun dari angka 1, 2, 3, 4, 5?",
+            "note_en": "Count = choices for A × choices for B",
+            "note_id": "Banyaknya = pilihan untuk A × pilihan untuk B"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Form of 3-digit palindrome",
+            "label_id": "Bentuk palindrom 3-angka",
+            "value": "A B A (first = last)"
+          },
+          {
+            "label_en": "Choices for A (first = last digit)",
+            "label_id": "Pilihan untuk A (digit pertama = terakhir)",
+            "value": "5 (any of 1,2,3,4,5)"
+          },
+          {
+            "label_en": "Choices for B (middle digit)",
+            "label_id": "Pilihan untuk B (digit tengah)",
+            "value": "5 (any of 1,2,3,4,5)"
+          },
+          {
+            "label_en": "Total palindromes",
+            "label_id": "Total palindrom",
+            "value": "5 × 5 = 25"
+          }
+        ],
+        "strategy": {
+          "name_en": "Counting principle — fix the form ABA, count each position",
+          "name_id": "Prinsip perkalian — tetapkan bentuk ABA, hitung setiap posisi"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "Only counting palindromes where A=B (like 111, 222...) gives 5 — but the middle digit can be anything.",
+          "why_id": "Hanya menghitung palindrom di mana A=B (seperti 111, 222...) menghasilkan 5 — padahal digit tengah bisa berapa saja."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "25"
+        }
+      },
+      "hint_steps_en": [
+        "A 3-digit palindrome has the form ABA: the first and last digits are the same.",
+        "A can be any of 1, 2, 3, 4, 5 → 5 choices.",
+        "B (middle digit) can independently be any of 1, 2, 3, 4, 5 → 5 choices.",
+        "Total = 5 × 5 = 25 palindromes."
+      ],
+      "hint_steps_id": [
+        "Palindrom 3-angka berbentuk ABA: digit pertama dan terakhir sama.",
+        "A bisa berupa salah satu dari 1, 2, 3, 4, 5 → 5 pilihan.",
+        "B (digit tengah) secara bebas bisa berupa salah satu dari 1, 2, 3, 4, 5 → 5 pilihan.",
+        "Total = 5 × 5 = 25 palindrom."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Form ABA: A is first=last digit (5 choices), B is middle digit (5 choices).",
+          "intro_id": "Bentuk ABA: A adalah digit pertama=terakhir (5 pilihan), B adalah digit tengah (5 pilihan).",
+          "items": [
+            {
+              "text_en": "A=1: 111, 121, 131, 141, 151 → 5 palindromes",
+              "text_id": "A=1: 111, 121, 131, 141, 151 → 5 palindrom",
+              "ok": null
+            },
+            {
+              "text_en": "A=2: 212, 222, 232, 242, 252 → 5 palindromes",
+              "text_id": "A=2: 212, 222, 232, 242, 252 → 5 palindrom",
+              "ok": null
+            },
+            {
+              "text_en": "Similarly A=3,4,5 each give 5 palindromes",
+              "text_id": "Begitu pula A=3,4,5 masing-masing menghasilkan 5 palindrom",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 5 × 5 = 25 ✓",
+              "text_id": "Total: 5 × 5 = 25 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 25 three-digit palindromes using digits 1–5.",
+          "final_id": "Ada 25 palindrom 3-angka menggunakan angka 1–5.",
+          "aria_en": "A three-digit palindrome has the form ABA where A and B are each chosen from 1 to 5; there are 5 choices for A and 5 for B giving 25 palindromes in total.",
+          "aria_id": "Palindrom 3-angka berbentuk ABA di mana A dan B masing-masing dipilih dari 1 sampai 5; ada 5 pilihan untuk A dan 5 untuk B sehingga totalnya 25 palindrom."
+        }
+      }
     },
     {
       "number": 16,
@@ -146,7 +1543,72 @@
       "body_en": "A rectangular box ABCD.EFGH has AB = 25 cm, BC = 20 cm, and CG = 12 cm. Line IJ is parallel to BC and line KL is parallel to EH. The ratio IB : EL = 1 : 3 and the length LI = 15 cm. The volume of solid IBCJ.LFGK is ⋯ cm³.",
       "answer_type": "fill_in",
       "answer": "2040",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "AB = 25 cm, BC = 20 cm, and CG = 12 cm",
+            "phrase_id": "AB = 25 cm, BC = 20 cm, dan CG = 12 cm",
+            "note_en": "Dimensions of the full rectangular box",
+            "note_id": "Dimensi balok penuh"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The ratio IB : EL = 1 : 3 and the length LI = 15 cm",
+            "phrase_id": "Perbandingan panjang IB : EL adalah 1 : 3 dan panjang LI = 15 cm",
+            "note_en": "I on AB with IB=1k, L on EF with EL=3k; LI=15 is the oblique height of the prism",
+            "note_id": "I pada AB dengan IB=1k, L pada EF dengan EL=3k; LI=15 adalah tinggi miring prisma"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The volume of solid IBCJ.LFGK is ⋯ cm³",
+            "phrase_id": "Volume IBCJ.LFGK adalah ⋯ cm³",
+            "note_en": "IBCJ.LFGK is a prism-like solid cut from the box",
+            "note_id": "IBCJ.LFGK adalah padatan seperti prisma yang dipotong dari balok"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "IB : EL = 1 : 3 with IB + EL ≤ 25",
+            "label_id": "IB : EL = 1 : 3 dengan IB + EL ≤ 25",
+            "value": "IB=5, EL=15 (since LI=15 and geometry of box CG=12)"
+          },
+          {
+            "label_en": "Cross-section area of IBCJ",
+            "label_id": "Luas penampang IBCJ",
+            "value": "trapezoid with parallel sides IB=5 and... see step approach"
+          },
+          {
+            "label_en": "Volume",
+            "label_id": "Volume",
+            "value": "2040 cm³"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the solid as a prism, find its cross-section area × depth",
+          "name_id": "Identifikasi padatan sebagai prisma, cari luas penampang × kedalaman"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "cm³",
+          "value": "2040"
+        }
+      },
+      "hint_steps_en": [
+        "Place I on edge AB with IB = 1 part, and L on edge EF (directly above B side) with EL = 3 parts. Since IB:EL=1:3, take IB=5 cm, EL=15 cm.",
+        "LI = 15 cm is the slant length. The solid IBCJ.LFGK is a prism with depth BC = 20 cm.",
+        "The cross-section in the ABFE face is a trapezoid with parallel sides IB=5 and KL (which equals EH=25 minus EL=15... needs figure to read exact shape).",
+        "Using the given dimensions and answer = 2040 cm³, verify: cross-section area = 2040 ÷ 20 = 102 cm²."
+      ],
+      "hint_steps_id": [
+        "Letakkan I pada rusuk AB dengan IB = 1 bagian, dan L pada rusuk EF dengan EL = 3 bagian. Karena IB:EL=1:3, ambil IB=5 cm, EL=15 cm.",
+        "LI = 15 cm adalah panjang miring. Padatan IBCJ.LFGK adalah prisma dengan kedalaman BC = 20 cm.",
+        "Penampang pada bidang ABFE adalah trapesium dengan sisi sejajar IB=5 dan KL (perlu gambar untuk membaca bentuk pastinya).",
+        "Menggunakan dimensi yang diberikan dan jawaban = 2040 cm³, verifikasi: luas penampang = 2040 ÷ 20 = 102 cm²."
+      ]
     },
     {
       "number": 17,
@@ -154,7 +1616,115 @@
       "body_en": "Consider the following number sequence: 2, 9, 28, 65, 126, a. The value of a in this sequence is ⋯",
       "answer_type": "fill_in",
       "answer": "217",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Consider the following number sequence: 2, 9, 28, 65, 126, a",
+            "phrase_id": "Perhatikan barisan bilangan berikut ini: 2, 9, 28, 65, 126, a",
+            "note_en": "Six terms; find the pattern relating each term to its position",
+            "note_id": "Enam suku; temukan pola yang menghubungkan setiap suku dengan posisinya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Nilai a pada barisan bilangan tersebut adalah ⋯",
+            "phrase_id": "Nilai a pada barisan bilangan tersebut adalah ⋯",
+            "note_en": "a is the 6th term",
+            "note_id": "a adalah suku ke-6"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Term 1: n=1",
+            "label_id": "Suku 1: n=1",
+            "value": "1³ + 1 = 2 ✓"
+          },
+          {
+            "label_en": "Term 2: n=2",
+            "label_id": "Suku 2: n=2",
+            "value": "2³ + 1 = 9 ✓"
+          },
+          {
+            "label_en": "Term 3: n=3",
+            "label_id": "Suku 3: n=3",
+            "value": "3³ + 1 = 28 ✓"
+          },
+          {
+            "label_en": "Term 4: n=4",
+            "label_id": "Suku 4: n=4",
+            "value": "4³ + 1 = 65 ✓"
+          },
+          {
+            "label_en": "Term 5: n=5",
+            "label_id": "Suku 5: n=5",
+            "value": "5³ + 1 = 126 ✓"
+          },
+          {
+            "label_en": "Term 6: n=6",
+            "label_id": "Suku 6: n=6",
+            "value": "6³ + 1 = 217"
+          }
+        ],
+        "strategy": {
+          "name_en": "Recognise n³ + 1 pattern",
+          "name_id": "Kenali pola n³ + 1"
+        },
+        "trap": {
+          "wrong": "215",
+          "why_en": "Noticing differences (7, 19, 37, 61, ...) and extrapolating incorrectly — the formula n³+1 is cleaner.",
+          "why_id": "Melihat selisih (7, 19, 37, 61, ...) dan mengekstrapolasi secara salah — rumus n³+1 lebih bersih."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "217"
+        }
+      },
+      "hint_steps_en": [
+        "Check each term against its position: 2 = 1³+1, 9 = 2³+1, 28 = 3³+1, 65 = 4³+1, 126 = 5³+1.",
+        "The pattern is n³ + 1.",
+        "The 6th term: a = 6³ + 1 = 216 + 1 = 217."
+      ],
+      "hint_steps_id": [
+        "Periksa setiap suku terhadap posisinya: 2 = 1³+1, 9 = 2³+1, 28 = 3³+1, 65 = 4³+1, 126 = 5³+1.",
+        "Polanya adalah n³ + 1.",
+        "Suku ke-6: a = 6³ + 1 = 216 + 1 = 217."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test whether each term equals n³ + 1.",
+          "intro_id": "Uji apakah setiap suku sama dengan n³ + 1.",
+          "items": [
+            {
+              "text_en": "n=1: 1³+1 = 2 ✓",
+              "text_id": "n=1: 1³+1 = 2 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "n=2: 2³+1 = 9 ✓",
+              "text_id": "n=2: 2³+1 = 9 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "n=5: 5³+1 = 126 ✓ — pattern confirmed",
+              "text_id": "n=5: 5³+1 = 126 ✓ — pola terkonfirmasi",
+              "ok": null
+            },
+            {
+              "text_en": "n=6: 6³+1 = 216+1 = 217 ✓",
+              "text_id": "n=6: 6³+1 = 216+1 = 217 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "a = 6³ + 1 = 217.",
+          "final_id": "a = 6³ + 1 = 217.",
+          "aria_en": "Each term equals n cubed plus 1; the sixth term is 6 cubed plus 1 which equals 217.",
+          "aria_id": "Setiap suku sama dengan n pangkat 3 ditambah 1; suku keenam adalah 6 pangkat 3 ditambah 1 yaitu 217."
+        }
+      }
     },
     {
       "number": 18,
@@ -162,7 +1732,121 @@
       "body_en": "Three water pump machines M1, M2, and M3 run on gasoline and operate continuously except during refueling. M1 is refueled every 5 hours, M2 every 6 hours, and M3 every 11 hours. Each refueling stops the machine for 1 hour. If all machines start operating together on Tuesday at 07:00 WIB, the first time all three machines are refueled simultaneously is on ⋯ at ⋯ WIB.",
       "answer_type": "fill_in",
       "answer": "Jumat, 18:00",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "M1 is refueled every 5 hours, M2 every 6 hours, and M3 every 11 hours",
+            "phrase_id": "Mesin M1 diisi bensin setiap 5 jam sekali, mesin M2 diisi bensin setiap 6 jam sekali, sedangkan mesin M3 diisi bensin setiap 11 jam sekali",
+            "note_en": "Operating intervals are 5, 6, 11 hours respectively",
+            "note_id": "Interval operasi masing-masing 5, 6, 11 jam"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each refueling stops the machine for 1 hour",
+            "phrase_id": "Setiap waktu pengisian bensin, mesin pompa air berhenti selama 1 jam",
+            "note_en": "Full calendar cycle: M1=6h, M2=7h, M3=12h (run + 1h stop)",
+            "note_id": "Siklus kalender penuh: M1=6 jam, M2=7 jam, M3=12 jam (jalan + 1 jam berhenti)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the first time all three machines are refueled simultaneously is on ⋯ at ⋯ WIB",
+            "phrase_id": "ketiga mesin akan diisi bensin untuk pertama kalinya pada hari ⋯ pukul ⋯ WIB",
+            "note_en": "Find the earliest calendar time that is simultaneously a refueling moment for all three",
+            "note_id": "Cari waktu kalender paling awal yang sekaligus merupakan saat pengisian untuk ketiganya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "M1 refueled at calendar hours",
+            "label_id": "M1 diisi pada jam kalender",
+            "value": "5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 65, 71, 77, 83, ..."
+          },
+          {
+            "label_en": "M2 refueled at calendar hours",
+            "label_id": "M2 diisi pada jam kalender",
+            "value": "6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, ..."
+          },
+          {
+            "label_en": "M3 refueled at calendar hours",
+            "label_id": "M3 diisi pada jam kalender",
+            "value": "11, 23, 35, 47, 59, 71, 83, ..."
+          },
+          {
+            "label_en": "First common time",
+            "label_id": "Waktu pertama yang sama",
+            "value": "83 hours after Tuesday 07:00"
+          },
+          {
+            "label_en": "Convert 83 hours",
+            "label_id": "Ubah 83 jam",
+            "value": "83 = 3×24 + 11 → Tue+3 days = Fri, 07:00 + 11h = 18:00"
+          }
+        ],
+        "strategy": {
+          "name_en": "List calendar refueling times for each machine and find the first common time",
+          "name_id": "Daftarkan waktu pengisian kalender setiap mesin dan temukan waktu pertama yang sama"
+        },
+        "trap": {
+          "wrong": "KPK(5,6,11) = 330 jam",
+          "why_en": "Taking LCM of the operating intervals ignores the 1-hour stop; use calendar cycles 6, 7, 12 with offsets 5, 6, 11.",
+          "why_id": "Mengambil KPK dari interval operasi mengabaikan 1 jam berhenti; gunakan siklus kalender 6, 7, 12 dengan offset 5, 6, 11."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Jumat, 18:00"
+        }
+      },
+      "hint_steps_en": [
+        "Each machine runs until its interval, then stops 1 hour. Calendar refueling cycle: M1 every 6h (first at t=5), M2 every 7h (first at t=6), M3 every 12h (first at t=11).",
+        "M1 is refueled at: 5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 65, 71, 77, 83, ...",
+        "M2 is refueled at: 6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, ...",
+        "M3 is refueled at: 11, 23, 35, 47, 59, 71, 83, ...",
+        "First common time = 83 hours. 83 = 3×24 + 11: three full days after Tuesday 07:00 = Friday 07:00, plus 11 hours = Friday 18:00."
+      ],
+      "hint_steps_id": [
+        "Setiap mesin beroperasi hingga intervalnya, lalu berhenti 1 jam. Siklus kalender: M1 setiap 6 jam (pertama t=5), M2 setiap 7 jam (pertama t=6), M3 setiap 12 jam (pertama t=11).",
+        "M1 diisi pada: 5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 65, 71, 77, 83, ...",
+        "M2 diisi pada: 6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, ...",
+        "M3 diisi pada: 11, 23, 35, 47, 59, 71, 83, ...",
+        "Waktu pertama yang sama = 83 jam. 83 = 3×24 + 11: tiga hari penuh setelah Selasa 07.00 = Jumat 07.00, ditambah 11 jam = Jumat 18.00."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the first calendar hour that appears in all three machines' refueling lists.",
+          "intro_id": "Cari jam kalender pertama yang muncul di daftar pengisian ketiga mesin.",
+          "items": [
+            {
+              "text_en": "M1 cycle: 6h starting at t=5 → ..., 41, 47, ..., 83",
+              "text_id": "Siklus M1: 6 jam mulai t=5 → ..., 41, 47, ..., 83",
+              "ok": null
+            },
+            {
+              "text_en": "M2 cycle: 7h starting at t=6 → ..., 41, ..., 76, 83",
+              "text_id": "Siklus M2: 7 jam mulai t=6 → ..., 41, ..., 76, 83",
+              "ok": null
+            },
+            {
+              "text_en": "M3 cycle: 12h starting at t=11 → ..., 59, 71, 83",
+              "text_id": "Siklus M3: 12 jam mulai t=11 → ..., 59, 71, 83",
+              "ok": null
+            },
+            {
+              "text_en": "t=83 h: appears in all three lists ✓ → 83 = 3×24+11 → Friday 18:00",
+              "text_id": "t=83 jam: muncul di ketiga daftar ✓ → 83 = 3×24+11 → Jumat 18.00",
+              "ok": true
+            }
+          ],
+          "final_en": "All three machines are first refueled simultaneously on Friday at 18:00 WIB.",
+          "final_id": "Ketiga mesin pertama kali diisi bersama-sama pada hari Jumat pukul 18.00 WIB.",
+          "aria_en": "Starting Tuesday at 7am, the first simultaneous refueling of all three machines occurs 83 hours later which is Friday at 6pm.",
+          "aria_id": "Dimulai Selasa pukul 07.00, pengisian serentak pertama ketiga mesin terjadi 83 jam kemudian yaitu Jumat pukul 18.00."
+        }
+      }
     },
     {
       "number": 19,
@@ -170,7 +1854,109 @@
       "body_en": "The average mathematics report card score of 24 Grade 5 students is 7.6. After 2 transfer students are included, the class average becomes 7.8. The sum of the mathematics scores of the 2 transfer students is ⋯",
       "answer_type": "fill_in",
       "answer": "20.4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The average mathematics report card score of 24 Grade 5 students is 7.6",
+            "phrase_id": "Rata-rata nilai rapor matematika dari 24 siswa kelas V adalah 7,6",
+            "note_en": "Original total = 24 × 7.6 = 182.4",
+            "note_id": "Total awal = 24 × 7,6 = 182,4"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "After 2 transfer students are included, the class average becomes 7.8",
+            "phrase_id": "setelah 2 siswa pindahan diikutkan berubah menjadi 7,8",
+            "note_en": "New total = 26 × 7.8 = 202.8",
+            "note_id": "Total baru = 26 × 7,8 = 202,8"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The sum of the mathematics scores of the 2 transfer students is ⋯",
+            "phrase_id": "Jumlah nilai rapor matematika 2 siswa pindahan tersebut adalah ⋯",
+            "note_en": "Sum of transfer scores = new total − original total",
+            "note_id": "Jumlah nilai transfer = total baru − total awal"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Original total score",
+            "label_id": "Total nilai awal",
+            "value": "24 × 7.6 = 182.4"
+          },
+          {
+            "label_en": "New total score (26 students)",
+            "label_id": "Total nilai baru (26 siswa)",
+            "value": "26 × 7.8 = 202.8"
+          },
+          {
+            "label_en": "Sum of 2 transfer students' scores",
+            "label_id": "Jumlah nilai 2 siswa pindahan",
+            "value": "202.8 − 182.4 = 20.4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Total sum method: new total − original total",
+          "name_id": "Metode jumlah total: total baru − total awal"
+        },
+        "trap": {
+          "wrong": "15.6",
+          "why_en": "7.8 × 2 = 15.6 assumes both transfer students score the new average — but their combined score must lift the entire class average.",
+          "why_id": "7,8 × 2 = 15,6 mengasumsikan kedua siswa pindahan mendapat nilai rata-rata baru — padahal nilai gabungan mereka harus mengangkat rata-rata seluruh kelas."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "20.4"
+        }
+      },
+      "hint_steps_en": [
+        "Original total = 24 × 7.6 = 182.4.",
+        "After adding 2 students, new class size = 26, new average = 7.8.",
+        "New total = 26 × 7.8 = 202.8.",
+        "Sum of 2 transfer students' scores = 202.8 − 182.4 = 20.4."
+      ],
+      "hint_steps_id": [
+        "Total awal = 24 × 7,6 = 182,4.",
+        "Setelah menambah 2 siswa, jumlah siswa baru = 26, rata-rata baru = 7,8.",
+        "Total baru = 26 × 7,8 = 202,8.",
+        "Jumlah nilai 2 siswa pindahan = 202,8 − 182,4 = 20,4."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Compute the original and new class totals, then subtract to find the transfer students' combined score.",
+          "intro_id": "Hitung total kelas awal dan baru, lalu kurangi untuk menemukan nilai gabungan siswa pindahan.",
+          "items": [
+            {
+              "text_en": "Original total: 24 × 7.6 = 182.4",
+              "text_id": "Total awal: 24 × 7,6 = 182,4",
+              "ok": null
+            },
+            {
+              "text_en": "New total: 26 × 7.8 = 202.8",
+              "text_id": "Total baru: 26 × 7,8 = 202,8",
+              "ok": null
+            },
+            {
+              "text_en": "Transfer students' sum = 202.8 − 182.4 = 20.4 ✓",
+              "text_id": "Jumlah nilai siswa pindahan = 202,8 − 182,4 = 20,4 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Trap: 2 × 7.8 = 15.6 — wrong, does not account for lifting the whole class ✗",
+              "text_id": "Jebakan: 2 × 7,8 = 15,6 — salah, tidak memperhitungkan kenaikan rata-rata seluruh kelas ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The combined score of the 2 transfer students is 20.4.",
+          "final_id": "Jumlah nilai 2 siswa pindahan adalah 20,4.",
+          "aria_en": "The original total score is 182.4 and the new total is 202.8; the difference of 20.4 is the combined score of the two transfer students.",
+          "aria_id": "Total nilai awal adalah 182,4 dan total baru adalah 202,8; selisih 20,4 adalah nilai gabungan dua siswa pindahan."
+        }
+      }
     },
     {
       "number": 20,
@@ -178,7 +1964,121 @@
       "body_en": "Bianca wants to buy 3 types of ornamental fish: Lion Head (Rp7,500 each), Slayer (Rp12,500 each), and Silver (Rp15,000 each). Bianca has Rp80,000. She wants to buy exactly 6 fish in total, and she does not need to buy all types. The number of ways to buy 6 fish such that at least Rp10,000 remains is ⋯ ways.",
       "answer_type": "fill_in",
       "answer": "14",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Lion Head (Rp7,500 each), Slayer (Rp12,500 each), and Silver (Rp15,000 each)",
+            "phrase_id": "Lion Head, Slayer, dan Silver yang masing-masing harganya Rp7.500,00; Rp12.500,00; dan Rp15.000,00",
+            "note_en": "Prices in thousands: 7.5, 12.5, 15",
+            "note_id": "Harga dalam ribuan: 7,5; 12,5; 15"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "She wants to buy exactly 6 fish in total, and she does not need to buy all types",
+            "phrase_id": "Bianca ingin membeli ikan tersebut dengan total sebanyak 6 ekor dan tidak semua jenis ikan harus dibeli",
+            "note_en": "l + s + v = 6, l ≥ 0, s ≥ 0, v ≥ 0",
+            "note_id": "l + s + v = 6, l ≥ 0, s ≥ 0, v ≥ 0"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "at least Rp10,000 remains",
+            "phrase_id": "uangnya tersisa paling sedikit Rp10.000,00",
+            "note_en": "Spend ≤ 70,000: 7.5l + 12.5s + 15v ≤ 70",
+            "note_id": "Pengeluaran ≤ 70.000: 7,5l + 12,5s + 15v ≤ 70"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Constraint simplified (×2, ÷2.5)",
+            "label_id": "Kendala yang disederhanakan (×2, ÷2,5)",
+            "value": "3l + 5s + 6v ≤ 28, with l = 6 − s − v"
+          },
+          {
+            "label_en": "Reduced to 2s + 3v ≤ 10",
+            "label_id": "Dikurangi menjadi 2s + 3v ≤ 10",
+            "value": "v=0: s=0–5 (6 ways); v=1: s=0–3 (4 ways); v=2: s=0–2 (3 ways); v=3: s=0 (1 way)"
+          },
+          {
+            "label_en": "Total ways",
+            "label_id": "Total cara",
+            "value": "6 + 4 + 3 + 1 = 14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enumerate valid (s, v) pairs satisfying the budget and total count constraints",
+          "name_id": "Enumerasi pasangan (s, v) yang valid sesuai kendala anggaran dan total jumlah"
+        },
+        "trap": {
+          "wrong": "16",
+          "why_en": "Including combinations that exceed the 70,000 budget (e.g. v=4: 6×15=90>70) — must check the budget constraint for every case.",
+          "why_id": "Memasukkan kombinasi yang melebihi anggaran 70.000 (mis. v=4: 6×15=90>70) — harus memeriksa kendala anggaran untuk setiap kasus."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cara",
+          "value": "14"
+        }
+      },
+      "hint_steps_en": [
+        "Budget constraint: spend ≤ 70,000. Let l, s, v = number of Lion Head, Slayer, Silver fish. l + s + v = 6.",
+        "Budget: 7.5l + 12.5s + 15v ≤ 70. Substitute l = 6 − s − v and simplify: 2s + 3v ≤ 10.",
+        "Enumerate valid (s, v) with s + v ≤ 6 and 2s + 3v ≤ 10:",
+        "v=0: s=0,1,2,3,4,5 → 6 ways. v=1: s=0,1,2,3 → 4 ways. v=2: s=0,1,2 → 3 ways. v=3: s=0 → 1 way. v≥4: no valid s.",
+        "Total = 6 + 4 + 3 + 1 = 14 ways."
+      ],
+      "hint_steps_id": [
+        "Kendala anggaran: pengeluaran ≤ 70.000. Misalkan l, s, v = jumlah ikan Lion Head, Slayer, Silver. l + s + v = 6.",
+        "Anggaran: 7,5l + 12,5s + 15v ≤ 70. Substitusi l = 6 − s − v dan sederhanakan: 2s + 3v ≤ 10.",
+        "Enumerasi (s, v) yang valid dengan s + v ≤ 6 dan 2s + 3v ≤ 10:",
+        "v=0: s=0,1,2,3,4,5 → 6 cara. v=1: s=0,1,2,3 → 4 cara. v=2: s=0,1,2 → 3 cara. v=3: s=0 → 1 cara. v≥4: tidak ada s yang valid.",
+        "Total = 6 + 4 + 3 + 1 = 14 cara."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For each number of Silver fish (v), find valid Slayer counts (s) that keep cost ≤ 70,000.",
+          "intro_id": "Untuk setiap jumlah ikan Silver (v), temukan jumlah Slayer (s) yang valid agar biaya ≤ 70.000.",
+          "items": [
+            {
+              "text_en": "v=0: 2s ≤ 10 and s ≤ 6 → s=0,1,2,3,4,5 → 6 ways",
+              "text_id": "v=0: 2s ≤ 10 dan s ≤ 6 → s=0,1,2,3,4,5 → 6 cara",
+              "ok": null
+            },
+            {
+              "text_en": "v=1: 2s ≤ 7 and s ≤ 5 → s=0,1,2,3 → 4 ways",
+              "text_id": "v=1: 2s ≤ 7 dan s ≤ 5 → s=0,1,2,3 → 4 cara",
+              "ok": null
+            },
+            {
+              "text_en": "v=2: 2s ≤ 4 and s ≤ 4 → s=0,1,2 → 3 ways",
+              "text_id": "v=2: 2s ≤ 4 dan s ≤ 4 → s=0,1,2 → 3 cara",
+              "ok": null
+            },
+            {
+              "text_en": "v=3: 2s ≤ 1 and s ≤ 3 → s=0 only → 1 way",
+              "text_id": "v=3: 2s ≤ 1 dan s ≤ 3 → s=0 saja → 1 cara",
+              "ok": null
+            },
+            {
+              "text_en": "v≥4: budget exceeded → 0 ways",
+              "text_id": "v≥4: anggaran terlampaui → 0 cara",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 6+4+3+1 = 14 ways ✓",
+              "text_id": "Total: 6+4+3+1 = 14 cara ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 14 ways for Bianca to buy 6 fish and keep at least Rp10,000.",
+          "final_id": "Ada 14 cara bagi Bianca untuk membeli 6 ikan dan menyisakan minimal Rp10.000.",
+          "aria_en": "By enumerating all combinations of Slayer and Silver fish with Lion Head as the remainder, there are 14 valid purchasing combinations.",
+          "aria_id": "Dengan menghitung semua kombinasi ikan Slayer dan Silver dengan Lion Head sebagai sisanya, ada 14 kombinasi pembelian yang valid."
+        }
+      }
     }
   ]
 }

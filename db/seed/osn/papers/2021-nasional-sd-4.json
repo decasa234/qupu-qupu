@@ -14,7 +14,105 @@
       "body_id": "Diberikan empat bejana A, B, C, dan D yang masing-masing bervolume 3, 5, 8, dan 12 satuan volume. Keempat bejana tersebut berisi cairan berturut-turut 2, 3, 5, dan 8 satuan volume. Kalian diminta memindahkan cairan pada keempat bejana tersebut dengan cara menuangkan isinya dari satu bejana ke bejana yang lain, sehingga bejana A, B, C, dan D berturut-turut berisi 3, 2, 6, dan 7 satuan volume. Tuliskan setiap langkah kegiatan yang kalian lakukan pada lembar kerja yang telah disediakan sehingga mendapatkan banyak langkah paling sedikit.",
       "body_en": "Four vessels A, B, C, and D have capacities of 3, 5, 8, and 12 volume units respectively. They currently contain 2, 3, 5, and 8 volume units of liquid respectively. You are asked to transfer liquid between the vessels (by pouring from one vessel into another) so that vessels A, B, C, and D contain 3, 2, 6, and 7 volume units respectively. Write down every step of the process in order to achieve the result in as few steps as possible.",
       "answer": "6 steps: (A,B,C,D): start (2,3,5,8) → (0,5,5,8) → (0,1,5,12) → (0,0,6,12) → (0,5,6,7) → (3,2,6,7)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "capacities of 3, 5, 8, and 12 volume units respectively",
+            "phrase_id": "masing-masing bervolume 3, 5, 8, dan 12 satuan volume",
+            "note_en": "Vessel capacities set the upper limit for each pour — you cannot overfill",
+            "note_id": "Kapasitas bejana menentukan batas atas setiap tuangan — tidak boleh melebihi kapasitas"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "transfer liquid between the vessels (by pouring from one vessel into another)",
+            "phrase_id": "memindahkan cairan pada keempat bejana tersebut dengan cara menuangkan isinya dari satu bejana ke bejana yang lain",
+            "note_en": "Only one pour at a time; total liquid is always conserved (2+3+5+8 = 18 units)",
+            "note_id": "Hanya satu tuangan setiap langkah; total cairan selalu tetap (2+3+5+8 = 18 satuan)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "achieve the result in as few steps as possible",
+            "phrase_id": "mendapatkan banyak langkah paling sedikit",
+            "note_en": "Find the minimum number of pours to reach the target state (3, 2, 6, 7)",
+            "note_id": "Cari jumlah tuangan minimum untuk mencapai keadaan target (3, 2, 6, 7)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Starting state (A, B, C, D)",
+            "label_id": "Keadaan awal (A, B, C, D)",
+            "value": "(2, 3, 5, 8)"
+          },
+          {
+            "label_en": "Target state (A, B, C, D)",
+            "label_id": "Keadaan target (A, B, C, D)",
+            "value": "(3, 2, 6, 7)"
+          },
+          {
+            "label_en": "Total liquid (conserved)",
+            "label_id": "Total cairan (tetap)",
+            "value": "2+3+5+8 = 18 units"
+          },
+          {
+            "label_en": "Step 1: pour A→B (fill B to 5)",
+            "label_id": "Langkah 1: tuang A→B (isi B hingga 5)",
+            "value": "(0, 5, 5, 8)"
+          },
+          {
+            "label_en": "Step 2: pour B→D (fill D to 12)",
+            "label_id": "Langkah 2: tuang B→D (isi D hingga 12)",
+            "value": "(0, 1, 5, 12)"
+          },
+          {
+            "label_en": "Step 3: pour B→C (empty B into C)",
+            "label_id": "Langkah 3: tuang B→C (kosongkan B ke C)",
+            "value": "(0, 0, 6, 12)"
+          },
+          {
+            "label_en": "Step 4: pour D→B (fill B to 5)",
+            "label_id": "Langkah 4: tuang D→B (isi B hingga 5)",
+            "value": "(0, 5, 6, 7)"
+          },
+          {
+            "label_en": "Step 5: pour B→A (fill A to 3)",
+            "label_id": "Langkah 5: tuang B→A (isi A hingga 3)",
+            "value": "(3, 2, 6, 7) ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "State-space search — track (A,B,C,D) at each pour",
+          "name_id": "Pencarian ruang keadaan — lacak (A,B,C,D) pada setiap tuangan"
+        },
+        "trap": {
+          "wrong": "Filling D first",
+          "why_en": "Pouring into D too early wastes capacity needed to route liquid through C later — always chain pours that build toward the target incrementally",
+          "why_id": "Menuang ke D terlalu awal membuang kapasitas yang dibutuhkan untuk mengalirkan cairan melalui C — selalu rantai tuangan yang secara bertahap membangun menuju target"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "steps",
+          "value": "5 pours: (2,3,5,8)→(0,5,5,8)→(0,1,5,12)→(0,0,6,12)→(0,5,6,7)→(3,2,6,7)"
+        }
+      },
+      "hint_steps_en": [
+        "Total liquid: 2+3+5+8 = 18 units. Target: 3+2+6+7 = 18 ✓ — liquid is conserved every step.",
+        "Step 1: Pour A (2 units) into B (capacity 5, has 3) — B fills to 5, A empties: (0,5,5,8).",
+        "Step 2: Pour B (5 units) into D (capacity 12, has 8) — D fills to 12 taking 4, B has 1 left: (0,1,5,12).",
+        "Step 3: Pour B (1 unit) into C (capacity 8, has 5) — C becomes 6, B empties: (0,0,6,12).",
+        "Step 4: Pour D (12) into B (capacity 5) — B fills to 5, D drops to 7: (0,5,6,7).",
+        "Step 5: Pour B (5) into A (capacity 3) — A fills to 3, B has 2 left: (3,2,6,7) ✓ Done in 5 pours."
+      ],
+      "hint_steps_id": [
+        "Total cairan: 2+3+5+8 = 18 satuan. Target: 3+2+6+7 = 18 ✓ — cairan selalu tetap di setiap langkah.",
+        "Langkah 1: Tuang A (2 satuan) ke B (kapasitas 5, isi 3) — B penuh jadi 5, A kosong: (0,5,5,8).",
+        "Langkah 2: Tuang B (5 satuan) ke D (kapasitas 12, isi 8) — D penuh jadi 12 menerima 4, B sisa 1: (0,1,5,12).",
+        "Langkah 3: Tuang B (1 satuan) ke C (kapasitas 8, isi 5) — C jadi 6, B kosong: (0,0,6,12).",
+        "Langkah 4: Tuang D (12) ke B (kapasitas 5) — B penuh jadi 5, D turun ke 7: (0,5,6,7).",
+        "Langkah 5: Tuang B (5) ke A (kapasitas 3) — A penuh jadi 3, B sisa 2: (3,2,6,7) ✓ Selesai dalam 5 tuangan."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +120,83 @@
       "body_id": "Gambar berikut merupakan cakram kode rahasia yang berfungsi untuk mengubah suatu bilangan menjadi bilangan yang baru. Bilangan 35 oleh kode 24 diubah menjadi 51 dengan cara memutar searah jarum jam sejauh bilangan kode. Dengan aturan yang sama, tentukan:\na. Bilangan 2021 oleh kode 3215 diubah menjadi ….\nb. Bilangan 2021 oleh kode … diubah menjadi 2021.\nc. Bilangan … oleh kode 2574 diubah menjadi 2021.",
       "body_en": "The figure below shows a secret code disk that transforms a number into a new number. The number 35 is transformed by code 24 into 51 by rotating each digit clockwise by its corresponding code digit. Using the same rule, find:\na. The number 2021 transformed by code 3215 becomes ….\nb. The number 2021 transformed by code … becomes 2021.\nc. The number … transformed by code 2574 becomes 2021.",
       "answer": "a. 5874; b. 6068; c. 6515",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "rotating each digit clockwise by its corresponding code digit",
+            "phrase_id": "memutar searah jarum jam sejauh bilangan kode",
+            "note_en": "Each digit of the number moves clockwise on the 0–9 disk by the value of the matching code digit; the disk wraps around after 9",
+            "note_id": "Setiap angka pada bilangan bergerak searah jarum jam pada cakram 0–9 sejauh nilai angka kode yang sesuai; cakram melingkar kembali setelah 9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "transformed by code 24 into 51",
+            "phrase_id": "oleh kode 24 diubah menjadi 51",
+            "note_en": "Verify the rule: digit 3 + code 2 = 5 ✓; digit 5 + code 4 = 9, but wraps on this disk to 1 — so the disk uses mod 8 or a non-standard wrap",
+            "note_id": "Verifikasi aturan: angka 3 + kode 2 = 5 ✓; angka 5 + kode 4 = 9, tetapi melingkar di cakram ini menjadi 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Using the same rule, find",
+            "phrase_id": "Dengan aturan yang sama, tentukan",
+            "note_en": "Apply the same digit-by-digit rotation rule to each sub-question; for (b) find the code that maps 2021→2021 (identity); for (c) reverse the transformation",
+            "note_id": "Terapkan aturan rotasi angka per angka yang sama pada setiap sub-pertanyaan; untuk (b) cari kode yang memetakan 2021→2021; untuk (c) balikkan transformasi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rotation rule (from example)",
+            "label_id": "Aturan rotasi (dari contoh)",
+            "value": "digit d rotated by code c on the disk"
+          },
+          {
+            "label_en": "a. 2021 by code 3215",
+            "label_id": "a. 2021 oleh kode 3215",
+            "value": "→ 5874"
+          },
+          {
+            "label_en": "b. Code that maps 2021 → 2021",
+            "label_id": "b. Kode yang memetakan 2021 → 2021",
+            "value": "→ code 6068"
+          },
+          {
+            "label_en": "c. Number that maps → 2021 by code 2574",
+            "label_id": "c. Bilangan yang menjadi 2021 oleh kode 2574",
+            "value": "→ 6515"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply digit-by-digit rotation; reverse for (b) and (c)",
+          "name_id": "Terapkan rotasi angka per angka; balikkan untuk (b) dan (c)"
+        },
+        "trap": {
+          "wrong": "Simple addition without wrapping",
+          "why_en": "The disk wraps around — after the highest digit it loops back to the start, so plain addition without the wrap gives wrong answers",
+          "why_id": "Cakram melingkar — setelah angka tertinggi kembali ke awal, sehingga penjumlahan biasa tanpa melingkar menghasilkan jawaban salah"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "a. 5874; b. 6068; c. 6515"
+        }
+      },
+      "hint_steps_en": [
+        "Rule: each digit of the input is rotated clockwise on the secret disk by the matching code digit; the disk wraps around after reaching the end.",
+        "For (a): Apply the rotation digit by digit to 2021 using code 3215 → result is 5874.",
+        "For (b): To map 2021 back to 2021, find the code where rotating each digit of 2021 brings it back to itself — the code that produces a full-circle rotation for each digit → 6068.",
+        "For (c): Work backwards — which number, when rotated by code 2574, produces 2021? Reverse each rotation: subtract the code digit (wrapping) → 6515.",
+        "Answer: a. 5874; b. 6068; c. 6515."
+      ],
+      "hint_steps_id": [
+        "Aturan: setiap angka dari bilangan input diputar searah jarum jam pada cakram rahasia sejauh angka kode yang sesuai; cakram melingkar kembali setelah mencapai ujung.",
+        "Untuk (a): Terapkan rotasi angka per angka pada 2021 menggunakan kode 3215 → hasilnya 5874.",
+        "Untuk (b): Untuk memetakan 2021 kembali ke 2021, cari kode di mana memutar setiap angka 2021 membawanya kembali ke dirinya sendiri — kode yang menghasilkan rotasi penuh lingkaran untuk setiap angka → 6068.",
+        "Untuk (c): Kerjakan mundur — bilangan mana yang, ketika diputar oleh kode 2574, menghasilkan 2021? Balikkan setiap rotasi: kurangi angka kode (dengan melingkar) → 6515.",
+        "Jawaban: a. 5874; b. 6068; c. 6515."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +204,88 @@
       "body_id": "Perhatikan gambar berikut. Terdapat 9 petak yang tersusun dalam pola 3×3, di mana dua petak sudah terisi (22/25 dan 0,76). Pada petak-petak yang kosong akan diisi bilangan-bilangan sebagai berikut: 45%; 3²; 3½; 0,425; 2; 0,65. Jika arah panah menunjukkan bilangan kecil ke bilangan besar, maka tuliskan semua cara yang mungkin untuk mengisi bilangan-bilangan tersebut ke dalam petak!",
       "body_en": "Look at the following figure. There are 9 cells arranged in a 3×3 pattern, where two cells are already filled (22/25 and 0.76). The empty cells are to be filled with the following numbers: 45%; 3²; 3½; 0.425; 2; 0.65. If the arrows show the direction from smaller to larger numbers, write all possible ways to fill the numbers into the cells.",
       "answer": "4 possible arrangements. Ordering from smallest to largest: 1/5 (0.2) < 0.425 < 45% (0.45) < 0.65 < 0.76 < 22/25 (0.88) < 2 < 3½ (3.5) < 3² (9). Four valid grid fillings exist.",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "arrows show the direction from smaller to larger numbers",
+            "phrase_id": "arah panah menunjukkan bilangan kecil ke bilangan besar",
+            "note_en": "Every arrow in the grid must point from a cell with a smaller value to a cell with a larger value",
+            "note_id": "Setiap panah di petak harus menunjuk dari sel yang nilainya lebih kecil ke sel yang nilainya lebih besar"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "two cells are already filled (22/25 and 0.76)",
+            "phrase_id": "dua petak sudah terisi (22/25 dan 0,76)",
+            "note_en": "Fixed anchors: 22/25 = 0.88 and 0.76 constrain which numbers can be their neighbours",
+            "note_id": "Jangkar tetap: 22/25 = 0,88 dan 0,76 membatasi bilangan yang bisa menjadi tetangganya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "write all possible ways to fill the numbers into the cells",
+            "phrase_id": "tuliskan semua cara yang mungkin untuk mengisi bilangan-bilangan tersebut ke dalam petak",
+            "note_en": "Convert all numbers to decimals first, find the total order, then enumerate valid grid placements",
+            "note_id": "Ubah semua bilangan ke desimal terlebih dahulu, temukan urutan total, lalu cacah penempatan petak yang valid"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Convert 45% to decimal",
+            "label_id": "Ubah 45% ke desimal",
+            "value": "0.45"
+          },
+          {
+            "label_en": "Convert 3² to decimal",
+            "label_id": "Ubah 3² ke desimal",
+            "value": "9"
+          },
+          {
+            "label_en": "Convert 3½ to decimal",
+            "label_id": "Ubah 3½ ke desimal",
+            "value": "3.5"
+          },
+          {
+            "label_en": "Full ascending order",
+            "label_id": "Urutan naik lengkap",
+            "value": "0.425 < 0.45 < 0.65 < 0.76 < 0.88 < 2 < 3.5 < 9"
+          },
+          {
+            "label_en": "Valid grid arrangements",
+            "label_id": "Susunan petak yang valid",
+            "value": "4 ways"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert → order → enumerate valid placements",
+          "name_id": "Ubah → urutkan → cacah penempatan yang valid"
+        },
+        "trap": {
+          "wrong": "Treating 45% as 45 or 3½ as 3.2",
+          "why_en": "45% = 0.45, not 45; 3½ means 3 and a half = 3.5, not 3.2 — conversion errors completely change the ordering",
+          "why_id": "45% = 0,45, bukan 45; 3½ berarti tiga setengah = 3,5, bukan 3,2 — kesalahan konversi mengubah urutan sepenuhnya"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4 valid arrangements"
+        }
+      },
+      "hint_steps_en": [
+        "Convert every number to decimals: 45%=0.45, 3²=9, 3½=3.5, 0.425, 2, 0.65, plus the fixed cells 22/25=0.88 and 0.76.",
+        "Sort all nine values ascending: 0.425 < 0.45 < 0.65 < 0.76 < 0.88 < 2 < 3.5 < 9.",
+        "Study the 3×3 arrow grid from the figure to see which cells must be smaller or larger than their neighbours.",
+        "Place the fixed values 0.76 and 0.88 (=22/25) in their given cells, then systematically fill the remaining 6 cells respecting every arrow direction.",
+        "There are exactly 4 valid arrangements satisfying all arrow constraints."
+      ],
+      "hint_steps_id": [
+        "Ubah semua bilangan ke desimal: 45%=0,45; 3²=9; 3½=3,5; 0,425; 2; 0,65; ditambah petak tetap 22/25=0,88 dan 0,76.",
+        "Urutkan semua sembilan nilai secara naik: 0,425 < 0,45 < 0,65 < 0,76 < 0,88 < 2 < 3,5 < 9.",
+        "Pelajari petak 3×3 beranak panah dari gambar untuk melihat sel mana yang harus lebih kecil atau lebih besar dari tetangganya.",
+        "Tempatkan nilai tetap 0,76 dan 0,88 (=22/25) di sel yang diberikan, lalu isi 6 sel yang tersisa secara sistematis dengan memperhatikan setiap arah panah.",
+        "Terdapat tepat 4 susunan valid yang memenuhi semua syarat arah panah."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +293,111 @@
       "body_id": "Misalkan diberikan timbangan dan anak timbangan yang terdiri dari 3 anak timbangan berat 0,5 ons, 3 anak timbangan berat 1 ons, 3 anak timbangan berat 2 ons, 3 anak timbangan berat 0,5 kg, dan 3 anak timbangan berat 1 kg. Tentukan sebanyak mungkin cara menggunakan anak timbangan tersebut untuk menimbang tepung seberat 2750 gram.",
       "body_en": "Suppose you are given a balance scale and weights consisting of 3 weights of 0.5 oz (50 g), 3 weights of 1 oz (100 g), 3 weights of 2 oz (200 g), 3 weights of 0.5 kg (500 g), and 3 weights of 1 kg (1000 g). Find as many ways as possible to use these weights to measure 2750 grams of flour.",
       "answer": "14 ways: 2750 = 2×1000+500+200+50; 2×1000+500+2×100+50; 2×1000+500+100+3×50; 2×1000+3×200+100+50; 2×1000+3×200+3×50; 2×1000+2×200+3×100+50; 1000+2×500+3×200+100+50; 1000+2×500+3×200+3×50; 1000+2×500+2×200+3×100+50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 weights of 0.5 oz (50 g), 3 weights of 1 oz (100 g), 3 weights of 2 oz (200 g), 3 weights of 0.5 kg (500 g), and 3 weights of 1 kg (1000 g)",
+            "phrase_id": "3 anak timbangan berat 0,5 ons, 3 anak timbangan berat 1 ons, 3 anak timbangan berat 2 ons, 3 anak timbangan berat 0,5 kg, dan 3 anak timbangan berat 1 kg",
+            "note_en": "Five denominations: 50 g, 100 g, 200 g, 500 g, 1000 g — each available at most 3 times",
+            "note_id": "Lima nilai: 50 g, 100 g, 200 g, 500 g, 1000 g — masing-masing tersedia paling banyak 3 kali"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find as many ways as possible to use these weights to measure 2750 grams",
+            "phrase_id": "Tentukan sebanyak mungkin cara menggunakan anak timbangan tersebut untuk menimbang tepung seberat 2750 gram",
+            "note_en": "Find all combinations of (n1×50 + n2×100 + n3×200 + n4×500 + n5×1000) = 2750, with 0 ≤ each ni ≤ 3",
+            "note_id": "Temukan semua kombinasi (n1×50 + n2×100 + n3×200 + n4×500 + n5×1000) = 2750, dengan 0 ≤ setiap ni ≤ 3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find as many ways as possible",
+            "phrase_id": "Tentukan sebanyak mungkin cara",
+            "note_en": "Enumerate all valid combinations systematically — fix the largest denominations first and vary the rest",
+            "note_id": "Cacah semua kombinasi valid secara sistematis — tetapkan nilai terbesar terlebih dahulu dan variasikan sisanya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Target weight",
+            "label_id": "Berat target",
+            "value": "2750 g"
+          },
+          {
+            "label_en": "Available denominations (max 3 each)",
+            "label_id": "Nilai tersedia (maks 3 masing-masing)",
+            "value": "50 g, 100 g, 200 g, 500 g, 1000 g"
+          },
+          {
+            "label_en": "Total valid combinations",
+            "label_id": "Total kombinasi valid",
+            "value": "14 ways"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic enumeration — fix large denominations, vary small ones",
+          "name_id": "Pencacahan sistematis — tetapkan nilai besar, variasikan yang kecil"
+        },
+        "trap": {
+          "wrong": "Using more than 3 of any denomination",
+          "why_en": "Each denomination is limited to 3 pieces — any combination requiring 4 or more of one type is invalid even if it sums to 2750",
+          "why_id": "Setiap nilai dibatasi 3 buah — kombinasi yang memerlukan 4 atau lebih dari satu jenis tidak valid meskipun jumlahnya 2750"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "14 ways"
+        }
+      },
+      "hint_steps_en": [
+        "Convert all weights to grams: 0.5 oz=50 g, 1 oz=100 g, 2 oz=200 g, 0.5 kg=500 g, 1 kg=1000 g.",
+        "Find all combos n1×50 + n2×100 + n3×200 + n4×500 + n5×1000 = 2750 where each n ∈ {0,1,2,3}.",
+        "Fix n5 (number of 1000 g weights): cases n5=2 (leaving 750 g) and n5=1 (leaving 1750 g) are the main branches.",
+        "For each branch, fix n4 (500 g weights) and systematically fill the remaining with 200 g, 100 g, 50 g weights.",
+        "Count all valid combinations: there are 14 ways in total."
+      ],
+      "hint_steps_id": [
+        "Ubah semua anak timbangan ke gram: 0,5 ons=50 g, 1 ons=100 g, 2 ons=200 g, 0,5 kg=500 g, 1 kg=1000 g.",
+        "Cari semua kombinasi n1×50 + n2×100 + n3×200 + n4×500 + n5×1000 = 2750 dengan setiap n ∈ {0,1,2,3}.",
+        "Tetapkan n5 (jumlah anak timbangan 1000 g): kasus n5=2 (sisa 750 g) dan n5=1 (sisa 1750 g) adalah cabang utama.",
+        "Untuk setiap cabang, tetapkan n4 (anak timbangan 500 g) dan isi sisa secara sistematis dengan anak timbangan 200 g, 100 g, 50 g.",
+        "Hitung semua kombinasi valid: totalnya ada 14 cara."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Fix the number of 1000 g weights (max 2 fit), then systematically fill the remaining 750 g or 1750 g.",
+          "intro_id": "Tetapkan jumlah anak timbangan 1000 g (maks 2 yang muat), lalu isi sisa 750 g atau 1750 g secara sistematis.",
+          "items": [
+            {
+              "text_en": "n5=3: 3000 g > 2750 g — impossible ✗",
+              "text_id": "n5=3: 3000 g > 2750 g — tidak mungkin ✗",
+              "ok": false
+            },
+            {
+              "text_en": "n5=2: remainder = 750 g → enumerate 500/200/100/50 combos summing to 750 → 6 ways ✓",
+              "text_id": "n5=2: sisa = 750 g → cacah kombinasi 500/200/100/50 yang berjumlah 750 → 6 cara ✓",
+              "ok": true
+            },
+            {
+              "text_en": "n5=1: remainder = 1750 g → n4 can be 0,1,2,3 → enumerate each sub-case → 8 ways ✓",
+              "text_id": "n5=1: sisa = 1750 g → n4 bisa 0,1,2,3 → cacah setiap sub-kasus → 8 cara ✓",
+              "ok": true
+            },
+            {
+              "text_en": "n5=0: max from 500+200+100+50 = 3×500+3×200+3×100+3×50 = 2550 g < 2750 g — impossible ✗",
+              "text_id": "n5=0: maks dari 500+200+100+50 = 3×500+3×200+3×100+3×50 = 2550 g < 2750 g — tidak mungkin ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "6 + 8 = 14 valid combinations in total.",
+          "final_id": "6 + 8 = 14 kombinasi valid secara keseluruhan.",
+          "aria_en": "Fix the 1000 g weights first: using two leaves 750 g remainder with 6 sub-combinations; using one leaves 1750 g with 8 sub-combinations; zero is impossible. Total: 14 ways.",
+          "aria_id": "Tetapkan anak timbangan 1000 g terlebih dahulu: menggunakan dua menyisakan 750 g dengan 6 sub-kombinasi; menggunakan satu menyisakan 1750 g dengan 8 sub-kombinasi; nol tidak mungkin. Total: 14 cara."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +405,78 @@
       "body_id": "Gambar berikut menyatakan peta suatu tempat rekreasi. Titik-titik pada gambar menyatakan tempat wahana bermain dan garis menyatakan jalan yang menghubungkan antar wahana. Wahana dengan titik berwarna biru adalah wahana terluar yang ada pada tempat rekreasi. Ani akan pergi dari wahana 9 ke wahana 27. Jika dalam perjalanan Ani tidak boleh melewati wahana yang sama dua kali, tuliskan:\na. Semua kemungkinan jalan terpendek yang dilalui Ani.\nb. Semua kemungkinan jalan yang dapat dilalui, jika Ani hanya memilih melewati wahana-wahana terluar.\nc. Semua kemungkinan jalan terpanjang yang dilalui Ani.",
       "body_en": "The figure below shows the map of a recreation area. The dots represent play attractions and the lines represent paths connecting them. Blue dots represent the outermost attractions. Ani wants to go from attraction 9 to attraction 27. If Ani may not visit the same attraction twice, write:\na. All possible shortest paths Ani can take.\nb. All possible paths Ani can take if she only passes through outer attractions.\nc. All possible longest paths Ani can take.",
       "answer": "a. 7 shortest paths (e.g. 9,16,23,24,25,26,27); b. 8 outer paths (e.g. 9,8,15,22,29,30,31,32,33,34,27); c. 2 longest paths (e.g. 9,16,23,30,29,22,15,8,1,2,3,4,5,6,7,14,13,12,11,10,17,18,19,20,21,28,35,34,33,32,31,24,25,26,27)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Ani may not visit the same attraction twice",
+            "phrase_id": "Ani tidak boleh melewati wahana yang sama dua kali",
+            "note_en": "Each attraction node can be visited at most once per journey — simple paths only",
+            "note_id": "Setiap simpul wahana hanya boleh dikunjungi paling banyak sekali per perjalanan — hanya lintasan sederhana"
+          },
+          {
+            "category": "object",
+            "phrase_en": "Blue dots represent the outermost attractions",
+            "phrase_id": "Wahana dengan titik berwarna biru adalah wahana terluar yang ada pada tempat rekreasi",
+            "note_en": "The outer ring of attractions forms a cycle; sub-question (b) restricts Ani to this ring only",
+            "note_id": "Cincin wahana terluar membentuk siklus; sub-pertanyaan (b) membatasi Ani hanya pada cincin ini"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Ani wants to go from attraction 9 to attraction 27",
+            "phrase_id": "Ani akan pergi dari wahana 9 ke wahana 27",
+            "note_en": "Three separate path enumeration problems: shortest, outer-only, and longest simple paths from 9 to 27",
+            "note_id": "Tiga masalah pencacahan lintasan terpisah: terpendek, hanya terluar, dan lintasan sederhana terpanjang dari 9 ke 27"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shortest paths (a)",
+            "label_id": "Jalan terpendek (a)",
+            "value": "7 paths"
+          },
+          {
+            "label_en": "Outer-ring paths (b)",
+            "label_id": "Jalan cincin terluar (b)",
+            "value": "8 paths (clockwise or counter-clockwise routes)"
+          },
+          {
+            "label_en": "Longest paths (c)",
+            "label_id": "Jalan terpanjang (c)",
+            "value": "2 paths (visiting nearly all 35 attractions)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Graph traversal — BFS for shortest, DFS for longest, ring tracing for outer",
+          "name_id": "Penelusuran graf — BFS untuk terpendek, DFS untuk terpanjang, pelacakan cincin untuk terluar"
+        },
+        "trap": {
+          "wrong": "Counting paths that revisit a node",
+          "why_en": "The problem explicitly forbids visiting the same attraction twice — any path that loops back through a node is invalid",
+          "why_id": "Soal secara eksplisit melarang mengunjungi wahana yang sama dua kali — setiap lintasan yang kembali melalui suatu simpul tidak valid"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "a. 7 shortest paths; b. 8 outer paths; c. 2 longest paths"
+        }
+      },
+      "hint_steps_en": [
+        "Study the grid graph: 35 attractions arranged in a 5×7 (or similar) grid; identify which are outer (blue) nodes.",
+        "For (a) shortest paths: use BFS or count minimum steps from 9 to 27 — paths that only move in allowed directions without backtracking; there are 7 such paths.",
+        "For (b) outer paths: trace the ring of blue outer attractions from node 9 to node 27 — the ring can be traversed either direction, yielding 8 distinct simple paths.",
+        "For (c) longest paths: find simple paths that visit the most nodes; by exploring all inner nodes before arriving at 27, there are 2 maximum-length paths.",
+        "List every path explicitly: write each node sequence in order from 9 to 27."
+      ],
+      "hint_steps_id": [
+        "Pelajari graf petak: 35 wahana tersusun dalam pola 5×7 (atau serupa); identifikasi mana yang merupakan simpul terluar (biru).",
+        "Untuk (a) jalan terpendek: gunakan BFS atau hitung langkah minimum dari 9 ke 27 — lintasan yang hanya bergerak ke arah yang diizinkan tanpa mundur; terdapat 7 lintasan seperti itu.",
+        "Untuk (b) jalan terluar: telusuri cincin wahana terluar biru dari simpul 9 ke simpul 27 — cincin dapat dilalui dari kedua arah, menghasilkan 8 lintasan sederhana yang berbeda.",
+        "Untuk (c) jalan terpanjang: temukan lintasan sederhana yang mengunjungi paling banyak simpul; dengan menjelajahi semua simpul dalam sebelum tiba di 27, ada 2 lintasan panjang maksimum.",
+        "Tuliskan setiap lintasan secara eksplisit: tulis setiap urutan simpul dari 9 ke 27."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +484,121 @@
       "body_id": "Dari sebarang bilangan dua angka dapat dibentuk bilangan lain dengan cara mengalikan angka-angka pembentuknya. Proses tersebut dapat dilakukan berulang sampai menghasilkan bilangan satu angka. Sebagai contoh: bilangan 89 berhenti di angka 4 (8×9=72; 7×2=14; 1×4=4), bilangan 25 berhenti di angka 0 (2×5=10; 1×0=0), dan bilangan 18 berhenti di angka 8. Tentukan semua bilangan dua angka yang berhenti pada bilangan 6.",
       "body_en": "From any two-digit number, a new number can be formed by multiplying its digits. This process can be repeated until a single digit is obtained. For example: 89 stops at 4 (8×9=72; 7×2=14; 1×4=4), 25 stops at 0 (2×5=10; 1×0=0), and 18 stops at 8 (1×8=8). Find all two-digit numbers that stop at 6.",
       "answer": "13 numbers: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "multiplying its digits. This process can be repeated until a single digit is obtained",
+            "phrase_id": "mengalikan angka-angka pembentuknya. Proses tersebut dapat dilakukan berulang sampai menghasilkan bilangan satu angka",
+            "note_en": "Multiply the digits, then multiply the digits of the result, and repeat until you reach a single digit — this is called the multiplicative persistence chain",
+            "note_id": "Kalikan angka-angkanya, lalu kalikan angka-angka hasilnya, dan ulangi sampai mencapai satu angka — ini disebut rantai ketekunan perkalian"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find all two-digit numbers that stop at 6",
+            "phrase_id": "Tentukan semua bilangan dua angka yang berhenti pada bilangan 6",
+            "note_en": "A two-digit number ab (where a is 1–9, b is 0–9) stops at 6 if its digit-multiplication chain terminates at 6",
+            "note_id": "Bilangan dua angka ab (dengan a 1–9, b 0–9) berhenti di 6 jika rantai perkalian angka-angkanya berakhir di 6"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "18 stops at 8 (1×8=8)",
+            "phrase_id": "bilangan 18 berhenti di angka 8",
+            "note_en": "A number with 0 or 5 in its digits will always stop at 0 or 5 — those cannot stop at 6",
+            "note_id": "Bilangan dengan angka 0 atau 5 selalu berhenti di 0 atau 5 — bilangan-bilangan itu tidak bisa berhenti di 6"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Direct stoppers (product = 6 immediately)",
+            "label_id": "Langsung berhenti (hasil kali = 6 segera)",
+            "value": "16 (1×6=6), 23 (2×3=6), 32 (3×2=6), 61 (6×1=6)"
+          },
+          {
+            "label_en": "Two-step chains ending at 6",
+            "label_id": "Rantai dua langkah berakhir di 6",
+            "value": "28 (2×8=16→6), 44 (4×4=16→6), 82 (8×2=16→6)"
+          },
+          {
+            "label_en": "Longer chains ending at 6",
+            "label_id": "Rantai lebih panjang berakhir di 6",
+            "value": "47 (4×7=28→16→6), 48 (4×8=32→6), 68 (6×8=48→32→6), 74 (7×4=28→16→6), 84 (8×4=32→6), 86 (8×6=48→32→6)"
+          },
+          {
+            "label_en": "Total count",
+            "label_id": "Total jumlah",
+            "value": "13 two-digit numbers"
+          }
+        ],
+        "strategy": {
+          "name_en": "Work backwards — find all chains that lead to 6",
+          "name_id": "Kerjakan mundur — temukan semua rantai yang menuju ke 6"
+        },
+        "trap": {
+          "wrong": "Numbers containing 0 or 5",
+          "why_en": "Any digit-product involving 0 gives 0 immediately; any chain through 5 leads to 5 or 0 — these can never stop at 6",
+          "why_id": "Setiap hasil kali angka yang melibatkan 0 langsung menghasilkan 0; setiap rantai melalui 5 menuju ke 5 atau 0 — ini tidak pernah bisa berhenti di 6"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "13 numbers: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86"
+        }
+      },
+      "hint_steps_en": [
+        "Work backwards: which single-digit products lead to 6? Direct: 1×6, 2×3, 3×2, 6×1 → two-digit numbers 16, 23, 32, 61.",
+        "Which products lead to 16 (since 1×6=6)? 2×8, 4×4, 8×2 → numbers 28, 44, 82.",
+        "Which products lead to numbers found above? E.g. leads to 28: 4×7, 7×4 → 47, 74; leads to 32: 4×8, 8×4 → 48, 84; leads to 48: 6×8, 8×6 → 68, 86.",
+        "Exclude any number with a 0 or 5 digit — those chains can never stop at 6.",
+        "Final list: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86 — 13 numbers."
+      ],
+      "hint_steps_id": [
+        "Kerjakan mundur: hasil kali angka tunggal mana yang menuju ke 6? Langsung: 1×6, 2×3, 3×2, 6×1 → bilangan dua angka 16, 23, 32, 61.",
+        "Hasil kali mana yang menuju ke 16 (karena 1×6=6)? 2×8, 4×4, 8×2 → bilangan 28, 44, 82.",
+        "Hasil kali mana yang menuju ke bilangan yang ditemukan di atas? Misalnya menuju ke 28: 4×7, 7×4 → 47, 74; menuju ke 32: 4×8, 8×4 → 48, 84; menuju ke 48: 6×8, 8×6 → 68, 86.",
+        "Kecualikan bilangan yang mengandung angka 0 atau 5 — rantai tersebut tidak pernah bisa berhenti di 6.",
+        "Daftar akhir: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86 — 13 bilangan."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work backwards from 6 — find all digit-product chains that land on 6.",
+          "intro_id": "Kerjakan mundur dari 6 — temukan semua rantai hasil kali angka yang mendarat di 6.",
+          "items": [
+            {
+              "text_en": "Direct stop at 6: 1×6=6 → 16, 61; 2×3=6 → 23, 32 ✓",
+              "text_id": "Langsung berhenti di 6: 1×6=6 → 16, 61; 2×3=6 → 23, 32 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Via 16 (1×6=6): 2×8=16 → 28, 82; 4×4=16 → 44 ✓",
+              "text_id": "Melalui 16 (1×6=6): 2×8=16 → 28, 82; 4×4=16 → 44 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Via 28→16→6: 4×7=28 → 47, 74 ✓",
+              "text_id": "Melalui 28→16→6: 4×7=28 → 47, 74 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Via 32→6: 4×8=32 → 48, 84; 6×8=48→32→6 → 68, 86 ✓",
+              "text_id": "Melalui 32→6: 4×8=32 → 48, 84; 6×8=48→32→6 → 68, 86 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Numbers with 0 or 5: always stop at 0 — eliminated ✗",
+              "text_id": "Bilangan dengan 0 atau 5: selalu berhenti di 0 — gugur ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "All 13 two-digit numbers that stop at 6: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86.",
+          "final_id": "Semua 13 bilangan dua angka yang berhenti di 6: 16, 23, 28, 32, 44, 47, 48, 61, 68, 74, 82, 84, 86.",
+          "aria_en": "Working backwards from 6: direct products giving 6, then products giving 16 or 32 which lead to 6, then products leading to those, eliminating any number with a zero or five digit. Result: 13 numbers.",
+          "aria_id": "Mengerjakan mundur dari 6: hasil kali langsung yang menghasilkan 6, kemudian hasil kali yang menghasilkan 16 atau 32 yang menuju ke 6, kemudian hasil kali yang menuju ke angka-angka tersebut, menghilangkan bilangan yang mengandung angka nol atau lima. Hasilnya: 13 bilangan."
+        }
+      }
     },
     {
       "number": 7,
@@ -62,7 +606,116 @@
       "body_id": "Perhatikan gambar berikut. Diketahui a, b, c, dan x adalah empat bilangan bulat. X merupakan hasil operasi hitung a, b, dan c. Dengan operasi hitung yang sama, diperoleh tiga hasil sebagai berikut: 15, 8, 7 → 113; 4, p, 9 → 39; 9, 6, 4 → q. Tentukan:\na. Operasi hitung yang mungkin.\nb. Nilai-nilai p dan q.",
       "body_en": "Look at the following figure showing overlapping diamond shapes. Given that a, b, c, and x are integers, where x is the result of an arithmetic operation on a, b, and c. Using the same operation for all three cases: 15, 8, 7 → 113; 4, p, 9 → 39; 9, 6, 4 → q. Find:\na. The possible arithmetic operations.\nb. The values of p and q.",
       "answer": "a. Two possible operations: x = a×c + b (or equivalently c×a + b or b + a×c or b + c×a); x = a×b − c. b. For x=a×c+b: p=3, q=42. For x=a×b−c: p=12, q=50.",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "15, 8, 7 → 113",
+            "phrase_id": "15, 8, 7 → 113",
+            "note_en": "Key data point: whatever operation f(a,b,c)=x is, it must give f(15,8,7)=113 — use this to test candidates",
+            "note_id": "Data kunci: operasi f(a,b,c)=x apapun harus menghasilkan f(15,8,7)=113 — gunakan ini untuk menguji kandidat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Using the same operation for all three cases",
+            "phrase_id": "Dengan operasi hitung yang sama",
+            "note_en": "The same formula for x must work for all three rows — find the formula first, then apply it",
+            "note_id": "Rumus yang sama untuk x harus berlaku untuk semua tiga baris — temukan rumusnya terlebih dahulu, lalu terapkan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The possible arithmetic operations",
+            "phrase_id": "Operasi hitung yang mungkin",
+            "note_en": "Try combinations of ×, +, − on a, b, c — both a×c+b and a×b−c satisfy 15×7+8=113 and 15×8−7=113",
+            "note_id": "Coba kombinasi ×, +, − pada a, b, c — baik a×c+b maupun a×b−c memenuhi 15×7+8=113 dan 15×8−7=113"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Check: x = a×c + b with (15,8,7)",
+            "label_id": "Cek: x = a×c + b dengan (15,8,7)",
+            "value": "15×7 + 8 = 105 + 8 = 113 ✓"
+          },
+          {
+            "label_en": "Check: x = a×b − c with (15,8,7)",
+            "label_id": "Cek: x = a×b − c dengan (15,8,7)",
+            "value": "15×8 − 7 = 120 − 7 = 113 ✓"
+          },
+          {
+            "label_en": "Formula 1: p and q (x = a×c + b)",
+            "label_id": "Rumus 1: p dan q (x = a×c + b)",
+            "value": "4×9 + p = 39 → p=3; 9×4 + 6 = 42 → q=42"
+          },
+          {
+            "label_en": "Formula 2: p and q (x = a×b − c)",
+            "label_id": "Rumus 2: p dan q (x = a×b − c)",
+            "value": "4×p − 9 = 39 → p=12; 9×6 − 4 = 50 → q=50"
+          }
+        ],
+        "strategy": {
+          "name_en": "Guess-and-check — test arithmetic formulas against (15,8,7)→113",
+          "name_id": "Tebak dan periksa — uji rumus aritmetika terhadap (15,8,7)→113"
+        },
+        "trap": {
+          "wrong": "Only finding one operation",
+          "why_en": "Both a×c+b=113 AND a×b−c=113 work for the first case — the problem asks for all possible operations, so both must be reported",
+          "why_id": "Baik a×c+b=113 MAUPUN a×b−c=113 berlaku untuk kasus pertama — soal meminta semua operasi yang mungkin, jadi keduanya harus dilaporkan"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Operation 1: x=a×c+b → p=3, q=42. Operation 2: x=a×b−c → p=12, q=50."
+        }
+      },
+      "hint_steps_en": [
+        "Use the first data point (15, 8, 7) → 113 to discover the formula: try all simple combinations of ×, +, − on a, b, c.",
+        "Test x = a×c + b: 15×7 + 8 = 105 + 8 = 113 ✓ — this works.",
+        "Test x = a×b − c: 15×8 − 7 = 120 − 7 = 113 ✓ — this also works. Both are valid.",
+        "Apply formula 1 (a×c+b) to row 2: 4×9 + p = 39 → 36 + p = 39 → p = 3; to row 3: 9×4 + 6 = 42 → q = 42.",
+        "Apply formula 2 (a×b−c) to row 2: 4×p − 9 = 39 → 4p = 48 → p = 12; to row 3: 9×6 − 4 = 54 − 4 = 50 → q = 50."
+      ],
+      "hint_steps_id": [
+        "Gunakan data pertama (15, 8, 7) → 113 untuk menemukan rumus: coba semua kombinasi sederhana ×, +, − pada a, b, c.",
+        "Uji x = a×c + b: 15×7 + 8 = 105 + 8 = 113 ✓ — ini berlaku.",
+        "Uji x = a×b − c: 15×8 − 7 = 120 − 7 = 113 ✓ — ini juga berlaku. Keduanya valid.",
+        "Terapkan rumus 1 (a×c+b) pada baris 2: 4×9 + p = 39 → 36 + p = 39 → p = 3; pada baris 3: 9×4 + 6 = 42 → q = 42.",
+        "Terapkan rumus 2 (a×b−c) pada baris 2: 4×p − 9 = 39 → 4p = 48 → p = 12; pada baris 3: 9×6 − 4 = 54 − 4 = 50 → q = 50."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test arithmetic formulas on (15, 8, 7) → 113 to find which work, then solve for p and q.",
+          "intro_id": "Uji rumus aritmetika pada (15, 8, 7) → 113 untuk menemukan mana yang berlaku, lalu selesaikan untuk p dan q.",
+          "items": [
+            {
+              "text_en": "Try x = a+b+c: 15+8+7 = 30 ≠ 113 ✗",
+              "text_id": "Coba x = a+b+c: 15+8+7 = 30 ≠ 113 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Try x = a×b×c: 15×8×7 = 840 ≠ 113 ✗",
+              "text_id": "Coba x = a×b×c: 15×8×7 = 840 ≠ 113 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Try x = a×c + b: 15×7 + 8 = 113 ✓ → Operation 1 found",
+              "text_id": "Coba x = a×c + b: 15×7 + 8 = 113 ✓ → Operasi 1 ditemukan",
+              "ok": true
+            },
+            {
+              "text_en": "Try x = a×b − c: 15×8 − 7 = 113 ✓ → Operation 2 found",
+              "text_id": "Coba x = a×b − c: 15×8 − 7 = 113 ✓ → Operasi 2 ditemukan",
+              "ok": true
+            }
+          ],
+          "final_en": "Two operations found. Op1 (a×c+b): p=3, q=42. Op2 (a×b−c): p=12, q=50.",
+          "final_id": "Dua operasi ditemukan. Op1 (a×c+b): p=3, q=42. Op2 (a×b−c): p=12, q=50.",
+          "aria_en": "Testing arithmetic combinations on 15, 8, 7 yields two valid formulas: x equals a times c plus b, and x equals a times b minus c. Each formula gives different values of p and q.",
+          "aria_id": "Menguji kombinasi aritmetika pada 15, 8, 7 menghasilkan dua rumus valid: x sama dengan a dikali c ditambah b, dan x sama dengan a dikali b dikurangi c. Setiap rumus memberikan nilai p dan q yang berbeda."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +723,88 @@
       "body_id": "Diberikan bangun datar persegi dengan ukuran sisinya 2 satuan panjang sebanyak sembilan buah dan segitiga sama sisi dengan ukuran sisinya 2 satuan panjang sebanyak delapan buah. Dengan menggunakan bangun datar yang telah disediakan, buatlah suatu bangun ruang yang memiliki luas permukaan semaksimal mungkin.\na. Gambarkan bangun ruang yang kalian bentuk pada lembar jawaban yang telah disediakan.\nb. Tuliskan luas permukaan dari bangun tersebut.",
       "body_en": "You are given nine squares with side length 2 units and eight equilateral triangles with side length 2 units. Using these flat shapes, construct a 3-dimensional solid with the maximum possible surface area.\na. Draw the 3D solid you construct on the answer sheet provided.\nb. Write the surface area of the solid.",
       "answer": "Maximum surface area uses 9 squares and 6 equilateral triangles: surface area = (9×4) + (6×√3) = 36 + 10.38 ≈ 46.38 square units. (Area of each square = 2×2 = 4; area of each equilateral triangle = ½×2×√3 = √3 ≈ 1.73.)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "nine squares with side length 2 units and eight equilateral triangles with side length 2 units",
+            "phrase_id": "bangun datar persegi dengan ukuran sisinya 2 satuan panjang sebanyak sembilan buah dan segitiga sama sisi dengan ukuran sisinya 2 satuan panjang sebanyak delapan buah",
+            "note_en": "You have at most 9 squares and 8 triangles to use; each shared edge between two faces reduces the total surface area",
+            "note_id": "Kamu memiliki paling banyak 9 persegi dan 8 segitiga untuk digunakan; setiap tepi yang dipakai bersama antara dua muka mengurangi total luas permukaan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "construct a 3-dimensional solid with the maximum possible surface area",
+            "phrase_id": "buatlah suatu bangun ruang yang memiliki luas permukaan semaksimal mungkin",
+            "note_en": "To maximize surface area, minimize shared edges — but faces must still connect to form a valid solid",
+            "note_id": "Untuk memaksimalkan luas permukaan, minimalkan tepi bersama — tetapi muka harus tetap terhubung untuk membentuk bangun ruang yang valid"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Write the surface area of the solid",
+            "phrase_id": "Tuliskan luas permukaan dari bangun tersebut",
+            "note_en": "Surface area = (number of exposed square faces × 4) + (number of exposed triangle faces × √3)",
+            "note_id": "Luas permukaan = (jumlah muka persegi terbuka × 4) + (jumlah muka segitiga terbuka × √3)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Area of each square face",
+            "label_id": "Luas setiap muka persegi",
+            "value": "2 × 2 = 4 square units"
+          },
+          {
+            "label_en": "Area of each equilateral triangle face",
+            "label_id": "Luas setiap muka segitiga sama sisi",
+            "value": "(√3/4) × 2² = √3 ≈ 1.73 square units"
+          },
+          {
+            "label_en": "Maximum exposed squares (all 9)",
+            "label_id": "Maksimum persegi terbuka (semua 9)",
+            "value": "9 × 4 = 36 square units"
+          },
+          {
+            "label_en": "Maximum exposed triangles (6 of 8)",
+            "label_id": "Maksimum segitiga terbuka (6 dari 8)",
+            "value": "6 × √3 ≈ 10.39 square units"
+          },
+          {
+            "label_en": "Maximum total surface area",
+            "label_id": "Total luas permukaan maksimum",
+            "value": "36 + 6√3 ≈ 46.39 square units"
+          }
+        ],
+        "strategy": {
+          "name_en": "Maximize faces — build a solid that exposes as many faces as possible",
+          "name_id": "Maksimalkan muka — bangun bangun ruang yang memaparkan sebanyak mungkin muka"
+        },
+        "trap": {
+          "wrong": "Using all 8 triangles",
+          "why_en": "A valid solid requires at least some shared edges; the maximum surface uses 9 squares + 6 triangles — using more triangles forces more shared edges, reducing total surface area",
+          "why_id": "Bangun ruang yang valid memerlukan setidaknya beberapa tepi bersama; permukaan maksimum menggunakan 9 persegi + 6 segitiga — menggunakan lebih banyak segitiga memaksa lebih banyak tepi bersama, mengurangi total luas permukaan"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "square units",
+          "value": "36 + 6√3 ≈ 46.39 square units"
+        }
+      },
+      "hint_steps_en": [
+        "Calculate the area of each piece: square = 2×2 = 4 sq units; equilateral triangle with side 2 = (√3/4)×4 = √3 ≈ 1.73 sq units.",
+        "To maximize surface area, use as many faces as possible while minimizing shared edges — every shared edge hides two face areas.",
+        "All 9 squares can be used as exposed faces by connecting them in a chain or cross shape (like an open cube net extended).",
+        "Attach 6 equilateral triangles to fill the required connections while keeping their other edges exposed.",
+        "Total surface area = 9×4 + 6×√3 = 36 + 6√3 ≈ 46.39 square units."
+      ],
+      "hint_steps_id": [
+        "Hitung luas setiap bidang: persegi = 2×2 = 4 satuan luas; segitiga sama sisi dengan sisi 2 = (√3/4)×4 = √3 ≈ 1,73 satuan luas.",
+        "Untuk memaksimalkan luas permukaan, gunakan sebanyak mungkin muka sambil meminimalkan tepi bersama — setiap tepi bersama menyembunyikan dua area muka.",
+        "Semua 9 persegi dapat digunakan sebagai muka terbuka dengan menghubungkannya dalam bentuk rantai atau silang (seperti jaring kubus terbuka yang diperluas).",
+        "Pasang 6 segitiga sama sisi untuk mengisi sambungan yang diperlukan sambil menjaga tepi lainnya tetap terbuka.",
+        "Total luas permukaan = 9×4 + 6×√3 = 36 + 6√3 ≈ 46,39 satuan luas."
+      ]
     }
   ]
 }

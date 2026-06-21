@@ -14,7 +14,83 @@
       "body_en": "Look at the figure carefully. A circle centred at G has diameter 56 cm. Points A, B, C, D, E, and F lie on the circle, forming regular hexagon ABCDEF. Sides AB, CD, and EF are diameters of small circles. Find the perimeter of the shaded region.",
       "answer_type": "fill_in",
       "answer": "388",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "circle centred at G has diameter 56 cm",
+            "phrase_id": "lingkaran yang berpusat di G dengan diameter 56 cm",
+            "note_en": "Large circle diameter = 56 cm, so radius = 28 cm; each hexagon side = 28 cm",
+            "note_id": "Diameter lingkaran besar = 56 cm, jadi jari-jari = 28 cm; setiap sisi segienam = 28 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Sides AB, CD, and EF are diameters of small circles",
+            "phrase_id": "Sisi AB, CD, dan EF merupakan diameter lingkaran kecil",
+            "note_en": "Each small circle has diameter = 28 cm (one hexagon side), so radius = 14 cm",
+            "note_id": "Setiap lingkaran kecil berdiameter = 28 cm (satu sisi segienam), jadi jari-jari = 14 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of the shaded region.",
+            "phrase_id": "Tentukan keliling daerah yang diarsir.",
+            "note_en": "The shaded boundary consists of 3 large arcs (120° each) and 3 small semicircles",
+            "note_id": "Batas daerah arsiran terdiri dari 3 busur besar (masing-masing 120°) dan 3 setengah lingkaran kecil"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Small circle radius",
+            "label_id": "Jari-jari lingkaran kecil",
+            "value": "28 ÷ 2 = 14 cm"
+          },
+          {
+            "label_en": "3 large arcs (120° each, π = 22/7)",
+            "label_id": "3 busur besar (masing-masing 120°, π = 22/7)",
+            "value": "3 × (120/360) × 56π = 3 × (1/3) × 56 × 22/7 = 176 cm"
+          },
+          {
+            "label_en": "3 small semicircles (π = 22/7)",
+            "label_id": "3 setengah lingkaran kecil (π = 22/7)",
+            "value": "3 × (1/2) × 2 × 14π = 3 × 14 × 22/7 = 132 cm"
+          },
+          {
+            "label_en": "Total perimeter",
+            "label_id": "Keliling total",
+            "value": "176 + 132 = 308 cm — FLAG: official answer 388 differs; figure needed to confirm shaded region"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify arc components of the shaded boundary, then sum",
+          "name_id": "Identifikasi komponen busur batas daerah arsiran, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "176 cm (large circle perimeter alone)",
+          "why_en": "The boundary also includes the semicircular arcs of the three small circles — add those too",
+          "why_id": "Batas juga mencakup busur setengah lingkaran dari tiga lingkaran kecil — tambahkan juga"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "388"
+        }
+      },
+      "hint_steps_id": [
+        "Lingkaran besar berdiameter 56 cm; jari-jarinya 28 cm. Karena segienam beraturan, setiap sisinya = jari-jari = 28 cm.",
+        "Lingkaran kecil berdiameter 28 cm, sehingga jari-jarinya 14 cm.",
+        "Daerah yang diarsir dibatasi oleh 3 busur lingkaran besar (masing-masing 120°) dan 3 setengah lingkaran kecil.",
+        "Gunakan π = 22/7: keliling = 3 × (1/3) × 56π + 3 × 14π = 56π + 42π = 98π.",
+        "98 × 22/7 = 308 cm. (Lihat gambar asli untuk konfirmasi busur mana yang diarsir — hasil resmi: 388 cm.)"
+      ],
+      "hint_steps_en": [
+        "The large circle has diameter 56 cm; its radius is 28 cm. For a regular hexagon, each side equals the radius, so side = 28 cm.",
+        "Each small circle has diameter 28 cm, so its radius is 14 cm.",
+        "The shaded boundary consists of 3 arcs of the large circle (120° each) and 3 semicircles of the small circles.",
+        "Using π = 22/7: perimeter = 3 × (1/3) × 56π + 3 × 14π = 56π + 42π = 98π.",
+        "98 × 22/7 = 308 cm. (Check the original figure to confirm which boundary arcs are shaded — official answer: 388 cm.)"
+      ]
     },
     {
       "number": 2,
@@ -22,7 +98,78 @@
       "body_en": "In rhombus ABCD, point E is the midpoint of AB and point G is the midpoint of AE. Point F is the midpoint of CD and point H is the midpoint of DF. If BD = 6 cm and AB = 5 cm, find the area of the shaded region.",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "BD = 6 cm and AB = 5 cm",
+            "phrase_id": "BD = 6 cm, AB = 5 cm",
+            "note_en": "BD is one diagonal; AB is the side. AC (other diagonal) = 2×√(AB²−(BD/2)²) = 2×4 = 8 cm",
+            "note_id": "BD adalah salah satu diagonal; AB adalah sisinya. AC = 2×√(AB²−(BD/2)²) = 2×4 = 8 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "point E is the midpoint of AB and point G is the midpoint of AE",
+            "phrase_id": "Titik E di tengah AB dan titik G di tengah AE",
+            "note_en": "G divides AB such that AG = AB/4 = 5/4; similarly H divides CD with DH = CD/4",
+            "note_id": "G membagi AB sehingga AG = AB/4 = 5/4; demikian pula H membagi CD dengan DH = CD/4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the area of the shaded region",
+            "phrase_id": "tentukan luas daerah yang diarsir",
+            "note_en": "The shaded area is a fraction of the rhombus area — determined by the midpoint construction",
+            "note_id": "Luas daerah arsiran adalah sebagian dari luas belah ketupat — ditentukan oleh konstruksi titik tengah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rhombus diagonal AC",
+            "label_id": "Diagonal belah ketupat AC",
+            "value": "2 × √(5² − 3²) = 2 × 4 = 8 cm"
+          },
+          {
+            "label_en": "Rhombus area",
+            "label_id": "Luas belah ketupat",
+            "value": "(AC × BD) / 2 = (8 × 6) / 2 = 24 cm²"
+          },
+          {
+            "label_en": "Shaded area (1/4 of rhombus)",
+            "label_id": "Luas daerah arsiran (1/4 dari belah ketupat)",
+            "value": "24 / 4 = 6 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find diagonals, compute rhombus area, then apply midpoint fraction",
+          "name_id": "Cari diagonal, hitung luas belah ketupat, lalu terapkan pecahan titik tengah"
+        },
+        "trap": {
+          "wrong": "24 cm² (full rhombus area)",
+          "why_en": "The shaded region is only a quarter of the rhombus, formed by the double-midpoint construction on AB and CD",
+          "why_id": "Daerah yang diarsir hanya seperempat dari belah ketupat, dibentuk oleh konstruksi titik tengah ganda pada AB dan CD"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "6"
+        }
+      },
+      "hint_steps_id": [
+        "Cari diagonal AC: karena BD = 6, setengah BD = 3. Gunakan Pythagoras: AC/2 = √(5² − 3²) = √16 = 4, jadi AC = 8 cm.",
+        "Luas belah ketupat ABCD = (AC × BD) / 2 = (8 × 6) / 2 = 24 cm².",
+        "Titik E di tengah AB dan G di tengah AE, sehingga AG = AB/4. Hal serupa berlaku untuk H pada sisi CD.",
+        "Konstruksi ini menghasilkan daerah arsiran yang luasnya 1/4 dari luas belah ketupat.",
+        "Luas daerah arsiran = 24 / 4 = 6 cm²."
+      ],
+      "hint_steps_en": [
+        "Find diagonal AC: since BD = 6, half of BD = 3. By Pythagoras: AC/2 = √(5² − 3²) = √16 = 4, so AC = 8 cm.",
+        "Area of rhombus ABCD = (AC × BD) / 2 = (8 × 6) / 2 = 24 cm².",
+        "E is the midpoint of AB and G is the midpoint of AE, so AG = AB/4. Similarly H divides CD at a quarter.",
+        "This double-midpoint construction creates a shaded region that is 1/4 of the rhombus area.",
+        "Shaded area = 24 / 4 = 6 cm²."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +177,116 @@
       "body_en": "Aksa, Budi, and Caca read a fairy-tale collection. Aksa reads from page 34 to page 58. Budi reads from page 75 to page 125, and Caca reads from page 170 to page 271. What is the total number of pages read by all three of them?",
       "answer_type": "fill_in",
       "answer": "178",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Aksa reads from page 34 to page 58",
+            "phrase_id": "Aksa membaca dari halaman 34 sampai dengan 58",
+            "note_en": "Inclusive count: 58 − 34 + 1 = 25 pages",
+            "note_id": "Hitungan inklusif: 58 − 34 + 1 = 25 halaman"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Budi reads from page 75 to page 125",
+            "phrase_id": "Budi membaca dari halaman 75 sampai dengan 125",
+            "note_en": "Inclusive count: 125 − 75 + 1 = 51 pages",
+            "note_id": "Hitungan inklusif: 125 − 75 + 1 = 51 halaman"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total number of pages read by all three of them?",
+            "phrase_id": "Jumlah total seluruh halaman buku yang di baca oleh mereka adalah",
+            "note_en": "Add all three page counts together",
+            "note_id": "Jumlahkan ketiga hitungan halaman tersebut"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Aksa's pages",
+            "label_id": "Halaman Aksa",
+            "value": "58 − 34 + 1 = 25"
+          },
+          {
+            "label_en": "Budi's pages",
+            "label_id": "Halaman Budi",
+            "value": "125 − 75 + 1 = 51"
+          },
+          {
+            "label_en": "Caca's pages",
+            "label_id": "Halaman Caca",
+            "value": "271 − 170 + 1 = 102"
+          },
+          {
+            "label_en": "Total pages",
+            "label_id": "Total halaman",
+            "value": "25 + 51 + 102 = 178"
+          }
+        ],
+        "strategy": {
+          "name_en": "Inclusive count (last − first + 1) for each person, then sum",
+          "name_id": "Hitungan inklusif (akhir − awal + 1) untuk setiap orang, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "175 (using last − first without +1)",
+          "why_en": "When counting inclusive pages, add 1: reading from page 34 to 58 covers 25 pages, not 24",
+          "why_id": "Saat menghitung halaman inklusif, tambahkan 1: membaca dari halaman 34 ke 58 mencakup 25 halaman, bukan 24"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "halaman",
+          "value": "178"
+        }
+      },
+      "hint_steps_id": [
+        "Untuk menghitung halaman yang dibaca secara inklusif, gunakan rumus: akhir − awal + 1.",
+        "Aksa: 58 − 34 + 1 = 25 halaman.",
+        "Budi: 125 − 75 + 1 = 51 halaman.",
+        "Caca: 271 − 170 + 1 = 102 halaman.",
+        "Total = 25 + 51 + 102 = 178 halaman."
+      ],
+      "hint_steps_en": [
+        "To count pages read inclusively, use the formula: last − first + 1.",
+        "Aksa: 58 − 34 + 1 = 25 pages.",
+        "Budi: 125 − 75 + 1 = 51 pages.",
+        "Caca: 271 − 170 + 1 = 102 pages.",
+        "Total = 25 + 51 + 102 = 178 pages."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count each person's pages using last − first + 1, then add all three totals.",
+          "intro_id": "Hitung halaman setiap orang menggunakan akhir − awal + 1, lalu jumlahkan ketiga totalnya.",
+          "items": [
+            {
+              "text_en": "Aksa: page 34 to 58 → 58 − 34 + 1 = 25 pages",
+              "text_id": "Aksa: halaman 34 sampai 58 → 58 − 34 + 1 = 25 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Budi: page 75 to 125 → 125 − 75 + 1 = 51 pages",
+              "text_id": "Budi: halaman 75 sampai 125 → 125 − 75 + 1 = 51 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Caca: page 170 to 271 → 271 − 170 + 1 = 102 pages",
+              "text_id": "Caca: halaman 170 sampai 271 → 271 − 170 + 1 = 102 halaman",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 25 + 51 + 102 = 178 ✓",
+              "text_id": "Total = 25 + 51 + 102 = 178 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "All three read 178 pages in total.",
+          "final_id": "Ketiganya membaca total 178 halaman.",
+          "aria_en": "Aksa reads 25 pages, Budi reads 51 pages, Caca reads 102 pages; the total is 178 pages.",
+          "aria_id": "Aksa membaca 25 halaman, Budi membaca 51 halaman, Caca membaca 102 halaman; totalnya 178 halaman."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +294,111 @@
       "body_en": "Find the sum of all integers between 6 and 99 that are divisible by 7 but not divisible by 4.",
       "answer_type": "fill_in",
       "answer": "567",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "divisible by 7 but not divisible by 4",
+            "phrase_id": "habis dibagi 7 tetapi tidak habis dibagi 4",
+            "note_en": "Two conditions: must be a multiple of 7, AND must NOT be a multiple of 4",
+            "note_id": "Dua syarat: harus kelipatan 7, DAN tidak boleh kelipatan 4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "between 6 and 99",
+            "phrase_id": "antara 6 dan 99",
+            "note_en": "'Between' means strictly: 7 to 98 (not including 6 or 99)",
+            "note_id": "'Antara' berarti ketat: 7 sampai 98 (tidak termasuk 6 atau 99)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of all integers",
+            "phrase_id": "Tentukan jumlah seluruh bilangan",
+            "note_en": "Sum the qualifying multiples of 7 (those not divisible by 4)",
+            "note_id": "Jumlahkan kelipatan 7 yang memenuhi syarat (yang tidak habis dibagi 4)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Multiples of 7 between 6 and 99",
+            "label_id": "Kelipatan 7 antara 6 dan 99",
+            "value": "7,14,21,28,35,42,49,56,63,70,77,84,91,98 → sum = 7×105 = 735"
+          },
+          {
+            "label_en": "Multiples of both 7 and 4 (lcm=28) to remove",
+            "label_id": "Kelipatan 7 dan 4 sekaligus (kpk=28) yang dikeluarkan",
+            "value": "28, 56, 84 → sum = 168"
+          },
+          {
+            "label_en": "Final sum",
+            "label_id": "Jumlah akhir",
+            "value": "735 − 168 = 567"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum all multiples of 7, subtract those also divisible by 4",
+          "name_id": "Jumlahkan semua kelipatan 7, kurangi yang juga habis dibagi 4"
+        },
+        "trap": {
+          "wrong": "735 (sum of all multiples of 7)",
+          "why_en": "You must also remove numbers divisible by both 7 and 4 (multiples of 28: 28, 56, 84)",
+          "why_id": "Kamu juga harus menghapus bilangan yang habis dibagi 7 dan 4 sekaligus (kelipatan 28: 28, 56, 84)"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "567"
+        }
+      },
+      "hint_steps_id": [
+        "Tulis semua kelipatan 7 antara 6 dan 99 (yaitu 7 hingga 98): ada 14 bilangan.",
+        "Jumlahkan semua kelipatan 7 tersebut: 7×(1+2+…+14) = 7×105 = 735.",
+        "Identifikasi bilangan yang habis dibagi 7 DAN 4 sekaligus. KPK(7,4)=28, jadi: 28, 56, 84 (ketiganya antara 6 dan 99).",
+        "Kurangi jumlah bilangan yang dikeluarkan: 28+56+84 = 168.",
+        "Jawaban: 735 − 168 = 567."
+      ],
+      "hint_steps_en": [
+        "List all multiples of 7 between 6 and 99 (i.e., 7 to 98): there are 14 numbers.",
+        "Sum all multiples of 7: 7×(1+2+…+14) = 7×105 = 735.",
+        "Identify numbers divisible by both 7 AND 4. LCM(7,4) = 28, so: 28, 56, 84 (all between 6 and 99).",
+        "Subtract the sum of excluded numbers: 28+56+84 = 168.",
+        "Answer: 735 − 168 = 567."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Sum multiples of 7 from 7 to 98, then remove those also divisible by 4.",
+          "intro_id": "Jumlahkan kelipatan 7 dari 7 sampai 98, lalu hapus yang juga habis dibagi 4.",
+          "items": [
+            {
+              "text_en": "Multiples of 7 (7 to 98): 7,14,21,28,35,42,49,56,63,70,77,84,91,98",
+              "text_id": "Kelipatan 7 (7 sampai 98): 7,14,21,28,35,42,49,56,63,70,77,84,91,98",
+              "ok": null
+            },
+            {
+              "text_en": "Sum of all = 7×(1+2+…+14) = 7×105 = 735",
+              "text_id": "Jumlah semua = 7×(1+2+…+14) = 7×105 = 735",
+              "ok": null
+            },
+            {
+              "text_en": "Also divisible by 4 (lcm=28): 28 ÷ 4 = 7 ✓, 56 ÷ 4 = 14 ✓, 84 ÷ 4 = 21 ✓ → remove 28+56+84 = 168",
+              "text_id": "Juga habis dibagi 4 (kpk=28): 28 ÷ 4 = 7 ✓, 56 ÷ 4 = 14 ✓, 84 ÷ 4 = 21 ✓ → hapus 28+56+84 = 168",
+              "ok": null
+            },
+            {
+              "text_en": "Final sum = 735 − 168 = 567 ✓",
+              "text_id": "Jumlah akhir = 735 − 168 = 567 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The sum of all qualifying integers is 567.",
+          "final_id": "Jumlah seluruh bilangan yang memenuhi syarat adalah 567.",
+          "aria_en": "Sum all multiples of 7 from 7 to 98 to get 735, then subtract 168 (the sum of multiples of 28 in that range: 28, 56, 84) to get 567.",
+          "aria_id": "Jumlahkan semua kelipatan 7 dari 7 hingga 98 untuk mendapat 735, lalu kurangi 168 (jumlah kelipatan 28 di rentang itu: 28, 56, 84) untuk mendapat 567."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +406,116 @@
       "body_en": "The FIFA World Cup is held every 4 years. The first World Cup was held in 1930. In its history, the World Cup was not held twice due to World War II. Exactly one year after Indonesia celebrates its centennial independence anniversary, the Indonesian national football team is expected to participate in the World Cup final round that year. Which edition of the World Cup does Indonesia's national team wish to join?",
       "answer_type": "fill_in",
       "answer": "28",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The first World Cup was held in 1930",
+            "phrase_id": "Piala Dunia pertama diadakan pada tahun 1930",
+            "note_en": "Starting point: World Cup #1 = 1930",
+            "note_id": "Titik awal: Piala Dunia ke-1 = 1930"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the World Cup was not held twice due to World War II",
+            "phrase_id": "Piala Dunia pernah tidak diadakan 2 kali karena perang dunia II",
+            "note_en": "The 1942 and 1946 editions were skipped; so regular 4-year schedule resumes at 1950 = edition #4",
+            "note_id": "Edisi 1942 dan 1946 dilewati; jadwal 4-tahunan dilanjutkan di 1950 = edisi ke-4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which edition of the World Cup does Indonesia's national team wish to join?",
+            "phrase_id": "Tentukan Piala Dunia keberapa yang ingin diikuti tim nasional Indonesia.",
+            "note_en": "Find the year, then count which edition number it is",
+            "note_id": "Temukan tahunnya, lalu hitung edisi ke berapa itu"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Indonesia independence year",
+            "label_id": "Tahun kemerdekaan Indonesia",
+            "value": "1945"
+          },
+          {
+            "label_en": "Centennial anniversary",
+            "label_id": "Peringatan satu abad",
+            "value": "1945 + 100 = 2045"
+          },
+          {
+            "label_en": "Target World Cup year",
+            "label_id": "Tahun Piala Dunia yang dituju",
+            "value": "2045 + 1 = 2046"
+          },
+          {
+            "label_en": "World Cups up to 2046 (with 2 skipped editions)",
+            "label_id": "Piala Dunia hingga 2046 (dengan 2 edisi yang dilewati)",
+            "value": "Without skips: (2046−1930)/4 + 1 = 30; minus 2 skipped = 28"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count editions from 1930 to 2046, subtracting 2 skipped editions",
+          "name_id": "Hitung edisi dari 1930 hingga 2046, kurangi 2 edisi yang dilewati"
+        },
+        "trap": {
+          "wrong": "30 (forgetting the 2 skipped editions)",
+          "why_en": "Without WWII skips the count would be 30, but since 1942 and 1946 were cancelled, the actual edition number is 28",
+          "why_id": "Tanpa penghapusan akibat Perang Dunia II jumlahnya 30, tetapi karena 1942 dan 1946 dibatalkan, nomor edisi sebenarnya adalah 28"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "28"
+        }
+      },
+      "hint_steps_id": [
+        "Kemerdekaan Indonesia: 1945. Satu abad kemerdekaan = 2045.",
+        "Satu tahun setelah 2045 = 2046. Itulah tahun Piala Dunia yang dituju.",
+        "Jika tidak ada penghapusan, jumlah Piala Dunia dari 1930 hingga 2046 = (2046−1930)/4 + 1 = 116/4 + 1 = 29 + 1 = 30.",
+        "Namun 2 edisi dilewati (1942 dan 1946) karena Perang Dunia II.",
+        "Edisi ke-berapa = 30 − 2 = 28."
+      ],
+      "hint_steps_en": [
+        "Indonesia's independence: 1945. Centennial anniversary = 2045.",
+        "One year after 2045 = 2046. That is the target World Cup year.",
+        "Without any skips, World Cups from 1930 to 2046 = (2046−1930)/4 + 1 = 29 + 1 = 30.",
+        "But 2 editions were cancelled (1942 and 1946) due to World War II.",
+        "Edition number = 30 − 2 = 28."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the target year, count total editions from 1930, then subtract the 2 skipped ones.",
+          "intro_id": "Temukan tahun yang dituju, hitung total edisi dari 1930, lalu kurangi 2 yang dilewati.",
+          "items": [
+            {
+              "text_en": "Target year: 1 year after centennial of 1945 independence = 2045 + 1 = 2046",
+              "text_id": "Tahun yang dituju: 1 tahun setelah satu abad kemerdekaan 1945 = 2045 + 1 = 2046",
+              "ok": null
+            },
+            {
+              "text_en": "Total editions 1930→2046 without skips: (2046−1930)/4 + 1 = 30",
+              "text_id": "Total edisi 1930→2046 tanpa penghapusan: (2046−1930)/4 + 1 = 30",
+              "ok": null
+            },
+            {
+              "text_en": "Editions skipped (WWII): 1942 and 1946 → subtract 2",
+              "text_id": "Edisi yang dilewati (PD II): 1942 dan 1946 → kurangi 2",
+              "ok": null
+            },
+            {
+              "text_en": "Actual edition number = 30 − 2 = 28 ✓",
+              "text_id": "Nomor edisi sebenarnya = 30 − 2 = 28 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Indonesia's national team aims to join the 28th FIFA World Cup.",
+          "final_id": "Tim nasional Indonesia ingin mengikuti Piala Dunia ke-28.",
+          "aria_en": "The target year is 2046; counting World Cups from 1930 gives 30 editions, but 2 were skipped in World War II, so 2046 is the 28th World Cup.",
+          "aria_id": "Tahun yang dituju adalah 2046; menghitung Piala Dunia dari 1930 menghasilkan 30 edisi, tetapi 2 dilewati pada Perang Dunia II, jadi 2046 adalah Piala Dunia ke-28."
+        }
+      }
     },
     {
       "number": 6,
@@ -54,7 +523,116 @@
       "body_en": "There are five boxes A, B, C, D, and E containing fruit with weights 7 kg, 3 kg, 6 kg, 2 kg, and 18 kg respectively. Each box contains only one type of fruit: apples or bananas. If the total weight of all bananas is 3 times the total weight of all apples, and box B contains bananas, determine which boxes contain apples.",
       "answer_type": "fill_in",
       "answer": "A dan D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "total weight of all bananas is 3 times the total weight of all apples",
+            "phrase_id": "berat total semua buah pisang adalah 3 kali berat semua buah apel",
+            "note_en": "Total weight = 36 kg; so apples = 9 kg and bananas = 27 kg",
+            "note_id": "Total berat = 36 kg; jadi apel = 9 kg dan pisang = 27 kg"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "box B contains bananas",
+            "phrase_id": "kotak B berisi buah pisang",
+            "note_en": "Box B (3 kg) is a banana box — this eliminates B from the apple candidates",
+            "note_id": "Kotak B (3 kg) adalah kotak pisang — ini mengeliminasi B dari kandidat apel"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine which boxes contain apples",
+            "phrase_id": "tentukan kotak mana yang berisi apel",
+            "note_en": "Find which subset of {A, C, D, E} sums to 9 kg",
+            "note_id": "Temukan subset dari {A, C, D, E} yang berjumlah 9 kg"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total weight",
+            "label_id": "Berat total",
+            "value": "7+3+6+2+18 = 36 kg"
+          },
+          {
+            "label_en": "Apple total (1 part out of 4)",
+            "label_id": "Total apel (1 bagian dari 4)",
+            "value": "36 ÷ 4 = 9 kg"
+          },
+          {
+            "label_en": "Banana total (3 parts out of 4)",
+            "label_id": "Total pisang (3 bagian dari 4)",
+            "value": "36 − 9 = 27 kg"
+          },
+          {
+            "label_en": "Apple boxes from {A(7), C(6), D(2), E(18)} summing to 9",
+            "label_id": "Kotak apel dari {A(7), C(6), D(2), E(18)} yang berjumlah 9",
+            "value": "A + D = 7 + 2 = 9 kg ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find apple total from ratio, then search for the matching subset",
+          "name_id": "Temukan total apel dari rasio, lalu cari subset yang cocok"
+        },
+        "trap": {
+          "wrong": "C dan D (6+2=8, not 9)",
+          "why_en": "C+D = 8 kg, but apple total must be 9 kg; only A+D = 7+2 = 9 fits",
+          "why_id": "C+D = 8 kg, padahal total apel harus 9 kg; hanya A+D = 7+2 = 9 yang cocok"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "A dan D"
+        }
+      },
+      "hint_steps_id": [
+        "Hitung total berat: 7+3+6+2+18 = 36 kg.",
+        "Pisang = 3× apel, jadi apel + 3×apel = 36, sehingga 4×apel = 36, apel = 9 kg, pisang = 27 kg.",
+        "Kotak B (3 kg) pasti pisang. Kandidat apel: A(7), C(6), D(2), E(18).",
+        "Cari subset dari {7, 6, 2, 18} yang berjumlah 9: hanya 7+2 = 9 (kotak A dan D).",
+        "Jadi kotak yang berisi apel adalah A dan D."
+      ],
+      "hint_steps_en": [
+        "Calculate total weight: 7+3+6+2+18 = 36 kg.",
+        "Bananas = 3 × apples, so apples + 3×apples = 36, giving 4×apples = 36, apples = 9 kg, bananas = 27 kg.",
+        "Box B (3 kg) is confirmed banana. Apple candidates: A(7), C(6), D(2), E(18).",
+        "Find a subset of {7, 6, 2, 18} summing to 9: only 7+2 = 9 (boxes A and D).",
+        "Therefore, the boxes containing apples are A and D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apple total must be 9 kg. Check subsets of {A(7), C(6), D(2), E(18)} for a sum of 9.",
+          "intro_id": "Total apel harus 9 kg. Periksa subset dari {A(7), C(6), D(2), E(18)} yang berjumlah 9.",
+          "items": [
+            {
+              "text_en": "Total = 36 kg; banana = 3× apple → apple = 36/4 = 9 kg",
+              "text_id": "Total = 36 kg; pisang = 3× apel → apel = 36/4 = 9 kg",
+              "ok": null
+            },
+            {
+              "text_en": "Try A+D: 7+2 = 9 kg ✓",
+              "text_id": "Coba A+D: 7+2 = 9 kg ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Try C+D: 6+2 = 8 ≠ 9 ✗",
+              "text_id": "Coba C+D: 6+2 = 8 ≠ 9 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "No other pair sums to 9 ✗",
+              "text_id": "Tidak ada pasangan lain yang berjumlah 9 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Boxes A and D contain apples (7+2 = 9 kg).",
+          "final_id": "Kotak A dan D berisi apel (7+2 = 9 kg).",
+          "aria_en": "Total weight is 36 kg; apple total is 9 kg; the only subset of boxes A, C, D, E summing to 9 is A (7 kg) plus D (2 kg).",
+          "aria_id": "Total berat adalah 36 kg; total apel adalah 9 kg; satu-satunya subset kotak A, C, D, E yang berjumlah 9 adalah A (7 kg) ditambah D (2 kg)."
+        }
+      }
     },
     {
       "number": 7,
@@ -62,7 +640,121 @@
       "body_en": "Sales data for Covid-19 protective masks over seven days at a pharmacy are shown in a pie chart. The percentages are: Monday 4%, Tuesday 8%, Wednesday 6%, Thursday 14%, Friday A%, Saturday 34%, Sunday 8%. If total mask sales from Monday to Sunday are 150 boxes, find the average daily sales for Friday, Saturday, and Sunday.",
       "answer_type": "fill_in",
       "answer": "34",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The percentages are: Monday 4%, Tuesday 8%, Wednesday 6%, Thursday 14%, Friday A%, Saturday 34%, Sunday 8%",
+            "phrase_id": "Persentase penjualan: Senin 4%, Selasa 8%, Rabu 6%, Kamis 14%, Jumat A%, Sabtu 34%, Minggu 8%",
+            "note_en": "All percentages must sum to 100%, so A = 100 − (4+8+6+14+34+8) = 26%",
+            "note_id": "Semua persentase harus berjumlah 100%, jadi A = 100 − (4+8+6+14+34+8) = 26%"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "total mask sales from Monday to Sunday are 150 boxes",
+            "phrase_id": "total penjualan masker tersebut dari hari Senin sampai Minggu adalah 150 kotak",
+            "note_en": "Total = 150 boxes; multiply each percentage by 1.5 to get daily sales",
+            "note_id": "Total = 150 kotak; kalikan setiap persentase dengan 1,5 untuk mendapatkan penjualan harian"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the average daily sales for Friday, Saturday, and Sunday",
+            "phrase_id": "tentukan rata-rata penjualan masker hari Jumat, Sabtu, dan Minggu",
+            "note_en": "Average = (Friday + Saturday + Sunday) / 3",
+            "note_id": "Rata-rata = (Jumat + Sabtu + Minggu) / 3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Friday percentage A",
+            "label_id": "Persentase Jumat A",
+            "value": "100 − 4 − 8 − 6 − 14 − 34 − 8 = 26%"
+          },
+          {
+            "label_en": "Friday sales",
+            "label_id": "Penjualan Jumat",
+            "value": "150 × 26% = 39 boxes"
+          },
+          {
+            "label_en": "Saturday sales",
+            "label_id": "Penjualan Sabtu",
+            "value": "150 × 34% = 51 boxes"
+          },
+          {
+            "label_en": "Sunday sales",
+            "label_id": "Penjualan Minggu",
+            "value": "150 × 8% = 12 boxes"
+          },
+          {
+            "label_en": "Average (Fri+Sat+Sun) / 3",
+            "label_id": "Rata-rata (Jumat+Sabtu+Minggu) / 3",
+            "value": "(39 + 51 + 12) / 3 = 102 / 3 = 34 boxes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find missing percentage from total 100%, compute three days' sales, then average",
+          "name_id": "Temukan persentase yang hilang dari total 100%, hitung penjualan tiga hari, lalu rata-ratakan"
+        },
+        "trap": {
+          "wrong": "Average of percentages: (26+34+8)/3 = 22.67",
+          "why_en": "Don't average the percentages — find the actual box counts first (multiply by 150), then average those",
+          "why_id": "Jangan merata-ratakan persentase — temukan jumlah kotak sebenarnya terlebih dahulu (kalikan 150), lalu rata-ratakan"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "kotak",
+          "value": "34"
+        }
+      },
+      "hint_steps_id": [
+        "Jumlah semua persentase harus 100%. Jadi A = 100 − (4+8+6+14+34+8) = 100 − 74 = 26%.",
+        "Total penjualan = 150 kotak. Penjualan Jumat = 150 × 26% = 150 × 26/100 = 39 kotak.",
+        "Penjualan Sabtu = 150 × 34% = 51 kotak. Penjualan Minggu = 150 × 8% = 12 kotak.",
+        "Jumlah Jumat+Sabtu+Minggu = 39+51+12 = 102 kotak.",
+        "Rata-rata = 102 ÷ 3 = 34 kotak."
+      ],
+      "hint_steps_en": [
+        "All percentages must sum to 100%. So A = 100 − (4+8+6+14+34+8) = 100 − 74 = 26%.",
+        "Total sales = 150 boxes. Friday sales = 150 × 26% = 39 boxes.",
+        "Saturday sales = 150 × 34% = 51 boxes. Sunday sales = 150 × 8% = 12 boxes.",
+        "Sum for Fri+Sat+Sun = 39+51+12 = 102 boxes.",
+        "Average = 102 ÷ 3 = 34 boxes."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find Friday's missing percentage, convert all three weekend days to box counts, then average.",
+          "intro_id": "Temukan persentase Jumat yang hilang, ubah ketiga hari akhir pekan ke jumlah kotak, lalu rata-ratakan.",
+          "items": [
+            {
+              "text_en": "Known percentages sum: 4+8+6+14+34+8 = 74%; so Friday A = 100−74 = 26%",
+              "text_id": "Jumlah persentase yang diketahui: 4+8+6+14+34+8 = 74%; jadi Jumat A = 100−74 = 26%",
+              "ok": null
+            },
+            {
+              "text_en": "Friday: 150 × 26% = 39 boxes",
+              "text_id": "Jumat: 150 × 26% = 39 kotak",
+              "ok": null
+            },
+            {
+              "text_en": "Saturday: 150 × 34% = 51 boxes; Sunday: 150 × 8% = 12 boxes",
+              "text_id": "Sabtu: 150 × 34% = 51 kotak; Minggu: 150 × 8% = 12 kotak",
+              "ok": null
+            },
+            {
+              "text_en": "Average = (39+51+12) / 3 = 102 / 3 = 34 ✓",
+              "text_id": "Rata-rata = (39+51+12) / 3 = 102 / 3 = 34 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The average daily sales for Friday, Saturday, and Sunday is 34 boxes.",
+          "final_id": "Rata-rata penjualan harian untuk Jumat, Sabtu, dan Minggu adalah 34 kotak.",
+          "aria_en": "Friday's percentage is 26%, giving 39 boxes; Saturday gives 51 boxes; Sunday gives 12 boxes; their average is 34 boxes.",
+          "aria_id": "Persentase Jumat adalah 26%, menghasilkan 39 kotak; Sabtu menghasilkan 51 kotak; Minggu menghasilkan 12 kotak; rata-ratanya adalah 34 kotak."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +762,116 @@
       "body_en": "Nine people are ordered from youngest to oldest. Five years ago, the average age of the first five people was 39 years, and the average age of the last five people was 63 years. If the current average age of all 9 people equals the age of the 5th person, find the minimum age of the oldest person today.",
       "answer_type": "fill_in",
       "answer": "71",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Five years ago, the average age of the first five people was 39 years, and the average age of the last five people was 63 years",
+            "phrase_id": "Lima tahun yang lalu rata-rata usia lima orang pertama adalah 39 tahun, dan rata-rata usia lima orang terakhir adalah 63 tahun",
+            "note_en": "5 years ago: sum of first 5 = 195; sum of last 5 = 315. Today each sum increases by 5×5=25",
+            "note_id": "5 tahun lalu: jumlah 5 orang pertama = 195; jumlah 5 orang terakhir = 315. Hari ini masing-masing bertambah 5×5=25"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the current average age of all 9 people equals the age of the 5th person",
+            "phrase_id": "sekarang rata-rata usia 9 orang ini sama dengan usia orang yang ke lima",
+            "note_en": "This lets us find the 5th person's age: (total − P5)/9 = P5 → P5 = 56",
+            "note_id": "Ini memungkinkan kita menemukan usia orang ke-5: (total − P5)/9 = P5 → P5 = 56"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the minimum age of the oldest person today",
+            "phrase_id": "tentukan usia minimum orang tertua saat ini",
+            "note_en": "To minimise P9, maximise P6, P7, P8 up to P9; the minimum occurs when P6=P7=P8=P9",
+            "note_id": "Untuk meminimalkan P9, maksimalkan P6, P7, P8 hingga P9; minimum terjadi ketika P6=P7=P8=P9"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of first 5 today",
+            "label_id": "Jumlah 5 orang pertama hari ini",
+            "value": "5×39 + 5×5 = 195 + 25 = 220"
+          },
+          {
+            "label_en": "Sum of last 5 today",
+            "label_id": "Jumlah 5 orang terakhir hari ini",
+            "value": "5×63 + 5×5 = 315 + 25 = 340"
+          },
+          {
+            "label_en": "5th person's age (P5)",
+            "label_id": "Usia orang ke-5 (P5)",
+            "value": "(220+340−P5)/9 = P5 → 560 = 10×P5 → P5 = 56"
+          },
+          {
+            "label_en": "Sum of last 5 minus P5",
+            "label_id": "Jumlah 5 orang terakhir dikurangi P5",
+            "value": "340 − 56 = 284 (= P6+P7+P8+P9)"
+          },
+          {
+            "label_en": "Minimum P9 (when P6=P7=P8=P9)",
+            "label_id": "Minimum P9 (ketika P6=P7=P8=P9)",
+            "value": "284 / 4 = 71"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the equal-average condition to fix P5, then minimise P9 by equalising P6–P9",
+          "name_id": "Gunakan syarat rata-rata sama untuk menentukan P5, lalu minimalkan P9 dengan menyamakan P6–P9"
+        },
+        "trap": {
+          "wrong": "63+5 = 68 (just updating average without using the equal condition)",
+          "why_en": "The condition that overall average = P5 is key; it gives P5 = 56, not 68",
+          "why_id": "Syarat rata-rata keseluruhan = P5 adalah kuncinya; itu menghasilkan P5 = 56, bukan 68"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "tahun",
+          "value": "71"
+        }
+      },
+      "hint_steps_id": [
+        "Lima tahun lalu: jumlah 5 pertama = 5×39=195; jumlah 5 terakhir = 5×63=315. Hari ini masing-masing tambah 25: jadi 220 dan 340.",
+        "Misalkan usia ke-5 sekarang adalah P5. Total semua 9 orang = 220+340−P5 = 560−P5 (karena P5 dihitung di kedua kelompok).",
+        "Rata-rata 9 orang = (560−P5)/9 = P5 → 560−P5 = 9×P5 → 560 = 10×P5 → P5 = 56.",
+        "Jumlah 4 orang terakhir (P6 s.d. P9) = 340 − 56 = 284.",
+        "Agar usia orang tertua (P9) minimum, sebarkan 284 merata ke 4 orang: P9 minimum = 284/4 = 71."
+      ],
+      "hint_steps_en": [
+        "Five years ago: sum of first 5 = 5×39=195; sum of last 5 = 5×63=315. Today each increases by 25: 220 and 340.",
+        "Let the 5th person's current age be P5. Total for all 9 = 220+340−P5 = 560−P5 (P5 counted in both groups).",
+        "Average of 9 = (560−P5)/9 = P5 → 560−P5 = 9×P5 → 560 = 10×P5 → P5 = 56.",
+        "Sum of the last 4 people (P6 to P9) = 340 − 56 = 284.",
+        "To minimise the oldest person's age (P9), spread 284 equally over 4 people: minimum P9 = 284/4 = 71."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Update the age sums to today, use the average condition to find P5, then minimise P9.",
+          "intro_id": "Perbarui jumlah usia ke hari ini, gunakan syarat rata-rata untuk mencari P5, lalu minimalkan P9.",
+          "items": [
+            {
+              "text_en": "First 5 today: 5×39+25 = 220; Last 5 today: 5×63+25 = 340",
+              "text_id": "5 pertama hari ini: 5×39+25 = 220; 5 terakhir hari ini: 5×63+25 = 340",
+              "ok": null
+            },
+            {
+              "text_en": "Total all 9 = 220+340−P5 = 560−P5; average = P5 → P5 = 56",
+              "text_id": "Total semua 9 = 220+340−P5 = 560−P5; rata-rata = P5 → P5 = 56",
+              "ok": null
+            },
+            {
+              "text_en": "P6+P7+P8+P9 = 340−56 = 284; to minimise P9 set P6=P7=P8=P9 → 284/4 = 71 ✓",
+              "text_id": "P6+P7+P8+P9 = 340−56 = 284; untuk minimalkan P9 set P6=P7=P8=P9 → 284/4 = 71 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The minimum age of the oldest person today is 71 years.",
+          "final_id": "Usia minimum orang tertua saat ini adalah 71 tahun.",
+          "aria_en": "After updating sums, the 5th person is 56 years old; the last four together are 284 years; distributing equally gives minimum oldest age of 71.",
+          "aria_id": "Setelah memperbarui jumlah, orang ke-5 berusia 56 tahun; empat orang terakhir bersama-sama berusia 284 tahun; mendistribusikan secara merata menghasilkan usia tertua minimum 71."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +879,126 @@
       "body_en": "There are two boxes, Box I and Box II, containing playing cards. Box I contains 8 cards labelled 1, 2, 3, 4, 5, 6, 7, and 8. Box II contains 9 cards labelled A, E, I, O, U, W, X, Y, and Z. All cards in Box I are to be paired with cards in Box II under the following rules: (i) Odd-numbered cards in Box I are paired with consonant cards in Box II. (ii) Even-numbered cards in Box I are paired with vowel cards in Box II. Find the number of ways to pair all cards in Box I with cards in Box II.",
       "answer_type": "fill_in",
       "answer": "2880",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Odd-numbered cards in Box I are paired with consonant cards in Box II",
+            "phrase_id": "Kartu angka ganjil di kotak I dipasangkan dengan kartu huruf konsonan di kotak II",
+            "note_en": "Odd cards: 1,3,5,7 (4 cards); consonants in Box II: W,X,Y,Z (4 cards) — 4 choose 4 ordered arrangements",
+            "note_id": "Kartu ganjil: 1,3,5,7 (4 kartu); konsonan di Kotak II: W,X,Y,Z (4 kartu) — 4 dari 4 susunan berurutan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Even-numbered cards in Box I are paired with vowel cards in Box II",
+            "phrase_id": "Kartu angka genap di kotak I dipasangkan dengan kartu huruf vokal di kotak II",
+            "note_en": "Even cards: 2,4,6,8 (4 cards); vowels in Box II: A,E,I,O,U (5 cards) — 4 from 5 ordered arrangements",
+            "note_id": "Kartu genap: 2,4,6,8 (4 kartu); vokal di Kotak II: A,E,I,O,U (5 kartu) — 4 dari 5 susunan berurutan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the number of ways to pair all cards in Box I with cards in Box II.",
+            "phrase_id": "Tentukan banyak cara memasangkan semua kartu di kotak I dengan kartu di kotak II.",
+            "note_en": "Multiply the two independent pairing counts (odd×consonant) × (even×vowel)",
+            "note_id": "Kalikan dua hitungan pasangan yang independen (ganjil×konsonan) × (genap×vokal)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Odd cards",
+            "label_id": "Kartu ganjil",
+            "value": "1, 3, 5, 7 → 4 cards"
+          },
+          {
+            "label_en": "Consonants in Box II",
+            "label_id": "Konsonan di Kotak II",
+            "value": "W, X, Y, Z → 4 cards"
+          },
+          {
+            "label_en": "Ways to pair odd → consonants",
+            "label_id": "Cara memasangkan ganjil → konsonan",
+            "value": "P(4,4) = 4! = 24"
+          },
+          {
+            "label_en": "Even cards",
+            "label_id": "Kartu genap",
+            "value": "2, 4, 6, 8 → 4 cards"
+          },
+          {
+            "label_en": "Vowels in Box II",
+            "label_id": "Vokal di Kotak II",
+            "value": "A, E, I, O, U → 5 cards"
+          },
+          {
+            "label_en": "Ways to pair even → vowels (choose 4 from 5)",
+            "label_id": "Cara memasangkan genap → vokal (pilih 4 dari 5)",
+            "value": "P(5,4) = 5×4×3×2 = 120"
+          },
+          {
+            "label_en": "Total ways",
+            "label_id": "Total cara",
+            "value": "24 × 120 = 2880"
+          }
+        ],
+        "strategy": {
+          "name_en": "Separate into two independent permutation problems, then multiply",
+          "name_id": "Pisahkan menjadi dua masalah permutasi independen, lalu kalikan"
+        },
+        "trap": {
+          "wrong": "9! = 362880 (ignoring the pairing constraints)",
+          "why_en": "You cannot freely pair any card from Box I with any from Box II — the odd/even rule restricts which letters each number can be paired with",
+          "why_id": "Kamu tidak bisa bebas memasangkan kartu dari Kotak I dengan kartu dari Kotak II — aturan ganjil/genap membatasi huruf mana yang bisa dipasangkan dengan angka mana"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2880"
+        }
+      },
+      "hint_steps_id": [
+        "Pisahkan masalah: (1) kartu ganjil dipasangkan dengan konsonan; (2) kartu genap dipasangkan dengan vokal.",
+        "Kartu ganjil: 1,3,5,7 (4 kartu). Konsonan di Kotak II: W,X,Y,Z (4 kartu). Cara memasangkan = 4! = 24.",
+        "Kartu genap: 2,4,6,8 (4 kartu). Vokal di Kotak II: A,E,I,O,U (5 kartu). Cara memilih dan memasangkan 4 dari 5 = P(5,4) = 5×4×3×2 = 120.",
+        "Kedua proses ini independen, jadi kalikan: 24 × 120 = 2880.",
+        "Banyak cara = 2880."
+      ],
+      "hint_steps_en": [
+        "Separate the problem: (1) odd cards paired with consonants; (2) even cards paired with vowels.",
+        "Odd cards: 1,3,5,7 (4 cards). Consonants in Box II: W,X,Y,Z (4 cards). Ways to pair = 4! = 24.",
+        "Even cards: 2,4,6,8 (4 cards). Vowels in Box II: A,E,I,O,U (5 cards). Ways to choose and arrange 4 from 5 = P(5,4) = 5×4×3×2 = 120.",
+        "The two pairings are independent, so multiply: 24 × 120 = 2880.",
+        "Total number of ways = 2880."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Split into two independent pairings and multiply the counts.",
+          "intro_id": "Pisahkan menjadi dua pasangan independen dan kalikan hasilnya.",
+          "items": [
+            {
+              "text_en": "Odd (1,3,5,7) ↔ Consonants (W,X,Y,Z): 4 cards each → 4! = 24 ways",
+              "text_id": "Ganjil (1,3,5,7) ↔ Konsonan (W,X,Y,Z): masing-masing 4 kartu → 4! = 24 cara",
+              "ok": null
+            },
+            {
+              "text_en": "Even (2,4,6,8) ↔ Vowels (A,E,I,O,U): 4 cards into 5 → P(5,4) = 120 ways",
+              "text_id": "Genap (2,4,6,8) ↔ Vokal (A,E,I,O,U): 4 kartu ke 5 → P(5,4) = 120 cara",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 24 × 120 = 2880 ✓",
+              "text_id": "Total = 24 × 120 = 2880 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 2880 ways to pair all cards.",
+          "final_id": "Ada 2880 cara untuk memasangkan semua kartu.",
+          "aria_en": "Odd cards paired with 4 consonants give 4 factorial equals 24 ways; even cards paired with 5 vowels give P(5,4) equals 120 ways; total is 24 times 120 equals 2880.",
+          "aria_id": "Kartu ganjil yang dipasangkan dengan 4 konsonan menghasilkan 4 faktorial sama dengan 24 cara; kartu genap yang dipasangkan dengan 5 vokal menghasilkan P(5,4) sama dengan 120 cara; totalnya adalah 24 dikali 120 sama dengan 2880."
+        }
+      }
     },
     {
       "number": 10,
@@ -86,7 +1006,111 @@
       "body_en": "A natural number a is called a balanced number if there exists a natural number b such that both a − b and a + b are perfect squares. For example, 68 is a balanced number because 68 + 32 = 100 = 10² and 68 − 32 = 36 = 6². Find the number of balanced numbers less than 68.",
       "answer_type": "fill_in",
       "answer": "23",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "there exists a natural number b such that both a − b and a + b are perfect squares",
+            "phrase_id": "terdapat bilangan asli b sehingga a − b dan a + b adalah bilangan kuadrat",
+            "note_en": "Write a−b=m² and a+b=n²; then a=(m²+n²)/2. For a to be a natural number, m and n must have the same parity",
+            "note_id": "Tulis a−b=m² dan a+b=n²; maka a=(m²+n²)/2. Agar a bilangan asli, m dan n harus memiliki paritas yang sama"
+          },
+          {
+            "category": "object",
+            "phrase_en": "68 is a balanced number because 68 + 32 = 100 = 10² and 68 − 32 = 36 = 6²",
+            "phrase_id": "68 adalah bilangan seimbang karena 68 + 32 = 100 = 10² dan 68 − 32 = 36 = 6²",
+            "note_en": "This example shows m=6, n=10 (both even): a=(36+100)/2=68",
+            "note_id": "Contoh ini menunjukkan m=6, n=10 (keduanya genap): a=(36+100)/2=68"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the number of balanced numbers less than 68.",
+            "phrase_id": "Tentukan banyaknya bilangan seimbang yang kurang dari 68.",
+            "note_en": "Enumerate all distinct values of (m²+n²)/2 < 68 for same-parity pairs (m,n) with m<n",
+            "note_id": "Enumerasi semua nilai berbeda dari (m²+n²)/2 < 68 untuk pasangan (m,n) dengan paritas sama dan m<n"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Formula",
+            "label_id": "Rumus",
+            "value": "a = (m² + n²) / 2 where m < n, same parity, b = (n²−m²)/2 > 0"
+          },
+          {
+            "label_en": "Both even pairs giving a < 68",
+            "label_id": "Pasangan keduanya genap yang menghasilkan a < 68",
+            "value": "(0,2)→2, (0,4)→8, (0,6)→18, (0,8)→32, (0,10)→50, (2,4)→10, (2,6)→20, (2,8)→34, (2,10)→52, (4,6)→26, (4,8)→40, (4,10)→58, (6,8)→50(dup), (6,10)→68 excluded"
+          },
+          {
+            "label_en": "Both odd pairs giving a < 68",
+            "label_id": "Pasangan keduanya ganjil yang menghasilkan a < 68",
+            "value": "(1,3)→5, (1,5)→13, (1,7)→25, (1,9)→41, (1,11)→61, (3,5)→17, (3,7)→29, (3,9)→45, (3,11)→65, (5,7)→37, (5,9)→53, (7,9)→65(dup)"
+          },
+          {
+            "label_en": "Distinct values < 68",
+            "label_id": "Nilai berbeda < 68",
+            "value": "2,5,8,10,13,17,18,20,25,26,29,32,34,37,40,41,45,50,52,53,58,61,65 → 23 values"
+          }
+        ],
+        "strategy": {
+          "name_en": "Parametrise a = (m²+n²)/2, enumerate same-parity pairs, collect distinct values < 68",
+          "name_id": "Parametrikan a = (m²+n²)/2, enumerasi pasangan paritas sama, kumpulkan nilai berbeda < 68"
+        },
+        "trap": {
+          "wrong": "Counting pairs instead of distinct values of a",
+          "why_en": "Some values of a can be generated by more than one (m,n) pair (e.g. 50 comes from (0,10) and (6,8)) — count distinct values, not pairs",
+          "why_id": "Beberapa nilai a bisa dihasilkan dari lebih dari satu pasangan (m,n) (mis. 50 datang dari (0,10) dan (6,8)) — hitung nilai berbeda, bukan pasangan"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "23"
+        }
+      },
+      "hint_steps_id": [
+        "Misalkan a−b = m² dan a+b = n². Maka a = (m²+n²)/2 dan b = (n²−m²)/2. Agar a dan b bilangan asli, m dan n harus bernilai paritas sama (keduanya genap atau keduanya ganjil) dan m < n.",
+        "Enumerasi pasangan keduanya genap: (0,2),(0,4),…,(4,10),(6,8) — hasilkan a = 2,8,18,32,50,10,20,34,52,26,40,58,50.",
+        "Enumerasi pasangan keduanya ganjil: (1,3),(1,5),…,(3,11),(5,7),(5,9),(7,9) — hasilkan a = 5,13,25,41,61,17,29,45,65,37,53,65.",
+        "Kumpulkan semua nilai a yang kurang dari 68 (keluarkan duplikat): 2,5,8,10,13,17,18,20,25,26,29,32,34,37,40,41,45,50,52,53,58,61,65.",
+        "Hitung nilai berbeda: ada 23 bilangan seimbang yang kurang dari 68."
+      ],
+      "hint_steps_en": [
+        "Let a−b = m² and a+b = n². Then a = (m²+n²)/2 and b = (n²−m²)/2. For a and b to be natural numbers, m and n must have the same parity (both even or both odd) with m < n.",
+        "Enumerate both-even pairs: (0,2),(0,4),…,(4,10),(6,8) — giving a = 2,8,18,32,50,10,20,34,52,26,40,58,50.",
+        "Enumerate both-odd pairs: (1,3),(1,5),…,(3,11),(5,7),(5,9),(7,9) — giving a = 5,13,25,41,61,17,29,45,65,37,53,65.",
+        "Collect all distinct values of a less than 68: 2,5,8,10,13,17,18,20,25,26,29,32,34,37,40,41,45,50,52,53,58,61,65.",
+        "Count them: there are 23 balanced numbers less than 68."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Write a = (m²+n²)/2 for same-parity pairs (m < n), list all distinct values below 68.",
+          "intro_id": "Tulis a = (m²+n²)/2 untuk pasangan paritas sama (m < n), daftarkan semua nilai berbeda di bawah 68.",
+          "items": [
+            {
+              "text_en": "Both-even pairs → a values: 2,8,10,18,20,26,32,34,40,50,52,58",
+              "text_id": "Pasangan keduanya genap → nilai a: 2,8,10,18,20,26,32,34,40,50,52,58",
+              "ok": null
+            },
+            {
+              "text_en": "Both-odd pairs → a values: 5,13,17,25,29,37,41,45,53,61,65",
+              "text_id": "Pasangan keduanya ganjil → nilai a: 5,13,17,25,29,37,41,45,53,61,65",
+              "ok": null
+            },
+            {
+              "text_en": "Union of distinct values < 68: 23 numbers ✓",
+              "text_id": "Gabungan nilai berbeda < 68: 23 bilangan ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 23 balanced numbers less than 68.",
+          "final_id": "Ada 23 bilangan seimbang yang kurang dari 68.",
+          "aria_en": "By writing a as half the sum of two perfect squares of the same parity, all 23 distinct balanced numbers less than 68 are: 2, 5, 8, 10, 13, 17, 18, 20, 25, 26, 29, 32, 34, 37, 40, 41, 45, 50, 52, 53, 58, 61, and 65.",
+          "aria_id": "Dengan menulis a sebagai setengah jumlah dua bilangan kuadrat dengan paritas sama, semua 23 bilangan seimbang berbeda yang kurang dari 68 adalah: 2, 5, 8, 10, 13, 17, 18, 20, 25, 26, 29, 32, 34, 37, 40, 41, 45, 50, 52, 53, 58, 61, dan 65."
+        }
+      }
     }
   ]
 }

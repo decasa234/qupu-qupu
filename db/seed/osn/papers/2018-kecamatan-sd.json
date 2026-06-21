@@ -14,7 +14,76 @@
       "body_en": "An equilateral triangle has side length 10 cm. The height of the triangle is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "5√3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "equilateral triangle",
+            "phrase_id": "segitiga sama sisi",
+            "note_en": "All three sides are equal — this gives a special height formula.",
+            "note_id": "Ketiga sisinya sama panjang — ini memberikan rumus tinggi khusus."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "side length 10 cm",
+            "phrase_id": "panjang sisi 10 cm",
+            "note_en": "The side length s = 10 cm is the key measurement.",
+            "note_id": "Panjang sisi s = 10 cm adalah ukuran kuncinya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The height of the triangle is",
+            "phrase_id": "Tinggi segitiga tersebut adalah",
+            "note_en": "Find the perpendicular height from one vertex to the opposite side.",
+            "note_id": "Cari tinggi tegak lurus dari satu sudut ke sisi yang berhadapan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Side length",
+            "label_id": "Panjang sisi",
+            "value": "s = 10 cm"
+          },
+          {
+            "label_en": "Height formula for equilateral triangle",
+            "label_id": "Rumus tinggi segitiga sama sisi",
+            "value": "h = (s√3)/2"
+          },
+          {
+            "label_en": "Height",
+            "label_id": "Tinggi",
+            "value": "h = (10√3)/2 = 5√3 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply the equilateral triangle height formula",
+          "name_id": "Terapkan rumus tinggi segitiga sama sisi"
+        },
+        "trap": {
+          "wrong": "10",
+          "why_en": "The height is NOT the same as the side length — use h = (s√3)/2, not h = s.",
+          "why_id": "Tinggi BUKAN sama dengan panjang sisi — gunakan h = (s√3)/2, bukan h = s."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "5√3"
+        }
+      },
+      "hint_steps_en": [
+        "Draw the height from the top vertex to the midpoint of the bottom side — this splits the equilateral triangle into two right triangles.",
+        "Each right triangle has hypotenuse 10 cm and base 5 cm (half of 10).",
+        "Apply the Pythagorean theorem: h² = 10² − 5² = 100 − 25 = 75.",
+        "h = √75 = 5√3 cm."
+      ],
+      "hint_steps_id": [
+        "Gambar garis tinggi dari sudut atas ke titik tengah sisi bawah — ini membagi segitiga sama sisi menjadi dua segitiga siku-siku.",
+        "Setiap segitiga siku-siku memiliki hipotenusa 10 cm dan alas 5 cm (setengah dari 10).",
+        "Gunakan teorema Pythagoras: h² = 10² − 5² = 100 − 25 = 75.",
+        "h = √75 = 5√3 cm."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +91,74 @@
       "body_en": "When Amir reads a math book, the product of the two page numbers of the open spread is 1406. The two page numbers are $\\cdots$",
       "answer_type": "fill_in",
       "answer": "37 dan 38",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "product of the two page numbers of the open spread is 1406",
+            "phrase_id": "hasil perkalian dua bilangan yang mewakili dua halaman buku yang dibacanya adalah 1406",
+            "note_en": "The product is 1406 — the two pages form a consecutive pair.",
+            "note_id": "Hasil kalinya adalah 1406 — dua halaman itu berurutan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two page numbers of the open spread",
+            "phrase_id": "dua halaman buku yang dibacanya",
+            "note_en": "Open-spread pages are always consecutive integers: n and n+1.",
+            "note_id": "Halaman yang terbuka selalu dua bilangan bulat berurutan: n dan n+1."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The two page numbers are",
+            "phrase_id": "Dua bilangan itu adalah",
+            "note_en": "Find the two consecutive integers whose product is 1406.",
+            "note_id": "Temukan dua bilangan bulat berurutan yang hasil kalinya 1406."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Estimate √1406",
+            "label_id": "Estimasi √1406",
+            "value": "√1406 ≈ 37.5"
+          },
+          {
+            "label_en": "Try n = 37",
+            "label_id": "Coba n = 37",
+            "value": "37 × 38 = 1406 ✓"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "37 and 38"
+          }
+        ],
+        "strategy": {
+          "name_en": "Estimate square root, then check consecutive pair",
+          "name_id": "Estimasi akar kuadrat, lalu periksa pasangan berurutan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "37 dan 38"
+        }
+      },
+      "hint_steps_en": [
+        "Open-spread pages are consecutive: call them n and n+1.",
+        "So n × (n+1) = 1406.",
+        "Estimate: √1406 ≈ 37.5, so try n = 37.",
+        "Check: 37 × 38 = 1406. ✓",
+        "The two page numbers are 37 and 38."
+      ],
+      "hint_steps_id": [
+        "Halaman yang terbuka berurutan: sebut n dan n+1.",
+        "Maka n × (n+1) = 1406.",
+        "Estimasi: √1406 ≈ 37,5, coba n = 37.",
+        "Cek: 37 × 38 = 1406. ✓",
+        "Dua halaman itu adalah 37 dan 38."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +166,78 @@
       "body_en": "The result of $\\dfrac{0.2002}{2.002} + \\dfrac{20.02}{200.2}$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "0.2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "\\dfrac{0.2002}{2.002}",
+            "phrase_id": "\\dfrac{0{,}2002}{2{,}002}",
+            "note_en": "Notice 0.2002 = 0.1 × 2.002, so this fraction simplifies to 0.1.",
+            "note_id": "Perhatikan 0,2002 = 0,1 × 2,002, sehingga pecahan ini menjadi 0,1."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "\\dfrac{20.02}{200.2}",
+            "phrase_id": "\\dfrac{20{,}02}{200{,}2}",
+            "note_en": "Similarly, 20.02 = 0.1 × 200.2, so this fraction also simplifies to 0.1.",
+            "note_id": "Demikian pula, 20,02 = 0,1 × 200,2, sehingga pecahan ini juga menjadi 0,1."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Add the two simplified fractions.",
+            "note_id": "Jumlahkan dua pecahan yang sudah disederhanakan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First fraction",
+            "label_id": "Pecahan pertama",
+            "value": "0.2002 / 2.002 = 0.1"
+          },
+          {
+            "label_en": "Second fraction",
+            "label_id": "Pecahan kedua",
+            "value": "20.02 / 200.2 = 0.1"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "0.1 + 0.1 = 0.2"
+          }
+        ],
+        "strategy": {
+          "name_en": "Spot the scaling pattern to simplify each fraction",
+          "name_id": "Temukan pola perkalian untuk menyederhanakan tiap pecahan"
+        },
+        "trap": {
+          "wrong": "0.11",
+          "why_en": "Each fraction equals 0.1, not 0.01 — check by multiplying denominator by 0.1.",
+          "why_id": "Setiap pecahan senilai 0,1, bukan 0,01 — cek dengan mengalikan penyebut dengan 0,1."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "0.2"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the first fraction: 0.2002 / 2.002. Notice that 0.2002 = 0.1 × 2.002.",
+        "So 0.2002 / 2.002 = 0.1.",
+        "Look at the second fraction: 20.02 / 200.2. Notice that 20.02 = 0.1 × 200.2.",
+        "So 20.02 / 200.2 = 0.1.",
+        "Add: 0.1 + 0.1 = 0.2."
+      ],
+      "hint_steps_id": [
+        "Perhatikan pecahan pertama: 0,2002 / 2,002. Perhatikan bahwa 0,2002 = 0,1 × 2,002.",
+        "Jadi 0,2002 / 2,002 = 0,1.",
+        "Perhatikan pecahan kedua: 20,02 / 200,2. Perhatikan bahwa 20,02 = 0,1 × 200,2.",
+        "Jadi 20,02 / 200,2 = 0,1.",
+        "Jumlahkan: 0,1 + 0,1 = 0,2."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +245,70 @@
       "body_en": "The average of $4, 8, 12, 16, \\ldots, 100$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "52",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "$4, 8, 12, 16, \\ldots, 100$",
+            "phrase_id": "$4, 8, 12, 16, \\cdots, 100$",
+            "note_en": "This is an arithmetic sequence with first term 4, common difference 4, last term 100.",
+            "note_id": "Ini adalah barisan aritmetika dengan suku pertama 4, beda 4, suku terakhir 100."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The average of",
+            "phrase_id": "Rata-rata dari",
+            "note_en": "For an arithmetic sequence, the average equals (first + last) / 2.",
+            "note_id": "Untuk barisan aritmetika, rata-rata = (suku pertama + suku terakhir) / 2."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The average of $4, 8, 12, 16, \\ldots, 100$ is",
+            "phrase_id": "Rata-rata dari $4, 8, 12, 16, \\cdots, 100$ adalah",
+            "note_en": "Apply the arithmetic sequence average shortcut.",
+            "note_id": "Gunakan rumus rata-rata barisan aritmetika."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First term",
+            "label_id": "Suku pertama",
+            "value": "a = 4"
+          },
+          {
+            "label_en": "Last term",
+            "label_id": "Suku terakhir",
+            "value": "l = 100"
+          },
+          {
+            "label_en": "Average",
+            "label_id": "Rata-rata",
+            "value": "(4 + 100) / 2 = 104 / 2 = 52"
+          }
+        ],
+        "strategy": {
+          "name_en": "Arithmetic sequence: average = (first + last) / 2",
+          "name_id": "Barisan aritmetika: rata-rata = (suku pertama + suku terakhir) / 2"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "52"
+        }
+      },
+      "hint_steps_en": [
+        "Identify the sequence: 4, 8, 12, …, 100 — an arithmetic sequence with common difference 4.",
+        "For any arithmetic sequence, the average equals (first term + last term) / 2.",
+        "Average = (4 + 100) / 2 = 104 / 2 = 52."
+      ],
+      "hint_steps_id": [
+        "Kenali barisan: 4, 8, 12, …, 100 — barisan aritmetika dengan beda 4.",
+        "Untuk barisan aritmetika, rata-rata = (suku pertama + suku terakhir) / 2.",
+        "Rata-rata = (4 + 100) / 2 = 104 / 2 = 52."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +316,72 @@
       "body_en": "Six consecutive odd numbers whose sum is 180 are $\\cdots$",
       "answer_type": "fill_in",
       "answer": "25, 27, 29, 31, 33, 35",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Six consecutive odd numbers",
+            "phrase_id": "Enam bilangan ganjil berurutan",
+            "note_en": "Consecutive odd numbers differ by 2: n, n+2, n+4, n+6, n+8, n+10.",
+            "note_id": "Bilangan ganjil berurutan berbeda 2: n, n+2, n+4, n+6, n+8, n+10."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "sum is 180",
+            "phrase_id": "dijumlahkan menghasilkan 180",
+            "note_en": "The total of all six numbers is 180.",
+            "note_id": "Jumlah keenam bilangan adalah 180."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Six consecutive odd numbers whose sum is 180 are",
+            "phrase_id": "Enam bilangan ganjil berurutan yang bila dijumlahkan menghasilkan 180 adalah",
+            "note_en": "Find the six numbers.",
+            "note_id": "Temukan keenam bilangan tersebut."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Average of six numbers",
+            "label_id": "Rata-rata enam bilangan",
+            "value": "180 / 6 = 30"
+          },
+          {
+            "label_en": "Middle pair (3rd and 4th terms)",
+            "label_id": "Pasangan tengah (suku ke-3 dan ke-4)",
+            "value": "29 and 31 (average = 30)"
+          },
+          {
+            "label_en": "Six numbers",
+            "label_id": "Enam bilangan",
+            "value": "25, 27, 29, 31, 33, 35"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divide sum by count to find the average, then center the sequence",
+          "name_id": "Bagi jumlah dengan banyaknya untuk mendapat rata-rata, lalu tentukan barisan dari pusat"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "25, 27, 29, 31, 33, 35"
+        }
+      },
+      "hint_steps_en": [
+        "Let the six consecutive odd numbers be n, n+2, n+4, n+6, n+8, n+10.",
+        "Their sum: 6n + 30 = 180, so 6n = 150, giving n = 25.",
+        "Alternatively: average = 180/6 = 30; the middle pair averages 30, so they are 29 and 31.",
+        "The six numbers are: 25, 27, 29, 31, 33, 35."
+      ],
+      "hint_steps_id": [
+        "Misalkan enam bilangan ganjil berurutan adalah n, n+2, n+4, n+6, n+8, n+10.",
+        "Jumlahnya: 6n + 30 = 180, sehingga 6n = 150, jadi n = 25.",
+        "Alternatif: rata-rata = 180/6 = 30; pasangan tengah rata-ratanya 30, yaitu 29 dan 31.",
+        "Enam bilangan tersebut adalah: 25, 27, 29, 31, 33, 35."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +389,74 @@
       "body_en": "A pencil has $\\dfrac{3}{5}$ of its length remaining after use. If it is now 12 cm long, then the original length of the pencil was $\\cdots$ cm.",
       "answer_type": "fill_in",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "$\\dfrac{3}{5}$ of its length remaining after use",
+            "phrase_id": "tersisa $\\dfrac{3}{5}$ bagian setelah digunakan",
+            "note_en": "3/5 of the original length is left — the pencil lost 2/5.",
+            "note_id": "Sisa pensil adalah 3/5 dari panjang awal — pensil berkurang 2/5."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "it is now 12 cm long",
+            "phrase_id": "sekarang panjangnya 12 cm",
+            "note_en": "The current 12 cm represents 3/5 of the original.",
+            "note_id": "Panjang 12 cm sekarang mewakili 3/5 dari panjang awal."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the original length of the pencil was",
+            "phrase_id": "panjang pensil mula-mula adalah",
+            "note_en": "Find the whole (original) length.",
+            "note_id": "Temukan panjang asal (keseluruhan) pensil."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Fraction remaining",
+            "label_id": "Bagian yang tersisa",
+            "value": "3/5 of original"
+          },
+          {
+            "label_en": "Current length = 3/5 × original",
+            "label_id": "Panjang sekarang = 3/5 × asal",
+            "value": "12 = (3/5) × L"
+          },
+          {
+            "label_en": "Original length",
+            "label_id": "Panjang asal",
+            "value": "L = 12 × (5/3) = 20 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Part = fraction × whole → solve for whole",
+          "name_id": "Bagian = pecahan × keseluruhan → cari keseluruhan"
+        },
+        "trap": {
+          "wrong": "12 × (3/5) = 7.2",
+          "why_en": "12 cm is already 3/5 of the original — multiply 12 by 5/3, not by 3/5 again.",
+          "why_id": "12 cm sudah merupakan 3/5 dari asal — kalikan 12 dengan 5/3, bukan dengan 3/5 lagi."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "20"
+        }
+      },
+      "hint_steps_en": [
+        "The pencil's remaining length (12 cm) is 3/5 of its original length.",
+        "Set up the equation: (3/5) × L = 12.",
+        "Solve: L = 12 ÷ (3/5) = 12 × (5/3) = 20 cm."
+      ],
+      "hint_steps_id": [
+        "Panjang pensil yang tersisa (12 cm) adalah 3/5 dari panjang awalnya.",
+        "Buat persamaan: (3/5) × L = 12.",
+        "Selesaikan: L = 12 ÷ (3/5) = 12 × (5/3) = 20 cm."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +464,65 @@
       "body_en": "Is the following statement true or false? **A cube is a special case of a rectangular prism (balok)**",
       "answer_type": "fill_in",
       "answer": "Benar",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Is the following statement true or false?",
+            "phrase_id": "Apakah pernyataan berikut benar atau salah?",
+            "note_en": "Decide whether the statement below is correct.",
+            "note_id": "Tentukan apakah pernyataan berikut benar."
+          },
+          {
+            "category": "object",
+            "phrase_en": "A cube is a special case of a rectangular prism (balok)",
+            "phrase_id": "Kubus adalah bagian dari balok",
+            "note_en": "A cube has all edges equal — it satisfies every property of a rectangular prism.",
+            "note_id": "Kubus memiliki semua rusuk sama panjang — ia memenuhi semua syarat balok."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rectangular prism (balok)",
+            "phrase_id": "balok",
+            "note_en": "A rectangular prism (balok) has three pairs of equal rectangular faces; a cube is the special case where all faces are squares.",
+            "note_id": "Balok memiliki tiga pasang sisi persegi panjang yang sama; kubus adalah kasus khusus di mana semua sisinya persegi."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rectangular prism condition",
+            "label_id": "Syarat balok",
+            "value": "6 rectangular faces, all right angles"
+          },
+          {
+            "label_en": "Cube check",
+            "label_id": "Cek kubus",
+            "value": "cube has 6 square faces (squares are rectangles) → satisfies all conditions"
+          }
+        ],
+        "strategy": {
+          "name_en": "Check subset relationship: does a cube satisfy all rectangular prism conditions?",
+          "name_id": "Cek hubungan himpunan bagian: apakah kubus memenuhi semua syarat balok?"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Benar"
+        }
+      },
+      "hint_steps_en": [
+        "A rectangular prism (balok) is defined by having 6 rectangular faces and all right-angle corners.",
+        "A cube has 6 square faces. Since every square is a rectangle, a cube satisfies all the conditions of a rectangular prism.",
+        "Therefore, a cube is a special case of a rectangular prism — the statement is TRUE (Benar)."
+      ],
+      "hint_steps_id": [
+        "Balok didefinisikan sebagai bangun dengan 6 sisi persegi panjang dan semua sudut siku-siku.",
+        "Kubus memiliki 6 sisi persegi. Karena setiap persegi adalah persegi panjang, kubus memenuhi semua syarat balok.",
+        "Jadi, kubus adalah kasus khusus dari balok — pernyataan ini BENAR."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +530,76 @@
       "body_en": "The count of even prime numbers from 1 to 30 is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "1",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "even prime numbers",
+            "phrase_id": "bilangan prima genap",
+            "note_en": "A number must be BOTH even AND prime — only 2 fits this.",
+            "note_id": "Bilangan harus sekaligus GENAP dan PRIMA — hanya 2 yang memenuhi."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "from 1 to 30",
+            "phrase_id": "dari 1 sampai 30",
+            "note_en": "The range is 1 to 30 — but the only even prime exists regardless of range.",
+            "note_id": "Rentang 1 sampai 30 — tetapi satu-satunya bilangan prima genap ada di rentang ini."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The count of even prime numbers from 1 to 30 is",
+            "phrase_id": "Banyak bilangan prima genap dari 1 sampai 30 adalah",
+            "note_en": "How many even primes are there?",
+            "note_id": "Berapa banyak bilangan prima genap?"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Even numbers that could be prime",
+            "label_id": "Bilangan genap yang mungkin prima",
+            "value": "2, 4, 6, 8, … — all divisible by 2"
+          },
+          {
+            "label_en": "Only even prime",
+            "label_id": "Satu-satunya bilangan prima genap",
+            "value": "2 (prime); all other even numbers have factor 2 → not prime"
+          },
+          {
+            "label_en": "Count",
+            "label_id": "Banyaknya",
+            "value": "1"
+          }
+        ],
+        "strategy": {
+          "name_en": "Recall the unique even prime",
+          "name_id": "Ingat satu-satunya bilangan prima genap"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "The answer is the COUNT of even primes (which is 1), not the even prime itself (which is 2).",
+          "why_id": "Jawaban yang diminta adalah BANYAK bilangan prima genap (yaitu 1), bukan bilangan prima genapnya sendiri (yaitu 2)."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1"
+        }
+      },
+      "hint_steps_en": [
+        "An even number is divisible by 2. A prime number has exactly two factors: 1 and itself.",
+        "Any even number greater than 2 is divisible by 2 and by itself — it has more than two factors, so it cannot be prime.",
+        "The only even prime number is 2.",
+        "Therefore, the count of even primes from 1 to 30 is 1."
+      ],
+      "hint_steps_id": [
+        "Bilangan genap habis dibagi 2. Bilangan prima memiliki tepat dua faktor: 1 dan dirinya sendiri.",
+        "Setiap bilangan genap yang lebih besar dari 2 habis dibagi 2 dan dirinya sendiri — faktornya lebih dari dua, sehingga tidak prima.",
+        "Satu-satunya bilangan prima genap adalah 2.",
+        "Jadi, banyak bilangan prima genap dari 1 sampai 30 adalah 1."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +607,79 @@
       "body_en": "There are two numbers. Their sum equals the date of Kartini Day (April 21). Their difference is 7. The two numbers are $\\cdots$",
       "answer_type": "fill_in",
       "answer": "7 dan 14",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Their sum equals the date of Kartini Day (April 21)",
+            "phrase_id": "hasilnya senilai dengan tanggal hari Kartini",
+            "note_en": "Kartini Day is April 21, so the sum of the two numbers is 21.",
+            "note_id": "Hari Kartini adalah 21 April, sehingga jumlah kedua bilangan adalah 21."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Their difference is 7",
+            "phrase_id": "Selisih kedua bilangan itu adalah 7",
+            "note_en": "The larger minus the smaller equals 7.",
+            "note_id": "Bilangan besar dikurangi bilangan kecil sama dengan 7."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The two numbers are",
+            "phrase_id": "Bilangan yang dimaksud masing-masing adalah",
+            "note_en": "Find both numbers.",
+            "note_id": "Temukan kedua bilangan tersebut."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "a + b = 21"
+          },
+          {
+            "label_en": "Difference",
+            "label_id": "Selisih",
+            "value": "a - b = 7"
+          },
+          {
+            "label_en": "Larger number",
+            "label_id": "Bilangan lebih besar",
+            "value": "a = (21 + 7) / 2 = 14"
+          },
+          {
+            "label_en": "Smaller number",
+            "label_id": "Bilangan lebih kecil",
+            "value": "b = (21 - 7) / 2 = 7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum and difference → add equations to find larger, subtract to find smaller",
+          "name_id": "Jumlah dan selisih → tambahkan persamaan untuk menemukan yang besar, kurangkan untuk yang kecil"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "7 dan 14"
+        }
+      },
+      "hint_steps_en": [
+        "Kartini Day is April 21, so the two numbers add up to 21.",
+        "Their difference is 7. Let the larger be a and smaller be b: a + b = 21 and a − b = 7.",
+        "Add the equations: 2a = 28, so a = 14.",
+        "Subtract: 2b = 14, so b = 7.",
+        "The two numbers are 7 and 14. Check: 7 + 14 = 21 ✓, 14 − 7 = 7 ✓."
+      ],
+      "hint_steps_id": [
+        "Hari Kartini adalah 21 April, jadi kedua bilangan berjumlah 21.",
+        "Selisihnya adalah 7. Misalkan yang besar a dan yang kecil b: a + b = 21 dan a − b = 7.",
+        "Tambahkan persamaan: 2a = 28, jadi a = 14.",
+        "Kurangkan: 2b = 14, jadi b = 7.",
+        "Kedua bilangan adalah 7 dan 14. Cek: 7 + 14 = 21 ✓, 14 − 7 = 7 ✓."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +687,71 @@
       "body_en": "The units digit of $2^{12}$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "$2^{12}$",
+            "phrase_id": "$2^{12}$",
+            "note_en": "2 raised to the 12th power — we only need its last digit.",
+            "note_id": "2 pangkat 12 — kita hanya perlu digit terakhirnya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "units digit",
+            "phrase_id": "Angka satuan",
+            "note_en": "The units digit of powers of 2 cycles with period 4: 2, 4, 8, 6, 2, 4, 8, 6, …",
+            "note_id": "Angka satuan dari perpangkatan 2 berulang dengan periode 4: 2, 4, 8, 6, 2, 4, 8, 6, …"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The units digit of $2^{12}$ is",
+            "phrase_id": "Angka satuan dari $2^{12}$ adalah",
+            "note_en": "Find the remainder of 12 ÷ 4 to locate position in cycle.",
+            "note_id": "Cari sisa 12 ÷ 4 untuk menentukan posisi dalam siklus."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Units-digit cycle of powers of 2",
+            "label_id": "Siklus angka satuan pangkat 2",
+            "value": "2¹→2, 2²→4, 2³→8, 2⁴→6, then repeats"
+          },
+          {
+            "label_en": "12 ÷ 4",
+            "label_id": "12 ÷ 4",
+            "value": "remainder 0 → position 4 in cycle → units digit 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the repeating cycle of units digits for powers of 2",
+          "name_id": "Temukan siklus angka satuan dari perpangkatan 2"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "2^12 is not 2^2. The cycle for powers of 2 repeats every 4; 12 mod 4 = 0, which maps to the 4th position → units digit 6.",
+          "why_id": "2^12 bukan 2^2. Siklus perpangkatan 2 berulang setiap 4; 12 mod 4 = 0, yang berarti posisi ke-4 → angka satuan 6."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Write out the units digits of successive powers of 2: 2¹→2, 2²→4, 2³→8, 2⁴→6, 2⁵→2, … (cycle of 4).",
+        "To find the position of 2¹², compute 12 mod 4 = 0.",
+        "Remainder 0 means we're at the 4th position of the cycle, which has units digit 6.",
+        "The units digit of 2¹² is 6."
+      ],
+      "hint_steps_id": [
+        "Tuliskan angka satuan dari pangkat-pangkat 2 berturut-turut: 2¹→2, 2²→4, 2³→8, 2⁴→6, 2⁵→2, … (siklus 4).",
+        "Untuk menemukan posisi 2¹², hitung 12 mod 4 = 0.",
+        "Sisa 0 berarti kita berada di posisi ke-4 siklus, yang memiliki angka satuan 6.",
+        "Angka satuan dari 2¹² adalah 6."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +759,65 @@
       "body_en": "A quadrilateral that has exactly one pair of parallel opposite sides is called $\\cdots$",
       "answer_type": "fill_in",
       "answer": "Trapesium",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "exactly one pair of parallel opposite sides",
+            "phrase_id": "sepasang sisi berhadapan yang saling sejajar",
+            "note_en": "Only one pair of sides is parallel — this distinguishes a trapezoid from a parallelogram.",
+            "note_id": "Hanya satu pasang sisi yang sejajar — ini yang membedakan trapesium dari jajargenjang."
+          },
+          {
+            "category": "object",
+            "phrase_en": "A quadrilateral",
+            "phrase_id": "Bangun datar segiempat",
+            "note_en": "A four-sided flat figure.",
+            "note_id": "Bangun datar bersisi empat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "A quadrilateral that has exactly one pair of parallel opposite sides is called",
+            "phrase_id": "Bangun datar segiempat yang memiliki sepasang sisi berhadapan yang saling sejajar adalah",
+            "note_en": "Name the shape.",
+            "note_id": "Sebutkan nama bangunnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Quadrilaterals with two pairs of parallel sides",
+            "label_id": "Segiempat dengan dua pasang sisi sejajar",
+            "value": "parallelogram, rectangle, rhombus, square — all have TWO pairs"
+          },
+          {
+            "label_en": "Quadrilateral with exactly one pair of parallel sides",
+            "label_id": "Segiempat dengan tepat satu pasang sisi sejajar",
+            "value": "trapezoid (trapesium)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Match the definition to the correct quadrilateral name",
+          "name_id": "Cocokkan definisi dengan nama segiempat yang tepat"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Trapesium"
+        }
+      },
+      "hint_steps_en": [
+        "A quadrilateral with two pairs of parallel sides is a parallelogram (jajargenjang), and its special cases include rectangles and squares.",
+        "A quadrilateral with exactly one pair of parallel sides is a trapezoid (trapesium).",
+        "The answer is Trapesium."
+      ],
+      "hint_steps_id": [
+        "Segiempat dengan dua pasang sisi sejajar adalah jajargenjang, dan kasus khususnya termasuk persegi panjang dan persegi.",
+        "Segiempat dengan tepat satu pasang sisi sejajar adalah trapesium.",
+        "Jawaban: Trapesium."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +825,76 @@
       "body_en": "Father has a capital of Rp1,250,000.00. His profit is 80\\% of $\\dfrac{3}{4}$ of his capital. How much is his profit in rupiah?",
       "answer_type": "fill_in",
       "answer": "750000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Father has a capital of Rp1,250,000.00",
+            "phrase_id": "Modal yang dimiliki ayah sebesar Rp1.250.000,00",
+            "note_en": "The starting capital is Rp1,250,000.",
+            "note_id": "Modal awal adalah Rp1.250.000."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "His profit is 80\\% of $\\dfrac{3}{4}$ of his capital",
+            "phrase_id": "Keuntungan ayah sebesar 80\\% dari $\\dfrac{3}{4}$ kali modalnya",
+            "note_en": "Compute 3/4 of capital first, then take 80% of that result.",
+            "note_id": "Hitung dulu 3/4 dari modal, baru ambil 80% dari hasilnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much is his profit in rupiah?",
+            "phrase_id": "Berapa rupiah keuntungan ayah?",
+            "note_en": "Find the final profit amount.",
+            "note_id": "Temukan jumlah keuntungan akhir."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "3/4 of capital",
+            "label_id": "3/4 dari modal",
+            "value": "(3/4) × 1,250,000 = 937,500"
+          },
+          {
+            "label_en": "80% of 937,500",
+            "label_id": "80% dari 937.500",
+            "value": "0.8 × 937,500 = 750,000"
+          },
+          {
+            "label_en": "Profit",
+            "label_id": "Keuntungan",
+            "value": "Rp750,000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Chain multiplication: first find 3/4 of capital, then find 80% of that",
+          "name_id": "Perkalian berantai: cari dulu 3/4 modal, lalu 80% dari hasilnya"
+        },
+        "trap": {
+          "wrong": "1,000,000",
+          "why_en": "80% of capital directly = 80% × 1,250,000 = 1,000,000 — but the problem says 80% of (3/4 of capital), not 80% of capital.",
+          "why_id": "80% dari modal langsung = 80% × 1.250.000 = 1.000.000 — tapi soal minta 80% dari (3/4 modal), bukan 80% dari modal."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "rupiah",
+          "value": "750000"
+        }
+      },
+      "hint_steps_en": [
+        "Start with capital = Rp1,250,000.",
+        "Find 3/4 of capital: (3/4) × 1,250,000 = 937,500.",
+        "Find 80% of that result: 0.8 × 937,500 = 750,000.",
+        "Father's profit is Rp750,000."
+      ],
+      "hint_steps_id": [
+        "Modal = Rp1.250.000.",
+        "Cari 3/4 modal: (3/4) × 1.250.000 = 937.500.",
+        "Cari 80% dari hasil itu: 0,8 × 937.500 = 750.000.",
+        "Keuntungan ayah adalah Rp750.000."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +902,69 @@
       "body_en": "A sprout grows taller each day with a growth rate of 50\\% of the previous day's height. If on the first day the sprout is 1 cm tall, then 4 days later the sprout's height is $\\cdots$ cm.",
       "answer_type": "fill_in",
       "answer": "81/16",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "growth rate of 50\\% of the previous day's height",
+            "phrase_id": "pola kenaikan sebesar 50\\% dari hari sebelumnya",
+            "note_en": "Each day the sprout grows by 50% — meaning its height multiplies by 1.5 each day.",
+            "note_id": "Setiap hari kecambah tumbuh 50% — artinya tingginya dikalikan 1,5 setiap hari."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "on the first day the sprout is 1 cm tall",
+            "phrase_id": "hari pertama tinggi kecambah 1 cm",
+            "note_en": "Initial height = 1 cm on day 1.",
+            "note_id": "Tinggi awal = 1 cm pada hari pertama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "4 days later the sprout's height is",
+            "phrase_id": "4 hari berikutnya tinggi kecambah adalah",
+            "note_en": "Find height on day 5 (4 days after day 1).",
+            "note_id": "Cari tinggi pada hari ke-5 (4 hari setelah hari pertama)."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Daily growth factor",
+            "label_id": "Faktor pertumbuhan harian",
+            "value": "× 1.5 = × 3/2 each day"
+          },
+          {
+            "label_en": "Height after 4 more days",
+            "label_id": "Tinggi setelah 4 hari lagi",
+            "value": "1 × (3/2)⁴ = 81/16 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Geometric growth: multiply by 3/2 four times",
+          "name_id": "Pertumbuhan geometri: kalikan dengan 3/2 sebanyak empat kali"
+        },
+        "trap": {
+          "wrong": "3",
+          "why_en": "50% growth per day means × 1.5, not +0.5. After 4 days: 1 × 1.5⁴ = 81/16, not 1 + 4×0.5 = 3.",
+          "why_id": "Pertumbuhan 50% per hari artinya × 1,5, bukan +0,5. Setelah 4 hari: 1 × 1,5⁴ = 81/16, bukan 1 + 4×0,5 = 3."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "81/16"
+        }
+      },
+      "hint_steps_en": [
+        "Each day the sprout's height increases by 50%, so it's multiplied by 3/2 each day.",
+        "Day 1: 1 cm. Day 2: 1 × 3/2 = 3/2. Day 3: 3/2 × 3/2 = 9/4. Day 4: 9/4 × 3/2 = 27/8. Day 5: 27/8 × 3/2 = 81/16.",
+        "The height 4 days after day 1 (i.e., on day 5) is 81/16 cm."
+      ],
+      "hint_steps_id": [
+        "Setiap hari tinggi kecambah bertambah 50%, sehingga dikalikan 3/2 setiap hari.",
+        "Hari 1: 1 cm. Hari 2: 1 × 3/2 = 3/2. Hari 3: 3/2 × 3/2 = 9/4. Hari 4: 9/4 × 3/2 = 27/8. Hari 5: 27/8 × 3/2 = 81/16.",
+        "Tinggi 4 hari setelah hari pertama (yaitu hari ke-5) adalah 81/16 cm."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +972,84 @@
       "body_en": "The result of $\\bigl((-3)+(-5)+(-7)+\\cdots+(-17)\\bigr)+\\bigl(2+4+6+\\cdots+20\\bigr)$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "30",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "(-3)+(-5)+(-7)",
+            "phrase_id": "(-3)+(-5)+(-7)",
+            "note_en": "Arithmetic sequence of negative odd numbers from −3 to −17 (8 terms).",
+            "note_id": "Barisan aritmetika bilangan ganjil negatif dari −3 sampai −17 (8 suku)."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2+4+6+",
+            "phrase_id": "2+4+6+",
+            "note_en": "Arithmetic sequence of even numbers from 2 to 20 (10 terms).",
+            "note_id": "Barisan aritmetika bilangan genap dari 2 sampai 20 (10 suku)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Add both sums together.",
+            "note_id": "Jumlahkan kedua hasil penjumlahan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of terms in −3, −5, …, −17",
+            "label_id": "Banyak suku dari −3, −5, …, −17",
+            "value": "n = (17 − 3)/2 + 1 = 8 terms"
+          },
+          {
+            "label_en": "Sum of negative sequence",
+            "label_id": "Jumlah barisan negatif",
+            "value": "8 × (−3 + −17)/2 = 8 × (−10) = −80"
+          },
+          {
+            "label_en": "Number of terms in 2, 4, …, 20",
+            "label_id": "Banyak suku dari 2, 4, …, 20",
+            "value": "n = 20/2 = 10 terms"
+          },
+          {
+            "label_en": "Sum of positive sequence",
+            "label_id": "Jumlah barisan positif",
+            "value": "10 × (2 + 20)/2 = 10 × 11 = 110"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "−80 + 110 = 30"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum each arithmetic sequence separately using S = n × (first + last)/2",
+          "name_id": "Jumlahkan setiap barisan aritmetika secara terpisah menggunakan S = n × (pertama + terakhir)/2"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "30"
+        }
+      },
+      "hint_steps_en": [
+        "First series: −3, −5, −7, …, −17. Number of terms = (17−3)/2 + 1 = 8.",
+        "Sum = 8 × (−3 + −17)/2 = 8 × (−10) = −80.",
+        "Second series: 2, 4, 6, …, 20. Number of terms = 20/2 = 10.",
+        "Sum = 10 × (2 + 20)/2 = 10 × 11 = 110.",
+        "Total = −80 + 110 = 30."
+      ],
+      "hint_steps_id": [
+        "Barisan pertama: −3, −5, −7, …, −17. Banyak suku = (17−3)/2 + 1 = 8.",
+        "Jumlah = 8 × (−3 + −17)/2 = 8 × (−10) = −80.",
+        "Barisan kedua: 2, 4, 6, …, 20. Banyak suku = 20/2 = 10.",
+        "Jumlah = 10 × (2 + 20)/2 = 10 × 11 = 110.",
+        "Total = −80 + 110 = 30."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +1057,72 @@
       "body_en": "The total money of Lutfi and Ica is Rp72,000.00. Their difference is Rp48,000.00. If Ica has more money than Lutfi, then the ratio of Lutfi's money to Ica's money is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "1 : 5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The total money of Lutfi and Ica is Rp72,000.00",
+            "phrase_id": "Total uang Lutfi dan Ica adalah Rp72.000,00",
+            "note_en": "Lutfi + Ica = 72,000.",
+            "note_id": "Lutfi + Ica = 72.000."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Their difference is Rp48,000.00",
+            "phrase_id": "Selisih uang mereka berdua sebesar Rp48.000,00",
+            "note_en": "Ica − Lutfi = 48,000 (since Ica has more).",
+            "note_id": "Ica − Lutfi = 48.000 (karena Ica lebih banyak)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the ratio of Lutfi's money to Ica's money is",
+            "phrase_id": "perbandingan jumlah uang Lutfi dan Ica adalah",
+            "note_en": "Express the ratio Lutfi : Ica in simplest form.",
+            "note_id": "Nyatakan perbandingan Lutfi : Ica dalam bentuk paling sederhana."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Ica's amount",
+            "label_id": "Uang Ica",
+            "value": "(72,000 + 48,000) / 2 = 60,000"
+          },
+          {
+            "label_en": "Lutfi's amount",
+            "label_id": "Uang Lutfi",
+            "value": "(72,000 − 48,000) / 2 = 12,000"
+          },
+          {
+            "label_en": "Ratio Lutfi : Ica",
+            "label_id": "Perbandingan Lutfi : Ica",
+            "value": "12,000 : 60,000 = 1 : 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum and difference → solve for each, then simplify ratio",
+          "name_id": "Jumlah dan selisih → cari masing-masing, lalu sederhanakan perbandingan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1 : 5"
+        }
+      },
+      "hint_steps_en": [
+        "Let Ica = I and Lutfi = L. Then I + L = 72,000 and I − L = 48,000.",
+        "Add: 2I = 120,000, so I = 60,000.",
+        "Subtract: 2L = 24,000, so L = 12,000.",
+        "Ratio Lutfi : Ica = 12,000 : 60,000 = 1 : 5."
+      ],
+      "hint_steps_id": [
+        "Misalkan Ica = I dan Lutfi = L. Maka I + L = 72.000 dan I − L = 48.000.",
+        "Tambahkan: 2I = 120.000, jadi I = 60.000.",
+        "Kurangkan: 2L = 24.000, jadi L = 12.000.",
+        "Perbandingan Lutfi : Ica = 12.000 : 60.000 = 1 : 5."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +1130,63 @@
       "body_en": "The result of $1.25 \\times 88 \\times 99$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "10890",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "$1.25 \\times 88 \\times 99$",
+            "phrase_id": "$1{,}25 \\times 88 \\times 99$",
+            "note_en": "Group 1.25 with 88 first: 1.25 × 88 = 110, then multiply by 99.",
+            "note_id": "Kelompokkan 1,25 dengan 88 terlebih dahulu: 1,25 × 88 = 110, lalu kalikan dengan 99."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Use smart grouping to simplify the calculation.",
+            "note_id": "Gunakan pengelompokan cerdas untuk menyederhanakan perhitungan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of $1.25 \\times 88 \\times 99$ is",
+            "phrase_id": "Hasil dari $1{,}25 \\times 88 \\times 99$ adalah",
+            "note_en": "Compute the final product.",
+            "note_id": "Hitung hasil akhirnya."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1.25 × 88",
+            "label_id": "1,25 × 88",
+            "value": "5/4 × 88 = 110"
+          },
+          {
+            "label_en": "110 × 99",
+            "label_id": "110 × 99",
+            "value": "110 × (100 − 1) = 11,000 − 110 = 10,890"
+          }
+        ],
+        "strategy": {
+          "name_en": "Group 1.25 × 88 first, then use near-100 trick for × 99",
+          "name_id": "Kelompokkan 1,25 × 88 terlebih dahulu, lalu gunakan trik mendekati 100 untuk × 99"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "10890"
+        }
+      },
+      "hint_steps_en": [
+        "Rewrite 1.25 as 5/4. Then 5/4 × 88 = 5 × 22 = 110.",
+        "Now compute 110 × 99 = 110 × (100 − 1) = 11,000 − 110 = 10,890."
+      ],
+      "hint_steps_id": [
+        "Tulis 1,25 sebagai 5/4. Maka 5/4 × 88 = 5 × 22 = 110.",
+        "Sekarang hitung 110 × 99 = 110 × (100 − 1) = 11.000 − 110 = 10.890."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +1194,78 @@
       "body_en": "The number of distinct triangles that can be formed from a kite whose two diagonals are both drawn is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "a kite whose two diagonals are both drawn",
+            "phrase_id": "sebuah layang-layang yang dipotong kedua diagonalnya",
+            "note_en": "The two diagonals of a kite divide it into 4 right triangles (the diagonals of a kite are perpendicular).",
+            "note_id": "Kedua diagonal layang-layang membaginya menjadi 4 segitiga siku-siku (diagonal layang-layang saling tegak lurus)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number of distinct triangles that can be formed",
+            "phrase_id": "Banyak segitiga berbeda yang dapat dibentuk",
+            "note_en": "Count all triangles: single pieces and combinations.",
+            "note_id": "Hitung semua segitiga: kepingan tunggal maupun gabungannya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "from a kite",
+            "phrase_id": "dari sebuah layang-layang",
+            "note_en": "Label the 4 small triangles T1 (top-left), T2 (top-right), T3 (bottom-left), T4 (bottom-right).",
+            "note_id": "Beri label 4 segitiga kecil: T1 (kiri atas), T2 (kanan atas), T3 (kiri bawah), T4 (kanan bawah)."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Single triangles",
+            "label_id": "Segitiga tunggal",
+            "value": "T1, T2, T3, T4 → 4 triangles"
+          },
+          {
+            "label_en": "Pairs forming triangles",
+            "label_id": "Pasangan yang membentuk segitiga",
+            "value": "T1+T2, T3+T4, T1+T3, T2+T4 → 4 triangles"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "4 + 4 = 8 triangles"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic counting: single pieces + pairs that form triangles",
+          "name_id": "Penghitungan sistematis: kepingan tunggal + pasangan yang membentuk segitiga"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "Only counting the 4 small triangles misses the 4 larger triangles formed by combining pairs.",
+          "why_id": "Hanya menghitung 4 segitiga kecil melewatkan 4 segitiga lebih besar yang terbentuk dari pasangan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "8"
+        }
+      },
+      "hint_steps_en": [
+        "The two diagonals of a kite are perpendicular and divide it into 4 right triangles. Label them T1 (top-left), T2 (top-right), T3 (bottom-left), T4 (bottom-right).",
+        "Single triangles: T1, T2, T3, T4 — that's 4.",
+        "Pairs that form triangles: T1+T2 (top half), T3+T4 (bottom half), T1+T3 (left half), T2+T4 (right half) — that's 4 more.",
+        "Note: T1+T4 and T2+T3 form quadrilaterals, not triangles, so they don't count.",
+        "Total: 4 + 4 = 8 distinct triangles."
+      ],
+      "hint_steps_id": [
+        "Kedua diagonal layang-layang tegak lurus dan membaginya menjadi 4 segitiga siku-siku. Beri label T1 (kiri atas), T2 (kanan atas), T3 (kiri bawah), T4 (kanan bawah).",
+        "Segitiga tunggal: T1, T2, T3, T4 — itu 4 buah.",
+        "Pasangan yang membentuk segitiga: T1+T2 (setengah atas), T3+T4 (setengah bawah), T1+T3 (setengah kiri), T2+T4 (setengah kanan) — itu 4 lagi.",
+        "Catatan: T1+T4 dan T2+T3 membentuk segiempat, bukan segitiga, sehingga tidak dihitung.",
+        "Total: 4 + 4 = 8 segitiga berbeda."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +1273,74 @@
       "body_en": "Father plants corn by making holes first. The holes are spaced 1 meter apart and every four adjacent holes form a square. If each hole contains 3 corn seeds and the planting area is $10\\ \\text{m} \\times 10\\ \\text{m}$, then the total number of corn seeds to be planted is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "363",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The holes are spaced 1 meter apart and every four adjacent holes form a square",
+            "phrase_id": "Jarak antar lubang 1 meter dan setiap empat lubang bila dihubungkan membentuk bangun datar persegi",
+            "note_en": "A square grid with 1 m spacing means holes sit at every integer coordinate from (0,0) to (10,10).",
+            "note_id": "Kisi persegi dengan jarak 1 m berarti lubang berada di setiap koordinat bulat dari (0,0) sampai (10,10)."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the planting area is $10\\ \\text{m} \\times 10\\ \\text{m}$",
+            "phrase_id": "daerah yang akan ditanami seukuran $10\\ \\text{m} \\times 10\\ \\text{m}$",
+            "note_en": "A 10 m × 10 m area with 1 m spacing has 11 positions along each side → 11 × 11 = 121 holes.",
+            "note_id": "Area 10 m × 10 m dengan jarak 1 m memiliki 11 posisi di setiap sisi → 11 × 11 = 121 lubang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "each hole contains 3 corn seeds",
+            "phrase_id": "setiap lubang berisi 3 biji jagung",
+            "note_en": "Multiply total holes by 3 seeds per hole.",
+            "note_id": "Kalikan jumlah lubang dengan 3 biji per lubang."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Holes along one side",
+            "label_id": "Lubang di satu sisi",
+            "value": "10 m ÷ 1 m + 1 = 11"
+          },
+          {
+            "label_en": "Total holes",
+            "label_id": "Total lubang",
+            "value": "11 × 11 = 121"
+          },
+          {
+            "label_en": "Total seeds",
+            "label_id": "Total biji",
+            "value": "121 × 3 = 363"
+          }
+        ],
+        "strategy": {
+          "name_en": "Grid point counting: (side ÷ spacing + 1)² × seeds per hole",
+          "name_id": "Penghitungan titik kisi: (sisi ÷ jarak + 1)² × biji per lubang"
+        },
+        "trap": {
+          "wrong": "300",
+          "why_en": "Using 10 × 10 = 100 holes ignores the border: a 10 m side has 11 grid points (0, 1, 2, …, 10), not 10.",
+          "why_id": "Menggunakan 10 × 10 = 100 lubang mengabaikan tepi: sisi 10 m memiliki 11 titik kisi (0, 1, 2, …, 10), bukan 10."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "biji",
+          "value": "363"
+        }
+      },
+      "hint_steps_en": [
+        "The holes form a grid with 1 m spacing. A 10 m side has positions at 0, 1, 2, …, 10 — that is 11 positions.",
+        "Total holes = 11 × 11 = 121.",
+        "Each hole has 3 seeds, so total seeds = 121 × 3 = 363."
+      ],
+      "hint_steps_id": [
+        "Lubang membentuk kisi dengan jarak 1 m. Sisi 10 m memiliki posisi di 0, 1, 2, …, 10 — yaitu 11 posisi.",
+        "Total lubang = 11 × 11 = 121.",
+        "Setiap lubang berisi 3 biji, jadi total biji = 121 × 3 = 363."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1348,65 @@
       "body_en": "A student takes a remedial test by selecting 5 questions from 8 given questions. The number of different possible selections is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "56",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "selecting 5 questions from 8 given questions",
+            "phrase_id": "memilih 5 soal dari 8 soal yang diberikan",
+            "note_en": "Order does not matter — this is a combination: C(8,5).",
+            "note_id": "Urutan tidak penting — ini adalah kombinasi: C(8,5)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number of different possible selections is",
+            "phrase_id": "Banyak pilihan soal berbeda yang mungkin adalah",
+            "note_en": "Compute C(8,5) = C(8,3) by symmetry.",
+            "note_id": "Hitung C(8,5) = C(8,3) berdasarkan simetri."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "selecting 5 questions from 8",
+            "phrase_id": "memilih 5 soal dari 8 soal",
+            "note_en": "C(8,5) = C(8,3) = 8×7×6 / (3×2×1) = 56.",
+            "note_id": "C(8,5) = C(8,3) = 8×7×6 / (3×2×1) = 56."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Use symmetry: C(8,5) = C(8,3)",
+            "label_id": "Gunakan simetri: C(8,5) = C(8,3)",
+            "value": "Choosing 5 to include = choosing 3 to exclude"
+          },
+          {
+            "label_en": "C(8,3)",
+            "label_id": "C(8,3)",
+            "value": "(8 × 7 × 6) / (3 × 2 × 1) = 336 / 6 = 56"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combination formula C(n,k); use C(8,5) = C(8,3) to simplify",
+          "name_id": "Rumus kombinasi C(n,k); gunakan C(8,5) = C(8,3) untuk menyederhanakan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "56"
+        }
+      },
+      "hint_steps_en": [
+        "Order doesn't matter when selecting questions, so use combinations: C(8,5).",
+        "By symmetry, C(8,5) = C(8,3) — choosing 5 to take is the same as choosing 3 to leave out.",
+        "C(8,3) = (8 × 7 × 6) / (3 × 2 × 1) = 336 / 6 = 56."
+      ],
+      "hint_steps_id": [
+        "Urutan tidak penting saat memilih soal, gunakan kombinasi: C(8,5).",
+        "Berdasarkan simetri, C(8,5) = C(8,3) — memilih 5 soal yang dikerjakan sama dengan memilih 3 soal yang dilewati.",
+        "C(8,3) = (8 × 7 × 6) / (3 × 2 × 1) = 336 / 6 = 56."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1414,69 @@
       "body_en": "The result of $3\\dfrac{1}{3} + 2\\dfrac{3}{5} - \\dfrac{1}{2} + 3.3 - 350\\%$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "157/30",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "$3\\dfrac{1}{3} + 2\\dfrac{3}{5} - \\dfrac{1}{2} + 3.3 - 350\\%$",
+            "phrase_id": "$3\\dfrac{1}{3} + 2\\dfrac{3}{5} - \\dfrac{1}{2} + 3{,}3 - 350\\%$",
+            "note_en": "Convert all to fractions with denominator 30 before combining.",
+            "note_id": "Ubah semua ke pecahan dengan penyebut 30 sebelum digabungkan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "350\\%",
+            "phrase_id": "350\\%",
+            "note_en": "350% = 350/100 = 7/2.",
+            "note_id": "350% = 350/100 = 7/2."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Find the sum using LCD = 30.",
+            "note_id": "Cari jumlahnya menggunakan KPK = 30."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Convert each term to 30ths",
+            "label_id": "Ubah setiap suku ke per-30",
+            "value": "10/3 = 100/30; 13/5 = 78/30; 1/2 = 15/30; 33/10 = 99/30; 7/2 = 105/30"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "(100 + 78 − 15 + 99 − 105)/30 = 157/30"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert all mixed numbers and percentages to fractions; use LCD = 30",
+          "name_id": "Ubah semua bilangan campuran dan persen ke pecahan; gunakan KPK = 30"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "157/30"
+        }
+      },
+      "hint_steps_en": [
+        "Convert each term: 3⅓ = 10/3; 2⅗ = 13/5; ½ = 1/2; 3.3 = 33/10; 350% = 7/2.",
+        "LCD of 3, 5, 2, 10, 2 is 30.",
+        "In 30ths: 100/30 + 78/30 − 15/30 + 99/30 − 105/30.",
+        "Sum of numerators: 100 + 78 − 15 + 99 − 105 = 157.",
+        "Result = 157/30."
+      ],
+      "hint_steps_id": [
+        "Ubah setiap suku: 3⅓ = 10/3; 2⅗ = 13/5; ½ = 1/2; 3,3 = 33/10; 350% = 7/2.",
+        "KPK dari 3, 5, 2, 10, 2 adalah 30.",
+        "Dalam per-30: 100/30 + 78/30 − 15/30 + 99/30 − 105/30.",
+        "Jumlah pembilang: 100 + 78 − 15 + 99 − 105 = 157.",
+        "Hasil = 157/30."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1484,81 @@
       "body_en": "Anton wants to build a cube wireframe from metal rods, including all its diagonals (face diagonals and space diagonals). If the edge length of the cube is 10 dm, determine the total length of metal rods needed.",
       "answer_type": "fill_in",
       "answer": "120 + 120√2 + 40√3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "cube wireframe from metal rods, including all its diagonals",
+            "phrase_id": "kerangka kubus dari batang logam yang dilengkapi dengan seluruh diagonal-diagonalnya",
+            "note_en": "Three types of rods: edges, face diagonals, space diagonals.",
+            "note_id": "Tiga jenis batang: rusuk, diagonal sisi, diagonal ruang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "edge length of the cube is 10 dm",
+            "phrase_id": "panjang rusuk kubusnya 10 dm",
+            "note_en": "Edge = 10 dm; face diagonal = 10√2 dm; space diagonal = 10√3 dm.",
+            "note_id": "Rusuk = 10 dm; diagonal sisi = 10√2 dm; diagonal ruang = 10√3 dm."
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine the total length of metal rods needed",
+            "phrase_id": "tentukan panjang batang logam yang diperlukan",
+            "note_en": "Sum: all edges + all face diagonals + all space diagonals.",
+            "note_id": "Jumlahkan: semua rusuk + semua diagonal sisi + semua diagonal ruang."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Edges (12 edges × 10 dm)",
+            "label_id": "Rusuk (12 rusuk × 10 dm)",
+            "value": "12 × 10 = 120 dm"
+          },
+          {
+            "label_en": "Face diagonals (6 faces × 2 diagonals × 10√2 dm)",
+            "label_id": "Diagonal sisi (6 sisi × 2 diagonal × 10√2 dm)",
+            "value": "12 × 10√2 = 120√2 dm"
+          },
+          {
+            "label_en": "Space diagonals (4 diagonals × 10√3 dm)",
+            "label_id": "Diagonal ruang (4 diagonal × 10√3 dm)",
+            "value": "4 × 10√3 = 40√3 dm"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "120 + 120√2 + 40√3 dm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count each type of rod (edges, face diagonals, space diagonals) separately",
+          "name_id": "Hitung setiap jenis batang (rusuk, diagonal sisi, diagonal ruang) secara terpisah"
+        },
+        "trap": {
+          "wrong": "120 + 40√3",
+          "why_en": "Don't forget the face diagonals — there are 2 per face × 6 faces = 12 face diagonals of length 10√2 each.",
+          "why_id": "Jangan lupa diagonal sisi — ada 2 per sisi × 6 sisi = 12 diagonal sisi dengan panjang masing-masing 10√2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "dm",
+          "value": "120 + 120√2 + 40√3"
+        }
+      },
+      "hint_steps_en": [
+        "A cube has 12 edges: total edge length = 12 × 10 = 120 dm.",
+        "Each face has 2 diagonals; 6 faces → 12 face diagonals. Each face diagonal = 10√2 dm. Total = 12 × 10√2 = 120√2 dm.",
+        "A cube has 4 space diagonals. Each space diagonal = 10√3 dm. Total = 4 × 10√3 = 40√3 dm.",
+        "Grand total = 120 + 120√2 + 40√3 dm."
+      ],
+      "hint_steps_id": [
+        "Kubus memiliki 12 rusuk: total panjang rusuk = 12 × 10 = 120 dm.",
+        "Setiap sisi memiliki 2 diagonal; 6 sisi → 12 diagonal sisi. Setiap diagonal sisi = 10√2 dm. Total = 12 × 10√2 = 120√2 dm.",
+        "Kubus memiliki 4 diagonal ruang. Setiap diagonal ruang = 10√3 dm. Total = 4 × 10√3 = 40√3 dm.",
+        "Total keseluruhan = 120 + 120√2 + 40√3 dm."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1566,83 @@
       "body_en": "An iron rod of diameter 1 cm and length 6 m is cut into 1 m sections using a 2 mm blade. Each 1 m section is then cut into 5 equal parts using a 1 mm blade. Determine the length of each piece in mm and the total number of pieces obtained.",
       "answer_type": "fill_in",
       "answer": "199,2 mm; 30 potongan",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "cut into 1 m sections using a 2 mm blade",
+            "phrase_id": "Setiap meternya dipotong dengan mata gergaji 2 mm",
+            "note_en": "Each cut wastes 2 mm; the 6 m rod is assumed to produce exactly 6 sections of 1,000 mm each before this step.",
+            "note_id": "Setiap potongan membuang 2 mm; batang 6 m diasumsikan menghasilkan tepat 6 bagian 1.000 mm sebelum langkah ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each 1 m section is then cut into 5 equal parts using a 1 mm blade",
+            "phrase_id": "dalam satu meter itu dipotong lima bagian yang sama panjang menggunakan mata gergaji 1 mm",
+            "note_en": "5 equal parts from 1 section: 4 cuts needed, each wasting 1 mm → remaining = 1000 − 4 = 996 mm → each piece = 996/5 = 199.2 mm.",
+            "note_id": "5 bagian sama dari 1 seksi: butuh 4 potongan, masing-masing membuang 1 mm → sisa = 1000 − 4 = 996 mm → tiap bagian = 996/5 = 199,2 mm."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Determine the length of each piece in mm and the total number of pieces obtained",
+            "phrase_id": "Tentukan panjang hasil potongan dalam satuan mm dan banyak potongan batangan besi yang diperoleh",
+            "note_en": "Find both: piece length and total piece count.",
+            "note_id": "Temukan keduanya: panjang potongan dan jumlah total potongan."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cuts to produce 5 parts from one 1 m section",
+            "label_id": "Potongan untuk menghasilkan 5 bagian dari satu seksi 1 m",
+            "value": "5 parts require 4 cuts × 1 mm = 4 mm waste"
+          },
+          {
+            "label_en": "Usable length per 1 m section",
+            "label_id": "Panjang yang dapat dipakai per seksi 1 m",
+            "value": "1,000 − 4 = 996 mm"
+          },
+          {
+            "label_en": "Length of each piece",
+            "label_id": "Panjang setiap potongan",
+            "value": "996 / 5 = 199.2 mm"
+          },
+          {
+            "label_en": "Total pieces",
+            "label_id": "Total potongan",
+            "value": "6 sections × 5 pieces = 30 pieces"
+          }
+        ],
+        "strategy": {
+          "name_en": "Account for blade kerf waste when cutting; n equal parts require n−1 cuts",
+          "name_id": "Perhitungkan limbah dari lebar gergaji; n bagian sama memerlukan n−1 potongan"
+        },
+        "trap": {
+          "wrong": "200 mm",
+          "why_en": "Ignoring the blade kerf gives 1000/5 = 200 mm, but 4 cuts of 1 mm each remove 4 mm, leaving only 996 mm for the pieces.",
+          "why_id": "Mengabaikan lebar gergaji menghasilkan 1000/5 = 200 mm, tetapi 4 potongan masing-masing 1 mm mengurangi 4 mm, menyisakan hanya 996 mm untuk potongan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "199,2 mm; 30 potongan"
+        }
+      },
+      "hint_steps_en": [
+        "The 6 m rod is divided into 6 sections of 1 m = 1,000 mm each (the first-stage cuts give exactly 6 sections).",
+        "Each 1 m section is cut into 5 equal parts: this requires 4 cuts × 1 mm blade = 4 mm wasted.",
+        "Remaining usable length per section: 1,000 − 4 = 996 mm.",
+        "Each piece length: 996 ÷ 5 = 199.2 mm.",
+        "Total pieces: 6 sections × 5 pieces per section = 30 pieces."
+      ],
+      "hint_steps_id": [
+        "Batang 6 m dibagi menjadi 6 seksi masing-masing 1 m = 1.000 mm (potongan tahap pertama menghasilkan tepat 6 seksi).",
+        "Setiap seksi 1 m dipotong menjadi 5 bagian sama: butuh 4 potongan × mata gergaji 1 mm = 4 mm terbuang.",
+        "Panjang yang bisa dipakai per seksi: 1.000 − 4 = 996 mm.",
+        "Panjang tiap potongan: 996 ÷ 5 = 199,2 mm.",
+        "Total potongan: 6 seksi × 5 potongan per seksi = 30 potongan."
+      ]
     }
   ]
 }

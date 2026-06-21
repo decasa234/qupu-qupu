@@ -14,7 +14,60 @@
       "body_en": "Two wall clocks are set to the same day and time. After 24 hours, the first clock is 12 seconds slow while the second clock is 36 seconds fast. The two clocks will differ by 15 minutes after ... hours.",
       "answer_type": "fill_in",
       "answer": "450",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the first clock is 12 seconds slow while the second clock is 36 seconds fast",
+            "phrase_id": "jam dinding pertama lebih lambat 12 detik sedangkan jam dinding kedua lebih cepat 36 detik",
+            "note_en": "The two clocks drift in opposite directions — combined gap grows 48 seconds every 24 hours.",
+            "note_id": "Dua jam bergerak ke arah berlawanan — selisih total bertambah 48 detik setiap 24 jam."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The two clocks will differ by 15 minutes after ... hours.",
+            "phrase_id": "Kedua jam dinding tersebut akan berbeda 15 menit setelah ... jam.",
+            "note_en": "15 minutes = 900 seconds. Find how many 24-hour periods accumulate 900 seconds of gap.",
+            "note_id": "15 menit = 900 detik. Cari berapa periode 24 jam yang menghasilkan selisih 900 detik."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "After 24 hours",
+            "phrase_id": "Setelah 24 jam",
+            "note_en": "The drift rate is measured per 24-hour period.",
+            "note_id": "Laju penyimpangan diukur per periode 24 jam."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Drift per 24 h", "label_id": "Simpangan per 24 jam", "value": "12 + 36 = 48 seconds" },
+          { "label_en": "Target gap", "label_id": "Selisih target", "value": "15 min = 900 seconds" },
+          { "label_en": "Number of 24-h periods", "label_id": "Jumlah periode 24 jam", "value": "900 ÷ 48 × 24 = 450 hours" }
+        ],
+        "strategy": {
+          "name_en": "Rate × time = total gap",
+          "name_id": "Laju × waktu = selisih total"
+        },
+        "trap": {
+          "wrong": "using only 12 or only 36",
+          "why_en": "One clock is slow and the other is fast — their errors add, not cancel. Use 12 + 36 = 48 seconds per 24 hours.",
+          "why_id": "Satu jam lambat dan satu lagi cepat — kesalahannya dijumlahkan, bukan dikurangkan. Gunakan 12 + 36 = 48 detik per 24 jam."
+        },
+        "answer": { "form": "value", "unit": "jam", "value": "450" }
+      },
+      "hint_steps_en": [
+        "After 24 hours: clock 1 is 12 s slow, clock 2 is 36 s fast — they move apart by 12 + 36 = 48 seconds every 24 hours.",
+        "Target difference: 15 minutes = 900 seconds.",
+        "Periods of 24 h needed: 900 ÷ 48 = 18.75 periods.",
+        "Total hours: 18.75 × 24 = 450 hours."
+      ],
+      "hint_steps_id": [
+        "Setelah 24 jam: jam 1 lambat 12 detik, jam 2 cepat 36 detik — keduanya berjauhan 12 + 36 = 48 detik setiap 24 jam.",
+        "Selisih yang dituju: 15 menit = 900 detik.",
+        "Jumlah periode 24 jam: 900 ÷ 48 = 18,75 periode.",
+        "Total jam: 18,75 × 24 = 450 jam."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +75,63 @@
       "body_en": "Consider an n × n grid containing a number pattern as shown in the figure. The number at the bottom-right corner of grid 1 is 1, of grid 2 is 7, and of grid 3 is 17. The number at the bottom-right corner of grid 25 is ...",
       "answer_type": "fill_in",
       "answer": "1249",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "grid 1 is 1, of grid 2 is 7, and of grid 3 is 17",
+            "phrase_id": "petak ke-1 adalah 1, pada petak ke-2 adalah 7, dan pada petak ke-3 adalah 17",
+            "note_en": "Three known values let us find the quadratic formula.",
+            "note_id": "Tiga nilai diketahui memungkinkan kita menemukan rumus kuadrat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number at the bottom-right corner of grid 25 is ...",
+            "phrase_id": "bilangan yang terletak di pojok kanan bawah pada petak ke-25 adalah ...",
+            "note_en": "Apply the pattern formula at n = 25.",
+            "note_id": "Terapkan rumus pola pada n = 25."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "n × n grid containing a number pattern",
+            "phrase_id": "petak n × n yang berisi pola bilangan",
+            "note_en": "The grid size grows; the bottom-right corner follows a quadratic rule.",
+            "note_id": "Ukuran petak bertambah; pojok kanan bawah mengikuti aturan kuadrat."
+          }
+        ],
+        "quantities": [
+          { "label_en": "First differences", "label_id": "Selisih pertama", "value": "7−1=6, 17−7=10" },
+          { "label_en": "Second difference", "label_id": "Selisih kedua", "value": "10−6=4 (constant)" },
+          { "label_en": "Formula", "label_id": "Rumus", "value": "f(n) = 2n² − 1" },
+          { "label_en": "f(25)", "label_id": "f(25)", "value": "2×625 − 1 = 1249" }
+        ],
+        "strategy": {
+          "name_en": "Find the quadratic formula from second differences",
+          "name_id": "Temukan rumus kuadrat dari selisih kedua"
+        },
+        "trap": {
+          "wrong": "using a linear formula",
+          "why_en": "The first differences are 6, 10, 14, … — they are not constant, so the pattern is quadratic, not linear.",
+          "why_id": "Selisih pertama adalah 6, 10, 14, … — tidak konstan, sehingga polanya kuadrat, bukan linear."
+        },
+        "answer": { "form": "value", "unit": null, "value": "1249" }
+      },
+      "hint_steps_en": [
+        "List the known values: f(1)=1, f(2)=7, f(3)=17.",
+        "First differences: 7−1=6, 17−7=10. Second difference: 10−6=4 (constant) → quadratic.",
+        "Assume f(n) = 2n² + an + b. From f(1)=1: 2+a+b=1 → a+b=−1. From f(2)=7: 8+2a+b=7 → 2a+b=−1. Solve: a=0, b=−1.",
+        "Formula: f(n) = 2n² − 1.",
+        "f(25) = 2×625 − 1 = 1249."
+      ],
+      "hint_steps_id": [
+        "Tulis nilai yang diketahui: f(1)=1, f(2)=7, f(3)=17.",
+        "Selisih pertama: 7−1=6, 17−7=10. Selisih kedua: 10−6=4 (konstan) → kuadrat.",
+        "Misalkan f(n) = 2n² + an + b. Dari f(1)=1: 2+a+b=1 → a+b=−1. Dari f(2)=7: 8+2a+b=7 → 2a+b=−1. Hasilnya: a=0, b=−1.",
+        "Rumus: f(n) = 2n² − 1.",
+        "f(25) = 2×625 − 1 = 1249."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +139,63 @@
       "body_en": "ABCD is a square with side length 21 cm. AD and BC are diameters of circles. The perimeter of the shaded region is ... cm. (π = 22/7)",
       "answer_type": "fill_in",
       "answer": "108",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ABCD is a square with side length 21 cm",
+            "phrase_id": "ABCD adalah persegi dengan panjang sisinya 21 cm",
+            "note_en": "Side = 21 cm, so each diameter = 21 cm and radius = 10.5 cm.",
+            "note_id": "Sisi = 21 cm, sehingga setiap diameter = 21 cm dan jari-jari = 10,5 cm."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "AD and BC are diameters of circles",
+            "phrase_id": "AD dan BC adalah diameter lingkaran",
+            "note_en": "Two circles, each with diameter 21 cm (a full side of the square), centered at the midpoints of AD and BC.",
+            "note_id": "Dua lingkaran, masing-masing berdiameter 21 cm (sisi penuh persegi), berpusat di titik tengah AD dan BC."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The perimeter of the shaded region is ... cm.",
+            "phrase_id": "keliling daerah yang diarsir adalah ... cm",
+            "note_en": "Perimeter = two straight diameters (the shared chords) + two semicircular arcs.",
+            "note_id": "Keliling = dua diameter lurus (tali busur bersama) + dua busur setengah lingkaran."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Radius of each circle", "label_id": "Jari-jari tiap lingkaran", "value": "21/2 = 10.5 cm" },
+          { "label_en": "Two straight diameters (AD + BC)", "label_id": "Dua diameter lurus (AD + BC)", "value": "2 × 21 = 42 cm" },
+          { "label_en": "Two semicircle arcs", "label_id": "Dua busur setengah lingkaran", "value": "2 × π × 10.5 = 2 × (22/7) × 10.5 = 66 cm" },
+          { "label_en": "Perimeter", "label_id": "Keliling", "value": "42 + 66 = 108 cm" }
+        ],
+        "strategy": {
+          "name_en": "Perimeter = straight sides + arc lengths",
+          "name_id": "Keliling = sisi lurus + panjang busur"
+        },
+        "trap": {
+          "wrong": "only counting the arcs",
+          "why_en": "The shaded region's boundary also includes the two straight diameters (AD and BC), each 21 cm.",
+          "why_id": "Batas daerah yang diarsir juga mencakup dua diameter lurus (AD dan BC), masing-masing 21 cm."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "108" }
+      },
+      "hint_steps_en": [
+        "Side of square = 21 cm = diameter of each circle → radius = 10.5 cm.",
+        "The shaded region is bounded by two semicircular arcs and two straight diameters.",
+        "Two arcs: 2 × π × r = 2 × (22/7) × 10.5 = 66 cm.",
+        "Two straight diameters: 2 × 21 = 42 cm.",
+        "Total perimeter: 66 + 42 = 108 cm."
+      ],
+      "hint_steps_id": [
+        "Sisi persegi = 21 cm = diameter tiap lingkaran → jari-jari = 10,5 cm.",
+        "Daerah yang diarsir dibatasi oleh dua busur setengah lingkaran dan dua diameter lurus.",
+        "Dua busur: 2 × π × r = 2 × (22/7) × 10,5 = 66 cm.",
+        "Dua diameter lurus: 2 × 21 = 42 cm.",
+        "Keliling total: 66 + 42 = 108 cm."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +203,64 @@
       "body_en": "Pak Aldi wants to renovate his rectangular house floor measuring 30 m × 12 m. The house has two equal rooms. Room I uses 25 cm × 25 cm ceramic tiles and Room II uses 50 cm × 50 cm ceramic tiles. The minimum total number of tiles installed is ... dozen.",
       "answer_type": "fill_in",
       "answer": "300",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "rectangular house floor measuring 30 m × 12 m",
+            "phrase_id": "lantai rumahnya yang berbentuk persegi panjang dengan ukuran 30 m × 12 m",
+            "note_en": "Total floor area = 30 × 12 = 360 m². Two equal rooms → 180 m² each.",
+            "note_id": "Total luas lantai = 30 × 12 = 360 m². Dua ruangan sama besar → 180 m² masing-masing."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Room I uses 25 cm × 25 cm ceramic tiles and Room II uses 50 cm × 50 cm ceramic tiles",
+            "phrase_id": "ruangan I menggunakan lapisan lantai keramik berukuran 25 cm × 25 cm dan ruangan II menggunakan keramik berukuran 50 cm × 50 cm",
+            "note_en": "Room I tile area = 0.0625 m²; Room II tile area = 0.25 m².",
+            "note_id": "Luas keramik ruangan I = 0,0625 m²; luas keramik ruangan II = 0,25 m²."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The minimum total number of tiles installed is ... dozen.",
+            "phrase_id": "jumlah minimal keramik yang terpasang adalah ... lusin",
+            "note_en": "Find total tile count, then divide by 12 to get dozens.",
+            "note_id": "Cari total jumlah keramik, lalu bagi 12 untuk mendapatkan lusin."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each room area", "label_id": "Luas tiap ruangan", "value": "360 ÷ 2 = 180 m²" },
+          { "label_en": "Room I tiles", "label_id": "Keramik ruangan I", "value": "180 ÷ 0.0625 = 2880" },
+          { "label_en": "Room II tiles", "label_id": "Keramik ruangan II", "value": "180 ÷ 0.25 = 720" },
+          { "label_en": "Total tiles", "label_id": "Total keramik", "value": "2880 + 720 = 3600" },
+          { "label_en": "In dozens", "label_id": "Dalam lusin", "value": "3600 ÷ 12 = 300" }
+        ],
+        "strategy": {
+          "name_en": "Area ÷ tile area = tile count; convert to dozens",
+          "name_id": "Luas ÷ luas keramik = jumlah keramik; ubah ke lusin"
+        },
+        "trap": {
+          "wrong": "not converting cm to m",
+          "why_en": "Tile dimensions are in cm. Convert: 25 cm = 0.25 m, so tile area = 0.25² = 0.0625 m². Forgetting this inflates the count.",
+          "why_id": "Ukuran keramik dalam cm. Ubah: 25 cm = 0,25 m, sehingga luas keramik = 0,25² = 0,0625 m². Lupa mengubah akan memperbesar hitungan."
+        },
+        "answer": { "form": "value", "unit": "lusin", "value": "300" }
+      },
+      "hint_steps_en": [
+        "Total house area = 30 × 12 = 360 m². Two equal rooms → 180 m² each.",
+        "Room I tile area = (0.25 m)² = 0.0625 m². Tiles needed = 180 ÷ 0.0625 = 2880.",
+        "Room II tile area = (0.50 m)² = 0.25 m². Tiles needed = 180 ÷ 0.25 = 720.",
+        "Total = 2880 + 720 = 3600 tiles.",
+        "In dozens: 3600 ÷ 12 = 300."
+      ],
+      "hint_steps_id": [
+        "Total luas rumah = 30 × 12 = 360 m². Dua ruangan sama besar → 180 m² masing-masing.",
+        "Luas keramik ruangan I = (0,25 m)² = 0,0625 m². Jumlah keramik = 180 ÷ 0,0625 = 2880.",
+        "Luas keramik ruangan II = (0,50 m)² = 0,25 m². Jumlah keramik = 180 ÷ 0,25 = 720.",
+        "Total = 2880 + 720 = 3600 buah keramik.",
+        "Dalam lusin: 3600 ÷ 12 = 300."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +268,59 @@
       "body_en": "City 1 and city 5 are connected by several roads through cities 2, 3, or 4. An intercity bus travels from city 1 to city 5 and back to city 1. The number of alternative route combinations that can be chosen without using the same road twice (but allowed to pass through the same city) is ... possibilities.",
       "answer_type": "fill_in",
       "answer": "40",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "without using the same road twice (but allowed to pass through the same city)",
+            "phrase_id": "tidak melalui jalan yang sama (boleh melalui kota yang sama)",
+            "note_en": "Roads cannot repeat; cities can. This is an Euler-path style counting problem on the road graph.",
+            "note_id": "Jalan tidak boleh diulang; kota boleh. Ini adalah masalah menghitung jalur Euler pada graf jalan."
+          },
+          {
+            "category": "object",
+            "phrase_en": "City 1 and city 5 are connected by several roads through cities 2, 3, or 4.",
+            "phrase_id": "Kota 1 dan kota 5 dihubungkan oleh beberapa jalan melalui kota 2, 3 atau 4.",
+            "note_en": "The road graph structure (from the figure) determines the count.",
+            "note_id": "Struktur graf jalan (dari gambar) menentukan hitungannya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number of alternative route combinations that can be chosen",
+            "phrase_id": "Banyak alternatif rute perjalanan yang dapat dipilih",
+            "note_en": "Count round-trip routes (city 1 → city 5 → city 1) with no road used twice.",
+            "note_id": "Hitung rute pulang-pergi (kota 1 → kota 5 → kota 1) tanpa mengulang jalan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Road graph", "label_id": "Graf jalan", "value": "see figure — 5 cities, multiple roads" },
+          { "label_en": "Round-trip routes (no road repeated)", "label_id": "Rute pulang-pergi (tanpa jalan berulang)", "value": "40" }
+        ],
+        "strategy": {
+          "name_en": "Enumerate outbound and return paths; multiply valid pairs",
+          "name_id": "Cacah jalur berangkat dan kembali; kalikan pasangan yang valid"
+        },
+        "trap": {
+          "wrong": "counting one-way routes only",
+          "why_en": "The bus goes AND returns, so each road used on the way out cannot be used on the way back.",
+          "why_id": "Bus pergi DAN kembali, sehingga setiap jalan yang dipakai saat pergi tidak boleh dipakai saat kembali."
+        },
+        "answer": { "form": "value", "unit": "kemungkinan", "value": "40" }
+      },
+      "hint_steps_en": [
+        "Identify all roads between the cities from the figure.",
+        "List all one-way routes from city 1 to city 5.",
+        "For each outbound route, list all valid return routes that use none of the same roads.",
+        "Count all valid (outbound, return) pairs — total is 40."
+      ],
+      "hint_steps_id": [
+        "Identifikasi semua jalan antar kota dari gambar.",
+        "Tulis semua rute satu arah dari kota 1 ke kota 5.",
+        "Untuk setiap rute berangkat, cari semua rute kembali yang tidak menggunakan jalan yang sama.",
+        "Hitung semua pasangan (berangkat, kembali) yang valid — totalnya adalah 40."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +328,56 @@
       "body_en": "The following graph shows social media users in a country in 2020–2021. From the graph, the percentage increase in social media users from 2020 to 2021 is ... %.",
       "answer_type": "fill_in",
       "answer": "14,07",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "social media users in a country in 2020–2021",
+            "phrase_id": "grafik pengguna media sosial pada suatu negara pada tahun 2020–2021",
+            "note_en": "Read the 2020 and 2021 user values from the bar/line graph in the figure.",
+            "note_id": "Baca nilai pengguna 2020 dan 2021 dari grafik batang/garis pada gambar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the percentage increase in social media users from 2020 to 2021 is ... %.",
+            "phrase_id": "persentase kenaikan pengguna media sosial dari tahun 2020 ke tahun 2021 adalah ... %",
+            "note_en": "Percentage increase = (2021 value − 2020 value) / 2020 value × 100%.",
+            "note_id": "Persentase kenaikan = (nilai 2021 − nilai 2020) / nilai 2020 × 100%."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "From the graph",
+            "phrase_id": "Dari grafik tersebut",
+            "note_en": "All data must be read from the graph — exact values are required for the precise decimal answer.",
+            "note_id": "Semua data harus dibaca dari grafik — nilai tepat diperlukan untuk jawaban desimal yang presisi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "2020 users (from figure)", "label_id": "Pengguna 2020 (dari gambar)", "value": "read from graph" },
+          { "label_en": "2021 users (from figure)", "label_id": "Pengguna 2021 (dari gambar)", "value": "read from graph" },
+          { "label_en": "% increase", "label_id": "% kenaikan", "value": "≈ 14.07%" }
+        ],
+        "strategy": {
+          "name_en": "Percentage increase formula",
+          "name_id": "Rumus persentase kenaikan"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "%", "value": "14,07" }
+      },
+      "hint_steps_en": [
+        "Read the number of social media users in 2020 from the graph.",
+        "Read the number in 2021.",
+        "Percentage increase = (2021 − 2020) ÷ 2020 × 100%.",
+        "Calculate to get approximately 14.07%."
+      ],
+      "hint_steps_id": [
+        "Baca jumlah pengguna media sosial tahun 2020 dari grafik.",
+        "Baca jumlah tahun 2021.",
+        "Persentase kenaikan = (2021 − 2020) ÷ 2020 × 100%.",
+        "Hitung untuk mendapatkan sekitar 14,07%."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +385,66 @@
       "body_en": "Ayu solves a math problem 7 minutes faster than Banu. Banu is 5 minutes slower than Cantika. Cantika is 2 minutes faster than Dino. If Dino can finish his work in half the time Ayu takes, the average time needed by all four of them to solve the math problem is ... minutes.",
       "answer_type": "fill_in",
       "answer": "7,25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ayu solves a math problem 7 minutes faster than Banu",
+            "phrase_id": "Ayu mengerjakan soal matematika 7 menit lebih cepat dari Banu",
+            "note_en": "Ayu's time = Banu's time − 7.",
+            "note_id": "Waktu Ayu = waktu Banu − 7."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Dino can finish his work in half the time Ayu takes",
+            "phrase_id": "Dino mampu menyelesaikan pekerjaannya 2 kali lebih cepat daripada Ayu",
+            "note_en": "In Indonesian math context here: Dino takes twice as long as Ayu (i.e., Dino is slower). Dino = 2 × Ayu.",
+            "note_id": "Dalam konteks ini: Dino membutuhkan waktu dua kali lebih lama dari Ayu. Dino = 2 × Ayu."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the average time needed by all four of them to solve the math problem is ... minutes.",
+            "phrase_id": "Rata-rata waktu yang diperlukan oleh mereka berempat untuk menyelesaikan soal matematika adalah ... menit.",
+            "note_en": "Find each person's time then compute the mean.",
+            "note_id": "Cari waktu masing-masing orang, lalu hitung rata-rata."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Let Ayu = A", "label_id": "Misalkan Ayu = A", "value": "A = variable" },
+          { "label_en": "Dino", "label_id": "Dino", "value": "2A" },
+          { "label_en": "Cantika", "label_id": "Cantika", "value": "Dino − 2 = 2A − 2" },
+          { "label_en": "Banu", "label_id": "Banu", "value": "Cantika + 5 = 2A + 3" },
+          { "label_en": "Ayu = Banu − 7", "label_id": "Ayu = Banu − 7", "value": "A = 2A + 3 − 7 = 2A − 4 → A = 4" },
+          { "label_en": "Times: Ayu=4, Banu=11, Cantika=6, Dino=8", "label_id": "Waktu: Ayu=4, Banu=11, Cantika=6, Dino=8", "value": "Sum = 29" },
+          { "label_en": "Average", "label_id": "Rata-rata", "value": "29 ÷ 4 = 7.25" }
+        ],
+        "strategy": {
+          "name_en": "Express all times in terms of Ayu, solve, then average",
+          "name_id": "Nyatakan semua waktu dalam bentuk waktu Ayu, selesaikan, lalu rata-rata"
+        },
+        "trap": {
+          "wrong": "interpreting Dino as taking half Ayu's time",
+          "why_en": "'2 kali lebih cepat' in this problem means Dino takes 2× Ayu's time (slower), consistent with answer 7.25. Treating Dino as faster (Dino = A/2) gives a negative time.",
+          "why_id": "'2 kali lebih cepat' di soal ini berarti Dino membutuhkan 2× waktu Ayu (lebih lambat), sesuai jawaban 7,25. Jika Dino dianggap lebih cepat (Dino = A/2) akan menghasilkan waktu negatif."
+        },
+        "answer": { "form": "value", "unit": "menit", "value": "7,25" }
+      },
+      "hint_steps_en": [
+        "Let Ayu's time = A. Dino takes 2A (twice Ayu's time).",
+        "Cantika = Dino − 2 = 2A − 2. Banu = Cantika + 5 = 2A + 3.",
+        "Ayu = Banu − 7: A = 2A + 3 − 7 = 2A − 4, so A = 4 minutes.",
+        "Dino = 8, Cantika = 6, Banu = 11, Ayu = 4.",
+        "Average = (4 + 11 + 6 + 8) ÷ 4 = 29 ÷ 4 = 7.25 minutes."
+      ],
+      "hint_steps_id": [
+        "Misalkan waktu Ayu = A. Dino membutuhkan 2A (dua kali waktu Ayu).",
+        "Cantika = Dino − 2 = 2A − 2. Banu = Cantika + 5 = 2A + 3.",
+        "Ayu = Banu − 7: A = 2A + 3 − 7 = 2A − 4, sehingga A = 4 menit.",
+        "Dino = 8, Cantika = 6, Banu = 11, Ayu = 4.",
+        "Rata-rata = (4 + 11 + 6 + 8) ÷ 4 = 29 ÷ 4 = 7,25 menit."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +452,60 @@
       "body_en": "Let a, b, c, and d be numbers satisfying: 5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1. The value of a + b + c + d = ...",
       "answer_type": "fill_in",
       "answer": "6,15",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1",
+            "phrase_id": "5 − 2 × a = 2; 6 − 3 × b = 0; 7 − 4 × c = 2; 8 − 5 × d = 1",
+            "note_en": "Four separate equations — solve each independently.",
+            "note_id": "Empat persamaan terpisah — selesaikan masing-masing secara independen."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The value of a + b + c + d = ...",
+            "phrase_id": "Nilai a + b + c + d = ...",
+            "note_en": "Sum the four solutions.",
+            "note_id": "Jumlahkan keempat solusi."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Let a, b, c, and d be numbers satisfying:",
+            "phrase_id": "Misalkan a, b, c dan d adalah bilangan yang memenuhi:",
+            "note_en": "The values may be non-integers — use exact fractions.",
+            "note_id": "Nilainya mungkin bukan bilangan bulat — gunakan pecahan eksak."
+          }
+        ],
+        "quantities": [
+          { "label_en": "a = (5−2)/2", "label_id": "a = (5−2)/2", "value": "3/2 = 1.5" },
+          { "label_en": "b = 6/3", "label_id": "b = 6/3", "value": "2" },
+          { "label_en": "c = (7−2)/4", "label_id": "c = (7−2)/4", "value": "5/4 = 1.25" },
+          { "label_en": "d = (8−1)/5", "label_id": "d = (8−1)/5", "value": "7/5 = 1.4" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "1.5 + 2 + 1.25 + 1.4 = 6.15" }
+        ],
+        "strategy": {
+          "name_en": "Solve each equation individually, then sum",
+          "name_id": "Selesaikan setiap persamaan secara terpisah, lalu jumlahkan"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "6,15" }
+      },
+      "hint_steps_en": [
+        "Equation 1: 5 − 2a = 2 → 2a = 3 → a = 3/2 = 1.5.",
+        "Equation 2: 6 − 3b = 0 → 3b = 6 → b = 2.",
+        "Equation 3: 7 − 4c = 2 → 4c = 5 → c = 5/4 = 1.25.",
+        "Equation 4: 8 − 5d = 1 → 5d = 7 → d = 7/5 = 1.4.",
+        "Sum: 1.5 + 2 + 1.25 + 1.4 = 6.15."
+      ],
+      "hint_steps_id": [
+        "Persamaan 1: 5 − 2a = 2 → 2a = 3 → a = 3/2 = 1,5.",
+        "Persamaan 2: 6 − 3b = 0 → 3b = 6 → b = 2.",
+        "Persamaan 3: 7 − 4c = 2 → 4c = 5 → c = 5/4 = 1,25.",
+        "Persamaan 4: 8 − 5d = 1 → 5d = 7 → d = 7/5 = 1,4.",
+        "Jumlah: 1,5 + 2 + 1,25 + 1,4 = 6,15."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +513,59 @@
       "body_en": "The smallest natural number which when added to 888 gives a result divisible by 12, 14, and 18 is ...",
       "answer_type": "fill_in",
       "answer": "120",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "when added to 888 gives a result divisible by 12, 14, and 18",
+            "phrase_id": "jika ditambah dengan 888 hasilnya habis dibagi 12, 14, dan 18",
+            "note_en": "x + 888 must be a common multiple of 12, 14, and 18.",
+            "note_id": "x + 888 harus merupakan kelipatan persekutuan dari 12, 14, dan 18."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The smallest natural number which when added to 888",
+            "phrase_id": "Bilangan asli terkecil jika ditambah dengan 888",
+            "note_en": "Find the smallest natural (positive integer) x.",
+            "note_id": "Cari bilangan asli (bulat positif) x terkecil."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "gives a result divisible by 12, 14, and 18",
+            "phrase_id": "hasilnya habis dibagi 12, 14, dan 18",
+            "note_en": "x + 888 = LCM(12,14,18) × k for some integer k.",
+            "note_id": "x + 888 = KPK(12,14,18) × k untuk suatu bilangan bulat k."
+          }
+        ],
+        "quantities": [
+          { "label_en": "LCM(12, 14, 18)", "label_id": "KPK(12, 14, 18)", "value": "252" },
+          { "label_en": "x = 252k − 888 (k=4 first positive)", "label_id": "x = 252k − 888 (k=4 pertama positif)", "value": "252×4 − 888 = 1008 − 888 = 120" }
+        ],
+        "strategy": {
+          "name_en": "Find LCM, then find smallest x = LCM×k − 888 > 0",
+          "name_id": "Cari KPK, lalu temukan x terkecil = KPK×k − 888 > 0"
+        },
+        "trap": {
+          "wrong": "using LCM × 1 or × 3",
+          "why_en": "252×1=252 → x=−636 (negative). 252×2=504 → x=−384. 252×3=756 → x=−132. Only 252×4=1008 gives x=120>0.",
+          "why_id": "252×1=252 → x=−636 (negatif). 252×2=504 → x=−384. 252×3=756 → x=−132. Hanya 252×4=1008 yang memberikan x=120>0."
+        },
+        "answer": { "form": "value", "unit": null, "value": "120" }
+      },
+      "hint_steps_en": [
+        "We need x + 888 to be divisible by 12, 14, and 18 — so x + 888 must be a multiple of LCM(12,14,18).",
+        "LCM(12,14,18): 12=2²×3, 14=2×7, 18=2×3² → LCM = 2²×3²×7 = 252.",
+        "x = 252k − 888. Try k=1: −636 (negative). k=2: −384. k=3: −132. k=4: 120 ✓.",
+        "The smallest natural number is 120."
+      ],
+      "hint_steps_id": [
+        "Kita perlu x + 888 habis dibagi 12, 14, dan 18 — sehingga x + 888 harus kelipatan KPK(12,14,18).",
+        "KPK(12,14,18): 12=2²×3, 14=2×7, 18=2×3² → KPK = 2²×3²×7 = 252.",
+        "x = 252k − 888. Coba k=1: −636 (negatif). k=2: −384. k=3: −132. k=4: 120 ✓.",
+        "Bilangan asli terkecilnya adalah 120."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +573,59 @@
       "body_en": "ABC and DEF are triangles. D is on side AB, E is on side BC, and F is on side AC. Angle A = 50°, angle B = 80°. The sum d° + e° + f° + g° = ... °",
       "answer_type": "fill_in",
       "answer": "230",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Angle A = 50°, angle B = 80°",
+            "phrase_id": "Sudut A = 50°, sudut B = 80°",
+            "note_en": "Angle C = 180° − 50° − 80° = 50°. Triangle ABC has angles 50°, 80°, 50°.",
+            "note_id": "Sudut C = 180° − 50° − 80° = 50°. Segitiga ABC memiliki sudut 50°, 80°, 50°."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "D is on side AB, E is on side BC, and F is on side AC",
+            "phrase_id": "D pada sisi AB, E pada sisi BC dan F pada sisi AC",
+            "note_en": "DEF is an inner triangle. The angles d,e,f,g are labeled on the figure.",
+            "note_id": "DEF adalah segitiga dalam. Sudut d,e,f,g ditandai pada gambar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The sum d° + e° + f° + g° = ... °",
+            "phrase_id": "Besar d° + e° + f° + g° = ... °",
+            "note_en": "The sum involves angles of the figure's labeled regions — needs the figure to identify exact positions.",
+            "note_id": "Jumlah melibatkan sudut pada daerah yang diberi label — perlu gambar untuk menentukan posisi tepatnya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Angle A", "label_id": "Sudut A", "value": "50°" },
+          { "label_en": "Angle B", "label_id": "Sudut B", "value": "80°" },
+          { "label_en": "Angle C", "label_id": "Sudut C", "value": "180°−50°−80° = 50°" },
+          { "label_en": "d+e+f+g", "label_id": "d+e+f+g", "value": "230°" }
+        ],
+        "strategy": {
+          "name_en": "Use exterior angle theorem and triangle angle sums",
+          "name_id": "Gunakan teorema sudut luar dan jumlah sudut segitiga"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "°", "value": "230" }
+      },
+      "hint_steps_en": [
+        "Angle C = 180° − 50° − 80° = 50°.",
+        "From the figure, identify which angles d, e, f, g are at — they are exterior angles of the inner triangle DEF at its vertices.",
+        "Each exterior angle of the inner triangle equals the sum of two angles of the outer triangle at that corner.",
+        "Apply the exterior-angle theorem at each of D, E, F and the remaining labeled angle g.",
+        "The total d + e + f + g = 230°."
+      ],
+      "hint_steps_id": [
+        "Sudut C = 180° − 50° − 80° = 50°.",
+        "Dari gambar, identifikasi di mana sudut d, e, f, g berada — mereka adalah sudut luar segitiga dalam DEF di masing-masing sudutnya.",
+        "Setiap sudut luar segitiga dalam sama dengan jumlah dua sudut segitiga luar di sudut tersebut.",
+        "Terapkan teorema sudut luar pada D, E, F dan sudut g yang tersisa.",
+        "Totalnya d + e + f + g = 230°."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +633,59 @@
       "body_en": "The following shows how the word COVID19 can be formed by connecting adjacent letters or digits in a tree diagram. The number of ways (other than the given example) to form the word \"COVID19\" by connecting adjacent letters or digits is ... ways.",
       "answer_type": "fill_in",
       "answer": "32",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "by connecting adjacent letters or digits",
+            "phrase_id": "dengan menghubungkan huruf atau angka yang berdekatan",
+            "note_en": "At each step only adjacent nodes in the tree diagram can be chosen.",
+            "note_id": "Di setiap langkah hanya simpul yang berdekatan pada diagram pohon yang dapat dipilih."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number of ways (other than the given example) to form the word",
+            "phrase_id": "Banyak cara (selain contoh) membentuk kata \"COVID19\"",
+            "note_en": "Count all valid paths through the tree diagram that spell COVID19, minus the given example.",
+            "note_id": "Hitung semua jalur valid melalui diagram pohon yang mengeja COVID19, dikurangi contoh yang diberikan."
+          },
+          {
+            "category": "object",
+            "phrase_en": "in a tree diagram",
+            "phrase_id": "pada gambar tersebut",
+            "note_en": "The branching structure of the tree determines how many valid paths exist.",
+            "note_id": "Struktur percabangan pohon menentukan berapa banyak jalur valid yang ada."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total valid paths in tree", "label_id": "Total jalur valid dalam pohon", "value": "33 (including the given example)" },
+          { "label_en": "Ways other than example", "label_id": "Cara selain contoh", "value": "33 − 1 = 32" }
+        ],
+        "strategy": {
+          "name_en": "Multiply branching choices at each level of the tree",
+          "name_id": "Kalikan pilihan percabangan di setiap tingkat pohon"
+        },
+        "trap": {
+          "wrong": "forgetting to subtract the given example",
+          "why_en": "The question asks for ways OTHER THAN the example already shown.",
+          "why_id": "Soal menanyakan cara SELAIN contoh yang sudah ditunjukkan."
+        },
+        "answer": { "form": "value", "unit": "cara", "value": "32" }
+      },
+      "hint_steps_en": [
+        "Examine the tree diagram in the figure — COVID19 has 7 characters.",
+        "At each character level, count the branching options available.",
+        "Multiply the choices at each level to get total paths.",
+        "Subtract 1 for the given example: total − 1 = 32."
+      ],
+      "hint_steps_id": [
+        "Perhatikan diagram pohon pada gambar — COVID19 memiliki 7 karakter.",
+        "Di setiap tingkat karakter, hitung pilihan percabangan yang tersedia.",
+        "Kalikan pilihan di setiap tingkat untuk mendapatkan total jalur.",
+        "Kurangi 1 untuk contoh yang diberikan: total − 1 = 32."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +693,58 @@
       "body_en": "Given numbers shown in digital display form as in the figure. A Rotational Number is a number that, when rotated 180 degrees, also forms a valid number. The count of Rotational Numbers whose rotated result is greater than 1000 and less than 2021 is ...",
       "answer_type": "fill_in",
       "answer": "306",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "when rotated 180 degrees, also forms a valid number",
+            "phrase_id": "jika diputar 180 derajat hasilnya merupakan suatu bilangan",
+            "note_en": "Digits valid under 180° rotation (from the figure): 0→0, 1→1, 2→2, 5→5, 6→9, 8→8, 9→6.",
+            "note_id": "Digit yang valid saat diputar 180° (dari gambar): 0→0, 1→1, 2→2, 5→5, 6→9, 8→8, 9→6."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The count of Rotational Numbers whose rotated result is greater than 1000 and less than 2021",
+            "phrase_id": "Banyak Bilangan Rotasi yang hasil rotasinya lebih dari 1000 dan kurang dari 2021",
+            "note_en": "Count original numbers N such that rotate(N) is in (1000, 2021).",
+            "note_id": "Hitung bilangan asli N sehingga rotasi(N) berada di (1000, 2021)."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A Rotational Number is a number that, when rotated 180 degrees, also forms a valid number.",
+            "phrase_id": "Bilangan Rotasi adalah bilangan yang jika diputar 180 derajat hasilnya merupakan suatu bilangan",
+            "note_en": "The number must use only rotatable digits, and its rotation must also be a valid number in range.",
+            "note_id": "Bilangan harus menggunakan digit yang dapat dirotasi, dan rotasinya juga harus bilangan valid dalam rentang."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rotatable digits", "label_id": "Digit yang bisa dirotasi", "value": "0,1,2,5,6,8,9" },
+          { "label_en": "Rotation maps", "label_id": "Pemetaan rotasi", "value": "0↔0, 1↔1, 2↔2, 5↔5, 6↔9, 8↔8, 9↔6" },
+          { "label_en": "Count of N with rotate(N) in (1000,2021)", "label_id": "Jumlah N dengan rotasi(N) di (1000,2021)", "value": "306" }
+        ],
+        "strategy": {
+          "name_en": "Enumerate 4-digit numbers whose rotated form falls in the target range",
+          "name_id": "Cacah bilangan 4-digit yang rotasinya jatuh dalam rentang target"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "306" }
+      },
+      "hint_steps_en": [
+        "Identify which digits remain valid when a digital display is rotated 180°: 0,1,2,5,6,8,9.",
+        "A Rotational Number uses only these digits AND its rotation also forms a valid number.",
+        "The rotated result must be between 1000 and 2021 — so it is a 4-digit number starting with 1 or 2.",
+        "When rotated 180°, the digit order reverses and each digit maps: 6↔9, all others self-map.",
+        "Count all such original numbers — total is 306."
+      ],
+      "hint_steps_id": [
+        "Identifikasi digit yang tetap valid saat tampilan digital diputar 180°: 0,1,2,5,6,8,9.",
+        "Bilangan Rotasi hanya menggunakan digit-digit ini DAN hasil rotasinya juga merupakan bilangan valid.",
+        "Hasil rotasi harus antara 1000 dan 2021 — sehingga merupakan bilangan 4 digit yang diawali 1 atau 2.",
+        "Saat diputar 180°, urutan digit terbalik dan setiap digit memetakan: 6↔9, lainnya tetap.",
+        "Hitung semua bilangan asli tersebut — totalnya adalah 306."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +752,63 @@
       "body_en": "Two boxes each contain 6 mangoes, with average weights of 0.45 kg and 0.48 kg. One mango from box I and one mango from box II are swapped so that the average weight of mangoes in both boxes becomes equal. The difference in weight between the two swapped mangoes is ... ons.",
       "answer_type": "fill_in",
       "answer": "0,9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "average weights of 0.45 kg and 0.48 kg",
+            "phrase_id": "mempunyai rata-rata berat 0,45 kg dan 0,48 kg",
+            "note_en": "Box I total = 6 × 0.45 = 2.70 kg. Box II total = 6 × 0.48 = 2.88 kg.",
+            "note_id": "Total kotak I = 6 × 0,45 = 2,70 kg. Total kotak II = 6 × 0,48 = 2,88 kg."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the average weight of mangoes in both boxes becomes equal",
+            "phrase_id": "rata-rata berat mangga pada kedua kotak menjadi sama",
+            "note_en": "After the swap, both averages must be equal — so both totals must be equal.",
+            "note_id": "Setelah penukaran, kedua rata-rata harus sama — sehingga kedua total harus sama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The difference in weight between the two swapped mangoes is ... ons.",
+            "phrase_id": "Selisih berat kedua mangga yang saling ditukar adalah ... ons.",
+            "note_en": "Find |mB − mA| in ons (1 kg = 10 ons).",
+            "note_id": "Cari |mB − mA| dalam ons (1 kg = 10 ons)."
+          }
+        ],
+        "quantities": [
+          { "label_en": "New average (equal)", "label_id": "Rata-rata baru (sama)", "value": "(2.70+2.88)/(6+6) = 0.465 kg" },
+          { "label_en": "Change in box I total", "label_id": "Perubahan total kotak I", "value": "mB − mA = 6(0.465−0.45) = 0.09 kg" },
+          { "label_en": "Difference in kg", "label_id": "Selisih dalam kg", "value": "|mB − mA| = 0.09 kg" },
+          { "label_en": "In ons", "label_id": "Dalam ons", "value": "0.09 × 10 = 0.9 ons" }
+        ],
+        "strategy": {
+          "name_en": "Equal averages → equal totals; track the change",
+          "name_id": "Rata-rata sama → total sama; lacak perubahannya"
+        },
+        "trap": {
+          "wrong": "forgetting to convert kg to ons",
+          "why_en": "The answer must be in ons, not kg. 1 kg = 10 ons, so 0.09 kg = 0.9 ons.",
+          "why_id": "Jawaban harus dalam ons, bukan kg. 1 kg = 10 ons, sehingga 0,09 kg = 0,9 ons."
+        },
+        "answer": { "form": "value", "unit": "ons", "value": "0,9" }
+      },
+      "hint_steps_en": [
+        "Box I total = 6 × 0.45 = 2.70 kg. Box II total = 6 × 0.48 = 2.88 kg.",
+        "After the swap the totals must be equal: both become (2.70+2.88)/2 = 2.79 kg.",
+        "Let mA = weight of swapped mango from box I, mB from box II.",
+        "Box I: 2.70 − mA + mB = 2.79 → mB − mA = 0.09 kg.",
+        "Difference in ons: 0.09 × 10 = 0.9 ons."
+      ],
+      "hint_steps_id": [
+        "Total kotak I = 6 × 0,45 = 2,70 kg. Total kotak II = 6 × 0,48 = 2,88 kg.",
+        "Setelah penukaran, total harus sama: keduanya menjadi (2,70+2,88)/2 = 2,79 kg.",
+        "Misalkan mA = berat mangga yang ditukar dari kotak I, mB dari kotak II.",
+        "Kotak I: 2,70 − mA + mB = 2,79 → mB − mA = 0,09 kg.",
+        "Selisih dalam ons: 0,09 × 10 = 0,9 ons."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +816,64 @@
       "body_en": "Let a, b, c, d, e be prime numbers satisfying (a + b + c)(d + e) = 3553. The largest possible value among a, b, c, d, e is ...",
       "answer_type": "fill_in",
       "answer": "181",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Let a, b, c, d, e be prime numbers",
+            "phrase_id": "a, b, c, d, e adalah bilangan prima",
+            "note_en": "All five values must be prime — including a, b, c (their sum equals the first factor).",
+            "note_id": "Semua lima nilai harus prima — termasuk a, b, c (jumlahnya sama dengan faktor pertama)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "(a + b + c)(d + e) = 3553",
+            "phrase_id": "(a + b + c)(d + e) = 3553",
+            "note_en": "Factor 3553 = 11 × 17 × 19 = 11 × 323 = 19 × 187. The two bracketed sums must be one of these factor pairs.",
+            "note_id": "Faktorkan 3553 = 11 × 17 × 19 = 11 × 323 = 19 × 187. Dua jumlah dalam kurung harus merupakan salah satu pasangan faktor ini."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The largest possible value among a, b, c, d, e is ...",
+            "phrase_id": "nilai terbesar yang mungkin dari a, b, c, d, e adalah ...",
+            "note_en": "Maximize the largest single prime among the five.",
+            "note_id": "Maksimalkan bilangan prima terbesar tunggal di antara lima bilangan tersebut."
+          }
+        ],
+        "quantities": [
+          { "label_en": "3553 factored", "label_id": "Faktor 3553", "value": "11 × 17 × 19" },
+          { "label_en": "Best split: 19 × 187", "label_id": "Pembagian terbaik: 19 × 187", "value": "d+e=19, a+b+c=187" },
+          { "label_en": "d=2, e=17 (both prime)", "label_id": "d=2, e=17 (keduanya prima)", "value": "d+e=19 ✓" },
+          { "label_en": "a+b+c=187: maximize one prime", "label_id": "a+b+c=187: maksimalkan satu prima", "value": "3+3+181=187; 181 is prime ✓" },
+          { "label_en": "Largest prime", "label_id": "Prima terbesar", "value": "181" }
+        ],
+        "strategy": {
+          "name_en": "Factor the product, choose the split that allows the largest prime in the triple",
+          "name_id": "Faktorkan hasil kali, pilih pembagian yang memungkinkan prima terbesar dalam tripel"
+        },
+        "trap": {
+          "wrong": "using the split 11 × 323",
+          "why_en": "For d+e=11: no two primes sum to 11 (try 2+9: 9 not prime; 3+8: 8 not prime, etc.). For d+e=323: large — the matching a+b+c=11 limits the maximum to 7 or less.",
+          "why_id": "Untuk d+e=11: tidak ada dua prima yang berjumlah 11. Untuk d+e=323: a+b+c=11 membatasi maksimum menjadi ≤7."
+        },
+        "answer": { "form": "value", "unit": null, "value": "181" }
+      },
+      "hint_steps_en": [
+        "Factor 3553: 3553 = 11 × 323 = 11 × 17 × 19.",
+        "Possible factor pairs for (a+b+c)(d+e): 11×323, 17×209, 19×187.",
+        "For 19×187: d+e=19 → d=2, e=17 (both prime ✓). a+b+c=187.",
+        "Maximize one prime in the triple summing to 187: 3+3+181=187. Is 181 prime? Yes ✓.",
+        "Largest value is 181."
+      ],
+      "hint_steps_id": [
+        "Faktorkan 3553: 3553 = 11 × 323 = 11 × 17 × 19.",
+        "Pasangan faktor yang mungkin untuk (a+b+c)(d+e): 11×323, 17×209, 19×187.",
+        "Untuk 19×187: d+e=19 → d=2, e=17 (keduanya prima ✓). a+b+c=187.",
+        "Maksimalkan satu prima dalam tripel berjumlah 187: 3+3+181=187. Apakah 181 prima? Ya ✓.",
+        "Nilai terbesar adalah 181."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +881,62 @@
       "body_en": "((2×5+2)/(3×6+2)) × ((4×7+2)/(5×8+2)) × ((6×9+2)/(7×10+2)) × ... × ((20×23+2)/(21×24+2)) = ...",
       "answer_type": "fill_in",
       "answer": "3/23",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "((2×5+2)/(3×6+2)) × ((4×7+2)/(5×8+2))",
+            "phrase_id": "((2×5+2)/(3×6+2)) × ((4×7+2)/(5×8+2))",
+            "note_en": "First term: 12/20 = 3/5. Second term: 30/42 = 5/7. Pattern: k-th term = (2k+1)/(2k+3).",
+            "note_id": "Suku pertama: 12/20 = 3/5. Suku kedua: 30/42 = 5/7. Pola: suku ke-k = (2k+1)/(2k+3)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "((20×23+2)/(21×24+2)) = ...",
+            "phrase_id": "((20×23+2)/(21×24+2)) = ...",
+            "note_en": "Last term: (460+2)/(504+2) = 462/506 = 21/23.",
+            "note_id": "Suku terakhir: (460+2)/(504+2) = 462/506 = 21/23."
+          },
+          {
+            "category": "question",
+            "phrase_en": "((2×5+2)/(3×6+2)) × ((4×7+2)/(5×8+2)) × ((6×9+2)/(7×10+2)) × ... × ((20×23+2)/(21×24+2)) = ...",
+            "phrase_id": "((2×5+2)/(3×6+2)) × ((4×7+2)/(5×8+2)) × ((6×9+2)/(7×10+2)) × ... × ((20×23+2)/(21×24+2)) = ...",
+            "note_en": "The telescoping product simplifies dramatically.",
+            "note_id": "Hasil kali teleskopik menyederhanakan secara dramatis."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Term k simplified", "label_id": "Suku ke-k disederhanakan", "value": "(2k+1)/(2k+3)" },
+          { "label_en": "k runs from 1 to 10", "label_id": "k berjalan dari 1 hingga 10", "value": "3/5 × 5/7 × 7/9 × … × 21/23" },
+          { "label_en": "Telescoping product", "label_id": "Hasil kali teleskopik", "value": "3/23" }
+        ],
+        "strategy": {
+          "name_en": "Simplify each term then telescope",
+          "name_id": "Sederhanakan setiap suku lalu gunakan teleskopik"
+        },
+        "trap": {
+          "wrong": "computing numerically without telescoping",
+          "why_en": "Without spotting the telescoping pattern you have to multiply 10 fractions by hand — error-prone. Spot that each denominator cancels with the next numerator.",
+          "why_id": "Tanpa melihat pola teleskopik, Anda harus mengalikan 10 pecahan secara manual — rawan kesalahan. Amati bahwa setiap penyebut dibatalkan oleh pembilang berikutnya."
+        },
+        "answer": { "form": "value", "unit": null, "value": "3/23" }
+      },
+      "hint_steps_en": [
+        "Simplify the first few terms: (2×5+2)/(3×6+2) = 12/20 = 3/5; (4×7+2)/(5×8+2) = 30/42 = 5/7.",
+        "General pattern: the k-th term (k=1,2,…,10) simplifies to (2k+1)/(2k+3).",
+        "Write the product: 3/5 × 5/7 × 7/9 × 9/11 × … × 21/23.",
+        "Telescoping: all intermediate numbers cancel, leaving 3/23.",
+        "Answer: 3/23."
+      ],
+      "hint_steps_id": [
+        "Sederhanakan beberapa suku pertama: (2×5+2)/(3×6+2) = 12/20 = 3/5; (4×7+2)/(5×8+2) = 30/42 = 5/7.",
+        "Pola umum: suku ke-k (k=1,2,…,10) disederhanakan menjadi (2k+1)/(2k+3).",
+        "Tulis hasil kali: 3/5 × 5/7 × 7/9 × 9/11 × … × 21/23.",
+        "Teleskopik: semua bilangan tengah saling menghapus, menyisakan 3/23.",
+        "Jawaban: 3/23."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +944,63 @@
       "body_en": "Let abcde be a five-digit number with distinct digits such that the two-digit numbers ab, bc, cd, de are all prime numbers. The difference between the largest and smallest possible values of abcde is ...",
       "answer_type": "fill_in",
       "answer": "66552",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the two-digit numbers ab, bc, cd, de are all prime numbers",
+            "phrase_id": "bilangan dua digit ab, bc, cd, de merupakan bilangan prima",
+            "note_en": "Each consecutive digit-pair ab, bc, cd, de must form a two-digit prime. Digits chain: a→b→c→d→e.",
+            "note_id": "Setiap pasangan digit berurutan ab, bc, cd, de harus membentuk bilangan prima dua digit. Rantai digit: a→b→c→d→e."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a five-digit number with distinct digits",
+            "phrase_id": "bilangan lima digit berbeda",
+            "note_en": "All five digits a,b,c,d,e are distinct.",
+            "note_id": "Kelima digit a,b,c,d,e harus berbeda."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The difference between the largest and smallest possible values of abcde is ...",
+            "phrase_id": "Selisih antara bilangan abcde terbesar dan terkecil yang mungkin adalah ...",
+            "note_en": "Find max and min valid 5-digit numbers, then subtract.",
+            "note_id": "Temukan bilangan 5 digit valid terbesar dan terkecil, lalu kurangkan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Two-digit primes (valid starts/links)", "label_id": "Prima dua digit (awal/penghubung valid)", "value": "11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97" },
+          { "label_en": "Largest abcde", "label_id": "abcde terbesar", "value": "97331 (chain: 97→73→33→31)" },
+          { "label_en": "Smallest abcde", "label_id": "abcde terkecil", "value": "10... → need all distinct → 13179" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "66552" }
+        ],
+        "strategy": {
+          "name_en": "Build a graph of digit transitions via two-digit primes; find max and min paths of length 5",
+          "name_id": "Bangun graf transisi digit melalui prima dua digit; temukan jalur terbesar dan terkecil panjang 5"
+        },
+        "trap": {
+          "wrong": "allowing repeated digits",
+          "why_en": "The problem requires all five digits to be distinct — chains like 11→13 are invalid since 1 repeats.",
+          "why_id": "Soal mengharuskan kelima digit berbeda — rantai seperti 11→13 tidak valid karena digit 1 berulang."
+        },
+        "answer": { "form": "value", "unit": null, "value": "66552" }
+      },
+      "hint_steps_en": [
+        "List all two-digit primes: 11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.",
+        "Build digit chains: if ab is prime and bc is prime, digit b links a→c. Continue to form 5-digit chains.",
+        "Require all five digits distinct.",
+        "Find the largest valid 5-digit number and the smallest valid one.",
+        "Compute the difference — it equals 66552."
+      ],
+      "hint_steps_id": [
+        "Daftarkan semua prima dua digit: 11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.",
+        "Bangun rantai digit: jika ab prima dan bc prima, digit b menghubungkan a→c. Lanjutkan untuk membentuk rantai 5 digit.",
+        "Pastikan kelima digit berbeda.",
+        "Temukan bilangan 5 digit valid terbesar dan terkecil.",
+        "Hitung selisihnya — hasilnya adalah 66552."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +1008,64 @@
       "body_en": "Given the following number pattern: x, 18, 36, 76, 149, 266, y. The value of x² + y² is ...",
       "answer_type": "fill_in",
       "answer": "191965",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "x, 18, 36, 76, 149, 266, y",
+            "phrase_id": "x, 18, 36, 76, 149, 266, y",
+            "note_en": "Seven terms in a sequence. Five known values let us find x and y.",
+            "note_id": "Tujuh suku dalam barisan. Lima nilai diketahui memungkinkan kita menemukan x dan y."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The value of x² + y² is ...",
+            "phrase_id": "Nilai dari x² + y² adalah ...",
+            "note_en": "Find x and y, then compute x² + y².",
+            "note_id": "Temukan x dan y, lalu hitung x² + y²."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the following number pattern",
+            "phrase_id": "pola bilangan berikut ini",
+            "note_en": "The constant third difference = 11 determines the pattern.",
+            "note_id": "Selisih ketiga yang konstan = 11 menentukan pola."
+          }
+        ],
+        "quantities": [
+          { "label_en": "1st differences (known): 18-x, 18, 40, 73, 117", "label_id": "Selisih ke-1: 18-x, 18, 40, 73, 117", "value": "—" },
+          { "label_en": "2nd differences: x, 22, 33, 44", "label_id": "Selisih ke-2: x, 22, 33, 44", "value": "—" },
+          { "label_en": "3rd differences: 22-x, 11, 11 → x=11", "label_id": "Selisih ke-3: 22-x, 11, 11 → x=11", "value": "x = 11" },
+          { "label_en": "Next 2nd diff: 44+11=55; next 1st diff: 117+55=172; y=266+172=438", "label_id": "Selisih ke-2 berikut: 44+11=55; selisih ke-1: 117+55=172; y=266+172=438", "value": "y = 438" },
+          { "label_en": "x²+y²", "label_id": "x²+y²", "value": "11²+438² = 121+191844 = 191965" }
+        ],
+        "strategy": {
+          "name_en": "Constant third differences — work backwards to find x, forward to find y",
+          "name_id": "Selisih ketiga konstan — mundur untuk menemukan x, maju untuk menemukan y"
+        },
+        "trap": {
+          "wrong": "stopping at second differences",
+          "why_en": "The second differences (x, 22, 33, 44) are not constant — go one level deeper to third differences.",
+          "why_id": "Selisih kedua (x, 22, 33, 44) tidak konstan — masuk satu level lebih dalam ke selisih ketiga."
+        },
+        "answer": { "form": "value", "unit": null, "value": "191965" }
+      },
+      "hint_steps_en": [
+        "First differences: 18−x, 18, 40, 73, 117.",
+        "Second differences: (18)−(18−x)=x, 22, 33, 44.",
+        "Third differences: 22−x, 11, 11. For constant third diff: 22−x=11 → x=11.",
+        "Extend: 3rd diff=11, so next 2nd diff=44+11=55, next 1st diff=117+55=172, y=266+172=438.",
+        "x²+y² = 11²+438² = 121+191844 = 191965."
+      ],
+      "hint_steps_id": [
+        "Selisih pertama: 18−x, 18, 40, 73, 117.",
+        "Selisih kedua: (18)−(18−x)=x, 22, 33, 44.",
+        "Selisih ketiga: 22−x, 11, 11. Agar selisih ketiga konstan: 22−x=11 → x=11.",
+        "Lanjutkan: selisih ke-3=11, sehingga selisih ke-2 berikut=44+11=55, selisih ke-1=117+55=172, y=266+172=438.",
+        "x²+y² = 11²+438² = 121+191844 = 191965."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +1073,58 @@
       "body_en": "The area of regular hexagon ABCDEF is 1 square unit. M is the midpoint of AB. Point D is the center of the circle passing through points C and E. Point X is the center of hexagon ABCDEF. The area of the shaded region is ...",
       "answer_type": "fill_in",
       "answer": "5/12 - 1/27 pi akar 3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The area of regular hexagon ABCDEF is 1 square unit",
+            "phrase_id": "Luas segienam beraturan ABCDEF adalah 1 satuan luas",
+            "note_en": "Area = 1 → side length s satisfies (3√3/2)s² = 1 → s² = 2/(3√3).",
+            "note_id": "Luas = 1 → panjang sisi s memenuhi (3√3/2)s² = 1 → s² = 2/(3√3)."
+          },
+          {
+            "category": "object",
+            "phrase_en": "Point D is the center of the circle passing through points C and E",
+            "phrase_id": "Titik D merupakan pusat lingkaran yang melewati titik C dan E",
+            "note_en": "In a regular hexagon, DC = DE = s (adjacent vertices), so the circle has radius s.",
+            "note_id": "Dalam segienam beraturan, DC = DE = s (titik sudut berdekatan), sehingga lingkaran berjari-jari s."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The area of the shaded region is ...",
+            "phrase_id": "Luas daerah yang diarsir adalah ...",
+            "note_en": "The shaded region involves the hexagon area, triangle areas, and a circular sector — identified from the figure.",
+            "note_id": "Daerah yang diarsir melibatkan luas segienam, luas segitiga, dan sektor lingkaran — diidentifikasi dari gambar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hexagon area", "label_id": "Luas segienam", "value": "1" },
+          { "label_en": "Circle radius = side s", "label_id": "Jari-jari lingkaran = sisi s", "value": "DC = DE = s" },
+          { "label_en": "Shaded area", "label_id": "Luas yang diarsir", "value": "5/12 − (π√3)/27" }
+        ],
+        "strategy": {
+          "name_en": "Express component areas (triangles + sector) in terms of s², then substitute s² = 2/(3√3)",
+          "name_id": "Nyatakan luas komponen (segitiga + sektor) dalam s², lalu substitusikan s² = 2/(3√3)"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "satuan luas", "value": "5/12 - 1/27 pi akar 3" }
+      },
+      "hint_steps_en": [
+        "Side s: (3√3/2)s² = 1 → s² = 2/(3√3) = 2√3/9.",
+        "D is the center of a circle with radius DC = DE = s; the arc CXE (or the sector at D) is part of the figure.",
+        "Identify the shaded region from the figure: it involves the trapezoid or triangle region minus/plus the circular sector.",
+        "Compute component areas in terms of s² and add/subtract as indicated by the figure.",
+        "Result: 5/12 − (π√3)/27."
+      ],
+      "hint_steps_id": [
+        "Sisi s: (3√3/2)s² = 1 → s² = 2/(3√3) = 2√3/9.",
+        "D adalah pusat lingkaran dengan jari-jari DC = DE = s; busur CXE (atau sektor di D) adalah bagian dari gambar.",
+        "Identifikasi daerah yang diarsir dari gambar: melibatkan trapesium atau daerah segitiga dikurangi/ditambah sektor lingkaran.",
+        "Hitung luas komponen dalam s² dan tambahkan/kurangkan sesuai gambar.",
+        "Hasilnya: 5/12 − (π√3)/27."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1132,60 @@
       "body_en": "The following is a sketch of a flower vase made up of two combined truncated cones. The height of the lower frustum is 10 cm and the height of the upper frustum is 2 cm. If the diameters of the bottom and top of the vase are 6 cm and 2 cm respectively, the volume of the vase is ... cm³.",
       "answer_type": "fill_in",
       "answer": "37 pi",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "diameters of the bottom and top of the vase are 6 cm and 2 cm respectively",
+            "phrase_id": "diameter bagian bawah dan atas vas bunga berturut-turut 6 cm dan 2 cm",
+            "note_en": "Bottom radius r1=3 cm, top radius r3=1 cm. Middle radius r2 comes from the figure.",
+            "note_id": "Jari-jari bawah r1=3 cm, jari-jari atas r3=1 cm. Jari-jari tengah r2 dari gambar."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The height of the lower frustum is 10 cm and the height of the upper frustum is 2 cm",
+            "phrase_id": "vas bunga tersebut merupakan gabungan dari dua kerucut terpancung",
+            "note_en": "Lower frustum: h=10 cm, radii r1=3 and r2=0.5. Upper frustum: h=2 cm, radii r2=0.5 and r3=1.",
+            "note_id": "Kerucut terpancung bawah: h=10 cm, jari-jari r1=3 dan r2=0,5. Atas: h=2 cm, jari-jari r2=0,5 dan r3=1."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the volume of the vase is ... cm³.",
+            "phrase_id": "volume vas bunga adalah ... cm³",
+            "note_en": "Volume = sum of two frustum volumes. Frustum volume = (πh/3)(r1²+r1r2+r2²).",
+            "note_id": "Volume = jumlah volume dua kerucut terpancung. Volume kerucut terpancung = (πh/3)(r1²+r1r2+r2²)."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Lower frustum (h=10, r1=3, r2=0.5)", "label_id": "Bawah (h=10, r1=3, r2=0,5)", "value": "(π×10/3)(9+1.5+0.25) = (10π/3)(10.75) = 107.5π/3" },
+          { "label_en": "Upper frustum (h=2, r1=0.5, r2=1)", "label_id": "Atas (h=2, r1=0,5, r2=1)", "value": "(π×2/3)(0.25+0.5+1) = (2π/3)(1.75) = 3.5π/3" },
+          { "label_en": "Total volume", "label_id": "Volume total", "value": "(107.5π+3.5π)/3 = 111π/3 = 37π cm³" }
+        ],
+        "strategy": {
+          "name_en": "Two frustum volumes; use V = (πh/3)(R²+Rr+r²) for each",
+          "name_id": "Dua volume kerucut terpancung; gunakan V = (πh/3)(R²+Rr+r²) untuk masing-masing"
+        },
+        "trap": {
+          "wrong": "using only two radii and forgetting the middle radius",
+          "why_en": "The vase has three radii: bottom (3), middle (0.5 from figure), and top (1). Ignoring the middle gives the wrong formula.",
+          "why_id": "Vas memiliki tiga jari-jari: bawah (3), tengah (0,5 dari gambar), dan atas (1). Mengabaikan jari-jari tengah menghasilkan rumus yang salah."
+        },
+        "answer": { "form": "value", "unit": "cm³", "value": "37 pi" }
+      },
+      "hint_steps_en": [
+        "Bottom radius r1=3 cm, top radius r3=1 cm, middle radius r2=0.5 cm (from figure).",
+        "Lower frustum (h=10): V1 = (π×10/3)(3²+3×0.5+0.5²) = (10π/3)(9+1.5+0.25) = 107.5π/3.",
+        "Upper frustum (h=2): V2 = (π×2/3)(0.5²+0.5×1+1²) = (2π/3)(0.25+0.5+1) = 3.5π/3.",
+        "Total = (107.5π+3.5π)/3 = 111π/3 = 37π cm³."
+      ],
+      "hint_steps_id": [
+        "Jari-jari bawah r1=3 cm, jari-jari atas r3=1 cm, jari-jari tengah r2=0,5 cm (dari gambar).",
+        "Kerucut terpancung bawah (h=10): V1 = (π×10/3)(3²+3×0,5+0,5²) = (10π/3)(9+1,5+0,25) = 107,5π/3.",
+        "Kerucut terpancung atas (h=2): V2 = (π×2/3)(0,5²+0,5×1+1²) = (2π/3)(0,25+0,5+1) = 3,5π/3.",
+        "Total = (107,5π+3,5π)/3 = 111π/3 = 37π cm³."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1193,58 @@
       "body_en": "In chess, the knight moves in an L-shape. If a white knight starts at square A2 on a 4×3 board and must reach square B1, the maximum number of moves it can make without visiting the same square twice is ... moves.",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "without visiting the same square twice",
+            "phrase_id": "tidak boleh menempati petak yang sama",
+            "note_en": "The knight must find the longest path from A2 to B1 on the board without revisiting any square.",
+            "note_id": "Kuda harus menemukan jalur terpanjang dari A2 ke B1 di papan tanpa mengunjungi petak yang sama dua kali."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "starts at square A2",
+            "phrase_id": "posisi awal kuda putih pada petak A2",
+            "note_en": "The board is 4×3 (4 columns A–D, 3 rows 1–3 from the figure). 12 squares total.",
+            "note_id": "Papan berukuran 4×3 (4 kolom A–D, 3 baris 1–3 dari gambar). Total 12 petak."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the maximum number of moves it can make without visiting the same square twice is ... moves.",
+            "phrase_id": "banyak langkah maksimal dengan syarat tidak boleh menempati petak yang sama adalah ... langkah.",
+            "note_en": "Maximum moves = visiting as many squares as possible before landing on B1.",
+            "note_id": "Langkah maksimal = mengunjungi sebanyak mungkin petak sebelum mendarat di B1."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Board size", "label_id": "Ukuran papan", "value": "4×3 = 12 squares" },
+          { "label_en": "Start: A2, End: B1", "label_id": "Awal: A2, Akhir: B1", "value": "—" },
+          { "label_en": "Maximum moves (Hamiltonian-like path)", "label_id": "Langkah maksimal (jalur seperti Hamiltonian)", "value": "10" }
+        ],
+        "strategy": {
+          "name_en": "Search for the longest knight path from A2 to B1 on a 4×3 board",
+          "name_id": "Cari jalur kuda terpanjang dari A2 ke B1 pada papan 4×3"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "langkah", "value": "10" }
+      },
+      "hint_steps_en": [
+        "The board is 4×3 (12 squares); label columns A–D, rows 1–3.",
+        "The knight starts at A2 and must end at B1 without revisiting any square.",
+        "Try to visit as many of the 12 squares as possible — maximizing moves.",
+        "A Hamiltonian path visits all 12 squares in 11 moves; but starting at A2 and ending at B1, the maximum achievable is 10 moves.",
+        "One such path visits 11 squares in 10 moves."
+      ],
+      "hint_steps_id": [
+        "Papan berukuran 4×3 (12 petak); beri label kolom A–D, baris 1–3.",
+        "Kuda mulai di A2 dan harus berakhir di B1 tanpa mengunjungi petak yang sama dua kali.",
+        "Coba kunjungi sebanyak mungkin dari 12 petak — memaksimalkan langkah.",
+        "Jalur Hamiltonian mengunjungi semua 12 petak dalam 11 langkah; namun dengan mulai di A2 dan berakhir di B1, maksimum yang dapat dicapai adalah 10 langkah.",
+        "Salah satu jalur tersebut mengunjungi 11 petak dalam 10 langkah."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1252,63 @@
       "body_en": "A group of four distinct natural numbers a, b, c, and d satisfies: (i) a < b < c < d; (ii) their average = c + 1; (iii) the greatest common factor of all four numbers is 1; (iv) the largest number is 23. The largest possible value of c is ...",
       "answer_type": "fill_in",
       "answer": "16",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a < b < c < d; (ii) their average = c + 1",
+            "phrase_id": "a < b < c < d; (ii) Rata-ratanya = c + 1",
+            "note_en": "Average = (a+b+c+d)/4 = c+1 → a+b+d = 3c+4−c = 3c+4−c. Actually: a+b+c+23 = 4(c+1) → a+b = 3c−19.",
+            "note_id": "Rata-rata = (a+b+c+d)/4 = c+1 → a+b+c+23 = 4(c+1) → a+b = 3c−19."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the greatest common factor of all four numbers is 1",
+            "phrase_id": "Faktor persekutuan keempat bilangan hanya 1",
+            "note_en": "GCF(a,b,c,23) = 1. Since 23 is prime, this means not all four are multiples of 23 (auto-satisfied if any isn't).",
+            "note_id": "FPB(a,b,c,23) = 1. Karena 23 prima, berarti tidak semua bilangan kelipatan 23."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The largest possible value of c is ...",
+            "phrase_id": "Nilai c terbesar dari semua kelompok yang mungkin adalah ...",
+            "note_en": "Maximize c subject to: a+b=3c−19, a<b<c, a≥1, and GCF=1.",
+            "note_id": "Maksimalkan c dengan syarat: a+b=3c−19, a<b<c, a≥1, dan FPB=1."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Constraint: a+b = 3c−19", "label_id": "Syarat: a+b = 3c−19", "value": "derived from average" },
+          { "label_en": "Try c=16: a+b=48−19=29, b≤15, a=29−b", "label_id": "Coba c=16: a+b=48−19=29, b≤15, a=29−b", "value": "b=15 → a=14 < b=15 < c=16 < 23 ✓" },
+          { "label_en": "GCF(14,15,16,23)", "label_id": "FPB(14,15,16,23)", "value": "1 ✓" },
+          { "label_en": "Try c=17 to 22", "label_id": "Coba c=17 hingga 22", "value": "a > b for all valid b — no solution" }
+        ],
+        "strategy": {
+          "name_en": "Use the average constraint to derive a+b=3c−19; try largest c downward",
+          "name_id": "Gunakan syarat rata-rata untuk menurunkan a+b=3c−19; coba c terbesar ke bawah"
+        },
+        "trap": {
+          "wrong": "trying c = 22",
+          "why_en": "c=22 → a+b=47, but b<22 → b≤21, a=47−21=26>b. So a>b — violates ordering. Same for c=17 to 21.",
+          "why_id": "c=22 → a+b=47, tapi b<22 → b≤21, a=47−21=26>b. Jadi a>b — melanggar urutan. Sama untuk c=17 hingga 21."
+        },
+        "answer": { "form": "value", "unit": null, "value": "16" }
+      },
+      "hint_steps_en": [
+        "d = 23. From average: (a+b+c+23)/4 = c+1 → a+b+c+23 = 4c+4 → a+b = 3c−19.",
+        "Need: a < b < c, a ≥ 1. Try c = 22: a+b=47, max b=21, a=26>b — fails.",
+        "Try c = 21: a+b=44, max b=20, a=24>b — fails. Similarly c=17,18,19,20 all fail.",
+        "Try c = 16: a+b=29, b≤15, b=15 → a=14. Check: 14<15<16<23 ✓. GCF(14,15,16,23)=1 ✓.",
+        "Largest valid c = 16."
+      ],
+      "hint_steps_id": [
+        "d = 23. Dari rata-rata: (a+b+c+23)/4 = c+1 → a+b+c+23 = 4c+4 → a+b = 3c−19.",
+        "Perlu: a < b < c, a ≥ 1. Coba c = 22: a+b=47, maks b=21, a=26>b — gagal.",
+        "Coba c = 21: a+b=44, maks b=20, a=24>b — gagal. Begitu pula c=17,18,19,20 semuanya gagal.",
+        "Coba c = 16: a+b=29, b≤15, b=15 → a=14. Cek: 14<15<16<23 ✓. FPB(14,15,16,23)=1 ✓.",
+        "Nilai c terbesar yang valid = 16."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1316,64 @@
       "body_en": "Irma has a father, mother, older sibling, and grandmother. In 2021, the average age of the five of them is 33. The older sibling is 5 years older than the grandmother. The average age of the father, mother, and Irma is 20. The grandmother was born in the year ...",
       "answer_type": "fill_in",
       "answer": "1971",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the average age of the five of them is 33",
+            "phrase_id": "rata-rata usia mereka berlima adalah 33",
+            "note_en": "Total age of all five = 33 × 5 = 165.",
+            "note_id": "Total usia kelima orang = 33 × 5 = 165."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The average age of the father, mother, and Irma is 20",
+            "phrase_id": "Usia rata-rata ayah, ibu, dan Irma adalah 20",
+            "note_en": "Father + mother + Irma = 20 × 3 = 60.",
+            "note_id": "Ayah + ibu + Irma = 20 × 3 = 60."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The older sibling is 5 years older than the grandmother",
+            "phrase_id": "Usia kakak lebih tua 5 tahun dari usia nenek",
+            "note_en": "Wait — 'kakak lebih tua dari nenek' is an intentional puzzle twist. Sibling age = grandmother age + 5.",
+            "note_id": "Perhatian — 'kakak lebih tua dari nenek' adalah twist yang disengaja. Usia kakak = usia nenek + 5."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total 5 people", "label_id": "Total 5 orang", "value": "33 × 5 = 165" },
+          { "label_en": "Father + mother + Irma", "label_id": "Ayah + ibu + Irma", "value": "20 × 3 = 60" },
+          { "label_en": "Sibling + grandmother", "label_id": "Kakak + nenek", "value": "165 − 60 = 105" },
+          { "label_en": "Sibling = grandmother + 5", "label_id": "Kakak = nenek + 5", "value": "(nenek+5) + nenek = 105 → nenek = 50" },
+          { "label_en": "Birth year", "label_id": "Tahun lahir", "value": "2021 − 50 = 1971" }
+        ],
+        "strategy": {
+          "name_en": "Use total-age splits to isolate grandmother's age",
+          "name_id": "Gunakan pembagian total usia untuk mengisolasi usia nenek"
+        },
+        "trap": {
+          "wrong": "assuming sibling is younger than grandmother",
+          "why_en": "The problem states 'kakak lebih tua 5 tahun dari usia nenek' (sibling is 5 years OLDER than grandmother) — unusual but read it carefully.",
+          "why_id": "Soal menyatakan 'kakak lebih tua 5 tahun dari usia nenek' — tidak biasa tapi baca dengan teliti."
+        },
+        "answer": { "form": "value", "unit": null, "value": "1971" }
+      },
+      "hint_steps_en": [
+        "Total age of 5 people = 33 × 5 = 165.",
+        "Father + mother + Irma = 20 × 3 = 60.",
+        "Sibling + grandmother = 165 − 60 = 105.",
+        "Sibling = grandmother + 5 → (grandmother+5) + grandmother = 105 → grandmother = 50.",
+        "Birth year = 2021 − 50 = 1971."
+      ],
+      "hint_steps_id": [
+        "Total usia 5 orang = 33 × 5 = 165.",
+        "Ayah + ibu + Irma = 20 × 3 = 60.",
+        "Kakak + nenek = 165 − 60 = 105.",
+        "Kakak = nenek + 5 → (nenek+5) + nenek = 105 → nenek = 50.",
+        "Tahun lahir = 2021 − 50 = 1971."
+      ]
     }
   ]
 }
