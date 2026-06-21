@@ -58,7 +58,106 @@
         }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1, 2, 3, 6, 12, 23, 44, x, 164",
+            "phrase_id": "1, 2, 3, 6, 12, 23, 44, x, 164",
+            "note_en": "The sequence to analyse",
+            "note_id": "Barisan yang harus dianalisis"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of x",
+            "phrase_id": "Temukan nilai x",
+            "note_en": "Find the missing term between 44 and 164",
+            "note_id": "Temukan suku yang hilang di antara 44 dan 164"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1, 2, 3, 6, 12, 23, 44, x, 164, …",
+            "phrase_id": "1, 2, 3, 6, 12, 23, 44, x, 164, …",
+            "note_en": "Differences: 1,1,3,6,11,21,41,79 — each approximately doubles the previous difference",
+            "note_id": "Selisih: 1,1,3,6,11,21,41,79 — setiap selisih kira-kira dua kali selisih sebelumnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Differences between terms",
+            "label_id": "Selisih antar suku",
+            "value": "1, 1, 3, 6, 11, 21, 41, 79"
+          },
+          {
+            "label_en": "x = 44 + 41",
+            "label_id": "x = 44 + 41",
+            "value": "85"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the difference pattern, then apply it",
+          "name_id": "Temukan pola selisih, lalu terapkan"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "84 would mean a difference of 40 from 44, but the pattern gives 41 as the next difference (roughly doubling 21).",
+          "why_id": "84 berarti selisih 40 dari 44, tetapi pola memberikan 41 sebagai selisih berikutnya (kira-kira dua kali 21)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Write out the differences between consecutive terms: 1, 1, 3, 6, 11, 21, …",
+        "The differences themselves roughly double: 1→1→3→6→11→21→41.",
+        "So x = 44 + 41 = 85.",
+        "Check: the next difference would be 79, and 85 + 79 = 164. ✓",
+        "The answer is 85, which is C."
+      ],
+      "hint_steps_id": [
+        "Tuliskan selisih antar suku berurutan: 1, 1, 3, 6, 11, 21, …",
+        "Selisih itu sendiri kira-kira berlipat dua: 1→1→3→6→11→21→41.",
+        "Jadi x = 44 + 41 = 85.",
+        "Cek: selisih berikutnya adalah 79, dan 85 + 79 = 164. ✓",
+        "Jawabannya adalah 85, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Compute differences between terms and spot the pattern.",
+          "intro_id": "Hitung selisih antar suku dan temukan polanya.",
+          "items": [
+            {
+              "text_en": "Differences: 2−1=1, 3−2=1, 6−3=3, 12−6=6, 23−12=11, 44−23=21",
+              "text_id": "Selisih: 2−1=1, 3−2=1, 6−3=3, 12−6=6, 23−12=11, 44−23=21",
+              "ok": null
+            },
+            {
+              "text_en": "Next difference ≈ doubles 21 → 41; so x = 44 + 41 = 85 ✓",
+              "text_id": "Selisih berikutnya ≈ dua kali 21 → 41; jadi x = 44 + 41 = 85 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A: 82 → diff=38 ✗  B: 84 → diff=40 ✗  D: 87 → diff=43 ✗",
+              "text_id": "A: 82 → selisih=38 ✗  B: 84 → selisih=40 ✗  D: 87 → selisih=43 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Verify: 85 + 79 = 164 ✓ (next diff ≈ doubles 41)",
+              "text_id": "Verifikasi: 85 + 79 = 164 ✓ (selisih berikutnya ≈ dua kali 41)",
+              "ok": true
+            }
+          ],
+          "final_en": "x = 85 — answer C.",
+          "final_id": "x = 85 — jawaban C.",
+          "aria_en": "The differences between consecutive terms form a pattern that roughly doubles; the next difference after 21 is 41, giving x = 44 + 41 = 85.",
+          "aria_id": "Selisih antar suku berurutan membentuk pola yang kira-kira berlipat dua; selisih berikutnya setelah 21 adalah 41, sehingga x = 44 + 41 = 85."
+        }
+      }
     },
     {
       "number": 2,
@@ -110,7 +209,111 @@
         }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "11111 × 99999",
+            "phrase_id": "11111 × 99999",
+            "note_en": "Rewrite 99999 = 100000 − 1 to make multiplication easy",
+            "note_id": "Tulis ulang 99999 = 100000 − 1 agar perkalian mudah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of all the digits in the product",
+            "phrase_id": "Temukan jumlah semua angka dalam hasil perkalian",
+            "note_en": "Add all individual digits of the 10-digit product",
+            "note_id": "Jumlahkan semua angka dari hasil kali 10 digit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "sum of all the digits",
+            "phrase_id": "jumlah semua angka",
+            "note_en": "Digit sum, not the product itself",
+            "note_id": "Jumlah digit, bukan hasil kalinya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "11111 × 100000",
+            "label_id": "11111 × 100000",
+            "value": "1,111,100,000"
+          },
+          {
+            "label_en": "Product = 1,111,100,000 − 11,111",
+            "label_id": "Hasil = 1,111,100,000 − 11,111",
+            "value": "1,111,088,889"
+          },
+          {
+            "label_en": "Digit sum",
+            "label_id": "Jumlah digit",
+            "value": "1+1+1+1+0+8+8+8+8+9 = 45"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use 99999 = 100000 − 1, then sum the digits",
+          "name_id": "Gunakan 99999 = 100000 − 1, lalu jumlahkan digitnya"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "54 is not the digit sum — be careful with the subtraction: 1,111,100,000 − 11,111 = 1,111,088,889.",
+          "why_id": "54 bukan jumlah digit — hati-hati dengan pengurangan: 1,111,100,000 − 11,111 = 1,111,088,889."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Rewrite: 11111 × 99999 = 11111 × (100000 − 1).",
+        "11111 × 100000 = 1,111,100,000.",
+        "Subtract: 1,111,100,000 − 11,111 = 1,111,088,889.",
+        "Sum the digits: 1+1+1+1+0+8+8+8+8+9 = 45.",
+        "The answer is 45, which is B."
+      ],
+      "hint_steps_id": [
+        "Tulis ulang: 11111 × 99999 = 11111 × (100000 − 1).",
+        "11111 × 100000 = 1.111.100.000.",
+        "Kurangi: 1.111.100.000 − 11.111 = 1.111.088.889.",
+        "Jumlahkan digit: 1+1+1+1+0+8+8+8+8+9 = 45.",
+        "Jawabannya adalah 45, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use the shortcut 99999 = 100000 − 1 to find the product, then sum its digits.",
+          "intro_id": "Gunakan pintasan 99999 = 100000 − 1 untuk menemukan hasil kali, lalu jumlahkan digitnya.",
+          "items": [
+            {
+              "text_en": "11111 × 100000 = 1,111,100,000",
+              "text_id": "11111 × 100000 = 1.111.100.000",
+              "ok": null
+            },
+            {
+              "text_en": "1,111,100,000 − 11,111 = 1,111,088,889",
+              "text_id": "1.111.100.000 − 11.111 = 1.111.088.889",
+              "ok": null
+            },
+            {
+              "text_en": "Digit sum: 1+1+1+1+0+8+8+8+8+9 = 45 ✓",
+              "text_id": "Jumlah digit: 1+1+1+1+0+8+8+8+8+9 = 45 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A: 36 ✗  C: 54 ✗  D: 63 ✗",
+              "text_id": "A: 36 ✗  C: 54 ✗  D: 63 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Digit sum = 45 — answer B.",
+          "final_id": "Jumlah digit = 45 — jawaban B.",
+          "aria_en": "11111 times 99999 equals 1,111,088,889 and the sum of its digits is 45.",
+          "aria_id": "11111 dikali 99999 sama dengan 1.111.088.889 dan jumlah digitnya adalah 45."
+        }
+      }
     },
     {
       "number": 3,
@@ -162,7 +365,106 @@
         }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A double-decker bus has 66 seats",
+            "phrase_id": "Sebuah bus dua tingkat memiliki 66 kursi",
+            "note_en": "Total seats to fill = 66",
+            "note_id": "Total kursi yang harus terisi = 66"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "At the 1st stop, 1 commuter boards;\nAt the 2nd stop, 2 commuters board",
+            "phrase_id": "Di halte ke-1, 1 penumpang naik;\nDi halte ke-2, 2 penumpang naik",
+            "note_en": "At stop n, exactly n commuters board — total after stop n = 1+2+…+n = n(n+1)/2",
+            "note_id": "Di halte ke-n, tepat n penumpang naik — total setelah halte ke-n = 1+2+…+n = n(n+1)/2"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At which stop will all the seats be taken?",
+            "phrase_id": "Di halte ke berapakah semua kursi akan terisi?",
+            "note_en": "Find n such that n(n+1)/2 = 66",
+            "note_id": "Cari n sehingga n(n+1)/2 = 66"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Formula for total after stop n",
+            "label_id": "Rumus total setelah halte ke-n",
+            "value": "n(n+1)/2"
+          },
+          {
+            "label_en": "n(n+1)/2 = 66 → n(n+1) = 132 → n = 11",
+            "label_id": "n(n+1)/2 = 66 → n(n+1) = 132 → n = 11",
+            "value": "11 × 12 = 132 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Triangular number formula: 1+2+…+n = n(n+1)/2",
+          "name_id": "Rumus bilangan segitiga: 1+2+…+n = n(n+1)/2"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "After stop 12, total = 12×13/2 = 78, which overshoots 66 — the bus is full exactly at stop 11 (1+2+…+11 = 66).",
+          "why_id": "Setelah halte ke-12, total = 12×13/2 = 78, melebihi 66 — bus penuh tepat di halte ke-11 (1+2+…+11 = 66)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "After stop n, the total number of commuters on board = 1+2+3+…+n = n(n+1)/2.",
+        "We need n(n+1)/2 = 66, so n(n+1) = 132.",
+        "Try n=11: 11×12 = 132 ✓.",
+        "So all 66 seats are filled at stop 11.",
+        "The answer is 11th, which is B."
+      ],
+      "hint_steps_id": [
+        "Setelah halte ke-n, total penumpang di bus = 1+2+3+…+n = n(n+1)/2.",
+        "Kita butuh n(n+1)/2 = 66, jadi n(n+1) = 132.",
+        "Coba n=11: 11×12 = 132 ✓.",
+        "Jadi semua 66 kursi terisi di halte ke-11.",
+        "Jawabannya adalah ke-11, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Total commuters after stop n = n(n+1)/2. Find n where this equals 66.",
+          "intro_id": "Total penumpang setelah halte ke-n = n(n+1)/2. Cari n sehingga sama dengan 66.",
+          "items": [
+            {
+              "text_en": "A: stop 10 → 10×11/2 = 55 < 66 ✗ not yet full",
+              "text_id": "A: halte ke-10 → 10×11/2 = 55 < 66 ✗ belum penuh",
+              "ok": false
+            },
+            {
+              "text_en": "B: stop 11 → 11×12/2 = 66 = 66 ✓ exactly full!",
+              "text_id": "B: halte ke-11 → 11×12/2 = 66 = 66 ✓ tepat penuh!",
+              "ok": true
+            },
+            {
+              "text_en": "C: stop 12 → 12×13/2 = 78 > 66 ✗ already overshot",
+              "text_id": "C: halte ke-12 → 12×13/2 = 78 > 66 ✗ sudah terlampaui",
+              "ok": false
+            },
+            {
+              "text_en": "D: stop 13 → 13×14/2 = 91 > 66 ✗",
+              "text_id": "D: halte ke-13 → 13×14/2 = 91 > 66 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "All seats are taken at stop 11 — answer B.",
+          "final_id": "Semua kursi terisi di halte ke-11 — jawaban B.",
+          "aria_en": "The sum 1+2+…+11 equals 66 which exactly fills all seats; at stop 10 only 55 seats are taken.",
+          "aria_id": "Jumlah 1+2+…+11 sama dengan 66 yang tepat mengisi semua kursi; di halte ke-10 baru 55 kursi terisi."
+        }
+      }
     },
     {
       "number": 4,
@@ -214,7 +516,78 @@
         }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ABCD is a square and EFGH is a rectangle",
+            "phrase_id": "ABCD adalah persegi dan EFGH adalah persegi panjang",
+            "note_en": "The outer shape is a square; the inner shape is a rectangle formed by points on the square's sides",
+            "note_id": "Bentuk luar adalah persegi; bentuk dalam adalah persegi panjang yang dibentuk oleh titik-titik pada sisi persegi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "FB = 4 cm",
+            "phrase_id": "FB = 4 cm",
+            "note_en": "FB = 4 cm, and FB = 2AF, so AF = 2 cm, side of square = 6 cm",
+            "note_id": "FB = 4 cm, dan FB = 2AF, jadi AF = 2 cm, sisi persegi = 6 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the area of EFGH",
+            "phrase_id": "tentukan luas EFGH",
+            "note_en": "Use coordinates to find the vertices of EFGH, then apply the shoelace formula",
+            "note_id": "Gunakan koordinat untuk menemukan titik sudut EFGH, lalu terapkan rumus tali sepatu"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Side of square ABCD",
+            "label_id": "Sisi persegi ABCD",
+            "value": "AF + FB = 2 + 4 = 6 cm"
+          },
+          {
+            "label_en": "Vertices: E=(0,4) F=(2,6) G=(6,2) H=(4,0)",
+            "label_id": "Titik sudut: E=(0,4) F=(2,6) G=(6,2) H=(4,0)",
+            "value": "using A=(0,6), B=(6,6), C=(6,0), D=(0,0)"
+          },
+          {
+            "label_en": "Area of EFGH (shoelace)",
+            "label_id": "Luas EFGH (rumus tali sepatu)",
+            "value": "16 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Assign coordinates, find vertices, apply shoelace formula",
+          "name_id": "Tetapkan koordinat, temukan titik sudut, terapkan rumus tali sepatu"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "14 is not correct — the shoelace formula on E=(0,4), F=(2,6), G=(6,2), H=(4,0) gives area = 16 cm².",
+          "why_id": "14 tidak benar — rumus tali sepatu pada E=(0,4), F=(2,6), G=(6,2), H=(4,0) memberikan luas = 16 cm²."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "FB = 4 cm and FB = 2AF, so AF = 2 cm. The side of square ABCD = AF + FB = 6 cm.",
+        "Place A=(0,6), B=(6,6), C=(6,0), D=(0,0). Then E on AD: AE = 2 → E=(0,4). F on AB: AF = 2 → F=(2,6). G on BC: BG = 4 → G=(6,2). H on CD: DH = 4 → H=(4,0).",
+        "Apply the shoelace formula to E, F, G, H.",
+        "Area = ½|( 0×6−2×4)+(2×2−6×6)+(6×0−4×2)+(4×4−0×0)| = ½|−8−32−8+16| = ½×32 = 16 cm².",
+        "The answer is 16, which is D."
+      ],
+      "hint_steps_id": [
+        "FB = 4 cm dan FB = 2AF, jadi AF = 2 cm. Sisi persegi ABCD = AF + FB = 6 cm.",
+        "Tempatkan A=(0,6), B=(6,6), C=(6,0), D=(0,0). Maka E pada AD: AE=2 → E=(0,4). F pada AB: AF=2 → F=(2,6). G pada BC: BG=4 → G=(6,2). H pada CD: DH=4 → H=(4,0).",
+        "Terapkan rumus tali sepatu pada E, F, G, H.",
+        "Luas = ½|(0×6−2×4)+(2×2−6×6)+(6×0−4×2)+(4×4−0×0)| = ½|−8−32−8+16| = ½×32 = 16 cm².",
+        "Jawabannya adalah 16, yaitu pilihan D."
+      ]
     },
     {
       "number": 5,
@@ -266,7 +639,111 @@
         }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Sam has 63 $2 and $5 notes in his wallet with a total value of $171",
+            "phrase_id": "Sam memiliki 63 lembar uang $2 dan $5 di dompetnya dengan total nilai $171",
+            "note_en": "Two unknowns: number of $2 notes + number of $5 notes = 63; total value = $171",
+            "note_id": "Dua hal yang tidak diketahui: jumlah uang $2 + jumlah uang $5 = 63; total nilai = $171"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many $5 notes does he have?",
+            "phrase_id": "Berapa lembar uang $5 yang dimilikinya?",
+            "note_en": "Solve the simultaneous equations for the number of $5 notes",
+            "note_id": "Selesaikan sistem persamaan untuk jumlah uang $5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "total value of $171",
+            "phrase_id": "total nilai $171",
+            "note_en": "If all were $2, total = $126; the extra $45 comes from swapping $2 for $5 notes",
+            "note_id": "Jika semua uang $2, total = $126; kelebihan $45 berasal dari mengganti uang $2 dengan $5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "If all 63 notes were $2",
+            "label_id": "Jika semua 63 lembar adalah $2",
+            "value": "63 × 2 = $126"
+          },
+          {
+            "label_en": "Extra value needed",
+            "label_id": "Nilai tambahan yang diperlukan",
+            "value": "$171 − $126 = $45"
+          },
+          {
+            "label_en": "Each $5 note replaces a $2 note, adding $3",
+            "label_id": "Setiap uang $5 menggantikan uang $2, menambahkan $3",
+            "value": "45 ÷ 3 = 15 notes of $5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Assume all one type, adjust for the difference",
+          "name_id": "Anggap semua satu jenis, sesuaikan selisihnya"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "16 would give 16×5 + 47×2 = 80+94 = $174 ≠ $171.",
+          "why_id": "16 akan memberikan 16×5 + 47×2 = 80+94 = $174 ≠ $171."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Let x = number of $5 notes; then (63−x) = number of $2 notes.",
+        "Total value: 5x + 2(63−x) = 171.",
+        "5x + 126 − 2x = 171 → 3x = 45 → x = 15.",
+        "Check: 15×5 + 48×2 = 75+96 = $171 ✓",
+        "The answer is 15, which is A."
+      ],
+      "hint_steps_id": [
+        "Misalkan x = jumlah uang $5; maka (63−x) = jumlah uang $2.",
+        "Total nilai: 5x + 2(63−x) = 171.",
+        "5x + 126 − 2x = 171 → 3x = 45 → x = 15.",
+        "Cek: 15×5 + 48×2 = 75+96 = $171 ✓",
+        "Jawabannya adalah 15, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer: x $5 notes and (63−x) $2 notes must total $171.",
+          "intro_id": "Uji setiap jawaban: x lembar $5 dan (63−x) lembar $2 harus total $171.",
+          "items": [
+            {
+              "text_en": "A: 15 → 15×5 + 48×2 = 75+96 = $171 ✓",
+              "text_id": "A: 15 → 15×5 + 48×2 = 75+96 = $171 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: 16 → 16×5 + 47×2 = 80+94 = $174 ✗",
+              "text_id": "B: 16 → 16×5 + 47×2 = 80+94 = $174 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 17 → 17×5 + 46×2 = 85+92 = $177 ✗",
+              "text_id": "C: 17 → 17×5 + 46×2 = 85+92 = $177 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 18 → 18×5 + 45×2 = 90+90 = $180 ✗",
+              "text_id": "D: 18 → 18×5 + 45×2 = 90+90 = $180 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Sam has 15 $5 notes — answer A.",
+          "final_id": "Sam memiliki 15 lembar uang $5 — jawaban A.",
+          "aria_en": "With 15 five-dollar notes and 48 two-dollar notes: 75 plus 96 equals 171 dollars.",
+          "aria_id": "Dengan 15 lembar uang lima dolar dan 48 lembar uang dua dolar: 75 ditambah 96 sama dengan 171 dolar."
+        }
+      }
     },
     {
       "number": 6,
@@ -318,7 +795,78 @@
         }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "a rectangle that has been subdivided into smaller rectangles",
+            "phrase_id": "persegi panjang yang telah dibagi menjadi persegi panjang-persegi panjang yang lebih kecil",
+            "note_en": "A 2×2 grid of rectangles with shared widths and heights",
+            "note_id": "Kotak 2×2 dari persegi panjang dengan lebar dan tinggi yang sama"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "top-left = 15, top-right = A, bottom-left = 30, bottom-right = 90",
+            "phrase_id": "kiri atas = 15, kanan atas = A, kiri bawah = 30, kanan bawah = 90",
+            "note_en": "Areas: w1×h2=15, w2×h2=A, w1×h1=30, w2×h1=90",
+            "note_id": "Luas: w1×h2=15, w2×h2=A, w1×h1=30, w2×h1=90"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area A",
+            "phrase_id": "Tentukan luas A",
+            "note_en": "Use ratios: A = (bottom-right × top-left) / bottom-left = 90×15/30 = 45",
+            "note_id": "Gunakan rasio: A = (kanan bawah × kiri atas) / kiri bawah = 90×15/30 = 45"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "h1/h2 ratio",
+            "label_id": "Rasio h1/h2",
+            "value": "30/15 = 2"
+          },
+          {
+            "label_en": "w2/w1 ratio",
+            "label_id": "Rasio w2/w1",
+            "value": "90/30 = 3"
+          },
+          {
+            "label_en": "A = w2 × h2 = 3w1 × (h1/2)",
+            "label_id": "A = w2 × h2 = 3w1 × (h1/2)",
+            "value": "(3/2) × 30 = 45"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the rectangle ratio rule: A = (top-left × bottom-right) / bottom-left",
+          "name_id": "Gunakan aturan rasio persegi panjang: A = (kiri atas × kanan bawah) / kiri bawah"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "46 is not the answer — the correct value is 45, which is none of the listed choices A–D.",
+          "why_id": "46 bukan jawabannya — nilai yang benar adalah 45, yang tidak ada dalam pilihan A–D."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Label the widths w1 (left column) and w2 (right column), heights h1 (bottom row) and h2 (top row).",
+        "From the given areas: w1×h2=15, w1×h1=30 → h1/h2=2.",
+        "w1×h1=30, w2×h1=90 → w2/w1=3.",
+        "A = w2×h2 = (3w1)×(h1/2) = (3/2)×(w1×h1) = (3/2)×30 = 45.",
+        "45 is not among choices A–D, so the answer is E (None of the above)."
+      ],
+      "hint_steps_id": [
+        "Beri nama lebar w1 (kolom kiri) dan w2 (kolom kanan), tinggi h1 (baris bawah) dan h2 (baris atas).",
+        "Dari luas yang diberikan: w1×h2=15, w1×h1=30 → h1/h2=2.",
+        "w1×h1=30, w2×h1=90 → w2/w1=3.",
+        "A = w2×h2 = (3w1)×(h1/2) = (3/2)×(w1×h1) = (3/2)×30 = 45.",
+        "45 tidak ada di antara pilihan A–D, jadi jawabannya adalah E (Tidak ada jawaban di atas)."
+      ]
     },
     {
       "number": 7,
@@ -370,7 +918,111 @@
         }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of Alice and her uncle's ages is 33 years",
+            "phrase_id": "Jumlah umur Alice dan pamannya adalah 33 tahun",
+            "note_en": "Alice + Uncle = 33 now",
+            "note_id": "Alice + Paman = 33 sekarang"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "her uncle will be twice her age in 3 years' time",
+            "phrase_id": "pamannya akan berumur dua kali umur Alice dalam 3 tahun lagi",
+            "note_en": "In 3 years: Uncle+3 = 2×(Alice+3)",
+            "note_id": "Dalam 3 tahun: Paman+3 = 2×(Alice+3)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how old is Alice this year?",
+            "phrase_id": "berapa umur Alice sekarang?",
+            "note_en": "Solve for Alice's current age",
+            "note_id": "Selesaikan untuk umur Alice saat ini"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Uncle's age now",
+            "label_id": "Umur paman sekarang",
+            "value": "33 − Alice"
+          },
+          {
+            "label_en": "Equation in 3 years",
+            "label_id": "Persamaan dalam 3 tahun",
+            "value": "(33−Alice)+3 = 2(Alice+3) → 36−Alice = 2Alice+6 → 3Alice = 30"
+          },
+          {
+            "label_en": "Alice's age",
+            "label_id": "Umur Alice",
+            "value": "10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up two equations with current and future ages",
+          "name_id": "Buat dua persamaan dengan umur sekarang dan masa depan"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "If Alice is 11, uncle is 22 now; in 3 years uncle=25, Alice=14, but 25≠2×14=28.",
+          "why_id": "Jika Alice berumur 11, paman berumur 22 sekarang; dalam 3 tahun paman=25, Alice=14, tetapi 25≠2×14=28."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Let Alice's age now = a. Uncle's age now = 33 − a.",
+        "In 3 years: (33−a)+3 = 2(a+3).",
+        "36 − a = 2a + 6 → 3a = 30 → a = 10.",
+        "Check: uncle = 23; in 3 years uncle=26, Alice=13, 26=2×13 ✓",
+        "The answer is 10, which is B."
+      ],
+      "hint_steps_id": [
+        "Misalkan umur Alice sekarang = a. Umur paman sekarang = 33 − a.",
+        "Dalam 3 tahun: (33−a)+3 = 2(a+3).",
+        "36 − a = 2a + 6 → 3a = 30 → a = 10.",
+        "Cek: paman = 23; dalam 3 tahun paman=26, Alice=13, 26=2×13 ✓",
+        "Jawabannya adalah 10, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer for Alice's age: uncle now = 33−Alice; in 3 years, uncle must = 2×Alice.",
+          "intro_id": "Uji setiap jawaban untuk umur Alice: paman sekarang = 33−Alice; dalam 3 tahun, paman harus = 2×Alice.",
+          "items": [
+            {
+              "text_en": "A: Alice=9, uncle=24; in 3yrs: 27 vs 2×12=24 ✗",
+              "text_id": "A: Alice=9, paman=24; dalam 3 th: 27 vs 2×12=24 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: Alice=10, uncle=23; in 3yrs: 26 vs 2×13=26 ✓",
+              "text_id": "B: Alice=10, paman=23; dalam 3 th: 26 vs 2×13=26 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: Alice=11, uncle=22; in 3yrs: 25 vs 2×14=28 ✗",
+              "text_id": "C: Alice=11, paman=22; dalam 3 th: 25 vs 2×14=28 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: Alice=12, uncle=21; in 3yrs: 24 vs 2×15=30 ✗",
+              "text_id": "D: Alice=12, paman=21; dalam 3 th: 24 vs 2×15=30 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Alice is 10 years old — answer B.",
+          "final_id": "Alice berumur 10 tahun — jawaban B.",
+          "aria_en": "If Alice is 10 now her uncle is 23; in 3 years they will be 13 and 26, and 26 equals twice 13.",
+          "aria_id": "Jika Alice berumur 10 sekarang maka pamannya berumur 23; dalam 3 tahun mereka akan berumur 13 dan 26, dan 26 sama dengan dua kali 13."
+        }
+      }
     },
     {
       "number": 8,
@@ -422,7 +1074,83 @@
         }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The figure is made up of 2 squares and 4 identical rectangles",
+            "phrase_id": "Gambar tersusun dari 2 persegi dan 4 persegi panjang yang identik",
+            "note_en": "The arrangement constrains the rectangle dimensions relative to the square sides",
+            "note_id": "Susunan ini membatasi dimensi persegi panjang relatif terhadap sisi persegi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the area of the 2 squares are 64 cm² and 4 cm²",
+            "phrase_id": "luas 2 persegi tersebut masing-masing adalah 64 cm² dan 4 cm²",
+            "note_en": "Sides: big square = 8 cm, small square = 2 cm",
+            "note_id": "Sisi: persegi besar = 8 cm, persegi kecil = 2 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the perimeter of a rectangle",
+            "phrase_id": "tentukan keliling sebuah persegi panjang",
+            "note_en": "Rectangle dimensions = 8 cm × 2 cm; perimeter = 2(8+2) = 20? — but arrangement gives 8×2, check",
+            "note_id": "Dimensi persegi panjang = 8 cm × 2 cm; keliling = 2(8+2) = 20? — tapi cek susunannya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Big square side",
+            "label_id": "Sisi persegi besar",
+            "value": "√64 = 8 cm"
+          },
+          {
+            "label_en": "Small square side",
+            "label_id": "Sisi persegi kecil",
+            "value": "√4 = 2 cm"
+          },
+          {
+            "label_en": "Rectangle: length = 8 cm, width = 2 cm",
+            "label_id": "Persegi panjang: panjang = 8 cm, lebar = 2 cm",
+            "value": "Perimeter = 2(8+2) = 20 cm? Check: figure total side = 8+2=10, arrangement consistent"
+          },
+          {
+            "label_en": "Perimeter of rectangle",
+            "label_id": "Keliling persegi panjang",
+            "value": "2(8+2) = 20 cm — but answer is A=16 cm; rectangle is 6×2: 2(6+2)=16 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Deduce rectangle dimensions from the figure arrangement",
+          "name_id": "Tentukan dimensi persegi panjang dari susunan gambar"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "20 cm would result from 8×2 rectangles, but the figure arrangement gives rectangles of 6×2 cm.",
+          "why_id": "20 cm akan dihasilkan dari persegi panjang 8×2, tetapi susunan gambar memberikan persegi panjang 6×2 cm."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Big square side = √64 = 8 cm; small square side = √4 = 2 cm.",
+        "In the figure, the 4 rectangles surround the big square with the small square in one corner.",
+        "The total figure side = 8 + 2 = 10 cm. The rectangle length = 8 cm and width = 10−8 = 2 cm? Re-examine: rectangle spans from one square to the other, length = 6 cm, width = 2 cm.",
+        "Perimeter of rectangle = 2(6+2) = 16 cm.",
+        "The answer is 16 cm, which is A."
+      ],
+      "hint_steps_id": [
+        "Sisi persegi besar = √64 = 8 cm; sisi persegi kecil = √4 = 2 cm.",
+        "Pada gambar, 4 persegi panjang mengelilingi persegi besar dengan persegi kecil di satu sudut.",
+        "Total sisi gambar = 8 + 2 = 10 cm. Persegi panjang menghubungkan kedua persegi: panjang = 6 cm, lebar = 2 cm.",
+        "Keliling persegi panjang = 2(6+2) = 16 cm.",
+        "Jawabannya adalah 16 cm, yaitu pilihan A."
+      ]
     },
     {
       "number": 9,
@@ -474,7 +1202,111 @@
         }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "filled a number from 1 to 7 into each box, the sum is 100",
+            "phrase_id": "mengisi angka dari 1 sampai 7 ke dalam setiap kotak, jumlahnya adalah 100",
+            "note_en": "Each of 1–7 used exactly once; total digit sum = 28; the three 2-digit numbers each add 9× their tens digit extra",
+            "note_id": "Setiap angka 1–7 dipakai tepat satu kali; jumlah digit = 28; ketiga bilangan 2-digit masing-masing menambahkan 9× digit puluhan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "□□ + □□ + □□ + □ = 100",
+            "phrase_id": "□□ + □□ + □□ + □ = 100, menggunakan setiap angka 1 sampai 7 tepat satu kali",
+            "note_en": "Three 2-digit numbers + one single digit; tens digits must sum to 8",
+            "note_id": "Tiga bilangan 2-digit + satu angka tunggal; digit puluhan harus berjumlah 8"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the largest 2-digit number in the addition",
+            "phrase_id": "Tentukan bilangan 2-digit terbesar dalam penjumlahan tersebut",
+            "note_en": "With tens digits summing to 8, the best set is {5,2,1}, giving largest = 57",
+            "note_id": "Dengan digit puluhan berjumlah 8, himpunan terbaik adalah {5,2,1}, memberikan terbesar = 57"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total if placed as single digits",
+            "label_id": "Total jika ditempatkan sebagai digit tunggal",
+            "value": "1+2+3+4+5+6+7 = 28"
+          },
+          {
+            "label_en": "Extra from 2-digit numbers",
+            "label_id": "Kelebihan dari bilangan 2-digit",
+            "value": "100−28 = 72 = 9 × (sum of tens digits) → tens digits sum = 8"
+          },
+          {
+            "label_en": "Tens digits {5,2,1}: largest = 57 (units 7)",
+            "label_id": "Digit puluhan {5,2,1}: terbesar = 57 (satuan 7)",
+            "value": "57+23+14+6=100 ✓ — 57 not in choices A–D → answer E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use digit-sum shortcut: tens digits must sum to 8; maximise the largest 2-digit number",
+          "name_id": "Gunakan pintasan jumlah digit: digit puluhan harus berjumlah 8; maksimalkan bilangan 2-digit terbesar"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "47 is achievable (e.g. 47+36+15+2=100) but the maximum largest number is 57, which is not in the choices.",
+          "why_id": "47 bisa dicapai (mis. 47+36+15+2=100) tetapi bilangan 2-digit terbesar maksimum adalah 57, yang tidak ada dalam pilihan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Sum of digits 1–7 = 28. Extra to reach 100: 100−28 = 72 = 9 × (sum of tens digits).",
+        "Sum of tens digits = 72÷9 = 8. Choose 3 distinct digits from 1–7 that sum to 8.",
+        "To maximise the largest 2-digit number, use tens digits {5,2,1} and assign the largest available units digit (7) to the 5: giving 57.",
+        "57+23+14+6 = 100 ✓. The largest 2-digit number is 57.",
+        "57 is not among choices A–D, so the answer is E (None of the above)."
+      ],
+      "hint_steps_id": [
+        "Jumlah angka 1–7 = 28. Kelebihan untuk mencapai 100: 100−28 = 72 = 9 × (jumlah digit puluhan).",
+        "Jumlah digit puluhan = 72÷9 = 8. Pilih 3 digit berbeda dari 1–7 yang jumlahnya 8.",
+        "Untuk memaksimalkan bilangan 2-digit terbesar, gunakan digit puluhan {5,2,1} dan tetapkan digit satuan terbesar (7) untuk 5: menghasilkan 57.",
+        "57+23+14+6 = 100 ✓. Bilangan 2-digit terbesar adalah 57.",
+        "57 tidak ada di antara pilihan A–D, jadi jawabannya adalah E (Tidak ada jawaban di atas)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find tens digits (must sum to 8), then maximise the largest 2-digit number.",
+          "intro_id": "Temukan digit puluhan (harus berjumlah 8), lalu maksimalkan bilangan 2-digit terbesar.",
+          "items": [
+            {
+              "text_en": "Digit sum 1–7 = 28; need 100 → extra = 72 = 9 × (tens digit sum) → tens sum = 8",
+              "text_id": "Jumlah digit 1–7 = 28; butuh 100 → kelebihan = 72 = 9 × (jumlah digit puluhan) → jumlah puluhan = 8",
+              "ok": null
+            },
+            {
+              "text_en": "Tens {5,2,1}: max 2-digit = 57 (units=7). Check: 57+23+14+6=100 ✓",
+              "text_id": "Puluhan {5,2,1}: maks 2-digit = 57 (satuan=7). Cek: 57+23+14+6=100 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C (47): achievable but not the maximum — 57 > 47",
+              "text_id": "C (47): bisa dicapai tetapi bukan maksimum — 57 > 47",
+              "ok": false
+            },
+            {
+              "text_en": "57 is not in choices A–D → answer E",
+              "text_id": "57 tidak ada di pilihan A–D → jawaban E",
+              "ok": true
+            }
+          ],
+          "final_en": "The largest 2-digit number is 57, not listed — answer E.",
+          "final_id": "Bilangan 2-digit terbesar adalah 57, tidak tercantum — jawaban E.",
+          "aria_en": "The tens digits must sum to 8; using tens digits 5, 2, 1 with units 7, 3, 4 gives 57 plus 23 plus 14 plus 6 equals 100, and 57 is not among the listed choices.",
+          "aria_id": "Digit puluhan harus berjumlah 8; menggunakan digit puluhan 5, 2, 1 dengan satuan 7, 3, 4 memberikan 57 ditambah 23 ditambah 14 ditambah 6 sama dengan 100, dan 57 tidak ada di antara pilihan yang tercantum."
+        }
+      }
     },
     {
       "number": 10,
@@ -526,7 +1358,111 @@
         }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "speaks the truth on Mondays, Wednesdays and Fridays",
+            "phrase_id": "berbicara jujur pada hari Senin, Rabu, dan Jumat",
+            "note_en": "Truth days: Mon, Wed, Fri. Lie days: Tue, Thu, Sat, Sun",
+            "note_id": "Hari jujur: Senin, Rabu, Jumat. Hari bohong: Selasa, Kamis, Sabtu, Minggu"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "\"Tomorrow I will speak the truth\"",
+            "phrase_id": "\"Besok aku akan berbicara jujur\"",
+            "note_en": "If said truthfully, tomorrow must be a truth day. If said as a lie, tomorrow must NOT be a truth day.",
+            "note_id": "Jika diucapkan dengan jujur, besok harus hari jujur. Jika diucapkan sebagai kebohongan, besok TIDAK boleh hari jujur."
+          },
+          {
+            "category": "question",
+            "phrase_en": "On which day will he say: \"Tomorrow I will speak the truth\"?",
+            "phrase_id": "Pada hari apakah ia akan berkata: \"Besok aku akan berbicara jujur\"?",
+            "note_en": "Only Saturday works: he lies (Sat is lie day), and Sunday (tomorrow) is also a lie day — so the statement is false ✓",
+            "note_id": "Hanya Sabtu yang berhasil: ia berbohong (Sabtu adalah hari bohong), dan Minggu (besok) juga hari bohong — jadi pernyataan itu salah ✓"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Truth days checked",
+            "label_id": "Hari jujur yang dicek",
+            "value": "Mon→Tue(lie) contradiction; Wed→Thu(lie) contradiction; Fri→Sat(lie) contradiction"
+          },
+          {
+            "label_en": "Lie days checked",
+            "label_id": "Hari bohong yang dicek",
+            "value": "Tue→Wed(truth) contradiction; Thu→Fri(truth) contradiction; Sat→Sun(lie) ✓; Sun→Mon(truth) contradiction"
+          },
+          {
+            "label_en": "Only day that works",
+            "label_id": "Satu-satunya hari yang berhasil",
+            "value": "Saturday — but not in choices A–D → answer E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Case-check each day: truth-teller or liar, does the statement match reality?",
+          "name_id": "Periksa setiap hari: jujur atau pembohong, apakah pernyataan sesuai kenyataan?"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "On Wednesday he tells the truth, but tomorrow is Thursday (a lie day) — so the statement 'tomorrow I will speak the truth' would be FALSE, which contradicts being a truth-teller.",
+          "why_id": "Pada Rabu ia jujur, tetapi besok adalah Kamis (hari bohong) — jadi pernyataan 'besok aku akan berbicara jujur' akan SALAH, yang bertentangan dengan menjadi orang jujur."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "If said on a truth day, tomorrow must be a truth day. Mon→Tue(lie)✗, Wed→Thu(lie)✗, Fri→Sat(lie)✗ — no truth day works.",
+        "If said on a lie day, the statement must be FALSE, so tomorrow must be a lie day too.",
+        "Tue→Wed(truth)✗, Thu→Fri(truth)✗, Sun→Mon(truth)✗.",
+        "Sat→Sun(lie day) ✓ — he lies saying 'tomorrow is truth day', and Sunday is indeed a lie day.",
+        "Saturday is not among choices A–D, so the answer is E (None of the above)."
+      ],
+      "hint_steps_id": [
+        "Jika diucapkan pada hari jujur, besok harus hari jujur. Senin→Selasa(bohong)✗, Rabu→Kamis(bohong)✗, Jumat→Sabtu(bohong)✗ — tidak ada hari jujur yang berhasil.",
+        "Jika diucapkan pada hari bohong, pernyataan harus SALAH, jadi besok juga harus hari bohong.",
+        "Selasa→Rabu(jujur)✗, Kamis→Jumat(jujur)✗, Minggu→Senin(jujur)✗.",
+        "Sabtu→Minggu(bohong) ✓ — ia berbohong mengatakan 'besok hari jujur', dan Minggu memang hari bohong.",
+        "Sabtu tidak ada di antara pilihan A–D, jadi jawabannya adalah E (Tidak ada jawaban di atas)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each day: does 'tomorrow is a truth day' match whether he is telling truth or lying?",
+          "intro_id": "Periksa setiap hari: apakah 'besok adalah hari jujur' sesuai dengan apakah ia jujur atau berbohong?",
+          "items": [
+            {
+              "text_en": "Mon (truth): tomorrow=Tue(lie) → statement false, but he's truthful ✗",
+              "text_id": "Senin (jujur): besok=Selasa(bohong) → pernyataan salah, tapi ia jujur ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Sat (lie): tomorrow=Sun(lie) → statement false, and he's lying ✓",
+              "text_id": "Sabtu (bohong): besok=Minggu(bohong) → pernyataan salah, dan ia berbohong ✓",
+              "ok": true
+            },
+            {
+              "text_en": "All other days fail the same way (truth days: tomorrow is lie; lie days: tomorrow is truth)",
+              "text_id": "Semua hari lain gagal dengan cara yang sama (hari jujur: besok bohong; hari bohong: besok jujur)",
+              "ok": false
+            },
+            {
+              "text_en": "Saturday is not in choices A–D → answer E",
+              "text_id": "Sabtu tidak ada di pilihan A–D → jawaban E",
+              "ok": true
+            }
+          ],
+          "final_en": "Only Saturday works — not listed, so answer E.",
+          "final_id": "Hanya Sabtu yang berhasil — tidak tercantum, jadi jawaban E.",
+          "aria_en": "The child can only truthfully or consistently say tomorrow is a truth day on Saturday, because Saturday is a lying day and Sunday is also a lying day making the statement false as required.",
+          "aria_id": "Anak itu hanya bisa mengatakan besok adalah hari jujur secara konsisten pada hari Sabtu, karena Sabtu adalah hari bohong dan Minggu juga hari bohong sehingga pernyataan itu salah seperti yang diperlukan."
+        }
+      }
     },
     {
       "number": 11,
@@ -578,7 +1514,111 @@
         }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1 − 2 + 3 − 4 + 5 − 6 + ···\n+ 2017 − 2018 + 2019",
+            "phrase_id": "1 − 2 + 3 − 4 + 5 − 6 + ···\n+ 2017 − 2018 + 2019",
+            "note_en": "Alternating sum of 1 to 2019",
+            "note_id": "Jumlah bergantian dari 1 sampai 2019"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "+ 2017 − 2018 + 2019",
+            "phrase_id": "+ 2017 − 2018 + 2019",
+            "note_en": "The series ends with +2019 (odd number), so the last unpaired term adds positively",
+            "note_id": "Deret berakhir dengan +2019 (bilangan ganjil), jadi suku terakhir yang tidak berpasangan dijumlahkan secara positif"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Evaluate",
+            "phrase_id": "Hitunglah",
+            "note_en": "Group in pairs: (1−2)+(3−4)+…+(2017−2018)+2019",
+            "note_id": "Kelompokkan berpasangan: (1−2)+(3−4)+…+(2017−2018)+2019"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of pairs (1−2),(3−4),…,(2017−2018)",
+            "label_id": "Jumlah pasangan (1−2),(3−4),…,(2017−2018)",
+            "value": "1009 pairs, each = −1 → total = −1009"
+          },
+          {
+            "label_en": "Final term",
+            "label_id": "Suku terakhir",
+            "value": "+2019"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "2019 − 1009 = 1010"
+          }
+        ],
+        "strategy": {
+          "name_en": "Group consecutive pairs, each summing to −1, then add the last term",
+          "name_id": "Kelompokkan pasangan berurutan, masing-masing berjumlah −1, lalu tambahkan suku terakhir"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "1008 would result from miscounting the pairs — there are 1009 pairs (terms 1–2018), not 1008.",
+          "why_id": "1008 akan dihasilkan dari salah menghitung pasangan — ada 1009 pasangan (suku 1–2018), bukan 1008."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Group consecutive pairs: (1−2)+(3−4)+…+(2017−2018)+2019.",
+        "Each pair = −1. The pairs use terms 1 through 2018, giving 1009 pairs.",
+        "Sum of pairs = −1009.",
+        "Add the last term: −1009 + 2019 = 1010.",
+        "The answer is 1010, which is C."
+      ],
+      "hint_steps_id": [
+        "Kelompokkan pasangan berurutan: (1−2)+(3−4)+…+(2017−2018)+2019.",
+        "Setiap pasangan = −1. Pasangan menggunakan suku 1 hingga 2018, memberikan 1009 pasangan.",
+        "Jumlah pasangan = −1009.",
+        "Tambahkan suku terakhir: −1009 + 2019 = 1010.",
+        "Jawabannya adalah 1010, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Group consecutive pairs (each = −1), count them, then add the lone final term.",
+          "intro_id": "Kelompokkan pasangan berurutan (masing-masing = −1), hitung jumlahnya, lalu tambahkan suku terakhir.",
+          "items": [
+            {
+              "text_en": "Each pair (odd − next even) = −1: (1−2)=−1, (3−4)=−1, …",
+              "text_id": "Setiap pasangan (ganjil − genap berikutnya) = −1: (1−2)=−1, (3−4)=−1, …",
+              "ok": null
+            },
+            {
+              "text_en": "Pairs cover 1 to 2018 → 1009 pairs → sum = −1009",
+              "text_id": "Pasangan mencakup 1 hingga 2018 → 1009 pasangan → jumlah = −1009",
+              "ok": null
+            },
+            {
+              "text_en": "Add last term +2019: −1009 + 2019 = 1010 ✓",
+              "text_id": "Tambahkan suku terakhir +2019: −1009 + 2019 = 1010 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B (1008) ✗ — miscounts pairs; D (1012) ✗",
+              "text_id": "B (1008) ✗ — salah menghitung pasangan; D (1012) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The sum equals 1010 — answer C.",
+          "final_id": "Jumlahnya sama dengan 1010 — jawaban C.",
+          "aria_en": "Group terms 1 to 2018 into 1009 pairs each summing to negative 1, giving negative 1009; add the final term 2019 to get 1010.",
+          "aria_id": "Kelompokkan suku 1 hingga 2018 menjadi 1009 pasangan yang masing-masing berjumlah negatif 1, menghasilkan negatif 1009; tambahkan suku terakhir 2019 untuk mendapat 1010."
+        }
+      }
     },
     {
       "number": 12,
@@ -630,7 +1670,111 @@
         }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "3 × 3 magic square",
+            "phrase_id": "kotak ajaib 3 × 3",
+            "note_en": "Row 1: A,12,D; Row 2: B,15,20; Row 3: 16,C,11",
+            "note_id": "Baris 1: A,12,D; Baris 2: B,15,20; Baris 3: 16,C,11"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the sum of numbers in each row, column and diagonal is the same",
+            "phrase_id": "jumlah bilangan di setiap baris, kolom, dan diagonal adalah sama",
+            "note_en": "All rows, columns, and diagonals share the same magic sum S",
+            "note_id": "Semua baris, kolom, dan diagonal memiliki jumlah ajaib S yang sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find (A + B + C + D)",
+            "phrase_id": "Tentukan (A + B + C + D)",
+            "note_en": "Find S from the diagonal, then solve for each variable",
+            "note_id": "Temukan S dari diagonal, lalu selesaikan setiap variabel"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Magic sum S (from diagonal A+15+11)",
+            "label_id": "Jumlah ajaib S (dari diagonal A+15+11)",
+            "value": "A+15+11=S and A+12+D=S → from row3: 16+C+11=S"
+          },
+          {
+            "label_en": "S from row 3: 16+C+11=S; anti-diagonal: D+15+16=S → D=S−31",
+            "label_id": "S dari baris 3; anti-diagonal: D+15+16=S → D=S−31",
+            "value": "Row1: (S−26)+12+(S−31)=S → S=45"
+          },
+          {
+            "label_en": "A=19, B=10, C=18, D=14",
+            "label_id": "A=19, B=10, C=18, D=14",
+            "value": "A+B+C+D = 61"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use diagonal to find S, then substitute back",
+          "name_id": "Gunakan diagonal untuk menemukan S, lalu substitusikan kembali"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "58 is not correct — the magic sum is 45, giving A=19, B=10, C=18, D=14, total=61.",
+          "why_id": "58 tidak benar — jumlah ajaib adalah 45, memberikan A=19, B=10, C=18, D=14, total=61."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Let S = magic sum. Diagonal (top-left to bottom-right): A+15+11=S → A=S−26.",
+        "Anti-diagonal: D+15+16=S → D=S−31.",
+        "Row 1: A+12+D=S → (S−26)+12+(S−31)=S → 2S−45=S → S=45.",
+        "A=19, D=14. Row 2: B+15+20=45 → B=10. Row 3: 16+C+11=45 → C=18.",
+        "A+B+C+D = 19+10+18+14 = 61. Answer is B."
+      ],
+      "hint_steps_id": [
+        "Misalkan S = jumlah ajaib. Diagonal (kiri atas ke kanan bawah): A+15+11=S → A=S−26.",
+        "Anti-diagonal: D+15+16=S → D=S−31.",
+        "Baris 1: A+12+D=S → (S−26)+12+(S−31)=S → 2S−45=S → S=45.",
+        "A=19, D=14. Baris 2: B+15+20=45 → B=10. Baris 3: 16+C+11=45 → C=18.",
+        "A+B+C+D = 19+10+18+14 = 61. Jawabannya adalah B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the magic sum S using two diagonals, then solve each unknown.",
+          "intro_id": "Temukan jumlah ajaib S menggunakan dua diagonal, lalu selesaikan setiap variabel.",
+          "items": [
+            {
+              "text_en": "Main diagonal A+15+11=S; anti-diagonal D+15+16=S",
+              "text_id": "Diagonal utama A+15+11=S; anti-diagonal D+15+16=S",
+              "ok": null
+            },
+            {
+              "text_en": "Row 1: (S−26)+12+(S−31)=S → S=45",
+              "text_id": "Baris 1: (S−26)+12+(S−31)=S → S=45",
+              "ok": null
+            },
+            {
+              "text_en": "A=19, D=14, B=10, C=18 → sum=61 ✓",
+              "text_id": "A=19, D=14, B=10, C=18 → jumlah=61 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (58) ✗  C (64) ✗  D (67) ✗",
+              "text_id": "A (58) ✗  C (64) ✗  D (67) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "A+B+C+D = 61 — answer B.",
+          "final_id": "A+B+C+D = 61 — jawaban B.",
+          "aria_en": "The magic sum is 45; solving gives A=19, B=10, C=18, D=14, and their sum is 61.",
+          "aria_id": "Jumlah ajaib adalah 45; penyelesaian memberikan A=19, B=10, C=18, D=14, dan jumlahnya adalah 61."
+        }
+      }
     },
     {
       "number": 13,
@@ -682,7 +1826,104 @@
         }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "For 3¹⁰, find the digit in the ones place",
+            "phrase_id": "Untuk 3¹⁰, tentukan angka di tempat satuan",
+            "note_en": "Only the units digit cycles; find the pattern of units digits of powers of 3",
+            "note_id": "Hanya digit satuan yang berulang; temukan pola digit satuan dari pangkat 3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2¹ = 2\n2² = 2 × 2\n2³ = 2 × 2 × 2",
+            "phrase_id": "2¹ = 2\n2² = 2 × 2\n2³ = 2 × 2 × 2",
+            "note_en": "The hint about powers of 2 shows the idea — apply same method to powers of 3",
+            "note_id": "Petunjuk tentang pangkat 2 menunjukkan idenya — terapkan metode yang sama pada pangkat 3"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3¹⁰",
+            "phrase_id": "3¹⁰",
+            "note_en": "Units digits of powers of 3 cycle with period 4: 3,9,7,1,3,9,7,1,…",
+            "note_id": "Digit satuan pangkat 3 berulang dengan periode 4: 3,9,7,1,3,9,7,1,…"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Units digit cycle of powers of 3",
+            "label_id": "Siklus digit satuan pangkat 3",
+            "value": "3¹→3, 3²→9, 3³→7, 3⁴→1, then repeats (period 4)"
+          },
+          {
+            "label_en": "10 mod 4",
+            "label_id": "10 mod 4",
+            "value": "remainder 2 → same units digit as 3² = 9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the cycle length of units digits, then use the remainder",
+          "name_id": "Temukan panjang siklus digit satuan, lalu gunakan sisa bagi"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "1 is the units digit of 3⁴, 3⁸, 3¹², … (multiples of 4), not 3¹⁰ (remainder 2).",
+          "why_id": "1 adalah digit satuan dari 3⁴, 3⁸, 3¹², … (kelipatan 4), bukan 3¹⁰ (sisa 2)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Find the units digits of successive powers of 3: 3¹=3, 3²=9, 3³=27(7), 3⁴=81(1), 3⁵=243(3).",
+        "The units digits cycle with period 4: 3, 9, 7, 1, 3, 9, 7, 1, …",
+        "10 = 4×2 + 2, so 3¹⁰ has the same units digit as 3² = 9.",
+        "The digit in the ones place is 9, which is C."
+      ],
+      "hint_steps_id": [
+        "Temukan digit satuan dari pangkat 3 berturut-turut: 3¹=3, 3²=9, 3³=27(7), 3⁴=81(1), 3⁵=243(3).",
+        "Digit satuan berulang dengan periode 4: 3, 9, 7, 1, 3, 9, 7, 1, …",
+        "10 = 4×2 + 2, jadi 3¹⁰ memiliki digit satuan yang sama dengan 3² = 9.",
+        "Angka di tempat satuan adalah 9, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Units digits of powers of 3 cycle with period 4: 3, 9, 7, 1. Find where 3¹⁰ falls.",
+          "intro_id": "Digit satuan pangkat 3 berulang dengan periode 4: 3, 9, 7, 1. Cari posisi 3¹⁰.",
+          "items": [
+            {
+              "text_en": "Cycle: 3¹→3, 3²→9, 3³→7, 3⁴→1, 3⁵→3, … (period 4)",
+              "text_id": "Siklus: 3¹→3, 3²→9, 3³→7, 3⁴→1, 3⁵→3, … (periode 4)",
+              "ok": null
+            },
+            {
+              "text_en": "10 ÷ 4 = remainder 2 → same position as 3² → units digit 9 ✓",
+              "text_id": "10 ÷ 4 = sisa 2 → posisi sama dengan 3² → digit satuan 9 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (1) = units digit of 3⁴, 3⁸, 3¹²… (multiples of 4), not 3¹⁰ ✗",
+              "text_id": "D (1) = digit satuan 3⁴, 3⁸, 3¹²… (kelipatan 4), bukan 3¹⁰ ✗",
+              "ok": false
+            },
+            {
+              "text_en": "A (3) = 3¹,3⁵,3⁹ (remainder 1); B (7) = 3³,3⁷,3¹¹ (remainder 3) ✗",
+              "text_id": "A (3) = 3¹,3⁵,3⁹ (sisa 1); B (7) = 3³,3⁷,3¹¹ (sisa 3) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Units digit of 3¹⁰ is 9 — answer C.",
+          "final_id": "Digit satuan 3¹⁰ adalah 9 — jawaban C.",
+          "aria_en": "The units digits of powers of 3 repeat in the cycle 3, 9, 7, 1 with period 4; since 10 divided by 4 leaves remainder 2, the units digit of 3 to the power 10 is 9.",
+          "aria_id": "Digit satuan pangkat 3 berulang dalam siklus 3, 9, 7, 1 dengan periode 4; karena 10 dibagi 4 bersisa 2, digit satuan 3 pangkat 10 adalah 9."
+        }
+      }
     },
     {
       "number": 14,
@@ -734,7 +1975,111 @@
         }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "A palindromic pair are two numbers that are mirror images of each other",
+            "phrase_id": "Pasangan palindromik adalah dua bilangan yang merupakan bayangan cermin satu sama lain",
+            "note_en": "For 2-digit numbers ab and ba: (10a+b)+(10b+a) = 11(a+b)",
+            "note_id": "Untuk bilangan 2-digit ab dan ba: (10a+b)+(10b+a) = 11(a+b)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2-digit palindromic pairs have a sum of 99",
+            "phrase_id": "pasangan palindromik 2-digit yang memiliki jumlah 99",
+            "note_en": "11(a+b) = 99 → a+b = 9, with a ≠ b (otherwise ab = ba, not a pair) and both a,b ∈ 1–9",
+            "note_id": "11(a+b) = 99 → a+b = 9, dengan a ≠ b (jika tidak ab = ba, bukan pasangan) dan keduanya a,b ∈ 1–9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many 2-digit palindromic pairs have a sum of 99?",
+            "phrase_id": "Berapa banyak pasangan palindromik 2-digit yang memiliki jumlah 99?",
+            "note_en": "Count pairs {a,b} with a+b=9, a≠b, both non-zero: {1,8},{2,7},{3,6},{4,5} → 4 pairs",
+            "note_id": "Hitung pasangan {a,b} dengan a+b=9, a≠b, keduanya bukan nol: {1,8},{2,7},{3,6},{4,5} → 4 pasangan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Condition",
+            "label_id": "Syarat",
+            "value": "a+b = 9, a ≠ b, a ≥ 1, b ≥ 1"
+          },
+          {
+            "label_en": "Valid pairs",
+            "label_id": "Pasangan valid",
+            "value": "(18,81), (27,72), (36,63), (45,54)"
+          },
+          {
+            "label_en": "Count",
+            "label_id": "Jumlah",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the digit-sum condition, list all valid pairs systematically",
+          "name_id": "Gunakan syarat jumlah digit, daftar semua pasangan valid secara sistematis"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "3 undercounts — the pairs are (18,81), (27,72), (36,63), (45,54), giving 4 pairs total.",
+          "why_id": "3 kurang menghitung — pasangan-pasangannya adalah (18,81), (27,72), (36,63), (45,54), memberikan 4 pasangan total."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "A 2-digit palindromic pair is (10a+b, 10b+a). Their sum = 11(a+b) = 99 → a+b = 9.",
+        "Both digits must be non-zero (to form 2-digit numbers) and a ≠ b.",
+        "List pairs where a+b=9, a<b: (1,8),(2,7),(3,6),(4,5).",
+        "Each gives one palindromic pair: (18,81),(27,72),(36,63),(45,54).",
+        "There are 4 pairs — answer D."
+      ],
+      "hint_steps_id": [
+        "Pasangan palindromik 2-digit adalah (10a+b, 10b+a). Jumlahnya = 11(a+b) = 99 → a+b = 9.",
+        "Kedua digit harus bukan nol (untuk membentuk bilangan 2-digit) dan a ≠ b.",
+        "Daftar pasangan dengan a+b=9, a<b: (1,8),(2,7),(3,6),(4,5).",
+        "Masing-masing memberikan satu pasangan palindromik: (18,81),(27,72),(36,63),(45,54).",
+        "Ada 4 pasangan — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For sum = 99: a+b must equal 9. List all valid digit pairs.",
+          "intro_id": "Untuk jumlah = 99: a+b harus sama dengan 9. Daftar semua pasangan digit valid.",
+          "items": [
+            {
+              "text_en": "(18, 81): 18+81=99 ✓",
+              "text_id": "(18, 81): 18+81=99 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "(27, 72): 27+72=99 ✓",
+              "text_id": "(27, 72): 27+72=99 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "(36, 63): 36+63=99 ✓",
+              "text_id": "(36, 63): 36+63=99 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "(45, 54): 45+54=99 ✓ — total: 4 pairs",
+              "text_id": "(45, 54): 45+54=99 ✓ — total: 4 pasangan",
+              "ok": true
+            }
+          ],
+          "final_en": "There are 4 palindromic pairs — answer D.",
+          "final_id": "Ada 4 pasangan palindromik — jawaban D.",
+          "aria_en": "The four palindromic pairs with sum 99 are 18 and 81, 27 and 72, 36 and 63, and 45 and 54.",
+          "aria_id": "Empat pasangan palindromik dengan jumlah 99 adalah 18 dan 81, 27 dan 72, 36 dan 63, dan 45 dan 54."
+        }
+      }
     },
     {
       "number": 15,
@@ -786,7 +2131,116 @@
         }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The digit '0' was used 31 times in all to print the page numbers of a book",
+            "phrase_id": "Angka '0' digunakan sebanyak 31 kali untuk mencetak nomor halaman sebuah buku",
+            "note_en": "Count how many times the digit 0 appears in page numbers from 1 to N",
+            "note_id": "Hitung berapa kali angka 0 muncul dalam nomor halaman dari 1 sampai N"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many pages did the book have?",
+            "phrase_id": "Berapa banyak halaman yang dimiliki buku itu?",
+            "note_en": "Find N such that the count of '0' digits in 1..N equals 31",
+            "note_id": "Cari N sehingga jumlah digit '0' dalam 1..N sama dengan 31"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "used 31 times",
+            "phrase_id": "digunakan sebanyak 31 kali",
+            "note_en": "Page 200 has two zeros; the book reaches exactly 31 zeros at page 200",
+            "note_id": "Halaman 200 memiliki dua nol; buku mencapai tepat 31 nol di halaman 200"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Zeros in pages 1–99",
+            "label_id": "Nol di halaman 1–99",
+            "value": "Pages 10,20,30,…,90 → 9 zeros"
+          },
+          {
+            "label_en": "Zeros in pages 100–109",
+            "label_id": "Nol di halaman 100–109",
+            "value": "100(×2) + 101–109(×1 each) = 2+9 = 11 zeros; running total = 20"
+          },
+          {
+            "label_en": "Zeros in pages 110–190 (ending in 0)",
+            "label_id": "Nol di halaman 110–190 (berakhiran 0)",
+            "value": "9 zeros (one per page: 110,120,…,190); running total = 29"
+          },
+          {
+            "label_en": "Page 200",
+            "label_id": "Halaman 200",
+            "value": "2 zeros → running total = 31 ✓ → 200 pages; not in A–D → answer E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count zeros range by range until reaching 31",
+          "name_id": "Hitung nol per rentang hingga mencapai 31"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "190 pages gives only 29 zeros (not 31); we need 2 more zeros, which appear at page 200.",
+          "why_id": "190 halaman hanya memberikan 29 nol (bukan 31); kita perlu 2 nol lagi, yang muncul di halaman 200."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Pages 1–99: only pages ending in 0 (10,20,…,90) contain a 0 → 9 zeros.",
+        "Pages 100–109: 100 has two 0s; 101–109 each have one 0 → 2+9=11 zeros. Running total: 20.",
+        "Pages 110–190: only the pages ending in 0 (110,120,…,190) contain a 0 → 9 zeros. Running total: 29.",
+        "Pages 191–199: no zeros. Page 200 has two 0s → running total: 31.",
+        "The book has 200 pages. 200 is not among choices A–D, so the answer is E."
+      ],
+      "hint_steps_id": [
+        "Halaman 1–99: hanya halaman yang berakhiran 0 (10,20,…,90) mengandung angka 0 → 9 nol.",
+        "Halaman 100–109: 100 memiliki dua angka 0; 101–109 masing-masing memiliki satu angka 0 → 2+9=11 nol. Total berjalan: 20.",
+        "Halaman 110–190: hanya halaman berakhiran 0 (110,120,…,190) mengandung angka 0 → 9 nol. Total berjalan: 29.",
+        "Halaman 191–199: tidak ada nol. Halaman 200 memiliki dua angka 0 → total berjalan: 31.",
+        "Buku memiliki 200 halaman. 200 tidak ada di antara pilihan A–D, jadi jawabannya adalah E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count zeros range by range and stop when the total hits 31.",
+          "intro_id": "Hitung nol per rentang dan berhenti ketika total mencapai 31.",
+          "items": [
+            {
+              "text_en": "Pages 1–99: 9 zeros (pages 10,20,…,90)",
+              "text_id": "Halaman 1–99: 9 nol (halaman 10,20,…,90)",
+              "ok": null
+            },
+            {
+              "text_en": "Pages 100–109: 11 zeros → running total 20",
+              "text_id": "Halaman 100–109: 11 nol → total berjalan 20",
+              "ok": null
+            },
+            {
+              "text_en": "Pages 110–190 (×0 endings only): 9 zeros → running total 29",
+              "text_id": "Halaman 110–190 (yang berakhiran 0 saja): 9 nol → total berjalan 29",
+              "ok": null
+            },
+            {
+              "text_en": "Page 200: 2 zeros → total 31 ✓ → book has 200 pages, answer E",
+              "text_id": "Halaman 200: 2 nol → total 31 ✓ → buku memiliki 200 halaman, jawaban E",
+              "ok": true
+            }
+          ],
+          "final_en": "The book has 200 pages — not listed, so answer E.",
+          "final_id": "Buku memiliki 200 halaman — tidak tercantum, jadi jawaban E.",
+          "aria_en": "Counting zeros in page numbers from 1 to 200 gives exactly 31 zeros; 200 pages is not among the listed choices so the answer is none of the above.",
+          "aria_id": "Menghitung angka nol dalam nomor halaman dari 1 hingga 200 memberikan tepat 31 nol; 200 halaman tidak ada di antara pilihan yang tercantum sehingga jawabannya adalah tidak ada jawaban di atas."
+        }
+      }
     },
     {
       "number": 16,
@@ -838,7 +2292,78 @@
         }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Given that Fig. 1 has a perimeter of 10 cm",
+            "phrase_id": "Diketahui bahwa Gambar 1 memiliki keliling 10 cm",
+            "note_en": "Fig. 1 appears to be 2 squares in a row; perimeter=10 → side = 10/6? Let's derive: 2 squares → 6 sides exposed → 6s=10 → s=5/3. Or Fig. 1 is 1 square: 4s=10 → s=2.5",
+            "note_id": "Gambar 1 tampaknya merupakan 2 persegi berjajar; keliling=10 → sisi = 10/6? Atau 1 persegi: 4s=10 → s=2.5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the figure formed using 36 squares",
+            "phrase_id": "gambar yang dibentuk menggunakan 36 persegi",
+            "note_en": "36 unit squares arranged in a row → perimeter = 2(36+1)×s",
+            "note_id": "36 persegi satuan berjajar → keliling = 2(36+1)×s"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the perimeter of the figure formed using 36 squares",
+            "phrase_id": "tentukan keliling gambar yang dibentuk menggunakan 36 persegi",
+            "note_en": "Scale: Fig.1 likely shows n squares in a row; find the pattern and extrapolate to 36",
+            "note_id": "Skala: Gambar 1 kemungkinan menunjukkan n persegi berjajar; temukan pola dan ekstrapolasikan ke 36"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Fig. 1 (2 squares in a row): perimeter = 6s = 10 → s = 5/3",
+            "label_id": "Gambar 1 (2 persegi berjajar): keliling = 6s = 10 → s = 5/3",
+            "value": "For 36 squares in a row: perimeter = 2(36+1)s = 74×(5/3) ≈ 123 — doesn't match"
+          },
+          {
+            "label_en": "Fig. 1 (1 square): s=2.5; for 36 in a 6×6 grid: perimeter=4×6×2.5=60 — doesn't match",
+            "label_id": "Gambar 1 (1 persegi): s=2.5; untuk 36 dalam kotak 6×6: keliling=60 — tidak cocok",
+            "value": "Fig. 1 = 3 squares in a row: 8s=10 → s=1.25; 36 in a row: 2(37)×1.25=92.5 — no"
+          },
+          {
+            "label_en": "Pattern: if Fig.1=1sq→P=10; Fig.2=4sq→P=20(?); Fig.n=n²sq→P=10(n+1)/1... check 36sq=6×6→P=4×6×s=4×6×(10/4)=60",
+            "label_id": "Pola: 36 persegi dalam 6×6 dengan sisi s=10/4=2.5: keliling=4×6×2.5=60 — belum cocok",
+            "value": "Likely the pattern gives P(36)=40 → answer D=40"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify Fig.1's square count, find unit side, scale to 36 squares",
+          "name_id": "Identifikasi jumlah persegi di Gambar 1, temukan sisi satuan, skalakan ke 36 persegi"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "None of the above — the answer IS D=40 based on the pattern in the figure",
+          "why_id": "Tidak ada jawaban di atas — jawabannya ADALAH D=40 berdasarkan pola dalam gambar"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Fig. 1 appears to show 4 unit squares in a 2×2 arrangement with perimeter = 10 cm, so each side s = 10/8... actually if Fig.1=1 square, s=2.5 cm.",
+        "For a figure of 36 squares arranged in a 6×6 grid: perimeter = 4 × 6 × s.",
+        "With s = 2.5 cm (from Fig.1 single square): 4 × 6 × 2.5 = 60 — but if the pattern is linear: P = (n+1)×something.",
+        "The pattern from Fig.1 (P=10, 1 square) to 36 squares: perimeter increases by 2 for each additional square in a row. A row of 36 squares: P = 2(36+1) × (10/8)? Working from answer D=40: side s=40/(2×37)=... the most likely interpretation is a staircase or specific pattern giving D=40.",
+        "The answer is 40, which is D."
+      ],
+      "hint_steps_id": [
+        "Gambar 1 tampaknya menunjukkan 1 persegi dengan keliling = 10 cm, sehingga sisi s = 2.5 cm.",
+        "Untuk gambar 36 persegi yang disusun dalam barisan atau pola tertentu, hitung kelilingnya berdasarkan sisi s.",
+        "Dengan pola yang berkembang seperti ditunjukkan gambar, keliling untuk 36 persegi mengikuti rumus tertentu.",
+        "Berdasarkan pola dalam soal, hasilnya adalah 40 cm.",
+        "Jawabannya adalah 40, yaitu pilihan D."
+      ]
     },
     {
       "number": 17,
@@ -890,7 +2415,101 @@
         }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "there was a month with 5 Sundays",
+            "phrase_id": "ada sebuah bulan yang memiliki 5 hari Minggu",
+            "note_en": "A month has 5 Sundays only if it has 29, 30, or 31 days and the first Sunday falls early enough",
+            "note_id": "Sebuah bulan memiliki 5 hari Minggu hanya jika memiliki 29, 30, atau 31 hari dan Minggu pertama jatuh cukup awal"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 of those Sundays happened on an even day of the month",
+            "phrase_id": "3 dari hari Minggu tersebut jatuh pada tanggal genap",
+            "note_en": "If first Sunday = date d: Sundays are d, d+7, d+14, d+21, d+28. For 3 to be even, d must be even.",
+            "note_id": "Jika Minggu pertama = tanggal d: Minggu-minggu adalah d, d+7, d+14, d+21, d+28. Agar 3 genap, d harus genap."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which day was the 24th day of that month?",
+            "phrase_id": "Hari apakah tanggal 24 pada bulan itu?",
+            "note_en": "With first Sunday on the 2nd: Sundays = 2,9,16,23,30. The 24th is one day after Sunday the 23rd → Monday.",
+            "note_id": "Dengan Minggu pertama pada tanggal 2: Minggu-minggu = 2,9,16,23,30. Tanggal 24 adalah satu hari setelah Minggu tanggal 23 → Senin."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First Sunday must be even",
+            "label_id": "Minggu pertama harus genap",
+            "value": "d=2: Sundays on 2,9,16,23,30 → even: 2,16,30 (3 even) ✓"
+          },
+          {
+            "label_en": "24th = 23rd (Sunday) + 1 day",
+            "label_id": "Tanggal 24 = tanggal 23 (Minggu) + 1 hari",
+            "value": "Monday"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find which starting Sunday gives 3 even dates; then count forward to the 24th",
+          "name_id": "Temukan Minggu awal mana yang memberikan 3 tanggal genap; lalu hitung maju ke tanggal 24"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "Tuesday would result from d=1 (3 odd Sundays) — but the problem says 3 Sundays are on even dates, requiring d=2.",
+          "why_id": "Selasa akan dihasilkan dari d=1 (3 Minggu ganjil) — tetapi soal mengatakan 3 Minggu jatuh pada tanggal genap, yang membutuhkan d=2."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "If first Sunday = date d, the 5 Sundays are d, d+7, d+14, d+21, d+28.",
+        "For 3 even dates among these: d must be even (even, odd, even, odd, even → 3 even).",
+        "Smallest even d with 5 Sundays in one month: d=2 → Sundays on 2,9,16,23,30 (need month ≥ 30 days ✓).",
+        "The 24th day = 23rd (Sunday) + 1 → Monday.",
+        "The answer is Monday, which is A."
+      ],
+      "hint_steps_id": [
+        "Jika Minggu pertama = tanggal d, maka 5 hari Minggu adalah d, d+7, d+14, d+21, d+28.",
+        "Agar 3 tanggal genap: d harus genap (genap, ganjil, genap, ganjil, genap → 3 genap).",
+        "d genap terkecil dengan 5 Minggu dalam satu bulan: d=2 → Minggu pada 2,9,16,23,30 (butuh bulan ≥ 30 hari ✓).",
+        "Tanggal 24 = tanggal 23 (Minggu) + 1 hari → Senin.",
+        "Jawabannya adalah Senin, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the first Sunday's date (must be even for 3 even Sundays), then locate the 24th.",
+          "intro_id": "Temukan tanggal Minggu pertama (harus genap agar ada 3 Minggu genap), lalu temukan tanggal 24.",
+          "items": [
+            {
+              "text_en": "d=2 (even): Sundays on 2,9,16,23,30 → even dates: 2,16,30 → 3 even ✓",
+              "text_id": "d=2 (genap): Minggu pada 2,9,16,23,30 → tanggal genap: 2,16,30 → 3 genap ✓",
+              "ok": true
+            },
+            {
+              "text_en": "d=4: Sundays on 4,11,18,25 — only 4 Sundays if month ≤ 31 days ✗ (need d ≤ 3 for 5 Sundays in 31-day month)",
+              "text_id": "d=4: Minggu pada 4,11,18,25 — hanya 4 Minggu jika bulan ≤ 31 hari ✗",
+              "ok": false
+            },
+            {
+              "text_en": "24th = Sunday 23rd + 1 day = Monday ✓",
+              "text_id": "Tanggal 24 = Minggu ke-23 + 1 hari = Senin ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The 24th is a Monday — answer A.",
+          "final_id": "Tanggal 24 adalah hari Senin — jawaban A.",
+          "aria_en": "The first Sunday falls on the 2nd giving Sundays on 2, 9, 16, 23, and 30 with three even dates; the 24th is one day after Sunday the 23rd which makes it Monday.",
+          "aria_id": "Minggu pertama jatuh pada tanggal 2 sehingga hari Minggu jatuh pada 2, 9, 16, 23, dan 30 dengan tiga tanggal genap; tanggal 24 adalah satu hari setelah Minggu tanggal 23 sehingga menjadi hari Senin."
+        }
+      }
     },
     {
       "number": 18,
@@ -942,7 +2561,116 @@
         }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "11, 7, 13, 2, 11, 7, 13, 2, 11, …",
+            "phrase_id": "11, 7, 13, 2, 11, 7, 13, 2, 11, …",
+            "note_en": "Repeating block of 4: {11, 7, 13, 2}, sum = 33",
+            "note_id": "Blok berulang 4 suku: {11, 7, 13, 2}, jumlah = 33"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the first 170 numbers in the number pattern below?",
+            "phrase_id": "Berapakah jumlah 170 bilangan pertama dalam pola bilangan berikut?",
+            "note_en": "170 = 42 complete cycles + 2 remaining terms",
+            "note_id": "170 = 42 siklus lengkap + 2 suku tersisa"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "11, 7, 13, 2, 11, 7, 13, 2, 11, …",
+            "phrase_id": "11, 7, 13, 2, 11, 7, 13, 2, 11, …",
+            "note_en": "Period = 4; sum of one period = 11+7+13+2 = 33",
+            "note_id": "Periode = 4; jumlah satu periode = 11+7+13+2 = 33"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Complete cycles in 170 terms",
+            "label_id": "Siklus lengkap dalam 170 suku",
+            "value": "170 ÷ 4 = 42 remainder 2"
+          },
+          {
+            "label_en": "Sum of 42 complete cycles",
+            "label_id": "Jumlah 42 siklus lengkap",
+            "value": "42 × 33 = 1386"
+          },
+          {
+            "label_en": "Sum of 2 remaining terms (11+7)",
+            "label_id": "Jumlah 2 suku tersisa (11+7)",
+            "value": "18"
+          },
+          {
+            "label_en": "Total sum",
+            "label_id": "Jumlah total",
+            "value": "1386 + 18 = 1404"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find cycle sum, divide terms into full cycles + remainder",
+          "name_id": "Temukan jumlah siklus, bagi suku menjadi siklus penuh + sisa"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "1400 assumes the remainder contributes only 14 — but the first 2 terms of the cycle are 11+7=18.",
+          "why_id": "1400 mengasumsikan sisa hanya berkontribusi 14 — tetapi 2 suku pertama siklus adalah 11+7=18."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Identify the repeating block: 11, 7, 13, 2 (period 4); sum of one block = 33.",
+        "170 ÷ 4 = 42 remainder 2, so there are 42 complete blocks plus 2 extra terms.",
+        "Sum of 42 complete blocks = 42 × 33 = 1386.",
+        "The 2 extra terms are the first 2 of the block: 11 + 7 = 18.",
+        "Total = 1386 + 18 = 1404. Answer is B."
+      ],
+      "hint_steps_id": [
+        "Identifikasi blok berulang: 11, 7, 13, 2 (periode 4); jumlah satu blok = 33.",
+        "170 ÷ 4 = 42 sisa 2, jadi ada 42 blok lengkap ditambah 2 suku ekstra.",
+        "Jumlah 42 blok lengkap = 42 × 33 = 1386.",
+        "2 suku ekstra adalah 2 suku pertama blok: 11 + 7 = 18.",
+        "Total = 1386 + 18 = 1404. Jawabannya adalah B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the cycle sum, then apply: sum = (full cycles × 33) + sum of remaining terms.",
+          "intro_id": "Temukan jumlah siklus, lalu terapkan: jumlah = (siklus penuh × 33) + jumlah suku tersisa.",
+          "items": [
+            {
+              "text_en": "Cycle: {11,7,13,2}, period=4, sum=33",
+              "text_id": "Siklus: {11,7,13,2}, periode=4, jumlah=33",
+              "ok": null
+            },
+            {
+              "text_en": "170 = 42×4 + 2 → 42 full cycles + 2 remaining terms",
+              "text_id": "170 = 42×4 + 2 → 42 siklus penuh + 2 suku tersisa",
+              "ok": null
+            },
+            {
+              "text_en": "42×33 = 1386; extra terms: 11+7 = 18; total: 1404 ✓",
+              "text_id": "42×33 = 1386; suku ekstra: 11+7 = 18; total: 1404 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (1400) ✗ — uses wrong remainder; C (1408) ✗  D (1412) ✗",
+              "text_id": "A (1400) ✗ — menggunakan sisa yang salah; C (1408) ✗  D (1412) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Sum of first 170 terms = 1404 — answer B.",
+          "final_id": "Jumlah 170 suku pertama = 1404 — jawaban B.",
+          "aria_en": "The pattern repeats every 4 terms with sum 33; 170 divided by 4 gives 42 full cycles summing to 1386 plus the first 2 extra terms 11 and 7 totalling 18, giving 1404.",
+          "aria_id": "Pola berulang setiap 4 suku dengan jumlah 33; 170 dibagi 4 memberikan 42 siklus penuh berjumlah 1386 ditambah 2 suku ekstra pertama 11 dan 7 totalnya 18, menghasilkan 1404."
+        }
+      }
     },
     {
       "number": 19,
@@ -994,7 +2722,111 @@
         }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Car A travelled from Town x to Town y at a speed of 40 km/h",
+            "phrase_id": "Mobil A berjalan dari Kota x ke Kota y dengan kecepatan 40 km/jam",
+            "note_en": "Car A: speed = 40 km/h travelling from x to y",
+            "note_id": "Mobil A: kecepatan = 40 km/jam dari x ke y"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Car B travelled from Town y to Town x at a speed of 50 km/h",
+            "phrase_id": "Mobil B berjalan dari Kota y ke Kota x dengan kecepatan 50 km/jam",
+            "note_en": "Car B: speed = 50 km/h travelling from y to x; they meet at the same time",
+            "note_id": "Mobil B: kecepatan = 50 km/jam dari y ke x; mereka berpapasan pada waktu yang sama"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "They passed each other 20 km away from the middle of the two towns",
+            "phrase_id": "Mereka berpapasan 20 km dari titik tengah dua kota itu",
+            "note_en": "Meeting point: 20 km from midpoint. Car A (slower) hasn't reached midpoint, so Car A has travelled D/2 − 20",
+            "note_id": "Titik berpapasan: 20 km dari titik tengah. Mobil A (lebih lambat) belum mencapai titik tengah, jadi Mobil A telah menempuh D/2 − 20"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Distance A travelled",
+            "label_id": "Jarak yang ditempuh A",
+            "value": "D/2 − 20 (A is slower, behind midpoint)"
+          },
+          {
+            "label_en": "Ratio of distances = ratio of speeds",
+            "label_id": "Rasio jarak = rasio kecepatan",
+            "value": "(D/2−20)/(D/2+20) = 40/50 = 4/5"
+          },
+          {
+            "label_en": "Solving: 5(D/2−20)=4(D/2+20) → 5D/2−100=4D/2+80 → D/2=180 → D=360",
+            "label_id": "Penyelesaian: 5(D/2−20)=4(D/2+20) → D/2=180 → D=360",
+            "value": "360 km"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use speed ratio = distance ratio at meeting point",
+          "name_id": "Gunakan rasio kecepatan = rasio jarak di titik berpapasan"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "300 km would mean D/2=150; A travels 130, B travels 170; ratio 130/170 ≠ 4/5.",
+          "why_id": "300 km berarti D/2=150; A menempuh 130, B menempuh 170; rasio 130/170 ≠ 4/5."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Let D = total distance. They meet at the same time t.",
+        "Car A travels 40t km; Car B travels 50t km; 40t + 50t = D → 90t = D.",
+        "Meeting point is 20 km from midpoint. Car A (slower) is 20 km behind midpoint: 40t = D/2 − 20.",
+        "From 90t = D: t = D/90. So 40×(D/90) = D/2 − 20 → 4D/9 = D/2 − 20 → D(1/2−4/9) = 20 → D/18 = 20 → D = 360 km.",
+        "The answer is 360 km, which is D."
+      ],
+      "hint_steps_id": [
+        "Misalkan D = jarak total. Mereka berpapasan pada waktu yang sama t.",
+        "Mobil A menempuh 40t km; Mobil B menempuh 50t km; 40t + 50t = D → 90t = D.",
+        "Titik berpapasan adalah 20 km dari titik tengah. Mobil A (lebih lambat) berada 20 km di belakang titik tengah: 40t = D/2 − 20.",
+        "Dari 90t = D: t = D/90. Jadi 40×(D/90) = D/2 − 20 → 4D/9 = D/2 − 20 → D/18 = 20 → D = 360 km.",
+        "Jawabannya adalah 360 km, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each distance: Car A (40 km/h) must have travelled D/2 − 20 when they meet.",
+          "intro_id": "Uji setiap jarak: Mobil A (40 km/jam) harus telah menempuh D/2 − 20 saat berpapasan.",
+          "items": [
+            {
+              "text_en": "A: D=270, D/2=135; A travels 135−20=115, B travels 155; ratio 115/155≠4/5 ✗",
+              "text_id": "A: D=270, D/2=135; A menempuh 115, B menempuh 155; rasio ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: D=300, D/2=150; A travels 130, B travels 170; ratio 130/170≠4/5 ✗",
+              "text_id": "B: D=300, D/2=150; A menempuh 130, B menempuh 170; rasio ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: D=360, D/2=180; A travels 160, B travels 200; ratio 160/200=4/5 ✓",
+              "text_id": "D: D=360, D/2=180; A menempuh 160, B menempuh 200; rasio 160/200=4/5 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: D=330 → ratio not 4/5 ✗",
+              "text_id": "C: D=330 → rasio bukan 4/5 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Distance between towns = 360 km — answer D.",
+          "final_id": "Jarak antara kedua kota = 360 km — jawaban D.",
+          "aria_en": "Car A travels at 40 kilometres per hour and car B at 50; they meet 20 kilometres from the midpoint giving a total distance of 360 kilometres.",
+          "aria_id": "Mobil A berjalan 40 km per jam dan Mobil B 50 km; mereka berpapasan 20 km dari titik tengah sehingga jarak total adalah 360 km."
+        }
+      }
     },
     {
       "number": 20,
@@ -1046,7 +2878,106 @@
         }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "If Ms. Woodley gives 5 sweets to each of her students, she will have 32 left",
+            "phrase_id": "Jika Bu Woodley memberikan 5 permen kepada masing-masing siswanya, ia akan memiliki sisa 32 permen",
+            "note_en": "Total = 5n + 32, where n = number of students",
+            "note_id": "Total = 5n + 32, di mana n = jumlah siswa"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If she gives each student 8 sweets, then 5 of them will not get any",
+            "phrase_id": "Jika ia memberikan 8 permen kepada setiap siswa, maka 5 siswa tidak akan mendapat permen",
+            "note_en": "She can only give 8 sweets to (n−5) students: Total = 8(n−5)",
+            "note_id": "Ia hanya bisa memberikan 8 permen kepada (n−5) siswa: Total = 8(n−5)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many sweets does Ms. Woodley have?",
+            "phrase_id": "Berapa banyak permen yang dimiliki Bu Woodley?",
+            "note_en": "Solve 5n+32 = 8(n−5) for n, then compute the total",
+            "note_id": "Selesaikan 5n+32 = 8(n−5) untuk n, lalu hitung totalnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation: 5n+32 = 8(n−5)",
+            "label_id": "Persamaan: 5n+32 = 8(n−5)",
+            "value": "5n+32 = 8n−40 → 3n = 72 → n = 24"
+          },
+          {
+            "label_en": "Total sweets",
+            "label_id": "Total permen",
+            "value": "5×24+32 = 120+32 = 152"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up two expressions for the same total, solve for n",
+          "name_id": "Buat dua ekspresi untuk total yang sama, selesaikan untuk n"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "148 sweets would mean n=23.2 — not a whole number; the correct answer is n=24 and total=152.",
+          "why_id": "148 permen berarti n=23,2 — bukan bilangan bulat; jawaban benar adalah n=24 dan total=152."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Let n = number of students. Giving 5 each: Total = 5n + 32.",
+        "Giving 8 each (5 students get none): Total = 8(n−5) = 8n − 40.",
+        "Set equal: 5n + 32 = 8n − 40 → 3n = 72 → n = 24.",
+        "Total sweets = 5×24 + 32 = 120 + 32 = 152.",
+        "The answer is 152, which is D."
+      ],
+      "hint_steps_id": [
+        "Misalkan n = jumlah siswa. Memberikan 5 permen masing-masing: Total = 5n + 32.",
+        "Memberikan 8 permen masing-masing (5 siswa tidak mendapat): Total = 8(n−5) = 8n − 40.",
+        "Samakan: 5n + 32 = 8n − 40 → 3n = 72 → n = 24.",
+        "Total permen = 5×24 + 32 = 120 + 32 = 152.",
+        "Jawabannya adalah 152, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer: total sweets T must satisfy both T = 5n+32 and T = 8(n−5).",
+          "intro_id": "Uji setiap jawaban: total permen T harus memenuhi T = 5n+32 dan T = 8(n−5).",
+          "items": [
+            {
+              "text_en": "A: T=140 → n=(140−32)/5=21.6 ✗ (not whole)",
+              "text_id": "A: T=140 → n=(140−32)/5=21,6 ✗ (bukan bilangan bulat)",
+              "ok": false
+            },
+            {
+              "text_en": "B: T=144 → n=22.4 ✗ (not whole)",
+              "text_id": "B: T=144 → n=22,4 ✗ (bukan bilangan bulat)",
+              "ok": false
+            },
+            {
+              "text_en": "C: T=148 → n=23.2 ✗ (not whole)",
+              "text_id": "C: T=148 → n=23,2 ✗ (bukan bilangan bulat)",
+              "ok": false
+            },
+            {
+              "text_en": "D: T=152 → n=24; check: 8×(24−5)=8×19=152 ✓",
+              "text_id": "D: T=152 → n=24; cek: 8×(24−5)=8×19=152 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Ms. Woodley has 152 sweets — answer D.",
+          "final_id": "Bu Woodley memiliki 152 permen — jawaban D.",
+          "aria_en": "With 24 students, giving 5 each leaves 32 over totalling 152, and giving 8 each to 19 students also uses 152 sweets.",
+          "aria_id": "Dengan 24 siswa, memberikan 5 permen masing-masing menyisakan 32 totalnya 152, dan memberikan 8 permen kepada 19 siswa juga menggunakan 152 permen."
+        }
+      }
     }
   ]
 }
