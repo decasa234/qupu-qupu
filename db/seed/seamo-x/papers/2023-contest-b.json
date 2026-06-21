@@ -14,7 +14,114 @@
       "body_id": "Apakah suku ke-10 dalam barisan bilangan berikut?\n\n1, 2, 4, 5, 10, 11, 22, 23, 46, ...",
       "answer_type": "fill_in",
       "answer": "47",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1, 2, 4, 5, 10, 11, 22, 23, 46, ...",
+            "phrase_id": "1, 2, 4, 5, 10, 11, 22, 23, 46, ...",
+            "note_en": "The sequence alternates between ×2 and +1 operations",
+            "note_id": "Barisan bergantian antara operasi ×2 dan +1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the 10th term in the number sequence below?",
+            "phrase_id": "Apakah suku ke-10 dalam barisan bilangan berikut?",
+            "note_en": "Continue the pattern one more step from the 9th term",
+            "note_id": "Lanjutkan polanya satu langkah lagi dari suku ke-9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "number sequence below",
+            "phrase_id": "barisan bilangan berikut",
+            "note_en": "Pattern rule: odd positions multiply by 2; even positions add 1",
+            "note_id": "Aturan pola: posisi ganjil dikali 2; posisi genap ditambah 1"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Term 1→2: ×2",
+            "label_id": "Suku 1→2: ×2",
+            "value": "1 × 2 = 2"
+          },
+          {
+            "label_en": "Term 2→3: +1",
+            "label_id": "Suku 2→3: +1",
+            "value": "2 + 1 = ... wait, 2→4 is ×2"
+          },
+          {
+            "label_en": "Actual pattern",
+            "label_id": "Pola sebenarnya",
+            "value": "×2, +1, ×2, +1, ×2, +1, ×2, +1 → term 9=46, term 10=46+1=47"
+          },
+          {
+            "label_en": "10th term",
+            "label_id": "Suku ke-10",
+            "value": "46 + 1 = 47"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify and extend the alternating pattern",
+          "name_id": "Identifikasi dan lanjutkan pola bergantian"
+        },
+        "trap": {
+          "wrong": "92",
+          "why_en": "Applying ×2 instead of +1 for the 10th term gives 92 — but the pattern alternates: the 9th→10th step is +1, not ×2.",
+          "why_id": "Menerapkan ×2 alih-alih +1 untuk suku ke-10 menghasilkan 92 — tetapi polanya bergantian: langkah ke-9→10 adalah +1, bukan ×2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "47"
+        }
+      },
+      "hint_steps_en": [
+        "List the operations between consecutive terms: 1→2 (×2), 2→4 (×2)... wait, look again: 1, 2, 4, 5, 10, 11, 22, 23, 46.",
+        "The operations are: ×2, ×2, +1, ×2, +1, ×2, +1, ×2. Actually: 1×2=2, 2×2=4, 4+1=5, 5×2=10, 10+1=11, 11×2=22, 22+1=23, 23×2=46.",
+        "The pattern from term 3 onward alternates +1 and ×2: term 9 = 46 (via ×2).",
+        "Term 10 follows the +1 step: 46 + 1 = 47."
+      ],
+      "hint_steps_id": [
+        "Tulis operasi antar suku berurutan: 1×2=2, 2×2=4, 4+1=5, 5×2=10, 10+1=11, 11×2=22, 22+1=23, 23×2=46.",
+        "Polanya dari suku ke-3 ke depan bergantian +1 dan ×2.",
+        "Suku ke-9 = 46 (via ×2), jadi suku ke-10 mengikuti langkah +1.",
+        "Suku ke-10 = 46 + 1 = 47."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Trace the operations step by step to find the 10th term.",
+          "intro_id": "Telusuri operasi langkah demi langkah untuk menemukan suku ke-10.",
+          "items": [
+            {
+              "text_en": "1 ×2→ 2 ×2→ 4 +1→ 5 ×2→ 10 +1→ 11 ×2→ 22 +1→ 23 ×2→ 46",
+              "text_id": "1 ×2→ 2 ×2→ 4 +1→ 5 ×2→ 10 +1→ 11 ×2→ 22 +1→ 23 ×2→ 46",
+              "ok": null
+            },
+            {
+              "text_en": "Term 9 = 46; next step is +1 (the pattern alternates after term 2)",
+              "text_id": "Suku ke-9 = 46; langkah berikutnya adalah +1 (pola bergantian setelah suku ke-2)",
+              "ok": null
+            },
+            {
+              "text_en": "Term 10 = 46 + 1 = 47 ✓",
+              "text_id": "Suku ke-10 = 46 + 1 = 47 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "92 (=46×2) is wrong — the 9th→10th step is +1, not ×2 ✗",
+              "text_id": "92 (=46×2) salah — langkah ke-9→10 adalah +1, bukan ×2 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The 10th term is 47.",
+          "final_id": "Suku ke-10 adalah 47.",
+          "aria_en": "The sequence alternates multiply by 2 and add 1; the 9th term is 46 and the 10th term is 46 plus 1 equals 47.",
+          "aria_id": "Barisan bergantian antara kali 2 dan tambah 1; suku ke-9 adalah 46 dan suku ke-10 adalah 46 ditambah 1 sama dengan 47."
+        }
+      }
     },
     {
       "number": 2,
@@ -22,7 +129,76 @@
       "body_id": "Berapa banyak persegi panjang dalam gambar di bawah ini?",
       "answer_type": "fill_in",
       "answer": "39",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many rectangles are there in the figure below?",
+            "phrase_id": "Berapa banyak persegi panjang dalam gambar di bawah ini?",
+            "note_en": "Count all rectangles including overlapping combinations of rows and columns",
+            "note_id": "Hitung semua persegi panjang termasuk kombinasi baris dan kolom yang tumpang tindih"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the figure below",
+            "phrase_id": "dalam gambar di bawah ini",
+            "note_en": "A rectangle is formed by choosing any 2 horizontal lines and any 2 vertical lines from the grid",
+            "note_id": "Persegi panjang terbentuk dengan memilih 2 garis horizontal dan 2 garis vertikal dari petak"
+          },
+          {
+            "category": "object",
+            "phrase_en": "rectangles",
+            "phrase_id": "persegi panjang",
+            "note_en": "Squares are also rectangles and must be counted",
+            "note_id": "Persegi juga merupakan persegi panjang dan harus dihitung"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Grid dimensions (from answer)",
+            "label_id": "Dimensi petak (dari jawaban)",
+            "value": "The figure yields 39 rectangles total"
+          },
+          {
+            "label_en": "Counting method",
+            "label_id": "Metode penghitungan",
+            "value": "Choose 2 of m+1 horizontal lines × choose 2 of n+1 vertical lines"
+          },
+          {
+            "label_en": "Total rectangles",
+            "label_id": "Total persegi panjang",
+            "value": "39"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combinatorial counting — choose 2 lines from each direction",
+          "name_id": "Penghitungan kombinatorial — pilih 2 garis dari setiap arah"
+        },
+        "trap": {
+          "wrong": "Counting only unit cells",
+          "why_en": "Only counting the smallest unit rectangles misses all the larger rectangles formed by spanning multiple cells.",
+          "why_id": "Hanya menghitung sel terkecil akan melewatkan semua persegi panjang yang lebih besar yang terbentuk dari beberapa sel."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "39"
+        }
+      },
+      "hint_steps_en": [
+        "A rectangle is formed whenever you choose 2 horizontal lines and 2 vertical lines from the grid.",
+        "Count the horizontal lines and vertical lines in the figure.",
+        "Use C(h,2) × C(v,2) where h = number of horizontal lines and v = number of vertical lines.",
+        "The figure gives a total of 39 rectangles."
+      ],
+      "hint_steps_id": [
+        "Sebuah persegi panjang terbentuk setiap kali kamu memilih 2 garis horizontal dan 2 garis vertikal dari petak.",
+        "Hitung garis horizontal dan garis vertikal dalam gambar.",
+        "Gunakan C(h,2) × C(v,2) di mana h = jumlah garis horizontal dan v = jumlah garis vertikal.",
+        "Gambar tersebut menghasilkan total 39 persegi panjang."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +206,109 @@
       "body_id": "Tentukan sisa pembagian 111...11 (2023 angka satu) dibagi 7.",
       "answer_type": "fill_in",
       "answer": "1",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "111...11 (2023 ones)",
+            "phrase_id": "111...11 (2023 angka satu)",
+            "note_en": "The repunit R(n) has a repeating remainder cycle modulo 7 with period 6",
+            "note_id": "Repunit R(n) memiliki siklus sisa berulang modulo 7 dengan periode 6"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the remainder when 111...11 (2023 ones) is divided by 7.",
+            "phrase_id": "Tentukan sisa pembagian 111...11 (2023 angka satu) dibagi 7.",
+            "note_en": "Find 2023 mod 6 to identify the position in the cycle",
+            "note_id": "Temukan 2023 mod 6 untuk mengidentifikasi posisi dalam siklus"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "divided by 7",
+            "phrase_id": "dibagi 7",
+            "note_en": "The remainders of repunits mod 7 cycle: 1, 4, 6, 5, 2, 0, then repeat",
+            "note_id": "Sisa repunit mod 7 bersiklus: 1, 4, 6, 5, 2, 0, lalu berulang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Remainder cycle mod 7 (period 6)",
+            "label_id": "Siklus sisa mod 7 (periode 6)",
+            "value": "n=1→1, n=2→4, n=3→6, n=4→5, n=5→2, n=6→0"
+          },
+          {
+            "label_en": "2023 mod 6",
+            "label_id": "2023 mod 6",
+            "value": "2023 = 337 × 6 + 1, so 2023 mod 6 = 1"
+          },
+          {
+            "label_en": "Remainder for R(2023)",
+            "label_id": "Sisa untuk R(2023)",
+            "value": "Same as R(1) → remainder = 1"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the cycle period, then use modular arithmetic",
+          "name_id": "Temukan periode siklus, lalu gunakan aritmetika modular"
+        },
+        "trap": {
+          "wrong": "0",
+          "why_en": "R(6) is divisible by 7 (remainder 0), but 2023 is not a multiple of 6 — the cycle position for 2023 gives remainder 1.",
+          "why_id": "R(6) habis dibagi 7 (sisa 0), tetapi 2023 bukan kelipatan 6 — posisi siklus untuk 2023 memberikan sisa 1."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1"
+        }
+      },
+      "hint_steps_en": [
+        "Compute the remainders of repunits when divided by 7: R(1)=1, R(2)=11→4, R(3)=111→6, R(4)→5, R(5)→2, R(6)→0.",
+        "The cycle repeats with period 6.",
+        "Find 2023 mod 6: 2023 = 337 × 6 + 1, so 2023 mod 6 = 1.",
+        "R(2023) has the same remainder as R(1) = 1."
+      ],
+      "hint_steps_id": [
+        "Hitung sisa repunit dibagi 7: R(1)=1, R(2)=11 sisa 4, R(3)=111 sisa 6, R(4) sisa 5, R(5) sisa 2, R(6) sisa 0.",
+        "Siklus berulang dengan periode 6.",
+        "Cari 2023 mod 6: 2023 = 337 × 6 + 1, jadi 2023 mod 6 = 1.",
+        "R(2023) memiliki sisa yang sama dengan R(1) = 1."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the cycle of remainders when repunits are divided by 7.",
+          "intro_id": "Temukan siklus sisa ketika repunit dibagi 7.",
+          "items": [
+            {
+              "text_en": "R(1)=1 ÷ 7 → remainder 1",
+              "text_id": "R(1)=1 ÷ 7 → sisa 1",
+              "ok": null
+            },
+            {
+              "text_en": "R(2)=11 ÷ 7 → remainder 4; R(3)→6; R(4)→5; R(5)→2; R(6)→0",
+              "text_id": "R(2)=11 ÷ 7 → sisa 4; R(3)→6; R(4)→5; R(5)→2; R(6)→0",
+              "ok": null
+            },
+            {
+              "text_en": "Cycle period = 6; 2023 mod 6 = 1 → same position as R(1)",
+              "text_id": "Periode siklus = 6; 2023 mod 6 = 1 → posisi sama dengan R(1)",
+              "ok": null
+            },
+            {
+              "text_en": "Remainder = 1 ✓",
+              "text_id": "Sisa = 1 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The remainder is 1.",
+          "final_id": "Sisanya adalah 1.",
+          "aria_en": "The remainders of repunits divided by 7 cycle with period 6; since 2023 mod 6 equals 1, the remainder equals that of a single 1 divided by 7, which is 1.",
+          "aria_id": "Sisa repunit dibagi 7 bersiklus dengan periode 6; karena 2023 mod 6 sama dengan 1, sisanya sama dengan sisa 1 dibagi 7, yaitu 1."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +316,99 @@
       "body_id": "Sebuah garis lurus membagi sebuah lingkaran menjadi 2 bagian seperti yang ditunjukkan di bawah. Menjadi berapa bagian 6 garis dapat membagi lingkaran tersebut?",
       "answer_type": "fill_in",
       "answer": "22",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A straight line divides a circle into 2 parts",
+            "phrase_id": "Sebuah garis lurus membagi sebuah lingkaran menjadi 2 bagian",
+            "note_en": "The base case: 1 line gives 2 regions",
+            "note_id": "Kasus dasar: 1 garis menghasilkan 2 daerah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Into how many parts can 6 lines divide the circle?",
+            "phrase_id": "Menjadi berapa bagian 6 garis dapat membagi lingkaran tersebut?",
+            "note_en": "Maximum regions: each new line intersects all previous lines inside the circle",
+            "note_id": "Daerah maksimum: setiap garis baru memotong semua garis sebelumnya di dalam lingkaran"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "6 lines divide the circle",
+            "phrase_id": "6 garis dapat membagi lingkaran tersebut",
+            "note_en": "Formula for maximum regions: 1 + n + C(n,2) where n is the number of lines",
+            "note_id": "Rumus untuk daerah maksimum: 1 + n + C(n,2) di mana n adalah jumlah garis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Formula",
+            "label_id": "Rumus",
+            "value": "Regions = 1 + n + C(n,2)"
+          },
+          {
+            "label_en": "For n = 6",
+            "label_id": "Untuk n = 6",
+            "value": "1 + 6 + C(6,2) = 1 + 6 + 15 = 22"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply the maximum-regions formula for n lines in a circle",
+          "name_id": "Terapkan rumus daerah maksimum untuk n garis dalam lingkaran"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "Simply doubling (1 line = 2 parts, so 6 lines = 12 parts) ignores that each new line adds as many new regions as the intersections it creates plus one.",
+          "why_id": "Sekadar melipatgandakan (1 garis = 2 bagian, jadi 6 garis = 12 bagian) mengabaikan bahwa setiap garis baru menambah daerah sebanyak persimpangan yang dibuat ditambah satu."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "22"
+        }
+      },
+      "hint_steps_en": [
+        "1 line gives 2 parts. A 2nd line (crossing the first) gives 4 parts. A 3rd line (crossing both) gives 7 parts.",
+        "Each new line k adds (k) new regions (1 base + (k−1) intersections inside the circle).",
+        "Total regions for n lines = 1 + n + C(n,2).",
+        "For n=6: 1 + 6 + 15 = 22."
+      ],
+      "hint_steps_id": [
+        "1 garis → 2 bagian. Garis ke-2 (memotong yang pertama) → 4 bagian. Garis ke-3 (memotong keduanya) → 7 bagian.",
+        "Setiap garis baru ke-k menambah k daerah baru (1 dasar + (k−1) persimpangan di dalam lingkaran).",
+        "Total daerah untuk n garis = 1 + n + C(n,2).",
+        "Untuk n=6: 1 + 6 + 15 = 22."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Build up the region count line by line.",
+          "intro_id": "Bangun hitungan daerah garis demi garis.",
+          "items": [
+            {
+              "text_en": "0 lines → 1 region",
+              "text_id": "0 garis → 1 daerah",
+              "ok": null
+            },
+            {
+              "text_en": "1 line → 2 regions (+1); 2 lines → 4 (+2); 3 lines → 7 (+3); 4 lines → 11 (+4); 5 lines → 16 (+5); 6 lines → 22 (+6)",
+              "text_id": "1 garis → 2 daerah (+1); 2 garis → 4 (+2); 3 garis → 7 (+3); 4 garis → 11 (+4); 5 garis → 16 (+5); 6 garis → 22 (+6)",
+              "ok": null
+            },
+            {
+              "text_en": "Formula check: 1 + 6 + C(6,2) = 1 + 6 + 15 = 22 ✓",
+              "text_id": "Cek rumus: 1 + 6 + C(6,2) = 1 + 6 + 15 = 22 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "6 lines divide the circle into 22 parts.",
+          "final_id": "6 garis membagi lingkaran menjadi 22 bagian.",
+          "aria_en": "Using the formula 1 plus n plus n times n minus 1 divided by 2 with n equals 6 gives 1 plus 6 plus 15 equals 22 regions.",
+          "aria_id": "Menggunakan rumus 1 ditambah n ditambah n dikali n minus 1 dibagi 2 dengan n sama dengan 6 menghasilkan 1 ditambah 6 ditambah 15 sama dengan 22 daerah."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +416,116 @@
       "body_id": "Diketahui bahwa suku ke-2023 dalam barisan pecahan berikut adalah m/n, tentukan (m + n).\n\n1/1, 1/2, 2/2, 1/3, 2/3, 3/3, 1/4, 2/4, 3/4, 4/4, ...",
       "answer_type": "fill_in",
       "answer": "71",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1/1, 1/2, 2/2, 1/3, 2/3, 3/3, 1/4, 2/4, 3/4, 4/4, ...",
+            "phrase_id": "1/1, 1/2, 2/2, 1/3, 2/3, 3/3, 1/4, 2/4, 3/4, 4/4, ...",
+            "note_en": "Group k contains k fractions: 1/k, 2/k, ..., k/k",
+            "note_id": "Grup ke-k berisi k pecahan: 1/k, 2/k, ..., k/k"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find (m + n)",
+            "phrase_id": "tentukan (m + n)",
+            "note_en": "Find which group contains the 2023rd term, then identify m and n",
+            "note_id": "Temukan grup mana yang berisi suku ke-2023, lalu identifikasi m dan n"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the 2023rd term in the following array of fractions is m/n",
+            "phrase_id": "suku ke-2023 dalam barisan pecahan berikut adalah m/n",
+            "note_en": "Total terms up to group k = k(k+1)/2",
+            "note_id": "Total suku hingga grup ke-k = k(k+1)/2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total terms up to group 63",
+            "label_id": "Total suku hingga grup ke-63",
+            "value": "63 × 64 / 2 = 2016"
+          },
+          {
+            "label_en": "Total terms up to group 64",
+            "label_id": "Total suku hingga grup ke-64",
+            "value": "64 × 65 / 2 = 2080"
+          },
+          {
+            "label_en": "Position within group 64",
+            "label_id": "Posisi dalam grup ke-64",
+            "value": "2023 − 2016 = 7th element of group 64"
+          },
+          {
+            "label_en": "The 7th element of group 64",
+            "label_id": "Elemen ke-7 dari grup ke-64",
+            "value": "7/64, so m=7, n=64, m+n=71"
+          }
+        ],
+        "strategy": {
+          "name_en": "Triangular number grouping — find the group then the position",
+          "name_id": "Pengelompokan bilangan segitiga — temukan grup lalu posisinya"
+        },
+        "trap": {
+          "wrong": "65",
+          "why_en": "Confusing the group number with n: the 2023rd term is in group 64 (n=64), not group 65. The position within the group gives m=7.",
+          "why_id": "Mencampuradukkan nomor grup dengan n: suku ke-2023 ada di grup 64 (n=64), bukan grup 65. Posisi dalam grup memberikan m=7."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "71"
+        }
+      },
+      "hint_steps_en": [
+        "Group k has k fractions. Total terms through group k = k(k+1)/2.",
+        "Find the group containing term 2023: 63×64/2 = 2016 and 64×65/2 = 2080.",
+        "Since 2016 < 2023 ≤ 2080, term 2023 is in group 64.",
+        "Its position within group 64 is 2023 − 2016 = 7, so the fraction is 7/64.",
+        "m + n = 7 + 64 = 71."
+      ],
+      "hint_steps_id": [
+        "Grup ke-k memiliki k pecahan. Total suku hingga grup ke-k = k(k+1)/2.",
+        "Temukan grup yang berisi suku ke-2023: 63×64/2 = 2016 dan 64×65/2 = 2080.",
+        "Karena 2016 < 2023 ≤ 2080, suku ke-2023 ada di grup ke-64.",
+        "Posisinya dalam grup ke-64 adalah 2023 − 2016 = 7, jadi pecahannya adalah 7/64.",
+        "m + n = 7 + 64 = 71."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use triangular numbers to locate the 2023rd term.",
+          "intro_id": "Gunakan bilangan segitiga untuk menemukan suku ke-2023.",
+          "items": [
+            {
+              "text_en": "Group k has k fractions; cumulative total through group k = k(k+1)/2",
+              "text_id": "Grup ke-k memiliki k pecahan; total kumulatif hingga grup ke-k = k(k+1)/2",
+              "ok": null
+            },
+            {
+              "text_en": "Group 63 ends at term 63×64/2 = 2016",
+              "text_id": "Grup ke-63 berakhir di suku ke-63×64/2 = 2016",
+              "ok": null
+            },
+            {
+              "text_en": "Term 2023 is in group 64; position = 2023 − 2016 = 7 → fraction = 7/64",
+              "text_id": "Suku ke-2023 ada di grup ke-64; posisi = 2023 − 2016 = 7 → pecahan = 7/64",
+              "ok": null
+            },
+            {
+              "text_en": "m + n = 7 + 64 = 71 ✓",
+              "text_id": "m + n = 7 + 64 = 71 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "m + n = 71.",
+          "final_id": "m + n = 71.",
+          "aria_en": "The 2023rd term falls in group 64 at position 7, giving fraction 7 over 64, so m plus n equals 71.",
+          "aria_id": "Suku ke-2023 jatuh di grup ke-64 pada posisi ke-7, memberikan pecahan 7 per 64, sehingga m ditambah n sama dengan 71."
+        }
+      }
     },
     {
       "number": 6,
@@ -54,7 +533,99 @@
       "body_id": "Terdapat 126 karton apel di gudang, masing-masing berisi antara 120 hingga 144 apel. Berapa banyak karton terbesar yang dijamin berisi jumlah apel yang sama?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "126 cartons of apples in a warehouse",
+            "phrase_id": "126 karton apel di gudang",
+            "note_en": "126 cartons to be distributed among the possible apple counts",
+            "note_id": "126 karton yang akan didistribusikan di antara jumlah apel yang mungkin"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "each containing between 120 and 144 apples",
+            "phrase_id": "masing-masing berisi antara 120 hingga 144 apel",
+            "note_en": "There are 144 − 120 + 1 = 25 possible apple counts",
+            "note_id": "Ada 144 − 120 + 1 = 25 kemungkinan jumlah apel"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the greatest number of cartons that is guaranteed to contain the same number of apples",
+            "phrase_id": "Berapa banyak karton terbesar yang dijamin berisi jumlah apel yang sama",
+            "note_en": "Apply the pigeonhole principle: guaranteed minimum = ⌈126/25⌉",
+            "note_id": "Terapkan prinsip sarang burung: minimum terjamin = ⌈126/25⌉"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of possible values",
+            "label_id": "Jumlah nilai yang mungkin",
+            "value": "144 − 120 + 1 = 25"
+          },
+          {
+            "label_en": "Guaranteed minimum (pigeonhole)",
+            "label_id": "Minimum terjamin (prinsip sarang burung)",
+            "value": "⌈126 / 25⌉ = ⌈5.04⌉ = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pigeonhole principle",
+          "name_id": "Prinsip sarang burung merpati"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "If you spread 126 cartons as evenly as possible over 25 values, some values get 6 cartons (since 5×25=125<126). The guaranteed minimum is 6, not 5.",
+          "why_id": "Jika 126 karton dibagi merata di 25 nilai, beberapa nilai mendapat 6 karton (karena 5×25=125<126). Minimum terjaminnya adalah 6, bukan 5."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "The apple count per carton can be any integer from 120 to 144: that is 25 possible values.",
+        "By the pigeonhole principle, if 126 cartons occupy 25 possible values, at least one value must appear ⌈126/25⌉ times.",
+        "⌈126/25⌉ = ⌈5.04⌉ = 6.",
+        "The greatest guaranteed number of cartons with the same count is 6."
+      ],
+      "hint_steps_id": [
+        "Jumlah apel per karton bisa berupa bilangan bulat dari 120 hingga 144: ada 25 kemungkinan nilai.",
+        "Dengan prinsip sarang burung, jika 126 karton menempati 25 kemungkinan nilai, setidaknya satu nilai harus muncul ⌈126/25⌉ kali.",
+        "⌈126/25⌉ = ⌈5.04⌉ = 6.",
+        "Jumlah karton terbesar yang dijamin berisi jumlah apel yang sama adalah 6."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the pigeonhole principle: 126 cartons, 25 possible apple counts.",
+          "intro_id": "Terapkan prinsip sarang burung: 126 karton, 25 kemungkinan jumlah apel.",
+          "items": [
+            {
+              "text_en": "Possible apple counts: 120, 121, ..., 144 → 25 distinct values",
+              "text_id": "Kemungkinan jumlah apel: 120, 121, ..., 144 → 25 nilai berbeda",
+              "ok": null
+            },
+            {
+              "text_en": "If each of 25 values held at most 5 cartons: 5 × 25 = 125 < 126 → impossible ✗",
+              "text_id": "Jika setiap dari 25 nilai memuat paling banyak 5 karton: 5 × 25 = 125 < 126 → tidak mungkin ✗",
+              "ok": false
+            },
+            {
+              "text_en": "At least one value must hold ≥ 6 cartons ✓",
+              "text_id": "Setidaknya satu nilai harus memuat ≥ 6 karton ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The guaranteed minimum is 6 cartons with the same apple count.",
+          "final_id": "Minimum terjamin adalah 6 karton dengan jumlah apel yang sama.",
+          "aria_en": "With 126 cartons and 25 possible values, the pigeonhole principle guarantees at least ceiling of 126 divided by 25 equals 6 cartons share the same apple count.",
+          "aria_id": "Dengan 126 karton dan 25 kemungkinan nilai, prinsip sarang burung menjamin setidaknya pembulatan ke atas dari 126 dibagi 25 sama dengan 6 karton berbagi jumlah apel yang sama."
+        }
+      }
     },
     {
       "number": 7,
@@ -62,7 +633,114 @@
       "body_id": "Tentukan jumlah terbesar nol berurutan pada hasil perkalian berikut.\n\n625 × 128 × 25 × 4",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "625 × 128 × 25 × 4",
+            "phrase_id": "625 × 128 × 25 × 4",
+            "note_en": "Express each factor as a power of 2 or 5 to count trailing zeros",
+            "note_id": "Nyatakan setiap faktor sebagai pangkat 2 atau 5 untuk menghitung nol di belakang"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the greatest number of consecutive zeroes in the product below.",
+            "phrase_id": "Tentukan jumlah terbesar nol berurutan pada hasil perkalian berikut.",
+            "note_en": "Trailing zeros = min(total power of 2, total power of 5) in the prime factorisation",
+            "note_id": "Nol di belakang = min(total pangkat 2, total pangkat 5) dalam faktorisasi prima"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "consecutive zeroes",
+            "phrase_id": "nol berurutan",
+            "note_en": "Each pair of factors 2×5 produces one trailing zero",
+            "note_id": "Setiap pasangan faktor 2×5 menghasilkan satu nol di belakang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Prime factorisation",
+            "label_id": "Faktorisasi prima",
+            "value": "625=5⁴, 128=2⁷, 25=5², 4=2²"
+          },
+          {
+            "label_en": "Total powers of 5",
+            "label_id": "Total pangkat 5",
+            "value": "4 + 2 = 6"
+          },
+          {
+            "label_en": "Total powers of 2",
+            "label_id": "Total pangkat 2",
+            "value": "7 + 2 = 9"
+          },
+          {
+            "label_en": "Trailing zeros",
+            "label_id": "Nol di belakang",
+            "value": "min(6, 9) = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Prime factorisation — count pairs of 2 and 5",
+          "name_id": "Faktorisasi prima — hitung pasangan 2 dan 5"
+        },
+        "trap": {
+          "wrong": "9",
+          "why_en": "Taking the power of 2 (= 9) ignores that you need a matching factor of 5 for each zero. Only 6 fives are available, so there are only 6 trailing zeros.",
+          "why_id": "Mengambil pangkat 2 (= 9) mengabaikan bahwa kamu membutuhkan faktor 5 yang cocok untuk setiap nol. Hanya 6 faktor 5 yang tersedia, jadi hanya ada 6 nol di belakang."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Factorise each number: 625 = 5⁴, 128 = 2⁷, 25 = 5², 4 = 2².",
+        "The product = 5⁶ × 2⁹.",
+        "Each trailing zero needs one factor of 2 and one factor of 5.",
+        "Trailing zeros = min(6, 9) = 6."
+      ],
+      "hint_steps_id": [
+        "Faktorkan setiap bilangan: 625 = 5⁴, 128 = 2⁷, 25 = 5², 4 = 2².",
+        "Hasilnya = 5⁶ × 2⁹.",
+        "Setiap nol di belakang membutuhkan satu faktor 2 dan satu faktor 5.",
+        "Nol di belakang = min(6, 9) = 6."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Factorise and count the pairs of 2 and 5.",
+          "intro_id": "Faktorkan dan hitung pasangan 2 dan 5.",
+          "items": [
+            {
+              "text_en": "625 = 5⁴; 128 = 2⁷; 25 = 5²; 4 = 2²",
+              "text_id": "625 = 5⁴; 128 = 2⁷; 25 = 5²; 4 = 2²",
+              "ok": null
+            },
+            {
+              "text_en": "Product = 5⁴ × 5² × 2⁷ × 2² = 5⁶ × 2⁹",
+              "text_id": "Hasil = 5⁴ × 5² × 2⁷ × 2² = 5⁶ × 2⁹",
+              "ok": null
+            },
+            {
+              "text_en": "Trailing zeros = min(6, 9) = 6 ✓",
+              "text_id": "Nol di belakang = min(6, 9) = 6 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Answer 9 is wrong — powers of 5 are the bottleneck ✗",
+              "text_id": "Jawaban 9 salah — pangkat 5 adalah pembatasnya ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The product has 6 trailing zeros.",
+          "final_id": "Hasilnya memiliki 6 nol di belakang.",
+          "aria_en": "The product 625 times 128 times 25 times 4 equals 5 to the 6th times 2 to the 9th; trailing zeros equal the minimum of 6 and 9 which is 6.",
+          "aria_id": "Hasil kali 625 kali 128 kali 25 kali 4 sama dengan 5 pangkat 6 kali 2 pangkat 9; nol di belakang sama dengan minimum dari 6 dan 9 yaitu 6."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +748,109 @@
       "body_id": "Seorang guru membawa 51 murid dalam perjalanan perahu sungai. Perahu besar dapat menampung 6 penumpang sedangkan perahu kecil dapat menampung 4. Jika total 11 perahu disewa, berapa banyak perahu kecil?",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A teacher took 51 pupils on a riverboat excursion",
+            "phrase_id": "Seorang guru membawa 51 murid dalam perjalanan perahu sungai",
+            "note_en": "Total people including the teacher = 51 + 1 = 52",
+            "note_id": "Total orang termasuk guru = 51 + 1 = 52"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a total of 11 boats were hired",
+            "phrase_id": "total 11 perahu disewa",
+            "note_en": "Big boats (b) + small boats (s) = 11",
+            "note_id": "Perahu besar (b) + perahu kecil (s) = 11"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many small boats were there?",
+            "phrase_id": "berapa banyak perahu kecil?",
+            "note_en": "Solve the system: b+s=11 and 6b+4s=52",
+            "note_id": "Selesaikan sistem: b+s=11 dan 6b+4s=52"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total passengers",
+            "label_id": "Total penumpang",
+            "value": "51 pupils + 1 teacher = 52"
+          },
+          {
+            "label_en": "System of equations",
+            "label_id": "Sistem persamaan",
+            "value": "b + s = 11; 6b + 4s = 52"
+          },
+          {
+            "label_en": "Solving: subtract 4×(b+s)=44 from 6b+4s=52",
+            "label_id": "Penyelesaian: kurangi 4×(b+s)=44 dari 6b+4s=52",
+            "value": "2b = 8 → b = 4 → s = 7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Simultaneous equations — total boats and total passengers",
+          "name_id": "Persamaan simultan — total perahu dan total penumpang"
+        },
+        "trap": {
+          "wrong": "Forgetting the teacher",
+          "why_en": "If you use 51 instead of 52 total people, the system gives a non-integer answer. The teacher also rides a boat, making the total 52.",
+          "why_id": "Jika kamu menggunakan 51 alih-alih 52 total orang, sistem memberikan jawaban bukan bilangan bulat. Guru juga naik perahu, membuat totalnya 52."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "7"
+        }
+      },
+      "hint_steps_en": [
+        "Total people = 51 pupils + 1 teacher = 52.",
+        "Let b = big boats and s = small boats. Then b + s = 11 and 6b + 4s = 52.",
+        "Subtract 4(b + s) = 44 from 6b + 4s = 52: 2b = 8, so b = 4.",
+        "s = 11 − 4 = 7 small boats."
+      ],
+      "hint_steps_id": [
+        "Total orang = 51 murid + 1 guru = 52.",
+        "Misal b = perahu besar dan s = perahu kecil. Maka b + s = 11 dan 6b + 4s = 52.",
+        "Kurangi 4(b + s) = 44 dari 6b + 4s = 52: 2b = 8, jadi b = 4.",
+        "s = 11 − 4 = 7 perahu kecil."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up two equations for boats and passengers, then solve.",
+          "intro_id": "Buat dua persamaan untuk perahu dan penumpang, lalu selesaikan.",
+          "items": [
+            {
+              "text_en": "Total people: 51 pupils + 1 teacher = 52",
+              "text_id": "Total orang: 51 murid + 1 guru = 52",
+              "ok": null
+            },
+            {
+              "text_en": "b + s = 11 and 6b + 4s = 52",
+              "text_id": "b + s = 11 dan 6b + 4s = 52",
+              "ok": null
+            },
+            {
+              "text_en": "2b = 52 − 44 = 8 → b = 4, s = 7 ✓",
+              "text_id": "2b = 52 − 44 = 8 → b = 4, s = 7 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Using 51 instead of 52 gives non-integer → must include the teacher ✗",
+              "text_id": "Menggunakan 51 alih-alih 52 memberikan bukan bilangan bulat → harus menyertakan guru ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 7 small boats.",
+          "final_id": "Ada 7 perahu kecil.",
+          "aria_en": "With 52 total people and 11 boats where big boats hold 6 and small boats hold 4, solving the simultaneous equations gives 4 big boats and 7 small boats.",
+          "aria_id": "Dengan 52 orang dan 11 perahu di mana perahu besar menampung 6 dan perahu kecil menampung 4, menyelesaikan persamaan simultan menghasilkan 4 perahu besar dan 7 perahu kecil."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +858,81 @@
       "body_id": "Pada gambar di bawah, sebuah segitiga sama sisi terdapat di dalam sebuah lingkaran. Lingkaran tersebut terdapat di dalam sebuah segitiga sama sisi yang lebih besar. Perbandingan luas segitiga kecil dengan segitiga besar adalah m : n. Tentukan nilai (m + n).",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "an equilateral triangle is inscribed in a circle",
+            "phrase_id": "sebuah segitiga sama sisi terdapat di dalam sebuah lingkaran",
+            "note_en": "The circumradius of an equilateral triangle with side a is R = a/√3",
+            "note_id": "Jari-jari lingkaran luar segitiga sama sisi bersisi a adalah R = a/√3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The circle is in turn inscribed in a bigger equilateral triangle",
+            "phrase_id": "Lingkaran tersebut terdapat di dalam sebuah segitiga sama sisi yang lebih besar",
+            "note_en": "The big triangle's inradius equals the circle's radius; inradius of equilateral triangle = R/2 when circumradius = R, so big side = 2 × small side",
+            "note_id": "Jari-jari lingkaran dalam segitiga besar sama dengan jari-jari lingkaran; untuk segitiga sama sisi, inradius = R/2 saat circumradius = R, jadi sisi besar = 2 × sisi kecil"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of (m + n).",
+            "phrase_id": "Tentukan nilai (m + n).",
+            "note_en": "Area ratio = (side ratio)² = (1:2)² = 1:4, so m+n = 1+4 = 5",
+            "note_id": "Rasio luas = (rasio sisi)² = (1:2)² = 1:4, jadi m+n = 1+4 = 5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Small triangle side",
+            "label_id": "Sisi segitiga kecil",
+            "value": "a"
+          },
+          {
+            "label_en": "Circumradius of small triangle",
+            "label_id": "Jari-jari lingkaran luar segitiga kecil",
+            "value": "R = a/√3"
+          },
+          {
+            "label_en": "Big triangle side (circle is its inscribed circle, inradius = R)",
+            "label_id": "Sisi segitiga besar (lingkaran adalah lingkaran dalamnya, inradius = R)",
+            "value": "A = 2a (since inradius of equilateral triangle with side A is A/(2√3), set equal to R=a/√3 → A=2a)"
+          },
+          {
+            "label_en": "Area ratio small:big",
+            "label_id": "Rasio luas kecil:besar",
+            "value": "(a/2a)² = 1:4 → m:n = 1:4 → m+n = 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Relate circumradius to inradius, derive side ratio, square for area ratio",
+          "name_id": "Hubungkan circumradius dengan inradius, tentukan rasio sisi, kuadratkan untuk rasio luas"
+        },
+        "trap": {
+          "wrong": "3",
+          "why_en": "A ratio of 1:2 (m+n=3) confuses the side ratio with the area ratio — area scales as the square of the side ratio.",
+          "why_id": "Rasio 1:2 (m+n=3) mencampuradukkan rasio sisi dengan rasio luas — luas berskala sebagai kuadrat dari rasio sisi."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "Let the small equilateral triangle have side a. Its circumradius is R = a/√3.",
+        "The circle (radius R) is inscribed in the big equilateral triangle. The inradius of an equilateral triangle with side A is A/(2√3).",
+        "Set A/(2√3) = a/√3, giving A = 2a.",
+        "Area ratio = (a)² : (2a)² = 1 : 4, so m = 1, n = 4, and m + n = 5."
+      ],
+      "hint_steps_id": [
+        "Misalkan segitiga sama sisi kecil memiliki sisi a. Jari-jari lingkaran luarnya adalah R = a/√3.",
+        "Lingkaran (jari-jari R) terdapat di dalam segitiga sama sisi besar. Inradius segitiga sama sisi bersisi A adalah A/(2√3).",
+        "Set A/(2√3) = a/√3, menghasilkan A = 2a.",
+        "Rasio luas = a² : (2a)² = 1 : 4, jadi m = 1, n = 4, dan m + n = 5."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +940,107 @@
       "body_id": "Mark dan Nick berlari searah mengelilingi lintasan melingkar 400 m dengan kecepatan masing-masing 200 m/menit dan 160 m/menit. Jika mereka memulai dari titik yang sama, berapa menit yang diperlukan agar mereka bertemu kembali?\n\nTuliskan jawabanmu sebagai bilangan bulat tanpa satuan.",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "speeds of 200 m/min and 160 m/min, respectively",
+            "phrase_id": "kecepatan masing-masing 200 m/menit dan 160 m/menit",
+            "note_en": "Speed difference = 200 − 160 = 40 m/min",
+            "note_id": "Selisih kecepatan = 200 − 160 = 40 m/menit"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "400 m circular track",
+            "phrase_id": "lintasan melingkar 400 m",
+            "note_en": "They meet again when Mark has lapped Nick exactly once: relative gain = 400 m",
+            "note_id": "Mereka bertemu lagi ketika Mark telah melampaui Nick tepat satu putaran: keunggulan relatif = 400 m"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many minutes will it take for them to meet again?",
+            "phrase_id": "berapa menit yang diperlukan agar mereka bertemu kembali?",
+            "note_en": "Time = distance / relative speed = 400 / 40",
+            "note_id": "Waktu = jarak / kecepatan relatif = 400 / 40"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Relative speed",
+            "label_id": "Kecepatan relatif",
+            "value": "200 − 160 = 40 m/min"
+          },
+          {
+            "label_en": "Distance for one full lap gain",
+            "label_id": "Jarak untuk keunggulan satu putaran penuh",
+            "value": "400 m"
+          },
+          {
+            "label_en": "Time to meet",
+            "label_id": "Waktu untuk bertemu",
+            "value": "400 / 40 = 10 minutes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Relative speed on a circular track",
+          "name_id": "Kecepatan relatif pada lintasan melingkar"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "Dividing 400 by the sum of speeds (360) gives a wrong answer. For same-direction running, use the speed difference, not the sum.",
+          "why_id": "Membagi 400 dengan jumlah kecepatan (360) memberikan jawaban yang salah. Untuk berlari searah, gunakan selisih kecepatan, bukan jumlah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "10"
+        }
+      },
+      "hint_steps_en": [
+        "Running in the same direction, the faster runner (Mark) gains on the slower (Nick) at 200 − 160 = 40 m/min.",
+        "They meet again when Mark has gained exactly one full lap = 400 m on Nick.",
+        "Time = 400 ÷ 40 = 10 minutes."
+      ],
+      "hint_steps_id": [
+        "Berlari searah, pelari yang lebih cepat (Mark) menyusul yang lebih lambat (Nick) dengan kecepatan 200 − 160 = 40 m/menit.",
+        "Mereka bertemu lagi ketika Mark telah mengungguli Nick tepat satu putaran penuh = 400 m.",
+        "Waktu = 400 ÷ 40 = 10 menit."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Same-direction chase: use the speed difference to find the catch-up time.",
+          "intro_id": "Kejar-kejaran searah: gunakan selisih kecepatan untuk menemukan waktu menyusul.",
+          "items": [
+            {
+              "text_en": "Relative speed = 200 − 160 = 40 m/min (same direction → subtract)",
+              "text_id": "Kecepatan relatif = 200 − 160 = 40 m/menit (searah → kurangi)",
+              "ok": null
+            },
+            {
+              "text_en": "They meet when Mark laps Nick: relative gain needed = 400 m",
+              "text_id": "Mereka bertemu ketika Mark melampaui Nick: keunggulan relatif yang diperlukan = 400 m",
+              "ok": null
+            },
+            {
+              "text_en": "Time = 400 / 40 = 10 minutes ✓",
+              "text_id": "Waktu = 400 / 40 = 10 menit ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Using speed sum 360 is wrong — that applies to opposite directions ✗",
+              "text_id": "Menggunakan jumlah kecepatan 360 salah — itu berlaku untuk arah berlawanan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "They meet again after 10 minutes.",
+          "final_id": "Mereka bertemu kembali setelah 10 menit.",
+          "aria_en": "Mark gains on Nick at 40 meters per minute; they meet when Mark has gained 400 meters, which takes 400 divided by 40 equals 10 minutes.",
+          "aria_id": "Mark menyusul Nick dengan kecepatan 40 meter per menit; mereka bertemu ketika Mark telah mengungguli 400 meter, yang membutuhkan 400 dibagi 40 sama dengan 10 menit."
+        }
+      }
     },
     {
       "number": 11,
@@ -94,7 +1048,76 @@
       "body_id": "Pada gambar di bawah, AB = BD, FA = AC, dan BC = CE. Tentukan luas △DEF dalam cm² jika luas segitiga ABC adalah 10 cm².\n\nTuliskan jawabanmu sebagai bilangan bulat tanpa satuan.",
       "answer_type": "fill_in",
       "answer": "70",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "AB = BD, FA = AC and BC = CE",
+            "phrase_id": "AB = BD, FA = AC, dan BC = CE",
+            "note_en": "Each side of triangle ABC is extended by its own length to form points D, E, F",
+            "note_id": "Setiap sisi segitiga ABC diperpanjang sepanjang sisinya sendiri untuk membentuk titik D, E, F"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the area of triangle ABC is 10 cm²",
+            "phrase_id": "luas segitiga ABC adalah 10 cm²",
+            "note_en": "Use this as the base unit to express all other sub-triangle areas",
+            "note_id": "Gunakan ini sebagai satuan dasar untuk menyatakan luas semua sub-segitiga lainnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area of △DEF",
+            "phrase_id": "Tentukan luas △DEF",
+            "note_en": "△DEF contains △ABC plus three surrounding triangles each with area 2×10, giving total 7×10",
+            "note_id": "△DEF berisi △ABC plus tiga segitiga di sekelilingnya masing-masing dengan luas 2×10, memberikan total 7×10"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Area of △ABC",
+            "label_id": "Luas △ABC",
+            "value": "10 cm²"
+          },
+          {
+            "label_en": "Area of each outer triangle (e.g. △ABF, △BCD, △BCE)",
+            "label_id": "Luas setiap segitiga luar (mis. △ABF, △BCD, △BCE)",
+            "value": "Each = 2 × 10 = 20 cm² (base doubled, same height)"
+          },
+          {
+            "label_en": "Area of △DEF",
+            "label_id": "Luas △DEF",
+            "value": "10 + 20 + 20 + 20 = 70 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Decompose △DEF into △ABC plus three surrounding triangles",
+          "name_id": "Uraikan △DEF menjadi △ABC plus tiga segitiga di sekelilingnya"
+        },
+        "trap": {
+          "wrong": "40",
+          "why_en": "Counting only two of the three outer triangles misses one. All three surrounding triangles have area 20 each, giving 10+20+20+20=70.",
+          "why_id": "Menghitung hanya dua dari tiga segitiga luar melewatkan satu. Ketiga segitiga di sekeliling masing-masing memiliki luas 20, memberikan 10+20+20+20=70."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "70"
+        }
+      },
+      "hint_steps_en": [
+        "Since AB=BD, triangle ABD shares the same height from D as triangle ABC but has base BD=AB, so area(ABD)=area(ABC)=10.",
+        "Similarly, FA=AC means area(FAC) related triangles each have area proportional to the extension.",
+        "Each of the three outer triangles formed by doubling each side has area 2×10=20 cm².",
+        "Area(△DEF) = 10 + 20 + 20 + 20 = 70 cm²."
+      ],
+      "hint_steps_id": [
+        "Karena AB=BD, segitiga ABD memiliki tinggi yang sama dari D seperti segitiga ABC tetapi dengan alas BD=AB, jadi luas(ABD)=luas(ABC)=10.",
+        "Demikian pula, FA=AC dan BC=CE berarti ketiga segitiga luar masing-masing memiliki luas yang proporsional terhadap perpanjangannya.",
+        "Setiap dari ketiga segitiga luar yang dibentuk dengan menggandakan setiap sisi memiliki luas 2×10=20 cm².",
+        "Luas(△DEF) = 10 + 20 + 20 + 20 = 70 cm²."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +1125,109 @@
       "body_id": "Hitung nilai\n\n(1 + 1/47) + (2 + 1/47 × 2) + (3 + 1/47 × 3) + ··· + (46 + 1/47 × 46) + (47 + 1/47 × 47)",
       "answer_type": "fill_in",
       "answer": "1152",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "(1 + 1/47) + (2 + 1/47 × 2) + (3 + 1/47 × 3) + ··· + (46 + 1/47 × 46) + (47 + 1/47 × 47)",
+            "phrase_id": "(1 + 1/47) + (2 + 1/47 × 2) + (3 + 1/47 × 3) + ··· + (46 + 1/47 × 46) + (47 + 1/47 × 47)",
+            "note_en": "Each term k + k/47 = k(1 + 1/47) = k × 48/47",
+            "note_id": "Setiap suku k + k/47 = k(1 + 1/47) = k × 48/47"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Evaluate",
+            "phrase_id": "Hitung nilai",
+            "note_en": "Factor out (48/47) then sum k from 1 to 47",
+            "note_id": "Faktorkan (48/47) lalu jumlahkan k dari 1 hingga 47"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1/47 × 2",
+            "phrase_id": "1/47 × 2",
+            "note_en": "The fraction part is k/47, making each term k(48/47)",
+            "note_id": "Bagian pecahan adalah k/47, membuat setiap suku k(48/47)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Each term simplified",
+            "label_id": "Setiap suku disederhanakan",
+            "value": "k + k/47 = k × (48/47)"
+          },
+          {
+            "label_en": "Sum of k from 1 to 47",
+            "label_id": "Jumlah k dari 1 hingga 47",
+            "value": "47 × 48 / 2 = 1128"
+          },
+          {
+            "label_en": "Total sum",
+            "label_id": "Jumlah total",
+            "value": "1128 × (48/47) = 24 × 48 = 1152"
+          }
+        ],
+        "strategy": {
+          "name_en": "Factor out the common multiplier, then apply the triangular number formula",
+          "name_id": "Faktorkan pengali yang sama, lalu terapkan rumus bilangan segitiga"
+        },
+        "trap": {
+          "wrong": "1128",
+          "why_en": "1128 = 47×48/2 is the sum of 1 to 47, but the problem adds k/47 to each k — the total is 1128 × (48/47) = 1152.",
+          "why_id": "1128 = 47×48/2 adalah jumlah dari 1 hingga 47, tetapi soal menambahkan k/47 ke setiap k — totalnya adalah 1128 × (48/47) = 1152."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1152"
+        }
+      },
+      "hint_steps_en": [
+        "Each term has the form k + k/47 = k(1 + 1/47) = k × 48/47.",
+        "Sum = (48/47) × (1 + 2 + 3 + ··· + 47).",
+        "1 + 2 + ··· + 47 = 47 × 48 / 2 = 1128.",
+        "Total = (48/47) × 1128 = 48 × 24 = 1152."
+      ],
+      "hint_steps_id": [
+        "Setiap suku berbentuk k + k/47 = k(1 + 1/47) = k × 48/47.",
+        "Jumlah = (48/47) × (1 + 2 + 3 + ··· + 47).",
+        "1 + 2 + ··· + 47 = 47 × 48 / 2 = 1128.",
+        "Total = (48/47) × 1128 = 48 × 24 = 1152."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Factor each term as k × (48/47), then sum using the triangular formula.",
+          "intro_id": "Faktorkan setiap suku sebagai k × (48/47), lalu jumlahkan menggunakan rumus segitiga.",
+          "items": [
+            {
+              "text_en": "k + k/47 = k(1 + 1/47) = 48k/47 for each k",
+              "text_id": "k + k/47 = k(1 + 1/47) = 48k/47 untuk setiap k",
+              "ok": null
+            },
+            {
+              "text_en": "Sum = (48/47) × (1 + 2 + ... + 47) = (48/47) × 1128",
+              "text_id": "Jumlah = (48/47) × (1 + 2 + ... + 47) = (48/47) × 1128",
+              "ok": null
+            },
+            {
+              "text_en": "(48/47) × 1128 = 48 × 24 = 1152 ✓",
+              "text_id": "(48/47) × 1128 = 48 × 24 = 1152 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "1128 alone ignores the +k/47 portion of each term ✗",
+              "text_id": "1128 saja mengabaikan bagian +k/47 dari setiap suku ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The sum is 1152.",
+          "final_id": "Jumlahnya adalah 1152.",
+          "aria_en": "Each term k plus k over 47 equals 48k over 47; summing from k equals 1 to 47 gives 48 over 47 times 1128 which equals 1152.",
+          "aria_id": "Setiap suku k ditambah k per 47 sama dengan 48k per 47; menjumlahkan dari k sama dengan 1 hingga 47 memberikan 48 per 47 kali 1128 yang sama dengan 1152."
+        }
+      }
     },
     {
       "number": 13,
@@ -110,7 +1235,104 @@
       "body_id": "Diketahui bahwa m679n (bilangan lima angka) habis dibagi 72. Tentukan (m + n).",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "m̄679n̄ is divisible by 72",
+            "phrase_id": "m679n (bilangan lima angka) habis dibagi 72",
+            "note_en": "72 = 8 × 9; the number must satisfy both divisibility rules simultaneously",
+            "note_id": "72 = 8 × 9; bilangan harus memenuhi kedua aturan keterbagian secara bersamaan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "divisible by 72",
+            "phrase_id": "habis dibagi 72",
+            "note_en": "Divisible by 8: last 3 digits (79n) divisible by 8; divisible by 9: digit sum divisible by 9",
+            "note_id": "Habis dibagi 8: tiga digit terakhir (79n) habis dibagi 8; habis dibagi 9: jumlah digit habis dibagi 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find (m + n)",
+            "phrase_id": "Tentukan (m + n)",
+            "note_en": "Solve for n using divisibility by 8, then solve for m using divisibility by 9",
+            "note_id": "Cari n menggunakan keterbagian oleh 8, lalu cari m menggunakan keterbagian oleh 9"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Divisibility by 8: last 3 digits 79n",
+            "label_id": "Keterbagian oleh 8: tiga digit terakhir 79n",
+            "value": "790 + n divisible by 8 → 792 = 8×99 → n = 2"
+          },
+          {
+            "label_en": "Divisibility by 9: digit sum",
+            "label_id": "Keterbagian oleh 9: jumlah digit",
+            "value": "m + 6 + 7 + 9 + 2 = m + 24; need m+24 divisible by 9 → m+24=27 → m=3"
+          },
+          {
+            "label_en": "m + n",
+            "label_id": "m + n",
+            "value": "3 + 2 = 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply divisibility by 8 (last 3 digits) then by 9 (digit sum)",
+          "name_id": "Terapkan keterbagian oleh 8 (tiga digit terakhir) lalu oleh 9 (jumlah digit)"
+        },
+        "trap": {
+          "wrong": "Trying m+24=36 giving m=12",
+          "why_en": "m is a single digit (0-9), so m+24=36 is impossible; the only valid solution is m+24=27, giving m=3.",
+          "why_id": "m adalah satu digit (0-9), sehingga m+24=36 tidak mungkin; satu-satunya solusi yang valid adalah m+24=27, memberikan m=3."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "72 = 8 × 9 (coprime), so the number must be divisible by both 8 and 9.",
+        "Divisibility by 8: the last 3 digits (79n) must be divisible by 8. Check: 790÷8=98.75, 791÷8=98.875, 792÷8=99 exactly → n=2.",
+        "Divisibility by 9: digit sum = m+6+7+9+2 = m+24 must be divisible by 9. Since m is a single digit, m+24=27, so m=3.",
+        "m + n = 3 + 2 = 5."
+      ],
+      "hint_steps_id": [
+        "72 = 8 × 9 (koprima), jadi bilangan harus habis dibagi 8 dan 9.",
+        "Keterbagian oleh 8: tiga digit terakhir (79n) harus habis dibagi 8. Cek: 792÷8=99 tepat → n=2.",
+        "Keterbagian oleh 9: jumlah digit = m+6+7+9+2 = m+24 harus habis dibagi 9. Karena m adalah satu digit, m+24=27, jadi m=3.",
+        "m + n = 3 + 2 = 5."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "72 = 8 × 9: apply both divisibility tests to find m and n.",
+          "intro_id": "72 = 8 × 9: terapkan kedua uji keterbagian untuk menemukan m dan n.",
+          "items": [
+            {
+              "text_en": "Div by 8: last 3 digits 79n → test n=0..9: 790÷8 no; 792÷8=99 ✓ → n=2",
+              "text_id": "Bagi 8: tiga digit terakhir 79n → uji n=0..9: 792÷8=99 ✓ → n=2",
+              "ok": null
+            },
+            {
+              "text_en": "Digit sum with n=2: m+6+7+9+2 = m+24; need multiple of 9 → m+24=27 → m=3",
+              "text_id": "Jumlah digit dengan n=2: m+6+7+9+2 = m+24; perlu kelipatan 9 → m+24=27 → m=3",
+              "ok": null
+            },
+            {
+              "text_en": "m + n = 3 + 2 = 5 ✓",
+              "text_id": "m + n = 3 + 2 = 5 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "m + n = 5.",
+          "final_id": "m + n = 5.",
+          "aria_en": "Using divisibility by 8 gives n equals 2; using divisibility by 9 gives m equals 3; so m plus n equals 5.",
+          "aria_id": "Menggunakan keterbagian oleh 8 memberikan n sama dengan 2; menggunakan keterbagian oleh 9 memberikan m sama dengan 3; jadi m ditambah n sama dengan 5."
+        }
+      }
     },
     {
       "number": 14,
@@ -118,7 +1340,81 @@
       "body_id": "Pada gambar di bawah, AD ∥ BC dan BC = 1,5AD. Luas △ADE = 16 cm² dan luas △BEC = 18 cm². Tentukan luas (dalam cm²) daerah yang diarsir.\n\nTuliskan jawabanmu sebagai bilangan bulat tanpa satuan.",
       "answer_type": "fill_in",
       "answer": "36",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "AD ∥ BC and BC = 1.5AD",
+            "phrase_id": "AD ∥ BC dan BC = 1,5AD",
+            "note_en": "The parallel lines and ratio BC/AD = 3/2 create similar triangles at intersection point E",
+            "note_id": "Garis sejajar dan rasio BC/AD = 3/2 membentuk segitiga-segitiga sebangun di titik potong E"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The area of △ADE = 16 cm² and the area of △BEC = 18 cm²",
+            "phrase_id": "Luas △ADE = 16 cm² dan luas △BEC = 18 cm²",
+            "note_en": "Use these two known areas to find the remaining regions",
+            "note_id": "Gunakan dua luas yang diketahui ini untuk menemukan daerah yang tersisa"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area, in cm², of the shaded regions.",
+            "phrase_id": "Tentukan luas (dalam cm²) daerah yang diarsir.",
+            "note_en": "The shaded region is the trapezoid ABCD minus the two given triangles, plus cross-triangles",
+            "note_id": "Daerah yang diarsir adalah trapesium ABCD dikurangi dua segitiga yang diberikan, plus segitiga-segitiga silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "BC/AD ratio",
+            "label_id": "Rasio BC/AD",
+            "value": "3/2"
+          },
+          {
+            "label_en": "△ADE area",
+            "label_id": "Luas △ADE",
+            "value": "16 cm²"
+          },
+          {
+            "label_en": "△BEC area",
+            "label_id": "Luas △BEC",
+            "value": "18 cm²"
+          },
+          {
+            "label_en": "Shaded area (from figure geometry)",
+            "label_id": "Luas yang diarsir (dari geometri gambar)",
+            "value": "36 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use similar triangles from parallel lines, then subtract known areas",
+          "name_id": "Gunakan segitiga sebangun dari garis sejajar, lalu kurangi luas yang diketahui"
+        },
+        "trap": {
+          "wrong": "34",
+          "why_en": "Simply adding the two given triangle areas (16+18=34) does not give the shaded region — the geometry of the trapezoid must be used to find the total.",
+          "why_id": "Sekadar menjumlahkan dua luas segitiga yang diberikan (16+18=34) tidak menghasilkan daerah yang diarsir — geometri trapesium harus digunakan untuk menemukan totalnya."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "36"
+        }
+      },
+      "hint_steps_en": [
+        "AD ∥ BC creates similar triangles ADE and BCE at the intersection E, with ratio AD:BC = 2:3.",
+        "Area ratio of similar triangles = (2:3)² = 4:9. With △ADE=16 and the ratio, △ABE and △DCE can be found.",
+        "The shaded regions consist of triangles △ABE and △DCE.",
+        "Using the areas given and the similarity ratio, the shaded area = 36 cm²."
+      ],
+      "hint_steps_id": [
+        "AD ∥ BC membentuk segitiga sebangun ADE dan BCE di titik potong E, dengan rasio AD:BC = 2:3.",
+        "Rasio luas segitiga sebangun = (2:3)² = 4:9. Dengan △ADE=16 dan rasio tersebut, △ABE dan △DCE dapat ditemukan.",
+        "Daerah yang diarsir terdiri dari segitiga △ABE dan △DCE.",
+        "Menggunakan luas yang diberikan dan rasio kesebangunan, luas yang diarsir = 36 cm²."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +1422,114 @@
       "body_id": "Rumput di peternakan tumbuh dengan laju tetap setiap hari. 27 ekor sapi dapat menghabiskan rumput dalam 6 hari, dan 23 ekor sapi dapat menghabiskan rumput dalam 9 hari. Berapa hari peternakan tersebut dapat menghidupi 24 ekor sapi?\n\nTuliskan jawabanmu sebagai bilangan bulat tanpa satuan.",
       "answer_type": "fill_in",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "27 oxen could finish eating the grass in 6 days",
+            "phrase_id": "27 ekor sapi dapat menghabiskan rumput dalam 6 hari",
+            "note_en": "Gives equation: G + 6r = 27 × 6, where G = initial grass, r = daily growth",
+            "note_id": "Memberikan persamaan: G + 6r = 27 × 6, di mana G = rumput awal, r = pertumbuhan harian"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "23 oxen could finish eating the grass in 9 days",
+            "phrase_id": "23 ekor sapi dapat menghabiskan rumput dalam 9 hari",
+            "note_en": "Gives equation: G + 9r = 23 × 9",
+            "note_id": "Memberikan persamaan: G + 9r = 23 × 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "For how many days could the ranch sustain a herd of 24 oxen?",
+            "phrase_id": "Berapa hari peternakan tersebut dapat menghidupi 24 ekor sapi?",
+            "note_en": "Solve for G and r, then find d such that G + dr = 24d",
+            "note_id": "Cari G dan r, lalu temukan d sehingga G + dr = 24d"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation 1: 27 oxen, 6 days",
+            "label_id": "Persamaan 1: 27 sapi, 6 hari",
+            "value": "G + 6r = 162"
+          },
+          {
+            "label_en": "Equation 2: 23 oxen, 9 days",
+            "label_id": "Persamaan 2: 23 sapi, 9 hari",
+            "value": "G + 9r = 207"
+          },
+          {
+            "label_en": "Solving: subtract eq1 from eq2",
+            "label_id": "Penyelesaian: kurangi persamaan 1 dari persamaan 2",
+            "value": "3r = 45 → r = 15; G = 162 − 90 = 72"
+          },
+          {
+            "label_en": "For 24 oxen: d(24 − 15) = 72",
+            "label_id": "Untuk 24 sapi: d(24 − 15) = 72",
+            "value": "9d = 72 → d = 8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Newton's pasture — set up two equations for initial grass and growth rate",
+          "name_id": "Padang rumput Newton — buat dua persamaan untuk rumput awal dan laju pertumbuhan"
+        },
+        "trap": {
+          "wrong": "7 or 9",
+          "why_en": "Using only one equation gives an indeterminate result. Both equations are needed to solve for G and r before finding d.",
+          "why_id": "Menggunakan hanya satu persamaan memberikan hasil yang tidak tentu. Kedua persamaan diperlukan untuk mencari G dan r sebelum menemukan d."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "8"
+        }
+      },
+      "hint_steps_en": [
+        "Let G = initial grass (in ox-day units) and r = daily growth rate.",
+        "Equation 1: G + 6r = 27 × 6 = 162. Equation 2: G + 9r = 23 × 9 = 207.",
+        "Subtract: 3r = 45, so r = 15. Then G = 162 − 90 = 72.",
+        "For 24 oxen over d days: 24d = G + dr = 72 + 15d → 9d = 72 → d = 8."
+      ],
+      "hint_steps_id": [
+        "Misalkan G = rumput awal (dalam satuan sapi-hari) dan r = laju pertumbuhan harian.",
+        "Persamaan 1: G + 6r = 27 × 6 = 162. Persamaan 2: G + 9r = 23 × 9 = 207.",
+        "Kurangi: 3r = 45, jadi r = 15. Kemudian G = 162 − 90 = 72.",
+        "Untuk 24 sapi selama d hari: 24d = G + dr = 72 + 15d → 9d = 72 → d = 8."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up Newton's pasture equations and solve for the growth rate and initial grass.",
+          "intro_id": "Buat persamaan padang rumput Newton dan selesaikan untuk laju pertumbuhan dan rumput awal.",
+          "items": [
+            {
+              "text_en": "27 oxen × 6 days = G + 6r → 162 = G + 6r",
+              "text_id": "27 sapi × 6 hari = G + 6r → 162 = G + 6r",
+              "ok": null
+            },
+            {
+              "text_en": "23 oxen × 9 days = G + 9r → 207 = G + 9r",
+              "text_id": "23 sapi × 9 hari = G + 9r → 207 = G + 9r",
+              "ok": null
+            },
+            {
+              "text_en": "Subtract: 3r = 45 → r = 15; G = 72",
+              "text_id": "Kurangi: 3r = 45 → r = 15; G = 72",
+              "ok": null
+            },
+            {
+              "text_en": "24 oxen: 9d = 72 → d = 8 ✓",
+              "text_id": "24 sapi: 9d = 72 → d = 8 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The ranch sustains 24 oxen for 8 days.",
+          "final_id": "Peternakan dapat menghidupi 24 sapi selama 8 hari.",
+          "aria_en": "Setting up two equations for initial grass G and growth rate r, solving gives r equals 15 and G equals 72; for 24 oxen the equation 9d equals 72 gives d equals 8 days.",
+          "aria_id": "Membuat dua persamaan untuk rumput awal G dan laju pertumbuhan r, penyelesaian memberikan r sama dengan 15 dan G sama dengan 72; untuk 24 sapi persamaan 9d sama dengan 72 memberikan d sama dengan 8 hari."
+        }
+      }
     }
   ]
 }

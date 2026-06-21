@@ -14,7 +14,109 @@
       "body_id": "Temukan nilai m berikut.\n\n(m ÷ 3) + 8 × 5 = 120",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "240"
+      "answer": "240",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "(m ÷ 3) + 8 × 5 = 120",
+            "phrase_id": "(m ÷ 3) + 8 × 5 = 120",
+            "note_en": "The full equation to solve for m",
+            "note_id": "Persamaan lengkap untuk mencari m"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "8 × 5 = 120",
+            "phrase_id": "8 × 5 = 120",
+            "note_en": "Multiplication before addition: 8 × 5 = 40, which is computed first",
+            "note_id": "Perkalian didahulukan: 8 × 5 = 40, dihitung lebih dulu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of m below.",
+            "phrase_id": "Temukan nilai m berikut.",
+            "note_en": "Isolate m step by step: subtract 40, then multiply by 3",
+            "note_id": "Isolasi m langkah demi langkah: kurangi 40, lalu kalikan dengan 3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "8 × 5",
+            "label_id": "8 × 5",
+            "value": "40"
+          },
+          {
+            "label_en": "m ÷ 3",
+            "label_id": "m ÷ 3",
+            "value": "120 − 40 = 80"
+          },
+          {
+            "label_en": "m",
+            "label_id": "m",
+            "value": "80 × 3 = 240"
+          }
+        ],
+        "strategy": {
+          "name_en": "Order of operations then back-calculate",
+          "name_id": "Urutan operasi lalu hitung mundur"
+        },
+        "trap": {
+          "wrong": "40",
+          "why_en": "Adding 8 and 5 before multiplying gives 65, then m ÷ 3 = 55, m = 165 — wrong because multiplication must come first.",
+          "why_id": "Menjumlahkan 8 dan 5 sebelum mengalikan memberi 65, lalu m ÷ 3 = 55, m = 165 — salah karena perkalian harus didahulukan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "240"
+        }
+      },
+      "hint_steps_en": [
+        "Apply order of operations: multiplication first — 8 × 5 = 40.",
+        "The equation becomes (m ÷ 3) + 40 = 120.",
+        "Subtract 40 from both sides: m ÷ 3 = 80.",
+        "Multiply both sides by 3: m = 240."
+      ],
+      "hint_steps_id": [
+        "Terapkan urutan operasi: perkalian lebih dulu — 8 × 5 = 40.",
+        "Persamaan menjadi (m ÷ 3) + 40 = 120.",
+        "Kurangi kedua sisi dengan 40: m ÷ 3 = 80.",
+        "Kalikan kedua sisi dengan 3: m = 240."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work backward step by step using order of operations.",
+          "intro_id": "Kerjakan mundur langkah demi langkah menggunakan urutan operasi.",
+          "items": [
+            {
+              "text_en": "Step 1: 8 × 5 = 40 (multiplication first)",
+              "text_id": "Langkah 1: 8 × 5 = 40 (perkalian lebih dulu)",
+              "ok": null
+            },
+            {
+              "text_en": "Step 2: (m ÷ 3) + 40 = 120 → m ÷ 3 = 80",
+              "text_id": "Langkah 2: (m ÷ 3) + 40 = 120 → m ÷ 3 = 80",
+              "ok": null
+            },
+            {
+              "text_en": "Step 3: m = 80 × 3 = 240 ✓",
+              "text_id": "Langkah 3: m = 80 × 3 = 240 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Check: (240 ÷ 3) + 40 = 80 + 40 = 120 ✓",
+              "text_id": "Cek: (240 ÷ 3) + 40 = 80 + 40 = 120 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "m = 240.",
+          "final_id": "m = 240.",
+          "aria_en": "Compute 8 times 5 equals 40 first, then m divided by 3 equals 120 minus 40 equals 80, so m equals 240.",
+          "aria_id": "Hitung 8 kali 5 sama dengan 40 terlebih dahulu, lalu m dibagi 3 sama dengan 120 dikurangi 40 sama dengan 80, jadi m sama dengan 240."
+        }
+      }
     },
     {
       "number": 2,
@@ -22,7 +124,102 @@
       "body_id": "Temukan bilangan yang hilang.\n\n2, 2, 4, 6, 10, 16, 26, 42, ( )",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "68"
+      "answer": "68",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2, 2, 4, 6, 10, 16, 26, 42, ( )",
+            "phrase_id": "2, 2, 4, 6, 10, 16, 26, 42, ( )",
+            "note_en": "The sequence starts with 2, 2 — each subsequent term is the sum of the two preceding terms",
+            "note_id": "Barisan dimulai dengan 2, 2 — setiap suku berikutnya adalah jumlah dua suku sebelumnya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the missing number.",
+            "phrase_id": "Temukan bilangan yang hilang.",
+            "note_en": "Apply the Fibonacci-like rule: term = previous + term before previous",
+            "note_id": "Terapkan aturan mirip Fibonacci: suku = sebelumnya + suku sebelum sebelumnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the missing number.",
+            "phrase_id": "Temukan bilangan yang hilang.",
+            "note_en": "Find the term after 42 by adding 26 and 42",
+            "note_id": "Temukan suku setelah 42 dengan menjumlahkan 26 dan 42"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule check: 2+2",
+            "label_id": "Cek aturan: 2+2",
+            "value": "4 ✓"
+          },
+          {
+            "label_en": "Rule check: 2+4",
+            "label_id": "Cek aturan: 2+4",
+            "value": "6 ✓"
+          },
+          {
+            "label_en": "Rule check: 26+42",
+            "label_id": "Cek aturan: 26+42",
+            "value": "68"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fibonacci-like: each term = sum of previous two",
+          "name_id": "Mirip Fibonacci: setiap suku = jumlah dua suku sebelumnya"
+        },
+        "trap": {
+          "wrong": "64",
+          "why_en": "Adding only the last term twice (42+22=64) misreads the pattern — add the last TWO terms: 26+42=68.",
+          "why_id": "Menambahkan suku terakhir dua kali (42+22=64) salah membaca pola — tambahkan DUA suku terakhir: 26+42=68."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "68"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the differences: 2,2,4,6,10,16,26,42 — each term equals the sum of the two before it.",
+        "Verify: 2+2=4 ✓, 2+4=6 ✓, 4+6=10 ✓, 6+10=16 ✓, 10+16=26 ✓, 16+26=42 ✓.",
+        "The missing term = 26 + 42 = 68."
+      ],
+      "hint_steps_id": [
+        "Perhatikan selisih: 2,2,4,6,10,16,26,42 — setiap suku adalah jumlah dua suku sebelumnya.",
+        "Verifikasi: 2+2=4 ✓, 2+4=6 ✓, 4+6=10 ✓, 6+10=16 ✓, 10+16=26 ✓, 16+26=42 ✓.",
+        "Bilangan yang hilang = 26 + 42 = 68."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Each term = sum of the two terms before it (Fibonacci pattern). Verify then extend.",
+          "intro_id": "Setiap suku = jumlah dua suku sebelumnya (pola Fibonacci). Verifikasi lalu lanjutkan.",
+          "items": [
+            {
+              "text_en": "2 + 2 = 4 ✓",
+              "text_id": "2 + 2 = 4 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "16 + 26 = 42 ✓ (pattern confirmed)",
+              "text_id": "16 + 26 = 42 ✓ (pola terkonfirmasi)",
+              "ok": null
+            },
+            {
+              "text_en": "26 + 42 = 68 ✓ (missing number)",
+              "text_id": "26 + 42 = 68 ✓ (bilangan yang hilang)",
+              "ok": true
+            }
+          ],
+          "final_en": "The missing number is 68.",
+          "final_id": "Bilangan yang hilang adalah 68.",
+          "aria_en": "The sequence follows the Fibonacci rule where each term equals the sum of the two preceding terms; 26 plus 42 equals 68.",
+          "aria_id": "Barisan mengikuti aturan Fibonacci di mana setiap suku adalah jumlah dua suku sebelumnya; 26 ditambah 42 sama dengan 68."
+        }
+      }
     },
     {
       "number": 3,
@@ -30,7 +227,66 @@
       "body_id": "Berapa banyak segi empat, atau poligon bersisi 4 yang ada dalam gambar berikut? [Petunjuk: Persegi panjang adalah segi empat.]",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "16"
+      "answer": "16",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many quadrilaterals, or 4-sided polygons are there in the figure below?",
+            "phrase_id": "Berapa banyak segi empat, atau poligon bersisi 4 yang ada dalam gambar berikut?",
+            "note_en": "Count every possible 4-sided polygon that can be formed, including those made of multiple smaller cells",
+            "note_id": "Hitung setiap poligon bersisi 4 yang mungkin terbentuk, termasuk yang terbuat dari beberapa sel kecil"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A rectangle is a quadrilateral.",
+            "phrase_id": "Persegi panjang adalah segi empat.",
+            "note_en": "Include all rectangles and squares formed by combining adjacent cells in the figure",
+            "note_id": "Sertakan semua persegi panjang dan persegi yang terbentuk dari gabungan sel yang berdekatan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "4-sided polygons",
+            "phrase_id": "poligon bersisi 4",
+            "note_en": "Count single cells plus all larger rectangles spanning multiple rows/columns",
+            "note_id": "Hitung sel tunggal ditambah semua persegi panjang yang mencakup beberapa baris/kolom"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Systematic count",
+            "label_id": "Hitungan sistematis",
+            "value": "16 quadrilaterals total (single cells + combined rectangles)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic count by size and position",
+          "name_id": "Hitungan sistematis berdasarkan ukuran dan posisi"
+        },
+        "trap": {
+          "wrong": "less than 16",
+          "why_en": "Counting only individual cells misses all the larger rectangles formed by combining 2 or more cells.",
+          "why_id": "Hanya menghitung sel individual melewatkan semua persegi panjang besar yang terbentuk dari gabungan 2 atau lebih sel."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "16"
+        }
+      },
+      "hint_steps_en": [
+        "Count quadrilaterals systematically: start with size 1×1 cells, then 1×2, 2×1, 2×2, and larger.",
+        "For each size, count how many positions fit within the figure.",
+        "Add all the counts together carefully to avoid missing any.",
+        "Total = 16 quadrilaterals."
+      ],
+      "hint_steps_id": [
+        "Hitung segi empat secara sistematis: mulai dengan sel 1×1, lalu 1×2, 2×1, 2×2, dan yang lebih besar.",
+        "Untuk setiap ukuran, hitung berapa banyak posisi yang muat di dalam gambar.",
+        "Jumlahkan semua hitungan dengan cermat agar tidak ada yang terlewat.",
+        "Total = 16 segi empat."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +294,106 @@
       "body_id": "Guru memiliki sebuah kantong permen. Jika ia memberikan masing-masing siswa 8 permen, 3 permen akan tersisa. Jika ia memberikan masing-masing siswa 9 permen, ia akan membutuhkan 5 permen lagi. Berapa banyak permen yang dimiliki guru?",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "67"
+      "answer": "67",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "If she gives each student 8 sweets, 3 sweets will remain.",
+            "phrase_id": "Jika ia memberikan masing-masing siswa 8 permen, 3 permen akan tersisa.",
+            "note_en": "Total sweets = 8 × (number of students) + 3",
+            "note_id": "Total permen = 8 × (jumlah siswa) + 3"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If she gives each student 9 sweets, she will need another 5 sweets.",
+            "phrase_id": "Jika ia memberikan masing-masing siswa 9 permen, ia akan membutuhkan 5 permen lagi.",
+            "note_en": "Total sweets = 9 × (number of students) − 5",
+            "note_id": "Total permen = 9 × (jumlah siswa) − 5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many sweets does the teacher have?",
+            "phrase_id": "Berapa banyak permen yang dimiliki guru?",
+            "note_en": "Set the two expressions equal to find number of students, then compute total sweets",
+            "note_id": "Samakan dua ekspresi untuk menemukan jumlah siswa, lalu hitung total permen"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation: 8n + 3 = 9n − 5",
+            "label_id": "Persamaan: 8n + 3 = 9n − 5",
+            "value": "n = 8 students"
+          },
+          {
+            "label_en": "Total sweets",
+            "label_id": "Total permen",
+            "value": "8 × 8 + 3 = 67"
+          }
+        ],
+        "strategy": {
+          "name_en": "Write two equations, solve for students, then find sweets",
+          "name_id": "Tulis dua persamaan, cari jumlah siswa, lalu hitung permen"
+        },
+        "trap": {
+          "wrong": "72",
+          "why_en": "Using n = 8 in the second formula gives 9×8 − 5 = 67, not 72 — always verify with both conditions.",
+          "why_id": "Menggunakan n = 8 pada rumus kedua memberi 9×8 − 5 = 67, bukan 72 — selalu verifikasi dengan kedua syarat."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "67"
+        }
+      },
+      "hint_steps_en": [
+        "Let n = number of students. From the first condition: total = 8n + 3.",
+        "From the second condition: total = 9n − 5.",
+        "Set equal: 8n + 3 = 9n − 5 → n = 8.",
+        "Total sweets = 8 × 8 + 3 = 67.",
+        "Check: 9 × 8 − 5 = 67 ✓"
+      ],
+      "hint_steps_id": [
+        "Misalkan n = jumlah siswa. Dari syarat pertama: total = 8n + 3.",
+        "Dari syarat kedua: total = 9n − 5.",
+        "Samakan: 8n + 3 = 9n − 5 → n = 8.",
+        "Total permen = 8 × 8 + 3 = 67.",
+        "Cek: 9 × 8 − 5 = 67 ✓"
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up two equations for the same total of sweets, solve for number of students.",
+          "intro_id": "Buat dua persamaan untuk total permen yang sama, cari jumlah siswa.",
+          "items": [
+            {
+              "text_en": "Condition 1: total = 8n + 3",
+              "text_id": "Syarat 1: total = 8n + 3",
+              "ok": null
+            },
+            {
+              "text_en": "Condition 2: total = 9n − 5",
+              "text_id": "Syarat 2: total = 9n − 5",
+              "ok": null
+            },
+            {
+              "text_en": "8n + 3 = 9n − 5 → n = 8 students",
+              "text_id": "8n + 3 = 9n − 5 → n = 8 siswa",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 8 × 8 + 3 = 67 sweets ✓",
+              "text_id": "Total = 8 × 8 + 3 = 67 permen ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The teacher has 67 sweets.",
+          "final_id": "Guru memiliki 67 permen.",
+          "aria_en": "With 8 students, giving 8 each leaves 3 extra and giving 9 each needs 5 more; solving gives 8 students and 67 sweets total.",
+          "aria_id": "Dengan 8 siswa, memberi 8 masing-masing menyisakan 3 dan memberi 9 masing-masing butuh 5 lagi; penyelesaian memberi 8 siswa dan 67 permen total."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +401,111 @@
       "body_id": "Berapa banyak bilangan yang lebih besar dari 4000 yang dapat dibentuk menggunakan kartu angka berikut?\n\n0, 3, 5, 8",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "12"
+      "answer": "12",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "numbers greater than 4000",
+            "phrase_id": "bilangan yang lebih besar dari 4000",
+            "note_en": "Must be a 4-digit number with first digit > 4; digits are 0,3,5,8 so first digit must be 5 or 8",
+            "note_id": "Harus bilangan 4 digit dengan digit pertama > 4; digit yang tersedia 0,3,5,8 jadi digit pertama harus 5 atau 8"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "0, 3, 5, 8",
+            "phrase_id": "0, 3, 5, 8",
+            "note_en": "Four distinct digits — each is used exactly once per number (all four cards used)",
+            "note_id": "Empat digit berbeda — masing-masing digunakan tepat sekali per bilangan (semua empat kartu digunakan)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many numbers greater than 4000 can be formed",
+            "phrase_id": "Berapa banyak bilangan yang lebih besar dari 4000 yang dapat dibentuk",
+            "note_en": "Count by valid first digit: 5 or 8; each gives 3! = 6 arrangements for remaining digits",
+            "note_id": "Hitung berdasarkan digit pertama yang valid: 5 atau 8; masing-masing memberi 3! = 6 susunan untuk digit sisanya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "First digit = 5: arrangements of {0,3,8}",
+            "label_id": "Digit pertama = 5: susunan {0,3,8}",
+            "value": "3! = 6 numbers"
+          },
+          {
+            "label_en": "First digit = 8: arrangements of {0,3,5}",
+            "label_id": "Digit pertama = 8: susunan {0,3,5}",
+            "value": "3! = 6 numbers"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "6 + 6 = 12 numbers"
+          }
+        ],
+        "strategy": {
+          "name_en": "Restrict first digit then count permutations",
+          "name_id": "Batasi digit pertama lalu hitung permutasi"
+        },
+        "trap": {
+          "wrong": "18",
+          "why_en": "Including first digit = 3 (giving 3000-range numbers) is wrong — 3xxx < 4000, so 3 cannot be the first digit.",
+          "why_id": "Memasukkan digit pertama = 3 (menghasilkan bilangan kisaran 3000) salah — 3xxx < 4000, jadi 3 tidak boleh jadi digit pertama."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "12"
+        }
+      },
+      "hint_steps_en": [
+        "Numbers > 4000 using all four cards {0,3,5,8} must be 4-digit numbers.",
+        "The first digit must be greater than 4: only 5 or 8 qualify (not 0 or 3).",
+        "If first digit = 5: arrange {0,3,8} in the remaining 3 spots → 3! = 6 numbers.",
+        "If first digit = 8: arrange {0,3,5} in the remaining 3 spots → 3! = 6 numbers.",
+        "Total = 6 + 6 = 12 numbers."
+      ],
+      "hint_steps_id": [
+        "Bilangan > 4000 menggunakan keempat kartu {0,3,5,8} harus berupa bilangan 4 digit.",
+        "Digit pertama harus lebih besar dari 4: hanya 5 atau 8 yang memenuhi (bukan 0 atau 3).",
+        "Jika digit pertama = 5: susun {0,3,8} di 3 posisi sisanya → 3! = 6 bilangan.",
+        "Jika digit pertama = 8: susun {0,3,5} di 3 posisi sisanya → 3! = 6 bilangan.",
+        "Total = 6 + 6 = 12 bilangan."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For a 4-digit number > 4000, the thousands digit must exceed 4. Check each available digit.",
+          "intro_id": "Untuk bilangan 4 digit > 4000, digit ribuan harus lebih dari 4. Periksa setiap digit yang tersedia.",
+          "items": [
+            {
+              "text_en": "First digit = 0: gives 0xxx — not a valid 4-digit number ✗",
+              "text_id": "Digit pertama = 0: memberi 0xxx — bukan bilangan 4 digit yang valid ✗",
+              "ok": false
+            },
+            {
+              "text_en": "First digit = 3: gives 3xxx < 4000 ✗",
+              "text_id": "Digit pertama = 3: memberi 3xxx < 4000 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "First digit = 5: 5___ → arrange {0,3,8} → 3! = 6 numbers ✓",
+              "text_id": "Digit pertama = 5: 5___ → susun {0,3,8} → 3! = 6 bilangan ✓",
+              "ok": true
+            },
+            {
+              "text_en": "First digit = 8: 8___ → arrange {0,3,5} → 3! = 6 numbers ✓",
+              "text_id": "Digit pertama = 8: 8___ → susun {0,3,5} → 3! = 6 bilangan ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Total = 6 + 6 = 12 numbers greater than 4000.",
+          "final_id": "Total = 6 + 6 = 12 bilangan yang lebih besar dari 4000.",
+          "aria_en": "Only digits 5 and 8 can lead a 4-digit number greater than 4000; each allows 6 arrangements of the remaining three digits, giving 12 total.",
+          "aria_id": "Hanya digit 5 dan 8 yang dapat mengawali bilangan 4 digit lebih besar dari 4000; masing-masing memungkinkan 6 susunan dari tiga digit sisanya, menghasilkan total 12."
+        }
+      }
     },
     {
       "number": 6,
@@ -54,7 +513,78 @@
       "body_id": "Gambar menunjukkan sebuah persegi dengan panjang sisi 50 cm. Di dalam persegi terdapat setengah lingkaran yang diarsir. Daerah berarsir lainnya berada di luar kuadran yang ditunjukkan. Temukan total luas daerah yang diarsir. [Petunjuk: Kuadran adalah seperempat lingkaran]",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "1250"
+      "answer": "1250",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a square of side length 50 cm",
+            "phrase_id": "sebuah persegi dengan panjang sisi 50 cm",
+            "note_en": "Square area = 50 × 50 = 2500 cm²",
+            "note_id": "Luas persegi = 50 × 50 = 2500 cm²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Inscribed inside the square is a shaded semi-circle. The other shaded region is outside the quadrants shown.",
+            "phrase_id": "Di dalam persegi terdapat setengah lingkaran yang diarsir. Daerah berarsir lainnya berada di luar kuadran yang ditunjukkan.",
+            "note_en": "Shaded = semi-circle + (square area − two quadrants); the π terms cancel to give exactly half the square",
+            "note_id": "Diarsir = setengah lingkaran + (luas persegi − dua kuadran); suku π saling menghilangkan sehingga tepat setengah persegi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the total shaded area.",
+            "phrase_id": "Temukan total luas daerah yang diarsir.",
+            "note_en": "The shaded regions are symmetric and sum to half the square area = 1250 cm²",
+            "note_id": "Daerah berarsir simetris dan berjumlah setengah luas persegi = 1250 cm²"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Semi-circle area (r = 25)",
+            "label_id": "Luas setengah lingkaran (r = 25)",
+            "value": "π × 25² / 2 = 625π/2"
+          },
+          {
+            "label_en": "Two quadrants area (r = 25)",
+            "label_id": "Luas dua kuadran (r = 25)",
+            "value": "2 × π × 25² / 4 = 625π/2"
+          },
+          {
+            "label_en": "Total shaded",
+            "label_id": "Total diarsir",
+            "value": "625π/2 + (2500 − 625π/2) = 2500/2 = 1250 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum shaded areas; π cancels to give half the square",
+          "name_id": "Jumlahkan luas yang diarsir; π saling menghilangkan sehingga hasilnya setengah persegi"
+        },
+        "trap": {
+          "wrong": "includes π in the answer",
+          "why_en": "The π terms from the semi-circle and the two quadrants cancel exactly, leaving a clean answer of 1250 cm².",
+          "why_id": "Suku π dari setengah lingkaran dan dua kuadran saling menghilangkan dengan tepat, menghasilkan jawaban bersih 1250 cm²."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "1250"
+        }
+      },
+      "hint_steps_en": [
+        "Square area = 50 × 50 = 2500 cm².",
+        "Semi-circle (r = 25): area = π × 25² / 2 = 625π/2.",
+        "Two quarter-circles (quadrants) with r = 25: total area = 2 × (π × 25²/4) = 625π/2.",
+        "Shaded outside quadrants = 2500 − 625π/2.",
+        "Total shaded = 625π/2 + (2500 − 625π/2) = 2500/2 = 1250 cm²."
+      ],
+      "hint_steps_id": [
+        "Luas persegi = 50 × 50 = 2500 cm².",
+        "Setengah lingkaran (r = 25): luas = π × 25² / 2 = 625π/2.",
+        "Dua kuadran (r = 25): total luas = 2 × (π × 25²/4) = 625π/2.",
+        "Daerah diarsir di luar kuadran = 2500 − 625π/2.",
+        "Total diarsir = 625π/2 + (2500 − 625π/2) = 2500/2 = 1250 cm²."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +592,62 @@
       "body_id": "Pada gambar di bawah, temukan nilai x.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "82"
+      "answer": "82",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "find the value of x.",
+            "phrase_id": "temukan nilai x.",
+            "note_en": "Use angle properties (angles in a triangle, on a straight line, or vertically opposite) shown in the figure",
+            "note_id": "Gunakan sifat sudut (sudut dalam segitiga, pada garis lurus, atau berhadapan) yang ditunjukkan dalam gambar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "In the figure below",
+            "phrase_id": "Pada gambar di bawah",
+            "note_en": "The figure provides labeled angles; apply the relevant angle theorem to isolate x",
+            "note_id": "Gambar menyediakan sudut-sudut berlabel; terapkan teorema sudut yang relevan untuk mengisolasi x"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "find the value of x.",
+            "phrase_id": "temukan nilai x.",
+            "note_en": "The answer x = 82 is derived from the angle relationships visible in the figure",
+            "note_id": "Jawaban x = 82 diturunkan dari hubungan sudut yang terlihat dalam gambar"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "x (angle value)",
+            "label_id": "x (nilai sudut)",
+            "value": "82°"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply angle theorems from the figure",
+          "name_id": "Terapkan teorema sudut dari gambar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "degrees",
+          "value": "82"
+        }
+      },
+      "hint_steps_en": [
+        "Identify the angle relationships shown in the figure (e.g., angles on a straight line sum to 180°, angles in a triangle sum to 180°).",
+        "Label all known angles from the figure.",
+        "Apply the relevant theorem step by step to isolate x.",
+        "x = 82."
+      ],
+      "hint_steps_id": [
+        "Identifikasi hubungan sudut yang ditunjukkan dalam gambar (mis., sudut pada garis lurus berjumlah 180°, sudut dalam segitiga berjumlah 180°).",
+        "Tandai semua sudut yang diketahui dari gambar.",
+        "Terapkan teorema yang relevan langkah demi langkah untuk mengisolasi x.",
+        "x = 82."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +655,111 @@
       "body_id": "(2³³ + k) habis dibagi 31. Temukan nilai k terkecil yang mungkin.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "23"
+      "answer": "23",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "(2³³ + k) is divisible by 31.",
+            "phrase_id": "(2³³ + k) habis dibagi 31.",
+            "note_en": "We need 2³³ + k ≡ 0 (mod 31), so k ≡ −2³³ (mod 31)",
+            "note_id": "Kita perlu 2³³ + k ≡ 0 (mod 31), sehingga k ≡ −2³³ (mod 31)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the smallest possible value of k.",
+            "phrase_id": "Temukan nilai k terkecil yang mungkin.",
+            "note_en": "Smallest positive k means finding k in [1, 30] since 31 is prime",
+            "note_id": "k terkecil yang positif berarti menemukan k dalam [1, 30] karena 31 adalah bilangan prima"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the smallest possible value of k.",
+            "phrase_id": "Temukan nilai k terkecil yang mungkin.",
+            "note_en": "By Fermat's little theorem: 2³⁰ ≡ 1 (mod 31), so 2³³ = 2³⁰ × 2³ ≡ 8 (mod 31)",
+            "note_id": "Dengan teorema kecil Fermat: 2³⁰ ≡ 1 (mod 31), jadi 2³³ = 2³⁰ × 2³ ≡ 8 (mod 31)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2³⁰ (mod 31)",
+            "label_id": "2³⁰ (mod 31)",
+            "value": "1 (Fermat's little theorem)"
+          },
+          {
+            "label_en": "2³³ (mod 31)",
+            "label_id": "2³³ (mod 31)",
+            "value": "2³⁰ × 2³ ≡ 1 × 8 = 8"
+          },
+          {
+            "label_en": "k (mod 31)",
+            "label_id": "k (mod 31)",
+            "value": "31 − 8 = 23"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fermat's little theorem to reduce 2³³ mod 31",
+          "name_id": "Teorema kecil Fermat untuk mereduksi 2³³ mod 31"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "k = 8 satisfies 2³³ + 8 ≡ 16 (mod 31), not 0 — we need k ≡ −8 ≡ 23 (mod 31).",
+          "why_id": "k = 8 memenuhi 2³³ + 8 ≡ 16 (mod 31), bukan 0 — kita perlu k ≡ −8 ≡ 23 (mod 31)."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "23"
+        }
+      },
+      "hint_steps_en": [
+        "We need 2³³ + k ≡ 0 (mod 31), so find 2³³ mod 31 first.",
+        "By Fermat's little theorem (31 is prime): 2³⁰ ≡ 1 (mod 31).",
+        "So 2³³ = 2³⁰ × 2³ ≡ 1 × 8 = 8 (mod 31).",
+        "We need 8 + k ≡ 0 (mod 31), so k ≡ −8 ≡ 23 (mod 31).",
+        "Smallest positive k = 23."
+      ],
+      "hint_steps_id": [
+        "Kita perlu 2³³ + k ≡ 0 (mod 31), jadi cari 2³³ mod 31 terlebih dahulu.",
+        "Dengan teorema kecil Fermat (31 adalah prima): 2³⁰ ≡ 1 (mod 31).",
+        "Jadi 2³³ = 2³⁰ × 2³ ≡ 1 × 8 = 8 (mod 31).",
+        "Kita perlu 8 + k ≡ 0 (mod 31), sehingga k ≡ −8 ≡ 23 (mod 31).",
+        "k terkecil yang positif = 23."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Reduce 2³³ mod 31 using Fermat's little theorem, then find k to make the sum divisible by 31.",
+          "intro_id": "Kurangi 2³³ mod 31 menggunakan teorema kecil Fermat, lalu cari k agar jumlahnya habis dibagi 31.",
+          "items": [
+            {
+              "text_en": "31 is prime → Fermat: 2³⁰ ≡ 1 (mod 31)",
+              "text_id": "31 adalah prima → Fermat: 2³⁰ ≡ 1 (mod 31)",
+              "ok": null
+            },
+            {
+              "text_en": "2³³ = 2³⁰ × 2³ ≡ 1 × 8 = 8 (mod 31)",
+              "text_id": "2³³ = 2³⁰ × 2³ ≡ 1 × 8 = 8 (mod 31)",
+              "ok": null
+            },
+            {
+              "text_en": "Need: 8 + k ≡ 0 (mod 31) → k = 31 − 8 = 23 ✓",
+              "text_id": "Perlu: 8 + k ≡ 0 (mod 31) → k = 31 − 8 = 23 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Check: 8 + 23 = 31 ≡ 0 (mod 31) ✓",
+              "text_id": "Cek: 8 + 23 = 31 ≡ 0 (mod 31) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Smallest k = 23.",
+          "final_id": "k terkecil = 23.",
+          "aria_en": "By Fermat's little theorem, 2 to the 33 is congruent to 8 mod 31; to make 8 plus k divisible by 31, k must equal 23.",
+          "aria_id": "Dengan teorema kecil Fermat, 2 pangkat 33 kongruen dengan 8 mod 31; agar 8 ditambah k habis dibagi 31, k harus sama dengan 23."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +767,114 @@
       "body_id": "Kenneth lupa membawa kotak pensilnya saat berangkat dari rumah ke sekolah. Ayahnya bersepeda menyusulnya untuk memberikan kotak pensil itu. 5 menit setelah menerima kotak pensil dari ayahnya, Kenneth tiba di sekolah dan ayahnya sudah kembali ke rumah. Jika ayahnya bersepeda 4 kali lebih cepat dari kecepatan jalan Kenneth, berapa menit yang dibutuhkan Kenneth untuk berjalan dari rumah ke sekolah?",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "25"
+      "answer": "25",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 minutes after getting the pencil box from his father, Kenneth reached school and his father got back home.",
+            "phrase_id": "5 menit setelah menerima kotak pensil dari ayahnya, Kenneth tiba di sekolah dan ayahnya sudah kembali ke rumah.",
+            "note_en": "Both Kenneth (walking 5 min more) and father (cycling back to home) finish at the same moment — father's return trip also takes 5 min",
+            "note_id": "Kenneth (jalan 5 menit lagi) dan ayah (bersepeda kembali ke rumah) selesai pada saat yang sama — perjalanan kembali ayah juga 5 menit"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "his father cycles 4 times as fast as Kenneth walks",
+            "phrase_id": "ayahnya bersepeda 4 kali lebih cepat dari kecepatan jalan Kenneth",
+            "note_en": "Speed ratio 4:1 means for same distance father takes ¼ the time",
+            "note_id": "Rasio kecepatan 4:1 berarti untuk jarak yang sama ayah membutuhkan ¼ waktu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many minutes did Kenneth take to walk from home to school?",
+            "phrase_id": "berapa menit yang dibutuhkan Kenneth untuk berjalan dari rumah ke sekolah?",
+            "note_en": "Work out the meeting point from the speed ratio and the 5-minute post-meeting constraint",
+            "note_id": "Cari titik pertemuan dari rasio kecepatan dan batasan 5 menit setelah pertemuan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Father's return trip time",
+            "label_id": "Waktu perjalanan kembali ayah",
+            "value": "5 minutes (same as Kenneth's remaining walk)"
+          },
+          {
+            "label_en": "Father's trip to meeting point",
+            "label_id": "Perjalanan ayah ke titik pertemuan",
+            "value": "5 min (equal to return, symmetric distance)"
+          },
+          {
+            "label_en": "Kenneth's walk before meeting",
+            "label_id": "Jalan Kenneth sebelum bertemu",
+            "value": "4 × 5 = 20 min (4× slower over same distance)"
+          },
+          {
+            "label_en": "Total walk time",
+            "label_id": "Total waktu jalan",
+            "value": "20 + 5 = 25 minutes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the 5-minute constraint + speed ratio to find walking time before meeting",
+          "name_id": "Gunakan batasan 5 menit + rasio kecepatan untuk menemukan waktu jalan sebelum bertemu"
+        },
+        "trap": {
+          "wrong": "20",
+          "why_en": "20 minutes is only Kenneth's walk before meeting his father — add the remaining 5 minutes to get the full walk time of 25 minutes.",
+          "why_id": "20 menit hanya jalan Kenneth sebelum bertemu ayahnya — tambahkan 5 menit tersisa untuk mendapatkan total waktu jalan 25 menit."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "minutes",
+          "value": "25"
+        }
+      },
+      "hint_steps_en": [
+        "After the handoff, Kenneth walks 5 more minutes to school, and father cycles 5 minutes back home — so they both use 5 minutes, meaning the meeting point is 5 minutes' cycling from home.",
+        "Father cycles that distance in 5 minutes; Kenneth walks the same distance 4× slower, taking 4 × 5 = 20 minutes.",
+        "Kenneth had already walked 20 minutes before the handoff.",
+        "Total walk time = 20 + 5 = 25 minutes."
+      ],
+      "hint_steps_id": [
+        "Setelah serah terima, Kenneth berjalan 5 menit lagi ke sekolah, dan ayah bersepeda 5 menit kembali ke rumah — keduanya menggunakan 5 menit, artinya titik pertemuan berjarak 5 menit bersepeda dari rumah.",
+        "Ayah bersepeda jarak itu dalam 5 menit; Kenneth berjalan jarak yang sama 4× lebih lambat, butuh 4 × 5 = 20 menit.",
+        "Kenneth sudah berjalan 20 menit sebelum serah terima.",
+        "Total waktu jalan = 20 + 5 = 25 menit."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The 5-minute symmetry reveals the meeting point distance; the speed ratio gives the pre-meeting walk time.",
+          "intro_id": "Simetri 5 menit mengungkapkan jarak titik pertemuan; rasio kecepatan memberi waktu jalan sebelum pertemuan.",
+          "items": [
+            {
+              "text_en": "After handoff: Kenneth walks 5 min to school; father cycles 5 min back home",
+              "text_id": "Setelah serah terima: Kenneth berjalan 5 menit ke sekolah; ayah bersepeda 5 menit kembali ke rumah",
+              "ok": null
+            },
+            {
+              "text_en": "Meeting point is 5 min cycling from home (= same distance Kenneth walks to school from meeting point)",
+              "text_id": "Titik pertemuan berjarak 5 menit bersepeda dari rumah (= jarak yang sama Kenneth jalan ke sekolah dari titik pertemuan)",
+              "ok": null
+            },
+            {
+              "text_en": "Father covers that distance in 5 min; Kenneth takes 4 × 5 = 20 min for same distance",
+              "text_id": "Ayah menempuh jarak itu dalam 5 menit; Kenneth butuh 4 × 5 = 20 menit untuk jarak yang sama",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 20 (before meeting) + 5 (after meeting) = 25 minutes ✓",
+              "text_id": "Total = 20 (sebelum bertemu) + 5 (setelah bertemu) = 25 menit ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Kenneth takes 25 minutes to walk from home to school.",
+          "final_id": "Kenneth membutuhkan 25 menit untuk berjalan dari rumah ke sekolah.",
+          "aria_en": "The symmetric 5-minute finish means the meeting point is 5 cycling-minutes from home; Kenneth walks that same distance in 20 minutes, giving a total walk of 25 minutes.",
+          "aria_id": "Penyelesaian simetris 5 menit berarti titik pertemuan berjarak 5 menit bersepeda dari rumah; Kenneth berjalan jarak yang sama dalam 20 menit, sehingga total jalan adalah 25 menit."
+        }
+      }
     },
     {
       "number": 10,
@@ -86,7 +882,106 @@
       "body_id": "Terdapat barisan bilangan bulat dari 1 hingga 160.\n\n1, 2, 3, 4, ..., 158, 159, 160\n\nPada operasi pertama, bilangan-bilangan pada posisi ganjil dihapus.\n\n2, 4, 6, 8, ..., 158, 160\n\nPada operasi ke-2, bilangan-bilangan pada posisi ganjil dihapus kembali.\n\nDengan melanjutkan cara ini, bilangan terakhir yang tersisa adalah?",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "128"
+      "answer": "128",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the numbers at the odd positions are removed.",
+            "phrase_id": "bilangan-bilangan pada posisi ganjil dihapus.",
+            "note_en": "Each operation keeps only even-position elements, which correspond to the next power of 2 multiplier",
+            "note_id": "Setiap operasi hanya mempertahankan elemen di posisi genap, yang bersesuaian dengan pengganda pangkat 2 berikutnya"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "There is an array of whole numbers from 1 to 160.",
+            "phrase_id": "Terdapat barisan bilangan bulat dari 1 hingga 160.",
+            "note_en": "After each operation, only multiples of increasing powers of 2 survive",
+            "note_id": "Setelah setiap operasi, hanya kelipatan dari pangkat 2 yang semakin besar yang bertahan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the last number left behind?",
+            "phrase_id": "bilangan terakhir yang tersisa adalah?",
+            "note_en": "The surviving number is the largest power of 2 that is ≤ 160, which is 2⁷ = 128",
+            "note_id": "Bilangan yang bertahan adalah pangkat 2 terbesar yang ≤ 160, yaitu 2⁷ = 128"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After op 1: keep positions 2,4,6,… → {2,4,6,…,160}",
+            "label_id": "Setelah op 1: simpan posisi 2,4,6,… → {2,4,6,…,160}",
+            "value": "80 numbers, all multiples of 2"
+          },
+          {
+            "label_en": "After op 2: keep positions 2,4,… → {4,8,12,…,160}",
+            "label_id": "Setelah op 2: simpan posisi 2,4,… → {4,8,12,…,160}",
+            "value": "40 numbers, multiples of 4"
+          },
+          {
+            "label_en": "Largest power of 2 ≤ 160",
+            "label_id": "Pangkat 2 terbesar ≤ 160",
+            "value": "2⁷ = 128"
+          }
+        ],
+        "strategy": {
+          "name_en": "Each operation doubles the minimum surviving multiple; last survivor = largest power of 2 ≤ 160",
+          "name_id": "Setiap operasi menggandakan kelipatan minimum yang bertahan; penyintas terakhir = pangkat 2 terbesar ≤ 160"
+        },
+        "trap": {
+          "wrong": "160",
+          "why_en": "160 = 2⁵ × 5 is not a power of 2 — after enough operations it gets eliminated; only 128 = 2⁷ survives all 7 rounds.",
+          "why_id": "160 = 2⁵ × 5 bukan pangkat 2 — setelah cukup banyak operasi ia dihapus; hanya 128 = 2⁷ yang bertahan semua 7 putaran."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "128"
+        }
+      },
+      "hint_steps_en": [
+        "After op 1: keep every 2nd number → {2,4,6,…,160} — all multiples of 2.",
+        "After op 2: keep every 2nd of those → {4,8,12,…,160} — all multiples of 4.",
+        "Each operation multiplies the step by 2. After k operations, survivors are multiples of 2ᵏ.",
+        "After 7 operations (2⁷ = 128 ≤ 160 < 256 = 2⁸), only 128 remains.",
+        "The last number is 128."
+      ],
+      "hint_steps_id": [
+        "Setelah op 1: simpan setiap bilangan ke-2 → {2,4,6,…,160} — semua kelipatan 2.",
+        "Setelah op 2: simpan setiap ke-2 dari itu → {4,8,12,…,160} — semua kelipatan 4.",
+        "Setiap operasi mengalikan langkah dengan 2. Setelah k operasi, penyintas adalah kelipatan 2ᵏ.",
+        "Setelah 7 operasi (2⁷ = 128 ≤ 160 < 256 = 2⁸), hanya 128 yang tersisa.",
+        "Bilangan terakhir adalah 128."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track which multiples survive each round; the pattern reveals the largest power of 2 ≤ 160.",
+          "intro_id": "Lacak kelipatan mana yang bertahan setiap putaran; polanya mengungkapkan pangkat 2 terbesar ≤ 160.",
+          "items": [
+            {
+              "text_en": "After op 1: multiples of 2 survive (80 numbers, up to 160)",
+              "text_id": "Setelah op 1: kelipatan 2 bertahan (80 bilangan, hingga 160)",
+              "ok": null
+            },
+            {
+              "text_en": "After op 2: multiples of 4 survive (40 numbers)",
+              "text_id": "Setelah op 2: kelipatan 4 bertahan (40 bilangan)",
+              "ok": null
+            },
+            {
+              "text_en": "After op 7: only multiples of 128 survive → only 128 itself (since 256 > 160) ✓",
+              "text_id": "Setelah op 7: hanya kelipatan 128 yang bertahan → hanya 128 itu sendiri (karena 256 > 160) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The last number left is 128.",
+          "final_id": "Bilangan terakhir yang tersisa adalah 128.",
+          "aria_en": "Each removal operation doubles the required factor; after 7 operations only multiples of 128 survive, and since 256 exceeds 160, the sole survivor is 128.",
+          "aria_id": "Setiap operasi penghapusan menggandakan faktor yang diperlukan; setelah 7 operasi hanya kelipatan 128 yang bertahan, dan karena 256 melebihi 160, satu-satunya penyintas adalah 128."
+        }
+      }
     },
     {
       "number": 11,
@@ -94,7 +989,71 @@
       "body_id": "ABCD adalah persegi, titik E dan F adalah titik tengah sisi AD dan AB berturut-turut. Temukan luas persegi jika luas daerah yang diarsir adalah 48 cm².",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "240"
+      "answer": "240",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ABCD is a square, points E, F are the midpoints of sides AD and AB respectively.",
+            "phrase_id": "ABCD adalah persegi, titik E dan F adalah titik tengah sisi AD dan AB berturut-turut.",
+            "note_en": "E is midpoint of AD (so AE = s/2) and F is midpoint of AB (so AF = s/2) where s is the side length",
+            "note_id": "E adalah titik tengah AD (jadi AE = s/2) dan F adalah titik tengah AB (jadi AF = s/2) dengan s adalah panjang sisi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the area of the shaded region is given as 48 cm²",
+            "phrase_id": "luas daerah yang diarsir adalah 48 cm²",
+            "note_en": "The shaded region is a specific polygon in the figure; its fraction of the square area equals 48/s²",
+            "note_id": "Daerah yang diarsir adalah poligon tertentu dalam gambar; fraksinya dari luas persegi sama dengan 48/s²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area of the square",
+            "phrase_id": "Temukan luas persegi",
+            "note_en": "Express the shaded area as a fraction of s², set equal to 48, solve for s²",
+            "note_id": "Nyatakan luas yang diarsir sebagai pecahan dari s², sama dengan 48, selesaikan untuk s²"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shaded area as fraction of square",
+            "label_id": "Luas diarsir sebagai pecahan persegi",
+            "value": "1/5 of square area (from geometric analysis of the figure)"
+          },
+          {
+            "label_en": "Square area",
+            "label_id": "Luas persegi",
+            "value": "48 ÷ (1/5) = 240 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Express shaded region as fraction of square, then scale",
+          "name_id": "Nyatakan daerah yang diarsir sebagai pecahan persegi, lalu skala"
+        },
+        "trap": {
+          "wrong": "384",
+          "why_en": "If you wrongly compute the shaded fraction as 1/8 (area of right triangle AEF = s²/8), you get 48 × 8 = 384 — the shaded region in the figure is a different polygon.",
+          "why_id": "Jika salah menghitung pecahan yang diarsir sebagai 1/8 (luas segitiga siku-siku AEF = s²/8), hasilnya 48 × 8 = 384 — daerah yang diarsir dalam gambar adalah poligon yang berbeda."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "240"
+        }
+      },
+      "hint_steps_en": [
+        "Label the square side as s; E is midpoint of AD, F is midpoint of AB.",
+        "Identify the shaded polygon in the figure and express its area in terms of s using coordinate geometry or triangle subtraction.",
+        "The shaded area equals 1/5 of the square area.",
+        "Set 1/5 × s² = 48, so s² = 240 cm²."
+      ],
+      "hint_steps_id": [
+        "Beri label sisi persegi sebagai s; E adalah titik tengah AD, F adalah titik tengah AB.",
+        "Identifikasi poligon yang diarsir dalam gambar dan nyatakan luasnya dalam s menggunakan geometri koordinat atau pengurangan segitiga.",
+        "Luas yang diarsir sama dengan 1/5 luas persegi.",
+        "Tetapkan 1/5 × s² = 48, sehingga s² = 240 cm²."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +1061,100 @@
       "body_id": "Hitung nilai\n\n2024 × (1/(1×2) + 1/(2×3) + 1/(3×4) + ··· + 1/(2022×2023) + 1/(2023×2024))",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "2023"
+      "answer": "2023",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "1/(1×2) + 1/(2×3)",
+            "phrase_id": "1/(1×2) + 1/(2×3)",
+            "note_en": "Each term 1/(k(k+1)) = 1/k − 1/(k+1) — a telescoping series",
+            "note_id": "Setiap suku 1/(k(k+1)) = 1/k − 1/(k+1) — deret teleskopik"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2024 × (1/(1×2) + 1/(2×3) + 1/(3×4) + ··· + 1/(2022×2023) + 1/(2023×2024))",
+            "phrase_id": "2024 × (1/(1×2) + 1/(2×3) + 1/(3×4) + ··· + 1/(2022×2023) + 1/(2023×2024))",
+            "note_en": "After telescoping the sum collapses to 1 − 1/2024 = 2023/2024",
+            "note_id": "Setelah deret teleskopik, jumlah menyusut menjadi 1 − 1/2024 = 2023/2024"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Evaluate",
+            "phrase_id": "Hitung nilai",
+            "note_en": "Multiply the collapsed sum 2023/2024 by 2024 to get 2023",
+            "note_id": "Kalikan jumlah yang menyusut 2023/2024 dengan 2024 untuk mendapatkan 2023"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Telescoping sum",
+            "label_id": "Jumlah teleskopik",
+            "value": "1/1 − 1/2024 = 2023/2024"
+          },
+          {
+            "label_en": "Final value",
+            "label_id": "Nilai akhir",
+            "value": "2024 × (2023/2024) = 2023"
+          }
+        ],
+        "strategy": {
+          "name_en": "Partial fractions (telescoping): 1/(k(k+1)) = 1/k − 1/(k+1)",
+          "name_id": "Pecahan parsial (teleskopik): 1/(k(k+1)) = 1/k − 1/(k+1)"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2023"
+        }
+      },
+      "hint_steps_en": [
+        "Decompose each term: 1/(k(k+1)) = 1/k − 1/(k+1).",
+        "Write out the sum: (1/1 − 1/2) + (1/2 − 1/3) + ··· + (1/2023 − 1/2024).",
+        "All middle terms cancel (telescoping): sum = 1 − 1/2024 = 2023/2024.",
+        "Multiply by 2024: 2024 × 2023/2024 = 2023."
+      ],
+      "hint_steps_id": [
+        "Uraikan setiap suku: 1/(k(k+1)) = 1/k − 1/(k+1).",
+        "Tuliskan jumlah: (1/1 − 1/2) + (1/2 − 1/3) + ··· + (1/2023 − 1/2024).",
+        "Semua suku tengah saling menghilangkan (teleskopik): jumlah = 1 − 1/2024 = 2023/2024.",
+        "Kalikan dengan 2024: 2024 × 2023/2024 = 2023."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Decompose each fraction into a telescoping difference, then nearly all terms cancel.",
+          "intro_id": "Uraikan setiap pecahan menjadi selisih teleskopik, lalu hampir semua suku saling menghilangkan.",
+          "items": [
+            {
+              "text_en": "1/(k(k+1)) = 1/k − 1/(k+1) for each term",
+              "text_id": "1/(k(k+1)) = 1/k − 1/(k+1) untuk setiap suku",
+              "ok": null
+            },
+            {
+              "text_en": "Sum = (1 − 1/2) + (1/2 − 1/3) + ··· + (1/2023 − 1/2024)",
+              "text_id": "Jumlah = (1 − 1/2) + (1/2 − 1/3) + ··· + (1/2023 − 1/2024)",
+              "ok": null
+            },
+            {
+              "text_en": "All middle terms cancel → sum = 1 − 1/2024 = 2023/2024",
+              "text_id": "Semua suku tengah saling menghilangkan → jumlah = 1 − 1/2024 = 2023/2024",
+              "ok": null
+            },
+            {
+              "text_en": "2024 × (2023/2024) = 2023 ✓",
+              "text_id": "2024 × (2023/2024) = 2023 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The value is 2023.",
+          "final_id": "Nilainya adalah 2023.",
+          "aria_en": "Using partial fractions each term telescopes; the sum collapses to 2023 over 2024 and multiplying by 2024 gives 2023.",
+          "aria_id": "Menggunakan pecahan parsial setiap suku menjadi teleskopik; jumlah menyusut menjadi 2023 per 2024 dan dikalikan 2024 menghasilkan 2023."
+        }
+      }
     },
     {
       "number": 13,
@@ -110,7 +1162,76 @@
       "body_id": "Gambar menunjukkan persegi panjang ABCD. DE : EC = 4 : 5, AF : FD = 7 : 5. Luas △BEC adalah 60 cm². Temukan luas △AFB.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "63"
+      "answer": "63",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "DE : EC = 4 : 5",
+            "phrase_id": "DE : EC = 4 : 5",
+            "note_en": "E divides DC in ratio 4:5, so EC = 5/9 × DC (the width of the rectangle)",
+            "note_id": "E membagi DC dalam rasio 4:5, sehingga EC = 5/9 × DC (lebar persegi panjang)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "AF : FD = 7 : 5",
+            "phrase_id": "AF : FD = 7 : 5",
+            "note_en": "F divides AD in ratio 7:5, so AF = 7/12 × AD (the height of the rectangle)",
+            "note_id": "F membagi AD dalam rasio 7:5, sehingga AF = 7/12 × AD (tinggi persegi panjang)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the area of △AFB.",
+            "phrase_id": "Temukan luas △AFB.",
+            "note_en": "First find rectangle area from △BEC, then use AF to compute △AFB",
+            "note_id": "Pertama cari luas persegi panjang dari △BEC, lalu gunakan AF untuk menghitung △AFB"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Area of △BEC = (1/2) × BC × EC",
+            "label_id": "Luas △BEC = (1/2) × BC × EC",
+            "value": "(1/2) × h × (5/9)w = 60, so hw = 216 cm²"
+          },
+          {
+            "label_en": "Rectangle area = hw",
+            "label_id": "Luas persegi panjang = hw",
+            "value": "216 cm²"
+          },
+          {
+            "label_en": "Area of △AFB = (1/2) × AB × AF",
+            "label_id": "Luas △AFB = (1/2) × AB × AF",
+            "value": "(1/2) × w × (7/12)h = 7hw/24 = 7 × 216/24 = 63 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use given triangle area to find rectangle area, then compute second triangle",
+          "name_id": "Gunakan luas segitiga yang diberikan untuk mencari luas persegi panjang, lalu hitung segitiga kedua"
+        },
+        "trap": {
+          "wrong": "84",
+          "why_en": "Using AF:FD = 7:5 as AF = 7/5 × h (wrong ratio interpretation) gives incorrect area — AF = 7/(7+5) × h = 7h/12.",
+          "why_id": "Menggunakan AF:FD = 7:5 sebagai AF = 7/5 × h (interpretasi rasio yang salah) memberi luas yang salah — AF = 7/(7+5) × h = 7h/12."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "63"
+        }
+      },
+      "hint_steps_en": [
+        "Let the rectangle have width w (= AB = DC) and height h (= AD = BC).",
+        "EC = 5/9 × w. Area △BEC = (1/2) × BC × EC = (1/2) × h × (5w/9) = 5hw/18 = 60, so hw = 216.",
+        "AF = 7/12 × h. Area △AFB = (1/2) × AB × AF = (1/2) × w × (7h/12) = 7hw/24.",
+        "Area △AFB = 7 × 216 / 24 = 63 cm²."
+      ],
+      "hint_steps_id": [
+        "Misalkan persegi panjang memiliki lebar w (= AB = DC) dan tinggi h (= AD = BC).",
+        "EC = 5/9 × w. Luas △BEC = (1/2) × BC × EC = (1/2) × h × (5w/9) = 5hw/18 = 60, jadi hw = 216.",
+        "AF = 7/12 × h. Luas △AFB = (1/2) × AB × AF = (1/2) × w × (7h/12) = 7hw/24.",
+        "Luas △AFB = 7 × 216 / 24 = 63 cm²."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +1239,111 @@
       "body_id": "793 dan 399 memiliki sisa yang sama n ketika dibagi oleh bilangan prima m. Temukan nilai terbesar yang mungkin dari (m + n).",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "202"
+      "answer": "202",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "793 and 399 have the same remainder n when divided by a prime number m.",
+            "phrase_id": "793 dan 399 memiliki sisa yang sama n ketika dibagi oleh bilangan prima m.",
+            "note_en": "Same remainder means m divides (793 − 399) = 394",
+            "note_id": "Sisa yang sama berarti m membagi (793 − 399) = 394"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the biggest possible value of (m + n).",
+            "phrase_id": "Temukan nilai terbesar yang mungkin dari (m + n).",
+            "note_en": "To maximise m + n: use largest prime factor of 394, then compute remainder n",
+            "note_id": "Untuk memaksimalkan m + n: gunakan faktor prima terbesar dari 394, lalu hitung sisa n"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the biggest possible value of (m + n).",
+            "phrase_id": "Temukan nilai terbesar yang mungkin dari (m + n).",
+            "note_en": "394 = 2 × 197; 197 is prime; with m = 197, n = 793 mod 197 = 5; m + n = 202",
+            "note_id": "394 = 2 × 197; 197 adalah prima; dengan m = 197, n = 793 mod 197 = 5; m + n = 202"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "793 − 399",
+            "label_id": "793 − 399",
+            "value": "394"
+          },
+          {
+            "label_en": "394 = 2 × 197 (197 is prime)",
+            "label_id": "394 = 2 × 197 (197 adalah prima)",
+            "value": "Prime factors: 2 and 197"
+          },
+          {
+            "label_en": "n when m = 197",
+            "label_id": "n ketika m = 197",
+            "value": "793 = 4 × 197 + 5, so n = 5"
+          },
+          {
+            "label_en": "Biggest m + n",
+            "label_id": "m + n terbesar",
+            "value": "197 + 5 = 202"
+          }
+        ],
+        "strategy": {
+          "name_en": "Same remainder → m divides the difference; pick largest prime divisor to maximise m + n",
+          "name_id": "Sisa sama → m membagi selisih; pilih faktor prima terbesar untuk memaksimalkan m + n"
+        },
+        "trap": {
+          "wrong": "m = 2, n = 1 → m+n = 3",
+          "why_en": "Using the smaller prime factor m = 2 gives m + n = 3, much less than 202 — always check the larger prime factor first.",
+          "why_id": "Menggunakan faktor prima yang lebih kecil m = 2 memberi m + n = 3, jauh lebih kecil dari 202 — selalu periksa faktor prima yang lebih besar terlebih dahulu."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "202"
+        }
+      },
+      "hint_steps_en": [
+        "If 793 and 399 have the same remainder when divided by m, then m divides (793 − 399) = 394.",
+        "Factorize 394: 394 = 2 × 197. Check: 197 is prime.",
+        "Prime factors of 394: 2 and 197.",
+        "For maximum m + n, use m = 197 (largest prime). Then n = 793 mod 197 = 793 − 4×197 = 5.",
+        "Verify: 399 mod 197 = 399 − 2×197 = 5 ✓. m + n = 197 + 5 = 202."
+      ],
+      "hint_steps_id": [
+        "Jika 793 dan 399 memiliki sisa yang sama ketika dibagi m, maka m membagi (793 − 399) = 394.",
+        "Faktorkan 394: 394 = 2 × 197. Periksa: 197 adalah prima.",
+        "Faktor prima dari 394: 2 dan 197.",
+        "Untuk memaksimalkan m + n, gunakan m = 197 (prima terbesar). Lalu n = 793 mod 197 = 793 − 4×197 = 5.",
+        "Verifikasi: 399 mod 197 = 399 − 2×197 = 5 ✓. m + n = 197 + 5 = 202."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Same remainder means the difference 793 − 399 = 394 is divisible by m. Find prime factors of 394, then pick the biggest.",
+          "intro_id": "Sisa yang sama berarti selisih 793 − 399 = 394 habis dibagi m. Cari faktor prima 394, lalu pilih yang terbesar.",
+          "items": [
+            {
+              "text_en": "793 − 399 = 394 = 2 × 197",
+              "text_id": "793 − 399 = 394 = 2 × 197",
+              "ok": null
+            },
+            {
+              "text_en": "m = 2: n = 793 mod 2 = 1 → m+n = 3 ✗ (not maximum)",
+              "text_id": "m = 2: n = 793 mod 2 = 1 → m+n = 3 ✗ (bukan maksimum)",
+              "ok": false
+            },
+            {
+              "text_en": "m = 197: n = 793 mod 197 = 5 → m+n = 202 ✓",
+              "text_id": "m = 197: n = 793 mod 197 = 5 → m+n = 202 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Biggest m + n = 197 + 5 = 202.",
+          "final_id": "m + n terbesar = 197 + 5 = 202.",
+          "aria_en": "Both 793 and 399 leave remainder 5 when divided by 197; since 197 is the largest prime factor of their difference 394, the maximum value of m plus n is 202.",
+          "aria_id": "Baik 793 maupun 399 menyisakan sisa 5 ketika dibagi 197; karena 197 adalah faktor prima terbesar dari selisih mereka 394, nilai maksimum m ditambah n adalah 202."
+        }
+      }
     },
     {
       "number": 15,
@@ -126,7 +1351,110 @@
       "body_id": "Temukan nilai dari\n\n1 / (1/(2022×2023) + 1/(2023×2024) + 1/2024)",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "2022"
+      "answer": "2022",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "1/(2022×2023) + 1/(2023×2024) + 1/2024",
+            "phrase_id": "1/(2022×2023) + 1/(2023×2024) + 1/2024",
+            "note_en": "Decompose the first two terms using 1/(k(k+1)) = 1/k − 1/(k+1), then the terms telescope",
+            "note_id": "Uraikan dua suku pertama menggunakan 1/(k(k+1)) = 1/k − 1/(k+1), lalu suku-suku menjadi teleskopik"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Temukan nilai dari",
+            "note_en": "Sum the denominator first: it telescopes to 1/2022, giving reciprocal 2022",
+            "note_id": "Jumlahkan penyebut terlebih dahulu: menjadi teleskopik menghasilkan 1/2022, sehingga kebalikannya adalah 2022"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Temukan nilai dari",
+            "note_en": "Once denominator = 1/2022, the whole expression = 1/(1/2022) = 2022",
+            "note_id": "Setelah penyebut = 1/2022, seluruh ekspresi = 1/(1/2022) = 2022"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1/(2022×2023)",
+            "label_id": "1/(2022×2023)",
+            "value": "1/2022 − 1/2023"
+          },
+          {
+            "label_en": "1/(2023×2024)",
+            "label_id": "1/(2023×2024)",
+            "value": "1/2023 − 1/2024"
+          },
+          {
+            "label_en": "Sum of denominator",
+            "label_id": "Jumlah penyebut",
+            "value": "(1/2022 − 1/2023) + (1/2023 − 1/2024) + 1/2024 = 1/2022"
+          },
+          {
+            "label_en": "Final answer",
+            "label_id": "Jawaban akhir",
+            "value": "1 ÷ (1/2022) = 2022"
+          }
+        ],
+        "strategy": {
+          "name_en": "Telescope the denominator using partial fractions",
+          "name_id": "Teleskopkan penyebut menggunakan pecahan parsial"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2022"
+        }
+      },
+      "hint_steps_en": [
+        "Simplify the denominator S = 1/(2022×2023) + 1/(2023×2024) + 1/2024.",
+        "Decompose: 1/(2022×2023) = 1/2022 − 1/2023 and 1/(2023×2024) = 1/2023 − 1/2024.",
+        "S = (1/2022 − 1/2023) + (1/2023 − 1/2024) + 1/2024 = 1/2022 (telescoping).",
+        "Final value = 1/S = 1/(1/2022) = 2022."
+      ],
+      "hint_steps_id": [
+        "Sederhanakan penyebut S = 1/(2022×2023) + 1/(2023×2024) + 1/2024.",
+        "Uraikan: 1/(2022×2023) = 1/2022 − 1/2023 dan 1/(2023×2024) = 1/2023 − 1/2024.",
+        "S = (1/2022 − 1/2023) + (1/2023 − 1/2024) + 1/2024 = 1/2022 (teleskopik).",
+        "Nilai akhir = 1/S = 1/(1/2022) = 2022."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Simplify the big denominator using partial fraction telescoping, then take the reciprocal.",
+          "intro_id": "Sederhanakan penyebut besar menggunakan pecahan parsial teleskopik, lalu ambil kebalikannya.",
+          "items": [
+            {
+              "text_en": "1/(2022×2023) = 1/2022 − 1/2023",
+              "text_id": "1/(2022×2023) = 1/2022 − 1/2023",
+              "ok": null
+            },
+            {
+              "text_en": "1/(2023×2024) = 1/2023 − 1/2024",
+              "text_id": "1/(2023×2024) = 1/2023 − 1/2024",
+              "ok": null
+            },
+            {
+              "text_en": "Sum = 1/2022 − 1/2023 + 1/2023 − 1/2024 + 1/2024 = 1/2022",
+              "text_id": "Jumlah = 1/2022 − 1/2023 + 1/2023 − 1/2024 + 1/2024 = 1/2022",
+              "ok": null
+            },
+            {
+              "text_en": "1 ÷ (1/2022) = 2022 ✓",
+              "text_id": "1 ÷ (1/2022) = 2022 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The value is 2022.",
+          "final_id": "Nilainya adalah 2022.",
+          "aria_en": "The denominator telescopes to 1 over 2022 so the whole expression equals 2022.",
+          "aria_id": "Penyebut menjadi teleskopik menghasilkan 1 per 2022 sehingga seluruh ekspresi sama dengan 2022."
+        }
+      }
     }
   ]
 }

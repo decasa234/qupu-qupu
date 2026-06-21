@@ -14,7 +14,62 @@
       "body_id": "Hitunglah\n13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
       "answer_type": "fill_in",
       "answer": "132",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Evaluate\n13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "phrase_id": "Hitunglah\n13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "note_en": "Add eight consecutive integers from 13 to 20",
+            "note_id": "Jumlahkan delapan bilangan bulat berurutan dari 13 sampai 20"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "phrase_id": "13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "note_en": "Pair the ends: 13+20=33, 14+19=33, 15+18=33, 16+17=33 — four equal pairs",
+            "note_id": "Pasangkan ujung-ujungnya: 13+20=33, 14+19=33, 15+18=33, 16+17=33 — empat pasang yang sama"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "phrase_id": "13 + 14 + 15 + 16 + 17 + 18 + 19 + 20",
+            "note_en": "8 numbers; pairing trick gives 4 × 33 = 132",
+            "note_id": "8 angka; trik pasangan memberi 4 × 33 = 132"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pair 1", "label_id": "Pasangan 1", "value": "13 + 20 = 33" },
+          { "label_en": "Pair 2", "label_id": "Pasangan 2", "value": "14 + 19 = 33" },
+          { "label_en": "Pair 3", "label_id": "Pasangan 3", "value": "15 + 18 = 33" },
+          { "label_en": "Pair 4", "label_id": "Pasangan 4", "value": "16 + 17 = 33" },
+          { "label_en": "Total", "label_id": "Total", "value": "4 × 33 = 132" }
+        ],
+        "strategy": {
+          "name_en": "Pair the ends (Gauss method)",
+          "name_id": "Pasangkan ujung-ujungnya (metode Gauss)"
+        },
+        "trap": {
+          "wrong": "128",
+          "why_en": "Adding one by one and losing track gives wrong totals — pairing is safer and faster",
+          "why_id": "Menjumlahkan satu per satu dan salah hitung memberi total yang keliru — memasangkan lebih aman dan cepat"
+        },
+        "answer": { "form": "value", "unit": null, "value": "132" }
+      },
+      "hint_steps_en": [
+        "Pair the first and last numbers: 13 + 20 = 33.",
+        "Do the same for the remaining pairs: 14+19=33, 15+18=33, 16+17=33.",
+        "There are 4 pairs, each summing to 33.",
+        "Total = 4 × 33 = 132."
+      ],
+      "hint_steps_id": [
+        "Pasangkan angka pertama dan terakhir: 13 + 20 = 33.",
+        "Lakukan hal yang sama untuk pasangan lainnya: 14+19=33, 15+18=33, 16+17=33.",
+        "Ada 4 pasang, masing-masing berjumlah 33.",
+        "Total = 4 × 33 = 132."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +77,61 @@
       "body_id": "Temukan jumlah yang hilang.\n⊙ + ⊙ + ⊙ + ⊙ + △ = 36\n△ + △ = ⊙ + ⊙ + ⊙ + ⊙\n⊙ + △ = ?",
       "answer_type": "fill_in",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "⊙ + ⊙ + ⊙ + ⊙ + △ = 36",
+            "phrase_id": "⊙ + ⊙ + ⊙ + ⊙ + △ = 36",
+            "note_en": "4⊙ + △ = 36",
+            "note_id": "4⊙ + △ = 36"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "△ + △ = ⊙ + ⊙ + ⊙ + ⊙",
+            "phrase_id": "△ + △ = ⊙ + ⊙ + ⊙ + ⊙",
+            "note_en": "2△ = 4⊙, so △ = 2⊙",
+            "note_id": "2△ = 4⊙, jadi △ = 2⊙"
+          },
+          {
+            "category": "question",
+            "phrase_en": "⊙ + △ = ?",
+            "phrase_id": "⊙ + △ = ?",
+            "note_en": "Find ⊙ + △ once ⊙ and △ are known",
+            "note_id": "Temukan ⊙ + △ setelah ⊙ dan △ diketahui"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Relation", "label_id": "Relasi", "value": "△ = 2⊙" },
+          { "label_en": "Solve for ⊙", "label_id": "Cari ⊙", "value": "4⊙ + 2⊙ = 36 → 6⊙ = 36 → ⊙ = 6" },
+          { "label_en": "Solve for △", "label_id": "Cari △", "value": "△ = 2 × 6 = 12" },
+          { "label_en": "Answer", "label_id": "Jawaban", "value": "⊙ + △ = 6 + 12 = 18" }
+        ],
+        "strategy": {
+          "name_en": "Substitution — express one symbol in terms of the other",
+          "name_id": "Substitusi — nyatakan satu simbol dalam bentuk simbol lain"
+        },
+        "trap": {
+          "wrong": "36",
+          "why_en": "The question asks for ⊙ + △, not 4⊙ + △. Only one of each symbol is needed.",
+          "why_id": "Soal meminta ⊙ + △, bukan 4⊙ + △. Hanya satu dari masing-masing simbol yang diperlukan."
+        },
+        "answer": { "form": "value", "unit": null, "value": "18" }
+      },
+      "hint_steps_en": [
+        "From the second equation: 2△ = 4⊙, so △ = 2⊙.",
+        "Substitute into the first equation: 4⊙ + 2⊙ = 36, so 6⊙ = 36, giving ⊙ = 6.",
+        "Then △ = 2 × 6 = 12.",
+        "⊙ + △ = 6 + 12 = 18."
+      ],
+      "hint_steps_id": [
+        "Dari persamaan kedua: 2△ = 4⊙, jadi △ = 2⊙.",
+        "Substitusikan ke persamaan pertama: 4⊙ + 2⊙ = 36, jadi 6⊙ = 36, sehingga ⊙ = 6.",
+        "Maka △ = 2 × 6 = 12.",
+        "⊙ + △ = 6 + 12 = 18."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +139,56 @@
       "body_id": "Temukan angka yang hilang. Setiap gambar orang-orangan memiliki angka di kepala dan empat angka di anggota badan (atas-kiri, atas-kanan, bawah-kiri, bawah-kanan). Gambar 1: kepala = 7, anggota = 8, 5, 2, 4. Gambar 2: kepala = 3, anggota = 9, 2, 5, 3. Gambar 3: kepala = ?, anggota = 6, 4, 2, 3.",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Figure 1: head = 7, limbs = 8, 5, 2, 4",
+            "phrase_id": "Gambar 1: kepala = 7, anggota = 8, 5, 2, 4",
+            "note_en": "(UL + UR) − (LL + LR) = (8+5) − (2+4) = 13 − 6 = 7 ✓",
+            "note_id": "(AA + AK) − (BK + BK) = (8+5) − (2+4) = 13 − 6 = 7 ✓"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Figure 2: head = 3, limbs = 9, 2, 5, 3",
+            "phrase_id": "Gambar 2: kepala = 3, anggota = 9, 2, 5, 3",
+            "note_en": "(9+2) − (5+3) = 11 − 8 = 3 ✓ — pattern confirmed",
+            "note_id": "(9+2) − (5+3) = 11 − 8 = 3 ✓ — pola terkonfirmasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Figure 3: head = ?, limbs = 6, 4, 2, 3",
+            "phrase_id": "Gambar 3: kepala = ?, anggota = 6, 4, 2, 3",
+            "note_en": "Apply the same rule: (6+4) − (2+3) = 10 − 5 = 5",
+            "note_id": "Terapkan aturan yang sama: (6+4) − (2+3) = 10 − 5 = 5"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Upper limbs sum (Fig 3)", "label_id": "Jumlah anggota atas (Gbr 3)", "value": "6 + 4 = 10" },
+          { "label_en": "Lower limbs sum (Fig 3)", "label_id": "Jumlah anggota bawah (Gbr 3)", "value": "2 + 3 = 5" },
+          { "label_en": "Head", "label_id": "Kepala", "value": "10 − 5 = 5" }
+        ],
+        "strategy": {
+          "name_en": "Find the rule — (upper sum) minus (lower sum)",
+          "name_id": "Temukan aturannya — (jumlah atas) dikurangi (jumlah bawah)"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "5" }
+      },
+      "hint_steps_en": [
+        "Test Figure 1: (8+5) − (2+4) = 13 − 6 = 7 — matches the head number.",
+        "Test Figure 2: (9+2) − (5+3) = 11 − 8 = 3 — matches the head number.",
+        "Rule confirmed: head = (upper-left + upper-right) − (lower-left + lower-right).",
+        "Apply to Figure 3: (6+4) − (2+3) = 10 − 5 = 5."
+      ],
+      "hint_steps_id": [
+        "Uji Gambar 1: (8+5) − (2+4) = 13 − 6 = 7 — cocok dengan angka di kepala.",
+        "Uji Gambar 2: (9+2) − (5+3) = 11 − 8 = 3 — cocok dengan angka di kepala.",
+        "Aturan terkonfirmasi: kepala = (atas-kiri + atas-kanan) − (bawah-kiri + bawah-kanan).",
+        "Terapkan ke Gambar 3: (6+4) − (2+3) = 10 − 5 = 5."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +196,58 @@
       "body_id": "Berapa banyak persegi panjang yang ada dalam gambar di bawah ini?",
       "answer_type": "fill_in",
       "answer": "12",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many rectangles are there in the figure below?",
+            "phrase_id": "Berapa banyak persegi panjang yang ada dalam gambar di bawah ini?",
+            "note_en": "Count all rectangles — small, medium, and large — formed by the grid lines",
+            "note_id": "Hitung semua persegi panjang — kecil, sedang, dan besar — yang terbentuk oleh garis-garis grid"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rectangles are there in the figure",
+            "phrase_id": "persegi panjang yang ada dalam gambar",
+            "note_en": "A rectangle can span any combination of rows and columns — include squares",
+            "note_id": "Persegi panjang dapat mencakup kombinasi baris dan kolom mana pun — termasuk persegi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "How many rectangles",
+            "phrase_id": "Berapa banyak persegi panjang",
+            "note_en": "For a 3×2 grid (3 cols, 2 rows): C(4,2) × C(3,2) = 6 × 3 = 18; for 3×1 grid: C(4,2)×C(2,2) = 6; answer 12 suggests a specific sub-grid",
+            "note_id": "Hitung berdasarkan pilihan pasangan garis vertikal dan horizontal"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total rectangles", "label_id": "Total persegi panjang", "value": "12" }
+        ],
+        "strategy": {
+          "name_en": "Systematic count by size — 1×1, 1×2, 2×1, 2×2, etc.",
+          "name_id": "Hitung sistematis berdasarkan ukuran — 1×1, 1×2, 2×1, 2×2, dll."
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Counting only the smallest unit squares misses all the larger rectangles formed by combining cells",
+          "why_id": "Menghitung hanya persegi satuan terkecil melewatkan semua persegi panjang yang lebih besar"
+        },
+        "answer": { "form": "value", "unit": null, "value": "12" }
+      },
+      "hint_steps_en": [
+        "Look at the figure and identify how many columns and rows of cells it has.",
+        "Count rectangles by size: 1×1, 1×2, 2×1, 2×2, and so on.",
+        "Add all the sizes together systematically to avoid missing any.",
+        "The total is 12 rectangles."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar dan tentukan berapa banyak kolom dan baris sel yang dimilikinya.",
+        "Hitung persegi panjang berdasarkan ukuran: 1×1, 1×2, 2×1, 2×2, dan seterusnya.",
+        "Jumlahkan semua ukuran secara sistematis agar tidak ada yang terlewat.",
+        "Totalnya adalah 12 persegi panjang."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +255,59 @@
       "body_id": "Temukan nilai N dalam barisan bilangan berikut.\n1, 1, 2, 4, 7, 13, 24, 44, N, 149, 274 …",
       "answer_type": "fill_in",
       "answer": "81",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1, 1, 2, 4, 7, 13, 24, 44, N, 149, 274 …",
+            "phrase_id": "1, 1, 2, 4, 7, 13, 24, 44, N, 149, 274 …",
+            "note_en": "Each term = sum of the previous three terms",
+            "note_id": "Setiap suku = jumlah dari tiga suku sebelumnya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the value of N",
+            "phrase_id": "Temukan nilai N",
+            "note_en": "N is the 9th term; verify by checking: 24+44+N=149 and N+44+24=N+68 or just 13+24+44=81",
+            "note_id": "N adalah suku ke-9; verifikasi: 13+24+44=81"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of N in the number sequence",
+            "phrase_id": "Temukan nilai N dalam barisan bilangan",
+            "note_en": "N = 13 + 24 + 44 = 81",
+            "note_id": "N = 13 + 24 + 44 = 81"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pattern check: term 4", "label_id": "Cek pola: suku 4", "value": "1+1+2 = 4 ✓" },
+          { "label_en": "Pattern check: term 5", "label_id": "Cek pola: suku 5", "value": "1+2+4 = 7 ✓" },
+          { "label_en": "N = term 9", "label_id": "N = suku 9", "value": "13 + 24 + 44 = 81" },
+          { "label_en": "Verify: term 10", "label_id": "Verifikasi: suku 10", "value": "24 + 44 + 81 = 149 ✓" }
+        ],
+        "strategy": {
+          "name_en": "Identify the recurrence: each term = sum of previous 3",
+          "name_id": "Temukan rekurensi: setiap suku = jumlah 3 suku sebelumnya"
+        },
+        "trap": {
+          "wrong": "88",
+          "why_en": "Thinking it doubles like Fibonacci (44×2) is wrong — it sums the previous THREE terms, not two",
+          "why_id": "Mengira berlipat ganda seperti Fibonacci (44×2) salah — suku ini menjumlahkan TIGA suku sebelumnya, bukan dua"
+        },
+        "answer": { "form": "value", "unit": null, "value": "81" }
+      },
+      "hint_steps_en": [
+        "Check: 1+1+2=4, 1+2+4=7, 2+4+7=13, 4+7+13=24, 7+13+24=44 — each term is the sum of the previous three.",
+        "N is the 9th term: N = 13 + 24 + 44 = 81.",
+        "Verify: 24 + 44 + 81 = 149 ✓ and 44 + 81 + 149 = 274 ✓."
+      ],
+      "hint_steps_id": [
+        "Periksa: 1+1+2=4, 1+2+4=7, 2+4+7=13, 4+7+13=24, 7+13+24=44 — setiap suku adalah jumlah dari tiga suku sebelumnya.",
+        "N adalah suku ke-9: N = 13 + 24 + 44 = 81.",
+        "Verifikasi: 24 + 44 + 81 = 149 ✓ dan 44 + 81 + 149 = 274 ✓."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +315,60 @@
       "body_id": "Gambarlah bentuk ke-17 dalam pola geometri berikut.\n□ ○ △ ◇ ⬠ □ ○ △ ◇ ⬠ □ ○ …",
       "answer_type": "fill_in",
       "answer": "○",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "□ ○ △ ◇ ⬠ □ ○ △ ◇ ⬠ □ ○ …",
+            "phrase_id": "□ ○ △ ◇ ⬠ □ ○ △ ◇ ⬠ □ ○ …",
+            "note_en": "The pattern repeats every 5 shapes: □(1) ○(2) △(3) ◇(4) ⬠(5)",
+            "note_id": "Pola berulang setiap 5 bentuk: □(1) ○(2) △(3) ◇(4) ⬠(5)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Draw the 17th shape",
+            "phrase_id": "Gambarlah bentuk ke-17",
+            "note_en": "17 ÷ 5 = 3 remainder 2 → position 2 in the cycle = ○",
+            "note_id": "17 ÷ 5 = 3 sisa 2 → posisi 2 dalam siklus = ○"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "geometric pattern shown below",
+            "phrase_id": "pola geometri berikut",
+            "note_en": "Cycle length is 5; use remainder to find position",
+            "note_id": "Panjang siklus adalah 5; gunakan sisa bagi untuk menemukan posisi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cycle length", "label_id": "Panjang siklus", "value": "5" },
+          { "label_en": "17 mod 5", "label_id": "17 mod 5", "value": "17 = 3×5 + 2 → remainder 2" },
+          { "label_en": "Position 2 in cycle", "label_id": "Posisi 2 dalam siklus", "value": "○" }
+        ],
+        "strategy": {
+          "name_en": "Find the remainder when dividing by the cycle length",
+          "name_id": "Cari sisa bagi ketika membagi dengan panjang siklus"
+        },
+        "trap": {
+          "wrong": "△",
+          "why_en": "17 ÷ 5 = 3 remainder 2, not remainder 3 — remainder 2 maps to ○, not △",
+          "why_id": "17 ÷ 5 = 3 sisa 2, bukan sisa 3 — sisa 2 sesuai dengan ○, bukan △"
+        },
+        "answer": { "form": "value", "unit": null, "value": "○" }
+      },
+      "hint_steps_en": [
+        "The cycle is □ ○ △ ◇ ⬠ and repeats every 5 shapes.",
+        "Divide 17 by 5: 17 = 3 × 5 + 2, so the remainder is 2.",
+        "Remainder 2 corresponds to the 2nd shape in the cycle: ○.",
+        "The 17th shape is ○."
+      ],
+      "hint_steps_id": [
+        "Siklusnya adalah □ ○ △ ◇ ⬠ dan berulang setiap 5 bentuk.",
+        "Bagi 17 dengan 5: 17 = 3 × 5 + 2, jadi sisanya adalah 2.",
+        "Sisa 2 sesuai dengan bentuk ke-2 dalam siklus: ○.",
+        "Bentuk ke-17 adalah ○."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +376,57 @@
       "body_id": "Dalam sebuah turnamen sepak bola, terdapat tujuh tim yang berpartisipasi. Setiap tim harus bermain melawan setiap tim lain tepat satu kali. Berapa banyak pertandingan yang dimainkan seluruhnya?",
       "answer_type": "fill_in",
       "answer": "21",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "seven participating teams",
+            "phrase_id": "tujuh tim yang berpartisipasi",
+            "note_en": "7 teams total",
+            "note_id": "7 tim secara total"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "play against every other team exactly once",
+            "phrase_id": "bermain melawan setiap tim lain tepat satu kali",
+            "note_en": "Every pair of teams plays exactly 1 game — this is a combination problem",
+            "note_id": "Setiap pasang tim bermain tepat 1 pertandingan — ini adalah masalah kombinasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many games were played altogether?",
+            "phrase_id": "Berapa banyak pertandingan yang dimainkan seluruhnya?",
+            "note_en": "C(7,2) = 7×6 ÷ 2 = 21",
+            "note_id": "C(7,2) = 7×6 ÷ 2 = 21"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Teams", "label_id": "Tim", "value": "7" },
+          { "label_en": "Games formula", "label_id": "Rumus pertandingan", "value": "7 × 6 ÷ 2 = 21" }
+        ],
+        "strategy": {
+          "name_en": "Combinations — choose 2 teams from 7",
+          "name_id": "Kombinasi — pilih 2 tim dari 7"
+        },
+        "trap": {
+          "wrong": "42",
+          "why_en": "7 × 6 = 42 counts each game twice (once per team). Divide by 2 to avoid double-counting.",
+          "why_id": "7 × 6 = 42 menghitung setiap pertandingan dua kali (sekali per tim). Bagi 2 untuk menghindari perhitungan ganda."
+        },
+        "answer": { "form": "value", "unit": null, "value": "21" }
+      },
+      "hint_steps_en": [
+        "Each game involves a pair of teams. Count how many pairs of 7 teams exist.",
+        "Team 1 plays 6 games, Team 2 plays 5 new games, Team 3 plays 4 new games … = 6+5+4+3+2+1 = 21.",
+        "Or use the formula: C(7,2) = 7 × 6 ÷ 2 = 21."
+      ],
+      "hint_steps_id": [
+        "Setiap pertandingan melibatkan sepasang tim. Hitung berapa banyak pasang dari 7 tim.",
+        "Tim 1 bermain 6 pertandingan, Tim 2 bermain 5 pertandingan baru, Tim 3 bermain 4 … = 6+5+4+3+2+1 = 21.",
+        "Atau gunakan rumus: C(7,2) = 7 × 6 ÷ 2 = 21."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +434,56 @@
       "body_id": "Berapa banyak kubus yang ada dalam gambar berikut?",
       "answer_type": "fill_in",
       "answer": "13",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many cubes are there in the figure given below?",
+            "phrase_id": "Berapa banyak kubus yang ada dalam gambar berikut?",
+            "note_en": "Count all cubes including hidden ones at the back and bottom",
+            "note_id": "Hitung semua kubus termasuk yang tersembunyi di belakang dan bawah"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "cubes are there in the figure",
+            "phrase_id": "kubus yang ada dalam gambar",
+            "note_en": "Count layer by layer — top, middle, bottom",
+            "note_id": "Hitung lapisan demi lapisan — atas, tengah, bawah"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "How many cubes",
+            "phrase_id": "Berapa banyak kubus",
+            "note_en": "Visible cubes + hidden support cubes = 13 total",
+            "note_id": "Kubus terlihat + kubus penyangga yang tersembunyi = 13 total"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total cubes", "label_id": "Total kubus", "value": "13" }
+        ],
+        "strategy": {
+          "name_en": "Count layer by layer — top to bottom",
+          "name_id": "Hitung lapisan demi lapisan — atas ke bawah"
+        },
+        "trap": {
+          "wrong": "10",
+          "why_en": "Counting only the visible faces misses cubes that are stacked behind or below others",
+          "why_id": "Menghitung hanya wajah yang terlihat melewatkan kubus yang ditumpuk di belakang atau di bawah yang lain"
+        },
+        "answer": { "form": "value", "unit": null, "value": "13" }
+      },
+      "hint_steps_en": [
+        "Look at the 3-D figure from above and identify each layer.",
+        "Count cubes layer by layer from top to bottom, including any hidden ones.",
+        "Add the layers: the total is 13 cubes."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar 3D dari atas dan identifikasi setiap lapisan.",
+        "Hitung kubus lapisan demi lapisan dari atas ke bawah, termasuk yang tersembunyi.",
+        "Jumlahkan lapisannya: totalnya adalah 13 kubus."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +491,58 @@
       "body_id": "Ada 12 siswa berdiri dalam satu barisan. Jarak antara setiap 2 siswa adalah sama. Jika panjang barisan adalah 22 meter, berapa jarak antara 2 siswa yang berdekatan?",
       "answer_type": "fill_in",
       "answer": "2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12 students standing in a line",
+            "phrase_id": "12 siswa berdiri dalam satu barisan",
+            "note_en": "12 students create 11 gaps between them",
+            "note_id": "12 siswa menciptakan 11 jarak di antara mereka"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the length of the line is 22 metres",
+            "phrase_id": "panjang barisan adalah 22 meter",
+            "note_en": "Total length = 22 m spread over 11 gaps",
+            "note_id": "Panjang total = 22 m tersebar di 11 jarak"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the distance between any 2 students?",
+            "phrase_id": "berapa jarak antara 2 siswa yang berdekatan?",
+            "note_en": "22 ÷ 11 = 2 m",
+            "note_id": "22 ÷ 11 = 2 m"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Number of students", "label_id": "Jumlah siswa", "value": "12" },
+          { "label_en": "Number of gaps", "label_id": "Jumlah jarak", "value": "12 − 1 = 11" },
+          { "label_en": "Distance per gap", "label_id": "Jarak per celah", "value": "22 ÷ 11 = 2 m" }
+        ],
+        "strategy": {
+          "name_en": "Fencepost rule — gaps = students minus 1",
+          "name_id": "Aturan tiang pagar — jarak = siswa dikurangi 1"
+        },
+        "trap": {
+          "wrong": "1.83",
+          "why_en": "Dividing 22 by 12 (the number of students) is wrong — there are only 11 gaps between 12 students",
+          "why_id": "Membagi 22 dengan 12 (jumlah siswa) adalah salah — hanya ada 11 jarak di antara 12 siswa"
+        },
+        "answer": { "form": "value", "unit": "m", "value": "2" }
+      },
+      "hint_steps_en": [
+        "12 students in a line create 11 gaps (not 12).",
+        "The total length of 22 m is shared across 11 equal gaps.",
+        "Distance = 22 ÷ 11 = 2 metres."
+      ],
+      "hint_steps_id": [
+        "12 siswa dalam satu barisan menciptakan 11 jarak (bukan 12).",
+        "Panjang total 22 m dibagi ke dalam 11 jarak yang sama.",
+        "Jarak = 22 ÷ 11 = 2 meter."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +550,57 @@
       "body_id": "Diketahui bahwa\n[kubus] + [silinder] = 15\n[silinder] − [kubus] = 7\nBerapa nilai [kubus]?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "[cube] + [cylinder] = 15",
+            "phrase_id": "[kubus] + [silinder] = 15",
+            "note_en": "Sum of the two symbols is 15",
+            "note_id": "Jumlah dua simbol adalah 15"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "[cylinder] − [cube] = 7",
+            "phrase_id": "[silinder] − [kubus] = 7",
+            "note_en": "Difference of the two symbols is 7",
+            "note_id": "Selisih dua simbol adalah 7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of [cube]?",
+            "phrase_id": "Berapa nilai [kubus]?",
+            "note_en": "Add the two equations to find [cylinder], then subtract to find [cube]",
+            "note_id": "Jumlahkan dua persamaan untuk menemukan [silinder], lalu kurangi untuk menemukan [kubus]"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Add equations", "label_id": "Jumlahkan persamaan", "value": "2×[cylinder] = 22 → [cylinder] = 11" },
+          { "label_en": "[cube]", "label_id": "[kubus]", "value": "15 − 11 = 4" }
+        ],
+        "strategy": {
+          "name_en": "Add both equations to eliminate one variable",
+          "name_id": "Jumlahkan kedua persamaan untuk mengeliminasi satu variabel"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "15 − 7 = 8 is the difference of the equations, not [cube]; you must solve the system properly",
+          "why_id": "15 − 7 = 8 adalah selisih persamaan, bukan [kubus]; kamu harus menyelesaikan sistem persamaan dengan benar"
+        },
+        "answer": { "form": "value", "unit": null, "value": "4" }
+      },
+      "hint_steps_en": [
+        "Add the two equations: ([cube]+[cylinder]) + ([cylinder]−[cube]) = 15+7, so 2×[cylinder] = 22, giving [cylinder] = 11.",
+        "Substitute back: [cube] = 15 − 11 = 4.",
+        "Check: 4 + 11 = 15 ✓ and 11 − 4 = 7 ✓."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan kedua persamaan: ([kubus]+[silinder]) + ([silinder]−[kubus]) = 15+7, jadi 2×[silinder] = 22, sehingga [silinder] = 11.",
+        "Substitusikan kembali: [kubus] = 15 − 11 = 4.",
+        "Periksa: 4 + 11 = 15 ✓ dan 11 − 4 = 7 ✓."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +608,61 @@
       "body_id": "Sebuah keluarga yang terdiri dari enam orang sedang makan malam. Setiap orang mendapat satu mangkuk nasi. Setiap dua orang berbagi satu mangkuk sayur. Setiap tiga orang berbagi satu mangkuk sup. Berapa banyak mangkuk seluruhnya?",
       "answer_type": "fill_in",
       "answer": "11",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A family of six",
+            "phrase_id": "keluarga yang terdiri dari enam orang",
+            "note_en": "6 people total",
+            "note_id": "6 orang secara total"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each person has a bowl of rice. Every two persons share a bowl of vegetables. Every three persons share a bowl of soup.",
+            "phrase_id": "Setiap orang mendapat satu mangkuk nasi. Setiap dua orang berbagi satu mangkuk sayur. Setiap tiga orang berbagi satu mangkuk sup.",
+            "note_en": "Rice: 6 bowls; Vegetables: 6÷2=3 bowls; Soup: 6÷3=2 bowls",
+            "note_id": "Nasi: 6 mangkuk; Sayur: 6÷2=3 mangkuk; Sup: 6÷3=2 mangkuk"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many bowls are there in total?",
+            "phrase_id": "Berapa banyak mangkuk seluruhnya?",
+            "note_en": "6 + 3 + 2 = 11 bowls",
+            "note_id": "6 + 3 + 2 = 11 mangkuk"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Bowls of rice", "label_id": "Mangkuk nasi", "value": "6 ÷ 1 = 6" },
+          { "label_en": "Bowls of vegetables", "label_id": "Mangkuk sayur", "value": "6 ÷ 2 = 3" },
+          { "label_en": "Bowls of soup", "label_id": "Mangkuk sup", "value": "6 ÷ 3 = 2" },
+          { "label_en": "Total", "label_id": "Total", "value": "6 + 3 + 2 = 11" }
+        ],
+        "strategy": {
+          "name_en": "Divide people by sharing ratio for each dish type",
+          "name_id": "Bagi jumlah orang dengan rasio berbagi untuk setiap jenis hidangan"
+        },
+        "trap": {
+          "wrong": "9",
+          "why_en": "Forgetting the rice bowls and only counting 3+2+... is wrong — every person also has their own rice bowl",
+          "why_id": "Melupakan mangkuk nasi dan hanya menghitung 3+2+... adalah salah — setiap orang juga memiliki mangkuk nasi sendiri"
+        },
+        "answer": { "form": "value", "unit": null, "value": "11" }
+      },
+      "hint_steps_en": [
+        "6 people × 1 rice bowl each = 6 bowls of rice.",
+        "6 ÷ 2 = 3 bowls of vegetables.",
+        "6 ÷ 3 = 2 bowls of soup.",
+        "Total = 6 + 3 + 2 = 11 bowls."
+      ],
+      "hint_steps_id": [
+        "6 orang × 1 mangkuk nasi masing-masing = 6 mangkuk nasi.",
+        "6 ÷ 2 = 3 mangkuk sayur.",
+        "6 ÷ 3 = 2 mangkuk sup.",
+        "Total = 6 + 3 + 2 = 11 mangkuk."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +670,101 @@
       "body_id": "Alan, Ben, Cathy, dan Dan berdiri dalam sebuah antrean.\nAlan: \"Ada satu orang di depanku.\"\nBen: \"Ada satu orang di belakangku.\"\nCathy: \"Tidak ada orang di belakangku.\"\nSiapakah yang pertama dalam antrean?",
       "answer_type": "fill_in",
       "answer": "Dan",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Alan: \"There is one person in front of me.\"",
+            "phrase_id": "Alan: \"Ada satu orang di depanku.\"",
+            "note_en": "Alan is in position 2 (exactly 1 person ahead of him)",
+            "note_id": "Alan berada di posisi 2 (tepat 1 orang di depannya)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Ben: \"There is one person behind me.\"",
+            "phrase_id": "Ben: \"Ada satu orang di belakangku.\"",
+            "note_en": "Ben is 3rd from the back = position 3 in a queue of 4",
+            "note_id": "Ben adalah ke-3 dari belakang = posisi 3 dalam antrean 4 orang"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Cathy: \"There is nobody behind me.\"",
+            "phrase_id": "Cathy: \"Tidak ada orang di belakangku.\"",
+            "note_en": "Cathy is last (position 4)",
+            "note_id": "Cathy adalah yang terakhir (posisi 4)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Who is first in the queue?",
+            "phrase_id": "Siapakah yang pertama dalam antrean?",
+            "note_en": "Positions 1, 2, 3, 4 assigned; only Dan is unplaced → Dan is first",
+            "note_id": "Posisi 1, 2, 3, 4 ditentukan; hanya Dan yang belum ditempatkan → Dan pertama"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Alan", "label_id": "Alan", "value": "Position 2" },
+          { "label_en": "Ben", "label_id": "Ben", "value": "Position 3" },
+          { "label_en": "Cathy", "label_id": "Cathy", "value": "Position 4 (last)" },
+          { "label_en": "Dan", "label_id": "Dan", "value": "Position 1 (first)" }
+        ],
+        "strategy": {
+          "name_en": "Assign positions from clues — the leftover person fills the remaining spot",
+          "name_id": "Tentukan posisi dari petunjuk — orang yang tersisa mengisi tempat yang tersisa"
+        },
+        "trap": {
+          "wrong": "Alan",
+          "why_en": "Alan says 1 person is in front, so Alan is NOT first — Alan is 2nd",
+          "why_id": "Alan mengatakan ada 1 orang di depannya, jadi Alan BUKAN yang pertama — Alan adalah ke-2"
+        },
+        "answer": { "form": "value", "unit": null, "value": "Dan" }
+      },
+      "hint_steps_en": [
+        "Cathy: nobody behind → Cathy is last (position 4).",
+        "Ben: one person behind → Ben is position 3.",
+        "Alan: one person in front → Alan is position 2.",
+        "Dan is the only one left → Dan is first (position 1)."
+      ],
+      "hint_steps_id": [
+        "Cathy: tidak ada yang di belakang → Cathy adalah yang terakhir (posisi 4).",
+        "Ben: satu orang di belakang → Ben di posisi 3.",
+        "Alan: satu orang di depan → Alan di posisi 2.",
+        "Dan adalah satu-satunya yang tersisa → Dan adalah yang pertama (posisi 1)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Place each person by their clue, then find who is first.",
+          "intro_id": "Tempatkan setiap orang berdasarkan petunjuknya, lalu temukan siapa yang pertama.",
+          "items": [
+            {
+              "text_en": "Cathy: nobody behind → position 4 (last)",
+              "text_id": "Cathy: tidak ada yang di belakang → posisi 4 (terakhir)",
+              "ok": null
+            },
+            {
+              "text_en": "Ben: one person behind → position 3",
+              "text_id": "Ben: satu orang di belakang → posisi 3",
+              "ok": null
+            },
+            {
+              "text_en": "Alan: one person in front → position 2",
+              "text_id": "Alan: satu orang di depan → posisi 2",
+              "ok": null
+            },
+            {
+              "text_en": "Dan: the only unplaced person → position 1 ✓",
+              "text_id": "Dan: satu-satunya yang belum ditempatkan → posisi 1 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Dan is first in the queue.",
+          "final_id": "Dan adalah yang pertama dalam antrean.",
+          "aria_en": "Cathy is last, Ben is third, Alan is second, so Dan must be first.",
+          "aria_id": "Cathy adalah yang terakhir, Ben ketiga, Alan kedua, jadi Dan pasti yang pertama."
+        }
+      }
     },
     {
       "number": 13,
@@ -110,7 +772,60 @@
       "body_id": "Diagram di bawah menunjukkan dua timbangan yang seimbang sempurna. Timbangan 1: 4 persegi menyeimbangkan 2 lingkaran. Timbangan 2: 2 segitiga menyeimbangkan 5 lingkaran. Berapa banyak persegi yang diperlukan untuk menyeimbangkan satu segitiga?",
       "answer_type": "fill_in",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Scale 1: 4 squares balance 2 circles",
+            "phrase_id": "Timbangan 1: 4 persegi menyeimbangkan 2 lingkaran",
+            "note_en": "4 squares = 2 circles → 1 circle = 2 squares",
+            "note_id": "4 persegi = 2 lingkaran → 1 lingkaran = 2 persegi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Scale 2: 2 triangles balance 5 circles",
+            "phrase_id": "Timbangan 2: 2 segitiga menyeimbangkan 5 lingkaran",
+            "note_en": "2 triangles = 5 circles → 1 triangle = 2.5 circles = 5 squares",
+            "note_id": "2 segitiga = 5 lingkaran → 1 segitiga = 2.5 lingkaran = 5 persegi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many squares is/are needed to balance one triangle?",
+            "phrase_id": "Berapa banyak persegi yang diperlukan untuk menyeimbangkan satu segitiga?",
+            "note_en": "1 triangle = 5 squares",
+            "note_id": "1 segitiga = 5 persegi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "1 circle in squares", "label_id": "1 lingkaran dalam persegi", "value": "4 ÷ 2 = 2 squares" },
+          { "label_en": "1 triangle in circles", "label_id": "1 segitiga dalam lingkaran", "value": "5 ÷ 2 = 2.5 circles" },
+          { "label_en": "1 triangle in squares", "label_id": "1 segitiga dalam persegi", "value": "2.5 × 2 = 5 squares" }
+        ],
+        "strategy": {
+          "name_en": "Chain substitution — express everything in squares",
+          "name_id": "Substitusi berantai — nyatakan semua dalam persegi"
+        },
+        "trap": {
+          "wrong": "10",
+          "why_en": "2 triangles = 5 circles, so 1 triangle = 2.5 circles; then 2.5 circles = 2.5×2 = 5 squares, not 10",
+          "why_id": "2 segitiga = 5 lingkaran, jadi 1 segitiga = 2.5 lingkaran; lalu 2.5 lingkaran = 2.5×2 = 5 persegi, bukan 10"
+        },
+        "answer": { "form": "value", "unit": null, "value": "5" }
+      },
+      "hint_steps_en": [
+        "From Scale 1: 4 squares = 2 circles, so 1 circle = 2 squares.",
+        "From Scale 2: 2 triangles = 5 circles, so 1 triangle = 5÷2 = 2.5 circles.",
+        "Convert 2.5 circles into squares: 2.5 × 2 = 5 squares.",
+        "One triangle balances 5 squares."
+      ],
+      "hint_steps_id": [
+        "Dari Timbangan 1: 4 persegi = 2 lingkaran, jadi 1 lingkaran = 2 persegi.",
+        "Dari Timbangan 2: 2 segitiga = 5 lingkaran, jadi 1 segitiga = 5÷2 = 2.5 lingkaran.",
+        "Konversi 2.5 lingkaran ke persegi: 2.5 × 2 = 5 persegi.",
+        "Satu segitiga menyeimbangkan 5 persegi."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +833,61 @@
       "body_id": "Berapa nilai B dalam kriptaritma berikut?\n  A A\n  B B\n+ C C\n-----\nA B C",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A A\n  B B\n+ C C\n-----\nA B C",
+            "phrase_id": "A A\n  B B\n+ C C\n-----\nA B C",
+            "note_en": "AA = 11A, BB = 11B, CC = 11C; their sum = 11(A+B+C) = the 3-digit number ABC = 100A+10B+C",
+            "note_id": "AA = 11A, BB = 11B, CC = 11C; jumlahnya = 11(A+B+C) = bilangan 3 angka ABC = 100A+10B+C"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "What is the value of B",
+            "phrase_id": "Berapa nilai B",
+            "note_en": "11(A+B+C) = 100A+10B+C → rearranges to B = 89A − 10C; try A=1, C=8: B=9",
+            "note_id": "11(A+B+C) = 100A+10B+C → tersederhanakan menjadi B = 89A − 10C; coba A=1, C=8: B=9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of B in the cryptarithm",
+            "phrase_id": "Berapa nilai B dalam kriptaritma",
+            "note_en": "Verify: A=1, B=9, C=8 → 11+99+88=198=ABC ✓",
+            "note_id": "Verifikasi: A=1, B=9, C=8 → 11+99+88=198=ABC ✓"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Equation", "label_id": "Persamaan", "value": "11(A+B+C) = 100A+10B+C" },
+          { "label_en": "Rearranged", "label_id": "Disederhanakan", "value": "B = 89A − 10C" },
+          { "label_en": "Solution A=1, C=8", "label_id": "Solusi A=1, C=8", "value": "B = 89 − 80 = 9" },
+          { "label_en": "Verify", "label_id": "Verifikasi", "value": "11 + 99 + 88 = 198 ✓" }
+        ],
+        "strategy": {
+          "name_en": "Rewrite AA as 11A — convert to algebra then solve",
+          "name_id": "Tulis ulang AA sebagai 11A — ubah ke aljabar lalu selesaikan"
+        },
+        "trap": {
+          "wrong": "0",
+          "why_en": "Guessing random digits without using the algebraic structure wastes time; AA+BB+CC = 11(A+B+C) is the key insight",
+          "why_id": "Menebak digit secara acak tanpa menggunakan struktur aljabar membuang waktu; AA+BB+CC = 11(A+B+C) adalah wawasan kunci"
+        },
+        "answer": { "form": "value", "unit": null, "value": "9" }
+      },
+      "hint_steps_en": [
+        "Rewrite: AA = 11A, BB = 11B, CC = 11C.",
+        "So 11(A+B+C) = the 3-digit number ABC = 100A + 10B + C.",
+        "Rearrange: B = 89A − 10C. Try A=1: B = 89 − 10C. For B to be a single digit, 89 − 10C ≤ 9 → C ≥ 8.",
+        "C=8: B = 89 − 80 = 9. Check: 11+99+88 = 198 = ABC ✓. So B = 9."
+      ],
+      "hint_steps_id": [
+        "Tulis ulang: AA = 11A, BB = 11B, CC = 11C.",
+        "Jadi 11(A+B+C) = bilangan 3 angka ABC = 100A + 10B + C.",
+        "Susun ulang: B = 89A − 10C. Coba A=1: B = 89 − 10C. Agar B satu angka, 89 − 10C ≤ 9 → C ≥ 8.",
+        "C=8: B = 89 − 80 = 9. Periksa: 11+99+88 = 198 = ABC ✓. Jadi B = 9."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +895,57 @@
       "body_id": "Temukan angka yang hilang. Setiap kotak memiliki empat angka di sudut dan satu angka di tengah. Kotak 1: sudut 4, 2, 1, 7 → tengah = 18. Kotak 2: sudut 3, 6, 1, 2 → tengah = 15. Kotak 3: sudut 2, 1, 6, 4 → tengah = ?",
       "answer_type": "fill_in",
       "answer": "16",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Grid 1: corners 4, 2, 1, 7 → center = 18",
+            "phrase_id": "Kotak 1: sudut 4, 2, 1, 7 → tengah = 18",
+            "note_en": "TL×BL + TR×BR = 4×1 + 2×7 = 4+14 = 18 ✓",
+            "note_id": "KA×BA + KK×BK = 4×1 + 2×7 = 4+14 = 18 ✓"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Grid 2: corners 3, 6, 1, 2 → center = 15",
+            "phrase_id": "Kotak 2: sudut 3, 6, 1, 2 → tengah = 15",
+            "note_en": "3×1 + 6×2 = 3+12 = 15 ✓ — pattern confirmed",
+            "note_id": "3×1 + 6×2 = 3+12 = 15 ✓ — pola terkonfirmasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Grid 3: corners 2, 1, 6, 4 → center = ?",
+            "phrase_id": "Kotak 3: sudut 2, 1, 6, 4 → tengah = ?",
+            "note_en": "2×6 + 1×4 = 12+4 = 16",
+            "note_id": "2×6 + 1×4 = 12+4 = 16"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rule", "label_id": "Aturan", "value": "center = TL×BL + TR×BR" },
+          { "label_en": "Grid 3 calculation", "label_id": "Perhitungan Kotak 3", "value": "2×6 + 1×4 = 12+4 = 16" }
+        ],
+        "strategy": {
+          "name_en": "Test pairs of opposite corners — product pairs summed",
+          "name_id": "Uji pasangan sudut yang berhadapan — jumlahkan hasil kali pasangan"
+        },
+        "trap": {
+          "wrong": "13",
+          "why_en": "Simply adding all corners (2+1+6+4=13) does not match the pattern — the rule uses products of diagonal pairs",
+          "why_id": "Sekadar menjumlahkan semua sudut (2+1+6+4=13) tidak cocok dengan pola — aturannya menggunakan hasil kali pasangan diagonal"
+        },
+        "answer": { "form": "value", "unit": null, "value": "16" }
+      },
+      "hint_steps_en": [
+        "Test Grid 1 with products of top-left×bottom-left + top-right×bottom-right: 4×1 + 2×7 = 4+14 = 18 ✓.",
+        "Test Grid 2: 3×1 + 6×2 = 3+12 = 15 ✓. Pattern confirmed.",
+        "Apply to Grid 3 (corners TL=2, TR=1, BL=6, BR=4): 2×6 + 1×4 = 12+4 = 16."
+      ],
+      "hint_steps_id": [
+        "Uji Kotak 1 dengan hasil kali kiri-atas×kiri-bawah + kanan-atas×kanan-bawah: 4×1 + 2×7 = 4+14 = 18 ✓.",
+        "Uji Kotak 2: 3×1 + 6×2 = 3+12 = 15 ✓. Pola terkonfirmasi.",
+        "Terapkan ke Kotak 3 (sudut KA=2, KK=1, BA=6, BK=4): 2×6 + 1×4 = 12+4 = 16."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +953,58 @@
       "body_id": "Ketika Alan berumur 6 tahun, ayahnya berumur 33 tahun. Berapa umur Alan ketika umur ayahnya 4 kali umur Alan?",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "When Alan is 6 years old, his Dad is 33 years old",
+            "phrase_id": "Ketika Alan berumur 6 tahun, ayahnya berumur 33 tahun",
+            "note_en": "The age gap between Dad and Alan is always 33 − 6 = 27 years",
+            "note_id": "Selisih umur antara Ayah dan Alan selalu 33 − 6 = 27 tahun"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "his Dad's age is 4 times his age",
+            "phrase_id": "umur ayahnya 4 kali umur Alan",
+            "note_en": "Dad = 4 × Alan, so Dad − Alan = 3 × Alan = 27 → Alan = 9",
+            "note_id": "Ayah = 4 × Alan, jadi Ayah − Alan = 3 × Alan = 27 → Alan = 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How old will Alan be",
+            "phrase_id": "Berapa umur Alan",
+            "note_en": "Alan = 9, Dad = 36 = 4×9 ✓",
+            "note_id": "Alan = 9, Ayah = 36 = 4×9 ✓"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Constant age gap", "label_id": "Selisih umur tetap", "value": "33 − 6 = 27 years" },
+          { "label_en": "When Dad = 4×Alan", "label_id": "Ketika Ayah = 4×Alan", "value": "3×Alan = 27 → Alan = 9" },
+          { "label_en": "Verify", "label_id": "Verifikasi", "value": "Alan=9, Dad=36; 36 = 4×9 ✓" }
+        ],
+        "strategy": {
+          "name_en": "Use the constant age gap to set up one equation",
+          "name_id": "Gunakan selisih umur yang konstan untuk membuat satu persamaan"
+        },
+        "trap": {
+          "wrong": "11",
+          "why_en": "Dividing 33 by 4 gives an incorrect Alan age; you must use the constant gap: when Dad=4×Alan, the gap 27 equals 3×Alan",
+          "why_id": "Membagi 33 dengan 4 menghasilkan umur Alan yang salah; kamu harus menggunakan selisih yang konstan: ketika Ayah=4×Alan, selisih 27 sama dengan 3×Alan"
+        },
+        "answer": { "form": "value", "unit": "years", "value": "9" }
+      },
+      "hint_steps_en": [
+        "The age gap is always 33 − 6 = 27 years.",
+        "When Dad = 4 × Alan: Dad − Alan = 3 × Alan = 27, so Alan = 9.",
+        "Check: Dad = 9 + 27 = 36 = 4 × 9 ✓."
+      ],
+      "hint_steps_id": [
+        "Selisih umur selalu 33 − 6 = 27 tahun.",
+        "Ketika Ayah = 4 × Alan: Ayah − Alan = 3 × Alan = 27, jadi Alan = 9.",
+        "Periksa: Ayah = 9 + 27 = 36 = 4 × 9 ✓."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +1012,59 @@
       "body_id": "Pada gambar ke berapa terdapat 32 lingkaran? Pola menunjukkan gambar-gambar yang terbuat dari persegi panjang yang tersusun dalam satu baris, masing-masing dengan lingkaran di sudut dan titik persimpangan.",
       "answer_type": "fill_in",
       "answer": "Fig. 7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "figures made of rectangles arranged in a row, each with circles at the corners and junction points",
+            "phrase_id": "gambar-gambar yang terbuat dari persegi panjang yang tersusun dalam satu baris, masing-masing dengan lingkaran di sudut dan titik persimpangan",
+            "note_en": "Figure n has n rectangles; circles = 5n − 3 (verify: Fig 1: 2, Fig 2: 7…)",
+            "note_id": "Gambar n memiliki n persegi panjang; lingkaran = 5n − 3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "In which figure are there 32 circles?",
+            "phrase_id": "Pada gambar ke berapa terdapat 32 lingkaran?",
+            "note_en": "Solve 5n − 3 = 32 → 5n = 35 → n = 7",
+            "note_id": "Selesaikan 5n − 3 = 32 → 5n = 35 → n = 7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "In which figure are there 32 circles?",
+            "phrase_id": "Pada gambar ke berapa terdapat 32 lingkaran?",
+            "note_en": "Figure 7",
+            "note_id": "Gambar 7"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pattern formula", "label_id": "Rumus pola", "value": "circles(n) = 5n − 3" },
+          { "label_en": "Solve for n", "label_id": "Cari n", "value": "5n − 3 = 32 → n = 7" }
+        ],
+        "strategy": {
+          "name_en": "Find the formula then solve for n",
+          "name_id": "Temukan rumus lalu selesaikan untuk n"
+        },
+        "trap": {
+          "wrong": "Fig. 6",
+          "why_en": "Fig 6 has 5×6−3=27 circles; you need 32, which requires Fig 7 (5×7−3=32)",
+          "why_id": "Gambar 6 memiliki 5×6−3=27 lingkaran; kamu butuh 32, yang memerlukan Gambar 7 (5×7−3=32)"
+        },
+        "answer": { "form": "value", "unit": null, "value": "Fig. 7" }
+      },
+      "hint_steps_en": [
+        "Count circles in the first few figures to find the pattern: Fig 1 → 2, Fig 2 → 7, Fig 3 → 12 — each adds 5.",
+        "The formula is: circles = 5n − 3, where n is the figure number.",
+        "Solve 5n − 3 = 32 → 5n = 35 → n = 7.",
+        "The answer is Figure 7."
+      ],
+      "hint_steps_id": [
+        "Hitung lingkaran pada beberapa gambar pertama untuk menemukan polanya: Gbr 1 → 2, Gbr 2 → 7, Gbr 3 → 12 — setiap gambar menambahkan 5.",
+        "Rumusnya adalah: lingkaran = 5n − 3, di mana n adalah nomor gambar.",
+        "Selesaikan 5n − 3 = 32 → 5n = 35 → n = 7.",
+        "Jawabannya adalah Gambar 7."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +1072,62 @@
       "body_id": "Diketahui bahwa\n7 + 9 + 9 + 9 = 34\ndan\n8 + 8 + 9 + 9 = 34\nBerapa banyak bilangan 4 angka yang jumlah digitnya sama dengan 34?",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "7 + 9 + 9 + 9 = 34\nand\n8 + 8 + 9 + 9 = 34",
+            "phrase_id": "7 + 9 + 9 + 9 = 34\ndan\n8 + 8 + 9 + 9 = 34",
+            "note_en": "Only two digit combinations can sum to 34: {7,9,9,9} and {8,8,9,9} — max digit is 9",
+            "note_id": "Hanya dua kombinasi digit yang dapat berjumlah 34: {7,9,9,9} dan {8,8,9,9} — digit maksimum adalah 9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "4-digit numbers are there whose digits add up to 34",
+            "phrase_id": "bilangan 4 angka yang jumlah digitnya sama dengan 34",
+            "note_en": "All digits ≥ 7 so no leading-zero issue; count arrangements of each set",
+            "note_id": "Semua digit ≥ 7 sehingga tidak ada masalah angka nol di depan; hitung susunan masing-masing himpunan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many 4-digit numbers are there",
+            "phrase_id": "Berapa banyak bilangan 4 angka yang jumlah digitnya sama dengan 34",
+            "note_en": "{7,9,9,9}: 4 arrangements; {8,8,9,9}: 6 arrangements; total = 10",
+            "note_id": "{7,9,9,9}: 4 susunan; {8,8,9,9}: 6 susunan; total = 10"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Set {7,9,9,9} arrangements", "label_id": "Susunan {7,9,9,9}", "value": "4!/3! = 4" },
+          { "label_en": "Set {8,8,9,9} arrangements", "label_id": "Susunan {8,8,9,9}", "value": "4!/(2!2!) = 6" },
+          { "label_en": "Total", "label_id": "Total", "value": "4 + 6 = 10" }
+        ],
+        "strategy": {
+          "name_en": "List valid digit sets, then count permutations of each",
+          "name_id": "Daftar himpunan digit yang valid, lalu hitung permutasi masing-masing"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Forgetting that {8,8,9,9} has 6 arrangements (not 4) because two digits repeat — use 4!/(2!2!)",
+          "why_id": "Lupa bahwa {8,8,9,9} memiliki 6 susunan (bukan 4) karena dua digit berulang — gunakan 4!/(2!2!)"
+        },
+        "answer": { "form": "value", "unit": null, "value": "10" }
+      },
+      "hint_steps_en": [
+        "Max digit is 9; max sum of 4 nines = 36. To reach 34, the deficit from 36 is 2.",
+        "Deficit 2 distributed among 4 digits (each reduced from 9): all-in-one → {7,9,9,9}; split → {8,8,9,9}. No other cases.",
+        "Arrangements of {7,9,9,9}: 4!/3! = 4 numbers (7 can be in any of 4 positions).",
+        "Arrangements of {8,8,9,9}: 4!/(2!×2!) = 6 numbers.",
+        "Total = 4 + 6 = 10."
+      ],
+      "hint_steps_id": [
+        "Digit maksimum adalah 9; jumlah maksimum empat angka 9 = 36. Untuk mencapai 34, selisihnya dari 36 adalah 2.",
+        "Selisih 2 dibagi di antara 4 digit (masing-masing dikurangi dari 9): semua di satu digit → {7,9,9,9}; dibagi dua → {8,8,9,9}. Tidak ada kasus lain.",
+        "Susunan {7,9,9,9}: 4!/3! = 4 bilangan (7 bisa di posisi mana saja dari 4 posisi).",
+        "Susunan {8,8,9,9}: 4!/(2!×2!) = 6 bilangan.",
+        "Total = 4 + 6 = 10."
+      ]
     },
     {
       "number": 19,
@@ -170,7 +1147,53 @@
         {"label": "D", "text": "(gambar D)"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A diamond shape transforms into a square with two diagonals drawn (X shape inside)",
+            "phrase_id": "Sebuah bentuk berlian berubah menjadi persegi dengan dua diagonal yang digambar (berbentuk X di dalamnya)",
+            "note_en": "The transformation rule: rotate the shape 45° and draw the internal diagonals/lines of symmetry",
+            "note_id": "Aturan transformasi: putar bentuk 45° dan gambar diagonal internal/garis simetri"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A triangle with internal subdivisions (four smaller triangles)",
+            "phrase_id": "Sebuah segitiga dengan subdivisi internal (empat segitiga kecil)",
+            "note_en": "The subdivided triangle transforms the same way — resulting in option B",
+            "note_id": "Segitiga yang sudah dibagi bertransformasi dengan cara yang sama — menghasilkan pilihan B"
+          },
+          {
+            "category": "question",
+            "phrase_en": "transforms into which of the following?",
+            "phrase_id": "berubah menjadi yang mana dari pilihan berikut?",
+            "note_en": "Answer is B — the triangle with internal lines matching the transformation rule",
+            "note_id": "Jawabannya adalah B — segitiga dengan garis internal yang cocok dengan aturan transformasi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Transformation rule", "label_id": "Aturan transformasi", "value": "Outline → subdivided version with internal lines" },
+          { "label_en": "Applied to triangle", "label_id": "Diterapkan pada segitiga", "value": "Answer B" }
+        ],
+        "strategy": {
+          "name_en": "Identify the analogy rule, then apply it to the second shape",
+          "name_id": "Identifikasi aturan analogi, lalu terapkan pada bentuk kedua"
+        },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Observe the transformation: a plain diamond becomes a square with its two diagonals drawn inside (X pattern).",
+        "The rule is: the shape's outline is kept and all internal lines of symmetry / diagonals are added.",
+        "Apply this to the subdivided triangle: the answer shows the triangle with its internal subdivision lines — that is option B."
+      ],
+      "hint_steps_id": [
+        "Perhatikan transformasinya: berlian polos berubah menjadi persegi dengan dua diagonal yang digambar di dalamnya (pola X).",
+        "Aturannya adalah: garis luar bentuk dipertahankan dan semua garis simetri internal / diagonal ditambahkan.",
+        "Terapkan ini pada segitiga yang dibagi: jawabannya menunjukkan segitiga dengan garis subdivisi internal — yaitu pilihan B."
+      ]
     },
     {
       "number": 20,
@@ -178,7 +1201,91 @@
       "body_id": "Cindy menuliskan barisan bilangan berikut di selembar kertas\n1, 2, 3, 4, 5, … , 55, 56\nBerapa kali seluruhnya ia menuliskan angka '5'?",
       "answer_type": "fill_in",
       "answer": "13",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1, 2, 3, 4, 5, … , 55, 56",
+            "phrase_id": "1, 2, 3, 4, 5, … , 55, 56",
+            "note_en": "Count digit '5' in units place and tens place separately",
+            "note_id": "Hitung angka '5' di tempat satuan dan puluhan secara terpisah"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "How many times altogether did she write the digit '5'?",
+            "phrase_id": "Berapa kali seluruhnya ia menuliskan angka '5'?",
+            "note_en": "55 contains two '5' digits — count it twice",
+            "note_id": "55 mengandung dua angka '5' — hitung dua kali"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many times altogether did she write the digit '5'",
+            "phrase_id": "Berapa kali seluruhnya ia menuliskan angka '5'",
+            "note_en": "Units-place 5s: 5,15,25,35,45,55 = 6 times. Tens-place 5s: 50,51,52,53,54,55,56 = 7 times. Total = 13",
+            "note_id": "Angka 5 di satuan: 5,15,25,35,45,55 = 6 kali. Angka 5 di puluhan: 50,51,52,53,54,55,56 = 7 kali. Total = 13"
+          }
+        ],
+        "quantities": [
+          { "label_en": "'5' in units place", "label_id": "'5' di tempat satuan", "value": "5, 15, 25, 35, 45, 55 → 6 times" },
+          { "label_en": "'5' in tens place", "label_id": "'5' di tempat puluhan", "value": "50, 51, 52, 53, 54, 55, 56 → 7 times" },
+          { "label_en": "Total", "label_id": "Total", "value": "6 + 7 = 13" }
+        ],
+        "strategy": {
+          "name_en": "Count by digit position — units then tens",
+          "name_id": "Hitung berdasarkan posisi digit — satuan lalu puluhan"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "Forgetting that 55 contributes TWO '5' digits (one in units, one in tens) leads to undercounting",
+          "why_id": "Lupa bahwa 55 menyumbang DUA angka '5' (satu di satuan, satu di puluhan) menyebabkan penghitungan kurang"
+        },
+        "answer": { "form": "value", "unit": null, "value": "13" }
+      },
+      "hint_steps_en": [
+        "Count numbers from 1 to 56 where '5' appears in the units place: 5, 15, 25, 35, 45, 55 → 6 times.",
+        "Count numbers where '5' appears in the tens place: 50, 51, 52, 53, 54, 55, 56 → 7 times.",
+        "Total = 6 + 7 = 13. (55 is counted in both lists — correctly contributing 2 fives.)"
+      ],
+      "hint_steps_id": [
+        "Hitung bilangan dari 1 sampai 56 di mana '5' muncul di tempat satuan: 5, 15, 25, 35, 45, 55 → 6 kali.",
+        "Hitung bilangan di mana '5' muncul di tempat puluhan: 50, 51, 52, 53, 54, 55, 56 → 7 kali.",
+        "Total = 6 + 7 = 13. (55 dihitung di kedua daftar — dengan benar menyumbang 2 angka lima.)"
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count the digit '5' by position — units place then tens place.",
+          "intro_id": "Hitung angka '5' berdasarkan posisi — tempat satuan lalu tempat puluhan.",
+          "items": [
+            {
+              "text_en": "Units place 5s: 5, 15, 25, 35, 45, 55 → 6 times",
+              "text_id": "Angka 5 di satuan: 5, 15, 25, 35, 45, 55 → 6 kali",
+              "ok": null
+            },
+            {
+              "text_en": "Tens place 5s: 50, 51, 52, 53, 54, 55, 56 → 7 times",
+              "text_id": "Angka 5 di puluhan: 50, 51, 52, 53, 54, 55, 56 → 7 kali",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 6 + 7 = 13 ✓ (55 counts twice — one per position)",
+              "text_id": "Total = 6 + 7 = 13 ✓ (55 dihitung dua kali — satu per posisi)",
+              "ok": true
+            },
+            {
+              "text_en": "12 is wrong — it forgets that 55 has two '5' digits ✗",
+              "text_id": "12 salah — melupakan bahwa 55 memiliki dua angka '5' ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Cindy wrote the digit '5' a total of 13 times.",
+          "final_id": "Cindy menuliskan angka '5' sebanyak 13 kali.",
+          "aria_en": "Count '5' in units place: 6 times; count '5' in tens place: 7 times; total 13.",
+          "aria_id": "Hitung '5' di tempat satuan: 6 kali; hitung '5' di tempat puluhan: 7 kali; total 13."
+        }
+      }
     }
   ]
 }
