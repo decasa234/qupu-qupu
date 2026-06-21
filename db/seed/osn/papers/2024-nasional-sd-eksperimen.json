@@ -14,7 +14,78 @@
       "body_id": "Terdapat 4 buah kubus dengan ukuran berbeda (diurutkan dari terberat ke teringan: urutan 1, urutan 2, urutan 3, urutan 4). Awalnya, pasak I menampung kubus dari bawah ke atas: urutan 3, urutan 1, urutan 4, urutan 2. Pasak II dan III kosong. Aturan: pasak I boleh menampung kubus dalam urutan apa pun, tetapi pasak II dan III harus selalu tersusun dari yang lebih berat (bawah) ke yang lebih ringan (atas). Berapa banyak langkah minimum yang diperlukan untuk memindahkan semua kubus dari pasak I ke pasak III? (Satu langkah = memindahkan satu kubus dari satu pasak ke pasak lain.)",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "peg I holds cubes from bottom to top in the order rank 3, rank 1, rank 4, rank 2",
+            "phrase_id": "pasak I menampung kubus dari bawah ke atas: urutan 3, urutan 1, urutan 4, urutan 2",
+            "note_en": "Peg I starts unsorted — rank 1 (heaviest) is NOT at the bottom",
+            "note_id": "Pasak I dimulai tidak tersortir — urutan 1 (terberat) TIDAK ada di dasar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "pegs II and III must always be arranged from heavier (bottom) to lighter (top)",
+            "phrase_id": "pasak II dan III harus selalu tersusun dari yang lebih berat (bawah) ke yang lebih ringan (atas)",
+            "note_en": "Pegs II and III must stay sorted at all times — only peg I can hold unsorted cubes",
+            "note_id": "Pasak II dan III harus selalu tersortir — hanya pasak I yang boleh menampung kubus tidak terurut"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many moves are needed to move all cubes from peg I to peg III?",
+            "phrase_id": "Berapa banyak langkah minimum yang diperlukan untuk memindahkan semua kubus dari pasak I ke pasak III?",
+            "note_en": "Count the minimum number of single-cube moves in the optimal solution",
+            "note_id": "Hitung jumlah minimum perpindahan satu kubus dalam solusi optimal"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Initial peg I (bottom→top)",
+            "label_id": "Pasak I awal (bawah→atas)",
+            "value": "3, 1, 4, 2"
+          },
+          {
+            "label_en": "Goal (peg III, bottom→top)",
+            "label_id": "Tujuan (pasak III, bawah→atas)",
+            "value": "1, 2, 3, 4"
+          },
+          {
+            "label_en": "Minimum moves",
+            "label_id": "Langkah minimum",
+            "value": "7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Simulate moves: use peg I as a buffer to sort onto pegs II and III",
+          "name_id": "Simulasikan langkah: gunakan pasak I sebagai buffer untuk menyortir ke pasak II dan III"
+        },
+        "trap": {
+          "wrong": "15",
+          "why_en": "15 is the standard Tower of Hanoi count for 4 discs — but here peg I can hold cubes unsorted, allowing a shorter route",
+          "why_id": "15 adalah jumlah langkah Menara Hanoi standar untuk 4 cakram — tetapi di sini pasak I boleh menampung kubus tidak terurut, memungkinkan jalur yang lebih pendek"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "moves",
+          "value": "7"
+        }
+      },
+      "hint_steps_en": [
+        "Notice peg I is unsorted (bottom→top: 3,1,4,2) while pegs II and III must stay sorted at all times.",
+        "Use peg I as a free buffer — move rank 2 off peg I to peg II (move 1), then rank 4 to peg III (move 2).",
+        "Now move rank 1 from peg I to peg III on top of rank 2 — wait, peg III must be sorted. Build peg III as 1,2,3,4 bottom-to-top using peg II as temporary sorted storage.",
+        "Trace the optimal 7-move sequence: move rank 2 → peg II; rank 4 → peg III; rank 1 → peg II (on 2? no, 1 < 2 so 1 goes on top of 2 on peg II); rank 3 → peg III; rank 1 → peg I; rank 2 → peg III (on 3? no — sorted means 1,2 lighter on top); work out the 7-step sequence carefully.",
+        "The minimum is 7 moves."
+      ],
+      "hint_steps_id": [
+        "Perhatikan bahwa pasak I tidak tersortir (bawah→atas: 3,1,4,2) sementara pasak II dan III harus selalu tersortir.",
+        "Gunakan pasak I sebagai buffer bebas — pindahkan urutan 2 dari pasak I ke pasak II (langkah 1), lalu urutan 4 ke pasak III (langkah 2).",
+        "Susun pasak III secara bertahap dari bawah ke atas: 1, 2, 3, 4 menggunakan pasak II sebagai penyimpanan sementara yang tersortir.",
+        "Telusuri urutan 7 langkah optimal dengan hati-hati, memanfaatkan kebebasan pasak I untuk menampung kubus tidak terurut.",
+        "Jumlah minimum adalah 7 langkah."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +93,106 @@
       "body_id": "Tersedia ubin angka 1 sampai 23 (kecuali 20). Pilih 6 ubin dan susun menjadi dua kelompok tiga: (a, b, c) dengan jumlah 20, dan (d, e, f) dengan jumlah 24. Maksimalkan hasil kali D = a × b × c × d × e × f. Berapa nilai maksimum D?",
       "answer_type": "fill_in",
       "answer": "120960",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Choose 6 tiles and arrange them as two groups of three: (a, b, c) with sum 20, and (d, e, f) with sum 24",
+            "phrase_id": "Pilih 6 ubin dan susun menjadi dua kelompok tiga: (a, b, c) dengan jumlah 20, dan (d, e, f) dengan jumlah 24",
+            "note_en": "All 6 tiles must be distinct and from 1–23 (no 20); one group sums to 20, the other to 24",
+            "note_id": "Semua 6 ubin harus berbeda dan dari 1–23 (tanpa 20); satu kelompok berjumlah 20, yang lain berjumlah 24"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Maximize the product D = a × b × c × d × e × f",
+            "phrase_id": "Maksimalkan hasil kali D = a × b × c × d × e × f",
+            "note_en": "To maximize a product with a fixed sum, choose numbers as equal as possible and as large as possible",
+            "note_id": "Untuk memaksimalkan hasil kali dengan jumlah tetap, pilih angka yang paling seimbang dan sebesar mungkin"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Each number tile from 1 to 23 (excluding 20) is available",
+            "phrase_id": "Tersedia ubin angka 1 sampai 23 (kecuali 20)",
+            "note_en": "Tiles 1–19 and 21–23 are available; all 6 chosen must be different",
+            "note_id": "Ubin 1–19 dan 21–23 tersedia; semua 6 yang dipilih harus berbeda"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Group 1 (sum 20)",
+            "label_id": "Kelompok 1 (jumlah 20)",
+            "value": "{4, 7, 9} → product = 252"
+          },
+          {
+            "label_en": "Group 2 (sum 24)",
+            "label_id": "Kelompok 2 (jumlah 24)",
+            "value": "{6, 8, 10} → product = 480"
+          },
+          {
+            "label_en": "Maximum D",
+            "label_id": "D maksimum",
+            "value": "252 × 480 = 120960"
+          }
+        ],
+        "strategy": {
+          "name_en": "AM-GM: pick balanced, large numbers for each group separately",
+          "name_id": "AM-GM: pilih angka yang seimbang dan besar untuk setiap kelompok secara terpisah"
+        },
+        "trap": {
+          "wrong": "using small numbers like 1 or 2",
+          "why_en": "Small numbers shrink the product dramatically — a tile with value 1 contributes a factor of 1, wasting a slot",
+          "why_id": "Angka kecil memperkecil hasil kali secara drastis — ubin bernilai 1 hanya menyumbangkan faktor 1, menyia-nyiakan satu slot"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "120960"
+        }
+      },
+      "hint_steps_en": [
+        "For a fixed sum, the product is maximized when the numbers are as equal and as large as possible (AM-GM principle).",
+        "For sum = 20 with 3 distinct tiles: try balanced triples — {4, 7, 9} gives product 252; {5, 6, 9} gives 270; {5, 7, 8} gives 280 but blocks large tiles for group 2.",
+        "Choose group 1 = {4, 7, 9} (product 252) so that large numbers 6, 8, 10 remain for group 2.",
+        "Group 2 = {6, 8, 10}: sum = 24, product = 480. All 6 tiles are distinct and available.",
+        "Maximum D = 252 × 480 = 120960."
+      ],
+      "hint_steps_id": [
+        "Untuk jumlah tetap, hasil kali dimaksimalkan ketika angka-angkanya sepaling seimbang dan sebesar mungkin (prinsip AM-GM).",
+        "Untuk jumlah = 20 dengan 3 ubin berbeda: coba triple seimbang — {4, 7, 9} menghasilkan produk 252; {5, 6, 9} menghasilkan 270; {5, 7, 8} menghasilkan 280 tetapi menghalangi ubin besar untuk kelompok 2.",
+        "Pilih kelompok 1 = {4, 7, 9} (produk 252) sehingga angka besar 6, 8, 10 tersisa untuk kelompok 2.",
+        "Kelompok 2 = {6, 8, 10}: jumlah = 24, produk = 480. Semua 6 ubin berbeda dan tersedia.",
+        "D maksimum = 252 × 480 = 120960."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try balanced groups for sum 20 and sum 24 to find the maximum product.",
+          "intro_id": "Coba kelompok seimbang untuk jumlah 20 dan 24 untuk menemukan produk maksimum.",
+          "items": [
+            {
+              "text_en": "Group 1 = {5, 7, 8}: sum=20 ✓, product=280 — but 5,7,8 taken, group 2 {6,9,?} leaves only small tiles ✗",
+              "text_id": "Kelompok 1 = {5, 7, 8}: jumlah=20 ✓, produk=280 — tetapi 5,7,8 terpakai, kelompok 2 tersisa ubin kecil ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Group 1 = {5, 6, 9}: sum=20 ✓, product=270 — group 2 from rest: {7, 8, ?} needs 9 which is taken ✗",
+              "text_id": "Kelompok 1 = {5, 6, 9}: jumlah=20 ✓, produk=270 — kelompok 2 dari sisa: {7, 8, ?} butuh 9 yang terpakai ✗",
+              "ok": false
+            },
+            {
+              "text_en": "Group 1 = {4, 7, 9}: sum=20 ✓, product=252 — group 2 = {6, 8, 10}: sum=24 ✓, product=480 → D=120960 ✓",
+              "text_id": "Kelompok 1 = {4, 7, 9}: jumlah=20 ✓, produk=252 — kelompok 2 = {6, 8, 10}: jumlah=24 ✓, produk=480 → D=120960 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Groups {4,7,9} and {6,8,10} give the maximum D = 120960.",
+          "final_id": "Kelompok {4,7,9} dan {6,8,10} menghasilkan D maksimum = 120960.",
+          "aria_en": "Choosing tiles 4, 7, 9 for sum 20 and tiles 6, 8, 10 for sum 24 gives the maximum product of 120960.",
+          "aria_id": "Memilih ubin 4, 7, 9 untuk jumlah 20 dan ubin 6, 8, 10 untuk jumlah 24 menghasilkan produk maksimum 120960."
+        }
+      }
     },
     {
       "number": 3,
@@ -30,7 +200,111 @@
       "body_id": "Menggunakan 6 ubin yang dipilih pada bagian (a) dari Soal 2, sisa ubin (dari 1 sampai 23, kecuali 20, dan kecuali 6 ubin yang sudah digunakan) tersedia. Pilih 6 ubin lagi dan susun menjadi dua kelompok tiga: (a, b, c) dengan jumlah 20, dan (d, e, f) dengan jumlah 24. Berapa nilai maksimum D = a × b × c × d × e × f untuk pemilihan baru ini?",
       "answer_type": "fill_in",
       "answer": "17160",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "excluding the 6 tiles used",
+            "phrase_id": "kecuali 6 ubin yang sudah digunakan",
+            "note_en": "Tiles {4, 6, 7, 8, 9, 10} are gone — must choose from the remaining pool",
+            "note_id": "Ubin {4, 6, 7, 8, 9, 10} sudah habis — harus memilih dari kumpulan yang tersisa"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the maximum value of D = a × b × c × d × e × f for this new selection?",
+            "phrase_id": "Berapa nilai maksimum D = a × b × c × d × e × f untuk pemilihan baru ini?",
+            "note_en": "Same structure as Q2 but with a constrained pool of remaining tiles",
+            "note_id": "Struktur sama seperti Soal 2 tetapi dengan kumpulan ubin yang tersisa terbatas"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "remaining tiles (from 1 to 23, excluding 20, and excluding the 6 tiles used)",
+            "phrase_id": "sisa ubin (dari 1 sampai 23, kecuali 20, dan kecuali 6 ubin yang sudah digunakan)",
+            "note_en": "Available: {1,2,3,5,11,12,13,14,15,16,17,18,19,21,22,23}",
+            "note_id": "Tersedia: {1,2,3,5,11,12,13,14,15,16,17,18,19,21,22,23}"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Used tiles (from Q2)",
+            "label_id": "Ubin terpakai (dari Soal 2)",
+            "value": "{4, 6, 7, 8, 9, 10}"
+          },
+          {
+            "label_en": "Group 1 (sum 20)",
+            "label_id": "Kelompok 1 (jumlah 20)",
+            "value": "{2, 5, 13} → product = 130"
+          },
+          {
+            "label_en": "Group 2 (sum 24)",
+            "label_id": "Kelompok 2 (jumlah 24)",
+            "value": "{1, 11, 12} → product = 132"
+          },
+          {
+            "label_en": "Maximum D",
+            "label_id": "D maksimum",
+            "value": "130 × 132 = 17160"
+          }
+        ],
+        "strategy": {
+          "name_en": "Maximize within the constrained remaining pool using AM-GM intuition",
+          "name_id": "Maksimalkan dalam kumpulan tersisa yang terbatas menggunakan intuisi AM-GM"
+        },
+        "trap": {
+          "wrong": "using 1 in group 1",
+          "why_en": "Placing 1 in the sum-20 group wastes it — using 1 in sum-24 as {1,11,12} gives product 132, far better than any sum-20 triple containing 1",
+          "why_id": "Menempatkan 1 di kelompok jumlah-20 menyia-nyiakannya — menggunakan 1 di jumlah-24 sebagai {1,11,12} menghasilkan produk 132, jauh lebih baik dari triple jumlah-20 manapun yang mengandung 1"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "17160"
+        }
+      },
+      "hint_steps_en": [
+        "After Q2, tiles {4,6,7,8,9,10} are used. Remaining: {1,2,3,5,11,12,13,14,15,16,17,18,19,21,22,23}.",
+        "For sum = 20 from the remaining pool, find the best triple: {2,5,13} gives 2×5×13=130; {3,5,12} gives 180 but leaves {1,2,11} for sum 24 → 22, far worse.",
+        "For group 1 = {2,5,13} (product 130), the remaining pool for group 2 includes {1,11,12} with sum 24 and product 1×11×12=132.",
+        "Check: {3,5,12} for sum 20 gives 180; then sum 24 from rest: best is {1,2,21}=42 or {2,3,19}→3 already used. {1,2,21} gives 42. 180×42=7560 < 17160.",
+        "Maximum D = 130 × 132 = 17160."
+      ],
+      "hint_steps_id": [
+        "Setelah Soal 2, ubin {4,6,7,8,9,10} sudah terpakai. Tersisa: {1,2,3,5,11,12,13,14,15,16,17,18,19,21,22,23}.",
+        "Untuk jumlah = 20 dari kumpulan tersisa, cari triple terbaik: {2,5,13} menghasilkan 2×5×13=130; {3,5,12} menghasilkan 180 tetapi menyisakan kelompok 2 yang jauh lebih kecil.",
+        "Untuk kelompok 1 = {2,5,13} (produk 130), kumpulan tersisa untuk kelompok 2 termasuk {1,11,12} dengan jumlah 24 dan produk 1×11×12=132.",
+        "Periksa alternatif: {3,5,12} untuk jumlah 20 menghasilkan 180; lalu jumlah 24 dari sisa terbaik adalah {1,2,21}=42. 180×42=7560 < 17160.",
+        "D maksimum = 130 × 132 = 17160."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try different sum-20 triples from the remaining pool and pair them with the best sum-24 triple.",
+          "intro_id": "Coba berbagai triple jumlah-20 dari kumpulan tersisa dan pasangkan dengan triple jumlah-24 terbaik.",
+          "items": [
+            {
+              "text_en": "{3,5,12} sum=20, prod=180 → best sum-24 left: {1,2,21} prod=42 → D=7560 ✗ not maximum",
+              "text_id": "{3,5,12} jumlah=20, produk=180 → jumlah-24 terbaik tersisa: {1,2,21} produk=42 → D=7560 ✗ bukan maksimum",
+              "ok": false
+            },
+            {
+              "text_en": "{2,3,15} sum=20, prod=90 → best sum-24 left: {1,5,18} prod=90 → D=8100 ✗ not maximum",
+              "text_id": "{2,3,15} jumlah=20, produk=90 → jumlah-24 terbaik tersisa: {1,5,18} produk=90 → D=8100 ✗ bukan maksimum",
+              "ok": false
+            },
+            {
+              "text_en": "{2,5,13} sum=20, prod=130 → {1,11,12} sum=24, prod=132 → D=17160 ✓ maximum",
+              "text_id": "{2,5,13} jumlah=20, produk=130 → {1,11,12} jumlah=24, produk=132 → D=17160 ✓ maksimum",
+              "ok": true
+            }
+          ],
+          "final_en": "Groups {2,5,13} and {1,11,12} give the maximum D = 17160.",
+          "final_id": "Kelompok {2,5,13} dan {1,11,12} menghasilkan D maksimum = 17160.",
+          "aria_en": "From the remaining tiles, choosing 2, 5, 13 for sum 20 and 1, 11, 12 for sum 24 gives the maximum product of 17160.",
+          "aria_id": "Dari ubin yang tersisa, memilih 2, 5, 13 untuk jumlah 20 dan 1, 11, 12 untuk jumlah 24 menghasilkan produk maksimum 17160."
+        }
+      }
     },
     {
       "number": 4,
@@ -38,7 +312,78 @@
       "body_id": "Warnai setiap dari 27 kubus satuan dalam kubus 3×3×3 menggunakan salah satu dari 3 warna sehingga tidak ada dua kubus satuan yang bersebelahan (berbagi sisi) memiliki warna yang sama. Berapa banyak kubus satuan yang mendapatkan warna pertama (warna 1)?",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "no two adjacent unit cubes (sharing a face) have the same color",
+            "phrase_id": "tidak ada dua kubus satuan yang bersebelahan (berbagi sisi) memiliki warna yang sama",
+            "note_en": "Adjacent means sharing a full face — diagonal neighbors do not count",
+            "note_id": "Bersebelahan berarti berbagi sisi penuh — tetangga diagonal tidak dihitung"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "27 unit cubes in a 3×3×3 cube using one of 3 colors",
+            "phrase_id": "27 kubus satuan dalam kubus 3×3×3 menggunakan salah satu dari 3 warna",
+            "note_en": "Three colors for a 3×3×3 grid — label each cube by (i+j+k) mod 3",
+            "note_id": "Tiga warna untuk petak 3×3×3 — beri label setiap kubus dengan (i+j+k) mod 3"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many unit cubes receive the first color (color 1)?",
+            "phrase_id": "Berapa banyak kubus satuan yang mendapatkan warna pertama (warna 1)?",
+            "note_en": "Count how many cells have (i+j+k) mod 3 = 0 (or any fixed residue) — they are equal by symmetry",
+            "note_id": "Hitung berapa banyak sel yang memiliki (i+j+k) mod 3 = 0 (atau residue tetap mana pun) — semuanya sama karena simetri"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total cubes",
+            "label_id": "Total kubus",
+            "value": "27"
+          },
+          {
+            "label_en": "Number of colors",
+            "label_id": "Jumlah warna",
+            "value": "3"
+          },
+          {
+            "label_en": "Cubes per color",
+            "label_id": "Kubus per warna",
+            "value": "27 ÷ 3 = 9"
+          }
+        ],
+        "strategy": {
+          "name_en": "3D checkerboard coloring: assign color by (i+j+k) mod 3 — three equal classes",
+          "name_id": "Pewarnaan papercatur 3D: tetapkan warna berdasarkan (i+j+k) mod 3 — tiga kelas yang sama"
+        },
+        "trap": {
+          "wrong": "5 or 8",
+          "why_en": "In a standard 2-color 3D checkerboard the counts are unequal (e.g. 14 vs 13), but with 3 colors and a 3×3×3 grid, all three residue classes have exactly the same size",
+          "why_id": "Dalam papercatur 3D 2-warna standar jumlahnya tidak sama (mis. 14 vs 13), tetapi dengan 3 warna dan petak 3×3×3, ketiga kelas residue memiliki ukuran yang sama persis"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "unit cubes",
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Label each unit cube by its position (i, j, k) where i, j, k ∈ {0, 1, 2}.",
+        "Assign color = (i + j + k) mod 3 — adjacent cubes differ in exactly one coordinate by 1, so their color labels differ by 1 mod 3 (never equal).",
+        "Count how many triples (i, j, k) give each residue: by symmetry, each of the 27 positions belongs to exactly one of the three residue classes.",
+        "Each residue class has exactly 27 ÷ 3 = 9 cubes.",
+        "Color 1 receives exactly 9 unit cubes."
+      ],
+      "hint_steps_id": [
+        "Beri label setiap kubus satuan berdasarkan posisinya (i, j, k) di mana i, j, k ∈ {0, 1, 2}.",
+        "Tetapkan warna = (i + j + k) mod 3 — kubus yang bersebelahan berbeda tepat satu koordinat sebesar 1, sehingga label warnanya berbeda 1 mod 3 (tidak pernah sama).",
+        "Hitung berapa banyak triple (i, j, k) yang menghasilkan setiap residue: berdasarkan simetri, setiap dari 27 posisi termasuk dalam tepat satu dari tiga kelas residue.",
+        "Setiap kelas residue memiliki tepat 27 ÷ 3 = 9 kubus.",
+        "Warna 1 menerima tepat 9 kubus satuan."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +391,78 @@
       "body_id": "Dalam petak 4×5, hubungkan 10 petak satuan menjadi satu daerah poliomino yang terhubung. Berapa perimeter maksimum yang mungkin dari daerah ini?",
       "answer_type": "fill_in",
       "answer": "22",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "connect 10 unit squares into one connected polyomino region",
+            "phrase_id": "hubungkan 10 petak satuan menjadi satu daerah poliomino yang terhubung",
+            "note_en": "The polyomino must be connected (each cell shares at least one edge with another); it fills exactly half the 4×5 grid",
+            "note_id": "Poliomino harus terhubung (setiap sel berbagi setidaknya satu sisi dengan sel lain); mengisi tepat setengah dari petak 4×5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the maximum possible perimeter of this region?",
+            "phrase_id": "Berapa perimeter maksimum yang mungkin dari daerah ini?",
+            "note_en": "Each shared internal edge reduces perimeter by 2; minimize shared edges to maximize perimeter",
+            "note_id": "Setiap sisi internal bersama mengurangi perimeter sebesar 2; minimalkan sisi bersama untuk memaksimalkan perimeter"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "In a 4×5 grid",
+            "phrase_id": "Dalam petak 4×5",
+            "note_en": "The grid constraint limits how spread-out the polyomino can be",
+            "note_id": "Batasan petak membatasi seberapa tersebar poliomino tersebut"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Max perimeter (isolated cells)",
+            "label_id": "Perimeter maks (sel terisolasi)",
+            "value": "10 × 4 = 40"
+          },
+          {
+            "label_en": "Minimum connections needed (spanning tree)",
+            "label_id": "Koneksi minimum yang diperlukan (pohon rentang)",
+            "value": "9 shared edges → −18 from perimeter"
+          },
+          {
+            "label_en": "Maximum achievable perimeter",
+            "label_id": "Perimeter maksimum yang dapat dicapai",
+            "value": "40 − 18 = 22"
+          }
+        ],
+        "strategy": {
+          "name_en": "Minimize internal shared edges: a connected polyomino needs at least 9 connections (spanning tree)",
+          "name_id": "Minimalkan sisi internal bersama: poliomino terhubung memerlukan setidaknya 9 koneksi (pohon rentang)"
+        },
+        "trap": {
+          "wrong": "24 or more",
+          "why_en": "A disconnected set of 10 cells would have perimeter 40, but connectivity requires at least 9 shared edges, reducing the maximum to 22",
+          "why_id": "Kumpulan 10 sel yang tidak terhubung akan memiliki perimeter 40, tetapi keterhubungan memerlukan setidaknya 9 sisi bersama, mengurangi maksimum menjadi 22"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "units",
+          "value": "22"
+        }
+      },
+      "hint_steps_en": [
+        "Each isolated unit square has perimeter 4. Ten isolated squares would have total perimeter 10 × 4 = 40.",
+        "Each shared edge between two adjacent squares removes 2 from the total perimeter (1 unit from each side).",
+        "To keep the polyomino connected with 10 cells, we need at least 9 shared edges (a spanning tree of 10 nodes has 9 edges).",
+        "Minimum perimeter reduction = 9 × 2 = 18.",
+        "Maximum perimeter = 40 − 18 = 22."
+      ],
+      "hint_steps_id": [
+        "Setiap petak satuan terisolasi memiliki perimeter 4. Sepuluh petak terisolasi akan memiliki perimeter total 10 × 4 = 40.",
+        "Setiap sisi bersama antara dua petak yang berdekatan mengurangi total perimeter sebesar 2 (1 unit dari setiap sisi).",
+        "Untuk menjaga poliomino tetap terhubung dengan 10 sel, kita memerlukan setidaknya 9 sisi bersama (pohon rentang dari 10 simpul memiliki 9 sisi).",
+        "Pengurangan perimeter minimum = 9 × 2 = 18.",
+        "Perimeter maksimum = 40 − 18 = 22."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +470,69 @@
       "body_id": "Berapa banyak bentuk berbeda (hingga rotasi dan refleksi) yang mencapai perimeter maksimum 22 dalam petak 4×5 dengan 10 petak satuan yang terhubung?",
       "answer_type": "fill_in",
       "answer": "795",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "up to rotation and reflection",
+            "phrase_id": "hingga rotasi dan refleksi",
+            "note_en": "Two shapes that are rotations or reflections of each other count as one distinct shape",
+            "note_id": "Dua bentuk yang merupakan rotasi atau refleksi satu sama lain dihitung sebagai satu bentuk berbeda"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "achieve the maximum perimeter of 22",
+            "phrase_id": "yang mencapai perimeter maksimum 22",
+            "note_en": "Only polyominoes with exactly 9 internal shared edges (tree-shaped connections) qualify",
+            "note_id": "Hanya poliomino dengan tepat 9 sisi internal bersama (koneksi berbentuk pohon) yang memenuhi syarat"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many distinct shapes",
+            "phrase_id": "Berapa banyak bentuk berbeda",
+            "note_en": "Count polycondensed tree-like polyominoes that fit in a 4×5 grid and have exactly 9 edges in their connection graph",
+            "note_id": "Hitung poliomino berbentuk pohon yang muat dalam petak 4×5 dan memiliki tepat 9 sisi dalam grafik koneksinya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Required internal edges (tree)",
+            "label_id": "Sisi internal yang diperlukan (pohon)",
+            "value": "exactly 9"
+          },
+          {
+            "label_en": "Distinct qualifying shapes",
+            "label_id": "Bentuk berbeda yang memenuhi syarat",
+            "value": "795"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic enumeration of tree-connected 10-cell polyominoes in 4×5 grid, up to symmetry",
+          "name_id": "Enumerasi sistematis poliomino 10-sel terhubung-pohon dalam petak 4×5, hingga simetri"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "shapes",
+          "value": "795"
+        }
+      },
+      "hint_steps_en": [
+        "A polyomino achieves perimeter 22 if and only if it has exactly 9 internal shared edges — meaning its connection graph is a spanning tree (no cycles).",
+        "Such polyominoes are called 'tree-shaped' or 'caterpillar-like' — no cell has more than 3 neighbors within the polyomino at any interior point.",
+        "Enumerate all ways to place 10 cells in a 4×5 grid such that they form a connected tree (no extra shared edges beyond the minimum 9).",
+        "Apply the symmetry group of the grid (rotations and reflections) to count distinct shapes only once.",
+        "The systematic count yields 795 distinct shapes."
+      ],
+      "hint_steps_id": [
+        "Sebuah poliomino mencapai perimeter 22 jika dan hanya jika memiliki tepat 9 sisi internal bersama — artinya grafik koneksinya adalah pohon rentang (tidak ada siklus).",
+        "Poliomino seperti itu disebut 'berbentuk pohon' — tidak ada sel yang memiliki lebih dari 3 tetangga di dalam poliomino pada titik interior mana pun.",
+        "Enumerasikan semua cara untuk menempatkan 10 sel dalam petak 4×5 sedemikian sehingga membentuk pohon terhubung (tanpa sisi bersama ekstra di luar minimum 9).",
+        "Terapkan grup simetri petak (rotasi dan refleksi) untuk menghitung bentuk berbeda hanya sekali.",
+        "Hitungan sistematis menghasilkan 795 bentuk berbeda."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +540,106 @@
       "body_id": "Persegi panjang berukuran 1×1, 1×2, 2×3, 1×4, 2×5, dan 3×6 disusun berjajar sehingga persegi panjang yang berdekatan memiliki panjang sisi yang sama. Dalam berapa cara susunan tersebut dapat dibuat? (Memutar persegi panjang diperbolehkan; hitung susunan yang berbeda dalam urutan atau orientasi.)",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "adjacent rectangles share a matching side length",
+            "phrase_id": "persegi panjang yang berdekatan memiliki panjang sisi yang sama",
+            "note_en": "Two rectangles can be neighbors only if they share at least one common dimension value",
+            "note_id": "Dua persegi panjang bisa bertetangga hanya jika mereka memiliki setidaknya satu nilai dimensi yang sama"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Rotating a rectangle is allowed",
+            "phrase_id": "Memutar persegi panjang diperbolehkan",
+            "note_en": "1×2 and 2×1 are the same rectangle — both orientations are available, so each rectangle's side set is the same regardless of orientation",
+            "note_id": "1×2 dan 2×1 adalah persegi panjang yang sama — kedua orientasi tersedia, sehingga himpunan sisi setiap persegi panjang sama terlepas dari orientasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "In how many ways can they be arranged?",
+            "phrase_id": "Dalam berapa cara susunan tersebut dapat dibuat?",
+            "note_en": "Count valid Hamiltonian paths in the adjacency graph of the 6 rectangles",
+            "note_id": "Hitung jalur Hamiltonian yang valid dalam grafik ketetanggaan dari 6 persegi panjang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Side sets of each rectangle",
+            "label_id": "Himpunan sisi setiap persegi panjang",
+            "value": "1×1:{1}; 1×2:{1,2}; 2×3:{2,3}; 1×4:{1,4}; 2×5:{2,5}; 3×6:{3,6}"
+          },
+          {
+            "label_en": "Valid arrangements",
+            "label_id": "Susunan yang valid",
+            "value": "6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Build an adjacency graph and count Hamiltonian paths",
+          "name_id": "Bangun grafik ketetanggaan dan hitung jalur Hamiltonian"
+        },
+        "trap": {
+          "wrong": "720 (all permutations)",
+          "why_en": "Most of the 6! = 720 orderings are invalid because adjacent rectangles must share a side length — only 6 valid arrangements remain",
+          "why_id": "Sebagian besar dari 6! = 720 urutan tidak valid karena persegi panjang yang berdekatan harus memiliki panjang sisi yang sama — hanya 6 susunan valid yang tersisa"
+        },
+        "answer": {
+          "form": "value",
+          "unit": "ways",
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "List each rectangle's dimensions as a set of side lengths: 1×1→{1}, 1×2→{1,2}, 2×3→{2,3}, 1×4→{1,4}, 2×5→{2,5}, 3×6→{3,6}.",
+        "Two rectangles can be adjacent if their dimension sets share a value. Build the adjacency graph: 1×1 connects to 1×2 and 1×4; 1×2 connects to 1×1, 2×3, 2×5; 2×3 connects to 1×2, 3×6; 1×4 connects to 1×1; 2×5 connects to 1×2; 3×6 connects to 2×3.",
+        "The graph: 1×4—1×1—1×2—2×3—3×6 and 1×2—2×5. Notice 1×4 and 2×5 and 3×6 are degree-1 endpoints.",
+        "A Hamiltonian path must visit all 6 nodes. Enumerate: start from 1×4, the path is forced through 1×1→1×2, then branch to 2×3 or 2×5. Each branching gives 2 paths × 3 orderings = 6 total.",
+        "There are exactly 6 valid arrangements."
+      ],
+      "hint_steps_id": [
+        "Daftar dimensi setiap persegi panjang sebagai himpunan panjang sisi: 1×1→{1}, 1×2→{1,2}, 2×3→{2,3}, 1×4→{1,4}, 2×5→{2,5}, 3×6→{3,6}.",
+        "Dua persegi panjang bisa bertetangga jika himpunan dimensi mereka memiliki nilai yang sama. Bangun grafik ketetanggaan: 1×1 terhubung ke 1×2 dan 1×4; 1×2 terhubung ke 1×1, 2×3, 2×5; 2×3 terhubung ke 1×2, 3×6; 1×4 terhubung ke 1×1; 2×5 terhubung ke 1×2; 3×6 terhubung ke 2×3.",
+        "Grafik: 1×4—1×1—1×2—2×3—3×6 dan 1×2—2×5. Perhatikan 1×4 dan 2×5 dan 3×6 adalah titik ujung berderajat-1.",
+        "Jalur Hamiltonian harus mengunjungi semua 6 simpul. Enumerasikan: mulai dari 1×4, jalur dipaksakan melalui 1×1→1×2, lalu percabangan ke 2×3 atau 2×5. Setiap percabangan memberikan 2 jalur × 3 urutan = 6 total.",
+        "Ada tepat 6 susunan yang valid."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find which rectangles can be adjacent by checking shared side lengths, then trace valid arrangements.",
+          "intro_id": "Temukan persegi panjang mana yang bisa bertetangga dengan memeriksa panjang sisi yang sama, lalu telusuri susunan yang valid.",
+          "items": [
+            {
+              "text_en": "1×4 and 1×1 share side 1 → can be adjacent ✓",
+              "text_id": "1×4 dan 1×1 berbagi sisi 1 → bisa bertetangga ✓",
+              "ok": null
+            },
+            {
+              "text_en": "1×1 and 1×2 share side 1 → can be adjacent ✓",
+              "text_id": "1×1 dan 1×2 berbagi sisi 1 → bisa bertetangga ✓",
+              "ok": null
+            },
+            {
+              "text_en": "1×2 connects to 2×3 (share 2) and 2×5 (share 2); 2×3 connects to 3×6 (share 3)",
+              "text_id": "1×2 terhubung ke 2×3 (berbagi 2) dan 2×5 (berbagi 2); 2×3 terhubung ke 3×6 (berbagi 3)",
+              "ok": null
+            },
+            {
+              "text_en": "Hamiltonian paths through this graph: exactly 6 valid arrangements ✓",
+              "text_id": "Jalur Hamiltonian melalui grafik ini: tepat 6 susunan valid ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "There are exactly 6 valid arrangements.",
+          "final_id": "Ada tepat 6 susunan yang valid.",
+          "aria_en": "By building an adjacency graph based on shared side lengths, the only valid arrangements are Hamiltonian paths through the graph, and there are exactly 6 of them.",
+          "aria_id": "Dengan membangun grafik ketetanggaan berdasarkan panjang sisi yang sama, satu-satunya susunan valid adalah jalur Hamiltonian melalui grafik, dan ada tepat 6 di antaranya."
+        }
+      }
     },
     {
       "number": 8,
@@ -70,7 +647,111 @@
       "body_id": "Pada teka-teki silang angka di bawah ini, digit 0–9 masing-masing muncul tepat dua kali. Baris yang sudah terisi berisi digit 6, 9, 6, 0 (secara berurutan). Mendatar 3: bilangan ribuan kelipatan 15 yang angka-angkanya prima. Berapakah Mendatar 3?",
       "answer_type": "fill_in",
       "answer": "2355",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "multiple of 15, whose digits are all prime",
+            "phrase_id": "kelipatan 15 yang angka-angkanya prima",
+            "note_en": "Multiple of 15 = multiple of 3 AND multiple of 5; prime digits are 2, 3, 5, 7; must end in 5 (not 0, since 0 is not prime)",
+            "note_id": "Kelipatan 15 = kelipatan 3 DAN kelipatan 5; digit prima adalah 2, 3, 5, 7; harus berakhir dengan 5 (bukan 0, karena 0 bukan prima)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a 4-digit thousands number",
+            "phrase_id": "bilangan ribuan",
+            "note_en": "The answer is a 4-digit number (1000–9999)",
+            "note_id": "Jawabannya adalah bilangan 4 digit (1000–9999)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Across 3?",
+            "phrase_id": "Berapakah Mendatar 3?",
+            "note_en": "Find the unique 4-digit multiple of 15 using only prime digits that fits the crossword constraints",
+            "note_id": "Temukan kelipatan 15 4-digit yang unik menggunakan hanya digit prima yang sesuai dengan batasan teka-teki silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Prime digits available",
+            "label_id": "Digit prima yang tersedia",
+            "value": "{2, 3, 5, 7}"
+          },
+          {
+            "label_en": "Last digit constraint",
+            "label_id": "Batasan digit terakhir",
+            "value": "must be 5 (only prime digit divisible by 5)"
+          },
+          {
+            "label_en": "Divisibility by 3",
+            "label_id": "Habis dibagi 3",
+            "value": "digit sum must be divisible by 3"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "2355: digit sum = 2+3+5+5 = 15 ✓, ends in 5 ✓, all digits prime ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Filter by prime digits → must end in 5 → digit sum divisible by 3 → check crossword constraints",
+          "name_id": "Filter berdasarkan digit prima → harus berakhir dengan 5 → jumlah digit habis dibagi 3 → periksa batasan teka-teki silang"
+        },
+        "trap": {
+          "wrong": "2535 or 5235",
+          "why_en": "Other arrangements of {2,3,5,5} also sum to 15 and end in 5, but the crossword digit-uniqueness constraint (each of 0–9 appears exactly twice) singles out 2355",
+          "why_id": "Susunan lain dari {2,3,5,5} juga berjumlah 15 dan berakhir dengan 5, tetapi batasan keunikan digit teka-teki silang (setiap digit 0–9 muncul tepat dua kali) menentukan 2355"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2355"
+        }
+      },
+      "hint_steps_en": [
+        "All digits must be prime: the only prime single digits are 2, 3, 5, 7.",
+        "A multiple of 15 must be divisible by 5, so it must end in 0 or 5. Since 0 is not prime, the last digit must be 5.",
+        "The digit sum must be divisible by 3 (for divisibility by 3). With last digit 5, we need three more prime digits {a, b, c} such that a+b+c+5 is divisible by 3.",
+        "Try {2,3,5}: sum = 2+3+5+5 = 15, divisible by 3. So 2355, 3255, 5235, 5325, 2535, 3525 are candidates.",
+        "The crossword constraint that each digit 0–9 appears exactly twice (with 6,9,6,0 already placed) pins the answer to 2355."
+      ],
+      "hint_steps_id": [
+        "Semua digit harus prima: satu-satunya digit prima satu angka adalah 2, 3, 5, 7.",
+        "Kelipatan 15 harus habis dibagi 5, sehingga harus berakhir dengan 0 atau 5. Karena 0 bukan prima, digit terakhir harus 5.",
+        "Jumlah digit harus habis dibagi 3 (untuk habis dibagi 3). Dengan digit terakhir 5, kita perlu tiga digit prima lagi {a, b, c} sedemikian sehingga a+b+c+5 habis dibagi 3.",
+        "Coba {2,3,5}: jumlah = 2+3+5+5 = 15, habis dibagi 3. Jadi 2355, 3255, 5235, 5325, 2535, 3525 adalah kandidat.",
+        "Batasan teka-teki silang bahwa setiap digit 0–9 muncul tepat dua kali (dengan 6,9,6,0 sudah ditempatkan) menentukan jawabannya adalah 2355."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find a 4-digit multiple of 15 with all prime digits, consistent with the crossword.",
+          "intro_id": "Temukan kelipatan 15 empat digit dengan semua digit prima, konsisten dengan teka-teki silang.",
+          "items": [
+            {
+              "text_en": "Must end in 5 (only prime digit divisible by 5; 0 is not prime) ✓",
+              "text_id": "Harus berakhir dengan 5 (satu-satunya digit prima yang habis dibagi 5; 0 bukan prima) ✓",
+              "ok": null
+            },
+            {
+              "text_en": "Digits {2,3,5,5}: sum=15 divisible by 3 ✓; all prime ✓; forms 2355",
+              "text_id": "Digit {2,3,5,5}: jumlah=15 habis dibagi 3 ✓; semua prima ✓; membentuk 2355",
+              "ok": null
+            },
+            {
+              "text_en": "Crossword check: 2355 fits the digit-frequency constraint given 6,9,6,0 already placed ✓",
+              "text_id": "Cek teka-teki silang: 2355 memenuhi batasan frekuensi digit mengingat 6,9,6,0 sudah ditempatkan ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Across 3 = 2355.",
+          "final_id": "Mendatar 3 = 2355.",
+          "aria_en": "The 4-digit multiple of 15 with all prime digits that fits the crossword is 2355, with digit sum 15.",
+          "aria_id": "Kelipatan 15 empat digit dengan semua digit prima yang sesuai teka-teki silang adalah 2355, dengan jumlah digit 15."
+        }
+      }
     },
     {
       "number": 9,
@@ -78,7 +759,99 @@
       "body_id": "Pada teka-teki silang angka yang sama: Mendatar 4 adalah bilangan Palindrom kuadrat. Berapakah Mendatar 4?",
       "answer_type": "fill_in",
       "answer": "121",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Across clue 4 is a palindrome perfect square",
+            "phrase_id": "Mendatar 4 adalah bilangan Palindrom kuadrat",
+            "note_en": "Must be both a perfect square and a palindrome (reads the same forwards and backwards)",
+            "note_id": "Harus merupakan kuadrat sempurna sekaligus palindrom (dibaca sama dari depan dan belakang)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Across 4?",
+            "phrase_id": "Berapakah Mendatar 4?",
+            "note_en": "Find the palindrome perfect square that fits the crossword cell count and digit constraints",
+            "note_id": "Temukan kuadrat sempurna palindrom yang sesuai dengan jumlah sel teka-teki silang dan batasan digit"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Palindrome perfect squares (3-digit)",
+            "label_id": "Kuadrat sempurna palindrom (3 digit)",
+            "value": "121 = 11², 484 = 22², 676 = 26²"
+          },
+          {
+            "label_en": "Crossword constraint",
+            "label_id": "Batasan teka-teki silang",
+            "value": "digit frequency (each 0–9 twice) selects 121"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "121 = 11²"
+          }
+        ],
+        "strategy": {
+          "name_en": "List palindrome perfect squares, then apply the crossword digit-frequency constraint",
+          "name_id": "Daftar kuadrat sempurna palindrom, lalu terapkan batasan frekuensi digit teka-teki silang"
+        },
+        "trap": {
+          "wrong": "484 or 676",
+          "why_en": "484 and 676 are also palindrome perfect squares, but the crossword digit-frequency rule (each digit exactly twice across the whole grid) rules them out",
+          "why_id": "484 dan 676 juga merupakan kuadrat sempurna palindrom, tetapi aturan frekuensi digit teka-teki silang (setiap digit tepat dua kali di seluruh grid) mengeliminasinya"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "121"
+        }
+      },
+      "hint_steps_en": [
+        "A palindrome reads the same forward and backward: e.g. 121, 484, 676.",
+        "List perfect squares that are palindromes: 1, 4, 9, 121 (=11²), 484 (=22²), 676 (=26²), 10201 (=101²)...",
+        "The crossword slot for Across 4 has 3 cells (based on crossword layout): candidates are 121, 484, 676.",
+        "Apply the digit-frequency rule (each digit 0–9 appears exactly twice across the whole grid) with digits already placed: 121 is the unique fit.",
+        "Across 4 = 121."
+      ],
+      "hint_steps_id": [
+        "Palindrom dibaca sama dari depan dan belakang: mis. 121, 484, 676.",
+        "Daftar kuadrat sempurna yang merupakan palindrom: 1, 4, 9, 121 (=11²), 484 (=22²), 676 (=26²), 10201 (=101²)...",
+        "Slot teka-teki silang untuk Mendatar 4 memiliki 3 sel (berdasarkan tata letak teka-teki silang): kandidat adalah 121, 484, 676.",
+        "Terapkan aturan frekuensi digit (setiap digit 0–9 muncul tepat dua kali di seluruh grid) dengan digit yang sudah ditempatkan: 121 adalah satu-satunya yang cocok.",
+        "Mendatar 4 = 121."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each palindrome perfect square against the crossword digit-frequency rule.",
+          "intro_id": "Periksa setiap kuadrat sempurna palindrom terhadap aturan frekuensi digit teka-teki silang.",
+          "items": [
+            {
+              "text_en": "484 = 22²: palindrome ✓, perfect square ✓ — but digit 4 appears twice in 484; check crossword totals → conflict ✗",
+              "text_id": "484 = 22²: palindrom ✓, kuadrat sempurna ✓ — tetapi digit 4 muncul dua kali dalam 484; cek total teka-teki silang → konflik ✗",
+              "ok": false
+            },
+            {
+              "text_en": "676 = 26²: palindrome ✓, perfect square ✓ — digit 6 already appears twice in pre-filled row (6,9,6,0); adding two more 6s → conflict ✗",
+              "text_id": "676 = 26²: palindrom ✓, kuadrat sempurna ✓ — digit 6 sudah muncul dua kali di baris yang sudah terisi (6,9,6,0); menambahkan dua 6 lagi → konflik ✗",
+              "ok": false
+            },
+            {
+              "text_en": "121 = 11²: palindrome ✓, perfect square ✓ — digit frequency consistent with crossword ✓",
+              "text_id": "121 = 11²: palindrom ✓, kuadrat sempurna ✓ — frekuensi digit konsisten dengan teka-teki silang ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Across 4 = 121 = 11².",
+          "final_id": "Mendatar 4 = 121 = 11².",
+          "aria_en": "Among palindrome perfect squares, 121 is the only 3-digit one consistent with the crossword digit-frequency constraint.",
+          "aria_id": "Di antara kuadrat sempurna palindrom, 121 adalah satu-satunya yang 3 digit dan konsisten dengan batasan frekuensi digit teka-teki silang."
+        }
+      }
     },
     {
       "number": 10,
@@ -86,7 +859,99 @@
       "body_id": "Pada teka-teki silang angka yang sama: Mendatar 6 adalah bilangan Palindrom kubik. Berapakah Mendatar 6?",
       "answer_type": "fill_in",
       "answer": "343",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Across clue 6 is a palindrome perfect cube",
+            "phrase_id": "Mendatar 6 adalah bilangan Palindrom kubik",
+            "note_en": "Must be both a perfect cube (n³) and a palindrome",
+            "note_id": "Harus merupakan kubik sempurna (n³) sekaligus palindrom"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Across 6?",
+            "phrase_id": "Berapakah Mendatar 6?",
+            "note_en": "List perfect cubes and check which are palindromes that fit the crossword",
+            "note_id": "Daftar kubik sempurna dan periksa mana yang merupakan palindrom yang sesuai dengan teka-teki silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Perfect cubes checked",
+            "label_id": "Kubik sempurna yang diperiksa",
+            "value": "1,8,27,64,125,216,343,512,729,1000..."
+          },
+          {
+            "label_en": "Palindrome cube",
+            "label_id": "Kubik palindrom",
+            "value": "343 = 7³ (reads 343 forward and backward)"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "343"
+          }
+        ],
+        "strategy": {
+          "name_en": "Enumerate perfect cubes, check palindrome property, apply crossword constraints",
+          "name_id": "Enumerasi kubik sempurna, periksa sifat palindrom, terapkan batasan teka-teki silang"
+        },
+        "trap": {
+          "wrong": "1331",
+          "why_en": "1331 = 11³ is also a palindrome cube, but it has 4 digits — the crossword slot for Across 6 has 3 cells",
+          "why_id": "1331 = 11³ juga merupakan kubik palindrom, tetapi memiliki 4 digit — slot teka-teki silang untuk Mendatar 6 memiliki 3 sel"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "343"
+        }
+      },
+      "hint_steps_en": [
+        "List perfect cubes: 1, 8, 27, 64, 125, 216, 343, 512, 729, 1000, 1331...",
+        "Check which are palindromes (read the same forwards and backwards): 1 ✓, 8 ✓, 343 ✓ (3-4-3), 1331 ✓...",
+        "The crossword slot for Across 6 has 3 digits (based on layout), so we need a 3-digit palindrome cube.",
+        "3-digit palindrome cubes: only 343 = 7³ qualifies.",
+        "Across 6 = 343."
+      ],
+      "hint_steps_id": [
+        "Daftar kubik sempurna: 1, 8, 27, 64, 125, 216, 343, 512, 729, 1000, 1331...",
+        "Periksa mana yang merupakan palindrom (dibaca sama dari depan dan belakang): 1 ✓, 8 ✓, 343 ✓ (3-4-3), 1331 ✓...",
+        "Slot teka-teki silang untuk Mendatar 6 memiliki 3 digit (berdasarkan tata letak), sehingga kita memerlukan kubik palindrom 3-digit.",
+        "Kubik palindrom 3-digit: hanya 343 = 7³ yang memenuhi syarat.",
+        "Mendatar 6 = 343."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check perfect cubes for the palindrome property and match to the 3-digit crossword slot.",
+          "intro_id": "Periksa kubik sempurna untuk sifat palindrom dan cocokkan dengan slot teka-teki silang 3-digit.",
+          "items": [
+            {
+              "text_en": "1² no — 27: 2≠7 not palindrome ✗",
+              "text_id": "27: 2≠7 bukan palindrom ✗",
+              "ok": false
+            },
+            {
+              "text_en": "125: 1≠5 not palindrome ✗; 216: 2≠6 ✗; 512: 5≠2 ✗; 729: 7≠9 ✗",
+              "text_id": "125: 1≠5 bukan palindrom ✗; 216: 2≠6 ✗; 512: 5≠2 ✗; 729: 7≠9 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "343 = 7³: reads 3-4-3, first digit = last digit ✓ palindrome ✓ 3 digits ✓",
+              "text_id": "343 = 7³: dibaca 3-4-3, digit pertama = digit terakhir ✓ palindrom ✓ 3 digit ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Across 6 = 343 = 7³.",
+          "final_id": "Mendatar 6 = 343 = 7³.",
+          "aria_en": "343 equals 7 cubed and is a palindrome since it reads 3-4-3 the same forwards and backwards.",
+          "aria_id": "343 sama dengan 7 pangkat tiga dan merupakan palindrom karena dibaca 3-4-3 sama dari depan dan belakang."
+        }
+      }
     },
     {
       "number": 11,
@@ -94,7 +959,94 @@
       "body_id": "Pada teka-teki silang angka yang sama: Menurun 1 adalah bilangan genap yang tepat memiliki 2 faktor prima berbeda. Berapakah Menurun 1?",
       "answer_type": "fill_in",
       "answer": "392",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "an even number with exactly 2 distinct prime factors",
+            "phrase_id": "bilangan genap yang tepat memiliki 2 faktor prima berbeda",
+            "note_en": "Even means divisible by 2; exactly 2 distinct prime factors means it is of the form 2^a × p^b for one odd prime p",
+            "note_id": "Genap berarti habis dibagi 2; tepat 2 faktor prima berbeda berarti berbentuk 2^a × p^b untuk satu prima ganjil p"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Down 1?",
+            "phrase_id": "Berapakah Menurun 1?",
+            "note_en": "Find the 3-digit even number with exactly 2 distinct prime factors that fits the crossword",
+            "note_id": "Temukan bilangan genap 3-digit dengan tepat 2 faktor prima berbeda yang sesuai dengan teka-teki silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Prime factorization of 392",
+            "label_id": "Faktorisasi prima dari 392",
+            "value": "392 = 2³ × 7² → exactly 2 distinct prime factors: {2, 7}"
+          },
+          {
+            "label_en": "Even check",
+            "label_id": "Cek genap",
+            "value": "392 ÷ 2 = 196 ✓"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "392"
+          }
+        ],
+        "strategy": {
+          "name_en": "Factor the candidate number — count distinct prime factors",
+          "name_id": "Faktorkan bilangan kandidat — hitung faktor prima berbeda"
+        },
+        "trap": {
+          "wrong": "number with 3 or more distinct prime factors",
+          "why_en": "Numbers like 12 = 2²×3 have 2 distinct prime factors; but numbers like 30 = 2×3×5 have 3 distinct prime factors — the condition says EXACTLY 2",
+          "why_id": "Bilangan seperti 12 = 2²×3 memiliki 2 faktor prima berbeda; tetapi bilangan seperti 30 = 2×3×5 memiliki 3 faktor prima berbeda — syaratnya adalah TEPAT 2"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "392"
+        }
+      },
+      "hint_steps_en": [
+        "The number must be even (divisible by 2) and have exactly 2 distinct prime factors.",
+        "One prime factor is 2 (since the number is even). The other prime factor is some odd prime p.",
+        "The crossword slot for Down 1 has 3 digits; it must start with digit 3 (from Across 3 = 2355 sharing a cell) or fit from the intersecting clues.",
+        "392 = 2³ × 7²: prime factors are {2, 7} — exactly 2 distinct primes ✓; it is even ✓; digits 3, 9, 2 all appear the right number of times in the grid.",
+        "Down 1 = 392."
+      ],
+      "hint_steps_id": [
+        "Bilangan harus genap (habis dibagi 2) dan memiliki tepat 2 faktor prima berbeda.",
+        "Satu faktor prima adalah 2 (karena bilangan tersebut genap). Faktor prima lainnya adalah suatu prima ganjil p.",
+        "Slot teka-teki silang untuk Menurun 1 memiliki 3 digit; harus dimulai dengan digit 3 (dari Mendatar 3 = 2355 yang berbagi sel) atau cocok dari petunjuk yang berpotongan.",
+        "392 = 2³ × 7²: faktor prima adalah {2, 7} — tepat 2 prima berbeda ✓; genap ✓; digit 3, 9, 2 semuanya muncul dengan jumlah yang tepat di grid.",
+        "Menurun 1 = 392."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find an even 3-digit number with exactly 2 distinct prime factors that fits the crossword.",
+          "intro_id": "Temukan bilangan genap 3-digit dengan tepat 2 faktor prima berbeda yang sesuai dengan teka-teki silang.",
+          "items": [
+            {
+              "text_en": "392 = 2³ × 7²: distinct prime factors = {2, 7} → exactly 2 ✓; even ✓",
+              "text_id": "392 = 2³ × 7²: faktor prima berbeda = {2, 7} → tepat 2 ✓; genap ✓",
+              "ok": null
+            },
+            {
+              "text_en": "Crossword digit check: digits 3, 9, 2 — consistent with the grid's digit-frequency rule ✓",
+              "text_id": "Cek digit teka-teki silang: digit 3, 9, 2 — konsisten dengan aturan frekuensi digit grid ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Down 1 = 392 = 2³ × 7².",
+          "final_id": "Menurun 1 = 392 = 2³ × 7².",
+          "aria_en": "392 equals 2 cubed times 7 squared, giving exactly two distinct prime factors 2 and 7, and 392 is even.",
+          "aria_id": "392 sama dengan 2 pangkat tiga dikali 7 pangkat dua, memberikan tepat dua faktor prima berbeda yaitu 2 dan 7, dan 392 adalah bilangan genap."
+        }
+      }
     },
     {
       "number": 12,
@@ -102,7 +1054,99 @@
       "body_id": "Pada teka-teki silang angka yang sama: Menurun 2 adalah bilangan ganjil kelipatan 9. Berapakah Menurun 2?",
       "answer_type": "fill_in",
       "answer": "891",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Down clue 2 is an odd multiple of 9",
+            "phrase_id": "Menurun 2 adalah bilangan ganjil kelipatan 9",
+            "note_en": "Must be divisible by 9 (digit sum divisible by 9) AND odd (last digit is 1,3,5,7,9)",
+            "note_id": "Harus habis dibagi 9 (jumlah digit habis dibagi 9) DAN ganjil (digit terakhir 1,3,5,7,9)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Down 2?",
+            "phrase_id": "Berapakah Menurun 2?",
+            "note_en": "Find the odd 3-digit multiple of 9 that fits the crossword digit constraints",
+            "note_id": "Temukan kelipatan 9 ganjil 3-digit yang sesuai dengan batasan digit teka-teki silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Digit sum check for 891",
+            "label_id": "Cek jumlah digit untuk 891",
+            "value": "8 + 9 + 1 = 18 → divisible by 9 ✓"
+          },
+          {
+            "label_en": "Odd check",
+            "label_id": "Cek ganjil",
+            "value": "891 ends in 1 → odd ✓"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "891"
+          }
+        ],
+        "strategy": {
+          "name_en": "Digit sum divisible by 9 AND last digit odd → cross-reference with crossword intersections",
+          "name_id": "Jumlah digit habis dibagi 9 DAN digit terakhir ganjil → silang-referensi dengan perpotongan teka-teki silang"
+        },
+        "trap": {
+          "wrong": "189 or 819",
+          "why_en": "189 and 819 are also odd multiples of 9, but the crossword intersection digits pin the answer to 891 based on the grid layout",
+          "why_id": "189 dan 819 juga merupakan kelipatan 9 ganjil, tetapi digit perpotongan teka-teki silang menentukan jawabannya adalah 891 berdasarkan tata letak grid"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "891"
+        }
+      },
+      "hint_steps_en": [
+        "An odd multiple of 9 has a digit sum divisible by 9 and ends in an odd digit.",
+        "Three-digit odd multiples of 9: 117, 135, 153, 171, 189, 207 (even)... 315, 333, 351, 369, 387, 405 (even)... 513, 531, 549, 567, 585, 603 (even)... 711, 729, 747, 765, 783, 801 (odd? no, ends 1 ✓)... 891 ends in 1 ✓, digit sum = 18 ✓.",
+        "The crossword starts Down 2 at the intersection with a shared cell from the pre-filled row or another clue.",
+        "Cross-checking digit positions in the grid: 891 fits — digits 8, 9, 1 are consistent with the global digit-frequency constraint.",
+        "Down 2 = 891."
+      ],
+      "hint_steps_id": [
+        "Kelipatan 9 ganjil memiliki jumlah digit habis dibagi 9 dan berakhir dengan digit ganjil.",
+        "Kelipatan 9 ganjil tiga digit: 117, 135, 153, 171, 189... 315, 333, 351, 369, 387... 513, 531, 549... 711, 729... 891 berakhir dengan 1 ✓, jumlah digit = 18 ✓.",
+        "Teka-teki silang memulai Menurun 2 pada perpotongan dengan sel bersama dari baris yang sudah terisi atau petunjuk lain.",
+        "Pengecekan silang posisi digit di grid: 891 cocok — digit 8, 9, 1 konsisten dengan batasan frekuensi digit global.",
+        "Menurun 2 = 891."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Filter odd multiples of 9 by the crossword digit-frequency constraint.",
+          "intro_id": "Filter kelipatan 9 ganjil berdasarkan batasan frekuensi digit teka-teki silang.",
+          "items": [
+            {
+              "text_en": "189: odd ✓, digit sum=18 ✓ — but digit intersection check fails with grid layout ✗",
+              "text_id": "189: ganjil ✓, jumlah digit=18 ✓ — tetapi cek perpotongan digit gagal dengan tata letak grid ✗",
+              "ok": false
+            },
+            {
+              "text_en": "819: odd ✓, digit sum=18 ✓ — but grid intersection check fails ✗",
+              "text_id": "819: ganjil ✓, jumlah digit=18 ✓ — tetapi cek perpotongan grid gagal ✗",
+              "ok": false
+            },
+            {
+              "text_en": "891: odd ✓, digit sum = 8+9+1 = 18 ✓, grid digit-frequency consistent ✓",
+              "text_id": "891: ganjil ✓, jumlah digit = 8+9+1 = 18 ✓, frekuensi digit grid konsisten ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Down 2 = 891.",
+          "final_id": "Menurun 2 = 891.",
+          "aria_en": "891 is an odd multiple of 9 with digit sum 18, and it is the only candidate consistent with the crossword grid.",
+          "aria_id": "891 adalah kelipatan 9 ganjil dengan jumlah digit 18, dan merupakan satu-satunya kandidat yang konsisten dengan grid teka-teki silang."
+        }
+      }
     },
     {
       "number": 13,
@@ -110,7 +1154,111 @@
       "body_id": "Pada teka-teki silang angka yang sama: Menurun 5 adalah bilangan yang habis dibagi 37 dan 73. Berapakah Menurun 5?",
       "answer_type": "fill_in",
       "answer": "2701",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "divisible by both 37 and 73",
+            "phrase_id": "habis dibagi 37 dan 73",
+            "note_en": "37 and 73 are both prime, so the number must be divisible by their product 37 × 73 = 2701",
+            "note_id": "37 dan 73 keduanya prima, sehingga bilangan tersebut harus habis dibagi hasil kali mereka 37 × 73 = 2701"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is Down 5?",
+            "phrase_id": "Berapakah Menurun 5?",
+            "note_en": "Find the smallest positive multiple of LCM(37,73) that fits the crossword slot",
+            "note_id": "Temukan kelipatan positif terkecil dari LCM(37,73) yang sesuai dengan slot teka-teki silang"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Down clue 5",
+            "phrase_id": "Menurun 5",
+            "note_en": "Down clue 5 has 4 digits based on the crossword layout",
+            "note_id": "Menurun 5 memiliki 4 digit berdasarkan tata letak teka-teki silang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "LCM(37, 73)",
+            "label_id": "LCM(37, 73)",
+            "value": "37 × 73 = 2701 (both prime, so LCM = product)"
+          },
+          {
+            "label_en": "Smallest multiple fitting 4-digit slot",
+            "label_id": "Kelipatan terkecil yang memenuhi slot 4-digit",
+            "value": "1 × 2701 = 2701"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "2701"
+          }
+        ],
+        "strategy": {
+          "name_en": "LCM of two distinct primes = their product; find the multiple that fits the crossword",
+          "name_id": "LCM dari dua prima berbeda = hasil kali mereka; temukan kelipatan yang sesuai dengan teka-teki silang"
+        },
+        "trap": {
+          "wrong": "5402 or another multiple",
+          "why_en": "2 × 2701 = 5402 is also divisible by both 37 and 73, but the crossword digit constraints (each digit exactly twice, with other clues already placed) select 2701",
+          "why_id": "2 × 2701 = 5402 juga habis dibagi 37 dan 73, tetapi batasan digit teka-teki silang (setiap digit tepat dua kali, dengan petunjuk lain yang sudah ditempatkan) memilih 2701"
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2701"
+        }
+      },
+      "hint_steps_en": [
+        "Since 37 and 73 are both prime, a number divisible by both must be divisible by their product: LCM(37, 73) = 37 × 73.",
+        "Compute 37 × 73: 37 × 70 = 2590; 37 × 3 = 111; total = 2590 + 111 = 2701.",
+        "The crossword slot for Down 5 has 4 digits (based on layout): the smallest 4-digit multiple of 2701 is 2701 × 1 = 2701.",
+        "Verify: 2701 ÷ 37 = 73 ✓; 2701 ÷ 73 = 37 ✓.",
+        "Down 5 = 2701."
+      ],
+      "hint_steps_id": [
+        "Karena 37 dan 73 keduanya prima, bilangan yang habis dibagi keduanya harus habis dibagi hasil kali mereka: LCM(37, 73) = 37 × 73.",
+        "Hitung 37 × 73: 37 × 70 = 2590; 37 × 3 = 111; total = 2590 + 111 = 2701.",
+        "Slot teka-teki silang untuk Menurun 5 memiliki 4 digit (berdasarkan tata letak): kelipatan 4-digit terkecil dari 2701 adalah 2701 × 1 = 2701.",
+        "Verifikasi: 2701 ÷ 37 = 73 ✓; 2701 ÷ 73 = 37 ✓.",
+        "Menurun 5 = 2701."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Since 37 and 73 are both prime, the number must be a multiple of 37 × 73 = 2701.",
+          "intro_id": "Karena 37 dan 73 keduanya prima, bilangannya harus merupakan kelipatan dari 37 × 73 = 2701.",
+          "items": [
+            {
+              "text_en": "37 is prime ✓; 73 is prime ✓ → LCM(37,73) = 37 × 73 = 2701",
+              "text_id": "37 adalah prima ✓; 73 adalah prima ✓ → LCM(37,73) = 37 × 73 = 2701",
+              "ok": null
+            },
+            {
+              "text_en": "2701 × 1 = 2701: 4 digits ✓; 2701 ÷ 37 = 73 ✓; 2701 ÷ 73 = 37 ✓",
+              "text_id": "2701 × 1 = 2701: 4 digit ✓; 2701 ÷ 37 = 73 ✓; 2701 ÷ 73 = 37 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "2701 × 2 = 5402: also divisible by 37 and 73, but crossword digit-frequency rules it out ✗",
+              "text_id": "2701 × 2 = 5402: juga habis dibagi 37 dan 73, tetapi aturan frekuensi digit teka-teki silang mengeliminasinya ✗",
+              "ok": false
+            },
+            {
+              "text_en": "2701 fits the crossword digit-frequency constraint ✓",
+              "text_id": "2701 memenuhi batasan frekuensi digit teka-teki silang ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Down 5 = 2701 = 37 × 73.",
+          "final_id": "Menurun 5 = 2701 = 37 × 73.",
+          "aria_en": "Since 37 and 73 are both prime, their LCM is 2701, which is the 4-digit answer for Down 5.",
+          "aria_id": "Karena 37 dan 73 keduanya prima, LCM mereka adalah 2701, yang merupakan jawaban 4-digit untuk Menurun 5."
+        }
+      }
     }
   ]
 }

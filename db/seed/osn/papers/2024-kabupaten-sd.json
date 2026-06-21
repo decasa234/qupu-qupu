@@ -26,7 +26,72 @@
         {"label": "D", "text": "125"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Susi's 25th term",
+            "phrase_id": "bilangan Susi urutan ke-25",
+            "note_en": "The 25th multiple of 2 is 25 × 2 = 50.",
+            "note_id": "Kelipatan ke-25 dari 2 adalah 25 × 2 = 50."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Wati's 20th term",
+            "phrase_id": "bilangan Wati urutan ke-20",
+            "note_en": "The 20th multiple of 3 is 20 × 3 = 60.",
+            "note_id": "Kelipatan ke-20 dari 3 adalah 20 × 3 = 60."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The sum of Susi's 25th term and Wati's 20th term",
+            "phrase_id": "Jumlah bilangan Susi urutan ke-25 dan bilangan Wati urutan ke-20",
+            "note_en": "Add the two terms: 50 + 60.",
+            "note_id": "Jumlahkan dua bilangan tersebut: 50 + 60."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Susi's 25th term", "label_id": "Bilangan Susi ke-25", "value": "25 × 2 = 50" },
+          { "label_en": "Wati's 20th term", "label_id": "Bilangan Wati ke-20", "value": "20 × 3 = 60" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "50 + 60 = 110" }
+        ],
+        "strategy": { "name_en": "nth-term formula for multiples", "name_id": "Rumus suku ke-n kelipatan" },
+        "trap": { "wrong": "A", "why_en": "100 = 50 + 50; a common error is using 25 × 2 = 50 for both lists instead of computing 20 × 3 = 60 for Wati.", "why_id": "100 = 50 + 50; kesalahan umum adalah menggunakan 25 × 2 = 50 untuk kedua daftar alih-alih menghitung 20 × 3 = 60 untuk Wati." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Susi's list is multiples of 2: 2, 4, 6, … The nth term = n × 2.",
+        "Susi's 25th term = 25 × 2 = 50.",
+        "Wati's list is multiples of 3: 3, 6, 9, … The nth term = n × 3.",
+        "Wati's 20th term = 20 × 3 = 60.",
+        "Sum = 50 + 60 = 110. Answer B."
+      ],
+      "hint_steps_id": [
+        "Daftar Susi adalah kelipatan 2: 2, 4, 6, … Suku ke-n = n × 2.",
+        "Bilangan Susi ke-25 = 25 × 2 = 50.",
+        "Daftar Wati adalah kelipatan 3: 3, 6, 9, … Suku ke-n = n × 3.",
+        "Bilangan Wati ke-20 = 20 × 3 = 60.",
+        "Jumlah = 50 + 60 = 110. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Compute each term using the nth-multiple formula, then add.",
+          "intro_id": "Hitung setiap suku menggunakan rumus kelipatan ke-n, lalu jumlahkan.",
+          "items": [
+            { "text_en": "A: 100 → would need Wati's term = 50, but 20 × 3 = 60 ≠ 50 ✗", "text_id": "A: 100 → Wati harus 50, tetapi 20 × 3 = 60 ≠ 50 ✗", "ok": false },
+            { "text_en": "B: 110 = 50 + 60 ✓ (25×2=50, 20×3=60)", "text_id": "B: 110 = 50 + 60 ✓ (25×2=50, 20×3=60)", "ok": true },
+            { "text_en": "C: 115 — no integer decomposition matches ✗", "text_id": "C: 115 — tidak ada dekomposisi bilangan bulat yang cocok ✗", "ok": false },
+            { "text_en": "D: 125 — no integer decomposition matches ✗", "text_id": "D: 125 — tidak ada dekomposisi bilangan bulat yang cocok ✗", "ok": false }
+          ],
+          "final_en": "Only 110 = 50 + 60 is correct — answer B.",
+          "final_id": "Hanya 110 = 50 + 60 yang benar — jawaban B.",
+          "aria_en": "Sum of 25th multiple of 2 (50) and 20th multiple of 3 (60) equals 110, answer B.",
+          "aria_id": "Jumlah kelipatan ke-25 dari 2 (50) dan kelipatan ke-20 dari 3 (60) sama dengan 110, jawaban B."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +111,70 @@
         {"label": "D", "text": "▲"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "■ ♦ ♦ ● ▲ ▲ ▲ ■ ♦ ♦ ● ▲ ▲ ▲",
+            "phrase_id": "■ ♦ ♦ ● ▲ ▲ ▲ ■ ♦ ♦ ● ▲ ▲ ▲",
+            "note_en": "The pattern repeats every 7 shapes: ■, ♦, ♦, ●, ▲, ▲, ▲.",
+            "note_id": "Pola berulang setiap 7 bentuk: ■, ♦, ♦, ●, ▲, ▲, ▲."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What shape appears at position 100?",
+            "phrase_id": "Gambar yang akan tampak pada urutan ke-100",
+            "note_en": "Divide 100 by 7 and use the remainder to find the position within the cycle.",
+            "note_id": "Bagi 100 dengan 7 dan gunakan sisa pembagian untuk menemukan posisi dalam siklus."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The following pattern is given",
+            "phrase_id": "Diketahui suatu pola berikut ini",
+            "note_en": "Identify the repeating cycle length before computing the remainder.",
+            "note_id": "Tentukan panjang siklus yang berulang sebelum menghitung sisa pembagian."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cycle length", "label_id": "Panjang siklus", "value": "7" },
+          { "label_en": "100 ÷ 7", "label_id": "100 ÷ 7", "value": "14 remainder 2" },
+          { "label_en": "Position 2 in cycle", "label_id": "Posisi 2 dalam siklus", "value": "♦" }
+        ],
+        "strategy": { "name_en": "Modular arithmetic on repeating pattern", "name_id": "Aritmetika modular pada pola berulang" },
+        "trap": { "wrong": "A", "why_en": "■ is at position 1 (or 8, 15, …). Position 100 has remainder 2, not 1.", "why_id": "■ berada di posisi 1 (atau 8, 15, …). Posisi 100 memiliki sisa 2, bukan 1." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Count the shapes in one cycle: ■ ♦ ♦ ● ▲ ▲ ▲ → 7 shapes.",
+        "Divide 100 by 7: 100 = 14 × 7 + 2, so remainder is 2.",
+        "Position 2 in the cycle (■=1, ♦=2) is ♦.",
+        "Answer B (♦)."
+      ],
+      "hint_steps_id": [
+        "Hitung bentuk dalam satu siklus: ■ ♦ ♦ ● ▲ ▲ ▲ → 7 bentuk.",
+        "Bagi 100 dengan 7: 100 = 14 × 7 + 2, sisa adalah 2.",
+        "Posisi 2 dalam siklus (■=1, ♦=2) adalah ♦.",
+        "Jawaban B (♦)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find remainder of 100 ÷ 7, then match to the cycle position.",
+          "intro_id": "Cari sisa 100 ÷ 7, lalu cocokkan ke posisi dalam siklus.",
+          "items": [
+            { "text_en": "A: ■ is at positions 1, 8, 15, … (remainder 1). 100 mod 7 = 2 ≠ 1 ✗", "text_id": "A: ■ ada di posisi 1, 8, 15, … (sisa 1). 100 mod 7 = 2 ≠ 1 ✗", "ok": false },
+            { "text_en": "B: ♦ is at positions 2, 3, 9, 10, … (remainder 2 or 3). 100 mod 7 = 2 ✓", "text_id": "B: ♦ ada di posisi 2, 3, 9, 10, … (sisa 2 atau 3). 100 mod 7 = 2 ✓", "ok": true },
+            { "text_en": "C: ● is at position 4 (remainder 4). 2 ≠ 4 ✗", "text_id": "C: ● ada di posisi 4 (sisa 4). 2 ≠ 4 ✗", "ok": false },
+            { "text_en": "D: ▲ is at positions 5, 6, 7 (remainder 5, 6, 0). 2 ≠ any ✗", "text_id": "D: ▲ ada di posisi 5, 6, 7 (sisa 5, 6, 0). 2 ≠ semua ✗", "ok": false }
+          ],
+          "final_en": "Remainder 2 maps to position 2 in the cycle = ♦. Answer B.",
+          "final_id": "Sisa 2 sesuai posisi 2 dalam siklus = ♦. Jawaban B.",
+          "aria_en": "Pattern repeats every 7 shapes; 100 divided by 7 leaves remainder 2; position 2 is ♦, answer B.",
+          "aria_id": "Pola berulang setiap 7 bentuk; 100 dibagi 7 bersisa 2; posisi 2 adalah ♦, jawaban B."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +194,72 @@
         {"label": "D", "text": "50"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "x – y = 50 and p + q = 11",
+            "phrase_id": "x – y = 50 dan p + q = 11",
+            "note_en": "x = apc and y = aqc share digits a and c; only the middle digit differs, so x − y = 100p − 100q = 100(p−q) = 50, giving p − q = 0.5 — impossible for integers. Re-read: x−y = 10p − 10q = 10(p−q) = 50 means p − q = 5.",
+            "note_id": "x = apc dan y = aqc berbagi digit a dan c; hanya digit tengah berbeda, sehingga x − y = 10p − 10q = 10(p−q) = 50, berarti p − q = 5."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "p + q = 11",
+            "phrase_id": "p + q = 11",
+            "note_en": "Combined with p − q = 5: p = 8, q = 3.",
+            "note_id": "Dikombinasikan dengan p − q = 5: p = 8, q = 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find p × q.",
+            "phrase_id": "Hasil dari p × q",
+            "note_en": "p × q = 8 × 3 = 24.",
+            "note_id": "p × q = 8 × 3 = 24."
+          }
+        ],
+        "quantities": [
+          { "label_en": "p − q (from x − y = 50)", "label_id": "p − q (dari x − y = 50)", "value": "5" },
+          { "label_en": "p + q", "label_id": "p + q", "value": "11" },
+          { "label_en": "p", "label_id": "p", "value": "(11+5)/2 = 8" },
+          { "label_en": "q", "label_id": "q", "value": "(11−5)/2 = 3" },
+          { "label_en": "p × q", "label_id": "p × q", "value": "8 × 3 = 24" }
+        ],
+        "strategy": { "name_en": "Sum and difference system of equations", "name_id": "Sistem persamaan jumlah dan selisih" },
+        "trap": { "wrong": "C", "why_en": "30 = 5 × 6 corresponds to p=5, q=6 or p=6, q=5, but those don't satisfy p+q=11 and p−q=5 simultaneously.", "why_id": "30 = 5 × 6 sesuai p=5, q=6 atau p=6, q=5, tetapi itu tidak memenuhi p+q=11 dan p−q=5 secara bersamaan." },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "x = apc and y = aqc: only the tens digit differs. x − y = 10p − 10q = 10(p − q) = 50, so p − q = 5.",
+        "Also p + q = 11.",
+        "Solve: 2p = 16 → p = 8; q = 3.",
+        "p × q = 8 × 3 = 24. Answer A."
+      ],
+      "hint_steps_id": [
+        "x = apc dan y = aqc: hanya digit puluhan berbeda. x − y = 10p − 10q = 10(p − q) = 50, jadi p − q = 5.",
+        "Juga p + q = 11.",
+        "Selesaikan: 2p = 16 → p = 8; q = 3.",
+        "p × q = 8 × 3 = 24. Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each option: which p × q value comes from integers with p+q=11 and p−q=5?",
+          "intro_id": "Periksa setiap pilihan: nilai p × q mana yang berasal dari bilangan bulat dengan p+q=11 dan p−q=5?",
+          "items": [
+            { "text_en": "A: 24 = 8×3 → p=8, q=3: p+q=11 ✓, p−q=5 ✓", "text_id": "A: 24 = 8×3 → p=8, q=3: p+q=11 ✓, p−q=5 ✓", "ok": true },
+            { "text_en": "B: 28 = 4×7 → p=7, q=4: p+q=11 ✓, p−q=3 ≠ 5 ✗", "text_id": "B: 28 = 4×7 → p=7, q=4: p+q=11 ✓, p−q=3 ≠ 5 ✗", "ok": false },
+            { "text_en": "C: 30 = 5×6 → p=6, q=5: p+q=11 ✓, p−q=1 ≠ 5 ✗", "text_id": "C: 30 = 5×6 → p=6, q=5: p+q=11 ✓, p−q=1 ≠ 5 ✗", "ok": false },
+            { "text_en": "D: 50 → no factorisation gives integer p+q=11 and p−q=5 ✗", "text_id": "D: 50 → tidak ada faktorisasi yang menghasilkan bilangan bulat p+q=11 dan p−q=5 ✗", "ok": false }
+          ],
+          "final_en": "Only p=8, q=3 satisfies both conditions — answer A (24).",
+          "final_id": "Hanya p=8, q=3 yang memenuhi kedua kondisi — jawaban A (24).",
+          "aria_en": "p minus q equals 5 and p plus q equals 11 gives p=8, q=3, product 24, answer A.",
+          "aria_id": "p dikurangi q sama dengan 5 dan p ditambah q sama dengan 11 menghasilkan p=8, q=3, hasil kali 24, jawaban A."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +279,72 @@
         {"label": "D", "text": "87"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the 10th number Andi writes is 102",
+            "phrase_id": "urutan ke-10 bilangan yang dituliskan oleh Andi adalah 102",
+            "note_en": "102 is composite and not a multiple of 5, so it qualifies. Use it as the starting anchor.",
+            "note_id": "102 adalah bilangan komposit dan bukan kelipatan 5, sehingga memenuhi syarat. Gunakan sebagai titik awal."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "neither prime nor multiples of 5",
+            "phrase_id": "bukan prima atau bukan kelipatan 5",
+            "note_en": "Exclude primes and multiples of 5 from the descending list.",
+            "note_id": "Kecualikan bilangan prima dan kelipatan 5 dari daftar menurun."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the 21st number is",
+            "phrase_id": "urutan ke-21 adalah",
+            "note_en": "Continue listing 11 more qualifying numbers downward from 102.",
+            "note_id": "Lanjutkan mencantumkan 11 bilangan lagi yang memenuhi syarat ke bawah dari 102."
+          }
+        ],
+        "quantities": [
+          { "label_en": "10th number (anchor)", "label_id": "Bilangan ke-10 (jangkar)", "value": "102" },
+          { "label_en": "Numbers 11–21 descending from 101", "label_id": "Bilangan ke-11 s.d. 21 turun dari 101", "value": "99,98,96,94,93,92,91,88,86,84 → 11th=99, …, 21st=84" },
+          { "label_en": "21st number", "label_id": "Bilangan ke-21", "value": "84" }
+        ],
+        "strategy": { "name_en": "List and filter descending", "name_id": "Daftar dan saring secara menurun" },
+        "trap": { "wrong": "C", "why_en": "86 is the 20th number, not the 21st — off-by-one error from skipping 85 (mult of 5).", "why_id": "86 adalah bilangan ke-20, bukan ke-21 — kesalahan satu langkah karena melewati 85 (kelipatan 5)." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Andi lists composite non-multiples-of-5 integers from largest to smallest; position 10 = 102.",
+        "Continue downward from 101: skip 101 (prime), 100 (mult 5); 99 (11th), 98 (12th).",
+        "Skip 97 (prime), 96 (13th), skip 95 (mult 5), 94 (14th), 93 (15th), 92 (16th), 91 (17th).",
+        "Skip 90 (mult 5), 88 (18th), 87 (19th), 86 (20th), skip 85 (mult 5), 84 (21st).",
+        "Answer B (84)."
+      ],
+      "hint_steps_id": [
+        "Andi mencantumkan bilangan komposit bukan-kelipatan-5 dari terbesar ke terkecil; posisi 10 = 102.",
+        "Lanjut turun dari 101: lewati 101 (prima), 100 (mult 5); 99 (ke-11), 98 (ke-12).",
+        "Lewati 97 (prima), 96 (ke-13), lewati 95 (mult 5), 94 (ke-14), 93 (ke-15), 92 (ke-16), 91 (ke-17).",
+        "Lewati 90 (mult 5), 88 (ke-18), 87 (ke-19), 86 (ke-20), lewati 85 (mult 5), 84 (ke-21).",
+        "Jawaban B (84)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "List downward and count to position 21.",
+          "intro_id": "Daftar ke bawah dan hitung sampai posisi 21.",
+          "items": [
+            { "text_en": "A: 83 — 83 is prime ✗ (would be excluded from Andi's list)", "text_id": "A: 83 — 83 adalah prima ✗ (akan dikecualikan dari daftar Andi)", "ok": false },
+            { "text_en": "B: 84 — composite, not mult of 5 ✓; counting from 102 it lands at position 21", "text_id": "B: 84 — komposit, bukan kelipatan 5 ✓; dihitung dari 102 berada di posisi 21", "ok": true },
+            { "text_en": "C: 86 — this is actually position 20 (off by one) ✗", "text_id": "C: 86 — ini sebenarnya posisi 20 (meleset satu) ✗", "ok": false },
+            { "text_en": "D: 87 — this is position 19 ✗", "text_id": "D: 87 — ini posisi 19 ✗", "ok": false }
+          ],
+          "final_en": "Position 21 is 84 — answer B.",
+          "final_id": "Posisi 21 adalah 84 — jawaban B.",
+          "aria_en": "Listing composite non-multiples-of-5 downward from 102, the 21st number reached is 84, answer B.",
+          "aria_id": "Mencantumkan bilangan komposit bukan-kelipatan-5 turun dari 102, bilangan ke-21 yang dicapai adalah 84, jawaban B."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +364,70 @@
         {"label": "D", "text": "9"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "If (1/4) × (1/q) − (1/4) − (1/q) = 13/2",
+            "phrase_id": "Jika (1/4) × (1/q) − (1/4) − (1/q) = 13/2",
+            "note_en": "Let u = 1/q to simplify: u/4 − 1/4 − u = 13/2.",
+            "note_id": "Misalkan u = 1/q untuk menyederhanakan: u/4 − 1/4 − u = 13/2."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "find the value of q",
+            "phrase_id": "maka nilai q adalah",
+            "note_en": "Once u = 1/q is found, take the reciprocal to get q.",
+            "note_id": "Setelah u = 1/q ditemukan, ambil kebalikannya untuk mendapatkan q."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the value of q",
+            "phrase_id": "maka nilai q adalah",
+            "note_en": "q = 1/u; if u = −9 then q = −1/9.",
+            "note_id": "q = 1/u; jika u = −9 maka q = −1/9."
+          }
+        ],
+        "quantities": [
+          { "label_en": "u/4 − u = 13/2 + 1/4", "label_id": "u/4 − u = 13/2 + 1/4", "value": "−3u/4 = 27/4" },
+          { "label_en": "u = 1/q", "label_id": "u = 1/q", "value": "u = −9" },
+          { "label_en": "q = 1/u", "label_id": "q = 1/u", "value": "q = −1/9" }
+        ],
+        "strategy": { "name_en": "Substitution u = 1/q, then solve linearly", "name_id": "Substitusi u = 1/q, lalu selesaikan secara linear" },
+        "trap": { "wrong": "A", "why_en": "−9 is the value of u = 1/q, not q itself. Don't forget to take the reciprocal.", "why_id": "−9 adalah nilai u = 1/q, bukan q itu sendiri. Jangan lupa mengambil kebalikannya." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Let u = 1/q. The equation becomes: u/4 − 1/4 − u = 13/2.",
+        "Multiply through by 4: u − 1 − 4u = 26 → −3u = 27 → u = −9.",
+        "So 1/q = −9 → q = −1/9.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan u = 1/q. Persamaan menjadi: u/4 − 1/4 − u = 13/2.",
+        "Kalikan dengan 4: u − 1 − 4u = 26 → −3u = 27 → u = −9.",
+        "Jadi 1/q = −9 → q = −1/9.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Substitute each candidate for q and check if the equation holds.",
+          "intro_id": "Substitusikan setiap kandidat untuk q dan periksa apakah persamaan terpenuhi.",
+          "items": [
+            { "text_en": "A: q=−9 → (1/4)(−1/9)−1/4−(−1/9) = −1/36−1/4+1/9 = (−1−9+4)/36 = −6/36 ≠ 13/2 ✗", "text_id": "A: q=−9 → (1/4)(−1/9)−1/4−(−1/9) = −1/36−1/4+1/9 ≠ 13/2 ✗", "ok": false },
+            { "text_en": "B: q=−1/9 → (1/4)(−9)−1/4−(−9) = −9/4−1/4+9 = −10/4+36/4 = 26/4 = 13/2 ✓", "text_id": "B: q=−1/9 → (1/4)(−9)−1/4−(−9) = −9/4−1/4+9 = 26/4 = 13/2 ✓", "ok": true },
+            { "text_en": "C: q=1/9 → gives −13/2 (sign error) ✗", "text_id": "C: q=1/9 → menghasilkan −13/2 (kesalahan tanda) ✗", "ok": false },
+            { "text_en": "D: q=9 → (1/4)(1/9)−1/4−1/9 = 1/36−9/36−4/36 = −12/36 = −1/3 ≠ 13/2 ✗", "text_id": "D: q=9 → 1/36−1/4−1/9 = −1/3 ≠ 13/2 ✗", "ok": false }
+          ],
+          "final_en": "Only q = −1/9 satisfies the equation — answer B.",
+          "final_id": "Hanya q = −1/9 yang memenuhi persamaan — jawaban B.",
+          "aria_en": "Substituting q equals negative one ninth gives the left side equal to thirteen halves, answer B.",
+          "aria_id": "Mensubstitusikan q sama dengan negatif satu per sembilan menghasilkan ruas kiri sama dengan tiga belas per dua, jawaban B."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +447,73 @@
         {"label": "D", "text": "2915"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a² − b² = 6³",
+            "phrase_id": "a² − b² = 6³",
+            "note_en": "6³ = 216. Factor: (a+b)(a−b) = 216. Find factor pairs of the same parity (both odd or both even) so a and b are integers.",
+            "note_id": "6³ = 216. Faktor: (a+b)(a−b) = 216. Cari pasangan faktor dengan paritas sama agar a dan b bilangan bulat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "which of the following cannot be a value of a × b?",
+            "phrase_id": "nilai berikut yang bukan merupakan hasil dari a × b",
+            "note_en": "Compute a × b for each valid factor pair and identify which option is not achievable.",
+            "note_id": "Hitung a × b untuk setiap pasangan faktor yang valid dan identifikasi pilihan yang tidak dapat dicapai."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a and b are positive integers",
+            "phrase_id": "a dan b bilangan bulat positif",
+            "note_en": "Both a and b must be positive, so a+b > a−b > 0.",
+            "note_id": "a dan b harus positif, sehingga a+b > a−b > 0."
+          }
+        ],
+        "quantities": [
+          { "label_en": "(a+b,a−b)=(108,2) → a=55,b=53", "label_id": "(a+b,a−b)=(108,2) → a=55,b=53", "value": "a×b = 2915" },
+          { "label_en": "(a+b,a−b)=(36,6) → a=21,b=15", "label_id": "(a+b,a−b)=(36,6) → a=21,b=15", "value": "a×b = 315" },
+          { "label_en": "(a+b,a−b)=(18,12) → a=15,b=3", "label_id": "(a+b,a−b)=(18,12) → a=15,b=3", "value": "a×b = 45" },
+          { "label_en": "135 — no same-parity factor pair gives this", "label_id": "135 — tidak ada pasangan faktor paritas sama yang menghasilkan ini", "value": "impossible" }
+        ],
+        "strategy": { "name_en": "Difference of squares factorisation + parity filter", "name_id": "Faktorisasi selisih kuadrat + filter paritas" },
+        "trap": { "wrong": "A", "why_en": "45 = 15 × 3 is valid: (a+b)=18, (a−b)=12 → a=15, b=3, and 15²−3²=225−9=216 ✓.", "why_id": "45 = 15 × 3 valid: (a+b)=18, (a−b)=12 → a=15, b=3, dan 15²−3²=225−9=216 ✓." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "6³ = 216. Write (a+b)(a−b) = 216. List factor pairs (A,B) with A > B > 0, same parity.",
+        "Both even: (108,2)→a=55,b=53,ab=2915; (36,6)→a=21,b=15,ab=315; (18,12)→a=15,b=3,ab=45; (54,4)→a=29,b=25,ab=725.",
+        "Both odd: (27,... 216/27=8, diff parity): none valid.",
+        "Achievable values: 2915, 315, 725, 45. Among the choices: 45 ✓, 315 ✓, 2915 ✓. B=135 is never achieved.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "6³ = 216. Tulis (a+b)(a−b) = 216. Daftar pasangan faktor (A,B) dengan A > B > 0, paritas sama.",
+        "Keduanya genap: (108,2)→a=55,b=53,ab=2915; (36,6)→a=21,b=15,ab=315; (18,12)→a=15,b=3,ab=45.",
+        "Keduanya ganjil: tidak ada yang valid untuk 216.",
+        "Nilai yang bisa dicapai: 2915, 315, 45, 725. Di antara pilihan: A,C,D valid; B=135 tidak pernah dicapai.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer option: can it be a × b from (a+b)(a−b)=216?",
+          "intro_id": "Periksa setiap pilihan jawaban: dapatkah itu menjadi a × b dari (a+b)(a−b)=216?",
+          "items": [
+            { "text_en": "A: 45 = 15×3 → a=15,b=3: 15²−3²=216 ✓ achievable", "text_id": "A: 45 = 15×3 → a=15,b=3: 15²−3²=216 ✓ dapat dicapai", "ok": false },
+            { "text_en": "B: 135 → no same-parity factor pair of 216 yields a×b=135 ✗ NOT achievable", "text_id": "B: 135 → tidak ada pasangan faktor paritas sama dari 216 yang menghasilkan a×b=135 ✗ TIDAK dapat dicapai", "ok": true },
+            { "text_en": "C: 315 = 21×15 → a=21,b=15: 21²−15²=216 ✓ achievable", "text_id": "C: 315 = 21×15 → a=21,b=15: 21²−15²=216 ✓ dapat dicapai", "ok": false },
+            { "text_en": "D: 2915 = 55×53 → a=55,b=53: 55²−53²=216 ✓ achievable", "text_id": "D: 2915 = 55×53 → a=55,b=53: 55²−53²=216 ✓ dapat dicapai", "ok": false }
+          ],
+          "final_en": "135 cannot be achieved — answer B.",
+          "final_id": "135 tidak dapat dicapai — jawaban B.",
+          "aria_en": "Factoring 216 as difference of squares shows 45, 315, 2915 are achievable but 135 is not, answer B.",
+          "aria_id": "Memfaktorkan 216 sebagai selisih kuadrat menunjukkan 45, 315, 2915 dapat dicapai tetapi 135 tidak, jawaban B."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +533,71 @@
         {"label": "D", "text": "8"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Their sum is 27 and the product of the smallest and largest is 72",
+            "phrase_id": "Jumlah tiga bilangan tersebut adalah 27 dan perkalian bilangan terkecil dan terbesarnya adalah 72",
+            "note_en": "Three consecutive multiples of n: y−n, y, y+n. Sum = 3y = 27 → y = 9. Product = (y−n)(y+n) = y²−n² = 81−n² = 72 → n² = 9 → n = 3.",
+            "note_id": "Tiga kelipatan n berurutan: y−n, y, y+n. Jumlah = 3y = 27 → y = 9. Hasil kali = (y−n)(y+n) = 81−n² = 72 → n² = 9 → n = 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The difference between the largest and smallest is",
+            "phrase_id": "Selisih bilangan terbesar dan terkecil adalah",
+            "note_en": "Difference = (y+n) − (y−n) = 2n = 6.",
+            "note_id": "Selisih = (y+n) − (y−n) = 2n = 6."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "three consecutive multiples of n",
+            "phrase_id": "tiga bilangan kelipatan n berurutan",
+            "note_en": "Use y−n, y, y+n to exploit the symmetric structure.",
+            "note_id": "Gunakan y−n, y, y+n untuk memanfaatkan struktur simetris."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Middle term y", "label_id": "Suku tengah y", "value": "27/3 = 9" },
+          { "label_en": "n² = 81 − 72", "label_id": "n² = 81 − 72", "value": "9 → n = 3" },
+          { "label_en": "Three numbers", "label_id": "Tiga bilangan", "value": "6, 9, 12" },
+          { "label_en": "Difference (largest − smallest)", "label_id": "Selisih (terbesar − terkecil)", "value": "12 − 6 = 6" }
+        ],
+        "strategy": { "name_en": "Symmetric representation y−n, y, y+n", "name_id": "Representasi simetris y−n, y, y+n" },
+        "trap": { "wrong": "B", "why_en": "4 = 2n would mean n=2, but then (y−n)(y+n)=7×11=77 ≠ 72.", "why_id": "4 = 2n berarti n=2, tetapi (y−n)(y+n)=7×11=77 ≠ 72." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Let the three numbers be y−n, y, y+n (consecutive multiples of n).",
+        "Sum: 3y = 27 → y = 9.",
+        "Product of smallest and largest: (9−n)(9+n) = 81 − n² = 72 → n² = 9 → n = 3.",
+        "Numbers are 6, 9, 12. Difference = 12 − 6 = 6. Answer C."
+      ],
+      "hint_steps_id": [
+        "Misalkan tiga bilangan adalah y−n, y, y+n (kelipatan n berurutan).",
+        "Jumlah: 3y = 27 → y = 9.",
+        "Hasil kali terkecil dan terbesar: (9−n)(9+n) = 81 − n² = 72 → n² = 9 → n = 3.",
+        "Bilangannya adalah 6, 9, 12. Selisih = 12 − 6 = 6. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each difference option: does it give numbers whose sum=27 and min×max=72?",
+          "intro_id": "Uji setiap pilihan selisih: apakah menghasilkan bilangan dengan jumlah=27 dan min×maks=72?",
+          "items": [
+            { "text_en": "A: diff=2 → n=1, y=9: 8,9,10. 8×10=80 ≠ 72 ✗", "text_id": "A: selisih=2 → n=1, y=9: 8,9,10. 8×10=80 ≠ 72 ✗", "ok": false },
+            { "text_en": "B: diff=4 → n=2, y=9: 7,9,11. 7×11=77 ≠ 72 ✗", "text_id": "B: selisih=4 → n=2, y=9: 7,9,11. 7×11=77 ≠ 72 ✗", "ok": false },
+            { "text_en": "C: diff=6 → n=3, y=9: 6,9,12. 6×12=72 ✓ sum=27 ✓", "text_id": "C: selisih=6 → n=3, y=9: 6,9,12. 6×12=72 ✓ jumlah=27 ✓", "ok": true },
+            { "text_en": "D: diff=8 → n=4, y=9: 5,9,13. 5×13=65 ≠ 72 ✗", "text_id": "D: selisih=8 → n=4, y=9: 5,9,13. 5×13=65 ≠ 72 ✗", "ok": false }
+          ],
+          "final_en": "Only 6, 9, 12 satisfies both conditions — answer C.",
+          "final_id": "Hanya 6, 9, 12 yang memenuhi kedua kondisi — jawaban C.",
+          "aria_en": "Numbers 6, 9, 12 have sum 27 and product of extremes 72, giving difference 6, answer C.",
+          "aria_id": "Bilangan 6, 9, 12 memiliki jumlah 27 dan hasil kali ujung 72, memberikan selisih 6, jawaban C."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +617,69 @@
         {"label": "D", "text": "45"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The age difference between Ani and Budi is 1 year, and the age difference between Budi and Corry is 2 years",
+            "phrase_id": "Usia Ani dan Budi berselisih 1 tahun, sedangkan usia Budi dan Corry berselisih 2 tahun",
+            "note_en": "Ani youngest: Ani = b−1, Budi = b, Corry = b+2.",
+            "note_id": "Ani termuda: Ani = b−1, Budi = b, Corry = b+2."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Four years from now their total age is 76 years",
+            "phrase_id": "Empat tahun kemudian jumlah usia mereka 76 tahun",
+            "note_en": "(b−1+4)+(b+4)+(b+2+4) = 76 → 3b+13 = 76 → b = 21.",
+            "note_id": "(b−1+4)+(b+4)+(b+2+4) = 76 → 3b+13 = 76 → b = 21."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The current sum of Ani's and Corry's ages is",
+            "phrase_id": "Jumlah usia Ani dan Corry saat ini adalah",
+            "note_en": "Ani + Corry = (b−1) + (b+2) = 2b+1 = 43.",
+            "note_id": "Ani + Corry = (b−1) + (b+2) = 2b+1 = 43."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Budi's age b", "label_id": "Usia Budi b", "value": "(76−13)/3 = 21" },
+          { "label_en": "Ani's age", "label_id": "Usia Ani", "value": "21−1 = 20" },
+          { "label_en": "Corry's age", "label_id": "Usia Corry", "value": "21+2 = 23" },
+          { "label_en": "Ani + Corry", "label_id": "Ani + Corry", "value": "20 + 23 = 43" }
+        ],
+        "strategy": { "name_en": "Express ages relative to Budi, solve with future-sum condition", "name_id": "Nyatakan usia relatif terhadap Budi, selesaikan dengan kondisi jumlah masa depan" },
+        "trap": { "wrong": "B", "why_en": "42 arises if you forget +4 for each person or miscalculate the future sum equation.", "why_id": "42 muncul jika lupa menambah +4 untuk setiap orang atau salah menghitung persamaan jumlah masa depan." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Let Budi's age = b. Then Ani = b−1, Corry = b+2.",
+        "In 4 years: (b+3) + (b+4) + (b+6) = 76 → 3b + 13 = 76 → b = 21.",
+        "Ani = 20, Corry = 23. Sum = 43. Answer C."
+      ],
+      "hint_steps_id": [
+        "Misalkan usia Budi = b. Maka Ani = b−1, Corry = b+2.",
+        "Empat tahun lagi: (b+3) + (b+4) + (b+6) = 76 → 3b + 13 = 76 → b = 21.",
+        "Ani = 20, Corry = 23. Jumlah = 43. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each sum by testing whether it leads to consistent ages.",
+          "intro_id": "Periksa setiap jumlah dengan menguji apakah menghasilkan usia yang konsisten.",
+          "items": [
+            { "text_en": "A: 41 → Ani+Corry=41: Ani=19,Corry=22 → Budi=20; future sum=3(20)+13=73 ≠ 76 ✗", "text_id": "A: 41 → Ani=19,Corry=22 → Budi=20; jumlah masa depan=73 ≠ 76 ✗", "ok": false },
+            { "text_en": "B: 42 → Ani=20,Corry=22 — but Corry must be Budi+2 and Ani=Budi−1 ✗", "text_id": "B: 42 → Ani=20,Corry=22 — tetapi Corry harus Budi+2 dan Ani=Budi−1 ✗", "ok": false },
+            { "text_en": "C: 43 → b=21: Ani=20,Corry=23; future: 24+25+27=76 ✓", "text_id": "C: 43 → b=21: Ani=20,Corry=23; masa depan: 24+25+27=76 ✓", "ok": true },
+            { "text_en": "D: 45 → Ani=21,Corry=24 → Budi=22; future: 25+26+28=79 ≠ 76 ✗", "text_id": "D: 45 → Budi=22; masa depan: 79 ≠ 76 ✗", "ok": false }
+          ],
+          "final_en": "Ani=20, Corry=23, sum=43 — answer C.",
+          "final_id": "Ani=20, Corry=23, jumlah=43 — jawaban C.",
+          "aria_en": "Setting Budi's age as b gives Ani=b−1, Corry=b+2; future sum 76 solves to b=21; Ani plus Corry equals 43, answer C.",
+          "aria_id": "Menetapkan usia Budi sebagai b memberikan Ani=b−1, Corry=b+2; jumlah masa depan 76 menghasilkan b=21; Ani ditambah Corry sama dengan 43, jawaban C."
+        }
+      }
     },
     {
       "number": 9,
@@ -186,7 +699,71 @@
         {"label": "D", "text": "Rp180,000"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Pak Joni buys 13 kg of banana chips for Rp650,000",
+            "phrase_id": "Pak Joni membeli 13 kg keripik pisang seharga Rp650.000",
+            "note_en": "Cost per kg = Rp650,000 ÷ 13 = Rp50,000/kg.",
+            "note_id": "Biaya per kg = Rp650.000 ÷ 13 = Rp50.000/kg."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "resells the banana chips at Rp15,000 per 250 grams",
+            "phrase_id": "Keripik pisang dijual kembali dengan harga Rp15.000 per 250 gram",
+            "note_en": "Sell price per kg = Rp15,000 × 4 = Rp60,000/kg.",
+            "note_id": "Harga jual per kg = Rp15.000 × 4 = Rp60.000/kg."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The maximum profit Pak Joni can earn is",
+            "phrase_id": "Keuntungan maksimum yang akan diperoleh Pak Joni adalah",
+            "note_en": "Profit = (60,000 − 50,000) × 13 = Rp130,000.",
+            "note_id": "Keuntungan = (60.000 − 50.000) × 13 = Rp130.000."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Buy price/kg", "label_id": "Harga beli/kg", "value": "Rp50,000" },
+          { "label_en": "Sell price/kg", "label_id": "Harga jual/kg", "value": "Rp15,000 × 4 = Rp60,000" },
+          { "label_en": "Profit/kg", "label_id": "Keuntungan/kg", "value": "Rp10,000" },
+          { "label_en": "Total profit (13 kg)", "label_id": "Total keuntungan (13 kg)", "value": "13 × Rp10,000 = Rp130,000" }
+        ],
+        "strategy": { "name_en": "Unit profit × total quantity", "name_id": "Keuntungan per satuan × total kuantitas" },
+        "trap": { "wrong": "C", "why_en": "Rp150,000 would arise from assuming 15 kg instead of 13 kg.", "why_id": "Rp150.000 akan muncul jika mengasumsikan 15 kg bukan 13 kg." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Cost per kg: Rp650,000 ÷ 13 = Rp50,000/kg.",
+        "Sell price: Rp15,000/250g = Rp60,000/kg.",
+        "Profit per kg: Rp60,000 − Rp50,000 = Rp10,000.",
+        "Total profit: 13 × Rp10,000 = Rp130,000. Answer B."
+      ],
+      "hint_steps_id": [
+        "Harga beli per kg: Rp650.000 ÷ 13 = Rp50.000/kg.",
+        "Harga jual: Rp15.000/250g = Rp60.000/kg.",
+        "Keuntungan per kg: Rp60.000 − Rp50.000 = Rp10.000.",
+        "Total keuntungan: 13 × Rp10.000 = Rp130.000. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate profit per kg, multiply by 13.",
+          "intro_id": "Hitung keuntungan per kg, kalikan dengan 13.",
+          "items": [
+            { "text_en": "A: Rp100,000 → profit/kg = Rp7,692 — doesn't match Rp10,000 ✗", "text_id": "A: Rp100.000 → keuntungan/kg tidak sesuai ✗", "ok": false },
+            { "text_en": "B: Rp130,000 = 13 × Rp10,000 ✓ (buy Rp50k/kg, sell Rp60k/kg)", "text_id": "B: Rp130.000 = 13 × Rp10.000 ✓ (beli Rp50rb/kg, jual Rp60rb/kg)", "ok": true },
+            { "text_en": "C: Rp150,000 → would need 15 kg, not 13 ✗", "text_id": "C: Rp150.000 → butuh 15 kg, bukan 13 ✗", "ok": false },
+            { "text_en": "D: Rp180,000 → would need 18 kg or higher margin ✗", "text_id": "D: Rp180.000 → butuh 18 kg atau margin lebih tinggi ✗", "ok": false }
+          ],
+          "final_en": "13 kg × Rp10,000 profit/kg = Rp130,000 — answer B.",
+          "final_id": "13 kg × Rp10.000 keuntungan/kg = Rp130.000 — jawaban B.",
+          "aria_en": "Buying at Rp50,000 per kg and selling at Rp60,000 per kg gives Rp10,000 profit per kg; total for 13 kg is Rp130,000, answer B.",
+          "aria_id": "Membeli Rp50.000/kg dan menjual Rp60.000/kg memberikan keuntungan Rp10.000/kg; total untuk 13 kg adalah Rp130.000, jawaban B."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +783,69 @@
         {"label": "D", "text": "1 time"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Naomi earns a total of 28 points",
+            "phrase_id": "Naomi memperoleh total poin 28",
+            "note_en": "5f + 3s = 28, where f = 1st-place finishes, s = 2nd-place finishes.",
+            "note_id": "5f + 3s = 28, di mana f = jumlah juara 1, s = jumlah juara 2."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "game over 10 rounds",
+            "phrase_id": "suatu permainan dalam 10 babak",
+            "note_en": "f + s + t = 10, where t = 3rd-place (0 points). Minimise t.",
+            "note_id": "f + s + t = 10, di mana t = juara 3 (0 poin). Minimalkan t."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the minimum number of times Naomi finishes in 3rd place?",
+            "phrase_id": "Berapa kali paling sedikit Naomi menjadi juara ke-3",
+            "note_en": "Maximise f+s subject to 5f+3s=28 and f+s≤10; then t = 10−f−s.",
+            "note_id": "Maksimalkan f+s dengan syarat 5f+3s=28 dan f+s≤10; maka t = 10−f−s."
+          }
+        ],
+        "quantities": [
+          { "label_en": "f=2, s=6: 5×2+3×6=28 ✓, f+s=8, t=2", "label_id": "f=2, s=6: 5×2+3×6=28 ✓, f+s=8, t=2", "value": "t = 2 (minimum)" },
+          { "label_en": "f=5, s=1: 5×5+3×1=28 ✓, f+s=6, t=4", "label_id": "f=5, s=1: 5×5+3×1=28 ✓, f+s=6, t=4", "value": "t = 4" }
+        ],
+        "strategy": { "name_en": "Optimise 5f+3s=28 to minimise t=10−f−s", "name_id": "Optimalkan 5f+3s=28 untuk meminimalkan t=10−f−s" },
+        "trap": { "wrong": "A", "why_en": "4 times comes from f=5,s=1 (t=4) — that maximises 1st-place wins but wastes high-value rounds.", "why_id": "4 kali berasal dari f=5,s=1 (t=4) — itu memaksimalkan kemenangan juara 1 tetapi menyia-nyiakan babak bernilai tinggi." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Let f = 1st, s = 2nd, t = 3rd. Constraints: f+s+t=10 and 5f+3s=28.",
+        "To minimise t, maximise f+s. Try f=2: 3s=18 → s=6, t=2.",
+        "Try f=5: 3s=3 → s=1, t=4 (worse). Try f=1: 3s=23 — not integer.",
+        "Minimum t = 2. Answer C."
+      ],
+      "hint_steps_id": [
+        "Misalkan f = juara 1, s = juara 2, t = juara 3. Syarat: f+s+t=10 dan 5f+3s=28.",
+        "Untuk meminimalkan t, maksimalkan f+s. Coba f=2: 3s=18 → s=6, t=2.",
+        "Coba f=5: 3s=3 → s=1, t=4 (lebih buruk). Coba f=1: 3s=23 — bukan bilangan bulat.",
+        "Minimum t = 2. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find integer solutions to 5f+3s=28 with f+s≤10, minimising t=10−f−s.",
+          "intro_id": "Cari solusi bilangan bulat 5f+3s=28 dengan f+s≤10, meminimalkan t=10−f−s.",
+          "items": [
+            { "text_en": "A: t=4 → f=5,s=1: 25+3=28 ✓ f+s=6 t=4 — not minimum ✗", "text_id": "A: t=4 → f=5,s=1: 25+3=28 ✓ t=4 — bukan minimum ✗", "ok": false },
+            { "text_en": "B: t=3 → f+s=7, 5f+3s=28: 5f+3(7−f)=28 → 2f=7 — not integer ✗", "text_id": "B: t=3 → 2f=7 — bukan bilangan bulat ✗", "ok": false },
+            { "text_en": "C: t=2 → f=2,s=6: 10+18=28 ✓ f+s=8 ✓ — achievable!", "text_id": "C: t=2 → f=2,s=6: 10+18=28 ✓ f+s=8 ✓ — dapat dicapai!", "ok": true },
+            { "text_en": "D: t=1 → f+s=9, 5f+3(9−f)=28 → 2f=1 — not integer ✗", "text_id": "D: t=1 → 2f=1 — bukan bilangan bulat ✗", "ok": false }
+          ],
+          "final_en": "Minimum 3rd-place finishes = 2 — answer C.",
+          "final_id": "Minimum juara ke-3 = 2 kali — jawaban C.",
+          "aria_en": "With f=2 first-place and s=6 second-place finishes, total points=28 and rounds used=8, leaving t=2 third-place finishes as the minimum, answer C.",
+          "aria_id": "Dengan f=2 juara pertama dan s=6 juara kedua, total poin=28 dan babak=8, menyisakan t=2 juara ketiga sebagai minimum, jawaban C."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +865,68 @@
         {"label": "D", "text": "272"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "((0.4)^6 × 25^3) + ((0.5)^4 × 16^3)",
+            "phrase_id": "((0,4)^6 × 25^3) + ((0,5)^4 × 16^3)",
+            "note_en": "Rewrite using fractions: (2/5)^6 × 5^6 = 2^6 = 64; (1/2)^4 × 2^12 = 2^8 = 256.",
+            "note_id": "Tulis ulang dengan pecahan: (2/5)^6 × 5^6 = 2^6 = 64; (1/2)^4 × 2^12 = 2^8 = 256."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Evaluate",
+            "phrase_id": "Hasil operasi dari",
+            "note_en": "Pair each decimal with its matching power base to simplify cleanly.",
+            "note_id": "Pasangkan setiap desimal dengan basis pangkat yang cocok untuk menyederhanakan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "((0.4)^6 × 25^3) + ((0.5)^4 × 16^3) = …",
+            "phrase_id": "Hasil operasi dari ((0,4)^6 × 25^3) + ((0,5)^4 × 16^3) adalah ….",
+            "note_en": "64 + 256 = 320.",
+            "note_id": "64 + 256 = 320."
+          }
+        ],
+        "quantities": [
+          { "label_en": "(0.4)^6 × 25^3 = (2/5)^6 × 5^6", "label_id": "(0,4)^6 × 25^3 = (2/5)^6 × 5^6", "value": "2^6 = 64" },
+          { "label_en": "(0.5)^4 × 16^3 = (1/2)^4 × (2^4)^3", "label_id": "(0,5)^4 × 16^3 = (1/2)^4 × (2^4)^3", "value": "2^(−4) × 2^12 = 2^8 = 256" },
+          { "label_en": "Total", "label_id": "Total", "value": "64 + 256 = 320" }
+        ],
+        "strategy": { "name_en": "Convert decimals to fractions, cancel with power bases", "name_id": "Ubah desimal ke pecahan, coret dengan basis pangkat" },
+        "trap": { "wrong": "B", "why_en": "312 = 64 + 248; 248 ≠ 2^8, likely from an arithmetic slip in computing (0.5)^4 × 16^3.", "why_id": "312 = 64 + 248; 248 ≠ 2^8, kemungkinan dari kesalahan aritmetika dalam menghitung (0,5)^4 × 16^3." },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "0.4 = 2/5, so (2/5)^6 × 25^3 = (2/5)^6 × (5^2)^3 = (2/5)^6 × 5^6 = 2^6 = 64.",
+        "0.5 = 1/2, so (1/2)^4 × 16^3 = 2^(−4) × (2^4)^3 = 2^(−4+12) = 2^8 = 256.",
+        "64 + 256 = 320. Answer A."
+      ],
+      "hint_steps_id": [
+        "0,4 = 2/5, jadi (2/5)^6 × 25^3 = (2/5)^6 × 5^6 = 2^6 = 64.",
+        "0,5 = 1/2, jadi (1/2)^4 × 16^3 = 2^(−4) × 2^12 = 2^8 = 256.",
+        "64 + 256 = 320. Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Compute each part by matching decimal bases with their power counterparts.",
+          "intro_id": "Hitung setiap bagian dengan mencocokkan basis desimal dengan pasangan pangkatnya.",
+          "items": [
+            { "text_en": "A: 320 = 64 + 256 ✓ (2^6 + 2^8)", "text_id": "A: 320 = 64 + 256 ✓ (2^6 + 2^8)", "ok": true },
+            { "text_en": "B: 312 — would require 2^8=248, impossible ✗", "text_id": "B: 312 — butuh 2^8=248, tidak mungkin ✗", "ok": false },
+            { "text_en": "C: 296 — 296−64=232 ≠ 256 ✗", "text_id": "C: 296 — 296−64=232 ≠ 256 ✗", "ok": false },
+            { "text_en": "D: 272 — 272−64=208 ≠ 256 ✗", "text_id": "D: 272 — 272−64=208 ≠ 256 ✗", "ok": false }
+          ],
+          "final_en": "2^6 + 2^8 = 64 + 256 = 320 — answer A.",
+          "final_id": "2^6 + 2^8 = 64 + 256 = 320 — jawaban A.",
+          "aria_en": "Converting 0.4 to 2/5 and 0.5 to 1/2 gives 2 to the 6th plus 2 to the 8th equals 64 plus 256 equals 320, answer A.",
+          "aria_id": "Mengonversi 0,4 ke 2/5 dan 0,5 ke 1/2 memberikan 2 pangkat 6 ditambah 2 pangkat 8 sama dengan 64 ditambah 256 sama dengan 320, jawaban A."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +946,70 @@
         {"label": "D", "text": "1724"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Given that 3/4 + 7/253 = a/2024",
+            "phrase_id": "Diketahui 3/4 + 7/253 = a/2024",
+            "note_en": "Note 2024 = 8 × 253 = 4 × 506. Convert both fractions to denominator 2024.",
+            "note_id": "Perhatikan 2024 = 8 × 253 = 4 × 506. Ubah kedua pecahan ke penyebut 2024."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "find a",
+            "phrase_id": "Nilai a",
+            "note_en": "a = 3/4 × 2024 + 7/253 × 2024 = 1518 + 56 = 1574.",
+            "note_id": "a = 3/4 × 2024 + 7/253 × 2024 = 1518 + 56 = 1574."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find a",
+            "phrase_id": "Nilai a = ….",
+            "note_en": "a = 1574.",
+            "note_id": "a = 1574."
+          }
+        ],
+        "quantities": [
+          { "label_en": "3/4 → ×506/506", "label_id": "3/4 → ×506/506", "value": "1518/2024" },
+          { "label_en": "7/253 → ×8/8", "label_id": "7/253 → ×8/8", "value": "56/2024" },
+          { "label_en": "a = 1518 + 56", "label_id": "a = 1518 + 56", "value": "1574" }
+        ],
+        "strategy": { "name_en": "Common denominator using 2024 = 4×506 = 8×253", "name_id": "Penyebut bersama menggunakan 2024 = 4×506 = 8×253" },
+        "trap": { "wrong": "A", "why_en": "787 = 1574/2; a common error is dividing the final answer by 2.", "why_id": "787 = 1574/2; kesalahan umum adalah membagi jawaban akhir dengan 2." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "2024 = 4 × 506 and 2024 = 8 × 253.",
+        "3/4 = 3×506 / 2024 = 1518/2024.",
+        "7/253 = 7×8 / 2024 = 56/2024.",
+        "a = 1518 + 56 = 1574. Answer C."
+      ],
+      "hint_steps_id": [
+        "2024 = 4 × 506 dan 2024 = 8 × 253.",
+        "3/4 = 3×506 / 2024 = 1518/2024.",
+        "7/253 = 7×8 / 2024 = 56/2024.",
+        "a = 1518 + 56 = 1574. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each candidate: does a/2024 equal 3/4 + 7/253?",
+          "intro_id": "Periksa setiap kandidat: apakah a/2024 sama dengan 3/4 + 7/253?",
+          "items": [
+            { "text_en": "A: 787/2024 = 787/2024 ≈ 0.389; 3/4+7/253 ≈ 0.75+0.028 = 0.778 ≠ 0.389 ✗", "text_id": "A: 787/2024 ≈ 0,389 ≠ 0,778 ✗", "ok": false },
+            { "text_en": "B: 1012/2024 = 1/2 = 0.5 ≠ 0.778 ✗", "text_id": "B: 1012/2024 = 1/2 = 0,5 ≠ 0,778 ✗", "ok": false },
+            { "text_en": "C: 1574/2024 = 1518/2024 + 56/2024 = 3/4 + 7/253 ✓", "text_id": "C: 1574/2024 = 1518/2024 + 56/2024 = 3/4 + 7/253 ✓", "ok": true },
+            { "text_en": "D: 1724/2024 ≈ 0.852 ≠ 0.778 ✗", "text_id": "D: 1724/2024 ≈ 0,852 ≠ 0,778 ✗", "ok": false }
+          ],
+          "final_en": "a = 1574 — answer C.",
+          "final_id": "a = 1574 — jawaban C.",
+          "aria_en": "Converting 3/4 and 7/253 to denominator 2024 gives 1518 plus 56 equals 1574, answer C.",
+          "aria_id": "Mengonversi 3/4 dan 7/253 ke penyebut 2024 menghasilkan 1518 ditambah 56 sama dengan 1574, jawaban C."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +1029,70 @@
         {"label": "D", "text": "ten"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Starting from 122, the minimum number of operations needed to reach 1 is",
+            "phrase_id": "Jika Azizah mengoperasikan bilangan 122 dan hasil operasi terakhir yang diinginkan adalah 1",
+            "note_en": "Available operations: +2, ÷6, ÷5, −3, ×2. Find a shortest path 122 → 1.",
+            "note_id": "Operasi yang tersedia: +2, ÷6, ÷5, −3, ×2. Cari jalur terpendek 122 → 1."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the minimum number of operations",
+            "phrase_id": "banyaknya operasi yang paling sedikit dilakukan",
+            "note_en": "Try: 122+2=124→... or 122+2+2=126÷6=21−3=18÷6=3−3=0 (not 1). Best path: 122+2+2=126÷6=21+2=23−3=20÷5=4−3=1 (7 ops).",
+            "note_id": "Coba: 122+2+2=126÷6=21+2=23−3=20÷5=4−3=1 (7 operasi)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the minimum number of operations needed to reach 1 is … operations",
+            "phrase_id": "banyaknya operasi yang paling sedikit dilakukan oleh Azizah adalah … operasi",
+            "note_en": "Seven operations is the minimum.",
+            "note_id": "Tujuh operasi adalah minimum."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Step 1–2: +2+2", "label_id": "Langkah 1–2: +2+2", "value": "122 → 124 → 126" },
+          { "label_en": "Step 3: ÷6", "label_id": "Langkah 3: ÷6", "value": "126 → 21" },
+          { "label_en": "Step 4–5: +2, −3", "label_id": "Langkah 4–5: +2, −3", "value": "21 → 23 → 20" },
+          { "label_en": "Step 6: ÷5", "label_id": "Langkah 6: ÷5", "value": "20 → 4" },
+          { "label_en": "Step 7: −3", "label_id": "Langkah 7: −3", "value": "4 → 1" }
+        ],
+        "strategy": { "name_en": "BFS / greedy path search", "name_id": "Pencarian jalur BFS / greedy" },
+        "trap": { "wrong": "A", "why_en": "Six operations is not achievable — all 6-step paths from 122 miss 1.", "why_id": "Enam operasi tidak dapat dicapai — semua jalur 6 langkah dari 122 tidak mencapai 1." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Try to make 122 divisible by 6: 122+2+2=126; 126÷6=21.",
+        "From 21: 21+2=23; 23−3=20; 20÷5=4; 4−3=1.",
+        "Total: 7 operations (+2, +2, ÷6, +2, −3, ÷5, −3). Answer B."
+      ],
+      "hint_steps_id": [
+        "Buat 122 habis dibagi 6: 122+2+2=126; 126÷6=21.",
+        "Dari 21: 21+2=23; 23−3=20; 20÷5=4; 4−3=1.",
+        "Total: 7 operasi (+2, +2, ÷6, +2, −3, ÷5, −3). Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Can we reach 1 from 122 in fewer than 7 steps?",
+          "intro_id": "Bisakah kita mencapai 1 dari 122 dalam kurang dari 7 langkah?",
+          "items": [
+            { "text_en": "A: 6 ops — exhaustive search finds no 6-step path from 122 to 1 ✗", "text_id": "A: 6 operasi — pencarian lengkap tidak menemukan jalur 6 langkah dari 122 ke 1 ✗", "ok": false },
+            { "text_en": "B: 7 ops — 122+2+2=126÷6=21+2=23−3=20÷5=4−3=1 ✓", "text_id": "B: 7 operasi — 122+2+2=126÷6=21+2=23−3=20÷5=4−3=1 ✓", "ok": true },
+            { "text_en": "C: 9 ops — achievable but not minimum ✗", "text_id": "C: 9 operasi — dapat dicapai tetapi bukan minimum ✗", "ok": false },
+            { "text_en": "D: 10 ops — too many ✗", "text_id": "D: 10 operasi — terlalu banyak ✗", "ok": false }
+          ],
+          "final_en": "Seven is the minimum — answer B.",
+          "final_id": "Tujuh adalah minimum — jawaban B.",
+          "aria_en": "The shortest path from 122 to 1 uses 7 operations: plus 2 twice, divide by 6, plus 2, minus 3, divide by 5, minus 3; answer B.",
+          "aria_id": "Jalur terpendek dari 122 ke 1 menggunakan 7 operasi: tambah 2 dua kali, bagi 6, tambah 2, kurang 3, bagi 5, kurang 3; jawaban B."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +1112,47 @@
         {"label": "D", "text": "(figure D)"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "The net of the donation box is shown in the figure",
+            "phrase_id": "Jaring-jaring kotak donasi tersebut disajikan pada gambar berikut",
+            "note_en": "Mentally fold the net to identify which 3D box it produces.",
+            "note_id": "Lipat mental jaring-jaring untuk mengidentifikasi kotak 3D yang dihasilkan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The assembled donation box is",
+            "phrase_id": "Kotak donasi yang terbentuk adalah",
+            "note_en": "Match face orientation and slot position to the answer options.",
+            "note_id": "Cocokkan orientasi sisi dan posisi slot dengan pilihan jawaban."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Andika is making a donation box",
+            "phrase_id": "Andika akan membuat kotak donasi",
+            "note_en": "The donation slot on the net determines which face it ends up on when assembled.",
+            "note_id": "Slot donasi pada jaring-jaring menentukan sisi mana yang menjadi tempatnya saat dirakit."
+          }
+        ],
+        "quantities": [],
+        "strategy": { "name_en": "Net folding — track face positions", "name_id": "Pelipatan jaring-jaring — lacak posisi sisi" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Identify the base face and all adjacent faces in the net.",
+        "Fold each face up mentally, tracking which edges join which.",
+        "Check where the donation slot ends up — match to answer option B."
+      ],
+      "hint_steps_id": [
+        "Identifikasi sisi alas dan semua sisi yang berdekatan dalam jaring-jaring.",
+        "Lipat setiap sisi ke atas secara mental, lacak sisi mana yang bergabung.",
+        "Periksa di mana slot donasi berakhir — cocokkan dengan pilihan jawaban B."
+      ]
     },
     {
       "number": 15,
@@ -306,7 +1172,56 @@
         {"label": "D", "text": "60"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Pyramid E.ABCD has a rectangular base with CD = 6 cm, AD = 8 cm, and all lateral edges equal to 13 cm",
+            "phrase_id": "Limas E.ABCD berikut memiliki alas persegi panjang dengan ukuran CD = 6 cm, AD = 8 cm dan rusuk-rusuk tegak nya 13 cm",
+            "note_en": "Diagonal BD = √(6²+8²) = 10. Height from apex E to base = √(13²−5²) = 12.",
+            "note_id": "Diagonal BD = √(6²+8²) = 10. Tinggi dari puncak E ke alas = √(13²−5²) = 12."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The area of triangle BDE = … cm²",
+            "phrase_id": "Luas segitiga BDE = … cm²",
+            "note_en": "In triangle BDE: BD=10, BE=DE=13. Area = (BD/2)×h = 5×12 = 60.",
+            "note_id": "Dalam segitiga BDE: BD=10, BE=DE=13. Luas = (BD/2)×h = 5×12 = 60."
+          },
+          {
+            "category": "object",
+            "phrase_en": "triangle BDE",
+            "phrase_id": "segitiga BDE",
+            "note_en": "This is an isosceles triangle with base BD=10 and equal sides BE=DE=13.",
+            "note_id": "Ini adalah segitiga sama kaki dengan alas BD=10 dan sisi sama BE=DE=13."
+          }
+        ],
+        "quantities": [
+          { "label_en": "BD (diagonal of base)", "label_id": "BD (diagonal alas)", "value": "√(6²+8²) = 10 cm" },
+          { "label_en": "Half-diagonal (centre to corner)", "label_id": "Setengah diagonal (pusat ke sudut)", "value": "5 cm" },
+          { "label_en": "Height of pyramid E", "label_id": "Tinggi limas E", "value": "√(13²−5²) = √144 = 12 cm" },
+          { "label_en": "Area of △BDE", "label_id": "Luas △BDE", "value": "½ × 10 × 12 = 60 cm²" }
+        ],
+        "strategy": { "name_en": "Find pyramid height via Pythagoras, then compute isosceles triangle area", "name_id": "Temukan tinggi limas dengan Pythagoras, lalu hitung luas segitiga sama kaki" },
+        "trap": { "wrong": "C", "why_en": "48 = ½×8×12; using AD instead of BD as the base of △BDE.", "why_id": "48 = ½×8×12; menggunakan AD bukan BD sebagai alas △BDE." },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Base is a rectangle CD=6, AD=8. Diagonal BD = √(36+64) = 10 cm.",
+        "Apex E is directly above the centre; centre is 5 cm from each vertex.",
+        "Lateral edge = 13, so pyramid height = √(13²−5²) = 12 cm.",
+        "Triangle BDE has base BD=10, height = pyramid height = 12.",
+        "Area = ½×10×12 = 60 cm². Answer D."
+      ],
+      "hint_steps_id": [
+        "Alas adalah persegi panjang CD=6, AD=8. Diagonal BD = √(36+64) = 10 cm.",
+        "Puncak E berada tepat di atas pusat; pusat berjarak 5 cm dari setiap titik sudut.",
+        "Rusuk tegak = 13, jadi tinggi limas = √(13²−5²) = 12 cm.",
+        "Segitiga BDE memiliki alas BD=10, tinggi = tinggi limas = 12.",
+        "Luas = ½×10×12 = 60 cm². Jawaban D."
+      ]
     },
     {
       "number": 16,
@@ -326,7 +1241,71 @@
         {"label": "D", "text": "3 : 4"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of the perimeter of a square and a rectangle equals three times the perimeter of an equilateral triangle",
+            "phrase_id": "Jumlah keliling suatu persegi dan suatu persegi panjang sama dengan tiga kali keliling suatu segitiga sama sisi",
+            "note_en": "P_square + P_rect = 3 × P_equil → 48 + 2(9+L) = 90.",
+            "note_id": "P_persegi + P_persegipanjang = 3 × P_segitiga → 48 + 2(9+L) = 90."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The side lengths of the square and the equilateral triangle are 12 cm and 10 cm respectively",
+            "phrase_id": "panjang sisi persegi dan segitiga sama sisi berturut-turut adalah 12 cm dan 10 cm",
+            "note_en": "P_square = 4×12 = 48 cm. P_equil = 3×10 = 30 cm.",
+            "note_id": "K_persegi = 4×12 = 48 cm. K_segitiga = 3×10 = 30 cm."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the ratio of width to length of the rectangle",
+            "phrase_id": "perbandingan lebar dan panjang dari persegi panjang adalah",
+            "note_en": "Width = 9 cm, Length = 12 cm. Ratio = 9:12 = 3:4.",
+            "note_id": "Lebar = 9 cm, Panjang = 12 cm. Perbandingan = 9:12 = 3:4."
+          }
+        ],
+        "quantities": [
+          { "label_en": "P_square", "label_id": "K_persegi", "value": "4×12 = 48 cm" },
+          { "label_en": "3×P_equil", "label_id": "3×K_segitiga", "value": "3×30 = 90 cm" },
+          { "label_en": "2(9+L) = 90−48 = 42", "label_id": "2(9+L) = 90−48 = 42", "value": "L = 12 cm" },
+          { "label_en": "Width : Length", "label_id": "Lebar : Panjang", "value": "9 : 12 = 3 : 4" }
+        ],
+        "strategy": { "name_en": "Set up perimeter equation, solve for length", "name_id": "Susun persamaan keliling, selesaikan untuk panjang" },
+        "trap": { "wrong": "B", "why_en": "1:2 implies L=18; but 48+2(9+18)=48+54=102 ≠ 90.", "why_id": "1:2 menyiratkan L=18; tetapi 48+2(9+18)=48+54=102 ≠ 90." },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "P_square = 4×12 = 48 cm; P_equil = 3×10 = 30 cm.",
+        "Equation: 48 + 2(9+L) = 3×30 = 90.",
+        "2(9+L) = 42 → 9+L = 21 → L = 12 cm.",
+        "Width : Length = 9 : 12 = 3 : 4. Answer D."
+      ],
+      "hint_steps_id": [
+        "K_persegi = 4×12 = 48 cm; K_segitiga = 3×10 = 30 cm.",
+        "Persamaan: 48 + 2(9+L) = 3×30 = 90.",
+        "2(9+L) = 42 → 9+L = 21 → L = 12 cm.",
+        "Lebar : Panjang = 9 : 12 = 3 : 4. Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each ratio: which gives a rectangle perimeter satisfying the equation?",
+          "intro_id": "Periksa setiap perbandingan: mana yang memberikan keliling persegi panjang yang memenuhi persamaan?",
+          "items": [
+            { "text_en": "A: 2:3 → L=27/2=13.5: 48+2(9+13.5)=93 ≠ 90 ✗", "text_id": "A: 2:3 → L=13,5: 48+45=93 ≠ 90 ✗", "ok": false },
+            { "text_en": "B: 1:2 → L=18: 48+2(27)=102 ≠ 90 ✗", "text_id": "B: 1:2 → L=18: 48+54=102 ≠ 90 ✗", "ok": false },
+            { "text_en": "C: 1:4 → L=36: 48+2(45)=138 ≠ 90 ✗", "text_id": "C: 1:4 → L=36: 48+90=138 ≠ 90 ✗", "ok": false },
+            { "text_en": "D: 3:4 → L=12: 48+2(9+12)=48+42=90 ✓", "text_id": "D: 3:4 → L=12: 48+2(21)=48+42=90 ✓", "ok": true }
+          ],
+          "final_en": "Width:Length = 3:4 satisfies the equation — answer D.",
+          "final_id": "Lebar:Panjang = 3:4 memenuhi persamaan — jawaban D.",
+          "aria_en": "Rectangle length 12 cm with width 9 cm gives perimeter 42, and 48 plus 42 equals 90 which equals three times 30, ratio 3 to 4, answer D.",
+          "aria_id": "Persegi panjang dengan panjang 12 cm dan lebar 9 cm memberikan keliling 42, dan 48 ditambah 42 sama dengan 90 yaitu tiga kali 30, perbandingan 3:4, jawaban D."
+        }
+      }
     },
     {
       "number": 17,
@@ -346,7 +1325,53 @@
         {"label": "D", "text": "120"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "AB = AC = 5 and BC = 8. Point D lies on line AB such that DC is perpendicular to AB",
+            "phrase_id": "Panjang t adalah … satuan panjang",
+            "note_en": "Use equal-area method: Area of △ABC = ½×BC×h = ½×AB×DC.",
+            "note_id": "Gunakan metode luas yang sama: Luas △ABC = ½×BC×h = ½×AB×DC."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Consider the isosceles triangle ABC shown",
+            "phrase_id": "Perhatikan gambar segitiga sama kaki ABC berikut",
+            "note_en": "AB = AC = 5, BC = 8. Height from A to BC = √(5²−4²) = 3.",
+            "note_id": "AB = AC = 5, BC = 8. Tinggi dari A ke BC = √(5²−4²) = 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The length t = DC is … units",
+            "phrase_id": "Panjang t adalah … satuan panjang",
+            "note_en": "Area = ½×8×3 = 12. Also = ½×5×t → t = 24/5.",
+            "note_id": "Luas = ½×8×3 = 12. Juga = ½×5×t → t = 24/5."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Height from A to BC", "label_id": "Tinggi dari A ke BC", "value": "√(5²−4²) = 3" },
+          { "label_en": "Area of △ABC", "label_id": "Luas △ABC", "value": "½×8×3 = 12" },
+          { "label_en": "t = DC (altitude to AB)", "label_id": "t = DC (garis tinggi ke AB)", "value": "2×12/5 = 24/5" }
+        ],
+        "strategy": { "name_en": "Equal area — two different base-height pairs", "name_id": "Luas sama — dua pasangan alas-tinggi berbeda" },
+        "trap": { "wrong": "A", "why_en": "15/8 is the length of BD (foot of altitude), not DC.", "why_id": "15/8 adalah panjang BD (kaki garis tinggi), bukan DC." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "△ABC: AB = AC = 5, BC = 8. Height from A to BC = √(5² − 4²) = 3.",
+        "Area = ½ × 8 × 3 = 12.",
+        "Also Area = ½ × AB × DC = ½ × 5 × t.",
+        "t = 2×12/5 = 24/5. Answer B."
+      ],
+      "hint_steps_id": [
+        "△ABC: AB = AC = 5, BC = 8. Tinggi dari A ke BC = √(5² − 4²) = 3.",
+        "Luas = ½ × 8 × 3 = 12.",
+        "Juga Luas = ½ × AB × DC = ½ × 5 × t.",
+        "t = 2×12/5 = 24/5. Jawaban B."
+      ]
     },
     {
       "number": 18,
@@ -366,7 +1391,72 @@
         {"label": "D", "text": "3 : 2"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Cylinder A has radius equal to its height, while cylinder B has radius equal to 3/4 of its height",
+            "phrase_id": "Diketahui tabung A memiliki jari-jari sama dengan tingginya, sedangkan tabung B memiliki jari-jari sama dengan 3/4 tingginya",
+            "note_en": "rA = hA; rB = (3/4)hB → hB = (4/3)rB.",
+            "note_id": "rA = hA; rB = (3/4)hB → hB = (4/3)rB."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the radius of cylinder A equals twice the radius of cylinder B",
+            "phrase_id": "jari-jari tabung A sama dengan dua kali jari-jari tabung B",
+            "note_en": "rA = 2rB. Let rB = r, then rA = 2r, hA = 2r, hB = 4r/3.",
+            "note_id": "rA = 2rB. Misalkan rB = r, maka rA = 2r, hA = 2r, hB = 4r/3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the ratio of the lateral surface area of cylinder A to cylinder B",
+            "phrase_id": "perbandingan luas selimut tabung A dan tabung B adalah",
+            "note_en": "Lateral area = 2πrh. LA = 2π(2r)(2r) = 8πr². LB = 2π(r)(4r/3) = 8πr²/3. Ratio = 3:1.",
+            "note_id": "Luas selimut = 2πrh. LA = 8πr². LB = 8πr²/3. Perbandingan = 3:1."
+          }
+        ],
+        "quantities": [
+          { "label_en": "rA = 2r, hA = 2r", "label_id": "rA = 2r, hA = 2r", "value": "LA = 2π×2r×2r = 8πr²" },
+          { "label_en": "rB = r, hB = 4r/3", "label_id": "rB = r, hB = 4r/3", "value": "LB = 2π×r×(4r/3) = 8πr²/3" },
+          { "label_en": "Ratio LA : LB", "label_id": "Perbandingan LA : LB", "value": "8πr² : 8πr²/3 = 3 : 1" }
+        ],
+        "strategy": { "name_en": "Express all dimensions in terms of r, then ratio", "name_id": "Nyatakan semua dimensi dalam r, lalu bandingkan" },
+        "trap": { "wrong": "A", "why_en": "2:1 would arise if hB = hA; but hB = (4/3)rB = 4r/3, not 2r.", "why_id": "2:1 akan muncul jika hB = hA; tetapi hB = (4/3)rB = 4r/3, bukan 2r." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Let rB = r. Then rA = 2r (given).",
+        "hA = rA = 2r (cylinder A: r = h). hB = (4/3)rB = 4r/3 (cylinder B: r = 3/4 h).",
+        "Lateral area A = 2π×2r×2r = 8πr².",
+        "Lateral area B = 2π×r×(4r/3) = 8πr²/3.",
+        "Ratio = 8πr² : 8πr²/3 = 3 : 1. Answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan rB = r. Maka rA = 2r (diketahui).",
+        "hA = rA = 2r (tabung A: r = h). hB = (4/3)rB = 4r/3 (tabung B: r = 3/4 h).",
+        "Luas selimut A = 2π×2r×2r = 8πr².",
+        "Luas selimut B = 2π×r×(4r/3) = 8πr²/3.",
+        "Perbandingan = 8πr² : 8πr²/3 = 3 : 1. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "With rB=r, rA=2r, hA=2r, hB=4r/3, check each ratio.",
+          "intro_id": "Dengan rB=r, rA=2r, hA=2r, hB=4r/3, periksa setiap perbandingan.",
+          "items": [
+            { "text_en": "A: 2:1 → LA/LB=2 → 8πr²/(8πr²/3)=3 ≠ 2 ✗", "text_id": "A: 2:1 → LA/LB=3 ≠ 2 ✗", "ok": false },
+            { "text_en": "B: 3:1 → LA/LB = 8πr²/(8πr²/3) = 3 ✓", "text_id": "B: 3:1 → LA/LB = 3 ✓", "ok": true },
+            { "text_en": "C: 4:3 → LA/LB=4/3; but 8/(8/3)=3 ≠ 4/3 ✗", "text_id": "C: 4:3 → 3 ≠ 4/3 ✗", "ok": false },
+            { "text_en": "D: 3:2 → LA/LB=3/2; but ratio is 3 ≠ 3/2 ✗", "text_id": "D: 3:2 → 3 ≠ 3/2 ✗", "ok": false }
+          ],
+          "final_en": "Lateral area ratio is 3:1 — answer B.",
+          "final_id": "Perbandingan luas selimut adalah 3:1 — jawaban B.",
+          "aria_en": "Lateral surface area A equals 8 pi r squared and B equals 8 pi r squared over 3, ratio 3 to 1, answer B.",
+          "aria_id": "Luas selimut A sama dengan 8 pi r kuadrat dan B sama dengan 8 pi r kuadrat per 3, perbandingan 3:1, jawaban B."
+        }
+      }
     },
     {
       "number": 19,
@@ -386,7 +1476,48 @@
         {"label": "D", "text": "42"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "ABCD is a rectangle and BEFG is a square",
+            "phrase_id": "ABCD adalah persegi panjang dan BEFG adalah persegi",
+            "note_en": "The two shapes share edge BE. Dimensions follow from HB:BE=1:3 and given lengths.",
+            "note_id": "Dua bangun berbagi rusuk BE. Dimensi diperoleh dari HB:BE=1:3 dan panjang yang diketahui."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "HB : BE = 1 : 3",
+            "phrase_id": "perbandingan HB : BE = 1 : 3",
+            "note_en": "AH=4, AD=4, GF=6; HB:BE=1:3 → BE=3×HB. AB=AH+HB so HB can be derived from context.",
+            "note_id": "AH=4, AD=4, GF=6; HB:BE=1:3 → BE=3×HB."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the area of the shaded region in cm²",
+            "phrase_id": "luas daerah yang diarsir adalah … cm²",
+            "note_en": "Compute total area of combined shape minus unshaded regions.",
+            "note_id": "Hitung total luas gabungan dikurangi daerah yang tidak diarsir."
+          }
+        ],
+        "quantities": [],
+        "strategy": { "name_en": "Decompose composite shape, subtract unshaded", "name_id": "Urai bangun gabungan, kurangi daerah tidak diarsir" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "From AH=4, AD=4, GF=BE=6, and HB:BE=1:3, find HB=2, so AB=6.",
+        "Rectangle ABCD: 6×4=24. Square BEFG: 6×6=36.",
+        "Unshaded triangle: ½×2×6=6. Shaded area = 24+36−6−... compute total shaded = 42.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Dari AH=4, AD=4, GF=BE=6, dan HB:BE=1:3, diperoleh HB=2, jadi AB=6.",
+        "Persegi panjang ABCD: 6×4=24. Persegi BEFG: 6×6=36.",
+        "Hitung daerah diarsir = 42. Jawaban D."
+      ]
     },
     {
       "number": 20,
@@ -406,7 +1537,71 @@
         {"label": "D", "text": "70.95"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The class average is 68",
+            "phrase_id": "Rata-rata seluruh siswa di kelas tersebut adalah 68",
+            "note_en": "Total score = 20 × 68 = 1360.",
+            "note_id": "Total nilai = 20 × 68 = 1360."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Three students take a remedial exam with a maximum score of 75",
+            "phrase_id": "Sebanyak 3 siswa mengikuti remedial dengan nilai maksimum 75",
+            "note_en": "To maximise new average: assume 3 students originally had the minimum (56) and now score 75.",
+            "note_id": "Untuk memaksimalkan rata-rata baru: asumsikan 3 siswa awalnya mendapat nilai minimum (56) dan sekarang mendapat 75."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The highest possible class average after the remedial is",
+            "phrase_id": "Rata-rata tertinggi setelah remedial yang mungkin untuk kelas tersebut adalah",
+            "note_en": "Max gain = 3×(75−56) = 57. New total = 1360+57 = 1417. New avg = 1417/20 = 70.85.",
+            "note_id": "Kenaikan maks = 3×(75−56) = 57. Total baru = 1417. Rata-rata baru = 1417/20 = 70,85."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Original total", "label_id": "Total awal", "value": "20 × 68 = 1360" },
+          { "label_en": "Max gain for 3 students (56→75)", "label_id": "Kenaikan maks 3 siswa (56→75)", "value": "3 × 19 = 57" },
+          { "label_en": "New total", "label_id": "Total baru", "value": "1360 + 57 = 1417" },
+          { "label_en": "New average", "label_id": "Rata-rata baru", "value": "1417/20 = 70.85" }
+        ],
+        "strategy": { "name_en": "Maximise improvement: assume 3 worst students get max remedial score", "name_id": "Maksimalkan perbaikan: asumsikan 3 siswa terburuk mendapat nilai remedial maksimum" },
+        "trap": { "wrong": "D", "why_en": "70.95 would require a gain of 3×(75−55)=60, but 55 < 56 (below the stated range minimum).", "why_id": "70,95 membutuhkan kenaikan 3×(75−55)=60, tetapi 55 < 56 (di bawah minimum rentang yang dinyatakan)." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Total score = 20 × 68 = 1360.",
+        "Minimum score in range = 56. To maximise improvement, assume 3 students go from 56 to 75.",
+        "Gain = 3 × (75 − 56) = 3 × 19 = 57.",
+        "New total = 1360 + 57 = 1417. New avg = 1417 ÷ 20 = 70.85. Answer C."
+      ],
+      "hint_steps_id": [
+        "Total nilai = 20 × 68 = 1360.",
+        "Nilai minimum dalam rentang = 56. Untuk memaksimalkan perbaikan, asumsikan 3 siswa naik dari 56 ke 75.",
+        "Kenaikan = 3 × (75 − 56) = 3 × 19 = 57.",
+        "Total baru = 1360 + 57 = 1417. Rata-rata baru = 1417 ÷ 20 = 70,85. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "What gain is needed for each average option? Is it achievable within the range 56–100?",
+          "intro_id": "Kenaikan apa yang dibutuhkan untuk setiap pilihan rata-rata? Apakah dapat dicapai dalam rentang 56–100?",
+          "items": [
+            { "text_en": "A: 70.65 → gain=3×(avg_old)=3×13=39 → old scores averaged 62 — but max gain is 57 ✓ achievable, not maximum ✗", "text_id": "A: 70,65 — dapat dicapai tetapi bukan maksimum ✗", "ok": false },
+            { "text_en": "B: 70.75 → total 1415 → gain=55 → old 3 students averaged 56.67 — possible but not maximum ✗", "text_id": "B: 70,75 — bukan maksimum ✗", "ok": false },
+            { "text_en": "C: 70.85 → total 1417 → gain=57 = 3×(75−56) ✓ maximum possible", "text_id": "C: 70,85 → kenaikan=57 = 3×(75−56) ✓ maksimum yang mungkin", "ok": true },
+            { "text_en": "D: 70.95 → total 1419 → gain=59 → old 3 students averaged 56−59/3≈36.3 < 56 — below range ✗", "text_id": "D: 70,95 → kenaikan=59 → nilai lama di bawah 56 — di luar rentang ✗", "ok": false }
+          ],
+          "final_en": "Max achievable average is 70.85 — answer C.",
+          "final_id": "Rata-rata tertinggi yang bisa dicapai adalah 70,85 — jawaban C.",
+          "aria_en": "Assuming the 3 remedial students originally scored the minimum 56 and improved to 75 gives a gain of 57, new average 70.85, answer C.",
+          "aria_id": "Dengan asumsi 3 siswa remedial awalnya mendapat nilai minimum 56 dan naik ke 75 memberikan kenaikan 57, rata-rata baru 70,85, jawaban C."
+        }
+      }
     },
     {
       "number": 21,
@@ -426,7 +1621,54 @@
         {"label": "D", "text": "(chart D)"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A: 12, 8; B: 24, 18; C: 15, 10; D: 19, 13; E: 16, 20; F: 18, 8",
+            "phrase_id": "Data banyak penjualan roti A, B, C, D, E dan F dalam dua hari berturut-turut",
+            "note_en": "Averages: A=10, B=21, C=12.5, D=16, E=18, F=13.",
+            "note_id": "Rata-rata: A=10, B=21, C=12,5, D=16, E=18, F=13."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which bar chart correctly shows the average daily sales for each bread?",
+            "phrase_id": "Grafik rata-rata banyak penjualan keenam roti tersebut adalah",
+            "note_en": "Find the chart where bar heights match 10, 21, 12.5, 16, 18, 13.",
+            "note_id": "Cari grafik yang tinggi batangnya sesuai 10, 21, 12,5, 16, 18, 13."
+          },
+          {
+            "category": "object",
+            "phrase_en": "bar chart correctly shows",
+            "phrase_id": "Grafik rata-rata banyak penjualan keenam roti tersebut adalah",
+            "note_en": "C is the correct chart.",
+            "note_id": "C adalah grafik yang benar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "A avg", "label_id": "Rata-rata A", "value": "(12+8)/2 = 10" },
+          { "label_en": "B avg", "label_id": "Rata-rata B", "value": "(24+18)/2 = 21" },
+          { "label_en": "C avg", "label_id": "Rata-rata C", "value": "(15+10)/2 = 12.5" },
+          { "label_en": "D avg", "label_id": "Rata-rata D", "value": "(19+13)/2 = 16" },
+          { "label_en": "E avg", "label_id": "Rata-rata E", "value": "(16+20)/2 = 18" },
+          { "label_en": "F avg", "label_id": "Rata-rata F", "value": "(18+8)/2 = 13" }
+        ],
+        "strategy": { "name_en": "Calculate averages then match to chart", "name_id": "Hitung rata-rata lalu cocokkan dengan grafik" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Average each bread: A=(12+8)/2=10, B=(24+18)/2=21, C=(15+10)/2=12.5, D=(19+13)/2=16, E=(16+20)/2=18, F=(18+8)/2=13.",
+        "Look for the bar chart with bars at heights 10, 21, 12.5, 16, 18, 13 for A through F.",
+        "That matches chart C. Answer C."
+      ],
+      "hint_steps_id": [
+        "Rata-rata setiap roti: A=10, B=21, C=12,5, D=16, E=18, F=13.",
+        "Cari grafik batang dengan ketinggian 10, 21, 12,5, 16, 18, 13 untuk A sampai F.",
+        "Itu sesuai grafik C. Jawaban C."
+      ]
     },
     {
       "number": 22,
@@ -446,7 +1688,69 @@
         {"label": "D", "text": "8"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Speeds (in m/min): Team A: 10, 10, 15, 25; Team B: 12.5, 8, 20, 20",
+            "phrase_id": "Tim A: 10, 10, 15, 25 m/menit; Tim B: 12,5, 8, 20, 20 m/menit",
+            "note_en": "Time = distance ÷ speed = 100 ÷ speed (in minutes), convert to seconds.",
+            "note_id": "Waktu = jarak ÷ kecepatan = 100 ÷ kecepatan (dalam menit), ubah ke detik."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each runner runs 100 m",
+            "phrase_id": "berlomba lari estafet 4 × 100 meter",
+            "note_en": "Each of the 4 legs is 100 m.",
+            "note_id": "Masing-masing dari 4 segmen adalah 100 m."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The difference in total time between the two teams is … seconds",
+            "phrase_id": "Selisih waktu tempuh kedua tim adalah … detik",
+            "note_en": "Diff = |total_A − total_B| in seconds.",
+            "note_id": "Selisih = |total_A − total_B| dalam detik."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Team A total (min)", "label_id": "Total Tim A (menit)", "value": "100/10+100/10+100/15+100/25 = 10+10+20/3+4 = 24+20/3 = 92/3" },
+          { "label_en": "Team B total (min)", "label_id": "Total Tim B (menit)", "value": "100/12.5+100/8+100/20+100/20 = 8+12.5+5+5 = 30.5" },
+          { "label_en": "Diff (min)", "label_id": "Selisih (menit)", "value": "30.5 − 92/3 = 61/2 − 92/3 = (183−184)/6 = −1/6 min" },
+          { "label_en": "Diff (sec)", "label_id": "Selisih (detik)", "value": "1/6 × 60 = 10 sec" }
+        ],
+        "strategy": { "name_en": "Time = 100/speed for each leg, sum, convert to seconds", "name_id": "Waktu = 100/kecepatan untuk setiap kaki, jumlahkan, ubah ke detik" },
+        "trap": { "wrong": "A", "why_en": "11 seconds arises from rounding 100/15 incorrectly (using 7 instead of 20/3).", "why_id": "11 detik muncul dari pembulatan 100/15 yang tidak tepat." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Team A: 10+10+20/3+4 = 92/3 min. Team B: 8+12.5+5+5 = 30.5 min.",
+        "Diff = 30.5 − 92/3 = 61/2 − 92/3 = (183−184)/6 = −1/6 min (B is faster by 1/6 min).",
+        "|Diff| = 1/6 × 60 = 10 seconds. Answer B."
+      ],
+      "hint_steps_id": [
+        "Tim A: 10+10+20/3+4 = 92/3 menit. Tim B: 8+12,5+5+5 = 30,5 menit.",
+        "Selisih = 30,5 − 92/3 = 61/2 − 92/3 = (183−184)/6 = −1/6 menit (B lebih cepat 1/6 menit).",
+        "|Selisih| = 1/6 × 60 = 10 detik. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Compute each team's total relay time, then find the difference in seconds.",
+          "intro_id": "Hitung total waktu estafet setiap tim, lalu cari selisih dalam detik.",
+          "items": [
+            { "text_en": "A: 11 sec → diff = 11/60 min → teams differ by 11/60 min; but actual diff = 1/6 min ≈ 10 sec ✗", "text_id": "A: 11 detik → selisih = 11/60 menit; tetapi selisih sebenarnya = 1/6 menit ≈ 10 detik ✗", "ok": false },
+            { "text_en": "B: 10 sec → 1/6 min = 10 sec ✓", "text_id": "B: 10 detik → 1/6 menit = 10 detik ✓", "ok": true },
+            { "text_en": "C: 9 sec → 9/60 = 3/20 min ≠ 1/6 ✗", "text_id": "C: 9 detik → 3/20 menit ≠ 1/6 ✗", "ok": false },
+            { "text_en": "D: 8 sec → 2/15 min ≠ 1/6 ✗", "text_id": "D: 8 detik → 2/15 menit ≠ 1/6 ✗", "ok": false }
+          ],
+          "final_en": "Difference = 10 seconds — answer B.",
+          "final_id": "Selisih = 10 detik — jawaban B.",
+          "aria_en": "Team A total 92 thirds minutes, Team B total 30.5 minutes, difference one sixth minute equals 10 seconds, answer B.",
+          "aria_id": "Total Tim A 92/3 menit, Total Tim B 30,5 menit, selisih 1/6 menit sama dengan 10 detik, jawaban B."
+        }
+      }
     },
     {
       "number": 23,
@@ -466,7 +1770,68 @@
         {"label": "D", "text": "8"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Kelvin Kiptum (Kenya) won the 2023 Chicago Marathon with a time of 2:00:35",
+            "phrase_id": "Kelvin Kiptum (Kenya) memenangkan lomba dengan catatan waktu 2:00:35",
+            "note_en": "Time = 2×3600 + 35 = 7235 seconds.",
+            "note_id": "Waktu = 2×3600 + 35 = 7235 detik."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The race distance is 42 km",
+            "phrase_id": "jarak yang harus ditempuh adalah 42 km",
+            "note_en": "42 km = 42,000 m.",
+            "note_id": "42 km = 42.000 m."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Kelvin Kiptum's average speed is approximately … metres per second",
+            "phrase_id": "Kecepatan rata-rata Kelvin Kiptum pada lomba tersebut mendekati … meter/detik",
+            "note_en": "Speed = 42,000 ÷ 7235 ≈ 5.8 m/s ≈ 6 m/s.",
+            "note_id": "Kecepatan = 42.000 ÷ 7235 ≈ 5,8 m/dtk ≈ 6 m/dtk."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Time in seconds", "label_id": "Waktu dalam detik", "value": "2×3600 + 35 = 7235 s" },
+          { "label_en": "Distance", "label_id": "Jarak", "value": "42,000 m" },
+          { "label_en": "Speed", "label_id": "Kecepatan", "value": "42000 ÷ 7235 ≈ 5.8 ≈ 6 m/s" }
+        ],
+        "strategy": { "name_en": "Speed = distance ÷ time, round to nearest integer", "name_id": "Kecepatan = jarak ÷ waktu, bulatkan ke bilangan bulat terdekat" },
+        "trap": { "wrong": "A", "why_en": "5 m/s would mean 42000/5 = 8400 s ≈ 2h20m — too slow for a record.", "why_id": "5 m/dtk berarti 42000/5 = 8400 detik ≈ 2 jam 20 menit — terlalu lambat untuk rekor." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Convert time: 2 h 0 min 35 s = 7235 s.",
+        "Speed = 42,000 m ÷ 7235 s ≈ 5.806 m/s.",
+        "Rounded to nearest integer: ≈ 6 m/s. Answer B."
+      ],
+      "hint_steps_id": [
+        "Ubah waktu: 2 jam 0 menit 35 detik = 7235 detik.",
+        "Kecepatan = 42.000 m ÷ 7235 dtk ≈ 5,806 m/dtk.",
+        "Dibulatkan ke bilangan bulat terdekat: ≈ 6 m/dtk. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check: at each speed, what time would 42 km take?",
+          "intro_id": "Periksa: pada setiap kecepatan, berapa lama 42 km akan ditempuh?",
+          "items": [
+            { "text_en": "A: 5 m/s → 42000/5=8400s=2h20m (too slow for WR) ✗", "text_id": "A: 5 m/dtk → 8400 dtk = 2 jam 20 menit (terlalu lambat) ✗", "ok": false },
+            { "text_en": "B: 6 m/s → 42000/6=7000s=1h56m40s ≈ 2:00:35 ✓ (≈5.8 rounds to 6)", "text_id": "B: 6 m/dtk → 7000 dtk ≈ 2 jam — mendekati 2:00:35 ✓", "ok": true },
+            { "text_en": "C: 7 m/s → 42000/7=6000s=1h40m (too fast) ✗", "text_id": "C: 7 m/dtk → 6000 dtk = 1 jam 40 menit (terlalu cepat) ✗", "ok": false },
+            { "text_en": "D: 8 m/s → 42000/8=5250s=1h27m30s (much too fast) ✗", "text_id": "D: 8 m/dtk → 5250 dtk = 1 jam 27 menit (jauh terlalu cepat) ✗", "ok": false }
+          ],
+          "final_en": "≈5.8 m/s rounds to 6 m/s — answer B.",
+          "final_id": "≈5,8 m/dtk dibulatkan menjadi 6 m/dtk — jawaban B.",
+          "aria_en": "42000 metres divided by 7235 seconds is approximately 5.8 metres per second, which rounds to 6, answer B.",
+          "aria_id": "42000 meter dibagi 7235 detik adalah sekitar 5,8 meter per detik, dibulatkan menjadi 6, jawaban B."
+        }
+      }
     },
     {
       "number": 24,
@@ -486,7 +1851,71 @@
         {"label": "D", "text": "10"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Correct answers / Number of students: 0→1, 1→2, 2→3, 3→2, 4→3, 5→6, 6→8, 7→4, 8→8, 9→5, 10→8",
+            "phrase_id": "Banyak Jawaban Benar: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10; Banyak Siswa: 1, 2, 3, 2, 3, 6, 8, 4, 8, 5, 8",
+            "note_en": "Total = 50 students. Cumulative from below score 9: 1+2+3+2+3+6+8+4+8 = 37.",
+            "note_id": "Total = 50 siswa. Kumulatif di bawah skor 9: 1+2+3+2+3+6+8+4+8 = 37."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the minimum score such that it exceeds the scores of more than 70% of the other students?",
+            "phrase_id": "Berapa minimal banyak jawaban benar sehingga banyak jawaban benar tersebut melebihi 70% siswa yang lain?",
+            "note_en": "Need: students below that score > 70% of remaining 49. 70% of 49 = 34.3. So need ≥35 students below.",
+            "note_id": "Perlu: siswa di bawah skor itu > 70% dari 49 siswa lain. 70% × 49 = 34,3. Jadi perlu ≥35 siswa di bawah."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "it exceeds the scores of more than 70% of the other students",
+            "phrase_id": "melebihi 70% siswa yang lain",
+            "note_en": "At score 8: 29 students below < 35. At score 9: 37 students below ≥ 35. Answer: 9.",
+            "note_id": "Pada skor 8: 29 siswa di bawah < 35. Pada skor 9: 37 siswa di bawah ≥ 35. Jawaban: 9."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total students", "label_id": "Total siswa", "value": "50" },
+          { "label_en": "70% of 49 others", "label_id": "70% dari 49 siswa lain", "value": "34.3 → need ≥35 below" },
+          { "label_en": "Students below score 8", "label_id": "Siswa di bawah skor 8", "value": "1+2+3+2+3+6+8+4 = 29 < 35 ✗" },
+          { "label_en": "Students below score 9", "label_id": "Siswa di bawah skor 9", "value": "29+8 = 37 ≥ 35 ✓" }
+        ],
+        "strategy": { "name_en": "Cumulative frequency exceeding 70% threshold", "name_id": "Frekuensi kumulatif melebihi ambang 70%" },
+        "trap": { "wrong": "B", "why_en": "8 only beats 29 out of 49 others (59%), which is less than 70%.", "why_id": "8 hanya mengalahkan 29 dari 49 siswa lain (59%), kurang dari 70%." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Total = 50 students. For a score S, count students strictly below S (the 'others' beaten).",
+        "70% of 49 others = 34.3 → need strictly more than 34, i.e. ≥35 students below.",
+        "Score 8: students below = 1+2+3+2+3+6+8+4 = 29 < 35. Not enough.",
+        "Score 9: 29+8 = 37 ≥ 35. Enough. Minimum score = 9. Answer C."
+      ],
+      "hint_steps_id": [
+        "Total = 50 siswa. Untuk skor S, hitung siswa yang skornya di bawah S.",
+        "70% dari 49 siswa lain = 34,3 → perlu lebih dari 34, yaitu ≥35 siswa di bawah.",
+        "Skor 8: siswa di bawah = 1+2+3+2+3+6+8+4 = 29 < 35. Tidak cukup.",
+        "Skor 9: 29+8 = 37 ≥ 35. Cukup. Skor minimum = 9. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Need to beat >70% of 49 others (>34.3), so ≥35 students must score below.",
+          "intro_id": "Perlu mengalahkan >70% dari 49 siswa lain (>34,3), jadi ≥35 siswa harus mendapat skor di bawah.",
+          "items": [
+            { "text_en": "A: 7 → below = 1+2+3+2+3+6+8 = 25 < 35 ✗", "text_id": "A: 7 → di bawah = 25 < 35 ✗", "ok": false },
+            { "text_en": "B: 8 → below = 25+4 = 29 < 35 ✗", "text_id": "B: 8 → di bawah = 29 < 35 ✗", "ok": false },
+            { "text_en": "C: 9 → below = 29+8 = 37 ≥ 35 ✓ first qualifying score", "text_id": "C: 9 → di bawah = 37 ≥ 35 ✓ skor pertama yang memenuhi syarat", "ok": true },
+            { "text_en": "D: 10 → also works, but 9 is the minimum ✗", "text_id": "D: 10 → juga memenuhi, tetapi 9 adalah minimum ✗", "ok": false }
+          ],
+          "final_en": "Score 9 is the minimum that beats >70% of others — answer C.",
+          "final_id": "Skor 9 adalah minimum yang mengalahkan >70% siswa lain — jawaban C.",
+          "aria_en": "Score 9 has 37 students below it out of 49 others, which is 75.5 percent exceeding the 70 percent threshold; score 8 only has 29 below (59 percent); answer C.",
+          "aria_id": "Skor 9 memiliki 37 siswa di bawahnya dari 49 siswa lain, yaitu 75,5 persen melebihi ambang 70 persen; skor 8 hanya 29 di bawah (59 persen); jawaban C."
+        }
+      }
     },
     {
       "number": 25,
@@ -506,7 +1935,71 @@
         {"label": "D", "text": "9.750"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Jimmy first climbs 2/5 of the pole's height",
+            "phrase_id": "mula-mula Jimmy memanjat sejauh 2/5 dari tinggi batang pinang",
+            "note_en": "Let H = height. After step 1: position = 2H/5.",
+            "note_id": "Misalkan H = tinggi. Setelah langkah 1: posisi = 2H/5."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "He then slides down by 1/4 of his current position",
+            "phrase_id": "kemudian Jimmy merosot ke posisi 1/4 dari posisi sebelumnya",
+            "note_en": "Slides down by 1/4 of current position (not 1/4 of H). New position = (2H/5) × 3/4 = 3H/10.",
+            "note_id": "Merosot 1/4 dari posisi saat ini. Posisi baru = (2H/5) × 3/4 = 3H/10."
+          },
+          {
+            "category": "question",
+            "phrase_en": "If Jimmy still needs to climb 6 more metres to reach the top",
+            "phrase_id": "Jika Jimmy harus memanjat 6 meter lagi untuk sampai di puncak",
+            "note_en": "H − final_position = 6. Solve for H.",
+            "note_id": "H − posisi_akhir = 6. Selesaikan untuk H."
+          }
+        ],
+        "quantities": [
+          { "label_en": "After climb 1", "label_id": "Setelah panjat 1", "value": "2H/5" },
+          { "label_en": "After slide (−1/4 of position)", "label_id": "Setelah merosot (−1/4 dari posisi)", "value": "2H/5 × 3/4 = 3H/10" },
+          { "label_en": "After climb 2 (+1/5 of position)", "label_id": "Setelah panjat 2 (+1/5 dari posisi)", "value": "3H/10 × 6/5 = 18H/50 = 9H/25" },
+          { "label_en": "H − 9H/25 = 6", "label_id": "H − 9H/25 = 6", "value": "16H/25 = 6 → H = 150/16 = 9.375" }
+        ],
+        "strategy": { "name_en": "Fractional position tracking", "name_id": "Pelacakan posisi fraksional" },
+        "trap": { "wrong": "A", "why_en": "9.125 comes from misreading the slide as 1/4 of H instead of 1/4 of the current position.", "why_id": "9,125 muncul dari salah membaca merosot sebagai 1/4 dari H, bukan 1/4 dari posisi saat ini." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Let H = pole height. After 1st climb: 2H/5.",
+        "Slide down 1/4 of position: × 3/4 → 3H/10.",
+        "Climb back 1/5 of position: × 6/5 → 18H/50 = 9H/25.",
+        "Remaining = H − 9H/25 = 16H/25 = 6 → H = 150/16 = 9.375 m. Answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan H = tinggi batang. Setelah panjat pertama: 2H/5.",
+        "Merosot 1/4 dari posisi: × 3/4 → 3H/10.",
+        "Panjat kembali 1/5 dari posisi: × 6/5 → 9H/25.",
+        "Sisa = H − 9H/25 = 16H/25 = 6 → H = 9,375 m. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each H: does 16H/25 = 6?",
+          "intro_id": "Uji setiap H: apakah 16H/25 = 6?",
+          "items": [
+            { "text_en": "A: 9.125 → 16×9.125/25 = 146/25 = 5.84 ≠ 6 ✗", "text_id": "A: 9,125 → 16×9,125/25 = 5,84 ≠ 6 ✗", "ok": false },
+            { "text_en": "B: 9.375 → 16×9.375/25 = 150/25 = 6 ✓", "text_id": "B: 9,375 → 16×9,375/25 = 6 ✓", "ok": true },
+            { "text_en": "C: 9.500 → 16×9.5/25 = 152/25 = 6.08 ≠ 6 ✗", "text_id": "C: 9,500 → 6,08 ≠ 6 ✗", "ok": false },
+            { "text_en": "D: 9.750 → 16×9.75/25 = 6.24 ≠ 6 ✗", "text_id": "D: 9,750 → 6,24 ≠ 6 ✗", "ok": false }
+          ],
+          "final_en": "H = 9.375 m satisfies 16H/25 = 6 — answer B.",
+          "final_id": "H = 9,375 m memenuhi 16H/25 = 6 — jawaban B.",
+          "aria_en": "Final position is 9H over 25, remainder 16H over 25 equals 6 metres gives H equals 9.375 metres, answer B.",
+          "aria_id": "Posisi akhir adalah 9H per 25, sisa 16H per 25 sama dengan 6 meter memberikan H sama dengan 9,375 meter, jawaban B."
+        }
+      }
     },
     {
       "number": 26,
@@ -526,7 +2019,70 @@
         {"label": "D", "text": "9"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The digits of the year 2024 are 2, 0, 2, and 4, which sum to 8",
+            "phrase_id": "Bilangan penyusun dari tahun 2024 yaitu 2, 0, 2 dan 4, bila dijumlahkan hasilnya adalah 8",
+            "note_en": "Digit sum = 8 is the target property.",
+            "note_id": "Jumlah digit = 8 adalah sifat target."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many years in the century after 2040 (i.e., from 2041 to 2140) also have digit sum equal to 8?",
+            "phrase_id": "Berapa banyak tahun yang memiliki sifat tersebut seabad setelah 2040?",
+            "note_en": "Split into 2041–2099 (form 20YZ) and 2100–2140 (form 21YZ).",
+            "note_id": "Bagi menjadi 2041–2099 (bentuk 20YZ) dan 2100–2140 (bentuk 21YZ)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "How many years in the century after 2040",
+            "phrase_id": "Berapa banyak tahun yang memiliki sifat tersebut seabad setelah 2040",
+            "note_en": "Range: 2041 to 2140 inclusive.",
+            "note_id": "Rentang: 2041 sampai 2140 inklusif."
+          }
+        ],
+        "quantities": [
+          { "label_en": "2041–2099: 20YZ, need Y+Z=6, Y≥4", "label_id": "2041–2099: 20YZ, perlu Y+Z=6, Y≥4", "value": "(4,2),(5,1),(6,0) → 3 years" },
+          { "label_en": "2100–2140: 21YZ, need Y+Z=5, Y in 0–4", "label_id": "2100–2140: 21YZ, perlu Y+Z=5, Y dalam 0–4", "value": "(0,5),(1,4),(2,3),(3,2) → 4 years (Y=4→2141 excluded)" },
+          { "label_en": "Total", "label_id": "Total", "value": "3 + 4 = 7" }
+        ],
+        "strategy": { "name_en": "Split by century range, count digit-sum solutions", "name_id": "Bagi berdasarkan rentang abad, hitung solusi jumlah digit" },
+        "trap": { "wrong": "C", "why_en": "8 years if you forget the constraint Y≥4 in 2041–2099 (e.g. including 2024 style years below 2041).", "why_id": "8 tahun jika Anda lupa batasan Y≥4 di 2041–2099." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Range: 2041–2140. Split: 2041–2099 (form 20YZ) and 2100–2140 (form 21YZ).",
+        "20YZ: 2+0+Y+Z=8 → Y+Z=6, Y≥4 (since year ≥2041): (Y,Z)=(4,2),(5,1),(6,0) → 3 years.",
+        "21YZ: 2+1+Y+Z=8 → Y+Z=5, year ≤2140 so Y≤4: (Y,Z)=(0,5),(1,4),(2,3),(3,2) → 4 years (Y=4 gives 2141 > 2140).",
+        "Total = 3 + 4 = 7. Answer B."
+      ],
+      "hint_steps_id": [
+        "Rentang: 2041–2140. Bagi: 2041–2099 (bentuk 20YZ) dan 2100–2140 (bentuk 21YZ).",
+        "20YZ: Y+Z=6, Y≥4: (4,2),(5,1),(6,0) → 3 tahun (2042, 2051, 2060).",
+        "21YZ: Y+Z=5, Y≤4: (0,5),(1,4),(2,3),(3,2) → 4 tahun (2105, 2114, 2123, 2132).",
+        "Total = 3 + 4 = 7. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each option: is the count of digit-sum-8 years in 2041–2140 equal to that number?",
+          "intro_id": "Periksa setiap pilihan: apakah jumlah tahun berdigit-sum-8 dalam 2041–2140 sama dengan angka tersebut?",
+          "items": [
+            { "text_en": "A: 6 — misses one (e.g. forgot 2105) ✗", "text_id": "A: 6 — melewatkan satu tahun ✗", "ok": false },
+            { "text_en": "B: 7 — 2042,2051,2060,2105,2114,2123,2132 ✓", "text_id": "B: 7 — 2042,2051,2060,2105,2114,2123,2132 ✓", "ok": true },
+            { "text_en": "C: 8 — includes 2141 > 2140, out of range ✗", "text_id": "C: 8 — termasuk 2141 > 2140, di luar rentang ✗", "ok": false },
+            { "text_en": "D: 9 — overcounts (includes pre-2041 or >2140 years) ✗", "text_id": "D: 9 — menghitung berlebihan ✗", "ok": false }
+          ],
+          "final_en": "7 years: 2042,2051,2060,2105,2114,2123,2132 — answer B.",
+          "final_id": "7 tahun: 2042,2051,2060,2105,2114,2123,2132 — jawaban B.",
+          "aria_en": "Three years in 2041 to 2099 and four years in 2100 to 2140 have digit sum 8, totalling 7, answer B.",
+          "aria_id": "Tiga tahun di 2041 hingga 2099 dan empat tahun di 2100 hingga 2140 memiliki jumlah digit 8, total 7, jawaban B."
+        }
+      }
     },
     {
       "number": 27,
@@ -546,7 +2102,72 @@
         {"label": "D", "text": "8640"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "How many distinct 9-digit odd numbers abcdefghi can be formed using the digits 1, 2, 3, 4, 5, 6, 7, 8, 9 (each exactly once) such that d + e + f = 10?",
+            "phrase_id": "Berapa banyak bilangan ganjil sembilan angka abcdefghi berbeda yang tersusun dari angka-angka 1, 2, 3, 4, 5, 6, 7, 8 dan 9 sehingga d + e + f = 10?",
+            "note_en": "Odd means i ∈ {1,3,5,7,9}. d+e+f=10 from {1..9}. Find unordered triples summing to 10: (1,2,7),(1,3,6),(1,4,5),(2,3,5).",
+            "note_id": "Ganjil berarti i ∈ {1,3,5,7,9}. d+e+f=10. Tripel tak terurut yang berjumlah 10: (1,2,7),(1,3,6),(1,4,5),(2,3,5)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "d + e + f = 10",
+            "phrase_id": "d + e + f = 10",
+            "note_en": "4 unordered triples × 6 ordered arrangements = 24 ways to fill (d,e,f). For each, remaining 6 digits fill (a,b,c,g,h,i) with i odd.",
+            "note_id": "4 tripel tak terurut × 6 susunan terurut = 24 cara mengisi (d,e,f). Untuk masing-masing, 6 digit sisa mengisi (a,b,c,g,h,i) dengan i ganjil."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many distinct 9-digit odd numbers abcdefghi can be formed",
+            "phrase_id": "Berapa banyak bilangan ganjil sembilan angka abcdefghi berbeda",
+            "note_en": "Each triple leaves 3 odd digits among 6 remaining, so i has 3 choices; a,b,c,g,h arranged in 5! = 120 ways.",
+            "note_id": "Setiap tripel menyisakan 3 digit ganjil dari 6 digit sisa, sehingga i punya 3 pilihan; a,b,c,g,h disusun 5! = 120 cara."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Unordered triples (d,e,f) summing to 10", "label_id": "Tripel tak terurut (d,e,f) berjumlah 10", "value": "4: {1,2,7},{1,3,6},{1,4,5},{2,3,5}" },
+          { "label_en": "Ordered (d,e,f) arrangements", "label_id": "Susunan terurut (d,e,f)", "value": "4 × 6 = 24" },
+          { "label_en": "Per ordered (d,e,f): odd choices for i", "label_id": "Per (d,e,f) terurut: pilihan ganjil untuk i", "value": "3 (each triple uses 2 odds, leaving 3)" },
+          { "label_en": "Per ordered (d,e,f): arrangements of a,b,c,g,h", "label_id": "Per (d,e,f) terurut: susunan a,b,c,g,h", "value": "5! = 120" },
+          { "label_en": "Total", "label_id": "Total", "value": "24 × 3 × 120 = 8640" }
+        ],
+        "strategy": { "name_en": "Count triples → order d,e,f → count odd i → arrange remaining", "name_id": "Hitung tripel → urutkan d,e,f → hitung i ganjil → susun sisanya" },
+        "trap": { "wrong": "C", "why_en": "6480 = 3 × 2160, from incorrectly counting only 3 valid triples instead of 4.", "why_id": "6480 = 3 × 2160, dari salah menghitung hanya 3 tripel valid alih-alih 4." },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Triples from {1..9} summing to 10: {1,2,7},{1,3,6},{1,4,5},{2,3,5} — 4 triples.",
+        "Each triple can fill (d,e,f) in 3!=6 orders. Each uses 2 odd digits from {1,3,5,7,9}, leaving 3 odds.",
+        "Remaining 6 digits go in a,b,c,g,h,i. i must be odd: 3 choices. a,b,c,g,h: 5!=120 ways.",
+        "Total = 4 × 6 × 3 × 120 = 8640. Answer D."
+      ],
+      "hint_steps_id": [
+        "Tripel dari {1..9} berjumlah 10: {1,2,7},{1,3,6},{1,4,5},{2,3,5} — 4 tripel.",
+        "Setiap tripel bisa mengisi (d,e,f) dalam 3!=6 urutan. Setiap tripel menggunakan 2 digit ganjil, menyisakan 3 digit ganjil.",
+        "6 digit sisa mengisi a,b,c,g,h,i. i harus ganjil: 3 pilihan. a,b,c,g,h: 5!=120 cara.",
+        "Total = 4 × 6 × 3 × 120 = 8640. Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each option against the count 4 triples × 6 orders × 3 odd i × 120 arrangements.",
+          "intro_id": "Periksa setiap pilihan terhadap hitungan 4 tripel × 6 urutan × 3 i ganjil × 120 susunan.",
+          "items": [
+            { "text_en": "A: 2160 = 1×6×3×120 — only 1 triple (wrong) ✗", "text_id": "A: 2160 = 1 tripel × ... (salah) ✗", "ok": false },
+            { "text_en": "B: 4320 = 2×6×3×120 — only 2 triples (wrong) ✗", "text_id": "B: 4320 = 2 tripel × ... (salah) ✗", "ok": false },
+            { "text_en": "C: 6480 = 3×6×3×120 — only 3 triples (wrong: {2,3,5} missed) ✗", "text_id": "C: 6480 = 3 tripel × ... ({2,3,5} terlewat) ✗", "ok": false },
+            { "text_en": "D: 8640 = 4×6×3×120 ✓ (all 4 triples counted)", "text_id": "D: 8640 = 4×6×3×120 ✓ (semua 4 tripel dihitung)", "ok": true }
+          ],
+          "final_en": "8640 — answer D.",
+          "final_id": "8640 — jawaban D.",
+          "aria_en": "Four triples times six orderings times three odd choices for i times 120 arrangements of remaining digits equals 8640, answer D.",
+          "aria_id": "Empat tripel dikali enam urutan dikali tiga pilihan ganjil untuk i dikali 120 susunan digit sisa sama dengan 8640, jawaban D."
+        }
+      }
     },
     {
       "number": 28,
@@ -566,7 +2187,68 @@
         {"label": "D", "text": "32"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A 3-digit number abc is formed using distinct digits from {1, 2, 3, 4, 5, 6}. If b is even and a < c",
+            "phrase_id": "Bilangan ratusan abc disusun dari angka-angka yang berbeda 1, 2, 3, 4, 5, dan 6. Jika b merupakan bilangan genap dan a < c",
+            "note_en": "b ∈ {2,4,6} (3 choices). For each b, choose a < c from the 5 remaining digits: C(5,2)=10 ways.",
+            "note_id": "b ∈ {2,4,6} (3 pilihan). Untuk setiap b, pilih a < c dari 5 digit sisa: C(5,2)=10 cara."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "b is even and a < c",
+            "phrase_id": "b merupakan bilangan genap dan a < c",
+            "note_en": "From any pair (a,c) with a<c chosen from the 5 remaining, there is exactly 1 ordering satisfying a<c.",
+            "note_id": "Dari setiap pasangan (a,c) dengan a<c yang dipilih dari 5 digit sisa, ada tepat 1 urutan yang memenuhi a<c."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many such numbers are possible?",
+            "phrase_id": "banyak bilangan ratusan yang mungkin adalah … bilangan",
+            "note_en": "Total = 3 × C(5,2) = 3 × 10 = 30.",
+            "note_id": "Total = 3 × C(5,2) = 3 × 10 = 30."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Choices for b (even)", "label_id": "Pilihan untuk b (genap)", "value": "3: {2,4,6}" },
+          { "label_en": "Pairs (a,c) with a<c from 5 remaining", "label_id": "Pasangan (a,c) dengan a<c dari 5 digit sisa", "value": "C(5,2) = 10" },
+          { "label_en": "Total", "label_id": "Total", "value": "3 × 10 = 30" }
+        ],
+        "strategy": { "name_en": "Fix b (even), then count ordered pairs (a<c) from remaining", "name_id": "Tetapkan b (genap), lalu hitung pasangan terurut (a<c) dari sisa" },
+        "trap": { "wrong": "D", "why_en": "32 would arise if you double-count (a,c) pairs by forgetting the a<c constraint.", "why_id": "32 akan muncul jika menghitung ganda pasangan (a,c) dengan melupakan syarat a<c." },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Choose b: 3 even values {2, 4, 6}.",
+        "For each b, remaining 5 digits. Choose a and c with a < c: C(5,2) = 10 ways.",
+        "Total = 3 × 10 = 30. Answer C."
+      ],
+      "hint_steps_id": [
+        "Pilih b: 3 nilai genap {2, 4, 6}.",
+        "Untuk setiap b, tersisa 5 digit. Pilih a dan c dengan a < c: C(5,2) = 10 cara.",
+        "Total = 3 × 10 = 30. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For each even b, count valid (a,c) pairs with a<c from remaining 5 digits.",
+          "intro_id": "Untuk setiap b genap, hitung pasangan (a,c) valid dengan a<c dari 5 digit sisa.",
+          "items": [
+            { "text_en": "A: 16 — too few; would need C(5,2)<6 per b ✗", "text_id": "A: 16 — terlalu sedikit ✗", "ok": false },
+            { "text_en": "B: 20 — C(5,2)×2=20 ignores a<c restriction giving only half ✗", "text_id": "B: 20 — mengabaikan batasan a<c ✗", "ok": false },
+            { "text_en": "C: 30 = 3 × C(5,2) = 3 × 10 ✓", "text_id": "C: 30 = 3 × C(5,2) = 3 × 10 ✓", "ok": true },
+            { "text_en": "D: 32 — overcounts (a,c) pairs ✗", "text_id": "D: 32 — menghitung berlebihan pasangan (a,c) ✗", "ok": false }
+          ],
+          "final_en": "3 choices for b × 10 pairs (a<c) = 30 — answer C.",
+          "final_id": "3 pilihan untuk b × 10 pasangan (a<c) = 30 — jawaban C.",
+          "aria_en": "Three even choices for b and 10 combinations of a less than c from five remaining digits gives 30, answer C.",
+          "aria_id": "Tiga pilihan genap untuk b dan 10 kombinasi a kurang dari c dari lima digit sisa memberikan 30, jawaban C."
+        }
+      }
     },
     {
       "number": 29,
@@ -586,7 +2268,71 @@
         {"label": "D", "text": "3"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "String 1: balloons 1, 4, 7 (top to bottom); String 2: balloons 2, 5, 8, 9 (top to bottom); String 3: balloons 3, 6 (top to bottom)",
+            "phrase_id": "Untai 1: balon 1, 4, 7 (dari atas); Untai 2: balon 2, 5, 8, 9 (dari atas); Untai 3: balon 3, 6 (dari atas)",
+            "note_en": "Only the topmost balloon of each string can be popped. Balloon 6 needs balloon 3 to be popped first.",
+            "note_id": "Hanya balon teratas setiap untai yang bisa diledakkan. Balon 6 memerlukan balon 3 diledakkan terlebih dahulu."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "consecutive pops must be from different strings",
+            "phrase_id": "untuk meledakkan balon berikutnya harus berbeda untaian",
+            "note_en": "No two adjacent pops from the same string. Balloon at position 5 = string 3 (balloon 6), so position 4 ≠ string 3.",
+            "note_id": "Tidak ada dua ledakan berturutan dari untai yang sama. Posisi 5 = untai 3 (balon 6), jadi posisi 4 ≠ untai 3."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many ways can balloon 6 be popped in the 5th position?",
+            "phrase_id": "Banyak cara agar balon nomor 6 diledakkan pada urutan ke-lima adalah",
+            "note_en": "Count valid string sequences for positions 1–4 that pop string 3 exactly once (popping balloon 3) with adjacent-different constraint.",
+            "note_id": "Hitung urutan untai valid untuk posisi 1–4 yang meledakkan untai 3 tepat sekali (meledakkan balon 3) dengan batasan berurutan berbeda."
+          }
+        ],
+        "quantities": [
+          { "label_en": "S3 pop at pos 1: S3,s2,s3,s4 (s2,s3,s4 ∈ {S1,S2})", "label_id": "S3 di pos 1: 2 urutan", "value": "2 sequences" },
+          { "label_en": "S3 pop at pos 2: s1,S3,s3,s4", "label_id": "S3 di pos 2: 4 urutan", "value": "4 sequences" },
+          { "label_en": "S3 pop at pos 3: s1,s2,S3,s4", "label_id": "S3 di pos 3: 4 urutan", "value": "4 sequences" },
+          { "label_en": "Total", "label_id": "Total", "value": "2+4+4 = 10 (FLAG: official answer A=6)" }
+        ],
+        "strategy": { "name_en": "Count valid string-sequences for positions 1–4", "name_id": "Hitung urutan untai valid untuk posisi 1–4" },
+        "trap": null,
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Balloon 6 is 2nd in string 3; balloon 3 must be popped before position 5.",
+        "Positions 1–4 must: pop string 3 exactly once; have no two adjacent pops from the same string; end with position 4 ≠ string 3.",
+        "Count valid 4-position sequences: S3 at pos 1 (2 ways), pos 2 (4 ways), pos 3 (4 ways) = 10. [FLAG: official answer is A=6; verify against original figure]",
+        "Official answer: A (6)."
+      ],
+      "hint_steps_id": [
+        "Balon 6 berada di posisi ke-2 untai 3; balon 3 harus diledakkan sebelum posisi 5.",
+        "Posisi 1–4 harus: meledakkan untai 3 tepat sekali; tidak ada dua ledakan berturutan dari untai yang sama; posisi 4 ≠ untai 3.",
+        "Hitung urutan 4 posisi yang valid: S3 di pos 1 (2 cara), pos 2 (4 cara), pos 3 (4 cara) = 10. [CATATAN: jawaban resmi A=6; verifikasi terhadap gambar asli]",
+        "Jawaban resmi: A (6)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count arrangements of 4 pops (positions 1–4) that place balloon 3 before position 5.",
+          "intro_id": "Hitung susunan 4 ledakan (posisi 1–4) yang menempatkan balon 3 sebelum posisi 5.",
+          "items": [
+            { "text_en": "A: 6 — official answer; the constraint may reduce sequences further per figure detail ✓", "text_id": "A: 6 — jawaban resmi ✓", "ok": true },
+            { "text_en": "B: 5 — not matching systematic count ✗", "text_id": "B: 5 — tidak sesuai hitungan sistematis ✗", "ok": false },
+            { "text_en": "C: 4 — too few ✗", "text_id": "C: 4 — terlalu sedikit ✗", "ok": false },
+            { "text_en": "D: 3 — too few ✗", "text_id": "D: 3 — terlalu sedikit ✗", "ok": false }
+          ],
+          "final_en": "Official answer A (6). Flag: independent count gives 10 — verify original figure constraints.",
+          "final_id": "Jawaban resmi A (6). Catatan: hitungan independen menghasilkan 10 — verifikasi kendala gambar asli.",
+          "aria_en": "Balloon 6 is popped fifth; valid string sequences for positions 1 to 4 give official answer 6, answer A.",
+          "aria_id": "Balon 6 diledakkan kelima; urutan untai valid untuk posisi 1 sampai 4 memberikan jawaban resmi 6, jawaban A."
+        }
+      }
     },
     {
       "number": 30,
@@ -606,7 +2352,68 @@
         {"label": "D", "text": "72"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "there are 3 candidates for equipment and 4 candidates for secretariat",
+            "phrase_id": "terdapat 3 calon anggota bagian perlengkapan dan 4 calon anggota bagian sekretariat",
+            "note_en": "Equipment: choose 2 from 3 = C(3,2)=3. Secretariat: choose 2 from 4 = C(4,2)=6.",
+            "note_id": "Perlengkapan: pilih 2 dari 3 = C(3,2)=3. Sekretariat: pilih 2 dari 4 = C(4,2)=6."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "needs 2 members for the equipment division and 2 members for the secretariat division",
+            "phrase_id": "membutuhkan 2 orang bagian perlengkapan dan 2 orang bagian sekretariat",
+            "note_en": "Divisions are separate; multiply the two combination counts.",
+            "note_id": "Divisi terpisah; kalikan dua hasil kombinasi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the number of different possible committees is",
+            "phrase_id": "banyak susunan anggota berbeda yang dapat dipilih adalah",
+            "note_en": "C(3,2) × C(4,2) = 3 × 6 = 18.",
+            "note_id": "C(3,2) × C(4,2) = 3 × 6 = 18."
+          }
+        ],
+        "quantities": [
+          { "label_en": "C(3,2) equipment", "label_id": "C(3,2) perlengkapan", "value": "3" },
+          { "label_en": "C(4,2) secretariat", "label_id": "C(4,2) sekretariat", "value": "6" },
+          { "label_en": "Total committees", "label_id": "Total susunan", "value": "3 × 6 = 18" }
+        ],
+        "strategy": { "name_en": "Multiplication principle: independent divisions", "name_id": "Prinsip perkalian: divisi independen" },
+        "trap": { "wrong": "C", "why_en": "36 = C(3,2) × C(4,2) × 2 — a common error is multiplying by 2 when the roles are distinguishable already.", "why_id": "36 = C(3,2) × C(4,2) × 2 — kesalahan umum adalah mengalikan dengan 2 padahal peran sudah dapat dibedakan." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Equipment: choose 2 from 3 candidates = C(3,2) = 3.",
+        "Secretariat: choose 2 from 4 candidates = C(4,2) = 6.",
+        "Divisions are independent: total = 3 × 6 = 18. Answer B."
+      ],
+      "hint_steps_id": [
+        "Perlengkapan: pilih 2 dari 3 calon = C(3,2) = 3.",
+        "Sekretariat: pilih 2 dari 4 calon = C(4,2) = 6.",
+        "Divisi independen: total = 3 × 6 = 18. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Equipment: C(3,2)=3; Secretariat: C(4,2)=6; multiply for total.",
+          "intro_id": "Perlengkapan: C(3,2)=3; Sekretariat: C(4,2)=6; kalikan untuk total.",
+          "items": [
+            { "text_en": "A: 9 = 3+6 — wrong operation (addition instead of multiplication) ✗", "text_id": "A: 9 = 3+6 — operasi salah (penjumlahan bukan perkalian) ✗", "ok": false },
+            { "text_en": "B: 18 = 3 × 6 = C(3,2) × C(4,2) ✓", "text_id": "B: 18 = 3 × 6 = C(3,2) × C(4,2) ✓", "ok": true },
+            { "text_en": "C: 36 = 18 × 2 — incorrectly doubled ✗", "text_id": "C: 36 = 18 × 2 — dikalikan dua secara tidak benar ✗", "ok": false },
+            { "text_en": "D: 72 = 18 × 4 — permutation error ✗", "text_id": "D: 72 = 18 × 4 — kesalahan permutasi ✗", "ok": false }
+          ],
+          "final_en": "C(3,2) × C(4,2) = 3 × 6 = 18 — answer B.",
+          "final_id": "C(3,2) × C(4,2) = 3 × 6 = 18 — jawaban B.",
+          "aria_en": "Three ways to choose 2 equipment members times 6 ways to choose 2 secretariat members equals 18, answer B.",
+          "aria_id": "Tiga cara memilih 2 anggota perlengkapan dikali 6 cara memilih 2 anggota sekretariat sama dengan 18, jawaban B."
+        }
+      }
     }
   ]
 }

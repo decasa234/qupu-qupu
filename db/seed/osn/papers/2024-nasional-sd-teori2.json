@@ -14,7 +14,116 @@
       "body_en": "Two numbers are given: the first is the three-digit number 2a1 and the second is the two-digit number 3b. If the product of these two numbers is divisible by 6, determine the greatest possible value of their product.",
       "answer_type": "fill_in",
       "answer": "11058",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the first is the three-digit number 2a1",
+            "phrase_id": "bilangan pertama adalah bilangan ratusan 2a1",
+            "note_en": "2a1 always ends in 1 so it is always odd — it can never supply the factor of 2",
+            "note_id": "2a1 selalu berakhir di angka 1 sehingga selalu ganjil — tidak bisa menyediakan faktor 2"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the product of these two numbers is divisible by 6",
+            "phrase_id": "hasil kali kedua bilangan tersebut habis dibagi 6",
+            "note_en": "Divisible by 6 means divisible by both 2 and 3; since 2a1 is odd, 3b must be even (b even) and 3b is always divisible by 3",
+            "note_id": "Habis dibagi 6 artinya habis dibagi 2 dan 3; karena 2a1 ganjil, 3b harus genap (b genap) dan 3b selalu habis dibagi 3"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine the greatest possible value of their product",
+            "phrase_id": "tentukan nilai terbesar dari hasil kalinya",
+            "note_en": "Maximise by picking the largest valid digit for each: a=9 gives 291, b=8 gives 38",
+            "note_id": "Maksimalkan dengan memilih digit terbesar yang valid: a=9 menghasilkan 291, b=8 menghasilkan 38"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Largest 2a1 (a = 9)",
+            "label_id": "2a1 terbesar (a = 9)",
+            "value": "291"
+          },
+          {
+            "label_en": "Largest 3b with b even (b = 8)",
+            "label_id": "3b terbesar dengan b genap (b = 8)",
+            "value": "38"
+          },
+          {
+            "label_en": "Greatest product",
+            "label_id": "Hasil kali terbesar",
+            "value": "291 × 38 = 11058"
+          },
+          {
+            "label_en": "Divisibility check",
+            "label_id": "Cek keterbagian",
+            "value": "11058 ÷ 6 = 1843 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divisibility constraints then maximise digits",
+          "name_id": "Tentukan syarat keterbagian lalu maksimalkan digit"
+        },
+        "trap": {
+          "wrong": "291 × 39 = 11349",
+          "why_en": "b = 9 makes 39 odd, so 291 × 39 = 11349 is not divisible by 2, hence not divisible by 6.",
+          "why_id": "b = 9 membuat 39 ganjil, sehingga 291 × 39 = 11349 tidak habis dibagi 2, jadi tidak habis dibagi 6."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "11058"
+        }
+      },
+      "hint_steps_en": [
+        "For the product to be divisible by 6, it must be divisible by both 2 and 3.",
+        "2a1 ends in 1 so it is always odd — it cannot supply the factor of 2.",
+        "Therefore 3b must be even, which means b must be an even digit: 0, 2, 4, 6, or 8. (3b is always divisible by 3 since it starts with 3.)",
+        "To maximise the product, pick the largest a (a = 9 → 2a1 = 291) and the largest even b (b = 8 → 3b = 38).",
+        "Greatest product = 291 × 38 = 11058."
+      ],
+      "hint_steps_id": [
+        "Agar hasil kali habis dibagi 6, harus habis dibagi 2 dan 3.",
+        "2a1 berakhir di angka 1, jadi selalu ganjil — tidak bisa menyediakan faktor 2.",
+        "Oleh karena itu 3b harus genap, artinya b harus digit genap: 0, 2, 4, 6, atau 8. (3b selalu habis dibagi 3 karena diawali angka 3.)",
+        "Untuk memaksimalkan hasil kali, pilih a terbesar (a = 9 → 2a1 = 291) dan b genap terbesar (b = 8 → 3b = 38).",
+        "Hasil kali terbesar = 291 × 38 = 11058."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check which digit values for b keep 3b even (so the product is divisible by 6), then maximise.",
+          "intro_id": "Cek digit b mana yang membuat 3b genap (agar hasil kali habis dibagi 6), lalu maksimalkan.",
+          "items": [
+            {
+              "text_en": "b = 9 → 39 is odd → product not divisible by 2 ✗",
+              "text_id": "b = 9 → 39 ganjil → hasil kali tidak habis dibagi 2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "b = 7 → 37 is odd → not divisible by 2 ✗",
+              "text_id": "b = 7 → 37 ganjil → tidak habis dibagi 2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "b = 8 → 38 is even → 38 is divisible by 2 and 3b starts with 3 (divisible by 3) ✓",
+              "text_id": "b = 8 → 38 genap → 38 habis dibagi 2 dan 3b diawali 3 (habis dibagi 3) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "a = 9 → 291 is the largest 2a1 → 291 × 38 = 11058",
+              "text_id": "a = 9 → 291 adalah 2a1 terbesar → 291 × 38 = 11058",
+              "ok": true
+            }
+          ],
+          "final_en": "Greatest product = 291 × 38 = 11058.",
+          "final_id": "Hasil kali terbesar = 291 × 38 = 11058.",
+          "aria_en": "Since 2a1 is always odd, 3b must be even; the largest even b is 8 giving 38, and the largest a is 9 giving 291, so the greatest product is 291 times 38 equals 11058.",
+          "aria_id": "Karena 2a1 selalu ganjil, 3b harus genap; b genap terbesar adalah 8 sehingga 38, dan a terbesar adalah 9 sehingga 291, maka hasil kali terbesar adalah 291 dikali 38 sama dengan 11058."
+        }
+      }
     },
     {
       "number": 2,
@@ -22,7 +131,83 @@
       "body_en": "Two rectangular boxes A and B have the same dimensions: height 8 cm and width 5 cm. Box A has volume 480 cm³, and its length is cut into three equal pieces. Box B is cut into two equal pieces along its height. Determine the difference in volume between one piece of box A and one piece of box B.",
       "answer_type": "fill_in",
       "answer": "80",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "height 8 cm and width 5 cm",
+            "phrase_id": "tinggi 8 cm dan lebar 5 cm",
+            "note_en": "Both boxes share these two dimensions; the length is derived from Box A's volume",
+            "note_id": "Kedua balok memiliki dua dimensi ini; panjang diperoleh dari volume Balok A"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Box A has volume 480 cm³, and its length is cut into three equal pieces",
+            "phrase_id": "Volume balok A yang panjangnya dibagi menjadi tiga bagian sama besar adalah 480 cm³",
+            "note_en": "Length of A = 480 ÷ (8 × 5) = 12 cm; each piece = 480 ÷ 3 = 160 cm³",
+            "note_id": "Panjang A = 480 ÷ (8 × 5) = 12 cm; setiap potongan = 480 ÷ 3 = 160 cm³"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Box B is cut into two equal pieces along its height",
+            "phrase_id": "balok B dipotong menjadi dua bagian menurut tingginya",
+            "note_en": "Cutting along the height halves the 8 cm dimension: each B piece is 4 cm × 5 cm × 12 cm = 240 cm³",
+            "note_id": "Memotong menurut tinggi membagi dimensi 8 cm menjadi dua: setiap potongan B adalah 4 cm × 5 cm × 12 cm = 240 cm³"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Length of both boxes",
+            "label_id": "Panjang kedua balok",
+            "value": "480 ÷ (8 × 5) = 12 cm"
+          },
+          {
+            "label_en": "Volume of 1 piece of A",
+            "label_id": "Volume 1 potongan A",
+            "value": "480 ÷ 3 = 160 cm³"
+          },
+          {
+            "label_en": "Volume of 1 piece of B",
+            "label_id": "Volume 1 potongan B",
+            "value": "4 × 5 × 12 = 240 cm³"
+          },
+          {
+            "label_en": "Difference (B piece − A piece)",
+            "label_id": "Selisih (potongan B − potongan A)",
+            "value": "240 − 160 = 80 cm³"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find length from volume, compute each piece, subtract",
+          "name_id": "Cari panjang dari volume, hitung setiap potongan, kurangi"
+        },
+        "trap": {
+          "wrong": "160 cm³ (ignoring Box B)",
+          "why_en": "The question asks for the DIFFERENCE between one piece of A and one piece of B, not just the piece of A alone.",
+          "why_id": "Soal menanyakan SELISIH antara satu potongan A dan satu potongan B, bukan hanya potongan A saja."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm³",
+          "value": "80"
+        }
+      },
+      "hint_steps_en": [
+        "Find the length: Volume A = length × 8 × 5 = 480, so length = 480 ÷ 40 = 12 cm.",
+        "Box B has the same dimensions: 8 cm × 5 cm × 12 cm.",
+        "One piece of A (cut along length into 3): volume = 480 ÷ 3 = 160 cm³.",
+        "One piece of B (cut along height into 2): height becomes 4 cm, so volume = 4 × 5 × 12 = 240 cm³.",
+        "Difference = 240 − 160 = 80 cm³."
+      ],
+      "hint_steps_id": [
+        "Cari panjang: Volume A = panjang × 8 × 5 = 480, sehingga panjang = 480 ÷ 40 = 12 cm.",
+        "Balok B memiliki dimensi yang sama: 8 cm × 5 cm × 12 cm.",
+        "Satu potongan A (dipotong menurut panjang menjadi 3): volume = 480 ÷ 3 = 160 cm³.",
+        "Satu potongan B (dipotong menurut tinggi menjadi 2): tinggi menjadi 4 cm, sehingga volume = 4 × 5 × 12 = 240 cm³.",
+        "Selisih = 240 − 160 = 80 cm³."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +215,85 @@
       "body_en": "Cities X and Y are connected by a road. On 3 July 2024, the Red bus departs from city X at 06:30 WIB and arrives at city Y at 10:30 WIB the same day. On the same day, the Blue bus departs from city Y at 03:30 WIB and arrives at city X at 09:30 WIB. If each bus travels at constant speed without stopping, at what time do the two buses meet?",
       "answer_type": "fill_in",
       "answer": "07:42 WIB",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the Red bus departs from city X at 06:30 WIB and arrives at city Y at 10:30 WIB",
+            "phrase_id": "bus Merah berangkat dari kota X pada pukul 06:30 WIB dan tiba di kota Y pukul 10:30 WIB",
+            "note_en": "Red bus travel time = 4 hours, so its speed = D/4 where D is the full distance",
+            "note_id": "Waktu tempuh bus Merah = 4 jam, sehingga kecepatannya = D/4 dengan D adalah jarak penuh"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the Blue bus departs from city Y at 03:30 WIB and arrives at city X at 09:30 WIB",
+            "phrase_id": "bus Biru berangkat dari kota Y pada pukul 03:30 WIB dan tiba di kota X pada pukul 09:30 WIB",
+            "note_en": "Blue bus travel time = 6 hours, speed = D/6; it has already covered D/2 by 06:30",
+            "note_id": "Waktu tempuh bus Biru = 6 jam, kecepatan = D/6; pada pukul 06:30 sudah menempuh D/2"
+          },
+          {
+            "category": "question",
+            "phrase_en": "at what time do the two buses meet?",
+            "phrase_id": "pada pukul berapa kedua bus berpapasan?",
+            "note_en": "Set up positions from 06:30 and solve for t when they coincide",
+            "note_id": "Susun posisi dari pukul 06:30 dan selesaikan untuk t saat posisi keduanya sama"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Red speed",
+            "label_id": "Kecepatan Merah",
+            "value": "D/4 per hour"
+          },
+          {
+            "label_en": "Blue position from X at 06:30",
+            "label_id": "Posisi Biru dari X pada 06:30",
+            "value": "D − (D/6)×3 = D/2"
+          },
+          {
+            "label_en": "Time to meet after 06:30",
+            "label_id": "Waktu bertemu setelah 06:30",
+            "value": "t × (D/4 + D/6) = D/2 → t × 5D/12 = D/2 → t = 6/5 h = 1 h 12 min"
+          },
+          {
+            "label_en": "Meeting time",
+            "label_id": "Waktu berpapasan",
+            "value": "06:30 + 1:12 = 07:42 WIB"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix reference time 06:30, write position equations, solve for t",
+          "name_id": "Tetapkan waktu referensi 06:30, tulis persamaan posisi, selesaikan untuk t"
+        },
+        "trap": {
+          "wrong": "08:00 WIB",
+          "why_en": "Naively adding half of 4 h and 6 h gives 8:30 — but Blue is not at Y at 06:30, it already covered half the distance.",
+          "why_id": "Menjumlahkan setengah dari 4 jam dan 6 jam secara sederhana memberikan 8:30 — tetapi Biru tidak berada di Y pada 06:30, sudah menempuh setengah jarak."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "07:42 WIB"
+        }
+      },
+      "hint_steps_en": [
+        "Red bus travel time = 10:30 − 06:30 = 4 hours. Blue bus travel time = 09:30 − 03:30 = 6 hours.",
+        "Let the full distance be D. Red's speed = D/4, Blue's speed = D/6.",
+        "At 06:30, Red is at X (position 0). Blue departed at 03:30 — it has been travelling 3 hours, covering (D/6)×3 = D/2, so it is at position D/2 from X.",
+        "After 06:30, Red's position from X = (D/4)×t; Blue's position from X = D/2 − (D/6)×t.",
+        "They meet when (D/4)t = D/2 − (D/6)t → t(1/4 + 1/6) = 1/2 → t×(5/12) = 1/2 → t = 6/5 h = 1 h 12 min.",
+        "Meeting time = 06:30 + 1:12 = 07:42 WIB."
+      ],
+      "hint_steps_id": [
+        "Waktu tempuh bus Merah = 10:30 − 06:30 = 4 jam. Waktu tempuh bus Biru = 09:30 − 03:30 = 6 jam.",
+        "Misalkan jarak penuh = D. Kecepatan Merah = D/4, kecepatan Biru = D/6.",
+        "Pada pukul 06:30, Merah berada di X (posisi 0). Biru berangkat pukul 03:30 — sudah berjalan 3 jam, menempuh (D/6)×3 = D/2, sehingga berada di posisi D/2 dari X.",
+        "Setelah 06:30, posisi Merah dari X = (D/4)×t; posisi Biru dari X = D/2 − (D/6)×t.",
+        "Mereka bertemu saat (D/4)t = D/2 − (D/6)t → t(1/4 + 1/6) = 1/2 → t×(5/12) = 1/2 → t = 6/5 jam = 1 jam 12 menit.",
+        "Waktu berpapasan = 06:30 + 1:12 = 07:42 WIB."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +301,114 @@
       "body_en": "Three empty glasses — red, green, and blue — are each to be filled with marbles. If there are four marbles all of the same colour, determine all possible ways to distribute all four marbles among the three glasses (each glass must receive at least one marble).",
       "answer_type": "fill_in",
       "answer": "3 cara: (2,1,1), (1,2,1), (1,1,2) untuk gelas merah, hijau, biru",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "four marbles all of the same colour",
+            "phrase_id": "empat kelereng dengan warna sama",
+            "note_en": "Because the marbles are identical, only the count per glass matters — not which marble goes where",
+            "note_id": "Karena kelereng identik, hanya jumlah per gelas yang penting — bukan kelereng mana yang ada di mana"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "each glass must receive at least one marble",
+            "phrase_id": "masing-masing akan diisi kelereng",
+            "note_en": "Each of the 3 glasses must get at least 1 marble; distribute 4 among 3 with each ≥ 1",
+            "note_id": "Masing-masing dari 3 gelas harus mendapat minimal 1 kelereng; bagikan 4 ke 3 gelas dengan masing-masing ≥ 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine all possible ways to distribute all four marbles among the three glasses",
+            "phrase_id": "tentukan semua cara yang mungkin untuk mengisi ketiga gelas tersebut dengan semua kelereng yang tersedia",
+            "note_en": "List all ordered triples (r, g, b) with r+g+b=4, each ≥ 1",
+            "note_id": "Daftarkan semua tripel terurut (m, h, b) dengan m+h+b=4, masing-masing ≥ 1"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Compositions of 4 into 3 positive parts",
+            "label_id": "Komposisi 4 menjadi 3 bagian positif",
+            "value": "C(3,2) = 3 ways"
+          },
+          {
+            "label_en": "Way 1",
+            "label_id": "Cara 1",
+            "value": "(2,1,1) — 2 in red, 1 in green, 1 in blue"
+          },
+          {
+            "label_en": "Way 2",
+            "label_id": "Cara 2",
+            "value": "(1,2,1) — 1 in red, 2 in green, 1 in blue"
+          },
+          {
+            "label_en": "Way 3",
+            "label_id": "Cara 3",
+            "value": "(1,1,2) — 1 in red, 1 in green, 2 in blue"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic listing — place the extra marble",
+          "name_id": "Daftar sistematis — tempatkan kelereng ekstra"
+        },
+        "trap": {
+          "wrong": "6 ways",
+          "why_en": "If the marbles were distinguishable there would be more arrangements, but since they are all the same colour only the count per glass matters, giving just 3 distributions.",
+          "why_id": "Jika kelereng dapat dibedakan akan ada lebih banyak cara, tetapi karena semuanya berwarna sama hanya jumlah per gelas yang penting, sehingga hanya ada 3 distribusi."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3 cara: (2,1,1), (1,2,1), (1,1,2)"
+        }
+      },
+      "hint_steps_en": [
+        "There are 4 identical marbles and 3 distinct glasses; each glass must get at least 1.",
+        "Give 1 marble to each glass first: 3 marbles placed, 1 remaining.",
+        "The extra marble can go into the red glass, the green glass, or the blue glass — 3 choices.",
+        "The 3 ways are: (2,1,1), (1,2,1), (1,1,2) for (red, green, blue)."
+      ],
+      "hint_steps_id": [
+        "Ada 4 kelereng identik dan 3 gelas berbeda; setiap gelas harus mendapat minimal 1.",
+        "Berikan 1 kelereng ke setiap gelas terlebih dahulu: 3 kelereng ditempatkan, 1 tersisa.",
+        "Kelereng ekstra bisa masuk ke gelas merah, gelas hijau, atau gelas biru — 3 pilihan.",
+        "Ketiga cara tersebut adalah: (2,1,1), (1,2,1), (1,1,2) untuk (merah, hijau, biru)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Give 1 marble to each glass first; then place the 1 spare marble in each glass in turn.",
+          "intro_id": "Berikan 1 kelereng ke setiap gelas terlebih dahulu; lalu tempatkan 1 kelereng sisa ke setiap gelas secara bergantian.",
+          "items": [
+            {
+              "text_en": "Spare to red → (2,1,1) ✓",
+              "text_id": "Sisa ke merah → (2,1,1) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Spare to green → (1,2,1) ✓",
+              "text_id": "Sisa ke hijau → (1,2,1) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Spare to blue → (1,1,2) ✓",
+              "text_id": "Sisa ke biru → (1,1,2) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "(4,0,0) or (0,4,0) — glass gets 0 marbles, violates the rule ✗",
+              "text_id": "(4,0,0) atau (0,4,0) — ada gelas yang kosong, melanggar aturan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are exactly 3 valid distributions: (2,1,1), (1,2,1), (1,1,2).",
+          "final_id": "Terdapat tepat 3 distribusi yang valid: (2,1,1), (1,2,1), (1,1,2).",
+          "aria_en": "Distribute 4 identical marbles into 3 distinct glasses each receiving at least 1; there are exactly 3 ways: 2-1-1, 1-2-1, and 1-1-2.",
+          "aria_id": "Bagikan 4 kelereng identik ke 3 gelas berbeda dengan masing-masing minimal 1; terdapat tepat 3 cara: 2-1-1, 1-2-1, dan 1-1-2."
+        }
+      }
     },
     {
       "number": 5,
@@ -46,7 +416,79 @@
       "body_en": "Consider the number table below in which natural numbers are placed in columns A through J following a pattern. The table shows some of the placed numbers. (a) Complete the pattern of natural numbers in the table. Describe the pattern.\n\nTable (partial):\nRow 1: A=1, C=4, J=13\nRow 2: B=2, F=8, G=11\nRow 3: C=6, E=9, J=15\nRow 4: B=28, D=25, H=19\nRow 5: A=29, E=23, H=17\nRow 6: G=21, J=18\nRow 7: A=31, C=34, H=43\nRow 8: B=32, F=38, G=41\nRow 9: C=36, E=39, H=45",
       "answer_type": "fill_in",
       "answer": "Pola berulang setiap 30 bilangan (6 baris): baris 1–3 meningkat ke kanan, baris 4–6 menurun ke kanan, kemudian bertambah 30 per siklus. Kolom A: mod30∈{1,29}; B: mod30∈{2,28}; C: mod30∈{4,6}; D: mod30=25; E: mod30∈{9,23}; F: mod30=8; G: mod30∈{11,21}; H: mod30∈{17,19}; J: mod30∈{13,15,18}.",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "natural numbers are placed in columns A through J following a pattern",
+            "phrase_id": "Bilangan-bilangan asli ditempatkan pada kolom A sampai J mengikuti suatu pola",
+            "note_en": "There are 10 columns (A–J) and numbers are placed in a repeating cycle of 30 numbers across 6 rows",
+            "note_id": "Ada 10 kolom (A–J) dan bilangan ditempatkan dalam siklus berulang 30 bilangan per 6 baris"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The table shows some of the placed numbers",
+            "phrase_id": "Tabel menunjukkan beberapa bilangan yang telah ditempatkan",
+            "note_en": "Rows 1–3 increase to the right (snake forward), rows 4–6 decrease to the right (snake back), then the cycle adds 30",
+            "note_id": "Baris 1–3 meningkat ke kanan (ular maju), baris 4–6 menurun ke kanan (ular balik), lalu siklus bertambah 30"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Complete the pattern of natural numbers in the table. Describe the pattern.",
+            "phrase_id": "Lengkapilah pola susunan bilangan Asli pada tabel tersebut. Jelaskan polanya.",
+            "note_en": "Describe the boustrophedon (snake) pattern and the 30-per-cycle increment",
+            "note_id": "Jelaskan pola boustrophedon (ular) dan kenaikan 30 per siklus"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Numbers per cycle",
+            "label_id": "Bilangan per siklus",
+            "value": "30 (placed over 6 rows × ~5 columns)"
+          },
+          {
+            "label_en": "Rows 1–3 direction",
+            "label_id": "Arah baris 1–3",
+            "value": "Numbers increase left-to-right (A→J)"
+          },
+          {
+            "label_en": "Rows 4–6 direction",
+            "label_id": "Arah baris 4–6",
+            "value": "Numbers decrease left-to-right (J→A)"
+          },
+          {
+            "label_en": "Cycle increment",
+            "label_id": "Kenaikan per siklus",
+            "value": "+30 per cycle (rows 7–12 = rows 1–6 + 30)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the snake (boustrophedon) pattern and cycle length",
+          "name_id": "Identifikasi pola ular (boustrophedon) dan panjang siklus"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Pola ular 6 baris, +30 per siklus"
+        }
+      },
+      "hint_steps_en": [
+        "Look at rows 1–3: numbers increase as you move right (A=1, C=4, J=13 in row 1).",
+        "Look at rows 4–6: numbers decrease as you move right (H=19, D=25, B=28 in row 4).",
+        "This is a snake (boustrophedon) pattern: forward in odd rows, backward in even rows within each half-cycle.",
+        "The cycle length is 30: rows 7–9 contain numbers 31–60, which are rows 1–3 numbers plus 30.",
+        "Each column receives specific residues modulo 30, allowing you to predict any entry."
+      ],
+      "hint_steps_id": [
+        "Perhatikan baris 1–3: bilangan meningkat ke kanan (A=1, C=4, J=13 di baris 1).",
+        "Perhatikan baris 4–6: bilangan menurun ke kanan (H=19, D=25, B=28 di baris 4).",
+        "Ini adalah pola ular (boustrophedon): maju di baris ganjil, mundur di baris genap dalam setiap setengah siklus.",
+        "Panjang siklus adalah 30: baris 7–9 memuat bilangan 31–60, yaitu bilangan baris 1–3 ditambah 30.",
+        "Setiap kolom menerima sisa bagi tertentu modulo 30, sehingga entri apapun dapat diprediksi."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +496,60 @@
       "body_en": "Using the same table from question 5, determine in which column the number 2024 is located.",
       "answer_type": "fill_in",
       "answer": "Kolom I",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Using the same table from question 5",
+            "phrase_id": "Pada tabel yang sama dengan soal 5",
+            "note_en": "The table repeats every 30 numbers; find 2024 mod 30 to locate it within a cycle",
+            "note_id": "Tabel berulang setiap 30 bilangan; cari 2024 mod 30 untuk menemukan posisinya dalam satu siklus"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine in which column the number 2024 is located",
+            "phrase_id": "tentukan pada kolom apa letak bilangan 2024",
+            "note_en": "2024 mod 30 = 14; identify which column carries the number with residue 14",
+            "note_id": "2024 mod 30 = 14; identifikasi kolom mana yang memuat bilangan dengan sisa 14"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2024 mod 30",
+            "label_id": "2024 mod 30",
+            "value": "2024 = 67 × 30 + 14, so residue = 14"
+          },
+          {
+            "label_en": "Which column holds residue 14?",
+            "label_id": "Kolom mana yang memiliki sisa 14?",
+            "value": "Column I (from the pattern in Q5)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Reduce modulo 30, then match residue to column",
+          "name_id": "Reduksi modulo 30, lalu cocokkan sisa dengan kolom"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Kolom I"
+        }
+      },
+      "hint_steps_en": [
+        "The table pattern repeats every 30 numbers (from Q5).",
+        "Compute 2024 ÷ 30: 2024 = 67 × 30 + 14, so 2024 ≡ 14 (mod 30).",
+        "From the pattern, the number with residue 14 in each cycle occupies column I.",
+        "Therefore, 2024 is in column I."
+      ],
+      "hint_steps_id": [
+        "Pola tabel berulang setiap 30 bilangan (dari soal 5).",
+        "Hitung 2024 ÷ 30: 2024 = 67 × 30 + 14, sehingga 2024 ≡ 14 (mod 30).",
+        "Dari pola tersebut, bilangan dengan sisa 14 dalam setiap siklus menempati kolom I.",
+        "Oleh karena itu, 2024 berada di kolom I."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +557,77 @@
       "body_en": "The figure below shows a house floor plan in metres. The owner wants to install carpet A at Rp250,000 per m² for the main room, carpet B at Rp150,000 per m² for the bedrooms, and synthetic grass at Rp95,000 per m² for the garden and drying area. Determine the total cost.",
       "answer_type": "fill_in",
       "answer": "FLAG:figure-dependent — floor plan required for exact calculation; rough estimate depends on precise room dimensions from figure",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "install carpet A at Rp250,000 per m² for the main room",
+            "phrase_id": "memasang karpet A seharga Rp250.000,00 setiap m²",
+            "note_en": "Rate for main room: Rp250,000 per m²",
+            "note_id": "Tarif ruang utama: Rp250.000 per m²"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "carpet B at Rp150,000 per m² for the bedrooms",
+            "phrase_id": "karpet B seharga Rp150.000,00 setiap m²",
+            "note_en": "Rate for bedrooms: Rp150,000 per m²",
+            "note_id": "Tarif kamar tidur: Rp150.000 per m²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The figure below shows a house floor plan in metres",
+            "phrase_id": "Gambar di bawah merupakan denah rumah dalam satuan meter",
+            "note_en": "All room areas must be read from the floor plan figure — not computable from text alone",
+            "note_id": "Semua luas ruangan harus dibaca dari denah — tidak dapat dihitung hanya dari teks"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cost formula (main room)",
+            "label_id": "Rumus biaya (ruang utama)",
+            "value": "Area_main × 250,000"
+          },
+          {
+            "label_en": "Cost formula (bedrooms)",
+            "label_id": "Rumus biaya (kamar tidur)",
+            "value": "Area_bedroom × 150,000"
+          },
+          {
+            "label_en": "Cost formula (garden + drying area)",
+            "label_id": "Rumus biaya (taman + area jemur)",
+            "value": "Area_outdoor × 95,000"
+          },
+          {
+            "label_en": "Total cost",
+            "label_id": "Total biaya",
+            "value": "Sum of all three components (requires floor plan)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read areas from floor plan, multiply by rates, sum",
+          "name_id": "Baca luas dari denah, kalikan dengan tarif, jumlahkan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "Rp",
+          "value": "figure-dependent"
+        }
+      },
+      "hint_steps_en": [
+        "Read the area of the main room from the floor plan (in m²). Multiply by Rp250,000.",
+        "Read the total area of the bedrooms. Multiply by Rp150,000.",
+        "Read the area of the garden and drying area combined. Multiply by Rp95,000.",
+        "Add all three costs to get the total expenditure."
+      ],
+      "hint_steps_id": [
+        "Baca luas ruang utama dari denah (dalam m²). Kalikan dengan Rp250.000.",
+        "Baca total luas kamar tidur. Kalikan dengan Rp150.000.",
+        "Baca luas taman dan area jemur digabungkan. Kalikan dengan Rp95.000.",
+        "Jumlahkan ketiga biaya tersebut untuk mendapatkan total pengeluaran."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +635,80 @@
       "body_en": "The following are rice sales data (in sacks) for DIANING grocery store over one year: Jan=1386, Feb=1382, Mar=1387, Apr=1389, May=1397, Jun=1392, Jul=1390, Aug=1392, Sep=1389, Oct=1383, Nov=1391, Dec=1388. Calculate the amount of each decrease in sales that occurred during the year.",
       "answer_type": "fill_in",
       "answer": "Jan→Feb: turun 4; Mei→Jun: turun 5; Jun→Jul: turun 2; Agu→Sep: turun 3; Sep→Okt: turun 6; Nov→Des: turun 3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Jan=1386, Feb=1382, Mar=1387, Apr=1389, May=1397, Jun=1392, Jul=1390, Aug=1392, Sep=1389, Oct=1383, Nov=1391, Dec=1388",
+            "phrase_id": "Jan=1386, Feb=1382, Mar=1387, Apr=1389, Mei=1397, Jun=1392, Jul=1390, Agu=1392, Sep=1389, Okt=1383, Nov=1391, Des=1388",
+            "note_en": "Monthly sales figures — compare each consecutive pair and record only the decreases",
+            "note_id": "Angka penjualan bulanan — bandingkan setiap pasangan berurutan dan catat hanya penurunannya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Calculate the amount of each decrease in sales that occurred during the year.",
+            "phrase_id": "Hitung besar setiap penurunan penjualan yang terjadi dalam satu tahun.",
+            "note_en": "A decrease occurs when the next month is lower than the current month",
+            "note_id": "Penurunan terjadi ketika bulan berikutnya lebih rendah dari bulan saat ini"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Jan→Feb",
+            "label_id": "Jan→Feb",
+            "value": "1382 − 1386 = −4 (turun 4)"
+          },
+          {
+            "label_en": "May→Jun",
+            "label_id": "Mei→Jun",
+            "value": "1392 − 1397 = −5 (turun 5)"
+          },
+          {
+            "label_en": "Jun→Jul",
+            "label_id": "Jun→Jul",
+            "value": "1390 − 1392 = −2 (turun 2)"
+          },
+          {
+            "label_en": "Aug→Sep",
+            "label_id": "Agu→Sep",
+            "value": "1389 − 1392 = −3 (turun 3)"
+          },
+          {
+            "label_en": "Sep→Oct",
+            "label_id": "Sep→Okt",
+            "value": "1383 − 1389 = −6 (turun 6)"
+          },
+          {
+            "label_en": "Nov→Dec",
+            "label_id": "Nov→Des",
+            "value": "1388 − 1391 = −3 (turun 3)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Scan consecutive month pairs, record only negative differences",
+          "name_id": "Pindai pasangan bulan berurutan, catat hanya selisih negatif"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "karung",
+          "value": "Jan→Feb: 4; Mei→Jun: 5; Jun→Jul: 2; Agu→Sep: 3; Sep→Okt: 6; Nov→Des: 3"
+        }
+      },
+      "hint_steps_en": [
+        "List all 12 monthly sales values in order.",
+        "Compute the difference (next month − current month) for each of the 11 consecutive pairs.",
+        "Record only the negative differences (= decreases): Jan→Feb (−4), May→Jun (−5), Jun→Jul (−2), Aug→Sep (−3), Sep→Oct (−6), Nov→Dec (−3).",
+        "The 6 decreases are: 4, 5, 2, 3, 6, and 3 sacks respectively."
+      ],
+      "hint_steps_id": [
+        "Daftarkan semua 12 nilai penjualan bulanan secara berurutan.",
+        "Hitung selisih (bulan berikutnya − bulan saat ini) untuk setiap 11 pasangan berurutan.",
+        "Catat hanya selisih negatif (= penurunan): Jan→Feb (−4), Mei→Jun (−5), Jun→Jul (−2), Agu→Sep (−3), Sep→Okt (−6), Nov→Des (−3).",
+        "Keenam penurunan tersebut adalah: 4, 5, 2, 3, 6, dan 3 karung."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +716,62 @@
       "body_en": "Using the same rice sales data from question 8, determine in which month the largest decrease in sales occurred.",
       "answer_type": "fill_in",
       "answer": "September ke Oktober (turun 6 karung)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Using the same rice sales data from question 8",
+            "phrase_id": "Pada data penjualan beras toko DIANING yang sama",
+            "note_en": "The six decreases from Q8 are: Jan→Feb (4), May→Jun (5), Jun→Jul (2), Aug→Sep (3), Sep→Oct (6), Nov→Dec (3)",
+            "note_id": "Enam penurunan dari soal 8 adalah: Jan→Feb (4), Mei→Jun (5), Jun→Jul (2), Agu→Sep (3), Sep→Okt (6), Nov→Des (3)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "determine in which month the largest decrease in sales occurred",
+            "phrase_id": "tentukan pada bulan apa terjadi penurunan penjualan terbesar",
+            "note_en": "Find the maximum among the six decrease values: 6 sacks (Sep→Oct)",
+            "note_id": "Cari nilai maksimum di antara enam penurunan: 6 karung (Sep→Okt)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "All decreases (from Q8)",
+            "label_id": "Semua penurunan (dari soal 8)",
+            "value": "4, 5, 2, 3, 6, 3 sacks"
+          },
+          {
+            "label_en": "Largest decrease",
+            "label_id": "Penurunan terbesar",
+            "value": "6 sacks — September to October"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compare all decreases and pick the maximum",
+          "name_id": "Bandingkan semua penurunan dan pilih yang terbesar"
+        },
+        "trap": {
+          "wrong": "May→Jun (5 sacks)",
+          "why_en": "A drop of 5 from May to June is large, but Sep→Oct drops by 6 — the largest.",
+          "why_id": "Penurunan 5 dari Mei ke Juni terlihat besar, tetapi Sep→Okt turun 6 — yang terbesar."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "September ke Oktober (turun 6 karung)"
+        }
+      },
+      "hint_steps_en": [
+        "From Q8, the decreases are: Jan→Feb (4), May→Jun (5), Jun→Jul (2), Aug→Sep (3), Sep→Oct (6), Nov→Dec (3).",
+        "Identify the largest: 6 sacks (Sep→Oct) beats 5 (May→Jun).",
+        "The largest decrease occurred from September to October, dropping by 6 sacks."
+      ],
+      "hint_steps_id": [
+        "Dari soal 8, penurunan adalah: Jan→Feb (4), Mei→Jun (5), Jun→Jul (2), Agu→Sep (3), Sep→Okt (6), Nov→Des (3).",
+        "Identifikasi yang terbesar: 6 karung (Sep→Okt) mengalahkan 5 (Mei→Jun).",
+        "Penurunan terbesar terjadi dari September ke Oktober, yaitu turun 6 karung."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +779,81 @@
       "body_en": "A four-digit number abcd is formed using digits from {0, 1, 2, 3, 4, 5, 6, 7, 8} with all four digits distinct. If abcd is a multiple of four, determine how many such numbers abcd are possible.",
       "answer_type": "fill_in",
       "answer": "756",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "all four digits distinct",
+            "phrase_id": "setiap digitnya berbeda",
+            "note_en": "No digit may repeat; digits come from {0,1,2,3,4,5,6,7,8} (9 available digits)",
+            "note_id": "Tidak ada digit yang boleh berulang; digit berasal dari {0,1,2,3,4,5,6,7,8} (9 digit tersedia)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "abcd is a multiple of four",
+            "phrase_id": "abcd adalah kelipatan empat",
+            "note_en": "Divisibility by 4 depends only on the last two digits cd: the two-digit number cd must be divisible by 4",
+            "note_id": "Keterbagian oleh 4 hanya bergantung pada dua digit terakhir cd: bilangan dua digit cd harus habis dibagi 4"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A four-digit number abcd is formed using digits from {0, 1, 2, 3, 4, 5, 6, 7, 8}",
+            "phrase_id": "Bilangan ribuan abcd yang setiap digitnya berbeda dibentuk dari bilangan 0, 1, 2, 3, 4, 5, 6, 7, 8",
+            "note_en": "a ≠ 0 (it's a 4-digit number); 9 available digits total",
+            "note_id": "a ≠ 0 (bilangan 4 digit); total 9 digit tersedia"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Valid cd pairs (c≠d, both 0–8, cd divisible by 4)",
+            "label_id": "Pasangan cd valid (c≠d, keduanya 0–8, cd habis dibagi 4)",
+            "value": "20 pairs"
+          },
+          {
+            "label_en": "Choices for a (not 0, not c, not d)",
+            "label_id": "Pilihan untuk a (bukan 0, bukan c, bukan d)",
+            "value": "varies per cd pair; on average ~7 choices"
+          },
+          {
+            "label_en": "Choices for b (not a, not c, not d)",
+            "label_id": "Pilihan untuk b (bukan a, bukan c, bukan d)",
+            "value": "6 choices (9 − 3 used digits)"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "sum over all 20 cd pairs of (a-choices × 6) = 756"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix cd by divisibility rule, then count valid a and b",
+          "name_id": "Tetapkan cd berdasarkan aturan keterbagian, lalu hitung a dan b yang valid"
+        },
+        "trap": {
+          "wrong": "Forgetting that a ≠ 0",
+          "why_en": "The leading digit a cannot be 0 (otherwise abcd would be a 3-digit number). This reduces the count for a.",
+          "why_id": "Digit terdepan a tidak boleh 0 (karena abcd akan menjadi bilangan 3 digit). Ini mengurangi jumlah pilihan untuk a."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "756"
+        }
+      },
+      "hint_steps_en": [
+        "Divisibility by 4 rule: the last two digits cd (as a two-digit number) must be divisible by 4.",
+        "List all valid cd pairs: c and d come from {0–8}, c ≠ d, and the number cd is divisible by 4. There are 20 such pairs.",
+        "For each cd pair, count choices for a: digits 1–8 excluding c and d. For b: 6 remaining digits (9 total − a, c, d).",
+        "Summing over all 20 valid cd pairs gives a total of 756 four-digit numbers."
+      ],
+      "hint_steps_id": [
+        "Aturan keterbagian 4: dua digit terakhir cd (sebagai bilangan dua digit) harus habis dibagi 4.",
+        "Daftarkan semua pasangan cd yang valid: c dan d berasal dari {0–8}, c ≠ d, dan bilangan cd habis dibagi 4. Terdapat 20 pasangan seperti itu.",
+        "Untuk setiap pasangan cd, hitung pilihan untuk a: digit 1–8 kecuali c dan d. Untuk b: 6 digit tersisa (9 total − a, c, d).",
+        "Menjumlahkan untuk semua 20 pasangan cd yang valid menghasilkan total 756 bilangan empat digit."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +861,116 @@
       "body_en": "Two different natural numbers sum to 75. When the larger is divided by the smaller, the quotient is 8 and the remainder is 3. Determine the difference of the two numbers.",
       "answer_type": "fill_in",
       "answer": "59",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Two different natural numbers sum to 75",
+            "phrase_id": "dua bilangan asli berbeda berjumlah 75",
+            "note_en": "Let the smaller be y and the larger be x; equation 1: x + y = 75",
+            "note_id": "Misalkan yang lebih kecil y dan yang lebih besar x; persamaan 1: x + y = 75"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the quotient is 8 and the remainder is 3",
+            "phrase_id": "hasil baginya 8 dan sisanya 3",
+            "note_en": "Division algorithm: x = 8y + 3; substitute into equation 1",
+            "note_id": "Algoritma pembagian: x = 8y + 3; substitusikan ke persamaan 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Determine the difference of the two numbers.",
+            "phrase_id": "Tentukan selisih kedua bilangan tersebut.",
+            "note_en": "Find x − y after solving for x and y",
+            "note_id": "Cari x − y setelah menyelesaikan untuk x dan y"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "System of equations",
+            "label_id": "Sistem persamaan",
+            "value": "x + y = 75 and x = 8y + 3"
+          },
+          {
+            "label_en": "Solve for y",
+            "label_id": "Selesaikan untuk y",
+            "value": "(8y+3) + y = 75 → 9y = 72 → y = 8"
+          },
+          {
+            "label_en": "Solve for x",
+            "label_id": "Selesaikan untuk x",
+            "value": "x = 8(8) + 3 = 67"
+          },
+          {
+            "label_en": "Difference x − y",
+            "label_id": "Selisih x − y",
+            "value": "67 − 8 = 59"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up two equations, substitute, solve",
+          "name_id": "Susun dua persamaan, substitusikan, selesaikan"
+        },
+        "trap": {
+          "wrong": "75 − 8 = 67 (mistaking difference for sum minus remainder)",
+          "why_en": "The difference is not simply 75 minus 8; you must solve the system properly to get x=67 and y=8, giving difference 59.",
+          "why_id": "Selisihnya bukan 75 dikurangi 8; harus menyelesaikan sistem dengan benar untuk mendapatkan x=67 dan y=8, sehingga selisihnya 59."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "59"
+        }
+      },
+      "hint_steps_en": [
+        "Let the smaller number be y and the larger be x.",
+        "From the sum: x + y = 75.",
+        "From the division: x = 8y + 3 (quotient 8, remainder 3).",
+        "Substitute: (8y + 3) + y = 75 → 9y = 72 → y = 8.",
+        "Then x = 8(8) + 3 = 67. Difference = 67 − 8 = 59."
+      ],
+      "hint_steps_id": [
+        "Misalkan bilangan yang lebih kecil adalah y dan yang lebih besar adalah x.",
+        "Dari jumlah: x + y = 75.",
+        "Dari pembagian: x = 8y + 3 (hasil bagi 8, sisa 3).",
+        "Substitusikan: (8y + 3) + y = 75 → 9y = 72 → y = 8.",
+        "Maka x = 8(8) + 3 = 67. Selisih = 67 − 8 = 59."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up two equations and solve the system to find the two numbers.",
+          "intro_id": "Susun dua persamaan dan selesaikan sistem untuk menemukan kedua bilangan.",
+          "items": [
+            {
+              "text_en": "Equation 1: x + y = 75",
+              "text_id": "Persamaan 1: x + y = 75",
+              "ok": null
+            },
+            {
+              "text_en": "Equation 2 (division): x = 8y + 3",
+              "text_id": "Persamaan 2 (pembagian): x = 8y + 3",
+              "ok": null
+            },
+            {
+              "text_en": "Substitute: 8y + 3 + y = 75 → 9y = 72 → y = 8",
+              "text_id": "Substitusikan: 8y + 3 + y = 75 → 9y = 72 → y = 8",
+              "ok": null
+            },
+            {
+              "text_en": "x = 67, y = 8. Difference = 67 − 8 = 59 ✓",
+              "text_id": "x = 67, y = 8. Selisih = 67 − 8 = 59 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The two numbers are 67 and 8; their difference is 59.",
+          "final_id": "Kedua bilangan tersebut adalah 67 dan 8; selisihnya adalah 59.",
+          "aria_en": "Setting x plus y equals 75 and x equals 8y plus 3, solving gives y equals 8 and x equals 67, so the difference is 59.",
+          "aria_id": "Dengan menyusun x tambah y sama dengan 75 dan x sama dengan 8y tambah 3, penyelesaiannya adalah y sama dengan 8 dan x sama dengan 67, sehingga selisihnya adalah 59."
+        }
+      }
     },
     {
       "number": 12,
@@ -102,7 +978,69 @@
       "body_en": "Arif and his friends play the prime-sum jump game with these rules: they pass through exactly 5 different tiles starting at tile 1 and ending at tile 11; the sum of the tile numbers visited must be prime; they can only jump less than 1 metre. The 0.5 m × 0.5 m tiles are arranged as follows (see figure). List all paths they can take.\n\nGrid layout:\n     [2][3][4]\n  [1][7][6][5][11]\n     [8][9][10]",
       "answer_type": "fill_in",
       "answer": "1→7→6→4→11 (jumlah=29, prima) dan 1→8→6→5→11 (jumlah=31, prima)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "they can only jump less than 1 metre",
+            "phrase_id": "mereka hanya dapat melompati kurang dari 1 meter",
+            "note_en": "Each tile is 0.5 m wide; adjacent tiles are 0.5 m apart and diagonal tiles are 0.707 m — both less than 1 m. Direct jumps of 2 tiles (1.0 m) are NOT allowed.",
+            "note_id": "Setiap petak berukuran 0,5 m; petak yang bersebelahan berjarak 0,5 m dan petak diagonal berjarak 0,707 m — keduanya kurang dari 1 m. Lompatan langsung 2 petak (1,0 m) TIDAK diperbolehkan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "they pass through exactly 5 different tiles starting at tile 1 and ending at tile 11",
+            "phrase_id": "mereka melewati 5 petak berbeda dimulai dari petak 1 dan berakhir di petak 11",
+            "note_en": "Path length is exactly 5 tiles: 1 → ? → ? → ? → 11",
+            "note_id": "Panjang jalur tepat 5 petak: 1 → ? → ? → ? → 11"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the sum of the tile numbers visited must be prime",
+            "phrase_id": "jumlah bilangan pada petak yang dilewati merupakan bilangan prima",
+            "note_en": "The sum of the 5 tile numbers on the chosen path must be prime",
+            "note_id": "Jumlah 5 nomor petak pada jalur yang dipilih harus merupakan bilangan prima"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Path 1: 1→7→6→4→11",
+            "label_id": "Jalur 1: 1→7→6→4→11",
+            "value": "Sum = 1+7+6+4+11 = 29 (prime ✓)"
+          },
+          {
+            "label_en": "Path 2: 1→8→6→5→11",
+            "label_id": "Jalur 2: 1→8→6→5→11",
+            "value": "Sum = 1+8+6+5+11 = 31 (prime ✓)"
+          }
+        ],
+        "strategy": {
+          "name_en": "DFS from tile 1 to tile 11 in exactly 4 jumps; filter by prime sum",
+          "name_id": "DFS dari petak 1 ke petak 11 dalam tepat 4 lompatan; saring berdasarkan jumlah prima"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1→7→6→4→11 (sum 29) dan 1→8→6→5→11 (sum 31)"
+        }
+      },
+      "hint_steps_en": [
+        "Map out which tiles can be reached from each tile in one jump (< 1 m): adjacent (0.5 m) and diagonal (≈0.71 m) tiles qualify.",
+        "From tile 1, reachable tiles are: 2, 7, 8.",
+        "Run all paths of length 5 starting at 1 and ending at 11 using the reachability map.",
+        "Check the sum for each path: 1→7→6→4→11 sums to 29 (prime ✓); 1→8→6→5→11 sums to 31 (prime ✓).",
+        "These are the only 2 valid paths."
+      ],
+      "hint_steps_id": [
+        "Petakan petak mana yang bisa dicapai dari setiap petak dalam satu lompatan (< 1 m): petak yang bersebelahan (0,5 m) dan diagonal (≈0,71 m) memenuhi syarat.",
+        "Dari petak 1, petak yang dapat dicapai adalah: 2, 7, 8.",
+        "Jalankan semua jalur panjang 5 dimulai dari 1 dan berakhir di 11 menggunakan peta keterjangkauan.",
+        "Periksa jumlah untuk setiap jalur: 1→7→6→4→11 berjumlah 29 (prima ✓); 1→8→6→5→11 berjumlah 31 (prima ✓).",
+        "Inilah 2 jalur yang valid."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +1048,74 @@
       "body_en": "Suppose that ABCD is a kite with AD = 5 cm, CD = 12 cm, ∠BAD = 134.8° and ∠BCD = 45.2°. Determine the length of BD.",
       "answer_type": "fill_in",
       "answer": "10·cos(22,6°) ≈ 9,23 cm",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ABCD is a kite with AD = 5 cm, CD = 12 cm",
+            "phrase_id": "ABCD is a kite with AD = 5 cm, CD = 12 cm",
+            "note_en": "In this kite AB = AD = 5 cm and CB = CD = 12 cm; the kite is symmetric about diagonal BD",
+            "note_id": "Dalam layang-layang ini AB = AD = 5 cm dan CB = CD = 12 cm; layang-layang simetris terhadap diagonal BD"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "∠BAD = 134.8°",
+            "phrase_id": "∠BAD = 134,8°",
+            "note_en": "In isosceles triangle ABD (AB=AD=5), angle BAD=134.8° so the base angles are (180−134.8)/2 = 22.6°",
+            "note_id": "Dalam segitiga sama kaki ABD (AB=AD=5), sudut BAD=134,8° sehingga sudut alas = (180−134,8)/2 = 22,6°"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Determine the length of BD.",
+            "phrase_id": "Determine the length of BD.",
+            "note_en": "Apply the law of cosines (or sines) to triangle ABD",
+            "note_id": "Terapkan aturan kosinus (atau sinus) pada segitiga ABD"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Triangle ABD base angles",
+            "label_id": "Sudut alas segitiga ABD",
+            "value": "∠ABD = ∠ADB = (180 − 134.8) / 2 = 22.6°"
+          },
+          {
+            "label_en": "BD by law of sines",
+            "label_id": "BD dengan aturan sinus",
+            "value": "BD / sin(134.8°) = 5 / sin(22.6°) → BD = 5·sin(134.8°)/sin(22.6°)"
+          },
+          {
+            "label_en": "BD simplified",
+            "label_id": "BD disederhanakan",
+            "value": "sin(134.8°) = sin(45.2°) = 2·sin(22.6°)·cos(22.6°), so BD = 10·cos(22.6°) ≈ 9.23 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the isosceles triangle property; apply law of sines",
+          "name_id": "Gunakan sifat segitiga sama kaki; terapkan aturan sinus"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "10·cos(22.6°) ≈ 9.23"
+        }
+      },
+      "hint_steps_en": [
+        "In kite ABCD: AB = AD = 5 cm and CB = CD = 12 cm (the kite has two pairs of adjacent equal sides).",
+        "Consider triangle ABD: it is isosceles with AB = AD = 5 and angle BAD = 134.8°.",
+        "Base angles: ∠ABD = ∠ADB = (180 − 134.8) / 2 = 22.6°.",
+        "By the law of sines: BD / sin(134.8°) = 5 / sin(22.6°).",
+        "Since sin(134.8°) = sin(45.2°) = 2 sin(22.6°) cos(22.6°), we get BD = 10 cos(22.6°) ≈ 9.23 cm."
+      ],
+      "hint_steps_id": [
+        "Pada layang-layang ABCD: AB = AD = 5 cm dan CB = CD = 12 cm (layang-layang memiliki dua pasang sisi yang sama dan berdekatan).",
+        "Perhatikan segitiga ABD: sama kaki dengan AB = AD = 5 dan sudut BAD = 134,8°.",
+        "Sudut alas: ∠ABD = ∠ADB = (180 − 134,8) / 2 = 22,6°.",
+        "Dengan aturan sinus: BD / sin(134,8°) = 5 / sin(22,6°).",
+        "Karena sin(134,8°) = sin(45,2°) = 2 sin(22,6°) cos(22,6°), diperoleh BD = 10 cos(22,6°) ≈ 9,23 cm."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +1123,111 @@
       "body_en": "Andi and Bani visit a shopping mall with 4 floors: floor 1 (ground), floor 2, floor 3, and floor 4. They plan to buy stationery on floor 1, shoes on floor 2, food on floor 3, and visit the game centre on floor 4. To travel between floors 2, 3, and 4 they can use a lift, escalator, or regular stairs. They start by buying stationery on floor 1. Find the number of possible routes to complete all tasks and return to floor 1.",
       "answer_type": "fill_in",
       "answer": "486",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "To travel between floors 2, 3, and 4 they can use a lift, escalator, or regular stairs",
+            "phrase_id": "Untuk menuju lantai 2, 3, dan 4 mereka bisa menggunakan lift, tangga berjalan, atau tangga biasa",
+            "note_en": "3 transportation choices for each floor-to-floor transition (between upper floors)",
+            "note_id": "3 pilihan transportasi untuk setiap perpindahan antar lantai (antar lantai atas)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "They plan to buy stationery on floor 1, shoes on floor 2, food on floor 3, and visit the game centre on floor 4",
+            "phrase_id": "Mereka berencana membeli alat tulis di lantai 1, sepatu di lantai 2, makanan di lantai 3, dan mengunjungi pusat permainan di lantai 4",
+            "note_en": "The tasks at floors 2, 3, 4 can be done in any order (3! = 6 orderings), then return to floor 1",
+            "note_id": "Tugas di lantai 2, 3, 4 dapat dilakukan dalam urutan apapun (3! = 6 urutan), lalu kembali ke lantai 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the number of possible routes to complete all tasks and return to floor 1.",
+            "phrase_id": "Tuliskan banyak kemungkinan rute yang ditempuh sehingga rencana mereka terlaksana dan kembali ke lantai 1.",
+            "note_en": "Count: ordering of 3 destinations × transport choices for each transition × return journey",
+            "note_id": "Hitung: urutan 3 tujuan × pilihan transportasi untuk setiap perpindahan × perjalanan kembali"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Orderings of floors 2, 3, 4",
+            "label_id": "Urutan lantai 2, 3, 4",
+            "value": "3! = 6"
+          },
+          {
+            "label_en": "Transport choices per transition (4 transitions total: F1→Fa, Fa→Fb, Fb→Fc, Fc→F1)",
+            "label_id": "Pilihan transportasi per perpindahan (4 perpindahan: L1→La, La→Lb, Lb→Lc, Lc→L1)",
+            "value": "3 per transition, 4 transitions → 3⁴ = 81"
+          },
+          {
+            "label_en": "Total routes",
+            "label_id": "Total rute",
+            "value": "6 × 81 = 486"
+          }
+        ],
+        "strategy": {
+          "name_en": "Multiply ordering count by transport choices per transition",
+          "name_id": "Kalikan jumlah urutan dengan pilihan transportasi per perpindahan"
+        },
+        "trap": {
+          "wrong": "3 × 3³ = 81 (ignoring floor order permutations)",
+          "why_en": "The order of visiting floors 2, 3, and 4 is NOT fixed — they can be visited in any of 3! = 6 sequences.",
+          "why_id": "Urutan mengunjungi lantai 2, 3, dan 4 TIDAK tetap — bisa dikunjungi dalam salah satu dari 3! = 6 urutan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "486"
+        }
+      },
+      "hint_steps_en": [
+        "Start at floor 1. They must visit floors 2, 3, and 4 (in any order) and then return to floor 1.",
+        "Number of orderings for floors 2, 3, 4: 3! = 6.",
+        "For any ordering, the route has 4 transitions: floor 1 → first, first → second, second → third, third → floor 1.",
+        "Each transition has 3 transport options (lift, escalator, stairs): 3⁴ = 81 options.",
+        "Total routes = 6 × 81 = 486."
+      ],
+      "hint_steps_id": [
+        "Mulai di lantai 1. Mereka harus mengunjungi lantai 2, 3, dan 4 (dalam urutan apapun) lalu kembali ke lantai 1.",
+        "Jumlah urutan untuk lantai 2, 3, 4: 3! = 6.",
+        "Untuk setiap urutan, rute memiliki 4 perpindahan: lantai 1 → pertama, pertama → kedua, kedua → ketiga, ketiga → lantai 1.",
+        "Setiap perpindahan memiliki 3 pilihan transportasi (lift, tangga berjalan, tangga biasa): 3⁴ = 81 pilihan.",
+        "Total rute = 6 × 81 = 486."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count orderings of the 3 upper floors and multiply by transport choices per transition.",
+          "intro_id": "Hitung urutan 3 lantai atas dan kalikan dengan pilihan transportasi per perpindahan.",
+          "items": [
+            {
+              "text_en": "Orderings of floors 2, 3, 4: 3! = 6 sequences",
+              "text_id": "Urutan lantai 2, 3, 4: 3! = 6 urutan",
+              "ok": null
+            },
+            {
+              "text_en": "Each ordering has 4 transitions with 3 transport options each: 3⁴ = 81",
+              "text_id": "Setiap urutan memiliki 4 perpindahan dengan 3 pilihan transportasi masing-masing: 3⁴ = 81",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 6 × 81 = 486 ✓",
+              "text_id": "Total = 6 × 81 = 486 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "3 × 27 = 81 — ignores the 6 orderings ✗",
+              "text_id": "3 × 27 = 81 — mengabaikan 6 urutan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "There are 6 × 81 = 486 possible routes.",
+          "final_id": "Terdapat 6 × 81 = 486 rute yang mungkin.",
+          "aria_en": "Six orderings of the three upper floors times 81 transport combinations for four transitions gives 486 possible routes.",
+          "aria_id": "Enam urutan tiga lantai atas dikali 81 kombinasi transportasi untuk empat perpindahan menghasilkan 486 rute yang mungkin."
+        }
+      }
     },
     {
       "number": 15,
@@ -126,7 +1235,81 @@
       "body_en": "Three finalists compete in storytelling, writing, and drawing contests. Judges and the audience each give scores on a scale of 1000. In each contest type, the finalist with the highest combined judge + audience score wins. The favourite winner is the finalist with the highest value of 60% × (average judge score) + 40% × (audience score). Scores — Storytelling: Dani=750, Cheri=830, Yanto=740; Writing: Dani=850, Cheri=840, Yanto=690; Drawing: Dani=730, Cheri=645, Yanto=820; Audience: Dani=720, Cheri=735, Yanto=725. Who wins each contest category and who is the favourite winner?",
       "answer_type": "fill_in",
       "answer": "Bercerita: Cheri (1565); Menulis: Cheri (1575); Menggambar: Yanto (1545); Juara Favorit: Cheri (757,00)",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the finalist with the highest combined judge + audience score wins",
+            "phrase_id": "finalis akan menjadi juara jika mendapatkan jumlah tertinggi dari nilai penonton dan nilai juri",
+            "note_en": "Contest winner = judge score + audience score; compute for all 3 finalists in each contest",
+            "note_id": "Juara lomba = nilai juri + nilai penonton; hitung untuk ketiga finalis di setiap lomba"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "value of 60% × (average judge score) + 40% × (audience score)",
+            "phrase_id": "60% rata-rata nilai juri ditambah 40% nilai dari penonton merupakan nilai tertinggi",
+            "note_en": "Favourite score = 0.6 × (average of all three judge scores) + 0.4 × audience score",
+            "note_id": "Nilai favorit = 0,6 × (rata-rata ketiga nilai juri) + 0,4 × nilai penonton"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Who wins each contest category and who is the favourite winner?",
+            "phrase_id": "Siapakah finalis yang mendapatkan juara lomba bercerita, menulis, menggambar, serta juara favorit?",
+            "note_en": "Find the maximum in each contest and in the favourite formula",
+            "note_id": "Temukan nilai maksimum di setiap lomba dan dalam formula favorit"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Storytelling total (judge + audience)",
+            "label_id": "Total bercerita (juri + penonton)",
+            "value": "Dani=1470, Cheri=1565, Yanto=1465 → Cheri wins"
+          },
+          {
+            "label_en": "Writing total",
+            "label_id": "Total menulis",
+            "value": "Dani=1570, Cheri=1575, Yanto=1415 → Cheri wins"
+          },
+          {
+            "label_en": "Drawing total",
+            "label_id": "Total menggambar",
+            "value": "Dani=1450, Cheri=1380, Yanto=1545 → Yanto wins"
+          },
+          {
+            "label_en": "Favourite score",
+            "label_id": "Nilai favorit",
+            "value": "Dani=754.00, Cheri=757.00, Yanto=740.00 → Cheri wins"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compute contest totals and favourite formula, find maximum each time",
+          "name_id": "Hitung total lomba dan formula favorit, temukan maksimum setiap kali"
+        },
+        "trap": {
+          "wrong": "Dani wins writing (850 judge score is highest)",
+          "why_en": "The contest uses judge + audience total, not judge score alone. Cheri's writing total is 840+735=1575, beating Dani's 850+720=1570.",
+          "why_id": "Lomba menggunakan total juri + penonton, bukan nilai juri saja. Total menulis Cheri adalah 840+735=1575, mengalahkan Dani 850+720=1570."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Bercerita: Cheri; Menulis: Cheri; Menggambar: Yanto; Juara Favorit: Cheri"
+        }
+      },
+      "hint_steps_en": [
+        "Compute judge + audience for each finalist in each contest: Storytelling: Dani=1470, Cheri=1565, Yanto=1465 → Cheri; Writing: Dani=1570, Cheri=1575, Yanto=1415 → Cheri; Drawing: Dani=1450, Cheri=1380, Yanto=1545 → Yanto.",
+        "For the favourite, compute average judge score per finalist: Dani=(750+850+730)/3=776.67; Cheri=(830+840+645)/3=771.67; Yanto=(740+690+820)/3=750.",
+        "Favourite formula = 0.6 × avg_judge + 0.4 × audience: Dani=0.6×776.67+0.4×720=754.00; Cheri=0.6×771.67+0.4×735=757.00; Yanto=0.6×750+0.4×725=740.",
+        "Favourite winner = Cheri (757.00)."
+      ],
+      "hint_steps_id": [
+        "Hitung juri + penonton untuk setiap finalis di setiap lomba: Bercerita: Dani=1470, Cheri=1565, Yanto=1465 → Cheri; Menulis: Dani=1570, Cheri=1575, Yanto=1415 → Cheri; Menggambar: Dani=1450, Cheri=1380, Yanto=1545 → Yanto.",
+        "Untuk favorit, hitung rata-rata nilai juri per finalis: Dani=(750+850+730)/3=776,67; Cheri=(830+840+645)/3=771,67; Yanto=(740+690+820)/3=750.",
+        "Formula favorit = 0,6 × rata_juri + 0,4 × penonton: Dani=0,6×776,67+0,4×720=754,00; Cheri=0,6×771,67+0,4×735=757,00; Yanto=0,6×750+0,4×725=740.",
+        "Juara favorit = Cheri (757,00)."
+      ]
     }
   ]
 }

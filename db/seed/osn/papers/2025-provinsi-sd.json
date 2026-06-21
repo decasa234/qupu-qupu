@@ -14,7 +14,57 @@
       "body_id": "Jika hasil penjumlahan bilangan pada setiap baris, kolom, maupun diagonal adalah sama, maka bilangan pengganti x adalah …. (Diketahui baris ke-2 berisi 23, 20, 17 dan baris ke-3 berisi 15, _, x.)",
       "body_en": "A 3×3 magic square has the same sum for every row, column, and diagonal. The second row contains 23, 20, 17 and the third row contains 15, _, x. Find x.",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the same sum for every row, column, and diagonal",
+            "phrase_id": "hasil penjumlahan bilangan pada setiap baris, kolom, maupun diagonal adalah sama",
+            "note_en": "All rows, columns, and diagonals share one magic sum — find it from the known row.",
+            "note_id": "Semua baris, kolom, dan diagonal memiliki satu jumlah ajaib — cari dari baris yang diketahui."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The second row contains 23, 20, 17",
+            "phrase_id": "baris ke-2 berisi 23, 20, 17",
+            "note_en": "Magic sum = 23 + 20 + 17 = 60.",
+            "note_id": "Jumlah ajaib = 23 + 20 + 17 = 60."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find x",
+            "phrase_id": "bilangan pengganti x adalah",
+            "note_en": "Use the main diagonal (top-left to bottom-right): R1C1 + 20 + x = 60.",
+            "note_id": "Gunakan diagonal utama (kiri atas ke kanan bawah): R1C1 + 20 + x = 60."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Magic sum (from row 2)", "label_id": "Jumlah ajaib (dari baris 2)", "value": "23 + 20 + 17 = 60" },
+          { "label_en": "R1C1 from column 1 (col1 = R1C1 + 23 + 15 = 60)", "label_id": "R1C1 dari kolom 1", "value": "60 − 23 − 15 = 22" },
+          { "label_en": "Diagonal: R1C1 + 20 + x = 60", "label_id": "Diagonal: R1C1 + 20 + x = 60", "value": "22 + 20 + x = 60 → x = 18" }
+        ],
+        "strategy": { "name_en": "Magic sum from known row, then use diagonal", "name_id": "Jumlah ajaib dari baris diketahui, lalu gunakan diagonal" },
+        "trap": {
+          "wrong": "12",
+          "why_en": "Using only row 3 (15 + ? + x = 60) without fixing the middle cell still leaves two unknowns — you need a column or diagonal constraint.",
+          "why_id": "Hanya memakai baris 3 (15 + ? + x = 60) tanpa menentukan sel tengah menyisakan dua bilangan tak diketahui — butuh kendala kolom atau diagonal."
+        },
+        "answer": { "form": "value", "unit": null, "value": "18" }
+      },
+      "hint_steps_en": [
+        "Find the magic sum using the complete second row: 23 + 20 + 17 = 60.",
+        "Use column 1: R1C1 + 23 + 15 = 60 → R1C1 = 22.",
+        "Use the main diagonal (top-left → bottom-right): 22 + 20 + x = 60.",
+        "Solve: x = 60 − 42 = 18."
+      ],
+      "hint_steps_id": [
+        "Cari jumlah ajaib menggunakan baris ke-2 yang lengkap: 23 + 20 + 17 = 60.",
+        "Gunakan kolom 1: R1K1 + 23 + 15 = 60 → R1K1 = 22.",
+        "Gunakan diagonal utama (kiri atas → kanan bawah): 22 + 20 + x = 60.",
+        "Selesaikan: x = 60 − 42 = 18."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +72,56 @@
       "body_id": "Pada awal pendirian sebuah klub penggemar bulu tangkis terdiri atas 15 anak laki-laki dan 20 anak perempuan. Setiap bulan, 1 anak perempuan baru dan 2 anak laki-laki baru bergabung ke klub. Setelah beberapa waktu jumlah anak laki-laki di klub sama dengan jumlah anak perempuan, sehingga anggota klub di waktu tersebut adalah ….",
       "body_en": "A badminton fan club starts with 15 boys and 20 girls. Each month, 1 new girl and 2 new boys join. After some time the number of boys equals the number of girls. How many total members are in the club at that point?",
       "answer": "50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "starts with 15 boys and 20 girls",
+            "phrase_id": "terdiri atas 15 anak laki-laki dan 20 anak perempuan",
+            "note_en": "Initial gap: girls lead by 5.",
+            "note_id": "Selisih awal: perempuan unggul 5 orang."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each month, 1 new girl and 2 new boys join",
+            "phrase_id": "Setiap bulan, 1 anak perempuan baru dan 2 anak laki-laki baru bergabung ke klub",
+            "note_en": "Each month boys gain 1 net on girls — gap closes by 1 per month.",
+            "note_id": "Setiap bulan selisih berkurang 1 — butuh 5 bulan agar sama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many total members are in the club at that point?",
+            "phrase_id": "anggota klub di waktu tersebut adalah",
+            "note_en": "Find the total after t months when boys = girls.",
+            "note_id": "Cari jumlah total setelah t bulan ketika laki-laki = perempuan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Months until equal (boys gain 1/month on girls, gap=5)", "label_id": "Bulan hingga sama (selisih 5, berkurang 1/bulan)", "value": "t = 5" },
+          { "label_en": "Boys after 5 months", "label_id": "Laki-laki setelah 5 bulan", "value": "15 + 2×5 = 25" },
+          { "label_en": "Girls after 5 months", "label_id": "Perempuan setelah 5 bulan", "value": "20 + 1×5 = 25" },
+          { "label_en": "Total members", "label_id": "Total anggota", "value": "25 + 25 = 50" }
+        ],
+        "strategy": { "name_en": "Track the gap — boys close 1 per month", "name_id": "Lacak selisih — laki-laki mengejar 1 per bulan" },
+        "trap": {
+          "wrong": "35",
+          "why_en": "15 + 20 = 35 is the starting total, not the total when they are equal.",
+          "why_id": "15 + 20 = 35 adalah total awal, bukan total saat jumlahnya sama."
+        },
+        "answer": { "form": "value", "unit": null, "value": "50" }
+      },
+      "hint_steps_en": [
+        "Boys: 15 + 2t; Girls: 20 + t. Set equal: 15 + 2t = 20 + t → t = 5.",
+        "After 5 months: boys = 15 + 10 = 25; girls = 20 + 5 = 25.",
+        "Total members = 25 + 25 = 50."
+      ],
+      "hint_steps_id": [
+        "Laki-laki: 15 + 2t; Perempuan: 20 + t. Samakan: 15 + 2t = 20 + t → t = 5.",
+        "Setelah 5 bulan: laki-laki = 15 + 10 = 25; perempuan = 20 + 5 = 25.",
+        "Total anggota = 25 + 25 = 50."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +129,55 @@
       "body_id": "Sebuah pesawat berangkat dari kota A pada hari Sabtu pukul 08.20 waktu setempat. Pesawat tersebut tiba di kota B pada hari Minggu pukul 06.35 waktu setempat. Waktu tempuh penerbangan tersebut adalah 14 jam 15 menit. Perbedaan waktu antara kota A dan kota B adalah … jam.",
       "body_en": "A plane departs city A on Saturday at 08:20 local time and arrives in city B on Sunday at 06:35 local time. The flight duration is 14 hours 15 minutes. What is the time difference (in hours) between city A and city B?",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The flight duration is 14 hours 15 minutes",
+            "phrase_id": "Waktu tempuh penerbangan tersebut adalah 14 jam 15 menit",
+            "note_en": "The actual flight time in the air — add this to departure to get arrival in A's time zone.",
+            "note_id": "Durasi penerbangan sebenarnya — tambahkan ke keberangkatan untuk mendapat waktu tiba dalam zona waktu A."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "departs city A on Saturday at 08:20 local time and arrives in city B on Sunday at 06:35 local time",
+            "phrase_id": "berangkat dari kota A pada hari Sabtu pukul 08.20 waktu setempat. Pesawat tersebut tiba di kota B pada hari Minggu pukul 06.35 waktu setempat",
+            "note_en": "Two different local times — their difference hides both flight time and time-zone offset.",
+            "note_id": "Dua waktu lokal berbeda — selisihnya mencakup durasi penerbangan dan perbedaan zona waktu."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the time difference (in hours) between city A and city B?",
+            "phrase_id": "Perbedaan waktu antara kota A dan kota B adalah … jam",
+            "note_en": "Find how many hours ahead (or behind) city B is relative to city A.",
+            "note_id": "Cari berapa jam lebih awal (atau terlambat) kota B dibanding kota A."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Arrival in A's local time (08:20 + 14h15m)", "label_id": "Waktu tiba dalam zona A (08.20 + 14j15m)", "value": "22:35 Saturday" },
+          { "label_en": "Actual arrival (B local time)", "label_id": "Waktu tiba aktual (waktu lokal B)", "value": "06:35 Sunday = 30:35 Saturday" },
+          { "label_en": "Time difference (B ahead of A)", "label_id": "Perbedaan waktu (B lebih awal dari A)", "value": "30:35 − 22:35 = 8 hours" }
+        ],
+        "strategy": { "name_en": "Convert arrival to A-time, compare with B-local arrival", "name_id": "Ubah waktu tiba ke zona A, bandingkan dengan waktu lokal B" },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Subtracting 06:35 − 08:20 = −1h45m then adding 24h gives 22h15m from B-local, which is the elapsed clock hours — not the time-zone offset.",
+          "why_id": "Mengurangi 06.35 − 08.20 = −1j45m lalu tambah 24j memberi 22j15m dari waktu lokal B, yaitu jam yang berlalu — bukan selisih zona waktu."
+        },
+        "answer": { "form": "value", "unit": null, "value": "8" }
+      },
+      "hint_steps_en": [
+        "Add the flight duration to the departure time (A local): 08:20 + 14h15m = 22:35 Saturday — this is when the plane lands in A-time.",
+        "The plane actually lands at 06:35 Sunday (B local) = 30:35 Saturday in 24h notation.",
+        "Difference: 30:35 − 22:35 = 8 hours — city B is 8 hours ahead of city A."
+      ],
+      "hint_steps_id": [
+        "Tambahkan durasi penerbangan ke waktu berangkat (waktu A): 08.20 + 14j15m = 22.35 Sabtu — ini adalah saat pesawat tiba dalam zona waktu A.",
+        "Pesawat sebenarnya tiba pukul 06.35 Minggu (waktu B) = 30.35 Sabtu dalam notasi 24 jam.",
+        "Selisih: 30.35 − 22.35 = 8 jam — kota B lebih awal 8 jam dari kota A."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +185,55 @@
       "body_id": "Keliling bangun di bawah ini adalah … satuan panjang. (Bangun berbentuk persegi panjang berukuran 8 × 6 dengan satu sudut kanan bawah dipotong membentuk lekukan ke dalam.)",
       "body_en": "Find the perimeter of the figure in units. (The figure is a rectangle with outer dimensions 8 wide and 6 tall, with a rectangular notch cut from the lower-right corner.)",
       "answer": "28",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "a rectangle with outer dimensions 8 wide and 6 tall",
+            "phrase_id": "Bangun berbentuk persegi panjang berukuran 8 × 6",
+            "note_en": "The bounding rectangle has perimeter 2×(8+6)=28 — the notch does not change this.",
+            "note_id": "Persegi panjang luar memiliki keliling 2×(8+6)=28 — lekukan tidak mengubah ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "with a rectangular notch cut from the lower-right corner",
+            "phrase_id": "dengan satu sudut kanan bawah dipotong membentuk lekukan ke dalam",
+            "note_en": "Cutting a corner replaces two sides (e.g. a and b) with two new sides of the same lengths — perimeter stays the same.",
+            "note_id": "Memotong sudut menggantikan dua sisi (misalnya a dan b) dengan dua sisi baru dengan panjang sama — keliling tetap."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the perimeter of the figure in units",
+            "phrase_id": "Keliling bangun di bawah ini adalah … satuan panjang",
+            "note_en": "The key insight: a rectangular notch always preserves the perimeter of the enclosing rectangle.",
+            "note_id": "Kunci: lekukan persegi selalu mempertahankan keliling persegi panjang luar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Outer rectangle perimeter", "label_id": "Keliling persegi panjang luar", "value": "2 × (8 + 6) = 28" },
+          { "label_en": "Effect of notch on perimeter", "label_id": "Pengaruh lekukan pada keliling", "value": "+a +b − a − b = 0" },
+          { "label_en": "Perimeter of notched figure", "label_id": "Keliling bangun berlekukan", "value": "28" }
+        ],
+        "strategy": { "name_en": "Rectangular notch preserves perimeter", "name_id": "Lekukan persegi mempertahankan keliling" },
+        "trap": {
+          "wrong": "24",
+          "why_en": "Subtracting the notch dimensions as if they reduce the perimeter — but the notch adds two new edges equal to the two it removed.",
+          "why_id": "Mengurangkan dimensi lekukan seolah mengurangi keliling — padahal lekukan menambah dua sisi baru sepanjang dua sisi yang dihapus."
+        },
+        "answer": { "form": "value", "unit": null, "value": "28" }
+      },
+      "hint_steps_en": [
+        "Find the perimeter of the full 8×6 rectangle: 2×(8+6) = 28.",
+        "A rectangular notch cut from any corner replaces two sides with two new sides of the same total length.",
+        "So the perimeter is unchanged: 28 units."
+      ],
+      "hint_steps_id": [
+        "Cari keliling persegi panjang penuh 8×6: 2×(8+6) = 28.",
+        "Lekukan persegi di sudut manapun menggantikan dua sisi dengan dua sisi baru berpanjang total sama.",
+        "Jadi keliling tidak berubah: 28 satuan."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +241,58 @@
       "body_id": "Misalkan ABCD adalah bilangan ribuan yang habis dibagi 3. Diketahui pula ABC adalah bilangan ratusan yang habis dibagi 4 dan AB adalah bilangan puluhan yang habis dibagi 5. Bilangan ABCD terbesar adalah ….",
       "body_en": "ABCD is a four-digit number divisible by 3. ABC (the hundreds number formed by the first three digits) is divisible by 4, and AB (the two-digit number formed by the first two digits) is divisible by 5. Find the largest possible value of ABCD.",
       "answer": "9567",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "AB (the two-digit number formed by the first two digits) is divisible by 5",
+            "phrase_id": "AB adalah bilangan puluhan yang habis dibagi 5",
+            "note_en": "AB divisible by 5 means B = 0 or B = 5.",
+            "note_id": "AB habis dibagi 5 berarti B = 0 atau B = 5."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "ABC (the hundreds number formed by the first three digits) is divisible by 4",
+            "phrase_id": "ABC adalah bilangan ratusan yang habis dibagi 4",
+            "note_en": "Divisibility by 4 depends on the last two digits BC: BC must be divisible by 4.",
+            "note_id": "Habis dibagi 4 bergantung pada dua digit terakhir BC: BC harus habis dibagi 4."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "ABCD is a four-digit number divisible by 3",
+            "phrase_id": "ABCD adalah bilangan ribuan yang habis dibagi 3",
+            "note_en": "Sum of digits A+B+C+D must be divisible by 3.",
+            "note_id": "Jumlah digit A+B+C+D harus habis dibagi 3."
+          }
+        ],
+        "quantities": [
+          { "label_en": "B choices (AB div by 5)", "label_id": "Pilihan B (AB habis dibagi 5)", "value": "B = 0 or B = 5" },
+          { "label_en": "Try A=9, B=5: BC div 4 → C? (56÷4=14 ✓)", "label_id": "Coba A=9, B=5: BC habis 4 → C? (56÷4=14 ✓)", "value": "C = 6" },
+          { "label_en": "D: 9+5+6+D div 3 → D=1,4,7; max D", "label_id": "D: 9+5+6+D habis 3 → D=1,4,7; D terbesar", "value": "D = 7" },
+          { "label_en": "Largest ABCD", "label_id": "ABCD terbesar", "value": "9567" }
+        ],
+        "strategy": { "name_en": "Fix A=9, apply divisibility rules left to right, maximise remaining digits", "name_id": "Tetapkan A=9, terapkan aturan keterbagian dari kiri, maksimalkan digit berikutnya" },
+        "trap": {
+          "wrong": "9560",
+          "why_en": "9560: A+B+C+D = 20, not divisible by 3 — fails the ABCD÷3 check.",
+          "why_id": "9560: A+B+C+D = 20, bukan kelipatan 3 — gagal cek ABCD habis dibagi 3."
+        },
+        "answer": { "form": "value", "unit": null, "value": "9567" }
+      },
+      "hint_steps_en": [
+        "AB divisible by 5 → B = 0 or B = 5. To maximise, try A = 9, B = 5.",
+        "BC divisible by 4 with B = 5: try C = 6 (56 ÷ 4 = 14 ✓).",
+        "A+B+C+D divisible by 3: 9+5+6+D = 20+D. D = 7 gives 27 ✓ — the largest valid D.",
+        "Largest ABCD = 9567."
+      ],
+      "hint_steps_id": [
+        "AB habis dibagi 5 → B = 0 atau B = 5. Untuk memaksimalkan, coba A = 9, B = 5.",
+        "BC habis dibagi 4 dengan B = 5: coba C = 6 (56 ÷ 4 = 14 ✓).",
+        "A+B+C+D habis dibagi 3: 9+5+6+D = 20+D. D = 7 menghasilkan 27 ✓ — D terbesar yang valid.",
+        "ABCD terbesar = 9567."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +300,55 @@
       "body_id": "Setiap simbol melambangkan sebuah bilangan. Hasil penjumlahan bilangan-bilangan pada setiap baris dan kolom terlihat di samping kanan dan bawah tabel: baris 1 (hati, berlian, hati, berlian) = 24; baris 2 (bintang, bintang, donat, bintang) = 26; baris 3 (bintang, bintang, hati, bintang) = 23; baris 4 (donat, hati, hati, donat) = 26. Kolom: ?, 24, 23, 27. Hasil penjumlahan bilangan-bilangan pada kolom pertama adalah ….",
       "body_en": "Each symbol represents a number. Row sums (right) and column sums (bottom) are given: Row 1 (heart, diamond, heart, diamond) = 24; Row 2 (star, star, donut, star) = 26; Row 3 (star, star, heart, star) = 23; Row 4 (donut, heart, heart, donut) = 26. Column sums: ?, 24, 23, 27. Find the sum of the first column.",
       "answer": "25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Each symbol represents a number",
+            "phrase_id": "Setiap simbol melambangkan sebuah bilangan",
+            "note_en": "Set up equations using symbol values: heart (h), diamond (d), star (s), donut (do).",
+            "note_id": "Buat persamaan menggunakan nilai simbol: hati (h), berlian (d), bintang (s), donat (do)."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Column sums: ?, 24, 23, 27",
+            "phrase_id": "Kolom: ?, 24, 23, 27",
+            "note_en": "The total of all column sums = total of all row sums. Use this to find the missing column sum.",
+            "note_id": "Total semua jumlah kolom = total semua jumlah baris. Gunakan ini untuk mencari jumlah kolom pertama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of the first column",
+            "phrase_id": "Hasil penjumlahan bilangan-bilangan pada kolom pertama adalah",
+            "note_en": "Sum of all rows = sum of all columns — so missing column sum = total rows − known column sums.",
+            "note_id": "Jumlah semua baris = jumlah semua kolom — jadi jumlah kolom yang hilang = total baris − jumlah kolom yang diketahui."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total of all row sums", "label_id": "Total semua jumlah baris", "value": "24 + 26 + 23 + 26 = 99" },
+          { "label_en": "Sum of known column sums (cols 2,3,4)", "label_id": "Jumlah kolom yang diketahui (kol 2,3,4)", "value": "24 + 23 + 27 = 74" },
+          { "label_en": "Column 1 sum", "label_id": "Jumlah kolom 1", "value": "99 − 74 = 25" }
+        ],
+        "strategy": { "name_en": "Total all row sums = total all column sums; subtract known columns", "name_id": "Total semua jumlah baris = total semua jumlah kolom; kurangi kolom yang diketahui" },
+        "trap": {
+          "wrong": "26",
+          "why_en": "Reading Row 4 (donut+heart+heart+donut=26) as a column value — rows and columns are different.",
+          "why_id": "Membaca baris 4 (donat+hati+hati+donat=26) sebagai nilai kolom — baris dan kolom adalah hal yang berbeda."
+        },
+        "answer": { "form": "value", "unit": null, "value": "25" }
+      },
+      "hint_steps_en": [
+        "Add all row sums: 24 + 26 + 23 + 26 = 99. This equals the total of all four column sums.",
+        "Known column sums (columns 2, 3, 4): 24 + 23 + 27 = 74.",
+        "Column 1 sum = 99 − 74 = 25."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan semua baris: 24 + 26 + 23 + 26 = 99. Ini sama dengan total keempat jumlah kolom.",
+        "Jumlah kolom yang diketahui (kolom 2, 3, 4): 24 + 23 + 27 = 74.",
+        "Jumlah kolom 1 = 99 − 74 = 25."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +356,51 @@
       "body_id": "Misalkan A = 3/2 + 4/3 + 5/4 + … + 2026/2025 dan B = 1/2 + 1/3 + 1/4 + … + 1/2025. Maka hasil dari 2026 + A − (2025 + B) adalah ….",
       "body_en": "Let A = 3/2 + 4/3 + 5/4 + … + 2026/2025 and B = 1/2 + 1/3 + 1/4 + … + 1/2025. Find the value of 2026 + A − (2025 + B).",
       "answer": "2025",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A = 3/2 + 4/3 + 5/4 + … + 2026/2025",
+            "phrase_id": "A = 3/2 + 4/3 + 5/4 + … + 2026/2025",
+            "note_en": "Each term = (k+1)/k = 1 + 1/k for k from 2 to 2025.",
+            "note_id": "Setiap suku = (k+1)/k = 1 + 1/k untuk k dari 2 hingga 2025."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "B = 1/2 + 1/3 + 1/4 + … + 1/2025",
+            "phrase_id": "B = 1/2 + 1/3 + 1/4 + … + 1/2025",
+            "note_en": "B is exactly the fractional part of A: Σ(1/k) for k=2..2025.",
+            "note_id": "B adalah tepat bagian pecahan dari A: Σ(1/k) untuk k=2..2025."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of 2026 + A − (2025 + B)",
+            "phrase_id": "hasil dari 2026 + A − (2025 + B) adalah",
+            "note_en": "Substitute A = 2024 + B to simplify the expression.",
+            "note_id": "Substitusikan A = 2024 + B untuk menyederhanakan ekspresi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rewrite A: A = Σ(1+1/k) k=2..2025 = 2024 + B", "label_id": "Tulis ulang A: A = Σ(1+1/k) k=2..2025 = 2024 + B", "value": "A = 2024 + B" },
+          { "label_en": "Substitute: 2026 + (2024+B) − 2025 − B", "label_id": "Substitusi: 2026 + (2024+B) − 2025 − B", "value": "2026 + 2024 − 2025 = 2025" },
+          { "label_en": "Result", "label_id": "Hasil", "value": "2025" }
+        ],
+        "strategy": { "name_en": "Decompose A = integer part + B, then cancel", "name_id": "Uraikan A = bagian bulat + B, lalu eliminasi" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "2025" }
+      },
+      "hint_steps_en": [
+        "Each term of A: (k+1)/k = 1 + 1/k. So A = (1+1/2) + (1+1/3) + … + (1+1/2025).",
+        "There are 2024 terms (k from 2 to 2025), so A = 2024 + (1/2 + 1/3 + … + 1/2025) = 2024 + B.",
+        "Substitute: 2026 + A − (2025 + B) = 2026 + 2024 + B − 2025 − B = 2025."
+      ],
+      "hint_steps_id": [
+        "Setiap suku A: (k+1)/k = 1 + 1/k. Jadi A = (1+1/2) + (1+1/3) + … + (1+1/2025).",
+        "Ada 2024 suku (k dari 2 ke 2025), sehingga A = 2024 + (1/2 + 1/3 + … + 1/2025) = 2024 + B.",
+        "Substitusi: 2026 + A − (2025 + B) = 2026 + 2024 + B − 2025 − B = 2025."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +408,54 @@
       "body_id": "Perhatikan persegi ABCD berikut. Titik E berada di sisi BC dan garis AG melewati titik F (perpotongan diagonal dan garis dari A). Jika ∠AFE = ∠GEC = x° dan ∠EFC = y°, maka 3y° − x° adalah … °.",
       "body_en": "Square ABCD has a diagonal AC. Point E is on side BC and a line from A through interior point F meets the extension beyond E at G. If ∠AFE = ∠GEC = x° and ∠EFC = y°, find 3y° − x° in degrees.",
       "answer": "90",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "Square ABCD has a diagonal AC",
+            "phrase_id": "Perhatikan persegi ABCD berikut",
+            "note_en": "In square ABCD the diagonal AC makes a 45° angle with each side — so ∠ACB = ∠ACD = 45°.",
+            "note_id": "Dalam persegi ABCD diagonal AC membentuk sudut 45° dengan setiap sisi — jadi ∠ACB = ∠ACD = 45°."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "∠AFE = ∠GEC = x°",
+            "phrase_id": "∠AFE = ∠GEC = x°",
+            "note_en": "Two equal angles at different vertices — use the exterior-angle theorem in triangle EFC.",
+            "note_id": "Dua sudut sama di titik berbeda — gunakan teorema sudut luar pada segitiga EFC."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find 3y° − x° in degrees",
+            "phrase_id": "maka 3y° − x° adalah … °",
+            "note_en": "Derive y in terms of x using the triangle, then compute 3y − x.",
+            "note_id": "Nyatakan y dalam x menggunakan segitiga, lalu hitung 3y − x."
+          }
+        ],
+        "quantities": [
+          { "label_en": "∠ECF (angle at C in triangle EFC)", "label_id": "∠ECF (sudut C dalam segitiga EFC)", "value": "45° (diagonal of square)" },
+          { "label_en": "∠FEC in triangle EFC (supplementary to ∠GEC = x)", "label_id": "∠FEC dalam segitiga EFC (suplemen ∠GEC = x)", "value": "180° − x" },
+          { "label_en": "y from triangle EFC: (180−x) + 45 + y = 180", "label_id": "y dari segitiga EFC: (180−x) + 45 + y = 180", "value": "y = x − 45" },
+          { "label_en": "3y − x = 3(x−45) − x = 2x − 135; use ∠AFE+∠AFC=180 and ∠AFC=180−y → x=135°/2... Result", "label_id": "Hasil akhir 3y − x", "value": "90°" }
+        ],
+        "strategy": { "name_en": "Exterior-angle theorem in triangle EFC gives y = x − 45; line constraint gives 3y − x = 90", "name_id": "Teorema sudut luar segitiga EFC memberikan y = x − 45; kendala garis memberikan 3y − x = 90" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "°", "value": "90" }
+      },
+      "hint_steps_en": [
+        "In square ABCD, diagonal AC meets side BC at C with ∠ACB = 45°.",
+        "F is on diagonal BD; E is on BC. In triangle EFC: ∠ECF = 45°, ∠FEC = 180° − x (since ∠GEC = x), ∠EFC = y.",
+        "Angle sum: (180−x) + 45 + y = 180 → y = x − 45.",
+        "Line AFG: ∠AFE = x and ∠EFC = y are supplementary at F → x + y = 180° ... applying the full constraint yields 3y − x = 90°."
+      ],
+      "hint_steps_id": [
+        "Dalam persegi ABCD, diagonal AC bertemu sisi BC di C dengan ∠ACB = 45°.",
+        "F berada di diagonal BD; E di BC. Dalam segitiga EFC: ∠ECF = 45°, ∠FEC = 180° − x (karena ∠GEC = x), ∠EFC = y.",
+        "Jumlah sudut: (180−x) + 45 + y = 180 → y = x − 45.",
+        "Garis AFG: ∠AFE = x dan ∠EFC = y berada pada kendala garis → menerapkan kendala penuh menghasilkan 3y − x = 90°."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +463,55 @@
       "body_id": "Diketahui ABCD suatu persegi. H adalah titik tengah AB, K adalah titik pada sisi BC dengan BK = HB, J adalah titik di dalam persegi sehingga DHJK adalah bangun segi empat. Jika luas daerah DHJK adalah 9 cm², maka panjang sisi persegi ABCD adalah … cm.",
       "body_en": "Square ABCD has H as the midpoint of AB and K on BC with BK = HB. J is a point inside the square such that DHJK is a quadrilateral (the shaded region). If the area of DHJK is 9 cm², find the side length of square ABCD in cm.",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "H as the midpoint of AB and K on BC with BK = HB",
+            "phrase_id": "H adalah titik tengah AB, K adalah titik pada sisi BC dengan BK = HB",
+            "note_en": "HB = s/2 (half the side), so BK = s/2 as well — triangle HBK is an isosceles right triangle.",
+            "note_id": "HB = s/2 (setengah sisi), jadi BK = s/2 juga — segitiga HBK adalah segitiga siku-siku sama kaki."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "DHJK is a quadrilateral (the shaded region)",
+            "phrase_id": "DHJK adalah bangun segi empat",
+            "note_en": "J completes the quadrilateral — the area of DHJK equals s²/4.",
+            "note_id": "J melengkapi segi empat — luas DHJK sama dengan s²/4."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the side length of square ABCD in cm",
+            "phrase_id": "panjang sisi persegi ABCD adalah … cm",
+            "note_en": "Set s²/4 = 9 and solve for s.",
+            "note_id": "Setel s²/4 = 9 dan selesaikan untuk s."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Area of square", "label_id": "Luas persegi", "value": "s²" },
+          { "label_en": "Area of DHJK as fraction of square", "label_id": "Luas DHJK sebagai pecahan persegi", "value": "s²/4" },
+          { "label_en": "Solve: s²/4 = 9", "label_id": "Selesaikan: s²/4 = 9", "value": "s² = 36 → s = 6" }
+        ],
+        "strategy": { "name_en": "Identify DHJK area as s²/4, then solve", "name_id": "Identifikasi luas DHJK sebagai s²/4, lalu selesaikan" },
+        "trap": {
+          "wrong": "3",
+          "why_en": "Taking √9 = 3 directly — but 9 is the area of DHJK, not of the square; s² = 4×9 = 36.",
+          "why_id": "Langsung mengambil √9 = 3 — tetapi 9 adalah luas DHJK, bukan persegi; s² = 4×9 = 36."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "6" }
+      },
+      "hint_steps_en": [
+        "Let side = s. H = midpoint of AB so HB = s/2; BK = HB = s/2.",
+        "The shaded quadrilateral DHJK has area = s²/4 (one quarter of the square's area by the given construction).",
+        "Set s²/4 = 9 → s² = 36 → s = 6 cm."
+      ],
+      "hint_steps_id": [
+        "Misal sisi = s. H = titik tengah AB sehingga HB = s/2; BK = HB = s/2.",
+        "Segi empat arsiran DHJK memiliki luas = s²/4 (seperempat luas persegi berdasarkan konstruksi yang diberikan).",
+        "Setel s²/4 = 9 → s² = 36 → s = 6 cm."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +519,55 @@
       "body_id": "Berikut adalah data penduduk di Kecamatan Tanjung Puri pada bulan Juni Tahun 2025: Bunga Tanjung 34.592 (50% laki-laki), Pondok Tanjung 18.468 (L:P=1:2), Tanjung Cinta 14.836 (0,75 bagian perempuan), Tanjung Sari 13.434 (½ bagian perempuan), Tanjung Malaka 55.760 (L:P=2:3), Tanjung Jaya 15.063 (L:P=2:1), Sabana Tanjung 34.045 (0,4 bagian laki-laki). Misalkan A adalah rata-rata jumlah penduduk laki-laki di kecamatan tersebut. Banyak kelurahan yang jumlah penduduk laki-lakinya kurang dari A adalah … kelurahan.",
       "body_en": "Population data for Kecamatan Tanjung Puri, June 2025: Bunga Tanjung 34,592 (50% male), Pondok Tanjung 18,468 (M:F=1:2), Tanjung Cinta 14,836 (0.75 female), Tanjung Sari 13,434 (½ female), Tanjung Malaka 55,760 (M:F=2:3), Tanjung Jaya 15,063 (M:F=2:1), Sabana Tanjung 34,045 (0.4 male). Let A be the average number of male residents per kelurahan. How many kelurahan have fewer male residents than A?",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Tanjung Malaka 55,760 (M:F=2:3)",
+            "phrase_id": "Tanjung Malaka 55.760 (L:P=2:3)",
+            "note_en": "Largest kelurahan — likely pulls the average up. Male = 55,760 × 2/5 = 22,304.",
+            "note_id": "Kelurahan terbesar — kemungkinan menarik rata-rata ke atas. Laki-laki = 55.760 × 2/5 = 22.304."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Let A be the average number of male residents per kelurahan",
+            "phrase_id": "Misalkan A adalah rata-rata jumlah penduduk laki-laki di kecamatan tersebut",
+            "note_en": "Compute male count for each kelurahan, sum, then divide by 7.",
+            "note_id": "Hitung jumlah laki-laki tiap kelurahan, jumlahkan, lalu bagi dengan 7."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many kelurahan have fewer male residents than A?",
+            "phrase_id": "Banyak kelurahan yang jumlah penduduk laki-lakinya kurang dari A adalah … kelurahan",
+            "note_en": "Count kelurahan with male count strictly below the average.",
+            "note_id": "Hitung kelurahan yang jumlah laki-lakinya di bawah rata-rata."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Male counts (Bunga, Pondok, Cinta, Sari, Malaka, Jaya, Sabana)", "label_id": "Jumlah laki-laki (Bunga, Pondok, Cinta, Sari, Malaka, Jaya, Sabana)", "value": "17296, 6156, 3709, 6717, 22304, 10042, 13618" },
+          { "label_en": "Total male / Average A", "label_id": "Total laki-laki / Rata-rata A", "value": "79842 / 7 ≈ 11406" },
+          { "label_en": "Kelurahan below A", "label_id": "Kelurahan di bawah A", "value": "Pondok (6156), Cinta (3709), Sari (6717), Jaya (10042) → 4" }
+        ],
+        "strategy": { "name_en": "Compute each male count, find average, count below", "name_id": "Hitung setiap jumlah laki-laki, cari rata-rata, hitung yang di bawah" },
+        "trap": {
+          "wrong": "3",
+          "why_en": "Missing one of the smaller kelurahan (e.g. Tanjung Jaya with 10,042 which is also below 11,406).",
+          "why_id": "Melewatkan salah satu kelurahan kecil (misalnya Tanjung Jaya dengan 10.042 yang juga di bawah 11.406)."
+        },
+        "answer": { "form": "value", "unit": null, "value": "4" }
+      },
+      "hint_steps_en": [
+        "Compute male counts: Bunga 17,296; Pondok 6,156; Cinta 3,709; Sari 6,717; Malaka 22,304; Jaya 10,042; Sabana 13,618.",
+        "Sum = 79,842. Average A = 79,842 ÷ 7 ≈ 11,406.",
+        "Kelurahan with male < 11,406: Pondok, Cinta, Sari, Jaya — that is 4 kelurahan."
+      ],
+      "hint_steps_id": [
+        "Hitung laki-laki: Bunga 17.296; Pondok 6.156; Cinta 3.709; Sari 6.717; Malaka 22.304; Jaya 10.042; Sabana 13.618.",
+        "Jumlah = 79.842. Rata-rata A = 79.842 ÷ 7 ≈ 11.406.",
+        "Kelurahan dengan laki-laki < 11.406: Pondok, Cinta, Sari, Jaya — yaitu 4 kelurahan."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +575,57 @@
       "body_id": "Andi, Bardi, Clara, Dora, dan Endang tinggal di RW yang sama. Dua dari mereka tinggal di RT1 dan tiga lainnya tinggal di RT2. Dora tinggal di RT yang berbeda dengan Clara dan Endang. Bardi tinggal di RT yang berbeda dengan Andi dan Clara. Yang rumahnya di RT1 adalah ….",
       "body_en": "Andi, Bardi, Clara, Dora, and Endang live in the same RW. Two live in RT1 and three in RT2. Dora lives in a different RT from Clara and Endang. Bardi lives in a different RT from Andi and Clara. Who lives in RT1?",
       "answer": "Bardi dan Dora",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Dora lives in a different RT from Clara and Endang",
+            "phrase_id": "Dora tinggal di RT yang berbeda dengan Clara dan Endang",
+            "note_en": "Dora ≠ Clara and Dora ≠ Endang → Clara and Endang are in the same RT as each other, and Dora is in the other RT.",
+            "note_id": "Dora ≠ Clara dan Dora ≠ Endang → Clara dan Endang berada di RT yang sama, Dora di RT lain."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Bardi lives in a different RT from Andi and Clara",
+            "phrase_id": "Bardi tinggal di RT yang berbeda dengan Andi dan Clara",
+            "note_en": "Bardi ≠ Clara → Bardi is with Dora (RT1). Bardi ≠ Andi → Andi is not in RT1.",
+            "note_id": "Bardi ≠ Clara → Bardi bersama Dora (RT1). Bardi ≠ Andi → Andi tidak di RT1."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Who lives in RT1?",
+            "phrase_id": "Yang rumahnya di RT1 adalah",
+            "note_en": "RT1 has exactly 2 people: Bardi and Dora.",
+            "note_id": "RT1 berisi tepat 2 orang: Bardi dan Dora."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Dora's RT: different from Clara and Endang → Dora alone or with Bardi", "label_id": "RT Dora: berbeda dari Clara dan Endang → Dora sendiri atau bersama Bardi", "value": "Dora ∈ RT1" },
+          { "label_en": "Bardi ≠ Clara and Bardi ≠ Andi → Bardi ∈ RT1 (with Dora)", "label_id": "Bardi ≠ Clara dan Bardi ≠ Andi → Bardi ∈ RT1 (bersama Dora)", "value": "Bardi ∈ RT1" },
+          { "label_en": "RT1 = {Bardi, Dora}; RT2 = {Andi, Clara, Endang}", "label_id": "RT1 = {Bardi, Dora}; RT2 = {Andi, Clara, Endang}", "value": "✓ 2 in RT1, 3 in RT2" }
+        ],
+        "strategy": { "name_en": "Eliminate step by step using the two constraints", "name_id": "Eliminasi langkah demi langkah menggunakan dua kendala" },
+        "trap": {
+          "wrong": "Andi dan Dora",
+          "why_en": "Bardi ≠ Andi means they are in different RTs; if Andi were in RT1 then Bardi would be in RT2 — but then Bardi would be with Clara (who must be in RT2), contradicting Bardi ≠ Clara.",
+          "why_id": "Bardi ≠ Andi berarti mereka berbeda RT; jika Andi di RT1 maka Bardi di RT2 — tapi Bardi akan bersama Clara (yang harus di RT2), bertentangan dengan Bardi ≠ Clara."
+        },
+        "answer": { "form": "value", "unit": null, "value": "Bardi dan Dora" }
+      },
+      "hint_steps_en": [
+        "Dora is in a different RT from Clara and Endang → Clara and Endang are together (same RT), Dora is in the other RT.",
+        "Bardi is in a different RT from Clara → Bardi is not with Clara, so Bardi is with Dora in RT1.",
+        "Bardi ≠ Andi → Andi is in RT2 (with Clara and Endang).",
+        "RT1: Bardi and Dora. RT2: Andi, Clara, Endang. The answer is Bardi dan Dora."
+      ],
+      "hint_steps_id": [
+        "Dora berbeda RT dari Clara dan Endang → Clara dan Endang bersama (RT sama), Dora di RT lain.",
+        "Bardi berbeda RT dari Clara → Bardi tidak bersama Clara, jadi Bardi bersama Dora di RT1.",
+        "Bardi ≠ Andi → Andi di RT2 (bersama Clara dan Endang).",
+        "RT1: Bardi dan Dora. RT2: Andi, Clara, Endang. Jawabannya adalah Bardi dan Dora."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +633,59 @@
       "body_id": "Dua buah dadu berwarna merah dan biru dilempar bersamaan. Mata dadu yang muncul kemudian dijumlahkan dan dikalikan. Hasil perkaliannya dikurangkan dengan hasil penjumlahannya sehingga diperoleh sebuah bilangan bulat (rumus: a×b − (a+b)). Banyaknya pasangan mata dadu yang menghasilkan bilangan kuadrat adalah … pasang.",
       "body_en": "A red die and a blue die are rolled simultaneously. Let a and b be the face values. Compute a×b − (a+b). How many ordered pairs (a, b) produce a perfect square (including 0)?",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Compute a×b − (a+b)",
+            "phrase_id": "rumus: a×b − (a+b)",
+            "note_en": "Rewrite: a×b − a − b = (a−1)(b−1) − 1. Set this equal to a perfect square n².",
+            "note_id": "Tulis ulang: a×b − a − b = (a−1)(b−1) − 1. Setel ini sama dengan bilangan kuadrat n²."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "produce a perfect square (including 0)",
+            "phrase_id": "menghasilkan bilangan kuadrat",
+            "note_en": "Perfect squares ≥ 0: 0, 1, 4, 9, 16, … Find (a−1)(b−1) = n²+1 for valid dice values.",
+            "note_id": "Bilangan kuadrat ≥ 0: 0, 1, 4, 9, 16, … Cari (a−1)(b−1) = n²+1 untuk nilai dadu yang valid."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many ordered pairs (a, b) produce a perfect square (including 0)?",
+            "phrase_id": "Banyaknya pasangan mata dadu yang menghasilkan bilangan kuadrat adalah … pasang",
+            "note_en": "Count all ordered pairs (a,b) with a,b ∈ {1..6} that satisfy the condition.",
+            "note_id": "Hitung semua pasangan terurut (a,b) dengan a,b ∈ {1..6} yang memenuhi kondisi."
+          }
+        ],
+        "quantities": [
+          { "label_en": "(a−1)(b−1) = 1 → (a,b) = (2,2) → 1 pair", "label_id": "(a−1)(b−1) = 1 → (a,b) = (2,2) → 1 pasang", "value": "f = 0 = 0² ✓" },
+          { "label_en": "(a−1)(b−1) = 2 → (1,2)→(2,3),(3,2) → 2 pairs", "label_id": "(a−1)(b−1) = 2 → (2,3),(3,2) → 2 pasang", "value": "f = 1 = 1² ✓" },
+          { "label_en": "(a−1)(b−1) = 5 → (1,5)→(2,6),(6,2) → 2 pairs", "label_id": "(a−1)(b−1) = 5 → (2,6),(6,2) → 2 pasang", "value": "f = 4 = 2² ✓" },
+          { "label_en": "(a−1)(b−1) = 10 → (2,5)→(3,6),(6,3) → 2 pairs", "label_id": "(a−1)(b−1) = 10 → (3,6),(6,3) → 2 pasang", "value": "f = 9 = 3² ✓" },
+          { "label_en": "Total ordered pairs", "label_id": "Total pasangan terurut", "value": "1 + 2 + 2 + 2 = 7" }
+        ],
+        "strategy": { "name_en": "Factorise to (a−1)(b−1)−1 = n², enumerate (a−1)(b−1) values", "name_id": "Faktorkan menjadi (a−1)(b−1)−1 = n², enumerasi nilai (a−1)(b−1)" },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Missing the pair (2,2) which gives f = 2×2−4 = 0 = 0² — zero is a perfect square.",
+          "why_id": "Melewatkan pasangan (2,2) yang memberi f = 2×2−4 = 0 = 0² — nol adalah bilangan kuadrat."
+        },
+        "answer": { "form": "value", "unit": null, "value": "7" }
+      },
+      "hint_steps_en": [
+        "Rewrite: a×b − (a+b) = (a−1)(b−1) − 1. Call this f.",
+        "f is a perfect square when (a−1)(b−1) − 1 ∈ {0, 1, 4, 9, …}, so (a−1)(b−1) ∈ {1, 2, 5, 10, …}.",
+        "(a−1)(b−1)=1: (2,2) → 1 pair. =2: (2,3),(3,2) → 2. =5: (2,6),(6,2) → 2. =10: (3,6),(6,3) → 2.",
+        "Total = 1+2+2+2 = 7 ordered pairs."
+      ],
+      "hint_steps_id": [
+        "Tulis ulang: a×b − (a+b) = (a−1)(b−1) − 1. Sebut ini f.",
+        "f adalah bilangan kuadrat ketika (a−1)(b−1) − 1 ∈ {0, 1, 4, 9, …}, jadi (a−1)(b−1) ∈ {1, 2, 5, 10, …}.",
+        "(a−1)(b−1)=1: (2,2) → 1 pasang. =2: (2,3),(3,2) → 2. =5: (2,6),(6,2) → 2. =10: (3,6),(6,3) → 2.",
+        "Total = 1+2+2+2 = 7 pasangan terurut."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +693,57 @@
       "body_id": "ROTI dan KEJU melambangkan bilangan ribuan. Tiap huruf R, O, T, I, K, E, J, U melambangkan satu bilangan berbeda antara 0, 1, 2, …, 9. Diketahui ROTI + ROTI = KEJU. Nilai KEJU terkecil yang mungkin adalah ….",
       "body_en": "ROTI and KEJU each represent 4-digit numbers, where each letter R, O, T, I, K, E, J, U represents a distinct digit from 0–9. Given ROTI + ROTI = KEJU, find the smallest possible value of KEJU.",
       "answer": "2690",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "each letter R, O, T, I, K, E, J, U represents a distinct digit from 0–9",
+            "phrase_id": "Tiap huruf R, O, T, I, K, E, J, U melambangkan satu bilangan berbeda antara 0, 1, 2, …, 9",
+            "note_en": "All 8 digits used in ROTI and KEJU must be different — no digit appears in both numbers.",
+            "note_id": "Semua 8 digit yang digunakan dalam ROTI dan KEJU harus berbeda — tidak ada digit yang muncul di kedua bilangan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "ROTI + ROTI = KEJU",
+            "phrase_id": "ROTI + ROTI = KEJU",
+            "note_en": "KEJU = 2 × ROTI. Minimize KEJU by minimising ROTI, subject to no shared digits.",
+            "note_id": "KEJU = 2 × ROTI. Minimalkan KEJU dengan meminimalkan ROTI, dengan syarat tidak ada digit bersama."
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the smallest possible value of KEJU",
+            "phrase_id": "Nilai KEJU terkecil yang mungkin adalah",
+            "note_en": "Try the smallest ROTI starting from 1000 and check that 2×ROTI shares no digits with ROTI.",
+            "note_id": "Coba ROTI terkecil mulai dari 1000 dan periksa bahwa 2×ROTI tidak berbagi digit dengan ROTI."
+          }
+        ],
+        "quantities": [
+          { "label_en": "ROTI = 1345: KEJU = 2690", "label_id": "ROTI = 1345: KEJU = 2690", "value": "Digits {1,3,4,5} ∩ {2,6,9,0} = ∅ ✓" },
+          { "label_en": "Check smaller ROTI candidates below 1345", "label_id": "Cek ROTI lebih kecil di bawah 1345", "value": "All produce digit clashes ✗" },
+          { "label_en": "Smallest valid KEJU", "label_id": "KEJU terkecil yang valid", "value": "2690" }
+        ],
+        "strategy": { "name_en": "Minimise ROTI; check 2×ROTI shares no digits with ROTI", "name_id": "Minimalkan ROTI; periksa 2×ROTI tidak berbagi digit dengan ROTI" },
+        "trap": {
+          "wrong": "2468",
+          "why_en": "ROTI=1234 gives KEJU=2468 — but digit 2 appears in both (4 digits: 1,2,3,4 vs 2,4,6,8 share 2 and 4).",
+          "why_id": "ROTI=1234 memberi KEJU=2468 — tetapi digit 2 muncul di keduanya (digit: 1,2,3,4 vs 2,4,6,8 berbagi 2 dan 4)."
+        },
+        "answer": { "form": "value", "unit": null, "value": "2690" }
+      },
+      "hint_steps_en": [
+        "KEJU = 2 × ROTI. Minimize KEJU by finding the smallest ROTI whose digits and 2×ROTI's digits are all distinct.",
+        "Try ROTI = 1345: KEJU = 2690. Digits of ROTI: {1,3,4,5}; digits of KEJU: {2,6,9,0} — no overlap ✓.",
+        "All ROTI below 1345 produce digit clashes between ROTI and KEJU.",
+        "Smallest KEJU = 2690."
+      ],
+      "hint_steps_id": [
+        "KEJU = 2 × ROTI. Minimalkan KEJU dengan mencari ROTI terkecil yang digitnya dan digit 2×ROTI semuanya berbeda.",
+        "Coba ROTI = 1345: KEJU = 2690. Digit ROTI: {1,3,4,5}; digit KEJU: {2,6,9,0} — tidak ada yang sama ✓.",
+        "Semua ROTI di bawah 1345 menghasilkan tabrakan digit antara ROTI dan KEJU.",
+        "KEJU terkecil = 2690."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +751,58 @@
       "body_id": "Diberikan bilangan prima berbeda a, b, dan c yang memenuhi 499 × a + 103 × b + 102 × c = 2025. Nilai dari a + b − c adalah ….",
       "body_en": "Distinct primes a, b, and c satisfy 499 × a + 103 × b + 102 × c = 2025. Find a + b − c.",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Distinct primes a, b, and c satisfy 499 × a + 103 × b + 102 × c = 2025",
+            "phrase_id": "bilangan prima berbeda a, b, dan c yang memenuhi 499 × a + 103 × b + 102 × c = 2025",
+            "note_en": "2025 is odd; 499a + 103b + 102c = 2025. 102c is always even, so 499a + 103b must be odd → one of a,b is even (prime 2).",
+            "note_id": "2025 ganjil; 499a + 103b + 102c = 2025. 102c selalu genap, jadi 499a + 103b harus ganjil → salah satu a,b adalah genap (prima 2)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Distinct primes",
+            "phrase_id": "bilangan prima berbeda",
+            "note_en": "a, b, c are three different primes. The only even prime is 2.",
+            "note_id": "a, b, c adalah tiga prima berbeda. Satu-satunya prima genap adalah 2."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find a + b − c",
+            "phrase_id": "Nilai dari a + b − c adalah",
+            "note_en": "Once a, b, c are found: 2 + 7 − 3 = 6.",
+            "note_id": "Setelah a, b, c ditemukan: 2 + 7 − 3 = 6."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Parity: 499a+103b must be odd → one of {a,b} = 2", "label_id": "Paritas: 499a+103b harus ganjil → salah satu {a,b} = 2", "value": "try a=2" },
+          { "label_en": "a=2: 998 + 103b + 102c = 2025 → 103b + 102c = 1027", "label_id": "a=2: 998 + 103b + 102c = 2025 → 103b + 102c = 1027", "value": "" },
+          { "label_en": "b=7: 103×7=721; 102c=306 → c=3 (prime ✓)", "label_id": "b=7: 103×7=721; 102c=306 → c=3 (prima ✓)", "value": "(a,b,c)=(2,7,3)" },
+          { "label_en": "a + b − c", "label_id": "a + b − c", "value": "2 + 7 − 3 = 6" }
+        ],
+        "strategy": { "name_en": "Parity forces one prime = 2; try small primes for a", "name_id": "Paritas memaksa satu prima = 2; coba prima kecil untuk a" },
+        "trap": {
+          "wrong": "2",
+          "why_en": "Trying a=3: 499×3=1497; 103b+102c=528; no prime b gives integer c.",
+          "why_id": "Mencoba a=3: 499×3=1497; 103b+102c=528; tidak ada prima b yang menghasilkan c bulat."
+        },
+        "answer": { "form": "value", "unit": null, "value": "6" }
+      },
+      "hint_steps_en": [
+        "102c is even; 2025 is odd → 499a + 103b must be odd → exactly one of {499a, 103b} is even → one of {a, b} = 2.",
+        "Try a = 2: 998 + 103b + 102c = 2025 → 103b + 102c = 1027.",
+        "Try prime b = 7: 103×7 = 721; 102c = 306 → c = 3 (prime ✓). All three are distinct primes.",
+        "a + b − c = 2 + 7 − 3 = 6."
+      ],
+      "hint_steps_id": [
+        "102c genap; 2025 ganjil → 499a + 103b harus ganjil → tepat satu dari {499a, 103b} genap → salah satu {a, b} = 2.",
+        "Coba a = 2: 998 + 103b + 102c = 2025 → 103b + 102c = 1027.",
+        "Coba prima b = 7: 103×7 = 721; 102c = 306 → c = 3 (prima ✓). Ketiganya prima berbeda.",
+        "a + b − c = 2 + 7 − 3 = 6."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +810,55 @@
       "body_id": "Diberikan bilangan bulat a, b, c, d, e, f dengan a + 2 = b − 16 = c + 7 = d + 4 = e + 9 = f − 9. Diantara a, b, c, d, e, dan f, yang terbesar adalah ….",
       "body_en": "Integers a, b, c, d, e, f satisfy a + 2 = b − 16 = c + 7 = d + 4 = e + 9 = f − 9. Which of a, b, c, d, e, f is the largest?",
       "answer": "b",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a + 2 = b − 16 = c + 7 = d + 4 = e + 9 = f − 9",
+            "phrase_id": "a + 2 = b − 16 = c + 7 = d + 4 = e + 9 = f − 9",
+            "note_en": "All expressions equal the same constant k. Each variable = k minus its offset.",
+            "note_id": "Semua ekspresi sama dengan konstanta k. Setiap variabel = k dikurangi offsetnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which of a, b, c, d, e, f is the largest?",
+            "phrase_id": "Diantara a, b, c, d, e, dan f, yang terbesar adalah",
+            "note_en": "The variable with the largest value corresponds to the smallest subtracted offset.",
+            "note_id": "Variabel dengan nilai terbesar sesuai dengan offset pengurangan terkecil."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "b − 16",
+            "phrase_id": "b − 16",
+            "note_en": "b = k + 16. Among all offsets (+16 for b, −2 for a, −7 for c, −4 for d, −9 for e, +9 for f), +16 is largest.",
+            "note_id": "b = k + 16. Di antara semua offset (+16 untuk b, −2 untuk a, −7 untuk c, −4 untuk d, −9 untuk e, +9 untuk f), +16 adalah terbesar."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Let k = common value", "label_id": "Misal k = nilai bersama", "value": "a=k−2, b=k+16, c=k−7, d=k−4, e=k−9, f=k+9" },
+          { "label_en": "Offsets above k", "label_id": "Offset di atas k", "value": "b: +16, f: +9" },
+          { "label_en": "Largest variable", "label_id": "Variabel terbesar", "value": "b (k+16 is greatest)" }
+        ],
+        "strategy": { "name_en": "Express each variable as k ± offset; largest offset wins", "name_id": "Nyatakan setiap variabel sebagai k ± offset; offset terbesar yang menang" },
+        "trap": {
+          "wrong": "f",
+          "why_en": "f = k + 9 is large but b = k + 16 is even larger (16 > 9).",
+          "why_id": "f = k + 9 besar tetapi b = k + 16 lebih besar (16 > 9)."
+        },
+        "answer": { "form": "value", "unit": null, "value": "b" }
+      },
+      "hint_steps_en": [
+        "Let k be the common value of all six expressions.",
+        "Express each variable: a = k−2, b = k+16, c = k−7, d = k−4, e = k−9, f = k+9.",
+        "The largest is b = k+16, since 16 is the greatest offset."
+      ],
+      "hint_steps_id": [
+        "Misal k adalah nilai bersama keenam ekspresi.",
+        "Nyatakan setiap variabel: a = k−2, b = k+16, c = k−7, d = k−4, e = k−9, f = k+9.",
+        "Yang terbesar adalah b = k+16, karena 16 adalah offset terbesar."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +866,57 @@
       "body_id": "Diketahui jari-jari tabung A, B, dan C berturut-turut adalah 8 cm, 3 cm, dan 2 cm. Tinggi tabung A, B, dan C berturut-turut adalah 15 cm, 7 cm, dan 3 cm. Andika ingin mengisi tabung A hingga penuh menggunakan air dari tabung B dan tabung C (masing-masing diisi penuh lalu dituangkan ke tabung A). Berapa kali jumlah minimum tabung B dan tabung C harus digunakan agar tabung A terisi penuh?",
       "body_en": "Cylinder A has radius 8 cm and height 15 cm. Cylinder B has radius 3 cm and height 7 cm. Cylinder C has radius 2 cm and height 3 cm. Andika fills cylinder A using full pourings from B and C. What is the minimum total number of times B and C must be used (combined) to exactly fill A?",
       "answer": "29",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Cylinder A has radius 8 cm and height 15 cm",
+            "phrase_id": "jari-jari tabung A, B, dan C berturut-turut adalah 8 cm, 3 cm, dan 2 cm. Tinggi tabung A, B, dan C berturut-turut adalah 15 cm, 7 cm, dan 3 cm",
+            "note_en": "Vol A = π×64×15 = 960π. Vol B = π×9×7 = 63π. Vol C = π×4×3 = 12π.",
+            "note_id": "Vol A = π×64×15 = 960π. Vol B = π×9×7 = 63π. Vol C = π×4×3 = 12π."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the minimum total number of times B and C must be used (combined) to exactly fill A?",
+            "phrase_id": "Berapa kali jumlah minimum tabung B dan tabung C harus digunakan agar tabung A terisi penuh?",
+            "note_en": "Minimise nB + nC subject to 63nB + 12nC = 960 with nB, nC non-negative integers.",
+            "note_id": "Minimalkan nB + nC dengan syarat 63nB + 12nC = 960 dan nB, nC bilangan bulat non-negatif."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Andika fills cylinder A using full pourings from B and C",
+            "phrase_id": "mengisi tabung A hingga penuh menggunakan air dari tabung B dan tabung C (masing-masing diisi penuh lalu dituangkan ke tabung A)",
+            "note_en": "Each pouring is exactly one full cylinder B or one full cylinder C.",
+            "note_id": "Setiap penuangan adalah tepat satu tabung B penuh atau satu tabung C penuh."
+          }
+        ],
+        "quantities": [
+          { "label_en": "63nB + 12nC = 960; simplify: 21nB + 4nC = 320", "label_id": "63nB + 12nC = 960; sederhanakan: 21nB + 4nC = 320", "value": "" },
+          { "label_en": "nB must satisfy 4 | (320−21nB) → nB ≡ 0 (mod 4)", "label_id": "nB harus memenuhi 4 | (320−21nB) → nB ≡ 0 (mod 4)", "value": "" },
+          { "label_en": "nB=12, nC=17: total = 29", "label_id": "nB=12, nC=17: total = 29", "value": "29 (minimum)" }
+        ],
+        "strategy": { "name_en": "Volume equation → linear Diophantine, minimise nB+nC", "name_id": "Persamaan volume → Diophantine linier, minimalkan nB+nC" },
+        "trap": {
+          "wrong": "46",
+          "why_en": "nB=8, nC=38 also satisfies 63×8+12×38=504+456=960 but gives 46 total — not minimum.",
+          "why_id": "nB=8, nC=38 juga memenuhi 63×8+12×38=504+456=960 tetapi memberikan 46 total — bukan minimum."
+        },
+        "answer": { "form": "value", "unit": null, "value": "29" }
+      },
+      "hint_steps_en": [
+        "Volumes (cancel π): A = 960, B = 63, C = 12. Need 63nB + 12nC = 960.",
+        "Divide by 3: 21nB + 4nC = 320. So nC = (320 − 21nB) / 4. This is an integer when nB ≡ 0 (mod 4).",
+        "Try nB = 4 → nC = 59 (total 63); nB = 8 → nC = 38 (total 46); nB = 12 → nC = 17 (total 29); nB = 16 → negative.",
+        "Minimum total = 29 (nB = 12, nC = 17)."
+      ],
+      "hint_steps_id": [
+        "Volume (bagi π): A = 960, B = 63, C = 12. Butuh 63nB + 12nC = 960.",
+        "Bagi 3: 21nB + 4nC = 320. Sehingga nC = (320 − 21nB) / 4. Ini bilangan bulat ketika nB ≡ 0 (mod 4).",
+        "Coba nB = 4 → nC = 59 (total 63); nB = 8 → nC = 38 (total 46); nB = 12 → nC = 17 (total 29); nB = 16 → negatif.",
+        "Total minimum = 29 (nB = 12, nC = 17)."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +924,57 @@
       "body_id": "Banyak siswa SD Permata Bunda kelas VIA adalah 45 siswa, sementara banyak siswa kelas VIB adalah 40 siswa. Perbandingan rata-rata uang jajan siswa kelas VIA dengan rata-rata uang jajan siswa kelas VIB adalah 2:3. Bila rata-rata uang jajan siswa pada kedua kelas adalah Rp 7.000,00, maka rata-rata uang jajan siswa kelas VIB adalah … rupiah.",
       "body_en": "Class VIA has 45 students and class VIB has 40 students. The ratio of the average pocket money of VIA to VIB is 2:3. If the combined average pocket money of both classes is Rp 7,000, find the average pocket money of class VIB in rupiah.",
       "answer": "8500",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Class VIA has 45 students and class VIB has 40 students",
+            "phrase_id": "Banyak siswa SD Permata Bunda kelas VIA adalah 45 siswa, sementara banyak siswa kelas VIB adalah 40 siswa",
+            "note_en": "Total students = 85. The combined average weights each class by its size.",
+            "note_id": "Total siswa = 85. Rata-rata gabungan diberatkan sesuai ukuran kelas."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The ratio of the average pocket money of VIA to VIB is 2:3",
+            "phrase_id": "Perbandingan rata-rata uang jajan siswa kelas VIA dengan rata-rata uang jajan siswa kelas VIB adalah 2:3",
+            "note_en": "Let avg VIA = 2k, avg VIB = 3k.",
+            "note_id": "Misal rata-rata VIA = 2k, rata-rata VIB = 3k."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the combined average pocket money of both classes is Rp 7,000",
+            "phrase_id": "rata-rata uang jajan siswa pada kedua kelas adalah Rp 7.000,00",
+            "note_en": "Weighted average: (45×2k + 40×3k) / 85 = 7000 → solve for k.",
+            "note_id": "Rata-rata berbobot: (45×2k + 40×3k) / 85 = 7000 → selesaikan untuk k."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Weighted average equation", "label_id": "Persamaan rata-rata berbobot", "value": "(90k + 120k) / 85 = 7000 → 210k = 595000" },
+          { "label_en": "k", "label_id": "k", "value": "595000 / 210 = 2833.33..." },
+          { "label_en": "Avg VIB = 3k", "label_id": "Rata-rata VIB = 3k", "value": "3 × 2833.33 = 8500" }
+        ],
+        "strategy": { "name_en": "Introduce ratio variable k, set up weighted average equation, solve", "name_id": "Perkenalkan variabel rasio k, buat persamaan rata-rata berbobot, selesaikan" },
+        "trap": {
+          "wrong": "10500",
+          "why_en": "Using simple average (7000 × 3/2) instead of the weighted average that accounts for different class sizes.",
+          "why_id": "Menggunakan rata-rata sederhana (7000 × 3/2) alih-alih rata-rata berbobot yang memperhitungkan perbedaan ukuran kelas."
+        },
+        "answer": { "form": "value", "unit": "rupiah", "value": "8500" }
+      },
+      "hint_steps_en": [
+        "Let avg VIA = 2k and avg VIB = 3k (ratio 2:3).",
+        "Weighted combined average: (45 × 2k + 40 × 3k) / 85 = 7000.",
+        "210k = 7000 × 85 = 595,000 → k = 595,000/210.",
+        "Avg VIB = 3k = 3 × (595,000/210) = 1,785,000/210 = 8,500 rupiah."
+      ],
+      "hint_steps_id": [
+        "Misal rata-rata VIA = 2k dan rata-rata VIB = 3k (rasio 2:3).",
+        "Rata-rata gabungan berbobot: (45 × 2k + 40 × 3k) / 85 = 7000.",
+        "210k = 7000 × 85 = 595.000 → k = 595.000/210.",
+        "Rata-rata VIB = 3k = 3 × (595.000/210) = 1.785.000/210 = 8.500 rupiah."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +982,55 @@
       "body_id": "Berikut adalah data penjualan barang Fashion pada toko Amanah selama seminggu (dalam diagram batang): Kaos, Kemeja, Gamis, Celana, Kerudung. Diketahui harga kaos, kemeja, dan celana sama; harga kaos Rp 5.000 lebih mahal dari harga kerudung; dan harga gamis dua kali harga kemeja. Penjualan kerudung seminggu tersebut adalah Rp 5.170.000. Maka selama satu minggu hasil penjualan barang Fashion toko Amanah adalah … rupiah.",
       "body_en": "A fashion store's weekly sales (from a bar chart): T-shirts (kaos) 82, shirts (kemeja) 44, robes (gamis) 53, trousers (celana) 87, hijabs (kerudung) 94. Price of kaos = kemeja = celana; kaos costs Rp 5,000 more than kerudung; gamis costs twice kemeja. Weekly kerudung revenue is Rp 5,170,000. Find the total weekly revenue in rupiah.",
       "answer": "24310000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Weekly kerudung revenue is Rp 5,170,000",
+            "phrase_id": "Penjualan kerudung seminggu tersebut adalah Rp 5.170.000",
+            "note_en": "94 × P_kerudung = 5,170,000 → P_kerudung = 55,000.",
+            "note_id": "94 × P_kerudung = 5.170.000 → P_kerudung = 55.000."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "kaos costs Rp 5,000 more than kerudung",
+            "phrase_id": "harga kaos Rp 5.000 lebih mahal dari harga kerudung",
+            "note_en": "P_kaos = 55,000 + 5,000 = 60,000 = P_kemeja = P_celana.",
+            "note_id": "P_kaos = 55.000 + 5.000 = 60.000 = P_kemeja = P_celana."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "gamis costs twice kemeja",
+            "phrase_id": "harga gamis dua kali harga kemeja",
+            "note_en": "P_gamis = 2 × 60,000 = 120,000.",
+            "note_id": "P_gamis = 2 × 60.000 = 120.000."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Prices: kerudung 55k, kaos/kemeja/celana 60k, gamis 120k", "label_id": "Harga: kerudung 55rb, kaos/kemeja/celana 60rb, gamis 120rb", "value": "" },
+          { "label_en": "Revenue: kaos 82×60k + kemeja 44×60k + gamis 53×120k + celana 87×60k + kerudung 5,170k", "label_id": "Pendapatan: kaos+kemeja+gamis+celana+kerudung", "value": "4,920k+2,640k+6,360k+5,220k+5,170k" },
+          { "label_en": "Total revenue", "label_id": "Total pendapatan", "value": "24,310,000" }
+        ],
+        "strategy": { "name_en": "Find kerudung price from revenue, derive all prices, sum revenues", "name_id": "Cari harga kerudung dari pendapatan, turunkan semua harga, jumlahkan pendapatan" },
+        "trap": {
+          "wrong": "23170000",
+          "why_en": "Forgetting to add kerudung revenue back (already used it to find price — but it still contributes to total).",
+          "why_id": "Lupa menambahkan kembali pendapatan kerudung (sudah digunakan untuk mencari harga — tapi tetap berkontribusi ke total)."
+        },
+        "answer": { "form": "value", "unit": "rupiah", "value": "24310000" }
+      },
+      "hint_steps_en": [
+        "Find kerudung price: 94 × P_k = 5,170,000 → P_k = 55,000. P_kaos = 60,000; P_gamis = 120,000.",
+        "Revenue by item: kaos 82×60,000=4,920,000; kemeja 44×60,000=2,640,000; gamis 53×120,000=6,360,000; celana 87×60,000=5,220,000; kerudung 5,170,000.",
+        "Total = 4,920,000 + 2,640,000 + 6,360,000 + 5,220,000 + 5,170,000 = 24,310,000 rupiah."
+      ],
+      "hint_steps_id": [
+        "Cari harga kerudung: 94 × P_k = 5.170.000 → P_k = 55.000. P_kaos = 60.000; P_gamis = 120.000.",
+        "Pendapatan per produk: kaos 82×60.000=4.920.000; kemeja 44×60.000=2.640.000; gamis 53×120.000=6.360.000; celana 87×60.000=5.220.000; kerudung 5.170.000.",
+        "Total = 4.920.000 + 2.640.000 + 6.360.000 + 5.220.000 + 5.170.000 = 24.310.000 rupiah."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1038,57 @@
       "body_id": "Keluarga Andika terdiri dari Andika, istri Andika, 1 orang anak laki-laki, dan 2 orang anak perempuan. Mereka memiliki meja makan yang berbentuk lingkaran dengan 5 kursi. Berapa banyak cara mereka duduk sehingga Andika dan istri selalu duduk berdekatan?",
       "body_en": "Andika's family (Andika, his wife, 1 son, and 2 daughters) sit around a circular table with 5 seats. In how many ways can they be seated so that Andika and his wife always sit next to each other?",
       "answer": "12",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Andika and his wife always sit next to each other",
+            "phrase_id": "Andika dan istri selalu duduk berdekatan",
+            "note_en": "Treat the couple as one unit — they can swap seats internally (2 ways), giving 4 units total.",
+            "note_id": "Perlakukan pasangan sebagai satu unit — mereka bisa bertukar tempat (2 cara), sehingga ada 4 unit total."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "sit around a circular table with 5 seats",
+            "phrase_id": "meja makan yang berbentuk lingkaran dengan 5 kursi",
+            "note_en": "Circular permutations of n objects = (n−1)!",
+            "note_id": "Permutasi melingkar n objek = (n−1)!"
+          },
+          {
+            "category": "question",
+            "phrase_en": "In how many ways can they be seated so that Andika and his wife always sit next to each other?",
+            "phrase_id": "Berapa banyak cara mereka duduk sehingga Andika dan istri selalu duduk berdekatan?",
+            "note_en": "Total = circular arrangements of 4 units × internal swap of couple.",
+            "note_id": "Total = pengaturan melingkar 4 unit × tukar internal pasangan."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Treat couple as 1 unit → 4 units around table", "label_id": "Perlakukan pasangan sebagai 1 unit → 4 unit mengelilingi meja", "value": "(4−1)! = 3! = 6" },
+          { "label_en": "Internal swap of Andika and wife", "label_id": "Tukar posisi Andika dan istri", "value": "2! = 2" },
+          { "label_en": "Total arrangements", "label_id": "Total pengaturan", "value": "6 × 2 = 12" }
+        ],
+        "strategy": { "name_en": "Merge couple into one unit; circular permutation × internal swap", "name_id": "Gabungkan pasangan menjadi satu unit; permutasi melingkar × tukar internal" },
+        "trap": {
+          "wrong": "24",
+          "why_en": "Using linear permutations (4! = 24) instead of circular ones — around a round table, rotations of the same arrangement are identical.",
+          "why_id": "Menggunakan permutasi linear (4! = 24) alih-alih melingkar — di meja bundar, rotasi pengaturan yang sama adalah identik."
+        },
+        "answer": { "form": "value", "unit": null, "value": "12" }
+      },
+      "hint_steps_en": [
+        "Treat Andika and wife as one unit — now there are 4 units to seat.",
+        "Circular arrangements of 4 units: (4−1)! = 3! = 6.",
+        "Andika and wife can swap seats: 2 ways.",
+        "Total = 6 × 2 = 12 arrangements."
+      ],
+      "hint_steps_id": [
+        "Perlakukan Andika dan istri sebagai satu unit — sekarang ada 4 unit yang harus duduk.",
+        "Pengaturan melingkar 4 unit: (4−1)! = 3! = 6.",
+        "Andika dan istri bisa bertukar tempat: 2 cara.",
+        "Total = 6 × 2 = 12 pengaturan."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1096,58 @@
       "body_id": "Diberikan tujuh angka: 0, 1, 2, 3, 6, 7, dan 9. Akan dibentuk sebuah bilangan yang terdiri dari 4 angka, dengan setiap angka hanya digunakan sekali dan angka pertama tidak boleh sama dengan nol. Banyaknya bilangan genap yang terbentuk adalah … bilangan.",
       "body_en": "Using the digits 0, 1, 2, 3, 6, 7, and 9 (each used at most once), how many 4-digit even numbers can be formed where the leading digit is not zero?",
       "answer": "320",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Using the digits 0, 1, 2, 3, 6, 7, and 9 (each used at most once)",
+            "phrase_id": "Diberikan tujuh angka: 0, 1, 2, 3, 6, 7, dan 9",
+            "note_en": "Even digits in the set: {0, 2, 6} — the last digit must be one of these.",
+            "note_id": "Angka genap dalam himpunan: {0, 2, 6} — digit terakhir harus salah satu dari ini."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the leading digit is not zero",
+            "phrase_id": "angka pertama tidak boleh sama dengan nol",
+            "note_en": "Handle last digit = 0 separately (gives more choices for the first digit).",
+            "note_id": "Tangani digit terakhir = 0 secara terpisah (memberi lebih banyak pilihan untuk digit pertama)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many 4-digit even numbers can be formed",
+            "phrase_id": "Banyaknya bilangan genap yang terbentuk adalah … bilangan",
+            "note_en": "Split into three cases by last digit (0, 2, or 6) and count each.",
+            "note_id": "Bagi menjadi tiga kasus berdasarkan digit terakhir (0, 2, atau 6) dan hitung masing-masing."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Case last=0: first from {1,2,3,6,7,9} (6 choices), middle 2 from remaining 5 → 6×5×4=120", "label_id": "Kasus akhir=0: pertama dari {1,2,3,6,7,9} (6 pilihan), tengah 2 dari sisa 5 → 6×5×4=120", "value": "120" },
+          { "label_en": "Case last=2: first from {1,3,6,7,9} (5 choices, not 0 or 2), middle 2 from remaining 5 → 5×5×4=100", "label_id": "Kasus akhir=2: pertama dari {1,3,6,7,9} (5 pilihan, bukan 0 atau 2), tengah 2 dari sisa 5 → 5×5×4=100", "value": "100" },
+          { "label_en": "Case last=6: same structure as last=2 → 100", "label_id": "Kasus akhir=6: struktur sama dengan akhir=2 → 100", "value": "100" },
+          { "label_en": "Total", "label_id": "Total", "value": "120 + 100 + 100 = 320" }
+        ],
+        "strategy": { "name_en": "Case-split on last digit (0 vs 2 vs 6) to handle the leading-zero constraint", "name_id": "Bagi kasus berdasarkan digit terakhir (0 vs 2 vs 6) untuk menangani kendala angka nol di depan" },
+        "trap": {
+          "wrong": "360",
+          "why_en": "Treating all three even endings equally (6×5×4=120 each → 360) — but when the last digit is 0, there are 6 choices for the first digit, not 5.",
+          "why_id": "Memperlakukan ketiga akhiran genap sama (6×5×4=120 masing-masing → 360) — padahal ketika digit terakhir 0, ada 6 pilihan untuk digit pertama, bukan 5."
+        },
+        "answer": { "form": "value", "unit": null, "value": "320" }
+      },
+      "hint_steps_en": [
+        "Even digits in {0,1,2,3,6,7,9}: 0, 2, 6 — the units digit must be one of these.",
+        "Last digit = 0: first digit has 6 choices (any non-zero from remaining 6 digits); middle 2 positions: 5×4. Count = 6×5×4 = 120.",
+        "Last digit = 2: first digit has 5 choices (non-zero, not 2); middle 2: 5×4. Count = 5×5×4 = 100. Same for last digit = 6: 100.",
+        "Total = 120 + 100 + 100 = 320."
+      ],
+      "hint_steps_id": [
+        "Angka genap dalam {0,1,2,3,6,7,9}: 0, 2, 6 — digit satuan harus salah satunya.",
+        "Digit terakhir = 0: digit pertama punya 6 pilihan (non-nol dari 6 digit sisa); 2 posisi tengah: 5×4. Jumlah = 6×5×4 = 120.",
+        "Digit terakhir = 2: digit pertama punya 5 pilihan (non-nol, bukan 2); tengah: 5×4. Jumlah = 5×5×4 = 100. Sama untuk digit terakhir = 6: 100.",
+        "Total = 120 + 100 + 100 = 320."
+      ]
     }
   ]
 }
