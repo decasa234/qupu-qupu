@@ -14,21 +14,126 @@
       "body_id": "Sebuah jamur tumbuh setiap hari. Mary mengambil foto jamur tersebut setiap hari dari Senin hingga Jumat. Foto mana yang diambil pada hari Selasa?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A mushroom grows every day",
+            "phrase_id": "Sebuah jamur tumbuh setiap hari",
+            "note_en": "Each day the mushroom is bigger than the day before — Monday is the smallest, Friday is the largest",
+            "note_id": "Setiap hari jamur lebih besar dari hari sebelumnya — Senin paling kecil, Jumat paling besar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "takes a picture of the mushroom each day from Monday to Friday",
+            "phrase_id": "mengambil foto jamur tersebut setiap hari dari Senin hingga Jumat",
+            "note_en": "There are 5 photos total, one per day: Mon=1st, Tue=2nd, Wed=3rd, Thu=4th, Fri=5th",
+            "note_id": "Ada 5 foto, satu per hari: Sen=ke-1, Sel=ke-2, Rab=ke-3, Kam=ke-4, Jum=ke-5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which of these pictures was taken on Tuesday?",
+            "phrase_id": "Foto mana yang diambil pada hari Selasa?",
+            "note_en": "Tuesday is day 2 — find the second-smallest mushroom",
+            "note_id": "Selasa adalah hari ke-2 — cari jamur terkecil kedua"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Day 1 (Monday)",
+            "label_id": "Hari 1 (Senin)",
+            "value": "smallest mushroom"
+          },
+          {
+            "label_en": "Day 2 (Tuesday)",
+            "label_id": "Hari 2 (Selasa)",
+            "value": "second smallest mushroom"
+          },
+          {
+            "label_en": "Day 3 (Wednesday)",
+            "label_id": "Hari 3 (Rabu)",
+            "value": "medium mushroom"
+          },
+          {
+            "label_en": "Day 4 (Thursday)",
+            "label_id": "Hari 4 (Kamis)",
+            "value": "second largest mushroom"
+          },
+          {
+            "label_en": "Day 5 (Friday)",
+            "label_id": "Hari 5 (Jumat)",
+            "value": "largest mushroom"
+          }
+        ],
+        "strategy": {
+          "name_en": "Order by size — second smallest is Tuesday",
+          "name_id": "Urutkan berdasarkan ukuran — terkecil kedua adalah Selasa"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "The mushroom grows every day, so each photo shows it a little bigger than the day before.",
+        "Monday's photo shows the smallest mushroom; Friday's shows the largest.",
+        "Tuesday is the 2nd day, so find the second-smallest mushroom among the five pictures.",
+        "That picture is E."
+      ],
+      "hint_steps_id": [
+        "Jamur tumbuh setiap hari, jadi setiap foto menunjukkannya sedikit lebih besar dari hari sebelumnya.",
+        "Foto Senin menunjukkan jamur terkecil; foto Jumat menunjukkan yang terbesar.",
+        "Selasa adalah hari ke-2, jadi cari jamur terkecil kedua di antara lima gambar.",
+        "Gambar itu adalah E."
+      ]
     },
     {
       "number": 2,
@@ -36,21 +141,104 @@
       "body_id": "Potongan mana yang melengkapi pola?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which piece completes the pattern?",
+            "phrase_id": "Potongan mana yang melengkapi pola?",
+            "note_en": "Find what shape, colour, and orientation fits the missing cell so the overall pattern is consistent",
+            "note_id": "Cari bentuk, warna, dan orientasi yang cocok di sel kosong agar pola keseluruhan konsisten"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "completes the pattern",
+            "phrase_id": "melengkapi pola",
+            "note_en": "Each row and column must follow the same repeating rule — check both directions",
+            "note_id": "Setiap baris dan kolom harus mengikuti aturan pengulangan yang sama — periksa kedua arah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Task",
+            "label_id": "Tugas",
+            "value": "Visual pattern matching — check rows and columns"
+          },
+          {
+            "label_en": "Correct answer",
+            "label_id": "Jawaban benar",
+            "value": "E — the only piece consistent with the row and column rules"
+          }
+        ],
+        "strategy": {
+          "name_en": "Visual pattern matching — check rows then columns",
+          "name_id": "Pencocokan pola visual — periksa baris lalu kolom"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the complete rows in the pattern and identify the repeating rule (shape, colour, orientation).",
+        "Apply the same rule to the columns to narrow down what the missing piece must look like.",
+        "Compare your prediction with the five answer choices — only one matches both the row rule and the column rule.",
+        "The answer is E."
+      ],
+      "hint_steps_id": [
+        "Perhatikan baris yang lengkap pada pola dan temukan aturan pengulangannya (bentuk, warna, orientasi).",
+        "Terapkan aturan yang sama pada kolom untuk mempersempit tampilan potongan yang hilang.",
+        "Bandingkan perkiraanmu dengan lima pilihan jawaban — hanya satu yang cocok dengan aturan baris dan kolom.",
+        "Jawabannya adalah E."
+      ]
     },
     {
       "number": 3,
@@ -58,21 +246,178 @@
       "body_id": "Tysger mengarsir semua kotak pada tabel di mana hasilnya adalah 20. Bentuk apa yang ia dapatkan?\n\nTabel:\n| 16+4 | 19+1 | 28−8 |\n| 2×10 | 16−4 | 7×3  |",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "Tysger shades all the squares in the grid where the result is 20",
+            "phrase_id": "Tysger mengarsir semua kotak pada tabel di mana hasilnya adalah 20",
+            "note_en": "Evaluate each of the 6 cells and shade the ones that equal 20",
+            "note_id": "Hitung setiap dari 6 sel dan arsir yang hasilnya sama dengan 20"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the result is 20",
+            "phrase_id": "hasilnya adalah 20",
+            "note_en": "Only cells with an answer of exactly 20 get shaded — not 19, not 21",
+            "note_id": "Hanya sel dengan hasil tepat 20 yang diarsir — bukan 19, bukan 21"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which shape does he get?",
+            "phrase_id": "Bentuk apa yang ia dapatkan?",
+            "note_en": "After shading the correct cells, the shaded pattern matches one of the answer shapes",
+            "note_id": "Setelah mengarsir sel yang benar, pola arsiran cocok dengan salah satu bentuk jawaban"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "16+4",
+            "label_id": "16+4",
+            "value": "= 20 → SHADE"
+          },
+          {
+            "label_en": "19+1",
+            "label_id": "19+1",
+            "value": "= 20 → SHADE"
+          },
+          {
+            "label_en": "28−8",
+            "label_id": "28−8",
+            "value": "= 20 → SHADE"
+          },
+          {
+            "label_en": "2×10",
+            "label_id": "2×10",
+            "value": "= 20 → SHADE"
+          },
+          {
+            "label_en": "16−4",
+            "label_id": "16−4",
+            "value": "= 12 → do NOT shade"
+          },
+          {
+            "label_en": "7×3",
+            "label_id": "7×3",
+            "value": "= 21 → do NOT shade"
+          }
+        ],
+        "strategy": {
+          "name_en": "Evaluate each cell, shade the ones equal to 20, match the shape",
+          "name_id": "Hitung setiap sel, arsir yang hasilnya 20, cocokkan bentuknya"
+        },
+        "trap": {
+          "wrong": "C or D",
+          "why_en": "7×3=21 (not 20) and 16−4=12 (not 20) — both bottom-right cells stay unshaded, so only 4 of the 6 cells are shaded.",
+          "why_id": "7×3=21 (bukan 20) dan 16−4=12 (bukan 20) — kedua sel kanan bawah tidak diarsir, sehingga hanya 4 dari 6 sel yang diarsir."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Calculate each cell in the 2×3 grid one by one.",
+        "Row 1: 16+4=20 ✓, 19+1=20 ✓, 28−8=20 ✓ — all three are shaded.",
+        "Row 2: 2×10=20 ✓ (shade), 16−4=12 ✗ (no), 7×3=21 ✗ (no).",
+        "Four cells are shaded: the entire top row plus the bottom-left cell — this makes shape A."
+      ],
+      "hint_steps_id": [
+        "Hitung setiap sel dalam tabel 2×3 satu per satu.",
+        "Baris 1: 16+4=20 ✓, 19+1=20 ✓, 28−8=20 ✓ — ketiganya diarsir.",
+        "Baris 2: 2×10=20 ✓ (arsir), 16−4=12 ✗ (tidak), 7×3=21 ✗ (tidak).",
+        "Empat sel diarsir: seluruh baris atas ditambah sel kiri bawah — ini membentuk gambar A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate every cell and decide: shade it (=20) or leave it blank (≠20).",
+          "intro_id": "Hitung setiap sel dan putuskan: arsir (=20) atau kosongkan (≠20).",
+          "items": [
+            {
+              "text_en": "16+4 = 20 ✓ shade top-left",
+              "text_id": "16+4 = 20 ✓ arsir kiri atas",
+              "ok": true
+            },
+            {
+              "text_en": "19+1 = 20 ✓ shade top-middle",
+              "text_id": "19+1 = 20 ✓ arsir tengah atas",
+              "ok": true
+            },
+            {
+              "text_en": "28−8 = 20 ✓ shade top-right",
+              "text_id": "28−8 = 20 ✓ arsir kanan atas",
+              "ok": true
+            },
+            {
+              "text_en": "2×10 = 20 ✓ shade bottom-left",
+              "text_id": "2×10 = 20 ✓ arsir kiri bawah",
+              "ok": true
+            },
+            {
+              "text_en": "16−4 = 12 ✗ leave blank",
+              "text_id": "16−4 = 12 ✗ biarkan kosong",
+              "ok": false
+            },
+            {
+              "text_en": "7×3 = 21 ✗ leave blank",
+              "text_id": "7×3 = 21 ✗ biarkan kosong",
+              "ok": false
+            }
+          ],
+          "final_en": "Top row fully shaded + bottom-left shaded = shape A.",
+          "final_id": "Baris atas penuh diarsir + kiri bawah diarsir = bentuk A.",
+          "aria_en": "Four cells equal 20 and are shaded: the entire top row and the bottom-left cell, forming an L-like shape matching answer A.",
+          "aria_id": "Empat sel sama dengan 20 dan diarsir: seluruh baris atas dan sel kiri bawah, membentuk bentuk seperti L yang cocok dengan jawaban A."
+        }
+      }
     },
     {
       "number": 4,
@@ -80,21 +425,104 @@
       "body_id": "Gambar mana di bawah ini yang memiliki bagian yang diarsir paling besar?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the following figures has the largest part shaded?",
+            "phrase_id": "Gambar mana di bawah ini yang memiliki bagian yang diarsir paling besar?",
+            "note_en": "Compare the fraction of each figure that is shaded — the largest fraction wins",
+            "note_id": "Bandingkan pecahan setiap gambar yang diarsir — pecahan terbesar yang menang"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "largest part shaded",
+            "phrase_id": "bagian yang diarsir paling besar",
+            "note_en": "Express each shaded region as a fraction of the whole shape, then compare",
+            "note_id": "Nyatakan setiap daerah yang diarsir sebagai pecahan dari keseluruhan bentuk, lalu bandingkan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Task",
+            "label_id": "Tugas",
+            "value": "Compare shaded fractions visually"
+          },
+          {
+            "label_en": "Correct answer",
+            "label_id": "Jawaban benar",
+            "value": "A — has the greatest shaded fraction"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compare fractions visually — which shaded region is the biggest proportion?",
+          "name_id": "Bandingkan pecahan secara visual — daerah yang diarsir mana yang merupakan proporsi terbesar?"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "For each figure, estimate what fraction of the total area is shaded.",
+        "Convert each to a common language (e.g. thirds, quarters, halves) so you can compare.",
+        "The figure where the shaded part covers the greatest proportion of the whole is the answer.",
+        "Figure A has the largest shaded fraction — answer A."
+      ],
+      "hint_steps_id": [
+        "Untuk setiap gambar, perkirakan berapa pecahan dari total luas yang diarsir.",
+        "Ubah setiap pecahan ke bahasa yang sama (misalnya pertiga, perempat, setengah) agar bisa dibandingkan.",
+        "Gambar di mana bagian yang diarsir mencakup proporsi terbesar dari keseluruhan adalah jawabannya.",
+        "Gambar A memiliki pecahan yang diarsir paling besar — jawaban A."
+      ]
     },
     {
       "number": 5,
@@ -102,21 +530,104 @@
       "body_id": "Kamu bisa membuat berbagai figur menggunakan potongan-potongan ini: persegi panjang, segitiga siku-siku, segitiga besar, lingkaran, segitiga kecil, dan lingkaran lain. Figur mana di bawah ini yang bisa kamu buat dengan potongan-potongan ini?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "a rectangle, a right triangle, a larger triangle, a circle, a small triangle, and another circle",
+            "phrase_id": "persegi panjang, segitiga siku-siku, segitiga besar, lingkaran, segitiga kecil, dan lingkaran lain",
+            "note_en": "The piece set is fixed: 1 rectangle, 1 right triangle, 1 large triangle, 2 circles, 1 small triangle",
+            "note_id": "Set potongan tetap: 1 persegi panjang, 1 segitiga siku-siku, 1 segitiga besar, 2 lingkaran, 1 segitiga kecil"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which one of the figures below can you make with these pieces?",
+            "phrase_id": "Figur mana di bawah ini yang bisa kamu buat dengan potongan-potongan ini?",
+            "note_en": "Only one answer figure can be assembled using exactly those pieces — no more, no less",
+            "note_id": "Hanya satu gambar jawaban yang bisa dirakit menggunakan tepat potongan-potongan tersebut — tidak lebih, tidak kurang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Piece inventory",
+            "label_id": "Inventaris potongan",
+            "value": "rectangle ×1, right triangle ×1, large triangle ×1, circle ×2, small triangle ×1"
+          },
+          {
+            "label_en": "Correct answer",
+            "label_id": "Jawaban benar",
+            "value": "E — assembled figure uses exactly all these pieces"
+          }
+        ],
+        "strategy": {
+          "name_en": "Match all piece shapes to the assembled figure — check count and type",
+          "name_id": "Cocokkan semua bentuk potongan dengan figur yang dirakit — periksa jumlah dan jenis"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "List the 6 pieces: 1 rectangle, 1 right triangle, 1 large triangle, 2 circles, 1 small triangle.",
+        "For each answer figure, identify all the shapes you can see inside it.",
+        "Eliminate figures that require a piece not in the set, or that need a different number of a piece.",
+        "Only figure E uses exactly those 6 pieces — answer E."
+      ],
+      "hint_steps_id": [
+        "Daftar 6 potongan: 1 persegi panjang, 1 segitiga siku-siku, 1 segitiga besar, 2 lingkaran, 1 segitiga kecil.",
+        "Untuk setiap gambar jawaban, identifikasi semua bentuk yang bisa dilihat di dalamnya.",
+        "Eliminasi gambar yang membutuhkan potongan yang tidak ada dalam set, atau yang membutuhkan jumlah potongan yang berbeda.",
+        "Hanya gambar E yang menggunakan tepat 6 potongan tersebut — jawaban E."
+      ]
     },
     {
       "number": 6,
@@ -124,21 +635,163 @@
       "body_id": "Elli menggambar kotak besar dengan kapur di trotoar. Dia mulai melompat dari angka 1. Setiap kali melompat, dia selalu melompat ke angka yang 3 lebih besar dari angka tempat dia berdiri. Angka terbesar yang bisa dilompati Elli adalah?\n\nTabel:\n| 1  | 5  | 8  | 11 |\n| 4  | 7  | 10 | 14 |\n| 24 | 23 | 13 | 18 |\n| 21 | 19 | 16 | 20 |",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "11"},
-        {"label": "B", "text": "14"},
-        {"label": "C", "text": "18"},
-        {"label": "D", "text": "19"},
-        {"label": "E", "text": "24"}
+        {
+          "label": "A",
+          "text": "11"
+        },
+        {
+          "label": "B",
+          "text": "14"
+        },
+        {
+          "label": "C",
+          "text": "18"
+        },
+        {
+          "label": "D",
+          "text": "19"
+        },
+        {
+          "label": "E",
+          "text": "24"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "11"},
-        {"label": "B", "text": "14"},
-        {"label": "C", "text": "18"},
-        {"label": "D", "text": "19"},
-        {"label": "E", "text": "24"}
+        {
+          "label": "A",
+          "text": "11"
+        },
+        {
+          "label": "B",
+          "text": "14"
+        },
+        {
+          "label": "C",
+          "text": "18"
+        },
+        {
+          "label": "D",
+          "text": "19"
+        },
+        {
+          "label": "E",
+          "text": "24"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "starts jumping from number 1",
+            "phrase_id": "mulai melompat dari angka 1",
+            "note_en": "The chain must begin at 1",
+            "note_id": "Rantai harus dimulai dari 1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "always jumps to a number that is 3 more than the number she is standing on",
+            "phrase_id": "selalu melompat ke angka yang 3 lebih besar dari angka tempat dia berdiri",
+            "note_en": "Each jump adds exactly 3 — the next number must exist in the grid",
+            "note_id": "Setiap lompatan menambahkan tepat 3 — angka berikutnya harus ada dalam tabel"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the largest number Elli can jump onto?",
+            "phrase_id": "Angka terbesar yang bisa dilompati Elli adalah?",
+            "note_en": "Follow the chain until the next +3 number is not in the grid",
+            "note_id": "Ikuti rantai sampai angka +3 berikutnya tidak ada dalam tabel"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Jump sequence",
+            "label_id": "Urutan lompatan",
+            "value": "1 → 4 → 7 → 10 → 13 → 16 → 19 (next would be 22, not in grid)"
+          },
+          {
+            "label_en": "Largest reachable number",
+            "label_id": "Angka terbesar yang bisa dicapai",
+            "value": "19"
+          }
+        ],
+        "strategy": {
+          "name_en": "Follow the +3 chain: 1, 4, 7, 10, 13, 16, 19 — stop when +3 is not in grid",
+          "name_id": "Ikuti rantai +3: 1, 4, 7, 10, 13, 16, 19 — berhenti saat +3 tidak ada dalam tabel"
+        },
+        "trap": {
+          "wrong": "E (24)",
+          "why_en": "24 cannot be reached: starting from 1, the chain 1,4,7,10,13,16,19 never passes through a number that is 3 less than 24 (which is 21) — and 21 itself is only reachable if 18 is in the chain, but 18 is never reached from 1 adding 3 repeatedly.",
+          "why_id": "24 tidak bisa dicapai: mulai dari 1, rantai 1,4,7,10,13,16,19 tidak pernah melewati angka yang 3 kurang dari 24 (yaitu 21) — dan 21 sendiri hanya bisa dicapai jika 18 ada dalam rantai, tetapi 18 tidak pernah tercapai dari 1 dengan menambahkan 3 berulang kali."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Start at 1 and keep adding 3: 1, 4, 7, 10, 13, 16, 19 — check each number exists in the grid.",
+        "After 19, the next step would be 22. Look at the grid: 22 is not there, so the chain stops.",
+        "The largest number reached is 19.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Mulai dari 1 dan terus tambahkan 3: 1, 4, 7, 10, 13, 16, 19 — periksa apakah setiap angka ada dalam tabel.",
+        "Setelah 19, langkah berikutnya adalah 22. Lihat tabelnya: 22 tidak ada, jadi rantai berhenti.",
+        "Angka terbesar yang dicapai adalah 19.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Follow the chain from 1, adding 3 each time. Stop when the next number is not in the grid.",
+          "intro_id": "Ikuti rantai dari 1, tambahkan 3 setiap kali. Berhenti saat angka berikutnya tidak ada dalam tabel.",
+          "items": [
+            {
+              "text_en": "1 → +3 → 4 (in grid ✓)",
+              "text_id": "1 → +3 → 4 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "4 → +3 → 7 (in grid ✓)",
+              "text_id": "4 → +3 → 7 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "7 → +3 → 10 (in grid ✓)",
+              "text_id": "7 → +3 → 10 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "10 → +3 → 13 (in grid ✓)",
+              "text_id": "10 → +3 → 13 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "13 → +3 → 16 (in grid ✓)",
+              "text_id": "13 → +3 → 16 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "16 → +3 → 19 (in grid ✓)",
+              "text_id": "16 → +3 → 19 (ada di tabel ✓)",
+              "ok": true
+            },
+            {
+              "text_en": "19 → +3 → 22 — NOT in grid ✗ chain ends at 19",
+              "text_id": "19 → +3 → 22 — TIDAK ada di tabel ✗ rantai berhenti di 19",
+              "ok": false
+            }
+          ],
+          "final_en": "The chain stops at 19 — the largest reachable number is 19, answer D.",
+          "final_id": "Rantai berhenti di 19 — angka terbesar yang bisa dicapai adalah 19, jawaban D.",
+          "aria_en": "Starting at 1 and adding 3 each jump gives the sequence 1,4,7,10,13,16,19; the next would be 22 which is not in the grid, so the largest reachable number is 19.",
+          "aria_id": "Mulai dari 1 dan menambahkan 3 setiap lompatan menghasilkan urutan 1,4,7,10,13,16,19; berikutnya adalah 22 yang tidak ada dalam tabel, sehingga angka terbesar yang bisa dicapai adalah 19."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,21 +799,111 @@
       "body_id": "Jorge menempelkan 6 stiker pada sisi-sisi sebuah kubus: bebek, gajah, tikus, kumbang, anjing, dan lalat. Gambar menunjukkan kubus dalam dua posisi. Stiker mana yang berada pada sisi yang berhadapan dengan bebek?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "elephant"},
-        {"label": "B", "text": "mouse"},
-        {"label": "C", "text": "ladybug"},
-        {"label": "D", "text": "dog"},
-        {"label": "E", "text": "fly"}
+        {
+          "label": "A",
+          "text": "elephant"
+        },
+        {
+          "label": "B",
+          "text": "mouse"
+        },
+        {
+          "label": "C",
+          "text": "ladybug"
+        },
+        {
+          "label": "D",
+          "text": "dog"
+        },
+        {
+          "label": "E",
+          "text": "fly"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "gajah"},
-        {"label": "B", "text": "tikus"},
-        {"label": "C", "text": "kumbang"},
-        {"label": "D", "text": "anjing"},
-        {"label": "E", "text": "lalat"}
+        {
+          "label": "A",
+          "text": "gajah"
+        },
+        {
+          "label": "B",
+          "text": "tikus"
+        },
+        {
+          "label": "C",
+          "text": "kumbang"
+        },
+        {
+          "label": "D",
+          "text": "anjing"
+        },
+        {
+          "label": "E",
+          "text": "lalat"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Jorge glues 6 stickers to the faces of a cube",
+            "phrase_id": "Jorge menempelkan 6 stiker pada sisi-sisi sebuah kubus",
+            "note_en": "A cube has 6 faces; each sticker is on exactly one face, so opposite pairs are fixed",
+            "note_id": "Kubus memiliki 6 sisi; setiap stiker ada di tepat satu sisi, sehingga pasangan yang berhadapan bersifat tetap"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "two positions",
+            "phrase_id": "dua posisi",
+            "note_en": "Two views together reveal which stickers cannot be opposite to each other",
+            "note_id": "Dua tampilan bersama mengungkapkan stiker mana yang tidak bisa berhadapan satu sama lain"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which sticker is on the opposite face to the duck?",
+            "phrase_id": "Stiker mana yang berada pada sisi yang berhadapan dengan bebek?",
+            "note_en": "Two faces are opposite if they are never visible at the same time in any view",
+            "note_id": "Dua sisi berhadapan jika keduanya tidak pernah terlihat pada saat yang sama di tampilan manapun"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Stickers that share a view with the duck",
+            "label_id": "Stiker yang berbagi tampilan dengan bebek",
+            "value": "elephant, mouse, ladybug, dog — all visible alongside duck in at least one position"
+          },
+          {
+            "label_en": "Remaining sticker",
+            "label_id": "Stiker yang tersisa",
+            "value": "fly — never seen alongside duck, so it must be opposite"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read cube orientations — any sticker visible in the same view as the duck cannot be opposite to it",
+          "name_id": "Baca orientasi kubus — stiker apapun yang terlihat dalam tampilan yang sama dengan bebek tidak bisa berhadapan dengannya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "A cube has 3 pairs of opposite faces. Two faces that appear in the same view cannot be opposite.",
+        "Look at both cube positions and list every sticker that appears in the same view as the duck.",
+        "The sticker that is never shown in the same view as the duck must be on the opposite face.",
+        "That sticker is the fly — answer E."
+      ],
+      "hint_steps_id": [
+        "Kubus memiliki 3 pasang sisi yang berhadapan. Dua sisi yang muncul dalam tampilan yang sama tidak bisa berhadapan.",
+        "Lihat kedua posisi kubus dan daftarkan setiap stiker yang muncul dalam tampilan yang sama dengan bebek.",
+        "Stiker yang tidak pernah ditampilkan dalam tampilan yang sama dengan bebek pasti ada di sisi yang berhadapan.",
+        "Stiker itu adalah lalat — jawaban E."
+      ]
     },
     {
       "number": 8,
@@ -168,21 +911,148 @@
       "body_id": "Casper memiliki 7 potongan berikut (ubin berbentuk jajar genjang dengan ukuran berbeda). Dia menggunakan beberapa potongan ini untuk menutupi sepenuhnya sebuah tabel 1×16 tanpa tumpang tindih. Dia menggunakan potongan berbeda sebanyak mungkin. Berapa banyak potongan yang digunakan Casper?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "3"},
-        {"label": "B", "text": "4"},
-        {"label": "C", "text": "5"},
-        {"label": "D", "text": "6"},
-        {"label": "E", "text": "7"}
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "3"},
-        {"label": "B", "text": "4"},
-        {"label": "C", "text": "5"},
-        {"label": "D", "text": "6"},
-        {"label": "E", "text": "7"}
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "fully cover a 1×16 grid without overlap",
+            "phrase_id": "menutupi sepenuhnya sebuah tabel 1×16 tanpa tumpang tindih",
+            "note_en": "The sizes of chosen pieces must sum to exactly 16",
+            "note_id": "Ukuran potongan yang dipilih harus berjumlah tepat 16"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "uses as many different pieces as possible",
+            "phrase_id": "menggunakan potongan berbeda sebanyak mungkin",
+            "note_en": "Maximize the number of pieces — use the smallest sizes first",
+            "note_id": "Maksimalkan jumlah potongan — gunakan ukuran terkecil terlebih dahulu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many pieces does Casper use?",
+            "phrase_id": "Berapa banyak potongan yang digunakan Casper?",
+            "note_en": "Find the maximum number of different-sized pieces with a sum of 16",
+            "note_id": "Temukan jumlah maksimum potongan berukuran berbeda dengan jumlah 16"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Try 5 pieces (smallest 5)",
+            "label_id": "Coba 5 potongan (terkecil 5)",
+            "value": "1+2+3+4+6=16 ✓ — works!"
+          },
+          {
+            "label_en": "Try 6 pieces (minimum sum)",
+            "label_id": "Coba 6 potongan (jumlah minimum)",
+            "value": "1+2+3+4+5+6=21 > 16 ✗ — impossible"
+          },
+          {
+            "label_en": "Maximum pieces achievable",
+            "label_id": "Potongan maksimum yang dapat dicapai",
+            "value": "5 pieces"
+          }
+        ],
+        "strategy": {
+          "name_en": "Greedy: use smallest pieces first. If 6 smallest sum > 16, try dropping the largest of the 6 and replacing with what is needed",
+          "name_id": "Serakah: gunakan potongan terkecil terlebih dahulu. Jika 6 terkecil jumlahnya > 16, coba buang yang terbesar dari 6 dan ganti dengan yang dibutuhkan"
+        },
+        "trap": {
+          "wrong": "D or E",
+          "why_en": "Using 6 different pieces requires at minimum 1+2+3+4+5+6=21 units, which exceeds the 16-unit grid.",
+          "why_id": "Menggunakan 6 potongan berbeda memerlukan minimal 1+2+3+4+5+6=21 unit, yang melebihi tabel 16 unit."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "The pieces have sizes 1, 2, 3, 4, 5, 6, 7. To use as many different pieces as possible, start with the smallest.",
+        "Try 6 pieces: 1+2+3+4+5+6 = 21 — too big for a 16-unit grid.",
+        "Try 5 pieces: we need 5 different sizes summing to 16. Use 1+2+3+4+6 = 16 ✓",
+        "5 different pieces fit exactly — answer C."
+      ],
+      "hint_steps_id": [
+        "Potongan memiliki ukuran 1, 2, 3, 4, 5, 6, 7. Untuk menggunakan potongan berbeda sebanyak mungkin, mulailah dengan yang terkecil.",
+        "Coba 6 potongan: 1+2+3+4+5+6 = 21 — terlalu besar untuk tabel 16 unit.",
+        "Coba 5 potongan: kita perlu 5 ukuran berbeda yang berjumlah 16. Gunakan 1+2+3+4+6 = 16 ✓",
+        "5 potongan berbeda pas tepat — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try to fit as many different-sized pieces as possible into a length-16 strip.",
+          "intro_id": "Coba masukkan potongan berukuran berbeda sebanyak mungkin ke dalam strip panjang 16.",
+          "items": [
+            {
+              "text_en": "Try 7 pieces: 1+2+3+4+5+6+7 = 28 > 16 ✗ impossible",
+              "text_id": "Coba 7 potongan: 1+2+3+4+5+6+7 = 28 > 16 ✗ tidak mungkin",
+              "ok": false
+            },
+            {
+              "text_en": "Try 6 pieces: 1+2+3+4+5+6 = 21 > 16 ✗ impossible",
+              "text_id": "Coba 6 potongan: 1+2+3+4+5+6 = 21 > 16 ✗ tidak mungkin",
+              "ok": false
+            },
+            {
+              "text_en": "Try 5 pieces: 1+2+3+4+6 = 16 ✓ fits exactly!",
+              "text_id": "Coba 5 potongan: 1+2+3+4+6 = 16 ✓ pas tepat!",
+              "ok": true
+            }
+          ],
+          "final_en": "Maximum is 5 different pieces (e.g. sizes 1,2,3,4,6) — answer C.",
+          "final_id": "Maksimum adalah 5 potongan berbeda (misalnya ukuran 1,2,3,4,6) — jawaban C.",
+          "aria_en": "Six or more different pieces would need at least 21 units which exceeds 16; five pieces of sizes 1,2,3,4,6 sum to exactly 16, so the maximum is 5 pieces.",
+          "aria_id": "Enam atau lebih potongan berbeda memerlukan setidaknya 21 unit yang melebihi 16; lima potongan berukuran 1,2,3,4,6 berjumlah tepat 16, sehingga maksimumnya adalah 5 potongan."
+        }
+      }
     },
     {
       "number": 9,
@@ -190,21 +1060,126 @@
       "body_id": "Cindy mewarnai setiap daerah pada pola dengan warna merah, biru, atau kuning. Daerah yang bersentuhan satu sama lain diwarnai dengan warna yang berbeda. Dia mewarnai cincin (daerah) terluar dari pola dengan warna merah. Berapa banyak daerah yang diwarnai Cindy dengan warna merah?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "colours the outer ring (region) of the pattern red",
+            "phrase_id": "mewarnai cincin (daerah) terluar dari pola dengan warna merah",
+            "note_en": "The outermost ring is red; each ring inside it must differ from its neighbour",
+            "note_id": "Cincin terluar berwarna merah; setiap cincin di dalamnya harus berbeda dari tetangganya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "regions that touch each other with different colours",
+            "phrase_id": "Daerah yang bersentuhan satu sama lain diwarnai dengan warna yang berbeda",
+            "note_en": "Adjacent rings must have different colours — the pattern alternates",
+            "note_id": "Cincin yang berdekatan harus memiliki warna berbeda — polanya berganti-ganti"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many regions does Cindy colour red?",
+            "phrase_id": "Berapa banyak daerah yang diwarnai Cindy dengan warna merah?",
+            "note_en": "Count how many rings end up red — every other ring from the outside will be red",
+            "note_id": "Hitung berapa banyak cincin yang berwarna merah — setiap cincin selang-seling dari luar akan berwarna merah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Ring 1 (outer)",
+            "label_id": "Cincin 1 (luar)",
+            "value": "red"
+          },
+          {
+            "label_en": "Ring 2",
+            "label_id": "Cincin 2",
+            "value": "not red (blue or yellow)"
+          },
+          {
+            "label_en": "Ring 3",
+            "label_id": "Cincin 3",
+            "value": "red (must differ from ring 2)"
+          },
+          {
+            "label_en": "Ring 4",
+            "label_id": "Cincin 4",
+            "value": "not red"
+          },
+          {
+            "label_en": "Ring 5 (inner)",
+            "label_id": "Cincin 5 (dalam)",
+            "value": "red — total: 3 red rings (1, 3, 5)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Alternate colours ring by ring — outer is red → rings 1, 3, 5 are red = 3 red regions",
+          "name_id": "Gantikan warna cincin demi cincin — luar berwarna merah → cincin 1, 3, 5 berwarna merah = 3 daerah merah"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "The pattern has concentric rings. The outermost ring is red.",
+        "Each ring must be a different colour from its neighbours, so the colours alternate.",
+        "Starting from the outside: red, not-red, red, not-red, red — rings 1, 3, and 5 are red.",
+        "That is 3 red regions — answer C."
+      ],
+      "hint_steps_id": [
+        "Pola memiliki cincin-cincin yang konsentris. Cincin terluar berwarna merah.",
+        "Setiap cincin harus memiliki warna berbeda dari tetangganya, sehingga warna berganti-ganti.",
+        "Mulai dari luar: merah, bukan-merah, merah, bukan-merah, merah — cincin 1, 3, dan 5 berwarna merah.",
+        "Itu adalah 3 daerah merah — jawaban C."
+      ]
     },
     {
       "number": 10,
@@ -212,21 +1187,104 @@
       "body_id": "Loes melihat piramida dari atas. Apa yang Loes lihat?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What does Loes see?",
+            "phrase_id": "Apa yang Loes lihat?",
+            "note_en": "Determine the top-down (bird's-eye) view of a square-base pyramid",
+            "note_id": "Tentukan tampilan dari atas (bird's-eye view) dari sebuah piramida berdasar persegi"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "looks at the pyramid from above",
+            "phrase_id": "melihat piramida dari atas",
+            "note_en": "Looking straight down: you see the square base and the 4 triangular faces converging to a center point",
+            "note_id": "Melihat lurus ke bawah: kamu melihat alas persegi dan 4 sisi segitiga yang bertemu di titik pusat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Top-down view of a square pyramid",
+            "label_id": "Tampilan dari atas piramida persegi",
+            "value": "A square outline with two diagonal lines meeting at the center (the apex)"
+          },
+          {
+            "label_en": "Correct answer",
+            "label_id": "Jawaban benar",
+            "value": "C — square with diagonals to center point"
+          }
+        ],
+        "strategy": {
+          "name_en": "Visualise the bird's-eye view — square base with diagonal edges to the central apex",
+          "name_id": "Bayangkan tampilan bird's-eye — alas persegi dengan sisi diagonal menuju puncak di tengah"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "A standard pyramid has a square base and four triangular faces meeting at a point on top (the apex).",
+        "Looking straight down from above, you see the square base.",
+        "The four edges running from the corners of the base to the apex appear as diagonal lines from corner to center.",
+        "The top-down view is a square with its two diagonals drawn — that is figure C."
+      ],
+      "hint_steps_id": [
+        "Piramida standar memiliki alas persegi dan empat sisi segitiga yang bertemu di satu titik di atas (puncak).",
+        "Melihat lurus ke bawah dari atas, kamu melihat alas persegi.",
+        "Empat sisi yang membentang dari sudut alas ke puncak tampak sebagai garis diagonal dari sudut ke tengah.",
+        "Tampilan dari atas adalah persegi dengan dua garis diagonal — itu adalah gambar C."
+      ]
     },
     {
       "number": 11,
@@ -234,21 +1292,116 @@
       "body_id": "Dennis mengikat seekor anjing 1 meter dari sudut sebuah gubuk berukuran 7 meter kali 5 meter seperti yang ditunjukkan pada gambar menggunakan tali panjang 11 meter. Dennis meletakkan 5 camilan seperti yang ditunjukkan. Berapa banyak camilan yang bisa dijangkau anjing?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 metre from a corner of a 7 metres by 5 metres hut",
+            "phrase_id": "1 meter dari sudut sebuah gubuk berukuran 7 meter kali 5 meter",
+            "note_en": "The tie point is 1 m along one wall from a corner, not at the corner itself",
+            "note_id": "Titik tali berada 1 m di sepanjang satu dinding dari sudut, bukan di sudut itu sendiri"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "11 metres long leash",
+            "phrase_id": "tali panjang 11 meter",
+            "note_en": "The dog can roam up to 11 m from the tie point; the leash wraps around corners of the hut",
+            "note_id": "Anjing bisa berkeliaran hingga 11 m dari titik tali; tali melilit sudut-sudut gubuk"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many of the treats could the dog reach?",
+            "phrase_id": "Berapa banyak camilan yang bisa dijangkau anjing?",
+            "note_en": "Trace the arc of reach in each direction, accounting for reduced leash length after rounding each corner",
+            "note_id": "Telusuri busur jangkauan di setiap arah, dengan memperhitungkan panjang tali yang berkurang setelah melilit setiap sudut"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Leash length",
+            "label_id": "Panjang tali",
+            "value": "11 m from tie point"
+          },
+          {
+            "label_en": "Tie point distance from corner",
+            "label_id": "Jarak titik tali dari sudut",
+            "value": "1 m along a wall"
+          },
+          {
+            "label_en": "Reachable treats",
+            "label_id": "Camilan yang bisa dijangkau",
+            "value": "4 (the dog's arc reaches 4 of the 5 treats)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trace the arc around each corner: direct reach + leash remaining after rounding corners",
+          "name_id": "Telusuri busur di sekitar setiap sudut: jangkauan langsung + sisa tali setelah melilit sudut"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "The dog is tied 1 m from a corner with an 11 m leash — it can sweep a large arc directly.",
+        "When the leash wraps around a corner of the hut, the remaining leash is reduced by the distance to that corner.",
+        "Trace the reachable area: directly, then around each adjacent corner with the remaining rope.",
+        "Checking the figure, 4 of the 5 treats fall within the dog's reachable area — answer D."
+      ],
+      "hint_steps_id": [
+        "Anjing diikat 1 m dari sudut dengan tali 11 m — ia bisa menyapu busur besar secara langsung.",
+        "Saat tali melilit sudut gubuk, sisa tali berkurang sebesar jarak ke sudut tersebut.",
+        "Telusuri area yang bisa dicapai: secara langsung, lalu melilit setiap sudut yang berdekatan dengan tali yang tersisa.",
+        "Memeriksa gambar, 4 dari 5 camilan berada dalam area yang bisa dijangkau anjing — jawaban D."
+      ]
     },
     {
       "number": 12,
@@ -256,21 +1409,158 @@
       "body_id": "Lonneke membangun pagar menggunakan tiang-tiang sepanjang 1 meter. Gambar menunjukkan pagar sepanjang 4 meter. Berapa banyak tiang yang dibutuhkan Lonneke untuk membangun pagar sepanjang 10 meter?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "22"},
-        {"label": "B", "text": "30"},
-        {"label": "C", "text": "33"},
-        {"label": "D", "text": "40"},
-        {"label": "E", "text": "42"}
+        {
+          "label": "A",
+          "text": "22"
+        },
+        {
+          "label": "B",
+          "text": "30"
+        },
+        {
+          "label": "C",
+          "text": "33"
+        },
+        {
+          "label": "D",
+          "text": "40"
+        },
+        {
+          "label": "E",
+          "text": "42"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "22"},
-        {"label": "B", "text": "30"},
-        {"label": "C", "text": "33"},
-        {"label": "D", "text": "40"},
-        {"label": "E", "text": "42"}
+        {
+          "label": "A",
+          "text": "22"
+        },
+        {
+          "label": "B",
+          "text": "30"
+        },
+        {
+          "label": "C",
+          "text": "33"
+        },
+        {
+          "label": "D",
+          "text": "40"
+        },
+        {
+          "label": "E",
+          "text": "42"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 metre long poles",
+            "phrase_id": "tiang-tiang sepanjang 1 meter",
+            "note_en": "Each pole is exactly 1 m long — poles are used both horizontally and vertically",
+            "note_id": "Setiap tiang panjangnya tepat 1 m — tiang digunakan baik secara horizontal maupun vertikal"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "picture shows a 4 metres long fence",
+            "phrase_id": "Gambar menunjukkan pagar sepanjang 4 meter",
+            "note_en": "Use the 4 m example to count the poles and find the pattern (4m fence = 18 poles → formula: n×4+2)",
+            "note_id": "Gunakan contoh 4 m untuk menghitung tiang dan menemukan polanya (pagar 4m = 18 tiang → rumus: n×4+2)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many poles does Lonneke need to build a 10 metres long fence?",
+            "phrase_id": "Berapa banyak tiang yang dibutuhkan Lonneke untuk membangun pagar sepanjang 10 meter?",
+            "note_en": "Apply the pattern from the 4 m example to find the pole count for 10 m",
+            "note_id": "Terapkan pola dari contoh 4 m untuk menemukan jumlah tiang untuk 10 m"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "4 m fence poles (from picture)",
+            "label_id": "Tiang pagar 4 m (dari gambar)",
+            "value": "18 poles (= 4×4+2)"
+          },
+          {
+            "label_en": "Pattern",
+            "label_id": "Pola",
+            "value": "each extra 1 m section adds 4 poles; 2 end-caps are constant"
+          },
+          {
+            "label_en": "Formula",
+            "label_id": "Rumus",
+            "value": "poles = n × 4 + 2"
+          },
+          {
+            "label_en": "10 m fence",
+            "label_id": "Pagar 10 m",
+            "value": "10 × 4 + 2 = 42"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find pattern from 4 m example, scale to 10 m: poles = n×4+2",
+          "name_id": "Temukan pola dari contoh 4 m, skala ke 10 m: tiang = n×4+2"
+        },
+        "trap": {
+          "wrong": "B (30)",
+          "why_en": "30 = 3×10 counts only 3 poles per metre (e.g. two horizontals + one vertical post), ignoring that each 1 m section also needs a lower horizontal pole — the correct count per section is 4 poles.",
+          "why_id": "30 = 3×10 hanya menghitung 3 tiang per meter (misalnya dua horizontal + satu tiang vertikal), mengabaikan bahwa setiap bagian 1 m juga membutuhkan tiang horizontal bawah — jumlah tiang yang benar per bagian adalah 4 tiang."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Count the poles in the 4 m fence shown in the picture — there are 18 poles.",
+        "Each 1 m section of fence uses 4 poles (2 vertical posts + 2 horizontal rails). The very last post adds 2 more (the right-end cap).",
+        "Formula: poles = n × 4 + 2, where n is the fence length in metres.",
+        "For 10 m: 10 × 4 + 2 = 42 poles — answer E."
+      ],
+      "hint_steps_id": [
+        "Hitung tiang-tiang dalam pagar 4 m yang ditunjukkan pada gambar — ada 18 tiang.",
+        "Setiap bagian 1 m pagar menggunakan 4 tiang (2 tiang vertikal + 2 rel horizontal). Tiang terakhir menambahkan 2 lagi (penutup ujung kanan).",
+        "Rumus: tiang = n × 4 + 2, di mana n adalah panjang pagar dalam meter.",
+        "Untuk 10 m: 10 × 4 + 2 = 42 tiang — jawaban E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use the 4 m fence as a reference to find the pattern, then scale to 10 m.",
+          "intro_id": "Gunakan pagar 4 m sebagai referensi untuk menemukan pola, lalu skala ke 10 m.",
+          "items": [
+            {
+              "text_en": "4 m fence from picture = 18 poles → 18 = 4×4+2 ✓",
+              "text_id": "Pagar 4 m dari gambar = 18 tiang → 18 = 4×4+2 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "Pattern: each 1 m section adds 4 poles; +2 for the far end",
+              "text_id": "Pola: setiap bagian 1 m menambahkan 4 tiang; +2 untuk ujung jauh",
+              "ok": null
+            },
+            {
+              "text_en": "B (30): 3×10 = 30 — misses the bottom rails ✗",
+              "text_id": "B (30): 3×10 = 30 — melewatkan rel bawah ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E (42): 10×4+2 = 42 ✓",
+              "text_id": "E (42): 10×4+2 = 42 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "10 m fence needs 42 poles — answer E.",
+          "final_id": "Pagar 10 m membutuhkan 42 tiang — jawaban E.",
+          "aria_en": "Each metre of fence requires 4 poles plus 2 for the far end cap; for 10 metres that is 10 times 4 plus 2 equals 42 poles.",
+          "aria_id": "Setiap meter pagar memerlukan 4 tiang ditambah 2 untuk penutup ujung jauh; untuk 10 meter itu adalah 10 kali 4 ditambah 2 sama dengan 42 tiang."
+        }
+      }
     },
     {
       "number": 13,
@@ -278,21 +1568,157 @@
       "body_id": "Setiap kali kanguru naik 7 anak tangga, kelinci turun 3 anak tangga. Kanguru mulai dari anak tangga 1 dan naik, sedangkan kelinci mulai dari anak tangga 100 dan turun. Di anak tangga berapa mereka bertemu?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "53"},
-        {"label": "B", "text": "60"},
-        {"label": "C", "text": "63"},
-        {"label": "D", "text": "70"},
-        {"label": "E", "text": "73"}
+        {
+          "label": "A",
+          "text": "53"
+        },
+        {
+          "label": "B",
+          "text": "60"
+        },
+        {
+          "label": "C",
+          "text": "63"
+        },
+        {
+          "label": "D",
+          "text": "70"
+        },
+        {
+          "label": "E",
+          "text": "73"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "53"},
-        {"label": "B", "text": "60"},
-        {"label": "C", "text": "63"},
-        {"label": "D", "text": "70"},
-        {"label": "E", "text": "73"}
+        {
+          "label": "A",
+          "text": "53"
+        },
+        {
+          "label": "B",
+          "text": "60"
+        },
+        {
+          "label": "C",
+          "text": "63"
+        },
+        {
+          "label": "D",
+          "text": "70"
+        },
+        {
+          "label": "E",
+          "text": "73"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the kangaroo goes up 7 steps",
+            "phrase_id": "kanguru naik 7 anak tangga",
+            "note_en": "Each round the kangaroo moves up exactly 7 steps",
+            "note_id": "Setiap putaran kanguru naik tepat 7 anak tangga"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the rabbit starts at step 100 going down",
+            "phrase_id": "kelinci mulai dari anak tangga 100 dan turun",
+            "note_en": "The rabbit starts at the top (step 100) and descends",
+            "note_id": "Kelinci mulai dari atas (anak tangga 100) dan turun"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the rabbit goes down 3 steps",
+            "phrase_id": "kelinci turun 3 anak tangga",
+            "note_en": "Each round the rabbit moves down exactly 3 steps",
+            "note_id": "Setiap putaran kelinci turun tepat 3 anak tangga"
+          },
+          {
+            "category": "question",
+            "phrase_en": "On which step do they meet?",
+            "phrase_id": "Di anak tangga berapa mereka bertemu?",
+            "note_en": "Find the step where their positions first cross or coincide",
+            "note_id": "Temukan anak tangga di mana posisi mereka pertama kali bersilangan atau berhimpitan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After 9 rounds",
+            "label_id": "Setelah 9 putaran",
+            "value": "Kangaroo at 1+63=64, Rabbit at 100-27=73 (not yet met)"
+          },
+          {
+            "label_en": "After 10 rounds",
+            "label_id": "Setelah 10 putaran",
+            "value": "Kangaroo at 1+70=71, Rabbit at 100-30=70 (crossed — kangaroo passed 70)"
+          },
+          {
+            "label_en": "Meeting step",
+            "label_id": "Anak tangga pertemuan",
+            "value": "70 — the rabbit lands on 70 just as the kangaroo passes through it"
+          }
+        ],
+        "strategy": {
+          "name_en": "Simulate round by round until positions cross",
+          "name_id": "Simulasikan putaran demi putaran hingga posisi bersilangan"
+        },
+        "trap": {
+          "wrong": "E (73)",
+          "why_en": "73 is where the rabbit is after 9 rounds, not the meeting point — they don't land on the same step simultaneously at that moment",
+          "why_id": "73 adalah posisi kelinci setelah 9 putaran, bukan titik pertemuan — mereka tidak berada di anak tangga yang sama secara bersamaan saat itu"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "After each round: kangaroo position = 1 + 7n, rabbit position = 100 − 3n.",
+        "After 9 rounds: kangaroo is at 64, rabbit is at 73 — kangaroo still below rabbit.",
+        "After 10 rounds: kangaroo reaches 71, rabbit drops to 70 — they have just crossed.",
+        "The crossing happens at step 70: the rabbit lands there and the kangaroo passes through it on the way to 71.",
+        "The answer is 70, which is D."
+      ],
+      "hint_steps_id": [
+        "Setelah setiap putaran: posisi kanguru = 1 + 7n, posisi kelinci = 100 − 3n.",
+        "Setelah 9 putaran: kanguru di 64, kelinci di 73 — kanguru masih di bawah kelinci.",
+        "Setelah 10 putaran: kanguru mencapai 71, kelinci turun ke 70 — mereka baru saja bersilangan.",
+        "Persilangan terjadi di anak tangga 70: kelinci mendarat di sana dan kanguru melewatinya dalam perjalanan ke 71.",
+        "Jawabannya adalah 70, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track both positions round by round: Kangaroo = 1 + 7n, Rabbit = 100 − 3n.",
+          "intro_id": "Lacak kedua posisi putaran demi putaran: Kanguru = 1 + 7n, Kelinci = 100 − 3n.",
+          "items": [
+            {
+              "text_en": "Round 9: Kangaroo=64, Rabbit=73 — Kangaroo still below Rabbit, not yet met",
+              "text_id": "Putaran 9: Kanguru=64, Kelinci=73 — Kanguru masih di bawah Kelinci, belum bertemu",
+              "ok": null
+            },
+            {
+              "text_en": "Round 10: Kangaroo=71, Rabbit=70 — Kangaroo jumped PAST Rabbit ✓ crossing at 70",
+              "text_id": "Putaran 10: Kanguru=71, Kelinci=70 — Kanguru melompati Kelinci ✓ bersilangan di 70",
+              "ok": true
+            },
+            {
+              "text_en": "E (73) is wrong — that is the rabbit's position after round 9, not the meeting step ✗",
+              "text_id": "E (73) salah — itu posisi kelinci setelah putaran 9, bukan anak tangga pertemuan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "They meet at step 70 — answer D.",
+          "final_id": "Mereka bertemu di anak tangga 70 — jawaban D.",
+          "aria_en": "After 10 rounds the kangaroo is at step 71 and the rabbit is at step 70; they crossed at step 70 which is the meeting point.",
+          "aria_id": "Setelah 10 putaran kanguru berada di anak tangga 71 dan kelinci di anak tangga 70; mereka bersilangan di anak tangga 70 sebagai titik pertemuan."
+        }
+      }
     },
     {
       "number": 14,
@@ -300,21 +1726,172 @@
       "body_id": "Jumlah dari tiga angka adalah 50. Karin mengurangkan sebuah angka rahasia dari masing-masing ketiga angka tersebut. Hasilnya adalah 24, 13, dan 7. Manakah di antara berikut ini yang merupakan salah satu dari ketiga angka asli?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "9"},
-        {"label": "B", "text": "11"},
-        {"label": "C", "text": "13"},
-        {"label": "D", "text": "17"},
-        {"label": "E", "text": "23"}
+        {
+          "label": "A",
+          "text": "9"
+        },
+        {
+          "label": "B",
+          "text": "11"
+        },
+        {
+          "label": "C",
+          "text": "13"
+        },
+        {
+          "label": "D",
+          "text": "17"
+        },
+        {
+          "label": "E",
+          "text": "23"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "9"},
-        {"label": "B", "text": "11"},
-        {"label": "C", "text": "13"},
-        {"label": "D", "text": "17"},
-        {"label": "E", "text": "23"}
+        {
+          "label": "A",
+          "text": "9"
+        },
+        {
+          "label": "B",
+          "text": "11"
+        },
+        {
+          "label": "C",
+          "text": "13"
+        },
+        {
+          "label": "D",
+          "text": "17"
+        },
+        {
+          "label": "E",
+          "text": "23"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of three numbers is 50",
+            "phrase_id": "Jumlah dari tiga angka adalah 50",
+            "note_en": "The original three numbers add up to 50",
+            "note_id": "Ketiga angka asli berjumlah 50"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "subtracts a secret number from each of these three numbers",
+            "phrase_id": "mengurangkan sebuah angka rahasia dari masing-masing ketiga angka tersebut",
+            "note_en": "The same secret number is subtracted from each of the three numbers",
+            "note_id": "Angka rahasia yang sama dikurangkan dari masing-masing ketiga angka tersebut"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "She gets 24, 13 and 7 as the results",
+            "phrase_id": "Hasilnya adalah 24, 13, dan 7",
+            "note_en": "After subtracting the secret, the results are 24, 13, and 7",
+            "note_id": "Setelah dikurangi angka rahasia, hasilnya adalah 24, 13, dan 7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which one of the following is one of the original three numbers?",
+            "phrase_id": "Manakah di antara berikut ini yang merupakan salah satu dari ketiga angka asli?",
+            "note_en": "Find the secret, then add it back to get the originals",
+            "note_id": "Temukan angka rahasia, lalu tambahkan kembali untuk mendapatkan angka asli"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of results",
+            "label_id": "Jumlah hasil",
+            "value": "24 + 13 + 7 = 44"
+          },
+          {
+            "label_en": "Total reduction",
+            "label_id": "Total pengurangan",
+            "value": "50 − 44 = 6"
+          },
+          {
+            "label_en": "Secret number",
+            "label_id": "Angka rahasia",
+            "value": "6 ÷ 3 = 2"
+          },
+          {
+            "label_en": "Original numbers",
+            "label_id": "Angka-angka asli",
+            "value": "24+2=26, 13+2=15, 7+2=9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the secret by comparing sums, then reconstruct the originals",
+          "name_id": "Temukan angka rahasia dengan membandingkan jumlah, lalu rekonstruksi angka asli"
+        },
+        "trap": {
+          "wrong": "B (11)",
+          "why_en": "11 is not one of the original numbers; the originals are 9, 15, and 26 (each result plus the secret 2)",
+          "why_id": "11 bukan salah satu angka aslinya; angka aslinya adalah 9, 15, dan 26 (setiap hasil ditambah angka rahasia 2)"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "The three results sum to 24 + 13 + 7 = 44.",
+        "But the original three numbers sum to 50, so the total reduction is 50 − 44 = 6.",
+        "Since the same secret was subtracted 3 times: secret = 6 ÷ 3 = 2.",
+        "The originals are 24+2=26, 13+2=15, and 7+2=9.",
+        "9 appears among the choices — the answer is A."
+      ],
+      "hint_steps_id": [
+        "Ketiga hasil berjumlah 24 + 13 + 7 = 44.",
+        "Namun ketiga angka asli berjumlah 50, sehingga total pengurangan adalah 50 − 44 = 6.",
+        "Karena angka rahasia yang sama dikurangkan 3 kali: angka rahasia = 6 ÷ 3 = 2.",
+        "Angka aslinya adalah 24+2=26, 13+2=15, dan 7+2=9.",
+        "9 muncul di antara pilihan — jawabannya adalah A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the secret number, then check which choice is one of the three originals.",
+          "intro_id": "Temukan angka rahasia, lalu periksa pilihan mana yang merupakan salah satu angka asli.",
+          "items": [
+            {
+              "text_en": "Sum of results: 24+13+7=44. Original sum: 50. Difference: 50−44=6 over 3 numbers → secret=2",
+              "text_id": "Jumlah hasil: 24+13+7=44. Jumlah asli: 50. Selisih: 50−44=6 untuk 3 angka → rahasia=2",
+              "ok": null
+            },
+            {
+              "text_en": "Originals: 24+2=26, 13+2=15, 7+2=9",
+              "text_id": "Angka asli: 24+2=26, 13+2=15, 7+2=9",
+              "ok": null
+            },
+            {
+              "text_en": "A: 9 — matches 7+2=9 ✓",
+              "text_id": "A: 9 — cocok dengan 7+2=9 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: 11 — not among 9, 15, 26 ✗",
+              "text_id": "B: 11 — tidak ada di antara 9, 15, 26 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 13 — that is a result, not an original ✗",
+              "text_id": "C: 13 — itu adalah hasil, bukan angka asli ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The original numbers are 9, 15, and 26 — answer A.",
+          "final_id": "Angka-angka aslinya adalah 9, 15, dan 26 — jawaban A.",
+          "aria_en": "The secret number is 2; adding it to each result gives the three originals: 9, 15, and 26; only 9 appears among the choices.",
+          "aria_id": "Angka rahasianya adalah 2; menambahkannya ke setiap hasil memberikan tiga angka asli: 9, 15, dan 26; hanya 9 yang muncul di antara pilihan."
+        }
+      }
     },
     {
       "number": 15,
@@ -322,21 +1899,113 @@
       "body_id": "Amelie ingin membuat mahkota menggunakan 10 keping token (segi lima yang terdiri dari segitiga-segitiga bernomor 1, 2, 3, 4, 5). Ketika dua token berbagi sisi, angka-angka yang bersesuaian harus cocok. Empat token telah ditempatkan. Angka berapa yang ada di segitiga yang ditandai X?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "3"},
-        {"label": "D", "text": "4"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "When two tokens share a side, the corresponding numbers match",
+            "phrase_id": "Ketika dua token berbagi sisi, angka-angka yang bersesuaian harus cocok",
+            "note_en": "Any shared edge between adjacent tokens must show the same number on both sides",
+            "note_id": "Setiap sisi yang dibagi antara token yang berdekatan harus menunjukkan angka yang sama di kedua sisinya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Four tokens have already been placed",
+            "phrase_id": "Empat token telah ditempatkan",
+            "note_en": "Use the placed tokens to trace the constraint chain to the X triangle",
+            "note_id": "Gunakan token yang telah ditempatkan untuk melacak rantai batasan ke segitiga X"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number goes in the triangle marked with an X?",
+            "phrase_id": "Angka berapa yang ada di segitiga yang ditandai X?",
+            "note_en": "Follow the shared-side constraints from the placed tokens step by step to X",
+            "note_id": "Ikuti batasan sisi bersama dari token-token yang ditempatkan langkah demi langkah ke X"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Constraint chain",
+            "label_id": "Rantai batasan",
+            "value": "Trace shared sides from placed tokens outward to reach the X position"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "X = 4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Trace the shared-side constraints from placed tokens to find X",
+          "name_id": "Lacak batasan sisi bersama dari token yang ditempatkan untuk menemukan X"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Each pentagon token has triangles numbered 1–5 arranged in a fixed pattern.",
+        "When two tokens touch along a side, the number on that shared edge must be the same on both tokens.",
+        "Starting from the four already-placed tokens, read the number on the shared edge that borders the token containing X.",
+        "Following the constraint chain reveals that the triangle marked X must contain the number 4.",
+        "The answer is 4, which is D."
+      ],
+      "hint_steps_id": [
+        "Setiap token segi lima memiliki segitiga bernomor 1–5 yang disusun dalam pola tetap.",
+        "Ketika dua token bersentuhan di sepanjang satu sisi, angka pada sisi bersama itu harus sama di kedua token.",
+        "Mulai dari empat token yang sudah ditempatkan, baca angka pada sisi bersama yang berbatasan dengan token yang berisi X.",
+        "Mengikuti rantai batasan mengungkapkan bahwa segitiga bertanda X harus berisi angka 4.",
+        "Jawabannya adalah 4, yaitu pilihan D."
+      ]
     },
     {
       "number": 16,
@@ -344,21 +2013,160 @@
       "body_id": "Farid memiliki dua jenis tongkat: yang pendek sepanjang 1 cm dan yang panjang sepanjang 3 cm. Dengan kombinasi mana di bawah ini dia bisa membuat sebuah persegi, tanpa memotong atau menumpuk tongkat?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "5 short and 2 long"},
-        {"label": "B", "text": "3 short and 3 long"},
-        {"label": "C", "text": "6 short"},
-        {"label": "D", "text": "4 short and 2 long"},
-        {"label": "E", "text": "6 long"}
+        {
+          "label": "A",
+          "text": "5 short and 2 long"
+        },
+        {
+          "label": "B",
+          "text": "3 short and 3 long"
+        },
+        {
+          "label": "C",
+          "text": "6 short"
+        },
+        {
+          "label": "D",
+          "text": "4 short and 2 long"
+        },
+        {
+          "label": "E",
+          "text": "6 long"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "5 pendek dan 2 panjang"},
-        {"label": "B", "text": "3 pendek dan 3 panjang"},
-        {"label": "C", "text": "6 pendek"},
-        {"label": "D", "text": "4 pendek dan 2 panjang"},
-        {"label": "E", "text": "6 panjang"}
+        {
+          "label": "A",
+          "text": "5 pendek dan 2 panjang"
+        },
+        {
+          "label": "B",
+          "text": "3 pendek dan 3 panjang"
+        },
+        {
+          "label": "C",
+          "text": "6 pendek"
+        },
+        {
+          "label": "D",
+          "text": "4 pendek dan 2 panjang"
+        },
+        {
+          "label": "E",
+          "text": "6 panjang"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "without breaking or overlapping the sticks",
+            "phrase_id": "tanpa memotong atau menumpuk tongkat",
+            "note_en": "Sticks must be placed end-to-end; no gaps or overlaps allowed",
+            "note_id": "Tongkat harus ditempatkan ujung ke ujung; tidak ada jarak atau tumpang tindih yang diperbolehkan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "short ones, measuring 1 cm and long ones, measuring 3 cm",
+            "phrase_id": "yang pendek sepanjang 1 cm dan yang panjang sepanjang 3 cm",
+            "note_en": "Two stick lengths: 1 cm (short) and 3 cm (long)",
+            "note_id": "Dua panjang tongkat: 1 cm (pendek) dan 3 cm (panjang)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "With which of the combinations below can he make a square",
+            "phrase_id": "Dengan kombinasi mana di bawah ini dia bisa membuat sebuah persegi",
+            "note_en": "The total length must be divisible by 4 (equal sides) AND each side must be buildable exactly",
+            "note_id": "Total panjang harus habis dibagi 4 (sisi sama) DAN setiap sisi harus dapat dibuat tepat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "B total length",
+            "label_id": "Total panjang B",
+            "value": "3×1 + 3×3 = 3 + 9 = 12 cm"
+          },
+          {
+            "label_en": "Side length for B",
+            "label_id": "Panjang sisi untuk B",
+            "value": "12 ÷ 4 = 3 cm per side"
+          },
+          {
+            "label_en": "Side construction for B",
+            "label_id": "Konstruksi sisi untuk B",
+            "value": "3 sides of 3 cm each use 1 long stick; 1 side of 3 cm uses 3 short sticks — uses exactly 3 longs + 3 shorts"
+          }
+        ],
+        "strategy": {
+          "name_en": "Total length must be divisible by 4 AND each side must be constructible",
+          "name_id": "Total panjang harus habis dibagi 4 DAN setiap sisi harus dapat dibuat"
+        },
+        "trap": {
+          "wrong": "D (4 short + 2 long)",
+          "why_en": "4×1 + 2×3 = 10 cm; 10 is not divisible by 4 — impossible to make equal sides",
+          "why_id": "4×1 + 2×3 = 10 cm; 10 tidak habis dibagi 4 — tidak mungkin membuat sisi yang sama"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "A square has 4 equal sides, so the total stick length must be divisible by 4.",
+        "Check each option: A gives 5+6=11 (not ÷4), B gives 3+9=12 (÷4=3 ✓), C gives 6 (÷4=1.5 ✗), D gives 4+6=10 (not ÷4), E gives 18 (÷4=4.5 ✗).",
+        "Only B (total 12 cm, side = 3 cm) passes the divisibility test.",
+        "Check side construction: three sides use 1 long stick each (3 cm), one side uses 3 short sticks (1+1+1 = 3 cm) — uses exactly 3 long + 3 short.",
+        "The answer is B."
+      ],
+      "hint_steps_id": [
+        "Persegi memiliki 4 sisi sama, jadi total panjang tongkat harus habis dibagi 4.",
+        "Periksa setiap opsi: A menghasilkan 5+6=11 (tidak ÷4), B menghasilkan 3+9=12 (÷4=3 ✓), C menghasilkan 6 (÷4=1,5 ✗), D menghasilkan 4+6=10 (tidak ÷4), E menghasilkan 18 (÷4=4,5 ✗).",
+        "Hanya B (total 12 cm, sisi = 3 cm) yang lolos uji keterbagian.",
+        "Periksa konstruksi sisi: tiga sisi menggunakan masing-masing 1 tongkat panjang (3 cm), satu sisi menggunakan 3 tongkat pendek (1+1+1 = 3 cm) — menggunakan tepat 3 panjang + 3 pendek.",
+        "Jawabannya adalah B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "A square needs 4 equal sides — first check if total length is divisible by 4.",
+          "intro_id": "Persegi membutuhkan 4 sisi sama — periksa dulu apakah total panjang habis dibagi 4.",
+          "items": [
+            {
+              "text_en": "A: 5×1 + 2×3 = 11 cm — 11 ÷ 4 = 2.75 ✗ not divisible by 4",
+              "text_id": "A: 5×1 + 2×3 = 11 cm — 11 ÷ 4 = 2,75 ✗ tidak habis dibagi 4",
+              "ok": false
+            },
+            {
+              "text_en": "B: 3×1 + 3×3 = 12 cm — 12 ÷ 4 = 3 ✓ each side 3 cm; buildable with 1 long or 3 shorts",
+              "text_id": "B: 3×1 + 3×3 = 12 cm — 12 ÷ 4 = 3 ✓ setiap sisi 3 cm; bisa dibuat dengan 1 panjang atau 3 pendek",
+              "ok": true
+            },
+            {
+              "text_en": "C: 6×1 = 6 cm — 6 ÷ 4 = 1.5 ✗ not divisible by 4",
+              "text_id": "C: 6×1 = 6 cm — 6 ÷ 4 = 1,5 ✗ tidak habis dibagi 4",
+              "ok": false
+            },
+            {
+              "text_en": "D: 4×1 + 2×3 = 10 cm — 10 ÷ 4 = 2.5 ✗ not divisible by 4",
+              "text_id": "D: 4×1 + 2×3 = 10 cm — 10 ÷ 4 = 2,5 ✗ tidak habis dibagi 4",
+              "ok": false
+            },
+            {
+              "text_en": "E: 6×3 = 18 cm — 18 ÷ 4 = 4.5 ✗ not divisible by 4",
+              "text_id": "E: 6×3 = 18 cm — 18 ÷ 4 = 4,5 ✗ tidak habis dibagi 4",
+              "ok": false
+            }
+          ],
+          "final_en": "Only B (12 cm total, 3 cm per side) works — answer B.",
+          "final_id": "Hanya B (12 cm total, 3 cm per sisi) yang berhasil — jawaban B.",
+          "aria_en": "Combination B gives a total of 12 centimeters which divides equally into 4 sides of 3 centimeters each and can be constructed using long and short sticks without breaking or overlapping.",
+          "aria_id": "Kombinasi B memberikan total 12 sentimeter yang terbagi rata menjadi 4 sisi masing-masing 3 sentimeter dan dapat dibuat menggunakan tongkat panjang dan pendek tanpa memotong atau menumpuk."
+        }
+      }
     },
     {
       "number": 17,
@@ -366,21 +2174,113 @@
       "body_id": "Dadu standar memiliki jumlah titik pada sisi yang berhadapan sebesar 7. Dadu diletakkan pada kotak pertama seperti yang ditunjukkan dan kemudian berguling ke kanan. Ketika dadu sampai di kotak terakhir, berapa jumlah total titik pada tiga sisi yang ditandai dengan tanda tanya?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "6"},
-        {"label": "B", "text": "7"},
-        {"label": "C", "text": "9"},
-        {"label": "D", "text": "11"},
-        {"label": "E", "text": "12"}
+        {
+          "label": "A",
+          "text": "6"
+        },
+        {
+          "label": "B",
+          "text": "7"
+        },
+        {
+          "label": "C",
+          "text": "9"
+        },
+        {
+          "label": "D",
+          "text": "11"
+        },
+        {
+          "label": "E",
+          "text": "12"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "6"},
-        {"label": "B", "text": "7"},
-        {"label": "C", "text": "9"},
-        {"label": "D", "text": "11"},
-        {"label": "E", "text": "12"}
+        {
+          "label": "A",
+          "text": "6"
+        },
+        {
+          "label": "B",
+          "text": "7"
+        },
+        {
+          "label": "C",
+          "text": "9"
+        },
+        {
+          "label": "D",
+          "text": "11"
+        },
+        {
+          "label": "E",
+          "text": "12"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A standard dice has 7 as the sum of the dots on opposite faces",
+            "phrase_id": "Dadu standar memiliki jumlah titik pada sisi yang berhadapan sebesar 7",
+            "note_en": "Pairs: 1+6=7, 2+5=7, 3+4=7 — knowing one face tells you its opposite",
+            "note_id": "Pasangan: 1+6=7, 2+5=7, 3+4=7 — mengetahui satu sisi memberitahu sisi berhadapannya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rolls towards the right",
+            "phrase_id": "berguling ke kanan",
+            "note_en": "Track how the top, bottom, and side faces change with each roll",
+            "note_id": "Lacak bagaimana sisi atas, bawah, dan samping berubah dengan setiap guliran"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the total number of dots on the three faces marked with the question marks?",
+            "phrase_id": "berapa jumlah total titik pada tiga sisi yang ditandai dengan tanda tanya?",
+            "note_en": "Add the values of the three question-mark faces at the final position",
+            "note_id": "Jumlahkan nilai dari tiga sisi bertanda tanya pada posisi akhir"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Tracking method",
+            "label_id": "Metode pelacakan",
+            "value": "Simulate each rightward roll and record the new top, front, right faces"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "The three question-mark faces sum to 7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Track dice orientation through each roll using the opposite-face rule",
+          "name_id": "Lacak orientasi dadu melalui setiap guliran menggunakan aturan sisi berhadapan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "On a standard dice, opposite faces always sum to 7: pairs are (1,6), (2,5), (3,4).",
+        "Note the starting position of the dice from the figure, then simulate each roll to the right.",
+        "Each rightward roll cycles: top becomes the new right face, bottom becomes the new left, front stays front.",
+        "After all the rolls, read the values on the three faces marked with question marks.",
+        "Those three faces sum to 7 — the answer is B."
+      ],
+      "hint_steps_id": [
+        "Pada dadu standar, sisi yang berhadapan selalu berjumlah 7: pasangannya adalah (1,6), (2,5), (3,4).",
+        "Catat posisi awal dadu dari gambar, lalu simulasikan setiap guliran ke kanan.",
+        "Setiap guliran ke kanan bersiklus: atas menjadi sisi kanan baru, bawah menjadi sisi kiri baru, depan tetap depan.",
+        "Setelah semua guliran, baca nilai pada tiga sisi yang ditandai dengan tanda tanya.",
+        "Ketiga sisi itu berjumlah 7 — jawabannya adalah B."
+      ]
     },
     {
       "number": 18,
@@ -388,21 +2288,158 @@
       "body_id": "6 orang masing-masing memesan satu scoop es krim. Mereka memesan 3 scoop vanila, 2 scoop cokelat, dan 1 scoop lemon. Mereka menambahkan topping pada es krim dengan 3 ceri, 2 wafer, dan 1 kepingan cokelat. Setiap scoop diberi satu topping sehingga tidak ada dua es krim yang sama. Kombinasi mana yang tidak mungkin?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "chocolate with a cherry"},
-        {"label": "B", "text": "vanilla with cherry"},
-        {"label": "C", "text": "lemon with a wafer"},
-        {"label": "D", "text": "chocolate with a wafer"},
-        {"label": "E", "text": "chocolate with a wafer"}
+        {
+          "label": "A",
+          "text": "chocolate with a cherry"
+        },
+        {
+          "label": "B",
+          "text": "vanilla with cherry"
+        },
+        {
+          "label": "C",
+          "text": "lemon with a wafer"
+        },
+        {
+          "label": "D",
+          "text": "chocolate with a wafer"
+        },
+        {
+          "label": "E",
+          "text": "chocolate with a wafer"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "cokelat dengan ceri"},
-        {"label": "B", "text": "vanila dengan ceri"},
-        {"label": "C", "text": "lemon dengan wafer"},
-        {"label": "D", "text": "cokelat dengan wafer"},
-        {"label": "E", "text": "cokelat dengan wafer"}
+        {
+          "label": "A",
+          "text": "cokelat dengan ceri"
+        },
+        {
+          "label": "B",
+          "text": "vanila dengan ceri"
+        },
+        {
+          "label": "C",
+          "text": "lemon dengan wafer"
+        },
+        {
+          "label": "D",
+          "text": "cokelat dengan wafer"
+        },
+        {
+          "label": "E",
+          "text": "cokelat dengan wafer"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "no two ice creams are alike",
+            "phrase_id": "tidak ada dua es krim yang sama",
+            "note_en": "Every (flavor, topping) pair in the final assignment must be unique",
+            "note_id": "Setiap pasangan (rasa, topping) dalam penugasan akhir harus unik"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3 scoops of vanilla, 2 scoops of chocolate and 1 scoop of lemon",
+            "phrase_id": "3 scoop vanila, 2 scoop cokelat, dan 1 scoop lemon",
+            "note_en": "Flavor counts: vanilla×3, chocolate×2, lemon×1",
+            "note_id": "Jumlah rasa: vanila×3, cokelat×2, lemon×1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 cherries, 2 wafers and 1 chocolate chip",
+            "phrase_id": "3 ceri, 2 wafer, dan 1 kepingan cokelat",
+            "note_en": "Topping counts: cherry×3, wafer×2, chocolate chip×1",
+            "note_id": "Jumlah topping: ceri×3, wafer×2, kepingan cokelat×1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which of the following combinations is not possible?",
+            "phrase_id": "Kombinasi mana yang tidak mungkin?",
+            "note_en": "Test each option: does it force a duplicate pair elsewhere?",
+            "note_id": "Uji setiap opsi: apakah itu memaksa pasangan duplikat di tempat lain?"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "If lemon+wafer (C)",
+            "label_id": "Jika lemon+wafer (C)",
+            "value": "Remaining: 3 vanilla + 2 choc need toppings from {cherry×3, wafer×1, choc-chip×1}"
+          },
+          {
+            "label_en": "Vanilla assignment",
+            "label_id": "Penugasan vanila",
+            "value": "3 vanilla need 3 distinct toppings: vanilla+cherry, vanilla+wafer, vanilla+choc-chip ✓"
+          },
+          {
+            "label_en": "Chocolate assignment",
+            "label_id": "Penugasan cokelat",
+            "value": "2 choc need distinct toppings but only cherry remains → choc+cherry and choc+cherry → DUPLICATE ✗"
+          }
+        ],
+        "strategy": {
+          "name_en": "Test each option: does it force a duplicate elsewhere?",
+          "name_id": "Uji setiap opsi: apakah itu memaksa duplikat di tempat lain?"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Flavors: vanilla×3, chocolate×2, lemon×1. Toppings: cherry×3, wafer×2, choc-chip×1.",
+        "Test option C: if lemon gets a wafer, remaining toppings are cherry×3, wafer×1, choc-chip×1 for 5 remaining scoops.",
+        "3 vanilla need 3 different toppings: vanilla+cherry, vanilla+wafer, vanilla+choc-chip — this uses all 3 cherry, 1 wafer, 1 choc-chip.",
+        "2 chocolate are left but no toppings remain except cherry×3 is already used — wait, only cherry×3 were available and all went to vanilla. Both chocolates would need cherry, creating a duplicate pair.",
+        "Lemon+wafer forces choc+cherry to appear twice, which violates 'no two ice creams alike' — the answer is C."
+      ],
+      "hint_steps_id": [
+        "Rasa: vanila×3, cokelat×2, lemon×1. Topping: ceri×3, wafer×2, kepingan cokelat×1.",
+        "Uji opsi C: jika lemon mendapat wafer, sisa topping adalah ceri×3, wafer×1, kepingan cokelat×1 untuk 5 scoop tersisa.",
+        "3 vanila membutuhkan 3 topping berbeda: vanila+ceri, vanila+wafer, vanila+kepingan cokelat — ini menggunakan semua ceri×3, wafer×1, kepingan cokelat×1.",
+        "2 cokelat tersisa, tetapi topping yang tersisa hanya ceri — namun ceri×3 sudah habis. Kedua cokelat harus mengambil ceri, menciptakan pasangan duplikat.",
+        "Lemon+wafer memaksa cokelat+ceri muncul dua kali, melanggar aturan 'tidak ada dua es krim yang sama' — jawabannya adalah C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each option: assign it, then check if the remaining ice creams can be paired without duplicates.",
+          "intro_id": "Uji setiap opsi: tetapkan, lalu periksa apakah es krim yang tersisa dapat dipasangkan tanpa duplikat.",
+          "items": [
+            {
+              "text_en": "A: choc+cherry — remaining toppings can cover vanilla (3 ways) + choc (wafer or choc-chip) ✓",
+              "text_id": "A: cokelat+ceri — topping tersisa dapat menutupi vanila (3 cara) + cokelat (wafer atau kepingan cokelat) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: vanilla+cherry — one cherry used; remaining 2 cherries, 2 wafers, 1 choc-chip for 5 scoops — workable ✓",
+              "text_id": "B: vanila+ceri — satu ceri terpakai; sisa 2 ceri, 2 wafer, 1 kepingan cokelat untuk 5 scoop — bisa ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: lemon+wafer — vanilla takes cherry+wafer+choc-chip; BOTH chocolates left with only cherry → duplicate ✗",
+              "text_id": "C: lemon+wafer — vanila mengambil ceri+wafer+kepingan cokelat; KEDUA cokelat tersisa hanya dengan ceri → duplikat ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: choc+wafer — remaining toppings allow valid assignments ✓",
+              "text_id": "D: cokelat+wafer — topping tersisa memungkinkan penugasan yang valid ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Lemon with a wafer (C) is impossible — answer C.",
+          "final_id": "Lemon dengan wafer (C) tidak mungkin — jawaban C.",
+          "aria_en": "If lemon is paired with wafer, the three vanilla scoops must each take one of the remaining three toppings (cherry, wafer, chocolate chip), leaving only cherry for both chocolate scoops which creates a duplicate and violates the no-two-alike rule.",
+          "aria_id": "Jika lemon dipasangkan dengan wafer, tiga scoop vanila masing-masing harus mengambil salah satu dari tiga topping yang tersisa (ceri, wafer, kepingan cokelat), sehingga hanya ceri yang tersisa untuk kedua scoop cokelat yang menciptakan duplikat dan melanggar aturan tidak ada dua es krim yang sama."
+        }
+      }
     },
     {
       "number": 19,
@@ -410,21 +2447,150 @@
       "body_id": "Sang Ratu mencoba mencari tahu tiga nama istri Rumpelstiltskin. Dia bertanya:\n\"Apakah namamu Adele Lilly Cleo?\"\n\"Apakah namamu Adele Laura Cora?\"\n\"Apakah namamu Abbey Laura Cleo?\"\nSetiap kali, tepat satu nama dan posisinya benar. Siapakah nama istri Rumpelstiltskin?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "Abbey Lilly Cora"},
-        {"label": "B", "text": "Abbey Laura Cora"},
-        {"label": "C", "text": "Adele Laura Cleo"},
-        {"label": "D", "text": "Adele Lilly Cora"},
-        {"label": "E", "text": "Abbey Laura Cleo"}
+        {
+          "label": "A",
+          "text": "Abbey Lilly Cora"
+        },
+        {
+          "label": "B",
+          "text": "Abbey Laura Cora"
+        },
+        {
+          "label": "C",
+          "text": "Adele Laura Cleo"
+        },
+        {
+          "label": "D",
+          "text": "Adele Lilly Cora"
+        },
+        {
+          "label": "E",
+          "text": "Abbey Laura Cleo"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "Abbey Lilly Cora"},
-        {"label": "B", "text": "Abbey Laura Cora"},
-        {"label": "C", "text": "Adele Laura Cleo"},
-        {"label": "D", "text": "Adele Lilly Cora"},
-        {"label": "E", "text": "Abbey Laura Cleo"}
+        {
+          "label": "A",
+          "text": "Abbey Lilly Cora"
+        },
+        {
+          "label": "B",
+          "text": "Abbey Laura Cora"
+        },
+        {
+          "label": "C",
+          "text": "Adele Laura Cleo"
+        },
+        {
+          "label": "D",
+          "text": "Adele Lilly Cora"
+        },
+        {
+          "label": "E",
+          "text": "Abbey Laura Cleo"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Each time exactly one name and its position was right",
+            "phrase_id": "Setiap kali, tepat satu nama dan posisinya benar",
+            "note_en": "For each guess, exactly one of the three (name, position) pairs is correct — not zero, not two",
+            "note_id": "Untuk setiap tebakan, tepat satu dari tiga pasangan (nama, posisi) yang benar — bukan nol, bukan dua"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Are you called Adele Lilly Cleo?",
+            "phrase_id": "Apakah namamu Adele Lilly Cleo?",
+            "note_en": "Guess 1: Adele(pos1), Lilly(pos2), Cleo(pos3) — exactly one of these is correct",
+            "note_id": "Tebakan 1: Adele(pos1), Lilly(pos2), Cleo(pos3) — tepat satu dari ini yang benar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the name of Rumpelstiltskin's wife?",
+            "phrase_id": "Siapakah nama istri Rumpelstiltskin?",
+            "note_en": "Find the answer that gives exactly one hit against each of the three guesses",
+            "note_id": "Temukan jawaban yang memberikan tepat satu kecocokan terhadap masing-masing dari tiga tebakan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Guess 1 hit",
+            "label_id": "Kecocokan tebakan 1",
+            "value": "Position 2: Lilly — answer Abbey Lilly Cora matches only Lilly at pos2 ✓"
+          },
+          {
+            "label_en": "Guess 2 hit",
+            "label_id": "Kecocokan tebakan 2",
+            "value": "Position 3: Cora — answer Abbey Lilly Cora matches only Cora at pos3 ✓"
+          },
+          {
+            "label_en": "Guess 3 hit",
+            "label_id": "Kecocokan tebakan 3",
+            "value": "Position 1: Abbey — answer Abbey Lilly Cora matches only Abbey at pos1 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Eliminate: find which position each guess got right, then combine",
+          "name_id": "Eliminasi: temukan posisi mana yang benar pada setiap tebakan, lalu gabungkan"
+        },
+        "trap": {
+          "wrong": "E (Abbey Laura Cleo)",
+          "why_en": "Abbey Laura Cleo matches Guess 3 in TWO positions: Abbey at pos1 AND Cleo at pos3 — violates the exactly-one rule",
+          "why_id": "Abbey Laura Cleo cocok dengan tebakan ke-3 di DUA posisi: Abbey di pos1 DAN Cleo di pos3 — melanggar aturan tepat satu"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Guesses: G1=Adele(1) Lilly(2) Cleo(3), G2=Adele(1) Laura(2) Cora(3), G3=Abbey(1) Laura(2) Cleo(3).",
+        "Adele appears in pos1 of G1 and G2; if Adele were correct at pos1, both G1 and G2 would have their hit at pos1, so their pos2/pos3 would all be wrong — check if that's consistent with G3's single hit.",
+        "Simpler: test answer A (Abbey Lilly Cora) against each guess: G1→only Lilly matches (pos2) ✓, G2→only Cora matches (pos3) ✓, G3→only Abbey matches (pos1) ✓.",
+        "All three guesses get exactly one hit — Abbey Lilly Cora is the name.",
+        "The answer is A."
+      ],
+      "hint_steps_id": [
+        "Tebakan: G1=Adele(1) Lilly(2) Cleo(3), G2=Adele(1) Laura(2) Cora(3), G3=Abbey(1) Laura(2) Cleo(3).",
+        "Adele muncul di pos1 G1 dan G2; jika Adele benar di pos1, maka baik G1 maupun G2 akan memiliki kecocokan di pos1, sehingga pos2/pos3 mereka semuanya salah — periksa apakah ini konsisten dengan kecocokan tunggal G3.",
+        "Lebih sederhana: uji jawaban A (Abbey Lilly Cora) terhadap setiap tebakan: G1→hanya Lilly yang cocok (pos2) ✓, G2→hanya Cora yang cocok (pos3) ✓, G3→hanya Abbey yang cocok (pos1) ✓.",
+        "Ketiga tebakan mendapatkan tepat satu kecocokan — Abbey Lilly Cora adalah namanya.",
+        "Jawabannya adalah A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer choice against all 3 guesses — it must score exactly 1 hit on every guess.",
+          "intro_id": "Uji setiap pilihan jawaban terhadap 3 tebakan — harus mendapat tepat 1 kecocokan pada setiap tebakan.",
+          "items": [
+            {
+              "text_en": "A: Abbey Lilly Cora — G1: Lilly✓ (1 hit) | G2: Cora✓ (1 hit) | G3: Abbey✓ (1 hit) ✓",
+              "text_id": "A: Abbey Lilly Cora — G1: Lilly✓ (1 cocok) | G2: Cora✓ (1 cocok) | G3: Abbey✓ (1 cocok) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: Abbey Laura Cora — G1: 0 hits ✗ (need exactly 1)",
+              "text_id": "B: Abbey Laura Cora — G1: 0 kecocokan ✗ (harus tepat 1)",
+              "ok": false
+            },
+            {
+              "text_en": "E: Abbey Laura Cleo — G3: Abbey(pos1) AND Cleo(pos3) = 2 hits ✗",
+              "text_id": "E: Abbey Laura Cleo — G3: Abbey(pos1) DAN Cleo(pos3) = 2 kecocokan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Abbey Lilly Cora is the only name that gives exactly 1 hit per guess — answer A.",
+          "final_id": "Abbey Lilly Cora adalah satu-satunya nama yang memberikan tepat 1 kecocokan per tebakan — jawaban A.",
+          "aria_en": "Testing Abbey Lilly Cora: against guess 1 only Lilly at position 2 matches, against guess 2 only Cora at position 3 matches, against guess 3 only Abbey at position 1 matches — each guess scores exactly one hit confirming this is the answer.",
+          "aria_id": "Menguji Abbey Lilly Cora: terhadap tebakan 1 hanya Lilly di posisi 2 yang cocok, terhadap tebakan 2 hanya Cora di posisi 3 yang cocok, terhadap tebakan 3 hanya Abbey di posisi 1 yang cocok — setiap tebakan mendapat tepat satu kecocokan mengkonfirmasi ini adalah jawabannya."
+        }
+      }
     },
     {
       "number": 20,
@@ -432,21 +2598,167 @@
       "body_id": "Guru menuliskan angka 1 sampai 8 di papan tulis. Guru kemudian menutupi angka-angka tersebut dengan segitiga, persegi, dan sebuah lingkaran. Jika kamu menjumlahkan empat angka yang ditutupi oleh segitiga, jumlahnya adalah 10. Jika kamu menjumlahkan tiga angka yang ditutupi oleh persegi, jumlahnya adalah 20. Angka berapa yang ditutupi oleh lingkaran?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "3"},
-        {"label": "B", "text": "4"},
-        {"label": "C", "text": "5"},
-        {"label": "D", "text": "6"},
-        {"label": "E", "text": "7"}
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "3"},
-        {"label": "B", "text": "4"},
-        {"label": "C", "text": "5"},
-        {"label": "D", "text": "6"},
-        {"label": "E", "text": "7"}
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "writes the numbers from 1 to 8 on the board",
+            "phrase_id": "menuliskan angka 1 sampai 8 di papan tulis",
+            "note_en": "Total of all numbers 1+2+3+4+5+6+7+8 = 36",
+            "note_id": "Total semua angka 1+2+3+4+5+6+7+8 = 36"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "four numbers covered by the triangles, the sum is 10",
+            "phrase_id": "empat angka yang ditutupi oleh segitiga, jumlahnya adalah 10",
+            "note_en": "Triangles hide numbers summing to 10",
+            "note_id": "Segitiga menyembunyikan angka-angka yang berjumlah 10"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "three numbers covered by the squares, the sum is 20",
+            "phrase_id": "tiga angka yang ditutupi oleh persegi, jumlahnya adalah 20",
+            "note_en": "Squares hide numbers summing to 20",
+            "note_id": "Persegi menyembunyikan angka-angka yang berjumlah 20"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number is covered by the circle?",
+            "phrase_id": "Angka berapa yang ditutupi oleh lingkaran?",
+            "note_en": "Circle = total − triangles − squares = 36 − 10 − 20",
+            "note_id": "Lingkaran = total − segitiga − persegi = 36 − 10 − 20"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 1 to 8",
+            "label_id": "Jumlah 1 hingga 8",
+            "value": "1+2+3+4+5+6+7+8 = 36"
+          },
+          {
+            "label_en": "Triangle sum",
+            "label_id": "Jumlah segitiga",
+            "value": "10"
+          },
+          {
+            "label_en": "Square sum",
+            "label_id": "Jumlah persegi",
+            "value": "20"
+          },
+          {
+            "label_en": "Circle number",
+            "label_id": "Angka lingkaran",
+            "value": "36 − 10 − 20 = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Total sum minus triangle-sum minus square-sum",
+          "name_id": "Total jumlah dikurangi jumlah segitiga dikurangi jumlah persegi"
+        },
+        "trap": {
+          "wrong": "C (5)",
+          "why_en": "5 is a plausible guess but the calculation gives 36−10−20=6, not 5",
+          "why_id": "5 adalah tebakan yang masuk akal tetapi perhitungannya memberikan 36−10−20=6, bukan 5"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "The numbers 1 through 8 all appear on the board: total = 1+2+3+4+5+6+7+8 = 36.",
+        "Every number is covered by exactly one shape: triangle, square, or circle.",
+        "So: triangle-sum + square-sum + circle = 36.",
+        "10 + 20 + circle = 36, therefore circle = 36 − 30 = 6.",
+        "The answer is 6, which is D."
+      ],
+      "hint_steps_id": [
+        "Angka 1 hingga 8 semuanya ada di papan: total = 1+2+3+4+5+6+7+8 = 36.",
+        "Setiap angka ditutupi oleh tepat satu bentuk: segitiga, persegi, atau lingkaran.",
+        "Jadi: jumlah-segitiga + jumlah-persegi + lingkaran = 36.",
+        "10 + 20 + lingkaran = 36, maka lingkaran = 36 − 30 = 6.",
+        "Jawabannya adalah 6, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use the total sum of 1–8 to find the circle by subtraction.",
+          "intro_id": "Gunakan total jumlah 1–8 untuk menemukan lingkaran dengan pengurangan.",
+          "items": [
+            {
+              "text_en": "Total 1+2+3+4+5+6+7+8 = 36",
+              "text_id": "Total 1+2+3+4+5+6+7+8 = 36",
+              "ok": null
+            },
+            {
+              "text_en": "Triangles = 10, Squares = 20, so Circle = 36 − 10 − 20 = 6 ✓",
+              "text_id": "Segitiga = 10, Persegi = 20, jadi Lingkaran = 36 − 10 − 20 = 6 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C (5): 10 + 20 + 5 = 35 ≠ 36 ✗",
+              "text_id": "C (5): 10 + 20 + 5 = 35 ≠ 36 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E (7): 10 + 20 + 7 = 37 ≠ 36 ✗",
+              "text_id": "E (7): 10 + 20 + 7 = 37 ≠ 36 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The circle covers the number 6 — answer D.",
+          "final_id": "Lingkaran menutupi angka 6 — jawaban D.",
+          "aria_en": "The numbers 1 through 8 sum to 36; subtracting the triangle sum of 10 and the square sum of 20 leaves 6 for the circle.",
+          "aria_id": "Angka 1 hingga 8 berjumlah 36; mengurangi jumlah segitiga 10 dan jumlah persegi 20 menyisakan 6 untuk lingkaran."
+        }
+      }
     },
     {
       "number": 21,
@@ -454,21 +2766,162 @@
       "body_id": "Jane memiliki beberapa gambar burung beo. Dia ingin mewarnai hanya kepala, ekor, dan sayap setiap burung beo dengan warna merah, biru, atau hijau sehingga ketiga warna digunakan pada setiap gambar. Dia mewarnai kepala satu burung beo dengan merah, sayapnya hijau, dan ekornya biru. Berapa banyak lagi burung beo yang bisa dia warnai sehingga semua burung beo diwarnai berbeda?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "4"},
-        {"label": "D", "text": "5"},
-        {"label": "E", "text": "9"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "4"
+        },
+        {
+          "label": "D",
+          "text": "5"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "1"},
-        {"label": "B", "text": "2"},
-        {"label": "C", "text": "4"},
-        {"label": "D", "text": "5"},
-        {"label": "E", "text": "9"}
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "4"
+        },
+        {
+          "label": "D",
+          "text": "5"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "all three colours are used on each picture",
+            "phrase_id": "ketiga warna digunakan pada setiap gambar",
+            "note_en": "Each parrot must have head, tail, and wings each a different colour — all 3 colours appear exactly once per parrot",
+            "note_id": "Setiap burung beo harus memiliki kepala, ekor, dan sayap masing-masing dengan warna berbeda — semua 3 warna muncul tepat sekali per burung beo"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "all the parrots are coloured differently",
+            "phrase_id": "semua burung beo diwarnai berbeda",
+            "note_en": "No two parrots can have the same (head, tail, wings) colour assignment",
+            "note_id": "Tidak ada dua burung beo yang dapat memiliki penugasan warna (kepala, ekor, sayap) yang sama"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "She colours one parrot's head red, its wings green and its tail blue",
+            "phrase_id": "Dia mewarnai kepala satu burung beo dengan merah, sayapnya hijau, dan ekornya biru",
+            "note_en": "One parrot already done: (head=R, wings=G, tail=B)",
+            "note_id": "Satu burung beo sudah selesai: (kepala=M, sayap=H, ekor=B)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many more parrots can she colour",
+            "phrase_id": "Berapa banyak lagi burung beo yang bisa dia warnai",
+            "note_en": "Count all valid permutations of 3 colours for 3 body parts, then subtract the one already used",
+            "note_id": "Hitung semua permutasi valid dari 3 warna untuk 3 bagian tubuh, lalu kurangi satu yang sudah digunakan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total distinct arrangements using all 3 colours",
+            "label_id": "Total susunan berbeda menggunakan 3 warna",
+            "value": "3! = 3×2×1 = 6"
+          },
+          {
+            "label_en": "Already used",
+            "label_id": "Sudah digunakan",
+            "value": "1 (head=R, wings=G, tail=B)"
+          },
+          {
+            "label_en": "Remaining",
+            "label_id": "Sisa",
+            "value": "6 − 1 = 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count permutations of 3 colours for 3 body parts, subtract 1 already used",
+          "name_id": "Hitung permutasi 3 warna untuk 3 bagian tubuh, kurangi 1 yang sudah digunakan"
+        },
+        "trap": {
+          "wrong": "E (9)",
+          "why_en": "9 = 3^3 counts arrangements where colors can repeat on the same parrot, but all 3 colors must be used on each parrot — so we need permutations (3! = 6), not combinations with repetition",
+          "why_id": "9 = 3^3 menghitung susunan di mana warna bisa berulang pada burung beo yang sama, tetapi ketiga warna harus digunakan pada setiap burung beo — jadi kita perlu permutasi (3! = 6), bukan kombinasi dengan pengulangan"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Each parrot uses all 3 colours: one for head, one for tail, one for wings — that is a permutation of 3 items.",
+        "Total distinct permutations of R, B, G across 3 parts: 3! = 6.",
+        "The 6 arrangements are: (R,G,B), (R,B,G), (G,R,B), (G,B,R), (B,R,G), (B,G,R) where order is (head, wings, tail).",
+        "One is already used: head=R, wings=G, tail=B.",
+        "Jane can colour 6 − 1 = 5 more parrots — the answer is D."
+      ],
+      "hint_steps_id": [
+        "Setiap burung beo menggunakan 3 warna: satu untuk kepala, satu untuk ekor, satu untuk sayap — itu adalah permutasi dari 3 item.",
+        "Total permutasi berbeda dari M, B, H di 3 bagian: 3! = 6.",
+        "Keenam susunan adalah: (M,H,B), (M,B,H), (H,M,B), (H,B,M), (B,M,H), (B,H,M) dengan urutan (kepala, sayap, ekor).",
+        "Satu sudah digunakan: kepala=M, sayap=H, ekor=B.",
+        "Jane bisa mewarnai 6 − 1 = 5 burung beo lagi — jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "List all 6 permutations of R/B/G for (head, wings, tail), then subtract the 1 already used.",
+          "intro_id": "Daftarkan semua 6 permutasi M/B/H untuk (kepala, sayap, ekor), lalu kurangi 1 yang sudah digunakan.",
+          "items": [
+            {
+              "text_en": "All 3! = 6 ways to assign R, G, B to head/wings/tail (each color used once)",
+              "text_id": "Semua 3! = 6 cara menugaskan M, H, B ke kepala/sayap/ekor (setiap warna sekali)",
+              "ok": null
+            },
+            {
+              "text_en": "1 already done: head=R, wings=G, tail=B ✗ (used)",
+              "text_id": "1 sudah selesai: kepala=M, sayap=H, ekor=B ✗ (terpakai)",
+              "ok": null
+            },
+            {
+              "text_en": "Remaining: 6 − 1 = 5 new parrots ✓",
+              "text_id": "Sisa: 6 − 1 = 5 burung beo baru ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E (9) is wrong — 9 = 3^3 allows repeating a colour, but all 3 must be used ✗",
+              "text_id": "E (9) salah — 9 = 3^3 memperbolehkan pengulangan warna, tetapi ketiga warna harus digunakan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Jane can colour 5 more parrots — answer D.",
+          "final_id": "Jane bisa mewarnai 5 burung beo lagi — jawaban D.",
+          "aria_en": "There are 3 factorial equals 6 ways to assign three colors to three body parts with each color used exactly once; one arrangement is already used so 5 more parrots can be colored.",
+          "aria_id": "Ada 3 faktorial sama dengan 6 cara untuk menugaskan tiga warna ke tiga bagian tubuh dengan setiap warna digunakan tepat sekali; satu susunan sudah digunakan sehingga 5 burung beo lagi dapat diwarnai."
+        }
+      }
     },
     {
       "number": 22,
@@ -476,21 +2929,150 @@
       "body_id": "Beberapa tim datang ke kamp Kanguru musim panas. Setiap tim memiliki 5 atau 6 anggota. Total ada 43 orang. Berapa banyak tim yang ada di kamp ini?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "4"},
-        {"label": "B", "text": "6"},
-        {"label": "C", "text": "7"},
-        {"label": "D", "text": "8"},
-        {"label": "E", "text": "9"}
+        {
+          "label": "A",
+          "text": "4"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "4"},
-        {"label": "B", "text": "6"},
-        {"label": "C", "text": "7"},
-        {"label": "D", "text": "8"},
-        {"label": "E", "text": "9"}
+        {
+          "label": "A",
+          "text": "4"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Each team has 5 or 6 members",
+            "phrase_id": "Setiap tim memiliki 5 atau 6 anggota",
+            "note_en": "Some teams have 5 members and others have 6 — find a valid split",
+            "note_id": "Beberapa tim memiliki 5 anggota dan yang lain memiliki 6 — temukan pembagian yang valid"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "There are 43 people in total",
+            "phrase_id": "Total ada 43 orang",
+            "note_en": "5x + 6y = 43, find whole-number solutions",
+            "note_id": "5x + 6y = 43, temukan solusi bilangan bulat"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many teams are at this camp?",
+            "phrase_id": "Berapa banyak tim yang ada di kamp ini?",
+            "note_en": "Find x + y (total teams) given 5x + 6y = 43",
+            "note_id": "Temukan x + y (total tim) dengan 5x + 6y = 43"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Try y=3 (three 6-person teams)",
+            "label_id": "Coba y=3 (tiga tim 6 orang)",
+            "value": "3×6 = 18; remainder 43−18 = 25 = 5×5 → x=5 teams of 5"
+          },
+          {
+            "label_en": "Total teams",
+            "label_id": "Total tim",
+            "value": "x + y = 5 + 3 = 8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try different numbers of 6-person teams until the remainder is divisible by 5",
+          "name_id": "Coba berbagai jumlah tim 6 orang hingga sisanya habis dibagi 5"
+        },
+        "trap": {
+          "wrong": "C (7)",
+          "why_en": "7 teams: no combination of 5s and 6s from 7 teams gives 43 (7×5=35, 7×6=42, and any mix between them also misses 43)",
+          "why_id": "7 tim: tidak ada kombinasi 5 dan 6 dari 7 tim yang menghasilkan 43 (7×5=35, 7×6=42, dan campuran apapun di antaranya juga tidak menghasilkan 43)"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Let x = number of 5-person teams, y = number of 6-person teams. Then 5x + 6y = 43.",
+        "Try y=1: remainder 43−6=37; 37÷5=7.4 — not a whole number.",
+        "Try y=2: remainder 43−12=31; 31÷5=6.2 — not a whole number.",
+        "Try y=3: remainder 43−18=25; 25÷5=5 — whole number! So x=5, y=3.",
+        "Total teams = x + y = 5 + 3 = 8 — the answer is D."
+      ],
+      "hint_steps_id": [
+        "Misalkan x = jumlah tim 5 orang, y = jumlah tim 6 orang. Maka 5x + 6y = 43.",
+        "Coba y=1: sisa 43−6=37; 37÷5=7,4 — bukan bilangan bulat.",
+        "Coba y=2: sisa 43−12=31; 31÷5=6,2 — bukan bilangan bulat.",
+        "Coba y=3: sisa 43−18=25; 25÷5=5 — bilangan bulat! Jadi x=5, y=3.",
+        "Total tim = x + y = 5 + 3 = 8 — jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try each answer: can you split that many teams into 5s and 6s to total 43?",
+          "intro_id": "Coba setiap jawaban: dapatkah kamu membagi sejumlah tim itu menjadi 5s dan 6s dengan total 43?",
+          "items": [
+            {
+              "text_en": "A: 4 teams — max 4×6=24, min 4×5=20; neither reaches 43 ✗",
+              "text_id": "A: 4 tim — maks 4×6=24, min 4×5=20; tidak ada yang mencapai 43 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 7 teams — 7×5=35, 7×6=42; 43 not reachable with 7 teams ✗",
+              "text_id": "C: 7 tim — 7×5=35, 7×6=42; 43 tidak dapat dicapai dengan 7 tim ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 8 teams — try 5 teams of 5 + 3 teams of 6: 25+18=43 ✓",
+              "text_id": "D: 8 tim — coba 5 tim 5 orang + 3 tim 6 orang: 25+18=43 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E: 9 teams — 9×5=45 > 43 and 9×6=54 > 43; any mix with 9 teams exceeds 43 ✗",
+              "text_id": "E: 9 tim — 9×5=45 > 43 dan 9×6=54 > 43; campuran apapun dengan 9 tim melebihi 43 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "8 teams (5 teams of 5 + 3 teams of 6 = 43) — answer D.",
+          "final_id": "8 tim (5 tim 5 orang + 3 tim 6 orang = 43) — jawaban D.",
+          "aria_en": "Five teams of 5 members gives 25 people and three teams of 6 members gives 18 people; 25 plus 18 equals 43 people for a total of 8 teams.",
+          "aria_id": "Lima tim 5 anggota memberikan 25 orang dan tiga tim 6 anggota memberikan 18 orang; 25 ditambah 18 sama dengan 43 orang untuk total 8 tim."
+        }
+      }
     },
     {
       "number": 23,
@@ -498,21 +3080,106 @@
       "body_id": "Kunci mana yang tidak mungkin dipotong menjadi tiga figur berbeda yang masing-masing terdiri dari lima kotak yang diarsir?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "(figure A)"},
-        {"label": "B", "text": "(figure B)"},
-        {"label": "C", "text": "(figure C)"},
-        {"label": "D", "text": "(figure D)"},
-        {"label": "E", "text": "(figure E)"}
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "(figure E)"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "(gambar A)"},
-        {"label": "B", "text": "(gambar B)"},
-        {"label": "C", "text": "(gambar C)"},
-        {"label": "D", "text": "(gambar D)"},
-        {"label": "E", "text": "(gambar E)"}
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "(gambar E)"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which key would it be impossible to cut into three different figures of five shaded squares?",
+            "phrase_id": "Kunci mana yang tidak mungkin dipotong menjadi tiga figur berbeda yang masing-masing terdiri dari lima kotak yang diarsir?",
+            "note_en": "Each key has 15 shaded squares; we need to partition them into 3 groups of 5, each group forming a distinct pentomino shape",
+            "note_id": "Setiap kunci memiliki 15 kotak yang diarsir; kita perlu membaginya menjadi 3 kelompok 5, setiap kelompok membentuk bentuk pentomino yang berbeda"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "three different figures of five shaded squares",
+            "phrase_id": "tiga figur berbeda yang masing-masing terdiri dari lima kotak yang diarsir",
+            "note_en": "The three pentomino pieces must all be different shapes — no repeating the same shape twice",
+            "note_id": "Ketiga potongan pentomino harus semuanya berbeda bentuk — tidak ada pengulangan bentuk yang sama dua kali"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total shaded squares per key",
+            "label_id": "Total kotak diarsir per kunci",
+            "value": "15 (= 3 × 5)"
+          },
+          {
+            "label_en": "Impossible key",
+            "label_id": "Kunci yang tidak mungkin",
+            "value": "B — its shape cannot be partitioned into 3 distinct pentominoes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try all ways to partition each key's 15 squares into 3 distinct pentominoes",
+          "name_id": "Coba semua cara untuk membagi 15 kotak setiap kunci menjadi 3 pentomino berbeda"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Each key shape is made of exactly 15 shaded squares (3 groups of 5).",
+        "A pentomino is a connected group of exactly 5 squares joined edge-to-edge.",
+        "For each key, try to draw two cutting lines that divide its 15 squares into three connected groups of 5, all with different shapes.",
+        "For key B, every possible partition either fails to make groups of 5 or forces two groups to have the same shape.",
+        "Key B is impossible to cut into three different pentomino figures — the answer is B."
+      ],
+      "hint_steps_id": [
+        "Setiap bentuk kunci terdiri dari tepat 15 kotak yang diarsir (3 kelompok 5).",
+        "Pentomino adalah kelompok terhubung dari tepat 5 kotak yang bergabung tepi ke tepi.",
+        "Untuk setiap kunci, coba gambar dua garis potong yang membagi 15 kotaknya menjadi tiga kelompok terhubung 5, semuanya dengan bentuk berbeda.",
+        "Untuk kunci B, setiap kemungkinan pembagian gagal membuat kelompok 5 atau memaksa dua kelompok memiliki bentuk yang sama.",
+        "Kunci B tidak mungkin dipotong menjadi tiga figur pentomino berbeda — jawabannya adalah B."
+      ]
     },
     {
       "number": 24,
@@ -520,21 +3187,172 @@
       "body_id": "Ann mengganti huruf-huruf dalam perhitungan KAN - ROO + GA dengan angka-angka dari 1 sampai 9 dan kemudian menghitung hasilnya. Huruf yang sama diganti dengan angka yang sama dan huruf yang berbeda dengan angka yang berbeda. Berapakah hasil terbesar yang bisa dia dapatkan?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        {"label": "A", "text": "925"},
-        {"label": "B", "text": "933"},
-        {"label": "C", "text": "939"},
-        {"label": "D", "text": "942"},
-        {"label": "E", "text": "948"}
+        {
+          "label": "A",
+          "text": "925"
+        },
+        {
+          "label": "B",
+          "text": "933"
+        },
+        {
+          "label": "C",
+          "text": "939"
+        },
+        {
+          "label": "D",
+          "text": "942"
+        },
+        {
+          "label": "E",
+          "text": "948"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "925"},
-        {"label": "B", "text": "933"},
-        {"label": "C", "text": "939"},
-        {"label": "D", "text": "942"},
-        {"label": "E", "text": "948"}
+        {
+          "label": "A",
+          "text": "925"
+        },
+        {
+          "label": "B",
+          "text": "933"
+        },
+        {
+          "label": "C",
+          "text": "939"
+        },
+        {
+          "label": "D",
+          "text": "942"
+        },
+        {
+          "label": "E",
+          "text": "948"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ann replaces letters in the calculation KAN - ROO + GA with numbers from 1 to 9",
+            "phrase_id": "Ann mengganti huruf-huruf dalam perhitungan KAN - ROO + GA dengan angka-angka dari 1 sampai 9",
+            "note_en": "Letters K, A, N, R, O, G each get a unique digit from 1–9",
+            "note_id": "Huruf K, A, N, R, O, G masing-masing mendapat digit unik dari 1–9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "same letters are replaced by the same numbers and different letters by different numbers",
+            "phrase_id": "Huruf yang sama diganti dengan angka yang sama dan huruf yang berbeda dengan angka yang berbeda",
+            "note_en": "6 distinct digits needed for K, A, N, R, O, G — note O appears twice in ROO",
+            "note_id": "6 digit berbeda diperlukan untuk K, A, N, R, O, G — perhatikan O muncul dua kali di ROO"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the largest possible result she could get?",
+            "phrase_id": "Berapakah hasil terbesar yang bisa dia dapatkan?",
+            "note_en": "Maximize KAN, minimize ROO, then maximize GA",
+            "note_id": "Maksimalkan KAN, minimalkan ROO, lalu maksimalkan GA"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Expression expanded",
+            "label_id": "Ekspresi diuraikan",
+            "value": "KAN − ROO + GA = 100K + 10A + N − 100R − 11O + 10G + A = 100K + 11A + N − 100R − 11O + 10G"
+          },
+          {
+            "label_en": "Maximize KAN: K=9",
+            "label_id": "Maksimalkan KAN: K=9",
+            "value": "K=9 gives KAN ≥ 900"
+          },
+          {
+            "label_en": "Minimize ROO: R=1, O=2",
+            "label_id": "Minimalkan ROO: R=1, O=2",
+            "value": "R=1, O=2 → ROO = 122 (smallest possible)"
+          },
+          {
+            "label_en": "Remaining digits for A, N, G",
+            "label_id": "Digit tersisa untuk A, N, G",
+            "value": "{3, 4, 5, 6, 7, 8} — maximize 11A + N + 10G: A=8, G=7, N=6"
+          },
+          {
+            "label_en": "Result",
+            "label_id": "Hasil",
+            "value": "KAN=986, ROO=122, GA=78 → 986−122+78=942"
+          }
+        ],
+        "strategy": {
+          "name_en": "Maximize KAN (big K), minimize ROO (small R and O), then maximize GA from remaining digits",
+          "name_id": "Maksimalkan KAN (K besar), minimalkan ROO (R dan O kecil), lalu maksimalkan GA dari digit yang tersisa"
+        },
+        "trap": {
+          "wrong": "E (948)",
+          "why_en": "948 is impossible — O appears twice in ROO so using R=1, O=2 is the minimum, and the remaining digit assignments cannot push the result above 942",
+          "why_id": "948 tidak mungkin — O muncul dua kali di ROO sehingga menggunakan R=1, O=2 adalah minimum, dan penugasan digit yang tersisa tidak dapat mendorong hasil di atas 942"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "The expression is KAN − ROO + GA. To maximise it, make KAN big, ROO small, GA big.",
+        "Set K=9 (biggest digit) to maximise KAN.",
+        "Minimise ROO: set R=1 (smallest) and O=2 (second smallest) → ROO = 122.",
+        "Remaining digits: {3, 4, 5, 6, 7, 8} for A, N, G. The expression weight is 11A + N + 10G (since A appears in both KAN and GA).",
+        "Maximise: A=8 (weight 11), G=7 (weight 10), N=6 (weight 1) → KAN=986, GA=78, result = 986−122+78 = 942.",
+        "The answer is 942, which is D."
+      ],
+      "hint_steps_id": [
+        "Ekspresinya adalah KAN − ROO + GA. Untuk memaksimalkan, buat KAN besar, ROO kecil, GA besar.",
+        "Tetapkan K=9 (digit terbesar) untuk memaksimalkan KAN.",
+        "Minimalkan ROO: tetapkan R=1 (terkecil) dan O=2 (terkecil kedua) → ROO = 122.",
+        "Digit tersisa: {3, 4, 5, 6, 7, 8} untuk A, N, G. Bobot ekspresi adalah 11A + N + 10G (karena A muncul di KAN dan GA).",
+        "Maksimalkan: A=8 (bobot 11), G=7 (bobot 10), N=6 (bobot 1) → KAN=986, GA=78, hasil = 986−122+78 = 942.",
+        "Jawabannya adalah 942, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Maximize KAN, minimize ROO, maximize GA — then verify the final result.",
+          "intro_id": "Maksimalkan KAN, minimalkan ROO, maksimalkan GA — lalu verifikasi hasil akhir.",
+          "items": [
+            {
+              "text_en": "Step 1: K=9 (maximize hundreds digit of KAN)",
+              "text_id": "Langkah 1: K=9 (maksimalkan digit ratusan dari KAN)",
+              "ok": null
+            },
+            {
+              "text_en": "Step 2: R=1, O=2 → ROO=122 (minimize the subtracted term)",
+              "text_id": "Langkah 2: R=1, O=2 → ROO=122 (minimalkan suku yang dikurangkan)",
+              "ok": null
+            },
+            {
+              "text_en": "Step 3: remaining {3,4,5,6,7,8}; A worth 11, G worth 10 → A=8, G=7, N=6",
+              "text_id": "Langkah 3: sisa {3,4,5,6,7,8}; A senilai 11, G senilai 10 → A=8, G=7, N=6",
+              "ok": null
+            },
+            {
+              "text_en": "Result: 986 − 122 + 78 = 942 ✓",
+              "text_id": "Hasil: 986 − 122 + 78 = 942 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E (948) — impossible; O appears twice in ROO, limiting maximum achievable",
+              "text_id": "E (948) — tidak mungkin; O muncul dua kali di ROO, membatasi maksimum yang dapat dicapai",
+              "ok": false
+            }
+          ],
+          "final_en": "The largest possible result is 942 — answer D.",
+          "final_id": "Hasil terbesar yang mungkin adalah 942 — jawaban D.",
+          "aria_en": "Setting K=9, R=1, O=2 gives KAN at least 900 and ROO=122; assigning A=8, G=7, N=6 from remaining digits gives 986 minus 122 plus 78 equals 942.",
+          "aria_id": "Menetapkan K=9, R=1, O=2 memberikan KAN setidaknya 900 dan ROO=122; menugaskan A=8, G=7, N=6 dari digit yang tersisa memberikan 986 dikurangi 122 ditambah 78 sama dengan 942."
+        }
+      }
     }
   ]
 }
