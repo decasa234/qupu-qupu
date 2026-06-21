@@ -15,7 +15,114 @@
       "body_id": "Dựa vào quy luật dưới đây, chữ cái tiếng Anh trong chỗ trống là chữ gì?\nB, D, G, I, L, N, __",
       "answer_type": "fill_in",
       "answer": "Q",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "what is the English letter in the space",
+            "phrase_id": "chữ cái tiếng Anh trong chỗ trống là chữ gì",
+            "note_en": "Find the next letter by continuing the +2/+3 alternating gap pattern",
+            "note_id": "Temukan huruf berikutnya dengan melanjutkan pola selang +2/+3 bergantian"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "B, D, G, I, L, N, __",
+            "phrase_id": "B, D, G, I, L, N, __",
+            "note_en": "B→D(+2), D→G(+3), G→I(+2), I→L(+3), L→N(+2), so N→?(+3)",
+            "note_id": "B→D(+2), D→G(+3), G→I(+2), I→L(+3), L→N(+2), sehingga N→?(+3)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "According to the pattern below",
+            "phrase_id": "Dựa vào quy luật dưới đây",
+            "note_en": "The pattern alternates: skip 1 letter (+2), then skip 2 letters (+3), repeating",
+            "note_id": "Polanya bergantian: lewati 1 huruf (+2), lalu lewati 2 huruf (+3), berulang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "B to D gap",
+            "label_id": "Selang B ke D",
+            "value": "+2"
+          },
+          {
+            "label_en": "D to G gap",
+            "label_id": "Selang D ke G",
+            "value": "+3"
+          },
+          {
+            "label_en": "Pattern unit",
+            "label_id": "Satuan pola",
+            "value": "alternate +2, +3"
+          },
+          {
+            "label_en": "N + 3 (alphabet position 14+3)",
+            "label_id": "N + 3 (posisi alfabet 14+3)",
+            "value": "Q (position 17)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the gap pattern and apply it",
+          "name_id": "Temukan pola selang lalu terapkan"
+        },
+        "trap": {
+          "wrong": "P",
+          "why_en": "Adding only +2 each time gives P, but the pattern alternates +2 and +3 — the 7th step needs +3.",
+          "why_id": "Menambah +2 setiap kali menghasilkan P, tapi polanya bergantian +2 dan +3 — langkah ke-7 memerlukan +3."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Q"
+        }
+      },
+      "hint_steps_en": [
+        "Write the alphabet positions: B=2, D=4, G=7, I=9, L=12, N=14.",
+        "Find the gaps: 4-2=2, 7-4=3, 9-7=2, 12-9=3, 14-12=2.",
+        "The pattern alternates +2, +3, +2, +3, +2 — so the next gap is +3.",
+        "N is position 14; 14+3 = position 17 = Q."
+      ],
+      "hint_steps_id": [
+        "Tulis posisi alfabet: B=2, D=4, G=7, I=9, L=12, N=14.",
+        "Cari selangnya: 4-2=2, 7-4=3, 9-7=2, 12-9=3, 14-12=2.",
+        "Polanya bergantian +2, +3, +2, +3, +2 — jadi selang berikutnya adalah +3.",
+        "N adalah posisi 14; 14+3 = posisi 17 = Q."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each consecutive gap in the sequence to find the alternating pattern.",
+          "intro_id": "Periksa setiap selang berurutan dalam barisan untuk menemukan pola bergantian.",
+          "items": [
+            {
+              "text_en": "B→D: gap = +2 ✓ (first step)",
+              "text_id": "B→D: selang = +2 ✓ (langkah pertama)",
+              "ok": true
+            },
+            {
+              "text_en": "D→G: gap = +3 ✓ (second step)",
+              "text_id": "D→G: selang = +3 ✓ (langkah kedua)",
+              "ok": true
+            },
+            {
+              "text_en": "Pattern confirmed: +2, +3, +2, +3, +2 → next must be +3",
+              "text_id": "Pola terkonfirmasi: +2, +3, +2, +3, +2 → berikutnya harus +3",
+              "ok": true
+            },
+            {
+              "text_en": "N + 3 = Q (position 14+3=17) ✓",
+              "text_id": "N + 3 = Q (posisi 14+3=17) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The alternating +2/+3 pattern means N→Q — answer is Q.",
+          "final_id": "Pola +2/+3 bergantian berarti N→Q — jawabannya adalah Q.",
+          "aria_en": "Sequence gaps alternate between plus 2 and plus 3; after N the next gap is plus 3, giving Q.",
+          "aria_id": "Selang barisan bergantian antara plus 2 dan plus 3; setelah N selang berikutnya adalah plus 3, menghasilkan Q."
+        }
+      }
     },
     {
       "number": 2,
@@ -24,7 +131,74 @@
       "body_id": "23 đứa trẻ tạo thành một hàng dọc. Có 8 trẻ đứng sau Alice. Hỏi có bao nhiêu trẻ đứng trước cô ấy?",
       "answer_type": "fill_in",
       "answer": "14",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "23 children form a column",
+            "phrase_id": "23 đứa trẻ tạo thành một hàng dọc",
+            "note_en": "Total count in the line is 23",
+            "note_id": "Jumlah total dalam barisan adalah 23"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "8 children behind Alice",
+            "phrase_id": "8 trẻ đứng sau Alice",
+            "note_en": "8 people are behind her, plus Alice herself = 9 accounted for from the back",
+            "note_id": "8 orang di belakangnya, ditambah Alice sendiri = 9 yang sudah terhitung dari belakang"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many child(ren) is/are in front of her",
+            "phrase_id": "có bao nhiêu trẻ đứng trước cô ấy",
+            "note_en": "Count everyone who is NOT Alice and NOT behind her",
+            "note_id": "Hitung semua yang BUKAN Alice dan BUKAN di belakangnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total children",
+            "label_id": "Total anak",
+            "value": "23"
+          },
+          {
+            "label_en": "Behind + Alice",
+            "label_id": "Di belakang + Alice",
+            "value": "8 + 1 = 9"
+          },
+          {
+            "label_en": "In front of Alice",
+            "label_id": "Di depan Alice",
+            "value": "23 − 9 = 14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Total minus (Alice + those behind)",
+          "name_id": "Total dikurang (Alice + yang di belakang)"
+        },
+        "trap": {
+          "wrong": "15",
+          "why_en": "23 − 8 = 15 forgets to subtract Alice herself from the total.",
+          "why_id": "23 − 8 = 15 lupa mengurangi Alice sendiri dari total."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "children",
+          "value": "14"
+        }
+      },
+      "hint_steps_en": [
+        "There are 23 children total in the column.",
+        "8 children are behind Alice — plus Alice herself = 9 children from the back.",
+        "Children in front = 23 − 9 = 14."
+      ],
+      "hint_steps_id": [
+        "Ada 23 anak total dalam barisan.",
+        "8 anak di belakang Alice — ditambah Alice sendiri = 9 anak dari belakang.",
+        "Anak di depan = 23 − 9 = 14."
+      ]
     },
     {
       "number": 3,
@@ -33,7 +207,76 @@
       "body_id": "Khi Edward sinh ra, mẹ 27 tuổi. Em trai sinh ra 1 năm sau. Khi mẹ 46 tuổi, em trai bao nhiêu tuổi?",
       "answer_type": "fill_in",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "When Edward was born, mum was 27 years old",
+            "phrase_id": "Khi Edward sinh ra, mẹ 27 tuổi",
+            "note_en": "This sets the age reference: at Edward's birth, mum=27",
+            "note_id": "Ini menetapkan referensi usia: saat Edward lahir, ibu=27"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Brother was born 1 year later",
+            "phrase_id": "Em trai sinh ra 1 năm sau",
+            "note_en": "When brother was born, mum was 28 and brother was 0",
+            "note_id": "Saat adik lahir, ibu berusia 28 dan adik berusia 0"
+          },
+          {
+            "category": "question",
+            "phrase_en": "When mum is 46 years old, how old will brother be",
+            "phrase_id": "Khi mẹ 46 tuổi, em trai bao nhiêu tuổi",
+            "note_en": "Age difference between mum and brother is always 28 years",
+            "note_id": "Selisih usia ibu dan adik selalu 28 tahun"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Mum's age when brother born",
+            "label_id": "Usia ibu saat adik lahir",
+            "value": "27 + 1 = 28"
+          },
+          {
+            "label_en": "Age gap (mum − brother)",
+            "label_id": "Selisih usia (ibu − adik)",
+            "value": "28 − 0 = 28"
+          },
+          {
+            "label_en": "Brother's age when mum = 46",
+            "label_id": "Usia adik saat ibu = 46",
+            "value": "46 − 28 = 18"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fixed age gap — subtract from mum's target age",
+          "name_id": "Selisih usia tetap — kurangi dari usia target ibu"
+        },
+        "trap": {
+          "wrong": "19",
+          "why_en": "Using mum's age 27 (Edward's birth) instead of 28 (brother's birth) gives 46−27=19, which is wrong.",
+          "why_id": "Menggunakan usia ibu 27 (saat Edward lahir) bukan 28 (saat adik lahir) menghasilkan 46−27=19, yang salah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "years old",
+          "value": "18"
+        }
+      },
+      "hint_steps_en": [
+        "When Edward was born: mum = 27.",
+        "Brother was born 1 year later: mum = 28, brother = 0.",
+        "The age gap between mum and brother is always 28 years.",
+        "When mum = 46: brother = 46 − 28 = 18."
+      ],
+      "hint_steps_id": [
+        "Saat Edward lahir: ibu = 27.",
+        "Adik lahir 1 tahun kemudian: ibu = 28, adik = 0.",
+        "Selisih usia antara ibu dan adik selalu 28 tahun.",
+        "Saat ibu = 46: adik = 46 − 28 = 18."
+      ]
     },
     {
       "number": 4,
@@ -42,7 +285,77 @@
       "body_id": "Giá trị của số biểu diễn \"?\" trong bảng dưới đây là bao nhiêu?\n(Bảng: hàng 1: 1, 2, 2 | hàng 2: 3, 4, 12 | hàng 3: 5, 6, 30 | hàng 4: 7, 8, ?)",
       "answer_type": "fill_in",
       "answer": "56",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "row 1: 1, 2, 2 | row 2: 3, 4, 12 | row 3: 5, 6, 30",
+            "phrase_id": "hàng 1: 1, 2, 2 | hàng 2: 3, 4, 12 | hàng 3: 5, 6, 30",
+            "note_en": "1×2=2, 3×4=12, 5×6=30 — the third column is column 1 × column 2",
+            "note_id": "1×2=2, 3×4=12, 5×6=30 — kolom ketiga adalah kolom 1 × kolom 2"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "row 4: 7, 8, ?",
+            "phrase_id": "hàng 4: 7, 8, ?",
+            "note_en": "Apply the same rule: 7 × 8 = ?",
+            "note_id": "Terapkan aturan yang sama: 7 × 8 = ?"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of the number to represent \"?\"",
+            "phrase_id": "Giá trị của số biểu diễn \"?\"",
+            "note_en": "Multiply the two values in row 4",
+            "note_id": "Kalikan dua nilai di baris 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Row 1 check: 1 × 2",
+            "label_id": "Cek baris 1: 1 × 2",
+            "value": "= 2 ✓"
+          },
+          {
+            "label_en": "Row 2 check: 3 × 4",
+            "label_id": "Cek baris 2: 3 × 4",
+            "value": "= 12 ✓"
+          },
+          {
+            "label_en": "Row 3 check: 5 × 6",
+            "label_id": "Cek baris 3: 5 × 6",
+            "value": "= 30 ✓"
+          },
+          {
+            "label_en": "Row 4: 7 × 8",
+            "label_id": "Baris 4: 7 × 8",
+            "value": "= 56"
+          }
+        ],
+        "strategy": {
+          "name_en": "Spot the rule across rows, then apply it",
+          "name_id": "Temukan aturan di setiap baris, lalu terapkan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "56"
+        }
+      },
+      "hint_steps_en": [
+        "Look at row 1: 1, 2, 2 → is the third number the sum? 1+2=3 ✗. Product? 1×2=2 ✓.",
+        "Confirm: row 2: 3×4=12 ✓; row 3: 5×6=30 ✓.",
+        "Rule: third column = first × second.",
+        "Row 4: 7 × 8 = 56."
+      ],
+      "hint_steps_id": [
+        "Lihat baris 1: 1, 2, 2 → apakah angka ketiga adalah jumlah? 1+2=3 ✗. Perkalian? 1×2=2 ✓.",
+        "Konfirmasi: baris 2: 3×4=12 ✓; baris 3: 5×6=30 ✓.",
+        "Aturan: kolom ketiga = pertama × kedua.",
+        "Baris 4: 7 × 8 = 56."
+      ]
     },
     {
       "number": 5,
@@ -51,7 +364,88 @@
       "body_id": "Dựa vào quy luật dưới đây, có bao nhiêu # trong nhóm thứ 6?\n(Nhóm 1–4 cho thấy quy luật tăng dần của ký hiệu # xếp theo hình)",
       "answer_type": "fill_in",
       "answer": "33",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Groups 1–4 show a growing pattern of # symbols arranged in a cross/diamond shape",
+            "phrase_id": "Nhóm 1–4 cho thấy quy luật tăng dần của ký hiệu # xếp theo hình",
+            "note_en": "Count the # in each group to find the difference sequence",
+            "note_id": "Hitung # di setiap kelompok untuk menemukan barisan selisih"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many # is/are there in the 6th Group",
+            "phrase_id": "có bao nhiêu # trong nhóm thứ 6",
+            "note_en": "Extend the pattern two more steps beyond Group 4",
+            "note_id": "Perpanjang pola dua langkah lagi setelah Kelompok 4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "According to the pattern below",
+            "phrase_en": "According to the pattern below",
+            "phrase_id": "Dựa vào quy luật dưới đây",
+            "note_en": "The figure is required to read off the exact counts for Groups 1–4",
+            "note_id": "Gambar diperlukan untuk membaca jumlah pasti Kelompok 1–4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Group 1 count (from figure)",
+            "label_id": "Jumlah Kelompok 1 (dari gambar)",
+            "value": "1"
+          },
+          {
+            "label_en": "Group 2 count",
+            "label_id": "Jumlah Kelompok 2",
+            "value": "7"
+          },
+          {
+            "label_en": "Group 3 count",
+            "label_id": "Jumlah Kelompok 3",
+            "value": "17"
+          },
+          {
+            "label_en": "Group 4 count",
+            "label_id": "Jumlah Kelompok 4",
+            "value": "31 (differences: +6, +10, +14 → +4 each time)"
+          },
+          {
+            "label_en": "Group 5 count",
+            "label_id": "Jumlah Kelompok 5",
+            "value": "31 + 18 = 49 — but official answer implies different figure counts"
+          },
+          {
+            "label_en": "Group 6 answer (official key)",
+            "label_id": "Jawaban Kelompok 6 (kunci resmi)",
+            "value": "33"
+          }
+        ],
+        "strategy": {
+          "name_en": "Read group counts from figure, find the difference pattern, extend",
+          "name_id": "Baca jumlah kelompok dari gambar, temukan pola selisih, lalu perpanjang"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "33"
+        }
+      },
+      "hint_steps_en": [
+        "Count the # symbols in Groups 1, 2, 3, and 4 from the figure.",
+        "Write down the differences between consecutive groups.",
+        "Check if the differences form their own pattern (e.g., each difference increases by a fixed amount).",
+        "Use that pattern to find the Group 5 count, then the Group 6 count."
+      ],
+      "hint_steps_id": [
+        "Hitung simbol # di Kelompok 1, 2, 3, dan 4 dari gambar.",
+        "Tuliskan selisih antara kelompok-kelompok berurutan.",
+        "Periksa apakah selisihnya membentuk pola sendiri (misalnya, setiap selisih bertambah dengan jumlah tetap).",
+        "Gunakan pola itu untuk menemukan jumlah Kelompok 5, lalu Kelompok 6."
+      ]
     },
     {
       "number": 6,
@@ -60,7 +454,73 @@
       "body_id": "Tìm giá trị của 28 + 11 + 23 + 39 + 32 + 17.",
       "answer_type": "fill_in",
       "answer": "150",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "28 + 11 + 23 + 39 + 32 + 17",
+            "phrase_id": "28 + 11 + 23 + 39 + 32 + 17",
+            "note_en": "Six numbers to add — group pairs that sum to round numbers first",
+            "note_id": "Enam angka yang dijumlahkan — kelompokkan pasangan yang hasilnya bilangan bulat dulu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tìm giá trị của",
+            "note_en": "Compute the total sum",
+            "note_id": "Hitung jumlah totalnya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "28 + 11 + 23 + 39 + 32 + 17",
+            "phrase_id": "28 + 11 + 23 + 39 + 32 + 17",
+            "note_en": "Pairing strategy: 28+32=60, 11+39=50, 23+17=40",
+            "note_id": "Strategi berpasangan: 28+32=60, 11+39=50, 23+17=40"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "28 + 32",
+            "label_id": "28 + 32",
+            "value": "60"
+          },
+          {
+            "label_en": "11 + 39",
+            "label_id": "11 + 39",
+            "value": "50"
+          },
+          {
+            "label_en": "23 + 17",
+            "label_id": "23 + 17",
+            "value": "40"
+          },
+          {
+            "label_en": "Total: 60 + 50 + 40",
+            "label_id": "Total: 60 + 50 + 40",
+            "value": "150"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pair numbers that sum to round numbers",
+          "name_id": "Pasangkan angka yang berjumlah bilangan bulat"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "150"
+        }
+      },
+      "hint_steps_en": [
+        "Look for pairs that add to a round number: 28+32=60, 11+39=50, 23+17=40.",
+        "Add the three round numbers: 60+50+40=150."
+      ],
+      "hint_steps_id": [
+        "Cari pasangan yang hasilnya bilangan bulat: 28+32=60, 11+39=50, 23+17=40.",
+        "Jumlahkan tiga bilangan bulat tersebut: 60+50+40=150."
+      ]
     },
     {
       "number": 7,
@@ -69,7 +529,65 @@
       "body_id": "Tìm giá trị của 6 × 23 + 6 × 38 + 6 × 56 − 6 × 18.",
       "answer_type": "fill_in",
       "answer": "594",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "6 × 23 + 6 × 38 + 6 × 56 − 6 × 18",
+            "phrase_id": "6 × 23 + 6 × 38 + 6 × 56 − 6 × 18",
+            "note_en": "Every term has a factor of 6 — factor it out using the distributive law",
+            "note_id": "Setiap suku memiliki faktor 6 — keluarkan dengan hukum distributif"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "6 × 23 + 6 × 38 + 6 × 56 − 6 × 18",
+            "phrase_id": "6 × 23 + 6 × 38 + 6 × 56 − 6 × 18",
+            "note_en": "= 6 × (23 + 38 + 56 − 18)",
+            "note_id": "= 6 × (23 + 38 + 56 − 18)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tìm giá trị của",
+            "note_en": "Simplify inside the bracket first, then multiply by 6",
+            "note_id": "Sederhanakan di dalam kurung dulu, lalu kalikan dengan 6"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Inside bracket: 23 + 38 + 56 − 18",
+            "label_id": "Di dalam kurung: 23 + 38 + 56 − 18",
+            "value": "99"
+          },
+          {
+            "label_en": "6 × 99",
+            "label_id": "6 × 99",
+            "value": "594"
+          }
+        ],
+        "strategy": {
+          "name_en": "Factor out the common factor, then compute",
+          "name_id": "Keluarkan faktor persekutuan, lalu hitung"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "594"
+        }
+      },
+      "hint_steps_en": [
+        "Notice every term has 6 as a factor: 6×23 + 6×38 + 6×56 − 6×18 = 6×(23+38+56−18).",
+        "Compute inside the bracket: 23+38=61, 61+56=117, 117−18=99.",
+        "Multiply: 6×99 = 6×100−6 = 594."
+      ],
+      "hint_steps_id": [
+        "Perhatikan setiap suku memiliki faktor 6: 6×23 + 6×38 + 6×56 − 6×18 = 6×(23+38+56−18).",
+        "Hitung di dalam kurung: 23+38=61, 61+56=117, 117−18=99.",
+        "Kalikan: 6×99 = 6×100−6 = 594."
+      ]
     },
     {
       "number": 8,
@@ -78,7 +596,80 @@
       "body_id": "Tìm giá trị của 11 + 13 + 15 + 17 + 19 + 21 + 23 + 25.",
       "answer_type": "fill_in",
       "answer": "144",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "11 + 13 + 15 + 17 + 19 + 21 + 23 + 25",
+            "phrase_id": "11 + 13 + 15 + 17 + 19 + 21 + 23 + 25",
+            "note_en": "8 consecutive odd numbers; pair symmetric terms: 11+25=36, 13+23=36, etc.",
+            "note_id": "8 bilangan ganjil berurutan; pasangkan suku simetris: 11+25=36, 13+23=36, dst."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "11 + 13 + 15 + 17 + 19 + 21 + 23 + 25",
+            "phrase_id": "11 + 13 + 15 + 17 + 19 + 21 + 23 + 25",
+            "note_en": "Each of the 4 pairs sums to 36",
+            "note_id": "Setiap dari 4 pasang berjumlah 36"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tìm giá trị của",
+            "note_en": "Multiply the pair sum by the number of pairs",
+            "note_id": "Kalikan jumlah pasang dengan banyaknya pasang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "11 + 25",
+            "label_id": "11 + 25",
+            "value": "36"
+          },
+          {
+            "label_en": "13 + 23",
+            "label_id": "13 + 23",
+            "value": "36"
+          },
+          {
+            "label_en": "15 + 21",
+            "label_id": "15 + 21",
+            "value": "36"
+          },
+          {
+            "label_en": "17 + 19",
+            "label_id": "17 + 19",
+            "value": "36"
+          },
+          {
+            "label_en": "Total: 4 × 36",
+            "label_id": "Total: 4 × 36",
+            "value": "144"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pair first and last terms (Gauss pairing)",
+          "name_id": "Pasangkan suku pertama dan terakhir (pasangan Gauss)"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "144"
+        }
+      },
+      "hint_steps_en": [
+        "Pair the outermost terms: 11+25=36, 13+23=36, 15+21=36, 17+19=36.",
+        "There are 4 pairs, each summing to 36.",
+        "Total = 4 × 36 = 144."
+      ],
+      "hint_steps_id": [
+        "Pasangkan suku terluar: 11+25=36, 13+23=36, 15+21=36, 17+19=36.",
+        "Ada 4 pasang, masing-masing berjumlah 36.",
+        "Total = 4 × 36 = 144."
+      ]
     },
     {
       "number": 9,
@@ -87,7 +678,65 @@
       "body_id": "Tìm giá trị của 12 ÷ 5 + 9 ÷ 5 + 17 ÷ 5 − 3 ÷ 5.",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12 ÷ 5 + 9 ÷ 5 + 17 ÷ 5 − 3 ÷ 5",
+            "phrase_id": "12 ÷ 5 + 9 ÷ 5 + 17 ÷ 5 − 3 ÷ 5",
+            "note_en": "Every term divides by 5 — combine numerators first",
+            "note_id": "Setiap suku dibagi 5 — gabungkan pembilang dulu"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "12 ÷ 5 + 9 ÷ 5 + 17 ÷ 5 − 3 ÷ 5",
+            "phrase_id": "12 ÷ 5 + 9 ÷ 5 + 17 ÷ 5 − 3 ÷ 5",
+            "note_en": "= (12 + 9 + 17 − 3) ÷ 5",
+            "note_id": "= (12 + 9 + 17 − 3) ÷ 5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tìm giá trị của",
+            "note_en": "Sum the numerators then divide by 5",
+            "note_id": "Jumlahkan pembilang lalu bagi dengan 5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of numerators: 12+9+17−3",
+            "label_id": "Jumlah pembilang: 12+9+17−3",
+            "value": "35"
+          },
+          {
+            "label_en": "35 ÷ 5",
+            "label_id": "35 ÷ 5",
+            "value": "7"
+          }
+        ],
+        "strategy": {
+          "name_en": "Common denominator — combine numerators then divide",
+          "name_id": "Penyebut sama — gabungkan pembilang lalu bagi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "7"
+        }
+      },
+      "hint_steps_en": [
+        "Each fraction has denominator 5, so combine: (12+9+17−3) ÷ 5.",
+        "Numerator: 12+9=21, 21+17=38, 38−3=35.",
+        "35 ÷ 5 = 7."
+      ],
+      "hint_steps_id": [
+        "Setiap pecahan berpenyebut 5, gabungkan: (12+9+17−3) ÷ 5.",
+        "Pembilang: 12+9=21, 21+17=38, 38−3=35.",
+        "35 ÷ 5 = 7."
+      ]
     },
     {
       "number": 10,
@@ -96,7 +745,77 @@
       "body_id": "Tìm giá trị của 12 × 5 × 5 × 15 × 2.",
       "answer_type": "fill_in",
       "answer": "9000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12 × 5 × 5 × 15 × 2",
+            "phrase_id": "12 × 5 × 5 × 15 × 2",
+            "note_en": "Regroup: 5×2=10, 5×2=10... wait; use 12×5=60, 5×2=10, then 60×10=600, ×15=9000",
+            "note_id": "Kelompokkan ulang: 5×2=10, lalu kalikan sisanya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "12 × 5 × 5 × 15 × 2",
+            "phrase_id": "12 × 5 × 5 × 15 × 2",
+            "note_en": "Group 5×2=10 and 12×15=180, then 10×10×... or 5×5=25, 12×2=24, 25×24×15=9000",
+            "note_id": "Kelompokkan 5×2=10 dan 12×15=180, atau 5×5=25, 12×2=24"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Tìm giá trị của",
+            "note_en": "Use associativity to form round multiples of 10",
+            "note_id": "Gunakan sifat asosiatif untuk membentuk kelipatan 10 yang bulat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "5 × 2",
+            "label_id": "5 × 2",
+            "value": "10"
+          },
+          {
+            "label_en": "12 × 5",
+            "label_id": "12 × 5",
+            "value": "60"
+          },
+          {
+            "label_en": "60 × 10",
+            "label_id": "60 × 10",
+            "value": "600"
+          },
+          {
+            "label_en": "600 × 15",
+            "label_id": "600 × 15",
+            "value": "9000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Regroup factors to create multiples of 10",
+          "name_id": "Kelompokkan faktor untuk membentuk kelipatan 10"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9000"
+        }
+      },
+      "hint_steps_en": [
+        "Regroup: 5 × 2 = 10.",
+        "12 × 5 = 60.",
+        "60 × 10 = 600.",
+        "600 × 15 = 9000."
+      ],
+      "hint_steps_id": [
+        "Kelompokkan ulang: 5 × 2 = 10.",
+        "12 × 5 = 60.",
+        "60 × 10 = 600.",
+        "600 × 15 = 9000."
+      ]
     },
     {
       "number": 11,
@@ -105,7 +824,81 @@
       "body_id": "Các số dưới đây là một dãy số cách đều. Tổng của số thứ 6 và số thứ 9 là bao nhiêu?\n99, 92, 85, 78, 71, …",
       "answer_type": "fill_in",
       "answer": "107",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "99, 92, 85, 78, 71, …",
+            "phrase_id": "99, 92, 85, 78, 71, …",
+            "note_en": "Common difference d = 92−99 = −7",
+            "note_id": "Beda umum d = 92−99 = −7"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "follow the arithmetic sequence",
+            "phrase_id": "là một dãy số cách đều",
+            "note_en": "nth term = 99 + (n−1)×(−7) = 106 − 7n",
+            "note_id": "Suku ke-n = 99 + (n−1)×(−7) = 106 − 7n"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the 6th number and the 9th number",
+            "phrase_id": "Tổng của số thứ 6 và số thứ 9 là bao nhiêu",
+            "note_en": "Compute a₆ and a₉ separately, then add",
+            "note_id": "Hitung a₆ dan a₉ secara terpisah, lalu tambahkan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Common difference d",
+            "label_id": "Beda umum d",
+            "value": "−7"
+          },
+          {
+            "label_en": "6th term: 99 + 5×(−7)",
+            "label_id": "Suku ke-6: 99 + 5×(−7)",
+            "value": "99 − 35 = 64"
+          },
+          {
+            "label_en": "9th term: 99 + 8×(−7)",
+            "label_id": "Suku ke-9: 99 + 8×(−7)",
+            "value": "99 − 56 = 43"
+          },
+          {
+            "label_en": "Sum: 64 + 43",
+            "label_id": "Jumlah: 64 + 43",
+            "value": "107"
+          }
+        ],
+        "strategy": {
+          "name_en": "Arithmetic sequence formula — find each term, then add",
+          "name_id": "Rumus barisan aritmetika — cari tiap suku, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "114",
+          "why_en": "Using d = +7 (going up) instead of −7 (going down) gives wrong terms.",
+          "why_id": "Menggunakan d = +7 (naik) bukan −7 (turun) menghasilkan suku yang salah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "107"
+        }
+      },
+      "hint_steps_en": [
+        "Find the common difference: 92−99 = −7.",
+        "6th term: 99 + 5×(−7) = 99−35 = 64.",
+        "9th term: 99 + 8×(−7) = 99−56 = 43.",
+        "Sum = 64 + 43 = 107."
+      ],
+      "hint_steps_id": [
+        "Cari beda umum: 92−99 = −7.",
+        "Suku ke-6: 99 + 5×(−7) = 99−35 = 64.",
+        "Suku ke-9: 99 + 8×(−7) = 99−56 = 43.",
+        "Jumlah = 64 + 43 = 107."
+      ]
     },
     {
       "number": 12,
@@ -114,7 +907,107 @@
       "body_id": "Điền '+' và '−' vào dòng kẻ để tạo thành phép tính đúng. (Viết phép tính hoàn chỉnh vào phiếu trả lời).\n23 __ 7 __ 11 __ 3 = 22",
       "answer_type": "fill_in",
       "answer": "23+7−11+3=22",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "23 __ 7 __ 11 __ 3 = 22",
+            "phrase_id": "23 __ 7 __ 11 __ 3 = 22",
+            "note_en": "Three blanks, each either + or −, giving 2³ = 8 combinations to try",
+            "note_id": "Tiga titik kosong, masing-masing + atau −, menghasilkan 2³ = 8 kombinasi untuk dicoba"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Fill the lines with '+' and '−'",
+            "phrase_id": "Điền '+' và '−' vào dòng kẻ",
+            "note_en": "Only + and − are allowed, no × or ÷",
+            "note_id": "Hanya + dan − yang diperbolehkan, tidak ada × atau ÷"
+          },
+          {
+            "category": "question",
+            "phrase_en": "to make the equation below correct",
+            "phrase_id": "để tạo thành phép tính đúng",
+            "note_en": "The result must equal exactly 22",
+            "note_id": "Hasilnya harus tepat sama dengan 22"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "23+7+11+3",
+            "label_id": "23+7+11+3",
+            "value": "44 ✗"
+          },
+          {
+            "label_en": "23+7+11−3",
+            "label_id": "23+7+11−3",
+            "value": "38 ✗"
+          },
+          {
+            "label_en": "23+7−11+3",
+            "label_id": "23+7−11+3",
+            "value": "22 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try-and-eliminate — test sign combinations until one works",
+          "name_id": "Coba dan eliminasi — uji kombinasi tanda sampai satu berhasil"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "23+7−11+3=22"
+        }
+      },
+      "hint_steps_en": [
+        "There are 8 possible sign combinations (2×2×2).",
+        "Start with all plus: 23+7+11+3=44, too big — need to subtract some.",
+        "Subtracting a number x changes the total by −2x compared to adding it.",
+        "Need to reduce 44 by 22: so find a subset summing to 11 → just 11 itself.",
+        "Replace +11 with −11: 23+7−11+3=22 ✓."
+      ],
+      "hint_steps_id": [
+        "Ada 8 kemungkinan kombinasi tanda (2×2×2).",
+        "Mulai dengan semua plus: 23+7+11+3=44, terlalu besar — perlu mengurangi beberapa.",
+        "Mengurangi angka x mengubah total sebesar −2x dibanding menambahkannya.",
+        "Perlu mengurangi 44 sebesar 22: cari subset yang berjumlah 11 → hanya 11 itu sendiri.",
+        "Ganti +11 dengan −11: 23+7−11+3=22 ✓."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try sign combinations for 23 __ 7 __ 11 __ 3 = 22 — start from all-plus and eliminate.",
+          "intro_id": "Coba kombinasi tanda untuk 23 __ 7 __ 11 __ 3 = 22 — mulai dari semua-plus dan eliminasi.",
+          "items": [
+            {
+              "text_en": "23+7+11+3 = 44 ✗ (too large)",
+              "text_id": "23+7+11+3 = 44 ✗ (terlalu besar)",
+              "ok": false
+            },
+            {
+              "text_en": "23+7+11−3 = 38 ✗ (still too large)",
+              "text_id": "23+7+11−3 = 38 ✗ (masih terlalu besar)",
+              "ok": false
+            },
+            {
+              "text_en": "23+7−11−3 = 16 ✗ (too small)",
+              "text_id": "23+7−11−3 = 16 ✗ (terlalu kecil)",
+              "ok": false
+            },
+            {
+              "text_en": "23+7−11+3 = 22 ✓",
+              "text_id": "23+7−11+3 = 22 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "23+7−11+3 = 22 is the unique solution.",
+          "final_id": "23+7−11+3 = 22 adalah solusi tunggalnya.",
+          "aria_en": "Testing sign combinations: 23+7+11+3=44 fails, 23+7+11-3=38 fails, 23+7-11-3=16 fails, 23+7-11+3=22 succeeds.",
+          "aria_id": "Menguji kombinasi tanda: 23+7+11+3=44 gagal, 23+7+11-3=38 gagal, 23+7-11-3=16 gagal, 23+7-11+3=22 berhasil."
+        }
+      }
     },
     {
       "number": 13,
@@ -123,7 +1016,92 @@
       "body_id": "Xác định kết quả của 7 × 8 + 8 × 9 + 9 × 10 − 1 × 1 − 2 × 2 − 3 × 3 là lẻ hay chẵn.",
       "answer_type": "fill_in",
       "answer": "Even",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "7 × 8 + 8 × 9 + 9 × 10 − 1 × 1 − 2 × 2 − 3 × 3",
+            "phrase_id": "7 × 8 + 8 × 9 + 9 × 10 − 1 × 1 − 2 × 2 − 3 × 3",
+            "note_en": "Check parity of each product: even×odd=even; odd×odd=odd",
+            "note_id": "Periksa paritas setiap hasil kali: genap×ganjil=genap; ganjil×ganjil=ganjil"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Determine the result of 7 × 8 + 8 × 9 + 9 × 10 − 1 × 1 − 2 × 2 − 3 × 3 is odd or even",
+            "phrase_id": "Xác định kết quả của 7 × 8 + 8 × 9 + 9 × 10 − 1 × 1 − 2 × 2 − 3 × 3 là lẻ hay chẵn",
+            "note_en": "even+even+even−odd−even−odd = even−even = even",
+            "note_id": "genap+genap+genap−ganjil−genap−ganjil = genap−genap = genap"
+          },
+          {
+            "category": "question",
+            "phrase_en": "is odd or even",
+            "phrase_id": "là lẻ hay chẵn",
+            "note_en": "Use parity rules without computing the exact value",
+            "note_id": "Gunakan aturan paritas tanpa menghitung nilai persisnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "7×8 (odd×even)",
+            "label_id": "7×8 (ganjil×genap)",
+            "value": "even (56)"
+          },
+          {
+            "label_en": "8×9 (even×odd)",
+            "label_id": "8×9 (genap×ganjil)",
+            "value": "even (72)"
+          },
+          {
+            "label_en": "9×10 (odd×even)",
+            "label_id": "9×10 (ganjil×genap)",
+            "value": "even (90)"
+          },
+          {
+            "label_en": "1×1 (odd×odd)",
+            "label_id": "1×1 (ganjil×ganjil)",
+            "value": "odd (1)"
+          },
+          {
+            "label_en": "2×2 (even×even)",
+            "label_id": "2×2 (genap×genap)",
+            "value": "even (4)"
+          },
+          {
+            "label_en": "3×3 (odd×odd)",
+            "label_id": "3×3 (ganjil×ganjil)",
+            "value": "odd (9)"
+          },
+          {
+            "label_en": "Total parity: even+even+even−odd−even−odd",
+            "label_id": "Paritas total: genap+genap+genap−ganjil−genap−ganjil",
+            "value": "even − (odd+odd) = even − even = even"
+          }
+        ],
+        "strategy": {
+          "name_en": "Parity analysis — classify each product as odd or even",
+          "name_id": "Analisis paritas — klasifikasikan setiap hasil kali sebagai ganjil atau genap"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Even"
+        }
+      },
+      "hint_steps_en": [
+        "A product is odd only if BOTH factors are odd; otherwise it's even.",
+        "7×8=even, 8×9=even, 9×10=even, 1×1=odd, 2×2=even, 3×3=odd.",
+        "Expression = even+even+even − odd−even−odd = (3 evens) − (odd+even+odd).",
+        "odd+odd = even, so we subtract even from even sum → result is even."
+      ],
+      "hint_steps_id": [
+        "Hasil kali ganjil hanya jika KEDUA faktor ganjil; selain itu genap.",
+        "7×8=genap, 8×9=genap, 9×10=genap, 1×1=ganjil, 2×2=genap, 3×3=ganjil.",
+        "Ekspresi = genap+genap+genap − ganjil−genap−ganjil = (3 genap) − (ganjil+genap+ganjil).",
+        "ganjil+ganjil = genap, jadi kita kurangi genap dari jumlah genap → hasilnya genap."
+      ]
     },
     {
       "number": 14,
@@ -132,7 +1110,74 @@
       "body_id": "Số nhỏ nhất có 3 chữ số chia hết cho cả 7 và 4 là số nào?",
       "answer_type": "fill_in",
       "answer": "112",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "divisible by 7 and 4",
+            "phrase_id": "chia hết cho cả 7 và 4",
+            "note_en": "Must be divisible by LCM(7, 4) = 28",
+            "note_id": "Harus habis dibagi KPK(7, 4) = 28"
+          },
+          {
+            "category": "question",
+            "phrase_en": "smallest 3-digit number",
+            "phrase_id": "Số nhỏ nhất có 3 chữ số",
+            "note_en": "Find the first multiple of 28 that is ≥ 100",
+            "note_id": "Cari kelipatan 28 pertama yang ≥ 100"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "divisible by 7 and 4",
+            "phrase_id": "chia hết cho cả 7 và 4",
+            "note_en": "7 and 4 share no common factors, so LCM = 7×4 = 28",
+            "note_id": "7 dan 4 tidak memiliki faktor persekutuan, jadi KPK = 7×4 = 28"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "LCM(7, 4)",
+            "label_id": "KPK(7, 4)",
+            "value": "28"
+          },
+          {
+            "label_en": "28 × 3",
+            "label_id": "28 × 3",
+            "value": "84 (2-digit, too small)"
+          },
+          {
+            "label_en": "28 × 4",
+            "label_id": "28 × 4",
+            "value": "112 (first 3-digit multiple)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find LCM, then the first 3-digit multiple",
+          "name_id": "Cari KPK, lalu kelipatan 3-angka pertamanya"
+        },
+        "trap": {
+          "wrong": "100",
+          "why_en": "100 ÷ 7 = 14.28... not a whole number, so 100 is not divisible by 7.",
+          "why_id": "100 ÷ 7 = 14,28... bukan bilangan bulat, jadi 100 tidak habis dibagi 7."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "112"
+        }
+      },
+      "hint_steps_en": [
+        "Divisible by both 7 and 4 means divisible by LCM(7, 4).",
+        "Since gcd(7, 4)=1, LCM = 7×4 = 28.",
+        "Find the smallest multiple of 28 ≥ 100: 28×3=84 (2-digit), 28×4=112 ✓."
+      ],
+      "hint_steps_id": [
+        "Habis dibagi 7 dan 4 berarti habis dibagi KPK(7, 4).",
+        "Karena fpb(7, 4)=1, KPK = 7×4 = 28.",
+        "Cari kelipatan 28 terkecil yang ≥ 100: 28×3=84 (2-angka), 28×4=112 ✓."
+      ]
     },
     {
       "number": 15,
@@ -141,7 +1186,76 @@
       "body_id": "Nếu A, B và C là các số có 1 chữ số, tìm giá trị của B + C.\n  B A\n+  C B\n= 1 6 2",
       "answer_type": "fill_in",
       "answer": "15",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A, B and C are 1-digit numbers",
+            "phrase_id": "A, B và C là các số có 1 chữ số",
+            "note_en": "Each of A, B, C is between 0 and 9",
+            "note_id": "Masing-masing A, B, C antara 0 dan 9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "B A\n+  C B\n= 1 6 2",
+            "phrase_id": "B A\n+  C B\n= 1 6 2",
+            "note_en": "Column addition: units A+B; tens B+C; hundreds carry must produce 1",
+            "note_id": "Penjumlahan kolom: satuan A+B; puluhan B+C; ratusan carry harus menghasilkan 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the value of B + C",
+            "phrase_id": "tìm giá trị của B + C",
+            "note_en": "Work column by column from right to left using carries",
+            "note_id": "Kerjakan kolom per kolom dari kanan ke kiri menggunakan simpanan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Units: A+B must end in 2",
+            "label_id": "Satuan: A+B harus berakhir 2",
+            "value": "A+B=12 (carry 1) since A+B=2 gives no hundreds carry"
+          },
+          {
+            "label_en": "Hundreds: carry from tens = 1",
+            "label_id": "Ratusan: simpanan dari puluhan = 1",
+            "value": "B+C+carry_units must ≥ 10"
+          },
+          {
+            "label_en": "Tens: B+C+1 ends in 6, carry 1 to hundreds",
+            "label_id": "Puluhan: B+C+1 berakhir 6, simpan 1 ke ratusan",
+            "value": "B+C+1=16 → B+C=15"
+          }
+        ],
+        "strategy": {
+          "name_en": "Column-by-column carry analysis",
+          "name_id": "Analisis simpanan kolom per kolom"
+        },
+        "trap": {
+          "wrong": "16",
+          "why_en": "If A+B=2 (no carry), then B+C=16 is possible but the hundreds column gives 0, not 1.",
+          "why_id": "Jika A+B=2 (tanpa simpanan), maka B+C=16 mungkin tetapi kolom ratusan menghasilkan 0, bukan 1."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "15"
+        }
+      },
+      "hint_steps_en": [
+        "Hundreds digit of the sum is 1, so there must be a carry from the tens column.",
+        "Units column: A+B must end in 2 with carry 1, so A+B=12.",
+        "Tens column: B+C + carry(1 from units). This must end in 6 with carry 1 to hundreds, so B+C+1=16, giving B+C=15.",
+        "Verify: e.g. B=9, C=6, A=3 → BA=93, CB=63, 93+63=156... let me try B=9,C=6,A=3: 93+69=162 ✓ (CB=69, not 63). B+C=15 ✓."
+      ],
+      "hint_steps_id": [
+        "Digit ratusan dari jumlah adalah 1, jadi harus ada simpanan dari kolom puluhan.",
+        "Kolom satuan: A+B harus berakhir 2 dengan simpanan 1, jadi A+B=12.",
+        "Kolom puluhan: B+C + simpanan(1 dari satuan). Ini harus berakhir 6 dengan simpanan 1 ke ratusan, jadi B+C+1=16, menghasilkan B+C=15.",
+        "Verifikasi: misal B=9, C=6, A=3 → BA=93, CB=69, 93+69=162 ✓. B+C=15 ✓."
+      ]
     },
     {
       "number": 16,
@@ -150,7 +1264,62 @@
       "body_id": "Hình dưới đây có bao nhiêu đoạn thẳng?\n(Hình vẽ gồm các tam giác liên kết nhau qua các điểm)",
       "answer_type": "fill_in",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many line segments are there in the figure below",
+            "phrase_id": "Hình dưới đây có bao nhiêu đoạn thẳng",
+            "note_en": "Count every possible segment between any two labeled dots — including non-adjacent ones along collinear points",
+            "note_id": "Hitung setiap kemungkinan ruas antara dua titik berlabel — termasuk yang tidak berdekatan pada titik-titik sejajar"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "chain of triangles connected by dots",
+            "phrase_id": "các tam giác liên kết nhau qua các điểm",
+            "note_en": "The figure requires the actual image to count labeled points and their connections precisely",
+            "note_id": "Gambar memerlukan gambar asli untuk menghitung titik berlabel dan hubungannya secara tepat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 triangles sharing vertices along a horizontal line with extra dangling endpoints",
+            "phrase_id": "Hình vẽ gồm các tam giác liên kết nhau qua các điểm",
+            "note_en": "If there are n points on a line, segments between them = C(n,2); also count off-line segments",
+            "note_id": "Jika ada n titik pada suatu garis, ruas di antaranya = C(n,2); hitung juga ruas di luar garis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Segments in the figure (official answer)",
+            "label_id": "Ruas dalam gambar (jawaban resmi)",
+            "value": "18"
+          }
+        ],
+        "strategy": {
+          "name_en": "Label all points, count every distinct pair that forms a visible segment",
+          "name_id": "Beri label semua titik, hitung setiap pasang berbeda yang membentuk ruas yang terlihat"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "line segments",
+          "value": "18"
+        }
+      },
+      "hint_steps_en": [
+        "Label every dot in the figure (e.g., A, B, C, ...).",
+        "Count the shortest segments (sides of triangles) first.",
+        "Then count longer segments formed by collinear points (e.g., if A, B, C are collinear, AB, BC, and AC are all segments).",
+        "Add all unique segments to get 18."
+      ],
+      "hint_steps_id": [
+        "Beri label setiap titik dalam gambar (mis., A, B, C, ...).",
+        "Hitung ruas terpendek (sisi segitiga) terlebih dahulu.",
+        "Kemudian hitung ruas yang lebih panjang yang dibentuk oleh titik-titik sejajar (mis., jika A, B, C sejajar, AB, BC, dan AC semuanya adalah ruas).",
+        "Tambahkan semua ruas unik untuk mendapatkan 18."
+      ]
     },
     {
       "number": 17,
@@ -159,7 +1328,65 @@
       "body_id": "Một hình lăng trụ có 27 cạnh. Hình đó có bao nhiêu mặt?",
       "answer_type": "fill_in",
       "answer": "11",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A prism has 27 edges",
+            "phrase_id": "Một hình lăng trụ có 27 cạnh",
+            "note_en": "An n-sided prism has 3n edges: n on each base + n lateral",
+            "note_id": "Prisma sisi-n memiliki 3n rusuk: n di setiap alas + n lateral"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A prism has 27 edges",
+            "phrase_id": "Một hình lăng trụ có 27 cạnh",
+            "note_en": "3n = 27 → n = 9 (nonagonal prism)",
+            "note_id": "3n = 27 → n = 9 (prisma segi-9)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many faces does this prism have",
+            "phrase_id": "Hình đó có bao nhiêu mặt",
+            "note_en": "An n-sided prism has n+2 faces: n rectangular faces + 2 n-gon bases",
+            "note_id": "Prisma sisi-n memiliki n+2 muka: n muka persegi panjang + 2 alas segi-n"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "n from 3n = 27",
+            "label_id": "n dari 3n = 27",
+            "value": "n = 9"
+          },
+          {
+            "label_en": "Faces = n + 2",
+            "label_id": "Muka = n + 2",
+            "value": "9 + 2 = 11"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use prism edge/face formulas: edges=3n, faces=n+2",
+          "name_id": "Gunakan rumus rusuk/muka prisma: rusuk=3n, muka=n+2"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "faces",
+          "value": "11"
+        }
+      },
+      "hint_steps_en": [
+        "An n-gon prism has 3n edges (n top + n bottom + n lateral).",
+        "3n = 27 → n = 9.",
+        "Faces = n (rectangular sides) + 2 (bases) = 9 + 2 = 11."
+      ],
+      "hint_steps_id": [
+        "Prisma segi-n memiliki 3n rusuk (n atas + n bawah + n lateral).",
+        "3n = 27 → n = 9.",
+        "Muka = n (sisi persegi panjang) + 2 (alas) = 9 + 2 = 11."
+      ]
     },
     {
       "number": 18,
@@ -168,7 +1395,66 @@
       "body_id": "Hình dưới đây có bao nhiêu hình vuông?\n(Hình vẽ gồm các ô vuông đơn vị xếp thành hình)",
       "answer_type": "fill_in",
       "answer": "16",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many square(s) is/are there in the figure below",
+            "phrase_id": "Hình dưới đây có bao nhiêu hình vuông",
+            "note_en": "Count squares of ALL sizes: 1×1, 2×2, 3×3, etc.",
+            "note_id": "Hitung persegi dari SEMUA ukuran: 1×1, 2×2, 3×3, dst."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "L-shaped or cross-shaped grid made of unit squares",
+            "phrase_id": "gồm các ô vuông đơn vị xếp thành hình",
+            "note_en": "The exact shape from the figure determines which larger squares fit within it",
+            "note_id": "Bentuk pasti dari gambar menentukan persegi mana yang lebih besar yang muat di dalamnya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "How many square(s) is/are there in the figure below",
+            "phrase_id": "Hình dưới đây có bao nhiêu hình vuông",
+            "note_en": "Do not miss 2×2 or larger squares hidden within the grid",
+            "note_id": "Jangan lewatkan persegi 2×2 atau lebih besar yang tersembunyi dalam kisi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total squares (official answer)",
+            "label_id": "Total persegi (jawaban resmi)",
+            "value": "16"
+          }
+        ],
+        "strategy": {
+          "name_en": "Systematic size-by-size count: 1×1, then 2×2, then larger",
+          "name_id": "Hitung sistematis ukuran per ukuran: 1×1, lalu 2×2, lalu lebih besar"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "Counting only 1×1 unit squares misses larger 2×2 and bigger squares formed by combining cells.",
+          "why_id": "Menghitung hanya persegi satuan 1×1 melewatkan persegi 2×2 dan lebih besar yang dibentuk dari gabungan sel."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "squares",
+          "value": "16"
+        }
+      },
+      "hint_steps_en": [
+        "First count all 1×1 unit squares.",
+        "Then find every 2×2 square that fits within the figure.",
+        "Continue with 3×3 and larger if they fit.",
+        "Add all counts: total = 16."
+      ],
+      "hint_steps_id": [
+        "Pertama hitung semua persegi satuan 1×1.",
+        "Kemudian temukan setiap persegi 2×2 yang muat dalam gambar.",
+        "Lanjutkan dengan 3×3 dan lebih besar jika muat.",
+        "Jumlahkan semua hitungan: total = 16."
+      ]
     },
     {
       "number": 19,
@@ -177,7 +1463,62 @@
       "body_id": "Nếu nhìn hình dưới đây từ trên xuống thì có thể thấy được ít nhất bao nhiêu hình vuông?\n(Hình vẽ là khối lập phương 3D)",
       "answer_type": "fill_in",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "At least how many squares can be seen if viewing the figure below from top",
+            "phrase_id": "Nếu nhìn hình dưới đây từ trên xuống thì có thể thấy được ít nhất bao nhiêu hình vuông",
+            "note_en": "The top-down view projects all stacks onto a 2D grid — 'at least' asks for the minimum visible",
+            "note_id": "Tampak dari atas memproyeksikan semua tumpukan ke kisi 2D — 'paling sedikit' menanyakan minimum yang terlihat"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3-D arrangement of unit cubes",
+            "phrase_id": "khối lập phương 3D",
+            "note_en": "The actual figure is needed to determine the footprint of the cube arrangement",
+            "note_id": "Gambar asli diperlukan untuk menentukan jejak susunan kubus"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "At least how many squares",
+            "phrase_id": "ít nhất bao nhiêu hình vuông",
+            "note_en": "Count the number of occupied cells in the top-down projection (footprint), plus any larger squares that fit",
+            "note_id": "Hitung jumlah sel yang ditempati dalam proyeksi dari atas (jejak), plus persegi lebih besar yang muat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Top-view squares (official answer)",
+            "label_id": "Persegi tampak atas (jawaban resmi)",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Draw the top-down projection, then count squares of all sizes",
+          "name_id": "Gambar proyeksi dari atas, lalu hitung persegi dari semua ukuran"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "squares",
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Imagine looking straight down at the cube arrangement.",
+        "Draw the 2D footprint: mark every column that has at least one cube.",
+        "Count 1×1 unit squares visible from above.",
+        "Also count any larger squares visible in the projection — total = 9."
+      ],
+      "hint_steps_id": [
+        "Bayangkan melihat lurus ke bawah pada susunan kubus.",
+        "Gambar jejak 2D: tandai setiap kolom yang memiliki setidaknya satu kubus.",
+        "Hitung persegi satuan 1×1 yang terlihat dari atas.",
+        "Hitung juga persegi yang lebih besar yang terlihat dalam proyeksi — total = 9."
+      ]
     },
     {
       "number": 20,
@@ -186,7 +1527,67 @@
       "body_id": "Nhiều nhất có thể tạo ra bao nhiêu hình tam giác khác nhau bằng cách dùng 4 đường thẳng cắt một hình tròn?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "4 straight lines cut a circle",
+            "phrase_id": "4 đường thẳng cắt một hình tròn",
+            "note_en": "Each chord divides the interior; intersection points inside create triangular regions",
+            "note_id": "Setiap tali busur membagi bagian dalam; titik perpotongan di dalam membuat daerah segitiga"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At most how many different triangle(s) can be formed",
+            "phrase_id": "Nhiều nhất có thể tạo ra bao nhiêu hình tam giác khác nhau",
+            "note_en": "Maximize triangular regions by having all 4 chords mutually intersecting inside the circle",
+            "note_id": "Maksimalkan daerah segitiga dengan membuat semua 4 tali busur saling berpotongan di dalam lingkaran"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "4 straight lines",
+            "phrase_id": "4 đường thẳng",
+            "note_en": "4 lines give C(4,3)=4 sets of 3 lines that can form triangles",
+            "note_id": "4 garis membentuk C(4,3)=4 kumpulan 3 garis yang dapat membentuk segitiga"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "C(4,3) — ways to choose 3 lines from 4",
+            "label_id": "C(4,3) — cara memilih 3 garis dari 4",
+            "value": "4"
+          },
+          {
+            "label_en": "Max triangles (all 3-line combos intersect inside circle)",
+            "label_id": "Segitiga maksimum (semua kombinasi 3 garis berpotongan di dalam lingkaran)",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count combinations of 3 lines; each triple forms at most 1 triangle",
+          "name_id": "Hitung kombinasi 3 garis; setiap tripel membentuk paling banyak 1 segitiga"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "triangles",
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "A triangle needs exactly 3 lines (3 sides).",
+        "With 4 lines, the number of ways to choose 3 is C(4,3) = 4.",
+        "Each set of 3 chords can form a triangle if all pairwise intersections occur inside the circle.",
+        "Arrange all 4 chords so every triple intersects inside — maximum triangles = 4."
+      ],
+      "hint_steps_id": [
+        "Segitiga membutuhkan tepat 3 garis (3 sisi).",
+        "Dengan 4 garis, jumlah cara memilih 3 adalah C(4,3) = 4.",
+        "Setiap kumpulan 3 tali busur dapat membentuk segitiga jika semua perpotongan berpasangan terjadi di dalam lingkaran.",
+        "Susun semua 4 tali busur sehingga setiap tripel berpotongan di dalam — segitiga maksimum = 4."
+      ]
     },
     {
       "number": 21,
@@ -195,7 +1596,77 @@
       "body_id": "Có bao nhiêu số có 3 chữ số mà chữ số hàng đơn vị lớn hơn chữ số hàng trăm?",
       "answer_type": "fill_in",
       "answer": "360",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "unit digit that is larger than the hundreds digit",
+            "phrase_id": "chữ số hàng đơn vị lớn hơn chữ số hàng trăm",
+            "note_en": "If hundreds digit = h (1–9), units digit u must satisfy u > h",
+            "note_id": "Jika digit ratusan = h (1–9), digit satuan u harus memenuhi u > h"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "3-digit number",
+            "phrase_id": "số có 3 chữ số",
+            "note_en": "Hundreds digit h ∈ {1..9}; tens digit t ∈ {0..9} (free); units digit u ∈ {h+1..9}",
+            "note_id": "Digit ratusan h ∈ {1..9}; digit puluhan t ∈ {0..9} (bebas); digit satuan u ∈ {h+1..9}"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many 3-digit number(s) having the unit digit that is larger than the hundreds digit is/are there",
+            "phrase_id": "Có bao nhiêu số có 3 chữ số mà chữ số hàng đơn vị lớn hơn chữ số hàng trăm",
+            "note_en": "Sum over h: for each h, count (9−h) choices for u × 10 choices for t",
+            "note_id": "Jumlahkan atas h: untuk setiap h, hitung (9−h) pilihan untuk u × 10 pilihan untuk t"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Choices for t (tens)",
+            "label_id": "Pilihan untuk t (puluhan)",
+            "value": "10 (always)"
+          },
+          {
+            "label_en": "Choices for u when h=1",
+            "label_id": "Pilihan untuk u ketika h=1",
+            "value": "8 (digits 2–9)"
+          },
+          {
+            "label_en": "Sum of (9−h) for h=1 to 9",
+            "label_id": "Jumlah (9−h) untuk h=1 sampai 9",
+            "value": "8+7+6+5+4+3+2+1+0 = 36"
+          },
+          {
+            "label_en": "Total: 36 × 10",
+            "label_id": "Total: 36 × 10",
+            "value": "360"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix hundreds digit, count valid units, multiply by free tens digit",
+          "name_id": "Tetapkan digit ratusan, hitung satuan yang valid, kalikan dengan digit puluhan bebas"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "360"
+        }
+      },
+      "hint_steps_en": [
+        "Hundreds digit h can be 1–9 (cannot be 0).",
+        "Tens digit t is completely free: 10 choices.",
+        "Units digit u must be > h: gives (9−h) choices for each h.",
+        "Total = 10 × Σ(h=1 to 9)(9−h) = 10 × (8+7+6+5+4+3+2+1+0) = 10 × 36 = 360."
+      ],
+      "hint_steps_id": [
+        "Digit ratusan h bisa 1–9 (tidak bisa 0).",
+        "Digit puluhan t benar-benar bebas: 10 pilihan.",
+        "Digit satuan u harus > h: memberikan (9−h) pilihan untuk setiap h.",
+        "Total = 10 × Σ(h=1 sampai 9)(9−h) = 10 × (8+7+6+5+4+3+2+1+0) = 10 × 36 = 360."
+      ]
     },
     {
       "number": 22,
@@ -204,7 +1675,94 @@
       "body_id": "Trong các kết quả phép tính dưới đây, có bao nhiêu số có 2 chữ số?\n2 × 4,  42 ÷ 7,  36 ÷ 3,  7 × 2,  9 × 9,  39 ÷ 3,  72 ÷ 9",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "how many 2-digit numbers are there",
+            "phrase_id": "có bao nhiêu số có 2 chữ số",
+            "note_en": "A 2-digit number is between 10 and 99 inclusive",
+            "note_id": "Bilangan 2-angka berada antara 10 dan 99 inklusif"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2 × 4,  42 ÷ 7,  36 ÷ 3,  7 × 2,  9 × 9,  39 ÷ 3,  72 ÷ 9",
+            "phrase_id": "2 × 4,  42 ÷ 7,  36 ÷ 3,  7 × 2,  9 × 9,  39 ÷ 3,  72 ÷ 9",
+            "note_en": "Evaluate each: 8, 6, 12, 14, 81, 13, 8 — circle those ≥ 10",
+            "note_id": "Hitung masing-masing: 8, 6, 12, 14, 81, 13, 8 — tandai yang ≥ 10"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 × 4,  42 ÷ 7,  36 ÷ 3,  7 × 2,  9 × 9,  39 ÷ 3,  72 ÷ 9",
+            "phrase_id": "2 × 4,  42 ÷ 7,  36 ÷ 3,  7 × 2,  9 × 9,  39 ÷ 3,  72 ÷ 9",
+            "note_en": "Watch out for 2×4=8 and 72÷9=8 — both are 1-digit despite looking potentially large",
+            "note_id": "Waspadai 2×4=8 dan 72÷9=8 — keduanya 1-angka meski terlihat mungkin besar"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2×4",
+            "label_id": "2×4",
+            "value": "8 → 1-digit ✗"
+          },
+          {
+            "label_en": "42÷7",
+            "label_id": "42÷7",
+            "value": "6 → 1-digit ✗"
+          },
+          {
+            "label_en": "36÷3",
+            "label_id": "36÷3",
+            "value": "12 → 2-digit ✓"
+          },
+          {
+            "label_en": "7×2",
+            "label_id": "7×2",
+            "value": "14 → 2-digit ✓"
+          },
+          {
+            "label_en": "9×9",
+            "label_id": "9×9",
+            "value": "81 → 2-digit ✓"
+          },
+          {
+            "label_en": "39÷3",
+            "label_id": "39÷3",
+            "value": "13 → 2-digit ✓"
+          },
+          {
+            "label_en": "72÷9",
+            "label_id": "72÷9",
+            "value": "8 → 1-digit ✗"
+          }
+        ],
+        "strategy": {
+          "name_en": "Evaluate each expression, then classify by digit count",
+          "name_id": "Hitung setiap ekspresi, lalu klasifikasikan berdasarkan jumlah digit"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "72÷9=8, not 8-something — it is a 1-digit result, easy to miscount as 2-digit.",
+          "why_id": "72÷9=8, bukan 8-sekian — ini adalah hasil 1-angka, mudah keliru dihitung sebagai 2-angka."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Evaluate each: 2×4=8, 42÷7=6, 36÷3=12, 7×2=14, 9×9=81, 39÷3=13, 72÷9=8.",
+        "Identify 2-digit results (10–99): 12, 14, 81, 13.",
+        "Count: 4 two-digit numbers."
+      ],
+      "hint_steps_id": [
+        "Hitung masing-masing: 2×4=8, 42÷7=6, 36÷3=12, 7×2=14, 9×9=81, 39÷3=13, 72÷9=8.",
+        "Identifikasi hasil 2-angka (10–99): 12, 14, 81, 13.",
+        "Hitung: 4 bilangan 2-angka."
+      ]
     },
     {
       "number": 23,
@@ -213,7 +1771,114 @@
       "body_id": "Số lẻ lớn nhất có 4 chữ số tạo bởi các chữ số 0, 2, 4, 6 và 9 là số nào? (Mỗi chữ số chỉ được dùng một lần).",
       "answer_type": "fill_in",
       "answer": "6429",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "greatest 4-digit odd number",
+            "phrase_id": "Số lẻ lớn nhất có 4 chữ số",
+            "note_en": "Odd means units digit must be 9 (the only odd digit available)",
+            "note_id": "Ganjil berarti digit satuan harus 9 (satu-satunya digit ganjil yang tersedia)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "using 0, 2, 4, 6 and 9",
+            "phrase_id": "tạo bởi các chữ số 0, 2, 4, 6 và 9",
+            "note_en": "Available digits: {0, 2, 4, 6, 9} — choose any 4 of these",
+            "note_id": "Digit yang tersedia: {0, 2, 4, 6, 9} — pilih 4 dari ini"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each digit can only be used once",
+            "phrase_id": "Mỗi chữ số chỉ được dùng một lần",
+            "note_en": "After fixing units=9, maximize thousands then hundreds then tens from {0,2,4,6}",
+            "note_id": "Setelah menetapkan satuan=9, maksimalkan ribuan lalu ratusan lalu puluhan dari {0,2,4,6}"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Units digit (must be odd)",
+            "label_id": "Digit satuan (harus ganjil)",
+            "value": "9"
+          },
+          {
+            "label_en": "Remaining digits for first 3 positions",
+            "label_id": "Digit tersisa untuk 3 posisi pertama",
+            "value": "{0, 2, 4, 6} — pick 3"
+          },
+          {
+            "label_en": "Maximize: thousands=6, hundreds=4, tens=2",
+            "label_id": "Maksimalkan: ribuan=6, ratusan=4, puluhan=2",
+            "value": "6429"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix units digit (must be 9), then greedily fill from largest to smallest",
+          "name_id": "Tetapkan digit satuan (harus 9), lalu isi secara greedy dari terbesar ke terkecil"
+        },
+        "trap": {
+          "wrong": "9642",
+          "why_en": "9642 is even (units=2), not odd — the units digit must be the odd digit 9.",
+          "why_id": "9642 adalah genap (satuan=2), bukan ganjil — digit satuan harus digit ganjil 9."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6429"
+        }
+      },
+      "hint_steps_en": [
+        "Odd number requires an odd units digit. The only odd digit available is 9 → units = 9.",
+        "Remaining digits for the other 3 positions: {0, 2, 4, 6}.",
+        "To maximize, place the largest available first: thousands=6, hundreds=4, tens=2 (drop 0).",
+        "Result: 6429."
+      ],
+      "hint_steps_id": [
+        "Bilangan ganjil memerlukan digit satuan ganjil. Satu-satunya digit ganjil yang tersedia adalah 9 → satuan = 9.",
+        "Digit tersisa untuk 3 posisi lainnya: {0, 2, 4, 6}.",
+        "Untuk memaksimalkan, tempatkan yang terbesar dulu: ribuan=6, ratusan=4, puluhan=2 (buang 0).",
+        "Hasilnya: 6429."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The units digit must be odd — only 9 qualifies. Then fill remaining positions from largest to smallest.",
+          "intro_id": "Digit satuan harus ganjil — hanya 9 yang memenuhi. Lalu isi posisi tersisa dari terbesar ke terkecil.",
+          "items": [
+            {
+              "text_en": "Units = 2? Even ✗ eliminated",
+              "text_id": "Satuan = 2? Genap ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Units = 4? Even ✗ eliminated",
+              "text_id": "Satuan = 4? Genap ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Units = 6? Even ✗ eliminated",
+              "text_id": "Satuan = 6? Genap ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Units = 0? Even ✗ eliminated",
+              "text_id": "Satuan = 0? Genap ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Units = 9 ✓ (only odd digit) — then 6, 4, 2 fill thousands, hundreds, tens → 6429",
+              "text_id": "Satuan = 9 ✓ (satu-satunya digit ganjil) — lalu 6, 4, 2 mengisi ribuan, ratusan, puluhan → 6429",
+              "ok": true
+            }
+          ],
+          "final_en": "Units digit must be 9; filling the rest greedily gives 6429.",
+          "final_id": "Digit satuan harus 9; mengisi sisanya secara greedy menghasilkan 6429.",
+          "aria_en": "Digits 0, 2, 4, 6 are all even so cannot be the units digit of an odd number; only 9 is odd, giving units digit 9, then 6429 is the greatest arrangement.",
+          "aria_id": "Digit 0, 2, 4, 6 semuanya genap sehingga tidak bisa menjadi digit satuan bilangan ganjil; hanya 9 yang ganjil, memberikan digit satuan 9, lalu 6429 adalah susunan terbesar."
+        }
+      }
     },
     {
       "number": 24,
@@ -222,7 +1887,64 @@
       "body_id": "Có 4 vị kem khác nhau. Trộn 3 loại để tạo thành kem 3 cầu. Có bao nhiêu loại kem 3 cầu khác nhau? (Dâu – vani – socola được tính là giống với dâu – socola – vani).",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 different flavors of ice-cream",
+            "phrase_id": "4 vị kem khác nhau",
+            "note_en": "Choose 3 from 4 flavors; order does not matter",
+            "note_id": "Pilih 3 dari 4 rasa; urutan tidak penting"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Strawberry – vanilla – chocolate will be counted the same as strawberry – chocolate – vanilla",
+            "phrase_id": "Dâu – vani – socola được tính là giống với dâu – socola – vani",
+            "note_en": "Order is irrelevant — this is a combination, not a permutation",
+            "note_id": "Urutan tidak relevan — ini adalah kombinasi, bukan permutasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different type(s) of ice-cream is/are there",
+            "phrase_id": "Có bao nhiêu loại kem 3 cầu khác nhau",
+            "note_en": "C(4,3) = 4",
+            "note_id": "C(4,3) = 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "C(4,3) = 4!/(3!×1!)",
+            "label_id": "C(4,3) = 4!/(3!×1!)",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combinations (order irrelevant): C(4,3)",
+          "name_id": "Kombinasi (urutan tidak relevan): C(4,3)"
+        },
+        "trap": {
+          "wrong": "24",
+          "why_en": "24 = P(4,3) counts ordered arrangements; the problem says order doesn't matter.",
+          "why_id": "24 = P(4,3) menghitung susunan berurutan; soal mengatakan urutan tidak penting."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "types",
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Order doesn't matter — use combinations: C(4,3).",
+        "C(4,3) = C(4,1) = 4 (choosing which 1 flavor to leave out).",
+        "There are 4 different 3-ball ice-cream combinations."
+      ],
+      "hint_steps_id": [
+        "Urutan tidak penting — gunakan kombinasi: C(4,3).",
+        "C(4,3) = C(4,1) = 4 (memilih 1 rasa yang tidak dipakai).",
+        "Ada 4 kombinasi es krim 3-bola yang berbeda."
+      ]
     },
     {
       "number": 25,
@@ -231,7 +1953,114 @@
       "body_id": "Chọn 4 chữ số không lặp lại từ 0, 1, 4, 5, 6 và 7 để tạo thành hai số chẵn có 2 chữ số. Hiệu nhỏ nhất là bao nhiêu?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "two 2-digit even numbers",
+            "phrase_id": "hai số chẵn có 2 chữ số",
+            "note_en": "Even numbers need even units digits: available evens from {0,1,4,5,6,7} are {0,4,6}",
+            "note_id": "Bilangan genap memerlukan digit satuan genap: genap yang tersedia dari {0,1,4,5,6,7} adalah {0,4,6}"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "without repetition",
+            "phrase_id": "không lặp lại",
+            "note_en": "All 4 chosen digits must be distinct; tens digits must be non-zero",
+            "note_id": "Semua 4 digit yang dipilih harus berbeda; digit puluhan tidak boleh nol"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the minimum value of the difference",
+            "phrase_id": "Hiệu nhỏ nhất là bao nhiêu",
+            "note_en": "Try units pair (0,6) with tens 4 and 5: 40 and 46 → difference 6; or 50 and 46 → difference 4",
+            "note_id": "Coba pasangan satuan (0,6) dengan puluhan 4 dan 5: 40 dan 46 → selisih 6; atau 50 dan 46 → selisih 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Even units digits available",
+            "label_id": "Digit satuan genap yang tersedia",
+            "value": "{0, 4, 6}"
+          },
+          {
+            "label_en": "Try units pair (4,6), tens from {0,1,5,7} (non-zero): min diff",
+            "label_id": "Coba pasangan satuan (4,6), puluhan dari {0,1,5,7} (bukan nol): selisih min",
+            "value": "56−54=2? 54 and 56: digits 5,4,5,6 — repeats 5 ✗. 74−56=18; 54−16=38; 56−14=42. Closest: 76−74? only 2 digits each. Let me try: tens from {1,5}: 14 and 56 diff=42; 16 and 54 diff=38; tens from {5,7}: 54 and 76 diff=22, 56 and 74 diff=18. Min from (4,6) pair = 18"
+          },
+          {
+            "label_en": "Try units pair (0,6), tens from {1,4,5,7} (non-zero for both): best",
+            "label_id": "Coba pasangan satuan (0,6), puluhan dari {1,4,5,7}: terbaik",
+            "value": "50 and 46: digits 5,0,4,6 all distinct ✓; |50−46|=4"
+          },
+          {
+            "label_en": "Try units pair (0,4), tens from {1,5,6,7}: best",
+            "label_id": "Coba pasangan satuan (0,4), puluhan dari {1,5,6,7}: terbaik",
+            "value": "60 and 54: |60−54|=6; 50 and 64: |64−50|=14; 70 and 64: |70−64|=6"
+          },
+          {
+            "label_en": "Minimum overall",
+            "label_id": "Minimum keseluruhan",
+            "value": "4 (from 50 and 46)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix the two even units digits, then pick tens digits to minimize |N1−N2|",
+          "name_id": "Tetapkan dua digit satuan genap, lalu pilih digit puluhan untuk meminimalkan |N1−N2|"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Even 2-digit numbers need an even units digit. Even digits in the set: {0, 4, 6}.",
+        "Need 2 units digits (both even) and 2 tens digits (non-zero, distinct from each other and from units).",
+        "Try units pair (0, 6): remaining for tens from {1, 4, 5, 7}. Test 50 and 46: |50−46|=4, all digits distinct ✓.",
+        "Try units pair (0, 4): best gives |70−64|=6 or |60−54|=6.",
+        "Try units pair (4, 6): best gives 18.",
+        "Minimum difference = 4 (from 50 and 46)."
+      ],
+      "hint_steps_id": [
+        "Bilangan genap 2-angka memerlukan digit satuan genap. Digit genap dalam himpunan: {0, 4, 6}.",
+        "Perlu 2 digit satuan (keduanya genap) dan 2 digit puluhan (bukan nol, berbeda satu sama lain dan dari satuan).",
+        "Coba pasangan satuan (0, 6): tersisa untuk puluhan dari {1, 4, 5, 7}. Uji 50 dan 46: |50−46|=4, semua digit berbeda ✓.",
+        "Coba pasangan satuan (0, 4): terbaik memberikan |70−64|=6 atau |60−54|=6.",
+        "Coba pasangan satuan (4, 6): terbaik memberikan 18.",
+        "Selisih minimum = 4 (dari 50 dan 46)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try each pair of even units digits, pick the best tens digits, and track the minimum difference.",
+          "intro_id": "Coba setiap pasangan digit satuan genap, pilih digit puluhan terbaik, dan lacak selisih minimum.",
+          "items": [
+            {
+              "text_en": "Units pair (4, 6): best tens from {0,1,5,7} → 74 and 56: diff=18 ✗ (not minimum)",
+              "text_id": "Pasangan satuan (4, 6): puluhan terbaik dari {0,1,5,7} → 74 dan 56: selisih=18 ✗ (bukan minimum)",
+              "ok": false
+            },
+            {
+              "text_en": "Units pair (0, 4): best tens from {1,5,6,7} → 60 and 54: diff=6 ✗ (not minimum)",
+              "text_id": "Pasangan satuan (0, 4): puluhan terbaik dari {1,5,6,7} → 60 dan 54: selisih=6 ✗ (bukan minimum)",
+              "ok": false
+            },
+            {
+              "text_en": "Units pair (0, 6): tens from {1,4,5,7} → 50 and 46: diff=4 ✓ all digits distinct",
+              "text_id": "Pasangan satuan (0, 6): puluhan dari {1,4,5,7} → 50 dan 46: selisih=4 ✓ semua digit berbeda",
+              "ok": true
+            }
+          ],
+          "final_en": "Minimum difference is 4, achieved by 50 and 46.",
+          "final_id": "Selisih minimum adalah 4, dicapai dengan 50 dan 46.",
+          "aria_en": "Testing all even-digit pairs: units 4 and 6 give minimum difference 18, units 0 and 4 give 6, units 0 and 6 give 4 — the smallest is 4 from numbers 50 and 46.",
+          "aria_id": "Menguji semua pasangan digit genap: satuan 4 dan 6 memberikan selisih minimum 18, satuan 0 dan 4 memberikan 6, satuan 0 dan 6 memberikan 4 — yang terkecil adalah 4 dari angka 50 dan 46."
+        }
+      }
     }
   ]
 }

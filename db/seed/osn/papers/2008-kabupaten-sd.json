@@ -14,7 +14,104 @@
       "body_en": "What is the result of 2.4 × 5/2 ÷ 6%?",
       "answer_type": "fill_in",
       "answer": "100",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2.4 × 5/2 ÷ 6%",
+            "phrase_id": "2,4 × 5/2 ÷ 6%",
+            "note_en": "Convert 6% to 0.06 before dividing — this is the key step",
+            "note_id": "Ubah 6% menjadi 0,06 sebelum membagi — ini langkah kuncinya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Compute left to right following order of operations",
+            "note_id": "Hitung dari kiri ke kanan mengikuti urutan operasi"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "÷ 6%",
+            "phrase_id": "÷ 6%",
+            "note_en": "Dividing by a percentage means dividing by its decimal form",
+            "note_id": "Membagi dengan persen berarti membagi dengan bentuk desimalnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Step 1: 2.4 × 5/2",
+            "label_id": "Langkah 1: 2,4 × 5/2",
+            "value": "2.4 × 2.5 = 6"
+          },
+          {
+            "label_en": "Step 2: 6% as decimal",
+            "label_id": "Langkah 2: 6% sebagai desimal",
+            "value": "0.06"
+          },
+          {
+            "label_en": "Step 3: 6 ÷ 0.06",
+            "label_id": "Langkah 3: 6 ÷ 0,06",
+            "value": "100"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert percentage then compute left to right",
+          "name_id": "Ubah persen lalu hitung dari kiri ke kanan"
+        },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Forgetting to convert 6% to 0.06 and dividing by 6 gives 1 — or multiplying by 6% gives 0.36 — neither is correct.",
+          "why_id": "Lupa mengubah 6% menjadi 0,06 dan membagi dengan 6 hasilnya 1 — atau mengalikan dengan 6% hasilnya 0,36 — keduanya salah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "100"
+        }
+      },
+      "hint_steps_en": [
+        "First compute 2.4 × 5/2: 5/2 = 2.5, and 2.4 × 2.5 = 6.",
+        "Convert 6% to its decimal form: 6% = 0.06.",
+        "Now divide: 6 ÷ 0.06 = 100.",
+        "The answer is 100."
+      ],
+      "hint_steps_id": [
+        "Pertama hitung 2,4 × 5/2: 5/2 = 2,5, dan 2,4 × 2,5 = 6.",
+        "Ubah 6% menjadi bentuk desimal: 6% = 0,06.",
+        "Sekarang bagi: 6 ÷ 0,06 = 100.",
+        "Jawabannya adalah 100."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work through each operation left to right, converting the percentage first.",
+          "intro_id": "Kerjakan setiap operasi dari kiri ke kanan, ubah persen terlebih dahulu.",
+          "items": [
+            {
+              "text_en": "2.4 × 5/2 = 2.4 × 2.5 = 6 ✓",
+              "text_id": "2,4 × 5/2 = 2,4 × 2,5 = 6 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "6% = 0.06 (convert percentage to decimal) ✓",
+              "text_id": "6% = 0,06 (ubah persen ke desimal) ✓",
+              "ok": null
+            },
+            {
+              "text_en": "6 ÷ 0.06 = 100 ✓",
+              "text_id": "6 ÷ 0,06 = 100 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The result is 100.",
+          "final_id": "Hasilnya adalah 100.",
+          "aria_en": "Compute 2.4 times 5 halves to get 6, convert 6 percent to 0.06, then divide 6 by 0.06 to get 100.",
+          "aria_id": "Hitung 2,4 dikali 5 per 2 hasilnya 6, ubah 6 persen menjadi 0,06, lalu bagi 6 dengan 0,06 hasilnya 100."
+        }
+      }
     },
     {
       "number": 2,
@@ -22,7 +119,71 @@
       "body_en": "The difference of two positive numbers is 2, and their product is 168. What is the sum of the two numbers?",
       "answer_type": "fill_in",
       "answer": "26",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "difference of two positive numbers is 2",
+            "phrase_id": "Selisih dua bilangan positif adalah 2",
+            "note_en": "If the numbers are n and m, then m − n = 2",
+            "note_id": "Jika bilangannya adalah n dan m, maka m − n = 2"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "their product is 168",
+            "phrase_id": "hasil kalinya 168",
+            "note_en": "The two numbers multiply to 168",
+            "note_id": "Dua bilangan itu dikalikan hasilnya 168"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the two numbers?",
+            "phrase_id": "Jumlah dua bilangan itu adalah",
+            "note_en": "Find n + m, not the numbers themselves",
+            "note_id": "Cari n + m, bukan bilangannya sendiri"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Factor pairs of 168 with difference 2",
+            "label_id": "Pasangan faktor 168 dengan selisih 2",
+            "value": "12 × 14 = 168, 14 − 12 = 2 ✓"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "12 + 14 = 26"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find factor pairs — spot the pair with difference 2",
+          "name_id": "Cari pasangan faktor — temukan pasangan dengan selisih 2"
+        },
+        "trap": {
+          "wrong": "14",
+          "why_en": "14 is the larger number alone, not the sum of both numbers.",
+          "why_id": "14 adalah bilangan yang lebih besar saja, bukan jumlah kedua bilangan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "26"
+        }
+      },
+      "hint_steps_en": [
+        "Let the two numbers be n and n+2 (difference = 2).",
+        "Their product: n × (n+2) = 168, so n² + 2n − 168 = 0.",
+        "Factor: (n−12)(n+14) = 0. Since n > 0, n = 12.",
+        "The two numbers are 12 and 14. Their sum = 26."
+      ],
+      "hint_steps_id": [
+        "Misalkan dua bilangan itu adalah n dan n+2 (selisih = 2).",
+        "Hasil kalinya: n × (n+2) = 168, sehingga n² + 2n − 168 = 0.",
+        "Faktorkan: (n−12)(n+14) = 0. Karena n > 0, maka n = 12.",
+        "Dua bilangannya adalah 12 dan 14. Jumlahnya = 26."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +191,76 @@
       "body_en": "A sphere has a radius equal to the edge length of a cube. What is the ratio of the sphere's diameter to the space diagonal of the cube?",
       "answer_type": "fill_in",
       "answer": "2 : √3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "radius equal to the edge length of a cube",
+            "phrase_id": "jari-jari yang panjangnya sama dengan panjang rusuk suatu kubus",
+            "note_en": "Let edge = r; then diameter = 2r and space diagonal = r√3",
+            "note_id": "Misalkan rusuk = r; maka diameter = 2r dan diagonal ruang = r√3"
+          },
+          {
+            "category": "question",
+            "phrase_en": "ratio of the sphere's diameter to the space diagonal of the cube",
+            "phrase_id": "Perbandingan panjang diameter bola dan diagonal ruang kubus",
+            "note_en": "Diameter : space diagonal = 2r : r√3",
+            "note_id": "Diameter : diagonal ruang = 2r : r√3"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "space diagonal of the cube",
+            "phrase_id": "diagonal ruang kubus",
+            "note_en": "Space diagonal of a cube with edge a = a√3",
+            "note_id": "Diagonal ruang kubus dengan rusuk a = a√3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sphere diameter",
+            "label_id": "Diameter bola",
+            "value": "2r"
+          },
+          {
+            "label_en": "Cube space diagonal",
+            "label_id": "Diagonal ruang kubus",
+            "value": "r√3"
+          },
+          {
+            "label_en": "Ratio",
+            "label_id": "Perbandingan",
+            "value": "2r : r√3 = 2 : √3"
+          }
+        ],
+        "strategy": {
+          "name_en": "Express both in terms of edge length then simplify",
+          "name_id": "Nyatakan keduanya dalam rusuk lalu sederhanakan"
+        },
+        "trap": {
+          "wrong": "2 : 3",
+          "why_en": "The space diagonal is r√3, not 3r — don't square the √3.",
+          "why_id": "Diagonal ruang adalah r√3, bukan 3r — jangan dikuadratkan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2 : √3"
+        }
+      },
+      "hint_steps_en": [
+        "Let the edge of the cube (= sphere radius) be r.",
+        "Sphere diameter = 2r.",
+        "Space diagonal of a cube with edge r = r√3.",
+        "Ratio = 2r : r√3 = 2 : √3."
+      ],
+      "hint_steps_id": [
+        "Misalkan rusuk kubus (= jari-jari bola) adalah r.",
+        "Diameter bola = 2r.",
+        "Diagonal ruang kubus dengan rusuk r = r√3.",
+        "Perbandingan = 2r : r√3 = 2 : √3."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +268,70 @@
       "body_en": "Find the value of x from (3 − 0.3) / (x − 1) = 1.",
       "answer_type": "fill_in",
       "answer": "3,7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "(3 − 0.3) / (x − 1) = 1",
+            "phrase_id": "(3 − 0,3) / (x − 1) = 1",
+            "note_en": "The numerator equals 2.7; since the fraction = 1, denominator must also equal 2.7",
+            "note_id": "Pembilangnya sama dengan 2,7; karena pecahan = 1, penyebutnya juga harus 2,7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of x",
+            "phrase_id": "Tentukan nilai x",
+            "note_en": "Isolate x from x − 1 = 2.7",
+            "note_id": "Isolasi x dari x − 1 = 2,7"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "(x − 1)",
+            "phrase_id": "(x − 1)",
+            "note_en": "The denominator; once we know it equals 2.7, add 1 to find x",
+            "note_id": "Penyebutnya; setelah tahu nilainya 2,7, tambah 1 untuk mencari x"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Numerator: 3 − 0.3",
+            "label_id": "Pembilang: 3 − 0,3",
+            "value": "2.7"
+          },
+          {
+            "label_en": "Denominator (fraction = 1)",
+            "label_id": "Penyebut (pecahan = 1)",
+            "value": "x − 1 = 2.7"
+          },
+          {
+            "label_en": "x",
+            "label_id": "x",
+            "value": "2.7 + 1 = 3.7"
+          }
+        ],
+        "strategy": {
+          "name_en": "If numerator/denominator = 1, numerator = denominator",
+          "name_id": "Jika pembilang/penyebut = 1, pembilang = penyebut"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3,7"
+        }
+      },
+      "hint_steps_en": [
+        "Compute the numerator: 3 − 0.3 = 2.7.",
+        "Since 2.7 / (x−1) = 1, both sides equal, so x − 1 = 2.7.",
+        "Add 1 to both sides: x = 3.7."
+      ],
+      "hint_steps_id": [
+        "Hitung pembilangnya: 3 − 0,3 = 2,7.",
+        "Karena 2,7 / (x−1) = 1, kedua sisi sama, jadi x − 1 = 2,7.",
+        "Tambah 1 ke kedua sisi: x = 3,7."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +339,74 @@
       "body_en": "The average score of 11 students is 7. After one student improves their score, the average becomes 7.1. What is the difference between that student's score before and after the improvement?",
       "answer_type": "fill_in",
       "answer": "1,1",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "average score of 11 students is 7",
+            "phrase_id": "Rata-rata nilai 11 siswa adalah 7",
+            "note_en": "Total score before = 11 × 7 = 77",
+            "note_id": "Total nilai sebelum = 11 × 7 = 77"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the average becomes 7.1",
+            "phrase_id": "rata-rata berubah menjadi 7,1",
+            "note_en": "Total score after = 11 × 7.1 = 78.1",
+            "note_id": "Total nilai sesudah = 11 × 7,1 = 78,1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the difference between that student's score before and after the improvement?",
+            "phrase_id": "Selisih nilai siswa sebelum dan sesudah perbaikan adalah",
+            "note_en": "The difference equals the change in total, since only one student's score changed",
+            "note_id": "Selisihnya sama dengan perubahan total, karena hanya satu nilai yang berubah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total before",
+            "label_id": "Total sebelum",
+            "value": "11 × 7 = 77"
+          },
+          {
+            "label_en": "Total after",
+            "label_id": "Total sesudah",
+            "value": "11 × 7.1 = 78.1"
+          },
+          {
+            "label_en": "Difference",
+            "label_id": "Selisih",
+            "value": "78.1 − 77 = 1.1"
+          }
+        ],
+        "strategy": {
+          "name_en": "Change in total = change in one student's score",
+          "name_id": "Perubahan total = perubahan nilai satu siswa"
+        },
+        "trap": {
+          "wrong": "0.1",
+          "why_en": "0.1 is the change in average, not the change in score — multiply by 11 students.",
+          "why_id": "0,1 adalah perubahan rata-rata, bukan perubahan nilai — kalikan dengan 11 siswa."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1,1"
+        }
+      },
+      "hint_steps_en": [
+        "Total before = 11 × 7 = 77.",
+        "Total after = 11 × 7.1 = 78.1.",
+        "The difference in one student's score = 78.1 − 77 = 1.1."
+      ],
+      "hint_steps_id": [
+        "Total sebelum = 11 × 7 = 77.",
+        "Total sesudah = 11 × 7,1 = 78,1.",
+        "Selisih nilai satu siswa = 78,1 − 77 = 1,1."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +414,62 @@
       "body_en": "From the figure below, which triangle among ACD, DEC, and DFC has the greatest perimeter?",
       "answer_type": "fill_in",
       "answer": "segitiga ACD",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "which triangle among ACD, DEC, and DFC has the greatest perimeter?",
+            "phrase_id": "keliling yang paling besar di antara segitiga ACD, segitiga DEC, dan segitiga DFC adalah",
+            "note_en": "Compare perimeters by summing the three side lengths of each triangle",
+            "note_id": "Bandingkan keliling dengan menjumlahkan tiga sisi setiap segitiga"
+          },
+          {
+            "category": "object",
+            "phrase_en": "triangle among ACD, DEC, and DFC",
+            "phrase_id": "segitiga ACD, segitiga DEC, dan segitiga DFC",
+            "note_en": "Triangle ACD has the longest sides according to the figure",
+            "note_id": "Segitiga ACD memiliki sisi-sisi terpanjang sesuai gambar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "From the figure below",
+            "phrase_id": "Dari gambar berikut",
+            "note_en": "Actual values come from the figure; ACD's sides span the widest range",
+            "note_id": "Nilai sebenarnya dari gambar; sisi-sisi ACD mencakup rentang terluas"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Largest perimeter triangle",
+            "label_id": "Segitiga dengan keliling terbesar",
+            "value": "ACD (spans the outer vertices of the figure)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compare perimeters — the outermost triangle is largest",
+          "name_id": "Bandingkan keliling — segitiga paling luar adalah yang terbesar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "segitiga ACD"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure: identify the side lengths of triangles ACD, DEC, and DFC.",
+        "Triangle ACD spans the outermost vertices of the shape.",
+        "Its three sides are the longest, giving it the greatest perimeter.",
+        "The answer is triangle ACD."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar: identifikasi panjang sisi segitiga ACD, DEC, dan DFC.",
+        "Segitiga ACD mencakup titik-titik terluar dari bangun.",
+        "Ketiga sisinya paling panjang, sehingga kelilingnya paling besar.",
+        "Jawabannya adalah segitiga ACD."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +477,76 @@
       "body_en": "Amat and Bayu can cycle around a field in 12 minutes and 15 minutes respectively. If both start at the same time, place, and direction, at what minute will they meet again?",
       "answer_type": "fill_in",
       "answer": "60",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Amat and Bayu can cycle around a field in 12 minutes and 15 minutes respectively",
+            "phrase_id": "Amat dan Bayu dapat bersepeda mengelilingi lapangan dalam waktu 12 menit dan 15 menit",
+            "note_en": "Amat completes a lap every 12 min, Bayu every 15 min",
+            "note_id": "Amat menyelesaikan satu putaran setiap 12 menit, Bayu setiap 15 menit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "same time, place, and direction",
+            "phrase_id": "waktu, tempat, dan arah yang sama",
+            "note_en": "Same direction means they meet when the faster one laps the slower — at LCM of their times",
+            "note_id": "Arah sama berarti mereka bertemu saat yang lebih cepat menyusul — pada KPK waktu keduanya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "at what minute will they meet again?",
+            "phrase_id": "pada menit ke berapa mereka akan berpapasan?",
+            "note_en": "Find LCM(12, 15)",
+            "note_id": "Cari KPK(12, 15)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Amat's lap time",
+            "label_id": "Waktu putaran Amat",
+            "value": "12 minutes"
+          },
+          {
+            "label_en": "Bayu's lap time",
+            "label_id": "Waktu putaran Bayu",
+            "value": "15 minutes"
+          },
+          {
+            "label_en": "LCM(12, 15)",
+            "label_id": "KPK(12, 15)",
+            "value": "60 minutes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find LCM for same-direction lap meeting",
+          "name_id": "Cari KPK untuk pertemuan satu arah"
+        },
+        "trap": {
+          "wrong": "3",
+          "why_en": "GCD(12,15) = 3 is the common divisor, not the meeting time — use LCM, not GCD.",
+          "why_id": "FPB(12,15) = 3 adalah pembagi terbesar, bukan waktu pertemuan — gunakan KPK, bukan FPB."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "menit",
+          "value": "60"
+        }
+      },
+      "hint_steps_en": [
+        "Both cycle in the same direction, so they meet when the faster one completes exactly one more lap.",
+        "This happens at LCM(12, 15).",
+        "12 = 2² × 3; 15 = 3 × 5. LCM = 2² × 3 × 5 = 60.",
+        "They meet again at minute 60."
+      ],
+      "hint_steps_id": [
+        "Keduanya bersepeda searah, jadi mereka bertemu saat yang lebih cepat menyelesaikan satu putaran lebih.",
+        "Ini terjadi pada KPK(12, 15).",
+        "12 = 2² × 3; 15 = 3 × 5. KPK = 2² × 3 × 5 = 60.",
+        "Mereka bertemu kembali pada menit ke-60."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +554,69 @@
       "body_en": "What is the result of 1 + 3 + 5 + 7 + ⋯ + 25?",
       "answer_type": "fill_in",
       "answer": "169",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 + 3 + 5 + 7 + ⋯ + 25",
+            "phrase_id": "1 + 3 + 5 + 7 + ⋯ + 25",
+            "note_en": "This is the sum of consecutive odd numbers starting at 1",
+            "note_id": "Ini adalah jumlah bilangan ganjil berurutan mulai dari 1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "⋯ + 25",
+            "phrase_id": "⋯ + 25",
+            "note_en": "The last term is 25. Odd numbers from 1 to 25: there are 13 terms",
+            "note_id": "Suku terakhir adalah 25. Bilangan ganjil dari 1 sampai 25: ada 13 suku"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the result of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Sum of first n odd numbers = n²",
+            "note_id": "Jumlah n bilangan ganjil pertama = n²"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of terms (1, 3, 5, …, 25)",
+            "label_id": "Banyak suku (1, 3, 5, …, 25)",
+            "value": "13 terms (last = 2×13−1 = 25)"
+          },
+          {
+            "label_en": "Sum = 13²",
+            "label_id": "Jumlah = 13²",
+            "value": "169"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum of first n odd numbers = n²",
+          "name_id": "Jumlah n bilangan ganjil pertama = n²"
+        },
+        "trap": {
+          "wrong": "156",
+          "why_en": "Counting 12 terms instead of 13 gives 12² = 144, or a basic adding error — verify n by (last+1)/2 = 13.",
+          "why_id": "Menghitung 12 suku alih-alih 13 menghasilkan 144, atau kesalahan penjumlahan — verifikasi n dengan (terakhir+1)/2 = 13."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "169"
+        }
+      },
+      "hint_steps_en": [
+        "The sequence 1, 3, 5, …, 25 is the first n odd numbers.",
+        "Find n: the k-th odd number = 2k−1. Set 2k−1 = 25 → k = 13.",
+        "Sum of first 13 odd numbers = 13² = 169."
+      ],
+      "hint_steps_id": [
+        "Barisan 1, 3, 5, …, 25 adalah n bilangan ganjil pertama.",
+        "Cari n: bilangan ganjil ke-k = 2k−1. Set 2k−1 = 25 → k = 13.",
+        "Jumlah 13 bilangan ganjil pertama = 13² = 169."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +624,74 @@
       "body_en": "The integer closest to the value of 7/3 × 4/9 + 15/8 is …",
       "answer_type": "fill_in",
       "answer": "3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "7/3 × 4/9 + 15/8",
+            "phrase_id": "7/3 × 4/9 + 15/8",
+            "note_en": "Multiply first, then add — order of operations",
+            "note_id": "Kalikan dulu, baru jumlahkan — urutan operasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The integer closest to the value",
+            "phrase_id": "Bilangan bulat yang paling dekat dengan nilai",
+            "note_en": "Round the decimal result to the nearest whole number",
+            "note_id": "Bulatkan hasil desimal ke bilangan bulat terdekat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "closest",
+            "phrase_id": "paling dekat",
+            "note_en": "If the result is between 2 and 3, choose whichever integer is nearer",
+            "note_id": "Jika hasilnya antara 2 dan 3, pilih bilangan bulat yang lebih dekat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "7/3 × 4/9",
+            "label_id": "7/3 × 4/9",
+            "value": "28/27 ≈ 1.037"
+          },
+          {
+            "label_en": "15/8",
+            "label_id": "15/8",
+            "value": "1.875"
+          },
+          {
+            "label_en": "Sum ≈",
+            "label_id": "Jumlah ≈",
+            "value": "1.037 + 1.875 = 2.912 ≈ 3"
+          }
+        ],
+        "strategy": {
+          "name_en": "Compute then round to nearest integer",
+          "name_id": "Hitung lalu bulatkan ke bilangan bulat terdekat"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "2.912 is closer to 3 than to 2 — the decimal exceeds 2.5.",
+          "why_id": "2,912 lebih dekat ke 3 daripada ke 2 — desimalnya melebihi 2,5."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3"
+        }
+      },
+      "hint_steps_en": [
+        "Multiply: 7/3 × 4/9 = 28/27 ≈ 1.037.",
+        "Add: 28/27 + 15/8. Common denominator 216: 224/216 + 405/216 = 629/216 ≈ 2.912.",
+        "The closest integer to 2.912 is 3."
+      ],
+      "hint_steps_id": [
+        "Kalikan: 7/3 × 4/9 = 28/27 ≈ 1,037.",
+        "Jumlahkan: 28/27 + 15/8. KPK 216: 224/216 + 405/216 = 629/216 ≈ 2,912.",
+        "Bilangan bulat terdekat dengan 2,912 adalah 3."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +699,76 @@
       "body_en": "The number 1.232323… can be expressed as a fraction a/b where a and b are coprime. What is the value of a + b?",
       "answer_type": "fill_in",
       "answer": "221",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1.232323…",
+            "phrase_id": "1,232323⋯",
+            "note_en": "The repeating block is '23', which repeats from the second decimal place",
+            "note_id": "Blok yang berulang adalah '23', berulang mulai dari tempat desimal kedua"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a and b are coprime",
+            "phrase_id": "a, b relatif prima",
+            "note_en": "Simplify the fraction to lowest terms before computing a + b",
+            "note_id": "Sederhanakan pecahan ke bentuk paling sederhana sebelum menghitung a + b"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of a + b?",
+            "phrase_id": "Nilai dari a + b = …",
+            "note_en": "Add numerator and denominator of the simplified fraction",
+            "note_id": "Jumlahkan pembilang dan penyebut pecahan yang sudah disederhanakan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Let x = 1.232323…",
+            "label_id": "Misalkan x = 1,232323…",
+            "value": "100x = 123.2323… → 100x − x = 122 → x = 122/99"
+          },
+          {
+            "label_en": "Check coprime: GCD(122, 99)",
+            "label_id": "Periksa relatif prima: FPB(122, 99)",
+            "value": "GCD = 1 → already coprime"
+          },
+          {
+            "label_en": "a + b",
+            "label_id": "a + b",
+            "value": "122 + 99 = 221"
+          }
+        ],
+        "strategy": {
+          "name_en": "Repeating decimal → fraction via algebra",
+          "name_id": "Desimal berulang → pecahan via aljabar"
+        },
+        "trap": {
+          "wrong": "124",
+          "why_en": "1 + 23 + 99 or other wrong groupings — be precise: x = 122/99, then 122 + 99 = 221.",
+          "why_id": "Pengelompokan salah — pastikan: x = 122/99, lalu 122 + 99 = 221."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "221"
+        }
+      },
+      "hint_steps_en": [
+        "Let x = 1.232323…",
+        "Multiply by 100: 100x = 123.2323…",
+        "Subtract: 99x = 122, so x = 122/99.",
+        "GCD(122, 99) = 1 (coprime), so a = 122, b = 99, a + b = 221."
+      ],
+      "hint_steps_id": [
+        "Misalkan x = 1,232323…",
+        "Kalikan dengan 100: 100x = 123,2323…",
+        "Kurangkan: 99x = 122, sehingga x = 122/99.",
+        "FPB(122, 99) = 1 (relatif prima), jadi a = 122, b = 99, a + b = 221."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +776,74 @@
       "body_en": "A square has a perimeter of 60 cm. If each side increases by 10%, what is the new area in cm²?",
       "answer_type": "fill_in",
       "answer": "272,25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "perimeter of 60 cm",
+            "phrase_id": "keliling 60 cm",
+            "note_en": "Each original side = 60 ÷ 4 = 15 cm",
+            "note_id": "Setiap sisi asli = 60 ÷ 4 = 15 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "each side increases by 10%",
+            "phrase_id": "setiap sisi panjangnya bertambah 10%",
+            "note_en": "New side = 15 × 1.1 = 16.5 cm",
+            "note_id": "Sisi baru = 15 × 1,1 = 16,5 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the new area in cm²?",
+            "phrase_id": "luasnya sekarang adalah … cm²",
+            "note_en": "New area = new side² = 16.5²",
+            "note_id": "Luas baru = sisi baru² = 16,5²"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Original side",
+            "label_id": "Sisi asli",
+            "value": "60 ÷ 4 = 15 cm"
+          },
+          {
+            "label_en": "New side",
+            "label_id": "Sisi baru",
+            "value": "15 × 1.1 = 16.5 cm"
+          },
+          {
+            "label_en": "New area",
+            "label_id": "Luas baru",
+            "value": "16.5² = 272.25 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Side increases by 10% → area increases by 21% (1.1²)",
+          "name_id": "Sisi bertambah 10% → luas bertambah 21% (1,1²)"
+        },
+        "trap": {
+          "wrong": "247.5",
+          "why_en": "Adding 10% to the area (225 × 1.1 = 247.5) is wrong — the side, not the area, increases by 10%.",
+          "why_id": "Menambahkan 10% pada luas (225 × 1,1 = 247,5) salah — sisinya, bukan luasnya, yang bertambah 10%."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "272,25"
+        }
+      },
+      "hint_steps_en": [
+        "Original side = 60 ÷ 4 = 15 cm.",
+        "New side = 15 × 1.10 = 16.5 cm.",
+        "New area = 16.5² = 272.25 cm²."
+      ],
+      "hint_steps_id": [
+        "Sisi asli = 60 ÷ 4 = 15 cm.",
+        "Sisi baru = 15 × 1,10 = 16,5 cm.",
+        "Luas baru = 16,5² = 272,25 cm²."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +851,71 @@
       "body_en": "A book originally costs Rp10,000. Its price increases by 20%, then decreases by 20% from the new price. What is the final price of the book?",
       "answer_type": "fill_in",
       "answer": "Rp9.600,00",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A book originally costs Rp10,000",
+            "phrase_id": "Harga sebuah buku bacaan mula-mula Rp10.000,00",
+            "note_en": "Starting price = Rp10,000",
+            "note_id": "Harga awal = Rp10.000"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "price increases by 20%, then decreases by 20% from the new price",
+            "phrase_id": "naik 20%, kemudian turun 20% dari harga baru",
+            "note_en": "The 20% decrease is applied to the already-increased price, not the original",
+            "note_id": "Penurunan 20% diterapkan pada harga yang sudah naik, bukan harga asli"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the final price of the book?",
+            "phrase_id": "harga terakhir buku tersebut adalah",
+            "note_en": "Compute 10000 × 1.2 × 0.8",
+            "note_id": "Hitung 10.000 × 1,2 × 0,8"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After +20%",
+            "label_id": "Setelah +20%",
+            "value": "10,000 × 1.2 = 12,000"
+          },
+          {
+            "label_en": "After −20% from new price",
+            "label_id": "Setelah −20% dari harga baru",
+            "value": "12,000 × 0.8 = 9,600"
+          }
+        ],
+        "strategy": {
+          "name_en": "+20% then −20% = ×1.2 × 0.8 = ×0.96 (net −4%)",
+          "name_id": "+20% lalu −20% = ×1,2 × 0,8 = ×0,96 (neto −4%)"
+        },
+        "trap": {
+          "wrong": "Rp10.000,00",
+          "why_en": "+20% and −20% do NOT cancel out — the decrease is on the higher price, so the net is −4%.",
+          "why_id": "+20% dan −20% TIDAK saling menghapus — penurunan dari harga yang lebih tinggi, sehingga neto −4%."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "Rp",
+          "value": "Rp9.600,00"
+        }
+      },
+      "hint_steps_en": [
+        "Original price = Rp10,000.",
+        "After 20% increase: 10,000 × 1.2 = Rp12,000.",
+        "After 20% decrease from Rp12,000: 12,000 × 0.8 = Rp9,600.",
+        "Final price = Rp9,600."
+      ],
+      "hint_steps_id": [
+        "Harga awal = Rp10.000.",
+        "Setelah naik 20%: 10.000 × 1,2 = Rp12.000.",
+        "Setelah turun 20% dari Rp12.000: 12.000 × 0,8 = Rp9.600.",
+        "Harga terakhir = Rp9.600."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +923,81 @@
       "body_en": "If A : B = B : C = C : D = 1 : 2, what is A : D?",
       "answer_type": "fill_in",
       "answer": "1 : 8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A : B = B : C = C : D = 1 : 2",
+            "phrase_id": "A : B = B : C = C : D = 1 : 2",
+            "note_en": "Each step doubles: B = 2A, C = 2B = 4A, D = 2C = 8A",
+            "note_id": "Setiap langkah berlipat dua: B = 2A, C = 2B = 4A, D = 2C = 8A"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is A : D?",
+            "phrase_id": "maka A : D = …",
+            "note_en": "A : D = A : 8A = 1 : 8",
+            "note_id": "A : D = A : 8A = 1 : 8"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "= 1 : 2",
+            "phrase_id": "= 1 : 2",
+            "note_en": "Three equal ratios of 1:2 chain together: multiply 2×2×2 = 8",
+            "note_id": "Tiga rasio 1:2 berantai: kalikan 2×2×2 = 8"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "B in terms of A",
+            "label_id": "B dalam A",
+            "value": "2A"
+          },
+          {
+            "label_en": "C in terms of A",
+            "label_id": "C dalam A",
+            "value": "4A"
+          },
+          {
+            "label_en": "D in terms of A",
+            "label_id": "D dalam A",
+            "value": "8A"
+          },
+          {
+            "label_en": "A : D",
+            "label_id": "A : D",
+            "value": "1 : 8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Chain ratios by multiplying each step",
+          "name_id": "Rantaikan rasio dengan mengalikan setiap langkah"
+        },
+        "trap": {
+          "wrong": "1 : 6",
+          "why_en": "3 steps of 1:2 means 2³ = 8, not 2×3 = 6.",
+          "why_id": "3 langkah 1:2 berarti 2³ = 8, bukan 2×3 = 6."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1 : 8"
+        }
+      },
+      "hint_steps_en": [
+        "A : B = 1 : 2, so B = 2A.",
+        "B : C = 1 : 2, so C = 2B = 4A.",
+        "C : D = 1 : 2, so D = 2C = 8A.",
+        "A : D = 1 : 8."
+      ],
+      "hint_steps_id": [
+        "A : B = 1 : 2, jadi B = 2A.",
+        "B : C = 1 : 2, jadi C = 2B = 4A.",
+        "C : D = 1 : 2, jadi D = 2C = 8A.",
+        "A : D = 1 : 8."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +1005,69 @@
       "body_en": "A tank is 1/4 full. Adding 20 litres of water makes it 1/3 full. What is the maximum capacity of the tank in litres?",
       "answer_type": "fill_in",
       "answer": "240",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A tank is 1/4 full",
+            "phrase_id": "Sebuah bak berisi air 1/4 bagian",
+            "note_en": "Initial level = C/4 where C is the total capacity",
+            "note_id": "Level awal = C/4 di mana C adalah kapasitas total"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Adding 20 litres of water makes it 1/3 full",
+            "phrase_id": "Jika ditambahkan 20 liter air, maka bak menjadi terisi 1/3 bagian",
+            "note_en": "The difference 1/3 − 1/4 = 1/12 of capacity equals 20 litres",
+            "note_id": "Selisih 1/3 − 1/4 = 1/12 kapasitas sama dengan 20 liter"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the maximum capacity of the tank in litres?",
+            "phrase_id": "Berapa maksimum liter air yang dapat ditampung bak tersebut?",
+            "note_en": "C × (1/3 − 1/4) = 20, so C = 240",
+            "note_id": "C × (1/3 − 1/4) = 20, sehingga C = 240"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Fractional increase",
+            "label_id": "Kenaikan pecahan",
+            "value": "1/3 − 1/4 = 1/12"
+          },
+          {
+            "label_en": "Capacity",
+            "label_id": "Kapasitas",
+            "value": "C/12 = 20 → C = 240 litres"
+          }
+        ],
+        "strategy": {
+          "name_en": "The added volume equals the fractional difference times capacity",
+          "name_id": "Volume yang ditambahkan = selisih pecahan × kapasitas"
+        },
+        "trap": {
+          "wrong": "80",
+          "why_en": "Treating 1/4 as the fraction corresponding to 20 L gives 80 — but 20 L is only the 1/12 difference.",
+          "why_id": "Menganggap 1/4 bersesuaian dengan 20 L menghasilkan 80 — tapi 20 L hanya selisih 1/12."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "liter",
+          "value": "240"
+        }
+      },
+      "hint_steps_en": [
+        "The increase in fraction = 1/3 − 1/4 = 4/12 − 3/12 = 1/12.",
+        "This 1/12 of the capacity equals 20 litres.",
+        "Capacity = 20 × 12 = 240 litres."
+      ],
+      "hint_steps_id": [
+        "Kenaikan pecahan = 1/3 − 1/4 = 4/12 − 3/12 = 1/12.",
+        "1/12 dari kapasitas sama dengan 20 liter.",
+        "Kapasitas = 20 × 12 = 240 liter."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +1075,74 @@
       "body_en": "How many times is the digit 5 written when listing all numbers from 1 to 100?",
       "answer_type": "fill_in",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many times is the digit 5 written when listing all numbers from 1 to 100?",
+            "phrase_id": "Berapa banyak angka 5 yang ditulis dari bilangan 1 sampai 100?",
+            "note_en": "Count 5 as a units digit AND as a tens digit separately",
+            "note_id": "Hitung 5 sebagai digit satuan DAN sebagai digit puluhan secara terpisah"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "from 1 to 100",
+            "phrase_id": "dari bilangan 1 sampai 100",
+            "note_en": "Include all numbers 1 through 100; 100 contains no digit 5",
+            "note_id": "Sertakan semua bilangan 1 sampai 100; 100 tidak mengandung angka 5"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the digit 5 written",
+            "phrase_id": "angka 5 yang ditulis",
+            "note_en": "We count digit occurrences, not how many numbers contain a 5",
+            "note_id": "Kita menghitung kemunculan digit, bukan berapa bilangan yang mengandung 5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "5 as units digit (5, 15, 25, 35, 45, 55, 65, 75, 85, 95)",
+            "label_id": "5 sebagai digit satuan",
+            "value": "10 times"
+          },
+          {
+            "label_en": "5 as tens digit (50, 51, 52, 53, 54, 55, 56, 57, 58, 59)",
+            "label_id": "5 sebagai digit puluhan",
+            "value": "10 times"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "10 + 10 = 20"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by digit position: units + tens",
+          "name_id": "Hitung per posisi digit: satuan + puluhan"
+        },
+        "trap": {
+          "wrong": "11",
+          "why_en": "Counting 11 numbers that contain a 5 is wrong — 55 contributes two 5s (units AND tens), giving total 20.",
+          "why_id": "Menghitung 11 bilangan yang mengandung 5 salah — 55 menyumbang dua angka 5 (satuan DAN puluhan), total 20."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "20"
+        }
+      },
+      "hint_steps_en": [
+        "Count digit 5 in units position: 5, 15, 25, 35, 45, 55, 65, 75, 85, 95 — that is 10 times.",
+        "Count digit 5 in tens position: 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 — that is 10 times.",
+        "Total = 10 + 10 = 20."
+      ],
+      "hint_steps_id": [
+        "Hitung digit 5 di posisi satuan: 5, 15, 25, 35, 45, 55, 65, 75, 85, 95 — itu 10 kali.",
+        "Hitung digit 5 di posisi puluhan: 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 — itu 10 kali.",
+        "Total = 10 + 10 = 20."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +1150,60 @@
       "body_en": "If the two horizontal lines in the figure below are parallel, what is the value of x?",
       "answer_type": "fill_in",
       "answer": "60",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the two horizontal lines in the figure below are parallel",
+            "phrase_id": "dua garis horizontal pada gambar di bawah ini sejajar",
+            "note_en": "Parallel lines cut by a transversal create co-interior (same-side interior) or alternate angles",
+            "note_id": "Garis sejajar yang dipotong transversal membentuk sudut dalam sepihak atau berselang-seling"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of x?",
+            "phrase_id": "nilai x yang memenuhi adalah",
+            "note_en": "Use parallel line angle properties to solve for x",
+            "note_id": "Gunakan sifat sudut garis sejajar untuk mencari x"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If the two horizontal lines",
+            "phrase_id": "Jika dua garis horizontal",
+            "note_en": "The given angle markings in the figure lead to x = 60",
+            "note_id": "Tanda sudut pada gambar menghasilkan x = 60"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "x (from parallel line angle properties)",
+            "label_id": "x (dari sifat sudut garis sejajar)",
+            "value": "60"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply parallel line angle theorems to the figure",
+          "name_id": "Terapkan teorema sudut garis sejajar pada gambar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "60"
+        }
+      },
+      "hint_steps_en": [
+        "Two parallel horizontal lines are cut by a transversal — use angle theorems.",
+        "Identify co-interior angles (sum = 180°) or alternate angles (equal) from the figure.",
+        "Solve the resulting equation to find x = 60."
+      ],
+      "hint_steps_id": [
+        "Dua garis horizontal sejajar dipotong transversal — gunakan teorema sudut.",
+        "Identifikasi sudut dalam sepihak (jumlah = 180°) atau sudut berselang-seling (sama) dari gambar.",
+        "Selesaikan persamaan yang dihasilkan untuk menemukan x = 60."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +1211,72 @@
       "body_en": "If a#b is defined as (a² + b²) / (a − b), what is the value of 5#3?",
       "answer_type": "fill_in",
       "answer": "17",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a#b is defined as (a² + b²) / (a − b)",
+            "phrase_id": "a#b didefinisikan sebagai (a² + b²) / (a − b)",
+            "note_en": "Substitute a = 5, b = 3 directly into the formula",
+            "note_id": "Substitusikan a = 5, b = 3 langsung ke dalam rumus"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of 5#3?",
+            "phrase_id": "nilai dari 5#3 adalah",
+            "note_en": "5#3 = (5² + 3²) / (5 − 3)",
+            "note_id": "5#3 = (5² + 3²) / (5 − 3)"
+          },
+          {
+            "category": "object",
+            "phrase_en": "5#3",
+            "phrase_id": "5#3",
+            "note_en": "The # operator takes two inputs; a = 5 and b = 3",
+            "note_id": "Operator # mengambil dua masukan; a = 5 dan b = 3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Numerator: 5² + 3²",
+            "label_id": "Pembilang: 5² + 3²",
+            "value": "25 + 9 = 34"
+          },
+          {
+            "label_en": "Denominator: 5 − 3",
+            "label_id": "Penyebut: 5 − 3",
+            "value": "2"
+          },
+          {
+            "label_en": "5#3 = 34 / 2",
+            "label_id": "5#3 = 34 / 2",
+            "value": "17"
+          }
+        ],
+        "strategy": {
+          "name_en": "Substitute and evaluate the custom operator",
+          "name_id": "Substitusikan dan evaluasi operator kustom"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "17"
+        }
+      },
+      "hint_steps_en": [
+        "Substitute: 5#3 = (5² + 3²) / (5 − 3).",
+        "Numerator: 25 + 9 = 34.",
+        "Denominator: 5 − 3 = 2.",
+        "Result: 34 / 2 = 17."
+      ],
+      "hint_steps_id": [
+        "Substitusikan: 5#3 = (5² + 3²) / (5 − 3).",
+        "Pembilang: 25 + 9 = 34.",
+        "Penyebut: 5 − 3 = 2.",
+        "Hasil: 34 / 2 = 17."
+      ]
     },
     {
       "number": 18,
@@ -152,7 +1286,67 @@
       "answer": "37,5",
       "figure_url": null,
       "_low_confidence": true,
-      "_note": "Figure-dependent shaded area; counted ~7.5 grid squares visually"
+      "_note": "Figure-dependent shaded area; counted ~7.5 grid squares visually",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "area of one square in the grid below is 5 cm²",
+            "phrase_id": "luas satu persegi pada gambar di bawah adalah 5 cm²",
+            "note_en": "Each unit square = 5 cm²; count shaded squares from the figure",
+            "note_id": "Setiap persegi satuan = 5 cm²; hitung persegi yang diarsir dari gambar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the area of the shaded region?",
+            "phrase_id": "luas daerah yang diarsir adalah",
+            "note_en": "Multiply the count of shaded unit squares by 5 cm²",
+            "note_id": "Kalikan jumlah persegi satuan yang diarsir dengan 5 cm²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the grid below",
+            "phrase_id": "gambar di bawah",
+            "note_en": "The shaded region spans approximately 7.5 grid squares",
+            "note_id": "Daerah yang diarsir mencakup sekitar 7,5 persegi satuan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Shaded grid squares",
+            "label_id": "Persegi satuan yang diarsir",
+            "value": "7.5"
+          },
+          {
+            "label_en": "Area",
+            "label_id": "Luas",
+            "value": "7.5 × 5 = 37.5 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count shaded unit squares (including halves) then multiply by unit area",
+          "name_id": "Hitung persegi satuan yang diarsir (termasuk setengah) lalu kalikan dengan luas satuan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "37,5"
+        }
+      },
+      "hint_steps_en": [
+        "Each small square in the grid has area 5 cm².",
+        "Count the shaded unit squares in the figure — include half-squares as 0.5 each.",
+        "Total shaded squares = 7.5.",
+        "Area = 7.5 × 5 = 37.5 cm²."
+      ],
+      "hint_steps_id": [
+        "Setiap persegi kecil di kisi memiliki luas 5 cm².",
+        "Hitung persegi satuan yang diarsir di gambar — setengah persegi dihitung 0,5.",
+        "Total persegi yang diarsir = 7,5.",
+        "Luas = 7,5 × 5 = 37,5 cm²."
+      ]
     },
     {
       "number": 19,
@@ -160,7 +1354,70 @@
       "body_en": "If a number is multiplied by 6, the result is 20 more than the number. What is the number?",
       "answer_type": "fill_in",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a number is multiplied by 6, the result is 20 more than the number",
+            "phrase_id": "suatu bilangan dikalikan 6, hasilnya adalah 20 lebihnya dari bilangan itu",
+            "note_en": "6n = n + 20 → solve for n",
+            "note_id": "6n = n + 20 → cari n"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number?",
+            "phrase_id": "Bilangan yang dimaksud adalah",
+            "note_en": "Isolate n from 5n = 20",
+            "note_id": "Isolasi n dari 5n = 20"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "20 more than the number",
+            "phrase_id": "20 lebihnya dari bilangan itu",
+            "note_en": "'20 more than n' means n + 20, not n × 20",
+            "note_id": "'20 lebih dari n' berarti n + 20, bukan n × 20"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation",
+            "label_id": "Persamaan",
+            "value": "6n = n + 20"
+          },
+          {
+            "label_en": "Simplify",
+            "label_id": "Sederhanakan",
+            "value": "5n = 20"
+          },
+          {
+            "label_en": "n",
+            "label_id": "n",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up and solve a linear equation",
+          "name_id": "Buat dan selesaikan persamaan linear"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Let the number be n. The equation is 6n = n + 20.",
+        "Subtract n: 5n = 20.",
+        "Divide: n = 4."
+      ],
+      "hint_steps_id": [
+        "Misalkan bilangannya adalah n. Persamaannya: 6n = n + 20.",
+        "Kurangkan n: 5n = 20.",
+        "Bagi: n = 4."
+      ]
     },
     {
       "number": 20,
@@ -168,7 +1425,69 @@
       "body_en": "If 8% of (P − 2) is 12, what is the value of P?",
       "answer_type": "fill_in",
       "answer": "152",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "8% of (P − 2) is 12",
+            "phrase_id": "8% dari (P − 2) adalah 12",
+            "note_en": "0.08 × (P − 2) = 12 → P − 2 = 150",
+            "note_id": "0,08 × (P − 2) = 12 → P − 2 = 150"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of P?",
+            "phrase_id": "nilai P sama dengan",
+            "note_en": "Add 2 to 150 to find P",
+            "note_id": "Tambahkan 2 pada 150 untuk mencari P"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "(P − 2)",
+            "phrase_id": "(P − 2)",
+            "note_en": "The percentage applies to (P − 2), not to P directly",
+            "note_id": "Persentase berlaku untuk (P − 2), bukan P langsung"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "P − 2 = 12 ÷ 0.08",
+            "label_id": "P − 2 = 12 ÷ 0,08",
+            "value": "150"
+          },
+          {
+            "label_en": "P = 150 + 2",
+            "label_id": "P = 150 + 2",
+            "value": "152"
+          }
+        ],
+        "strategy": {
+          "name_en": "Isolate the bracket then add back",
+          "name_id": "Isolasi nilai dalam kurung lalu tambahkan kembali"
+        },
+        "trap": {
+          "wrong": "150",
+          "why_en": "150 is the value of (P−2), not P — don't forget to add 2.",
+          "why_id": "150 adalah nilai (P−2), bukan P — jangan lupa menambahkan 2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "152"
+        }
+      },
+      "hint_steps_en": [
+        "Write the equation: 0.08 × (P − 2) = 12.",
+        "Solve for P − 2: P − 2 = 12 ÷ 0.08 = 150.",
+        "Add 2: P = 150 + 2 = 152."
+      ],
+      "hint_steps_id": [
+        "Tulis persamaannya: 0,08 × (P − 2) = 12.",
+        "Cari P − 2: P − 2 = 12 ÷ 0,08 = 150.",
+        "Tambahkan 2: P = 150 + 2 = 152."
+      ]
     },
     {
       "number": 21,
@@ -176,7 +1495,76 @@
       "body_en": "In the arithmetic sequence below, find the sum of the three missing terms.\n18, □, □, □, 54",
       "answer_type": "fill_in",
       "answer": "108",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "18, □, □, □, 54",
+            "phrase_id": "18, □, □, □, 54",
+            "note_en": "5 terms total: first = 18, fifth = 54; find the common difference",
+            "note_id": "5 suku total: pertama = 18, kelima = 54; cari beda"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "arithmetic sequence below",
+            "phrase_id": "selisih antarsuku yang berdekatan sama",
+            "note_en": "Arithmetic sequence: constant common difference d",
+            "note_id": "Barisan aritmetika: beda yang konstan d"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the sum of the three missing terms",
+            "phrase_id": "Jumlah tiga bilangan yang rumpang",
+            "note_en": "Sum of three middle terms = 27 + 36 + 45 = 108",
+            "note_id": "Jumlah tiga suku tengah = 27 + 36 + 45 = 108"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Common difference",
+            "label_id": "Beda",
+            "value": "(54 − 18) ÷ 4 = 9"
+          },
+          {
+            "label_en": "Three missing terms",
+            "label_id": "Tiga suku yang hilang",
+            "value": "27, 36, 45"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "27 + 36 + 45 = 108"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find common difference then sum the middle three",
+          "name_id": "Cari beda lalu jumlahkan tiga suku tengah"
+        },
+        "trap": {
+          "wrong": "36",
+          "why_en": "36 is only the middle term — the question asks for the SUM of all three missing terms.",
+          "why_id": "36 hanya suku tengah — soal meminta JUMLAH ketiga suku yang hilang."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "108"
+        }
+      },
+      "hint_steps_en": [
+        "There are 5 terms total; first = 18, fifth = 54.",
+        "Common difference d = (54 − 18) ÷ 4 = 9.",
+        "Missing terms: 18 + 9 = 27; 27 + 9 = 36; 36 + 9 = 45.",
+        "Sum = 27 + 36 + 45 = 108."
+      ],
+      "hint_steps_id": [
+        "Ada 5 suku total; pertama = 18, kelima = 54.",
+        "Beda d = (54 − 18) ÷ 4 = 9.",
+        "Suku yang hilang: 18 + 9 = 27; 27 + 9 = 36; 36 + 9 = 45.",
+        "Jumlah = 27 + 36 + 45 = 108."
+      ]
     },
     {
       "number": 22,
@@ -184,7 +1572,72 @@
       "body_en": "What value of x satisfies the following flowchart?\nx → Multiply by 4 → Add 4 → Divide by 5 → 12",
       "answer_type": "fill_in",
       "answer": "14",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "x → Multiply by 4 → Add 4 → Divide by 5 → 12",
+            "phrase_id": "x → Dikali 4 → Ditambah 4 → Dibagi 5 → 12",
+            "note_en": "Work backwards: reverse each operation from the output",
+            "note_id": "Kerjakan mundur: balik setiap operasi dari output"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What value of x satisfies the following flowchart?",
+            "phrase_id": "Nilai x yang memenuhi operasi skematik berikut adalah",
+            "note_en": "Reverse: ×5, −4, ÷4",
+            "note_id": "Balik: ×5, −4, ÷4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "→ 12",
+            "phrase_id": "→ 12",
+            "note_en": "The final output is 12; trace back to find x",
+            "note_id": "Output akhirnya adalah 12; telusuri kembali untuk mencari x"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Before ÷5: 12 × 5",
+            "label_id": "Sebelum ÷5: 12 × 5",
+            "value": "60"
+          },
+          {
+            "label_en": "Before +4: 60 − 4",
+            "label_id": "Sebelum +4: 60 − 4",
+            "value": "56"
+          },
+          {
+            "label_en": "Before ×4: 56 ÷ 4",
+            "label_id": "Sebelum ×4: 56 ÷ 4",
+            "value": "14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Work backwards — reverse each operation",
+          "name_id": "Kerjakan mundur — balik setiap operasi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "14"
+        }
+      },
+      "hint_steps_en": [
+        "Work backwards from the output 12.",
+        "Reverse ÷5: 12 × 5 = 60.",
+        "Reverse +4: 60 − 4 = 56.",
+        "Reverse ×4: 56 ÷ 4 = 14. So x = 14."
+      ],
+      "hint_steps_id": [
+        "Kerjakan mundur dari output 12.",
+        "Balik ÷5: 12 × 5 = 60.",
+        "Balik +4: 60 − 4 = 56.",
+        "Balik ×4: 56 ÷ 4 = 14. Jadi x = 14."
+      ]
     },
     {
       "number": 23,
@@ -192,7 +1645,71 @@
       "body_en": "April 12, 2008 is a Saturday. What day of the week is 100 days later?",
       "answer_type": "fill_in",
       "answer": "Senin",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "April 12, 2008 is a Saturday",
+            "phrase_id": "Tanggal 12 April 2008 adalah hari Sabtu",
+            "note_en": "Starting day is Saturday (day 0)",
+            "note_id": "Hari mulai adalah Sabtu (hari ke-0)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "100 days later",
+            "phrase_id": "Seratus hari kemudian",
+            "note_en": "Add 100 days; use modulo 7 to find the day",
+            "note_id": "Tambahkan 100 hari; gunakan modulo 7 untuk menemukan harinya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What day of the week is 100 days later?",
+            "phrase_id": "Seratus hari kemudian adalah hari",
+            "note_en": "100 ÷ 7 = 14 remainder 2; Saturday + 2 = Monday",
+            "note_id": "100 ÷ 7 = 14 sisa 2; Sabtu + 2 = Senin"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "100 mod 7",
+            "label_id": "100 mod 7",
+            "value": "100 = 14×7 + 2, remainder = 2"
+          },
+          {
+            "label_en": "Day",
+            "label_id": "Hari",
+            "value": "Saturday + 2 days = Monday (Senin)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use modulo 7 to find the day offset",
+          "name_id": "Gunakan modulo 7 untuk mencari selisih hari"
+        },
+        "trap": {
+          "wrong": "Minggu",
+          "why_en": "Saturday + 1 = Sunday; Saturday + 2 = Monday — the remainder is 2, not 1.",
+          "why_id": "Sabtu + 1 = Minggu; Sabtu + 2 = Senin — sisanya adalah 2, bukan 1."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Senin"
+        }
+      },
+      "hint_steps_en": [
+        "Starting day: Saturday.",
+        "Divide 100 by 7: 100 = 14 × 7 + 2, so the remainder is 2.",
+        "Count 2 days after Saturday: Sunday (+1), Monday (+2).",
+        "100 days later is Monday (Senin)."
+      ],
+      "hint_steps_id": [
+        "Hari mulai: Sabtu.",
+        "Bagi 100 dengan 7: 100 = 14 × 7 + 2, sisa 2.",
+        "Hitung 2 hari setelah Sabtu: Minggu (+1), Senin (+2).",
+        "100 hari kemudian adalah Senin."
+      ]
     },
     {
       "number": 24,
@@ -200,7 +1717,81 @@
       "body_en": "A room floor measures 9 m × 8 m. Father wants to cover it with 60 cm × 60 cm tiles, each costing Rp50,000. What is the total cost to tile the entire floor?",
       "answer_type": "fill_in",
       "answer": "Rp10.000.000,00",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "room floor measures 9 m × 8 m",
+            "phrase_id": "Lantai suatu rumah berukuran 9 m × 8 m",
+            "note_en": "Floor area = 9 × 8 = 72 m²",
+            "note_id": "Luas lantai = 9 × 8 = 72 m²"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "60 cm × 60 cm tiles, each costing Rp50,000",
+            "phrase_id": "keramik berukuran 60 cm × 60 cm. Satu keping keramik harganya Rp50.000,00",
+            "note_en": "Each tile = 0.6 × 0.6 = 0.36 m²",
+            "note_id": "Setiap keramik = 0,6 × 0,6 = 0,36 m²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total cost to tile the entire floor?",
+            "phrase_id": "Total harga beli keramik agar seluruh lantai rumah tertutup adalah",
+            "note_en": "Number of tiles × price per tile",
+            "note_id": "Jumlah keramik × harga per keramik"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Floor area",
+            "label_id": "Luas lantai",
+            "value": "9 × 8 = 72 m²"
+          },
+          {
+            "label_en": "Tile area",
+            "label_id": "Luas keramik",
+            "value": "0.6 × 0.6 = 0.36 m²"
+          },
+          {
+            "label_en": "Number of tiles",
+            "label_id": "Jumlah keramik",
+            "value": "72 ÷ 0.36 = 200"
+          },
+          {
+            "label_en": "Total cost",
+            "label_id": "Total harga",
+            "value": "200 × 50,000 = Rp10,000,000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert units → floor area ÷ tile area → multiply by price",
+          "name_id": "Konversi satuan → luas lantai ÷ luas keramik → kalikan harga"
+        },
+        "trap": {
+          "wrong": "Rp9.000.000,00",
+          "why_en": "Using 9 m × 8 m / 0.6 m = wrong shortcut — always divide total area by tile area.",
+          "why_id": "Menggunakan jalan pintas yang salah — selalu bagi luas total dengan luas keramik."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "Rp",
+          "value": "Rp10.000.000,00"
+        }
+      },
+      "hint_steps_en": [
+        "Floor area = 9 × 8 = 72 m².",
+        "Tile area = 0.6 × 0.6 = 0.36 m².",
+        "Number of tiles = 72 ÷ 0.36 = 200.",
+        "Total cost = 200 × Rp50,000 = Rp10,000,000."
+      ],
+      "hint_steps_id": [
+        "Luas lantai = 9 × 8 = 72 m².",
+        "Luas keramik = 0,6 × 0,6 = 0,36 m².",
+        "Jumlah keramik = 72 ÷ 0,36 = 200.",
+        "Total harga = 200 × Rp50.000 = Rp10.000.000."
+      ]
     },
     {
       "number": 25,
@@ -208,7 +1799,81 @@
       "body_en": "How many years is 3 centuries + 13 decades + 15 windu (8-year periods)?",
       "answer_type": "fill_in",
       "answer": "550",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 centuries + 13 decades + 15 windu (8-year periods)",
+            "phrase_id": "3 abad + 13 dasawarsa + 15 windu",
+            "note_en": "1 century = 100 yr; 1 decade = 10 yr; 1 windu = 8 yr",
+            "note_id": "1 abad = 100 tahun; 1 dasawarsa = 10 tahun; 1 windu = 8 tahun"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many years is",
+            "phrase_id": "Berapa tahun",
+            "note_en": "Convert each unit then add",
+            "note_id": "Konversi setiap satuan lalu jumlahkan"
+          },
+          {
+            "category": "object",
+            "phrase_en": "windu (8-year periods)",
+            "phrase_id": "windu",
+            "note_en": "Windu is a traditional Indonesian 8-year cycle — a common trick in Indonesian math olympiads",
+            "note_id": "Windu adalah siklus 8 tahun tradisional Indonesia — sering muncul di olimpiade matematika"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "3 centuries",
+            "label_id": "3 abad",
+            "value": "3 × 100 = 300 years"
+          },
+          {
+            "label_en": "13 decades",
+            "label_id": "13 dasawarsa",
+            "value": "13 × 10 = 130 years"
+          },
+          {
+            "label_en": "15 windu",
+            "label_id": "15 windu",
+            "value": "15 × 8 = 120 years"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "300 + 130 + 120 = 550 years"
+          }
+        ],
+        "strategy": {
+          "name_en": "Know your time units — convert each then sum",
+          "name_id": "Hafal satuan waktu — konversi masing-masing lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "430",
+          "why_en": "Forgetting windu (treating it as 10 years) gives 300 + 130 = 430 — windu is 8 years.",
+          "why_id": "Lupa windu (menganggap 10 tahun) menghasilkan 300 + 130 = 430 — windu adalah 8 tahun."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "tahun",
+          "value": "550"
+        }
+      },
+      "hint_steps_en": [
+        "1 century = 100 years → 3 × 100 = 300 years.",
+        "1 decade = 10 years → 13 × 10 = 130 years.",
+        "1 windu = 8 years → 15 × 8 = 120 years.",
+        "Total = 300 + 130 + 120 = 550 years."
+      ],
+      "hint_steps_id": [
+        "1 abad = 100 tahun → 3 × 100 = 300 tahun.",
+        "1 dasawarsa = 10 tahun → 13 × 10 = 130 tahun.",
+        "1 windu = 8 tahun → 15 × 8 = 120 tahun.",
+        "Total = 300 + 130 + 120 = 550 tahun."
+      ]
     }
   ]
 }
