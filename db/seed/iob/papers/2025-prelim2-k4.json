@@ -26,7 +26,109 @@
         { "label": "D", "text": "8992" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "9999 – (999 + 99 + 9)",
+            "phrase_id": "9999 – (999 + 99 + 9)",
+            "note_en": "Evaluate the bracket first, then subtract from 9999",
+            "note_id": "Hitung kurung terlebih dahulu, lalu kurangi dari 9999"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of",
+            "phrase_id": "Berapakah hasil perhitungan berikut ini",
+            "note_en": "Find the exact numerical result of the expression",
+            "note_id": "Temukan hasil numerik tepat dari ekspresi tersebut"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "999 + 99 + 9",
+            "phrase_id": "999 + 99 + 9",
+            "note_en": "Sum inside the bracket: 999+99+9 = 1107",
+            "note_id": "Jumlah di dalam kurung: 999+99+9 = 1107"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum in bracket",
+            "label_id": "Jumlah dalam kurung",
+            "value": "999 + 99 + 9 = 1107"
+          },
+          {
+            "label_en": "Final result",
+            "label_id": "Hasil akhir",
+            "value": "9999 − 1107 = 8892"
+          }
+        ],
+        "strategy": {
+          "name_en": "Bracket first, then subtract",
+          "name_id": "Kurung dulu, baru kurangi"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "8992 comes from forgetting to add 9 inside the bracket (999+99=1098; 9999−1007=8992 — a common partial-sum error).",
+          "why_id": "8992 muncul karena lupa menambahkan 9 di dalam kurung (999+99=1098; 9999−1007=8992 — kesalahan jumlah sebagian yang umum)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Evaluate the bracket first: 999 + 99 + 9.",
+        "999 + 99 = 1098; then 1098 + 9 = 1107.",
+        "Subtract from 9999: 9999 − 1107 = 8892.",
+        "8892 matches choice C."
+      ],
+      "hint_steps_id": [
+        "Hitung kurung terlebih dahulu: 999 + 99 + 9.",
+        "999 + 99 = 1098; lalu 1098 + 9 = 1107.",
+        "Kurangi dari 9999: 9999 − 1107 = 8892.",
+        "8892 cocok dengan pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Evaluate the bracket, then check which answer matches 9999 − 1107.",
+          "intro_id": "Hitung kurung, lalu cek pilihan mana yang cocok dengan 9999 − 1107.",
+          "items": [
+            {
+              "text_en": "Step 1 — bracket: 999 + 99 + 9 = 1107",
+              "text_id": "Langkah 1 — kurung: 999 + 99 + 9 = 1107",
+              "ok": null
+            },
+            {
+              "text_en": "A: 8692 → 9999 − 8692 = 1307 ≠ 1107 ✗",
+              "text_id": "A: 8692 → 9999 − 8692 = 1307 ≠ 1107 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 8792 → 9999 − 8792 = 1207 ≠ 1107 ✗",
+              "text_id": "B: 8792 → 9999 − 8792 = 1207 ≠ 1107 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 8892 → 9999 − 8892 = 1107 ✓",
+              "text_id": "C: 8892 → 9999 − 8892 = 1107 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 8992 → 9999 − 8992 = 1007 ≠ 1107 ✗",
+              "text_id": "D: 8992 → 9999 − 8992 = 1007 ≠ 1107 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "9999 − 1107 = 8892, so the answer is C.",
+          "final_id": "9999 − 1107 = 8892, jadi jawabannya adalah C.",
+          "aria_en": "The bracket evaluates to 1107; subtracting from 9999 gives 8892 which is choice C.",
+          "aria_id": "Kurung bernilai 1107; dikurangi dari 9999 menghasilkan 8892 yaitu pilihan C."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +148,104 @@
         { "label": "D", "text": "128" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A number is multiplied by 4, then 18 is added. The result is 522.",
+            "phrase_id": "Sebuah bilangan dikalikan dengan 4, kemudian ditambah 18. Hasilnya adalah 522.",
+            "note_en": "Work backwards: undo the addition first, then undo the multiplication",
+            "note_id": "Kerjakan mundur: hapus tambahan dulu, lalu hapus perkalian"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number?",
+            "phrase_id": "Berapakah bilangan tersebut?",
+            "note_en": "Find the original unknown number using reverse operations",
+            "note_id": "Temukan bilangan asal menggunakan operasi terbalik"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "multiplied by 4, then 18 is added",
+            "phrase_id": "dikalikan dengan 4, kemudian ditambah 18",
+            "note_en": "Order matters: × 4 first, then + 18; reverse means − 18 first, then ÷ 4",
+            "note_id": "Urutan penting: × 4 dulu, lalu + 18; terbalik berarti − 18 dulu, lalu ÷ 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After subtracting 18",
+            "label_id": "Setelah dikurangi 18",
+            "value": "522 − 18 = 504"
+          },
+          {
+            "label_en": "Original number",
+            "label_id": "Bilangan asal",
+            "value": "504 ÷ 4 = 126"
+          }
+        ],
+        "strategy": {
+          "name_en": "Work backwards — reverse the operations",
+          "name_id": "Kerjakan mundur — balik operasinya"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "125 × 4 + 18 = 518, not 522 — a common off-by-one error from doing 520/4 = 130 first.",
+          "why_id": "125 × 4 + 18 = 518, bukan 522 — kesalahan off-by-one yang umum."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The last operation was +18, so undo it: 522 − 18 = 504.",
+        "Before that was ×4, so undo it: 504 ÷ 4 = 126.",
+        "Check: 126 × 4 + 18 = 504 + 18 = 522 ✓",
+        "The answer is 126, which is B."
+      ],
+      "hint_steps_id": [
+        "Operasi terakhir adalah +18, jadi balikkan: 522 − 18 = 504.",
+        "Sebelumnya adalah ×4, jadi balikkan: 504 ÷ 4 = 126.",
+        "Periksa: 126 × 4 + 18 = 504 + 18 = 522 ✓",
+        "Jawabannya adalah 126, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each choice: multiply by 4, add 18 — does it equal 522?",
+          "intro_id": "Uji setiap pilihan: kalikan 4, tambah 18 — apakah hasilnya 522?",
+          "items": [
+            {
+              "text_en": "A: 125 × 4 + 18 = 500 + 18 = 518 ≠ 522 ✗",
+              "text_id": "A: 125 × 4 + 18 = 500 + 18 = 518 ≠ 522 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 126 × 4 + 18 = 504 + 18 = 522 ✓",
+              "text_id": "B: 126 × 4 + 18 = 504 + 18 = 522 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 127 × 4 + 18 = 508 + 18 = 526 ≠ 522 ✗",
+              "text_id": "C: 127 × 4 + 18 = 508 + 18 = 526 ≠ 522 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 128 × 4 + 18 = 512 + 18 = 530 ≠ 522 ✗",
+              "text_id": "D: 128 × 4 + 18 = 512 + 18 = 530 ≠ 522 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Only 126 gives 522, so the answer is B.",
+          "final_id": "Hanya 126 yang menghasilkan 522, jadi jawabannya adalah B.",
+          "aria_en": "Reversing the operations: 522 minus 18 equals 504, divided by 4 equals 126, which is choice B.",
+          "aria_id": "Membalikkan operasi: 522 dikurangi 18 sama dengan 504, dibagi 4 sama dengan 126, yaitu pilihan B."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +265,111 @@
         { "label": "D", "text": "12" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 red socks, 4 blue socks, and 4 black socks",
+            "phrase_id": "4 kaus kaki warna merah, 4 kaus kaki warna biru, dan 4 kaus kaki warna hitam",
+            "note_en": "12 socks total in three colours, 4 each",
+            "note_id": "Total 12 kaus kaki dalam tiga warna, masing-masing 4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "minimum number of socks that must be drawn blindly to guarantee having at least two red socks and two black socks",
+            "phrase_id": "berapa jumlah paling sedikit kaus kaki yang harus diambil agar pasti mendapatkan 2 kaus kaki warna merah dan 2 kaus kaki warna hitam",
+            "note_en": "Use worst-case thinking: assume the worst draws before finally getting what is needed",
+            "note_id": "Gunakan pemikiran kasus terburuk: asumsikan pengambilan terburuk sebelum akhirnya mendapatkan yang dibutuhkan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "drawn blindly to guarantee",
+            "phrase_id": "harus diambil agar pasti",
+            "note_en": "Guarantee means even the worst possible draw order must still satisfy the requirement",
+            "note_id": "Pasti berarti bahkan urutan pengambilan terburuk pun harus memenuhi syarat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Worst-case first draws",
+            "label_id": "Pengambilan awal kasus terburuk",
+            "value": "All 4 blue + all 4 red (no blacks yet) = 8 socks"
+          },
+          {
+            "label_en": "Next 2 draws",
+            "label_id": "2 pengambilan berikutnya",
+            "value": "Must be black socks → 2 black socks guaranteed at draw 10"
+          },
+          {
+            "label_en": "Total draws needed",
+            "label_id": "Total pengambilan yang dibutuhkan",
+            "value": "8 + 2 = 10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Worst-case analysis — assume the adversarial draw order",
+          "name_id": "Analisis kasus terburuk — asumsikan urutan pengambilan yang paling tidak menguntungkan"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "8 socks can still be 4 blue + 4 red with zero black — you have 0 black socks, not the 2 required.",
+          "why_id": "8 kaus kaki bisa jadi 4 biru + 4 merah tanpa hitam sama sekali — kamu memiliki 0 kaus kaki hitam, bukan 2 yang dibutuhkan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "You need at least 2 red AND 2 black socks — this is the hardest combination to guarantee.",
+        "Worst case: first draw all 4 blue socks (0 red, 0 black), then all 4 red (4 red, 0 black) — that is 8 socks and still no black socks.",
+        "Draw 9: must be black (only blacks left) → 1 black.",
+        "Draw 10: must be black → 2 blacks. Now you have 4 red + 2 black ✓.",
+        "Minimum draws needed = 10, which is C."
+      ],
+      "hint_steps_id": [
+        "Kamu butuh setidaknya 2 merah DAN 2 hitam — ini kombinasi yang paling sulit dijamin.",
+        "Kasus terburuk: ambil dulu 4 biru (0 merah, 0 hitam), lalu 4 merah (4 merah, 0 hitam) — itu 8 kaus kaki dan masih belum ada yang hitam.",
+        "Pengambilan ke-9: pasti hitam (hanya hitam tersisa) → 1 hitam.",
+        "Pengambilan ke-10: pasti hitam → 2 hitam. Sekarang kamu punya 4 merah + 2 hitam ✓.",
+        "Minimum pengambilan yang dibutuhkan = 10, yaitu C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Worst-case draw: delay red and black as long as possible, then check each answer.",
+          "intro_id": "Pengambilan kasus terburuk: tunda mendapat merah dan hitam selama mungkin, lalu cek setiap pilihan.",
+          "items": [
+            {
+              "text_en": "A: 4 socks — could be all blue (0 red, 0 black) ✗ not guaranteed",
+              "text_id": "A: 4 kaus kaki — bisa semua biru (0 merah, 0 hitam) ✗ tidak terjamin",
+              "ok": false
+            },
+            {
+              "text_en": "B: 8 socks — could be 4 blue + 4 red (0 black!) ✗ not guaranteed",
+              "text_id": "B: 8 kaus kaki — bisa 4 biru + 4 merah (0 hitam!) ✗ tidak terjamin",
+              "ok": false
+            },
+            {
+              "text_en": "C: 10 socks — worst case: 4 blue + 4 red + 2 black ✓ 2 red and 2 black guaranteed",
+              "text_id": "C: 10 kaus kaki — kasus terburuk: 4 biru + 4 merah + 2 hitam ✓ 2 merah dan 2 hitam terjamin",
+              "ok": true
+            },
+            {
+              "text_en": "D: 12 socks — works but more than necessary ✗ not minimum",
+              "text_id": "D: 12 kaus kaki — berhasil tapi lebih dari perlu ✗ bukan minimum",
+              "ok": false
+            }
+          ],
+          "final_en": "10 draws guarantee 2 red and 2 black socks — answer C.",
+          "final_id": "10 pengambilan menjamin 2 merah dan 2 hitam — jawaban C.",
+          "aria_en": "In the worst case you draw all 4 blue then all 4 red before any black; the next 2 draws must be black, giving 10 total draws to guarantee 2 red and 2 black socks.",
+          "aria_id": "Dalam kasus terburuk kamu mengambil 4 biru lalu 4 merah sebelum ada yang hitam; 2 pengambilan berikutnya pasti hitam, sehingga dibutuhkan total 10 pengambilan untuk menjamin 2 merah dan 2 hitam."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +389,121 @@
         { "label": "D", "text": "69" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "127 students standing in a row",
+            "phrase_id": "127 anak berdiri dalam satu barisan",
+            "note_en": "Total 127 people in the row",
+            "note_id": "Total 127 orang dalam barisan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Between every two consecutive girls, there are exactly 3 boys",
+            "phrase_id": "Diantara setiap dua anak perempuan yang berurutan, terdapat 3 anak laki-laki",
+            "note_en": "Pattern repeats: G B B B (one girl then three boys = group of 4)",
+            "note_id": "Pola berulang: P L L L (satu perempuan lalu tiga laki-laki = kelompok 4)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the difference between the total number of boys and the total number of girls",
+            "phrase_id": "berapakah selisih jumlah anak laki-laki dan anak perempuan",
+            "note_en": "Find boys − girls",
+            "note_id": "Temukan laki-laki − perempuan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Complete groups of 4",
+            "label_id": "Kelompok lengkap 4 orang",
+            "value": "127 ÷ 4 = 31 remainder 3"
+          },
+          {
+            "label_en": "Girls from 31 full groups + remainder GBB",
+            "label_id": "Perempuan dari 31 kelompok penuh + sisa GLL",
+            "value": "31 + 1 = 32 girls"
+          },
+          {
+            "label_en": "Boys from 31 full groups + remainder GBB",
+            "label_id": "Laki-laki dari 31 kelompok penuh + sisa GLL",
+            "value": "31 × 3 + 2 = 93 + 2 = 95 boys"
+          },
+          {
+            "label_en": "Difference",
+            "label_id": "Selisih",
+            "value": "95 − 32 = 63"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the repeating group, divide, handle the remainder",
+          "name_id": "Temukan kelompok berulang, bagi, tangani sisanya"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "60 results from assuming 127 ÷ 4 = 31 full groups with 3 leftover girls (ignoring the boys in the remainder); the remainder G B B adds 1 girl and 2 boys, not 3 girls.",
+          "why_id": "60 muncul dari asumsi sisa 3 adalah perempuan; sebenarnya sisa G L L menambah 1 perempuan dan 2 laki-laki."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The row starts with a girl and follows the pattern G B B B (group of 4).",
+        "127 ÷ 4 = 31 complete groups with 3 left over.",
+        "Remainder of 3 follows the start of the pattern: G B B → 1 girl, 2 boys.",
+        "Total girls = 31 + 1 = 32. Total boys = 31 × 3 + 2 = 95.",
+        "Difference = 95 − 32 = 63, which is B."
+      ],
+      "hint_steps_id": [
+        "Barisan dimulai dengan perempuan dan mengikuti pola P L L L (kelompok 4).",
+        "127 ÷ 4 = 31 kelompok lengkap dengan sisa 3.",
+        "Sisa 3 mengikuti awal pola: P L L → 1 perempuan, 2 laki-laki.",
+        "Total perempuan = 31 + 1 = 32. Total laki-laki = 31 × 3 + 2 = 95.",
+        "Selisih = 95 − 32 = 63, yaitu B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Pattern is G B B B (size 4). Work out the counts, then check each answer.",
+          "intro_id": "Pola adalah P L L L (ukuran 4). Hitung jumlahnya, lalu cek setiap pilihan.",
+          "items": [
+            {
+              "text_en": "127 ÷ 4 = 31 full groups (124 people) + 3 leftover (G B B)",
+              "text_id": "127 ÷ 4 = 31 kelompok penuh (124 orang) + sisa 3 (P L L)",
+              "ok": null
+            },
+            {
+              "text_en": "Girls: 31 + 1 = 32; Boys: 93 + 2 = 95",
+              "text_id": "Perempuan: 31 + 1 = 32; Laki-laki: 93 + 2 = 95",
+              "ok": null
+            },
+            {
+              "text_en": "A: 60 — wrong (ignores boys in remainder) ✗",
+              "text_id": "A: 60 — salah (mengabaikan laki-laki dalam sisa) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 63 — 95 − 32 = 63 ✓",
+              "text_id": "B: 63 — 95 − 32 = 63 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 66, D: 69 — over-count ✗",
+              "text_id": "C: 66, D: 69 — terlalu banyak ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "95 boys − 32 girls = 63 — answer B.",
+          "final_id": "95 laki-laki − 32 perempuan = 63 — jawaban B.",
+          "aria_en": "The pattern G B B B repeats 31 times with a G B B remainder giving 32 girls and 95 boys; the difference is 63.",
+          "aria_id": "Pola P L L L berulang 31 kali dengan sisa P L L menghasilkan 32 perempuan dan 95 laki-laki; selisihnya adalah 63."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +523,116 @@
         { "label": "D", "text": "Lantai 4" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "starts on the ground floor (assume as floor 0)",
+            "phrase_id": "memuat penumpang dari lantai dasar (ditandai dengan lantai 0)",
+            "note_en": "Starting position is floor 0, not floor 1",
+            "note_id": "Posisi awal adalah lantai 0, bukan lantai 1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "goes up 10 floors, down 3 floors, up 7 floors, and finally down 12 floors",
+            "phrase_id": "naik 10 lantai, kemudian turun 3 lantai. Selanjutnya lift naik lagi 7 lantai, lalu turun 12 lantai",
+            "note_en": "Four moves: +10, −3, +7, −12",
+            "note_id": "Empat langkah: +10, −3, +7, −12"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What floor is it on now?",
+            "phrase_id": "Di lantai berapakah lift tersebut sekarang?",
+            "note_en": "Sum all the movements from floor 0",
+            "note_id": "Jumlahkan semua pergerakan dari lantai 0"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "After +10",
+            "label_id": "Setelah +10",
+            "value": "0 + 10 = 10"
+          },
+          {
+            "label_en": "After −3",
+            "label_id": "Setelah −3",
+            "value": "10 − 3 = 7"
+          },
+          {
+            "label_en": "After +7",
+            "label_id": "Setelah +7",
+            "value": "7 + 7 = 14"
+          },
+          {
+            "label_en": "After −12",
+            "label_id": "Setelah −12",
+            "value": "14 − 12 = 2"
+          }
+        ],
+        "strategy": {
+          "name_en": "Track position step by step",
+          "name_id": "Lacak posisi langkah demi langkah"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "Floor 1 would mean a net change of +1, but 10−3+7−12 = +2, not +1.",
+          "why_id": "Lantai 1 berarti perubahan bersih +1, tetapi 10−3+7−12 = +2, bukan +1."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Start at floor 0. Up 10: now at floor 10.",
+        "Down 3: 10 − 3 = 7.",
+        "Up 7: 7 + 7 = 14.",
+        "Down 12: 14 − 12 = 2.",
+        "The elevator is on the second floor — answer B."
+      ],
+      "hint_steps_id": [
+        "Mulai di lantai 0. Naik 10: sekarang di lantai 10.",
+        "Turun 3: 10 − 3 = 7.",
+        "Naik 7: 7 + 7 = 14.",
+        "Turun 12: 14 − 12 = 2.",
+        "Lift berada di lantai dua — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track the elevator floor after each move, then match the final floor to the choices.",
+          "intro_id": "Lacak lantai lift setelah setiap langkah, lalu cocokkan lantai akhir dengan pilihan.",
+          "items": [
+            {
+              "text_en": "Start: floor 0 → up 10 → floor 10",
+              "text_id": "Mulai: lantai 0 → naik 10 → lantai 10",
+              "ok": null
+            },
+            {
+              "text_en": "Floor 10 → down 3 → floor 7",
+              "text_id": "Lantai 10 → turun 3 → lantai 7",
+              "ok": null
+            },
+            {
+              "text_en": "Floor 7 → up 7 → floor 14",
+              "text_id": "Lantai 7 → naik 7 → lantai 14",
+              "ok": null
+            },
+            {
+              "text_en": "Floor 14 → down 12 → floor 2 ✓ Second floor",
+              "text_id": "Lantai 14 → turun 12 → lantai 2 ✓ Lantai 2",
+              "ok": true
+            }
+          ],
+          "final_en": "The elevator ends on floor 2 — answer B.",
+          "final_id": "Lift berakhir di lantai 2 — jawaban B.",
+          "aria_en": "Starting at floor zero: plus 10 gives 10, minus 3 gives 7, plus 7 gives 14, minus 12 gives 2 — the second floor.",
+          "aria_id": "Mulai dari lantai nol: tambah 10 menjadi 10, kurang 3 menjadi 7, tambah 7 menjadi 14, kurang 12 menjadi 2 — lantai kedua."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +652,104 @@
         { "label": "D", "text": "25" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 kids in the garden",
+            "phrase_id": "5 anak di sebuah taman",
+            "note_en": "5 people — each pair is a unique handshake",
+            "note_id": "5 orang — setiap pasang adalah satu jabat tangan unik"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "everyone shakes hands with everyone else exactly once",
+            "phrase_id": "setiap anak berjabat tangan dengan setiap anak lainnya sebanyak satu kali",
+            "note_en": "Each pair shakes hands once — order does not matter, use combinations",
+            "note_id": "Setiap pasang jabat tangan sekali — urutan tidak penting, gunakan kombinasi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many handshakes happen in total?",
+            "phrase_id": "berapa jumlah seluruh jabat tangan yang terjadi?",
+            "note_en": "Count unordered pairs from 5 people: C(5,2)",
+            "note_id": "Hitung pasangan tanpa urutan dari 5 orang: C(5,2)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Formula",
+            "label_id": "Rumus",
+            "value": "C(5,2) = 5 × 4 ÷ 2 = 10"
+          },
+          {
+            "label_en": "Total handshakes",
+            "label_id": "Total jabat tangan",
+            "value": "10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combinations — count unique pairs",
+          "name_id": "Kombinasi — hitung pasangan unik"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "20 = 5 × 4, which counts ordered pairs (A shakes B AND B shakes A as two separate events). Each handshake is shared, so divide by 2: 20 ÷ 2 = 10.",
+          "why_id": "20 = 5 × 4, yang menghitung pasangan berurutan (A jabat B DAN B jabat A dihitung dua kali). Setiap jabat tangan dibagi bersama, jadi bagi 2: 20 ÷ 2 = 10."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Label the kids 1, 2, 3, 4, 5.",
+        "Kid 1 shakes hands with 4 others; kid 2 with 3 new others; kid 3 with 2; kid 4 with 1.",
+        "Total = 4 + 3 + 2 + 1 = 10.",
+        "Or use C(5,2) = 5 × 4 ÷ 2 = 10 — answer A."
+      ],
+      "hint_steps_id": [
+        "Beri label anak-anak 1, 2, 3, 4, 5.",
+        "Anak 1 jabat tangan dengan 4 lainnya; anak 2 dengan 3 yang baru; anak 3 dengan 2; anak 4 dengan 1.",
+        "Total = 4 + 3 + 2 + 1 = 10.",
+        "Atau gunakan C(5,2) = 5 × 4 ÷ 2 = 10 — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count handshakes systematically: kid 1 pairs, kid 2 new pairs, and so on.",
+          "intro_id": "Hitung jabat tangan secara sistematis: pasangan anak 1, pasangan baru anak 2, dan seterusnya.",
+          "items": [
+            {
+              "text_en": "Kid 1 shakes with 2,3,4,5 → 4 handshakes",
+              "text_id": "Anak 1 jabat dengan 2,3,4,5 → 4 jabat tangan",
+              "ok": null
+            },
+            {
+              "text_en": "Kid 2 shakes with 3,4,5 (already did 1) → 3 more",
+              "text_id": "Anak 2 jabat dengan 3,4,5 (sudah dengan 1) → 3 lagi",
+              "ok": null
+            },
+            {
+              "text_en": "Kid 3: 2,1 done → shakes 4,5 → 2 more; Kid 4: shakes 5 → 1 more",
+              "text_id": "Anak 3: 2,1 selesai → jabat 4,5 → 2 lagi; Anak 4: jabat 5 → 1 lagi",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 4+3+2+1 = 10 ✓",
+              "text_id": "Total: 4+3+2+1 = 10 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "10 handshakes in total — answer A.",
+          "final_id": "Total 10 jabat tangan — jawaban A.",
+          "aria_en": "Five kids each pair with every other kid exactly once; counting unique pairs gives 4 plus 3 plus 2 plus 1 equals 10 handshakes.",
+          "aria_id": "Lima anak masing-masing berpasangan dengan setiap anak lain tepat sekali; menghitung pasangan unik menghasilkan 4 tambah 3 tambah 2 tambah 1 sama dengan 10 jabat tangan."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +769,111 @@
         { "label": "D", "text": "9" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "9 identical-looking coins, but one is slightly heavier than the others",
+            "phrase_id": "9 koin yang tampak sama, tetapi salah satunya sedikit lebih berat dari yang lain",
+            "note_en": "Exactly one coin is heavier; the balance scale only tells us which side is heavier",
+            "note_id": "Tepat satu koin lebih berat; neraca hanya memberi tahu kita sisi mana yang lebih berat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Using a balance scale, what is the minimum number of weighings needed",
+            "phrase_id": "Dengan neraca timbangan, berapa kali paling sedikit kamu perlu menimbang",
+            "note_en": "Optimal strategy: divide coins into three equal groups and compare two of them",
+            "note_id": "Strategi optimal: bagi koin menjadi tiga kelompok sama dan bandingkan dua di antaranya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "minimum number of weighings needed to find the heavy coin",
+            "phrase_id": "berapa kali paling sedikit kamu perlu menimbang untuk menemukan koin yang lebih berat",
+            "note_en": "Each weighing divides possibilities by up to 3, so log₃(9) = 2",
+            "note_id": "Setiap penimbangan membagi kemungkinan hingga 3 kali, jadi log₃(9) = 2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Weighing 1",
+            "label_id": "Penimbangan 1",
+            "value": "Split 9 into groups A(3), B(3), C(3). Weigh A vs B. The heavy group is identified."
+          },
+          {
+            "label_en": "Weighing 2",
+            "label_id": "Penimbangan 2",
+            "value": "Take the 3 coins from the heavy group. Weigh any 1 vs 1 — the result identifies the heavy coin."
+          },
+          {
+            "label_en": "Minimum weighings",
+            "label_id": "Minimum penimbangan",
+            "value": "2"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divide into thirds — ternary search",
+          "name_id": "Bagi tiga — pencarian terner"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "1 weighing cannot distinguish among 9 coins — you can only compare two groups, leaving at most 3 coins from the third group still unresolved.",
+          "why_id": "1 penimbangan tidak bisa membedakan 9 koin — kamu hanya bisa membandingkan dua kelompok, menyisakan hingga 3 koin dari kelompok ketiga yang belum terselesaikan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Divide the 9 coins into three groups of 3: A, B, C.",
+        "Weighing 1: put A on one side, B on the other.",
+        "If A is heavier → heavy coin is in A. If B is heavier → B. If balanced → C.",
+        "Weighing 2: take the heavy group of 3. Weigh coin 1 vs coin 2.",
+        "If coin 1 is heavier → coin 1. If coin 2 is heavier → coin 2. If balanced → coin 3. Done in 2 weighings — answer B."
+      ],
+      "hint_steps_id": [
+        "Bagi 9 koin menjadi tiga kelompok 3: A, B, C.",
+        "Penimbangan 1: taruh A di satu sisi, B di sisi lain.",
+        "Jika A lebih berat → koin berat ada di A. Jika B lebih berat → B. Jika seimbang → C.",
+        "Penimbangan 2: ambil kelompok berat (3 koin). Timbang koin 1 vs koin 2.",
+        "Jika koin 1 lebih berat → koin 1. Jika koin 2 → koin 2. Jika seimbang → koin 3. Selesai dalam 2 penimbangan — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Divide coins into thirds — each weighing narrows the candidates by one-third.",
+          "intro_id": "Bagi koin menjadi tiga — setiap penimbangan mempersempit kandidat menjadi sepertiga.",
+          "items": [
+            {
+              "text_en": "A: 1 weighing — can only split 9 into groups; leaves up to 3 unknowns ✗",
+              "text_id": "A: 1 penimbangan — hanya bisa membagi 9 menjadi kelompok; menyisakan hingga 3 yang belum diketahui ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 2 weighings — split 9→3 (weighing 1), then 3→1 (weighing 2) ✓",
+              "text_id": "B: 2 penimbangan — bagi 9→3 (penimbangan 1), lalu 3→1 (penimbangan 2) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 7 weighings — correct but not minimum ✗",
+              "text_id": "C: 7 penimbangan — benar tapi bukan minimum ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 9 weighings — worst-case linear search, far from minimum ✗",
+              "text_id": "D: 9 penimbangan — pencarian linier kasus terburuk, jauh dari minimum ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "2 weighings are enough to find the heavy coin among 9 — answer B.",
+          "final_id": "2 penimbangan cukup untuk menemukan koin berat di antara 9 — jawaban B.",
+          "aria_en": "Split 9 coins into three groups of 3; one weighing identifies the heavy group, a second weighing identifies the heavy coin within that group — 2 weighings total.",
+          "aria_id": "Bagi 9 koin menjadi tiga kelompok 3; satu penimbangan mengidentifikasi kelompok berat, penimbangan kedua mengidentifikasi koin berat dalam kelompok itu — total 2 penimbangan."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +893,88 @@
         { "label": "D", "text": "17" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Stars (★) are placed on the diagonal: row 1 col 1, row 2 col 2, row 3 col 3, row 4 col 4",
+            "phrase_id": "Bintang (★) berada pada diagonal: baris 1 kolom 1, baris 2 kolom 2, baris 3 kolom 3, baris 4 kolom 4",
+            "note_en": "Stars are at positions (1,1), (2,2), (3,3), (4,4) on the main diagonal",
+            "note_id": "Bintang berada di posisi (1,1), (2,2), (3,3), (4,4) pada diagonal utama"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Count the total number of squares (any sizes) that contain at least one star inside them",
+            "phrase_id": "Berapa banyak persegi (semua ukuran) yang memuat paling sedikit 1 bintang di dalamnya",
+            "note_en": "Count 1×1, 2×2, 3×3, and 4×4 squares that contain at least one diagonal cell",
+            "note_id": "Hitung persegi 1×1, 2×2, 3×3, dan 4×4 yang mengandung setidaknya satu sel diagonal"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Count the total number of squares (any sizes)",
+            "phrase_id": "Berapa banyak persegi (semua ukuran)",
+            "note_en": "Sum squares of all sizes that pass through the diagonal",
+            "note_id": "Jumlahkan persegi dari semua ukuran yang melewati diagonal"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1×1 squares with a star",
+            "label_id": "Persegi 1×1 berisi bintang",
+            "value": "4 (one per diagonal cell)"
+          },
+          {
+            "label_en": "2×2 squares containing a star",
+            "label_id": "Persegi 2×2 yang memuat bintang",
+            "value": "7"
+          },
+          {
+            "label_en": "3×3 squares containing a star",
+            "label_id": "Persegi 3×3 yang memuat bintang",
+            "value": "4"
+          },
+          {
+            "label_en": "4×4 square (the whole grid)",
+            "label_id": "Persegi 4×4 (keseluruhan petak)",
+            "value": "1"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "4 + 7 + 4 + 1 = 16"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by size — enumerate each square size systematically",
+          "name_id": "Hitung per ukuran — enumerasi setiap ukuran persegi secara sistematis"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "15 undercounts by missing one 2×2 square — there are 7 valid 2×2 positions (not 6), giving 4+7+4+1=16.",
+          "why_id": "15 kekurangan satu persegi 2×2 — ada 7 posisi 2×2 yang valid (bukan 6), sehingga 4+7+4+1=16."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "A k×k square at position (r,c) contains diagonal star (i,i) if r ≤ i ≤ r+k−1 and c ≤ i ≤ c+k−1.",
+        "1×1: 4 squares (one per star). 4×4: 1 square (the whole grid).",
+        "3×3: positions (1,1),(1,2),(2,1),(2,2) — all contain at least one star → 4 squares.",
+        "2×2: check all 9 positions; 7 of them overlap the diagonal.",
+        "Total = 4 + 7 + 4 + 1 = 16 — answer C."
+      ],
+      "hint_steps_id": [
+        "Persegi k×k di posisi (r,c) mengandung bintang diagonal (i,i) jika r ≤ i ≤ r+k−1 dan c ≤ i ≤ c+k−1.",
+        "1×1: 4 persegi (satu per bintang). 4×4: 1 persegi (keseluruhan petak).",
+        "3×3: posisi (1,1),(1,2),(2,1),(2,2) — semuanya mengandung setidaknya satu bintang → 4 persegi.",
+        "2×2: cek semua 9 posisi; 7 di antaranya overlap dengan diagonal.",
+        "Total = 4 + 7 + 4 + 1 = 16 — jawaban C."
+      ]
     },
     {
       "number": 9,
@@ -186,7 +994,104 @@
         { "label": "D", "text": "49" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A square piece of paper is folded in half to form a rectangle",
+            "phrase_id": "Selembar kertas berbentuk persegi dilipat menjadi dua sehingga membentuk sebuah persegi panjang",
+            "note_en": "Folding a square in half halves one side: s × s becomes s × (s/2)",
+            "note_id": "Melipat persegi menjadi dua membagi satu sisi: s × s menjadi s × (s/2)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The perimeter of this new rectangle is 18 cm",
+            "phrase_id": "Keliling persegi panjang tersebut adalah 18 cm",
+            "note_en": "Perimeter of rectangle = 2(length + width) = 18",
+            "note_id": "Keliling persegi panjang = 2(panjang + lebar) = 18"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What was the area of the original square in cm²?",
+            "phrase_id": "Berapakah luas persegi tersebut dalam cm²?",
+            "note_en": "Find side s from the perimeter equation, then compute s²",
+            "note_id": "Temukan sisi s dari persamaan keliling, lalu hitung s²"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rectangle perimeter equation",
+            "label_id": "Persamaan keliling persegi panjang",
+            "value": "2(s + s/2) = 18 → 3s = 18 → s = 6"
+          },
+          {
+            "label_en": "Area of original square",
+            "label_id": "Luas persegi asal",
+            "value": "6² = 36 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up the perimeter equation for the folded shape, solve for s",
+          "name_id": "Buat persamaan keliling untuk bentuk yang dilipat, selesaikan untuk s"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "Choosing 25 (s=5) gives rectangle 5×2.5 with perimeter 2(5+2.5)=15 ≠ 18.",
+          "why_id": "Memilih 25 (s=5) menghasilkan persegi panjang 5×2.5 dengan keliling 2(5+2.5)=15 ≠ 18."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Let the square's side be s. Folding in half gives a rectangle with sides s and s/2.",
+        "Perimeter of rectangle = 2(s + s/2) = 2 × (3s/2) = 3s.",
+        "3s = 18 → s = 6 cm.",
+        "Area of original square = 6² = 36 cm² — answer C."
+      ],
+      "hint_steps_id": [
+        "Misalkan sisi persegi adalah s. Melipat menjadi dua menghasilkan persegi panjang dengan sisi s dan s/2.",
+        "Keliling persegi panjang = 2(s + s/2) = 2 × (3s/2) = 3s.",
+        "3s = 18 → s = 6 cm.",
+        "Luas persegi asal = 6² = 36 cm² — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For each answer, find the square side s = √(area), check if the folded rectangle has perimeter 18.",
+          "intro_id": "Untuk setiap jawaban, temukan sisi s = √(luas), cek apakah persegi panjang hasil lipatan memiliki keliling 18.",
+          "items": [
+            {
+              "text_en": "A: area=16, s=4 → rectangle 4×2, perimeter=2(4+2)=12 ≠ 18 ✗",
+              "text_id": "A: luas=16, s=4 → persegi panjang 4×2, keliling=2(4+2)=12 ≠ 18 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: area=25, s=5 → rectangle 5×2.5, perimeter=2(5+2.5)=15 ≠ 18 ✗",
+              "text_id": "B: luas=25, s=5 → persegi panjang 5×2,5, keliling=2(5+2,5)=15 ≠ 18 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: area=36, s=6 → rectangle 6×3, perimeter=2(6+3)=18 ✓",
+              "text_id": "C: luas=36, s=6 → persegi panjang 6×3, keliling=2(6+3)=18 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: area=49, s=7 → rectangle 7×3.5, perimeter=2(7+3.5)=21 ≠ 18 ✗",
+              "text_id": "D: luas=49, s=7 → persegi panjang 7×3,5, keliling=2(7+3,5)=21 ≠ 18 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Only s=6 (area 36) gives perimeter 18 — answer C.",
+          "final_id": "Hanya s=6 (luas 36) yang menghasilkan keliling 18 — jawaban C.",
+          "aria_en": "A square with side 6 folded in half gives a 6 by 3 rectangle with perimeter 18; the original area is 36 square centimetres.",
+          "aria_id": "Persegi bersisi 6 yang dilipat menjadi dua menghasilkan persegi panjang 6 kali 3 dengan keliling 18; luas asal adalah 36 sentimeter persegi."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +1111,109 @@
         { "label": "D", "text": "99 kucing" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 cats can catch 3 mice in 3 minutes",
+            "phrase_id": "3 ekor kucing dapat menangkap 3 ekor tikus dalam 3 menit",
+            "note_en": "Derive the rate per cat: 1 cat catches 1 mouse in 3 minutes",
+            "note_id": "Tentukan laju per kucing: 1 kucing menangkap 1 tikus dalam 3 menit"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many cats are needed to catch 99 mice in 99 minutes?",
+            "phrase_id": "berapa banyak kucing yang diperlukan untuk menangkap 99 ekor tikus dalam 99 menit?",
+            "note_en": "In 99 minutes, how many mice can 1 cat catch? Then scale up to 99 mice.",
+            "note_id": "Dalam 99 menit, berapa tikus yang bisa ditangkap 1 kucing? Lalu naik skala ke 99 tikus."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in 99 minutes",
+            "phrase_id": "dalam 99 menit",
+            "note_en": "Time available is 33× longer than the original 3-minute window",
+            "note_id": "Waktu yang tersedia 33× lebih lama dari jendela waktu 3 menit asal"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rate per cat",
+            "label_id": "Laju per kucing",
+            "value": "1 cat catches 1 mouse in 3 minutes"
+          },
+          {
+            "label_en": "Mice per cat in 99 min",
+            "label_id": "Tikus per kucing dalam 99 menit",
+            "value": "99 ÷ 3 = 33 mice"
+          },
+          {
+            "label_en": "Cats needed for 99 mice",
+            "label_id": "Kucing yang dibutuhkan untuk 99 tikus",
+            "value": "99 ÷ 33 = 3 cats"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find rate per cat, then scale",
+          "name_id": "Temukan laju per kucing, lalu naik skala"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "33 cats would each catch 33 mice in 99 minutes, giving 33×33=1089 — far more than 99 needed.",
+          "why_id": "33 kucing masing-masing menangkap 33 tikus dalam 99 menit, menghasilkan 33×33=1089 — jauh lebih banyak dari 99 yang dibutuhkan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "From the given fact: 3 cats catch 3 mice in 3 minutes → 1 cat catches 1 mouse in 3 minutes.",
+        "In 99 minutes, 1 cat catches 99 ÷ 3 = 33 mice.",
+        "To catch 99 mice, you need 99 ÷ 33 = 3 cats.",
+        "The answer is 3 cats — choice B."
+      ],
+      "hint_steps_id": [
+        "Dari fakta yang diberikan: 3 kucing menangkap 3 tikus dalam 3 menit → 1 kucing menangkap 1 tikus dalam 3 menit.",
+        "Dalam 99 menit, 1 kucing menangkap 99 ÷ 3 = 33 tikus.",
+        "Untuk menangkap 99 tikus, dibutuhkan 99 ÷ 33 = 3 kucing.",
+        "Jawabannya adalah 3 kucing — pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find how many mice 1 cat catches in 99 min, then see how many cats give 99 mice.",
+          "intro_id": "Temukan berapa tikus yang ditangkap 1 kucing dalam 99 menit, lalu lihat berapa kucing yang menghasilkan 99 tikus.",
+          "items": [
+            {
+              "text_en": "Rate: 1 cat catches 1 mouse per 3 min → 33 mice in 99 min",
+              "text_id": "Laju: 1 kucing menangkap 1 tikus per 3 menit → 33 tikus dalam 99 menit",
+              "ok": null
+            },
+            {
+              "text_en": "A: 1 cat × 33 mice = 33 ≠ 99 ✗",
+              "text_id": "A: 1 kucing × 33 tikus = 33 ≠ 99 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 3 cats × 33 mice = 99 ✓",
+              "text_id": "B: 3 kucing × 33 tikus = 99 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 33 cats × 33 mice = 1089 ≠ 99 ✗",
+              "text_id": "C: 33 kucing × 33 tikus = 1089 ≠ 99 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "3 cats catch exactly 99 mice in 99 minutes — answer B.",
+          "final_id": "3 kucing menangkap tepat 99 tikus dalam 99 menit — jawaban B.",
+          "aria_en": "One cat catches one mouse in three minutes so in 99 minutes one cat catches 33 mice; three cats catch 99 mice total.",
+          "aria_id": "Satu kucing menangkap satu tikus dalam tiga menit sehingga dalam 99 menit satu kucing menangkap 33 tikus; tiga kucing menangkap total 99 tikus."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +1233,109 @@
         { "label": "D", "text": "28" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The average of five numbers is 20",
+            "phrase_id": "Rata-rata dari lima bilangan adalah 20",
+            "note_en": "Sum of five numbers = 5 × 20 = 100",
+            "note_id": "Jumlah lima bilangan = 5 × 20 = 100"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the average of the remaining four numbers becomes 18",
+            "phrase_id": "rata-rata dari empat bilangan yang tersisa menjadi 18",
+            "note_en": "Sum of remaining four = 4 × 18 = 72",
+            "note_id": "Jumlah empat bilangan tersisa = 4 × 18 = 72"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number was removed?",
+            "phrase_id": "Berapakah bilangan yang dihapus?",
+            "note_en": "Removed number = original sum − remaining sum",
+            "note_id": "Bilangan yang dihapus = jumlah asal − jumlah tersisa"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 5 numbers",
+            "label_id": "Jumlah 5 bilangan",
+            "value": "5 × 20 = 100"
+          },
+          {
+            "label_en": "Sum of remaining 4",
+            "label_id": "Jumlah 4 tersisa",
+            "value": "4 × 18 = 72"
+          },
+          {
+            "label_en": "Removed number",
+            "label_id": "Bilangan yang dihapus",
+            "value": "100 − 72 = 28"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert averages to sums, then subtract",
+          "name_id": "Ubah rata-rata ke jumlah, lalu kurangi"
+        },
+        "trap": {
+          "wrong": "D (28) is actually correct; trap is choosing 20−18=2 or 20+2=22 by subtracting averages directly",
+          "why_en": "Never subtract averages directly — convert both to total sums first: 100 − 72 = 28.",
+          "why_id": "Jangan pernah mengurangi rata-rata secara langsung — ubah keduanya ke jumlah total dulu: 100 − 72 = 28."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Five numbers with average 20: their sum = 5 × 20 = 100.",
+        "After removal, four numbers with average 18: their sum = 4 × 18 = 72.",
+        "The removed number = 100 − 72 = 28.",
+        "The answer is 28 — choice D."
+      ],
+      "hint_steps_id": [
+        "Lima bilangan dengan rata-rata 20: jumlahnya = 5 × 20 = 100.",
+        "Setelah dihapus, empat bilangan dengan rata-rata 18: jumlahnya = 4 × 18 = 72.",
+        "Bilangan yang dihapus = 100 − 72 = 28.",
+        "Jawabannya adalah 28 — pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Convert averages to sums, test each choice: does removing it bring the average from 20 to 18?",
+          "intro_id": "Ubah rata-rata ke jumlah, uji setiap pilihan: apakah menghapusnya membuat rata-rata dari 20 menjadi 18?",
+          "items": [
+            {
+              "text_en": "Total sum = 5 × 20 = 100; remaining sum = 4 × 18 = 72",
+              "text_id": "Jumlah total = 5 × 20 = 100; jumlah tersisa = 4 × 18 = 72",
+              "ok": null
+            },
+            {
+              "text_en": "A: remove 25 → 100−25=75; 75÷4=18.75 ≠ 18 ✗",
+              "text_id": "A: hapus 25 → 100−25=75; 75÷4=18,75 ≠ 18 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: remove 26 → 100−26=74; 74÷4=18.5 ≠ 18 ✗",
+              "text_id": "B: hapus 26 → 100−26=74; 74÷4=18,5 ≠ 18 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: remove 28 → 100−28=72; 72÷4=18 ✓",
+              "text_id": "D: hapus 28 → 100−28=72; 72÷4=18 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The removed number is 28 — answer D.",
+          "final_id": "Bilangan yang dihapus adalah 28 — jawaban D.",
+          "aria_en": "Sum of five numbers is 100; sum of remaining four is 72; the difference 28 is the removed number.",
+          "aria_id": "Jumlah lima bilangan adalah 100; jumlah empat yang tersisa adalah 72; selisih 28 adalah bilangan yang dihapus."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +1355,109 @@
         { "label": "D", "text": "10.080" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What is the smallest 5-digit number that is divisible by 3, 4, and 5?",
+            "phrase_id": "Berapakah bilangan 5 digit terkecil yang habis dibagi oleh 3, 4, dan 5?",
+            "note_en": "Find LCM(3,4,5), then find the smallest multiple of it that is a 5-digit number",
+            "note_id": "Temukan KPK(3,4,5), lalu temukan kelipatan terkecilnya yang merupakan bilangan 5 digit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "divisible by 3, 4, and 5",
+            "phrase_id": "habis dibagi oleh 3, 4, dan 5",
+            "note_en": "Must be divisible by all three simultaneously — use LCM",
+            "note_id": "Harus habis dibagi ketiganya secara bersamaan — gunakan KPK"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "smallest 5-digit number",
+            "phrase_id": "bilangan 5 digit terkecil",
+            "note_en": "The 5-digit range starts at 10000; find the first multiple of LCM ≥ 10000",
+            "note_id": "Rentang 5 digit dimulai dari 10000; temukan kelipatan KPK pertama yang ≥ 10000"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "LCM(3,4,5)",
+            "label_id": "KPK(3,4,5)",
+            "value": "60"
+          },
+          {
+            "label_en": "10000 ÷ 60",
+            "label_id": "10000 ÷ 60",
+            "value": "166 remainder 40 → next multiple: 167 × 60 = 10020"
+          },
+          {
+            "label_en": "Smallest 5-digit multiple of 60",
+            "label_id": "Kelipatan 60 terkecil yang 5 digit",
+            "value": "10020"
+          }
+        ],
+        "strategy": {
+          "name_en": "LCM then find next multiple above 10000",
+          "name_id": "KPK lalu temukan kelipatan berikutnya di atas 10000"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "10040 = 167.33×60 — not a multiple of 60 (10040 ÷ 60 = 167.33), while 10020 = 167×60 exactly.",
+          "why_id": "10040 bukan kelipatan 60 (10040 ÷ 60 = 167,33), sedangkan 10020 = 167×60 tepat."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "LCM(3,4,5): LCM(3,4)=12, LCM(12,5)=60.",
+        "Smallest 5-digit number ≥ 10000. Divide: 10000 ÷ 60 = 166.67.",
+        "Round up to 167: 167 × 60 = 10020.",
+        "Check: 10020 ÷ 3 = 3340 ✓, ÷ 4 = 2505 ✓, ÷ 5 = 2004 ✓ — answer A."
+      ],
+      "hint_steps_id": [
+        "KPK(3,4,5): KPK(3,4)=12, KPK(12,5)=60.",
+        "Bilangan 5 digit terkecil ≥ 10000. Bagi: 10000 ÷ 60 = 166,67.",
+        "Bulatkan ke atas menjadi 167: 167 × 60 = 10020.",
+        "Periksa: 10020 ÷ 3 = 3340 ✓, ÷ 4 = 2505 ✓, ÷ 5 = 2004 ✓ — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "LCM(3,4,5)=60. Check which choice is the smallest multiple of 60 that is 5 digits.",
+          "intro_id": "KPK(3,4,5)=60. Cek pilihan mana yang merupakan kelipatan 60 terkecil yang 5 digit.",
+          "items": [
+            {
+              "text_en": "LCM(3,4,5) = 60 (must be divisible by 60)",
+              "text_id": "KPK(3,4,5) = 60 (harus habis dibagi 60)",
+              "ok": null
+            },
+            {
+              "text_en": "A: 10020 ÷ 60 = 167 exactly ✓",
+              "text_id": "A: 10020 ÷ 60 = 167 tepat ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: 10040 ÷ 60 = 167.33 — not a multiple ✗",
+              "text_id": "B: 10040 ÷ 60 = 167,33 — bukan kelipatan ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 10060 ÷ 60 = 167.67 ✗; D: 10080 ÷ 60 = 168 — multiple but larger than 10020 ✗",
+              "text_id": "C: 10060 ÷ 60 = 167,67 ✗; D: 10080 ÷ 60 = 168 — kelipatan tapi lebih besar dari 10020 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "10020 is the smallest 5-digit multiple of 60 — answer A.",
+          "final_id": "10020 adalah kelipatan 60 terkecil yang 5 digit — jawaban A.",
+          "aria_en": "The LCM of 3, 4, and 5 is 60; the smallest five-digit multiple of 60 is 167 times 60 which equals 10020.",
+          "aria_id": "KPK dari 3, 4, dan 5 adalah 60; kelipatan 60 terkecil yang 5 digit adalah 167 kali 60 yang sama dengan 10020."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +1477,109 @@
         { "label": "D", "text": "8,5%" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A large square is divided into four smaller equal squares",
+            "phrase_id": "Sebuah persegi besar dibagi menjadi empat persegi kecil yang sama besar",
+            "note_en": "Each small square is 1/4 of the large square",
+            "note_id": "Setiap persegi kecil adalah 1/4 dari persegi besar"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "One of those small squares is then divided into four even smaller squares, and one of those is shaded",
+            "phrase_id": "Salah satu persegi kecil tersebut dibagi lagi menjadi empat persegi yang lebih kecil, dan salah satunya diarsir",
+            "note_en": "The shaded piece is 1/4 of the small square = 1/4 × 1/4 = 1/16 of the large square",
+            "note_id": "Bagian yang diarsir adalah 1/4 dari persegi kecil = 1/4 × 1/4 = 1/16 dari persegi besar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What percentage of the original large square is shaded?",
+            "phrase_id": "Berapa persen dari luas persegi besar yang diarsir?",
+            "note_en": "Convert 1/16 to percentage: 1/16 = 6.25%",
+            "note_id": "Ubah 1/16 ke persen: 1/16 = 6,25%"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Small square fraction",
+            "label_id": "Pecahan persegi kecil",
+            "value": "1/4 of large square"
+          },
+          {
+            "label_en": "Shaded fraction",
+            "label_id": "Pecahan yang diarsir",
+            "value": "1/4 × 1/4 = 1/16 of large square"
+          },
+          {
+            "label_en": "Percentage shaded",
+            "label_id": "Persentase yang diarsir",
+            "value": "1/16 = 6.25%"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fraction of a fraction — multiply the fractions",
+          "name_id": "Pecahan dari pecahan — kalikan pecahannya"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "8% would be 1/12.5 — not a natural fraction here. The correct chain is 1/4 × 1/4 = 1/16 = 6.25%.",
+          "why_id": "8% berarti 1/12,5 — bukan pecahan alami di sini. Rantai yang benar adalah 1/4 × 1/4 = 1/16 = 6,25%."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "The large square is divided into 4 equal small squares → each is 1/4 of the large square.",
+        "One small square is divided into 4 even smaller squares → each tiny square is 1/4 of the small square.",
+        "The shaded tiny square = 1/4 × 1/4 = 1/16 of the large square.",
+        "1/16 = 0.0625 = 6.25% — answer A."
+      ],
+      "hint_steps_id": [
+        "Persegi besar dibagi menjadi 4 persegi kecil yang sama → masing-masing 1/4 dari persegi besar.",
+        "Satu persegi kecil dibagi menjadi 4 persegi yang lebih kecil → setiap persegi sangat kecil adalah 1/4 dari persegi kecil.",
+        "Persegi yang diarsir = 1/4 × 1/4 = 1/16 dari persegi besar.",
+        "1/16 = 0,0625 = 6,25% — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate the fraction of the large square that is shaded by multiplying fractions at each level.",
+          "intro_id": "Hitung pecahan persegi besar yang diarsir dengan mengalikan pecahan di setiap level.",
+          "items": [
+            {
+              "text_en": "Level 1: large → 4 small squares; each small = 1/4 of large",
+              "text_id": "Level 1: besar → 4 persegi kecil; setiap kecil = 1/4 dari besar",
+              "ok": null
+            },
+            {
+              "text_en": "Level 2: small → 4 tiny squares; each tiny = 1/4 × 1/4 = 1/16 of large",
+              "text_id": "Level 2: kecil → 4 persegi sangat kecil; setiap sangat kecil = 1/4 × 1/4 = 1/16 dari besar",
+              "ok": null
+            },
+            {
+              "text_en": "A: 6.25% = 1/16 ✓",
+              "text_id": "A: 6,25% = 1/16 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: 7.25%, C: 8%, D: 8.5% — none equal 1/16 ✗",
+              "text_id": "B: 7,25%, C: 8%, D: 8,5% — tidak ada yang sama dengan 1/16 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The shaded area is 1/16 = 6.25% of the large square — answer A.",
+          "final_id": "Luas yang diarsir adalah 1/16 = 6,25% dari persegi besar — jawaban A.",
+          "aria_en": "The shaded tiny square is one quarter of one quarter of the large square; one sixteenth equals six point two five percent.",
+          "aria_id": "Persegi sangat kecil yang diarsir adalah seperempat dari seperempat persegi besar; seperenam belas sama dengan enam koma dua lima persen."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +1599,109 @@
         { "label": "D", "text": "7" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "I have 10 pieces of paper",
+            "phrase_id": "Kamu memiliki 10 lembar kertas",
+            "note_en": "Start with 10 pieces",
+            "note_id": "Mulai dengan 10 lembar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "I cut some of them into 3 pieces each",
+            "phrase_id": "Beberapa lembar kertas dipotong, dimana setiap lembar dipotong menjadi 3 potongan yang lebih kecil",
+            "note_en": "Cutting one piece into 3 replaces 1 piece with 3, a net gain of +2 per cut piece",
+            "note_id": "Memotong satu lembar menjadi 3 menggantikan 1 lembar dengan 3, keuntungan bersih +2 per lembar yang dipotong"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Now I have 20 pieces of paper in total. How many pieces did I cut?",
+            "phrase_id": "Setelah semua pemotongan selesai, jumlah seluruh potongan kertas menjadi 20. Berapa lembar kertas yang dipotong?",
+            "note_en": "Total increased from 10 to 20, a gain of 10. Each cut piece adds 2 → 10 ÷ 2 = 5 pieces cut",
+            "note_id": "Total meningkat dari 10 ke 20, kenaikan 10. Setiap lembar yang dipotong menambah 2 → 10 ÷ 2 = 5 lembar dipotong"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Net gain per cut piece",
+            "label_id": "Keuntungan bersih per lembar yang dipotong",
+            "value": "+2 (1 → 3 pieces)"
+          },
+          {
+            "label_en": "Total gain needed",
+            "label_id": "Total kenaikan yang dibutuhkan",
+            "value": "20 − 10 = 10"
+          },
+          {
+            "label_en": "Pieces cut",
+            "label_id": "Lembar yang dipotong",
+            "value": "10 ÷ 2 = 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Net change per action — count how many actions achieve the required change",
+          "name_id": "Perubahan bersih per aksi — hitung berapa aksi yang mencapai perubahan yang diperlukan"
+        },
+        "trap": {
+          "wrong": "B (5) is correct; the trap is choosing 10 ÷ 3 = 3.33... by dividing by 3 instead of the net gain of 2",
+          "why_en": "Dividing 10 by 3 gives a non-integer — the correct divisor is 2 (net gain), not 3 (new pieces per cut).",
+          "why_id": "Membagi 10 dengan 3 menghasilkan non-bilangan bulat — pembagi yang benar adalah 2 (keuntungan bersih), bukan 3 (potongan baru per pemotongan)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Start: 10 pieces. End: 20 pieces. Net increase = 10 pieces.",
+        "Each time you cut 1 piece into 3, the count goes up by 2 (−1 original +3 new).",
+        "Number of pieces cut = 10 ÷ 2 = 5.",
+        "Check: 10 − 5 + 5×3 = 5 + 15 = 20 ✓ — answer B."
+      ],
+      "hint_steps_id": [
+        "Awal: 10 lembar. Akhir: 20 lembar. Kenaikan bersih = 10 lembar.",
+        "Setiap kali kamu memotong 1 lembar menjadi 3, jumlahnya bertambah 2 (−1 asli +3 baru).",
+        "Jumlah lembar yang dipotong = 10 ÷ 2 = 5.",
+        "Periksa: 10 − 5 + 5×3 = 5 + 15 = 20 ✓ — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer x: does (10 − x) uncut + x×3 cut pieces = 20?",
+          "intro_id": "Uji setiap jawaban x: apakah (10 − x) yang tidak dipotong + x×3 potongan = 20?",
+          "items": [
+            {
+              "text_en": "A: x=4 → (10−4) + 4×3 = 6+12 = 18 ≠ 20 ✗",
+              "text_id": "A: x=4 → (10−4) + 4×3 = 6+12 = 18 ≠ 20 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: x=5 → (10−5) + 5×3 = 5+15 = 20 ✓",
+              "text_id": "B: x=5 → (10−5) + 5×3 = 5+15 = 20 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: x=6 → (10−6) + 6×3 = 4+18 = 22 ≠ 20 ✗",
+              "text_id": "C: x=6 → (10−6) + 6×3 = 4+18 = 22 ≠ 20 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: x=7 → (10−7) + 7×3 = 3+21 = 24 ≠ 20 ✗",
+              "text_id": "D: x=7 → (10−7) + 7×3 = 3+21 = 24 ≠ 20 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Cutting 5 pieces gives exactly 20 total — answer B.",
+          "final_id": "Memotong 5 lembar menghasilkan tepat 20 total — jawaban B.",
+          "aria_en": "Each piece cut into three adds a net of two pieces; the total increased by ten so ten divided by two equals five pieces cut.",
+          "aria_id": "Setiap lembar yang dipotong menjadi tiga menambah net dua lembar; total meningkat sepuluh sehingga sepuluh dibagi dua sama dengan lima lembar yang dipotong."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +1721,114 @@
         { "label": "D", "text": "40 menit" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "It takes 5 minutes to saw a wooden log into 2 pieces",
+            "phrase_id": "Dibutuhkan 5 menit untuk memotong sebuah balok kayu menjadi 2 bagian",
+            "note_en": "2 pieces require 1 cut taking 5 minutes — rate is 5 min/cut",
+            "note_id": "2 bagian membutuhkan 1 potongan yang memakan 5 menit — laju adalah 5 menit/potongan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How long will it take to saw the same log into 8 pieces",
+            "phrase_id": "Berapa lama waktu yang dibutuhkan untuk memotong balok kayu yang sama menjadi 8 bagian",
+            "note_en": "8 pieces require 7 cuts; time = 7 × 5 = 35 minutes",
+            "note_id": "8 bagian membutuhkan 7 potongan; waktu = 7 × 5 = 35 menit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "each cut takes the same amount of time",
+            "phrase_id": "setiap potongan membutuhkan waktu yang sama",
+            "note_en": "Constant rate: 5 minutes per cut",
+            "note_id": "Laju tetap: 5 menit per potongan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cuts needed for 8 pieces",
+            "label_id": "Potongan yang dibutuhkan untuk 8 bagian",
+            "value": "8 − 1 = 7 cuts"
+          },
+          {
+            "label_en": "Time per cut",
+            "label_id": "Waktu per potongan",
+            "value": "5 minutes"
+          },
+          {
+            "label_en": "Total time",
+            "label_id": "Total waktu",
+            "value": "7 × 5 = 35 minutes"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pieces = cuts + 1; multiply cuts by time per cut",
+          "name_id": "Bagian = potongan + 1; kalikan potongan dengan waktu per potongan"
+        },
+        "trap": {
+          "wrong": "C (35 is correct); the trap is choosing 8×5=40 by multiplying pieces instead of cuts",
+          "why_en": "8 pieces need only 7 cuts (not 8) — the formula is cuts = pieces − 1.",
+          "why_id": "8 bagian hanya membutuhkan 7 potongan (bukan 8) — rumusnya adalah potongan = bagian − 1."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "1 cut gives 2 pieces (takes 5 min). Key insight: cuts = pieces − 1.",
+        "To get 8 pieces you need 8 − 1 = 7 cuts.",
+        "Total time = 7 cuts × 5 min/cut = 35 minutes.",
+        "The answer is 35 minutes — choice C."
+      ],
+      "hint_steps_id": [
+        "1 potongan menghasilkan 2 bagian (memakan 5 menit). Kunci: potongan = bagian − 1.",
+        "Untuk mendapatkan 8 bagian kamu butuh 8 − 1 = 7 potongan.",
+        "Total waktu = 7 potongan × 5 menit/potongan = 35 menit.",
+        "Jawabannya adalah 35 menit — pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Key rule: n pieces need n−1 cuts. Test each answer against 7 cuts × 5 min.",
+          "intro_id": "Aturan utama: n bagian butuh n−1 potongan. Uji setiap jawaban terhadap 7 potongan × 5 menit.",
+          "items": [
+            {
+              "text_en": "8 pieces → 7 cuts (not 8!). Each cut = 5 min.",
+              "text_id": "8 bagian → 7 potongan (bukan 8!). Setiap potongan = 5 menit.",
+              "ok": null
+            },
+            {
+              "text_en": "A: 25 min → 25÷5 = 5 cuts → 6 pieces ≠ 8 ✗",
+              "text_id": "A: 25 menit → 25÷5 = 5 potongan → 6 bagian ≠ 8 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 30 min → 30÷5 = 6 cuts → 7 pieces ≠ 8 ✗",
+              "text_id": "B: 30 menit → 30÷5 = 6 potongan → 7 bagian ≠ 8 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 35 min → 35÷5 = 7 cuts → 8 pieces ✓",
+              "text_id": "C: 35 menit → 35÷5 = 7 potongan → 8 bagian ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 40 min → 8 cuts (off-by-one error) ✗",
+              "text_id": "D: 40 menit → 8 potongan (kesalahan off-by-one) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "7 cuts × 5 min = 35 minutes for 8 pieces — answer C.",
+          "final_id": "7 potongan × 5 menit = 35 menit untuk 8 bagian — jawaban C.",
+          "aria_en": "Eight pieces require seven cuts; at five minutes per cut the total time is 35 minutes.",
+          "aria_id": "Delapan bagian membutuhkan tujuh potongan; dengan lima menit per potongan total waktunya adalah 35 menit."
+        }
+      }
     },
     {
       "number": 16,
@@ -316,7 +1838,70 @@
       "choices_en": null,
       "choices_id": null,
       "answer": "40",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A rectangular garden measures 10 m × 12 m",
+            "phrase_id": "Sebuah taman berbentuk persegi panjang berukuran 10 m × 12 m",
+            "note_en": "Outer rectangle: 10 m × 12 m",
+            "note_id": "Persegi panjang luar: 10 m × 12 m"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A path 1 m wide is built inside the garden along the border",
+            "phrase_id": "Sebuah jalan setapak selebar 1 m dibuat di dalam taman sepanjang tepinya",
+            "note_en": "The path is 1 m on all four sides, so the inner garden shrinks by 2 m in each dimension",
+            "note_id": "Jalan setapak selebar 1 m di keempat sisi, sehingga taman dalam mengecil 2 m di setiap dimensi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the area of the path in m²?",
+            "phrase_id": "Berapakah luas jalan setapak tersebut dalam m²?",
+            "note_en": "Path area = outer area − inner area",
+            "note_id": "Luas jalan = luas luar − luas dalam"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Outer area",
+            "label_id": "Luas luar",
+            "value": "10 × 12 = 120 m²"
+          },
+          {
+            "label_en": "Inner dimensions",
+            "label_id": "Dimensi dalam",
+            "value": "(10−2) × (12−2) = 8 × 10 = 80 m²"
+          },
+          {
+            "label_en": "Path area",
+            "label_id": "Luas jalan",
+            "value": "120 − 80 = 40 m²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Frame area = outer − inner",
+          "name_id": "Luas bingkai = luar − dalam"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "m²",
+          "value": "40"
+        }
+      },
+      "hint_steps_en": [
+        "Outer area = 10 × 12 = 120 m².",
+        "The path is 1 m wide on all sides, so the inner garden is (10−2)×(12−2) = 8×10 = 80 m².",
+        "Path area = 120 − 80 = 40 m²."
+      ],
+      "hint_steps_id": [
+        "Luas luar = 10 × 12 = 120 m².",
+        "Jalan selebar 1 m di semua sisi, jadi taman dalam berukuran (10−2)×(12−2) = 8×10 = 80 m².",
+        "Luas jalan = 120 − 80 = 40 m²."
+      ]
     },
     {
       "number": 17,
@@ -326,7 +1911,89 @@
       "choices_en": null,
       "choices_id": null,
       "answer": "1024",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A printer uses 2,989 digits to number the pages",
+            "phrase_id": "Sebuah mesin cetak menggunakan 2.989 digit untuk memberi nomor pada halaman-halaman",
+            "note_en": "Count digits used by 1-digit, 2-digit, 3-digit, and 4-digit page numbers sequentially",
+            "note_id": "Hitung digit yang digunakan oleh nomor halaman 1-digit, 2-digit, 3-digit, dan 4-digit secara berurutan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many pages does the book have?",
+            "phrase_id": "Berapa jumlah halaman buku tersebut?",
+            "note_en": "Find the total page count that consumes exactly 2989 digits",
+            "note_id": "Temukan total jumlah halaman yang menghabiskan tepat 2989 digit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2,989 digits",
+            "phrase_id": "2.989 digit",
+            "note_en": "Sum digits per range: pages 1-9 (1-digit), 10-99 (2-digit), 100-999 (3-digit), 1000+ (4-digit)",
+            "note_id": "Jumlahkan digit per rentang: halaman 1-9 (1 digit), 10-99 (2 digit), 100-999 (3 digit), 1000+ (4 digit)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pages 1–9",
+            "label_id": "Halaman 1–9",
+            "value": "9 × 1 = 9 digits"
+          },
+          {
+            "label_en": "Pages 10–99",
+            "label_id": "Halaman 10–99",
+            "value": "90 × 2 = 180 digits"
+          },
+          {
+            "label_en": "Pages 100–999",
+            "label_id": "Halaman 100–999",
+            "value": "900 × 3 = 2700 digits"
+          },
+          {
+            "label_en": "Digits used up to page 999",
+            "label_id": "Digit yang digunakan hingga halaman 999",
+            "value": "9 + 180 + 2700 = 2889"
+          },
+          {
+            "label_en": "Remaining digits for 4-digit pages",
+            "label_id": "Digit tersisa untuk halaman 4 digit",
+            "value": "2989 − 2889 = 100 digits → 100 ÷ 4 = 25 more pages"
+          },
+          {
+            "label_en": "Total pages",
+            "label_id": "Total halaman",
+            "value": "999 + 25 = 1024"
+          }
+        ],
+        "strategy": {
+          "name_en": "Accumulate digit counts by range, then compute the remainder",
+          "name_id": "Akumulasi jumlah digit per rentang, lalu hitung sisanya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1024"
+        }
+      },
+      "hint_steps_en": [
+        "Pages 1–9: 9 pages × 1 digit = 9 digits total.",
+        "Pages 10–99: 90 pages × 2 digits = 180 digits. Running total: 189.",
+        "Pages 100–999: 900 pages × 3 digits = 2700 digits. Running total: 2889.",
+        "Digits left: 2989 − 2889 = 100. Each 4-digit page uses 4 digits → 100 ÷ 4 = 25 more pages.",
+        "Total pages = 999 + 25 = 1024."
+      ],
+      "hint_steps_id": [
+        "Halaman 1–9: 9 halaman × 1 digit = 9 digit total.",
+        "Halaman 10–99: 90 halaman × 2 digit = 180 digit. Total berjalan: 189.",
+        "Halaman 100–999: 900 halaman × 3 digit = 2700 digit. Total berjalan: 2889.",
+        "Digit tersisa: 2989 − 2889 = 100. Setiap halaman 4 digit menggunakan 4 digit → 100 ÷ 4 = 25 halaman lagi.",
+        "Total halaman = 999 + 25 = 1024."
+      ]
     },
     {
       "number": 18,
@@ -336,7 +2003,67 @@
       "choices_en": null,
       "choices_id": null,
       "answer": "50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A rectangular piece of paper has a perimeter of 30 cm",
+            "phrase_id": "Selembar kertas berbentuk persegi panjang memiliki keliling 30 cm",
+            "note_en": "2(l + w) = 30, so l + w = 15",
+            "note_id": "2(p + l) = 30, jadi p + l = 15"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "folded exactly in half to form two identical squares",
+            "phrase_id": "dilipat tepat menjadi dua sehingga membentuk dua persegi yang sama",
+            "note_en": "Folding in half to form squares means short side = half of long side: w = l/2",
+            "note_id": "Melipat menjadi dua membentuk persegi berarti sisi pendek = setengah sisi panjang: l = p/2"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the area of the original rectangle in cm²?",
+            "phrase_id": "Berapakah luas persegi panjang tersebut dalam cm²?",
+            "note_en": "Solve for l and w using both equations, then compute area = l × w",
+            "note_id": "Selesaikan untuk p dan l menggunakan kedua persamaan, lalu hitung luas = p × l"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "From fold condition: w = l/2",
+            "label_id": "Dari kondisi lipatan: l = p/2",
+            "value": "l + l/2 = 15 → 3l/2 = 15 → l = 10, w = 5"
+          },
+          {
+            "label_en": "Area",
+            "label_id": "Luas",
+            "value": "10 × 5 = 50 cm²"
+          }
+        ],
+        "strategy": {
+          "name_en": "Use the fold condition to relate l and w, then solve with the perimeter",
+          "name_id": "Gunakan kondisi lipatan untuk menghubungkan p dan l, lalu selesaikan dengan keliling"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": "cm²",
+          "value": "50"
+        }
+      },
+      "hint_steps_en": [
+        "Folding to form two identical squares means the width equals half the length: w = l/2.",
+        "Perimeter: 2(l + w) = 30 → l + w = 15.",
+        "Substitute: l + l/2 = 15 → 3l/2 = 15 → l = 10, w = 5.",
+        "Area = 10 × 5 = 50 cm²."
+      ],
+      "hint_steps_id": [
+        "Melipat menjadi dua persegi identik berarti lebar sama dengan setengah panjang: l = p/2.",
+        "Keliling: 2(p + l) = 30 → p + l = 15.",
+        "Substitusi: p + p/2 = 15 → 3p/2 = 15 → p = 10, l = 5.",
+        "Luas = 10 × 5 = 50 cm²."
+      ]
     },
     {
       "number": 19,
@@ -346,7 +2073,65 @@
       "choices_en": null,
       "choices_id": null,
       "answer": "15",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "16 football teams play in a single-elimination tournament (if you lose once, you are out)",
+            "phrase_id": "Sebanyak 16 tim sepakbola mengikuti turnamen sistem gugur tunggal (jika kalah sekali, langsung tersingkir)",
+            "note_en": "Each game eliminates exactly one team; 15 teams must be eliminated to find one winner",
+            "note_id": "Setiap pertandingan mengeliminasi tepat satu tim; 15 tim harus dieliminasi untuk menemukan satu juara"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many total games must be played to find the winner",
+            "phrase_id": "Berapa jumlah pertandingan yang harus dimainkan untuk menentukan juara",
+            "note_en": "Games needed = teams − 1 = 16 − 1 = 15",
+            "note_id": "Pertandingan yang dibutuhkan = tim − 1 = 16 − 1 = 15"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "single-elimination tournament",
+            "phrase_id": "turnamen sistem gugur tunggal",
+            "note_en": "Each loss means the team is out; the winner never loses",
+            "note_id": "Setiap kekalahan berarti tim tersingkir; pemenang tidak pernah kalah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Teams to eliminate",
+            "label_id": "Tim yang harus dieliminasi",
+            "value": "16 − 1 = 15 (one winner remains)"
+          },
+          {
+            "label_en": "Games needed",
+            "label_id": "Pertandingan yang dibutuhkan",
+            "value": "15 (one elimination per game)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Each game eliminates one team — games = teams − 1",
+          "name_id": "Setiap pertandingan mengeliminasi satu tim — pertandingan = tim − 1"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "15"
+        }
+      },
+      "hint_steps_en": [
+        "In a single-elimination tournament, each game has exactly one loser who is knocked out.",
+        "To get from 16 teams down to 1 winner, 15 teams must be eliminated.",
+        "Since each game eliminates exactly 1 team, you need 15 games total."
+      ],
+      "hint_steps_id": [
+        "Dalam sistem gugur tunggal, setiap pertandingan memiliki satu yang kalah dan tersingkir.",
+        "Untuk mengurangi dari 16 tim menjadi 1 pemenang, 15 tim harus dieliminasi.",
+        "Karena setiap pertandingan mengeliminasi tepat 1 tim, dibutuhkan total 15 pertandingan."
+      ]
     },
     {
       "number": 20,
@@ -356,7 +2141,72 @@
       "choices_en": null,
       "choices_id": null,
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "multiply 1 × 2 × 3 × 4 × … × 20",
+            "phrase_id": "mengalikan 1 × 2 × 3 × 4 × … × 20",
+            "note_en": "This is 20! (twenty factorial)",
+            "note_id": "Ini adalah 20! (dua puluh faktorial)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many zeros will the final answer end with?",
+            "phrase_id": "berapa banyak angka nol di akhir hasil perkalian tersebut?",
+            "note_en": "Trailing zeros come from 10 = 2 × 5 pairs; count factors of 5 (there are always more 2s than 5s)",
+            "note_id": "Nol di akhir berasal dari pasangan 10 = 2 × 5; hitung faktor 5 (selalu lebih banyak 2 dari 5)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1 × 2 × 3 × 4 × … × 20",
+            "phrase_id": "1 × 2 × 3 × 4 × … × 20",
+            "note_en": "Multiples of 5 up to 20: 5, 10, 15, 20 — each contributes one factor of 5",
+            "note_id": "Kelipatan 5 hingga 20: 5, 10, 15, 20 — masing-masing menyumbang satu faktor 5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Multiples of 5 up to 20",
+            "label_id": "Kelipatan 5 hingga 20",
+            "value": "5, 10, 15, 20 → 4 factors of 5"
+          },
+          {
+            "label_en": "Multiples of 25 up to 20",
+            "label_id": "Kelipatan 25 hingga 20",
+            "value": "none → 0 extra factors"
+          },
+          {
+            "label_en": "Total trailing zeros",
+            "label_id": "Total nol di akhir",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count factors of 5 using Legendre's formula: ⌊20/5⌋ + ⌊20/25⌋",
+          "name_id": "Hitung faktor 5 menggunakan rumus Legendre: ⌊20/5⌋ + ⌊20/25⌋"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Trailing zeros in n! come from pairs of (2 × 5). Since there are always more 2s than 5s, count the factors of 5.",
+        "Multiples of 5 up to 20: 5, 10, 15, 20 → each gives one factor of 5 → 4 factors.",
+        "No multiples of 25 are ≤ 20, so no extra factors of 5.",
+        "Total trailing zeros = 4."
+      ],
+      "hint_steps_id": [
+        "Nol di akhir n! berasal dari pasangan (2 × 5). Karena selalu ada lebih banyak 2 daripada 5, hitung faktor 5.",
+        "Kelipatan 5 hingga 20: 5, 10, 15, 20 → masing-masing memberikan satu faktor 5 → 4 faktor.",
+        "Tidak ada kelipatan 25 yang ≤ 20, jadi tidak ada faktor 5 tambahan.",
+        "Total nol di akhir = 4."
+      ]
     }
   ]
 }

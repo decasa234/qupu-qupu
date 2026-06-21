@@ -26,7 +26,55 @@
         { "label": "D", "text": "11113" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "9 + 99 + 999 + 9999 + 4", "phrase_id": "9 + 99 + 999 + 9999 + 4", "note_en": "Each term is one less than a round power of 10", "note_id": "Setiap suku satu kurang dari perpangkatan 10 yang bulat" },
+          { "category": "condition", "phrase_en": "result of computation below", "phrase_id": "hasil dari", "note_en": "Add all five numbers carefully — watch for carrying", "note_id": "Jumlahkan semua lima angka dengan teliti — perhatikan simpanan" },
+          { "category": "question", "phrase_en": "What is the result", "phrase_id": "Berapakah hasil", "note_en": "Find the total sum", "note_id": "Temukan jumlah totalnya" }
+        ],
+        "quantities": [
+          { "label_en": "9 + 99", "label_id": "9 + 99", "value": "108" },
+          { "label_en": "108 + 999", "label_id": "108 + 999", "value": "1107" },
+          { "label_en": "1107 + 9999", "label_id": "1107 + 9999", "value": "11106" },
+          { "label_en": "11106 + 4", "label_id": "11106 + 4", "value": "11110" }
+        ],
+        "strategy": { "name_en": "Step-by-step addition", "name_id": "Penjumlahan bertahap" },
+        "trap": { "wrong": "A", "why_en": "11100 forgets the +4 at the end", "why_id": "11100 lupa menambahkan +4 di akhir" },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Add the two smallest first: 9 + 99 = 108.",
+        "Add 999: 108 + 999 = 1107.",
+        "Add 9999: 1107 + 9999 = 11106.",
+        "Add the last term: 11106 + 4 = 11110.",
+        "11110 matches choice B."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan dua yang terkecil dulu: 9 + 99 = 108.",
+        "Tambahkan 999: 108 + 999 = 1107.",
+        "Tambahkan 9999: 1107 + 9999 = 11106.",
+        "Tambahkan suku terakhir: 11106 + 4 = 11110.",
+        "11110 sesuai dengan pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer by computing 9+99+999+9999+4 step by step.",
+          "intro_id": "Periksa setiap pilihan dengan menghitung 9+99+999+9999+4 langkah demi langkah.",
+          "items": [
+            { "text_en": "A: 11100 — missing the +4 ✗", "text_id": "A: 11100 — lupa +4 ✗", "ok": false },
+            { "text_en": "B: 11110 — 9+99+999+9999+4 = 11110 ✓", "text_id": "B: 11110 — 9+99+999+9999+4 = 11110 ✓", "ok": true },
+            { "text_en": "C: 11004 — far too small ✗", "text_id": "C: 11004 — terlalu kecil ✗", "ok": false },
+            { "text_en": "D: 11113 — off by 3 ✗", "text_id": "D: 11113 — meleset 3 ✗", "ok": false }
+          ],
+          "final_en": "The correct sum is 11110 — answer B.",
+          "final_id": "Jumlah yang benar adalah 11110 — jawaban B.",
+          "aria_en": "Step-by-step: 9+99=108, +999=1107, +9999=11106, +4=11110; answer B.",
+          "aria_id": "Langkah demi langkah: 9+99=108, +999=1107, +9999=11106, +4=11110; jawaban B."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +94,56 @@
         { "label": "D", "text": "Eve" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "Five friends (Alice, Bob, Charlie, David, and Eve) are standing in a line from shortest to tallest", "phrase_id": "Lima teman (Alice, Bob, Charlie, David, dan Eve) berdiri berbaris dari yang terpendek hingga yang tertinggi", "note_en": "Position 1 = shortest, position 5 = tallest", "note_id": "Posisi 1 = terpendek, posisi 5 = tertinggi" },
+          { "category": "condition", "phrase_en": "The person in the blue hat is shorter than Alice", "phrase_id": "Orang yang memakai topi biru lebih pendek dari Alice", "note_en": "Blue hat is at position 1 (Eve), since Alice is already position 2", "note_id": "Topi biru ada di posisi 1 (Eve), karena Alice sudah di posisi 2" },
+          { "category": "question", "phrase_en": "Who is wearing the yellow hat?", "phrase_id": "Siapa yang memakai topi kuning?", "note_en": "Identify the person whose position is higher than David's", "note_id": "Temukan orang yang posisinya lebih tinggi dari David" }
+        ],
+        "quantities": [
+          { "label_en": "Eve = position 1 (blue hat, shortest)", "label_id": "Eve = posisi 1 (topi biru, terpendek)", "value": "blue-hat < Alice → pos 1" },
+          { "label_en": "Alice = position 2", "label_id": "Alice = posisi 2", "value": "given" },
+          { "label_en": "Bob = position 5, purple hat (tallest)", "label_id": "Bob = posisi 5, topi ungu (tertinggi)", "value": "Bob > David, Charlie not tallest → Bob = 5" },
+          { "label_en": "David = position 3, Charlie = position 4", "label_id": "David = posisi 3, Charlie = posisi 4", "value": "remaining slots" },
+          { "label_en": "Yellow hat person > David (pos 3) → Charlie (pos 4)", "label_id": "Orang bertopi kuning > David (pos 3) → Charlie (pos 4)", "value": "Charlie = yellow" }
+        ],
+        "strategy": { "name_en": "Logic chain — assign positions then hats", "name_id": "Rantai logika — tentukan posisi lalu topi" },
+        "trap": { "wrong": "C", "why_en": "David is shorter than the yellow-hat person, not wearing it himself", "why_id": "David lebih pendek dari orang bertopi kuning, bukan dia yang memakainya" },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Blue hat < Alice, so blue hat is at position 1. Alice is position 2.",
+        "Bob wears purple and is taller than David; Charlie is not tallest → Bob is tallest (position 5).",
+        "Charlie and David fill positions 3 and 4. Red hat > Eve, so red can be David or Charlie.",
+        "Yellow hat person > David: if David=3, yellow person must be at position 4 or 5. Bob=purple, so yellow=Charlie (position 4).",
+        "Charlie wears the yellow hat — answer A."
+      ],
+      "hint_steps_id": [
+        "Topi biru < Alice, jadi topi biru di posisi 1. Alice di posisi 2.",
+        "Bob memakai topi ungu dan lebih tinggi dari David; Charlie bukan yang tertinggi → Bob tertinggi (posisi 5).",
+        "Charlie dan David mengisi posisi 3 dan 4. Topi merah > Eve, jadi topi merah bisa David atau Charlie.",
+        "Orang bertopi kuning > David: jika David=3, orang bertopi kuning di posisi 4 atau 5. Bob=ungu, jadi kuning=Charlie (posisi 4).",
+        "Charlie memakai topi kuning — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each candidate for the yellow hat against the height clues.",
+          "intro_id": "Periksa setiap kandidat untuk topi kuning berdasarkan petunjuk tinggi badan.",
+          "items": [
+            { "text_en": "A: Charlie — position 4, taller than David (pos 3) ✓ yellow fits", "text_id": "A: Charlie — posisi 4, lebih tinggi dari David (pos 3) ✓ kuning cocok", "ok": true },
+            { "text_en": "B: Alice — position 2, but yellow must be above David (pos 3) ✗", "text_id": "B: Alice — posisi 2, tetapi kuning harus di atas David (pos 3) ✗", "ok": false },
+            { "text_en": "C: David — yellow person is TALLER than David, not David himself ✗", "text_id": "C: David — orang bertopi kuning LEBIH TINGGI dari David, bukan David ✗", "ok": false },
+            { "text_en": "D: Eve — position 1 (blue hat), can't also be yellow ✗", "text_id": "D: Eve — posisi 1 (topi biru), tidak bisa sekaligus kuning ✗", "ok": false }
+          ],
+          "final_en": "Charlie at position 4 is the only one who can wear the yellow hat — answer A.",
+          "final_id": "Charlie di posisi 4 adalah satu-satunya yang bisa memakai topi kuning — jawaban A.",
+          "aria_en": "Order: Eve(1,blue), Alice(2), David(3), Charlie(4,yellow), Bob(5,purple). Yellow hat = Charlie = answer A.",
+          "aria_id": "Urutan: Eve(1,biru), Alice(2), David(3), Charlie(4,kuning), Bob(5,ungu). Topi kuning = Charlie = jawaban A."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +163,55 @@
         { "label": "D", "text": "10" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "3,602 boxes", "phrase_id": "3.602 kotak", "note_en": "Starting total", "note_id": "Jumlah awal" },
+          { "category": "condition", "phrase_en": "12 in a row; 18 in a row; 45 in a row", "phrase_id": "12 kotak dalam satu baris; 18 kotak dalam satu baris; 45 kotak dalam satu baris", "note_en": "The remaining count must be divisible by all three → find LCM(12, 18, 45)", "note_id": "Jumlah sisa harus habis dibagi ketiganya → cari KPK(12, 18, 45)" },
+          { "category": "question", "phrase_en": "smallest number of boxes that must be removed", "phrase_id": "jumlah kotak terkecil yang harus dikeluarkan", "note_en": "Remove as few as possible so remainder is divisible by LCM", "note_id": "Keluarkan sesedikit mungkin agar sisa habis dibagi KPK" }
+        ],
+        "quantities": [
+          { "label_en": "LCM(12, 18)", "label_id": "KPK(12, 18)", "value": "36" },
+          { "label_en": "LCM(36, 45)", "label_id": "KPK(36, 45)", "value": "180" },
+          { "label_en": "3602 ÷ 180 remainder", "label_id": "Sisa 3602 ÷ 180", "value": "3602 = 20×180 + 2, remainder = 2" },
+          { "label_en": "Boxes to remove", "label_id": "Kotak yang dikeluarkan", "value": "2" }
+        ],
+        "strategy": { "name_en": "LCM then remainder", "name_id": "KPK lalu sisa bagi" },
+        "trap": { "wrong": "A", "why_en": "17 is the remainder when dividing by 12 only — you must use LCM(12,18,45)=180", "why_id": "17 adalah sisa saat dibagi 12 saja — harus menggunakan KPK(12,18,45)=180" },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "The remaining boxes must be divisible by 12, 18, and 45 simultaneously.",
+        "Find LCM(12, 18, 45): LCM(12,18)=36, LCM(36,45)=180.",
+        "Divide 3602 by 180: 3602 = 20 × 180 + 2, so the remainder is 2.",
+        "Remove 2 boxes to get 3600, which is divisible by 180 (and hence by 12, 18, and 45).",
+        "The answer is 2 — choice C."
+      ],
+      "hint_steps_id": [
+        "Sisa kotak harus bisa habis dibagi 12, 18, dan 45 sekaligus.",
+        "Cari KPK(12, 18, 45): KPK(12,18)=36, KPK(36,45)=180.",
+        "Bagi 3602 dengan 180: 3602 = 20 × 180 + 2, jadi sisanya 2.",
+        "Keluarkan 2 kotak agar tersisa 3600, yang habis dibagi 180 (dan juga 12, 18, 45).",
+        "Jawabannya adalah 2 — pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer: after removal the remaining boxes must divide evenly by LCM=180.",
+          "intro_id": "Uji setiap jawaban: setelah dikeluarkan, sisa kotak harus habis dibagi KPK=180.",
+          "items": [
+            { "text_en": "A: remove 17 → 3585 ÷ 180 = 19.916… ✗ not exact", "text_id": "A: keluarkan 17 → 3585 ÷ 180 = 19,916… ✗ tidak habis", "ok": false },
+            { "text_en": "B: remove 4 → 3598 ÷ 180 = 19.988… ✗ not exact", "text_id": "B: keluarkan 4 → 3598 ÷ 180 = 19,988… ✗ tidak habis", "ok": false },
+            { "text_en": "C: remove 2 → 3600 ÷ 180 = 20 ✓ exact", "text_id": "C: keluarkan 2 → 3600 ÷ 180 = 20 ✓ habis", "ok": true },
+            { "text_en": "D: remove 10 → 3592 ÷ 180 = 19.955… ✗ not exact", "text_id": "D: keluarkan 10 → 3592 ÷ 180 = 19,955… ✗ tidak habis", "ok": false }
+          ],
+          "final_en": "Removing 2 boxes leaves 3600 = 20×180 — answer C.",
+          "final_id": "Mengeluarkan 2 kotak menyisakan 3600 = 20×180 — jawaban C.",
+          "aria_en": "LCM(12,18,45)=180; 3602 mod 180 = 2; remove 2 boxes; answer C.",
+          "aria_id": "KPK(12,18,45)=180; 3602 mod 180 = 2; keluarkan 2 kotak; jawaban C."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +231,56 @@
         { "label": "D", "text": "125" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "51 posts set in a straight line, each post is 2 meters apart", "phrase_id": "51 tiang yang dipasang dalam satu garis lurus, setiap tiang berjarak 2 meter", "note_en": "51 posts → 50 gaps; each gap = 2 m → total fence = 100 m", "note_id": "51 tiang → 50 jarak; setiap jarak = 2 m → panjang pagar = 100 m" },
+          { "category": "condition", "phrase_en": "flies to the last, then flies back to the middle post", "phrase_id": "terbang ke tiang terakhir, kemudian terbang kembali ke tiang tengah", "note_en": "Middle post of 51 is post 26; bird goes 1→51→26", "note_id": "Tiang tengah dari 51 adalah tiang ke-26; burung terbang 1→51→26" },
+          { "category": "question", "phrase_en": "How many meters did it fly?", "phrase_id": "Berapa meter burung tersebut terbang?", "note_en": "Sum the two legs: post1→post51 + post51→post26", "note_id": "Jumlahkan dua bagian: tiang1→tiang51 + tiang51→tiang26" }
+        ],
+        "quantities": [
+          { "label_en": "Gaps between 51 posts", "label_id": "Jarak antara 51 tiang", "value": "50 gaps" },
+          { "label_en": "Post 1 → Post 51", "label_id": "Tiang 1 → Tiang 51", "value": "50 × 2 = 100 m" },
+          { "label_en": "Middle post", "label_id": "Tiang tengah", "value": "(1+51)/2 = 26" },
+          { "label_en": "Post 51 → Post 26", "label_id": "Tiang 51 → Tiang 26", "value": "25 × 2 = 50 m" },
+          { "label_en": "Total distance", "label_id": "Total jarak", "value": "100 + 50 = 150 m" }
+        ],
+        "strategy": { "name_en": "Count gaps (not posts), then add two legs", "name_id": "Hitung jarak (bukan tiang), lalu jumlahkan dua bagian" },
+        "trap": { "wrong": "A", "why_en": "152 comes from mistaking the middle post as 27 instead of 26, adding an extra 2 m", "why_id": "152 muncul dari kesalahan mengira tiang tengah adalah 27, bukan 26, sehingga menambah 2 m ekstra" },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "51 posts with 2 m gaps → there are 50 gaps.",
+        "Leg 1: post 1 to post 51 = 50 gaps × 2 m = 100 m.",
+        "Middle post of 51 = post 26 (since (1+51)/2 = 26).",
+        "Leg 2: post 51 to post 26 = 25 gaps × 2 m = 50 m.",
+        "Total = 100 + 50 = 150 m — answer B."
+      ],
+      "hint_steps_id": [
+        "51 tiang dengan jarak 2 m → ada 50 jarak.",
+        "Bagian 1: tiang 1 ke tiang 51 = 50 jarak × 2 m = 100 m.",
+        "Tiang tengah dari 51 = tiang ke-26 (karena (1+51)/2 = 26).",
+        "Bagian 2: tiang 51 ke tiang 26 = 25 jarak × 2 m = 50 m.",
+        "Total = 100 + 50 = 150 m — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: total = (post1→post51) + (post51→middle post).",
+          "intro_id": "Periksa setiap jawaban: total = (tiang1→tiang51) + (tiang51→tiang tengah).",
+          "items": [
+            { "text_en": "A: 152 — implies middle post 27, but middle of 51 posts is post 26 ✗", "text_id": "A: 152 — berarti tiang tengah 27, padahal tengah dari 51 adalah tiang 26 ✗", "ok": false },
+            { "text_en": "B: 150 — 100 m (1→51) + 50 m (51→26) = 150 ✓", "text_id": "B: 150 — 100 m (1→51) + 50 m (51→26) = 150 ✓", "ok": true },
+            { "text_en": "C: 100 — only one leg counted, forgets the return ✗", "text_id": "C: 100 — hanya satu bagian yang dihitung, lupa bagian kembali ✗", "ok": false },
+            { "text_en": "D: 125 — incorrect leg calculations ✗", "text_id": "D: 125 — perhitungan jarak yang salah ✗", "ok": false }
+          ],
+          "final_en": "100 m out + 50 m back to middle = 150 m — answer B.",
+          "final_id": "100 m pergi + 50 m kembali ke tengah = 150 m — jawaban B.",
+          "aria_en": "50 gaps × 2 = 100 m (1 to 51); 25 gaps × 2 = 50 m (51 to 26); total 150 m; answer B.",
+          "aria_id": "50 jarak × 2 = 100 m (1 ke 51); 25 jarak × 2 = 50 m (51 ke 26); total 150 m; jawaban B."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +300,56 @@
         { "label": "D", "text": "C" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "15-meter well", "phrase_id": "sumur sedalam 15 meter", "note_en": "Goal: reach 15 m during daytime climb", "note_id": "Tujuan: mencapai 15 m saat pendakian siang hari" },
+          { "category": "condition", "phrase_en": "Day Climb 4m, Night Slip 2m", "phrase_id": "Pendakian Siang 4m, Penurunan Malam 2m", "note_en": "Snail C net = 2 m/day — fastest net gain", "note_id": "Siput C net = 2 m/hari — perolehan bersih tercepat" },
+          { "category": "question", "phrase_en": "who wins the race?", "phrase_id": "siapa yang memenangkan perlombaan?", "note_en": "Compare the day each snail first reaches or exceeds 15 m during daytime", "note_id": "Bandingkan hari saat setiap siput pertama kali mencapai atau melewati 15 m di siang hari" }
+        ],
+        "quantities": [
+          { "label_en": "Snail C exits on day k when (k−1)×2 + 4 ≥ 15", "label_id": "Siput C keluar hari ke-k saat (k−1)×2 + 4 ≥ 15", "value": "k=7 (day 7)" },
+          { "label_en": "Snail D exits when (k−1)×1 + 6 ≥ 15", "label_id": "Siput D keluar saat (k−1)×1 + 6 ≥ 15", "value": "k=10 (day 10)" },
+          { "label_en": "Snail B exits when (k−1)×1 + 5 ≥ 15", "label_id": "Siput B keluar saat (k−1)×1 + 5 ≥ 15", "value": "k=11 (day 11)" },
+          { "label_en": "Snail A exits when (k−1)×1 + 3 ≥ 15", "label_id": "Siput A keluar saat (k−1)×1 + 3 ≥ 15", "value": "k=13 (day 13)" },
+          { "label_en": "Winner (earliest exit)", "label_id": "Pemenang (keluar paling awal)", "value": "Snail C — day 7" }
+        ],
+        "strategy": { "name_en": "Track daytime peak position each day until ≥ 15 m", "name_id": "Lacak posisi puncak siang hari setiap hari hingga ≥ 15 m" },
+        "trap": { "wrong": "C", "why_en": "Snail D has the biggest daily climb (6 m) but also slips 5 m, so net is only 1 m/day — slower than Snail C's net 2 m/day", "why_id": "Siput D memiliki pendakian harian terbesar (6 m) tetapi juga turun 5 m, sehingga net hanya 1 m/hari — lebih lambat dari net Siput C 2 m/hari" },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Each snail climbs by day and slips at night. It escapes on the day its daytime peak ≥ 15 m.",
+        "Snail C: net 2 m/day. Day 7 daytime peak = 12 + 4 = 16 ≥ 15 → exits day 7.",
+        "Snail D: net 1 m/day. Day 10 daytime peak = 9 + 6 = 15 → exits day 10.",
+        "Snail B: net 1 m/day. Exits day 11. Snail A: net 1 m/day. Exits day 13.",
+        "Snail C exits first (day 7) — answer D (Snail C)."
+      ],
+      "hint_steps_id": [
+        "Setiap siput mendaki di siang hari dan turun di malam hari. Siput keluar saat puncak siang ≥ 15 m.",
+        "Siput C: net 2 m/hari. Puncak siang hari ke-7 = 12 + 4 = 16 ≥ 15 → keluar hari ke-7.",
+        "Siput D: net 1 m/hari. Puncak siang hari ke-10 = 9 + 6 = 15 → keluar hari ke-10.",
+        "Siput B: net 1 m/hari. Keluar hari ke-11. Siput A: net 1 m/hari. Keluar hari ke-13.",
+        "Siput C keluar pertama (hari ke-7) — jawaban D (Siput C)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find which snail reaches 15 m first by comparing exit days.",
+          "intro_id": "Temukan siput mana yang pertama mencapai 15 m dengan membandingkan hari keluar.",
+          "items": [
+            { "text_en": "A: Snail B — net 1 m/day, exits day 11 ✗ not first", "text_id": "A: Siput B — net 1 m/hari, keluar hari ke-11 ✗ bukan pertama", "ok": false },
+            { "text_en": "B: Snail A — net 1 m/day, exits day 13 ✗ last", "text_id": "B: Siput A — net 1 m/hari, keluar hari ke-13 ✗ terakhir", "ok": false },
+            { "text_en": "C: Snail D — net 1 m/day (6−5), exits day 10 ✗ big climb but big slip", "text_id": "C: Siput D — net 1 m/hari (6−5), keluar hari ke-10 ✗ pendakian besar tapi turun besar juga", "ok": false },
+            { "text_en": "D: Snail C — net 2 m/day (4−2), exits day 7 ✓ first out", "text_id": "D: Siput C — net 2 m/hari (4−2), keluar hari ke-7 ✓ pertama keluar", "ok": true }
+          ],
+          "final_en": "Snail C wins, exiting on day 7 — answer D.",
+          "final_id": "Siput C menang, keluar pada hari ke-7 — jawaban D.",
+          "aria_en": "Exit days: C=7, D=10, B=11, A=13; Snail C is fastest; answer D.",
+          "aria_id": "Hari keluar: C=7, D=10, B=11, A=13; Siput C tercepat; jawaban D."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +369,56 @@
         { "label": "D", "text": "20" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "A is 10 more than B. B is 10 more than C", "phrase_id": "Angka A 10 lebih besar dari angka B. Angka B 10 lebih besar dari angka C", "note_en": "A−B=10, B−C=10, so A−C=20", "note_id": "A−B=10, B−C=10, jadi A−C=20" },
+          { "category": "condition", "phrase_en": "The sum of the differences (A−B) + (A−C) + (B−C) is equal to B", "phrase_id": "Jumlah (A−B) + (A−C) + (B−C) sama dengan B", "note_en": "10 + 20 + 10 = 40 = B", "note_id": "10 + 20 + 10 = 40 = B" },
+          { "category": "question", "phrase_en": "What is the value of A?", "phrase_id": "Berapakah nilai A?", "note_en": "A = B + 10 = 40 + 10 = 50", "note_id": "A = B + 10 = 40 + 10 = 50" }
+        ],
+        "quantities": [
+          { "label_en": "A − B", "label_id": "A − B", "value": "10" },
+          { "label_en": "A − C", "label_id": "A − C", "value": "20" },
+          { "label_en": "B − C", "label_id": "B − C", "value": "10" },
+          { "label_en": "Sum of differences = B", "label_id": "Jumlah selisih = B", "value": "10+20+10 = 40 = B" },
+          { "label_en": "A = B + 10", "label_id": "A = B + 10", "value": "40 + 10 = 50" }
+        ],
+        "strategy": { "name_en": "Express differences with known gaps, solve for B then A", "name_id": "Nyatakan selisih dengan jarak yang diketahui, selesaikan B lalu A" },
+        "trap": { "wrong": "B", "why_en": "40 is the value of B, not A; A = B + 10 = 50", "why_id": "40 adalah nilai B, bukan A; A = B + 10 = 50" },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "From the given: A−B = 10, B−C = 10, so A−C = 20.",
+        "Sum the three differences: (A−B) + (A−C) + (B−C) = 10 + 20 + 10 = 40.",
+        "This sum equals B, so B = 40.",
+        "A = B + 10 = 40 + 10 = 50.",
+        "Answer is 50 — choice C."
+      ],
+      "hint_steps_id": [
+        "Dari yang diberikan: A−B = 10, B−C = 10, jadi A−C = 20.",
+        "Jumlahkan tiga selisih: (A−B) + (A−C) + (B−C) = 10 + 20 + 10 = 40.",
+        "Jumlah ini sama dengan B, jadi B = 40.",
+        "A = B + 10 = 40 + 10 = 50.",
+        "Jawabannya adalah 50 — pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: if A is that value, does (A−B)+(A−C)+(B−C) equal B?",
+          "intro_id": "Periksa setiap jawaban: jika A bernilai itu, apakah (A−B)+(A−C)+(B−C) sama dengan B?",
+          "items": [
+            { "text_en": "A: A=10 → B=0, C=−10; sum=10+20+10=40 ≠ B=0 ✗", "text_id": "A: A=10 → B=0, C=−10; jumlah=40 ≠ B=0 ✗", "ok": false },
+            { "text_en": "B: A=40 → B=30, C=20; sum=10+20+10=40 ≠ B=30 ✗", "text_id": "B: A=40 → B=30, C=20; jumlah=40 ≠ B=30 ✗", "ok": false },
+            { "text_en": "C: A=50 → B=40, C=30; sum=10+20+10=40 = B=40 ✓", "text_id": "C: A=50 → B=40, C=30; jumlah=40 = B=40 ✓", "ok": true },
+            { "text_en": "D: A=20 → B=10, C=0; sum=10+20+10=40 ≠ B=10 ✗", "text_id": "D: A=20 → B=10, C=0; jumlah=40 ≠ B=10 ✗", "ok": false }
+          ],
+          "final_en": "Only A=50 makes the sum of differences equal B — answer C.",
+          "final_id": "Hanya A=50 yang membuat jumlah selisih sama dengan B — jawaban C.",
+          "aria_en": "A−B=10, A−C=20, B−C=10; sum=40=B; so B=40 and A=50; answer C.",
+          "aria_id": "A−B=10, A−C=20, B−C=10; jumlah=40=B; jadi B=40 dan A=50; jawaban C."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +438,54 @@
         { "label": "D", "text": "9863" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "condition", "phrase_en": "digits 0, 1, 9, 4, 8, 3, 6, and 2, where each digit must be used once and only once", "phrase_id": "angka 0, 1, 9, 4, 8, 3, 6, dan 2, di mana setiap angka harus digunakan sekali dan hanya sekali", "note_en": "4 digits chosen from {0,1,2,3,4,6,8,9} for each number — digits not repeated within one number but available across both numbers", "note_id": "4 digit dipilih dari {0,1,2,3,4,6,8,9} untuk setiap bilangan — digit tidak diulang dalam satu bilangan tetapi tersedia untuk kedua bilangan" },
+          { "category": "fact", "phrase_en": "largest possible odd 4-digit number", "phrase_id": "bilangan ganjil 4 digit terbesar", "note_en": "Last digit must be odd (1,3,9); use largest available digits. Best: 9863", "note_id": "Digit terakhir harus ganjil (1,3,9); gunakan digit terbesar. Terbaik: 9863" },
+          { "category": "question", "phrase_en": "What is the difference between the largest possible odd 4-digit number and the smallest possible even 4-digit number", "phrase_id": "Berapakah perbedaan antara bilangan ganjil 4 digit terbesar dan bilangan genap 4 digit terkecil", "note_en": "Subtract: 9863 − 1024 = 8839", "note_id": "Kurangkan: 9863 − 1024 = 8839" }
+        ],
+        "quantities": [
+          { "label_en": "Largest odd 4-digit from {0,1,2,3,4,6,8,9}", "label_id": "Bilangan ganjil 4 digit terbesar dari {0,1,2,3,4,6,8,9}", "value": "9863 (digits 9,8,6,3 — ends in 3)" },
+          { "label_en": "Smallest even 4-digit from {0,1,2,3,4,6,8,9}", "label_id": "Bilangan genap 4 digit terkecil dari {0,1,2,3,4,6,8,9}", "value": "1024 (digits 1,0,2,4 — ends in 4)" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "9863 − 1024 = 8839" }
+        ],
+        "strategy": { "name_en": "Build largest odd and smallest even separately, then subtract", "name_id": "Buat bilangan ganjil terbesar dan genap terkecil secara terpisah, lalu kurangkan" },
+        "trap": { "wrong": "D", "why_en": "9863 is the largest odd number but using different digit combos gives different differences; confirm smallest even = 1024 not 1002", "why_id": "9863 adalah bilangan ganjil terbesar, tetapi kombinasi digit berbeda memberi selisih yang berbeda; pastikan genap terkecil = 1024 bukan 1002" },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Available digits: {0,1,2,3,4,6,8,9}. Each number uses 4 of these (each digit once).",
+        "Largest odd 4-digit: put largest digits first, last digit must be odd. Use 9,8,6,3 → 9863.",
+        "Smallest even 4-digit: can't start with 0. Use smallest: 1 as thousands, then 0,2,4 → 1024.",
+        "Difference: 9863 − 1024 = 8839.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Digit tersedia: {0,1,2,3,4,6,8,9}. Setiap bilangan menggunakan 4 dari digit ini (masing-masing sekali).",
+        "Bilangan ganjil 4 digit terbesar: digit terbesar di depan, digit terakhir harus ganjil. Gunakan 9,8,6,3 → 9863.",
+        "Bilangan genap 4 digit terkecil: tidak boleh diawali 0. Gunakan terkecil: 1 sebagai ribuan, lalu 0,2,4 → 1024.",
+        "Selisih: 9863 − 1024 = 8839.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: largest odd 4-digit − smallest even 4-digit from those 8 digits.",
+          "intro_id": "Periksa setiap jawaban: bilangan ganjil 4 digit terbesar − bilangan genap 4 digit terkecil dari 8 digit itu.",
+          "items": [
+            { "text_en": "A: 8839 — 9863 − 1024 = 8839 ✓", "text_id": "A: 8839 — 9863 − 1024 = 8839 ✓", "ok": true },
+            { "text_en": "B: 8863 — would need 9726−863 or similar; doesn't match valid construction ✗", "text_id": "B: 8863 — tidak cocok dengan konstruksi yang valid ✗", "ok": false },
+            { "text_en": "C: 9839 — difference too large; no valid pair gives this ✗", "text_id": "C: 9839 — selisih terlalu besar; tidak ada pasangan valid yang menghasilkan ini ✗", "ok": false },
+            { "text_en": "D: 9863 — that's the odd number itself, not the difference ✗", "text_id": "D: 9863 — itu adalah bilangan ganjilnya sendiri, bukan selisihnya ✗", "ok": false }
+          ],
+          "final_en": "9863 − 1024 = 8839 — answer A.",
+          "final_id": "9863 − 1024 = 8839 — jawaban A.",
+          "aria_en": "Largest odd: 9863; smallest even: 1024; difference: 8839; answer A.",
+          "aria_id": "Ganjil terbesar: 9863; genap terkecil: 1024; selisih: 8839; jawaban A."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +505,57 @@
         { "label": "D", "text": "225" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "repeating pattern of 4 green beads, 2 black beads, 2 white beads, 5 red beads, and 2 yellow beads", "phrase_id": "pola berulang yang terdiri dari 4 manik hijau, 2 manik hitam, 2 manik putih, 5 manik merah, dan 2 manik kuning", "note_en": "One cycle = 15 beads (4+2+2+5+2)", "note_id": "Satu siklus = 15 manik (4+2+2+5+2)" },
+          { "category": "condition", "phrase_en": "5 last beads are broken and removed from the last full pattern", "phrase_id": "5 manik terakhir patah dan terlepas dari pola lengkap terakhir", "note_en": "Last 5 of cycle = 3 red + 2 yellow (positions 11–15 of the 15-bead cycle)", "note_id": "5 terakhir dari siklus = 3 merah + 2 kuning (posisi 11–15 dari siklus 15 manik)" },
+          { "category": "question", "phrase_en": "How many total green and red beads are on the necklace now?", "phrase_id": "Berapa total manik hijau dan merah yang ada pada kalung tersebut sekarang?", "note_en": "Count green and red after removal", "note_id": "Hitung hijau dan merah setelah pengurangan" }
+        ],
+        "quantities": [
+          { "label_en": "378 ÷ 15", "label_id": "378 ÷ 15", "value": "25 full cycles, remainder 3 extra beads" },
+          { "label_en": "Remove last 5 of 25th cycle (3R+2Y)", "label_id": "Hapus 5 terakhir siklus ke-25 (3M+2K)", "value": "25th cycle becomes 10 beads: 4G,2Bk,2W,2R" },
+          { "label_en": "3 extra beads (start of 26th cycle)", "label_id": "3 manik ekstra (awal siklus ke-26)", "value": "3G" },
+          { "label_en": "Green total: 24×4 + 4 + 3", "label_id": "Total hijau: 24×4 + 4 + 3", "value": "96+4+3 = 103" },
+          { "label_en": "Red total: 24×5 + 2 + 0", "label_id": "Total merah: 24×5 + 2 + 0", "value": "120+2 = 122" },
+          { "label_en": "Green + Red", "label_id": "Hijau + Merah", "value": "103 + 122 = 225" }
+        ],
+        "strategy": { "name_en": "Full cycles + partial + removal; count green and red separately", "name_id": "Siklus penuh + parsial + pengurangan; hitung hijau dan merah terpisah" },
+        "trap": { "wrong": "A", "why_en": "122 is only the red bead count, not green+red together", "why_id": "122 hanya jumlah manik merah, bukan hijau+merah bersama" },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Cycle = 15 beads. 378 ÷ 15 = 25 remainder 3: 25 full cycles + 3 extra beads.",
+        "Remove last 5 of the 25th cycle (positions 11–15: 3R + 2Y). That cycle now has 10 beads: 4G,2Bk,2W,2R.",
+        "Extra 3 beads = first 3 of next cycle = 3 green.",
+        "Green: 24×4 + 4 + 3 = 103. Red: 24×5 + 2 = 122.",
+        "Green + Red = 103 + 122 = 225 — answer D."
+      ],
+      "hint_steps_id": [
+        "Siklus = 15 manik. 378 ÷ 15 = 25 sisa 3: 25 siklus penuh + 3 manik ekstra.",
+        "Hapus 5 terakhir siklus ke-25 (posisi 11–15: 3M + 2K). Siklus itu kini berisi 10 manik: 4H,2Hi,2P,2M.",
+        "3 manik ekstra = 3 pertama dari siklus berikutnya = 3 hijau.",
+        "Hijau: 24×4 + 4 + 3 = 103. Merah: 24×5 + 2 = 122.",
+        "Hijau + Merah = 103 + 122 = 225 — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer against: green=103, red=122, total=225.",
+          "intro_id": "Periksa setiap jawaban terhadap: hijau=103, merah=122, total=225.",
+          "items": [
+            { "text_en": "A: 122 — only the red count, forgets green ✗", "text_id": "A: 122 — hanya jumlah merah, lupa hijau ✗", "ok": false },
+            { "text_en": "B: 103 — only the green count, forgets red ✗", "text_id": "B: 103 — hanya jumlah hijau, lupa merah ✗", "ok": false },
+            { "text_en": "C: 216 — incorrect count ignoring the removal ✗", "text_id": "C: 216 — hitungan salah yang mengabaikan pengurangan ✗", "ok": false },
+            { "text_en": "D: 225 — 103 green + 122 red = 225 ✓", "text_id": "D: 225 — 103 hijau + 122 merah = 225 ✓", "ok": true }
+          ],
+          "final_en": "103 green + 122 red = 225 — answer D.",
+          "final_id": "103 hijau + 122 merah = 225 — jawaban D.",
+          "aria_en": "25 cycles with 5 removed from last, plus 3 extra; green=103, red=122; total 225; answer D.",
+          "aria_id": "25 siklus dengan 5 dihapus dari siklus terakhir, plus 3 ekstra; hijau=103, merah=122; total 225; jawaban D."
+        }
+      }
     },
     {
       "number": 9,
@@ -186,7 +575,56 @@
         { "label": "D", "text": "13.00 siang" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "scheduled to leave at 10:00 AM", "phrase_id": "dijadwalkan berangkat pukul 10:00 pagi", "note_en": "Scheduled real time = 10:00 AM", "note_id": "Waktu nyata yang dijadwalkan = 10:00 pagi" },
+          { "category": "condition", "phrase_en": "The train departs according to the real time, but it leaves 15 minutes late", "phrase_id": "Kereta berangkat sesuai waktu sebenarnya, tetapi terlambat 15 menit", "note_en": "Actual departure real time = 10:15 AM (the station clock's fast/slow speed does NOT affect when the train actually moves)", "note_id": "Keberangkatan nyata = 10:15 pagi (kecepatan jam stasiun tidak mempengaruhi kapan kereta benar-benar bergerak)" },
+          { "category": "question", "phrase_en": "What time does the station clock at the destination show when the train arrives", "phrase_id": "Pukul berapa jam yang ditunjukkan oleh jam di stasiun tujuan ketika kereta tiba", "note_en": "Arrival real time − 15 min (destination clock is slow) = displayed time", "note_id": "Waktu tiba nyata − 15 menit (jam tujuan lambat) = waktu yang ditampilkan" }
+        ],
+        "quantities": [
+          { "label_en": "Actual departure (real time)", "label_id": "Keberangkatan nyata", "value": "10:00 + 15 min late = 10:15 AM" },
+          { "label_en": "Journey time", "label_id": "Waktu perjalanan", "value": "2h 35min + 10min delay = 2h 45min" },
+          { "label_en": "Arrival real time", "label_id": "Waktu tiba nyata", "value": "10:15 + 2:45 = 13:00 (1:00 PM)" },
+          { "label_en": "Destination clock offset", "label_id": "Selisih jam tujuan", "value": "−15 min (running slow)" },
+          { "label_en": "Displayed time at destination", "label_id": "Waktu yang ditampilkan di tujuan", "value": "13:00 − 0:15 = 12:45 PM" }
+        ],
+        "strategy": { "name_en": "Track real time through journey, then apply destination clock offset", "name_id": "Lacak waktu nyata sepanjang perjalanan, lalu terapkan selisih jam tujuan" },
+        "trap": { "wrong": "D", "why_en": "13:00 is the real arrival time, but the destination clock is 15 min slow so it displays 12:45", "why_id": "13:00 adalah waktu tiba nyata, tetapi jam tujuan 15 menit lambat sehingga menampilkan 12:45" },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "The train departs at real time: scheduled 10:00 AM + 15 min late = 10:15 AM real time.",
+        "Journey: 2h 35min travel + 10min maintenance delay = 2h 45min total.",
+        "Real arrival time: 10:15 AM + 2h 45min = 13:00 (1:00 PM real time).",
+        "Destination clock is 15 minutes slow: displays 13:00 − 15min = 12:45 PM.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Kereta berangkat pada waktu nyata: dijadwalkan 10:00 pagi + 15 menit terlambat = 10:15 pagi nyata.",
+        "Perjalanan: 2j 35m perjalanan + 10m keterlambatan perawatan = 2j 45m total.",
+        "Waktu tiba nyata: 10:15 pagi + 2j 45m = 13:00 (1:00 siang nyata).",
+        "Jam tujuan lambat 15 menit: menampilkan 13:00 − 15m = 12:45 siang.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Verify: real arrival = 13:00; destination clock shows 13:00 − 15min = 12:45 PM.",
+          "intro_id": "Verifikasi: tiba nyata = 13:00; jam tujuan menampilkan 13:00 − 15m = 12:45 siang.",
+          "items": [
+            { "text_en": "A: 12:45 AM — wrong AM/PM; arrival is in the afternoon ✗", "text_id": "A: 12:45 malam — AM/PM salah; tiba di siang hari ✗", "ok": false },
+            { "text_en": "B: 12:45 PM — real arrival 13:00, slow clock −15min = 12:45 PM ✓", "text_id": "B: 12:45 siang — tiba nyata 13:00, jam lambat −15m = 12:45 siang ✓", "ok": true },
+            { "text_en": "C: 00:45 AM — midnight; impossible for a morning departure ✗", "text_id": "C: 00:45 malam — tengah malam; tidak mungkin untuk keberangkatan pagi ✗", "ok": false },
+            { "text_en": "D: 13:00 PM — real time, forgetting to apply the slow clock −15min ✗", "text_id": "D: 13:00 siang — waktu nyata, lupa menerapkan jam lambat −15m ✗", "ok": false }
+          ],
+          "final_en": "Destination clock shows 12:45 PM — answer B.",
+          "final_id": "Jam tujuan menampilkan 12:45 siang — jawaban B.",
+          "aria_en": "Depart 10:15 real + 2h45m = 13:00 real; slow clock −15min = 12:45 PM; answer B.",
+          "aria_id": "Berangkat 10:15 nyata + 2j45m = 13:00 nyata; jam lambat −15m = 12:45 siang; jawaban B."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +644,54 @@
         { "label": "D", "text": "12" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "A number is multiplied by 5, decreased by 6, then divided by 2", "phrase_id": "Suatu bilangan dikalikan dengan 5, dikurangi 6, kemudian dibagi 2", "note_en": "Left side of equation: (5n − 6) / 2", "note_id": "Sisi kiri persamaan: (5n − 6) / 2" },
+          { "category": "condition", "phrase_en": "The result equals three times the number minus 9", "phrase_id": "Hasilnya sama dengan tiga kali bilangan tersebut dikurangi 9", "note_en": "Right side: 3n − 9", "note_id": "Sisi kanan: 3n − 9" },
+          { "category": "question", "phrase_en": "Find the number!", "phrase_id": "Temukan bilangan tersebut!", "note_en": "Solve (5n−6)/2 = 3n−9 for n", "note_id": "Selesaikan (5n−6)/2 = 3n−9 untuk n" }
+        ],
+        "quantities": [
+          { "label_en": "(5n − 6) / 2 = 3n − 9", "label_id": "(5n − 6) / 2 = 3n − 9", "value": "equation" },
+          { "label_en": "Multiply both sides by 2", "label_id": "Kalikan kedua sisi dengan 2", "value": "5n − 6 = 6n − 18" },
+          { "label_en": "Rearrange", "label_id": "Susun ulang", "value": "18 − 6 = 6n − 5n → n = 12" }
+        ],
+        "strategy": { "name_en": "Form and solve linear equation", "name_id": "Bentuk dan selesaikan persamaan linear" },
+        "trap": { "wrong": "A", "why_en": "6 would give (5×6−6)/2=12 and 3×6−9=9; 12 ≠ 9 so 6 is wrong", "why_id": "6 menghasilkan (5×6−6)/2=12 dan 3×6−9=9; 12 ≠ 9 jadi 6 salah" },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Let the number be n. Left side: (5n − 6) ÷ 2.",
+        "Set equal to right side: (5n − 6) / 2 = 3n − 9.",
+        "Multiply both sides by 2: 5n − 6 = 6n − 18.",
+        "Rearrange: 18 − 6 = 6n − 5n → 12 = n.",
+        "Check: (5×12−6)/2 = 54/2 = 27; 3×12−9 = 27 ✓ — answer D."
+      ],
+      "hint_steps_id": [
+        "Misalkan bilangannya n. Sisi kiri: (5n − 6) ÷ 2.",
+        "Samakan dengan sisi kanan: (5n − 6) / 2 = 3n − 9.",
+        "Kalikan kedua sisi dengan 2: 5n − 6 = 6n − 18.",
+        "Susun ulang: 18 − 6 = 6n − 5n → 12 = n.",
+        "Cek: (5×12−6)/2 = 54/2 = 27; 3×12−9 = 27 ✓ — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each candidate: does (5n−6)/2 equal 3n−9?",
+          "intro_id": "Uji setiap kandidat: apakah (5n−6)/2 sama dengan 3n−9?",
+          "items": [
+            { "text_en": "A: n=6 → (24)/2=12 vs 3×6−9=9 → 12≠9 ✗", "text_id": "A: n=6 → (24)/2=12 vs 3×6−9=9 → 12≠9 ✗", "ok": false },
+            { "text_en": "B: n=−12 → (−66)/2=−33 vs 3×(−12)−9=−45 → −33≠−45 ✗", "text_id": "B: n=−12 → (−66)/2=−33 vs 3×(−12)−9=−45 → −33≠−45 ✗", "ok": false },
+            { "text_en": "C: n=−6 → (−36)/2=−18 vs 3×(−6)−9=−27 → −18≠−27 ✗", "text_id": "C: n=−6 → (−36)/2=−18 vs 3×(−6)−9=−27 → −18≠−27 ✗", "ok": false },
+            { "text_en": "D: n=12 → (54)/2=27 vs 3×12−9=27 → 27=27 ✓", "text_id": "D: n=12 → (54)/2=27 vs 3×12−9=27 → 27=27 ✓", "ok": true }
+          ],
+          "final_en": "n = 12 satisfies the equation — answer D.",
+          "final_id": "n = 12 memenuhi persamaan — jawaban D.",
+          "aria_en": "(5n−6)/2=3n−9 gives n=12; verify 27=27; answer D.",
+          "aria_id": "(5n−6)/2=3n−9 menghasilkan n=12; verifikasi 27=27; jawaban D."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +711,56 @@
         { "label": "D", "text": "32" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "A square has an area of 64 cm²", "phrase_id": "Sebuah persegi memiliki luas 64 cm²", "note_en": "Side = √64 = 8 cm; perimeter = 32 cm", "note_id": "Sisi = √64 = 8 cm; keliling = 32 cm" },
+          { "category": "condition", "phrase_en": "The rectangle's length is 6 cm longer than its width", "phrase_id": "Panjang persegi panjang tersebut 6 cm lebih panjang dari lebarnya", "note_en": "l = w + 6; l + w = 16 → 2w + 6 = 16 → w = 5, l = 11", "note_id": "p = l + 6; p + l = 16 → 2l + 6 = 16 → l = 5, p = 11" },
+          { "category": "question", "phrase_en": "Find the area of the rectangle!", "phrase_id": "Carilah luas persegi panjang tersebut!", "note_en": "Area = l × w = 11 × 5 = 55 cm²", "note_id": "Luas = p × l = 11 × 5 = 55 cm²" }
+        ],
+        "quantities": [
+          { "label_en": "Square side", "label_id": "Sisi persegi", "value": "√64 = 8 cm" },
+          { "label_en": "Square perimeter = rectangle perimeter", "label_id": "Keliling persegi = keliling persegi panjang", "value": "4 × 8 = 32 cm" },
+          { "label_en": "l + w = 32/2 = 16", "label_id": "p + l = 32/2 = 16", "value": "16 cm" },
+          { "label_en": "l = w + 6 → 2w + 6 = 16 → w = 5, l = 11", "label_id": "p = l + 6 → 2l + 6 = 16 → l = 5, p = 11", "value": "w=5, l=11" },
+          { "label_en": "Area of rectangle", "label_id": "Luas persegi panjang", "value": "11 × 5 = 55 cm²" }
+        ],
+        "strategy": { "name_en": "Perimeter chain: square → rectangle dimensions → area", "name_id": "Rantai keliling: persegi → dimensi persegi panjang → luas" },
+        "trap": { "wrong": "A", "why_en": "64 is the square's area, not the rectangle's — the rectangle has different dimensions", "why_id": "64 adalah luas persegi, bukan persegi panjang — persegi panjang memiliki dimensi yang berbeda" },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Square area = 64 → side = 8 cm → perimeter = 32 cm.",
+        "Rectangle has the same perimeter: 2(l + w) = 32 → l + w = 16.",
+        "Length is 6 more than width: l = w + 6.",
+        "Substitute: (w + 6) + w = 16 → 2w = 10 → w = 5, l = 11.",
+        "Rectangle area = 11 × 5 = 55 cm² — answer C."
+      ],
+      "hint_steps_id": [
+        "Luas persegi = 64 → sisi = 8 cm → keliling = 32 cm.",
+        "Persegi panjang memiliki keliling yang sama: 2(p + l) = 32 → p + l = 16.",
+        "Panjang 6 lebih dari lebar: p = l + 6.",
+        "Substitusi: (l + 6) + l = 16 → 2l = 10 → l = 5, p = 11.",
+        "Luas persegi panjang = 11 × 5 = 55 cm² — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each area answer: must satisfy perimeter=32 and length−width=6.",
+          "intro_id": "Periksa setiap jawaban luas: harus memenuhi keliling=32 dan panjang−lebar=6.",
+          "items": [
+            { "text_en": "A: 64 — that's the square's area, not the rectangle's ✗", "text_id": "A: 64 — itu luas persegi, bukan persegi panjang ✗", "ok": false },
+            { "text_en": "B: 11 — that's just the length in cm, not an area ✗", "text_id": "B: 11 — itu hanya panjang dalam cm, bukan luas ✗", "ok": false },
+            { "text_en": "C: 55 — w=5, l=11: 5+11=16 ✓, l−w=6 ✓, area=55 ✓", "text_id": "C: 55 — l=5, p=11: 5+11=16 ✓, p−l=6 ✓, luas=55 ✓", "ok": true },
+            { "text_en": "D: 32 — that's the perimeter, not the area ✗", "text_id": "D: 32 — itu kelilingnya, bukan luasnya ✗", "ok": false }
+          ],
+          "final_en": "Rectangle 11×5 has perimeter 32 and area 55 — answer C.",
+          "final_id": "Persegi panjang 11×5 memiliki keliling 32 dan luas 55 — jawaban C.",
+          "aria_en": "Square side 8, perimeter 32; rectangle l+w=16, l−w=6 → l=11,w=5; area=55; answer C.",
+          "aria_id": "Sisi persegi 8, keliling 32; persegi panjang p+l=16, p−l=6 → p=11,l=5; luas=55; jawaban C."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +780,56 @@
         { "label": "D", "text": "Rp165.000" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "The month starts on a Thursday and has 30 days", "phrase_id": "Bulan dimulai pada hari Kamis dan memiliki 30 hari", "note_en": "Day 1 = Thursday; list Mondays and Fridays in days 1–20", "note_id": "Hari 1 = Kamis; daftarkan Senin dan Jumat di hari 1–20" },
+          { "category": "condition", "phrase_en": "Mondays: Cost Rp10,000 per session. Fridays: Cost Rp25,000 per session", "phrase_id": "Senin: Biaya Rp10.000 per sesi. Jumat: Biaya Rp25.000 per sesi", "note_en": "Two different session costs", "note_id": "Dua biaya sesi yang berbeda" },
+          { "category": "question", "phrase_en": "How much will he spend in the first 20 days of the month?", "phrase_id": "Berapa banyak yang akan dia habiskan dalam 20 hari pertama bulan tersebut?", "note_en": "Count Mondays and Fridays within days 1–20, then multiply", "note_id": "Hitung Senin dan Jumat dalam hari 1–20, lalu kalikan" }
+        ],
+        "quantities": [
+          { "label_en": "Day 1 = Thu; Mondays in days 1–20", "label_id": "Hari 1 = Kamis; Senin di hari 1–20", "value": "days 5, 12, 19 → 3 Mondays" },
+          { "label_en": "Fridays in days 1–20", "label_id": "Jumat di hari 1–20", "value": "days 2, 9, 16 → 3 Fridays" },
+          { "label_en": "Monday cost", "label_id": "Biaya Senin", "value": "3 × Rp10,000 = Rp30,000" },
+          { "label_en": "Friday cost", "label_id": "Biaya Jumat", "value": "3 × Rp25,000 = Rp75,000" },
+          { "label_en": "Total", "label_id": "Total", "value": "Rp30,000 + Rp75,000 = Rp105,000" }
+        ],
+        "strategy": { "name_en": "Map days to weekdays, count sessions, compute cost", "name_id": "Petakan hari ke hari dalam seminggu, hitung sesi, hitung biaya" },
+        "trap": { "wrong": "B", "why_en": "Rp125,000 would require 5 Fridays which don't fit in 20 days starting Thursday", "why_id": "Rp125.000 memerlukan 5 Jumat yang tidak muat dalam 20 hari mulai Kamis" },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Month starts Thursday: Thu=1, Fri=2, Sat=3, Sun=4, Mon=5, …",
+        "Mondays in days 1–20: day 5, 12, 19 → 3 sessions × Rp10,000 = Rp30,000.",
+        "Fridays in days 1–20: day 2, 9, 16 → 3 sessions × Rp25,000 = Rp75,000.",
+        "Total = Rp30,000 + Rp75,000 = Rp105,000.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Bulan dimulai Kamis: Ka=1, Ju=2, Sa=3, Mi=4, Se=5, …",
+        "Senin di hari 1–20: hari 5, 12, 19 → 3 sesi × Rp10.000 = Rp30.000.",
+        "Jumat di hari 1–20: hari 2, 9, 16 → 3 sesi × Rp25.000 = Rp75.000.",
+        "Total = Rp30.000 + Rp75.000 = Rp105.000.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Verify: 3 Mondays × Rp10,000 + 3 Fridays × Rp25,000 = total.",
+          "intro_id": "Verifikasi: 3 Senin × Rp10.000 + 3 Jumat × Rp25.000 = total.",
+          "items": [
+            { "text_en": "A: Rp105,000 — Rp30,000 + Rp75,000 = Rp105,000 ✓", "text_id": "A: Rp105.000 — Rp30.000 + Rp75.000 = Rp105.000 ✓", "ok": true },
+            { "text_en": "B: Rp125,000 — would need 5 Fridays, only 3 fall in days 1–20 ✗", "text_id": "B: Rp125.000 — butuh 5 Jumat, hanya 3 yang jatuh di hari 1–20 ✗", "ok": false },
+            { "text_en": "C: Rp100,000 — undercounts; misses a Monday or Friday ✗", "text_id": "C: Rp100.000 — kurang hitung; melewatkan Senin atau Jumat ✗", "ok": false },
+            { "text_en": "D: Rp165,000 — overcounts sessions ✗", "text_id": "D: Rp165.000 — terlalu banyak menghitung sesi ✗", "ok": false }
+          ],
+          "final_en": "3 Mondays + 3 Fridays = Rp105,000 — answer A.",
+          "final_id": "3 Senin + 3 Jumat = Rp105.000 — jawaban A.",
+          "aria_en": "Mon days 5,12,19 × Rp10k=Rp30k; Fri days 2,9,16 × Rp25k=Rp75k; total Rp105k; answer A.",
+          "aria_id": "Senin hari 5,12,19 × Rp10rb=Rp30rb; Jumat hari 2,9,16 × Rp25rb=Rp75rb; total Rp105rb; jawaban A."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +849,55 @@
         { "label": "D", "text": "342" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "A book has 150 pages", "phrase_id": "Sebuah buku memiliki 150 halaman", "note_en": "Pages 1–9 (1 digit), 10–99 (2 digits), 100–150 (3 digits)", "note_id": "Halaman 1–9 (1 digit), 10–99 (2 digit), 100–150 (3 digit)" },
+          { "category": "condition", "phrase_en": "number all the pages from 1 to 150", "phrase_id": "menomori semua halaman dari 1 hingga 150", "note_en": "Count digits by range", "note_id": "Hitung digit per rentang" },
+          { "category": "question", "phrase_en": "How many total digits are used", "phrase_id": "Berapa total digit angka yang digunakan", "note_en": "Sum digits across all three ranges", "note_id": "Jumlahkan digit dari ketiga rentang" }
+        ],
+        "quantities": [
+          { "label_en": "Pages 1–9: 9 pages × 1 digit", "label_id": "Halaman 1–9: 9 halaman × 1 digit", "value": "9 digits" },
+          { "label_en": "Pages 10–99: 90 pages × 2 digits", "label_id": "Halaman 10–99: 90 halaman × 2 digit", "value": "180 digits" },
+          { "label_en": "Pages 100–150: 51 pages × 3 digits", "label_id": "Halaman 100–150: 51 halaman × 3 digit", "value": "153 digits" },
+          { "label_en": "Total digits", "label_id": "Total digit", "value": "9 + 180 + 153 = 342" }
+        ],
+        "strategy": { "name_en": "Split by digit-length range, multiply, sum", "name_id": "Pisahkan per rentang panjang digit, kalikan, jumlahkan" },
+        "trap": { "wrong": "A", "why_en": "339 comes from counting 50 pages (100–149) instead of 51 pages (100–150)", "why_id": "339 muncul dari menghitung 50 halaman (100–149) bukan 51 halaman (100–150)" },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Pages 1–9: 9 single-digit pages → 9 × 1 = 9 digits.",
+        "Pages 10–99: 90 two-digit pages → 90 × 2 = 180 digits.",
+        "Pages 100–150: 51 three-digit pages (150 − 100 + 1 = 51) → 51 × 3 = 153 digits.",
+        "Total = 9 + 180 + 153 = 342.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Halaman 1–9: 9 halaman 1 digit → 9 × 1 = 9 digit.",
+        "Halaman 10–99: 90 halaman 2 digit → 90 × 2 = 180 digit.",
+        "Halaman 100–150: 51 halaman 3 digit (150 − 100 + 1 = 51) → 51 × 3 = 153 digit.",
+        "Total = 9 + 180 + 153 = 342.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: 9 + 180 + 153 should equal the total digits.",
+          "intro_id": "Periksa setiap jawaban: 9 + 180 + 153 harus sama dengan total digit.",
+          "items": [
+            { "text_en": "A: 339 — uses 50 three-digit pages (100–149), misses page 150 ✗", "text_id": "A: 339 — menggunakan 50 halaman 3-digit (100–149), melewatkan halaman 150 ✗", "ok": false },
+            { "text_en": "B: 331 — too low; error in two-digit or three-digit count ✗", "text_id": "B: 331 — terlalu rendah; kesalahan pada hitungan 2-digit atau 3-digit ✗", "ok": false },
+            { "text_en": "C: 353 — overcounts; perhaps 92 two-digit pages instead of 90 ✗", "text_id": "C: 353 — terlalu banyak; mungkin menghitung 92 halaman 2-digit, bukan 90 ✗", "ok": false },
+            { "text_en": "D: 342 — 9+180+153=342 ✓", "text_id": "D: 342 — 9+180+153=342 ✓", "ok": true }
+          ],
+          "final_en": "9 + 180 + 153 = 342 — answer D.",
+          "final_id": "9 + 180 + 153 = 342 — jawaban D.",
+          "aria_en": "1-digit pages 9 digits; 2-digit pages 180 digits; 3-digit pages 153 digits; total 342; answer D.",
+          "aria_id": "Halaman 1-digit 9 digit; halaman 2-digit 180 digit; halaman 3-digit 153 digit; total 342; jawaban D."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +917,56 @@
         { "label": "D", "text": "9" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Monday is apple, Tuesday is banana, Wednesday is cherry, Thursday is Dragonfruit, and Friday is orange", "phrase_id": "Senin apel, Selasa pisang, Rabu ceri, Kamis buah naga, dan Jumat jeruk", "note_en": "Banana = Tuesday = day 2 of each 5-day week", "note_id": "Pisang = Selasa = hari ke-2 dari setiap minggu 5 hari" },
+          { "category": "condition", "phrase_en": "On the 7th and 13th school day, he skips his snack", "phrase_id": "Pada hari sekolah ke-7 dan ke-13, dia melewatkan camilannya", "note_en": "Day 7 = Wed (cherry skip, not banana). Day 13 = Tue (banana skip!)", "note_id": "Hari 7 = Rabu (skip ceri, bukan pisang). Hari 13 = Selasa (skip pisang!)" },
+          { "category": "question", "phrase_en": "How many bananas will he have eaten in total after 50 school days?", "phrase_id": "Berapa banyak pisang yang akan dia makan secara total setelah 50 hari sekolah?", "note_en": "10 Tuesdays in 50 days, minus 1 skipped on day 13 = 9", "note_id": "10 Selasa dalam 50 hari, dikurangi 1 yang dilewat pada hari 13 = 9" }
+        ],
+        "quantities": [
+          { "label_en": "Tuesdays in 50 school days", "label_id": "Selasa dalam 50 hari sekolah", "value": "50 ÷ 5 = 10 weeks → 10 Tuesdays" },
+          { "label_en": "Day 7 snack", "label_id": "Camilan hari ke-7", "value": "Day 7 mod 5 = 2 → Wednesday = cherry (skip cherry, not banana)" },
+          { "label_en": "Day 13 snack", "label_id": "Camilan hari ke-13", "value": "Day 13 mod 5 = 3 → wait: 13=2×5+3, day 3 of week = Wednesday? No: week 3 starts day 11; day 13=Tue → banana skip!" },
+          { "label_en": "Banana skips", "label_id": "Skip pisang", "value": "1 (day 13 only)" },
+          { "label_en": "Total bananas eaten", "label_id": "Total pisang dimakan", "value": "10 − 1 = 9" }
+        ],
+        "strategy": { "name_en": "Count Tuesdays in 50 days, subtract banana skips", "name_id": "Hitung Selasa dalam 50 hari, kurangi skip pisang" },
+        "trap": { "wrong": "C", "why_en": "10 would be correct without the skip; day 13 is Tuesday (banana) so one banana is missed → answer is 9", "why_id": "10 benar tanpa skip; hari ke-13 adalah Selasa (pisang) sehingga satu pisang terlewat → jawaban 9" },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "In 50 school days (10 weeks of Mon–Fri), there are 10 Tuesdays — normally 10 bananas.",
+        "Check skip days: day 7 = week 2 day 2 = Tuesday? Week 1: days 1–5, week 2: days 6–10. Day 7 = Wednesday (day 2 of week 2 counting Mon=1). Day 7 skip = cherry, not banana.",
+        "Day 13 = week 3 days 11–15; day 13 = Tuesday → banana skipped.",
+        "Total bananas = 10 − 1 = 9.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Dalam 50 hari sekolah (10 minggu Senin–Jumat), ada 10 Selasa — normalnya 10 pisang.",
+        "Periksa hari skip: hari ke-7 = minggu ke-2 hari ke-2 = Selasa? Minggu 1: hari 1–5, minggu 2: hari 6–10. Hari ke-7 = Rabu (hari ke-2 di minggu 2 dihitung Se=1). Skip hari 7 = ceri, bukan pisang.",
+        "Hari ke-13 = minggu ke-3 hari 11–15; hari ke-13 = Selasa → pisang dilewat.",
+        "Total pisang = 10 − 1 = 9.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each count: 10 Tuesdays minus banana-day skips.",
+          "intro_id": "Periksa setiap hitungan: 10 Selasa dikurangi skip hari pisang.",
+          "items": [
+            { "text_en": "A: 11 — more than total Tuesdays in 50 days; impossible ✗", "text_id": "A: 11 — lebih dari total Selasa dalam 50 hari; tidak mungkin ✗", "ok": false },
+            { "text_en": "B: 8 — would require 2 banana-day skips; only day 13 is Tuesday ✗", "text_id": "B: 8 — memerlukan 2 skip hari pisang; hanya hari 13 yang Selasa ✗", "ok": false },
+            { "text_en": "C: 10 — correct Tuesdays count but ignores the day-13 banana skip ✗", "text_id": "C: 10 — hitungan Selasa benar tapi mengabaikan skip pisang hari ke-13 ✗", "ok": false },
+            { "text_en": "D: 9 — 10 Tuesdays − 1 skipped (day 13=Tuesday) = 9 ✓", "text_id": "D: 9 — 10 Selasa − 1 dilewat (hari 13=Selasa) = 9 ✓", "ok": true }
+          ],
+          "final_en": "10 bananas minus 1 skip on day 13 = 9 — answer D.",
+          "final_id": "10 pisang dikurangi 1 skip pada hari ke-13 = 9 — jawaban D.",
+          "aria_en": "50 days = 10 weeks; 10 Tuesdays; day 7=Wed (no banana skip), day 13=Tue (banana skip); 10−1=9; answer D.",
+          "aria_id": "50 hari = 10 minggu; 10 Selasa; hari 7=Rabu (bukan skip pisang), hari 13=Selasa (skip pisang); 10−1=9; jawaban D."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +986,55 @@
         { "label": "D", "text": "188" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "A water tank starts with 100 liters of water", "phrase_id": "Sebuah tangki air awalnya berisi 100 liter air", "note_en": "Starting volume = 100 L", "note_id": "Volume awal = 100 L" },
+          { "category": "condition", "phrase_en": "After the 5th hour, the leak gets worse. It doubles to 4 liters per hour. However, to compensate, the pump increases its speed and adds 15 liters per hour", "phrase_id": "Setelah jam ke-5, kebocoran semakin parah. Jumlah air yang keluar berlipat ganda menjadi 4 liter per jam. Namun, untuk mengimbangi hal tersebut, pompa meningkatkan kecepatannya dan menambahkan 15 liter per jam", "note_en": "Two phases: hours 1–5 (net +8/hr) and hours 6–8 (net +11/hr)", "note_id": "Dua fase: jam 1–5 (net +8/jam) dan jam 6–8 (net +11/jam)" },
+          { "category": "question", "phrase_en": "How many liters of water are in the tank at the end of the 8th hour?", "phrase_id": "Berapa liter air yang ada di dalam tangki pada akhir jam ke-8?", "note_en": "Apply net gains for each phase", "note_id": "Terapkan perolehan bersih untuk setiap fase" }
+        ],
+        "quantities": [
+          { "label_en": "Phase 1 net per hour (hours 1–5): +10 − 2", "label_id": "Net fase 1 per jam (jam 1–5): +10 − 2", "value": "+8 L/hr" },
+          { "label_en": "After 5 hours", "label_id": "Setelah 5 jam", "value": "100 + 5×8 = 140 L" },
+          { "label_en": "Phase 2 net per hour (hours 6–8): +15 − 4", "label_id": "Net fase 2 per jam (jam 6–8): +15 − 4", "value": "+11 L/hr" },
+          { "label_en": "After 3 more hours", "label_id": "Setelah 3 jam lagi", "value": "140 + 3×11 = 173 L" }
+        ],
+        "strategy": { "name_en": "Two-phase net-rate accumulation", "name_id": "Akumulasi laju bersih dua fase" },
+        "trap": { "wrong": "C", "why_en": "140 is the volume after hour 5 only — forgetting to add phase 2's 33 L", "why_id": "140 adalah volume setelah jam ke-5 saja — lupa menambahkan 33 L dari fase 2" },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Hours 1–5: pump +10, leak −2, net = +8 L per hour.",
+        "After hour 5: 100 + 5 × 8 = 140 L.",
+        "Hours 6–8: pump +15, leak −4, net = +11 L per hour.",
+        "After hour 8: 140 + 3 × 11 = 140 + 33 = 173 L.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Jam 1–5: pompa +10, bocor −2, net = +8 L per jam.",
+        "Setelah jam ke-5: 100 + 5 × 8 = 140 L.",
+        "Jam 6–8: pompa +15, bocor −4, net = +11 L per jam.",
+        "Setelah jam ke-8: 140 + 3 × 11 = 140 + 33 = 173 L.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: 100 + 5×8 + 3×11 = ?",
+          "intro_id": "Periksa setiap jawaban: 100 + 5×8 + 3×11 = ?",
+          "items": [
+            { "text_en": "A: 173 — 100+40+33=173 ✓", "text_id": "A: 173 — 100+40+33=173 ✓", "ok": true },
+            { "text_en": "B: 164 — wrong phase-2 net (uses +8 for phase 2 too) ✗", "text_id": "B: 164 — net fase 2 salah (menggunakan +8 juga untuk fase 2) ✗", "ok": false },
+            { "text_en": "C: 140 — stops at hour 5, forgets phase 2 ✗", "text_id": "C: 140 — berhenti di jam ke-5, lupa fase 2 ✗", "ok": false },
+            { "text_en": "D: 188 — uses wrong net rates ✗", "text_id": "D: 188 — menggunakan laju bersih yang salah ✗", "ok": false }
+          ],
+          "final_en": "100 + 40 + 33 = 173 liters — answer A.",
+          "final_id": "100 + 40 + 33 = 173 liter — jawaban A.",
+          "aria_en": "Phase 1: 5hrs × +8L = +40; phase 2: 3hrs × +11L = +33; 100+40+33=173; answer A.",
+          "aria_id": "Fase 1: 5jam × +8L = +40; fase 2: 3jam × +11L = +33; 100+40+33=173; jawaban A."
+        }
+      }
     },
     {
       "number": 16,
@@ -314,7 +1042,33 @@
       "body_en": "How many triangles in all sizes can you find in the given figure?",
       "body_id": "Berapa jumlah segitiga dalam berbagai ukuran pada gambar ini?",
       "answer": "36",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "question", "phrase_en": "How many triangles in all sizes can you find in the given figure?", "phrase_id": "Berapa jumlah segitiga dalam berbagai ukuran pada gambar ini?", "note_en": "Count triangles of every size — small, medium, and large", "note_id": "Hitung segitiga semua ukuran — kecil, sedang, dan besar" },
+          { "category": "condition", "phrase_en": "in all sizes", "phrase_id": "dalam berbagai ukuran", "note_en": "Do not stop at the smallest triangles — combine units systematically", "note_id": "Jangan berhenti pada segitiga terkecil — gabungkan unit secara sistematis" },
+          { "category": "fact", "phrase_en": "in the given figure", "phrase_id": "pada gambar ini", "note_en": "Figure not available; answer from official key = 36", "note_id": "Gambar tidak tersedia; jawaban dari kunci resmi = 36" }
+        ],
+        "quantities": [
+          { "label_en": "Official answer (triangle count)", "label_id": "Jawaban resmi (jumlah segitiga)", "value": "36" }
+        ],
+        "strategy": { "name_en": "Systematic size-by-size counting", "name_id": "Penghitungan sistematis ukuran per ukuran" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "36" }
+      },
+      "hint_steps_en": [
+        "Count triangles by size: small (1-unit), medium (combining 2–3 units), large (spanning many units).",
+        "Work left-to-right and top-to-bottom for each size to avoid double-counting.",
+        "Add all size groups together.",
+        "The total is 36."
+      ],
+      "hint_steps_id": [
+        "Hitung segitiga berdasarkan ukuran: kecil (1 unit), sedang (gabungan 2–3 unit), besar (mencakup banyak unit).",
+        "Kerja dari kiri ke kanan dan atas ke bawah untuk setiap ukuran agar tidak menghitung dua kali.",
+        "Jumlahkan semua kelompok ukuran.",
+        "Totalnya adalah 36."
+      ]
     },
     {
       "number": 17,
@@ -322,7 +1076,38 @@
       "body_en": "Runner A starts a race at 07:15 am. Runner B starts the same race 20 minutes later. Runner A runs at a pace of 10 minutes per kilometer. Runner B runs at a pace of 8 minutes per kilometer. The race is 15 kilometers long. At what kilometer does Runner B meet Runner A?",
       "body_id": "Pelari A memulai perlombaan pada pukul 07:15 pagi. Pelari B memulai perlombaan yang sama 20 menit kemudian. Pelari A berlari dengan kecepatan 10 menit per kilometer. Pelari B berlari dengan kecepatan 8 menit per kilometer. Jarak perlombaan adalah 15 kilometer. Pada kilometer berapa Pelari B bertemu dengan Pelari A?",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Runner A runs at a pace of 10 minutes per kilometer. Runner B runs at a pace of 8 minutes per kilometer", "phrase_id": "Pelari A berlari dengan kecepatan 10 menit per kilometer. Pelari B berlari dengan kecepatan 8 menit per kilometer", "note_en": "A is slower; B will eventually catch up", "note_id": "A lebih lambat; B akan menyusul" },
+          { "category": "condition", "phrase_en": "Runner B starts the same race 20 minutes later", "phrase_id": "Pelari B memulai perlombaan yang sama 20 menit kemudian", "note_en": "B has a 20-minute head-start disadvantage but higher speed", "note_id": "B memiliki kerugian 20 menit namun kecepatan lebih tinggi" },
+          { "category": "question", "phrase_en": "At what kilometer does Runner B meet Runner A?", "phrase_id": "Pada kilometer berapa Pelari B bertemu dengan Pelari A?", "note_en": "Set A's position equal to B's position and solve", "note_id": "Samakan posisi A dengan posisi B dan selesaikan" }
+        ],
+        "quantities": [
+          { "label_en": "A's position at time t (min after A's start)", "label_id": "Posisi A pada waktu t (menit setelah A mulai)", "value": "t/10 km" },
+          { "label_en": "B's position at time t", "label_id": "Posisi B pada waktu t", "value": "(t−20)/8 km (for t≥20)" },
+          { "label_en": "Meet when t/10 = (t−20)/8", "label_id": "Bertemu saat t/10 = (t−20)/8", "value": "8t = 10t−200 → t=100 min" },
+          { "label_en": "Meeting kilometer", "label_id": "Kilometer pertemuan", "value": "100/10 = 10 km" }
+        ],
+        "strategy": { "name_en": "Equal-position equation — solve for t then convert to distance", "name_id": "Persamaan posisi sama — selesaikan t lalu konversi ke jarak" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "km", "value": "10" }
+      },
+      "hint_steps_en": [
+        "Let t = minutes after Runner A starts. A's position = t/10 km.",
+        "B starts 20 min later: B's position = (t − 20)/8 km (valid for t ≥ 20).",
+        "Set equal: t/10 = (t − 20)/8.",
+        "Cross-multiply: 8t = 10(t − 20) = 10t − 200 → 200 = 2t → t = 100 min.",
+        "Meeting point = 100/10 = 10 km."
+      ],
+      "hint_steps_id": [
+        "Misalkan t = menit setelah Pelari A mulai. Posisi A = t/10 km.",
+        "B mulai 20 menit kemudian: posisi B = (t − 20)/8 km (berlaku untuk t ≥ 20).",
+        "Samakan: t/10 = (t − 20)/8.",
+        "Kalikan silang: 8t = 10(t − 20) = 10t − 200 → 200 = 2t → t = 100 menit.",
+        "Titik pertemuan = 100/10 = 10 km."
+      ]
     },
     {
       "number": 18,
@@ -330,7 +1115,40 @@
       "body_en": "8 identical small rectangles are arranged to form a large rectangle. The short side (width) of one small rectangle is 6 cm. The arrangement is as follows: five of the small rectangles are placed upright (vertically) side-by-side at the bottom. Three of the small rectangles are placed horizontally on top, so that the top and bottom widths are exactly the same. No overlaps or gaps. What is the total area of the large rectangle in cm²?",
       "body_id": "Delapan persegi panjang kecil yang identik disusun membentuk persegi panjang besar. Sisi pendek (lebar) salah satu persegi panjang kecil adalah 6 cm. Susunannya sebagai berikut: lima persegi panjang kecil diletakkan tegak (vertikal) berdampingan di bagian bawah. Tiga persegi panjang kecil diletakkan secara horizontal di atas, sehingga lebar bagian atas dan bawah sama persis. Tidak ada tumpang tindih atau celah. Berapakah luas total persegi panjang besar dalam cm²?",
       "answer": "480",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "The short side (width) of one small rectangle is 6 cm", "phrase_id": "Sisi pendek (lebar) salah satu persegi panjang kecil adalah 6 cm", "note_en": "Width = 6 cm; length unknown — derive from arrangement constraint", "note_id": "Lebar = 6 cm; panjang belum diketahui — cari dari kendala susunan" },
+          { "category": "condition", "phrase_en": "five of the small rectangles are placed upright (vertically) side-by-side at the bottom. Three of the small rectangles are placed horizontally on top, so that the top and bottom widths are exactly the same", "phrase_id": "lima persegi panjang kecil diletakkan tegak (vertikal) berdampingan di bagian bawah. Tiga persegi panjang kecil diletakkan secara horizontal di atas, sehingga lebar bagian atas dan bawah sama persis", "note_en": "Bottom width = 5×6=30; top 3 horizontal share same 30 cm width → each long side = 10 cm", "note_id": "Lebar bawah = 5×6=30; 3 horizontal di atas berbagi lebar 30 cm yang sama → sisi panjang masing-masing = 10 cm" },
+          { "category": "question", "phrase_en": "What is the total area of the large rectangle in cm²?", "phrase_id": "Berapakah luas total persegi panjang besar dalam cm²?", "note_en": "Large rectangle = 30 cm wide × 16 cm tall = 480 cm²", "note_id": "Persegi panjang besar = 30 cm lebar × 16 cm tinggi = 480 cm²" }
+        ],
+        "quantities": [
+          { "label_en": "Bottom row width: 5 vertical rects × 6 cm", "label_id": "Lebar baris bawah: 5 rect vertikal × 6 cm", "value": "30 cm" },
+          { "label_en": "Top row: 3 horizontal rects share 30 cm → each long side", "label_id": "Baris atas: 3 rect horizontal berbagi 30 cm → sisi panjang masing-masing", "value": "30/3 = 10 cm" },
+          { "label_en": "Small rect dimensions", "label_id": "Dimensi rect kecil", "value": "6 cm × 10 cm" },
+          { "label_en": "Bottom row height (vertical orientation)", "label_id": "Tinggi baris bawah (orientasi vertikal)", "value": "10 cm (long side)" },
+          { "label_en": "Top row height (horizontal orientation)", "label_id": "Tinggi baris atas (orientasi horizontal)", "value": "6 cm (short side)" },
+          { "label_en": "Large rectangle area", "label_id": "Luas persegi panjang besar", "value": "30 × (10+6) = 30 × 16 = 480 cm²" }
+        ],
+        "strategy": { "name_en": "Use width-matching constraint to find length, then compute total area", "name_id": "Gunakan kendala kesamaan lebar untuk menemukan panjang, lalu hitung luas total" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm²", "value": "480" }
+      },
+      "hint_steps_en": [
+        "Bottom row: 5 vertical small rectangles side by side → total width = 5 × 6 = 30 cm.",
+        "Top row: 3 horizontal small rectangles span the same 30 cm → each long side = 30 ÷ 3 = 10 cm.",
+        "Each small rectangle is 6 cm × 10 cm.",
+        "Bottom row height = 10 cm (long side vertical); top row height = 6 cm (short side horizontal).",
+        "Large rectangle: 30 cm × 16 cm = 480 cm²."
+      ],
+      "hint_steps_id": [
+        "Baris bawah: 5 rect kecil vertikal berdampingan → lebar total = 5 × 6 = 30 cm.",
+        "Baris atas: 3 rect kecil horizontal mencakup lebar 30 cm yang sama → sisi panjang masing-masing = 30 ÷ 3 = 10 cm.",
+        "Setiap rect kecil berukuran 6 cm × 10 cm.",
+        "Tinggi baris bawah = 10 cm (sisi panjang vertikal); tinggi baris atas = 6 cm (sisi pendek horizontal).",
+        "Persegi panjang besar: 30 cm × 16 cm = 480 cm²."
+      ]
     },
     {
       "number": 19,
@@ -338,7 +1156,38 @@
       "body_en": "In the cryptarithm below, each letter represents a different digit from 0 to 9. What is the value of A + B + C + D + E?\n\n  A A\n+ B A C\n= C E E D",
       "body_id": "Pada perhitungan di bawah, setiap huruf mewakili satu digit yang berbeda dari 0 sampai 9. Berapakah hasil penjumlahan dari A + B + C + D + E?\n\n  A A\n+ B A C\n= C E E D",
       "answer": "21",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "each letter represents a different digit from 0 to 9", "phrase_id": "setiap huruf mewakili satu digit yang berbeda dari 0 sampai 9", "note_en": "A, B, C, D, E are five distinct digits", "note_id": "A, B, C, D, E adalah lima digit yang berbeda" },
+          { "category": "condition", "phrase_en": "A A\n+ B A C\n= C E E D", "phrase_id": "A A\n+ B A C\n= C E E D", "note_en": "Column analysis: units A+C=D; tens 2A+c=E; hundreds B+c=E; thousands c=C", "note_id": "Analisis kolom: satuan A+C=D; puluhan 2A+c=E; ratusan B+c=E; ribuan c=C" },
+          { "category": "question", "phrase_en": "What is the value of A + B + C + D + E?", "phrase_id": "Berapakah hasil penjumlahan dari A + B + C + D + E?", "note_en": "Solution: A=5, B=9, C=1, D=6, E=0 → sum=21", "note_id": "Solusi: A=5, B=9, C=1, D=6, E=0 → jumlah=21" }
+        ],
+        "quantities": [
+          { "label_en": "Thousands carry = C → C=1", "label_id": "Simpanan ribuan = C → C=1", "value": "C=1" },
+          { "label_en": "No carry from units (c1=0): D=A+1; tens: 2A carries (c2=1): E=2A−10; hundreds: B+1=E+10 → B=2A−1; A=5 (only value satisfying B≤9 and A≥5)", "label_id": "Tanpa simpanan dari satuan: D=A+1; puluhan: 2A carry: E=2A−10; ratusan: B=2A−1; A=5", "value": "A=5, B=9, E=0, D=6" },
+          { "label_en": "Verify: 55 + 951 = 1006", "label_id": "Verifikasi: 55 + 951 = 1006", "value": "C=1, E=0, E=0, D=6 ✓" },
+          { "label_en": "A+B+C+D+E", "label_id": "A+B+C+D+E", "value": "5+9+1+6+0 = 21" }
+        ],
+        "strategy": { "name_en": "Column-by-column carry analysis to pin each letter", "name_id": "Analisis simpanan kolom per kolom untuk menentukan setiap huruf" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "21" }
+      },
+      "hint_steps_en": [
+        "The sum AA + BAC = CEED is 4 digits, so the carry into thousands = C. Since C ≥ 1 and carry ≤ 1, C = 1.",
+        "Units column: A + C = A + 1 = D (no carry, c1=0). Tens: 2A ≥ 10 to produce a carry; E = 2A − 10, carry c2=1.",
+        "Hundreds: B + 1 must produce a carry to thousands (c3=1): B + 1 = E + 10 → B = 2A − 1.",
+        "B ≤ 9 requires 2A − 1 ≤ 9 → A ≤ 5; E = 2A−10 ≥ 0 → A ≥ 5. So A = 5.",
+        "A=5, B=9, C=1, D=6, E=0. Check: 55 + 951 = 1006 ✓. Sum = 5+9+1+6+0 = 21."
+      ],
+      "hint_steps_id": [
+        "Jumlah AA + BAC = CEED adalah 4 digit, jadi simpanan ke ribuan = C. Karena C ≥ 1 dan simpanan ≤ 1, maka C = 1.",
+        "Kolom satuan: A + C = A + 1 = D (tanpa simpanan, c1=0). Puluhan: 2A ≥ 10 untuk menghasilkan simpanan; E = 2A − 10, simpanan c2=1.",
+        "Ratusan: B + 1 harus menghasilkan simpanan ke ribuan (c3=1): B + 1 = E + 10 → B = 2A − 1.",
+        "B ≤ 9 mengharuskan 2A − 1 ≤ 9 → A ≤ 5; E = 2A−10 ≥ 0 → A ≥ 5. Jadi A = 5.",
+        "A=5, B=9, C=1, D=6, E=0. Cek: 55 + 951 = 1006 ✓. Jumlah = 5+9+1+6+0 = 21."
+      ]
     },
     {
       "number": 20,
@@ -346,7 +1195,37 @@
       "body_en": "In a row of 10 houses, the houses are alternating colors: Odd-numbered houses are yellow. Even-numbered houses are white. Every house has exactly 4 windows. In yellow houses, each window contains 3 red pots and 2 blue pots. In white houses, each window contains 1 red pot and 5 blue pots. What is the total number of pots?",
       "body_id": "Dalam deretan 10 rumah, rumah-rumah tersebut berwarna berselang-seling: Rumah bernomor ganjil berwarna kuning. Rumah bernomor genap berwarna putih. Setiap rumah memiliki tepat 4 jendela. Di rumah kuning, setiap jendela berisi 3 pot merah dan 2 pot biru. Di rumah putih, setiap jendela berisi 1 pot merah dan 5 pot biru. Berapakah jumlah total pot?",
       "answer": "220",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "In a row of 10 houses", "phrase_id": "Dalam deretan 10 rumah", "note_en": "5 odd (yellow) + 5 even (white)", "note_id": "5 ganjil (kuning) + 5 genap (putih)" },
+          { "category": "condition", "phrase_en": "In yellow houses, each window contains 3 red pots and 2 blue pots. In white houses, each window contains 1 red pot and 5 blue pots", "phrase_id": "Di rumah kuning, setiap jendela berisi 3 pot merah dan 2 pot biru. Di rumah putih, setiap jendela berisi 1 pot merah dan 5 pot biru", "note_en": "Yellow window = 5 pots; white window = 6 pots", "note_id": "Jendela kuning = 5 pot; jendela putih = 6 pot" },
+          { "category": "question", "phrase_en": "What is the total number of pots?", "phrase_id": "Berapakah jumlah total pot?", "note_en": "5 yellow houses × 4 windows × 5 pots + 5 white houses × 4 windows × 6 pots", "note_id": "5 rumah kuning × 4 jendela × 5 pot + 5 rumah putih × 4 jendela × 6 pot" }
+        ],
+        "quantities": [
+          { "label_en": "Yellow houses pots", "label_id": "Pot rumah kuning", "value": "5 × 4 × 5 = 100 pots" },
+          { "label_en": "White houses pots", "label_id": "Pot rumah putih", "value": "5 × 4 × 6 = 120 pots" },
+          { "label_en": "Total pots", "label_id": "Total pot", "value": "100 + 120 = 220" }
+        ],
+        "strategy": { "name_en": "Multiply by group then sum", "name_id": "Kalikan per kelompok lalu jumlahkan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "220" }
+      },
+      "hint_steps_en": [
+        "10 houses: 5 odd = yellow, 5 even = white. Each house has 4 windows.",
+        "Yellow house: each window has 3 red + 2 blue = 5 pots.",
+        "Yellow total: 5 houses × 4 windows × 5 pots = 100 pots.",
+        "White house: each window has 1 red + 5 blue = 6 pots.",
+        "White total: 5 × 4 × 6 = 120 pots. Grand total = 100 + 120 = 220."
+      ],
+      "hint_steps_id": [
+        "10 rumah: 5 ganjil = kuning, 5 genap = putih. Setiap rumah punya 4 jendela.",
+        "Rumah kuning: setiap jendela berisi 3 merah + 2 biru = 5 pot.",
+        "Total kuning: 5 rumah × 4 jendela × 5 pot = 100 pot.",
+        "Rumah putih: setiap jendela berisi 1 merah + 5 biru = 6 pot.",
+        "Total putih: 5 × 4 × 6 = 120 pot. Total keseluruhan = 100 + 120 = 220."
+      ]
     }
   ]
 }
