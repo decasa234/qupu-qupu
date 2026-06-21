@@ -14,21 +14,156 @@
       "body_id": "Temukan angka yang hilang. 3, 4, 7, 11, 18, ( ), 47, …",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "27" },
-        { "label": "B", "text": "28" },
-        { "label": "C", "text": "29" },
-        { "label": "D", "text": "31" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "27"
+        },
+        {
+          "label": "B",
+          "text": "28"
+        },
+        {
+          "label": "C",
+          "text": "29"
+        },
+        {
+          "label": "D",
+          "text": "31"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "27" },
-        { "label": "B", "text": "28" },
-        { "label": "C", "text": "29" },
-        { "label": "D", "text": "31" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "27"
+        },
+        {
+          "label": "B",
+          "text": "28"
+        },
+        {
+          "label": "C",
+          "text": "29"
+        },
+        {
+          "label": "D",
+          "text": "31"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3, 4, 7, 11, 18, ( ), 47, …",
+            "phrase_id": "3, 4, 7, 11, 18, ( ), 47, …",
+            "note_en": "Each term equals the sum of the two before it",
+            "note_id": "Setiap suku sama dengan jumlah dua suku sebelumnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the missing number",
+            "phrase_id": "Temukan angka yang hilang",
+            "note_en": "What number fits between 18 and 47?",
+            "note_id": "Angka apa yang cocok di antara 18 dan 47?"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "3+4",
+            "label_id": "3+4",
+            "value": "7 ✓"
+          },
+          {
+            "label_en": "4+7",
+            "label_id": "4+7",
+            "value": "11 ✓"
+          },
+          {
+            "label_en": "7+11",
+            "label_id": "7+11",
+            "value": "18 ✓"
+          },
+          {
+            "label_en": "11+18",
+            "label_id": "11+18",
+            "value": "29 ← missing"
+          },
+          {
+            "label_en": "18+29",
+            "label_id": "18+29",
+            "value": "47 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fibonacci rule — add the two previous terms",
+          "name_id": "Aturan Fibonacci — jumlahkan dua suku sebelumnya"
+        },
+        "trap": {
+          "wrong": "D (31)",
+          "why_en": "18+31=49, not 47.",
+          "why_id": "18+31=49, bukan 47."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Each number equals the sum of the two numbers before it: 3+4=7, 4+7=11, 7+11=18.",
+        "Apply the rule: 11+18 = 29.",
+        "Check: 18+29 = 47 ✓",
+        "The missing number is 29, which is C."
+      ],
+      "hint_steps_id": [
+        "Setiap angka sama dengan jumlah dua angka sebelumnya: 3+4=7, 4+7=11, 7+11=18.",
+        "Terapkan aturannya: 11+18 = 29.",
+        "Cek: 18+29 = 47 ✓",
+        "Angka yang hilang adalah 29, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Each number = sum of the two before it. Check the candidates.",
+          "intro_id": "Setiap angka = jumlah dua angka sebelumnya. Periksa kandidatnya.",
+          "items": [
+            {
+              "text_en": "A (27): 18+27=45 ≠ 47 ✗",
+              "text_id": "A (27): 18+27=45 ≠ 47 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B (28): 18+28=46 ≠ 47 ✗",
+              "text_id": "B (28): 18+28=46 ≠ 47 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C (29): 11+18=29 ✓ and 18+29=47 ✓",
+              "text_id": "C (29): 11+18=29 ✓ dan 18+29=47 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (31): 18+31=49 ≠ 47 ✗",
+              "text_id": "D (31): 18+31=49 ≠ 47 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The missing number is 29 — answer C.",
+          "final_id": "Angka yang hilang adalah 29 — jawaban C.",
+          "aria_en": "Each term equals the sum of the previous two; 11 plus 18 equals 29, and 18 plus 29 equals 47.",
+          "aria_id": "Setiap suku sama dengan jumlah dua suku sebelumnya; 11 ditambah 18 sama dengan 29, dan 18 ditambah 29 sama dengan 47."
+        }
+      }
     },
     {
       "number": 2,
@@ -36,21 +171,101 @@
       "body_id": "Ada berapa banyak kubus dalam gambar di bawah ini?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "13" },
-        { "label": "B", "text": "14" },
-        { "label": "C", "text": "15" },
-        { "label": "D", "text": "16" },
-        { "label": "E", "text": "17" }
+        {
+          "label": "A",
+          "text": "13"
+        },
+        {
+          "label": "B",
+          "text": "14"
+        },
+        {
+          "label": "C",
+          "text": "15"
+        },
+        {
+          "label": "D",
+          "text": "16"
+        },
+        {
+          "label": "E",
+          "text": "17"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "13" },
-        { "label": "B", "text": "14" },
-        { "label": "C", "text": "15" },
-        { "label": "D", "text": "16" },
-        { "label": "E", "text": "17" }
+        {
+          "label": "A",
+          "text": "13"
+        },
+        {
+          "label": "B",
+          "text": "14"
+        },
+        {
+          "label": "C",
+          "text": "15"
+        },
+        {
+          "label": "D",
+          "text": "16"
+        },
+        {
+          "label": "E",
+          "text": "17"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many cubes are there in the figure below?",
+            "phrase_id": "Ada berapa banyak kubus dalam gambar di bawah ini?",
+            "note_en": "Count all visible AND hidden cubes systematically layer by layer",
+            "note_id": "Hitung semua kubus yang terlihat DAN yang tersembunyi secara sistematis lapis per lapis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Hidden supporting cubes",
+            "label_id": "Kubus pendukung tersembunyi",
+            "value": "must exist to support the stack"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "17"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count layer by layer",
+          "name_id": "Hitung lapis per lapis"
+        },
+        "trap": {
+          "wrong": "A (13)",
+          "why_en": "Counting only visible cubes misses hidden ones supporting the stack.",
+          "why_id": "Menghitung hanya kubus yang terlihat melewatkan yang tersembunyi di bawah tumpukan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Count cubes layer by layer from the bottom up.",
+        "Include hidden cubes that must exist to support the ones you can see.",
+        "Add all layers together to get the total.",
+        "The total is 17, which is E."
+      ],
+      "hint_steps_id": [
+        "Hitung kubus lapis per lapis dari bawah ke atas.",
+        "Sertakan kubus yang tersembunyi yang harus ada untuk menopang yang terlihat.",
+        "Jumlahkan semua lapisan untuk mendapatkan totalnya.",
+        "Totalnya adalah 17, yaitu pilihan E."
+      ]
     },
     {
       "number": 3,
@@ -58,21 +273,151 @@
       "body_id": "Temukan nilai M.\n\n  M N\n  M N\n+ M N\n------\n1 7 7",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "5" },
-        { "label": "D", "text": "6" },
-        { "label": "E", "text": "7" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "5" },
-        { "label": "D", "text": "6" },
-        { "label": "E", "text": "7" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "7"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "M N\n  M N\n+ M N\n------\n1 7 7",
+            "phrase_id": "M N\n  M N\n+ M N\n------\n1 7 7",
+            "note_en": "Three identical 2-digit numbers MN add to 177",
+            "note_id": "Tiga bilangan 2-digit identik MN berjumlah 177"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of M",
+            "phrase_id": "Temukan nilai M",
+            "note_en": "M is the tens digit of MN = 177÷3 = 59",
+            "note_id": "M adalah digit puluhan dari MN = 177÷3 = 59"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "3 × MN",
+            "label_id": "3 × MN",
+            "value": "177"
+          },
+          {
+            "label_en": "MN",
+            "label_id": "MN",
+            "value": "177 ÷ 3 = 59"
+          },
+          {
+            "label_en": "M (tens digit)",
+            "label_id": "M (digit puluhan)",
+            "value": "5"
+          },
+          {
+            "label_en": "N (units digit)",
+            "label_id": "N (digit satuan)",
+            "value": "9"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divide the total by 3",
+          "name_id": "Bagi total dengan 3"
+        },
+        "trap": {
+          "wrong": "D (6)",
+          "why_en": "177÷3=59, so M=5, not 6.",
+          "why_id": "177÷3=59, jadi M=5, bukan 6."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "MN + MN + MN = 3 × MN = 177.",
+        "Divide: MN = 177 ÷ 3 = 59.",
+        "M is the tens digit of 59, so M = 5.",
+        "The answer is 5, which is C."
+      ],
+      "hint_steps_id": [
+        "MN + MN + MN = 3 × MN = 177.",
+        "Bagi: MN = 177 ÷ 3 = 59.",
+        "M adalah digit puluhan dari 59, jadi M = 5.",
+        "Jawabannya adalah 5, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "MN + MN + MN = 177. Try each candidate for M.",
+          "intro_id": "MN + MN + MN = 177. Coba setiap kandidat untuk M.",
+          "items": [
+            {
+              "text_en": "A (M=3): 3×39=117 ≠ 177 ✗",
+              "text_id": "A (M=3): 3×39=117 ≠ 177 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B (M=4): 3×49=147 ≠ 177 ✗",
+              "text_id": "B (M=4): 3×49=147 ≠ 177 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C (M=5): 177÷3=59, 59+59+59=177 ✓",
+              "text_id": "C (M=5): 177÷3=59, 59+59+59=177 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (M=6): 3×69=207 ≠ 177 ✗",
+              "text_id": "D (M=6): 3×69=207 ≠ 177 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "MN = 59, so M = 5 — answer C.",
+          "final_id": "MN = 59, jadi M = 5 — jawaban C.",
+          "aria_en": "Three times MN equals 177; dividing by three gives MN equals 59, so M is 5.",
+          "aria_id": "Tiga kali MN sama dengan 177; dibagi tiga menghasilkan MN sama dengan 59, jadi M adalah 5."
+        }
+      }
     },
     {
       "number": 4,
@@ -80,21 +425,151 @@
       "body_id": "Hitunglah 1 + 2 + 3 + ··· + 9 + 10 + 9 + 8 + ··· + 2 + 1",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "89" },
-        { "label": "B", "text": "90" },
-        { "label": "C", "text": "99" },
-        { "label": "D", "text": "100" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "89"
+        },
+        {
+          "label": "B",
+          "text": "90"
+        },
+        {
+          "label": "C",
+          "text": "99"
+        },
+        {
+          "label": "D",
+          "text": "100"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "89" },
-        { "label": "B", "text": "90" },
-        { "label": "C", "text": "99" },
-        { "label": "D", "text": "100" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "89"
+        },
+        {
+          "label": "B",
+          "text": "90"
+        },
+        {
+          "label": "C",
+          "text": "99"
+        },
+        {
+          "label": "D",
+          "text": "100"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 + 2 + 3 + ··· + 9 + 10 + 9 + 8 + ··· + 2 + 1",
+            "phrase_id": "1 + 2 + 3 + ··· + 9 + 10 + 9 + 8 + ··· + 2 + 1",
+            "note_en": "The sequence goes up to 10 then back down to 1",
+            "note_id": "Barisan naik sampai 10 lalu turun kembali ke 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Evaluate",
+            "phrase_id": "Hitunglah",
+            "note_en": "Find the total sum",
+            "note_id": "Cari jumlah total"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 1 to 9 (going up)",
+            "label_id": "Jumlah 1 sampai 9 (naik)",
+            "value": "45"
+          },
+          {
+            "label_en": "Peak value",
+            "label_id": "Nilai puncak",
+            "value": "10"
+          },
+          {
+            "label_en": "Sum of 9 to 1 (going down)",
+            "label_id": "Jumlah 9 sampai 1 (turun)",
+            "value": "45"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "45+10+45=100"
+          }
+        ],
+        "strategy": {
+          "name_en": "Symmetry — pair up the ascending and descending halves",
+          "name_id": "Simetri — pasangkan sisi naik dan turun"
+        },
+        "trap": {
+          "wrong": "C (99)",
+          "why_en": "99 omits the 10 in the middle.",
+          "why_id": "99 melewatkan angka 10 di tengah."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Each number from 1 to 9 appears exactly twice; 10 appears once.",
+        "Sum of 1 to 9 = 45.",
+        "Total = 45 + 10 + 45 = 100.",
+        "Or note this equals 10² = 100. Answer is D."
+      ],
+      "hint_steps_id": [
+        "Setiap angka dari 1 sampai 9 muncul tepat dua kali; 10 muncul satu kali.",
+        "Jumlah 1 sampai 9 = 45.",
+        "Total = 45 + 10 + 45 = 100.",
+        "Atau perhatikan ini sama dengan 10² = 100. Jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The sequence is symmetric around 10.",
+          "intro_id": "Barisan ini simetris di sekitar 10.",
+          "items": [
+            {
+              "text_en": "1+2+…+9 = 45 (going up)",
+              "text_id": "1+2+…+9 = 45 (naik)",
+              "ok": null
+            },
+            {
+              "text_en": "+ 10 (the peak)",
+              "text_id": "+ 10 (puncak)",
+              "ok": null
+            },
+            {
+              "text_en": "+ 9+8+…+1 = 45 (going down)",
+              "text_id": "+ 9+8+…+1 = 45 (turun)",
+              "ok": null
+            },
+            {
+              "text_en": "Total = 45+10+45 = 100 ✓",
+              "text_id": "Total = 45+10+45 = 100 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The sum is 100 — answer D.",
+          "final_id": "Jumlahnya adalah 100 — jawaban D.",
+          "aria_en": "Each number from 1 to 9 appears twice giving 90, plus 10 in the middle gives 100.",
+          "aria_id": "Setiap angka dari 1 sampai 9 muncul dua kali memberi 90, ditambah 10 di tengah menghasilkan 100."
+        }
+      }
     },
     {
       "number": 5,
@@ -102,21 +577,141 @@
       "body_id": "Temukan digit ke-50 dalam barisan 3 5 8 0 3 5 8 0 3 5 …",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "5" },
-        { "label": "C", "text": "8" },
-        { "label": "D", "text": "0" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "5"
+        },
+        {
+          "label": "C",
+          "text": "8"
+        },
+        {
+          "label": "D",
+          "text": "0"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "5" },
-        { "label": "C", "text": "8" },
-        { "label": "D", "text": "0" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "5"
+        },
+        {
+          "label": "C",
+          "text": "8"
+        },
+        {
+          "label": "D",
+          "text": "0"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 5 8 0 3 5 8 0 3 5 …",
+            "phrase_id": "3 5 8 0 3 5 8 0 3 5 …",
+            "note_en": "The digits repeat in a cycle of 4: 3, 5, 8, 0",
+            "note_id": "Digit-digit berulang dalam siklus 4: 3, 5, 8, 0"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the 50th digit",
+            "phrase_id": "Temukan digit ke-50",
+            "note_en": "Which position in the 4-cycle does 50 land on?",
+            "note_id": "Posisi mana dalam siklus 4 yang ditempati suku ke-50?"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Cycle length",
+            "label_id": "Panjang siklus",
+            "value": "4"
+          },
+          {
+            "label_en": "50 ÷ 4",
+            "label_id": "50 ÷ 4",
+            "value": "12 remainder 2"
+          },
+          {
+            "label_en": "Position 2 in cycle",
+            "label_id": "Posisi 2 dalam siklus",
+            "value": "5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the remainder when dividing by the cycle length",
+          "name_id": "Cari sisa pembagian dengan panjang siklus"
+        },
+        "trap": {
+          "wrong": "D (0)",
+          "why_en": "0 is position 4 (remainder 0). Position 50 has remainder 2 → digit 5.",
+          "why_id": "0 adalah posisi 4 (sisa 0). Posisi 50 memiliki sisa 2 → digit 5."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The digits cycle with period 4: pos 1=3, pos 2=5, pos 3=8, pos 4=0.",
+        "50 ÷ 4 = 12 remainder 2.",
+        "Remainder 2 → position 2 in the cycle → digit 5.",
+        "The answer is 5, which is B."
+      ],
+      "hint_steps_id": [
+        "Digit-digit bersiklus dengan periode 4: posisi 1=3, posisi 2=5, posisi 3=8, posisi 4=0.",
+        "50 ÷ 4 = 12 sisa 2.",
+        "Sisa 2 → posisi 2 dalam siklus → digit 5.",
+        "Jawabannya adalah 5, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Cycle (length 4): pos 1=3, pos 2=5, pos 3=8, pos 4=0. Find where 50 lands.",
+          "intro_id": "Siklus (panjang 4): posisi 1=3, posisi 2=5, posisi 3=8, posisi 4=0. Temukan posisi 50.",
+          "items": [
+            {
+              "text_en": "50 ÷ 4 = 12 remainder 2",
+              "text_id": "50 ÷ 4 = 12 sisa 2",
+              "ok": null
+            },
+            {
+              "text_en": "Remainder 2 → 2nd digit in cycle = 5 ✓",
+              "text_id": "Sisa 2 → digit ke-2 dalam siklus = 5 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D (0): needs remainder 0, i.e. positions 4,8,…,48 — not 50 ✗",
+              "text_id": "D (0): butuh sisa 0, yaitu posisi 4,8,…,48 — bukan 50 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The 50th digit is 5 — answer B.",
+          "final_id": "Digit ke-50 adalah 5 — jawaban B.",
+          "aria_en": "Dividing 50 by cycle length 4 gives remainder 2, the second digit of the cycle is 5.",
+          "aria_id": "Membagi 50 dengan panjang siklus 4 memberikan sisa 2, digit kedua siklus adalah 5."
+        }
+      }
     },
     {
       "number": 6,
@@ -124,21 +719,153 @@
       "body_id": "Temukan nilai bintang.\n\nSegitiga × Lingkaran = 24\nLingkaran × Persegi = 40\nPersegi × Bintang = 45\nSegitiga × Persegi = 15\n\nBintang = ?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "6" },
-        { "label": "C", "text": "7" },
-        { "label": "D", "text": "8" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "6" },
-        { "label": "C", "text": "7" },
-        { "label": "D", "text": "8" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Triangle × Circle = 24\nCircle × Square = 40\nSquare × Star = 45\nTriangle × Square = 15",
+            "phrase_id": "Segitiga × Lingkaran = 24\nLingkaran × Persegi = 40\nPersegi × Bintang = 45\nSegitiga × Persegi = 15",
+            "note_en": "Four equations with four unknowns",
+            "note_id": "Empat persamaan dengan empat bilangan tak diketahui"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Star = ?",
+            "phrase_id": "Bintang = ?",
+            "note_en": "Find Star after solving for Square",
+            "note_id": "Cari Bintang setelah menemukan Persegi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "○/□ ratio",
+            "label_id": "Rasio ○/□",
+            "value": "24/15 = 8/5"
+          },
+          {
+            "label_en": "○=8, □=5 (from ○×□=40)",
+            "label_id": "○=8, □=5 (dari ○×□=40)",
+            "value": "8×5=40 ✓"
+          },
+          {
+            "label_en": "△ = 24÷8",
+            "label_id": "△ = 24÷8",
+            "value": "3"
+          },
+          {
+            "label_en": "★ = 45÷5",
+            "label_id": "★ = 45÷5",
+            "value": "9"
+          },
+          {
+            "label_en": "9 vs choices A–D",
+            "label_id": "9 vs pilihan A–D",
+            "value": "none match → E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up ratios to solve the system",
+          "name_id": "Buat rasio untuk menyelesaikan sistem persamaan"
+        },
+        "trap": {
+          "wrong": "A (5)",
+          "why_en": "5 is the value of Square, not Star. Star = 45÷5 = 9.",
+          "why_id": "5 adalah nilai Persegi, bukan Bintang. Bintang = 45÷5 = 9."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "From △×○=24 and △×□=15: ○/□ = 24/15 = 8/5.",
+        "Let ○=8k, □=5k. Then ○×□=40k²=40 → k=1 → ○=8, □=5.",
+        "△ = 24÷8 = 3. Check: △×□ = 3×5 = 15 ✓",
+        "★ = 45÷□ = 45÷5 = 9.",
+        "9 is not in choices A–D (5,6,7,8), so the answer is E."
+      ],
+      "hint_steps_id": [
+        "Dari △×○=24 dan △×□=15: ○/□ = 24/15 = 8/5.",
+        "Misalkan ○=8k, □=5k. Maka ○×□=40k²=40 → k=1 → ○=8, □=5.",
+        "△ = 24÷8 = 3. Cek: △×□ = 3×5 = 15 ✓",
+        "★ = 45÷□ = 45÷5 = 9.",
+        "9 tidak ada di antara pilihan A–D (5,6,7,8), jadi jawabannya adalah E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Solve the system, then check if Star is among the choices.",
+          "intro_id": "Selesaikan sistemnya, lalu cek apakah Bintang ada di antara pilihan.",
+          "items": [
+            {
+              "text_en": "○/□=8/5; ○×□=40 → ○=8, □=5",
+              "text_id": "○/□=8/5; ○×□=40 → ○=8, □=5",
+              "ok": null
+            },
+            {
+              "text_en": "△=3; ★=45÷5=9",
+              "text_id": "△=3; ★=45÷5=9",
+              "ok": null
+            },
+            {
+              "text_en": "Choices A–D: 5,6,7,8 — none equal 9 → E",
+              "text_id": "Pilihan A–D: 5,6,7,8 — tidak ada yang sama dengan 9 → E",
+              "ok": true
+            }
+          ],
+          "final_en": "Star = 9, not among A–D — answer E.",
+          "final_id": "Bintang = 9, tidak ada di antara A–D — jawaban E.",
+          "aria_en": "Solving gives Circle 8, Square 5, Triangle 3, Star 9; 9 is not among the choices.",
+          "aria_id": "Penyelesaian memberikan Lingkaran 8, Persegi 5, Segitiga 3, Bintang 9; 9 tidak ada di antara pilihan."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,21 +873,92 @@
       "body_id": "Temukan gambar yang hilang di bawah ini.",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "(figure A)" },
-        { "label": "B", "text": "(figure B)" },
-        { "label": "C", "text": "(figure C)" },
-        { "label": "D", "text": "(figure D)" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "(gambar A)" },
-        { "label": "B", "text": "(gambar B)" },
-        { "label": "C", "text": "(gambar C)" },
-        { "label": "D", "text": "(gambar D)" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the missing figure below.",
+            "phrase_id": "Temukan gambar yang hilang di bawah ini.",
+            "note_en": "Identify the transformation rule in the pattern, then apply it",
+            "note_id": "Identifikasi aturan transformasi dalam pola, lalu terapkan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "B"
+          }
+        ],
+        "strategy": {
+          "name_en": "Spot the transformation rule",
+          "name_id": "Temukan aturan transformasi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the complete figures in the pattern and identify what changes from one to the next.",
+        "Check for rotation, reflection, or a shape rule that governs each row and column.",
+        "Apply the rule to the row and column of the missing cell.",
+        "The figure that satisfies the rule is B."
+      ],
+      "hint_steps_id": [
+        "Lihat gambar yang lengkap dalam pola dan identifikasi apa yang berubah dari satu ke berikutnya.",
+        "Periksa rotasi, pencerminan, atau aturan bentuk yang mengatur setiap baris dan kolom.",
+        "Terapkan aturan pada baris dan kolom sel yang kosong.",
+        "Gambar yang memenuhi aturan adalah B."
+      ]
     },
     {
       "number": 8,
@@ -168,21 +966,150 @@
       "body_id": "Temukan angka yang hilang. Tiga segitiga ditampilkan. Segitiga pertama memiliki angka 4 dan 7 di sudut bawah, 13 di puncak, dan 15 di tengah. Segitiga kedua memiliki 6 dan 8 di sudut bawah, 31 di puncak, dan 17 di tengah. Segitiga ketiga memiliki 7 dan 9 di sudut bawah, ? di puncak, dan 32 di tengah.",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "31" },
-        { "label": "B", "text": "33" },
-        { "label": "C", "text": "29" },
-        { "label": "D", "text": "32" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "31"
+        },
+        {
+          "label": "B",
+          "text": "33"
+        },
+        {
+          "label": "C",
+          "text": "29"
+        },
+        {
+          "label": "D",
+          "text": "32"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "31" },
-        { "label": "B", "text": "33" },
-        { "label": "C", "text": "29" },
-        { "label": "D", "text": "32" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "31"
+        },
+        {
+          "label": "B",
+          "text": "33"
+        },
+        {
+          "label": "C",
+          "text": "29"
+        },
+        {
+          "label": "D",
+          "text": "32"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The first triangle has the numbers 4 and 7 at its base corners, 13 at its apex, and 15 in its centre.",
+            "phrase_id": "Segitiga pertama memiliki angka 4 dan 7 di sudut bawah, 13 di puncak, dan 15 di tengah.",
+            "note_en": "Rule: 4×7=28; 28−15=13 (apex = product − centre)",
+            "note_id": "Aturan: 4×7=28; 28−15=13 (puncak = hasil kali − tengah)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The second triangle has 6 and 8 at its base corners, 31 at its apex, and 17 in its centre.",
+            "phrase_id": "Segitiga kedua memiliki 6 dan 8 di sudut bawah, 31 di puncak, dan 17 di tengah.",
+            "note_en": "Verify: 6×8=48; 48−17=31 ✓",
+            "note_id": "Verifikasi: 6×8=48; 48−17=31 ✓"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The third triangle has 7 and 9 at its base corners, ? at its apex, and 32 in its centre.",
+            "phrase_id": "Segitiga ketiga memiliki 7 dan 9 di sudut bawah, ? di puncak, dan 32 di tengah.",
+            "note_en": "Apply: 7×9=63; 63−32=31",
+            "note_id": "Terapkan: 7×9=63; 63−32=31"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule T1",
+            "label_id": "Aturan T1",
+            "value": "4×7−15=13 ✓"
+          },
+          {
+            "label_en": "Rule T2",
+            "label_id": "Aturan T2",
+            "value": "6×8−17=31 ✓"
+          },
+          {
+            "label_en": "Apply T3",
+            "label_id": "Terapkan T3",
+            "value": "7×9−32=63−32=31"
+          }
+        ],
+        "strategy": {
+          "name_en": "Discover the hidden rule then apply it",
+          "name_id": "Temukan aturan tersembunyi lalu terapkan"
+        },
+        "trap": {
+          "wrong": "B (33)",
+          "why_en": "33 would need 7×9−centre=33, so centre=30, not 32.",
+          "why_id": "33 butuh 7×9−tengah=33, sehingga tengah=30, bukan 32."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Try: apex = base1 × base2 − centre.",
+        "T1: 4×7=28; 28−15=13=apex ✓",
+        "T2: 6×8=48; 48−17=31=apex ✓  Rule confirmed.",
+        "T3: 7×9=63; 63−32=31.",
+        "Answer is 31, which is A."
+      ],
+      "hint_steps_id": [
+        "Coba: puncak = sudut1 × sudut2 − tengah.",
+        "T1: 4×7=28; 28−15=13=puncak ✓",
+        "T2: 6×8=48; 48−17=31=puncak ✓  Aturan terkonfirmasi.",
+        "T3: 7×9=63; 63−32=31.",
+        "Jawabannya adalah 31, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Rule: apex = base1 × base2 − centre. Verify, then apply.",
+          "intro_id": "Aturan: puncak = sudut1 × sudut2 − tengah. Verifikasi, lalu terapkan.",
+          "items": [
+            {
+              "text_en": "T1: 4×7=28, 28−15=13 ✓",
+              "text_id": "T1: 4×7=28, 28−15=13 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "T2: 6×8=48, 48−17=31 ✓",
+              "text_id": "T2: 6×8=48, 48−17=31 ✓",
+              "ok": null
+            },
+            {
+              "text_en": "T3: 7×9=63, 63−32=31 → A",
+              "text_id": "T3: 7×9=63, 63−32=31 → A",
+              "ok": true
+            }
+          ],
+          "final_en": "The missing apex is 31 — answer A.",
+          "final_id": "Puncak yang hilang adalah 31 — jawaban A.",
+          "aria_en": "Apex equals base one times base two minus centre; for triangle three that is 63 minus 32 equals 31.",
+          "aria_id": "Puncak sama dengan sudut1 kali sudut2 dikurangi tengah; untuk segitiga tiga itu adalah 63 dikurangi 32 sama dengan 31."
+        }
+      }
     },
     {
       "number": 9,
@@ -190,21 +1117,143 @@
       "body_id": "Nenekku berusia 56 tahun. Ibuku berusia 31 tahun. Aku berusia 7 tahun. Berapa tahun lagi jumlah usia kami menjadi 100?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "3" },
-        { "label": "D", "text": "2" },
-        { "label": "E", "text": "1" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "2"
+        },
+        {
+          "label": "E",
+          "text": "1"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "3" },
-        { "label": "D", "text": "2" },
-        { "label": "E", "text": "1" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "2"
+        },
+        {
+          "label": "E",
+          "text": "1"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "My grandmother is 56 years old. My mum is 31 years old. I am 7 years old.",
+            "phrase_id": "Nenekku berusia 56 tahun. Ibuku berusia 31 tahun. Aku berusia 7 tahun.",
+            "note_en": "Current sum: 56+31+7=94",
+            "note_id": "Jumlah saat ini: 56+31+7=94"
+          },
+          {
+            "category": "question",
+            "phrase_en": "In how many years is the sum of our ages 100?",
+            "phrase_id": "Berapa tahun lagi jumlah usia kami menjadi 100?",
+            "note_en": "Each year adds 3 to the total (3 people)",
+            "note_id": "Setiap tahun menambahkan 3 ke total (3 orang)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Current sum",
+            "label_id": "Jumlah saat ini",
+            "value": "56+31+7=94"
+          },
+          {
+            "label_en": "Gap to 100",
+            "label_id": "Selisih ke 100",
+            "value": "100−94=6"
+          },
+          {
+            "label_en": "Years needed",
+            "label_id": "Tahun yang diperlukan",
+            "value": "6÷3=2"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum increases by 3 per year (3 people)",
+          "name_id": "Jumlah bertambah 3 per tahun (3 orang)"
+        },
+        "trap": {
+          "wrong": "A (5)",
+          "why_en": "After 5 years total adds 15: 94+15=109 ≠ 100.",
+          "why_id": "Setelah 5 tahun total bertambah 15: 94+15=109 ≠ 100."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Current sum: 56+31+7=94.",
+        "Gap: 100−94=6.",
+        "Each year all 3 people age, adding 3 to the sum.",
+        "Years needed: 6÷3=2.",
+        "Check: after 2 years, 58+33+9=100 ✓  Answer is D."
+      ],
+      "hint_steps_id": [
+        "Jumlah saat ini: 56+31+7=94.",
+        "Selisih: 100−94=6.",
+        "Setiap tahun ketiga orang bertambah usia, menambahkan 3 ke jumlah.",
+        "Tahun yang diperlukan: 6÷3=2.",
+        "Cek: setelah 2 tahun, 58+33+9=100 ✓  Jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Current sum = 94. Need 100. Each year adds 3.",
+          "intro_id": "Jumlah saat ini = 94. Perlu 100. Setiap tahun menambah 3.",
+          "items": [
+            {
+              "text_en": "After 1 year: 94+3=97 ≠ 100",
+              "text_id": "Setelah 1 tahun: 94+3=97 ≠ 100",
+              "ok": false
+            },
+            {
+              "text_en": "After 2 years: 94+6=100 ✓",
+              "text_id": "Setelah 2 tahun: 94+6=100 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "After 3 years: 94+9=103 > 100",
+              "text_id": "Setelah 3 tahun: 94+9=103 > 100",
+              "ok": false
+            }
+          ],
+          "final_en": "In 2 years the sum reaches 100 — answer D.",
+          "final_id": "Dalam 2 tahun jumlahnya mencapai 100 — jawaban D.",
+          "aria_en": "Current sum is 94; each year adds 3; after 2 years the sum is 100.",
+          "aria_id": "Jumlah saat ini 94; setiap tahun menambah 3; setelah 2 tahun jumlahnya 100."
+        }
+      }
     },
     {
       "number": 10,
@@ -212,21 +1261,97 @@
       "body_id": "Waktu apa yang harus muncul berikutnya dalam urutan di bawah ini?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "5:10 PM" },
-        { "label": "B", "text": "5:20 PM" },
-        { "label": "C", "text": "5:30 PM" },
-        { "label": "D", "text": "5:40 PM" },
-        { "label": "E", "text": "5:50 PM" }
+        {
+          "label": "A",
+          "text": "5:10 PM"
+        },
+        {
+          "label": "B",
+          "text": "5:20 PM"
+        },
+        {
+          "label": "C",
+          "text": "5:30 PM"
+        },
+        {
+          "label": "D",
+          "text": "5:40 PM"
+        },
+        {
+          "label": "E",
+          "text": "5:50 PM"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "17:10" },
-        { "label": "B", "text": "17:20" },
-        { "label": "C", "text": "17:30" },
-        { "label": "D", "text": "17:40" },
-        { "label": "E", "text": "17:50" }
+        {
+          "label": "A",
+          "text": "17:10"
+        },
+        {
+          "label": "B",
+          "text": "17:20"
+        },
+        {
+          "label": "C",
+          "text": "17:30"
+        },
+        {
+          "label": "D",
+          "text": "17:40"
+        },
+        {
+          "label": "E",
+          "text": "17:50"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What time should come next in the sequence below?",
+            "phrase_id": "Waktu apa yang harus muncul berikutnya dalam urutan di bawah ini?",
+            "note_en": "Find the constant time interval between consecutive clocks",
+            "note_id": "Temukan selisih waktu yang konstan antara jam-jam berurutan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern",
+            "label_id": "Pola",
+            "value": "each clock advances by the same interval"
+          },
+          {
+            "label_en": "Answer",
+            "label_id": "Jawaban",
+            "value": "C = 5:30 PM"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the time interval between clocks",
+          "name_id": "Temukan selisih waktu antara jam-jam"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the sequence of clock times in the figure.",
+        "Find the difference between each consecutive pair — the interval is constant.",
+        "Add that same interval to the last clock shown.",
+        "The next time is 5:30 PM, which is C."
+      ],
+      "hint_steps_id": [
+        "Lihat urutan waktu jam dalam gambar.",
+        "Cari selisih antara setiap pasang jam berurutan — selisihnya konstan.",
+        "Tambahkan selisih yang sama ke jam terakhir yang ditampilkan.",
+        "Waktu berikutnya adalah pukul 17:30, yaitu pilihan C."
+      ]
     },
     {
       "number": 11,
@@ -234,21 +1359,146 @@
       "body_id": "Mohammed menuliskan angka 1 sampai 24 di papan tulis seperti ini: 1 2 3 4 5 6 … 2 2 2 3 3 2 4. Berapa kali ia menulis angka '2' secara keseluruhan?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "6" },
-        { "label": "C", "text": "7" },
-        { "label": "D", "text": "8" },
-        { "label": "E", "text": "9" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "5" },
-        { "label": "B", "text": "6" },
-        { "label": "C", "text": "7" },
-        { "label": "D", "text": "8" },
-        { "label": "E", "text": "9" }
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "7"
+        },
+        {
+          "label": "D",
+          "text": "8"
+        },
+        {
+          "label": "E",
+          "text": "9"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Mohammed wrote the numbers 1 to 24 on the whiteboard",
+            "phrase_id": "Mohammed menuliskan angka 1 sampai 24 di papan tulis",
+            "note_en": "Every number from 1 to 24 is written out digit by digit",
+            "note_id": "Setiap angka dari 1 sampai 24 ditulis digit per digit"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many times did he write the digit '2' altogether?",
+            "phrase_id": "Berapa kali ia menulis angka '2' secara keseluruhan?",
+            "note_en": "Count each individual digit 2, not just numbers containing 2",
+            "note_id": "Hitung setiap digit 2 secara individual, bukan hanya angka yang mengandung 2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Numbers containing 2",
+            "label_id": "Angka yang mengandung 2",
+            "value": "2, 12, 20, 21, 22, 23, 24"
+          },
+          {
+            "label_en": "Digit 2 in 22",
+            "label_id": "Digit 2 dalam 22",
+            "value": "two 2s"
+          },
+          {
+            "label_en": "Total count",
+            "label_id": "Total hitungan",
+            "value": "1+1+1+1+2+1+1=8"
+          }
+        ],
+        "strategy": {
+          "name_en": "List all numbers with digit 2, count each occurrence",
+          "name_id": "Daftar semua angka dengan digit 2, hitung setiap kemunculan"
+        },
+        "trap": {
+          "wrong": "C (7)",
+          "why_en": "7 counts the numbers containing 2, but 22 has TWO 2-digits, giving a total of 8.",
+          "why_id": "7 menghitung angka yang mengandung 2, tapi 22 memiliki DUA digit 2, sehingga total menjadi 8."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "List numbers from 1–24 that contain digit 2: 2, 12, 20, 21, 22, 23, 24.",
+        "Count the digit 2 in each: 1, 1, 1, 1, 2, 1, 1.",
+        "Total = 1+1+1+1+2+1+1 = 8.",
+        "The answer is 8, which is D."
+      ],
+      "hint_steps_id": [
+        "Daftar angka 1–24 yang mengandung digit 2: 2, 12, 20, 21, 22, 23, 24.",
+        "Hitung digit 2 di masing-masing: 1, 1, 1, 1, 2, 1, 1.",
+        "Total = 1+1+1+1+2+1+1 = 8.",
+        "Jawabannya adalah 8, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find every digit '2' in numbers 1–24.",
+          "intro_id": "Temukan setiap digit '2' dalam angka 1–24.",
+          "items": [
+            {
+              "text_en": "2→1, 12→1, 20→1, 21→1",
+              "text_id": "2→1, 12→1, 20→1, 21→1",
+              "ok": null
+            },
+            {
+              "text_en": "22→2 (two 2s — don't miss the extra!)",
+              "text_id": "22→2 (dua angka 2 — jangan lewatkan!)",
+              "ok": null
+            },
+            {
+              "text_en": "23→1, 24→1",
+              "text_id": "23→1, 24→1",
+              "ok": null
+            },
+            {
+              "text_en": "Total: 1+1+1+1+2+1+1 = 8 ✓",
+              "text_id": "Total: 1+1+1+1+2+1+1 = 8 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "He wrote digit '2' exactly 8 times — answer D.",
+          "final_id": "Ia menulis digit '2' tepat 8 kali — jawaban D.",
+          "aria_en": "Numbers 2, 12, 20, 21, 22, 23, 24 contain digit 2; the number 22 contributes two; total is 8.",
+          "aria_id": "Angka 2, 12, 20, 21, 22, 23, 24 mengandung digit 2; angka 22 memberi dua; totalnya 8."
+        }
+      }
     },
     {
       "number": 12,
@@ -256,21 +1506,149 @@
       "body_id": "Keranjang A berisi 54 apel. Keranjang B berisi 18 apel. Cindy memindahkan 6 apel sekaligus dari Keranjang A ke Keranjang B. Berapa kali ia harus melakukan ini agar kedua keranjang memiliki jumlah apel yang sama?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "5" },
-        { "label": "D", "text": "6" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "3" },
-        { "label": "B", "text": "4" },
-        { "label": "C", "text": "5" },
-        { "label": "D", "text": "6" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "4"
+        },
+        {
+          "label": "C",
+          "text": "5"
+        },
+        {
+          "label": "D",
+          "text": "6"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Basket A has 54 apples. Basket B has 18 apples.",
+            "phrase_id": "Keranjang A berisi 54 apel. Keranjang B berisi 18 apel.",
+            "note_en": "Total = 72; equal share = 36 each",
+            "note_id": "Total = 72; bagian yang sama = 36 masing-masing"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Cindy moves 6 apples at a time from Basket A to Basket B.",
+            "phrase_id": "Cindy memindahkan 6 apel sekaligus dari Keranjang A ke Keranjang B.",
+            "note_en": "Each transfer moves 6 from A to B",
+            "note_id": "Setiap perpindahan memindahkan 6 dari A ke B"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many times must she do this so that both baskets have the same number of apples?",
+            "phrase_id": "Berapa kali ia harus melakukan ini agar kedua keranjang memiliki jumlah apel yang sama?",
+            "note_en": "How many moves of 6 to reduce A from 54 to 36?",
+            "note_id": "Berapa kali perpindahan 6 untuk mengurangi A dari 54 ke 36?"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "54+18=72"
+          },
+          {
+            "label_en": "Equal share",
+            "label_id": "Bagian yang sama",
+            "value": "72÷2=36"
+          },
+          {
+            "label_en": "To move from A",
+            "label_id": "Yang harus dipindah dari A",
+            "value": "54−36=18"
+          },
+          {
+            "label_en": "Moves",
+            "label_id": "Perpindahan",
+            "value": "18÷6=3"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find equal share, divide gap by 6",
+          "name_id": "Cari bagian yang sama, bagi selisih dengan 6"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Total apples: 54+18=72. Equal share = 72÷2 = 36 each.",
+        "Basket A needs to lose 54−36=18 apples.",
+        "At 6 per move: 18÷6=3 moves.",
+        "The answer is 3, which is A."
+      ],
+      "hint_steps_id": [
+        "Total apel: 54+18=72. Bagian yang sama = 72÷2 = 36 masing-masing.",
+        "Keranjang A perlu kehilangan 54−36=18 apel.",
+        "Dengan 6 per perpindahan: 18÷6=3 perpindahan.",
+        "Jawabannya adalah 3, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Simulate moves and check when both baskets are equal.",
+          "intro_id": "Simulasikan perpindahan dan cek kapan kedua keranjang sama.",
+          "items": [
+            {
+              "text_en": "After 1 move: A=48, B=24 — not equal",
+              "text_id": "Setelah 1 kali: A=48, B=24 — belum sama",
+              "ok": false
+            },
+            {
+              "text_en": "After 2 moves: A=42, B=30 — not equal",
+              "text_id": "Setelah 2 kali: A=42, B=30 — belum sama",
+              "ok": false
+            },
+            {
+              "text_en": "After 3 moves: A=36, B=36 — equal! ✓",
+              "text_id": "Setelah 3 kali: A=36, B=36 — sama! ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "3 moves makes both baskets equal — answer A.",
+          "final_id": "3 perpindahan membuat kedua keranjang sama — jawaban A.",
+          "aria_en": "Total is 72; equal share is 36 each; basket A must lose 18 apples; at 6 per move that is 3 moves.",
+          "aria_id": "Totalnya 72; bagian yang sama 36 masing-masing; keranjang A harus kehilangan 18 apel; 6 per perpindahan berarti 3 kali."
+        }
+      }
     },
     {
       "number": 13,
@@ -278,21 +1656,106 @@
       "body_id": "Gambar mana di antara berikut yang dapat ditelusuri tanpa mengangkat pensil dan tanpa menelusuri garis yang sama dua kali?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "All except Fig 1" },
-        { "label": "B", "text": "All except Fig 2" },
-        { "label": "C", "text": "All except Fig 3" },
-        { "label": "D", "text": "All except Fig 4" },
-        { "label": "E", "text": "All of the above" }
+        {
+          "label": "A",
+          "text": "All except Fig 1"
+        },
+        {
+          "label": "B",
+          "text": "All except Fig 2"
+        },
+        {
+          "label": "C",
+          "text": "All except Fig 3"
+        },
+        {
+          "label": "D",
+          "text": "All except Fig 4"
+        },
+        {
+          "label": "E",
+          "text": "All of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "Semua kecuali Gambar 1" },
-        { "label": "B", "text": "Semua kecuali Gambar 2" },
-        { "label": "C", "text": "Semua kecuali Gambar 3" },
-        { "label": "D", "text": "Semua kecuali Gambar 4" },
-        { "label": "E", "text": "Semua gambar" }
+        {
+          "label": "A",
+          "text": "Semua kecuali Gambar 1"
+        },
+        {
+          "label": "B",
+          "text": "Semua kecuali Gambar 2"
+        },
+        {
+          "label": "C",
+          "text": "Semua kecuali Gambar 3"
+        },
+        {
+          "label": "D",
+          "text": "Semua kecuali Gambar 4"
+        },
+        {
+          "label": "E",
+          "text": "Semua gambar"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the following figures can be traced without lifting your pencil and without tracing over the same lines?",
+            "phrase_id": "Gambar mana di antara berikut yang dapat ditelusuri tanpa mengangkat pensil dan tanpa menelusuri garis yang sama dua kali?",
+            "note_en": "Euler path exists when a graph has exactly 0 or 2 odd-degree vertices",
+            "note_id": "Jalur Euler ada ketika graf memiliki tepat 0 atau 2 titik berderajat ganjil"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "without lifting your pencil and without tracing over the same lines",
+            "phrase_id": "tanpa mengangkat pensil dan tanpa menelusuri garis yang sama dua kali",
+            "note_en": "This is the Euler path condition",
+            "note_id": "Ini adalah kondisi jalur Euler"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Euler path rule",
+            "label_id": "Aturan jalur Euler",
+            "value": "0 or 2 odd-degree vertices → traceable"
+          },
+          {
+            "label_en": "Fig 3 verdict",
+            "label_id": "Vonis Gambar 3",
+            "value": "more than 2 odd-degree vertices → NOT traceable"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count odd-degree vertices in each figure",
+          "name_id": "Hitung titik berderajat ganjil di setiap gambar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "A figure is traceable in one stroke if it has 0 or 2 vertices where an odd number of lines meet.",
+        "Count odd-degree vertices for each figure.",
+        "Figures 1, 2, 4 have 0 or 2 odd vertices — all traceable.",
+        "Figure 3 has more than 2 odd vertices — NOT traceable.",
+        "Answer: all except Figure 3, which is C."
+      ],
+      "hint_steps_id": [
+        "Sebuah gambar dapat ditelusuri dalam satu goresan jika memiliki 0 atau 2 titik di mana jumlah garis yang bertemu adalah ganjil.",
+        "Hitung titik berderajat ganjil untuk setiap gambar.",
+        "Gambar 1, 2, 4 memiliki 0 atau 2 titik ganjil — semua dapat ditelusuri.",
+        "Gambar 3 memiliki lebih dari 2 titik ganjil — TIDAK dapat ditelusuri.",
+        "Jawaban: semua kecuali Gambar 3, yaitu pilihan C."
+      ]
     },
     {
       "number": 14,
@@ -300,21 +1763,146 @@
       "body_id": "Angka 2, 4, dan 7 dapat membentuk enam bilangan 2-digit yang berbeda. Berapakah selisih antara yang terbesar dan terkecil?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "48" },
-        { "label": "B", "text": "50" },
-        { "label": "C", "text": "52" },
-        { "label": "D", "text": "54" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "48"
+        },
+        {
+          "label": "B",
+          "text": "50"
+        },
+        {
+          "label": "C",
+          "text": "52"
+        },
+        {
+          "label": "D",
+          "text": "54"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "48" },
-        { "label": "B", "text": "50" },
-        { "label": "C", "text": "52" },
-        { "label": "D", "text": "54" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "48"
+        },
+        {
+          "label": "B",
+          "text": "50"
+        },
+        {
+          "label": "C",
+          "text": "52"
+        },
+        {
+          "label": "D",
+          "text": "54"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The digits 2, 4 and 7 can form six different 2-digit numbers.",
+            "phrase_id": "Angka 2, 4, dan 7 dapat membentuk enam bilangan 2-digit yang berbeda.",
+            "note_en": "6 numbers: 24,27,42,47,72,74",
+            "note_id": "6 bilangan: 24,27,42,47,72,74"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the difference between the largest and smallest of these numbers?",
+            "phrase_id": "Berapakah selisih antara yang terbesar dan terkecil?",
+            "note_en": "74−24=50",
+            "note_id": "74−24=50"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "All six numbers",
+            "label_id": "Keenam bilangan",
+            "value": "24, 27, 42, 47, 72, 74"
+          },
+          {
+            "label_en": "Largest",
+            "label_id": "Terbesar",
+            "value": "74"
+          },
+          {
+            "label_en": "Smallest",
+            "label_id": "Terkecil",
+            "value": "24"
+          },
+          {
+            "label_en": "Difference",
+            "label_id": "Selisih",
+            "value": "74−24=50"
+          }
+        ],
+        "strategy": {
+          "name_en": "List all, find max and min",
+          "name_id": "Daftar semua, temukan terbesar dan terkecil"
+        },
+        "trap": {
+          "wrong": "A (48)",
+          "why_en": "48 = 72−24, but 74 is larger than 72.",
+          "why_id": "48 = 72−24, tapi 74 lebih besar dari 72."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "List all 2-digit numbers from digits 2,4,7: 24, 27, 42, 47, 72, 74.",
+        "Largest = 74, Smallest = 24.",
+        "Difference = 74−24 = 50.",
+        "The answer is 50, which is B."
+      ],
+      "hint_steps_id": [
+        "Daftar semua bilangan 2-digit dari digit 2,4,7: 24, 27, 42, 47, 72, 74.",
+        "Terbesar = 74, Terkecil = 24.",
+        "Selisih = 74−24 = 50.",
+        "Jawabannya adalah 50, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "List all six 2-digit numbers from digits 2, 4, 7.",
+          "intro_id": "Daftar keenam bilangan 2-digit dari digit 2, 4, 7.",
+          "items": [
+            {
+              "text_en": "All six: 24, 27, 42, 47, 72, 74",
+              "text_id": "Keenam bilangan: 24, 27, 42, 47, 72, 74",
+              "ok": null
+            },
+            {
+              "text_en": "Largest=74, Smallest=24",
+              "text_id": "Terbesar=74, Terkecil=24",
+              "ok": null
+            },
+            {
+              "text_en": "74−24=50 → answer B",
+              "text_id": "74−24=50 → jawaban B",
+              "ok": true
+            }
+          ],
+          "final_en": "The difference is 50 — answer B.",
+          "final_id": "Selisihnya adalah 50 — jawaban B.",
+          "aria_en": "The largest two-digit number is 74 and smallest is 24; their difference is 50.",
+          "aria_id": "Bilangan dua digit terbesar adalah 74 dan terkecil adalah 24; selisihnya adalah 50."
+        }
+      }
     },
     {
       "number": 15,
@@ -322,21 +1910,151 @@
       "body_id": "Ada 26 ekor ayam dan kelinci di sebuah peternakan. Petani menghitung total 80 kaki. Berapa banyak kelinci di peternakan itu?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "14" },
-        { "label": "B", "text": "15" },
-        { "label": "C", "text": "16" },
-        { "label": "D", "text": "17" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "14"
+        },
+        {
+          "label": "B",
+          "text": "15"
+        },
+        {
+          "label": "C",
+          "text": "16"
+        },
+        {
+          "label": "D",
+          "text": "17"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "14" },
-        { "label": "B", "text": "15" },
-        { "label": "C", "text": "16" },
-        { "label": "D", "text": "17" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "14"
+        },
+        {
+          "label": "B",
+          "text": "15"
+        },
+        {
+          "label": "C",
+          "text": "16"
+        },
+        {
+          "label": "D",
+          "text": "17"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "There are 26 chickens and rabbits in a farm.",
+            "phrase_id": "Ada 26 ekor ayam dan kelinci di sebuah peternakan.",
+            "note_en": "Total animals = 26",
+            "note_id": "Total hewan = 26"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The farmer counted 80 legs together.",
+            "phrase_id": "Petani menghitung total 80 kaki.",
+            "note_en": "Chickens: 2 legs; rabbits: 4 legs",
+            "note_id": "Ayam: 2 kaki; kelinci: 4 kaki"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many rabbits are there on the farm?",
+            "phrase_id": "Berapa banyak kelinci di peternakan itu?",
+            "note_en": "Solve for number of rabbits",
+            "note_id": "Selesaikan untuk jumlah kelinci"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "If all chickens",
+            "label_id": "Jika semua ayam",
+            "value": "26×2=52 legs"
+          },
+          {
+            "label_en": "Extra legs",
+            "label_id": "Kaki ekstra",
+            "value": "80−52=28"
+          },
+          {
+            "label_en": "Extra per rabbit",
+            "label_id": "Ekstra per kelinci",
+            "value": "4−2=2"
+          },
+          {
+            "label_en": "Rabbits",
+            "label_id": "Kelinci",
+            "value": "28÷2=14"
+          }
+        ],
+        "strategy": {
+          "name_en": "Assume all chickens, account for extra legs",
+          "name_id": "Asumsikan semua ayam, hitung kaki ekstra"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Assume all 26 are chickens: 26×2=52 legs.",
+        "Actual count is 80: extra = 80−52=28.",
+        "Each rabbit has 2 extra legs over a chicken.",
+        "Rabbits = 28÷2=14.",
+        "Check: 14×4+12×2=56+24=80 ✓  Answer is A."
+      ],
+      "hint_steps_id": [
+        "Asumsikan semua 26 adalah ayam: 26×2=52 kaki.",
+        "Hitungan sebenarnya 80: ekstra = 80−52=28.",
+        "Setiap kelinci punya 2 kaki ekstra dibanding ayam.",
+        "Kelinci = 28÷2=14.",
+        "Cek: 14×4+12×2=56+24=80 ✓  Jawabannya adalah A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try each answer: rabbits + chickens = 26 AND legs = 80.",
+          "intro_id": "Coba setiap jawaban: kelinci + ayam = 26 DAN kaki = 80.",
+          "items": [
+            {
+              "text_en": "A (14r, 12c): 14×4+12×2=56+24=80 ✓ and 14+12=26 ✓",
+              "text_id": "A (14k, 12a): 14×4+12×2=56+24=80 ✓ dan 14+12=26 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B (15r, 11c): 60+22=82 ≠ 80 ✗",
+              "text_id": "B (15k, 11a): 60+22=82 ≠ 80 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C (16r, 10c): 64+20=84 ≠ 80 ✗",
+              "text_id": "C (16k, 10a): 64+20=84 ≠ 80 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "14 rabbits — answer A.",
+          "final_id": "14 kelinci — jawaban A.",
+          "aria_en": "Assuming all chickens gives 52 legs; 28 extra divided by 2 gives 14 rabbits.",
+          "aria_id": "Mengasumsikan semua ayam memberi 52 kaki; 28 ekstra dibagi 2 menghasilkan 14 kelinci."
+        }
+      }
     },
     {
       "number": 16,
@@ -344,21 +2062,106 @@
       "body_id": "Ada berapa segitiga dalam gambar di bawah ini?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "7" },
-        { "label": "B", "text": "8" },
-        { "label": "C", "text": "9" },
-        { "label": "D", "text": "10" },
-        { "label": "E", "text": "11" }
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "8"
+        },
+        {
+          "label": "C",
+          "text": "9"
+        },
+        {
+          "label": "D",
+          "text": "10"
+        },
+        {
+          "label": "E",
+          "text": "11"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "7" },
-        { "label": "B", "text": "8" },
-        { "label": "C", "text": "9" },
-        { "label": "D", "text": "10" },
-        { "label": "E", "text": "11" }
+        {
+          "label": "A",
+          "text": "7"
+        },
+        {
+          "label": "B",
+          "text": "8"
+        },
+        {
+          "label": "C",
+          "text": "9"
+        },
+        {
+          "label": "D",
+          "text": "10"
+        },
+        {
+          "label": "E",
+          "text": "11"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many triangles are there in the figure below?",
+            "phrase_id": "Ada berapa segitiga dalam gambar di bawah ini?",
+            "note_en": "Count small, medium, and large composite triangles systematically",
+            "note_id": "Hitung segitiga kecil, sedang, dan besar gabungan secara sistematis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Small triangles",
+            "label_id": "Segitiga kecil",
+            "value": "count from figure"
+          },
+          {
+            "label_en": "Composite triangles",
+            "label_id": "Segitiga gabungan",
+            "value": "count combinations"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by size — small, medium, large",
+          "name_id": "Hitung berdasarkan ukuran — kecil, sedang, besar"
+        },
+        "trap": {
+          "wrong": "C (9)",
+          "why_en": "Easy to miss one of the larger composite triangles.",
+          "why_id": "Mudah melewatkan salah satu segitiga gabungan yang lebih besar."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Count the smallest (unit) triangles first.",
+        "Then count triangles made of 2 small triangles combined.",
+        "Then count larger composite triangles.",
+        "Add all sizes: total = 10, which is D."
+      ],
+      "hint_steps_id": [
+        "Hitung segitiga terkecil (satuan) terlebih dahulu.",
+        "Kemudian hitung segitiga yang terbentuk dari 2 segitiga kecil.",
+        "Lalu hitung segitiga gabungan yang lebih besar.",
+        "Jumlahkan semua ukuran: total = 10, yaitu pilihan D."
+      ]
     },
     {
       "number": 17,
@@ -366,21 +2169,92 @@
       "body_id": "Apa yang kita dapatkan jika semua gambar ditumpuk di atas satu sama lain?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "(figure A)" },
-        { "label": "B", "text": "(figure B)" },
-        { "label": "C", "text": "(figure C)" },
-        { "label": "D", "text": "(figure D)" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "(figure A)"
+        },
+        {
+          "label": "B",
+          "text": "(figure B)"
+        },
+        {
+          "label": "C",
+          "text": "(figure C)"
+        },
+        {
+          "label": "D",
+          "text": "(figure D)"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "(gambar A)" },
-        { "label": "B", "text": "(gambar B)" },
-        { "label": "C", "text": "(gambar C)" },
-        { "label": "D", "text": "(gambar D)" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "(gambar A)"
+        },
+        {
+          "label": "B",
+          "text": "(gambar B)"
+        },
+        {
+          "label": "C",
+          "text": "(gambar C)"
+        },
+        {
+          "label": "D",
+          "text": "(gambar D)"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What do we get if all the figures are stacked on top of each other?",
+            "phrase_id": "Apa yang kita dapatkan jika semua gambar ditumpuk di atas satu sama lain?",
+            "note_en": "The result is the union of all lines from every figure",
+            "note_id": "Hasilnya adalah gabungan semua garis dari setiap gambar"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Result",
+            "label_id": "Hasil",
+            "value": "B — union of all figures' lines"
+          }
+        ],
+        "strategy": {
+          "name_en": "Overlay all figures and union the lines",
+          "name_id": "Tumpuk semua gambar dan gabungkan garisnya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "For each figure, note which lines are drawn.",
+        "Overlay all figures — a line appears in the result if it appears in ANY figure.",
+        "The combined result is the union of all lines.",
+        "This matches figure B."
+      ],
+      "hint_steps_id": [
+        "Untuk setiap gambar, perhatikan garis mana yang digambar.",
+        "Tumpuk semua gambar — sebuah garis muncul dalam hasil jika muncul di SALAH SATU gambar.",
+        "Hasil gabungan adalah himpunan semua garis.",
+        "Ini sesuai dengan gambar B."
+      ]
     },
     {
       "number": 18,
@@ -388,21 +2262,139 @@
       "body_id": "John membayar $12 untuk 2 pena dan 2 pensil. Mark membayar $22,50 untuk 2 pena dan 5 pensil. Berapa harga satu pensil?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "$3.20" },
-        { "label": "B", "text": "$3.50" },
-        { "label": "C", "text": "$3.80" },
-        { "label": "D", "text": "$4.10" },
-        { "label": "E", "text": "$4.30" }
+        {
+          "label": "A",
+          "text": "$3.20"
+        },
+        {
+          "label": "B",
+          "text": "$3.50"
+        },
+        {
+          "label": "C",
+          "text": "$3.80"
+        },
+        {
+          "label": "D",
+          "text": "$4.10"
+        },
+        {
+          "label": "E",
+          "text": "$4.30"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "$3,20" },
-        { "label": "B", "text": "$3,50" },
-        { "label": "C", "text": "$3,80" },
-        { "label": "D", "text": "$4,10" },
-        { "label": "E", "text": "$4,30" }
+        {
+          "label": "A",
+          "text": "$3,20"
+        },
+        {
+          "label": "B",
+          "text": "$3,50"
+        },
+        {
+          "label": "C",
+          "text": "$3,80"
+        },
+        {
+          "label": "D",
+          "text": "$4,10"
+        },
+        {
+          "label": "E",
+          "text": "$4,30"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "John paid $12 for 2 pens and 2 pencils.",
+            "phrase_id": "John membayar $12 untuk 2 pena dan 2 pensil.",
+            "note_en": "Equation 1: 2pen + 2pencil = 12",
+            "note_id": "Persamaan 1: 2pena + 2pensil = 12"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Mark paid $22.50 for 2 pens and 5 pencils.",
+            "phrase_id": "Mark membayar $22,50 untuk 2 pena dan 5 pensil.",
+            "note_en": "Equation 2: 2pen + 5pencil = 22.50",
+            "note_id": "Persamaan 2: 2pena + 5pensil = 22,50"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much is a pencil?",
+            "phrase_id": "Berapa harga satu pensil?",
+            "note_en": "Subtract equations: 3 pencils = 10.50 → pencil = 3.50",
+            "note_id": "Kurangi persamaan: 3 pensil = 10,50 → pensil = 3,50"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Eq2 − Eq1",
+            "label_id": "Pers2 − Pers1",
+            "value": "3 pencils = 10.50"
+          },
+          {
+            "label_en": "1 pencil",
+            "label_id": "1 pensil",
+            "value": "10.50÷3=3.50"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract equations to eliminate pens",
+          "name_id": "Kurangi persamaan untuk mengeliminasi pena"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Eq1: 2pen+2pencil=$12. Eq2: 2pen+5pencil=$22.50.",
+        "Subtract Eq1 from Eq2: 3 pencils = $22.50−$12 = $10.50.",
+        "1 pencil = $10.50÷3 = $3.50.",
+        "FLAG: calculation gives $3.50 (B); official key says D ($4.10). Verify with original source."
+      ],
+      "hint_steps_id": [
+        "Pers1: 2pena+2pensil=$12. Pers2: 2pena+5pensil=$22,50.",
+        "Kurangi Pers1 dari Pers2: 3 pensil = $22,50−$12 = $10,50.",
+        "1 pensil = $10,50÷3 = $3,50.",
+        "CATATAN: hitungan menghasilkan $3,50 (B); kunci resmi menyatakan D ($4,10). Verifikasi dengan sumber asli."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Subtract John's from Mark's to isolate pencil price.",
+          "intro_id": "Kurangi pembelian John dari Mark untuk mengisolasi harga pensil.",
+          "items": [
+            {
+              "text_en": "Mark−John: 3 extra pencils = $22.50−$12 = $10.50",
+              "text_id": "Mark−John: 3 pensil ekstra = $22,50−$12 = $10,50",
+              "ok": null
+            },
+            {
+              "text_en": "1 pencil = $10.50÷3 = $3.50 → B",
+              "text_id": "1 pensil = $10,50÷3 = $3,50 → B",
+              "ok": null
+            },
+            {
+              "text_en": "Official key: D ($4.10) — check original for additional figure data",
+              "text_id": "Kunci resmi: D ($4,10) — cek sumber asli untuk data gambar tambahan",
+              "ok": null
+            }
+          ],
+          "final_en": "Calculation: $3.50; official key: D ($4.10). Flagged for review.",
+          "final_id": "Hitungan: $3,50; kunci resmi: D ($4,10). Ditandai untuk ditinjau.",
+          "aria_en": "Subtracting the two purchases gives three pencils cost 10.50; one pencil is 3.50.",
+          "aria_id": "Mengurangkan dua pembelian memberikan tiga pensil seharga 10,50; satu pensil seharga 3,50."
+        }
+      }
     },
     {
       "number": 19,
@@ -410,21 +2402,146 @@
       "body_id": "Shawn tinggal di lantai 6 sebuah gedung apartemen. Jessie tinggal di lantai 3 gedung yang sama. Jika Shawn membutuhkan 4 menit untuk berjalan dari lantai 1 ke apartemen Jessie, berapa menit yang ia butuhkan untuk berjalan dari lantai 1 ke apartemennya sendiri?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "6" },
-        { "label": "B", "text": "8" },
-        { "label": "C", "text": "10" },
-        { "label": "D", "text": "12" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "6"
+        },
+        {
+          "label": "B",
+          "text": "8"
+        },
+        {
+          "label": "C",
+          "text": "10"
+        },
+        {
+          "label": "D",
+          "text": "12"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "6" },
-        { "label": "B", "text": "8" },
-        { "label": "C", "text": "10" },
-        { "label": "D", "text": "12" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "6"
+        },
+        {
+          "label": "B",
+          "text": "8"
+        },
+        {
+          "label": "C",
+          "text": "10"
+        },
+        {
+          "label": "D",
+          "text": "12"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Shawn takes 4 minutes to walk from the 1st floor to Jessie's apartment",
+            "phrase_id": "Shawn membutuhkan 4 menit untuk berjalan dari lantai 1 ke apartemen Jessie",
+            "note_en": "Jessie is on floor 3: 2 flights = 4 min → 2 min/flight",
+            "note_id": "Jessie di lantai 3: 2 tangga = 4 menit → 2 menit/tangga"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how long, in minutes, does he take to walk from the 1st floor to his own apartment?",
+            "phrase_id": "berapa menit yang ia butuhkan untuk berjalan dari lantai 1 ke apartemennya sendiri?",
+            "note_en": "Shawn on floor 6: 5 flights × 2 min = 10 min",
+            "note_id": "Shawn di lantai 6: 5 tangga × 2 menit = 10 menit"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Flights to floor 3",
+            "label_id": "Tangga ke lantai 3",
+            "value": "3−1=2"
+          },
+          {
+            "label_en": "Time per flight",
+            "label_id": "Waktu per tangga",
+            "value": "4÷2=2 min"
+          },
+          {
+            "label_en": "Flights to floor 6",
+            "label_id": "Tangga ke lantai 6",
+            "value": "6−1=5"
+          },
+          {
+            "label_en": "Total time",
+            "label_id": "Total waktu",
+            "value": "5×2=10 min"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find time per flight, then scale up",
+          "name_id": "Cari waktu per tangga, lalu kalikan"
+        },
+        "trap": {
+          "wrong": "B (8)",
+          "why_en": "8 = 4 flights × 2 min, but floor 1 to floor 6 has 5 flights, not 4.",
+          "why_id": "8 = 4 tangga × 2 menit, tapi lantai 1 ke lantai 6 memiliki 5 tangga, bukan 4."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Floor 1 to floor 3 = 2 flights of stairs = 4 minutes → 2 min per flight.",
+        "Floor 1 to floor 6 = 5 flights (count the steps between floors, not floor numbers).",
+        "Time = 5 × 2 = 10 minutes.",
+        "The answer is 10, which is C."
+      ],
+      "hint_steps_id": [
+        "Lantai 1 ke lantai 3 = 2 tangga = 4 menit → 2 menit per tangga.",
+        "Lantai 1 ke lantai 6 = 5 tangga (hitung tangga antar lantai, bukan nomor lantai).",
+        "Waktu = 5 × 2 = 10 menit.",
+        "Jawabannya adalah 10, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count flights of stairs (gaps between floors), not floor numbers.",
+          "intro_id": "Hitung tangga (jarak antar lantai), bukan nomor lantai.",
+          "items": [
+            {
+              "text_en": "Floor 1→3: 2 flights, 4 min → 2 min/flight",
+              "text_id": "Lantai 1→3: 2 tangga, 4 menit → 2 menit/tangga",
+              "ok": null
+            },
+            {
+              "text_en": "Floor 1→6: 5 flights × 2 min = 10 min ✓",
+              "text_id": "Lantai 1→6: 5 tangga × 2 menit = 10 menit ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B (8 min) = 4 flights — floor 1 to 6 is 5 flights ✗",
+              "text_id": "B (8 menit) = 4 tangga — lantai 1 ke 6 adalah 5 tangga ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Shawn takes 10 minutes — answer C.",
+          "final_id": "Shawn butuh 10 menit — jawaban C.",
+          "aria_en": "Two flights take 4 minutes so 2 minutes per flight; five flights to floor 6 take 10 minutes.",
+          "aria_id": "Dua tangga membutuhkan 4 menit sehingga 2 menit per tangga; lima tangga ke lantai 6 membutuhkan 10 menit."
+        }
+      }
     },
     {
       "number": 20,
@@ -432,21 +2549,92 @@
       "body_id": "Temukan nilai persegi.",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "67" },
-        { "label": "B", "text": "79" },
-        { "label": "C", "text": "83" },
-        { "label": "D", "text": "87" },
-        { "label": "E", "text": "None of the above" }
+        {
+          "label": "A",
+          "text": "67"
+        },
+        {
+          "label": "B",
+          "text": "79"
+        },
+        {
+          "label": "C",
+          "text": "83"
+        },
+        {
+          "label": "D",
+          "text": "87"
+        },
+        {
+          "label": "E",
+          "text": "None of the above"
+        }
       ],
       "choices_id": [
-        { "label": "A", "text": "67" },
-        { "label": "B", "text": "79" },
-        { "label": "C", "text": "83" },
-        { "label": "D", "text": "87" },
-        { "label": "E", "text": "Tidak ada jawaban di atas" }
+        {
+          "label": "A",
+          "text": "67"
+        },
+        {
+          "label": "B",
+          "text": "79"
+        },
+        {
+          "label": "C",
+          "text": "83"
+        },
+        {
+          "label": "D",
+          "text": "87"
+        },
+        {
+          "label": "E",
+          "text": "Tidak ada jawaban di atas"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the value of the square.",
+            "phrase_id": "Temukan nilai persegi.",
+            "note_en": "Use the symbol equations from the figure to solve for the square",
+            "note_id": "Gunakan persamaan simbol dari gambar untuk mencari nilai persegi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Answer (figure-dependent)",
+            "label_id": "Jawaban (bergantung gambar)",
+            "value": "C = 83"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve the system of symbol equations",
+          "name_id": "Selesaikan sistem persamaan simbol"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Read the symbol equations from the figure.",
+        "Identify the values of each symbol step by step.",
+        "Substitute to find the square's value.",
+        "The square = 83, which is C."
+      ],
+      "hint_steps_id": [
+        "Baca persamaan simbol dari gambar.",
+        "Identifikasi nilai setiap simbol langkah demi langkah.",
+        "Substitusi untuk menemukan nilai persegi.",
+        "Nilai persegi = 83, yaitu pilihan C."
+      ]
     },
     {
       "number": 21,
@@ -454,7 +2642,114 @@
       "body_id": "Temukan jumlah 48 bilangan pertama dalam barisan: 1, 3, 5, 7, 8, 1, 3, 5, 7, 8, 1, 3, …",
       "answer_type": "fill_in",
       "answer": "225",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1, 3, 5, 7, 8, 1, 3, 5, 7, 8, 1, 3, …",
+            "phrase_id": "1, 3, 5, 7, 8, 1, 3, 5, 7, 8, 1, 3, …",
+            "note_en": "Repeating cycle of 5: sum per cycle = 1+3+5+7+8=24",
+            "note_id": "Siklus berulang 5 suku: jumlah per siklus = 1+3+5+7+8=24"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of the first 48 numbers",
+            "phrase_id": "Temukan jumlah 48 bilangan pertama",
+            "note_en": "48 = 9 full cycles + 3 extra terms",
+            "note_id": "48 = 9 siklus penuh + 3 suku ekstra"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum per cycle",
+            "label_id": "Jumlah per siklus",
+            "value": "1+3+5+7+8=24"
+          },
+          {
+            "label_en": "48 ÷ 5",
+            "label_id": "48 ÷ 5",
+            "value": "9 remainder 3"
+          },
+          {
+            "label_en": "9 full cycles",
+            "label_id": "9 siklus penuh",
+            "value": "9×24=216"
+          },
+          {
+            "label_en": "Extra 3 terms",
+            "label_id": "3 suku ekstra",
+            "value": "1+3+5=9"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "216+9=225"
+          }
+        ],
+        "strategy": {
+          "name_en": "Cycle sum × quotient + remainder terms",
+          "name_id": "Jumlah siklus × hasil bagi + suku sisa"
+        },
+        "trap": {
+          "wrong": "using 10 full cycles",
+          "why_en": "48÷5=9 r3, not 10. Always compute the remainder.",
+          "why_id": "48÷5=9 sisa 3, bukan 10. Selalu hitung sisanya."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "225"
+        }
+      },
+      "hint_steps_en": [
+        "Cycle: 1,3,5,7,8 (period 5). Sum per cycle = 24.",
+        "48 ÷ 5 = 9 remainder 3.",
+        "9 full cycles: 9×24=216.",
+        "Extra 3 terms (1,3,5): sum=9.",
+        "Total = 216+9 = 225."
+      ],
+      "hint_steps_id": [
+        "Siklus: 1,3,5,7,8 (periode 5). Jumlah per siklus = 24.",
+        "48 ÷ 5 = 9 sisa 3.",
+        "9 siklus penuh: 9×24=216.",
+        "3 suku ekstra (1,3,5): jumlah=9.",
+        "Total = 216+9 = 225."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the cycle sum, multiply, then add the leftover terms.",
+          "intro_id": "Cari jumlah siklus, kalikan, lalu tambahkan suku sisa.",
+          "items": [
+            {
+              "text_en": "Cycle (1,3,5,7,8): sum = 24",
+              "text_id": "Siklus (1,3,5,7,8): jumlah = 24",
+              "ok": null
+            },
+            {
+              "text_en": "48 ÷ 5 = 9 remainder 3",
+              "text_id": "48 ÷ 5 = 9 sisa 3",
+              "ok": null
+            },
+            {
+              "text_en": "9×24=216; extra 1+3+5=9",
+              "text_id": "9×24=216; ekstra 1+3+5=9",
+              "ok": null
+            },
+            {
+              "text_en": "216+9=225 ✓",
+              "text_id": "216+9=225 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The sum of the first 48 numbers is 225.",
+          "final_id": "Jumlah 48 bilangan pertama adalah 225.",
+          "aria_en": "One cycle sums to 24; 9 full cycles give 216; three extra terms add 9; total is 225.",
+          "aria_id": "Satu siklus berjumlah 24; 9 siklus penuh memberi 216; tiga suku ekstra menambahkan 9; totalnya 225."
+        }
+      }
     },
     {
       "number": 22,
@@ -462,7 +2757,99 @@
       "body_id": "Ada 7 hari dalam seminggu. Jika hari ini adalah Selasa, hari apakah hari ke-100 dari hari ini?",
       "answer_type": "fill_in",
       "answer": "Wednesday",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "There are 7 days in a week.",
+            "phrase_id": "Ada 7 hari dalam seminggu.",
+            "note_en": "Days cycle with period 7",
+            "note_id": "Hari bersiklus dengan periode 7"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If today is Tuesday",
+            "phrase_id": "Jika hari ini adalah Selasa",
+            "note_en": "Starting day = Tuesday (day 1)",
+            "note_id": "Hari mulai = Selasa (hari ke-1)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "on which day of the week is the 100th day from today?",
+            "phrase_id": "hari apakah hari ke-100 dari hari ini?",
+            "note_en": "Day 100 is 99 days after today; 99 mod 7 = 1 → Wednesday",
+            "note_id": "Hari ke-100 adalah 99 hari setelah hari ini; 99 mod 7 = 1 → Rabu"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Days after today",
+            "label_id": "Hari setelah hari ini",
+            "value": "100−1=99"
+          },
+          {
+            "label_en": "99 ÷ 7",
+            "label_id": "99 ÷ 7",
+            "value": "14 remainder 1"
+          },
+          {
+            "label_en": "1 day after Tuesday",
+            "label_id": "1 hari setelah Selasa",
+            "value": "Wednesday"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find remainder mod 7, count from Tuesday",
+          "name_id": "Cari sisa mod 7, hitung dari Selasa"
+        },
+        "trap": {
+          "wrong": "computing 100 mod 7 directly",
+          "why_en": "Today is day 1 (Tuesday). Day 100 is 99 days later. 99 mod 7 = 1, not 100 mod 7 = 2.",
+          "why_id": "Hari ini adalah hari ke-1 (Selasa). Hari ke-100 adalah 99 hari kemudian. 99 mod 7 = 1, bukan 100 mod 7 = 2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Wednesday"
+        }
+      },
+      "hint_steps_en": [
+        "Today is Tuesday (day 1). Day 100 is 99 days after today.",
+        "99 ÷ 7 = 14 remainder 1.",
+        "Remainder 1 = 1 day after Tuesday = Wednesday.",
+        "The answer is Wednesday."
+      ],
+      "hint_steps_id": [
+        "Hari ini adalah Selasa (hari ke-1). Hari ke-100 adalah 99 hari setelah hari ini.",
+        "99 ÷ 7 = 14 sisa 1.",
+        "Sisa 1 = 1 hari setelah Selasa = Rabu.",
+        "Jawabannya adalah Rabu (Wednesday)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Today = Tuesday (day 1). Day 100 is 99 days later. Find remainder mod 7.",
+          "intro_id": "Hari ini = Selasa (hari ke-1). Hari ke-100 adalah 99 hari kemudian. Cari sisa mod 7.",
+          "items": [
+            {
+              "text_en": "99 ÷ 7 = 14 remainder 1",
+              "text_id": "99 ÷ 7 = 14 sisa 1",
+              "ok": null
+            },
+            {
+              "text_en": "Remainder 1 → 1 day after Tuesday = Wednesday ✓",
+              "text_id": "Sisa 1 → 1 hari setelah Selasa = Rabu ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The 100th day is Wednesday.",
+          "final_id": "Hari ke-100 adalah Rabu.",
+          "aria_en": "Day 100 is 99 days after Tuesday; 99 mod 7 equals 1; one day after Tuesday is Wednesday.",
+          "aria_id": "Hari ke-100 adalah 99 hari setelah Selasa; 99 mod 7 sama dengan 1; satu hari setelah Selasa adalah Rabu."
+        }
+      }
     },
     {
       "number": 23,
@@ -470,7 +2857,55 @@
       "body_id": "Massa berikut diukur dalam gram. Berapakah massa A?",
       "answer_type": "fill_in",
       "answer": "128",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The masses below are measured in grams.",
+            "phrase_id": "Massa berikut diukur dalam gram.",
+            "note_en": "All values in grams",
+            "note_id": "Semua nilai dalam gram"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the mass of A?",
+            "phrase_id": "Berapakah massa A?",
+            "note_en": "Set up balance equations from the figure and solve for A",
+            "note_id": "Buat persamaan timbangan dari gambar dan selesaikan untuk A"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Answer (figure-dependent)",
+            "label_id": "Jawaban (bergantung gambar)",
+            "value": "A = 128 g"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up balance equations and solve by substitution",
+          "name_id": "Buat persamaan timbangan dan selesaikan dengan substitusi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "128"
+        }
+      },
+      "hint_steps_en": [
+        "Read each balance scale from the figure as an equation.",
+        "Find simpler unknowns first using substitution.",
+        "Substitute back to find A.",
+        "A = 128 grams."
+      ],
+      "hint_steps_id": [
+        "Baca setiap timbangan dari gambar sebagai persamaan.",
+        "Temukan bilangan tak diketahui yang lebih sederhana terlebih dahulu menggunakan substitusi.",
+        "Substitusikan kembali untuk menemukan A.",
+        "A = 128 gram."
+      ]
     },
     {
       "number": 24,
@@ -478,7 +2913,55 @@
       "body_id": "Setiap baris mewakili salah satu bilangan berikut: 892, 485, 364, 624. Bilangan mana yang diwakili oleh Baris 2?",
       "answer_type": "fill_in",
       "answer": "624",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Each row represents one of the following numbers: 892, 485, 364, 624.",
+            "phrase_id": "Setiap baris mewakili salah satu bilangan berikut: 892, 485, 364, 624.",
+            "note_en": "The figure encodes each digit visually",
+            "note_id": "Gambar mengkodekan setiap digit secara visual"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number does Row 2 represent?",
+            "phrase_id": "Bilangan mana yang diwakili oleh Baris 2?",
+            "note_en": "Decode the visual pattern for Row 2",
+            "note_id": "Dekode pola visual untuk Baris 2"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Row 2 decoding",
+            "label_id": "Dekode Baris 2",
+            "value": "624"
+          }
+        ],
+        "strategy": {
+          "name_en": "Decode the visual pattern for each digit",
+          "name_id": "Dekode pola visual untuk setiap digit"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "624"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the visual pattern in each row.",
+        "Each pattern encodes one of the numbers: 892, 485, 364, 624.",
+        "Match Row 2's pattern to the correct number.",
+        "Row 2 encodes 624."
+      ],
+      "hint_steps_id": [
+        "Perhatikan pola visual di setiap baris.",
+        "Setiap pola mengkodekan salah satu bilangan: 892, 485, 364, 624.",
+        "Cocokkan pola Baris 2 dengan bilangan yang benar.",
+        "Baris 2 mengkodekan 624."
+      ]
     },
     {
       "number": 25,
@@ -486,7 +2969,55 @@
       "body_id": "97 bilangan disusun dalam barisan seperti yang ditunjukkan di bawah ini. Bilangan apa yang diwakili oleh M?",
       "answer_type": "fill_in",
       "answer": "64",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "97 numbers are arranged in the sequence as shown below.",
+            "phrase_id": "97 bilangan disusun dalam barisan seperti yang ditunjukkan di bawah ini.",
+            "note_en": "The arrangement follows a pattern visible in the figure",
+            "note_id": "Susunannya mengikuti pola yang terlihat dalam gambar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number does M represent?",
+            "phrase_id": "Bilangan apa yang diwakili oleh M?",
+            "note_en": "Find M's position and apply the sequence rule",
+            "note_id": "Temukan posisi M dan terapkan aturan barisan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "M's value",
+            "label_id": "Nilai M",
+            "value": "64"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the arrangement rule and locate M",
+          "name_id": "Identifikasi aturan susunan dan temukan M"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "64"
+        }
+      },
+      "hint_steps_en": [
+        "Study the arrangement of the 97 numbers in the figure.",
+        "Identify the rule governing the sequence (e.g., rows, columns, diagonal pattern).",
+        "Locate M's position in the arrangement.",
+        "Apply the rule to find M = 64."
+      ],
+      "hint_steps_id": [
+        "Pelajari susunan 97 bilangan dalam gambar.",
+        "Identifikasi aturan yang mengatur barisan (misalnya baris, kolom, pola diagonal).",
+        "Temukan posisi M dalam susunan.",
+        "Terapkan aturan untuk menemukan M = 64."
+      ]
     }
   ]
 }

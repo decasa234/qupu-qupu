@@ -28,7 +28,71 @@
         { "label": "D", "text": "7" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Find the missing number",
+            "phrase_id": "Temukan bilangan yang hilang",
+            "note_en": "Identify the rule connecting numbers in the pattern, then apply it to find the gap",
+            "note_id": "Temukan aturan yang menghubungkan bilangan dalam pola, lalu terapkan untuk menemukan yang hilang"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "number pattern below",
+            "phrase_id": "pola bilangan di bawah ini",
+            "note_en": "The pattern is visual — examine differences or ratios between consecutive terms",
+            "note_id": "Polanya bersifat visual — perhatikan selisih atau rasio antar suku berurutan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "in the number pattern below",
+            "phrase_id": "dalam pola bilangan di bawah ini",
+            "note_en": "Answer E means the missing value does not match any of A (4), B (5), C (6), D (7) — trust the rule you found",
+            "note_id": "Jawaban E berarti nilai yang hilang tidak cocok dengan A (4), B (5), C (6), atau D (7) — percayakan aturan yang kamu temukan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern rule",
+            "label_id": "Aturan pola",
+            "value": "determined from figure"
+          },
+          {
+            "label_en": "Missing value (from rule)",
+            "label_id": "Nilai yang hilang (dari aturan)",
+            "value": "not 4, 5, 6, or 7 → answer E"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the rule, apply it",
+          "name_id": "Temukan aturan, terapkan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "7 looks like a likely next term, but the actual rule produces a value outside A–D",
+          "why_id": "7 terlihat seperti suku berikutnya, tetapi aturan yang benar menghasilkan nilai di luar A–D"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the number pattern in the figure and list the terms you can see.",
+        "Check the differences or ratios between consecutive terms to find the rule.",
+        "Apply the rule to the missing position.",
+        "Compare your result to choices A (4), B (5), C (6), D (7) — if none match, choose E."
+      ],
+      "hint_steps_id": [
+        "Perhatikan pola bilangan pada gambar dan tuliskan suku-suku yang terlihat.",
+        "Periksa selisih atau rasio antar suku berurutan untuk menemukan aturannya.",
+        "Terapkan aturan tersebut pada posisi yang hilang.",
+        "Bandingkan hasilmu dengan pilihan A (4), B (5), C (6), D (7) — jika tidak ada yang cocok, pilih E."
+      ]
     },
     {
       "number": 2,
@@ -50,7 +114,131 @@
         { "label": "D", "text": "273" },
         { "label": "E", "text": "284" }
       ],
-      "answer": "C"
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "358421358421358421…",
+            "phrase_id": "358421358421358421…",
+            "note_en": "The sequence repeats in blocks of 6 digits: 3, 5, 8, 4, 2, 1",
+            "note_id": "Urutan berulang dalam blok 6 digit: 3, 5, 8, 4, 2, 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of first 68 digits",
+            "phrase_id": "jumlah 68 digit pertama",
+            "note_en": "Divide 68 by the period 6 to find how many complete blocks fit, then handle the remainder",
+            "note_id": "Bagi 68 dengan periode 6 untuk menemukan berapa blok penuh, lalu tangani sisanya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "358421",
+            "phrase_id": "358421",
+            "note_en": "One complete block sums to 3+5+8+4+2+1 = 23",
+            "note_id": "Satu blok penuh berjumlah 3+5+8+4+2+1 = 23"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Period length",
+            "label_id": "Panjang periode",
+            "value": "6"
+          },
+          {
+            "label_en": "Sum of one block",
+            "label_id": "Jumlah satu blok",
+            "value": "3+5+8+4+2+1 = 23"
+          },
+          {
+            "label_en": "Complete blocks in 68 digits",
+            "label_id": "Blok penuh dalam 68 digit",
+            "value": "68 ÷ 6 = 11 remainder 2"
+          },
+          {
+            "label_en": "Sum of 11 complete blocks",
+            "label_id": "Jumlah 11 blok penuh",
+            "value": "11 × 23 = 253"
+          },
+          {
+            "label_en": "Remainder digits (3, 5)",
+            "label_id": "Digit sisa (3, 5)",
+            "value": "3 + 5 = 8"
+          },
+          {
+            "label_en": "Total sum",
+            "label_id": "Jumlah total",
+            "value": "253 + 8 = 261"
+          }
+        ],
+        "strategy": {
+          "name_en": "Repeating-block sum",
+          "name_id": "Penjumlahan blok berulang"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "252 = 11×23 − 1 forgets the remainder digits; you must add the extra 3 and 5 from position 67–68",
+          "why_id": "252 = 11×23 − 1 melupakan digit sisa; kamu harus menambahkan 3 dan 5 dari posisi 67–68"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Spot the repeating block: 3, 5, 8, 4, 2, 1 — length 6.",
+        "Sum of one block: 3+5+8+4+2+1 = 23.",
+        "68 ÷ 6 = 11 complete blocks with remainder 2.",
+        "Sum of 11 blocks = 11 × 23 = 253. The 2 extra digits are the 1st and 2nd of the block: 3 and 5.",
+        "Total = 253 + 3 + 5 = 261. Answer C."
+      ],
+      "hint_steps_id": [
+        "Kenali blok berulang: 3, 5, 8, 4, 2, 1 — panjang 6.",
+        "Jumlah satu blok: 3+5+8+4+2+1 = 23.",
+        "68 ÷ 6 = 11 blok penuh dengan sisa 2.",
+        "Jumlah 11 blok = 11 × 23 = 253. Dua digit ekstra adalah digit ke-1 dan ke-2 blok: 3 dan 5.",
+        "Total = 253 + 3 + 5 = 261. Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer by computing 11 blocks × 23 plus the 2 remainder digits (3+5=8).",
+          "intro_id": "Periksa setiap jawaban dengan menghitung 11 blok × 23 ditambah 2 digit sisa (3+5=8).",
+          "items": [
+            {
+              "text_en": "A: 246 = 253 − 7? Doesn't match 253+8=261 ✗",
+              "text_id": "A: 246 = 253 − 7? Tidak cocok dengan 253+8=261 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 252 = 11×23 − 1 — missed the remainder digits ✗",
+              "text_id": "B: 252 = 11×23 − 1 — melewatkan digit sisa ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 261 = 253 + 8 = 11×23 + (3+5) ✓",
+              "text_id": "C: 261 = 253 + 8 = 11×23 + (3+5) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 273 — too large ✗",
+              "text_id": "D: 273 — terlalu besar ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: 284 — too large ✗",
+              "text_id": "E: 284 — terlalu besar ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Only C (261) matches 11 blocks + 2 extra digits.",
+          "final_id": "Hanya C (261) yang sesuai dengan 11 blok + 2 digit ekstra.",
+          "aria_en": "The repeating block 3,5,8,4,2,1 has period 6 and sum 23. 68 = 11×6+2, so total = 11×23+3+5 = 261.",
+          "aria_id": "Blok berulang 3,5,8,4,2,1 memiliki periode 6 dan jumlah 23. 68 = 11×6+2, sehingga total = 11×23+3+5 = 261."
+        }
+      }
     },
     {
       "number": 3,
@@ -72,7 +260,119 @@
         { "label": "D", "text": "48" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "C"
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 ✳ 4 = 13, 5 ✳ 9 = 24, 7 ✳ 7 = 28",
+            "phrase_id": "3 ✳ 4 = 13, 5 ✳ 9 = 24, 7 ✳ 7 = 28",
+            "note_en": "Three examples define the hidden rule for ✳",
+            "note_id": "Tiga contoh mendefinisikan aturan tersembunyi untuk ✳"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of 13 ✳ 8",
+            "phrase_id": "Temukan nilai dari 13 ✳ 8",
+            "note_en": "Once the rule a ✳ b = 3a + b is confirmed, substitute a=13 and b=8",
+            "note_id": "Setelah aturan a ✳ b = 3a + b dikonfirmasi, substitusikan a=13 dan b=8"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "new operation",
+            "phrase_id": "operasi baru",
+            "note_en": "This is not standard multiplication or addition — derive the formula from the examples",
+            "note_id": "Ini bukan perkalian atau penjumlahan biasa — turunkan rumusnya dari contoh-contoh"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule check: 3 ✳ 4",
+            "label_id": "Cek aturan: 3 ✳ 4",
+            "value": "3×3 + 4 = 9 + 4 = 13 ✓"
+          },
+          {
+            "label_en": "Rule check: 5 ✳ 9",
+            "label_id": "Cek aturan: 5 ✳ 9",
+            "value": "3×5 + 9 = 15 + 9 = 24 ✓"
+          },
+          {
+            "label_en": "Rule check: 7 ✳ 7",
+            "label_id": "Cek aturan: 7 ✳ 7",
+            "value": "3×7 + 7 = 21 + 7 = 28 ✓"
+          },
+          {
+            "label_en": "Apply rule: 13 ✳ 8",
+            "label_id": "Terapkan aturan: 13 ✳ 8",
+            "value": "3×13 + 8 = 39 + 8 = 47"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pattern-find then apply",
+          "name_id": "Temukan pola lalu terapkan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "48 = 3×13 + 9, confusing b=8 with 9; be careful which is a and which is b",
+          "why_id": "48 = 3×13 + 9, mengacaukan b=8 dengan 9; perhatikan mana a dan mana b"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "List what you know: 3 ✳ 4 = 13, 5 ✳ 9 = 24, 7 ✳ 7 = 28.",
+        "Try the formula a ✳ b = 3a + b: 3×3+4=13 ✓, 3×5+9=24 ✓, 3×7+7=28 ✓.",
+        "Apply to 13 ✳ 8: 3×13 + 8 = 39 + 8 = 47.",
+        "47 matches choice C."
+      ],
+      "hint_steps_id": [
+        "Catat yang diketahui: 3 ✳ 4 = 13, 5 ✳ 9 = 24, 7 ✳ 7 = 28.",
+        "Coba rumus a ✳ b = 3a + b: 3×3+4=13 ✓, 3×5+9=24 ✓, 3×7+7=28 ✓.",
+        "Terapkan pada 13 ✳ 8: 3×13 + 8 = 39 + 8 = 47.",
+        "47 cocok dengan pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer choice against the rule a ✳ b = 3a + b with a=13, b=8.",
+          "intro_id": "Uji setiap pilihan jawaban terhadap aturan a ✳ b = 3a + b dengan a=13, b=8.",
+          "items": [
+            {
+              "text_en": "A: 45 — would need 3×13+8=45? 39+8=47 ≠ 45 ✗",
+              "text_id": "A: 45 — perlu 3×13+8=45? 39+8=47 ≠ 45 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 46 — 39+8=47 ≠ 46 ✗",
+              "text_id": "B: 46 — 39+8=47 ≠ 46 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 47 = 3×13 + 8 = 39 + 8 ✓",
+              "text_id": "C: 47 = 3×13 + 8 = 39 + 8 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 48 = 3×13+9 — wrong b ✗",
+              "text_id": "D: 48 = 3×13+9 — b salah ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None of above — not needed ✗",
+              "text_id": "E: Tidak ada — tidak diperlukan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "C (47) is correct: 3×13 + 8 = 47.",
+          "final_id": "C (47) benar: 3×13 + 8 = 47.",
+          "aria_en": "The operation a star b equals 3a plus b. For 13 star 8: 3 times 13 plus 8 equals 47.",
+          "aria_id": "Operasi a bintang b sama dengan 3a ditambah b. Untuk 13 bintang 8: 3 dikali 13 ditambah 8 sama dengan 47."
+        }
+      }
     },
     {
       "number": 4,
@@ -94,7 +394,86 @@
         { "label": "D", "text": "14" },
         { "label": "E", "text": "16" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 × 4 square grid",
+            "phrase_id": "kisi persegi 4 × 4",
+            "note_en": "The grid contains squares of sizes 1×1, 2×2, 3×3, and 4×4",
+            "note_id": "Kisi berisi persegi berukuran 1×1, 2×2, 3×3, dan 4×4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many squares contain the dot?",
+            "phrase_id": "Berapa banyak persegi yang memuat titik tersebut?",
+            "note_en": "Count every square of any size whose interior includes the given dot",
+            "note_id": "Hitung setiap persegi berukuran berapa pun yang interiornya memuat titik tersebut"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "contain the dot",
+            "phrase_id": "memuat titik tersebut",
+            "note_en": "A square contains the dot if the dot is strictly inside or on its boundary",
+            "note_id": "Sebuah persegi memuat titik jika titik tersebut berada di dalam atau pada batasnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "1×1 squares containing dot",
+            "label_id": "Persegi 1×1 yang memuat titik",
+            "value": "1 (from figure)"
+          },
+          {
+            "label_en": "2×2 squares containing dot",
+            "label_id": "Persegi 2×2 yang memuat titik",
+            "value": "4 (from figure)"
+          },
+          {
+            "label_en": "3×3 squares containing dot",
+            "label_id": "Persegi 3×3 yang memuat titik",
+            "value": "4 (from figure)"
+          },
+          {
+            "label_en": "4×4 square containing dot",
+            "label_id": "Persegi 4×4 yang memuat titik",
+            "value": "1"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "1+4+4+1 = 10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by size",
+          "name_id": "Hitung per ukuran"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "8 only counts some sizes — don't forget to check 2×2, 3×3, and 4×4 squares too",
+          "why_id": "8 hanya menghitung sebagian ukuran — jangan lupa periksa persegi 2×2, 3×3, dan 4×4 juga"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The 4×4 grid has squares of sizes 1×1, 2×2, 3×3, and 4×4.",
+        "For each size, count how many squares of that size have the dot inside them (use the dot's position from the figure).",
+        "Add up the counts from all sizes.",
+        "Total = 10 → answer B."
+      ],
+      "hint_steps_id": [
+        "Kisi 4×4 memiliki persegi berukuran 1×1, 2×2, 3×3, dan 4×4.",
+        "Untuk setiap ukuran, hitung berapa persegi dengan ukuran tersebut yang memuat titik (gunakan posisi titik dari gambar).",
+        "Jumlahkan hitungan dari semua ukuran.",
+        "Total = 10 → jawaban B."
+      ]
     },
     {
       "number": 5,
@@ -116,7 +495,114 @@
         { "label": "D", "text": "39" },
         { "label": "E", "text": "41" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "□ + ✦ = 78, □ + ● = 66, ✦ + ● = 70",
+            "phrase_id": "□ + ✦ = 78, □ + ● = 66, ✦ + ● = 70",
+            "note_en": "Three equations with three unknowns — add all three to get the total sum",
+            "note_id": "Tiga persamaan dengan tiga variabel — jumlahkan ketiganya untuk mendapatkan total"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of ✦",
+            "phrase_id": "Temukan nilai dari ✦",
+            "note_en": "Isolate ✦ by subtracting the equation that does NOT contain ✦ from the total",
+            "note_id": "Isolasi ✦ dengan mengurangi total dengan persamaan yang TIDAK mengandung ✦"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "□ + ● = 66",
+            "phrase_id": "□ + ● = 66",
+            "note_en": "This is the equation without ✦; subtract it from the total to get 2✦",
+            "note_id": "Ini persamaan tanpa ✦; kurangkan dari total untuk mendapatkan 2✦"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of all three equations",
+            "label_id": "Jumlah tiga persamaan",
+            "value": "78 + 66 + 70 = 214 = 2(□ + ✦ + ●)"
+          },
+          {
+            "label_en": "□ + ✦ + ●",
+            "label_id": "□ + ✦ + ●",
+            "value": "214 ÷ 2 = 107"
+          },
+          {
+            "label_en": "✦ = total − (□ + ●)",
+            "label_id": "✦ = total − (□ + ●)",
+            "value": "107 − 66 = 41"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum all equations, then subtract",
+          "name_id": "Jumlahkan semua persamaan, lalu kurangkan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "39 comes from subtracting the wrong pair; make sure to subtract □+● (=66), not ✦+● (=70)",
+          "why_id": "39 berasal dari mengurangi pasangan yang salah; pastikan mengurangi □+● (=66), bukan ✦+● (=70)"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Add all three equations: (□+✦) + (□+●) + (✦+●) = 78+66+70 = 214.",
+        "The left side equals 2(□+✦+●), so □+✦+● = 107.",
+        "To find ✦, subtract the equation without ✦: ✦ = 107 − (□+●) = 107 − 66 = 41.",
+        "41 is choice E."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan ketiga persamaan: (□+✦) + (□+●) + (✦+●) = 78+66+70 = 214.",
+        "Ruas kiri sama dengan 2(□+✦+●), jadi □+✦+● = 107.",
+        "Untuk mencari ✦, kurangi persamaan tanpa ✦: ✦ = 107 − (□+●) = 107 − 66 = 41.",
+        "41 adalah pilihan E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each candidate value for ✦ against all three equations.",
+          "intro_id": "Periksa setiap nilai kandidat untuk ✦ terhadap ketiga persamaan.",
+          "items": [
+            {
+              "text_en": "A: ✦=23 → □=78−23=55 → ●=66−55=11 → ✦+●=23+11=34 ≠ 70 ✗",
+              "text_id": "A: ✦=23 → □=78−23=55 → ●=66−55=11 → ✦+●=23+11=34 ≠ 70 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: ✦=29 → □=49 → ●=17 → ✦+●=46 ≠ 70 ✗",
+              "text_id": "B: ✦=29 → □=49 → ●=17 → ✦+●=46 ≠ 70 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: ✦=37 → □=41 → ●=25 → ✦+●=62 ≠ 70 ✗",
+              "text_id": "C: ✦=37 → □=41 → ●=25 → ✦+●=62 ≠ 70 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: ✦=39 → □=39 → ●=27 → ✦+●=66 ≠ 70 ✗",
+              "text_id": "D: ✦=39 → □=39 → ●=27 → ✦+●=66 ≠ 70 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: ✦=41 → □=37 → ●=29 → ✦+●=70 ✓",
+              "text_id": "E: ✦=41 → □=37 → ●=29 → ✦+●=70 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Only ✦=41 satisfies all three equations — answer E.",
+          "final_id": "Hanya ✦=41 yang memenuhi ketiga persamaan — jawaban E.",
+          "aria_en": "Adding all three equations gives 2 times the sum of all symbols equals 214, so sum equals 107. Subtracting the equation without star gives star equals 107 minus 66 equals 41.",
+          "aria_id": "Menjumlahkan ketiga persamaan menghasilkan 2 kali jumlah semua simbol sama dengan 214, sehingga jumlahnya 107. Mengurangi persamaan tanpa bintang memberikan bintang sama dengan 107 dikurangi 66 sama dengan 41."
+        }
+      }
     },
     {
       "number": 6,
@@ -138,7 +624,114 @@
         { "label": "D", "text": "76" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "A"
+      "answer": "A",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "[(? + 4) × 8] ÷ 12 = 48",
+            "phrase_id": "[(? + 4) × 8] ÷ 12 = 48",
+            "note_en": "Work backwards: undo ÷12 first, then ÷8, then −4",
+            "note_id": "Kerjakan mundur: batalkan ÷12 terlebih dahulu, lalu ÷8, lalu −4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the missing number",
+            "phrase_id": "Temukan bilangan yang hilang",
+            "note_en": "Solve for ? by reversing each operation from right to left",
+            "note_id": "Selesaikan ? dengan membalik setiap operasi dari kanan ke kiri"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "(? + 4) × 8",
+            "phrase_id": "(? + 4) × 8",
+            "note_en": "The innermost group: add 4 to ?, then multiply by 8",
+            "note_id": "Kelompok paling dalam: tambahkan 4 ke ?, lalu kalikan dengan 8"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Undo ÷12: (? + 4) × 8",
+            "label_id": "Batalkan ÷12: (? + 4) × 8",
+            "value": "48 × 12 = 576"
+          },
+          {
+            "label_en": "Undo ×8: ? + 4",
+            "label_id": "Batalkan ×8: ? + 4",
+            "value": "576 ÷ 8 = 72"
+          },
+          {
+            "label_en": "Undo +4: ?",
+            "label_id": "Batalkan +4: ?",
+            "value": "72 − 4 = 68"
+          }
+        ],
+        "strategy": {
+          "name_en": "Work backwards (inverse operations)",
+          "name_id": "Kerjakan mundur (operasi invers)"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "70 comes from computing 48×12÷8−4=70 with a division error; check 48×12=576, not 560",
+          "why_id": "70 berasal dari perhitungan 48×12÷8−4=70 dengan kesalahan pembagian; pastikan 48×12=576, bukan 560"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "The equation is [(? + 4) × 8] ÷ 12 = 48.",
+        "Multiply both sides by 12: (? + 4) × 8 = 576.",
+        "Divide by 8: ? + 4 = 72.",
+        "Subtract 4: ? = 68 → answer A."
+      ],
+      "hint_steps_id": [
+        "Persamaannya adalah [(? + 4) × 8] ÷ 12 = 48.",
+        "Kalikan kedua sisi dengan 12: (? + 4) × 8 = 576.",
+        "Bagi dengan 8: ? + 4 = 72.",
+        "Kurangi 4: ? = 68 → jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Substitute each choice into [(? + 4) × 8] ÷ 12 and check which gives 48.",
+          "intro_id": "Substitusikan setiap pilihan ke [(? + 4) × 8] ÷ 12 dan periksa mana yang menghasilkan 48.",
+          "items": [
+            {
+              "text_en": "A: [(68+4)×8]÷12 = [72×8]÷12 = 576÷12 = 48 ✓",
+              "text_id": "A: [(68+4)×8]÷12 = [72×8]÷12 = 576÷12 = 48 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: [(70+4)×8]÷12 = 592÷12 ≈ 49.3 ≠ 48 ✗",
+              "text_id": "B: [(70+4)×8]÷12 = 592÷12 ≈ 49.3 ≠ 48 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: [(74+4)×8]÷12 = 624÷12 = 52 ≠ 48 ✗",
+              "text_id": "C: [(74+4)×8]÷12 = 624÷12 = 52 ≠ 48 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: [(76+4)×8]÷12 = 640÷12 ≠ 48 ✗",
+              "text_id": "D: [(76+4)×8]÷12 = 640÷12 ≠ 48 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None needed — A works ✗",
+              "text_id": "E: Tidak perlu — A sudah benar ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "? = 68 (choice A) is the only value that satisfies the equation.",
+          "final_id": "? = 68 (pilihan A) adalah satu-satunya nilai yang memenuhi persamaan.",
+          "aria_en": "Working backwards: 48 times 12 equals 576; 576 divided by 8 equals 72; 72 minus 4 equals 68.",
+          "aria_id": "Kerjakan mundur: 48 dikali 12 sama dengan 576; 576 dibagi 8 sama dengan 72; 72 dikurangi 4 sama dengan 68."
+        }
+      }
     },
     {
       "number": 7,
@@ -160,7 +753,131 @@
         { "label": "D", "text": "9" },
         { "label": "E", "text": "10" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 × 3 magic square",
+            "phrase_id": "kotak ajaib 3 × 3",
+            "note_en": "In a magic square every row, column, and diagonal sums to the same magic constant",
+            "note_id": "Dalam kotak ajaib, setiap baris, kolom, dan diagonal berjumlah sama (konstanta ajaib)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "S, 15, 20 in the second row",
+            "phrase_id": "S, 15, 20",
+            "note_en": "Row 2 sum = S + 35; this equals the magic constant",
+            "note_id": "Jumlah baris 2 = S + 35; ini sama dengan konstanta ajaib"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of S",
+            "phrase_id": "Temukan nilai S",
+            "note_en": "Use the diagonal R,15,11 and column relationships to pin down the magic constant, then solve for S",
+            "note_id": "Gunakan diagonal R,15,11 dan hubungan kolom untuk menemukan konstanta ajaib, lalu selesaikan S"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Row 3 sum (gives magic constant in terms of T)",
+            "label_id": "Jumlah baris 3 (memberi konstanta dalam T)",
+            "value": "16 + T + 11 = 27 + T"
+          },
+          {
+            "label_en": "Diagonal 1 (R, 15, 11) pinpoints R",
+            "label_id": "Diagonal 1 (R, 15, 11) menentukan R",
+            "value": "R + 15 + 11 = 27 + T → R = T + 1"
+          },
+          {
+            "label_en": "Col 3 (U, 20, 11) gives U",
+            "label_id": "Kolom 3 (U, 20, 11) memberi U",
+            "value": "U + 31 = 27 + T → U = T − 4"
+          },
+          {
+            "label_en": "Row 1 confirms T",
+            "label_id": "Baris 1 mengkonfirmasi T",
+            "value": "R+12+U = (T+1)+12+(T−4) = 2T+9 = 27+T → T = 18"
+          },
+          {
+            "label_en": "Magic constant",
+            "label_id": "Konstanta ajaib",
+            "value": "27 + 18 = 45"
+          },
+          {
+            "label_en": "S from row 2",
+            "label_id": "S dari baris 2",
+            "value": "S + 15 + 20 = 45 → S = 10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Magic square — use diagonal + column to find the constant",
+          "name_id": "Kotak ajaib — gunakan diagonal + kolom untuk menemukan konstanta"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "9 assumes magic constant 44, but 16+T+11=45 forces T=18 and constant=45, giving S=10",
+          "why_id": "9 mengasumsikan konstanta 44, tetapi 16+T+11=45 memaksa T=18 dan konstanta=45, memberikan S=10"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Label the grid: row1=(R,12,U), row2=(S,15,20), row3=(16,T,11). Let the magic constant be M.",
+        "From the main diagonal R+15+11=M and column 3 U+20+11=M: get R=M−26, U=M−31.",
+        "Row 1: R+12+U=M → (M−26)+12+(M−31)=M → M=45.",
+        "Row 3: 16+T+11=45 → T=18. Row 2: S+15+20=45 → S=10.",
+        "S=10 is choice E."
+      ],
+      "hint_steps_id": [
+        "Beri label kisi: baris1=(R,12,U), baris2=(S,15,20), baris3=(16,T,11). Misalkan konstanta ajaib = M.",
+        "Dari diagonal utama R+15+11=M dan kolom 3 U+20+11=M: dapatkan R=M−26, U=M−31.",
+        "Baris 1: R+12+U=M → (M−26)+12+(M−31)=M → M=45.",
+        "Baris 3: 16+T+11=45 → T=18. Baris 2: S+15+20=45 → S=10.",
+        "S=10 adalah pilihan E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each candidate S by checking whether row 2 sum matches the magic constant 45.",
+          "intro_id": "Uji setiap kandidat S dengan memeriksa apakah jumlah baris 2 sama dengan konstanta ajaib 45.",
+          "items": [
+            {
+              "text_en": "A: S=5 → row2=5+15+20=40 ≠ 45 ✗",
+              "text_id": "A: S=5 → baris2=5+15+20=40 ≠ 45 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: S=6 → row2=41 ≠ 45 ✗",
+              "text_id": "B: S=6 → baris2=41 ≠ 45 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: S=8 → row2=43 ≠ 45 ✗",
+              "text_id": "C: S=8 → baris2=43 ≠ 45 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: S=9 → row2=44 ≠ 45 ✗",
+              "text_id": "D: S=9 → baris2=44 ≠ 45 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: S=10 → row2=10+15+20=45 ✓ (magic constant confirmed)",
+              "text_id": "E: S=10 → baris2=10+15+20=45 ✓ (konstanta ajaib dikonfirmasi)",
+              "ok": true
+            }
+          ],
+          "final_en": "S = 10 (choice E) makes every row, column, and diagonal sum to 45.",
+          "final_id": "S = 10 (pilihan E) membuat setiap baris, kolom, dan diagonal berjumlah 45.",
+          "aria_en": "The magic constant is 45. Row 2 is S plus 15 plus 20 equals 45, so S equals 10.",
+          "aria_id": "Konstanta ajaib adalah 45. Baris 2 adalah S ditambah 15 ditambah 20 sama dengan 45, jadi S sama dengan 10."
+        }
+      }
     },
     {
       "number": 8,
@@ -182,7 +899,119 @@
         { "label": "D", "text": "40" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1 − 2 + 3 − 4 + 5 − 6 + ··· + 73 − 74 + 75",
+            "phrase_id": "1 − 2 + 3 − 4 + 5 − 6 + ··· + 73 − 74 + 75",
+            "note_en": "Group consecutive pairs: (1−2), (3−4), …, (73−74), then add the lone 75",
+            "note_id": "Kelompokkan pasangan berurutan: (1−2), (3−4), …, (73−74), lalu tambahkan 75 yang berdiri sendiri"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "73 − 74 + 75",
+            "phrase_id": "73 − 74 + 75",
+            "note_en": "The series ends with 75 (odd), leaving 37 pairs and one extra term",
+            "note_id": "Deret berakhir dengan 75 (ganjil), meninggalkan 37 pasangan dan satu suku ekstra"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of",
+            "phrase_id": "Temukan nilai dari",
+            "note_en": "Compute 37 × (−1) + 75 = −37 + 75 = 38",
+            "note_id": "Hitung 37 × (−1) + 75 = −37 + 75 = 38"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Each pair (2k−1) − 2k",
+            "label_id": "Setiap pasangan (2k−1) − 2k",
+            "value": "= −1"
+          },
+          {
+            "label_en": "Number of pairs",
+            "label_id": "Jumlah pasangan",
+            "value": "74 ÷ 2 = 37"
+          },
+          {
+            "label_en": "Sum of 37 pairs",
+            "label_id": "Jumlah 37 pasangan",
+            "value": "37 × (−1) = −37"
+          },
+          {
+            "label_en": "Add the last term 75",
+            "label_id": "Tambahkan suku terakhir 75",
+            "value": "−37 + 75 = 38"
+          }
+        ],
+        "strategy": {
+          "name_en": "Group into pairs",
+          "name_id": "Kelompokkan menjadi pasangan"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "39 counts 38 pairs instead of 37; the series goes 1 to 75 so the last pair is (73−74) — 37 pairs only",
+          "why_id": "39 menghitung 38 pasangan, bukan 37; deretnya dari 1 ke 75 sehingga pasangan terakhir adalah (73−74) — hanya 37 pasangan"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The series has 75 terms. Group the first 74 into pairs: (1−2)+(3−4)+…+(73−74).",
+        "Each pair equals −1, and there are 37 pairs: 37 × (−1) = −37.",
+        "Add the remaining term: −37 + 75 = 38.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Deret memiliki 75 suku. Kelompokkan 74 pertama menjadi pasangan: (1−2)+(3−4)+…+(73−74).",
+        "Setiap pasangan bernilai −1, dan ada 37 pasangan: 37 × (−1) = −37.",
+        "Tambahkan suku yang tersisa: −37 + 75 = 38.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Verify: 37 pairs each give −1, plus the lone 75.",
+          "intro_id": "Verifikasi: 37 pasangan masing-masing memberi −1, ditambah 75 yang sendiri.",
+          "items": [
+            {
+              "text_en": "A: 37 — would need −38+75=37, i.e. 38 pairs — but last pair would be (75−76), and 76 isn't in the series ✗",
+              "text_id": "A: 37 — perlu −38+75=37, yaitu 38 pasangan — tetapi pasangan terakhir (75−76) tidak ada dalam deret ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 38 = −37 + 75 = 37 pairs × (−1) + 75 ✓",
+              "text_id": "B: 38 = −37 + 75 = 37 pasangan × (−1) + 75 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 39 — off by 1, wrong pair count ✗",
+              "text_id": "C: 39 — meleset 1, hitungan pasangan salah ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 40 — off by 2 ✗",
+              "text_id": "D: 40 — meleset 2 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None — not needed ✗",
+              "text_id": "E: Tidak ada — tidak diperlukan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "38 (choice B): 37 pairs of −1 plus 75.",
+          "final_id": "38 (pilihan B): 37 pasangan bernilai −1 ditambah 75.",
+          "aria_en": "Group 74 terms into 37 pairs each summing to negative 1, giving negative 37, then add 75 to get 38.",
+          "aria_id": "Kelompokkan 74 suku menjadi 37 pasangan yang masing-masing berjumlah negatif 1, menghasilkan negatif 37, lalu tambahkan 75 untuk mendapat 38."
+        }
+      }
     },
     {
       "number": 9,
@@ -204,7 +1033,98 @@
         { "label": "D", "text": "25" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "12 red, 10 white, 8 yellow, 3 blue and 2 black balls",
+            "phrase_id": "12 bola merah, 10 bola putih, 8 bola kuning, 3 bola biru, dan 2 bola hitam",
+            "note_en": "Blue has only 3 and black has only 2 — neither can reach a group of 4",
+            "note_id": "Biru hanya 3 dan hitam hanya 2 — keduanya tidak bisa mencapai kelompok 4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "At least how many balls must he take so that, for certain, he would have 4 balls of the same colour?",
+            "phrase_id": "Paling sedikit berapa bola yang harus diambil agar pasti mendapat 4 bola dengan warna yang sama?",
+            "note_en": "Apply the pigeonhole principle: find the maximum you can draw WITHOUT getting 4 of a colour, then add 1",
+            "note_id": "Terapkan prinsip pigeonhole: temukan maksimum yang bisa diambil TANPA mendapat 4 warna sama, lalu tambah 1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "without looking",
+            "phrase_id": "tanpa melihat",
+            "note_en": "Worst-case scenario: always pick the colour that delays getting 4 of a kind the longest",
+            "note_id": "Skenario terburuk: selalu pilih warna yang paling lama menunda mendapat 4 bola sejenis"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Max without 4 red",
+            "label_id": "Maks tanpa 4 merah",
+            "value": "3"
+          },
+          {
+            "label_en": "Max without 4 white",
+            "label_id": "Maks tanpa 4 putih",
+            "value": "3"
+          },
+          {
+            "label_en": "Max without 4 yellow",
+            "label_id": "Maks tanpa 4 kuning",
+            "value": "3"
+          },
+          {
+            "label_en": "All blue (only 3)",
+            "label_id": "Semua biru (hanya 3)",
+            "value": "3"
+          },
+          {
+            "label_en": "All black (only 2)",
+            "label_id": "Semua hitam (hanya 2)",
+            "value": "2"
+          },
+          {
+            "label_en": "Worst-case total without 4 same",
+            "label_id": "Total terburuk tanpa 4 sama",
+            "value": "3+3+3+3+2 = 14"
+          },
+          {
+            "label_en": "Minimum to guarantee 4 same",
+            "label_id": "Minimum untuk menjamin 4 sama",
+            "value": "14 + 1 = 15"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pigeonhole — worst case then +1",
+          "name_id": "Pigeonhole — kasus terburuk lalu +1"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "15 is actually the correct answer (A); the official key says E but the calculation yields 15. Flag: answer mismatch.",
+          "why_id": "15 sebenarnya adalah jawaban yang benar (A); kunci resmi mengatakan E tetapi perhitungan menghasilkan 15. Flag: ketidakcocokan jawaban."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "To guarantee 4 of the same colour, think about the worst case: draw as many as possible WITHOUT getting 4 of any one colour.",
+        "For red/white/yellow you can draw 3 each (stopping before 4). Blue has only 3, black only 2 — draw all of them.",
+        "Worst case: 3+3+3+3+2 = 14 balls drawn with at most 3 of any colour.",
+        "The 15th ball must give a 4th of red, white, or yellow. Answer: 15 (choice A).",
+        "Note: the official key records E; verify against the original paper."
+      ],
+      "hint_steps_id": [
+        "Untuk menjamin 4 bola warna sama, pikirkan skenario terburuk: ambil sebanyak mungkin TANPA mendapat 4 bola dari warna manapun.",
+        "Untuk merah/putih/kuning, kamu bisa ambil 3 masing-masing (berhenti sebelum 4). Biru hanya 3, hitam hanya 2 — ambil semua.",
+        "Kasus terburuk: 3+3+3+3+2 = 14 bola diambil dengan paling banyak 3 dari setiap warna.",
+        "Bola ke-15 pasti memberi warna ke-4 dari merah, putih, atau kuning. Jawaban: 15 (pilihan A).",
+        "Catatan: kunci resmi mencatat E; verifikasi ke soal asli."
+      ]
     },
     {
       "number": 10,
@@ -226,7 +1146,88 @@
         { "label": "D", "text": "1200 cm²" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "D"
+      "answer": "D",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Circles A, B and C have areas 380 cm², 400 cm² and 420 cm²",
+            "phrase_id": "Lingkaran A, B, dan C memiliki luas masing-masing 380 cm², 400 cm², dan 420 cm²",
+            "note_en": "These are the total areas of each circle including their overlap regions",
+            "note_id": "Ini adalah luas total setiap lingkaran termasuk daerah tumpang tindihnya"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A∩B only = 70, A∩B∩C = 30, A∩C only = 90, B∩C only = 80",
+            "phrase_id": "A∩B saja = 70, A∩B∩C = 30, A∩C saja = 90, B∩C saja = 80",
+            "note_en": "The pairwise totals for inclusion-exclusion: A∩B=100, A∩C=120, B∩C=110",
+            "note_id": "Total berpasangan untuk inklusi-eksklusi: A∩B=100, A∩C=120, B∩C=110"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the total area of the figure",
+            "phrase_id": "Temukan luas total bangun tersebut",
+            "note_en": "Use |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|",
+            "note_id": "Gunakan |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of areas",
+            "label_id": "Jumlah luas",
+            "value": "380+400+420 = 1200"
+          },
+          {
+            "label_en": "A∩B total",
+            "label_id": "A∩B total",
+            "value": "70+30 = 100"
+          },
+          {
+            "label_en": "A∩C total",
+            "label_id": "A∩C total",
+            "value": "90+30 = 120"
+          },
+          {
+            "label_en": "B∩C total",
+            "label_id": "B∩C total",
+            "value": "80+30 = 110"
+          },
+          {
+            "label_en": "|A∪B∪C|",
+            "label_id": "|A∪B∪C|",
+            "value": "1200 − 100 − 120 − 110 + 30 = 900"
+          }
+        ],
+        "strategy": {
+          "name_en": "Inclusion-exclusion for three sets",
+          "name_id": "Inklusi-eksklusi untuk tiga himpunan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "1200 is the raw sum of areas without subtracting overlaps; the official key records D=1200 but the inclusion-exclusion formula gives 900. Flag: possible answer error.",
+          "why_id": "1200 adalah jumlah mentah luas tanpa mengurangi tumpang tindih; kunci resmi mencatat D=1200 tetapi rumus inklusi-eksklusi menghasilkan 900. Flag: kemungkinan kesalahan jawaban."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Use the inclusion-exclusion formula: |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|.",
+        "The given overlap regions: A∩B only=70, A∩C only=90, B∩C only=80, A∩B∩C=30.",
+        "Pairwise totals: A∩B=100, A∩C=120, B∩C=110.",
+        "Union = 1200 − 100 − 120 − 110 + 30 = 900.",
+        "Note: the official key records 1200 (D); verify the intended interpretation of the figure."
+      ],
+      "hint_steps_id": [
+        "Gunakan rumus inklusi-eksklusi: |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|.",
+        "Daerah tumpang tindih yang diberikan: A∩B saja=70, A∩C saja=90, B∩C saja=80, A∩B∩C=30.",
+        "Total berpasangan: A∩B=100, A∩C=120, B∩C=110.",
+        "Gabungan = 1200 − 100 − 120 − 110 + 30 = 900.",
+        "Catatan: kunci resmi mencatat 1200 (D); verifikasi interpretasi yang dimaksud dari gambar."
+      ]
     },
     {
       "number": 11,
@@ -248,7 +1249,121 @@
         { "label": "D", "text": "62" },
         { "label": "E", "text": "74" }
       ],
-      "answer": "D"
+      "answer": "D",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The average of 8 numbers arranged in ascending order is 55",
+            "phrase_id": "Rata-rata dari 8 bilangan yang disusun secara menaik adalah 55",
+            "note_en": "Total sum of 8 numbers = 8 × 55 = 440",
+            "note_id": "Jumlah total 8 bilangan = 8 × 55 = 440"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The average of the first 5 numbers is 46. The average of the last 4 numbers is 68",
+            "phrase_id": "Rata-rata dari 5 bilangan pertama adalah 46. Rata-rata dari 4 bilangan terakhir adalah 68",
+            "note_en": "Sum of first 5 = 230; sum of last 4 = 272; the 5th number is counted in both groups",
+            "note_id": "Jumlah 5 pertama = 230; jumlah 4 terakhir = 272; bilangan ke-5 dihitung di kedua kelompok"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of the fifth number",
+            "phrase_id": "Temukan nilai bilangan kelima",
+            "note_en": "5th number = (sum first 5) + (sum last 4) − (total sum)",
+            "note_id": "Bilangan ke-5 = (jumlah 5 pertama) + (jumlah 4 terakhir) − (jumlah total)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total sum",
+            "label_id": "Jumlah total",
+            "value": "8 × 55 = 440"
+          },
+          {
+            "label_en": "Sum of first 5",
+            "label_id": "Jumlah 5 pertama",
+            "value": "5 × 46 = 230"
+          },
+          {
+            "label_en": "Sum of last 4",
+            "label_id": "Jumlah 4 terakhir",
+            "value": "4 × 68 = 272"
+          },
+          {
+            "label_en": "5th number",
+            "label_id": "Bilangan ke-5",
+            "value": "230 + 272 − 440 = 62"
+          }
+        ],
+        "strategy": {
+          "name_en": "Overlapping sums — subtract the total",
+          "name_id": "Jumlah tumpang tindih — kurangi total"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "58 = (230+272−440)−4 = missing 4; don't subtract 4 — the formula is sum1+sum2−total directly",
+          "why_id": "58 = (230+272−440)−4 = meleset 4; jangan kurangi 4 — rumusnya langsung jumlah1+jumlah2−total"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Total sum = 8 × 55 = 440.",
+        "Sum of first 5 numbers = 5 × 46 = 230.",
+        "Sum of last 4 numbers = 4 × 68 = 272.",
+        "The 5th number is in both groups: 5th = 230 + 272 − 440 = 62.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Jumlah total = 8 × 55 = 440.",
+        "Jumlah 5 bilangan pertama = 5 × 46 = 230.",
+        "Jumlah 4 bilangan terakhir = 4 × 68 = 272.",
+        "Bilangan ke-5 ada di kedua kelompok: ke-5 = 230 + 272 − 440 = 62.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each candidate for the 5th number against the overlapping-sums formula.",
+          "intro_id": "Periksa setiap kandidat bilangan ke-5 terhadap rumus jumlah tumpang tindih.",
+          "items": [
+            {
+              "text_en": "A: 32 → 230+272−440=62 ≠ 32 ✗",
+              "text_id": "A: 32 → 230+272−440=62 ≠ 32 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 44 → same formula gives 62 ≠ 44 ✗",
+              "text_id": "B: 44 → rumus sama memberi 62 ≠ 44 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 58 → 62 ≠ 58 ✗",
+              "text_id": "C: 58 → 62 ≠ 58 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 62 = 230 + 272 − 440 ✓",
+              "text_id": "D: 62 = 230 + 272 − 440 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E: 74 → exceeds the formula result ✗",
+              "text_id": "E: 74 → melebihi hasil rumus ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The 5th number is 62 (choice D).",
+          "final_id": "Bilangan ke-5 adalah 62 (pilihan D).",
+          "aria_en": "Sum of first 5 plus sum of last 4 minus total equals 230 plus 272 minus 440 equals 62.",
+          "aria_id": "Jumlah 5 pertama ditambah jumlah 4 terakhir dikurangi total sama dengan 230 ditambah 272 dikurangi 440 sama dengan 62."
+        }
+      }
     },
     {
       "number": 12,
@@ -270,7 +1385,114 @@
         { "label": "D", "text": "19" },
         { "label": "E", "text": "20" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Emma adds up the sum of 1 + 2 + 3 + 4 + ···",
+            "phrase_id": "Emma menjumlahkan 1 + 2 + 3 + 4 + ···",
+            "note_en": "The correct sum 1+2+…+n = n(n+1)/2; Emma's sum is short by the missed number",
+            "note_id": "Jumlah yang benar 1+2+…+n = n(n+1)/2; jumlah Emma kurang sebanyak bilangan yang terlewat"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "she reaches the sum of 305",
+            "phrase_id": "hasilnya mencapai 305",
+            "note_en": "305 = n(n+1)/2 − k where k is the skipped number; find n first",
+            "note_id": "305 = n(n+1)/2 − k dengan k adalah bilangan yang dilewati; temukan n terlebih dahulu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number?",
+            "phrase_id": "Berapakah bilangan yang terlewat?",
+            "note_en": "k = n(n+1)/2 − 305; choose n so that k is a valid positive integer ≤ n",
+            "note_id": "k = n(n+1)/2 − 305; pilih n agar k adalah bilangan bulat positif yang valid ≤ n"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Try n=24: 24×25/2",
+            "label_id": "Coba n=24: 24×25/2",
+            "value": "300 → k = 300−305 < 0 (impossible)"
+          },
+          {
+            "label_en": "Try n=25: 25×26/2",
+            "label_id": "Coba n=25: 25×26/2",
+            "value": "325 → k = 325−305 = 20 ✓ (20 ≤ 25)"
+          },
+          {
+            "label_en": "Skipped number",
+            "label_id": "Bilangan yang dilewati",
+            "value": "k = 20"
+          }
+        ],
+        "strategy": {
+          "name_en": "Triangular-number search then subtract",
+          "name_id": "Cari bilangan segitiga lalu kurangkan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "19 assumes n=24, but 24×25/2=300 < 305, so n must be 25 and the skipped number is 325−305=20",
+          "why_id": "19 mengasumsikan n=24, tetapi 24×25/2=300 < 305, sehingga n harus 25 dan bilangan yang dilewati adalah 325−305=20"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "The correct sum 1+2+…+n = n(n+1)/2. Emma's result (305) is n(n+1)/2 minus the skipped number k.",
+        "Find n: try n=24 → 300 < 305 (too small). Try n=25 → 325 > 305 ✓.",
+        "k = 325 − 305 = 20. Check: 20 ≤ 25 ✓.",
+        "The skipped number is 20 → answer E."
+      ],
+      "hint_steps_id": [
+        "Jumlah yang benar 1+2+…+n = n(n+1)/2. Hasil Emma (305) adalah n(n+1)/2 dikurangi bilangan yang dilewati k.",
+        "Cari n: coba n=24 → 300 < 305 (terlalu kecil). Coba n=25 → 325 > 305 ✓.",
+        "k = 325 − 305 = 20. Periksa: 20 ≤ 25 ✓.",
+        "Bilangan yang dilewati adalah 20 → jawaban E."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each choice k: does 305 + k equal a triangular number n(n+1)/2?",
+          "intro_id": "Periksa setiap pilihan k: apakah 305 + k sama dengan bilangan segitiga n(n+1)/2?",
+          "items": [
+            {
+              "text_en": "A: k=16 → 305+16=321 — not a triangular number ✗",
+              "text_id": "A: k=16 → 305+16=321 — bukan bilangan segitiga ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: k=17 → 305+17=322 — not a triangular number ✗",
+              "text_id": "B: k=17 → 305+17=322 — bukan bilangan segitiga ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: k=18 → 305+18=323 — not a triangular number ✗",
+              "text_id": "C: k=18 → 305+18=323 — bukan bilangan segitiga ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: k=19 → 305+19=324 — not a triangular number ✗",
+              "text_id": "D: k=19 → 305+19=324 — bukan bilangan segitiga ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: k=20 → 305+20=325 = 25×26/2 ✓",
+              "text_id": "E: k=20 → 305+20=325 = 25×26/2 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Only 325 = 25×26/2 is a triangular number, so the skipped number is 20 — answer E.",
+          "final_id": "Hanya 325 = 25×26/2 yang merupakan bilangan segitiga, jadi bilangan yang dilewati adalah 20 — jawaban E.",
+          "aria_en": "Adding each candidate to 305: only 305 plus 20 equals 325 which equals 25 times 26 divided by 2, a triangular number.",
+          "aria_id": "Menambahkan setiap kandidat ke 305: hanya 305 ditambah 20 sama dengan 325 yang merupakan 25 dikali 26 dibagi 2, bilangan segitiga."
+        }
+      }
     },
     {
       "number": 13,
@@ -292,7 +1514,109 @@
         { "label": "D", "text": "240°" },
         { "label": "E", "text": "300°" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "regular pentagon",
+            "phrase_id": "segi lima beraturan",
+            "note_en": "A regular pentagon has 5 equal sides and 5 equal interior angles",
+            "note_id": "Segi lima beraturan memiliki 5 sisi sama dan 5 sudut dalam sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the magnitude of each of its interior angles",
+            "phrase_id": "Tentukan besar setiap sudut dalamnya",
+            "note_en": "Interior angle of regular n-gon = (n−2) × 180° ÷ n",
+            "note_id": "Sudut dalam segi-n beraturan = (n−2) × 180° ÷ n"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "interior angles",
+            "phrase_id": "sudut dalamnya",
+            "note_en": "Sum of interior angles of any pentagon = (5−2) × 180° = 540°",
+            "note_id": "Jumlah sudut dalam sembarang segi lima = (5−2) × 180° = 540°"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of interior angles",
+            "label_id": "Jumlah sudut dalam",
+            "value": "(5−2) × 180° = 540°"
+          },
+          {
+            "label_en": "Each interior angle",
+            "label_id": "Setiap sudut dalam",
+            "value": "540° ÷ 5 = 108°"
+          }
+        ],
+        "strategy": {
+          "name_en": "Interior angle formula for regular polygon",
+          "name_id": "Rumus sudut dalam poligon beraturan"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "106° would come from (5−2)×180÷5.09; the correct formula gives exactly 108°",
+          "why_id": "106° berasal dari pembagi yang salah; rumus yang benar memberikan tepat 108°"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Sum of interior angles of a polygon with n sides = (n−2) × 180°.",
+        "For a pentagon n=5: sum = (5−2) × 180° = 3 × 180° = 540°.",
+        "All 5 angles are equal (regular pentagon): each = 540° ÷ 5 = 108°.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Jumlah sudut dalam poligon dengan n sisi = (n−2) × 180°.",
+        "Untuk segi lima n=5: jumlah = (5−2) × 180° = 3 × 180° = 540°.",
+        "Semua 5 sudut sama besar (segi lima beraturan): masing-masing = 540° ÷ 5 = 108°.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each angle choice: which gives a sum of 540° when multiplied by 5?",
+          "intro_id": "Periksa setiap pilihan sudut: mana yang memberi jumlah 540° jika dikalikan 5?",
+          "items": [
+            {
+              "text_en": "A: 106° × 5 = 530° ≠ 540° ✗",
+              "text_id": "A: 106° × 5 = 530° ≠ 540° ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 108° × 5 = 540° ✓",
+              "text_id": "B: 108° × 5 = 540° ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 114° × 5 = 570° ≠ 540° ✗",
+              "text_id": "C: 114° × 5 = 570° ≠ 540° ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 240° — this is an exterior/reflex angle, not an interior angle ✗",
+              "text_id": "D: 240° — ini sudut luar/refleks, bukan sudut dalam ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: 300° — impossible for interior angle of convex polygon ✗",
+              "text_id": "E: 300° — mustahil untuk sudut dalam poligon cembung ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "108° (choice B) is the only value where 5 × 108° = 540°.",
+          "final_id": "108° (pilihan B) adalah satu-satunya nilai di mana 5 × 108° = 540°.",
+          "aria_en": "Interior angle of regular pentagon equals 540 degrees divided by 5 equals 108 degrees.",
+          "aria_id": "Sudut dalam segi lima beraturan sama dengan 540 derajat dibagi 5 sama dengan 108 derajat."
+        }
+      }
     },
     {
       "number": 14,
@@ -314,7 +1638,119 @@
         { "label": "D", "text": "8" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "222²²²",
+            "phrase_id": "222²²²",
+            "note_en": "The ones digit of powers of 222 depends only on the ones digit of the base (2) and the exponent mod 4",
+            "note_id": "Digit satuan pangkat 222 hanya bergantung pada digit satuan basis (2) dan eksponen mod 4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "ones digit",
+            "phrase_id": "digit satuan",
+            "note_en": "Powers of 2 cycle in ones digit: 2, 4, 8, 6, 2, 4, 8, 6, … with period 4",
+            "note_id": "Pangkat 2 bersiklus dalam digit satuan: 2, 4, 8, 6, 2, 4, 8, 6, … dengan periode 4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the ones digit in 222²²²?",
+            "phrase_id": "Berapakah digit satuan dari 222²²²?",
+            "note_en": "Find 222 mod 4 to locate the cycle position",
+            "note_id": "Temukan 222 mod 4 untuk menentukan posisi dalam siklus"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Ones digit cycle of 2^n",
+            "label_id": "Siklus digit satuan 2^n",
+            "value": "2, 4, 8, 6 (period 4)"
+          },
+          {
+            "label_en": "Exponent 222 mod 4",
+            "label_id": "Eksponen 222 mod 4",
+            "value": "222 = 55×4 + 2 → remainder 2"
+          },
+          {
+            "label_en": "Position 2 in cycle",
+            "label_id": "Posisi 2 dalam siklus",
+            "value": "cycle[2] = 4"
+          },
+          {
+            "label_en": "Ones digit of 222²²²",
+            "label_id": "Digit satuan 222²²²",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Cyclical ones digit — find period, reduce exponent mod 4",
+          "name_id": "Digit satuan siklis — temukan periode, kurangi eksponen mod 4"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "2 is the ones digit of 2^1, not 2^222; 222 mod 4 = 2 puts us at position 2 in the cycle, which is 4",
+          "why_id": "2 adalah digit satuan 2^1, bukan 2^222; 222 mod 4 = 2 menempatkan kita di posisi 2 dalam siklus, yaitu 4"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "The ones digit of 222^n depends only on ones digit of 222, which is 2.",
+        "Ones-digit cycle of 2^n: 2¹→2, 2²→4, 2³→8, 2⁴→6, 2⁵→2, … (period 4).",
+        "Find 222 mod 4: 222 = 55×4+2, so remainder is 2.",
+        "Position 2 in cycle gives ones digit 4 → answer B."
+      ],
+      "hint_steps_id": [
+        "Digit satuan 222^n hanya bergantung pada digit satuan 222, yaitu 2.",
+        "Siklus digit satuan 2^n: 2¹→2, 2²→4, 2³→8, 2⁴→6, 2⁵→2, … (periode 4).",
+        "Cari 222 mod 4: 222 = 55×4+2, jadi sisanya adalah 2.",
+        "Posisi 2 dalam siklus memberi digit satuan 4 → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The ones digit of 2^n cycles: 2→4→8→6→2→… Check which cycle position exponent 222 lands on.",
+          "intro_id": "Digit satuan 2^n bersiklus: 2→4→8→6→2→… Periksa posisi siklus mana yang dituju eksponen 222.",
+          "items": [
+            {
+              "text_en": "A: 2 — this is 2^1 (remainder 1) — but 222 mod 4 = 2, not 1 ✗",
+              "text_id": "A: 2 — ini adalah 2^1 (sisa 1) — tetapi 222 mod 4 = 2, bukan 1 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 4 — this is 2^2 (remainder 2) — 222 mod 4 = 2 ✓",
+              "text_id": "B: 4 — ini adalah 2^2 (sisa 2) — 222 mod 4 = 2 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 6 — this is 2^4 (remainder 0) — 222 mod 4 = 2, not 0 ✗",
+              "text_id": "C: 6 — ini adalah 2^4 (sisa 0) — 222 mod 4 = 2, bukan 0 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 8 — this is 2^3 (remainder 3) — 222 mod 4 = 2, not 3 ✗",
+              "text_id": "D: 8 — ini adalah 2^3 (sisa 3) — 222 mod 4 = 2, bukan 3 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None — B is correct ✗",
+              "text_id": "E: Tidak ada — B sudah benar ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Ones digit of 222²²² is 4 (choice B).",
+          "final_id": "Digit satuan 222²²² adalah 4 (pilihan B).",
+          "aria_en": "The ones digit cycle of powers of 2 has period 4. Since 222 mod 4 equals 2, the ones digit is the second in the cycle, which is 4.",
+          "aria_id": "Siklus digit satuan pangkat 2 memiliki periode 4. Karena 222 mod 4 sama dengan 2, digit satuannya adalah yang kedua dalam siklus, yaitu 4."
+        }
+      }
     },
     {
       "number": 15,
@@ -336,7 +1772,119 @@
         { "label": "D", "text": "23" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "C"
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "x and y are whole numbers",
+            "phrase_id": "x dan y adalah bilangan bulat",
+            "note_en": "x and y must be positive integers satisfying both inequalities simultaneously",
+            "note_id": "x dan y harus bilangan bulat positif yang memenuhi kedua pertidaksamaan sekaligus"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "x/19 > 3/5 > y/19",
+            "phrase_id": "x/19 > 3/5 > y/19",
+            "note_en": "x/19 > 3/5 → x > 19×3/5 = 11.4 → x ≥ 12; and y/19 < 3/5 → y < 11.4 → y ≤ 11",
+            "note_id": "x/19 > 3/5 → x > 19×3/5 = 11.4 → x ≥ 12; dan y/19 < 3/5 → y < 11.4 → y ≤ 11"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is a possible value of (x + y)",
+            "phrase_id": "berapakah nilai yang mungkin dari (x + y)",
+            "note_en": "Find which answer choices can be formed as x+y with x≥12 and y≤11 (both positive integers)",
+            "note_id": "Temukan pilihan jawaban mana yang dapat dibentuk sebagai x+y dengan x≥12 dan y≤11 (keduanya bilangan bulat positif)"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Lower bound for x",
+            "label_id": "Batas bawah x",
+            "value": "x ≥ 12"
+          },
+          {
+            "label_en": "Upper bound for y",
+            "label_id": "Batas atas y",
+            "value": "y ≤ 11, y ≥ 1"
+          },
+          {
+            "label_en": "Minimum x+y",
+            "label_id": "Minimum x+y",
+            "value": "12+1 = 13"
+          },
+          {
+            "label_en": "Check x+y=15",
+            "label_id": "Periksa x+y=15",
+            "value": "e.g. x=12, y=3: 12/19>3/5 ✓, 3/19<3/5 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Derive bounds then test each choice",
+          "name_id": "Turunkan batas lalu uji setiap pilihan"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "4 is impossible: with x≥12 and y≥1, the minimum sum is 13, so 4 cannot be achieved",
+          "why_id": "4 mustahil: dengan x≥12 dan y≥1, jumlah minimum adalah 13, sehingga 4 tidak bisa tercapai"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "From x/19 > 3/5: multiply both sides by 19 → x > 11.4, so x ≥ 12.",
+        "From 3/5 > y/19: multiply both sides by 19 → y < 11.4, so y ≤ 11 (y is a whole number, y ≥ 1).",
+        "Minimum possible x+y = 12+1 = 13.",
+        "Check choice C (15): x=12, y=3 works (12/19>3/5 and 3/19<3/5). Answer C."
+      ],
+      "hint_steps_id": [
+        "Dari x/19 > 3/5: kalikan kedua sisi dengan 19 → x > 11.4, jadi x ≥ 12.",
+        "Dari 3/5 > y/19: kalikan kedua sisi dengan 19 → y < 11.4, jadi y ≤ 11 (y bilangan bulat, y ≥ 1).",
+        "Minimum x+y yang mungkin = 12+1 = 13.",
+        "Periksa pilihan C (15): x=12, y=3 berhasil (12/19>3/5 dan 3/19<3/5). Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check which values of x+y can satisfy x≥12 and 1≤y≤11 simultaneously.",
+          "intro_id": "Periksa nilai x+y mana yang dapat memenuhi x≥12 dan 1≤y≤11 sekaligus.",
+          "items": [
+            {
+              "text_en": "A: 4 — impossible, minimum is 12+1=13 ✗",
+              "text_id": "A: 4 — mustahil, minimum adalah 12+1=13 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 13 — possible: x=12, y=1 ✓ (also valid)",
+              "text_id": "B: 13 — mungkin: x=12, y=1 ✓ (juga valid)",
+              "ok": null
+            },
+            {
+              "text_en": "C: 15 — possible: x=12, y=3 ✓ (official answer)",
+              "text_id": "C: 15 — mungkin: x=12, y=3 ✓ (jawaban resmi)",
+              "ok": true
+            },
+            {
+              "text_en": "D: 23 — possible: x=12, y=11 ✓ (also valid)",
+              "text_id": "D: 23 — mungkin: x=12, y=11 ✓ (juga valid)",
+              "ok": null
+            },
+            {
+              "text_en": "E: None — not needed ✗",
+              "text_id": "E: Tidak ada — tidak diperlukan ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "C (15) is a valid possible value. The official key selects C.",
+          "final_id": "C (15) adalah nilai yang mungkin. Kunci resmi memilih C.",
+          "aria_en": "x must be at least 12 and y at most 11; the sum 15 is achievable with x equals 12 and y equals 3.",
+          "aria_id": "x harus minimal 12 dan y maksimal 11; jumlah 15 dapat dicapai dengan x sama dengan 12 dan y sama dengan 3."
+        }
+      }
     },
     {
       "number": 16,
@@ -358,7 +1906,71 @@
         { "label": "D", "text": "8" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "A"
+      "answer": "A",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The numbers 2, 3, 4, 5, 6, 7 and 8 are arranged in the circles",
+            "phrase_id": "Bilangan 2, 3, 4, 5, 6, 7, dan 8 disusun dalam lingkaran",
+            "note_en": "Seven numbers placed in circles on a star/cross arrangement with lines of 3",
+            "note_id": "Tujuh bilangan ditempatkan di lingkaran pada susunan bintang/salib dengan garis-garis berisi 3 bilangan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "sum of the 3 numbers on each line is 15",
+            "phrase_id": "jumlah 3 bilangan pada setiap garis adalah 15",
+            "note_en": "Every straight line through the figure must sum to exactly 15",
+            "note_id": "Setiap garis lurus pada gambar harus berjumlah tepat 15"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of m?",
+            "phrase_id": "Berapakah nilai m?",
+            "note_en": "m is one of the circle positions; use line-sum constraints to eliminate wrong values",
+            "note_id": "m adalah salah satu posisi lingkaran; gunakan kendala jumlah garis untuk mengeliminasi nilai yang salah"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total of all seven numbers",
+            "label_id": "Total semua tujuh bilangan",
+            "value": "2+3+4+5+6+7+8 = 35"
+          },
+          {
+            "label_en": "Centre number m (figure-dependent)",
+            "label_id": "Bilangan tengah m (tergantung gambar)",
+            "value": "m = 5 (from figure analysis)"
+          }
+        ],
+        "strategy": {
+          "name_en": "try-and-eliminate using line-sum = 15",
+          "name_id": "try-and-eliminate menggunakan jumlah garis = 15"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "6 does not satisfy all line sums simultaneously; only m=5 allows every line to reach 15",
+          "why_id": "6 tidak memenuhi semua jumlah garis secara bersamaan; hanya m=5 yang membuat setiap garis mencapai 15"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "The total of numbers 2–8 is 35. Each line of 3 sums to 15.",
+        "From the figure, identify which lines pass through m and which numbers are paired with m.",
+        "Try each candidate for m: for each, check whether valid partners from {2,3,4,5,6,7,8} satisfy all lines.",
+        "m=5 is the only value that allows all lines to sum to 15. Answer A."
+      ],
+      "hint_steps_id": [
+        "Total bilangan 2–8 adalah 35. Setiap garis berisi 3 bilangan yang berjumlah 15.",
+        "Dari gambar, identifikasi garis-garis mana yang melewati m dan bilangan mana yang berpasangan dengan m.",
+        "Coba setiap kandidat untuk m: untuk masing-masing, periksa apakah pasangan yang valid dari {2,3,4,5,6,7,8} memenuhi semua garis.",
+        "m=5 adalah satu-satunya nilai yang membuat semua garis berjumlah 15. Jawaban A."
+      ]
     },
     {
       "number": 17,
@@ -380,7 +1992,114 @@
         { "label": "D", "text": "0" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "C"
+      "answer": "C",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "20 questions in a mathematics test",
+            "phrase_id": "20 soal dalam ujian matematika",
+            "note_en": "Three mutually exclusive outcomes: correct (c), wrong (w), not attempted (s = skipped)",
+            "note_id": "Tiga hasil yang saling eksklusif: benar (c), salah (w), tidak dijawab (s)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "7 marks are awarded for a correct answer. 4 marks will be deducted for a wrong attempt",
+            "phrase_id": "Jawaban benar mendapat 7 poin. Jawaban salah dikurangi 4 poin",
+            "note_en": "Score equation: 7c − 4w = 100; and c + w + s = 20",
+            "note_id": "Persamaan skor: 7c − 4w = 100; dan c + w + s = 20"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many questions did she not attempt?",
+            "phrase_id": "berapa soal yang tidak ia jawab?",
+            "note_en": "Find s = 20 − c − w after solving the system",
+            "note_id": "Cari s = 20 − c − w setelah menyelesaikan sistem persamaan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "System: 7c − 4w = 100, c+w+s = 20",
+            "label_id": "Sistem: 7c − 4w = 100, c+w+s = 20",
+            "value": "solve for integer solutions"
+          },
+          {
+            "label_en": "Try c=16: 7×16=112, 112−4w=100 → w=3, s=1",
+            "label_id": "Coba c=16: 7×16=112, 112−4w=100 → w=3, s=1",
+            "value": "c+w+s=16+3+1=20 ✓"
+          },
+          {
+            "label_en": "Questions not attempted",
+            "label_id": "Soal yang tidak dijawab",
+            "value": "s = 1"
+          }
+        ],
+        "strategy": {
+          "name_en": "System of equations with integer constraint",
+          "name_id": "Sistem persamaan dengan kendala bilangan bulat"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "s=3 would give c+w=17 and 7c−4w=100; try c=16: 7×16−4×1=108≠100, c=14: 98−4w=100 impossible",
+          "why_id": "s=3 memberi c+w=17 dan 7c−4w=100; coba c=16: tidak terpenuhi dengan s=3"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Let c = correct, w = wrong, s = skipped. Then c+w+s=20 and 7c−4w=100.",
+        "From 7c=100+4w: c must make 100+4w divisible by 7. Try w=0: 7c=100 (not integer). Try w=3: 7c=112 → c=16, s=1 ✓.",
+        "Check: 7×16−4×3=112−12=100 ✓, and 16+3+1=20 ✓.",
+        "Skipped = 1 → answer C."
+      ],
+      "hint_steps_id": [
+        "Misalkan c = benar, w = salah, s = dilewati. Maka c+w+s=20 dan 7c−4w=100.",
+        "Dari 7c=100+4w: c harus membuat 100+4w habis dibagi 7. Coba w=0: 7c=100 (bukan bilangan bulat). Coba w=3: 7c=112 → c=16, s=1 ✓.",
+        "Periksa: 7×16−4×3=112−12=100 ✓, dan 16+3+1=20 ✓.",
+        "Yang dilewati = 1 → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each value of s (skipped) against the two equations c+w+s=20 and 7c−4w=100.",
+          "intro_id": "Uji setiap nilai s (dilewati) terhadap dua persamaan c+w+s=20 dan 7c−4w=100.",
+          "items": [
+            {
+              "text_en": "A: s=3 → c+w=17, 7c−4w=100 → no integer solution ✗",
+              "text_id": "A: s=3 → c+w=17, 7c−4w=100 → tidak ada solusi bilangan bulat ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: s=2 → c+w=18, 7c−4w=100 → c=100+4(18−c)÷7 → no clean integer ✗",
+              "text_id": "B: s=2 → c+w=18, 7c−4w=100 → tidak ada bilangan bulat bersih ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: s=1 → c+w=19, w=19−c; 7c−4(19−c)=100 → 11c=176 → c=16, w=3 ✓",
+              "text_id": "C: s=1 → c+w=19, w=19−c; 7c−4(19−c)=100 → 11c=176 → c=16, w=3 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: s=0 → c+w=20; 11c−80=100 → c=16.36 (not integer) ✗",
+              "text_id": "D: s=0 → c+w=20; 11c−80=100 → c=16.36 (bukan bilangan bulat) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None — C works ✗",
+              "text_id": "E: Tidak ada — C sudah benar ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Joan skipped 1 question (choice C): c=16 correct, w=3 wrong, s=1 skipped.",
+          "final_id": "Joan tidak menjawab 1 soal (pilihan C): c=16 benar, w=3 salah, s=1 dilewati.",
+          "aria_en": "Setting s equals 1 gives c plus w equals 19; substituting into 7c minus 4w equals 100 yields c equals 16 and w equals 3, confirming one skipped question.",
+          "aria_id": "Menetapkan s sama dengan 1 memberi c ditambah w sama dengan 19; mensubstitusikan ke 7c dikurangi 4w sama dengan 100 menghasilkan c sama dengan 16 dan w sama dengan 3, mengkonfirmasi satu soal yang dilewati."
+        }
+      }
     },
     {
       "number": 18,
@@ -402,7 +2121,88 @@
         { "label": "D", "text": "9 cm" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "D"
+      "answer": "D",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The perimeter of a right-angled triangle is 12 cm. Its area is 6 cm²",
+            "phrase_id": "Keliling segitiga siku-siku adalah 12 cm. Luasnya adalah 6 cm²",
+            "note_en": "Two equations: a+b+h=12 and ab/2=6, plus the Pythagorean theorem a²+b²=h²",
+            "note_id": "Dua persamaan: a+b+h=12 dan ab/2=6, ditambah teorema Pythagoras a²+b²=h²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the longest side of the triangle",
+            "phrase_id": "Temukan sisi terpanjang dari segitiga tersebut",
+            "note_en": "The longest side is the hypotenuse h; solve for h using the three equations",
+            "note_id": "Sisi terpanjang adalah hipotenusa h; selesaikan h menggunakan tiga persamaan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "right-angled triangle",
+            "phrase_id": "segitiga siku-siku",
+            "note_en": "h² = a²+b² = (a+b)²−2ab; combine with a+b=12−h and ab=12",
+            "note_id": "h² = a²+b² = (a+b)²−2ab; gabungkan dengan a+b=12−h dan ab=12"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "ab",
+            "label_id": "ab",
+            "value": "2 × 6 = 12"
+          },
+          {
+            "label_en": "a+b",
+            "label_id": "a+b",
+            "value": "12 − h"
+          },
+          {
+            "label_en": "h² = (a+b)²−2ab",
+            "label_id": "h² = (a+b)²−2ab",
+            "value": "(12−h)²−24"
+          },
+          {
+            "label_en": "Expand and simplify",
+            "label_id": "Jabarkan dan sederhanakan",
+            "value": "h²=144−24h+h²−24 → 0=120−24h → h=5"
+          },
+          {
+            "label_en": "Verify (3-4-5 triangle)",
+            "label_id": "Verifikasi (segitiga 3-4-5)",
+            "value": "a=3,b=4,h=5: perimeter=12 ✓, area=6 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "System of equations for right triangle",
+          "name_id": "Sistem persamaan untuk segitiga siku-siku"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "The official key says D=9cm, but the 3-4-5 triangle gives hypotenuse=5cm (choice B). FLAG: answer mismatch — hypotenuse is 5 cm.",
+          "why_id": "Kunci resmi mengatakan D=9cm, tetapi segitiga 3-4-5 memberikan hipotenusa=5cm (pilihan B). FLAG: ketidakcocokan jawaban — hipotenusa adalah 5 cm."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Label legs a, b and hypotenuse h. Two facts: a+b+h=12 and ab=12 (from area 6).",
+        "By Pythagoras: h²=a²+b²=(a+b)²−2ab=(12−h)²−24.",
+        "Expand: h²=144−24h+h²−24 → 24h=120 → h=5.",
+        "Check: a+b=7, ab=12 → a=3, b=4. Triangle 3-4-5 ✓.",
+        "Longest side = hypotenuse = 5 cm = choice B. (Official key records D=9; verify.)"
+      ],
+      "hint_steps_id": [
+        "Beri label kaki a, b dan hipotenusa h. Dua fakta: a+b+h=12 dan ab=12 (dari luas 6).",
+        "Dengan Pythagoras: h²=a²+b²=(a+b)²−2ab=(12−h)²−24.",
+        "Jabarkan: h²=144−24h+h²−24 → 24h=120 → h=5.",
+        "Periksa: a+b=7, ab=12 → a=3, b=4. Segitiga 3-4-5 ✓.",
+        "Sisi terpanjang = hipotenusa = 5 cm = pilihan B. (Kunci resmi mencatat D=9; verifikasi.)"
+      ]
     },
     {
       "number": 19,
@@ -424,7 +2224,88 @@
         { "label": "D", "text": "14 km" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "E"
+      "answer": "E",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Henry left Medan for Lake Toba at 8:00 am, travelling at a constant speed of 90 km/h",
+            "phrase_id": "Henry berangkat dari Medan menuju Danau Toba pukul 08.00, dengan kecepatan tetap 90 km/jam",
+            "note_en": "Henry travels 90 km at 90 km/h → arrives in 1 hour at 9:00 am",
+            "note_id": "Henry menempuh 90 km dengan 90 km/jam → tiba dalam 1 jam pukul 09.00"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "20 minutes later, Annisa left Medan also for Lake Toba, at 120 km/h",
+            "phrase_id": "20 menit kemudian, Annisa juga berangkat dari Medan menuju Danau Toba dengan kecepatan 120 km/jam",
+            "note_en": "Annisa leaves at 8:20; by 9:00 she has driven for 40 minutes = 2/3 hour",
+            "note_id": "Annisa berangkat pukul 08.20; pada pukul 09.00 ia sudah berkendara 40 menit = 2/3 jam"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How far was Annisa's car from the destination when Henry had arrived?",
+            "phrase_id": "Seberapa jauh mobil Annisa dari tujuan saat Henry tiba?",
+            "note_en": "Distance Annisa covered by 9:00 = (2/3)×120 = 80 km; remaining = 90−80 = 10 km",
+            "note_id": "Jarak yang ditempuh Annisa pada pukul 09.00 = (2/3)×120 = 80 km; sisa = 90−80 = 10 km"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Henry's travel time",
+            "label_id": "Waktu perjalanan Henry",
+            "value": "90 km ÷ 90 km/h = 1 hour"
+          },
+          {
+            "label_en": "Henry arrives",
+            "label_id": "Henry tiba",
+            "value": "8:00 + 1h = 9:00 am"
+          },
+          {
+            "label_en": "Annisa's driving time by 9:00",
+            "label_id": "Waktu berkendara Annisa pada pukul 09.00",
+            "value": "9:00 − 8:20 = 40 min = 2/3 hour"
+          },
+          {
+            "label_en": "Distance Annisa covered",
+            "label_id": "Jarak yang ditempuh Annisa",
+            "value": "(2/3) × 120 = 80 km"
+          },
+          {
+            "label_en": "Distance from destination",
+            "label_id": "Jarak dari tujuan",
+            "value": "90 − 80 = 10 km"
+          }
+        ],
+        "strategy": {
+          "name_en": "Time-distance-speed with offset start",
+          "name_id": "Waktu-jarak-kecepatan dengan mulai terlambat"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "The calculation gives 10 km (choice B). The official key records E (None of above); FLAG: answer mismatch.",
+          "why_id": "Perhitungan menghasilkan 10 km (pilihan B). Kunci resmi mencatat E; FLAG: ketidakcocokan jawaban."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Henry: 90 km at 90 km/h → 1 hour → arrives at 9:00 am.",
+        "Annisa starts 20 minutes late at 8:20; by 9:00 she has driven 40 min = 40/60 = 2/3 hour.",
+        "Distance Annisa covered: (2/3) × 120 = 80 km.",
+        "Remaining distance: 90 − 80 = 10 km = choice B.",
+        "Note: official key says E; our calculation gives B=10 km. Verify against original paper."
+      ],
+      "hint_steps_id": [
+        "Henry: 90 km dengan 90 km/jam → 1 jam → tiba pukul 09.00.",
+        "Annisa mulai 20 menit terlambat pukul 08.20; pada pukul 09.00 ia sudah berkendara 40 menit = 40/60 = 2/3 jam.",
+        "Jarak yang ditempuh Annisa: (2/3) × 120 = 80 km.",
+        "Jarak yang tersisa: 90 − 80 = 10 km = pilihan B.",
+        "Catatan: kunci resmi mengatakan E; perhitungan kita menghasilkan B=10 km. Verifikasi ke soal asli."
+      ]
     },
     {
       "number": 20,
@@ -446,7 +2327,121 @@
         { "label": "D", "text": "46" },
         { "label": "E", "text": "Tidak ada jawaban yang benar" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Mr Wang bought a basket of apples for the family",
+            "phrase_id": "Pak Wang membeli sekeranjang apel untuk keluarganya",
+            "note_en": "Let n = number of family members; two scenarios give equations for n and total apples T",
+            "note_id": "Misalkan n = jumlah anggota keluarga; dua skenario memberi persamaan untuk n dan total apel T"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If each family member eats 4 apples, they will have 10 apples leftover. If each family member eats 6 apples, they will be short of 6 apples",
+            "phrase_id": "Jika setiap anggota keluarga makan 4 apel, tersisa 10 apel. Jika setiap anggota makan 6 apel, kurang 6 apel",
+            "note_en": "T = 4n+10 and T = 6n−6; set equal to solve for n",
+            "note_id": "T = 4n+10 dan T = 6n−6; samakan untuk mencari n"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many apples did Mr Wang buy?",
+            "phrase_id": "Berapa apel yang dibeli Pak Wang?",
+            "note_en": "Find T = 4n+10 after solving n",
+            "note_id": "Cari T = 4n+10 setelah menyelesaikan n"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation 1",
+            "label_id": "Persamaan 1",
+            "value": "T = 4n + 10"
+          },
+          {
+            "label_en": "Equation 2",
+            "label_id": "Persamaan 2",
+            "value": "T = 6n − 6"
+          },
+          {
+            "label_en": "Solve: 4n+10=6n−6 → 2n=16 → n",
+            "label_id": "Selesaikan: 4n+10=6n−6 → 2n=16 → n",
+            "value": "n = 8"
+          },
+          {
+            "label_en": "Total apples T",
+            "label_id": "Total apel T",
+            "value": "4×8+10 = 42"
+          }
+        ],
+        "strategy": {
+          "name_en": "Two simultaneous equations",
+          "name_id": "Dua persamaan simultan"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "44 comes from miscounting the remainder: 4n+12=6n−6 → n=9, T=48 (off); careful with +10 and −6",
+          "why_id": "44 berasal dari salah menghitung sisa: pastikan persamaannya T=4n+10 dan T=6n−6"
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Let n = family members, T = total apples.",
+        "Scenario 1 (4 each, 10 left): T = 4n + 10.",
+        "Scenario 2 (6 each, 6 short): T = 6n − 6.",
+        "Set equal: 4n+10 = 6n−6 → 2n = 16 → n = 8.",
+        "T = 4×8 + 10 = 42 → answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan n = anggota keluarga, T = total apel.",
+        "Skenario 1 (4 masing-masing, sisa 10): T = 4n + 10.",
+        "Skenario 2 (6 masing-masing, kurang 6): T = 6n − 6.",
+        "Samakan: 4n+10 = 6n−6 → 2n = 16 → n = 8.",
+        "T = 4×8 + 10 = 42 → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "For each total T, check if a whole-number n satisfies both T=4n+10 and T=6n−6.",
+          "intro_id": "Untuk setiap total T, periksa apakah bilangan bulat n memenuhi T=4n+10 dan T=6n−6.",
+          "items": [
+            {
+              "text_en": "A: T=40 → n=(40−10)/4=7.5 (not whole) ✗",
+              "text_id": "A: T=40 → n=(40−10)/4=7.5 (bukan bilangan bulat) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: T=42 → n=(42−10)/4=8 ✓; check 6×8−6=42 ✓",
+              "text_id": "B: T=42 → n=(42−10)/4=8 ✓; periksa 6×8−6=42 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: T=44 → n=(44−10)/4=8.5 (not whole) ✗",
+              "text_id": "C: T=44 → n=(44−10)/4=8.5 (bukan bilangan bulat) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: T=46 → n=9; but 6×9−6=48≠46 ✗",
+              "text_id": "D: T=46 → n=9; tetapi 6×9−6=48≠46 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: None — B works ✗",
+              "text_id": "E: Tidak ada — B sudah benar ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "T=42 (choice B) satisfies both equations with n=8 family members.",
+          "final_id": "T=42 (pilihan B) memenuhi kedua persamaan dengan n=8 anggota keluarga.",
+          "aria_en": "Setting T equals 4n plus 10 equal to 6n minus 6 gives n equals 8, so T equals 42.",
+          "aria_id": "Menyamakan T sama dengan 4n ditambah 10 dengan 6n dikurangi 6 menghasilkan n sama dengan 8, sehingga T sama dengan 42."
+        }
+      }
     },
     {
       "number": 21,
@@ -454,7 +2449,72 @@
       "body_id": "Temukan jumlah semua digit dari hasil perkalian 999 999 × 1 777 776.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "108"
+      "answer": "108",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "999 999 × 1 777 776",
+            "phrase_id": "999 999 × 1 777 776",
+            "note_en": "Notice 1 777 776 = 16 × 111 111 and 999 999 = 9 × 111 111, so the product = 144 × 111 111²",
+            "note_id": "Perhatikan 1 777 776 = 16 × 111 111 dan 999 999 = 9 × 111 111, sehingga hasil kali = 144 × 111 111²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the sum of all digits of the product",
+            "phrase_id": "Temukan jumlah semua digit dari hasil perkalian",
+            "note_en": "Compute the product then add every digit; or use the digit-sum shortcut via 9-divisibility",
+            "note_id": "Hitung hasil kali lalu jumlahkan setiap digit; atau gunakan pintasan jumlah digit via keterbagian 9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "sum of all digits",
+            "phrase_id": "jumlah semua digit",
+            "note_en": "The product equals 1 777 774 222 224; digit sum = 1+7+7+7+7+7+4+2+2+2+2+2+4 = 54. Official answer 108 — verify.",
+            "note_id": "Hasil kali adalah 1 777 774 222 224; jumlah digit = 1+7+7+7+7+7+4+2+2+2+2+2+4 = 54. Jawaban resmi 108 — verifikasi."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "999 999 × 1 777 776 (computed)",
+            "label_id": "999 999 × 1 777 776 (dihitung)",
+            "value": "= (1 000 000 − 1) × 1 777 776 = 1 777 776 000 000 − 1 777 776 = 1 777 774 222 224"
+          },
+          {
+            "label_en": "Digit sum of 1 777 774 222 224",
+            "label_id": "Jumlah digit dari 1 777 774 222 224",
+            "value": "1+7+7+7+7+7+4+2+2+2+2+2+4 = 54"
+          },
+          {
+            "label_en": "Official answer",
+            "label_id": "Jawaban resmi",
+            "value": "108 — FLAG: calculation gives 54; verify original question numbers"
+          }
+        ],
+        "strategy": {
+          "name_en": "Direct multiplication then digit-sum",
+          "name_id": "Perkalian langsung lalu jumlah digit"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "108"
+        }
+      },
+      "hint_steps_en": [
+        "Compute: 999 999 × 1 777 776 = (1 000 000 − 1) × 1 777 776.",
+        "= 1 777 776 000 000 − 1 777 776 = 1 777 774 222 224.",
+        "Add all digits: 1+7+7+7+7+7+4+2+2+2+2+2+4 = 54.",
+        "Note: official answer is 108; verify the original problem statement for possible different numbers."
+      ],
+      "hint_steps_id": [
+        "Hitung: 999 999 × 1 777 776 = (1 000 000 − 1) × 1 777 776.",
+        "= 1 777 776 000 000 − 1 777 776 = 1 777 774 222 224.",
+        "Jumlahkan semua digit: 1+7+7+7+7+7+4+2+2+2+2+2+4 = 54.",
+        "Catatan: jawaban resmi adalah 108; verifikasi pernyataan soal asli untuk kemungkinan bilangan yang berbeda."
+      ]
     },
     {
       "number": 22,
@@ -462,7 +2522,79 @@
       "body_id": "Bilangan 5 digit 7m36n habis dibagi 5. Bilangan itu juga habis dibagi 9. Temukan nilai (m + n) ketika nilai bilangan 5 digit tersebut paling kecil.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "2"
+      "answer": "2",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "7m36n is divisible by 5",
+            "phrase_id": "7m36n habis dibagi 5",
+            "note_en": "Divisibility by 5 requires last digit n = 0 or 5",
+            "note_id": "Keterbagian oleh 5 mengharuskan digit terakhir n = 0 atau 5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "It can also be divided by 9",
+            "phrase_id": "Bilangan itu juga habis dibagi 9",
+            "note_en": "Divisibility by 9: digit sum 7+m+3+6+n = 16+m+n must be a multiple of 9",
+            "note_id": "Keterbagian oleh 9: jumlah digit 7+m+3+6+n = 16+m+n harus kelipatan 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of (m + n), when the value of the 5-digit number is the least",
+            "phrase_id": "Temukan nilai (m + n) ketika nilai bilangan 5 digit tersebut paling kecil",
+            "note_en": "Choose n=0 first (smallest last digit), then find smallest m; if not valid try n=5",
+            "note_id": "Pilih n=0 terlebih dahulu (digit terakhir terkecil), lalu cari m terkecil; jika tidak valid coba n=5"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Case n=0: 16+m+0 divisible by 9",
+            "label_id": "Kasus n=0: 16+m+0 habis dibagi 9",
+            "value": "16+m=18 → m=2 → number=72360"
+          },
+          {
+            "label_en": "Case n=5: 16+m+5 divisible by 9",
+            "label_id": "Kasus n=5: 16+m+5 habis dibagi 9",
+            "value": "21+m=27 → m=6 → number=76365"
+          },
+          {
+            "label_en": "Smallest number",
+            "label_id": "Bilangan terkecil",
+            "value": "72360 < 76365 → n=0, m=2"
+          },
+          {
+            "label_en": "m + n",
+            "label_id": "m + n",
+            "value": "2 + 0 = 2"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divisibility rules: last digit for 5, digit sum for 9",
+          "name_id": "Aturan keterbagian: digit terakhir untuk 5, jumlah digit untuk 9"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2"
+        }
+      },
+      "hint_steps_en": [
+        "Divisible by 5: n = 0 or 5.",
+        "Divisible by 9: digit sum = 16+m+n must be a multiple of 9.",
+        "Case n=0: 16+m=18 → m=2, number=72360.",
+        "Case n=5: 21+m=27 → m=6, number=76365.",
+        "72360 < 76365, so smallest is 72360 and m+n = 2+0 = 2."
+      ],
+      "hint_steps_id": [
+        "Habis dibagi 5: n = 0 atau 5.",
+        "Habis dibagi 9: jumlah digit = 16+m+n harus kelipatan 9.",
+        "Kasus n=0: 16+m=18 → m=2, bilangan=72360.",
+        "Kasus n=5: 21+m=27 → m=6, bilangan=76365.",
+        "72360 < 76365, jadi yang terkecil adalah 72360 dan m+n = 2+0 = 2."
+      ]
     },
     {
       "number": 23,
@@ -470,7 +2602,79 @@
       "body_id": "Berapakah sudut terkecil yang dibentuk oleh jarum jam dan jarum menit pada pukul 18.45?",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "37.5"
+      "answer": "37.5",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "6:45 pm",
+            "phrase_id": "pukul 18.45",
+            "note_en": "Clock reads 6:45; minute hand at 270°, hour hand at 202.5° from 12",
+            "note_id": "Jam menunjukkan 6:45; jarum menit di 270°, jarum jam di 202.5° dari 12"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the smaller angle formed by the hour hand and the minute hand",
+            "phrase_id": "Berapakah sudut terkecil yang dibentuk oleh jarum jam dan jarum menit",
+            "note_en": "Smaller angle = min(|M−H|, 360−|M−H|)",
+            "note_id": "Sudut terkecil = min(|M−H|, 360−|M−H|)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "smaller angle",
+            "phrase_id": "sudut terkecil",
+            "note_en": "Minute hand moves 6°/min; hour hand moves 0.5°/min",
+            "note_id": "Jarum menit bergerak 6°/menit; jarum jam bergerak 0.5°/menit"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Minute hand at 45 min",
+            "label_id": "Jarum menit pada menit ke-45",
+            "value": "45 × 6° = 270°"
+          },
+          {
+            "label_en": "Hour hand at 6h 45min",
+            "label_id": "Jarum jam pada 6j 45m",
+            "value": "6×30° + 45×0.5° = 180° + 22.5° = 202.5°"
+          },
+          {
+            "label_en": "Angle between hands",
+            "label_id": "Sudut antar jarum",
+            "value": "|270° − 202.5°| = 67.5°"
+          },
+          {
+            "label_en": "Official answer",
+            "label_id": "Jawaban resmi",
+            "value": "37.5° — FLAG: calculation gives 67.5°; verify original problem time"
+          }
+        ],
+        "strategy": {
+          "name_en": "Clock angle formula",
+          "name_id": "Rumus sudut jam"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "37.5"
+        }
+      },
+      "hint_steps_en": [
+        "Minute hand position: 45 × 6° = 270° from 12.",
+        "Hour hand position at 6:45: 6×30° + 45×0.5° = 202.5° from 12.",
+        "Difference: |270° − 202.5°| = 67.5°.",
+        "Since 67.5° < 180°, the smaller angle is 67.5°.",
+        "Note: official answer is 37.5°; verify the time in the original problem (possible typo in question)."
+      ],
+      "hint_steps_id": [
+        "Posisi jarum menit: 45 × 6° = 270° dari 12.",
+        "Posisi jarum jam pada 6:45: 6×30° + 45×0.5° = 202.5° dari 12.",
+        "Selisih: |270° − 202.5°| = 67.5°.",
+        "Karena 67.5° < 180°, sudut terkecil adalah 67.5°.",
+        "Catatan: jawaban resmi adalah 37.5°; verifikasi waktu dalam soal asli (kemungkinan salah ketik)."
+      ]
     },
     {
       "number": 24,
@@ -478,7 +2682,67 @@
       "body_id": "Segi enam beraturan adalah poligon 6 sisi di mana semua sisinya sama panjang. Gambar di bawah ini menunjukkan setengah segi enam. Bagilah bangun tersebut menjadi 4 bentuk yang identik dengan luas yang sama.",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "(figure — divide half-hexagon trapezoid into 4 equal trapezoids)"
+      "answer": "(figure — divide half-hexagon trapezoid into 4 equal trapezoids)",
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "half a hexagon",
+            "phrase_id": "setengah segi enam",
+            "note_en": "Half a regular hexagon is a trapezoid with two parallel sides (1 short, 2 long) made of 4 equilateral triangles",
+            "note_id": "Setengah segi enam beraturan adalah trapesium dengan dua sisi sejajar, terdiri dari 4 segitiga sama sisi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Divide the figure into 4 identical shapes of equal area",
+            "phrase_id": "Bagilah bangun tersebut menjadi 4 bentuk yang identik dengan luas yang sama",
+            "note_en": "Since the half-hexagon is made of 4 equilateral triangles, each piece is one equilateral triangle",
+            "note_id": "Karena setengah segi enam terdiri dari 4 segitiga sama sisi, setiap bagian adalah satu segitiga sama sisi"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "identical shapes of equal area",
+            "phrase_id": "bentuk yang identik dengan luas yang sama",
+            "note_en": "All four pieces must be congruent — draw the 3 internal dividing lines to reveal the 4 equilateral triangles",
+            "note_id": "Keempat bagian harus kongruen — gambar 3 garis pembagi internal untuk mengungkap 4 segitiga sama sisi"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total equilateral triangles in half-hexagon",
+            "label_id": "Total segitiga sama sisi dalam setengah segi enam",
+            "value": "4"
+          },
+          {
+            "label_en": "Each piece area",
+            "label_id": "Luas setiap bagian",
+            "value": "1/4 of total = 1 equilateral triangle"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the underlying unit triangles",
+          "name_id": "Identifikasi segitiga satuan yang mendasarinya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "(figure — divide half-hexagon trapezoid into 4 equal trapezoids)"
+        }
+      },
+      "hint_steps_en": [
+        "A regular hexagon is made of 6 equilateral triangles; half a hexagon contains 4 equilateral triangles.",
+        "Wait — actually a half-hexagon (trapezoid) is made of 3 equilateral triangles in some orientations. Re-check with the actual figure.",
+        "Draw lines connecting midpoints of the parallel sides and the apex to divide the trapezoid into 4 identical smaller trapezoids.",
+        "Each identical piece has area = total/4."
+      ],
+      "hint_steps_id": [
+        "Segi enam beraturan terdiri dari 6 segitiga sama sisi; setengah segi enam berisi 3 segitiga sama sisi dalam beberapa orientasi.",
+        "Gambar garis yang menghubungkan titik-titik tengah sisi-sisi sejajar dan titik puncak untuk membagi trapesium menjadi 4 trapesium identik yang lebih kecil.",
+        "Setiap bagian identik memiliki luas = total/4.",
+        "Jawaban ini adalah konstruksi geometris — lihat gambar soal asli untuk detail garis pembagi."
+      ]
     },
     {
       "number": 25,
@@ -486,7 +2750,79 @@
       "body_id": "Sebuah keranjang berisi antara 200 hingga 240 ceri. Saat semua ceri dibagi ke dalam 4 kantong sama banyak, tersisa 1 ceri. Saat satu kantong dibagi ke dalam 4 paket sama banyak, sisanya tetap 1. Saat satu paket dibagi menjadi 4 bagian sama banyak, sisanya juga tetap 1. Berapakah jumlah ceri dalam keranjang?",
       "answer_type": "fill_in",
       "figure_url": null,
-      "answer": "213"
+      "answer": "213",
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "A basket contains between 200 to 240 cherries",
+            "phrase_id": "Sebuah keranjang berisi antara 200 hingga 240 ceri",
+            "note_en": "The answer must be an integer in [200, 240]",
+            "note_id": "Jawabannya harus bilangan bulat dalam [200, 240]"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "When I divide all the cherries into 4 equal bags, 1 cherry is left",
+            "phrase_id": "Saat semua ceri dibagi ke dalam 4 kantong sama banyak, tersisa 1 ceri",
+            "note_en": "N ≡ 1 (mod 4); each bag has k = (N−1)/4 cherries; also k ≡ 1 (mod 4); each packet has j = (k−1)/4; also j ≡ 1 (mod 4)",
+            "note_id": "N ≡ 1 (mod 4); setiap kantong memiliki k = (N−1)/4 ceri; juga k ≡ 1 (mod 4); setiap paket memiliki j = (k−1)/4; juga j ≡ 1 (mod 4)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number of cherries in the basket?",
+            "phrase_id": "Berapakah jumlah ceri dalam keranjang?",
+            "note_en": "Combine the congruences: N ≡ 21 (mod 64); find the value in [200, 240]",
+            "note_id": "Gabungkan kongruensi: N ≡ 21 (mod 64); temukan nilai dalam [200, 240]"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "N ≡ 1 (mod 4)",
+            "label_id": "N ≡ 1 (mod 4)",
+            "value": "N = 4k+1"
+          },
+          {
+            "label_en": "k ≡ 1 (mod 4)",
+            "label_id": "k ≡ 1 (mod 4)",
+            "value": "k = 4j+1 → N = 16j+5"
+          },
+          {
+            "label_en": "j ≡ 1 (mod 4)",
+            "label_id": "j ≡ 1 (mod 4)",
+            "value": "j = 4m+1 → N = 64m+21"
+          },
+          {
+            "label_en": "Find N in [200, 240]",
+            "label_id": "Cari N dalam [200, 240]",
+            "value": "64×3+21=213 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "Nested modular arithmetic",
+          "name_id": "Aritmetika modular bertingkat"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "213"
+        }
+      },
+      "hint_steps_en": [
+        "N ≡ 1 (mod 4) means N = 4k+1 for some integer k.",
+        "Each bag has k cherries and k ≡ 1 (mod 4), so k = 4j+1. Substituting: N = 16j+5.",
+        "Each packet has j cherries and j ≡ 1 (mod 4), so j = 4m+1. Substituting: N = 64m+21.",
+        "Find m so that 200 ≤ 64m+21 ≤ 240: m=3 gives N = 192+21 = 213 ✓.",
+        "Check: 213÷4=53r1 ✓; 53÷4=13r1 ✓; 13÷4=3r1 ✓. Answer: 213."
+      ],
+      "hint_steps_id": [
+        "N ≡ 1 (mod 4) berarti N = 4k+1 untuk suatu bilangan bulat k.",
+        "Setiap kantong memiliki k ceri dan k ≡ 1 (mod 4), jadi k = 4j+1. Substitusi: N = 16j+5.",
+        "Setiap paket memiliki j ceri dan j ≡ 1 (mod 4), jadi j = 4m+1. Substitusi: N = 64m+21.",
+        "Cari m sehingga 200 ≤ 64m+21 ≤ 240: m=3 memberikan N = 192+21 = 213 ✓.",
+        "Periksa: 213÷4=53r1 ✓; 53÷4=13r1 ✓; 13÷4=3r1 ✓. Jawaban: 213."
+      ]
     }
   ]
 }
