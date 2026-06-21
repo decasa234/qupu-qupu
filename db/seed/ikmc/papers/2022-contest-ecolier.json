@@ -28,7 +28,58 @@
         {"label": "E", "text": "↓ → → ↓ ↓ ↓"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "Buzz the bee",
+            "phrase_id": "Buzz si lebah",
+            "note_en": "This is the character we are navigating.",
+            "note_id": "Ini adalah karakter yang kita arahkan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which set of directions will get him there?",
+            "phrase_id": "Kumpulan arah mana yang akan membawanya ke sana?",
+            "note_en": "We need to find the correct path to the flower.",
+            "note_id": "Kita harus menemukan jalur yang benar menuju bunga."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "reach the flower",
+            "phrase_id": "mencapai bunga",
+            "note_en": "The destination — the flower on the grid.",
+            "note_id": "Tujuannya adalah bunga di kotak."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Trace each path on the grid",
+          "name_id": "Ikuti setiap jalur di kotak"
+        },
+        "trap": {
+          "wrong": "B or C",
+          "why_en": "Those paths end at the wrong cell — trace every step carefully.",
+          "why_id": "Jalur itu berakhir di sel yang salah — ikuti setiap langkah dengan teliti."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the grid and find where Buzz starts and where the flower is.",
+        "Trace each direction in choice A on the grid: → ↓ → ↓ ↓ →",
+        "Check that you land exactly on the flower — that is the correct path."
+      ],
+      "hint_steps_id": [
+        "Lihat kotaknya dan temukan di mana Buzz mulai dan di mana bunga berada.",
+        "Ikuti setiap arah pada pilihan A di kotak: → ↓ → ↓ ↓ →",
+        "Periksa apakah kamu mendarat tepat di bunga — itu adalah jalur yang benar."
+      ]
     },
     {
       "number": 2,
@@ -50,7 +101,54 @@
         {"label": "E", "text": "(gambar E)"}
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Four of the following are a picture of the Great Wheel",
+            "phrase_id": "Empat dari gambar berikut adalah gambar Kincir Besar",
+            "note_en": "Four pictures show the same wheel — only one is different.",
+            "note_id": "Empat gambar menunjukkan kincir yang sama — hanya satu yang berbeda."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which one is the different one?",
+            "phrase_id": "Yang mana yang berbeda?",
+            "note_en": "Find the picture that does not match the other four.",
+            "note_id": "Temukan gambar yang tidak cocok dengan empat lainnya."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "at the Luna park",
+            "phrase_id": "di taman Luna",
+            "note_en": "Context — they all show the same amusement park wheel.",
+            "note_id": "Konteks — semuanya menunjukkan kincir yang sama di taman hiburan."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Find the odd one out",
+          "name_id": "Temukan yang berbeda"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Look at all five pictures carefully.",
+        "Compare them one by one — what detail is different in one picture?",
+        "The picture that does not match the rest is the answer."
+      ],
+      "hint_steps_id": [
+        "Lihat kelima gambar dengan seksama.",
+        "Bandingkan satu per satu — detail apa yang berbeda di salah satu gambar?",
+        "Gambar yang tidak cocok dengan yang lain adalah jawabannya."
+      ]
     },
     {
       "number": 3,
@@ -72,7 +170,54 @@
         {"label": "E", "text": "E"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "2 coins in each row and in each column",
+            "phrase_id": "2 koin di setiap baris dan setiap kolom",
+            "note_en": "The rule: exactly 2 coins per row AND 2 coins per column.",
+            "note_id": "Aturannya: tepat 2 koin per baris DAN 2 koin per kolom."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which coin does she need to move to an empty cell?",
+            "phrase_id": "Koin mana yang perlu dia pindahkan ke sel kosong?",
+            "note_en": "One coin is in the wrong place — find it and move it.",
+            "note_id": "Satu koin berada di tempat yang salah — temukan dan pindahkan."
+          },
+          {
+            "category": "object",
+            "phrase_en": "Rossitza wants to put",
+            "phrase_id": "Rossitza ingin meletakkan",
+            "note_en": "She is setting up the grid according to the rule.",
+            "note_id": "Dia sedang mengatur kotak sesuai aturan."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Check rows and columns for the rule violation",
+          "name_id": "Periksa baris dan kolom untuk menemukan yang melanggar aturan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Count the coins in each row — does any row have more than 2?",
+        "Count the coins in each column — does any column have more than 2?",
+        "The coin causing the problem is the one to move. That coin is C."
+      ],
+      "hint_steps_id": [
+        "Hitung koin di setiap baris — apakah ada baris dengan lebih dari 2 koin?",
+        "Hitung koin di setiap kolom — apakah ada kolom dengan lebih dari 2 koin?",
+        "Koin yang menyebabkan masalah itulah yang harus dipindahkan. Koin itu adalah C."
+      ]
     },
     {
       "number": 4,
@@ -94,7 +239,60 @@
         {"label": "E", "text": "7"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What is the smallest number of boxes that Bill has to move",
+            "phrase_id": "Berapa jumlah kotak paling sedikit yang harus dipindahkan Bill",
+            "note_en": "We want the minimum — not just any number of moves.",
+            "note_id": "Kita ingin angka minimum — bukan sekarang jumlah gerakan apa pun."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "to be able to open the dark TRAIN box",
+            "phrase_id": "agar dapat membuka kotak TRAIN yang gelap",
+            "note_en": "The TRAIN box must be uncovered — find what is blocking it.",
+            "note_id": "Kotak TRAIN harus dibuka — temukan apa yang menghalanginya."
+          },
+          {
+            "category": "object",
+            "phrase_en": "dark TRAIN box",
+            "phrase_id": "kotak TRAIN yang gelap",
+            "note_en": "This is the target box we need to open.",
+            "note_id": "Ini adalah kotak target yang perlu kita buka."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Minimum boxes to move", "label_id": "Kotak minimum yang dipindahkan", "value": "5" }
+        ],
+        "strategy": {
+          "name_en": "Plan the minimum moves to unblock",
+          "name_id": "Rencanakan langkah minimum untuk membuka blokir"
+        },
+        "trap": {
+          "wrong": "3 or 4",
+          "why_en": "Moving fewer boxes leaves the TRAIN box still blocked — you must clear all boxes on top of it.",
+          "why_id": "Memindahkan lebih sedikit kotak membuat kotak TRAIN masih terblokir — kamu harus membersihkan semua kotak di atasnya."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the picture and find the dark TRAIN box.",
+        "Count how many boxes are stacked on top of it or blocking it.",
+        "Move only the boxes you must — the minimum is 5."
+      ],
+      "hint_steps_id": [
+        "Lihat gambarnya dan temukan kotak TRAIN yang gelap.",
+        "Hitung berapa kotak yang ditumpuk di atasnya atau menghalanginya.",
+        "Pindahkan hanya kotak yang diperlukan — minimumnya adalah 5."
+      ]
     },
     {
       "number": 5,
@@ -116,7 +314,72 @@
         {"label": "E", "text": "12"}
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "one large jump followed by two small jumps",
+            "phrase_id": "satu lompatan besar diikuti dua lompatan kecil",
+            "note_en": "Every cycle = 1 large + 2 small = 3 jumps total.",
+            "note_id": "Setiap siklus = 1 lompatan besar + 2 lompatan kecil = 3 lompatan total."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "starts at 0 and ends on 16",
+            "phrase_id": "mulai dari 0 dan berakhir di 16",
+            "note_en": "The total distance is 16 from the number line.",
+            "note_id": "Total jaraknya adalah 16 dari garis bilangan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the number of jumps that Kengu makes?",
+            "phrase_id": "Berapa jumlah lompatan yang dilakukan Kengu?",
+            "note_en": "Count all jumps — large and small together.",
+            "note_id": "Hitung semua lompatan — besar dan kecil sekaligus."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Large jump size (from figure)", "label_id": "Ukuran lompatan besar (dari gambar)", "value": "2" },
+          { "label_en": "Small jump size (from figure)", "label_id": "Ukuran lompatan kecil (dari gambar)", "value": "1" },
+          { "label_en": "Distance per cycle (2+1+1)", "label_id": "Jarak per siklus (2+1+1)", "value": "4" },
+          { "label_en": "Number of cycles (16÷4)", "label_id": "Jumlah siklus (16÷4)", "value": "4" },
+          { "label_en": "Total jumps (4 cycles × 3)", "label_id": "Total lompatan (4 siklus × 3)", "value": "12" }
+        ],
+        "strategy": {
+          "name_en": "Find the cycle, then count all jumps",
+          "name_id": "Temukan siklus, lalu hitung semua lompatan"
+        },
+        "trap": {
+          "wrong": "4",
+          "why_en": "4 is the number of cycles, not the number of jumps. Each cycle has 3 jumps.",
+          "why_id": "4 adalah jumlah siklus, bukan jumlah lompatan. Setiap siklus memiliki 3 lompatan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "From the picture: large jump = 2, small jump = 1. One cycle covers 2+1+1 = 4 on the number line.",
+        "Kengu goes from 0 to 16, so there are 16 ÷ 4 = 4 cycles.",
+        "Each cycle has 3 jumps (1 large + 2 small), so total jumps = 4 × 3 = 12."
+      ],
+      "hint_steps_id": [
+        "Dari gambar: lompatan besar = 2, lompatan kecil = 1. Satu siklus mencakup 2+1+1 = 4 di garis bilangan.",
+        "Kengu pergi dari 0 ke 16, jadi ada 16 ÷ 4 = 4 siklus.",
+        "Setiap siklus memiliki 3 lompatan (1 besar + 2 kecil), jadi total lompatan = 4 × 3 = 12."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "question": "How many jumps does Kengu make?",
+          "candidates": ["4 (cycles only)", "7", "8", "9", "12 (cycles × 3)"],
+          "hint": "A cycle covers 4 on the number line. 16 ÷ 4 = 4 cycles. Each cycle = 3 jumps."
+        }
+      }
     },
     {
       "number": 6,
@@ -138,7 +401,54 @@
         {"label": "E", "text": "(gambar E)"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "two squares with common sides do not contain the same number",
+            "phrase_id": "dua kotak yang memiliki sisi yang sama tidak boleh memiliki angka yang sama",
+            "note_en": "Squares that share an edge must have different numbers.",
+            "note_id": "Kotak yang berbagi sisi harus memiliki angka yang berbeda."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which piece should she use to complete her jigsaw?",
+            "phrase_id": "Potongan mana yang harus dia gunakan untuk melengkapi jigsawnya?",
+            "note_en": "Find the piece that fits without breaking the rule.",
+            "note_id": "Temukan potongan yang cocok tanpa melanggar aturan."
+          },
+          {
+            "category": "object",
+            "phrase_en": "Anna makes a jigsaw",
+            "phrase_id": "Anna membuat teka-teki jigsaw",
+            "note_en": "The existing jigsaw has numbers already placed.",
+            "note_id": "Jigsaw yang sudah ada memiliki angka yang sudah ditempatkan."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Check each piece against adjacent numbers",
+          "name_id": "Periksa setiap potongan terhadap angka yang berdekatan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the empty space in the jigsaw and note the numbers touching its edges.",
+        "For each choice, check if any number in the piece matches a touching number.",
+        "Piece D has no conflicts with its neighbors — it is the correct piece."
+      ],
+      "hint_steps_id": [
+        "Lihat ruang kosong di jigsaw dan catat angka-angka yang menyentuh tepiannya.",
+        "Untuk setiap pilihan, periksa apakah ada angka dalam potongan yang cocok dengan angka yang bersentuhan.",
+        "Potongan D tidak memiliki konflik dengan tetangganya — itulah potongan yang benar."
+      ]
     },
     {
       "number": 7,
@@ -160,7 +470,70 @@
         {"label": "E", "text": "9 dan 8"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "2022 + □ = 2020 + □",
+            "phrase_id": "2022 + □ = 2020 + □",
+            "note_en": "The left side starts 2 higher, so the right box must be 2 bigger than the left box.",
+            "note_id": "Sisi kiri mulai 2 lebih tinggi, jadi kotak kanan harus 2 lebih besar dari kotak kiri."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which two numbers can be written in the two boxes to make the statement correct?",
+            "phrase_id": "Dua angka mana yang dapat ditulis di dua kotak tersebut agar pernyataan menjadi benar?",
+            "note_en": "Find a pair where the right number is exactly 2 more than the left number.",
+            "note_id": "Temukan pasangan di mana angka kanan tepat 2 lebih besar dari angka kiri."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "to make the statement correct",
+            "phrase_id": "agar pernyataan menjadi benar",
+            "note_en": "Both sides of the equation must be equal.",
+            "note_id": "Kedua sisi persamaan harus sama."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Difference between 2022 and 2020", "label_id": "Selisih antara 2022 dan 2020", "value": "2" },
+          { "label_en": "Right box − Left box must equal", "label_id": "Kotak kanan − Kotak kiri harus sama dengan", "value": "2" },
+          { "label_en": "Check A: 5 − 3", "label_id": "Cek A: 5 − 3", "value": "2 ✓" }
+        ],
+        "strategy": {
+          "name_en": "Balance the equation: the difference must be 2",
+          "name_id": "Seimbangkan persamaan: selisihnya harus 2"
+        },
+        "trap": {
+          "wrong": "9 and 8",
+          "why_en": "8 − 9 = −1, not 2. The right box must be 2 MORE than the left box.",
+          "why_id": "8 − 9 = −1, bukan 2. Kotak kanan harus 2 LEBIH BESAR dari kotak kiri."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "2022 is 2 more than 2020. So for both sides to be equal, the right box must be 2 more than the left box.",
+        "Check each pair: 5 − 3 = 2 ✓, 1 − 4 = −3 ✗, 4 − 3 = 1 ✗, 2 − 7 = −5 ✗, 8 − 9 = −1 ✗.",
+        "Only '3 and 5' works: 2022 + 3 = 2025 and 2020 + 5 = 2025."
+      ],
+      "hint_steps_id": [
+        "2022 lebih besar 2 dari 2020. Agar kedua sisi sama, kotak kanan harus 2 lebih besar dari kotak kiri.",
+        "Cek setiap pasangan: 5 − 3 = 2 ✓, 1 − 4 = −3 ✗, 4 − 3 = 1 ✗, 2 − 7 = −5 ✗, 8 − 9 = −1 ✗.",
+        "Hanya '3 dan 5' yang berhasil: 2022 + 3 = 2025 dan 2020 + 5 = 2025."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "question": "Which pair makes 2022 + □ = 2020 + □?",
+          "candidates": ["3 and 5 → diff=2 ✓", "4 and 1 → diff=−3 ✗", "3 and 4 → diff=1 ✗", "7 and 2 → diff=−5 ✗", "9 and 8 → diff=−1 ✗"],
+          "hint": "The right number minus the left number must equal 2 (because 2022 − 2020 = 2)."
+        }
+      }
     },
     {
       "number": 8,
@@ -182,7 +555,54 @@
         {"label": "E", "text": "(gambar E)"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "What will he see if he looks at his tower from above?",
+            "phrase_id": "Apa yang akan dia lihat jika dia memandang menaranya dari atas?",
+            "note_en": "We need the bird's-eye (top-down) view of the tower.",
+            "note_id": "Kita perlu tampilan dari atas (bird's-eye view) menara tersebut."
+          },
+          {
+            "category": "object",
+            "phrase_en": "John builds the tower shown",
+            "phrase_id": "John membangun menara seperti yang ditunjukkan",
+            "note_en": "The 3-D tower is given — imagine flattening it to a top view.",
+            "note_id": "Menara 3D diberikan — bayangkan meratakannya menjadi tampilan atas."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "looks at his tower from above",
+            "phrase_id": "memandang menaranya dari atas",
+            "note_en": "Only the topmost block of each stack is visible from directly above.",
+            "note_id": "Hanya blok paling atas dari setiap tumpukan yang terlihat dari tepat di atas."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Visualise the top-down view of the 3-D tower",
+          "name_id": "Bayangkan tampilan atas dari menara 3D"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the tower from the side: note which columns have blocks and how wide the base is.",
+        "From directly above, you see only the footprint — the shape made by the outermost blocks.",
+        "Match that footprint to the choices — choice C shows the correct top-down shape."
+      ],
+      "hint_steps_id": [
+        "Lihat menara dari samping: perhatikan kolom mana yang memiliki blok dan seberapa lebar alasnya.",
+        "Dari tepat di atas, kamu hanya melihat jejak kaki — bentuk yang dibuat oleh blok terluar.",
+        "Cocokkan jejak kaki itu dengan pilihan — pilihan C menunjukkan bentuk tampak atas yang benar."
+      ]
     },
     {
       "number": 9,
@@ -204,7 +624,77 @@
         {"label": "E", "text": "4, 1, 2, 5, 3"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Five cars numbered 1, 2, 3, 4 and 5 are moving in the same direction",
+            "phrase_id": "Lima mobil bernomor 1, 2, 3, 4, dan 5 bergerak ke arah yang sama",
+            "note_en": "Start: cars in order 1, 2, 3, 4, 5 from front to back.",
+            "note_id": "Awal: mobil berurutan 1, 2, 3, 4, 5 dari depan ke belakang."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the last car (5) overtakes the two cars ahead of it",
+            "phrase_id": "mobil terakhir (5) mendahului dua mobil di depannya",
+            "note_en": "Car 5 moves from position 5 to position 3, pushing 4 and 3 back one each.",
+            "note_id": "Mobil 5 bergerak dari posisi 5 ke posisi 3, mendorong 4 dan 3 masing-masing satu ke belakang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "In what order are the cars now?",
+            "phrase_id": "Dalam urutan apa mobil-mobil itu sekarang?",
+            "note_en": "Track all three overtaking moves step by step.",
+            "note_id": "Ikuti semua tiga gerakan mendahului langkah demi langkah."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Start", "label_id": "Awal", "value": "1, 2, 3, 4, 5" },
+          { "label_en": "After move 1 (car 5 overtakes 4 and 3)", "label_id": "Setelah gerakan 1 (mobil 5 mendahului 4 dan 3)", "value": "1, 2, 5, 3, 4" },
+          { "label_en": "After move 2 (second-last=3 overtakes 5 and 2)", "label_id": "Setelah gerakan 2 (kedua dari belakang=3 mendahului 5 dan 2)", "value": "1, 3, 2, 5, 4" },
+          { "label_en": "After move 3 (middle=2 overtakes 3 and 1)", "label_id": "Setelah gerakan 3 (tengah=2 mendahului 3 dan 1)", "value": "2, 1, 3, 5, 4" }
+        ],
+        "strategy": {
+          "name_en": "Simulate each overtake step by step",
+          "name_id": "Simulasikan setiap mendahului langkah demi langkah"
+        },
+        "trap": {
+          "wrong": "1, 2, 3, 5, 4",
+          "why_en": "That is only after move 1. You must apply all three overtaking moves.",
+          "why_id": "Itu hanya setelah gerakan 1. Kamu harus menerapkan ketiga gerakan mendahului."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Start: 1, 2, 3, 4, 5. Move 1 — car 5 overtakes cars 4 and 3: new order 1, 2, 5, 3, 4.",
+        "Move 2 — the second-last car (3) overtakes the two ahead (5 and 2): new order 1, 3, 2, 5, 4.",
+        "Move 3 — the middle car (2) overtakes the two ahead (3 and 1): final order 2, 1, 3, 5, 4."
+      ],
+      "hint_steps_id": [
+        "Awal: 1, 2, 3, 4, 5. Gerakan 1 — mobil 5 mendahului mobil 4 dan 3: urutan baru 1, 2, 5, 3, 4.",
+        "Gerakan 2 — mobil kedua dari belakang (3) mendahului dua mobil di depannya (5 dan 2): urutan baru 1, 3, 2, 5, 4.",
+        "Gerakan 3 — mobil tengah (2) mendahului dua mobil di depannya (3 dan 1): urutan akhir 2, 1, 3, 5, 4."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "question": "Simulate 3 overtaking moves. What is the final order?",
+          "candidates": [
+            "A: 1,2,3,5,4 — only 1 move done ✗",
+            "B: 2,1,3,5,4 — all 3 moves done ✓",
+            "C: 2,1,5,3,4 — wrong middle move ✗",
+            "D: 3,1,4,2,5 — wrong simulation ✗",
+            "E: 4,1,2,5,3 — wrong simulation ✗"
+          ],
+          "hint": "Track each step: 1,2,3,4,5 → 1,2,5,3,4 → 1,3,2,5,4 → 2,1,3,5,4"
+        }
+      }
     },
     {
       "number": 10,
@@ -226,7 +716,76 @@
         {"label": "E", "text": "6 dan 10"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ages of a family of kangaroos are 2, 4, 5, 6, 8 and 10 years",
+            "phrase_id": "Usia keluarga kanguru adalah 2, 4, 5, 6, 8, dan 10 tahun",
+            "note_en": "Six ages in total. Their sum is 2+4+5+6+8+10 = 35.",
+            "note_id": "Enam usia secara total. Jumlahnya adalah 2+4+5+6+8+10 = 35."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The sum of the ages of four of them is 22 years",
+            "phrase_id": "Jumlah usia empat dari mereka adalah 22 tahun",
+            "note_en": "Four kangaroos add up to 22, so the other two add up to 35 − 22 = 13.",
+            "note_id": "Empat kanguru berjumlah 22, jadi dua lainnya berjumlah 35 − 22 = 13."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What are the ages of the other two kangaroos?",
+            "phrase_id": "Berapa usia dua kanguru lainnya?",
+            "note_en": "Find two ages from the list that add up to 13.",
+            "note_id": "Temukan dua usia dari daftar yang berjumlah 13."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total of all 6 ages (2+4+5+6+8+10)", "label_id": "Total 6 usia (2+4+5+6+8+10)", "value": "35" },
+          { "label_en": "Sum of the other two (35 − 22)", "label_id": "Jumlah dua lainnya (35 − 22)", "value": "13" },
+          { "label_en": "Check: 5 + 8", "label_id": "Cek: 5 + 8", "value": "13 ✓" }
+        ],
+        "strategy": {
+          "name_en": "Total minus the group of four",
+          "name_id": "Total dikurangi kelompok empat"
+        },
+        "trap": {
+          "wrong": "2 and 8",
+          "why_en": "2 + 8 = 10, not 13. Always subtract from the total first.",
+          "why_id": "2 + 8 = 10, bukan 13. Selalu kurangi dari total terlebih dahulu."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Add all six ages: 2+4+5+6+8+10 = 35.",
+        "The other two ages must sum to 35 − 22 = 13.",
+        "Check the choices: only 5 + 8 = 13, so the answer is 'C: 5 and 8'."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan keenam usia: 2+4+5+6+8+10 = 35.",
+        "Dua usia lainnya harus berjumlah 35 − 22 = 13.",
+        "Periksa pilihan: hanya 5 + 8 = 13, jadi jawabannya adalah 'C: 5 dan 8'."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "question": "Which two ages sum to 35 − 22 = 13?",
+          "candidates": [
+            "A: 2+8 = 10 ✗",
+            "B: 4+5 = 9 ✗",
+            "C: 5+8 = 13 ✓",
+            "D: 6+8 = 14 ✗",
+            "E: 6+10 = 16 ✗"
+          ],
+          "hint": "Total of all ages = 35. Remaining two = 35 − 22 = 13."
+        }
+      }
     },
     {
       "number": 11,
@@ -248,7 +807,54 @@
         {"label": "E", "text": "(gambar E)"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "There are no ducks on Mike's card",
+            "phrase_id": "Tidak ada bebek di kartu Mike",
+            "note_en": "Mike's card must not have any ducks — use this to eliminate cards.",
+            "note_id": "Kartu Mike tidak boleh memiliki bebek — gunakan ini untuk mengeliminasi kartu."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "There are kangaroos on Heather's card",
+            "phrase_id": "Ada kanguru di kartu Heather",
+            "note_en": "Heather's card has kangaroos — cross it off from Mike's options.",
+            "note_id": "Kartu Heather memiliki kanguru — coret dari pilihan Mike."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which card did Mike get?",
+            "phrase_id": "Kartu mana yang didapat Mike?",
+            "note_en": "After assigning all other cards, the remaining one is Mike's.",
+            "note_id": "Setelah menetapkan semua kartu lain, yang tersisa adalah kartu Mike."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Assign each friend's card using the clues, then find Mike's by elimination",
+          "name_id": "Tetapkan kartu setiap teman menggunakan petunjuk, lalu temukan kartu Mike dengan eliminasi"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Assign the easy ones first: Cara = sun card, Lexi = dog card, Heather = kangaroo card.",
+        "Paula's card has exactly two living creatures — find that card and assign it to Paula.",
+        "The remaining card has no ducks — that is Mike's card (figure A)."
+      ],
+      "hint_steps_id": [
+        "Tetapkan yang mudah dulu: Cara = kartu matahari, Lexi = kartu anjing, Heather = kartu kanguru.",
+        "Kartu Paula memiliki tepat dua makhluk hidup — temukan kartu itu dan tetapkan ke Paula.",
+        "Kartu yang tersisa tidak memiliki bebek — itulah kartu Mike (gambar A)."
+      ]
     },
     {
       "number": 12,
@@ -270,7 +876,80 @@
         {"label": "E", "text": "salah satu angka 7"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "the sum of the three numbers in each row and in each column of the grid to be the same",
+            "phrase_id": "jumlah tiga angka di setiap baris dan setiap kolom pada kotak menjadi sama",
+            "note_en": "Every row and every column must have the same total — find the target sum first.",
+            "note_id": "Setiap baris dan setiap kolom harus memiliki total yang sama — temukan target terlebih dahulu."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "He made one mistake",
+            "phrase_id": "Dia membuat satu kesalahan",
+            "note_en": "Exactly one number is wrong — the others are all correct.",
+            "note_id": "Tepat satu angka salah — yang lain semuanya benar."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number must he correct?",
+            "phrase_id": "Angka mana yang harus dia perbaiki?",
+            "note_en": "Find which row and column both break the rule — their shared cell is the mistake.",
+            "note_id": "Temukan baris dan kolom yang keduanya melanggar aturan — sel yang mereka bagikan adalah kesalahannya."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Row 1: 9+1+5", "label_id": "Baris 1: 9+1+5", "value": "15" },
+          { "label_en": "Row 2: 3+7+6", "label_id": "Baris 2: 3+7+6", "value": "16 ✗ (too big by 1)" },
+          { "label_en": "Row 3: 4+7+4", "label_id": "Baris 3: 4+7+4", "value": "15" },
+          { "label_en": "Col 1: 9+3+4", "label_id": "Kol 1: 9+3+4", "value": "16 ✗ (too big by 1)" },
+          { "label_en": "Col 2: 1+7+7", "label_id": "Kol 2: 1+7+7", "value": "15" },
+          { "label_en": "Col 3: 5+6+4", "label_id": "Kol 3: 5+6+4", "value": "15" },
+          { "label_en": "Shared bad cell (row 2, col 1) = 3, should be", "label_id": "Sel buruk bersama (baris 2, kol 1) = 3, seharusnya", "value": "2" }
+        ],
+        "strategy": {
+          "name_en": "Check every row and column sum, then find the shared bad cell",
+          "name_id": "Periksa jumlah setiap baris dan kolom, lalu temukan sel buruk yang dibagikan"
+        },
+        "trap": {
+          "wrong": "one of the 7s",
+          "why_en": "The two 7s are both correct — row 2 and col 1 share the cell with value 3, not 7.",
+          "why_id": "Kedua angka 7 sudah benar — baris 2 dan kol 1 berbagi sel dengan nilai 3, bukan 7."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Check each row: row 1 = 15, row 2 = 16 (too big!), row 3 = 15. Target sum = 15.",
+        "Check each column: col 1 = 16 (too big!), col 2 = 15, col 3 = 15.",
+        "Row 2 and col 1 both break the rule. Their shared cell (row 2, col 1) holds the number 3 — change it to 2."
+      ],
+      "hint_steps_id": [
+        "Cek setiap baris: baris 1 = 15, baris 2 = 16 (terlalu besar!), baris 3 = 15. Target jumlah = 15.",
+        "Cek setiap kolom: kol 1 = 16 (terlalu besar!), kol 2 = 15, kol 3 = 15.",
+        "Baris 2 dan kol 1 keduanya melanggar aturan. Sel yang mereka bagikan (baris 2, kol 1) berisi angka 3 — ubah menjadi 2."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "question": "Which number in the grid is wrong?",
+          "candidates": [
+            "A: 1 — row 1 = 15 ✓, col 2 = 15 ✓ → 1 is fine ✗",
+            "B: 3 — row 2 = 16 ✗, col 1 = 16 ✗ → shared bad cell ✓",
+            "C: one of the 4s — rows/cols check out ✗",
+            "D: 5 — row 1 = 15 ✓, col 3 = 15 ✓ → 5 is fine ✗",
+            "E: one of the 7s — rows/cols check out ✗"
+          ],
+          "hint": "Target sum = 15. Row 2 and col 1 both sum to 16 — their shared cell (value 3) is the mistake."
+        }
+      }
     },
     {
       "number": 13,
@@ -292,7 +971,63 @@
         {"label": "E", "text": "32"}
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "same number of dots, arranged in two lines, along each side",
+            "phrase_id": "jumlah titik yang sama, tersusun dalam dua baris, di sepanjang setiap sisi",
+            "note_en": "Each side has dots in exactly 2 lines — so dots per side = 2 × (dots per line).",
+            "note_id": "Setiap sisi memiliki titik dalam tepat 2 baris — jadi titik per sisi = 2 × (titik per baris)."
+          },
+          {
+            "category": "object",
+            "phrase_en": "square carpet",
+            "phrase_id": "karpet berbentuk persegi",
+            "note_en": "A square has 4 sides — but corner dots are shared between two sides.",
+            "note_id": "Persegi memiliki 4 sisi — tetapi titik sudut dibagi antara dua sisi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many dots are there on Aladdin's carpet?",
+            "phrase_id": "Berapa banyak titik yang ada di karpet Aladdin?",
+            "note_en": "Count all dots around the border, avoiding double-counting the corners.",
+            "note_id": "Hitung semua titik di sekitar tepi, hindari menghitung sudut dua kali."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Dots per line along one side (from figure)", "label_id": "Titik per baris di satu sisi (dari gambar)", "value": "4" },
+          { "label_en": "Dots per side (2 lines × 4)", "label_id": "Titik per sisi (2 baris × 4)", "value": "8" },
+          { "label_en": "4 sides × 8 dots", "label_id": "4 sisi × 8 titik", "value": "32" },
+          { "label_en": "Corner dots are already included (no overlap in this arrangement)", "label_id": "Titik sudut sudah termasuk (tidak ada tumpang tindih)", "value": "32" }
+        ],
+        "strategy": {
+          "name_en": "Count dots per side from the figure, then multiply by 4",
+          "name_id": "Hitung titik per sisi dari gambar, lalu kalikan 4"
+        },
+        "trap": {
+          "wrong": "48 or 40",
+          "why_en": "Miscounting the dots per line from the folded figure leads to the wrong total.",
+          "why_id": "Menghitung salah titik per baris dari gambar terlipat menghasilkan total yang salah."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure: each side has dots arranged in 2 lines. Count the dots in one line along one side.",
+        "From the figure, each line has 4 dots, so each side has 2 × 4 = 8 dots.",
+        "The carpet has 4 equal sides: 4 × 8 = 32 dots in total."
+      ],
+      "hint_steps_id": [
+        "Lihat gambarnya: setiap sisi memiliki titik yang tersusun dalam 2 baris. Hitung titik dalam satu baris di satu sisi.",
+        "Dari gambar, setiap baris memiliki 4 titik, jadi setiap sisi memiliki 2 × 4 = 8 titik.",
+        "Karpet memiliki 4 sisi yang sama: 4 × 8 = 32 titik total."
+      ]
     },
     {
       "number": 14,
@@ -314,7 +1049,58 @@
         {"label": "E", "text": "15, 17, 20, 22"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Joanna folds the number square twice as shown",
+            "phrase_id": "Joanna melipat kotak angka dua kali seperti yang ditunjukkan",
+            "note_en": "Folding twice means the hole goes through 4 layers — punching one spot hits 4 numbers.",
+            "note_id": "Melipat dua kali berarti lubang menembus 4 lapisan — melubangi satu titik mengenai 4 angka."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "punches a hole through the black spot shown by the arrow",
+            "phrase_id": "melubangi titik hitam yang ditunjukkan oleh panah",
+            "note_en": "The punch location on the folded paper maps back to 4 positions on the unfolded square.",
+            "note_id": "Lokasi lubang pada kertas terlipat memetakan kembali ke 4 posisi pada kotak yang tidak terlipat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which numbers does she also punch through?",
+            "phrase_id": "Angka-angka mana yang juga ikut terlubangi?",
+            "note_en": "Unfold mentally to find all 4 numbers the hole passes through.",
+            "note_id": "Buka lipatan secara mental untuk menemukan semua 4 angka yang dilubangi."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Trace the fold in reverse to find all punched positions",
+          "name_id": "Ikuti lipatan secara terbalik untuk menemukan semua posisi yang terlubangi"
+        },
+        "trap": {
+          "wrong": "15, 16, 21, 22",
+          "why_en": "That reflects only one fold — you must unfold both folds to find the correct 4 numbers.",
+          "why_id": "Itu hanya mencerminkan satu lipatan — kamu harus membuka kedua lipatan untuk menemukan 4 angka yang benar."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure: the number grid is 6×6 (numbers 1–36). Note the two fold lines.",
+        "After the first fold, find where the black dot lands on the unfolded half.",
+        "After the second fold, repeat — you end up with 4 punched positions: 14, 17, 20, 23."
+      ],
+      "hint_steps_id": [
+        "Lihat gambarnya: kotak angka berukuran 6×6 (angka 1–36). Perhatikan dua garis lipatan.",
+        "Setelah lipatan pertama, temukan di mana titik hitam jatuh pada bagian yang tidak terlipat.",
+        "Setelah lipatan kedua, ulangi — kamu mendapatkan 4 posisi terlubangi: 14, 17, 20, 23."
+      ]
     },
     {
       "number": 15,
@@ -336,7 +1122,78 @@
         {"label": "E", "text": "36"}
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "There are the same number of pupils in each row",
+            "phrase_id": "Jumlah murid di setiap baris sama",
+            "note_en": "Every row has the same count — we calculate from Robert's row.",
+            "note_id": "Setiap baris memiliki jumlah yang sama — kita hitung dari baris Robert."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 rows of pupils in front of Robert and 1 row of pupils behind him",
+            "phrase_id": "2 baris murid di depan Robert dan 1 baris murid di belakangnya",
+            "note_en": "Robert's row + 2 in front + 1 behind = 4 rows total.",
+            "note_id": "Baris Robert + 2 di depan + 1 di belakang = 4 baris total."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 pupils on his left and 5 pupils on his right",
+            "phrase_id": "3 murid di sebelah kirinya dan 5 murid di sebelah kanannya",
+            "note_en": "Pupils per row = 3 (left) + Robert + 5 (right) = 9.",
+            "note_id": "Murid per baris = 3 (kiri) + Robert + 5 (kanan) = 9."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pupils per row (3 + 1 + 5)", "label_id": "Murid per baris (3 + 1 + 5)", "value": "9" },
+          { "label_en": "Total rows (2 front + 1 Robert's + 1 back)", "label_id": "Total baris (2 depan + 1 baris Robert + 1 belakang)", "value": "4" },
+          { "label_en": "Total pupils (9 × 4)", "label_id": "Total murid (9 × 4)", "value": "36" }
+        ],
+        "strategy": {
+          "name_en": "Count pupils per row, count rows, multiply",
+          "name_id": "Hitung murid per baris, hitung baris, kalikan"
+        },
+        "trap": {
+          "wrong": "27",
+          "why_en": "27 = 9 × 3, forgetting to count Robert's own row as one of the 4 rows.",
+          "why_id": "27 = 9 × 3, lupa menghitung baris Robert sendiri sebagai salah satu dari 4 baris."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Count pupils in Robert's row: 3 on the left + Robert himself + 5 on the right = 9 pupils per row.",
+        "Count the rows: 2 in front + Robert's row + 1 behind = 4 rows.",
+        "Total pupils = 9 × 4 = 36."
+      ],
+      "hint_steps_id": [
+        "Hitung murid di baris Robert: 3 di kiri + Robert sendiri + 5 di kanan = 9 murid per baris.",
+        "Hitung barisnya: 2 di depan + baris Robert + 1 di belakang = 4 baris.",
+        "Total murid = 9 × 4 = 36."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work out pupils per row and total rows, then multiply.",
+          "intro_id": "Hitung murid per baris dan total baris, lalu kalikan.",
+          "items": [
+            { "text_en": "Pupils per row: 3 (left) + Robert + 5 (right) = 9", "text_id": "Murid per baris: 3 (kiri) + Robert + 5 (kanan) = 9", "ok": true },
+            { "text_en": "Total rows: 2 (front) + 1 (Robert's) + 1 (back) = 4", "text_id": "Total baris: 2 (depan) + 1 (Robert) + 1 (belakang) = 4", "ok": true },
+            { "text_en": "Total = 9 × 4 = 36", "text_id": "Total = 9 × 4 = 36", "ok": true }
+          ],
+          "final_en": "The class has 36 pupils.",
+          "final_id": "Kelas memiliki 36 murid.",
+          "aria_en": "Step-by-step count: 9 pupils per row times 4 rows equals 36.",
+          "aria_id": "Langkah demi langkah: 9 murid per baris dikali 4 baris sama dengan 36."
+        }
+      }
     },
     {
       "number": 16,
@@ -358,7 +1215,54 @@
         {"label": "E", "text": "lima"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many of the shapes on the left will fall exactly on top of shapes on the right?",
+            "phrase_id": "Berapa banyak bentuk di sebelah kiri yang akan tepat jatuh di atas bentuk-bentuk di sebelah kanan?",
+            "note_en": "Folding along the red line maps each left shape to a position on the right — check if a right shape is already there.",
+            "note_id": "Melipat sepanjang garis merah memetakan setiap bentuk kiri ke posisi di sebelah kanan — periksa apakah ada bentuk kanan di sana."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "folded the paper along the red line",
+            "phrase_id": "melipat kertas di sepanjang garis merah",
+            "note_en": "The red fold line acts as a mirror — reflect each left shape across it.",
+            "note_id": "Garis lipatan merah berfungsi sebagai cermin — cerminkan setiap bentuk kiri melewatinya."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "fall exactly on top of shapes on the right",
+            "phrase_id": "tepat jatuh di atas bentuk-bentuk di sebelah kanan",
+            "note_en": "The shape must match in position AND type — size and orientation must align.",
+            "note_id": "Bentuk harus cocok dalam posisi DAN jenis — ukuran dan orientasi harus sesuai."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Reflect each left shape across the fold line and check for a match on the right",
+          "name_id": "Cerminkan setiap bentuk kiri melintasi garis lipatan dan periksa apakah ada padanannya di sebelah kanan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Imagine folding the paper along the red line so the left side folds onto the right side.",
+        "For each shape on the left, find where it lands on the right side after folding.",
+        "Count how many of those landing positions have a matching shape on the right — the answer is three."
+      ],
+      "hint_steps_id": [
+        "Bayangkan melipat kertas sepanjang garis merah sehingga sisi kiri terlipat ke sisi kanan.",
+        "Untuk setiap bentuk di sebelah kiri, temukan di mana posisinya di sisi kanan setelah dilipat.",
+        "Hitung berapa posisi pendaratan yang memiliki bentuk cocok di sebelah kanan — jawabannya adalah tiga."
+      ]
     },
     {
       "number": 17,
@@ -380,7 +1284,77 @@
         {"label": "E", "text": "6"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "there are 2 coloured ones, 2 large ones and 2 round ones",
+            "phrase_id": "ada 2 yang berwarna, 2 yang besar, dan 2 yang bulat",
+            "note_en": "Each of the three attributes must be covered exactly twice in the chosen set.",
+            "note_id": "Setiap dari tiga atribut harus tercakup tepat dua kali dalam set yang dipilih."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the smallest number of the following shapes that Wanda could have chosen?",
+            "phrase_id": "Berapa jumlah paling sedikit bentuk berikut yang mungkin dipilih Wanda?",
+            "note_en": "Minimise the set by choosing shapes that each satisfy multiple attributes at once.",
+            "note_id": "Minimalkan set dengan memilih bentuk yang masing-masing memenuhi beberapa atribut sekaligus."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Wanda chose a few of the following shapes",
+            "phrase_id": "Wanda memilih beberapa bentuk berikut",
+            "note_en": "The available shapes include combinations of coloured/uncoloured, large/small, round/not-round.",
+            "note_id": "Bentuk yang tersedia mencakup kombinasi berwarna/tidak berwarna, besar/kecil, bulat/tidak bulat."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Can 2 shapes cover all 3 attributes twice?", "label_id": "Bisakah 2 bentuk menutupi semua 3 atribut sebanyak dua kali?", "value": "No — max 2×2=4 attribute-slots with 2 shapes, but need 6" },
+          { "label_en": "Can 3 shapes cover all 3 attributes twice?", "label_id": "Bisakah 3 bentuk menutupi semua 3 atribut sebanyak dua kali?", "value": "Yes — pick 3 shapes that share attributes cleverly" },
+          { "label_en": "Minimum shapes needed", "label_id": "Jumlah bentuk minimum yang diperlukan", "value": "3" }
+        ],
+        "strategy": {
+          "name_en": "Try the smallest count first, then check if attributes can be covered",
+          "name_id": "Coba jumlah terkecil terlebih dahulu, lalu periksa apakah atribut dapat tercakup"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "With only 2 shapes you can cover at most 2 instances of each attribute — but each shape can be coloured AND large AND round, so 2 shapes can give 2 coloured, 2 large, 2 round if both shapes have all three attributes. However the figure shows no shape that is all three, so 3 is the minimum.",
+          "why_id": "Dengan hanya 2 bentuk kamu bisa mendapatkan maksimal 2 untuk setiap atribut — tetapi gambar tidak menunjukkan bentuk yang memiliki ketiga atribut, jadi 3 adalah minimumnya."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Each chosen shape can contribute to multiple attributes (e.g. a large coloured circle covers 'large', 'coloured', and 'round' all at once).",
+        "Try to pick shapes that overlap as many attributes as possible to keep the count low.",
+        "It is impossible with only 2 shapes given the available figures; 3 shapes can satisfy all the conditions."
+      ],
+      "hint_steps_id": [
+        "Setiap bentuk yang dipilih dapat berkontribusi pada beberapa atribut sekaligus (misalnya, lingkaran besar berwarna mencakup 'besar', 'berwarna', dan 'bulat').",
+        "Cobalah memilih bentuk yang tumpang tindih sebanyak mungkin atribut agar jumlahnya tetap sedikit.",
+        "Tidak mungkin hanya dengan 2 bentuk berdasarkan gambar yang tersedia; 3 bentuk dapat memenuhi semua syarat."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Can we cover 2 coloured + 2 large + 2 round with the fewest shapes?",
+          "intro_id": "Bisakah kita menutupi 2 berwarna + 2 besar + 2 bulat dengan paling sedikit bentuk?",
+          "items": [
+            { "text_en": "Try 2 shapes: need each shape to be coloured+large+round — no such shape exists in the set", "text_id": "Coba 2 bentuk: butuh bentuk yang berwarna+besar+bulat — tidak ada bentuk seperti itu", "ok": false },
+            { "text_en": "Try 3 shapes: pick one large+coloured+round, one large+coloured (not round), one round (not coloured/large) — covers each attribute exactly twice", "text_id": "Coba 3 bentuk: pilih satu besar+berwarna+bulat, satu besar+berwarna, satu bulat — mencakup setiap atribut tepat dua kali", "ok": true }
+          ],
+          "final_en": "Minimum is 3 shapes.",
+          "final_id": "Minimum adalah 3 bentuk.",
+          "aria_en": "2 shapes cannot cover all three attributes twice; 3 shapes can.",
+          "aria_id": "2 bentuk tidak dapat mencakup ketiga atribut sebanyak dua kali; 3 bentuk bisa."
+        }
+      }
     },
     {
       "number": 18,
@@ -402,7 +1376,54 @@
         {"label": "E", "text": "(gambar E)"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "The puzzle on the left should be completed to look like the puzzle on the right",
+            "phrase_id": "Teka-teki di sebelah kiri harus dilengkapi agar terlihat seperti teka-teki di sebelah kanan",
+            "note_en": "Find the gap in the left puzzle and match it to the target shape on the right.",
+            "note_id": "Temukan celah di teka-teki kiri dan cocokkan dengan bentuk target di sebelah kanan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What piece should be used?",
+            "phrase_id": "Potongan mana yang harus digunakan?",
+            "note_en": "The piece must fill the gap exactly in both shape and pattern.",
+            "note_id": "Potongan harus mengisi celah dengan tepat dalam bentuk maupun pola."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "completed to look like the puzzle on the right",
+            "phrase_id": "dilengkapi agar terlihat seperti teka-teki di sebelah kanan",
+            "note_en": "Compare the incomplete left puzzle against the complete right puzzle to identify the missing region.",
+            "note_id": "Bandingkan teka-teki kiri yang tidak lengkap dengan teka-teki kanan yang lengkap untuk mengidentifikasi bagian yang hilang."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Identify the missing region and match it to one of the given pieces",
+          "name_id": "Identifikasi bagian yang hilang dan cocokkan dengan salah satu potongan yang diberikan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the complete puzzle on the right and the incomplete one on the left — identify the missing section.",
+        "Note the exact shape and pattern of that missing section.",
+        "Compare each piece (A–E) to the missing section — piece C matches exactly."
+      ],
+      "hint_steps_id": [
+        "Lihat teka-teki lengkap di sebelah kanan dan yang tidak lengkap di sebelah kiri — identifikasi bagian yang hilang.",
+        "Perhatikan bentuk dan pola yang tepat dari bagian yang hilang itu.",
+        "Bandingkan setiap potongan (A–E) dengan bagian yang hilang — potongan C cocok dengan tepat."
+      ]
     },
     {
       "number": 19,
@@ -424,7 +1445,54 @@
         {"label": "E", "text": "2 dan 4"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which buoys did Karin sail around in a counterclockwise direction?",
+            "phrase_id": "Pelampung mana yang dikelilingi Karin dalam arah berlawanan jarum jam?",
+            "note_en": "Counterclockwise means turning left around the buoy as viewed from above.",
+            "note_id": "Berlawanan jarum jam berarti berbelok ke kiri mengelilingi pelampung saat dilihat dari atas."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Karin sailed around four buoys, as shown",
+            "phrase_id": "Karin berlayar mengelilingi empat pelampung, seperti yang ditunjukkan",
+            "note_en": "The sailing path is shown in the figure — trace the direction around each buoy.",
+            "note_id": "Jalur berlayar ditunjukkan dalam gambar — ikuti arah di sekitar setiap pelampung."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in a counterclockwise direction",
+            "phrase_id": "dalam arah berlawanan jarum jam",
+            "note_en": "For each buoy, determine if the boat circles left (CCW) or right (CW).",
+            "note_id": "Untuk setiap pelampung, tentukan apakah kapal berputar ke kiri (CCW) atau ke kanan (CW)."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Trace the path around each buoy and classify as clockwise or counterclockwise",
+          "name_id": "Ikuti jalur di sekitar setiap pelampung dan klasifikasikan sebagai searah atau berlawanan jarum jam"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure and trace Karin's sailing path carefully around each buoy.",
+        "For each buoy, ask: does she go around it to the left (counterclockwise) or to the right (clockwise)?",
+        "Buoys 2 and 3 are circled counterclockwise — the answer is B."
+      ],
+      "hint_steps_id": [
+        "Lihat gambarnya dan ikuti jalur berlayar Karin dengan hati-hati di sekitar setiap pelampung.",
+        "Untuk setiap pelampung, tanyakan: apakah dia mengelilinginya ke kiri (berlawanan jarum jam) atau ke kanan (searah jarum jam)?",
+        "Pelampung 2 dan 3 dikelilingi berlawanan jarum jam — jawabannya adalah B."
+      ]
     },
     {
       "number": 20,
@@ -446,7 +1514,54 @@
         {"label": "E", "text": "1 dan 5"}
       ],
       "answer": "E",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a child in A is able to travel to B and to E, but not to D",
+            "phrase_id": "seorang anak di A dapat bepergian ke B dan ke E, tetapi tidak ke D",
+            "note_en": "The piece must connect A→B and A→E while blocking the A→D path.",
+            "note_id": "Potongan harus menghubungkan A→B dan A→E sambil memblokir jalur A→D."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "She can rotate the pieces",
+            "phrase_id": "Dia dapat memutar potongan tersebut",
+            "note_en": "Each piece can be turned in any direction — consider all orientations.",
+            "note_id": "Setiap potongan dapat diputar ke arah mana pun — pertimbangkan semua orientasi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which two pieces could she use?",
+            "phrase_id": "Dua potongan mana yang bisa dia gunakan?",
+            "note_en": "Two different pieces (when rotated) both satisfy the connectivity condition.",
+            "note_id": "Dua potongan berbeda (saat diputar) keduanya memenuhi kondisi konektivitas."
+          }
+        ],
+        "quantities": [],
+        "strategy": {
+          "name_en": "Test each piece in all rotations for correct path connectivity",
+          "name_id": "Uji setiap potongan dalam semua rotasi untuk konektivitas jalur yang benar"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "E"
+        }
+      },
+      "hint_steps_en": [
+        "Look at the figure: identify which exits from the center connect to A, B, D, and E.",
+        "Try each piece (with rotations) and check: does it open A–B and A–E while closing A–D?",
+        "Pieces 1 and 5, when rotated appropriately, both satisfy the condition."
+      ],
+      "hint_steps_id": [
+        "Lihat gambarnya: identifikasi jalan keluar dari tengah yang terhubung ke A, B, D, dan E.",
+        "Coba setiap potongan (dengan rotasi) dan periksa: apakah membuka A–B dan A–E sambil menutup A–D?",
+        "Potongan 1 dan 5, saat diputar dengan tepat, keduanya memenuhi kondisi tersebut."
+      ]
     },
     {
       "number": 21,
@@ -468,7 +1583,58 @@
         {"label": "E", "text": "5"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ahmad walks around the square-shaped garden and Zhaleh walks around the rectangular-shaped one",
+            "phrase_id": "Ahmad berjalan mengelilingi taman berbentuk persegi dan Zhaleh berjalan mengelilingi yang berbentuk persegi panjang",
+            "note_en": "They each loop a different perimeter at the same speed — they meet when total distances are equal multiples of their own perimeter.",
+            "note_id": "Mereka masing-masing mengitari perimeter berbeda dengan kecepatan yang sama — bertemu saat jarak total merupakan kelipatan genap dari perimeter masing-masing."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "They meet again at A",
+            "phrase_id": "Mereka bertemu lagi di A",
+            "note_en": "Both must return to A simultaneously — the meeting time is the LCM of their lap times.",
+            "note_id": "Keduanya harus kembali ke A secara bersamaan — waktu pertemuan adalah KPK dari waktu putaran mereka."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the smallest number of laps around the square-shaped garden that Ahmad could do",
+            "phrase_id": "Berapa jumlah putaran paling sedikit mengelilingi taman berbentuk persegi yang dapat dilakukan Ahmad",
+            "note_en": "Find the smallest integer laps for Ahmad such that Zhaleh also completes an integer number of laps.",
+            "note_id": "Temukan jumlah putaran integer terkecil untuk Ahmad sehingga Zhaleh juga menyelesaikan jumlah putaran integer."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Square perimeter (from figure)", "label_id": "Keliling persegi (dari gambar)", "value": "S" },
+          { "label_en": "Rectangle perimeter (from figure)", "label_id": "Keliling persegi panjang (dari gambar)", "value": "3S/2 (ratio gives Ahmad 3 laps while Zhaleh does 2)" },
+          { "label_en": "Ahmad's minimum laps", "label_id": "Putaran minimum Ahmad", "value": "3" }
+        ],
+        "strategy": {
+          "name_en": "Find the ratio of perimeters to determine meeting laps using LCM",
+          "name_id": "Temukan rasio perimeter untuk menentukan putaran pertemuan menggunakan KPK"
+        },
+        "trap": null,
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "From the figure, read the perimeters of both gardens — they have a specific ratio.",
+        "Since they travel at the same speed, they meet when both have completed whole-number laps — use the LCM of their lap distances.",
+        "The smallest number of laps Ahmad can do is 3 (while Zhaleh completes 2 laps of the rectangle)."
+      ],
+      "hint_steps_id": [
+        "Dari gambar, baca keliling kedua taman — keduanya memiliki rasio tertentu.",
+        "Karena mereka berjalan dengan kecepatan yang sama, mereka bertemu saat keduanya telah menyelesaikan jumlah putaran bulat — gunakan KPK dari jarak putaran mereka.",
+        "Jumlah putaran minimum yang dapat dilakukan Ahmad adalah 3 (sementara Zhaleh menyelesaikan 2 putaran persegi panjang)."
+      ]
     },
     {
       "number": 22,
@@ -490,7 +1656,84 @@
         {"label": "E", "text": "Alice dan Betty"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Lauren ate two plums more than Sophie",
+            "phrase_id": "Lauren memakan dua plum lebih banyak dari Sophie",
+            "note_en": "Lauren = Sophie + 2. Let Sophie = S.",
+            "note_id": "Lauren = Sophie + 2. Misalkan Sophie = S."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Betty ate three plums fewer than Lauren",
+            "phrase_id": "Betty memakan tiga plum lebih sedikit dari Lauren",
+            "note_en": "Betty = Lauren − 3 = S + 2 − 3 = S − 1.",
+            "note_id": "Betty = Lauren − 3 = S + 2 − 3 = S − 1."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Claire ate one plum more than Betty and three plums fewer than Alice",
+            "phrase_id": "Claire memakan satu plum lebih banyak dari Betty dan tiga plum lebih sedikit dari Alice",
+            "note_en": "Claire = Betty + 1 = S. Alice = Claire + 3 = S + 3.",
+            "note_id": "Claire = Betty + 1 = S. Alice = Claire + 3 = S + 3."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sophie", "label_id": "Sophie", "value": "S" },
+          { "label_en": "Lauren = S + 2", "label_id": "Lauren = S + 2", "value": "S + 2" },
+          { "label_en": "Betty = Lauren − 3 = S − 1", "label_id": "Betty = Lauren − 3 = S − 1", "value": "S − 1" },
+          { "label_en": "Claire = Betty + 1 = S", "label_id": "Claire = Betty + 1 = S", "value": "S" },
+          { "label_en": "Alice = Claire + 3 = S + 3", "label_id": "Alice = Claire + 3 = S + 3", "value": "S + 3" },
+          { "label_en": "Claire = Sophie = S ✓", "label_id": "Claire = Sophie = S ✓", "value": "same" }
+        ],
+        "strategy": {
+          "name_en": "Express everyone in terms of Sophie, then compare",
+          "name_id": "Nyatakan semua dalam hal Sophie, lalu bandingkan"
+        },
+        "trap": {
+          "wrong": "Lauren and Alice",
+          "why_en": "Lauren = S+2 and Alice = S+3 — they differ by 1, not equal.",
+          "why_id": "Lauren = S+2 dan Alice = S+3 — keduanya berbeda 1, bukan sama."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Let Sophie = S. Then Lauren = S+2, Betty = Lauren−3 = S−1, Claire = Betty+1 = S, Alice = Claire+3 = S+3.",
+        "Compare all values: Sophie=S, Lauren=S+2, Betty=S−1, Claire=S, Alice=S+3.",
+        "Claire and Sophie both equal S — they ate the same number of plums."
+      ],
+      "hint_steps_id": [
+        "Misalkan Sophie = S. Maka Lauren = S+2, Betty = Lauren−3 = S−1, Claire = Betty+1 = S, Alice = Claire+3 = S+3.",
+        "Bandingkan semua nilai: Sophie=S, Lauren=S+2, Betty=S−1, Claire=S, Alice=S+3.",
+        "Claire dan Sophie keduanya sama dengan S — mereka memakan jumlah plum yang sama."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set Sophie = S and build each girl's count from the clues.",
+          "intro_id": "Misalkan Sophie = S dan bangun hitungan setiap gadis dari petunjuknya.",
+          "items": [
+            { "text_en": "Sophie = S", "text_id": "Sophie = S", "ok": null },
+            { "text_en": "Lauren = S + 2", "text_id": "Lauren = S + 2", "ok": null },
+            { "text_en": "Betty = Lauren − 3 = S − 1", "text_id": "Betty = Lauren − 3 = S − 1", "ok": null },
+            { "text_en": "Claire = Betty + 1 = S", "text_id": "Claire = Betty + 1 = S", "ok": null },
+            { "text_en": "Alice = Claire + 3 = S + 3", "text_id": "Alice = Claire + 3 = S + 3", "ok": null },
+            { "text_en": "Claire (S) = Sophie (S) ✓ — same!", "text_id": "Claire (S) = Sophie (S) ✓ — sama!", "ok": true }
+          ],
+          "final_en": "Claire and Sophie ate the same number of plums.",
+          "final_id": "Claire dan Sophie memakan jumlah plum yang sama.",
+          "aria_en": "Express each count in terms of S: Sophie=S, Lauren=S+2, Betty=S-1, Claire=S, Alice=S+3. Claire equals Sophie.",
+          "aria_id": "Nyatakan setiap hitungan dalam S: Sophie=S, Lauren=S+2, Betty=S-1, Claire=S, Alice=S+3. Claire sama dengan Sophie."
+        }
+      }
     },
     {
       "number": 23,
@@ -512,7 +1755,76 @@
         {"label": "E", "text": "30"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Every box shows the result of the number on the left and on the top",
+            "phrase_id": "Setiap kotak menunjukkan hasil kali angka di sebelah kiri dan di atas",
+            "note_en": "Each cell = (row header) × (column header). The grid is a multiplication table.",
+            "note_id": "Setiap sel = (header baris) × (header kolom). Kotak adalah tabel perkalian."
+          },
+          {
+            "category": "object",
+            "phrase_en": "5  | 15 | 35",
+            "phrase_id": "5  | 15 | 35",
+            "note_en": "5 × 3 = 15 confirms the first column. 5 × ? = 35, so ? = 7.",
+            "note_id": "5 × 3 = 15 mengkonfirmasi kolom pertama. 5 × ? = 35, jadi ? = 7."
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which number is written behind the heart?",
+            "phrase_id": "Angka berapa yang tertulis di balik hati?",
+            "note_en": "Heart = 4 × ?, where ? was found from the row above.",
+            "note_id": "Hati = 4 × ?, di mana ? sudah ditemukan dari baris di atas."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Find ?: 5 × ? = 35 → ? = 35 ÷ 5", "label_id": "Cari ?: 5 × ? = 35 → ? = 35 ÷ 5", "value": "7" },
+          { "label_en": "Heart = 4 × 7", "label_id": "Hati = 4 × 7", "value": "28" }
+        ],
+        "strategy": {
+          "name_en": "Use the known row to find the missing column header, then compute the heart",
+          "name_id": "Gunakan baris yang diketahui untuk menemukan header kolom yang hilang, lalu hitung hati"
+        },
+        "trap": {
+          "wrong": "30",
+          "why_en": "30 = 4 × 7.5 — wrong ? value. Use 5 × ? = 35 to get ? = 7, not any other number.",
+          "why_id": "30 = 4 × 7,5 — nilai ? salah. Gunakan 5 × ? = 35 untuk mendapatkan ? = 7."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "From the row with 5: 5 × 3 = 15 ✓. Use 5 × ? = 35 to find the missing column header: ? = 35 ÷ 5 = 7.",
+        "Now use the row with 4: heart = 4 × 7 = 28.",
+        "The number behind the heart is 28."
+      ],
+      "hint_steps_id": [
+        "Dari baris dengan 5: 5 × 3 = 15 ✓. Gunakan 5 × ? = 35 untuk menemukan header kolom yang hilang: ? = 35 ÷ 5 = 7.",
+        "Sekarang gunakan baris dengan 4: hati = 4 × 7 = 28.",
+        "Angka di balik hati adalah 28."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the missing column header first, then calculate the heart cell.",
+          "intro_id": "Temukan header kolom yang hilang terlebih dahulu, lalu hitung sel hati.",
+          "items": [
+            { "text_en": "5 × ? = 35  →  ? = 7", "text_id": "5 × ? = 35  →  ? = 7", "ok": true },
+            { "text_en": "Heart = 4 × 7 = 28", "text_id": "Hati = 4 × 7 = 28", "ok": true }
+          ],
+          "final_en": "The heart is 28.",
+          "final_id": "Hati adalah 28.",
+          "aria_en": "Step 1: 5 times unknown equals 35, so unknown is 7. Step 2: 4 times 7 equals 28.",
+          "aria_id": "Langkah 1: 5 kali bilangan tak diketahui sama dengan 35, jadi bilangan tak diketahui adalah 7. Langkah 2: 4 kali 7 sama dengan 28."
+        }
+      }
     },
     {
       "number": 24,
@@ -534,7 +1846,76 @@
         {"label": "E", "text": "7"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "strawberry + watermelon = grapes",
+            "phrase_id": "stroberi + semangka = anggur",
+            "note_en": "Let st = strawberry, wm = watermelon, gr = grapes, to = tomato. Equation 1: st + wm = gr.",
+            "note_id": "Misalkan st = stroberi, wm = semangka, gr = anggur, to = tomat. Persamaan 1: st + wm = gr."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "grapes + strawberry = tomato",
+            "phrase_id": "anggur + stroberi = tomat",
+            "note_en": "Equation 2: gr + st = to. Substitute gr: (st + wm) + st = to → 2·st + wm = to.",
+            "note_id": "Persamaan 2: gr + st = to. Substitusi gr: (st + wm) + st = to → 2·st + wm = to."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum watermelon + tomato?",
+            "phrase_id": "Berapakah jumlah semangka + tomat?",
+            "note_en": "Cards are numbered 1–4 with all different values. Try small values for st.",
+            "note_id": "Kartu dinomori 1–4 dengan semua nilai berbeda. Coba nilai kecil untuk st."
+          }
+        ],
+        "quantities": [
+          { "label_en": "Try st=1, wm=2: gr = 1+2 = 3, to = 3+1 = 4", "label_id": "Coba st=1, wm=2: gr = 1+2 = 3, to = 3+1 = 4", "value": "all four values {1,2,3,4} distinct ✓" },
+          { "label_en": "watermelon + tomato = 2 + 4", "label_id": "semangka + tomat = 2 + 4", "value": "6" }
+        ],
+        "strategy": {
+          "name_en": "Assign variables, substitute, then try valid card values 1–4",
+          "name_id": "Tetapkan variabel, substitusi, lalu coba nilai kartu yang valid 1–4"
+        },
+        "trap": {
+          "wrong": "5",
+          "why_en": "5 = 1+4 but that ignores the equations — you must satisfy both st+wm=gr and gr+st=to simultaneously.",
+          "why_id": "5 = 1+4 tetapi itu mengabaikan persamaan — kamu harus memenuhi st+wm=gr dan gr+st=to secara bersamaan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Write the equations: st + wm = gr and gr + st = to. Substitute: 2·st + wm = to.",
+        "The four fruits represent the numbers 1, 2, 3, 4 (each used once). Try st=1, wm=2: gr=3, to=4. All four values are different ✓.",
+        "watermelon + tomato = 2 + 4 = 6."
+      ],
+      "hint_steps_id": [
+        "Tulis persamaannya: st + wm = gr dan gr + st = to. Substitusi: 2·st + wm = to.",
+        "Keempat buah mewakili angka 1, 2, 3, 4 (masing-masing digunakan sekali). Coba st=1, wm=2: gr=3, to=4. Keempat nilai berbeda ✓.",
+        "semangka + tomat = 2 + 4 = 6."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Try values 1–4 for the fruits using the two equations.",
+          "intro_id": "Coba nilai 1–4 untuk buah-buahan menggunakan dua persamaan.",
+          "items": [
+            { "text_en": "st=1, wm=2 → gr=3, to=4 — all distinct ✓", "text_id": "st=1, wm=2 → gr=3, to=4 — semua berbeda ✓", "ok": true },
+            { "text_en": "wm + to = 2 + 4 = 6", "text_id": "wm + to = 2 + 4 = 6", "ok": true }
+          ],
+          "final_en": "watermelon + tomato = 6.",
+          "final_id": "semangka + tomat = 6.",
+          "aria_en": "Assign strawberry=1, watermelon=2, grapes=3, tomato=4. Then watermelon plus tomato equals 2 plus 4 equals 6.",
+          "aria_id": "Tetapkan stroberi=1, semangka=2, anggur=3, tomat=4. Maka semangka ditambah tomat sama dengan 2 ditambah 4 sama dengan 6."
+        }
+      }
     }
   ]
 }
