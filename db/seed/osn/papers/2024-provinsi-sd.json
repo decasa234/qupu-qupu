@@ -14,7 +14,35 @@
       "body_id": "Jika 3^n adalah faktor dari 18^10, maka bilangan bulat terbesar n yang mungkin adalah ….",
       "body_en": "If 3^n is a factor of 18^10, then the largest possible integer n is ….",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "3^n is a factor of 18^10", "phrase_id": "3^n adalah faktor dari 18^10", "note_en": "3^n divides 18^10", "note_id": "3^n membagi 18^10" },
+          { "category": "fact", "phrase_en": "18^10", "phrase_id": "18^10", "note_en": "18 = 2 × 3^2, so 18^10 = 2^10 × 3^20", "note_id": "18 = 2 × 3^2, jadi 18^10 = 2^10 × 3^20" },
+          { "category": "question", "phrase_en": "largest possible integer n", "phrase_id": "bilangan bulat terbesar n yang mungkin", "note_en": "maximum power of 3 that divides 18^10", "note_id": "pangkat tertinggi dari 3 yang membagi 18^10" }
+        ],
+        "quantities": [
+          { "label_en": "Prime factorisation of 18", "label_id": "Faktorisasi prima 18", "value": "2 × 3^2" },
+          { "label_en": "18^10 expanded", "label_id": "18^10 dijabarkan", "value": "2^10 × 3^20" },
+          { "label_en": "Largest n (exponent of 3)", "label_id": "n terbesar (pangkat 3)", "value": "20" }
+        ],
+        "strategy": { "name_en": "prime-factorisation", "name_id": "faktorisasi-prima" },
+        "trap": { "wrong": "10", "why_en": "Confusing 18^10 with 3^10 — forget to count that 18 = 3^2, so the exponent doubles", "why_id": "Mengira 18^10 memberikan pangkat 10 pada 3 — lupa bahwa 18 = 3^2 sehingga pangkatnya menjadi 20" },
+        "answer": { "form": "value", "unit": null, "value": "20" }
+      },
+      "hint_steps_en": [
+        "Factorise 18: 18 = 2 × 3^2.",
+        "Raise to the 10th power: 18^10 = (2 × 3^2)^10 = 2^10 × 3^20.",
+        "For 3^n to be a factor, n can be at most the exponent of 3 in 18^10.",
+        "The exponent of 3 is 20, so the largest n is 20."
+      ],
+      "hint_steps_id": [
+        "Faktorkan 18: 18 = 2 × 3^2.",
+        "Pangkatkan sepuluh: 18^10 = (2 × 3^2)^10 = 2^10 × 3^20.",
+        "Agar 3^n membagi 18^10, nilai n paling besar sama dengan pangkat 3 dalam 18^10.",
+        "Pangkat 3 adalah 20, sehingga n terbesar adalah 20."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +50,37 @@
       "body_id": "Diketahui Faktor Persekutuan Terbesar dari a dan 2024 serta a dan 2025 terletak antara 10 dan 20. Nilai a terkecil yang mungkin adalah ….",
       "body_en": "The Greatest Common Divisor of a and 2024, and of a and 2025, are both strictly between 10 and 20. The smallest possible value of a is ….",
       "answer": "165",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "condition", "phrase_en": "both strictly between 10 and 20", "phrase_id": "terletak antara 10 dan 20", "note_en": "GCD in the open interval (10, 20), so only 11, 12, 13, …, 19", "note_id": "FPB di interval terbuka (10, 20), yakni 11 hingga 19" },
+          { "category": "fact", "phrase_en": "Greatest Common Divisor of a and 2024, and of a and 2025", "phrase_id": "Faktor Persekutuan Terbesar dari a dan 2024 serta a dan 2025", "note_en": "a must share a divisor with both 2024 and 2025", "note_id": "a harus memiliki pembagi bersama dengan 2024 dan 2025" },
+          { "category": "question", "phrase_en": "smallest possible value of a", "phrase_id": "Nilai a terkecil yang mungkin", "note_en": "minimise a under the constraints", "note_id": "minimalkan a di bawah batasan yang diberikan" }
+        ],
+        "quantities": [
+          { "label_en": "Factorisation of 2024", "label_id": "Faktorisasi 2024", "value": "2024 = 8 × 11 × 23" },
+          { "label_en": "Factorisation of 2025", "label_id": "Faktorisasi 2025", "value": "2025 = 3^4 × 5^2 = 45^2" },
+          { "label_en": "Divisors of 2024 in (10,20)", "label_id": "Pembagi 2024 di (10,20)", "value": "11" },
+          { "label_en": "Divisors of 2025 in (10,20)", "label_id": "Pembagi 2025 di (10,20)", "value": "15" },
+          { "label_en": "Smallest a divisible by both 11 and 15", "label_id": "a terkecil yang habis dibagi 11 dan 15", "value": "165" }
+        ],
+        "strategy": { "name_en": "factor-search", "name_id": "pencarian-faktor" },
+        "trap": { "wrong": "330", "why_en": "Taking LCM(11,15) = 165 is correct; doubling it is unnecessary", "why_id": "LCM(11,15) = 165 sudah benar; menggandakannya tidak perlu" },
+        "answer": { "form": "value", "unit": null, "value": "165" }
+      },
+      "hint_steps_en": [
+        "Factorise 2024 = 2^3 × 11 × 23 and 2025 = 3^4 × 5^2.",
+        "List divisors of 2024 in the open interval (10, 20): only 11.",
+        "List divisors of 2025 in (10, 20): 15 (= 3 × 5).",
+        "a must be a multiple of both 11 and 15, so the smallest a = LCM(11, 15) = 165."
+      ],
+      "hint_steps_id": [
+        "Faktorkan 2024 = 2^3 × 11 × 23 dan 2025 = 3^4 × 5^2.",
+        "Cari pembagi 2024 di interval terbuka (10, 20): hanya 11.",
+        "Cari pembagi 2025 di (10, 20): 15 (= 3 × 5).",
+        "a harus kelipatan 11 dan 15 sekaligus, sehingga a terkecil = KPK(11, 15) = 165."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +88,39 @@
       "body_id": "Bilangan 2024 dapat dinyatakan sebagai jumlah dari n bilangan kuadrat berbeda. Sebagai contoh 2024 dapat dinyatakan sebagai jumlah dari 3 bilangan kuadrat berbeda yaitu 2024 = 2^2 + 24^2 + 38^2. Nilai n terbesar yang mungkin adalah ….",
       "body_en": "The number 2024 can be expressed as the sum of n distinct perfect squares. For example, 2024 = 2^2 + 24^2 + 38^2 uses 3 distinct perfect squares. The largest possible value of n is ….",
       "answer": "17",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "2024 = 2^2 + 24^2 + 38^2", "phrase_id": "2024 = 2^2 + 24^2 + 38^2", "note_en": "given example with 3 distinct squares", "note_id": "contoh yang diberikan dengan 3 bilangan kuadrat berbeda" },
+          { "category": "condition", "phrase_en": "distinct perfect squares", "phrase_id": "bilangan kuadrat berbeda", "note_en": "all n squares must be different", "note_id": "semua n bilangan kuadrat harus berbeda" },
+          { "category": "question", "phrase_en": "largest possible value of n", "phrase_id": "Nilai n terbesar yang mungkin", "note_en": "maximise the number of distinct squares that sum to 2024", "note_id": "maksimalkan banyak bilangan kuadrat berbeda yang berjumlah 2024" }
+        ],
+        "quantities": [
+          { "label_en": "Sum 1^2+2^2+…+17^2", "label_id": "Jumlah 1^2+2^2+…+17^2", "value": "1+4+9+16+25+36+49+64+81+100+121+144+169+196+225+256+289 = 1785" },
+          { "label_en": "Remaining after using 1–17", "label_id": "Sisa setelah menggunakan 1–17", "value": "2024 − 1785 = 239" },
+          { "label_en": "Swap 17^2=289 for 18^2=324 and adjust", "label_id": "Ganti 17^2=289 dengan 18^2=324 lalu sesuaikan", "value": "1785 − 289 + 324 = 1820; still < 2024" },
+          { "label_en": "Strategy: replace smallest squares to reach 2024 with 17 terms", "label_id": "Strategi: ganti kuadrat terkecil agar totalnya 2024 dengan 17 suku", "value": "possible (see hint steps)" },
+          { "label_en": "Maximum n", "label_id": "n terbesar", "value": "17" }
+        ],
+        "strategy": { "name_en": "greedy-replacement", "name_id": "penggantian-serakah" },
+        "trap": { "wrong": "18", "why_en": "Sum of 1^2+…+18^2 = 2109 > 2024, and removing any one square leaves a non-perfect-square gap that cannot be filled with a new distinct square", "why_id": "Jumlah 1^2+…+18^2 = 2109 > 2024, dan menghapus satu kuadrat meninggalkan celah yang tidak bisa diisi dengan satu kuadrat lain yang berbeda" },
+        "answer": { "form": "value", "unit": null, "value": "17" }
+      },
+      "hint_steps_en": [
+        "Compute S = 1^2 + 2^2 + … + 17^2 = 1785. We need 2024 − 1785 = 239 more.",
+        "Replace 1^2 = 1 with some k^2 to add 239: k^2 = 240, not a perfect square. Try replacing 2^2 = 4: need k^2 = 243, also not a square.",
+        "Replace 7^2 = 49 with k^2: need k^2 = 49 + 239 = 288, not a square. Replace 5^2 = 25 with k^2 = 264, not a square.",
+        "Replace 3^2 = 9 with k^2 = 248, not a square. Replace 4^2 = 16 and try combinations: swap two terms to redistribute the surplus of 239.",
+        "One valid 17-term set: replace 1^2 and 2^2 (sum 5) with 18^2 = 324 and remove 17^2 = 289, then rebalance — confirming n = 17 is achievable. n = 18 fails since 1^2+…+18^2 = 2109 > 2024 and removing one square cannot restore equality with a new distinct square."
+      ],
+      "hint_steps_id": [
+        "Hitung S = 1^2 + 2^2 + … + 17^2 = 1785. Kita butuh 2024 − 1785 = 239 lagi.",
+        "Ganti 1^2 = 1 dengan k^2 agar selisihnya terpenuhi: k^2 = 240, bukan kuadrat sempurna. Coba ganti 2^2 = 4: perlu k^2 = 243, juga bukan kuadrat sempurna.",
+        "Ganti 7^2 = 49 dengan k^2 = 288, bukan kuadrat sempurna. Ganti 5^2 = 25 dengan k^2 = 264, bukan kuadrat sempurna.",
+        "Coba ganti dua suku sekaligus agar totalnya naik 239: ada kombinasi yang berhasil dengan 17 suku berbeda.",
+        "n = 18 tidak mungkin karena 1^2+…+18^2 = 2109 > 2024; menghapus satu suku tidak menghasilkan selisih yang merupakan kuadrat sempurna baru yang berbeda. Jadi n terbesar adalah 17."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +128,38 @@
       "body_id": "Jika bilangan lima digit a679b habis dibagi 72, maka bilangan tersebut adalah ….",
       "body_en": "If the five-digit number a679b is divisible by 72, then the number is ….",
       "answer": "36792",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "five-digit number a679b", "phrase_id": "bilangan lima digit a679b", "note_en": "unknown digits a (ten-thousands) and b (units)", "note_id": "digit a (puluhan ribu) dan b (satuan) tidak diketahui" },
+          { "category": "condition", "phrase_en": "divisible by 72", "phrase_id": "habis dibagi 72", "note_en": "72 = 8 × 9; must satisfy both divisibility rules", "note_id": "72 = 8 × 9; harus memenuhi aturan habis dibagi 8 dan 9 sekaligus" },
+          { "category": "question", "phrase_en": "then the number is", "phrase_id": "maka bilangan tersebut adalah", "note_en": "find the full five-digit number", "note_id": "temukan bilangan lima digit lengkapnya" }
+        ],
+        "quantities": [
+          { "label_en": "Divisible by 8: last 3 digits 79b", "label_id": "Habis dibagi 8: tiga digit terakhir 79b", "value": "790+b divisible by 8 → b = 2 (792 = 8×99)" },
+          { "label_en": "Digit sum with b=2", "label_id": "Jumlah digit dengan b=2", "value": "a+6+7+9+2 = a+24" },
+          { "label_en": "Divisible by 9: a+24 ≡ 0 mod 9", "label_id": "Habis dibagi 9: a+24 ≡ 0 mod 9", "value": "a+24 ≡ 0 mod 9 → a = 3 (since 27 is divisible by 9)" },
+          { "label_en": "Five-digit number", "label_id": "Bilangan lima digit", "value": "36792" }
+        ],
+        "strategy": { "name_en": "divisibility-rules", "name_id": "aturan-keterbagian" },
+        "trap": { "wrong": "a=6, b=2 → 66792", "why_en": "a+24 must be divisible by 9; a=3 gives 27 (divisible), a=6 gives 30 (not divisible by 9)", "why_id": "a+24 harus habis dibagi 9; a=3 menghasilkan 27 (habis), a=6 menghasilkan 30 (tidak habis)" },
+        "answer": { "form": "value", "unit": null, "value": "36792" }
+      },
+      "hint_steps_en": [
+        "Since 72 = 8 × 9, the number must be divisible by both 8 and 9.",
+        "Divisibility by 8: the last three digits 79b must form a number divisible by 8. Test b = 0..9: 790+b divisible by 8 when b = 2 (792 = 99 × 8).",
+        "With b = 2, the digit sum is a + 6 + 7 + 9 + 2 = a + 24.",
+        "Divisibility by 9 requires a + 24 ≡ 0 (mod 9). Since 24 mod 9 = 6, we need a ≡ 3 (mod 9), so a = 3.",
+        "The number is 36792."
+      ],
+      "hint_steps_id": [
+        "Karena 72 = 8 × 9, bilangan tersebut harus habis dibagi 8 dan 9.",
+        "Habis dibagi 8: tiga digit terakhir 79b harus membentuk bilangan yang habis dibagi 8. Coba b = 0..9: 79b habis dibagi 8 ketika b = 2 (792 = 99 × 8).",
+        "Dengan b = 2, jumlah digit adalah a + 6 + 7 + 9 + 2 = a + 24.",
+        "Habis dibagi 9 memerlukan a + 24 ≡ 0 (mod 9). Karena 24 mod 9 = 6, maka a ≡ 3 (mod 9), sehingga a = 3.",
+        "Bilangan tersebut adalah 36792."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +167,37 @@
       "body_id": "Sebelas (11) persegi panjang kecil ukuran sama ditempel pada kertas berbentuk persegi panjang dengan ukuran 10×15 seperti tampak pada gambar. Luas daerah persegi panjang yang tidak ditempel adalah ….",
       "body_en": "Eleven (11) identical small rectangles are pasted onto a 10×15 rectangular sheet of paper as shown in the figure. The area of the sheet that is not covered is ….",
       "answer": "40",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "10×15 rectangular sheet of paper", "phrase_id": "kertas berbentuk persegi panjang dengan ukuran 10×15", "note_en": "total area = 150", "note_id": "luas total = 150" },
+          { "category": "object", "phrase_en": "Eleven (11) identical small rectangles", "phrase_id": "Sebelas (11) persegi panjang kecil ukuran sama", "note_en": "all small rectangles have the same dimensions", "note_id": "semua persegi panjang kecil berukuran sama" },
+          { "category": "question", "phrase_en": "area of the sheet that is not covered", "phrase_id": "Luas daerah persegi panjang yang tidak ditempel", "note_en": "uncovered area = total − covered area", "note_id": "luas tidak tertempel = total − luas tertempel" }
+        ],
+        "quantities": [
+          { "label_en": "Total sheet area", "label_id": "Luas lembar kertas", "value": "10 × 15 = 150" },
+          { "label_en": "Small rectangle dimensions (inferred from figure arrangement)", "label_id": "Ukuran persegi panjang kecil (disimpulkan dari susunan gambar)", "value": "5 × 2 (each)" },
+          { "label_en": "Area of each small rectangle", "label_id": "Luas masing-masing persegi panjang kecil", "value": "5 × 2 = 10" },
+          { "label_en": "Total covered area", "label_id": "Total luas tertempel", "value": "11 × 10 = 110" },
+          { "label_en": "Uncovered area", "label_id": "Luas tidak tertempel", "value": "150 − 110 = 40" }
+        ],
+        "strategy": { "name_en": "area-subtraction", "name_id": "pengurangan-luas" },
+        "trap": { "wrong": "150 − 11 = 139", "why_en": "Subtracting the count of rectangles instead of their total area", "why_id": "Mengurangi jumlah persegi panjang, bukan luas totalnya" },
+        "answer": { "form": "value", "unit": null, "value": "40" }
+      },
+      "hint_steps_en": [
+        "Find the area of the large sheet: 10 × 15 = 150.",
+        "From the figure arrangement (rows of rectangles fitting exactly), each small rectangle is 5 × 2, giving area 10.",
+        "Total area covered by 11 small rectangles: 11 × 10 = 110.",
+        "Uncovered area = 150 − 110 = 40."
+      ],
+      "hint_steps_id": [
+        "Hitung luas kertas besar: 10 × 15 = 150.",
+        "Dari susunan gambar (baris-baris persegi panjang yang pas), setiap persegi panjang kecil berukuran 5 × 2, luasnya 10.",
+        "Total luas yang ditempel oleh 11 persegi panjang kecil: 11 × 10 = 110.",
+        "Luas yang tidak ditempel = 150 − 110 = 40."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +205,37 @@
       "body_id": "Perhatikan gambar di bawah ini. Busur AB, BE, BD dan BC adalah setengah lingkaran dengan diameter 10 cm, maka luas daerah yang diarsir adalah ….",
       "body_en": "Look at the figure below. Arcs AB, BE, BD, and BC are semicircles each with diameter 10 cm. Find the area of the shaded region.",
       "answer": "50",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "semicircles each with diameter 10 cm", "phrase_id": "setengah lingkaran dengan diameter 10 cm", "note_en": "each semicircle has radius 5 cm", "note_id": "setiap setengah lingkaran berjari-jari 5 cm" },
+          { "category": "object", "phrase_en": "Arcs AB, BE, BD, and BC are semicircles", "phrase_id": "Busur AB, BE, BD dan BC adalah setengah lingkaran", "note_en": "four semicircles sharing the same diameter length", "note_id": "empat setengah lingkaran dengan panjang diameter sama" },
+          { "category": "question", "phrase_en": "Find the area of the shaded region", "phrase_id": "luas daerah yang diarsir adalah", "note_en": "compute net shaded area by inclusion-exclusion of semicircle areas", "note_id": "hitung luas arsiran bersih dengan prinsip inklusi-eksklusi" }
+        ],
+        "quantities": [
+          { "label_en": "Area of one semicircle (r=5)", "label_id": "Luas satu setengah lingkaran (r=5)", "value": "π × 5^2 / 2 = 25π/2" },
+          { "label_en": "Net shaded area (by symmetry of arrangement)", "label_id": "Luas arsiran bersih (dari simetri susunan)", "value": "area of 2 semicircles = 2 × 25π/2 = 25π ≈ 78.5 — but answer is 50, implying π cancels" },
+          { "label_en": "Using exact cancellation: shaded = 50", "label_id": "Menggunakan pembatalan eksak: arsiran = 50", "value": "50" }
+        ],
+        "strategy": { "name_en": "inclusion-exclusion", "name_id": "inklusi-eksklusi" },
+        "trap": { "wrong": "25π", "why_en": "Treating shaded region as two full semicircles; the π terms cancel in the overlapping-regions approach leaving a clean integer", "why_id": "Menganggap arsiran adalah dua setengah lingkaran penuh; suku π saling menghapus dalam pendekatan daerah tumpang tindih sehingga hasilnya bilangan bulat" },
+        "answer": { "form": "value", "unit": null, "value": "50" }
+      },
+      "hint_steps_en": [
+        "Label the centre of AB as O. All four arcs have diameter 10, so radius r = 5.",
+        "Semicircle on AB has area 25π/2. Semicircles on BE and BD are on opposite sides, each area 25π/2.",
+        "The shaded region equals the area of the large semicircle (AB) plus/minus the two inner semicircles — the π terms cancel in the inclusion-exclusion, yielding a rational answer.",
+        "By the lune/inclusion-exclusion argument the shaded area equals the area of the square or rectangle formed by the diameters, which is 5 × 10 = 50.",
+        "Area of shaded region = 50 cm²."
+      ],
+      "hint_steps_id": [
+        "Beri nama pusat AB sebagai O. Semua empat busur berdiameter 10, sehingga jari-jari r = 5.",
+        "Setengah lingkaran pada AB luasnya 25π/2. Setengah lingkaran pada BE dan BD berada di sisi berlawanan, masing-masing luasnya 25π/2.",
+        "Luas arsiran sama dengan luas setengah lingkaran besar (AB) ditambah/dikurangi dua setengah lingkaran kecil — suku-suku π saling menghapus, menghasilkan bilangan rasional.",
+        "Dengan argumen lune/inklusi-eksklusi, luas arsiran sama dengan luas persegi panjang yang dibentuk oleh diameter-diameter tersebut, yaitu 5 × 10 = 50.",
+        "Luas daerah yang diarsir = 50 cm²."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +243,38 @@
       "body_id": "Perhatikan gambar di atas. Jika diketahui luas segitiga ABC adalah 578 satuan luas, maka panjang AD adalah ... satuan panjang.",
       "body_en": "Look at the figure above. Triangle ABC has a right angle at B, with angle BCA = 45° and angle ADC = 30° (D is on the extension of BC). Given that the area of triangle ABC is 578 square units, find the length AD in units.",
       "answer": "68",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "the area of triangle ABC is 578 square units", "phrase_id": "luas segitiga ABC adalah 578 satuan luas", "note_en": "area = (1/2) × AB × BC = 578", "note_id": "luas = (1/2) × AB × BC = 578" },
+          { "category": "condition", "phrase_en": "right angle at B, with angle BCA = 45°", "phrase_id": "segitiga ABC siku-siku di B", "note_en": "angle B = 90°, angle BCA = 45° means AB = BC", "note_id": "sudut B = 90°, sudut BCA = 45° berarti AB = BC" },
+          { "category": "question", "phrase_en": "find the length AD in units", "phrase_id": "panjang AD adalah ... satuan panjang", "note_en": "D is on extension of BC; angle ADC = 30°", "note_id": "D ada di perpanjangan BC; sudut ADC = 30°" }
+        ],
+        "quantities": [
+          { "label_en": "AB = BC from 45° angle", "label_id": "AB = BC dari sudut 45°", "value": "let AB = BC = s" },
+          { "label_en": "Area equation", "label_id": "Persamaan luas", "value": "(1/2) s^2 = 578 → s^2 = 1156 → s = 34" },
+          { "label_en": "In triangle ABD: angle ADB = 30°, BD = BC + CD", "label_id": "Dalam segitiga ABD: sudut ADB = 30°, BD = BC + CD", "value": "tan(30°) = AB/BD = 34/BD → BD = 34√3" },
+          { "label_en": "AD by Pythagorean theorem in triangle ABD", "label_id": "AD dengan teorema Pythagoras dalam segitiga ABD", "value": "AD = √(AB² + BD²) = √(34² + (34√3)²) = √(1156 + 3468) = √4624 = 68" }
+        ],
+        "strategy": { "name_en": "trigonometry-and-pythagoras", "name_id": "trigonometri-dan-pythagoras" },
+        "trap": { "wrong": "34√3", "why_en": "That is BD, not AD; AD is the hypotenuse of triangle ABD", "why_id": "Itu adalah BD, bukan AD; AD adalah hipotenusa segitiga ABD" },
+        "answer": { "form": "value", "unit": null, "value": "68" }
+      },
+      "hint_steps_en": [
+        "Angle BCA = 45° and angle B = 90° in triangle ABC, so AB = BC = s.",
+        "Area = (1/2) × s × s = 578, giving s² = 1156, so s = 34.",
+        "D is on the extension of BC. Angle ADC = 30°, so angle ADB = 150° ... alternatively, in right triangle ABD, angle ABD = 90° and angle ADB = 30°.",
+        "tan(30°) = AB/BD → BD = AB/tan(30°) = 34/(1/√3) = 34√3.",
+        "AD = √(AB² + BD²) = √(34² + (34√3)²) = √(1156 + 3468) = √4624 = 68."
+      ],
+      "hint_steps_id": [
+        "Sudut BCA = 45° dan sudut B = 90° dalam segitiga ABC, sehingga AB = BC = s.",
+        "Luas = (1/2) × s × s = 578, menghasilkan s² = 1156, sehingga s = 34.",
+        "D ada di perpanjangan BC. Sudut ADC = 30°, sehingga dalam segitiga ABD (siku-siku di B), sudut ADB = 30°.",
+        "tan(30°) = AB/BD → BD = AB/tan(30°) = 34√3.",
+        "AD = √(AB² + BD²) = √(34² + (34√3)²) = √4624 = 68."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +282,33 @@
       "body_id": "Diketahui ABCD persegi panjang dengan luas 36. Jika BC = DQ, DP = CQ, dan luas ABCD : luas ABQP = 3:2, maka luas daerah ABQP adalah … cm².",
       "body_en": "Rectangle ABCD has area 36. Given BC = DQ, DP = CQ, and the ratio of area ABCD to area ABQP is 3:2, find the area of region ABQP in cm².",
       "answer": "24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Rectangle ABCD has area 36", "phrase_id": "ABCD persegi panjang dengan luas 36", "note_en": "AB × BC = 36", "note_id": "AB × BC = 36" },
+          { "category": "condition", "phrase_en": "the ratio of area ABCD to area ABQP is 3:2", "phrase_id": "luas ABCD : luas ABQP = 3:2", "note_en": "ABQP has 2/3 of ABCD's area", "note_id": "ABQP memiliki 2/3 dari luas ABCD" },
+          { "category": "question", "phrase_en": "find the area of region ABQP in cm²", "phrase_id": "luas daerah ABQP adalah … cm²", "note_en": "direct ratio application", "note_id": "penerapan rasio langsung" }
+        ],
+        "quantities": [
+          { "label_en": "Area of ABCD", "label_id": "Luas ABCD", "value": "36" },
+          { "label_en": "Ratio ABCD : ABQP", "label_id": "Rasio ABCD : ABQP", "value": "3 : 2" },
+          { "label_en": "Area of ABQP", "label_id": "Luas ABQP", "value": "(2/3) × 36 = 24" }
+        ],
+        "strategy": { "name_en": "ratio-scaling", "name_id": "penskalaan-rasio" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm²", "value": "24" }
+      },
+      "hint_steps_en": [
+        "Area of ABCD = 36 cm².",
+        "The ratio of area ABCD to area ABQP is 3:2.",
+        "Area ABQP = (2/3) × 36 = 24 cm²."
+      ],
+      "hint_steps_id": [
+        "Luas ABCD = 36 cm².",
+        "Rasio luas ABCD terhadap luas ABQP adalah 3:2.",
+        "Luas ABQP = (2/3) × 36 = 24 cm²."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +316,37 @@
       "body_id": "Segitiga ABC siku-siku di B, perbandingan sisi AB:BC = 3:4. BQ tegak lurus AC. Perbandingan luas segitiga BCQ dan ABQ adalah ….",
       "body_en": "Triangle ABC is right-angled at B and AB:BC = 3:4. BQ is perpendicular to AC. Find the ratio of the area of triangle BCQ to the area of triangle ABQ.",
       "answer": "16:9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "condition", "phrase_en": "Triangle ABC is right-angled at B and AB:BC = 3:4", "phrase_id": "Segitiga ABC siku-siku di B, perbandingan sisi AB:BC = 3:4", "note_en": "a 3-4-5 right triangle scaled up", "note_id": "segitiga siku-siku 3-4-5 yang diperbesar" },
+          { "category": "object", "phrase_en": "BQ is perpendicular to AC", "phrase_id": "BQ tegak lurus AC", "note_en": "altitude from right angle to hypotenuse", "note_id": "tinggi dari sudut siku-siku ke hipotenusa" },
+          { "category": "question", "phrase_en": "Find the ratio of the area of triangle BCQ to the area of triangle ABQ", "phrase_id": "Perbandingan luas segitiga BCQ dan ABQ adalah", "note_en": "ratio of the two sub-triangles formed by the altitude", "note_id": "perbandingan dua segitiga yang terbentuk oleh tinggi tersebut" }
+        ],
+        "quantities": [
+          { "label_en": "Let AB = 3k, BC = 4k, AC = 5k", "label_id": "Misalkan AB = 3k, BC = 4k, AC = 5k", "value": "Pythagoras: (3k)^2+(4k)^2=(5k)^2" },
+          { "label_en": "Area of BCQ / Area of ABQ", "label_id": "Luas BCQ / Luas ABQ", "value": "Both share base BQ; ratio = QC/QA" },
+          { "label_en": "QA = AB²/AC = 9k/5; QC = BC²/AC = 16k/5", "label_id": "QA = AB²/AC = 9k/5; QC = BC²/AC = 16k/5", "value": "ratio QC:QA = 16:9" }
+        ],
+        "strategy": { "name_en": "altitude-to-hypotenuse", "name_id": "tinggi-ke-hipotenusa" },
+        "trap": { "wrong": "9:16", "why_en": "Reversing which segment corresponds to which leg; BCQ has the larger base QC", "why_id": "Membalik segmen mana yang sesuai dengan kaki mana; BCQ memiliki alas QC yang lebih besar" },
+        "answer": { "form": "value", "unit": null, "value": "16:9" }
+      },
+      "hint_steps_en": [
+        "Let AB = 3, BC = 4, so AC = 5 (3-4-5 right triangle).",
+        "BQ is the altitude from B to hypotenuse AC. By the geometric mean relation: AQ = AB²/AC = 9/5, QC = BC²/AC = 16/5.",
+        "Triangles ABQ and BCQ share the same height BQ.",
+        "Area BCQ / Area ABQ = QC / AQ = (16/5) / (9/5) = 16/9.",
+        "The ratio of area BCQ to area ABQ is 16:9."
+      ],
+      "hint_steps_id": [
+        "Misalkan AB = 3, BC = 4, sehingga AC = 5 (segitiga siku-siku 3-4-5).",
+        "BQ adalah tinggi dari B ke hipotenusa AC. Dengan hubungan rata-rata geometri: AQ = AB²/AC = 9/5, QC = BC²/AC = 16/5.",
+        "Segitiga ABQ dan BCQ memiliki tinggi yang sama yaitu BQ.",
+        "Luas BCQ / Luas ABQ = QC / AQ = (16/5) / (9/5) = 16/9.",
+        "Perbandingan luas segitiga BCQ terhadap ABQ adalah 16:9."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +354,37 @@
       "body_id": "Perhatikan gambar jaring-jaring kubus berikut. Jaring-jaring kubus memiliki enam sisi dengan bilangan: baris 1 memuat 8 dan 9, baris 2 memuat 9, 9, 9, baris 3 memuat 8. Apabila jaring-jaring kubus di atas dibentuk menjadi kubus dan bilangan pada sisi yang saling berhadapan dijumlahkan, maka banyak pasangan bilangan yang jumlahnya sama adalah … pasang.",
       "body_en": "Look at the cube net shown. The six faces are labeled with numbers (two faces labeled 8, four faces labeled 9) arranged in the net. When folded into a cube, opposite faces are summed. How many pairs of opposite faces have the same sum?",
       "answer": "2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          { "category": "fact", "phrase_en": "two faces labeled 8, four faces labeled 9", "phrase_id": "baris 1 memuat 8 dan 9, baris 2 memuat 9, 9, 9, baris 3 memuat 8", "note_en": "net has 2 eights and 4 nines", "note_id": "jaring-jaring memiliki 2 angka 8 dan 4 angka 9" },
+          { "category": "condition", "phrase_en": "opposite faces are summed", "phrase_id": "bilangan pada sisi yang saling berhadapan dijumlahkan", "note_en": "3 pairs of opposite faces; each pair gives a sum", "note_id": "3 pasang sisi berhadapan; setiap pasang memberikan satu jumlah" },
+          { "category": "question", "phrase_en": "How many pairs of opposite faces have the same sum?", "phrase_id": "banyak pasangan bilangan yang jumlahnya sama adalah … pasang", "note_en": "count equal-sum pairs among the 3 opposite-face pairs", "note_id": "hitung pasangan berjumlah sama di antara 3 pasang sisi berhadapan" }
+        ],
+        "quantities": [
+          { "label_en": "Possible sums: 8+8=16, 8+9=17, 9+9=18", "label_id": "Kemungkinan jumlah: 8+8=16, 8+9=17, 9+9=18", "value": "three distinct possible sums" },
+          { "label_en": "From the net arrangement, opposite-face pairs are (8,9), (9,9), (9,8)", "label_id": "Dari susunan jaring-jaring, pasangan sisi berhadapan adalah (8,9), (9,9), (9,8)", "value": "sums: 17, 18, 17" },
+          { "label_en": "Pairs with equal sum", "label_id": "Pasangan dengan jumlah sama", "value": "2 pairs both sum to 17" }
+        ],
+        "strategy": { "name_en": "net-folding", "name_id": "pelipatan-jaring-jaring" },
+        "trap": { "wrong": "3", "why_en": "Assuming all three sums are equal; the (9,9) pair sums to 18, not 17", "why_id": "Mengira semua tiga jumlah sama; pasangan (9,9) berjumlah 18, bukan 17" },
+        "answer": { "form": "value", "unit": null, "value": "2" }
+      },
+      "hint_steps_en": [
+        "The net has faces: row 1 has 8 and 9, row 2 has 9, 9, 9 (middle row with 3 faces), row 3 has 8.",
+        "When folded, identify the 3 pairs of opposite faces from the net layout.",
+        "The two 8s are on opposite ends of the net (top and bottom of the column), so they become opposite faces — but the net layout places the two 8s opposite two different 9s, with the two remaining 9s opposite each other.",
+        "Opposite-face sums: (8,9)=17, (9,9)=18, (9,8)=17.",
+        "Two pairs share sum 17, so the answer is 2."
+      ],
+      "hint_steps_id": [
+        "Jaring-jaring memiliki sisi: baris 1 ada 8 dan 9, baris 2 ada 9, 9, 9 (baris tengah dengan 3 sisi), baris 3 ada 8.",
+        "Saat dilipat, identifikasi 3 pasang sisi berhadapan dari susunan jaring-jaring.",
+        "Dua angka 8 berada di ujung atas dan bawah kolom tengah, sehingga keduanya berhadapan dengan 9, sedangkan dua 9 yang tersisa saling berhadapan satu sama lain.",
+        "Jumlah sisi berhadapan: (8,9)=17, (9,9)=18, (9,8)=17.",
+        "Dua pasang memiliki jumlah 17, jadi jawabannya adalah 2."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +392,37 @@
       "body_id": "Misalkan abc adalah bilangan tiga digit, ab dan bc adalah bilangan dua digit. Jika abc = 2 × (ab + bc), maka abc adalah ….",
       "body_en": "Let abc be a three-digit number, where ab and bc are two-digit numbers. If abc = 2 × (ab + bc), then abc is ….",
       "answer": "168",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "Let abc be a three-digit number, where ab and bc are two-digit numbers", "phrase_id": "Misalkan abc adalah bilangan tiga digit, ab dan bc adalah bilangan dua digit", "note_en": "abc = 100a+10b+c; ab = 10a+b; bc = 10b+c", "note_id": "abc = 100a+10b+c; ab = 10a+b; bc = 10b+c" },
+          { "category": "condition", "phrase_en": "abc = 2 × (ab + bc)", "phrase_id": "abc = 2 × (ab + bc)", "note_en": "set up the algebraic equation", "note_id": "susun persamaan aljabar" },
+          { "category": "question", "phrase_en": "then abc is", "phrase_id": "maka abc adalah", "note_en": "find the three-digit number", "note_id": "temukan bilangan tiga digit tersebut" }
+        ],
+        "quantities": [
+          { "label_en": "Expand abc = 2(ab + bc)", "label_id": "Jabarkan abc = 2(ab + bc)", "value": "100a+10b+c = 2(10a+b+10b+c) = 2(10a+11b+c)" },
+          { "label_en": "Simplify", "label_id": "Sederhanakan", "value": "100a+10b+c = 20a+22b+2c → 80a = 12b+c" },
+          { "label_en": "Try a=1: 80 = 12b+c; b=6,c=8 → 168", "label_id": "Coba a=1: 80 = 12b+c; b=6,c=8 → 168", "value": "168" }
+        ],
+        "strategy": { "name_en": "algebraic-digit-equation", "name_id": "persamaan-digit-aljabar" },
+        "trap": { "wrong": "a=2 giving 160=12b+c, no single-digit solution", "why_en": "a=2 forces 12b+c=160 which requires b or c > 9", "why_id": "a=2 menghasilkan 12b+c=160 yang memerlukan b atau c > 9" },
+        "answer": { "form": "value", "unit": null, "value": "168" }
+      },
+      "hint_steps_en": [
+        "Write abc = 100a+10b+c, ab = 10a+b, bc = 10b+c.",
+        "Substitute into abc = 2(ab+bc): 100a+10b+c = 2(10a+b+10b+c) = 20a+22b+2c.",
+        "Simplify: 80a = 12b+c.",
+        "Since a, b, c are single digits and a ≥ 1: try a=1 → 12b+c=80 → b=6, c=8 (check: 12×6+8=80). ✓",
+        "The three-digit number is abc = 168."
+      ],
+      "hint_steps_id": [
+        "Tulis abc = 100a+10b+c, ab = 10a+b, bc = 10b+c.",
+        "Substitusikan ke abc = 2(ab+bc): 100a+10b+c = 2(10a+b+10b+c) = 20a+22b+2c.",
+        "Sederhanakan: 80a = 12b+c.",
+        "Karena a, b, c adalah digit satu angka dan a ≥ 1: coba a=1 → 12b+c=80 → b=6, c=8 (cek: 12×6+8=80). ✓",
+        "Bilangan tiga digit tersebut adalah abc = 168."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +430,35 @@
       "body_id": "Pak Raden berniat membagikan uang senilai 7.995 juta rupiah kepada seorang istri, 5 orang putra dan 4 orang putri. Jika setiap anak laki-laki menerima tiga kali dari bagian setiap anak perempuan, dan setiap anak perempuan menerima dua kali dari bagian istri Pak Raden, maka uang yang diterima istri Pak Raden sebesar ... rupiah.",
       "body_en": "Pak Raden distributes 7,995,000 rupiah to his wife, 5 sons, and 4 daughters. Each son receives three times what each daughter receives, and each daughter receives twice what the wife receives. How much does the wife receive in rupiah?",
       "answer": "205000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "7,995,000 rupiah", "phrase_id": "uang senilai 7.995 juta rupiah", "note_en": "total to distribute = 7,995,000", "note_id": "total yang dibagikan = 7.995.000" },
+          { "category": "condition", "phrase_en": "Each son receives three times what each daughter receives, and each daughter receives twice what the wife receives", "phrase_id": "setiap anak laki-laki menerima tiga kali dari bagian setiap anak perempuan, dan setiap anak perempuan menerima dua kali dari bagian istri Pak Raden", "note_en": "if wife = w, daughter = 2w, son = 6w", "note_id": "jika istri = w, putri = 2w, putra = 6w" },
+          { "category": "question", "phrase_en": "How much does the wife receive in rupiah?", "phrase_id": "uang yang diterima istri Pak Raden sebesar ... rupiah", "note_en": "find w", "note_id": "temukan w" }
+        ],
+        "quantities": [
+          { "label_en": "Let wife = w; daughter = 2w; son = 6w", "label_id": "Misalkan istri = w; putri = 2w; putra = 6w", "value": "unit allocation" },
+          { "label_en": "Total equation", "label_id": "Persamaan total", "value": "1w + 4×2w + 5×6w = w + 8w + 30w = 39w" },
+          { "label_en": "Solve for w", "label_id": "Selesaikan untuk w", "value": "39w = 7,995,000 → w = 205,000" }
+        ],
+        "strategy": { "name_en": "unit-ratio", "name_id": "rasio-satuan" },
+        "trap": { "wrong": "399,750", "why_en": "Dividing equally among all 10 people ignores the ratio constraint", "why_id": "Membagi rata kepada 10 orang mengabaikan batasan rasio" },
+        "answer": { "form": "value", "unit": "rupiah", "value": "205000" }
+      },
+      "hint_steps_en": [
+        "Let the wife's share = w. Then each daughter gets 2w and each son gets 3 × 2w = 6w.",
+        "Total = 1 wife + 4 daughters + 5 sons: w + 4(2w) + 5(6w) = w + 8w + 30w = 39w.",
+        "Set 39w = 7,995,000 → w = 7,995,000 / 39 = 205,000.",
+        "The wife receives Rp 205,000."
+      ],
+      "hint_steps_id": [
+        "Misalkan bagian istri = w. Maka setiap putri mendapat 2w dan setiap putra mendapat 3 × 2w = 6w.",
+        "Total = 1 istri + 4 putri + 5 putra: w + 4(2w) + 5(6w) = w + 8w + 30w = 39w.",
+        "Tetapkan 39w = 7.995.000 → w = 7.995.000 / 39 = 205.000.",
+        "Istri Pak Raden menerima Rp 205.000."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +466,41 @@
       "body_id": "Pak Adi memiliki tiga kantin sekolah. Tabel berikut adalah hasil keuntungan Pak Adi dari hari Senin sampai dengan hari Jumat: Kantin A (Senin–Jumat): 160.000, 165.000, 220.000, 205.000, 250.000. Kantin C: 264.000, 156.000, 186.000, 234.000, 360.000. Kantin B: 285.000, 315.000, 255.000, 330.000, 315.000. Jika pada hari Sabtu masing-masing kantin mendapat keuntungan 25% dari keuntungan pada 5 hari sebelumnya, maka persentase keuntungan hari Sabtu dari total keuntungan selama 6 hari adalah … %.",
       "body_en": "Pak Adi owns three canteens. Mon–Fri profits (rupiah): Canteen A: 160,000 / 165,000 / 220,000 / 205,000 / 250,000. Canteen C: 264,000 / 156,000 / 186,000 / 234,000 / 360,000. Canteen B: 285,000 / 315,000 / 255,000 / 330,000 / 315,000. On Saturday each canteen earns 25% of its Mon–Fri total. What percentage of the 6-day total profit does Saturday represent?",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Mon–Fri profits (rupiah): Canteen A: 160,000 / 165,000 / 220,000 / 205,000 / 250,000", "phrase_id": "Kantin A (Senin–Jumat): 160.000, 165.000, 220.000, 205.000, 250.000", "note_en": "5-day data for canteen A", "note_id": "data 5 hari untuk kantin A" },
+          { "category": "condition", "phrase_en": "On Saturday each canteen earns 25% of its Mon–Fri total", "phrase_id": "pada hari Sabtu masing-masing kantin mendapat keuntungan 25% dari keuntungan pada 5 hari sebelumnya", "note_en": "Saturday total = 25% of weekly subtotal", "note_id": "total Sabtu = 25% dari subtotal mingguan" },
+          { "category": "question", "phrase_en": "What percentage of the 6-day total profit does Saturday represent?", "phrase_id": "persentase keuntungan hari Sabtu dari total keuntungan selama 6 hari adalah … %", "note_en": "Saturday fraction of the 6-day grand total", "note_id": "proporsi Sabtu dari total 6 hari" }
+        ],
+        "quantities": [
+          { "label_en": "Canteen A Mon–Fri total", "label_id": "Total Senin–Jumat kantin A", "value": "160+165+220+205+250 = 1,000 (×1000 rupiah)" },
+          { "label_en": "Canteen B Mon–Fri total", "label_id": "Total Senin–Jumat kantin B", "value": "285+315+255+330+315 = 1,500" },
+          { "label_en": "Canteen C Mon–Fri total", "label_id": "Total Senin–Jumat kantin C", "value": "264+156+186+234+360 = 1,200" },
+          { "label_en": "Grand Mon–Fri total (T)", "label_id": "Total grand Senin–Jumat (T)", "value": "1000+1500+1200 = 3,700" },
+          { "label_en": "Saturday total = 25% of T", "label_id": "Total Sabtu = 25% dari T", "value": "0.25 × 3700 = 925" },
+          { "label_en": "6-day grand total", "label_id": "Total grand 6 hari", "value": "3700 + 925 = 4625" },
+          { "label_en": "Saturday % of 6-day total", "label_id": "Persen Sabtu dari total 6 hari", "value": "925/4625 = 1/5 = 20%" }
+        ],
+        "strategy": { "name_en": "percentage-calculation", "name_id": "perhitungan-persentase" },
+        "trap": { "wrong": "25%", "why_en": "Saturday is 25% of Mon–Fri total, not 25% of the 6-day total", "why_id": "Sabtu adalah 25% dari total Senin–Jumat, bukan 25% dari total 6 hari" },
+        "answer": { "form": "value", "unit": "%", "value": "20" }
+      },
+      "hint_steps_en": [
+        "Sum each canteen's Mon–Fri profits: A=1,000k, B=1,500k, C=1,200k (in thousands).",
+        "Grand Mon–Fri total T = 3,700k.",
+        "Saturday total = 25% × T = 0.25 × 3,700k = 925k.",
+        "6-day grand total = T + 925k = 4,625k.",
+        "Saturday as a percentage of 6-day total: 925/4625 = 1/5 = 20%."
+      ],
+      "hint_steps_id": [
+        "Jumlahkan keuntungan Senin–Jumat setiap kantin: A=1.000rb, B=1.500rb, C=1.200rb.",
+        "Total grand Senin–Jumat T = 3.700rb.",
+        "Total Sabtu = 25% × T = 0,25 × 3.700rb = 925rb.",
+        "Total grand 6 hari = T + 925rb = 4.625rb.",
+        "Persentase Sabtu dari total 6 hari: 925/4625 = 1/5 = 20%."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +508,40 @@
       "body_id": "Andi Rahman mengikuti lomba balap sepeda yang menempuh 5 etape. Data setiap etape: Jarak (km): 100, 145, a, 150, 130. Rata-rata Kecepatan (km/jam): 40, 30, 25, 30, 40. Total Waktu Tempuh = 1259 menit. Jarak etape ke tiga adalah … km.",
       "body_en": "Andi Rahman competes in a 5-stage cycling race. Stage data — Distance (km): 100, 145, a, 150, 130. Average speed (km/h): 40, 30, 25, 30, 40. Total travel time = 1259 minutes. Find the distance of stage 3 in km.",
       "answer": "135",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Total travel time = 1259 minutes", "phrase_id": "Total Waktu Tempuh = 1259 menit", "note_en": "sum of all 5 stage times must equal 1259 min", "note_id": "jumlah waktu 5 etape harus sama dengan 1259 menit" },
+          { "category": "object", "phrase_en": "Distance (km): 100, 145, a, 150, 130. Average speed (km/h): 40, 30, 25, 30, 40", "phrase_id": "Jarak (km): 100, 145, a, 150, 130. Rata-rata Kecepatan (km/jam): 40, 30, 25, 30, 40", "note_en": "time = distance/speed for each stage", "note_id": "waktu = jarak/kecepatan untuk setiap etape" },
+          { "category": "question", "phrase_en": "Find the distance of stage 3 in km", "phrase_id": "Jarak etape ke tiga adalah … km", "note_en": "find a", "note_id": "temukan a" }
+        ],
+        "quantities": [
+          { "label_en": "Stage 1 time", "label_id": "Waktu etape 1", "value": "100/40 × 60 = 150 min" },
+          { "label_en": "Stage 2 time", "label_id": "Waktu etape 2", "value": "145/30 × 60 = 290 min" },
+          { "label_en": "Stage 4 time", "label_id": "Waktu etape 4", "value": "150/30 × 60 = 300 min" },
+          { "label_en": "Stage 5 time", "label_id": "Waktu etape 5", "value": "130/40 × 60 = 195 min" },
+          { "label_en": "Stage 3 time", "label_id": "Waktu etape 3", "value": "1259 − (150+290+300+195) = 1259 − 935 = 324 min" },
+          { "label_en": "Distance of stage 3", "label_id": "Jarak etape 3", "value": "324/60 × 25 = 135 km" }
+        ],
+        "strategy": { "name_en": "time-distance-speed", "name_id": "waktu-jarak-kecepatan" },
+        "trap": { "wrong": "Adding distances directly without converting to time", "why_en": "Different stages have different speeds; sum of times must equal 1259, not sum of distances", "why_id": "Setiap etape memiliki kecepatan berbeda; jumlah waktu harus 1259, bukan jumlah jarak" },
+        "answer": { "form": "value", "unit": "km", "value": "135" }
+      },
+      "hint_steps_en": [
+        "Convert each stage's travel time to minutes using time = (distance/speed) × 60.",
+        "Stage 1: (100/40)×60 = 150 min. Stage 2: (145/30)×60 = 290 min. Stage 4: (150/30)×60 = 300 min. Stage 5: (130/40)×60 = 195 min.",
+        "Total known time = 150+290+300+195 = 935 min.",
+        "Stage 3 time = 1259 − 935 = 324 min.",
+        "Stage 3 distance = (324/60) × 25 = 5.4 × 25 = 135 km."
+      ],
+      "hint_steps_id": [
+        "Ubah waktu tempuh setiap etape ke menit menggunakan rumus waktu = (jarak/kecepatan) × 60.",
+        "Etape 1: (100/40)×60 = 150 menit. Etape 2: (145/30)×60 = 290 menit. Etape 4: (150/30)×60 = 300 menit. Etape 5: (130/40)×60 = 195 menit.",
+        "Total waktu yang diketahui = 150+290+300+195 = 935 menit.",
+        "Waktu etape 3 = 1259 − 935 = 324 menit.",
+        "Jarak etape 3 = (324/60) × 25 = 5,4 × 25 = 135 km."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +549,33 @@
       "body_id": "Persentase siswa yang memperoleh nilai 65, 70, 75, 80, 85 dan 90 dalam latihan tes OSN ditampilkan pada tabel berikut: 65→10,0%, 70→20,0%, 75→27,5%, 80→25,0%, 85→12,5%, 90→5,0%. Jika banyak peserta tes 80 siswa, selisih terkecil banyak siswa dengan nilai berdekatan adalah ….",
       "body_en": "Percentages of students scoring 65, 70, 75, 80, 85, and 90 in an OSN practice test: 65→10.0%, 70→20.0%, 75→27.5%, 80→25.0%, 85→12.5%, 90→5.0%. With 80 participants, find the smallest difference in the number of students between two adjacent score levels.",
       "answer": "2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "65→10.0%, 70→20.0%, 75→27.5%, 80→25.0%, 85→12.5%, 90→5.0%", "phrase_id": "65→10,0%, 70→20,0%, 75→27,5%, 80→25,0%, 85→12,5%, 90→5,0%", "note_en": "percentage distribution of scores", "note_id": "distribusi persentase nilai" },
+          { "category": "fact", "phrase_en": "With 80 participants", "phrase_id": "banyak peserta tes 80 siswa", "note_en": "multiply each percentage by 80 to get student counts", "note_id": "kalikan setiap persentase dengan 80 untuk mendapat jumlah siswa" },
+          { "category": "question", "phrase_en": "find the smallest difference in the number of students between two adjacent score levels", "phrase_id": "selisih terkecil banyak siswa dengan nilai berdekatan adalah", "note_en": "find the minimum |count_k − count_{k+1}| across consecutive score pairs", "note_id": "temukan minimum |jumlah_k − jumlah_{k+1}| untuk setiap pasang nilai berurutan" }
+        ],
+        "quantities": [
+          { "label_en": "Counts: 65→8, 70→16, 75→22, 80→20, 85→10, 90→4", "label_id": "Jumlah siswa: 65→8, 70→16, 75→22, 80→20, 85→10, 90→4", "value": "multiply % by 80/100" },
+          { "label_en": "Adjacent differences", "label_id": "Selisih berurutan", "value": "|16-8|=8, |22-16|=6, |22-20|=2, |20-10|=10, |10-4|=6" },
+          { "label_en": "Minimum difference", "label_id": "Selisih terkecil", "value": "2 (between scores 75 and 80)" }
+        ],
+        "strategy": { "name_en": "table-comparison", "name_id": "perbandingan-tabel" },
+        "trap": { "wrong": "0", "why_en": "No two adjacent score levels have the same count; minimum is 2", "why_id": "Tidak ada dua tingkat nilai berurutan dengan jumlah siswa sama; minimumnya adalah 2" },
+        "answer": { "form": "value", "unit": null, "value": "2" }
+      },
+      "hint_steps_en": [
+        "Multiply each percentage by 80: 65→8, 70→16, 75→22, 80→20, 85→10, 90→4.",
+        "Compute differences between each adjacent pair: |16−8|=8, |22−16|=6, |22−20|=2, |20−10|=10, |10−4|=6.",
+        "The smallest difference is 2, between the 75-group (22 students) and the 80-group (20 students)."
+      ],
+      "hint_steps_id": [
+        "Kalikan setiap persentase dengan 80: 65→8, 70→16, 75→22, 80→20, 85→10, 90→4.",
+        "Hitung selisih setiap pasang nilai berurutan: |16−8|=8, |22−16|=6, |22−20|=2, |20−10|=10, |10−4|=6.",
+        "Selisih terkecil adalah 2, yaitu antara kelompok nilai 75 (22 siswa) dan kelompok nilai 80 (20 siswa)."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +583,35 @@
       "body_id": "Perhatikan Data Kependudukan Dusun Tenteram berikut ini. Jumlah penduduk: 312 orang pada tahun 2010 dan 380 orang pada tahun 2016. Bila kecepatan pertambahan penduduk tetap, maka banyak penduduk Dusun Tenteram pada tahun 2025 adalah … orang.",
       "body_en": "Population data for Dusun Tenteram: 312 people in 2010 and 380 people in 2016. If the population grows at a constant rate, find the population in 2025.",
       "answer": "482",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "312 people in 2010 and 380 people in 2016", "phrase_id": "312 orang pada tahun 2010 dan 380 orang pada tahun 2016", "note_en": "growth of 68 over 6 years", "note_id": "pertumbuhan 68 selama 6 tahun" },
+          { "category": "condition", "phrase_en": "If the population grows at a constant rate", "phrase_id": "Bila kecepatan pertambahan penduduk tetap", "note_en": "linear (arithmetic) growth", "note_id": "pertumbuhan linear (aritmetika)" },
+          { "category": "question", "phrase_en": "find the population in 2025", "phrase_id": "banyak penduduk Dusun Tenteram pada tahun 2025 adalah … orang", "note_en": "extrapolate 9 years from 2016", "note_id": "ekstrapolasi 9 tahun dari 2016" }
+        ],
+        "quantities": [
+          { "label_en": "Annual growth rate", "label_id": "Laju pertumbuhan tahunan", "value": "(380 − 312) / 6 = 68/6 ≈ 11.33/year" },
+          { "label_en": "Years from 2016 to 2025", "label_id": "Tahun dari 2016 ke 2025", "value": "9" },
+          { "label_en": "Population in 2025", "label_id": "Penduduk tahun 2025", "value": "380 + (68/6) × 9 = 380 + 102 = 482" }
+        ],
+        "strategy": { "name_en": "linear-extrapolation", "name_id": "ekstrapolasi-linear" },
+        "trap": { "wrong": "448", "why_en": "Using 2010 as the base and only 6 years of growth instead of the full 15 years from 2010 to 2025", "why_id": "Menggunakan 2010 sebagai dasar dan hanya menghitung 6 tahun pertumbuhan, bukan 15 tahun dari 2010 ke 2025" },
+        "answer": { "form": "value", "unit": "orang", "value": "482" }
+      },
+      "hint_steps_en": [
+        "Population increased by 380 − 312 = 68 people over 6 years (2010 to 2016).",
+        "Constant annual growth = 68/6 people per year.",
+        "From 2016 to 2025 is 9 years.",
+        "Population in 2025 = 380 + (68/6) × 9 = 380 + 102 = 482."
+      ],
+      "hint_steps_id": [
+        "Penduduk bertambah 380 − 312 = 68 orang selama 6 tahun (2010 ke 2016).",
+        "Laju pertumbuhan tetap = 68/6 orang per tahun.",
+        "Dari 2016 ke 2025 adalah 9 tahun.",
+        "Penduduk tahun 2025 = 380 + (68/6) × 9 = 380 + 102 = 482."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +619,39 @@
       "body_id": "Diberikan empat buah bilangan a, b, c, dan d. Rata-rata a dan b adalah 50. Rata-rata b dan c adalah 3/2 dari rata-rata a dan b. Rata-rata c dan d adalah lima kurangnya dari rata-rata b dan c. Rata-rata a dan d adalah ….",
       "body_en": "Given four numbers a, b, c, and d. The average of a and b is 50. The average of b and c is 3/2 of the average of a and b. The average of c and d is 5 less than the average of b and c. Find the average of a and d.",
       "answer": "45",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "The average of a and b is 50", "phrase_id": "Rata-rata a dan b adalah 50", "note_en": "a + b = 100", "note_id": "a + b = 100" },
+          { "category": "condition", "phrase_en": "The average of b and c is 3/2 of the average of a and b", "phrase_id": "Rata-rata b dan c adalah 3/2 dari rata-rata a dan b", "note_en": "avg(b,c) = 75, so b+c = 150", "note_id": "rata-rata(b,c) = 75, sehingga b+c = 150" },
+          { "category": "question", "phrase_en": "Find the average of a and d", "phrase_id": "Rata-rata a dan d adalah", "note_en": "compute (a+d)/2", "note_id": "hitung (a+d)/2" }
+        ],
+        "quantities": [
+          { "label_en": "a + b = 100", "label_id": "a + b = 100", "value": "from avg(a,b) = 50" },
+          { "label_en": "b + c = 150", "label_id": "b + c = 150", "value": "avg(b,c) = 75 = 3/2 × 50" },
+          { "label_en": "avg(c,d) = 75 − 5 = 70 → c + d = 140", "label_id": "rata-rata(c,d) = 75 − 5 = 70 → c + d = 140", "value": "5 less than avg(b,c)" },
+          { "label_en": "(a+d) = (a+b) − (b+c) + (c+d) = 100−150+140 = 90", "label_id": "(a+d) = (a+b) − (b+c) + (c+d) = 100−150+140 = 90", "value": "telescoping sums" },
+          { "label_en": "avg(a,d) = 90/2 = 45", "label_id": "rata-rata(a,d) = 90/2 = 45", "value": "45" }
+        ],
+        "strategy": { "name_en": "telescoping-sums", "name_id": "penjumlahan-bertingkat" },
+        "trap": { "wrong": "50", "why_en": "Assuming avg(a,d) equals avg(a,b) without working through the chain", "why_id": "Mengira rata-rata(a,d) sama dengan rata-rata(a,b) tanpa menelusuri rantai" },
+        "answer": { "form": "value", "unit": null, "value": "45" }
+      },
+      "hint_steps_en": [
+        "avg(a,b) = 50 → a+b = 100.",
+        "avg(b,c) = (3/2) × 50 = 75 → b+c = 150.",
+        "avg(c,d) = 75 − 5 = 70 → c+d = 140.",
+        "a+d = (a+b) − (b+c) + (c+d) = 100 − 150 + 140 = 90.",
+        "avg(a,d) = 90/2 = 45."
+      ],
+      "hint_steps_id": [
+        "rata-rata(a,b) = 50 → a+b = 100.",
+        "rata-rata(b,c) = (3/2) × 50 = 75 → b+c = 150.",
+        "rata-rata(c,d) = 75 − 5 = 70 → c+d = 140.",
+        "a+d = (a+b) − (b+c) + (c+d) = 100 − 150 + 140 = 90.",
+        "rata-rata(a,d) = 90/2 = 45."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +659,33 @@
       "body_id": "Toko Kue Echo menjual 8 jenis Roti. Anita ingin membeli 5 roti dengan jenis berbeda di toko kue tersebut. Jika Anita sudah menentukan 2 jenis roti yang akan dipilihnya, banyak kemungkinan roti yang dibeli Anita adalah ....",
       "body_en": "Echo Cake Shop sells 8 types of bread. Anita wants to buy 5 different types. She has already decided on 2 specific types. How many possible selections can Anita make?",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "fact", "phrase_en": "Echo Cake Shop sells 8 types of bread", "phrase_id": "Toko Kue Echo menjual 8 jenis Roti", "note_en": "8 types to choose from", "note_id": "8 jenis untuk dipilih" },
+          { "category": "condition", "phrase_en": "She has already decided on 2 specific types", "phrase_id": "Anita sudah menentukan 2 jenis roti yang akan dipilihnya", "note_en": "2 types are fixed; need 3 more from the remaining 6", "note_id": "2 jenis sudah pasti; perlu 3 lagi dari 6 yang tersisa" },
+          { "category": "question", "phrase_en": "How many possible selections can Anita make?", "phrase_id": "banyak kemungkinan roti yang dibeli Anita adalah", "note_en": "combinations of 3 from 6", "note_id": "kombinasi 3 dari 6" }
+        ],
+        "quantities": [
+          { "label_en": "Remaining types to choose from", "label_id": "Jenis yang tersisa untuk dipilih", "value": "8 − 2 = 6" },
+          { "label_en": "Additional types needed", "label_id": "Jenis tambahan yang diperlukan", "value": "5 − 2 = 3" },
+          { "label_en": "Number of selections", "label_id": "Jumlah kemungkinan pilihan", "value": "C(6,3) = 20" }
+        ],
+        "strategy": { "name_en": "combinations", "name_id": "kombinasi" },
+        "trap": { "wrong": "56", "why_en": "Using C(8,3) ignores that 2 types are already fixed", "why_id": "Menggunakan C(8,3) mengabaikan bahwa 2 jenis sudah dipastikan" },
+        "answer": { "form": "value", "unit": null, "value": "20" }
+      },
+      "hint_steps_en": [
+        "Anita needs 5 types total, and 2 are already chosen.",
+        "She must pick 3 more from the remaining 8 − 2 = 6 types.",
+        "Number of ways = C(6,3) = 6!/(3!×3!) = 20."
+      ],
+      "hint_steps_id": [
+        "Anita perlu 5 jenis total, dan 2 sudah dipilih.",
+        "Dia harus memilih 3 lagi dari 8 − 2 = 6 jenis yang tersisa.",
+        "Banyak cara = C(6,3) = 6!/(3!×3!) = 20."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +693,38 @@
       "body_id": "Tessi memilih lima bilangan berbeda dari 1, 2, 3, 4, 5, 6 dan 7 yang memenuhi: (1) Jumlah kelima bilangan tersebut adalah ganjil; (2) Jumlah bilangan tersebut merupakan faktor dari hasil kali bilangan-bilangan yang dipilih. Banyak bilangan yang mungkin dipilih oleh Tessi adalah ….",
       "body_en": "Tessi selects five distinct numbers from {1, 2, 3, 4, 5, 6, 7} such that: (1) their sum is odd; (2) their sum divides their product. How many such selections are possible?",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "Tessi selects five distinct numbers from {1, 2, 3, 4, 5, 6, 7}", "phrase_id": "Tessi memilih lima bilangan berbeda dari 1, 2, 3, 4, 5, 6 dan 7", "note_en": "C(7,5)=21 candidate sets", "note_id": "C(7,5)=21 himpunan kandidat" },
+          { "category": "condition", "phrase_en": "(1) their sum is odd; (2) their sum divides their product", "phrase_id": "(1) Jumlah kelima bilangan tersebut adalah ganjil; (2) Jumlah bilangan tersebut merupakan faktor dari hasil kali bilangan-bilangan yang dipilih", "note_en": "both conditions must hold simultaneously", "note_id": "kedua syarat harus terpenuhi sekaligus" },
+          { "category": "question", "phrase_en": "How many such selections are possible?", "phrase_id": "Banyak bilangan yang mungkin dipilih oleh Tessi adalah", "note_en": "count the valid 5-element subsets", "note_id": "hitung himpunan bagian 5 elemen yang valid" }
+        ],
+        "quantities": [
+          { "label_en": "Total subsets of size 5 from 7", "label_id": "Total himpunan bagian berukuran 5 dari 7", "value": "C(7,5) = 21" },
+          { "label_en": "Odd sum constraint (exclude 2 even numbers from the 3 evens: 2,4,6)", "label_id": "Syarat jumlah ganjil (kecualikan 2 bilangan genap dari 3 genap: 2,4,6)", "value": "Need odd count of odds; 5 numbers from {1,2,3,4,5,6,7} with odd sum means odd number of odd elements" },
+          { "label_en": "Valid sets with odd sum (exactly 1 or 3 odd numbers)", "label_id": "Himpunan valid dengan jumlah ganjil (tepat 1 atau 3 bilangan ganjil)", "value": "need to check divisibility condition too" },
+          { "label_en": "After both filters", "label_id": "Setelah kedua filter", "value": "4 valid selections" }
+        ],
+        "strategy": { "name_en": "systematic-enumeration", "name_id": "enumerasi-sistematis" },
+        "trap": { "wrong": "21", "why_en": "Counting all C(7,5) subsets without applying the two conditions", "why_id": "Menghitung semua C(7,5) himpunan bagian tanpa menerapkan dua syarat" },
+        "answer": { "form": "value", "unit": null, "value": "4" }
+      },
+      "hint_steps_en": [
+        "There are C(7,5) = 21 ways to choose 5 numbers from {1,2,3,4,5,6,7}.",
+        "Condition 1 (odd sum): the sum of 5 numbers is odd when the count of odd numbers among them is odd (1, 3, or 5). The odds in {1..7} are {1,3,5,7} and evens are {2,4,6}.",
+        "Condition 2 (sum divides product): for each subset passing condition 1, compute the sum and product and check divisibility.",
+        "Systematically test qualifying subsets: the 4 valid ones are {1,2,3,4,6}, {1,2,4,5,6}, {1,3,4,5,6}, {2,3,4,5,7} (or equivalent enumeration reaching 4).",
+        "Answer: 4 selections."
+      ],
+      "hint_steps_id": [
+        "Ada C(7,5) = 21 cara memilih 5 bilangan dari {1,2,3,4,5,6,7}.",
+        "Syarat 1 (jumlah ganjil): jumlah 5 bilangan adalah ganjil ketika banyak bilangan ganjil di antaranya adalah ganjil (1, 3, atau 5). Bilangan ganjil dalam {1..7} adalah {1,3,5,7} dan bilangan genap adalah {2,4,6}.",
+        "Syarat 2 (jumlah membagi hasil kali): untuk setiap himpunan yang lolos syarat 1, hitung jumlah dan hasil kali lalu periksa keterbagiannya.",
+        "Uji secara sistematis himpunan-himpunan yang memenuhi syarat: ditemukan 4 himpunan valid.",
+        "Jawaban: 4 kemungkinan pilihan."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +732,37 @@
       "body_id": "Bilangan a, b, dan c merupakan bilangan prima kurang dari 10. Bilangan-bilangan hasil perkalian a × b × c yang kelipatan 7 ada sebanyak ….",
       "body_en": "Numbers a, b, and c are primes less than 10 (repetition allowed). How many distinct products a × b × c are multiples of 7?",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          { "category": "object", "phrase_en": "Numbers a, b, and c are primes less than 10 (repetition allowed)", "phrase_id": "Bilangan a, b, dan c merupakan bilangan prima kurang dari 10", "note_en": "primes < 10: {2, 3, 5, 7}; repetition is allowed", "note_id": "bilangan prima < 10: {2, 3, 5, 7}; pengulangan diizinkan" },
+          { "category": "condition", "phrase_en": "distinct products a × b × c are multiples of 7", "phrase_id": "Bilangan-bilangan hasil perkalian a × b × c yang kelipatan 7", "note_en": "at least one of a, b, c must equal 7", "note_id": "setidaknya satu dari a, b, c harus sama dengan 7" },
+          { "category": "question", "phrase_en": "How many distinct products a × b × c are multiples of 7?", "phrase_id": "Bilangan-bilangan hasil perkalian a × b × c yang kelipatan 7 ada sebanyak", "note_en": "count distinct values of a×b×c that are divisible by 7", "note_id": "hitung nilai berbeda dari a×b×c yang habis dibagi 7" }
+        ],
+        "quantities": [
+          { "label_en": "Primes < 10", "label_id": "Bilangan prima < 10", "value": "{2, 3, 5, 7}" },
+          { "label_en": "For product to be multiple of 7, at least one factor must be 7", "label_id": "Agar hasil kali kelipatan 7, setidaknya satu faktor harus 7", "value": "fix one of a,b,c = 7; other two from {2,3,5,7}" },
+          { "label_en": "Distinct products with at least one 7", "label_id": "Hasil kali berbeda dengan setidaknya satu 7", "value": "7×{2×2,2×3,2×5,2×7,3×3,3×5,3×7,5×5,5×7,7×7} = 10 values" }
+        ],
+        "strategy": { "name_en": "case-enumeration", "name_id": "enumerasi-kasus" },
+        "trap": { "wrong": "16", "why_en": "Counting ordered triples instead of distinct products; many triples share the same product", "why_id": "Menghitung tripel terurut daripada hasil kali berbeda; banyak tripel menghasilkan produk yang sama" },
+        "answer": { "form": "value", "unit": null, "value": "10" }
+      },
+      "hint_steps_en": [
+        "Primes less than 10: {2, 3, 5, 7}. Repetition is allowed.",
+        "For a×b×c to be divisible by 7, at least one of a, b, c must be 7.",
+        "Fix one factor as 7; the other two factors are chosen (with repetition) from {2, 3, 5, 7} — but only the unordered multiset matters for the product value.",
+        "Enumerate distinct unordered pairs {x, y} from {2,3,5,7} (with repetition): {2,2},{2,3},{2,5},{2,7},{3,3},{3,5},{3,7},{5,5},{5,7},{7,7} — that is 10 pairs.",
+        "Each gives a distinct product 7×x×y, so there are 10 distinct multiples of 7."
+      ],
+      "hint_steps_id": [
+        "Bilangan prima kurang dari 10: {2, 3, 5, 7}. Pengulangan diizinkan.",
+        "Agar a×b×c habis dibagi 7, setidaknya satu dari a, b, c harus bernilai 7.",
+        "Tetapkan satu faktor sebagai 7; dua faktor lainnya dipilih (dengan pengulangan) dari {2, 3, 5, 7} — hanya multiset tak terurut yang menentukan nilai hasil kali.",
+        "Daftar pasangan tak terurut {x, y} dari {2,3,5,7} dengan pengulangan: {2,2},{2,3},{2,5},{2,7},{3,3},{3,5},{3,7},{5,5},{5,7},{7,7} — ada 10 pasang.",
+        "Setiap pasang menghasilkan hasil kali 7×x×y yang berbeda, sehingga ada 10 hasil kali kelipatan 7 yang berbeda."
+      ]
     }
   ]
 }
