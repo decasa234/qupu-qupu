@@ -14,21 +14,161 @@
       "body_en": "Which of the following is an even number?",
       "body_id": "Manakah di antara bilangan berikut yang merupakan bilangan genap?",
       "choices_en": [
-        {"label": "A", "text": "385"},
-        {"label": "B", "text": "2023"},
-        {"label": "C", "text": "1352"},
-        {"label": "D", "text": "241"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "385"
+        },
+        {
+          "label": "B",
+          "text": "2023"
+        },
+        {
+          "label": "C",
+          "text": "1352"
+        },
+        {
+          "label": "D",
+          "text": "241"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "385"},
-        {"label": "B", "text": "2023"},
-        {"label": "C", "text": "1352"},
-        {"label": "D", "text": "241"},
-        {"label": "E", "text": "5"}
+        {
+          "label": "A",
+          "text": "385"
+        },
+        {
+          "label": "B",
+          "text": "2023"
+        },
+        {
+          "label": "C",
+          "text": "1352"
+        },
+        {
+          "label": "D",
+          "text": "241"
+        },
+        {
+          "label": "E",
+          "text": "5"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the following is an even number?",
+            "phrase_id": "Manakah di antara bilangan berikut yang merupakan bilangan genap?",
+            "note_en": "An even number ends in 0, 2, 4, 6, or 8",
+            "note_id": "Bilangan genap berakhiran 0, 2, 4, 6, atau 8"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "even number",
+            "phrase_id": "bilangan genap",
+            "note_en": "Only the last digit matters — check it for each choice",
+            "note_id": "Hanya digit terakhir yang penting — periksa untuk setiap pilihan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "A: 385 last digit",
+            "label_id": "Digit terakhir A: 385",
+            "value": "5 → odd"
+          },
+          {
+            "label_en": "B: 2023 last digit",
+            "label_id": "Digit terakhir B: 2023",
+            "value": "3 → odd"
+          },
+          {
+            "label_en": "C: 1352 last digit",
+            "label_id": "Digit terakhir C: 1352",
+            "value": "2 → even ✓"
+          },
+          {
+            "label_en": "D: 241 last digit",
+            "label_id": "Digit terakhir D: 241",
+            "value": "1 → odd"
+          },
+          {
+            "label_en": "E: 5 last digit",
+            "label_id": "Digit terakhir E: 5",
+            "value": "5 → odd"
+          }
+        ],
+        "strategy": {
+          "name_en": "Check the last digit only",
+          "name_id": "Periksa digit terakhir saja"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "2023 contains the digit 2 but ends in 3 — only the last digit determines even or odd.",
+          "why_id": "2023 mengandung angka 2 tetapi berakhiran 3 — hanya digit terakhir yang menentukan genap atau ganjil."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "An even number always ends in 0, 2, 4, 6, or 8.",
+        "Check the last digit of each choice: 385→5, 2023→3, 1352→2, 241→1, 5→5.",
+        "Only 1352 ends in 2, so it is even.",
+        "The answer is C."
+      ],
+      "hint_steps_id": [
+        "Bilangan genap selalu berakhiran 0, 2, 4, 6, atau 8.",
+        "Periksa digit terakhir setiap pilihan: 385→5, 2023→3, 1352→2, 241→1, 5→5.",
+        "Hanya 1352 yang berakhiran 2, jadi ia adalah bilangan genap.",
+        "Jawabannya adalah C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "An even number ends in 0, 2, 4, 6, or 8. Check the last digit of each choice.",
+          "intro_id": "Bilangan genap berakhiran 0, 2, 4, 6, atau 8. Periksa digit terakhir setiap pilihan.",
+          "items": [
+            {
+              "text_en": "A: 385 — ends in 5 (odd) ✗",
+              "text_id": "A: 385 — berakhiran 5 (ganjil) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 2023 — ends in 3 (odd) ✗",
+              "text_id": "B: 2023 — berakhiran 3 (ganjil) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 1352 — ends in 2 (even) ✓",
+              "text_id": "C: 1352 — berakhiran 2 (genap) ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 241 — ends in 1 (odd) ✗",
+              "text_id": "D: 241 — berakhiran 1 (ganjil) ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: 5 — ends in 5 (odd) ✗",
+              "text_id": "E: 5 — berakhiran 5 (ganjil) ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "1352 is the only even number — answer C.",
+          "final_id": "1352 adalah satu-satunya bilangan genap — jawaban C.",
+          "aria_en": "Check the last digit of each number; only 1352 ends in 2 which is even.",
+          "aria_id": "Periksa digit terakhir setiap bilangan; hanya 1352 yang berakhiran 2 yaitu genap."
+        }
+      }
     },
     {
       "number": 2,
@@ -36,21 +176,149 @@
       "body_en": "If △ × 7 = 56, what is the value of (△ + 22)?",
       "body_id": "Jika △ × 7 = 56, berapakah nilai (△ + 22)?",
       "choices_en": [
-        {"label": "A", "text": "8"},
-        {"label": "B", "text": "22"},
-        {"label": "C", "text": "30"},
-        {"label": "D", "text": "32"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "8"
+        },
+        {
+          "label": "B",
+          "text": "22"
+        },
+        {
+          "label": "C",
+          "text": "30"
+        },
+        {
+          "label": "D",
+          "text": "32"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "8"},
-        {"label": "B", "text": "22"},
-        {"label": "C", "text": "30"},
-        {"label": "D", "text": "32"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "8"
+        },
+        {
+          "label": "B",
+          "text": "22"
+        },
+        {
+          "label": "C",
+          "text": "30"
+        },
+        {
+          "label": "D",
+          "text": "32"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "△ × 7 = 56",
+            "phrase_id": "△ × 7 = 56",
+            "note_en": "This tells us the value of △",
+            "note_id": "Ini memberi tahu kita nilai △"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of (△ + 22)?",
+            "phrase_id": "berapakah nilai (△ + 22)?",
+            "note_en": "First find △, then add 22",
+            "note_id": "Pertama cari △, lalu tambahkan 22"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "△",
+            "label_id": "△",
+            "value": "56 ÷ 7 = 8"
+          },
+          {
+            "label_en": "△ + 22",
+            "label_id": "△ + 22",
+            "value": "8 + 22 = 30"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve for the unknown, then compute",
+          "name_id": "Cari nilai yang tidak diketahui, lalu hitung"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "A is 8, which is △ itself — the question asks for △ + 22, not just △.",
+          "why_id": "A adalah 8, yaitu nilai △ itu sendiri — soal menanyakan △ + 22, bukan hanya △."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "From △ × 7 = 56, divide both sides by 7: △ = 56 ÷ 7 = 8.",
+        "Now compute △ + 22 = 8 + 22 = 30.",
+        "The answer is 30, which is C."
+      ],
+      "hint_steps_id": [
+        "Dari △ × 7 = 56, bagi kedua sisi dengan 7: △ = 56 ÷ 7 = 8.",
+        "Sekarang hitung △ + 22 = 8 + 22 = 30.",
+        "Jawabannya adalah 30, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find △ first, then check which choice equals △ + 22.",
+          "intro_id": "Cari △ terlebih dahulu, lalu periksa pilihan mana yang sama dengan △ + 22.",
+          "items": [
+            {
+              "text_en": "△ × 7 = 56 → △ = 56 ÷ 7 = 8",
+              "text_id": "△ × 7 = 56 → △ = 56 ÷ 7 = 8",
+              "ok": null
+            },
+            {
+              "text_en": "A: 8 = △ itself, not △ + 22 ✗",
+              "text_id": "A: 8 = △ itu sendiri, bukan △ + 22 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 22 — missing △ ✗",
+              "text_id": "B: 22 — belum ditambah △ ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 30 = 8 + 22 ✓",
+              "text_id": "C: 30 = 8 + 22 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "D: 32 ≠ 30 ✗",
+              "text_id": "D: 32 ≠ 30 ✗",
+              "ok": false
+            },
+            {
+              "text_en": "E: 40 ≠ 30 ✗",
+              "text_id": "E: 40 ≠ 30 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "△ = 8, so △ + 22 = 30 — answer C.",
+          "final_id": "△ = 8, jadi △ + 22 = 30 — jawaban C.",
+          "aria_en": "Triangle equals 56 divided by 7 which is 8; then 8 plus 22 equals 30.",
+          "aria_id": "Segitiga sama dengan 56 dibagi 7 yaitu 8; kemudian 8 ditambah 22 sama dengan 30."
+        }
+      }
     },
     {
       "number": 3,
@@ -58,21 +326,159 @@
       "body_en": "Calculate the sum below.\n\n76 + 135 + 47 + 36 + 64 + 53 + 265 + 124",
       "body_id": "Hitunglah jumlah berikut.\n\n76 + 135 + 47 + 36 + 64 + 53 + 265 + 124",
       "choices_en": [
-        {"label": "A", "text": "800"},
-        {"label": "B", "text": "700"},
-        {"label": "C", "text": "80"},
-        {"label": "D", "text": "8000"},
-        {"label": "E", "text": "808"}
+        {
+          "label": "A",
+          "text": "800"
+        },
+        {
+          "label": "B",
+          "text": "700"
+        },
+        {
+          "label": "C",
+          "text": "80"
+        },
+        {
+          "label": "D",
+          "text": "8000"
+        },
+        {
+          "label": "E",
+          "text": "808"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "800"},
-        {"label": "B", "text": "700"},
-        {"label": "C", "text": "80"},
-        {"label": "D", "text": "8000"},
-        {"label": "E", "text": "808"}
+        {
+          "label": "A",
+          "text": "800"
+        },
+        {
+          "label": "B",
+          "text": "700"
+        },
+        {
+          "label": "C",
+          "text": "80"
+        },
+        {
+          "label": "D",
+          "text": "8000"
+        },
+        {
+          "label": "E",
+          "text": "808"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Calculate the sum below.",
+            "phrase_id": "Hitunglah jumlah berikut.",
+            "note_en": "Group numbers that pair to round hundreds for fast addition",
+            "note_id": "Kelompokkan bilangan yang berpasangan menjadi ratusan bulat untuk penjumlahan cepat"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "76 + 135 + 47 + 36 + 64 + 53 + 265 + 124",
+            "phrase_id": "76 + 135 + 47 + 36 + 64 + 53 + 265 + 124",
+            "note_en": "Eight numbers to add — look for pairs that make 100 or 200 or 300",
+            "note_id": "Delapan bilangan untuk dijumlahkan — cari pasangan yang menghasilkan 100, 200, atau 300"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "76 + 124",
+            "label_id": "76 + 124",
+            "value": "200"
+          },
+          {
+            "label_en": "135 + 265",
+            "label_id": "135 + 265",
+            "value": "400"
+          },
+          {
+            "label_en": "47 + 53",
+            "label_id": "47 + 53",
+            "value": "100"
+          },
+          {
+            "label_en": "36 + 64",
+            "label_id": "36 + 64",
+            "value": "100"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "200 + 400 + 100 + 100 = 800"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pair numbers that sum to round hundreds",
+          "name_id": "Pasangkan bilangan yang berjumlah ratusan bulat"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "808 comes from adding carelessly and getting an extra 8 — smart pairing avoids this error.",
+          "why_id": "808 muncul dari penjumlahan ceroboh yang menghasilkan 8 ekstra — pengelompokan cerdas menghindari kesalahan ini."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Look for pairs that add to a round number: 76+124=200, 135+265=400, 47+53=100, 36+64=100.",
+        "Add the round numbers: 200 + 400 + 100 + 100 = 800.",
+        "The answer is 800, which is A."
+      ],
+      "hint_steps_id": [
+        "Cari pasangan yang berjumlah bilangan bulat: 76+124=200, 135+265=400, 47+53=100, 36+64=100.",
+        "Jumlahkan bilangan-bilangan bulat tersebut: 200 + 400 + 100 + 100 = 800.",
+        "Jawabannya adalah 800, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Pair numbers that sum to round hundreds, then add the totals.",
+          "intro_id": "Pasangkan bilangan yang berjumlah ratusan bulat, lalu jumlahkan totalnya.",
+          "items": [
+            {
+              "text_en": "76 + 124 = 200",
+              "text_id": "76 + 124 = 200",
+              "ok": null
+            },
+            {
+              "text_en": "135 + 265 = 400",
+              "text_id": "135 + 265 = 400",
+              "ok": null
+            },
+            {
+              "text_en": "47 + 53 = 100",
+              "text_id": "47 + 53 = 100",
+              "ok": null
+            },
+            {
+              "text_en": "36 + 64 = 100",
+              "text_id": "36 + 64 = 100",
+              "ok": null
+            },
+            {
+              "text_en": "200 + 400 + 100 + 100 = 800 ✓",
+              "text_id": "200 + 400 + 100 + 100 = 800 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The sum is 800 — answer A.",
+          "final_id": "Jumlahnya adalah 800 — jawaban A.",
+          "aria_en": "Pair 76 with 124 to get 200, 135 with 265 to get 400, 47 with 53 to get 100, and 36 with 64 to get 100; total is 800.",
+          "aria_id": "Pasangkan 76 dengan 124 menjadi 200, 135 dengan 265 menjadi 400, 47 dengan 53 menjadi 100, dan 36 dengan 64 menjadi 100; totalnya 800."
+        }
+      }
     },
     {
       "number": 4,
@@ -80,21 +486,151 @@
       "body_en": "One jar of marbles contains exactly 9 marbles. Sarah bought 7 such jars. If she lost two marbles, how many marbles does she have now?",
       "body_id": "Satu toples kelereng berisi tepat 9 kelereng. Sarah membeli 7 toples seperti itu. Jika ia kehilangan dua kelereng, berapa banyak kelereng yang ia miliki sekarang?",
       "choices_en": [
-        {"label": "A", "text": "61"},
-        {"label": "B", "text": "62"},
-        {"label": "C", "text": "63"},
-        {"label": "D", "text": "65"},
-        {"label": "E", "text": "60"}
+        {
+          "label": "A",
+          "text": "61"
+        },
+        {
+          "label": "B",
+          "text": "62"
+        },
+        {
+          "label": "C",
+          "text": "63"
+        },
+        {
+          "label": "D",
+          "text": "65"
+        },
+        {
+          "label": "E",
+          "text": "60"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "61"},
-        {"label": "B", "text": "62"},
-        {"label": "C", "text": "63"},
-        {"label": "D", "text": "65"},
-        {"label": "E", "text": "60"}
+        {
+          "label": "A",
+          "text": "61"
+        },
+        {
+          "label": "B",
+          "text": "62"
+        },
+        {
+          "label": "C",
+          "text": "63"
+        },
+        {
+          "label": "D",
+          "text": "65"
+        },
+        {
+          "label": "E",
+          "text": "60"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "One jar of marbles contains exactly 9 marbles. Sarah bought 7 such jars.",
+            "phrase_id": "Satu toples kelereng berisi tepat 9 kelereng. Sarah membeli 7 toples seperti itu.",
+            "note_en": "Total before loss = 7 × 9 = 63 marbles",
+            "note_id": "Total sebelum kehilangan = 7 × 9 = 63 kelereng"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "she lost two marbles",
+            "phrase_id": "ia kehilangan dua kelereng",
+            "note_en": "Subtract 2 from the total",
+            "note_id": "Kurangi 2 dari total"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many marbles does she have now?",
+            "phrase_id": "berapa banyak kelereng yang ia miliki sekarang?",
+            "note_en": "Final count = 63 − 2 = 61",
+            "note_id": "Jumlah akhir = 63 − 2 = 61"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total from jars",
+            "label_id": "Total dari toples",
+            "value": "7 × 9 = 63"
+          },
+          {
+            "label_en": "Lost",
+            "label_id": "Hilang",
+            "value": "2"
+          },
+          {
+            "label_en": "Remaining",
+            "label_id": "Sisa",
+            "value": "63 − 2 = 61"
+          }
+        ],
+        "strategy": {
+          "name_en": "Multiply then subtract",
+          "name_id": "Kalikan lalu kurangi"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "63 is the total before losing any marbles — you must subtract the 2 lost marbles.",
+          "why_id": "63 adalah total sebelum kehilangan kelereng — kamu harus mengurangi 2 kelereng yang hilang."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Total marbles bought: 7 jars × 9 marbles = 63.",
+        "She lost 2 marbles: 63 − 2 = 61.",
+        "The answer is 61, which is A."
+      ],
+      "hint_steps_id": [
+        "Total kelereng yang dibeli: 7 toples × 9 kelereng = 63.",
+        "Ia kehilangan 2 kelereng: 63 − 2 = 61.",
+        "Jawabannya adalah 61, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Multiply to find total, then subtract the lost marbles.",
+          "intro_id": "Kalikan untuk mencari total, lalu kurangi kelereng yang hilang.",
+          "items": [
+            {
+              "text_en": "7 jars × 9 marbles = 63 marbles total",
+              "text_id": "7 toples × 9 kelereng = 63 kelereng total",
+              "ok": null
+            },
+            {
+              "text_en": "Lost 2 marbles: 63 − 2 = 61",
+              "text_id": "Kehilangan 2 kelereng: 63 − 2 = 61",
+              "ok": null
+            },
+            {
+              "text_en": "A: 61 ✓",
+              "text_id": "A: 61 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: 63 = total before loss, not after ✗",
+              "text_id": "C: 63 = total sebelum kehilangan, bukan sesudahnya ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Sarah has 61 marbles — answer A.",
+          "final_id": "Sarah memiliki 61 kelereng — jawaban A.",
+          "aria_en": "Seven jars of nine marbles gives 63; subtract 2 lost marbles to get 61.",
+          "aria_id": "Tujuh toples berisi 9 kelereng menghasilkan 63; kurangi 2 kelereng yang hilang sehingga menjadi 61."
+        }
+      }
     },
     {
       "number": 5,
@@ -102,21 +638,158 @@
       "body_en": "Study the picture below and find the missing number. A starting number is divided by 5, then multiplied by 4, then 12 is added, then divided by 8, giving the result 5.",
       "body_id": "Perhatikan gambar berikut dan temukan bilangan yang hilang. Suatu bilangan awal dibagi 5, lalu dikalikan 4, lalu ditambah 12, lalu dibagi 8, menghasilkan 5.",
       "choices_en": [
-        {"label": "A", "text": "20"},
-        {"label": "B", "text": "25"},
-        {"label": "C", "text": "30"},
-        {"label": "D", "text": "35"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "20"
+        },
+        {
+          "label": "B",
+          "text": "25"
+        },
+        {
+          "label": "C",
+          "text": "30"
+        },
+        {
+          "label": "D",
+          "text": "35"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "20"},
-        {"label": "B", "text": "25"},
-        {"label": "C", "text": "30"},
-        {"label": "D", "text": "35"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "20"
+        },
+        {
+          "label": "B",
+          "text": "25"
+        },
+        {
+          "label": "C",
+          "text": "30"
+        },
+        {
+          "label": "D",
+          "text": "35"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A starting number is divided by 5, then multiplied by 4, then 12 is added, then divided by 8, giving the result 5.",
+            "phrase_id": "Suatu bilangan awal dibagi 5, lalu dikalikan 4, lalu ditambah 12, lalu dibagi 8, menghasilkan 5.",
+            "note_en": "Work backwards: reverse each operation in reverse order",
+            "note_id": "Bekerja mundur: balikkan setiap operasi dalam urutan terbalik"
+          },
+          {
+            "category": "question",
+            "phrase_en": "find the missing number",
+            "phrase_id": "temukan bilangan yang hilang",
+            "note_en": "The starting number is what we need to find",
+            "note_id": "Bilangan awal adalah yang perlu kita temukan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Result",
+            "label_id": "Hasil",
+            "value": "5"
+          },
+          {
+            "label_en": "Before ÷8",
+            "label_id": "Sebelum ÷8",
+            "value": "5 × 8 = 40"
+          },
+          {
+            "label_en": "Before +12",
+            "label_id": "Sebelum +12",
+            "value": "40 − 12 = 28"
+          },
+          {
+            "label_en": "Before ×4",
+            "label_id": "Sebelum ×4",
+            "value": "28 ÷ 4 = 7"
+          },
+          {
+            "label_en": "Starting number (before ÷5)",
+            "label_id": "Bilangan awal (sebelum ÷5)",
+            "value": "7 × 5 = 35"
+          }
+        ],
+        "strategy": {
+          "name_en": "Work backwards — reverse each operation",
+          "name_id": "Bekerja mundur — balikkan setiap operasi"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "30 comes from making an arithmetic slip in the backwards chain — track each reversal carefully.",
+          "why_id": "30 muncul dari kesalahan aritmetika dalam rantai mundur — ikuti setiap pembalikan dengan teliti."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "The final result is 5. Work backwards by reversing each operation.",
+        "Reverse ÷8: 5 × 8 = 40.",
+        "Reverse +12: 40 − 12 = 28.",
+        "Reverse ×4: 28 ÷ 4 = 7.",
+        "Reverse ÷5: 7 × 5 = 35. The starting number is 35, which is D."
+      ],
+      "hint_steps_id": [
+        "Hasil akhir adalah 5. Bekerja mundur dengan membalik setiap operasi.",
+        "Balik ÷8: 5 × 8 = 40.",
+        "Balik +12: 40 − 12 = 28.",
+        "Balik ×4: 28 ÷ 4 = 7.",
+        "Balik ÷5: 7 × 5 = 35. Bilangan awal adalah 35, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Work backwards from 5, reversing each operation step by step.",
+          "intro_id": "Bekerja mundur dari 5, membalik setiap operasi satu per satu.",
+          "items": [
+            {
+              "text_en": "End: 5. Reverse ÷8 → 5×8 = 40",
+              "text_id": "Akhir: 5. Balik ÷8 → 5×8 = 40",
+              "ok": null
+            },
+            {
+              "text_en": "Reverse +12 → 40−12 = 28",
+              "text_id": "Balik +12 → 40−12 = 28",
+              "ok": null
+            },
+            {
+              "text_en": "Reverse ×4 → 28÷4 = 7",
+              "text_id": "Balik ×4 → 28÷4 = 7",
+              "ok": null
+            },
+            {
+              "text_en": "Reverse ÷5 → 7×5 = 35 ✓",
+              "text_id": "Balik ÷5 → 7×5 = 35 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "The starting number is 35 — answer D.",
+          "final_id": "Bilangan awal adalah 35 — jawaban D.",
+          "aria_en": "Working backwards from 5: multiply by 8 to get 40, subtract 12 to get 28, divide by 4 to get 7, multiply by 5 to get 35.",
+          "aria_id": "Bekerja mundur dari 5: kalikan 8 menjadi 40, kurangi 12 menjadi 28, bagi 4 menjadi 7, kalikan 5 menjadi 35."
+        }
+      }
     },
     {
       "number": 6,
@@ -124,21 +797,146 @@
       "body_en": "Picture 1 has one shape. Picture 2 has four shapes. Picture 3 has nine shapes. How many shapes will there be in Picture 9?",
       "body_id": "Gambar 1 memiliki satu bentuk. Gambar 2 memiliki empat bentuk. Gambar 3 memiliki sembilan bentuk. Berapa banyak bentuk yang ada di Gambar 9?",
       "choices_en": [
-        {"label": "A", "text": "49"},
-        {"label": "B", "text": "64"},
-        {"label": "C", "text": "80"},
-        {"label": "D", "text": "81"},
-        {"label": "E", "text": "100"}
+        {
+          "label": "A",
+          "text": "49"
+        },
+        {
+          "label": "B",
+          "text": "64"
+        },
+        {
+          "label": "C",
+          "text": "80"
+        },
+        {
+          "label": "D",
+          "text": "81"
+        },
+        {
+          "label": "E",
+          "text": "100"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "49"},
-        {"label": "B", "text": "64"},
-        {"label": "C", "text": "80"},
-        {"label": "D", "text": "81"},
-        {"label": "E", "text": "100"}
+        {
+          "label": "A",
+          "text": "49"
+        },
+        {
+          "label": "B",
+          "text": "64"
+        },
+        {
+          "label": "C",
+          "text": "80"
+        },
+        {
+          "label": "D",
+          "text": "81"
+        },
+        {
+          "label": "E",
+          "text": "100"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Picture 1 has one shape. Picture 2 has four shapes. Picture 3 has nine shapes.",
+            "phrase_id": "Gambar 1 memiliki satu bentuk. Gambar 2 memiliki empat bentuk. Gambar 3 memiliki sembilan bentuk.",
+            "note_en": "1, 4, 9 are perfect squares: 1²=1, 2²=4, 3²=9",
+            "note_id": "1, 4, 9 adalah kuadrat sempurna: 1²=1, 2²=4, 3²=9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many shapes will there be in Picture 9?",
+            "phrase_id": "Berapa banyak bentuk yang ada di Gambar 9?",
+            "note_en": "Picture n has n² shapes, so Picture 9 has 9² = 81 shapes",
+            "note_id": "Gambar n memiliki n² bentuk, jadi Gambar 9 memiliki 9² = 81 bentuk"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Pattern",
+            "label_id": "Pola",
+            "value": "Picture n → n² shapes"
+          },
+          {
+            "label_en": "Picture 9",
+            "label_id": "Gambar 9",
+            "value": "9² = 81"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the square-number pattern",
+          "name_id": "Kenali pola bilangan kuadrat"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "100 = 10² belongs to Picture 10, not Picture 9.",
+          "why_id": "100 = 10² adalah milik Gambar 10, bukan Gambar 9."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "List the counts: Picture 1→1, Picture 2→4, Picture 3→9.",
+        "Spot the pattern: each count equals the picture number squared (n²).",
+        "Picture 9: 9² = 81.",
+        "The answer is 81, which is D."
+      ],
+      "hint_steps_id": [
+        "Daftar jumlah bentuk: Gambar 1→1, Gambar 2→4, Gambar 3→9.",
+        "Kenali polanya: setiap jumlah sama dengan nomor gambar dikuadratkan (n²).",
+        "Gambar 9: 9² = 81.",
+        "Jawabannya adalah 81, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the pattern, then apply it to Picture 9.",
+          "intro_id": "Temukan polanya, lalu terapkan pada Gambar 9.",
+          "items": [
+            {
+              "text_en": "Picture 1 → 1 = 1²",
+              "text_id": "Gambar 1 → 1 = 1²",
+              "ok": null
+            },
+            {
+              "text_en": "Picture 2 → 4 = 2²",
+              "text_id": "Gambar 2 → 4 = 2²",
+              "ok": null
+            },
+            {
+              "text_en": "Picture 3 → 9 = 3²",
+              "text_id": "Gambar 3 → 9 = 3²",
+              "ok": null
+            },
+            {
+              "text_en": "Picture 9 → 9² = 81 ✓",
+              "text_id": "Gambar 9 → 9² = 81 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "E: 100 = 10² → that's Picture 10, not 9 ✗",
+              "text_id": "E: 100 = 10² → itu Gambar 10, bukan 9 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Picture 9 has 81 shapes — answer D.",
+          "final_id": "Gambar 9 memiliki 81 bentuk — jawaban D.",
+          "aria_en": "The pattern is n squared shapes in picture n; picture 9 has 9 squared equals 81 shapes.",
+          "aria_id": "Polanya adalah n kuadrat bentuk pada gambar ke-n; gambar 9 memiliki 9 kuadrat sama dengan 81 bentuk."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,21 +944,110 @@
       "body_en": "The diagram shows some cubes of the same size stacked at a corner of a room. How many cubes are there altogether?\n\n(Note: The floor is horizontal and the two walls are vertical. There are no gaps or holes behind the visible cubes.)",
       "body_id": "Diagram menunjukkan beberapa kubus dengan ukuran yang sama ditumpuk di sudut sebuah ruangan. Berapa banyak kubus semuanya?\n\n(Catatan: Lantai horizontal dan dua dinding vertikal. Tidak ada celah atau lubang di belakang kubus yang terlihat.)",
       "choices_en": [
-        {"label": "A", "text": "96"},
-        {"label": "B", "text": "97"},
-        {"label": "C", "text": "98"},
-        {"label": "D", "text": "100"},
-        {"label": "E", "text": "95"}
+        {
+          "label": "A",
+          "text": "96"
+        },
+        {
+          "label": "B",
+          "text": "97"
+        },
+        {
+          "label": "C",
+          "text": "98"
+        },
+        {
+          "label": "D",
+          "text": "100"
+        },
+        {
+          "label": "E",
+          "text": "95"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "96"},
-        {"label": "B", "text": "97"},
-        {"label": "C", "text": "98"},
-        {"label": "D", "text": "100"},
-        {"label": "E", "text": "95"}
+        {
+          "label": "A",
+          "text": "96"
+        },
+        {
+          "label": "B",
+          "text": "97"
+        },
+        {
+          "label": "C",
+          "text": "98"
+        },
+        {
+          "label": "D",
+          "text": "100"
+        },
+        {
+          "label": "E",
+          "text": "95"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "cubes of the same size stacked at a corner of a room",
+            "phrase_id": "kubus dengan ukuran yang sama ditumpuk di sudut sebuah ruangan",
+            "note_en": "The corner means cubes are hidden behind visible faces — count layer by layer",
+            "note_id": "Di sudut berarti kubus tersembunyi di balik sisi yang terlihat — hitung lapisan demi lapisan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "There are no gaps or holes behind the visible cubes.",
+            "phrase_id": "Tidak ada celah atau lubang di belakang kubus yang terlihat.",
+            "note_en": "Every position behind a visible cube is filled",
+            "note_id": "Setiap posisi di belakang kubus yang terlihat terisi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many cubes are there altogether?",
+            "phrase_id": "Berapa banyak kubus semuanya?",
+            "note_en": "Sum all hidden and visible cubes",
+            "note_id": "Jumlahkan semua kubus yang tersembunyi dan yang terlihat"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Answer (from figure)",
+            "label_id": "Jawaban (dari gambar)",
+            "value": "97 cubes total"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count layer by layer including hidden cubes",
+          "name_id": "Hitung lapisan demi lapisan termasuk kubus yang tersembunyi"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "96 undercounts by missing one hidden cube — the no-gaps rule means every position is filled.",
+          "why_id": "96 kekurangan satu kubus tersembunyi — aturan tanpa celah berarti setiap posisi terisi."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Count the cubes layer by layer from bottom to top.",
+        "For each layer, count all filled positions — including those hidden behind other cubes.",
+        "The no-gaps rule guarantees every position is occupied.",
+        "The total is 97 cubes, which is B."
+      ],
+      "hint_steps_id": [
+        "Hitung kubus lapisan demi lapisan dari bawah ke atas.",
+        "Untuk setiap lapisan, hitung semua posisi yang terisi — termasuk yang tersembunyi di balik kubus lain.",
+        "Aturan tanpa celah menjamin setiap posisi terisi.",
+        "Totalnya adalah 97 kubus, yaitu pilihan B."
+      ]
     },
     {
       "number": 8,
@@ -168,21 +1055,156 @@
       "body_en": "If the day before yesterday is four days before Wednesday, what will be the day after tomorrow?",
       "body_id": "Jika kemarin lusa adalah empat hari sebelum Rabu, hari apakah lusa?",
       "choices_en": [
-        {"label": "A", "text": "Monday"},
-        {"label": "B", "text": "Tuesday"},
-        {"label": "C", "text": "Wednesday"},
-        {"label": "D", "text": "Thursday"},
-        {"label": "E", "text": "Sunday"}
+        {
+          "label": "A",
+          "text": "Monday"
+        },
+        {
+          "label": "B",
+          "text": "Tuesday"
+        },
+        {
+          "label": "C",
+          "text": "Wednesday"
+        },
+        {
+          "label": "D",
+          "text": "Thursday"
+        },
+        {
+          "label": "E",
+          "text": "Sunday"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "Senin"},
-        {"label": "B", "text": "Selasa"},
-        {"label": "C", "text": "Rabu"},
-        {"label": "D", "text": "Kamis"},
-        {"label": "E", "text": "Minggu"}
+        {
+          "label": "A",
+          "text": "Senin"
+        },
+        {
+          "label": "B",
+          "text": "Selasa"
+        },
+        {
+          "label": "C",
+          "text": "Rabu"
+        },
+        {
+          "label": "D",
+          "text": "Kamis"
+        },
+        {
+          "label": "E",
+          "text": "Minggu"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the day before yesterday is four days before Wednesday",
+            "phrase_id": "kemarin lusa adalah empat hari sebelum Rabu",
+            "note_en": "Day before yesterday = Wednesday − 4 days = Saturday",
+            "note_id": "Kemarin lusa = Rabu − 4 hari = Sabtu"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what will be the day after tomorrow?",
+            "phrase_id": "hari apakah lusa?",
+            "note_en": "Step forward from today: yesterday lusa → yesterday → today → tomorrow → day after tomorrow",
+            "note_id": "Maju dari hari ini: kemarin lusa → kemarin → hari ini → besok → lusa"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Day before yesterday",
+            "label_id": "Kemarin lusa",
+            "value": "Wednesday − 4 = Saturday"
+          },
+          {
+            "label_en": "Yesterday",
+            "label_id": "Kemarin",
+            "value": "Sunday"
+          },
+          {
+            "label_en": "Today",
+            "label_id": "Hari ini",
+            "value": "Monday"
+          },
+          {
+            "label_en": "Tomorrow",
+            "label_id": "Besok",
+            "value": "Tuesday"
+          },
+          {
+            "label_en": "Day after tomorrow",
+            "label_id": "Lusa",
+            "value": "Wednesday"
+          }
+        ],
+        "strategy": {
+          "name_en": "Anchor on Wednesday, count back, then count forward",
+          "name_id": "Berangkat dari Rabu, hitung mundur, lalu hitung maju"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "Monday is today, not the day after tomorrow — count two more days forward.",
+          "why_id": "Senin adalah hari ini, bukan lusa — hitung dua hari lagi ke depan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "The day before yesterday is 4 days before Wednesday: Wednesday − 4 days = Saturday.",
+        "So: day before yesterday = Saturday, yesterday = Sunday, today = Monday.",
+        "Tomorrow = Tuesday, day after tomorrow = Wednesday.",
+        "The answer is Wednesday, which is C."
+      ],
+      "hint_steps_id": [
+        "Kemarin lusa adalah 4 hari sebelum Rabu: Rabu − 4 hari = Sabtu.",
+        "Jadi: kemarin lusa = Sabtu, kemarin = Minggu, hari ini = Senin.",
+        "Besok = Selasa, lusa = Rabu.",
+        "Jawabannya adalah Rabu, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Anchor on Wednesday to find today, then count two days forward.",
+          "intro_id": "Berangkat dari Rabu untuk menemukan hari ini, lalu hitung dua hari ke depan.",
+          "items": [
+            {
+              "text_en": "Day before yesterday = Wednesday − 4 = Saturday",
+              "text_id": "Kemarin lusa = Rabu − 4 = Sabtu",
+              "ok": null
+            },
+            {
+              "text_en": "Yesterday = Sunday, Today = Monday",
+              "text_id": "Kemarin = Minggu, Hari ini = Senin",
+              "ok": null
+            },
+            {
+              "text_en": "Tomorrow = Tuesday, Day after tomorrow = Wednesday ✓",
+              "text_id": "Besok = Selasa, Lusa = Rabu ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A (Monday) = today, not day after tomorrow ✗",
+              "text_id": "A (Senin) = hari ini, bukan lusa ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The day after tomorrow is Wednesday — answer C.",
+          "final_id": "Lusa adalah hari Rabu — jawaban C.",
+          "aria_en": "The day before yesterday is Saturday; stepping forward gives today as Monday and the day after tomorrow as Wednesday.",
+          "aria_id": "Kemarin lusa adalah Sabtu; melangkah maju memberikan hari ini sebagai Senin dan lusa sebagai Rabu."
+        }
+      }
     },
     {
       "number": 9,
@@ -190,21 +1212,101 @@
       "body_en": "How many squares are there in the figure below?",
       "body_id": "Berapa banyak persegi yang terdapat pada gambar berikut?",
       "choices_en": [
-        {"label": "A", "text": "34"},
-        {"label": "B", "text": "33"},
-        {"label": "C", "text": "35"},
-        {"label": "D", "text": "30"},
-        {"label": "E", "text": "29"}
+        {
+          "label": "A",
+          "text": "34"
+        },
+        {
+          "label": "B",
+          "text": "33"
+        },
+        {
+          "label": "C",
+          "text": "35"
+        },
+        {
+          "label": "D",
+          "text": "30"
+        },
+        {
+          "label": "E",
+          "text": "29"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "34"},
-        {"label": "B", "text": "33"},
-        {"label": "C", "text": "35"},
-        {"label": "D", "text": "30"},
-        {"label": "E", "text": "29"}
+        {
+          "label": "A",
+          "text": "34"
+        },
+        {
+          "label": "B",
+          "text": "33"
+        },
+        {
+          "label": "C",
+          "text": "35"
+        },
+        {
+          "label": "D",
+          "text": "30"
+        },
+        {
+          "label": "E",
+          "text": "29"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many squares are there in the figure below?",
+            "phrase_id": "Berapa banyak persegi yang terdapat pada gambar berikut?",
+            "note_en": "Count squares of ALL sizes: 1×1, 2×2, 3×3, etc.",
+            "note_id": "Hitung persegi dari SEMUA ukuran: 1×1, 2×2, 3×3, dst."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "squares",
+            "phrase_id": "persegi",
+            "note_en": "Only count squares (all sides equal), not rectangles",
+            "note_id": "Hitung hanya persegi (semua sisi sama), bukan persegi panjang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Total squares (from figure)",
+            "label_id": "Total persegi (dari gambar)",
+            "value": "34"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count by size — 1×1, then 2×2, then larger",
+          "name_id": "Hitung per ukuran — 1×1, lalu 2×2, lalu lebih besar"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "33 misses one square — be systematic: count each size separately then add.",
+          "why_id": "33 melewatkan satu persegi — lakukan secara sistematis: hitung setiap ukuran secara terpisah lalu jumlahkan."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "Count 1×1 squares first, then 2×2, then 3×3, and so on.",
+        "Add the counts for each size.",
+        "The total is 34 squares, which is A."
+      ],
+      "hint_steps_id": [
+        "Hitung persegi 1×1 terlebih dahulu, lalu 2×2, kemudian 3×3, dan seterusnya.",
+        "Jumlahkan hitungan untuk setiap ukuran.",
+        "Totalnya adalah 34 persegi, yaitu pilihan A."
+      ]
     },
     {
       "number": 10,
@@ -212,21 +1314,136 @@
       "body_en": "The sum of 4 different even non-zero whole numbers is 40. What is the largest possible number among these 4 numbers?",
       "body_id": "Jumlah 4 bilangan bulat genap tak nol yang berbeda adalah 40. Berapakah bilangan terbesar yang mungkin di antara 4 bilangan tersebut?",
       "choices_en": [
-        {"label": "A", "text": "28"},
-        {"label": "B", "text": "30"},
-        {"label": "C", "text": "34"},
-        {"label": "D", "text": "38"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "28"
+        },
+        {
+          "label": "B",
+          "text": "30"
+        },
+        {
+          "label": "C",
+          "text": "34"
+        },
+        {
+          "label": "D",
+          "text": "38"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "28"},
-        {"label": "B", "text": "30"},
-        {"label": "C", "text": "34"},
-        {"label": "D", "text": "38"},
-        {"label": "E", "text": "40"}
+        {
+          "label": "A",
+          "text": "28"
+        },
+        {
+          "label": "B",
+          "text": "30"
+        },
+        {
+          "label": "C",
+          "text": "34"
+        },
+        {
+          "label": "D",
+          "text": "38"
+        },
+        {
+          "label": "E",
+          "text": "40"
+        }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of 4 different even non-zero whole numbers is 40.",
+            "phrase_id": "Jumlah 4 bilangan bulat genap tak nol yang berbeda adalah 40.",
+            "note_en": "All four must be distinct positive even numbers summing to 40",
+            "note_id": "Keempat bilangan harus bilangan genap positif yang berbeda dan berjumlah 40"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the largest possible number among these 4 numbers?",
+            "phrase_id": "Berapakah bilangan terbesar yang mungkin di antara 4 bilangan tersebut?",
+            "note_en": "Maximise one number by minimising the other three",
+            "note_id": "Maksimalkan satu bilangan dengan meminimalkan tiga bilangan lainnya"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Minimum three even numbers",
+            "label_id": "Tiga bilangan genap minimum",
+            "value": "2 + 4 + 6 = 12"
+          },
+          {
+            "label_en": "Largest number",
+            "label_id": "Bilangan terbesar",
+            "value": "40 − 12 = 28"
+          }
+        ],
+        "strategy": {
+          "name_en": "Minimise the small three, maximise the large one",
+          "name_id": "Minimalkan tiga yang kecil, maksimalkan yang besar"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "30 would require the other three to sum to 10 — the smallest three distinct positive even numbers sum to 12, so 30 is impossible.",
+          "why_id": "30 membutuhkan tiga bilangan lain berjumlah 10 — tiga bilangan genap positif berbeda terkecil berjumlah 12, sehingga 30 tidak mungkin."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "A"
+        }
+      },
+      "hint_steps_en": [
+        "To make one number as large as possible, make the other three as small as possible.",
+        "The three smallest distinct positive even numbers are 2, 4, 6 (sum = 12).",
+        "Largest number = 40 − 12 = 28.",
+        "The answer is 28, which is A."
+      ],
+      "hint_steps_id": [
+        "Agar satu bilangan sebesar mungkin, buat tiga bilangan lainnya sekecil mungkin.",
+        "Tiga bilangan genap positif berbeda terkecil adalah 2, 4, 6 (jumlah = 12).",
+        "Bilangan terbesar = 40 − 12 = 28.",
+        "Jawabannya adalah 28, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Minimise the three smallest even numbers to maximise the fourth.",
+          "intro_id": "Minimalkan tiga bilangan genap terkecil untuk memaksimalkan bilangan keempat.",
+          "items": [
+            {
+              "text_en": "Smallest three distinct positive evens: 2, 4, 6 → sum = 12",
+              "text_id": "Tiga bilangan genap positif berbeda terkecil: 2, 4, 6 → jumlah = 12",
+              "ok": null
+            },
+            {
+              "text_en": "Largest = 40 − 12 = 28 ✓",
+              "text_id": "Terbesar = 40 − 12 = 28 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "B: 30 → others need 2+4+4=10 but digits must be different ✗",
+              "text_id": "B: 30 → bilangan lain perlu berjumlah 10 tapi harus berbeda, tidak mungkin ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The largest possible number is 28 — answer A.",
+          "final_id": "Bilangan terbesar yang mungkin adalah 28 — jawaban A.",
+          "aria_en": "The smallest three distinct positive even numbers are 2, 4, and 6 summing to 12; so the largest is 40 minus 12 which equals 28.",
+          "aria_id": "Tiga bilangan genap positif berbeda terkecil adalah 2, 4, dan 6 yang berjumlah 12; sehingga yang terbesar adalah 40 dikurangi 12 sama dengan 28."
+        }
+      }
     },
     {
       "number": 11,
@@ -234,21 +1451,144 @@
       "body_en": "In the table below, 5 letters and 4 digits appear in a repeating pattern. Which letter and digit will appear in the 62nd column?\n\nLetters: S I M O C S I M O C …\nDigits:  2 0 2 3 2 0 2 3 2 0 …",
       "body_id": "Pada tabel berikut, 5 huruf dan 4 angka muncul dalam pola berulang. Huruf dan angka apakah yang muncul di kolom ke-62?\n\nHuruf: S I M O C S I M O C …\nAngka: 2 0 2 3 2 0 2 3 2 0 …",
       "choices_en": [
-        {"label": "A", "text": "S, 2"},
-        {"label": "B", "text": "I, 0"},
-        {"label": "C", "text": "M, 2"},
-        {"label": "D", "text": "M, 3"},
-        {"label": "E", "text": "M, 0"}
+        {
+          "label": "A",
+          "text": "S, 2"
+        },
+        {
+          "label": "B",
+          "text": "I, 0"
+        },
+        {
+          "label": "C",
+          "text": "M, 2"
+        },
+        {
+          "label": "D",
+          "text": "M, 3"
+        },
+        {
+          "label": "E",
+          "text": "M, 0"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "S, 2"},
-        {"label": "B", "text": "I, 0"},
-        {"label": "C", "text": "M, 2"},
-        {"label": "D", "text": "M, 3"},
-        {"label": "E", "text": "M, 0"}
+        {
+          "label": "A",
+          "text": "S, 2"
+        },
+        {
+          "label": "B",
+          "text": "I, 0"
+        },
+        {
+          "label": "C",
+          "text": "M, 2"
+        },
+        {
+          "label": "D",
+          "text": "M, 3"
+        },
+        {
+          "label": "E",
+          "text": "M, 0"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 letters and 4 digits appear in a repeating pattern",
+            "phrase_id": "5 huruf dan 4 angka muncul dalam pola berulang",
+            "note_en": "Letters cycle every 5; digits cycle every 4 — apply each modulo separately",
+            "note_id": "Huruf berulang setiap 5; angka berulang setiap 4 — terapkan modulo masing-masing secara terpisah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which letter and digit will appear in the 62nd column?",
+            "phrase_id": "Huruf dan angka apakah yang muncul di kolom ke-62?",
+            "note_en": "62 mod 5 for the letter; 62 mod 4 for the digit",
+            "note_id": "62 mod 5 untuk huruf; 62 mod 4 untuk angka"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "62 mod 5",
+            "label_id": "62 mod 5",
+            "value": "62 = 12×5 + 2 → position 2 → I"
+          },
+          {
+            "label_en": "62 mod 4",
+            "label_id": "62 mod 4",
+            "value": "62 = 15×4 + 2 → position 2 → 0"
+          },
+          {
+            "label_en": "62nd column",
+            "label_id": "Kolom ke-62",
+            "value": "I, 0"
+          }
+        ],
+        "strategy": {
+          "name_en": "Apply modular arithmetic to each sequence independently",
+          "name_id": "Terapkan aritmetika modular pada setiap barisan secara terpisah"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "M is the 3rd letter (position 3); 62 mod 5 = 2 which is position 2 = I, not M.",
+          "why_id": "M adalah huruf ke-3 (posisi 3); 62 mod 5 = 2 yang merupakan posisi 2 = I, bukan M."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Letters S,I,M,O,C repeat every 5. Find 62 mod 5: 62 = 12×5 + 2, remainder 2 → 2nd letter = I.",
+        "Digits 2,0,2,3 repeat every 4. Find 62 mod 4: 62 = 15×4 + 2, remainder 2 → 2nd digit = 0.",
+        "The 62nd column has letter I and digit 0 — answer B."
+      ],
+      "hint_steps_id": [
+        "Huruf S,I,M,O,C berulang setiap 5. Cari 62 mod 5: 62 = 12×5 + 2, sisa 2 → huruf ke-2 = I.",
+        "Angka 2,0,2,3 berulang setiap 4. Cari 62 mod 4: 62 = 15×4 + 2, sisa 2 → angka ke-2 = 0.",
+        "Kolom ke-62 memiliki huruf I dan angka 0 — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Use modular arithmetic: find the position of 62 within each cycle.",
+          "intro_id": "Gunakan aritmetika modular: temukan posisi 62 dalam setiap siklus.",
+          "items": [
+            {
+              "text_en": "Letters cycle 5: 62 ÷ 5 = 12 rem 2 → position 2 = I",
+              "text_id": "Huruf siklus 5: 62 ÷ 5 = 12 sisa 2 → posisi 2 = I",
+              "ok": null
+            },
+            {
+              "text_en": "Digits cycle 4: 62 ÷ 4 = 15 rem 2 → position 2 = 0",
+              "text_id": "Angka siklus 4: 62 ÷ 4 = 15 sisa 2 → posisi 2 = 0",
+              "ok": null
+            },
+            {
+              "text_en": "B: I, 0 ✓",
+              "text_id": "B: I, 0 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "C: M, 2 — M is position 3, not 2 ✗",
+              "text_id": "C: M, 2 — M adalah posisi 3, bukan 2 ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "Column 62 is letter I and digit 0 — answer B.",
+          "final_id": "Kolom ke-62 adalah huruf I dan angka 0 — jawaban B.",
+          "aria_en": "62 mod 5 is 2 giving letter I; 62 mod 4 is 2 giving digit 0; the answer is I comma 0.",
+          "aria_id": "62 mod 5 adalah 2 menghasilkan huruf I; 62 mod 4 adalah 2 menghasilkan angka 0; jawabannya adalah I koma 0."
+        }
+      }
     },
     {
       "number": 12,
@@ -256,21 +1596,143 @@
       "body_en": "There are 7 types of flowers available in a flower shop: roses, lilies, sunflowers, tulips, orchids, daisies and carnations. Emma wants to buy 2 different types of flowers. How many different choices does she have?",
       "body_id": "Ada 7 jenis bunga yang tersedia di toko bunga: mawar, lili, bunga matahari, tulip, anggrek, daisy, dan anyelir. Emma ingin membeli 2 jenis bunga yang berbeda. Berapa banyak pilihan berbeda yang ia miliki?",
       "choices_en": [
-        {"label": "A", "text": "49"},
-        {"label": "B", "text": "42"},
-        {"label": "C", "text": "28"},
-        {"label": "D", "text": "21"},
-        {"label": "E", "text": "15"}
+        {
+          "label": "A",
+          "text": "49"
+        },
+        {
+          "label": "B",
+          "text": "42"
+        },
+        {
+          "label": "C",
+          "text": "28"
+        },
+        {
+          "label": "D",
+          "text": "21"
+        },
+        {
+          "label": "E",
+          "text": "15"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "49"},
-        {"label": "B", "text": "42"},
-        {"label": "C", "text": "28"},
-        {"label": "D", "text": "21"},
-        {"label": "E", "text": "15"}
+        {
+          "label": "A",
+          "text": "49"
+        },
+        {
+          "label": "B",
+          "text": "42"
+        },
+        {
+          "label": "C",
+          "text": "28"
+        },
+        {
+          "label": "D",
+          "text": "21"
+        },
+        {
+          "label": "E",
+          "text": "15"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "7 types of flowers",
+            "phrase_id": "7 jenis bunga",
+            "note_en": "7 flower types to choose from",
+            "note_id": "7 jenis bunga yang bisa dipilih"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different choices does she have?",
+            "phrase_id": "Berapa banyak pilihan berbeda yang ia miliki?",
+            "note_en": "Order doesn't matter — this is a combination C(7,2)",
+            "note_id": "Urutan tidak penting — ini adalah kombinasi C(7,2)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2 different types of flowers",
+            "phrase_id": "2 jenis bunga yang berbeda",
+            "note_en": "She picks exactly 2 distinct types",
+            "note_id": "Ia memilih tepat 2 jenis yang berbeda"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "C(7,2)",
+            "label_id": "C(7,2)",
+            "value": "7 × 6 ÷ 2 = 21"
+          }
+        ],
+        "strategy": {
+          "name_en": "Combination formula C(n,2) = n×(n−1)÷2",
+          "name_id": "Rumus kombinasi C(n,2) = n×(n−1)÷2"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "28 = C(8,2) — that would be for 8 types of flowers, not 7.",
+          "why_id": "28 = C(8,2) — itu untuk 8 jenis bunga, bukan 7."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Emma chooses 2 different flower types from 7 — order does not matter.",
+        "Use C(7,2): pair flower 1 with each of the 6 others, flower 2 with each of the 5 remaining, etc.",
+        "Shorter: C(7,2) = 7 × 6 ÷ 2 = 21.",
+        "The answer is 21, which is D."
+      ],
+      "hint_steps_id": [
+        "Emma memilih 2 jenis bunga berbeda dari 7 — urutan tidak penting.",
+        "Gunakan C(7,2): pasangkan bunga 1 dengan masing-masing 6 bunga lainnya, bunga 2 dengan masing-masing 5 yang tersisa, dst.",
+        "Lebih singkat: C(7,2) = 7 × 6 ÷ 2 = 21.",
+        "Jawabannya adalah 21, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count unordered pairs of 2 from 7 flowers using C(7,2).",
+          "intro_id": "Hitung pasangan tak berurutan dari 2 bunga dari 7 menggunakan C(7,2).",
+          "items": [
+            {
+              "text_en": "E: 15 = C(6,2) — too few flowers ✗",
+              "text_id": "E: 15 = C(6,2) — jumlah bunga terlalu sedikit ✗",
+              "ok": false
+            },
+            {
+              "text_en": "C: 28 = C(8,2) — one flower too many ✗",
+              "text_id": "C: 28 = C(8,2) — satu bunga terlalu banyak ✗",
+              "ok": false
+            },
+            {
+              "text_en": "B: 42 = 7×6 — overcounts each pair twice ✗",
+              "text_id": "B: 42 = 7×6 — menghitung setiap pasangan dua kali ✗",
+              "ok": false
+            },
+            {
+              "text_en": "D: 21 = 7×6÷2 = C(7,2) ✓",
+              "text_id": "D: 21 = 7×6÷2 = C(7,2) ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Emma has 21 different choices — answer D.",
+          "final_id": "Emma memiliki 21 pilihan berbeda — jawaban D.",
+          "aria_en": "Choosing 2 from 7 flowers without order gives 7 times 6 divided by 2 equals 21 choices.",
+          "aria_id": "Memilih 2 dari 7 bunga tanpa urutan menghasilkan 7 kali 6 dibagi 2 sama dengan 21 pilihan."
+        }
+      }
     },
     {
       "number": 13,
@@ -278,21 +1740,146 @@
       "body_en": "Find the next number in the sequence below.\n\n3, 4, 7, 10, 11, 16, 15, 22, 19, …",
       "body_id": "Temukan bilangan berikutnya dalam barisan di bawah ini.\n\n3, 4, 7, 10, 11, 16, 15, 22, 19, …",
       "choices_en": [
-        {"label": "A", "text": "27"},
-        {"label": "B", "text": "28"},
-        {"label": "C", "text": "23"},
-        {"label": "D", "text": "25"},
-        {"label": "E", "text": "29"}
+        {
+          "label": "A",
+          "text": "27"
+        },
+        {
+          "label": "B",
+          "text": "28"
+        },
+        {
+          "label": "C",
+          "text": "23"
+        },
+        {
+          "label": "D",
+          "text": "25"
+        },
+        {
+          "label": "E",
+          "text": "29"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "27"},
-        {"label": "B", "text": "28"},
-        {"label": "C", "text": "23"},
-        {"label": "D", "text": "25"},
-        {"label": "E", "text": "29"}
+        {
+          "label": "A",
+          "text": "27"
+        },
+        {
+          "label": "B",
+          "text": "28"
+        },
+        {
+          "label": "C",
+          "text": "23"
+        },
+        {
+          "label": "D",
+          "text": "25"
+        },
+        {
+          "label": "E",
+          "text": "29"
+        }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3, 4, 7, 10, 11, 16, 15, 22, 19, …",
+            "phrase_id": "3, 4, 7, 10, 11, 16, 15, 22, 19, …",
+            "note_en": "Two interleaved sequences: odd-indexed terms and even-indexed terms grow by different steps",
+            "note_id": "Dua barisan yang saling tumpang tindih: suku bernomor ganjil dan suku bernomor genap tumbuh dengan langkah berbeda"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the next number in the sequence below.",
+            "phrase_id": "Temukan bilangan berikutnya dalam barisan di bawah ini.",
+            "note_en": "The 10th term follows the even-position pattern",
+            "note_id": "Suku ke-10 mengikuti pola posisi genap"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Odd positions (1,3,5,7,9): +4",
+            "label_id": "Posisi ganjil (1,3,5,7,9): +4",
+            "value": "3, 7, 11, 15, 19 (each +4)"
+          },
+          {
+            "label_en": "Even positions (2,4,6,8,10): +6",
+            "label_id": "Posisi genap (2,4,6,8,10): +6",
+            "value": "4, 10, 16, 22, ? → 28"
+          },
+          {
+            "label_en": "10th term",
+            "label_id": "Suku ke-10",
+            "value": "22 + 6 = 28"
+          }
+        ],
+        "strategy": {
+          "name_en": "Split into two interleaved sequences",
+          "name_id": "Pisahkan menjadi dua barisan yang saling tumpang tindih"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "27 continues only the odd-position sequence; but the 10th term is even-positioned (+6 from 22 = 28).",
+          "why_id": "27 melanjutkan barisan posisi ganjil saja; namun suku ke-10 berposisi genap (+6 dari 22 = 28)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "B"
+        }
+      },
+      "hint_steps_en": [
+        "Separate odd positions: 3, 7, 11, 15, 19 — each increases by 4.",
+        "Separate even positions: 4, 10, 16, 22 — each increases by 6.",
+        "The 10th term is the 5th even-position term: 22 + 6 = 28.",
+        "The answer is 28, which is B."
+      ],
+      "hint_steps_id": [
+        "Pisahkan posisi ganjil: 3, 7, 11, 15, 19 — setiap suku bertambah 4.",
+        "Pisahkan posisi genap: 4, 10, 16, 22 — setiap suku bertambah 6.",
+        "Suku ke-10 adalah suku ke-5 dari posisi genap: 22 + 6 = 28.",
+        "Jawabannya adalah 28, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Split the sequence into two interleaved patterns and extend each.",
+          "intro_id": "Pisahkan barisan menjadi dua pola yang saling tumpang tindih dan perpanjang masing-masing.",
+          "items": [
+            {
+              "text_en": "Odd positions: 3, 7, 11, 15, 19 (+4 each)",
+              "text_id": "Posisi ganjil: 3, 7, 11, 15, 19 (masing-masing +4)",
+              "ok": null
+            },
+            {
+              "text_en": "Even positions: 4, 10, 16, 22, ? (+6 each)",
+              "text_id": "Posisi genap: 4, 10, 16, 22, ? (masing-masing +6)",
+              "ok": null
+            },
+            {
+              "text_en": "10th term (even) = 22 + 6 = 28 ✓",
+              "text_id": "Suku ke-10 (genap) = 22 + 6 = 28 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A: 27 would be 19+8 — wrong pattern ✗",
+              "text_id": "A: 27 akan menjadi 19+8 — pola yang salah ✗",
+              "ok": false
+            }
+          ],
+          "final_en": "The next number is 28 — answer B.",
+          "final_id": "Bilangan berikutnya adalah 28 — jawaban B.",
+          "aria_en": "The sequence has two interleaved patterns; odd positions increase by 4 and even positions increase by 6; the 10th term is 22 plus 6 equals 28.",
+          "aria_id": "Barisan memiliki dua pola yang saling tumpang tindih; posisi ganjil bertambah 4 dan posisi genap bertambah 6; suku ke-10 adalah 22 ditambah 6 sama dengan 28."
+        }
+      }
     },
     {
       "number": 14,
@@ -300,21 +1887,123 @@
       "body_en": "Observe the following pattern. What is the missing number?\n\nTriangle 1: top=9, bottom-left=7, bottom-right=48.\nTriangle 2: top=5, bottom-left=8, bottom-right=28.\nTriangle 3: top=3, bottom-left=6, bottom-right=10.\nTriangle 4: top=7, bottom-left=7, bottom-right=?",
       "body_id": "Perhatikan pola berikut. Berapakah bilangan yang hilang?\n\nSegitiga 1: atas=9, bawah-kiri=7, bawah-kanan=48.\nSegitiga 2: atas=5, bawah-kiri=8, bawah-kanan=28.\nSegitiga 3: atas=3, bawah-kiri=6, bawah-kanan=10.\nSegitiga 4: atas=7, bawah-kiri=7, bawah-kanan=?",
       "choices_en": [
-        {"label": "A", "text": "56"},
-        {"label": "B", "text": "42"},
-        {"label": "C", "text": "36"},
-        {"label": "D", "text": "64"},
-        {"label": "E", "text": "14"}
+        {
+          "label": "A",
+          "text": "56"
+        },
+        {
+          "label": "B",
+          "text": "42"
+        },
+        {
+          "label": "C",
+          "text": "36"
+        },
+        {
+          "label": "D",
+          "text": "64"
+        },
+        {
+          "label": "E",
+          "text": "14"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "56"},
-        {"label": "B", "text": "42"},
-        {"label": "C", "text": "36"},
-        {"label": "D", "text": "64"},
-        {"label": "E", "text": "14"}
+        {
+          "label": "A",
+          "text": "56"
+        },
+        {
+          "label": "B",
+          "text": "42"
+        },
+        {
+          "label": "C",
+          "text": "36"
+        },
+        {
+          "label": "D",
+          "text": "64"
+        },
+        {
+          "label": "E",
+          "text": "14"
+        }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Triangle 1: top=9, bottom-left=7, bottom-right=48.",
+            "phrase_id": "Segitiga 1: atas=9, bawah-kiri=7, bawah-kanan=48.",
+            "note_en": "Test rule: (top−1)×(bottom-left−1) = 8×6 = 48 ✓",
+            "note_id": "Uji aturan: (atas−1)×(bawah-kiri−1) = 8×6 = 48 ✓"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Observe the following pattern.",
+            "phrase_id": "Perhatikan pola berikut.",
+            "note_en": "The rule must work for all three given triangles",
+            "note_id": "Aturan harus berlaku untuk ketiga segitiga yang diberikan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the missing number?",
+            "phrase_id": "Berapakah bilangan yang hilang?",
+            "note_en": "Apply the confirmed rule to Triangle 4",
+            "note_id": "Terapkan aturan yang telah dikonfirmasi pada Segitiga 4"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule",
+            "label_id": "Aturan",
+            "value": "(top−1) × (bottom-left−1) = bottom-right"
+          },
+          {
+            "label_en": "Verify T2",
+            "label_id": "Verifikasi S2",
+            "value": "(5−1)×(8−1) = 4×7 = 28 ✓"
+          },
+          {
+            "label_en": "Verify T3",
+            "label_id": "Verifikasi S3",
+            "value": "(3−1)×(6−1) = 2×5 = 10 ✓"
+          },
+          {
+            "label_en": "Triangle 4",
+            "label_id": "Segitiga 4",
+            "value": "(7−1)×(7−1) = 6×6 = 36"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the rule from examples, then apply it",
+          "name_id": "Temukan aturan dari contoh, lalu terapkan"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "56 = 7×8 uses the raw numbers without subtracting 1 — that rule fails for T2 (5×8=40≠28).",
+          "why_id": "56 = 7×8 menggunakan bilangan mentah tanpa mengurangi 1 — aturan itu gagal untuk S2 (5×8=40≠28)."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "C"
+        }
+      },
+      "hint_steps_en": [
+        "Try the rule (top−1)×(bottom-left−1): T1: 8×6=48 ✓, T2: 4×7=28 ✓, T3: 2×5=10 ✓.",
+        "Apply to Triangle 4: (7−1)×(7−1) = 6×6 = 36.",
+        "The answer is 36, which is C."
+      ],
+      "hint_steps_id": [
+        "Coba aturan (atas−1)×(bawah-kiri−1): S1: 8×6=48 ✓, S2: 4×7=28 ✓, S3: 2×5=10 ✓.",
+        "Terapkan pada Segitiga 4: (7−1)×(7−1) = 6×6 = 36.",
+        "Jawabannya adalah 36, yaitu pilihan C."
+      ]
     },
     {
       "number": 15,
@@ -322,21 +2011,157 @@
       "body_en": "Five athletes, Alex, Ben, Charlie, David and Eric, competed in a race. Alex finished ahead of David and Eric, while David finished ahead of Charlie. Eric finished ahead of Ben and there was exactly one person between the two of them. If Ben was not the last, who finished third in the race?",
       "body_id": "Lima atlet, Alex, Ben, Charlie, David, dan Eric, bertanding dalam sebuah perlombaan lari. Alex finis di depan David dan Eric, sedangkan David finis di depan Charlie. Eric finis di depan Ben dan ada tepat satu orang di antara keduanya. Jika Ben bukan yang terakhir, siapakah yang finis ketiga?",
       "choices_en": [
-        {"label": "A", "text": "Alex"},
-        {"label": "B", "text": "Ben"},
-        {"label": "C", "text": "Charlie"},
-        {"label": "D", "text": "David"},
-        {"label": "E", "text": "Eric"}
+        {
+          "label": "A",
+          "text": "Alex"
+        },
+        {
+          "label": "B",
+          "text": "Ben"
+        },
+        {
+          "label": "C",
+          "text": "Charlie"
+        },
+        {
+          "label": "D",
+          "text": "David"
+        },
+        {
+          "label": "E",
+          "text": "Eric"
+        }
       ],
       "choices_id": [
-        {"label": "A", "text": "Alex"},
-        {"label": "B", "text": "Ben"},
-        {"label": "C", "text": "Charlie"},
-        {"label": "D", "text": "David"},
-        {"label": "E", "text": "Eric"}
+        {
+          "label": "A",
+          "text": "Alex"
+        },
+        {
+          "label": "B",
+          "text": "Ben"
+        },
+        {
+          "label": "C",
+          "text": "Charlie"
+        },
+        {
+          "label": "D",
+          "text": "David"
+        },
+        {
+          "label": "E",
+          "text": "Eric"
+        }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Alex finished ahead of David and Eric",
+            "phrase_id": "Alex finis di depan David dan Eric",
+            "note_en": "Alex is before both David and Eric",
+            "note_id": "Alex berada sebelum David maupun Eric"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Eric finished ahead of Ben and there was exactly one person between the two of them",
+            "phrase_id": "Eric finis di depan Ben dan ada tepat satu orang di antara keduanya",
+            "note_en": "Exactly one person sits between Eric and Ben in the finishing order",
+            "note_id": "Tepat satu orang berada di antara Eric dan Ben dalam urutan finis"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Ben was not the last",
+            "phrase_id": "Ben bukan yang terakhir",
+            "note_en": "Someone finishes after Ben, which must be Charlie",
+            "note_id": "Seseorang finis setelah Ben, yang pasti adalah Charlie"
+          },
+          {
+            "category": "question",
+            "phrase_en": "who finished third in the race?",
+            "phrase_id": "siapakah yang finis ketiga?",
+            "note_en": "Determine the unique valid ordering and read position 3",
+            "note_id": "Tentukan urutan yang valid dan baca posisi ke-3"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Valid order",
+            "label_id": "Urutan yang valid",
+            "value": "Alex(1), Eric(2), David(3), Ben(4), Charlie(5)"
+          },
+          {
+            "label_en": "3rd place",
+            "label_id": "Tempat ke-3",
+            "value": "David"
+          }
+        ],
+        "strategy": {
+          "name_en": "List constraints and build the unique valid order",
+          "name_id": "Daftar batasan dan bangun urutan yang valid"
+        },
+        "trap": {
+          "wrong": "E",
+          "why_en": "Eric finishes before Ben with one person between them — Eric cannot be 3rd if David must come before Charlie and Alex is 1st.",
+          "why_id": "Eric finis sebelum Ben dengan satu orang di antara mereka — Eric tidak bisa ke-3 jika David harus sebelum Charlie dan Alex ke-1."
+        },
+        "answer": {
+          "form": "choice",
+          "unit": null,
+          "value": "D"
+        }
+      },
+      "hint_steps_en": [
+        "Alex is 1st (ahead of David and Eric).",
+        "Eric is ahead of Ben with exactly one person between: Eric, X, Ben.",
+        "Ben is not last, so Charlie is last.",
+        "David must be before Charlie: the only gap left is position 3.",
+        "Order: Alex(1), Eric(2), David(3), Ben(4), Charlie(5) — 3rd is David, answer D."
+      ],
+      "hint_steps_id": [
+        "Alex ke-1 (di depan David dan Eric).",
+        "Eric di depan Ben dengan tepat satu orang di antara: Eric, X, Ben.",
+        "Ben bukan terakhir, jadi Charlie yang terakhir.",
+        "David harus sebelum Charlie: satu-satunya tempat yang tersisa adalah posisi ke-3.",
+        "Urutan: Alex(1), Eric(2), David(3), Ben(4), Charlie(5) — ke-3 adalah David, jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Place athletes one by one using the given constraints.",
+          "intro_id": "Tempatkan atlet satu per satu menggunakan batasan yang diberikan.",
+          "items": [
+            {
+              "text_en": "Alex is 1st (ahead of David and Eric)",
+              "text_id": "Alex ke-1 (di depan David dan Eric)",
+              "ok": null
+            },
+            {
+              "text_en": "Eric ahead of Ben, 1 between them → Eric(2), ?(3), Ben(4)",
+              "text_id": "Eric di depan Ben, 1 orang di antara → Eric(2), ?(3), Ben(4)",
+              "ok": null
+            },
+            {
+              "text_en": "Ben not last → Charlie(5); David > Charlie → David(3)",
+              "text_id": "Ben bukan terakhir → Charlie(5); David > Charlie → David(3)",
+              "ok": null
+            },
+            {
+              "text_en": "3rd place = David → D ✓",
+              "text_id": "Tempat ke-3 = David → D ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "David finished third — answer D.",
+          "final_id": "David finis ketiga — jawaban D.",
+          "aria_en": "The order is Alex first, Eric second, David third, Ben fourth, Charlie fifth; so David is third.",
+          "aria_id": "Urutannya adalah Alex pertama, Eric kedua, David ketiga, Ben keempat, Charlie kelima; jadi David yang ketiga."
+        }
+      }
     },
     {
       "number": 16,
@@ -344,7 +2169,70 @@
       "body_en": "It is given that:\n- apple × peach + peach = 70\n- pear − peach = 18\n- apple + apple = 18\n\nFind the value of pear.",
       "body_id": "Diketahui bahwa:\n- apel × persik + persik = 70\n- pir − persik = 18\n- apel + apel = 18\n\nTentukan nilai pir.",
       "answer": "25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "apple + apple = 18",
+            "phrase_id": "apel + apel = 18",
+            "note_en": "apple = 18 ÷ 2 = 9",
+            "note_id": "apel = 18 ÷ 2 = 9"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "apple × peach + peach = 70",
+            "phrase_id": "apel × persik + persik = 70",
+            "note_en": "Factor: peach × (apple + 1) = 70 → peach × 10 = 70 → peach = 7",
+            "note_id": "Faktorkan: persik × (apel + 1) = 70 → persik × 10 = 70 → persik = 7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the value of pear.",
+            "phrase_id": "Tentukan nilai pir.",
+            "note_en": "pear = peach + 18 = 7 + 18 = 25",
+            "note_id": "pir = persik + 18 = 7 + 18 = 25"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "apple",
+            "label_id": "apel",
+            "value": "18 ÷ 2 = 9"
+          },
+          {
+            "label_en": "peach",
+            "label_id": "persik",
+            "value": "70 ÷ (9+1) = 70 ÷ 10 = 7"
+          },
+          {
+            "label_en": "pear",
+            "label_id": "pir",
+            "value": "7 + 18 = 25"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve step by step: apple → peach → pear",
+          "name_id": "Selesaikan langkah demi langkah: apel → persik → pir"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "25"
+        }
+      },
+      "hint_steps_en": [
+        "From apple + apple = 18: apple = 9.",
+        "Substitute into apple × peach + peach = 70: 9×peach + peach = peach×10 = 70 → peach = 7.",
+        "From pear − peach = 18: pear = 7 + 18 = 25."
+      ],
+      "hint_steps_id": [
+        "Dari apel + apel = 18: apel = 9.",
+        "Substitusi ke apel × persik + persik = 70: 9×persik + persik = persik×10 = 70 → persik = 7.",
+        "Dari pir − persik = 18: pir = 7 + 18 = 25."
+      ]
     },
     {
       "number": 17,
@@ -352,7 +2240,67 @@
       "body_en": "There are 6 black balls, 5 blue balls, 4 red balls and 3 green balls in a box. What is the least number of balls Emily must take from the box without looking to be sure of getting two balls of the same colour?",
       "body_id": "Terdapat 6 bola hitam, 5 bola biru, 4 bola merah, dan 3 bola hijau dalam sebuah kotak. Berapakah jumlah bola paling sedikit yang harus diambil Emily dari kotak tanpa melihat agar pasti mendapatkan dua bola dengan warna yang sama?",
       "answer": "5",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "6 black balls, 5 blue balls, 4 red balls and 3 green balls",
+            "phrase_id": "6 bola hitam, 5 bola biru, 4 bola merah, dan 3 bola hijau",
+            "note_en": "4 different colours; worst case is picking one of each before a match",
+            "note_id": "4 warna berbeda; kasus terburuk adalah mengambil satu dari setiap warna sebelum ada yang sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the least number of balls Emily must take from the box without looking to be sure of getting two balls of the same colour?",
+            "phrase_id": "Berapakah jumlah bola paling sedikit yang harus diambil Emily dari kotak tanpa melihat agar pasti mendapatkan dua bola dengan warna yang sama?",
+            "note_en": "Pigeonhole principle: 4 colours → pick 4+1 = 5 to guarantee a pair",
+            "note_id": "Prinsip sangkar merpati: 4 warna → ambil 4+1 = 5 untuk menjamin sepasang"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Number of colours",
+            "label_id": "Jumlah warna",
+            "value": "4"
+          },
+          {
+            "label_en": "Worst case before pair",
+            "label_id": "Kasus terburuk sebelum sepasang",
+            "value": "4 balls (one of each colour)"
+          },
+          {
+            "label_en": "Guarantee a pair",
+            "label_id": "Menjamin sepasang",
+            "value": "4 + 1 = 5"
+          }
+        ],
+        "strategy": {
+          "name_en": "Pigeonhole principle — worst case then one more",
+          "name_id": "Prinsip sangkar merpati — kasus terburuk lalu satu lagi"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "2 balls might be two different colours — you need enough to guarantee it no matter which balls are drawn.",
+          "why_id": "2 bola mungkin berupa dua warna yang berbeda — kamu butuh cukup bola untuk memastikan meskipun bola mana pun yang diambil."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "5"
+        }
+      },
+      "hint_steps_en": [
+        "There are 4 colours. In the worst case, Emily picks one ball of each colour first: 4 balls, all different.",
+        "The 5th ball must match one of the 4 colours already held.",
+        "So Emily needs at least 5 balls to guarantee a pair."
+      ],
+      "hint_steps_id": [
+        "Ada 4 warna. Dalam kasus terburuk, Emily mengambil satu bola dari setiap warna terlebih dahulu: 4 bola, semuanya berbeda.",
+        "Bola ke-5 harus cocok dengan salah satu dari 4 warna yang sudah dipegang.",
+        "Jadi Emily perlu minimal 5 bola untuk menjamin sepasang."
+      ]
     },
     {
       "number": 18,
@@ -360,7 +2308,76 @@
       "body_en": "Emily lists down all 2-digit multiples of a number. If she listed 10 numbers in total, what is this number?",
       "body_id": "Emily menuliskan semua kelipatan 2 digit dari suatu bilangan. Jika ia menuliskan 10 bilangan secara keseluruhan, berapakah bilangan tersebut?",
       "answer": "9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Emily lists down all 2-digit multiples of a number.",
+            "phrase_id": "Emily menuliskan semua kelipatan 2 digit dari suatu bilangan.",
+            "note_en": "2-digit numbers range from 10 to 99 — count how many multiples fit",
+            "note_id": "Bilangan 2 digit berkisar dari 10 hingga 99 — hitung berapa banyak kelipatan yang masuk"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "she listed 10 numbers in total",
+            "phrase_id": "ia menuliskan 10 bilangan secara keseluruhan",
+            "note_en": "There are exactly 10 two-digit multiples of the unknown number",
+            "note_id": "Ada tepat 10 kelipatan 2 digit dari bilangan yang tidak diketahui"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is this number?",
+            "phrase_id": "berapakah bilangan tersebut?",
+            "note_en": "Find n such that floor(99/n) − floor(9/n) = 10",
+            "note_id": "Cari n sehingga floor(99/n) − floor(9/n) = 10"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Multiples of 9 in [10,99]",
+            "label_id": "Kelipatan 9 di [10,99]",
+            "value": "18,27,36,45,54,63,72,81,90,99 → 10 ✓"
+          },
+          {
+            "label_en": "Check n=8",
+            "label_id": "Cek n=8",
+            "value": "16,24,...,96 → 11 numbers, too many"
+          },
+          {
+            "label_en": "Check n=10",
+            "label_id": "Cek n=10",
+            "value": "10,20,...,90 → 9 numbers, too few"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count two-digit multiples and match to 10",
+          "name_id": "Hitung kelipatan 2 digit dan cocokkan dengan 10"
+        },
+        "trap": {
+          "wrong": "10",
+          "why_en": "Multiples of 10 in two digits: 10,20,...,90 = 9 numbers, not 10.",
+          "why_id": "Kelipatan 10 dalam dua digit: 10,20,...,90 = 9 bilangan, bukan 10."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9"
+        }
+      },
+      "hint_steps_en": [
+        "Two-digit numbers run from 10 to 99.",
+        "Count two-digit multiples of 9: 18, 27, 36, 45, 54, 63, 72, 81, 90, 99 — exactly 10.",
+        "Check neighbours: multiples of 8 give 11 (too many); multiples of 10 give 9 (too few).",
+        "The number is 9."
+      ],
+      "hint_steps_id": [
+        "Bilangan 2 digit berkisar dari 10 hingga 99.",
+        "Hitung kelipatan 9 yang merupakan 2 digit: 18, 27, 36, 45, 54, 63, 72, 81, 90, 99 — tepat 10.",
+        "Cek tetangganya: kelipatan 8 memberi 11 (terlalu banyak); kelipatan 10 memberi 9 (terlalu sedikit).",
+        "Bilangan tersebut adalah 9."
+      ]
     },
     {
       "number": 19,
@@ -368,7 +2385,74 @@
       "body_en": "The sum of the digits of an even 3-digit number is 21. What is the sum of the largest and smallest possible such 3-digit numbers?",
       "body_id": "Jumlah digit dari suatu bilangan 3 digit genap adalah 21. Berapakah jumlah bilangan 3 digit terbesar dan terkecil yang mungkin memenuhi syarat tersebut?",
       "answer": "1482",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "even 3-digit number",
+            "phrase_id": "bilangan 3 digit genap",
+            "note_en": "The last digit must be even: 0, 2, 4, 6, or 8",
+            "note_id": "Digit terakhir harus genap: 0, 2, 4, 6, atau 8"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "sum of the digits of an even 3-digit number is 21",
+            "phrase_id": "Jumlah digit dari suatu bilangan 3 digit genap adalah 21",
+            "note_en": "Digit sum = 21, digits 0–9, last digit even",
+            "note_id": "Jumlah digit = 21, digit 0–9, digit terakhir genap"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the largest and smallest possible such 3-digit numbers?",
+            "phrase_id": "Berapakah jumlah bilangan 3 digit terbesar dan terkecil yang mungkin memenuhi syarat tersebut?",
+            "note_en": "Find max and min separately, then add them",
+            "note_id": "Temukan max dan min secara terpisah, lalu jumlahkan"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Largest (max digits in high positions, even last)",
+            "label_id": "Terbesar (digit max di posisi tinggi, akhir genap)",
+            "value": "984 (9+8+4=21, even ✓)"
+          },
+          {
+            "label_en": "Smallest (min hundreds digit, even last)",
+            "label_id": "Terkecil (digit ratusan minimum, akhir genap)",
+            "value": "498 (4+9+8=21, even ✓)"
+          },
+          {
+            "label_en": "Sum",
+            "label_id": "Jumlah",
+            "value": "984 + 498 = 1482"
+          }
+        ],
+        "strategy": {
+          "name_en": "Optimise digits for largest and smallest under constraints",
+          "name_id": "Optimasi digit untuk terbesar dan terkecil di bawah batasan"
+        },
+        "trap": {
+          "wrong": "993+399=1392",
+          "why_en": "993 and 399 both end in odd digits — they are not even numbers.",
+          "why_id": "993 dan 399 keduanya berakhiran digit ganjil — keduanya bukan bilangan genap."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "1482"
+        }
+      },
+      "hint_steps_en": [
+        "For the largest: maximise hundreds then tens, put even digit last. Best: 9,8,4 → 984.",
+        "For the smallest: minimise hundreds digit (must be ≥1) while ending even. Try hundreds=4: 4+9+8=21 → 498.",
+        "Sum: 984 + 498 = 1482."
+      ],
+      "hint_steps_id": [
+        "Untuk yang terbesar: maksimalkan ratusan lalu puluhan, letakkan digit genap di akhir. Terbaik: 9,8,4 → 984.",
+        "Untuk yang terkecil: minimalkan digit ratusan (harus ≥1) sambil berakhiran genap. Coba ratusan=4: 4+9+8=21 → 498.",
+        "Jumlah: 984 + 498 = 1482."
+      ]
     },
     {
       "number": 20,
@@ -376,7 +2460,72 @@
       "body_en": "How many different ways are there to pay for a $25 toy using $2, $5 or $10 notes?",
       "body_id": "Berapa banyak cara berbeda untuk membayar mainan seharga $25 menggunakan uang kertas $2, $5, atau $10?",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "pay for a $25 toy using $2, $5 or $10 notes",
+            "phrase_id": "membayar mainan seharga $25 menggunakan uang kertas $2, $5, atau $10",
+            "note_en": "Find all non-negative integer solutions to 10x + 5y + 2z = 25",
+            "note_id": "Temukan semua solusi bilangan bulat non-negatif dari 10x + 5y + 2z = 25"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different ways are there to pay",
+            "phrase_id": "Berapa banyak cara berbeda untuk membayar",
+            "note_en": "Count all valid (x,y,z) combinations",
+            "note_id": "Hitung semua kombinasi (x,y,z) yang valid"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "x=0: (y,z) pairs",
+            "label_id": "x=0: pasangan (y,z)",
+            "value": "(1,10),(3,5),(5,0) → 3 ways"
+          },
+          {
+            "label_en": "x=1: (y,z) pairs",
+            "label_id": "x=1: pasangan (y,z)",
+            "value": "(1,5),(3,0) → 2 ways"
+          },
+          {
+            "label_en": "x=2: (y,z) pairs",
+            "label_id": "x=2: pasangan (y,z)",
+            "value": "(1,0) → 1 way"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "3 + 2 + 1 = 6"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix the largest denomination and enumerate the rest",
+          "name_id": "Tetapkan denominasi terbesar dan enumerasi sisanya"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6"
+        }
+      },
+      "hint_steps_en": [
+        "Set up: 10x + 5y + 2z = 25 where x,y,z ≥ 0.",
+        "x=0 (no $10): 5y+2z=25 → (y,z)=(1,10),(3,5),(5,0) → 3 ways.",
+        "x=1 (one $10): 5y+2z=15 → (y,z)=(1,5),(3,0) → 2 ways.",
+        "x=2 (two $10): 5y+2z=5 → (y,z)=(1,0) → 1 way.",
+        "Total: 3+2+1 = 6 ways."
+      ],
+      "hint_steps_id": [
+        "Buat persamaan: 10x + 5y + 2z = 25 di mana x,y,z ≥ 0.",
+        "x=0 (tidak ada $10): 5y+2z=25 → (y,z)=(1,10),(3,5),(5,0) → 3 cara.",
+        "x=1 (satu $10): 5y+2z=15 → (y,z)=(1,5),(3,0) → 2 cara.",
+        "x=2 (dua $10): 5y+2z=5 → (y,z)=(1,0) → 1 cara.",
+        "Total: 3+2+1 = 6 cara."
+      ]
     },
     {
       "number": 21,
@@ -384,7 +2533,69 @@
       "body_en": "How many 3-digit odd numbers can be formed using any of the digits 0, 1, 7 and 2? Each digit can be used at most once in any 3-digit number.",
       "body_id": "Berapa banyak bilangan ganjil 3 digit yang dapat dibentuk menggunakan digit 0, 1, 7, dan 2? Setiap digit hanya boleh digunakan paling banyak satu kali dalam setiap bilangan 3 digit.",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "3-digit odd numbers can be formed using any of the digits 0, 1, 7 and 2",
+            "phrase_id": "bilangan ganjil 3 digit yang dapat dibentuk menggunakan digit 0, 1, 7, dan 2",
+            "note_en": "Odd → last digit ∈ {1,7}; hundreds digit ≠ 0; each digit used at most once",
+            "note_id": "Ganjil → digit terakhir ∈ {1,7}; digit ratusan ≠ 0; setiap digit digunakan paling banyak satu kali"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many 3-digit odd numbers can be formed",
+            "phrase_id": "Berapa banyak bilangan ganjil 3 digit yang dapat dibentuk",
+            "note_en": "Case-split by last digit, count valid (hundreds, tens) pairs for each",
+            "note_id": "Pisahkan kasus berdasarkan digit terakhir, hitung pasangan (ratusan, puluhan) yang valid untuk setiap kasus"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Last digit = 1: hundreds ∈ {2,7}, tens = remaining 2 choices",
+            "label_id": "Digit akhir = 1: ratusan ∈ {2,7}, puluhan = 2 pilihan tersisa",
+            "value": "201,271,701,721 → 4 numbers"
+          },
+          {
+            "label_en": "Last digit = 7: hundreds ∈ {1,2}, tens = remaining 2 choices",
+            "label_id": "Digit akhir = 7: ratusan ∈ {1,2}, puluhan = 2 pilihan tersisa",
+            "value": "107,127,207,217 → 4 numbers"
+          },
+          {
+            "label_en": "Total",
+            "label_id": "Total",
+            "value": "4 + 4 = 8"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fix the last digit (odd), enumerate hundreds and tens",
+          "name_id": "Tetapkan digit terakhir (ganjil), enumerasi ratusan dan puluhan"
+        },
+        "trap": {
+          "wrong": "12",
+          "why_en": "12 forgets that 0 cannot be the hundreds digit — numbers like 017 are not 3-digit numbers.",
+          "why_id": "12 lupa bahwa 0 tidak bisa menjadi digit ratusan — bilangan seperti 017 bukan bilangan 3 digit."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "8"
+        }
+      },
+      "hint_steps_en": [
+        "Odd numbers end in 1 or 7. Split into two cases.",
+        "Last=1: hundreds ∈ {2,7} (not 0, not 1). Each leaves 2 tens choices → 2×2=4 numbers (201,271,701,721).",
+        "Last=7: hundreds ∈ {1,2} (not 0, not 7). Each leaves 2 tens choices → 2×2=4 numbers (107,127,207,217).",
+        "Total: 4+4 = 8."
+      ],
+      "hint_steps_id": [
+        "Bilangan ganjil berakhiran 1 atau 7. Pisahkan menjadi dua kasus.",
+        "Akhir=1: ratusan ∈ {2,7} (bukan 0, bukan 1). Masing-masing menyisakan 2 pilihan puluhan → 2×2=4 bilangan (201,271,701,721).",
+        "Akhir=7: ratusan ∈ {1,2} (bukan 0, bukan 7). Masing-masing menyisakan 2 pilihan puluhan → 2×2=4 bilangan (107,127,207,217).",
+        "Total: 4+4 = 8."
+      ]
     },
     {
       "number": 22,
@@ -392,7 +2603,65 @@
       "body_en": "Study the pattern below.\n\n3 ■ 6 = 66\n2 ■ 7 = 75\n8 ■ 8 = 91\n5 ■ 1 = 18\n\nWhat is the value of 6 ■ 3?",
       "body_id": "Perhatikan pola berikut.\n\n3 ■ 6 = 66\n2 ■ 7 = 75\n8 ■ 8 = 91\n5 ■ 1 = 18\n\nBerapakah nilai 6 ■ 3?",
       "answer": "39",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 ■ 6 = 66",
+            "phrase_id": "3 ■ 6 = 66",
+            "note_en": "The tens digit of the result always equals b; the units digit equals (a+3) mod 10",
+            "note_id": "Digit puluhan hasil selalu sama dengan b; digit satuan sama dengan (a+3) mod 10"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Study the pattern below.",
+            "phrase_id": "Perhatikan pola berikut.",
+            "note_en": "Verify rule: 3■6 → tens=6✓, units=(3+3)mod10=6✓; 2■7 → tens=7✓, units=5✓; 8■8 → tens=8? No, tens=9. Re-check: 8■8=91 tens=9=b+1? No: try tens=a+b−something. Actually 3+6=9≠6. Try: tens digit of result = b for a■b? 66→6=b✓, 75→7=b✓, 91→9≠b=8. Rule is not simply tens=b. The rule found: a■b = b×10 + (a+3) mod 10. Check 8■8: 8×10+(8+3)mod10=80+1=81≠91. The correct rule from derivation: a■b = (a+b+1) pattern? 3+6+1=10≠66. Must re-examine. Given answer=39, and 6■3: if rule is a■b = 10b+(a+3)%10 then 6■3=30+9=39. Test: 3■6=60+6=66✓; 2■7=70+5=75✓; 8■8=80+11→80+1=81≠91. Fails for 8■8. The rule 10b+(a+3)%10 works for 3 of 4 but not 8■8. Let me try: a■b = 10b + (a+3) mod 10 but for 8■8: 80+11=91 since 11 mod 10=1, so 80+1=81≠91. Hmm. Try (8+3)=11, and 91 has 9 and 1. 80+11=91 if we keep 11 as-is! So actually the formula gives two digits in the units place when a+3≥10, and the carry goes to tens: 80+11=91 ✓! So a■b = 10b + (a+3) and the result is just the arithmetic sum. Test all: 3■6=60+6=66✓; 2■7=70+5=75✓; 8■8=80+11=91✓; 5■1=10+8=18✓. Yes! Rule: a■b = 10b + (a+3). For 6■3: 10×3+(6+3)=30+9=39✓.",
+            "note_id": "Aturan yang ditemukan: a■b = 10×b + (a+3). Untuk 6■3: 10×3+(6+3)=39."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of 6 ■ 3?",
+            "phrase_id": "Berapakah nilai 6 ■ 3?",
+            "note_en": "Apply rule: 10×3 + (6+3) = 30+9 = 39",
+            "note_id": "Terapkan aturan: 10×3 + (6+3) = 30+9 = 39"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rule: a■b = 10b + (a+3)",
+            "label_id": "Aturan: a■b = 10b + (a+3)",
+            "value": "Verified: 3■6=66, 2■7=75, 8■8=91, 5■1=18"
+          },
+          {
+            "label_en": "6■3",
+            "label_id": "6■3",
+            "value": "10×3 + (6+3) = 30 + 9 = 39"
+          }
+        ],
+        "strategy": {
+          "name_en": "Decode the hidden rule from examples, then apply",
+          "name_id": "Temukan aturan tersembunyi dari contoh, lalu terapkan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "39"
+        }
+      },
+      "hint_steps_en": [
+        "Look at each result: tens digit equals b, units digit equals a+3 (carrying if ≥10).",
+        "Rule: a■b = 10b + (a+3). Verify: 8■8=80+11=91✓, 5■1=10+8=18✓.",
+        "Apply: 6■3 = 10×3 + (6+3) = 30 + 9 = 39."
+      ],
+      "hint_steps_id": [
+        "Perhatikan setiap hasil: digit puluhan sama dengan b, digit satuan sama dengan a+3 (dengan simpanan jika ≥10).",
+        "Aturan: a■b = 10b + (a+3). Verifikasi: 8■8=80+11=91✓, 5■1=10+8=18✓.",
+        "Terapkan: 6■3 = 10×3 + (6+3) = 30 + 9 = 39."
+      ]
     },
     {
       "number": 23,
@@ -400,7 +2669,70 @@
       "body_en": "Tom had a bag of marbles. He gave away half of the marbles to his brother. After that, he gave away some of the remaining marbles to his sister. Finally, he was left with 18 marbles. If the amount he gave away to his brother was 3 times the amount he gave away to his sister, how many marbles did he have at first?",
       "body_id": "Tom memiliki sekantong kelereng. Ia memberikan setengah dari kelerengnya kepada saudaranya. Setelah itu, ia memberikan sebagian dari kelereng yang tersisa kepada adik perempuannya. Akhirnya, ia menyisakan 18 kelereng. Jika jumlah yang diberikan kepada saudaranya adalah 3 kali jumlah yang diberikan kepada adik perempuannya, berapa banyak kelereng yang ia miliki pada awalnya?",
       "answer": "54",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "He gave away half of the marbles to his brother",
+            "phrase_id": "Ia memberikan setengah dari kelerengnya kepada saudaranya",
+            "note_en": "Brother received half the original amount",
+            "note_id": "Saudara menerima setengah dari jumlah awal"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the amount he gave away to his brother was 3 times the amount he gave away to his sister",
+            "phrase_id": "jumlah yang diberikan kepada saudaranya adalah 3 kali jumlah yang diberikan kepada adik perempuannya",
+            "note_en": "If sister gets s, brother gets 3s; brother's share = half the original",
+            "note_id": "Jika adik perempuan mendapat s, saudara mendapat 3s; bagian saudara = setengah total awal"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many marbles did he have at first?",
+            "phrase_id": "berapa banyak kelereng yang ia miliki pada awalnya?",
+            "note_en": "Original = 2 × (brother's share) = 2 × 3s = 6s",
+            "note_id": "Awal = 2 × (bagian saudara) = 2 × 3s = 6s"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Let sister get s marbles",
+            "label_id": "Misalkan adik perempuan mendapat s kelereng",
+            "value": "brother = 3s, original = 6s"
+          },
+          {
+            "label_en": "Remaining after both",
+            "label_id": "Sisa setelah keduanya",
+            "value": "6s − 3s − s = 2s = 18 → s = 9"
+          },
+          {
+            "label_en": "Original",
+            "label_id": "Awal",
+            "value": "6 × 9 = 54"
+          }
+        ],
+        "strategy": {
+          "name_en": "Let the sister's share be s, express everything in terms of s",
+          "name_id": "Misalkan bagian adik perempuan = s, nyatakan segalanya dalam s"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "54"
+        }
+      },
+      "hint_steps_en": [
+        "Let the sister's share = s. Then brother's share = 3s and original = 2×3s = 6s.",
+        "After giving to both: 6s − 3s − s = 2s marbles remain = 18 → s = 9.",
+        "Original = 6×9 = 54 marbles."
+      ],
+      "hint_steps_id": [
+        "Misalkan bagian adik perempuan = s. Maka bagian saudara = 3s dan awal = 2×3s = 6s.",
+        "Setelah memberikan kepada keduanya: 6s − 3s − s = 2s kelereng tersisa = 18 → s = 9.",
+        "Awal = 6×9 = 54 kelereng."
+      ]
     },
     {
       "number": 24,
@@ -408,7 +2740,72 @@
       "body_en": "A backpack containing 5 textbooks weighs 2800 grams. If 2 textbooks were removed, the remaining weight would be 1900 grams. If all the textbooks weigh the same, what is the weight (in grams) of the backpack?",
       "body_id": "Sebuah ransel berisi 5 buku teks memiliki berat 2800 gram. Jika 2 buku teks dikeluarkan, berat yang tersisa adalah 1900 gram. Jika semua buku teks memiliki berat yang sama, berapakah berat (dalam gram) ransel tersebut?",
       "answer": "550",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A backpack containing 5 textbooks weighs 2800 grams.",
+            "phrase_id": "Sebuah ransel berisi 5 buku teks memiliki berat 2800 gram.",
+            "note_en": "backpack + 5 books = 2800 g",
+            "note_id": "ransel + 5 buku = 2800 g"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If 2 textbooks were removed, the remaining weight would be 1900 grams.",
+            "phrase_id": "Jika 2 buku teks dikeluarkan, berat yang tersisa adalah 1900 gram.",
+            "note_en": "backpack + 3 books = 1900 g",
+            "note_id": "ransel + 3 buku = 1900 g"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the weight (in grams) of the backpack?",
+            "phrase_id": "berapakah berat (dalam gram) ransel tersebut?",
+            "note_en": "Subtract equations to find book weight, then backpack = total − 5×book",
+            "note_id": "Kurangi persamaan untuk menemukan berat buku, lalu ransel = total − 5×buku"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2 books weight",
+            "label_id": "Berat 2 buku",
+            "value": "2800 − 1900 = 900 g"
+          },
+          {
+            "label_en": "1 book weight",
+            "label_id": "Berat 1 buku",
+            "value": "900 ÷ 2 = 450 g"
+          },
+          {
+            "label_en": "Backpack weight",
+            "label_id": "Berat ransel",
+            "value": "2800 − 5×450 = 2800 − 2250 = 550 g"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract the two equations to isolate book weight",
+          "name_id": "Kurangi dua persamaan untuk mengisolasi berat buku"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "550"
+        }
+      },
+      "hint_steps_en": [
+        "Equation 1: backpack + 5 books = 2800 g.",
+        "Equation 2: backpack + 3 books = 1900 g.",
+        "Subtract: 2 books = 900 g → 1 book = 450 g.",
+        "Backpack = 2800 − 5×450 = 2800 − 2250 = 550 g."
+      ],
+      "hint_steps_id": [
+        "Persamaan 1: ransel + 5 buku = 2800 g.",
+        "Persamaan 2: ransel + 3 buku = 1900 g.",
+        "Kurangi: 2 buku = 900 g → 1 buku = 450 g.",
+        "Ransel = 2800 − 5×450 = 2800 − 2250 = 550 g."
+      ]
     },
     {
       "number": 25,
@@ -416,7 +2813,69 @@
       "body_en": "A teacher has some buns. If she gives 6 buns to each of her students, there will be an excess of 3 buns. If she gives 7 buns to each of her students, she will need another 6 buns. How many buns does the teacher have?",
       "body_id": "Seorang guru memiliki sejumlah roti. Jika ia memberikan 6 roti kepada setiap siswanya, akan tersisa 3 roti. Jika ia memberikan 7 roti kepada setiap siswanya, ia membutuhkan 6 roti lagi. Berapa banyak roti yang dimiliki guru tersebut?",
       "answer": "57",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "If she gives 6 buns to each of her students, there will be an excess of 3 buns.",
+            "phrase_id": "Jika ia memberikan 6 roti kepada setiap siswanya, akan tersisa 3 roti.",
+            "note_en": "buns = 6n + 3 where n = number of students",
+            "note_id": "roti = 6n + 3 di mana n = jumlah siswa"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "If she gives 7 buns to each of her students, she will need another 6 buns.",
+            "phrase_id": "Jika ia memberikan 7 roti kepada setiap siswanya, ia membutuhkan 6 roti lagi.",
+            "note_en": "buns = 7n − 6",
+            "note_id": "roti = 7n − 6"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many buns does the teacher have?",
+            "phrase_id": "Berapa banyak roti yang dimiliki guru tersebut?",
+            "note_en": "Equate the two expressions to find n, then compute buns",
+            "note_id": "Samakan dua ekspresi untuk mencari n, lalu hitung roti"
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Equation",
+            "label_id": "Persamaan",
+            "value": "6n + 3 = 7n − 6 → n = 9"
+          },
+          {
+            "label_en": "Buns",
+            "label_id": "Roti",
+            "value": "6×9 + 3 = 57"
+          }
+        ],
+        "strategy": {
+          "name_en": "Set up two equations and equate",
+          "name_id": "Buat dua persamaan dan samakan"
+        },
+        "trap": null,
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "57"
+        }
+      },
+      "hint_steps_en": [
+        "Let n = number of students.",
+        "From the first condition: buns = 6n + 3.",
+        "From the second condition: buns = 7n − 6.",
+        "Equate: 6n + 3 = 7n − 6 → n = 9.",
+        "Buns = 6×9 + 3 = 57."
+      ],
+      "hint_steps_id": [
+        "Misalkan n = jumlah siswa.",
+        "Dari syarat pertama: roti = 6n + 3.",
+        "Dari syarat kedua: roti = 7n − 6.",
+        "Samakan: 6n + 3 = 7n − 6 → n = 9.",
+        "Roti = 6×9 + 3 = 57."
+      ]
     }
   ]
 }
