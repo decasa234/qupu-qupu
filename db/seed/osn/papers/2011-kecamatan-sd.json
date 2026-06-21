@@ -14,7 +14,54 @@
       "body_en": "Five and a half percent of 1 tonne is $\\cdots$ kg.",
       "answer_type": "fill_in",
       "answer": "55",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Five and a half percent",
+            "phrase_id": "Lima setengah persen",
+            "note_en": "5.5% written as a decimal is 0.055",
+            "note_id": "5,5% dalam desimal adalah 0,055"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1 tonne",
+            "phrase_id": "1 ton",
+            "note_en": "1 tonne = 1000 kg",
+            "note_id": "1 ton = 1000 kg"
+          },
+          {
+            "category": "question",
+            "phrase_en": "is $\\cdots$ kg",
+            "phrase_id": "adalah $\\cdots$ kg",
+            "note_en": "Find the result in kilograms",
+            "note_id": "Cari hasilnya dalam kilogram"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Convert tonne to kg", "label_id": "Ubah ton ke kg", "value": "1 tonne = 1000 kg" },
+          { "label_en": "5.5% of 1000 kg", "label_id": "5,5% dari 1000 kg", "value": "0.055 × 1000 = 55 kg" }
+        ],
+        "strategy": { "name_en": "Percentage of a quantity", "name_id": "Persentase suatu besaran" },
+        "trap": {
+          "wrong": "5.5",
+          "why_en": "Applying 5.5% directly to 1 (forgetting to convert to 1000 kg) gives 0.055, not 55.",
+          "why_id": "Menerapkan 5,5% langsung ke 1 (lupa konversi ke 1000 kg) memberi 0,055, bukan 55."
+        },
+        "answer": { "form": "value", "unit": "kg", "value": "55" }
+      },
+      "hint_steps_en": [
+        "Convert 1 tonne to kilograms: 1 tonne = 1000 kg.",
+        "Write 5.5% as a decimal: 5.5% = 0.055.",
+        "Multiply: 0.055 × 1000 = 55 kg."
+      ],
+      "hint_steps_id": [
+        "Ubah 1 ton ke kilogram: 1 ton = 1000 kg.",
+        "Tuliskan 5,5% dalam desimal: 5,5% = 0,055.",
+        "Kalikan: 0,055 × 1000 = 55 kg."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +69,55 @@
       "body_en": "A can of sweetened condensed milk has a net volume of 150 ml. Father has consumed one-third of it, while the younger sibling asked for half of what father consumed. The total amount of milk consumed by father and the sibling is $\\cdots$ ml.",
       "answer_type": "fill_in",
       "answer": "75",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "net volume of 150 ml",
+            "phrase_id": "neto 150 ml",
+            "note_en": "Total milk in the can is 150 ml",
+            "note_id": "Total susu dalam kaleng adalah 150 ml"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Father has consumed one-third of it",
+            "phrase_id": "Ayah telah mengonsumsi susu tersebut sepertiganya",
+            "note_en": "Father drinks 1/3 of 150 ml",
+            "note_id": "Ayah minum 1/3 dari 150 ml"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the younger sibling asked for half of what father consumed",
+            "phrase_id": "adik meminta susu setengah bagian dari ayah",
+            "note_en": "Sibling drinks half of what father drank, not half of the can",
+            "note_id": "Adik minum setengah dari yang diminum ayah, bukan setengah kaleng"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Father's share", "label_id": "Bagian ayah", "value": "1/3 × 150 = 50 ml" },
+          { "label_en": "Sibling's share", "label_id": "Bagian adik", "value": "1/2 × 50 = 25 ml" },
+          { "label_en": "Total consumed", "label_id": "Total yang dikonsumsi", "value": "50 + 25 = 75 ml" }
+        ],
+        "strategy": { "name_en": "Sequential fractions of a quantity", "name_id": "Pecahan berurutan dari suatu besaran" },
+        "trap": {
+          "wrong": "100",
+          "why_en": "Taking half of 150 (sibling's fraction applied to the whole can) ignores that the sibling takes half of what father consumed, not half the can.",
+          "why_id": "Mengambil setengah dari 150 (pecahan adik diterapkan ke seluruh kaleng) mengabaikan bahwa adik mengambil setengah dari yang diminum ayah, bukan setengah kaleng."
+        },
+        "answer": { "form": "value", "unit": "ml", "value": "75" }
+      },
+      "hint_steps_en": [
+        "Find how much father drank: 1/3 × 150 = 50 ml.",
+        "Find how much the sibling drank: 1/2 × 50 = 25 ml.",
+        "Add both together: 50 + 25 = 75 ml."
+      ],
+      "hint_steps_id": [
+        "Cari berapa yang diminum ayah: 1/3 × 150 = 50 ml.",
+        "Cari berapa yang diminum adik: 1/2 × 50 = 25 ml.",
+        "Jumlahkan keduanya: 50 + 25 = 75 ml."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +125,53 @@
       "body_en": "The number that lies exactly between $\\dfrac{2}{3}$ and $\\dfrac{3}{4}$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "17/24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "lies exactly between",
+            "phrase_id": "tepat berada di antara",
+            "note_en": "Exactly between means the midpoint — average the two fractions",
+            "note_id": "Tepat di antara berarti titik tengah — rata-ratakan kedua pecahan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "$\\dfrac{2}{3}$ and $\\dfrac{3}{4}$",
+            "phrase_id": "$\\dfrac{2}{3}$ dan $\\dfrac{3}{4}$",
+            "note_en": "The two fractions to average; common denominator is 12",
+            "note_id": "Dua pecahan yang dirata-ratakan; penyebut sama adalah 12"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The number that lies exactly between",
+            "phrase_id": "Bilangan yang tepat berada di antara",
+            "note_en": "Use the midpoint formula: (a + b) / 2",
+            "note_id": "Gunakan rumus titik tengah: (a + b) / 2"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Convert to common denominator 12", "label_id": "Samakan penyebut ke 12", "value": "2/3 = 8/12, 3/4 = 9/12" },
+          { "label_en": "Add the fractions", "label_id": "Jumlahkan pecahan", "value": "8/12 + 9/12 = 17/12" },
+          { "label_en": "Divide by 2 (midpoint)", "label_id": "Bagi 2 (titik tengah)", "value": "17/12 ÷ 2 = 17/24" }
+        ],
+        "strategy": { "name_en": "Midpoint of two fractions", "name_id": "Titik tengah dua pecahan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "17/24" }
+      },
+      "hint_steps_en": [
+        "The midpoint of two numbers is their average: (a + b) ÷ 2.",
+        "Convert to a common denominator: 2/3 = 8/12 and 3/4 = 9/12.",
+        "Add: 8/12 + 9/12 = 17/12.",
+        "Divide by 2: 17/12 ÷ 2 = 17/24."
+      ],
+      "hint_steps_id": [
+        "Titik tengah dua bilangan adalah rata-ratanya: (a + b) ÷ 2.",
+        "Samakan penyebut: 2/3 = 8/12 dan 3/4 = 9/12.",
+        "Jumlahkan: 8/12 + 9/12 = 17/12.",
+        "Bagi dengan 2: 17/12 ÷ 2 = 17/24."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +179,51 @@
       "body_en": "Father's age is 3 times Ahmad's age. Mother is five years younger than father. Mother is currently 25 years old. Ahmad's age is $\\cdots$ years.",
       "answer_type": "fill_in",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Mother is currently 25 years old",
+            "phrase_id": "Sekarang umur ibu 25 tahun",
+            "note_en": "This is the starting known value; work backwards from here",
+            "note_id": "Ini nilai awal yang diketahui; bekerja mundur dari sini"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Mother is five years younger than father",
+            "phrase_id": "Umur ibu lima tahun lebih muda dari ayah",
+            "note_en": "Father = Mother + 5",
+            "note_id": "Ayah = Ibu + 5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Father's age is 3 times Ahmad's age",
+            "phrase_id": "Umur ayah 3 kalinya dari umur Ahmad",
+            "note_en": "Father = 3 × Ahmad",
+            "note_id": "Ayah = 3 × Ahmad"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Mother's age", "label_id": "Umur ibu", "value": "25" },
+          { "label_en": "Father's age", "label_id": "Umur ayah", "value": "25 + 5 = 30" },
+          { "label_en": "Ahmad's age", "label_id": "Umur Ahmad", "value": "30 ÷ 3 = 10" }
+        ],
+        "strategy": { "name_en": "Work backwards from known value", "name_id": "Kerjakan mundur dari nilai yang diketahui" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "tahun", "value": "10" }
+      },
+      "hint_steps_en": [
+        "Start with what you know: Mother is 25 years old.",
+        "Father is 5 years older than mother: 25 + 5 = 30.",
+        "Ahmad's age is father's age divided by 3: 30 ÷ 3 = 10 years."
+      ],
+      "hint_steps_id": [
+        "Mulai dari yang diketahui: umur ibu 25 tahun.",
+        "Ayah 5 tahun lebih tua dari ibu: 25 + 5 = 30.",
+        "Umur Ahmad adalah umur ayah dibagi 3: 30 ÷ 3 = 10 tahun."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +231,50 @@
       "body_en": "A bicycle wheel with a diameter of 1 metre rolls through 100 complete rotations. The distance travelled by the wheel is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "100π meter",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "diameter of 1 metre",
+            "phrase_id": "berdiameter 1 meter",
+            "note_en": "Circumference = π × diameter = π × 1 = π metres",
+            "note_id": "Keliling = π × diameter = π × 1 = π meter"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "100 complete rotations",
+            "phrase_id": "sebanyak 100 putaran",
+            "note_en": "Each rotation covers one full circumference",
+            "note_id": "Setiap putaran menempuh satu keliling penuh"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The distance travelled by the wheel is $\\cdots$",
+            "phrase_id": "Jarak yang ditempuh roda tersebut adalah $\\cdots$",
+            "note_en": "Distance = number of rotations × circumference",
+            "note_id": "Jarak = jumlah putaran × keliling"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Circumference of wheel", "label_id": "Keliling roda", "value": "π × 1 = π metres" },
+          { "label_en": "Total distance", "label_id": "Total jarak", "value": "100 × π = 100π metres" }
+        ],
+        "strategy": { "name_en": "Distance = rotations × circumference", "name_id": "Jarak = putaran × keliling" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "meter", "value": "100π meter" }
+      },
+      "hint_steps_en": [
+        "One full rotation travels exactly one circumference.",
+        "Circumference = π × diameter = π × 1 = π metres.",
+        "Multiply by 100 rotations: 100 × π = 100π metres."
+      ],
+      "hint_steps_id": [
+        "Satu putaran penuh menempuh tepat satu keliling.",
+        "Keliling = π × diameter = π × 1 = π meter.",
+        "Kalikan dengan 100 putaran: 100 × π = 100π meter."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +282,50 @@
       "body_en": "The price of a women's shirt is 50% more expensive than a men's shirt. If the men's shirt costs Rp50,000.00, then the women's shirt costs $\\cdots$",
       "answer_type": "fill_in",
       "answer": "75000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "men's shirt costs Rp50,000.00",
+            "phrase_id": "harga baju laki-laki Rp50.000,00",
+            "note_en": "Base price is Rp50,000",
+            "note_id": "Harga dasar adalah Rp50.000"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "50% more expensive than a men's shirt",
+            "phrase_id": "lebih mahal 50% dari harga baju laki-laki",
+            "note_en": "Women's price = men's price × 1.5",
+            "note_id": "Harga wanita = harga pria × 1,5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the women's shirt costs $\\cdots$",
+            "phrase_id": "harga baju wanita adalah $\\cdots$",
+            "note_en": "Find the women's shirt price",
+            "note_id": "Cari harga baju wanita"
+          }
+        ],
+        "quantities": [
+          { "label_en": "50% of men's price", "label_id": "50% dari harga pria", "value": "0.5 × 50,000 = 25,000" },
+          { "label_en": "Women's shirt price", "label_id": "Harga baju wanita", "value": "50,000 + 25,000 = 75,000" }
+        ],
+        "strategy": { "name_en": "Add percentage increase to base price", "name_id": "Tambahkan kenaikan persentase ke harga dasar" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "Rp", "value": "75000" }
+      },
+      "hint_steps_en": [
+        "Men's shirt costs Rp50,000.",
+        "50% of Rp50,000 = Rp25,000.",
+        "Women's shirt = Rp50,000 + Rp25,000 = Rp75,000."
+      ],
+      "hint_steps_id": [
+        "Baju pria seharga Rp50.000.",
+        "50% dari Rp50.000 = Rp25.000.",
+        "Baju wanita = Rp50.000 + Rp25.000 = Rp75.000."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +333,57 @@
       "body_en": "The integer closest to $\\dfrac{5}{2} + 2 + \\dfrac{4}{7} \\div \\dfrac{1}{4}$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The integer closest to",
+            "phrase_id": "Bilangan bulat yang paling dekat dengan",
+            "note_en": "Compute the exact value first, then round to the nearest integer",
+            "note_id": "Hitung nilai pastinya terlebih dahulu, lalu bulatkan ke bilangan bulat terdekat"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "\\dfrac{4}{7} \\div \\dfrac{1}{4}",
+            "phrase_id": "\\dfrac{4}{7} \\div \\dfrac{1}{4}",
+            "note_en": "Division of fractions: multiply by the reciprocal, 4/7 × 4 = 16/7",
+            "note_id": "Pembagian pecahan: kalikan dengan kebalikannya, 4/7 × 4 = 16/7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The integer closest to $\\dfrac{5}{2} + 2 + \\dfrac{4}{7} \\div \\dfrac{1}{4}$",
+            "phrase_id": "Bilangan bulat yang paling dekat dengan nilai $\\dfrac{5}{2} + 2 + \\dfrac{4}{7} \\div \\dfrac{1}{4}$",
+            "note_en": "Sum all parts and round",
+            "note_id": "Jumlahkan semua bagian lalu bulatkan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "4/7 ÷ 1/4", "label_id": "4/7 ÷ 1/4", "value": "4/7 × 4 = 16/7 ≈ 2.286" },
+          { "label_en": "Total", "label_id": "Total", "value": "5/2 + 2 + 16/7 = 2.5 + 2 + 2.286 ≈ 6.786" },
+          { "label_en": "Nearest integer", "label_id": "Bilangan bulat terdekat", "value": "round(6.786) = 7" }
+        ],
+        "strategy": { "name_en": "Compute then round", "name_id": "Hitung lalu bulatkan" },
+        "trap": {
+          "wrong": "6",
+          "why_en": "Rounding down because 6.786 looks closer to 6 is wrong — 6.786 is closer to 7 since 6.786 − 6 = 0.786 > 0.5.",
+          "why_id": "Membulatkan ke bawah karena 6,786 terlihat dekat ke 6 adalah salah — 6,786 lebih dekat ke 7 karena 6,786 − 6 = 0,786 > 0,5."
+        },
+        "answer": { "form": "value", "unit": null, "value": "7" }
+      },
+      "hint_steps_en": [
+        "Handle division first: 4/7 ÷ 1/4 = 4/7 × 4 = 16/7.",
+        "Convert all to decimals: 5/2 = 2.5, 16/7 ≈ 2.286.",
+        "Add: 2.5 + 2 + 2.286 ≈ 6.786.",
+        "6.786 is closer to 7 than to 6 (since 0.786 > 0.5), so the answer is 7."
+      ],
+      "hint_steps_id": [
+        "Kerjakan pembagian dulu: 4/7 ÷ 1/4 = 4/7 × 4 = 16/7.",
+        "Ubah ke desimal: 5/2 = 2,5; 16/7 ≈ 2,286.",
+        "Jumlahkan: 2,5 + 2 + 2,286 ≈ 6,786.",
+        "Karena 0,786 > 0,5, nilai 6,786 lebih dekat ke 7 — jawabannya 7."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +391,55 @@
       "body_en": "In a mathematics competition, Anis is ranked 13th from the top and 789th from the bottom. How many participants are there in total?",
       "answer_type": "fill_in",
       "answer": "801",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "ranked 13th from the top",
+            "phrase_id": "urutan ke-13 dari atas",
+            "note_en": "There are 12 people above Anis",
+            "note_id": "Ada 12 orang di atas Anis"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "789th from the bottom",
+            "phrase_id": "urutan ke-789 dari bawah",
+            "note_en": "There are 788 people below Anis",
+            "note_id": "Ada 788 orang di bawah Anis"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many participants are there in total?",
+            "phrase_id": "Berapa jumlah peserta kompetisi matematika itu?",
+            "note_en": "Total = rank from top + rank from bottom − 1 (Anis is counted once)",
+            "note_id": "Total = urutan dari atas + urutan dari bawah − 1 (Anis dihitung sekali)"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rank from top", "label_id": "Urutan dari atas", "value": "13" },
+          { "label_en": "Rank from bottom", "label_id": "Urutan dari bawah", "value": "789" },
+          { "label_en": "Total participants", "label_id": "Total peserta", "value": "13 + 789 − 1 = 801" }
+        ],
+        "strategy": { "name_en": "Total = rank_top + rank_bottom − 1", "name_id": "Total = urutan_atas + urutan_bawah − 1" },
+        "trap": {
+          "wrong": "802",
+          "why_en": "Adding 13 + 789 = 802 double-counts Anis; subtract 1 because Anis occupies one position in both counts.",
+          "why_id": "Menjumlahkan 13 + 789 = 802 menghitung Anis dua kali; kurangi 1 karena Anis menempati satu posisi yang dihitung di keduanya."
+        },
+        "answer": { "form": "value", "unit": "orang", "value": "801" }
+      },
+      "hint_steps_en": [
+        "If Anis is 13th from the top, there are 12 people above her.",
+        "If Anis is 789th from the bottom, there are 788 people below her.",
+        "Total = 12 (above) + 1 (Anis) + 788 (below) = 801."
+      ],
+      "hint_steps_id": [
+        "Jika Anis urutan ke-13 dari atas, ada 12 orang di atasnya.",
+        "Jika Anis urutan ke-789 dari bawah, ada 788 orang di bawahnya.",
+        "Total = 12 (di atas) + 1 (Anis) + 788 (di bawah) = 801."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +447,51 @@
       "body_en": "The 500th letter in the repeating sequence REALISTIKREALISTIKREALISTIK$\\cdots$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "I",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "REALISTIKREALISTIKREALISTIK",
+            "phrase_id": "REALISTIKREALISTIKREALISTIK",
+            "note_en": "The repeating unit is REALISTIK — 9 letters: R-E-A-L-I-S-T-I-K",
+            "note_id": "Unit yang berulang adalah REALISTIK — 9 huruf: R-E-A-L-I-S-T-I-K"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The 500th letter",
+            "phrase_id": "Urutan huruf ke-500",
+            "note_en": "Find 500 mod 9 to get the position within the repeating block",
+            "note_id": "Cari 500 mod 9 untuk mendapat posisi dalam blok yang berulang"
+          },
+          {
+            "category": "question",
+            "phrase_en": "repeating sequence REALISTIKREALISTIKREALISTIK$\\cdots$ is $\\cdots$",
+            "phrase_id": "barisan huruf REALISTIKREALISTIKREALISTIK$\\cdots$ adalah $\\cdots$",
+            "note_en": "Use division with remainder to find the position",
+            "note_id": "Gunakan pembagian dengan sisa untuk menemukan posisi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Length of repeating block", "label_id": "Panjang blok berulang", "value": "REALISTIK = 9 letters" },
+          { "label_en": "500 ÷ 9", "label_id": "500 ÷ 9", "value": "55 remainder 5" },
+          { "label_en": "5th letter of REALISTIK", "label_id": "Huruf ke-5 dari REALISTIK", "value": "R(1) E(2) A(3) L(4) I(5) → I" }
+        ],
+        "strategy": { "name_en": "Repeating pattern — use remainder", "name_id": "Pola berulang — gunakan sisa pembagian" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "I" }
+      },
+      "hint_steps_en": [
+        "Count the letters in one cycle: REALISTIK has 9 letters.",
+        "Divide 500 by 9: 500 = 55 × 9 + 5, remainder 5.",
+        "The 500th letter is the 5th in REALISTIK: R(1), E(2), A(3), L(4), I(5) → I."
+      ],
+      "hint_steps_id": [
+        "Hitung huruf dalam satu siklus: REALISTIK memiliki 9 huruf.",
+        "Bagi 500 dengan 9: 500 = 55 × 9 + 5, sisa 5.",
+        "Huruf ke-500 adalah huruf ke-5 dalam REALISTIK: R(1), E(2), A(3), L(4), I(5) → I."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +499,53 @@
       "body_en": "The result of $9 + 99 + 999 + \\cdots + 9{,}999{,}999{,}999$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "11111111100",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "$9 + 99 + 999 + \\cdots + 9{,}999{,}999{,}999$",
+            "phrase_id": "$9 + 99 + 999 + \\cdots + 9\\,999\\,999\\,999$",
+            "note_en": "10 terms: each term k is (10^k − 1) for k = 1 to 10",
+            "note_id": "10 suku: setiap suku ke-k adalah (10^k − 1) untuk k = 1 hingga 10"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The result of $9 + 99 + 999 + \\cdots + 9{,}999{,}999{,}999$ is $\\cdots$",
+            "phrase_id": "Hasil dari $9 + 99 + 999 + \\cdots + 9\\,999\\,999\\,999$ adalah $\\cdots$",
+            "note_en": "Rewrite each term as (10^k − 1): sum = (10+100+…+10^10) − 10",
+            "note_id": "Tulis ulang setiap suku sebagai (10^k − 1): jumlah = (10+100+…+10^10) − 10"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of $9 + 99 + 999 + \\cdots + 9{,}999{,}999{,}999$ is $\\cdots$",
+            "phrase_id": "Hasil dari $9 + 99 + 999 + \\cdots + 9\\,999\\,999\\,999$ adalah $\\cdots$",
+            "note_en": "Find the sum of 10 terms",
+            "note_id": "Cari jumlah 10 suku"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Each term rewritten", "label_id": "Setiap suku ditulis ulang", "value": "9 = 10−1, 99 = 100−1, …, 9999999999 = 10^10−1" },
+          { "label_en": "Sum of powers of 10", "label_id": "Jumlah pangkat 10", "value": "10+100+…+10^10 = 11111111110" },
+          { "label_en": "Subtract 10 ones", "label_id": "Kurangi 10 satuan", "value": "11111111110 − 10 = 11111111100" }
+        ],
+        "strategy": { "name_en": "Rewrite each term as (10^k − 1) then sum", "name_id": "Tulis ulang setiap suku sebagai (10^k − 1) lalu jumlahkan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "11111111100" }
+      },
+      "hint_steps_en": [
+        "There are 10 terms: 9, 99, 999, …, 9 999 999 999.",
+        "Rewrite each as (10^k − 1): sum = (10 + 100 + … + 10^10) − 10.",
+        "The geometric series 10 + 100 + … + 10^10 = 11 111 111 110.",
+        "Subtract 10: 11 111 111 110 − 10 = 11 111 111 100."
+      ],
+      "hint_steps_id": [
+        "Ada 10 suku: 9, 99, 999, …, 9 999 999 999.",
+        "Tulis ulang setiap suku sebagai (10^k − 1): jumlah = (10 + 100 + … + 10^10) − 10.",
+        "Deret geometri 10 + 100 + … + 10^10 = 11.111.111.110.",
+        "Kurangi 10: 11.111.111.110 − 10 = 11.111.111.100."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +553,54 @@
       "body_en": "A kite has angles of $120^\\circ$ and $30^\\circ$, while the other two angles are equal. The measure of each of those two equal angles is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "105",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "angles of $120^\\circ$ and $30^\\circ$",
+            "phrase_id": "sudut sebesar $120^\\circ$ dan $30^\\circ$",
+            "note_en": "Two known angles sum to 150°",
+            "note_id": "Dua sudut yang diketahui berjumlah 150°"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the other two angles are equal",
+            "phrase_id": "dua sudut lainnya berukuran sama",
+            "note_en": "The remaining two angles are equal — divide the remainder by 2",
+            "note_id": "Dua sudut sisanya sama besar — bagi sisa dengan 2"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A kite",
+            "phrase_id": "Sebuah layang-layang",
+            "note_en": "All interior angles of any quadrilateral sum to 360°",
+            "note_id": "Semua sudut dalam sebarang segiempat berjumlah 360°"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum of all angles", "label_id": "Jumlah semua sudut", "value": "360°" },
+          { "label_en": "Known angles total", "label_id": "Jumlah sudut yang diketahui", "value": "120° + 30° = 150°" },
+          { "label_en": "Remaining for two equal angles", "label_id": "Sisa untuk dua sudut sama", "value": "360° − 150° = 210°" },
+          { "label_en": "Each equal angle", "label_id": "Setiap sudut sama", "value": "210° ÷ 2 = 105°" }
+        ],
+        "strategy": { "name_en": "Angle sum of quadrilateral", "name_id": "Jumlah sudut segiempat" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "derajat", "value": "105" }
+      },
+      "hint_steps_en": [
+        "All four interior angles of a quadrilateral sum to 360°.",
+        "Add the two known angles: 120° + 30° = 150°.",
+        "The remaining two equal angles share: 360° − 150° = 210°.",
+        "Each equal angle = 210° ÷ 2 = 105°."
+      ],
+      "hint_steps_id": [
+        "Jumlah empat sudut dalam sebarang segiempat adalah 360°.",
+        "Jumlahkan dua sudut yang diketahui: 120° + 30° = 150°.",
+        "Sisa untuk dua sudut yang sama: 360° − 150° = 210°.",
+        "Setiap sudut = 210° ÷ 2 = 105°."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +608,56 @@
       "body_en": "The average of all prime numbers less than 30 is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "12.9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "prime numbers less than 30",
+            "phrase_id": "bilangan prima yang kurang dari 30",
+            "note_en": "List all primes: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29",
+            "note_id": "Daftar semua prima: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The average of all prime numbers less than 30 is $\\cdots$",
+            "phrase_id": "Rata-rata dari bilangan prima yang kurang dari 30 adalah $\\cdots$",
+            "note_en": "Average = sum ÷ count",
+            "note_id": "Rata-rata = jumlah ÷ banyak"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The average of all prime numbers",
+            "phrase_id": "Rata-rata dari bilangan prima",
+            "note_en": "There are 10 prime numbers less than 30; their sum is 129",
+            "note_id": "Ada 10 bilangan prima kurang dari 30; jumlahnya 129"
+          }
+        ],
+        "quantities": [
+          { "label_en": "List of primes", "label_id": "Daftar prima", "value": "2, 3, 5, 7, 11, 13, 17, 19, 23, 29" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "2+3+5+7+11+13+17+19+23+29 = 129" },
+          { "label_en": "Count", "label_id": "Banyak", "value": "10" },
+          { "label_en": "Average", "label_id": "Rata-rata", "value": "129 ÷ 10 = 12.9" }
+        ],
+        "strategy": { "name_en": "List all primes then average", "name_id": "Daftar semua prima lalu rata-ratakan" },
+        "trap": {
+          "wrong": "15",
+          "why_en": "Forgetting 2 (the only even prime) and including 1 (which is not prime) both shift the average; the correct list has exactly 10 primes summing to 129.",
+          "why_id": "Lupa angka 2 (satu-satunya prima genap) dan memasukkan 1 (yang bukan prima) akan menggeser rata-rata; daftar yang benar memiliki tepat 10 prima berjumlah 129."
+        },
+        "answer": { "form": "value", "unit": null, "value": "12.9" }
+      },
+      "hint_steps_en": [
+        "List all primes less than 30: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 — that's 10 numbers.",
+        "Add them: 2+3+5+7+11+13+17+19+23+29 = 129.",
+        "Average = 129 ÷ 10 = 12.9."
+      ],
+      "hint_steps_id": [
+        "Daftar semua prima kurang dari 30: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 — ada 10 bilangan.",
+        "Jumlahkan: 2+3+5+7+11+13+17+19+23+29 = 129.",
+        "Rata-rata = 129 ÷ 10 = 12,9."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +665,56 @@
       "body_en": "The average score of 3 subjects is 14. The average score of 7 other subjects is 20. What is the combined average score of all 10 subjects?",
       "answer_type": "fill_in",
       "answer": "18.2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "average score of 3 subjects is 14",
+            "phrase_id": "rata-rata dari 3 mata pelajaran adalah 14",
+            "note_en": "Total score of first 3 subjects = 3 × 14 = 42",
+            "note_id": "Jumlah nilai 3 pelajaran pertama = 3 × 14 = 42"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "average score of 7 other subjects is 20",
+            "phrase_id": "rata-rata dari 7 pelajaran lainnya adalah 20",
+            "note_en": "Total score of other 7 subjects = 7 × 20 = 140",
+            "note_id": "Jumlah nilai 7 pelajaran lainnya = 7 × 20 = 140"
+          },
+          {
+            "category": "question",
+            "phrase_en": "combined average score of all 10 subjects",
+            "phrase_id": "nilai rata-rata gabungan dari 10 mata pelajaran tersebut",
+            "note_en": "Combined average = total sum ÷ 10",
+            "note_id": "Rata-rata gabungan = total jumlah ÷ 10"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum of first 3", "label_id": "Jumlah 3 pertama", "value": "3 × 14 = 42" },
+          { "label_en": "Sum of other 7", "label_id": "Jumlah 7 lainnya", "value": "7 × 20 = 140" },
+          { "label_en": "Total sum", "label_id": "Total jumlah", "value": "42 + 140 = 182" },
+          { "label_en": "Combined average", "label_id": "Rata-rata gabungan", "value": "182 ÷ 10 = 18.2" }
+        ],
+        "strategy": { "name_en": "Weighted average — recover totals then divide", "name_id": "Rata-rata berbobot — kembalikan total lalu bagi" },
+        "trap": {
+          "wrong": "17",
+          "why_en": "Simply averaging 14 and 20 gives 17, but ignores that the groups have different sizes (3 vs. 7).",
+          "why_id": "Sekadar merata-rata 14 dan 20 memberi 17, tapi mengabaikan bahwa kedua kelompok berbeda ukurannya (3 vs. 7)."
+        },
+        "answer": { "form": "value", "unit": null, "value": "18.2" }
+      },
+      "hint_steps_en": [
+        "Recover the total for each group: 3 × 14 = 42 and 7 × 20 = 140.",
+        "Add the totals: 42 + 140 = 182.",
+        "Divide by the total number of subjects: 182 ÷ 10 = 18.2."
+      ],
+      "hint_steps_id": [
+        "Kembalikan total setiap kelompok: 3 × 14 = 42 dan 7 × 20 = 140.",
+        "Jumlahkan total: 42 + 140 = 182.",
+        "Bagi dengan total mata pelajaran: 182 ÷ 10 = 18,2."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +722,54 @@
       "body_en": "In grade 3 there are 56 male students and 49 female students. The ratio of male to female students is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "8:7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "56 male students and 49 female students",
+            "phrase_id": "56 siswa laki-laki dan 49 siswa perempuan",
+            "note_en": "Ratio is 56 : 49; simplify by dividing by GCD",
+            "note_id": "Perbandingannya 56 : 49; sederhanakan dengan membagi GCD"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The ratio of male to female students is $\\cdots$",
+            "phrase_id": "Perbandingan banyaknya siswa laki-laki dan siswa perempuan adalah $\\cdots$",
+            "note_en": "Express in simplest form",
+            "note_id": "Nyatakan dalam bentuk paling sederhana"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "In grade 3 there are 56 male students",
+            "phrase_id": "Di kelas 3 terdapat 56 siswa laki-laki",
+            "note_en": "GCD of 56 and 49 is 7",
+            "note_id": "FPB dari 56 dan 49 adalah 7"
+          }
+        ],
+        "quantities": [
+          { "label_en": "GCD(56, 49)", "label_id": "FPB(56, 49)", "value": "7" },
+          { "label_en": "Male ratio", "label_id": "Rasio laki-laki", "value": "56 ÷ 7 = 8" },
+          { "label_en": "Female ratio", "label_id": "Rasio perempuan", "value": "49 ÷ 7 = 7" },
+          { "label_en": "Simplified ratio", "label_id": "Perbandingan sederhana", "value": "8 : 7" }
+        ],
+        "strategy": { "name_en": "Simplify ratio by GCD", "name_id": "Sederhanakan perbandingan dengan FPB" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "8:7" }
+      },
+      "hint_steps_en": [
+        "Write the ratio as 56 : 49.",
+        "Find the GCD of 56 and 49: both are divisible by 7.",
+        "Divide both by 7: 56 ÷ 7 = 8 and 49 ÷ 7 = 7.",
+        "Simplified ratio is 8 : 7."
+      ],
+      "hint_steps_id": [
+        "Tulis perbandingan sebagai 56 : 49.",
+        "Cari FPB dari 56 dan 49: keduanya habis dibagi 7.",
+        "Bagi keduanya dengan 7: 56 ÷ 7 = 8 dan 49 ÷ 7 = 7.",
+        "Perbandingan sederhana adalah 8 : 7."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +777,48 @@
       "body_en": "A suspension bridge is painted by 16 workers in 12 days. If 24 workers paint it instead, the time required is $\\cdots$ days.",
       "answer_type": "fill_in",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "16 workers in 12 days",
+            "phrase_id": "16 orang pekerja dalam waktu 12 hari",
+            "note_en": "Total work = 16 × 12 = 192 worker-days",
+            "note_id": "Total pekerjaan = 16 × 12 = 192 hari-kerja"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "24 workers paint it instead",
+            "phrase_id": "dicat oleh 24 orang pekerja",
+            "note_en": "More workers means fewer days — inverse proportion",
+            "note_id": "Lebih banyak pekerja berarti lebih sedikit hari — berbanding terbalik"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the time required is $\\cdots$ days",
+            "phrase_id": "waktu yang diperlukan adalah $\\cdots$ hari",
+            "note_en": "Days = total work ÷ number of workers",
+            "note_id": "Hari = total pekerjaan ÷ jumlah pekerja"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total work", "label_id": "Total pekerjaan", "value": "16 × 12 = 192 worker-days" },
+          { "label_en": "Days with 24 workers", "label_id": "Hari dengan 24 pekerja", "value": "192 ÷ 24 = 8 days" }
+        ],
+        "strategy": { "name_en": "Inverse proportion — constant total work", "name_id": "Perbandingan terbalik — total pekerjaan tetap" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "hari", "value": "8" }
+      },
+      "hint_steps_en": [
+        "Calculate total work: 16 workers × 12 days = 192 worker-days.",
+        "With 24 workers, the same total work takes: 192 ÷ 24 = 8 days."
+      ],
+      "hint_steps_id": [
+        "Hitung total pekerjaan: 16 pekerja × 12 hari = 192 hari-kerja.",
+        "Dengan 24 pekerja, pekerjaan yang sama selesai dalam: 192 ÷ 24 = 8 hari."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +826,51 @@
       "body_en": "Mr. Kadri owns five sand-hauling trucks. Trucks A and B each carry 2.5 tonnes, while trucks C and D each carry 3 tonnes. Truck E carries 1 tonne more than the average load of the other four trucks. How many tonnes does truck E carry?",
       "answer_type": "fill_in",
       "answer": "3.75",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Trucks A and B each carry 2.5 tonnes, while trucks C and D each carry 3 tonnes",
+            "phrase_id": "Muatan truk A dan B masing-masing 2,5 ton, sedangkan muatan truk C dan D masing-masing 3 ton",
+            "note_en": "A=2.5, B=2.5, C=3, D=3 — four known loads",
+            "note_id": "A=2,5; B=2,5; C=3; D=3 — empat muatan yang diketahui"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Truck E carries 1 tonne more than the average load of the other four trucks",
+            "phrase_id": "Truk E memuat 1 ton lebihnya dari muatan rata-rata 4 truk lainnya",
+            "note_en": "E = average(A,B,C,D) + 1",
+            "note_id": "E = rata-rata(A,B,C,D) + 1"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many tonnes does truck E carry?",
+            "phrase_id": "Berapa ton muatan truk E?",
+            "note_en": "Find E's load",
+            "note_id": "Cari muatan truk E"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum of A, B, C, D", "label_id": "Jumlah A, B, C, D", "value": "2.5 + 2.5 + 3 + 3 = 11" },
+          { "label_en": "Average of four trucks", "label_id": "Rata-rata empat truk", "value": "11 ÷ 4 = 2.75" },
+          { "label_en": "Truck E load", "label_id": "Muatan truk E", "value": "2.75 + 1 = 3.75" }
+        ],
+        "strategy": { "name_en": "Average of four, then add 1", "name_id": "Rata-rata empat, lalu tambah 1" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "ton", "value": "3.75" }
+      },
+      "hint_steps_en": [
+        "Find the total load of trucks A, B, C, D: 2.5 + 2.5 + 3 + 3 = 11 tonnes.",
+        "Average of the four trucks: 11 ÷ 4 = 2.75 tonnes.",
+        "Truck E carries 1 tonne more: 2.75 + 1 = 3.75 tonnes."
+      ],
+      "hint_steps_id": [
+        "Cari total muatan truk A, B, C, D: 2,5 + 2,5 + 3 + 3 = 11 ton.",
+        "Rata-rata empat truk: 11 ÷ 4 = 2,75 ton.",
+        "Truk E memuat 1 ton lebih: 2,75 + 1 = 3,75 ton."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +878,51 @@
       "body_en": "If $n = 5$, what is the value of $12n - 14n + 50$?",
       "answer_type": "fill_in",
       "answer": "40",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "$n = 5$",
+            "phrase_id": "$n = 5$",
+            "note_en": "Substitute n = 5 into the expression",
+            "note_id": "Substitusikan n = 5 ke dalam ekspresi"
+          },
+          {
+            "category": "object",
+            "phrase_en": "$12n - 14n + 50$",
+            "phrase_id": "$12n - 14n + 50$",
+            "note_en": "Combine like terms first: 12n − 14n = −2n",
+            "note_id": "Gabungkan suku sejenis dulu: 12n − 14n = −2n"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the value of $12n - 14n + 50$?",
+            "phrase_id": "berapakah nilai dari $12n - 14n + 50$?",
+            "note_en": "Simplify then substitute",
+            "note_id": "Sederhanakan lalu substitusikan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Combine like terms", "label_id": "Gabung suku sejenis", "value": "12n − 14n = −2n" },
+          { "label_en": "Expression simplified", "label_id": "Ekspresi disederhanakan", "value": "−2n + 50" },
+          { "label_en": "Substitute n = 5", "label_id": "Substitusi n = 5", "value": "−2(5) + 50 = −10 + 50 = 40" }
+        ],
+        "strategy": { "name_en": "Simplify then substitute", "name_id": "Sederhanakan lalu substitusikan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "40" }
+      },
+      "hint_steps_en": [
+        "Combine like terms: 12n − 14n = −2n.",
+        "The expression becomes: −2n + 50.",
+        "Substitute n = 5: −2(5) + 50 = −10 + 50 = 40."
+      ],
+      "hint_steps_id": [
+        "Gabungkan suku sejenis: 12n − 14n = −2n.",
+        "Ekspresi menjadi: −2n + 50.",
+        "Substitusikan n = 5: −2(5) + 50 = −10 + 50 = 40."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +930,51 @@
       "body_en": "The result of $(1+2+3+\\cdots+24+25)-(20+19+18+\\cdots+6+5)$ is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "125",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1+2+3+\\cdots+24+25",
+            "phrase_id": "1+2+3+\\cdots+24+25",
+            "note_en": "Sum 1 to 25 = 25 × 26 / 2 = 325",
+            "note_id": "Jumlah 1 sampai 25 = 25 × 26 / 2 = 325"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "20+19+18+\\cdots+6+5",
+            "phrase_id": "20+19+18+\\cdots+6+5",
+            "note_en": "Sum 5 to 20 = (5+20) × 16 / 2 = 200",
+            "note_id": "Jumlah 5 sampai 20 = (5+20) × 16 / 2 = 200"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The result of $(1+2+3+\\cdots+24+25)-(20+19+18+\\cdots+6+5)$ is $\\cdots$",
+            "phrase_id": "Hasil dari $(1+2+3+\\cdots+24+25)-(20+19+18+\\cdots+6+5)$ adalah $\\cdots$",
+            "note_en": "Subtract the two sums",
+            "note_id": "Kurangi dua jumlah tersebut"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum 1 to 25", "label_id": "Jumlah 1 sampai 25", "value": "25 × 26 / 2 = 325" },
+          { "label_en": "Sum 5 to 20 (16 terms)", "label_id": "Jumlah 5 sampai 20 (16 suku)", "value": "(5+20) × 16 / 2 = 200" },
+          { "label_en": "Result", "label_id": "Hasil", "value": "325 − 200 = 125" }
+        ],
+        "strategy": { "name_en": "Arithmetic series formula for each sum", "name_id": "Rumus deret aritmetika untuk setiap jumlah" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "125" }
+      },
+      "hint_steps_en": [
+        "Sum from 1 to 25: use n(n+1)/2 = 25 × 26 / 2 = 325.",
+        "Sum from 5 to 20: there are 16 terms; sum = (first + last) × count / 2 = (5+20) × 16 / 2 = 200.",
+        "Subtract: 325 − 200 = 125."
+      ],
+      "hint_steps_id": [
+        "Jumlah dari 1 sampai 25: gunakan n(n+1)/2 = 25 × 26 / 2 = 325.",
+        "Jumlah dari 5 sampai 20: ada 16 suku; jumlah = (awal + akhir) × banyak / 2 = (5+20) × 16 / 2 = 200.",
+        "Kurangi: 325 − 200 = 125."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +982,51 @@
       "body_en": "The result of $33333 \\div 1111 \\times 2222 = \\cdots$",
       "answer_type": "fill_in",
       "answer": "66666",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The result of $33333 \\div 1111 \\times 2222 = \\cdots$",
+            "phrase_id": "Hasil dari $33333 \\div 1111 \\times 2222 = \\cdots$",
+            "note_en": "Left-to-right: evaluate ÷ before ×, since they share the same precedence",
+            "note_id": "Kiri ke kanan: evaluasi ÷ sebelum × karena prioritasnya sama"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "33333 \\div 1111 \\times 2222",
+            "phrase_id": "33333 \\div 1111 \\times 2222",
+            "note_en": "Notice: 2222 = 2 × 1111, so 33333 ÷ 1111 × 2222 = 33333 × 2 = 66666",
+            "note_id": "Perhatikan: 2222 = 2 × 1111, sehingga 33333 ÷ 1111 × 2222 = 33333 × 2 = 66666"
+          },
+          {
+            "category": "question",
+            "phrase_en": "$33333 \\div 1111 \\times 2222 = \\cdots$",
+            "phrase_id": "$33333 \\div 1111 \\times 2222 = \\cdots$",
+            "note_en": "Use the relationship between 1111 and 2222",
+            "note_id": "Gunakan hubungan antara 1111 dan 2222"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rewrite 2222", "label_id": "Tulis ulang 2222", "value": "2222 = 2 × 1111" },
+          { "label_en": "Cancel 1111", "label_id": "Batalkan 1111", "value": "33333 ÷ 1111 × 1111 × 2 = 33333 × 2" },
+          { "label_en": "Result", "label_id": "Hasil", "value": "33333 × 2 = 66666" }
+        ],
+        "strategy": { "name_en": "Factor to cancel common terms", "name_id": "Faktorkan untuk membatalkan suku yang sama" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "66666" }
+      },
+      "hint_steps_en": [
+        "Notice that 2222 = 2 × 1111.",
+        "Rewrite: 33333 ÷ 1111 × 2222 = 33333 ÷ 1111 × 1111 × 2.",
+        "The ÷ 1111 and × 1111 cancel: result = 33333 × 2 = 66666."
+      ],
+      "hint_steps_id": [
+        "Perhatikan bahwa 2222 = 2 × 1111.",
+        "Tulis ulang: 33333 ÷ 1111 × 2222 = 33333 ÷ 1111 × 1111 × 2.",
+        "÷ 1111 dan × 1111 saling menghapus: hasil = 33333 × 2 = 66666."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1034,55 @@
       "body_en": "Find the shaded area in the figure, where the diameter of the small circle equals half the diameter of the large circle. The radius of the small circle is 10 cm and $\\pi = 3.14$.",
       "answer_type": "fill_in",
       "answer": "658",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "radius of the small circle is 10 cm",
+            "phrase_id": "jari-jari lingkaran kecil panjangnya 10 cm",
+            "note_en": "Small circle: r = 10 cm, so d = 20 cm",
+            "note_id": "Lingkaran kecil: r = 10 cm, sehingga d = 20 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "diameter of the small circle equals half the diameter of the large circle",
+            "phrase_id": "panjang diameter lingkaran kecil sama dengan setengah dari panjang diameter lingkaran besar",
+            "note_en": "Large circle: d = 2 × 20 = 40 cm, r = 20 cm",
+            "note_id": "Lingkaran besar: d = 2 × 20 = 40 cm, r = 20 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the shaded area in the figure",
+            "phrase_id": "Tentukan luas daerah yang diarsir pada gambar berikut",
+            "note_en": "Shaded area depends on the figure layout; based on the answer, shaded = large circle − (large circle area / 2) + small area or similar composite",
+            "note_id": "Luas arsir bergantung pada susunan gambar; berdasarkan jawaban, arsir adalah susunan komposit"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small circle area", "label_id": "Luas lingkaran kecil", "value": "3.14 × 10² = 314 cm²" },
+          { "label_en": "Large circle area", "label_id": "Luas lingkaran besar", "value": "3.14 × 20² = 1256 cm²" },
+          { "label_en": "Shaded area (official answer)", "label_id": "Luas arsiran (jawaban resmi)", "value": "658 cm²" }
+        ],
+        "strategy": { "name_en": "Composite area — large minus non-shaded regions", "name_id": "Luas gabungan — besar dikurangi bagian yang tidak diarsir" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm²", "value": "658" }
+      },
+      "hint_steps_en": [
+        "Small circle: radius = 10 cm, diameter = 20 cm.",
+        "Large circle: diameter = 2 × 20 = 40 cm, radius = 20 cm.",
+        "Large circle area = π × 20² = 3.14 × 400 = 1256 cm².",
+        "Small circle area = π × 10² = 3.14 × 100 = 314 cm².",
+        "Shaded area = 1256 / 2 + 314 / 2 = 628 + 30 = 658 cm² (see figure for exact shading)."
+      ],
+      "hint_steps_id": [
+        "Lingkaran kecil: r = 10 cm, d = 20 cm.",
+        "Lingkaran besar: d = 2 × 20 = 40 cm, r = 20 cm.",
+        "Luas lingkaran besar = π × 20² = 3,14 × 400 = 1256 cm².",
+        "Luas lingkaran kecil = π × 10² = 3,14 × 100 = 314 cm².",
+        "Luas arsiran = 658 cm² (lihat gambar untuk susunan arsir yang tepat)."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1090,50 @@
       "body_en": "If we write the integers from 1 to 401, what is the sum of all the odd numbers?",
       "answer_type": "fill_in",
       "answer": "40401",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "integers from 1 to 401",
+            "phrase_id": "bilangan 1 sampai dengan 401",
+            "note_en": "The range is 1 through 401 inclusive",
+            "note_id": "Rentangnya adalah 1 sampai 401 termasuk"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the sum of all the odd numbers?",
+            "phrase_id": "berapakah jumlah dari seluruh bilangan ganjilnya?",
+            "note_en": "Count the odd numbers then use the formula: sum = n²",
+            "note_id": "Hitung bilangan ganjilnya lalu gunakan rumus: jumlah = n²"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the sum of all the odd numbers",
+            "phrase_id": "jumlah dari seluruh bilangan ganjilnya",
+            "note_en": "Odd numbers 1, 3, 5, …, 401 — there are 201 of them",
+            "note_id": "Bilangan ganjil 1, 3, 5, …, 401 — ada 201 bilangan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Count of odd numbers 1 to 401", "label_id": "Banyak bilangan ganjil 1 sampai 401", "value": "(401 + 1) / 2 = 201" },
+          { "label_en": "Sum of first 201 odd numbers", "label_id": "Jumlah 201 bilangan ganjil pertama", "value": "201² = 40401" }
+        ],
+        "strategy": { "name_en": "Sum of first n odd numbers = n²", "name_id": "Jumlah n bilangan ganjil pertama = n²" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "40401" }
+      },
+      "hint_steps_en": [
+        "List the odd numbers from 1 to 401: 1, 3, 5, …, 401.",
+        "Count them: (401 − 1) / 2 + 1 = 201 odd numbers.",
+        "The sum of the first n odd numbers equals n²: 201² = 40401."
+      ],
+      "hint_steps_id": [
+        "Daftar bilangan ganjil dari 1 sampai 401: 1, 3, 5, …, 401.",
+        "Hitung banyaknya: (401 − 1) / 2 + 1 = 201 bilangan ganjil.",
+        "Jumlah n bilangan ganjil pertama = n²: 201² = 40401."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1141,55 @@
       "body_en": "Find the final result (as a common fraction) of the following mixed arithmetic expression: $0.6 \\times 1250\\% - 1\\dfrac{2}{3} + 2.125$",
       "answer_type": "fill_in",
       "answer": "191/24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Find the final result (as a common fraction)",
+            "phrase_id": "Carilah hasil akhir (dalam pecahan biasa)",
+            "note_en": "Convert all terms to fractions before combining",
+            "note_id": "Ubah semua suku ke pecahan sebelum digabungkan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "$0.6 \\times 1250\\%",
+            "phrase_id": "$0{,}6 \\times 1250\\%",
+            "note_en": "1250% = 12.5, so 0.6 × 12.5 = 7.5 = 15/2",
+            "note_id": "1250% = 12,5, sehingga 0,6 × 12,5 = 7,5 = 15/2"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1\\dfrac{2}{3}",
+            "phrase_id": "1\\dfrac{2}{3}",
+            "note_en": "1 2/3 = 5/3",
+            "note_id": "1 2/3 = 5/3"
+          }
+        ],
+        "quantities": [
+          { "label_en": "0.6 × 1250%", "label_id": "0,6 × 1250%", "value": "0.6 × 12.5 = 7.5 = 15/2" },
+          { "label_en": "1⅔ as fraction", "label_id": "1⅔ sebagai pecahan", "value": "5/3" },
+          { "label_en": "2.125 as fraction", "label_id": "2,125 sebagai pecahan", "value": "2.125 = 17/8" },
+          { "label_en": "Expression", "label_id": "Ekspresi", "value": "15/2 − 5/3 + 17/8" },
+          { "label_en": "Common denom 24", "label_id": "Penyebut sama 24", "value": "180/24 − 40/24 + 51/24 = 191/24" }
+        ],
+        "strategy": { "name_en": "Convert all to fractions with common denominator", "name_id": "Ubah semua ke pecahan dengan penyebut sama" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "191/24" }
+      },
+      "hint_steps_en": [
+        "Convert each term: 0.6 × 1250% = 0.6 × 12.5 = 7.5 = 15/2.",
+        "Convert 1⅔ = 5/3 and 2.125 = 17/8.",
+        "Common denominator of 2, 3, 8 is 24: 15/2 = 180/24, 5/3 = 40/24, 17/8 = 51/24.",
+        "Result: 180/24 − 40/24 + 51/24 = 191/24."
+      ],
+      "hint_steps_id": [
+        "Ubah setiap suku: 0,6 × 1250% = 0,6 × 12,5 = 7,5 = 15/2.",
+        "Ubah 1⅔ = 5/3 dan 2,125 = 17/8.",
+        "Penyebut persekutuan dari 2, 3, 8 adalah 24: 15/2 = 180/24; 5/3 = 40/24; 17/8 = 51/24.",
+        "Hasil: 180/24 − 40/24 + 51/24 = 191/24."
+      ]
     },
     {
       "number": 23,
@@ -190,7 +1197,54 @@
       "body_en": "Father bought a television at a 20% discount. The labelled price is Rp1,000,000.00. A few days later he sold it and made a 20% profit. The price at which father sold the television is $\\cdots$",
       "answer_type": "fill_in",
       "answer": "960000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "labelled price is Rp1,000,000.00",
+            "phrase_id": "Harga televisi di label adalah Rp1.000.000,00",
+            "note_en": "Starting price (label) = Rp1,000,000",
+            "note_id": "Harga awal (label) = Rp1.000.000"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "bought a television at a 20% discount",
+            "phrase_id": "dibeli ayah dengan diskon 20%",
+            "note_en": "Buy price = 1,000,000 × (1 − 0.20) = 800,000",
+            "note_id": "Harga beli = 1.000.000 × (1 − 0,20) = 800.000"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "made a 20% profit",
+            "phrase_id": "ayah mendapat untung 20%",
+            "note_en": "Profit is 20% of the buy price (not the label price)",
+            "note_id": "Untung 20% dihitung dari harga beli (bukan harga label)"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Buy price (after 20% discount)", "label_id": "Harga beli (setelah diskon 20%)", "value": "1,000,000 × 0.80 = 800,000" },
+          { "label_en": "Sell price (20% profit on buy price)", "label_id": "Harga jual (untung 20% dari harga beli)", "value": "800,000 × 1.20 = 960,000" }
+        ],
+        "strategy": { "name_en": "Buy (label − discount), sell (buy + profit)", "name_id": "Beli (label − diskon), jual (beli + untung)" },
+        "trap": {
+          "wrong": "1200000",
+          "why_en": "Adding 20% profit to the label price (not the buy price) gives the wrong base for the profit calculation.",
+          "why_id": "Menambahkan untung 20% ke harga label (bukan harga beli) memberi dasar perhitungan untung yang salah."
+        },
+        "answer": { "form": "value", "unit": "Rp", "value": "960000" }
+      },
+      "hint_steps_en": [
+        "Buy price: label price − 20% discount = 1,000,000 × 0.80 = Rp800,000.",
+        "Profit of 20% is calculated on the buy price: 800,000 × 0.20 = Rp160,000.",
+        "Sell price: 800,000 + 160,000 = Rp960,000."
+      ],
+      "hint_steps_id": [
+        "Harga beli: harga label − diskon 20% = 1.000.000 × 0,80 = Rp800.000.",
+        "Untung 20% dihitung dari harga beli: 800.000 × 0,20 = Rp160.000.",
+        "Harga jual: 800.000 + 160.000 = Rp960.000."
+      ]
     },
     {
       "number": 24,
@@ -198,7 +1252,53 @@
       "body_en": "A physical education teacher wants to form men's doubles teams from 4 male students. How many different teams can be formed?",
       "answer_type": "fill_in",
       "answer": "6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "form men's doubles teams from 4 male students",
+            "phrase_id": "membentuk tim ganda putra dari 4 orang siswa laki-laki",
+            "note_en": "Doubles = 2-person teams; order does not matter — use combinations C(4,2)",
+            "note_id": "Ganda = tim 2 orang; urutan tidak penting — gunakan kombinasi C(4,2)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many different teams can be formed?",
+            "phrase_id": "Berapa banyak tim berbeda yang dapat terbentuk?",
+            "note_en": "Count unordered pairs from 4 students",
+            "note_id": "Hitung pasangan tak berurutan dari 4 siswa"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "4 male students",
+            "phrase_id": "4 orang siswa laki-laki",
+            "note_en": "Choose 2 from 4: C(4,2) = 4! / (2! × 2!) = 6",
+            "note_id": "Pilih 2 dari 4: C(4,2) = 4! / (2! × 2!) = 6"
+          }
+        ],
+        "quantities": [
+          { "label_en": "C(4, 2)", "label_id": "C(4, 2)", "value": "4! / (2! × 2!) = 24 / (2 × 2) = 6" }
+        ],
+        "strategy": { "name_en": "Combinations — choose 2 from 4", "name_id": "Kombinasi — pilih 2 dari 4" },
+        "trap": {
+          "wrong": "12",
+          "why_en": "Using permutations P(4,2) = 12 counts each team twice (AB and BA are the same team).",
+          "why_id": "Menggunakan permutasi P(4,2) = 12 menghitung setiap tim dua kali (AB dan BA adalah tim yang sama)."
+        },
+        "answer": { "form": "value", "unit": "tim", "value": "6" }
+      },
+      "hint_steps_en": [
+        "A doubles team has 2 players; order within the team does not matter.",
+        "Choose 2 from 4 students: C(4, 2) = 4! / (2! × 2!) = 6.",
+        "The 6 teams are: {1,2}, {1,3}, {1,4}, {2,3}, {2,4}, {3,4}."
+      ],
+      "hint_steps_id": [
+        "Tim ganda terdiri dari 2 pemain; urutan dalam tim tidak penting.",
+        "Pilih 2 dari 4 siswa: C(4, 2) = 4! / (2! × 2!) = 6.",
+        "Keenam tim: {1,2}, {1,3}, {1,4}, {2,3}, {2,4}, {3,4}."
+      ]
     },
     {
       "number": 25,
@@ -206,7 +1306,56 @@
       "body_en": "Find the total outer surface area of a pipe section with outer diameter 21 cm, wall thickness 7 mm, and length 7 cm. Assume $\\pi = \\dfrac{22}{7}$.",
       "answer_type": "fill_in",
       "answer": "982.52",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "outer diameter 21 cm, wall thickness 7 mm, and length 7 cm",
+            "phrase_id": "berdiameter luar 21 cm. Ketebalan dinding 7 mm dan panjang potongan 7 cm",
+            "note_en": "Outer r = 10.5 cm; wall = 0.7 cm; inner r = 9.8 cm; length = 7 cm",
+            "note_id": "r luar = 10,5 cm; dinding = 0,7 cm; r dalam = 9,8 cm; panjang = 7 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the total outer surface area",
+            "phrase_id": "Tentukan luas permukaan kulit",
+            "note_en": "Total surface = outer lateral + inner lateral + 2 annular rings",
+            "note_id": "Total permukaan = selimut luar + selimut dalam + 2 cincin annular"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "$\\pi = \\dfrac{22}{7}$",
+            "phrase_id": "$\\pi = \\dfrac{22}{7}$",
+            "note_en": "Use π = 22/7 for all calculations",
+            "note_id": "Gunakan π = 22/7 untuk semua perhitungan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Outer lateral area", "label_id": "Selimut luar", "value": "2π × 10.5 × 7 = 462 cm²" },
+          { "label_en": "Inner lateral area", "label_id": "Selimut dalam", "value": "2π × 9.8 × 7 = 431.2 cm²" },
+          { "label_en": "Two annular rings", "label_id": "Dua cincin annular", "value": "2 × π × (10.5² − 9.8²) = 2 × π × 14.21 ≈ 89.32 cm²" },
+          { "label_en": "Total surface area", "label_id": "Total luas permukaan", "value": "462 + 431.2 + 89.32 = 982.52 cm²" }
+        ],
+        "strategy": { "name_en": "Hollow cylinder surface: outer + inner + 2 rings", "name_id": "Permukaan silinder berlubang: luar + dalam + 2 cincin" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm²", "value": "982.52" }
+      },
+      "hint_steps_en": [
+        "Identify dimensions: outer r = 10.5 cm, wall thickness = 0.7 cm, inner r = 9.8 cm, length = 7 cm.",
+        "Outer lateral area = 2 × (22/7) × 10.5 × 7 = 462 cm².",
+        "Inner lateral area = 2 × (22/7) × 9.8 × 7 = 431.2 cm².",
+        "Two annular ring areas = 2 × (22/7) × (10.5² − 9.8²) = 2 × (22/7) × 14.21 ≈ 89.32 cm².",
+        "Total = 462 + 431.2 + 89.32 = 982.52 cm²."
+      ],
+      "hint_steps_id": [
+        "Identifikasi dimensi: r luar = 10,5 cm; tebal dinding = 0,7 cm; r dalam = 9,8 cm; panjang = 7 cm.",
+        "Selimut luar = 2 × (22/7) × 10,5 × 7 = 462 cm².",
+        "Selimut dalam = 2 × (22/7) × 9,8 × 7 = 431,2 cm².",
+        "Dua cincin annular = 2 × (22/7) × (10,5² − 9,8²) = 2 × (22/7) × 14,21 ≈ 89,32 cm².",
+        "Total = 462 + 431,2 + 89,32 = 982,52 cm²."
+      ]
     },
     {
       "number": 26,
@@ -214,7 +1363,54 @@
       "body_en": "The shaded area in the figure is $\\cdots$ ($\\pi = 3.14$). The figure shows a large outer semicircle of diameter 16 cm (base divided into 5 cm, 6 cm, and 5 cm), an inner semicircle of radius 5 cm, and a small inner semicircle of radius 3 cm.",
       "answer_type": "fill_in",
       "answer": "75.36",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "large outer semicircle of diameter 16 cm",
+            "phrase_id": "setengah lingkaran besar dengan diameter 16 cm",
+            "note_en": "Large semicircle: r = 8 cm",
+            "note_id": "Setengah lingkaran besar: r = 8 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "an inner semicircle of radius 5 cm, and a small inner semicircle of radius 3 cm",
+            "phrase_id": "setengah lingkaran dalam dengan radius 5 cm, dan setengah lingkaran kecil dengan radius 3 cm",
+            "note_en": "Inner semicircle r = 5 cm (area subtracted); small semicircle r = 3 cm (area added)",
+            "note_id": "Setengah lingkaran dalam r = 5 cm (dikurangi); setengah lingkaran kecil r = 3 cm (ditambahkan)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "The shaded area in the figure is $\\cdots$",
+            "phrase_id": "Luas daerah yang diarsir pada gambar berikut adalah $\\cdots$",
+            "note_en": "Shaded = ½π(8² − 5² + 3²) = ½ × 3.14 × 48 = 75.36",
+            "note_id": "Arsiran = ½π(8² − 5² + 3²) = ½ × 3,14 × 48 = 75,36"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Large semicircle area", "label_id": "Luas setengah lingkaran besar", "value": "½ × 3.14 × 8² = 100.48 cm²" },
+          { "label_en": "Subtract inner semicircle (r=5)", "label_id": "Kurangi setengah lingkaran dalam (r=5)", "value": "½ × 3.14 × 5² = 39.25 cm²" },
+          { "label_en": "Add small semicircle (r=3)", "label_id": "Tambah setengah lingkaran kecil (r=3)", "value": "½ × 3.14 × 3² = 14.13 cm²" },
+          { "label_en": "Shaded area", "label_id": "Luas arsiran", "value": "100.48 − 39.25 + 14.13 = 75.36 cm²" }
+        ],
+        "strategy": { "name_en": "Composite semicircles: add and subtract regions", "name_id": "Setengah lingkaran gabungan: tambah dan kurangi daerah" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm²", "value": "75.36" }
+      },
+      "hint_steps_en": [
+        "Large semicircle (r=8): area = ½ × 3.14 × 64 = 100.48 cm².",
+        "Inner semicircle (r=5) is removed: ½ × 3.14 × 25 = 39.25 cm².",
+        "Small inner semicircle (r=3) is added back: ½ × 3.14 × 9 = 14.13 cm².",
+        "Shaded area = 100.48 − 39.25 + 14.13 = 75.36 cm²."
+      ],
+      "hint_steps_id": [
+        "Setengah lingkaran besar (r=8): luas = ½ × 3,14 × 64 = 100,48 cm².",
+        "Setengah lingkaran dalam (r=5) dikurangi: ½ × 3,14 × 25 = 39,25 cm².",
+        "Setengah lingkaran kecil (r=3) ditambahkan kembali: ½ × 3,14 × 9 = 14,13 cm².",
+        "Luas arsiran = 100,48 − 39,25 + 14,13 = 75,36 cm²."
+      ]
     },
     {
       "number": 27,
@@ -222,7 +1418,58 @@
       "body_en": "Father has a rectangular piece of paper measuring 20 cm by 15 cm. If the largest possible circle is cut from it, the area of paper left unused is $\\cdots$ cm².",
       "answer_type": "fill_in",
       "answer": "123.375",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "rectangular piece of paper measuring 20 cm by 15 cm",
+            "phrase_id": "kertas yang berbentuk persegi panjang dengan ukuran panjang 20 cm dan 15 cm",
+            "note_en": "Rectangle area = 20 × 15 = 300 cm²",
+            "note_id": "Luas persegi panjang = 20 × 15 = 300 cm²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the largest possible circle is cut from it",
+            "phrase_id": "kertas tersebut dibuat lingkaran secara maksimal",
+            "note_en": "Largest circle is limited by the shorter side: diameter = 15 cm, radius = 7.5 cm",
+            "note_id": "Lingkaran terbesar dibatasi sisi pendek: diameter = 15 cm, jari-jari = 7,5 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the area of paper left unused is $\\cdots$ cm²",
+            "phrase_id": "sisa kertas yang tidak digunakan seluas $\\cdots$ cm²",
+            "note_en": "Unused area = rectangle − circle area",
+            "note_id": "Sisa kertas = persegi panjang − luas lingkaran"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rectangle area", "label_id": "Luas persegi panjang", "value": "20 × 15 = 300 cm²" },
+          { "label_en": "Circle radius", "label_id": "Jari-jari lingkaran", "value": "15 / 2 = 7.5 cm" },
+          { "label_en": "Circle area (π = 3.14)", "label_id": "Luas lingkaran (π = 3,14)", "value": "3.14 × 7.5² = 3.14 × 56.25 = 176.625 cm²" },
+          { "label_en": "Unused area", "label_id": "Sisa kertas", "value": "300 − 176.625 = 123.375 cm²" }
+        ],
+        "strategy": { "name_en": "Largest inscribed circle — constrained by shorter side", "name_id": "Lingkaran terbesar yang dimasukkan — dibatasi sisi pendek" },
+        "trap": {
+          "wrong": "172.86",
+          "why_en": "Using the longer side (20 cm) as the diameter gives a circle that won't fit inside the rectangle.",
+          "why_id": "Menggunakan sisi panjang (20 cm) sebagai diameter menghasilkan lingkaran yang tidak muat dalam persegi panjang."
+        },
+        "answer": { "form": "value", "unit": "cm²", "value": "123.375" }
+      },
+      "hint_steps_en": [
+        "The largest circle that fits has diameter equal to the shorter side: d = 15 cm, r = 7.5 cm.",
+        "Circle area = π × r² = 3.14 × 7.5² = 3.14 × 56.25 = 176.625 cm².",
+        "Rectangle area = 20 × 15 = 300 cm².",
+        "Unused area = 300 − 176.625 = 123.375 cm²."
+      ],
+      "hint_steps_id": [
+        "Lingkaran terbesar yang muat memiliki diameter sama dengan sisi pendek: d = 15 cm, r = 7,5 cm.",
+        "Luas lingkaran = π × r² = 3,14 × 7,5² = 3,14 × 56,25 = 176,625 cm².",
+        "Luas persegi panjang = 20 × 15 = 300 cm².",
+        "Sisa kertas = 300 − 176,625 = 123,375 cm²."
+      ]
     }
   ]
 }

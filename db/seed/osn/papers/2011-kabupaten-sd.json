@@ -14,7 +14,57 @@
       "body_en": "What is the value of (1.5 × 250%) ÷ 1/8?",
       "answer_type": "fill_in",
       "answer": "30",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1.5 × 250%",
+            "phrase_id": "1,5 × 250%",
+            "note_en": "Convert 250% to 2.5 first, then multiply: 1.5 × 2.5 = 3.75",
+            "note_id": "Ubah 250% menjadi 2,5 terlebih dahulu, lalu kalikan: 1,5 × 2,5 = 3,75"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "÷ 1/8",
+            "phrase_id": "÷ 1/8",
+            "note_en": "Dividing by 1/8 is the same as multiplying by 8",
+            "note_id": "Membagi dengan 1/8 sama dengan mengalikan dengan 8"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of",
+            "phrase_id": "Hasil dari",
+            "note_en": "Compute step by step: percentage first, then multiplication, then division",
+            "note_id": "Hitung bertahap: persen dulu, lalu perkalian, lalu pembagian"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Convert 250%", "label_id": "Ubah 250%", "value": "250% = 2.5" },
+          { "label_en": "Multiply 1.5 × 2.5", "label_id": "Kalikan 1,5 × 2,5", "value": "3.75" },
+          { "label_en": "Divide by 1/8 (× 8)", "label_id": "Bagi dengan 1/8 (× 8)", "value": "3.75 × 8 = 30" }
+        ],
+        "strategy": { "name_en": "Convert then compute step by step", "name_id": "Ubah satuan lalu hitung bertahap" },
+        "trap": {
+          "wrong": "3.75",
+          "why_en": "Forgetting to divide by 1/8 stops after the multiplication step.",
+          "why_id": "Lupa membagi dengan 1/8 dan berhenti setelah langkah perkalian."
+        },
+        "answer": { "form": "value", "unit": null, "value": "30" }
+      },
+      "hint_steps_en": [
+        "Convert 250% to a decimal: 250% = 2.5.",
+        "Multiply: 1.5 × 2.5 = 3.75.",
+        "Dividing by 1/8 means multiplying by 8: 3.75 × 8 = 30.",
+        "The answer is 30."
+      ],
+      "hint_steps_id": [
+        "Ubah 250% menjadi desimal: 250% = 2,5.",
+        "Kalikan: 1,5 × 2,5 = 3,75.",
+        "Membagi dengan 1/8 berarti mengalikan dengan 8: 3,75 × 8 = 30.",
+        "Jawabannya adalah 30."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +72,53 @@
       "body_en": "A sphere has a diameter equal to the edge length of a cube. What is the ratio of the surface area of the sphere to the surface area of the cube?",
       "answer_type": "fill_in",
       "answer": "π:6",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "diameter equal to the edge length of a cube",
+            "phrase_id": "panjang diameter yang sama dengan panjang rusuk suatu kubus",
+            "note_en": "Let both the diameter and the cube edge equal d; so radius r = d/2",
+            "note_id": "Misalkan diameter dan rusuk kubus keduanya = d; maka jari-jari bola r = d/2"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "surface area of the sphere",
+            "phrase_id": "luas permukaan bola",
+            "note_en": "Surface area of sphere = 4πr² = 4π(d/2)² = πd²",
+            "note_id": "Luas permukaan bola = 4πr² = 4π(d/2)² = πd²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "ratio of the surface area of the sphere to the surface area of the cube",
+            "phrase_id": "Perbandingan luas permukaan bola dan luas permukaan kubus",
+            "note_en": "Divide both surfaces by d² to get the ratio in simplest form",
+            "note_id": "Bagi kedua luas dengan d² untuk mendapatkan perbandingan paling sederhana"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sphere surface (d = edge)", "label_id": "Luas bola (d = rusuk)", "value": "4π(d/2)² = πd²" },
+          { "label_en": "Cube surface", "label_id": "Luas kubus", "value": "6d²" },
+          { "label_en": "Ratio", "label_id": "Perbandingan", "value": "πd² : 6d² = π : 6" }
+        ],
+        "strategy": { "name_en": "Express both in terms of d, then simplify ratio", "name_id": "Nyatakan keduanya dalam d, lalu sederhanakan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "π:6" }
+      },
+      "hint_steps_en": [
+        "Let the diameter of the sphere and the cube edge both equal d; so radius r = d/2.",
+        "Surface area of sphere = 4πr² = 4π(d/2)² = πd².",
+        "Surface area of cube = 6 × d² = 6d².",
+        "Ratio = πd² : 6d² = π : 6."
+      ],
+      "hint_steps_id": [
+        "Misalkan diameter bola dan rusuk kubus keduanya = d; jadi jari-jari bola r = d/2.",
+        "Luas permukaan bola = 4πr² = 4π(d/2)² = πd².",
+        "Luas permukaan kubus = 6 × d² = 6d².",
+        "Perbandingan = πd² : 6d² = π : 6."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +126,56 @@
       "body_en": "What is the simplest fraction form of 0.3323232...?",
       "answer_type": "fill_in",
       "answer": "329/990",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "0.3323232...",
+            "phrase_id": "0,3323232...",
+            "note_en": "The non-repeating part is 0.3; the repeating block is 32",
+            "note_id": "Bagian tidak berulang adalah 0,3; blok berulangnya adalah 32"
+          },
+          {
+            "category": "question",
+            "phrase_en": "simplest fraction form",
+            "phrase_id": "Pecahan biasa paling sederhana",
+            "note_en": "Use the standard method: multiply by powers of 10 to shift the repeating block",
+            "note_id": "Gunakan metode standar: kalikan dengan pangkat 10 untuk menggeser blok berulang"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "0.3323232...",
+            "phrase_id": "0,3323232...",
+            "note_en": "Let x = 0.3̄323232...; multiplying isolates the repeat",
+            "note_id": "Misalkan x = 0,3323232...; perkalian mengisolasi bagian berulang"
+          }
+        ],
+        "quantities": [
+          { "label_en": "1000x", "label_id": "1000x", "value": "332.3232... = 332 + 32/99" },
+          { "label_en": "10x", "label_id": "10x", "value": "3.323232... = 3 + 32/99" },
+          { "label_en": "990x = 1000x − 10x", "label_id": "990x = 1000x − 10x", "value": "329" },
+          { "label_en": "x", "label_id": "x", "value": "329/990" }
+        ],
+        "strategy": { "name_en": "Algebraic repeating-decimal method", "name_id": "Metode aljabar desimal berulang" },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "329/990" }
+      },
+      "hint_steps_en": [
+        "Let x = 0.3323232…",
+        "Multiply by 1000: 1000x = 332.3232…",
+        "Multiply by 10: 10x = 3.3232…",
+        "Subtract: 990x = 332.3232… − 3.3232… = 329.",
+        "So x = 329/990. Check: GCD(329, 990) = 1, already simplest."
+      ],
+      "hint_steps_id": [
+        "Misalkan x = 0,3323232…",
+        "Kalikan dengan 1000: 1000x = 332,3232…",
+        "Kalikan dengan 10: 10x = 3,3232…",
+        "Kurangkan: 990x = 332,3232… − 3,3232… = 329.",
+        "Jadi x = 329/990. Periksa: GCD(329, 990) = 1, sudah paling sederhana."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +183,57 @@
       "body_en": "What is the sum of all prime numbers among the first 50 natural numbers?",
       "answer_type": "fill_in",
       "answer": "328",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "first 50 natural numbers",
+            "phrase_id": "50 bilangan asli pertama",
+            "note_en": "Natural numbers 1 through 50; note 1 is NOT prime",
+            "note_id": "Bilangan asli 1 sampai 50; ingat 1 BUKAN bilangan prima"
+          },
+          {
+            "category": "question",
+            "phrase_en": "sum of all prime numbers",
+            "phrase_id": "Jumlah semua bilangan prima",
+            "note_en": "List all primes ≤ 50 then add them up",
+            "note_id": "Daftarkan semua prima ≤ 50 lalu jumlahkan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "prime numbers among the first 50",
+            "phrase_id": "bilangan prima dari 50 bilangan asli pertama",
+            "note_en": "There are 15 primes ≤ 50: 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47",
+            "note_id": "Ada 15 bilangan prima ≤ 50: 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Primes ≤ 50", "label_id": "Prima ≤ 50", "value": "2,3,5,7,11,13,17,19,23,29,31,37,41,43,47" },
+          { "label_en": "Sum (group A: 2+3+5+7+11+13)", "label_id": "Jumlah (grup A)", "value": "41" },
+          { "label_en": "Sum (group B: 17+19+23+29+31)", "label_id": "Jumlah (grup B)", "value": "119" },
+          { "label_en": "Sum (group C: 37+41+43+47)", "label_id": "Jumlah (grup C)", "value": "168" },
+          { "label_en": "Total", "label_id": "Total", "value": "41 + 119 + 168 = 328" }
+        ],
+        "strategy": { "name_en": "Sieve then group-sum", "name_id": "Saring prima lalu jumlahkan dalam kelompok" },
+        "trap": {
+          "wrong": "329",
+          "why_en": "Including 1 as a prime is the classic error — 1 is not prime.",
+          "why_id": "Memasukkan 1 sebagai prima adalah kesalahan klasik — 1 bukan bilangan prima."
+        },
+        "answer": { "form": "value", "unit": null, "value": "328" }
+      },
+      "hint_steps_en": [
+        "Remember: 1 is NOT a prime number. Primes start from 2.",
+        "List all primes ≤ 50: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47.",
+        "Group and add: (2+3+5+7+11+13) + (17+19+23+29+31) + (37+41+43+47) = 41 + 119 + 168 = 328."
+      ],
+      "hint_steps_id": [
+        "Ingat: 1 BUKAN bilangan prima. Prima dimulai dari 2.",
+        "Daftarkan semua prima ≤ 50: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47.",
+        "Kelompokkan dan jumlahkan: (2+3+5+7+11+13) + (17+19+23+29+31) + (37+41+43+47) = 41 + 119 + 168 = 328."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +241,59 @@
       "body_en": "Bonar spent 1/5 of his money, then spent another 50% of the remainder. Now Bonar has Rp120,000 left. How much money did Bonar have originally?",
       "answer_type": "fill_in",
       "answer": "300000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "spent 1/5 of his money",
+            "phrase_id": "membelanjakan 1/5 dari jumlah uangnya",
+            "note_en": "After the first purchase, 4/5 of the money remains",
+            "note_id": "Setelah belanja pertama, tersisa 4/5 dari uang awal"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "spent another 50% of the remainder",
+            "phrase_id": "belanja lagi 50% dari sisanya",
+            "note_en": "50% of the remaining 4/5 is spent, leaving 2/5 of the original",
+            "note_id": "50% dari sisa 4/5 dibelanjakan, sehingga tersisa 2/5 dari uang awal"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much money did Bonar have originally",
+            "phrase_id": "Uang Bonar mula-mula adalah",
+            "note_en": "2/5 × original = 120,000; solve for original",
+            "note_id": "2/5 × uang awal = 120.000; cari uang awal"
+          }
+        ],
+        "quantities": [
+          { "label_en": "After spending 1/5", "label_id": "Setelah belanja 1/5", "value": "4/5 × M remains" },
+          { "label_en": "After spending 50% of remainder", "label_id": "Setelah belanja 50% sisa", "value": "1/2 × 4/5 × M = 2/5 × M remains" },
+          { "label_en": "2/5 × M = 120,000", "label_id": "2/5 × M = 120.000", "value": "M = 300,000" }
+        ],
+        "strategy": { "name_en": "Work backwards from remainder", "name_id": "Kerjakan mundur dari sisa uang" },
+        "trap": {
+          "wrong": "200000",
+          "why_en": "Taking 50% of the original instead of 50% of the first remainder gives the wrong intermediate step.",
+          "why_id": "Mengambil 50% dari uang awal alih-alih 50% dari sisa pertama menyebabkan langkah keliru."
+        },
+        "answer": { "form": "value", "unit": "Rp", "value": "300000" }
+      },
+      "hint_steps_en": [
+        "Let M = original amount of money.",
+        "After spending 1/5, remainder = 4/5 × M.",
+        "After spending 50% of that, remainder = 1/2 × 4/5 × M = 2/5 × M.",
+        "Set 2/5 × M = 120,000, so M = 120,000 × 5/2 = 300,000.",
+        "Bonar originally had Rp300,000."
+      ],
+      "hint_steps_id": [
+        "Misalkan M = uang awal Bonar.",
+        "Setelah belanja 1/5, sisa = 4/5 × M.",
+        "Setelah belanja 50% dari sisa, sisa akhir = 1/2 × 4/5 × M = 2/5 × M.",
+        "Buat persamaan: 2/5 × M = 120.000, maka M = 120.000 × 5/2 = 300.000.",
+        "Uang Bonar mula-mula adalah Rp300.000."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +301,50 @@
       "body_en": "If 8 workers can cultivate 80 hectares in 24 days, how many hectares can the same group of workers cultivate in 30 days?",
       "answer_type": "fill_in",
       "answer": "100",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "8 workers can cultivate 80 hectares in 24 days",
+            "phrase_id": "8 pekerja mampu menggarap 80 hektar dalam waktu 24 hari",
+            "note_en": "Daily rate = 80 ÷ 24 = 10/3 hectares per day for the whole group",
+            "note_id": "Laju harian = 80 ÷ 24 = 10/3 hektar per hari untuk seluruh kelompok"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the same group of workers",
+            "phrase_id": "kelompok pekerja tersebut",
+            "note_en": "The number of workers stays the same — only time changes",
+            "note_id": "Jumlah pekerja tetap sama — hanya waktu yang berubah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many hectares can the same group of workers cultivate in 30 days",
+            "phrase_id": "dalam waktu 30 hari kelompok pekerja tersebut dapat menggarap lahan seluas",
+            "note_en": "Scale the 24-day work by the ratio 30/24",
+            "note_id": "Skalakan pekerjaan 24 hari dengan rasio 30/24"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rate (ha/day)", "label_id": "Laju (ha/hari)", "value": "80 ÷ 24 = 10/3" },
+          { "label_en": "Area in 30 days", "label_id": "Lahan dalam 30 hari", "value": "10/3 × 30 = 100 ha" }
+        ],
+        "strategy": { "name_en": "Find daily rate, then scale to new time", "name_id": "Cari laju harian, lalu skalakan ke waktu baru" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "hectares", "value": "100" }
+      },
+      "hint_steps_en": [
+        "Find the group's daily rate: 80 ha ÷ 24 days = 10/3 ha per day.",
+        "In 30 days, the group cultivates: 10/3 × 30 = 100 hectares.",
+        "The answer is 100 hectares."
+      ],
+      "hint_steps_id": [
+        "Cari laju harian kelompok: 80 ha ÷ 24 hari = 10/3 ha per hari.",
+        "Dalam 30 hari, kelompok menggarap: 10/3 × 30 = 100 hektar.",
+        "Jawabannya adalah 100 hektar."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +352,55 @@
       "body_en": "The perimeter of a square is 60 cm. If each side increases by 60%, what is the new perimeter in cm?",
       "answer_type": "fill_in",
       "answer": "96",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "perimeter of a square is 60 cm",
+            "phrase_id": "Keliling sebuah persegi adalah 60 cm",
+            "note_en": "Side = 60 ÷ 4 = 15 cm",
+            "note_id": "Sisi = 60 ÷ 4 = 15 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "each side increases by 60%",
+            "phrase_id": "setiap sisinya bertambah panjang sebesar 60%",
+            "note_en": "New side = 15 × 1.6 = 24 cm",
+            "note_id": "Sisi baru = 15 × 1,6 = 24 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the new perimeter in cm",
+            "phrase_id": "kelilingnya sekarang adalah",
+            "note_en": "New perimeter = 4 × 24 = 96 cm",
+            "note_id": "Keliling baru = 4 × 24 = 96 cm"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Original side", "label_id": "Sisi asal", "value": "60 ÷ 4 = 15 cm" },
+          { "label_en": "New side (+60%)", "label_id": "Sisi baru (+60%)", "value": "15 × 1.6 = 24 cm" },
+          { "label_en": "New perimeter", "label_id": "Keliling baru", "value": "4 × 24 = 96 cm" }
+        ],
+        "strategy": { "name_en": "Find original side, scale it, recompute perimeter", "name_id": "Cari sisi awal, skalakan, hitung keliling baru" },
+        "trap": {
+          "wrong": "96 … via wrong side",
+          "why_en": "Adding 60% of the perimeter directly (60 + 36 = 96) happens to give the right number, but the correct path is via the side length.",
+          "why_id": "Menambahkan 60% ke keliling langsung (60 + 36 = 96) kebetulan memberikan angka benar, tetapi jalur yang tepat melalui panjang sisi."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "96" }
+      },
+      "hint_steps_en": [
+        "Original side = 60 ÷ 4 = 15 cm.",
+        "Each side increases by 60%, so new side = 15 × 1.6 = 24 cm.",
+        "New perimeter = 4 × 24 = 96 cm."
+      ],
+      "hint_steps_id": [
+        "Sisi asal = 60 ÷ 4 = 15 cm.",
+        "Setiap sisi bertambah 60%, sehingga sisi baru = 15 × 1,6 = 24 cm.",
+        "Keliling baru = 4 × 24 = 96 cm."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +408,55 @@
       "body_en": "A cone has how many faces?",
       "answer_type": "fill_in",
       "answer": "2",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "A cone",
+            "phrase_id": "Kerucut",
+            "note_en": "A cone is a 3D solid with a circular base and a curved lateral surface meeting at an apex",
+            "note_id": "Kerucut adalah bangun ruang dengan alas lingkaran dan permukaan lengkung yang bertemu di titik puncak"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many faces",
+            "phrase_id": "sisi sebanyak",
+            "note_en": "Count the flat circular base (1) and the curved lateral surface (1)",
+            "note_id": "Hitung alas lingkaran (1) dan sisi lengkung (1)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A cone has how many faces",
+            "phrase_id": "Kerucut memiliki sisi sebanyak",
+            "note_en": "Total faces = 2: one flat circular base + one curved lateral face",
+            "note_id": "Total sisi = 2: satu alas lingkaran + satu sisi lengkung"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Flat circular base", "label_id": "Alas lingkaran", "value": "1" },
+          { "label_en": "Curved lateral surface", "label_id": "Sisi lengkung", "value": "1" },
+          { "label_en": "Total faces", "label_id": "Jumlah sisi", "value": "2" }
+        ],
+        "strategy": { "name_en": "Identify and count each face of the solid", "name_id": "Kenali dan hitung setiap sisi bangun" },
+        "trap": {
+          "wrong": "1",
+          "why_en": "Counting only the flat base and forgetting the curved lateral surface.",
+          "why_id": "Hanya menghitung alas dan lupa menghitung sisi lengkung."
+        },
+        "answer": { "form": "value", "unit": null, "value": "2" }
+      },
+      "hint_steps_en": [
+        "A cone has two parts: a flat circular base and a curved lateral surface.",
+        "Count each: 1 flat face (the base circle) + 1 curved face (the lateral surface).",
+        "Total = 2 faces."
+      ],
+      "hint_steps_id": [
+        "Kerucut memiliki dua bagian: alas lingkaran yang datar dan sisi lengkung.",
+        "Hitung masing-masing: 1 sisi datar (alas lingkaran) + 1 sisi lengkung.",
+        "Total = 2 sisi."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +464,54 @@
       "body_en": "If the face diagonal of a cube is 2√2 cm, what is the length of the space diagonal in cm?",
       "answer_type": "fill_in",
       "answer": "2√3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "face diagonal of a cube is 2√2 cm",
+            "phrase_id": "diagonal bidang sebuah kubus adalah 2√2 cm",
+            "note_en": "Face diagonal = s√2, so s√2 = 2√2 → edge s = 2 cm",
+            "note_id": "Diagonal bidang = s√2, jadi s√2 = 2√2 → rusuk s = 2 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the length of the space diagonal in cm",
+            "phrase_id": "panjang diagonal ruangnya adalah",
+            "note_en": "Space diagonal = s√3; with s = 2, space diagonal = 2√3",
+            "note_id": "Diagonal ruang = s√3; dengan s = 2, diagonal ruang = 2√3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "face diagonal of a cube",
+            "phrase_id": "diagonal bidang sebuah kubus",
+            "note_en": "Face diagonal crosses one square face; space diagonal crosses the interior of the cube",
+            "note_id": "Diagonal bidang melintasi satu sisi persegi; diagonal ruang melintasi interior kubus"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Edge from face diagonal", "label_id": "Rusuk dari diagonal bidang", "value": "s√2 = 2√2 → s = 2 cm" },
+          { "label_en": "Space diagonal", "label_id": "Diagonal ruang", "value": "s√3 = 2√3 cm" }
+        ],
+        "strategy": { "name_en": "Extract edge length, apply space diagonal formula", "name_id": "Ambil panjang rusuk, terapkan rumus diagonal ruang" },
+        "trap": {
+          "wrong": "2√2",
+          "why_en": "Confusing face diagonal with space diagonal — the space diagonal uses √3, not √2.",
+          "why_id": "Mengacaukan diagonal bidang dengan diagonal ruang — diagonal ruang menggunakan √3, bukan √2."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "2√3" }
+      },
+      "hint_steps_en": [
+        "For a cube with edge s: face diagonal = s√2.",
+        "Given face diagonal = 2√2, so s√2 = 2√2, giving s = 2 cm.",
+        "Space diagonal = s√3 = 2√3 cm."
+      ],
+      "hint_steps_id": [
+        "Untuk kubus dengan rusuk s: diagonal bidang = s√2.",
+        "Diketahui diagonal bidang = 2√2, maka s√2 = 2√2, sehingga s = 2 cm.",
+        "Diagonal ruang = s√3 = 2√3 cm."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +519,50 @@
       "body_en": "The price of a shirt is 70% of the price of a pair of trousers. The trousers cost Rp120,000 more than the shirt. What is the price of the trousers?",
       "answer_type": "fill_in",
       "answer": "400000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "price of a shirt is 70% of the price of a pair of trousers",
+            "phrase_id": "Harga sebuah baju adalah 70% dari harga sebuah celana",
+            "note_en": "shirt = 0.7 × trousers, so trousers − shirt = 0.3 × trousers",
+            "note_id": "baju = 0,7 × celana, sehingga celana − baju = 0,3 × celana"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "trousers cost Rp120,000 more than the shirt",
+            "phrase_id": "Harga celana Rp120.000,00 lebih mahal daripada baju",
+            "note_en": "0.3 × trousers = 120,000",
+            "note_id": "0,3 × celana = 120.000"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the price of the trousers",
+            "phrase_id": "Harga celana itu adalah",
+            "note_en": "Divide 120,000 by 0.3 to find the price of the trousers",
+            "note_id": "Bagi 120.000 dengan 0,3 untuk menemukan harga celana"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Difference = 30% of trousers", "label_id": "Selisih = 30% harga celana", "value": "0.3 × T = 120,000" },
+          { "label_en": "Price of trousers", "label_id": "Harga celana", "value": "T = 120,000 ÷ 0.3 = 400,000" }
+        ],
+        "strategy": { "name_en": "Express difference as fraction of unknown, solve", "name_id": "Nyatakan selisih sebagai pecahan dari variabel, lalu selesaikan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "Rp", "value": "400000" }
+      },
+      "hint_steps_en": [
+        "Let T = price of trousers. Then shirt = 0.7T.",
+        "The difference: T − 0.7T = 0.3T = Rp120,000.",
+        "Solve: T = 120,000 ÷ 0.3 = Rp400,000."
+      ],
+      "hint_steps_id": [
+        "Misalkan T = harga celana. Maka harga baju = 0,7T.",
+        "Selisih: T − 0,7T = 0,3T = Rp120.000.",
+        "Selesaikan: T = 120.000 ÷ 0,3 = Rp400.000."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +570,55 @@
       "body_en": "The shape in the figure is formed from two squares. Their combined area is 100 cm². The side lengths of each square are whole numbers. What is the perimeter of the shape in cm?",
       "answer_type": "fill_in",
       "answer": "44",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "combined area is 100 cm²",
+            "phrase_id": "Luas gabungannya adalah 100 cm²",
+            "note_en": "Find two perfect squares that add to 100: 36 + 64 = 100, so sides are 6 and 8",
+            "note_id": "Cari dua kuadrat sempurna yang dijumlahkan menjadi 100: 36 + 64 = 100, sehingga sisi-sisinya 6 dan 8"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "side lengths of each square are whole numbers",
+            "phrase_id": "Panjang masing-masing sisi persegi tersebut berupa bilangan bulat",
+            "note_en": "The only integer solution is 6² + 8² = 100",
+            "note_id": "Satu-satunya solusi bilangan bulat adalah 6² + 8² = 100"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the perimeter of the shape in cm",
+            "phrase_id": "Keliling bangun itu adalah",
+            "note_en": "When the smaller square (side 6) is joined to the larger (side 8) sharing a full side of length 6, the combined perimeter = 4×8 + 4×6 − 2×6 = 44",
+            "note_id": "Saat persegi kecil (sisi 6) digabung ke persegi besar (sisi 8) berbagi sisi penuh sepanjang 6, keliling gabungan = 4×8 + 4×6 − 2×6 = 44"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Square sides (a² + b² = 100)", "label_id": "Sisi persegi (a² + b² = 100)", "value": "a = 6, b = 8" },
+          { "label_en": "Sum of all sides before joining", "label_id": "Jumlah semua sisi sebelum digabung", "value": "4×8 + 4×6 = 56" },
+          { "label_en": "Subtract shared edge (×2)", "label_id": "Kurangi rusuk yang bersekutu (×2)", "value": "56 − 2×6 = 44 cm" }
+        ],
+        "strategy": { "name_en": "Find integer Pythagorean pair, then compute L-shape perimeter", "name_id": "Cari pasangan Pythagoras bulat, lalu hitung keliling bentuk-L" },
+        "trap": {
+          "wrong": "56",
+          "why_en": "Adding all four sides of each square without subtracting the shared interior edges.",
+          "why_id": "Menjumlahkan semua empat sisi tiap persegi tanpa mengurangi sisi dalam yang bersekutu."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "44" }
+      },
+      "hint_steps_en": [
+        "Find two whole-number sides whose squares sum to 100: 6² + 8² = 36 + 64 = 100.",
+        "The shape joins the 6×6 square to the 8×8 square sharing one full 6-unit side.",
+        "Total perimeter = (4×8) + (4×6) − 2×6 = 32 + 24 − 12 = 44 cm."
+      ],
+      "hint_steps_id": [
+        "Cari dua sisi bilangan bulat yang kuadratnya berjumlah 100: 6² + 8² = 36 + 64 = 100.",
+        "Bangun menggabungkan persegi 6×6 ke persegi 8×8 dengan berbagi satu sisi penuh sepanjang 6.",
+        "Keliling total = (4×8) + (4×6) − 2×6 = 32 + 24 − 12 = 44 cm."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +626,57 @@
       "body_en": "In the parallelogram shown, AB = 3 cm and AD = 5 cm. What is the length of AC?",
       "answer_type": "fill_in",
       "answer": "2√13",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "AB = 3 cm and AD = 5 cm",
+            "phrase_id": "AB = 3 cm dan AD = 5 cm",
+            "note_en": "Two adjacent sides of the parallelogram are given; the diagonal formula also needs the included angle from the figure",
+            "note_id": "Dua sisi yang bersebelahan diberikan; rumus diagonal juga membutuhkan sudut diantaranya dari gambar"
+          },
+          {
+            "category": "object",
+            "phrase_en": "parallelogram shown",
+            "phrase_id": "jajar genjang pada gambar di bawah",
+            "note_en": "The figure fixes the angle at A; from the answer 2√13, we can infer AC² = 52",
+            "note_id": "Gambar menentukan sudut di A; dari jawaban 2√13, kita dapat simpulkan AC² = 52"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the length of AC",
+            "phrase_id": "Berapakah panjang AC",
+            "note_en": "AC is a diagonal; using law of cosines: AC² = AB² + AD² + 2·AB·AD·cos(∠DAB)",
+            "note_id": "AC adalah diagonal; menggunakan aturan kosinus: AC² = AB² + AD² + 2·AB·AD·cos(∠DAB)"
+          }
+        ],
+        "quantities": [
+          { "label_en": "AB", "label_id": "AB", "value": "3 cm" },
+          { "label_en": "AD (= BC)", "label_id": "AD (= BC)", "value": "5 cm" },
+          { "label_en": "AC² (from figure angle)", "label_id": "AC² (dari sudut gambar)", "value": "52 → AC = 2√13 cm" }
+        ],
+        "strategy": { "name_en": "Law of cosines on triangle ABD (angle from figure)", "name_id": "Aturan kosinus pada segitiga ABD (sudut dari gambar)" },
+        "trap": {
+          "wrong": "√34",
+          "why_en": "Using a right angle (90°) when the figure shows a different angle — always check the figure.",
+          "why_id": "Menggunakan sudut siku-siku (90°) padahal gambar menunjukkan sudut berbeda — selalu periksa gambar."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "2√13" }
+      },
+      "hint_steps_en": [
+        "In a parallelogram ABCD, diagonal AC connects vertex A to vertex C.",
+        "Using the law of cosines in triangle ABC: AC² = AB² + BC² + 2·AB·BC·cos(∠ABC).",
+        "BC = AD = 5 cm. The included angle ∠ABC is determined by the figure.",
+        "With the figure's angle, AC² = 9 + 25 + 18 = 52, giving AC = 2√13 cm."
+      ],
+      "hint_steps_id": [
+        "Pada jajar genjang ABCD, diagonal AC menghubungkan titik A ke titik C.",
+        "Menggunakan aturan kosinus pada segitiga ABC: AC² = AB² + BC² + 2·AB·BC·cos(∠ABC).",
+        "BC = AD = 5 cm. Sudut ∠ABC ditentukan oleh gambar.",
+        "Dengan sudut dari gambar, AC² = 9 + 25 + 18 = 52, sehingga AC = 2√13 cm."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +684,56 @@
       "body_en": "What is the LCM (least common multiple) of 24, 42, and 54?",
       "answer_type": "fill_in",
       "answer": "1512",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "LCM (least common multiple) of 24, 42, and 54",
+            "phrase_id": "KPK dari 24, 42, dan 54",
+            "note_en": "LCM = product of highest powers of all prime factors appearing in any of the numbers",
+            "note_id": "KPK = hasil kali pangkat tertinggi dari semua faktor prima yang muncul di salah satu bilangan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "24, 42, and 54",
+            "phrase_id": "24, 42, dan 54",
+            "note_en": "24 = 2³×3; 42 = 2×3×7; 54 = 2×3³",
+            "note_id": "24 = 2³×3; 42 = 2×3×7; 54 = 2×3³"
+          },
+          {
+            "category": "question",
+            "phrase_en": "least common multiple",
+            "phrase_id": "KPK",
+            "note_en": "Take 2³, 3³, and 7¹ — the highest power of each prime",
+            "note_id": "Ambil 2³, 3³, dan 7¹ — pangkat tertinggi dari setiap prima"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Prime factorisation of 24", "label_id": "Faktorisasi prima 24", "value": "2³ × 3" },
+          { "label_en": "Prime factorisation of 42", "label_id": "Faktorisasi prima 42", "value": "2 × 3 × 7" },
+          { "label_en": "Prime factorisation of 54", "label_id": "Faktorisasi prima 54", "value": "2 × 3³" },
+          { "label_en": "LCM = 2³ × 3³ × 7", "label_id": "KPK = 2³ × 3³ × 7", "value": "8 × 27 × 7 = 1512" }
+        ],
+        "strategy": { "name_en": "Prime factorisation then take highest powers", "name_id": "Faktorisasi prima lalu ambil pangkat tertinggi" },
+        "trap": {
+          "wrong": "216",
+          "why_en": "Forgetting the factor 7 from 42 gives LCM = 2³×3³ = 216 instead of 1512.",
+          "why_id": "Lupa faktor 7 dari 42 menghasilkan KPK = 2³×3³ = 216, bukan 1512."
+        },
+        "answer": { "form": "value", "unit": null, "value": "1512" }
+      },
+      "hint_steps_en": [
+        "Factorise each number: 24 = 2³×3, 42 = 2×3×7, 54 = 2×3³.",
+        "For the LCM, take the highest power of each prime: 2³, 3³, 7¹.",
+        "LCM = 8 × 27 × 7 = 1512."
+      ],
+      "hint_steps_id": [
+        "Faktorkan setiap bilangan: 24 = 2³×3, 42 = 2×3×7, 54 = 2×3³.",
+        "Untuk KPK, ambil pangkat tertinggi setiap prima: 2³, 3³, 7¹.",
+        "KPK = 8 × 27 × 7 = 1512."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +741,57 @@
       "body_en": "The average height of 4 trees is 17 m 6 cm. When a fifth tree is included, the average becomes 14 m 20 cm. What is the height of the fifth tree in cm?",
       "answer_type": "fill_in",
       "answer": "276",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "average height of 4 trees is 17 m 6 cm",
+            "phrase_id": "Tinggi rata-rata dari 4 batang pohon adalah 17 m 6 cm",
+            "note_en": "Sum of 4 trees = 4 × 1706 cm = 6824 cm",
+            "note_id": "Jumlah tinggi 4 pohon = 4 × 1706 cm = 6824 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "average becomes 14 m 20 cm",
+            "phrase_id": "tinggi rata-ratanya menjadi 14 m 20 cm",
+            "note_en": "Sum of 5 trees = 5 × 1420 cm = 7100 cm",
+            "note_id": "Jumlah tinggi 5 pohon = 5 × 1420 cm = 7100 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the height of the fifth tree in cm",
+            "phrase_id": "Tinggi batang pohon kelima adalah",
+            "note_en": "Fifth tree = 7100 − 6824 = 276 cm",
+            "note_id": "Pohon kelima = 7100 − 6824 = 276 cm"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Sum of 4 trees", "label_id": "Jumlah 4 pohon", "value": "4 × 1706 = 6824 cm" },
+          { "label_en": "Sum of 5 trees", "label_id": "Jumlah 5 pohon", "value": "5 × 1420 = 7100 cm" },
+          { "label_en": "5th tree height", "label_id": "Tinggi pohon ke-5", "value": "7100 − 6824 = 276 cm" }
+        ],
+        "strategy": { "name_en": "Find total sum before and after, subtract", "name_id": "Cari total sebelum dan sesudah, lalu kurangkan" },
+        "trap": {
+          "wrong": "14 m 20 cm − 17 m 6 cm",
+          "why_en": "Subtracting the averages directly ignores the different number of trees.",
+          "why_id": "Mengurangkan rata-rata secara langsung mengabaikan jumlah pohon yang berbeda."
+        },
+        "answer": { "form": "value", "unit": "cm", "value": "276" }
+      },
+      "hint_steps_en": [
+        "Convert: 17 m 6 cm = 1706 cm; 14 m 20 cm = 1420 cm.",
+        "Sum of 4 trees = 4 × 1706 = 6824 cm.",
+        "Sum of 5 trees = 5 × 1420 = 7100 cm.",
+        "Height of the 5th tree = 7100 − 6824 = 276 cm."
+      ],
+      "hint_steps_id": [
+        "Ubah satuan: 17 m 6 cm = 1706 cm; 14 m 20 cm = 1420 cm.",
+        "Jumlah tinggi 4 pohon = 4 × 1706 = 6824 cm.",
+        "Jumlah tinggi 5 pohon = 5 × 1420 = 7100 cm.",
+        "Tinggi pohon ke-5 = 7100 − 6824 = 276 cm."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +799,53 @@
       "body_en": "The total weight of 8 sacks of wheat and 3 sacks of rice is 229.5 kg. Each sack of wheat weighs three times a sack of rice. What is the difference in weight between one sack of wheat and one sack of rice in kg?",
       "answer_type": "fill_in",
       "answer": "17",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "total weight of 8 sacks of wheat and 3 sacks of rice is 229.5 kg",
+            "phrase_id": "Berat dari 8 karung gandum dan 3 karung beras adalah 229,5 kg",
+            "note_en": "8W + 3R = 229.5",
+            "note_id": "8G + 3B = 229,5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each sack of wheat weighs three times a sack of rice",
+            "phrase_id": "Setiap karung gandum tiga kali beratnya dari sekarung beras",
+            "note_en": "W = 3R, so substitute: 8(3R) + 3R = 27R = 229.5",
+            "note_id": "G = 3B, substitusi: 8(3B) + 3B = 27B = 229,5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "difference in weight between one sack of wheat and one sack of rice",
+            "phrase_id": "Selisih berat sekarung gandum dan sekarung beras",
+            "note_en": "W − R = 3R − R = 2R; find R first",
+            "note_id": "G − B = 3B − B = 2B; cari B terlebih dahulu"
+          }
+        ],
+        "quantities": [
+          { "label_en": "27R = 229.5", "label_id": "27B = 229,5", "value": "R = 8.5 kg" },
+          { "label_en": "W = 3R", "label_id": "G = 3B", "value": "W = 25.5 kg" },
+          { "label_en": "Difference W − R", "label_id": "Selisih G − B", "value": "25.5 − 8.5 = 17 kg" }
+        ],
+        "strategy": { "name_en": "Substitution: replace W with 3R, solve for R", "name_id": "Substitusi: ganti G dengan 3B, selesaikan untuk B" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "kg", "value": "17" }
+      },
+      "hint_steps_en": [
+        "Let R = weight of one sack of rice. Then W = 3R.",
+        "Substitute: 8(3R) + 3R = 27R = 229.5 kg.",
+        "R = 229.5 ÷ 27 = 8.5 kg; W = 3 × 8.5 = 25.5 kg.",
+        "Difference = 25.5 − 8.5 = 17 kg."
+      ],
+      "hint_steps_id": [
+        "Misalkan B = berat sekarung beras. Maka G = 3B.",
+        "Substitusi: 8(3B) + 3B = 27B = 229,5 kg.",
+        "B = 229,5 ÷ 27 = 8,5 kg; G = 3 × 8,5 = 25,5 kg.",
+        "Selisih = 25,5 − 8,5 = 17 kg."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +853,55 @@
       "body_en": "Two-thirds of the participants in a running race are male. Half of the female participants did not reach the finish line. The number of female participants who finished is 1,200. What is the total number of participants in the race?",
       "answer_type": "fill_in",
       "answer": "7200",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Two-thirds of the participants in a running race are male",
+            "phrase_id": "Dua per tiga dari peserta suatu lomba lari adalah laki-laki",
+            "note_en": "2/3 are male → 1/3 of total participants are female",
+            "note_id": "2/3 adalah laki-laki → 1/3 dari total peserta adalah perempuan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Half of the female participants did not reach the finish line",
+            "phrase_id": "Setengah dari jumlah peserta wanita tidak mencapai garis finish",
+            "note_en": "Half did not finish → half did finish = 1,200 → total female = 2,400",
+            "note_id": "Setengah tidak finis → setengah finis = 1.200 → total perempuan = 2.400"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total number of participants in the race",
+            "phrase_id": "Jumlah seluruh peserta lomba lari itu adalah",
+            "note_en": "Total = female ÷ (1/3) = 2400 × 3 = 7200",
+            "note_id": "Total = perempuan ÷ (1/3) = 2400 × 3 = 7200"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Female who finished", "label_id": "Perempuan yang finis", "value": "1,200" },
+          { "label_en": "Total female (÷ 1/2)", "label_id": "Total perempuan (÷ 1/2)", "value": "2,400" },
+          { "label_en": "Total participants (÷ 1/3)", "label_id": "Total peserta (÷ 1/3)", "value": "2,400 × 3 = 7,200" }
+        ],
+        "strategy": { "name_en": "Work backwards: finished → total female → total participants", "name_id": "Kerjakan mundur: finis → total perempuan → total peserta" },
+        "trap": {
+          "wrong": "3600",
+          "why_en": "Using 1200 × 3 = 3600 skips the step of doubling to find total female first.",
+          "why_id": "Langsung mengalikan 1200 × 3 = 3600 melewati langkah menggandakan untuk menemukan total perempuan."
+        },
+        "answer": { "form": "value", "unit": "orang", "value": "7200" }
+      },
+      "hint_steps_en": [
+        "Female fraction = 1 − 2/3 = 1/3 of total.",
+        "Half of female finished, so total female = 2 × 1,200 = 2,400.",
+        "Total participants = 2,400 ÷ (1/3) = 2,400 × 3 = 7,200."
+      ],
+      "hint_steps_id": [
+        "Fraksi perempuan = 1 − 2/3 = 1/3 dari total.",
+        "Setengah perempuan finis, sehingga total perempuan = 2 × 1.200 = 2.400.",
+        "Total peserta = 2.400 ÷ (1/3) = 2.400 × 3 = 7.200."
+      ]
     },
     {
       "number": 17,
@@ -142,7 +909,54 @@
       "body_en": "The volume of a glass is 330 ml. The volume of a bottle is three times the volume of the glass. What is the total volume of 3 glasses and 2 bottles in ml?",
       "answer_type": "fill_in",
       "answer": "2970",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "volume of a glass is 330 ml",
+            "phrase_id": "Volume sebuah gelas adalah 330 ml",
+            "note_en": "Glass = 330 ml",
+            "note_id": "Gelas = 330 ml"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "volume of a bottle is three times the volume of the glass",
+            "phrase_id": "Volume sebuah botol adalah tiga kali lipat dari volume gelas itu",
+            "note_en": "Bottle = 3 × 330 = 990 ml",
+            "note_id": "Botol = 3 × 330 = 990 ml"
+          },
+          {
+            "category": "question",
+            "phrase_en": "total volume of 3 glasses and 2 bottles in ml",
+            "phrase_id": "Jumlah volume dari 3 gelas dan 2 botol adalah",
+            "note_en": "3 × 330 + 2 × 990 = 990 + 1980 = 2970 ml",
+            "note_id": "3 × 330 + 2 × 990 = 990 + 1980 = 2970 ml"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Bottle volume", "label_id": "Volume botol", "value": "3 × 330 = 990 ml" },
+          { "label_en": "3 glasses", "label_id": "3 gelas", "value": "3 × 330 = 990 ml" },
+          { "label_en": "2 bottles", "label_id": "2 botol", "value": "2 × 990 = 1980 ml" },
+          { "label_en": "Total", "label_id": "Total", "value": "990 + 1980 = 2970 ml" }
+        ],
+        "strategy": { "name_en": "Scale each unit, then add", "name_id": "Skalakan setiap satuan, lalu jumlahkan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "ml", "value": "2970" }
+      },
+      "hint_steps_en": [
+        "Bottle = 3 × 330 = 990 ml.",
+        "3 glasses = 3 × 330 = 990 ml.",
+        "2 bottles = 2 × 990 = 1980 ml.",
+        "Total = 990 + 1980 = 2970 ml."
+      ],
+      "hint_steps_id": [
+        "Botol = 3 × 330 = 990 ml.",
+        "3 gelas = 3 × 330 = 990 ml.",
+        "2 botol = 2 × 990 = 1980 ml.",
+        "Total = 990 + 1980 = 2970 ml."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +964,54 @@
       "body_en": "A vehicle travels at a speed of 85 km/h. What distance in km does it cover in 1/2 minute?",
       "answer_type": "fill_in",
       "answer": "17/24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "speed of 85 km/h",
+            "phrase_id": "kecepatan 85 km/jam",
+            "note_en": "Speed is in km per hour; time must be converted to hours",
+            "note_id": "Kecepatan dalam km per jam; waktu harus diubah ke jam"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1/2 minute",
+            "phrase_id": "1/2 menit",
+            "note_en": "1/2 minute = 1/120 hour",
+            "note_id": "1/2 menit = 1/120 jam"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What distance in km does it cover in 1/2 minute",
+            "phrase_id": "Jarak yang ditempuh olehnya selama 1/2 menit adalah",
+            "note_en": "Distance = speed × time = 85 × 1/120 = 85/120 = 17/24 km",
+            "note_id": "Jarak = kecepatan × waktu = 85 × 1/120 = 85/120 = 17/24 km"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Time in hours", "label_id": "Waktu dalam jam", "value": "0.5 min ÷ 60 = 1/120 h" },
+          { "label_en": "Distance", "label_id": "Jarak", "value": "85 × 1/120 = 85/120 = 17/24 km" }
+        ],
+        "strategy": { "name_en": "Convert time to hours, apply distance = speed × time", "name_id": "Ubah waktu ke jam, terapkan jarak = kecepatan × waktu" },
+        "trap": {
+          "wrong": "42.5",
+          "why_en": "Multiplying 85 × 0.5 treats time as half an hour, not half a minute.",
+          "why_id": "Mengalikan 85 × 0,5 menganggap waktu setengah jam, bukan setengah menit."
+        },
+        "answer": { "form": "value", "unit": "km", "value": "17/24" }
+      },
+      "hint_steps_en": [
+        "Convert time: 1/2 minute = 1/2 ÷ 60 hours = 1/120 hours.",
+        "Distance = speed × time = 85 × 1/120 = 85/120.",
+        "Simplify: 85/120 = 17/24 km."
+      ],
+      "hint_steps_id": [
+        "Ubah waktu: 1/2 menit = 1/2 ÷ 60 jam = 1/120 jam.",
+        "Jarak = kecepatan × waktu = 85 × 1/120 = 85/120.",
+        "Sederhanakan: 85/120 = 17/24 km."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1019,55 @@
       "body_en": "A road is 2¼ km long. An electricity pole is to be erected every 50 m along the side of the road. How many poles are needed?",
       "answer_type": "fill_in",
       "answer": "46",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "road is 2¼ km long",
+            "phrase_id": "Panjang suatu jalan adalah 2¼ km",
+            "note_en": "2¼ km = 2250 m",
+            "note_id": "2¼ km = 2250 m"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "every 50 m",
+            "phrase_id": "Setiap 50 m",
+            "note_en": "Number of intervals = 2250 ÷ 50 = 45; poles include both endpoints",
+            "note_id": "Jumlah interval = 2250 ÷ 50 = 45; tiang termasuk kedua ujung"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many poles are needed",
+            "phrase_id": "Tiang listrik yang dibutuhkan sebanyak",
+            "note_en": "Poles = intervals + 1 = 45 + 1 = 46",
+            "note_id": "Tiang = interval + 1 = 45 + 1 = 46"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Road length in metres", "label_id": "Panjang jalan dalam meter", "value": "2.25 × 1000 = 2250 m" },
+          { "label_en": "Number of intervals", "label_id": "Jumlah interval", "value": "2250 ÷ 50 = 45" },
+          { "label_en": "Number of poles", "label_id": "Jumlah tiang", "value": "45 + 1 = 46" }
+        ],
+        "strategy": { "name_en": "Intervals + 1 rule for poles along a line", "name_id": "Aturan interval + 1 untuk tiang sepanjang garis" },
+        "trap": {
+          "wrong": "45",
+          "why_en": "Counting only the intervals and forgetting to add 1 for the first pole at the start.",
+          "why_id": "Hanya menghitung interval dan lupa menambahkan 1 untuk tiang pertama di awal."
+        },
+        "answer": { "form": "value", "unit": null, "value": "46" }
+      },
+      "hint_steps_en": [
+        "Convert: 2¼ km = 2.25 km = 2250 m.",
+        "Number of 50-m intervals = 2250 ÷ 50 = 45.",
+        "Poles = intervals + 1 = 45 + 1 = 46 (one at the start, one at the end of each interval)."
+      ],
+      "hint_steps_id": [
+        "Ubah: 2¼ km = 2,25 km = 2250 m.",
+        "Jumlah interval 50 m = 2250 ÷ 50 = 45.",
+        "Tiang = interval + 1 = 45 + 1 = 46 (satu di awal, satu di akhir setiap interval)."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1075,51 @@
       "body_en": "Twenty percent of Rodhi's money is Rp17,500. He spends one-quarter of his money on books. How much money does Rodhi have left?",
       "answer_type": "fill_in",
       "answer": "65625",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Twenty percent of Rodhi's money is Rp17,500",
+            "phrase_id": "Dua puluh persen dari uang Rodhi adalah Rp17.500,00",
+            "note_en": "0.2 × M = 17,500 → M = 87,500",
+            "note_id": "0,2 × M = 17.500 → M = 87.500"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "spends one-quarter of his money on books",
+            "phrase_id": "Seperempat dari uangnya digunakan untuk membeli buku",
+            "note_en": "Books cost 1/4 × 87,500 = 21,875",
+            "note_id": "Buku seharga 1/4 × 87.500 = 21.875"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much money does Rodhi have left",
+            "phrase_id": "Sisa uang Rodhi adalah",
+            "note_en": "Remainder = 3/4 × 87,500 = 65,625",
+            "note_id": "Sisa = 3/4 × 87.500 = 65.625"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total money M", "label_id": "Total uang M", "value": "17,500 ÷ 0.2 = 87,500" },
+          { "label_en": "Spent on books", "label_id": "Untuk buku", "value": "1/4 × 87,500 = 21,875" },
+          { "label_en": "Remaining", "label_id": "Sisa", "value": "87,500 − 21,875 = 65,625" }
+        ],
+        "strategy": { "name_en": "Find total from percentage, then subtract the fraction spent", "name_id": "Cari total dari persentase, lalu kurangi fraksi yang dibelanjakan" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "Rp", "value": "65625" }
+      },
+      "hint_steps_en": [
+        "Find total money: 20% × M = 17,500, so M = 17,500 ÷ 0.2 = 87,500.",
+        "Books cost 1/4 × 87,500 = 21,875.",
+        "Remainder = 87,500 − 21,875 = 65,625."
+      ],
+      "hint_steps_id": [
+        "Cari total uang: 20% × M = 17.500, maka M = 17.500 ÷ 0,2 = 87.500.",
+        "Buku seharga 1/4 × 87.500 = 21.875.",
+        "Sisa = 87.500 − 21.875 = 65.625."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1127,54 @@
       "body_en": "The volume of the first cube is eight times the volume of the second cube. What is the ratio of the edge length of the first cube to the second cube?",
       "answer_type": "fill_in",
       "answer": "2:1",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "volume of the first cube is eight times the volume of the second cube",
+            "phrase_id": "Volume kubus pertama delapan kali volume kubus kedua",
+            "note_en": "a³ = 8b³, so a/b = ∛8 = 2",
+            "note_id": "a³ = 8b³, sehingga a/b = ∛8 = 2"
+          },
+          {
+            "category": "question",
+            "phrase_en": "ratio of the edge length of the first cube to the second cube",
+            "phrase_id": "Perbandingan panjang rusuk kubus pertama dan kedua",
+            "note_en": "Edge ratio = ∛(volume ratio) = ∛8 = 2, giving ratio 2:1",
+            "note_id": "Rasio rusuk = ∛(rasio volume) = ∛8 = 2, sehingga rasio 2:1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "eight times",
+            "phrase_id": "delapan kali",
+            "note_en": "8 = 2³, so the cube root of 8 is exactly 2",
+            "note_id": "8 = 2³, jadi akar pangkat tiga dari 8 adalah tepat 2"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Volume ratio", "label_id": "Rasio volume", "value": "V1 : V2 = 8 : 1" },
+          { "label_en": "Edge ratio", "label_id": "Rasio rusuk", "value": "∛8 : ∛1 = 2 : 1" }
+        ],
+        "strategy": { "name_en": "Take cube root of volume ratio to get edge ratio", "name_id": "Ambil akar pangkat tiga dari rasio volume untuk mendapat rasio rusuk" },
+        "trap": {
+          "wrong": "8:1",
+          "why_en": "Using the volume ratio directly as the edge ratio ignores that volume scales as the cube of the edge.",
+          "why_id": "Menggunakan rasio volume langsung sebagai rasio rusuk mengabaikan bahwa volume berskala sebagai pangkat tiga rusuk."
+        },
+        "answer": { "form": "value", "unit": null, "value": "2:1" }
+      },
+      "hint_steps_en": [
+        "Let edge of first cube = a, edge of second = b.",
+        "Volume ratio: a³ / b³ = 8, so (a/b)³ = 8.",
+        "a/b = ∛8 = 2, giving ratio a : b = 2 : 1."
+      ],
+      "hint_steps_id": [
+        "Misalkan rusuk kubus pertama = a, rusuk kubus kedua = b.",
+        "Rasio volume: a³ / b³ = 8, jadi (a/b)³ = 8.",
+        "a/b = ∛8 = 2, sehingga rasio a : b = 2 : 1."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1182,48 @@
       "body_en": "Four litres of petrol can cover a distance of 64 km. How many litres of petrol are needed to cover 112 km?",
       "answer_type": "fill_in",
       "answer": "7",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Four litres of petrol can cover a distance of 64 km",
+            "phrase_id": "Empat liter bensin dapat digunakan untuk menempuh jarak 64 km",
+            "note_en": "Rate: 64 km per 4 litres = 16 km per litre",
+            "note_id": "Laju: 64 km per 4 liter = 16 km per liter"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many litres of petrol are needed to cover 112 km",
+            "phrase_id": "Untuk menempuh jarak 112 km, diperlukan bensin sebanyak",
+            "note_en": "Litres needed = 112 ÷ 16 = 7",
+            "note_id": "Bensin yang dibutuhkan = 112 ÷ 16 = 7"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Four litres",
+            "phrase_id": "Empat liter",
+            "note_en": "Use direct proportion: 4/64 = x/112",
+            "note_id": "Gunakan proporsi langsung: 4/64 = x/112"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Fuel efficiency", "label_id": "Efisiensi bahan bakar", "value": "64 ÷ 4 = 16 km/L" },
+          { "label_en": "Litres for 112 km", "label_id": "Liter untuk 112 km", "value": "112 ÷ 16 = 7 L" }
+        ],
+        "strategy": { "name_en": "Find km per litre, divide target distance", "name_id": "Cari km per liter, bagi jarak target" },
+        "trap": null,
+        "answer": { "form": "value", "unit": "litres", "value": "7" }
+      },
+      "hint_steps_en": [
+        "Find the fuel efficiency: 64 km ÷ 4 L = 16 km per litre.",
+        "Litres needed for 112 km: 112 ÷ 16 = 7 litres."
+      ],
+      "hint_steps_id": [
+        "Cari efisiensi bahan bakar: 64 km ÷ 4 L = 16 km per liter.",
+        "Bensin untuk 112 km: 112 ÷ 16 = 7 liter."
+      ]
     },
     {
       "number": 23,
@@ -190,7 +1231,55 @@
       "body_en": "The radius of a wheel is 17.5 cm. The wheel rolls along a road 275 m long. How many times does the wheel rotate?",
       "answer_type": "fill_in",
       "answer": "250",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "radius of a wheel is 17.5 cm",
+            "phrase_id": "Panjang jari-jari sebuah roda adalah 17,5 cm",
+            "note_en": "Circumference = 2πr = 2 × 22/7 × 17.5 = 110 cm",
+            "note_id": "Keliling = 2πr = 2 × 22/7 × 17,5 = 110 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "rolls along a road 275 m long",
+            "phrase_id": "menggelinding di jalan sepanjang 275 m",
+            "note_en": "275 m = 27,500 cm",
+            "note_id": "275 m = 27.500 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many times does the wheel rotate",
+            "phrase_id": "Roda tersebut telah berputar sebanyak",
+            "note_en": "Rotations = total distance ÷ circumference = 27,500 ÷ 110 = 250",
+            "note_id": "Putaran = jarak total ÷ keliling = 27.500 ÷ 110 = 250"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Circumference (π = 22/7)", "label_id": "Keliling (π = 22/7)", "value": "2 × 22/7 × 17.5 = 110 cm" },
+          { "label_en": "Road length in cm", "label_id": "Panjang jalan dalam cm", "value": "275 × 100 = 27,500 cm" },
+          { "label_en": "Rotations", "label_id": "Jumlah putaran", "value": "27,500 ÷ 110 = 250" }
+        ],
+        "strategy": { "name_en": "Rotations = distance ÷ circumference", "name_id": "Putaran = jarak ÷ keliling" },
+        "trap": {
+          "wrong": "2500",
+          "why_en": "Forgetting to convert 275 m to cm before dividing by the circumference in cm.",
+          "why_id": "Lupa mengubah 275 m ke cm sebelum membagi dengan keliling dalam cm."
+        },
+        "answer": { "form": "value", "unit": null, "value": "250" }
+      },
+      "hint_steps_en": [
+        "Circumference = 2 × (22/7) × 17.5 = 110 cm per rotation.",
+        "Convert road length: 275 m = 27,500 cm.",
+        "Rotations = 27,500 ÷ 110 = 250 times."
+      ],
+      "hint_steps_id": [
+        "Keliling = 2 × (22/7) × 17,5 = 110 cm per putaran.",
+        "Ubah panjang jalan: 275 m = 27.500 cm.",
+        "Jumlah putaran = 27.500 ÷ 110 = 250 kali."
+      ]
     },
     {
       "number": 24,
@@ -198,7 +1287,58 @@
       "body_en": "A product has a gross weight of 250 kg and a tare of 5%. It is sold at Rp10,000 per kg net weight and makes a profit of Rp1,000,000. What is the average purchase price per kilogram of the product?",
       "answer_type": "fill_in",
       "answer": "5500",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "gross weight of 250 kg and a tare of 5%",
+            "phrase_id": "berat bruto 250 kg dan tara 5%",
+            "note_en": "Tare = 5% of 250 = 12.5 kg; net = 250 − 12.5 = 237.5 kg",
+            "note_id": "Tara = 5% dari 250 = 12,5 kg; neto = 250 − 12,5 = 237,5 kg"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "sold at Rp10,000 per kg net weight and makes a profit of Rp1,000,000",
+            "phrase_id": "dijual dengan Rp10.000,00 tiap 1 kg neto dan memperoleh keuntungan sebesar Rp1.000.000,00",
+            "note_en": "Revenue = 237.5 × 10,000 = 2,375,000; Cost = 2,375,000 − 1,000,000 = 1,375,000",
+            "note_id": "Pendapatan = 237,5 × 10.000 = 2.375.000; Biaya = 2.375.000 − 1.000.000 = 1.375.000"
+          },
+          {
+            "category": "question",
+            "phrase_en": "average purchase price per kilogram of the product",
+            "phrase_id": "Harga beli rata-rata per kilogram barang tersebut adalah",
+            "note_en": "Price per kg (gross) = 1,375,000 ÷ 250 = 5,500",
+            "note_id": "Harga per kg (bruto) = 1.375.000 ÷ 250 = 5.500"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Net weight", "label_id": "Berat neto", "value": "250 × 0.95 = 237.5 kg" },
+          { "label_en": "Total revenue", "label_id": "Total pendapatan", "value": "237.5 × 10,000 = 2,375,000" },
+          { "label_en": "Total cost", "label_id": "Total biaya beli", "value": "2,375,000 − 1,000,000 = 1,375,000" },
+          { "label_en": "Cost per kg (gross)", "label_id": "Biaya per kg (bruto)", "value": "1,375,000 ÷ 250 = 5,500" }
+        ],
+        "strategy": { "name_en": "Net weight from tare → revenue → cost → price per gross kg", "name_id": "Neto dari tara → pendapatan → biaya → harga per kg bruto" },
+        "trap": {
+          "wrong": "5789",
+          "why_en": "Dividing the total cost by the net weight (237.5 kg) instead of the gross weight (250 kg).",
+          "why_id": "Membagi total biaya dengan berat neto (237,5 kg) alih-alih berat bruto (250 kg)."
+        },
+        "answer": { "form": "value", "unit": "Rp", "value": "5500" }
+      },
+      "hint_steps_en": [
+        "Tare = 5% of 250 = 12.5 kg; net weight = 237.5 kg.",
+        "Total revenue = 237.5 × Rp10,000 = Rp2,375,000.",
+        "Total purchase cost = 2,375,000 − 1,000,000 = Rp1,375,000.",
+        "Average purchase price per kg (gross) = 1,375,000 ÷ 250 = Rp5,500."
+      ],
+      "hint_steps_id": [
+        "Tara = 5% dari 250 = 12,5 kg; berat neto = 237,5 kg.",
+        "Total pendapatan = 237,5 × Rp10.000 = Rp2.375.000.",
+        "Total harga beli = 2.375.000 − 1.000.000 = Rp1.375.000.",
+        "Harga beli rata-rata per kg (bruto) = 1.375.000 ÷ 250 = Rp5.500."
+      ]
     },
     {
       "number": 25,
@@ -206,7 +1346,58 @@
       "body_en": "What is the result of 1.5 quintals + 2.5 ons + 1.5 tonnes in kg?",
       "answer_type": "fill_in",
       "answer": "1650.25",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "1.5 quintals",
+            "phrase_id": "1,5 kuintal",
+            "note_en": "1 quintal (kuintal) = 100 kg, so 1.5 quintals = 150 kg",
+            "note_id": "1 kuintal = 100 kg, jadi 1,5 kuintal = 150 kg"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "2.5 ons",
+            "phrase_id": "2,5 ons",
+            "note_en": "In Indonesian units: 1 ons = 100 g = 0.1 kg, so 2.5 ons = 0.25 kg",
+            "note_id": "Dalam satuan Indonesia: 1 ons = 100 g = 0,1 kg, jadi 2,5 ons = 0,25 kg"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the result of 1.5 quintals + 2.5 ons + 1.5 tonnes in kg",
+            "phrase_id": "Hasil dari 1,5 kuintal + 2,5 ons + 1,5 ton adalah",
+            "note_en": "150 + 0.25 + 1500 = 1650.25 kg",
+            "note_id": "150 + 0,25 + 1500 = 1650,25 kg"
+          }
+        ],
+        "quantities": [
+          { "label_en": "1.5 quintals", "label_id": "1,5 kuintal", "value": "1.5 × 100 = 150 kg" },
+          { "label_en": "2.5 ons", "label_id": "2,5 ons", "value": "2.5 × 0.1 = 0.25 kg" },
+          { "label_en": "1.5 tonnes", "label_id": "1,5 ton", "value": "1.5 × 1000 = 1500 kg" },
+          { "label_en": "Total", "label_id": "Total", "value": "150 + 0.25 + 1500 = 1650.25 kg" }
+        ],
+        "strategy": { "name_en": "Convert each unit to kg, then add", "name_id": "Ubah setiap satuan ke kg, lalu jumlahkan" },
+        "trap": {
+          "wrong": "1650.5",
+          "why_en": "Using 1 ons = 200 g (wrong) instead of 1 ons = 100 g.",
+          "why_id": "Menggunakan 1 ons = 200 g (salah) alih-alih 1 ons = 100 g."
+        },
+        "answer": { "form": "value", "unit": "kg", "value": "1650.25" }
+      },
+      "hint_steps_en": [
+        "Convert: 1.5 quintals = 1.5 × 100 = 150 kg.",
+        "Convert: 2.5 ons = 2.5 × 0.1 = 0.25 kg (1 ons = 100 g in Indonesian units).",
+        "Convert: 1.5 tonnes = 1.5 × 1000 = 1500 kg.",
+        "Total = 150 + 0.25 + 1500 = 1650.25 kg."
+      ],
+      "hint_steps_id": [
+        "Ubah: 1,5 kuintal = 1,5 × 100 = 150 kg.",
+        "Ubah: 2,5 ons = 2,5 × 0,1 = 0,25 kg (1 ons = 100 g dalam satuan Indonesia).",
+        "Ubah: 1,5 ton = 1,5 × 1000 = 1500 kg.",
+        "Total = 150 + 0,25 + 1500 = 1650,25 kg."
+      ]
     }
   ]
 }

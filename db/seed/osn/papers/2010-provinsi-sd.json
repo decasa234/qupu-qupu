@@ -14,7 +14,88 @@
       "body_id": "Jika tanggal 26 Juni 2010 adalah hari Sabtu, maka tanggal 1 Januari 2005 adalah hari apa?",
       "body_en": "If June 26, 2010 is a Saturday, what day of the week is January 1, 2005?",
       "answer": "Sabtu",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "June 26, 2010 is a Saturday",
+            "phrase_id": "tanggal 26 Juni 2010 adalah hari Sabtu",
+            "note_en": "This is the anchor date — count backward from here.",
+            "note_id": "Ini tanggal patokan — hitung mundur dari sini."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what day of the week is January 1, 2005",
+            "phrase_id": "tanggal 1 Januari 2005 adalah hari apa",
+            "note_en": "Find how many days separate the two dates, then use modulo 7.",
+            "note_id": "Cari selisih hari antara dua tanggal, lalu gunakan modulo 7."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If June 26, 2010 is a Saturday",
+            "phrase_id": "Jika tanggal 26 Juni 2010 adalah hari Sabtu",
+            "note_en": "Count leap years (2008) between 2005 and 2010 — each adds one extra day.",
+            "note_id": "Perhatikan tahun kabisat (2008) antara 2005 dan 2010 — masing-masing menambah satu hari ekstra."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Days Jan 1, 2005 → Dec 31, 2009 (5 years, 2008 leap)",
+            "label_id": "Hari 1 Jan 2005 → 31 Des 2009 (5 tahun, 2008 kabisat)",
+            "value": "365+365+365+366+365 = 1826"
+          },
+          {
+            "label_en": "Days Jan 1 → Jun 26, 2010",
+            "label_id": "Hari 1 Jan → 26 Jun 2010",
+            "value": "31+28+31+30+31+26 = 177"
+          },
+          {
+            "label_en": "Total days between the two dates",
+            "label_id": "Total selisih hari",
+            "value": "1826 + 177 - 1 = 2002"
+          },
+          {
+            "label_en": "2002 mod 7",
+            "label_id": "2002 mod 7",
+            "value": "2002 ÷ 7 = 286 remainder 0 → same day"
+          },
+          {
+            "label_en": "Day of Jan 1, 2005",
+            "label_id": "Hari 1 Januari 2005",
+            "value": "Saturday (Sabtu)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Count total days, apply mod 7",
+          "name_id": "Hitung total hari, terapkan mod 7"
+        },
+        "trap": {
+          "wrong": "Friday",
+          "why_en": "Off-by-one errors from miscounting January 1 itself or forgetting the leap year in 2008.",
+          "why_id": "Kesalahan satu hari akibat salah hitung 1 Januari itu sendiri atau lupa tahun kabisat 2008."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Sabtu"
+        }
+      },
+      "hint_steps_en": [
+        "Count the days from Jan 1, 2005 to Jan 1, 2010: five years with one leap year (2008) → 365×4 + 366 = 1826 days.",
+        "Count the days from Jan 1 to Jun 26, 2010: 31+28+31+30+31+26 = 177 days.",
+        "Total gap from Jan 1, 2005 to Jun 26, 2010 = 1826 + 177 − 1 = 2002 days.",
+        "2002 ÷ 7 = 286 with remainder 0 — so Jan 1, 2005 is the same day as Jun 26, 2010.",
+        "Jun 26, 2010 is Saturday, so Jan 1, 2005 is also Saturday (Sabtu)."
+      ],
+      "hint_steps_id": [
+        "Hitung hari dari 1 Jan 2005 ke 1 Jan 2010: lima tahun dengan satu tahun kabisat (2008) → 365×4 + 366 = 1826 hari.",
+        "Hitung hari dari 1 Jan ke 26 Jun 2010: 31+28+31+30+31+26 = 177 hari.",
+        "Total selisih dari 1 Jan 2005 ke 26 Jun 2010 = 1826 + 177 − 1 = 2002 hari.",
+        "2002 ÷ 7 = 286 sisa 0 — jadi 1 Jan 2005 jatuh pada hari yang sama dengan 26 Jun 2010.",
+        "26 Jun 2010 adalah Sabtu, sehingga 1 Januari 2005 juga Sabtu."
+      ]
     },
     {
       "number": 2,
@@ -22,7 +103,88 @@
       "body_id": "Dua bilangan selisihnya 3 dan jumlah kuadratnya 117. Bilangan-bilangan itu adalah …",
       "body_en": "Two numbers have a difference of 3 and the sum of their squares is 117. The numbers are …",
       "answer": "6 dan 9",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "difference of 3",
+            "phrase_id": "selisihnya 3",
+            "note_en": "Call the numbers x and y with x > y; then x − y = 3.",
+            "note_id": "Sebut dua bilangan itu x dan y dengan x > y; maka x − y = 3."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "sum of their squares is 117",
+            "phrase_id": "jumlah kuadratnya 117",
+            "note_en": "x² + y² = 117 — the second equation needed to solve the system.",
+            "note_id": "x² + y² = 117 — persamaan kedua yang dibutuhkan untuk menyelesaikan sistem."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The numbers are",
+            "phrase_id": "Bilangan-bilangan itu adalah",
+            "note_en": "Find the actual pair of numbers.",
+            "note_id": "Temukan pasangan bilangan yang dimaksud."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "x − y = 3, so x = y + 3",
+            "label_id": "x − y = 3, sehingga x = y + 3",
+            "value": "x = y + 3"
+          },
+          {
+            "label_en": "Substitute into x² + y² = 117",
+            "label_id": "Substitusi ke x² + y² = 117",
+            "value": "(y+3)² + y² = 117 → 2y² + 6y + 9 = 117 → 2y² + 6y − 108 = 0 → y² + 3y − 54 = 0"
+          },
+          {
+            "label_en": "Factor or use sum/product",
+            "label_id": "Faktorkan atau gunakan jumlah/hasil kali",
+            "value": "(y+9)(y−6) = 0 → y = 6 (positive)"
+          },
+          {
+            "label_en": "Find x",
+            "label_id": "Cari x",
+            "value": "x = 6 + 3 = 9"
+          },
+          {
+            "label_en": "Verify: 9² + 6² = 81 + 36 = 117 ✓",
+            "label_id": "Verifikasi: 9² + 6² = 81 + 36 = 117 ✓",
+            "value": "117 ✓"
+          }
+        ],
+        "strategy": {
+          "name_en": "System of equations — substitution",
+          "name_id": "Sistem persamaan — substitusi"
+        },
+        "trap": {
+          "wrong": "3 dan 6",
+          "why_en": "3² + 6² = 9 + 36 = 45 ≠ 117 — the difference is 3 but the sum of squares doesn't match.",
+          "why_id": "3² + 6² = 9 + 36 = 45 ≠ 117 — selisihnya memang 3 tetapi jumlah kuadratnya tidak cocok."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "6 dan 9"
+        }
+      },
+      "hint_steps_en": [
+        "Let the two numbers be x (larger) and y (smaller). Then x − y = 3 and x² + y² = 117.",
+        "Express x = y + 3 and substitute: (y+3)² + y² = 117.",
+        "Expand and simplify: 2y² + 6y + 9 = 117 → y² + 3y − 54 = 0.",
+        "Factor: (y − 6)(y + 9) = 0 → y = 6 (take the positive root).",
+        "So x = 9. The two numbers are 6 and 9."
+      ],
+      "hint_steps_id": [
+        "Sebut dua bilangan itu x (lebih besar) dan y (lebih kecil). Maka x − y = 3 dan x² + y² = 117.",
+        "Nyatakan x = y + 3 dan substitusi: (y+3)² + y² = 117.",
+        "Jabarkan dan sederhanakan: 2y² + 6y + 9 = 117 → y² + 3y − 54 = 0.",
+        "Faktorkan: (y − 6)(y + 9) = 0 → y = 6 (ambil akar positif).",
+        "Maka x = 9. Kedua bilangan adalah 6 dan 9."
+      ]
     },
     {
       "number": 3,
@@ -30,7 +192,76 @@
       "body_id": "Banyaknya faktor positif dari 960 adalah …",
       "body_en": "The number of positive factors of 960 is …",
       "answer": "32",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "positive factors of 960",
+            "phrase_id": "faktor positif dari 960",
+            "note_en": "Prime-factorise 960 first, then use the divisor-count formula.",
+            "note_id": "Faktorkan prima 960 terlebih dahulu, lalu gunakan rumus jumlah faktor."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The number of positive factors of 960 is",
+            "phrase_id": "Banyaknya faktor positif dari 960 adalah",
+            "note_en": "Count all divisors including 1 and 960 itself.",
+            "note_id": "Hitung semua pembagi termasuk 1 dan 960 sendiri."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "positive factors",
+            "phrase_id": "faktor positif",
+            "note_en": "Only positive divisors count — no negatives.",
+            "note_id": "Hanya pembagi positif yang dihitung — tidak ada yang negatif."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Prime factorisation of 960",
+            "label_id": "Faktorisasi prima 960",
+            "value": "960 = 2^6 × 3 × 5"
+          },
+          {
+            "label_en": "Divisor-count formula: (6+1)(1+1)(1+1)",
+            "label_id": "Rumus jumlah faktor: (6+1)(1+1)(1+1)",
+            "value": "7 × 2 × 2 = 28"
+          },
+          {
+            "label_en": "Answer per key",
+            "label_id": "Jawaban menurut kunci",
+            "value": "32 (see flag note)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Prime factorisation then divisor-count formula",
+          "name_id": "Faktorisasi prima lalu rumus jumlah faktor"
+        },
+        "trap": {
+          "wrong": "28",
+          "why_en": "Independent calculation gives 960 = 2^6 × 3 × 5 → (6+1)(1+1)(1+1) = 28; the key answer 32 may reflect a different factorisation or source error — flagged.",
+          "why_id": "Perhitungan mandiri menghasilkan 960 = 2^6 × 3 × 5 → (6+1)(1+1)(1+1) = 28; jawaban kunci 32 mungkin mencerminkan faktorisasi berbeda atau kesalahan sumber — ditandai."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "32"
+        }
+      },
+      "hint_steps_en": [
+        "Find the prime factorisation of 960: divide by 2 repeatedly — 960 = 2^6 × 3 × 5.",
+        "Apply the divisor-count formula: if n = p^a × q^b × r^c, then the count = (a+1)(b+1)(c+1).",
+        "Count = (6+1)(1+1)(1+1) = 7 × 2 × 2 = 28.",
+        "The answer key states 32 — verify against the original source if needed."
+      ],
+      "hint_steps_id": [
+        "Cari faktorisasi prima 960: bagi berulang kali dengan 2 — 960 = 2^6 × 3 × 5.",
+        "Terapkan rumus jumlah faktor: jika n = p^a × q^b × r^c, maka jumlah faktor = (a+1)(b+1)(c+1).",
+        "Jumlah = (6+1)(1+1)(1+1) = 7 × 2 × 2 = 28.",
+        "Kunci jawaban menyatakan 32 — verifikasi dengan sumber asli bila diperlukan."
+      ]
     },
     {
       "number": 4,
@@ -38,7 +269,86 @@
       "body_id": "Jumlah luas dari persegi A dan persegi B sama dengan luas persegi C. Jika keliling persegi A sama dengan 48 cm dan keliling persegi B sama dengan 64 cm, maka keliling persegi C adalah …",
       "body_en": "The sum of the areas of square A and square B equals the area of square C. If the perimeter of square A is 48 cm and the perimeter of square B is 64 cm, what is the perimeter of square C?",
       "answer": "80 cm",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "perimeter of square A is 48 cm",
+            "phrase_id": "keliling persegi A sama dengan 48 cm",
+            "note_en": "Side of A = 48 ÷ 4 = 12 cm, so area A = 144 cm².",
+            "note_id": "Sisi A = 48 ÷ 4 = 12 cm, sehingga luas A = 144 cm²."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "perimeter of square B is 64 cm",
+            "phrase_id": "keliling persegi B sama dengan 64 cm",
+            "note_en": "Side of B = 64 ÷ 4 = 16 cm, so area B = 256 cm².",
+            "note_id": "Sisi B = 64 ÷ 4 = 16 cm, sehingga luas B = 256 cm²."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The sum of the areas of square A and square B equals the area of square C",
+            "phrase_id": "Jumlah luas dari persegi A dan persegi B sama dengan luas persegi C",
+            "note_en": "This is a Pythagorean relation: sideC² = sideA² + sideB² → sideC = √400 = 20.",
+            "note_id": "Ini adalah relasi Pythagoras: sisiC² = sisiA² + sisiB² → sisiC = √400 = 20."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Side A = 48 ÷ 4",
+            "label_id": "Sisi A = 48 ÷ 4",
+            "value": "12 cm"
+          },
+          {
+            "label_en": "Side B = 64 ÷ 4",
+            "label_id": "Sisi B = 64 ÷ 4",
+            "value": "16 cm"
+          },
+          {
+            "label_en": "Area A + Area B = 12² + 16²",
+            "label_id": "Luas A + Luas B = 12² + 16²",
+            "value": "144 + 256 = 400 cm²"
+          },
+          {
+            "label_en": "Side C = √400",
+            "label_id": "Sisi C = √400",
+            "value": "20 cm"
+          },
+          {
+            "label_en": "Perimeter C = 4 × 20",
+            "label_id": "Keliling C = 4 × 20",
+            "value": "80 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Perimeter → side → area → Pythagorean relation → perimeter",
+          "name_id": "Keliling → sisi → luas → relasi Pythagoras → keliling"
+        },
+        "trap": {
+          "wrong": "112 cm",
+          "why_en": "Adding perimeters directly (48 + 64 = 112) confuses perimeter addition with area addition.",
+          "why_id": "Menjumlahkan keliling langsung (48 + 64 = 112) mengacaukan penjumlahan keliling dengan penjumlahan luas."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "80 cm"
+        }
+      },
+      "hint_steps_en": [
+        "Find the side lengths: side A = 48 ÷ 4 = 12 cm; side B = 64 ÷ 4 = 16 cm.",
+        "Calculate the areas: area A = 12² = 144 cm²; area B = 16² = 256 cm².",
+        "Area C = 144 + 256 = 400 cm², so side C = √400 = 20 cm.",
+        "Perimeter C = 4 × 20 = 80 cm."
+      ],
+      "hint_steps_id": [
+        "Cari panjang sisi: sisi A = 48 ÷ 4 = 12 cm; sisi B = 64 ÷ 4 = 16 cm.",
+        "Hitung luas: luas A = 12² = 144 cm²; luas B = 16² = 256 cm².",
+        "Luas C = 144 + 256 = 400 cm², sehingga sisi C = √400 = 20 cm.",
+        "Keliling C = 4 × 20 = 80 cm."
+      ]
     },
     {
       "number": 5,
@@ -46,7 +356,76 @@
       "body_id": "Mirna berenang setiap 4 hari sekali, sedangkan Bety berenang 7 hari sekali. Kemarin Mirna berenang, sedangkan Bety akan berenang besok. Berapa hari lagi keduanya paling cepat akan berenang pada hari yang sama?",
       "body_en": "Mirna swims every 4 days, and Bety swims every 7 days. Yesterday Mirna swam, while Bety will swim tomorrow. In how many days from now will they swim on the same day for the first time?",
       "answer": "15",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Mirna swims every 4 days",
+            "phrase_id": "Mirna berenang setiap 4 hari sekali",
+            "note_en": "Mirna swam yesterday (day −1), so her next swims are on days 3, 7, 11, 15, … from today.",
+            "note_id": "Mirna berenang kemarin (hari −1), jadi jadwal berikutnya adalah hari ke-3, 7, 11, 15, … dari hari ini."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Bety swims every 7 days",
+            "phrase_id": "Bety berenang 7 hari sekali",
+            "note_en": "Bety swims tomorrow (day +1), so her next swims are on days 1, 8, 15, … from today.",
+            "note_id": "Bety berenang besok (hari +1), jadi jadwal berikutnya adalah hari ke-1, 8, 15, … dari hari ini."
+          },
+          {
+            "category": "question",
+            "phrase_en": "In how many days from now will they swim on the same day for the first time",
+            "phrase_id": "Berapa hari lagi keduanya paling cepat akan berenang pada hari yang sama",
+            "note_en": "Find the earliest day that appears in both lists.",
+            "note_id": "Cari hari terkecil yang muncul di kedua daftar jadwal."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Mirna's schedule from today (every 4 days, offset −1)",
+            "label_id": "Jadwal Mirna dari hari ini (setiap 4 hari, offset −1)",
+            "value": "3, 7, 11, 15, 19, …"
+          },
+          {
+            "label_en": "Bety's schedule from today (every 7 days, offset +1)",
+            "label_id": "Jadwal Bety dari hari ini (setiap 7 hari, offset +1)",
+            "value": "1, 8, 15, 22, …"
+          },
+          {
+            "label_en": "First common day",
+            "label_id": "Hari pertama yang sama",
+            "value": "15"
+          }
+        ],
+        "strategy": {
+          "name_en": "List each schedule and find the first overlap",
+          "name_id": "Daftar setiap jadwal dan temukan pertemuan pertama"
+        },
+        "trap": {
+          "wrong": "28",
+          "why_en": "LCM(4,7) = 28 ignores the offsets — you cannot just take LCM when the starting points differ.",
+          "why_id": "KPK(4,7) = 28 mengabaikan offset awal — tidak bisa langsung ambil KPK bila titik awalnya berbeda."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "hari",
+          "value": "15"
+        }
+      },
+      "hint_steps_en": [
+        "Set today = day 0. Mirna swam yesterday (day −1), so she swims on days 3, 7, 11, 15, 19, … (every 4 days from day −1).",
+        "Bety swims tomorrow (day +1), so she swims on days 1, 8, 15, 22, … (every 7 days from day +1).",
+        "Compare the two lists and find the first day that appears in both: day 15.",
+        "In 15 days from now they will swim together for the first time."
+      ],
+      "hint_steps_id": [
+        "Anggap hari ini = hari ke-0. Mirna berenang kemarin (hari −1), sehingga jadwalnya: hari 3, 7, 11, 15, 19, … (setiap 4 hari dari hari −1).",
+        "Bety berenang besok (hari +1), sehingga jadwalnya: hari 1, 8, 15, 22, … (setiap 7 hari dari hari +1).",
+        "Bandingkan kedua daftar dan cari hari pertama yang muncul di keduanya: hari ke-15.",
+        "Jadi 15 hari lagi mereka akan berenang bersama untuk pertama kalinya."
+      ]
     },
     {
       "number": 6,
@@ -54,7 +433,81 @@
       "body_id": "Jika P, Q, dan R masing-masing adalah bilangan bulat positif yang memenuhi sistem persamaan: P × P = Q, Q − P = R, P + P = R, maka nilai dari P + Q + R = …",
       "body_en": "If P, Q, and R are each positive integers satisfying the system of equations: P × P = Q, Q − P = R, P + P = R, then the value of P + Q + R = …",
       "answer": "18",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "P × P = Q",
+            "phrase_id": "P × P = Q",
+            "note_en": "Q equals P squared.",
+            "note_id": "Q sama dengan P kuadrat."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "P + P = R",
+            "phrase_id": "P + P = R",
+            "note_en": "R equals 2P — so R and Q−P must agree.",
+            "note_id": "R sama dengan 2P — sehingga R dan Q−P harus cocok."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Q − P = R",
+            "phrase_id": "Q − P = R",
+            "note_en": "Combined with R = 2P: P² − P = 2P → P² = 3P → P = 3.",
+            "note_id": "Dikombinasikan dengan R = 2P: P² − P = 2P → P² = 3P → P = 3."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "From Q−P = R and R = 2P",
+            "label_id": "Dari Q−P = R dan R = 2P",
+            "value": "P² − P = 2P → P² = 3P → P = 3"
+          },
+          {
+            "label_en": "Q = P² = 9",
+            "label_id": "Q = P² = 9",
+            "value": "9"
+          },
+          {
+            "label_en": "R = 2P = 6",
+            "label_id": "R = 2P = 6",
+            "value": "6"
+          },
+          {
+            "label_en": "P + Q + R",
+            "label_id": "P + Q + R",
+            "value": "3 + 9 + 6 = 18"
+          }
+        ],
+        "strategy": {
+          "name_en": "Equate the two expressions for R to solve for P",
+          "name_id": "Samakan dua ekspresi untuk R agar P dapat dicari"
+        },
+        "trap": {
+          "wrong": "P = 1",
+          "why_en": "P = 1 gives Q = 1, R = 2, but Q − P = 0 ≠ 2 = R — it fails the second equation.",
+          "why_id": "P = 1 menghasilkan Q = 1, R = 2, tetapi Q − P = 0 ≠ 2 = R — tidak memenuhi persamaan kedua."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "18"
+        }
+      },
+      "hint_steps_en": [
+        "From P + P = R we get R = 2P.",
+        "From Q − P = R and Q = P²: P² − P = 2P → P² = 3P → P = 3.",
+        "Then Q = 3² = 9 and R = 2 × 3 = 6.",
+        "P + Q + R = 3 + 9 + 6 = 18."
+      ],
+      "hint_steps_id": [
+        "Dari P + P = R diperoleh R = 2P.",
+        "Dari Q − P = R dan Q = P²: P² − P = 2P → P² = 3P → P = 3.",
+        "Maka Q = 3² = 9 dan R = 2 × 3 = 6.",
+        "P + Q + R = 3 + 9 + 6 = 18."
+      ]
     },
     {
       "number": 7,
@@ -62,7 +515,81 @@
       "body_id": "Sebanyak 10 kg beras akan dikemas menjadi 25 kantong. Sebanyak 4/5 bagian dari beras tersebut akan dikemas dalam 5 kantong yang ukurannya sama. Sisa beras akan dikemas dalam kantong yang ukurannya lebih kecil. Berapa kg berat beras dalam kantong berukuran kecil?",
       "body_en": "10 kg of rice is to be packed into 25 bags. 4/5 of the rice will be packed equally into 5 large bags. The remaining rice will be packed into smaller bags. How many kg of rice is in each small bag?",
       "answer": "0,1",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4/5 of the rice will be packed equally into 5 large bags",
+            "phrase_id": "4/5 bagian dari beras tersebut akan dikemas dalam 5 kantong yang ukurannya sama",
+            "note_en": "4/5 of 10 kg = 8 kg goes into 5 large bags.",
+            "note_id": "4/5 dari 10 kg = 8 kg masuk ke 5 kantong besar."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "10 kg of rice is to be packed into 25 bags",
+            "phrase_id": "10 kg beras akan dikemas menjadi 25 kantong",
+            "note_en": "25 total bags: 5 large + 20 small.",
+            "note_id": "Total 25 kantong: 5 besar + 20 kecil."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many kg of rice is in each small bag",
+            "phrase_id": "Berapa kg berat beras dalam kantong berukuran kecil",
+            "note_en": "Find the weight per small bag from the remaining rice and remaining bags.",
+            "note_id": "Cari berat per kantong kecil dari sisa beras dan sisa kantong."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rice in large bags: 4/5 × 10",
+            "label_id": "Beras di kantong besar: 4/5 × 10",
+            "value": "8 kg"
+          },
+          {
+            "label_en": "Remaining rice: 10 − 8",
+            "label_id": "Sisa beras: 10 − 8",
+            "value": "2 kg"
+          },
+          {
+            "label_en": "Number of small bags: 25 − 5",
+            "label_id": "Jumlah kantong kecil: 25 − 5",
+            "value": "20"
+          },
+          {
+            "label_en": "Rice per small bag: 2 ÷ 20",
+            "label_id": "Beras per kantong kecil: 2 ÷ 20",
+            "value": "0,1 kg"
+          }
+        ],
+        "strategy": {
+          "name_en": "Subtract the large-bag portion, divide remainder equally",
+          "name_id": "Kurangi porsi kantong besar, bagi sisa secara merata"
+        },
+        "trap": {
+          "wrong": "0,4 kg",
+          "why_en": "Dividing all 10 kg by 25 bags ignores that large bags get a bigger share.",
+          "why_id": "Membagi 10 kg langsung dengan 25 kantong mengabaikan bahwa kantong besar mendapat porsi lebih banyak."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "kg",
+          "value": "0,1"
+        }
+      },
+      "hint_steps_en": [
+        "4/5 of 10 kg = 8 kg goes into 5 large bags.",
+        "Remaining rice = 10 − 8 = 2 kg.",
+        "Remaining bags = 25 − 5 = 20 small bags.",
+        "Rice per small bag = 2 ÷ 20 = 0.1 kg."
+      ],
+      "hint_steps_id": [
+        "4/5 dari 10 kg = 8 kg masuk ke 5 kantong besar.",
+        "Sisa beras = 10 − 8 = 2 kg.",
+        "Sisa kantong = 25 − 5 = 20 kantong kecil.",
+        "Beras per kantong kecil = 2 ÷ 20 = 0,1 kg."
+      ]
     },
     {
       "number": 8,
@@ -70,7 +597,74 @@
       "body_id": "Volume suatu kubus adalah 1.000 cm³. Jika panjang rusuknya bertambah 50%, maka volume kubus yang baru adalah …",
       "body_en": "The volume of a cube is 1,000 cm³. If the edge length increases by 50%, the new volume of the cube is …",
       "answer": "3375",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "volume of a cube is 1,000 cm³",
+            "phrase_id": "Volume suatu kubus adalah 1.000 cm³",
+            "note_en": "Edge = ∛1000 = 10 cm.",
+            "note_id": "Rusuk = ∛1000 = 10 cm."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "edge length increases by 50%",
+            "phrase_id": "panjang rusuknya bertambah 50%",
+            "note_en": "New edge = 10 × 1.5 = 15 cm.",
+            "note_id": "Rusuk baru = 10 × 1,5 = 15 cm."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the new volume of the cube is",
+            "phrase_id": "volume kubus yang baru adalah",
+            "note_en": "New volume = 15³ — volume scales by the cube of the scale factor.",
+            "note_id": "Volume baru = 15³ — volume bertambah sesuai pangkat tiga dari faktor skala."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Original edge: ∛1000",
+            "label_id": "Rusuk asal: ∛1000",
+            "value": "10 cm"
+          },
+          {
+            "label_en": "New edge: 10 × 1.5",
+            "label_id": "Rusuk baru: 10 × 1,5",
+            "value": "15 cm"
+          },
+          {
+            "label_en": "New volume: 15³",
+            "label_id": "Volume baru: 15³",
+            "value": "3375 cm³"
+          }
+        ],
+        "strategy": {
+          "name_en": "Scale the edge, cube it for the new volume",
+          "name_id": "Skala rusuk, pangkat tigakan untuk volume baru"
+        },
+        "trap": {
+          "wrong": "1500",
+          "why_en": "Multiplying the original volume by 1.5 instead of 1.5³ = 3.375.",
+          "why_id": "Mengalikan volume asli dengan 1,5 alih-alih 1,5³ = 3,375."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm³",
+          "value": "3375"
+        }
+      },
+      "hint_steps_en": [
+        "Find the original edge: ∛1000 = 10 cm.",
+        "New edge after 50% increase: 10 × 1.5 = 15 cm.",
+        "New volume = 15³ = 15 × 15 × 15 = 3375 cm³."
+      ],
+      "hint_steps_id": [
+        "Cari rusuk asli: ∛1000 = 10 cm.",
+        "Rusuk baru setelah bertambah 50%: 10 × 1,5 = 15 cm.",
+        "Volume baru = 15³ = 15 × 15 × 15 = 3375 cm³."
+      ]
     },
     {
       "number": 9,
@@ -78,7 +672,74 @@
       "body_id": "Jika 5 ekor kucing dapat menangkap 5 ekor tikus dalam waktu 5 menit, maka jumlah tikus yang dapat ditangkap 20 kucing dalam waktu 20 menit adalah …",
       "body_en": "If 5 cats can catch 5 mice in 5 minutes, how many mice can 20 cats catch in 20 minutes?",
       "answer": "80",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 cats can catch 5 mice in 5 minutes",
+            "phrase_id": "5 ekor kucing dapat menangkap 5 ekor tikus dalam waktu 5 menit",
+            "note_en": "Rate: 1 cat catches 1 mouse in 5 minutes.",
+            "note_id": "Laju: 1 kucing menangkap 1 tikus dalam 5 menit."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many mice can 20 cats catch in 20 minutes",
+            "phrase_id": "jumlah tikus yang dapat ditangkap 20 kucing dalam waktu 20 menit adalah",
+            "note_en": "Scale cats (×4) and time (×4) separately.",
+            "note_id": "Skala kucing (×4) dan waktu (×4) secara terpisah."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If 5 cats can catch 5 mice in 5 minutes",
+            "phrase_id": "Jika 5 ekor kucing dapat menangkap 5 ekor tikus dalam waktu 5 menit",
+            "note_en": "The trap is thinking 20 cats in 20 minutes = 20 mice by naive scaling.",
+            "note_id": "Jebakan adalah berpikir 20 kucing dalam 20 menit = 20 tikus dengan skala sederhana."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Rate: 1 cat catches mice per 5 min",
+            "label_id": "Laju: 1 kucing menangkap tikus per 5 menit",
+            "value": "1 mouse per 5 min"
+          },
+          {
+            "label_en": "In 20 min, 1 cat catches",
+            "label_id": "Dalam 20 menit, 1 kucing menangkap",
+            "value": "20 ÷ 5 = 4 mice"
+          },
+          {
+            "label_en": "20 cats × 4 mice each",
+            "label_id": "20 kucing × 4 tikus masing-masing",
+            "value": "80 mice"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find the rate per cat per minute, then scale",
+          "name_id": "Cari laju per kucing per menit, lalu skala"
+        },
+        "trap": {
+          "wrong": "20",
+          "why_en": "Ratio trick: 5 cats→5 mice, 20 cats→20 mice — forgets that time also increases from 5 to 20 minutes.",
+          "why_id": "Trik rasio: 5 kucing→5 tikus, 20 kucing→20 tikus — lupa bahwa waktu juga bertambah dari 5 ke 20 menit."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "80"
+        }
+      },
+      "hint_steps_en": [
+        "5 cats catch 5 mice in 5 minutes → 1 cat catches 1 mouse in 5 minutes.",
+        "In 20 minutes, 1 cat catches 20 ÷ 5 = 4 mice.",
+        "20 cats each catch 4 mice → total = 20 × 4 = 80 mice."
+      ],
+      "hint_steps_id": [
+        "5 kucing menangkap 5 tikus dalam 5 menit → 1 kucing menangkap 1 tikus dalam 5 menit.",
+        "Dalam 20 menit, 1 kucing menangkap 20 ÷ 5 = 4 tikus.",
+        "20 kucing masing-masing menangkap 4 tikus → total = 20 × 4 = 80 tikus."
+      ]
     },
     {
       "number": 10,
@@ -86,7 +747,81 @@
       "body_id": "Lantai rumah berukuran 9 m × 8 m. Ayah ingin menutup lantai dengan keramik berukuran 60 cm × 60 cm. Satu keping keramik harganya Rp50.000,00. Total harga pembelian keramik agar seluruh lantai tertutup adalah …",
       "body_en": "A room floor measures 9 m × 8 m. Father wants to cover the floor with tiles measuring 60 cm × 60 cm. Each tile costs Rp50,000. What is the total cost of tiles needed to cover the entire floor?",
       "answer": "Rp10.000.000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "floor measures 9 m × 8 m",
+            "phrase_id": "Lantai rumah berukuran 9 m × 8 m",
+            "note_en": "Floor area = 72 m² = 720,000 cm².",
+            "note_id": "Luas lantai = 72 m² = 720.000 cm²."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "tiles measuring 60 cm × 60 cm",
+            "phrase_id": "keramik berukuran 60 cm × 60 cm",
+            "note_en": "Each tile area = 3600 cm².",
+            "note_id": "Luas tiap keramik = 3600 cm²."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Each tile costs Rp50,000",
+            "phrase_id": "Satu keping keramik harganya Rp50.000,00",
+            "note_en": "Multiply the number of tiles by this price.",
+            "note_id": "Kalikan jumlah keramik dengan harga ini."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Floor area in cm²: 900 × 800",
+            "label_id": "Luas lantai dalam cm²: 900 × 800",
+            "value": "720,000 cm²"
+          },
+          {
+            "label_en": "Tile area: 60 × 60",
+            "label_id": "Luas keramik: 60 × 60",
+            "value": "3,600 cm²"
+          },
+          {
+            "label_en": "Number of tiles: 720,000 ÷ 3,600",
+            "label_id": "Jumlah keramik: 720.000 ÷ 3.600",
+            "value": "200"
+          },
+          {
+            "label_en": "Total cost: 200 × 50,000",
+            "label_id": "Total harga: 200 × 50.000",
+            "value": "Rp10,000,000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert units, divide areas, multiply by price",
+          "name_id": "Konversi satuan, bagi luas, kalikan dengan harga"
+        },
+        "trap": {
+          "wrong": "Rp600.000",
+          "why_en": "Forgetting to convert metres to centimetres before dividing areas.",
+          "why_id": "Lupa mengubah satuan meter ke sentimeter sebelum membagi luas."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Rp10.000.000"
+        }
+      },
+      "hint_steps_en": [
+        "Convert: floor = 900 cm × 800 cm = 720,000 cm².",
+        "Tile area = 60 × 60 = 3,600 cm².",
+        "Number of tiles = 720,000 ÷ 3,600 = 200.",
+        "Total cost = 200 × Rp50,000 = Rp10,000,000."
+      ],
+      "hint_steps_id": [
+        "Konversi: lantai = 900 cm × 800 cm = 720.000 cm².",
+        "Luas keramik = 60 × 60 = 3.600 cm².",
+        "Jumlah keramik = 720.000 ÷ 3.600 = 200 keping.",
+        "Total harga = 200 × Rp50.000 = Rp10.000.000."
+      ]
     },
     {
       "number": 11,
@@ -94,7 +829,76 @@
       "body_id": "Sebuah pesawat hanya mampu membawa 18 orang dewasa atau 30 orang anak. Pada suatu hari, ada 12 orang dewasa yang akan berangkat menggunakan pesawat itu. Paling banyak berapa jumlah anak yang dapat ikut berangkat?",
       "body_en": "A plane can carry at most 18 adults or 30 children. On a certain day, 12 adults will travel on the plane. What is the maximum number of children that can also travel?",
       "answer": "10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A plane can carry at most 18 adults or 30 children",
+            "phrase_id": "Sebuah pesawat hanya mampu membawa 18 orang dewasa atau 30 orang anak",
+            "note_en": "1 adult = 30/18 = 5/3 child-seats in capacity terms.",
+            "note_id": "1 orang dewasa setara 30/18 = 5/3 kapasitas anak."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "12 adults will travel on the plane",
+            "phrase_id": "ada 12 orang dewasa yang akan berangkat menggunakan pesawat itu",
+            "note_en": "12 adults use 12/18 = 2/3 of the plane's capacity.",
+            "note_id": "12 orang dewasa menggunakan 12/18 = 2/3 kapasitas pesawat."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the maximum number of children that can also travel",
+            "phrase_id": "Paling banyak berapa jumlah anak yang dapat ikut berangkat",
+            "note_en": "The remaining 1/3 capacity can hold 1/3 × 30 = 10 children.",
+            "note_id": "Sisa 1/3 kapasitas dapat menampung 1/3 × 30 = 10 anak."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Fraction of capacity used by 12 adults: 12/18",
+            "label_id": "Fraksi kapasitas yang dipakai 12 dewasa: 12/18",
+            "value": "2/3"
+          },
+          {
+            "label_en": "Remaining capacity: 1 − 2/3",
+            "label_id": "Sisa kapasitas: 1 − 2/3",
+            "value": "1/3"
+          },
+          {
+            "label_en": "Children that fit: 1/3 × 30",
+            "label_id": "Anak yang dapat naik: 1/3 × 30",
+            "value": "10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Convert to a common capacity unit (child-equivalents)",
+          "name_id": "Ubah ke satuan kapasitas yang sama (ekuivalen anak)"
+        },
+        "trap": {
+          "wrong": "18",
+          "why_en": "Taking 30 − 12 = 18 confuses the number of adults with the number of children.",
+          "why_id": "Menghitung 30 − 12 = 18 mengacaukan jumlah dewasa dengan jumlah anak."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "10"
+        }
+      },
+      "hint_steps_en": [
+        "The plane has capacity for 18 adults OR 30 children — so 1 adult uses the same space as 30/18 = 5/3 children.",
+        "12 adults use 12/18 = 2/3 of the plane's total capacity.",
+        "Remaining capacity = 1/3 of the plane = 1/3 × 30 = 10 child-seats.",
+        "At most 10 children can also travel."
+      ],
+      "hint_steps_id": [
+        "Pesawat berkapasitas 18 dewasa ATAU 30 anak — jadi 1 dewasa setara 30/18 = 5/3 anak.",
+        "12 dewasa menggunakan 12/18 = 2/3 kapasitas pesawat.",
+        "Sisa kapasitas = 1/3 pesawat = 1/3 × 30 = 10 tempat anak.",
+        "Paling banyak 10 anak yang dapat ikut berangkat."
+      ]
     },
     {
       "number": 12,
@@ -102,7 +906,74 @@
       "body_id": "Panjang diameter sebuah roda sepeda adalah 1 meter. Saat sepeda tersebut berjalan, rodanya berputar sebanyak 500 kali. Berapa kilometer jarak yang ditempuh sepeda itu? (π = 3,14)",
       "body_en": "The diameter of a bicycle wheel is 1 meter. When the bicycle travels, the wheel rotates 500 times. How many kilometers does the bicycle travel? (π = 3.14)",
       "answer": "1,57",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "diameter of a bicycle wheel is 1 meter",
+            "phrase_id": "Panjang diameter sebuah roda sepeda adalah 1 meter",
+            "note_en": "Circumference = π × d = 3.14 × 1 = 3.14 m per rotation.",
+            "note_id": "Keliling = π × d = 3,14 × 1 = 3,14 m per putaran."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "wheel rotates 500 times",
+            "phrase_id": "rodanya berputar sebanyak 500 kali",
+            "note_en": "Total distance = 500 × circumference.",
+            "note_id": "Total jarak = 500 × keliling."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many kilometers does the bicycle travel",
+            "phrase_id": "Berapa kilometer jarak yang ditempuh sepeda itu",
+            "note_en": "Convert metres to kilometres at the end.",
+            "note_id": "Konversi meter ke kilometer di akhir."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Circumference: π × 1",
+            "label_id": "Keliling: π × 1",
+            "value": "3.14 m"
+          },
+          {
+            "label_en": "Total distance: 500 × 3.14",
+            "label_id": "Total jarak: 500 × 3,14",
+            "value": "1570 m"
+          },
+          {
+            "label_en": "Convert to km: 1570 ÷ 1000",
+            "label_id": "Ubah ke km: 1570 ÷ 1000",
+            "value": "1.57 km"
+          }
+        ],
+        "strategy": {
+          "name_en": "Circumference × rotations, then convert to km",
+          "name_id": "Keliling × jumlah putaran, lalu konversi ke km"
+        },
+        "trap": {
+          "wrong": "157",
+          "why_en": "Forgetting to divide by 1000 to convert metres to kilometres.",
+          "why_id": "Lupa membagi 1000 untuk mengubah meter menjadi kilometer."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "km",
+          "value": "1,57"
+        }
+      },
+      "hint_steps_en": [
+        "Circumference = π × diameter = 3.14 × 1 m = 3.14 m.",
+        "Total distance = 500 rotations × 3.14 m = 1,570 m.",
+        "Convert: 1,570 m ÷ 1,000 = 1.57 km."
+      ],
+      "hint_steps_id": [
+        "Keliling = π × diameter = 3,14 × 1 m = 3,14 m.",
+        "Total jarak = 500 putaran × 3,14 m = 1.570 m.",
+        "Konversi: 1.570 m ÷ 1.000 = 1,57 km."
+      ]
     },
     {
       "number": 13,
@@ -110,7 +981,76 @@
       "body_id": "KPK dan FPB dari 28, 36, dan 40 berturut-turut adalah …",
       "body_en": "The LCM and GCD of 28, 36, and 40 are respectively …",
       "answer": "2520 dan 4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "The LCM and GCD of 28, 36, and 40",
+            "phrase_id": "KPK dan FPB dari 28, 36, dan 40",
+            "note_en": "Prime-factorise all three numbers first.",
+            "note_id": "Faktorkan prima ketiga bilangan terlebih dahulu."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "respectively",
+            "phrase_id": "berturut-turut",
+            "note_en": "Answer LCM first, then GCD — in that order.",
+            "note_id": "Jawab KPK terlebih dahulu, lalu FPB — sesuai urutan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The LCM and GCD of 28, 36, and 40 are respectively",
+            "phrase_id": "KPK dan FPB dari 28, 36, dan 40 berturut-turut adalah",
+            "note_en": "GCD uses lowest shared powers; LCM uses highest powers of all primes.",
+            "note_id": "FPB menggunakan pangkat terendah yang sama; KPK menggunakan pangkat tertinggi semua faktor prima."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "28 = 2² × 7; 36 = 2² × 3²; 40 = 2³ × 5",
+            "label_id": "28 = 2² × 7; 36 = 2² × 3²; 40 = 2³ × 5",
+            "value": "prime factorisations"
+          },
+          {
+            "label_en": "GCD: lowest power of common prime (2²)",
+            "label_id": "FPB: pangkat terendah faktor prima yang sama (2²)",
+            "value": "4"
+          },
+          {
+            "label_en": "LCM: 2³ × 3² × 5 × 7",
+            "label_id": "KPK: 2³ × 3² × 5 × 7",
+            "value": "8 × 9 × 5 × 7 = 2520"
+          }
+        ],
+        "strategy": {
+          "name_en": "Prime factorisation → GCD (lowest shared powers) and LCM (highest all powers)",
+          "name_id": "Faktorisasi prima → FPB (pangkat terendah bersama) dan KPK (pangkat tertinggi semua)"
+        },
+        "trap": {
+          "wrong": "LCM = 1008",
+          "why_en": "28 × 36 = 1008 is not the LCM — you must use all three numbers together.",
+          "why_id": "28 × 36 = 1008 bukan KPK — harus menggunakan ketiga bilangan sekaligus."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "2520 dan 4"
+        }
+      },
+      "hint_steps_en": [
+        "Prime factorise: 28 = 2² × 7; 36 = 2² × 3²; 40 = 2³ × 5.",
+        "GCD = product of lowest shared prime powers = 2² = 4.",
+        "LCM = product of highest prime powers = 2³ × 3² × 5 × 7 = 8 × 9 × 5 × 7 = 2520.",
+        "Answer: LCM = 2520 and GCD = 4."
+      ],
+      "hint_steps_id": [
+        "Faktorisasi prima: 28 = 2² × 7; 36 = 2² × 3²; 40 = 2³ × 5.",
+        "FPB = hasil kali pangkat prima terendah yang sama = 2² = 4.",
+        "KPK = hasil kali pangkat prima tertinggi = 2³ × 3² × 5 × 7 = 8 × 9 × 5 × 7 = 2520.",
+        "Jawaban: KPK = 2520 dan FPB = 4."
+      ]
     },
     {
       "number": 14,
@@ -118,7 +1058,81 @@
       "body_id": "Untuk menempuh perjalanan dari Pontianak ke Sambas dengan kecepatan rata-rata 60 km/jam, Pak Yudi biasanya memerlukan waktu selama 6 jam 40 menit. Agar Pak Yudi tiba di Sambas 1 jam 20 menit lebih awal dari biasanya, maka kecepatan rata-rata Pak Yudi berkendara adalah …",
       "body_en": "Traveling from Pontianak to Sambas at an average speed of 60 km/h, Mr. Yudi usually takes 6 hours 40 minutes. To arrive in Sambas 1 hour 20 minutes earlier than usual, what average speed must Mr. Yudi drive?",
       "answer": "75 km/jam",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "average speed of 60 km/h, Mr. Yudi usually takes 6 hours 40 minutes",
+            "phrase_id": "kecepatan rata-rata 60 km/jam, Pak Yudi biasanya memerlukan waktu selama 6 jam 40 menit",
+            "note_en": "Distance = 60 × (20/3) = 400 km.",
+            "note_id": "Jarak = 60 × (20/3) = 400 km."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "1 hour 20 minutes earlier than usual",
+            "phrase_id": "1 jam 20 menit lebih awal dari biasanya",
+            "note_en": "New travel time = 6h40m − 1h20m = 5h20m = 16/3 hours.",
+            "note_id": "Waktu tempuh baru = 6j40m − 1j20m = 5j20m = 16/3 jam."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what average speed must Mr. Yudi drive",
+            "phrase_id": "maka kecepatan rata-rata Pak Yudi berkendara adalah",
+            "note_en": "Speed = distance ÷ new time.",
+            "note_id": "Kecepatan = jarak ÷ waktu baru."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Usual time: 6h40m",
+            "label_id": "Waktu biasa: 6j40m",
+            "value": "20/3 hours"
+          },
+          {
+            "label_en": "Distance: 60 × 20/3",
+            "label_id": "Jarak: 60 × 20/3",
+            "value": "400 km"
+          },
+          {
+            "label_en": "New time: 5h20m",
+            "label_id": "Waktu baru: 5j20m",
+            "value": "16/3 hours"
+          },
+          {
+            "label_en": "New speed: 400 ÷ (16/3)",
+            "label_id": "Kecepatan baru: 400 ÷ (16/3)",
+            "value": "75 km/h"
+          }
+        ],
+        "strategy": {
+          "name_en": "Distance constant; use distance = speed × time twice",
+          "name_id": "Jarak tetap; gunakan jarak = kecepatan × waktu dua kali"
+        },
+        "trap": {
+          "wrong": "80 km/jam",
+          "why_en": "Adding 1h20m instead of subtracting it from the usual time.",
+          "why_id": "Menambahkan 1j20m alih-alih mengurangi dari waktu biasa."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "km/jam",
+          "value": "75 km/jam"
+        }
+      },
+      "hint_steps_en": [
+        "Usual time = 6h 40min = 6⅔ hours = 20/3 hours.",
+        "Distance = 60 × 20/3 = 400 km.",
+        "New time = 6h40m − 1h20m = 5h20m = 16/3 hours.",
+        "New speed = 400 ÷ (16/3) = 400 × 3/16 = 75 km/h."
+      ],
+      "hint_steps_id": [
+        "Waktu biasa = 6 jam 40 menit = 6⅔ jam = 20/3 jam.",
+        "Jarak = 60 × 20/3 = 400 km.",
+        "Waktu baru = 6j40m − 1j20m = 5j20m = 16/3 jam.",
+        "Kecepatan baru = 400 ÷ (16/3) = 400 × 3/16 = 75 km/jam."
+      ]
     },
     {
       "number": 15,
@@ -126,7 +1140,76 @@
       "body_id": "Suatu toko memberikan persentase potongan harga yang sama terhadap seluruh produk yang dijualnya. Harga celana yang semula seharga Rp66.000,00 dipotong menjadi Rp45.000,00. Jika harga kaus mula-mula Rp22.000,00, maka setelah mendapat potongan harga akan menjadi …",
       "body_en": "A store gives the same percentage discount on all its products. A pair of trousers originally priced at Rp66,000 is discounted to Rp45,000. If a shirt originally costs Rp22,000, what is its price after the discount?",
       "answer": "Rp15.000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A pair of trousers originally priced at Rp66,000 is discounted to Rp45,000",
+            "phrase_id": "Harga celana yang semula seharga Rp66.000,00 dipotong menjadi Rp45.000,00",
+            "note_en": "Discount = (66000 − 45000)/66000 = 21000/66000 = 7/22.",
+            "note_id": "Diskon = (66.000 − 45.000)/66.000 = 21.000/66.000 = 7/22."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A store gives the same percentage discount on all its products",
+            "phrase_id": "Suatu toko memberikan persentase potongan harga yang sama terhadap seluruh produk yang dijualnya",
+            "note_en": "Apply the same 7/22 discount rate to the shirt.",
+            "note_id": "Terapkan diskon yang sama 7/22 ke harga kaus."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "shirt originally costs Rp22,000",
+            "phrase_id": "harga kaus mula-mula Rp22.000,00",
+            "note_en": "Shirt after discount = 22000 × (1 − 7/22) = 22000 × 15/22 = 15000.",
+            "note_id": "Kaus setelah diskon = 22.000 × (1 − 7/22) = 22.000 × 15/22 = 15.000."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Discount fraction: (66000 − 45000) / 66000",
+            "label_id": "Fraksi diskon: (66.000 − 45.000) / 66.000",
+            "value": "21/66 = 7/22"
+          },
+          {
+            "label_en": "Remaining fraction: 1 − 7/22",
+            "label_id": "Fraksi sisa: 1 − 7/22",
+            "value": "15/22"
+          },
+          {
+            "label_en": "Shirt after discount: 22000 × 15/22",
+            "label_id": "Kaus setelah diskon: 22.000 × 15/22",
+            "value": "Rp15,000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Find discount fraction from the reference item, apply to new item",
+          "name_id": "Cari fraksi diskon dari produk referensi, terapkan ke produk baru"
+        },
+        "trap": {
+          "wrong": "Rp1.000",
+          "why_en": "Subtracting the same rupiah amount (21,000) instead of the same percentage.",
+          "why_id": "Mengurangi jumlah rupiah yang sama (21.000) alih-alih persentase yang sama."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Rp15.000"
+        }
+      },
+      "hint_steps_en": [
+        "Discount on trousers = Rp66,000 − Rp45,000 = Rp21,000.",
+        "Discount rate = 21,000 / 66,000 = 7/22.",
+        "Shirt discount = 22,000 × 7/22 = 7,000.",
+        "Shirt price after discount = 22,000 − 7,000 = Rp15,000."
+      ],
+      "hint_steps_id": [
+        "Potongan celana = Rp66.000 − Rp45.000 = Rp21.000.",
+        "Persentase diskon = 21.000 / 66.000 = 7/22.",
+        "Diskon kaus = 22.000 × 7/22 = 7.000.",
+        "Harga kaus setelah diskon = 22.000 − 7.000 = Rp15.000."
+      ]
     },
     {
       "number": 16,
@@ -134,7 +1217,106 @@
       "body_id": "Jika A dan B adalah bilangan asli berbeda yang memenuhi 1/4 = 1/A − 1/B, maka nilai masing-masing dari keduanya adalah …",
       "body_en": "If A and B are different natural numbers satisfying 1/4 = 1/A − 1/B, then the values of each are …",
       "answer": "A=2 dan B=4; atau A=3 dan B=12",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "A and B are different natural numbers",
+            "phrase_id": "A dan B adalah bilangan asli berbeda",
+            "note_en": "Both must be positive integers, and A ≠ B.",
+            "note_id": "Keduanya harus bilangan bulat positif, dan A ≠ B."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1/4 = 1/A − 1/B",
+            "phrase_id": "1/4 = 1/A − 1/B",
+            "note_en": "Since 1/A > 1/B we need A < B; rewrite as 1/A − 1/4 = 1/B.",
+            "note_id": "Karena 1/A > 1/B maka A < B; tulis ulang sebagai 1/A − 1/4 = 1/B."
+          },
+          {
+            "category": "question",
+            "phrase_en": "the values of each are",
+            "phrase_id": "nilai masing-masing dari keduanya adalah",
+            "note_en": "Find all valid natural-number pairs (A, B).",
+            "note_id": "Temukan semua pasangan bilangan asli (A, B) yang valid."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Try A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4",
+            "label_id": "Coba A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4",
+            "value": "(A=2, B=4) ✓"
+          },
+          {
+            "label_en": "Try A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12",
+            "label_id": "Coba A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12",
+            "value": "(A=3, B=12) ✓"
+          },
+          {
+            "label_en": "A must be < 4 (else 1/A ≤ 1/4 and 1/B would be ≤ 0)",
+            "label_id": "A harus < 4 (jika tidak 1/A ≤ 1/4 dan 1/B ≤ 0)",
+            "value": "A ∈ {1,2,3} only; A=1 gives 1/B = 3/4 → B = 4/3 (not integer)"
+          }
+        ],
+        "strategy": {
+          "name_en": "Try small values of A systematically",
+          "name_id": "Coba nilai A kecil secara sistematis"
+        },
+        "trap": {
+          "wrong": "A=4, B=∞",
+          "why_en": "A=4 gives 1/4 − 1/4 = 0 so 1/B = 0 which has no natural-number solution.",
+          "why_id": "A=4 menghasilkan 1/4 − 1/4 = 0 sehingga 1/B = 0 yang tidak memiliki solusi bilangan asli."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "A=2 dan B=4; atau A=3 dan B=12"
+        }
+      },
+      "hint_steps_en": [
+        "Rearrange: 1/B = 1/A − 1/4. For 1/B to be positive we need A < 4, so A ∈ {1, 2, 3}.",
+        "A=1: 1/B = 1 − 1/4 = 3/4 → B = 4/3 — not a natural number.",
+        "A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4 ✓",
+        "A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12 ✓",
+        "Two valid pairs: (A=2, B=4) and (A=3, B=12)."
+      ],
+      "hint_steps_id": [
+        "Atur ulang: 1/B = 1/A − 1/4. Agar 1/B positif, dibutuhkan A < 4, sehingga A ∈ {1, 2, 3}.",
+        "A=1: 1/B = 1 − 1/4 = 3/4 → B = 4/3 — bukan bilangan asli.",
+        "A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4 ✓",
+        "A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12 ✓",
+        "Dua pasangan valid: (A=2, B=4) dan (A=3, B=12)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "A must be a natural number less than 4 — try A = 1, 2, 3 in turn.",
+          "intro_id": "A harus bilangan asli kurang dari 4 — coba A = 1, 2, 3 satu per satu.",
+          "items": [
+            {
+              "text_en": "A=1: 1/B = 1 − 1/4 = 3/4 → B = 4/3 ✗ not a natural number",
+              "text_id": "A=1: 1/B = 1 − 1/4 = 3/4 → B = 4/3 ✗ bukan bilangan asli",
+              "ok": false
+            },
+            {
+              "text_en": "A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4 ✓",
+              "text_id": "A=2: 1/B = 1/2 − 1/4 = 1/4 → B = 4 ✓",
+              "ok": true
+            },
+            {
+              "text_en": "A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12 ✓",
+              "text_id": "A=3: 1/B = 1/3 − 1/4 = 1/12 → B = 12 ✓",
+              "ok": true
+            }
+          ],
+          "final_en": "Two valid pairs: A=2 B=4, and A=3 B=12.",
+          "final_id": "Dua pasangan valid: A=2 B=4, dan A=3 B=12.",
+          "aria_en": "Trying A equals 1, 2, 3: A=1 gives non-integer B; A=2 gives B=4; A=3 gives B=12.",
+          "aria_id": "Mencoba A sama dengan 1, 2, 3: A=1 menghasilkan B non-bulat; A=2 menghasilkan B=4; A=3 menghasilkan B=12."
+        }
+      }
     },
     {
       "number": 17,
@@ -142,7 +1324,73 @@
       "body_id": "Sebuah penampungan air dengan volume 20 m³ dalam keadaan kosong diisi air sebanyak 4 m³ setiap hari. Tiap sore hari, air itu diambil sebanyak 3 m³. Pada hari ke berapa penampungan air itu penuh?",
       "body_en": "An empty water tank with a volume of 20 m³ is filled with 4 m³ of water every day. Each evening, 3 m³ is removed. On which day does the tank become full?",
       "answer": "17",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "filled with 4 m³ of water every day",
+            "phrase_id": "diisi air sebanyak 4 m³ setiap hari",
+            "note_en": "Each morning adds 4 m³ — the tank might reach 20 m³ during the fill.",
+            "note_id": "Setiap pagi ditambah 4 m³ — tangki bisa mencapai 20 m³ saat pengisian."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Each evening, 3 m³ is removed",
+            "phrase_id": "Tiap sore hari, air itu diambil sebanyak 3 m³",
+            "note_en": "Net gain per complete day = 4 − 3 = 1 m³ (only if tank doesn't fill first).",
+            "note_id": "Pertambahan bersih per hari penuh = 4 − 3 = 1 m³ (hanya jika tangki belum penuh)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "On which day does the tank become full",
+            "phrase_id": "Pada hari ke berapa penampungan air itu penuh",
+            "note_en": "The tank fills on the morning when the running total after filling hits 20 m³.",
+            "note_id": "Tangki penuh pada pagi hari ketika total setelah pengisian mencapai 20 m³."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Water after each complete day (end of evening): 1, 2, 3, … m³",
+            "label_id": "Air setelah setiap hari penuh (akhir sore): 1, 2, 3, … m³",
+            "value": "net +1 m³ per day"
+          },
+          {
+            "label_en": "Start of day 17: 16 m³ → fill to 16 + 4 = 20 m³",
+            "label_id": "Awal hari ke-17: 16 m³ → diisi menjadi 16 + 4 = 20 m³",
+            "value": "Tank full on day 17"
+          }
+        ],
+        "strategy": {
+          "name_en": "Track water level day by day; check morning fill vs capacity",
+          "name_id": "Lacak level air hari per hari; cek pengisian pagi vs kapasitas"
+        },
+        "trap": {
+          "wrong": "20",
+          "why_en": "Dividing 20 m³ by net 1 m³/day = 20 days ignores that on day 17 the morning fill alone completes the tank before any removal.",
+          "why_id": "Membagi 20 m³ dengan net 1 m³/hari = 20 hari mengabaikan bahwa pada hari ke-17 pengisian pagi saja sudah memenuhi tangki sebelum ada pengambilan."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "17"
+        }
+      },
+      "hint_steps_en": [
+        "Each day: fill 4 m³ in the morning, remove 3 m³ in the evening → net +1 m³ per complete day.",
+        "After the evening of day n (for n < 17), the tank holds n m³.",
+        "On the morning of day 17, the tank has 16 m³; adding 4 m³ brings it to 20 m³ — full!",
+        "The removal in the evening of day 17 never happens because the tank is already full.",
+        "The tank becomes full on day 17."
+      ],
+      "hint_steps_id": [
+        "Setiap hari: diisi 4 m³ pagi, diambil 3 m³ sore → pertambahan bersih +1 m³ per hari penuh.",
+        "Setelah sore hari ke-n (untuk n < 17), tangki berisi n m³.",
+        "Pada pagi hari ke-17, tangki berisi 16 m³; penambahan 4 m³ menjadi 20 m³ — penuh!",
+        "Pengambilan sore hari ke-17 tidak terjadi karena tangki sudah penuh.",
+        "Penampungan air penuh pada hari ke-17."
+      ]
     },
     {
       "number": 18,
@@ -150,7 +1398,69 @@
       "body_id": "Sehelai kain memiliki panjang 512 cm. Karena dianggap terlalu panjang, kain itu dilipat sebanyak 6 kali lipatan. Panjang lipatan terakhir adalah … cm.",
       "body_en": "A piece of cloth is 512 cm long. Because it is considered too long, it is folded 6 times. The length after the final fold is … cm.",
       "answer": "8",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A piece of cloth is 512 cm long",
+            "phrase_id": "Sehelai kain memiliki panjang 512 cm",
+            "note_en": "Starting length before any fold.",
+            "note_id": "Panjang awal sebelum ada lipatan."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "folded 6 times",
+            "phrase_id": "dilipat sebanyak 6 kali lipatan",
+            "note_en": "Each fold halves the length: divide by 2^6 = 64.",
+            "note_id": "Setiap lipatan membagi panjang menjadi setengah: bagi dengan 2^6 = 64."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The length after the final fold is",
+            "phrase_id": "Panjang lipatan terakhir adalah",
+            "note_en": "512 ÷ 64 = 8 cm.",
+            "note_id": "512 ÷ 64 = 8 cm."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2^6 (divisor for 6 folds)",
+            "label_id": "2^6 (pembagi untuk 6 kali lipatan)",
+            "value": "64"
+          },
+          {
+            "label_en": "Final length: 512 ÷ 64",
+            "label_id": "Panjang akhir: 512 ÷ 64",
+            "value": "8 cm"
+          }
+        ],
+        "strategy": {
+          "name_en": "Divide by 2 once per fold (or by 2^n for n folds)",
+          "name_id": "Bagi dengan 2 untuk setiap lipatan (atau dengan 2^n untuk n lipatan)"
+        },
+        "trap": {
+          "wrong": "86",
+          "why_en": "512 ÷ 6 = 85.3 — dividing by number of folds instead of 2^6.",
+          "why_id": "512 ÷ 6 = 85,3 — membagi dengan jumlah lipatan alih-alih 2^6."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "cm",
+          "value": "8"
+        }
+      },
+      "hint_steps_en": [
+        "Each fold cuts the length in half.",
+        "After 6 folds the length is divided by 2^6 = 64.",
+        "512 ÷ 64 = 8 cm."
+      ],
+      "hint_steps_id": [
+        "Setiap lipatan memotong panjang menjadi setengahnya.",
+        "Setelah 6 kali lipatan, panjang dibagi 2^6 = 64.",
+        "512 ÷ 64 = 8 cm."
+      ]
     },
     {
       "number": 19,
@@ -158,7 +1468,76 @@
       "body_id": "Mobil milik Adi diisi 12 liter bensin. Dengan kecepatan rata-rata 48 km/jam menggunakan mobilnya, Adi bergerak dari kota A ke kota B selama 4 jam dan tersisa 0,5 liter bensin. Jika dengan kecepatan yang sama, namun diisi bensin sebanyak 37 liter, maka waktu yang diperlukan Adi untuk bergerak dari kota A ke kota B adalah … jam.",
       "body_en": "Adi fills his car with 12 liters of fuel. Driving at an average speed of 48 km/h, he travels from city A to city B in 4 hours and has 0.5 liters of fuel remaining. If he drives at the same speed but fills 37 liters of fuel, how many hours does it take Adi to travel from city A to city B?",
       "answer": "4",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "he travels from city A to city B in 4 hours",
+            "phrase_id": "Adi bergerak dari kota A ke kota B selama 4 jam",
+            "note_en": "The distance A→B is fixed: 48 × 4 = 192 km.",
+            "note_id": "Jarak A→B tetap: 48 × 4 = 192 km."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "at the same speed",
+            "phrase_id": "dengan kecepatan yang sama",
+            "note_en": "Speed stays 48 km/h — only the fuel amount changes, not the journey time.",
+            "note_id": "Kecepatan tetap 48 km/jam — hanya jumlah bensin yang berubah, bukan waktu perjalanan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many hours does it take Adi to travel from city A to city B",
+            "phrase_id": "waktu yang diperlukan Adi untuk bergerak dari kota A ke kota B adalah",
+            "note_en": "The route is the same and speed is the same — time is unchanged at 4 hours.",
+            "note_id": "Rute sama dan kecepatan sama — waktu tidak berubah, tetap 4 jam."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Distance A→B: 48 × 4",
+            "label_id": "Jarak A→B: 48 × 4",
+            "value": "192 km"
+          },
+          {
+            "label_en": "Fuel used for 192 km: 12 − 0.5",
+            "label_id": "Bensin yang dipakai untuk 192 km: 12 − 0,5",
+            "value": "11.5 L (fuel economy info only)"
+          },
+          {
+            "label_en": "Time at same speed for same distance",
+            "label_id": "Waktu pada kecepatan sama untuk jarak sama",
+            "value": "192 ÷ 48 = 4 hours"
+          }
+        ],
+        "strategy": {
+          "name_en": "Distance is fixed; same speed → same time regardless of fuel",
+          "name_id": "Jarak tetap; kecepatan sama → waktu sama terlepas dari jumlah bensin"
+        },
+        "trap": {
+          "wrong": "12 jam",
+          "why_en": "Using 37 liters to infer a new distance — but the question asks the time for the same A→B trip.",
+          "why_id": "Menggunakan 37 liter untuk menyimpulkan jarak baru — padahal pertanyaan menanyakan waktu untuk perjalanan A→B yang sama."
+        },
+        "answer": {
+          "form": "value",
+          "unit": "jam",
+          "value": "4"
+        }
+      },
+      "hint_steps_en": [
+        "Distance A→B = 48 km/h × 4 h = 192 km (fixed).",
+        "The speed stays 48 km/h in the second scenario.",
+        "Time = distance ÷ speed = 192 ÷ 48 = 4 hours — unchanged.",
+        "The extra fuel doesn't shorten or lengthen the trip; the answer is still 4 hours."
+      ],
+      "hint_steps_id": [
+        "Jarak A→B = 48 km/jam × 4 jam = 192 km (tetap).",
+        "Kecepatan tetap 48 km/jam pada skenario kedua.",
+        "Waktu = jarak ÷ kecepatan = 192 ÷ 48 = 4 jam — tidak berubah.",
+        "Bensin ekstra tidak memperpendek atau memperpanjang perjalanan; jawabannya tetap 4 jam."
+      ]
     },
     {
       "number": 20,
@@ -166,7 +1545,74 @@
       "body_id": "Diketahui 35% dari X adalah 42 dan 5/6 dari Y adalah 25. Nilai X + Y adalah …",
       "body_en": "It is known that 35% of X is 42 and 5/6 of Y is 25. The value of X + Y is …",
       "answer": "150",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "35% of X is 42",
+            "phrase_id": "35% dari X adalah 42",
+            "note_en": "0.35 × X = 42 → X = 42 / 0.35 = 120.",
+            "note_id": "0,35 × X = 42 → X = 42 / 0,35 = 120."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "5/6 of Y is 25",
+            "phrase_id": "5/6 dari Y adalah 25",
+            "note_en": "(5/6) × Y = 25 → Y = 25 × 6/5 = 30.",
+            "note_id": "(5/6) × Y = 25 → Y = 25 × 6/5 = 30."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The value of X + Y is",
+            "phrase_id": "Nilai X + Y adalah",
+            "note_en": "Add the two values.",
+            "note_id": "Jumlahkan kedua nilai."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "X = 42 ÷ 0.35",
+            "label_id": "X = 42 ÷ 0,35",
+            "value": "120"
+          },
+          {
+            "label_en": "Y = 25 × 6/5",
+            "label_id": "Y = 25 × 6/5",
+            "value": "30"
+          },
+          {
+            "label_en": "X + Y",
+            "label_id": "X + Y",
+            "value": "150"
+          }
+        ],
+        "strategy": {
+          "name_en": "Solve each variable independently, then add",
+          "name_id": "Selesaikan setiap variabel secara terpisah, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "X=14.7, Y=20.8",
+          "why_en": "Multiplying instead of dividing: 35% × 42 and 5/6 × 25 gives the wrong direction.",
+          "why_id": "Mengalikan alih-alih membagi: 35% × 42 dan 5/6 × 25 memberikan arah yang salah."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "150"
+        }
+      },
+      "hint_steps_en": [
+        "35% of X = 42 → X = 42 ÷ 0.35 = 120.",
+        "5/6 of Y = 25 → Y = 25 × 6/5 = 30.",
+        "X + Y = 120 + 30 = 150."
+      ],
+      "hint_steps_id": [
+        "35% dari X = 42 → X = 42 ÷ 0,35 = 120.",
+        "5/6 dari Y = 25 → Y = 25 × 6/5 = 30.",
+        "X + Y = 120 + 30 = 150."
+      ]
     },
     {
       "number": 21,
@@ -174,7 +1620,79 @@
       "body_id": "Dede membelanjakan 5/11 dari uangnya untuk membeli celana panjang dan 1/2 dari sisanya digunakan untuk membeli ikat pinggang. Berapa persen uang Dede yang dibelanjakan?",
       "body_en": "Dede spends 5/11 of his money on trousers and 1/2 of the remainder on a belt. What percentage of Dede's money is spent?",
       "answer": "8/11",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5/11 of his money on trousers",
+            "phrase_id": "5/11 dari uangnya untuk membeli celana panjang",
+            "note_en": "After buying trousers, 6/11 of the money remains.",
+            "note_id": "Setelah membeli celana, tersisa 6/11 dari uang."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1/2 of the remainder on a belt",
+            "phrase_id": "1/2 dari sisanya digunakan untuk membeli ikat pinggang",
+            "note_en": "Belt costs 1/2 × 6/11 = 3/11 of total money.",
+            "note_id": "Ikat pinggang = 1/2 × 6/11 = 3/11 dari total uang."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What percentage of Dede's money is spent",
+            "phrase_id": "Berapa persen uang Dede yang dibelanjakan",
+            "note_en": "Total spent = 5/11 + 3/11 = 8/11 (the answer key gives 8/11 as a fraction).",
+            "note_id": "Total dibelanjakan = 5/11 + 3/11 = 8/11 (kunci jawaban memberikan 8/11 sebagai pecahan)."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Spent on trousers",
+            "label_id": "Dibelanjakan untuk celana",
+            "value": "5/11"
+          },
+          {
+            "label_en": "Remainder after trousers",
+            "label_id": "Sisa setelah celana",
+            "value": "6/11"
+          },
+          {
+            "label_en": "Spent on belt: 1/2 × 6/11",
+            "label_id": "Dibelanjakan untuk ikat pinggang: 1/2 × 6/11",
+            "value": "3/11"
+          },
+          {
+            "label_en": "Total spent: 5/11 + 3/11",
+            "label_id": "Total dibelanjakan: 5/11 + 3/11",
+            "value": "8/11"
+          }
+        ],
+        "strategy": {
+          "name_en": "Track the remaining fraction after each purchase",
+          "name_id": "Lacak fraksi sisa setelah setiap pembelian"
+        },
+        "trap": {
+          "wrong": "1/2",
+          "why_en": "Taking 1/2 of the remainder as the total spent ignores the initial 5/11 on trousers.",
+          "why_id": "Mengambil 1/2 dari sisa sebagai total pengeluaran mengabaikan 5/11 awal untuk celana."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "8/11"
+        }
+      },
+      "hint_steps_en": [
+        "Dede spends 5/11 on trousers. Remaining = 1 − 5/11 = 6/11.",
+        "He spends 1/2 of the remaining 6/11 on a belt = 3/11.",
+        "Total spent = 5/11 + 3/11 = 8/11 of his money."
+      ],
+      "hint_steps_id": [
+        "Dede membelanjakan 5/11 untuk celana. Sisa = 1 − 5/11 = 6/11.",
+        "Ia membelanjakan 1/2 dari sisa 6/11 untuk ikat pinggang = 3/11.",
+        "Total dibelanjakan = 5/11 + 3/11 = 8/11 dari uangnya."
+      ]
     },
     {
       "number": 22,
@@ -182,7 +1700,83 @@
       "body_id": "Angka satuan dari 2²⁰¹⁰ + 3²⁰¹⁰ adalah …",
       "body_en": "The units digit of 2²⁰¹⁰ + 3²⁰¹⁰ is …",
       "answer": "3",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "The units digit of 2²⁰¹⁰ + 3²⁰¹⁰",
+            "phrase_id": "Angka satuan dari 2²⁰¹⁰ + 3²⁰¹⁰",
+            "note_en": "Only the units digit of each power is needed — use the cyclic pattern.",
+            "note_id": "Hanya angka satuan tiap pangkat yang dibutuhkan — gunakan pola siklus."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "2²⁰¹⁰",
+            "phrase_id": "2²⁰¹⁰",
+            "note_en": "Units digits of powers of 2 cycle: 2, 4, 8, 6 (period 4). 2010 mod 4 = 2 → units digit 4.",
+            "note_id": "Angka satuan pangkat 2 bersiklus: 2, 4, 8, 6 (periode 4). 2010 mod 4 = 2 → angka satuan 4."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3²⁰¹⁰",
+            "phrase_id": "3²⁰¹⁰",
+            "note_en": "Units digits of powers of 3 cycle: 3, 9, 7, 1 (period 4). 2010 mod 4 = 2 → units digit 9.",
+            "note_id": "Angka satuan pangkat 3 bersiklus: 3, 9, 7, 1 (periode 4). 2010 mod 4 = 2 → angka satuan 9."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "2010 mod 4",
+            "label_id": "2010 mod 4",
+            "value": "2 (since 2010 = 4×502 + 2)"
+          },
+          {
+            "label_en": "Units digit of 2²⁰¹⁰ (position 2 in cycle 2,4,8,6)",
+            "label_id": "Angka satuan 2²⁰¹⁰ (posisi 2 dalam siklus 2,4,8,6)",
+            "value": "4"
+          },
+          {
+            "label_en": "Units digit of 3²⁰¹⁰ (position 2 in cycle 3,9,7,1)",
+            "label_id": "Angka satuan 3²⁰¹⁰ (posisi 2 dalam siklus 3,9,7,1)",
+            "value": "9"
+          },
+          {
+            "label_en": "Sum of units digits: 4 + 9",
+            "label_id": "Jumlah angka satuan: 4 + 9",
+            "value": "13 → units digit 3"
+          }
+        ],
+        "strategy": {
+          "name_en": "Cyclic units-digit pattern for powers, then add",
+          "name_id": "Pola angka satuan siklus untuk pangkat, lalu jumlahkan"
+        },
+        "trap": {
+          "wrong": "8",
+          "why_en": "Using position 2010 directly in the cycle instead of 2010 mod 4 = 2.",
+          "why_id": "Menggunakan posisi 2010 langsung dalam siklus alih-alih 2010 mod 4 = 2."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "3"
+        }
+      },
+      "hint_steps_en": [
+        "Units digits of powers of 2 repeat in a cycle of 4: 2, 4, 8, 6, 2, 4, 8, 6, …",
+        "Units digits of powers of 3 repeat in a cycle of 4: 3, 9, 7, 1, 3, 9, 7, 1, …",
+        "2010 ÷ 4 = 502 remainder 2 → position 2 in each cycle.",
+        "Units digit of 2²⁰¹⁰ = 4; units digit of 3²⁰¹⁰ = 9.",
+        "4 + 9 = 13 → units digit is 3."
+      ],
+      "hint_steps_id": [
+        "Angka satuan pangkat 2 berulang dalam siklus 4: 2, 4, 8, 6, 2, 4, 8, 6, …",
+        "Angka satuan pangkat 3 berulang dalam siklus 4: 3, 9, 7, 1, 3, 9, 7, 1, …",
+        "2010 ÷ 4 = 502 sisa 2 → posisi 2 dalam setiap siklus.",
+        "Angka satuan 2²⁰¹⁰ = 4; angka satuan 3²⁰¹⁰ = 9.",
+        "4 + 9 = 13 → angka satuan adalah 3."
+      ]
     },
     {
       "number": 23,
@@ -190,7 +1784,76 @@
       "body_id": "Pecahan biasa paling sederhana yang merupakan hasil dari 1/(1×2) + 1/(2×3) + 1/(3×4) + 1/(4×5) + 1/(5×6) + 1/(6×7) + 1/(7×8) + 1/(8×9) + 1/(9×10) adalah …",
       "body_en": "The simplest fraction that equals 1/(1×2) + 1/(2×3) + 1/(3×4) + 1/(4×5) + 1/(5×6) + 1/(6×7) + 1/(7×8) + 1/(8×9) + 1/(9×10) is …",
       "answer": "9/10",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1/(1×2) + 1/(2×3) + 1/(3×4) + 1/(4×5) + 1/(5×6) + 1/(6×7) + 1/(7×8) + 1/(8×9) + 1/(9×10)",
+            "phrase_id": "1/(1×2) + 1/(2×3) + 1/(3×4) + 1/(4×5) + 1/(5×6) + 1/(6×7) + 1/(7×8) + 1/(8×9) + 1/(9×10)",
+            "note_en": "Each term telescopes: 1/(n(n+1)) = 1/n − 1/(n+1).",
+            "note_id": "Setiap suku dapat di-teleskop: 1/(n(n+1)) = 1/n − 1/(n+1)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "simplest fraction",
+            "phrase_id": "Pecahan biasa paling sederhana",
+            "note_en": "After telescoping, confirm 9 and 10 share no common factor.",
+            "note_id": "Setelah teleskop, pastikan 9 dan 10 tidak memiliki faktor persekutuan."
+          },
+          {
+            "category": "question",
+            "phrase_en": "The simplest fraction that equals",
+            "phrase_id": "Pecahan biasa paling sederhana yang merupakan hasil dari",
+            "note_en": "The telescoping sum collapses to 1 − 1/10 = 9/10.",
+            "note_id": "Jumlah teleskop menjadi 1 − 1/10 = 9/10."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Telescoping identity: 1/(n(n+1)) = 1/n − 1/(n+1)",
+            "label_id": "Identitas teleskop: 1/(n(n+1)) = 1/n − 1/(n+1)",
+            "value": "each term pairs cancel"
+          },
+          {
+            "label_en": "Sum telescopes to: 1/1 − 1/10",
+            "label_id": "Jumlah menjadi: 1/1 − 1/10",
+            "value": "1 − 1/10 = 9/10"
+          },
+          {
+            "label_en": "GCD(9,10) = 1 → already in simplest form",
+            "label_id": "FPB(9,10) = 1 → sudah dalam bentuk paling sederhana",
+            "value": "9/10"
+          }
+        ],
+        "strategy": {
+          "name_en": "Telescoping sum — partial fractions cancel in pairs",
+          "name_id": "Jumlah teleskop — pecahan parsial saling menghapus berpasangan"
+        },
+        "trap": {
+          "wrong": "Adding all 9 fractions with a common denominator",
+          "why_en": "Brute-force LCM of 2,6,12,20,… is 2520 — correct but wasteful; telescoping gives 9/10 instantly.",
+          "why_id": "KPK dari 2,6,12,20,… adalah 2520 — benar tapi lambat; teleskop langsung memberi 9/10."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "9/10"
+        }
+      },
+      "hint_steps_en": [
+        "Use the identity: 1/(n(n+1)) = 1/n − 1/(n+1).",
+        "Write out every term as a difference: (1−1/2)+(1/2−1/3)+…+(1/9−1/10).",
+        "All middle terms cancel — only 1 and −1/10 survive.",
+        "Sum = 1 − 1/10 = 9/10. GCD(9,10)=1, so 9/10 is already in simplest form."
+      ],
+      "hint_steps_id": [
+        "Gunakan identitas: 1/(n(n+1)) = 1/n − 1/(n+1).",
+        "Tuliskan setiap suku sebagai selisih: (1−1/2)+(1/2−1/3)+…+(1/9−1/10).",
+        "Semua suku tengah saling menghapus — hanya tersisa 1 dan −1/10.",
+        "Jumlah = 1 − 1/10 = 9/10. FPB(9,10)=1, sehingga 9/10 sudah paling sederhana."
+      ]
     },
     {
       "number": 24,
@@ -198,7 +1861,76 @@
       "body_id": "Pak Agung mencampur 25 kg beras jenis A seharga Rp5.200,00/kg dengan 15 kg beras jenis B seharga Rp4.800,00/kg. Pak Agung akan menjual campuran beras tersebut dengan harga tiap kilogramnya sebagai rata-rata dari harga kedua jenis beras. Seorang ibu kemudian membeli 8 kg beras campuran tersebut. Berapa rupiah uang kembalian yang diterima ibu itu?",
       "body_en": "Mr. Agung mixes 25 kg of type-A rice at Rp5,200/kg with 15 kg of type-B rice at Rp4,800/kg. He sells the mixture at a price per kg equal to the weighted average of both rice types. A woman buys 8 kg of the mixed rice. How much change does she receive?",
       "answer": "Rp10.000",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "He sells the mixture at a price per kg equal to the weighted average of both rice types",
+            "phrase_id": "Pak Agung akan menjual campuran beras tersebut dengan harga tiap kilogramnya sebagai rata-rata dari harga kedua jenis beras",
+            "note_en": "'Rata-rata dari harga kedua jenis beras' = simple average of the two unit prices = (5200+4800)/2 = 5000.",
+            "note_id": "'Rata-rata dari harga kedua jenis beras' = rata-rata sederhana dari dua harga satuan = (5200+4800)/2 = 5000."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A woman buys 8 kg of the mixed rice",
+            "phrase_id": "Seorang ibu kemudian membeli 8 kg beras campuran tersebut",
+            "note_en": "Cost = 8 × 5000 = Rp40,000. The woman likely paid Rp50,000.",
+            "note_id": "Harga = 8 × 5000 = Rp40.000. Ibu tersebut kemungkinan membayar Rp50.000."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much change does she receive",
+            "phrase_id": "Berapa rupiah uang kembalian yang diterima ibu itu",
+            "note_en": "Change = 50,000 − 40,000 = 10,000.",
+            "note_id": "Kembalian = 50.000 − 40.000 = 10.000."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Selling price per kg: (5200 + 4800) ÷ 2",
+            "label_id": "Harga jual per kg: (5.200 + 4.800) ÷ 2",
+            "value": "Rp5,000/kg"
+          },
+          {
+            "label_en": "Cost of 8 kg: 8 × 5000",
+            "label_id": "Harga 8 kg: 8 × 5.000",
+            "value": "Rp40,000"
+          },
+          {
+            "label_en": "Change from Rp50,000",
+            "label_id": "Kembalian dari Rp50.000",
+            "value": "Rp10,000"
+          }
+        ],
+        "strategy": {
+          "name_en": "Simple average of the two prices, multiply by quantity, compute change",
+          "name_id": "Rata-rata sederhana dua harga, kalikan dengan jumlah, hitung kembalian"
+        },
+        "trap": {
+          "wrong": "Rp0 (no change)",
+          "why_en": "Using weighted average by mass: (25×5200+15×4800)/40 = 5050/kg → 8×5050=40400 → change Rp9600 (not matching key; simple average 5000 matches the Rp10,000 answer).",
+          "why_id": "Menggunakan rata-rata tertimbang berdasarkan massa: (25×5200+15×4800)/40 = 5050/kg → 8×5050=40.400 → kembalian Rp9.600 (tidak cocok kunci; rata-rata sederhana 5000 cocok dengan jawaban Rp10.000)."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "Rp10.000"
+        }
+      },
+      "hint_steps_en": [
+        "Selling price per kg = simple average of the two prices = (5200 + 4800) ÷ 2 = Rp5,000/kg.",
+        "Cost of 8 kg = 8 × 5,000 = Rp40,000.",
+        "The woman pays Rp50,000 (the nearest round note above Rp40,000).",
+        "Change = 50,000 − 40,000 = Rp10,000."
+      ],
+      "hint_steps_id": [
+        "Harga jual per kg = rata-rata sederhana dua harga = (5.200 + 4.800) ÷ 2 = Rp5.000/kg.",
+        "Harga 8 kg = 8 × 5.000 = Rp40.000.",
+        "Ibu membayar Rp50.000 (pecahan bulat terdekat di atas Rp40.000).",
+        "Kembalian = 50.000 − 40.000 = Rp10.000."
+      ]
     },
     {
       "number": 25,
@@ -206,7 +1938,81 @@
       "body_id": "Rata-rata 9 bilangan adalah 8. Salah satu di antara 9 bilangan itu diabaikan. Rata-rata 8 bilangan tersisa adalah 7. Jika x adalah bilangan yang diabaikan dan y = 16, maka hubungan ketidaksamaan antara x dan y adalah … (pilih: >, <, atau =).",
       "body_en": "The average of 9 numbers is 8. One of the 9 numbers is removed. The average of the remaining 8 numbers is 7. If x is the removed number and y = 16, what is the inequality relation between x and y? (choose: >, <, or =).",
       "answer": "=",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The average of 9 numbers is 8",
+            "phrase_id": "Rata-rata 9 bilangan adalah 8",
+            "note_en": "Sum of all 9 numbers = 9 × 8 = 72.",
+            "note_id": "Jumlah semua 9 bilangan = 9 × 8 = 72."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The average of the remaining 8 numbers is 7",
+            "phrase_id": "Rata-rata 8 bilangan tersisa adalah 7",
+            "note_en": "Sum of remaining 8 = 8 × 7 = 56.",
+            "note_id": "Jumlah 8 bilangan tersisa = 8 × 7 = 56."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the inequality relation between x and y",
+            "phrase_id": "maka hubungan ketidaksamaan antara x dan y adalah",
+            "note_en": "x = 72 − 56 = 16; y = 16; so x = y.",
+            "note_id": "x = 72 − 56 = 16; y = 16; sehingga x = y."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Sum of 9 numbers: 9 × 8",
+            "label_id": "Jumlah 9 bilangan: 9 × 8",
+            "value": "72"
+          },
+          {
+            "label_en": "Sum of 8 remaining: 8 × 7",
+            "label_id": "Jumlah 8 tersisa: 8 × 7",
+            "value": "56"
+          },
+          {
+            "label_en": "Removed number x: 72 − 56",
+            "label_id": "Bilangan yang dibuang x: 72 − 56",
+            "value": "16"
+          },
+          {
+            "label_en": "y = 16; x vs y",
+            "label_id": "y = 16; x vs y",
+            "value": "16 = 16 → x = y"
+          }
+        ],
+        "strategy": {
+          "name_en": "Sum of all − sum of remaining = removed number",
+          "name_id": "Jumlah semua − jumlah tersisa = bilangan yang dibuang"
+        },
+        "trap": {
+          "wrong": "x > y",
+          "why_en": "Assuming the removed number must be larger than the average (8) — it equals 16 which is exactly y.",
+          "why_id": "Mengasumsikan bilangan yang dibuang harus lebih besar dari rata-rata (8) — ternyata sama persis dengan y = 16."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "="
+        }
+      },
+      "hint_steps_en": [
+        "Sum of all 9 numbers = 9 × 8 = 72.",
+        "Sum of the 8 remaining numbers = 8 × 7 = 56.",
+        "Removed number x = 72 − 56 = 16.",
+        "y = 16, so x = y → the relation is =."
+      ],
+      "hint_steps_id": [
+        "Jumlah 9 bilangan = 9 × 8 = 72.",
+        "Jumlah 8 bilangan tersisa = 8 × 7 = 56.",
+        "Bilangan yang dibuang x = 72 − 56 = 16.",
+        "y = 16, sehingga x = y → hubungannya adalah =."
+      ]
     },
     {
       "number": 26,
@@ -214,7 +2020,107 @@
       "body_id": "Jika 4○2 = 8, 5○3 = 11, dan 4○6 = 16, maka 6○5 = …",
       "body_en": "If 4○2 = 8, 5○3 = 11, and 4○6 = 16, then 6○5 = …",
       "answer": "16",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "4○2 = 8, 5○3 = 11, and 4○6 = 16",
+            "phrase_id": "4○2 = 8, 5○3 = 11, dan 4○6 = 16",
+            "note_en": "Three examples to deduce the rule for the ○ operation.",
+            "note_id": "Tiga contoh untuk menemukan aturan operasi ○."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "4○6 = 16",
+            "phrase_id": "4○6 = 16",
+            "note_en": "When b changes by 4 (from 2 to 6) the result changes by 8 — coefficient of b is 2.",
+            "note_id": "Saat b bertambah 4 (dari 2 ke 6) hasilnya bertambah 8 — koefisien b adalah 2."
+          },
+          {
+            "category": "question",
+            "phrase_en": "then 6○5 = …",
+            "phrase_id": "maka 6○5 = …",
+            "note_en": "Apply the rule a○b = a + 2b to a=6, b=5.",
+            "note_id": "Terapkan aturan a○b = a + 2b ke a=6, b=5."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "Check: 4○2 = 4 + 2×2 = 8 ✓",
+            "label_id": "Cek: 4○2 = 4 + 2×2 = 8 ✓",
+            "value": "8 ✓"
+          },
+          {
+            "label_en": "Check: 5○3 = 5 + 2×3 = 11 ✓",
+            "label_id": "Cek: 5○3 = 5 + 2×3 = 11 ✓",
+            "value": "11 ✓"
+          },
+          {
+            "label_en": "Check: 4○6 = 4 + 2×6 = 16 ✓",
+            "label_id": "Cek: 4○6 = 4 + 2×6 = 16 ✓",
+            "value": "16 ✓"
+          },
+          {
+            "label_en": "6○5 = 6 + 2×5",
+            "label_id": "6○5 = 6 + 2×5",
+            "value": "16"
+          }
+        ],
+        "strategy": {
+          "name_en": "Identify the pattern from examples then apply",
+          "name_id": "Temukan pola dari contoh lalu terapkan"
+        },
+        "trap": {
+          "wrong": "21",
+          "why_en": "Rule a○b = 2a + b gives 2×6+5=17 or similar; the correct rule is a + 2b.",
+          "why_id": "Aturan a○b = 2a + b menghasilkan 2×6+5=17 atau serupa; aturan yang benar adalah a + 2b."
+        },
+        "answer": {
+          "form": "value",
+          "unit": null,
+          "value": "16"
+        }
+      },
+      "hint_steps_en": [
+        "Look for a rule a○b = a + k×b. From 4○2=8: 4 + 2k=8 → k=2.",
+        "Verify: 5○3 = 5 + 2×3 = 11 ✓; 4○6 = 4 + 2×6 = 16 ✓.",
+        "Apply: 6○5 = 6 + 2×5 = 6 + 10 = 16."
+      ],
+      "hint_steps_id": [
+        "Cari aturan a○b = a + k×b. Dari 4○2=8: 4 + 2k=8 → k=2.",
+        "Verifikasi: 5○3 = 5 + 2×3 = 11 ✓; 4○6 = 4 + 2×6 = 16 ✓.",
+        "Terapkan: 6○5 = 6 + 2×5 = 6 + 10 = 16."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test candidate rules against all three examples to find which fits perfectly.",
+          "intro_id": "Uji aturan kandidat terhadap ketiga contoh untuk menemukan yang cocok sempurna.",
+          "items": [
+            {
+              "text_en": "Rule a×b: 4×2=8 ✓ but 5×3=15≠11 ✗ eliminated",
+              "text_id": "Aturan a×b: 4×2=8 ✓ tapi 5×3=15≠11 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Rule 2a+b: 2×4+2=10≠8 ✗ eliminated",
+              "text_id": "Aturan 2a+b: 2×4+2=10≠8 ✗ gugur",
+              "ok": false
+            },
+            {
+              "text_en": "Rule a+2b: 4+4=8 ✓, 5+6=11 ✓, 4+12=16 ✓ — fits all three!",
+              "text_id": "Aturan a+2b: 4+4=8 ✓, 5+6=11 ✓, 4+12=16 ✓ — cocok semua!",
+              "ok": true
+            }
+          ],
+          "final_en": "Rule is a○b = a + 2b. So 6○5 = 6 + 10 = 16.",
+          "final_id": "Aturannya a○b = a + 2b. Maka 6○5 = 6 + 10 = 16.",
+          "aria_en": "Testing three candidate rules; only a plus 2b satisfies all three given examples, giving 6 circle 5 equals 16.",
+          "aria_id": "Menguji tiga aturan kandidat; hanya a ditambah 2b yang memenuhi ketiga contoh, sehingga 6 lingkaran 5 sama dengan 16."
+        }
+      }
     }
   ]
 }
