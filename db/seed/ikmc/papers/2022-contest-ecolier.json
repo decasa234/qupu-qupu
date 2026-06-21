@@ -375,9 +375,19 @@
       "visual": {
         "templateId": "try-and-eliminate",
         "params": {
-          "question": "How many jumps does Kengu make?",
-          "candidates": ["4 (cycles only)", "7", "8", "9", "12 (cycles × 3)"],
-          "hint": "A cycle covers 4 on the number line. 16 ÷ 4 = 4 cycles. Each cycle = 3 jumps."
+          "intro_en": "Find the distance per cycle, count cycles, then multiply by jumps per cycle.",
+          "intro_id": "Temukan jarak per siklus, hitung jumlah siklus, lalu kalikan dengan lompatan per siklus.",
+          "items": [
+            { "text_en": "A: 4 — only counts cycles, not jumps ✗", "text_id": "A: 4 — hanya menghitung siklus, bukan lompatan ✗", "ok": false },
+            { "text_en": "B: 7 — no clear derivation from the pattern ✗", "text_id": "B: 7 — tidak ada derivasi yang jelas dari polanya ✗", "ok": false },
+            { "text_en": "C: 8 — incorrect cycle or jump count ✗", "text_id": "C: 8 — jumlah siklus atau lompatan salah ✗", "ok": false },
+            { "text_en": "D: 9 — incorrect cycle or jump count ✗", "text_id": "D: 9 — jumlah siklus atau lompatan salah ✗", "ok": false },
+            { "text_en": "E: 12 — cycle covers 2+1+1=4; 16÷4=4 cycles; 4×3 jumps=12 ✓", "text_id": "E: 12 — siklus mencakup 2+1+1=4; 16÷4=4 siklus; 4×3 lompatan=12 ✓", "ok": true }
+          ],
+          "final_en": "Kengu makes 12 jumps in total.",
+          "final_id": "Kengu melakukan 12 lompatan total.",
+          "aria_en": "One cycle covers 4 on the number line (large jump 2 plus two small jumps of 1 each). 16 divided by 4 is 4 cycles. Each cycle has 3 jumps, so 4 times 3 equals 12 total jumps.",
+          "aria_id": "Satu siklus mencakup 4 pada garis bilangan (lompatan besar 2 ditambah dua lompatan kecil masing-masing 1). 16 dibagi 4 adalah 4 siklus. Setiap siklus memiliki 3 lompatan, jadi 4 kali 3 sama dengan 12 lompatan total."
         }
       }
     },
@@ -529,9 +539,19 @@
       "visual": {
         "templateId": "try-and-eliminate",
         "params": {
-          "question": "Which pair makes 2022 + □ = 2020 + □?",
-          "candidates": ["3 and 5 → diff=2 ✓", "4 and 1 → diff=−3 ✗", "3 and 4 → diff=1 ✗", "7 and 2 → diff=−5 ✗", "9 and 8 → diff=−1 ✗"],
-          "hint": "The right number minus the left number must equal 2 (because 2022 − 2020 = 2)."
+          "intro_en": "2022 is 2 more than 2020, so the right box must exceed the left box by exactly 2.",
+          "intro_id": "2022 lebih besar 2 dari 2020, jadi kotak kanan harus melebihi kotak kiri tepat 2.",
+          "items": [
+            { "text_en": "A: 3 and 5 → 5−3=2 ✓", "text_id": "A: 3 dan 5 → 5−3=2 ✓", "ok": true },
+            { "text_en": "B: 4 and 1 → 1−4=−3 ✗", "text_id": "B: 4 dan 1 → 1−4=−3 ✗", "ok": false },
+            { "text_en": "C: 3 and 4 → 4−3=1 ✗", "text_id": "C: 3 dan 4 → 4−3=1 ✗", "ok": false },
+            { "text_en": "D: 7 and 2 → 2−7=−5 ✗", "text_id": "D: 7 dan 2 → 2−7=−5 ✗", "ok": false },
+            { "text_en": "E: 9 and 8 → 8−9=−1 ✗", "text_id": "E: 9 dan 8 → 8−9=−1 ✗", "ok": false }
+          ],
+          "final_en": "Only pair A (3 and 5) gives a difference of 2, so 2022+3 = 2020+5 = 2025.",
+          "final_id": "Hanya pasangan A (3 dan 5) yang memberikan selisih 2, jadi 2022+3 = 2020+5 = 2025.",
+          "aria_en": "Because 2022 minus 2020 equals 2, the right number must be 2 more than the left number. Only pair A, three and five, satisfies this: five minus three equals two.",
+          "aria_id": "Karena 2022 dikurangi 2020 sama dengan 2, angka kanan harus 2 lebih besar dari angka kiri. Hanya pasangan A, tiga dan lima, yang memenuhi ini: lima dikurangi tiga sama dengan dua."
         }
       }
     },
@@ -684,15 +704,19 @@
       "visual": {
         "templateId": "try-and-eliminate",
         "params": {
-          "question": "Simulate 3 overtaking moves. What is the final order?",
-          "candidates": [
-            "A: 1,2,3,5,4 — only 1 move done ✗",
-            "B: 2,1,3,5,4 — all 3 moves done ✓",
-            "C: 2,1,5,3,4 — wrong middle move ✗",
-            "D: 3,1,4,2,5 — wrong simulation ✗",
-            "E: 4,1,2,5,3 — wrong simulation ✗"
+          "intro_en": "Simulate all 3 overtaking moves step by step: start → move 1 → move 2 → move 3.",
+          "intro_id": "Simulasikan semua 3 gerakan mendahului langkah demi langkah: awal → gerakan 1 → gerakan 2 → gerakan 3.",
+          "items": [
+            { "text_en": "A: 1,2,3,5,4 — only 1 move done ✗", "text_id": "A: 1,2,3,5,4 — hanya 1 gerakan selesai ✗", "ok": false },
+            { "text_en": "B: 2,1,3,5,4 — all 3 moves: 1,2,3,4,5→1,2,5,3,4→1,3,2,5,4→2,1,3,5,4 ✓", "text_id": "B: 2,1,3,5,4 — 3 gerakan: 1,2,3,4,5→1,2,5,3,4→1,3,2,5,4→2,1,3,5,4 ✓", "ok": true },
+            { "text_en": "C: 2,1,5,3,4 — wrong middle move ✗", "text_id": "C: 2,1,5,3,4 — gerakan tengah salah ✗", "ok": false },
+            { "text_en": "D: 3,1,4,2,5 — wrong simulation ✗", "text_id": "D: 3,1,4,2,5 — simulasi salah ✗", "ok": false },
+            { "text_en": "E: 4,1,2,5,3 — wrong simulation ✗", "text_id": "E: 4,1,2,5,3 — simulasi salah ✗", "ok": false }
           ],
-          "hint": "Track each step: 1,2,3,4,5 → 1,2,5,3,4 → 1,3,2,5,4 → 2,1,3,5,4"
+          "final_en": "The final order is 2, 1, 3, 5, 4 — answer B.",
+          "final_id": "Urutan akhir adalah 2, 1, 3, 5, 4 — jawaban B.",
+          "aria_en": "Start: 1 2 3 4 5. Move 1, car 5 overtakes cars 4 and 3: 1 2 5 3 4. Move 2, second-last car 3 overtakes cars 5 and 2: 1 3 2 5 4. Move 3, middle car 2 overtakes cars 3 and 1: 2 1 3 5 4.",
+          "aria_id": "Awal: 1 2 3 4 5. Gerakan 1, mobil 5 mendahului mobil 4 dan 3: 1 2 5 3 4. Gerakan 2, kedua dari belakang mobil 3 mendahului mobil 5 dan 2: 1 3 2 5 4. Gerakan 3, mobil tengah 2 mendahului mobil 3 dan 1: 2 1 3 5 4."
         }
       }
     },
@@ -775,15 +799,19 @@
       "visual": {
         "templateId": "try-and-eliminate",
         "params": {
-          "question": "Which two ages sum to 35 − 22 = 13?",
-          "candidates": [
-            "A: 2+8 = 10 ✗",
-            "B: 4+5 = 9 ✗",
-            "C: 5+8 = 13 ✓",
-            "D: 6+8 = 14 ✗",
-            "E: 6+10 = 16 ✗"
+          "intro_en": "Total of all 6 ages = 35. The two remaining ages must sum to 35 − 22 = 13.",
+          "intro_id": "Total 6 usia = 35. Dua usia yang tersisa harus berjumlah 35 − 22 = 13.",
+          "items": [
+            { "text_en": "A: 2+8 = 10 ≠ 13 ✗", "text_id": "A: 2+8 = 10 ≠ 13 ✗", "ok": false },
+            { "text_en": "B: 4+5 = 9 ≠ 13 ✗", "text_id": "B: 4+5 = 9 ≠ 13 ✗", "ok": false },
+            { "text_en": "C: 5+8 = 13 ✓", "text_id": "C: 5+8 = 13 ✓", "ok": true },
+            { "text_en": "D: 6+8 = 14 ≠ 13 ✗", "text_id": "D: 6+8 = 14 ≠ 13 ✗", "ok": false },
+            { "text_en": "E: 6+10 = 16 ≠ 13 ✗", "text_id": "E: 6+10 = 16 ≠ 13 ✗", "ok": false }
           ],
-          "hint": "Total of all ages = 35. Remaining two = 35 − 22 = 13."
+          "final_en": "The other two kangaroos are 5 and 8 years old — answer C.",
+          "final_id": "Dua kanguru lainnya berusia 5 dan 8 tahun — jawaban C.",
+          "aria_en": "Sum of all six ages: 2 plus 4 plus 5 plus 6 plus 8 plus 10 equals 35. The remaining two must sum to 35 minus 22 equals 13. Only 5 plus 8 equals 13.",
+          "aria_id": "Jumlah keenam usia: 2 tambah 4 tambah 5 tambah 6 tambah 8 tambah 10 sama dengan 35. Dua sisanya harus berjumlah 35 dikurangi 22 sama dengan 13. Hanya 5 tambah 8 sama dengan 13."
         }
       }
     },
@@ -939,15 +967,19 @@
       "visual": {
         "templateId": "try-and-eliminate",
         "params": {
-          "question": "Which number in the grid is wrong?",
-          "candidates": [
-            "A: 1 — row 1 = 15 ✓, col 2 = 15 ✓ → 1 is fine ✗",
-            "B: 3 — row 2 = 16 ✗, col 1 = 16 ✗ → shared bad cell ✓",
-            "C: one of the 4s — rows/cols check out ✗",
-            "D: 5 — row 1 = 15 ✓, col 3 = 15 ✓ → 5 is fine ✗",
-            "E: one of the 7s — rows/cols check out ✗"
+          "intro_en": "Target sum = 15. Find which row and column both break the rule — their shared cell is the mistake.",
+          "intro_id": "Target jumlah = 15. Temukan baris dan kolom yang keduanya melanggar aturan — sel yang dibagi adalah kesalahannya.",
+          "items": [
+            { "text_en": "A: 1 — row 1=15 ✓, col 2=15 ✓ → 1 is correct ✗", "text_id": "A: 1 — baris 1=15 ✓, kol 2=15 ✓ → 1 benar ✗", "ok": false },
+            { "text_en": "B: 3 — row 2=16 ✗, col 1=16 ✗ → shared bad cell, must be 2 ✓", "text_id": "B: 3 — baris 2=16 ✗, kol 1=16 ✗ → sel buruk bersama, harus 2 ✓", "ok": true },
+            { "text_en": "C: one of the 4s — rows/cols all sum to 15 ✓ → 4s are correct ✗", "text_id": "C: salah satu angka 4 — baris/kol semua berjumlah 15 ✓ → angka 4 benar ✗", "ok": false },
+            { "text_en": "D: 5 — row 1=15 ✓, col 3=15 ✓ → 5 is correct ✗", "text_id": "D: 5 — baris 1=15 ✓, kol 3=15 ✓ → 5 benar ✗", "ok": false },
+            { "text_en": "E: one of the 7s — rows/cols check out ✓ → 7s are correct ✗", "text_id": "E: salah satu angka 7 — baris/kol sesuai ✓ → angka 7 benar ✗", "ok": false }
           ],
-          "hint": "Target sum = 15. Row 2 and col 1 both sum to 16 — their shared cell (value 3) is the mistake."
+          "final_en": "The number 3 (row 2, col 1) is wrong — it should be 2. Answer B.",
+          "final_id": "Angka 3 (baris 2, kol 1) salah — seharusnya 2. Jawaban B.",
+          "aria_en": "Check each row: row 1 sums to 15, row 2 sums to 16 (too big), row 3 sums to 15. Check each column: col 1 sums to 16 (too big), cols 2 and 3 sum to 15. Row 2 and col 1 share the cell containing 3, which must be changed to 2.",
+          "aria_id": "Cek setiap baris: baris 1 berjumlah 15, baris 2 berjumlah 16 (terlalu besar), baris 3 berjumlah 15. Cek setiap kolom: kol 1 berjumlah 16 (terlalu besar), kol 2 dan 3 berjumlah 15. Baris 2 dan kol 1 berbagi sel yang berisi 3, yang harus diubah menjadi 2."
         }
       }
     },
