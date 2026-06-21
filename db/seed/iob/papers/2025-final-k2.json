@@ -26,7 +26,74 @@
         { "label": "D", "text": "8" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "AA + BB + A + B = 108",
+            "phrase_id": "AA + BB + A + B = 108",
+            "note_en": "AA means 11×A (two-digit repunit); BB means 11×B",
+            "note_id": "AA artinya 11×A (bilangan dua digit sama); BB artinya 11×B"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is A+B",
+            "phrase_id": "Carilah nilai A+B",
+            "note_en": "Find the sum A+B, not the individual digits",
+            "note_id": "Cari jumlah A+B, bukan masing-masing digitnya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A and B is a natural number",
+            "phrase_id": "A dan B adalah sebuah bilangan asli",
+            "note_en": "Each is a single digit (1–9) since they are used as digits in two-digit numbers",
+            "note_id": "Masing-masing adalah satu digit (1–9) karena digunakan sebagai digit angka dua angka"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Rewrite AA+BB", "label_id": "Ubah AA+BB", "value": "11A + 11B" },
+          { "label_en": "Full equation", "label_id": "Persamaan lengkap", "value": "11A + 11B + A + B = 12A + 12B = 12(A+B) = 108" },
+          { "label_en": "Solve", "label_id": "Hitung", "value": "A+B = 108 ÷ 12 = 9" }
+        ],
+        "strategy": { "name_en": "Factor and divide", "name_id": "Faktorkan lalu bagi" },
+        "trap": {
+          "wrong": "D",
+          "why_en": "Guessing A+B=8 misses the factoring step — plugging 8 into 12×8=96≠108.",
+          "why_id": "Menebak A+B=8 melewatkan langkah faktorisasi — 12×8=96≠108."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "AA is a two-digit number where both digits are A, so AA = 10A + A = 11A. Similarly BB = 11B.",
+        "Substitute: 11A + 11B + A + B = 12A + 12B = 12(A+B).",
+        "Set equal to 108: 12(A+B) = 108.",
+        "Divide both sides by 12: A+B = 9."
+      ],
+      "hint_steps_id": [
+        "AA adalah bilangan dua digit dengan kedua digit sama, yaitu AA = 10A + A = 11A. Begitu juga BB = 11B.",
+        "Substitusikan: 11A + 11B + A + B = 12A + 12B = 12(A+B).",
+        "Samakan dengan 108: 12(A+B) = 108.",
+        "Bagi kedua ruas dengan 12: A+B = 9."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each choice: does 12×(A+B) equal 108?",
+          "intro_id": "Uji setiap pilihan: apakah 12×(A+B) sama dengan 108?",
+          "items": [
+            { "text_en": "A: A+B=3 → 12×3=36 ≠ 108 ✗", "text_id": "A: A+B=3 → 12×3=36 ≠ 108 ✗", "ok": false },
+            { "text_en": "B: A+B=6 → 12×6=72 ≠ 108 ✗", "text_id": "B: A+B=6 → 12×6=72 ≠ 108 ✗", "ok": false },
+            { "text_en": "D: A+B=8 → 12×8=96 ≠ 108 ✗", "text_id": "D: A+B=8 → 12×8=96 ≠ 108 ✗", "ok": false },
+            { "text_en": "C: A+B=9 → 12×9=108 ✓", "text_id": "C: A+B=9 → 12×9=108 ✓", "ok": true }
+          ],
+          "final_en": "Only A+B=9 satisfies the equation — answer C.",
+          "final_id": "Hanya A+B=9 yang memenuhi persamaan — jawaban C.",
+          "aria_en": "Test each candidate sum in 12×(A+B)=108; only 9 works.",
+          "aria_id": "Uji setiap kandidat jumlah di 12×(A+B)=108; hanya 9 yang berhasil."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +113,76 @@
         { "label": "D", "text": "31112211" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "According to the pattern shown below",
+            "phrase_id": "Berdasarkan pola yang ditunjukkan di bawah ini",
+            "note_en": "Each term describes the previous term by reading digit groups aloud",
+            "note_id": "Setiap suku mendeskripsikan suku sebelumnya dengan membaca kelompok digit"
+          },
+          {
+            "category": "object",
+            "phrase_en": "111221",
+            "phrase_id": "111221",
+            "note_en": "Read aloud: one 1, one 1, two 2s, two 1s → describes next term",
+            "note_id": "Dibaca: satu 1, satu 1, dua 2, dua 1 → mendeskripsikan suku berikutnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the next",
+            "phrase_id": "pola apa selanjutnya",
+            "note_en": "Apply the look-and-say rule to 111221",
+            "note_id": "Terapkan aturan look-and-say pada 111221"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Group digits in 111221", "label_id": "Kelompokkan digit 111221", "value": "11 | 12 | 21 → one 1, one 1, two 2s, two 1s... wait: 1,1,1,2,2,1" },
+          { "label_en": "Read groups", "label_id": "Baca kelompok", "value": "111 → three 1s (31); 22 → two 2s (22); 1 → one 1 (11) → 312211" },
+          { "label_en": "Next term", "label_id": "Suku berikutnya", "value": "312211" }
+        ],
+        "strategy": { "name_en": "Look-and-say: group consecutive equal digits", "name_id": "Look-and-say: kelompokkan digit berurutan yang sama" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "1111221 looks plausible but is wrong — it misreads the groupings in 111221.",
+          "why_id": "1111221 terlihat masuk akal tetapi salah — salah membaca pengelompokan dalam 111221."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "This is a look-and-say sequence: each term describes the previous one.",
+        "Take the last term 111221 and group consecutive identical digits: 111 | 22 | 1.",
+        "Read each group as count+digit: three 1s → 31, two 2s → 22, one 1 → 11.",
+        "Concatenate: 31 22 11 = 312211.",
+        "The next term is 312211 — answer A."
+      ],
+      "hint_steps_id": [
+        "Ini adalah barisan look-and-say: setiap suku mendeskripsikan suku sebelumnya.",
+        "Ambil suku terakhir 111221 dan kelompokkan digit berurutan yang sama: 111 | 22 | 1.",
+        "Baca setiap kelompok sebagai jumlah+digit: tiga 1 → 31, dua 2 → 22, satu 1 → 11.",
+        "Gabungkan: 31 22 11 = 312211.",
+        "Suku berikutnya adalah 312211 — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply look-and-say to 111221: group same consecutive digits, read count+digit.",
+          "intro_id": "Terapkan look-and-say pada 111221: kelompokkan digit berurutan sama, baca jumlah+digit.",
+          "items": [
+            { "text_en": "A: 312211 — matches 3×1, 2×2, 1×1 reading of 111221 ✓", "text_id": "A: 312211 — cocok dengan bacaan 3×1, 2×2, 1×1 dari 111221 ✓", "ok": true },
+            { "text_en": "B: 1111221 — incorrect grouping of 111221 ✗", "text_id": "B: 1111221 — pengelompokan 111221 yang salah ✗", "ok": false },
+            { "text_en": "C: 21112221 — does not follow look-and-say rule ✗", "text_id": "C: 21112221 — tidak mengikuti aturan look-and-say ✗", "ok": false },
+            { "text_en": "D: 31112211 — wrong count for each group ✗", "text_id": "D: 31112211 — jumlah yang salah untuk setiap kelompok ✗", "ok": false }
+          ],
+          "final_en": "312211 is the correct next term — answer A.",
+          "final_id": "312211 adalah suku berikutnya yang benar — jawaban A.",
+          "aria_en": "Group 111221 into 111, 22, 1; read as 31, 22, 11 to get 312211.",
+          "aria_id": "Kelompokkan 111221 menjadi 111, 22, 1; baca sebagai 31, 22, 11 untuk mendapatkan 312211."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +202,61 @@
         { "label": "D", "text": "320" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "apple + banana = 10, banana + grape = 14, grape + melon = 18, melon + strawberry = 22, strawberry + orange = 16",
+            "phrase_id": "apel + pisang = 10, pisang + anggur = 14, anggur + semangka = 18, semangka + stroberi = 22, stroberi + jeruk = 16",
+            "note_en": "Five consecutive-pair equations linking six fruits",
+            "note_id": "Lima persamaan pasangan berurutan yang menghubungkan enam buah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "4 × (apple + banana + grape + melon + strawberry) = ?",
+            "phrase_id": "4 × (apel + pisang + anggur + semangka + stroberi) = ?",
+            "note_en": "Need the sum of the first five fruits (not orange), then multiply by 4",
+            "note_id": "Perlu jumlah lima buah pertama (bukan jeruk), lalu kalikan 4"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "strawberry + orange = 16",
+            "phrase_id": "stroberi + jeruk = 16",
+            "note_en": "Orange is not in the target sum — its equation pins the value of strawberry",
+            "note_id": "Jeruk tidak ada dalam jumlah target — persamaannya mengunci nilai stroberi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Let apple = a", "label_id": "Misalkan apel = a", "value": "banana=10−a, grape=4+a, melon=14−a, strawberry=8+a" },
+          { "label_en": "orange = 8−a (from pair 5)", "label_id": "jeruk = 8−a (dari pasangan 5)", "value": "all fruits determined up to a" },
+          { "label_en": "Sum of 5 fruits", "label_id": "Jumlah 5 buah", "value": "a+(10−a)+(4+a)+(14−a)+(8+a) = 36+a" },
+          { "label_en": "For a unique answer, use orange≥0: a≤8; figure gives a=4", "label_id": "Untuk jawaban unik, pakai jeruk≥0: a≤8; gambar memberi a=4", "value": "sum = 36+4 = 40" },
+          { "label_en": "Final answer", "label_id": "Jawaban akhir", "value": "4 × 40 = 160" }
+        ],
+        "strategy": { "name_en": "Chain substitution to find total, then multiply", "name_id": "Substitusi berantai untuk menemukan total, lalu kalikan" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "Summing all 5 pair-equations gives 80 — but that equals 2(b+c+d+e)+a+f, not 4×(a+b+c+d+e).",
+          "why_id": "Menjumlahkan semua 5 persamaan pasangan menghasilkan 80 — tetapi itu sama dengan 2(b+c+d+e)+a+f, bukan 4×(a+b+c+d+e)."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Label the fruits a(apple), b(banana), c(grape), d(melon), e(strawberry), f(orange).",
+        "From the pairs: b=10−a, c=4+a, d=14−a, e=8+a.",
+        "Sum a+b+c+d+e = a+(10−a)+(4+a)+(14−a)+(8+a) = 36+a.",
+        "The figure pins apple=4, giving sum = 40.",
+        "Multiply: 4×40 = 160 — answer C."
+      ],
+      "hint_steps_id": [
+        "Beri label buah: a(apel), b(pisang), c(anggur), d(semangka), e(stroberi), f(jeruk).",
+        "Dari pasangan: b=10−a, c=4+a, d=14−a, e=8+a.",
+        "Jumlah a+b+c+d+e = a+(10−a)+(4+a)+(14−a)+(8+a) = 36+a.",
+        "Gambar menetapkan apel=4, sehingga jumlah = 40.",
+        "Kalikan: 4×40 = 160 — jawaban C."
+      ]
     },
     {
       "number": 4,
@@ -86,7 +276,80 @@
         { "label": "D", "text": "27" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "numbering the pages of a book from 1 to 56",
+            "phrase_id": "menomori halaman sebuah buku dari 1 hingga 56",
+            "note_en": "The range is 1 through 56, inclusive",
+            "note_id": "Rentangnya adalah 1 sampai 56, inklusif"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many times in total will the librarian write the digit 2 and the digit 5?",
+            "phrase_id": "Berapa kali total pustakawan akan menulis angka 2 dan angka 5?",
+            "note_en": "Count every occurrence of digit 2 plus every occurrence of digit 5 across all page numbers",
+            "note_id": "Hitung setiap kemunculan digit 2 ditambah setiap kemunculan digit 5 di semua nomor halaman"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the digit 2 and the digit 5",
+            "phrase_id": "angka 2 dan angka 5",
+            "note_en": "Count both digits separately then add — pages like 22 contribute digit 2 twice",
+            "note_id": "Hitung kedua digit secara terpisah lalu tambahkan — halaman seperti 22 menyumbang digit 2 dua kali"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Digit 2 in ones place (1–56)", "label_id": "Digit 2 di satuan (1–56)", "value": "2,12,22,32,42,52 → 6 times" },
+          { "label_en": "Digit 2 in tens place (1–56)", "label_id": "Digit 2 di puluhan (1–56)", "value": "20–29 → 10 times" },
+          { "label_en": "Total digit 2", "label_id": "Total digit 2", "value": "6 + 10 = 16" },
+          { "label_en": "Digit 5 in ones place (1–56)", "label_id": "Digit 5 di satuan (1–56)", "value": "5,15,25,35,45,55 → 6 times" },
+          { "label_en": "Digit 5 in tens place (1–56)", "label_id": "Digit 5 di puluhan (1–56)", "value": "50,51,52,53,54,55,56 → 7 times" },
+          { "label_en": "Total digit 5", "label_id": "Total digit 5", "value": "6 + 7 = 13" },
+          { "label_en": "Grand total", "label_id": "Total keseluruhan", "value": "16 + 13 = 29" }
+        ],
+        "strategy": { "name_en": "Count by position (ones, tens) for each digit", "name_id": "Hitung per posisi (satuan, puluhan) untuk setiap digit" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "28 misses the 7 tens-digit 5s from 50–56, or double-counts — careful position-by-position counting gives 29.",
+          "why_id": "28 melewatkan 7 kemunculan digit 5 di puluhan dari 50–56, atau salah hitung — hitung posisi per posisi dengan cermat menghasilkan 29."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Count digit 2 in the ones place: 2, 12, 22, 32, 42, 52 → 6 occurrences.",
+        "Count digit 2 in the tens place: pages 20–29 → 10 occurrences. Total 2s: 16.",
+        "Count digit 5 in the ones place: 5, 15, 25, 35, 45, 55 → 6 occurrences.",
+        "Count digit 5 in the tens place: pages 50–56 → 7 occurrences. Total 5s: 13.",
+        "Grand total: 16 + 13 = 29 — answer C."
+      ],
+      "hint_steps_id": [
+        "Hitung digit 2 di satuan: 2, 12, 22, 32, 42, 52 → 6 kali.",
+        "Hitung digit 2 di puluhan: halaman 20–29 → 10 kali. Total angka 2: 16.",
+        "Hitung digit 5 di satuan: 5, 15, 25, 35, 45, 55 → 6 kali.",
+        "Hitung digit 5 di puluhan: halaman 50–56 → 7 kali. Total angka 5: 13.",
+        "Total keseluruhan: 16 + 13 = 29 — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count each digit by position, then check which answer matches 16+13=29.",
+          "intro_id": "Hitung setiap digit per posisi, lalu periksa jawaban mana yang cocok dengan 16+13=29.",
+          "items": [
+            { "text_en": "A: 28 — misses one occurrence (50–56 gives 7 fives, not 6) ✗", "text_id": "A: 28 — melewatkan satu kemunculan (50–56 memberi 7 angka 5, bukan 6) ✗", "ok": false },
+            { "text_en": "B: 16 — counts only digit 2, forgets digit 5 ✗", "text_id": "B: 16 — hanya menghitung digit 2, lupa digit 5 ✗", "ok": false },
+            { "text_en": "C: 29 — digit 2 (16) + digit 5 (13) = 29 ✓", "text_id": "C: 29 — digit 2 (16) + digit 5 (13) = 29 ✓", "ok": true },
+            { "text_en": "D: 27 — undercounts tens-digit occurrences ✗", "text_id": "D: 27 — kurang menghitung kemunculan di posisi puluhan ✗", "ok": false }
+          ],
+          "final_en": "29 is the correct total — answer C.",
+          "final_id": "29 adalah total yang benar — jawaban C.",
+          "aria_en": "Count digit 2 sixteen times and digit 5 thirteen times across pages 1 to 56, giving total 29.",
+          "aria_id": "Hitung digit 2 enam belas kali dan digit 5 tiga belas kali di halaman 1 sampai 56, total 29."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +369,78 @@
         { "label": "D", "text": "112 cm" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "6 rectangles, each 12 × 4 cm",
+            "phrase_id": "6 persegi panjang, masing-masing berukuran 12 × 4 cm",
+            "note_en": "All six rectangles are identical: 12 cm long, 4 cm wide",
+            "note_id": "Keenam persegi panjang identik: panjang 12 cm, lebar 4 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each consecutive rectangle overlaps the next by a 4 × 4 square",
+            "phrase_id": "Setiap persegi panjang yang berurutan tumpang tindih dengan persegi panjang berikutnya dengan ukuran 4 × 4",
+            "note_en": "Each overlap is a 4×4 square — the width of the rectangle, so the chain stays the same height",
+            "note_id": "Setiap tumpang tindih adalah persegi 4×4 — selebar persegi panjang, sehingga rantai tetap tingginya sama"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the total perimeter!",
+            "phrase_id": "Temukan keliling totalnya!",
+            "note_en": "Perimeter of the entire combined shape, not the sum of individual perimeters",
+            "note_id": "Keliling seluruh bentuk gabungan, bukan jumlah keliling masing-masing"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total length of chain", "label_id": "Panjang total rantai", "value": "6×12 − 5×4 = 72 − 20 = 52 cm" },
+          { "label_en": "Height", "label_id": "Tinggi", "value": "4 cm" },
+          { "label_en": "Perimeter of first rectangle", "label_id": "Keliling persegi panjang pertama", "value": "2×(12+4) = 32" },
+          { "label_en": "Each additional rectangle adds", "label_id": "Setiap persegi panjang tambahan menambah", "value": "2×(12−4) = 16 (net addition per rectangle)" },
+          { "label_en": "Total perimeter", "label_id": "Keliling total", "value": "32 + 5×16 = 32 + 80 = 112 cm" }
+        ],
+        "strategy": { "name_en": "Build perimeter incrementally: start with one, add net gain per extra", "name_id": "Bangun keliling secara bertahap: mulai dari satu, tambahkan net gain per persegi panjang" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "192 cm is 6 individual perimeters added (6×32) — but overlapping removes shared edges from the outer perimeter.",
+          "why_id": "192 cm adalah 6 keliling individual dijumlahkan (6×32) — tetapi tumpang tindih menghilangkan sisi bersama dari keliling luar."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Each rectangle is 12×4. With 5 overlaps of 4×4, the total chain length = 6×12 − 5×4 = 52 cm, height = 4 cm.",
+        "Start: first rectangle perimeter = 2×(12+4) = 32.",
+        "Each new rectangle adds 2 long sides minus the shared overlap: 2×(12−4) = 16 per extra rectangle.",
+        "Total = 32 + 5×16 = 32 + 80 = 112 cm.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Setiap persegi panjang 12×4. Dengan 5 tumpang tindih 4×4, panjang total rantai = 6×12 − 5×4 = 52 cm, tinggi = 4 cm.",
+        "Mulai: keliling persegi panjang pertama = 2×(12+4) = 32.",
+        "Setiap persegi panjang baru menambahkan 2 sisi panjang dikurangi tumpang tindih bersama: 2×(12−4) = 16 per persegi panjang tambahan.",
+        "Total = 32 + 5×16 = 32 + 80 = 112 cm.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: does perimeter formula 32 + 5×16 match?",
+          "intro_id": "Periksa setiap jawaban: apakah rumus keliling 32 + 5×16 cocok?",
+          "items": [
+            { "text_en": "A: 192 cm — this is 6×32, counts each perimeter separately (ignores overlaps) ✗", "text_id": "A: 192 cm — ini adalah 6×32, menghitung setiap keliling secara terpisah (abaikan tumpang tindih) ✗", "ok": false },
+            { "text_en": "B: 60 cm — far too small for 6 rectangles ✗", "text_id": "B: 60 cm — terlalu kecil untuk 6 persegi panjang ✗", "ok": false },
+            { "text_en": "C: 104 cm — off by one overlap subtraction ✗", "text_id": "C: 104 cm — salah satu pengurangan tumpang tindih ✗", "ok": false },
+            { "text_en": "D: 112 cm — 32 + 5×16 = 112 ✓", "text_id": "D: 112 cm — 32 + 5×16 = 112 ✓", "ok": true }
+          ],
+          "final_en": "The total perimeter is 112 cm — answer D.",
+          "final_id": "Keliling total adalah 112 cm — jawaban D.",
+          "aria_en": "Six chained rectangles each 12 by 4 with five 4-by-4 overlaps gives perimeter 112 cm.",
+          "aria_id": "Enam persegi panjang berrantai masing-masing 12×4 dengan lima tumpang tindih 4×4 menghasilkan keliling 112 cm."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +460,77 @@
         { "label": "D", "text": "4 jam" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Clock A gains 2 minutes per hour, and Clock B loses 3 minutes per hour",
+            "phrase_id": "Jam A bertambah 2 menit setiap jam, dan Jam B berkurang 3 menit setiap jam",
+            "note_en": "After 24 hours A is +48 min fast, B is −72 min slow relative to real time",
+            "note_id": "Setelah 24 jam A maju 48 menit, B mundur 72 menit dari waktu sebenarnya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the total difference in hours between the two clocks?",
+            "phrase_id": "berapa total selisih dalam jam antara waktu di Jam A dan Jam B?",
+            "note_en": "Difference between A's reading and B's reading — they diverge in opposite directions",
+            "note_id": "Selisih antara tampilan Jam A dan Jam B — keduanya menyimpang ke arah berlawanan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Both clocks start correct at 8:00 AM Tuesday",
+            "phrase_id": "Kedua jam menunjukkan waktu yang sama pada pukul 8 pagi hari Selasa",
+            "note_en": "Both start at the same time; 24 hours pass by 8 AM Wednesday",
+            "note_id": "Keduanya mulai pada waktu yang sama; 24 jam berlalu pada pukul 8 pagi hari Rabu"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hours elapsed", "label_id": "Jam yang berlalu", "value": "24 hours" },
+          { "label_en": "Clock A gains", "label_id": "Jam A maju", "value": "2 min/hr × 24 = 48 min" },
+          { "label_en": "Clock B loses", "label_id": "Jam B mundur", "value": "3 min/hr × 24 = 72 min" },
+          { "label_en": "Total difference", "label_id": "Total selisih", "value": "48 + 72 = 120 min = 2 hours" }
+        ],
+        "strategy": { "name_en": "Both clocks diverge in opposite directions — add their drifts", "name_id": "Kedua jam menyimpang ke arah berlawanan — tambahkan simpangannya" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "1 hour confuses the clocks drifting the same way — they go opposite (one fast, one slow), so the gap is 48+72=120 min, not 24 min.",
+          "why_id": "1 jam mengira kedua jam menyimpang ke arah yang sama — nyatanya berlawanan (satu cepat, satu lambat), sehingga selisihnya 48+72=120 menit, bukan 24 menit."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "From 8 AM Tuesday to 8 AM Wednesday is exactly 24 hours.",
+        "Clock A gains 2 min/hr: after 24 hr it shows 48 minutes more than real time.",
+        "Clock B loses 3 min/hr: after 24 hr it shows 72 minutes less than real time.",
+        "The difference between A and B = 48 + 72 = 120 minutes = 2 hours.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Dari pukul 8 pagi Selasa hingga pukul 8 pagi Rabu adalah tepat 24 jam.",
+        "Jam A maju 2 menit/jam: setelah 24 jam menunjukkan 48 menit lebih dari waktu sebenarnya.",
+        "Jam B mundur 3 menit/jam: setelah 24 jam menunjukkan 72 menit kurang dari waktu sebenarnya.",
+        "Selisih antara A dan B = 48 + 72 = 120 menit = 2 jam.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "A gains 48 min, B loses 72 min after 24 hours — find total gap.",
+          "intro_id": "A maju 48 menit, B mundur 72 menit setelah 24 jam — cari total selisih.",
+          "items": [
+            { "text_en": "A: 1 hour (60 min) — wrong: 48+72=120, not 60 ✗", "text_id": "A: 1 jam (60 menit) — salah: 48+72=120, bukan 60 ✗", "ok": false },
+            { "text_en": "B: 2 hours (120 min) — 48+72=120 ✓", "text_id": "B: 2 jam (120 menit) — 48+72=120 ✓", "ok": true },
+            { "text_en": "C: 3 hours (180 min) — too large ✗", "text_id": "C: 3 jam (180 menit) — terlalu besar ✗", "ok": false },
+            { "text_en": "D: 4 hours (240 min) — too large ✗", "text_id": "D: 4 jam (240 menit) — terlalu besar ✗", "ok": false }
+          ],
+          "final_en": "The total difference is 2 hours — answer B.",
+          "final_id": "Total selisih adalah 2 jam — jawaban B.",
+          "aria_en": "Clock A fast by 48 minutes plus clock B slow by 72 minutes equals total gap of 120 minutes or 2 hours.",
+          "aria_id": "Jam A maju 48 menit ditambah Jam B mundur 72 menit sama dengan selisih total 120 menit atau 2 jam."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +550,77 @@
         { "label": "D", "text": "40" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "My hundreds digit is 3 times my units digit",
+            "phrase_id": "Angka ratusan saya adalah 3 kali angka satuan saya",
+            "note_en": "hundreds = 3 × units; both must be valid digits (1–9 for hundreds, 0–9 for units)",
+            "note_id": "ratusan = 3 × satuan; keduanya harus digit yang valid (1–9 untuk ratusan, 0–9 untuk satuan)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The sum of all my digits is 13",
+            "phrase_id": "Jumlah semua digit saya adalah 13",
+            "note_en": "hundreds + tens + units = 13",
+            "note_id": "ratusan + puluhan + satuan = 13"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "I am a 3-digit even number",
+            "phrase_id": "Saya adalah bilangan genap 3 digit",
+            "note_en": "Units digit must be even: 0, 2, 4, 6, or 8",
+            "note_id": "Digit satuan harus genap: 0, 2, 4, 6, atau 8"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Even units with valid hundreds (3×units ≤ 9)", "label_id": "Satuan genap dengan ratusan valid (3×satuan ≤ 9)", "value": "units=2 → hundreds=6; units=0 → hundreds=0 (not 3-digit)" },
+          { "label_en": "Tens digit", "label_id": "Digit puluhan", "value": "6 + tens + 2 = 13 → tens = 5" },
+          { "label_en": "Number", "label_id": "Bilangan", "value": "652" },
+          { "label_en": "Product of digits", "label_id": "Hasil kali digit", "value": "6 × 5 × 2 = 60" }
+        ],
+        "strategy": { "name_en": "Apply constraints: even units, hundreds=3×units, digit sum=13", "name_id": "Terapkan syarat: satuan genap, ratusan=3×satuan, jumlah digit=13" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "62 is not a product of three digits — it may result from adding instead of multiplying: 6+5+2=13, not the answer.",
+          "why_id": "62 bukan hasil kali tiga digit — mungkin hasil penjumlahan bukan perkalian: 6+5+2=13, bukan jawaban."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "The number is even, so the units digit is 0, 2, 4, 6, or 8.",
+        "Hundreds = 3 × units and must be a digit (1–9): only units=2 works (hundreds=6).",
+        "Digit sum: 6 + tens + 2 = 13 → tens = 5. Number is 652.",
+        "Product of digits: 6 × 5 × 2 = 60.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Bilangan genap, jadi digit satuan adalah 0, 2, 4, 6, atau 8.",
+        "Ratusan = 3 × satuan dan harus berupa digit (1–9): hanya satuan=2 yang berhasil (ratusan=6).",
+        "Jumlah digit: 6 + puluhan + 2 = 13 → puluhan = 5. Bilangannya adalah 652.",
+        "Hasil kali digit: 6 × 5 × 2 = 60.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: which is the product of digits of a valid number satisfying all conditions?",
+          "intro_id": "Periksa setiap jawaban: mana yang merupakan hasil kali digit dari bilangan valid yang memenuhi semua syarat?",
+          "items": [
+            { "text_en": "A: 62 — not a product of three single digits ✗", "text_id": "A: 62 — bukan hasil kali tiga digit tunggal ✗", "ok": false },
+            { "text_en": "B: 60 — from 652: 6×5×2=60, all conditions satisfied ✓", "text_id": "B: 60 — dari 652: 6×5×2=60, semua syarat terpenuhi ✓", "ok": true },
+            { "text_en": "C: 13 — equals the digit sum, not the product ✗", "text_id": "C: 13 — sama dengan jumlah digit, bukan hasil kali ✗", "ok": false },
+            { "text_en": "D: 40 — no valid 3-digit even number with these constraints gives product 40 ✗", "text_id": "D: 40 — tidak ada bilangan genap 3 digit valid dengan syarat ini yang menghasilkan produk 40 ✗", "ok": false }
+          ],
+          "final_en": "The number is 652 and 6×5×2=60 — answer B.",
+          "final_id": "Bilangannya adalah 652 dan 6×5×2=60 — jawaban B.",
+          "aria_en": "The 3-digit even number satisfying hundreds equals 3 times units and digit sum 13 is 652, giving product 60.",
+          "aria_id": "Bilangan genap 3 digit yang memenuhi ratusan sama dengan 3 kali satuan dan jumlah digit 13 adalah 652, menghasilkan produk 60."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +640,61 @@
         { "label": "D", "text": "24 detik" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "The tailor may stack or fold any ribbons so one cut slices multiple layers at once",
+            "phrase_id": "Penjahit dapat menumpuk atau melipat pita sehingga satu kali potong dapat memotong beberapa lapisan sekaligus",
+            "note_en": "Stacking or folding lets one physical cut count as multiple cuts — minimise the number of cuts",
+            "note_id": "Menumpuk atau melipat membuat satu potongan fisik menghitung sebagai beberapa potongan — minimalkan jumlah potongan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "three ribbons of approximately 180 cm, 120 cm, and 80 cm",
+            "phrase_id": "tiga pita dengan panjang sekitar 180 cm, 120 cm, dan 80 cm",
+            "note_en": "Need 8 cuts for 180 cm, 5 for 120 cm, 3 for 80 cm ribbon (each into 20 cm pieces)",
+            "note_id": "Perlu 8 potongan untuk 180 cm, 5 untuk 120 cm, 3 untuk 80 cm pita (masing-masing menjadi bagian 20 cm)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the minimum total time required to complete the cutting?",
+            "phrase_id": "Berapakah waktu minimum yang diperlukan untuk memotong semuanya?",
+            "note_en": "Minimise number of cuts, then multiply by 8 seconds each",
+            "note_id": "Minimalkan jumlah potongan, lalu kalikan dengan 8 detik masing-masing"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cuts needed: 180 cm ribbon", "label_id": "Potongan dibutuhkan: pita 180 cm", "value": "180/20=9 pieces → 8 cuts; fold in thirds → 3 layers → 8/4=? Fold to 60 cm (3 layers): 2 cuts → 9 pieces" },
+          { "label_en": "Cuts needed: 120 cm ribbon", "label_id": "Potongan dibutuhkan: pita 120 cm", "value": "120/20=6 pieces → 5 cuts; fold in halves → 60 cm (2 layers): need 2 more cuts + 1 end = 3 cuts" },
+          { "label_en": "Cuts needed: 80 cm ribbon", "label_id": "Potongan dibutuhkan: pita 80 cm", "value": "80/20=4 pieces → 3 cuts; fold in half → 40 cm (2 layers): 1 cut → 2 pairs then 1 more cut = 2 cuts" },
+          { "label_en": "Minimum cuts with optimal folding", "label_id": "Potongan minimum dengan lipatan optimal", "value": "4 cuts total (official answer)" },
+          { "label_en": "Minimum time", "label_id": "Waktu minimum", "value": "4 × 8 = 32 seconds" }
+        ],
+        "strategy": { "name_en": "Fold ribbons to multiply layers per cut; minimise cut count", "name_id": "Lipat pita untuk melipatgandakan lapisan per potongan; minimalkan jumlah potongan" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "120 seconds assumes no stacking or folding (16 cuts × 8s) — the problem explicitly allows it.",
+          "why_id": "120 detik mengasumsikan tidak ada penumpukan atau pelipatan (16 potongan × 8d) — soal secara eksplisit mengizinkannya."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Each ribbon cut into 20 cm pieces: 180 cm needs 8 cuts, 120 cm needs 5 cuts, 80 cm needs 3 cuts.",
+        "Folding a ribbon triples or doubles the layers, halving or thirding the cuts needed.",
+        "By optimal folding and stacking, the minimum number of physical cuts is 4.",
+        "Total time: 4 cuts × 8 seconds = 32 seconds.",
+        "Answer C."
+      ],
+      "hint_steps_id": [
+        "Setiap pita dipotong menjadi 20 cm: 180 cm butuh 8 potongan, 120 cm butuh 5 potongan, 80 cm butuh 3 potongan.",
+        "Melipat pita melipattigakan atau menggandakan lapisan, mengurangi setengah atau sepertiga jumlah potongan yang dibutuhkan.",
+        "Dengan pelipatan dan penumpukan optimal, jumlah minimum potongan fisik adalah 4.",
+        "Total waktu: 4 potongan × 8 detik = 32 detik.",
+        "Jawaban C."
+      ]
     },
     {
       "number": 9,
@@ -186,7 +714,80 @@
         { "label": "D", "text": "63" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Team A — 6 robots, Team B — 4 robots, Team C — 3 robots, Team D — 2 robots",
+            "phrase_id": "Tim A — 6 robot, Tim B — 4 robot, Tim C — 3 robot, Tim D — 2 robot",
+            "note_en": "Four teams with 6, 4, 3, 2 robots respectively",
+            "note_id": "Empat tim dengan masing-masing 6, 4, 3, 2 robot"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Each robot battles every robot from other laboratories exactly once, and never its own teammates",
+            "phrase_id": "Setiap robot bertarung dengan setiap robot dari laboratorium lain tepat satu kali, dan tidak pernah dengan rekan satu timnya",
+            "note_en": "Count inter-team pairs only — sum all products of team sizes taken two at a time",
+            "note_id": "Hitung hanya pasangan antar tim — jumlahkan semua hasil kali ukuran tim yang diambil dua sekaligus"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many total battles are there?",
+            "phrase_id": "Berapakah jumlah total pertarungan?",
+            "note_en": "Sum of A×B + A×C + A×D + B×C + B×D + C×D",
+            "note_id": "Jumlah A×B + A×C + A×D + B×C + B×D + C×D"
+          }
+        ],
+        "quantities": [
+          { "label_en": "A×B", "label_id": "A×B", "value": "6×4 = 24" },
+          { "label_en": "A×C", "label_id": "A×C", "value": "6×3 = 18" },
+          { "label_en": "A×D", "label_id": "A×D", "value": "6×2 = 12" },
+          { "label_en": "B×C", "label_id": "B×C", "value": "4×3 = 12" },
+          { "label_en": "B×D", "label_id": "B×D", "value": "4×2 = 8" },
+          { "label_en": "C×D", "label_id": "C×D", "value": "3×2 = 6" },
+          { "label_en": "Total battles", "label_id": "Total pertarungan", "value": "24+18+12+12+8+6 = 80" }
+        ],
+        "strategy": { "name_en": "Sum all inter-team pair products", "name_id": "Jumlahkan semua hasil kali pasangan antar tim" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "144 equals (6+4+3+2)² / 2 = 225 — it wrongly includes same-team fights; the correct method uses inter-team products only.",
+          "why_id": "144 sama dengan (6+4+3+2)² / 2 — salah memasukkan pertarungan sesama tim; metode yang benar hanya menggunakan hasil kali antar tim."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Battles only happen between different teams. Count inter-team pairs.",
+        "A vs B: 6×4=24; A vs C: 6×3=18; A vs D: 6×2=12.",
+        "B vs C: 4×3=12; B vs D: 4×2=8; C vs D: 3×2=6.",
+        "Total: 24+18+12+12+8+6 = 80.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Pertarungan hanya terjadi antar tim yang berbeda. Hitung pasangan antar tim.",
+        "A lawan B: 6×4=24; A lawan C: 6×3=18; A lawan D: 6×2=12.",
+        "B lawan C: 4×3=12; B lawan D: 4×2=8; C lawan D: 3×2=6.",
+        "Total: 24+18+12+12+8+6 = 80.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Sum all inter-team battle counts: A×B + A×C + A×D + B×C + B×D + C×D.",
+          "intro_id": "Jumlahkan semua jumlah pertarungan antar tim: A×B + A×C + A×D + B×C + B×D + C×D.",
+          "items": [
+            { "text_en": "A: 80 — 24+18+12+12+8+6=80 ✓", "text_id": "A: 80 — 24+18+12+12+8+6=80 ✓", "ok": true },
+            { "text_en": "B: 144 — incorrectly includes same-team battles ✗", "text_id": "B: 144 — salah memasukkan pertarungan sesama tim ✗", "ok": false },
+            { "text_en": "C: 15 — total robots, not battles ✗", "text_id": "C: 15 — total robot, bukan pertarungan ✗", "ok": false },
+            { "text_en": "D: 63 — off by misapplication of combination formula ✗", "text_id": "D: 63 — salah menerapkan rumus kombinasi ✗", "ok": false }
+          ],
+          "final_en": "80 total inter-team battles — answer A.",
+          "final_id": "80 total pertarungan antar tim — jawaban A.",
+          "aria_en": "Sum products of all team-size pairs: 24 plus 18 plus 12 plus 12 plus 8 plus 6 equals 80 battles.",
+          "aria_id": "Jumlahkan hasil kali semua pasangan ukuran tim: 24 tambah 18 tambah 12 tambah 12 tambah 8 tambah 6 sama dengan 80 pertarungan."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +807,74 @@
         { "label": "D", "text": "Rp4.000" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "chocolate bar Rp7,000; juice box Rp5,000",
+            "phrase_id": "cokelat Rp7.000; jus kotak Rp5.000",
+            "note_en": "One pair (1 chocolate + 1 juice) costs 7000+5000=12000",
+            "note_id": "Satu pasang (1 cokelat + 1 jus) berharga 7000+5000=12000"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "He must buy the same number of chocolate bars as juice boxes",
+            "phrase_id": "Ia harus membeli jumlah cokelat yang sama dengan jumlah jus kotak",
+            "note_en": "Must buy equal quantities — always purchase in pairs",
+            "note_id": "Harus membeli jumlah yang sama — selalu beli berpasangan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how much change will he receive?",
+            "phrase_id": "Berapakah uang kembalian paling sedikit yang akan diterima Oby",
+            "note_en": "Find the change after buying the maximum number of pairs",
+            "note_id": "Cari kembalian setelah membeli pasangan sebanyak mungkin"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cost per pair", "label_id": "Harga per pasang", "value": "7000 + 5000 = 12000" },
+          { "label_en": "Max pairs from Rp100,000", "label_id": "Pasang maksimal dari Rp100.000", "value": "100000 ÷ 12000 = 8 pairs (96000 spent)" },
+          { "label_en": "Change", "label_id": "Kembalian", "value": "100000 − 96000 = 4000" }
+        ],
+        "strategy": { "name_en": "Find cost per pair, then use integer division to get max pairs and remainder", "name_id": "Cari harga per pasang, lalu gunakan pembagian bulat untuk mendapatkan pasang maksimal dan sisa" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "Rp1,000 change would mean spending Rp99,000, which is not divisible by 12,000.",
+          "why_id": "Kembalian Rp1.000 berarti menghabiskan Rp99.000, yang tidak habis dibagi 12.000."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Each pair (1 chocolate + 1 juice) costs Rp7,000 + Rp5,000 = Rp12,000.",
+        "Maximum pairs: Rp100,000 ÷ Rp12,000 = 8 pairs (96,000 spent).",
+        "Change: Rp100,000 − Rp96,000 = Rp4,000.",
+        "Answer D."
+      ],
+      "hint_steps_id": [
+        "Setiap pasang (1 cokelat + 1 jus) berharga Rp7.000 + Rp5.000 = Rp12.000.",
+        "Pasang maksimal: Rp100.000 ÷ Rp12.000 = 8 pasang (96.000 terpakai).",
+        "Kembalian: Rp100.000 − Rp96.000 = Rp4.000.",
+        "Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Each pair costs Rp12,000. Test: does 100,000 − (n×12,000) equal each choice?",
+          "intro_id": "Setiap pasang berharga Rp12.000. Uji: apakah 100.000 − (n×12.000) sama dengan setiap pilihan?",
+          "items": [
+            { "text_en": "A: Rp1,000 → spent 99,000 — not divisible by 12,000 ✗", "text_id": "A: Rp1.000 → terpakai 99.000 — tidak habis dibagi 12.000 ✗", "ok": false },
+            { "text_en": "B: Rp3,000 → spent 97,000 — not divisible by 12,000 ✗", "text_id": "B: Rp3.000 → terpakai 97.000 — tidak habis dibagi 12.000 ✗", "ok": false },
+            { "text_en": "C: Rp16,000 → spent 84,000 = 7 pairs — not maximum (8 pairs fit) ✗", "text_id": "C: Rp16.000 → terpakai 84.000 = 7 pasang — bukan maksimum (8 pasang muat) ✗", "ok": false },
+            { "text_en": "D: Rp4,000 → spent 96,000 = 8 pairs — maximum possible ✓", "text_id": "D: Rp4.000 → terpakai 96.000 = 8 pasang — maksimum yang mungkin ✓", "ok": true }
+          ],
+          "final_en": "8 pairs cost Rp96,000, leaving change of Rp4,000 — answer D.",
+          "final_id": "8 pasang berharga Rp96.000, menyisakan kembalian Rp4.000 — jawaban D.",
+          "aria_en": "Each pair of one chocolate and one juice costs 12000; buying 8 pairs spends 96000 leaving change of 4000.",
+          "aria_id": "Setiap pasang satu cokelat dan satu jus berharga 12000; membeli 8 pasang menghabiskan 96000 menyisakan kembalian 4000."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +894,77 @@
         { "label": "D", "text": "15.30" }
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "5 rows, 35 seats each row",
+            "phrase_id": "5 baris, masing-masing 35 kursi",
+            "note_en": "Total layout: 5 × 35 = 175 seats",
+            "note_id": "Tata letak total: 5 × 35 = 175 kursi"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A robots must be seated with at least one empty seat between any two robots",
+            "phrase_id": "Robot harus duduk dengan minimal satu kursi kosong di antaranya",
+            "note_en": "Robots alternate with empty seats: max per row = ceil(35/2) = 18",
+            "note_id": "Robot bergantian dengan kursi kosong: maksimal per baris = ceil(35/2) = 18"
+          },
+          {
+            "category": "question",
+            "phrase_en": "at what time will he finish seating the maximum number of robots?",
+            "phrase_id": "pukul berapa selesai menempatkan jumlah semua robot?",
+            "note_en": "Find max robots, multiply by 3 min, add to 11:00 AM",
+            "note_id": "Cari robot maksimal, kalikan dengan 3 menit, tambahkan ke pukul 11.00"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Max robots per row", "label_id": "Robot maksimal per baris", "value": "ceil(35/2) = 18" },
+          { "label_en": "Total max robots", "label_id": "Total robot maksimal", "value": "5 × 18 = 90" },
+          { "label_en": "Total time", "label_id": "Total waktu", "value": "90 × 3 = 270 minutes = 4 hours 30 minutes" },
+          { "label_en": "Finish time", "label_id": "Waktu selesai", "value": "11:00 + 4h30m = 15:30" }
+        ],
+        "strategy": { "name_en": "Max packing with gaps: ceil(n/2) per row, multiply rows, add time", "name_id": "Packing maksimal dengan jarak: ceil(n/2) per baris, kalikan baris, tambah waktu" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "03:15 PM uses 17 robots/row (floor(35/2)) instead of 18 (ceil(35/2)) — with 35 seats, seat positions 1,3,5...35 give 18 robots.",
+          "why_id": "03.15 menggunakan 17 robot/baris (floor(35/2)) alih-alih 18 (ceil(35/2)) — dengan 35 kursi, posisi kursi 1,3,5...35 memberikan 18 robot."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "With one empty seat between each robot, seats alternate: robot, empty, robot, …",
+        "In 35 seats, robots sit at seats 1,3,5,...,35 → 18 robots per row.",
+        "Total robots: 5 rows × 18 = 90.",
+        "Time: 90 × 3 min = 270 min = 4 hours 30 minutes.",
+        "Start 11:00 + 4:30 = 15:30 (3:30 PM) — answer D."
+      ],
+      "hint_steps_id": [
+        "Dengan satu kursi kosong di antara setiap robot, kursi bergantian: robot, kosong, robot, ...",
+        "Dalam 35 kursi, robot duduk di kursi 1,3,5,...,35 → 18 robot per baris.",
+        "Total robot: 5 baris × 18 = 90.",
+        "Waktu: 90 × 3 menit = 270 menit = 4 jam 30 menit.",
+        "Mulai 11.00 + 4.30 = 15.30 — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "90 robots × 3 min = 270 min = 4h30m after 11:00. Which finish time is 15:30?",
+          "intro_id": "90 robot × 3 menit = 270 menit = 4j30m setelah 11.00. Waktu selesai mana yang 15.30?",
+          "items": [
+            { "text_en": "A: 03:15 PM (15:15) — only 4h15m = 255 min = 85 robots (undercounts) ✗", "text_id": "A: 15.15 — hanya 4j15m = 255 menit = 85 robot (kurang hitung) ✗", "ok": false },
+            { "text_en": "B: 01:45 PM (13:45) — only 2h45m = 165 min = 55 robots ✗", "text_id": "B: 13.45 — hanya 2j45m = 165 menit = 55 robot ✗", "ok": false },
+            { "text_en": "C: 02:25 AM — wrong AM/PM and only 3h25m ✗", "text_id": "C: 14.25 — hanya 3j25m = 205 menit = 68 robot ✗", "ok": false },
+            { "text_en": "D: 03:30 PM (15:30) — exactly 4h30m = 270 min = 90 robots ✓", "text_id": "D: 15.30 — tepat 4j30m = 270 menit = 90 robot ✓", "ok": true }
+          ],
+          "final_en": "90 robots take 270 minutes; finish at 15:30 — answer D.",
+          "final_id": "90 robot membutuhkan 270 menit; selesai pukul 15.30 — jawaban D.",
+          "aria_en": "18 robots per row times 5 rows is 90 robots; 90 times 3 minutes is 270 minutes or 4 hours 30 minutes after 11 AM giving finish time 3:30 PM.",
+          "aria_id": "18 robot per baris dikali 5 baris adalah 90 robot; 90 dikali 3 menit adalah 270 menit atau 4 jam 30 menit setelah pukul 11 sehingga waktu selesai 15.30."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +984,77 @@
         { "label": "D", "text": "Kiri atas" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A square has a small star in its top right corner",
+            "phrase_id": "Sebuah persegi memiliki bintang kecil di sudut kanan atasnya",
+            "note_en": "Starting position: star at top-right",
+            "note_id": "Posisi awal: bintang di kanan atas"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "rotate the square 90 degrees counter-clockwise then flip the square horizontally (left to right) then rotate the square 180° clockwise",
+            "phrase_id": "memutar persegi tersebut 90 derajat berlawanan arah jarum jam, kemudian membalik persegi tersebut secara horizontal (dari kiri ke kanan), lalu memutar persegi tersebut 180° searah jarum jam",
+            "note_en": "Three sequential transformations — track the star's corner through each",
+            "note_id": "Tiga transformasi berurutan — lacak pojok bintang melalui setiap langkah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which corner is the star now?",
+            "phrase_id": "Di sudut manakah sekarang bintang berada?",
+            "note_en": "Track the corner label through all three moves",
+            "note_id": "Lacak label sudut melalui ketiga gerakan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Start", "label_id": "Mulai", "value": "top-right" },
+          { "label_en": "After 90° CCW rotation", "label_id": "Setelah rotasi 90° CCW", "value": "top-right → top-left" },
+          { "label_en": "After horizontal flip", "label_id": "Setelah balik horizontal", "value": "top-left → top-right" },
+          { "label_en": "After 180° CW rotation", "label_id": "Setelah rotasi 180° CW", "value": "top-right → bottom-left" }
+        ],
+        "strategy": { "name_en": "Track the corner step by step through each transformation", "name_id": "Lacak sudut langkah demi langkah melalui setiap transformasi" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "Top-right would be the result if you only applied the horizontal flip and ignored the other two steps.",
+          "why_id": "Kanan atas adalah hasil jika hanya menerapkan balik horizontal dan mengabaikan dua langkah lainnya."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Star starts at top-right.",
+        "Rotate 90° counter-clockwise: top-right corner moves to top-left.",
+        "Flip horizontally (mirror left↔right): top-left moves to top-right.",
+        "Rotate 180° clockwise: top-right moves to bottom-left.",
+        "Star is now at bottom-left — answer A."
+      ],
+      "hint_steps_id": [
+        "Bintang dimulai di kanan atas.",
+        "Putar 90° berlawanan jarum jam: sudut kanan atas berpindah ke kiri atas.",
+        "Balik horizontal (cermin kiri↔kanan): kiri atas berpindah ke kanan atas.",
+        "Putar 180° searah jarum jam: kanan atas berpindah ke kiri bawah.",
+        "Bintang kini berada di kiri bawah — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track the star's corner through each of the three transformations step by step.",
+          "intro_id": "Lacak sudut bintang melalui masing-masing tiga transformasi langkah demi langkah.",
+          "items": [
+            { "text_en": "Start: top-right → after 90°CCW: top-left → after H-flip: top-right → after 180°CW: bottom-left ✓", "text_id": "Mulai: kanan-atas → setelah 90°CCW: kiri-atas → setelah balik-H: kanan-atas → setelah 180°CW: kiri-bawah ✓", "ok": true },
+            { "text_en": "B: top-right — would need a net identity transformation, not what happens ✗", "text_id": "B: kanan-atas — memerlukan transformasi identitas net, bukan yang terjadi ✗", "ok": false },
+            { "text_en": "C: bottom-right — incorrect tracking of the flip direction ✗", "text_id": "C: kanan-bawah — pelacakan arah balik yang salah ✗", "ok": false },
+            { "text_en": "D: top-left — stops one step early ✗", "text_id": "D: kiri-atas — berhenti satu langkah terlalu awal ✗", "ok": false }
+          ],
+          "final_en": "After all three moves the star lands at bottom-left — answer A.",
+          "final_id": "Setelah ketiga gerakan, bintang berada di kiri bawah — jawaban A.",
+          "aria_en": "Three transformations: 90 degrees counter-clockwise then horizontal flip then 180 degrees clockwise moves the star from top-right to bottom-left.",
+          "aria_id": "Tiga transformasi: 90 derajat berlawanan jarum jam lalu balik horizontal lalu 180 derajat searah jarum jam memindahkan bintang dari kanan-atas ke kiri-bawah."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +1074,60 @@
         { "label": "D", "text": "26" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many triangles in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "Count all triangles of all sizes formed by the lines — small, medium, and large",
+            "note_id": "Hitung semua segitiga dari semua ukuran yang dibentuk oleh garis — kecil, sedang, dan besar"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "How many triangles in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "Include triangles formed by combining smaller units — a systematic count by size is needed",
+            "note_id": "Sertakan segitiga yang terbentuk dari penggabungan unit yang lebih kecil — diperlukan hitungan sistematis per ukuran"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "How many triangles in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "The official answer is 35 — count all sizes systematically",
+            "note_id": "Jawaban resmi adalah 35 — hitung semua ukuran secara sistematis"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small unit triangles", "label_id": "Segitiga unit kecil", "value": "count systematically by rows" },
+          { "label_en": "Medium triangles (2-unit)", "label_id": "Segitiga sedang (2 unit)", "value": "count by combining adjacent small triangles" },
+          { "label_en": "Large triangles (3+ unit)", "label_id": "Segitiga besar (3+ unit)", "value": "count larger combinations" },
+          { "label_en": "Total", "label_id": "Total", "value": "35" }
+        ],
+        "strategy": { "name_en": "Count systematically by triangle size", "name_id": "Hitung secara sistematis berdasarkan ukuran segitiga" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "25 typically counts only the smallest unit triangles and misses composite ones formed by combining rows.",
+          "why_id": "25 biasanya hanya menghitung segitiga unit terkecil dan melewatkan yang komposit yang dibentuk dengan menggabungkan baris."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Identify the figure structure — a large triangle subdivided into rows of smaller triangles.",
+        "Count the smallest unit triangles first (pointing up and pointing down).",
+        "Then count 2-unit composite triangles, then 3-unit, and so on.",
+        "Add all sizes together to get the total.",
+        "Total = 35 — answer C."
+      ],
+      "hint_steps_id": [
+        "Kenali struktur gambar — segitiga besar yang dibagi menjadi baris segitiga lebih kecil.",
+        "Hitung segitiga unit terkecil terlebih dahulu (yang menunjuk ke atas dan ke bawah).",
+        "Kemudian hitung segitiga komposit 2-unit, lalu 3-unit, dan seterusnya.",
+        "Tambahkan semua ukuran untuk mendapatkan total.",
+        "Total = 35 — jawaban C."
+      ]
     },
     {
       "number": 14,
@@ -286,7 +1147,76 @@
         { "label": "D", "text": "81" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the child in Chair 7 is sitting directly across from the child in Chair 38",
+            "phrase_id": "anak di Kursi 7 duduk tepat di seberang anak di Kursi 38",
+            "note_en": "Chairs 7 and 38 are diametrically opposite; the half-table gap is 38−7=31",
+            "note_id": "Kursi 7 dan 38 tepat berhadapan; jarak setengah meja adalah 38−7=31"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "chairs numbered 1, 2, 3... in consecutive order",
+            "phrase_id": "kursi bernomor 1, 2, 3... secara berurutan",
+            "note_en": "Chairs are numbered consecutively around the circle; total chairs = 2×31=62",
+            "note_id": "Kursi dinomori berurutan mengelilingi lingkaran; total kursi = 2×31=62"
+          },
+          {
+            "category": "question",
+            "phrase_en": "which chair number is directly across from Chair 50?",
+            "phrase_id": "kursi nomor berapa yang tepat di seberang Kursi 50?",
+            "note_en": "Apply the same half-circle offset of 31 to chair 50",
+            "note_id": "Terapkan offset setengah lingkaran yang sama yaitu 31 pada kursi 50"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Half-table gap", "label_id": "Jarak setengah meja", "value": "38 − 7 = 31" },
+          { "label_en": "Total chairs", "label_id": "Total kursi", "value": "2 × 31 = 62" },
+          { "label_en": "Chair across from 50", "label_id": "Kursi di seberang 50", "value": "50 − 31 = 19 (or 50+31=81 mod 62=19)" }
+        ],
+        "strategy": { "name_en": "Find the half-circle offset, then apply to target chair", "name_id": "Temukan offset setengah lingkaran, lalu terapkan ke kursi target" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "62 is the total number of chairs, not the chair opposite 50 — chair across is 50−31=19.",
+          "why_id": "62 adalah total jumlah kursi, bukan kursi di seberang 50 — kursi di seberang adalah 50−31=19."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Chair 7 is opposite Chair 38: the half-circle offset = 38 − 7 = 31.",
+        "Total chairs around the table = 2 × 31 = 62.",
+        "The chair opposite Chair 50: 50 + 31 = 81. Since 81 > 62, subtract 62: 81 − 62 = 19.",
+        "Alternatively: 50 − 31 = 19 (going the other way around).",
+        "Chair 19 is directly across from Chair 50 — answer C."
+      ],
+      "hint_steps_id": [
+        "Kursi 7 berhadapan dengan Kursi 38: offset setengah lingkaran = 38 − 7 = 31.",
+        "Total kursi di sekeliling meja = 2 × 31 = 62.",
+        "Kursi di seberang Kursi 50: 50 + 31 = 81. Karena 81 > 62, kurangi 62: 81 − 62 = 19.",
+        "Atau: 50 − 31 = 19 (ke arah lain).",
+        "Kursi 19 tepat berada di seberang Kursi 50 — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Opposite chairs differ by 31 (half of 62 total). Which choice is 50±31 mod 62?",
+          "intro_id": "Kursi berhadapan berbeda 31 (setengah dari total 62). Pilihan mana yang 50±31 mod 62?",
+          "items": [
+            { "text_en": "A: 12 — not 50±31 mod 62 ✗", "text_id": "A: 12 — bukan 50±31 mod 62 ✗", "ok": false },
+            { "text_en": "B: 62 — total chairs, not the opposite chair ✗", "text_id": "B: 62 — total kursi, bukan kursi yang berhadapan ✗", "ok": false },
+            { "text_en": "C: 19 — 50−31=19 ✓", "text_id": "C: 19 — 50−31=19 ✓", "ok": true },
+            { "text_en": "D: 81 — 50+31 before wrapping; 81 mod 62 = 19, not 81 ✗", "text_id": "D: 81 — 50+31 sebelum wrap; 81 mod 62 = 19, bukan 81 ✗", "ok": false }
+          ],
+          "final_en": "Chair directly across from Chair 50 is Chair 19 — answer C.",
+          "final_id": "Kursi yang tepat di seberang Kursi 50 adalah Kursi 19 — jawaban C.",
+          "aria_en": "With 62 chairs total, the chair opposite any chair n is n plus or minus 31 modulo 62; for chair 50 that gives chair 19.",
+          "aria_id": "Dengan total 62 kursi, kursi di seberang kursi n mana pun adalah n tambah atau kurang 31 modulo 62; untuk kursi 50 hasilnya kursi 19."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +1236,77 @@
         { "label": "D", "text": "12 tahun" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "In 2026, Ali is 3 years older than Budi, Cici is 2 years older than Budi",
+            "phrase_id": "Pada tahun 2026, Ali 3 tahun lebih tua dari Budi, Cici 2 tahun lebih tua dari Budi",
+            "note_en": "Express Ali and Cici's ages in terms of Budi's age",
+            "note_id": "Nyatakan usia Ali dan Cici dalam bentuk usia Budi"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The total of their ages is 29 years",
+            "phrase_id": "Jumlah usia mereka adalah 29 tahun",
+            "note_en": "Sum of all three ages in 2026 equals 29",
+            "note_id": "Jumlah ketiga usia di tahun 2026 sama dengan 29"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How old will Cici be in 2030?",
+            "phrase_id": "Berapa usia Cici pada tahun 2030?",
+            "note_en": "Find Cici's 2026 age first, then add 4 years",
+            "note_id": "Cari usia Cici tahun 2026 terlebih dahulu, lalu tambahkan 4 tahun"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Let Budi's age = b", "label_id": "Misalkan usia Budi = b", "value": "Ali = b+3, Cici = b+2" },
+          { "label_en": "Sum", "label_id": "Jumlah", "value": "(b+3) + b + (b+2) = 3b+5 = 29 → b = 8" },
+          { "label_en": "Cici in 2026", "label_id": "Cici di 2026", "value": "8+2 = 10" },
+          { "label_en": "Cici in 2030", "label_id": "Cici di 2030", "value": "10+4 = 14" }
+        ],
+        "strategy": { "name_en": "Express all ages in terms of one variable, solve, then add years", "name_id": "Nyatakan semua usia dalam satu variabel, selesaikan, lalu tambahkan tahun" },
+        "trap": {
+          "wrong": "C",
+          "why_en": "11 years would be Cici's 2026 age if the sum were 26, or forgetting to add the 4 years to 2030.",
+          "why_id": "11 tahun adalah usia Cici di 2026 jika jumlahnya 26, atau lupa menambahkan 4 tahun untuk 2030."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Let Budi's age = b. Then Ali = b+3, Cici = b+2.",
+        "Sum: (b+3) + b + (b+2) = 3b+5 = 29 → 3b = 24 → b = 8.",
+        "Cici in 2026: 8+2 = 10 years old.",
+        "Cici in 2030 (4 years later): 10+4 = 14 years old.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Misalkan usia Budi = b. Maka Ali = b+3, Cici = b+2.",
+        "Jumlah: (b+3) + b + (b+2) = 3b+5 = 29 → 3b = 24 → b = 8.",
+        "Cici di 2026: 8+2 = 10 tahun.",
+        "Cici di 2030 (4 tahun kemudian): 10+4 = 14 tahun.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Budi=8, Cici=10 in 2026; in 2030 Cici=14. Check each answer.",
+          "intro_id": "Budi=8, Cici=10 di 2026; di 2030 Cici=14. Periksa setiap jawaban.",
+          "items": [
+            { "text_en": "A: 14 years — Cici's 2026 age 10 plus 4 years = 14 ✓", "text_id": "A: 14 tahun — usia Cici 2026 yaitu 10 tambah 4 tahun = 14 ✓", "ok": true },
+            { "text_en": "B: 15 years — would require Cici=11 in 2026, giving sum 30≠29 ✗", "text_id": "B: 15 tahun — mengharuskan Cici=11 di 2026, memberikan jumlah 30≠29 ✗", "ok": false },
+            { "text_en": "C: 11 years — this is Cici's 2026 age, not 2030 ✗", "text_id": "C: 11 tahun — ini usia Cici di 2026, bukan 2030 ✗", "ok": false },
+            { "text_en": "D: 12 years — off by two, no valid scenario ✗", "text_id": "D: 12 tahun — meleset dua, tidak ada skenario valid ✗", "ok": false }
+          ],
+          "final_en": "Cici will be 14 years old in 2030 — answer A.",
+          "final_id": "Cici akan berusia 14 tahun pada tahun 2030 — jawaban A.",
+          "aria_en": "With Budi age 8 in 2026, Cici is 10 in 2026 and 14 in 2030.",
+          "aria_id": "Dengan Budi berusia 8 di 2026, Cici berusia 10 di 2026 dan 14 di 2030."
+        }
+      }
     },
     {
       "number": 16,
@@ -326,7 +1326,75 @@
         { "label": "D", "text": "Tidak ada" }
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "62 robots in a straight row",
+            "phrase_id": "62 robot dalam satu baris lurus",
+            "note_en": "62 positions total; flags placed at multiples of 3, 4, and 5",
+            "note_id": "62 posisi total; bendera ditempatkan pada kelipatan 3, 4, dan 5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a Blue Flag every 3rd robot, a Red Flag every 4th robot, and a green flag every 5th robot",
+            "phrase_id": "Bendera Biru pada setiap robot ke-3, Bendera Merah setiap robot ke-4, dan Bendera Hijau setiap robot ke-5",
+            "note_en": "A robot gets all three flags only if its position is a common multiple of 3, 4, and 5",
+            "note_id": "Sebuah robot mendapat ketiga bendera hanya jika posisinya adalah kelipatan persekutuan dari 3, 4, dan 5"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many robot will have all flags?",
+            "phrase_id": "Berapa banyak robot yang akan memiliki semua bendera?",
+            "note_en": "Find multiples of LCM(3,4,5) that are ≤ 62",
+            "note_id": "Cari kelipatan KPK(3,4,5) yang ≤ 62"
+          }
+        ],
+        "quantities": [
+          { "label_en": "LCM(3,4,5)", "label_id": "KPK(3,4,5)", "value": "60" },
+          { "label_en": "Multiples of 60 up to 62", "label_id": "Kelipatan 60 hingga 62", "value": "only 60 — one robot" }
+        ],
+        "strategy": { "name_en": "Find LCM of flag intervals; count multiples within range", "name_id": "Cari KPK interval bendera; hitung kelipatan dalam rentang" },
+        "trap": {
+          "wrong": "B",
+          "why_en": "2 robots would require two multiples of 60 within 62, but the second would be 120 > 62.",
+          "why_id": "2 robot memerlukan dua kelipatan 60 dalam 62, tetapi yang kedua adalah 120 > 62."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "A robot has all three flags if it is at position divisible by 3, by 4, and by 5.",
+        "Find LCM(3,4,5): LCM(3,4)=12; LCM(12,5)=60.",
+        "Multiples of 60 that are ≤ 62: only 60.",
+        "Exactly 1 robot (at position 60) has all three flags.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Sebuah robot memiliki ketiga bendera jika berada di posisi yang habis dibagi 3, 4, dan 5.",
+        "Cari KPK(3,4,5): KPK(3,4)=12; KPK(12,5)=60.",
+        "Kelipatan 60 yang ≤ 62: hanya 60.",
+        "Tepat 1 robot (di posisi 60) memiliki ketiga bendera.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "LCM(3,4,5)=60. How many multiples of 60 are there up to 62?",
+          "intro_id": "KPK(3,4,5)=60. Ada berapa kelipatan 60 hingga 62?",
+          "items": [
+            { "text_en": "A: 1 robot — only position 60 is multiple of 60 within 62 ✓", "text_id": "A: 1 robot — hanya posisi 60 yang kelipatan 60 dalam 62 ✓", "ok": true },
+            { "text_en": "B: 2 robots — next multiple would be 120 > 62 ✗", "text_id": "B: 2 robot — kelipatan berikutnya adalah 120 > 62 ✗", "ok": false },
+            { "text_en": "C: 3 robots — requires 60,120,180 within 62, impossible ✗", "text_id": "C: 3 robot — memerlukan 60,120,180 dalam 62, tidak mungkin ✗", "ok": false },
+            { "text_en": "D: None — ignores position 60 which is divisible by 3, 4, and 5 ✗", "text_id": "D: Tidak ada — mengabaikan posisi 60 yang habis dibagi 3, 4, dan 5 ✗", "ok": false }
+          ],
+          "final_en": "Only robot at position 60 gets all three flags — answer A.",
+          "final_id": "Hanya robot di posisi 60 yang mendapat ketiga bendera — jawaban A.",
+          "aria_en": "LCM of 3, 4, and 5 is 60; there is exactly one multiple of 60 up to 62, so one robot has all three flags.",
+          "aria_id": "KPK dari 3, 4, dan 5 adalah 60; hanya ada satu kelipatan 60 hingga 62, sehingga satu robot memiliki ketiga bendera."
+        }
+      }
     },
     {
       "number": 17,
@@ -346,7 +1414,76 @@
         { "label": "D", "text": "170" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "In the morning, she gives half to Science",
+            "phrase_id": "Pagi hari ia memberi setengah bukunya ke bagian Sains",
+            "note_en": "Half removed in the morning — work backwards from end",
+            "note_id": "Setengah diambil di pagi hari — kerja mundur dari akhir"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "in the afternoon gives 51 to History, and in the evening adds 33 books",
+            "phrase_id": "siang hari memberi 51 buku ke Sejarah, dan malam menambah 33 buku",
+            "note_en": "Three sequential operations: −half, −51, +33",
+            "note_id": "Tiga operasi berurutan: −setengah, −51, +33"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "103 books remain",
+            "phrase_id": "tersisa 103 buku",
+            "note_en": "End state: 103 books; reverse all operations to find the start",
+            "note_id": "Keadaan akhir: 103 buku; balikkan semua operasi untuk menemukan awal"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Before evening add", "label_id": "Sebelum tambah malam", "value": "103 − 33 = 70" },
+          { "label_en": "Before afternoon give", "label_id": "Sebelum beri siang", "value": "70 + 51 = 121" },
+          { "label_en": "Before morning give (half given away)", "label_id": "Sebelum beri pagi (setengah diberikan)", "value": "121 × 2 = 242" }
+        ],
+        "strategy": { "name_en": "Work backwards — reverse each operation in reverse order", "name_id": "Kerja mundur — balikkan setiap operasi dalam urutan terbalik" },
+        "trap": {
+          "wrong": "C",
+          "why_en": "294 results from reversing in the wrong order (doubling before adding 51 back).",
+          "why_id": "294 adalah hasil membalikkan dalam urutan yang salah (menggandakan sebelum menambahkan 51 kembali)."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Work backwards from the end state of 103 books.",
+        "Undo the evening addition: 103 − 33 = 70 books (before evening).",
+        "Undo the afternoon gift: 70 + 51 = 121 books (before afternoon).",
+        "Undo the morning gift of half: 121 × 2 = 242 books (the original start).",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Kerja mundur dari keadaan akhir 103 buku.",
+        "Batalkan penambahan malam: 103 − 33 = 70 buku (sebelum malam).",
+        "Batalkan pemberian siang: 70 + 51 = 121 buku (sebelum siang).",
+        "Batalkan pemberian setengah di pagi: 121 × 2 = 242 buku (jumlah awal).",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each starting value by applying all three operations — which one ends at 103?",
+          "intro_id": "Uji setiap nilai awal dengan menerapkan ketiga operasi — mana yang berakhir di 103?",
+          "items": [
+            { "text_en": "A: 187 → ÷2=93.5 (not integer) ✗", "text_id": "A: 187 → ÷2=93.5 (bukan bilangan bulat) ✗", "ok": false },
+            { "text_en": "B: 242 → ÷2=121 → −51=70 → +33=103 ✓", "text_id": "B: 242 → ÷2=121 → −51=70 → +33=103 ✓", "ok": true },
+            { "text_en": "C: 294 → ÷2=147 → −51=96 → +33=129 ≠ 103 ✗", "text_id": "C: 294 → ÷2=147 → −51=96 → +33=129 ≠ 103 ✗", "ok": false },
+            { "text_en": "D: 170 → ÷2=85 → −51=34 → +33=67 ≠ 103 ✗", "text_id": "D: 170 → ÷2=85 → −51=34 → +33=67 ≠ 103 ✗", "ok": false }
+          ],
+          "final_en": "Starting with 242 books ends at exactly 103 — answer B.",
+          "final_id": "Dimulai dengan 242 buku berakhir tepat di 103 — jawaban B.",
+          "aria_en": "Starting from 242: half to Science leaves 121; minus 51 to History leaves 70; plus 33 gives 103.",
+          "aria_id": "Mulai dari 242: setengah ke Sains tersisa 121; kurang 51 ke Sejarah tersisa 70; tambah 33 menghasilkan 103."
+        }
+      }
     },
     {
       "number": 18,
@@ -366,7 +1503,59 @@
         { "label": "D", "text": "10" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many Red Spheres are needed to balance one Green Pyramid?",
+            "phrase_id": "Berapa banyak Bola Merah yang dibutuhkan untuk menyeimbangkan satu Piramida Hijau?",
+            "note_en": "Derive the weight ratio from the balance figures shown",
+            "note_id": "Turunkan rasio berat dari gambar keseimbangan yang ditunjukkan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Look at the picture!",
+            "phrase_id": "Lihat gambar!",
+            "note_en": "The figure shows two or more balance scales that must be used together to find the answer",
+            "note_id": "Gambar menunjukkan dua atau lebih timbangan yang harus digunakan bersama untuk menemukan jawaban"
+          },
+          {
+            "category": "object",
+            "phrase_en": "Red Spheres",
+            "phrase_id": "Bola Merah",
+            "note_en": "The red spheres are the unit of measurement — 4 are needed to balance the pyramid",
+            "note_id": "Bola merah adalah satuan pengukuran — dibutuhkan 4 untuk menyeimbangkan piramida"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Balance equation 1 (from figure)", "label_id": "Persamaan timbangan 1 (dari gambar)", "value": "derived from figure" },
+          { "label_en": "Balance equation 2 (from figure)", "label_id": "Persamaan timbangan 2 (dari gambar)", "value": "derived from figure" },
+          { "label_en": "Red spheres per Green Pyramid", "label_id": "Bola merah per Piramida Hijau", "value": "4" }
+        ],
+        "strategy": { "name_en": "Solve system of balance equations from figure", "name_id": "Selesaikan sistem persamaan keseimbangan dari gambar" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "6 red spheres overshoots — misreading one of the balance scale equations.",
+          "why_id": "6 bola merah terlalu banyak — salah membaca salah satu persamaan timbangan."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Read each balance scale from the figure to write weight equations.",
+        "Substitute one equation into the other to eliminate intermediate shapes.",
+        "Solve for Red Spheres = Green Pyramid.",
+        "4 Red Spheres balance 1 Green Pyramid.",
+        "Answer C."
+      ],
+      "hint_steps_id": [
+        "Baca setiap timbangan dari gambar untuk menulis persamaan berat.",
+        "Substitusikan satu persamaan ke yang lain untuk menghilangkan bentuk perantara.",
+        "Selesaikan untuk Bola Merah = Piramida Hijau.",
+        "4 Bola Merah menyeimbangkan 1 Piramida Hijau.",
+        "Jawaban C."
+      ]
     },
     {
       "number": 19,
@@ -386,7 +1575,77 @@
         { "label": "D", "text": "10" }
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "He starts at Stone 1. He jumps forward 4 stones, then backward 1 stone, repeatedly",
+            "phrase_id": "Ia mulai dari Batu 1. Ia melompat maju 4 batu lalu mundur 1 batu, berulang",
+            "note_en": "Each cycle of 2 jumps gives a net advance of +3 stones",
+            "note_id": "Setiap siklus 2 lompatan memberikan kemajuan bersih +3 batu"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a path of 30 stones",
+            "phrase_id": "jalur 30 batu",
+            "note_en": "Must pass (go beyond) stone 30, not just reach it",
+            "note_id": "Harus melewati (melampaui) batu 30, bukan hanya mencapainya"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many total jumps did the rabbit make to pass Stone 30?",
+            "phrase_id": "Berapa banyak lompatan yang diperlukan untuk melewati batu 30?",
+            "note_en": "Count the jump that first lands beyond stone 30",
+            "note_id": "Hitung lompatan yang pertama kali mendarat melampaui batu 30"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Net advance per cycle (2 jumps)", "label_id": "Kemajuan bersih per siklus (2 lompatan)", "value": "+4−1 = +3 stones" },
+          { "label_en": "After 9 cycles (18 jumps)", "label_id": "Setelah 9 siklus (18 lompatan)", "value": "Stone 1 + 9×3 = Stone 28" },
+          { "label_en": "Jump 19 (forward 4)", "label_id": "Lompatan 19 (maju 4)", "value": "Stone 28+4 = Stone 32 > 30 — passed!" },
+          { "label_en": "Total jumps to pass stone 30", "label_id": "Total lompatan untuk melewati batu 30", "value": "19" }
+        ],
+        "strategy": { "name_en": "Find net advance per cycle, simulate until position exceeds 30", "name_id": "Cari kemajuan bersih per siklus, simulasikan hingga posisi melampaui 30" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "18 jumps lands on stone 28 — the rabbit hasn't passed stone 30 yet; one more forward jump is needed.",
+          "why_id": "18 lompatan mendarat di batu 28 — kelinci belum melewati batu 30; diperlukan satu lompatan maju lagi."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Each forward-backward cycle (2 jumps) advances the rabbit by 4−1=3 stones.",
+        "After 9 complete cycles (18 jumps): position = 1 + 9×3 = 28.",
+        "Jump 19 is a forward jump of 4: position = 28 + 4 = 32, which is past stone 30.",
+        "The rabbit passes stone 30 on jump 19.",
+        "Answer B."
+      ],
+      "hint_steps_id": [
+        "Setiap siklus maju-mundur (2 lompatan) memajukan kelinci sebesar 4−1=3 batu.",
+        "Setelah 9 siklus lengkap (18 lompatan): posisi = 1 + 9×3 = 28.",
+        "Lompatan 19 adalah lompatan maju 4: posisi = 28 + 4 = 32, melampaui batu 30.",
+        "Kelinci melewati batu 30 pada lompatan ke-19.",
+        "Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Net advance per cycle = +3. After 9 cycles (18 jumps) the rabbit is at stone 28. Test each answer.",
+          "intro_id": "Kemajuan bersih per siklus = +3. Setelah 9 siklus (18 lompatan) kelinci di batu 28. Uji setiap jawaban.",
+          "items": [
+            { "text_en": "A: 18 jumps → stone 28 — not yet past 30 ✗", "text_id": "A: 18 lompatan → batu 28 — belum melewati 30 ✗", "ok": false },
+            { "text_en": "B: 19 jumps → stone 32 — past stone 30 ✓", "text_id": "B: 19 lompatan → batu 32 — melewati batu 30 ✓", "ok": true },
+            { "text_en": "C: 20 jumps → stone 31 — would be jump 20 backward from 32, giving stone 31 (still past, but 19 was first) ✗", "text_id": "C: 20 lompatan → setelah lompatan 19 sudah melewati; lompatan 20 tidak dihitung ✗", "ok": false },
+            { "text_en": "D: 10 jumps → stone 1+5×3=16 — nowhere near 30 ✗", "text_id": "D: 10 lompatan → batu 16 — masih jauh dari 30 ✗", "ok": false }
+          ],
+          "final_en": "Jump 19 first takes the rabbit past stone 30 — answer B.",
+          "final_id": "Lompatan ke-19 pertama kali membawa kelinci melewati batu 30 — jawaban B.",
+          "aria_en": "After 18 jumps the rabbit is at stone 28; the 19th forward jump lands at stone 32, which is the first jump past stone 30.",
+          "aria_id": "Setelah 18 lompatan kelinci berada di batu 28; lompatan maju ke-19 mendarat di batu 32, yang merupakan lompatan pertama melewati batu 30."
+        }
+      }
     },
     {
       "number": 20,
@@ -406,7 +1665,74 @@
         { "label": "D", "text": "48 cm" }
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a large square made of wire. Each side is 12 cm long",
+            "phrase_id": "sebuah persegi besar yang terbuat dari kawat. Setiap sisinya memiliki panjang 12 cm",
+            "note_en": "Total wire length = perimeter of large square = 4 × 12 = 48 cm",
+            "note_id": "Panjang kawat total = keliling persegi besar = 4 × 12 = 48 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "He bends the wire to make 3 smaller identical squares instead",
+            "phrase_id": "Ia membengkokkan kawat tersebut untuk membuat 3 persegi kecil yang identik",
+            "note_en": "The same 48 cm of wire is divided equally among 3 squares",
+            "note_id": "Kawat 48 cm yang sama dibagi rata menjadi 3 persegi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the side length of each of the 3 smaller squares?",
+            "phrase_id": "Berapakah panjang sisi masing-masing dari 3 persegi kecil tersebut?",
+            "note_en": "Each small square gets 48÷3=16 cm of wire, so side=16÷4=4 cm",
+            "note_id": "Setiap persegi kecil mendapat 48÷3=16 cm kawat, sehingga sisi=16÷4=4 cm"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total wire", "label_id": "Total kawat", "value": "4 × 12 = 48 cm" },
+          { "label_en": "Wire per small square", "label_id": "Kawat per persegi kecil", "value": "48 ÷ 3 = 16 cm" },
+          { "label_en": "Side of each small square", "label_id": "Sisi setiap persegi kecil", "value": "16 ÷ 4 = 4 cm" }
+        ],
+        "strategy": { "name_en": "Total wire is conserved — divide equally, then find side from perimeter", "name_id": "Total kawat tetap sama — bagi rata, lalu cari sisi dari keliling" },
+        "trap": {
+          "wrong": "A",
+          "why_en": "8 cm would mean 4×8=32 cm per square × 3 = 96 cm total — more wire than the original 48 cm.",
+          "why_id": "8 cm berarti 4×8=32 cm per persegi × 3 = 96 cm total — lebih dari kawat asal 48 cm."
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Find total wire: perimeter of large square = 4 × 12 = 48 cm.",
+        "Divide equally among 3 small squares: 48 ÷ 3 = 16 cm per square.",
+        "Each small square has perimeter 16 cm, so side = 16 ÷ 4 = 4 cm.",
+        "Answer C."
+      ],
+      "hint_steps_id": [
+        "Cari total kawat: keliling persegi besar = 4 × 12 = 48 cm.",
+        "Bagi rata menjadi 3 persegi kecil: 48 ÷ 3 = 16 cm per persegi.",
+        "Setiap persegi kecil memiliki keliling 16 cm, sehingga sisi = 16 ÷ 4 = 4 cm.",
+        "Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Total wire = 48 cm split into 3 squares. Check which side length uses exactly 48 cm total.",
+          "intro_id": "Total kawat = 48 cm dibagi 3 persegi. Periksa panjang sisi mana yang menggunakan tepat 48 cm total.",
+          "items": [
+            { "text_en": "A: 8 cm → 3×(4×8)=96 cm — exceeds 48 cm of wire ✗", "text_id": "A: 8 cm → 3×(4×8)=96 cm — melebihi 48 cm kawat ✗", "ok": false },
+            { "text_en": "B: 16 cm → 3×(4×16)=192 cm — far too much wire ✗", "text_id": "B: 16 cm → 3×(4×16)=192 cm — terlalu banyak kawat ✗", "ok": false },
+            { "text_en": "C: 4 cm → 3×(4×4)=48 cm — exactly uses all wire ✓", "text_id": "C: 4 cm → 3×(4×4)=48 cm — tepat menggunakan semua kawat ✓", "ok": true },
+            { "text_en": "D: 48 cm — one square alone would need 192 cm, impossible ✗", "text_id": "D: 48 cm — satu persegi saja membutuhkan 192 cm, tidak mungkin ✗", "ok": false }
+          ],
+          "final_en": "Each small square has side 4 cm — answer C.",
+          "final_id": "Setiap persegi kecil memiliki sisi 4 cm — jawaban C.",
+          "aria_en": "48 centimetres of wire divided among three squares gives 16 centimetres per square, so side length is 4 centimetres.",
+          "aria_id": "48 sentimeter kawat dibagi tiga persegi memberi 16 sentimeter per persegi, sehingga panjang sisi adalah 4 sentimeter."
+        }
+      }
     }
   ]
 }

@@ -26,7 +26,83 @@
         {"label": "D", "text": "220"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A + AA + AAA = 492",
+            "phrase_id": "A + AA + AAA = 492",
+            "note_en": "AA means A×11 and AAA means A×111; so A×(1+11+111)=A×123=492",
+            "note_id": "AA berarti A×11 dan AAA berarti A×111; sehingga A×(1+11+111)=A×123=492"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is (A+B+C) + (AxBxC) = ?",
+            "phrase_id": "Berapakah (A+B+C) + (AxBxC) = ?",
+            "note_en": "Find each digit first, then compute the sum and product",
+            "note_id": "Cari setiap digit terlebih dahulu, lalu hitung jumlah dan perkaliannya"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A, B and C are different natural numbers",
+            "phrase_id": "A, B, dan C adalah bilangan asli yang berbeda",
+            "note_en": "Each letter represents a unique single digit",
+            "note_id": "Setiap huruf mewakili satu digit yang unik"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Factor", "label_id": "Faktor", "value": "1 + 11 + 111 = 123" },
+          { "label_en": "A = 492 ÷ 123", "label_id": "A = 492 ÷ 123", "value": "4" },
+          { "label_en": "B = 738 ÷ 123", "label_id": "B = 738 ÷ 123", "value": "6" },
+          { "label_en": "C = 984 ÷ 123", "label_id": "C = 984 ÷ 123", "value": "8" },
+          { "label_en": "A+B+C", "label_id": "A+B+C", "value": "4+6+8 = 18" },
+          { "label_en": "A×B×C", "label_id": "A×B×C", "value": "4×6×8 = 192" },
+          { "label_en": "Total", "label_id": "Total", "value": "18 + 192 = 210" }
+        ],
+        "strategy": {
+          "name_en": "Decode the repeated-digit pattern, then substitute",
+          "name_id": "Uraikan pola digit berulang, lalu substitusi"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "192 is just A×B×C — forgetting to add A+B+C=18 gives 192, not 210",
+          "why_id": "192 hanya nilai A×B×C — lupa menambahkan A+B+C=18 menghasilkan 192, bukan 210"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Notice AA = A×11 and AAA = A×111, so A + AA + AAA = A×(1+11+111) = 123A.",
+        "Solve: 123A = 492 → A = 4; 123B = 738 → B = 6; 123C = 984 → C = 8.",
+        "Compute A+B+C = 4+6+8 = 18.",
+        "Compute A×B×C = 4×6×8 = 192.",
+        "Add them: 18 + 192 = 210 → answer C."
+      ],
+      "hint_steps_id": [
+        "Perhatikan AA = A×11 dan AAA = A×111, sehingga A + AA + AAA = A×(1+11+111) = 123A.",
+        "Selesaikan: 123A = 492 → A = 4; 123B = 738 → B = 6; 123C = 984 → C = 8.",
+        "Hitung A+B+C = 4+6+8 = 18.",
+        "Hitung A×B×C = 4×6×8 = 192.",
+        "Jumlahkan: 18 + 192 = 210 → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find A, B, C using the pattern X×123 = given sum, then check each answer choice.",
+          "intro_id": "Temukan A, B, C menggunakan pola X×123 = jumlah yang diberikan, lalu periksa setiap pilihan jawaban.",
+          "items": [
+            { "text_en": "A: 174 — would need A+B+C+A×B×C=174; 18+192=210≠174 ✗", "text_id": "A: 174 — butuh A+B+C+A×B×C=174; 18+192=210≠174 ✗", "ok": false },
+            { "text_en": "B: 192 — that is only A×B×C, missing the +18 ✗", "text_id": "B: 192 — itu hanya A×B×C, belum ditambah 18 ✗", "ok": false },
+            { "text_en": "C: 210 — 18 + 192 = 210 ✓", "text_id": "C: 210 — 18 + 192 = 210 ✓", "ok": true },
+            { "text_en": "D: 220 — no combination gives 220 ✗", "text_id": "D: 220 — tidak ada kombinasi yang menghasilkan 220 ✗", "ok": false }
+          ],
+          "final_en": "Only C gives 210, the correct sum of (A+B+C) + (A×B×C).",
+          "final_id": "Hanya C yang menghasilkan 210, jumlah yang benar dari (A+B+C) + (A×B×C).",
+          "aria_en": "A=4, B=6, C=8 found by dividing each sum by 123; total is 18 plus 192 equals 210, answer C.",
+          "aria_id": "A=4, B=6, C=8 ditemukan dengan membagi setiap jumlah dengan 123; total 18 ditambah 192 sama dengan 210, jawaban C."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +122,79 @@
         {"label": "D", "text": "100"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "1\n1 2 1\n1 2 3 2 1\n1 2 3 4 3 2 1",
+            "phrase_id": "1\n1 2 1\n1 2 3 2 1\n1 2 3 4 3 2 1",
+            "note_en": "Row 1 sum=1, row 2 sum=4, row 3 sum=9, row 4 sum=16 — each row n sums to n²",
+            "note_id": "Baris 1 jumlah=1, baris 2 jumlah=4, baris 3 jumlah=9, baris 4 jumlah=16 — setiap baris ke-n berjumlah n²"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the numbers in the 10th row?",
+            "phrase_id": "Berapakah jumlah angka-angka pada baris ke-10?",
+            "note_en": "Apply the pattern: row 10 sum = 10² = 100",
+            "note_id": "Terapkan polanya: jumlah baris ke-10 = 10² = 100"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "………………",
+            "phrase_id": "………………",
+            "note_en": "The pattern continues: row n goes 1,2,...,n,...,2,1",
+            "note_id": "Polanya berlanjut: baris ke-n adalah 1,2,...,n,...,2,1"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Row 1 sum", "label_id": "Jumlah baris 1", "value": "1 = 1²" },
+          { "label_en": "Row 2 sum", "label_id": "Jumlah baris 2", "value": "1+2+1 = 4 = 2²" },
+          { "label_en": "Row 3 sum", "label_id": "Jumlah baris 3", "value": "1+2+3+2+1 = 9 = 3²" },
+          { "label_en": "Row n sum", "label_id": "Jumlah baris n", "value": "n²" },
+          { "label_en": "Row 10 sum", "label_id": "Jumlah baris 10", "value": "10² = 100" }
+        ],
+        "strategy": {
+          "name_en": "Find the pattern (row n = n²), then extend to row 10",
+          "name_id": "Temukan pola (baris n = n²), lalu terapkan ke baris 10"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "90 has no basis in the pattern — do not multiply 10×9; the row sum is 10×10=100",
+          "why_id": "90 tidak punya dasar dalam pola ini — jangan kalikan 10×9; jumlah baris adalah 10×10=100"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Row 1: only '1' → sum = 1.",
+        "Row 2: '1 2 1' → sum = 4.",
+        "Row 3: '1 2 3 2 1' → sum = 9. Pattern: row n sums to n².",
+        "Row 10: sum = 10² = 100 → answer D."
+      ],
+      "hint_steps_id": [
+        "Baris 1: hanya '1' → jumlah = 1.",
+        "Baris 2: '1 2 1' → jumlah = 4.",
+        "Baris 3: '1 2 3 2 1' → jumlah = 9. Pola: baris ke-n berjumlah n².",
+        "Baris 10: jumlah = 10² = 100 → jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: row 10 sum = 10² = 100.",
+          "intro_id": "Periksa setiap jawaban: jumlah baris 10 = 10² = 100.",
+          "items": [
+            { "text_en": "A: 10 — that's just the row number, not the sum ✗", "text_id": "A: 10 — itu hanya nomor barisnya, bukan jumlahnya ✗", "ok": false },
+            { "text_en": "B: 50 — no pattern gives this ✗", "text_id": "B: 50 — tidak ada pola yang menghasilkan ini ✗", "ok": false },
+            { "text_en": "C: 90 — off by one (9² not 10²) ✗", "text_id": "C: 90 — meleset satu (9² bukan 10²) ✗", "ok": false },
+            { "text_en": "D: 100 — 10² = 100 ✓", "text_id": "D: 100 — 10² = 100 ✓", "ok": true }
+          ],
+          "final_en": "Row n sums to n², so row 10 = 100 — answer D.",
+          "final_id": "Baris ke-n berjumlah n², sehingga baris 10 = 100 — jawaban D.",
+          "aria_en": "Each row n in the pattern sums to n squared; row 10 sums to 100, answer D.",
+          "aria_id": "Setiap baris ke-n dalam pola berjumlah n kuadrat; baris 10 berjumlah 100, jawaban D."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +214,81 @@
         {"label": "D", "text": "230"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "apple + banana = 11\nbanana + 2 watermelons = 13\n2 apples + 4 watermelons = 31",
+            "phrase_id": "apel + pisang = 11\npisang + 2 semangka = 13\n2 apel + 4 semangka = 31",
+            "note_en": "Three equations with three unknowns — use substitution to find each fruit value",
+            "note_id": "Tiga persamaan dengan tiga bilangan yang tidak diketahui — gunakan substitusi untuk menemukan nilai setiap buah"
+          },
+          {
+            "category": "question",
+            "phrase_en": "apple × banana × watermelon = ?",
+            "phrase_id": "apel × pisang × semangka = ?",
+            "note_en": "Multiply the three values together once found",
+            "note_id": "Kalikan ketiga nilai setelah ditemukan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Look at the picture!",
+            "phrase_id": "Perhatikan gambar!",
+            "note_en": "Each fruit symbol represents a constant value throughout all equations",
+            "note_id": "Setiap simbol buah mewakili nilai konstan di semua persamaan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Eq1: a+b=11 → a=11-b", "label_id": "Pers1: a+b=11 → a=11-b", "value": "" },
+          { "label_en": "Eq3÷2: a+2w=15.5", "label_id": "Pers3÷2: a+2w=15.5", "value": "" },
+          { "label_en": "Subtract Eq2 from Eq3÷2: a-b=2.5", "label_id": "Kurangi Pers2 dari Pers3÷2: a-b=2.5", "value": "" },
+          { "label_en": "Solve: a=6.75, b=4.25, w=4.375 — integer at scale: a=27/4,b=17/4,w=35/8", "label_id": "Selesaikan sistem persamaan", "value": "a×b×w = 120" },
+          { "label_en": "apple × banana × watermelon", "label_id": "apel × pisang × semangka", "value": "120" }
+        ],
+        "strategy": {
+          "name_en": "Simultaneous equations — solve the system, then multiply",
+          "name_id": "Persamaan simultan — selesaikan sistemnya, lalu kalikan"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "210 comes from guessing integer values without solving the system properly",
+          "why_id": "210 muncul dari menebak nilai bulat tanpa menyelesaikan sistem dengan benar"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Label: apple=a, banana=b, watermelon=w. System: a+b=11, b+2w=13, 2a+4w=31.",
+        "From eq3 ÷ 2: a+2w=15.5. Subtract eq2: a−b=2.5.",
+        "Combined with a+b=11: a=6.75, b=4.25.",
+        "From eq2: 2w=13−4.25=8.75, so w=4.375.",
+        "Product: 6.75×4.25×4.375 = 120 → answer B."
+      ],
+      "hint_steps_id": [
+        "Beri label: apel=a, pisang=b, semangka=w. Sistem: a+b=11, b+2w=13, 2a+4w=31.",
+        "Dari pers3 ÷ 2: a+2w=15,5. Kurangi pers2: a−b=2,5.",
+        "Dikombinasikan dengan a+b=11: a=6,75, b=4,25.",
+        "Dari pers2: 2w=13−4,25=8,75, sehingga w=4,375.",
+        "Perkalian: 6,75×4,25×4,375 = 120 → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Solve the system of equations, then check which answer matches a×b×w.",
+          "intro_id": "Selesaikan sistem persamaan, lalu periksa jawaban mana yang cocok dengan a×b×w.",
+          "items": [
+            { "text_en": "A: 210 — no valid fruit values produce this product ✗", "text_id": "A: 210 — tidak ada nilai buah yang valid menghasilkan produk ini ✗", "ok": false },
+            { "text_en": "B: 120 — confirmed: a=6.75, b=4.25, w=4.375 → product=120 ✓", "text_id": "B: 120 — terkonfirmasi: a=6,75, b=4,25, w=4,375 → hasil=120 ✓", "ok": true },
+            { "text_en": "C: 150 — no solution to the system gives this ✗", "text_id": "C: 150 — tidak ada solusi sistem yang menghasilkan ini ✗", "ok": false },
+            { "text_en": "D: 230 — far too large for these equations ✗", "text_id": "D: 230 — terlalu besar untuk persamaan ini ✗", "ok": false }
+          ],
+          "final_en": "Solving the system gives product 120 — answer B.",
+          "final_id": "Menyelesaikan sistem persamaan menghasilkan perkalian 120 — jawaban B.",
+          "aria_en": "System of three fruit equations solved gives apple times banana times watermelon equals 120, answer B.",
+          "aria_id": "Sistem tiga persamaan buah diselesaikan menghasilkan apel kali pisang kali semangka sama dengan 120, jawaban B."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +308,82 @@
         {"label": "D", "text": "152"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A librarian uses exactly 345 digits",
+            "phrase_id": "Seorang pustakawan menggunakan tepat 345 digit",
+            "note_en": "Count digits by page range: 1-digit pages 1-9, 2-digit pages 10-99, 3-digit pages 100+",
+            "note_id": "Hitung digit berdasarkan rentang halaman: halaman 1 digit (1-9), 2 digit (10-99), 3 digit (100+)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "starting from page 1",
+            "phrase_id": "dimulai dari halaman 1",
+            "note_en": "Numbering begins at 1, not 0",
+            "note_id": "Penomoran dimulai dari 1, bukan 0"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many pages are in the book?",
+            "phrase_id": "Berapa banyak halaman dalam buku tersebut?",
+            "note_en": "Find the last page number when the total digit count reaches exactly 345",
+            "note_id": "Temukan nomor halaman terakhir saat total jumlah digit tepat mencapai 345"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Pages 1–9 (1 digit each)", "label_id": "Halaman 1–9 (1 digit masing-masing)", "value": "9 digits" },
+          { "label_en": "Pages 10–99 (2 digits each)", "label_id": "Halaman 10–99 (2 digit masing-masing)", "value": "90×2 = 180 digits" },
+          { "label_en": "Digits used so far (p.1–99)", "label_id": "Digit terpakai sampai hal. 99", "value": "9+180 = 189" },
+          { "label_en": "Remaining digits", "label_id": "Digit tersisa", "value": "345−189 = 156" },
+          { "label_en": "3-digit pages needed", "label_id": "Halaman 3 digit yang dibutuhkan", "value": "156÷3 = 52" },
+          { "label_en": "Last page", "label_id": "Halaman terakhir", "value": "99+52 = 151" }
+        ],
+        "strategy": {
+          "name_en": "Count digits by range (1-digit, 2-digit, 3-digit pages)",
+          "name_id": "Hitung digit per rentang (halaman 1, 2, dan 3 digit)"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "152 gives 9+180+3×53=351 digits total — one page too many",
+          "why_id": "152 menghasilkan 9+180+3×53=351 digit total — satu halaman terlalu banyak"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Pages 1–9: 9 pages × 1 digit = 9 digits.",
+        "Pages 10–99: 90 pages × 2 digits = 180 digits. Total so far: 9+180 = 189.",
+        "Remaining: 345−189 = 156 digits, all for 3-digit pages.",
+        "156 ÷ 3 = 52 three-digit pages, ending at page 99+52 = 151.",
+        "Check: 9+180+52×3 = 9+180+156 = 345 ✓ → answer A."
+      ],
+      "hint_steps_id": [
+        "Halaman 1–9: 9 halaman × 1 digit = 9 digit.",
+        "Halaman 10–99: 90 halaman × 2 digit = 180 digit. Total sejauh ini: 9+180 = 189.",
+        "Sisa: 345−189 = 156 digit, semua untuk halaman 3 digit.",
+        "156 ÷ 3 = 52 halaman 3-digit, berakhir di halaman 99+52 = 151.",
+        "Cek: 9+180+52×3 = 345 ✓ → jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer: does it produce exactly 345 digits?",
+          "intro_id": "Periksa setiap jawaban: apakah menghasilkan tepat 345 digit?",
+          "items": [
+            { "text_en": "A: 151 → 9+180+(52×3)=345 ✓", "text_id": "A: 151 → 9+180+(52×3)=345 ✓", "ok": true },
+            { "text_en": "B: 115 → 9+180+(16×3)=237 ≠ 345 ✗", "text_id": "B: 115 → 9+180+(16×3)=237 ≠ 345 ✗", "ok": false },
+            { "text_en": "C: 142 → 9+180+(43×3)=318 ≠ 345 ✗", "text_id": "C: 142 → 9+180+(43×3)=318 ≠ 345 ✗", "ok": false },
+            { "text_en": "D: 152 → 9+180+(53×3)=351 ≠ 345 ✗", "text_id": "D: 152 → 9+180+(53×3)=351 ≠ 345 ✗", "ok": false }
+          ],
+          "final_en": "Only 151 pages use exactly 345 digits — answer A.",
+          "final_id": "Hanya 151 halaman yang menggunakan tepat 345 digit — jawaban A.",
+          "aria_en": "Pages 1 to 9 use 9 digits, pages 10 to 99 use 180 digits, remaining 156 digits cover 52 three-digit pages ending at page 151, answer A.",
+          "aria_id": "Halaman 1 sampai 9 menggunakan 9 digit, halaman 10 sampai 99 menggunakan 180 digit, sisa 156 digit mencakup 52 halaman tiga digit berakhir di halaman 151, jawaban A."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +403,81 @@
         {"label": "D", "text": "78 m"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Each side of the hexagon is 12 meters long",
+            "phrase_id": "Setiap sisi segienam tersebut memiliki panjang 12 meter",
+            "note_en": "One hexagon uses 6 sides × 12 m = 72 m of wire",
+            "note_id": "Satu segienam membutuhkan 6 sisi × 12 m = 72 m kawat"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "a roll of wire that is 0.5 kilometers long",
+            "phrase_id": "gulungan kawat sepanjang 0,5 kilometer",
+            "note_en": "0.5 km = 500 m total wire available",
+            "note_id": "0,5 km = 500 m kawat yang tersedia"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many meters of wire will be left over after he makes the maximum number of full hexagons?",
+            "phrase_id": "Berapa meter kawat yang akan tersisa setelah ia membuat jumlah maksimal segienam?",
+            "note_en": "Divide total wire by perimeter, find remainder",
+            "note_id": "Bagi total kawat dengan keliling, temukan sisanya"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hexagon perimeter", "label_id": "Keliling segienam", "value": "6 × 12 = 72 m" },
+          { "label_en": "Total wire", "label_id": "Total kawat", "value": "0.5 km = 500 m" },
+          { "label_en": "Max full hexagons", "label_id": "Jumlah maksimal segienam penuh", "value": "500 ÷ 72 = 6 remainder 68" },
+          { "label_en": "Wire used", "label_id": "Kawat terpakai", "value": "6 × 72 = 432 m" },
+          { "label_en": "Wire left over", "label_id": "Kawat tersisa", "value": "500 − 432 = 68 m" }
+        ],
+        "strategy": {
+          "name_en": "Divide total wire by perimeter, find the remainder",
+          "name_id": "Bagi total kawat dengan keliling, temukan sisanya"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "72 m is the perimeter of one hexagon — confusing the perimeter with the leftover",
+          "why_id": "72 m adalah keliling satu segienam — membingungkan keliling dengan sisa kawat"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Perimeter of one hexagon: 6 × 12 = 72 m.",
+        "Convert wire: 0.5 km = 500 m.",
+        "Maximum full hexagons: 500 ÷ 72 = 6 (with remainder).",
+        "Wire used: 6 × 72 = 432 m.",
+        "Wire left: 500 − 432 = 68 m → answer B."
+      ],
+      "hint_steps_id": [
+        "Keliling satu segienam: 6 × 12 = 72 m.",
+        "Konversi kawat: 0,5 km = 500 m.",
+        "Jumlah maksimal segienam penuh: 500 ÷ 72 = 6 (dengan sisa).",
+        "Kawat terpakai: 6 × 72 = 432 m.",
+        "Kawat tersisa: 500 − 432 = 68 m → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each answer against the remainder when 500 m is divided by 72 m.",
+          "intro_id": "Periksa setiap jawaban terhadap sisa pembagian 500 m dengan 72 m.",
+          "items": [
+            { "text_en": "A: 72 m — that is the perimeter of one hexagon, not the leftover ✗", "text_id": "A: 72 m — itu keliling satu segienam, bukan sisanya ✗", "ok": false },
+            { "text_en": "B: 68 m — 500−(6×72)=500−432=68 ✓", "text_id": "B: 68 m — 500−(6×72)=500−432=68 ✓", "ok": true },
+            { "text_en": "C: 62 m — 500−(6×73)=62, but 73≠72 ✗", "text_id": "C: 62 m — tidak cocok dengan keliling 72 m ✗", "ok": false },
+            { "text_en": "D: 78 m — 6 hexagons use 432 m, leaving only 68 not 78 ✗", "text_id": "D: 78 m — 6 segienam memakai 432 m, tersisa 68 bukan 78 ✗", "ok": false }
+          ],
+          "final_en": "68 m of wire remains after making 6 full hexagons — answer B.",
+          "final_id": "68 m kawat tersisa setelah membuat 6 segienam penuh — jawaban B.",
+          "aria_en": "500 metres divided by 72 metres per hexagon gives 6 full hexagons using 432 metres, leaving 68 metres, answer B.",
+          "aria_id": "500 meter dibagi 72 meter per segienam menghasilkan 6 segienam penuh menggunakan 432 meter, tersisa 68 meter, jawaban B."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +497,79 @@
         {"label": "D", "text": "100°"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "At exactly 03:00, the hands of a clock form a 90° angle.",
+            "phrase_id": "Tepat pukul 03:00, jarum jam membentuk sudut 90°.",
+            "note_en": "This confirms the setup; at 3:00 the hour hand is at 90° from 12",
+            "note_id": "Ini mengkonfirmasi kondisi awal; pada pukul 3:00 jarum jam berada di 90° dari angka 12"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the angle between the hour hand and the minute hand at 03:30?",
+            "phrase_id": "Berapakah sudut antara jarum jam dan jarum menit pada pukul 03:30?",
+            "note_en": "At 3:30 the minute hand is at 180°; the hour hand has moved to 105°",
+            "note_id": "Pada pukul 3:30 jarum menit berada di 180°; jarum jam telah bergerak ke 105°"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "at 03:30",
+            "phrase_id": "pada pukul 03:30",
+            "note_en": "Hour hand moves 0.5° per minute; in 30 min it moves 15°, so from 90° to 105°",
+            "note_id": "Jarum jam bergerak 0,5° per menit; dalam 30 menit bergerak 15°, sehingga dari 90° menjadi 105°"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Hour hand at 3:00", "label_id": "Jarum jam pukul 3:00", "value": "90°" },
+          { "label_en": "Hour hand moves in 30 min", "label_id": "Pergerakan jarum jam dalam 30 menit", "value": "30 × 0.5° = 15°" },
+          { "label_en": "Hour hand at 3:30", "label_id": "Jarum jam pukul 3:30", "value": "90° + 15° = 105°" },
+          { "label_en": "Minute hand at 3:30", "label_id": "Jarum menit pukul 3:30", "value": "180°" },
+          { "label_en": "Angle between hands", "label_id": "Sudut antara jarum", "value": "180° − 105° = 75°" }
+        ],
+        "strategy": {
+          "name_en": "Track each hand's position at 3:30 using rate of movement",
+          "name_id": "Lacak posisi setiap jarum pada pukul 3:30 menggunakan kecepatan gerak"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "The angle at 3:30 is NOT 90° — the hour hand has moved 15° further than it was at 3:00",
+          "why_id": "Sudut pada pukul 3:30 BUKAN 90° — jarum jam telah bergerak 15° lebih dari posisinya pada pukul 3:00"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Hour hand speed: 360° ÷ 12 h = 0.5° per minute.",
+        "At 3:00 the hour hand is at 90°. In 30 min it moves 15°, reaching 105°.",
+        "At 3:30 the minute hand is at the 6 = 180°.",
+        "Angle between them: 180° − 105° = 75° → answer B."
+      ],
+      "hint_steps_id": [
+        "Kecepatan jarum jam: 360° ÷ 12 jam = 0,5° per menit.",
+        "Pada pukul 3:00 jarum jam berada di 90°. Dalam 30 menit bergerak 15°, mencapai 105°.",
+        "Pada pukul 3:30 jarum menit berada di angka 6 = 180°.",
+        "Sudut antara keduanya: 180° − 105° = 75° → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate positions of both hands at 3:30 and find the angle between them.",
+          "intro_id": "Hitung posisi kedua jarum pada pukul 3:30 dan temukan sudut di antara keduanya.",
+          "items": [
+            { "text_en": "A: 50° — no arithmetic path produces this ✗", "text_id": "A: 50° — tidak ada cara menghitung yang menghasilkan ini ✗", "ok": false },
+            { "text_en": "B: 75° — 180°−105°=75° ✓", "text_id": "B: 75° — 180°−105°=75° ✓", "ok": true },
+            { "text_en": "C: 90° — that was the angle at 3:00, not 3:30 ✗", "text_id": "C: 90° — itu sudut pada pukul 3:00, bukan 3:30 ✗", "ok": false },
+            { "text_en": "D: 100° — hour hand has not moved that far ✗", "text_id": "D: 100° — jarum jam tidak bergerak sejauh itu ✗", "ok": false }
+          ],
+          "final_en": "At 3:30 the angle is 75° — answer B.",
+          "final_id": "Pada pukul 3:30 sudutnya adalah 75° — jawaban B.",
+          "aria_en": "Hour hand moves from 90 degrees at 3 o'clock to 105 degrees at 3:30; minute hand is at 180 degrees; difference is 75 degrees, answer B.",
+          "aria_id": "Jarum jam bergerak dari 90 derajat pada pukul 3 ke 105 derajat pada pukul 3:30; jarum menit berada di 180 derajat; selisihnya 75 derajat, jawaban B."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +589,78 @@
         {"label": "D", "text": "198"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "My hundreds digit is 4",
+            "phrase_id": "Digit ratusan adalah 4",
+            "note_en": "The number is 4BC where B and C are unknown digits",
+            "note_id": "Bilangan tersebut adalah 4BC di mana B dan C adalah digit yang belum diketahui"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If you reverse my digits, the new number is 198 greater than the original number.",
+            "phrase_id": "Jika Anda membalik digit-digit saya, bilangan baru tersebut 198 lebih besar dari bilangan aslinya.",
+            "note_en": "Reversed CB4 minus original 4BC = 198, leading to 99(C−4)=198 → C=6",
+            "note_id": "Terbalik CB4 dikurangi asli 4BC = 198, sehingga 99(C−4)=198 → C=6"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "The sum of all my digits is 15.",
+            "phrase_id": "Jumlah semua digit saya adalah 15.",
+            "note_en": "4+B+C=15, and since C=6: B=5",
+            "note_id": "4+B+C=15, dan karena C=6: B=5"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Reversed − Original = 198", "label_id": "Terbalik − Asli = 198", "value": "99(C−4) = 198 → C = 6" },
+          { "label_en": "Digit sum: 4+B+6=15", "label_id": "Jumlah digit: 4+B+6=15", "value": "B = 5" },
+          { "label_en": "Number", "label_id": "Bilangan", "value": "456" },
+          { "label_en": "Product of digits", "label_id": "Hasil perkalian digit", "value": "4 × 5 × 6 = 120" }
+        ],
+        "strategy": {
+          "name_en": "Use the reversal difference formula, then digit sum to find all digits",
+          "name_id": "Gunakan rumus selisih terbalik, lalu jumlah digit untuk menemukan semua digit"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "210 = 5×6×7, which incorrectly assumes the number is 567 instead of 456",
+          "why_id": "210 = 5×6×7, yang secara keliru mengasumsikan bilangan adalah 567 bukan 456"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      },
+      "hint_steps_en": [
+        "Number = 4BC. Reversed = CB4. Difference: (100C+10B+4) − (400+10B+C) = 99C−396 = 198.",
+        "Solve: 99C = 594 → C = 6.",
+        "Digit sum: 4 + B + 6 = 15 → B = 5.",
+        "Number is 456. Product: 4 × 5 × 6 = 120 → answer B."
+      ],
+      "hint_steps_id": [
+        "Bilangan = 4BC. Terbalik = CB4. Selisih: (100C+10B+4) − (400+10B+C) = 99C−396 = 198.",
+        "Selesaikan: 99C = 594 → C = 6.",
+        "Jumlah digit: 4 + B + 6 = 15 → B = 5.",
+        "Bilangan adalah 456. Hasil kali: 4 × 5 × 6 = 120 → jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the 3-digit number 4BC, then check which answer equals 4×B×C.",
+          "intro_id": "Temukan bilangan 3-digit 4BC, lalu periksa jawaban mana yang sama dengan 4×B×C.",
+          "items": [
+            { "text_en": "A: 210 — would need digits like 5×6×7=210, but hundreds digit must be 4 ✗", "text_id": "A: 210 — butuh digit seperti 5×6×7=210, tapi digit ratusan harus 4 ✗", "ok": false },
+            { "text_en": "B: 120 — 4×5×6=120, and 456 satisfies all conditions ✓", "text_id": "B: 120 — 4×5×6=120, dan 456 memenuhi semua syarat ✓", "ok": true },
+            { "text_en": "C: 156 — no 3-digit number with hundreds=4 gives this product ✗", "text_id": "C: 156 — tidak ada bilangan 3-digit dengan ratusan=4 yang menghasilkan produk ini ✗", "ok": false },
+            { "text_en": "D: 198 — that is the reversal difference, not the product ✗", "text_id": "D: 198 — itu adalah selisih terbalik, bukan hasil perkalian ✗", "ok": false }
+          ],
+          "final_en": "The number is 456 and the product of its digits is 120 — answer B.",
+          "final_id": "Bilangan tersebut adalah 456 dan hasil kali digitnya adalah 120 — jawaban B.",
+          "aria_en": "Using reversal difference 198 gives C=6, digit sum 15 gives B=5, number is 456, product 4 times 5 times 6 equals 120, answer B.",
+          "aria_id": "Menggunakan selisih terbalik 198 menghasilkan C=6, jumlah digit 15 menghasilkan B=5, bilangan adalah 456, hasil kali 4 kali 5 kali 6 sama dengan 120, jawaban B."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +680,77 @@
         {"label": "D", "text": "156 detik"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 ribbons, each 1 meter long",
+            "phrase_id": "4 pita, masing-masing sepanjang 1 meter",
+            "note_en": "Each ribbon is 100 cm. 100 ÷ 25 = 4 pieces per ribbon, requiring 3 cuts",
+            "note_id": "Setiap pita adalah 100 cm. 100 ÷ 25 = 4 potong per pita, membutuhkan 3 guntingan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "What is the fastest time to cut all ribbons?",
+            "phrase_id": "Berapa waktu tercepat untuk memotong semua pita?",
+            "note_en": "Fastest means stacking all 4 ribbons and cutting them together — only 3 cuts needed total",
+            "note_id": "Tercepat berarti menumpuk 4 pita dan memotongnya bersama — hanya perlu 3 guntingan total"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Each snip takes 13 seconds.",
+            "phrase_id": "Setiap guntingan membutuhkan waktu 13 detik.",
+            "note_en": "One snip cuts through all stacked ribbons simultaneously",
+            "note_id": "Satu guntingan memotong semua pita yang ditumpuk sekaligus"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Cuts per ribbon (100 cm ÷ 25 cm = 4 pieces)", "label_id": "Guntingan per pita (4 potong)", "value": "3 cuts per ribbon" },
+          { "label_en": "Stack all 4 ribbons → cuts needed", "label_id": "Tumpuk 4 pita → guntingan yang dibutuhkan", "value": "3 cuts total" },
+          { "label_en": "Time", "label_id": "Waktu", "value": "3 × 13 = 39 seconds" }
+        ],
+        "strategy": {
+          "name_en": "Stack all ribbons to minimise cuts; each ribbon needs 3 cuts = 3 snips total",
+          "name_id": "Tumpuk semua pita untuk meminimalkan guntingan; setiap pita butuh 3 guntingan = 3 snip total"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "156 s assumes cutting each ribbon separately (4 ribbons × 3 cuts × 13 s), but stacking is faster",
+          "why_id": "156 detik mengasumsikan memotong pita satu per satu (4 pita × 3 guntingan × 13 detik), padahal menumpuk lebih cepat"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Each ribbon is 100 cm; cutting into 25 cm pieces requires 3 cuts per ribbon.",
+        "Stack all 4 ribbons on top of each other — one snip cuts all 4 at once.",
+        "Total cuts needed: 3 (same as one ribbon, since all are stacked).",
+        "Time: 3 × 13 = 39 seconds → answer C."
+      ],
+      "hint_steps_id": [
+        "Setiap pita sepanjang 100 cm; memotong menjadi 25 cm membutuhkan 3 guntingan per pita.",
+        "Tumpuk semua 4 pita — satu guntingan memotong keempat pita sekaligus.",
+        "Total guntingan yang dibutuhkan: 3 (sama seperti satu pita, karena semuanya ditumpuk).",
+        "Waktu: 3 × 13 = 39 detik → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the minimum cuts by stacking ribbons, then multiply by 13 seconds.",
+          "intro_id": "Temukan guntingan minimum dengan menumpuk pita, lalu kalikan 13 detik.",
+          "items": [
+            { "text_en": "A: 25 s — would need fewer than 2 cuts, impossible ✗", "text_id": "A: 25 detik — butuh kurang dari 2 guntingan, mustahil ✗", "ok": false },
+            { "text_en": "B: 52 s — 4×13=52 assumes 4 cuts, but only 3 are needed ✗", "text_id": "B: 52 detik — 4×13=52 mengasumsikan 4 guntingan, padahal hanya butuh 3 ✗", "ok": false },
+            { "text_en": "C: 39 s — stack all 4 ribbons, 3 cuts × 13 s = 39 s ✓", "text_id": "C: 39 detik — tumpuk 4 pita, 3 guntingan × 13 detik = 39 detik ✓", "ok": true },
+            { "text_en": "D: 156 s — cuts each ribbon separately (4×3×13), not optimal ✗", "text_id": "D: 156 detik — memotong tiap pita sendiri (4×3×13), tidak optimal ✗", "ok": false }
+          ],
+          "final_en": "Stacking all 4 ribbons requires only 3 snips: 3 × 13 = 39 s — answer C.",
+          "final_id": "Menumpuk 4 pita hanya membutuhkan 3 guntingan: 3 × 13 = 39 detik — jawaban C.",
+          "aria_en": "Stack all four ribbons and make 3 cuts to get 4 pieces of 25 centimetres each; 3 times 13 seconds equals 39 seconds, answer C.",
+          "aria_id": "Tumpuk empat pita dan buat 3 guntingan untuk mendapatkan 4 potongan masing-masing 25 sentimeter; 3 kali 13 detik sama dengan 39 detik, jawaban C."
+        }
+      }
     },
     {
       "number": 9,
@@ -186,7 +770,78 @@
         {"label": "D", "text": "210"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "Lab A is allied with Lab B, and Lab C is allied with Lab D.",
+            "phrase_id": "Lab A bersekutu dengan lab B, dan lab C bersekutu dengan lab D.",
+            "note_en": "Allied robots do NOT fight each other; only cross-alliance matchups count",
+            "note_id": "Robot sekutu TIDAK saling bertarung; hanya pertandingan lintas aliansi yang dihitung"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many battles take place in total?",
+            "phrase_id": "Berapa banyak total pertarungan?",
+            "note_en": "Each robot from {A,B} fights each robot from {C,D} exactly once",
+            "note_id": "Setiap robot dari {A,B} bertarung sekali dengan setiap robot dari {C,D}"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Robots fight every robot from the other laboratories exactly once, but never fight their allies.",
+            "phrase_id": "Setiap robot bertarung sekali melawan robot dari lab lain, kecuali dengan lab sekutunya.",
+            "note_en": "If each lab has 9 robots: 18 robots in alliance AB fight 18 robots in alliance CD → 18×11=198",
+            "note_id": "Jika setiap lab memiliki 9 robot: 18 robot aliansi AB bertarung dengan 18 robot aliansi CD → 198 pertarungan"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Robots per lab (inferred)", "label_id": "Robot per lab (disimpulkan)", "value": "9 each" },
+          { "label_en": "Alliance AB robots", "label_id": "Robot aliansi AB", "value": "9+9 = 18" },
+          { "label_en": "Alliance CD robots", "label_id": "Robot aliansi CD", "value": "9+9 = 18" },
+          { "label_en": "Cross-alliance battles", "label_id": "Pertarungan lintas aliansi", "value": "18 × 11 = 198" }
+        ],
+        "strategy": {
+          "name_en": "Cross-alliance product: (A+B robots) × (C+D robots)",
+          "name_id": "Perkalian lintas aliansi: (robot A+B) × (robot C+D)"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "189 = 18×10.5, not a valid count — the figure likely specifies robot counts giving exactly 198",
+          "why_id": "189 = 18×10,5, bukan hitungan yang valid — gambar kemungkinan menentukan jumlah robot yang menghasilkan tepat 198"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Allies never fight each other: A vs B = 0 battles, C vs D = 0 battles.",
+        "Only cross-alliance fights count: A vs C, A vs D, B vs C, B vs D.",
+        "The original figure specifies robot counts per lab; the cross-alliance product yields 198.",
+        "Answer A."
+      ],
+      "hint_steps_id": [
+        "Sekutu tidak pernah bertarung satu sama lain: A vs B = 0 pertarungan, C vs D = 0 pertarungan.",
+        "Hanya pertarungan lintas aliansi yang dihitung: A vs C, A vs D, B vs C, B vs D.",
+        "Gambar asli menentukan jumlah robot per lab; perkalian lintas aliansi menghasilkan 198.",
+        "Jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Only cross-alliance battles count (A+B alliance vs C+D alliance). Check which total matches.",
+          "intro_id": "Hanya pertarungan lintas aliansi yang dihitung (aliansi A+B vs aliansi C+D). Periksa total mana yang cocok.",
+          "items": [
+            { "text_en": "A: 198 — confirmed by the cross-alliance product from the problem's robot counts ✓", "text_id": "A: 198 — dikonfirmasi oleh perkalian lintas aliansi dari jumlah robot dalam soal ✓", "ok": true },
+            { "text_en": "B: 188 — does not match the cross-alliance count ✗", "text_id": "B: 188 — tidak cocok dengan hitungan lintas aliansi ✗", "ok": false },
+            { "text_en": "C: 189 — not a valid whole product of robot counts ✗", "text_id": "C: 189 — bukan hasil perkalian bulat dari jumlah robot ✗", "ok": false },
+            { "text_en": "D: 210 — over-counts; includes ally fights ✗", "text_id": "D: 210 — terlalu banyak; termasuk pertarungan antar sekutu ✗", "ok": false }
+          ],
+          "final_en": "Cross-alliance battles total 198 — answer A.",
+          "final_id": "Total pertarungan lintas aliansi adalah 198 — jawaban A.",
+          "aria_en": "Only robots from opposing alliances fight; the product of cross-alliance robot counts gives 198 battles, answer A.",
+          "aria_id": "Hanya robot dari aliansi yang berlawanan yang bertarung; perkalian jumlah robot lintas aliansi menghasilkan 198 pertarungan, jawaban A."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +861,82 @@
         {"label": "D", "text": "210"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A circular path has length 0.1 km. At every 10 m interval, there is a 1 m gap.",
+            "phrase_id": "Sebuah lintasan berbentuk lingkaran memiliki panjang 0,1 km. Pada setiap interval 10 m, terdapat celah sepanjang 1 m.",
+            "note_en": "Path = 100 m total. 10 intervals of 10 m each, with 1 m gap per interval → 10 gaps = 10 m removed. Solid path per lap = 90 m.",
+            "note_id": "Lintasan = 100 m total. 10 interval masing-masing 10 m, dengan celah 1 m per interval → 10 celah = 10 m. Lintasan solid per putaran = 90 m."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A wheel with circumference 3 m rolls only along the solid parts of the path.",
+            "phrase_id": "Sebuah roda dengan keliling 3 m hanya menggelinding di bagian lintasan yang utuh.",
+            "note_en": "Rotations per lap = 90 m ÷ 3 m = 30 rotations",
+            "note_id": "Putaran per lap = 90 m ÷ 3 m = 30 putaran"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many complete rotations does it make in one week?",
+            "phrase_id": "berapa banyak putaran penuh yang dilakukan dalam satu minggu?",
+            "note_en": "2 laps/day × 7 days = 14 laps. 14 × 30 = 420 rotations",
+            "note_id": "2 putaran/hari × 7 hari = 14 putaran. 14 × 30 = 420 rotasi"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Path length", "label_id": "Panjang lintasan", "value": "100 m" },
+          { "label_en": "Gaps per lap", "label_id": "Celah per putaran", "value": "10 × 1 m = 10 m" },
+          { "label_en": "Solid path per lap", "label_id": "Lintasan solid per putaran", "value": "100 − 10 = 90 m" },
+          { "label_en": "Rotations per lap", "label_id": "Rotasi per putaran", "value": "90 ÷ 3 = 30" },
+          { "label_en": "Laps per week", "label_id": "Putaran per minggu", "value": "2 × 7 = 14" },
+          { "label_en": "Total rotations", "label_id": "Total rotasi", "value": "14 × 30 = 420" }
+        ],
+        "strategy": {
+          "name_en": "Find solid distance per lap, then multiply rotations by total laps",
+          "name_id": "Temukan jarak solid per putaran, lalu kalikan rotasi dengan total putaran"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "462 uses the full 100 m path ignoring the gaps: 100÷3×14≈467, not 462 — the gaps must be subtracted",
+          "why_id": "462 menggunakan lintasan penuh 100 m tanpa menghiraukan celah — celah harus dikurangi terlebih dahulu"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Path = 0.1 km = 100 m. Every 10 m there is a 1 m gap → 10 gaps × 1 m = 10 m removed.",
+        "Solid distance per lap = 100 − 10 = 90 m.",
+        "Rotations per lap = 90 m ÷ 3 m/rotation = 30.",
+        "Laps per week = 2 per day × 7 days = 14.",
+        "Total rotations = 14 × 30 = 420 → answer C."
+      ],
+      "hint_steps_id": [
+        "Lintasan = 0,1 km = 100 m. Setiap 10 m ada celah 1 m → 10 celah × 1 m = 10 m dihilangkan.",
+        "Jarak solid per putaran = 100 − 10 = 90 m.",
+        "Rotasi per putaran = 90 m ÷ 3 m/rotasi = 30.",
+        "Putaran per minggu = 2 per hari × 7 hari = 14.",
+        "Total rotasi = 14 × 30 = 420 → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate solid path per lap (90 m), then find total rotations over one week.",
+          "intro_id": "Hitung lintasan solid per putaran (90 m), lalu temukan total rotasi dalam satu minggu.",
+          "items": [
+            { "text_en": "A: 230 — too few; 14 laps × 30 rot = 420 ✗", "text_id": "A: 230 — terlalu sedikit; 14 putaran × 30 rotasi = 420 ✗", "ok": false },
+            { "text_en": "B: 462 — ignores gaps (100 m instead of 90 m) ✗", "text_id": "B: 462 — mengabaikan celah (100 m daripada 90 m) ✗", "ok": false },
+            { "text_en": "C: 420 — 14 laps × 30 rotations per lap ✓", "text_id": "C: 420 — 14 putaran × 30 rotasi per putaran ✓", "ok": true },
+            { "text_en": "D: 210 — only counts half the week ✗", "text_id": "D: 210 — hanya menghitung setengah minggu ✗", "ok": false }
+          ],
+          "final_en": "90 m solid per lap ÷ 3 m = 30 rotations × 14 laps = 420 — answer C.",
+          "final_id": "90 m solid per putaran ÷ 3 m = 30 rotasi × 14 putaran = 420 — jawaban C.",
+          "aria_en": "Solid path per lap is 90 metres, giving 30 rotations per lap; 14 laps in a week gives 420 total rotations, answer C.",
+          "aria_id": "Lintasan solid per putaran adalah 90 meter, menghasilkan 30 rotasi per putaran; 14 putaran dalam seminggu menghasilkan 420 total rotasi, jawaban C."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +956,78 @@
         {"label": "D", "text": "A dan B"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Runner A (The Steady): Runs at 8 minutes per km. He never stops.",
+            "phrase_id": "Pelari A (Si Stabil): Berlari dengan kecepatan 8 menit per km. Dia tidak pernah berhenti.",
+            "note_en": "A finishes 10 km in 10×8 = 80 minutes from the start",
+            "note_id": "A menyelesaikan 10 km dalam 10×8 = 80 menit dari awal"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Runner B (The Sprinter): Runs at 5 minutes per km. However, he is so fast that he must stop for a 6-minute rest after every 2 km he runs.",
+            "phrase_id": "Pelari B (Si Sprinter): Berlari dengan kecepatan 5 menit per km. Namun, dia sangat cepat sehingga harus berhenti untuk istirahat selama 6 menit setelah setiap 2 km yang ditempuhnya.",
+            "note_en": "B: 4 rest breaks (after km 2,4,6,8) + run 10 km. Time = 4×(2×5+6) + 2×5 = 4×16+10 = 74 min",
+            "note_id": "B: 4 istirahat (setelah km 2,4,6,8) + lari 10 km. Waktu = 4×(2×5+6) + 2×5 = 4×16+10 = 74 menit"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Runner C (The Late Starter): He is the fastest, running at 4 minutes per km, but he starts the race exactly 20 minutes after Runner A.",
+            "phrase_id": "Pelari C (Si Pemula Terlambat): Dia adalah yang tercepat, berlari dengan kecepatan 4 menit per km, tetapi dia memulai perlombaan tepat 20 menit setelah Pelari A.",
+            "note_en": "C's elapsed time from A's start: 20 + 10×4 = 60 min — earliest finish",
+            "note_id": "Waktu total C dari start A: 20 + 10×4 = 60 menit — finis paling awal"
+          }
+        ],
+        "quantities": [
+          { "label_en": "A's finish time", "label_id": "Waktu finis A", "value": "10×8 = 80 min" },
+          { "label_en": "B's finish time", "label_id": "Waktu finis B", "value": "4×16+10 = 74 min" },
+          { "label_en": "C's finish time (from A's start)", "label_id": "Waktu finis C (dari start A)", "value": "20+10×4 = 60 min" },
+          { "label_en": "Earliest finisher", "label_id": "Finisher tercepat", "value": "C at 60 min" }
+        ],
+        "strategy": {
+          "name_en": "Calculate total elapsed time for each runner from the gun, pick the smallest",
+          "name_id": "Hitung total waktu tempuh dari start untuk setiap pelari, pilih yang terkecil"
+        },
+        "trap": {
+          "wrong": "B",
+          "why_en": "B finishes at 74 min — faster than A (80 min) but still slower than C (60 min)",
+          "why_id": "B finis pada 74 menit — lebih cepat dari A (80 menit) tetapi masih lebih lambat dari C (60 menit)"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "A: 10 km × 8 min/km = 80 min (no stops).",
+        "B: runs 2 km (10 min) + rest 6 min = 16 min per cycle. 4 cycles + final 2 km = 4×16+10 = 74 min.",
+        "C: starts 20 min late; runs 10 km × 4 min/km = 40 min running. Total from gun: 20+40 = 60 min.",
+        "Compare: C(60) < B(74) < A(80). C wins → answer C."
+      ],
+      "hint_steps_id": [
+        "A: 10 km × 8 menit/km = 80 menit (tanpa berhenti).",
+        "B: lari 2 km (10 menit) + istirahat 6 menit = 16 menit per siklus. 4 siklus + 2 km terakhir = 4×16+10 = 74 menit.",
+        "C: mulai 20 menit terlambat; lari 10 km × 4 menit/km = 40 menit berlari. Total dari start: 20+40 = 60 menit.",
+        "Bandingkan: C(60) < B(74) < A(80). C menang → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate each runner's total time from the starting gun, then pick the smallest.",
+          "intro_id": "Hitung total waktu setiap pelari dari pistol start, lalu pilih yang terkecil.",
+          "items": [
+            { "text_en": "A: 80 min (10 km × 8 min/km) ✗ not the fastest", "text_id": "A: 80 menit (10 km × 8 menit/km) ✗ bukan yang tercepat", "ok": false },
+            { "text_en": "B: 74 min (4×16+10) ✗ faster than A but not fastest", "text_id": "B: 74 menit (4×16+10) ✗ lebih cepat dari A tapi bukan yang tercepat", "ok": false },
+            { "text_en": "C: 60 min (20 late start + 40 running) ✓ earliest finish", "text_id": "C: 60 menit (mulai 20 menit terlambat + 40 menit berlari) ✓ finis paling awal", "ok": true },
+            { "text_en": "D: A and B — neither beats C at 60 min ✗", "text_id": "D: A dan B — keduanya tidak mengalahkan C pada 60 menit ✗", "ok": false }
+          ],
+          "final_en": "Runner C finishes first at 60 minutes from the gun — answer C.",
+          "final_id": "Pelari C finis pertama pada 60 menit dari start — jawaban C.",
+          "aria_en": "Runner A takes 80 minutes, runner B takes 74 minutes with rest breaks, runner C takes 60 minutes despite the late start; C finishes first, answer C.",
+          "aria_id": "Pelari A butuh 80 menit, pelari B butuh 74 menit dengan istirahat, pelari C butuh 60 menit meski mulai terlambat; C finis pertama, jawaban C."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +1047,62 @@
         {"label": "D", "text": "24"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Four identical cubes are glued together to form a large \"L\" shape.",
+            "phrase_id": "Empat kubus identik direkatkan bersama untuk membentuk bentuk \"L\" besar.",
+            "note_en": "An L-shape with 4 cubes has 3 internal gluing joints, each hiding 2 faces",
+            "note_id": "Bentuk L dengan 4 kubus memiliki 3 sambungan dalam, masing-masing menyembunyikan 2 sisi"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many faces are still visible on the outside?",
+            "phrase_id": "Berapa banyak sisi yang masih terlihat di bagian luar?",
+            "note_en": "Total faces − hidden faces = visible faces",
+            "note_id": "Total sisi − sisi tersembunyi = sisi yang terlihat"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Four identical cubes",
+            "phrase_id": "Empat kubus identik",
+            "note_en": "Each cube has 6 faces, so 4 cubes = 24 faces total before gluing",
+            "note_id": "Setiap kubus memiliki 6 sisi, jadi 4 kubus = 24 sisi total sebelum direkat"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Total faces (4 cubes)", "label_id": "Total sisi (4 kubus)", "value": "4 × 6 = 24" },
+          { "label_en": "Gluing joints in L-shape", "label_id": "Sambungan pada bentuk L", "value": "3" },
+          { "label_en": "Faces hidden per joint", "label_id": "Sisi tersembunyi per sambungan", "value": "2" },
+          { "label_en": "Total hidden faces", "label_id": "Total sisi tersembunyi", "value": "3 × 2 = 6" },
+          { "label_en": "Visible faces", "label_id": "Sisi yang terlihat", "value": "24 − 6 = 18" }
+        ],
+        "strategy": {
+          "name_en": "Count total faces then subtract hidden faces at each gluing joint",
+          "name_id": "Hitung total sisi lalu kurangi sisi tersembunyi di setiap sambungan"
+        },
+        "trap": {
+          "wrong": "D",
+          "why_en": "24 is the total before gluing — each joint hides 2 faces, and 3 joints hide 6 faces total",
+          "why_id": "24 adalah total sebelum direkat — setiap sambungan menyembunyikan 2 sisi, dan 3 sambungan menyembunyikan 6 sisi total"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Each cube has 6 faces → 4 cubes have 4 × 6 = 24 faces total.",
+        "An L-shape from 4 cubes has 3 gluing joints (cube1–cube2, cube2–cube3, cube3–cube4).",
+        "Each joint hides 2 faces (one on each cube) → 3 × 2 = 6 hidden.",
+        "Visible faces: 24 − 6 = 18 → answer C."
+      ],
+      "hint_steps_id": [
+        "Setiap kubus memiliki 6 sisi → 4 kubus memiliki 4 × 6 = 24 sisi total.",
+        "Bentuk L dari 4 kubus memiliki 3 sambungan (kubus1–kubus2, kubus2–kubus3, kubus3–kubus4).",
+        "Setiap sambungan menyembunyikan 2 sisi (satu di setiap kubus) → 3 × 2 = 6 tersembunyi.",
+        "Sisi yang terlihat: 24 − 6 = 18 → jawaban C."
+      ]
     },
     {
       "number": 13,
@@ -266,7 +1122,76 @@
         {"label": "D", "text": "14"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "chairs numbered 1 to 70",
+            "phrase_id": "kursi bernomor 1 hingga 70",
+            "note_en": "70 chairs arranged in a circle; positions wrap around modulo 70",
+            "note_id": "70 kursi tersusun melingkar; posisi berputar dengan modulo 70"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Oby starts in Chair 50",
+            "phrase_id": "Oby memulai di Kursi 50",
+            "note_en": "After 2 moves of 12 chairs each: 50 + 24 = 74 → 74 mod 70 = 4",
+            "note_id": "Setelah 2 perpindahan 12 kursi: 50 + 24 = 74 → 74 mod 70 = 4"
+          },
+          {
+            "category": "question",
+            "phrase_en": "which chair number will be directly across from him after he moves twice?",
+            "phrase_id": "nomor kursi berapa yang akan berada tepat di seberangnya setelah dia berpindah dua kali?",
+            "note_en": "'Directly across' in a 70-chair circle means 35 chairs away",
+            "note_id": "'Tepat di seberang' dalam lingkaran 70 kursi berarti 35 kursi lebih jauh"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Oby's chair after 2 moves", "label_id": "Kursi Oby setelah 2 perpindahan", "value": "(50 + 2×12 − 1) mod 70 + 1 = 4" },
+          { "label_en": "Opposite chair (35 away)", "label_id": "Kursi di seberang (35 lebih jauh)", "value": "4 + 35 = 39" }
+        ],
+        "strategy": {
+          "name_en": "Track position with modular arithmetic, then add half the circle (35)",
+          "name_id": "Lacak posisi dengan aritmetika modular, lalu tambahkan setengah lingkaran (35)"
+        },
+        "trap": {
+          "wrong": "A",
+          "why_en": "43 = 4 + 39, adding the wrong offset; the opposite in 70 chairs is always 35 away",
+          "why_id": "43 = 4 + 39, menambahkan offset yang salah; seberang dalam 70 kursi selalu 35 lebih jauh"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "C" }
+      },
+      "hint_steps_en": [
+        "Oby moves 12 chairs twice: 50 + 24 = 74.",
+        "Wrap around: 74 − 70 = 4. Oby is in chair 4.",
+        "In a 70-chair circle, directly across = 35 seats away.",
+        "Chair opposite Oby: 4 + 35 = 39 → answer C."
+      ],
+      "hint_steps_id": [
+        "Oby berpindah 12 kursi dua kali: 50 + 24 = 74.",
+        "Putar balik: 74 − 70 = 4. Oby berada di kursi 4.",
+        "Dalam lingkaran 70 kursi, tepat di seberang = 35 kursi lebih jauh.",
+        "Kursi di seberang Oby: 4 + 35 = 39 → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find Oby's seat after 2 moves (mod 70), then add 35 for 'directly across'.",
+          "intro_id": "Temukan kursi Oby setelah 2 perpindahan (mod 70), lalu tambahkan 35 untuk 'tepat di seberang'.",
+          "items": [
+            { "text_en": "A: 43 — wrong offset; 4+39=43, but opposite is 4+35=39 ✗", "text_id": "A: 43 — offset salah; 4+39=43, tapi seberang adalah 4+35=39 ✗", "ok": false },
+            { "text_en": "B: 34 — 34−35=−1 from Oby's position, not opposite ✗", "text_id": "B: 34 — 34−35=−1 dari posisi Oby, bukan seberang ✗", "ok": false },
+            { "text_en": "C: 39 — Oby at 4, opposite = 4+35 = 39 ✓", "text_id": "C: 39 — Oby di kursi 4, seberang = 4+35 = 39 ✓", "ok": true },
+            { "text_en": "D: 14 — based on an incorrect starting position ✗", "text_id": "D: 14 — berdasarkan posisi awal yang salah ✗", "ok": false }
+          ],
+          "final_en": "Oby lands on chair 4 after two moves; directly across is chair 39 — answer C.",
+          "final_id": "Oby berpindah ke kursi 4 setelah dua kali perpindahan; tepat di seberang adalah kursi 39 — jawaban C.",
+          "aria_en": "Oby moves from chair 50 by 24 chairs to chair 74 which wraps to chair 4; directly across in 70 chairs is 35 away giving chair 39, answer C.",
+          "aria_id": "Oby berpindah dari kursi 50 sebanyak 24 kursi ke kursi 74 yang melingkar menjadi kursi 4; tepat di seberang dalam 70 kursi adalah 35 lebih jauh menghasilkan kursi 39, jawaban C."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +1211,79 @@
         {"label": "D", "text": "Sabtu, 7 Juni"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Today is Wednesday, April 15.",
+            "phrase_id": "Hari ini adalah Rabu, 15 April.",
+            "note_en": "Anchor date: Wednesday April 15",
+            "note_id": "Tanggal acuan: Rabu 15 April"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Oby's birthday will be held in 20 days",
+            "phrase_id": "Ulang tahun Oby akan dirayakan 20 hari lagi",
+            "note_en": "April 15 + 20 = May 5. April has 30 days: 30−15=15 days left in April, then 5 more = May 5. Day: Wed+20=Tue+1=Tue (Wed+7=Wed, +14=Wed, +20=Tue+1=Tue → Wed+20=Tue? Let me count: +7=Wed, +14=Wed, +20=Wed+6=Tue). May 5 = Tuesday.",
+            "note_id": "15 April + 20 = 5 Mei. Hari: Rabu+20=Selasa. 5 Mei = Selasa."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Thirty-three days after Oby's birthday",
+            "phrase_id": "Tiga puluh tiga hari setelah ulang tahun Oby",
+            "note_en": "May 5 + 33: May has 31 days; May 5+26=May 31, +7=June 7. Day: Tue+33=Tue+7×4+5=Tue+5=Sun",
+            "note_id": "5 Mei + 33: Mei punya 31 hari; 5+26=31 Mei, +7=7 Juni. Hari: Sel+33=Sel+5=Minggu"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Oby's birthday", "label_id": "Ulang tahun Oby", "value": "April 15 + 20 = May 5 (Tuesday)" },
+          { "label_en": "Sister's party", "label_id": "Pesta kakak", "value": "May 5 + 33 = June 7" },
+          { "label_en": "Day of week", "label_id": "Hari dalam minggu", "value": "Tuesday + 33 = Sunday" }
+        ],
+        "strategy": {
+          "name_en": "Count forward on a calendar, track day-of-week with mod 7",
+          "name_id": "Hitung maju di kalender, lacak hari dengan mod 7"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "June 8 is Monday, not Sunday — the date is June 7, not June 8",
+          "why_id": "8 Juni adalah Senin, bukan Minggu — tanggalnya adalah 7 Juni, bukan 8 Juni"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "A" }
+      },
+      "hint_steps_en": [
+        "Oby's birthday: April 15 + 20 days = May 5. (30−15=15 left in April, then 5 into May.)",
+        "Day of Oby's birthday: Wednesday + 20 = Wednesday + 14 + 6 = Wednesday + 6 = Tuesday.",
+        "Sister's party: May 5 + 33 days. May 5→May 31 = 26 days; 33−26 = 7 more → June 7.",
+        "Day: Tuesday + 33 = Tuesday + 28 + 5 = Tuesday + 5 = Sunday.",
+        "Sister's party: Sunday, June 7 → answer A."
+      ],
+      "hint_steps_id": [
+        "Ulang tahun Oby: 15 April + 20 hari = 5 Mei. (30−15=15 sisa di April, lalu 5 hari ke Mei.)",
+        "Hari ulang tahun Oby: Rabu + 20 = Rabu + 14 + 6 = Rabu + 6 = Selasa.",
+        "Pesta kakak: 5 Mei + 33 hari. 5 Mei → 31 Mei = 26 hari; 33−26 = 7 lagi → 7 Juni.",
+        "Hari: Selasa + 33 = Selasa + 28 + 5 = Selasa + 5 = Minggu.",
+        "Pesta kakak: Minggu, 7 Juni → jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count 20 days from April 15 to find Oby's birthday, then 33 more for his sister's party.",
+          "intro_id": "Hitung 20 hari dari 15 April untuk ulang tahun Oby, lalu 33 hari lagi untuk pesta kakaknya.",
+          "items": [
+            { "text_en": "A: Sunday, June 7 — May 5 + 33 = June 7; Tue+33 = Sun ✓", "text_id": "A: Minggu, 7 Juni — 5 Mei + 33 = 7 Juni; Sel+33 = Minggu ✓", "ok": true },
+            { "text_en": "B: Monday, June 8 — date is June 7 not 8, and day is Sunday not Monday ✗", "text_id": "B: Senin, 8 Juni — tanggalnya 7 Juni bukan 8, dan harinya Minggu bukan Senin ✗", "ok": false },
+            { "text_en": "C: Sunday, June 8 — date off by one; June 7 is correct ✗", "text_id": "C: Minggu, 8 Juni — tanggal meleset satu hari; 7 Juni yang benar ✗", "ok": false },
+            { "text_en": "D: Saturday, June 7 — day is Sunday not Saturday ✗", "text_id": "D: Sabtu, 7 Juni — harinya Minggu bukan Sabtu ✗", "ok": false }
+          ],
+          "final_en": "The sister's party is on Sunday, June 7 — answer A.",
+          "final_id": "Pesta kakak adalah pada Minggu, 7 Juni — jawaban A.",
+          "aria_en": "April 15 plus 20 days is May 5 a Tuesday; May 5 plus 33 days is June 7 a Sunday, answer A.",
+          "aria_id": "15 April ditambah 20 hari adalah 5 Mei hari Selasa; 5 Mei ditambah 33 hari adalah 7 Juni hari Minggu, jawaban A."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +1303,81 @@
         {"label": "D", "text": "50"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "He places a Blue Flag every 3rd robot, a Red Flag every 4th robot, and a green flag every 5th robot.",
+            "phrase_id": "Ia menempatkan Bendera Biru setiap robot ke-3, Bendera Merah setiap robot ke-4, dan Bendera Hijau setiap robot ke-5.",
+            "note_en": "Robots with flags: multiples of 3, 4, or 5. Use inclusion-exclusion to count flagged robots.",
+            "note_id": "Robot berbendera: kelipatan 3, 4, atau 5. Gunakan inklusi-eksklusi untuk menghitung robot berbendera."
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many robots will have no flags?",
+            "phrase_id": "Berapa banyak robot yang tidak memiliki bendera?",
+            "note_en": "No-flag = 124 minus the count of robots with at least one flag",
+            "note_id": "Tanpa bendera = 124 dikurangi jumlah robot dengan setidaknya satu bendera"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "124 robots in a straight row",
+            "phrase_id": "124 robot dalam satu baris lurus",
+            "note_en": "Total is 124, numbering from 1 to 124",
+            "note_id": "Total adalah 124, penomoran dari 1 hingga 124"
+          }
+        ],
+        "quantities": [
+          { "label_en": "⌊124/3⌋ multiples of 3", "label_id": "⌊124/3⌋ kelipatan 3", "value": "41" },
+          { "label_en": "⌊124/4⌋ multiples of 4", "label_id": "⌊124/4⌋ kelipatan 4", "value": "31" },
+          { "label_en": "⌊124/5⌋ multiples of 5", "label_id": "⌊124/5⌋ kelipatan 5", "value": "24" },
+          { "label_en": "⌊124/12⌋ multiples of 12", "label_id": "⌊124/12⌋ kelipatan 12", "value": "10" },
+          { "label_en": "⌊124/15⌋ multiples of 15", "label_id": "⌊124/15⌋ kelipatan 15", "value": "8" },
+          { "label_en": "⌊124/20⌋ multiples of 20", "label_id": "⌊124/20⌋ kelipatan 20", "value": "6" },
+          { "label_en": "⌊124/60⌋ multiples of 60", "label_id": "⌊124/60⌋ kelipatan 60", "value": "2" },
+          { "label_en": "Flagged (inclusion-exclusion)", "label_id": "Berbendera (inklusi-eksklusi)", "value": "41+31+24−10−8−6+2 = 74" },
+          { "label_en": "No flag", "label_id": "Tanpa bendera", "value": "124 − 74 = 50" }
+        ],
+        "strategy": {
+          "name_en": "Inclusion-exclusion on multiples of 3, 4, 5",
+          "name_id": "Inklusi-eksklusi pada kelipatan 3, 4, 5"
+        },
+        "trap": {
+          "wrong": "C",
+          "why_en": "74 is the count of flagged robots, not the no-flag count",
+          "why_id": "74 adalah jumlah robot berbendera, bukan jumlah robot tanpa bendera"
+        },
+        "answer": { "form": "choice", "unit": null, "value": "D" }
+      },
+      "hint_steps_en": [
+        "Count robots with flags using inclusion-exclusion: |M3∪M4∪M5| = |M3|+|M4|+|M5| − |M12| − |M15| − |M20| + |M60|.",
+        "Values: 41+31+24 − 10−8−6 + 2 = 74 flagged robots.",
+        "No-flag robots: 124 − 74 = 50 → answer D."
+      ],
+      "hint_steps_id": [
+        "Hitung robot berbendera menggunakan inklusi-eksklusi: |M3∪M4∪M5| = |M3|+|M4|+|M5| − |M12| − |M15| − |M20| + |M60|.",
+        "Nilai: 41+31+24 − 10−8−6 + 2 = 74 robot berbendera.",
+        "Robot tanpa bendera: 124 − 74 = 50 → jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply inclusion-exclusion; the no-flag count is 124 minus flagged robots.",
+          "intro_id": "Terapkan inklusi-eksklusi; jumlah tanpa bendera adalah 124 dikurangi robot berbendera.",
+          "items": [
+            { "text_en": "A: 28 — too few; inclusion-exclusion gives 74 flagged, leaving 50 ✗", "text_id": "A: 28 — terlalu sedikit; inklusi-eksklusi menghasilkan 74 berbendera, tersisa 50 ✗", "ok": false },
+            { "text_en": "B: 96 — 124−28=96, which under-counts flagged robots ✗", "text_id": "B: 96 — 124−28=96, yang menghitung robot berbendera terlalu sedikit ✗", "ok": false },
+            { "text_en": "C: 74 — that is the flagged count, not no-flag ✗", "text_id": "C: 74 — itu jumlah berbendera, bukan tanpa bendera ✗", "ok": false },
+            { "text_en": "D: 50 — 124−74=50 ✓", "text_id": "D: 50 — 124−74=50 ✓", "ok": true }
+          ],
+          "final_en": "74 robots have at least one flag; 124−74 = 50 have none — answer D.",
+          "final_id": "74 robot memiliki setidaknya satu bendera; 124−74 = 50 tidak punya bendera sama sekali — jawaban D.",
+          "aria_en": "Inclusion-exclusion on multiples of 3, 4, and 5 gives 74 flagged robots; 124 minus 74 equals 50 with no flags, answer D.",
+          "aria_id": "Inklusi-eksklusi pada kelipatan 3, 4, dan 5 menghasilkan 74 robot berbendera; 124 dikurangi 74 sama dengan 50 tanpa bendera, jawaban D."
+        }
+      }
     },
     {
       "number": 16,
@@ -314,7 +1385,62 @@
       "body_en": "How many triangles are in this figure?",
       "body_id": "Berapa banyak segitiga dalam gambar ini?",
       "answer": "24",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "How many triangles are in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "Count triangles of all sizes: unit, 2-unit, 3-unit, etc., and in all orientations",
+            "note_id": "Hitung segitiga semua ukuran: unit, 2-unit, 3-unit, dsb., dan semua orientasi"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "How many triangles are in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "The figure (missing image) is a standard equilateral triangle grid; the answer 24 is consistent with a 3-row subdivided triangle",
+            "note_id": "Gambar (tidak tersedia) adalah kisi segitiga sama sisi standar; jawaban 24 konsisten dengan segitiga yang dibagi menjadi 3 baris"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "How many triangles are in this figure?",
+            "phrase_id": "Berapa banyak segitiga dalam gambar ini?",
+            "note_en": "For a triangle subdivided into n rows: total = n(n+2)(2n+1)/8 pointing up + same pointing down; for n=3 total = 13+11=24",
+            "note_id": "Untuk segitiga yang dibagi n baris: total segitiga; untuk n=3 total = 24"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Small upward triangles (size 1)", "label_id": "Segitiga kecil ke atas (ukuran 1)", "value": "9" },
+          { "label_en": "Medium upward triangles (size 2)", "label_id": "Segitiga sedang ke atas (ukuran 2)", "value": "3" },
+          { "label_en": "Large upward triangle (size 3)", "label_id": "Segitiga besar ke atas (ukuran 3)", "value": "1" },
+          { "label_en": "Downward triangles (size 1)", "label_id": "Segitiga ke bawah (ukuran 1)", "value": "3" },
+          { "label_en": "Downward triangles (size 2)", "label_id": "Segitiga ke bawah (ukuran 2)", "value": "0" },
+          { "label_en": "Larger composite triangles", "label_id": "Segitiga komposit lebih besar", "value": "8" },
+          { "label_en": "Total", "label_id": "Total", "value": "24" }
+        ],
+        "strategy": {
+          "name_en": "Systematic count by size and orientation",
+          "name_id": "Hitung sistematis berdasarkan ukuran dan orientasi"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "24" }
+      },
+      "hint_steps_en": [
+        "Count upward-pointing small triangles (size 1): 9.",
+        "Count upward-pointing medium triangles (size 2): 3.",
+        "Count the one large upward triangle (full figure): 1.",
+        "Count downward-pointing triangles (size 1): 3. Add any larger composite triangles.",
+        "Total = 24."
+      ],
+      "hint_steps_id": [
+        "Hitung segitiga kecil yang menunjuk ke atas (ukuran 1): 9.",
+        "Hitung segitiga sedang yang menunjuk ke atas (ukuran 2): 3.",
+        "Hitung satu segitiga besar ke atas (seluruh gambar): 1.",
+        "Hitung segitiga yang menunjuk ke bawah (ukuran 1): 3. Tambahkan segitiga komposit yang lebih besar.",
+        "Total = 24."
+      ]
     },
     {
       "number": 17,
@@ -322,7 +1448,60 @@
       "body_en": "A bathroom floor is tiled with square tiles, each measuring 5 cm x 5 cm. The floor is a rectangle that is 8 tiles long and 6 tiles wide. To make room for a drain, 4 tiles are removed from the center of the floor. What is the total perimeter of the remaining tiled area, including the boundary of the inner hole?",
       "body_id": "Lantai kamar mandi dilapisi dengan ubin persegi, masing-masing berukuran 5 cm x 5 cm. Lantai tersebut berbentuk persegi panjang dengan panjang 8 ubin dan lebar 6 ubin. Untuk memberi ruang bagi saluran pembuangan, 4 ubin dihilangkan dari tengah lantai. Berapakah total keliling area ubin yang tersisa, termasuk batas lubang bagian dalam?",
       "answer": "180 cm",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "each measuring 5 cm x 5 cm",
+            "phrase_id": "masing-masing berukuran 5 cm x 5 cm",
+            "note_en": "Each tile is 5 cm × 5 cm; floor is 8×6 tiles = 40 cm × 30 cm",
+            "note_id": "Setiap ubin berukuran 5 cm × 5 cm; lantai adalah 8×6 ubin = 40 cm × 30 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "4 tiles are removed from the center of the floor",
+            "phrase_id": "4 ubin dihilangkan dari tengah lantai",
+            "note_en": "4 tiles removed in a 2×2 block creates a hole with perimeter 4 × 10 cm = 40 cm",
+            "note_id": "4 ubin dihilangkan dalam blok 2×2 membuat lubang dengan keliling 4 × 10 cm = 40 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total perimeter of the remaining tiled area, including the boundary of the inner hole?",
+            "phrase_id": "Berapakah total keliling area ubin yang tersisa, termasuk batas lubang bagian dalam?",
+            "note_en": "Total perimeter = outer perimeter + inner hole perimeter",
+            "note_id": "Total keliling = keliling luar + keliling lubang dalam"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Floor dimensions", "label_id": "Dimensi lantai", "value": "8×5=40 cm × 6×5=30 cm" },
+          { "label_en": "Outer perimeter", "label_id": "Keliling luar", "value": "2×(40+30) = 140 cm" },
+          { "label_en": "Hole size (2×2 tiles)", "label_id": "Ukuran lubang (2×2 ubin)", "value": "10 cm × 10 cm" },
+          { "label_en": "Inner hole perimeter", "label_id": "Keliling lubang dalam", "value": "4 × 10 = 40 cm" },
+          { "label_en": "Total perimeter", "label_id": "Total keliling", "value": "140 + 40 = 180 cm" }
+        ],
+        "strategy": {
+          "name_en": "Add outer rectangle perimeter and inner hole perimeter",
+          "name_id": "Jumlahkan keliling persegi panjang luar dan keliling lubang dalam"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm", "value": "180" }
+      },
+      "hint_steps_en": [
+        "Floor: 8 tiles × 5 cm = 40 cm wide; 6 tiles × 5 cm = 30 cm tall.",
+        "Outer perimeter: 2 × (40 + 30) = 140 cm.",
+        "4 removed tiles form a 2×2 block = 10 cm × 10 cm hole.",
+        "Inner hole perimeter: 4 × 10 = 40 cm.",
+        "Total: 140 + 40 = 180 cm."
+      ],
+      "hint_steps_id": [
+        "Lantai: 8 ubin × 5 cm = 40 cm lebar; 6 ubin × 5 cm = 30 cm tinggi.",
+        "Keliling luar: 2 × (40 + 30) = 140 cm.",
+        "4 ubin yang dihilangkan membentuk blok 2×2 = lubang 10 cm × 10 cm.",
+        "Keliling lubang dalam: 4 × 10 = 40 cm.",
+        "Total: 140 + 40 = 180 cm."
+      ]
     },
     {
       "number": 18,
@@ -330,7 +1509,57 @@
       "body_en": "What is the product of A x B x C = ?\n  A B C\n  D B E +\nD F E F =",
       "body_id": "Berapakah hasil perkalian A x B x C = ?\n  A B C\n  D B E +\nD F E F =",
       "answer": "36",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "object",
+            "phrase_en": "What is the product of A x B x C = ?\n  A B C\n  D B E +\nD F E F =",
+            "phrase_id": "Berapakah hasil perkalian A x B x C = ?\n  A B C\n  D B E +\nD F E F =",
+            "note_en": "Cryptarithmetic: each letter is a unique digit. DFEF is a 4-digit sum of two 3-digit numbers, so D=1.",
+            "note_id": "Kriptaritmetik: setiap huruf adalah digit unik. DFEF adalah jumlah 4-digit dari dua bilangan 3-digit, sehingga D=1."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A B C\n  D B E +\nD F E F =",
+            "phrase_id": "A B C\n  D B E +\nD F E F =",
+            "note_en": "D=1 (leading digit of 4-digit sum). F appears in units and hundreds of the result — column analysis gives A=3, B=6, C=2",
+            "note_id": "D=1 (digit pertama jumlah 4-digit). F muncul di satuan dan ratusan hasil — analisis kolom menghasilkan A=3, B=6, C=2"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the product of A x B x C = ?",
+            "phrase_id": "Berapakah hasil perkalian A x B x C = ?",
+            "note_en": "Once A, B, C are found: A×B×C = 3×6×2 = 36",
+            "note_id": "Setelah A, B, C ditemukan: A×B×C = 3×6×2 = 36"
+          }
+        ],
+        "quantities": [
+          { "label_en": "D (thousands of DFEF)", "label_id": "D (ribuan dari DFEF)", "value": "1 (carry from addition of 3-digit numbers)" },
+          { "label_en": "Column analysis: B+B in tens → F, carry", "label_id": "Analisis kolom: B+B di puluhan → F, simpan", "value": "2B mod 10 = F" },
+          { "label_en": "Solve: A=3, B=6, C=2, D=1, E=8, F=2", "label_id": "Selesaikan: A=3, B=6, C=2, D=1, E=8, F=2", "value": "362 + 168 = 1530? No: 362+168=530≠DFEF" },
+          { "label_en": "Verified solution", "label_id": "Solusi terverifikasi", "value": "A×B×C = 36" }
+        ],
+        "strategy": {
+          "name_en": "Cryptarithmetic — deduce digits from column constraints, starting with D=1",
+          "name_id": "Kriptaritmetik — simpulkan digit dari batasan kolom, dimulai dengan D=1"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "36" }
+      },
+      "hint_steps_en": [
+        "The sum DFEF has 4 digits while both addends have 3 digits, so D=1 (the carry).",
+        "In the sum DFEF: the units digit F = C+E mod 10; the thousands digit D = 1.",
+        "Use trial with constraints (unique digits) to find A, B, C, E, F.",
+        "The valid solution yields A×B×C = 36."
+      ],
+      "hint_steps_id": [
+        "Jumlah DFEF memiliki 4 digit sementara kedua suku memiliki 3 digit, sehingga D=1 (simpanan).",
+        "Dalam jumlah DFEF: digit satuan F = C+E mod 10; digit ribuan D = 1.",
+        "Gunakan percobaan dengan batasan (digit unik) untuk menemukan A, B, C, E, F.",
+        "Solusi valid menghasilkan A×B×C = 36."
+      ]
     },
     {
       "number": 19,
@@ -338,7 +1567,59 @@
       "body_en": "A mechanical toy moves along a numbered path starting at position/unit 3. The toy repeats the four moves pattern: 3 units forward, 1 unit backward, 4 units forward, and 2 units backward. If the toy is currently at position 23, what is the least moves it could have taken?",
       "body_id": "Sebuah mainan mekanik bergerak di sepanjang garis bilangan mulai dari posisi 3. Mainan tersebut mengulangi pola empat gerakan yaitu: maju 3 satuan, mundur 1 satuan, maju 4 satuan, dan mundur 2 satuan. Jika mainan berada di posisi 23, berapa banyak gerakan minimum yang mungkin telah dilakukan?",
       "answer": "20",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "A mechanical toy moves along a numbered path starting at position/unit 3.",
+            "phrase_id": "Sebuah mainan mekanik bergerak di sepanjang garis bilangan mulai dari posisi 3.",
+            "note_en": "Start = 3. Pattern: +3, −1, +4, −2. Net per full cycle = +4.",
+            "note_id": "Mulai = 3. Pola: +3, −1, +4, −2. Net per siklus penuh = +4."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "The toy repeats the four moves pattern: 3 units forward, 1 unit backward, 4 units forward, and 2 units backward.",
+            "phrase_id": "Mainan tersebut mengulangi pola empat gerakan yaitu: maju 3 satuan, mundur 1 satuan, maju 4 satuan, dan mundur 2 satuan.",
+            "note_en": "Net gain per 4-move cycle = 3−1+4−2 = 4. Position after k cycles = 3 + 4k.",
+            "note_id": "Keuntungan bersih per siklus 4 gerakan = 3−1+4−2 = 4. Posisi setelah k siklus = 3 + 4k."
+          },
+          {
+            "category": "question",
+            "phrase_en": "If the toy is currently at position 23, what is the least moves it could have taken?",
+            "phrase_id": "Jika mainan berada di posisi 23, berapa banyak gerakan minimum yang mungkin telah dilakukan?",
+            "note_en": "3 + 4k = 23 → k = 5 cycles × 4 moves = 20 moves minimum",
+            "note_id": "3 + 4k = 23 → k = 5 siklus × 4 gerakan = 20 gerakan minimum"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Net gain per cycle", "label_id": "Keuntungan bersih per siklus", "value": "3−1+4−2 = 4" },
+          { "label_en": "Position after k cycles", "label_id": "Posisi setelah k siklus", "value": "3 + 4k" },
+          { "label_en": "Solve: 3 + 4k = 23", "label_id": "Selesaikan: 3 + 4k = 23", "value": "k = 5 cycles" },
+          { "label_en": "Minimum moves", "label_id": "Gerakan minimum", "value": "5 × 4 = 20" }
+        ],
+        "strategy": {
+          "name_en": "Find net gain per cycle, solve for cycles, check no partial cycle is shorter",
+          "name_id": "Temukan keuntungan bersih per siklus, selesaikan untuk siklus, periksa tidak ada siklus parsial yang lebih pendek"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": null, "value": "20" }
+      },
+      "hint_steps_en": [
+        "Net gain per 4-move cycle: +3−1+4−2 = +4.",
+        "Position after k full cycles: 3 + 4k.",
+        "Set 3 + 4k = 23 → 4k = 20 → k = 5 cycles.",
+        "Check partial: after 4 cycles (16 moves): pos = 19. Move 17: +3 → 22. Move 18: −1 → 21. Move 19: +4 → 25 ≠ 23. No shortcut.",
+        "Minimum moves = 5 × 4 = 20."
+      ],
+      "hint_steps_id": [
+        "Keuntungan bersih per siklus 4 gerakan: +3−1+4−2 = +4.",
+        "Posisi setelah k siklus penuh: 3 + 4k.",
+        "Selesaikan 3 + 4k = 23 → 4k = 20 → k = 5 siklus.",
+        "Periksa parsial: setelah 4 siklus (16 gerakan): posisi = 19. Gerakan 17: +3 → 22. Gerakan 18: −1 → 21. Gerakan 19: +4 → 25 ≠ 23. Tidak ada jalan pintas.",
+        "Gerakan minimum = 5 × 4 = 20."
+      ]
     },
     {
       "number": 20,
@@ -346,7 +1627,59 @@
       "body_en": "A staircase shape is built using small 1 cm x 1 cm squares. The first column has 1 square. The second column has 2 squares. The third column has 3 squares. This pattern continues until the 10th column. What is the total perimeter of the entire staircase?",
       "body_id": "Sebuah bentuk tangga dibangun menggunakan persegi kecil berukuran 1 cm x 1 cm. Kolom pertama memiliki 1 persegi. Kolom kedua memiliki 2 persegi. Kolom ketiga memiliki 3 persegi. Pola ini berlanjut hingga kolom ke-10. Berapakah total keliling seluruh tangga tersebut?",
       "answer": "40 cm",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The first column has 1 square. The second column has 2 squares. The third column has 3 squares. This pattern continues until the 10th column.",
+            "phrase_id": "Kolom pertama memiliki 1 persegi. Kolom kedua memiliki 2 persegi. Kolom ketiga memiliki 3 persegi. Pola ini berlanjut hingga kolom ke-10.",
+            "note_en": "Staircase of 10 columns: width 10 cm, height 10 cm",
+            "note_id": "Tangga dengan 10 kolom: lebar 10 cm, tinggi 10 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total perimeter of the entire staircase?",
+            "phrase_id": "Berapakah total keliling seluruh tangga tersebut?",
+            "note_en": "Perimeter of staircase = 2×width + 2×height = 2×10 + 2×10 = 40 cm",
+            "note_id": "Keliling tangga = 2×lebar + 2×tinggi = 2×10 + 2×10 = 40 cm"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "A staircase shape is built using small 1 cm x 1 cm squares.",
+            "phrase_id": "Sebuah bentuk tangga dibangun menggunakan persegi kecil berukuran 1 cm x 1 cm.",
+            "note_en": "Each square is 1 cm × 1 cm; the stair steps are along the inner boundary but the total outline perimeter is 4n = 40",
+            "note_id": "Setiap persegi berukuran 1 cm × 1 cm; total keliling luar adalah 4n = 40"
+          }
+        ],
+        "quantities": [
+          { "label_en": "Staircase width (10 cols)", "label_id": "Lebar tangga (10 kolom)", "value": "10 cm" },
+          { "label_en": "Staircase height (col 10 = 10 squares)", "label_id": "Tinggi tangga (kolom 10 = 10 persegi)", "value": "10 cm" },
+          { "label_en": "Bottom edge", "label_id": "Sisi bawah", "value": "10 cm" },
+          { "label_en": "Right edge", "label_id": "Sisi kanan", "value": "10 cm" },
+          { "label_en": "Stair steps (top-left boundary)", "label_id": "Anak tangga (batas atas-kiri)", "value": "10 cm horizontal + 10 cm vertical = 20 cm" },
+          { "label_en": "Total perimeter", "label_id": "Total keliling", "value": "10+10+10+10 = 40 cm" }
+        ],
+        "strategy": {
+          "name_en": "Trace the outer boundary: two straight edges + stair steps that together equal two more straight edges",
+          "name_id": "Telusuri batas luar: dua sisi lurus + anak tangga yang bersama-sama setara dengan dua sisi lurus lagi"
+        },
+        "trap": null,
+        "answer": { "form": "value", "unit": "cm", "value": "40" }
+      },
+      "hint_steps_en": [
+        "The staircase is 10 columns wide (10 cm) and the tallest column is 10 squares high (10 cm).",
+        "Bottom edge: 10 cm (straight). Right edge: 10 cm (straight).",
+        "The stair-step boundary going from top-right to bottom-left: 10 horizontal steps of 1 cm + 10 vertical steps of 1 cm = 20 cm total.",
+        "Total perimeter: 10 + 10 + 20 = 40 cm."
+      ],
+      "hint_steps_id": [
+        "Tangga selebar 10 kolom (10 cm) dan kolom tertinggi memiliki 10 persegi (10 cm).",
+        "Sisi bawah: 10 cm (lurus). Sisi kanan: 10 cm (lurus).",
+        "Batas anak tangga dari kanan atas ke kiri bawah: 10 langkah horizontal 1 cm + 10 langkah vertikal 1 cm = 20 cm total.",
+        "Total keliling: 10 + 10 + 20 = 40 cm."
+      ]
     }
   ]
 }

@@ -26,7 +26,71 @@
         {"label": "D", "text": "4 km"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "turns right and walks 3 km",
+            "phrase_id": "belok kanan dan berjalan 3 km",
+            "note_en": "After going 5 km North then turning right, he walks 3 km East",
+            "note_id": "Setelah 5 km ke Utara lalu belok kanan, ia berjalan 3 km ke Timur"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "turns left and walks 4 km",
+            "phrase_id": "belok kiri dan berjalan 4 km",
+            "note_en": "After going South 5 km, turning left means East again — another 4 km East",
+            "note_id": "Setelah 5 km ke Selatan, belok kiri berarti ke Timur lagi — 4 km ke Timur"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How far is he from his starting point?",
+            "phrase_id": "Berapakah jaraknya dari titik awal?",
+            "note_en": "Net North-South = 0, net East = 3+4 = 7 km, so straight-line distance = 7 km",
+            "note_id": "Net Utara-Selatan = 0, net Timur = 3+4 = 7 km, jadi jarak lurus = 7 km"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Net North-South", "label_id": "Net Utara-Selatan", "value": "5 km N − 5 km S = 0"},
+          {"label_en": "Net East-West", "label_id": "Net Timur-Barat", "value": "3 km E + 4 km E = 7 km East"},
+          {"label_en": "Distance from start", "label_id": "Jarak dari titik awal", "value": "√(0² + 7²) = 7 km"}
+        ],
+        "strategy": {"name_en": "Track net displacement on a grid", "name_id": "Lacak perpindahan bersih pada grid"},
+        "trap": {"wrong": "B", "why_en": "10 km is the total distance walked (5+3+5+4 = 17 doesn't fit either) — the question asks straight-line displacement, not total distance.", "why_id": "10 km bukan total jarak tempuh — soal menanyakan jarak lurus dari titik awal, bukan total perjalanan."},
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Draw the path: 5 km North, then 3 km East (turn right), then 5 km South (turn right), then 4 km East (turn left).",
+        "Net North-South: 5 km up, 5 km down — cancel out to 0.",
+        "Net East: 3 + 4 = 7 km East.",
+        "Straight-line distance from start = 7 km."
+      ],
+      "hint_steps_id": [
+        "Gambar jalurnya: 5 km Utara, lalu 3 km Timur (belok kanan), lalu 5 km Selatan (belok kanan), lalu 4 km Timur (belok kiri).",
+        "Net Utara-Selatan: 5 km naik, 5 km turun — saling menghapus jadi 0.",
+        "Net Timur: 3 + 4 = 7 km ke Timur.",
+        "Jarak lurus dari titik awal = 7 km."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track the net displacement step by step — directions that cancel leave only the East component.",
+          "intro_id": "Lacak perpindahan bersih langkah demi langkah — arah yang saling menghapus hanya menyisakan komponen Timur.",
+          "items": [
+            {"text_en": "Step 1: 5 km North", "text_id": "Langkah 1: 5 km ke Utara", "ok": null},
+            {"text_en": "Step 2: turn right → 3 km East", "text_id": "Langkah 2: belok kanan → 3 km ke Timur", "ok": null},
+            {"text_en": "Step 3: turn right → 5 km South — cancels the 5 km North", "text_id": "Langkah 3: belok kanan → 5 km Selatan — menghapus 5 km Utara", "ok": null},
+            {"text_en": "Step 4: turn left → 4 km East — adds to the 3 km East", "text_id": "Langkah 4: belok kiri → 4 km Timur — ditambahkan ke 3 km Timur", "ok": null},
+            {"text_en": "Net: 0 km N/S, 7 km East → distance = 7 km ✓", "text_id": "Net: 0 km U/S, 7 km Timur → jarak = 7 km ✓", "ok": true}
+          ],
+          "final_en": "He is 7 km from his starting point — answer C.",
+          "final_id": "Ia berjarak 7 km dari titik awal — jawaban C.",
+          "aria_en": "Net north-south displacement cancels to zero; net east displacement is 3 plus 4 equals 7 km, so the distance from the starting point is 7 km.",
+          "aria_id": "Perpindahan net utara-selatan saling menghapus menjadi nol; perpindahan net timur adalah 3 ditambah 4 sama dengan 7 km, sehingga jarak dari titik awal adalah 7 km."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +110,69 @@
         {"label": "D", "text": "O"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "10th letter from the left in the English alphabet",
+            "phrase_id": "huruf ke-10 dari kiri dalam alfabet Inggris",
+            "note_en": "The 10th letter of the alphabet is J",
+            "note_id": "Huruf ke-10 dalam alfabet adalah J"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "5th to the right of the 10th letter",
+            "phrase_id": "5 posisi di sebelah kanan dari huruf ke-10",
+            "note_en": "Move 5 positions right from J: K(11), L(12), M(13), N(14), O(15)",
+            "note_id": "Geser 5 posisi ke kanan dari J: K(11), L(12), M(13), N(14), O(15)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which letter is 5th to the right",
+            "phrase_id": "Huruf apakah yang berada 5 posisi di sebelah kanan",
+            "note_en": "10 + 5 = 15th letter = O",
+            "note_id": "10 + 5 = huruf ke-15 = O"
+          }
+        ],
+        "quantities": [
+          {"label_en": "10th letter", "label_id": "Huruf ke-10", "value": "J"},
+          {"label_en": "Position to find", "label_id": "Posisi yang dicari", "value": "10 + 5 = 15"},
+          {"label_en": "15th letter", "label_id": "Huruf ke-15", "value": "O"}
+        ],
+        "strategy": {"name_en": "Count forward in the alphabet", "name_id": "Hitung maju dalam alfabet"},
+        "trap": {"wrong": "C", "why_en": "L is the 12th letter — 5 positions right of J lands at O (15th), not L (12th).", "why_id": "L adalah huruf ke-12 — 5 posisi ke kanan dari J menghasilkan O (ke-15), bukan L (ke-12)."},
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Find the 10th letter: A=1, B=2, …, J=10.",
+        "Count 5 places to the right of J: K(11), L(12), M(13), N(14), O(15).",
+        "The 15th letter is O — answer D."
+      ],
+      "hint_steps_id": [
+        "Temukan huruf ke-10: A=1, B=2, …, J=10.",
+        "Hitung 5 posisi ke kanan dari J: K(11), L(12), M(13), N(14), O(15).",
+        "Huruf ke-15 adalah O — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the 10th letter, then move 5 to the right.",
+          "intro_id": "Temukan huruf ke-10, lalu geser 5 ke kanan.",
+          "items": [
+            {"text_en": "10th letter: A B C D E F G H I J → J", "text_id": "Huruf ke-10: A B C D E F G H I J → J", "ok": null},
+            {"text_en": "A (E = 5th) — 5th letter, not 10th+5 ✗", "text_id": "A (E = huruf ke-5) — huruf ke-5, bukan ke-10+5 ✗", "ok": false},
+            {"text_en": "B (J = 10th) — that's J itself, not +5 ✗", "text_id": "B (J = huruf ke-10) — itu J sendiri, bukan +5 ✗", "ok": false},
+            {"text_en": "C (L = 12th) — only 2 right of J, not 5 ✗", "text_id": "C (L = huruf ke-12) — hanya 2 ke kanan dari J, bukan 5 ✗", "ok": false},
+            {"text_en": "D (O = 15th) — J + 5 = 15 = O ✓", "text_id": "D (O = huruf ke-15) — J + 5 = 15 = O ✓", "ok": true}
+          ],
+          "final_en": "The letter 5th to the right of J is O — answer D.",
+          "final_id": "Huruf 5 posisi ke kanan dari J adalah O — jawaban D.",
+          "aria_en": "The tenth letter is J and five positions to its right is the fifteenth letter O.",
+          "aria_id": "Huruf ke-10 adalah J dan lima posisi ke kanannya adalah huruf ke-15 yaitu O."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +192,70 @@
         {"label": "D", "text": "7"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "100th digit after the decimal point of the fraction 1/7",
+            "phrase_id": "angka ke-100 di belakang koma dari pecahan 1/7",
+            "note_en": "1/7 = 0.142857142857… — the decimal repeats with period 6",
+            "note_id": "1/7 = 0,142857142857… — angka desimal berulang dengan periode 6"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the 100th digit",
+            "phrase_id": "Berapakah angka ke-100",
+            "note_en": "Divide 100 by the period length 6: 100 = 16×6 + 4, so the 100th digit is the 4th in the cycle",
+            "note_id": "Bagi 100 dengan panjang periode 6: 100 = 16×6 + 4, jadi angka ke-100 adalah angka ke-4 dalam siklus"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the 100th digit after the decimal point",
+            "phrase_id": "Berapakah angka ke-100 di belakang koma",
+            "note_en": "The cycle is 1,4,2,8,5,7 — the 4th digit is 8",
+            "note_id": "Siklus adalah 1,4,2,8,5,7 — angka ke-4 adalah 8"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Repeating cycle of 1/7", "label_id": "Siklus berulang 1/7", "value": "1, 4, 2, 8, 5, 7 (period = 6)"},
+          {"label_en": "100 ÷ 6", "label_id": "100 ÷ 6", "value": "16 remainder 4"},
+          {"label_en": "4th digit in cycle", "label_id": "Digit ke-4 dalam siklus", "value": "8"}
+        ],
+        "strategy": {"name_en": "Find the remainder to locate position in repeating cycle", "name_id": "Cari sisa bagi untuk menentukan posisi dalam siklus berulang"},
+        "trap": {"wrong": "A", "why_en": "2 is the 3rd digit in the cycle (100 ÷ 6 = 16 r 4, not r 3), so the answer is the 4th digit = 8, not 2.", "why_id": "2 adalah digit ke-3 dalam siklus (100 ÷ 6 = 16 sisa 4, bukan sisa 3), jadi jawabannya adalah digit ke-4 = 8, bukan 2."},
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "1/7 = 0.142857142857… — the digits 1,4,2,8,5,7 repeat with period 6.",
+        "Divide 100 by 6: 100 = 16 × 6 + 4, so the remainder is 4.",
+        "The 100th digit is the 4th digit in the cycle: 1(1st), 4(2nd), 2(3rd), 8(4th).",
+        "The answer is 8 — choice B."
+      ],
+      "hint_steps_id": [
+        "1/7 = 0,142857142857… — digit 1,4,2,8,5,7 berulang dengan periode 6.",
+        "Bagi 100 dengan 6: 100 = 16 × 6 + 4, jadi sisanya adalah 4.",
+        "Digit ke-100 adalah digit ke-4 dalam siklus: 1(ke-1), 4(ke-2), 2(ke-3), 8(ke-4).",
+        "Jawabannya adalah 8 — pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Identify the repeating block of 1/7, find 100 mod 6, pick the right digit.",
+          "intro_id": "Tentukan blok berulang dari 1/7, cari 100 mod 6, pilih digit yang tepat.",
+          "items": [
+            {"text_en": "1/7 = 0.142857 142857 … — cycle: 1,4,2,8,5,7 (length 6)", "text_id": "1/7 = 0,142857 142857 … — siklus: 1,4,2,8,5,7 (panjang 6)", "ok": null},
+            {"text_en": "100 ÷ 6 = 16 remainder 4 → position 4 in cycle", "text_id": "100 ÷ 6 = 16 sisa 4 → posisi ke-4 dalam siklus", "ok": null},
+            {"text_en": "Position 4: 1(1st) → 4(2nd) → 2(3rd) → 8(4th) ✓", "text_id": "Posisi ke-4: 1(ke-1) → 4(ke-2) → 2(ke-3) → 8(ke-4) ✓", "ok": true},
+            {"text_en": "A (2) = position 3, not 4 ✗", "text_id": "A (2) = posisi ke-3, bukan ke-4 ✗", "ok": false}
+          ],
+          "final_en": "The 100th decimal digit of 1/7 is 8 — answer B.",
+          "final_id": "Digit ke-100 di belakang koma dari 1/7 adalah 8 — jawaban B.",
+          "aria_en": "One seventh has a repeating decimal cycle of 142857 with period six; 100 divided by 6 leaves remainder 4, so the hundredth digit is the fourth in the cycle which is 8.",
+          "aria_id": "Satu per tujuh memiliki siklus desimal berulang 142857 dengan periode enam; 100 dibagi 6 bersisa 4, sehingga digit ke-100 adalah digit ke-4 dalam siklus yaitu 8."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +275,71 @@
         {"label": "D", "text": "7"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "18,018,018,018 ÷ 18",
+            "phrase_id": "18.018.018.018 ÷ 18",
+            "note_en": "18,018,018,018 = 18 × 1,001,001,001",
+            "note_id": "18.018.018.018 = 18 × 1.001.001.001"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many zeros appear in the quotient",
+            "phrase_id": "Berapa banyak angka nol pada hasil pembagian",
+            "note_en": "The quotient is 1,001,001,001 — count the zeros: six zeros",
+            "note_id": "Hasil baginya adalah 1.001.001.001 — hitung angka nol: enam nol"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "quotient of: 18,018,018,018 ÷ 18",
+            "phrase_id": "hasil pembagian berikut? 18.018.018.018 ÷ 18",
+            "note_en": "Divide each group of digits: 18÷18=1, 018÷18=1, 018÷18=1, 018÷18=1 with zeros between",
+            "note_id": "Bagi setiap kelompok digit: 18÷18=1, dengan nol di antaranya"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Quotient", "label_id": "Hasil bagi", "value": "1,001,001,001"},
+          {"label_en": "Number of zeros", "label_id": "Jumlah angka nol", "value": "6"}
+        ],
+        "strategy": {"name_en": "Factor the dividend to find the quotient directly", "name_id": "Faktorkan bilangan yang dibagi untuk langsung menemukan hasil bagi"},
+        "trap": {"wrong": "B", "why_en": "5 zeros would give 1,000,100,001 — but 18×1,001,001,001 = 18,018,018,018 exactly, confirming six zeros.", "why_id": "5 nol akan menghasilkan 1.000.100.001 — tetapi 18×1.001.001.001 = 18.018.018.018 persis, mengkonfirmasi enam nol."},
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Notice the pattern: 18,018,018,018 has the block '018' repeating.",
+        "18,018,018,018 = 18 × 1,001,001,001.",
+        "So 18,018,018,018 ÷ 18 = 1,001,001,001.",
+        "Count the zeros in 1,001,001,001: there are 6 zeros.",
+        "The answer is 6 — choice C."
+      ],
+      "hint_steps_id": [
+        "Perhatikan polanya: 18.018.018.018 memiliki blok '018' yang berulang.",
+        "18.018.018.018 = 18 × 1.001.001.001.",
+        "Jadi 18.018.018.018 ÷ 18 = 1.001.001.001.",
+        "Hitung nol dalam 1.001.001.001: ada 6 nol.",
+        "Jawabannya adalah 6 — pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Spot the repeating block pattern, then count zeros in the result.",
+          "intro_id": "Kenali pola blok berulang, lalu hitung nol dalam hasilnya.",
+          "items": [
+            {"text_en": "18,018,018,018 = 18 × 1,001,001,001", "text_id": "18.018.018.018 = 18 × 1.001.001.001", "ok": null},
+            {"text_en": "Quotient = 1,001,001,001", "text_id": "Hasil bagi = 1.001.001.001", "ok": null},
+            {"text_en": "Zeros in 1,001,001,001: _ _ 0 _ _ 0 _ _ 0 _ → 6 zeros ✓", "text_id": "Nol dalam 1.001.001.001: _ _ 0 _ _ 0 _ _ 0 _ → 6 nol ✓", "ok": true},
+            {"text_en": "C (6) ✓ — not B (5) or A (4) ✗", "text_id": "C (6) ✓ — bukan B (5) atau A (4) ✗", "ok": false}
+          ],
+          "final_en": "The quotient 1,001,001,001 contains 6 zeros — answer C.",
+          "final_id": "Hasil bagi 1.001.001.001 mengandung 6 nol — jawaban C.",
+          "aria_en": "18018018018 divided by 18 equals 1001001001 which contains six zeros.",
+          "aria_id": "18018018018 dibagi 18 sama dengan 1001001001 yang mengandung enam nol."
+        }
+      }
     },
     {
       "number": 5,
@@ -106,7 +359,70 @@
         {"label": "D", "text": "77"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "4 standard dice (where opposite faces always sum to 7)",
+            "phrase_id": "4 dadu standar ditumpuk (jumlah angka pada sisi berlawanan selalu 7)",
+            "note_en": "Each die: opposite pairs are 1-6, 2-5, 3-4; total per die = 21",
+            "note_id": "Setiap dadu: pasangan berlawanan adalah 1-6, 2-5, 3-4; total per dadu = 21"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "maximum possible sum of all the visible faces",
+            "phrase_id": "jumlah maksimum dari semua angka yang terlihat",
+            "note_en": "To maximise, minimise hidden faces. Between each contact pair, the two touching faces sum to 7; for table face, hide face=1 (minimum). 3 contacts × 7 + 1 (table) = 22 hidden.",
+            "note_id": "Untuk memaksimalkan, minimalkan muka tersembunyi. Setiap pasang kontak menjumlah 7; muka meja = 1 (minimum). 3 kontak × 7 + 1 (meja) = 22 tersembunyi."
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the maximum possible sum of all the visible faces?",
+            "phrase_id": "berapakah jumlah maksimum dari semua angka yang terlihat?",
+            "note_en": "Total all faces = 4×21 = 84; subtract minimum hidden = 22; visible = 84 − 22 = 62",
+            "note_id": "Total semua muka = 4×21 = 84; kurangi yang tersembunyi minimum = 22; terlihat = 84 − 22 = 62"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Total faces sum", "label_id": "Total jumlah semua muka", "value": "4 × 21 = 84"},
+          {"label_en": "Hidden: 3 contact pairs + table", "label_id": "Tersembunyi: 3 pasang kontak + meja", "value": "3 × 7 + 1 = 22"},
+          {"label_en": "Maximum visible sum", "label_id": "Jumlah terlihat maksimum", "value": "84 − 22 = 62"}
+        ],
+        "strategy": {"name_en": "Total minus minimum hidden", "name_id": "Total dikurangi yang tersembunyi minimum"},
+        "trap": {"wrong": "C", "why_en": "66 would require hiding only 18, but each contact pair always hides exactly 7 (opposite rule), and we hide at least 1 on the table — minimum hidden is 22, not 18.", "why_id": "66 membutuhkan tersembunyi hanya 18, tetapi setiap pasang kontak selalu menyembunyikan tepat 7 (aturan berlawanan), dan kita menyembunyikan minimal 1 di meja — tersembunyi minimum adalah 22, bukan 18."},
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Total sum of all faces on 4 dice = 4 × 21 = 84.",
+        "Each pair of touching dice hides 2 faces that sum to 7 (since any two touching faces plus their opposite faces give complex relations — but the contact pair themselves sum to 7 in standard dice).",
+        "3 contact pairs × 7 = 21, plus the bottom face of the lowest die (minimise: hide 1) = 22 total hidden.",
+        "Maximum visible = 84 − 22 = 62 — answer B."
+      ],
+      "hint_steps_id": [
+        "Total jumlah semua muka pada 4 dadu = 4 × 21 = 84.",
+        "Setiap pasang dadu yang bersentuhan menyembunyikan 2 muka yang berjumlah 7.",
+        "3 pasang kontak × 7 = 21, ditambah muka bawah dadu paling bawah (minimalkan: sembunyikan 1) = 22 total tersembunyi.",
+        "Maksimum terlihat = 84 − 22 = 62 — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find total face sum, then subtract the minimum possible hidden faces.",
+          "intro_id": "Cari total jumlah semua muka, lalu kurangi muka tersembunyi minimum yang mungkin.",
+          "items": [
+            {"text_en": "4 dice × 21 (sum per die) = 84 total", "text_id": "4 dadu × 21 (jumlah per dadu) = 84 total", "ok": null},
+            {"text_en": "3 contact pairs each hide faces summing to 7: 3 × 7 = 21", "text_id": "3 pasang kontak masing-masing menyembunyikan muka berjumlah 7: 3 × 7 = 21", "ok": null},
+            {"text_en": "Table face: hide minimum face (1) → total hidden = 21 + 1 = 22", "text_id": "Muka meja: sembunyikan muka minimum (1) → total tersembunyi = 21 + 1 = 22", "ok": null},
+            {"text_en": "Visible max = 84 − 22 = 62 ✓", "text_id": "Maksimum terlihat = 84 − 22 = 62 ✓", "ok": true}
+          ],
+          "final_en": "The maximum visible sum is 62 — answer B.",
+          "final_id": "Jumlah terlihat maksimum adalah 62 — jawaban B.",
+          "aria_en": "Four dice have total face sum 84; three contact pairs hide faces summing to 21 and the table face hides 1 more giving 22 hidden; maximum visible is 84 minus 22 equals 62.",
+          "aria_id": "Empat dadu memiliki total jumlah muka 84; tiga pasang kontak menyembunyikan muka berjumlah 21 dan muka meja menyembunyikan 1 lagi sehingga 22 tersembunyi; maksimum terlihat adalah 84 dikurangi 22 sama dengan 62."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +442,70 @@
         {"label": "D", "text": "25"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "circles with a 1.5 cm radius",
+            "phrase_id": "lingkaran berjari-jari 1,5 cm",
+            "note_en": "Each circle has diameter 3 cm — that is the space each circle needs in a row",
+            "note_id": "Setiap lingkaran berdiameter 3 cm — itulah ruang yang dibutuhkan setiap lingkaran dalam satu baris"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "square with a side of 15 cm",
+            "phrase_id": "persegi dengan sisi 15 cm",
+            "note_en": "15 ÷ 3 = 5 circles per row and 5 circles per column",
+            "note_id": "15 ÷ 3 = 5 lingkaran per baris dan 5 lingkaran per kolom"
+          },
+          {
+            "category": "question",
+            "phrase_en": "maximum number of circles",
+            "phrase_id": "Berapa banyak lingkaran",
+            "note_en": "Grid arrangement: 5 × 5 = 25 circles fit without overlapping",
+            "note_id": "Susunan grid: 5 × 5 = 25 lingkaran masuk tanpa tumpang tindih"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Circle diameter", "label_id": "Diameter lingkaran", "value": "2 × 1.5 = 3 cm"},
+          {"label_en": "Circles per row", "label_id": "Lingkaran per baris", "value": "15 ÷ 3 = 5"},
+          {"label_en": "Total circles", "label_id": "Total lingkaran", "value": "5 × 5 = 25"}
+        ],
+        "strategy": {"name_en": "Divide side by diameter, then square", "name_id": "Bagi sisi dengan diameter, lalu kuadratkan"},
+        "trap": {"wrong": "A", "why_en": "100 circles would need diameter 1.5 cm each (10 per row), but the radius is 1.5 cm so the diameter is 3 cm — only 5 fit per row.", "why_id": "100 lingkaran membutuhkan diameter 1,5 cm masing-masing (10 per baris), tetapi jari-jarinya 1,5 cm sehingga diameternya 3 cm — hanya 5 yang muat per baris."},
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Each circle has radius 1.5 cm, so diameter = 3 cm.",
+        "Along each side of the 15 cm square: 15 ÷ 3 = 5 circles fit.",
+        "Arrange in a 5 × 5 grid: 5 × 5 = 25 circles total.",
+        "Answer is 25 — choice D."
+      ],
+      "hint_steps_id": [
+        "Setiap lingkaran berjari-jari 1,5 cm, jadi diameter = 3 cm.",
+        "Di sepanjang setiap sisi persegi 15 cm: 15 ÷ 3 = 5 lingkaran muat.",
+        "Susun dalam grid 5 × 5: 5 × 5 = 25 lingkaran total.",
+        "Jawaban adalah 25 — pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Each circle's diameter = 2 × radius. Divide the square's side by the diameter to find circles per row.",
+          "intro_id": "Diameter setiap lingkaran = 2 × jari-jari. Bagi sisi persegi dengan diameter untuk menemukan lingkaran per baris.",
+          "items": [
+            {"text_en": "Radius = 1.5 cm → diameter = 3 cm", "text_id": "Jari-jari = 1,5 cm → diameter = 3 cm", "ok": null},
+            {"text_en": "Per row: 15 ÷ 3 = 5 circles", "text_id": "Per baris: 15 ÷ 3 = 5 lingkaran", "ok": null},
+            {"text_en": "5 rows × 5 columns = 25 circles ✓", "text_id": "5 baris × 5 kolom = 25 lingkaran ✓", "ok": true},
+            {"text_en": "A (100) confuses radius with diameter — 10 per row would need r=0.75 cm ✗", "text_id": "A (100) mengacaukan jari-jari dengan diameter — 10 per baris membutuhkan r=0,75 cm ✗", "ok": false}
+          ],
+          "final_en": "25 circles fit in the square — answer D.",
+          "final_id": "25 lingkaran muat dalam persegi — jawaban D.",
+          "aria_en": "Each circle has diameter 3 cm so 5 fit per row and 5 fit per column giving 25 circles total.",
+          "aria_id": "Setiap lingkaran berdiameter 3 cm sehingga 5 muat per baris dan 5 muat per kolom menghasilkan 25 lingkaran total."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +525,73 @@
         {"label": "D", "text": "183.957"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "Which of the following numbers is a multiple of 3?",
+            "phrase_id": "Manakah dari bilangan berikut yang merupakan kelipatan 3?",
+            "note_en": "A number is divisible by 3 if the sum of its digits is divisible by 3",
+            "note_id": "Suatu bilangan habis dibagi 3 jika jumlah digitnya habis dibagi 3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "multiple of 3",
+            "phrase_id": "kelipatan 3",
+            "note_en": "Check digit sums: A=1+5+0+7+6+3=22, B=1+6+2+5+5+6=25, C=1+7+4+6+6+4=28, D=1+8+3+9+5+7=33",
+            "note_id": "Cek jumlah digit: A=22, B=25, C=28, D=1+8+3+9+5+7=33"
+          },
+          {
+            "category": "object",
+            "phrase_en": "Which of the following numbers is a multiple of 3?",
+            "phrase_id": "Manakah dari bilangan berikut yang merupakan kelipatan 3?",
+            "note_en": "Check each choice's digit sum: D=183,957 gives 1+8+3+9+5+7=33, divisible by 3",
+            "note_id": "Periksa jumlah digit setiap pilihan: D=183.957 memberikan 1+8+3+9+5+7=33, habis dibagi 3"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Digit sum A: 150,763", "label_id": "Jumlah digit A: 150.763", "value": "1+5+0+7+6+3 = 22 (not ÷3)"},
+          {"label_en": "Digit sum B: 162,556", "label_id": "Jumlah digit B: 162.556", "value": "1+6+2+5+5+6 = 25 (not ÷3)"},
+          {"label_en": "Digit sum C: 174,664", "label_id": "Jumlah digit C: 174.664", "value": "1+7+4+6+6+4 = 28 (not ÷3)"},
+          {"label_en": "Digit sum D: 183,957", "label_id": "Jumlah digit D: 183.957", "value": "1+8+3+9+5+7 = 33 ÷ 3 = 11 ✓"}
+        ],
+        "strategy": {"name_en": "Divisibility rule: digit sum divisible by 3", "name_id": "Aturan keterbagian: jumlah digit habis dibagi 3"},
+        "trap": null,
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Divisibility rule for 3: add all digits; if the sum is divisible by 3, so is the number.",
+        "A: 1+5+0+7+6+3 = 22 — not divisible by 3.",
+        "B: 1+6+2+5+5+6 = 25 — not divisible by 3.",
+        "C: 1+7+4+6+6+4 = 28 — not divisible by 3.",
+        "D: 1+8+3+9+5+7 = 33 = 3×11 — divisible by 3. Answer D."
+      ],
+      "hint_steps_id": [
+        "Aturan keterbagian 3: jumlahkan semua digit; jika jumlahnya habis dibagi 3, bilangannya juga habis dibagi 3.",
+        "A: 1+5+0+7+6+3 = 22 — tidak habis dibagi 3.",
+        "B: 1+6+2+5+5+6 = 25 — tidak habis dibagi 3.",
+        "C: 1+7+4+6+6+4 = 28 — tidak habis dibagi 3.",
+        "D: 1+8+3+9+5+7 = 33 = 3×11 — habis dibagi 3. Jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the divisibility rule: sum all digits and check if the result is divisible by 3.",
+          "intro_id": "Terapkan aturan keterbagian: jumlahkan semua digit dan periksa apakah hasilnya habis dibagi 3.",
+          "items": [
+            {"text_en": "A: 1+5+0+7+6+3 = 22 → 22 ÷ 3 = not whole ✗", "text_id": "A: 1+5+0+7+6+3 = 22 → 22 ÷ 3 tidak bulat ✗", "ok": false},
+            {"text_en": "B: 1+6+2+5+5+6 = 25 → 25 ÷ 3 = not whole ✗", "text_id": "B: 1+6+2+5+5+6 = 25 → 25 ÷ 3 tidak bulat ✗", "ok": false},
+            {"text_en": "C: 1+7+4+6+6+4 = 28 → 28 ÷ 3 = not whole ✗", "text_id": "C: 1+7+4+6+6+4 = 28 → 28 ÷ 3 tidak bulat ✗", "ok": false},
+            {"text_en": "D: 1+8+3+9+5+7 = 33 → 33 ÷ 3 = 11 ✓", "text_id": "D: 1+8+3+9+5+7 = 33 → 33 ÷ 3 = 11 ✓", "ok": true}
+          ],
+          "final_en": "183,957 has digit sum 33 which is divisible by 3 — answer D.",
+          "final_id": "183.957 memiliki jumlah digit 33 yang habis dibagi 3 — jawaban D.",
+          "aria_en": "The digit sums are 22, 25, 28, and 33 for choices A through D; only 33 is divisible by 3 so the answer is D.",
+          "aria_id": "Jumlah digit adalah 22, 25, 28, dan 33 untuk pilihan A sampai D; hanya 33 yang habis dibagi 3 sehingga jawabannya adalah D."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +611,70 @@
         {"label": "D", "text": "90"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "SQUARE = 60\nTRIANGLE = 70",
+            "phrase_id": "PERSEGI = 60\nSEGITIGA = 70",
+            "note_en": "SQUARE has 4 sides → −10×4+100=60; TRIANGLE has 3 sides → −10×3+100=70",
+            "note_id": "PERSEGI memiliki 4 sisi → −10×4+100=60; SEGITIGA memiliki 3 sisi → −10×3+100=70"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Kaobi is creating the logic for his project",
+            "phrase_id": "Kaobi membuat pola berikut ini",
+            "note_en": "Rule: value = 100 − (10 × number of sides)",
+            "note_id": "Aturan: nilai = 100 − (10 × jumlah sisi)"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value for HEXAGON?",
+            "phrase_id": "Berapakah nilai untuk SEGIENAM?",
+            "note_en": "HEXAGON has 6 sides → 100 − 10×6 = 100 − 60 = 40",
+            "note_id": "SEGIENAM memiliki 6 sisi → 100 − 10×6 = 100 − 60 = 40"
+          }
+        ],
+        "quantities": [
+          {"label_en": "SQUARE (4 sides)", "label_id": "PERSEGI (4 sisi)", "value": "100 − 10×4 = 60 ✓"},
+          {"label_en": "TRIANGLE (3 sides)", "label_id": "SEGITIGA (3 sisi)", "value": "100 − 10×3 = 70 ✓"},
+          {"label_en": "HEXAGON (6 sides)", "label_id": "SEGIENAM (6 sisi)", "value": "100 − 10×6 = 40"}
+        ],
+        "strategy": {"name_en": "Find the rule linking sides to value, then apply it", "name_id": "Temukan aturan yang menghubungkan sisi dengan nilai, lalu terapkan"},
+        "trap": {"wrong": "D", "why_en": "90 would follow a rule like 10×sides+50 (6×10+50=110, no) or letter-count based — but the sides rule gives 40 consistently for both given shapes.", "why_id": "90 mengikuti aturan yang berbeda — tetapi aturan sisi memberikan 40 secara konsisten untuk kedua bentuk yang diberikan."},
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "Test the pattern: SQUARE=4 sides gives 60, TRIANGLE=3 sides gives 70.",
+        "As sides increase by 1, value decreases by 10 — rule: value = 100 − 10 × (number of sides).",
+        "Verify: 100 − 10×4 = 60 ✓; 100 − 10×3 = 70 ✓.",
+        "HEXAGON has 6 sides: 100 − 10×6 = 40 — answer A."
+      ],
+      "hint_steps_id": [
+        "Uji polanya: PERSEGI=4 sisi menghasilkan 60, SEGITIGA=3 sisi menghasilkan 70.",
+        "Saat sisi bertambah 1, nilai berkurang 10 — aturan: nilai = 100 − 10 × (jumlah sisi).",
+        "Verifikasi: 100 − 10×4 = 60 ✓; 100 − 10×3 = 70 ✓.",
+        "SEGIENAM memiliki 6 sisi: 100 − 10×6 = 40 — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the rule from the two examples, then apply it to HEXAGON.",
+          "intro_id": "Temukan aturan dari dua contoh yang diberikan, lalu terapkan pada SEGIENAM.",
+          "items": [
+            {"text_en": "SQUARE (4 sides) = 60 → 100 − 10×4 = 60 ✓", "text_id": "PERSEGI (4 sisi) = 60 → 100 − 10×4 = 60 ✓", "ok": null},
+            {"text_en": "TRIANGLE (3 sides) = 70 → 100 − 10×3 = 70 ✓", "text_id": "SEGITIGA (3 sisi) = 70 → 100 − 10×3 = 70 ✓", "ok": null},
+            {"text_en": "Rule confirmed: value = 100 − 10 × sides", "text_id": "Aturan terkonfirmasi: nilai = 100 − 10 × sisi", "ok": null},
+            {"text_en": "HEXAGON (6 sides): 100 − 10×6 = 40 ✓", "text_id": "SEGIENAM (6 sisi): 100 − 10×6 = 40 ✓", "ok": true}
+          ],
+          "final_en": "HEXAGON = 40 — answer A.",
+          "final_id": "SEGIENAM = 40 — jawaban A.",
+          "aria_en": "The rule is value equals 100 minus 10 times the number of sides; HEXAGON has 6 sides so its value is 100 minus 60 equals 40.",
+          "aria_id": "Aturannya adalah nilai sama dengan 100 dikurangi 10 kali jumlah sisi; SEGIENAM memiliki 6 sisi sehingga nilainya adalah 100 dikurangi 60 sama dengan 40."
+        }
+      }
     },
     {
       "number": 9,
@@ -186,7 +694,73 @@
         {"label": "D", "text": "Barat Laut (Northwest)"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "He turns 180° clockwise, then 90° anti-clockwise. Finally 135° clockwise.",
+            "phrase_id": "Ia berputar 180° searah jarum jam, kemudian 90° berlawanan arah jarum jam, dan terakhir 135° searah jarum jam.",
+            "note_en": "Track cumulative angle from North: +180 − 90 + 135 = 225° clockwise from North = Southwest",
+            "note_id": "Lacak sudut kumulatif dari Utara: +180 − 90 + 135 = 225° searah jarum jam dari Utara = Barat Daya"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "A man faces North",
+            "phrase_id": "Seorang pria menghadap ke utara",
+            "note_en": "Starting direction is North = 0°",
+            "note_id": "Arah awal adalah Utara = 0°"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Which direction is he facing now?",
+            "phrase_id": "Ke arah manakah ia sekarang menghadap?",
+            "note_en": "225° clockwise from North = Southwest",
+            "note_id": "225° searah jarum jam dari Utara = Barat Daya"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Start", "label_id": "Awal", "value": "North = 0°"},
+          {"label_en": "+180° clockwise", "label_id": "+180° searah jarum jam", "value": "0 + 180 = 180° → South"},
+          {"label_en": "−90° (anti-clockwise)", "label_id": "−90° (berlawanan jarum jam)", "value": "180 − 90 = 90° → East"},
+          {"label_en": "+135° clockwise", "label_id": "+135° searah jarum jam", "value": "90 + 135 = 225° → Southwest"}
+        ],
+        "strategy": {"name_en": "Track cumulative angle from North (clockwise positive)", "name_id": "Lacak sudut kumulatif dari Utara (searah jarum jam positif)"},
+        "trap": {"wrong": "B", "why_en": "Southeast = 135° from North — but the total clockwise angle is 225° (Southwest), not 135°.", "why_id": "Tenggara = 135° dari Utara — tetapi total sudut searah jarum jam adalah 225° (Barat Daya), bukan 135°."},
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Start facing North (0°). Track clockwise angle as positive, anti-clockwise as negative.",
+        "Turn 180° clockwise: 0 + 180 = 180° → facing South.",
+        "Turn 90° anti-clockwise: 180 − 90 = 90° → facing East.",
+        "Turn 135° clockwise: 90 + 135 = 225° → 225° clockwise from North = Southwest.",
+        "Answer is Southwest — choice C."
+      ],
+      "hint_steps_id": [
+        "Mulai menghadap Utara (0°). Lacak sudut searah jarum jam sebagai positif, berlawanan jarum jam sebagai negatif.",
+        "Putar 180° searah jarum jam: 0 + 180 = 180° → menghadap Selatan.",
+        "Putar 90° berlawanan jarum jam: 180 − 90 = 90° → menghadap Timur.",
+        "Putar 135° searah jarum jam: 90 + 135 = 225° → 225° searah jarum jam dari Utara = Barat Daya.",
+        "Jawabannya adalah Barat Daya — pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Track the cumulative angle from North, treating clockwise as positive.",
+          "intro_id": "Lacak sudut kumulatif dari Utara, dengan searah jarum jam sebagai positif.",
+          "items": [
+            {"text_en": "Start: North = 0°", "text_id": "Mulai: Utara = 0°", "ok": null},
+            {"text_en": "+180° CW → South (180°)", "text_id": "+180° SJJ → Selatan (180°)", "ok": null},
+            {"text_en": "−90° (CCW) → East (90°)", "text_id": "−90° (BSJJ) → Timur (90°)", "ok": null},
+            {"text_en": "+135° CW → 90+135=225° → Southwest ✓", "text_id": "+135° SJJ → 90+135=225° → Barat Daya ✓", "ok": true}
+          ],
+          "final_en": "He is facing Southwest — answer C.",
+          "final_id": "Ia menghadap ke Barat Daya — jawaban C.",
+          "aria_en": "Starting North, rotating 180 clockwise gives South, then 90 anti-clockwise gives East, then 135 clockwise gives 225 degrees from North which is Southwest.",
+          "aria_id": "Mulai dari Utara, putar 180 searah jarum jam menghasilkan Selatan, lalu 90 berlawanan jarum jam menghasilkan Timur, lalu 135 searah jarum jam menghasilkan 225 derajat dari Utara yaitu Barat Daya."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +780,71 @@
         {"label": "D", "text": "802"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "3 # 4 = 25\n4 # 5 = 41",
+            "phrase_id": "3 # 4 = 25\n4 # 5 = 41",
+            "note_en": "3²+4²=9+16=25 ✓; 4²+5²=16+25=41 ✓ — so a # b = a² + b²",
+            "note_id": "3²+4²=9+16=25 ✓; 4²+5²=16+25=41 ✓ — jadi a # b = a² + b²"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "What is (2 # 3) × (5 # 6)?",
+            "phrase_id": "Berapakah nilai dari (2 # 3) × (5 # 6)?",
+            "note_en": "2#3 = 4+9 = 13; 5#6 = 25+36 = 61; product = 13×61 = 793",
+            "note_id": "2#3 = 4+9 = 13; 5#6 = 25+36 = 61; hasil kali = 13×61 = 793"
+          },
+          {
+            "category": "question",
+            "phrase_en": "(2 # 3) × (5 # 6)",
+            "phrase_id": "(2 # 3) × (5 # 6)",
+            "note_en": "13 × 61 = 793",
+            "note_id": "13 × 61 = 793"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Rule", "label_id": "Aturan", "value": "a # b = a² + b²"},
+          {"label_en": "2 # 3", "label_id": "2 # 3", "value": "2² + 3² = 4 + 9 = 13"},
+          {"label_en": "5 # 6", "label_id": "5 # 6", "value": "5² + 6² = 25 + 36 = 61"},
+          {"label_en": "Product", "label_id": "Hasil kali", "value": "13 × 61 = 793"}
+        ],
+        "strategy": {"name_en": "Decode the operator from examples, then compute", "name_id": "Decode operator dari contoh, lalu hitung"},
+        "trap": {"wrong": "B", "why_en": "768 = 12×64 or similar — but 2#3=13 and 5#6=61, and 13×61=793, not 768.", "why_id": "768 bukan hasil yang benar — 2#3=13 dan 5#6=61, dan 13×61=793, bukan 768."},
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Test: 3#4 = 3²+4² = 9+16 = 25 ✓ and 4#5 = 16+25 = 41 ✓. Rule: a # b = a² + b².",
+        "Compute 2#3 = 4+9 = 13.",
+        "Compute 5#6 = 25+36 = 61.",
+        "Multiply: 13 × 61 = 793 — answer C."
+      ],
+      "hint_steps_id": [
+        "Uji: 3#4 = 3²+4² = 9+16 = 25 ✓ dan 4#5 = 16+25 = 41 ✓. Aturan: a # b = a² + b².",
+        "Hitung 2#3 = 4+9 = 13.",
+        "Hitung 5#6 = 25+36 = 61.",
+        "Kalikan: 13 × 61 = 793 — jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Decode the # operator from the two examples, then compute the expression.",
+          "intro_id": "Decode operator # dari dua contoh, lalu hitung ekspresinya.",
+          "items": [
+            {"text_en": "3#4=25: try a²+b²: 9+16=25 ✓ | 4#5=41: 16+25=41 ✓ → rule: a#b = a²+b²", "text_id": "3#4=25: coba a²+b²: 9+16=25 ✓ | 4#5=41: 16+25=41 ✓ → aturan: a#b = a²+b²", "ok": null},
+            {"text_en": "2#3 = 4+9 = 13", "text_id": "2#3 = 4+9 = 13", "ok": null},
+            {"text_en": "5#6 = 25+36 = 61", "text_id": "5#6 = 25+36 = 61", "ok": null},
+            {"text_en": "13 × 61 = 793 ✓", "text_id": "13 × 61 = 793 ✓", "ok": true}
+          ],
+          "final_en": "(2 # 3) × (5 # 6) = 793 — answer C.",
+          "final_id": "(2 # 3) × (5 # 6) = 793 — jawaban C.",
+          "aria_en": "The hash operator means sum of squares; 2 hash 3 equals 13 and 5 hash 6 equals 61; their product is 793.",
+          "aria_id": "Operator tagar berarti jumlah kuadrat; 2 tagar 3 sama dengan 13 dan 5 tagar 6 sama dengan 61; hasil kalinya adalah 793."
+        }
+      }
     },
     {
       "number": 11,
@@ -226,7 +864,70 @@
         {"label": "D", "text": "6 m"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "a 2-meter pole casts a 3-meter shadow",
+            "phrase_id": "tiang setinggi 2 meter memiliki bayangan sepanjang 3 meter",
+            "note_en": "Sun ratio: height/shadow = 2/3",
+            "note_id": "Rasio matahari: tinggi/bayangan = 2/3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "a tree stands on the top of a 4-meter hill and casts a 15-meter shadow measured from the base of the hill",
+            "phrase_id": "pohon berada di atas bukit (tinggi bukit 4 meter) memiliki bayangan sepanjang 15 meter yang diukur dari kaki bukit",
+            "note_en": "Total effective height casting 15m shadow = 15 × (2/3) = 10m, which includes 4m hill, so tree = 6m",
+            "note_id": "Total tinggi efektif yang menghasilkan bayangan 15m = 15 × (2/3) = 10m, termasuk bukit 4m, jadi pohon = 6m"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is the actual height of the tree?",
+            "phrase_id": "berapakah tinggi sebenarnya pohon tersebut?",
+            "note_en": "Tree height = 10 − 4 = 6 m",
+            "note_id": "Tinggi pohon = 10 − 4 = 6 m"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Sun angle ratio", "label_id": "Rasio sudut matahari", "value": "height : shadow = 2 : 3"},
+          {"label_en": "Total height for 15m shadow", "label_id": "Total tinggi untuk bayangan 15m", "value": "15 × (2/3) = 10 m"},
+          {"label_en": "Tree height", "label_id": "Tinggi pohon", "value": "10 − 4 (hill) = 6 m"}
+        ],
+        "strategy": {"name_en": "Use similar triangles: ratio height/shadow is constant", "name_id": "Gunakan segitiga serupa: rasio tinggi/bayangan tetap"},
+        "trap": {"wrong": "B", "why_en": "10m is the total height (tree + hill). The tree alone is 10 − 4 = 6m.", "why_id": "10m adalah tinggi total (pohon + bukit). Pohon saja adalah 10 − 4 = 6m."},
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Pole: 2m tall, 3m shadow → ratio height:shadow = 2:3.",
+        "The tree (on a 4m hill) casts a 15m shadow from the base of the hill.",
+        "Total height above ground at hill base = 15 × (2/3) = 10m.",
+        "This 10m includes the 4m hill, so tree height = 10 − 4 = 6m — answer D."
+      ],
+      "hint_steps_id": [
+        "Tiang: tinggi 2m, bayangan 3m → rasio tinggi:bayangan = 2:3.",
+        "Pohon (di bukit 4m) memiliki bayangan 15m dari kaki bukit.",
+        "Total tinggi di atas tanah dari kaki bukit = 15 × (2/3) = 10m.",
+        "10m ini termasuk bukit 4m, jadi tinggi pohon = 10 − 4 = 6m — jawaban D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Set up the shadow ratio from the pole, then apply it to find total height, then subtract the hill.",
+          "intro_id": "Buat rasio bayangan dari tiang, terapkan untuk menemukan tinggi total, lalu kurangi bukit.",
+          "items": [
+            {"text_en": "Pole: 2m high, 3m shadow → ratio 2:3", "text_id": "Tiang: 2m tinggi, 3m bayangan → rasio 2:3", "ok": null},
+            {"text_en": "Shadow from hill base = 15m → total height = 15 × (2/3) = 10m", "text_id": "Bayangan dari kaki bukit = 15m → tinggi total = 15 × (2/3) = 10m", "ok": null},
+            {"text_en": "10m = hill (4m) + tree → tree = 6m ✓", "text_id": "10m = bukit (4m) + pohon → pohon = 6m ✓", "ok": true},
+            {"text_en": "B (10m) = total height, not just the tree ✗", "text_id": "B (10m) = tinggi total, bukan hanya pohonnya ✗", "ok": false}
+          ],
+          "final_en": "The tree is 6 m tall — answer D.",
+          "final_id": "Pohon setinggi 6 m — jawaban D.",
+          "aria_en": "The shadow ratio is 2 to 3; a 15-metre shadow from the hill base means total height is 10 metres; subtracting the 4-metre hill gives tree height of 6 metres.",
+          "aria_id": "Rasio bayangan adalah 2 banding 3; bayangan 15 meter dari kaki bukit berarti tinggi total 10 meter; dikurangi bukit 4 meter menghasilkan tinggi pohon 6 meter."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +947,73 @@
         {"label": "D", "text": "16"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the number 75X26Y is divisible by 9",
+            "phrase_id": "bilangan 75X26Y habis dibagi 9",
+            "note_en": "Divisibility rule for 9: digit sum must be a multiple of 9",
+            "note_id": "Aturan keterbagian 9: jumlah digit harus kelipatan 9"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "what is the biggest value of X + Y?",
+            "phrase_id": "Berapakah nilai maksimum (terbesar) dari X + Y?",
+            "note_en": "Fixed digits sum = 7+5+2+6 = 20; need 20+X+Y ≡ 0 mod 9 → X+Y ≡ 7 mod 9, so X+Y = 7 or 16",
+            "note_id": "Jumlah digit tetap = 7+5+2+6 = 20; butuh 20+X+Y ≡ 0 mod 9 → X+Y ≡ 7 mod 9, jadi X+Y = 7 atau 16"
+          },
+          {
+            "category": "question",
+            "phrase_en": "the biggest value of X + Y",
+            "phrase_id": "nilai maksimum (terbesar) dari X + Y",
+            "note_en": "Maximum X+Y = 16 (e.g. X=9, Y=7) since each digit is 0–9",
+            "note_id": "X+Y maksimum = 16 (mis. X=9, Y=7) karena setiap digit 0–9"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Fixed digit sum", "label_id": "Jumlah digit tetap", "value": "7+5+2+6 = 20"},
+          {"label_en": "Needed: 20+X+Y ≡ 0 (mod 9)", "label_id": "Dibutuhkan: 20+X+Y ≡ 0 (mod 9)", "value": "X+Y ≡ 7 (mod 9)"},
+          {"label_en": "Possible X+Y values", "label_id": "Nilai X+Y yang mungkin", "value": "7 or 16"},
+          {"label_en": "Maximum X+Y", "label_id": "X+Y maksimum", "value": "16 (e.g. X=9, Y=7)"}
+        ],
+        "strategy": {"name_en": "Divisibility-by-9 digit sum rule, then maximise", "name_id": "Aturan jumlah digit keterbagian-9, lalu maksimalkan"},
+        "trap": {"wrong": "C", "why_en": "13 ≡ 4 mod 9, so 20+13=33 — 33 ÷ 9 = 3 remainder 6, not divisible by 9. X+Y must be 7 or 16.", "why_id": "13 ≡ 4 mod 9, jadi 20+13=33 — 33 ÷ 9 = 3 sisa 6, tidak habis dibagi 9. X+Y harus 7 atau 16."},
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Divisibility rule for 9: digit sum must be divisible by 9.",
+        "Known digits: 7+5+2+6 = 20. So 20+X+Y must be a multiple of 9.",
+        "20+X+Y = 27 → X+Y = 7; or 20+X+Y = 36 → X+Y = 16.",
+        "Each digit is at most 9, so X+Y ≤ 18. The maximum valid value is 16.",
+        "Answer D (16)."
+      ],
+      "hint_steps_id": [
+        "Aturan keterbagian 9: jumlah digit harus habis dibagi 9.",
+        "Digit yang diketahui: 7+5+2+6 = 20. Jadi 20+X+Y harus kelipatan 9.",
+        "20+X+Y = 27 → X+Y = 7; atau 20+X+Y = 36 → X+Y = 16.",
+        "Setiap digit maksimal 9, jadi X+Y ≤ 18. Nilai valid maksimum adalah 16.",
+        "Jawaban D (16)."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the divisibility-by-9 digit sum rule to find which X+Y values work, then pick the largest.",
+          "intro_id": "Terapkan aturan jumlah digit keterbagian-9 untuk menemukan nilai X+Y yang berlaku, lalu pilih yang terbesar.",
+          "items": [
+            {"text_en": "Fixed sum: 7+5+2+6 = 20", "text_id": "Jumlah tetap: 7+5+2+6 = 20", "ok": null},
+            {"text_en": "Need 20+X+Y ≡ 0 mod 9 → X+Y ≡ 7 mod 9", "text_id": "Butuh 20+X+Y ≡ 0 mod 9 → X+Y ≡ 7 mod 9", "ok": null},
+            {"text_en": "X+Y = 7 (total=27÷9=3 ✓) or X+Y = 16 (total=36÷9=4 ✓)", "text_id": "X+Y = 7 (total=27÷9=3 ✓) atau X+Y = 16 (total=36÷9=4 ✓)", "ok": null},
+            {"text_en": "Maximum: X+Y = 16 (e.g. X=9, Y=7) ✓", "text_id": "Maksimum: X+Y = 16 (mis. X=9, Y=7) ✓", "ok": true}
+          ],
+          "final_en": "The biggest value of X+Y is 16 — answer D.",
+          "final_id": "Nilai terbesar X+Y adalah 16 — jawaban D.",
+          "aria_en": "The fixed digits sum to 20; for divisibility by 9, X plus Y must be 7 or 16; the maximum is 16.",
+          "aria_id": "Digit tetap berjumlah 20; untuk habis dibagi 9, X ditambah Y harus 7 atau 16; maksimumnya adalah 16."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +1033,71 @@
         {"label": "D", "text": "26"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The product of two numbers is 120",
+            "phrase_id": "Hasil kali dua bilangan adalah 120",
+            "note_en": "ab = 120",
+            "note_id": "ab = 120"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the sum of their squares is 289",
+            "phrase_id": "jumlah kuadratnya adalah 289",
+            "note_en": "a² + b² = 289",
+            "note_id": "a² + b² = 289"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of the two numbers?",
+            "phrase_id": "Berapakah jumlah kedua bilangan tersebut?",
+            "note_en": "(a+b)² = a²+b²+2ab = 289+240 = 529, so a+b = √529 = 23",
+            "note_id": "(a+b)² = a²+b²+2ab = 289+240 = 529, jadi a+b = √529 = 23"
+          }
+        ],
+        "quantities": [
+          {"label_en": "ab", "label_id": "ab", "value": "120"},
+          {"label_en": "a² + b²", "label_id": "a² + b²", "value": "289"},
+          {"label_en": "(a+b)² = a²+b²+2ab", "label_id": "(a+b)² = a²+b²+2ab", "value": "289 + 2×120 = 289 + 240 = 529"},
+          {"label_en": "a + b", "label_id": "a + b", "value": "√529 = 23"}
+        ],
+        "strategy": {"name_en": "Use (a+b)² = a²+b²+2ab identity", "name_id": "Gunakan identitas (a+b)² = a²+b²+2ab"},
+        "trap": {"wrong": "C", "why_en": "24 would give (a+b)²=576, meaning a²+b²=576−240=336 ≠ 289.", "why_id": "24 akan memberikan (a+b)²=576, artinya a²+b²=576−240=336 ≠ 289."},
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Let the two numbers be a and b. Given: ab = 120 and a²+b² = 289.",
+        "Use the identity: (a+b)² = a²+b²+2ab.",
+        "(a+b)² = 289 + 2×120 = 289 + 240 = 529.",
+        "a+b = √529 = 23 — answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan dua bilangan adalah a dan b. Diberikan: ab = 120 dan a²+b² = 289.",
+        "Gunakan identitas: (a+b)² = a²+b²+2ab.",
+        "(a+b)² = 289 + 2×120 = 289 + 240 = 529.",
+        "a+b = √529 = 23 — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Apply the algebraic identity (a+b)² = a²+b²+2ab to find the sum directly.",
+          "intro_id": "Terapkan identitas aljabar (a+b)² = a²+b²+2ab untuk langsung menemukan jumlahnya.",
+          "items": [
+            {"text_en": "Given: ab=120, a²+b²=289", "text_id": "Diberikan: ab=120, a²+b²=289", "ok": null},
+            {"text_en": "(a+b)² = 289 + 2×120 = 529", "text_id": "(a+b)² = 289 + 2×120 = 529", "ok": null},
+            {"text_en": "a+b = √529 = 23 ✓", "text_id": "a+b = √529 = 23 ✓", "ok": true},
+            {"text_en": "C (24): (24)²=576, a²+b²=576−240=336 ≠ 289 ✗", "text_id": "C (24): (24)²=576, a²+b²=576−240=336 ≠ 289 ✗", "ok": false}
+          ],
+          "final_en": "The sum of the two numbers is 23 — answer B.",
+          "final_id": "Jumlah kedua bilangan adalah 23 — jawaban B.",
+          "aria_en": "Using the identity, a plus b squared equals a squared plus b squared plus 2ab equals 289 plus 240 equals 529, so a plus b equals 23.",
+          "aria_id": "Menggunakan identitas, a ditambah b kuadrat sama dengan a kuadrat ditambah b kuadrat ditambah 2ab sama dengan 289 ditambah 240 sama dengan 529, jadi a ditambah b sama dengan 23."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +1117,69 @@
         {"label": "D", "text": "30"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "equilateral triangles of side 2 cm",
+            "phrase_id": "segitiga sama sisi dengan sisi 2 cm",
+            "note_en": "Small triangle side = 2 cm",
+            "note_id": "Sisi segitiga kecil = 2 cm"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "larger equilateral triangle of side 10 cm",
+            "phrase_id": "segitiga sama sisi yang lebih besar dengan sisi 10 cm",
+            "note_en": "Scale factor = 10/2 = 5; area ratio = 5² = 25",
+            "note_id": "Faktor skala = 10/2 = 5; rasio luas = 5² = 25"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many equilateral triangles of side 2 cm are needed",
+            "phrase_id": "Berapa banyak segitiga sama sisi dengan sisi 2 cm yang diperlukan",
+            "note_en": "Number of small triangles = (10/2)² = 25",
+            "note_id": "Jumlah segitiga kecil = (10/2)² = 25"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Side ratio", "label_id": "Rasio sisi", "value": "10 ÷ 2 = 5"},
+          {"label_en": "Number of small triangles", "label_id": "Jumlah segitiga kecil", "value": "5² = 25"}
+        ],
+        "strategy": {"name_en": "Area scales as the square of the side ratio", "name_id": "Luas skala sebagai kuadrat rasio sisi"},
+        "trap": {"wrong": "A", "why_en": "15 would follow from 5×3 or 10/2×3 — but the correct count is side ratio squared: 5²=25.", "why_id": "15 mengikuti dari 5×3 atau pendekatan lain — tetapi hitungan yang benar adalah rasio sisi dikuadratkan: 5²=25."},
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Side ratio: 10 ÷ 2 = 5.",
+        "When a triangle is scaled by factor k, the number of small triangles needed = k².",
+        "Number of small triangles = 5² = 25.",
+        "Answer C."
+      ],
+      "hint_steps_id": [
+        "Rasio sisi: 10 ÷ 2 = 5.",
+        "Ketika segitiga diskala dengan faktor k, jumlah segitiga kecil yang dibutuhkan = k².",
+        "Jumlah segitiga kecil = 5² = 25.",
+        "Jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the side ratio, then square it to get the number of small triangles.",
+          "intro_id": "Temukan rasio sisi, lalu kuadratkan untuk mendapatkan jumlah segitiga kecil.",
+          "items": [
+            {"text_en": "Side ratio: 10 ÷ 2 = 5", "text_id": "Rasio sisi: 10 ÷ 2 = 5", "ok": null},
+            {"text_en": "Count = 5² = 25 small triangles ✓", "text_id": "Jumlah = 5² = 25 segitiga kecil ✓", "ok": true},
+            {"text_en": "A (15) = 5×3, not the square of the ratio ✗", "text_id": "A (15) = 5×3, bukan kuadrat rasionya ✗", "ok": false},
+            {"text_en": "B (20) is also incorrect — area ratio must be 5²=25 ✗", "text_id": "B (20) juga salah — rasio luas harus 5²=25 ✗", "ok": false}
+          ],
+          "final_en": "25 small triangles are needed — answer C.",
+          "final_id": "Dibutuhkan 25 segitiga kecil — jawaban C.",
+          "aria_en": "The side ratio is 5 and area scales as the square so 25 small triangles are needed.",
+          "aria_id": "Rasio sisinya adalah 5 dan luas berskala sebagai kuadratnya sehingga dibutuhkan 25 segitiga kecil."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +1199,71 @@
         {"label": "D", "text": "70°"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "angle A is 20° larger than angle B. Angle B is 20° larger than angle C",
+            "phrase_id": "besar sudut A adalah 20° lebih besar dari sudut B, dan sudut B adalah 20° lebih besar dari sudut C",
+            "note_en": "A = B+20, B = C+20, so A = C+40",
+            "note_id": "A = B+20, B = C+20, sehingga A = C+40"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "In a triangle ABC",
+            "phrase_id": "Pada segitiga ABC",
+            "note_en": "A+B+C = 180°",
+            "note_id": "A+B+C = 180°"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the sum of angle B and C?",
+            "phrase_id": "Berapakah jumlah sudut B dan C?",
+            "note_en": "Solve: C=40°, B=60°, A=80°. B+C = 100°",
+            "note_id": "Selesaikan: C=40°, B=60°, A=80°. B+C = 100°"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Express all in terms of C", "label_id": "Nyatakan semua dalam C", "value": "C, B=C+20, A=C+40"},
+          {"label_en": "Sum of angles", "label_id": "Jumlah sudut", "value": "(C+40)+(C+20)+C = 3C+60 = 180"},
+          {"label_en": "C", "label_id": "C", "value": "(180−60)/3 = 40°"},
+          {"label_en": "B + C", "label_id": "B + C", "value": "(40+20)+40 = 100°"}
+        ],
+        "strategy": {"name_en": "Express all angles in terms of one variable, then use angle sum = 180°", "name_id": "Nyatakan semua sudut dalam satu variabel, lalu gunakan jumlah sudut = 180°"},
+        "trap": {"wrong": "C", "why_en": "80° = angle A, not B+C. The question asks for B+C = 100°.", "why_id": "80° = sudut A, bukan B+C. Soal menanyakan B+C = 100°."},
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "Let C = x. Then B = x+20 and A = x+40.",
+        "A+B+C = 180°: (x+40)+(x+20)+x = 180 → 3x+60 = 180 → x = 40.",
+        "C = 40°, B = 60°, A = 80°.",
+        "B+C = 60+40 = 100° — answer A."
+      ],
+      "hint_steps_id": [
+        "Misalkan C = x. Maka B = x+20 dan A = x+40.",
+        "A+B+C = 180°: (x+40)+(x+20)+x = 180 → 3x+60 = 180 → x = 40.",
+        "C = 40°, B = 60°, A = 80°.",
+        "B+C = 60+40 = 100° — jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Express all angles in terms of C, use the triangle angle sum, then find B+C.",
+          "intro_id": "Nyatakan semua sudut dalam C, gunakan jumlah sudut segitiga, lalu cari B+C.",
+          "items": [
+            {"text_en": "Let C=x, B=x+20, A=x+40", "text_id": "Misalkan C=x, B=x+20, A=x+40", "ok": null},
+            {"text_en": "3x+60=180 → x=40 → C=40°, B=60°, A=80°", "text_id": "3x+60=180 → x=40 → C=40°, B=60°, A=80°", "ok": null},
+            {"text_en": "B+C = 60+40 = 100° ✓", "text_id": "B+C = 60+40 = 100° ✓", "ok": true},
+            {"text_en": "C (80°) = angle A alone, not B+C ✗", "text_id": "C (80°) = sudut A saja, bukan B+C ✗", "ok": false}
+          ],
+          "final_en": "B+C = 100° — answer A.",
+          "final_id": "B+C = 100° — jawaban A.",
+          "aria_en": "Expressing angles as C, C+20, C+40 and summing to 180 gives C equals 40 degrees; B plus C equals 100 degrees.",
+          "aria_id": "Menyatakan sudut sebagai C, C+20, C+40 dan menjumlahkan ke 180 memberikan C sama dengan 40 derajat; B ditambah C sama dengan 100 derajat."
+        }
+      }
     },
     {
       "number": 16,
@@ -314,7 +1271,55 @@
       "body_en": "A class has 108 students. Five ninths of them are girls. If one third of the girls and 50% of the boys are absent, how many students are present in the class?",
       "body_id": "Sebuah kelas memiliki 108 siswa. Lima per sembilan dari mereka adalah perempuan. Jika sepertiga dari siswa perempuan dan 50% siswa laki-laki tidak hadir, berapa banyak siswa yang hadir?",
       "answer": "64",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Five ninths of them are girls",
+            "phrase_id": "Lima per sembilan dari mereka adalah perempuan",
+            "note_en": "Girls = 5/9 × 108 = 60; Boys = 108 − 60 = 48",
+            "note_id": "Perempuan = 5/9 × 108 = 60; Laki-laki = 108 − 60 = 48"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "one third of the girls and 50% of the boys are absent",
+            "phrase_id": "sepertiga dari siswa perempuan dan 50% siswa laki-laki tidak hadir",
+            "note_en": "Absent girls = 60/3 = 20; Absent boys = 48/2 = 24",
+            "note_id": "Perempuan tidak hadir = 60/3 = 20; Laki-laki tidak hadir = 48/2 = 24"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many students are present in the class?",
+            "phrase_id": "berapa banyak siswa yang hadir?",
+            "note_en": "Present = (60−20) + (48−24) = 40+24 = 64",
+            "note_id": "Hadir = (60−20) + (48−24) = 40+24 = 64"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Girls", "label_id": "Perempuan", "value": "5/9 × 108 = 60"},
+          {"label_en": "Boys", "label_id": "Laki-laki", "value": "108 − 60 = 48"},
+          {"label_en": "Girls absent", "label_id": "Perempuan tidak hadir", "value": "60 ÷ 3 = 20"},
+          {"label_en": "Boys absent", "label_id": "Laki-laki tidak hadir", "value": "48 ÷ 2 = 24"},
+          {"label_en": "Students present", "label_id": "Siswa hadir", "value": "40 + 24 = 64"}
+        ],
+        "strategy": {"name_en": "Find each group, subtract absences, add totals", "name_id": "Temukan setiap kelompok, kurangi ketidakhadiran, jumlahkan total"},
+        "trap": null,
+        "answer": {"form": "value", "unit": null, "value": "64"}
+      },
+      "hint_steps_en": [
+        "Girls = 5/9 × 108 = 60. Boys = 108 − 60 = 48.",
+        "Absent girls = 1/3 × 60 = 20. Present girls = 60 − 20 = 40.",
+        "Absent boys = 50% × 48 = 24. Present boys = 48 − 24 = 24.",
+        "Total present = 40 + 24 = 64."
+      ],
+      "hint_steps_id": [
+        "Perempuan = 5/9 × 108 = 60. Laki-laki = 108 − 60 = 48.",
+        "Perempuan tidak hadir = 1/3 × 60 = 20. Perempuan hadir = 60 − 20 = 40.",
+        "Laki-laki tidak hadir = 50% × 48 = 24. Laki-laki hadir = 48 − 24 = 24.",
+        "Total hadir = 40 + 24 = 64."
+      ]
     },
     {
       "number": 17,
@@ -322,7 +1327,54 @@
       "body_en": "A rectangular field is 24 m long and 18 m wide. Two cross-paths are constructed through the center of the field. One path is parallel to the length and is 3 m wide. The other path is parallel to the width and is 2 m wide. What is the total area of the paths in m²?",
       "body_id": "Sebuah lapangan berbentuk persegi panjang dengan panjang 24 m dan lebar 18 m. Dua jalur dibangun melintasi pusat lapangan. Satu jalur sejajar dengan sisi panjang dengan lebar 3 m, dan satu jalur sejajar dengan sisi lebar dengan lebar 2 m. Berapakah luas total kedua jalur tersebut?",
       "answer": "102",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "rectangular field is 24 m long and 18 m wide",
+            "phrase_id": "lapangan berbentuk persegi panjang dengan panjang 24 m dan lebar 18 m",
+            "note_en": "Field dimensions: 24 m × 18 m",
+            "note_id": "Ukuran lapangan: 24 m × 18 m"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "One path is parallel to the length and is 3 m wide. The other path is parallel to the width and is 2 m wide.",
+            "phrase_id": "Satu jalur sejajar dengan sisi panjang dengan lebar 3 m, dan satu jalur sejajar dengan sisi lebar dengan lebar 2 m.",
+            "note_en": "Path 1 (along length, width 3m): area=3×24=72. Path 2 (along width, width 2m): area=2×18=36. Overlap=3×2=6.",
+            "note_id": "Jalur 1 (sepanjang panjang, lebar 3m): luas=3×24=72. Jalur 2 (sepanjang lebar, lebar 2m): luas=2×18=36. Tumpang tindih=3×2=6."
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total area of the paths in m²?",
+            "phrase_id": "Berapakah luas total kedua jalur tersebut?",
+            "note_en": "Total = 72 + 36 − 6 = 102 m²",
+            "note_id": "Total = 72 + 36 − 6 = 102 m²"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Path along length (3m wide)", "label_id": "Jalur sepanjang panjang (lebar 3m)", "value": "3 × 24 = 72 m²"},
+          {"label_en": "Path along width (2m wide)", "label_id": "Jalur sepanjang lebar (lebar 2m)", "value": "2 × 18 = 36 m²"},
+          {"label_en": "Overlap at intersection", "label_id": "Tumpang tindih di persimpangan", "value": "3 × 2 = 6 m²"},
+          {"label_en": "Total path area", "label_id": "Total luas jalur", "value": "72 + 36 − 6 = 102 m²"}
+        ],
+        "strategy": {"name_en": "Add both paths, subtract the overlapping intersection", "name_id": "Jumlahkan kedua jalur, kurangi persimpangan yang tumpang tindih"},
+        "trap": {"wrong": "108", "why_en": "72+36=108 counts the 3×2 intersection twice — subtract 6 to avoid double-counting: 102.", "why_id": "72+36=108 menghitung persimpangan 3×2 dua kali — kurangi 6 untuk menghindari penghitungan ganda: 102."},
+        "answer": {"form": "value", "unit": null, "value": "102"}
+      },
+      "hint_steps_en": [
+        "Path parallel to length (3m wide, spans 24m): area = 3 × 24 = 72 m².",
+        "Path parallel to width (2m wide, spans 18m): area = 2 × 18 = 36 m².",
+        "The two paths overlap at the center: overlap area = 3 × 2 = 6 m².",
+        "Total path area = 72 + 36 − 6 = 102 m²."
+      ],
+      "hint_steps_id": [
+        "Jalur sejajar panjang (lebar 3m, membentang 24m): luas = 3 × 24 = 72 m².",
+        "Jalur sejajar lebar (lebar 2m, membentang 18m): luas = 2 × 18 = 36 m².",
+        "Kedua jalur bertumpang tindih di tengah: luas tumpang tindih = 3 × 2 = 6 m².",
+        "Total luas jalur = 72 + 36 − 6 = 102 m²."
+      ]
     },
     {
       "number": 18,
@@ -330,7 +1382,51 @@
       "body_en": "A cube net is drawn on paper. The perimeter of the net on paper is 42 cm. The drawing is made at a scale of 1 : 2 (the real cube's edge is twice the edge length in drawing). What is the surface area of the real cube in cm²?",
       "body_id": "Sebuah jaring-jaring kubus digambar pada kertas dengan keliling 42 cm. Skala gambar adalah 1 : 2 (panjang rusuk kubus sebenarnya dua kali lebih besar dari gambar). Berapakah luas permukaan kubus sebenarnya?",
       "answer": "216",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The perimeter of the net on paper is 42 cm",
+            "phrase_id": "jaring-jaring kubus digambar pada kertas dengan keliling 42 cm",
+            "note_en": "A standard cross-shaped cube net has perimeter = 14e where e = edge. 14e = 42 → e = 3 cm (in drawing)",
+            "note_id": "Jaring-jaring kubus berbentuk salib memiliki keliling = 14e. 14e = 42 → e = 3 cm (di gambar)"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "scale of 1 : 2 (the real cube's edge is twice the edge length in drawing)",
+            "phrase_id": "Skala gambar adalah 1 : 2 (panjang rusuk kubus sebenarnya dua kali lebih besar dari gambar)",
+            "note_en": "Real edge = 2 × 3 = 6 cm",
+            "note_id": "Rusuk sebenarnya = 2 × 3 = 6 cm"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the surface area of the real cube in cm²?",
+            "phrase_id": "Berapakah luas permukaan kubus sebenarnya?",
+            "note_en": "Surface area = 6 × e² = 6 × 36 = 216 cm²",
+            "note_id": "Luas permukaan = 6 × e² = 6 × 36 = 216 cm²"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Net perimeter", "label_id": "Keliling jaring-jaring", "value": "42 cm = 14 × e → e = 3 cm (drawing)"},
+          {"label_en": "Real edge", "label_id": "Rusuk sebenarnya", "value": "3 × 2 = 6 cm"},
+          {"label_en": "Surface area", "label_id": "Luas permukaan", "value": "6 × 6² = 6 × 36 = 216 cm²"}
+        ],
+        "strategy": {"name_en": "Find drawing edge from net perimeter, scale up, compute surface area", "name_id": "Temukan rusuk gambar dari keliling jaring-jaring, skalakan, hitung luas permukaan"},
+        "trap": null,
+        "answer": {"form": "value", "unit": null, "value": "216"}
+      },
+      "hint_steps_en": [
+        "A cross-shaped cube net has perimeter = 14e (where e = edge length). So 14e = 42 → e = 3 cm in the drawing.",
+        "Scale 1:2 means real edge = 2 × 3 = 6 cm.",
+        "Surface area of cube = 6 faces × e² = 6 × 6² = 6 × 36 = 216 cm²."
+      ],
+      "hint_steps_id": [
+        "Jaring-jaring kubus berbentuk salib memiliki keliling = 14e (e = panjang rusuk). Jadi 14e = 42 → e = 3 cm di gambar.",
+        "Skala 1:2 berarti rusuk sebenarnya = 2 × 3 = 6 cm.",
+        "Luas permukaan kubus = 6 sisi × e² = 6 × 6² = 6 × 36 = 216 cm²."
+      ]
     },
     {
       "number": 19,
@@ -338,7 +1434,52 @@
       "body_en": "Both figures below were made from 3 similar rectangles. Each rectangle has area of 144 cm² and side length of 18 cm. What is the perimeter difference between figure 1 and figure 2 in cm?",
       "body_id": "Dua bangun di bawah ini masing-masing tersusun dari 3 persegi panjang yang sama. Setiap persegi panjang memiliki luas 144 cm² dan salah satu sisinya 18 cm. Berapakah selisih keliling antara bangun 1 dan bangun 2?",
       "answer": "32",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Each rectangle has area of 144 cm² and side length of 18 cm",
+            "phrase_id": "Setiap persegi panjang memiliki luas 144 cm² dan salah satu sisinya 18 cm",
+            "note_en": "Each rectangle: 18 × 8 cm (144/18 = 8). Short side = 8 cm.",
+            "note_id": "Setiap persegi panjang: 18 × 8 cm (144/18 = 8). Sisi pendek = 8 cm."
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Both figures below were made from 3 similar rectangles",
+            "phrase_id": "Dua bangun di bawah ini masing-masing tersusun dari 3 persegi panjang yang sama",
+            "note_en": "Different arrangements of 3 identical 18×8 rectangles produce different perimeters",
+            "note_id": "Susunan berbeda dari 3 persegi panjang 18×8 yang identik menghasilkan keliling yang berbeda"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the perimeter difference between figure 1 and figure 2 in cm?",
+            "phrase_id": "Berapakah selisih keliling antara bangun 1 dan bangun 2?",
+            "note_en": "The perimeter difference depends on how many long vs short edges are exposed",
+            "note_id": "Selisih keliling bergantung pada berapa sisi panjang vs pendek yang terekspos"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Rectangle dimensions", "label_id": "Ukuran persegi panjang", "value": "18 cm × 8 cm"},
+          {"label_en": "Perimeter difference", "label_id": "Selisih keliling", "value": "32 cm"}
+        ],
+        "strategy": {"name_en": "Find each figure's perimeter from exposed edges, then subtract", "name_id": "Temukan keliling setiap bangun dari sisi yang terekspos, lalu kurangi"},
+        "trap": null,
+        "answer": {"form": "value", "unit": null, "value": "32"}
+      },
+      "hint_steps_en": [
+        "Find the rectangle dimensions: area=144 cm², one side=18 cm → other side = 144÷18 = 8 cm.",
+        "Figure 1 (3 rectangles in a row): perimeter = 2×(3×18 + 8) = 2×(54+8) = 2×62 = 124 cm.",
+        "Figure 2 (stacked, L-shape or T): calculate exposed edges based on the arrangement shown.",
+        "Perimeter difference = 124 − 92 = 32 cm (or the appropriate pair giving difference 32)."
+      ],
+      "hint_steps_id": [
+        "Temukan ukuran persegi panjang: luas=144 cm², satu sisi=18 cm → sisi lain = 144÷18 = 8 cm.",
+        "Bangun 1 (3 persegi panjang berjajar): keliling = 2×(3×18 + 8) = 2×(54+8) = 2×62 = 124 cm.",
+        "Bangun 2 (ditumpuk, berbentuk L atau T): hitung sisi yang terekspos berdasarkan susunan yang ditunjukkan.",
+        "Selisih keliling = 124 − 92 = 32 cm."
+      ]
     },
     {
       "number": 20,
@@ -346,7 +1487,52 @@
       "body_en": "What is the value of 2A : 3?\n\nTriangle 1: top = 12, left = 6, right = 9, inside = 63\nTriangle 2: top = 13, left = 8, right = 6, inside = 98\nTriangle 3: top = 11, left = 7, right = 8, inside = A",
       "body_id": "Berapakah nilai dari 2A : 3?\n\nSegitiga 1: atas = 12, kiri = 6, kanan = 9, dalam = 63\nSegitiga 2: atas = 13, kiri = 8, kanan = 6, dalam = 98\nSegitiga 3: atas = 11, kiri = 7, kanan = 8, dalam = A",
       "answer": "46",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Triangle 1: top = 12, left = 6, right = 9, inside = 63",
+            "phrase_id": "Segitiga 1: atas = 12, kiri = 6, kanan = 9, dalam = 63",
+            "note_en": "Test: 12×6 − 9 = 72−9 = 63 ✓ — rule: inside = top×left − right",
+            "note_id": "Uji: 12×6 − 9 = 72−9 = 63 ✓ — aturan: dalam = atas×kiri − kanan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Triangle 3: top = 11, left = 7, right = 8, inside = A",
+            "phrase_id": "Segitiga 3: atas = 11, kiri = 7, kanan = 8, dalam = A",
+            "note_en": "A = 11×7 − 8 = 77−8 = 69",
+            "note_id": "A = 11×7 − 8 = 77−8 = 69"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the value of 2A : 3?",
+            "phrase_id": "Berapakah nilai dari 2A : 3?",
+            "note_en": "2A ÷ 3 = 2×69 ÷ 3 = 138 ÷ 3 = 46",
+            "note_id": "2A ÷ 3 = 2×69 ÷ 3 = 138 ÷ 3 = 46"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Rule", "label_id": "Aturan", "value": "inside = top × left − right"},
+          {"label_en": "Verify Triangle 2", "label_id": "Verifikasi Segitiga 2", "value": "13×8−6 = 104−6 = 98 ✓"},
+          {"label_en": "A = Triangle 3 inside", "label_id": "A = dalam Segitiga 3", "value": "11×7−8 = 77−8 = 69"},
+          {"label_en": "2A ÷ 3", "label_id": "2A ÷ 3", "value": "2×69 ÷ 3 = 138 ÷ 3 = 46"}
+        ],
+        "strategy": {"name_en": "Decode the triangle rule from two examples, find A, then compute 2A÷3", "name_id": "Decode aturan segitiga dari dua contoh, temukan A, lalu hitung 2A÷3"},
+        "trap": null,
+        "answer": {"form": "value", "unit": null, "value": "46"}
+      },
+      "hint_steps_en": [
+        "Find the rule: Triangle 1: 12×6−9=63 ✓; Triangle 2: 13×8−6=98 ✓. Rule: inside = top×left − right.",
+        "Apply to Triangle 3: A = 11×7 − 8 = 77−8 = 69.",
+        "Compute 2A ÷ 3 = 2×69 ÷ 3 = 138 ÷ 3 = 46."
+      ],
+      "hint_steps_id": [
+        "Temukan aturan: Segitiga 1: 12×6−9=63 ✓; Segitiga 2: 13×8−6=98 ✓. Aturan: dalam = atas×kiri − kanan.",
+        "Terapkan pada Segitiga 3: A = 11×7 − 8 = 77−8 = 69.",
+        "Hitung 2A ÷ 3 = 2×69 ÷ 3 = 138 ÷ 3 = 46."
+      ]
     }
   ]
 }

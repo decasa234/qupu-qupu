@@ -26,7 +26,76 @@
         {"label": "D", "text": "565"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "question",
+            "phrase_en": "1 + 2 + 3 + 4 + 5 + ... + 30",
+            "phrase_id": "1 + 2 + 3 + 4 + 5 + ... + 30",
+            "note_en": "Sum of all whole numbers from 1 to 30",
+            "note_id": "Jumlah semua bilangan bulat dari 1 sampai 30"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Compute",
+            "phrase_id": "Hitunglah",
+            "note_en": "Use the pairing trick: pair 1+30, 2+29, … each pair sums to 31",
+            "note_id": "Gunakan trik pasangan: pasangkan 1+30, 2+29, … setiap pasang berjumlah 31"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "1 + 2 + 3 + 4 + 5 + ... + 30 =",
+            "phrase_id": "1 + 2 + 3 + 4 + 5 + ... + 30 =",
+            "note_en": "There are 15 such pairs, so total = 15 × 31",
+            "note_id": "Ada 15 pasang seperti itu, jadi total = 15 × 31"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Number of pairs", "label_id": "Jumlah pasangan", "value": "30 ÷ 2 = 15 pairs"},
+          {"label_en": "Each pair sum", "label_id": "Jumlah setiap pasang", "value": "1 + 30 = 31"},
+          {"label_en": "Total", "label_id": "Total", "value": "15 × 31 = 465"}
+        ],
+        "strategy": {"name_en": "Pair from both ends", "name_id": "Pasangkan dari kedua ujung"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "555 is the sum 1+2+…+30 if you mistakenly count 31 pairs instead of 15, or add incorrectly.",
+          "why_id": "555 adalah hasil jika kamu salah menghitung 31 pasang alih-alih 15, atau menjumlahkan secara keliru."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Pair the first and last numbers: 1 + 30 = 31.",
+        "Pair the next two: 2 + 29 = 31. Every such pair sums to 31.",
+        "There are 30 numbers, so there are 30 ÷ 2 = 15 pairs.",
+        "Total = 15 × 31 = 465.",
+        "The answer is B."
+      ],
+      "hint_steps_id": [
+        "Pasangkan bilangan pertama dan terakhir: 1 + 30 = 31.",
+        "Pasangkan dua berikutnya: 2 + 29 = 31. Setiap pasang berjumlah 31.",
+        "Ada 30 bilangan, jadi ada 30 ÷ 2 = 15 pasang.",
+        "Total = 15 × 31 = 465.",
+        "Jawabannya adalah B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Pair each number with its mirror from the end — every pair sums to 31.",
+          "intro_id": "Pasangkan setiap bilangan dengan cerminannya dari ujung — setiap pasang berjumlah 31.",
+          "items": [
+            {"text_en": "A: 555 → would need 555/31 ≈ 17.9 pairs — impossible ✗", "text_id": "A: 555 → butuh 555/31 ≈ 17,9 pasang — tidak mungkin ✗", "ok": false},
+            {"text_en": "B: 465 → 15 × 31 = 465 ✓", "text_id": "B: 465 → 15 × 31 = 465 ✓", "ok": true},
+            {"text_en": "C: 455 → 455/31 ≈ 14.7 — not a whole number ✗", "text_id": "C: 455 → 455/31 ≈ 14,7 — bukan bilangan bulat ✗", "ok": false},
+            {"text_en": "D: 565 → 565/31 ≈ 18.2 — impossible ✗", "text_id": "D: 565 → 565/31 ≈ 18,2 — tidak mungkin ✗", "ok": false}
+          ],
+          "final_en": "15 pairs × 31 each = 465 — answer B.",
+          "final_id": "15 pasang × 31 = 465 — jawaban B.",
+          "aria_en": "Pair 1 with 30, 2 with 29, and so on; each pair equals 31 and there are 15 pairs giving 15 times 31 equals 465.",
+          "aria_id": "Pasangkan 1 dengan 30, 2 dengan 29, dan seterusnya; setiap pasang sama dengan 31 dan ada 15 pasang sehingga 15 kali 31 sama dengan 465."
+        }
+      }
     },
     {
       "number": 2,
@@ -46,7 +115,76 @@
         {"label": "D", "text": "X"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the word IOB is written 100 times",
+            "phrase_id": "kata IOB ditulis 100 kali",
+            "note_en": "The pattern I-O-B repeats; every 3 letters form one cycle",
+            "note_id": "Pola I-O-B berulang; setiap 3 huruf membentuk satu siklus"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what letter will appear 98th?",
+            "phrase_id": "huruf apa yang akan muncul pada urutan ke-98?",
+            "note_en": "Find which position in the cycle 98 lands on: 98 ÷ 3",
+            "note_id": "Temukan posisi dalam siklus yang ditempati urutan ke-98: 98 ÷ 3"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "what letter will appear 98th",
+            "phrase_id": "huruf apa yang akan muncul pada urutan ke-98",
+            "note_en": "Remainder 2 → second letter in IOB = O",
+            "note_id": "Sisa 2 → huruf kedua dalam IOB = O"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Cycle length", "label_id": "Panjang siklus", "value": "3 (I=1, O=2, B=3)"},
+          {"label_en": "98 ÷ 3", "label_id": "98 ÷ 3", "value": "32 remainder 2"},
+          {"label_en": "Position in cycle", "label_id": "Posisi dalam siklus", "value": "remainder 2 → O (2nd letter)"}
+        ],
+        "strategy": {"name_en": "Find the remainder to locate the cycle position", "name_id": "Cari sisa bagi untuk menemukan posisi dalam siklus"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "I is the 1st letter, not the 2nd. 98 ÷ 3 gives remainder 2, which is O.",
+          "why_id": "I adalah huruf ke-1, bukan ke-2. 98 ÷ 3 bersisa 2, yang merupakan O."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "The word IOB has 3 letters, so the pattern repeats every 3 positions.",
+        "Divide 98 by 3: 98 ÷ 3 = 32 remainder 2.",
+        "A remainder of 2 means the 98th letter is the 2nd letter of IOB.",
+        "The 2nd letter of IOB is O.",
+        "The answer is O, which is A."
+      ],
+      "hint_steps_id": [
+        "Kata IOB memiliki 3 huruf, sehingga pola berulang setiap 3 posisi.",
+        "Bagi 98 dengan 3: 98 ÷ 3 = 32 sisa 2.",
+        "Sisa 2 berarti huruf ke-98 adalah huruf ke-2 dari IOB.",
+        "Huruf ke-2 dari IOB adalah O.",
+        "Jawabannya adalah O, yaitu pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "IOB repeats every 3 letters. Find where position 98 falls in the cycle.",
+          "intro_id": "IOB berulang setiap 3 huruf. Temukan posisi 98 dalam siklus.",
+          "items": [
+            {"text_en": "98 ÷ 3 = 32 remainder 2 → position 2 in the cycle", "text_id": "98 ÷ 3 = 32 sisa 2 → posisi ke-2 dalam siklus", "ok": null},
+            {"text_en": "B (I): remainder 1 means 1st letter = I — remainder is 2, not 1 ✗", "text_id": "B (I): sisa 1 berarti huruf ke-1 = I — sisa adalah 2, bukan 1 ✗", "ok": false},
+            {"text_en": "A (O): remainder 2 means 2nd letter = O ✓", "text_id": "A (O): sisa 2 berarti huruf ke-2 = O ✓", "ok": true},
+            {"text_en": "C (B): remainder 0 means 3rd letter = B — remainder is 2, not 0 ✗", "text_id": "C (B): sisa 0 berarti huruf ke-3 = B — sisa adalah 2, bukan 0 ✗", "ok": false}
+          ],
+          "final_en": "Position 98 has remainder 2 → the 2nd letter O — answer A.",
+          "final_id": "Posisi ke-98 bersisa 2 → huruf ke-2 yaitu O — jawaban A.",
+          "aria_en": "The word IOB repeats every 3 letters; 98 divided by 3 leaves remainder 2 which corresponds to the second letter O.",
+          "aria_id": "Kata IOB berulang setiap 3 huruf; 98 dibagi 3 bersisa 2 yang sesuai dengan huruf kedua yaitu O."
+        }
+      }
     },
     {
       "number": 3,
@@ -66,7 +204,78 @@
         {"label": "D", "text": "730"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ino has a number that has 3 ones, 6 tens and 2 hundreds",
+            "phrase_id": "Ino memiliki sebuah bilangan yang terdiri dari 3 satuan, 6 puluhan, dan 2 ratusan",
+            "note_en": "Ino's number = 200 + 60 + 3 = 263",
+            "note_id": "Bilangan Ino = 200 + 60 + 3 = 263"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Oby has a number that has 2 ones, 5 tens, and 3 hundreds",
+            "phrase_id": "Oby memiliki sebuah bilangan yang terdiri dari 2 satuan, 5 puluhan, dan 3 ratusan",
+            "note_en": "Oby's number = 300 + 50 + 2 = 352",
+            "note_id": "Bilangan Oby = 300 + 50 + 2 = 352"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the total of their numbers?",
+            "phrase_id": "Berapakah jumlah total bilangan mereka?",
+            "note_en": "Add all three numbers: 263 + 352 + 125",
+            "note_id": "Jumlahkan ketiga bilangan: 263 + 352 + 125"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Ino's number", "label_id": "Bilangan Ino", "value": "2×100 + 6×10 + 3×1 = 263"},
+          {"label_en": "Oby's number", "label_id": "Bilangan Oby", "value": "3×100 + 5×10 + 2×1 = 352"},
+          {"label_en": "Bona's number", "label_id": "Bilangan Bona", "value": "1×100 + 2×10 + 5×1 = 125"},
+          {"label_en": "Total", "label_id": "Total", "value": "263 + 352 + 125 = 740"}
+        ],
+        "strategy": {"name_en": "Convert place values then add", "name_id": "Ubah nilai tempat lalu jumlahkan"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "749 is off by 9 — a common error is swapping ones and tens digits for Bona (writing 152 instead of 125).",
+          "why_id": "749 selisih 9 — kesalahan umum adalah menukar digit satuan dan puluhan Bona (menulis 152 alih-alih 125)."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Convert each description to a number: Ino = 263, Oby = 352, Bona = 125.",
+        "Add the ones: 3 + 2 + 5 = 10 → write 0, carry 1.",
+        "Add the tens: 6 + 5 + 2 + 1 (carry) = 14 → write 4, carry 1.",
+        "Add the hundreds: 2 + 3 + 1 + 1 (carry) = 7.",
+        "Total = 740 → answer C."
+      ],
+      "hint_steps_id": [
+        "Ubah setiap deskripsi menjadi bilangan: Ino = 263, Oby = 352, Bona = 125.",
+        "Jumlahkan satuan: 3 + 2 + 5 = 10 → tulis 0, simpan 1.",
+        "Jumlahkan puluhan: 6 + 5 + 2 + 1 (simpanan) = 14 → tulis 4, simpan 1.",
+        "Jumlahkan ratusan: 2 + 3 + 1 + 1 (simpanan) = 7.",
+        "Total = 740 → jawaban C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Build each number from its place values, then check which total matches.",
+          "intro_id": "Susun setiap bilangan dari nilai tempatnya, lalu periksa total yang cocok.",
+          "items": [
+            {"text_en": "Ino: 2 hundreds + 6 tens + 3 ones = 263", "text_id": "Ino: 2 ratusan + 6 puluhan + 3 satuan = 263", "ok": null},
+            {"text_en": "Oby: 3 hundreds + 5 tens + 2 ones = 352", "text_id": "Oby: 3 ratusan + 5 puluhan + 2 satuan = 352", "ok": null},
+            {"text_en": "Bona: 1 hundred + 2 tens + 5 ones = 125", "text_id": "Bona: 1 ratusan + 2 puluhan + 5 satuan = 125", "ok": null},
+            {"text_en": "A: 739 → 263+352+125 = 740 ≠ 739 ✗", "text_id": "A: 739 → 263+352+125 = 740 ≠ 739 ✗", "ok": false},
+            {"text_en": "C: 740 → 263+352+125 = 740 ✓", "text_id": "C: 740 → 263+352+125 = 740 ✓", "ok": true}
+          ],
+          "final_en": "263 + 352 + 125 = 740 — answer C.",
+          "final_id": "263 + 352 + 125 = 740 — jawaban C.",
+          "aria_en": "Ino has 263, Oby has 352, and Bona has 125; their total is 740.",
+          "aria_id": "Ino memiliki 263, Oby memiliki 352, dan Bona memiliki 125; totalnya adalah 740."
+        }
+      }
     },
     {
       "number": 4,
@@ -86,7 +295,56 @@
         {"label": "D", "text": "3"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Look at the fruit equations in the figure",
+            "phrase_id": "Perhatikan persamaan buah-buahan pada gambar",
+            "note_en": "The figure shows equations relating watermelon and grape values",
+            "note_id": "Gambar menunjukkan persamaan yang menghubungkan nilai semangka dan anggur"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "If watermelon = 6",
+            "phrase_id": "Jika semangka = 6",
+            "note_en": "Substitute watermelon = 6 into the figure equations to find grape",
+            "note_id": "Substitusikan semangka = 6 ke dalam persamaan gambar untuk mencari anggur"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how much does the grape equal?",
+            "phrase_id": "berapakah nilai anggur?",
+            "note_en": "Solve the system of fruit equations for the grape value",
+            "note_id": "Selesaikan sistem persamaan buah untuk nilai anggur"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Watermelon value", "label_id": "Nilai semangka", "value": "6"},
+          {"label_en": "Grape value (from figure equations)", "label_id": "Nilai anggur (dari persamaan gambar)", "value": "1"}
+        ],
+        "strategy": {"name_en": "Substitute known value and solve", "name_id": "Substitusikan nilai yang diketahui dan selesaikan"},
+        "trap": {
+          "wrong": "C",
+          "why_en": "2 is a common guess; the fruit equations in the figure give grape = 1 when watermelon = 6.",
+          "why_id": "2 adalah tebakan umum; persamaan buah dalam gambar memberi anggur = 1 ketika semangka = 6."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Look at the fruit equations shown in the figure carefully.",
+        "Use the fact that watermelon = 6 and substitute into the equations.",
+        "Solve step by step to find the grape value.",
+        "The grape equals 1 — answer B."
+      ],
+      "hint_steps_id": [
+        "Perhatikan persamaan buah yang ditunjukkan pada gambar dengan seksama.",
+        "Gunakan fakta bahwa semangka = 6 dan substitusikan ke dalam persamaan.",
+        "Selesaikan langkah demi langkah untuk menemukan nilai anggur.",
+        "Anggur sama dengan 1 — jawaban B."
+      ]
     },
     {
       "number": 5,
@@ -106,7 +364,76 @@
         {"label": "D", "text": "720"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "The sum of three consecutive whole numbers (3 numbers next to one another) is 27",
+            "phrase_id": "Jumlah dari tiga bilangan cacah berurutan (3 bilangan yang bersebalahan satu sama lain) adalah 27",
+            "note_en": "Three consecutive numbers sum to 27, so the middle number = 27 ÷ 3 = 9",
+            "note_id": "Tiga bilangan berurutan berjumlah 27, sehingga bilangan tengah = 27 ÷ 3 = 9"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is their product?",
+            "phrase_id": "Berapakah hasil perkaliannya?",
+            "note_en": "Multiply the three numbers: 8 × 9 × 10",
+            "note_id": "Kalikan ketiga bilangan: 8 × 9 × 10"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "three consecutive whole numbers",
+            "phrase_id": "tiga bilangan cacah berurutan",
+            "note_en": "If middle = 9, the three numbers are 8, 9, 10",
+            "note_id": "Jika tengah = 9, ketiga bilangan adalah 8, 9, 10"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Middle number", "label_id": "Bilangan tengah", "value": "27 ÷ 3 = 9"},
+          {"label_en": "Three numbers", "label_id": "Tiga bilangan", "value": "8, 9, 10"},
+          {"label_en": "Product", "label_id": "Hasil kali", "value": "8 × 9 × 10 = 720"}
+        ],
+        "strategy": {"name_en": "Find the middle number, then multiply", "name_id": "Temukan bilangan tengah, lalu kalikan"},
+        "trap": {
+          "wrong": "C",
+          "why_en": "990 = 9 × 10 × 11, but 9+10+11=30 ≠ 27. The correct trio is 8, 9, 10.",
+          "why_id": "990 = 9 × 10 × 11, tetapi 9+10+11=30 ≠ 27. Trio yang benar adalah 8, 9, 10."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Let the three consecutive numbers be n-1, n, n+1. Their sum = 3n = 27, so n = 9.",
+        "The three numbers are 8, 9, and 10.",
+        "Check: 8 + 9 + 10 = 27 ✓",
+        "Product = 8 × 9 × 10 = 72 × 10 = 720.",
+        "The answer is D."
+      ],
+      "hint_steps_id": [
+        "Misalkan tiga bilangan berurutan adalah n-1, n, n+1. Jumlahnya = 3n = 27, jadi n = 9.",
+        "Ketiga bilangan adalah 8, 9, dan 10.",
+        "Periksa: 8 + 9 + 10 = 27 ✓",
+        "Hasil kali = 8 × 9 × 10 = 72 × 10 = 720.",
+        "Jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each answer: which product comes from three consecutive numbers summing to 27?",
+          "intro_id": "Uji setiap jawaban: hasil kali mana yang berasal dari tiga bilangan berurutan yang berjumlah 27?",
+          "items": [
+            {"text_en": "A: 820 — no three consecutive integers multiply to 820 ✗", "text_id": "A: 820 — tidak ada tiga bilangan bulat berurutan yang menghasilkan 820 ✗", "ok": false},
+            {"text_en": "B: 920 — no three consecutive integers multiply to 920 ✗", "text_id": "B: 920 — tidak ada tiga bilangan bulat berurutan yang menghasilkan 920 ✗", "ok": false},
+            {"text_en": "C: 990 = 9×10×11, but 9+10+11 = 30 ≠ 27 ✗", "text_id": "C: 990 = 9×10×11, tetapi 9+10+11 = 30 ≠ 27 ✗", "ok": false},
+            {"text_en": "D: 720 = 8×9×10, and 8+9+10 = 27 ✓", "text_id": "D: 720 = 8×9×10, dan 8+9+10 = 27 ✓", "ok": true}
+          ],
+          "final_en": "8 × 9 × 10 = 720 — answer D.",
+          "final_id": "8 × 9 × 10 = 720 — jawaban D.",
+          "aria_en": "The three consecutive numbers whose sum is 27 are 8, 9, and 10, and their product is 720.",
+          "aria_id": "Tiga bilangan berurutan yang jumlahnya 27 adalah 8, 9, dan 10, dan hasil kalinya adalah 720."
+        }
+      }
     },
     {
       "number": 6,
@@ -126,7 +453,78 @@
         {"label": "D", "text": "420"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Indy has 26 stickers fewer than Oby",
+            "phrase_id": "Indy memiliki 26 stiker lebih sedikit dari Oby",
+            "note_en": "Indy = Oby − 26",
+            "note_id": "Indy = Oby − 26"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "Beny has 14 stickers more than Oby",
+            "phrase_id": "Beny memiliki 14 stiker lebih banyak daripada Oby",
+            "note_en": "Beny = Oby + 14",
+            "note_id": "Beny = Oby + 14"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many stickers are there altogether?",
+            "phrase_id": "berapa jumlah stiker mereka seluruhnya?",
+            "note_en": "Add Indy + Oby + Beny",
+            "note_id": "Jumlahkan Indy + Oby + Beny"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Oby's stickers", "label_id": "Stiker Oby", "value": "84"},
+          {"label_en": "Indy's stickers", "label_id": "Stiker Indy", "value": "84 − 26 = 58"},
+          {"label_en": "Beny's stickers", "label_id": "Stiker Beny", "value": "84 + 14 = 98"},
+          {"label_en": "Total", "label_id": "Total", "value": "58 + 84 + 98 = 240"}
+        ],
+        "strategy": {"name_en": "Calculate each person's amount then sum", "name_id": "Hitung jumlah tiap orang lalu jumlahkan"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "242 is off by 2 — a common arithmetic slip when adding 58+84+98.",
+          "why_id": "242 selisih 2 — kesalahan hitung umum saat menjumlahkan 58+84+98."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Oby has 84 stickers.",
+        "Indy has 26 fewer than Oby: 84 − 26 = 58.",
+        "Beny has 14 more than Oby: 84 + 14 = 98.",
+        "Total = 58 + 84 + 98 = 240.",
+        "The answer is C."
+      ],
+      "hint_steps_id": [
+        "Oby memiliki 84 stiker.",
+        "Indy memiliki 26 lebih sedikit dari Oby: 84 − 26 = 58.",
+        "Beny memiliki 14 lebih banyak dari Oby: 84 + 14 = 98.",
+        "Total = 58 + 84 + 98 = 240.",
+        "Jawabannya adalah C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find each person's count, then test which total is correct.",
+          "intro_id": "Temukan jumlah masing-masing orang, lalu uji total yang benar.",
+          "items": [
+            {"text_en": "Oby = 84", "text_id": "Oby = 84", "ok": null},
+            {"text_en": "Indy = 84 − 26 = 58", "text_id": "Indy = 84 − 26 = 58", "ok": null},
+            {"text_en": "Beny = 84 + 14 = 98", "text_id": "Beny = 84 + 14 = 98", "ok": null},
+            {"text_en": "A: 124 — way too small (Oby alone = 84) ✗", "text_id": "A: 124 — terlalu kecil (Oby saja = 84) ✗", "ok": false},
+            {"text_en": "C: 240 → 58 + 84 + 98 = 240 ✓", "text_id": "C: 240 → 58 + 84 + 98 = 240 ✓", "ok": true}
+          ],
+          "final_en": "58 + 84 + 98 = 240 — answer C.",
+          "final_id": "58 + 84 + 98 = 240 — jawaban C.",
+          "aria_en": "Indy has 58, Oby has 84, and Beny has 98 stickers; the total is 240.",
+          "aria_id": "Indy memiliki 58, Oby 84, dan Beny 98 stiker; totalnya adalah 240."
+        }
+      }
     },
     {
       "number": 7,
@@ -146,7 +544,77 @@
         {"label": "D", "text": "873"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "biggest 3-digit odd number",
+            "phrase_id": "bilangan ganjil 3 digit terbesar",
+            "note_en": "To maximize: use the largest digits for hundreds and tens; ones digit must be odd",
+            "note_id": "Untuk memaksimalkan: gunakan digit terbesar untuk ratusan dan puluhan; digit satuan harus ganjil"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "using the digits below?\n2, 5, 6, 8, 3, 7",
+            "phrase_id": "menggunakan angka di bawah ini?\n2, 5, 6, 8, 3, 7",
+            "note_en": "Available digits: 2, 3, 5, 6, 7, 8 — odd digits are 3, 5, 7",
+            "note_id": "Digit yang tersedia: 2, 3, 5, 6, 7, 8 — digit ganjil adalah 3, 5, 7"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What is the biggest 3-digit odd number that can be formed",
+            "phrase_id": "Berapakah bilangan ganjil 3 digit terbesar yang dapat dibentuk",
+            "note_en": "Hundreds = 8, tens = 7, ones = largest remaining odd = 5 → 875",
+            "note_id": "Ratusan = 8, puluhan = 7, satuan = ganjil terbesar yang tersisa = 5 → 875"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Hundreds digit (maximize)", "label_id": "Digit ratusan (maksimalkan)", "value": "8 (largest available)"},
+          {"label_en": "Tens digit (maximize)", "label_id": "Digit puluhan (maksimalkan)", "value": "7 (next largest)"},
+          {"label_en": "Ones digit (must be odd)", "label_id": "Digit satuan (harus ganjil)", "value": "5 (largest remaining odd)"},
+          {"label_en": "Result", "label_id": "Hasil", "value": "875"}
+        ],
+        "strategy": {"name_en": "Greedy: maximize each digit left to right, ones must be odd", "name_id": "Serakah: maksimalkan setiap digit dari kiri ke kanan, satuan harus ganjil"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "876 is larger than 875 but ends in 6 which is even — it is not odd.",
+          "why_id": "876 lebih besar dari 875 tetapi berakhir dengan 6 yang genap — bukan bilangan ganjil."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "To make the biggest number, use the largest digit for hundreds: 8.",
+        "For tens, use the next largest: 7.",
+        "The ones digit must make the number odd. Remaining digits: 2, 3, 5, 6. Largest odd = 5.",
+        "The number is 875.",
+        "The answer is A."
+      ],
+      "hint_steps_id": [
+        "Untuk membuat bilangan terbesar, gunakan digit terbesar untuk ratusan: 8.",
+        "Untuk puluhan, gunakan yang terbesar berikutnya: 7.",
+        "Digit satuan harus membuat bilangan menjadi ganjil. Digit tersisa: 2, 3, 5, 6. Ganjil terbesar = 5.",
+        "Bilangannya adalah 875.",
+        "Jawabannya adalah A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check each choice: which is a 3-digit odd number using only the given digits, and is the largest?",
+          "intro_id": "Periksa setiap pilihan: mana yang merupakan bilangan ganjil 3 digit menggunakan digit yang tersedia dan terbesar?",
+          "items": [
+            {"text_en": "B: 876 — ends in 6 (even) ✗ not odd", "text_id": "B: 876 — berakhir 6 (genap) ✗ bukan ganjil", "ok": false},
+            {"text_en": "D: 873 — uses digits 8,7,3 all available, odd ✓ but 875 > 873", "text_id": "D: 873 — menggunakan digit 8,7,3 tersedia, ganjil ✓ tetapi 875 > 873", "ok": false},
+            {"text_en": "C: 865 — odd ✓ but 875 > 865", "text_id": "C: 865 — ganjil ✓ tetapi 875 > 865", "ok": false},
+            {"text_en": "A: 875 — uses 8, 7, 5; all available; ends in 5 (odd); 875 is the largest ✓", "text_id": "A: 875 — menggunakan 8, 7, 5; semua tersedia; berakhir 5 (ganjil); 875 adalah yang terbesar ✓", "ok": true}
+          ],
+          "final_en": "875 is the largest 3-digit odd number from those digits — answer A.",
+          "final_id": "875 adalah bilangan ganjil 3 digit terbesar dari digit-digit tersebut — jawaban A.",
+          "aria_en": "Using digits 2, 3, 5, 6, 7, 8 to form the largest three-digit odd number: hundreds digit is 8, tens digit is 7, and ones digit is 5 giving 875.",
+          "aria_id": "Menggunakan digit 2, 3, 5, 6, 7, 8 untuk membentuk bilangan ganjil tiga digit terbesar: digit ratusan adalah 8, puluhan adalah 7, dan satuan adalah 5 menghasilkan 875."
+        }
+      }
     },
     {
       "number": 8,
@@ -166,7 +634,76 @@
         {"label": "D", "text": "64"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "90, 85, 79, 72, ___, 55, 45",
+            "phrase_id": "90, 85, 79, 72, ___, 55, 45",
+            "note_en": "Gaps between consecutive terms: 5, 6, 7, 8, 9, 10 — increasing by 1 each time",
+            "note_id": "Selisih antar suku berurutan: 5, 6, 7, 8, 9, 10 — bertambah 1 setiap kali"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Find the missing number in the number pattern",
+            "phrase_id": "Manakah bilangan yang tepat untuk mengisi bagian yang kosong pada pola bilangan berikut",
+            "note_en": "The 4th gap is 8, so missing = 72 − 8 = 64",
+            "note_id": "Selisih ke-4 adalah 8, jadi yang hilang = 72 − 8 = 64"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Find the missing number",
+            "phrase_id": "Manakah bilangan yang tepat untuk mengisi bagian yang kosong",
+            "note_en": "Verify: 64 − 55 = 9 ✓, 55 − 45 = 10 ✓",
+            "note_id": "Verifikasi: 64 − 55 = 9 ✓, 55 − 45 = 10 ✓"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Gap 1 (90→85)", "label_id": "Selisih 1 (90→85)", "value": "−5"},
+          {"label_en": "Gap 2 (85→79)", "label_id": "Selisih 2 (85→79)", "value": "−6"},
+          {"label_en": "Gap 3 (79→72)", "label_id": "Selisih 3 (79→72)", "value": "−7"},
+          {"label_en": "Gap 4 (72→?)", "label_id": "Selisih 4 (72→?)", "value": "−8 → 72−8 = 64"},
+          {"label_en": "Verification", "label_id": "Verifikasi", "value": "64−55=9 ✓, 55−45=10 ✓"}
+        ],
+        "strategy": {"name_en": "Increasing-gap subtraction pattern", "name_id": "Pola pengurangan selisih bertambah"},
+        "trap": {
+          "wrong": "C",
+          "why_en": "65 would mean the gap is 7 again (72−65=7), but the gaps must increase: after 7 comes 8.",
+          "why_id": "65 berarti selisihnya 7 lagi (72−65=7), tetapi selisih harus bertambah: setelah 7 adalah 8."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Find the differences: 90−85=5, 85−79=6, 79−72=7. The gaps increase by 1 each time.",
+        "The next gap must be 8, so the missing number = 72 − 8 = 64.",
+        "Verify the rest: 64 − 55 = 9 ✓, 55 − 45 = 10 ✓.",
+        "The answer is 64, which is D."
+      ],
+      "hint_steps_id": [
+        "Temukan selisihnya: 90−85=5, 85−79=6, 79−72=7. Selisih bertambah 1 setiap kali.",
+        "Selisih berikutnya harus 8, jadi bilangan yang hilang = 72 − 8 = 64.",
+        "Verifikasi sisanya: 64 − 55 = 9 ✓, 55 − 45 = 10 ✓.",
+        "Jawabannya adalah 64, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The gaps between terms grow by 1 each step. Find which value fits.",
+          "intro_id": "Selisih antar suku bertambah 1 setiap langkah. Temukan nilai yang cocok.",
+          "items": [
+            {"text_en": "A: 66 → gap from 72 = 6 (should be 8) ✗", "text_id": "A: 66 → selisih dari 72 = 6 (seharusnya 8) ✗", "ok": false},
+            {"text_en": "B: 63 → gap from 72 = 9 (too big) ✗", "text_id": "B: 63 → selisih dari 72 = 9 (terlalu besar) ✗", "ok": false},
+            {"text_en": "C: 65 → gap from 72 = 7 (repeats previous gap) ✗", "text_id": "C: 65 → selisih dari 72 = 7 (mengulang selisih sebelumnya) ✗", "ok": false},
+            {"text_en": "D: 64 → gap from 72 = 8 ✓; then 64−55=9 ✓, 55−45=10 ✓", "text_id": "D: 64 → selisih dari 72 = 8 ✓; lalu 64−55=9 ✓, 55−45=10 ✓", "ok": true}
+          ],
+          "final_en": "The missing number is 64 — answer D.",
+          "final_id": "Bilangan yang hilang adalah 64 — jawaban D.",
+          "aria_en": "The number pattern subtracts 5, 6, 7, 8, 9, 10 in order; the missing number after 72 is 72 minus 8 equals 64.",
+          "aria_id": "Pola bilangan mengurangi 5, 6, 7, 8, 9, 10 secara berurutan; bilangan yang hilang setelah 72 adalah 72 dikurangi 8 sama dengan 64."
+        }
+      }
     },
     {
       "number": 9,
@@ -186,7 +723,77 @@
         {"label": "D", "text": "53, 57"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "50, 53, 52, 55, 54, ___, ___",
+            "phrase_id": "50, 53, 52, 55, 54, ___, ___",
+            "note_en": "Pattern alternates: +3, −1, +3, −1, +3, −1",
+            "note_id": "Pola bergantian: +3, −1, +3, −1, +3, −1"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "What are the next two numbers?",
+            "phrase_id": "Manakah dua bilangan berikutnya yang tepat?",
+            "note_en": "After 54: apply +3 → 57, then −1 → 56",
+            "note_id": "Setelah 54: terapkan +3 → 57, lalu −1 → 56"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What are the next two numbers",
+            "phrase_id": "Manakah dua bilangan berikutnya yang tepat",
+            "note_en": "Next two: 57, 56",
+            "note_id": "Dua berikutnya: 57, 56"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Step pattern", "label_id": "Pola langkah", "value": "+3, −1, +3, −1, +3, −1, …"},
+          {"label_en": "6th term (after 54)", "label_id": "Suku ke-6 (setelah 54)", "value": "54 + 3 = 57"},
+          {"label_en": "7th term", "label_id": "Suku ke-7", "value": "57 − 1 = 56"}
+        ],
+        "strategy": {"name_en": "Identify the alternating rule then apply it", "name_id": "Identifikasi aturan bergantian lalu terapkan"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "56, 57 reverses the order — the +3 step comes first, giving 57, then −1 giving 56.",
+          "why_id": "56, 57 membalik urutan — langkah +3 datang lebih dulu menghasilkan 57, lalu −1 menghasilkan 56."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Find the pattern: 50 → +3 → 53 → −1 → 52 → +3 → 55 → −1 → 54.",
+        "The rule alternates: add 3, then subtract 1.",
+        "After 54, apply +3: 54 + 3 = 57.",
+        "Then apply −1: 57 − 1 = 56.",
+        "The next two numbers are 57, 56 — answer B."
+      ],
+      "hint_steps_id": [
+        "Temukan polanya: 50 → +3 → 53 → −1 → 52 → +3 → 55 → −1 → 54.",
+        "Aturannya bergantian: tambah 3, lalu kurangi 1.",
+        "Setelah 54, terapkan +3: 54 + 3 = 57.",
+        "Kemudian terapkan −1: 57 − 1 = 56.",
+        "Dua bilangan berikutnya adalah 57, 56 — jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "The pattern alternates +3 then −1. Apply it after 54.",
+          "intro_id": "Pola bergantian +3 lalu −1. Terapkan setelah 54.",
+          "items": [
+            {"text_en": "50 +3→53 −1→52 +3→55 −1→54 +3→? −1→?", "text_id": "50 +3→53 −1→52 +3→55 −1→54 +3→? −1→?", "ok": null},
+            {"text_en": "A: 56, 57 — reverses the order (−1 then +3) ✗", "text_id": "A: 56, 57 — membalik urutan (−1 lalu +3) ✗", "ok": false},
+            {"text_en": "B: 57, 56 → 54+3=57, 57−1=56 ✓", "text_id": "B: 57, 56 → 54+3=57, 57−1=56 ✓", "ok": true},
+            {"text_en": "C: 54, 57 — repeats 54 then adds 3 (skips −1 step) ✗", "text_id": "C: 54, 57 — mengulang 54 lalu menambah 3 (melewati langkah −1) ✗", "ok": false},
+            {"text_en": "D: 53, 57 — neither fits the alternating rule ✗", "text_id": "D: 53, 57 — tidak ada yang cocok dengan aturan bergantian ✗", "ok": false}
+          ],
+          "final_en": "54 + 3 = 57, then 57 − 1 = 56 — answer B.",
+          "final_id": "54 + 3 = 57, lalu 57 − 1 = 56 — jawaban B.",
+          "aria_en": "The sequence alternates adding 3 and subtracting 1; after 54 the next two terms are 57 and 56.",
+          "aria_id": "Barisan bergantian menambah 3 dan mengurangi 1; setelah 54 dua suku berikutnya adalah 57 dan 56."
+        }
+      }
     },
     {
       "number": 10,
@@ -206,7 +813,62 @@
         {"label": "D", "text": "07:50"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": true,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Bony wakes up at the time shown on the clock",
+            "phrase_id": "Bony bangun pada waktu yang ditunjukkan jarum jam",
+            "note_en": "The clock in the figure shows the wake-up time (figure needed to read exact time)",
+            "note_id": "Jam pada gambar menunjukkan waktu bangun (gambar diperlukan untuk membaca waktu persis)"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "He needs 10 minutes to take a bath, 10 minutes to prepare himself, and 15 minutes for breakfast",
+            "phrase_id": "Dia membutuhkan waktu 10 menit untuk mandi, 10 menit untuk bersiap-siap, dan 15 menit untuk sarapan",
+            "note_en": "Morning routine total = 10 + 10 + 15 = 35 minutes",
+            "note_id": "Total rutinitas pagi = 10 + 10 + 15 = 35 menit"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What time does Bony arrive at school?",
+            "phrase_id": "Jam berapakah Bony tiba di sekolah?",
+            "note_en": "Add 35 min routine + 15 min travel = 50 min after wake-up time",
+            "note_id": "Tambahkan 35 menit rutinitas + 15 menit perjalanan = 50 menit setelah waktu bangun"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Bath time", "label_id": "Waktu mandi", "value": "10 min"},
+          {"label_en": "Preparation time", "label_id": "Waktu bersiap", "value": "10 min"},
+          {"label_en": "Breakfast time", "label_id": "Waktu sarapan", "value": "15 min"},
+          {"label_en": "Travel time", "label_id": "Waktu perjalanan", "value": "15 min"},
+          {"label_en": "Total time after wake-up", "label_id": "Total waktu sejak bangun", "value": "10+10+15+15 = 50 min"},
+          {"label_en": "Arrival (wake=07:00)", "label_id": "Tiba (bangun=07:00)", "value": "07:00 + 50 min = 07:50"}
+        ],
+        "strategy": {"name_en": "Add all durations to the wake-up time", "name_id": "Jumlahkan semua durasi ke waktu bangun"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "08:50 would mean waking at 08:00, but the clock shows 07:00.",
+          "why_id": "08:50 berarti bangun pukul 08:00, tetapi jam menunjukkan pukul 07:00."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Read the clock in the figure — it shows Bony wakes at 07:00.",
+        "Add all morning activities: 10 + 10 + 15 = 35 minutes of preparation.",
+        "Add the travel time: 35 + 15 = 50 minutes total.",
+        "Arrival time = 07:00 + 50 minutes = 07:50.",
+        "The answer is D."
+      ],
+      "hint_steps_id": [
+        "Baca jam pada gambar — menunjukkan Bony bangun pukul 07:00.",
+        "Jumlahkan semua kegiatan pagi: 10 + 10 + 15 = 35 menit persiapan.",
+        "Tambahkan waktu perjalanan: 35 + 15 = 50 menit total.",
+        "Waktu tiba = 07:00 + 50 menit = 07:50.",
+        "Jawabannya adalah D."
+      ]
     },
     {
       "number": 11,
@@ -226,7 +888,75 @@
         {"label": "D", "text": "12:00"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "90 minutes after half past 10",
+            "phrase_id": "90 menit setelah pukul 10:30",
+            "note_en": "Start time is 10:30; add 90 minutes",
+            "note_id": "Waktu awal adalah 10:30; tambahkan 90 menit"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "90 minutes after half past 10 is ...",
+            "phrase_id": "90 menit setelah pukul 10:30 adalah ...",
+            "note_en": "90 min = 1 hour 30 min; 10:30 + 1:30 = 12:00",
+            "note_id": "90 menit = 1 jam 30 menit; 10:30 + 1:30 = 12:00"
+          },
+          {
+            "category": "question",
+            "phrase_en": "90 minutes after half past 10",
+            "phrase_id": "90 menit setelah pukul 10:30",
+            "note_en": "Result: 12:00 noon",
+            "note_id": "Hasil: pukul 12:00 siang"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Start time", "label_id": "Waktu awal", "value": "10:30"},
+          {"label_en": "90 min converted", "label_id": "90 menit dikonversi", "value": "1 hour 30 minutes"},
+          {"label_en": "End time", "label_id": "Waktu akhir", "value": "10:30 + 1:30 = 12:00"}
+        ],
+        "strategy": {"name_en": "Convert minutes to hours and minutes then add", "name_id": "Ubah menit ke jam dan menit lalu jumlahkan"},
+        "trap": {
+          "wrong": "C",
+          "why_en": "12:30 would be 10:30 + 2 hours, not + 90 minutes.",
+          "why_id": "12:30 adalah 10:30 + 2 jam, bukan + 90 menit."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Half past 10 means 10:30.",
+        "Convert 90 minutes: 90 ÷ 60 = 1 hour and 30 minutes remaining.",
+        "Add 1 hour 30 minutes to 10:30: 10:30 + 1:00 = 11:30, then + 30 min = 12:00.",
+        "The answer is 12:00, which is D."
+      ],
+      "hint_steps_id": [
+        "Setengah lewat 10 berarti pukul 10:30.",
+        "Ubah 90 menit: 90 ÷ 60 = 1 jam dan sisa 30 menit.",
+        "Tambahkan 1 jam 30 menit ke 10:30: 10:30 + 1:00 = 11:30, lalu + 30 menit = 12:00.",
+        "Jawabannya adalah 12:00, yaitu pilihan D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Start at 10:30. Add 90 minutes step by step.",
+          "intro_id": "Mulai dari 10:30. Tambahkan 90 menit langkah demi langkah.",
+          "items": [
+            {"text_en": "10:30 + 60 min = 11:30", "text_id": "10:30 + 60 menit = 11:30", "ok": null},
+            {"text_en": "11:30 + 30 min = 12:00", "text_id": "11:30 + 30 menit = 12:00", "ok": null},
+            {"text_en": "A: 11:30 — only 60 min added, not 90 ✗", "text_id": "A: 11:30 — hanya 60 menit ditambahkan, bukan 90 ✗", "ok": false},
+            {"text_en": "C: 12:30 — that would be 120 min added ✗", "text_id": "C: 12:30 — itu berarti 120 menit ditambahkan ✗", "ok": false},
+            {"text_en": "D: 12:00 → 10:30 + 90 min = 12:00 ✓", "text_id": "D: 12:00 → 10:30 + 90 menit = 12:00 ✓", "ok": true}
+          ],
+          "final_en": "10:30 + 90 minutes = 12:00 — answer D.",
+          "final_id": "10:30 + 90 menit = 12:00 — jawaban D.",
+          "aria_en": "Half past 10 is 10:30; adding 90 minutes which equals 1 hour 30 minutes gives 12:00.",
+          "aria_id": "Setengah lewat 10 adalah 10:30; menambahkan 90 menit yaitu 1 jam 30 menit menghasilkan pukul 12:00."
+        }
+      }
     },
     {
       "number": 12,
@@ -246,7 +976,76 @@
         {"label": "D", "text": "2"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Row 1: 4, 5, 3 → (3)\nRow 2: 5, 7, 2 → (6)",
+            "phrase_id": "Baris 1: 4, 5, 3 → (3)\nBaris 2: 5, 7, 2 → (6)",
+            "note_en": "Row 1: (4+5)/3 = 3 ✓; Row 2: (5+7)/2 = 6 ✓ — the rule is (a+b)/c",
+            "note_id": "Baris 1: (4+5)/3 = 3 ✓; Baris 2: (5+7)/2 = 6 ✓ — aturannya adalah (a+b)/c"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "What number is correct for X?",
+            "phrase_id": "Angka berapakah yang tepat untuk X?",
+            "note_en": "Apply rule to Row 3: (7+8)/5 = 15/5 = 3",
+            "note_id": "Terapkan aturan ke Baris 3: (7+8)/5 = 15/5 = 3"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Row 3: 7, 8, 5 → (X)",
+            "phrase_id": "Baris 3: 7, 8, 5 → (X)",
+            "note_en": "X = (7+8)/5 = 3",
+            "note_id": "X = (7+8)/5 = 3"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Rule discovery", "label_id": "Penemuan aturan", "value": "(a + b) ÷ c"},
+          {"label_en": "Row 1 check", "label_id": "Cek Baris 1", "value": "(4+5)/3 = 9/3 = 3 ✓"},
+          {"label_en": "Row 2 check", "label_id": "Cek Baris 2", "value": "(5+7)/2 = 12/2 = 6 ✓"},
+          {"label_en": "Row 3 answer", "label_id": "Jawaban Baris 3", "value": "(7+8)/5 = 15/5 = 3"}
+        ],
+        "strategy": {"name_en": "Find the hidden rule from two examples, then apply", "name_id": "Temukan aturan tersembunyi dari dua contoh, lalu terapkan"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "10 = 7+8−5, which works numerically but fails Row 1 check: 4+5−3=6 ≠ 3.",
+          "why_id": "10 = 7+8−5, yang berhasil secara numerik tetapi gagal cek Baris 1: 4+5−3=6 ≠ 3."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Test the rule (a + b) ÷ c on Row 1: (4 + 5) ÷ 3 = 9 ÷ 3 = 3 ✓.",
+        "Test on Row 2: (5 + 7) ÷ 2 = 12 ÷ 2 = 6 ✓. The rule holds.",
+        "Apply to Row 3: (7 + 8) ÷ 5 = 15 ÷ 5 = 3.",
+        "X = 3, which is C."
+      ],
+      "hint_steps_id": [
+        "Uji aturan (a + b) ÷ c pada Baris 1: (4 + 5) ÷ 3 = 9 ÷ 3 = 3 ✓.",
+        "Uji pada Baris 2: (5 + 7) ÷ 2 = 12 ÷ 2 = 6 ✓. Aturan berlaku.",
+        "Terapkan ke Baris 3: (7 + 8) ÷ 5 = 15 ÷ 5 = 3.",
+        "X = 3, yaitu pilihan C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the rule linking the three numbers, verify it on Rows 1 and 2, then apply to Row 3.",
+          "intro_id": "Temukan aturan yang menghubungkan tiga bilangan, verifikasi pada Baris 1 dan 2, lalu terapkan pada Baris 3.",
+          "items": [
+            {"text_en": "Rule: (first + second) ÷ third", "text_id": "Aturan: (pertama + kedua) ÷ ketiga", "ok": null},
+            {"text_en": "Row 1: (4+5)÷3 = 3 ✓", "text_id": "Baris 1: (4+5)÷3 = 3 ✓", "ok": null},
+            {"text_en": "Row 2: (5+7)÷2 = 6 ✓", "text_id": "Baris 2: (5+7)÷2 = 6 ✓", "ok": null},
+            {"text_en": "Row 3: (7+8)÷5 = 15÷5 = 3 ✓ → C", "text_id": "Baris 3: (7+8)÷5 = 15÷5 = 3 ✓ → C", "ok": true},
+            {"text_en": "B: 10 → fails Row 1 check ✗", "text_id": "B: 10 → gagal cek Baris 1 ✗", "ok": false}
+          ],
+          "final_en": "(7 + 8) ÷ 5 = 3 — answer C.",
+          "final_id": "(7 + 8) ÷ 5 = 3 — jawaban C.",
+          "aria_en": "The rule is to add the first two numbers and divide by the third; for row 3 that gives 7 plus 8 divided by 5 equals 3.",
+          "aria_id": "Aturannya adalah menjumlahkan dua bilangan pertama dan membaginya dengan bilangan ketiga; untuk baris 3 menghasilkan 7 ditambah 8 dibagi 5 sama dengan 3."
+        }
+      }
     },
     {
       "number": 13,
@@ -266,7 +1065,77 @@
         {"label": "D", "text": "+, -, +, 35"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "18 ☐ 5 ☐ 7 ☐ 19 = ☐",
+            "phrase_id": "18 ☐ 5 ☐ 7 ☐ 19 = ☐",
+            "note_en": "Fill three operation boxes and one result box using one of the given option sets",
+            "note_id": "Isi tiga kotak operasi dan satu kotak hasil menggunakan salah satu set pilihan yang diberikan"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Choose the correct answer to fill the boxes",
+            "phrase_id": "Pilih jawaban yang tepat untuk mengisi kotak-kotak tersebut",
+            "note_en": "Test each choice by computing left-to-right",
+            "note_id": "Uji setiap pilihan dengan menghitung dari kiri ke kanan"
+          },
+          {
+            "category": "question",
+            "phrase_en": "Choose the correct answer to fill the boxes",
+            "phrase_id": "Pilih jawaban yang tepat untuk mengisi kotak-kotak tersebut",
+            "note_en": "D: 18+5−7+19=35 — left-to-right: 23−7=16, 16+19=35 ✓",
+            "note_id": "D: 18+5−7+19=35 — kiri ke kanan: 23−7=16, 16+19=35 ✓"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Test A: +,+,−,10", "label_id": "Uji A: +,+,−,10", "value": "18+5+7−19 = 11 ≠ 10 ✗"},
+          {"label_en": "Test B: +,+,+,50", "label_id": "Uji B: +,+,+,50", "value": "18+5+7+19 = 49 ≠ 50 ✗"},
+          {"label_en": "Test C: +,−,−,3", "label_id": "Uji C: +,−,−,3", "value": "18+5−7−19 = −3 ≠ 3 ✗"},
+          {"label_en": "Test D: +,−,+,35", "label_id": "Uji D: +,−,+,35", "value": "18+5−7+19 = 35 ✓"}
+        ],
+        "strategy": {"name_en": "Try and eliminate each option", "name_id": "Coba dan eliminasi setiap pilihan"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "A gives 18+5+7−19 = 11, not 10.",
+          "why_id": "A menghasilkan 18+5+7−19 = 11, bukan 10."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "Test choice A (+,+,−,10): 18+5+7−19 = 11 ≠ 10 ✗.",
+        "Test choice B (+,+,+,50): 18+5+7+19 = 49 ≠ 50 ✗.",
+        "Test choice C (+,−,−,3): 18+5−7−19 = −3 ≠ 3 ✗.",
+        "Test choice D (+,−,+,35): 18+5−7+19 = 35 ✓.",
+        "The answer is D."
+      ],
+      "hint_steps_id": [
+        "Uji pilihan A (+,+,−,10): 18+5+7−19 = 11 ≠ 10 ✗.",
+        "Uji pilihan B (+,+,+,50): 18+5+7+19 = 49 ≠ 50 ✗.",
+        "Uji pilihan C (+,−,−,3): 18+5−7−19 = −3 ≠ 3 ✗.",
+        "Uji pilihan D (+,−,+,35): 18+5−7+19 = 35 ✓.",
+        "Jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Calculate 18 ☐ 5 ☐ 7 ☐ 19 with each set of operators and check against the stated result.",
+          "intro_id": "Hitung 18 ☐ 5 ☐ 7 ☐ 19 dengan setiap set operator dan periksa terhadap hasil yang disebutkan.",
+          "items": [
+            {"text_en": "A: 18+5+7−19 = 11 ≠ 10 ✗", "text_id": "A: 18+5+7−19 = 11 ≠ 10 ✗", "ok": false},
+            {"text_en": "B: 18+5+7+19 = 49 ≠ 50 ✗", "text_id": "B: 18+5+7+19 = 49 ≠ 50 ✗", "ok": false},
+            {"text_en": "C: 18+5−7−19 = −3 ≠ 3 ✗", "text_id": "C: 18+5−7−19 = −3 ≠ 3 ✗", "ok": false},
+            {"text_en": "D: 18+5−7+19 = 35 ✓", "text_id": "D: 18+5−7+19 = 35 ✓", "ok": true}
+          ],
+          "final_en": "18 + 5 − 7 + 19 = 35 — answer D.",
+          "final_id": "18 + 5 − 7 + 19 = 35 — jawaban D.",
+          "aria_en": "Testing each option shows that only D works: 18 plus 5 minus 7 plus 19 equals 35.",
+          "aria_id": "Menguji setiap pilihan menunjukkan bahwa hanya D yang berhasil: 18 ditambah 5 dikurangi 7 ditambah 19 sama dengan 35."
+        }
+      }
     },
     {
       "number": 14,
@@ -286,7 +1155,77 @@
         {"label": "D", "text": "170"}
       ],
       "answer": "D",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "What number, if divided by 55, gives a quotient of 3 and a remainder of 5?",
+            "phrase_id": "Bilangan berapakah yang jika dibagi 55 hasilnya 3 dan sisanya 5?",
+            "note_en": "Use the division formula: Number = divisor × quotient + remainder",
+            "note_id": "Gunakan rumus pembagian: Bilangan = pembagi × hasil bagi + sisa"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "divided by 55, gives a quotient of 3 and a remainder of 5",
+            "phrase_id": "jika dibagi 55 hasilnya 3 dan sisanya 5",
+            "note_en": "Number = 55 × 3 + 5 = 165 + 5 = 170",
+            "note_id": "Bilangan = 55 × 3 + 5 = 165 + 5 = 170"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What number, if divided by 55",
+            "phrase_id": "Bilangan berapakah yang jika dibagi 55",
+            "note_en": "Answer is 170",
+            "note_id": "Jawabannya adalah 170"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Divisor", "label_id": "Pembagi", "value": "55"},
+          {"label_en": "Quotient", "label_id": "Hasil bagi", "value": "3"},
+          {"label_en": "Remainder", "label_id": "Sisa", "value": "5"},
+          {"label_en": "Number", "label_id": "Bilangan", "value": "55 × 3 + 5 = 170"}
+        ],
+        "strategy": {"name_en": "Apply the division identity: N = d × q + r", "name_id": "Terapkan identitas pembagian: N = p × h + s"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "165 = 55 × 3 + 0 — that gives remainder 0, not 5.",
+          "why_id": "165 = 55 × 3 + 0 — itu memberikan sisa 0, bukan 5."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "D"}
+      },
+      "hint_steps_en": [
+        "The division formula is: Number = divisor × quotient + remainder.",
+        "Substitute: Number = 55 × 3 + 5.",
+        "Calculate: 55 × 3 = 165, then 165 + 5 = 170.",
+        "Verify: 170 ÷ 55 = 3 remainder 5 ✓.",
+        "The answer is D."
+      ],
+      "hint_steps_id": [
+        "Rumus pembagian: Bilangan = pembagi × hasil bagi + sisa.",
+        "Substitusikan: Bilangan = 55 × 3 + 5.",
+        "Hitung: 55 × 3 = 165, lalu 165 + 5 = 170.",
+        "Verifikasi: 170 ÷ 55 = 3 sisa 5 ✓.",
+        "Jawabannya adalah D."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Check which answer ÷ 55 gives quotient 3 remainder 5.",
+          "intro_id": "Periksa jawaban mana yang ÷ 55 memberikan hasil bagi 3 sisa 5.",
+          "items": [
+            {"text_en": "A: 160 ÷ 55 = 2 remainder 50 ✗", "text_id": "A: 160 ÷ 55 = 2 sisa 50 ✗", "ok": false},
+            {"text_en": "B: 165 ÷ 55 = 3 remainder 0 ✗ (no remainder)", "text_id": "B: 165 ÷ 55 = 3 sisa 0 ✗ (tidak ada sisa)", "ok": false},
+            {"text_en": "C: 150 ÷ 55 = 2 remainder 40 ✗", "text_id": "C: 150 ÷ 55 = 2 sisa 40 ✗", "ok": false},
+            {"text_en": "D: 170 ÷ 55 = 3 remainder 5 ✓", "text_id": "D: 170 ÷ 55 = 3 sisa 5 ✓", "ok": true}
+          ],
+          "final_en": "55 × 3 + 5 = 170 — answer D.",
+          "final_id": "55 × 3 + 5 = 170 — jawaban D.",
+          "aria_en": "The number equals 55 times 3 plus 5 which equals 170, and dividing 170 by 55 gives quotient 3 with remainder 5.",
+          "aria_id": "Bilangannya sama dengan 55 kali 3 ditambah 5 yaitu 170, dan membagi 170 dengan 55 menghasilkan hasil bagi 3 dengan sisa 5."
+        }
+      }
     },
     {
       "number": 15,
@@ -306,7 +1245,78 @@
         {"label": "D", "text": "28 Maret 2024"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Today is March 7, 2024",
+            "phrase_id": "Hari ini adalah 7 Maret 2024",
+            "note_en": "Start date: March 7, 2024; 2024 is a leap year so February has 29 days",
+            "note_id": "Tanggal awal: 7 Maret 2024; 2024 adalah tahun kabisat sehingga Februari memiliki 29 hari"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "3 weeks ago",
+            "phrase_id": "3 minggu yang lalu",
+            "note_en": "3 weeks = 21 days; count back 21 days from March 7",
+            "note_id": "3 minggu = 21 hari; hitung mundur 21 hari dari 7 Maret"
+          },
+          {
+            "category": "question",
+            "phrase_en": "What date was 3 weeks ago?",
+            "phrase_id": "Tanggal berapakah 3 minggu yang lalu?",
+            "note_en": "March 7 − 7 days = Feb 29; Feb 29 − 14 days = Feb 15",
+            "note_id": "7 Maret − 7 hari = 29 Feb; 29 Feb − 14 hari = 15 Feb"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Days to go back", "label_id": "Hari yang dikurangi", "value": "3 × 7 = 21 days"},
+          {"label_en": "March 7 − 7 days", "label_id": "7 Maret − 7 hari", "value": "February 29"},
+          {"label_en": "Feb 29 − 14 days", "label_id": "29 Feb − 14 hari", "value": "February 15"},
+          {"label_en": "Answer", "label_id": "Jawaban", "value": "February 15, 2024"}
+        ],
+        "strategy": {"name_en": "Count back 21 days, crossing into February", "name_id": "Hitung mundur 21 hari, melewati ke Februari"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "February 14 is off by 1 — forgetting 2024 is a leap year (Feb has 29 days, not 28).",
+          "why_id": "14 Februari meleset 1 hari — lupa bahwa 2024 adalah tahun kabisat (Februari memiliki 29 hari, bukan 28)."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "3 weeks = 21 days. Count back 21 days from March 7.",
+        "2024 is a leap year, so February has 29 days.",
+        "March 7 − 7 days = February 29.",
+        "February 29 − 14 days = February 15.",
+        "The answer is February 15, 2024 — choice A."
+      ],
+      "hint_steps_id": [
+        "3 minggu = 21 hari. Hitung mundur 21 hari dari 7 Maret.",
+        "2024 adalah tahun kabisat, jadi Februari memiliki 29 hari.",
+        "7 Maret − 7 hari = 29 Februari.",
+        "29 Februari − 14 hari = 15 Februari.",
+        "Jawabannya adalah 15 Februari 2024 — pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count back 21 days from March 7 (2024 is a leap year — February has 29 days).",
+          "intro_id": "Hitung mundur 21 hari dari 7 Maret (2024 adalah tahun kabisat — Februari memiliki 29 hari).",
+          "items": [
+            {"text_en": "March 7 − 7 = February 29 (leap year!)", "text_id": "7 Maret − 7 = 29 Februari (tahun kabisat!)", "ok": null},
+            {"text_en": "February 29 − 14 = February 15", "text_id": "29 Februari − 14 = 15 Februari", "ok": null},
+            {"text_en": "A: February 15, 2024 ✓", "text_id": "A: 15 Februari 2024 ✓", "ok": true},
+            {"text_en": "B: February 14 — off by 1 (miscount or treating Feb as 28 days) ✗", "text_id": "B: 14 Februari — meleset 1 (salah hitung atau menganggap Feb 28 hari) ✗", "ok": false},
+            {"text_en": "D: March 28 — that is 3 weeks FORWARD, not back ✗", "text_id": "D: 28 Maret — itu 3 minggu KE DEPAN, bukan mundur ✗", "ok": false}
+          ],
+          "final_en": "March 7 − 21 days = February 15 — answer A.",
+          "final_id": "7 Maret − 21 hari = 15 Februari — jawaban A.",
+          "aria_en": "Counting back 21 days from March 7 in a leap year: 7 days back reaches February 29, then 14 more days back reaches February 15.",
+          "aria_id": "Menghitung mundur 21 hari dari 7 Maret di tahun kabisat: 7 hari mundur mencapai 29 Februari, lalu 14 hari lagi mundur mencapai 15 Februari."
+        }
+      }
     },
     {
       "number": 16,
@@ -326,7 +1336,77 @@
         {"label": "D", "text": "8"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Bony is 7 years old. His father is 33 years old.",
+            "phrase_id": "Bony berusia 7 tahun. Ayahnya berusia 33 tahun.",
+            "note_en": "Current ages: Bony = 7, Father = 33",
+            "note_id": "Usia sekarang: Bony = 7, Ayah = 33"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "his father be three times Bony's age",
+            "phrase_id": "usia ayahnya akan menjadi tiga kali usia Bony",
+            "note_en": "In x years: 33 + x = 3(7 + x) → solve for x",
+            "note_id": "Dalam x tahun: 33 + x = 3(7 + x) → selesaikan untuk x"
+          },
+          {
+            "category": "question",
+            "phrase_en": "In how many years will his father be three times Bony's age?",
+            "phrase_id": "Dalam berapa tahun lagi usia ayahnya akan menjadi tiga kali usia Bony?",
+            "note_en": "33 + x = 21 + 3x → 12 = 2x → x = 6",
+            "note_id": "33 + x = 21 + 3x → 12 = 2x → x = 6"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Equation", "label_id": "Persamaan", "value": "33 + x = 3(7 + x)"},
+          {"label_en": "Expand", "label_id": "Jabarkan", "value": "33 + x = 21 + 3x"},
+          {"label_en": "Solve", "label_id": "Selesaikan", "value": "12 = 2x → x = 6"},
+          {"label_en": "Verify", "label_id": "Verifikasi", "value": "Father: 33+6=39; Bony: 7+6=13; 3×13=39 ✓"}
+        ],
+        "strategy": {"name_en": "Set up and solve an age equation", "name_id": "Buat dan selesaikan persamaan usia"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "In 5 years: father = 38, Bony = 12; 3×12 = 36 ≠ 38.",
+          "why_id": "Dalam 5 tahun: ayah = 38, Bony = 12; 3×12 = 36 ≠ 38."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Let x = number of years from now.",
+        "In x years, father's age = 33 + x, Bony's age = 7 + x.",
+        "Set up: 33 + x = 3(7 + x) → 33 + x = 21 + 3x.",
+        "Solve: 33 − 21 = 3x − x → 12 = 2x → x = 6.",
+        "Verify: father = 39, Bony = 13; 3 × 13 = 39 ✓. Answer B."
+      ],
+      "hint_steps_id": [
+        "Misalkan x = jumlah tahun dari sekarang.",
+        "Dalam x tahun, usia ayah = 33 + x, usia Bony = 7 + x.",
+        "Buat persamaan: 33 + x = 3(7 + x) → 33 + x = 21 + 3x.",
+        "Selesaikan: 33 − 21 = 3x − x → 12 = 2x → x = 6.",
+        "Verifikasi: ayah = 39, Bony = 13; 3 × 13 = 39 ✓. Jawaban B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Test each number of years: when is father's age exactly 3 times Bony's age?",
+          "intro_id": "Uji setiap jumlah tahun: kapan usia ayah tepat 3 kali usia Bony?",
+          "items": [
+            {"text_en": "A: 5 years → father=38, Bony=12; 3×12=36 ≠ 38 ✗", "text_id": "A: 5 tahun → ayah=38, Bony=12; 3×12=36 ≠ 38 ✗", "ok": false},
+            {"text_en": "B: 6 years → father=39, Bony=13; 3×13=39 ✓", "text_id": "B: 6 tahun → ayah=39, Bony=13; 3×13=39 ✓", "ok": true},
+            {"text_en": "C: 7 years → father=40, Bony=14; 3×14=42 ≠ 40 ✗", "text_id": "C: 7 tahun → ayah=40, Bony=14; 3×14=42 ≠ 40 ✗", "ok": false},
+            {"text_en": "D: 8 years → father=41, Bony=15; 3×15=45 ≠ 41 ✗", "text_id": "D: 8 tahun → ayah=41, Bony=15; 3×15=45 ≠ 41 ✗", "ok": false}
+          ],
+          "final_en": "In 6 years father will be 39 = 3 × 13 — answer B.",
+          "final_id": "Dalam 6 tahun ayah akan berusia 39 = 3 × 13 — jawaban B.",
+          "aria_en": "After 6 years Bony will be 13 and his father will be 39 which is exactly three times 13.",
+          "aria_id": "Setelah 6 tahun Bony akan berusia 13 dan ayahnya akan berusia 39 yaitu tepat tiga kali 13."
+        }
+      }
     },
     {
       "number": 17,
@@ -346,7 +1426,78 @@
         {"label": "D", "text": "112"}
       ],
       "answer": "C",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "AB is a two-digit number. If AB − 58 = 27",
+            "phrase_id": "AB adalah bilangan dua angka. Jika AB − 58 = 27",
+            "note_en": "AB = 27 + 58 = 85, so A = 8 and B = 5",
+            "note_id": "AB = 27 + 58 = 85, jadi A = 8 dan B = 5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "AB − 58 = 27",
+            "phrase_id": "AB − 58 = 27",
+            "note_en": "A and B are individual digits of the number 85",
+            "note_id": "A dan B adalah digit individual dari bilangan 85"
+          },
+          {
+            "category": "question",
+            "phrase_en": "what is 8 × (A + B)?",
+            "phrase_id": "berapakah 8 × (A + B)?",
+            "note_en": "8 × (8 + 5) = 8 × 13 = 104",
+            "note_id": "8 × (8 + 5) = 8 × 13 = 104"
+          }
+        ],
+        "quantities": [
+          {"label_en": "AB value", "label_id": "Nilai AB", "value": "27 + 58 = 85"},
+          {"label_en": "A and B", "label_id": "A dan B", "value": "A = 8, B = 5"},
+          {"label_en": "A + B", "label_id": "A + B", "value": "8 + 5 = 13"},
+          {"label_en": "8 × (A + B)", "label_id": "8 × (A + B)", "value": "8 × 13 = 104"}
+        ],
+        "strategy": {"name_en": "Recover the two-digit number, extract digits, compute", "name_id": "Temukan bilangan dua angka, ekstrak digit, hitung"},
+        "trap": {
+          "wrong": "A",
+          "why_en": "96 = 8 × 12, which would mean A+B=12. But A=8, B=5, and 8+5=13, not 12.",
+          "why_id": "96 = 8 × 12, yang berarti A+B=12. Tetapi A=8, B=5, dan 8+5=13, bukan 12."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "C"}
+      },
+      "hint_steps_en": [
+        "Find AB: AB = 58 + 27 = 85.",
+        "Extract the digits: A = 8, B = 5.",
+        "Compute A + B = 8 + 5 = 13.",
+        "Compute 8 × 13 = 104.",
+        "The answer is C."
+      ],
+      "hint_steps_id": [
+        "Temukan AB: AB = 58 + 27 = 85.",
+        "Ekstrak digit: A = 8, B = 5.",
+        "Hitung A + B = 8 + 5 = 13.",
+        "Hitung 8 × 13 = 104.",
+        "Jawabannya adalah C."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find AB first, then extract A and B as digits to compute 8 × (A + B).",
+          "intro_id": "Temukan AB terlebih dahulu, lalu ekstrak A dan B sebagai digit untuk menghitung 8 × (A + B).",
+          "items": [
+            {"text_en": "AB − 58 = 27 → AB = 85 → A=8, B=5", "text_id": "AB − 58 = 27 → AB = 85 → A=8, B=5", "ok": null},
+            {"text_en": "A + B = 8 + 5 = 13", "text_id": "A + B = 8 + 5 = 13", "ok": null},
+            {"text_en": "A: 96 = 8×12 → would need A+B=12 ✗", "text_id": "A: 96 = 8×12 → butuh A+B=12 ✗", "ok": false},
+            {"text_en": "C: 104 = 8×13 = 8×(8+5) ✓", "text_id": "C: 104 = 8×13 = 8×(8+5) ✓", "ok": true},
+            {"text_en": "D: 112 = 8×14 → would need A+B=14 ✗", "text_id": "D: 112 = 8×14 → butuh A+B=14 ✗", "ok": false}
+          ],
+          "final_en": "8 × (8 + 5) = 8 × 13 = 104 — answer C.",
+          "final_id": "8 × (8 + 5) = 8 × 13 = 104 — jawaban C.",
+          "aria_en": "AB equals 85 so A is 8 and B is 5; their sum is 13 and 8 times 13 equals 104.",
+          "aria_id": "AB sama dengan 85 sehingga A adalah 8 dan B adalah 5; jumlah mereka adalah 13 dan 8 kali 13 sama dengan 104."
+        }
+      }
     },
     {
       "number": 18,
@@ -366,7 +1517,79 @@
         {"label": "D", "text": "Rp 34.000"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Oby went to a fast food store. They sell:\nFries = Rp 10.000\nSoda = Rp 17.000\nBurger = Rp 43.000\nFried chicken = Rp 25.000",
+            "phrase_id": "Oby pergi ke restoran cepat saji. Mereka menjual:\nKentang goreng = Rp 10.000\nSoda = Rp 17.000\nBurger = Rp 43.000\nAyam goreng = Rp 25.000",
+            "note_en": "Price list given; calculate total cost of the order",
+            "note_id": "Daftar harga diberikan; hitung total biaya pesanan"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "He bought 2 fries, 2 sodas, 1 burger, and 1 fried chicken",
+            "phrase_id": "Dia membeli 2 kentang goreng, 2 soda, 1 burger, dan 1 ayam goreng",
+            "note_en": "Total = 2×10k + 2×17k + 1×43k + 1×25k = 122,000",
+            "note_id": "Total = 2×10rb + 2×17rb + 1×43rb + 1×25rb = 122.000"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How much money is left after he bought all items?",
+            "phrase_id": "Berapa sisa uangnya setelah dia membeli semua barang tersebut?",
+            "note_en": "Change = 150,000 − 122,000 = 28,000",
+            "note_id": "Kembalian = 150.000 − 122.000 = 28.000"
+          }
+        ],
+        "quantities": [
+          {"label_en": "2 fries", "label_id": "2 kentang goreng", "value": "2 × 10.000 = 20.000"},
+          {"label_en": "2 sodas", "label_id": "2 soda", "value": "2 × 17.000 = 34.000"},
+          {"label_en": "1 burger", "label_id": "1 burger", "value": "43.000"},
+          {"label_en": "1 fried chicken", "label_id": "1 ayam goreng", "value": "25.000"},
+          {"label_en": "Total spent", "label_id": "Total yang dibelanjakan", "value": "20+34+43+25 = 122.000"},
+          {"label_en": "Change", "label_id": "Kembalian", "value": "150.000 − 122.000 = 28.000"}
+        ],
+        "strategy": {"name_en": "Sum all items then subtract from budget", "name_id": "Jumlahkan semua barang lalu kurangi dari anggaran"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "Rp 30.000 would mean total spent = 120.000, but the correct total is 122.000.",
+          "why_id": "Rp 30.000 berarti total yang dibelanjakan = 120.000, tetapi total yang benar adalah 122.000."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "Calculate each item: 2 fries = 20.000, 2 sodas = 34.000, 1 burger = 43.000, 1 fried chicken = 25.000.",
+        "Total spent = 20.000 + 34.000 + 43.000 + 25.000 = 122.000.",
+        "Change = 150.000 − 122.000 = 28.000.",
+        "The answer is Rp 28.000 — choice A."
+      ],
+      "hint_steps_id": [
+        "Hitung setiap barang: 2 kentang goreng = 20.000, 2 soda = 34.000, 1 burger = 43.000, 1 ayam goreng = 25.000.",
+        "Total yang dibelanjakan = 20.000 + 34.000 + 43.000 + 25.000 = 122.000.",
+        "Kembalian = 150.000 − 122.000 = 28.000.",
+        "Jawabannya adalah Rp 28.000 — pilihan A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Add up all item costs, then subtract from Rp 150.000.",
+          "intro_id": "Jumlahkan semua biaya barang, lalu kurangi dari Rp 150.000.",
+          "items": [
+            {"text_en": "2 fries = 2×10.000 = 20.000", "text_id": "2 kentang = 2×10.000 = 20.000", "ok": null},
+            {"text_en": "2 sodas = 2×17.000 = 34.000", "text_id": "2 soda = 2×17.000 = 34.000", "ok": null},
+            {"text_en": "1 burger = 43.000; 1 fried chicken = 25.000", "text_id": "1 burger = 43.000; 1 ayam goreng = 25.000", "ok": null},
+            {"text_en": "Total = 20+34+43+25 = 122.000", "text_id": "Total = 20+34+43+25 = 122.000", "ok": null},
+            {"text_en": "A: 150.000 − 122.000 = 28.000 ✓", "text_id": "A: 150.000 − 122.000 = 28.000 ✓", "ok": true},
+            {"text_en": "B: 30.000 → would mean spent only 120.000 ✗", "text_id": "B: 30.000 → berarti hanya menghabiskan 120.000 ✗", "ok": false}
+          ],
+          "final_en": "150.000 − 122.000 = Rp 28.000 — answer A.",
+          "final_id": "150.000 − 122.000 = Rp 28.000 — jawaban A.",
+          "aria_en": "The total cost is 20000 plus 34000 plus 43000 plus 25000 equals 122000; the change from 150000 is 28000.",
+          "aria_id": "Total biaya adalah 20000 ditambah 34000 ditambah 43000 ditambah 25000 sama dengan 122000; kembalian dari 150000 adalah 28000."
+        }
+      }
     },
     {
       "number": 19,
@@ -386,7 +1609,75 @@
         {"label": "D", "text": "7"}
       ],
       "answer": "B",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Brian draws a square and then a triangle on top of it so the triangle's base matches exactly on the top side of the square",
+            "phrase_id": "Brian menggambar sebuah persegi dan sebuah segitiga di atasnya sehingga alas segitiga tersebut tepat berimpit dengan sisi atas persegi",
+            "note_en": "The shared side (square top = triangle base) disappears from the outer edge",
+            "note_id": "Sisi yang bersekutu (atas persegi = alas segitiga) hilang dari tepi luar"
+          },
+          {
+            "category": "question",
+            "phrase_en": "How many sides does the figure have if you trace around the outside edge?",
+            "phrase_id": "Berapa banyak sisi yang dimiliki bangun tersebut jika kamu menelusuri pinggiran luarnya?",
+            "note_en": "Outer sides: 3 sides of square + 2 slant sides of triangle = 5",
+            "note_id": "Sisi luar: 3 sisi persegi + 2 sisi miring segitiga = 5"
+          },
+          {
+            "category": "condition",
+            "phrase_en": "trace around the outside edge",
+            "phrase_id": "menelusuri pinggiran luarnya",
+            "note_en": "Only count sides visible on the perimeter; the merged top/base is hidden",
+            "note_id": "Hitung hanya sisi yang terlihat di tepi luar; sisi atas/alas yang bersatu tersembunyi"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Square sides on outer edge", "label_id": "Sisi persegi di tepi luar", "value": "3 (bottom + left + right)"},
+          {"label_en": "Triangle sides on outer edge", "label_id": "Sisi segitiga di tepi luar", "value": "2 (the two slant sides)"},
+          {"label_en": "Total outer sides", "label_id": "Total sisi luar", "value": "3 + 2 = 5"}
+        ],
+        "strategy": {"name_en": "Count only the outer perimeter sides", "name_id": "Hitung hanya sisi tepi luar"},
+        "trap": {
+          "wrong": "C",
+          "why_en": "6 would count the merged side twice (once for square top, once for triangle base) — but that internal line is hidden.",
+          "why_id": "6 akan menghitung sisi yang bersatu dua kali (sekali untuk atas persegi, sekali untuk alas segitiga) — tetapi garis dalam itu tersembunyi."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "B"}
+      },
+      "hint_steps_en": [
+        "Draw it: a square with a triangle sitting on its top edge, base aligned.",
+        "The top side of the square and the base of the triangle merge into one hidden internal line.",
+        "Trace the outside: start at the bottom-left corner — bottom, right side, right slant of triangle, left slant of triangle, left side = 5 sides.",
+        "The answer is 5, which is B."
+      ],
+      "hint_steps_id": [
+        "Gambarkan: sebuah persegi dengan segitiga di atas sisinya, alas sejajar.",
+        "Sisi atas persegi dan alas segitiga bergabung menjadi satu garis dalam yang tersembunyi.",
+        "Telusuri bagian luar: mulai dari sudut kiri bawah — bawah, sisi kanan, miring kanan segitiga, miring kiri segitiga, sisi kiri = 5 sisi.",
+        "Jawabannya adalah 5, yaitu pilihan B."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Count only the sides visible on the outer edge of the combined shape.",
+          "intro_id": "Hitung hanya sisi yang terlihat di tepi luar bangun gabungan.",
+          "items": [
+            {"text_en": "Square has 4 sides; triangle has 3 sides.", "text_id": "Persegi punya 4 sisi; segitiga punya 3 sisi.", "ok": null},
+            {"text_en": "1 shared side (square top = triangle base) is hidden inside.", "text_id": "1 sisi bersekutu (atas persegi = alas segitiga) tersembunyi di dalam.", "ok": null},
+            {"text_en": "C: 6 — counts the hidden shared side twice ✗", "text_id": "C: 6 — menghitung sisi bersekutu yang tersembunyi dua kali ✗", "ok": false},
+            {"text_en": "D: 7 — counts all 4+3 without removing the shared side ✗", "text_id": "D: 7 — menghitung semua 4+3 tanpa menghapus sisi bersekutu ✗", "ok": false},
+            {"text_en": "B: 5 → 3 (square) + 2 (triangle slants) = 5 outer sides ✓", "text_id": "B: 5 → 3 (persegi) + 2 (miring segitiga) = 5 sisi luar ✓", "ok": true}
+          ],
+          "final_en": "3 outer square sides + 2 triangle slants = 5 — answer B.",
+          "final_id": "3 sisi luar persegi + 2 miring segitiga = 5 — jawaban B.",
+          "aria_en": "The combined shape has 3 visible square sides and 2 triangle slant sides giving 5 sides total on the outer edge.",
+          "aria_id": "Bangun gabungan memiliki 3 sisi persegi yang terlihat dan 2 sisi miring segitiga sehingga total 5 sisi di tepi luar."
+        }
+      }
     },
     {
       "number": 20,
@@ -406,7 +1697,79 @@
         {"label": "D", "text": "17"}
       ],
       "answer": "A",
-      "figure_url": null
+      "figure_url": null,
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "Ira has 3 dogs and 3 cats. Olan has 2 dogs and 5 cats.",
+            "phrase_id": "Ira memiliki 3 anjing dan 3 kucing. Olan memiliki 2 anjing dan 5 kucing.",
+            "note_en": "Known pets: Ira = 6 animals, Olan = 7 animals; each has 4 legs → 6×4+7×4 = 52 legs",
+            "note_id": "Hewan yang diketahui: Ira = 6 hewan, Olan = 7 hewan; masing-masing 4 kaki → 6×4+7×4 = 52 kaki"
+          },
+          {
+            "category": "fact",
+            "phrase_en": "the total number of all pet legs is 96",
+            "phrase_id": "total semua kaki hewan peliharaan adalah 96",
+            "note_en": "Berry's cats account for 96 − 52 = 44 legs",
+            "note_id": "Kucing Berry menyumbang 96 − 52 = 44 kaki"
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many cats does Berry have?",
+            "phrase_id": "berapakah jumlah kucing yang dimiliki Berry?",
+            "note_en": "44 legs ÷ 4 legs/cat = 11 cats",
+            "note_id": "44 kaki ÷ 4 kaki/kucing = 11 kucing"
+          }
+        ],
+        "quantities": [
+          {"label_en": "Ira's pets legs", "label_id": "Kaki hewan Ira", "value": "(3+3) × 4 = 24"},
+          {"label_en": "Olan's pets legs", "label_id": "Kaki hewan Olan", "value": "(2+5) × 4 = 28"},
+          {"label_en": "Legs accounted for", "label_id": "Kaki yang sudah dihitung", "value": "24 + 28 = 52"},
+          {"label_en": "Berry's cats legs", "label_id": "Kaki kucing Berry", "value": "96 − 52 = 44"},
+          {"label_en": "Berry's cats", "label_id": "Kucing Berry", "value": "44 ÷ 4 = 11"}
+        ],
+        "strategy": {"name_en": "Sum known legs, find the remainder, divide by 4", "name_id": "Jumlahkan kaki yang diketahui, cari sisanya, bagi 4"},
+        "trap": {
+          "wrong": "B",
+          "why_en": "13 cats would mean 52 legs for Berry alone, giving a total of 52+52=104 > 96.",
+          "why_id": "13 kucing berarti 52 kaki untuk Berry saja, memberikan total 52+52=104 > 96."
+        },
+        "answer": {"form": "choice", "unit": null, "value": "A"}
+      },
+      "hint_steps_en": [
+        "All pets have 4 legs each.",
+        "Ira's legs: (3 dogs + 3 cats) × 4 = 24. Olan's legs: (2 dogs + 5 cats) × 4 = 28.",
+        "Total known legs: 24 + 28 = 52.",
+        "Berry's cats' legs: 96 − 52 = 44.",
+        "Berry's cats: 44 ÷ 4 = 11 → answer A."
+      ],
+      "hint_steps_id": [
+        "Semua hewan peliharaan memiliki 4 kaki.",
+        "Kaki Ira: (3 anjing + 3 kucing) × 4 = 24. Kaki Olan: (2 anjing + 5 kucing) × 4 = 28.",
+        "Total kaki yang diketahui: 24 + 28 = 52.",
+        "Kaki kucing Berry: 96 − 52 = 44.",
+        "Kucing Berry: 44 ÷ 4 = 11 → jawaban A."
+      ],
+      "visual": {
+        "templateId": "try-and-eliminate",
+        "params": {
+          "intro_en": "Find the total legs for Ira and Olan, then work out how many cats Berry has.",
+          "intro_id": "Temukan total kaki Ira dan Olan, lalu hitung berapa kucing yang dimiliki Berry.",
+          "items": [
+            {"text_en": "Ira: 6 animals × 4 legs = 24 legs", "text_id": "Ira: 6 hewan × 4 kaki = 24 kaki", "ok": null},
+            {"text_en": "Olan: 7 animals × 4 legs = 28 legs", "text_id": "Olan: 7 hewan × 4 kaki = 28 kaki", "ok": null},
+            {"text_en": "Berry's cats legs = 96 − 52 = 44 legs", "text_id": "Kaki kucing Berry = 96 − 52 = 44 kaki", "ok": null},
+            {"text_en": "A: 11 cats → 11×4=44 → total=52+44=96 ✓", "text_id": "A: 11 kucing → 11×4=44 → total=52+44=96 ✓", "ok": true},
+            {"text_en": "B: 13 cats → 13×4=52 → total=104 ≠ 96 ✗", "text_id": "B: 13 kucing → 13×4=52 → total=104 ≠ 96 ✗", "ok": false}
+          ],
+          "final_en": "Berry has 11 cats — answer A.",
+          "final_id": "Berry memiliki 11 kucing — jawaban A.",
+          "aria_en": "Ira and Olan's pets account for 52 legs; the remaining 44 legs belong to Berry's cats and 44 divided by 4 equals 11 cats.",
+          "aria_id": "Hewan peliharaan Ira dan Olan menyumbang 52 kaki; 44 kaki sisanya milik kucing Berry dan 44 dibagi 4 sama dengan 11 kucing."
+        }
+      }
     }
   ]
 }
