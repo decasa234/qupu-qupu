@@ -2491,6 +2491,38 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./GridPath16A13Illustration'),
     explainer: () => import('./GridPath16A13Explainer'),
   },
+  'SEAMO-16-A-Q14': {
+    illustration: () => import('./TriDots16A14Illustration'),
+  },
+  'SEAMO-16-A-Q15': {
+    illustration: () => import('./DigitCount16A15Illustration'),
+    explainer: () => import('./DigitCount16A15Explainer'),
+  },
+  'SEAMO-16-A-Q16': {
+    illustration: () => import('./CoinPay16A16Illustration'),
+  },
+  'SEAMO-16-A-Q18': {
+    illustration: () => import('./Dartboard16A18Illustration'),
+  },
+  'SEAMO-16-A-Q20': {
+    illustration: () => import('./PairSums16A20Illustration'),
+    explainer: () => import('./PairSums16A20Explainer'),
+  },
+  'SEAMO-16-A-Q21': {
+    illustration: () => import('./CakeSlices16A21Illustration'),
+    explainer: () => import('./CakeSlices16A21Explainer'),
+  },
+  'SEAMO-16-A-Q22': {
+    illustration: () => import('./FarmAnimals16A22Illustration'),
+  },
+  'SEAMO-16-A-Q24': {
+    illustration: () => import('./FriendlyCircles16A24Illustration'),
+    explainer: () => import('./FriendlyCircles16A24Explainer'),
+  },
+  'SEAMO-16-A-Q25': {
+    illustration: () => import('./BagBalls16A25Illustration'),
+    explainer: () => import('./BagBalls16A25Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
