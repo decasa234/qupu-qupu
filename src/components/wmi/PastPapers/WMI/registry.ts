@@ -2181,6 +2181,33 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./TilePath15PEIllustration'),
     explainer: () => import('./TilePath15PEExplainer'),
   },
+  'IKMC-22-PE-Q17': {
+    illustration: () => import('./PaintedHouses17PEIllustration'),
+    explainer: () => import('./PaintedHouses17PEExplainer'),
+  },
+  'IKMC-22-PE-Q18': {
+    explainer: () => import('./Lawns18PEExplainer'),
+  },
+  'IKMC-22-PE-Q19': {
+    illustration: () => import('./Stickers19PEIllustration'),
+    explainer: () => import('./Stickers19PEExplainer'),
+  },
+  'IKMC-22-PE-Q20': {
+    illustration: () => import('./Rooms20PEIllustration'),
+    explainer: () => import('./Rooms20PEExplainer'),
+  },
+  'IKMC-22-PE-Q21': {
+    illustration: () => import('./ShapeEq21PEIllustration'),
+    explainer: () => import('./ShapeEq21PEExplainer'),
+  },
+  'IKMC-22-PE-Q23': {
+    illustration: () => import('./RouteMap23PEIllustration'),
+    explainer: () => import('./RouteMap23PEExplainer'),
+  },
+  'IKMC-22-PE-Q24': {
+    illustration: () => import('./NumCards24PEIllustration'),
+    explainer: () => import('./NumCards24PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2242,6 +2269,9 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-22-PE-Q12': () => import('./ShapeOdd12PEIllustration').then((m) => ({ default: m.ShapeOdd12PEOption })),
   'IKMC-22-PE-Q13': () => import('./Discs13PEIllustration').then((m) => ({ default: m.Discs13PEOption })),
   'IKMC-22-PE-Q14': () => import('./Stamp14PEIllustration').then((m) => ({ default: m.Stamp14PEOption })),
+  'IKMC-22-PE-Q18': () => import('./Lawns18PEIllustration').then((m) => ({ default: m.Lawns18PEOption })),
+  'IKMC-22-PE-Q19': () => import('./Stickers19PEIllustration').then((m) => ({ default: m.Stickers19PEOption })),
+  'IKMC-22-PE-Q23': () => import('./RouteMap23PEIllustration').then((m) => ({ default: m.RouteMap23PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
