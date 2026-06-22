@@ -2457,6 +2457,40 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./PairSums24ECIllustration'),
     explainer: () => import('./PairSums24ECExplainer'),
   },
+  'SEAMO-16-A-Q1': {
+    illustration: () => import('./CircleRule16A1Illustration'),
+  },
+  'SEAMO-16-A-Q2': {
+    illustration: () => import('./CountTriangles16A2Illustration'),
+    explainer: () => import('./CountTriangles16A2Explainer'),
+  },
+  'SEAMO-16-A-Q3': {
+    illustration: () => import('./CoinTriangle16A3Illustration'),
+    explainer: () => import('./CoinTriangle16A3Explainer'),
+  },
+  'SEAMO-16-A-Q7': {
+    illustration: () => import('./TileArea16A7Illustration'),
+  },
+  'SEAMO-16-A-Q9': {
+    illustration: () => import('./ColumnAdd16A9Illustration'),
+    explainer: () => import('./ColumnAdd16A9Explainer'),
+  },
+  'SEAMO-16-A-Q10': {
+    illustration: () => import('./FlowerPetals16A10Illustration'),
+    explainer: () => import('./FlowerPetals16A10Explainer'),
+  },
+  'SEAMO-16-A-Q11': {
+    illustration: () => import('./PartyClocks16A11Illustration'),
+    explainer: () => import('./PartyClocks16A11Explainer'),
+  },
+  'SEAMO-16-A-Q12': {
+    illustration: () => import('./OrangeBaskets16A12Illustration'),
+    explainer: () => import('./OrangeBaskets16A12Explainer'),
+  },
+  'SEAMO-16-A-Q13': {
+    illustration: () => import('./GridPath16A13Illustration'),
+    explainer: () => import('./GridPath16A13Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
