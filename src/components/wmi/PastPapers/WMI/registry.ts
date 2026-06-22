@@ -1813,6 +1813,44 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Animals24ECIllustration'),
     explainer: () => import('./Animals24ECExplainer'),
   },
+  'IKMC-20-PE-Q1': {
+    illustration: () => import('./Staircase1PEIllustration'),
+    explainer: () => import('./Staircase1PEExplainer'),
+  },
+  'IKMC-20-PE-Q2': {
+    illustration: () => import('./Castle2PEIllustration'),
+    explainer: () => import('./Castle2PEExplainer'),
+  },
+  'IKMC-20-PE-Q3': {
+    illustration: () => import('./Puzzle3PEIllustration'),
+    explainer: () => import('./Puzzle3PEExplainer'),
+  },
+  'IKMC-20-PE-Q4': {
+    illustration: () => import('./Pattern4PEIllustration'),
+    explainer: () => import('./Pattern4PEExplainer'),
+  },
+  'IKMC-20-PE-Q5': {
+    illustration: () => import('./CardHoles5PEIllustration'),
+    explainer: () => import('./CardHoles5PEExplainer'),
+  },
+  'IKMC-20-PE-Q6': {
+    illustration: () => import('./Cubes6PEIllustration'),
+    explainer: () => import('./Cubes6PEExplainer'),
+  },
+  'IKMC-20-PE-Q7': {
+    illustration: () => import('./Shapes7PEIllustration'),
+    explainer: () => import('./Shapes7PEExplainer'),
+  },
+  'IKMC-20-PE-Q8': {
+    illustration: () => import('./Braid8PEIllustration'),
+    explainer: () => import('./Braid8PEExplainer'),
+  },
+  'IKMC-20-PE-Q11': {
+    explainer: () => import('./Opts11PEExplainer'),
+  },
+  'IKMC-20-PE-Q13': {
+    explainer: () => import('./Opts13PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -1835,6 +1873,12 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-19-EC-Q6': () => import('./SnowTracks6ECIllustration').then((m) => ({ default: m.SnowTracks6ECOption })),
   'IKMC-19-EC-Q7': () => import('./Sticks7ECIllustration').then((m) => ({ default: m.Sticks7ECOption })),
   'IKMC-19-EC-Q11': () => import('./Weave11ECIllustration').then((m) => ({ default: m.Weave11ECOption })),
+  'IKMC-20-PE-Q2': () => import('./Castle2PEIllustration').then((m) => ({ default: m.Castle2PEOption })),
+  'IKMC-20-PE-Q3': () => import('./Puzzle3PEIllustration').then((m) => ({ default: m.Puzzle3PEOption })),
+  'IKMC-20-PE-Q4': () => import('./Pattern4PEIllustration').then((m) => ({ default: m.Pattern4PEOption })),
+  'IKMC-20-PE-Q5': () => import('./CardHoles5PEIllustration').then((m) => ({ default: m.CardHoles5PEOption })),
+  'IKMC-20-PE-Q11': () => import('./Opts11PEIllustration').then((m) => ({ default: m.Opts11PEOption })),
+  'IKMC-20-PE-Q13': () => import('./Opts13PEIllustration').then((m) => ({ default: m.Opts13PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
