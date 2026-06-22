@@ -2044,6 +2044,37 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Cogs24PEIllustration'),
     explainer: () => import('./Cogs24PEExplainer'),
   },
+  'IKMC-21-EC-Q1': {
+    illustration: () => import('./FishRing1ECIllustration'),
+    explainer: () => import('./FishRing1ECExplainer'),
+  },
+  'IKMC-21-EC-Q2': {
+    illustration: () => import('./Bricks2ECIllustration'),
+    explainer: () => import('./Bricks2ECExplainer'),
+  },
+  'IKMC-21-EC-Q3': {
+    illustration: () => import('./PuzzleCalc3ECIllustration'),
+    explainer: () => import('./PuzzleCalc3ECExplainer'),
+  },
+  'IKMC-21-EC-Q4': {
+    illustration: () => import('./Sun4ECIllustration'),
+    explainer: () => import('./Sun4ECExplainer'),
+  },
+  'IKMC-21-EC-Q5': {
+    explainer: () => import('./Targets5ECExplainer'),
+  },
+  'IKMC-21-EC-Q6': {
+    illustration: () => import('./TapeCylinder6ECIllustration'),
+    explainer: () => import('./TapeCylinder6ECExplainer'),
+  },
+  'IKMC-21-EC-Q8': {
+    illustration: () => import('./BallScales8ECIllustration'),
+    explainer: () => import('./BallScales8ECExplainer'),
+  },
+  'IKMC-21-EC-Q9': {
+    illustration: () => import('./CardSets9ECIllustration'),
+    explainer: () => import('./CardSets9ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2091,6 +2122,10 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-21-PE-Q17': () => import('./SquarePieces17PEIllustration').then((m) => ({ default: m.SquarePieces17PEOption })),
   'IKMC-21-PE-Q18': () => import('./Witch18PEIllustration').then((m) => ({ default: m.Witch18PEOption })),
   'IKMC-21-PE-Q24': () => import('./Cogs24PEIllustration').then((m) => ({ default: m.Cogs24PEOption })),
+  'IKMC-21-EC-Q2': () => import('./Bricks2ECIllustration').then((m) => ({ default: m.Bricks2ECOption })),
+  'IKMC-21-EC-Q4': () => import('./Sun4ECIllustration').then((m) => ({ default: m.Sun4ECOption })),
+  'IKMC-21-EC-Q5': () => import('./Targets5ECIllustration').then((m) => ({ default: m.Targets5ECOption })),
+  'IKMC-21-EC-Q9': () => import('./CardSets9ECIllustration').then((m) => ({ default: m.CardSets9ECOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
