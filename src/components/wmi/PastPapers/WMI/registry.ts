@@ -2099,6 +2099,30 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Stickers17ECIllustration'),
     explainer: () => import('./Stickers17ECExplainer'),
   },
+  'IKMC-21-EC-Q18': {
+    illustration: () => import('./UpsideCards18ECIllustration'),
+    explainer: () => import('./UpsideCards18ECExplainer'),
+  },
+  'IKMC-21-EC-Q19': {
+    illustration: () => import('./NeighborSums19ECIllustration'),
+    explainer: () => import('./NeighborSums19ECExplainer'),
+  },
+  'IKMC-21-EC-Q20': {
+    illustration: () => import('./Balloons20ECIllustration'),
+    explainer: () => import('./Balloons20ECExplainer'),
+  },
+  'IKMC-21-EC-Q22': {
+    illustration: () => import('./BoxWeights22ECIllustration'),
+    explainer: () => import('./BoxWeights22ECExplainer'),
+  },
+  'IKMC-21-EC-Q23': {
+    illustration: () => import('./NumberArrows23ECIllustration'),
+    explainer: () => import('./NumberArrows23ECExplainer'),
+  },
+  'IKMC-21-EC-Q24': {
+    illustration: () => import('./ThreeScales24ECIllustration'),
+    explainer: () => import('./ThreeScales24ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
