@@ -1887,6 +1887,14 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Heights20PEIllustration'),
     explainer: () => import('./Heights20PEExplainer'),
   },
+  'IKMC-20-PE-Q22': {
+    illustration: () => import('./RowColCircles22PEIllustration'),
+    explainer: () => import('./RowColCircles22PEExplainer'),
+  },
+  'IKMC-20-PE-Q23': {
+    illustration: () => import('./CubeFaces23PEIllustration'),
+    explainer: () => import('./CubeFaces23PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
