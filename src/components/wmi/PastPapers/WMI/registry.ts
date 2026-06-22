@@ -2408,6 +2408,29 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./CoveredShape9ECIllustration'),
     explainer: () => import('./CoveredShape9ECExplainer'),
   },
+  'IKMC-23-EC-Q10': {
+    illustration: () => import('./Balance10ECIllustration'),
+    explainer: () => import('./Balance10ECExplainer'),
+  },
+  'IKMC-23-EC-Q11': {
+    explainer: () => import('./Opts11ECExplainer'),
+  },
+  'IKMC-23-EC-Q12': {
+    illustration: () => import('./RoadHouses12ECIllustration'),
+    explainer: () => import('./RoadHouses12ECExplainer'),
+  },
+  'IKMC-23-EC-Q14': {
+    illustration: () => import('./Metro14ECIllustration'),
+    explainer: () => import('./Metro14ECExplainer'),
+  },
+  'IKMC-23-EC-Q15': {
+    illustration: () => import('./Graph15ECIllustration'),
+    explainer: () => import('./Graph15ECExplainer'),
+  },
+  'IKMC-23-EC-Q16': {
+    illustration: () => import('./Maze16ECIllustration'),
+    explainer: () => import('./Maze16ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2491,6 +2514,8 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-23-EC-Q6': () => import('./FoldPaper6ECIllustration').then((m) => ({ default: m.FoldPaper6ECOption })),
   'IKMC-23-EC-Q8': () => import('./CirclePieces8ECIllustration').then((m) => ({ default: m.CirclePieces8ECOption })),
   'IKMC-23-EC-Q9': () => import('./CoveredShape9ECIllustration').then((m) => ({ default: m.CoveredShape9ECOption })),
+  'IKMC-23-EC-Q11': () => import('./Opts11ECIllustration').then((m) => ({ default: m.Opts11ECOption })),
+  'IKMC-23-EC-Q16': () => import('./Maze16ECIllustration').then((m) => ({ default: m.Maze16ECOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
