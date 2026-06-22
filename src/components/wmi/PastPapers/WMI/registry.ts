@@ -2028,6 +2028,22 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./SquarePieces17PEIllustration'),
     explainer: () => import('./SquarePieces17PEExplainer'),
   },
+  'IKMC-21-PE-Q18': {
+    illustration: () => import('./Witch18PEIllustration'),
+    explainer: () => import('./Witch18PEExplainer'),
+  },
+  'IKMC-21-PE-Q20': {
+    illustration: () => import('./Bookcase20PEIllustration'),
+    explainer: () => import('./Bookcase20PEExplainer'),
+  },
+  'IKMC-21-PE-Q22': {
+    illustration: () => import('./CookieTray22PEIllustration'),
+    explainer: () => import('./CookieTray22PEExplainer'),
+  },
+  'IKMC-21-PE-Q24': {
+    illustration: () => import('./Cogs24PEIllustration'),
+    explainer: () => import('./Cogs24PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2073,6 +2089,8 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-21-PE-Q13': () => import('./TwoPieces13PEIllustration').then((m) => ({ default: m.TwoPieces13PEOption })),
   'IKMC-21-PE-Q15': () => import('./HouseMap15PEIllustration').then((m) => ({ default: m.HouseMap15PEOption })),
   'IKMC-21-PE-Q17': () => import('./SquarePieces17PEIllustration').then((m) => ({ default: m.SquarePieces17PEOption })),
+  'IKMC-21-PE-Q18': () => import('./Witch18PEIllustration').then((m) => ({ default: m.Witch18PEOption })),
+  'IKMC-21-PE-Q24': () => import('./Cogs24PEIllustration').then((m) => ({ default: m.Cogs24PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
