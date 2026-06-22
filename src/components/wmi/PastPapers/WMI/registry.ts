@@ -1777,6 +1777,30 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Weave11ECIllustration'),
     explainer: () => import('./Weave11ECExplainer'),
   },
+  'IKMC-19-EC-Q12': {
+    illustration: () => import('./DogToys12ECIllustration'),
+    explainer: () => import('./DogToys12ECExplainer'),
+  },
+  'IKMC-19-EC-Q14': {
+    illustration: () => import('./SumBoxes14ECIllustration'),
+    explainer: () => import('./SumBoxes14ECExplainer'),
+  },
+  'IKMC-19-EC-Q15': {
+    illustration: () => import('./GlassWater15ECIllustration'),
+    explainer: () => import('./GlassWater15ECExplainer'),
+  },
+  'IKMC-19-EC-Q16': {
+    illustration: () => import('./PriceClues16ECIllustration'),
+    explainer: () => import('./PriceClues16ECExplainer'),
+  },
+  'IKMC-19-EC-Q17': {
+    illustration: () => import('./ShapeSum17ECIllustration'),
+    explainer: () => import('./ShapeSum17ECExplainer'),
+  },
+  'IKMC-19-EC-Q18': {
+    illustration: () => import('./FramedPic18ECIllustration'),
+    explainer: () => import('./FramedPic18ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
