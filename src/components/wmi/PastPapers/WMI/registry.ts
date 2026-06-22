@@ -2318,6 +2318,38 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./RoadMap8PEIllustration'),
     explainer: () => import('./RoadMap8PEExplainer'),
   },
+  'IKMC-23-PE-Q9': {
+    illustration: () => import('./Park9PEIllustration'),
+    explainer: () => import('./Park9PEExplainer'),
+  },
+  'IKMC-23-PE-Q10': {
+    illustration: () => import('./ColorGrid10PEIllustration'),
+    explainer: () => import('./ColorGrid10PEExplainer'),
+  },
+  'IKMC-23-PE-Q11': {
+    illustration: () => import('./Tokens11PEIllustration'),
+    explainer: () => import('./Tokens11PEExplainer'),
+  },
+  'IKMC-23-PE-Q12': {
+    illustration: () => import('./BeeModel12PEIllustration'),
+    explainer: () => import('./BeeModel12PEExplainer'),
+  },
+  'IKMC-23-PE-Q13': {
+    illustration: () => import('./Boxes13PEIllustration'),
+    explainer: () => import('./Boxes13PEExplainer'),
+  },
+  'IKMC-23-PE-Q14': {
+    illustration: () => import('./PunchFold14PEIllustration'),
+    explainer: () => import('./PunchFold14PEExplainer'),
+  },
+  'IKMC-23-PE-Q15': {
+    illustration: () => import('./Cubes15PEIllustration'),
+    explainer: () => import('./Cubes15PEExplainer'),
+  },
+  'IKMC-23-PE-Q16': {
+    illustration: () => import('./PuzzleComplete16PEIllustration'),
+    explainer: () => import('./PuzzleComplete16PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2391,7 +2423,9 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-23-PE-Q2': () => import('./CubesView2PEIllustration').then((m) => ({ default: m.CubesView2PEOption })),
   'IKMC-23-PE-Q3': () => import('./Bowls3PEIllustration').then((m) => ({ default: m.Bowls3PEOption })),
   'IKMC-23-PE-Q4': () => import('./KangPieces4PEIllustration').then((m) => ({ default: m.KangPieces4PEOption })),
-  'IKMC-23-PE-Q5': () => import('./Boats5PEIllustration').then((m) => ({ default: m.Boats5PEOption })),
+  'IKMC-23-PE-Q5': () => import('./Boats5PEIllustration'),
+  'IKMC-23-PE-Q14': () => import('./PunchFold14PEIllustration').then((m) => ({ default: m.PunchFold14PEOption })),
+  'IKMC-23-PE-Q16': () => import('./PuzzleComplete16PEIllustration').then((m) => ({ default: m.PuzzleComplete16PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
