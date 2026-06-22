@@ -1928,6 +1928,34 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./Pyramid10ECIllustration'),
     explainer: () => import('./Pyramid10ECExplainer'),
   },
+  'IKMC-20-EC-Q11': {
+    illustration: () => import('./DogLeash11ECIllustration'),
+    explainer: () => import('./DogLeash11ECExplainer'),
+  },
+  'IKMC-20-EC-Q12': {
+    illustration: () => import('./Fence12ECIllustration'),
+    explainer: () => import('./Fence12ECExplainer'),
+  },
+  'IKMC-20-EC-Q13': {
+    illustration: () => import('./KangSteps13ECIllustration'),
+    explainer: () => import('./KangSteps13ECExplainer'),
+  },
+  'IKMC-20-EC-Q14': {
+    illustration: () => import('./Subtract14ECIllustration'),
+    explainer: () => import('./Subtract14ECExplainer'),
+  },
+  'IKMC-20-EC-Q15': {
+    illustration: () => import('./TokenCrown15ECIllustration'),
+    explainer: () => import('./TokenCrown15ECExplainer'),
+  },
+  'IKMC-20-EC-Q16': {
+    illustration: () => import('./Sticks16ECIllustration'),
+    explainer: () => import('./Sticks16ECExplainer'),
+  },
+  'IKMC-20-EC-Q17': {
+    illustration: () => import('./DiceRoll17ECIllustration'),
+    explainer: () => import('./DiceRoll17ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
