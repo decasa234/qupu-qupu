@@ -2240,6 +2240,30 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./CarsLane9ECIllustration'),
     explainer: () => import('./CarsLane9ECExplainer'),
   },
+  'IKMC-22-EC-Q11': {
+    illustration: () => import('./Postcards11ECIllustration'),
+    explainer: () => import('./Postcards11ECExplainer'),
+  },
+  'IKMC-22-EC-Q12': {
+    illustration: () => import('./SumGrid12ECIllustration'),
+    explainer: () => import('./SumGrid12ECExplainer'),
+  },
+  'IKMC-22-EC-Q13': {
+    illustration: () => import('./FoldCarpet13ECIllustration'),
+    explainer: () => import('./FoldCarpet13ECExplainer'),
+  },
+  'IKMC-22-EC-Q14': {
+    illustration: () => import('./FoldSquare14ECIllustration'),
+    explainer: () => import('./FoldSquare14ECExplainer'),
+  },
+  'IKMC-22-EC-Q16': {
+    illustration: () => import('./FoldShapes16ECIllustration'),
+    explainer: () => import('./FoldShapes16ECExplainer'),
+  },
+  'IKMC-22-EC-Q17': {
+    illustration: () => import('./ShapeSet17ECIllustration'),
+    explainer: () => import('./ShapeSet17ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2307,6 +2331,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-22-EC-Q2': () => import('./Wheel2ECIllustration').then((m) => ({ default: m.Wheel2ECOption })),
   'IKMC-22-EC-Q6': () => import('./Jigsaw6ECIllustration').then((m) => ({ default: m.Jigsaw6ECOption })),
   'IKMC-22-EC-Q8': () => import('./BlockTower8ECIllustration').then((m) => ({ default: m.BlockTower8ECOption })),
+  'IKMC-22-EC-Q11': () => import('./Postcards11ECIllustration').then((m) => ({ default: m.Postcards11ECOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
