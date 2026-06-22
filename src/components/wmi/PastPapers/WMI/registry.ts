@@ -1801,6 +1801,18 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./FramedPic18ECIllustration'),
     explainer: () => import('./FramedPic18ECExplainer'),
   },
+  'IKMC-19-EC-Q20': {
+    illustration: () => import('./Hallway20ECIllustration'),
+    explainer: () => import('./Hallway20ECExplainer'),
+  },
+  'IKMC-19-EC-Q22': {
+    illustration: () => import('./TriPositions22ECIllustration'),
+    explainer: () => import('./TriPositions22ECExplainer'),
+  },
+  'IKMC-19-EC-Q24': {
+    illustration: () => import('./Animals24ECIllustration'),
+    explainer: () => import('./Animals24ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
