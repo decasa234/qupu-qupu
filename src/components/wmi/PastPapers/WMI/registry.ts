@@ -1734,6 +1734,25 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./NumberTable24Illustration'),
     explainer: () => import('./NumberTable24Explainer'),
   },
+  // IKMC 2019 Ecolier (figure questions) — Q2/Q3 options-only (explainer, no stem illustration)
+  'IKMC-19-EC-Q1': {
+    illustration: () => import('./Podium1ECIllustration'),
+    explainer: () => import('./Podium1ECExplainer'),
+  },
+  'IKMC-19-EC-Q2': {
+    explainer: () => import('./DotBar2ECExplainer'),
+  },
+  'IKMC-19-EC-Q3': {
+    explainer: () => import('./Figures3ECExplainer'),
+  },
+  'IKMC-19-EC-Q4': {
+    illustration: () => import('./OpenBook4ECIllustration'),
+    explainer: () => import('./OpenBook4ECExplainer'),
+  },
+  'IKMC-19-EC-Q5': {
+    illustration: () => import('./CutPiece5ECIllustration'),
+    explainer: () => import('./CutPiece5ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -1749,6 +1768,10 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-19-PE-Q13': () => import('./Weave13Illustration').then((m) => ({ default: m.Weave13Option })),
   'IKMC-19-PE-Q19': () => import('./Pieces19Illustration').then((m) => ({ default: m.Pieces19Option })),
   'IKMC-19-PE-Q23': () => import('./ColorSwap23Illustration').then((m) => ({ default: m.ColorSwap23Option })),
+  'IKMC-19-EC-Q2': () => import('./DotBar2ECIllustration').then((m) => ({ default: m.DotBar2ECOption })),
+  'IKMC-19-EC-Q3': () => import('./Figures3ECIllustration').then((m) => ({ default: m.Figures3ECOption })),
+  'IKMC-19-EC-Q4': () => import('./OpenBook4ECIllustration').then((m) => ({ default: m.OpenBook4ECOption })),
+  'IKMC-19-EC-Q5': () => import('./CutPiece5ECIllustration').then((m) => ({ default: m.CutPiece5ECOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
