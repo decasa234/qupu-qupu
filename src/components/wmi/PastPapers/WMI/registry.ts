@@ -2288,6 +2288,36 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./FruitEq24ECIllustration'),
     explainer: () => import('./FruitEq24ECExplainer'),
   },
+  'IKMC-23-PE-Q1': {
+    illustration: () => import('./CountCircles1PEIllustration'),
+    explainer: () => import('./CountCircles1PEExplainer'),
+  },
+  'IKMC-23-PE-Q2': {
+    illustration: () => import('./CubesView2PEIllustration'),
+    explainer: () => import('./CubesView2PEExplainer'),
+  },
+  'IKMC-23-PE-Q3': {
+    explainer: () => import('./Bowls3PEExplainer'),
+  },
+  'IKMC-23-PE-Q4': {
+    illustration: () => import('./KangPieces4PEIllustration'),
+    explainer: () => import('./KangPieces4PEExplainer'),
+  },
+  'IKMC-23-PE-Q5': {
+    explainer: () => import('./Boats5PEExplainer'),
+  },
+  'IKMC-23-PE-Q6': {
+    illustration: () => import('./Cake6PEIllustration'),
+    explainer: () => import('./Cake6PEExplainer'),
+  },
+  'IKMC-23-PE-Q7': {
+    illustration: () => import('./Racetrack7PEIllustration'),
+    explainer: () => import('./Racetrack7PEExplainer'),
+  },
+  'IKMC-23-PE-Q8': {
+    illustration: () => import('./RoadMap8PEIllustration'),
+    explainer: () => import('./RoadMap8PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2358,6 +2388,10 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-22-EC-Q11': () => import('./Postcards11ECIllustration').then((m) => ({ default: m.Postcards11ECOption })),
   'IKMC-22-EC-Q18': () => import('./PuzzleGap18ECIllustration').then((m) => ({ default: m.PuzzleGap18ECOption })),
   'IKMC-22-EC-Q20': () => import('./TunnelPath20ECIllustration').then((m) => ({ default: m.TunnelPath20ECOption })),
+  'IKMC-23-PE-Q2': () => import('./CubesView2PEIllustration').then((m) => ({ default: m.CubesView2PEOption })),
+  'IKMC-23-PE-Q3': () => import('./Bowls3PEIllustration').then((m) => ({ default: m.Bowls3PEOption })),
+  'IKMC-23-PE-Q4': () => import('./KangPieces4PEIllustration').then((m) => ({ default: m.KangPieces4PEOption })),
+  'IKMC-23-PE-Q5': () => import('./Boats5PEIllustration').then((m) => ({ default: m.Boats5PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
