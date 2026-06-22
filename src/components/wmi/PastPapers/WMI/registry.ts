@@ -2158,6 +2158,29 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./CoveredNum9PEIllustration'),
     explainer: () => import('./CoveredNum9PEExplainer'),
   },
+  'IKMC-22-PE-Q10': {
+    illustration: () => import('./Baskets10PEIllustration'),
+    explainer: () => import('./Baskets10PEExplainer'),
+  },
+  'IKMC-22-PE-Q11': {
+    illustration: () => import('./MazeGrid11PEIllustration'),
+    explainer: () => import('./MazeGrid11PEExplainer'),
+  },
+  'IKMC-22-PE-Q12': {
+    explainer: () => import('./ShapeOdd12PEExplainer'),
+  },
+  'IKMC-22-PE-Q13': {
+    illustration: () => import('./Discs13PEIllustration'),
+    explainer: () => import('./Discs13PEExplainer'),
+  },
+  'IKMC-22-PE-Q14': {
+    illustration: () => import('./Stamp14PEIllustration'),
+    explainer: () => import('./Stamp14PEExplainer'),
+  },
+  'IKMC-22-PE-Q15': {
+    illustration: () => import('./TilePath15PEIllustration'),
+    explainer: () => import('./TilePath15PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2216,6 +2239,9 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-22-PE-Q2': () => import('./CutPic2PEIllustration').then((m) => ({ default: m.CutPic2PEOption })),
   'IKMC-22-PE-Q6': () => import('./TornMap6PEIllustration').then((m) => ({ default: m.TornMap6PEOption })),
   'IKMC-22-PE-Q7': () => import('./Puzzle7PEIllustration').then((m) => ({ default: m.Puzzle7PEOption })),
+  'IKMC-22-PE-Q12': () => import('./ShapeOdd12PEIllustration').then((m) => ({ default: m.ShapeOdd12PEOption })),
+  'IKMC-22-PE-Q13': () => import('./Discs13PEIllustration').then((m) => ({ default: m.Discs13PEOption })),
+  'IKMC-22-PE-Q14': () => import('./Stamp14PEIllustration').then((m) => ({ default: m.Stamp14PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
