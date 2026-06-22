@@ -1956,6 +1956,21 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./DiceRoll17ECIllustration'),
     explainer: () => import('./DiceRoll17ECExplainer'),
   },
+  'IKMC-20-EC-Q18': {
+    illustration: () => import('./IceCream18ECIllustration'),
+    explainer: () => import('./IceCream18ECExplainer'),
+  },
+  'IKMC-20-EC-Q20': {
+    illustration: () => import('./Covered20ECIllustration'),
+    explainer: () => import('./Covered20ECExplainer'),
+  },
+  'IKMC-20-EC-Q21': {
+    illustration: () => import('./Parrots21ECIllustration'),
+    explainer: () => import('./Parrots21ECExplainer'),
+  },
+  'IKMC-20-EC-Q23': {
+    explainer: () => import('./Keys23ECExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -1994,6 +2009,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-20-EC-Q5': () => import('./TwoPieces5ECIllustration').then((m) => ({ default: m.TwoPieces5ECOption })),
   'IKMC-20-EC-Q7': () => import('./StickerCube7ECIllustration').then((m) => ({ default: m.StickerCube7ECOption })),
   'IKMC-20-EC-Q10': () => import('./Pyramid10ECIllustration').then((m) => ({ default: m.Pyramid10ECOption })),
+  'IKMC-20-EC-Q23': () => import('./Keys23ECIllustration').then((m) => ({ default: m.Keys23ECOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
