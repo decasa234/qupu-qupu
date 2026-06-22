@@ -1971,6 +1971,39 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'IKMC-20-EC-Q23': {
     explainer: () => import('./Keys23ECExplainer'),
   },
+  'IKMC-21-PE-Q1': {
+    explainer: () => import('./Sticks1PEExplainer'),
+  },
+  'IKMC-21-PE-Q2': {
+    explainer: () => import('./Constellation2PEExplainer'),
+  },
+  'IKMC-21-PE-Q3': {
+    illustration: () => import('./Tshirt3PEIllustration'),
+    explainer: () => import('./Tshirt3PEExplainer'),
+  },
+  'IKMC-21-PE-Q4': {
+    illustration: () => import('./Shelves4PEIllustration'),
+    explainer: () => import('./Shelves4PEExplainer'),
+  },
+  'IKMC-21-PE-Q5': {
+    explainer: () => import('./Paths5PEExplainer'),
+  },
+  'IKMC-21-PE-Q6': {
+    illustration: () => import('./PaperPunch6PEIllustration'),
+    explainer: () => import('./PaperPunch6PEExplainer'),
+  },
+  'IKMC-21-PE-Q7': {
+    illustration: () => import('./ChildrenLine7PEIllustration'),
+    explainer: () => import('./ChildrenLine7PEExplainer'),
+  },
+  'IKMC-21-PE-Q8': {
+    illustration: () => import('./Mushrooms8PEIllustration'),
+    explainer: () => import('./Mushrooms8PEExplainer'),
+  },
+  'IKMC-21-PE-Q9': {
+    illustration: () => import('./CatPath9PEIllustration'),
+    explainer: () => import('./CatPath9PEExplainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2010,6 +2043,9 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-20-EC-Q7': () => import('./StickerCube7ECIllustration').then((m) => ({ default: m.StickerCube7ECOption })),
   'IKMC-20-EC-Q10': () => import('./Pyramid10ECIllustration').then((m) => ({ default: m.Pyramid10ECOption })),
   'IKMC-20-EC-Q23': () => import('./Keys23ECIllustration').then((m) => ({ default: m.Keys23ECOption })),
+  'IKMC-21-PE-Q1': () => import('./Sticks1PEIllustration').then((m) => ({ default: m.Sticks1PEOption })),
+  'IKMC-21-PE-Q2': () => import('./Constellation2PEIllustration').then((m) => ({ default: m.Constellation2PEOption })),
+  'IKMC-21-PE-Q5': () => import('./Paths5PEIllustration').then((m) => ({ default: m.Paths5PEOption })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
