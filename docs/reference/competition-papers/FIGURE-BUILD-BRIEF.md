@@ -52,3 +52,7 @@ files created; which pool component you reused/adapted; that the figure + answer
 faithful; smoke result; the EXACT registry lines to add (`VISUALS['<CODE>']` with
 `illustration?`+`explainer`, and/or `CHOICE_RENDERERS['<CODE>']`); and a note to set the
 question's `figure_url` to `null`.
+- **Return the registry lines as TEXT in your report ONLY.** Do NOT add an `export const
+  VISUALS`/`CHOICE_RENDERERS` const to your `.tsx` file (it self-imports → union-type errors;
+  the controller wires `registry.ts` centrally). Default export = the illustration component;
+  named export `<Name>Option` for picture choices. Nothing else.
