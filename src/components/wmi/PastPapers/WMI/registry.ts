@@ -2599,6 +2599,29 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-17-A-Q24': {
     illustration: () => import('./FlowerCircle17AQ24Illustration'),
   },
+  'SEAMO-17-B-Q6': {
+    illustration: () => import('./TiltedSquare17B6Illustration'),
+  },
+  'SEAMO-17-B-Q7': {
+    illustration: () => import('./FruitBalance17B7Illustration'),
+  },
+  'SEAMO-17-B-Q9': {
+    illustration: () => import('./ShapeCode17B9Illustration'),
+  },
+  'SEAMO-17-B-Q13': {
+    illustration: () => import('./BallsScale17B13Illustration'),
+    explainer: () => import('./BallsScale17B13Explainer'),
+  },
+  'SEAMO-17-B-Q16': {
+    illustration: () => import('./QuadInSquare17B16Illustration'),
+  },
+  'SEAMO-17-B-Q17': {
+    illustration: () => import('./TwoSquares17B17Illustration'),
+  },
+  'SEAMO-17-B-Q24': {
+    illustration: () => import('./TriangleArea17B24Illustration'),
+    explainer: () => import('./TriangleArea17B24Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
