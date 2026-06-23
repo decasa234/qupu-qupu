@@ -2523,6 +2523,50 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./BagBalls16A25Illustration'),
     explainer: () => import('./BagBalls16A25Explainer'),
   },
+  'SEAMO-16-B-Q1': {
+    illustration: () => import('./DiamondPattern16B1Illustration'),
+    explainer: () => import('./DiamondPattern16B1Explainer'),
+  },
+  'SEAMO-16-B-Q4': {
+    illustration: () => import('./DotGrid16B4Illustration'),
+  },
+  'SEAMO-16-B-Q5': {
+    illustration: () => import('./SymbolEqs16B5Illustration'),
+  },
+  'SEAMO-16-B-Q9': {
+    explainer: () => import('./ColorBall16B9Explainer'),
+  },
+  'SEAMO-16-B-Q10': {
+    illustration: () => import('./VennCircles16B10Illustration'),
+    explainer: () => import('./VennCircles16B10Explainer'),
+  },
+  'SEAMO-16-B-Q12': {
+    illustration: () => import('./CalcSum16B12Illustration'),
+  },
+  'SEAMO-16-B-Q13': {
+    illustration: () => import('./Pentagon16B13Illustration'),
+  },
+  'SEAMO-16-B-Q16': {
+    illustration: () => import('./CircleLines16B16Illustration'),
+  },
+  'SEAMO-16-B-Q18': {
+    illustration: () => import('./RightTriangle16B18Illustration'),
+    explainer: () => import('./RightTriangle16B18Explainer'),
+  },
+  'SEAMO-16-B-Q19': {
+    illustration: () => import('./TravelTime16B19Illustration'),
+  },
+  'SEAMO-16-B-Q20': {
+    illustration: () => import('./AppleFamily16B20Illustration'),
+    explainer: () => import('./AppleFamily16B20Explainer'),
+  },
+  'SEAMO-16-B-Q23': {
+    illustration: () => import('./ClockAngle16B23Illustration'),
+  },
+  'SEAMO-16-B-Q24': {
+    illustration: () => import('./HalfHex16B24Illustration'),
+    explainer: () => import('./HalfHex16B24Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2611,6 +2655,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-23-EC-Q18': () => import('./FoldCut18ECIllustration').then((m) => ({ default: m.FoldCut18ECOption })),
   'IKMC-23-EC-Q20': () => import('./Opts20ECIllustration').then((m) => ({ default: m.Opts20ECOption })),
   'IKMC-23-EC-Q23': () => import('./Opts23ECIllustration').then((m) => ({ default: m.Opts23ECOption })),
+  'SEAMO-16-B-Q9': () => import('./ColorBall16B9Option').then((m) => ({ default: m.ColorBall16B9Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
