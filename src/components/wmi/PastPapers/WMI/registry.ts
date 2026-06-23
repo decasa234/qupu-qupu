@@ -2567,6 +2567,38 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./HalfHex16B24Illustration'),
     explainer: () => import('./HalfHex16B24Explainer'),
   },
+  'SEAMO-17-A-Q6': {
+    illustration: () => import('./ElapsedClock17A6Illustration'),
+    explainer: () => import('./ElapsedClock17A6Explainer'),
+  },
+  'SEAMO-17-A-Q7': {
+    illustration: () => import('./EulerTrace17A7Illustration'),
+  },
+  'SEAMO-17-A-Q8': {
+    illustration: () => import('./StairCubes17A8Figure'),
+  },
+  'SEAMO-17-A-Q9': {
+    illustration: () => import('./BusStops17A9Illustration'),
+  },
+  'SEAMO-17-A-Q10': {
+    illustration: () => import('./Queue17A10Illustration'),
+  },
+  'SEAMO-17-A-Q16': {
+    illustration: () => import('./ShapeSeq17A16Illustration'),
+  },
+  'SEAMO-17-A-Q18': {
+    illustration: () => import('./Handkerchief17A18Illustration'),
+    explainer: () => import('./Handkerchief17A18Explainer'),
+  },
+  'SEAMO-17-A-Q20': {
+    illustration: () => import('./CountTriangles17A20Illustration'),
+  },
+  'SEAMO-17-A-Q21': {
+    illustration: () => import('./PartyBalloons17A21Illustration'),
+  },
+  'SEAMO-17-A-Q24': {
+    illustration: () => import('./FlowerCircle17AQ24Illustration'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2656,6 +2688,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'IKMC-23-EC-Q20': () => import('./Opts20ECIllustration').then((m) => ({ default: m.Opts20ECOption })),
   'IKMC-23-EC-Q23': () => import('./Opts23ECIllustration').then((m) => ({ default: m.Opts23ECOption })),
   'SEAMO-16-B-Q9': () => import('./ColorBall16B9Option').then((m) => ({ default: m.ColorBall16B9Option })),
+  'SEAMO-17-A-Q16': () => import('./ShapeSeq17A16Illustration').then((m) => ({ default: m.ShapeSeq17A16Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
