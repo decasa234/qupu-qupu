@@ -2788,6 +2788,14 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMOX-22-B-Q10': { illustration: () => import('./GridPathX22B10Illustration'), explainer: () => import('./GridPathX22B10Explainer') },
   'SEAMOX-22-B-Q11': { illustration: () => import('./CevianX22B11Illustration'), explainer: () => import('./CevianX22B11Explainer') },
   'SEAMOX-22-B-Q13': { illustration: () => import('./MidpointShadedX22B13Illustration'), explainer: () => import('./MidpointShadedX22B13Explainer') },
+  'SEAMOX-23-A-Q1': { illustration: () => import('./FibPanelX23A1Illustration'), explainer: () => import('./FibPanelX23A1Explainer') },
+  'SEAMOX-23-A-Q3': { illustration: () => import('./NotchRectX23A3Illustration'), explainer: () => import('./NotchRectX23A3Explainer') },
+  'SEAMOX-23-A-Q5': { illustration: () => import('./ShadedSquareX23A5Illustration'), explainer: () => import('./ShadedSquareX23A5Explainer') },
+  'SEAMOX-23-A-Q15': { illustration: () => import('./StaircasePathX23A15Illustration'), explainer: () => import('./StaircasePathX23A15Explainer') },
+  'SEAMOX-23-B-Q4': { illustration: () => import('./CircleDivX23B4Illustration'), explainer: () => import('./CircleDivX23B4Explainer') },
+  'SEAMOX-23-B-Q9': { illustration: () => import('./TriInCircleX23B9Illustration'), explainer: () => import('./TriInCircleX23B9Explainer') },
+  'SEAMOX-23-B-Q11': { illustration: () => import('./TriOuterX23B11Illustration'), explainer: () => import('./TriOuterX23B11Explainer') },
+  'SEAMOX-23-B-Q14': { illustration: () => import('./TrapDiagsX23B14Illustration'), explainer: () => import('./TrapDiagsX23B14Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
