@@ -2721,6 +2721,13 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-20-A-Q21': { illustration: () => import('./StarSum20A21Fig') },
   'SEAMO-20-A-Q22': { illustration: () => import('./GeoPattern20A22Illustration') },
   'SEAMO-20-A-Q23': { illustration: () => import('./DotSquares20A23Illustration') },
+  'SEAMO-20-B-Q5': { illustration: () => import('./ShadedSquare20B5Illustration'), explainer: () => import('./ShadedSquare20B5Explainer') },
+  'SEAMO-20-B-Q6': { illustration: () => import('./DiagSquare20B6Illustration'), explainer: () => import('./DiagSquare20B6Explainer') },
+  'SEAMO-20-B-Q8': { illustration: () => import('./QuadCircle20B8Illustration'), explainer: () => import('./QuadCircle20B8Explainer') },
+  'SEAMO-20-B-Q20': { illustration: () => import('./GridCount20B20Illustration'), explainer: () => import('./GridCount20B20Explainer') },
+  'SEAMO-20-B-Q22': { illustration: () => import('./GridPaths20B22Illustration'), explainer: () => import('./GridPaths20B22Explainer') },
+  'SEAMO-20-B-Q24': { illustration: () => import('./CarSpeed20B24Illustration') },
+  'SEAMO-20-B-Q25': { illustration: () => import('./LShadeSquares20B25') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
