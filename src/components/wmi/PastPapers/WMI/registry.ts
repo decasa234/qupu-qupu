@@ -2833,6 +2833,18 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'HKIMO-22-P1H-Q18': { illustration: () => import('./LineSegmentsHK22P1Q18Illustration'), explainer: () => import('./LineSegmentsHK22P1Q18Explainer') },
   'HKIMO-22-P1H-Q19': { illustration: () => import('./SquaresHK22P1Q19Illustration'), explainer: () => import('./SquaresHK22P1Q19Explainer') },
   'HKIMO-22-P1H-Q20': { illustration: () => import('./CubeMinHK22P1Q20Illustration'), explainer: () => import('./CubeMinHK22P1Q20Explainer') },
+  'HKIMO-24-P1H-Q5': { illustration: () => import('./StarGridHK24P1Q5Illustration'), explainer: () => import('./StarGridHK24P1Q5Explainer') },
+  'HKIMO-24-P1H-Q10': { illustration: () => import('./ColumnAddHK24P1Q10Illustration'), explainer: () => import('./ColumnAddHK24P1Q10Explainer') },
+  'HKIMO-24-P1H-Q16': { illustration: () => import('./CubeStairsHK24P1Q16Illustration'), explainer: () => import('./CubeStairsHK24P1Q16Explainer') },
+  'HKIMO-24-P1H-Q17': { illustration: () => import('./SquareCountHK24P1Q17Illustration'), explainer: () => import('./SquareCountHK24P1Q17Explainer') },
+  'HKIMO-24-P1H-Q18': { illustration: () => import('./LineSegsHK24P1Q18Illustration'), explainer: () => import('./LineSegsHK24P1Q18Explainer') },
+  'HKIMO-24-P1H-Q19': { illustration: () => import('./BeadChainHK24P1Q19Illustration'), explainer: () => import('./BeadChainHK24P1Q19Explainer') },
+  'HKIMO-24-P1H-Q20': { illustration: () => import('./PolygonAnglesHK24P1Q20Illustration'), explainer: () => import('./PolygonAnglesHK24P1Q20Explainer') },
+  'HKIMO-25-P1H-Q5': { illustration: () => import('./LStarsHK25P1Q5Illustration'), explainer: () => import('./LStarsHK25P1Q5Explainer') },
+  'HKIMO-25-P1H-Q16': { illustration: () => import('./RightViewHK25P1Q16Illustration'), explainer: () => import('./RightViewHK25P1Q16Explainer') },
+  'HKIMO-25-P1H-Q17': { illustration: () => import('./StaircaseHK25P1Q17Illustration'), explainer: () => import('./StaircaseHK25P1Q17Explainer') },
+  'HKIMO-25-P1H-Q18': { illustration: () => import('./PolySegHK25P1Q18Illustration'), explainer: () => import('./PolySegHK25P1Q18Explainer') },
+  'HKIMO-25-P1H-Q19': { illustration: () => import('./PolygonHK25P1Q19Illustration'), explainer: () => import('./PolygonHK25P1Q19Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
