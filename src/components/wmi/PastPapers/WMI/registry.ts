@@ -2899,6 +2899,34 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'HKIMO-23-P3SF-Q2': { illustration: () => import('./TriStarGroupsHK23P3SFQ2Illustration'), explainer: () => import('./TriStarGroupsHK23P3SFQ2Explainer') },
   'HKIMO-23-P3SF-Q18': { illustration: () => import('./CountSquaresHK23P3SFQ18Illustration'), explainer: () => import('./CountSquaresHK23P3SFQ18Explainer') },
   'HKIMO-23-P3SF-Q19': { illustration: () => import('./RightViewHK23P3SFQ19Illustration'), explainer: () => import('./RightViewHK23P3SFQ19Explainer') },
+  'OSN-07-SD-KAB-Q5': {
+    illustration: () => import('./BoxFillOSN07KQ5Illustration'),
+    explainer: () => import('./BoxFillOSN07KQ5Explainer'),
+  },
+  'OSN-07-SD-KAB-Q6': {
+    illustration: () => import('./ParallelTriangleOSN07KQ6Illustration'),
+    explainer: () => import('./ParallelTriangleOSN07KQ6Explainer'),
+  },
+  'OSN-07-SD-KAB-Q13': {
+    illustration: () => import('./RectTriOSN07KQ13Illustration'),
+    explainer: () => import('./RectTriOSN07KQ13Explainer'),
+  },
+  'OSN-07-SD-KAB-Q14': {
+    illustration: () => import('./CircleSquareOSN07KQ14Illustration'),
+    explainer: () => import('./CircleSquareOSN07KQ14Explainer'),
+  },
+  'OSN-09-SD-KAB-Q22': {
+    illustration: () => import('./DualCirclesOSN09KQ22Illustration'),
+    explainer: () => import('./DualCirclesOSN09KQ22Explainer'),
+  },
+  'OSN-09-SD-KAB-Q23': {
+    illustration: () => import('./BarChartOSN09KQ23Illustration'),
+    explainer: () => import('./BarChartOSN09KQ23Explainer'),
+  },
+  'OSN-10-SD-KAB-Q22': {
+    illustration: () => import('./ConcaveSquareOSN10KQ22Illustration'),
+    explainer: () => import('./ConcaveSquareOSN10KQ22Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
