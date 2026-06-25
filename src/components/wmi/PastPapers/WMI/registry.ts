@@ -2728,6 +2728,19 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-20-B-Q22': { illustration: () => import('./GridPaths20B22Illustration'), explainer: () => import('./GridPaths20B22Explainer') },
   'SEAMO-20-B-Q24': { illustration: () => import('./CarSpeed20B24Illustration') },
   'SEAMO-20-B-Q25': { illustration: () => import('./LShadeSquares20B25') },
+  'SEAMO-21-A-Q6': { illustration: () => import('./CirclePair21A6Illustration') },
+  'SEAMO-21-A-Q7': { illustration: () => import('./CoinTriangle21A7Illustration'), explainer: () => import('./CoinTriangle21A7Explainer') },
+  'SEAMO-21-A-Q8': { illustration: () => import('./PartyBalloons21A8Illustration') },
+  'SEAMO-21-A-Q9': { illustration: () => import('./CircleTriangle21A9Illustration') },
+  'SEAMO-21-A-Q10': { illustration: () => import('./PostmanGrid21A10Illustration') },
+  'SEAMO-21-A-Q11': { illustration: () => import('./TriCount21A11Fig') },
+  'SEAMO-21-A-Q12': { illustration: () => import('./NumberCircles21A12Illustration'), explainer: () => import('./NumberCircles21A12Explainer') },
+  'SEAMO-21-A-Q15': { illustration: () => import('./ShapeCode21A15Illustration'), explainer: () => import('./ShapeCode21A15Explainer') },
+  'SEAMO-21-A-Q16': { illustration: () => import('./StepPerim21A16Illustration'), explainer: () => import('./StepPerim21A16Explainer') },
+  'SEAMO-21-A-Q18': { illustration: () => import('./ClockSeq21A18Illustration'), explainer: () => import('./ClockSeq21A18Explainer') },
+  'SEAMO-21-A-Q20': { illustration: () => import('./RiceAdd21A20Illustration') },
+  'SEAMO-21-A-Q22': { illustration: () => import('./FruitScales21A22Illustration') },
+  'SEAMO-21-A-Q24': { illustration: () => import('./DotPattern21A24Fig'), explainer: () => import('./DotPattern21A24Fig').then((m) => ({ default: m.DotPattern21A24Explainer })) },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2820,6 +2833,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'SEAMO-17-A-Q16': () => import('./ShapeSeq17A16Illustration').then((m) => ({ default: m.ShapeSeq17A16Option })),
   'SEAMO-18-A-Q7': () => import('./DotMatrix18A7Illustration').then((m) => ({ default: m.SEAMO18A7Option })),
   'SEAMO-18-A-Q17': () => import('./StackGrid17A18Illustration').then((m) => ({ default: m.StackGrid17A18Option })),
+  'SEAMO-21-A-Q6': () => import('./CirclePair21A6Illustration').then((m) => ({ default: m.CirclePair21A6Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),

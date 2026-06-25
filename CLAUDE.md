@@ -75,6 +75,18 @@ Use the **`qupu-math-problem-creation`** skill (`.claude/skills/qupu-math-proble
 
 **Review fix-loop:** the admin flags granular per-part problems in the review UI (`wmi_review_issues`, migration `0036`). To work them, read open AI-actionable issues via `GET /api/admin/wmi/issues?status=open&ai_actionable=true&concept_slug=…` (concepts) or `&paper_id=…` (papers) — or paste the admin's "Copy issues for Claude" block. Resolve the source from the target + `part` (concept `slug` → illustration/explainer/generator registries; paper `question_id` → the `wmi_questions` row), apply the fix, then `PATCH /api/admin/wmi/issues/:id` to `in_progress` then `fixed` with a `fix_note`; the admin verifies.
 
+## Olympiad past-paper drill figures (always consult the index first)
+
+When **creating or upgrading any olympiad past-paper drill figure** (the multi-brand IKMC / SEAMO / SASMO / SIMOC / HKIMO / IOB / OSN / TIMO drill — a bespoke SVG illustration + animated explainer, plus a picture-option renderer when the A–E choices are pictures), you MUST consult the index first and **reuse — never regenerate geometry that already exists as a primitive or a proven component.** The index lives in `docs/reference/competition-papers/`:
+
+- **`PRIMITIVE-INDEX.md` — IMPORT-FIRST (read before writing any SVG).** Eight importable, prop-driven primitives in `src/components/wmi/PastPapers/WMI/primitives/` (`IsoCubes`, `GridBoard`, `BalanceScale`, `MazeGrid`, `Polyomino`, `NumberLine`, `NodeGraph`, `glyphs`) plus a copy-adapt catalog (folds, weaves, clocks, rings, maps, cards, dice…) mapping each figure type to the proven component to copy. If a primitive fits, import it and pass data/props; else copy-adapt the catalog's named component; only write fresh SVG when nothing matches (and if it's a generic recurring type, add it to `primitives/` + the index).
+- **`FIGURE-BUILD-BRIEF.md`** — the per-question build + verify contract (stem vs picture-options rules; NAMED `<Name>Option` export for picture choices; default export = the illustration; **no embedded `export const VISUALS` in component files** — return the registry lines as text). **Verify with a `tsx` SSR smoke ONLY — do NOT run `npm run check` / `lint` / `build`** (the full-project tsc OOMs when several agents run it in parallel); the orchestrator runs ONE sequential `node --max-old-space-size=4096 ./node_modules/.bin/tsc --noEmit` at commit time.
+- **`PHASE1-BRIEF.md`** — the Phase-1 data layer (breakdown categories `fact|condition|question|object`, hint steps, try-and-eliminate animation params).
+- **`<brand>-figure-map.json`** (e.g. `ikmc-figure-map.json`, `seamo-figure-map.json`) — the deterministic list of which questions actually have a figure, built by parsing OCR `![image]` refs → question numbers. Build only these; do NOT trust content-guessing scouts (they over-flag text problems as figures).
+- **`src/components/wmi/PastPapers/WMI/registry.ts`** — the catalog of already-built figures: `VISUALS[code]` (illustration/explainer) and `CHOICE_RENDERERS[code]` (picture options), keyed by question code `<BRAND>-<YY>-<LEVEL>-Q<n>` (codes from the brand registry `api/services/wmi/olympiads/registry.ts`). Grep it before building so you never duplicate an existing figure.
+
+Render priority is `TemplateIllustration > per-code Illustration (VISUALS) > ConceptIllustration > figure_url`. Progress + the resumable per-paper build loop are tracked in the `project_olympiad_drill_enrichment` agent memory.
+
 ## Documented Solutions
 
 `docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas.
