@@ -2741,6 +2741,14 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-21-A-Q20': { illustration: () => import('./RiceAdd21A20Illustration') },
   'SEAMO-21-A-Q22': { illustration: () => import('./FruitScales21A22Illustration') },
   'SEAMO-21-A-Q24': { illustration: () => import('./DotPattern21A24Fig'), explainer: () => import('./DotPattern21A24Fig').then((m) => ({ default: m.DotPattern21A24Explainer })) },
+  'SEAMO-21-B-Q3': { illustration: () => import('./BorderedRect21B3Illustration'), explainer: () => import('./BorderedRect21B3Explainer') },
+  'SEAMO-21-B-Q10': { illustration: () => import('./InsectClimb21B10Illustration'), explainer: () => import('./InsectClimb21B10Explainer') },
+  'SEAMO-21-B-Q15': { illustration: () => import('./AngleLines21B15Illustration') },
+  'SEAMO-21-B-Q18': { illustration: () => import('./TriBeads21B18Illustration') },
+  'SEAMO-21-B-Q19': { illustration: () => import('./StairPath21B19Illustration'), explainer: () => import('./StairPath21B19Explainer') },
+  'SEAMO-21-B-Q20': { illustration: () => import('./RectCountSeamo21B20Fig') },
+  'SEAMO-21-B-Q22': { illustration: () => import('./HexRings21B22'), explainer: () => import('./HexRings21B22').then((m) => ({ default: m.HexRings21B22Explainer })) },
+  'SEAMO-21-B-Q23': { illustration: () => import('./TetraCubes21B23Illustration'), explainer: () => import('./TetraCubes21B23Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
