@@ -2749,6 +2749,15 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-21-B-Q20': { illustration: () => import('./RectCountSeamo21B20Fig') },
   'SEAMO-21-B-Q22': { illustration: () => import('./HexRings21B22'), explainer: () => import('./HexRings21B22').then((m) => ({ default: m.HexRings21B22Explainer })) },
   'SEAMO-21-B-Q23': { illustration: () => import('./TetraCubes21B23Illustration'), explainer: () => import('./TetraCubes21B23Explainer') },
+  'SEAMO-22-A-Q6': { illustration: () => import('./RectPerim22A6Illustration'), explainer: () => import('./RectPerim22A6Explainer') },
+  'SEAMO-22-A-Q7': { illustration: () => import('./MirrorClock22A7Illustration'), explainer: () => import('./MirrorClock22A7Explainer') },
+  'SEAMO-22-A-Q8': { illustration: () => import('./CountSquares22A8Illustration'), explainer: () => import('./CountSquares22A8Explainer') },
+  'SEAMO-22-A-Q10': { illustration: () => import('./ColAdd22A10Illustration'), explainer: () => import('./ColAdd22A10Explainer') },
+  'SEAMO-22-A-Q11': { illustration: () => import('./HexPaths22A11Illustration') },
+  'SEAMO-22-A-Q15': { illustration: () => import('./ClimbStairs22A15Illustration'), explainer: () => import('./ClimbStairs22A15Explainer') },
+  'SEAMO-22-A-Q16': { illustration: () => import('./Sweets22A16Illustration'), explainer: () => import('./Sweets22A16Explainer') },
+  'SEAMO-22-A-Q20': { illustration: () => import('./PaintedCubes22A20Illustration') },
+  'SEAMO-22-A-Q23': { illustration: () => import('./Seamo22A23Illustration'), explainer: () => import('./Seamo22A23Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
