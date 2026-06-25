@@ -2758,6 +2758,14 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-22-A-Q16': { illustration: () => import('./Sweets22A16Illustration'), explainer: () => import('./Sweets22A16Explainer') },
   'SEAMO-22-A-Q20': { illustration: () => import('./PaintedCubes22A20Illustration') },
   'SEAMO-22-A-Q23': { illustration: () => import('./Seamo22A23Illustration'), explainer: () => import('./Seamo22A23Explainer') },
+  'SEAMO-22-B-Q3': { illustration: () => import('./Pentagon22B3Illustration'), explainer: () => import('./Pentagon22B3Explainer') },
+  'SEAMO-22-B-Q5': { illustration: () => import('./Notch22B5Illustration') },
+  'SEAMO-22-B-Q9': { illustration: () => import('./ShadedRect22B9Illustration'), explainer: () => import('./ShadedRect22B9Explainer') },
+  'SEAMO-22-B-Q10': { illustration: () => import('./CatchUp22B10Illustration'), explainer: () => import('./CatchUp22B10Explainer') },
+  'SEAMO-22-B-Q11': { illustration: () => import('./StairPyramid22B11Illustration'), explainer: () => import('./StairPyramid22B11Explainer') },
+  'SEAMO-22-B-Q14': { illustration: () => import('./ShadedArc22B14Illustration'), explainer: () => import('./ShadedArc22B14Explainer') },
+  'SEAMO-22-B-Q19': { illustration: () => import('./LShortPath22B19Illustration'), explainer: () => import('./LShortPath22B19Explainer') },
+  'SEAMO-22-B-Q20': { illustration: () => import('./ClockSymmetry22B20Illustration'), explainer: () => import('./ClockSymmetry22B20Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
