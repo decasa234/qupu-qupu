@@ -2889,6 +2889,16 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'HKIMO-25-P3H-Q13': { illustration: () => import('./MultABHK25P3Q13Illustration'), explainer: () => import('./MultABHK25P3Q13Explainer') },
   'HKIMO-25-P3H-Q16': { illustration: () => import('./RightViewHK25P3Q16Illustration'), explainer: () => import('./RightViewHK25P3Q16Explainer') },
   'HKIMO-25-P3H-Q18': { illustration: () => import('./CountSquaresHK25P3Q18Illustration'), explainer: () => import('./CountSquaresHK25P3Q18Explainer') },
+  'HKIMO-23-P1SF-Q2': { illustration: () => import('./StarGroupsHK23P1SFQ2Illustration'), explainer: () => import('./StarGroupsHK23P1SFQ2Explainer') },
+  'HKIMO-23-P1SF-Q16': { illustration: () => import('./PatternHK23P1SFQ16Illustration'), explainer: () => import('./PatternHK23P1SFQ16Explainer') },
+  'HKIMO-23-P1SF-Q17': { illustration: () => import('./HexagonAnglesHK23P1SFQ17Illustration'), explainer: () => import('./HexagonAnglesHK23P1SFQ17Explainer') },
+  'HKIMO-23-P1SF-Q18': { illustration: () => import('./RightViewPyramidHK23P1SFQ18Illustration'), explainer: () => import('./RightViewPyramidHK23P1SFQ18Explainer') },
+  'HKIMO-23-P1SF-Q19': { illustration: () => import('./CountSquaresHK23P1SFQ19Illustration'), explainer: () => import('./CountSquaresHK23P1SFQ19Explainer') },
+  'HKIMO-23-P1SF-Q20': { illustration: () => import('./SegGraphHK23P1SFQ20Illustration'), explainer: () => import('./SegGraphHK23P1SFQ20Explainer') },
+  'HKIMO-23-P3SF-Q1': { illustration: () => import('./DiamondPatternHK23P3SFQ1Illustration'), explainer: () => import('./DiamondPatternHK23P3SFQ1Explainer') },
+  'HKIMO-23-P3SF-Q2': { illustration: () => import('./TriStarGroupsHK23P3SFQ2Illustration'), explainer: () => import('./TriStarGroupsHK23P3SFQ2Explainer') },
+  'HKIMO-23-P3SF-Q18': { illustration: () => import('./CountSquaresHK23P3SFQ18Illustration'), explainer: () => import('./CountSquaresHK23P3SFQ18Explainer') },
+  'HKIMO-23-P3SF-Q19': { illustration: () => import('./RightViewHK23P3SFQ19Illustration'), explainer: () => import('./RightViewHK23P3SFQ19Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
