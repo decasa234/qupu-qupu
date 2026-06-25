@@ -2689,6 +2689,13 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-18-B-Q25': {
     illustration: () => import('./SquareRect18B25Fig'),
   },
+  'SEAMO-19-A-Q1': { illustration: () => import('./TriCount19A1Illustration'), explainer: () => import('./TriCount19A1Explainer') },
+  'SEAMO-19-A-Q5': { illustration: () => import('./CubeStack19A5Illustration'), explainer: () => import('./CubeStack19A5Explainer') },
+  'SEAMO-19-A-Q8': { illustration: () => import('./SugarPath19A8Illustration'), explainer: () => import('./SugarPath19A8Explainer') },
+  'SEAMO-19-A-Q10': { illustration: () => import('./CassieQueue19A10Illustration'), explainer: () => import('./CassieQueue19A10Explainer') },
+  'SEAMO-19-A-Q11': { illustration: () => import('./NumTree19A11Illustration'), explainer: () => import('./NumTree19A11Explainer') },
+  'SEAMO-19-A-Q15': { illustration: () => import('./Pyramid19A15Illustration') },
+  'SEAMO-19-A-Q25': { illustration: () => import('./TownsMeet19A25Illustration'), explainer: () => import('./TownsMeet19A25Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
