@@ -2696,6 +2696,14 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-19-A-Q11': { illustration: () => import('./NumTree19A11Illustration'), explainer: () => import('./NumTree19A11Explainer') },
   'SEAMO-19-A-Q15': { illustration: () => import('./Pyramid19A15Illustration') },
   'SEAMO-19-A-Q25': { illustration: () => import('./TownsMeet19A25Illustration'), explainer: () => import('./TownsMeet19A25Explainer') },
+  'SEAMO-19-B-Q4': { illustration: () => import('./SquareRect19B4Illustration'), explainer: () => import('./SquareRect19B4Explainer') },
+  'SEAMO-19-B-Q5': { illustration: () => import('./Wallet19B5Illustration'), explainer: () => import('./Wallet19B5Explainer') },
+  'SEAMO-19-B-Q7': { illustration: () => import('./AgeAlice19B7Illustration'), explainer: () => import('./AgeAlice19B7Explainer') },
+  'SEAMO-19-B-Q8': { illustration: () => import('./SquareRects19B8Illustration'), explainer: () => import('./SquareRects19B8Explainer') },
+  'SEAMO-19-B-Q9': { illustration: () => import('./BoxAdd19B9Illustration'), explainer: () => import('./BoxAdd19B9Explainer') },
+  'SEAMO-19-B-Q16': { illustration: () => import('./StairPyramid19B16Illustration') },
+  'SEAMO-19-B-Q17': { illustration: () => import('./CalMonth19B17Fig'), explainer: () => import('./CalMonth19B17Explainer') },
+  'SEAMO-19-B-Q22': { illustration: () => import('./RouteGrid19B22Illustration') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
