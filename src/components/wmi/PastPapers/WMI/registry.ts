@@ -2776,6 +2776,18 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMOX-20-B-Q9': { illustration: () => import('./MissingGridX20B9Illustration'), explainer: () => import('./MissingGridX20B9Explainer') },
   'SEAMOX-20-B-Q14': { illustration: () => import('./ThreeRectsX20B14Illustration') },
   'SEAMOX-20-B-Q15': { illustration: () => import('./VennCirclesX20B15Illustration'), explainer: () => import('./VennCirclesX20B15Explainer') },
+  'SEAMOX-22-A-Q1': { illustration: () => import('./BubblePatternX22A1Illustration'), explainer: () => import('./BubblePatternX22A1Explainer') },
+  'SEAMOX-22-A-Q3': { illustration: () => import('./StaircasePerimX22A3Illustration'), explainer: () => import('./StaircasePerimX22A3Explainer') },
+  'SEAMOX-22-A-Q5': { illustration: () => import('./FunnelX22A5Illustration'), explainer: () => import('./FunnelX22A5Explainer') },
+  'SEAMOX-22-A-Q7': { illustration: () => import('./TrianglesX22A7Illustration'), explainer: () => import('./TrianglesX22A7Explainer') },
+  'SEAMOX-22-A-Q9': { illustration: () => import('./BeadsX22A9Illustration'), explainer: () => import('./BeadsX22A9Explainer') },
+  'SEAMOX-22-A-Q11': { illustration: () => import('./AnimalScalesX22A11Illustration'), explainer: () => import('./AnimalScalesX22A11Explainer') },
+  'SEAMOX-22-A-Q15': { illustration: () => import('./StarCirclesX22A15Illustration'), explainer: () => import('./StarCirclesX22A15Explainer') },
+  'SEAMOX-22-A-Q19': { illustration: () => import('./CircleSectorsX22A19Illustration'), explainer: () => import('./CircleSectorsX22A19Explainer') },
+  'SEAMOX-22-B-Q1': { illustration: () => import('./ClockStraightX22B1Illustration'), explainer: () => import('./ClockStraightX22B1Explainer') },
+  'SEAMOX-22-B-Q10': { illustration: () => import('./GridPathX22B10Illustration'), explainer: () => import('./GridPathX22B10Explainer') },
+  'SEAMOX-22-B-Q11': { illustration: () => import('./CevianX22B11Illustration'), explainer: () => import('./CevianX22B11Explainer') },
+  'SEAMOX-22-B-Q13': { illustration: () => import('./MidpointShadedX22B13Illustration'), explainer: () => import('./MidpointShadedX22B13Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
