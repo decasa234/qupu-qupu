@@ -2766,6 +2766,16 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'SEAMO-22-B-Q14': { illustration: () => import('./ShadedArc22B14Illustration'), explainer: () => import('./ShadedArc22B14Explainer') },
   'SEAMO-22-B-Q19': { illustration: () => import('./LShortPath22B19Illustration'), explainer: () => import('./LShortPath22B19Explainer') },
   'SEAMO-22-B-Q20': { illustration: () => import('./ClockSymmetry22B20Illustration'), explainer: () => import('./ClockSymmetry22B20Explainer') },
+  'SEAMOX-20-A-Q3': { illustration: () => import('./StickFigX20A3Illustration'), explainer: () => import('./StickFigX20A3Explainer') },
+  'SEAMOX-20-A-Q4': { illustration: () => import('./SeamoX20A4Illustration'), explainer: () => import('./SeamoX20A4Explainer') },
+  'SEAMOX-20-A-Q6': { illustration: () => import('./ShapePatternX20A6Illustration'), explainer: () => import('./ShapePatternX20A6Explainer') },
+  'SEAMOX-20-A-Q8': { illustration: () => import('./StaircubeX20A8Illustration'), explainer: () => import('./StaircubeX20A8Explainer') },
+  'SEAMOX-20-A-Q17': { illustration: () => import('./RectCircleSeqX20A17Illustration'), explainer: () => import('./RectCircleSeqX20A17Explainer') },
+  'SEAMOX-20-A-Q19': { illustration: () => import('./ShapeAnalogy20A19Illustration'), explainer: () => import('./ShapeAnalogy20A19Explainer') },
+  'SEAMOX-20-B-Q6': { illustration: () => import('./CryptAritX20B6Illustration'), explainer: () => import('./CryptAritX20B6Explainer') },
+  'SEAMOX-20-B-Q9': { illustration: () => import('./MissingGridX20B9Illustration'), explainer: () => import('./MissingGridX20B9Explainer') },
+  'SEAMOX-20-B-Q14': { illustration: () => import('./ThreeRectsX20B14Illustration') },
+  'SEAMOX-20-B-Q15': { illustration: () => import('./VennCirclesX20B15Illustration'), explainer: () => import('./VennCirclesX20B15Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -2859,6 +2869,7 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'SEAMO-18-A-Q7': () => import('./DotMatrix18A7Illustration').then((m) => ({ default: m.SEAMO18A7Option })),
   'SEAMO-18-A-Q17': () => import('./StackGrid17A18Illustration').then((m) => ({ default: m.StackGrid17A18Option })),
   'SEAMO-21-A-Q6': () => import('./CirclePair21A6Illustration').then((m) => ({ default: m.CirclePair21A6Option })),
+  'SEAMOX-20-A-Q19': () => import('./ShapeAnalogy20A19Illustration').then((m) => ({ default: m.ShapeAnalogy20A19Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
