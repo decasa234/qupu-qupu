@@ -2822,6 +2822,17 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'HKIMO-19-P1H-Q18': { illustration: () => import('./PolygonSidesHK19P1Q18Illustration'), explainer: () => import('./PolygonSidesHK19P1Q18Explainer') },
   'HKIMO-19-P1H-Q20': { illustration: () => import('./ChainPattern19HK1Q20Illustration'), explainer: () => import('./ChainPattern19HK1Q20Explainer') },
   'HKIMO-19-P1H-Q25': { illustration: () => import('./PickupHK19P1Q25Illustration'), explainer: () => import('./PickupHK19P1Q25Explainer') },
+  'HKIMO-20-P1H-Q5': { illustration: () => import('./StarGroupHK20P1Q5Illustration'), explainer: () => import('./StarGroupHK20P1Q5Explainer') },
+  'HKIMO-20-P1H-Q16': { illustration: () => import('./CubeScaleHK20P1Q16Illustration'), explainer: () => import('./CubeScaleHK20P1Q16Explainer') },
+  'HKIMO-20-P1H-Q17': { illustration: () => import('./OverlapSquaresHK20P1Q17Illustration'), explainer: () => import('./OverlapSquaresHK20P1Q17Explainer') },
+  'HKIMO-20-P1H-Q18': { illustration: () => import('./PolygonSegHK20P1Q18Illustration'), explainer: () => import('./PolygonSegHK20P1Q18Explainer') },
+  'HKIMO-20-P1H-Q19': { illustration: () => import('./PolygonAnglesHK20P1Q19Illustration'), explainer: () => import('./PolygonAnglesHK20P1Q19Explainer') },
+  'HKIMO-20-P1H-Q20': { illustration: () => import('./ChainPatternHK20P1Q20Illustration'), explainer: () => import('./ChainPatternHK20P1Q20Explainer') },
+  'HKIMO-21-P1H-Q13': { illustration: () => import('./PolygonSegHK21P1Q13Illustration'), explainer: () => import('./PolygonSegHK21P1Q13Explainer') },
+  'HKIMO-22-P1H-Q17': { illustration: () => import('./CountEdgesHK22P1Q17Illustration') },
+  'HKIMO-22-P1H-Q18': { illustration: () => import('./LineSegmentsHK22P1Q18Illustration'), explainer: () => import('./LineSegmentsHK22P1Q18Explainer') },
+  'HKIMO-22-P1H-Q19': { illustration: () => import('./SquaresHK22P1Q19Illustration'), explainer: () => import('./SquaresHK22P1Q19Explainer') },
+  'HKIMO-22-P1H-Q20': { illustration: () => import('./CubeMinHK22P1Q20Illustration'), explainer: () => import('./CubeMinHK22P1Q20Explainer') },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
