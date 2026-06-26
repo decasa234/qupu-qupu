@@ -3164,6 +3164,65 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./RoadMapOSN16PQ14Illustration'),
     explainer: () => import('./RoadMapOSN16PQ14Explainer'),
   },
+  'SIMOC-19-G2-Q4': {
+    illustration: () => import('./CubeCountSIMOC19G2Q4Illustration'),
+    explainer: () => import('./CubeCountSIMOC19G2Q4Explainer'),
+  },
+  'SIMOC-19-G2-Q8': {
+    illustration: () => import('./NetFoldSIMOC19G2Q8Illustration'),
+    explainer: () => import('./NetFoldSIMOC19G2Q8Explainer'),
+  },
+  'SIMOC-19-G2-Q13': {
+    illustration: () => import('./ShapeMatrixSIMOC19G2Q13Illustration'),
+    explainer: () => import('./ShapeMatrixSIMOC19G2Q13Explainer'),
+  },
+  'SIMOC-19-G2-Q14': {
+    illustration: () => import('./ThreeViewsSIMOC19G2Q14Illustration'),
+    explainer: () => import('./ThreeViewsSIMOC19G2Q14Explainer'),
+  },
+  'SIMOC-19-G2-Q16': {
+    illustration: () => import('./NumberDiagramSIMOC19G2Q16Illustration'),
+    explainer: () => import('./NumberDiagramSIMOC19G2Q16Explainer'),
+  },
+  'SIMOC-19-G2-Q25': {
+    illustration: () => import('./MatchstickSIMOC19G2Q25Illustration'),
+    explainer: () => import('./MatchstickSIMOC19G2Q25Explainer'),
+  },
+  'SIMOC-19-G3-Q6': {
+    explainer: () => import('./CubeNetsSIMOC19G3Q6Explainer'),
+  },
+  'SIMOC-19-G3-Q9': {
+    illustration: () => import('./StackMapSIMOC19G3Q9Illustration'),
+    explainer: () => import('./StackMapSIMOC19G3Q9Explainer'),
+  },
+  'SIMOC-19-G3-Q15': {
+    illustration: () => import('./SquareSplitSIMOC19G3Q15Illustration'),
+    explainer: () => import('./SquareSplitSIMOC19G3Q15Explainer'),
+  },
+  'SIMOC-19-G3-Q22': {
+    illustration: () => import('./CountSquaresSIMOC19G3Q22Illustration'),
+    explainer: () => import('./CountSquaresSIMOC19G3Q22Explainer'),
+  },
+  'SIMOC-19-G3-Q25': {
+    illustration: () => import('./MatchstickSIMOC19G3Q25Illustration'),
+    explainer: () => import('./MatchstickSIMOC19G3Q25Explainer'),
+  },
+  'SIMOC-19-G4-Q4': {
+    illustration: () => import('./StackMapSIMOC19G4Q4Illustration'),
+    explainer: () => import('./StackMapSIMOC19G4Q4Explainer'),
+  },
+  'SIMOC-19-G4-Q17': {
+    illustration: () => import('./ShadedSquareSIMOC19G4Q17Illustration'),
+    explainer: () => import('./ShadedSquareSIMOC19G4Q17Explainer'),
+  },
+  'SIMOC-19-G4-Q20': {
+    illustration: () => import('./Matchstick869SIMOC19G4Q20Illustration'),
+    explainer: () => import('./Matchstick869SIMOC19G4Q20Explainer'),
+  },
+  'SIMOC-19-G4-Q25': {
+    illustration: () => import('./RectPolySIMOC19G4Q25Illustration'),
+    explainer: () => import('./RectPolySIMOC19G4Q25Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3260,6 +3319,14 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'SEAMOX-20-A-Q19': () => import('./ShapeAnalogy20A19Illustration').then((m) => ({ default: m.ShapeAnalogy20A19Option })),
   'OSN-20-SD-KAB-Q6': () =>
     import('./BarChartOptsOSN20KQ6Illustration').then((m) => ({ default: m.BarChartOptsOSN20KQ6Option })),
+  'SIMOC-19-G2-Q8': () =>
+    import('./NetFoldSIMOC19G2Q8Illustration').then((m) => ({ default: m.NetFoldSIMOC19G2Q8Option })),
+  'SIMOC-19-G2-Q13': () =>
+    import('./ShapeMatrixSIMOC19G2Q13Illustration').then((m) => ({ default: m.ShapeMatrixSIMOC19G2Q13Option })),
+  'SIMOC-19-G3-Q6': () =>
+    import('./CubeNetsSIMOC19G3Q6Illustration').then((m) => ({ default: m.CubeNetsSIMOC19G3Q6Option })),
+  'SIMOC-19-G4-Q4': () =>
+    import('./StackMapSIMOC19G4Q4Illustration').then((m) => ({ default: m.StackMapSIMOC19G4Q4Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
