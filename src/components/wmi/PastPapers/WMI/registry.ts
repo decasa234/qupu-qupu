@@ -3326,6 +3326,48 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./PictographMuffinsSASMO19G3Q18Illustration'),
     explainer: () => import('./PictographMuffinsSASMO19G3Q18Explainer'),
   },
+  'SASMO-19-G4-Q2': {
+    illustration: () => import('./FishTrianglesSASMO19G4Q2Illustration'),
+    explainer: () => import('./FishTrianglesSASMO19G4Q2Explainer'),
+  },
+  'SASMO-19-G4-Q8': {
+    explainer: () => import('./RopeKnotSASMO19G4Q8Explainer'),
+  },
+  'SASMO-19-G4-Q14': {
+    explainer: () => import('./ShadedFractionSASMO19G4Q14Explainer'),
+  },
+  'SASMO-19-G4-Q17': {
+    illustration: () => import('./TiledSquareSASMO19G4Q17Illustration'),
+    explainer: () => import('./TiledSquareSASMO19G4Q17Explainer'),
+  },
+  'SASMO-19-G4-Q20': {
+    illustration: () => import('./BarChartMarySpentSASMO19G4Q20Illustration'),
+    explainer: () => import('./BarChartMarySpentSASMO19G4Q20Explainer'),
+  },
+  'SASMO-20-G4-Q2': {
+    illustration: () => import('./GearTrainSASMO20G4Q2Illustration'),
+    explainer: () => import('./GearTrainSASMO20G4Q2Explainer'),
+  },
+  'SASMO-20-G4-Q11': {
+    illustration: () => import('./TwoRectsShadedSASMO20G4Q11Illustration'),
+    explainer: () => import('./TwoRectsShadedSASMO20G4Q11Explainer'),
+  },
+  'SASMO-20-G4-Q15': {
+    illustration: () => import('./MissingCubeSASMO20G4Q15Illustration'),
+    explainer: () => import('./MissingCubeSASMO20G4Q15Explainer'),
+  },
+  'SASMO-20-G4-Q17': {
+    illustration: () => import('./CountTrianglesRectSASMO20G4Q17Illustration'),
+    explainer: () => import('./CountTrianglesRectSASMO20G4Q17Explainer'),
+  },
+  'SASMO-20-G4-Q19': {
+    illustration: () => import('./MuseumBarChartSASMO20G4Q19Illustration'),
+    explainer: () => import('./MuseumBarChartSASMO20G4Q19Explainer'),
+  },
+  'SASMO-20-G4-Q21': {
+    illustration: () => import('./GraphColorSASMO20G4Q21Illustration'),
+    explainer: () => import('./GraphColorSASMO20G4Q21Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3448,6 +3490,12 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
     import('./ShapeMatrixSASMO19G3Q11Illustration').then((m) => ({ default: m.ShapeMatrixSASMO19G3Q11Option })),
   'SASMO-19-G3-Q12': () =>
     import('./PolyomSASMO19G3Q12Illustration').then((m) => ({ default: m.PolyomSASMO19G3Q12Option })),
+  'SASMO-19-G4-Q8': () =>
+    import('./RopeKnotSASMO19G4Q8Illustration').then((m) => ({ default: m.RopeKnotSASMO19G4Q8Option })),
+  'SASMO-19-G4-Q14': () =>
+    import('./ShadedFractionSASMO19G4Q14Illustration').then((m) => ({ default: m.ShadedFractionSASMO19G4Q14Option })),
+  'SASMO-20-G4-Q15': () =>
+    import('./MissingCubeSASMO20G4Q15Illustration').then((m) => ({ default: m.MissingCubeSASMO20G4Q15Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
