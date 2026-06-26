@@ -3152,6 +3152,18 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./FashionSalesOSN25PQ18Illustration'),
     explainer: () => import('./FashionSalesOSN25PQ18Explainer'),
   },
+  'OSN-25-SD-NAS-SEMIFINAL-Q1': {
+    illustration: () => import('./GridCompositeOSN25NSFQ1Illustration'),
+    explainer: () => import('./GridCompositeOSN25NSFQ1Explainer'),
+  },
+  'OSN-16-SD-PROV-Q6': {
+    illustration: () => import('./FourShapesOSN16PQ6Illustration'),
+    explainer: () => import('./FourShapesOSN16PQ6Explainer'),
+  },
+  'OSN-16-SD-PROV-Q14': {
+    illustration: () => import('./RoadMapOSN16PQ14Illustration'),
+    explainer: () => import('./RoadMapOSN16PQ14Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
