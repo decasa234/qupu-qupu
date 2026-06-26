@@ -3368,6 +3368,34 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./GraphColorSASMO20G4Q21Illustration'),
     explainer: () => import('./GraphColorSASMO20G4Q21Explainer'),
   },
+  'SASMO-20-G3-Q3': {
+    illustration: () => import('./FacePatternSASMO20G3Q3Illustration'),
+    explainer: () => import('./FacePatternSASMO20G3Q3Explainer'),
+  },
+  'SASMO-20-G3-Q6': {
+    illustration: () => import('./CornerCubesSASMO20G3Q6Illustration'),
+    explainer: () => import('./CornerCubesSASMO20G3Q6Explainer'),
+  },
+  'SASMO-20-G3-Q15': {
+    illustration: () => import('./PyramidNetSASMO20G3Q15Illustration'),
+    explainer: () => import('./PyramidNetSASMO20G3Q15Explainer'),
+  },
+  'SASMO-20-G3-Q18': {
+    illustration: () => import('./CrownFanSASMO20G3Q18Illustration'),
+    explainer: () => import('./CrownFanSASMO20G3Q18Explainer'),
+  },
+  'SASMO-20-G3-Q19': {
+    illustration: () => import('./MuseumBarChartSASMO20G3Q19Illustration'),
+    explainer: () => import('./MuseumBarChartSASMO20G3Q19Explainer'),
+  },
+  'SASMO-20-G3-Q21': {
+    illustration: () => import('./DiagShadedRectSASMO20G3Q21Illustration'),
+    explainer: () => import('./DiagShadedRectSASMO20G3Q21Explainer'),
+  },
+  'SASMO-20-G3-Q24': {
+    illustration: () => import('./MagicStarSASMO20G3Q24Illustration'),
+    explainer: () => import('./MagicStarSASMO20G3Q24Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3496,6 +3524,10 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
     import('./ShadedFractionSASMO19G4Q14Illustration').then((m) => ({ default: m.ShadedFractionSASMO19G4Q14Option })),
   'SASMO-20-G4-Q15': () =>
     import('./MissingCubeSASMO20G4Q15Illustration').then((m) => ({ default: m.MissingCubeSASMO20G4Q15Option })),
+  'SASMO-20-G3-Q3': () =>
+    import('./FacePatternSASMO20G3Q3Illustration').then((m) => ({ default: m.FacePatternSASMO20G3Q3Option })),
+  'SASMO-20-G3-Q15': () =>
+    import('./PyramidNetSASMO20G3Q15Illustration').then((m) => ({ default: m.PyramidNetSASMO20G3Q15Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
