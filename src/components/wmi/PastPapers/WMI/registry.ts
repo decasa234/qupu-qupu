@@ -3396,6 +3396,77 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./MagicStarSASMO20G3Q24Illustration'),
     explainer: () => import('./MagicStarSASMO20G3Q24Explainer'),
   },
+  'TIMO-22-P1H-Q5': {
+    illustration: () => import('./HashTriangleTIMO22P1Q5Illustration'),
+    explainer: () => import('./HashTriangleTIMO22P1Q5Explainer'),
+  },
+  'TIMO-22-P1H-Q16': {
+    illustration: () => import('./IsoCubeStairTIMO22P1Q16Illustration'),
+    explainer: () => import('./IsoCubeStairTIMO22P1Q16Explainer'),
+  },
+  'TIMO-22-P1H-Q17': {
+    illustration: () => import('./CountTrianglesTIMO22P1Q17Illustration'),
+  },
+  'TIMO-22-P1H-Q18': {
+    illustration: () => import('./PolygonSidesTIMO22P1Q18Illustration'),
+    explainer: () => import('./PolygonSidesTIMO22P1Q18Explainer'),
+  },
+  'TIMO-22-P1H-Q20': {
+    illustration: () => import('./LineSegTIMO22P1Q20Illustration'),
+    explainer: () => import('./LineSegTIMO22P1Q20Explainer'),
+  },
+  'TIMO-22-P2H-Q5': {
+    illustration: () => import('./GrowingHashTIMO22P2Q5Illustration'),
+    explainer: () => import('./GrowingHashTIMO22P2Q5Explainer'),
+  },
+  'TIMO-22-P2H-Q16': {
+    illustration: () => import('./TriangleChainTIMO22P2Q16Illustration'),
+    explainer: () => import('./TriangleChainTIMO22P2Q16Explainer'),
+  },
+  'TIMO-22-P2H-Q18': {
+    illustration: () => import('./CountSquaresTIMO22P2Q18Illustration'),
+    explainer: () => import('./CountSquaresTIMO22P2Q18Explainer'),
+  },
+  'TIMO-22-P2H-Q19': {
+    illustration: () => import('./TopViewCubesTIMO22P2Q19Illustration'),
+    explainer: () => import('./TopViewCubesTIMO22P2Q19Explainer'),
+  },
+  'TIMO-22-P3H-Q2': {
+    illustration: () => import('./ProjectionsTIMO22P3Q2Illustration'),
+    explainer: () => import('./ProjectionsTIMO22P3Q2Explainer'),
+  },
+  'TIMO-22-P3H-Q5': {
+    illustration: () => import('./GrowingHashTIMO22P3Q5Illustration'),
+    explainer: () => import('./GrowingHashTIMO22P3Q5Explainer'),
+  },
+  'TIMO-22-P3H-Q19': {
+    illustration: () => import('./RightViewTIMO22P3Q19Illustration'),
+    explainer: () => import('./RightViewTIMO22P3Q19Explainer'),
+  },
+  'TIMO-22-P3H-Q20': {
+    illustration: () => import('./CountRectsTIMO22P3Q20Illustration'),
+    explainer: () => import('./CountRectsTIMO22P3Q20Explainer'),
+  },
+  'TIMO-22-P4H-Q5': {
+    illustration: () => import('./GrowingHashTIMO22P4Q5Illustration'),
+    explainer: () => import('./GrowingHashTIMO22P4Q5Explainer'),
+  },
+  'TIMO-22-P4H-Q16': {
+    illustration: () => import('./TiltedSquareTIMO22P4Q16Illustration'),
+    explainer: () => import('./TiltedSquareTIMO22P4Q16Explainer'),
+  },
+  'TIMO-22-P4H-Q18': {
+    illustration: () => import('./RightViewCubesTIMO22P4Q18Illustration'),
+    explainer: () => import('./RightViewCubesTIMO22P4Q18Explainer'),
+  },
+  'TIMO-22-P4H-Q19': {
+    illustration: () => import('./GrowingCubesTIMO22P4Q19Illustration'),
+    explainer: () => import('./GrowingCubesTIMO22P4Q19Explainer'),
+  },
+  'TIMO-22-P4H-Q20': {
+    illustration: () => import('./StarGridTIMO22P4Q20Illustration'),
+    explainer: () => import('./StarGridTIMO22P4Q20Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
