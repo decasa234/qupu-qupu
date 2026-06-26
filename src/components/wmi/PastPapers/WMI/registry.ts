@@ -3254,6 +3254,42 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./CountSquaresSIMOC23G1Q9Illustration'),
     explainer: () => import('./CountSquaresSIMOC23G1Q9Explainer'),
   },
+  'SASMO-19-G2-Q4': {
+    illustration: () => import('./RulerToolsSASMO19G2Q4Illustration'),
+    explainer: () => import('./RulerToolsSASMO19G2Q4Explainer'),
+  },
+  'SASMO-19-G2-Q6': {
+    illustration: () => import('./SnowflakeSASMO19G2Q6Illustration'),
+    explainer: () => import('./SnowflakeSASMO19G2Q6Explainer'),
+  },
+  'SASMO-19-G2-Q7': {
+    illustration: () => import('./NestedShapePatternSASMO19G2Q7Illustration'),
+    explainer: () => import('./NestedShapePatternSASMO19G2Q7Explainer'),
+  },
+  'SASMO-19-G2-Q11': {
+    illustration: () => import('./ContainerChainSASMO19G2Q11Illustration'),
+    explainer: () => import('./ContainerChainSASMO19G2Q11Explainer'),
+  },
+  'SASMO-19-G2-Q12': {
+    illustration: () => import('./PencilMirrorSASMO19G2Q12Illustration'),
+    explainer: () => import('./PencilMirrorSASMO19G2Q12Explainer'),
+  },
+  'SASMO-19-G2-Q17': {
+    illustration: () => import('./TownShapesSASMO19G2Q17Illustration'),
+    explainer: () => import('./TownShapesSASMO19G2Q17Explainer'),
+  },
+  'SASMO-19-G2-Q19': {
+    illustration: () => import('./ShapeSumSASMO19G2Q19Illustration'),
+    explainer: () => import('./ShapeSumSASMO19G2Q19Explainer'),
+  },
+  'SASMO-19-G2-Q21': {
+    illustration: () => import('./StampGraphSASMO19G2Q21Illustration'),
+    explainer: () => import('./StampGraphSASMO19G2Q21Explainer'),
+  },
+  'SASMO-19-G2-Q24': {
+    illustration: () => import('./GridCalcSASMO19G2Q24Illustration'),
+    explainer: () => import('./GridCalcSASMO19G2Q24Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3362,6 +3398,12 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
     import('./TopViewSIMOC21G1Q12Illustration').then((m) => ({ default: m.TopViewSIMOC21G1Q12Option })),
   'SIMOC-21-G1-Q15': () =>
     import('./EulerFiguresSIMOC21G1Q15Option').then((m) => ({ default: m.EulerFiguresSIMOC21G1Q15Option })),
+  'SASMO-19-G2-Q6': () =>
+    import('./SnowflakeSASMO19G2Q6Illustration').then((m) => ({ default: m.SnowflakeSASMO19G2Q6Option })),
+  'SASMO-19-G2-Q7': () =>
+    import('./NestedShapePatternSASMO19G2Q7Illustration').then((m) => ({ default: m.NestedShapePatternSASMO19G2Q7Option })),
+  'SASMO-19-G2-Q12': () =>
+    import('./PencilMirrorSASMO19G2Q12Illustration').then((m) => ({ default: m.PencilMirrorSASMO19G2Q12Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
