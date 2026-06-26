@@ -3093,6 +3093,33 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./LensOSN09PQ16Illustration'),
     explainer: () => import('./LensOSN09PQ16Explainer'),
   },
+  'OSN-25-SD-NAS-FINAL-Q3': {
+    illustration: () => import('./IsoscelesAltitudeOSN25NFQ3Illustration'),
+    explainer: () => import('./IsoscelesAltitudeOSN25NFQ3Explainer'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q5': {
+    illustration: () => import('./BusSeatOSN25NFQ5Illustration'),
+    explainer: () => import('./BusSeatOSN25NFQ5Explainer'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q10': {
+    illustration: () => import('./CityTourOSN25NFQ10Illustration'),
+    explainer: () => import('./CityTourOSN25NFQ10Explainer'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q13': {
+    illustration: () => import('./SemiTrapOSN25NFQ13Illustration'),
+    explainer: () => import('./SemiTrapOSN25NFQ13Explainer'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q15': {
+    illustration: () => import('./ColorGridOSN25NFQ15Illustration'),
+    explainer: () => import('./ColorGridOSN25NFQ15Explainer'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q22': {
+    illustration: () => import('./ShadedStairOSN25NFQ22Illustration'),
+  },
+  'OSN-25-SD-NAS-FINAL-Q25': {
+    illustration: () => import('./ChainedTriOSN25NFQ25Illustration'),
+    explainer: () => import('./ChainedTriOSN25NFQ25Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
