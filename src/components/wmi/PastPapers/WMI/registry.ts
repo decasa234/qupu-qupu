@@ -3223,6 +3223,37 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./RectPolySIMOC19G4Q25Illustration'),
     explainer: () => import('./RectPolySIMOC19G4Q25Explainer'),
   },
+  'SIMOC-21-G1-Q12': {
+    illustration: () => import('./TopViewSIMOC21G1Q12Illustration'),
+    explainer: () => import('./TopViewSIMOC21G1Q12Explainer'),
+  },
+  'SIMOC-21-G1-Q13': {
+    illustration: () => import('./PlatesPearsSIMOC21G1Q13Illustration'),
+    explainer: () => import('./PlatesPearsSIMOC21G1Q13Explainer'),
+  },
+  'SIMOC-21-G1-Q15': {
+    explainer: () => import('./EulerFiguresSIMOC21G1Q15Explainer'),
+  },
+  'SIMOC-21-G1-Q18': {
+    illustration: () => import('./FruitScalesSIMOC21G1Q18Illustration'),
+    explainer: () => import('./FruitScalesSIMOC21G1Q18Explainer'),
+  },
+  'SIMOC-22-G1-Q8': {
+    illustration: () => import('./ParaTrianglesSIMOC22G1Q8Illustration'),
+    explainer: () => import('./ParaTrianglesSIMOC22G1Q8Explainer'),
+  },
+  'SIMOC-22-G1-Q9': {
+    illustration: () => import('./StackedCubesSIMOC22G1Q9Illustration'),
+    explainer: () => import('./StackedCubesSIMOC22G1Q9Explainer'),
+  },
+  'SIMOC-22-G1-Q19': {
+    illustration: () => import('./TwoCubesSIMOC22G1Q19Illustration'),
+    explainer: () => import('./TwoCubesSIMOC22G1Q19Explainer'),
+  },
+  'SIMOC-23-G1-Q9': {
+    illustration: () => import('./CountSquaresSIMOC23G1Q9Illustration'),
+    explainer: () => import('./CountSquaresSIMOC23G1Q9Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3327,6 +3358,10 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
     import('./CubeNetsSIMOC19G3Q6Illustration').then((m) => ({ default: m.CubeNetsSIMOC19G3Q6Option })),
   'SIMOC-19-G4-Q4': () =>
     import('./StackMapSIMOC19G4Q4Illustration').then((m) => ({ default: m.StackMapSIMOC19G4Q4Option })),
+  'SIMOC-21-G1-Q12': () =>
+    import('./TopViewSIMOC21G1Q12Illustration').then((m) => ({ default: m.TopViewSIMOC21G1Q12Option })),
+  'SIMOC-21-G1-Q15': () =>
+    import('./EulerFiguresSIMOC21G1Q15Option').then((m) => ({ default: m.EulerFiguresSIMOC21G1Q15Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
