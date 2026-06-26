@@ -2986,6 +2986,26 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./BoxCutOSN20KQ16Illustration'),
     explainer: () => import('./BoxCutOSN20KQ16Explainer'),
   },
+  'OSN-25-SD-KAB-Q13': {
+    illustration: () => import('./ParkSquaresOSN25KQ13Illustration'),
+    explainer: () => import('./ParkSquaresOSN25KQ13Explainer'),
+  },
+  'OSN-25-SD-KAB-Q14': {
+    illustration: () => import('./BarChartOSN25KQ14Illustration'),
+    explainer: () => import('./BarChartOSN25KQ14Explainer'),
+  },
+  'OSN-25-SD-KAB-Q18': {
+    illustration: () => import('./GridOSN25KQ18Illustration'),
+    explainer: () => import('./GridOSN25KQ18Explainer'),
+  },
+  'OSN-25-SD-KAB-Q23': {
+    illustration: () => import('./CubeMinSAOSN25KQ23Illustration'),
+    explainer: () => import('./CubeMinSAOSN25KQ23Explainer'),
+  },
+  'OSN-10-SD-KEC-Q20': {
+    illustration: () => import('./FrameOSN10EQ20Illustration'),
+    explainer: () => import('./FrameOSN10EQ20Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
