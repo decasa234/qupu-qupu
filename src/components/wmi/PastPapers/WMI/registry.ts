@@ -3120,6 +3120,38 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./ChainedTriOSN25NFQ25Illustration'),
     explainer: () => import('./ChainedTriOSN25NFQ25Explainer'),
   },
+  'OSN-25-SD-NAS-SEMIFINAL-Q5': {
+    illustration: () => import('./SafeButtonsOSN25NSFQ5Illustration'),
+    explainer: () => import('./SafeButtonsOSN25NSFQ5Explainer'),
+  },
+  'OSN-25-SD-NAS-SEMIFINAL-Q8': {
+    illustration: () => import('./PieChartOSN25NSFQ8Illustration'),
+    explainer: () => import('./PieChartOSN25NSFQ8Explainer'),
+  },
+  'OSN-25-SD-NAS-SEMIFINAL-Q9': {
+    illustration: () => import('./VillageFlowOSN25NSFQ9Illustration'),
+    explainer: () => import('./VillageFlowOSN25NSFQ9Explainer'),
+  },
+  'OSN-25-SD-NAS-SEMIFINAL-Q12': {
+    illustration: () => import('./TrapezoidOSN25NSFQ12Illustration'),
+    explainer: () => import('./TrapezoidOSN25NSFQ12Explainer'),
+  },
+  'OSN-25-SD-NAS-SEMIFINAL-Q15': {
+    illustration: () => import('./GridPathOSN25NSFQ15Illustration'),
+    explainer: () => import('./GridPathOSN25NSFQ15Explainer'),
+  },
+  'OSN-25-SD-PROV-Q4': {
+    illustration: () => import('./NotchedRectOSN25PQ4Illustration'),
+    explainer: () => import('./NotchedRectOSN25PQ4Explainer'),
+  },
+  'OSN-25-SD-PROV-Q6': {
+    illustration: () => import('./SymbolGridOSN25PQ6Illustration'),
+    explainer: () => import('./SymbolGridOSN25PQ6Explainer'),
+  },
+  'OSN-25-SD-PROV-Q18': {
+    illustration: () => import('./FashionSalesOSN25PQ18Illustration'),
+    explainer: () => import('./FashionSalesOSN25PQ18Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
