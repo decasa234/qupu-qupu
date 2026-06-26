@@ -2947,6 +2947,45 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./RayAnglesOSN18KQ11Illustration'),
     explainer: () => import('./RayAnglesOSN18KQ11Explainer'),
   },
+  'OSN-11-SD-KAB-Q11': {
+    illustration: () => import('./TwoSquaresOSN11KQ11Illustration'),
+    explainer: () => import('./TwoSquaresOSN11KQ11Explainer'),
+  },
+  'OSN-11-SD-KAB-Q12': {
+    illustration: () => import('./ParallelogramOSN11KQ12Illustration'),
+    explainer: () => import('./ParallelogramOSN11KQ12Explainer'),
+  },
+  'OSN-20-SD-KAB-Q1': {
+    illustration: () => import('./PlankBundleOSN20KQ1Illustration'),
+    explainer: () => import('./PlankBundleOSN20KQ1Explainer'),
+  },
+  'OSN-20-SD-KAB-Q2': {
+    illustration: () => import('./HexTableOSN20KQ2Illustration'),
+    explainer: () => import('./HexTableOSN20KQ2Explainer'),
+  },
+  'OSN-20-SD-KAB-Q5': {
+    illustration: () => import('./HexTileOSN20KQ5Illustration'),
+    explainer: () => import('./HexTileOSN20KQ5Explainer'),
+  },
+  'OSN-20-SD-KAB-Q6': {
+    explainer: () => import('./BarChartOptsOSN20KQ6Explainer'),
+  },
+  'OSN-20-SD-KAB-Q9': {
+    illustration: () => import('./PolygonAreaOSN20KQ9Illustration'),
+    explainer: () => import('./PolygonAreaOSN20KQ9Explainer'),
+  },
+  'OSN-20-SD-KAB-Q10': {
+    illustration: () => import('./FloorPlanOSN20KQ10Illustration'),
+    explainer: () => import('./FloorPlanOSN20KQ10Explainer'),
+  },
+  'OSN-20-SD-KAB-Q14': {
+    illustration: () => import('./PieChartOSN20KQ14Illustration'),
+    explainer: () => import('./PieChartOSN20KQ14Explainer'),
+  },
+  'OSN-20-SD-KAB-Q16': {
+    illustration: () => import('./BoxCutOSN20KQ16Illustration'),
+    explainer: () => import('./BoxCutOSN20KQ16Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3041,6 +3080,8 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'SEAMO-18-A-Q17': () => import('./StackGrid17A18Illustration').then((m) => ({ default: m.StackGrid17A18Option })),
   'SEAMO-21-A-Q6': () => import('./CirclePair21A6Illustration').then((m) => ({ default: m.CirclePair21A6Option })),
   'SEAMOX-20-A-Q19': () => import('./ShapeAnalogy20A19Illustration').then((m) => ({ default: m.ShapeAnalogy20A19Option })),
+  'OSN-20-SD-KAB-Q6': () =>
+    import('./BarChartOptsOSN20KQ6Illustration').then((m) => ({ default: m.BarChartOptsOSN20KQ6Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
