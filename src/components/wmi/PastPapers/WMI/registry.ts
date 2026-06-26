@@ -3006,6 +3006,33 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./FrameOSN10EQ20Illustration'),
     explainer: () => import('./FrameOSN10EQ20Explainer'),
   },
+  'OSN-15-SD-NAS-Q6': {
+    illustration: () => import('./BoxWaterOSN15NQ6Illustration'),
+    explainer: () => import('./BoxWaterOSN15NQ6Explainer'),
+  },
+  'OSN-15-SD-NAS-Q8': {
+    illustration: () => import('./ShadedQuadOSN15NQ8Illustration'),
+  },
+  'OSN-15-SD-NAS-Q11': {
+    illustration: () => import('./DiagonalGridOSN15NQ11Illustration'),
+    explainer: () => import('./DiagonalGridOSN15NQ11Explainer'),
+  },
+  'OSN-15-SD-NAS-Q13': {
+    illustration: () => import('./ClockAngleOSN15NQ13Illustration'),
+    explainer: () => import('./ClockAngleOSN15NQ13Explainer'),
+  },
+  'OSN-15-SD-NAS-Q15': {
+    illustration: () => import('./TrapezoidOSN15NQ15Illustration'),
+    explainer: () => import('./TrapezoidOSN15NQ15Explainer'),
+  },
+  'OSN-15-SD-NAS-Q19': {
+    illustration: () => import('./TriangleCevianOSN15NQ19Illustration'),
+    explainer: () => import('./TriangleCevianOSN15NQ19Explainer'),
+  },
+  'OSN-15-SD-NAS-Q20': {
+    illustration: () => import('./CollinearRunOSN15NQ20Illustration'),
+    explainer: () => import('./CollinearRunOSN15NQ20Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
