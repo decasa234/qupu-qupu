@@ -3061,6 +3061,38 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./KiteOSN24NT2Q13Illustration'),
     explainer: () => import('./KiteOSN24NT2Q13Explainer'),
   },
+  'OSN-24-SD-NAS-TEORI1-Q1': {
+    illustration: () => import('./CircleRingOSN24NT1Q1Illustration'),
+    explainer: () => import('./CircleRingOSN24NT1Q1Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q2': {
+    illustration: () => import('./NestedTriOSN24NT1Q2Illustration'),
+    explainer: () => import('./NestedTriOSN24NT1Q2Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q8': {
+    illustration: () => import('./KiteOSN24NT1Q8Illustration'),
+    explainer: () => import('./KiteOSN24NT1Q8Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q11': {
+    illustration: () => import('./OctagonAngleOSN24NT1Q11Illustration'),
+    explainer: () => import('./OctagonAngleOSN24NT1Q11Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q14': {
+    illustration: () => import('./ColorTileOSN24NT1Q14Illustration'),
+    explainer: () => import('./ColorTileOSN24NT1Q14Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q18': {
+    illustration: () => import('./TwoCirclesTangentOSN24NT1Q18Illustration'),
+    explainer: () => import('./TwoCirclesTangentOSN24NT1Q18Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI1-Q19': {
+    illustration: () => import('./TriangleDEFGOSN24NT1Q19Illustration'),
+    explainer: () => import('./TriangleDEFGOSN24NT1Q19Explainer'),
+  },
+  'OSN-09-SD-PROV-Q16': {
+    illustration: () => import('./LensOSN09PQ16Illustration'),
+    explainer: () => import('./LensOSN09PQ16Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
