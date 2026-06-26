@@ -3033,6 +3033,34 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./CollinearRunOSN15NQ20Illustration'),
     explainer: () => import('./CollinearRunOSN15NQ20Explainer'),
   },
+  'OSN-24-SD-NAS-EKSPERIMEN-Q1': {
+    illustration: () => import('./HanoiTowerOSN24NEKQ1Illustration'),
+    explainer: () => import('./HanoiTowerOSN24NEKQ1Explainer'),
+  },
+  'OSN-24-SD-NAS-EKSPERIMEN-Q2': {
+    illustration: () => import('./TrianglesOSN24NEKQ2Illustration'),
+    explainer: () => import('./TrianglesOSN24NEKQ2Explainer'),
+  },
+  'OSN-24-SD-NAS-EKSPERIMEN-Q4': {
+    illustration: () => import('./ColorCubeOSN24NEKQ4Illustration'),
+    explainer: () => import('./ColorCubeOSN24NEKQ4Explainer'),
+  },
+  'OSN-24-SD-NAS-EKSPERIMEN-Q5': {
+    illustration: () => import('./PolyominoOSN24NEKQ5Illustration'),
+    explainer: () => import('./PolyominoOSN24NEKQ5Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI2-Q7': {
+    illustration: () => import('./FloorPlanOSN24NT2Q7Illustration'),
+    explainer: () => import('./FloorPlanOSN24NT2Q7Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI2-Q10': {
+    illustration: () => import('./PrimeJumpOSN24NT2Q10Illustration'),
+    explainer: () => import('./PrimeJumpOSN24NT2Q10Explainer'),
+  },
+  'OSN-24-SD-NAS-TEORI2-Q13': {
+    illustration: () => import('./KiteOSN24NT2Q13Illustration'),
+    explainer: () => import('./KiteOSN24NT2Q13Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
