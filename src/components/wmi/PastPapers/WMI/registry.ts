@@ -3290,6 +3290,42 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     illustration: () => import('./GridCalcSASMO19G2Q24Illustration'),
     explainer: () => import('./GridCalcSASMO19G2Q24Explainer'),
   },
+  'SASMO-19-G3-Q2': {
+    illustration: () => import('./CircleCountPatternSASMO19G3Q2Illustration'),
+    explainer: () => import('./CircleCountPatternSASMO19G3Q2Explainer'),
+  },
+  'SASMO-19-G3-Q4': {
+    illustration: () => import('./TopViewSASMO19G3Q4Illustration'),
+    explainer: () => import('./TopViewSASMO19G3Q4Explainer'),
+  },
+  'SASMO-19-G3-Q7': {
+    illustration: () => import('./RocketMirrorSASMO19G3Q7Illustration'),
+    explainer: () => import('./RocketMirrorSASMO19G3Q7Explainer'),
+  },
+  'SASMO-19-G3-Q9': {
+    illustration: () => import('./BalloonAnimals19G3Q9Illustration'),
+    explainer: () => import('./BalloonAnimals19G3Q9Explainer'),
+  },
+  'SASMO-19-G3-Q11': {
+    illustration: () => import('./ShapeMatrixSASMO19G3Q11Illustration'),
+    explainer: () => import('./ShapeMatrixSASMO19G3Q11Explainer'),
+  },
+  'SASMO-19-G3-Q12': {
+    illustration: () => import('./PolyomSASMO19G3Q12Illustration'),
+    explainer: () => import('./PolyomSASMO19G3Q12Explainer'),
+  },
+  'SASMO-19-G3-Q15': {
+    illustration: () => import('./ToyScalesSASMO19G3Q15Illustration'),
+    explainer: () => import('./ToyScalesSASMO19G3Q15Explainer'),
+  },
+  'SASMO-19-G3-Q16': {
+    illustration: () => import('./HouseRectsSASMO19G3Q16Illustration'),
+    explainer: () => import('./HouseRectsSASMO19G3Q16Explainer'),
+  },
+  'SASMO-19-G3-Q18': {
+    illustration: () => import('./PictographMuffinsSASMO19G3Q18Illustration'),
+    explainer: () => import('./PictographMuffinsSASMO19G3Q18Explainer'),
+  },
 }
 
 // Optional per-question renderer for the A/B/C/D choice content. When present,
@@ -3404,6 +3440,14 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
     import('./NestedShapePatternSASMO19G2Q7Illustration').then((m) => ({ default: m.NestedShapePatternSASMO19G2Q7Option })),
   'SASMO-19-G2-Q12': () =>
     import('./PencilMirrorSASMO19G2Q12Illustration').then((m) => ({ default: m.PencilMirrorSASMO19G2Q12Option })),
+  'SASMO-19-G3-Q4': () =>
+    import('./TopViewSASMO19G3Q4Illustration').then((m) => ({ default: m.TopViewSASMO19G3Q4Option })),
+  'SASMO-19-G3-Q7': () =>
+    import('./RocketMirrorSASMO19G3Q7Illustration').then((m) => ({ default: m.RocketMirrorSASMO19G3Q7Option })),
+  'SASMO-19-G3-Q11': () =>
+    import('./ShapeMatrixSASMO19G3Q11Illustration').then((m) => ({ default: m.ShapeMatrixSASMO19G3Q11Option })),
+  'SASMO-19-G3-Q12': () =>
+    import('./PolyomSASMO19G3Q12Illustration').then((m) => ({ default: m.PolyomSASMO19G3Q12Option })),
   // 2022 G3: Q5 painted-area options, Q8 half-shade grid options.
   'WMI-22F3A-Q5': () => import('./PaintedArea22G3Illustration').then((m) => ({ default: m.PaintedArea22G3Option })),
   'WMI-22F3A-Q8': () => import('./HalfShadeGrid22G3Illustration').then((m) => ({ default: m.HalfShade22G3Option })),
