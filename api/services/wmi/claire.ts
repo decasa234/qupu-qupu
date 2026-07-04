@@ -17,7 +17,9 @@ import { ensureBootstrapped } from './concepts/bootstrap.js'
 import { isCorrectAnswer } from './answerMatch.js'
 import type { Breakdown, ConceptLogic } from './concepts/types.js'
 
-export const CLAIRE_PARENT_EMAIL = 'johan@decasa.co.id'
+// Allow-list of parent accounts that can see/use Claire mode. johan@ is the
+// finalist's parent; vicopratama449@ is kept for review/QA.
+export const CLAIRE_PARENT_EMAILS = ['johan@decasa.co.id', 'vicopratama449@gmail.com']
 
 const ROUND_SIZE = 10
 const CLAIRE_GRADE = 2
@@ -25,7 +27,7 @@ const CLAIRE_DIFFICULTY = 2
 const MAX_GEN_RETRIES = 5
 
 export function hasClaireAccess(email: string | undefined | null): boolean {
-  return (email ?? '').trim().toLowerCase() === CLAIRE_PARENT_EMAIL
+  return CLAIRE_PARENT_EMAILS.includes((email ?? '').trim().toLowerCase())
 }
 
 // Stored item — carries the answer (never returned to the client).

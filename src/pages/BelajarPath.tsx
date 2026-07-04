@@ -50,14 +50,14 @@ interface SelectedConcept {
   chapter: WmiGardenChapter
 }
 
-// WMI Claire is a niche, temporary mode for a single finalist — its entry card
-// shows only for this one parent account (the server gates the API too).
-const CLAIRE_PARENT_EMAIL = 'johan@decasa.co.id'
+// WMI Claire is a niche, temporary mode — its entry card shows only for these
+// parent accounts (the server gates the API to the same allow-list).
+const CLAIRE_PARENT_EMAILS = ['johan@decasa.co.id', 'vicopratama449@gmail.com']
 
 export default function BelajarPath() {
   useDocumentTitle('Belajar')
   const { activeChildId, user } = useAuthStore()
-  const isClaireParent = (user?.email ?? '').trim().toLowerCase() === CLAIRE_PARENT_EMAIL
+  const isClaireParent = CLAIRE_PARENT_EMAILS.includes((user?.email ?? '').trim().toLowerCase())
   const { selectedGrade, gradeByChild, lastSubjectKey, loadGlossary } = useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
