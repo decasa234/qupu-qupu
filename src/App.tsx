@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import CookieConsentBanner from './components/CookieConsentBanner'
+import { isClaireEmail } from './lib/claireAccess'
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import RouteFallback from './components/RouteFallback'
@@ -83,7 +84,9 @@ function AdminOnlyGate({ children }: { children: React.ReactNode }) {
     return <Navigate to="/login" replace />
   }
 
-  if (user?.role !== 'admin') {
+  // Admins always pass; a small allow-list of member accounts is let through
+  // too so they can play WMI Claire on the admin-only deploy.
+  if (user?.role !== 'admin' && !isClaireEmail(user?.email)) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FFF8F0] px-6">
         <div className="w-full max-w-sm rounded-3xl bg-white p-8 text-center ring-2 ring-[#FFE3CC] [box-shadow:0_6px_0_#FFD3B1]">
@@ -136,6 +139,11 @@ function HomeRoute() {
   // Admin-only deploys let admins browse the landing page — no redirect
   // (the gate guarantees whoever reaches "/" is an admin).
   if (ADMIN_ONLY) {
+    // Allow-listed member accounts land straight in the game; admins get the
+    // landing page (the gate guarantees whoever reaches here is one of the two).
+    if (isAuthenticated && user?.role !== 'admin') {
+      return <Navigate to="/belajar" replace />
+    }
     return <Home />
   }
   if (isAuthenticated) {

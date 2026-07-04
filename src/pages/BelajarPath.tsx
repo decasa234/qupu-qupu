@@ -15,6 +15,7 @@ import ConceptSheet from '../components/wmi/path/ConceptSheet'
 import ChapterSheet from '../components/wmi/path/ChapterSheet'
 import QuestsSheet from '../components/wmi/path/QuestsSheet'
 import { fetchGarden } from '../lib/wmiApi'
+import { isClaireEmail } from '../lib/claireAccess'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -50,14 +51,11 @@ interface SelectedConcept {
   chapter: WmiGardenChapter
 }
 
-// WMI Claire is a niche, temporary mode — its entry card shows only for these
-// parent accounts (the server gates the API to the same allow-list).
-const CLAIRE_PARENT_EMAILS = ['johan@decasa.co.id', 'vicopratama449@gmail.com']
-
 export default function BelajarPath() {
   useDocumentTitle('Belajar')
   const { activeChildId, user } = useAuthStore()
-  const isClaireParent = CLAIRE_PARENT_EMAILS.includes((user?.email ?? '').trim().toLowerCase())
+  // WMI Claire card shows only for the allow-listed accounts (API enforces too).
+  const isClaireParent = isClaireEmail(user?.email)
   const { selectedGrade, gradeByChild, lastSubjectKey, loadGlossary } = useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
