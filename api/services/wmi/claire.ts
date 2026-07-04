@@ -229,8 +229,8 @@ export async function answerClaireRound(
     await client.query(
       `UPDATE claire_drill_rounds
           SET responses = $2::jsonb,
-              score = $3,
-              completed_at = CASE WHEN $3 IS NOT NULL THEN COALESCE(completed_at, NOW()) ELSE completed_at END
+              score = $3::int,
+              completed_at = CASE WHEN $3::int IS NOT NULL THEN COALESCE(completed_at, NOW()) ELSE completed_at END
         WHERE id = $1`,
       [roundId, JSON.stringify(responses), score],
     )
