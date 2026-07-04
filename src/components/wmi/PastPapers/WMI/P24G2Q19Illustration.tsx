@@ -2,10 +2,13 @@
 // Semifinal, Paper A).
 //
 // Reconstructed from db/seed/wmi/figures/2024-semifinal-g2-a-q19.jpg: a six-petal
-// flower with a gold body. The six petals carry discs that ALTERNATE around the
-// flower — three solid DARK discs and three hollow WHITE discs (a white centre
-// with a thin dark rim). Reading the petals around the flower the colours go
-//   dark, white, dark, white, dark, white.
+// flower with a gold body. The six petals carry discs — three solid DARK discs
+// and three hollow WHITE discs (a white centre with a thin dark rim). Reading
+// the petals CLOCKWISE from the top petal the colours go
+//   dark, white, dark, dark, white, white.
+// (NOT alternating — an alternating pattern would be mirror-symmetric and the
+// mirror trap would vanish. This order is chiral: its mirror reading
+// D-W-W-D-D-W is not a rotation of it, so a mirrored flower is truly different.)
 //
 // The answer options in the paper were images (seed choices read "(A)"..."(E)");
 // the correct one (the seed answer, E) is the option that is the SAME flower —
@@ -13,7 +16,8 @@
 // and is NOT the same). The static figure shows ONLY the given flower.
 //
 // Petal-disc pattern, clockwise from the top petal. true = solid dark disc.
-export const PETAL_DARK = [true, false, true, false, true, false] as const
+// Matches the scan: dark (top), white (NE), dark (SE), dark (bottom), white (SW), white (NW).
+export const PETAL_DARK = [true, false, true, true, false, false] as const
 export const N_PETALS = PETAL_DARK.length // 6
 
 const BODY = '#F5C518' // gold flower body
@@ -113,7 +117,7 @@ export default function P24G2Q19Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A gold six-petal flower. Around it the petal discs alternate: solid dark, hollow white, dark, white, dark, white. Find the option that is the same flower, allowing rotation but not mirroring."
+      aria-label="A gold six-petal flower. Reading its petal discs clockwise from the top: solid dark, hollow white, dark, dark, white, white. Find the option that is the same flower, allowing rotation but not mirroring."
     >
       <Q19Flower />
     </div>

@@ -1,21 +1,23 @@
 /**
  * WMI-22F3A-Q4 — Street map illustration.
  *
- * A triangular lattice of 8 nodes (6 cyan house icons + Tom bottom-left +
- * Mary bottom-right) connected by 12 street segments (each 130 m).
+ * A triangular lattice of 7 nodes (5 cyan house icons + Tom bottom-left +
+ * Mary bottom-right) connected by 11 street segments (each 130 m).
+ * Matches the source scan db/seed/wmi/figures/2022-final-g3-a-q4.jpg.
  *
- * Graph topology (solver-verified):
- *   Nodes: T=Tom, M=Mary, 0–5 (six interior cyan houses)
- *   Edges (12):
- *     T-0, T-2, T-5
+ * Graph topology (solver-verified against the scan):
+ *   Nodes: T=Tom, M=Mary, 0–4 (five cyan houses:
+ *     0 top-left, 1 upper-middle, 2 left-middle, 3 right, 4 centre)
+ *   Edges (11):
+ *     T-2, T-4
  *     0-1, 0-2
- *     1-3, 1-4
- *     2-3
- *     3-4, 3-5
- *     4-M, 5-M
+ *     1-2, 1-3, 1-4
+ *     2-4
+ *     3-4, 3-M
+ *     4-M
  *
- * Shortest Tom→Mary path  : 2 edges = 260 m  (e.g. T→5→M)
- * Longest non-repeating trail: 9 edges = 1170 m  (T→0→1→3→2→T→5→3→4→M)
+ * Shortest Tom→Mary path  : 2 edges = 260 m  (T→4→M)
+ * Longest non-repeating trail: 9 edges = 1170 m  (T→2→0→1→2→4→1→3→4→M)
  *
  * This file also exports StreetGraph, a reusable primitive that the animator
  * can import to overlay a highlighted route on top.
@@ -28,30 +30,28 @@
 
 /** Node positions in the 520×420 coordinate space. */
 export const NODES: Record<string, { x: number; y: number; label?: string }> = {
-  '0': { x: 158, y: 42 },   // top-left cyan house
-  '1': { x: 290, y: 100 },  // upper-right cyan house
-  '2': { x: 112, y: 162 },  // left-middle cyan house
-  '3': { x: 252, y: 200 },  // center cyan house (hub)
-  '4': { x: 392, y: 158 },  // right cyan house
-  '5': { x: 248, y: 302 },  // lower-center cyan house
-  T:   { x: 72,  y: 370, label: 'Tom' },
-  M:   { x: 452, y: 370, label: 'Mary' },
+  '0': { x: 130, y: 46 },   // top-left cyan house
+  '1': { x: 268, y: 118 },  // upper-middle cyan house
+  '2': { x: 130, y: 202 },  // left-middle cyan house
+  '3': { x: 404, y: 202 },  // right cyan house
+  '4': { x: 268, y: 286 },  // centre cyan house (hub)
+  T:   { x: 130, y: 372, label: 'Tom' },
+  M:   { x: 404, y: 372, label: 'Mary' },
 }
 
 /** Edge list — pairs of node IDs. */
 export const EDGES: Array<[string, string]> = [
-  ['T', '0'],
   ['T', '2'],
-  ['T', '5'],
+  ['T', '4'],
   ['0', '1'],
   ['0', '2'],
+  ['1', '2'],
   ['1', '3'],
   ['1', '4'],
-  ['2', '3'],
+  ['2', '4'],
   ['3', '4'],
-  ['3', '5'],
+  ['3', 'M'],
   ['4', 'M'],
-  ['5', 'M'],
 ]
 
 // ─── colours ─────────────────────────────────────────────────────────────────
@@ -256,7 +256,7 @@ export default function StreetMap22G3Illustration() {
       role="img"
       aria-label={
         'Peta jalan: rumah Tom (biru) di sudut kiri bawah, rumah Mary (merah) di sudut kanan bawah. ' +
-        'Enam rumah lain (biru muda) terhubung oleh 12 jalan masing-masing 130 m. ' +
+        'Lima rumah lain (biru muda) terhubung oleh 11 jalan masing-masing 130 m. ' +
         'Rute terpendek Tom ke Mary = 2 jalan = 260 m. ' +
         'Rute terpanjang tanpa mengulang jalan = 9 jalan = 1170 m.'
       }

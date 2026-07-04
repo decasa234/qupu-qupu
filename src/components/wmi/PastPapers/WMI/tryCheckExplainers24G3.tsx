@@ -2,8 +2,8 @@ import { makeTryCheckExplainer } from './tryCheckExplainers'
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-24F3A (2024 Grade 3 Final) — deduction-chain explainers for the
-// non-figure questions. Q16's stem box-layout is mistyped (□□ ÷ □□) but the
-// intended division 936 ÷ 4 = 234 is solvable, so it is animated here.
+// non-figure questions. Q16's stem asks for □□□ ÷ □ (digits 3,4,6,9 each once);
+// the largest exact division is 936 ÷ 4 = 234, animated here.
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 

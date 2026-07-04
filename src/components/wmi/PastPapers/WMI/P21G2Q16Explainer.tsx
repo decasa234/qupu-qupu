@@ -14,13 +14,13 @@ export default function P21G2Q16Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: ${story.perRow} segitiga di baris bawah + ${story.perRow} di baris atas = ${story.total} segitiga.`
-      : `Explainer: ${story.perRow} triangles in the bottom strip + ${story.perRow} in the top strip = ${story.total} triangles.`
+      ? `Penjelasan: ${story.smallTotal} segitiga kecil + ${story.bigTotal} segitiga besar = ${story.total} segitiga.`
+      : `Explainer: ${story.smallTotal} small triangles + ${story.bigTotal} big triangles = ${story.total} triangles.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
-        <TriGridFigure litRow={beat.litRow} />
+        <TriGridFigure litRow={beat.litRow} litBig={beat.litBig} />
 
         <div
           className="rounded-xl border-2 px-4 py-2 text-center font-display text-sm font-extrabold"

@@ -72,8 +72,8 @@ export function buildMirrorBlocks22G1Steps(lang: Lang): MirrorBlocksStoryboard {
       hold: 2100,
       result: false,
       caption: t(
-        'The other shadow is shorter — that takes the gray block (2 cubes). Place the gray 1×2 block there.',
-        'Bayangan satunya lebih pendek — itu untuk balok abu-abu (2 kubus). Letakkan balok abu-abu 1×2 di situ.',
+        'The tall 2-cube shadows take the gray blocks (2 cubes each). Place the three gray 1×2 blocks there.',
+        'Bayangan setinggi 2 kubus untuk balok abu-abu (masing-masing 2 kubus). Letakkan ketiga balok abu-abu 1×2 di situ.',
       ),
     },
     // Beat 3 — leftover singles must be white; light them up

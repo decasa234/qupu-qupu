@@ -147,23 +147,26 @@ export const TANGRAM24_PIECES: Record<Tangram24Label, Pt[][]> = {
     [[2.2, 1], [4.2, 1], [5, 5]],
     [[5, 5], [5.8, 1], [7.8, 1]],
   ],
-  // I — a centre stem with a top and a bottom bar (all square corners but short bars).
+  // I — a rectangular centre stem (4 square corners) between two trapezoid bars
+  // whose tips are tangram-slanted (no square corners) → 4 in total, < M's 8.
   C: [
-    [[2, 1], [8, 1], [8, 2.8], [2, 2.8]],
+    [[2, 1], [8, 1], [6.8, 2.8], [3.2, 2.8]],
     [[3.8, 2.8], [6.2, 2.8], [6.2, 7.2], [3.8, 7.2]],
-    [[2, 7.2], [8, 7.2], [8, 9], [2, 9]],
+    [[3.2, 7.2], [6.8, 7.2], [8, 9], [2, 9]],
   ],
-  // 2 — a top hook, a long diagonal, and a base bar.
+  // 2 — a top bar with a slanted left tip (2 square corners at its right end),
+  // a long diagonal (0), and a rectangular base bar (4) → 6 in total, < M's 8.
   D: [
-    [[1.5, 1], [8.5, 1], [8.5, 2.8], [1.5, 2.8]],
+    [[3, 1], [8.5, 1], [8.5, 2.8], [1.5, 2.8]],
     [[6.7, 2.8], [8.5, 2.8], [3.3, 7.2], [1.5, 7.2]],
     [[1.5, 7.2], [8.5, 7.2], [8.5, 9], [1.5, 9]],
   ],
-  // 4 — a slanted stroke, an upright stem, and the cross-bar.
+  // 4 — a slanted stroke (0), an upright rectangular stem (4 square corners),
+  // and a cross-bar with slanted left tip tucked under the stem → 4 in total.
   E: [
     [[5, 1], [6.6, 1], [2.4, 6], [0.8, 6]],
     [[6.6, 1], [8.4, 1], [8.4, 9], [6.6, 9]],
-    [[0.8, 6], [8.4, 6], [8.4, 7.6], [0.8, 7.6]],
+    [[1.9, 6], [6.6, 6], [6.6, 7.6], [0.8, 7.6]],
   ],
 }
 

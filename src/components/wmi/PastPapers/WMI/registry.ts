@@ -581,7 +581,7 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
     explainer: () => import('./tryCheckExplainers21G2').then((m) => ({ default: m.TripleBox21G2Explainer })),
   },
   'WMI-21F2A-Q8': {
-    illustration: () => import('./cards21G1Illustrations').then((m) => ({ default: m.TicketQueue21Illustration })),
+    illustration: () => import('./cards21G2Illustrations').then((m) => ({ default: m.BobQueue21G2Illustration })),
     explainer: () => import('./tryCheckExplainers21G2').then((m) => ({ default: m.BobQueue21G2Explainer })),
   },
   // Q9 reuses the 2021 G1 apple-grid figure (same printed grid); the explainer
@@ -921,7 +921,6 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-19P2A-Q18': { explainer: () => import('./tryCheckExplainers19P2').then((m) => ({ default: m.MaxBox19P2Explainer })) },
   'WMI-19P2A-Q19': { explainer: () => import('./tryCheckExplainers19P2').then((m) => ({ default: m.ChainSymbols19P2Explainer })) },
   'WMI-19P2A-Q20': { explainer: () => import('./tryCheckExplainers19P2').then((m) => ({ default: m.TradeAndCancel19P2Explainer })) },
-  'WMI-19P2A-Q22': { explainer: () => import('./tryCheckExplainers19P2').then((m) => ({ default: m.PartitionsOfSix19P2Explainer })) },
   'WMI-19P2A-Q24': { explainer: () => import('./tryCheckExplainers19P2').then((m) => ({ default: m.StairClimb19P2Explainer })) },
   'WMI-19P2A-Q3': { illustration: () => import('./P19G2Q3Illustration'), explainer: () => import('./P19G2Q3Explainer') },
   'WMI-19P2A-Q5': { illustration: () => import('./P19G2Q5Illustration'), explainer: () => import('./P19G2Q5Explainer') },
@@ -929,7 +928,9 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-19P2A-Q7': { illustration: () => import('./P19G2Q7Illustration'), explainer: () => import('./P19G2Q7Explainer') },
   'WMI-19P2A-Q11': { illustration: () => import('./P19G2Q11Illustration'), explainer: () => import('./P19G2Q11Explainer') },
   'WMI-19P2A-Q12': { illustration: () => import('./P19G2Q12Illustration'), explainer: () => import('./P19G2Q12Explainer') },
-  'WMI-19P2A-Q21': { illustration: () => import('./P19G2Q21Illustration'), explainer: () => import('./P19G2Q21Explainer') },
+  // NOTE: the "decomposition machine" figure (asset 2019-semifinal-g2-a-q21.jpg) belongs to
+  // Q22's body (ways to write 6 as a sum); Q21 (five pieces forming a trapezoid) has no figure yet.
+  'WMI-19P2A-Q22': { illustration: () => import('./P19G2Q21Illustration'), explainer: () => import('./P19G2Q21Explainer') },
   'WMI-19P2A-Q23': { illustration: () => import('./P19G2Q23Illustration'), explainer: () => import('./P19G2Q23Explainer') },
   'WMI-19P2A-Q25': { illustration: () => import('./P19G2Q25Illustration'), explainer: () => import('./P19G2Q25Explainer') },
   'WMI-19P3A-Q1': { explainer: () => import('./tryCheckExplainers19P3').then((m) => ({ default: m.ArrowRule19P3Explainer })) },
@@ -1222,6 +1223,7 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-23P2A-Q20': { explainer: () => import('./tryCheckExplainers23P2').then((m) => ({ default: m.FlagSwaps23P2Explainer })) },
   'WMI-23P2A-Q21': { explainer: () => import('./tryCheckExplainers23P2').then((m) => ({ default: m.TwiceDigitProduct23P2Explainer })) },
   'WMI-23P2A-Q22': { explainer: () => import('./tryCheckExplainers23P2').then((m) => ({ default: m.PathSumGap23P2Explainer })) },
+  'WMI-23P2A-Q23': { explainer: () => import('./tryCheckExplainers23P2').then((m) => ({ default: m.SquareTriangleSum23P2Explainer })) },
   'WMI-23P2A-Q2': { illustration: () => import('./P23G2Q2Illustration'), explainer: () => import('./P23G2Q2Explainer') },
   'WMI-23P2A-Q4': { illustration: () => import('./P23G2Q4Illustration'), explainer: () => import('./P23G2Q4Explainer') },
   'WMI-23P2A-Q5': { illustration: () => import('./P23G2Q5Illustration'), explainer: () => import('./P23G2Q5Explainer') },
@@ -1651,6 +1653,7 @@ export const VISUALS: Record<string, QuestionVisualLoaders> = {
   'WMI-23F3A-Q6': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.PagesLeft23G3Explainer })) },
   'WMI-23F3A-Q9': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.DigitDiff23G3Explainer })) },
   'WMI-23F3A-Q10': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.SwapDivide23G3Explainer })) },
+  'WMI-23F3A-Q14': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.TribeBars23G3Explainer })) },
   'WMI-23F3A-Q16': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.ProductCancel23G3Explainer })) },
   'WMI-23F3A-Q20': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.ConsecDiv23G3Explainer })) },
   'WMI-23F3A-Q21': { explainer: () => import('./tryCheckExplainers23G3').then((m) => ({ default: m.ChallengeScore23G3Explainer })) },
@@ -3608,6 +3611,8 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'WMI-19F2A-Q4': () => import('./ShapeCountOption'),
   // G2 Q5 options are foods, not letters — draw the picture each option stands for.
   'WMI-19F2A-Q5': () => import('./PatternNinthG2Option'),
+  // G2 Q14 options are animal orderings (pictures in the scan) — draw each ordering.
+  'WMI-19F2A-Q14': () => import('./AnimalOrderG2Option'),
   // G3 Q2 options are shaded-fraction pictures.
   'WMI-19F3A-Q2': () => import('./FractionThirdG3Option'),
   // 2020 G1: Q4 options are the named shapes, Q6 options are analog clocks,
@@ -3637,13 +3642,17 @@ export const CHOICE_RENDERERS: Record<string, Loader<ChoiceRenderer>> = {
   'WMI-21F2A-Q2': () => import('./options21G2').then((m) => ({ default: m.LineOption21G2 })),
   // 2021 G3: Q12 options are the shaded 3×3 grids.
   'WMI-21F3A-Q12': () => import('./options21G3').then((m) => ({ default: m.ShadedOption21G3 })),
+  // 2021 G3 semifinal: Q14 options are shaded 3×3 grids, Q22 options are die faces.
+  'WMI-21P3A-Q14': () => import('./P21G3Q14Illustration').then((m) => ({ default: m.P21G3Q14Option })),
+  'WMI-21P3A-Q22': () => import('./P21G3Q22Illustration').then((m) => ({ default: m.P21G3Q22Option })),
   'WMI-22F2A-Q5': () => import('./paper22G2Visuals').then((m) => ({ default: m.BallOption22G2 })),
   'WMI-22F2A-Q8': () => import('./paper22G2Visuals').then((m) => ({ default: m.ThickLineOption22G2 })),
   'WMI-23F2A-Q24': () => import('./Pattern23G2Illustration').then((m) => ({ default: m.Pattern23G2Option })),
   'WMI-24F2A-Q13': () => import('./Tangram24G2Illustration').then((m) => ({ default: m.Tangram24G2Option })),
   'WMI-24F2A-Q14': () => import('./TrainArrows24G2Illustration').then((m) => ({ default: m.TrainArrows24G2Option })),
   'WMI-25F2A-Q11': () => import('./FaceSeq25G2Illustration').then((m) => ({ default: m.FaceSeq25G2Option })),
-  'WMI-25F3A-Q10': () => import('./Folding25G3Illustration').then((m) => ({ default: m.Folding25G3Option })),
+  // NOTE: 25F3A-Q10's answer choices are the COUNTS 5/4/3/2/1 (not the five pictured
+  // shapes), so it deliberately has no CHOICE_RENDERER — the shapes live in the stem figure.
   'WMI-25F3A-Q13': () => import('./Coin25G3Illustration').then((m) => ({ default: m.Coin25G3Option })),
   'WMI-22F1A-Q5': () => import('./Fruit22G1Option'),
   'WMI-22F1A-Q7': () => import('./Solid22G1Option'),

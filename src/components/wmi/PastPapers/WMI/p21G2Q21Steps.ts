@@ -62,7 +62,7 @@ export function buildP21G2Q21Steps(lang: Lang): Q21Storyboard {
     ),
   })
 
-  // one beat per route, in descending-total order (15, 13, 10, 8)
+  // one beat per route, in descending-total order (15, 13, 12, 10)
   const ordered = [...ROUTES_Q21].sort((a, b) => b.total - a.total)
   for (const { route, total } of ordered) {
     const lc = leftCount(route)

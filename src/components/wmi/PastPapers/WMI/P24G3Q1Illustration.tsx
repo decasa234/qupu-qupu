@@ -3,8 +3,8 @@
  *
  * Source figure (db/seed/wmi/figures/2024-semifinal-g3-a-q1.jpg): a horizontal
  * number line with tick marks labelled 8000 and 9000. A red dot marked "P" sits
- * between them, a little to the LEFT of the midpoint (i.e. just past 8500,
- * closer to the middle than to either end).
+ * between them, essentially AT the midpoint (pixel-measured fraction ≈ 0.50 of
+ * the 8000→9000 span — far from both ends).
  *
  * A 4-digit number P is made from the digits {8, 8, 5, 0}. Which choice is P?
  *   A 5088   B 8085   C 8850   D 8580   → answer D.
@@ -33,8 +33,8 @@ const LEFT_X = 60 // x of the "8000" tick
 const RIGHT_X = 400 // x of the "9000" tick
 const MID_X = (LEFT_X + RIGHT_X) / 2 // 8500 midpoint
 
-/** P sits a little LEFT of the midpoint — fraction 0.42 of the way from 8000. */
-export const P_FRACTION = 0.42
+/** P sits close to the midpoint — fraction 0.5 of the way from 8000 (per the scan). */
+export const P_FRACTION = 0.5
 const P_X = LEFT_X + (RIGHT_X - LEFT_X) * P_FRACTION
 
 export interface NumberLinePProps {
@@ -113,7 +113,7 @@ export default function P24G3Q1Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Garis bilangan dengan tanda 8000 dan 9000. Sebuah titik merah P berada di antara keduanya, sedikit di kiri titik tengah (dekat 8500)."
+      aria-label="Garis bilangan dengan tanda 8000 dan 9000. Sebuah titik merah P berada di antara keduanya, dekat titik tengah (sekitar 8500)."
     >
       <NumberLineP />
     </div>

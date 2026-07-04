@@ -5,11 +5,11 @@ export type Q22Phase = 'show' | 'read' | 'strip' | 'rule' | 'result'
 
 export interface Q22Step {
   phase: Q22Phase
-  /** Wedge index being read this beat (0..7), or null. */
+  /** Wedge index being read this beat (0..8), or null. */
   focusWedge: number | null
-  /** Number the wedges 1..8 in reading order. */
+  /** Number the wedges 1..9 in reading order. */
   showOrder: boolean
-  /** How many swatches of the colour strip are revealed (0..8). */
+  /** How many swatches of the colour strip are revealed (0..9). */
   swatchCount: number
   caption: string
   hold: number
@@ -17,7 +17,7 @@ export interface Q22Step {
 }
 
 export interface Q22Storyboard {
-  /** Colour cycle read clockwise from the top (true = blue). */
+  /** Colour cycle read along the arrow (counter-clockwise) from the wedge left of the top vertex (true = blue). */
   ring: boolean[]
   answer: string
   steps: Q22Step[]
@@ -36,8 +36,8 @@ export function buildP22G1Q22Steps(lang: Lang): Q22Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Pick a start wedge and read the colours the way the arrow points — clockwise.',
-        'Pilih satu juring awal lalu baca warnanya searah panah — searah jarum jam.',
+        'Pick a start wedge and read the colours the way the red arrow points.',
+        'Pilih satu juring awal lalu baca warnanya mengikuti arah panah merah.',
       ),
     },
     {
@@ -48,27 +48,27 @@ export function buildP22G1Q22Steps(lang: Lang): Q22Storyboard {
       hold: 1800,
       result: false,
       caption: t(
-        'Start at the top wedge: white. That is the first colour of the strip.',
-        'Mulai dari juring atas: putih. Itu warna pertama strip.',
+        'Start at the wedge just left of the top point: blue. That is the first colour of the strip.',
+        'Mulai dari juring tepat di kiri titik puncak: biru. Itu warna pertama strip.',
       ),
     },
     {
       phase: 'strip',
       focusWedge: 4,
       showOrder: true,
-      swatchCount: 8,
+      swatchCount: 9,
       hold: 2400,
       result: false,
       caption: t(
-        'Keep going clockwise: white, blue, blue, white, blue, white, blue, white.',
-        'Lanjut searah jarum jam: putih, biru, biru, putih, biru, putih, biru, putih.',
+        'Keep following the arrow: blue, white, blue, white, blue, white, white, blue, white.',
+        'Terus ikuti panah: biru, putih, biru, putih, biru, putih, putih, biru, putih.',
       ),
     },
     {
       phase: 'rule',
       focusWedge: null,
       showOrder: false,
-      swatchCount: 8,
+      swatchCount: 9,
       hold: 2400,
       result: false,
       caption: t(
@@ -80,7 +80,7 @@ export function buildP22G1Q22Steps(lang: Lang): Q22Storyboard {
       phase: 'result',
       focusWedge: null,
       showOrder: false,
-      swatchCount: 8,
+      swatchCount: 9,
       hold: 0,
       result: true,
       caption: t(

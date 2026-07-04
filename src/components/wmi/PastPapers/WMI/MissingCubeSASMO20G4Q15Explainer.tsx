@@ -11,13 +11,12 @@
  * so the pieces look identical to the stem's options.
  */
 
+import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
-import { useBeatControl } from '../../concepts/explainers/useBeatControl'
-import {
+import MissingCubeSASMO20G4Q15Illustration, {
   OptionCubeSVG,
   OPTION_CONFIGS,
-  MissingCubeSASMO20G4Q15Illustration,
 } from './MissingCubeSASMO20G4Q15Illustration'
 import {
   buildMissingCubeSASMO20G4Q15Steps,
@@ -142,9 +141,16 @@ function BeatCard({ beat, lang }: BeatCardProps) {
 
 export default function MissingCubeSASMO20G4Q15Explainer({ lang = 'id' }: ExplainerProps) {
   const storyboard = buildMissingCubeSASMO20G4Q15Steps(lang as 'en' | 'id')
-  const { beat, beatIndex, totalBeats, next, prev } = useBeatControl(storyboard.beats)
+  // Local beat navigation (house pattern — see ShadedSquare20B5Explainer).
+  const totalBeats = storyboard.beats.length
+  const [beatIndex, setBeatIndex] = useState(0)
+  const prev = useCallback(() => setBeatIndex((i) => Math.max(i - 1, 0)), [])
+  const next = useCallback(
+    () => setBeatIndex((i) => Math.min(i + 1, totalBeats - 1)),
+    [totalBeats],
+  )
 
-  const currentBeat = beat as MissingCubeBeat
+  const currentBeat: MissingCubeBeat = storyboard.beats[beatIndex]
   const highlight   = currentBeat.highlight
 
   return (

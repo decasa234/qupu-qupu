@@ -2,13 +2,14 @@
  * WMI-21P2A-Q19 — "Which three fruits belong in the hidden circles?"
  *
  * Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q19.jpg: a long
- * line of circles each holding a fruit, forming a repeating banana / green-apple
- * pattern. One run of THREE circles is covered by a box marked "?" with an arrow
- * pointing to the three empty answer circles below.
+ * line of circles each holding a fruit. Single green apples separate GROWING
+ * groups of bananas — 1 banana, then 2, then 3, then 4, then 5, each group one
+ * banana longer than the last. One run of THREE circles is covered by a box
+ * marked "?" with an arrow pointing to the three empty answer circles below.
  *
- * The repeating unit has period 3 — 🍌 🍏 🍌 — so reading across, the visible
- * fruits alternate banana, apple, banana, banana, apple, banana, … The three
- * hidden circles are exactly one unit: 🍌 🍏 🍌 → answer C.
+ * Full sequence (20 circles): 🍌 🍏 🍌🍌 🍏 🍌🍌[🍌 🍏 🍌]🍌🍌🍌 🍏 🍌🍌🍌🍌🍌 🍏
+ * The box covers the 3rd banana of the 3-group, the apple after it, and the
+ * first banana of the 4-group: 🍌 🍏 🍌 → answer C.
  *
  * The static figure shows ONLY the problem: the visible fruit, the covering box,
  * and three EMPTY answer circles (never the hidden fruit / answer).
@@ -18,16 +19,18 @@ export const BANANA = '🍌'
 export const APPLE = '🍏'
 export type FruitGlyph = typeof BANANA | typeof APPLE
 
-/** The repeating unit (period 3). */
-export const UNIT: FruitGlyph[] = [BANANA, APPLE, BANANA]
+/** Visible circles before the covered run (1-group, apple, 2-group, apple, 2 of the 3-group). */
+export const VISIBLE_BEFORE: FruitGlyph[] = [BANANA, APPLE, BANANA, BANANA, APPLE, BANANA, BANANA]
 
 /** The three hidden fruit (= the answer, used by the explainer only). */
 export const HIDDEN: FruitGlyph[] = [BANANA, APPLE, BANANA]
 
-// How many visible circles sit before / after the covered run.
-const BEFORE = 6
-const AFTER = 6
-const HIDDEN_COUNT = 3
+/** Visible circles after the covered run (rest of the 4-group, apple, 5-group, apple). */
+export const VISIBLE_AFTER: FruitGlyph[] = [BANANA, BANANA, BANANA, APPLE, BANANA, BANANA, BANANA, BANANA, BANANA, APPLE]
+
+const BEFORE = VISIBLE_BEFORE.length // 7
+const AFTER = VISIBLE_AFTER.length // 10
+const HIDDEN_COUNT = HIDDEN.length // 3
 
 /** Full sequence of slot kinds across the row: 'fruit' (visible) or 'box' (hidden). */
 export interface Slot {
@@ -35,14 +38,13 @@ export interface Slot {
   fruit?: FruitGlyph
 }
 
-/** Build the visible row from the repeating unit, with a covered run in the middle. */
+/** Build the row: visible fruit, then the covered run, then the rest. */
 export function buildRow(): { slots: Slot[]; boxStart: number } {
-  const at = (i: number): FruitGlyph => UNIT[i % UNIT.length]
   const slots: Slot[] = []
-  for (let i = 0; i < BEFORE; i++) slots.push({ kind: 'fruit', fruit: at(i) })
+  for (const f of VISIBLE_BEFORE) slots.push({ kind: 'fruit', fruit: f })
   const boxStart = BEFORE
   for (let i = 0; i < HIDDEN_COUNT; i++) slots.push({ kind: 'box' })
-  for (let i = 0; i < AFTER; i++) slots.push({ kind: 'fruit', fruit: at(BEFORE + HIDDEN_COUNT + i) })
+  for (const f of VISIBLE_AFTER) slots.push({ kind: 'fruit', fruit: f })
   return { slots, boxStart }
 }
 
@@ -92,9 +94,12 @@ export interface Q19DiagramProps {
   reveal?: boolean
   /** When true, also fill the three answer circles below with the hidden fruit. */
   fillAnswer?: boolean
-  /** Highlight the visible run that establishes the unit (index range), -1 = none. */
+  /** Highlight the opening circles (1-group, apple, 2-group) that establish the growth rule. */
   litUnit?: boolean
 }
+
+/** How many opening circles the `litUnit` highlight covers: 🍌 🍏 🍌 🍌 🍏. */
+const LIT_UNIT_COUNT = 5
 
 export function Q19Diagram({ reveal = false, fillAnswer = false, litUnit = false }: Q19DiagramProps) {
   const { slots, boxStart } = buildRow()
@@ -112,7 +117,7 @@ export function Q19Diagram({ reveal = false, fillAnswer = false, litUnit = false
       {slots.map((slot, i) => {
         const cx = firstX + i * STEP
         if (slot.kind === 'fruit') {
-          const lit = litUnit && i < UNIT.length
+          const lit = litUnit && i < LIT_UNIT_COUNT
           return <FruitCircle key={i} cx={cx} cy={ROW_Y} fruit={slot.fruit} lit={lit} />
         }
         // hidden slot: empty circle until revealed
@@ -160,7 +165,7 @@ export default function P21G2Q19Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A line of circles holding bananas and green apples in a repeating pattern. Three circles in the middle are covered by a box marked with a question mark, with an arrow pointing to three empty answer circles below."
+      aria-label="A line of circles holding bananas and green apples: single apples separate banana groups that grow by one each time. Three circles in the middle are covered by a box marked with a question mark, with an arrow pointing to three empty answer circles below."
     >
       <Q19Diagram />
     </div>

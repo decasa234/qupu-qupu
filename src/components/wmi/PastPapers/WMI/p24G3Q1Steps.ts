@@ -2,7 +2,7 @@
  * Deterministic storyboard for WMI-24P3A-Q1 (number-line placement).
  *
  * The digits {8, 8, 5, 0} can be arranged many ways, but P sits between 8000
- * and 9000, a little left of the midpoint 8500. We:
+ * and 9000, close to the midpoint 8500. We:
  *   1. read where P is,
  *   2. rule out 5088 (does not start with 8),
  *   3. find the midpoint 8500,
@@ -43,7 +43,7 @@ export function buildP24G3Q1Steps(lang: Lang): P24G3Q1Storyboard {
       candidate: null,
       hold: 1800,
       result: false,
-      caption: t('P is between 8000 and 9000, a little left of the middle.', 'P di antara 8000 dan 9000, sedikit di kiri tengah.'),
+      caption: t('P is between 8000 and 9000, close to the middle.', 'P di antara 8000 dan 9000, dekat tengah.'),
     },
     {
       phase: 'mustStart8',
@@ -59,7 +59,7 @@ export function buildP24G3Q1Steps(lang: Lang): P24G3Q1Storyboard {
       candidate: null,
       hold: 2000,
       result: false,
-      caption: t('Halfway between 8000 and 9000 is 8500. P sits just past it.', 'Tengah antara 8000 dan 9000 adalah 8500. P tepat sesudahnya.'),
+      caption: t('Halfway between 8000 and 9000 is 8500. P sits right beside it.', 'Tengah antara 8000 dan 9000 adalah 8500. P tepat di dekatnya.'),
     },
     {
       phase: 'tooFar',
@@ -83,7 +83,7 @@ export function buildP24G3Q1Steps(lang: Lang): P24G3Q1Storyboard {
       candidate: { value: '8580', fraction: F_8580, correct: true },
       hold: 0,
       result: true,
-      caption: t('8580 sits just past 8500 — right where P is. Answer D.', '8580 tepat sesudah 8500 — persis posisi P. Jawaban D.'),
+      caption: t('8580 sits just past 8500 — the only choice near P. Answer D.', '8580 tepat sesudah 8500 — satu-satunya pilihan dekat P. Jawaban D.'),
     },
   ]
 

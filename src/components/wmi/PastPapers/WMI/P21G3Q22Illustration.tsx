@@ -25,6 +25,8 @@
  * Pure render — no Math.random, no Date, no window/document. SSR-safe & deterministic.
  */
 
+import type { WmiChoice } from '../../../../types/wmi'
+
 // ---------------------------------------------------------------------------
 // Net data, recovered from the scan
 // ---------------------------------------------------------------------------
@@ -225,6 +227,45 @@ export function DiceNetP21G3Q22({ litPair = null, revealStarPips = null, cell = 
         <Face key={face.id} face={face} cell={cell} lit={litIds.has(face.id)} revealStarPips={revealStarPips} />
       ))}
     </g>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Choice renderer — one die face per A–D option
+// ---------------------------------------------------------------------------
+
+/**
+ * RECONSTRUCTED options (the original option crops are missing from the scan):
+ * each option is a single die face with a pip count; B = 3 is forced by the
+ * fold (★ opposite 4 → 7 − 4 = 3). A = 4 is the natural trap (copying the
+ * partner face); C and D are the other plausible pip counts.
+ */
+export const Q22_OPTION_PIPS: Record<'A' | 'B' | 'C' | 'D', number> = {
+  A: 4,
+  B: 3,
+  C: 2,
+  D: 6,
+}
+
+export function P21G3Q22Option({ choice }: { choice: WmiChoice }) {
+  const k = choice.label as 'A' | 'B' | 'C' | 'D'
+  const count = Q22_OPTION_PIPS[k]
+  if (!count) return <span>{choice.text}</span>
+  const size = 64
+  const r = (PIP_R / 56) * size
+  return (
+    <span
+      role="img"
+      aria-label={`Option ${k}: a die face with ${count} dots`}
+      style={{ display: 'inline-flex', justifyContent: 'center', padding: 4 }}
+    >
+      <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} aria-hidden="true">
+        <rect x={1} y={1} width={size - 2} height={size - 2} fill={FACE_FILL} stroke={FACE_STROKE} strokeWidth={BORDER_W} />
+        {pipsFor(count).map(([ux, uy], i) => (
+          <circle key={i} cx={ux * size} cy={uy * size} r={r} fill={PIP_FILL} />
+        ))}
+      </svg>
+    </span>
   )
 }
 

@@ -6,17 +6,18 @@
 //   Pick nine of the ten digits 0-9 (each at most once; 0 must be used) so the
 //   sum is 2019 and the 4-digit number is as large as possible.
 //
-// A valid maximal arrangement:  27 + 403 + 1589 = 2019.
-//   2-digit = 27, 3-digit = 403, 4-digit = 1589.
-//   Used digits {2,7,4,0,3,1,5,8,9} are all different; the unused digit is 6; 0 is used.
-//   The largest possible 4-digit number is 1589.
+// A valid maximal arrangement:  82 + 340 + 1597 = 2019.
+//   2-digit = 82, 3-digit = 340, 4-digit = 1597.
+//   Used digits {8,2,3,4,0,1,5,9,7} are all different; the unused digit is 6; 0 is used.
+//   The largest possible 4-digit number is 1597 (the tens column totals 21 and
+//   carries 2 into the hundreds: 3 + 5 + 2 = 10).
 
 /** The maximal 4-digit number (the answer). */
-export const MAX_FOUR = 1589
+export const MAX_FOUR = 1597
 /** The worked arrangement, right-aligned in a 4-column grid (units last). */
-export const TOP_NUM = 27 //   2-digit
-export const MID_NUM = 403 //  3-digit
-export const BOT_NUM = 1589 // 4-digit
+export const TOP_NUM = 82 //   2-digit
+export const MID_NUM = 340 //  3-digit
+export const BOT_NUM = 1597 // 4-digit
 export const TOTAL = 2019
 
 const INK = '#1F2937'
@@ -29,16 +30,16 @@ const GREEN_FILL = 'rgba(16,185,129,0.15)'
 // Four right-aligned columns: index 0 = thousands ... index 3 = units.
 // length = how many of the rightmost columns the number occupies.
 function digitCells(value: number, length: number): (string | null)[] {
-  const s = String(value).padStart(4, '0').split('') // ['0','0','2','7'] etc.
+  const s = String(value).padStart(4, '0').split('') // ['0','0','8','2'] etc.
   return s.map((ch, i) => {
     const colsFromRight = 4 - i
     return colsFromRight <= length ? ch : null
   })
 }
 
-export const TOP_CELLS = digitCells(TOP_NUM, 2) // [null, null, '2', '7']
-export const MID_CELLS = digitCells(MID_NUM, 3) // [null, '4', '0', '3']
-export const BOT_CELLS = digitCells(BOT_NUM, 4) // ['1','5','8','9']
+export const TOP_CELLS = digitCells(TOP_NUM, 2) // [null, null, '8', '2']
+export const MID_CELLS = digitCells(MID_NUM, 3) // [null, '3', '4', '0']
+export const BOT_CELLS = digitCells(BOT_NUM, 4) // ['1','5','9','7']
 export const TOTAL_CELLS = String(TOTAL).split('') // ['2','0','1','9']
 
 export const SUM_VIEW_W = 280

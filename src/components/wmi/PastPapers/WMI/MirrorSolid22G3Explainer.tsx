@@ -1,16 +1,18 @@
 /**
  * MirrorSolid22G3Explainer — WMI-22F3A-Q24
  *
- * Post-answer animation teaching the "shadows + maximise" strategy:
- *   1. Recall piece types (white=1, gray=2, black=3 unit cubes).
- *   2. Decode mirror shadows — a black cell forces a 1×1×3; a gray cell forces a 1×1×2.
- *   3. Place those forced pieces to satisfy both mirrors.
+ * Post-answer animation teaching the "count cells, force the shadows, maximise" strategy:
+ *   1. Count the 13 unit cells (8 bottom + 4 slab + 1 top) and recall the piece types.
+ *   2. Decode mirror shadows — each coloured mirror cell pins the colour of the
+ *      piece touching that surface.
+ *   3. Place the forced pieces: one black 1×1×3 along the left floor and TWO gray
+ *      1×1×2 blocks (one lying in the slab, one standing at the back) = 7 cells.
  *   4. Maximise white by filling every remaining cell with a white 1×1×1.
- *   5. Count → at most 6 white cubes.
+ *   5. Count → 13 − 7 = 6 white cubes at most.
  *
  * Reuses IsoBlocks + MirrorGrid from MirrorSolid22G3Illustration so the visual
  * reads as the same scene coming alive. Forced pieces are coloured from beat 2
- * onward; the white remainder lights up on beat 3.
+ * onward; the white remainder lights up (soft green tint) on beat 3.
  *
  * SSR-safe — no Math.random, no Date, pure render of props + lang.
  */
@@ -45,21 +47,32 @@ const GREEN_BORDER = GREEN
 const GREEN_TEXT = '#065F46'
 
 // ---------------------------------------------------------------------------
-// Forced-piece assignments
+// Forced-piece assignments (script-verified against both mirror images)
 // ---------------------------------------------------------------------------
-// Black 1×1×3: tall back-left column (satisfies the black shadow cell in both
-// mirrors and carries the tallest staircase column).
+// Black 1×1×3: lies along the left edge of the floor — its 3-long face is the
+// side mirror's black stripe; its end face is the back mirror's black cell.
 const BLACK_PIECE: Cube[] = [
   { x: 0, y: 0, z: 0 },
-  { x: 0, y: 0, z: 1 },
-  { x: 0, y: 0, z: 2 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: 2, z: 0 },
 ]
 
-// Gray 1×1×2: middle column bottom two (satisfies the gray shadow cells).
-const GRAY_PIECE: Cube[] = [
+// Gray 1×1×2 #1: lies in the slab's left column — its 2-long face is the side
+// mirror's gray stripe; its end face is the back mirror's left gray cell.
+const GRAY_PIECE_A: Cube[] = [
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 1, z: 1 },
+]
+
+// Gray 1×1×2 #2: stands upright at the back — its 2-tall face is the back
+// mirror's vertical gray pair. One gray block can't cover the mirror's gray L,
+// so this second gray is forced.
+const GRAY_PIECE_B: Cube[] = [
   { x: 1, y: 0, z: 0 },
   { x: 1, y: 0, z: 1 },
 ]
+
+const WHITE_HINT_FILL = '#ECFDF5' // soft green tint for "counted as white" cells
 
 function isSameCube(a: Cube, b: Cube) {
   return a.x === b.x && a.y === b.y && a.z === b.z
@@ -73,9 +86,9 @@ function cubeInList(c: Cube, list: Cube[]) {
 function getCubeFill(c: Cube, solidFill: false | 'forced' | 'full'): string {
   if (!solidFill) return WHITE_FILL
   if (cubeInList(c, BLACK_PIECE)) return BLACK_FILL
-  if (solidFill === 'forced') return WHITE_FILL // gray piece highlighted on 'full' only
-  if (cubeInList(c, GRAY_PIECE)) return GRAY_FILL
-  return WHITE_FILL
+  if (cubeInList(c, GRAY_PIECE_A) || cubeInList(c, GRAY_PIECE_B)) return GRAY_FILL
+  // 'full' tints the maximised white cubes so the final count reads visually.
+  return solidFill === 'full' ? WHITE_HINT_FILL : WHITE_FILL
 }
 
 // ---------------------------------------------------------------------------
@@ -131,7 +144,7 @@ const BACK_MH = 3 * M_CELL + BACK_PAD * 2
 
 const SIDE_OX = 40
 const SIDE_OY = 150
-const SIDE_MW = 1 * M_CELL + BACK_PAD * 2
+const SIDE_MW = 3 * M_CELL + BACK_PAD * 2
 const SIDE_MH = 3 * M_CELL + BACK_PAD * 2
 
 interface MirrorHighlightProps {
@@ -194,8 +207,8 @@ export default function MirrorSolid22G3Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: bayangan cermin menunjukkan bahwa harus ada balok hitam 1×1×3 dan balok abu-abu 1×1×2. Sisa sel bisa diisi kubus putih 1×1×1. Paling banyak ${story.answer} kubus putih.`
-      : `Explainer: mirror shadows show a black 1×1×3 and a gray 1×1×2 piece are forced. Remaining cells can all be white 1×1×1 cubes. At most ${story.answer} white cubes.`
+      ? `Penjelasan: bangun itu punya 13 sel satuan. Bayangan cermin memaksa satu balok hitam 1×1×3 (3 sel) dan dua balok abu-abu 1×1×2 (4 sel). Sisa selnya bisa diisi kubus putih 1×1×1: 13 − 7 = ${story.answer}. Paling banyak ${story.answer} kubus putih.`
+      : `Explainer: the solid has 13 unit cells. The mirror shadows force one black 1×1×3 (3 cells) and two gray 1×1×2 blocks (4 cells). Every remaining cell can be a white 1×1×1 cube: 13 − 7 = ${story.answer}. At most ${story.answer} white cubes.`
 
   const fillFn = (c: Cube) => getCubeFill(c, beat.solidFill)
 
@@ -235,7 +248,7 @@ export default function MirrorSolid22G3Explainer(props: ExplainerProps) {
           />
 
           {/* Isometric solid — coloured per beat */}
-          <IsoBlocks cubes={UNIT_CUBES} fill={fillFn} ox={250} oy={300} />
+          <IsoBlocks cubes={UNIT_CUBES} fill={fillFn} ox={250} oy={245} />
         </svg>
 
         {/* Piece-type legend chips */}

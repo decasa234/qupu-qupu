@@ -1,7 +1,7 @@
 /**
  * WMI-22F3A-Q4 — Longest non-repeating trail explainer.
  *
- * Walks the verified 9-edge trail T→0→1→3→2→T→5→3→4→M one street per beat,
+ * Walks the verified 9-edge trail T→2→0→1→2→4→1→3→4→M one street per beat,
  * highlighting edges on the StreetGraph as the path grows.  The final beat
  * lands on 9 × 130 = 1170 m (answer C).
  *

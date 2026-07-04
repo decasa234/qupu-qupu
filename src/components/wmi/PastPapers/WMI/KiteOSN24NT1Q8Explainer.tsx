@@ -11,10 +11,9 @@
 //   4. white    — reveal white B-E-C in green; area = 25 cm².
 //   5. result   — 25 cm².
 
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
-import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import {
   SVG_W,
   SVG_H,
@@ -89,7 +88,16 @@ function FadeLine({
 
 export default function KiteOSN24NT1Q8Explainer({ lang }: ExplainerProps) {
   const storyboard = useMemo(() => buildKiteOSN24NT1Q8Steps(lang), [lang])
-  const { beat, prev, next, isFirst, isFinal } = useBeatControl(storyboard)
+  // Local beat navigation (house pattern — see ShadedSquare20B5Explainer).
+  const [index, setIndex] = useState(0)
+  const prev = useCallback(() => setIndex((i) => Math.max(i - 1, 0)), [])
+  const next = useCallback(
+    () => setIndex((i) => Math.min(i + 1, storyboard.finalIndex)),
+    [storyboard.finalIndex],
+  )
+  const isFirst = index === 0
+  const isFinal = index === storyboard.finalIndex
+  const beat = storyboard.steps[index]
 
   return (
     <div className="flex flex-col items-center gap-3 p-2">

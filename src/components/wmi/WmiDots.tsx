@@ -15,13 +15,16 @@ export interface WmiDot {
   current?: boolean
   onClick?: () => void
   label?: string
+  /** Question number shown inside the dot. When set it replaces the state
+   *  icon — the fill color alone conveys correct/wrong. */
+  number?: number
 }
 
 const STATE_STYLE: Record<WmiDotState, string> = {
   correct: 'bg-[#58A700] text-white',
   wrong: 'bg-[#E11D48] text-white',
   answered: 'bg-qupu-brand-blue text-white',
-  pending: 'bg-white text-qupu-brand-blue/30 ring-2 ring-[#FFE3CC]',
+  pending: 'bg-white text-qupu-brand-blue/50 ring-2 ring-[#FFE3CC]',
 }
 
 const STATE_ICON: Partial<Record<WmiDotState, string>> = {
@@ -40,7 +43,12 @@ export default function WmiDots({ dots }: { dots: WmiDot[] }) {
             : ''
           const className = `flex h-7 w-7 items-center justify-center rounded-full text-[11px] ${STATE_STYLE[dot.state]} ${ring}`
           const icon = STATE_ICON[dot.state]
-          const content = icon ? <i className={icon} aria-hidden="true" /> : null
+          const content =
+            dot.number != null ? (
+              <span className="font-display font-black">{dot.number}</span>
+            ) : icon ? (
+              <i className={icon} aria-hidden="true" />
+            ) : null
 
           return dot.onClick ? (
             <button

@@ -19,7 +19,7 @@ const GREEN_INK   = '#065F46'  // dark green — final caption
 const CELL    = 20
 const PAD     = 18
 const ZONE_W  = 7
-const GRID_H  = 10
+const GRID_H  = 9
 const N_ZONES = 5
 
 const VIEW_W = PAD * 2 + N_ZONES * ZONE_W * CELL
@@ -51,7 +51,7 @@ function buildSteps(lang: 'en' | 'id'): { steps: LinesBeat[]; finalIndex: number
 
   // Derive counts from PATHS23G2 data
   const counts = PATHS23G2.map((p) => ({ label: p.label, count: unitSegmentCount(p) }))
-  // counts: A=13, B=11, C=10, D=10, E=9
+  // counts: A=15, B=14, C=17, D=17, E=16
 
   const steps: LinesBeat[] = []
 
@@ -141,7 +141,7 @@ export default function Lines23G2Explainer(props: ExplainerProps) {
     () => PATHS23G2.map((p) => ({ label: p.label, count: unitSegmentCount(p) })),
     [],
   )
-  const maxCount = Math.max(...counts.map((c) => c.count)) // 13
+  const maxCount = Math.max(...counts.map((c) => c.count)) // 17
 
   // On the final beat, all equal paths are green; focus drives the active state
   const isFinalBeat = beat.result
@@ -149,7 +149,7 @@ export default function Lines23G2Explainer(props: ExplainerProps) {
   // For the intro beat, show all paths dimmed (no focus)
   // For a focus beat, show the focused path bright, all others dim
   // For the final beat, show the equal-length pair green, others dim
-  const equalCount = counts.find((c) => c.label === 'C')!.count // 10
+  const equalCount = counts.find((c) => c.label === 'C')!.count // 17
 
   const pathColor = (label: string): string => {
     if (isFinalBeat) {
@@ -184,8 +184,8 @@ export default function Lines23G2Explainer(props: ExplainerProps) {
   const barFillRatio = focusedCount !== null ? focusedCount / maxCount : 0
 
   const ariaLabel = t(
-    'Each zig-zag path is measured by counting its unit grid segments. C and D both have 10 segments, so they are the same length. Answer E.',
-    'Tiap jalur berliku diukur dengan menghitung ruasnya. C dan D keduanya 10 ruas, jadi sama panjang. Jawaban E.',
+    'Each zig-zag path is measured by counting its unit grid segments. C and D both have 17 segments, so they are the same length. Answer E.',
+    'Tiap jalur berliku diukur dengan menghitung ruasnya. C dan D keduanya 17 ruas, jadi sama panjang. Jawaban E.',
   )
 
   return (

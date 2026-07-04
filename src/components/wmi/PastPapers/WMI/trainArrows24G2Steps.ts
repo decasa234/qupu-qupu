@@ -3,21 +3,22 @@
 // METHOD the animation teaches (deduce, don't assert):
 //   The train runs FORWARD along a curving rail. As it rounds each bend every
 //   car spins the SAME way the rail turns, so all the signal arrows rotate by a
-//   fixed quarter-turn from one car to the next. Read the four KNOWN arrows in
-//   forward order and the spin reveals itself:
+//   fixed quarter-turn from one car to the next. Read the four KNOWN arrows on
+//   the bottom row from the tail forward (scan order ▼ ◁ ▲ engine→):
 //
-//       ▼ down → → right → ▲ up → ◁ left → (light) → ? → ? → engine
-//        180     90        0      270                 ?    ?
+//       ▼ down → ◁ left → ▲ up → → right (engine nose)
+//        180      270      0/360   90
 //
-//   Each step drops 90° clockwise-value, i.e. a 90° COUNTER-CLOCKWISE turn.
-//   Keep spinning past the plain light car (it carries no arrow but sits on the
-//   same curve) and the two hidden arrows fall out:
+//   Each step adds 90°: a quarter-turn CLOCKWISE per car. Now anchor at the
+//   FRONT engine, whose nose points left (270°) — the same rule must hold all
+//   the way to the front. Stepping BACK one car at a time undoes the spin:
 //
-//       left(270) → ↓ down(180) → → right(90)
+//       engine left(270) ← ? down(180) ← ? right(90) ← (light car)
 //
-//   In forward order the first hidden car points DOWN, the second points RIGHT,
-//   which is option E = (down, right). No other option matches a consistent
-//   quarter-turn spin, so the eliminations are honest.
+//   So the ? beside the engine (upper) points DOWN and the ? beside the light
+//   car (lower) points RIGHT. Read from the front that is (down, right) —
+//   option E. No other option matches a consistent quarter-turn spin, so the
+//   eliminations are honest.
 //
 // This builder is a pure (lang) => storyboard function: deterministic, SSR-safe,
 // no Math.random / Date. The component drives it with useBeatControl.
@@ -28,10 +29,11 @@ import { OPTIONS24Q14 } from './TrainArrows24G2Illustration'
 export type Lang = 'en' | 'id'
 
 // Direction as a clockwise angle measured from UP (matches DIR_ROT in the
-// illustration). Spinning −90 (subtract, modulo 360) is one CCW quarter-turn.
+// illustration). The forward spin is +90 (clockwise) per car; stepping BACK a
+// car therefore subtracts 90 (adds 270 modulo 360).
 const ANGLE: Record<Dir, number> = { up: 0, right: 90, down: 180, left: 270 }
 const FROM_ANGLE: Record<number, Dir> = { 0: 'up', 90: 'right', 180: 'down', 270: 'left' }
-const spinCCW = (d: Dir): Dir => FROM_ANGLE[(ANGLE[d] + 270) % 360]
+const spinBack = (d: Dir): Dir => FROM_ANGLE[(ANGLE[d] + 270) % 360]
 
 const DIR_EN: Record<Dir, string> = { up: 'up', down: 'down', left: 'left', right: 'right' }
 const DIR_ID: Record<Dir, string> = { up: 'atas', down: 'bawah', left: 'kiri', right: 'kanan' }
@@ -43,9 +45,9 @@ export type OptionLabel = 'A' | 'B' | 'C' | 'D' | 'E'
 export interface TrainStep {
   /** Which option labels stay lit this beat (others dim). Empty = none highlighted. */
   litOptions: OptionLabel[]
-  /** Arrow to reveal in the first hidden (lower) car, or null if still hidden. */
+  /** Arrow to reveal in the FIRST hidden car (the upper ?, beside the front engine). */
   q1: Dir | null
-  /** Arrow to reveal in the second hidden (upper) car, or null if still hidden. */
+  /** Arrow to reveal in the SECOND hidden car (the lower ?, beside the light car). */
   q2: Dir | null
   /** How many of the four KNOWN arrows to spotlight as the "spin guide" (0..4). */
   knownLit: number
@@ -56,9 +58,9 @@ export interface TrainStep {
 }
 
 export interface TrainStoryboard {
-  /** The four known arrows in FORWARD order (rear → front), used as the spin guide. */
+  /** The four known arrows in FORWARD order (tail → front), used as the spin guide. */
   known: Dir[]
-  /** The two recovered hidden arrows in forward order: [lower ?, upper ?]. */
+  /** The two recovered hidden arrows in reading order: [upper ?, lower ?]. */
   answerPair: ArrowPair
   /** The winning option label. */
   answerLabel: OptionLabel
@@ -70,11 +72,11 @@ export function buildTrainArrowsSteps(lang: Lang): TrainStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
   const dir = (d: Dir) => `${DIR_GLYPH[d]} ${lang === 'id' ? DIR_ID[d] : DIR_EN[d]}`
 
-  // Four known arrows in forward order (rear tail → toward the hidden cars).
-  const known: Dir[] = ['down', 'right', 'up', 'left']
-  // Continue the same CCW quarter-turn past the plain light car.
-  const q1: Dir = spinCCW(known[known.length - 1]) // left → down
-  const q2: Dir = spinCCW(q1) // down → right
+  // Four known arrows in forward order (tail ▼ → front-facing engine nose).
+  const known: Dir[] = ['down', 'left', 'up', 'right']
+  // Anchor on the front engine (nose = left) and step BACK one car at a time.
+  const q1: Dir = spinBack('left') // upper ? (beside the engine) → down
+  const q2: Dir = spinBack(q1) // lower ? (beside the light car) → right
   const answerPair: ArrowPair = [q1, q2]
 
   // Find the option whose pair matches; that is the honest winner.
@@ -103,8 +105,8 @@ export function buildTrainArrowsSteps(lang: Lang): TrainStoryboard {
       knownLit: 4,
       result: false,
       caption: t(
-        `Read the 4 known arrows in order: ${dir('down')}, ${dir('right')}, ${dir('up')}, ${dir('left')} — each is a quarter-turn left (counter-clockwise).`,
-        `Baca 4 panah yang diketahui berurutan: ${dir('down')}, ${dir('right')}, ${dir('up')}, ${dir('left')} — tiap kali berputar seperempat ke kiri (berlawanan jarum jam).`,
+        `Read the 4 known arrows from the tail: ${dir('down')}, ${dir('left')}, ${dir('up')}, ${dir('right')} — each is a quarter-turn right (clockwise).`,
+        `Baca 4 panah yang diketahui dari ekor: ${dir('down')}, ${dir('left')}, ${dir('up')}, ${dir('right')} — tiap kali berputar seperempat ke kanan (searah jarum jam).`,
       ),
       hold: 3000,
     },
@@ -115,8 +117,8 @@ export function buildTrainArrowsSteps(lang: Lang): TrainStoryboard {
       knownLit: 4,
       result: false,
       caption: t(
-        `Keep spinning past the light car: ${dir('left')} turns a quarter to ${dir(q1)}. First ? = ${dir(q1)}.`,
-        `Lanjut berputar lewat gerbong lampu: ${dir('left')} berputar seperempat jadi ${dir(q1)}. ? pertama = ${dir(q1)}.`,
+        `Anchor at the front: the engine points ${dir('left')}. One quarter-turn back: the ? beside it = ${dir(q1)}. First ? = ${dir(q1)}.`,
+        `Berpatokan di depan: lokomotif menghadap ${dir('left')}. Mundur seperempat putaran: ? di sebelahnya = ${dir(q1)}. ? pertama = ${dir(q1)}.`,
       ),
       hold: 2400,
     },
@@ -127,8 +129,8 @@ export function buildTrainArrowsSteps(lang: Lang): TrainStoryboard {
       knownLit: 4,
       result: false,
       caption: t(
-        `One more quarter-turn: ${dir(q1)} becomes ${dir(q2)}. Second ? = ${dir(q2)}.`,
-        `Seperempat putaran lagi: ${dir(q1)} jadi ${dir(q2)}. ? kedua = ${dir(q2)}.`,
+        `One more quarter-turn back: ${dir(q1)} came from ${dir(q2)}. Second ? = ${dir(q2)}.`,
+        `Mundur seperempat putaran lagi: ${dir(q1)} berasal dari ${dir(q2)}. ? kedua = ${dir(q2)}.`,
       ),
       hold: 2400,
     },

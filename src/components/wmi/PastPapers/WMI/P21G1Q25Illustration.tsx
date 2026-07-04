@@ -16,9 +16,12 @@
 // The TARGET grid (given in the problem, below the arrow):
 //   4 1 3 2 / 3 2 4 1 / 2 4 1 3 / 1 3 2 4
 //
-// Per the official answer key, A + B = 5 → answer D. The static figure draws ONLY
-// the five pieces + the target grid (the problem); it never solves the placement
-// or marks an answer — that is the explainer's job.
+// Brute-force verified (all rotations, no flips, printed numbers must match the
+// grid): there is exactly ONE legal tiling, and it puts A on the 1 at (col 3,
+// row 1) and B on the 1 at (col 1, row 0), so A + B = 1 + 1 = 2 → answer A.
+// (The imported key said D/5, but no legal tiling produces 5 — key corrected.)
+// The static figure draws ONLY the five pieces + the target grid (the problem);
+// it never solves the placement or marks an answer — that is the explainer's job.
 //
 // Pure render: no Math.random, no Date, SSR-safe & deterministic.
 

@@ -1,13 +1,14 @@
 /**
  * mirrorSolid22G3Steps — storyboard builder for WMI-22F3A-Q24.
  *
- * Method: "shadows + maximise"
- *   1. Recall the three piece types (white 1, gray 2, black 3 unit cubes).
- *   2. Read the mirror shadows — a BLACK cell forces a 1×1×3 piece; a GRAY cell
- *      forces a 1×1×2 piece.
- *   3. Place those forced long pieces so both mirrors are satisfied.
- *   4. Every remaining (unclaimed) cell can be a white 1×1×1 — maximise them.
- *   5. Count: at most 6 white cubes.
+ * Method: "count cells + force the shadows + maximise"
+ *   1. Count the 13 unit cells (8 bottom + 4 slab + 1 top); recall the piece types.
+ *   2. Read the mirror shadows — every coloured mirror cell pins the colour of
+ *      the piece touching that surface.
+ *   3. Place the forced pieces: one BLACK 1×1×3 along the left floor plus TWO
+ *      GRAY 1×1×2 blocks (the back mirror's gray L needs two) — 7 cells locked.
+ *   4. Every remaining cell can be a white 1×1×1 — maximise them.
+ *   5. Count: 13 − 7 = 6 white cubes at most.
  *
  * Pure function — no Math.random, no Date. SSR-safe and deterministic.
  */
@@ -65,8 +66,8 @@ export function buildMirrorSolid22G3Steps(lang: Lang): MirrorSolidStoryboard {
       hold: 2000,
       result: false,
       caption: t(
-        'There are 3 piece types: WHITE = 1 cube, GRAY = 2 cubes long, BLACK = 3 cubes long.',
-        'Ada 3 jenis balok: PUTIH = 1 kubus, ABU-ABU = panjang 2, HITAM = panjang 3.',
+        'The solid has 13 unit cells: 8 on the floor (the 2×2 slab must be supported underneath), 4 in the slab, 1 on top. Pieces: WHITE = 1 cube, GRAY = 2 long, BLACK = 3 long.',
+        'Bangun itu punya 13 sel satuan: 8 di lantai (lempeng 2×2 harus tertopang di bawahnya), 4 di lempeng, 1 di puncak. Balok: PUTIH = 1 kubus, ABU-ABU = panjang 2, HITAM = panjang 3.',
       ),
     },
     // Beat 1 — mirror shadows decode
@@ -78,8 +79,8 @@ export function buildMirrorSolid22G3Steps(lang: Lang): MirrorSolidStoryboard {
       hold: 2200,
       result: false,
       caption: t(
-        'The mirrors are coloured shadows. A BLACK cell in a mirror means a 1×1×3 piece must reach there. A GRAY cell means a 1×1×2 piece must reach there.',
-        'Cermin adalah bayangan warna. Sel HITAM di cermin berarti ada balok 1×1×3 yang harus menjangkau titik itu. Sel ABU-ABU berarti ada balok 1×1×2 yang harus menjangkau titik itu.',
+        'The mirrors show the coloured surfaces. Side mirror: a BLACK face 3 long and a GRAY face 2 long. Back mirror: three GRAY cells (an L) and one BLACK cell. Each coloured cell pins the colour of the piece touching that side.',
+        'Cermin menunjukkan permukaan berwarna. Cermin samping: sisi HITAM sepanjang 3 dan sisi ABU-ABU sepanjang 2. Cermin belakang: tiga sel ABU-ABU (bentuk L) dan satu sel HITAM. Setiap sel berwarna menetapkan warna balok yang menyentuh sisi itu.',
       ),
     },
     // Beat 2 — place forced pieces
@@ -91,8 +92,8 @@ export function buildMirrorSolid22G3Steps(lang: Lang): MirrorSolidStoryboard {
       hold: 2400,
       result: false,
       caption: t(
-        'So we MUST place at least one BLACK 1×1×3 and at least one GRAY 1×1×2 to satisfy both mirror shadows. Those cells are taken.',
-        'Jadi kita HARUS meletakkan paling sedikit satu balok HITAM 1×1×3 dan satu balok ABU-ABU 1×1×2 agar kedua cermin terpenuhi. Sel-sel itu sudah terpakai.',
+        'So one BLACK 1×1×3 lies along the left floor, and TWO GRAY 1×1×2 blocks are forced — one lying in the slab, one standing at the back (one gray can never cover the L). That locks 3 + 4 = 7 cells.',
+        'Jadi satu balok HITAM 1×1×3 terbaring di tepi kiri lantai, dan DUA balok ABU-ABU 1×1×2 wajib ada — satu terbaring di lempeng, satu berdiri di belakang (satu abu-abu tak mungkin menutup bentuk L). Itu mengunci 3 + 4 = 7 sel.',
       ),
     },
     // Beat 3 — maximise white
@@ -104,8 +105,8 @@ export function buildMirrorSolid22G3Steps(lang: Lang): MirrorSolidStoryboard {
       hold: 2200,
       result: false,
       caption: t(
-        'To get the MOST white cubes, make every remaining cell its own white 1×1×1 piece. No other long piece needs to be added.',
-        'Untuk mendapatkan kubus PUTIH terbanyak, jadikan setiap sel yang tersisa sebagai kubus putih 1×1×1. Tidak perlu menambah balok panjang lagi.',
+        'To get the MOST white cubes, make every remaining cell its own white 1×1×1 piece — this colouring still matches both mirrors exactly.',
+        'Untuk mendapatkan kubus PUTIH terbanyak, jadikan setiap sel yang tersisa sebagai kubus putih 1×1×1 — pewarnaan ini tetap cocok persis dengan kedua cermin.',
       ),
     },
     // Beat 4 — count and answer
@@ -117,8 +118,8 @@ export function buildMirrorSolid22G3Steps(lang: Lang): MirrorSolidStoryboard {
       hold: 0,
       result: true,
       caption: t(
-        `Count the cells left for white after placing the forced pieces. At most ${ANSWER} white 1×1×1 cubes fit — so the answer is ${ANSWER}!`,
-        `Hitung sel yang tersisa untuk putih setelah meletakkan balok yang diwajibkan. Paling banyak ${ANSWER} kubus putih 1×1×1 yang muat — jadi jawabannya ${ANSWER}!`,
+        `13 cells − 7 forced coloured cells = ${ANSWER}. At most ${ANSWER} white 1×1×1 cubes — so the answer is ${ANSWER}!`,
+        `13 sel − 7 sel berwarna wajib = ${ANSWER}. Paling banyak ${ANSWER} kubus putih 1×1×1 — jadi jawabannya ${ANSWER}!`,
       ),
     },
   ]

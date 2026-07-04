@@ -74,7 +74,7 @@ export function buildP25G3Q22Steps(lang: Lang, answerLetter = 'E'): TriSeqStoryb
     {
       phase: 'extend5',
       spotlight: 0,
-      revealed: [...known, { pic: 5, count: 27 }],
+      revealed: [...known, { pic: 5, count: 24 }],
       hold: 2400,
       result: false,
       caption: t(

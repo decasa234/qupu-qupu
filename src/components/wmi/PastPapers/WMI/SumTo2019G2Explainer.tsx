@@ -14,8 +14,8 @@ export default function SumTo2019G2Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: 27 + 403 + 1589 = 2019, jadi angka 4 digit terbesar adalah ${story.answer}.`
-      : `Explainer: 27 + 403 + 1589 = 2019, so the largest 4-digit number is ${story.answer}.`
+      ? `Penjelasan: 82 + 340 + 1597 = 2019, jadi angka 4 digit terbesar adalah ${story.answer}.`
+      : `Explainer: 82 + 340 + 1597 = 2019, so the largest 4-digit number is ${story.answer}.`
 
   return (
     <div className="mx-auto w-full max-w-[360px]" role="img" aria-label={ariaLabel}>

@@ -155,12 +155,12 @@ export const SharedCounts23P2Explainer = makeTryCheckExplainer((lang) => {
 export const RepeatingShapeBlock23P2Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Spot the repeating unit ▲▲⬠⬠▲ and keep it going across the blank.', 'Temukan satuan berulang ▲▲⬠⬠▲ lalu lanjutkan melewati bagian kosong.'),
+    intro: t('Spot the repeating unit ▲▲⬠⬠▲ — the third block shows ▲__⬠▲ with two shapes hidden.', 'Temukan satuan berulang ▲▲⬠⬠▲ — blok ketiga tampak ▲__⬠▲ dengan dua bentuk tersembunyi.'),
     items: [
       { text: t('The repeating block is triangle, triangle, pentagon, pentagon, triangle.', 'Blok berulangnya segitiga, segitiga, segilima, segilima, segitiga.'), ok: null },
-      { text: t('The blank begins a fresh block, so it continues the same run.', 'Bagian kosong memulai blok baru, jadi melanjutkan deret yang sama.'), ok: null },
-      { text: t('Two triangles open a block, but the pentagon shifts in right after — so not triangle, triangle.', 'Dua segitiga mengawali blok, tapi segilima masuk tepat setelahnya — jadi bukan segitiga, segitiga.'), ok: false },
-      { text: t('The blank is triangle, pentagon.', 'Bagian kosong diisi segitiga, segilima.'), ok: true },
+      { text: t('The third block shows ▲__⬠▲, so its 2nd and 3rd shapes are the hidden ones.', 'Blok ketiga tampak ▲__⬠▲, jadi bentuk ke-2 dan ke-3nya yang tersembunyi.'), ok: null },
+      { text: t('Not triangle, triangle — that would be the block’s 1st and 2nd shapes, but the first ▲ is already shown.', 'Bukan segitiga, segitiga — itu bentuk ke-1 dan ke-2 blok, padahal ▲ pertama sudah terlihat.'), ok: false },
+      { text: t('In ▲▲⬠⬠▲ the 2nd shape is ▲ and the 3rd is ⬠ — triangle, pentagon.', 'Pada ▲▲⬠⬠▲ bentuk ke-2 adalah ▲ dan ke-3 adalah ⬠ — segitiga, segilima.'), ok: true },
     ],
     final: t('The blank is filled by triangle, pentagon (D).', 'Bagian kosong diisi segitiga, segilima (D).'),
     aria: t('Continuing the repeating block, the blank is triangle then pentagon.', 'Melanjutkan blok berulang, bagian kosong adalah segitiga lalu segilima.'),
@@ -228,6 +228,22 @@ export const TwiceDigitProduct23P2Explainer = makeTryCheckExplainer((lang) => {
     ],
     final: t('Exactly 1 such number exists (B).', 'Tepat ada 1 bilangan seperti itu (B).'),
     aria: t('Only 36 equals twice the product of its digits, so the count is one.', 'Hanya 36 yang sama dengan dua kali hasil kali angkanya, jadi jumlahnya satu.'),
+  }
+})
+
+/** Q23 — cryptarithm □□□ + □□ + □△ = △△△: solve column by column. */
+export const SquareTriangleSum23P2Explainer = makeTryCheckExplainer((lang) => {
+  const t = tt(lang)
+  return {
+    intro: t('Solve □□□ + □□ + □△ = △△△ column by column, starting from the ones.', 'Pecahkan □□□ + □□ + □△ = △△△ kolom demi kolom, mulai dari satuan.'),
+    items: [
+      { text: t('Ones column: □ + □ + △ must end in △, so □ + □ ends in 0 → □ = 5 (carry 1).', 'Kolom satuan: □ + □ + △ harus berakhiran △, jadi □ + □ berakhiran 0 → □ = 5 (simpan 1).'), ok: null },
+      { text: t('Tens column: 5 + 5 + 5 + 1 = 16, so △ = 6 (carry 1); hundreds: 5 + 1 = 6 = △ ✓.', 'Kolom puluhan: 5 + 5 + 5 + 1 = 16, jadi △ = 6 (simpan 1); ratusan: 5 + 1 = 6 = △ ✓.'), ok: null },
+      { text: t('Not □ = 6, △ = 5 (that would give 21): 666 + 66 + 65 = 797, not 555.', 'Bukan □ = 6, △ = 5 (yang memberi 21): 666 + 66 + 65 = 797, bukan 555.'), ok: false },
+      { text: t('Check: 555 + 55 + 56 = 666, so □ + △ + △ + △ = 5 + 6 + 6 + 6 = 23.', 'Cek: 555 + 55 + 56 = 666, jadi □ + △ + △ + △ = 5 + 6 + 6 + 6 = 23.'), ok: true },
+    ],
+    final: t('□ + △ + △ + △ = 23 (D).', '□ + △ + △ + △ = 23 (D).'),
+    aria: t('The ones column forces the square digit 5 and the triangle digit 6, giving 5 plus three sixes equals 23.', 'Kolom satuan memaksa □ = 5 dan △ = 6, sehingga 5 ditambah tiga angka 6 sama dengan 23.'),
   }
 })
 

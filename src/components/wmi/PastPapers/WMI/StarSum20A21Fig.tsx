@@ -19,7 +19,7 @@
 //
 // Pure SVG, SSR-safe — no React hooks, no framer-motion, no window/document.
 
-import { NodeGraph } from './primitives/NodeGraph'
+import { NodeGraph, type NodeDef } from './primitives/NodeGraph'
 
 // ── Layout constants ──────────────────────────────────────────────────────────
 
@@ -74,7 +74,7 @@ const [LR_OUT_X, LR_OUT_Y] = arm(DIR_LR, OUTER_D)
 
 const BLANK_FILL = '#F5F0E8'   // off-white — empty circles (problem stem)
 
-export const NODES_20A21 = [
+export const NODES_20A21: NodeDef[] = [
   // Center (unlabeled — student fills this)
   { id: 'C',      x: CX,        y: CY,        fill: BLANK_FILL },
   // Inner nodes (one per arm, unlabeled)

@@ -1,8 +1,8 @@
 // WMI-25F1A-Q5 (2025 Grade 1 Final) — storyboard for the "flipped ruler" animation.
 //
 // Isaac measures a pencil on a ruler that is turned over, so its printed numbers
-// run the "wrong way" (4..13 left -> right, every glyph mirror-flipped). The
-// eraser end sits over mark 11 and the sharpened tip over mark 6.
+// run the "wrong way" (13..4 left -> right, every glyph mirror-flipped). The
+// eraser end (left) sits over mark 11 and the sharpened tip (right) over mark 6.
 //
 // THE TRAP: read "11" as the length, because the eraser sits on the biggest
 // number. THE METHOD: a length is the DISTANCE between the two ends, not a

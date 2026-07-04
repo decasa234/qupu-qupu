@@ -1,4 +1,5 @@
-// WMI-23P2A-Q12 (2023 Grade 2 Semifinal, Paper A) — "Cover the shaded region with 1x2 dominoes".
+// WMI-23P2A-Q12 (2023 Grade 2 Semifinal, Paper A) — "Cover the shaded region with
+// L-shaped pieces of 3 squares".
 //
 // Recovered from db/seed/wmi/figures/2023-semifinal-g2-a-q12.jpg:
 //   An 8-column × 6-row grid of unit squares. A shaded (pink) region sits inside it,
@@ -8,9 +9,15 @@
 //     row 3: cols 1,2,3,4,5
 //     row 4: cols 1,2,3,4
 //   → 4 + 5 + 5 + 4 = 18 shaded unit squares.
-// Question: the LEAST number of 1×2 dominoes needed to cover the shaded region completely.
-// Each domino covers exactly 2 squares, so the minimum is 18 ÷ 2 = 9 (and a real 9-domino
-// tiling exists — verified by backtracking). The static figure reveals only the grid + shading.
+//
+// RECONSTRUCTION NOTE (answer-key driven): the seed's answer key is B (6) with
+// choices 5–8. With 1×2 dominoes the true minimum is 18 ÷ 2 = 9, which is not
+// among the choices, so the OCR'd "1×2 dominoes" cannot be the printed piece.
+// 18 ÷ 3 = 6 matches the key; a straight 1×3 CANNOT tile this region (verified
+// by exhaustive backtracking) but an L-shaped 3-square piece tiles it exactly
+// with 6 pieces (tiling below, solver-verified). So the piece is the L-tromino.
+// Question: the LEAST number of L-shaped 3-square pieces needed = 18 ÷ 3 = 6.
+// The static figure reveals only the grid + shading.
 
 export const GRID_COLS = 8
 export const GRID_ROWS = 6
@@ -23,20 +30,17 @@ export const SHADED: Array<[number, number]> = [
   [4, 1], [4, 2], [4, 3], [4, 4],
 ]
 export const SHADED_COUNT = SHADED.length // 18
-export const MIN_DOMINOES = SHADED_COUNT / 2 // 9
+export const MIN_PIECES = SHADED_COUNT / 3 // 6
 
-// A verified non-overlapping 1×2 tiling of the 18 shaded cells (9 dominoes).
-// Each entry is [[r1,c1],[r2,c2]] for two orthogonally-adjacent shaded cells.
-export const TILING: Array<[[number, number], [number, number]]> = [
-  [[1, 1], [1, 2]],
-  [[1, 3], [1, 4]],
-  [[2, 1], [2, 2]],
-  [[2, 3], [2, 4]],
-  [[2, 5], [3, 5]],
-  [[3, 1], [3, 2]],
-  [[3, 3], [3, 4]],
-  [[4, 1], [4, 2]],
-  [[4, 3], [4, 4]],
+// A verified non-overlapping L-tromino tiling of the 18 shaded cells (6 pieces).
+// Each entry lists the piece's three [r, c] cells (solver-verified exact cover).
+export const TILING: Array<Array<[number, number]>> = [
+  [[1, 1], [1, 2], [2, 1]],
+  [[1, 3], [1, 4], [2, 3]],
+  [[2, 2], [3, 2], [3, 3]],
+  [[2, 4], [2, 5], [3, 5]],
+  [[3, 1], [4, 1], [4, 2]],
+  [[3, 4], [4, 3], [4, 4]],
 ]
 
 const CELL = 34
@@ -55,14 +59,14 @@ function cellY(row: number): number {
   return PAD + row * CELL
 }
 
-const DOMINO_COLORS = ['#2563EB', '#16A34A', '#D97706', '#9333EA', '#0891B2', '#DB2777', '#65A30D', '#DC2626', '#0D9488']
+const PIECE_COLORS = ['#2563EB', '#16A34A', '#D97706', '#9333EA', '#0891B2', '#DB2777']
 
 export interface DominoGridProps {
-  /** How many dominoes of the verified tiling to overlay (0..9). */
+  /** How many L-pieces of the verified tiling to overlay (0..6). */
   placed?: number
 }
 
-/** The reusable 8×6 grid with the shaded region; optionally overlays `placed` dominoes. */
+/** The reusable 8×6 grid with the shaded region; optionally overlays `placed` L-pieces. */
 export function DominoGrid({ placed = 0 }: DominoGridProps) {
   return (
     <svg
@@ -84,15 +88,24 @@ export function DominoGrid({ placed = 0 }: DominoGridProps) {
         <line key={`h${i}`} x1={cellX(0)} y1={cellY(i)} x2={cellX(GRID_COLS)} y2={cellY(i)} stroke={GRID_LINE} strokeWidth={1.2} />
       ))}
 
-      {/* overlaid dominoes (explainer only) */}
-      {TILING.slice(0, Math.max(0, Math.min(TILING.length, placed))).map((d, i) => {
-        const [[r1, c1], [r2, c2]] = d
-        const x = cellX(Math.min(c1, c2)) + 3
-        const y = cellY(Math.min(r1, r2)) + 3
-        const w = (Math.abs(c2 - c1) + 1) * CELL - 6
-        const h = (Math.abs(r2 - r1) + 1) * CELL - 6
-        return <rect key={`d${i}`} x={x} y={y} width={w} height={h} rx={6} fill={DOMINO_COLORS[i % DOMINO_COLORS.length]} opacity={0.78} stroke="#FFFFFF" strokeWidth={1.6} />
-      })}
+      {/* overlaid L-pieces (explainer only): one rounded square per covered cell,
+          same colour per piece so the three cells read as one L. */}
+      {TILING.slice(0, Math.max(0, Math.min(TILING.length, placed))).map((piece, i) =>
+        piece.map(([r, c]) => (
+          <rect
+            key={`p${i}-${r}-${c}`}
+            x={cellX(c) + 3}
+            y={cellY(r) + 3}
+            width={CELL - 6}
+            height={CELL - 6}
+            rx={6}
+            fill={PIECE_COLORS[i % PIECE_COLORS.length]}
+            opacity={0.78}
+            stroke="#FFFFFF"
+            strokeWidth={1.6}
+          />
+        )),
+      )}
     </svg>
   )
 }

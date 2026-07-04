@@ -1,21 +1,24 @@
 // In-card illustration for WMI-24F2A-Q14 (2024 Grade-2 Final).
 //
 // The printed stem shows a toy train running forward along a curving grey rail.
-// Reading db/seed/wmi/figures/2024-final-g2-a-q14.jpg, the cars, in order along
-// the track from the rear (bottom) engine forward to the front (top) engine, are:
+// Reading db/seed/wmi/figures/2024-final-g2-a-q14.jpg, the bottom row runs
+// (left → right): ▼, ◁, ▲, rear engine pointing RIGHT — i.e. in order along the
+// track from the very tail forward to the front (top-left) engine:
 //
-//   rear engine  → arrow pointing RIGHT (the forward direction at the tail)
+//   tail car     ▼ red triangle pointing DOWN   (bottom-left)
+//   car          ◁ triangle pointing LEFT
 //   car          ▲ red triangle pointing UP
-//   car          ◁ white triangle pointing LEFT
-//   car          ▼ red triangle pointing DOWN
-//   car          ◯ plain white circle (a head-/tail-light, no arrow)
-//   car          ? hidden arrow  (lower ? box)
-//   car          ? hidden arrow  (upper ? box)
-//   front engine ← arrow pointing LEFT (the forward direction at the head)
+//   rear engine  → nose pointing RIGHT (its forward direction on the bottom run)
+//   …dotted rail (unshown cars)…
+//   car          ◯ plain white circle (no arrow)
+//   car          ? hidden arrow  (lower ? box, next to ◯)
+//   car          ? hidden arrow  (upper ? box, next to the front engine)
+//   front engine ← nose pointing LEFT (its forward direction on the top run)
 //
-// The rail bends between the cars; as the train moves forward each car turns the
-// same way the rail bends, so the four KNOWN arrows fix the turning rule and the
-// two "?" cars hide the arrows the reader must recover.
+// Reading the knowns from the tail: down → left → up → right — one quarter-turn
+// CLOCKWISE per car. Anchoring on the front engine (nose = left) and stepping
+// back one car at a time undoes the spin: upper ? = down, lower ? = right, which
+// is option E = (down, right) reading the ?s from the front.
 //
 // House style: framed white card, monochrome ink, salmon car bodies with maroon
 // outlines and red signal arrows, a grey rail with a grey dotted "track-ahead".
@@ -192,11 +195,11 @@ export function TrainArrows24G2Illustration() {
   const W = 360
   const H = 220
 
-  // Car centres traced from the scan (forward order: rear engine → front engine).
-  const rearEngine = { x: 56, y: 184 }
-  const carTriUp = { x: 116, y: 184 } // ▲
-  const carTriLeft = { x: 158, y: 184 } // ◁
+  // Car centres traced from the scan. Bottom row left → right: ▼, ◁, ▲, engine→.
   const carTriDown = { x: 30, y: 184 } // ▼  (left-most, the very tail)
+  const carTriLeft = { x: 74, y: 184 } // ◁
+  const carTriUp = { x: 118, y: 184 } // ▲
+  const rearEngine = { x: 172, y: 184 } // engine, nose pointing right
   const carCircle = { x: 232, y: 110 } // ◯ plain
   const lowerQ = { x: 188, y: 110 } // ?  (second hidden)
   const upperQ = { x: 150, y: 70 } // ?  (first hidden)
@@ -207,10 +210,10 @@ export function TrainArrows24G2Illustration() {
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
       aria-label={
-        'Kereta mainan berjalan maju di rel abu-abu yang berbelok. Berurutan dari belakang ke depan: ' +
-        'lokomotif belakang dengan panah ke kanan, gerbong panah ke atas, gerbong panah ke kiri, ' +
-        'gerbong panah ke bawah, gerbong lingkaran putih polos, dua gerbong bertanda tanya yang panahnya ' +
-        'tersembunyi, lalu lokomotif depan dengan panah ke kiri. Tentukan arah dua panah bertanda tanya.'
+        'Kereta mainan berjalan maju di rel abu-abu yang berbelok. Berurutan dari ekor ke depan: ' +
+        'gerbong panah ke bawah, gerbong panah ke kiri, gerbong panah ke atas, lokomotif belakang ' +
+        'menghadap kanan, rel bertitik, gerbong lingkaran putih polos, dua gerbong bertanda tanya yang ' +
+        'panahnya tersembunyi, lalu lokomotif depan menghadap kiri. Tentukan arah dua panah bertanda tanya.'
       }
     >
       <svg
@@ -248,13 +251,14 @@ export function TrainArrows24G2Illustration() {
           const a = (-90 + t * 180) * (Math.PI / 180)
           return <circle key={`du-${i}`} cx={310 + Math.cos(a) * 37} cy={147 + Math.sin(a) * 37} r={4} fill={RAIL_DOT} />
         })}
-        {Array.from({ length: 11 }, (_, i) => (
+        {Array.from({ length: 8 }, (_, i) => (
           <circle key={`dl-${i}`} cx={300 - i * 13} cy={184} r={4} fill={RAIL_DOT} />
         ))}
 
         {/* ---- couplings between successive cars ---- */}
-        <Coupling x1={carTriDown.x + 16} y1={184} x2={carTriUp.x - 16} y2={184} />
-        <Coupling x1={carTriUp.x + 16} y1={184} x2={carTriLeft.x - 16} y2={184} />
+        <Coupling x1={carTriDown.x + 16} y1={184} x2={carTriLeft.x - 16} y2={184} />
+        <Coupling x1={carTriLeft.x + 16} y1={184} x2={carTriUp.x - 16} y2={184} />
+        <Coupling x1={carTriUp.x + 16} y1={184} x2={rearEngine.x - 26} y2={184} />
         <Coupling x1={lowerQ.x + 16} y1={110} x2={carCircle.x - 16} y2={110} />
         <Coupling x1={upperQ.x + 8} y1={upperQ.y + 14} x2={lowerQ.x - 6} y2={lowerQ.y - 14} />
         <Coupling x1={frontEngine.x + 22} y1={frontEngine.y + 10} x2={upperQ.x - 14} y2={upperQ.y - 12} />

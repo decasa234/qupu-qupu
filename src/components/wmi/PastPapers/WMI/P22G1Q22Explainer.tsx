@@ -9,7 +9,7 @@ const BLUE = '#9FD2EE'
 const WHITE = '#FFFFFF'
 const INK = '#2B2B2B'
 
-/** The colour strip read clockwise from the top — first `count` swatches shown. */
+/** The colour strip read along the arrow from the wedge left of the top vertex — first `count` swatches shown. */
 function ColourStrip({ count }: { count: number }) {
   const SW = 28
   const GAP = 4
@@ -44,8 +44,8 @@ export default function P22G1Q22Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: baca cincin searah jarum jam menjadi strip warna; hanya strip ${story.answer} yang cocok (jawaban ${story.answer}).`
-      : `Explainer: read the ring clockwise into a colour strip; only strip ${story.answer} matches (answer ${story.answer}).`
+      ? `Penjelasan: baca cincin mengikuti arah panah menjadi strip warna; hanya strip ${story.answer} yang cocok (jawaban ${story.answer}).`
+      : `Explainer: read the ring in the arrow's direction into a colour strip; only strip ${story.answer} matches (answer ${story.answer}).`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>

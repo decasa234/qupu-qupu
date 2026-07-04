@@ -4,17 +4,14 @@
  *
  * Reconstructed from db/seed/wmi/figures/2022-semifinal-g1-a-q19.jpg: a large
  * triangle T-L-R (apex T at top, base L…R) with
- *   - one cevian from the apex T down to an interior point P, and
- *   - four spokes from P: to the bottom-left corner L, to a base point M, a
- *     horizontal segment to a point N on the right edge, and to the bottom-right
- *     corner R.
+ *   - one full cevian from the apex T THROUGH interior point P down to the base
+ *     point M (the scan draws T, P, M in one straight line), and
+ *   - three spokes from P: to the bottom-left corner L, a horizontal segment to
+ *     a point N on the right edge, and to the bottom-right corner R.
  * P fans the figure into five small triangular cells; counting every triangle
- * of every size (verified by a throwaway backtracking enumerator over the exact
- * lattice) gives the nine triangles listed in TRIANGLES below.
- *
- * NOTE: the faithful figure contains 9 distinct triangles; the published answer
- * key marks option C. The explainer enumerates the triangles the figure shows
- * and lands on the keyed option.
+ * of every size (verified by an exhaustive enumerator over the exact lattice)
+ * gives the TEN triangles listed in TRIANGLES below — matching the answer key
+ * (option C = 10).
  *
  * The static figure draws ONLY the line-work (no highlight, no count). The
  * co-exported Q19Figure({ litId }) primitive outlines exactly one triangle so the
@@ -36,9 +33,9 @@ const PTS: Record<string, Pt> = {
   T: [128, 14], // apex
   L: [16, 236], // bottom-left corner
   R: [240, 236], // bottom-right corner
-  M: [150, 236], // base point (foot of P's downward spoke)
-  P: [140, 150], // interior point
-  N: [197, 150], // point on the right edge (foot of the horizontal; exactly on T–R)
+  M: [150, 236], // base point (foot of the cevian)
+  P: [141.5, 150], // interior point — exactly on the line T–M
+  N: [196.6, 150], // point on the right edge (foot of the horizontal; exactly on T–R)
 }
 
 // Every drawn straight line, as an ordered list of the named points on it.
@@ -46,9 +43,8 @@ const LINES: string[][] = [
   ['T', 'L'], // left edge
   ['L', 'M', 'R'], // base, with M between
   ['T', 'N', 'R'], // right edge, with N between
-  ['T', 'P'], // apex cevian to interior point P
+  ['T', 'P', 'M'], // full cevian from the apex through P to the base at M
   ['P', 'L'], // spoke to bottom-left
-  ['P', 'M'], // spoke to base point M
   ['P', 'N'], // horizontal spoke to the right edge
   ['P', 'R'], // spoke to bottom-right corner
 ]
@@ -59,17 +55,18 @@ export interface TriEntry {
   size: 'small' | 'medium' | 'large'
 }
 
-// The nine triangles, smallest area first (the order the explainer reveals them).
-// Vertex triples are exactly those the backtracking enumerator returned.
+// The ten triangles, smallest area first (the order the explainer reveals them).
+// Vertex triples are exactly those the exhaustive enumerator returned.
 const TRI_TRIPLES: Array<[string, string, string]> = [
-  ['T', 'R', 'N'], // sliver at top-right (apex, corner, edge point)
-  ['R', 'P', 'N'], // small lower-right cell
-  ['R', 'M', 'P'], // small lower-middle cell
+  ['R', 'P', 'N'], // small cell under the horizontal, by the right edge
   ['T', 'P', 'N'], // upper cell between cevian and right edge
+  ['R', 'M', 'P'], // small cell at the bottom, right of the cevian
   ['L', 'M', 'P'], // lower-left cell
-  ['T', 'R', 'P'], // right half, apex to corner through P
-  ['T', 'L', 'P'], // left half, apex to corner through P
-  ['L', 'R', 'P'], // whole base fan (the bottom big triangle)
+  ['T', 'R', 'P'], // apex to the right corner through P (2 cells)
+  ['T', 'L', 'P'], // big left cell, apex to the left corner
+  ['L', 'R', 'P'], // whole base fan (the wide bottom triangle)
+  ['T', 'M', 'R'], // apex, base point, right corner (3 cells)
+  ['T', 'L', 'M'], // apex, left corner, base point (left of the cevian)
   ['T', 'L', 'R'], // the whole outer triangle
 ]
 
@@ -78,10 +75,10 @@ const pointsOf = (tri: [string, string, string]) => tri.map((v) => PTS[v].join('
 export const TRIANGLES: TriEntry[] = TRI_TRIPLES.map((tri, i) => ({
   id: i + 1,
   points: pointsOf(tri),
-  size: i < 5 ? 'small' : i < 8 ? 'medium' : 'large',
+  size: i < 4 ? 'small' : i < 9 ? 'medium' : 'large',
 }))
 
-export const TRI_TOTAL = TRIANGLES.length // 9 (figure); key marks option C
+export const TRI_TOTAL = TRIANGLES.length // 10 — answer C
 
 // ─── drawing ────────────────────────────────────────────────────────────────
 

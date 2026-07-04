@@ -17,7 +17,13 @@ import type { WmiGrade, WmiPaperSummary } from '../types/wmi'
 export default function WmiPapers() {
   useDocumentTitle('Soal Ujian')
   const { activeChildId } = useAuthStore()
-  const { selectedGrade, setSelectedGrade } = useWmiStore()
+  // Default to the child's resolved grade (synced by AppShell from the school
+  // grade / manual pin). Chip taps are a LOCAL browse pick only — looking at
+  // another grade's papers must not re-pin the child's sticky garden grade,
+  // and the page re-opens on the child's own grade next visit.
+  const selectedGrade = useWmiStore((state) => state.selectedGrade)
+  const [pick, setPick] = useState<WmiGrade | null>(null)
+  const grade = pick ?? selectedGrade
   const [papers, setPapers] = useState<WmiPaperSummary[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -26,11 +32,11 @@ export default function WmiPapers() {
     if (!activeChildId) return
     setError(null)
     setLoading(true)
-    fetchPapers(activeChildId, selectedGrade)
+    fetchPapers(activeChildId, grade)
       .then(setPapers)
       .catch((err) => setError(toIndonesianErrorMessage(err, 'Gagal memuat')))
       .finally(() => setLoading(false))
-  }, [activeChildId, selectedGrade])
+  }, [activeChildId, grade])
 
   if (!activeChildId) {
     return (
@@ -63,7 +69,7 @@ export default function WmiPapers() {
       </section>
 
       <div className="mt-4">
-        <WmiGradeChips selected={selectedGrade} onSelect={(grade: WmiGrade) => setSelectedGrade(grade)} grades={[0, 1, 2, 3]} labelPrefix="Grade" />
+        <WmiGradeChips selected={grade} onSelect={setPick} grades={[0, 1, 2, 3]} labelPrefix="Grade" />
       </div>
 
       {error && <div className="mt-3 rounded-[1.25rem] bg-red-50 p-3 text-sm text-red-700">{error}</div>}

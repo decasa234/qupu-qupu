@@ -176,6 +176,7 @@ export const BookSpreadParity22P1Explainer = makeTryCheckExplainer((lang) => {
       { text: t('Page 1 is on the right, so right pages are odd and left pages are even', 'Halaman 1 di kanan, jadi halaman kanan ganjil dan halaman kiri genap'), ok: null },
       { text: t('An open book is a left page plus the next page on the right: even + the next odd = odd', 'Buku terbuka adalah halaman kiri ditambah halaman berikutnya di kanan: genap + ganjil berikutnya = ganjil'), ok: null },
       { text: t('Don’t pick 64 — it is even, but a spread sum is always odd, so it cannot happen', 'Jangan pilih 64 — itu genap, tetapi jumlah bentangan selalu ganjil, jadi tidak mungkin'), ok: false },
+      { text: t('Don’t pick 79 either — it needs 39 + 40, but that puts the even page on the right; a spread is even left + odd right', 'Jangan pilih 79 — itu butuh 39 + 40, tetapi halaman genapnya jadi di kanan; bentangan adalah genap kiri + ganjil kanan'), ok: false },
       { text: t('85 works: a real spread like 42 + 43 = 85', '85 cocok: bentangan asli seperti 42 + 43 = 85'), ok: true },
     ],
     final: t('The sum that can be correct is 85 (D).', 'Jumlah yang bisa benar adalah 85 (D).'),

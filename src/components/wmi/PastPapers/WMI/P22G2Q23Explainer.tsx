@@ -13,10 +13,11 @@ import {
   ReadingArrow,
   RingDefs,
   FILL,
-  RING_COLORS,
+  READ_ORDER,
+  STRIP_COLORS,
   RING_N,
   RING_CX,
-  RING_CY,
+  wedgeCentroid,
 } from './P22G2Q23Illustration'
 import { buildP22G2Q23Steps } from './p22G2Q23Steps'
 
@@ -44,7 +45,8 @@ export default function P22G2Q23Explainer(props: ExplainerProps) {
       : 'Explainer: unroll the ring into a strip; rotation is allowed, flipping is not — strip A matches, answer A.'
 
   // The reversed strip shown for the "no flipping" note.
-  const reversed = [...RING_COLORS].reverse()
+  const reversed = [...STRIP_COLORS].reverse()
+  const [startX, startY] = wedgeCentroid(READ_ORDER[0])
 
   return (
     <div className="mx-auto w-full max-w-[280px]" role="img" aria-label={ariaLabel}>
@@ -54,14 +56,14 @@ export default function P22G2Q23Explainer(props: ExplainerProps) {
           <g transform={`translate(${VIEW_W / 2 - RING_CX}, 0)`}>
             <ColorRing litUpto={beat.read} dimOthers={beat.read > 0 && beat.read < RING_N} />
             <ReadingArrow />
-            {/* small start marker on wedge 0 (top) */}
-            {beat.read > 0 && <circle cx={RING_CX} cy={RING_CY - 70} r={4.5} fill="#F0853A" />}
+            {/* small start marker on the first wedge read (top-left, arrow direction) */}
+            {beat.read > 0 && <circle cx={startX} cy={startY} r={4.5} fill="#F0853A" />}
           </g>
 
           {/* unrolled strip */}
           {beat.showStrip && (
             <g>
-              {RING_COLORS.map((c, i) => (
+              {STRIP_COLORS.map((c, i) => (
                 <rect
                   key={`s${i}`}
                   x={STRIP_X0 + i * SW}

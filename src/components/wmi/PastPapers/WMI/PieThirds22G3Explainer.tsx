@@ -28,13 +28,13 @@ const GREY_STROKE= '#9CA3AF'
 // Per-circle data — must match illustration file exactly.
 const CIRCLES = [
   { segments: 3,  shadedIndices: [0] },
-  { segments: 10, shadedIndices: [0, 2, 4, 6] },
-  { segments: 6,  shadedIndices: [3, 4] },
-  { segments: 12, shadedIndices: [6, 7, 8, 9] },
-  { segments: 12, shadedIndices: [0, 2, 4, 6, 8] },
+  { segments: 12, shadedIndices: [1, 4, 7, 10] },
+  { segments: 6,  shadedIndices: [0, 2, 4] },
+  { segments: 12, shadedIndices: [1, 4, 5, 6, 10] },
+  { segments: 12, shadedIndices: [1, 2, 8, 9] },
 ]
 
-const PASSES = [true, false, true, true, false]
+const PASSES = [true, true, false, false, true]
 
 const R   = 40   // pie radius in SVG units
 const VB  = 92   // square viewBox per pie card
@@ -132,8 +132,8 @@ export default function PieThirds22G3Explainer(props: ExplainerProps) {
   const doneBefore = (ci: number) => index > ci + 1  // circle ci is on beat ci+1
 
   const aria = t(
-    'Checking each circle: 1/3, 2/5, 1/3, 1/3, 5/12 — three circles show 1/3. Answer C.',
-    'Memeriksa tiap lingkaran: 1/3, 2/5, 1/3, 1/3, 5/12 — tiga lingkaran menunjukkan 1/3. Jawaban C.',
+    'Checking each circle: 1/3, 1/3, 1/2, 5/12, 1/3 — three circles show 1/3. Answer C.',
+    'Memeriksa tiap lingkaran: 1/3, 1/3, 1/2, 5/12, 1/3 — tiga lingkaran menunjukkan 1/3. Jawaban C.',
   )
 
   const captionStyle = beat.result

@@ -4,12 +4,13 @@
 // "As shown, which two of the five lines are of the same length?"
 // Five labelled zig-zag paths A–E drawn on a unit grid. Answer: C and D.
 //
-// Segment counts read from the scan (path = sequence of unit H/V steps):
-//   A:  R2, D1, L1, D1, L2, D3, R1, D2            → 13 segments
-//   B:  R1, D3, R1, D2, L2, D2                    → 11 segments
-//   C:  D2, R1, D1, R1, D1, L1, D3                → 10 segments
-//   D:  R2, D1, L1, D3, L1, D2                    → 10 segments  ← C = D ✓
-//   E:  R2, D1, L1, D2, R1, D2                    →  9 segments
+// Segment counts extracted pixel-exactly from the scan (9-row unit grid; every
+// unit edge of each path sampled against the ink):
+//   A:  D1, R1, D2, L3, D2, R2, D4                → 15 segments
+//   B:  D1, R1, D2, L2, D2, L1, D2, R1, D2        → 14 segments
+//   C:  D1, L3, D3, R3, D1, L1, D1, L1, D3        → 17 segments
+//   D:  D2, L1, D1, R2, D2, L2, D2, R2, D1, L1, D1 → 17 segments  ← C = D ✓
+//   E:  D2, L2, D1, R3, D4, L2, D2                → 16 segments
 //
 // This component draws ONLY the setup (labelled paths on a grid). It never
 // reveals which two are equal — that is the animator/explainer's job.
@@ -25,7 +26,7 @@ const LABEL_FILL = '#1F2937'  // label text
 const CELL     = 20           // px per grid unit
 const PAD      = 18           // outer SVG padding
 const ZONE_W   = 7            // grid-unit width of each path's column zone
-const GRID_H   = 10           // total grid rows visible
+const GRID_H   = 9            // total grid rows visible (matches the scan)
 const N_ZONES  = 5            // paths A–E
 
 const VIEW_W = PAD * 2 + N_ZONES * ZONE_W * CELL
@@ -48,84 +49,89 @@ export interface PathDef {
  * Five paths reconstructed from the 2023-final-g2-a-q5.jpg scan.
  *
  * Unit-segment counts (sum of |dx|+|dy| across all consecutive vertex pairs):
- *   A = 13  (R2+D1+L1+D1+L2+D3+R1+D2 = 2+1+1+1+2+3+1+2)
- *   B = 11  (R1+D3+R1+D2+L2+D2       = 1+3+1+2+2+2)
- *   C = 10  (D2+R1+D1+R1+D1+L1+D3   = 2+1+1+1+1+1+3)
- *   D = 10  (R2+D1+L1+D3+L1+D2      = 2+1+1+3+1+2)    ← C = D ✓
- *   E =  9  (R2+D1+L1+D2+R1+D2      = 2+1+1+2+1+2)
+ *   A = 15  (D1+R1+D2+L3+D2+R2+D4 = 1+1+2+3+2+2+4)
+ *   B = 14  (D1+R1+D2+L2+D2+L1+D2+R1+D2 = 1+1+2+2+2+1+2+1+2)
+ *   C = 17  (D1+L3+D3+R3+D1+L1+D1+L1+D3 = 1+3+3+3+1+1+1+1+3)
+ *   D = 17  (D2+L1+D1+R2+D2+L2+D2+R2+D1+L1+D1 = 2+1+1+2+2+2+2+2+1+1+1)  ← C = D ✓
+ *   E = 16  (D2+L2+D1+R3+D4+L2+D2 = 2+2+1+3+4+2+2)
  */
 export const PATHS23G2: Readonly<PathDef[]> = [
   {
-    // A  13 segments
-    // R2, D1, L1, D1, L2, D3, R1, D2
+    // A  15 segments — D1, R1, D2, L3, D2, R2, D4
     label: 'A',
     points: [
-      [2, 0],
       [4, 0],
       [4, 1],
-      [3, 1],
-      [3, 2],
-      [1, 2],
-      [1, 5],
+      [5, 1],
+      [5, 3],
+      [2, 3],
       [2, 5],
-      [2, 7],
+      [4, 5],
+      [4, 9],
     ],
   },
   {
-    // B  11 segments
-    // R1, D3, R1, D2, L2, D2  → 1+3+1+2+2+2 = 11
+    // B  14 segments — D1, R1, D2, L2, D2, L1, D2, R1, D2
     label: 'B',
     points: [
-      [2, 1],
-      [3, 1],
-      [3, 4],
-      [4, 4],
-      [4, 6],
-      [2, 6],
-      [2, 8],
+      [4, 0],
+      [4, 1],
+      [5, 1],
+      [5, 3],
+      [3, 3],
+      [3, 5],
+      [2, 5],
+      [2, 7],
+      [3, 7],
+      [3, 9],
     ],
   },
   {
-    // C  10 segments
-    // D2, R1, D1, R1, D1, L1, D3  → 2+1+1+1+1+1+3 = 10
+    // C  17 segments — D1, L3, D3, R3, D1, L1, D1, L1, D3
     label: 'C',
+    points: [
+      [5, 0],
+      [5, 1],
+      [2, 1],
+      [2, 4],
+      [5, 4],
+      [5, 5],
+      [4, 5],
+      [4, 6],
+      [3, 6],
+      [3, 9],
+    ],
+  },
+  {
+    // D  17 segments — D2, L1, D1, R2, D2, L2, D2, R2, D1, L1, D1
+    label: 'D',
     points: [
       [3, 0],
       [3, 2],
-      [4, 2],
+      [2, 2],
+      [2, 3],
       [4, 3],
-      [5, 3],
-      [5, 4],
-      [4, 4],
+      [4, 5],
+      [2, 5],
+      [2, 7],
       [4, 7],
+      [4, 8],
+      [3, 8],
+      [3, 9],
     ],
   },
   {
-    // D  10 segments
-    // R2, D1, L1, D3, L1, D2  → 2+1+1+3+1+2 = 10
-    label: 'D',
-    points: [
-      [2, 0],
-      [4, 0],
-      [4, 1],
-      [3, 1],
-      [3, 4],
-      [2, 4],
-      [2, 6],
-    ],
-  },
-  {
-    // E  9 segments
-    // R2, D1, L1, D2, R1, D2  → 2+1+1+2+1+2 = 9
+    // E  16 segments — D2, L2, D1, R3, D4, L2, D2
     label: 'E',
     points: [
-      [2, 1],
-      [4, 1],
-      [4, 2],
+      [3, 0],
       [3, 2],
-      [3, 4],
-      [4, 4],
-      [4, 6],
+      [1, 2],
+      [1, 3],
+      [4, 3],
+      [4, 7],
+      [2, 7],
+      [2, 9],
     ],
   },
 ] as const

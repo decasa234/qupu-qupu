@@ -47,12 +47,12 @@ const TREE_COUNT = TREE_RANKS.length
 export const TREE_IDS: string[] = Array.from({ length: TREE_COUNT }, (_, i) => `t${i}`)
 
 /**
- * Number of foliage tiers per tree, derived from its rank so taller-ranked trees
- * read as visibly taller. Shortest trees get 2 tiers, tallest get 6.
+ * Number of foliage tiers per tree — exactly its rank, matching the scan (the
+ * shortest tree has 1 crown, the tallest 10), so every tree height is visibly
+ * DISTINCT as the stem requires.
  */
 function tiersForRank(rank: number): number {
-  // ranks 1–2 -> 2 tiers, 3–4 -> 3, 5–6 -> 4, 7–8 -> 5, 9–10 -> 6
-  return Math.min(6, 2 + Math.floor((rank - 1) / 2))
+  return rank
 }
 
 /** One pine tree: a stacked-triangle canopy on a short trunk, standing on baseY. */
@@ -69,8 +69,8 @@ function PineTree({
   lit: boolean
   special: boolean
 }) {
-  const tierH = 22 // vertical drop of one foliage triangle
-  const tierStep = 15 // how much each higher tier rises above the previous
+  const tierH = 18 // vertical drop of one foliage triangle
+  const tierStep = 12 // how much each higher tier rises above the previous
   const halfW = 26 // half-width of the widest (bottom) tier
   const trunkW = 9
   const trunkH = 16

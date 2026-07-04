@@ -22,14 +22,23 @@ const GREEN = '#10B981'
 function AppleBadge({ n, result }: { n: number; result: boolean }) {
   return (
     <div
-      className="rounded-lg border-2 px-2.5 py-0.5 font-display text-xs font-black tabular-nums"
+      className="inline-flex items-center gap-1 rounded-lg border-2 px-2.5 py-0.5 font-display text-xs font-black tabular-nums"
       style={{
         background: result ? '#D1FAE5' : '#FFF7ED',
         borderColor: result ? GREEN : '#f0853a',
         color: result ? '#065F46' : '#9A3412',
       }}
     >
-      {`${n} 🍎`}
+      {n}
+      <svg width={11} height={11} viewBox="0 0 20 20" aria-hidden="true">
+        <path
+          d="M10 6 C 4.5 2.5 3 12 10 15 C 17 12 15.5 2.5 10 6 Z"
+          fill="#E0533B"
+          stroke="#A8341F"
+          strokeWidth={1.2}
+        />
+        <line x1={10} y1={5} x2={10} y2={2} stroke="#6B4A2B" strokeWidth={2} strokeLinecap="round" />
+      </svg>
     </div>
   )
 }

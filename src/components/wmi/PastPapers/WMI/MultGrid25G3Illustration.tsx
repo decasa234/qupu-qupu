@@ -2,15 +2,16 @@
 // Reconstructed faithfully from db/seed/wmi/figures/2025-final-g3-a-q14.jpg.
 //
 // Scan layout (4×4 coordinate grid, only the plus/cross cells exist):
-//   row 0:        [91 shaded] at col 1                     (top spur)
-//   row 1: [56 shaded col 0] [white col 1] [white col 2]  (left arm)
-//   row 2:        [white col 1] [white col 2] [? shaded col 3] (right arm)
-//   row 3:                      [48 shaded] at col 2      (bottom spur)
+//   row 0:        [91 shaded] at col 1                         (top spur)
+//   row 1:        [white col 1] [white col 2] [? shaded col 3] (right arm)
+//   row 2: [56 shaded col 0] [white col 1] [white col 2]       (left arm)
+//   row 3:                      [48 shaded] at col 2           (bottom spur)
 //
-// Product rule (shaded = product of the two white cells in its row/column):
-//   col 1: A×C = 91 = 7×13,  row 1: A×B = 56 = 7×8   → A=7, B=8, C=13
-//   col 2: B×D = 48 = 8×6                               → D=6
-//   row 2: C×D = ? = 13×6 = 78   (digit sum 7+8 = 15, answer D)
+// Product rule (shaded = product of the two white cells in its row/column),
+// with A=(1,1), B=(1,2) upper whites and C=(2,1), D=(2,2) lower whites:
+//   col 1: A×C = 91 = 13×7,  row 2: C×D = 56 = 7×8   → C=7, D=8, A=13
+//   col 2: B×D = 48 = 6×8                              → B=6
+//   row 1: A×B = ? = 13×6 = 78   (digit sum 7+8 = 15, answer D)
 //
 // Data exported so an explainer can bind to the same values without drift.
 
@@ -25,18 +26,18 @@ export type MultCell =
 // Sparse cross grid: only the cells present in the scan. Keyed by `${r}-${c}`.
 export const MULT_GRID25G3: Record<string, MultCell> = {
   '0-1': { kind: 'shaded', label: 91 },
-  '1-0': { kind: 'shaded', label: 56 },
   '1-1': { kind: 'white' },
   '1-2': { kind: 'white' },
+  '1-3': { kind: 'shaded', label: '?' },
+  '2-0': { kind: 'shaded', label: 56 },
   '2-1': { kind: 'white' },
   '2-2': { kind: 'white' },
-  '2-3': { kind: 'shaded', label: '?' },
   '3-2': { kind: 'shaded', label: 48 },
 }
 
-// White-cell values: A=(1,1)=7, B=(1,2)=8, C=(2,1)=13, D=(2,2)=6
-export const MULT_SOLUTION25G3 = { A: 7, B: 8, C: 13, D: 6 }
-// The value of "?": C×D = 13×6 = 78; digit sum = 7+8 = 15 (answer D)
+// White-cell values: A=(1,1)=13, B=(1,2)=6, C=(2,1)=7, D=(2,2)=8
+export const MULT_SOLUTION25G3 = { A: 13, B: 6, C: 7, D: 8 }
+// The value of "?": A×B = 13×6 = 78; digit sum = 7+8 = 15 (answer D)
 export const MULT_Q_VALUE25G3 = 78
 
 const CELL = 52
@@ -121,7 +122,7 @@ export function MultGrid25G3Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Susunan kotak berbentuk plus. Kotak berbayang adalah hasil kali dua kotak putih di baris atau kolomnya: 91 di atas (kolom kiri), 56 di kiri (baris atas), tanda tanya di kanan (baris bawah), dan 48 di bawah (kolom kanan). Cari nilai tanda tanya, lalu jumlahkan digitnya."
+      aria-label="Susunan kotak berbentuk plus. Kotak berbayang adalah hasil kali dua kotak putih di baris atau kolomnya: 91 di atas (kolom kiri), tanda tanya di kanan (baris atas), 56 di kiri (baris bawah), dan 48 di bawah (kolom kanan). Cari nilai tanda tanya, lalu jumlahkan digitnya."
     >
       <MultGrid25G3Figure />
     </div>

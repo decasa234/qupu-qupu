@@ -1,85 +1,90 @@
-// WMI-25F1A-Q21 (2025 Grade 1 Final) — CONSISTENT interpretation.
+// WMI-25F1A-Q21 (2025 Grade 1 Final) — faithful to the scan (2025-final-g1-a-q21.jpg).
 //
-// "Fill 1-10 into the circles (no repeats) so that two opposite circles marked
-// with the same figure always add up to the same sum. With some numbers already
-// filled in, find the sum of all the numbers that could go in the shaded
-// circle."  Answer: 10 (fill-in).
+// "Fill 1-10 into the circles (no repeats) so that the two opposite GROUPS of
+// circles marked with the same figure always add up to the same sum. With some
+// numbers already filled in, find the sum of all the numbers that could go in
+// the shaded circle."  Answer: 10 (fill-in).
 //
-// THE PUZZLE: ten circles sit around a centre, joined into FIVE diametrically-
-// opposite pairs by five lines through the middle. Each pair carries a matching
-// little shape mark (star, dot, hexagon, square, crescent — one shape per pair),
-// so the two circles of a pair must add to the same sum as every other pair.
+// THE PUZZLE (as printed): ten circles sit around a centre with a spoke to each
+// circle. The ten SECTORS between neighbouring spokes carry five shape marks
+// (star, dot, hexagon, square, crescent), each shape appearing in TWO opposite
+// sectors. The two circles flanking a sector must total the same as the two
+// circles flanking the opposite same-shape sector.
 //
-// REASONING (put in the header so the step-explainer and animator agree):
-//   1 + 2 + ... + 10 = 55, split into 5 equal-sum opposite pairs, so every
-//   opposite pair must sum to 55 / 5 = 11.
-//   Givens 7, 9, 1 are placed in three circles; the SHADED circle is the one
-//   diametrically OPPOSITE the "1". A pair summing to 11 forces the partner of 1
-//   to be 11 - 1 = 10. The shaded circle IS that partner, so it can ONLY be 10.
-//   The sum of all numbers that could go there = 10.
+// Scan layout (SVG angles, y down, index j at j*36°, j0 = right):
+//   givens  j0 = 10 (right), j9 = 7 (upper-right), j5 = 9 (left), j3 = 1
+//   (bottom-left); SHADED = j2 (bottom-right, next to the 1).
+//   sector pairs: square j0j1 / j5j6 · dot j1j2 / j6j7 · star j2j3 / j7j8 ·
+//   hexagon j3j4 / j8j9 · crescent j4j5 / j9j0.
 //
-// The static figure draws ONLY the setup — the ring, the five pair-shape marks,
-// the three givens (7, 9, 1), and the shaded circle left empty. It NEVER writes
-// 10 into the shaded circle. Revealing 10 is the animator's job, via the
-// co-exported primitive's `revealShaded` prop.
+// REASONING (brute-force verified — exactly 2 fillings exist):
+//   crescent: 10 + 7 = 17 = 9 + j4      → j4 = 8
+//   hexagon:  7 + j8 = 8 + 1 = 9        → j8 = 2
+//   leftovers {3,4,5,6}: square forces j6 = j1 + 1, star forces shaded = j7 + 1,
+//   dot then checks out for both splits → (j7, j6, shaded, j1) = (3,6,4,5) or
+//   (5,4,6,3). Shaded can be 4 or 6, so the requested sum is 4 + 6 = 10.
+//
+// The static figure draws ONLY the setup — ring, spokes, sector marks, the four
+// givens (10, 7, 9, 1) and the empty shaded circle. Deduced values (8, 2, the
+// 4/6 candidates) are revealed by the animator via the co-exported primitive's
+// props.
 //
 // Pure render: no Math.random, no Date, SSR-safe & deterministic.
 
 const INK = '#1F2937' // ring outlines, spokes, numerals
 const BLUE = '#30598A' // qupu-brand-blue — given numerals
 const ORANGE = '#f0853a' // qupu-brand-orange — shaded circle accent + reveal
-const SHADE_FILL = '#FDE3CF' // peach wash inside the shaded circle
-const PAIR_MARK = '#7A8A99' // muted slate for the small pair-shape marks
+const SHADE_FILL = '#BEE3F8' // light-blue wash inside the shaded circle (as printed)
+const PAIR_MARK = '#374151' // dark slate for the small sector-shape marks
+const GREEN_INK = '#065F46' // deduced numerals (8, 2)
 const WHITE = '#FFFFFF'
 
-// Ten ring positions, indices 0..9 clockwise from the top. Opposite of i is
-// (i + 5) % 10. Givens and the shaded circle are pinned to fixed positions so the
-// "1" and the shaded circle sit on the same diameter (positions 4 and 9 here).
+// Ten ring positions, index j at SVG angle j*36° (y grows downward), j0 = right.
 const RING_N = 10
-const TOP_ANGLE = -90 // index 0 at the top (degrees, SVG y grows downward)
 const STEP = 360 / RING_N
 
-// Each diametrically-opposite pair shares one shape mark. Five shapes, one per
-// diameter. Pair p covers positions p and p+5.
-type PairShape = 'star' | 'dot' | 'hex' | 'square' | 'crescent'
-const PAIR_SHAPES: PairShape[] = ['star', 'dot', 'hex', 'square', 'crescent']
+// Sector s sits between circles s and s+1 (midline at s*36°+18°). Each shape
+// marks sectors s and s+5 (opposite sectors).
+type PairShape = 'square' | 'dot' | 'star' | 'hex' | 'crescent'
+const SECTOR_SHAPES: PairShape[] = ['square', 'dot', 'star', 'hex', 'crescent']
 
-// Pre-filled givens, pinned to positions. Position 4 holds the "1"; its opposite
-// (position 9) is the SHADED circle. 7 and 9 sit on two other circles.
-const GIVENS: Record<number, number> = { 1: 7, 7: 9, 4: 1 }
-const SHADED_POS = 9 // diametrically opposite position 4 (the "1")
-const SHADED_ANSWER = 11 - GIVENS[4] // 11 - 1 = 10
-
-export { SHADED_ANSWER }
+// Pre-filled givens, pinned to the scan's positions.
+export const GIVENS: Record<number, number> = { 0: 10, 9: 7, 5: 9, 3: 1 }
+export const SHADED_POS = 2 // bottom-right, next to the "1"
+// Deduced by the sector rules (see header): j4 = 8, j8 = 2.
+export const DEDUCED: Record<number, number> = { 4: 8, 8: 2 }
+// The shaded circle's possible values and the requested sum.
+export const SHADED_CANDIDATES = [4, 6] as const
+export const SHADED_ANSWER = SHADED_CANDIDATES[0] + SHADED_CANDIDATES[1] // 10
 
 // ---- layout ----------------------------------------------------------------
 const PAD = 22 // headroom so the outer circles + marks never clip
 const RING_R = 92 // radius of the ring of circle-centres
 const NODE_R = 20 // radius of each numbered circle
-const MARK_R = RING_R - NODE_R - 12 // radius where the pair-shape marks sit
+const MARK_R = RING_R - NODE_R - 14 // radius where the sector-shape marks sit
 const CENTER = PAD + RING_R + NODE_R // svg centre coordinate
 const VIEW = (PAD + RING_R + NODE_R) * 2
 
 /** Position index -> {x, y} of that circle's centre. */
-function nodeCenter(i: number): { x: number; y: number } {
-  const a = ((TOP_ANGLE + i * STEP) * Math.PI) / 180
+function nodeCenter(j: number): { x: number; y: number } {
+  const a = (j * STEP * Math.PI) / 180
   return { x: CENTER + RING_R * Math.cos(a), y: CENTER + RING_R * Math.sin(a) }
 }
 
-/** Point on the spoke at radius MARK_R for the pair-shape mark of position i. */
-function markCenter(i: number): { x: number; y: number } {
-  const a = ((TOP_ANGLE + i * STEP) * Math.PI) / 180
+/** Midline point of sector s (between circles s and s+1) at radius MARK_R. */
+function markCenter(s: number): { x: number; y: number } {
+  const a = ((s * STEP + STEP / 2) * Math.PI) / 180
   return { x: CENTER + MARK_R * Math.cos(a), y: CENTER + MARK_R * Math.sin(a) }
 }
 
-/** Draw one small pair-shape mark (basic shapes only) centred at (x,y). */
+/** Draw one small sector-shape mark (basic shapes only) centred at (x,y). */
 function PairMark({ shape, x, y }: { shape: PairShape; x: number; y: number }) {
   const r = 6.5
   switch (shape) {
     case 'dot':
       return <circle cx={x} cy={y} r={r * 0.8} fill={PAIR_MARK} />
     case 'square':
-      return <rect x={x - r * 0.85} y={y - r * 0.85} width={r * 1.7} height={r * 1.7} rx={1.5} fill={PAIR_MARK} />
+      return <rect x={x - r * 0.85} y={y - r * 0.85} width={r * 1.7} height={r * 1.7} rx={1.5} fill={PAIR_MARK} transform={`rotate(20 ${x} ${y})`} />
     case 'hex': {
       const pts = Array.from({ length: 6 }, (_, k) => {
         const a = ((60 * k - 90) * Math.PI) / 180
@@ -108,66 +113,80 @@ function PairMark({ shape, x, y }: { shape: PairShape; x: number; y: number }) {
 }
 
 export interface CircleSums25G1Props {
-  /** Fill the shaded circle with its only possible value (10) — animator beat. */
-  revealShaded?: boolean
+  /** Reveal the deduced 8 (next to the 9) — crescent-rule beat. */
+  revealEight?: boolean
+  /** Reveal the deduced 2 (top-right) — hexagon-rule beat. */
+  revealTwo?: boolean
+  /** Write "4/6" in the shaded circle — candidates beat (and the final one). */
+  revealCandidates?: boolean
+  /** Sector shapes to spotlight (e.g. ['crescent']) — draws them in orange. */
+  highlightShapes?: PairShape[]
 }
 
 /**
- * Bare 10-circle ring primitive: five opposite-pair shape marks, the three
- * givens (7, 9, 1), and the shaded circle. With no props it reveals nothing.
- *
- * @param revealShaded  When true, writes 10 into the shaded circle (the forced
- *                       partner of the "1"). Used post-answer by the animator;
- *                       the default static figure leaves it empty.
+ * Bare 10-circle ring primitive, faithful to the scan: ten spokes, five shape
+ * marks in opposite sectors, four givens (10, 7, 9, 1) and the shaded circle.
+ * With no props it reveals nothing beyond the printed figure.
  */
-export function CircleSums25G1({ revealShaded = false }: CircleSums25G1Props = {}) {
+export function CircleSums25G1({
+  revealEight = false,
+  revealTwo = false,
+  revealCandidates = false,
+  highlightShapes = [],
+}: CircleSums25G1Props = {}) {
   return (
     <svg viewBox={`0 0 ${VIEW} ${VIEW}`} width={Math.min(280, VIEW)} aria-hidden="true">
-      {/* five spokes through the centre, one per opposite pair */}
-      {PAIR_SHAPES.map((_, p) => {
-        const a = nodeCenter(p)
-        const b = nodeCenter(p + 5)
-        return <line key={`spoke-${p}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={INK} strokeWidth={2} strokeOpacity={0.45} />
+      {/* ten spokes, one per circle */}
+      {Array.from({ length: RING_N }, (_, j) => {
+        const c = nodeCenter(j)
+        return <line key={`spoke-${j}`} x1={CENTER} y1={CENTER} x2={c.x} y2={c.y} stroke={INK} strokeWidth={1.8} strokeOpacity={0.45} />
       })}
 
-      {/* pair-shape marks: same shape on both ends of each diameter */}
-      {PAIR_SHAPES.map((shape, p) => {
-        const m1 = markCenter(p)
-        const m2 = markCenter(p + 5)
+      {/* sector-shape marks: same shape in two opposite sectors */}
+      {SECTOR_SHAPES.map((shape, s) => {
+        const m1 = markCenter(s)
+        const m2 = markCenter(s + 5)
+        const hot = highlightShapes.includes(shape)
         return (
-          <g key={`mark-${p}`}>
+          <g key={`mark-${s}`} style={hot ? { filter: 'none' } : undefined}>
+            {hot && (
+              <>
+                <circle cx={m1.x} cy={m1.y} r={11} fill={ORANGE} fillOpacity={0.25} />
+                <circle cx={m2.x} cy={m2.y} r={11} fill={ORANGE} fillOpacity={0.25} />
+              </>
+            )}
             <PairMark shape={shape} x={m1.x} y={m1.y} />
             <PairMark shape={shape} x={m2.x} y={m2.y} />
           </g>
         )
       })}
 
-      {/* the ten numbered circles */}
-      {Array.from({ length: RING_N }, (_, i) => {
-        const c = nodeCenter(i)
-        const isShaded = i === SHADED_POS
-        const given = GIVENS[i]
+      {/* the ten circles */}
+      {Array.from({ length: RING_N }, (_, j) => {
+        const c = nodeCenter(j)
+        const isShaded = j === SHADED_POS
+        const given = GIVENS[j]
+        const deduced = revealEight && j === 4 ? DEDUCED[4] : revealTwo && j === 8 ? DEDUCED[8] : null
         const fill = isShaded ? SHADE_FILL : WHITE
         const stroke = isShaded ? ORANGE : INK
         const strokeW = isShaded ? 3 : 2.4
-        // numeral to show: given number, or 10 in the shaded circle once revealed
-        const value = given ?? (isShaded && revealShaded ? SHADED_ANSWER : null)
-        const valueFill = isShaded ? ORANGE : BLUE
+        const label = given != null ? String(given) : deduced != null ? String(deduced) : isShaded && revealCandidates ? '4/6' : null
+        const labelFill = given != null ? BLUE : isShaded ? ORANGE : GREEN_INK
         return (
-          <g key={`node-${i}`}>
+          <g key={`node-${j}`}>
             <circle cx={c.x} cy={c.y} r={NODE_R} fill={fill} stroke={stroke} strokeWidth={strokeW} />
-            {value != null && (
+            {label != null && (
               <text
                 x={c.x}
                 y={c.y}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fontSize={20}
+                fontSize={label.length > 2 ? 14 : 20}
                 fontWeight={700}
-                fill={valueFill}
+                fill={labelFill}
                 className="font-display"
               >
-                {value}
+                {label}
               </text>
             )}
           </g>
@@ -177,13 +196,13 @@ export function CircleSums25G1({ revealShaded = false }: CircleSums25G1Props = {
   )
 }
 
-/** Default export — the bare ring inside the card (no box, no answer revealed). */
+/** Default export — the bare ring inside the card (no box, nothing revealed). */
 export default function CircleSums25G1Illustration() {
   return (
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Lingkaran berisi sepuluh lingkaran kecil yang disusun melingkar dan dihubungkan berpasangan oleh lima garis melalui pusat; setiap pasangan berlawanan diberi tanda bentuk yang sama. Tiga lingkaran sudah terisi angka 7, 9, dan 1. Satu lingkaran yang diarsir berada tepat berseberangan dengan angka 1 dan masih kosong. Setiap pasangan berlawanan harus berjumlah sama; carilah jumlah semua angka yang mungkin mengisi lingkaran yang diarsir."
+      aria-label="Sepuluh lingkaran kecil disusun melingkar, masing-masing dihubungkan ke pusat oleh sebuah garis. Sepuluh daerah di antara garis-garis diberi lima tanda bentuk (bintang, titik, segi enam, persegi, bulan sabit); setiap bentuk muncul di dua daerah yang berseberangan. Empat lingkaran sudah terisi: 10 di kanan, 7 di kanan atas, 9 di kiri, dan 1 di kiri bawah. Lingkaran biru yang diarsir berada di kanan bawah, di sebelah angka 1, dan masih kosong."
     >
       <CircleSums25G1 />
     </div>

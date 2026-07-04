@@ -68,17 +68,19 @@ export function PileCube({
 
 export type Cell = [number, number, number]
 
-// The 10 given cubes (lattice cells in a 3×3×3 frame, z up).
-// Floor (z=0): an L of 6 cubes; second level (z=1): a 2×2 cluster of 4 raised at the back.
+// The 10 given cubes (lattice cells in a 3×3×3 frame, z up), matching the scan:
+// floor (z=0): a 2×2 block under the raised cluster plus two flanking corner
+// cubes (front-left and front-right); second level (z=1): a 2×2 cluster on top.
 export const PILE: Cell[] = [
-  // floor
+  // floor: 2×2 under the cluster
   [0, 0, 0],
   [1, 0, 0],
-  [2, 0, 0],
   [0, 1, 0],
+  [1, 1, 0],
+  // floor: flanking corner cubes
+  [2, 0, 0],
   [0, 2, 0],
-  [2, 2, 0],
-  // raised back 2×2 cluster
+  // raised 2×2 cluster
   [0, 0, 1],
   [1, 0, 1],
   [0, 1, 1],

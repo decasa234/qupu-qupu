@@ -48,11 +48,11 @@ export const ARROWS: Cell[][] = [
   // row 0
   [{ dir: 'R', steps: 1 }, { dir: 'D', steps: 1 }, { dir: 'R', steps: 3 }, { dir: 'R', steps: 1 }, { dir: 'R', steps: 2 }, { dir: 'L', steps: 3 }],
   // row 1
-  [{ dir: 'D', steps: 1 }, { dir: 'R', steps: 1 }, { dir: 'L', steps: 2 }, { dir: 'D', steps: 2 }, { dir: 'L', steps: 1 }, { dir: 'D', steps: 1 }],
+  [{ dir: 'D', steps: 2 }, { dir: 'R', steps: 1 }, { dir: 'L', steps: 2 }, { dir: 'D', steps: 3 }, { dir: 'L', steps: 1 }, { dir: 'D', steps: 1 }],
   // row 2  (chick starts here, on col 0)
   [{ dir: 'R', steps: 1 }, { dir: 'R', steps: 1 }, { dir: 'R', steps: 2 }, { dir: 'U', steps: 2 }, { dir: 'U', steps: 1 }, { dir: 'L', steps: 2 }],
   // row 3
-  [{ dir: 'D', steps: 1 }, { dir: 'D', steps: 1 }, { dir: 'L', steps: 1 }, { dir: 'R', steps: 2 }, { dir: 'D', steps: 1 }, { dir: 'D', steps: 1 }],
+  [{ dir: 'D', steps: 2 }, { dir: 'D', steps: 2 }, { dir: 'L', steps: 1 }, { dir: 'R', steps: 2 }, { dir: 'D', steps: 1 }, { dir: 'D', steps: 2 }],
   // row 4  (strawberry to the left)
   [{ dir: 'L', steps: 1 }, { dir: 'U', steps: 1 }, { dir: 'L', steps: 2 }, { dir: 'R', steps: 2 }, { dir: 'L', steps: 2 }, { dir: 'U', steps: 3 }],
   // row 5

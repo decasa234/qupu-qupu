@@ -1,19 +1,22 @@
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
-import { PER_ROW, TRIANGLE_TOTAL } from './P21G2Q16Illustration'
+import { BIG_TOTAL, BOTTOM_SMALL, SMALL_TOTAL, TOP_SMALL, TRIANGLE_TOTAL } from './P21G2Q16Illustration'
 
-export type Q16Phase = 'show' | 'bottom' | 'top' | 'result'
+export type Q16Phase = 'show' | 'bottom' | 'top' | 'big' | 'result'
 
 export interface Q16Step {
   phase: Q16Phase
-  /** Which strip row is lit (0 bottom, 1 top), or null. */
+  /** Which strip of small triangles is lit (0 bottom, 1 top), or null. */
   litRow: number | null
+  /** Light the three side-2 triangles. */
+  litBig: boolean
   caption: string
   hold: number
   result: boolean
 }
 
 export interface Q16Storyboard {
-  perRow: number
+  smallTotal: number
+  bigTotal: number
   total: number
   steps: Q16Step[]
   finalIndex: number
@@ -26,47 +29,63 @@ export function buildP21G2Q16Steps(lang: Lang): Q16Storyboard {
     {
       phase: 'show',
       litRow: null,
+      litBig: false,
       hold: 1700,
       result: false,
       caption: t(
-        'Count one strip at a time — the small triangles point up, then down, all the way along.',
-        'Hitung per baris — segitiga kecil mengarah ke atas, lalu ke bawah, sepanjang baris.',
+        'Count by size: the small triangles strip by strip first, then the bigger ones.',
+        'Hitung per ukuran: segitiga kecil per baris dulu, lalu yang lebih besar.',
       ),
     },
     {
       phase: 'bottom',
       litRow: 0,
+      litBig: false,
       hold: 2000,
       result: false,
       caption: t(
-        `Bottom strip: 3 up + 3 down = ${PER_ROW} small triangles.`,
-        `Baris bawah: 3 ke atas + 3 ke bawah = ${PER_ROW} segitiga kecil.`,
+        `Bottom strip: 3 up + 2 down = ${BOTTOM_SMALL} small triangles.`,
+        `Baris bawah: 3 ke atas + 2 ke bawah = ${BOTTOM_SMALL} segitiga kecil.`,
       ),
     },
     {
       phase: 'top',
       litRow: 1,
+      litBig: false,
       hold: 2000,
       result: false,
       caption: t(
-        `Top strip: another ${PER_ROW}. The diagonals flip at the middle, so no bigger triangle forms.`,
-        `Baris atas: ${PER_ROW} lagi. Diagonal berbalik di tengah, jadi tak ada segitiga lebih besar.`,
+        `Top strip: 2 up + 2 down = ${TOP_SMALL} more. Small total: ${BOTTOM_SMALL} + ${TOP_SMALL} = ${SMALL_TOTAL}.`,
+        `Baris atas: 2 ke atas + 2 ke bawah = ${TOP_SMALL} lagi. Total kecil: ${BOTTOM_SMALL} + ${TOP_SMALL} = ${SMALL_TOTAL}.`,
+      ),
+    },
+    {
+      phase: 'big',
+      litRow: null,
+      litBig: true,
+      hold: 2200,
+      result: false,
+      caption: t(
+        `Bigger triangles (each made of 4 small ones): 2 point up, 1 points down = ${BIG_TOTAL}.`,
+        `Segitiga lebih besar (masing-masing dari 4 segitiga kecil): 2 ke atas, 1 ke bawah = ${BIG_TOTAL}.`,
       ),
     },
     {
       phase: 'result',
       litRow: null,
+      litBig: false,
       hold: 0,
       result: true,
       caption: t(
-        `${PER_ROW} + ${PER_ROW} = ${TRIANGLE_TOTAL} triangles — answer C.`,
-        `${PER_ROW} + ${PER_ROW} = ${TRIANGLE_TOTAL} segitiga — jawaban C.`,
+        `${SMALL_TOTAL} + ${BIG_TOTAL} = ${TRIANGLE_TOTAL} triangles — answer C.`,
+        `${SMALL_TOTAL} + ${BIG_TOTAL} = ${TRIANGLE_TOTAL} segitiga — jawaban C.`,
       ),
     },
   ]
 
   return {
-    perRow: PER_ROW,
+    smallTotal: SMALL_TOTAL,
+    bigTotal: BIG_TOTAL,
     total: TRIANGLE_TOTAL,
     steps,
     finalIndex: steps.length - 1,

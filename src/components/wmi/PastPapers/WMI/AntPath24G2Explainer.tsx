@@ -13,19 +13,21 @@ import {
   nodeXY,
 } from './AntPath24G2Illustration'
 
-// WMI-24F2A-Q3 — an ant crawls a dotted path on a 5×5 grid (cells 2 cm wide,
-// 1 cm tall). The path has four segments; each beat reveals one segment and
+// WMI-24F2A-Q3 — an ant crawls a dotted path on a 4×3 grid (cells 2 cm wide,
+// 1 cm tall). The path has six segments; each beat reveals one segment and
 // adds its length to a running total, landing on 11 cm (answer B).
 //
-// Segments:
-//   1. RIGHT 1 cell   → 1 × 2 cm = 2 cm   (horizontal)
-//   2. DOWN  2 cells  → 2 × 1 cm = 2 cm   (vertical)
-//   3. LEFT  2 cells  → 2 × 2 cm = 4 cm   (horizontal)
-//   4. DOWN  3 cells  → 3 × 1 cm = 3 cm   (vertical)
+// Segments (scan-faithful):
+//   1. DOWN  1 cell   → 1 × 1 cm = 1 cm   (vertical)
+//   2. RIGHT 2 cells  → 2 × 2 cm = 4 cm   (horizontal)
+//   3. DOWN  1 cell   → 1 × 1 cm = 1 cm   (vertical)
+//   4. LEFT  1 cell   → 1 × 2 cm = 2 cm   (horizontal)
+//   5. DOWN  1 cell   → 1 × 1 cm = 1 cm   (vertical)
+//   6. LEFT  1 cell   → 1 × 2 cm = 2 cm   (horizontal)
 //
-// horizontal total: 2 + 4 = 6 cm
-// vertical  total: 2 + 3 = 5 cm
-// grand  total: 6 + 5 = 11 cm → choice B
+// horizontal total: 4 + 2 + 2 = 8 cm
+// vertical  total: 1 + 1 + 1 = 3 cm
+// grand  total: 8 + 3 = 11 cm → choice B
 
 // ---------------------------------------------------------------------------
 // Colour tokens (echoing fill-qupu-*)
@@ -54,7 +56,7 @@ function gxy(col: number, row: number): [number, number] {
   return nodeXY(col, row)
 }
 
-// The four segments of ANT_PATH (index pairs)
+// The six segments of ANT_PATH (index pairs)
 const SEGMENTS: Array<{
   from: [number, number]
   to: [number, number]
@@ -62,11 +64,14 @@ const SEGMENTS: Array<{
   cells: number
   cmEach: number
 }> = [
-  { from: ANT_PATH[0], to: ANT_PATH[1], axis: 'h', cells: 1, cmEach: 2 }, // right 1
-  { from: ANT_PATH[1], to: ANT_PATH[2], axis: 'v', cells: 2, cmEach: 1 }, // down 2
-  { from: ANT_PATH[2], to: ANT_PATH[3], axis: 'h', cells: 2, cmEach: 2 }, // left 2
-  { from: ANT_PATH[3], to: ANT_PATH[4], axis: 'v', cells: 3, cmEach: 1 }, // down 3
+  { from: ANT_PATH[0], to: ANT_PATH[1], axis: 'v', cells: 1, cmEach: 1 }, // down 1
+  { from: ANT_PATH[1], to: ANT_PATH[2], axis: 'h', cells: 2, cmEach: 2 }, // right 2
+  { from: ANT_PATH[2], to: ANT_PATH[3], axis: 'v', cells: 1, cmEach: 1 }, // down 1
+  { from: ANT_PATH[3], to: ANT_PATH[4], axis: 'h', cells: 1, cmEach: 2 }, // left 1
+  { from: ANT_PATH[4], to: ANT_PATH[5], axis: 'v', cells: 1, cmEach: 1 }, // down 1
+  { from: ANT_PATH[5], to: ANT_PATH[6], axis: 'h', cells: 1, cmEach: 2 }, // left 1
 ]
+const SEG_COUNT = SEGMENTS.length
 
 // ---------------------------------------------------------------------------
 // Beat storyboard (pure, deterministic)
@@ -86,7 +91,7 @@ interface AntBeat {
 function buildSteps(lang: 'en' | 'id'): AntBeat[] {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  const cumCm = [0, 2, 4, 8, 11] // cumulative cm after each segment
+  const cumCm = [0, 1, 5, 6, 8, 9, 11] // cumulative cm after each segment
 
   const dirLabel = (seg: (typeof SEGMENTS)[number]) => {
     if (seg.axis === 'h') {
@@ -117,8 +122,8 @@ function buildSteps(lang: 'en' | 'id'): AntBeat[] {
     ),
   })
 
-  // Beats 1–4 — reveal one segment each time
-  for (let i = 0; i < 4; i++) {
+  // Beats 1–6 — reveal one segment each time
+  for (let i = 0; i < SEG_COUNT; i++) {
     const seg = SEGMENTS[i]
     const cm = seg.cells * seg.cmEach
     const dir = dirLabel(seg)
@@ -136,25 +141,25 @@ function buildSteps(lang: 'en' | 'id'): AntBeat[] {
     })
   }
 
-  // Beat 5 — summary before answer
+  // Beat 7 — summary before answer
   steps.push({
-    shown: 4,
+    shown: SEG_COUNT,
     total: 11,
     result: false,
     hold: 2100,
     caption: t(
-      'Horizontal: 2 + 4 = 6 cm  |  Vertical: 2 + 3 = 5 cm',
-      'Mendatar: 2 + 4 = 6 cm  |  Tegak: 2 + 3 = 5 cm',
+      'Horizontal: 4 + 2 + 2 = 8 cm  |  Vertical: 1 + 1 + 1 = 3 cm',
+      'Mendatar: 4 + 2 + 2 = 8 cm  |  Tegak: 1 + 1 + 1 = 3 cm',
     ),
   })
 
-  // Beat 6 — answer
+  // Beat 8 — answer
   steps.push({
-    shown: 4,
+    shown: SEG_COUNT,
     total: 11,
     result: true,
     hold: 0,
-    caption: t('6 + 5 = 11 cm → B', '6 + 5 = 11 cm → B'),
+    caption: t('8 + 3 = 11 cm → B', '8 + 3 = 11 cm → B'),
   })
 
   return steps
@@ -198,8 +203,8 @@ export default function AntPath24G2Explainer(props: ExplainerProps) {
   const beat = steps[index] ?? steps[finalIndex]
 
   const ariaLabel = t(
-    'Ant-path explainer: split the path into horizontal (2 cm per cell) and vertical (1 cm per cell) segments. Horizontal total 6 cm plus vertical total 5 cm equals 11 cm, answer B.',
-    'Penjelasan lintasan semut: pisahkan ruas mendatar (2 cm per petak) dan tegak (1 cm per petak). Mendatar 6 cm ditambah tegak 5 cm sama dengan 11 cm, jawaban B.',
+    'Ant-path explainer: split the path into horizontal (2 cm per cell) and vertical (1 cm per cell) segments. Horizontal total 8 cm plus vertical total 3 cm equals 11 cm, answer B.',
+    'Penjelasan lintasan semut: pisahkan ruas mendatar (2 cm per petak) dan tegak (1 cm per petak). Mendatar 8 cm ditambah tegak 3 cm sama dengan 11 cm, jawaban B.',
   )
 
   // Compute moving ant position — placed at the end of the last revealed segment
@@ -277,8 +282,8 @@ export default function AntPath24G2Explainer(props: ExplainerProps) {
             {/* "2 cm" bracket at top of last column */}
             {(() => {
               const bracketY = PAD_TOP - 6
-              const bx0 = PAD_LEFT + 4 * CELL_W
-              const bx1 = PAD_LEFT + 5 * CELL_W
+              const bx0 = PAD_LEFT + (GRID_COLS - 1) * CELL_W
+              const bx1 = PAD_LEFT + GRID_COLS * CELL_W
               const labelX = (bx0 + bx1) / 2
               return (
                 <g fontSize={9} fontWeight={700} fill={INK}>
@@ -361,7 +366,7 @@ export default function AntPath24G2Explainer(props: ExplainerProps) {
             })()}
 
             {/* end dot (visible only on final beats when path fully shown) */}
-            {beat.shown >= 4 && (() => {
+            {beat.shown >= SEG_COUNT && (() => {
               const [ex, ey] = gxy(...ANT_PATH[ANT_PATH.length - 1])
               return (
                 <motion.circle

@@ -40,10 +40,9 @@ export default function SnowflakeSASMO19G2Q6Explainer(props: ExplainerProps) {
   const lang: Lang = (props.lang === 'id' ? 'id' : 'en')
   const { steps, finalIndex } = buildSnowflakeSASMO19G2Q6Steps(lang)
 
-  const { beatIndex } = useBeatControl({
-    totalBeats: steps.length,
-    holds: steps.map((s) => s.hold),
+  const beatIndex = useBeatControl(finalIndex, {
     ...props,
+    holds: steps.map((s) => s.hold),
   })
 
   const beat = steps[beatIndex] ?? steps[finalIndex]

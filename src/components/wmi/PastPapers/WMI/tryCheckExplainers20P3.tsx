@@ -119,16 +119,16 @@ export const TimeElapsed20P3Explainer = makeTryCheckExplainer((lang) => {
   }
 })
 
-/** Q12 — cryptarithm 4A + 39C = D60; find A + B + C + D. */
+/** Q12 — cryptarithm 4AB + 39C = D60; find A + B + C + D. */
 export const CryptarithmSum20P3Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Solve the addition column by column using the carries.', 'Selesaikan penjumlahan kolom demi kolom dengan simpanan.'),
+    intro: t('Solve the addition 4AB + 39C = D60 column by column using the carries.', 'Selesaikan penjumlahan 4AB + 39C = D60 kolom demi kolom dengan simpanan.'),
     items: [
-      { text: t('Each hidden letter is a single nonzero digit from 1 to 9', 'Setiap huruf tersembunyi adalah satu angka bukan nol dari 1 sampai 9'), ok: null },
-      { text: t('The sum D60 ends in 60, and working from the units column the carries fix every digit', 'Hasil D60 berakhir 60, dan dari kolom satuan simpanan menetapkan setiap angka'), ok: null },
-      { text: t('Don’t drop a carry digit (that wrongly gives 14) — every letter must be added in', 'Jangan menghilangkan angka simpanan (itu keliru jadi 14) — setiap huruf harus dijumlahkan'), ok: false },
-      { text: 'A + B + C + D = 24', ok: true },
+      { text: t('Units: B + C ends in 0 and both are nonzero, so B + C = 10, carry 1', 'Satuan: B + C berakhir 0 dan keduanya bukan nol, jadi B + C = 10, simpan 1'), ok: null },
+      { text: t('Tens: A + 9 + 1 ends in 6, so A = 6, carry 1. Hundreds: 4 + 3 + 1 = 8 = D', 'Puluhan: A + 9 + 1 berakhir 6, jadi A = 6, simpan 1. Ratusan: 4 + 3 + 1 = 8 = D'), ok: null },
+      { text: t('Don’t add only A + D = 14 — the units column forces B + C = 10 too', 'Jangan hanya menjumlahkan A + D = 14 — kolom satuan juga memaksa B + C = 10'), ok: false },
+      { text: 'A + B + C + D = 6 + 10 + 8 = 24', ok: true },
     ],
     final: t('A + B + C + D = 24 (D).', 'A + B + C + D = 24 (D).'),
     aria: t('Solving the addition column by column, the four digits add to 24.', 'Menyelesaikan penjumlahan kolom demi kolom, keempat angka berjumlah 24.'),
@@ -183,13 +183,13 @@ export const FactorOut20P3Explainer = makeTryCheckExplainer((lang) => {
   }
 })
 
-/** Q18 — Square = 1541/3 = 744, then Circle = 797 − Square. */
+/** Q18 — Square = 1541 − 797 = 744, then Circle = 797 − Square. */
 export const ShapeEquations20P3Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Find one Square first, then subtract from 797.', 'Cari satu Persegi dulu, lalu kurangi dari 797.'),
+    intro: t('Subtract the two totals to find one Square, then subtract from 797.', 'Kurangkan kedua total untuk mendapat satu Persegi, lalu kurangi dari 797.'),
     items: [
-      { text: t('Three equal Squares make 1541, so one Square = 1541 / 3 = 744', 'Tiga Persegi yang sama membentuk 1541, jadi satu Persegi = 1541 / 3 = 744'), ok: null },
+      { text: t('(Square + Square + Circle) − (Circle + Square) leaves one Square = 1541 − 797 = 744', '(Persegi + Persegi + Lingkaran) − (Lingkaran + Persegi) menyisakan satu Persegi = 1541 − 797 = 744'), ok: null },
       { text: t('Don’t stop at 744 — that is one Square, not the Circle being asked for', 'Jangan berhenti di 744 — itu satu Persegi, bukan Lingkaran yang ditanya'), ok: false },
       { text: t('Circle + Square = 797, so Circle = 797 − 744 = 53', 'Lingkaran + Persegi = 797, jadi Lingkaran = 797 − 744 = 53'), ok: null },
       { text: t('The Circle is 53', 'Lingkaran adalah 53'), ok: true },

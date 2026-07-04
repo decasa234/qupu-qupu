@@ -1,14 +1,15 @@
 // Pie-thirds puzzle for WMI-22F3A-Q2.
 //
 // Source figure: db/seed/wmi/figures/2022-final-g3-a-q2.jpg
-// Five pie charts: circles 1, 3 and 4 show exactly 1/3 shaded (answer C = 3).
+// Five pie charts: circles 1, 2 and 5 show exactly 1/3 shaded (answer C = 3).
 //
-// Segment counts and shading derived by direct pixel-counting of the scan:
+// Segment counts and shading derived by direct pixel-counting of the scan
+// (angular ring sampling at r = 0.5, 0.65, 0.8 of each circle's radius):
 //   Circle 1: 3 segments, 1 shaded  → 1/3  ✓
-//   Circle 2: 10 segments, 4 shaded → 2/5  ✗  (alternating pinwheel)
-//   Circle 3: 6 segments, 2 shaded  → 1/3  ✓  (two adjacent right wedges)
-//   Circle 4: 12 segments, 4 shaded → 1/3  ✓  (cluster on left side)
-//   Circle 5: 12 segments, 5 shaded → 5/12 ✗  (scattered pinwheel)
+//   Circle 2: 12 segments, 4 shaded → 4/12 = 1/3 ✓  (evenly spread pinwheel)
+//   Circle 3: 6 segments, 3 shaded  → 3/6  = 1/2 ✗  (alternating wedges)
+//   Circle 4: 12 segments, 5 shaded → 5/12 ✗  (three adjacent at bottom + two on top)
+//   Circle 5: 12 segments, 4 shaded → 4/12 = 1/3 ✓  (two adjacent pairs)
 //
 // This file draws ONLY the problem (the five diagrams) — never the answer.
 // The PieDiagram primitive is co-exported so the animator can import it.
@@ -109,18 +110,18 @@ export function PieDiagram({
 
 /**
  * Circle definitions (from direct image analysis):
- *   #1  3-seg, wedge 0 shaded          → 1/3  ✓
- *   #2  10-seg, wedges 0,2,4,6 shaded  → 4/10 = 2/5 ✗
- *   #3  6-seg, wedges 3,4 shaded       → 2/6  = 1/3 ✓
- *   #4  12-seg, wedges 6,7,8,9 shaded  → 4/12 = 1/3 ✓
- *   #5  12-seg, wedges 0,2,4,6,8 shaded → 5/12 ✗
+ *   #1  3-seg, wedge 0 shaded              → 1/3  ✓
+ *   #2  12-seg, wedges 1,4,7,10 shaded     → 4/12 = 1/3 ✓
+ *   #3  6-seg, wedges 0,2,4 shaded         → 3/6  = 1/2 ✗
+ *   #4  12-seg, wedges 1,4,5,6,10 shaded   → 5/12 ✗
+ *   #5  12-seg, wedges 1,2,8,9 shaded      → 4/12 = 1/3 ✓
  */
 const CIRCLES: PieDiagramProps[] = [
   { segments: 3,  shadedIndices: [0] },
-  { segments: 10, shadedIndices: [0, 2, 4, 6] },
-  { segments: 6,  shadedIndices: [3, 4] },
-  { segments: 12, shadedIndices: [6, 7, 8, 9] },
-  { segments: 12, shadedIndices: [0, 2, 4, 6, 8] },
+  { segments: 12, shadedIndices: [1, 4, 7, 10] },
+  { segments: 6,  shadedIndices: [0, 2, 4] },
+  { segments: 12, shadedIndices: [1, 4, 5, 6, 10] },
+  { segments: 12, shadedIndices: [1, 2, 8, 9] },
 ]
 
 // Layout: 3 circles on top row, 2 centred on bottom row
@@ -175,7 +176,7 @@ export default function PieThirds22G3Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Lima lingkaran terbagi menjadi irisan sama besar: lingkaran 1 punya 3 irisan dengan 1 diarsir merah muda; lingkaran 2 punya 10 irisan dengan 4 diarsir; lingkaran 3 punya 6 irisan dengan 2 diarsir; lingkaran 4 punya 12 irisan dengan 4 diarsir; lingkaran 5 punya 12 irisan dengan 5 diarsir. Pada berapa banyak lingkaran yang tepat 1/3 bagian luasnya diarsir?"
+      aria-label="Lima lingkaran terbagi menjadi irisan sama besar: lingkaran 1 punya 3 irisan dengan 1 diarsir merah muda; lingkaran 2 punya 12 irisan dengan 4 diarsir; lingkaran 3 punya 6 irisan dengan 3 diarsir; lingkaran 4 punya 12 irisan dengan 5 diarsir; lingkaran 5 punya 12 irisan dengan 4 diarsir. Pada berapa banyak lingkaran yang tepat 1/3 bagian luasnya diarsir?"
     >
       <svg
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}

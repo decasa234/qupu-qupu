@@ -3,10 +3,10 @@
 //
 // Redrawn from db/seed/wmi/figures/2025-semifinal-g1-a-q6.jpg:
 //   • A ruler running 0 → 15 cm with mm / half-cm / full-cm ticks.
-//   • Pencil 1 lies from the 2 cm mark to the 8 cm mark  → 6 cm long.
-//   • Pencil 2 lies from the 10 cm mark to the 14 cm mark → 4 cm long.
+//   • Pencil 1 lies from the 2 cm mark to the 9 cm mark  → 7 cm long.
+//   • Pencil 2 lies from the 11 cm mark to the 14 cm mark → 3 cm long.
 // Neither pencil starts at 0, so length = (tip mark − tail mark), not the tip
-// number. 6 + 4 = 10 cm (answer not shown in the static figure).
+// number. 7 + 3 = 10 cm (answer not shown in the static figure).
 //
 // SSR-safe + deterministic: no window/document at module top, no Math.random,
 // no Date.now.
@@ -28,10 +28,10 @@ export function cmX(cm: number): number {
 }
 
 // ----- pencil placements (cm marks) -----------------------------------
-export const PENCIL_1 = { tail: 2, tip: 8 } // 6 cm
-export const PENCIL_2 = { tail: 10, tip: 14 } // 4 cm
-export const PENCIL_1_LEN = PENCIL_1.tip - PENCIL_1.tail // 6
-export const PENCIL_2_LEN = PENCIL_2.tip - PENCIL_2.tail // 4
+export const PENCIL_1 = { tail: 2, tip: 9 } // 7 cm
+export const PENCIL_2 = { tail: 11, tip: 14 } // 3 cm
+export const PENCIL_1_LEN = PENCIL_1.tip - PENCIL_1.tail // 7
+export const PENCIL_2_LEN = PENCIL_2.tip - PENCIL_2.tail // 3
 export const Q6_TOTAL = PENCIL_1_LEN + PENCIL_2_LEN // 10
 
 const BODY = '#8B7BD8' // pencil barrel
@@ -175,7 +175,7 @@ export default function P25G1Q6Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A ruler from 0 to 15 cm with two pencils lying on it. The first pencil lies from the 2 cm mark to the 8 cm mark. The second pencil lies from the 10 cm mark to the 14 cm mark."
+      aria-label="A ruler from 0 to 15 cm with two pencils lying on it. The first pencil lies from the 2 cm mark to the 9 cm mark. The second pencil lies from the 11 cm mark to the 14 cm mark."
     >
       <Q6Ruler />
     </div>

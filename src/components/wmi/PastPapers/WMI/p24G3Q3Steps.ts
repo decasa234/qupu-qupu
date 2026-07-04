@@ -55,7 +55,7 @@ export function buildP24G3Q3Steps(lang: Lang): P24G3Q3Storyboard {
       showTotal: true,
       hold: 2000,
       result: false,
-      caption: t(`Count the chairs drawn: 8 + 8 + 1 + 7 + 7 = ${TOTAL_SEATS} seats.`, `Hitung kursi yang digambar: 8 + 8 + 1 + 7 + 7 = ${TOTAL_SEATS} kursi.`),
+      caption: t(`Count the chairs drawn: 8 + 7 + 1 + 7 + 8 = ${TOTAL_SEATS} seats.`, `Hitung kursi yang digambar: 8 + 7 + 1 + 7 + 8 = ${TOTAL_SEATS} kursi.`),
     },
     {
       phase: 'seat',

@@ -1,16 +1,19 @@
 // WMI-22P1A-Q22 (2022 Semifinal Grade 1, Paper A) — the patterned ring.
 //
 // Recovered from db/seed/wmi/figures/2022-semifinal-g1-a-q22.jpg: a regular
-// OCTAGON cut into 8 triangular wedges that meet at the centre. Some wedges are
-// blue, the rest white. A red curved arrow at the lower-left sweeps CLOCKWISE,
-// showing the direction in which to read the ring.
+// NONAGON (9 sides) cut into 9 triangular wedges that meet at the centre, with
+// a vertex straight up at 12 o'clock. Four wedges are blue, five white; no two
+// blue wedges touch. A red curved arrow at the lower-left sweeps DOWN the left
+// side — i.e. counter-clockwise — showing the direction to read the ring.
 //
-// Reading the wedges CLOCKWISE starting at the top wedge gives the colour cycle
-//   white, blue, blue, white, blue, white, blue, white
-// (4 blue, 4 white). The question asks which straight colour strip (A–D) has the
-// same colour order. The strip's ends may be joined into a ring and the whole
-// strip may be ROTATED, but it may NOT be flipped over — so only the strip whose
-// cyclic order matches the ring read in THIS direction is correct. Answer: A.
+// Reading the wedges in the arrow's direction (counter-clockwise), starting at
+// the wedge just left of the top vertex, gives the colour cycle
+//   blue, white, blue, white, blue, white, white, blue, white
+// (4 blue, 5 white; blue gaps 2,2,3,2). The question asks which straight colour
+// strip (A–D) has the same colour order. The strip's ends may be joined into a
+// ring and the whole strip may be ROTATED, but it may NOT be flipped over — so
+// only the strip whose cyclic order matches the ring read in THIS direction is
+// correct. Answer: A.
 //
 // The choice strips A–D were images in the original paper (seed choices read
 // "Figure A".."Figure D"); this card draws the STEM ring + arrow only and the
@@ -20,9 +23,10 @@
 
 export const ANSWER_LETTER = 'A'
 
-// Wedge colours, CLOCKWISE from the top wedge. true = blue, false = white.
-export const RING_BLUE: boolean[] = [false, true, true, false, true, false, true, false]
-export const WEDGE_COUNT = RING_BLUE.length // 8
+// Wedge colours in READING order — counter-clockwise (the arrow's direction),
+// starting at the wedge just left of the top vertex. true = blue, false = white.
+export const RING_BLUE: boolean[] = [true, false, true, false, true, false, false, true, false]
+export const WEDGE_COUNT = RING_BLUE.length // 9
 
 const BLUE = '#9FD2EE' // wedge blue (matches the scan)
 const WHITE = '#FFFFFF'
@@ -32,17 +36,18 @@ const RED = '#E0383B'
 // ---- geometry (viewBox units) ---------------------------------------------
 const CX = 150
 const CY = 150
-const R = 110 // octagon circumradius
+const R = 110 // nonagon circumradius
 
 export const Q22_VIEW_W = 340
 export const Q22_VIEW_H = 330
 
 /**
- * Vertex angle (degrees clockwise from straight up) for octagon corner k.
- * Corners are offset by half a step so that wedge 0 sits symmetric at the TOP.
+ * Vertex angle (degrees; NEGATIVE = counter-clockwise from straight up) for
+ * nonagon corner k. Corner 0 is the top vertex (12 o'clock); wedges are laid
+ * out counter-clockwise so wedge index = reading order along the red arrow.
  */
 function cornerAngle(k: number): number {
-  return (360 / WEDGE_COUNT) * k - 360 / WEDGE_COUNT / 2
+  return -(360 / WEDGE_COUNT) * k
 }
 
 function polar(angleDeg: number, len: number): { x: number; y: number } {
@@ -58,18 +63,18 @@ function wedgePath(i: number): string {
 }
 
 export interface PatternRingProps {
-  /** Ring this wedge index (0..7) with an orange outline (explainer focus). */
+  /** Ring this wedge index (0..8) with an orange outline (explainer focus). */
   focusWedge?: number | null
-  /** Show small clockwise reading numbers 1..8 on the wedges. */
+  /** Show small reading-order numbers 1..9 on the wedges (arrow direction). */
   showOrder?: boolean
-  /** Hide the clockwise reading arrow (default shows it). */
+  /** Hide the reading-direction arrow (default shows it). */
   hideArrow?: boolean
 }
 
 /**
- * Reusable primitive: the octagonal patterned ring (8 blue/white wedges) plus the
- * clockwise reading arrow. `focusWedge` rings one wedge; `showOrder` numbers the
- * wedges 1..8 in reading order. Defaults draw the plain stem figure.
+ * Reusable primitive: the nonagonal patterned ring (9 blue/white wedges) plus
+ * the counter-clockwise reading arrow. `focusWedge` rings one wedge; `showOrder`
+ * numbers the wedges 1..9 in reading order. Defaults draw the plain stem figure.
  */
 export function PatternRing({ focusWedge = null, showOrder = false, hideArrow = false }: PatternRingProps) {
   return (
@@ -112,7 +117,7 @@ export function PatternRing({ focusWedge = null, showOrder = false, hideArrow = 
           )
         })}
 
-      {/* clockwise reading arrow, lower-left */}
+      {/* reading arrow — lower-left, sweeping down the left side (counter-clockwise) */}
       {!hideArrow && (
         <g>
           <path
@@ -134,7 +139,7 @@ export default function P22G1Q22Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A ring shaped like an octagon, split into eight triangular wedges that are coloured blue or white. A red curved arrow at the lower left shows the clockwise direction to read the pattern. Which colour strip below matches the ring?"
+      aria-label="A ring shaped like a nonagon, split into nine triangular wedges that are coloured blue or white. A red curved arrow at the lower left shows the direction to read the pattern. Which colour strip below matches the ring?"
     >
       <PatternRing />
     </div>

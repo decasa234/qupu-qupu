@@ -4,7 +4,7 @@
 //   'full'      — entire cell shaded (area = 1)
 //   'top'       — top half shaded (area = 0.5)
 //   'bottom'    — bottom half shaded (area = 0.5)
-//   'diag'      — lower-left triangle shaded (area = 0.5), hypotenuse top-left→bottom-right
+//   'diag'      — upper-left triangle shaded (area = 0.5), hypotenuse top-right→bottom-left
 //   'small'     — small centred square (~area = 0.25)  [not used in stem]
 //   'empty'     — unshaded (area = 0)
 //   'question'  — shows a "?" glyph
@@ -86,15 +86,15 @@ function CellShape({ fill, cx, cy, cell }: { fill: CellFill; cx: number; cy: num
   }
 
   if (fill === 'diag') {
-    // Lower-left triangle: corners are (cx, cy+cell), (cx+cell, cy+cell), (cx, cy)
-    // Hypotenuse runs from top-left to bottom-right.
+    // Upper-left triangle (as in the scan): corners are (cx, cy), (cx, cy+cell), (cx+cell, cy)
+    // Hypotenuse runs from top-right to bottom-left.
     const x0 = cx + STROKE / 2
     const y0 = cy + STROKE / 2
     const x1 = cx + cell - STROKE / 2
     const y1 = cy + cell - STROKE / 2
     return (
       <polygon
-        points={`${x0},${y0} ${x0},${y1} ${x1},${y1}`}
+        points={`${x0},${y0} ${x0},${y1} ${x1},${y0}`}
         fill={PURPLE}
       />
     )

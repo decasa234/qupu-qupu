@@ -167,15 +167,15 @@ export const RunningTotal21G2Explainer = makeTryCheckExplainer((lang) => {
 export const FiveCards21G2Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('□□ − □□ + □ with cards 3, 5, 5, 8, 1: make the two 2-digit numbers nearly cancel.', '□□ − □□ + □ dengan kartu 3, 5, 5, 8, 1: buat dua bilangan 2-angka hampir saling menghapus.'),
+    intro: t('□□ − □□ + □ with cards 3, 5, 5, 8, 1: make the subtraction small AND save a small card for the +.', '□□ − □□ + □ dengan kartu 3, 5, 5, 8, 1: buat pengurangan kecil DAN sisakan kartu kecil untuk +.'),
     items: [
       { text: t('Far apart: 85 − 13 + 5 = 77 — big', 'Berjauhan: 85 − 13 + 5 = 77 — besar'), ok: false },
-      { text: t('Closer: 53 − 51 + 8 = 10', 'Lebih dekat: 53 − 51 + 8 = 10'), ok: false },
-      { text: t('Closest pair the cards allow: 51 and 53 → 51 − 53 = −2', 'Pasangan terdekat yang mungkin: 51 dan 53 → 51 − 53 = −2'), ok: null },
-      { text: t('51 − 53 + 8 = 6 — the single card 8 lifts it back above zero', '51 − 53 + 8 = 6 — kartu tunggal 8 mengangkatnya kembali di atas nol'), ok: true },
+      { text: t('Closest pair: 53 − 51 = 2, but the leftover card is the big 8 → 2 + 8 = 10', 'Pasangan terdekat: 53 − 51 = 2, tapi kartu sisanya si besar 8 → 2 + 8 = 10'), ok: false },
+      { text: t('Save the 1 instead: 58 − 53 = 5, leaving the 1', 'Sisakan 1 saja: 58 − 53 = 5, menyisakan 1'), ok: null },
+      { text: t('58 − 53 + 1 = 6 — no arrangement does better', '58 − 53 + 1 = 6 — tak ada susunan yang lebih baik'), ok: true },
     ],
     final: t('m = 6.', 'm = 6.'),
-    aria: t('Fifty-one minus fifty-three plus eight equals six, the smallest result.', 'Lima puluh satu dikurangi lima puluh tiga ditambah delapan sama dengan enam, hasil terkecil.'),
+    aria: t('Fifty-eight minus fifty-three plus one equals six, the smallest result.', 'Lima puluh delapan dikurangi lima puluh tiga ditambah satu sama dengan enam, hasil terkecil.'),
   }
 })
 

@@ -8,7 +8,7 @@ import {
 } from './MultGrid25G3Illustration'
 
 // WMI-25F3A-Q14 — factor the three known shaded cells to reveal A, B, C, D,
-// then compute ? = C × D and finally its digit sum.
+// then compute ? = A × B and finally its digit sum.
 //
 // Answer: D (digit sum 15)
 
@@ -38,59 +38,59 @@ export default function MultGrid25G3Explainer(props: ExplainerProps) {
           'Tiap kotak berbayang = hasil kali dua kotak putih di baris atau kolomnya. Mari cari A, B, C, D!',
         ),
       },
-      // Beat 1 — factor 91 → A=7 (shared factor with 56)
+      // Beat 1 — 91 and 56 share the factor 7 → C=7
       {
-        whites: { A } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
+        whites: { C } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
         revealQ: false,
         hold: 2600,
         result: false,
         caption: t(
-          `91 = ${A} × ${C} and 56 = ${A} × ${B} — the shared factor is ${A}. So A = ${A}.`,
-          `91 = ${A} × ${C} dan 56 = ${A} × ${B} — faktor yang sama adalah ${A}. Jadi A = ${A}.`,
+          `91 = ${C} × ${A} and 56 = ${C} × ${D} — the shared factor is ${C}. So C = ${C}.`,
+          `91 = ${C} × ${A} dan 56 = ${C} × ${D} — faktor yang sama adalah ${C}. Jadi C = ${C}.`,
         ),
       },
-      // Beat 2 — factor 56 → B=8
+      // Beat 2 — factor 56 → D=8
       {
-        whites: { A, B } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
+        whites: { C, D } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
         revealQ: false,
         hold: 2400,
         result: false,
         caption: t(
-          `56 = ${A} × ${B} → row 1 white cells are ${A} and ${B}. B = ${B}.`,
-          `56 = ${A} × ${B} → kotak putih baris 1 adalah ${A} dan ${B}. B = ${B}.`,
+          `56 = ${C} × ${D} → the bottom-row white cells are ${C} and ${D}. D = ${D}.`,
+          `56 = ${C} × ${D} → kotak putih baris bawah adalah ${C} dan ${D}. D = ${D}.`,
         ),
       },
-      // Beat 3 — factor 48 → D=6
+      // Beat 3 — factor 48 → B=6
       {
-        whites: { A, B, D } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
+        whites: { B, C, D } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
         revealQ: false,
         hold: 2400,
         result: false,
         caption: t(
-          `48 = ${B} × ${D} → column 2 white cells are ${B} and ${D}. D = ${D}.`,
-          `48 = ${B} × ${D} → kotak putih kolom 2 adalah ${B} dan ${D}. D = ${D}.`,
+          `48 = ${B} × ${D} → the right-column white cells are ${B} and ${D}. B = ${B}.`,
+          `48 = ${B} × ${D} → kotak putih kolom kanan adalah ${B} dan ${D}. B = ${B}.`,
         ),
       },
-      // Beat 4 — derive C from 91 ÷ A
+      // Beat 4 — derive A from 91 ÷ C
       {
         whites: { A, B, C, D } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
         revealQ: false,
         hold: 2400,
         result: false,
         caption: t(
-          `91 = ${A} × C → C = 91 ÷ ${A} = ${C}. All four white cells found!`,
-          `91 = ${A} × C → C = 91 ÷ ${A} = ${C}. Semua kotak putih ditemukan!`,
+          `91 = A × ${C} → A = 91 ÷ ${C} = ${A}. All four white cells found!`,
+          `91 = A × ${C} → A = 91 ÷ ${C} = ${A}. Semua kotak putih ditemukan!`,
         ),
       },
-      // Beat 5 — compute ? = C × D = 78
+      // Beat 5 — compute ? = A × B = 78
       {
         whites: { A, B, C, D } as Partial<Record<'A' | 'B' | 'C' | 'D', number>>,
         revealQ: true,
         hold: 2600,
         result: false,
         caption: t(
-          `? = C × D = ${C} × ${D} = ${Q}`,
-          `? = C × D = ${C} × ${D} = ${Q}`,
+          `? = A × B = ${A} × ${B} = ${Q}`,
+          `? = A × B = ${A} × ${B} = ${Q}`,
         ),
       },
       // Beat 6 — digit sum → answer D (hold: 0 = final)
@@ -111,8 +111,8 @@ export default function MultGrid25G3Explainer(props: ExplainerProps) {
   const beat = steps[index] ?? steps[steps.length - 1]
 
   const ariaLabel = t(
-    `Factor the known products: 91 = ${A} × ${C}, 56 = ${A} × ${B}, 48 = ${B} × ${D}. Missing value ? = ${C} × ${D} = ${Q}. Digit sum ${Q_TENS} + ${Q_UNITS} = ${DIGIT_SUM}, answer D.`,
-    `Faktorkan hasil kali yang diketahui: 91 = ${A} × ${C}, 56 = ${A} × ${B}, 48 = ${B} × ${D}. Nilai yang hilang ? = ${C} × ${D} = ${Q}. Jumlah digit ${Q_TENS} + ${Q_UNITS} = ${DIGIT_SUM}, jawaban D.`,
+    `Factor the known products: 91 = ${A} × ${C}, 56 = ${C} × ${D}, 48 = ${B} × ${D}. Missing value ? = ${A} × ${B} = ${Q}. Digit sum ${Q_TENS} + ${Q_UNITS} = ${DIGIT_SUM}, answer D.`,
+    `Faktorkan hasil kali yang diketahui: 91 = ${A} × ${C}, 56 = ${C} × ${D}, 48 = ${B} × ${D}. Nilai yang hilang ? = ${A} × ${B} = ${Q}. Jumlah digit ${Q_TENS} + ${Q_UNITS} = ${DIGIT_SUM}, jawaban D.`,
   )
 
   return (

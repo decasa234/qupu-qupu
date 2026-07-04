@@ -1,15 +1,18 @@
 // "Largest shaded area" figure for WMI-20P3A-Q11 (2020 Semifinal G3, Q11).
-// Reconstructed from db/seed/wmi/figures/2020-semifinal-g3-a-q11.jpg: a grid of
-// unit squares holds four shaded compound shapes labelled A, B, C, D. Find the
-// one with the LARGEST shaded area. Keyed answer: D.
+// Reconstructed from db/seed/wmi/figures/2020-semifinal-g3-a-q11.jpg (pixel-measured
+// against the 14×8 grid of the scan): four shaded compound shapes labelled A, B, C, D.
+// Find the one with the LARGEST shaded area. Keyed answer: D.
 //
-// D is a pinwheel of four equal diamonds (unit squares rotated 45°, each area 2)
-// meeting at a centre → 8 cm², the largest. A, B, C are smaller compound shapes.
+//   A = swallowtail flag with two ¼-square notches  → 8.5
+//   B = leaning parallelogram, 2 wide × 4 tall      → 8
+//   C = half-column + slant + 2×2 base block        → 9
+//   D = quincunx of five diamonds (each area 2)     → 10  ← largest
+//
 // Coordinates are in grid units, x→right, y→down. The figure shows ONLY the four
 // labelled shapes; the explainer counts the areas and lands on D.
 
-export const GRID_COLS = 13
-export const GRID_ROWS = 7
+export const GRID_COLS = 14
+export const GRID_ROWS = 8
 export const P20G3Q11_ANSWER = 'D'
 
 export interface ShadedShape {
@@ -22,94 +25,73 @@ export interface ShadedShape {
   labelAt: [number, number]
 }
 
+/** A diamond (unit square rotated 45°, diagonals 2) centred at (cx, cy) → area 2. */
+const diamond = (cx: number, cy: number): Array<[number, number]> => [
+  [cx, cy - 1],
+  [cx + 1, cy],
+  [cx, cy + 1],
+  [cx - 1, cy],
+]
+
 export const SHAPES: ReadonlyArray<ShadedShape> = [
   {
-    // A: a left-pointing barb (triangle) + a 4×2 body block. ~7 cm².
+    // A: 5×2 flag with a swallowtail notch on the left (−1) and two ¼-square
+    // notches on the right edge (−0.5) → 10 − 1 − 0.5 = 8.5.
     label: 'A',
     polys: [
       [
         [0, 0],
-        [1, 1],
+        [4.5, 0],
+        [4.5, 0.5],
+        [5, 0.5],
+        [5, 1],
+        [4.5, 1],
+        [4.5, 1.5],
+        [5, 1.5],
+        [5, 2],
         [0, 2],
-      ], // left barb triangle
-      [
-        [1, 0],
-        [4, 0],
-        [4, 2],
-        [1, 2],
-      ], // body (3×2 = 6)
+        [1, 1],
+      ],
     ],
-    area: 7,
+    area: 8.5,
     labelAt: [2.4, 1],
   },
   {
-    // B: a slanted parallelogram blob, cols 6..9. ~6 cm².
+    // B: leaning parallelogram, 2 wide × 4 tall → 8.
     label: 'B',
     polys: [
       [
-        [7, 0],
-        [9, 0],
-        [9, 3],
-        [8, 4],
-        [7, 4],
-        [7, 1],
+        [6, 0],
+        [8, 1],
+        [8, 5],
+        [6, 4],
       ],
     ],
-    area: 6,
-    labelAt: [8, 2],
+    area: 8,
+    labelAt: [7, 2.5],
   },
   {
-    // C: a triangle roof + a vertical tail + base block, cols 10..12. ~6 cm².
+    // C: half-column (0.5×4 = 2) + slanted middle column (3) + 2×2 base block (4) → 9.
     label: 'C',
     polys: [
       [
+        [9.5, 2],
         [10, 2],
-        [11, 2],
         [11, 4],
-        [10, 5],
-      ], // slim slanted tail (~ area 2.5)
-      [
-        [11, 3],
-        [13, 3],
-        [13, 5],
-        [11, 5],
-      ], // base block (2×2 = 4)
+        [13, 4],
+        [13, 6],
+        [9.5, 6],
+      ],
     ],
-    area: 6,
-    labelAt: [12, 4],
+    area: 9,
+    labelAt: [11.6, 5],
   },
   {
-    // D: pinwheel of four equal diamonds about centre (2,5). Each diamond is a
-    // unit square rotated 45° spanning a 2×2 block → area 2; four of them = 8.
+    // D: quincunx (X) of five diamonds — four arms + centre — each area 2 → 10.
     label: 'D',
-    polys: [
-      [
-        [1, 3],
-        [2, 4],
-        [1, 5],
-        [0, 4],
-      ], // left diamond
-      [
-        [2, 3],
-        [3, 4],
-        [2, 5],
-        [1, 4],
-      ], // top diamond
-      [
-        [3, 4],
-        [4, 5],
-        [3, 6],
-        [2, 5],
-      ], // right diamond
-      [
-        [1, 4],
-        [2, 5],
-        [1, 6],
-        [0, 5],
-      ], // bottom diamond
-    ],
-    area: 8,
-    labelAt: [2, 4.7],
+    polys: [diamond(1, 4), diamond(3, 4), diamond(2, 5), diamond(1, 6), diamond(3, 6)],
+    area: 10,
+    labelAt: [1.5, 4.5],
   },
 ]
 

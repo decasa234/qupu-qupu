@@ -30,17 +30,18 @@ export interface Tangram24Storyboard {
   finalIndex: number
 }
 
-// Square-corner (right-angle) tally per figure, read off the tangram glyphs.
-//   W  — four slanted bars meeting at peaks: only its two flat tops are square.
-//   M  — two upright rectangular posts (4 corners each) + a centre V: 8.  ← most
-//   I  — three stacked rectangular bars, kept to the corners that read clearly: 6.
-//   2  — a flat top bar + a slanted middle + a flat base bar: 4 square corners.
-//   4  — a slanted stroke + an upright stem + a crossbar: 4 square corners.
+// Square-corner (right-angle) tally per figure, read off the tangram glyphs
+// (these counts MATCH the geometry in TANGRAM24_PIECES — keep them in sync).
+//   W  — four slanted bars meeting at peaks: no square corners at all.
+//   M  — two upright rectangular posts (4 corners each) + a centre V: 8. ← most
+//   I  — slant-tipped top/bottom bars (0) + a rectangular stem (4): 4.
+//   2  — slant-tipped top bar (2, at its right end) + diagonal (0) + base bar (4): 6.
+//   4  — slanted stroke (0) + rectangular stem (4) + slant-tipped crossbar (0): 4.
 const RIGHT_ANGLES: Record<Tangram24Label, number> = {
-  A: 2, // W
+  A: 0, // W
   B: 8, // M  ← the most
-  C: 6, // I
-  D: 4, // 2
+  C: 4, // I
+  D: 6, // 2
   E: 4, // 4
 }
 
@@ -83,7 +84,12 @@ export function buildTangram24Steps(lang: Lang): Tangram24Storyboard {
     }
 
     let caption: string
-    if (beatsBest) {
+    if (n === 0) {
+      caption = t(
+        `${glyph} is all slanted bars — no square corners at all ✗`,
+        `${glyph} semuanya batang miring — tidak ada sudut persegi sama sekali ✗`,
+      )
+    } else if (beatsBest) {
       caption = t(
         `${glyph} has ${n} square corners — the most so far!`,
         `${glyph} punya ${n} sudut persegi — terbanyak sejauh ini!`,

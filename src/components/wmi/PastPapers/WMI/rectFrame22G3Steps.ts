@@ -1,12 +1,15 @@
 // Storyboard builder for WMI-22F3A-Q21 — four rectangles pinwheeled around a
 // shaded starred centre region.  Answer = 30.
 //
-// Method: enclosing-rectangle identity.
-//   1. Find each rectangle's missing dimension from its area.
-//   2. Spot that all five pieces tile a 13×17 enclosing rectangle.
-//   3. Big rectangle area = 13 × 17 = 221.
-//   4. Sum the four known rectangles: 56 + 45 + 48 + 42 = 191.
-//   5. Shaded area = 221 − 191 = 30.
+// Method: side-lengths + the 4 / 4 / 3 offsets (matches the scan's labels).
+//   1. TOP 56 = 7 × 8 → 8 tall.  LEFT 45 = 9 × 5 → 5 wide.  RIGHT 48 = 8 × 6.
+//   2. Shaded height: LEFT's top is 4 below TOP's top → 8 − 4 = 4 of LEFT's 9
+//      lies above the star → height = 9 − 4 = 5.
+//   3. BOTTOM: starts at the star's bottom, ends 3 below RIGHT's bottom →
+//      height = 8 + 3 − 5 = 6 → width = 42 ÷ 6 = 7.
+//   4. Shaded width: BOTTOM's left edge is 4 right of LEFT's left edge, i.e.
+//      5 − 4 = 1 left of the star → width = 7 − 1 = 6.
+//   5. Shaded area = 5 × 6 = 30.
 
 export type Lang = 'en' | 'id'
 
@@ -24,8 +27,6 @@ export type HighlightPhase =
 export interface RectFrameStep {
   /** Piece(s) to highlight in the RectFrame primitive. */
   highlight: string[]
-  /** Whether to show the enclosing-rectangle overlay. */
-  showEnclosing: boolean
   /** Arithmetic expression shown in the annotation chip. */
   equation: string
   /** True on the final winner beat. */
@@ -43,14 +44,11 @@ export interface RectFrameStoryboard {
 }
 
 // Piece dimensions (verified: see illustration header).
-//   TOP    7 × 8  = 56   LEFT  5 × 9  = 45
-//   RIGHT  6 × 8  = 48   BOTTOM 7 × 6 = 42
-// Enclosing rectangle: width = 7 + 6 = 13, height = 8 + 9 = 17.
-const BIG_W = 13  // 7 (top width) + 6 (right width)
-const BIG_H = 17  // 8 (top height) + 9 (left height)
-const BIG_AREA = BIG_W * BIG_H           // 221
-const SUM_FOUR = 56 + 45 + 48 + 42       // 191
-const ANSWER = BIG_AREA - SUM_FOUR       // 30
+//   TOP 7 × 8 = 56   LEFT 5 × 9 = 45   RIGHT 6 × 8 = 48   BOTTOM 7 × 6 = 42
+// Shaded region: height = 9 − (8 − 4) = 5, width = 7 − (5 − 4) = 6.
+const STAR_H = 9 - (8 - 4)   // 5
+const STAR_W = 7 - (5 - 4)   // 6
+const ANSWER = STAR_H * STAR_W  // 30
 
 export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
   const t = (en: string, id: string): string => (lang === 'id' ? id : en)
@@ -60,7 +58,6 @@ export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
   // Beat 0 — intro: show the puzzle, nothing highlighted yet.
   steps.push({
     highlight: [],
-    showEnclosing: false,
     equation: '',
     result: false,
     hold: 1700,
@@ -73,7 +70,6 @@ export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
   // Beat 1 — TOP rectangle: 56 = 7 × 8, so missing side = 8.
   steps.push({
     highlight: ['top'],
-    showEnclosing: false,
     equation: '56 = 7 × 8',
     result: false,
     hold: 2000,
@@ -86,7 +82,6 @@ export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
   // Beat 2 — LEFT rectangle: 45 = 9 × 5, so missing side = 5.
   steps.push({
     highlight: ['left'],
-    showEnclosing: false,
     equation: '45 = 9 × 5',
     result: false,
     hold: 2000,
@@ -96,10 +91,21 @@ export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
     ),
   })
 
-  // Beat 3 — RIGHT rectangle: 48 = 8 × 6, so missing side = 6.
+  // Beat 3 — shaded height from the top-left "4" offset.
+  steps.push({
+    highlight: ['left', 'star'],
+    equation: '9 − (8 − 4) = 5',
+    result: false,
+    hold: 2600,
+    caption: t(
+      "LEFT's top is 4 below TOP's top, so 8 − 4 = 4 of its 9 lies above ★ → ★ height = 9 − 4 = 5.",
+      'Puncak KIRI berada 4 di bawah puncak ATAS, jadi 8 − 4 = 4 dari 9-nya ada di atas ★ → tinggi ★ = 9 − 4 = 5.',
+    ),
+  })
+
+  // Beat 4 — RIGHT rectangle: 48 = 8 × 6, so missing side = 6.
   steps.push({
     highlight: ['right'],
-    showEnclosing: false,
     equation: '48 = 8 × 6',
     result: false,
     hold: 2000,
@@ -109,68 +115,39 @@ export function buildRectFrameSteps(lang: Lang): RectFrameStoryboard {
     ),
   })
 
-  // Beat 4 — BOTTOM rectangle: 42 = 7 × 6.
+  // Beat 5 — BOTTOM rectangle via the "3" offset: height 8 + 3 − 5 = 6, width 7.
   steps.push({
-    highlight: ['bottom'],
-    showEnclosing: false,
-    equation: '42 = 7 × 6',
+    highlight: ['right', 'bottom'],
+    equation: '42 ÷ (8 + 3 − 5) = 7',
     result: false,
-    hold: 2000,
+    hold: 2600,
     caption: t(
-      'BOTTOM: area 42, sides 7 and 6 — matches perfectly!',
-      'BAWAH: luas 42, sisi 7 dan 6 — pas!',
+      "BOTTOM starts at ★'s bottom and ends 3 below RIGHT → height = 8 + 3 − 5 = 6, so width = 42 ÷ 6 = 7.",
+      'BAWAH mulai dari dasar ★ dan berakhir 3 di bawah KANAN → tinggi = 8 + 3 − 5 = 6, jadi lebar = 42 ÷ 6 = 7.',
     ),
   })
 
-  // Beat 5 — enclosing rectangle: all four pieces + star tile a 13 × 17 box.
+  // Beat 6 — shaded width from the bottom-left "4" offset.
   steps.push({
-    highlight: ['top', 'left', 'right', 'bottom', 'star'],
-    showEnclosing: true,
-    equation: `width = 7+6 = ${BIG_W},  height = 8+9 = ${BIG_H}`,
+    highlight: ['bottom', 'star'],
+    equation: '7 − (5 − 4) = 6',
     result: false,
-    hold: 2400,
+    hold: 2600,
     caption: t(
-      `All five pieces fit perfectly inside one big ${BIG_W} × ${BIG_H} rectangle!`,
-      `Kelima bagian pas tepat di dalam satu persegi panjang besar ${BIG_W} × ${BIG_H}!`,
+      "BOTTOM's left edge is 4 right of LEFT's edge — that is 5 − 4 = 1 left of ★ → ★ width = 7 − 1 = 6.",
+      'Tepi kiri BAWAH berada 4 di kanan tepi KIRI — yaitu 5 − 4 = 1 di kiri ★ → lebar ★ = 7 − 1 = 6.',
     ),
   })
 
-  // Beat 6 — big rectangle area = 221.
-  steps.push({
-    highlight: [],
-    showEnclosing: true,
-    equation: `${BIG_W} × ${BIG_H} = ${BIG_AREA}`,
-    result: false,
-    hold: 2100,
-    caption: t(
-      `Big rectangle area = ${BIG_W} × ${BIG_H} = ${BIG_AREA}.`,
-      `Luas persegi panjang besar = ${BIG_W} × ${BIG_H} = ${BIG_AREA}.`,
-    ),
-  })
-
-  // Beat 7 — subtract the four rectangles: 56+45+48+42 = 191.
-  steps.push({
-    highlight: ['top', 'left', 'right', 'bottom'],
-    showEnclosing: true,
-    equation: `56 + 45 + 48 + 42 = ${SUM_FOUR}`,
-    result: false,
-    hold: 2200,
-    caption: t(
-      `The four rectangles together = 56 + 45 + 48 + 42 = ${SUM_FOUR}.`,
-      `Keempat persegi panjang = 56 + 45 + 48 + 42 = ${SUM_FOUR}.`,
-    ),
-  })
-
-  // Beat 8 (final) — shaded area = 221 − 191 = 30.
+  // Beat 7 (final) — shaded area = 5 × 6 = 30.
   steps.push({
     highlight: ['star'],
-    showEnclosing: true,
-    equation: `${BIG_AREA} − ${SUM_FOUR} = ${ANSWER}`,
+    equation: `${STAR_H} × ${STAR_W} = ${ANSWER}`,
     result: true,
     hold: 0,
     caption: t(
-      `★ area = ${BIG_AREA} − ${SUM_FOUR} = ${ANSWER}.`,
-      `Luas ★ = ${BIG_AREA} − ${SUM_FOUR} = ${ANSWER}.`,
+      `★ area = ${STAR_H} × ${STAR_W} = ${ANSWER}.`,
+      `Luas ★ = ${STAR_H} × ${STAR_W} = ${ANSWER}.`,
     ),
   })
 

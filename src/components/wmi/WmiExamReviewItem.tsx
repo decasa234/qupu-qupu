@@ -5,9 +5,12 @@ import WmiQuestionView from './WmiQuestionView'
 export default function WmiExamReviewItem({
   question,
   attempt,
+  label,
 }: {
   question: WmiQuestion
   attempt: WmiSubmittedAttempt | undefined
+  /** Overrides the default "Soal {number}" heading (e.g. "Paper B · Soal 3"). */
+  label?: string
 }) {
   const [open, setOpen] = useState(false)
   const icon = attempt ? (attempt.is_correct ? 'fa-check' : 'fa-xmark') : 'fa-minus'
@@ -28,7 +31,7 @@ export default function WmiExamReviewItem({
           <span className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${tone}`}>
             <i className={`fa-solid ${icon} text-sm`} aria-hidden="true" />
           </span>
-          <strong className="font-display font-black text-qupu-brand-blue">Soal {question.number}</strong>
+          <strong className="font-display font-black text-qupu-brand-blue">{label ?? `Soal ${question.number}`}</strong>
         </span>
         <span className="truncate text-xs font-semibold text-qupu-muted">
           {attempt ? `Jawabanmu: ${attempt.selected_answer}` : 'Tidak dijawab'}

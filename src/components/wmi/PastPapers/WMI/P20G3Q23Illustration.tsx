@@ -12,11 +12,15 @@
 // and the A / B / C target cells in their scan positions.  No digit is filled into
 // A, B, C and no other unknown cell is solved — the answer is never shown.
 //
-// Solving the chain of equations yields A = 9, B = 4, C = 3, so A + B + C = 16
-// -> answer A = 16. (Constants below are for the explainer to bind to.)
+// Solving the chain of equations (script-verified, unique): the left chain gives
+// 8×4 = 32, 3−2 = 1, 1−1 = 0, 6−0 = 6, then 6 + A = 11 (two connected cells) so
+// A = 5; the top-right gives 5×2 = 10 and 3×6 = 18 so B = 8; the bottom-right
+// column gives A+2 = 7, 9×7 = 63, and 6×5 = 30 — the C label in the scan sits on
+// the TENS cell of that product 30 (the units 0 closes the 3−3 = 0 row), so C = 3.
+// A + B + C = 5 + 8 + 3 = 16 -> answer A = 16 (official key).
 
-export const A_VAL = 9
-export const B_VAL = 4
+export const A_VAL = 5
+export const B_VAL = 8
 export const C_VAL = 3
 export const ABC_SUM = A_VAL + B_VAL + C_VAL // 16
 
@@ -207,7 +211,7 @@ export function Q23Diagram({ spotlight = [] }: Q23DiagramProps) {
 
       {/* caption */}
       <text x={Q23_VIEW_W / 2} y={Q23_VIEW_H - 2} textAnchor="middle" fontSize={13} fontWeight={800} fontStyle="italic" fill={INK}>
-        each cell = one digit (0–9), used once · find A + B + C
+        each cell = one digit (0–9) · make every equation true · find A + B + C
       </text>
     </svg>
   )

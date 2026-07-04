@@ -7,9 +7,10 @@ import { buildAssemble25G3Story, PLACEMENTS } from './assemble25G3Steps'
 
 // WMI-25F3A-Q11 — post-answer explainer (answer E = the trio A, B, D).
 // Mirrors Assemble25G3Diagram: the SAME five labelled boards across the top and
-// the SAME 14-cell target below. The animation counts the target, adds the
-// option trios (dropping the 13-cell ones), and slides A, B, D into the target
-// one board per beat to show they tile it exactly → option E.
+// the SAME 15-cell target below. The animation counts the target, adds the
+// option trios (dropping the 14-cell ones and the 15-cell trio that cannot
+// tile), and slides A, B, D into the target one board per beat to show they
+// tile it exactly → option E.
 
 const CELL_STROKE = '#1F2937'
 const GREEN = '#10B981' // echoes fill-qupu-success
@@ -72,8 +73,8 @@ export default function Assemble25G3Explainer(props: ExplainerProps) {
       className="mx-auto w-full max-w-[360px]"
       role="img"
       aria-label={t(
-        'Counting cells and testing each trio: only boards A, B and D fill the 14-cell target exactly, so the answer is E.',
-        'Menghitung sel dan menguji tiap trio: hanya papan A, B, dan D yang mengisi target 14 sel dengan pas, jadi jawabannya E.',
+        'Counting cells and testing each trio: only boards A, B and D fill the 15-cell target exactly, so the answer is E.',
+        'Menghitung sel dan menguji tiap trio: hanya papan A, B, dan D yang mengisi target 15 sel dengan pas, jadi jawabannya E.',
       )}
     >
       <div className="flex flex-col items-center gap-3">
@@ -130,7 +131,7 @@ export default function Assemble25G3Explainer(props: ExplainerProps) {
             fontWeight={700}
             fill="#6B7280"
           >
-            {t('target — 14 cells', 'target — 14 sel')}
+            {t('target — 15 cells', 'target — 15 sel')}
           </text>
 
           {/* Empty target outline. */}

@@ -1,15 +1,15 @@
 // Board-assembly puzzle for WMI-25F3A-Q11 (2025 Grade-3 Final, answer E).
 //
 // Source figure (db/seed/wmi/figures/2025-final-g3-a-q11.jpg) shows only the
-// target outline on the right: a 14-cell shape on a 5-wide grid —
+// target outline: a 15-cell shape on a 6-wide grid —
 //   row 0 (top):    . X X X X .   (cols 1..4)
-//   row 1 (middle): X X X X X     (cols 0..4)
-//   row 2 (bottom): X X X X X     (cols 0..4)
+//   row 1 (middle): X X X X X X   (cols 0..5 — one cell protrudes right)
+//   row 2 (bottom): X X X X X .   (cols 0..4)
 // The boards A..E that tile it were on the left of the original layout; they
 // are reconstructed here so the chosen trio (A, B, D) tiles the target exactly
-// by rotation only (no flips). Verified by brute-force search: only {A, B, D}
-// covers the 14 cells with no overlap or gap; {B,D,E} and {A,C,E} total 14 but
-// cannot tile, and {C,D,E} and {B,C,D} total only 13.
+// by rotation only (no flips). Verified by brute-force search: {A, B, D}
+// covers the 15 cells with no overlap or gap; {B,D,E} also totals 15 but
+// cannot tile in any rotation, and {C,D,E}, {B,C,D}, {A,C,E} total only 14.
 //
 // The five answer options are textual trios ("A, B, D" etc.), NOT board images,
 // so no CHOICE_RENDERER is needed for this question.
@@ -18,7 +18,7 @@ const CELL_STROKE = '#1F2937'
 
 export type Cell = [number, number] // [row, col], row 0 = top
 
-/** The target outline (14 cells), in target-grid coordinates. */
+/** The target outline (15 cells), in target-grid coordinates. */
 export const TARGET_CELLS: Cell[] = [
   [0, 1],
   [0, 2],
@@ -29,6 +29,7 @@ export const TARGET_CELLS: Cell[] = [
   [1, 2],
   [1, 3],
   [1, 4],
+  [1, 5],
   [2, 0],
   [2, 1],
   [2, 2],
@@ -39,17 +40,17 @@ export const TARGET_CELLS: Cell[] = [
 /**
  * The five boards as shown in the stem (each normalized to its own bounding
  * box). A, B, D are the answer trio; C and E are distractors.
- *   A = P-pentomino (5)   B = P-pentomino (5)   C = S-tetromino (4)
- *   D = L-tetromino (4)   E = Y-pentomino (5)
- * Boards are drawn in a presentation orientation that differs from how they sit
- * in the target, so the solver must rotate them to fit.
+ *   A = P-pentomino (5)   B = mirror-P pentomino (5)   C = S-tetromino (4)
+ *   D = F-pentomino (5)   E = X-pentomino (5)
+ * All five are pairwise distinct under rotation (no flips), so no board can
+ * stand in for another.
  */
 export const BOARDS: Array<{ label: string; cells: Cell[] }> = [
-  { label: 'A', cells: [[0, 0], [0, 1], [1, 0], [1, 1], [1, 2]] },
-  { label: 'B', cells: [[0, 0], [0, 1], [0, 2], [1, 1], [1, 2]] },
+  { label: 'A', cells: [[0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
+  { label: 'B', cells: [[0, 0], [1, 0], [1, 1], [2, 0], [2, 1]] },
   { label: 'C', cells: [[0, 1], [0, 2], [1, 0], [1, 1]] },
-  { label: 'D', cells: [[0, 1], [1, 1], [2, 0], [2, 1]] },
-  { label: 'E', cells: [[0, 0], [0, 1], [0, 2], [0, 3], [1, 1]] },
+  { label: 'D', cells: [[0, 0], [0, 1], [1, 1], [1, 2], [2, 1]] },
+  { label: 'E', cells: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]] },
 ]
 
 /** Fill colours for the boards (qupu palette). */
@@ -179,7 +180,7 @@ export function Assemble25G3Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Lima papan persegi berlabel A sampai E di atas, dan satu gambar target 14 sel di bawah. Pilih tiga papan yang, jika diputar (tidak dibalik), mengisi gambar target persis tanpa celah atau tumpang tindih."
+      aria-label="Lima papan persegi berlabel A sampai E di atas, dan satu gambar target 15 sel di bawah. Pilih tiga papan yang, jika diputar (tidak dibalik), mengisi gambar target persis tanpa celah atau tumpang tindih."
     >
       <Assemble25G3Diagram />
     </div>

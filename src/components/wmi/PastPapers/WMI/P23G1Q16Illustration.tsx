@@ -6,14 +6,18 @@
 //   Each pentagon holds one red dot, and the dot's position rotates by one vertex
 //   from each pentagon to the next. The 5th pentagon is marked with "?".
 //
-// Rotation rule (verified, single cycle of 5 vertices): index the pentagon's
+// Rotation rule (verified cell-by-cell against the scan): index the pentagon's
 // vertices CLOCKWISE from the top — 0=top, 1=upper-right, 2=lower-right,
-// 3=lower-left, 4=upper-left. The dot steps ONE vertex counter-clockwise per
-// pentagon (index - 1, mod 5):
-//   P1 v3 (lower-left)  ->  P2 v2 (lower-right)  ->  P3 v1 (upper-right)
-//   ->  P4 v0 (top)     ->  P5 v4 (upper-left) = the "?"   ->  P6 v3 (lower-left)
-// So the "?" pentagon's dot sits at the UPPER-LEFT vertex — the option figure
-// showing that is the seed's answer (D).
+// 3=lower-left, 4=upper-left. The scan shows P1 = v4 (upper-left),
+// P2 = v2 (lower-right), P3 = v0 (top), P6 = v4 (upper-left); the unique
+// constant rule fitting all four is TWO vertices counter-clockwise per
+// pentagon (index - 2, mod 5):
+//   P1 v4 (upper-left)  ->  P2 v2 (lower-right)  ->  P3 v0 (top)
+//   ->  P4 v3 (lower-left)  ->  P5 v1 (upper-right) = the "?"  ->  P6 v4 (upper-left)
+// NOTE: in the extracted scan P4's dot is missing (extraction artifact — the body
+// says every pentagon contains a dot); v3 is forced by the rule above, so P4 is
+// reconstructed as lower-left. The "?" pentagon's dot sits at the UPPER-RIGHT
+// vertex — the option figure showing that is the seed's answer (D).
 //
 // The static figure shows ONLY the problem: the arrow, the five given dots, and
 // the "?" pentagon (no dot revealed). Pure render — no Math.random / Date /
@@ -40,9 +44,9 @@ export function dotCentre(cx: number, cy: number, r: number, idx: number): Pt {
 }
 
 // vertex index: 0=top, 1=upper-right, 2=lower-right, 3=lower-left, 4=upper-left
-export const SEQUENCE: number[] = [3, 2, 1, 0, 4, 3] // P1..P6; P5 (index 4) is the "?"
+export const SEQUENCE: number[] = [4, 2, 0, 3, 1, 4] // P1..P6; P5 (index 4) is the "?"
 export const QUESTION_INDEX = 4 // 0-based pentagon that carries the "?"
-export const ANSWER_VERTEX = SEQUENCE[QUESTION_INDEX] // 4 = upper-left
+export const ANSWER_VERTEX = SEQUENCE[QUESTION_INDEX] // 1 = upper-right
 
 const PENT_FILL = '#FFFFFF'
 const PENT_STROKE = '#3A3027'
@@ -154,7 +158,7 @@ export default function P23G1Q16Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Tanda panah hijau dari kiri ke kanan di atas enam segi lima. Setiap segi lima berisi satu titik merah yang berputar satu sudut tiap langkah. Segi lima ke-5 ditandai dengan tanda tanya."
+      aria-label="Tanda panah hijau dari kiri ke kanan di atas enam segi lima. Setiap segi lima berisi satu titik merah yang berputar dua sudut tiap langkah. Segi lima ke-5 ditandai dengan tanda tanya."
     >
       <Q16Scene />
     </div>

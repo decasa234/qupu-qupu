@@ -63,8 +63,8 @@ export function buildP22G1Q1Steps(lang: Lang, answer: string): Q1Storyboard {
     hold: 0,
     result: true,
     caption: t(
-      `Pictures with 8 tiles: table, tree, person — ${MATCH_COUNT} of them. Answer ${answer}.`,
-      `Gambar dengan 8 keping: meja, pohon, orang — ada ${MATCH_COUNT}. Jawaban ${answer}.`,
+      `Pictures with 8 tiles: table, boat, person — ${MATCH_COUNT} of them. Answer ${answer}.`,
+      `Gambar dengan 8 keping: meja, perahu, orang — ada ${MATCH_COUNT}. Jawaban ${answer}.`,
     ),
   })
 

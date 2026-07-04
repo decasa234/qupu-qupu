@@ -16,32 +16,34 @@
  *
  *   Coordinate convention used below for UNIT_CUBES (grid lattice, each entry
  *   is one drawn 1×1×1 cell of the iso outline):
- *     x — column, increasing to the screen-right / front-right
- *     y — depth,  increasing into the screen (back)
+ *     x — column, 0..2 increasing to the screen-right (matches back-mirror cols)
+ *     y — depth,  0 = back row (mirror side), 2 = front-left row
  *     z — height, increasing upward
  *
- *   The drawn staircase (iso outline with dashed hidden edges):
- *     back-left column is tallest (3 high), stepping down toward the front-right.
- *       (0,0,0) (0,0,1) (0,0,2)   ← tall back-left column, height 3
- *       (1,0,0) (1,0,1)           ← middle column, height 2
- *       (1,1,0)                   ← cube tucked behind the middle column, height 1
- *       (2,0,0)                   ← low front-right cube, height 1
- *   This silhouette is intentionally a faithful *outline* of the photographed
- *   solid; the figure does not colour the cubes themselves, so neither do we.
+ *   The drawn solid (13 unit cells):
+ *     z=0 — bottom layer, 8 cells: the full 3×3 footprint minus the front-right
+ *           corner (2,2). Visible: front-left strip (0,2)(1,2) and the right pair
+ *           (2,0)(2,1); the 2×2 under the slab is hidden but geometrically forced
+ *           (the slab must be supported).
+ *     z=1 — the 2×2 slab: (0,0)(0,1)(1,0)(1,1).
+ *     z=2 — one cube on the slab's back-right cell: (1,0).
  *
- *   LEFT mirror (side view, 1 wide × 3 tall): white(top) / gray(mid) / black(bottom).
+ *   LEFT (side) mirror — reflection widths 1 : 2 : 3 in the scan, i.e. the actual
+ *   faces seen from the left:
+ *     z=2: white 1×1 (top cube's face), z=1: gray face 2 long, z=0: black face 3 long.
  *   BACK mirror (x–z grid, 3×3, row 0 = top):
  *     row0:  .      white   .
- *     row1:  gray   gray    .       (gray 1×2 horizontal, white sits above col2)
+ *     row1:  gray   gray    .
  *     row2:  black  gray    white
  *
- *   Consistency with "at most 6 white 1×1×1 cubes": both mirrors are silhouette
- *   shadows, so a coloured cell only certifies that *some* piece of that colour
- *   reaches that shadow square — it does not pin a colour onto a specific lattice
- *   cell. The question asks for the MAXIMUM number of white unit cubes consistent
- *   with both shadows; per the official key that maximum is 6. Drawing the bare
- *   outline plus the two shadow grids (without colouring the solid) is exactly the
- *   information the solver is given, and is consistent with the answer 6.
+ *   Consistency with "at most 6 white 1×1×1 cubes": every coloured mirror cell
+ *   pins the colour of the piece touching that surface. Working it through
+ *   (script-verified): the side mirror's 3-long black face forces one black
+ *   1×1×3 along (0,y,0); the two mirrors' gray cells force gray at (0,0,1),
+ *   (0,1,1), (1,0,1) and (1,0,0) — two gray 1×1×2 blocks (one lying in the slab,
+ *   one standing at the back). That's 3 + 4 = 7 cells that can never be white,
+ *   so the maximum is 13 − 7 = 6, matching the official key. This exact
+ *   colouring also reproduces both mirror images cell-for-cell.
  *
  * Pure render — no Math.random, no Date, no state/effects. SSR-safe & deterministic.
  */
@@ -54,23 +56,38 @@ export interface Cube {
   z: number
 }
 
-/** The drawn unit-cube lattice of the iso solid (outline only — no colour). */
+/** The drawn unit-cube lattice of the iso solid (outline only — no colour). 13 cells. */
 export const UNIT_CUBES: Cube[] = [
-  // tall back-left column (height 3)
+  // z=0 bottom layer — 3×3 footprint minus the front-right corner (8 cells).
+  // The 2×2 under the slab is hidden in the scan but forced (the slab needs support).
   { x: 0, y: 0, z: 0 },
-  { x: 0, y: 0, z: 1 },
-  { x: 0, y: 0, z: 2 },
-  // middle column (height 2)
   { x: 1, y: 0, z: 0 },
-  { x: 1, y: 0, z: 1 },
-  // cube tucked behind the middle column (height 1)
+  { x: 2, y: 0, z: 0 }, // right pair, back
+  { x: 0, y: 1, z: 0 },
   { x: 1, y: 1, z: 0 },
-  // low front-right cube (height 1)
-  { x: 2, y: 0, z: 0 },
+  { x: 2, y: 1, z: 0 }, // right pair, front
+  { x: 0, y: 2, z: 0 }, // front-left strip
+  { x: 1, y: 2, z: 0 }, // front-left strip
+  // z=1 — the 2×2 slab (4 cells)
+  { x: 0, y: 0, z: 1 },
+  { x: 1, y: 0, z: 1 },
+  { x: 0, y: 1, z: 1 },
+  { x: 1, y: 1, z: 1 },
+  // z=2 — top cube on the slab's back-right cell
+  { x: 1, y: 0, z: 2 },
 ]
 
-/** Left (side) mirror: 1 wide × 3 tall, top→bottom. */
-export const SIDE_MIRROR: PieceColor[][] = [['white'], ['gray'], ['black']]
+/**
+ * Left (side) mirror: 3 tall × 3 deep, top→bottom rows.
+ * The scan shows the reflected faces with widths 1 : 2 : 3 —
+ * white 1×1 on top, a gray face 2 long, a black face 3 long at the bottom
+ * (right-aligned steps, as in the source).
+ */
+export const SIDE_MIRROR: (PieceColor | null)[][] = [
+  [null, null, 'white'],
+  [null, 'gray', 'gray'],
+  ['black', 'black', 'black'],
+]
 
 /** Back mirror: x–z grid, row 0 = top. null = empty cell. */
 export const BACK_MIRROR: (PieceColor | null)[][] = [
@@ -142,6 +159,9 @@ export function IsoBlocks({ cubes, fill, ox = 0, oy = 0 }: IsoBlocksProps) {
 
   return (
     <g>
+      {/* dashed hidden edges are drawn FIRST so nearer cube faces occlude them —
+          with 13 cells, drawing them on top reads as wireframe clutter. */}
+      <HiddenEdges cubes={ordered} P={P} />
       {ordered.map((c, i) => {
         const { x, y, z } = c
         const f = fill ? fill(c) : CUBE_FILL
@@ -152,30 +172,16 @@ export function IsoBlocks({ cubes, fill, ox = 0, oy = 0 }: IsoBlocksProps) {
 
         return (
           <g key={`${x}-${y}-${z}-${i}`}>
-            {/* faces (shaded subtly so the solid reads as 3D) */}
+            {/* faces: opaque fills (so nearer cubes occlude farther ones), with a
+                translucent dark overlay for the 3D shading instead of face opacity */}
             <polygon points={top} fill={f} stroke={EDGE} strokeWidth={1.4} strokeLinejoin="round" />
-            <polygon
-              points={left}
-              fill={f}
-              stroke={EDGE}
-              strokeWidth={1.4}
-              strokeLinejoin="round"
-              opacity={0.86}
-            />
-            <polygon
-              points={right}
-              fill={f}
-              stroke={EDGE}
-              strokeWidth={1.4}
-              strokeLinejoin="round"
-              opacity={0.72}
-            />
+            <polygon points={left} fill={f} stroke={EDGE} strokeWidth={1.4} strokeLinejoin="round" />
+            <polygon points={left} fill="#0f172a" opacity={0.08} stroke="none" />
+            <polygon points={right} fill={f} stroke={EDGE} strokeWidth={1.4} strokeLinejoin="round" />
+            <polygon points={right} fill="#0f172a" opacity={0.16} stroke="none" />
           </g>
         )
       })}
-      {/* dashed hidden edges: the three back edges meeting at the hidden corner
-          of the bounding region give the "see-through" look of the source. */}
-      <HiddenEdges cubes={ordered} P={P} />
     </g>
   )
 }
@@ -339,7 +345,7 @@ export default function MirrorSolid22G3Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Sebuah benda padat disusun dari kubus 1×1×1 putih, balok 1×1×2 abu-abu, dan balok 1×1×3 hitam, digambar secara isometrik berbentuk tangga. Dua cermin menampilkan bayangannya: cermin sisi kiri berupa kolom 1×3 putih (atas), abu-abu (tengah), hitam (bawah); cermin belakang berupa kisi berwarna. Legend di kanan menampilkan tiga jenis balok berlabel 1×1×1, 1×1×2, dan 1×1×3. Berapa paling banyak kubus 1×1×1 putih yang mungkin terdapat dalam benda itu?"
+      aria-label="Sebuah benda padat 13 sel disusun dari kubus 1×1×1 putih, balok 1×1×2 abu-abu, dan balok 1×1×3 hitam, digambar secara isometrik: lapisan bawah 8 sel, lempeng 2×2 di atasnya, dan satu kubus di puncak. Dua cermin menampilkan bayangannya: cermin samping menunjukkan sisi putih 1, abu-abu 2, dan hitam 3 satuan; cermin belakang berupa kisi berwarna. Legend di kanan menampilkan tiga jenis balok berlabel 1×1×1, 1×1×2, dan 1×1×3. Berapa paling banyak kubus 1×1×1 putih yang mungkin terdapat dalam benda itu?"
     >
       <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width={DISPLAY_W} style={{ display: 'block' }} aria-hidden="true">
         {/* BACK mirror — upper centre */}
@@ -349,7 +355,7 @@ export default function MirrorSolid22G3Illustration() {
         <MirrorGrid grid={SIDE_MIRROR} ox={40} oy={150} label="Cermin (samping)" />
 
         {/* The isometric solid — lower centre */}
-        <IsoBlocks cubes={UNIT_CUBES} ox={250} oy={300} />
+        <IsoBlocks cubes={UNIT_CUBES} ox={250} oy={245} />
 
         {/* Legend — right column */}
         <g>

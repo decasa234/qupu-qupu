@@ -1,7 +1,7 @@
 /**
  * WMI-22F3A-Q4 — Street-map longest trail storyboard.
  *
- * The 9-edge Eulerian-style trail T→0→1→3→2→T→5→3→4→M is walked one edge
+ * The 9-edge Eulerian-style trail T→2→0→1→2→4→1→3→4→M is walked one edge
  * per beat, with a growing highlighted-edge list and a running street count.
  * The final beat shows 9 × 130 = 1170 m (answer C) and notes that 10 would
  * require a repeated street.
@@ -29,15 +29,15 @@ export interface StreetMap22G3Storyboard {
   answerM: number
 }
 
-/** The verified 9-edge trail: T→0→1→3→2→T→5→3→4→M */
+/** The verified 9-edge trail: T→2→0→1→2→4→1→3→4→M */
 const TRAIL: Array<[string, string]> = [
-  ['T', '0'],
+  ['T', '2'],
+  ['0', '2'],  // walk 2→0 along edge 0-2
   ['0', '1'],
+  ['1', '2'],  // back down to 2
+  ['2', '4'],
+  ['1', '4'],  // walk 4→1 along edge 1-4
   ['1', '3'],
-  ['2', '3'],  // walk backward along 2-3: 3→2 same edge
-  ['T', '2'],  // then T→2
-  ['T', '5'],
-  ['3', '5'],  // then 3→5 (same edge, walk 5→3 direction)
   ['3', '4'],
   ['4', 'M'],
 ]
@@ -46,7 +46,7 @@ const TRAIL: Array<[string, string]> = [
  * Node sequence labels used in per-beat captions.
  * Beat i adds edge TRAIL[i], arriving at node TRAIL_NODES[i+1].
  */
-const TRAIL_NODES = ['T', '0', '1', '3', '2', 'T', '5', '3', '4', 'M']
+const TRAIL_NODES = ['T', '2', '0', '1', '2', '4', '1', '3', '4', 'M']
 
 const STREET_LEN = 130  // metres per street
 
@@ -61,8 +61,8 @@ export function buildStreetMap22G3Steps(lang: Lang): StreetMap22G3Storyboard {
     streetCount: 0,
     distanceM: 0,
     caption: t(
-      'Tom → Mary: the shortest route uses just 2 streets = 260 m (e.g. T→5→M).',
-      'Tom → Mary: rute terpendek hanya 2 jalan = 260 m (mis. T→5→M).',
+      'Tom → Mary: the shortest route uses just 2 streets = 260 m (T→4→M).',
+      'Tom → Mary: rute terpendek hanya 2 jalan = 260 m (T→4→M).',
     ),
     hold: 2400,
     result: false,

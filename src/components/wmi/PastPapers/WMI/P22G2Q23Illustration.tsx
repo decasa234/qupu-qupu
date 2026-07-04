@@ -1,10 +1,14 @@
-// Colored-ring (octagon) figure for WMI-22P2A-Q23 (2022 Grade 2 Semifinal, A).
+// Colored-ring (nonagon) figure for WMI-22P2A-Q23 (2022 Grade 2 Semifinal, A).
 //
 // Reconstructed from db/seed/wmi/figures/2022-semifinal-g2-a-q23.jpg:
 //
-//   A regular octagon divided from its centre into 8 triangular wedges. The
-//   wedges are colored, ALTERNATING blue and white around the ring. A red curved
-//   arrow on the lower-left shows the reading direction (going around the ring).
+//   A regular NINE-sided polygon (a vertex at the top centre) divided from its
+//   centre into 9 triangular wedges, coloured blue or white. Read cell-by-cell
+//   off the scan, CLOCKWISE from the top-centre boundary the wedges are:
+//     white, blue, white, white, blue, white, blue, white, blue
+//   (4 blue, 5 white — NOT a simple alternation). A red curved arrow on the
+//   lower-left points DOWN the left side, i.e. the reading direction around the
+//   ring is COUNTER-clockwise.
 //
 //   The question asks which straight colour STRIP matches the ring. A strip may
 //   be joined end-to-end (so any ROTATION of the ring’s colour order is the same
@@ -22,10 +26,19 @@ import type { ReactNode } from 'react'
 
 export type RingColor = 'blue' | 'white'
 
-/** The 8 wedge colours, reading CLOCKWISE from the top wedge. */
-export const RING_COLORS: RingColor[] = ['white', 'blue', 'white', 'blue', 'white', 'blue', 'white', 'blue']
+/** The 9 wedge colours by wedge index, CLOCKWISE from the top-centre boundary. */
+export const RING_COLORS: RingColor[] = ['white', 'blue', 'white', 'white', 'blue', 'white', 'blue', 'white', 'blue']
 
-export const RING_N = RING_COLORS.length // 8
+export const RING_N = RING_COLORS.length // 9
+
+/**
+ * Reading order following the red arrow (counter-clockwise), starting from the
+ * wedge just LEFT of the top-centre boundary.
+ */
+export const READ_ORDER: number[] = [8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+/** The unrolled strip: the wedge colours in arrow (reading) order. */
+export const STRIP_COLORS: RingColor[] = READ_ORDER.map((i) => RING_COLORS[i])
 
 export const FILL: Record<RingColor, string> = {
   blue: '#7FC4E8',
@@ -41,18 +54,17 @@ export const RING_CX = 110
 export const RING_CY = 104
 export const RING_R = 84
 
-/** Vertex of the octagon for wedge boundary `k` (0..N). Boundary 0 is at the
- *  TOP-LEFT of the top wedge so wedge 0 straddles the top. */
+/** Vertex of the polygon for wedge boundary `k` (0..N). Boundary 0 is at the
+ *  TOP CENTRE (the scan shows a vertex at the top), wedges go clockwise. */
 function vertex(k: number): [number, number] {
-  // Place boundaries so wedge centres point at 90° (top), 45°, ... clockwise.
   // boundary k sits between wedge k-1 and wedge k.
-  const ang = (-90 - 360 / RING_N / 2 + (k * 360) / RING_N) * (Math.PI / 180)
+  const ang = (-90 + (k * 360) / RING_N) * (Math.PI / 180)
   return [RING_CX + RING_R * Math.cos(ang), RING_CY + RING_R * Math.sin(ang)]
 }
 
 /** Centre direction (for placing the start dot / labels) of wedge i, in SVG. */
 export function wedgeCentroid(i: number): [number, number] {
-  const ang = (-90 + (i * 360) / RING_N) * (Math.PI / 180)
+  const ang = (-90 + ((i + 0.5) * 360) / RING_N) * (Math.PI / 180)
   const rr = RING_R * 0.6
   return [RING_CX + rr * Math.cos(ang), RING_CY + rr * Math.sin(ang)]
 }
@@ -78,12 +90,14 @@ export function Wedge({ i, dim = false, ring = false }: { i: number; dim?: boole
   )
 }
 
-/** The whole colour ring. `litUpto` (optional) highlights wedges 0..litUpto-1. */
+/** The whole colour ring. `litUpto` (optional) highlights the first `litUpto`
+ *  wedges in READING order (following the red arrow). */
 export function ColorRing({ litUpto, dimOthers = false }: { litUpto?: number; dimOthers?: boolean }) {
   const wedges: ReactNode[] = []
   for (let i = 0; i < RING_N; i++) {
-    const lit = litUpto !== undefined && i < litUpto
-    wedges.push(<Wedge key={i} i={i} ring={lit} dim={dimOthers && litUpto !== undefined && i >= litUpto} />)
+    const pos = READ_ORDER.indexOf(i)
+    const lit = litUpto !== undefined && pos < litUpto
+    wedges.push(<Wedge key={i} i={i} ring={lit} dim={dimOthers && litUpto !== undefined && pos >= litUpto} />)
   }
   return <g>{wedges}</g>
 }
@@ -123,7 +137,7 @@ export default function P22G2Q23Illustration() {
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
       aria-label={
-        'A regular octagon divided into 8 triangular wedges that alternate blue and white around the ring. A red curved arrow shows the direction to read the colours around the ring.'
+        'A regular nine-sided ring divided into 9 triangular wedges coloured blue or white. A red curved arrow shows the direction to read the colours around the ring.'
       }
     >
       <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width="100%" style={{ maxWidth: VIEW_W, display: 'block', margin: '0 auto' }}>

@@ -15,8 +15,8 @@ export default function P23G1Q16Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: titik merah berputar satu sudut tiap segi lima; pada segi lima "?" titik berada di sudut kiri-atas — jawaban ${story.answer}.`
-      : `Explainer: the red dot turns one corner per pentagon; on the "?" pentagon it lands at the upper-left corner — answer ${story.answer}.`
+      ? `Penjelasan: titik merah melompati dua sudut tiap segi lima; pada segi lima "?" titik berada di sudut kanan-atas — jawaban ${story.answer}.`
+      : `Explainer: the red dot skips two corners per pentagon; on the "?" pentagon it lands at the upper-right corner — answer ${story.answer}.`
 
   return (
     <div className="mx-auto w-full max-w-[600px]" role="img" aria-label={ariaLabel}>

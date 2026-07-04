@@ -21,19 +21,24 @@
  *
  * This gives the left-leaning parallelogram visible in the source photo.
  *
- * Triangle count (all sizes):
- *   4 unit upward-pointing △  +  4 unit downward-pointing ▽  =  8 total.
- *   (No composite/size-2 triangles exist in this grid — each pair of adjacent
- *    unit triangles combines into a rhombus, not a larger equilateral triangle.)
- *   The 4 "left-down" diagonal edges (one per inner column) are each shared by
- *   exactly 2 triangles, so removing all 4 destroys all 8.
+ * IMPORTANT (scan-verified): the printed figure has only 15 matchsticks — the
+ * middle-row LEFT horizontal edge (1,0)-(1,1) is NOT drawn in the scan. That
+ * omission is what makes the official answer work:
  *
- * Edges: 16 total (6 horizontal + 4 left-down diagonals + 6 right-down diagonals).
- *   Wait — let me recount:
- *   Horizontal: (r,c)-(r,c+1) for r=0..2, c=0..1 → 3 rows × 2 per row = 6
+ * Triangle count (all sizes), with (1,0)-(1,1) absent:
+ *   6 unit triangles (the two touching the missing stick are gone)
+ *   + 2 size-2 triangles (the big △ on nodes (0,0),(2,0),(2,2) and the big ▽ on
+ *     (0,0),(0,2),(2,2) — both of whose sides are fully drawn)
+ *   = 8 total.  (With all 16 sticks the count would be 10, contradicting the key.)
+ *   Removing the 4 grid-"left-down" diagonals (0,0)-(1,1), (0,1)-(1,2),
+ *   (1,0)-(2,1), (1,1)-(2,2) destroys all 8; brute-force confirms 4 is minimal.
+ *   Answer: 8 + 4 = 12.
+ *
+ * Edges: 15 total (5 horizontal + 6 right-down diagonals + 4 left-down diagonals):
+ *   Horizontal: (r,c)-(r,c+1) for r=0..2, c=0..1, EXCEPT (1,0)-(1,1) → 5
  *   Right-down: (r,c)-(r+1,c) for r=0..1, c=0..2 → 2 inter-rows × 3 per row = 6
  *   Left-down:  (r,c)-(r+1,c+1) for r=0..1, c=0..1 → 2 inter-rows × 2 per row = 4
- *   Total: 6+6+4 = 16 ✓
+ *   Total: 5+6+4 = 15 ✓ (matches the 15 matchstick heads countable in the scan)
  *
  * Wait — the "left-down" edge goes from (r,c) to (r+1,c+1) which in screen coords goes:
  *   Δx = (2-r-1)*S/2 + (c+1)*S − [(2-r)*S/2 + c*S] = S - S/2 = S/2  (right by S/2)
@@ -103,17 +108,23 @@ function buildNodes(): NodePos[][] {
 export const TRI_NODES: NodePos[][] = buildNodes()
 
 // ─── edges ───────────────────────────────────────────────────────────────────
-// 16 edges = 6 horizontal + 6 right-down + 4 left-down.
+// 15 edges = 5 horizontal + 6 right-down + 4 left-down. The middle-row left
+// horizontal (1,0)-(1,1) is deliberately ABSENT — the scan does not draw it,
+// and the official 8-triangle count depends on that gap.
 // "Right-down" (in grid index): (r,c) → (r+1,c)   [goes LEFT on screen due to left-lean]
 // "Left-down"  (in grid index): (r,c) → (r+1,c+1) [goes RIGHT on screen]
 // Both diagonal types together form the unit equilateral triangles.
 type EdgeIdx = [[number, number], [number, number]]
 
+/** The single stick the printed figure omits (middle-row left horizontal). */
+export const MISSING_EDGE: EdgeIdx = [[1, 0], [1, 1]]
+
 function buildEdges(): EdgeIdx[] {
   const edges: EdgeIdx[] = []
   for (let r = 0; r < NROW; r++) {
-    // Horizontal edges within row r
+    // Horizontal edges within row r (skipping the scan's missing stick)
     for (let c = 0; c < NCOL - 1; c++) {
+      if (r === MISSING_EDGE[0][0] && c === MISSING_EDGE[0][1]) continue
       edges.push([[r, c], [r, c + 1]])
     }
     if (r < NROW - 1) {
@@ -208,9 +219,10 @@ export function TriSticksMatchFigure({
  * In-card illustration for WMI-24F2A-Q19.
  *
  * Draws the matchstick triangle arrangement — a 2×2 left-leaning isometric
- * parallelogram with 8 triangles (4 pointing up, 4 pointing down).  The static
- * figure shows ONLY the problem setup: never which sticks to remove, never which
- * triangles are which size, never the answer.
+ * parallelogram of 15 sticks (the middle-left horizontal is missing, as in the
+ * scan), containing 8 triangles (6 unit + 2 size-2). The static figure shows
+ * ONLY the problem setup: never which sticks to remove, never which triangles
+ * are which size, never the answer.
  *
  * The `params` argument is accepted but ignored; the geometry is fully determined
  * by the problem statement (no runtime parameters needed).
@@ -220,7 +232,7 @@ export default function TriSticks24G2Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Susunan batang korek api membentuk jajaran segitiga sama sisi — dua baris dua kolom segitiga kecil, membentuk total 8 segitiga dari berbagai ukuran. Tentukan berapa minimal batang korek api yang harus diambil agar tidak ada segitiga yang tersisa."
+      aria-label="Susunan 15 batang korek api membentuk jajaran segitiga sama sisi dua baris (satu batang mendatar di kiri tengah tidak ada). Hitung semua segitiga berbagai ukuran, lalu tentukan berapa minimal batang korek api yang harus diambil agar tidak ada segitiga yang tersisa."
     >
       <TriSticksMatchFigure />
     </div>

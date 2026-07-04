@@ -128,6 +128,31 @@ export function TripleBox21G2Illustration() {
   )
 }
 
+/** Q8 — Bob's ticket queue: 8 served, 6 waiting, Bob in the exact middle,
+ *  an unknown tail behind him (total not revealed). */
+export function BobQueue21G2Illustration() {
+  const dot = (key: string, x: number, fill: string, stroke = INK, dashed = false) => (
+    <circle key={key} cx={x} cy={58} r={9} fill={fill} stroke={stroke} strokeWidth={1.5} strokeDasharray={dashed ? '3 3' : undefined} />
+  )
+  return (
+    <Frame aria="A ticket queue: eight people already served, six more waiting, then Bob who stands in the exact middle, with an unknown number of people behind him.">
+      <svg viewBox="0 0 420 118" width="100%" style={{ maxWidth: 440, display: 'block', margin: '0 auto' }} aria-hidden="true">
+        <rect x={8} y={40} width={36} height={36} rx={5} fill="#FFE9A8" stroke={INK} strokeWidth={1.8} />
+        <text x={26} y={58} textAnchor="middle" dominantBaseline="central" fontSize={17}>🎫</text>
+        {Array.from({ length: 8 }, (_, i) => dot(`done-${i}`, 62 + i * 21, '#8FD6A8'))}
+        {Array.from({ length: 6 }, (_, i) => dot(`wait-${i}`, 236 + i * 21, '#FFE9A8'))}
+        {dot('bob', 368, PINK)}
+        <text x={368} y={38} textAnchor="middle" fontSize={11} fontWeight={900} fill={PINK} className="font-display">Bob</text>
+        {[0, 1, 2].map((i) => dot(`tail-${i}`, 392 + i * 14, 'white', '#9CA3AF', true))}
+        <text x={135} y={92} textAnchor="middle" fontSize={11} fontWeight={800} fill="#2F9E44" className="font-display">8 ✓</text>
+        <text x={288} y={92} textAnchor="middle" fontSize={11} fontWeight={800} fill="#B45309" className="font-display">6 more</text>
+        <text x={399} y={92} textAnchor="middle" fontSize={11} fontWeight={800} fill="#6B7280" className="font-display">?</text>
+        <text x={210} y={112} textAnchor="middle" fontSize={11.5} fontWeight={700} fill="#6B7280" className="font-display">Bob is in the exact MIDDLE of the line</text>
+      </svg>
+    </Frame>
+  )
+}
+
 /** Q10 — the two pillars. */
 export function Pillars21G2Illustration() {
   return (

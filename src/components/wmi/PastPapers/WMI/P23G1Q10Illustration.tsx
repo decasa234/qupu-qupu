@@ -10,11 +10,16 @@
 // the empty target outline. It NEVER shows how the outline decomposes — that is
 // what the answer options reveal (the seed's answer is option A).
 //
-// Construction (verified): two flat-top regular hexagons placed as honeycomb
-// neighbours (they share exactly one edge, no overlap) plus three rhombi
-// extruded onto outer edges. Edge-cancellation over the 5 tiles confirms a
-// single simple boundary (every boundary node degree 2, 4 shared interior edges,
-// zero overlaps). Total = 2 hexagons + 3 rhombi = 5 pieces.
+// Construction (verified against the scan silhouette): the scan outline, read on
+// the unit-triangle lattice, is the 7-vertex polygon with edges (in units)
+// 1, 1, 2, 2, 1, 3, 2 — a wide hexagon-ish shape with ONE concave notch at the
+// upper-left. Its lattice area is 20 unit triangles, so with hexagon = 6
+// triangles and rhombus = 2 triangles the piece count h + r must satisfy
+// 6h + 2r = 20; at most two unit hexagons fit without overlap, giving the
+// intended decomposition 2 hexagons + 4 rhombi = 6 pieces. (A 5-piece answer is
+// impossible: 6h + 2r = 20 has no solution with h + r = 5.)
+// Edge-cancellation over the 6 tiles confirms a single simple 12-edge boundary
+// matching the scan (8 shared interior edges, zero overlaps).
 //
 // Pure render — no Math.random, no Date, no hooks, no window/document. SSR-safe.
 
@@ -34,35 +39,28 @@ function flatHex(cx: number, cy: number): Pt[] {
   })
 }
 
-/** Rhombus (two unit triangles) glued onto edge A→B, extruded outward from origin. */
-function edgeRhombus(A: Pt, B: Pt): Pt[] {
-  const ex = B[0] - A[0]
-  const ey = B[1] - A[1]
-  const len = Math.hypot(ex, ey)
-  let nx = (ey / len) * S
-  let ny = (-ex / len) * S
-  const mx = (A[0] + B[0]) / 2
-  const my = (A[1] + B[1]) / 2
-  if (mx * nx + my * ny < 0) {
-    nx = -nx
-    ny = -ny
-  }
-  return [A, B, [B[0] + nx, B[1] + ny], [A[0] + nx, A[1] + ny]]
-}
-
 function ptsStr(pts: Pt[]): string {
   return pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ')
 }
 
 // ── the target figure (in its own local coords, then offset into the scene) ──
-const TARGET_OX = 470
-const TARGET_OY = 190
+// Lattice coordinates (unit edge = S, SVG y grows downward, H = √3/2·S). The
+// scan outline is A(0,0) B(1,0) C(1.5,−H) D(3.5,−H) E(4.5,H) F(4,2H) G(1,2H),
+// with the concave notch at B.
+const TARGET_OX = 440
+const TARGET_OY = 155
 
-const RAW_H1 = flatHex(0, 0)
-const RAW_H2 = flatHex(1.5 * S, (-SQ3 / 2) * S)
-const RAW_RL = edgeRhombus(RAW_H1[2], RAW_H1[3]) // upper-left point
-const RAW_RB = edgeRhombus(RAW_H1[3], RAW_H1[4]) // lower-left point
-const RAW_RR = edgeRhombus(RAW_H2[0], RAW_H2[1]) // right point
+const H = (SQ3 / 2) * S
+
+/** Scale lattice points [u, v·H] into pixels. */
+const L = (pts: Array<[number, number]>): Pt[] => pts.map(([u, v]) => [u * S, v * H] as Pt)
+
+const RAW_H1 = flatHex(2 * S, 0) // left hexagon, top edge on C–D
+const RAW_H2 = flatHex(3.5 * S, H) // right hexagon, touching E and F
+const RAW_R1 = L([[0, 0], [1, 0], [1.5, 1], [0.5, 1]]) // notch rhombus at A–B
+const RAW_R2 = L([[0.5, 1], [1.5, 1], [2, 2], [1, 2]]) // lower-left rhombus (reaches G)
+const RAW_R3 = L([[1.5, 1], [2.5, 1], [3, 2], [2, 2]]) // bottom rhombus under H1
+const RAW_R4 = L([[2.5, -1], [3.5, -1], [4, 0], [3, 0]]) // top-right rhombus on C–D/D–E
 
 const shift = (pts: Pt[], ox: number, oy: number): Pt[] => pts.map(([x, y]) => [x + ox, y + oy] as Pt)
 
@@ -74,14 +72,15 @@ export interface TileSpec {
 export const TARGET_TILES: TileSpec[] = [
   { kind: 'hex', verts: shift(RAW_H1, TARGET_OX, TARGET_OY) },
   { kind: 'hex', verts: shift(RAW_H2, TARGET_OX, TARGET_OY) },
-  { kind: 'rhombus', verts: shift(RAW_RL, TARGET_OX, TARGET_OY) },
-  { kind: 'rhombus', verts: shift(RAW_RB, TARGET_OX, TARGET_OY) },
-  { kind: 'rhombus', verts: shift(RAW_RR, TARGET_OX, TARGET_OY) },
+  { kind: 'rhombus', verts: shift(RAW_R1, TARGET_OX, TARGET_OY) },
+  { kind: 'rhombus', verts: shift(RAW_R2, TARGET_OX, TARGET_OY) },
+  { kind: 'rhombus', verts: shift(RAW_R3, TARGET_OX, TARGET_OY) },
+  { kind: 'rhombus', verts: shift(RAW_R4, TARGET_OX, TARGET_OY) },
 ]
 
 export const HEX_COUNT = TARGET_TILES.filter((t) => t.kind === 'hex').length // 2
-export const RHOMBUS_COUNT = TARGET_TILES.filter((t) => t.kind === 'rhombus').length // 3
-export const PIECE_COUNT = TARGET_TILES.length // 5
+export const RHOMBUS_COUNT = TARGET_TILES.filter((t) => t.kind === 'rhombus').length // 4
+export const PIECE_COUNT = TARGET_TILES.length // 6
 
 // Exact silhouette of the union, computed once by edge cancellation: edges shared
 // by two tiles are interior and dropped; the survivors form one closed ring.
@@ -187,7 +186,7 @@ export interface Q10SceneProps {
   showTiling?: boolean
   /** When true, draw a 1..N count badge on each revealed tile. */
   showCounts?: boolean
-  /** How many tiles to reveal (0..5). Reading order: 2 hexes then 3 rhombi. */
+  /** How many tiles to reveal (0..6). Reading order: 2 hexes then 4 rhombi. */
   revealed?: number
 }
 

@@ -4,11 +4,12 @@ import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { FruitTable23 } from './P23G2Q24Illustration'
 import { buildP23G2Q24Steps } from './p23G2Q24Steps'
 
-// WMI-23P2A-Q24 — fruit product table. The genuine technique is to COMPARE two
-// rows so the fruits they share cancel, exposing a single fruit-to-fruit ratio
-// (row2÷row1 → 🍒 vs 🍌; row2÷row3 → 🍎 = 2×🍌). Scale by 🍌 = 8 and add 🍎 + 🍒.
+// WMI-23P2A-Q24 — fruit product table. The legend under the grid shows COLUMN
+// products: banana column = 🍌³ = 8 → 🍌 = 2; comparing rows 2÷3 cancels 🍌 and 🍒
+// so 🍎 = 2×🍌 = 4; row 2 then gives 🍒 = 7. Pink = apple column = 4×4×2 = 32 and
+// blue = cherry column = 2×7×7 = 98, so pink + blue = 130 (option D).
 // The animation mirrors the static figure (same FruitTable23 primitive),
-// outlines each compared pair of rows, and lands on the seed's answer option.
+// outlines each compared pair of rows, reveals 32/98, and lands on 130.
 
 const BLUE = '#30598A'
 const GREEN = '#10B981'

@@ -26,18 +26,23 @@
  *     y — depth,  increasing into the screen (back)
  *     z — height, increasing upward
  *
- *   The drawn staircase (iso outline with dashed hidden edges), 8 unit cubes,
- *   gravity-valid (every raised cube is supported):
- *     (0,0,0) (0,0,1) (0,0,2)   ← tall back-left column, height 3 → a BLACK 1×1×3
- *     (1,0,0) (1,0,1)           ← middle column, height 2        → a GRAY 1×1×2
- *     (1,1,0)                   ← cube tucked behind the middle column → WHITE
- *     (2,0,0) (2,1,0)           ← low front-right pair, height 1       → WHITE, WHITE
+ *   The drawn solid (iso outline with dashed hidden edges) is 12 unit cubes,
+ *   3 wide (x) × 2 deep (y: 0 = back toward the back mirror, 1 = front) × up to
+ *   3 tall, gravity-valid. Column heights seen from the back mirror are 2, 3, 2
+ *   (left, centre, right — matching the scan; NOT a 3-2-1 staircase):
+ *     z = 0 : full 3 × 2 slab (6 cubes)
+ *     z = 1 : (0,0,1)  (1,0,1) (1,1,1)  (2,1,1)
+ *     z = 2 : (1,0,2) (1,1,2)
  *
- *   Decoding the two mirror shadows: a BLACK shadow cell forces a 1×1×3 piece and
- *   a GRAY shadow cell forces a 1×1×2 piece. Placing exactly one black 1×1×3
- *   (the tall back-left column) and one gray 1×1×2 (the middle column) to satisfy
- *   the dark mirror cells leaves three single cells that can only be 1×1×1 cubes.
- *   So WHITE = 3 — matching the answer key.
+ *   Decoding the two mirror shadows (a unique solution, checked by exhausting
+ *   the piece matchings):
+ *     - back-mirror bottom row all black → the black 1×1×3 lies along x in the
+ *       back bottom row: (0,0,0)(1,0,0)(2,0,0);
+ *     - the unbroken tall gray cells force THREE vertical gray 1×1×2 pieces:
+ *       centre-back (1,0,1)-(1,0,2), centre-front (1,1,1)-(1,1,2), and
+ *       right-front (2,1,0)-(2,1,1);
+ *     - the three remaining cells (0,1,0), (1,1,0), (0,0,1) can only be white
+ *       1×1×1 cubes.  So WHITE = 3 — matching the answer key.
  *
  *   The mirror grids below are reproduced verbatim from the scan; the iso solid is
  *   drawn as a bare outline (no colour) exactly as the source presents it, so the
@@ -54,20 +59,23 @@ export interface Cube {
   z: number
 }
 
-/** The drawn unit-cube lattice of the iso solid (8 cubes). */
+/** The drawn unit-cube lattice of the iso solid (12 cubes). */
 export const UNIT_CUBES: Cube[] = [
-  // tall back-left column (height 3) → BLACK 1×1×3
+  // z = 0 — full 3×2 slab
   { x: 0, y: 0, z: 0 },
-  { x: 0, y: 0, z: 1 },
-  { x: 0, y: 0, z: 2 },
-  // middle column (height 2) → GRAY 1×1×2
   { x: 1, y: 0, z: 0 },
-  { x: 1, y: 0, z: 1 },
-  // cube tucked behind the middle column → WHITE
-  { x: 1, y: 1, z: 0 },
-  // low front-right pair → WHITE, WHITE
   { x: 2, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 1, y: 1, z: 0 },
   { x: 2, y: 1, z: 0 },
+  // z = 1 — back-left single, centre pair, right-front single
+  { x: 0, y: 0, z: 1 },
+  { x: 1, y: 0, z: 1 },
+  { x: 1, y: 1, z: 1 },
+  { x: 2, y: 1, z: 1 },
+  // z = 2 — centre pair (the top block, 2 deep)
+  { x: 1, y: 0, z: 2 },
+  { x: 1, y: 1, z: 2 },
 ]
 
 /**
@@ -76,20 +84,32 @@ export const UNIT_CUBES: Cube[] = [
  * The default illustration never references these for colouring.
  */
 export const WHITE_CUBES: Cube[] = [
+  { x: 0, y: 1, z: 0 },
   { x: 1, y: 1, z: 0 },
-  { x: 2, y: 0, z: 0 },
-  { x: 2, y: 1, z: 0 },
+  { x: 0, y: 0, z: 1 },
 ]
 
 /** The forced long pieces (kept out of the static figure). */
 export const BLACK_PIECE: Cube[] = [
+  // 1×1×3 lying along x in the back bottom row
   { x: 0, y: 0, z: 0 },
-  { x: 0, y: 0, z: 1 },
-  { x: 0, y: 0, z: 2 },
-]
-export const GRAY_PIECE: Cube[] = [
   { x: 1, y: 0, z: 0 },
-  { x: 1, y: 0, z: 1 },
+  { x: 2, y: 0, z: 0 },
+]
+export const GRAY_PIECES: Cube[][] = [
+  // three vertical 1×1×2 pieces
+  [
+    { x: 1, y: 0, z: 1 },
+    { x: 1, y: 0, z: 2 },
+  ],
+  [
+    { x: 1, y: 1, z: 1 },
+    { x: 1, y: 1, z: 2 },
+  ],
+  [
+    { x: 2, y: 1, z: 0 },
+    { x: 2, y: 1, z: 1 },
+  ],
 ]
 
 /** Number of white 1×1×1 blocks used — the answer key. */
@@ -423,7 +443,7 @@ export default function MirrorBlocks22G1Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Sebuah benda padat disusun dari kubus 1×1×1 putih, balok 1×1×2 abu-abu, dan balok 1×1×3 hitam, digambar secara isometrik berbentuk tangga. Dua cermin menampilkan bayangannya: cermin samping berupa kisi 2×3 berwarna abu-abu, abu-abu, dan putih, hitam; cermin belakang berupa kisi 3×3 dengan baris bawah hitam dan kolom tengah abu-abu. Legend di kanan menampilkan tiga jenis balok berlabel 1×1×1, 1×1×2, dan 1×1×3. Berapa banyak balok putih 1×1×1 yang digunakan?"
+      aria-label="Sebuah benda padat disusun dari kubus 1×1×1 putih, balok 1×1×2 abu-abu, dan balok 1×1×3 hitam, digambar secara isometrik: lapisan bawah 3×2, kolom tengah setinggi 3, sisi kiri dan kanan setinggi 2. Dua cermin menampilkan bayangannya: cermin samping berupa kisi 2×3 berwarna abu-abu, abu-abu, dan putih, hitam; cermin belakang berupa kisi 3×3 dengan baris bawah hitam dan kolom tengah abu-abu. Legend di kanan menampilkan tiga jenis balok berlabel 1×1×1, 1×1×2, dan 1×1×3. Berapa banyak balok putih 1×1×1 yang digunakan?"
     >
       <svg
         viewBox={`0 0 ${SCENE_VIEW_W} ${SCENE_VIEW_H}`}

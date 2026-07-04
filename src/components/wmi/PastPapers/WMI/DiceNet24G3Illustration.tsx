@@ -9,14 +9,14 @@
  * Its three visible faces, read straight off the scan, are:
  *
  *   top   = 6   (two slanted columns of three pips)
- *   left  = 3   (front-left face, the diagonal three)
- *   right = 5   (front-right face, four corners + centre)
+ *   left  = 2   (front-left face, the diagonal two)
+ *   right = 4   (front-right face, the four corners)
  *
  * A standard Western die pairs opposite faces 1↔6, 2↔5, 3↔4, so the three
- * hidden faces are bottom = 1, back-right = 4, back-left = 2. Unfolding that
- * cube gives the plus-shaped net drawn below: a horizontal band of four side
- * faces (3, 5, 4, 2) with the 6-cap above the 5 and the 1-cap below it. The
- * net's opposite-face pairs are therefore 6↔1, 5↔2 and 3↔4 — exactly the
+ * hidden faces are bottom = 1, back-right = 3, back-left = 5. Unfolding a
+ * standard cube gives the plus-shaped net drawn below: a horizontal band of
+ * four side faces (3, 5, 4, 2) with the 6-cap above the 5 and the 1-cap below
+ * it. The net's opposite-face pairs are 6↔1, 5↔2 and 3↔4 — exactly the
  * reference die's pairs, so the net and the die agree by construction.
  *
  * The crux of the problem (chirality: folding a net yields two mirror cubes,
@@ -38,8 +38,8 @@
 /** The three visible faces of the reference die, exactly as in the scan. */
 export const DIE_VISIBLE: { top: number; left: number; right: number } = {
   top: 6,
-  left: 3,
-  right: 5,
+  left: 2,
+  right: 4,
 }
 
 export interface NetFace {
@@ -381,7 +381,7 @@ export default function DiceNet24G3Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Soal membandingkan dadu dengan jaring-jaring. Di kiri sebuah dadu tiga dimensi: sisi atas 6 titik, sisi depan-kiri 3 titik, sisi depan-kanan 5 titik. Di kanan jaring-jaring kubus berbentuk tanda tambah dengan enam sisi, dihubungkan garis lipat putus-putus: di tengah sebaris empat sisi 3, 5, 4, dan 2, dengan sisi 6 di atas sisi 5 dan sisi 1 di bawahnya. Berapa banyak dari 7 dadu yang paling banyak dapat memiliki jaring-jaring yang sama seperti gambar?"
+      aria-label="Soal membandingkan dadu dengan jaring-jaring. Di kiri sebuah dadu tiga dimensi: sisi atas 6 titik, sisi depan-kiri 2 titik, sisi depan-kanan 4 titik. Di kanan jaring-jaring kubus berbentuk tanda tambah dengan enam sisi, dihubungkan garis lipat putus-putus: di tengah sebaris empat sisi 3, 5, 4, dan 2, dengan sisi 6 di atas sisi 5 dan sisi 1 di bawahnya. Berapa banyak dari 7 dadu yang paling banyak dapat memiliki jaring-jaring yang sama seperti gambar?"
     >
       <svg
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}

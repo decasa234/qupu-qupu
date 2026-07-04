@@ -45,12 +45,12 @@ export const LEFT_HEIGHTS: Record<string, number> = {
 // total = 2 + 1 + 1 + 1 = 5
 
 export const RIGHT_HEIGHTS: Record<string, number> = {
-  // back row (y=1): a 2-tall ridge across all three columns
-  '0,1': 2, '1,1': 2, '2,1': 2,
-  // front row (y=0): a 2-tall step on the left, then two single cubes
-  '0,0': 2, '1,0': 1, '2,0': 1,
+  // back row (y=1): a 3-tall tower on the left, then a 2-tall ridge (per the scan)
+  '0,1': 3, '1,1': 2, '2,1': 2,
+  // front row (y=0): three single cubes
+  '0,0': 1, '1,0': 1, '2,0': 1,
 }
-// total = 2 + 2 + 2 + 2 + 1 + 1 = 10
+// total = 3 + 2 + 2 + 1 + 1 + 1 = 10
 
 const DEPTH = 2 // y: 0..1
 

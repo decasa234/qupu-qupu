@@ -382,15 +382,15 @@ function buildSteps(lang: 'en' | 'id'): Beat[] {
     eliminated: ['A', 'D', 'E'],
     winner: null,
     caption: t(
-      'Try B: 2 sad. But look at the face pattern — group 1 height-2 has sad+sad, group 2 follows a different face sequence.',
-      'Coba B: 2 sedih. Tapi lihat pola wajahnya — slot tinggi-2 kelompok 2 tidak serupa kelompok 1.',
+      'Try B: 2 sad. The height fits — but now check the COLOURS of the whole columns along the row.',
+      'Coba B: 2 sedih. Tingginya pas — tapi sekarang cek WARNA seluruh kolom di sepanjang barisan.',
     ),
     hold: 2600,
   })
 
-  // Beat 6 — eliminate B; the face pattern in the height-2 position changes across groups
+  // Beat 6 — eliminate B; whole columns alternate happy/sad along the row
   beats.push({
-    highlightCols: [1, 4, 7], // the three height-2 columns: col 2, gap, col 8
+    highlightCols: [0, 1, 2, 3, 4, 5, 6, 7, 8], // read the colours across the row
     groups: [],
     heightLabels: [],
     gapFill: null,
@@ -398,8 +398,8 @@ function buildSteps(lang: 'en' | 'id'): Beat[] {
     eliminated: ['A', 'B', 'D', 'E'],
     winner: null,
     caption: t(
-      'The height-2 faces: col 2 = sad+sad, col 8 = sad+sad. Group 2 uses happy+sad at the height-2 position. B ✗!',
-      'Wajah tinggi-2: kol 2 = sedih+sedih, kol 8 = sedih+sedih. Kelompok 2 memakai senang+sedih. B ✗!',
+      'Read the column colours: happy, sad, happy, sad, ?, sad, happy, sad, happy. The gap must be a HAPPY column — B (2 sad) ✗!',
+      'Baca warna kolom: senang, sedih, senang, sedih, ?, sedih, senang, sedih, senang. Celahnya harus kolom SENANG — B (2 sedih) ✗!',
     ),
     hold: 2600,
   })
@@ -409,13 +409,13 @@ function buildSteps(lang: 'en' | 'id'): Beat[] {
     highlightCols: null,
     groups: [],
     heightLabels: [],
-    gapFill: OPTIONS_25G2['C'], // happy, sad
+    gapFill: OPTIONS_25G2['C'], // happy, happy
     tryOption: null,
     eliminated: ['A', 'B', 'D', 'E'],
     winner: 'C',
     caption: t(
-      'C = 1 happy + 1 sad fits the pattern perfectly!',
-      'C = 1 senang + 1 sedih cocok dengan polanya!',
+      'C = 2 happy faces fits both rules: height 2, and a happy column!',
+      'C = 2 wajah senang cocok dengan kedua aturan: tinggi 2, dan kolom senang!',
     ),
     hold: 0,
   })
@@ -436,8 +436,8 @@ export default function FaceSeq25G2Explainer(props: ExplainerProps) {
   const beat = steps[index] ?? steps[finalIndex]
 
   const ariaLabel = t(
-    'The columns repeat in groups of three with heights 1-2-3. The gap is in a height-2 slot of group 2. Reading the face pattern across groups, the missing column has 1 happy and 1 sad face — answer C.',
-    'Kolom-kolom berulang dalam kelompok tiga dengan tinggi 1-2-3. Celah berada di slot tinggi-2 kelompok 2. Membaca pola wajah antar kelompok, kolom yang hilang punya 1 wajah senang dan 1 sedih — jawaban C.',
+    'The columns repeat in groups of three with heights 1-2-3, and whole columns alternate happy, sad, happy, sad along the row. The gap is a height-2 happy column: 2 happy faces — answer C.',
+    'Kolom-kolom berulang dalam kelompok tiga dengan tinggi 1-2-3, dan kolom-kolom selang-seling senang, sedih, senang, sedih di sepanjang barisan. Celahnya kolom senang tinggi-2: 2 wajah senang — jawaban C.',
   )
 
   const optionLabels: OptionLabel[] = ['A', 'B', 'C', 'D', 'E']
@@ -556,7 +556,7 @@ export default function FaceSeq25G2Explainer(props: ExplainerProps) {
               <circle cx={10} cy={10} r={9} fill={GREEN} />
               <path d="M5 10.5 L8.5 14 L15 7" fill="none" stroke="#fff" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            {t('Answer: C — 1 happy + 1 sad!', 'Jawaban: C — 1 senang + 1 sedih!')}
+            {t('Answer: C — 2 happy faces!', 'Jawaban: C — 2 wajah senang!')}
           </motion.div>
         )}
       </div>

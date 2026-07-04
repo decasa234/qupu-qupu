@@ -91,9 +91,9 @@ export const CalendarDifference21P1Explainer = makeTryCheckExplainer((lang) => {
 export const SalesGap21P1Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Read the asked appliance’s column, then subtract Week 1 from the bigger Week 2.', 'Baca kolom peralatan yang ditanya, lalu kurangkan Minggu 1 dari Minggu 2 yang lebih besar.'),
+    intro: t('Find the appliance with the lowest Week 1 sales, then subtract its Week 1 from its bigger Week 2.', 'Cari peralatan dengan penjualan Minggu 1 paling sedikit, lalu kurangkan Minggu 1-nya dari Minggu 2-nya yang lebih besar.'),
     items: [
-      { text: t('Its Week 1 sales were 5 and its Week 2 sales were 16', 'Penjualan Minggu 1-nya 5 dan Minggu 2-nya 16'), ok: null },
+      { text: t('The lowest Week 1 sales are 5 — that appliance sold 16 in Week 2', 'Penjualan Minggu 1 paling sedikit adalah 5 — peralatan itu terjual 16 di Minggu 2'), ok: null },
       { text: t('“How many fewer in Week 1” means Week 2 − Week 1: 16 − 5', '“Berapa lebih sedikit di Minggu 1” berarti Minggu 2 − Minggu 1: 16 − 5'), ok: null },
       { text: t('Don’t read the wrong row pair — that gives 6 instead', 'Jangan membaca pasangan baris yang salah — itu memberi 6'), ok: false },
       { text: '16 − 5 = 11', ok: true },
@@ -155,15 +155,15 @@ export const UnitsDigitUnderTwenty21P1Explainer = makeTryCheckExplainer((lang) =
 export const SharedSideSquares21P1Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Like the 2 triangles sharing a side, line the squares up so neighbours share sides.', 'Seperti 2 segitiga yang berbagi sisi, susun persegi berderet agar tetangganya berbagi sisi.'),
+    intro: t('Like the 2 triangles sharing a side, pack the squares so neighbours share sides.', 'Seperti 2 segitiga yang berbagi sisi, susun persegi agar tetangganya berbagi sisi.'),
     items: [
       { text: t('One square alone needs 4 sticks, so 4 separate squares need 16', 'Satu persegi sendiri butuh 4 batang, jadi 4 persegi terpisah butuh 16'), ok: null },
-      { text: t('Stand them in a row so each pair shares one side — that saves 3 sticks', 'Susun sebaris agar tiap pasang berbagi satu sisi — itu menghemat 3 batang'), ok: null },
-      { text: t('Don’t build them separately: 16 wastes the shared sides', 'Jangan membuatnya terpisah: 16 menyia-nyiakan sisi yang berbagi'), ok: false },
-      { text: '16 − 3 = 12', ok: true },
+      { text: t('A row of 4 shares only 3 sides: 16 − 3 = 13 sticks — not the fewest', 'Sebaris 4 persegi hanya berbagi 3 sisi: 16 − 3 = 13 batang — belum paling sedikit'), ok: false },
+      { text: t('A 2×2 block shares 4 sides, saving 4 sticks', 'Blok 2×2 berbagi 4 sisi, menghemat 4 batang'), ok: null },
+      { text: '16 − 4 = 12', ok: true },
     ],
     final: t('At least 12 matchsticks are needed (B).', 'Paling sedikit dibutuhkan 12 batang korek api (B).'),
-    aria: t('Sharing three sides among four squares in a row needs only 12 sticks.', 'Berbagi tiga sisi di antara empat persegi sebaris hanya butuh 12 batang.'),
+    aria: t('Packing four squares into a two-by-two block shares four sides, needing only 12 sticks.', 'Menyusun empat persegi menjadi blok dua kali dua berbagi empat sisi, hanya butuh 12 batang.'),
   }
 })
 

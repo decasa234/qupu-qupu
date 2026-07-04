@@ -34,23 +34,29 @@ export const CELLS_25G3: SymCell[] = [
 
 // The six DISTINCT line-symmetric figures that can be formed by relocating one
 // square, listed for the explainer (rotations counted as the same → 6 results).
-// Each figure is given as its set of occupied (r, c) cells plus the mirror
-// line(s) it has. These are NOT drawn in the static problem figure.
+// Each figure is given as its set of occupied (r, c) cells — in the SAME frame as
+// CELLS_25G3, so exactly one cell differs from the start shape (the relocated
+// square; figure 2 extends one column LEFT of the frame, hence c = −1) — plus the
+// mirror line(s) it has. Verified by exhaustive search: the moved square must
+// share at least one full side with the remaining squares, and rotations are
+// counted as the same figure. These are NOT drawn in the static problem figure.
 export type SymAxis = 'horizontal' | 'vertical' | 'diagonal' | 'antidiagonal'
 export type SymResult = { cells: Array<[number, number]>; axes: SymAxis[] }
 export const SYMMETRY_RESULTS_25G3: SymResult[] = [
-  // 1) 2x3 rectangle (move F up beside E): two perpendicular mirror lines.
+  // 1) 2x3 rectangle (move F up to (0,2)): two perpendicular mirror lines.
   { cells: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], axes: ['horizontal', 'vertical'] },
-  // 2) Plus / cross variant — single vertical mirror.
-  { cells: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1], [2, 2]], axes: ['vertical'] },
-  // 3) Symmetric staircase — single diagonal mirror.
-  { cells: [[0, 0], [0, 1], [1, 0], [1, 1], [1, 2], [2, 1]], axes: ['diagonal'] },
-  // 4) T-like figure — single vertical mirror.
-  { cells: [[0, 0], [0, 1], [0, 2], [1, 1], [2, 1], [1, 2]], axes: ['vertical'] },
-  // 5) L/Z balanced figure — single antidiagonal mirror.
-  { cells: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], axes: ['vertical'] },
-  // 6) Stepped figure — single horizontal mirror.
-  { cells: [[0, 0], [1, 0], [1, 1], [1, 2], [0, 2], [2, 1]], axes: ['horizontal'] },
+  // 2) Move F to the LEFT end of the middle row (1,−1): the top pair sits centred
+  //    over the 4-wide row → single vertical mirror.
+  { cells: [[0, 0], [0, 1], [1, -1], [1, 0], [1, 1], [1, 2]], axes: ['vertical'] },
+  // 3) Move A down to (2,0): ".#./###/#.#" → single vertical mirror.
+  { cells: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 0], [2, 2]], axes: ['vertical'] },
+  // 4) Move A down to (2,1): S-staircase → single diagonal (↘) mirror.
+  { cells: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1], [2, 2]], axes: ['diagonal'] },
+  // 5) Move C up to (0,2): straight staircase → single antidiagonal (↙) mirror.
+  { cells: [[0, 0], [0, 1], [0, 2], [1, 1], [1, 2], [2, 2]], axes: ['antidiagonal'] },
+  // 6) Move D down to (2,1): two corner-touching triominoes (the moved square
+  //    still shares a full side with F) → both diagonal mirrors.
+  { cells: [[0, 0], [0, 1], [1, 0], [1, 2], [2, 1], [2, 2]], axes: ['diagonal', 'antidiagonal'] },
 ]
 export const SYMMETRY_COUNT_25G3 = SYMMETRY_RESULTS_25G3.length // 6
 

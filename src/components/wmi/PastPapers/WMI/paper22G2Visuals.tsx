@@ -93,8 +93,9 @@ export function Shark22G2Illustration() {
 
 // ── Q3 · Paper stack (which number is 3rd sheet from the bottom?) ───────────
 // Recovered from 2022-final-g2-a-q3.jpg: seven overlapping sheets 1–7.
-// Reading the overlaps bottom → top gives 4, 3, 6, 1, 7, 5, 2; the third from
-// the bottom is sheet 6 → answer D.
+// Scan overlaps: 2 covers 3/7/1, 3 covers 4 and 1, 7 covers 5/6/1/4, 1 covers 6,
+// and 6 covers 5. Bottom → top: 4, 5, 6, 1, 3, 7, 2; the third from the bottom
+// is sheet 6 → answer D.
 type StackSheet = { cx: number; cy: number; w: number; h: number; rot: number; label: string; lx: number; ly: number }
 export const STACK_SHEETS: Record<number, StackSheet> = {
   4: { cx: 76, cy: 98, w: 104, h: 122, rot: -8, label: '4', lx: -32, ly: -40 },
@@ -105,7 +106,7 @@ export const STACK_SHEETS: Record<number, StackSheet> = {
   5: { cx: 216, cy: 72, w: 120, h: 112, rot: 28, label: '5', lx: 10, ly: -22 },
   2: { cx: 152, cy: 164, w: 120, h: 120, rot: 42, label: '2', lx: -2, ly: -30 },
 }
-export const STACK_ORDER = [4, 3, 6, 1, 7, 5, 2] // bottom → top
+export const STACK_ORDER = [4, 5, 6, 1, 3, 7, 2] // bottom → top
 
 function StackSheetShape({ id }: { id: number }) {
   const s = STACK_SHEETS[id]
@@ -196,19 +197,20 @@ export function Balls22G2Illustration() {
 
 // ── Q8 · Thick orange line (longest total length) ──────────────────────────
 // Grid cells are 3 cm wide × 2 cm tall, so each horizontal edge = 3 cm and each
-// vertical edge = 2 cm. Measuring h×3 + v×2: A 22, B 24, C 32, D 26 — C is the
-// longest even though D shows the most horizontal pieces (the trap) → answer C.
+// vertical edge = 2 cm. Edges traced pixel-by-pixel from 2022-final-g2-q8-[a-d].jpg.
+// Measuring h×3 + v×2: A 36, B 34, C 37, D 36 — C is the longest even though D
+// shows the most horizontal pieces (the trap) → answer C.
 // edges: H = [rowLine(0..3), colCell(0..2)]; V = [colLine(0..3), rowCell(0..2)]
 type LineOpt = { H: Array<[number, number]>; V: Array<[number, number]> }
 export const LINE_OPTS: Record<string, LineOpt> = {
-  // A — S/Z zigzag: top bar, down right, middle bar back, down left, bottom bar
-  A: { H: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], V: [[2, 0], [0, 1]] },
-  // B — stepped zigzag
-  B: { H: [[0, 0], [0, 1], [1, 1], [1, 2], [2, 1], [2, 2]], V: [[0, 0], [2, 1], [3, 1]] },
-  // C — bulky frame: full top + full bottom + both side rails + middle stubs (longest)
-  C: { H: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]], V: [[0, 0], [0, 1], [3, 0], [3, 1]] },
-  // D — two full bars + partial bottom (most horizontals, looks longest: the trap)
-  D: { H: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 1], [2, 2]], V: [[3, 1]] },
+  // A — two S/5 shapes side by side (8 H + 6 V = 36 cm)
+  A: { H: [[0, 0], [1, 0], [1, 2], [2, 0], [2, 2], [3, 0], [3, 1], [3, 2]], V: [[0, 0], [0, 2], [1, 1], [2, 1], [3, 0], [3, 2]] },
+  // B — two open hooks (8 H + 5 V = 34 cm)
+  B: { H: [[0, 0], [0, 1], [1, 0], [1, 2], [2, 0], [2, 2], [3, 0], [3, 1]], V: [[0, 0], [0, 2], [2, 0], [2, 2], [3, 1]] },
+  // C — two top squares + bottom U (7 H + 8 V = 37 cm, the longest)
+  C: { H: [[0, 0], [0, 2], [1, 0], [1, 2], [2, 1], [3, 0], [3, 2]], V: [[0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2], [3, 1], [3, 2]] },
+  // D — long stacked bars (most horizontals, looks longest: the trap; 10 H + 3 V = 36 cm)
+  D: { H: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [2, 0], [2, 1], [3, 0], [3, 1], [3, 2]], V: [[0, 0], [0, 2], [2, 1]] },
 }
 export const lineLength = (o: LineOpt) => o.H.length * 3 + o.V.length * 2
 const LG_X = 14
@@ -308,16 +310,17 @@ export function ChildrenOrder22G2Illustration() {
 }
 
 // ── Q11 · Archery targets ──────────────────────────────────────────────────
-// Recovered from 2022-final-g2-q11-*.jpg. Rings 10/6/4; a black arrow scores
-// 3× its ring. Alex 30, Bob 24, Celine 40 (black-10), Dan 32 (black-6).
-// Highest = Celine, lowest = Bob → answer D.
+// Recovered from 2022-final-g2-q11-*.jpg (arrow tips located ring-by-ring on the
+// scans). Rings 10/6/4; a black arrow scores 3× its ring.
+// Alex 10+10+6+4+4+4 = 38 · Bob 10+6+6+6+4 = 32 · Celine 30(black-10)+10+4 = 44 ·
+// Dan 18(black-6)+6+6+4 = 34. Highest = Celine, lowest = Bob → answer D.
 type Arrow = { ring: 4 | 6 | 10; a: number; black?: boolean }
 export type TargetSpec = { name: string; total: number; arrows: Arrow[] }
 export const Q11_TARGETS: TargetSpec[] = [
-  { name: 'Alex', total: 30, arrows: [{ ring: 10, a: -90 }, { ring: 6, a: -25 }, { ring: 6, a: 210 }, { ring: 4, a: 55 }, { ring: 4, a: 140 }] },
-  { name: 'Bob', total: 24, arrows: [{ ring: 10, a: -90 }, { ring: 6, a: 35 }, { ring: 4, a: 150 }, { ring: 4, a: 250 }] },
-  { name: 'Celine', total: 40, arrows: [{ ring: 10, a: -70, black: true }, { ring: 6, a: 205 }, { ring: 4, a: 130 }] },
-  { name: 'Dan', total: 32, arrows: [{ ring: 6, a: 180, black: true }, { ring: 6, a: -55 }, { ring: 4, a: 40 }, { ring: 4, a: 245 }] },
+  { name: 'Alex', total: 38, arrows: [{ ring: 10, a: -168 }, { ring: 10, a: -62 }, { ring: 4, a: -25 }, { ring: 6, a: 23 }, { ring: 4, a: 172 }, { ring: 4, a: 137 }] },
+  { name: 'Bob', total: 32, arrows: [{ ring: 10, a: -39 }, { ring: 6, a: -27 }, { ring: 4, a: -5 }, { ring: 6, a: 172 }, { ring: 6, a: 140 }] },
+  { name: 'Celine', total: 44, arrows: [{ ring: 4, a: -124 }, { ring: 10, a: -47, black: true }, { ring: 10, a: 77 }] },
+  { name: 'Dan', total: 34, arrows: [{ ring: 6, a: -175, black: true }, { ring: 6, a: -80 }, { ring: 4, a: 139 }, { ring: 6, a: 83 }] },
 ]
 
 function TargetArrow({ cx, cy, arrow }: { cx: number; cy: number; arrow: Arrow }) {
@@ -915,9 +918,12 @@ export function Soldiers22G2Illustration() {
 // ── Q24 · Mirror-view block solid ──────────────────────────────────────────
 // Recovered from 2022-final-g2-a-q24.jpg. The 3-D solid is drawn as plain
 // OUTLINE cubes (shape only) — the colours are read from the two mirrors:
-//   front view  . G . / W G G / B B B      side view  . G / G W / W B
-// Blocks: white 1×1×1, gray 1×1×2, black 1×1×3. One black + two gray fill the
-// long pieces; the 3 leftover single cubes are white → answer 3.
+//   front view  . G . / W G G / B B B      side view  G G / G W / W B
+// (side-view columns: left = back row y=1, right = front row y=0 — the mirror
+// flips left/right; its top-back cell IS gray on the scan, so the centre tower
+// is TWO cubes deep). Blocks: white 1×1×1, gray 1×1×2, black 1×1×3.
+// One black 1×1×3 (front base) + three gray 1×1×2 (deep top pair, deep middle
+// pair, upright back-right pair) + 3 white singles → answer 3.
 const ICW = 46
 const ICH = 23
 const IFH = 40
@@ -941,17 +947,17 @@ function IsoCube({ ox, oy, x, y, z, faces, cw = ICW, ch = ICH, fh = IFH }: {
   )
 }
 
-// Shape of the solid (10 unit cubes) — drawn uncoloured, shape only.
+// Shape of the solid (12 unit cubes) — drawn uncoloured, shape only.
 const MB_SHAPE = [
   { x: 0, y: 0, z: 0 }, { x: 1, y: 0, z: 0 }, { x: 2, y: 0, z: 0 }, // front base row
-  { x: 0, y: 1, z: 0 }, { x: 2, y: 1, z: 0 }, // back base (left & right)
-  { x: 0, y: 0, z: 1 }, { x: 1, y: 0, z: 1 }, { x: 2, y: 0, z: 1 }, { x: 2, y: 1, z: 1 }, // second level
-  { x: 1, y: 0, z: 2 }, // peak
+  { x: 0, y: 1, z: 0 }, { x: 1, y: 1, z: 0 }, { x: 2, y: 1, z: 0 }, // back base row
+  { x: 0, y: 0, z: 1 }, { x: 1, y: 0, z: 1 }, { x: 1, y: 1, z: 1 }, { x: 2, y: 1, z: 1 }, // second level
+  { x: 1, y: 0, z: 2 }, { x: 1, y: 1, z: 2 }, // deep peak pair
 ]
 
 const MB_COLOR: Record<string, string> = { W: '#FFFFFF', G: '#9AA0A6', B: '#2B2B2B' }
 const MB_FRONT = [[null, 'G', null], ['W', 'G', 'G'], ['B', 'B', 'B']]
-const MB_SIDE = [[null, 'G'], ['G', 'W'], ['W', 'B']]
+const MB_SIDE = [['G', 'G'], ['G', 'W'], ['W', 'B']]
 
 function MirrorPanel({ ox, oy, grid, cell = 26 }: { ox: number; oy: number; grid: Array<Array<string | null>>; cell?: number }) {
   const w = grid[0].length * cell

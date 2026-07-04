@@ -2,11 +2,12 @@ import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // Deterministic storyboard for WMI-24P2A-Q19 (matching-flower, answer E).
 //
-// The given flower has petal discs alternating dark / white around it. "The same"
-// means a figure that can be ROTATED onto the original — rotating keeps the
-// dark-white-dark-white order. A MIRROR image reverses that order, so it is NOT
-// the same (that is the trap). The correct option is the one whose alternating
-// order survives a rotation: the seed answer, E.
+// The given flower's petal discs read dark, white, dark, dark, white, white
+// clockwise from the top. "The same" means a figure that can be ROTATED onto
+// the original — rotating keeps that going-around order. A MIRROR image
+// reverses the order (and this pattern is chiral, so the mirror is truly
+// different — that is the trap). The correct option is the one whose order
+// survives a rotation: the seed answer, E.
 
 export interface Q19Step {
   rotateSteps: number
@@ -34,8 +35,8 @@ export function buildP24G2Q19Steps(lang: Lang, answer: string): Q19Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Read the discs around the flower: dark, white, dark, white, dark, white.',
-        'Baca cakram mengelilingi bunga: gelap, putih, gelap, putih, gelap, putih.',
+        'Read the discs clockwise from the top: dark, white, dark, dark, white, white.',
+        'Baca cakram searah jarum jam dari atas: gelap, putih, gelap, gelap, putih, putih.',
       ),
     },
     {
@@ -45,8 +46,8 @@ export function buildP24G2Q19Steps(lang: Lang, answer: string): Q19Storyboard {
       hold: 2200,
       result: false,
       caption: t(
-        'Spin the flower: the same dark-white order keeps going around — turning still matches.',
-        'Putar bunga: urutan gelap-putih tetap sama saat berkeliling — diputar tetap cocok.',
+        'Spin the flower: the same going-around order of dark and white keeps holding — turning still matches.',
+        'Putar bunga: urutan keliling gelap dan putih tetap sama — diputar tetap cocok.',
       ),
     },
     {
@@ -67,8 +68,8 @@ export function buildP24G2Q19Steps(lang: Lang, answer: string): Q19Storyboard {
       hold: 0,
       result: true,
       caption: t(
-        `Only a rotation keeps the dark-white-dark-white order — that option is ${answer}.`,
-        `Hanya putaran yang menjaga urutan gelap-putih-gelap-putih — pilihan itu ${answer}.`,
+        `Only a rotation keeps the same going-around order — that option is ${answer}.`,
+        `Hanya putaran yang menjaga urutan keliling yang sama — pilihan itu ${answer}.`,
       ),
     },
   ]

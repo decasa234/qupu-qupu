@@ -119,7 +119,7 @@ export function PaperStack22G2Explainer(props: ExplainerProps) {
   const beats: Beat[] = [
     { en: 'When one sheet covers another’s edge, it lies on top. So the most-hidden sheets are at the bottom.', id: 'Jika satu kertas menutup tepi kertas lain, ia di atas. Jadi kertas paling tertutup ada di bawah.', visual: <PaperStackBoard /> },
     { en: 'Reading the overlaps from the bottom up: sheet 4 is first …', id: 'Membaca tumpukan dari bawah: kertas 4 pertama …', visual: <PaperStackBoard fromBottom={1} /> },
-    { en: '… then sheet 3 is second …', id: '… lalu kertas 3 kedua …', visual: <PaperStackBoard fromBottom={2} /> },
+    { en: '… then sheet 5 is second …', id: '… lalu kertas 5 kedua …', visual: <PaperStackBoard fromBottom={2} /> },
     { en: '… then sheet 6 is third from the bottom.', id: '… lalu kertas 6 ketiga dari bawah.', visual: <PaperStackBoard fromBottom={3} focusId={6} /> },
     { en: 'The third sheet from the bottom shows 6 — answer D.', id: 'Kertas ketiga dari bawah bernomor 6 — jawaban D.', visual: <PaperStackBoard fromBottom={3} focusId={6} />, result: true },
   ]
@@ -227,12 +227,12 @@ export function ThickLines22G2Explainer(props: ExplainerProps) {
   const len = (k: string) => lineLength(LINE_OPTS[k])
   const beats: Beat[] = [
     { en: 'Don’t judge by eye — measure: each horizontal piece is 3 cm, each vertical 2 cm.', id: 'Jangan menilai dengan mata — ukur: tiap ruas mendatar 3 cm, tiap tegak 2 cm.', visual: <LineGrid option="D" /> },
-    { en: `D looks longest: 8×3 + 1×2 = ${len('D')} cm.`, id: `D tampak terpanjang: 8×3 + 1×2 = ${len('D')} cm.`, visual: <LineGrid option="D" /> },
+    { en: `D looks longest: 10×3 + 3×2 = ${len('D')} cm.`, id: `D tampak terpanjang: 10×3 + 3×2 = ${len('D')} cm.`, visual: <LineGrid option="D" /> },
     { en: `But A = ${len('A')} cm and B = ${len('B')} cm.`, id: `Tetapi A = ${len('A')} cm dan B = ${len('B')} cm.`, visual: <LineGrid option="A" /> },
-    { en: `C: 8×3 + 4×2 = ${len('C')} cm — the true longest. Answer C.`, id: `C: 8×3 + 4×2 = ${len('C')} cm — yang terpanjang sebenarnya. Jawaban C.`, visual: <LineGrid option="C" />, result: true },
+    { en: `C: 7×3 + 8×2 = ${len('C')} cm — the true longest. Answer C.`, id: `C: 7×3 + 8×2 = ${len('C')} cm — yang terpanjang sebenarnya. Jawaban C.`, visual: <LineGrid option="C" />, result: true },
   ]
   const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
-  return <Shell aria={lang === 'id' ? 'Diukur, C terpanjang dengan 29 cm.' : 'Measured, C is longest at 29 cm.'} beat={beat} lang={lang} />
+  return <Shell aria={lang === 'id' ? 'Diukur, C terpanjang dengan 37 cm.' : 'Measured, C is longest at 37 cm.'} beat={beat} lang={lang} />
 }
 
 // ── Q10 · Children order ───────────────────────────────────────────────────
@@ -256,8 +256,8 @@ export function Targets22G2Explainer(props: ExplainerProps) {
   const all = { Alex: T.Alex, Bob: T.Bob, Celine: T.Celine, Dan: T.Dan }
   const beats: Beat[] = [
     { en: 'Score each player by ring — but a BLACK arrow counts 3× its ring.', id: 'Hitung tiap pemain dari lingkaran — tetapi panah HITAM bernilai 3× lingkarannya.', visual: <TargetsBoard /> },
-    { en: `Alex: 10+6+6+4+4 = ${T.Alex}. Bob: 10+6+4+4 = ${T.Bob}.`, id: `Alex: 10+6+6+4+4 = ${T.Alex}. Bob: 10+6+4+4 = ${T.Bob}.`, visual: <TargetsBoard totals={{ Alex: T.Alex, Bob: T.Bob }} /> },
-    { en: `Celine’s black arrow in 10 scores 30: 30+6+4 = ${T.Celine}. Dan’s black in 6 scores 18: 18+6+4+4 = ${T.Dan}.`, id: `Panah hitam Celine di 10 bernilai 30: 30+6+4 = ${T.Celine}. Panah hitam Dan di 6 bernilai 18: 18+6+4+4 = ${T.Dan}.`, visual: <TargetsBoard totals={all} /> },
+    { en: `Alex: 10+10+6+4+4+4 = ${T.Alex}. Bob: 10+6+6+6+4 = ${T.Bob}.`, id: `Alex: 10+10+6+4+4+4 = ${T.Alex}. Bob: 10+6+6+6+4 = ${T.Bob}.`, visual: <TargetsBoard totals={{ Alex: T.Alex, Bob: T.Bob }} /> },
+    { en: `Celine’s black arrow in 10 scores 30: 30+10+4 = ${T.Celine}. Dan’s black in 6 scores 18: 18+6+6+4 = ${T.Dan}.`, id: `Panah hitam Celine di 10 bernilai 30: 30+10+4 = ${T.Celine}. Panah hitam Dan di 6 bernilai 18: 18+6+6+4 = ${T.Dan}.`, visual: <TargetsBoard totals={all} /> },
     { en: `Highest = Celine (${T.Celine}), lowest = Bob (${T.Bob}) — answer D.`, id: `Tertinggi = Celine (${T.Celine}), terendah = Bob (${T.Bob}) — jawaban D.`, visual: <TargetsBoard totals={all} />, result: true },
   ]
   const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]
@@ -335,7 +335,7 @@ export function MirrorBlocks22G2Explainer(props: ExplainerProps) {
   const beats: Beat[] = [
     { en: 'The 3-D solid only shows the shape — the two mirrors give the colours: black is 3 long, gray 2 long, white single cubes.', id: 'Bentuk 3-D hanya menunjukkan rangka — kedua cermin memberi warnanya: hitam panjang 3, abu-abu 2, putih kubus tunggal.', visual: <MirrorBlocksBoard /> },
     { en: 'The black 1×1×3 makes the 3-wide black base in the front mirror.', id: 'Balok hitam 1×1×3 membentuk alas hitam selebar 3 di cermin depan.', visual: <MirrorBlocksBoard /> },
-    { en: 'Two gray 1×1×2 blocks make the tall gray tower and the deep gray piece, matching both mirrors.', id: 'Dua balok abu-abu 1×1×2 membentuk menara tinggi dan balok dalam, cocok dengan kedua cermin.', visual: <MirrorBlocksBoard /> },
+    { en: 'Three gray 1×1×2 blocks fit the mirrors: the 2-deep top pair, the 2-deep middle pair, and the upright back-right pair.', id: 'Tiga balok abu-abu 1×1×2 cocok dengan cermin: pasangan atas sedalam 2, pasangan tengah sedalam 2, dan pasangan tegak kanan-belakang.', visual: <MirrorBlocksBoard /> },
     { en: 'Every leftover single cell must be a white 1×1×1 — there are 3 of them.', id: 'Setiap sel satuan sisa pasti balok putih 1×1×1 — ada 3 buah.', visual: <MirrorBlocksBoard />, result: true },
   ]
   const beat = beats[useBeatIndex(beats, props)] ?? beats[beats.length - 1]

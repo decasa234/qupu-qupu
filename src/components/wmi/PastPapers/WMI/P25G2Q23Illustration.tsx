@@ -23,7 +23,7 @@ export const A_ROWS: boolean[][] = [
   [true, true, false, true, true], // row 3: 4 (hole apex white)
   [true, true, false, false, false, true, true], // row 4: 4 (hole base white)
   [true, true, true, true, true, true, true, true, true], // row 5: 9 (crossbar)
-  [true, true, false, false, false, false, false, true, true], // row 6: 4 (legs)
+  [true, true, false, false, false, false, false, false, false, true, true], // row 6: 4 (legs at the outer edges of the 11-cell row)
 ]
 export const A_TRIANGLES = A_ROWS.reduce((s, row) => s + row.filter(Boolean).length, 0) // 25
 

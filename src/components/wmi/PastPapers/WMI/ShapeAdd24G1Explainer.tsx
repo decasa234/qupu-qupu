@@ -35,15 +35,19 @@ export default function ShapeAdd24G1Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: tiap cabang berjumlah ${story.total} (kiri 13 + 7 = ${story.total}), lalu ★ = ${story.total} − ${story.given} = ${story.answer}.`
-      : `Explainer: each branch totals ${story.total} (left 13 + 7 = ${story.total}), then ★ = ${story.total} − ${story.given} = ${story.answer}.`
+      ? `Penjelasan: kotak kiri = 13 − 7 = ${story.leftBox}; kedua kotak kosong berjumlah ${story.total}, jadi kotak kanan = ${story.rightBox}; ★ = ${story.given} + ${story.rightBox} = ${story.answer}.`
+      : `Explainer: left box = 13 − 7 = ${story.leftBox}; the two empty boxes total ${story.total}, so the right box = ${story.rightBox}; ★ = ${story.given} + ${story.rightBox} = ${story.answer}.`
 
   return (
     <div className="mx-auto w-full max-w-[320px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* Figure + animated highlight band sharing one viewBox so they register. */}
         <div className="relative w-full" style={{ maxWidth: 320, margin: '0 auto' }}>
-          <ShapeAdd24G1 revealStar={beat.revealStar} />
+          <ShapeAdd24G1
+            revealStar={beat.revealStar}
+            revealLeftBox={beat.revealLeftBox}
+            revealRightBox={beat.revealRightBox}
+          />
           <svg
             viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
             className="pointer-events-none absolute inset-0 h-full w-full"

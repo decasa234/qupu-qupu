@@ -2,12 +2,12 @@ import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
 import { useBeatControl } from '../../concepts/explainers/useBeatControl'
-import { TilePathGrid, TP_ROUTE, tileCenter } from './TilePath19P1Illustration'
+import { TilePathGrid, TP_ROUTE, cornerPoint } from './TilePath19P1Illustration'
 import { buildTilePath19P1Steps } from './tilePath19P1Steps'
 
-// WMI-19P1A-Q12 — walk the white border from A to B, counting one step per move
-// between neighbouring white tiles. The route hugs the border (up the left
-// edge, across the top, around the top-right block to B) for 9 steps → answer D.
+// WMI-19P1A-Q12 — walk the white border from A to B, counting one step per
+// square side. The route hugs the border (up the left edge, along the ledge,
+// up the step, across the top to B) for 9 steps → answer D.
 
 const BLUE = '#30598A'
 const ORANGE = '#F97316'
@@ -19,12 +19,12 @@ export default function TilePath19P1Explainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  // Revealed polyline points (centres of the visited tiles).
-  const pts = TP_ROUTE.slice(0, beat.revealed).map(([c, r]) => tileCenter(c, r))
+  // Revealed polyline points (border corners visited so far).
+  const pts = TP_ROUTE.slice(0, beat.revealed).map(([c, r]) => cornerPoint(c, r))
   const dPath = pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x},${y}`).join(' ')
 
-  // The "walker" sits on the most recently revealed tile.
-  const head = pts[pts.length - 1] ?? tileCenter(...TP_ROUTE[0])
+  // The "walker" sits on the most recently revealed corner.
+  const head = pts[pts.length - 1] ?? cornerPoint(...TP_ROUTE[0])
 
   const ariaLabel =
     lang === 'id'

@@ -17,28 +17,29 @@
 // row 0 = top row, col 0 = left column. Redrawn cell-by-cell from the scan.
 // ---------------------------------------------------------------------------
 
-/** TOP view (blue bubble): 2-row P-shape — top row 2 cells, bottom row 3 cells. */
+/** TOP view (blue bubble): 2-row P-shape — top row 3 cells, bottom row 2 cells. */
 export const TOP_VIEW_CELLS: Array<[number, number]> = [
   [0, 0],
   [0, 1],
+  [0, 2],
   [1, 0],
   [1, 1],
-  [1, 2],
 ]
 
-/** SIDE view (green bubble): an L / staircase — a 2×2 block with one cell on top. */
+/** SIDE view (green bubble): a 2×2 block with one extra cell on top-right (5 cells). */
 export const SIDE_VIEW_CELLS: Array<[number, number]> = [
-  [0, 0],
+  [0, 1],
   [1, 0],
+  [1, 1],
   [2, 0],
   [2, 1],
 ]
 
-/** FRONT view (pink bubble): a 3-step ascending staircase (1, 2, 3 cells). */
+/** FRONT view (pink bubble): a 3-step staircase descending to the right (1, 2, 3 cells, tallest at the left). */
 export const FRONT_VIEW_CELLS: Array<[number, number]> = [
-  [0, 2],
+  [0, 0],
+  [1, 0],
   [1, 1],
-  [1, 2],
   [2, 0],
   [2, 1],
   [2, 2],

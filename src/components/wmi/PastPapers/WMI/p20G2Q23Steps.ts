@@ -66,8 +66,8 @@ export function buildP20G2Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Turn each arrow one more step: up→left, right→up, left→down, down→right.',
-        'Putar tiap panah satu langkah lagi: atas→kiri, kanan→atas, kiri→bawah, bawah→kanan.',
+        'Turn each arrow one more step clockwise: down→left, left→up, right→down, up→right.',
+        'Putar tiap panah satu langkah lagi searah jarum jam: bawah→kiri, kiri→atas, kanan→bawah, atas→kanan.',
       ),
     },
     {

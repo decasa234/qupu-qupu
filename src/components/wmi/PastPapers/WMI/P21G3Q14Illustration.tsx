@@ -14,6 +14,8 @@
 // edge / upper domino: {(0,0),(1,0)} — we use it as the FIRST frame so the static
 // figure matches the paper exactly, then sweep clockwise.
 
+import type { WmiChoice } from '../../../../types/wmi'
+
 const AMBER = '#F2B705'
 const AMBER_EDGE = '#B8860B'
 const GRID = '#1F2937'
@@ -163,6 +165,25 @@ export function SequenceStrip({ size = CELL }: { size?: number }) {
         )
       })}
     </svg>
+  )
+}
+
+/**
+ * One A–D picture choice: the 3×3 grid with that option's shaded domino
+ * (see OPTIONS above). Used via CHOICE_RENDERERS['WMI-21P3A-Q14'].
+ */
+export function P21G3Q14Option({ choice }: { choice: WmiChoice }) {
+  const k = choice.label as 'A' | 'B' | 'C' | 'D'
+  const cells = OPTIONS[k]
+  if (!cells) return <span>{choice.text}</span>
+  return (
+    <span
+      role="img"
+      aria-label={`Option ${k}: a 3 by 3 grid with a shaded pair of cells`}
+      style={{ display: 'inline-flex', justifyContent: 'center', padding: 4 }}
+    >
+      <SequenceGrid shaded={cells} size={72} />
+    </span>
   )
 }
 

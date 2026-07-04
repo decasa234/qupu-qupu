@@ -37,7 +37,7 @@ function shapeStyle(
   type: 'tri' | 'rect' | 'circ',
   phase: Phase,
   sw = SW,
-): React.SVGProps<SVGElement> {
+): { stroke: string; fill: string; strokeWidth: number } {
   if (phase === 'all') return { stroke: INK, fill: WHITE, strokeWidth: sw }
   const active =
     (type === 'tri'  && phase === 'triangles') ||

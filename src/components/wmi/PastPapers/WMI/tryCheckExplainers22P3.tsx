@@ -144,7 +144,7 @@ export const DigitGroups22P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: t('Let A = thousands+tens, B = hundreds+units: A + B = 24, B = 3A → A = 6, B = 18', 'Misal A = ribuan+puluhan, B = ratusan+satuan: A + B = 24, B = 3A → A = 6, B = 18'), ok: null },
       { text: t('hundreds+units = 18 means both are 9 — only 1 way', 'ratusan+satuan = 18 berarti keduanya 9 — hanya 1 cara'), ok: null },
-      { text: t('Thousands can’t be 0, so (0,6) is out — that wrong count gives 9', 'Ribuan tidak boleh 0, jadi (0,6) coret — hitungan salah itu jadi 9'), ok: false },
+      { text: t('Thousands can’t be 0, so (0,6) is out; and (3,3) stays — digits may repeat', 'Ribuan tidak boleh 0, jadi (0,6) coret; dan (3,3) tetap — angka boleh berulang'), ok: false },
       { text: t('thousands+tens = 6: (1,5)(2,4)(3,3)(4,2)(5,1)(6,0) → 6 numbers', 'ribuan+puluhan = 6: (1,5)(2,4)(3,3)(4,2)(5,1)(6,0) → 6 bilangan'), ok: true },
     ],
     final: t('There are 6 such 4-digit numbers (B).', 'Ada 6 bilangan 4 angka seperti itu (B).'),
@@ -176,7 +176,7 @@ export const OrderOfOps22P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: '202 ÷ 2 = 101', ok: null },
       { text: '20 × 22 = 440', ok: null },
-      { text: t('Don’t slip to 202 ÷ 2 = 102 — that wrongly gives 544', 'Jangan keliru 202 ÷ 2 = 102 — itu salah jadi 544'), ok: false },
+      { text: t('Don’t multiply by mistake: 202 × 2 = 404 wrongly gives 404 + 440 = 844', 'Jangan keliru mengalikan: 202 × 2 = 404 salah memberi 404 + 440 = 844'), ok: false },
       { text: '101 + 440 = 541', ok: true },
     ],
     final: t('202 ÷ 2 + 20 × 22 = 541 (C).', '202 ÷ 2 + 20 × 22 = 541 (C).'),

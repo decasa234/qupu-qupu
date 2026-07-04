@@ -212,7 +212,7 @@ export default function P24G1Q23Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Two worked examples combine two 3 by 3 dot grids into a result grid, then a third pair of grids asks for the result. Find the option that follows the same rule."
+      aria-label="A worked example combines two 3 by 3 dot grids into a result grid, then a second pair of grids asks for the result. Find the option that follows the same rule."
     >
       <Q23DotPatternDiagram />
     </div>

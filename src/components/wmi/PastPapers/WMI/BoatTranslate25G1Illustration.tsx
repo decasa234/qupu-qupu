@@ -10,18 +10,18 @@
 // (db/seed/wmi/figures/2025-final-g1-a-q7.jpg) the boats are:
 //
 //   A   — upright boat, sail = right-triangle with the VERTICAL edge on the
-//          LEFT (hypotenuse slopes down-right), hull 3 cells wide. (the mover)
-//   b3  — IDENTICAL to A  → a translate of A lands exactly on it   [MATCH]
-//   b4  — IDENTICAL to A  → a translate of A lands exactly on it   [MATCH]
-//   b2  — rotated (tilted dart)            → wrong orientation
-//   b6  — rotated (tilted dart)            → wrong orientation
-//   b7  — rotated (points left)            → wrong orientation
-//   b5  — wider / larger boat              → wrong size
-//   b8  — upright but the sail sits centred over the hull (not a congruent
-//          placement of A)                 → look-alike distractor
-//   b9  — tall narrow sail (2 cells high)  → wrong size
+//          LEFT (hypotenuse slopes down-right). (the mover, circled top-left)
+//   b2  — upright but the sail is MIRRORED (vertical edge on the RIGHT,
+//          hypotenuse slopes down-left)     → a slide can't flip  [bottom-left]
+//   b3  — rotated (tilted dart)             → wrong orientation   [top]
+//   b4  — IDENTICAL to A → a translate of A lands exactly on it   [MATCH, middle]
+//   b5  — wider / larger boat               → wrong size          [top, right of centre]
+//   b6  — rotated (tilted dart)             → wrong orientation   [bottom]
+//   b7  — rotated (points left)             → wrong orientation   [middle right]
+//   b8  — IDENTICAL to A → a translate of A lands exactly on it   [MATCH, top-right]
+//   b9  — tall narrow sail (2 cells high)   → wrong size          [bottom-right]
 //
-// So exactly TWO boats (b3, b4) are reachable by a pure slide → answer 2 (B).
+// So exactly TWO boats (b4, b8) are reachable by a pure slide → answer 2 (B).
 //
 // This file draws ONLY the problem (the boats on the grid). It never shows the
 // slide arrow or marks the answer — that is the animator's job, which it does by
@@ -32,6 +32,7 @@
 /** Orientation/shape families seen on the grid. */
 type BoatKind =
   | 'standard' // A's shape: hull 3 wide, sail vertical-edge-left (the mover + its matches)
+  | 'mirrored' // A's shape but the sail is flipped (vertical edge on the RIGHT)
   | 'tiltRight' // rotated dart, pointing down-right
   | 'tiltLeft' // rotated dart, pointing down-left
   | 'pointLeft' // small boat rotated to point left
@@ -53,20 +54,20 @@ interface BoatSpec {
 // boat's anchor cell; the shape is drawn relative to that anchor in cell units).
 const BOATS: ReadonlyArray<BoatSpec> = [
   { id: 'A', col: 1, row: 1.6, kind: 'standard', mover: true },
-  { id: 'b2', col: 4.3, row: 0.7, kind: 'tiltRight' },
-  { id: 'b3', col: 6.6, row: 2.7, kind: 'standard' },
-  { id: 'b4', col: 8.6, row: 1.4, kind: 'standard' },
-  { id: 'b5', col: 11.4, row: 0.6, kind: 'wide' },
-  { id: 'b6', col: 9.2, row: 2.8, kind: 'tiltLeft' },
-  { id: 'b7', col: 12.4, row: 1.7, kind: 'pointLeft' },
-  { id: 'b8', col: 13.2, row: 0.4, kind: 'tallSail' },
-  { id: 'b9', col: 15.2, row: 1.6, kind: 'wide' },
+  { id: 'b2', col: 3.1, row: 2.6, kind: 'mirrored' },
+  { id: 'b3', col: 4.6, row: 0.5, kind: 'tiltRight' },
+  { id: 'b4', col: 6.5, row: 1.9, kind: 'standard' },
+  { id: 'b5', col: 8.6, row: 0.4, kind: 'wide' },
+  { id: 'b6', col: 9.3, row: 2.4, kind: 'tiltLeft' },
+  { id: 'b7', col: 11.8, row: 1.5, kind: 'pointLeft' },
+  { id: 'b8', col: 13.3, row: 0.3, kind: 'standard' },
+  { id: 'b9', col: 14.9, row: 1.7, kind: 'tallSail' },
 ]
 
 /** Indices (into BOATS) of the boats a pure translation of A lands on. */
 export const BOAT_MATCHES: ReadonlyArray<number> = [
-  BOATS.findIndex((b) => b.id === 'b3'),
   BOATS.findIndex((b) => b.id === 'b4'),
+  BOATS.findIndex((b) => b.id === 'b8'),
 ]
 
 export const BOAT_ANSWER = BOAT_MATCHES.length // 2
@@ -101,9 +102,10 @@ function boatPolys(kind: BoatKind): { hull: Array<[number, number]>; sail: Array
           [1.85, 1],
         ],
       }
-    case 'tallSail':
+    case 'mirrored':
       return {
-        // upright but the sail is centred over the hull (look-alike distractor)
+        // A's hull, but the sail is FLIPPED: vertical edge on the RIGHT,
+        // hypotenuse sloping down-left (a slide can never flip A onto this)
         hull: [
           [0, 1],
           [3, 1],
@@ -111,9 +113,24 @@ function boatPolys(kind: BoatKind): { hull: Array<[number, number]>; sail: Array
           [0.7, 2],
         ],
         sail: [
-          [1.3, 0],
-          [1.3, 1],
-          [2.4, 1],
+          [2.45, 0],
+          [2.45, 1],
+          [1.15, 1],
+        ],
+      }
+    case 'tallSail':
+      return {
+        // upright but the sail is a TALL narrow triangle (2 cells high) — wrong size
+        hull: [
+          [0, 2],
+          [3, 2],
+          [2.3, 3],
+          [0.7, 3],
+        ],
+        sail: [
+          [1.1, 0],
+          [1.1, 2],
+          [2.3, 2],
         ],
       }
     case 'wide':

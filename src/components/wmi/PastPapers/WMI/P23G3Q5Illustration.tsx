@@ -6,8 +6,10 @@
 //
 //   A (pink "flag"): a 4×4 block with a triangular V-notch cut into its right
 //                    edge (depth 2). Area = 16 − ½·4·2 = 12 cm².  ✓
-//   B (blue plus)  : a cross of unit-square arms = 9 cm².
-//   C (green right-trapezoid): top 3, bottom 4, height 4 → (3+4)/2·4 = 14 cm².
+//   B (blue plus)  : a symmetric cross — vertical bar 1×5 and horizontal bar
+//                    5×1 overlapping in one cell → 5 + 5 − 1 = 9 cm².
+//   C (green right-trapezoid): top 5, bottom 2, height 4, slant leaning
+//                    down-left → (5+2)/2·4 = 14 cm².
 //   D (orange rectangle): 5 wide × 3 tall = 15 cm².
 //
 // Each shape's area is computed deterministically from its polygon (shoelace),
@@ -49,27 +51,27 @@ const A_POLY: Pt[] = [
   [4, 4],
   [0, 4],
 ]
-// Blue plus / cross: a vertical bar 1 wide × 4 tall crossed by a horizontal bar
-// 3 wide × 1 tall through the upper-middle. Cells = 4 + 3 − 1 overlap = 6 cm².
+// Blue plus / cross (as in the scan): a vertical bar 1 wide × 5 tall crossed by
+// a horizontal bar 5 wide × 1 tall through the middle. Cells = 5 + 5 − 1 = 9 cm².
 const B_POLY: Pt[] = [
-  [1, 0],
   [2, 0],
-  [2, 1],
-  [3, 1],
+  [3, 0],
   [3, 2],
-  [2, 2],
-  [2, 4],
-  [1, 4],
-  [1, 2],
+  [5, 2],
+  [5, 3],
+  [3, 3],
+  [3, 5],
+  [2, 5],
+  [2, 3],
+  [0, 3],
   [0, 2],
-  [0, 1],
-  [1, 1],
+  [2, 2],
 ]
 const C_POLY: Pt[] = [
   [0, 0],
-  [3, 0], // top edge = 3
-  [4, 4], // slanted right edge down to bottom-right
-  [0, 4], // bottom edge = 4
+  [5, 0], // top edge = 5
+  [2, 4], // slanted edge down-left to the bottom
+  [0, 4], // bottom edge = 2
 ]
 const D_POLY: Pt[] = [
   [0, 0],
@@ -80,8 +82,8 @@ const D_POLY: Pt[] = [
 
 export const SHAPES: GridShape[] = [
   { label: 'A', poly: A_POLY, fill: '#F4C7CC', stroke: '#C0414C', origin: [1, 1], labelAt: [1.5, 2.2] },
-  { label: 'B', poly: B_POLY, fill: '#AEDCF3', stroke: '#3F86B5', origin: [8, 2], labelAt: [1.5, 1.5] },
-  { label: 'C', poly: C_POLY, fill: '#CFE08A', stroke: '#7A9A1F', origin: [15, 1], labelAt: [1.4, 2.4] },
+  { label: 'B', poly: B_POLY, fill: '#AEDCF3', stroke: '#3F86B5', origin: [7, 1], labelAt: [2.5, 2.5] },
+  { label: 'C', poly: C_POLY, fill: '#CFE08A', stroke: '#7A9A1F', origin: [14, 1], labelAt: [1.4, 2.4] },
   { label: 'D', poly: D_POLY, fill: '#F8D6A0', stroke: '#C98A2E', origin: [22, 2], labelAt: [2.5, 1.5] },
 ]
 

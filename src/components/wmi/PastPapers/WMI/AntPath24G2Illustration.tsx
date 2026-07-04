@@ -2,22 +2,24 @@
 // (2024 WMI Final Grade 2 Paper A, question 3).
 //
 // Reconstructed faithfully from the scan
-// (db/seed/wmi/figures/2024-final-g2-a-q3.jpg):
+// (db/seed/wmi/figures/2024-final-g2-a-q3.jpg), grid lines pixel-verified:
 //
-//   A 5-column × 5-row grid of rectangular cells.
+//   A 4-column × 3-row grid of rectangular cells.
 //   Each cell is 2 cm wide and 1 cm tall (labeled in the scan).
-//   The ant starts at the top at intersection (col=3, row=0),
+//   The ant starts on the top edge at intersection (col=1, row=0),
 //   marked with a filled dot and a red ant glyph.
 //   The dotted path traces:
-//     RIGHT  1 cell  → col 4, row 0   (1 × 2 cm = 2 cm horizontal)
-//     DOWN   2 cells → col 4, row 2   (2 × 1 cm = 2 cm vertical)
-//     LEFT   2 cells → col 2, row 2   (2 × 2 cm = 4 cm horizontal)
-//     DOWN   3 cells → col 2, row 5   (3 × 1 cm = 3 cm vertical)
-//   Total horizontal: (1+2) × 2 cm = 6 cm
-//   Total vertical:   (2+3) × 1 cm = 5 cm
-//   Path length:      6 + 5 = 11 cm  → answer B.
+//     DOWN   1 cell  → col 1, row 1   (1 × 1 cm = 1 cm vertical)
+//     RIGHT  2 cells → col 3, row 1   (2 × 2 cm = 4 cm horizontal)
+//     DOWN   1 cell  → col 3, row 2   (1 × 1 cm = 1 cm vertical)
+//     LEFT   1 cell  → col 2, row 2   (1 × 2 cm = 2 cm horizontal)
+//     DOWN   1 cell  → col 2, row 3   (1 × 1 cm = 1 cm vertical)
+//     LEFT   1 cell  → col 1, row 3   (1 × 2 cm = 2 cm horizontal)
+//   Total horizontal: (2+1+1) × 2 cm = 8 cm
+//   Total vertical:   (1+1+1) × 1 cm = 3 cm
+//   Path length:      8 + 3 = 11 cm  → answer B.
 //
-//   The endpoint is marked with a filled dot at (col=2, row=5).
+//   The endpoint is marked with a filled dot at (col=1, row=3).
 //
 // PROBLEM-ONLY: the figure shows the grid, the cell-size labels, the dotted
 // path, the ant glyph, and the two endpoints. It never reveals the total or
@@ -36,8 +38,8 @@ export const CELL_W = 44
 export const CELL_H = 22
 
 /** Number of columns and rows of CELLS (so nodes go 0..COLS and 0..ROWS). */
-export const GRID_COLS = 5
-export const GRID_ROWS = 5
+export const GRID_COLS = 4
+export const GRID_ROWS = 3
 
 /** Left and top padding inside the viewBox (reserves space for labels). */
 export const PAD_LEFT = 14
@@ -45,11 +47,13 @@ export const PAD_TOP = 14
 
 /** The sequence of (col, row) lattice nodes the ant visits in order. */
 export const ANT_PATH: Array<[number, number]> = [
-  [3, 0], // start — ant sits here
-  [4, 0], // right 1
-  [4, 2], // down  2
-  [2, 2], // left  2
-  [2, 5], // down  3 — endpoint
+  [1, 0], // start — ant sits here
+  [1, 1], // down  1
+  [3, 1], // right 2
+  [3, 2], // down  1
+  [2, 2], // left  1
+  [2, 3], // down  1
+  [1, 3], // left  1 — endpoint
 ]
 
 /** The start node. */
@@ -118,8 +122,8 @@ function GridBackground() {
 function DimensionLabels() {
   // "2 cm" label with bracket over the last column at the top
   const bracketY = PAD_TOP - 6
-  const bx0 = PAD_LEFT + 4 * CELL_W  // col 4 left edge
-  const bx1 = PAD_LEFT + 5 * CELL_W  // col 5 (right edge of last col)
+  const bx0 = PAD_LEFT + (GRID_COLS - 1) * CELL_W // last column left edge
+  const bx1 = PAD_LEFT + GRID_COLS * CELL_W       // right edge of last col
   const labelX2 = (bx0 + bx1) / 2
 
   // "1 cm" label with bracket on the right side of the first row
@@ -234,7 +238,7 @@ function AntGlyph({ cx, cy }: { cx: number; cy: number }) {
  * AntPath24G2Illustration
  *
  * Static, problem-only figure for WMI-24F2A-Q3 (2024 Grade 2 Final, ant path).
- * Shows the 5×5 cell grid (2 cm wide × 1 cm tall per cell), the dotted ant
+ * Shows the 4×3 cell grid (2 cm wide × 1 cm tall per cell), the dotted ant
  * path, the drawn red ant at the start, and the two endpoint dots.
  * Dimension labels "2 cm" and "1 cm" match the scan.
  * Never reveals the path length (answer = 11 cm).
@@ -256,9 +260,9 @@ export default function AntPath24G2Illustration() {
       className="my-4 flex justify-center"
       role="img"
       aria-label={
-        'Kisi 5×5 petak persegi panjang, tiap petak lebar 2 cm dan tinggi 1 cm. ' +
-        'Seekor semut merayap mengikuti garis putus-putus: kanan 1 petak, turun 2 petak, ' +
-        'kiri 2 petak, turun 3 petak. Tanda titik hitam di awal dan akhir lintasan.'
+        'Kisi 4×3 petak persegi panjang, tiap petak lebar 2 cm dan tinggi 1 cm. ' +
+        'Seekor semut merayap mengikuti garis putus-putus: turun 1 petak, kanan 2 petak, ' +
+        'turun 1 petak, kiri 1 petak, turun 1 petak, kiri 1 petak. Tanda titik hitam di awal dan akhir lintasan.'
       }
     >
       <svg

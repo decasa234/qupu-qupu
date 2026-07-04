@@ -3,17 +3,18 @@
 // Reconstructed from db/seed/wmi/figures/2022-semifinal-g3-a-q24.jpg:
 // three white rectangular blocks stand side-by-side on a blue base band. Each
 // block is labelled "75" (its area). An arc-bracket over each block gives its
-// width: 8, 6, 7. A bracket down the right side gives the full height of the
-// whole figure: 13. A red ★ sits in the blue base band.
+// width: 8, 6, 7. A bracket down the right side gives the height of the RIGHT
+// column — the width-7 block plus the band under it: 13. A red ★ sits in the
+// blue base band.
 //
-// The blocks are equal area (75) but different widths, so they are drawn at
-// different heights (the scan is not to scale). The figure shows ONLY the
-// problem (the labels 75, the widths 8/6/7, the height 13, the ★). It does NOT
-// reveal ★ = 48.
+// The blocks are equal area (75) but different widths, so they have different
+// heights (the middle one is even taller than 13; the scan is not to scale).
+// The figure shows ONLY the problem (the labels 75, the widths 8/6/7, the
+// right-column height 13, the ★). It does NOT reveal ★ = 48.
 //
-// Method (used by the explainer): the whole bounding rectangle is
-//   width = 8 + 6 + 7 = 21,  height = 13  →  area = 273.
-// The three blocks take 3 × 75 = 225, so the blue ★ band = 273 − 225 = 48.
+// Method (used by the explainer): the right column (block width 7 + band) is
+//   7 × 13 = 91; the block uses 75, so the band strip under it is 91 − 75 = 16.
+// The band spans 8 + 6 + 7 = 21 = 3 × 7 — three such strips → ★ = 3 × 16 = 48.
 
 const INK = '#1F2937'
 const BLOCK_FILL = '#FFFFFF'
@@ -25,10 +26,11 @@ const STAR = '#E23A2E'
 export const BLOCK_AREA = 75
 export const WIDTHS = [8, 6, 7] as const
 export const TOTAL_WIDTH = WIDTHS.reduce((a, b) => a + b, 0) // 21
-export const FULL_HEIGHT = 13
-export const BOUNDING_AREA = TOTAL_WIDTH * FULL_HEIGHT       // 273
-export const BLOCKS_AREA = BLOCK_AREA * WIDTHS.length        // 225
-export const STAR_AREA = BOUNDING_AREA - BLOCKS_AREA         // 48 (answer C) — NOT shown
+export const FULL_HEIGHT = 13 // height of the RIGHT column (width-7 block + band)
+export const RIGHT_WIDTH = WIDTHS[2]                              // 7
+export const RIGHT_COL_AREA = RIGHT_WIDTH * FULL_HEIGHT           // 7 × 13 = 91
+export const BAND_UNDER_RIGHT = RIGHT_COL_AREA - BLOCK_AREA       // 91 − 75 = 16
+export const STAR_AREA = (TOTAL_WIDTH / RIGHT_WIDTH) * BAND_UNDER_RIGHT // 3 × 16 = 48 — NOT shown
 
 // --- geometry ----------------------------------------------------------------
 const PX = 5.4               // px per width-unit
@@ -75,15 +77,17 @@ function WidthArc({ x, w, label }: { x: number; w: number; label: string }) {
 }
 
 export interface BlocksFigureProps {
-  /** Show the "21 × 13 = 273" bounding-rectangle note. */
-  showBounding?: boolean
-  /** Outline the full bounding rectangle (explainer emphasis). */
-  emphasizeBounding?: boolean
+  /** Outline the RIGHT column (the width-7 block + the band strip under it). */
+  highlightRight?: boolean
+  /** Label the band strip under the right block (e.g. "16") — explainer only. */
+  rightStripLabel?: string
   /** Label inside the blue band (e.g. "48") — explainer only. */
   bandLabel?: string
 }
 
-export function BlocksFigure({ showBounding = false, emphasizeBounding = false, bandLabel }: BlocksFigureProps) {
+export function BlocksFigure({ highlightRight = false, rightStripLabel, bandLabel }: BlocksFigureProps) {
+  const rightX = blockX(2)
+  const rightTop = bandTop - BLOCK_PX_H[2]
   return (
     <svg
       viewBox={`0 0 ${Q24_VIEW_W} ${Q24_VIEW_H}`}
@@ -91,16 +95,16 @@ export function BlocksFigure({ showBounding = false, emphasizeBounding = false, 
       style={{ maxWidth: 340, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* optional bounding-rectangle outline */}
-      {emphasizeBounding && (
+      {/* optional right-column outline (block + the band strip beneath it) */}
+      {highlightRight && (
         <rect
-          x={OX}
-          y={PAD_T}
-          width={figW}
-          height={maxBlockH + BAND_H}
+          x={rightX}
+          y={rightTop}
+          width={widthsPx[2]}
+          height={BLOCK_PX_H[2] + BAND_H}
           fill="none"
           stroke="#2f6df0"
-          strokeWidth={2}
+          strokeWidth={2.4}
           strokeDasharray="6 4"
         />
       )}
@@ -133,26 +137,25 @@ export function BlocksFigure({ showBounding = false, emphasizeBounding = false, 
           {bandLabel}
         </text>
       )}
+      {rightStripLabel && (
+        <text x={rightX + widthsPx[2] / 2} y={bandTop + BAND_H / 2} textAnchor="middle" dominantBaseline="central" fontSize={14} fontWeight={900} fill="#065F46">
+          {rightStripLabel}
+        </text>
+      )}
 
-      {/* right-side "13" full-height bracket */}
+      {/* right-side "13" bracket — spans the RIGHT column only (block + band),
+          exactly as in the scan */}
       {(() => {
         const bx = OX + figW + 14
-        const top = PAD_T
         return (
           <g>
-            <path d={`M ${bx} ${top} Q ${bx + 16} ${(top + bandBottom) / 2} ${bx} ${bandBottom}`} fill="none" stroke={INK} strokeWidth={1.4} />
-            <text x={bx + 24} y={(top + bandBottom) / 2} textAnchor="middle" dominantBaseline="central" fontSize={16} fontWeight={800} fill={INK}>
+            <path d={`M ${bx} ${rightTop} Q ${bx + 16} ${(rightTop + bandBottom) / 2} ${bx} ${bandBottom}`} fill="none" stroke={INK} strokeWidth={1.4} />
+            <text x={bx + 24} y={(rightTop + bandBottom) / 2} textAnchor="middle" dominantBaseline="central" fontSize={16} fontWeight={800} fill={INK}>
               {FULL_HEIGHT}
             </text>
           </g>
         )
       })()}
-
-      {showBounding && (
-        <text x={Q24_VIEW_W / 2} y={12} textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={900} fill="#2f6df0">
-          {`${TOTAL_WIDTH} × ${FULL_HEIGHT} = ${BOUNDING_AREA}`}
-        </text>
-      )}
     </svg>
   )
 }
@@ -162,7 +165,7 @@ export default function P22G3Q24Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Three white blocks stand on a blue base band. Each block is labelled 75 and has a width marked on top: 8, 6 and 7. The whole figure's height is 13. A red star sits in the blue band. Find the value of the star."
+      aria-label="Three white blocks stand on a blue base band. Each block is labelled 75 and has a width marked on top: 8, 6 and 7. On the right, the width-7 block plus the band under it stand 13 tall. A red star sits in the blue band. Find the value of the star."
     >
       <BlocksFigure />
     </div>

@@ -17,7 +17,11 @@
 //   Col 9 (h3):  happy, happy, happy
 //
 // Heights: 1,2,3, 1,?,3, 1,2,3 — the gap sits in a height-2 slot, so 2 faces.
-// The faces alternate happy/sad, giving 1 happy + 1 sad → option C.
+// Column EXPRESSIONS alternate along the row: H, S, H, S, [?], S, H, S, H — so
+// the gap is a happy column: 2 happy faces → option C.
+// (The printed picture options are not in the scan; option C's content is
+// reconstructed as "2 happy" — the only content that makes the keyed letter C
+// consistent with the alternation the scan forces. See the paper review flag.)
 //
 // We redraw everything in the house style (drawn circles + eyes + mouth arcs,
 // NO emoji) so the figure is SSR-safe and deterministic. The static figure NEVER
@@ -48,7 +52,7 @@ export const STEM_25G2: Array<Face[] | null> = [
 export const OPTIONS_25G2: Record<'A' | 'B' | 'C' | 'D' | 'E', Face[]> = {
   A: ['happy', 'happy', 'sad'], // 2 happy + 1 sad
   B: ['sad', 'sad'], // 2 sad
-  C: ['happy', 'sad'], // 1 happy + 1 sad  (answer)
+  C: ['happy', 'happy'], // 2 happy  (answer — reconstructed, see header note)
   D: ['happy'], // 1 happy
   E: ['sad', 'sad', 'sad'], // 3 sad
 }

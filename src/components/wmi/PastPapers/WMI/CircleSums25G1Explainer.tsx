@@ -6,27 +6,24 @@ import { CircleSums25G1 } from './CircleSums25G1Illustration'
 import { buildCircleSums25G1Steps } from './circleSums25G1Steps'
 
 // Palette echoes the static ring illustration (same qupu tokens / glyphs).
-const BRAND_BLUE = '#30598A' // qupu-brand-blue — neutral chrome + given numerals
+const BRAND_BLUE = '#30598A' // qupu-brand-blue — neutral chrome
 const ORANGE = '#f0853a' // qupu-brand-orange — shaded-circle accent + reveal
 const SHELL = '#FFF9F4' // qupu-shell (panel background)
 const PEACH = '#FFD3B1' // qupu-peach (panel border)
 const GREEN = '#10B981'
 const GREEN_INK = '#065F46'
 const GREEN_SOFT = '#D1FAE5'
-const PEACH_SOFT = '#FDE3CF' // matches the shaded-circle wash in the figure
+const PEACH_SOFT = '#FDE3CF'
 
-// A compact equation strip "shaded + 1 = 11" used on the locate / result beats.
-// The unknown term shows a "?" until the answer is revealed, then it fills in
-// orange to match the circle that lights up in the ring.
-function PairEquation({
-  given,
-  pairSum,
+// Compact strip showing the two candidate fillings of the shaded circle and,
+// once the result beat lands, their sum.
+function CandidateStrip({
+  candidates,
   answer,
   revealed,
   T,
 }: {
-  given: number
-  pairSum: number
+  candidates: readonly [number, number]
   answer: number
   revealed: boolean
   T: (en: string, id: string) => string
@@ -36,43 +33,34 @@ function PairEquation({
       className="flex items-center gap-2 rounded-xl border-2 px-3 py-1.5"
       style={{ background: revealed ? GREEN_SOFT : PEACH_SOFT, borderColor: revealed ? GREEN : ORANGE }}
     >
-      <div className="flex flex-col items-center">
-        <span className="font-display text-[10px] font-bold" style={{ color: BRAND_BLUE }}>
-          {T('shaded', 'diarsir')}
-        </span>
-        <motion.span
-          key={revealed ? 'val' : 'q'}
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 22 }}
-          className="font-display text-xl font-black tabular-nums"
-          style={{ color: revealed ? GREEN_INK : ORANGE }}
-        >
-          {revealed ? answer : '?'}
-        </motion.span>
-      </div>
-      <span className="pb-1 font-display text-lg font-black" style={{ color: BRAND_BLUE }}>
-        +
+      <span className="font-display text-[10px] font-bold" style={{ color: BRAND_BLUE }}>
+        {T('shaded can be', 'arsir bisa')}
       </span>
-      <div className="flex flex-col items-center">
-        <span className="font-display text-[10px] font-bold" style={{ color: BRAND_BLUE }}>
-          {T('partner', 'pasangan')}
-        </span>
-        <span className="font-display text-xl font-black tabular-nums" style={{ color: BRAND_BLUE }}>
-          {given}
-        </span>
-      </div>
-      <span className="pb-1 font-display text-lg font-black" style={{ color: BRAND_BLUE }}>
-        =
+      <span className="font-display text-xl font-black tabular-nums" style={{ color: ORANGE }}>
+        {candidates[0]}
       </span>
-      <div className="flex flex-col items-center">
-        <span className="font-display text-[10px] font-bold" style={{ color: BRAND_BLUE }}>
-          {T('pair sum', 'jumlah pasangan')}
-        </span>
-        <span className="font-display text-xl font-black tabular-nums" style={{ color: ORANGE }}>
-          {pairSum}
-        </span>
-      </div>
+      <span className="font-display text-sm font-bold" style={{ color: BRAND_BLUE }}>
+        {T('or', 'atau')}
+      </span>
+      <span className="font-display text-xl font-black tabular-nums" style={{ color: ORANGE }}>
+        {candidates[1]}
+      </span>
+      {revealed && (
+        <>
+          <span className="pb-0.5 font-display text-lg font-black" style={{ color: BRAND_BLUE }}>
+            →
+          </span>
+          <motion.span
+            initial={{ scale: 0.6, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+            className="font-display text-xl font-black tabular-nums"
+            style={{ color: GREEN_INK }}
+          >
+            {candidates[0]} + {candidates[1]} = {answer}
+          </motion.span>
+        </>
+      )}
     </div>
   )
 }
@@ -86,8 +74,8 @@ export default function CircleSums25G1Explainer(props: ExplainerProps) {
   const T = (en: string, id: string) => (lang === 'id' ? id : en)
 
   const ariaLabel = T(
-    `Strategy: 1 + 2 + … + 10 = ${story.total} splits into ${story.pairs} opposite pairs that all share one sum, so each pair adds to ${story.pairSum}. The shaded circle is opposite the ${story.given}, so it must be ${story.pairSum} − ${story.given} = ${story.answer}. That is its only possible value, so the sum of possibilities is ${story.answer}.`,
-    `Strategi: 1 + 2 + … + 10 = ${story.total} terbagi menjadi ${story.pairs} pasangan berseberangan yang semuanya berjumlah sama, jadi tiap pasangan berjumlah ${story.pairSum}. Lingkaran diarsir berseberangan dengan ${story.given}, jadi nilainya ${story.pairSum} − ${story.given} = ${story.answer}. Itu satu-satunya nilai yang mungkin, jadi jumlah kemungkinannya ${story.answer}.`,
+    `Strategy: sectors marked with the same figure sit opposite each other, and the two circles beside them must have equal totals. Crescent: 10 + 7 = 17 forces the circle next to the 9 to be 8. Hexagon: 8 + 1 = 9 forces the circle next to the 7 to be 2. The leftovers 3, 4, 5, 6 fit in two ways, so the shaded circle can be ${story.candidates[0]} or ${story.candidates[1]}; the sum of its possible values is ${story.answer}.`,
+    `Strategi: daerah bertanda gambar sama saling berseberangan, dan dua lingkaran di sisinya harus berjumlah sama. Bulan sabit: 10 + 7 = 17 memaksa lingkaran di sebelah 9 bernilai 8. Segi enam: 8 + 1 = 9 memaksa lingkaran di sebelah 7 bernilai 2. Sisa 3, 4, 5, 6 bisa mengisi dengan dua cara, jadi lingkaran arsir bisa ${story.candidates[0]} atau ${story.candidates[1]}; jumlah semua nilainya ${story.answer}.`,
   )
 
   return (
@@ -96,35 +84,25 @@ export default function CircleSums25G1Explainer(props: ExplainerProps) {
         className="flex min-h-[360px] flex-col items-center justify-start gap-3 rounded-2xl border-2 px-4 py-4"
         style={{ background: SHELL, borderColor: PEACH }}
       >
-        {/* pair-sum chip — the keystone fact, present from beat 1 on */}
-        <div className="flex items-center gap-2">
-          <span className="font-display text-sm font-extrabold" style={{ color: BRAND_BLUE }}>
-            {T('Each opposite pair =', 'Tiap pasangan berseberangan =')}
-          </span>
-          <motion.span
-            key={beat.pairSum}
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 420, damping: 22 }}
-            className="font-display text-2xl font-black tabular-nums"
-            style={{ color: ORANGE }}
-          >
-            {beat.pairSum}
-          </motion.span>
+        {/* rule chip — the keystone fact, present from beat 1 on */}
+        <div
+          className="rounded-xl border-2 px-3 py-1 text-center font-display text-xs font-extrabold"
+          style={{ background: '#E1EFFB', borderColor: BRAND_BLUE, color: BRAND_BLUE }}
+        >
+          {T('Same figure ⇒ opposite sectors have the same total', 'Gambar sama ⇒ daerah berseberangan berjumlah sama')}
         </div>
 
         {/* the ten-circle ring — bind the built primitive, do NOT redraw */}
-        <CircleSums25G1 revealShaded={beat.revealShaded} />
+        <CircleSums25G1
+          revealEight={beat.revealEight}
+          revealTwo={beat.revealTwo}
+          revealCandidates={beat.revealCandidates}
+          highlightShapes={beat.highlightShapes}
+        />
 
-        {/* equation strip — appears once we focus the shaded circle's pair */}
-        {beat.phase !== 'pair-sum' && (
-          <PairEquation
-            given={story.given}
-            pairSum={story.pairSum}
-            answer={story.answer}
-            revealed={beat.revealShaded}
-            T={T}
-          />
+        {/* candidate strip — appears once the leftovers are being split */}
+        {beat.revealCandidates && (
+          <CandidateStrip candidates={story.candidates} answer={story.answer} revealed={beat.result} T={T} />
         )}
 
         {/* caption box */}
@@ -133,9 +111,7 @@ export default function CircleSums25G1Explainer(props: ExplainerProps) {
           style={
             beat.result
               ? { background: GREEN_SOFT, borderColor: GREEN, color: GREEN_INK }
-              : beat.phase === 'locate'
-                ? { background: PEACH_SOFT, borderColor: ORANGE, color: '#9a4a14' }
-                : { background: '#E1EFFB', borderColor: BRAND_BLUE, color: BRAND_BLUE }
+              : { background: PEACH_SOFT, borderColor: ORANGE, color: '#9a4a14' }
           }
         >
           {beat.caption}

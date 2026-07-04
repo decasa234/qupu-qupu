@@ -6,7 +6,10 @@
 //  used?"  Answer: 8 (fill-in).
 //
 // The static question figure shows ONLY the setup the learner is given:
-//   1. the three labelled block TYPES — cube, cylinder, sphere (one row), and
+//   1. the three labelled block TYPES with their SUPPLY counts from the source
+//      scan (2024-final-g1-a-q22.jpg): cube × 5, cylinder × 3, sphere × 4 —
+//      the counts are the question's data (only 3 cylinders bounds the tower
+//      at 4 cubes + 3 cylinders + 1 sphere cap = 8), and
 //   2. the repeating ORDER rule as a left-to-right legend:
 //          cube → cylinder → sphere → cube → cylinder → sphere → …
 //      with the sphere marked "stop" (nothing sits on a sphere).
@@ -143,22 +146,31 @@ const LABEL_ID: Record<Kind, string> = {
   sphere: 'bola',
 }
 
+// Supply counts from the source scan (12 blocks): the question's key data.
+const SUPPLY: Record<Kind, number> = {
+  cube: 5,
+  cylinder: 3,
+  sphere: 4,
+}
+
 // --- layout -----------------------------------------------------------------
 const VIEW_W = 320
 
 /**
- * Build the legal "as-high-as-possible" tower sequence, bottom → top, for a
- * given visible height. The tower alternates cube / cylinder (both can carry a
- * block) and may be capped by a single sphere — a sphere never carries another
- * block, so it only ever appears as the final top piece. This is used ONLY by
- * the animator (stackHeight > 0); it is never rendered in the question figure.
+ * Build the first `height` blocks of the tallest legal tower, bottom → top.
+ * The full tower is fixed by the supply (5 cubes, 3 cylinders, 4 spheres):
+ * 7 alternating carriers (C,Y,C,Y,C,Y,C — capped by the 3 cylinders) and then
+ * ONE sphere cap as block 8. Each intermediate height is a prefix of that
+ * final tower, so the animator's build never re-arranges blocks. This is used
+ * ONLY by the animator (stackHeight > 0); it never renders in the question
+ * figure.
  */
+const CARRIER_COUNT = 2 * SUPPLY.cylinder + 1 // 7
 function towerSequence(height: number): Kind[] {
   const seq: Kind[] = []
   for (let i = 0; i < height; i++) {
-    // last block may be a sphere cap; everything below alternates cube/cylinder
-    if (i === height - 1 && height % 2 === 1 && height > 1) {
-      seq.push('sphere')
+    if (i === CARRIER_COUNT) {
+      seq.push('sphere') // block 8 — the single cap on top
     } else {
       seq.push(i % 2 === 0 ? 'cube' : 'cylinder')
     }
@@ -202,6 +214,7 @@ export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
   // Drawn to the right of the legend so it never overlaps the static setup.
   const towerCx = VIEW_W - 46
   const towerBaseline = 250
+  const TOWER_SCALE = 0.6 // keeps the full 8-block tower inside the viewBox
 
   // running baseline for tower stacking
   let runningBase = towerBaseline
@@ -222,7 +235,7 @@ export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
       style={{ maxWidth: 320, display: 'block', margin: '0 auto' }}
       aria-hidden="true"
     >
-      {/* ---- three labelled block types ---- */}
+      {/* ---- three labelled block types + their supply counts (the data!) ---- */}
       {ORDER.map((kind, i) => (
         <g key={`type-${kind}`}>
           <Block kind={kind} cx={typeCx[i]} by={typeBy} />
@@ -234,7 +247,7 @@ export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
             fontWeight={700}
             fill={INK}
           >
-            {LABEL_ID[kind]}
+            {`${LABEL_ID[kind]} × ${SUPPLY[kind]}`}
           </text>
         </g>
       ))}
@@ -268,9 +281,13 @@ export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
         …
       </text>
 
-      {/* ---- animator-only growing tower ---- */}
+      {/* ---- animator-only growing tower ----
+          Scaled down about its own base so the full 8-block tower (~310 units
+          of rise) stays inside the viewBox instead of clipping past the top. */}
       {showTower && (
-        <g>
+        <g
+          transform={`translate(${towerCx * (1 - TOWER_SCALE)}, ${towerBaseline * (1 - TOWER_SCALE)}) scale(${TOWER_SCALE})`}
+        >
           {/* faint ground line under the tower */}
           <line
             x1={towerCx - UNIT / 2 - 6}
@@ -360,7 +377,7 @@ function StopMark({ cx, cy }: { cx: number; cy: number }) {
 // Indonesian aria description: names the three types + the repeating order +
 // the sphere stop-rule. It does NOT state the answer (8).
 const ARIA =
-  'Tiga jenis balok: kubus, tabung, dan bola. ' +
+  'Tiga jenis balok dengan persediaannya: 5 kubus, 3 tabung, dan 4 bola. ' +
   'Balok disusun berulang dengan urutan kubus, tabung, bola, kubus, tabung, bola, dan seterusnya. ' +
   'Sebuah balok boleh diletakkan di atas kubus atau tabung, tetapi tidak boleh di atas bola. ' +
   'Tumpuk setinggi mungkin: paling banyak berapa balok yang dipakai?'

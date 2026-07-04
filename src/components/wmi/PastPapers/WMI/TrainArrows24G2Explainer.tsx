@@ -1,11 +1,11 @@
 // Post-answer explainer for WMI-24F2A-Q14 (2024 Grade-2 Final).
 //
 // Teaches the turning rule: the toy train rolls FORWARD and every car spins the
-// same quarter-turn the rail bends. The four known arrows (down → right → up →
-// left) reveal a steady counter-clockwise spin; continuing it past the plain
-// light car recovers the two hidden arrows — lower ? = down, upper ? = right —
-// which is option E. One hidden car is solved per beat; the option strip dims
-// the losers and lands on E.
+// same quarter-turn the rail bends. The four known arrows read from the tail
+// (down → left → up → right) reveal a steady clockwise spin; anchoring at the
+// front engine (nose = left) and stepping back recovers the two hidden arrows —
+// upper ? = down, lower ? = right — which is option E. One hidden car is solved
+// per beat; the option strip dims the losers and lands on E.
 //
 // Deterministic + SSR-safe: pure render of the storyboard, no Math.random/Date.
 // The scene mirrors TrainArrows24G2Illustration (same layout, colour tokens and
@@ -132,13 +132,14 @@ function Coupling({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: 
 }
 
 // Car centres copied from the static illustration so the scene matches exactly.
-const REAR = { x: 56, y: 184 }
-const TRI_UP = { x: 116, y: 184 } // ▲
-const TRI_LEFT = { x: 158, y: 184 } // ◁
+// Bottom row left → right: ▼, ◁, ▲, rear engine (nose right) — as in the scan.
 const TRI_DOWN = { x: 30, y: 184 } // ▼ (very tail)
+const TRI_LEFT = { x: 74, y: 184 } // ◁
+const TRI_UP = { x: 118, y: 184 } // ▲
+const REAR = { x: 172, y: 184 } // rear engine, nose right
 const CIRCLE = { x: 232, y: 110 } // ◯ plain light
-const LOWER_Q = { x: 188, y: 110 } // ? first hidden in forward order
-const UPPER_Q = { x: 150, y: 70 } // ? second hidden in forward order
+const LOWER_Q = { x: 188, y: 110 } // ? second hidden (beside the light car)
+const UPPER_Q = { x: 150, y: 70 } // ? first hidden (beside the front engine)
 const FRONT = { x: 78, y: 44 }
 
 export default function TrainArrows24G2Explainer(props: ExplainerProps) {
@@ -160,8 +161,8 @@ export default function TrainArrows24G2Explainer(props: ExplainerProps) {
       className="mx-auto w-full max-w-[440px]"
       role="img"
       aria-label={t(
-        'Each train car spins the same quarter-turn the rail bends. Following the steady counter-clockwise spin, the first hidden arrow points down and the second points right, which is option E.',
-        'Tiap gerbong kereta berputar seperempat searah belokan rel. Mengikuti putaran tetap berlawanan jarum jam, panah tersembunyi pertama menunjuk ke bawah dan kedua ke kanan, yaitu pilihan E.',
+        'Each train car spins the same quarter-turn the rail bends. Following the steady clockwise spin back from the front engine, the first hidden arrow points down and the second points right, which is option E.',
+        'Tiap gerbong kereta berputar seperempat searah belokan rel. Mengikuti putaran tetap searah jarum jam mundur dari lokomotif depan, panah tersembunyi pertama menunjuk ke bawah dan kedua ke kanan, yaitu pilihan E.',
       )}
     >
       <div className="flex flex-col items-center gap-3">
@@ -188,13 +189,14 @@ export default function TrainArrows24G2Explainer(props: ExplainerProps) {
             const a = (-90 + (i / 5) * 180) * (Math.PI / 180)
             return <circle key={`du-${i}`} cx={310 + Math.cos(a) * 37} cy={147 + Math.sin(a) * 37} r={4} fill={RAIL_DOT} />
           })}
-          {Array.from({ length: 11 }, (_, i) => (
+          {Array.from({ length: 8 }, (_, i) => (
             <circle key={`dl-${i}`} cx={300 - i * 13} cy={184} r={4} fill={RAIL_DOT} />
           ))}
 
           {/* couplings */}
-          <Coupling x1={TRI_DOWN.x + 16} y1={184} x2={TRI_UP.x - 16} y2={184} />
-          <Coupling x1={TRI_UP.x + 16} y1={184} x2={TRI_LEFT.x - 16} y2={184} />
+          <Coupling x1={TRI_DOWN.x + 16} y1={184} x2={TRI_LEFT.x - 16} y2={184} />
+          <Coupling x1={TRI_LEFT.x + 16} y1={184} x2={TRI_UP.x - 16} y2={184} />
+          <Coupling x1={TRI_UP.x + 16} y1={184} x2={REAR.x - 26} y2={184} />
           <Coupling x1={LOWER_Q.x + 16} y1={110} x2={CIRCLE.x - 16} y2={110} />
           <Coupling x1={UPPER_Q.x + 8} y1={UPPER_Q.y + 14} x2={LOWER_Q.x - 6} y2={LOWER_Q.y - 14} />
           <Coupling x1={FRONT.x + 22} y1={FRONT.y + 10} x2={UPPER_Q.x - 14} y2={UPPER_Q.y - 12} />
@@ -211,10 +213,11 @@ export default function TrainArrows24G2Explainer(props: ExplainerProps) {
           <SignalCar cx={CIRCLE.x} cy={CIRCLE.y} plain />
 
           {/* the two hidden cars — reveal their arrow once the beat solves it */}
-          <HiddenCar cx={LOWER_Q.x} cy={LOWER_Q.y} dir={beat.q1} />
-          <HiddenCar cx={UPPER_Q.x} cy={UPPER_Q.y} dir={beat.q2} />
+          {/* q1 = first ? (upper, beside the front engine); q2 = lower ? */}
+          <HiddenCar cx={UPPER_Q.x} cy={UPPER_Q.y} dir={beat.q1} />
+          <HiddenCar cx={LOWER_Q.x} cy={LOWER_Q.y} dir={beat.q2} />
 
-          {/* CCW spin badge near the front of the known run while spotlit */}
+          {/* CW spin badge near the front of the known run while spotlit */}
           {spotlit && (
             <g>
               <text
@@ -227,7 +230,7 @@ export default function TrainArrows24G2Explainer(props: ExplainerProps) {
                 fill={SPOT}
                 className="font-display"
               >
-                ↺
+                ↻
               </text>
             </g>
           )}

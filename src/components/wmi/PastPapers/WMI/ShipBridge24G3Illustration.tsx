@@ -1,6 +1,6 @@
 // Ship-under-bridge illustration for WMI-24F3A-Q2.
-// A bridge deck is split into 16 equal segments (156 m total). A ship labelled
-// "038" passes underneath and its width aligns with 4 of those segments.
+// A bridge deck is split into 12 equal segments (156 m total). A ship labelled
+// "038" passes underneath and its width aligns with 3 of those segments.
 // Reconstruct the printed figure: bridge with checkerboard deck, guardrail,
 // abutments, and the ship with dotted width markers.
 // Problem-only — does NOT reveal which segment count is the answer.
@@ -12,10 +12,10 @@ const INK = '#1F2937'
 // ------------------------------------------------------------------
 
 /** Total deck segments in the printed figure. */
-export const BRIDGE_SEGMENTS = 16
+export const BRIDGE_SEGMENTS = 12
 
 /** Number of segments spanned by the ship (used for proportion). */
-export const SHIP_SEGMENTS = 4
+export const SHIP_SEGMENTS = 3
 
 /** Bridge length as printed on the problem. */
 export const BRIDGE_LENGTH_M = 156
@@ -29,14 +29,14 @@ function Frame({ children }: { children: React.ReactNode }) {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Jembatan sepanjang 156 m dengan dek yang dibagi menjadi 16 ruas sama. Kapal bernomor 038 melintas di bawah, dengan lebar ditandai dua garis putus-putus yang menutupi 4 ruas."
+      aria-label="Jembatan sepanjang 156 m dengan dek yang dibagi menjadi 12 ruas sama. Kapal bernomor 038 melintas di bawah, dengan lebar ditandai dua garis putus-putus yang menutupi 3 ruas."
     >
       {children}
     </div>
   )
 }
 
-/** Checkerboard deck: 16 segments alternating light/dark. */
+/** Checkerboard deck: 12 segments alternating light/dark. */
 function BridgeDeck({ x, y, w, h }: { x: number; y: number; w: number; h: number }) {
   const segW = w / BRIDGE_SEGMENTS
   return (
@@ -222,9 +222,9 @@ export function ShipBridge24G3Figure() {
 
   // Ship — positioned below the bridge band, centered
   const segW = deckW / BRIDGE_SEGMENTS
-  // Ship spans 4 segments, centered in the middle 4 of 16 (segments 6-9)
-  const shipLeft = deckX + 6 * segW
-  const shipRight = deckX + (6 + SHIP_SEGMENTS) * segW
+  // Ship spans 3 segments, matching the scan (segments 4-6 of 12, 0-indexed)
+  const shipLeft = deckX + 4 * segW
+  const shipRight = deckX + (4 + SHIP_SEGMENTS) * segW
   const shipW = shipRight - shipLeft
   const shipCX = (shipLeft + shipRight) / 2
   const shipTopY = bandY + 8

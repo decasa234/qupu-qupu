@@ -18,7 +18,7 @@ import { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
 import { useBeatControl } from '../../concepts/explainers/useBeatControl'
-import { MirrorScene, WHITE_COUNT } from './MirrorBlocks22G1Illustration'
+import { MirrorScene, WHITE_COUNT, SCENE_VIEW_W, SCENE_VIEW_H } from './MirrorBlocks22G1Illustration'
 import { buildMirrorBlocks22G1Steps } from './mirrorBlocks22G1Steps'
 
 // ---------------------------------------------------------------------------
@@ -99,7 +99,14 @@ export default function MirrorBlocks22G1Explainer(props: ExplainerProps) {
     <div className="mx-auto w-full max-w-[470px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* The solid + its two mirrors — white singles light up once decoded. */}
-        <MirrorScene highlightWhite={beat.highlightWhite} />
+        <svg
+          viewBox={`0 0 ${SCENE_VIEW_W} ${SCENE_VIEW_H}`}
+          width="100%"
+          style={{ display: 'block', maxWidth: 470 }}
+          aria-hidden="true"
+        >
+          <MirrorScene highlightWhite={beat.highlightWhite} />
+        </svg>
 
         {/* Block-type legend chips */}
         <div className="flex flex-wrap justify-center gap-2">

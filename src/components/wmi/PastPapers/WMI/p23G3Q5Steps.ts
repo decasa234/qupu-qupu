@@ -69,7 +69,7 @@ export function buildP23G3Q5Steps(lang: Lang, answerLetter: string): AreaStorybo
       winner: null,
       hold: 1900,
       result: false,
-      caption: t(`Shape C: trapezoid (3 + 4)/2 · 4 = ${a('C')} cm² — too big.`, `Bangun C: trapesium (3 + 4)/2 · 4 = ${a('C')} cm² — terlalu besar.`),
+      caption: t(`Shape C: trapezoid (5 + 2)/2 · 4 = ${a('C')} cm² — too big.`, `Bangun C: trapesium (5 + 2)/2 · 4 = ${a('C')} cm² — terlalu besar.`),
     },
     {
       phase: 'measure',

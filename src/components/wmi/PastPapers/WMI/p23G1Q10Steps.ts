@@ -9,7 +9,7 @@ export interface Q10Step {
   showTiling: boolean
   /** Show the 1..N count badges. */
   showCounts: boolean
-  /** How many tiles are revealed (0..5). */
+  /** How many tiles are revealed (0..6). */
   revealed: number
   caption: string
   hold: number
@@ -61,8 +61,8 @@ export function buildP23G1Q10Steps(lang: Lang, answer: string): Q10Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        `Three pink rhombi fill the three points: ${RHOMBUS_COUNT} rhombi.`,
-        `Tiga belah ketupat merah muda mengisi tiga ujung runcing: ${RHOMBUS_COUNT} belah ketupat.`,
+        `Four pink rhombi fill the notch, the bottom strip and the top-right gap: ${RHOMBUS_COUNT} rhombi.`,
+        `Empat belah ketupat merah muda mengisi takik, jalur bawah, dan celah kanan-atas: ${RHOMBUS_COUNT} belah ketupat.`,
       ),
     },
     {

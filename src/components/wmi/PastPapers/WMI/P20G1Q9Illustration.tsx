@@ -1,34 +1,34 @@
 // Ribbons-on-a-grid figure for WMI-20P1A-Q9 (2020 WMI Semifinal Grade 1 Paper A).
 //
 // Reconstructed from db/seed/wmi/figures/2020-semifinal-g1-a-q9.jpg:
-// a 10-column x 7-row square grid holds four horizontal ribbons, each starting
-// at the left edge and running a whole number of squares. The fills (hatch,
-// stars, crosshatch, dotted) only tell the ribbons apart — the LENGTH in squares
-// is what the question asks about.
+// a 13-column x 9-row square grid holds four horizontal ribbons, each starting
+// at the left edge and running a whole number of squares (lengths measured off
+// the scan cell by cell). The fills (hatch, stars, crosshatch, dotted) only tell
+// the ribbons apart — the LENGTH in squares is what the question asks about.
 //
-//   ribbon 1 (diagonal hatch): 9 squares  ← longest
-//   ribbon 2 (stars):          8 squares
-//   ribbon 3 (crosshatch):     5 squares  ← shortest
-//   ribbon 4 (dotted):         7 squares
+//   ribbon 1 (diagonal hatch): 11 squares
+//   ribbon 2 (stars):          12 squares  ← longest
+//   ribbon 3 (crosshatch):      8 squares  ← shortest
+//   ribbon 4 (dotted):          9 squares
 //
-// Longest - shortest = 9 - 5 = 4 squares  (answer B).
+// Longest - shortest = 12 - 8 = 4 squares  (answer B).
 export const RIBBONS = [
-  { key: 'hatch', squares: 9, label: 'A' },
-  { key: 'stars', squares: 8, label: 'B' },
-  { key: 'cross', squares: 5, label: 'C' },
-  { key: 'dots', squares: 7, label: 'D' },
+  { key: 'hatch', squares: 11, label: 'A' },
+  { key: 'stars', squares: 12, label: 'B' },
+  { key: 'cross', squares: 8, label: 'C' },
+  { key: 'dots', squares: 9, label: 'D' },
 ] as const
 
 export type RibbonKey = (typeof RIBBONS)[number]['key']
 
 export const RIBBON_SQUARES = RIBBONS.map((r) => r.squares)
-export const LONGEST = Math.max(...RIBBON_SQUARES) // 9
-export const SHORTEST = Math.min(...RIBBON_SQUARES) // 5
+export const LONGEST = Math.max(...RIBBON_SQUARES) // 12
+export const SHORTEST = Math.min(...RIBBON_SQUARES) // 8
 export const DIFFERENCE = LONGEST - SHORTEST // 4
 
 // Grid geometry.
-const COLS = 10
-const ROWS = 7
+const COLS = 13
+const ROWS = 9
 const CELL = 38
 const PAD = 16
 export const RIBBON_VIEW_W = PAD * 2 + COLS * CELL // 412
@@ -37,9 +37,9 @@ export const RIBBON_VIEW_H = PAD * 2 + ROWS * CELL // 298
 const GRID_LINE = '#9CA3AF'
 const RIBBON_STROKE = '#111827'
 
-// Each ribbon lives on its own grid row (rows 1, 2, 4, 5 — leaving blank rows
+// Each ribbon lives on its own grid row (rows 1, 3, 5, 7 — leaving blank rows
 // between so the strips read as separate, matching the scan).
-const RIBBON_ROW = [1, 2, 4, 5]
+const RIBBON_ROW = [1, 3, 5, 7]
 
 /** SVG <defs> with the four ribbon fill patterns. Mount once per <svg>. */
 export function RibbonPatterns() {

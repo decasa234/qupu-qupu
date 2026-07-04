@@ -12,13 +12,14 @@
 //   So Nancy's left is WEST -> answer B.
 //
 // We draw the cleanest possible top-down diagram of the problem: a compass and
-// two people shown as discs with a "nose" arrow giving the way each one FACES.
-// Jimmy (left) faces right toward Nancy; Nancy (right) faces left toward Jimmy.
-// The only given fact — Jimmy's BACK points NORTH — is shown as a small "back"
-// arrow behind Jimmy. The figure shows ONLY the setup: it never draws Nancy's
-// left arrow and never labels a compass direction as the answer. Revealing
-// Nancy's facing + her left hand is the animator's job, via the co-exported
-// primitive `FaceOff24G2`.
+// two people shown as discs with a "nose" dot giving the way each one FACES.
+// Because Jimmy's BACK points NORTH, on a top-down map (N up) Jimmy must be the
+// UPPER person facing DOWN (south), and Nancy the LOWER person facing UP
+// (north) — that keeps every arrow compass-true. The only given fact — Jimmy's
+// back to the north — is shown as a small dashed "back" arrow above Jimmy. The
+// figure shows ONLY the setup: it never draws Nancy's left arrow and never
+// labels a compass direction as the answer. Revealing Nancy's facing + her left
+// hand is the animator's job, via the co-exported primitive `FaceOff24G2`.
 //
 // Pure render: no Math.random, no Date, SSR-safe & deterministic.
 
@@ -40,9 +41,9 @@ const ARROW = 30 // facing-arrow length out of a head
 
 export const FACEOFF_GEOM = { VIEW, CX, CY, HEAD_R, PERSON_DX, ARROW } as const
 
-/** Jimmy's centre (left) and Nancy's centre (right). */
-export const JIMMY_C = { x: CX - PERSON_DX, y: CY }
-export const NANCY_C = { x: CX + PERSON_DX, y: CY }
+/** Jimmy's centre (upper, back to the north) and Nancy's centre (lower). */
+export const JIMMY_C = { x: CX, y: CY - PERSON_DX }
+export const NANCY_C = { x: CX, y: CY + PERSON_DX }
 
 /** A short arrow from (x,y) in screen-direction (dx,dy is a unit-ish vector). */
 function DirArrow({
@@ -90,21 +91,21 @@ function DirArrow({
   )
 }
 
-/** A person seen from above: a head disc with a tiny nose at the FACING side. */
-function PersonHead({ x, y, faceDx, name, accent }: { x: number; y: number; faceDx: number; name: string; accent: string }) {
+/** A person seen from above: a head disc with a tiny nose at the FACING side (up or down). */
+function PersonHead({ x, y, faceDy, name, accent }: { x: number; y: number; faceDy: number; name: string; accent: string }) {
   return (
     <g>
       <circle cx={x} cy={y} r={HEAD_R} fill={SKIN} stroke={accent} strokeWidth={2.5} />
-      {/* hair cap on the BACK side (opposite to facing) */}
+      {/* hair cap on the BACK side (opposite to facing): top half when facing down, bottom half when facing up */}
       <path
-        d={`M ${x - faceDx * HEAD_R} ${y - HEAD_R} A ${HEAD_R} ${HEAD_R} 0 0 ${faceDx > 0 ? 0 : 1} ${x - faceDx * HEAD_R} ${y + HEAD_R} Z`}
+        d={`M ${x - HEAD_R} ${y} A ${HEAD_R} ${HEAD_R} 0 0 ${faceDy > 0 ? 0 : 1} ${x + HEAD_R} ${y} Z`}
         fill="#5b4636"
         opacity={0.85}
       />
       {/* nose marking the facing side */}
-      <circle cx={x + faceDx * (HEAD_R - 4)} cy={y} r={4} fill={INK} />
-      {/* name label below */}
-      <text x={x} y={y + HEAD_R + 16} textAnchor="middle" fontSize={14} fontStyle="italic" fontWeight={700} fill={LABEL} className="font-display">
+      <circle cx={x} cy={y + faceDy * (HEAD_R - 4)} r={4} fill={INK} />
+      {/* name label beside the head */}
+      <text x={x + HEAD_R + 10} y={y} textAnchor="start" dominantBaseline="central" fontSize={14} fontStyle="italic" fontWeight={700} fill={LABEL} className="font-display">
         {name}
       </text>
     </g>
@@ -147,14 +148,14 @@ export function FaceOff24G2({ showJimmyFace = false, showNancyFace = false, show
       ))}
 
       {/* GIVEN: Jimmy's BACK points North (up) — a dashed arrow off his back. */}
-      <DirArrow x={JIMMY_C.x} y={JIMMY_C.y - HEAD_R} dx={0} dy={-1} len={ARROW} color={INK} width={3} dashed />
-      <text x={JIMMY_C.x - 4} y={JIMMY_C.y - HEAD_R - ARROW - 8} textAnchor="middle" fontSize={11} fontWeight={700} fill={INK} className="font-display">
+      <DirArrow x={JIMMY_C.x} y={JIMMY_C.y - HEAD_R} dx={0} dy={-1} len={ARROW - 8} color={INK} width={3} dashed />
+      <text x={JIMMY_C.x + 16} y={JIMMY_C.y - HEAD_R - 14} textAnchor="start" fontSize={11} fontWeight={700} fill={INK} className="font-display">
         back
       </text>
 
-      {/* the two people, facing each other (Jimmy faces right, Nancy faces left) */}
-      <PersonHead x={JIMMY_C.x} y={JIMMY_C.y} faceDx={1} name="Jimmy" accent={showJimmyFace ? ORANGE : BLUE} />
-      <PersonHead x={NANCY_C.x} y={NANCY_C.y} faceDx={-1} name="Nancy" accent={showNancyFace || showNancyLeft ? ORANGE : BLUE} />
+      {/* the two people, facing each other (Jimmy faces down/south, Nancy faces up/north) */}
+      <PersonHead x={JIMMY_C.x} y={JIMMY_C.y} faceDy={1} name="Jimmy" accent={showJimmyFace ? ORANGE : BLUE} />
+      <PersonHead x={NANCY_C.x} y={NANCY_C.y} faceDy={-1} name="Nancy" accent={showNancyFace || showNancyLeft ? ORANGE : BLUE} />
 
       {/* animator: Jimmy faces South (down) */}
       {showJimmyFace && <DirArrow x={JIMMY_C.x} y={JIMMY_C.y + HEAD_R} dx={0} dy={1} len={ARROW} color={ORANGE} />}
@@ -181,7 +182,7 @@ export default function P24G2Q9Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="Top-down view: Jimmy on the left and Nancy on the right face each other. A compass shows North up, East right, South down, West left. A dashed arrow off Jimmy's back points North. Which direction is Nancy's left?"
+      aria-label="Top-down view: Jimmy above and Nancy below face each other. A compass shows North up, East right, South down, West left. A dashed arrow off Jimmy's back points North. Which direction is Nancy's left?"
     >
       <FaceOff24G2 />
     </div>

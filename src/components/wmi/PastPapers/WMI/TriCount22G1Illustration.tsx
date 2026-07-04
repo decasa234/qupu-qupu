@@ -1,36 +1,35 @@
 /**
  * WMI-22F1A-Q19 — "How many triangles are in the figure?" (Grade 1, answer 16).
  *
- * The figure is a fir-tree built from THREE triangular tiers stacked top to
- * bottom, each tier overlapping the one above so the apexes poke up like a
- * Christmas tree. Reconstructed line-for-line from the source scan
- * (db/seed/wmi/figures/2022-final-g1-a-q19.jpg):
+ * The figure is a fir-tree built from THREE equal triangular tiers stacked top
+ * to bottom, each tier's apex sitting halfway up the tier above (the bottom
+ * tier's apex sits exactly on the top tier's base centre). Reconstructed by
+ * pixel-measuring the source scan (db/seed/wmi/figures/2022-final-g1-a-q19.jpg):
  *
- *   - The ONLY horizontal lines are the three tier bases. There are NO
- *     horizontal mid-lines — the source has none.
- *   - Top tier and middle tier each carry the same internal lattice: two lines
- *     from the tier's mid-height centre down to the two base quarter-points,
- *     plus two lines from the side mid-points down to the base centre. These
- *     four interior lines cross to give an inverted centre triangle, two
- *     lower-corner upright triangles and two smallest upright triangles.
- *     => 6 triangles per tier (1 whole + 1 inverted centre + 2 corners + 2 small).
- *   - The bottom tier is simpler: just two lines from its apex to the two base
- *     quarter-points (no crossings). => 4 triangles (1 whole + left + centre + right).
+ *   - Three tier outlines (apex + two sides + base). The middle tier's sides
+ *     cross the top tier's base at its quarter points; the bottom tier's sides
+ *     start at the top tier's base centre.
+ *   - TOP band extra strokes: two short lines from the top tier's side
+ *     mid-points down to its base centre (they are collinear continuations of
+ *     the bottom tier's sides).
+ *   - BOTTOM extra strokes: two lines that start on the bottom tier's sides
+ *     (at 1/4 of its height), cross at the middle tier's base centre, and end
+ *     on the bottom base quarter points. They do NOT reach the middle tier's
+ *     side mid-points — the scan is empty there (verified pixel-by-pixel).
  *
- *   Counting every triangle of every size:
- *       top tier    6
- *       middle tier 6
- *       bottom tier 4
+ *   Counting every triangle of every size in that exact line arrangement
+ *   (verified by an exact rational-arithmetic enumeration of the drawn
+ *   segments — 16 and only 16 triangles exist):
+ *       top band    6  (whole + apex tent + 2 lower corners + 2 smallest)
+ *       middle band 6  (whole + apex tent + 2 big slanted + 2 smallest)
+ *       bottom band 4  (whole + centre tent + 2 big slanted)
  *       = 16 triangles total  (matches the answer key)
- *
- * A throwaway enumeration (npx tsx) confirmed exactly 16 distinct,
- * non-degenerate triangles in this construction before it was committed.
  *
  * This module co-exports the data the animator needs to reveal one triangle
  * per beat:
  *   TRI_TOTAL  — 16
  *   TRIANGLES  — every triangle as an SVG polygon points string, ordered
- *                small-first within each tier, bottom tier → top
+ *                bottom band → middle band → top band
  *   TriFigure  — draws the whole figure and outlines triangle `litId` if given
  *
  * Pure render — no Math.random, no Date, no state. SSR-safe and deterministic.
@@ -44,54 +43,58 @@ const LIT_EDGE = '#30598A' // stroke-qupu-brand-blue — ring around the counted
 
 // ─── geometry ────────────────────────────────────────────────────────────────
 export const VIEW_W = 220
-export const VIEW_H = 376
+export const VIEW_H = 370
 
 type Pt = [number, number]
 const HW = 100 // half base width of every tier
 const H = 175 // apex-to-base height of every tier
 const CX = 110 // shared horizontal centre
+const TOP_Y = 10 // top apex y
 
 const pts = (...p: Pt[]) => p.map(([x, y]) => `${x},${y}`).join(' ')
 
-// A tier: apex at (CX, ay), base from (CX-HW, by) to (CX+HW, by).
-function tier(ay: number) {
-  const by = ay + H
-  const A: Pt = [CX, ay] // apex
-  const L: Pt = [CX - HW, by] // base left corner
-  const R: Pt = [CX + HW, by] // base right corner
-  const b1: Pt = [CX - HW / 2, by] // base left quarter point
-  const bc: Pt = [CX, by] // base centre
-  const b2: Pt = [CX + HW / 2, by] // base right quarter point
-  const Lm: Pt = [CX - HW / 2, ay + H / 2] // mid-point of left edge
-  const Rm: Pt = [CX + HW / 2, ay + H / 2] // mid-point of right edge
-  const C: Pt = [CX, ay + H / 2] // centre at mid-height
-  // exact crossings of (C→b1 with Lm→bc) and (C→b2 with Rm→bc)
-  const X1: Pt = [CX - HW / 4, ay + H * 0.75]
-  const X2: Pt = [CX + HW / 4, ay + H * 0.75]
-  return { A, L, R, b1, bc, b2, Lm, Rm, C, X1, X2 }
-}
+// y at a height of v tier-heights below the top apex.
+const Y = (v: number) => TOP_Y + v * H
 
-// Tier apexes sit a half-height apart, so each tier overlaps the one above.
-const TOP = tier(10)
-const MID = tier(100)
-const BOT = tier(190)
+// Named points of the arrangement (x offset u from centre, height v in H units).
+const P = (u: number, v: number): Pt => [CX + u, Y(v)]
 
-// The interior strokes actually drawn in the source figure (no horizontal mids).
-const TOP_LINES: [Pt, Pt][] = [
-  [TOP.C, TOP.b1],
-  [TOP.C, TOP.b2],
-  [TOP.Lm, TOP.bc],
-  [TOP.Rm, TOP.bc],
+const A0 = P(0, 0) // top apex
+const L0 = P(-HW, 1) // top base left corner
+const R0 = P(HW, 1)
+const q1L = P(-HW / 2, 1) // top base quarter points
+const q1R = P(HW / 2, 1)
+const C1 = P(0, 1) // top base centre = bottom tier apex
+const Am = P(0, 0.5) // middle tier apex
+const LmT = P(-HW / 2, 0.5) // mid-points of the top tier's sides
+const RmT = P(HW / 2, 0.5)
+const X2L = P(-HW / 4, 0.75) // crossings inside the top band
+const X2R = P(HW / 4, 0.75)
+const L1 = P(-HW, 1.5) // middle base corners
+const R1 = P(HW, 1.5)
+const q2L = P(-HW / 2, 1.5)
+const q2R = P(HW / 2, 1.5)
+const C2 = P(0, 1.5) // middle base centre
+const X3L = P(-HW / 4, 1.25) // crossings inside the middle band (on the bottom tier's sides)
+const X3R = P(HW / 4, 1.25)
+const L2 = P(-HW, 2) // bottom base corners
+const R2 = P(HW, 2)
+const q3L = P(-HW / 2, 2)
+const q3R = P(HW / 2, 2)
+
+// The three tier outlines.
+const OUTLINES: Pt[][] = [
+  [A0, L0, R0],
+  [Am, L1, R1],
+  [C1, L2, R2],
 ]
-const MID_LINES: [Pt, Pt][] = [
-  [MID.C, MID.b1],
-  [MID.C, MID.b2],
-  [MID.Lm, MID.bc],
-  [MID.Rm, MID.bc],
-]
-const BOT_LINES: [Pt, Pt][] = [
-  [BOT.A, BOT.b1],
-  [BOT.A, BOT.b2],
+
+// The extra interior strokes actually drawn in the source figure.
+const INTERIOR: [Pt, Pt][] = [
+  [LmT, C1], // top band: side mid-point → base centre
+  [RmT, C1],
+  [X3R, q3L], // bottom: from the bottom tier's side, through C2, to a base quarter point
+  [X3L, q3R],
 ]
 
 export interface TriEntry {
@@ -99,33 +102,28 @@ export interface TriEntry {
   points: string
 }
 
-// The 6 triangles of a top/middle tier, smallest first.
-function midPatternTris(t: ReturnType<typeof tier>): Pt[][] {
-  return [
-    [t.b1, t.bc, t.X1], // smallest left
-    [t.bc, t.b2, t.X2], // smallest right
-    [t.C, t.b1, t.b2], // inverted centre
-    [t.Lm, t.L, t.bc], // lower-left upright
-    [t.Rm, t.bc, t.R], // lower-right upright
-    [t.A, t.L, t.R], // whole tier
-  ]
-}
-
-// The 4 triangles of the bottom tier, smallest first.
-function bottomTris(t: ReturnType<typeof tier>): Pt[][] {
-  return [
-    [t.A, t.L, t.b1], // left
-    [t.A, t.b1, t.b2], // centre
-    [t.A, t.b2, t.R], // right
-    [t.A, t.L, t.R], // whole tier
-  ]
-}
-
-// Reveal order: bottom tier first, then middle, then top (root → crown).
+// All 16 triangles of the arrangement, bottom band → middle band → top band.
+// (Exhaustively verified: these are the ONLY triangles the drawn lines form.)
 const ORDER: Pt[][] = [
-  ...bottomTris(BOT), // 1–4
-  ...midPatternTris(MID), // 5–10
-  ...midPatternTris(TOP), // 11–16
+  // bottom band (4)
+  [C2, q3L, q3R], // 1 centre tent
+  [L2, X3L, q3R], // 2 big slanted (leans right)
+  [R2, X3R, q3L], // 3 big slanted (leans left)
+  [C1, L2, R2], // 4 whole bottom tier
+  // middle band (6)
+  [q2L, X3L, C2], // 5 smallest left
+  [C2, X3R, q2R], // 6 smallest right
+  [C1, q2L, q2R], // 7 apex tent (under the top base centre)
+  [L1, X2L, q2R], // 8 big slanted (leans right)
+  [R1, X2R, q2L], // 9 big slanted (leans left)
+  [Am, L1, R1], // 10 whole middle tier
+  // top band (6)
+  [q1L, X2L, C1], // 11 smallest left
+  [C1, X2R, q1R], // 12 smallest right
+  [Am, q1L, q1R], // 13 apex tent (middle tier's peak)
+  [LmT, L0, C1], // 14 lower-left corner
+  [RmT, C1, R0], // 15 lower-right corner
+  [A0, L0, R0], // 16 whole top tier
 ]
 
 export const TRIANGLES: TriEntry[] = ORDER.map((p, i) => ({ id: i + 1, points: pts(...p) }))
@@ -135,15 +133,12 @@ export const TRI_TOTAL = TRIANGLES.length // 16
 
 /** Every black outline stroke of the figure. */
 function FigureLines() {
-  const interior = [...TOP_LINES, ...MID_LINES, ...BOT_LINES]
   return (
     <g fill="none" stroke={LINE} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round">
-      {/* outer tier triangles (outline + base) */}
-      {[TOP, MID, BOT].map((t, i) => (
-        <polygon key={i} points={pts(t.A, t.L, t.R)} />
+      {OUTLINES.map((t, i) => (
+        <polygon key={i} points={pts(...t)} />
       ))}
-      {/* interior lattice strokes */}
-      {interior.map(([a, b], i) => (
+      {INTERIOR.map(([a, b], i) => (
         <line key={`i${i}`} x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} />
       ))}
     </g>
@@ -165,8 +160,8 @@ export function TriFigure({ litId }: { litId?: number }) {
       aria-hidden="true"
     >
       {/* base fill: every tier filled warm yellow */}
-      {[TOP, MID, BOT].map((t, i) => (
-        <polygon key={i} points={pts(t.A, t.L, t.R)} fill={TRI_FILL} stroke="none" />
+      {OUTLINES.map((t, i) => (
+        <polygon key={i} points={pts(...t)} fill={TRI_FILL} stroke="none" />
       ))}
       {lit && <polygon points={lit.points} fill={LIT_FILL} stroke="none" opacity={0.9} />}
       <FigureLines />

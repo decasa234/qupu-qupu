@@ -6,47 +6,32 @@
  * Four rectangles are arranged in a windmill/pinwheel around a small shaded
  * central rectangle that holds a red star. Visible scan labels:
  *
- *   TOP rectangle    : area 56, top edge "7", small "4" at its bottom-left.
- *   LEFT rectangle   : area 45, left edge "9", small "4" at its bottom.
- *   RIGHT rectangle  : area 48, right edge "8", small "3" at its top.
- *   BOTTOM rectangle : area 42, small "3" at its bottom-right.
+ *   TOP rectangle    : area 56, top edge "7"; small "4" on its LEFT edge
+ *                      (the gap between its top and the LEFT rectangle's top).
+ *   LEFT rectangle   : area 45, left edge "9"; small "4" under its bottom
+ *                      (the gap between its left edge and the BOTTOM rect's left edge).
+ *   RIGHT rectangle  : area 48, right edge "8".
+ *   BOTTOM rectangle : area 42; small "3" on its right edge (the part sticking
+ *                      out below the RIGHT rectangle's bottom).
  *
- * Derived rectangle dimensions (w × h, from the areas + the labelled edges):
- *   TOP    = 7 × 8  (= 56)   — "7" is the top edge, so height = 56 / 7 = 8.
- *   LEFT   = 5 × 9  (= 45)   — "9" is the left edge, so width  = 45 / 9 = 5.
- *   RIGHT  = 6 × 8  (= 48)   — "8" is the right edge, so width = 48 / 8 = 6.
- *   BOTTOM = 7 × 6  (= 42)   — 7 × 6 = 42 (the un-labelled rectangle).
+ * Alignments visible in the scan:
+ *   TOP.left  = star.left = LEFT.right     TOP.bottom  = star.top = RIGHT.top
+ *   LEFT.bottom = star.bottom = BOTTOM.top BOTTOM.right = star.right = RIGHT.left
  *
- * VERIFIED PROOF THAT THE SHADED AREA = 30
- * ----------------------------------------
- * The four rectangles together with the shaded star region EXACTLY TILE a
- * 13 × 17 enclosing rectangle (no gaps, no overlaps). This was confirmed by a
- * cell-by-cell fill:
+ * VERIFIED DERIVATION OF THE SHADED AREA = 30 (uses every label)
+ * --------------------------------------------------------------
+ *   TOP    56 = 7 × 8  → 8 tall.       LEFT  45 = 9 × 5 → 5 wide.
+ *   RIGHT  48 = 8 × 6  → 6 wide.
+ *   Shaded height: LEFT's top is 4 below TOP's top, so 8 − 4 = 4 of LEFT's 9
+ *     lies above the shaded region → height = 9 − 4 = 5.
+ *   BOTTOM: starts at star.bottom and ends 3 below RIGHT's bottom →
+ *     height = 8 + 3 − 5 = 6 → width = 42 ÷ 6 = 7.
+ *   Shaded width: BOTTOM's left edge is 4 right of LEFT's left edge, i.e.
+ *     5 − 4 = 1 left of the star → width = 7 − 1 = 6.
+ *   Shaded area = 5 × 6 = 30 ✓
  *
- *     LLLLL.TTTTTTT      box = 13 wide × 17 tall
- *     LLLLL.TTTTTTT      TOP    7×8 hugs top-right
- *     LLLLL.TTTTTTT      LEFT   5×9 hugs top-left
- *     LLLLL.TTTTTTT      RIGHT  6×8 hugs bottom-right
- *     LLLLL.TTTTTTT      BOTTOM 7×6 hugs bottom-left
- *     LLLLL.TTTTTTT      "." cells = the shaded star region (exactly 30 cells)
- *     LLLLL.TTTTTTT
- *     LLLLL.TTTTTTT
- *     LLLLL........
- *     .......RRRRRR
- *     .......RRRRRR
- *     BBBBBBBRRRRRR
- *     BBBBBBBRRRRRR
- *     BBBBBBBRRRRRR
- *     BBBBBBBRRRRRR
- *     BBBBBBBRRRRRR
- *     BBBBBBBRRRRRR
- *
- *   Enclosing rectangle  : 13 × 17                       = 221
- *   Sum of four rectangles: 56 + 45 + 48 + 42            = 191
- *   Shaded (star) area    : 221 − 191                    =  30   ✓
- *
- *   (13 = 7 + 6 = top width + right width;
- *    17 = 8 + 9 = top height + left height.)
+ * (Note: the pieces do NOT tile an enclosing rectangle — the answer comes
+ *  from the 4 / 4 / 3 offsets, not from a big-box subtraction.)
  *
  * This component draws the SCAN's pinwheel layout (the problem setup) — the four
  * rectangles with their area / edge / small labels around a pale-blue central
@@ -174,87 +159,74 @@ function Star({ cx, cy, r }: { cx: number; cy: number; r: number }) {
 }
 
 // ---------------------------------------------------------------------------
-// Geometry of the SCAN pinwheel (drawing layout, NOT the 13×17 tiling)
+// Geometry of the SCAN pinwheel — drawn in TRUE proportions (k px per unit)
 // ---------------------------------------------------------------------------
 //
-// We lay the four rectangles around a small central shaded rectangle so the
-// drawing reproduces the windmill look of the scan. The shaded centre is sized
-// like a small square; each rectangle hugs one side of it and overshoots toward
-// the next (the small "4"/"3" stubs). Coordinates below are purely for display.
+// Solved dimensions: star 6 w × 5 h; TOP 7×8; LEFT 5×9; RIGHT 6×8; BOTTOM 7×6.
+// Alignments: TOP.left = star.left = LEFT.right; TOP.bottom = star.top = RIGHT.top;
+// LEFT.bottom = star.bottom = BOTTOM.top; BOTTOM.right = star.right = RIGHT.left;
+// LEFT.top = TOP.top + 4; BOTTOM.left = LEFT.left + 4; BOTTOM.bottom = RIGHT.bottom + 3.
 
-const U = 22 // base unit (px) for the central shaded cell side
+const K = 14 // px per problem unit
 
-// central shaded region (a small square in the drawing) — top-left at (CX, CY)
-const CX = 150
-const CY = 130
-const CW = U * 2 // ~44
-const CH = U * 2 // ~44
-
-// rectangle drawing sizes (proportional, "not to scale")
-const TOP_W = U * 3
-const TOP_H = U * 2.4
-const LEFT_W = U * 2.4
-const LEFT_H = U * 3
-const RIGHT_W = U * 2.4
-const RIGHT_H = U * 3
-const BOT_W = U * 3
-const BOT_H = U * 2.4
-
-// pinwheel offsets (the small stubs): each rect is shifted along the shared edge
-const OFF = U * 0.7
+// star (shaded) top-left — chosen so the whole 17u × 19u bundle centres in view
+const SX = 51 + 5 * K   // = 121  (LEFT.left 51 + LEFT width 5u)
+const SY = 27 + 8 * K   // = 139  (TOP.top 27 + TOP height 8u)
+const SW = 6 * K        // star width  6u
+const SH = 5 * K        // star height 5u
 
 export const PIECES: RectFramePiece[] = [
-  // TOP rectangle (area 56) — sits above centre, right-aligned to centre's right edge
+  // TOP rectangle (area 56 = 7×8) — left edge flush with the star's left edge
   {
     id: 'top',
-    x: CX + CW - TOP_W + OFF,
-    y: CY - TOP_H,
-    w: TOP_W,
-    h: TOP_H,
+    x: SX,
+    y: SY - 8 * K,
+    w: 7 * K,
+    h: 8 * K,
     area: 56,
     labels: [
-      { text: '7', dx: TOP_W / 2, dy: -10 },
-      { text: '4', dx: 12, dy: TOP_H - 10, small: true },
+      { text: '7', dx: (7 * K) / 2, dy: -10 },
+      // "4": gap on TOP's left edge between TOP.top and LEFT.top (4u tall)
+      { text: '4', dx: -10, dy: 2 * K, small: true },
     ],
   },
-  // LEFT rectangle (area 45) — sits left of centre, top-aligned to centre's top edge
+  // LEFT rectangle (area 45 = 5×9) — bottom edge flush with the star's bottom
   {
     id: 'left',
-    x: CX - LEFT_W,
-    y: CY - OFF,
-    w: LEFT_W,
-    h: LEFT_H,
+    x: SX - 5 * K,
+    y: SY - 4 * K, // its top is 4u below TOP's top (8u − 4u above star top)
+    w: 5 * K,
+    h: 9 * K,
     area: 45,
     labels: [
-      { text: '9', dx: -11, dy: LEFT_H / 2 },
-      { text: '4', dx: 12, dy: LEFT_H - 10, small: true },
+      { text: '9', dx: -11, dy: (9 * K) / 2 },
+      // "4": gap under LEFT's bottom between LEFT.left and BOTTOM.left (4u wide)
+      { text: '4', dx: 2 * K, dy: 9 * K + 11, small: true },
     ],
   },
-  // RIGHT rectangle (area 48) — sits right of centre, bottom-aligned to centre's bottom edge
+  // RIGHT rectangle (area 48 = 6×8) — top edge flush with the star's top
   {
     id: 'right',
-    x: CX + CW,
-    y: CY + CH - RIGHT_H + OFF,
-    w: RIGHT_W,
-    h: RIGHT_H,
+    x: SX + SW,
+    y: SY,
+    w: 6 * K,
+    h: 8 * K,
     area: 48,
-    labels: [
-      { text: '8', dx: RIGHT_W + 11, dy: RIGHT_H / 2 },
-      { text: '3', dx: RIGHT_W - 12, dy: 12, small: true },
-    ],
+    labels: [{ text: '8', dx: 6 * K + 11, dy: (8 * K) / 2 }],
   },
-  // BOTTOM rectangle (area 42) — sits below centre, left-aligned to centre's left edge
+  // BOTTOM rectangle (area 42 = 7×6) — right edge flush with the star's right
   {
     id: 'bottom',
-    x: CX - OFF,
-    y: CY + CH,
-    w: BOT_W,
-    h: BOT_H,
+    x: SX + SW - 7 * K,
+    y: SY + SH,
+    w: 7 * K,
+    h: 6 * K,
     area: 42,
-    labels: [{ text: '3', dx: BOT_W - 12, dy: BOT_H - 10, small: true }],
+    // "3": the part of BOTTOM's right edge sticking out below RIGHT's bottom
+    labels: [{ text: '3', dx: 7 * K + 10, dy: 6 * K - (1.5 * K), small: true }],
   },
   // central shaded star region (no area shown — that's the unknown)
-  { id: 'star', x: CX, y: CY, w: CW, h: CH },
+  { id: 'star', x: SX, y: SY, w: SW, h: SH },
 ]
 
 // viewBox sized with headroom so labels/arcs never clip; content centred.

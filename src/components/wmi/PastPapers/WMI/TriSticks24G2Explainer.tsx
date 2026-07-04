@@ -1,9 +1,10 @@
 /**
  * WMI-24F2A-Q19 — post-answer explainer.
  *
- * Strategy: count all 8 triangles one per beat (4 downward + 4 upward),
- * then show the 4 shared diagonal sticks that each destroy 2 triangles,
- * then land on 8 + 4 = 12.
+ * Strategy: count all 8 triangles one per beat (6 small unit triangles + 2 big
+ * size-2 triangles — the figure has only 15 sticks, the middle-left horizontal
+ * is missing, so two unit triangles do NOT exist), then show the 4 shared
+ * diagonal sticks whose removal destroys every triangle, then land on 8 + 4 = 12.
  *
  * SSR-safe, deterministic, bilingual (en / id).
  * No Math.random, no Date, no side effects outside useBeatControl.
@@ -40,7 +41,8 @@ function canonKey([[r0, c0], [r1, c1]]: EdgeIdx): string {
 }
 
 // The 4 shared "left-down" diagonals: (r,c) → (r+1,c+1) for r=0,1 c=0,1.
-// Removing all 4 destroys every triangle (each is shared by exactly 2 triangles).
+// Removing all 4 destroys every one of the 8 triangles (6 unit + 2 big);
+// brute force confirms no 3 sticks suffice, so 4 is the minimum.
 const DIAGONAL_STICKS: EdgeIdx[] = [
   [[0, 0], [1, 1]],
   [[0, 1], [1, 2]],
@@ -64,23 +66,39 @@ function triEdges(
   ]
 }
 
-// 4 downward (screen) triangles: vertices (r,c),(r,c+1),(r+1,c+1)
+// The figure has only 15 sticks — edge (1,0)-(1,1) is missing — so the two unit
+// triangles that would use it do not exist. The 6 unit triangles that DO exist:
+// 3 downward (apex down on screen): (r,c),(r,c+1),(r+1,c+1)
 const DOWN_TRIS: EdgeIdx[][] = [
   triEdges([0, 0], [0, 1], [1, 1]),
   triEdges([0, 1], [0, 2], [1, 2]),
-  triEdges([1, 0], [1, 1], [2, 1]),
   triEdges([1, 1], [1, 2], [2, 2]),
 ]
 
-// 4 upward (screen) triangles: vertices (r+1,c),(r+1,c+1),(r,c+1)
+// 3 upward (screen) triangles: vertices (r+1,c),(r+1,c+1),(r,c+1)
 const UP_TRIS: EdgeIdx[][] = [
-  triEdges([1, 0], [1, 1], [0, 1]),
   triEdges([1, 1], [1, 2], [0, 2]),
   triEdges([2, 0], [2, 1], [1, 1]),
   triEdges([2, 1], [2, 2], [1, 2]),
 ]
 
-const ALL_TRIS: EdgeIdx[][] = [...DOWN_TRIS, ...UP_TRIS]
+// 2 size-2 triangles, each drawn from six unit sticks:
+//   big ▽ on corners (0,0),(0,2),(2,2)  — top row + right side + the main diagonal
+//   big △ on corners (0,0),(2,0),(2,2)  — left side + bottom row + the main diagonal
+const BIG_TRIS: EdgeIdx[][] = [
+  [
+    [[0, 0], [0, 1]], [[0, 1], [0, 2]],
+    [[0, 2], [1, 2]], [[1, 2], [2, 2]],
+    [[0, 0], [1, 1]], [[1, 1], [2, 2]],
+  ],
+  [
+    [[0, 0], [1, 0]], [[1, 0], [2, 0]],
+    [[2, 0], [2, 1]], [[2, 1], [2, 2]],
+    [[0, 0], [1, 1]], [[1, 1], [2, 2]],
+  ],
+]
+
+const ALL_TRIS: EdgeIdx[][] = [...DOWN_TRIS, ...UP_TRIS, ...BIG_TRIS]
 
 // ─── centroid of a triangle (for the label badge) ─────────────────────────────
 function triCentroid(edges: EdgeIdx[]): { x: number; y: number } {
@@ -154,10 +172,11 @@ function buildStory(lang: 'en' | 'id'): { steps: Beat[]; finalIndex: number } {
   }
 
   for (let i = 0; i < 8; i++) {
-    const localIdx = i < 4 ? i : i - 4
-    const triLabel = i < 4
-      ? t(`small △ #${i + 1}`, `△ kecil #${i + 1}`)
-      : t(`small ▽ #${localIdx + 1}`, `▽ kecil #${localIdx + 1}`)
+    const triLabel = i < 3
+      ? t(`small ▽ #${i + 1}`, `▽ kecil #${i + 1}`)
+      : i < 6
+        ? t(`small △ #${i - 2}`, `△ kecil #${i - 2}`)
+        : t(`BIG triangle #${i - 5}`, `segitiga BESAR #${i - 5}`)
 
     const edges = ALL_TRIS[i]
     for (const e of edges) {
@@ -214,8 +233,8 @@ function buildStory(lang: 'en' | 'id'): { steps: Beat[]; finalIndex: number } {
       stickCount: i + 1,
       result: false,
       caption: t(
-        `Remove stick ${i + 1}: it's shared by 2 triangles — both gone!`,
-        `Ambil batang ${i + 1}: dipakai 2 segitiga — keduanya hancur!`,
+        `Remove stick ${i + 1}: every triangle that used it is broken!`,
+        `Ambil batang ${i + 1}: semua segitiga yang memakainya hancur!`,
       ),
       hold: 2100,
     })

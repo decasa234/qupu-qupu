@@ -1,5 +1,7 @@
 /**
- * WMI-19P2A-Q21 (2019 Grade 2 Semifinal, Paper A) — the "decomposition machine".
+ * WMI-19P2A-Q22 (2019 Grade 2 Semifinal, Paper A) — the "decomposition machine".
+ * (File is named ...Q21... because the source scan asset is 2019-semifinal-g2-a-q21.jpg,
+ * but that scan shows the partition-machine question, which is Q22 in the seed JSON.)
  *
  * Redrawn from db/seed/wmi/figures/2019-semifinal-g2-a-q21.jpg (NOT embedded).
  *

@@ -47,8 +47,8 @@ export function buildP21G2Q19Steps(lang: Lang, answerLabel: string): Q19Storyboa
       hold: 2100,
       result: false,
       caption: t(
-        'The pattern repeats every 3: banana, apple, banana — then it starts over.',
-        'Pola berulang tiap 3: pisang, apel, pisang — lalu mulai lagi.',
+        'Between the apples the banana groups GROW: first 1 banana, then 2, then 3…',
+        'Di antara apel, kelompok pisang BERTAMBAH: mula-mula 1 pisang, lalu 2, lalu 3…',
       ),
     },
     {
@@ -59,8 +59,8 @@ export function buildP21G2Q19Steps(lang: Lang, answerLabel: string): Q19Storyboa
       hold: 2100,
       result: false,
       caption: t(
-        'Keep the rhythm going right up to the box — the covered run is one full unit.',
-        'Lanjutkan iramanya tepat sampai ke kotak — bagian yang tertutup adalah satu unit penuh.',
+        'The 3-banana group shows only 2 before the box — it hides the 3rd banana, the apple, then the 4-group starts.',
+        'Kelompok 3 pisang baru terlihat 2 sebelum kotak — kotak menyembunyikan pisang ke-3, apelnya, lalu kelompok 4 dimulai.',
       ),
     },
     {

@@ -4,9 +4,10 @@
 // Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q10.jpg: an
 // isometric stack of unit cubes. Reading the front face (4 columns wide) plus the
 // top-face/right-side depth, the structure is a solid 4-wide × 2-deep × 3-tall
-// base wall (24 cubes) with a short tower on the LEFT column (+2 cubes, rising two
-// levels above the wall) and a taller tower on the RIGHT column (+3 cubes). The
-// middle two columns stay at the base height (the "valley" dip seen in the scan).
+// base wall (24 cubes) with a short tower on the LEFT column (+2 cubes, one level
+// above the wall at both depths) and a taller tower on the RIGHT column (+3 cubes:
+// one full level plus a single back cube on top). The middle two columns stay at
+// the base height (the "valley" dip seen in the scan).
 //   base   = 4 × 2 × 3 = 24
 //   left   tower         +2
 //   right  tower         +3
@@ -26,27 +27,26 @@ export type Cube = [number, number, number]
 //   y = up-right screen axis    (depth: front = 0, back = 1)
 //   z = up                      (height level, 0 = bottom)
 //
-// We build the cubes deterministically from a per-column spec so the count is
-// transparent: every column is 2 deep; height is the base (3) plus any tower.
-type ColumnSpec = { col: number; height: number }
-const COLUMNS: ColumnSpec[] = [
-  { col: 0, height: 5 }, // left  : 3 base + 2 tower
-  { col: 1, height: 3 }, // valley
-  { col: 2, height: 3 }, // valley
-  { col: 3, height: 6 }, // right : 3 base + 3 tower
-]
+// We build the cubes deterministically so the count is transparent:
+//   base       : all 4 columns × 2 deep × 3 tall            = 24 cubes
+//   left tower : col 0, ONE level above the base, both depths = 2 cubes
+//   right tower: col 3, one full level (2) + one back cube on top (1) = 3 cubes
 const DEPTH = 2 // cubes deep (front + back)
 const BASE_HEIGHT = 3 // the solid wall every column shares
 
 function buildCubes(): Cube[] {
   const cubes: Cube[] = []
-  for (const { col, height } of COLUMNS) {
+  for (let col = 0; col < 4; col++) {
     for (let d = 0; d < DEPTH; d++) {
-      for (let z = 0; z < height; z++) {
+      for (let z = 0; z < BASE_HEIGHT; z++) {
         cubes.push([col, d, z])
       }
     }
   }
+  // left tower (+2): one level above the wall, front + back
+  cubes.push([0, 0, 3], [0, 1, 3])
+  // right tower (+3): one full level, plus a single back cube on top
+  cubes.push([3, 0, 3], [3, 1, 3], [3, 1, 4])
   return cubes
 }
 

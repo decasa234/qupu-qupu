@@ -125,8 +125,8 @@ export default function ShadedRect22B9Illustration() {
           ] as Array<{
             p: { x: number; y: number }
             label: string
-            anchor: string
-            base: string
+            anchor: 'start' | 'middle' | 'end'
+            base: 'auto' | 'hanging' | 'central'
             dx: number
             dy: number
           }>

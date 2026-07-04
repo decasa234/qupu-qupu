@@ -67,7 +67,9 @@ export default function WmiPaperDetail() {
   return (
     <div className="w-full max-w-[460px] self-center pb-6">
       <div className="mb-3">
-        <BackButton variant="back" to="/latihan/wmi/ujian" />
+        {/* Always go to the paper list, never navigate(-1): after exiting an
+            exam, history-back would land inside the live exam again. */}
+        <BackButton variant="back" onClick={() => navigate('/latihan/wmi/ujian')} />
       </div>
 
       <section className="rounded-[2rem] bg-white p-6 text-center shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">

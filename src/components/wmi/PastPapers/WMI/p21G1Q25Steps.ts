@@ -1,11 +1,15 @@
 // Storyboard for WMI-21P1A-Q25 — the "assemble the pieces, read A + B" explainer.
 //
-// Method: fit the five pieces into the 4×4 grid (rotate, never flip). Once every
-// piece is placed, the marked cells A and B land on two grid cells; read those
-// two numbers and add. Per the official key, A + B = 5 → answer D.
+// Method: fit the five pieces into the 4×4 grid (rotate, never flip) so every
+// printed number lands on the same number in the grid. Brute-force verified:
+// there is exactly ONE legal tiling —
+//   P4 fills the top-left corner (B on the top row's second cell, a 1),
+//   P1 runs down the right edge (A on the second row's right cell, a 1),
+//   P2 sits at row 1 cols 1–2, P5 bottom-left, P3 the rest.
+// So A = 1 and B = 1, giving A + B = 2 → answer A.
 //
-// The result beat lights up the two marked cells (a 2 and a 3, which total 5) so
-// the sum is visible on the grid the problem already gives.
+// The result beat lights up the two marked cells (two 1s, which total 2) so the
+// sum is visible on the grid the problem already gives.
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 export type Q25Phase = 'show' | 'rotate' | 'place' | 'read' | 'result'
@@ -25,9 +29,9 @@ export interface Q25Storyboard {
   finalIndex: number
 }
 
-// The two marked cells, on the given grid, that carry A and B (a 2 and a 3).
-const A_CELL: [number, number] = [1, 1] // value 2
-const B_CELL: [number, number] = [0, 1] // value 3
+// The two marked cells, on the given grid, that carry A and B (two 1s).
+const A_CELL: [number, number] = [3, 1] // value 1 (right edge, second row)
+const B_CELL: [number, number] = [1, 0] // value 1 (top row, second cell)
 
 export function buildP21G1Q25Steps(lang: Lang): Q25Storyboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
@@ -59,8 +63,8 @@ export function buildP21G1Q25Steps(lang: Lang): Q25Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Each piece can sit in only one spot so its numbers match the grid.',
-        'Tiap keping hanya muat di satu tempat agar angkanya cocok dengan kotak.',
+        'Every printed number must land on the same number — that forces each piece into one spot.',
+        'Setiap angka tercetak harus jatuh di angka yang sama — itu memaksa tiap keping ke satu tempat.',
       ),
     },
     {
@@ -69,8 +73,8 @@ export function buildP21G1Q25Steps(lang: Lang): Q25Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        'Once placed, the marked cells A and B land here. Read the two numbers.',
-        'Setelah terpasang, sel bertanda A dan B jatuh di sini. Baca dua angkanya.',
+        'Once placed, the marked cells A and B land here. Both cells show a 1.',
+        'Setelah terpasang, sel bertanda A dan B jatuh di sini. Kedua sel berangka 1.',
       ),
     },
     {
@@ -78,9 +82,9 @@ export function buildP21G1Q25Steps(lang: Lang): Q25Storyboard {
       gridHighlight: [A_CELL, B_CELL],
       hold: 0,
       result: true,
-      caption: t('A + B = 2 + 3 = 5 — answer D.', 'A + B = 2 + 3 = 5 — jawaban D.'),
+      caption: t('A + B = 1 + 1 = 2 — answer A.', 'A + B = 1 + 1 = 2 — jawaban A.'),
     },
   ]
 
-  return { answer: 5, steps, finalIndex: steps.length - 1 }
+  return { answer: 2, steps, finalIndex: steps.length - 1 }
 }

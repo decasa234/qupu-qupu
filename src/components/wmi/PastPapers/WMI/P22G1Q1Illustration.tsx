@@ -3,9 +3,10 @@
 // Stem: "How many of the figures below are formed from 8 triangular tiles?"
 // Redrawn from db/seed/wmi/figures/2022-semifinal-g1-a-q1.jpg — six tangram-style
 // pictures built from identical right-isosceles triangle tiles (each = half of a
-// unit square along a diagonal). Counting the tiles in each picture:
-//   1 fish   = 7   2 table = 8 ✓   3 tree   = 8 ✓
-//   4 anchor = 7   5 boat  = 9      6 person = 8 ✓
+// unit square along a diagonal). Counting the tiles in each picture (verified by
+// a connected-component count of the green regions in the scan — 48 tiles total):
+//   1 fish   = 7   2 table = 8 ✓   3 tree   = 10
+//   4 anchor = 7   5 boat  = 8 ✓   6 person = 8 ✓
 // Exactly 3 pictures use 8 tiles → answer C. The static figure shows ONLY the
 // six shapes (never the per-figure count or the answer).
 //
@@ -77,13 +78,19 @@ const TABLE: Tri[] = [
   { pts: [[1.5, 1], [2.5, 2], [1.5, 2]] }, // base leg (right)
 ]
 
-// --- 3: tree — apex + 2 slopes + central X-square (4) + small base tri = 8 ---
+// --- 3: tree — apex + 2 tiles per slope (4) + central 2x2 X-square (4) + trunk = 10 ---
 const TREE: Tri[] = [
-  { pts: [[2, 0], [1, 1], [3, 1]] }, // apex triangle
-  { pts: [[1, 1], [1, 2], [0, 2]] }, // left slope
-  { pts: [[3, 1], [3, 2], [4, 2]] }, // right slope
-  ...squareX(1.5, 1), // central square split into 4 (an X)
-  { pts: [[1.5, 2.6], [2.5, 2.6], [2, 3.4]] }, // small triangle below the base
+  { pts: [[3, 0], [2, 1], [4, 1]] }, // apex triangle
+  { pts: [[2, 1], [2, 3], [1, 2]] }, // left slope, upper tile
+  { pts: [[1, 2], [2, 3], [0, 3]] }, // left slope, lower tile
+  { pts: [[4, 1], [4, 3], [5, 2]] }, // right slope, upper tile
+  { pts: [[5, 2], [4, 3], [6, 3]] }, // right slope, lower tile
+  // central 2x2 square split by BOTH diagonals into 4 tiles
+  { pts: [[2, 1], [4, 1], [3, 2]] },
+  { pts: [[4, 1], [4, 3], [3, 2]] },
+  { pts: [[4, 3], [2, 3], [3, 2]] },
+  { pts: [[2, 3], [2, 1], [3, 2]] },
+  { pts: [[3, 3.15], [3.8, 4.15], [2.2, 4.15]] }, // trunk (up-pointing, under the base)
 ]
 
 // --- 4: anchor — top inverted tri + central X-square (4) + two wings = 7 ---
@@ -94,10 +101,10 @@ const ANCHOR: Tri[] = [
   { pts: [[2.5, 1.5], [3.5, 1.5], [2.5, 2.5]] }, // right wing
 ]
 
-// --- 5: boat — sail tower (3) + hull (6) = 9 tiles ---
+// --- 5: boat — sail (2) + hull (6) = 8 tiles ---
 const BOAT: Tri[] = [
   { pts: [[2, 0], [2, 1], [3, 1]] }, // sail top
-  ...squareSplit(2, 1, 'anti'), // sail body square (2)
+  { pts: [[2, 1], [3, 1], [2, 2]] }, // sail bottom
   { pts: [[0, 2.5], [1, 2], [1, 3]] }, // left bow
   ...squareSplit(1, 2, 'anti'), // hull (2)
   ...squareSplit(2, 2, 'main'), // hull (2)
@@ -129,7 +136,7 @@ export const FIGURES: FigureSpec[] = [
 ]
 
 /** Verified tile counts per figure (1-indexed by FIGURES order). */
-export const TILE_COUNTS = [7, 8, 8, 7, 9, 8] as const
+export const TILE_COUNTS = [7, 8, 10, 7, 8, 8] as const
 export const TARGET_TILES = 8
 export const MATCH_COUNT = TILE_COUNTS.filter((n) => n === TARGET_TILES).length // 3
 

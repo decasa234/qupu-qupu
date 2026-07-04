@@ -5,7 +5,7 @@ import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { MachineRow, SIX_PARTS, SIX_COUNT, VIEW_W, ROW_H } from './P19G2Q21Illustration'
 import { buildP19G2Q21Steps } from './p19G2Q21Steps'
 
-// WMI-19P2A-Q21 — post-answer explainer for the decomposition machine.
+// WMI-19P2A-Q22 — post-answer explainer for the decomposition machine.
 // We reuse the MachineRow primitive: the 6-box fills one partition per beat with
 // a running counter, grouped by part-count, landing on 10 → choice C.
 

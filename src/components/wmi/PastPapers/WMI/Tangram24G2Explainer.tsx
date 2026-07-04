@@ -38,11 +38,8 @@ function ptsToString(pts: Pt[], s: number, ox: number, oy: number): string {
 // try to compute true geometry — for the kid-facing tally we drop a fixed set
 // of corner ticks per figure that match the captioned count, animating them in.
 const CORNER_TICKS: Record<Tangram24Label, Pt[]> = {
-  // W — only the two flat tops are square corners.
-  A: [
-    [0.4, 1.4],
-    [9.6, 1.4],
-  ],
+  // W — all slanted bars: no square corners, no ticks.
+  A: [],
   // M — the two upright posts: four square corners each (8 total).
   B: [
     [0.4, 1.4],
@@ -54,23 +51,23 @@ const CORNER_TICKS: Record<Tangram24Label, Pt[]> = {
     [8.2, 8.6],
     [9.6, 8.6],
   ],
-  // I — top bar (2) + bottom bar (2) + the stem shoulders (2) = 6.
+  // I — only the rectangular stem has square corners (4).
   C: [
-    [2.4, 1.4],
-    [7.6, 1.4],
+    [4.2, 3.2],
+    [5.8, 3.2],
     [4.2, 6.8],
     [5.8, 6.8],
-    [2.4, 8.6],
-    [7.6, 8.6],
   ],
-  // 2 — the two flat bars give four square corners.
+  // 2 — right end of the top bar (2) + the rectangular base bar (4) = 6.
   D: [
-    [1.9, 1.4],
     [8.1, 1.4],
+    [8.1, 2.4],
+    [1.9, 7.6],
+    [8.1, 7.6],
     [1.9, 8.6],
     [8.1, 8.6],
   ],
-  // 4 — the upright stem + crossbar give four square corners.
+  // 4 — only the upright rectangular stem has square corners (4).
   E: [
     [6.9, 1.4],
     [8.1, 1.4],

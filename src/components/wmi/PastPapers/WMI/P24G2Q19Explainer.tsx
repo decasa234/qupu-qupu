@@ -6,9 +6,10 @@ import { buildP24G2Q19Steps } from './p24G2Q19Steps'
 
 // WMI-24P2A-Q19 — post-answer explainer for the matching-flower question.
 // Reuses the Q19Flower primitive so the animation reads as the static figure
-// coming alive: it reads the alternating dark/white discs, shows that a rotation
-// keeps the order, shows that a mirror reverses it (the trap), and lands on the
-// option that is a true rotation — the seed answer (E).
+// coming alive: it reads the dark/white disc order (D-W-D-D-W-W clockwise from
+// the top), shows that a rotation keeps the order, shows that a mirror reverses
+// it (the trap), and lands on the option that is a true rotation — the seed
+// answer (E).
 
 const GREEN = '#10B981'
 

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import ConfirmModal from '../components/ConfirmModal'
 import ErrorRetry from '../components/ErrorRetry'
 import Skeleton from '../components/Skeleton'
 import WmiDots, { type WmiDot } from '../components/wmi/WmiDots'
@@ -11,7 +12,7 @@ import { toIndonesianErrorMessage } from '../lib/errorMessage'
 import { completeExamSession, fetchExamSession, submitAttempt } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
-import type { WmiExamSnapshot, WmiSubmittedAttempt } from '../types/wmi'
+import type { WmiAttemptResult, WmiExamSnapshot, WmiSubmittedAttempt } from '../types/wmi'
 
 export default function WmiExam() {
   useDocumentTitle('Ujian')
@@ -23,6 +24,11 @@ export default function WmiExam() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [lookedUpTerms, setLookedUpTerms] = useState<string[]>([])
   const [revealed, setRevealed] = useState<Record<string, boolean>>({})
+  // Instant per-question scoring: the submit result (with correct_answer) is
+  // kept per question so the picked choice colors green/red immediately.
+  // Resumed sessions lack this for earlier answers (the snapshot only carries
+  // is_correct) — those still show the verdict, just without the green key.
+  const [feedback, setFeedback] = useState<Record<string, WmiAttemptResult>>({})
   const [breakdown, setBreakdown] = useState(false)
   // Two distinct error channels: loadError is FATAL (the exam never loaded) and
   // gates the whole page with a retry; actionError is NON-FATAL (a per-answer
@@ -87,7 +93,9 @@ export default function WmiExam() {
     finishingRef.current = true
     try {
       await completeExamSession(activeChildId, sessionId)
-      navigate(`/latihan/wmi/exam/${sessionId}/review`)
+      // replace: the finished exam must not linger in history — back from the
+      // review should NOT re-enter the live exam screen.
+      navigate(`/latihan/wmi/exam/${sessionId}/review`, { replace: true })
     } catch (err) {
       // Non-fatal: keep the exam on screen (the Selesai button stays) so the
       // kid can re-tap. finishingRef reset allows the retry.
@@ -111,11 +119,11 @@ export default function WmiExam() {
 
   // Explicit exit: the session is NOT abandoned — the paper page offers
   // "Lanjutkan Ujian" and the snapshot restores every submitted answer.
-  const exitExam = () => {
-    if (!snapshot) return
-    if (window.confirm('Keluar ujian? Kamu bisa lanjutkan nanti.')) {
-      navigate(`/latihan/wmi/papers/${snapshot.paper.id}`)
-    }
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+  const confirmExit = () => {
+    // replace: drop the exam from history so back on the paper page doesn't
+    // step straight back into the live exam.
+    if (snapshot) navigate(`/latihan/wmi/papers/${snapshot.paper.id}`, { replace: true })
   }
 
   if (!activeChildId) {
@@ -154,15 +162,30 @@ export default function WmiExam() {
   const attempt = attemptsByQuestion.get(question.id) as WmiSubmittedAttempt | undefined
   const total = snapshot.paper.questions.length
 
-  // Question navigator: answered (navy) vs not-yet (outline), current ringed,
-  // tap to jump. Correctness stays hidden until the review (blind exam).
-  const navDots: WmiDot[] = snapshot.paper.questions.map((q, index): WmiDot => ({
-    key: q.id,
-    state: attemptsByQuestion.has(q.id) ? 'answered' : 'pending',
-    current: index === currentIndex,
-    onClick: () => setCurrentIndex(index),
-    label: `Soal ${index + 1}`,
-  }))
+  // WMI's real exam structure: 25 questions = Paper A (soal 1–15) + Paper B
+  // (soal 1–10). Only 25-question papers split; other lengths stay flat.
+  const PAPER_A_SIZE = 15
+  const isSplit = total === 25
+  const partLabel = (position: number) =>
+    isSplit
+      ? position < PAPER_A_SIZE
+        ? `Paper A · Soal ${position + 1}`
+        : `Paper B · Soal ${position - PAPER_A_SIZE + 1}`
+      : `Soal ${position + 1}`
+
+  // Question navigator: per-number scoring is live — answered dots show
+  // green/red right away; not-yet stays outline. Current ringed, tap to jump.
+  const navDots: WmiDot[] = snapshot.paper.questions.map((q, index): WmiDot => {
+    const done = attemptsByQuestion.get(q.id)
+    return {
+      key: q.id,
+      state: done ? (done.is_correct ? 'correct' : 'wrong') : 'pending',
+      current: index === currentIndex,
+      onClick: () => setCurrentIndex(index),
+      label: partLabel(index),
+      number: isSplit && index >= PAPER_A_SIZE ? index - PAPER_A_SIZE + 1 : index + 1,
+    }
+  })
 
   const saveAnswer = async (answer: string) => {
     if (!activeChildId || !sessionId) return
@@ -194,6 +217,7 @@ export default function WmiExam() {
             }
           : current,
       )
+      setFeedback((map) => ({ ...map, [question.id]: result }))
       setActionError(null)
     } catch (err) {
       // Non-fatal: the exam stays on screen; re-picking the answer retries.
@@ -203,9 +227,19 @@ export default function WmiExam() {
 
   return (
     <div className="w-full max-w-[460px] self-center pb-8">
+      <ConfirmModal
+        open={showExitConfirm}
+        icon="fa-solid fa-door-open"
+        title="Keluar ujian?"
+        message="Tenang, jawabanmu tersimpan — kamu bisa lanjutkan nanti."
+        cancelLabel="Lanjut Ujian"
+        confirmLabel="Keluar Ujian"
+        onClose={() => setShowExitConfirm(false)}
+        onConfirm={confirmExit}
+      />
       <header className="mb-4 space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <BackButton variant="close" onClick={exitExam} />
+          <BackButton variant="close" onClick={() => setShowExitConfirm(true)} />
           <WmiExamTimer
             startedAt={snapshot.session.started_at}
             durationMin={snapshot.paper.recommended_duration_min}
@@ -215,14 +249,45 @@ export default function WmiExam() {
         <h1 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
           {snapshot.paper.title}
         </h1>
-        <WmiDots dots={navDots} />
+        {isSplit ? (
+          <div className="space-y-2">
+            <div>
+              <p className="mb-1 px-1 text-[10px] font-black uppercase tracking-[0.18em] text-qupu-muted">
+                Paper A
+              </p>
+              <WmiDots dots={navDots.slice(0, PAPER_A_SIZE)} />
+            </div>
+            <div>
+              <p className="mb-1 px-1 text-[10px] font-black uppercase tracking-[0.18em] text-qupu-muted">
+                Paper B
+              </p>
+              <WmiDots dots={navDots.slice(PAPER_A_SIZE)} />
+            </div>
+          </div>
+        ) : (
+          <WmiDots dots={navDots} />
+        )}
       </header>
 
       <WmiQuestionView
         question={question}
+        label={partLabel(currentIndex)}
         selectedChoice={attempt?.selected_answer ?? null}
         fillValue={attempt?.selected_answer ?? ''}
-        revealed={Boolean(revealed[question.id])}
+        highlight={
+          attempt
+            ? {
+                correct:
+                  feedback[question.id]?.correct_answer ??
+                  (attempt.is_correct ? attempt.selected_answer : null),
+                wrongPicked: attempt.is_correct ? null : attempt.selected_answer,
+              }
+            : undefined
+        }
+        disabled={Boolean(attempt)}
+        // A wrong answer opens the full walkthrough (steps + trap + animated
+        // explainer) right here; correct answers keep the card compact.
+        revealed={Boolean(revealed[question.id]) || (attempt != null && !attempt.is_correct)}
         breakdownActive={breakdown}
         initialLang={preferredLang}
         onToggleBreakdown={() => setBreakdown((value) => !value)}
@@ -233,6 +298,38 @@ export default function WmiExam() {
         onUserToggleLanguage={setPreferredLang}
       />
 
+      {attempt && (
+        <div
+          className={`mt-4 rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
+            attempt.is_correct ? 'border-[#58A700]/40 bg-[#E8F5D6]' : 'border-rose-200 bg-rose-50'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <span
+              className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
+                attempt.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
+              }`}
+            >
+              <i
+                className={`fa-solid ${attempt.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`}
+                aria-hidden="true"
+              />
+            </span>
+            <span
+              className={`font-display font-black ${attempt.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}
+            >
+              {attempt.is_correct ? 'Benar!' : 'Belum tepat'}
+            </span>
+          </div>
+          {!attempt.is_correct && feedback[question.id]?.correct_answer && (
+            <p className="mt-2 text-sm font-semibold text-rose-700">
+              Jawaban benar:{' '}
+              <span className="font-black">{feedback[question.id].correct_answer}</span>
+            </p>
+          )}
+        </div>
+      )}
+
       {actionError && (
         <div className="mt-4 rounded-[1.25rem] border-2 border-rose-200 bg-rose-50 p-3 text-center">
           <p className="text-sm font-bold text-rose-600">
@@ -242,7 +339,11 @@ export default function WmiExam() {
         </div>
       )}
 
-      <div className="mt-5 flex justify-between gap-3">
+      {/* Nav bar floats at the viewport bottom while there's content below it,
+          then settles into place at the end of the scroll — the wrapper's pb-8
+          is its resting room. -mx-1/px-1 lets the backdrop span the column
+          gutter so scrolling content doesn't peek past the buttons' edges. */}
+      <div className="sticky bottom-0 z-20 -mx-1 mt-5 flex justify-between gap-3 bg-gradient-to-t from-qupu-cream from-60% to-transparent px-1 pb-2 pt-4 lg:from-[#FFF8F0]">
         <button
           type="button"
           disabled={currentIndex === 0}

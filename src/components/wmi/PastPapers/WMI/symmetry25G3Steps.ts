@@ -56,7 +56,15 @@ const AXIS_WORD: Record<SymAxis, [string, string]> = {
 export function buildSymmetry25G3Steps(lang: Lang): SymStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  const startCells = CELLS_25G3.map((c) => [c.r, c.c] as [number, number])
+  // One result extends a column LEFT of the start frame (c = −1), so shift the
+  // whole storyboard right so every drawn cell has non-negative coordinates.
+  const minCol = Math.min(
+    ...CELLS_25G3.map((c) => c.c),
+    ...SYMMETRY_RESULTS_25G3.flatMap((res) => res.cells.map((p) => p[1])),
+  )
+  const shift = (p: [number, number]): [number, number] => [p[0], p[1] - minCol]
+
+  const startCells = CELLS_25G3.map((c) => shift([c.r, c.c]))
   const startSet = new Set(startCells.map(key))
 
   // Grid bounds large enough for the start shape AND every result.
@@ -69,7 +77,7 @@ export function buildSymmetry25G3Steps(lang: Lang): SymStoryboard {
     }
   }
   bump(startCells)
-  SYMMETRY_RESULTS_25G3.forEach((res) => bump(res.cells))
+  SYMMETRY_RESULTS_25G3.forEach((res) => bump(res.cells.map(shift)))
 
   const total = SYMMETRY_COUNT_25G3 // derived, not hardcoded
 
@@ -90,7 +98,8 @@ export function buildSymmetry25G3Steps(lang: Lang): SymStoryboard {
   ]
 
   SYMMETRY_RESULTS_25G3.forEach((res, i) => {
-    const moved = res.cells.filter((p) => !startSet.has(key(p)))
+    const cells = res.cells.map(shift)
+    const moved = cells.filter((p) => !startSet.has(key(p)))
     const count = i + 1
     const isLast = i === SYMMETRY_RESULTS_25G3.length - 1
     const axisWord = AXIS_WORD[res.axes[0]]
@@ -108,7 +117,7 @@ export function buildSymmetry25G3Steps(lang: Lang): SymStoryboard {
         )
     steps.push({
       result: res,
-      cells: res.cells,
+      cells,
       moved,
       axes: res.axes,
       count,

@@ -78,7 +78,7 @@ export const CakeShare23P3Explainer = makeTryCheckExplainer((lang) => {
     intro: t('Divide the cost, then subtract from what Jessie had.', 'Bagi biayanya, lalu kurangkan dari uang Jessie.'),
     items: [
       { text: t('Each pays 450 ÷ 3 = 150 dollars', 'Tiap orang membayar 450 ÷ 3 = 150 dolar'), ok: null },
-      { text: t('Don’t miscompute the share as 135 — that wrongly leaves 45', 'Jangan keliru menghitung bagian sebagai 135 — itu keliru menyisakan 45'), ok: false },
+      { text: t('Don’t miscompute the share as 140 — 185 − 140 wrongly leaves 45', 'Jangan keliru menghitung bagian sebagai 140 — 185 − 140 keliru menyisakan 45'), ok: false },
       { text: '185 − 150 = 35', ok: null },
       { text: t('35 dollars left', 'sisa 35 dolar'), ok: true },
     ],
@@ -174,7 +174,7 @@ export const LargestMinusSmallest23P3Explainer = makeTryCheckExplainer((lang) =>
     intro: t('Build the biggest and smallest numbers, mind the leading-zero rule, then subtract.', 'Bentuk bilangan terbesar dan terkecil, perhatikan aturan tanpa awalan nol, lalu kurangkan.'),
     items: [
       { text: t('Largest: biggest digits first → 8653', 'Terbesar: angka besar dulu → 8653'), ok: null },
-      { text: t('Don’t let 0 lead the smallest (0135) — a 4-digit number can’t start with 0, which wrongly gives 7628', 'Jangan biarkan 0 memimpin yang terkecil (0135) — bilangan 4 digit tak boleh diawali 0, yang keliru jadi 7628'), ok: false },
+      { text: t('Don’t let 0 lead the smallest (0135 = 135) — a 4-digit number can’t start with 0, and 8653 − 135 wrongly gives 8518', 'Jangan biarkan 0 memimpin yang terkecil (0135 = 135) — bilangan 4 digit tak boleh diawali 0, dan 8653 − 135 keliru jadi 8518'), ok: false },
       { text: t('Smallest leads with 1: 1, 0, 3, 5 → 1035', 'Terkecil dipimpin 1: 1, 0, 3, 5 → 1035'), ok: null },
       { text: '8653 − 1035 = 7618', ok: true },
     ],
@@ -191,7 +191,7 @@ export const BallColourCount23P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: t('Yellow = red + 12, and blue = yellow + 14 = red + 26', 'Kuning = merah + 12, dan biru = kuning + 14 = merah + 26'), ok: null },
       { text: t('Blue is also twice red, so red + 26 = 2 × red, giving red = 26', 'Biru juga dua kali merah, jadi merah + 26 = 2 × merah, sehingga merah = 26'), ok: null },
-      { text: t('A wrong red value gives 112 instead — but blue = 2 × red forces red = 26', 'Nilai merah yang salah memberi 112 — tapi biru = 2 × merah memaksa merah = 26'), ok: false },
+      { text: t('Red = 25 gives 25 + 37 + 50 = 112 — but then blue is only 13 more than yellow, not 14', 'Merah = 25 memberi 25 + 37 + 50 = 112 — tapi biru hanya 13 lebih banyak dari kuning, bukan 14'), ok: false },
       { text: t('26 + 38 + 52 = 116', '26 + 38 + 52 = 116'), ok: true },
     ],
     final: t('There are 116 balls (D).', 'Ada 116 bola (D).'),

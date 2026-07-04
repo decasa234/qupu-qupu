@@ -4,7 +4,7 @@
 // Redrawn from db/seed/wmi/figures/2021-semifinal-g1-a-q17.jpg: a sheet of paper
 // shaped like a rectangle with a rectangular NOTCH cut into the LEFT edge at
 // mid-height (an "E"/bracket-like bite). Two dotted fold lines are printed: a
-// VERTICAL line about two-thirds across and a HORIZONTAL line through the middle
+// VERTICAL line halfway across and a HORIZONTAL line through the middle
 // (together they make a cross). The printed answer options (the resulting shapes
 // A–D) were separate images that were not extracted, so the explainer derives and
 // indicates the correct option letter (D) rather than rendering all four.
@@ -40,9 +40,12 @@ export const NOTCH = {
   yBot: 24 + 124, // notch bottom (y)
 }
 
-// The two dotted fold lines.
+// The two dotted fold lines. The vertical crease sits at the MIDDLE of the
+// sheet: folding the notched left half onto the right half covers the notch
+// exactly (the reflected notch lands inside the solid right half), so the folded
+// silhouette really is a clean rectangle.
 export const FOLD = {
-  vx: 30 + 156, // vertical crease x (about two-thirds across)
+  vx: 30 + 120, // vertical crease x (halfway across)
   hy: 24 + 90, // horizontal crease y (middle)
 }
 

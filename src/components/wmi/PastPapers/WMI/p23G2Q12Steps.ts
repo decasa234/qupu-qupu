@@ -1,11 +1,11 @@
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
-import { MIN_DOMINOES, SHADED_COUNT, TILING } from './P23G2Q12Illustration'
+import { MIN_PIECES, SHADED_COUNT, TILING } from './P23G2Q12Illustration'
 
 export type DominoPhase = 'show' | 'count' | 'pair' | 'fill' | 'result'
 
 export interface DominoStep {
   phase: DominoPhase
-  /** How many dominoes of the verified tiling to overlay. */
+  /** How many L-pieces of the verified tiling to overlay. */
   placed: number
   caption: string
   hold: number
@@ -14,7 +14,7 @@ export interface DominoStep {
 
 export interface DominoStoryboard {
   shadedCount: number
-  minDominoes: number
+  minPieces: number
   answer: string
   steps: DominoStep[]
   finalIndex: number
@@ -30,8 +30,8 @@ export function buildP23G2Q12Steps(lang: Lang): DominoStoryboard {
       hold: 1700,
       result: false,
       caption: t(
-        'Every 1×2 domino covers exactly 2 squares.',
-        'Setiap domino 1×2 menutupi tepat 2 kotak.',
+        'Every L-shaped piece covers exactly 3 squares.',
+        'Setiap kepingan berbentuk L menutupi tepat 3 kotak.',
       ),
     },
     {
@@ -46,12 +46,12 @@ export function buildP23G2Q12Steps(lang: Lang): DominoStoryboard {
     },
     {
       phase: 'pair',
-      placed: 3,
+      placed: 2,
       hold: 2000,
       result: false,
       caption: t(
-        'Lay dominoes two squares at a time — no gaps, no overlaps.',
-        'Pasang domino dua kotak sekaligus — tanpa celah, tanpa tumpang tindih.',
+        'Lay L-pieces three squares at a time — no gaps, no overlaps.',
+        'Pasang kepingan L tiga kotak sekaligus — tanpa celah, tanpa tumpang tindih.',
       ),
     },
     {
@@ -60,8 +60,8 @@ export function buildP23G2Q12Steps(lang: Lang): DominoStoryboard {
       hold: 2100,
       result: false,
       caption: t(
-        `The whole region fills with ${TILING.length} dominoes.`,
-        `Seluruh daerah terisi dengan ${TILING.length} domino.`,
+        `The whole region fills with ${TILING.length} L-pieces.`,
+        `Seluruh daerah terisi dengan ${TILING.length} kepingan L.`,
       ),
     },
     {
@@ -70,16 +70,16 @@ export function buildP23G2Q12Steps(lang: Lang): DominoStoryboard {
       hold: 0,
       result: true,
       caption: t(
-        `${SHADED_COUNT} ÷ 2 = ${MIN_DOMINOES} dominoes — answer D.`,
-        `${SHADED_COUNT} ÷ 2 = ${MIN_DOMINOES} domino — jawaban D.`,
+        `${SHADED_COUNT} ÷ 3 = ${MIN_PIECES} pieces — answer B.`,
+        `${SHADED_COUNT} ÷ 3 = ${MIN_PIECES} kepingan — jawaban B.`,
       ),
     },
   ]
 
   return {
     shadedCount: SHADED_COUNT,
-    minDominoes: MIN_DOMINOES,
-    answer: 'D',
+    minPieces: MIN_PIECES,
+    answer: 'B',
     steps,
     finalIndex: steps.length - 1,
   }

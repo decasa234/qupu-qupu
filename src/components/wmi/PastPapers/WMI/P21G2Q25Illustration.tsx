@@ -30,9 +30,11 @@ export const GRID_Q25: number[][] = [
 ]
 
 // Where A and B land once the pieces are placed (both hold the value 1).
-// Chosen as two distinct grid cells that contain 1.
+// The tiling is UNIQUE (brute-force verified over all rotations/positions):
+// piece 1 fills the right column with A at (1,3); piece 4 sits in the top-left
+// corner with B at (0,1).
 export const A_CELL_Q25 = { r: 1, c: 3 } as const // grid value 1
-export const B_CELL_Q25 = { r: 2, c: 2 } as const // grid value 1
+export const B_CELL_Q25 = { r: 0, c: 1 } as const // grid value 1
 
 // The values A and B carry on the finished grid, and the result.
 export const A_VALUE_Q25 = GRID_Q25[A_CELL_Q25.r][A_CELL_Q25.c] // 1

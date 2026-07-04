@@ -26,12 +26,14 @@ const PIP_UV: Record<number, Array<[number, number]>> = {
   6: [[0.3, 0.22], [0.7, 0.22], [0.3, 0.5], [0.7, 0.5], [0.3, 0.78], [0.7, 0.78]],
 }
 
-// Faithful visible side faces of each die, top die first (front=left, right=right).
+// Faithful visible side faces of each die, top die first (front=left, right=right),
+// read off the scan. With standard (right-handed) dice these sides fix each up
+// face: tops are 1, 2, 3, 1 — they add to 7.
 const FACES = [
-  { front: 5, right: 6 },
+  { front: 3, right: 5 },
   { front: 1, right: 4 },
   { front: 6, right: 5 },
-  { front: 2, right: 6 },
+  { front: 5, right: 4 },
 ]
 
 export const Q24_VIEW_W = 260

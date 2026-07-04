@@ -92,9 +92,13 @@ function InfoPanel({ equation, caption, result }: {
 }
 
 // ── Main explainer ────────────────────────────────────────────────────────────
-export default function FloorPlanOSN24NT2Q7Explainer({ lang = 'id' }: ExplainerProps) {
+export default function FloorPlanOSN24NT2Q7Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'id'
   const storyboard = useMemo(() => buildFloorPlanOSN24NT2Q7Steps(lang), [lang])
-  const { beat, nav } = useBeatControl(storyboard.beats, storyboard.finalIndex)
+  const beat = useBeatControl(storyboard.finalIndex, {
+    ...props,
+    holds: storyboard.beats.map((b) => b.hold),
+  })
   const cur = storyboard.beats[beat]
 
   return (
@@ -151,7 +155,6 @@ export default function FloorPlanOSN24NT2Q7Explainer({ lang = 'id' }: ExplainerP
           </motion.g>
         </AnimatePresence>
       </svg>
-      {nav}
     </div>
   )
 }

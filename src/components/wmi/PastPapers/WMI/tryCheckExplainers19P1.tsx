@@ -43,15 +43,15 @@ export const MissingAddend19P1Explainer = makeTryCheckExplainer((lang) => {
 export const NumberStairs19P1Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
-    intro: t('Follow the staircase pattern down to the last tile.', 'Ikuti pola tangga sampai ubin terakhir.'),
+    intro: t('Stack the stairs into columns and add each column.', 'Susun tangganya menjadi kolom dan jumlahkan tiap kolom.'),
     items: [
-      { text: t('Each step down adds one more tile to the row', 'Setiap turun satu anak tangga menambah satu ubin'), ok: null },
-      { text: t('Read the bottom row in order: 1, 2, 9, then the box', 'Baca baris bawah berurutan: 1, 2, 9, lalu kotaknya'), ok: null },
-      { text: t('Don’t sum neighbours: 2 + 9 = 11 — the stairs follow position, not addition', 'Jangan menjumlahkan tetangga: 2 + 9 = 11 — tangga ikut posisi, bukan penjumlahan'), ok: false },
-      { text: t('The pattern fills the missing tile with 9', 'Pola mengisi ubin yang hilang dengan 9'), ok: true },
+      { text: t('Column sums: 6 + 3 + 5 + 1 = 15, then 4 + 7 + 2 = 13, then 2 + 9 = 11', 'Jumlah kolom: 6 + 3 + 5 + 1 = 15, lalu 4 + 7 + 2 = 13, lalu 2 + 9 = 11'), ok: null },
+      { text: t('The sums drop by 2 each time: 15, 13, 11, …', 'Jumlahnya turun 2 setiap kali: 15, 13, 11, …'), ok: null },
+      { text: t('Don’t sum neighbours: 2 + 9 = 11 is the third column’s total, not the box', 'Jangan menjumlahkan tetangga: 2 + 9 = 11 adalah jumlah kolom ketiga, bukan isi kotak'), ok: false },
+      { text: t('Next column total: 11 − 2 = 9, and the box is that column alone → 9', 'Jumlah kolom berikutnya: 11 − 2 = 9, dan kotak itu sendirian di kolomnya → 9'), ok: true },
     ],
     final: t('The number in the box is 9 (C).', 'Angka di kotak itu 9 (C).'),
-    aria: t('Following the staircase pattern, the missing tile is 9.', 'Mengikuti pola tangga, ubin yang hilang adalah 9.'),
+    aria: t('Adding each staircase column gives 15, 13, 11, then 9 — the missing tile is 9.', 'Menjumlahkan tiap kolom tangga memberi 15, 13, 11, lalu 9 — ubin yang hilang adalah 9.'),
   }
 })
 

@@ -14,8 +14,8 @@ export default function P23G2Q12Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: ${story.shadedCount} kotak berwarna, tiap domino 2 kotak, jadi minimal ${story.minDominoes} domino.`
-      : `Explainer: ${story.shadedCount} shaded squares, each domino covers 2, so the minimum is ${story.minDominoes} dominoes.`
+      ? `Penjelasan: ${story.shadedCount} kotak berwarna, tiap kepingan L 3 kotak, jadi minimal ${story.minPieces} kepingan.`
+      : `Explainer: ${story.shadedCount} shaded squares, each L-piece covers 3, so the minimum is ${story.minPieces} pieces.`
 
   return (
     <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>

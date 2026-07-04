@@ -77,9 +77,9 @@ export const SharedDenominatorStar20P2Explainer = makeTryCheckExplainer((lang) =
   return {
     intro: t('Use the shared denominator to recover the star.', 'Pakai penyebut yang sama untuk menemukan bintang.'),
     items: [
-      { text: t('Both fractions share the same bottom number, 93', 'Kedua pecahan punya penyebut sama, yaitu 93'), ok: null },
-      { text: t('The key works the star as a difference from 93: 93 − 57 = 36', 'Kuncinya memperlakukan bintang sebagai selisih dari 93: 93 − 57 = 36'), ok: null },
-      { text: t('Don’t settle for 35 — it is one off the keyed 36', 'Jangan puas dengan 35 — meleset satu dari kunci 36'), ok: false },
+      { text: t('All the fractions share the same bottom number, 93', 'Semua pecahan punya penyebut sama, yaitu 93'), ok: null },
+      { text: t('With equal denominators, just subtract the tops: 93 − 57 = 36', 'Dengan penyebut sama, cukup kurangkan pembilangnya: 93 − 57 = 36'), ok: null },
+      { text: t('Don’t settle for 35 — 93 − 57 = 36, not 35', 'Jangan puas dengan 35 — 93 − 57 = 36, bukan 35'), ok: false },
       { text: t('The star stands for 36', 'Bintang bernilai 36'), ok: true },
     ],
     final: t('The star = 36 (C).', 'Bintang = 36 (C).'),
@@ -103,19 +103,19 @@ export const EvenBehindCross20P2Explainer = makeTryCheckExplainer((lang) => {
   }
 })
 
-/** Q10 — cup = 32÷8 = 4 = square; then 4 × triangle = 20 → triangle = 5. */
+/** Q10 — square = 32÷8 = 4; then 4 × triangle = 20 → triangle = 5. */
 export const ShapeSubstitution20P2Explainer = makeTryCheckExplainer((lang) => {
   const t = tt(lang)
   return {
     intro: t('Solve the easy clue first, then substitute.', 'Selesaikan petunjuk mudah dulu, lalu substitusi.'),
     items: [
-      { text: t('From 8 × cup = 32, divide: cup = 32 ÷ 8 = 4', 'Dari 8 × cangkir = 32, bagi: cangkir = 32 ÷ 8 = 4'), ok: null },
-      { text: t('The square equals the cup, so square = 4', 'Persegi bernilai sama dengan cangkir, jadi persegi = 4'), ok: null },
-      { text: t('Don’t stop at 4 — that is the cup and square, not the triangle', 'Jangan berhenti di 4 — itu cangkir dan persegi, bukan segitiga'), ok: false },
+      { text: t('From 8 × square = 32, divide: square = 32 ÷ 8 = 4', 'Dari 8 × persegi = 32, bagi: persegi = 32 ÷ 8 = 4'), ok: null },
+      { text: t('So the square stands for 4', 'Jadi persegi bernilai 4'), ok: null },
+      { text: t('Don’t stop at 4 — that is the square, not the triangle', 'Jangan berhenti di 4 — itu persegi, bukan segitiga'), ok: false },
       { text: t('Now 4 × triangle = 20, so triangle = 20 ÷ 4 = 5', 'Sekarang 4 × segitiga = 20, jadi segitiga = 20 ÷ 4 = 5'), ok: true },
     ],
     final: t('The triangle = 5 (D).', 'Segitiga = 5 (D).'),
-    aria: t('The cup and square are 4, so the triangle is 20 divided by 4, which is 5.', 'Cangkir dan persegi bernilai 4, jadi segitiga adalah 20 dibagi 4, yaitu 5.'),
+    aria: t('The square is 4, so the triangle is 20 divided by 4, which is 5.', 'Persegi bernilai 4, jadi segitiga adalah 20 dibagi 4, yaitu 5.'),
   }
 })
 

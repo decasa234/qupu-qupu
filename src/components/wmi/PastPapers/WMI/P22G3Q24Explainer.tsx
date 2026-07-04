@@ -7,9 +7,9 @@ import { buildP22G3Q24Steps } from './p22G3Q24Steps'
 const GREEN = '#10B981'
 const BLUE = '#30598A'
 
-// WMI-22P3A-Q24 — post-answer explainer. Re-uses BlocksFigure: outline the big
-// bounding rectangle (21 × 13 = 273), subtract the three 75-blocks (225), and
-// land on the blue ★ band = 273 − 225 = 48 (answer C).
+// WMI-22P3A-Q24 — post-answer explainer. Re-uses BlocksFigure: ring the RIGHT
+// column (7 × 13 = 91), take off its 75-block to expose the band strip (16),
+// then stretch across the 21-wide band = 3 strips → ★ = 3 × 16 = 48 (answer C).
 export default function P22G3Q24Explainer(props: ExplainerProps) {
   const lang = props.lang ?? 'en'
   const story = useMemo(() => buildP22G3Q24Steps(lang), [lang])
@@ -18,15 +18,15 @@ export default function P22G3Q24Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: persegi panjang besar 21 × 13 = 273, dikurangi 3 × 75 = 225, jadi ★ = ${story.star}.`
-      : `Explainer: big rectangle 21 × 13 = 273, minus 3 × 75 = 225, so ★ = ${story.star}.`
+      ? `Penjelasan: kolom kanan 7 × 13 = 91, dikurangi balok 75 menyisakan potongan pita 16; pita selebar 21 = 3 × 7, jadi ★ = 3 × 16 = ${story.star}.`
+      : `Explainer: the right column is 7 × 13 = 91; minus the 75-block leaves a 16 band strip; the band is 21 = 3 × 7 wide, so ★ = 3 × 16 = ${story.star}.`
 
   return (
     <div className="mx-auto w-full max-w-[360px]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <BlocksFigure
-          showBounding={beat.showBounding}
-          emphasizeBounding={beat.emphasizeBounding}
+          highlightRight={beat.highlightRight}
+          rightStripLabel={beat.rightStripLabel}
           bandLabel={beat.bandLabel}
         />
 

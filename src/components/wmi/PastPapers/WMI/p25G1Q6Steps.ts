@@ -1,5 +1,5 @@
 // Storyboard for WMI-25P1A-Q6 — sum of two pencil lengths on a ruler.
-// Beat-by-beat: read pencil 1 (6 cm), read pencil 2 (4 cm), add → 10 cm (D).
+// Beat-by-beat: read pencil 1 (7 cm), read pencil 2 (3 cm), add → 10 cm (D).
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { PENCIL_1, PENCIL_1_LEN, PENCIL_2, PENCIL_2_LEN, Q6_TOTAL } from './P25G1Q6Illustration'
 

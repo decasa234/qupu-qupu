@@ -30,11 +30,11 @@ export interface PieThirdsStoryboard {
 
 // Verified per-circle data (matches the illustration file exactly).
 const CIRCLES = [
-  { segments: 3,  shaded: 1,  passes: true,  reduced: '1/3'   },
-  { segments: 10, shaded: 4,  passes: false, reduced: '4/10 = 2/5' },
-  { segments: 6,  shaded: 2,  passes: true,  reduced: '2/6 = 1/3'  },
+  { segments: 3,  shaded: 1,  passes: true,  reduced: '1/3'        },
   { segments: 12, shaded: 4,  passes: true,  reduced: '4/12 = 1/3' },
+  { segments: 6,  shaded: 3,  passes: false, reduced: '3/6 = 1/2'  },
   { segments: 12, shaded: 5,  passes: false, reduced: '5/12'       },
+  { segments: 12, shaded: 4,  passes: true,  reduced: '4/12 = 1/3' },
 ]
 
 export function buildPieThirdsSteps(lang: Lang): PieThirdsStoryboard {
@@ -97,8 +97,8 @@ export function buildPieThirdsSteps(lang: Lang): PieThirdsStoryboard {
     hold: 0,
     result: true,
     caption: t(
-      'Circles 1, 3 and 4 each show 1/3 shaded → 3 circles.  Answer: C',
-      'Lingkaran 1, 3, dan 4 masing-masing menunjukkan 1/3 diarsir → 3 lingkaran.  Jawaban: C',
+      'Circles 1, 2 and 5 each show 1/3 shaded → 3 circles.  Answer: C',
+      'Lingkaran 1, 2, dan 5 masing-masing menunjukkan 1/3 diarsir → 3 lingkaran.  Jawaban: C',
     ),
   })
 

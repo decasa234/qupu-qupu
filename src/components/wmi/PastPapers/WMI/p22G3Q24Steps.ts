@@ -1,23 +1,26 @@
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
+  BAND_UNDER_RIGHT,
   BLOCK_AREA,
-  BLOCKS_AREA,
-  BOUNDING_AREA,
   FULL_HEIGHT,
+  RIGHT_COL_AREA,
+  RIGHT_WIDTH,
   STAR_AREA,
   TOTAL_WIDTH,
 } from './P22G3Q24Illustration'
 
 // Storyboard for WMI-22P3A-Q24 — find ★ (the blue base band's area).
 //
-// Method: the three blocks + the band together fill one big rectangle that is
-//   width = 8 + 6 + 7 = 21  and  height = 13  →  area = 273.
-// The three blocks are each 75, so 3 × 75 = 225 of that is used by the blocks.
-// What is left is the blue ★ band:  273 − 225 = 48 (answer C).
+// Method (the only one the figure supports — the blocks have DIFFERENT heights,
+// so no bounding rectangle exists): the right column is the key. The width-7
+// block plus the band strip under it stand exactly 13 tall, so that column's
+// area is 7 × 13 = 91. The block uses 75, leaving 91 − 75 = 16 for the strip.
+// The band spans 8 + 6 + 7 = 21 = 3 × 7 — three such strips → ★ = 3 × 16 = 48
+// (answer C).
 
 export interface Q24Step {
-  showBounding: boolean
-  emphasizeBounding: boolean
+  highlightRight: boolean
+  rightStripLabel?: string
   bandLabel?: string
   caption: string
   hold: number
@@ -35,44 +38,41 @@ export function buildP22G3Q24Steps(lang: Lang): Q24Storyboard {
 
   const steps: Q24Step[] = [
     {
-      showBounding: false,
-      emphasizeBounding: false,
+      highlightRight: false,
       hold: 2000,
       result: false,
       caption: t(
-        'The three blocks and the blue band together fill one big rectangle.',
-        'Ketiga balok dan pita biru bersama-sama mengisi satu persegi panjang besar.',
+        `Each block has area ${BLOCK_AREA}; the widths on top are 8, 6 and 7. The ★ band runs under all three.`,
+        `Tiap balok luasnya ${BLOCK_AREA}; lebar di atasnya 8, 6, dan 7. Pita ★ membentang di bawah ketiganya.`,
       ),
     },
     {
-      showBounding: true,
-      emphasizeBounding: true,
+      highlightRight: true,
       hold: 2300,
       result: false,
       caption: t(
-        `Its width is 8 + 6 + 7 = ${TOTAL_WIDTH} and its height is ${FULL_HEIGHT}, so the big rectangle = ${TOTAL_WIDTH} × ${FULL_HEIGHT} = ${BOUNDING_AREA}.`,
-        `Lebarnya 8 + 6 + 7 = ${TOTAL_WIDTH} dan tingginya ${FULL_HEIGHT}, jadi persegi panjang besar = ${TOTAL_WIDTH} × ${FULL_HEIGHT} = ${BOUNDING_AREA}.`,
+        `Look at the right column: the width-${RIGHT_WIDTH} block plus the band under it stand exactly ${FULL_HEIGHT} tall → ${RIGHT_WIDTH} × ${FULL_HEIGHT} = ${RIGHT_COL_AREA}.`,
+        `Lihat kolom kanan: balok selebar ${RIGHT_WIDTH} ditambah pita di bawahnya tepat setinggi ${FULL_HEIGHT} → ${RIGHT_WIDTH} × ${FULL_HEIGHT} = ${RIGHT_COL_AREA}.`,
       ),
     },
     {
-      showBounding: true,
-      emphasizeBounding: true,
+      highlightRight: true,
+      rightStripLabel: `${BAND_UNDER_RIGHT}`,
       hold: 2300,
       result: false,
       caption: t(
-        `Each of the 3 blocks is ${BLOCK_AREA}, so the blocks take 3 × ${BLOCK_AREA} = ${BLOCKS_AREA}.`,
-        `Tiap dari 3 balok bernilai ${BLOCK_AREA}, jadi balok-balok memakai 3 × ${BLOCK_AREA} = ${BLOCKS_AREA}.`,
+        `The block uses ${BLOCK_AREA}, so the band strip under it is ${RIGHT_COL_AREA} − ${BLOCK_AREA} = ${BAND_UNDER_RIGHT}.`,
+        `Balok memakai ${BLOCK_AREA}, jadi potongan pita di bawahnya ${RIGHT_COL_AREA} − ${BLOCK_AREA} = ${BAND_UNDER_RIGHT}.`,
       ),
     },
     {
-      showBounding: true,
-      emphasizeBounding: false,
+      highlightRight: false,
       bandLabel: `${STAR_AREA}`,
       hold: 0,
       result: true,
       caption: t(
-        `★ = big rectangle − blocks = ${BOUNDING_AREA} − ${BLOCKS_AREA} = ${STAR_AREA} — answer C.`,
-        `★ = persegi panjang besar − balok = ${BOUNDING_AREA} − ${BLOCKS_AREA} = ${STAR_AREA} — jawaban C.`,
+        `The band is 8 + 6 + 7 = ${TOTAL_WIDTH} wide = 3 × ${RIGHT_WIDTH} — three strips of ${BAND_UNDER_RIGHT} → ★ = 3 × ${BAND_UNDER_RIGHT} = ${STAR_AREA} — answer C.`,
+        `Pita selebar 8 + 6 + 7 = ${TOTAL_WIDTH} = 3 × ${RIGHT_WIDTH} — tiga potongan ${BAND_UNDER_RIGHT} → ★ = 3 × ${BAND_UNDER_RIGHT} = ${STAR_AREA} — jawaban C.`,
       ),
     },
   ]

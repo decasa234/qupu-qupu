@@ -7,10 +7,10 @@
  * + two side arms, like a "C"). A steering wheel (a circle with a cross, ⊕) and
  * the word "Driver" sit in the top-right corner.
  *
- * Counting the chairs row by row (top → bottom):
- *     row 1 : 8        row 2 : 8        row 3 : 1 (single seat, driver area
- *     beside it)       row 4 : 7        row 5 : 7
- * Total seats = 8 + 8 + 1 + 7 + 7 = 31.
+ * Counting the chairs row by row (top → bottom, pixel-verified on the scan):
+ *     row 1 : 8        row 2 : 7        row 3 : 1 (single seat, driver area
+ *     beside it)       row 4 : 7        row 5 : 8
+ * Total seats = 8 + 7 + 1 + 7 + 8 = 31.
  *
  * Jansen's class has 9 × 3 = 27 students. Empty seats = 31 − 27 = 4 (answer C).
  *
@@ -25,7 +25,7 @@
 
 // ── seat layout ──────────────────────────────────────────────────────────────
 /** Seats per drawn row, top to bottom (matches the scanned plan). */
-export const SEAT_ROWS = [8, 8, 1, 7, 7] as const
+export const SEAT_ROWS = [8, 7, 1, 7, 8] as const
 export const TOTAL_SEATS = SEAT_ROWS.reduce((a, b) => a + b, 0) // 31
 export const STUDENTS = 9 * 3 // 27
 export const EMPTY_SEATS = TOTAL_SEATS - STUDENTS // 4
@@ -147,7 +147,7 @@ export default function P24G3Q3Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Denah tempat duduk sebuah bus dilihat dari atas: lima baris kursi (8, 8, 1, 7, 7) berbentuk huruf C, dengan setir dan tulisan Driver di pojok kanan atas."
+      aria-label="Denah tempat duduk sebuah bus dilihat dari atas: lima baris kursi (8, 7, 1, 7, 8) berbentuk huruf C, dengan setir dan tulisan Driver di pojok kanan atas."
     >
       <BusSeatMap />
     </div>

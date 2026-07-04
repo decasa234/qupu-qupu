@@ -35,16 +35,34 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 
 ## Bespoke (copy-adapt)
 
+**age**  
+- `age-alice19-b7` (AgeAlice19B7Explainer) — (no description) _[SEAMO-19-B-Q7]_
+- `age-alice19-b7` (AgeAlice19B7Illustration) — SEAMO-19-B-Q7 — "The sum of Alice and her uncle's ages is 33 years. If her uncle will be twice her age in 3 years' time, how old is Alice this year?"  _[SEAMO-19-B-Q7]_
+
+**angle**  
+- `angle-lines21-b15` (AngleLines21B15Illustration) — AngleLines21B15Illustration — SEAMO 2021 Paper B Q15  "Find ∠a + ∠b + ∠c + ∠d." _[SEAMO-21-B-Q15]_
+- `angle-nested-x24-b7` (AngleNestedX24B7Explainer) — AngleNestedX24B7Explainer — SEAMOX-24-B-Q7  Animated step-by-step solution for "find the value of x". _[SEAMOX-24-B-Q7]_
+- `angle-nested-x24-b7` (AngleNestedX24B7Illustration) — AngleNestedX24B7Illustration — SEAMOX-24-B-Q7  "In the figure below, find the value of x."  Answer: x = 82° _[SEAMOX-24-B-Q7]_
+
 **angles23**  
 - `angles23-g3` (Angles23G3Explainer) — WMI-23F3A-Q2 (2023 Grade 3 Final) — order ∠1, ∠2, ∠3, ∠4 by eye. Answer C: ∠4 > ∠3 > ∠2 > ∠1. The four angles live in the letters W M I.  _[WMI-23F3A-Q2]_
 - `angles23-g3` (Angles23G3Illustration) — WMI-23F3A-Q2 (2023 Grade 3 Final) — "measure with your eyes" angle ordering.  The three stylized block letters W M I carry four marked angles: _[WMI-23F3A-Q2]_
 
 **animal**  
+- `animal-line17-ec` (AnimalLine17ECExplainer) — IKMC-23-EC-Q17 — post-answer explainer.  Reuses AnimalGlyph + constants from AnimalLine17ECIllustration. _[IKMC-23-EC-Q17]_
+- `animal-line17-ec` (AnimalLine17ECIllustration) — IKMC-23-EC-Q17 — "6 beavers and 2 kangaroos in a line; every window of 3 has exactly 1 kangaroo"  STEM ILLUSTRATION ONLY — shows the problem: 8 numbered circles (animals) in a line. _[IKMC-23-EC-Q17]_
 - `animal-maze24-g1` (AnimalMaze24G1Explainer) — Echo the qupu tokens the static maze already uses so the animation reads as the same scene coming alive. The traced route is drawn by the AnimalMaze24G1 primitive in its TRAIL orange (#F59E0B). We tint the running distan _[WMI-24F1A-Q11]_
 - `animal-maze24-g1` (AnimalMaze24G1Illustration) — Animal-maze "shortest route to the flag" figure for WMI-24F1A-Q11 (2024 WMI Final Grade 1 Paper A).  _[WMI-24F1A-Q11]_
 - `animal-maze24-g1` (AnimalMaze24G1Option) — Renders a WMI-24F1A-Q11 answer option as the animal icon it stands for (monkey / chick / tiger / dog / lion), reusing the maze's own glyph table so the options always match the figure. Binds to the choice LABEL (A–E) — t _[WMI-24F1A-Q11]_
+- `animal-order-g2` (AnimalOrderG2Option) — Renders a WMI-19F2A-Q14 answer option as the heaviest-to-lightest animal ordering it stands for, rather than the bare letter. The original scan's options are pictures (orderings of the four animals); OCR lost their conte _[WMI-19F2A-Q14]_
+- `animal-scales-x22-a11` (AnimalScalesX22A11Explainer) — SEAMO-X 2022 Paper A Q11 — animated explainer. Drives beat-by-beat chain-substitution through the 4 animal balance scales. Beat 0: intro (all neutral) → Beat 1: scale 1 lit → Beat 2: scale 2 lit _[SEAMOX-22-A-Q11]_
+- `animal-scales-x22-a11` (AnimalScalesX22A11Illustration) — SEAMO-X 2022 Paper A Q11 — Four balance scales with animals. Chain: 1 rabbit = 3 squirrels (scale 1, balanced),        1 squirrel = 2 birds (scale 2, balanced), _[SEAMOX-22-A-Q11]_
 - `animal-weights-g2` (AnimalWeightsG2Explainer) — (no description) _[WMI-19F2A-Q14]_
 - `animal-weights-g2` (AnimalWeightsG2Illustration) — WMI-19F2A-Q14 — "Arrange the animals from heaviest to lightest." The real figure shows THREE seesaw balances; on each, the heavier animal's side tilts DOWN: 1. 🐷 pig (down) vs 🐵 monkey (up) → pig > monkey 2. 🐷 pig (up _[WMI-19F2A-Q14]_
+
+**animals24**  
+- `animals24-ec` (Animals24ECExplainer) — IKMC-19-EC-Q24 — post-answer animation. Reuses CamelGlyph and OstrichGlyph from the illustration.  _[IKMC-19-EC-Q24]_
+- `animals24-ec` (Animals24ECIllustration) — IKMC-19-EC-Q24 — "ostriches and camels ordering footwear and hats"  PROBLEM ONLY: shows the scene from the paper — _[IKMC-19-EC-Q24]_
 
 **ant**  
 - `ant-path24-g2` (AntPath24G2Explainer) — WMI-24F2A-Q3 — an ant crawls a dotted path on a 5×5 grid (cells 2 cm wide, 1 cm tall). The path has four segments; each beat reveals one segment and adds its length to a running total, landing on 11 cm (answer B). _[WMI-24F2A-Q3]_
@@ -53,8 +71,19 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **apple**  
 - `apple-add19-p1` (AppleAdd19P1Explainer) — (no description) _[WMI-19P1A-Q8]_
 - `apple-add19-p1` (AppleAdd19P1Illustration) — Apple make-a-ten figure for WMI-19P1A-Q8 (2019 semifinal Grade 1, Paper A).  Redrawn from db/seed/wmi/figures/2019-semifinal-g1-a-q8.jpg: two framed boxes _[WMI-19P1A-Q8]_
+- `apple-bags23-pe` (AppleBags23PEExplainer) — (no description) _[IKMC-23-PE-Q23]_
+- `apple-bags23-pe` (AppleBags23PEIllustration) — AppleBags23PEIllustration.tsx  Stem illustration for IKMC-23-PE-Q23: _[IKMC-23-PE-Q23]_
+- `apple-baskets18-a12` (AppleBaskets18A12Illustration) — SEAMO-18-A-Q12 — Stem illustration "Basket A has 54 apples. Basket B has 18 apples. Cindy moves 6 apples at a time from Basket A to Basket B. How many times must she do this so that both baskets have the same number of a _[SEAMO-18-A-Q12]_
 - `apple-boxes25-g1` (AppleBoxes25G1Explainer) — Palette echoes the static apple-tray illustration (qupu tokens). A small "find" chip: shows a target box's apple value once counted, or a placeholder while we're still hunting for it. _[WMI-25F1A-Q6]_
 - `apple-boxes25-g1` (AppleBoxes25G1Illustration) — Static card illustration for WMI-25F1A-Q6 (2025 G1 final).  "Find the sum of the number of apples in the 4th box from the left and the _[WMI-25F1A-Q6]_
+- `apple-family16-b20` (AppleFamily16B20Explainer) — AppleFamily16B20Explainer.tsx  Animated explainer for SEAMO-16-B-Q20: _[SEAMO-16-B-Q20]_
+- `apple-family16-b20` (AppleFamily16B20Illustration) — AppleFamily16B20Illustration.tsx  Stem illustration for SEAMO-16-B-Q20: _[SEAMO-16-B-Q20]_
+- `apple-grid-hk18-p1-q25` (AppleGridHK18P1Q25Explainer) — HKIMO-18-P1H-Q25 — animated explainer.  Optimal Hamiltonian path through all 16 apples (all steps = 1 m): _[HKIMO-18-P1H-Q25]_
+- `apple-grid-hk18-p1-q25` (AppleGridHK18P1Q25Illustration) — Stem illustration for HKIMO-18-P1H-Q25 "Ming would like to pick up all apples on the floor.  What is the minimum distance he needs to travel? _[HKIMO-18-P1H-Q25]_
+
+**archer**  
+- `archer-target20-a15` (ArcherTarget20A15Explainer) — SEAMO-20-A-Q15 — animated explainer for the archery-target question. Beats: 0 — intro: show target, name the three ring values. 1 — highlight middle ring (3 pts). 2 — show 5 arrows, all in middle ring. 3 — result: 5 × 3  _[SEAMO-20-A-Q15]_
+- `archer-target20-a15` (ArcherTarget20A15Illustration) — SEAMO-20-A-Q15 — Archery target with five arrows. "An archer shoots five arrows at the target board without missing. Points scored depend on where the arrow lands. How many points did the archer score in total?" Source f _[SEAMO-20-A-Q15]_
 
 **arrow**  
 - `arrow-grid` (ArrowGridExplainer) — (no description) _[WMI-19F1A-Q25, WMI-19F2A-Q25]_
@@ -66,6 +95,10 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `assemble25-g3` (Assemble25G3Explainer) — WMI-25F3A-Q11 — post-answer explainer (answer E = the trio A, B, D). Mirrors Assemble25G3Diagram: the SAME five labelled boards across the top and the SAME 14-cell target below. The animation counts the target, adds the _[WMI-25F3A-Q11]_
 - `assemble25-g3` (Assemble25G3Illustration) — Board-assembly puzzle for WMI-25F3A-Q11 (2025 Grade-3 Final, answer E).  Source figure (db/seed/wmi/figures/2025-final-g3-a-q11.jpg) shows only the _[WMI-25F3A-Q11]_
 
+**bag**  
+- `bag-balls16-a25` (BagBalls16A25Explainer) — BagBalls16A25Explainer.tsx  Post-answer animated explainer for SEAMO-16-A-Q25: _[SEAMO-16-A-Q25]_
+- `bag-balls16-a25` (BagBalls16A25Illustration) — BagBalls16A25Illustration.tsx  Stem illustration for SEAMO-16-A-Q25: _[SEAMO-16-A-Q25]_
+
 **balance**  
 - `balance-scale` (BalanceScaleExplainer) — (no description) _[WMI-19F1A-Q11]_
 - `balance-scale` (BalanceScaleIllustration) — Balance-scale figure for WMI-19F1-Q11. Left pan = 7, 2, 5 (sum 14); right pan = 3, 8, ? — balanced when ? = 3. _[WMI-19F1A-Q11]_
@@ -76,11 +109,18 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `balance-two-scales-g2` (BalanceTwoScalesG2Explainer) — (no description) _[WMI-19F2A-Q20]_
 - `balance-two-scales-g2` (BalanceTwoScalesG2Illustration) — Two balance scales for WMI-19F2A-Q20 — "find the weight of one white ball."  Scale 1: 3 black + 2 dotted + 3 white balls weigh 180 g. _[WMI-19F2A-Q20]_
 
+**balance10**  
+- `balance10-ec` (Balance10ECExplainer) — Palette — EC house style _[IKMC-23-EC-Q10]_
+- `balance10-ec` (Balance10ECIllustration) — IKMC-23-EC-Q10 — "There are six weights of 1,2,3,4,5 and 6 kg. Rossitza puts five of them on the scales (5 kg on the left side together with two others, and the 6 kg weight on the right side together with one other) _[IKMC-23-EC-Q10]_
+
 **balance22**  
 - `balance22-g1` (Balance22G1Explainer) — Echoes the qupu tokens used in the static figure. _[WMI-22F1A-Q9]_
 - `balance22-g1` (Balance22G1Illustration) — WMI-22F1A-Q9 (Grade 1) — two balance scales, both LEVEL.  Scale 1: LEFT = 4 bananas. RIGHT = 9 strawberries + 1 banana. _[WMI-22F1A-Q9]_
 
 **ball**  
+- `ball-group-swap20-a19` (BallGroupSwap20A19Illustration) — BallGroupSwap20A19Illustration.tsx  Stem illustration for SEAMO-20-A-Q19: _[SEAMO-20-A-Q19]_
+- `ball-scales8-ec` (BallScales8ECExplainer) — IKMC-21-EC-Q8 — Explainer: "What is the weight of each white ball?"  Pattern: DogToys12ECExplainer (spotlight one scale, equation badge, caption box). _[IKMC-21-EC-Q8]_
+- `ball-scales8-ec` (BallScales8ECIllustration) — IKMC-21-EC-Q8 — "What is the weight of each white ball?"  Three LEVEL balance scales, each showing coloured balls on the left pan and _[IKMC-21-EC-Q8]_
 - `ball-sort24-g1` (BallSort24G1Explainer) — Mirror the static figure's ball palette so the caption chip reads as the same scene (echoing the BallSort24G1Illustration fills). _[WMI-24F1A-Q24]_
 - `ball-sort24-g1` (BallSort24G1Illustration) — WMI-24F1A-Q24 (2024 Grade 1 Final) — answer = 6 (fill-in).  "Maria plays a ball-elimination game. Moving 1 ball to another bottle is ONE _[WMI-24F1A-Q24]_
 - `ball-tubes24-g1` (BallTubes24G1Explainer) — Palette echoes the static ball-and-tubes illustration (same tube fills/rims). The three deltas are GIVEN in the problem — print them as little chips so the animation reads as the same legend coming alive while we reason. _[WMI-24F1A-Q20]_
@@ -89,15 +129,59 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **ballet**  
 - `ballet-calendar20` (BalletCalendar20Explainer) — (no description) _[WMI-20F1A-Q8]_
 
+**balloon**  
+- `balloon-animals19-g3-q9` (BalloonAnimals19G3Q9Explainer) — (no description) _[SASMO-19-G3-Q9]_
+- `balloon-animals19-g3-q9` (BalloonAnimals19G3Q9Illustration) — SASMO-19-G3-Q9 — Balloon-weight equivalence (balloon gondola figure) SOURCE: OCR g3/2019-2020.imgs/011.jpg Three gondola panels side-by-side: Panel 1 (left): 11 balloons — dog + cat + dog + sheep Panel 2 (middle): 5 ball _[SASMO-19-G3-Q9]_
+
 **balloons**  
 - `balloons-visual-g3` (BalloonsVisualG3Explainer) — WMI-19F3A-Q20 — balloons as BARS. R+B = 121, B+Y = 104, Y+R = 129. The three pair-bars rearrange into two identical R+B+Y rows (354 counts every colour twice), one row is 354 ÷ 2 = 177, and removing the given B+Y = 104 _[WMI-19F3A-Q20]_
+
+**balloons20**  
+- `balloons20-ec` (Balloons20ECExplainer) — IKMC-21-EC-Q20 — post-answer animation. Reuses BalloonShape from the illustration so the animation reads as the static scene coming alive. _[IKMC-21-EC-Q20]_
+- `balloons20-ec` (Balloons20ECIllustration) — IKMC-21-EC-Q20 — "Mia throws darts at balloons worth 3, 9, 13, 14 and 18 points. She scores 30 points in total. Which balloon does Mia definitely hit?"  _[IKMC-21-EC-Q20]_
+
+**balls**  
+- `balls-move12-ec` (BallsMove12ECExplainer) — IKMC-21-EC-Q12 — Explainer: 5-ball collision simulation.  Walks through 4 collisions beat-by-beat, showing the live ball state via the _[IKMC-21-EC-Q12]_
+- `balls-move12-ec` (BallsMove12ECIllustration) — IKMC-21-EC-Q12 — "The 5 balls shown begin to move simultaneously…"  STEM (image 044.jpg): five numbered balls on a horizontal line, each with a _[IKMC-21-EC-Q12]_
+- `balls-scale17-b13` (BallsScale17B13Explainer) — SEAMO-17-B-Q13 — Explainer: "What must be added to balance Fig. 3?"  Pattern: BallScales8ECExplainer — spotlight one scale, equation badge, caption. _[SEAMO-17-B-Q13]_
+- `balls-scale17-b13` (BallsScale17B13Illustration) — SEAMO-17-B-Q13 — "A, B and C are balls of different weights."  Three balance scales showing balls labelled A, B, C: _[SEAMO-17-B-Q13]_
 
 **balls22**  
 - `balls22-g1` (Balls22G1Explainer) — WMI-22F1A-Q11 (Grade 1). Kiki's 4 balls must have MORE BLACK than white AND MORE LARGE than small. The animation states both rules, then walks A→D — ringing the black balls then the large balls — rejecting the sets that  _[WMI-22F1A-Q11]_
 - `balls22-g1` (Balls22G1Option) — Choice renderer for WMI-22F1A-Q11 (Grade 1). Each option A–D is a picture of four balls, where every ball has a colour (black/white) and a size (large/small). The puzzle: Kiki has more BLACK than WHITE balls AND more _[WMI-22F1A-Q11]_
 
+**bar**  
+- `bar-chart-mary-spent-sasmo19-g4-q20` (BarChartMarySpentSASMO19G4Q20Explainer) — (no description) _[SASMO-19-G4-Q20]_
+- `bar-chart-mary-spent-sasmo19-g4-q20` (BarChartMarySpentSASMO19G4Q20Illustration) — SASMO 2019 Grade 4 Q20 — vertical bar chart, Mary's spending Mon–Fri. Source: docs/reference/ocr-res/sasmo/contest/g4/2019-2020.imgs/017.jpg Bars (units): Mon=2, Tue=4, Wed=3, Thu=5, Fri=1. Y-axis unlabelled (student fin _[SASMO-19-G4-Q20]_
+- `bar-chart-opts-osn20-kq6` (BarChartOptsOSN20KQ6Explainer) — (no description) _[OSN-20-SD-KAB-Q6]_
+- `bar-chart-opts-osn20-kq6` (BarChartOptsOSN20KQ6Illustration) — OSN-20-SD-KAB-Q6 — bar-chart picture options Stem: population table (2015=124, 2016=140, 2017=120, 2018=160) Choices A–D are four bar charts; correct = A. _[OSN-20-SD-KAB-Q6]_
+- `bar-chart-osn09-kq23` (BarChartOSN09KQ23Explainer) — (no description) _[OSN-09-SD-KAB-Q23]_
+- `bar-chart-osn09-kq23` (BarChartOSN09KQ23Illustration) — OSN 2009 SD Kabupaten Q23 — vertical bar chart (diagram batang). Source: docs/reference/ocr-res/osn/kabupaten/sd/2009.imgs/009.jpg Data: Bersepeda=75, Jalan kaki=100, Antar jemput=37. Answer: jalan kaki (100). _[OSN-09-SD-KAB-Q23]_
+- `bar-chart-osn25-kq14` (BarChartOSN25KQ14Explainer) — (no description) _[OSN-25-SD-KAB-Q14]_
+- `bar-chart-osn25-kq14` (BarChartOSN25KQ14Illustration) — OSN 2025 SD Kabupaten Q14 — vertical bar chart (diagram batang) for library book loans. Source: docs/reference/ocr-res/osn/kabupaten/sd/2025.imgs/009.jpg Data: Kelas 4 = 25 buku, Kelas 5 = 30 buku, Kelas 6 = 45 buku. Ans _[OSN-25-SD-KAB-Q14]_
+
 **base**  
 - `base-ten-blocks-g2` (BaseTenBlocksG2Explainer) — WMI-20F2A-Q5 — count the base-ten blocks one at a time with a running total: 4 flats (100 each) → 400; 6 rods (10 each) → 460; 7 unit cubes → 467. _[WMI-20F2A-Q5]_
+
+**baskets10**  
+- `baskets10-pe` (Baskets10PEExplainer) — IKMC-22-PE-Q10 — post-answer explainer: "Which basket is the puppy in?" Animation beats: 0. intro — show all 5 baskets; state the task. 1. koala-fox — highlight baskets 2 & 4 (same pattern AND shape). 2. kang-ostrich — h _[IKMC-22-PE-Q10]_
+- `baskets10-pe` (Baskets10PEIllustration) — IKMC-22-PE-Q10 — "Which basket is the puppy sleeping in?" STEM ONLY — shows five numbered baskets, each with a distinct pattern. Does NOT reveal the answer (basket 5) or label any animal to a basket. Five baskets from th _[IKMC-22-PE-Q10]_
+
+**bead**  
+- `bead-chain-hk24-p1-q19` (BeadChainHK24P1Q19Explainer) — HKIMO-24-P1H-Q19 — animated explainer for the ●●○○ bead chain pattern.  Animation flow: _[HKIMO-24-P1H-Q19]_
+- `bead-chain-hk24-p1-q19` (BeadChainHK24P1Q19Illustration) — HKIMO-24-P1H-Q19 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-24-P1H-Q19]_
+
+**beads**  
+- `beads-x22-a9` (BeadsX22A9Explainer) — SEAMOX-22-A-Q9 — Animated explainer for "How many beads are there in all?" Highlights each figure panel in turn, accumulating 1 + 8 + 16 + 24 = 49. Shares the same SVG primitive as the stem illustration. _[SEAMOX-22-A-Q9]_
+- `beads-x22-a9` (BeadsX22A9Illustration) — SEAMOX-22-A-Q9 — Stem illustration for "How many beads are there in all?" Shows the four growing square-ring bead figures (Fig 1–4) exactly as they appear in the source paper: Fig 1 → 1 bead, Fig 2 → 8 beads, Fig 3 → 16  _[SEAMOX-22-A-Q9]_
+
+**bee**  
+- `bee-grid19-pe` (BeeGrid19PEExplainer) — IKMC-20-PE-Q19 — Animated explainer for the bee honeycomb grid problem  Each beat shows one valid pair of white cells highlighted in amber, _[IKMC-20-PE-Q19]_
+- `bee-grid19-pe` (BeeGrid19PEIllustration) — IKMC-20-PE-Q19 — Bee grid honeycomb illustration  The problem: a flat-top honeycomb grid of 13 hexagons. _[IKMC-20-PE-Q19]_
+- `bee-maze1-ec` (BeeMaze1ECExplainer) — IKMC-22-EC-Q1 — Animated explainer for the bee-to-flower grid maze.  Beat flow: _[IKMC-22-EC-Q1]_
+- `bee-maze1-ec` (BeeMaze1ECIllustration) — IKMC-22-EC-Q1 — Bee-to-flower grid maze (stem illustration only)  "Buzz the bee wants to reach the flower. Which set of directions will get _[IKMC-22-EC-Q1]_
+- `bee-model12-pe` (BeeModel12PEExplainer) — IKMC-23-PE-Q12 — Post-answer animated explainer.  Reuses BeePrimitive + LEGEND + colour tokens from BeeModel12PEIllustration _[IKMC-23-PE-Q12]_
+- `bee-model12-pe` (BeeModel12PEIllustration) — IKMC-23-PE-Q12 — "Raha wants to finish the bee on the left according to the model on the right. Raha needs to win points to unlock parts of the bee. How many points does she need to win to complete the bee?" _[IKMC-23-PE-Q12]_
 
 **belt**  
 - `belt-pulley19-p1` (BeltPulley19P1Explainer) — WMI-19P1A-Q14 — propagate the spin from the marked wheel along the chain of crossed belts (each crossing flips the direction): CCW → CW → CCW → CW, so wheel A spins clockwise = direction B. _[WMI-19P1A-Q14]_
@@ -106,11 +190,19 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **birds**  
 - `birds-tree-g1` (BirdsTreeG1Explainer) — WMI-19F1A-Q5 — (___) + 5 = 13 birds. Kid-visual: the tree holds the 13 birds of "now"; the 5 newcomers are marked, then flown back out to reveal the original 8. The answer is acted out, not asserted. _[WMI-19F1A-Q5]_
 
+**birthday**  
+- `birthday-balloons-x24-a9` (BirthdayBalloonsX24A9Explainer) — SEAMOX-24-A-Q9 — animated explainer. Beat-by-beat "assume all same, then adjust" walkthrough. Beat 0: intro → Beat 1: give all 11 × 2 = 22 → Beat 2: 34−22=12 extra _[SEAMOX-24-A-Q9]_
+- `birthday-balloons-x24-a9` (BirthdayBalloonsX24A9Illustration) — SEAMOX-24-A-Q9 — "There are 11 girls and boys at a birthday party. Each boy gets 2 balloons, each girl gets 4 balloons. Altogether 34 balloons are given away. How many girls are at the party?"  Answer: 6. _[SEAMOX-24-A-Q9]_
+
 **block**  
+- `block-grid-hk18-p3-q5` (BlockGridHK18P3Q5Explainer) — BlockGridHK18P3Q5Explainer.tsx HKIMO-18-P3H-Q5 animated explainer.  _[HKIMO-18-P3H-Q5]_
+- `block-grid-hk18-p3-q5` (BlockGridHK18P3Q5Illustration) — BlockGridHK18P3Q5Illustration.tsx HKIMO-18-P3H-Q5 stem illustration. "According to the pattern shown below, how many ⊗ are there in the 10th group?" _[HKIMO-18-P3H-Q5]_
 - `block-pack22-g1` (BlockPack22G1Explainer) — BlockPack22G1Explainer — WMI-22F1A-Q8 (Grade 1) Post-answer animation teaching the "divide-into-equal-pieces" strategy: 1. Show the whole cube model and count the cubes (N). 2. A 3 × 1 block is 3 cubes, so the most you c _[WMI-22F1A-Q8]_
 - `block-pack22-g1` (BlockPack22G1Illustration) — WMI-22F1A-Q8 (Grade 1) — "At most, how many 1×1×3 blocks can be cut from the model?" (answer C = 10).  _[WMI-22F1A-Q8]_
 - `block-stack24-g1` (BlockStack24G1Explainer) — Colours echo the illustration / qupu tokens so the animation reads as the same scene coming alive (hex mirrors of BlockStack24G1Illustration's fills). Accent for the running count: takes the colour of the block just laid _[WMI-24F1A-Q22]_
 - `block-stack24-g1` (BlockStack24G1Illustration) — Block-stacking figure for WMI-24F1A-Q22 (2024 Grade 1 Final).  "Stack blocks in the repeating order cube, cylinder, sphere, cube, cylinder, _[WMI-24F1A-Q22]_
+- `block-tower8-ec` (BlockTower8ECExplainer) — Post-answer explainer for IKMC-22-EC-Q8 (John's block tower — top view).  Walks the 3-D tower layer-by-layer, highlighting each layer in turn, while _[IKMC-22-EC-Q8]_
+- `block-tower8-ec` (BlockTower8ECIllustration) — IKMC-22-EC-Q8 — "John builds the tower shown. What will he see if he looks at his tower from above?"  Answer C.  _[IKMC-22-EC-Q8]_
 
 **board**  
 - `board-path24-g2` (BoardPath24G2Explainer) — WMI-24F2A-Q24 (HARD) — post-answer explainer for the board-game teleport problem. It mirrors the static figure (PathTrace) and walks the token one move per beat: first roll 3 → teleport to 13, then it tests each ◇ candid _[WMI-24F2A-Q24]_
@@ -120,6 +212,38 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `boat-translate25-g1` (BoatTranslate25G1Explainer) — WMI-25F1A-Q7 — post-answer animation for "slide the boat". We reuse the built primitive (BoatTranslate25G1) so the animation reads as the static figure coming alive: litBoats + showSlide reveal the slide, and a small _[WMI-25F1A-Q7]_
 - `boat-translate25-g1` (BoatTranslate25G1Illustration) — WMI-25F1A-Q7 (2025 Grade 1 Final) — "translate the boat" figure.  Several paper-boat figures sit on a grid. One boat (A) is the MOVING boat, _[WMI-25F1A-Q7]_
 
+**boats5**  
+- `boats5-pe` (Boats5PEExplainer) — IKMC-23-PE-Q5 — post-answer explainer: "Which boat is mine?" Teaches the two-condition elimination strategy: Beat 0 — intro: state both conditions. Beat 1 — apply circles > 1: eliminate C (only 1 circle). Beat 2 — check  _[IKMC-23-PE-Q5]_
+- `boats5-pe` (Boats5PEIllustration) — IKMC-23-PE-Q5 — "Which boat is mine?"  The A–E answer choices ARE the figure — five sailboats decorated with _[IKMC-23-PE-Q5]_
+
+**bookcase20**  
+- `bookcase20-pe` (Bookcase20PEExplainer) — IKMC-21-PE-Q20 — post-answer explainer. Animates two trial arrangements on the bookcase: Trial 1: ball on shelf 3 → game on 4, car on 5, blocks on 1 → shelf 3 taken. Trial 2: ball on shelf 2 → game on 3, remaining toys f _[IKMC-21-PE-Q20]_
+- `bookcase20-pe` (Bookcase20PEIllustration) — IKMC-21-PE-Q20 — "Stan has five toys… On which shelf can the puzzle NOT be placed?" Stem illustration: a five-shelf bookcase (shelves numbered 1 at the bottom to 5 at the top), shown EMPTY — no toys placed yet. The label _[IKMC-21-PE-Q20]_
+
+**bordered**  
+- `bordered-rect21-b3` (BorderedRect21B3Explainer) — Post-answer animation for SEAMO-21-B-Q3.  Method taught: outer area − inner area = shaded border area. _[SEAMO-21-B-Q3]_
+- `bordered-rect21-b3` (BorderedRect21B3Illustration) — SEAMO-21-B-Q3 — Shaded border frame: 9 m × 6 m outer rectangle with a uniform 1 m border on all sides, leaving a 7 m × 4 m white inner rectangle. THE FIGURE (reconstructed from OCR crop 2021.imgs/002.jpg) =============== _[SEAMO-21-B-Q3]_
+
+**bowls3**  
+- `bowls3-pe` (Bowls3PEExplainer) — IKMC-23-PE-Q3 — post-answer animation. Walks through each bowl A→E, showing the addend string and running sum, then reveals bowl A as the winner (sum 28 is the largest). _[IKMC-23-PE-Q3]_
+- `bowls3-pe` (Bowls3PEIllustration) — IKMC-23-PE-Q3 — "Each bowl contains four numbered balls. In which bowl is the sum of all the numbers largest?"  Answer: A (8+7+4+9 = 28).  _[IKMC-23-PE-Q3]_
+
+**box**  
+- `box-add19-b9` (BoxAdd19B9Explainer) — BoxAdd19B9Explainer.tsx — animated explainer for SEAMO-19-B-Q9  Walks through the digit-sum shortcut: _[SEAMO-19-B-Q9]_
+- `box-add19-b9` (BoxAdd19B9Illustration) — BoxAdd19B9Illustration.tsx  Stem illustration for SEAMO-19-B-Q9: _[SEAMO-19-B-Q9]_
+- `box-cut-osn20-kq16` (BoxCutOSN20KQ16Explainer) — Post-answer explainer for OSN-20-SD-KAB-Q16. "Volume IBCJ.LFGK" — answer: 2040 cm³.  _[OSN-20-SD-KAB-Q16]_
+- `box-cut-osn20-kq16` (BoxCutOSN20KQ16Illustration) — BoxCutOSN20KQ16Illustration — OSN-20-SD-KAB-Q16 Balok ABCD.EFGH: AB=25, BC=20, CG=12. IJ ∥ BC (I on AB, J on DC); KL ∥ EH (L on EF, K on HG). IB : EL = 1 : 3, LI = 15 cm → IB = 4 cm, EL = 12 cm. Volume IBCJ.LFGK = ½(IB + _[OSN-20-SD-KAB-Q16]_
+- `box-fill-osn07-kq5` (BoxFillOSN07KQ5Explainer) — Post-answer explainer for OSN-07-SD-KAB-Q5. "Berapa banyak kubus satuan yang masih diperlukan?" — answer: 22.  _[OSN-07-SD-KAB-Q5]_
+- `box-fill-osn07-kq5` (BoxFillOSN07KQ5Illustration) — BoxFillOSN07KQ5Illustration — OSN-07-SD-KAB-Q5 "Berapa banyak kubus satuan yang masih diperlukan untuk memenuhi kotak berbentuk balok?" Answer: 22 (box 4×3×3 = 36, placed = 14, needed = 36 − 14 = 22) Source: docs/referen _[OSN-07-SD-KAB-Q5]_
+- `box-water-osn15-nq6` (BoxWaterOSN15NQ6Explainer) — BoxWaterOSN15NQ6Explainer — OSN-15-SD-NAS-Q6  Animated explainer for the box-water tipping problem. _[OSN-15-SD-NAS-Q6]_
+- `box-water-osn15-nq6` (BoxWaterOSN15NQ6Illustration) — BoxWaterOSN15NQ6Illustration — OSN-15-SD-NAS-Q6 Stem figure: rectangular box 10×10×40 cm. Left: upright — water at 32 cm (the given). Right: on side — empty; water height = ? (unknown to student). The answer (8 cm) is NE _[OSN-15-SD-NAS-Q6]_
+- `box-weights22-ec` (BoxWeights22ECExplainer) — Palette echoes the static crate illustration (qupu tokens). _[IKMC-21-EC-Q22]_
+- `box-weights22-ec` (BoxWeights22ECIllustration) — IKMC-21-EC-Q22 — "Each of the 5 boxes contains either apples or bananas, but not both. The total weight of all the bananas is 3 times the weight of all the apples. Which boxes contain apples?" _[IKMC-21-EC-Q22]_
+
+**boxes13**  
+- `boxes13-pe` (Boxes13PEExplainer) — Boxes13PEExplainer.tsx — IKMC-23-PE-Q13 post-answer explainer.  Animates inclusion-exclusion beat-by-beat: _[IKMC-23-PE-Q13]_
+- `boxes13-pe` (Boxes13PEIllustration) — Boxes13PEIllustration.tsx IKMC-23-PE-Q13 — 6-row × 5-column table of 30 empty boxes.  _[IKMC-23-PE-Q13]_
+
 **bracelets23**  
 - `bracelets23-g1` (Bracelets23G1Explainer) — Colours echoing the static figure (qupu palette; raw hex for this paper). _[WMI-23F1A-Q12]_
 - `bracelets23-g1` (Bracelets23G1Illustration) — WMI-23F1A-Q12 (2023 Grade 1 Final, Paper A) — bracelet length ordering. Alice, Becky and Chloe each thread a bracelet from FOUR kinds of beads. When each bracelet is straightened, order them longest -> shortest. --- Lege _[WMI-23F1A-Q12]_
@@ -128,13 +252,76 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `bracket-grid22-g1` (BracketGrid22G1Explainer) — Mirror the illustrator's qupu tokens so the animation reads as the same scene. _[WMI-22F1A-Q16]_
 - `bracket-grid22-g1` (BracketGrid22G1Illustration) — WMI-22F1A-Q16 — purple "corner bracket" puzzle over a 3×3 number grid.  A tic-tac-toe style 3×3 grid holds nine fixed numbers: _[WMI-22F1A-Q16]_
 
+**braid8**  
+- `braid8-pe` (Braid8PEExplainer) — IKMC-20-PE-Q8 — post-answer animation. Reuses the BraidPrimitive from the illustration so the animation reads as the static scene coming alive — one strand highlighted per beat. _[IKMC-20-PE-Q8]_
+- `braid8-pe` (Braid8PEIllustration) — IKMC-20-PE-Q8 — "The braid in the figure is composed of three threads."  PROBLEM ONLY: shows a colored three-strand braid with numbered tails. _[IKMC-20-PE-Q8]_
+
+**bricks2**  
+- `bricks2-ec` (Bricks2ECExplainer) — IKMC-21-EC-Q2 — post-answer explainer: which 3-D shape can be built from 4 bricks? Teaches the "count unit cubes then check tilability" strategy: Beat 0 — intro: 4 bricks × 2 cubes = 8 unit cubes needed. Beat 1 — B: only _[IKMC-21-EC-Q2]_
+- `bricks2-ec` (Bricks2ECIllustration) — IKMC-21-EC-Q2 — "Erik has 4 bricks. Which cube can he make?"  The 4 bricks shown in the stem are identical flat 1×2×1 pieces (two unit cubes _[IKMC-21-EC-Q2]_
+
+**bricks3**  
+- `bricks3-pe` (Bricks3PEExplainer) — IKMC-22-PE-Q3 — post-answer explainer: how many bricks touch exactly 3 others? Strategy: count each brick's neighbours one by one. Beat 0 — intro: set up the task. Beat 1 — B1 (bottom-left): 1 neighbour → ✗. Beat 2 — B2  _[IKMC-22-PE-Q3]_
+- `bricks3-pe` (Bricks3PEIllustration) — IKMC-22-PE-Q3 — "The picture shows 5 identical bricks. How many bricks are touching exactly 3 other bricks?"  Answer: B (2 bricks).  _[IKMC-22-PE-Q3]_
+
+**bubble**  
+- `bubble-pattern-x22-a1` (BubblePatternX22A1Explainer) — (no description) _[SEAMOX-22-A-Q1]_
+- `bubble-pattern-x22-a1` (BubblePatternX22A1Illustration) — SEAMOX-22-A-Q1 — "Study the number pattern carefully. Find the value of A."  Stem figure: three satellite-bubble diagrams. Each diagram has a large _[SEAMOX-22-A-Q1]_
+
+**bull**  
+- `bull-rabbit-chain20-a2` (BullRabbitChain20A2Explainer) — BullRabbitChain20A2Explainer — SEAMO 2020 Paper A, Q2  Animates: 1 bull = 4 goats (row1) → 1 goat = 2 rabbits (row2) → 4×2=8 (result). _[SEAMO-20-A-Q2]_
+- `bull-rabbit-chain20-a2` (BullRabbitChain20A2Illustration) — BullRabbitChain20A2Illustration — SEAMO 2020 Paper A, Q2  PROBLEM: "How many rabbits are equivalent to a bull?" _[SEAMO-20-A-Q2]_
+
+**bus**  
+- `bus-seat-osn25-nfq5` (BusSeatOSN25NFQ5Explainer) — OSN-25-SD-NAS-FINAL-Q5 — post-answer explainer.  Beats: _[OSN-25-SD-NAS-FINAL-Q5]_
+- `bus-seat-osn25-nfq5` (BusSeatOSN25NFQ5Illustration) — OSN-25-SD-NAS-FINAL-Q5 — bus seating arrangement  STEM ILLUSTRATION: front-row of 5 seats in a bus, top-down schematic. _[OSN-25-SD-NAS-FINAL-Q5]_
+- `bus-stops17-a9` (BusStops17A9Illustration) — BusStops17A9Illustration.tsx  Stem illustration for SEAMO-2017-Paper-A Q9: _[SEAMO-17-A-Q9]_
+
 **button**  
 - `button-panel24-g3` (ButtonPanel24G3Explainer) — WMI-24F3A-Q20 — five buttons rewrite shapes; one press = one step. The scan captured ONLY the button-rule chart, not the start/target figures, so this explainer teaches the METHOD: read each button as a move, fire each r _[WMI-24F3A-Q20]_
 - `button-panel24-g3` (ButtonPanel24G3Illustration) — Button-panel illustration for WMI-24F3A-Q20 (2024 Grade-3 Final). Reconstructed from db/seed/wmi/figures/2024-final-g3-a-q20.jpg.  _[WMI-24F3A-Q20]_
 
+**cake**  
+- `cake-cuts20-a12` (CakeCuts20A12Explainer) — SEAMO-20-A-Q12 — animated explainer for the 3-cuts cake problem. Shows three cakes in a row:   Given 1 (1 cut → 2)   Given 2 (2 cuts → 4)   Question (0–3 cuts, animating) _[SEAMO-20-A-Q12]_
+- `cake-cuts20-a12` (CakeCuts20A12Illustration) — SEAMO-20-A-Q12 — "A single cut divides a cake into 2 pieces. Two cuts divide it into 4 pieces. What is the MOST pieces you can get with THREE cuts?" Answer: 7 (B). _[SEAMO-20-A-Q12]_
+- `cake-slices16-a21` (CakeSlices16A21Explainer) — SEAMO-16-A-Q21 — animated explainer for the cake-slices problem. Reveals each straight cut one-by-one on a round cake, showing the +1/+2/+3 increment rule, then rejects the 6-piece trap, and lands on 7. _[SEAMO-16-A-Q21]_
+- `cake-slices16-a21` (CakeSlices16A21Illustration) — SEAMO-16-A-Q21 — "What is the maximum number of slices we can get by making 3 straight cuts?"  Answer: 7.  _[SEAMO-16-A-Q21]_
+
+**cake6**  
+- `cake6-pe` (Cake6PEExplainer) — (no description) _[IKMC-23-PE-Q6]_
+- `cake6-pe` (Cake6PEIllustration) — Stem illustration for IKMC-23-PE-Q6.  "This is my grandfather's birthday cake. A large candle stands for 10 years _[IKMC-23-PE-Q6]_
+
+**cakes18**  
+- `cakes18-pe` (Cakes18PEExplainer) — Explainer for IKMC-23-PE-Q18 — birthday cake age deduction.  Walks through the four clues beat-by-beat, rendering all five cakes and _[IKMC-23-PE-Q18]_
+- `cakes18-pe` (Cakes18PEIllustration) — Option renderer for IKMC-23-PE-Q18.  "Five children share a birthday and each child has their own cake. _[IKMC-23-PE-Q18]_
+
+**cal**  
+- `cal-month19-b17` (CalMonth19B17Explainer) — CalMonth19B17Explainer — SEAMO 2019 Paper B Q17  Animates the solution beat-by-beat: _[SEAMO-19-B-Q17]_
+- `cal-month19-b17-fig` (CalMonth19B17Fig) — CalMonth19B17Fig — SEAMO 2019 Paper B Q17 "In a particular year some time ago, there was a month with 5 Sundays.  3 of those Sundays happened on an even day of the month. _[SEAMO-19-B-Q17]_
+
+**calc**  
+- `calc-grid8-ec` (CalcGrid8ECExplainer) — IKMC-2019-Ecolier-Q8 — post-answer beat-driven explainer. Reuses CalcGrid8ECFigure from the illustration so the animation reads as the static grid coming alive, one unknown revealed per beat. _[IKMC-19-EC-Q8]_
+- `calc-grid8-ec` (CalcGrid8ECIllustration) — In-card illustration for IKMC-2019-Ecolier-Q8 (arithmetic cross-grid). Reconstructed from the PDF scan: a cross/plus-shaped grid where four cells are unknown (A, B, C, and the ?), one cell is a structural black junction, _[IKMC-19-EC-Q8]_
+- `calc-sum16-b12` (CalcSum16B12Illustration) — CalcSum16B12Illustration.tsx  Stem illustration for SEAMO-16-B-Q12: _[SEAMO-16-B-Q12]_
+
+**candles1**  
+- `candles1-ec` (Candles1ECExplainer) — (no description) _[IKMC-23-EC-Q1]_
+- `candles1-ec` (Candles1ECIllustration) — IKMC-23-EC-Q1 — "Which candle stopped burning first?" (5 candles, varying heights).  OCR source: docs/reference/ocr-res/ikmc/contest/ecolier/2023.md Q1, _[IKMC-23-EC-Q1]_
+
+**car**  
+- `car-speed20-b24` (CarSpeed20B24Illustration) — SEAMO-20-B-Q24 — Stem illustration "A car travels for 10 minutes at half its full speed. It then travels at full speed for the next 10 minutes. If the car travelled 21 km altogether, what is its full speed in km/h?" Diag _[SEAMO-20-B-Q24]_
+
 **card**  
+- `card-flip15-pe` (CardFlip15PEExplainer) — IKMC-20-PE-Q15 — post-answer explainer for the two-flip card question.  Reuses CardFlip15PE from CardFlip15PEIllustration so the animation reads as _[IKMC-20-PE-Q15]_
+- `card-flip15-pe` (CardFlip15PEIllustration) — IKMC-20-PE-Q15 — "This card lies on the table. It is flipped over its top edge then flipped over its left edge. What does the card look like after the two flips?" Answer: B (down-triangle, square, circle). _[IKMC-20-PE-Q15]_
+- `card-holes5-pe` (CardHoles5PEExplainer) — IKMC-20-PE-Q5 — post-answer explainer for the card-holes overlay question.  Reuses CardHoles5PE from CardHoles5PEIllustration so the animation reads as _[IKMC-20-PE-Q5]_
+- `card-holes5-pe` (CardHoles5PEIllustration) — IKMC-20-PE-Q5 — "José has two cards of the same size. Card A has four holes cut in it. José places card A directly on top of card B. What can José see?" Answer A. _[IKMC-20-PE-Q5]_
 - `card-layout24-g3` (CardLayout24G3Explainer) — Post-answer explainer for WMI-24F3A-Q22. It deduces one lettered card per beat from the players' picks, revealing the hidden digit through the shared CardLayout24G3 primitive (so the animation reads as the static scene c _[WMI-24F3A-Q22]_
 - `card-layout24-g3` (CardLayout24G3Illustration) — WMI-24F3A-Q22 (2024 Grade 3 Final). Six number cards 1, 1, 2, 2, 3, 3 lie face-down behind six labelled cards arranged in a 2x3 grid:  A B C  /  D E F. _[WMI-24F3A-Q22]_
+- `card-sets9-ec` (CardSets9ECExplainer) — Post-answer explainer for IKMC-21-EC-Q9. Tests each set B–E with one valid swap, then shows set A is impossible. Palette echoes the illustration (qupu tokens). _[IKMC-21-EC-Q9]_
+- `card-sets9-ec` (CardSets9ECIllustration) — IKMC-21-EC-Q9 — "Card sorts" stem + option renderer.  Stem (CardSets9ECIllustration): shows the THREE card types — apple, cherry, _[IKMC-21-EC-Q9]_
+- `card-stack11` (CardStack11Explainer) — IKMC-19-PE-Q11 — post-answer animation for the five-card stack.  Reuses CardStack11 from CardStack11Illustration so the animation reads as _[IKMC-19-PE-Q11]_
+- `card-stack11` (CardStack11Illustration) — IKMC-19-PE-Q11 (2019 IKMC Pre-Ecolier Q11) — five overlapping square cards.  "Five square cards are stacked on a table, as shown. The cards are removed _[IKMC-19-PE-Q11]_
 - `card-stats23-g1` (CardStats23G1Explainer) — qupu colour tokens (echo the static figure's hexes so the scene reads as one). _[WMI-23F1A-Q13]_
 - `card-stats23-g1` (CardStats23G1Illustration) — WMI-23F1A-Q13 — Card statistics deduction (2023 Grade 1 Final). The paper prints 12 cards (one shown as a "?") plus two summary tables, and asks which card belongs in the "?" place. Each card has exactly ONE shape (squar _[WMI-23F1A-Q13]_
 - `card-stats23-g1` (CardStats23G1Option) — CHOICE renderer for WMI-23F1A-Q13 (2023 Grade 1 Final). Each option is a single card — one monochrome shape (□ ○ △) in one colour (gray / white) — read straight from the scanned option images and hardcoded by label so th _[WMI-23F1A-Q13]_
@@ -142,6 +329,8 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `card-stats23-g2` (CardStats23G2Illustration) — WMI-23F2A-Q12 — Card statistics deduction (2023 Grade 2 Final). The paper prints 12 cards (one shown as a "?") plus two summary tables, and asks which card belongs in the "?" place. Each card has exactly ONE shape (squar _[WMI-23F2A-Q12]_
 
 **cards**  
+- `cards-grid17-pe` (CardsGrid17PEExplainer) — IKMC-20-PE-Q17 — post-answer explainer for the Latin-square card puzzle.  Reuses CardsGrid17PE from CardsGrid17PEIllustration so the animation reads as _[IKMC-20-PE-Q17]_
+- `cards-grid17-pe` (CardsGrid17PEIllustration) — IKMC-20-PE-Q17 — "Tom has 9 cards: dots (1,2,3), triangles (1,2,3), squares (1,2,3). He places them in a 3×3 board so every row and column has all three shapes and all three counts (a 2-attribute Latin square). Given thr _[IKMC-20-PE-Q17]_
 - `cards-smallest-number` (CardsSmallestNumberExplainer) — (no description) _[WMI-19F2A-Q2]_
 - `cards-smallest-number` (CardsSmallestNumberIllustration) — Four number cards for WMI-19F2A-Q2. Figure shows the digits 6, 5, 0, 2 (left to right). Task: choose three of the four cards (no repetition) to form the SMALLEST _[WMI-19F2A-Q2]_
 
@@ -150,13 +339,49 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `cards20-g3-illustrations` (cards20G3Illustrations) — Static card illustrations for WMI-20F3A (2020 G3 final), reconstructed from the paper scans. Simple questions get a clean visual anchor; the heavier figures live in scenes20G3Illustrations / puzzles20G3Illustrations. _[WMI-20F3A-Q1, WMI-20F3A-Q10, WMI-20F3A-Q11, WMI-20F3A-Q12, WMI-20F3A-Q15, WMI-20F3A-Q16, WMI-20F3A-Q18, WMI-20F3A-Q19, WMI-20F3A-Q24, WMI-20F3A-Q25, WMI-20F3A-Q3, WMI-20F3A-Q4, WMI-20F3A-Q6, WMI-20F3A-Q9]_
 
 **cards21**  
-- `cards21-g1-illustrations` (cards21G1Illustrations) — Static card illustrations for WMI-21F1A (2021 G1 final). _[WMI-21F1A-Q1, WMI-21F1A-Q23, WMI-21F1A-Q6, WMI-21F2A-Q8]_
-- `cards21-g2-illustrations` (cards21G2Illustrations) — Static card illustrations for WMI-21F2A (2021 G2 final). _[WMI-21F2A-Q1, WMI-21F2A-Q10, WMI-21F2A-Q12, WMI-21F2A-Q16, WMI-21F2A-Q20, WMI-21F2A-Q21, WMI-21F2A-Q22, WMI-21F2A-Q3, WMI-21F2A-Q4, WMI-21F2A-Q5, WMI-21F2A-Q6, WMI-21F2A-Q7]_
+- `cards21-g1-illustrations` (cards21G1Illustrations) — Static card illustrations for WMI-21F1A (2021 G1 final). _[WMI-21F1A-Q1, WMI-21F1A-Q23, WMI-21F1A-Q6]_
+- `cards21-g2-illustrations` (cards21G2Illustrations) — Static card illustrations for WMI-21F2A (2021 G2 final). _[WMI-21F2A-Q1, WMI-21F2A-Q10, WMI-21F2A-Q12, WMI-21F2A-Q16, WMI-21F2A-Q20, WMI-21F2A-Q21, WMI-21F2A-Q22, WMI-21F2A-Q3, WMI-21F2A-Q4, WMI-21F2A-Q5, WMI-21F2A-Q6, WMI-21F2A-Q7, WMI-21F2A-Q8]_
 - `cards21-g3-illustrations` (cards21G3Illustrations) — Static card illustrations for WMI-21F3A (2021 G3 final). _[WMI-21F3A-Q1, WMI-21F3A-Q10, WMI-21F3A-Q14, WMI-21F3A-Q16, WMI-21F3A-Q17, WMI-21F3A-Q2, WMI-21F3A-Q22, WMI-21F3A-Q23, WMI-21F3A-Q3, WMI-21F3A-Q4, WMI-21F3A-Q8, WMI-21F3A-Q9]_
 
 **cards23**  
 - `cards23-g2` (Cards23G2Explainer) — WMI-23F2A-Q2 — "Which 2 cards have a difference closest to 150?" Cards: 521, 214, 79, 244, 383, 407. Strategy: compute |diff − 150| for each answer-choice pair; smallest gap wins. _[WMI-23F2A-Q2]_
 - `cards23-g2` (Cards23G2Illustration) — Six number cards illustration for WMI-23F2A-Q2. "Which two cards have a difference closest to 150?" Cards: 521, 214, 79, 244, 383, 407. _[WMI-23F2A-Q2]_
+
+**cars**  
+- `cars-lane9-ec` (CarsLane9ECExplainer) — IKMC-22-EC-Q9 — Explainer: 5-car overtaking simulation.  Walks through the 3 overtaking moves beat-by-beat using the CarRow primitive _[IKMC-22-EC-Q9]_
+- `cars-lane9-ec` (CarsLane9ECIllustration) — IKMC-22-EC-Q9 — "Five cars numbered 1–5 overtake one another"  STEM (images 022–026.jpg): five cars in a single lane, all moving in the _[IKMC-22-EC-Q9]_
+
+**cassie**  
+- `cassie-queue19-a10` (CassieQueue19A10Explainer) — SEAMO-19-A-Q10 — post-answer explainer.  Reuses TinyPerson + constants (cx, COLOR, SVG_W, SVG_H, GROUND_Y) _[SEAMO-19-A-Q10]_
+- `cassie-queue19-a10` (CassieQueue19A10Illustration) — SEAMO-19-A-Q10 — "Cassie is 12th from front and 5th from back. How many people in queue?"  Stem illustration — shows a horizontal queue of 16 people. _[SEAMO-19-A-Q10]_
+
+**castle2**  
+- `castle2-pe` (Castle2PEExplainer) — IKMC-20-PE-Q2 — post-answer explainer: castle selfie orientation.  Reuses CastleBattlement, SelfieHead, CASTLE, COLOR from Castle2PEIllustration. _[IKMC-20-PE-Q2]_
+- `castle2-pe` (Castle2PEIllustration) — IKMC-20-PE-Q2 — "Mordka took a selfie in front of this castle."  Stem illustration: shows the REFERENCE castle as seen from the front. _[IKMC-20-PE-Q2]_
+
+**cat**  
+- `cat-path17` (CatPath17Explainer) — IKMC-19-PE-Q17 — post-answer animation.  Reuses the grid layout constants and cat/milk glyphs from CatPath17Illustration. _[IKMC-19-PE-Q17]_
+- `cat-path17` (CatPath17Illustration) — IKMC-19-PE-Q17 — "A cat and a bowl of milk are in the opposite corners of the board."  The board is a 3×3 grid of cells (2 columns × 2 rows of internal lines creates _[IKMC-19-PE-Q17]_
+- `cat-path9-pe` (CatPath9PEExplainer) — IKMC-21-PE-Q9 — animated explainer for the cat-path problem.  Reuses the wall-path layout and CatGlyph from CatPath9PEIllustration. _[IKMC-21-PE-Q9]_
+- `cat-path9-pe` (CatPath9PEIllustration) — IKMC-21-PE-Q9 — "Rose the cat walks along the wall. She starts at point B and follows the direction of the arrows shown in the picture. The cat walks a total of 20 metres. Where does she end up?" _[IKMC-21-PE-Q9]_
+
+**catch**  
+- `catch-up22-b10` (CatchUp22B10Explainer) — SEAMO-22-B-Q10 — Explainer: car-vs-motorcycle speed catch-up.  Walks through the two equations beat-by-beat: _[SEAMO-22-B-Q10]_
+- `catch-up22-b10` (CatchUp22B10Illustration) — SEAMO-22-B-Q10 — Stem illustration "A car left Point A and a motorcycle left Point B at the same time. Both travelling in the same direction. If car travels at 60 km/h → catches up in 5 h. If car travels at 70 km/h → cat _[SEAMO-22-B-Q10]_
+
+**cevian**  
+- `cevian-x22-b11` (CevianX22B11Explainer) — SEAMO-X 2022 Paper B Q11 — animated explainer. Reuses the sub-components exported from CevianX22B11Illustration.  _[SEAMOX-22-B-Q11]_
+- `cevian-x22-b11` (CevianX22B11Illustration) — SEAMO-X 2022 Paper B Q11 Find area of △DEF, where D, E, F are formed by three cevians in △ABC that divide each opposite side in ratio 2:1 (rotating). Inner triangle _[SEAMOX-22-B-Q11]_
+
+**chain**  
+- `chain-pattern-hk20-p1-q20` (ChainPatternHK20P1Q20Explainer) — HKIMO-20-P1H-Q20 — animated explainer for the wavy chain pattern question.  Animation flow (5 beats): _[HKIMO-20-P1H-Q20]_
+- `chain-pattern-hk20-p1-q20` (ChainPatternHK20P1Q20Illustration) — HKIMO-20-P1H-Q20 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-20-P1H-Q20]_
+- `chain-pattern19-hk1-q20` (ChainPattern19HK1Q20Explainer) — HKIMO-19-P1H-Q20 — animated explainer for the chain bead pattern question.  Animation flow (5 beats): _[HKIMO-19-P1H-Q20]_
+- `chain-pattern19-hk1-q20` (ChainPattern19HK1Q20Illustration) — HKIMO-19-P1H-Q20 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-19-P1H-Q20]_
+
+**chained**  
+- `chained-tri-osn25-nfq25` (ChainedTriOSN25NFQ25Explainer) — ChainedTriOSN25NFQ25Explainer — OSN-25-SD-NAS-FINAL-Q25  Beats: _[OSN-25-SD-NAS-FINAL-Q25]_
+- `chained-tri-osn25-nfq25` (ChainedTriOSN25NFQ25Illustration) — ChainedTriOSN25NFQ25Illustration — OSN-25-SD-NAS-FINAL-Q25  Three right triangles ABC, CDE, ECF chained along a horizontal baseline B–C–D: _[OSN-25-SD-NAS-FINAL-Q25]_
 
 **champion**  
 - `champion-median22-g3` (ChampionMedian22G3Explainer) — WMI-22F3A-Q13 — Post-answer animation for the median-championship question.  Strategy taught: _[WMI-22F3A-Q13]_
@@ -166,21 +391,59 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `cherry-count20` (CherryCount20Explainer) — (no description) _[WMI-20F1A-Q10]_
 - `cherry-count20` (CherryCount20Illustration) — Cherry-counting picture for WMI-20F1A-Q10.  Recovered from "wmiPastPaper/2020 WMI Final G01 Paper A/images/ _[WMI-20F1A-Q10]_
 
+**chicken**  
+- `chicken-rabbit18-a15` (ChickenRabbit18A15Illustration) — SEAMO-18-A-Q15 — Chicken and rabbit legs puzzle.  Stem: 26 chickens and rabbits on a farm; 80 legs total; find rabbits. _[SEAMO-18-A-Q15]_
+
 **children**  
 - `children-chairs25-g1` (ChildrenChairs25G1Explainer) — Palette echoes the static children/chairs illustration (qupu tokens). _[WMI-25F1A-Q10]_
 - `children-chairs25-g1` (ChildrenChairs25G1Illustration) — Static card illustration for WMI-25F1A-Q10 (2025 G1 final).  "There are 16 children and 7 chairs. A single chair seats 1, a double seats 2, _[WMI-25F1A-Q10]_
+- `children-line7-pe` (ChildrenLine7PEExplainer) — IKMC-21-PE-Q7 — post-answer explainer.  Reuses ChildFigure + constants from ChildrenLine7PEIllustration. _[IKMC-21-PE-Q7]_
+- `children-line7-pe` (ChildrenLine7PEIllustration) — IKMC-21-PE-Q7 — "children standing in a line, some facing forwards, others backwards"  Stem illustration — shows the PROBLEM only (7 children in a line, alternating _[IKMC-21-PE-Q7]_
 
 **circle**  
+- `circle-count-pattern-sasmo19-g3-q2` (CircleCountPatternSASMO19G3Q2Explainer) — SASMO 2019 G3 Q2 — post-answer explainer. Reuses dot layout + geometry from CircleCountPatternSASMO19G3Q2Illustration. Five beats: introduce → show counts → highlight pattern → reveal answer → confirm D. _[SASMO-19-G3-Q2]_
+- `circle-count-pattern-sasmo19-g3-q2` (CircleCountPatternSASMO19G3Q2Illustration) — SASMO 2019 G3 Q2 — "Study the pattern below. How many black circles are in the circle with the question mark?"  _[SASMO-19-G3-Q2]_
+- `circle-div-x23-b4` (CircleDivX23B4Explainer) — SEAMOX-23-B-Q4 — Animated explainer for "Into how many parts can 6 lines divide a circle?" Adds chords one by one, showing the growing region count and explaining why each new line k adds exactly k new regions (it crosse _[SEAMOX-23-B-Q4]_
+- `circle-div-x23-b4` (CircleDivX23B4Illustration) — SEAMOX-23-B-Q4 — "A straight line divides a circle into 2 parts as shown below. Into how many parts can 6 lines divide the circle?" Source: docs/reference/ocr-res/seamo-x/contest/paper-b/2023.md Q4 Image: 2023.imgs/001.j _[SEAMOX-23-B-Q4]_
+- `circle-lines16-b16` (CircleLines16B16Illustration) — SEAMO-16-B-Q16 — "The numbers 2, 3, 4, 5, 6, 7 and 8 are arranged in circles in such a way that the sum of the 3 numbers on each line is 15. What is the value of m?" _[SEAMO-16-B-Q16]_
+- `circle-numbers20-a9` (CircleNumbers20A9Explainer) — (no description) _[SEAMO-20-A-Q9]_
+- `circle-numbers20-a9` (CircleNumbers20A9Illustration) — SEAMO-20-A-Q9 — "Find the missing number."  Source figures: 2020.imgs/011.jpg, 012.jpg, 013.jpg _[SEAMO-20-A-Q9]_
+- `circle-pair21-a6` (CirclePair21A6Illustration) — SEAMO-21-A-Q6 — "Which of the following comes next?"  A 3×3 visual matrix where each cell shows two circles (one large, one small; _[SEAMO-21-A-Q6]_
+- `circle-pieces8-ec` (CirclePieces8ECExplainer) — IKMC-23-EC-Q8 — post-answer animation. "Danny glued 2 pieces of paper on top of a black circle. What result can he NOT obtain?" Answer: E. _[IKMC-23-EC-Q8]_
+- `circle-pieces8-ec` (CirclePieces8ECIllustration) — IKMC-23-EC-Q8 — "Danny glued 2 pieces of paper (a gray quadrilateral and a white triangle) on top of a black circle. What result can he NOT obtain?" Answer: E. Stem (images 017–019): two loose pieces shown beside a black _[IKMC-23-EC-Q8]_
+- `circle-pyramid18-b19` (CirclePyramid18B19Illustration) — CirclePyramid18B19Illustration — SEAMO-18-B-Q19 "In the diagram below, the topmost layer has 60 circles. How many circles are there altogether?" Answer: C (1830) — sum of 1+2+…+60 = 60×61÷2 = 1830. Source image: docs/ref _[SEAMO-18-B-Q19]_
 - `circle-rect22-g1` (CircleRect22G1Explainer) — WMI-22F1A-Q10 (Grade 1). "Which figure has MORE circles than rectangles?" The animation states the goal, then walks figures A→D: it rings the circles (shows the count), rings the rectangles (shows the count), and judges  _[WMI-22F1A-Q10]_
 - `circle-rect22-g1` (CircleRect22G1Option) — CHOICE renderer for WMI-22F1A-Q10 (Grade 1):   "Which figure has MORE circles than rectangles?"  (answer = A)  _[WMI-22F1A-Q10]_
+- `circle-ring-osn24-nt1-q1` (CircleRingOSN24NT1Q1Explainer) — (no description) _[OSN-24-SD-NAS-TEORI1-Q1]_
+- `circle-ring-osn24-nt1-q1` (CircleRingOSN24NT1Q1Illustration) — OSN 2024 SD Nasional Teori1 Q1 — ring-of-circles constraint puzzle. Source: docs/reference/ocr-res/osn/nasional/sd/2024-teori1.imgs/003.jpg 9 circles in a ring. Anchors: 1 (top), 5 (lower-right), 4 (left). _[OSN-24-SD-NAS-TEORI1-Q1]_
+- `circle-rule16-a1` (CircleRule16A1Illustration) — SEAMO-16-A-Q1 — "What is the missing number?"  The figure (002.jpg) shows THREE groups side-by-side. Each group has three _[SEAMO-16-A-Q1]_
+- `circle-sectors-x22-a19` (CircleSectorsX22A19Explainer) — SEAMOX-22-A-Q19 Explainer — "Find the missing number." Beat-by-beat walkthrough of the difference-of-squares pattern: Beat 0: Observe the three circles — what is the rule? Beat 1: Circle 1 — try 3² − 1² = ? Beat 2: Circl _[SEAMOX-22-A-Q19]_
+- `circle-sectors-x22-a19` (CircleSectorsX22A19Illustration) — SEAMOX-22-A-Q19 — "Find the missing number." Three circles each divided into three 120° sectors by a Y-shaped divider: Circle 1: left=3, right=1, bottom=8 Circle 2: left=5, right=4, bottom=9 Circle 3: left=13, right=6, b _[SEAMOX-22-A-Q19]_
+- `circle-square-osn07-kq14` (CircleSquareOSN07KQ14Explainer) — OSN-07-SD-KAB-Q14 — animated explainer for circle-area from square DEFG.  Beat plan (4 beats): _[OSN-07-SD-KAB-Q14]_
+- `circle-square-osn07-kq14` (CircleSquareOSN07KQ14Illustration) — OSN-07-SD-KAB-Q14 — Circle centred at a corner of square DEFG. Source: docs/reference/ocr-res/osn/kabupaten/sd/2007.imgs/012.jpg  _[OSN-07-SD-KAB-Q14]_
 - `circle-sums25-g1` (CircleSums25G1Explainer) — Palette echoes the static ring illustration (same qupu tokens / glyphs). A compact equation strip "shaded + 1 = 11" used on the locate / result beats. The unknown term shows a "?" until the answer is revealed, then it fi _[WMI-25F1A-Q21]_
 - `circle-sums25-g1` (CircleSums25G1Illustration) — WMI-25F1A-Q21 (2025 Grade 1 Final) — CONSISTENT interpretation.  "Fill 1-10 into the circles (no repeats) so that two opposite circles marked _[WMI-25F1A-Q21]_
+- `circle-triangle21-a9` (CircleTriangle21A9Illustration) — CircleTriangle21A9Illustration — SEAMO 2021 Paper A Q9  "Fill in each circle with a number from 2, 5, 6 and 7, such that the sum of _[SEAMO-21-A-Q9]_
+
+**city**  
+- `city-tour-osn25-nfq10` (CityTourOSN25NFQ10Explainer) — OSN-25-SD-NAS-FINAL-Q10 — visit all cities A–H and return to A, minimum km.  Animation: builds the optimal Hamiltonian circuit A→B→C→D→F→E→G→H→A hop _[OSN-25-SD-NAS-FINAL-Q10]_
+- `city-tour-osn25-nfq10` (CityTourOSN25NFQ10Illustration) — OSN-25-SD-NAS-FINAL-Q10 "Pak Kartono tinggal di kota A akan berkunjung ke semua kota dan kembali ke A.  Jarak minimum yang dilewati Pak Kartono adalah … km." _[OSN-25-SD-NAS-FINAL-Q10]_
 
 **classroom24**  
 - `classroom24-g3` (Classroom24G3Explainer) — ─── colour tokens (mirror fill-qupu-* Tailwind tokens) ───────────────────── ─── SVG viewport ──────────────────────────────────────────────────────────── ─── types ─────────────────────────────────────────────────────── _[WMI-24F3A-Q3]_
 - `classroom24-g3` (Classroom24G3Illustration) — Classroom compass-rose illustration for WMI-24F3A-Q3. Top-down floor plan: blackboard on the east wall, teacher facing west, student desks in the room. Compass rose shows N/S/E/W. _[WMI-24F3A-Q3]_
 
+**climb**  
+- `climb-stairs22-a15` (ClimbStairs22A15Explainer) — SEAMO-22-A-Q15 — animated explainer.  Beat-by-beat walk through the Fibonacci recurrence to count ways to climb _[SEAMO-22-A-Q15]_
+- `climb-stairs22-a15` (ClimbStairs22A15Illustration) — SEAMO-22-A-Q15 — "There are 5 steps to a flight of stairs. Chatdanai can take 1 or 2 steps up at a time. How many ways are there for him to do so?" Answer: B (8) _[SEAMO-22-A-Q15]_
+
 **clock**  
+- `clock-angle-osn15-nq13` (ClockAngleOSN15NQ13Explainer) — OSN-15-SD-NAS-Q13 — explainer animasi pasca-jawaban.  Mengimpor ulang ClockAngleOSN15NQ13Face dari Illustration agar explainer _[OSN-15-SD-NAS-Q13]_
+- `clock-angle-osn15-nq13` (ClockAngleOSN15NQ13Illustration) — OSN-15-SD-NAS-Q13 — Sudut lancip jarum jam pukul 03:25  Soal: "Pada pukul 03:25, besar sudut lancip yang dibentuk oleh kedua jarum adalah ..." _[OSN-15-SD-NAS-Q13]_
+- `clock-angle16-b23` (ClockAngle16B23Illustration) — SEAMO-16-B-Q23 — Clock angle at 6:45 pm  "What is the smaller angle formed by the hour hand and the minute hand at 6:45 pm?" _[SEAMO-16-B-Q23]_
+- `clock-four20-a8` (ClockFour20A8Illustration) — SEAMO-20-A-Q8 — four analog clock figures; identify the time shown in Figure 4.  "What is the time in Figure 4?" _[SEAMO-20-A-Q8]_
+- `clock-holes3-ec` (ClockHoles3ECExplainer) — IKMC-23-EC-Q3 — grey disc with 2 holes over a clock face.  "A gray circle with 2 large holes in it is put on top of a clock-face, as _[IKMC-23-EC-Q3]_
+- `clock-holes3-ec` (ClockHoles3ECIllustration) — IKMC-23-EC-Q3 — gray disc with 2 circular holes placed over a clock face.  "A gray circle with 2 large holes in it is put on top of a clock-face, as _[IKMC-23-EC-Q3]_
 - `clock-match20` (ClockMatch20Explainer) — (no description) _[WMI-20F1A-Q6]_
 - `clock-match20` (ClockMatch20Illustration) — Clock-matching question for WMI-20F1A-Q6.  The question card shows a digital alarm clock reading 04:30; the four _[WMI-20F1A-Q6]_
 - `clock-option20` (ClockOption20) — Renders an answer option for the clock-matching question (WMI-20F1A-Q6) as a small analog clock face. The time is read from the choice text (e.g. "4:30"), so the drawn hands always match the authored choice and can never _[WMI-20F1A-Q6]_
@@ -193,6 +456,14 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `clock-read` (ClockReadIllustration) — Convert a clock angle (degrees clockwise from 12-o'clock) + length to an SVG endpoint. _[WMI-19F1A-Q6]_
 - `clock-read-g2` (ClockReadG2Explainer) — (no description) _[WMI-19F2A-Q8]_
 - `clock-read-g2` (ClockReadG2Illustration) — Convert a clock angle (degrees clockwise from 12-o'clock) + length to an SVG endpoint. _[WMI-19F2A-Q8]_
+- `clock-seq18-a10` (ClockSeq18A10Explainer) — SEAMO-18-A-Q10 — animated explainer for the clock sequence puzzle.  "What time should come next in the sequence below?" _[SEAMO-18-A-Q10]_
+- `clock-seq18-a10` (ClockSeq18A10Illustration) — SEAMO-18-A-Q10 — clock sequence puzzle.  "What time should come next in the sequence below?" _[SEAMO-18-A-Q10]_
+- `clock-seq21-a18` (ClockSeq21A18Explainer) — SEAMO-21-A-Q18 — animated explainer for the clock sequence puzzle.  "What comes next?" _[SEAMO-21-A-Q18]_
+- `clock-seq21-a18` (ClockSeq21A18Illustration) — SEAMO-21-A-Q18 — clock sequence puzzle.  "What comes next?" _[SEAMO-21-A-Q18]_
+- `clock-straight-x22-b1` (ClockStraightX22B1Explainer) — SEAMOX-22-B-Q1 — Clock straight-line problem at 7 a.m.  Beat-by-beat animated explainer: start at 7:00 → relative speed → _[SEAMOX-22-B-Q1]_
+- `clock-straight-x22-b1` (ClockStraightX22B1Illustration) — SEAMOX-22-B-Q1 — Clock straight-line problem starting at 7 a.m.  "The time now is 7 a.m. How long, in minutes, does the minute hand _[SEAMOX-22-B-Q1]_
+- `clock-symmetry22-b20` (ClockSymmetry22B20Explainer) — SEAMO-22-B-Q20 — Clock symmetry about the '5' at 5:00 pm  Beat-by-beat explainer: start (5:00) → axis ('5') → symmetry condition _[SEAMO-22-B-Q20]_
+- `clock-symmetry22-b20` (ClockSymmetry22B20Illustration) — SEAMO-22-B-Q20 — Clock symmetry about the '5' at 5:00 pm  "The time on the clock is now 5 pm. How many minutes later will the _[SEAMO-22-B-Q20]_
 - `clock-turn-g2` (ClockTurnG2Explainer) — WMI-20F2A-Q7 — the pink arrow turns 1½ numbers (45°) clockwise each step: 9:00 → 10:30 → (12:00, hidden behind the black hand!) → 1:30 → 3:00 → 4:30. The hidden 12 explains the seemingly bigger jump in the printed sequen _[WMI-20F2A-Q7]_
 - `clock-turn-g2` (ClockTurnG2Option) — WMI-20F2A-Q7 options drawn as clock faces. The arrow angle is keyed by the option LABEL (A–D), matching the printed paper: A 6:00, B 4:30, C 4:00, D 7:30 (degrees clockwise from 12). _[WMI-20F2A-Q7]_
 
@@ -200,59 +471,266 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `clothing-prices25-g1` (ClothingPrices25G1Explainer) — WMI-25F1A-Q2 post-answer animation. Teaches the method, not just the answer: the four product prices are 11, 17, 20, 9. One pair differs by $8 — the storyboard first lights the shoes $17 & socks $9 (17 − 9 = 8), then tur _[WMI-25F1A-Q2]_
 - `clothing-prices25-g1` (ClothingPrices25G1Illustration) — Static card illustration for WMI-25F1A-Q2 (2025 G1 final).  "A clothing store sells 4 kinds of products at the prices shown. The price _[WMI-25F1A-Q2]_
 
+**code**  
+- `code-board12-pe` (CodeBoard12PEExplainer) — IKMC-21-PE-Q12 — post-answer animation. Reuses the CodeBoard12PEGrid and CodeSequenceRow primitives from the illustration so the animation reads as the static scene coming alive. _[IKMC-21-PE-Q12]_
+- `code-board12-pe` (CodeBoard12PEIllustration) — eslint-disable react-refresh/only-export-components _[IKMC-21-PE-Q12]_
+
+**cogs24**  
+- `cogs24-pe` (Cogs24PEExplainer) — Cogs24PEExplainer.tsx IKMC-21-PE-Q24 — post-answer animation for the cog-rotation question.  _[IKMC-21-PE-Q24]_
+- `cogs24-pe` (Cogs24PEIllustration) — Cogs24PEIllustration.tsx IKMC-21-PE-Q24 — "Where will the black teeth end up after the small cog makes one full turn?"  _[IKMC-21-PE-Q24]_
+
+**coin**  
+- `coin-grid3-ec` (CoinGrid3ECExplainer) — IKMC-22-EC-Q3 — post-answer beat-driven explainer.  Reuses CoinGrid3ECFigure from the illustration so the animation reads as the _[IKMC-22-EC-Q3]_
+- `coin-grid3-ec` (CoinGrid3ECIllustration) — IKMC-22-EC-Q3 — Coin placement logic puzzle.  Rossitza wants to put 2 coins in each row and in each column of a 4×4 grid. _[IKMC-22-EC-Q3]_
+- `coin-grid5-pe` (CoinGrid5PEExplainer) — IKMC-22-PE-Q5 — post-answer animated explainer  Walk: intro → scan rows (find row 2 is incomplete) → scan cols (find col 2 is incomplete) _[IKMC-22-PE-Q5]_
+- `coin-grid5-pe` (CoinGrid5PEIllustration) — IKMC-22-PE-Q5 — Coin placement grid (stem illustration)  Problem: place 2 coins in each row and each column of a 4×4 grid. _[IKMC-22-PE-Q5]_
+- `coin-pay16-a16` (CoinPay16A16Illustration) — SEAMO-16-A-Q16 — Coins Akshta has for paying 70 ¢.  A file in a bookstore costs 70 ¢.  Akshta has: _[SEAMO-16-A-Q16]_
+- `coin-scale2-ec` (CoinScale2ECExplainer) — IKMC-23-EC-Q2 — Explainer: "What is the value of each ? coin?"  Pattern: BallScales8ECExplainer (equation badge + primitive spotlighting + caption box). _[IKMC-23-EC-Q2]_
+- `coin-scale2-ec` (CoinScale2ECIllustration) — IKMC-23-EC-Q2 — "The 2 kangaroo coins with the question mark on them have the same value. 20 + 10 + 10 + ? + ? + 1 = 51. What is this value?"  _[IKMC-23-EC-Q2]_
+- `coin-triangle16-a3` (CoinTriangle16A3Explainer) — SEAMO-16-A-Q3 — post-answer beat-driven explainer.  Reuses CoinTriangle16A3Figure from the illustration so the animation reads _[SEAMO-16-A-Q3]_
+- `coin-triangle16-a3` (CoinTriangle16A3Illustration) — SEAMO-16-A-Q3 — Coins forming a triangle.  Vanessa places coins to form a triangle. Each of the 3 corners has a coin; _[SEAMO-16-A-Q3]_
+- `coin-triangle21-a7` (CoinTriangle21A7Explainer) — SEAMO-21-A-Q7 — post-answer beat-driven explainer.  Reuses CoinTriangle21A7Figure from the illustration so the animation reads _[SEAMO-21-A-Q7]_
+- `coin-triangle21-a7` (CoinTriangle21A7Illustration) — SEAMO-21-A-Q7 — Coins forming a triangle.  Wattaria places coins along the 3 sides of a triangle, such that there are _[SEAMO-21-A-Q7]_
+
 **coin25**  
 - `coin25-g3` (Coin25G3Explainer) — WMI-25F3A-Q13 — post-answer animation for the spinning-coins problem. We reuse CoinFace (the same glyphs as the static figure and the answer chips) so the animation reads as the same scene coming alive. The active option _[WMI-25F3A-Q13]_
 - `coin25-g3` (Coin25G3Illustration) — In-card illustration for WMI-25F3A-Q13 (2025 Grade-3 Final).  The printed stem shows two coins side by side, each with a picture on its _[WMI-25F3A-Q13]_
+
+**col**  
+- `col-add20-a11` (ColAdd20A11Illustration) — SEAMO-20-A-Q11 — Column addition cryptarithmetic       T H _[SEAMO-20-A-Q11]_
+- `col-add22-a10` (ColAdd22A10Explainer) — SEAMO-22-A-Q10 — post-answer animation. Reuses the layout constants from the illustration; animates beat-by-beat how AA + BB + CC = ABC forces A=1, B=9, C=8 → 198. _[SEAMO-22-A-Q10]_
+- `col-add22-a10` (ColAdd22A10Illustration) — SEAMO-22-A-Q10 — "Find 3-digit number ABC such that AA + BB + CC = ABC"  PROBLEM ONLY: shows the column-addition layout exactly as in the paper figure: _[SEAMO-22-A-Q10]_
+
+**collinear**  
+- `collinear-run-osn15-nq20` (CollinearRunOSN15NQ20Explainer) — OSN 2015 SD Nasional Q20 — animated post-answer explainer. Reuses geometry from CollinearRunOSN15NQ20Illustration.  _[OSN-15-SD-NAS-Q20]_
+- `collinear-run-osn15-nq20` (CollinearRunOSN15NQ20Illustration) — OSN 2015 SD Nasional Q20 — "Amir menyusul Budi"  Problem-only figure: three collinear points A, B, C on a horizontal line. _[OSN-15-SD-NAS-Q20]_
+
+**color**  
+- `color-ball16-b9` (ColorBall16B9Explainer) — SEAMO-16-B-Q9 — post-answer explainer: pigeonhole principle. Problem: bag has 12 red, 10 white, 8 yellow, 3 blue, 2 black balls. Minimum draws to guarantee 4 balls of the same colour? Strategy: worst-case scenario. • Red _[SEAMO-16-B-Q9]_
+- `color-ball16-b9` (ColorBall16B9Option) — SEAMO-16-B-Q9 — "A bag contains 12 red, 10 white, 8 yellow, 3 blue and 2 black balls…"  The A–E answer options are PICTURES of coloured smiley balls, one per option. _[SEAMO-16-B-Q9]_
+- `color-cube-osn24-nekq4` (ColorCubeOSN24NEKQ4Explainer) — Post-answer explainer for OSN-24-SD-NAS-EKSPERIMEN-Q4. "Color 27 unit cubes in a 3×3×3 with 3 colors, no two adjacent same color.  How many unit cubes receive color 1?" — answer: 9. _[OSN-24-SD-NAS-EKSPERIMEN-Q4]_
+- `color-cube-osn24-nekq4` (ColorCubeOSN24NEKQ4Illustration) — ColorCubeOSN24NEKQ4Illustration — OSN-24-SD-NAS-EKSPERIMEN-Q4 "Color each of the 27 unit cubes in a 3×3×3 cube using one of 3 colors so that no two adjacent unit cubes (sharing a face) have the same color. How many unit  _[OSN-24-SD-NAS-EKSPERIMEN-Q4]_
+- `color-grid-osn25-nfq15` (ColorGridOSN25NFQ15Explainer) — Animated explainer for OSN-25-SD-NAS-FINAL-Q15.  Beat sequence (7 beats): _[OSN-25-SD-NAS-FINAL-Q15]_
+- `color-grid-osn25-nfq15` (ColorGridOSN25NFQ15Illustration) — Stem illustration for OSN-25-SD-NAS-FINAL-Q15 "3×3 grid with 4 coloured regions; sum of 3 numbers on each side = 10;  grey region fixed at (5,5); count valid completions." _[OSN-25-SD-NAS-FINAL-Q15]_
+- `color-grid10-pe` (ColorGrid10PEExplainer) — IKMC-23-PE-Q10 — post-answer animation. Reuses ColorGrid10PE from the illustration so the animation reads as the static scene coming alive. _[IKMC-23-PE-Q10]_
+- `color-grid10-pe` (ColorGrid10PEIllustration) — IKMC-23-PE-Q10 — coloured-squares counting problem.  PROBLEM ONLY — shows the 6 × 4 grid exactly as in the paper (028.jpg): _[IKMC-23-PE-Q10]_
+- `color-squares14-pe` (ColorSquares14PEExplainer) — IKMC-20-PE-Q14 — post-answer animation. Reuses ColorSquaresGrid from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-PE-Q14]_
+- `color-squares14-pe` (ColorSquares14PEIllustration) — IKMC-20-PE-Q14 — coloured squares with numbers.  PROBLEM ONLY — shows exactly what the paper shows (047.jpg): _[IKMC-20-PE-Q14]_
+- `color-swap23` (ColorSwap23Explainer) — IKMC-19-PE-Q23 — post-answer animation. Reuses the GridStrip primitive from the illustration so the animation reads as the static scene coming alive step by step. _[IKMC-19-PE-Q23]_
+- `color-swap23` (ColorSwap23Illustration) — IKMC-19-PE-Q23 — "Here are nine squares..."  PROBLEM ONLY: shows the static starting 3×3→actually 1×9 strip the student sees: _[IKMC-19-PE-Q23]_
+- `color-tile-osn24-nt1-q14` (ColorTileOSN24NT1Q14Explainer) — (no description) _[OSN-24-SD-NAS-TEORI1-Q14]_
+- `color-tile-osn24-nt1-q14` (ColorTileOSN24NT1Q14Illustration) — OSN 2024 SD Nasional Teori1 Q14 — graph-colouring polygon-tile figure. Source: docs/reference/ocr-res/osn/nasional/sd/2024-teori1.imgs/007.jpg Figure: 8 pentagons (segi lima) in two 2×2 groups (each a C4 cycle) + 1 quadr _[OSN-24-SD-NAS-TEORI1-Q14]_
+
+**colour**  
+- `colour-worm-x24-a2` (ColourWormX24A2Explainer) — (no description) _[SEAMOX-24-A-Q2]_
+- `colour-worm-x24-a2` (ColourWormX24A2Illustration) — SEAMOX-24-A-Q2 — "Find the colour of the circle marked with '?'."  Stem figure: a caterpillar/worm of overlapping coloured circles (Red, Green, Yellow) _[SEAMOX-24-A-Q2]_
+
+**column**  
+- `column-add-hk20-p2-q11` (ColumnAddHK20P2Q11Explainer) — (no description) _[HKIMO-20-P2H-Q11]_
+- `column-add-hk20-p2-q11` (ColumnAddHK20P2Q11Illustration) — HKIMO-20-P2H-Q11 — AB + AA = 1C4; A, B, C different digits; is C odd or even? Copy-adapted from ColumnAddHK24P1Q10Illustration.tsx (same geometry, different labels). SSR-safe: no hooks, no framer-motion. _[HKIMO-20-P2H-Q11]_
+- `column-add-hk24-p1-q10` (ColumnAddHK24P1Q10Explainer) — (no description) _[HKIMO-24-P1H-Q10]_
+- `column-add-hk24-p1-q10` (ColumnAddHK24P1Q10Illustration) — HKIMO-24-P1H-Q10 — column addition  B A + A B = 1 2 1  Stem figure: vertical addition layout _[HKIMO-24-P1H-Q10]_
+- `column-add-hk24-p2-q10` (ColumnAddHK24P2Q10Explainer) — HKIMO-24-P2H-Q10 — post-answer animation. Reuses ColumnAddPrimitive from the illustration.  _[HKIMO-24-P2H-Q10]_
+- `column-add-hk24-p2-q10` (ColumnAddHK24P2Q10Illustration) — HKIMO-24-P2H-Q10 — "If A, B represent different 1-digit numbers, what is the maximum value of B if AB + BA = 165?"  _[HKIMO-24-P2H-Q10]_
+- `column-add-hk25-p2-q10` (ColumnAddHK25P2Q10Explainer) — HKIMO-25-P2H-Q10 — animated explainer for AB + AB = 1A2.  Beat flow: _[HKIMO-25-P2H-Q10]_
+- `column-add-hk25-p2-q10` (ColumnAddHK25P2Q10Illustration) — HKIMO-25-P2H-Q10 — Column addition cryptarithmetic      A  B _[HKIMO-25-P2H-Q10]_
+- `column-add16-a9` (ColumnAdd16A9Explainer) — (no description) _[SEAMO-16-A-Q9]_
+- `column-add16-a9` (ColumnAdd16A9Illustration) — Column addition figure for SEAMO-16-A-Q9: "Find the sum of 2 + 22 + 222 + 2222 + 22222."  _[SEAMO-16-A-Q9]_
 
 **composite**  
 - `composite-rect24-g3` (CompositeRect24G3Explainer) — Post-answer explainer for WMI-24F3A-Q6 (composite rectangle perimeter).  Strategy: walk the perimeter, sum all KNOWN edges (144 cm), subtract from _[WMI-24F3A-Q6]_
 - `composite-rect24-g3` (CompositeRect24G3Illustration) — Composite-rectangle illustration for WMI-24F3A-Q6.  Shape: a small rectangle (30 cm wide, ★ cm tall) sits on top of a large _[WMI-24F3A-Q6]_
 
+**concave**  
+- `concave-square-osn10-kq22` (ConcaveSquareOSN10KQ22Explainer) — (no description) _[OSN-10-SD-KAB-Q22]_
+- `concave-square-osn10-kq22` (ConcaveSquareOSN10KQ22Illustration) — OSN 2010 SD Kabupaten Q22 — square s = 4r with two semicircular notches cut into the left and right sides (each radius r = 10 cm). Shaded region is the square minus the two semicircles: s² − πr² = 1600 − 314 = 1286 cm². _[OSN-10-SD-KAB-Q22]_
+
+**constellation2**  
+- `constellation2-pe` (Constellation2PEExplainer) — IKMC-21-PE-Q2 — Kangaroo constellation explainer. Strategy: eliminate then verify. Shows all five constellations; highlights one at a time, crossing out those that break the "all > 3" rule, then verifies B's sum (5+8+7=2 _[IKMC-21-PE-Q2]_
+- `constellation2-pe` (Constellation2PEIllustration) — IKMC-21-PE-Q2 — "Kangaroo constellation"  Each of the A–E choices IS a picture of a star constellation — no separate _[IKMC-21-PE-Q2]_
+
+**container**  
+- `container-chain-sasmo19-g2-q11` (ContainerChainSASMO19G2Q11Explainer) — SASMO-19-G2-Q11 — container-chain explainer.  Walks through the chain solution beat by beat: _[SASMO-19-G2-Q11]_
+- `container-chain-sasmo19-g2-q11` (ContainerChainSASMO19G2Q11Illustration) — SASMO-19-G2-Q11 — container-chain equivalence stem illustration.  Q: "Berapa banyak cangkir air yang diperlukan untuk mengisi penuh ember?" _[SASMO-19-G2-Q11]_
+
 **cookie**  
 - `cookie-sort24-g1` (CookieSort24G1Explainer) — Mirror the illustrator's qupu tokens so the animation reads as the same scene. _[WMI-24F1A-Q14]_
 - `cookie-sort24-g1` (CookieSort24G1Illustration) — WMI-24F1A-Q14 (Grade 1) — sort the cookies by SHAPE or by NUMBER OF DOTS.  Recovered from the Paper A scans (nine cookie tiles, numbered 1..9, laid out _[WMI-24F1A-Q14]_
+- `cookie-tray22-pe` (CookieTray22PEExplainer) — IKMC-21-PE-Q22 — post-answer animation. Reuses TrayPrimitive and PlatePrimitive from the illustration so the animation reads as the static scene coming alive. _[IKMC-21-PE-Q22]_
+- `cookie-tray22-pe` (CookieTray22PEIllustration) — IKMC-21-PE-Q22 — "Each participant baked one tray of cookies..."  PROBLEM ONLY: shows the TWO figures the student sees in the paper: _[IKMC-21-PE-Q22]_
+
+**corner**  
+- `corner-cubes-sasmo20-g3-q6` (CornerCubesSASMO20G3Q6Explainer) — Post-answer explainer for SASMO-20-G3-Q6. "Berapa banyak kubus semuanya?" — answer B (30 cubes).  _[SASMO-20-G3-Q6]_
+- `corner-cubes-sasmo20-g3-q6` (CornerCubesSASMO20G3Q6Illustration) — CornerCubesSASMO20G3Q6Illustration — SASMO-20-G3-Q6 "Diagram menunjukkan beberapa kubus dengan ukuran yang sama yang ditumpuk di sudut sebuah ruangan. Berapa banyak kubus semuanya?" Answer: B (30 cubes). Source: docs/ref _[SASMO-20-G3-Q6]_
 
 **count**  
+- `count-circles1-pe` (CountCircles1PEExplainer) — Post-answer explainer for IKMC-23-PE-Q1 (2023 IKMC Pre-Ecolier, Q1).  Reuses CircleFacePrimitive from CountCircles1PEIllustration so the _[IKMC-23-PE-Q1]_
+- `count-circles1-pe` (CountCircles1PEIllustration) — Stem illustration for IKMC-23-PE-Q1.  "How many circles are there in the figure?"  Answer D = 8. _[IKMC-23-PE-Q1]_
+- `count-edges-hk22-p1-q17` (CountEdgesHK22P1Q17Illustration) — HKIMO-22-P1H-Q17 — "How many edges are there in the polygon below?"  Reconstructed from docs/reference/ocr-res/hkimo/heat/primary-1/2022.imgs/003.jpg: _[HKIMO-22-P1H-Q17]_
 - `count-figures25-g1` (CountFigures25G1Explainer) — Post-answer explainer for WMI-25F1A-Q14 (2025 Grade 1 Final, Paper A).  Teaches the method: tally each kind of flower, then check every option's pair _[WMI-25F1A-Q14]_
 - `count-figures25-g1` (CountFigures25G1Illustration) — WMI-25F1A-Q14 (2025 Grade 1 Final, Paper A) — stem illustration.  "Count the 48 figures below. Which two kinds of figures appear in equal _[WMI-25F1A-Q14]_
 - `count-figures25-g1` (CountFigures25G1Option) — CHOICE renderer for WMI-25F1A-Q14 (2025 Grade 1 Final, Paper A).  Each of the five options A–E pictures a PAIR of figure kinds — "do these two _[WMI-25F1A-Q14]_
+- `count-quads-x24-b3` (CountQuadsX24B3Illustration) — SEAMOX-24-B-Q3 — "How many quadrilaterals are there in the figure below?" (answer 16).  Reconstructed from docs/reference/ocr-res/seamo-x/contest/paper-b/2024.imgs/002.jpg: _[SEAMOX-24-B-Q3]_
+- `count-rects-timo22-p3-q20` (CountRectsTIMO22P3Q20Explainer) — TIMO-22-P3H-Q20 — animated explainer for counting rectangles.  Beats: _[TIMO-22-P3H-Q20]_
+- `count-rects-timo22-p3-q20` (CountRectsTIMO22P3Q20Illustration) — TIMO-22-P3H-Q20 — "How many rectangle(s) is / are there in the figure below?"  Figure (image 092.jpg — 2022 Heat P3, ĐỀ SỐ 5): _[TIMO-22-P3H-Q20]_
 - `count-squares` (CountSquaresExplainer) — (no description) _[WMI-19F1A-Q17]_
 - `count-squares` (CountSquaresIllustration) — "How many squares of different sizes?" figure for WMI-19F1-Q17. Reconstructed exactly from the real figure on a 4x4 grid (see line segments below). Squares of all sizes total 15: nine 1x1, four 2x2, one 3x3, one 4x4. _[WMI-19F1A-Q17]_
 - `count-squares-g2` (CountSquaresG2Explainer) — (no description) _[WMI-19F2A-Q17]_
 - `count-squares-g2` (CountSquaresG2Illustration) — "How many squares of every size?" figure for WMI-19F2A-Q17.  The scan (2019-final-g2-a-q20-companion q17) shows a complete 4x4 square (drawn as a _[WMI-19F2A-Q17]_
+- `count-squares-hk18-p2-q16` (CountSquaresHK18P2Q16Explainer) — HKIMO-18-P2H-Q16 — animated explainer for "How many squares?"  Teaches the count-by-size strategy beat-by-beat on a 4-column × 3-row grid: _[HKIMO-18-P2H-Q16]_
+- `count-squares-hk18-p2-q16` (CountSquaresHK18P2Q16Illustration) — HKIMO-18-P2H-Q16 — "How many squares are there in the figure below?"  Stem figure: a 4-column × 3-row rectangular grid of empty unit squares. _[HKIMO-18-P2H-Q16]_
+- `count-squares-hk22-p2-q19` (CountSquaresHK22P2Q19Explainer) — HKIMO-22-P2H-Q19 — animated explainer for "How many squares?"  Teaches the count-by-size strategy beat-by-beat on a 3-column × 3-row grid: _[HKIMO-22-P2H-Q19]_
+- `count-squares-hk22-p2-q19` (CountSquaresHK22P2Q19Illustration) — HKIMO-22-P2H-Q19 — "How many squares are there in the figure below?"  Stem figure: a 3-column × 3-row rectangular grid of empty unit squares. _[HKIMO-22-P2H-Q19]_
+- `count-squares-hk23-p1-sfq19` (CountSquaresHK23P1SFQ19Explainer) — HKIMO-23-P1SF-Q19 — post-answer explainer.  Reveals how to count all squares by size: _[HKIMO-23-P1SF-Q19]_
+- `count-squares-hk23-p1-sfq19` (CountSquaresHK23P1SFQ19Illustration) — HKIMO-23-P1SF-Q19 — stem illustration "How many squares are there in the figure below?"  _[HKIMO-23-P1SF-Q19]_
+- `count-squares-hk23-p3-sfq18` (CountSquaresHK23P3SFQ18Explainer) — CountSquaresHK23P3SFQ18Explainer.tsx HKIMO-23-P3SF-Q18 animated explainer.  _[HKIMO-23-P3SF-Q18]_
+- `count-squares-hk23-p3-sfq18` (CountSquaresHK23P3SFQ18Illustration) — CountSquaresHK23P3SFQ18Illustration.tsx HKIMO-23-P3SF-Q18 stem illustration. "How many squares are there in the figure below?" _[HKIMO-23-P3SF-Q18]_
+- `count-squares-hk25-p3-q18` (CountSquaresHK25P3Q18Explainer) — (no description) _[HKIMO-25-P3H-Q18]_
+- `count-squares-hk25-p3-q18` (CountSquaresHK25P3Q18Illustration) — HKIMO 2025 Primary 3 Heat Q18 – "How many squares are there in the figure below?" Answer: 10 (eight 1×1 unit squares + two 2×2 squares).  _[HKIMO-25-P3H-Q18]_
+- `count-squares-simoc19-g3-q22` (CountSquaresSIMOC19G3Q22Explainer) — Post-answer explainer for SIMOC-19-G3-Q22. "Berapa banyak persegi yang terdapat pada gambar di bawah ini?" Answer: 27. _[SIMOC-19-G3-Q22]_
+- `count-squares-simoc19-g3-q22` (CountSquaresSIMOC19G3Q22Illustration) — CountSquaresSIMOC19G3Q22Illustration — SIMOC-19-G3-Q22 "Berapa banyak persegi yang terdapat pada gambar di bawah ini?" Answer: 27. Source: docs/reference/ocr-res/simoc/contest/g3/2019.imgs/017.jpg Figure: two 3×3 grids j _[SIMOC-19-G3-Q22]_
+- `count-squares-simoc23-g1-q9` (CountSquaresSIMOC23G1Q9Explainer) — SIMOC-23-G1-Q9 — animated explainer for counting squares.  Animation beats (7 total): _[SIMOC-23-G1-Q9]_
+- `count-squares-simoc23-g1-q9` (CountSquaresSIMOC23G1Q9Illustration) — SIMOC-23-G1-Q9 — "How many squares are there in the figure?"  Figure: 4 isolated corner squares (no interior lines) + 4×4 centre grid. _[SIMOC-23-G1-Q9]_
+- `count-squares-timo22-p2-q18` (CountSquaresTIMO22P2Q18Explainer) — TIMO-22-P2H-Q18 — animated explainer for counting squares.  Animation beats (4 total): _[TIMO-22-P2H-Q18]_
+- `count-squares-timo22-p2-q18` (CountSquaresTIMO22P2Q18Illustration) — TIMO-22-P2H-Q18 — "How many squares are there in the figure below?"  Figure: Z-staircase — top-left 3×2 block + bottom-right 3×2 block. _[TIMO-22-P2H-Q18]_
+- `count-squares22-a8` (CountSquares22A8Explainer) — (no description) _[SEAMO-22-A-Q8]_
+- `count-squares22-a8` (CountSquares22A8Illustration) — SEAMO 2022 Paper A Q8 – "How many squares are there altogether?"  Figure: a staircase shape.  The top portion (row 0) has 4 unit cells occupying _[SEAMO-22-A-Q8]_
+- `count-tri20-a1` (CountTri20A1Explainer) — (no description) _[SEAMO-20-A-Q1]_
+- `count-tri20-a1` (CountTri20A1Illustration) — SEAMO-20-A-Q1 — "How many triangles are there altogether?"  Source figure (2020.imgs/002.jpg): a large triangle whose apex is at the _[SEAMO-20-A-Q1]_
+- `count-triangles-rect-sasmo20-g4-q17` (CountTrianglesRectSASMO20G4Q17Explainer) — (no description) _[SASMO-20-G4-Q17]_
+- `count-triangles-rect-sasmo20-g4-q17` (CountTrianglesRectSASMO20G4Q17Illustration) — CountTrianglesRectSASMO20G4Q17Illustration.tsx  SASMO-20-G4-Q17 — "Ada berapa banyak segitiga dalam gambar di bawah ini?" _[SASMO-20-G4-Q17]_
+- `count-triangles-timo22-p1-q17` (CountTrianglesTIMO22P1Q17Illustration) — CountTrianglesTIMO22P1Q17Illustration.tsx  TIMO-22-P1H-Q17 — "How many triangle(s) is / are there in the figure below?" _[TIMO-22-P1H-Q17]_
+- `count-triangles16-a2` (CountTriangles16A2Explainer) — (no description) _[SEAMO-16-A-Q2]_
+- `count-triangles16-a2` (CountTriangles16A2Illustration) — "How many triangles are there in the figure?" for SEAMO-16-A-Q2.  The source figure (2016.imgs/003.jpg) shows a large equilateral triangle _[SEAMO-16-A-Q2]_
+- `count-triangles17-a20` (CountTriangles17A20Illustration) — SEAMO-17-A-Q20 — "How many triangles are there in the figure below?"  The source figure (2017.imgs/023.jpg) shows a 2-row matchstick trapezoid _[SEAMO-17-A-Q20]_
+
+**covered**  
+- `covered-num9-pe` (CoveredNum9PEExplainer) — IKMC-22-PE-Q9 — post-answer animation for the "covered digit" puzzle. Reuses ShapeRowPrimitive from CoveredNum9PEIllustration so the animation reads as the static row coming alive. _[IKMC-22-PE-Q9]_
+- `covered-num9-pe` (CoveredNum9PEIllustration) — IKMC-22-PE-Q9 — "Kanga covered each digit with a shape"  Recovered from docs/reference/ocr-res/ikmc/contest/preecolier/2022.imgs/026.jpg: _[IKMC-22-PE-Q9]_
+- `covered-shape9-ec` (CoveredShape9ECExplainer) — IKMC-23-EC-Q9 — post-answer explainer. Walks through the solution beat-by-beat: 0. intro — show the L-shape with dot; state the task. 1. locate — identify the dot's position. 2. piece-A — highlight the parallelogram (pie _[IKMC-23-EC-Q9]_
+- `covered-shape9-ec` (CoveredShape9ECIllustration) — IKMC-23-EC-Q9 — "The shape on the right is covered with 5 pieces. Which piece will cover the dot?" (answer A — the parallelogram piece). Reconstructed from docs/reference/ocr-res/ikmc/contest/ecolier/2023.imgs/: 025.jpg  _[IKMC-23-EC-Q9]_
+
+**covered20**  
+- `covered20-ec` (Covered20ECExplainer) — IKMC-20-EC-Q20 — post-answer animation for the "covered numbers" board. Reuses BoardPrimitive from Covered20ECIllustration so the animation is recognised as the same board coming alive. _[IKMC-20-EC-Q20]_
+- `covered20-ec` (Covered20ECIllustration) — IKMC-20-EC-Q20 — "covered numbers" board.  Recovered from docs/reference/ocr-res/ikmc/contest/ecolier/2020.imgs/048.jpg: _[IKMC-20-EC-Q20]_
+
+**cross**  
+- `cross-pattern-hk18-p2-q5` (CrossPatternHK18P2Q5Explainer) — CrossPatternHK18P2Q5Explainer.tsx HKIMO-18-P2H-Q5 animated explainer.  _[HKIMO-18-P2H-Q5]_
+- `cross-pattern-hk18-p2-q5` (CrossPatternHK18P2Q5Illustration) — CrossPatternHK18P2Q5Illustration.tsx HKIMO-18-P2H-Q5 stem illustration. "According to the pattern shown below, how many ⊗ are there in the 12th group?" _[HKIMO-18-P2H-Q5]_
+- `cross-pattern-hk19-p2-q5` (CrossPatternHK19P2Q5Explainer) — CrossPatternHK19P2Q5Explainer.tsx — HKIMO-19-P2H-Q5  Beat-by-beat animation for the growing plus/cross pattern. _[HKIMO-19-P2H-Q5]_
+- `cross-pattern-hk19-p2-q5` (CrossPatternHK19P2Q5Illustration) — CrossPatternHK19P2Q5Illustration.tsx — HKIMO-19-P2H-Q5  Stem figure: four growing plus/cross shapes (groups 1–4), each cell holds ⊗. _[HKIMO-19-P2H-Q5]_
+
+**crown**  
+- `crown-fan-sasmo20-g3-q18` (CrownFanSASMO20G3Q18Explainer) — (no description) _[SASMO-20-G3-Q18]_
+- `crown-fan-sasmo20-g3-q18` (CrownFanSASMO20G3Q18Illustration) — CrownFanSASMO20G3Q18Illustration.tsx  SASMO-20-G3-Q18 — "Berapa banyak segitiga yang terdapat dalam gambar di bawah ini?" _[SASMO-20-G3-Q18]_
+
+**crypt**  
+- `crypt-arit-x20-b6` (CryptAritX20B6Explainer) — SEAMO-X 2020 Paper B Q6 — AT × AT = CAT, find C.  Answer: C = 6. _[SEAMOX-20-B-Q6]_
+- `crypt-arit-x20-b6` (CryptAritX20B6Illustration) — CryptAritX20B6Illustration.tsx SEAMO-X 2020 Paper B Q6 — cryptarithm AT × AT = CAT  _[SEAMOX-20-B-Q6]_
 
 **cube**  
+- `cube-count-simoc19-g2-q4` (CubeCountSIMOC19G2Q4Explainer) — Post-answer explainer for SIMOC-19-G2-Q4. "How many 1×1×1 cubes make up the 3×3×3 figure?" — answer: 27.  _[SIMOC-19-G2-Q4]_
+- `cube-count-simoc19-g2-q4` (CubeCountSIMOC19G2Q4Illustration) — CubeCountSIMOC19G2Q4Illustration — SIMOC-19-G2-Q4 "The figure below is made up of several 1×1×1 cubes. How many 1×1×1 cubes make up the entire figure?" Answer: B (27) — three full 3×3 layers = 27 unit cubes. Source crop: _[SIMOC-19-G2-Q4]_
+- `cube-count-x24-a1` (CubeCountX24A1Explainer) — Post-answer explainer for SEAMOX-24-A-Q1. "Count the number of cubes." — answer: 16.  _[SEAMOX-24-A-Q1]_
+- `cube-count-x24-a1` (CubeCountX24A1Illustration) — CubeCountX24A1Illustration — SEAMOX-24-A-Q1 "Count the number of cubes." Answer: 16 cubes. Source image: docs/reference/ocr-res/seamo-x/contest/paper-a/2024.imgs/002.jpg The figure shows a 3-step staircase in isometric p _[SEAMOX-24-A-Q1]_
+- `cube-count20-a5` (CubeCount20A5Explainer) — Post-answer explainer for SEAMO-20-A-Q5. "How many cubes are there in the model below?" — answer C (10 cubes).  _[SEAMO-20-A-Q5]_
+- `cube-count20-a5` (CubeCount20A5Illustration) — CubeCount20A5Illustration — SEAMO-20-A-Q5 "How many cubes are there in the model below?" Answer: C (10 cubes). Source image: docs/reference/ocr-res/seamo/contest/paper-a/2020.imgs/005.jpg The figure shows a stepped pyram _[SEAMO-20-A-Q5]_
+- `cube-faces23-pe` (CubeFaces23PEExplainer) — IKMC-20-PE-Q23 — Explainer Post-answer walkthrough: test x=6, show S=11, reveal remaining pairs. --------------------------------------------------------------------------- _[IKMC-20-PE-Q23]_
+- `cube-faces23-pe` (CubeFaces23PEIllustration) — IKMC-20-PE-Q23 — "Six different numbers chosen from 1 to 9 are written on the faces of a cube, one number on each face. The sums of numbers on each pair of opposite faces are equal. Which number could be on the face oppo _[IKMC-20-PE-Q23]_
+- `cube-min-hk18-p1-q17` (CubeMinHK18P1Q17Explainer) — Post-answer explainer for HKIMO-18-P1H-Q17. "At least how many cube(s) is / are there in the figure below?" — answer 9.  _[HKIMO-18-P1H-Q17]_
+- `cube-min-hk18-p1-q17` (CubeMinHK18P1Q17Illustration) — CubeMinHK18P1Q17Illustration — HKIMO-18-P1H-Q17 "At least how many cube(s) is / are there in the figure below?" Answer: 9 cubes (minimum). Source image: docs/reference/ocr-res/hkimo/heat/primary-1/2018.imgs/003.jpg The f _[HKIMO-18-P1H-Q17]_
+- `cube-min-hk22-p1-q20` (CubeMinHK22P1Q20Explainer) — Post-answer explainer for HKIMO-22-P1H-Q20. "At least how many cube(s) is / are there in the figure below?" — answer 10.  _[HKIMO-22-P1H-Q20]_
+- `cube-min-hk22-p1-q20` (CubeMinHK22P1Q20Illustration) — CubeMinHK22P1Q20Illustration — HKIMO-22-P1H-Q20 "At least how many cube(s) is / are there in the figure below?" Answer: 10 cubes (minimum). Source image: docs/reference/ocr-res/hkimo/heat/primary-1/2022.imgs/006.jpg The  _[HKIMO-22-P1H-Q20]_
+- `cube-min-saosn25-kq23` (CubeMinSAOSN25KQ23Explainer) — Post-answer explainer for OSN-25-SD-KAB-Q23. "Minimum surface area of 10 unit cubes?" — answer C (30 cm²)  _[OSN-25-SD-KAB-Q23]_
+- `cube-min-saosn25-kq23` (CubeMinSAOSN25KQ23Illustration) — CubeMinSAOSN25KQ23Illustration — OSN-25-SD-KAB-Q23 "Sepuluh kubus … disusun sehingga sisinya bersisian … Luas permukaan minimal … adalah … cm²." Answer: C (30 cm²) The OCR stem contains two instructional figures: 011.jpg _[OSN-25-SD-KAB-Q23]_
 - `cube-net22-g3` (CubeNet22G3Explainer) — CubeNet22G3Explainer — post-answer animation for WMI-22F3A-Q11 Teaches the try-and-eliminate strategy for net validity: Strip 2-3-4-5 = 4 side faces. Need exactly one top cap + one bottom cap. Remove 1 → both 6 and 7 col _[WMI-22F3A-Q11]_
 - `cube-net22-g3` (CubeNet22G3Illustration) — CubeNet22G3Illustration — WMI-22F3A-Q11 Draws the faulty 7-square cube net exactly as it appears in the source image. All 7 squares are shown with their numbers; NO square is highlighted or removed. The animator imports  _[WMI-22F3A-Q11]_
+- `cube-nets-simoc19-g3-q6` (CubeNetsSIMOC19G3Q6Explainer) — SIMOC-19-G3-Q6 — post-answer explainer: which net cannot fold into a cube?  Teaching walk (one idea per beat): _[SIMOC-19-G3-Q6]_
+- `cube-nets-simoc19-g3-q6` (CubeNetsSIMOC19G3Q6Illustration) — SIMOC-19-G3-Q6 — "Which figure CANNOT be folded into a cube?"  The four hexomino nets A–D ARE the choices — there is no separate stem figure. _[SIMOC-19-G3-Q6]_
 - `cube-recolor25-g1` (CubeRecolor25G1Explainer) — Colours mirror CubeRecolor25G1Illustration's fills so the animation reads as the same scene coming alive (raw hex echoes of the qupu tokens). Mini-comparison geometry: a single digit grid (3 cols × 5 rows). _[WMI-25F1A-Q16]_
 - `cube-recolor25-g1` (CubeRecolor25G1Illustration) — Cube-recolour figure for WMI-25F1A-Q16 (2025 Grade 1 Final).  "To change the design on the left (2025) into the design on the right _[WMI-25F1A-Q16]_
+- `cube-scale-hk20-p1-q16` (CubeScaleHK20P1Q16Explainer) — HKIMO-20-P1H-Q16 — post-answer animation.  Reuses FIG1_CUBES / FIG2_CUBES from the illustration and the ISO_GOLD_PALETTE _[HKIMO-20-P1H-Q16]_
+- `cube-scale-hk20-p1-q16` (CubeScaleHK20P1Q16Illustration) — HKIMO-20-P1H-Q16 — "Figure 1 has 7 cubes. How many cubes in Figure 2?"  Shows both figures side-by-side (problem only — does NOT reveal the answer 21). _[HKIMO-20-P1H-Q16]_
+- `cube-shapes14` (CubeShapes14Explainer) — IKMC-19-PE-Q14 — post-answer explainer: smallest painted area. Teaches the "count hidden faces" strategy one shape per beat: Beat 0 — intro: 4 cubes × 6 faces = 24 total. Beat 1 — key idea: each joint hides 2 faces. Beat _[IKMC-19-PE-Q14]_
+- `cube-shapes14` (CubeShapes14Illustration) — IKMC-19-PE-Q14 — "Each of the shapes is made by gluing four cubes together..."  Shows FIVE isometric 4-cube arrangements as the problem figure. _[IKMC-19-PE-Q14]_
+- `cube-stack19-a5` (CubeStack19A5Explainer) — Post-answer explainer for SEAMO-19-A-Q5. "How many cubes are there in the figure below?" — answer 12.  _[SEAMO-19-A-Q5]_
+- `cube-stack19-a5` (CubeStack19A5Illustration) — CubeStack19A5Illustration — SEAMO-19-A-Q5 "How many cubes are there in the figure below?" Answer: A (12 cubes). Source image: docs/reference/ocr-res/seamo/contest/paper-a/2019.imgs/003.jpg The figure shows a stepped soli _[SEAMO-19-A-Q5]_
 - `cube-stack19-p1` (CubeStack19P1Explainer) — (no description) _[WMI-19P1A-Q4]_
 - `cube-stack19-p1` (CubeStack19P1Illustration) — Isometric cube-stack figure for WMI-19P1A-Q4 (2019 Semifinal Grade 1 Paper A).  "How many small cubes are there in the stack shown?"  Choices 20 / 19 / 18 / 17, _[WMI-19P1A-Q4]_
+- `cube-stair19-hkp3-q16` (CubeStair19HKP3Q16Explainer) — Post-answer explainer for HKIMO-19-P3H-Q16. "At least how many squares can be seen if observing the figure from the right?" Answer: 4. _[HKIMO-19-P3H-Q16]_
+- `cube-stair19-hkp3-q16` (CubeStair19HKP3Q16Illustration) — CubeStair19HKP3Q16Illustration — HKIMO-19-P3H-Q16 "At least how many square(s) can be seen if observing the figure below from the right?" Answer: 4. Source image: docs/reference/ocr-res/hkimo/heat/primary-3/2019.imgs/002 _[HKIMO-19-P3H-Q16]_
+- `cube-stairs-hk24-p1-q16` (CubeStairsHK24P1Q16Explainer) — Post-answer explainer for HKIMO-24-P1H-Q16. "Figure 2 has how many cubes?" — answer: 40.  _[HKIMO-24-P1H-Q16]_
+- `cube-stairs-hk24-p1-q16` (CubeStairsHK24P1Q16Illustration) — CubeStairsHK24P1Q16Illustration — HKIMO-24-P1H-Q16 "It is known that figure 1 is formed by 8 cubes. How many cube(s) is / are there in figure 2?" — Answer: 40. Source image: docs/reference/ocr-res/hkimo/heat/primary-1/20 _[HKIMO-24-P1H-Q16]_
 
 **cube2025**  
 - `cube2025-g2` (Cube2025G2Explainer) — Post-answer explainer for WMI-25F2A-Q17 (2025 Grade-2 Final). The year 2025 is built from 66 unit cubes (each digit one cube thick) and painted. We deduce WHY exactly 60 cubes have 4 painted faces: front + back are _[WMI-25F2A-Q17]_
 - `cube2025-g2` (Cube2025G2Illustration) — Stacked-cube "2025" figure for WMI-25F2A-Q17 (2025 Grade-2 Final). Reconstructed from db/seed/wmi/figures/2025-final-g2-a-q17.jpg: the year 2025 spelled out of unit cubes, each digit one cube thick, drawn in isometric. _[WMI-25F2A-Q17]_
 
+**cubes**  
+- `cubes-view2-pe` (CubesView2PEExplainer) — IKMC-23-PE-Q2 — Explainer  Post-answer animated walkthrough for: _[IKMC-23-PE-Q2]_
+- `cubes-view2-pe` (CubesView2PEIllustration) — IKMC-23-PE-Q2 — "The picture shows 5 cubes viewed from the front. What is the view from above?" Answer: B.  _[IKMC-23-PE-Q2]_
+
+**cubes11**  
+- `cubes11-ec` (Cubes11ECExplainer) — IKMC-21-EC-Q11 — post-answer explainer: find the grey part by subtraction.  Strategy: _[IKMC-21-EC-Q11]_
+- `cubes11-ec` (Cubes11ECIllustration) — IKMC-21-EC-Q11 — "18 cubes are coloured white or grey or black and are arranged as shown. The figures show the white and the black parts. Which of the following is the grey part?"  Answer: E. _[IKMC-21-EC-Q11]_
+
+**cubes15**  
+- `cubes15-pe` (Cubes15PEExplainer) — (no description) _[IKMC-23-PE-Q15]_
+- `cubes15-pe` (Cubes15PEIllustration) — IKMC-23-PE-Q15 — "A student made the shape shown using 12 cubes. He put one drop of glue between any two cubes that share a common face. How many drops of glue did he use?"  Answer: D (11). _[IKMC-23-PE-Q15]_
+
+**cubes6**  
+- `cubes6-pe` (Cubes6PEExplainer) — (no description) _[IKMC-20-PE-Q6]_
+- `cubes6-pe` (Cubes6PEIllustration) — IKMC-20-PE-Q6 — "Mary made a shape using some white cubes and 14 grey cubes. How many of these grey cubes cannot be seen in the picture?" Answer: 14 − 8 = 6, so D. _[IKMC-20-PE-Q6]_
+
+**cups16**  
+- `cups16-ec` (Cups16ECExplainer) — IKMC-21-EC-Q16 — post-answer explainer for the cup-flip cycle question.  Reuses CupRow from Cups16ECIllustration so the animated sequence reads as _[IKMC-21-EC-Q16]_
+- `cups16-ec` (Cups16ECIllustration) — IKMC-21-EC-Q16 — "Nora plays with 3 cups on the kitchen table. She takes the left-hand cup, flips it over, and puts it to the right of the other cups. The picture shows the first move. What do the cups look like after _[IKMC-21-EC-Q16]_
+
 **cut**  
 - `cut-count24-g3` (CutCount24G3Explainer) — WMI-24F3A-Q23 — cut-and-count pattern. The animation mirrors the static CutCountFigure (same squares, same qupu tokens) coming alive: it reveals the pictured stages 1 → 4 → 7 one cut at a time, names the constant +3 gain _[WMI-24F3A-Q23]_
 - `cut-count24-g3` (CutCount24G3Illustration) — Cut-and-count pattern figure for WMI-24F3A-Q23, reconstructed from the scan. Picture 1 is a single square; each cut splits ONE square into 4 smaller ones, so the counts run 1, 4, 7, ... (net +3 per cut). Data is exported _[WMI-24F3A-Q23]_
+- `cut-pic2-pe` (CutPic2PEExplainer) — IKMC-22-PE-Q2 — post-answer explainer. Shows the original mushroom with a dashed cut line, cycles through options A–D (eliminated) one by one, then highlights option E as correct. Reuses CutPic2PEIllustration (stem SVG)  _[IKMC-22-PE-Q2]_
+- `cut-pic2-pe` (CutPic2PEIllustration) — IKMC-22-PE-Q2 — "Arek cuts this picture in half and puts the two pieces together. Which option shows the two pieces of Arek's picture?" (answer E). Stem figure (006.jpg): a cartoon mushroom with a wide brown cap and a sh _[IKMC-22-PE-Q2]_
+- `cut-piece5-ec` (CutPiece5ECExplainer) — IKMC-19-EC-Q5 — post-answer explainer. Shows the 4×4 card-suit grid and cycles through options B, C, D, E (all eliminated) before revealing option A (★ + ♣) highlighted in the grid at row 2, cols 1–2 (the correct cut). R _[IKMC-19-EC-Q5]_
+- `cut-piece5-ec` (CutPiece5ECIllustration) — IKMC-19-EC-Q5 — "Karina cuts out one piece of this grid. Which piece is the one she cut?" (answer A). The stem figure is a 4×4 grid of card-suit symbols: Row 0: club (♣) | star (★) | club (♣) | heart (♥) Row 1: diamond ( _[IKMC-19-EC-Q5]_
 
 **cylinder**  
 - `cylinder-count19-p1` (CylinderCount19P1Explainer) — (no description) _[WMI-19P1A-Q10]_
 - `cylinder-count19-p1` (CylinderCount19P1Illustration) — Cylinder-cluster figure for WMI-19P1A-Q10 (2019 Semifinal Grade 1 Paper A).  "How many cylinders are there in the cluster shown?"  Choices 15 / 16 / 17 / 18, _[WMI-19P1A-Q10]_
 
+**dartboard16**  
+- `dartboard16-a18` (Dartboard16A18Illustration) — SEAMO-2016-Paper-A-Q18 — Dartboard illustration "The diagram shows a dartboard. What is the least number of throws to score 100?" (answer: 3 — e.g. 38 + 23 + 39 = 100) Source figure: docs/reference/ocr-res/seamo/contest/ _[SEAMO-16-A-Q18]_
+
 **delete**  
 - `delete-misfit-visual-g1` (DeleteMisfitVisualG1Explainer) — WMI-19F1A-Q21 — delete one number so 1, 5, 6, 9, 13, 17, 21 form a regular sequence. Kid-visual: number stones with jump arcs (+4, +1, +3 …); the bad jumps glow red around the 6, the 6 gets crossed out, and the healed +4 _[WMI-19F1A-Q21]_
+
+**diag**  
+- `diag-shaded-rect-sasmo20-g3-q21` (DiagShadedRectSASMO20G3Q21Explainer) — SASMO-20-G3-Q21 explainer. Strategy: show the 6×4 grid, compute each unit square area, identify the shaded triangle as ½ the rectangle, then land on 48 cm². _[SASMO-20-G3-Q21]_
+- `diag-shaded-rect-sasmo20-g3-q21` (DiagShadedRectSASMO20G3Q21Illustration) — DiagShadedRectSASMO20G3Q21Illustration.tsx  SASMO-20-G3-Q21 — "Jika luas persegi panjang adalah 96 cm², berapakah luas _[SASMO-20-G3-Q21]_
+- `diag-square20-b6` (DiagSquare20B6Explainer) — SEAMO-20-B-Q6 — Square with diagonal 12 cm; find area. Answer: 72 cm² → choice B.  _[SEAMO-20-B-Q6]_
+- `diag-square20-b6` (DiagSquare20B6Illustration) — DiagSquare20B6Illustration — SEAMO-20-B-Q6  A square with one diagonal drawn from the top-right corner to the _[SEAMO-20-B-Q6]_
+
+**diagonal**  
+- `diagonal-grid-osn15-nq11` (DiagonalGridOSN15NQ11Explainer) — (no description) _[OSN-15-SD-NAS-Q11]_
+- `diagonal-grid-osn15-nq11` (DiagonalGridOSN15NQ11Illustration) — OSN-15-SD-NAS-Q11 — "Rectangle ABCD of size 8×6 consists of 48 unit squares. Diagonal AC passes through 3 grid lattice points: A, X, and C. How many points does the diagonal of a 48×36 rectangle pass through?" _[OSN-15-SD-NAS-Q11]_
 
 **dial22**  
 - `dial22-g1` (Dial22G1Explainer) — Mirror the qupu palette used across the paper figures. _[WMI-22F1A-Q21]_
 - `dial22-g1` (Dial22G1Illustration) — WMI-22F1A-Q21 (Grade 1) — password-dial question figure. A round password dial carries ten numbers around its rim. Going CLOCKWISE from the top the numbers are [0, 3, 1, 9, 2, 7, 6, 4, 8, 5]. A red pointer starts at the  _[WMI-22F1A-Q21]_
+
+**diamond**  
+- `diamond-pattern-hk23-p3-sfq1` (DiamondPatternHK23P3SFQ1Explainer) — (no description) _[HKIMO-23-P3SF-Q1]_
+- `diamond-pattern-hk23-p3-sfq1` (DiamondPatternHK23P3SFQ1Illustration) — HKIMO-23-P3SF-Q1 — "According to the pattern shown below, what is the number in the blank?" Three diamond shapes with top/left/right/bottom labels; rule: top×bottom = left×right. Diamond 3 has "?" for left. Answer: 30. _[HKIMO-23-P3SF-Q1]_
+- `diamond-pattern16-b1` (DiamondPattern16B1Explainer) — DiamondPattern16B1Explainer.tsx  Animated explainer for SEAMO-16-B-Q1: _[SEAMO-16-B-Q1]_
+- `diamond-pattern16-b1` (DiamondPattern16B1Illustration) — DiamondPattern16B1Illustration.tsx  Stem illustration for SEAMO-16-B-Q1: _[SEAMO-16-B-Q1]_
 
 **dice**  
 - `dice-net24-g1` (DiceNet24G1Explainer) — DiceNet24G1Explainer — post-answer animation for WMI-24F1A-Q5 (2024 Grade 1 Final) Teaches the method one opposite-pair at a time: Fold the staircase net into a cube, then for each of the three opposite pairs light it up _[WMI-24F1A-Q5]_
 - `dice-net24-g1` (DiceNet24G1Illustration) — DiceNet24G1Illustration — WMI-24F1A-Q5 (2024 Grade 1 Final) "Fold the net along the dotted lines to make a cube. Find the sum of the differences between the numbers of dots on the three pairs of opposite faces." The sour _[WMI-24F1A-Q5]_
 - `dice-net24-g3` (DiceNet24G3Explainer) — DiceNet24G3Explainer — post-answer animation for WMI-24F3A-Q14 (2024 Grade 3 Final, HARD) Teaches the opposite-pair + chirality method: 1. Fold the net into a cube — every pair of opposite faces sums to 7 (6 + 1, 5 + 2,  _[WMI-24F3A-Q14]_
 - `dice-net24-g3` (DiceNet24G3Illustration) — DiceNet24G3Illustration — WMI-24F3A-Q14 (2024 Grade 3 Final, HARD) "Given 7 dice and an unfolded net of a die (as shown). How many of the 7 dice at most can have the same unfolded view as shown?" → answer B = 4. The sour _[WMI-24F3A-Q14]_
+- `dice-roll17-ec` (DiceRoll17ECExplainer) — DiceRoll17ECExplainer.tsx IKMC-20-EC-Q17 — post-answer beat-by-beat animation.  _[IKMC-20-EC-Q17]_
+- `dice-roll17-ec` (DiceRoll17ECIllustration) — DiceRoll17ECIllustration.tsx IKMC-20-EC-Q17 — "A standard dice rolls to the right across 6 squares. What is the total of the three faces marked with ??" _[IKMC-20-EC-Q17]_
 
 **die**  
 - `die-sums-g3` (DieSumsG3Explainer) — WMI-19F3A-Q23 — every reachable sum is shown with the CONCRETE addition that makes it (1+2 = 3, 6+5+4 = 15, …), marked on a 1–15 board one small group at a time. Two-face sums can never use partner (opposite) faces; a co _[WMI-19F3A-Q23]_
@@ -262,18 +740,52 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `digit-arrange` (DigitArrangeExplainer) — (no description) _[WMI-19F1A-Q20]_
 - `digit-cards24-g1` (DigitCards24G1Explainer) — Echo the qupu tokens used by the static figure so the animation reads as the same scene coming alive. _[WMI-24F1A-Q17]_
 - `digit-cards24-g1` (DigitCards24G1Illustration) — WMI-24F1A-Q17 (2024 Grade 1 Final). Six number cards: 6, 0, 5, 7, 4, 2. Task (NOT shown in the static figure): pick three cards to form the SMALLEST _[WMI-24F1A-Q17]_
+- `digit-count16-a15` (DigitCount16A15Explainer) — (no description) _[SEAMO-16-A-Q15]_
+- `digit-count16-a15` (DigitCount16A15Illustration) — SEAMO-16-A-Q15 — Digit counting from 1 to 59.  Problem: Jane writes 1 2 3 4 5 6 7 8 9 10 11 12 … 57 58 59. _[SEAMO-16-A-Q15]_
 - `digit-rule19-p1` (DigitRule19P1Explainer) — (no description) _[WMI-19P1A-Q18]_
 - `digit-rule19-p1` (DigitRule19P1Illustration) — Digit-rule figure for WMI-19P1A-Q18.  Source figure: db/seed/wmi/figures/2019-semifinal-g1-a-q18.jpg — _[WMI-19P1A-Q18]_
 - `digit-triple25-g1` (DigitTriple25G1Explainer) — WMI-25F1A-Q17 post-answer animation. Teaches the method, not just the answer: the spread is driven by the TENS digits, so we choose three close tens (4, 6, 7), hand the leftovers (9, 2, 0) to the units, and build 70 → 62 _[WMI-25F1A-Q17]_
 - `digit-triple25-g1` (DigitTriple25G1Illustration) — WMI-25F1A-Q17 (2025 Grade 1 Final). Six digit cards: 0, 2, 4, 6, 7, 9. Use each digit exactly once to form three 2-digit numbers. Find the SMALLEST possible difference between the largest and _[WMI-25F1A-Q17]_
 
+**discs13**  
+- `discs13-pe` (Discs13PEExplainer) — IKMC-22-PE-Q13 — post-answer explainer: view from above a disc stack.  Reuses DiscStackPrimitive from Discs13PEIllustration (side view). _[IKMC-22-PE-Q13]_
+- `discs13-pe` (Discs13PEIllustration) — IKMC-22-PE-Q13 — "Which option shows the view from above this stack of discs?"  STEM: side-view of a stepped disc stack (6 circular discs in decreasing size _[IKMC-22-PE-Q13]_
+
+**discs7**  
+- `discs7-ec` (Discs7ECExplainer) — IKMC-23-EC-Q7 — post-answer animation. Reuses DiscPuck from Discs7ECIllustration so the animation reads as the static scene coming alive. _[IKMC-23-EC-Q7]_
+- `discs7-ec` (Discs7ECIllustration) — IKMC-23-EC-Q7 — "Anna has 4 discs of different sizes. How many towers of 3?"  PROBLEM ONLY: shows the 4 discs of different sizes scattered/arranged as in _[IKMC-23-EC-Q7]_
+
+**dog**  
+- `dog-leash11-ec` (DogLeash11ECExplainer) — IKMC-20-EC-Q11 — post-answer animation. Reuses HutRect and TreatBone from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-EC-Q11]_
+- `dog-leash11-ec` (DogLeash11ECIllustration) — IKMC-20-EC-Q11 — "Dennis ties a dog 1 metre from a corner of a 7×5 m hut   using an 11 m leash. Dennis places 5 treats as shown.   How many treats can the dog reach?"  Answer: D (4 treats). _[IKMC-20-EC-Q11]_
+- `dog-toys12-ec` (DogToys12ECExplainer) — (no description) _[IKMC-19-EC-Q12]_
+- `dog-toys12-ec` (DogToys12ECIllustration) — IKMC-19-EC-Q12 — "The weight of a dog toy is a whole number. How much does one dog toy weigh?"  _[IKMC-19-EC-Q12]_
+
+**don**  
+- `don-stairs-x24-a18` (DonStairsX24A18Explainer) — SEAMOX-24-A-Q18 — animated explainer.  Beat-by-beat walk through: count levels (5), multiply by 2 flights (10), _[SEAMOX-24-A-Q18]_
+- `don-stairs-x24-a18` (DonStairsX24A18Illustration) — SEAMOX-24-A-Q18 — "There are 8 steps on a flight of stairs at Don's apartment. There are 2 flights of stairs from one level to another. It takes Don 90 seconds to climb one flight of stairs. How many minutes does Don tak _[SEAMOX-24-A-Q18]_
+
 **dot**  
+- `dot-bar2-ec` (DotBar2ECExplainer) — IKMC-19-EC-Q2 — post-answer explainer: dot-bar notation, which is 12? Teaches the "decode and test" strategy, one option per beat: Beat 0 — intro: dot = 1, bar = 5. Beat 1 — target: decompose 12 = 2 bars + 2 dots. Beat 2 _[IKMC-19-EC-Q2]_
+- `dot-bar2-ec` (DotBar2ECIllustration) — IKMC-19-EC-Q2 — "Which picture stands for 12?"  This is an options-only question: the A–E choices ARE the dot-bar figures. _[IKMC-19-EC-Q2]_
+- `dot-grid16-b4` (DotGrid16B4Illustration) — DotGrid16B4Illustration.tsx  Stem illustration for SEAMO-16-B-Q4: _[SEAMO-16-B-Q4]_
+- `dot-matrix18-a7` (DotMatrix18A7Illustration) — SEAMO-18-A-Q7 — "Find the missing figure below."  A 3×3 matrix where each cell is a square containing small circle-dots _[SEAMO-18-A-Q7]_
+- `dot-pattern21-a24-fig` (DotPattern21A24Fig) — DotPattern21A24Fig — SEAMO 2021 Paper A Q24 "How many dots are there in the 10th pattern?"  _[SEAMO-21-A-Q24]_
 - `dot-squares-g3` (DotSquaresG3Explainer) — WMI-19F3A-Q19 — the squares appear ONE AT A TIME (showing all of a class at once was confusing). Each beat lights the next square bold, keeps the ones already counted faint, and ticks a running total. Counts come from th _[WMI-19F3A-Q19]_
 - `dot-squares-g3` (DotSquaresG3Illustration) — "Link four dots into a square" for WMI-19F3A-Q19. Reconstructed from db/seed/wmi/figures/2019-final-g3-a-q19.jpg: a 5×5 dot lattice with the four CORNERS and the CENTER removed (20 dots). _[WMI-19F3A-Q19]_
+- `dot-squares20-a23` (DotSquares20A23Illustration) — SEAMO-20-A-Q23 — "Dots are used to form a series of patterns as shown below. Find the number of dots in Figure 8."  _[SEAMO-20-A-Q23]_
+
+**dual**  
+- `dual-circles-osn09-kq22` (DualCirclesOSN09KQ22Explainer) — OSN-09-SD-KAB-Q22 — Two congruent circles, animated explainer.  Three beats: _[OSN-09-SD-KAB-Q22]_
+- `dual-circles-osn09-kq22` (DualCirclesOSN09KQ22Illustration) — OSN-09-SD-KAB-Q22 — Two congruent circles, shaded area = half of one circle.  SOURCE FIGURE (docs/reference/ocr-res/osn/kabupaten/sd/2009.imgs/001.jpg): _[OSN-09-SD-KAB-Q22]_
 
 **edge**  
 - `edge-match22-g1` (EdgeMatch22G1Explainer) — WMI-22F1A-Q25 — edge-matching jigsaw explainer (Grade 1). Teaches the colour-match method beat-by-beat: state the rule, then fill one empty box per beat (A → piece 7 turned, B → piece 2, C → piece 5 turned), each time NA _[WMI-22F1A-Q25]_
 - `edge-match22-g1` (EdgeMatch22G1Illustration) — Edge-matching jigsaw for WMI-22F1A-Q25 (Grade 1).  Source scans: wmiPastPaper/2022 WMI Final G01 Paper B/images/ _[WMI-22F1A-Q25]_
+
+**elapsed**  
+- `elapsed-clock17-a6` (ElapsedClock17A6Explainer) — SEAMO-17-A-Q6 — post-answer animated explainer.  Reuses AnalogClockEC17A6 from ElapsedClock17A6Illustration so the explainer _[SEAMO-17-A-Q6]_
+- `elapsed-clock17-a6` (ElapsedClock17A6Illustration) — SEAMO-17-A-Q6 — elapsed time between two analog clocks.  "There are 60 minutes in an hour. By observing the two clocks shown in the _[SEAMO-17-A-Q6]_
 
 **elephant25**  
 - `elephant25-g3` (Elephant25G3Explainer) — WMI-25F3A-Q25 — post-answer explainer for the "elephant area" problem.  It re-animates the SAME scene as the static figure (1 cm grid + the shaded _[WMI-25F3A-Q25]_
@@ -288,17 +800,58 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `equal-parts-g2` (EqualPartsG2Explainer) — (no description) _[WMI-19F2A-Q10]_
 - `equal-parts-g2` (EqualPartsG2Illustration) — WMI-19F2A-Q10 — "Which figure is NOT divided into four equal parts?"  Answer: C.  The original scan shows figure A only (a square cut by both diagonals). The _[WMI-19F2A-Q10]_
 
+**euler**  
+- `euler-figures-simoc21-g1-q15` (EulerFiguresSIMOC21G1Q15Explainer) — SIMOC-21-G1-Q15 — animated explainer: Euler path / one-stroke tracing. Strategy: count odd-degree vertices per figure. 0 or 2 → traceable; more than 2 → impossible. Figure D has 4 odd-degree vertices → answer D. Beats: 0 _[SIMOC-21-G1-Q15]_
+- `euler-figures-simoc21-g1-q15` (EulerFiguresSIMOC21G1Q15Option) — SIMOC-21-G1-Q15 — Euler path picture-options  "Four of the following figures can be drawn without lifting the pen and _[SIMOC-21-G1-Q15]_
+- `euler-trace17-a7` (EulerTrace17A7Illustration) — SEAMO-17-A-Q7 — "Which of the following can be traced, without drawing over any line twice, and without lifting your pen?"  _[SEAMO-17-A-Q7]_
+- `euler-trace18-a13` (EulerTrace18A13Illustration) — EulerTrace18A13Illustration — SEAMO 2018 Paper A Q13  "Which of the following figures can be traced without lifting your pencil _[SEAMO-18-A-Q13]_
+
 **expr**  
 - `expr-pattern24-g1` (ExprPattern24G1Explainer) — Post-answer explainer for WMI-24F1A-Q16 (2024 Grade 1 Final) — ★ = 9.  Plays AFTER the learner answers, so it may reveal the answer. It teaches the _[WMI-24F1A-Q16]_
 - `expr-pattern24-g1` (ExprPattern24G1Illustration) — WMI-24F1A-Q16 (2024 Grade 1 Final) — answer = 9 (fill-in).  "The expressions are in a regular pattern: 28 − 1, 27 − 3, 26 − 5, … _[WMI-24F1A-Q16]_
 
 **face**  
+- `face-pattern-sasmo20-g3-q3` (FacePatternSASMO20G3Q3Explainer) — SASMO-20-G3-Q3 — animated explainer for the face-matrix pattern question.  Animation flow: _[SASMO-20-G3-Q3]_
+- `face-pattern-sasmo20-g3-q3` (FacePatternSASMO20G3Q3Illustration) — SASMO-20-G3-Q3 — "Study the pattern below and find '?'" (face-grid matrix pattern)  A 3×3 grid of cartoon faces. Each face varies in two attributes: _[SASMO-20-G3-Q3]_
 - `face-seq25-g2` (FaceSeq25G2Explainer) — Palette tokens matching the illustration --------------------------------------------------------------------------- Layout constants — mirror the static illustration so the animation reads _[WMI-25F2A-Q11]_
 - `face-seq25-g2` (FaceSeq25G2Illustration) — In-card illustration for WMI-25F2A-Q11 (2025 Grade-2 Final).  The printed question is a horizontal sequence of bottom-aligned face stacks. _[WMI-25F2A-Q11]_
+
+**family**  
+- `family-ages18-a9` (FamilyAges18A9Illustration) — FamilyAges18A9Illustration.tsx  Stem illustration for SEAMO-18-A-Q9: _[SEAMO-18-A-Q9]_
+
+**farm**  
+- `farm-animals16-a22` (FarmAnimals16A22Illustration) — SEAMO-16-A-Q22 — Stem illustration "A farmer has 17 chickens and rabbits. He counts 52 legs in all. How many chickens does he have?" Shown: a row of 4 chickens (2 legs each) and a row of 4 rabbits (4 legs each), with a l _[SEAMO-16-A-Q22]_
+- `farm-ostrich-goat20-a6` (FarmOstrichGoat20A6Illustration) — SEAMO-20-A-Q6 — Stem illustration "There are 10 ostriches and goats on a farm. An ostrich has 2 legs while a goat has 4 legs. The farmer counts 32 legs in total. How many goats are there on the farm?" Shown: 3 ostriches  _[SEAMO-20-A-Q6]_
+
+**fashion**  
+- `fashion-sales-osn25-pq18` (FashionSalesOSN25PQ18Explainer) — OSN 2025 SD Provinsi Q18 — animated explainer for the fashion-sales bar chart. Walks through: read kerudung price → derive all prices → compute total revenue. _[OSN-25-SD-PROV-Q18]_
+- `fashion-sales-osn25-pq18` (FashionSalesOSN25PQ18Illustration) — OSN 2025 SD Provinsi Q18 — fashion store weekly sales bar chart (diagram batang). Source: docs/reference/ocr-res/osn/provinsi/sd/2025.imgs/009.jpg Weekly totals: Kaos=82, Kemeja=44, Gamis=53, Celana=87, Kerudung=94. _[OSN-25-SD-PROV-Q18]_
+
+**fence12**  
+- `fence12-ec` (Fence12ECExplainer) — IKMC-20-EC-Q12 — post-answer animation. Reuses FencePrimitive and DimArrow from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-EC-Q12]_
+- `fence12-ec` (Fence12ECIllustration) — IKMC-20-EC-Q12 — "Lonneke builds a fence using 1 metre long poles."  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-20-EC-Q12]_
+
+**fib**  
+- `fib-panel-x23-a1` (FibPanelX23A1Explainer) — SEAMOX-23-A-Q1 — Animated explainer for "Find the missing number in the diagram". Walks through the Fibonacci-sum rule beat-by-beat: left_circle = 2nd + 3rd box; right_circle = left_circle + 3rd box. Applies the rule to  _[SEAMOX-23-A-Q1]_
+- `fib-panel-x23-a1` (FibPanelX23A1Illustration) — SEAMOX-23-A-Q1 — Stem illustration for "Find the missing number in the diagram". Source: docs/reference/ocr-res/seamo-x/contest/paper-a/2023.imgs/001-003.jpg Answer: 55 Three panels showing consecutive Fibonacci windows  _[SEAMOX-23-A-Q1]_
 
 **field24**  
 - `field24-g2` (Field24G2Explainer) — WMI-24F2A-Q8 — football field rectangle counter.  The field has 4 equal vertical strips (each 30 m × 60 m) plus goal-area _[WMI-24F2A-Q8]_
 - `field24-g2` (Field24G2Illustration) — WMI-24F2A-Q8 (2024 Grade-2 Final) — football / soccer field figure.  The figure (db/seed/wmi/figures/2024-final-g2-a-q8.jpg) shows a green _[WMI-24F2A-Q8]_
+
+**figures3**  
+- `figures3-ec` (Figures3ECExplainer) — IKMC-19-EC-Q3 — post-answer explainer: layered cube + cylinder construction. Teaches the "read layer by layer" strategy: Beat 0 — intro: the construction has 3 layers. Beat 1 — bottom layer: 3 cubes. Beat 2 — middle laye _[IKMC-19-EC-Q3]_
+- `figures3-ec` (Figures3ECIllustration) — IKMC-19-EC-Q3 — "Sus puts three cubes on the table. On top of those he puts two cylinders. On top of these he puts another cube."  _[IKMC-19-EC-Q3]_
+
+**fire**  
+- `fire-ladders15-ec` (FireLadders15ECExplainer) — IKMC-21-EC-Q15 — post-answer explainer. Reuses BuildingShape + LadderShape primitives from the illustration so the animation reads as the same scene coming alive. _[IKMC-21-EC-Q15]_
+- `fire-ladders15-ec` (FireLadders15ECIllustration) — IKMC-21-EC-Q15 — "On a tall building there are 4 fire escape ladders, as shown. The heights of 3 ladders are at their tops. What is the height of the shortest ladder?"  _[IKMC-21-EC-Q15]_
+
+**fish**  
+- `fish-ring1-ec` (FishRing1ECExplainer) — IKMC-21-EC-Q1 — post-answer explainer.  Reuses FishGlyph, RingShape, and constants from FishRing1ECIllustration. _[IKMC-21-EC-Q1]_
+- `fish-ring1-ec` (FishRing1ECIllustration) — IKMC-21-EC-Q1 — "How many fish will have their heads pointing towards the ring when we straighten the line?"  _[IKMC-21-EC-Q1]_
+- `fish-triangles-sasmo19-g4-q2` (FishTrianglesSASMO19G4Q2Explainer) — FishTrianglesSASMO19G4Q2Explainer — SASMO-19-G4-Q2  Beat-by-beat animation teaching how to count all 12 triangles in the fish figure. _[SASMO-19-G4-Q2]_
+- `fish-triangles-sasmo19-g4-q2` (FishTrianglesSASMO19G4Q2Illustration) — FishTrianglesSASMO19G4Q2Illustration — SASMO-19-G4-Q2  "How many triangles are there in the picture below?" _[SASMO-19-G4-Q2]_
 
 **five**  
 - `five-squares23-g3` (FiveSquares23G3Explainer) — WMI-23F3A-Q18 — five squares (sides 2,3,4,5,6) on a baseline, a fan of lines from one apex P shading a triangle (base = top edge) inside each square. Find the total shaded area (answer 45). The elegant method: each trian _[WMI-23F3A-Q18]_
@@ -307,15 +860,48 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **flag**  
 - `flag-circle-g2` (FlagCircleG2Explainer) — Deterministic positions: even index = red flag, odd index = yellow flag. _[WMI-19F2A-Q19]_
 
+**flagpole**  
+- `flagpole-castle22` (FlagpoleCastle22Explainer) — IKMC-19-PE-Q22 — post-answer animation. Reuses the CastleShape and FlagpolePrimitive from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-PE-Q22]_
+- `flagpole-castle22` (FlagpoleCastle22Illustration) — IKMC-19-PE-Q22 — "Tim and Tom built a sandcastle..."  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-19-PE-Q22]_
+
 **flipped**  
 - `flipped-ruler25-g1` (FlippedRuler25G1Explainer) — WMI-25F1A-Q5 — post-answer animation for the "flipped ruler" pencil. We reuse the built FlippedRuler25G1 primitive (with showMeasure) so the scene reads as the static figure coming alive, then overlay — in the SAME coord _[WMI-25F1A-Q5]_
 - `flipped-ruler25-g1` (FlippedRuler25G1Illustration) — WMI-25F1A-Q5 (2025 Grade 1 Final) — "Isaac wants to measure the pencil, but the ruler is flipped over (its numbers run the other way). Find the correct length of the pencil, in cm."  Answer: 5 (choice D). _[WMI-25F1A-Q5]_
 
+**floor**  
+- `floor-plan-osn20-kq10` (FloorPlanOSN20KQ10Explainer) — (no description) _[OSN-20-SD-KAB-Q10]_
+- `floor-plan-osn20-kq10` (FloorPlanOSN20KQ10Illustration) — OSN 2020 SD Kabupaten Q10 — two-floor house plan comparison Source: docs/reference/ocr-res/osn/kabupaten/sd/2020.imgs/011.jpg (LT 1) & 012.jpg (LT 2) Floor 1: 4.5 m × 8 m = 36 m² (given). Floor 2: 4.5 m × 6 m = 27 m² (to _[OSN-20-SD-KAB-Q10]_
+- `floor-plan-osn24-nt2-q7` (FloorPlanOSN24NT2Q7Explainer) — FloorPlanOSN24NT2Q7Explainer.tsx OSN 2024 SD Nasional Teori2 Q7 — animated cost explainer. Beats through the three material zones; each beat highlights a zone and _[OSN-24-SD-NAS-TEORI2-Q7]_
+- `floor-plan-osn24-nt2-q7` (FloorPlanOSN24NT2Q7Illustration) — FloorPlanOSN24NT2Q7Illustration.tsx OSN 2024 SD Nasional Teori2 — Q7 (seed Q7) "Gambar di bawah merupakan denah rumah dalam satuan meter." _[OSN-24-SD-NAS-TEORI2-Q7]_
+
+**flowchart**  
+- `flowchart-osn08-kq22` (FlowchartOSN08KQ22Explainer) — Post-answer explainer for OSN-08-SD-KAB-Q22. "Nilai x yang memenuhi operasi skematik" — answer: 14.  _[OSN-08-SD-KAB-Q22]_
+- `flowchart-osn08-kq22` (FlowchartOSN08KQ22Illustration) — FlowchartOSN08KQ22Illustration — OSN-08-SD-KAB-Q22 "Nilai x yang memenuhi operasi skematik berikut adalah …" x → Dikali 4 → Ditambah 4 → Dibagi 5 → 12 Answer: 14 (work backwards: 12×5=60; 60−4=56; 56÷4=14) Source: docs/r _[OSN-08-SD-KAB-Q22]_
+
 **flower**  
+- `flower-circle17-aq24` (FlowerCircle17AQ24Illustration) — SEAMO-17-A-Q24 — "What is the missing number?"  Three "flower" diagrams, each with a large orange centre circle surrounded _[SEAMO-17-A-Q24]_
+- `flower-petals16-a10` (FlowerPetals16A10Explainer) — SEAMO-16-A-Q10 — animated explainer: minimum flower-petal colouring.  Beats: _[SEAMO-16-A-Q10]_
+- `flower-petals16-a10` (FlowerPetals16A10Illustration) — SEAMO-16-A-Q10 — "Least colours to colour petals so no two neighbours share a colour?"  The figure (007.jpg) shows a daisy-style flower with 5 white petals arranged in a ring _[SEAMO-16-A-Q10]_
 - `flower-piece19-p1` (FlowerPiece19P1Explainer) — WMI-19P1A-Q24 — post-answer explainer. Drops the four pieces into the figure one at a time (rotation only). The piece that lands on the flower cell is the answer (D). Plays after the learner answers. _[WMI-19P1A-Q24]_
 - `flower-piece19-p1` (FlowerPiece19P1Illustration) — WMI-19P1A-Q24 — "The figure is formed by the four pieces below (pieces may only be ROTATED, not flipped over). Which piece carries the flower mark?" (2019 Semifinal Grade 1, answer D.) Redrawn from the source scan (db/se _[WMI-19P1A-Q24]_
+- `flower-pots11-pe` (FlowerPots11PEExplainer) — ── Palette (warm brand tokens) ────────────────────────────────────────────── ── BoughtChip — running tally of flowers bought so far ───────────────────── ── Main explainer ─────────────────────────────────────────────── _[IKMC-21-PE-Q11]_
+- `flower-pots11-pe` (FlowerPots11PEIllustration) — Static card illustration for IKMC-21-PE-Q11 ("flower pots").  "Julia has two pots with flowers as shown. She keeps the flowers exactly _[IKMC-21-PE-Q11]_
+
+**flowers12**  
+- `flowers12-pe` (Flowers12PEExplainer) — IKMC-20-PE-Q12 — post-answer animation. Reuses FlowerPE and shared primitives from the illustration.  _[IKMC-20-PE-Q12]_
+- `flowers12-pe` (Flowers12PEIllustration) — IKMC-20-PE-Q12 — "A number is written on each petal of two flowers. One petal is hidden. The sums of the numbers on the two flowers are equal. What number is written on the hidden petal?" _[IKMC-20-PE-Q12]_
 
 **fold**  
+- `fold-carpet13-ec` (FoldCarpet13ECExplainer) — Post-answer explainer for IKMC-22-EC-Q13 (Aladdin's folded carpet).  The static illustration shows a folded blue carpet with red dots. Here we _[IKMC-22-EC-Q13]_
+- `fold-carpet13-ec` (FoldCarpet13ECIllustration) — Stem illustration for IKMC-22-EC-Q13.  Reconstructed from docs/reference/ocr-res/ikmc/contest/ecolier/2022.imgs/033.jpg _[IKMC-22-EC-Q13]_
+- `fold-cut18-ec` (FoldCut18ECExplainer) — IKMC-23-EC-Q18 post-answer explainer. Drives FoldCut18ECPrimitive through 4 beats:   0 — flat square + horizontal fold line (state the plan) _[IKMC-23-EC-Q18]_
+- `fold-cut18-ec` (FoldCut18ECIllustration) — IKMC-23-EC-Q18 — "Rebecca folds a square piece of paper twice. Then she cuts off one corner. Next, she unfolds the paper. What does the paper look like once unfolded?"  Answer: B — square with a diamond-shaped hole in th _[IKMC-23-EC-Q18]_
+- `fold-paper6-ec` (FoldPaper6ECExplainer) — Post-answer explainer for IKMC-23-EC-Q6 (Kristoffer's transparent paper fold).  Reuses the same 7-segment geometry from FoldPaper6ECIllustration. _[IKMC-23-EC-Q6]_
+- `fold-paper6-ec` (FoldPaper6ECIllustration) — Stem illustration + co-exported option renderer for IKMC-23-EC-Q6.  "Kristoffer folds the transparent paper along the dashed line. _[IKMC-23-EC-Q6]_
+- `fold-shapes16-ec` (FoldShapes16ECExplainer) — IKMC-22-EC-Q16 — "How many of the shapes on the left will fall exactly on top of shapes on the right?" Answer: C = three.  _[IKMC-22-EC-Q16]_
+- `fold-shapes16-ec` (FoldShapes16ECIllustration) — IKMC-22-EC-Q16 — "Some shapes are drawn on a piece of paper. The teacher folded the paper along the red line. How many of the shapes on the left will fall exactly on top of shapes on the right?" Answer: C = three. _[IKMC-22-EC-Q16]_
+- `fold-square14-ec` (FoldSquare14ECExplainer) — IKMC-22-EC-Q14 post-answer explainer — "Which numbers does she also punch?" Drives the FoldSquare14EC primitive (same figure as the stem illustration) through 4 beats: flat plan → fold 1 (horizontal) → fold 2 (vertical)  _[IKMC-22-EC-Q14]_
+- `fold-square14-ec` (FoldSquare14ECIllustration) — IKMC-22-EC-Q14 — "Joanna folds the number square twice as shown. Then she punches a hole through the black spot shown by the arrow. Which numbers does she also punch through?" Answer B: 14, 17, 20, 23. _[IKMC-22-EC-Q14]_
 - `fold-triangle23-g3` (FoldTriangle23G3Explainer) — WMI-23F3A-Q17 (2023 Grade 3 Final) — fold triangle ABC along EF (B→B', C→C'). Given ∠EAF = 60° and ∠B'EA = 95°, find ∠AFC' (answer 25°).  _[WMI-23F3A-Q17]_
 - `fold-triangle23-g3` (FoldTriangle23G3Illustration) — WMI-23F3A-Q17 (2023 Grade 3 Final) — folded-triangle angle chase.  "Triangle ABC is folded along EF, so that B maps to B' and C maps to C'. _[WMI-23F3A-Q17]_
 
@@ -323,25 +909,66 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `folding25-g3` (Folding25G3Explainer) — WMI-25F3A-Q10 post-answer explainer. The static figure shows a rectangle of paper and five lime shapes A–E; the question asks how many can come from ONE fold. The method is try-each-shape: walk A→B→C→D→E, show why a sing _[WMI-25F3A-Q10]_
 - `folding25-g3` (Folding25G3Illustration) — In-card illustration for WMI-25F3A-Q10 (2025 Grade-3 Final).  Reconstructed from db/seed/wmi/figures/2025-final-g3-a-q10.jpg. _[WMI-25F3A-Q10]_
 
+**four**  
+- `four-shapes-osn16-pq6` (FourShapesOSN16PQ6Explainer) — OSN-16-SD-PROV-Q6 — animated explainer Highlights each shape in turn, showing perimeter count, landing on shape 1. ── Path data (same as Illustration) ──────────────────────────────────────── _[OSN-16-SD-PROV-Q6]_
+- `four-shapes-osn16-pq6` (FourShapesOSN16PQ6Illustration) — Illustration – OSN 2016 SD Provinsi Q6 Four rectilinear shapes, all in a 5 × 6 bounding box. Q: Which has the largest perimeter? A: shape 1 (perimeter = 30 units). Pure SVG, SSR-safe (no hooks, no framer-motion). No prim _[OSN-16-SD-PROV-Q6]_
+
 **fraction**  
 - `fraction-third-g3` (FractionThirdG3Explainer) — WMI-19F3A-Q2 — which picture shades exactly 1/3? Count shaded/total for each figure in turn; only B gives 2/6 = 1/3. _[WMI-19F3A-Q2]_
 - `fraction-third-g3` (FractionThirdG3Option) — WMI-19F3A-Q2 — each option is a picture: which one shades exactly 1/3?   A: circle in 8 sectors, 4 shaded (1/2)   B: parallelogram strip of 6 equal triangles, 2 shaded (1/3) ✓ _[WMI-19F3A-Q2]_
+
+**frame**  
+- `frame-osn10-eq20` (FrameOSN10EQ20Explainer) — OSN-10-SD-KEC-Q20 — beat-driven explainer.  Reuses FrameOSN10EQ20Figure from the illustration so the animation reads _[OSN-10-SD-KEC-Q20]_
+- `frame-osn10-eq20` (FrameOSN10EQ20Illustration) — OSN-10-SD-KEC-Q20 — Stick frame: equilateral triangle (sides 10 cm) sharing one side with a right triangle (legs 6 cm & 8 cm; hypotenuse = shared side). Total stick length = 3×10 + 6 + 8 = 44 cm. _[OSN-10-SD-KEC-Q20]_
+
+**framed**  
+- `framed-pic18-ec` (FramedPic18ECExplainer) — IKMC-19-EC-Q18 — post-answer beat-driven explainer. Reuses FrameGrid from the illustration so the animation reads as the static 7×7 framed picture coming alive. _[IKMC-19-EC-Q18]_
+- `framed-pic18-ec` (FramedPic18ECIllustration) — IKMC-19-EC-Q18 — "Anna used 32 small white squares to frame a 7 by 7 picture."  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-19-EC-Q18]_
 
 **freq**  
 - `freq-grid23-g1` (FreqGrid23G1Explainer) — qupu colour tokens (echo the static figure's hexes). _[WMI-23F1A-Q6]_
 - `freq-grid23-g1` (FreqGrid23G1Illustration) — WMI-23F1A-Q6 (2023 Grade 1 Final) — "Among the numbers shown below, what is the difference between the number that appears the most often and the number that appears the least often?"  Answer: 6 (choice E). _[WMI-23F1A-Q6]_
 
+**friendly**  
+- `friendly-circles16-a24` (FriendlyCircles16A24Explainer) — SEAMO-16-A-Q24 explainer — "How many friendly pairs?" (answer 18).  Animates the two-pass count: _[SEAMO-16-A-Q24]_
+- `friendly-circles16-a24` (FriendlyCircles16A24Illustration) — SEAMO-16-A-Q24 — "How many 'friendly pairs' are there in the figure?"  OCR source: docs/reference/ocr-res/seamo/contest/paper-a/2016.md Q24, _[SEAMO-16-A-Q24]_
+
 **fruit**  
+- `fruit-balance17-b7` (FruitBalance17B7Illustration) — SEAMO-17-B-Q7 — Balance-scale fruit puzzle.  Given: _[SEAMO-17-B-Q7]_
 - `fruit-count-g2` (FruitCountG2Explainer) — WMI-20F2A-Q8 — count one FRUIT TYPE at a time, row by row, with a running counter. Layout transcribed from the scan (rows of 12, 12, 10):   apples 7+2+3 = 12, oranges 3+6+1 = 10, bananas 2+4+6 = 12 → option D. _[WMI-20F2A-Q8]_
+- `fruit-eq24-ec` (FruitEq24ECExplainer) — FruitEq24ECExplainer.tsx IKMC-22-EC-Q24 — animated post-answer explainer for Joanna's card-fruit equations.  _[IKMC-22-EC-Q24]_
+- `fruit-eq24-ec` (FruitEq24ECIllustration) — FruitEq24ECIllustration.tsx IKMC-22-EC-Q24 — Joanna's numbered cards and fruit equations.  _[IKMC-22-EC-Q24]_
 - `fruit-maze-option20` (FruitMazeOption20) — Renders a WMI-20F1A-Q15 answer option as the circled fruit icon from the source paper (banana / grapes / strawberry / green apple), reusing the maze's own glyphs so the options always match the figure. Binds to the _[WMI-20F1A-Q15]_
 - `fruit-maze20` (FruitMaze20Explainer) — (no description) _[WMI-20F1A-Q15]_
 - `fruit-maze20` (FruitMaze20Illustration) — Fruit-maze "follow the arrows" figure for WMI-20F1A-Q15.  Reconstructed from the real figure _[WMI-20F1A-Q15]_
+- `fruit-scales-simoc21-g1-q18` (FruitScalesSIMOC21G1Q18Explainer) — (no description) _[SIMOC-21-G1-Q18]_
+- `fruit-scales-simoc21-g1-q18` (FruitScalesSIMOC21G1Q18Illustration) — SIMOC-21-G1-Q18 — Three balanced fruit scales.  From figure (2021.imgs/015.jpg): _[SIMOC-21-G1-Q18]_
+- `fruit-scales21-a22` (FruitScales21A22Illustration) — SEAMO-21-A-Q22 — Three balanced scales with fruit on the left pan and a gram weight label on the right pan.  All three beams are level (balanced).  _[SEAMO-21-A-Q22]_
 - `fruit-subtraction20` (FruitSubtraction20Explainer) — (no description) _[WMI-20F1A-Q23]_
 - `fruit-subtraction20` (FruitSubtraction20Illustration) — Hidden-digit vertical subtraction for WMI-20F1A-Q23.  Source figure: wmiPastPaper/2020 WMI Final G01 Paper B — worksheet-style _[WMI-20F1A-Q23]_
 
 **fruit22**  
 - `fruit22-g1` (Fruit22G1Explainer) — Mirror the illustrator's qupu tokens so the animation reads as the same scene. The static option figure uses a 100×100 viewBox with a circular frame (Fruit22G1Option). FruitGroup returns a bare <g>, so we re-create the s _[WMI-22F1A-Q5]_
 - `fruit22-g1` (Fruit22G1Option) — Renders an answer option for WMI-22F1A-Q5 (Grade 1, 2022 Final Paper A).  The four options A–D are pictures of fruit inside a circular frame. Each _[WMI-22F1A-Q5]_
+
+**funnel**  
+- `funnel-x22-a5` (FunnelX22A5Explainer) — SEAMOX-22-A-Q5 — animated path-count explainer for the marble funnel. Drives useBeatControl through funnelX22A5Steps, revealing the junction path counts one level at a time. Active channels are drawn highlighted in orang _[SEAMOX-22-A-Q5]_
+- `funnel-x22-a5` (FunnelX22A5Illustration) — SEAMOX-22-A-Q5 — marble-funnel path-count illustration. Faithful SVG reconstruction of docs/reference/ocr-res/seamo-x/contest/paper-a/2022.imgs/006.jpg: a vertically-oriented hexagonal funnel with 7 junction nodes and 12 _[SEAMOX-22-A-Q5]_
+
+**garden**  
+- `garden-paths21-ec` (GardenPaths21ECExplainer) — GardenPaths21ECExplainer.tsx  Post-answer explainer for IKMC-22-EC-Q21 (garden paths / LCM). _[IKMC-22-EC-Q21]_
+- `garden-paths21-ec` (GardenPaths21ECIllustration) — GardenPaths21ECIllustration.tsx  IKMC 2022 Ecolier Q21 — stem illustration. _[IKMC-22-EC-Q21]_
+
+**gear**  
+- `gear-train-sasmo20-g4-q2` (GearTrainSASMO20G4Q2Explainer) — SASMO-20-G4-Q2 — Gear-train post-answer explainer. Propagates rotation arrows from A through F beat-by-beat, then highlights Gear C (answer D: anti-clockwise). _[SASMO-20-G4-Q2]_
+- `gear-train-sasmo20-g4-q2` (GearTrainSASMO20G4Q2Illustration) — SASMO-20-G4-Q2 — Gear-train stem illustration (no rotation arrows). Six meshed gears A–F in a horizontal chain. Source: docs/reference/ocr-res/sasmo/contest/g4/2019-2020.imgs/018.jpg _[SASMO-20-G4-Q2]_
+
+**geo**  
+- `geo-pattern20-a22` (GeoPattern20A22Illustration) — GeoPattern20A22Illustration.tsx  Stem illustration for SEAMO-20-A-Q22: _[SEAMO-20-A-Q22]_
+
+**glass**  
+- `glass-water15-ec` (GlassWater15ECExplainer) — IKMC-19-EC-Q15 — post-answer explainer. Reuses GlassVessel from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-EC-Q15]_
+- `glass-water15-ec` (GlassWater15ECIllustration) — IKMC-19-EC-Q15 — "A full glass of water weighs 400 grams. An empty glass weighs 100 grams. How many grams does a half-full glass of water weigh?"  _[IKMC-19-EC-Q15]_
 
 **go**  
 - `go-board23-g1` (GoBoard23G1Explainer) — Echo the qupu tokens the static board + its highlight ring already use, so the animation reads as the same scene coming alive. The lit ring itself is drawn by the GoBoard23G1 primitive in fill-qupu-brand-orange (#f0853a) _[WMI-23F1A-Q1]_
@@ -354,14 +981,44 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `gomoku25-g2` (Gomoku25G2Explainer) — WMI-25F2A-Q8 (Grade 2 Final) — Gomoku five-in-a-row, post-answer explainer.  Method shown beat by beat (deduce, don't assert): to WIN, Musa needs five _[WMI-25F2A-Q8]_
 - `gomoku25-g2` (Gomoku25G2Illustration) — WMI-25F2A-Q8 (Grade 2 Final) — Gomoku / five-in-a-row board.  The figure reproduces the Gomoku board from the scan _[WMI-25F2A-Q8]_
 
+**graph**  
+- `graph-color-sasmo20-g4-q21` (GraphColorSASMO20G4Q21Explainer) — Post-answer explainer for SASMO-20-G4-Q21. "Colour 8 circles (cube-graph projection) so connected pairs differ — minimum colours?" Answer: 2 (bipartite graph). _[SASMO-20-G4-Q21]_
+- `graph-color-sasmo20-g4-q21` (GraphColorSASMO20G4Q21Illustration) — GraphColorSASMO20G4Q21Illustration — SASMO-20-G4-Q21 "Colour the circles so that any pair connected by a segment has different colours. What is the least number of colours needed?" Answer: 2 (the graph is the cube graph  _[SASMO-20-G4-Q21]_
+- `graph-segments-hk22-p2-q17` (GraphSegmentsHK22P2Q17Explainer) — HKIMO-22-P2H-Q17 — animated explainer.  Reveals all 7 line segments one-by-one in distinct colours, _[HKIMO-22-P2H-Q17]_
+- `graph-segments-hk22-p2-q17` (GraphSegmentsHK22P2Q17Illustration) — HKIMO-22-P2H-Q17 — "How many line segment(s) is / are there in the polygon below?"  Reconstructed from docs/reference/ocr-res/hkimo/heat/primary-2/2022.imgs/004.jpg: _[HKIMO-22-P2H-Q17]_
+
+**graph15**  
+- `graph15-ec` (Graph15ECExplainer) — IKMC-23-EC-Q15 — "What is the smallest number of colours to paint the circles so any two connected by a line have different colours?" (answer B = 3).  _[IKMC-23-EC-Q15]_
+- `graph15-ec` (Graph15ECIllustration) — IKMC-23-EC-Q15 — "Hatice wants to paint the circles in the picture. She wants to paint any 2 circles connected with a line in different colours. What is the smallest number of colours she needs?" (answer B = 3). _[IKMC-23-EC-Q15]_
+
 **gray**  
 - `gray-grid24-g2` (GrayGrid24G2Explainer) — GrayGrid24G2Explainer.tsx WMI-24F2A-Q4 post-answer animation: 8×9 grid → count total (72) → highlight & count 7 gray cells → subtract to get 65 white. _[WMI-24F2A-Q4]_
 - `gray-grid24-g2` (GrayGrid24G2Illustration) — GrayGrid24G2Illustration.tsx WMI 2024 Grade-2 Final Q4 — 8 × 9 grid of rectangles with 7 gray cells. Problem: "Each vertical column has 8 rectangles and each horizontal row has _[WMI-24F2A-Q4]_
 
 **grid**  
+- `grid-calc-sasmo19-g2-q24` (GridCalcSASMO19G2Q24Explainer) — SASMO-19-G2-Q24 — post-answer animated explainer.  Reuses GridPanel, layout constants, and cell data from the illustration. _[SASMO-19-G2-Q24]_
+- `grid-calc-sasmo19-g2-q24` (GridCalcSASMO19G2Q24Illustration) — SASMO-19-G2-Q24 — "Complete the cross-calculation grid puzzle"  Shows Picture 2 (the completed example that teaches the rule) and _[SASMO-19-G2-Q24]_
+- `grid-composite-osn25-nsfq1` (GridCompositeOSN25NSFQ1Explainer) — OSN 2025 SD Nasional SemiFinal Q1 — animated explainer  Imports the static primitives from the Illustration so the animation reads _[OSN-25-SD-NAS-SEMIFINAL-Q1]_
+- `grid-composite-osn25-nsfq1` (GridCompositeOSN25NSFQ1Illustration) — OSN 2025 SD Nasional SemiFinal Q1 — composite flat figure, triangle ABC on grid  PROBLEM ONLY — shows the static figure the student sees: _[OSN-25-SD-NAS-SEMIFINAL-Q1]_
+- `grid-count-hk18-p3-q16` (GridCountHK18P3Q16Explainer) — (no description) _[HKIMO-18-P3H-Q16]_
+- `grid-count-hk18-p3-q16` (GridCountHK18P3Q16Illustration) — Stem illustration for HKIMO-18-P3H-Q16 "How many squares are there in the figure below?"  _[HKIMO-18-P3H-Q16]_
+- `grid-count20-b20` (GridCount20B20Explainer) — SEAMO-2020-Paper-B-Q20 — animated explainer: count all squares in 4×4 grid. Beats: intro → 1×1 (16) → 2×2 (9) → 3×3 (4) → 4×4 (1) → total (30 = B). _[SEAMO-20-B-Q20]_
+- `grid-count20-b20` (GridCount20B20Illustration) — Illustration for SEAMO-2020-Paper-B-Q20 (count all squares in a 4×4 grid). The stem shows a plain 4×4 grid — identical to the original figure in the paper (OCR crop: docs/reference/ocr-res/seamo/contest/paper-b/2020.imgs _[SEAMO-20-B-Q20]_
+- `grid-cut5` (GridCut5Explainer) — IKMC-19-PE-Q5 — post-answer explainer. Shows the 3×3 symbol grid and cycles through options A–E, eliminating each wrong pair until option E (■ + ●) is highlighted in the grid (row 2, cols 1–2). Reuses SymbolGrid + GridCu _[IKMC-19-PE-Q5]_
+- `grid-cut5` (GridCut5Illustration) — IKMC-19-PE-Q5 — "Karen cuts out one piece of this grid. Which piece is the one she cut?" (answer E). The stem figure is a 3×3 grid of boxed symbols: Row 0: filled triangle (▲) | filled circle (●) | filled square (■) Row  _[IKMC-19-PE-Q5]_
 - `grid-explainers20-g3` (gridExplainers20G3) — (no description) _[WMI-20F3A-Q17, WMI-20F3A-Q22, WMI-20F3A-Q23]_
 - `grid-fill23-g1` (GridFill23G1Explainer) — WMI-23F1A-Q21 — fill 5,6,7,8 into the 3x3 grid so rows go up → and columns go up ↓; how many ways? (answer 6). The animation mirrors the static figure (same grid via the GridFill23G1 primitive): it outlines the two const _[WMI-23F1A-Q21]_
 - `grid-fill23-g1` (GridFill23G1Illustration) — WMI-23F1A-Q21 (2023 Grade 1 Final) — "Fill 5, 6, 7, 8 into the empty squares so that every row increases left->right and every column increases top->bottom. How many different ways are there?"  Answer: 6 (fill-in). _[WMI-23F1A-Q21]_
+- `grid-osn25-kq18` (GridOSN25KQ18Explainer) — OSN-25-SD-KAB-Q18 — animated explainer. Beats: intro → list 12 primes → per-cell choice counts → P(12,4) multiplication → answer C. Reuses GridBoard (from ./primitives/GridBoard) and layout constants from the illustratio _[OSN-25-SD-KAB-Q18]_
+- `grid-osn25-kq18` (GridOSN25KQ18Illustration) — OSN-25-SD-KAB-Q18 — 2×2 coloured grid stem illustration. Shows the blank grid that students must fill with 4 different primes < 40. Primitive: GridBoard (imported from ./primitives/GridBoard). _[OSN-25-SD-KAB-Q18]_
+- `grid-path-osn25-nsfq15` (GridPathOSN25NSFQ15Explainer) — OSN-25-SD-NAS-SEMIFINAL-Q15 — post-answer explainer.  Beats: _[OSN-25-SD-NAS-SEMIFINAL-Q15]_
+- `grid-path-osn25-nsfq15` (GridPathOSN25NSFQ15Illustration) — OSN-25-SD-NAS-SEMIFINAL-Q15 — robot lattice-path grid  STEM ILLUSTRATION: 4 × 3 cell grid (5 × 4 intersections). _[OSN-25-SD-NAS-SEMIFINAL-Q15]_
+- `grid-path-x22-b10` (GridPathX22B10Explainer) — GridPathX22B10Explainer.tsx SEAMOX-22-B-Q10 — animated explainer for the U-shaped path counting grid.  _[SEAMOX-22-B-Q10]_
+- `grid-path-x22-b10` (GridPathX22B10Illustration) — GridPathX22B10Illustration.tsx SEAMOX-22-B-Q10 — "Find the number of paths from Point A to Point B"  _[SEAMOX-22-B-Q10]_
+- `grid-path16-a13` (GridPath16A13Explainer) — SEAMO-16-A-Q13 — Explainer: grid-path counting from A to B (right & up only).  Strategy: Pascal's triangle on the lattice. _[SEAMO-16-A-Q13]_
+- `grid-path16-a13` (GridPath16A13Illustration) — SEAMO-16-A-Q13 — Uncle Sam delivers a parcel from A to B on a 3×3 grid.  Problem: Moving only RIGHT and UP, how many paths lead from A (bottom-left _[SEAMO-16-A-Q13]_
+- `grid-paths20-b22` (GridPaths20B22Explainer) — SEAMO-20-B-Q22 — animated explainer for the lattice path-counting question.  Reuses the illustration geometry from GridPaths20B22Illustration.tsx. _[SEAMO-20-B-Q22]_
+- `grid-paths20-b22` (GridPaths20B22Illustration) — Grid-paths lattice illustration for SEAMO-20-B-Q22. Source: docs/reference/ocr-res/seamo/contest/paper-b/2020.imgs/020.jpg  _[SEAMO-20-B-Q22]_
 
 **grid24**  
 - `grid24-g2` (Grid24G2Explainer) — Qupu colour tokens (hex echoes of fill-qupu-* used in the static figure). _[WMI-24F2A-Q23]_
@@ -370,21 +1027,73 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **group**  
 - `group-bar-explainers-g3` (groupBarExplainersG3) — Kid-concept visuals for the "shared factor" questions of WMI-19F3A:   Q10: 26×4 + 54×4 + 10×4 — boxes of 4 POUR TOGETHER into 90 boxes of 4.   Q16: 34×45 − 45×23 — 34 boxes of 45, TAKE AWAY 23 boxes, 11 remain. _[WMI-19F3A-Q10, WMI-19F3A-Q16]_
 
+**growing**  
+- `growing-cubes-timo22-p4-q19` (GrowingCubesTIMO22P4Q19Explainer) — Post-answer explainer for TIMO-22-P4H-Q19. "How many cubes are there in the 10th group?" — answer: 29.  _[TIMO-22-P4H-Q19]_
+- `growing-cubes-timo22-p4-q19` (GrowingCubesTIMO22P4Q19Illustration) — GrowingCubesTIMO22P4Q19Illustration — TIMO-22-P4H-Q19 "According to the pattern shown below, how many cubes are there in the 10th group?" Source: TIMO 2022 Heat Primary 4, Q19. Answer: 29. The figure shows 3 growing L-sh _[TIMO-22-P4H-Q19]_
+- `growing-hash-timo22-p2-q5` (GrowingHashTIMO22P2Q5Explainer) — GrowingHashTIMO22P2Q5Explainer.tsx TIMO-22-P2H-Q5 animated explainer.  _[TIMO-22-P2H-Q5]_
+- `growing-hash-timo22-p2-q5` (GrowingHashTIMO22P2Q5Illustration) — GrowingHashTIMO22P2Q5Illustration.tsx TIMO-22-P2H-Q5 stem illustration. "According to the pattern below, how many # are there in the 6th Group?" _[TIMO-22-P2H-Q5]_
+- `growing-hash-timo22-p3-q5` (GrowingHashTIMO22P3Q5Explainer) — GrowingHashTIMO22P3Q5Explainer.tsx TIMO-22-P3H-Q5 animated explainer.  _[TIMO-22-P3H-Q5]_
+- `growing-hash-timo22-p3-q5` (GrowingHashTIMO22P3Q5Illustration) — GrowingHashTIMO22P3Q5Illustration.tsx TIMO-22-P3H-Q5 stem illustration. "According to the pattern below, how many # are there in the 7th Group?" _[TIMO-22-P3H-Q5]_
+- `growing-hash-timo22-p4-q5` (GrowingHashTIMO22P4Q5Explainer) — GrowingHashTIMO22P4Q5Explainer.tsx TIMO-22-P4H-Q5 animated explainer.  _[TIMO-22-P4H-Q5]_
+- `growing-hash-timo22-p4-q5` (GrowingHashTIMO22P4Q5Illustration) — GrowingHashTIMO22P4Q5Illustration.tsx TIMO-22-P4H-Q5 stem illustration (body Indonesian). "Berdasarkan pola di bawah ini, ada berapa banyak simbol # pada kelompok ke-9?" _[TIMO-22-P4H-Q5]_
+
 **half**  
+- `half-hex16-b24` (HalfHex16B24Explainer) — SEAMO-16-B-Q24 — animated explainer: divide the half hexagon into 4 identical shapes.  Beats (from halfHex16B24Steps): _[SEAMO-16-B-Q24]_
+- `half-hex16-b24` (HalfHex16B24Illustration) — SEAMO-16-B-Q24 — "Divide the half hexagon into 4 identical shapes of equal area."  Stem figure (2016.imgs/020.jpg): _[SEAMO-16-B-Q24]_
 - `half-shade-grid22-g3` (HalfShadeGrid22G3Explainer) — WMI-22F3A Q8 — Half-painted grid explainer.  Strategy: sum the painted area of the 8 fixed cells one region at a time, _[WMI-22F3A-Q8]_
 - `half-shade-grid22-g3` (HalfShadeGrid22G3Illustration) — WMI-22F3A Q8 — Half-painted grid puzzle.  Stem: a 3×3 grid where each cell is one of: _[WMI-22F3A-Q8]_
+
+**hallway20**  
+- `hallway20-ec` (Hallway20ECExplainer) — IKMC-19-EC-Q20 — post-answer animation.  Reuses the Z-shape polygon and midline constants from Hallway20ECIllustration _[IKMC-19-EC-Q20]_
+- `hallway20-ec` (Hallway20ECIllustration) — IKMC-19-EC-Q20 — "A hallway has the dimensions shown in the picture. A cat walks on the dashed line along the middle of the hallway. How many metres does the cat walk?" _[IKMC-19-EC-Q20]_
+
+**handkerchief17**  
+- `handkerchief17-a18` (Handkerchief17A18Explainer) — SEAMO-17-A-Q18 — post-answer animation. Reuses HandkerchiefFigure from the illustration (no geometry re-derived).  _[SEAMO-17-A-Q18]_
+- `handkerchief17-a18` (Handkerchief17A18Illustration) — Handkerchief flower-border illustration for SEAMO-17-A-Q18.  Question: "My mother embroidered 5 flowers on each side of my handkerchief. _[SEAMO-17-A-Q18]_
+
+**hanoi**  
+- `hanoi-tower-osn24-nekq1` (HanoiTowerOSN24NEKQ1Explainer) — Post-answer explainer for OSN-24-SD-NAS-EKSPERIMEN-Q1. "Move 4 cubes from peg I to peg III with minimum moves.  Peg I: any order. Pegs II & III: sorted heavy→light at all times." _[OSN-24-SD-NAS-EKSPERIMEN-Q1]_
+- `hanoi-tower-osn24-nekq1` (HanoiTowerOSN24NEKQ1Illustration) — HanoiTowerOSN24NEKQ1Illustration — OSN-24-SD-NAS-EKSPERIMEN-Q1 "4 cubes on peg I (bottom→top): 5/6 kg, 70/8 ons, 751 g, 6/7 kg. Pegs II and III are empty. Move all cubes to peg III in the fewest steps. Peg I: any order.  _[OSN-24-SD-NAS-EKSPERIMEN-Q1]_
+
+**hash**  
+- `hash-triangle-timo22-p1-q5` (HashTriangleTIMO22P1Q5Explainer) — TIMO-22-P1H-Q5 — animated explainer Beat-by-beat: observe counts → highlight +2+3+4 diffs → predict +5 → reveal group 5. _[TIMO-22-P1H-Q5]_
+- `hash-triangle-timo22-p1-q5` (HashTriangleTIMO22P1Q5Illustration) — TIMO-22-P1H-Q5 — "From the pattern below, how many # are in the 5th Group?"  Visual: 5 groups of # arranged as a growing right-triangle staircase. _[TIMO-22-P1H-Q5]_
 
 **height**  
 - `height-order22-g1` (HeightOrder22G1Explainer) — Echoes the qupu tokens used in the static figure. Re-exported so the static answer is visible to readers of this module. _[WMI-22F1A-Q14]_
 - `height-order22-g1` (HeightOrder22G1Illustration) — WMI-22F1A-Q14 (Grade 1) — "Who is tallest?" (four children, order unknown).  Four children — Dan, Pan, Ken, Ann. The text gives the clues: _[WMI-22F1A-Q14]_
 
+**heights20**  
+- `heights20-pe` (Heights20PEExplainer) — (no description) _[IKMC-20-PE-Q20]_
+- `heights20-pe` (Heights20PEIllustration) — IKMC-20-PE-Q20 — "Who is the shortest?" (six people A–F, arrow diagram).  Arrow diagram from OCR image 064.jpg: _[IKMC-20-PE-Q20]_
+
 **hex**  
+- `hex-paths22-a11` (HexPaths22A11Illustration) — HexPaths22A11Illustration — SEAMO 2022 Paper A, Question 11  "How many shortest paths are there from A to B? Follow the direction of the arrows." _[SEAMO-22-A-Q11]_
+- `hex-rings21-b22` (HexRings21B22) — HexRings21B22 — SEAMO 2021 Paper B Q22 "The figure shows a number pattern within an array of hexagons.  In the middle, there is only one dot. There are 6 dots on the 1st hexagon. _[SEAMO-21-B-Q22]_
+- `hex-table-osn20-kq2` (HexTableOSN20KQ2Explainer) — (no description) _[OSN-20-SD-KAB-Q2]_
+- `hex-table-osn20-kq2` (HexTableOSN20KQ2Illustration) — OSN-20-SD-KAB-Q2 Meja segienam (hexagonal tables) in a row with chairs. 1 table → 6 chairs; each added table in the row adds 4 (two shared-side chairs are lost per join). Hexagon orientation: pointy-top (vertices at top  _[OSN-20-SD-KAB-Q2]_
+- `hex-tile-osn20-kq5` (HexTileOSN20KQ5Explainer) — Post-answer explainer for OSN-20-SD-KAB-Q5. "Jumlah tiga bilangan segaris pada ubin segienam adalah ⋯" — answer: 34.  _[OSN-20-SD-KAB-Q5]_
+- `hex-tile-osn20-kq5` (HexTileOSN20KQ5Illustration) — HexTileOSN20KQ5Illustration — OSN-20-SD-KAB-Q5 "Bilangan 9, 10, 11, 12, 13, 14, dan 15 diletakkan di ubin segienam (9 di pusat). Jumlah tiga bilangan segaris selalu sama. Jumlah itu adalah ⋯" Answer: 34 (9 + 25; opposite _[OSN-20-SD-KAB-Q5]_
 - `hex-tree22-g1` (HexTree22G1Explainer) — Echoes the qupu tokens used in the static figure. Tree 1 stays on screen until we move to tree 2 (it teaches the rule). _[WMI-22F1A-Q18]_
 - `hex-tree22-g1` (HexTree22G1Illustration) — WMI-22F1A-Q18 (Grade 1) — "Hexagon trees" (honeycomb sum-pyramids on a trunk).  Recovered from db/seed/wmi/figures/2022-final-g1-a-q18.jpg: two trees, each a _[WMI-22F1A-Q18]_
+
+**hexagon**  
+- `hexagon-angles-hk23-p1-sfq17` (HexagonAnglesHK23P1SFQ17Explainer) — HexagonAnglesHK23P1SFQ17Explainer — HKIMO-23-P1SF-Q17  Animated step-by-step: number each of the 6 vertices to show there are 6 interior angles. _[HKIMO-23-P1SF-Q17]_
+- `hexagon-angles-hk23-p1-sfq17` (HexagonAnglesHK23P1SFQ17Illustration) — HexagonAnglesHK23P1SFQ17Illustration — HKIMO-23-P1SF-Q17  "How many interior angle(s) is / are there in the polygon below?"  Answer: 6 _[HKIMO-23-P1SF-Q17]_
 
 **home**  
 - `home-map25-g1` (HomeMap25G1Explainer) — WMI-25F1A-Q23 — students' homes map, FARTHEST Alex→Emma walk (answer 29 cm).  The animation DEDUCES the longest trail one home at a time, lighting the _[WMI-25F1A-Q23]_
 - `home-map25-g1` (HomeMap25G1Illustration) — WMI-25F1A-Q23 (2025 Grade 1 Final) — students' homes map (weighted graph).  "The map shows distances between some students' homes. If Alex walks from his _[WMI-25F1A-Q23]_
+
+**hound**  
+- `hound-rabbit20-a18` (HoundRabbit20A18Explainer) — SEAMO-20-A-Q18 — Explainer: hound chasing rabbit (relative speed).  Beat-by-beat walkthrough: _[SEAMO-20-A-Q18]_
+- `hound-rabbit20-a18` (HoundRabbit20A18Illustration) — SEAMO-20-A-Q18 — "Hound chases rabbit 30 m ahead; find catch-up time"  SOURCE: OCR 2020.imgs/019.jpg — hound silhouette on the left, large right-pointing _[SEAMO-20-A-Q18]_
+
+**house**  
+- `house-map15-pe` (HouseMap15PEExplainer) — IKMC-21-PE-Q15 — post-answer explainer: house-map path-tracing puzzle.  Teaches the method: _[IKMC-21-PE-Q15]_
+- `house-map15-pe` (HouseMap15PEIllustration) — IKMC-21-PE-Q15 — "The picture shows the five houses of five friends and their school. The school is the largest building in the picture. To go to school, Doris and Ali walk past Leo's house. Eva walks past Chole's house. _[IKMC-21-PE-Q15]_
+- `house-rects-sasmo19-g3-q16` (HouseRectsSASMO19G3Q16Explainer) — SASMO-19-G3-Q16 — post-answer animation. Reuses sub-components + layout constants from the illustration so the animated overlays sit precisely on the static scene. _[SASMO-19-G3-Q16]_
+- `house-rects-sasmo19-g3-q16` (HouseRectsSASMO19G3Q16Illustration) — SASMO-19-G3-Q16 — "Berapa banyak persegi panjang yang ada pada gambar berikut?" Static problem figure: a house with embedded rectangular elements. Does NOT label or highlight any count — shows the problem only. _[SASMO-19-G3-Q16]_
 
 **houses**  
 - `houses-scene20` (HousesScene20Illustration) — Faithful line-drawing reproduction of the WMI-20F1A Q14 figure (wmiPastPaper/2020 WMI Final G01 Paper A/images/6e4e6090...913ec7.jpg): three houses, a bird perched on the middle house's roof, two small ground _[WMI-20F1A-Q14]_
@@ -393,6 +1102,31 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `hundreds-chart25-g1` (HundredsChart25G1Explainer) — Hex echoes of the fill-qupu-* tokens used by the static figure, so the animation reads as the same scene coming alive. _[WMI-25F1A-Q8]_
 - `hundreds-chart25-g1` (HundredsChart25G1Illustration) — STEM illustration for WMI-25F1A-Q8 (2025 Grade 1 Final). The question shows five small fragments cut from a 1–100 hundreds chart (10 numbers per row) and asks: in which fragment is 35 NOT the number that belongs in the b _[WMI-25F1A-Q8]_
 - `hundreds-chart25-g1` (HundredsChart25G1Option) — CHOICE renderer for WMI-25F1A-Q8 (2025 Grade 1 Final). Each option is a small fragment cut from a 1–100 hundreds chart (10 per row, so RIGHT = +1 and DOWN = +10). Some squares show numbers; one square is the queried blan _[WMI-25F1A-Q8]_
+
+**ice**  
+- `ice-cream18-ec` (IceCream18ECExplainer) — IKMC-20-EC-Q18 — post-answer animation.  Reuses the IceCreamCone / Cherry / WaferDisc / ChocolateChip primitives _[IKMC-20-EC-Q18]_
+- `ice-cream18-ec` (IceCream18ECIllustration) — IKMC-20-EC-Q18 — stem illustration only (text-option choices).  "6 people each order one scoop of ice cream. They order 3 scoops of vanilla, _[IKMC-20-EC-Q18]_
+
+**ink**  
+- `ink-spill8-pe` (InkSpill8PEExplainer) — IKMC-22-PE-Q8 — post-answer animated explainer.  Imports the shared InkBlob + GridLines primitives so the explainer reads as the _[IKMC-22-PE-Q8]_
+- `ink-spill8-pe` (InkSpill8PEIllustration) — IKMC 2022 Pre-Ecolier Q8 — "Some ink spilled on a piece of squared paper."  PROBLEM ONLY: shows a 5-column × 4-row squared-paper grid with an irregular _[IKMC-22-PE-Q8]_
+
+**insect**  
+- `insect-climb21-b10` (InsectClimb21B10Explainer) — SEAMO-21-B-Q10 — post-answer animated explainer. Reuses the static illustration as a backdrop, then overlays highlighted path segments beat-by-beat: first enumerates the 3 A→B paths, then the _[SEAMO-21-B-Q10]_
+- `insect-climb21-b10` (InsectClimb21B10Illustration) — SEAMO-21-B-Q10 — Insect climbs from A to C through B  Reconstructed faithfully from OCR scan + crop (2021.imgs/003.jpg): _[SEAMO-21-B-Q10]_
+
+**iso**  
+- `iso-cube-count18-b4` (IsoCubeCount18B4Illustration) — IsoCubeCount18B4Illustration — SEAMO-18-B-Q4 "How many cubes are there in the figure below?" Answer: B (22 cubes). Source image: docs/reference/ocr-res/seamo/contest/paper-b/2018.imgs/003.jpg The figure shows a 3-level s _[SEAMO-18-B-Q4]_
+- `iso-cube-min-hk19-p1-q17` (IsoCubeMinHK19P1Q17Explainer) — Post-answer explainer for HKIMO-19-P1H-Q17. "At least how many cubes is/are there in the figure below?" — answer: 9.  _[HKIMO-19-P1H-Q17]_
+- `iso-cube-min-hk19-p1-q17` (IsoCubeMinHK19P1Q17Illustration) — IsoCubeMinHK19P1Q17Illustration — HKIMO-19-P1H-Q17 "At least how many cube(s) is / are there in the figure below?" Answer: 9 (minimum). Source: docs/reference/ocr-res/hkimo/heat/primary-1/2019.imgs/003.jpg Structure reco _[HKIMO-19-P1H-Q17]_
+- `iso-cube-stair-timo22-p1-q16` (IsoCubeStairTIMO22P1Q16Explainer) — Post-answer explainer for TIMO-22-P1H-Q16. "Ada berapa kubus dalam gambar 2?" — Answer: 20  _[TIMO-22-P1H-Q16]_
+- `iso-cube-stair-timo22-p1-q16` (IsoCubeStairTIMO22P1Q16Illustration) — IsoCubeStairTIMO22P1Q16Illustration — TIMO-22-P1H-Q16 "Ada berapa kubus dalam gambar 2, jika gambar 2 dibentuk dari beberapa bentuk seperti gambar 1?" Answer: 20 (4 copies × 5 cubes each) Figure 1 (unit shape — 5 cubes): _[TIMO-22-P1H-Q16]_
+- `iso-cubes-top-hk24-p2-q17` (IsoCubesTopHK24P2Q17Explainer) — Post-answer explainer for HKIMO-24-P2H-Q17. "At least how many unit square(s) can be seen from the top?" — Answer: 13.  _[HKIMO-24-P2H-Q17]_
+- `iso-cubes-top-hk24-p2-q17` (IsoCubesTopHK24P2Q17Illustration) — IsoCubesTopHK24P2Q17Illustration — HKIMO-24-P2H-Q17 "At least how many unit square(s) can be seen if viewing the figure below from the top?" — Answer: 13 Source image: docs/reference/ocr-res/hkimo/heat/primary-2/2024.img _[HKIMO-24-P2H-Q17]_
+
+**isosceles**  
+- `isosceles-altitude-osn25-nfq3` (IsoscelesAltitudeOSN25NFQ3Explainer) — IsoscelesAltitudeOSN25NFQ3Explainer — OSN-25-SD-NAS-FINAL-Q3  Animated solution: height from C → Area △ACB → BD via cos B → ratio → 864/25. _[OSN-25-SD-NAS-FINAL-Q3]_
+- `isosceles-altitude-osn25-nfq3` (IsoscelesAltitudeOSN25NFQ3Illustration) — IsoscelesAltitudeOSN25NFQ3Illustration — OSN-25-SD-NAS-FINAL-Q3  "Segitiga sama kaki ACB: AC = BC = 10 cm, AB = 12 cm. _[OSN-25-SD-NAS-FINAL-Q3]_
 
 **jerseys25**  
 - `jerseys25-g2` (Jerseys25G2Explainer) — WMI-25F2A-Q23 — post-answer explainer. Re-uses the static figure's jersey glyph + photo panel so the animation reads as the same scene coming alive. The full row 6 1 2 4 7 3 5 is rebuilt one photo at a time; the answer i _[WMI-25F2A-Q23]_
@@ -403,10 +1137,20 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `jigsaw23-g1` (Jigsaw23G1Illustration) — Jigsaw-puzzle completion problem for WMI-23F1A-Q10 (2023 Grade 1 Final).  Source figure (Paper A): an 8-column × 5-row grid of light squares with one _[WMI-23F1A-Q10]_
 - `jigsaw23-g1` (Jigsaw23G1Option) — Renders an answer option for WMI-23F1A-Q10 (jigsaw completion) as the actual candidate piece — a small polyomino drawn from the source scan of pieces A–E. The drawn piece replaces the choice text, so the figure can never _[WMI-23F1A-Q10]_
 
+**jigsaw6**  
+- `jigsaw6-ec` (Jigsaw6ECExplainer) — IKMC-22-EC-Q6 — Anna's number jigsaw explainer. Animates the solution beat-by-beat: • State the rule. • Inspect each hole cell's fixed neighbours. • Eliminate options C (conflict), keep D. • Drop piece D into the board.  _[IKMC-22-EC-Q6]_
+- `jigsaw6-ec` (Jigsaw6ECIllustration) — IKMC-22-EC-Q6 — Anna's number jigsaw puzzle (IKMC 2022 Ecolier, question 6)  Source scans: _[IKMC-22-EC-Q6]_
+
 **join**  
 - `join-pieces-option20` (JoinPiecesOption20) — Renders an answer option for WMI-20F1A-Q13 as the actual polyomino shape. Cell lists are read from the source figure (row, col from 0, row 0 = top). _[WMI-20F1A-Q13]_
 - `join-pieces20` (JoinPieces20Explainer) — (no description) _[WMI-20F1A-Q13]_
 - `join-pieces20` (JoinPieces20Illustration) — Join-the-pieces puzzle for WMI-20F1A-Q13.  Source figure: wmiPastPaper/2020 WMI Final G01 Paper A — two identical _[WMI-20F1A-Q13]_
+
+**kang**  
+- `kang-pieces4-pe` (KangPieces4PEExplainer) — IKMC-23-PE-Q4 — "Mr. Beaver rearranges the pieces to make a kangaroo figure. Which piece is missing?" (answer A — the parallelogram).  _[IKMC-23-PE-Q4]_
+- `kang-pieces4-pe` (KangPieces4PEIllustration) — IKMC-23-PE-Q4 — "Mr. Beaver rearranges the pieces to make a kangaroo figure. Which piece is missing?" (answer A — the parallelogram). Left panel: the original 7-piece tangram-style blue square (source 013.jpg). Right pan _[IKMC-23-PE-Q4]_
+- `kang-steps13-ec` (KangSteps13ECExplainer) — IKMC-20-EC-Q13 — post-answer animation. Reuses StaircaseBottom, StaircaseTop, DashedGap, KangFigure, RabbitFig from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-EC-Q13]_
+- `kang-steps13-ec` (KangSteps13ECIllustration) — IKMC-20-EC-Q13 — "Every time the kangaroo goes up 7 steps, the rabbit goes down 3 steps. The kangaroo starts at step 1 going up and the rabbit starts at step 100 going down. On which step do they meet?" _[IKMC-20-EC-Q13]_
 
 **ken**  
 - `ken-ken` (KenKenExplainer) — (no description) _[WMI-19F1A-Q24, WMI-19F2A-Q24]_
@@ -414,9 +1158,31 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `ken-ken20` (KenKen20Explainer) — (no description) _[WMI-20F1A-Q24]_
 - `ken-ken20` (KenKen20Illustration) — KenKen-style 1–4 grid for WMI-20F1A-Q24. Reconstructed from db/seed/wmi/figures/2020-final-g1-a-q24.jpg. The cage walls read edge-by-edge give the partition below; a brute force over all 4×4 Latin _[WMI-20F1A-Q24]_
 
+**keys23**  
+- `keys23-ec` (Keys23ECExplainer) — IKMC-20-EC-Q23 — post-answer explainer: which key cannot be cut into three different pentomino figures? Answer: B. Shows all five key shapes side-by-side; highlights each in turn as the animation steps through them, mark _[IKMC-20-EC-Q23]_
+- `keys23-ec` (Keys23ECIllustration) — IKMC-20-EC-Q23 — "Which key cannot be cut into three different figures of five shaded squares?" (answer B) The five answer options ARE the figures — there is no separate stem illustration. This file provides only the opt _[IKMC-20-EC-Q23]_
+
+**kite**  
+- `kite-osn24-nt1-q8` (KiteOSN24NT1Q8Explainer) — OSN-24-SD-NAS-TEORI1-Q8 — post-answer animated explainer.  Reuses the kite geometry from KiteOSN24NT1Q8Illustration so the _[OSN-24-SD-NAS-TEORI1-Q8]_
+- `kite-osn24-nt1-q8` (KiteOSN24NT1Q8Illustration) — OSN-24-SD-NAS-TEORI1-Q8 — "Kite ABFC, area 100 cm², find white region"  PROBLEM ONLY (no answer shown): _[OSN-24-SD-NAS-TEORI1-Q8]_
+- `kite-osn24-nt2-q13` (KiteOSN24NT2Q13Explainer) — KiteOSN24NT2Q13Explainer — OSN-24-SD-NAS-TEORI2-Q13  Animated step-by-step solution for the kite ABCD question. _[OSN-24-SD-NAS-TEORI2-Q13]_
+- `kite-osn24-nt2-q13` (KiteOSN24NT2Q13Illustration) — KiteOSN24NT2Q13Illustration — OSN-24-SD-NAS-TEORI2-Q13  "Suppose that ABCD is a kite with AD = 5 cm, CD = 12 cm, _[OSN-24-SD-NAS-TEORI2-Q13]_
+
 **knight**  
 - `knight-tour22-g1` (KnightTour22G1Explainer) — WMI-22F1A-Q22 — Knight's Tour explainer (Grade 1). Teaches the count-the-hops strategy beat-by-beat: the chess Horse must visit EVERY square exactly once, starting on 1 and ending on 12. We walk the tour one L-jump per b _[WMI-22F1A-Q22]_
 - `knight-tour22-g1` (KnightTour22G1Illustration) — WMI-22F1A-Q22 (Grade 1) — chess-Horse (knight) tour on an irregular board.  A "Horse" moves like a chess knight (an L-shape: 2 in one direction + 1 _[WMI-22F1A-Q22]_
+
+**lattice**  
+- `lattice-path-hk18-p3-q25` (LatticePathHK18P3Q25Explainer) — LatticePathHK18P3Q25Explainer.tsx Animated explainer for HKIMO-18-P3H-Q25.  _[HKIMO-18-P3H-Q25]_
+- `lattice-path-hk18-p3-q25` (LatticePathHK18P3Q25Illustration) — LatticePathHK18P3Q25Illustration.tsx Stem illustration for HKIMO-18-P3H-Q25: "Andy goes from A to B, each step only right or up. How many ways?" _[HKIMO-18-P3H-Q25]_
+
+**lawns18**  
+- `lawns18-pe` (Lawns18PEExplainer) — IKMC-22-PE-Q18 — "Which lawn is the smallest?" explainer.  Strategy taught: count grid squares inside each lawn; the one with the _[IKMC-22-PE-Q18]_
+- `lawns18-pe` (Lawns18PEIllustration) — IKMC-22-PE-Q18 — "Which lawn is the smallest?" (5-point question).  All five options A–E are pictures of green polygon lawns drawn on a dot grid. _[IKMC-22-PE-Q18]_
+
+**lens**  
+- `lens-osn09-pq16` (LensOSN09PQ16Explainer) — LensOSN09PQ16Explainer — OSN-09-SD-PROV-Q16  Animated step-by-step solution for the lens-area problem. _[OSN-09-SD-PROV-Q16]_
+- `lens-osn09-pq16` (LensOSN09PQ16Illustration) — LensOSN09PQ16Illustration — OSN-09-SD-PROV-Q16  A 7 cm × 7 cm square contains a leaf-shaped (daun/lens) shaded region. _[OSN-09-SD-PROV-Q16]_
 
 **letter**  
 - `letter-order19-p1` (LetterOrder19P1Explainer) — WMI-19P1A-Q25 — post-answer explainer. Applies the three clues one at a time, dropping letters into the five-box row, until B is pinned to box 5 (answer C). Plays after the learner answers. _[WMI-19P1A-Q25]_
@@ -426,7 +1192,19 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `letters22-g1` (Letters22G1Explainer) — Mirror the illustrator's tokens so the animation reads as the same scene. _[WMI-22F1A-Q2]_
 - `letters22-g1` (Letters22G1Illustration) — WMI-22F1A-Q2 (Grade 1) question figure.  The letters W, M, I are each drawn with thick RED strokes on a light-blue _[WMI-22F1A-Q2]_
 
+**lights5**  
+- `lights5-ec` (Lights5ECExplainer) — IKMC-23-EC-Q5 — post-answer animation for the theatre-lights timeline.  Reuses the static timeline primitive (TimelineGrid, SEGMENTS, minToX, etc.) _[IKMC-23-EC-Q5]_
+- `lights5-ec` (Lights5ECIllustration) — IKMC-23-EC-Q5 — Theatre lights timeline  PROBLEM ONLY: shows the Gantt-style schedule exactly as it appears in the paper. _[IKMC-23-EC-Q5]_
+
 **line**  
+- `line-seg-timo22-p1-q20` (LineSegTIMO22P1Q20Explainer) — Animated explainer for TIMO-22-P1H-Q20. Beats through 3 edge-group highlights then lands on the total = 12. ── palette ────────────────────────────────────────────────────────────────── _[TIMO-22-P1H-Q20]_
+- `line-seg-timo22-p1-q20` (LineSegTIMO22P1Q20Illustration) — TIMO-22-P1H-Q20 — "Ada berapa ruas garis dalam gambar di bawah ini?" TIMO 2022 Primary 1 Heat, answer: 12  _[TIMO-22-P1H-Q20]_
+- `line-segments-hk20-p2-q18` (LineSegmentsHK20P2Q18Explainer) — HKIMO-20-P2H-Q18 — animated explainer.  Beats (see lineSegmentsHK20P2Q18Steps.ts): _[HKIMO-20-P2H-Q18]_
+- `line-segments-hk20-p2-q18` (LineSegmentsHK20P2Q18Illustration) — HKIMO-20-P2H-Q18 — "How many line segment(s) is / are there in the polygon below?"  OCR source: docs/reference/ocr-res/hkimo/heat/primary-2/2020.md Q18 _[HKIMO-20-P2H-Q18]_
+- `line-segments-hk22-p1-q18` (LineSegmentsHK22P1Q18Explainer) — HKIMO-22-P1H-Q18 — animated explainer.  Beats (see lineSegmentsHK22P1Q18Steps.ts): _[HKIMO-22-P1H-Q18]_
+- `line-segments-hk22-p1-q18` (LineSegmentsHK22P1Q18Illustration) — HKIMO-22-P1H-Q18 — "Refer to the figure below, how many line segment(s) is / are there?"  OCR source: docs/reference/ocr-res/hkimo/heat/primary-1/2022.md Q18 _[HKIMO-22-P1H-Q18]_
+- `line-segs-hk24-p1-q18` (LineSegsHK24P1Q18Explainer) — ── colour tokens ───────────────────────────────────────────────────────────── _[HKIMO-24-P1H-Q18]_
+- `line-segs-hk24-p1-q18` (LineSegsHK24P1Q18Illustration) — HKIMO-24-P1H-Q18 — "How many line segments are there in the figure?"  PROBLEM ONLY (no answer): shows the two-shape compound figure from the paper. _[HKIMO-24-P1H-Q18]_
 - `line-squares25-g1` (LineSquares25G1Explainer) — Echo the qupu tokens used by the static figure so the animation reads as the same scene coming alive. _[WMI-25F1A-Q15]_
 - `line-squares25-g1` (LineSquares25G1Illustration) — WMI-25F1A-Q15 (2025 Grade 1 Final) — "There are 16 small squares in a 4x4 grid. If one straight line is drawn, at most how many of the small squares can it pass through?"  Answer: 7 (choice D). _[WMI-25F1A-Q15]_
 
@@ -448,8 +1226,30 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `logic-grid24-g1` (LogicGrid24G1Explainer) — Mirror the primitive's layout so the spotlight overlay lines up exactly. _[WMI-24F1A-Q21]_
 - `logic-grid24-g1` (LogicGrid24G1Illustration) — WMI-24F1A-Q21 (2024 Grade 1 Final) — "Following the instructions, fill the numbers 1-9 into the squares. Find the sum of the numbers in the two shaded squares."  Answer: 12 (fill-in). _[WMI-24F1A-Q21]_
 
+**lshade**  
+- `lshade-squares20-b25` (LShadeSquares20B25) — SEAMO-20-B-Q25 — Two nested squares with L-shaped shaded region. "The figure shows 2 squares of different sizes. The area of the shaded region is 25 cm². Find the perimeter (in cm) of the shaded region, given that the si _[SEAMO-20-B-Q25]_
+
+**lshort**  
+- `lshort-path22-b19` (LShortPath22B19Explainer) — SEAMO-22-B-Q19 — post-answer animation. Reuses the L-grid geometry constants from the illustration. Shows a Pascal's-triangle fill propagating through the L-shaped grid, _[SEAMO-22-B-Q19]_
+- `lshort-path22-b19` (LShortPath22B19Illustration) — SEAMO-22-B-Q19 — "Find the number of shortest paths from A to B."  OCR source: docs/reference/ocr-res/seamo/contest/paper-b/2022.md Q19 _[SEAMO-22-B-Q19]_
+
+**lstars**  
+- `lstars-hk25-p1-q5` (LStarsHK25P1Q5Explainer) — HKIMO-25-P1H-Q5 — animated explainer for the L-shaped star groups.  Beat flow: _[HKIMO-25-P1H-Q5]_
+- `lstars-hk25-p1-q5` (LStarsHK25P1Q5Illustration) — HKIMO-25-P1H-Q5 — "How many ★ in the 7th group?"  The stem shows 4 groups of ★ arranged as L-shapes (bottom-aligned). _[HKIMO-25-P1H-Q5]_
+
+**magic**  
+- `magic-star-sasmo20-g3-q24` (MagicStarSASMO20G3Q24Explainer) — SASMO 2020 G3 Q24 — animated explainer. Beat-by-beat: intro → total=77 → place 20 at junction → fill arms → result S=39. ── palette ───────────────────────────────────────────────────────────────── _[SASMO-20-G3-Q24]_
+- `magic-star-sasmo20-g3-q24` (MagicStarSASMO20G3Q24Illustration) — SASMO 2020 G3 Q24 — 7-circle Y-shaped figure (magic-arrangement). Place 2,5,8,11,14,17,20 in 7 circles so every straight line sums equal. Illustration shows the EMPTY circles — problem state only (no numbers). _[SASMO-20-G3-Q24]_
+
 **make**  
 - `make-ten-visual20` (MakeTenVisual20Explainer) — Visual make-a-ten explainer for WMI-20F1A Q1: 9 + 2 + 6 = 17 (answer A).  Counters in a ten-frame: 9 blue dots fill a 2×5 frame with one empty cell, _[WMI-20F1A-Q1]_
+
+**marbles21**  
+- `marbles21-ec` (Marbles21ECExplainer) — IKMC-23-EC-Q21 — post-answer animation. Reuses the Marble primitive and MarbleField from Marbles21ECIllustration so the animation reads as the static scene coming alive. _[IKMC-23-EC-Q21]_
+- `marbles21-ec` (Marbles21ECIllustration) — IKMC-23-EC-Q21 — "Adam and Brenda have 9 marbles each."  STEM ILLUSTRATION: 18 marbles (8 red + 10 blue) scattered inside a _[IKMC-23-EC-Q21]_
+
+**mass**  
+- `mass-scales18-a23` (MassScales18A23Illustration) — SEAMO-18-A-Q23 — "The masses below are measured in grams. What is the mass of A?"  Three BALANCED level-beam balance scales with two symbol types: _[SEAMO-18-A-Q23]_
 
 **match**  
 - `match-num23-g1` (MatchNum23G1Option) — CHOICE renderer for WMI-23F1A-Q14 (2023 Grade 1 Final): each option is an ODD two-digit number drawn in matchsticks as 7-segment digits. The question asks which option can be turned into an EVEN number by moving exactly  _[WMI-23F1A-Q14]_
@@ -459,9 +1259,19 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **match23**  
 - `match23-g3` (Match23G3Explainer) — WMI-23F3A-Q22 (2023 Grade 3 Final) — same x matchsticks build a 1×a, 2×b AND 4×c block of squares, x < 100. Find largest + smallest x (answer 89). The 4-row block grows fastest (9 sticks/column) so we walk its totals x = _[WMI-23F3A-Q22]_
 
+**matchstick**  
+- `matchstick-simoc19-g2-q25` (MatchstickSIMOC19G2Q25Explainer) — SIMOC-19-G2-Q25 — Animated explainer: matchstick 869 → 9651. Reuses DigitSegs from the illustration for layout consistency. Beat-driven: 5 steps from intro → result. _[SIMOC-19-G2-Q25]_
+- `matchstick-simoc19-g2-q25` (MatchstickSIMOC19G2Q25Illustration) — SIMOC-19-G2-Q25 — Static illustration: "869" in seven-segment matchstick style. Shows the PROBLEM ONLY (not the answer). Pure SVG, no hooks, no random, no Date, SSR-safe. _[SIMOC-19-G2-Q25]_
+- `matchstick-simoc19-g3-q25` (MatchstickSIMOC19G3Q25Explainer) — SIMOC-19-G3-Q25 — animated explainer.  Walks through moving 3 sticks from 869 to form 9951. _[SIMOC-19-G3-Q25]_
+- `matchstick-simoc19-g3-q25` (MatchstickSIMOC19G3Q25Illustration) — SIMOC-19-G3-Q25 — matchstick "869" illustration.  Tom made number 869 using 19 matchsticks (7+6+6). _[SIMOC-19-G3-Q25]_
+
 **matchstick20**  
 - `matchstick20` (Matchstick20Explainer) — (no description) _[WMI-20F1A-Q16]_
 - `matchstick20` (Matchstick20Illustration) — Matchstick-digit costs for WMI-20F1A-Q16.  Source figure: wmiPastPaper/2020 WMI Final G01 Paper B — digits 1..9,0 drawn _[WMI-20F1A-Q16]_
+
+**matchstick869**  
+- `matchstick869-simoc19-g4-q20` (Matchstick869SIMOC19G4Q20Explainer) — (no description) _[SIMOC-19-G4-Q20]_
+- `matchstick869-simoc19-g4-q20` (Matchstick869SIMOC19G4Q20Illustration) — Matchstick illustration for SIMOC-19-G4-Q20. Shows "869" in 7-segment matchstick style: 8→7, 6→6, 9→6 = 19 sticks total.  _[SIMOC-19-G4-Q20]_
 
 **matchsticks23**  
 - `matchsticks23-g2` (Matchsticks23G2Explainer) — WMI-23F2A-Q21 — Post-answer explainer: "smallest x for 1×a, 2×b, 4×c matchstick grids"  Strategy: write the stick formula for each grid size, then step through the _[WMI-23F2A-Q21]_
@@ -471,15 +1281,53 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `mathdoku5-g3` (Mathdoku5G3Explainer) — WMI-19F3A-Q24 — the full forced chain, one deduction per beat (every digit is derived, never asserted; see the solution proof in the illustration header):   forced cages → B's column gives 3 → A = 4 → 10× corner → row fi _[WMI-19F3A-Q24]_
 - `mathdoku5-g3` (Mathdoku5G3Illustration) — "Fill 1-5 so every row & column differs (mathdoku)" figure for WMI-19F3A-Q24. Reconstructed from db/seed/wmi/figures/2019-final-g3-a-q24.jpg by reading the cage walls: a 5x5 grid carved into 12 cages, each labelled targe _[WMI-19F3A-Q24]_
 
+**maya**  
+- `maya-bee-flowers12` (MayaBeeFlowers12Explainer) — IKMC-19-PE-Q12 — post-answer animation. Reuses FlowerGlyph and the shared primitives from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-PE-Q12]_
+- `maya-bee-flowers12` (MayaBeeFlowers12Illustration) — IKMC-19-PE-Q12 — "Maya Bee was gathering pollen from all of the flowers that lie inside the rectangle, but are outside the triangle."  _[IKMC-19-PE-Q12]_
+
+**maze**  
+- `maze-grid11-pe` (MazeGrid11PEExplainer) — IKMC-22-PE-Q11 — Animated explainer for the grid maze problem.  Beat flow: _[IKMC-22-PE-Q11]_
+- `maze-grid11-pe` (MazeGrid11PEIllustration) — IKMC-22-PE-Q11 — Grid maze illustration  "Kanga wants to reach the koala without going through any of the coloured _[IKMC-22-PE-Q11]_
+
+**maze16**  
+- `maze16-ec` (Maze16ECExplainer) — IKMC-23-EC-Q16 explainer — animated beat-by-beat walkthrough of Sam's path through the two-storey maze. Adapted from Maze20PEExplainer. Palette _[IKMC-23-EC-Q16]_
+- `maze16-ec` (Maze16ECIllustration) — IKMC-23-EC-Q16 — Two-storey maze stem illustration + option renderer.  Question: Sam walks through the two-storey maze from the entrance (ground floor, _[IKMC-23-EC-Q16]_
+
+**maze20**  
+- `maze20-pe` (Maze20PEExplainer) — IKMC-23-PE-Q20 explainer — animated beat-by-beat walkthrough of Sam's path through the two-storey maze. Adapated from AnimalMaze24G1Explainer. Palette _[IKMC-23-PE-Q20]_
+- `maze20-pe` (Maze20PEIllustration) — IKMC-23-PE-Q20 — Two-storey maze stem illustration + option renderer.  Question: Sam walks from the entrance (Floor 1, top-left) to the exit (Floor 1, _[IKMC-23-PE-Q20]_
+
+**meeting**  
+- `meeting-path-x24-a15` (MeetingPathX24A15Explainer) — SEAMOX-24-A-Q15 — Animated explainer for the meeting-path problem. Beats: 1. Show the initial setup (house → park, both walkers, 2600 m). 2. Add speeds: 60 + 70 = 130 m/min. 3. Time = 2600 ÷ 130 = 20 min. 4. Meeting time _[SEAMOX-24-A-Q15]_
+- `meeting-path-x24-a15` (MeetingPathX24A15Illustration) — SEAMOX-24-A-Q15 — "John left home for the park at 0730 h, at 60 m/min. His brother returned from the park at the same time at 70 m/min. Distance = 2600 m. At what time did they meet?" STATIC PROBLEM FIGURE: House (Home)  _[SEAMOX-24-A-Q15]_
+
 **metro**  
 - `metro-graph23-g3` (MetroGraph23G3Explainer) — WMI-23F3A-Q8 — weighted metro graph, cheapest ticket A → B (answer C = 150).  The animation DEDUCES the cheap route hop by hop, then at the central hub R _[WMI-23F3A-Q8]_
 - `metro-graph23-g3` (MetroGraph23G3Illustration) — WMI-23F3A-Q8 (2023 Grade 3 Final) — metro fare network (weighted graph).  "Each circle is a metro station; the number next to a line segment is that _[WMI-23F3A-Q8]_
 
+**metro14**  
+- `metro14-ec` (Metro14ECExplainer) — IKMC-23-EC-Q14 — post-answer animation. Reuses TrainPrimitive and StationDot from the illustration so the animation reads as the static scene coming alive. _[IKMC-23-EC-Q14]_
+- `metro14-ec` (Metro14ECIllustration) — IKMC-23-EC-Q14 — "Metro line 6 stations" stem illustration.  PROBLEM ONLY: shows the static figure from the paper: _[IKMC-23-EC-Q14]_
+
+**midpoint**  
+- `midpoint-shaded-x22-b13` (MidpointShadedX22B13Explainer) — SEAMO-X 2022 Paper B Q13 — Square ABCD (area 50 cm²); E,F,G,H are midpoints. Lines A→H, B→E, C→F, D→G form a shaded inner square with area = 50/5 = 10 cm².  _[SEAMOX-22-B-Q13]_
+- `midpoint-shaded-x22-b13` (MidpointShadedX22B13Illustration) — MidpointShadedX22B13Illustration — SEAMO-X 2022 Paper B Q13  ABCD is a square (area 50 cm²). E, F, G, H are midpoints of the sides _[SEAMOX-22-B-Q13]_
+
 **mirror**  
 - `mirror-blocks22-g1` (MirrorBlocks22G1Explainer) — MirrorBlocks22G1Explainer — WMI-22F1A-Q24 (Grade 1) Post-answer animation teaching the "decode the mirrors, then count" strategy: 1. Recall the three block sizes (white = 1, gray = 2 long, black = 3 long). 2. A long/tall _[WMI-22F1A-Q24]_
 - `mirror-blocks22-g1` (MirrorBlocks22G1Illustration) — MirrorBlocks22G1Illustration — WMI-22F1A-Q24 (Grade 1) A solid built from white (1×1×1), gray (1×1×2), and black (1×1×3) blocks is shown in isometric view together with the two mirror reflections printed in the source fi _[WMI-22F1A-Q24]_
-- `mirror-solid22-g3` (MirrorSolid22G3Explainer) — MirrorSolid22G3Explainer — WMI-22F3A-Q24 Post-answer animation teaching the "shadows + maximise" strategy: 1. Recall piece types (white=1, gray=2, black=3 unit cubes). 2. Decode mirror shadows — a black cell forces a 1×1 _[WMI-22F3A-Q24]_
+- `mirror-clock22-a7` (MirrorClock22A7Explainer) — SEAMO-22-A-Q7 — animated explainer for the mirror-clock puzzle.  "Mark saw the reflection of an old clock. What was the actual time?" _[SEAMO-22-A-Q7]_
+- `mirror-clock22-a7` (MirrorClock22A7Illustration) — SEAMO-22-A-Q7 — mirror-clock illustration.  "Mark saw the reflection of an old clock. What was the actual time?" _[SEAMO-22-A-Q7]_
+- `mirror-solid22-g3` (MirrorSolid22G3Explainer) — MirrorSolid22G3Explainer — WMI-22F3A-Q24 Post-answer animation teaching the "count cells, force the shadows, maximise" strategy: 1. Count the 13 unit cells (8 bottom + 4 slab + 1 top) and recall the piece types. 2. Decod _[WMI-22F3A-Q24]_
 - `mirror-solid22-g3` (MirrorSolid22G3Illustration) — MirrorSolid22G3Illustration — WMI-22F3A-Q24 A solid built from 1×1×1 cubes is shown in isometric view together with the two mirror reflections from the source figure: - a LEFT (side) mirror showing the y–z silhouette as  _[WMI-22F3A-Q24]_
+
+**missing**  
+- `missing-cube-sasmo20-g4-q15` (MissingCubeSASMO20G4Q15Explainer) — SASMO-20-G4-Q15 — post-answer animated explainer. Teaches the "match each face's triangle" strategy beat-by-beat: Beat 0 — identify the missing corner on the large cube. Beat 1 — read the required triangle direction on e _[SASMO-20-G4-Q15]_
+- `missing-cube-sasmo20-g4-q15` (MissingCubeSASMO20G4Q15Illustration) — SASMO-20-G4-Q15 "Manakah di antara pilihan berikut yang merupakan potongan yang hilang dari kubus?"  _[SASMO-20-G4-Q15]_
+- `missing-grid-x20-b9` (MissingGridX20B9Explainer) — Animated explainer for SEAMOX-20-B-Q9. Pattern: row2[c] = row1[c] + row3[c] for every column. Beats: _[SEAMOX-20-B-Q9]_
+- `missing-grid-x20-b9` (MissingGridX20B9Illustration) — Illustration for SEAMOX-20-B-Q9. The question shows a 3×5 number grid with one missing entry and asks for the missing number: _[SEAMOX-20-B-Q9]_
+- `missing-piece9-pe` (MissingPiece9PEExplainer) — IKMC-20-PE-Q9 — "Which piece completes the picture?" — explainer.  Teaches the pattern-match strategy beat-by-beat: _[IKMC-20-PE-Q9]_
+- `missing-piece9-pe` (MissingPiece9PEIllustration) — IKMC-20-PE-Q9 — "Which piece completes the picture?"  Source figure (docs/reference/ocr-res/ikmc/contest/preecolier/2020.imgs/029.jpg): _[IKMC-20-PE-Q9]_
 
 **money**  
 - `money-grid25-g2` (MoneyGrid25G2Explainer) — Post-answer explainer for WMI-25F2A-Q24 (HARD): a 4×4 money grid whose four shaded squares A,B,C,D are the hidden answer. We mirror the static figure (same geometry, peach coins, pink shaded cells) and bring it alive — f _[WMI-25F2A-Q24]_
@@ -489,34 +1337,95 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `money22-g1` (Money22G1Explainer) — Echoes the qupu tokens used in the static figure. _[WMI-22F1A-Q1]_
 - `money22-g1` (Money22G1Illustration) — WMI-22F1A-Q1 (Grade 1) — "Count the money" (value tiles + unit coins).  Recovered from db/seed/wmi/figures/2022-final-g1-a-q1.jpg. The figure shows a _[WMI-22F1A-Q1]_
 
+**mouse**  
+- `mouse-maze9` (MouseMaze9Explainer) — (no description) _[IKMC-19-PE-Q9]_
+- `mouse-maze9` (MouseMaze9Illustration) — Mouse-and-cheese gate maze for IKMC-2019-PreEcolier Q9 (CODE: IKMC-19-PE-Q9).  _[IKMC-19-PE-Q9]_
+
 **mshape**  
 - `mshape-lines-g3` (MShapeLinesG3Explainer) — WMI-19F3A-Q17 — the ten triangles appear ONE AT A TIME with a running count:   line 1 across all four strokes → triangles 1-3 (left peak, valley V, right   peak); line 2 the same way → 4-6; the lines CROSS, and the X clo _[WMI-19F3A-Q17]_
 - `mshape-lines-g3` (MShapeLinesG3Illustration) — "Add two straight lines to the M, max triangles" for WMI-19F3A-Q17. The paper's figure is an M of four strokes (two peaks, a valley). The best move: draw BOTH lines across all four strokes, tilted so they also cross _[WMI-19F3A-Q17]_
 
 **mult**  
+- `mult-abhk25-p3-q13` (MultABHK25P3Q13Explainer) — (no description) _[HKIMO-25-P3H-Q13]_
+- `mult-abhk25-p3-q13` (MultABHK25P3Q13Illustration) — HKIMO-25-P3H-Q13 — Short multiplication AB × A = 96 ; find A − B. Figure (007.jpg): vertical short-multiplication layout showing A B × A = 9 6. Stem shows the PROBLEM only (never reveals A=3, B=2). _[HKIMO-25-P3H-Q13]_
 - `mult-grid25-g3` (MultGrid25G3Explainer) — WMI-25F3A-Q14 — factor the three known shaded cells to reveal A, B, C, D, then compute ? = C × D and finally its digit sum.  _[WMI-25F3A-Q14]_
 - `mult-grid25-g3` (MultGrid25G3Illustration) — In-card illustration for WMI-25F3A-Q14 (2025 Grade-3 Final, multiplication grid). Reconstructed faithfully from db/seed/wmi/figures/2025-final-g3-a-q14.jpg.  _[WMI-25F3A-Q14]_
 
 **museum**  
+- `museum-bar-chart-sasmo20-g3-q19` (MuseumBarChartSASMO20G3Q19Explainer) — (no description) _[SASMO-20-G3-Q19]_
+- `museum-bar-chart-sasmo20-g3-q19` (MuseumBarChartSASMO20G3Q19Illustration) — SASMO 2020 Grade 3 Q19 — bar chart: museum guests Jan–Jun 2019. Source: docs/reference/ocr-res/sasmo/contest/g3/2019-2020.imgs/046.jpg Bar values: Jan=100, Feb=200, Mar=250, Apr=150, May=50, Jun=250 (answer: 1000) _[SASMO-20-G3-Q19]_
+- `museum-bar-chart-sasmo20-g4-q19` (MuseumBarChartSASMO20G4Q19Explainer) — (no description) _[SASMO-20-G4-Q19]_
+- `museum-bar-chart-sasmo20-g4-q19` (MuseumBarChartSASMO20G4Q19Illustration) — SASMO 2020 Grade 4 Q19 — bar chart: museum visitors Jan–Jun 2019. Source: docs/reference/ocr-res/sasmo/contest/g4/2019-2020.imgs/029.jpg Bar units: Jan=2, Feb=4, Mar=5, Apr=3, May=1, Jun=5 (answer: 2000) _[SASMO-20-G4-Q19]_
 - `museum-flow-g2` (MuseumFlowG2Explainer) — WMI-19F2A-Q3 — 92 people inside; 34 leave; (___) come in; now 87. Kid-visual: a museum building whose door lets a "34" crowd walk out and a "?" crowd walk in; the inside counter updates and the ? is computed as 87 − 58 = _[WMI-19F2A-Q3]_
 
+**mushroom1**  
+- `mushroom1-ec` (Mushroom1ECExplainer) — IKMC-20-EC-Q1 — post-answer explainer: which photo was taken on Tuesday? Strategy: sort the five mushroom photos by size (smallest to largest) to recover the Mon–Fri order, then read off day 2 (Tuesday) → option E. Anima _[IKMC-20-EC-Q1]_
+- `mushroom1-ec` (Mushroom1ECIllustration) — IKMC-20-EC-Q1 — "Which photo was taken on Tuesday?"  A mushroom grows daily Mon–Fri. The A–E choices ARE the five photos _[IKMC-20-EC-Q1]_
+
+**mushrooms8**  
+- `mushrooms8-pe` (Mushrooms8PEExplainer) — IKMC-21-PE-Q8 — post-answer animation for the two-mushroom height difference.  Reuses the Mushrooms8PEScene primitive (ruler + two mushrooms) so the _[IKMC-21-PE-Q8]_
+- `mushrooms8-pe` (Mushrooms8PEIllustration) — eslint-disable react-refresh/only-export-components _[IKMC-21-PE-Q8]_
+
+**necklace3**  
+- `necklace3` (Necklace3Explainer) — IKMC-19-PE-Q3 — animated explainer for the necklace pattern question.  Animation flow: _[IKMC-19-PE-Q3]_
+- `necklace3` (Necklace3Illustration) — IKMC-19-PE-Q3 — "Which figure shows a part of this necklace?"  The stem shows the NECKLACE only — the 12-bead circular necklace from the paper. _[IKMC-19-PE-Q3]_
+
+**neighbor**  
+- `neighbor-sums19-ec` (NeighborSums19ECExplainer) — IKMC-21-EC-Q19 — post-answer explainer.  Reuses NeighborStrip from NeighborSums19ECIllustration so the animation _[IKMC-21-EC-Q19]_
+- `neighbor-sums19-ec` (NeighborSums19ECIllustration) — IKMC-21-EC-Q19 — "The numbers 1 to 9 are placed in the squares shown with a number in each square. The sums of all pairs of neighbouring numbers are shown: above the pairs are 7, 9, 11, 9 and below are 15, 3, 15, 8. Whic _[IKMC-21-EC-Q19]_
+
 **nested**  
+- `nested-shape-pattern-sasmo19-g2-q7` (NestedShapePatternSASMO19G2Q7Explainer) — NestedShapePatternSASMO19G2Q7Explainer.tsx Animated explainer for SASMO-19-G2-Q7.  _[SASMO-19-G2-Q7]_
+- `nested-shape-pattern-sasmo19-g2-q7` (NestedShapePatternSASMO19G2Q7Illustration) — NestedShapePatternSASMO19G2Q7Illustration.tsx SASMO-19-G2-Q7 — "Find the missing shape in the pattern below."  _[SASMO-19-G2-Q7]_
+- `nested-tri-osn24-nt1-q2` (NestedTriOSN24NT1Q2Explainer) — NestedTriOSN24NT1Q2Explainer — OSN-24-SD-NAS-TEORI1-Q2  Post-answer animated explainer. Reuses NestedTriFigure from the illustration. _[OSN-24-SD-NAS-TEORI1-Q2]_
+- `nested-tri-osn24-nt1-q2` (NestedTriOSN24NT1Q2Illustration) — NestedTriOSN24NT1Q2Illustration — OSN-24-SD-NAS-TEORI1-Q2  Two nested right triangles: _[OSN-24-SD-NAS-TEORI1-Q2]_
 - `nested-tri22-g3` (NestedTri22G3Explainer) — WMI-22F3A-Q3 — Nested Triangle explainer. Animates the "read innermost first, work outward, concatenate" method beat by beat, reusing the LabeledTriangle primitive from the illustration. SSR-safe, deterministic. No Math. _[WMI-22F3A-Q3]_
 - `nested-tri22-g3` (NestedTri22G3Illustration) — WMI-22F3A-Q3 — Nested Triangle puzzle illustration. Three panels, each showing a green triangle that maps to a number via a purple arrow. The rule is: read digit labels from the most-nested triangle outward and concatena _[WMI-22F3A-Q3]_
 
+**net**  
+- `net-fold-simoc19-g2-q8` (NetFoldSIMOC19G2Q8Explainer) — SIMOC-19-G2-Q8 — animated explainer for the net-folding question.  5 beats: _[SIMOC-19-G2-Q8]_
+- `net-fold-simoc19-g2-q8` (NetFoldSIMOC19G2Q8Illustration) — SIMOC-19-G2-Q8 — "Which solid is formed by the net below?"  Stem: 6-face cross net for a 4:1:1 rectangular prism. _[SIMOC-19-G2-Q8]_
+
+**notch**  
+- `notch-rect-x23-a3` (NotchRectX23A3Explainer) — SEAMOX-23-A-Q3 — post-answer animated explainer. Reuses shape geometry from NotchRectX23A3Illustration.  _[SEAMOX-23-A-Q3]_
+- `notch-rect-x23-a3` (NotchRectX23A3Illustration) — SEAMOX-23-A-Q3 — "Find the perimeter of the figure shown below" Figure: 10×8 cm rectangle with a 4 cm wide × 3 cm deep notch cut from the top. Labels shown: bottom=10 cm, right=8 cm, notch inner-right=3 cm, notch bottom= _[SEAMOX-23-A-Q3]_
+
+**notch22**  
+- `notch22-b5` (Notch22B5Illustration) — Notch22B5Illustration — SEAMO 2022 Paper B Q5  "Find the perimeter of the figure below." _[SEAMO-22-B-Q5]_
+
+**notched**  
+- `notched-rect-osn25-pq4` (NotchedRectOSN25PQ4Explainer) — OSN-25-SD-PROV-Q4 — animated explainer: rectangular notch preserves perimeter.  Animation beats: _[OSN-25-SD-PROV-Q4]_
+- `notched-rect-osn25-pq4` (NotchedRectOSN25PQ4Illustration) — OSN-25-SD-PROV-Q4 — Keliling bangun di bawah ini (notched rectangle)  PROBLEM ONLY: the L-shaped figure from the paper. _[OSN-25-SD-PROV-Q4]_
+
 **num**  
+- `num-cards24-pe` (NumCards24PEExplainer) — IKMC-22-PE-Q24 — Explainer: minimum swaps to sort [3,4,1,5,2] into [1,2,3,4,5]. Answer: C (3 swaps).  _[IKMC-22-PE-Q24]_
+- `num-cards24-pe` (NumCards24PEIllustration) — IKMC-22-PE-Q24 — "There are five numbered cards on the table as shown."  STEM ILLUSTRATION ONLY: shows the initial card arrangement [3, 4, 1, 5, 2] _[IKMC-22-PE-Q24]_
 - `num-grid24-g3` (NumGrid24G3Explainer) — WMI-24F3A-Q25 post-answer explainer. Mirrors the static number sum-grid and brings it alive: it deduces ●, ◆, ★ one column at a time from the printed circle sums, then computes ● + ◆ − ★ = 7 + 8 − 5 = 10. Every number is _[WMI-24F3A-Q25]_
 - `num-grid24-g3` (NumGrid24G3Illustration) — Number sum-grid figure for WMI-24F3A-Q25 (2024 Grade 3 Final, HARD).  "Fill the numbers 1-9 into the squares so each ROW uses 1-9 exactly once. Each _[WMI-24F3A-Q25]_
+- `num-puzzle18-b11` (NumPuzzle18B11Explainer) — SEAMO-18-B-Q11 — animated explainer. Drives five beats (intro → rule-1 → rule-2 → apply → result) using the NumPuzzle18B11 primitive from the illustration. _[SEAMO-18-B-Q11]_
+- `num-puzzle18-b11` (NumPuzzle18B11Illustration) — SEAMO-18-B-Q11 — "Find the missing number in the number puzzle below."  Three circle groups sit side by side. Each group has ONE large centre circle _[SEAMO-18-B-Q11]_
+- `num-tree19-a11` (NumTree19A11Explainer) — SEAMO-19-A-Q11 — animated explainer. Drives 5 beats: intro → rule-1 → rule-2 → apply → result Imports the NumTree19A11 primitive from the illustration. _[SEAMO-19-A-Q11]_
+- `num-tree19-a11` (NumTree19A11Illustration) — SEAMO-19-A-Q11 — "Find the missing number in the number puzzle below."  Three tree-shaped groups. Each group has two orange "input" circles at the top _[SEAMO-19-A-Q11]_
+- `num-tri-hk20-p3-q4` (NumTriHK20P3Q4Explainer) — (no description) _[HKIMO-20-P3H-Q4]_
+- `num-tri-hk20-p3-q4` (NumTriHK20P3Q4Illustration) — HKIMO-20-P3H-Q4 — "According to the pattern shown below, what is the number in the blank?"  Three labeled triangles. Each has a number at the top vertex and two numbers at the bottom _[HKIMO-20-P3H-Q4]_
 
 **number**  
+- `number-arrows23-ec` (NumberArrows23ECExplainer) — IKMC-21-EC-Q23 — post-answer beat-by-beat explainer.  Reuses NumberArrowsFigure from NumberArrows23ECIllustration. _[IKMC-21-EC-Q23]_
+- `number-arrows23-ec` (NumberArrows23ECIllustration) — IKMC-21-EC-Q23 — "Number squares connected by order arrows"  Elena wants to write the numbers 1–9 in a 3×3 grid. Arrows always point _[IKMC-21-EC-Q23]_
 - `number-board19-p1` (NumberBoard19P1Explainer) — (no description) _[WMI-19P1A-Q9]_
 - `number-board19-p1` (NumberBoard19P1Illustration) — Number-board figure for WMI-19P1A-Q9 (2019 Semifinal Grade 1 Paper A).  "Each cell of the 2-by-4 number board (top 4 3 1 8 / bottom 9 6 2 7) gives the _[WMI-19P1A-Q9]_
+- `number-circles21-a12` (NumberCircles21A12Explainer) — SEAMO-21-A-Q12 Explainer  Animates the solution beat by beat: _[SEAMO-21-A-Q12]_
+- `number-circles21-a12` (NumberCircles21A12Illustration) — SEAMO-21-A-Q12 — "Susan adds up 8 of the following numbers. Given that the result is 400, which number did she leave out?"  _[SEAMO-21-A-Q12]_
+- `number-diagram-simoc19-g2-q16` (NumberDiagramSIMOC19G2Q16Explainer) — (no description) _[SIMOC-19-G2-Q16]_
+- `number-diagram-simoc19-g2-q16` (NumberDiagramSIMOC19G2Q16Illustration) — SIMOC 2019 Grade 2 Q16 — Number diagram illustration. Layout: centre square (8) ↔ four arm circles (3,2,6,5) ↔ four corner diamonds (43,50,22,?/29). Rule (derived from seed quantities): diamond = centre × (centre − edge) _[SIMOC-19-G2-Q16]_
 - `number-flow` (NumberFlowExplainer) — (no description) _[WMI-19F1A-Q22]_
 - `number-flow` (NumberFlowIllustration) — "Number-flow boxes" figure for WMI-19F1-Q22 (answer 20). Reproduces the real paper figure:   14 splits (two down arrows) into a blank box and a box "9". _[WMI-19F1A-Q22]_
 - `number-grid22-g3` (NumberGrid22G3Explainer) — WMI-22F3A-Q25 — animated explainer (post-answer).  Strategy: deduce one cell (or pair) per beat using a concrete circle or pattern _[WMI-22F3A-Q25]_
 - `number-grid22-g3` (NumberGrid22G3Illustration) — WMI-22F3A-Q25 — Number grid logic puzzle.  Fill 1..9 (each once) into a 3x3 grid of squares. The four circles sit on the _[WMI-22F3A-Q25]_
 - `number-grid23-g3` (NumberGrid23G3Explainer) — WMI-23F3A-Q23 (2023 Grade 3 Final) — animated explainer (post-answer).  Strategy: there are exactly six "transversals" — ways to pick one number per _[WMI-23F3A-Q23]_
 - `number-grid23-g3` (NumberGrid23G3Illustration) — WMI-23F3A-Q23 (2023 Grade 3 Final) — pick a transversal of a 3×3 number grid.  "From the grid below, pick three numbers so that no two of them are in the same _[WMI-23F3A-Q23]_
+- `number-line5-ec` (NumberLine5ECExplainer) — IKMC-22-EC-Q5 — post-answer beat-by-beat explainer.  Reuses NumberLineBase, JumpArc, KangarooFigure, and layout constants from _[IKMC-22-EC-Q5]_
+- `number-line5-ec` (NumberLine5ECIllustration) — IKMC-22-EC-Q5 — static stem illustration for the Kengu number-line question.  Problem: Kengu always makes ONE large jump (+2) followed by TWO small jumps (+1 each) _[IKMC-22-EC-Q5]_
 - `number-pattern` (NumberPatternExplainer) — (no description) _[WMI-19F1A-Q10]_
 - `number-pattern` (NumberPatternIllustration) — "Find ★ in the number arrangement" figure for WMI-19F1-Q10. Reconstructed exactly from the real figure: a 6-column x 5-row grid where only some cells are filled (shaded). Each filled cell's value follows the rule _[WMI-19F1A-Q10]_
 - `number-pattern25-g1` (NumberPattern25G1Explainer) — (no description) _[WMI-25F1A-Q12]_
@@ -527,13 +1436,27 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `number-snake22-g1` (NumberSnake22G1Illustration) — WMI-22F1A-Q15 — "number snake" through a 3×3 egg grid.  Nine eggs sit in a 3×3 grid (row-major positions 0..8, row 0 = top). _[WMI-22F1A-Q15]_
 - `number-strip23-g1` (NumberStrip23G1Explainer) — Post-answer explainer for WMI-23F1A-Q3 (2023 G1 final). It lights the strip's A (2nd-smallest), B (9th from left), C (middle) cells one at a time — keeping earlier marks — then compares the three and subtracts smallest f _[WMI-23F1A-Q3]_
 - `number-strip23-g1` (NumberStrip23G1Illustration) — Static card illustration for WMI-23F1A-Q3 (2023 G1 final).  "In the row of numbers below, A is the second-smallest number, B is the 9th _[WMI-23F1A-Q3]_
+- `number-table24` (NumberTable24Explainer) — IKMC-19-PE-Q24 — post-answer animated explainer.  Strategy: slide a 2×2 window over the 4×5 number table (12 positions), _[IKMC-19-PE-Q24]_
+- `number-table24` (NumberTable24Illustration) — IKMC-19-PE-Q24 — "Peter chose a square of four cells in the table…"  STATIC PROBLEM FIGURE: a 4-row × 5-column table filled with the numbers 1–20 _[IKMC-19-PE-Q24]_
 - `number-venn22-g1` (NumberVenn22G1Explainer) — Mirror the illustrator's qupu tokens so the animation reads as the same scene. _[WMI-22F1A-Q4]_
 - `number-venn22-g1` (NumberVenn22G1Illustration) — WMI-22F1A-Q4 (Grade 1) — three overlapping shapes holding the digits 1–9.  Recovered from db/seed/wmi/figures/2022-final-g1-a-q4.jpg: a CIRCLE, a tilted _[WMI-22F1A-Q4]_
 - `number-venn24-g1` (NumberVenn24G1Explainer) — Mirror the illustrator's qupu tokens so the animation reads as the same scene. _[WMI-24F1A-Q10]_
 - `number-venn24-g1` (NumberVenn24G1Illustration) — WMI-24F1A-Q10 (Grade 1) — three overlapping shapes holding nineteen numbers.  Recovered from db/seed/wmi/figures/2024-final-g1-a-q10.jpg: an axis-aligned _[WMI-24F1A-Q10]_
 
+**octagon**  
+- `octagon-angle-osn24-nt1-q11` (OctagonAngleOSN24NT1Q11Explainer) — OSN-24-SD-NAS-TEORI1-Q11 — animated explainer. Reuses geometry constants from the illustration (VERTS, VERTEX_A/B/C, makeAngleArc). _[OSN-24-SD-NAS-TEORI1-Q11]_
+- `octagon-angle-osn24-nt1-q11` (OctagonAngleOSN24NT1Q11Illustration) — OSN-24-SD-NAS-TEORI1-Q11 Regular octagon ABCDEFGH (not labeled as such here); three specific vertices are named A (upper-left, 135°), B (bottom, 270°), C (right, 0°). _[OSN-24-SD-NAS-TEORI1-Q11]_
+
 **odd**  
 - `odd-units-g2` (OddUnitsG2Explainer) — (no description) _[WMI-19F2A-Q11]_
+
+**op**  
+- `op-table23-ec` (OpTable23ECExplainer) — IKMC-22-EC-Q23 — post-answer beat-driven explainer. Reuses OpTable23ECFigure so the animation reads as the static table coming alive, one discovery per beat. _[IKMC-22-EC-Q23]_
+- `op-table23-ec` (OpTable23ECIllustration) — Stem illustration for IKMC-22-EC-Q23 (2022 Ecolier).  A 2×2 multiplication table with a hidden column header (?) and a hidden _[IKMC-22-EC-Q23]_
+
+**open**  
+- `open-book4-ec` (OpenBook4ECExplainer) — IKMC-19-EC-Q4 — "Olaf has an open book..." Answer: D = motorcycle + van + tractor.  Post-answer explainer. Animates beat-by-beat using OpenBook4ECPrimitive, _[IKMC-19-EC-Q4]_
+- `open-book4-ec` (OpenBook4ECIllustration) — IKMC-19-EC-Q4 — "Olaf has an open book. He can see five vehicles on the right page. The cover has two holes. When he closes the book, which vehicles can he see?" Answer: D = motorcycle + orange van + magenta tractor. _[IKMC-19-EC-Q4]_
 
 **options20**  
 - `options20-g3` (options20G3) — Choice renderers for WMI-20F3A. Each binds to the option LABEL (A–D), matching the printed paper. _[WMI-20F3A-Q14, WMI-20F3A-Q2, WMI-20F3A-Q8]_
@@ -543,6 +1466,32 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `options21-g2` (options21G2) — (no description) _[WMI-21F2A-Q2]_
 - `options21-g3` (options21G3) — (no description) _[WMI-21F3A-Q12]_
 
+**opts11**  
+- `opts11-ec` (Opts11ECExplainer) — IKMC-23-EC-Q11 — post-answer beat-by-beat animation.  Shows the ruler being analysed on each beat with highlighted tick marks. _[IKMC-23-EC-Q11]_
+- `opts11-ec` (Opts11ECIllustration) — IKMC-23-EC-Q11 — "Ali's ruler"  Q11 is options-only: the A–E choices ARE rulers with tick marks. _[IKMC-23-EC-Q11]_
+- `opts11-pe` (Opts11PEExplainer) — IKMC-20-PE-Q11 — post-answer explainer: which cube shape uses the most cubes? Strategy: count all cubes (including hidden ones) in each shape and compare. A (yellow staircase): 4 cubes B (orange plus): 5 cubes C (pink S- _[IKMC-20-PE-Q11]_
+- `opts11-pe` (Opts11PEIllustration) — IKMC-20-PE-Q11 — "Five shapes are made by glueing cubes together face to face.                   Which shape uses the most cubes?"  Answer: E (green, 6 cubes).  _[IKMC-20-PE-Q11]_
+
+**opts13**  
+- `opts13-pe` (Opts13PEExplainer) — IKMC-20-PE-Q13 — post-answer explainer. "In which of the following pictures is more of the shape shaded than any of the others?"  Answer: B. _[IKMC-20-PE-Q13]_
+- `opts13-pe` (Opts13PEIllustration) — IKMC-20-PE-Q13 — "In which of the following pictures is more of the shape shaded than any of the others?" Answer: B.  _[IKMC-20-PE-Q13]_
+
+**opts20**  
+- `opts20-ec` (Opts20ECExplainer) — IKMC-23-EC-Q20 — Five wall clocks: which shows the correct time?  Answer: D (3:30). Clock B (2:30) is 1h slow, clock E (4:30) is 1h fast; _[IKMC-23-EC-Q20]_
+- `opts20-ec` (Opts20ECIllustration) — IKMC-23-EC-Q20 — five wall clocks: option pictures ARE the A–E choices.  "There are five clocks on the wall. One clock is an hour fast, one is an hour _[IKMC-23-EC-Q20]_
+
+**opts23**  
+- `opts23-ec` (Opts23ECExplainer) — IKMC-23-EC-Q23 — post-answer beat-by-beat animation.  Shows each L-shaped option being checked against the grid rule. _[IKMC-23-EC-Q23]_
+- `opts23-ec` (Opts23ECIllustration) — IKMC-23-EC-Q23 — "Which L-shaped piece was actually cut from Holger's grid?" (answer C) Q23 is options-only: the A–E choices ARE the L-shaped grid pieces. This file provides only the option renderer (Opts23ECOption) used _[IKMC-23-EC-Q23]_
+
+**opts3**  
+- `opts3-ec` (Opts3ECExplainer) — IKMC-20-EC-Q3 — post-answer beat-by-beat animation.  Strategy: show a live 2×3 grid where cells light up (shade) or stay white _[IKMC-20-EC-Q3]_
+- `opts3-ec` (Opts3ECIllustration) — IKMC-20-EC-Q3 — "Tysger shades all squares where the result is 20."  The stem is a text+table (body_en/id in the seed), so there is NO separate _[IKMC-20-EC-Q3]_
+
+**orange**  
+- `orange-baskets16-a12` (OrangeBaskets16A12Explainer) — SEAMO-16-A-Q12 — post-answer explainer: "How many ways to put 20 oranges into 3 baskets, each with an even count?" Animation beats: 0. intro — show 3 baskets; state the counting task. 1. reframe — display equation chip:  _[SEAMO-16-A-Q12]_
+- `orange-baskets16-a12` (OrangeBaskets16A12Illustration) — SEAMO-16-A-Q12 — Stem illustration "How many ways are there to put 20 oranges into 3 baskets so that each basket has an even number of oranges?" Shown: three identical open weave-picnic baskets labelled 1, 2, 3. Each has _[SEAMO-16-A-Q12]_
+
 **ordering25**  
 - `ordering25-g2` (Ordering25G2Explainer) — --------------------------------------------------------------------------- Colour tokens mirroring the static illustration --------------------------------------------------------------------------- _[WMI-25F2A-Q15]_
 - `ordering25-g2` (Ordering25G2Illustration) — Ordering25G2Illustration — WMI-25F2A-Q15 Five blank ordering slots (largest → smallest) with a smiley drawn at the 2nd position.  Problem-only: no expression values, no answer revealed. _[WMI-25F2A-Q15]_
@@ -550,14 +1499,16 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **overlap**  
 - `overlap-rects23-g3` (OverlapRects23G3Explainer) — WMI-23F3A-Q4 (2023 Grade 3 Final) — two identical rectangles overlap in a square; find the perimeter of the whole figure. Answer: E = 312.  _[WMI-23F3A-Q4]_
 - `overlap-rects23-g3` (OverlapRects23G3Illustration) — WMI-23F3A-Q4 (2023 Grade 3 Final) — two identical rectangles overlapping in a square.  "Two identical rectangles overlap with each other, and the overlapping part is _[WMI-23F3A-Q4]_
+- `overlap-squares-hk20-p1-q17` (OverlapSquaresHK20P1Q17Explainer) — HKIMO-20-P1H-Q17 — animated explainer for "How many squares in the figure?"  Reuses the illustration constants so the animated view occupies the same _[HKIMO-20-P1H-Q17]_
+- `overlap-squares-hk20-p1-q17` (OverlapSquaresHK20P1Q17Illustration) — HKIMO-20-P1H-Q17 — "How many square(s) is/are there in the figure below?"  The figure: 4 equal squares arranged in a staircase (diagonal), each shifted _[HKIMO-20-P1H-Q17]_
 
 **p19**  
 - `p19-g2-q11` (P19G2Q11Explainer) — WMI-19P2A-Q11 — post-answer explainer. Traces the spin from the arrow wheel to wheel A one link at a time (open belt = same, crossed belt = opposite, rigid axle = same), revealing each wheel's rotation arrow as it goes,  _[WMI-19P2A-Q11]_
 - `p19-g2-q11` (P19G2Q11Illustration) — WMI-19P2A-Q11 (2019 Semifinal Grade 2 Paper A) — "A system of linked wheels and belts. If the wheel marked with the arrow turns in the direction shown, how does wheel A roll?"  Answer: B. _[WMI-19P2A-Q11]_
 - `p19-g2-q12` (P19G2Q12Explainer) — WMI-19P2A-Q12 — post-answer explainer. First shows the isometric solid with the view arrow, then "flattens" it: builds the side silhouette one across-column at a time (each column = its TALLEST stack, depth collapsed), l _[WMI-19P2A-Q12]_
 - `p19-g2-q12` (P19G2Q12Illustration) — WMI-19P2A-Q12 (2019 Semifinal Grade 2 Paper A) — "Which figure will you see if you look at the stack of cubes from the direction of the arrow?"  Answer: A.  _[WMI-19P2A-Q12]_
-- `p19-g2-q21` (P19G2Q21Explainer) — WMI-19P2A-Q21 — post-answer explainer for the decomposition machine. We reuse the MachineRow primitive: the 6-box fills one partition per beat with a running counter, grouped by part-count, landing on 10 → choice C. _[WMI-19P2A-Q21]_
-- `p19-g2-q21` (P19G2Q21Illustration) — WMI-19P2A-Q21 (2019 Grade 2 Semifinal, Paper A) — the "decomposition machine". Redrawn from db/seed/wmi/figures/2019-semifinal-g2-a-q21.jpg (NOT embedded). The scan shows a worked example and an empty machine: ( 4 = ) ── _[WMI-19P2A-Q21]_
+- `p19-g2-q21` (P19G2Q21Explainer) — WMI-19P2A-Q22 — post-answer explainer for the decomposition machine. We reuse the MachineRow primitive: the 6-box fills one partition per beat with a running counter, grouped by part-count, landing on 10 → choice C. _[WMI-19P2A-Q22]_
+- `p19-g2-q21` (P19G2Q21Illustration) — WMI-19P2A-Q22 (2019 Grade 2 Semifinal, Paper A) — the "decomposition machine". (File is named ...Q21... because the source scan asset is 2019-semifinal-g2-a-q21.jpg, but that scan shows the partition-machine question, wh _[WMI-19P2A-Q22]_
 - `p19-g2-q23` (P19G2Q23Explainer) — WMI-19P2A-Q23 — post-answer enumeration: every triangle in the rocket figure lights up one at a time with a running counter (1, 2, … 19), rectangle first then the flared base, landing on the total (answer B = 19). _[WMI-19P2A-Q23]_
 - `p19-g2-q23` (P19G2Q23Illustration) — WMI-19P2A-Q23 (2019 Grade 2 Semifinal, Paper A) — "count the triangles". Redrawn from db/seed/wmi/figures/2019-semifinal-g2-a-q23.jpg (NOT embedded): a tall "rocket / lighthouse" composite — - TOP: a vertical rectangle c _[WMI-19P2A-Q23]_
 - `p19-g2-q25` (P19G2Q25Explainer) — WMI-19P2A-Q25 — post-answer explainer for "on which piece is the dot?". Reuses the BoardFigure primitive: state the rotate-not-flip rule, locate the dot's cell, then mark it and name the correct option (C). _[WMI-19P2A-Q25]_
@@ -615,7 +1566,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p20-g2-q9` (P20G2Q9Explainer) — WMI-20P2A-Q9 — post-answer animation for the "read the clock" question. We reuse the built P20G2Q9Clock primitive (emphasize + minute ring) so the scene reads as the static figure coming alive, walking the method one ide _[WMI-20P2A-Q9]_
 - `p20-g2-q9` (P20G2Q9Illustration) — WMI-20P2A-Q9 (2020 Grade 2 Semifinal) — "Look at the figure. What time is it now?"  Answer: 8:20 (choice C).  _[WMI-20P2A-Q9]_
 - `p20-g3-q11` (P20G3Q11Explainer) — (no description) _[WMI-20P3A-Q11]_
-- `p20-g3-q11` (P20G3Q11Illustration) — "Largest shaded area" figure for WMI-20P3A-Q11 (2020 Semifinal G3, Q11). Reconstructed from db/seed/wmi/figures/2020-semifinal-g3-a-q11.jpg: a grid of unit squares holds four shaded compound shapes labelled A, B, C, D. F _[WMI-20P3A-Q11]_
+- `p20-g3-q11` (P20G3Q11Illustration) — "Largest shaded area" figure for WMI-20P3A-Q11 (2020 Semifinal G3, Q11). Reconstructed from db/seed/wmi/figures/2020-semifinal-g3-a-q11.jpg (pixel-measured against the 14×8 grid of the scan): four shaded compound shapes  _[WMI-20P3A-Q11]_
 - `p20-g3-q14` (P20G3Q14Explainer) — (no description) _[WMI-20P3A-Q14]_
 - `p20-g3-q14` (P20G3Q14Illustration) — Pictograph figure for WMI-20P3A-Q14 (2020 Grade 3 Semifinal).  Reconstructed from db/seed/wmi/figures/2020-semifinal-g3-a-q14.jpg: _[WMI-20P3A-Q14]_
 - `p20-g3-q17` (P20G3Q17Explainer) — (no description) _[WMI-20P3A-Q17]_
@@ -665,7 +1616,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p21-g2-q17` (P21G2Q17Explainer) — (no description) _[WMI-21P2A-Q17]_
 - `p21-g2-q17` (P21G2Q17Illustration) — WMI-21P2A-Q17 (2021 Grade 2 Semifinal) — "Which is the heaviest?"  Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q17.jpg (the scan _[WMI-21P2A-Q17]_
 - `p21-g2-q19` (P21G2Q19Explainer) — (no description) _[WMI-21P2A-Q19]_
-- `p21-g2-q19` (P21G2Q19Illustration) — WMI-21P2A-Q19 — "Which three fruits belong in the hidden circles?" Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q19.jpg: a long line of circles each holding a fruit, forming a repeating banana / green-apple _[WMI-21P2A-Q19]_
+- `p21-g2-q19` (P21G2Q19Illustration) — WMI-21P2A-Q19 — "Which three fruits belong in the hidden circles?" Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q19.jpg: a long line of circles each holding a fruit. Single green apples separate GROWING gro _[WMI-21P2A-Q19]_
 - `p21-g2-q20` (P21G2Q20Explainer) — (no description) _[WMI-21P2A-Q20]_
 - `p21-g2-q20` (P21G2Q20Illustration) — WMI-21P2A-Q20 — "Which option shows a DIFFERENT umbrella?" Reconstructed from db/seed/wmi/figures/2021-semifinal-g2-a-q20.jpg: the top view of an umbrella drawn as a regular pentagon split into 5 triangular wedges from t _[WMI-21P2A-Q20]_
 - `p21-g2-q21` (P21G2Q21Explainer) — (no description) _[WMI-21P2A-Q21]_
@@ -737,7 +1688,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p22-g2-q22` (P22G2Q22Explainer) — Beat-by-beat explainer for WMI-22P2A-Q22 (arrow-grid path → orange, answer A).  Reuses the ArrowBoard primitive from P22G2Q22Illustration so the animation _[WMI-22P2A-Q22]_
 - `p22-g2-q22` (P22G2Q22Illustration) — Arrow-grid path figure for WMI-22P2A-Q22 (2022 Grade 2 Semifinal, Paper A).  Reconstructed faithfully from db/seed/wmi/figures/2022-semifinal-g2-a-q22.jpg: _[WMI-22P2A-Q22]_
 - `p22-g2-q23` (P22G2Q23Explainer) — Beat-by-beat explainer for WMI-22P2A-Q23 (colour ring → strip, answer A).  Reuses the ColorRing primitive from P22G2Q23Illustration so the animation _[WMI-22P2A-Q23]_
-- `p22-g2-q23` (P22G2Q23Illustration) — Colored-ring (octagon) figure for WMI-22P2A-Q23 (2022 Grade 2 Semifinal, A).  Reconstructed from db/seed/wmi/figures/2022-semifinal-g2-a-q23.jpg: _[WMI-22P2A-Q23]_
+- `p22-g2-q23` (P22G2Q23Illustration) — Colored-ring (nonagon) figure for WMI-22P2A-Q23 (2022 Grade 2 Semifinal, A).  Reconstructed from db/seed/wmi/figures/2022-semifinal-g2-a-q23.jpg: _[WMI-22P2A-Q23]_
 - `p22-g2-q25` (P22G2Q25Explainer) — Beat-by-beat explainer for WMI-22P2A-Q25 (pack the most 16-sum trios → 13, D).  Reuses the ShapeLegend primitive from P22G2Q25Illustration so the animation _[WMI-22P2A-Q25]_
 - `p22-g2-q25` (P22G2Q25Illustration) — "Allowed shapes" figure for WMI-22P2A-Q25 (2022 Grade 2 Semifinal, Paper A).  The scan (db/seed/wmi/figures/2022-semifinal-g2-a-q25.jpg) shows ONLY the _[WMI-22P2A-Q25]_
 - `p22-g2-q7` (P22G2Q7Explainer) — (no description) _[WMI-22P2A-Q7]_
@@ -752,7 +1703,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p22-g3-q21` (P22G3Q21Illustration) — In-card figure for WMI-22P3A-Q21 (2022 WMI Semifinal Grade 3, Paper A, Q21).  Reconstructed from db/seed/wmi/figures/2022-semifinal-g3-a-q21.jpg: _[WMI-22P3A-Q21]_
 - `p22-g3-q22` (P22G3Q22Explainer) — WMI-22P3A-Q22 — post-answer explainer. Re-uses Q22Figure: teach the growing pentagon-run rule, reveal the 4 hidden shapes (P P S P), and land on option B. _[WMI-22P3A-Q22]_
 - `p22-g3-q22` (P22G3Q22Illustration) — In-card figure for WMI-22P3A-Q22 (2022 WMI Semifinal Grade 3, Paper A, Q22).  Reconstructed from db/seed/wmi/figures/2022-semifinal-g3-a-q22.jpg: _[WMI-22P3A-Q22]_
-- `p22-g3-q24` (P22G3Q24Explainer) — WMI-22P3A-Q24 — post-answer explainer. Re-uses BlocksFigure: outline the big bounding rectangle (21 × 13 = 273), subtract the three 75-blocks (225), and land on the blue ★ band = 273 − 225 = 48 (answer C). _[WMI-22P3A-Q24]_
+- `p22-g3-q24` (P22G3Q24Explainer) — WMI-22P3A-Q24 — post-answer explainer. Re-uses BlocksFigure: ring the RIGHT column (7 × 13 = 91), take off its 75-block to expose the band strip (16), then stretch across the 21-wide band = 3 strips → ★ = 3 × 16 = 48 (an _[WMI-22P3A-Q24]_
 - `p22-g3-q24` (P22G3Q24Illustration) — In-card figure for WMI-22P3A-Q24 (2022 WMI Semifinal Grade 3, Paper A, Q24).  Reconstructed from db/seed/wmi/figures/2022-semifinal-g3-a-q24.jpg: _[WMI-22P3A-Q24]_
 - `p22-g3-q3` (P22G3Q3Explainer) — WMI-22P3A-Q3 (2022 Grade 3 Semifinal) — pick the balanced scale. Answer A: 1 juice (5 apples) balances 1 bottle + 2 apples (3 + 2 = 5).  _[WMI-22P3A-Q3]_
 - `p22-g3-q3` (P22G3Q3Illustration) — WMI-22P3A-Q3 (2022 Grade 3 Semifinal) — "which option shows a balanced scale?"  Recovered from db/seed/wmi/figures/2022-semifinal-g3-a-q3.jpg + the stem: two _[WMI-22P3A-Q3]_
@@ -783,14 +1734,14 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p23-g1-q25` (P23G1Q25Explainer) — (no description) _[WMI-23P1A-Q25]_
 - `p23-g1-q25` (P23G1Q25Illustration) — Jigsaw-assembly picture for WMI-23P1A-Q25 (2023 Grade 1 Semifinal, Paper A).  Source figure (db/seed/wmi/figures/2023-semifinal-g1-a-q25.jpg) survives only _[WMI-23P1A-Q25]_
 - `p23-g2-q12` (P23G2Q12Explainer) — (no description) _[WMI-23P2A-Q12]_
-- `p23-g2-q12` (P23G2Q12Illustration) — WMI-23P2A-Q12 (2023 Grade 2 Semifinal, Paper A) — "Cover the shaded region with 1x2 dominoes".  Recovered from db/seed/wmi/figures/2023-semifinal-g2-a-q12.jpg: _[WMI-23P2A-Q12]_
+- `p23-g2-q12` (P23G2Q12Illustration) — WMI-23P2A-Q12 (2023 Grade 2 Semifinal, Paper A) — "Cover the shaded region with L-shaped pieces of 3 squares".  _[WMI-23P2A-Q12]_
 - `p23-g2-q17` (P23G2Q17Explainer) — (no description) _[WMI-23P2A-Q17]_
 - `p23-g2-q17` (P23G2Q17Illustration) — WMI-23P2A-Q17 (2023 Grade 2 Semifinal, Paper A) — "Square ∩ Circle number sort".  Recovered from db/seed/wmi/figures/2023-semifinal-g2-a-q17.jpg: _[WMI-23P2A-Q17]_
 - `p23-g2-q18` (P23G2Q18Explainer) — WMI-23P2A-Q18 — least number of ● to add so every row & column has ≥3 ● (answer B = 4). The animation mirrors the static figure (same grid via the DotGrid23 primitive): it highlights the short rows (needing 4 more) and s _[WMI-23P2A-Q18]_
 - `p23-g2-q18` (P23G2Q18Illustration) — WMI-23P2A-Q18 (2023 Semifinal Grade 2 Paper A) — "At least how many ●'s should be put into the grid so that every row AND every column has three or more ●'s?"  Answer: B (4). _[WMI-23P2A-Q18]_
 - `p23-g2-q2` (P23G2Q2Explainer) — (no description) _[WMI-23P2A-Q2]_
 - `p23-g2-q2` (P23G2Q2Illustration) — WMI-23P2A-Q2 (2023 Semifinal Grade 2, Paper A) — apple divisibility.  Figure (db/seed/wmi/figures/2023-semifinal-g2-a-q2.jpg): a loose scatter of _[WMI-23P2A-Q2]_
-- `p23-g2-q24` (P23G2Q24Explainer) — WMI-23P2A-Q24 — fruit product table. The genuine technique is to COMPARE two rows so the fruits they share cancel, exposing a single fruit-to-fruit ratio (row2÷row1 → 🍒 vs 🍌; row2÷row3 → 🍎 = 2×🍌). Scale by 🍌 = 8 and _[WMI-23P2A-Q24]_
+- `p23-g2-q24` (P23G2Q24Explainer) — WMI-23P2A-Q24 — fruit product table. The legend under the grid shows COLUMN products: banana column = 🍌³ = 8 → 🍌 = 2; comparing rows 2÷3 cancels 🍌 and 🍒 so 🍎 = 2×🍌 = 4; row 2 then gives 🍒 = 7. Pink = apple column  _[WMI-23P2A-Q24]_
 - `p23-g2-q24` (P23G2Q24Illustration) — WMI-23P2A-Q24 (2023 Semifinal Grade 2 Paper A) — a fruit "product table".  Source figure (db/seed/wmi/figures/2023-semifinal-g2-a-q24.jpg): a 3×3 grid of _[WMI-23P2A-Q24]_
 - `p23-g2-q25` (P23G2Q25Explainer) — WMI-23P2A-Q25 — fit the 4 pieces (no rotation) into the 4×4 grid; what does the shaded centre 2×2 look like? (answer A). The pieces translate only and have a UNIQUE packing. The animation reuses the PuzzleGrid23 primitiv _[WMI-23P2A-Q25]_
 - `p23-g2-q25` (P23G2Q25Illustration) — WMI-23P2A-Q25 (2023 Semifinal Grade 2 Paper A) — jigsaw / polyomino assembly.  "Put the 4 puzzle pieces on the left into the 4×4 grid on the right to complete _[WMI-23P2A-Q25]_
@@ -860,7 +1811,7 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p24-g2-q17` (P24G2Q17Illustration) — "Cut the cake fairly" figure for WMI-24P2A-Q17 (2024 Grade 2 Semifinal, Paper A).  Redrawn from db/seed/wmi/figures/2024-semifinal-g2-a-q17.jpg: a square "cake" _[WMI-24P2A-Q17]_
 - `p24-g2-q18` (P24G2Q18Explainer) — (no description) _[WMI-24P2A-Q18]_
 - `p24-g2-q18` (P24G2Q18Illustration) — Fruit-grid figure for WMI-24P2A-Q18 (2024 Grade 2 Semifinal, Paper A).  Redrawn from db/seed/wmi/figures/2024-semifinal-g2-a-q18.jpg: a 3-row × 5-col _[WMI-24P2A-Q18]_
-- `p24-g2-q19` (P24G2Q19Explainer) — WMI-24P2A-Q19 — post-answer explainer for the matching-flower question. Reuses the Q19Flower primitive so the animation reads as the static figure coming alive: it reads the alternating dark/white discs, shows that a rot _[WMI-24P2A-Q19]_
+- `p24-g2-q19` (P24G2Q19Explainer) — WMI-24P2A-Q19 — post-answer explainer for the matching-flower question. Reuses the Q19Flower primitive so the animation reads as the static figure coming alive: it reads the dark/white disc order (D-W-D-D-W-W clockwise f _[WMI-24P2A-Q19]_
 - `p24-g2-q19` (P24G2Q19Illustration) — Flower "find the matching figure" stem for WMI-24P2A-Q19 (2024 Grade-2 Semifinal, Paper A).  _[WMI-24P2A-Q19]_
 - `p24-g2-q20` (P24G2Q20Explainer) — WMI-24P2A-Q20 — post-answer explainer for the sum-pyramid. Reuses the Q20Pyramid primitive so the animation reads as the static figure coming alive: it tries a = 9, then a = 8 (both forced into a repeat), then _[WMI-24P2A-Q20]_
 - `p24-g2-q20` (P24G2Q20Illustration) — Sum-pyramid figure for WMI-24P2A-Q20 (2024 Grade-2 Semifinal, Paper A).  Reconstructed from db/seed/wmi/figures/2024-semifinal-g2-a-q20.jpg: a small _[WMI-24P2A-Q20]_
@@ -870,8 +1821,8 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `p24-g2-q23` (P24G2Q23Illustration) — WMI-24P2A-Q23 (2024 Grade 2 Semifinal, Paper A) — XOR-circle grids (answer = C).  Each 3x3 grid holds white circles (○) and black circles (●). A worked example _[WMI-24P2A-Q23]_
 - `p24-g2-q25` (P24G2Q25Explainer) — Post-answer explainer for WMI-24P2A-Q25 (robot digit-lattice). Mirrors the static figure (DigitLattice) and traces the verified cheapest LEFT/RIGHT/DOWN path node by node with a running total, landing on 24 (answer A). _[WMI-24P2A-Q25]_
 - `p24-g2-q25` (P24G2Q25Illustration) — WMI-24P2A-Q25 (2024 Grade 2 Semifinal, Paper A) — robot digit-lattice (answer = A, 24).  A robot enters at the TOP-LEFT and must reach the BOTTOM-RIGHT exit. It may only _[WMI-24P2A-Q25]_
-- `p24-g2-q4` (P24G2Q4Explainer) — (no description) _[WMI-24P2A-Q4]_
-- `p24-g2-q4` (P24G2Q4Illustration) — WMI-24P2A-Q4 (2024 Grade 2 Semifinal, Paper A) — animals stand in a row.  READING THE STEM (figure 2024-semifinal-g2-a-q4.jpg shows a single _[WMI-24P2A-Q4]_
+- `p24-g2-q4` (P24G2Q4Explainer) — Palette echoes the static animal-row figure (qupu tokens). _[WMI-24P2A-Q4]_
+- `p24-g2-q4` (P24G2Q4Illustration) — WMI-24P2A-Q4 (2024 Grade 2 Semifinal, Paper A) — animals stand in a row.  The stem figure (db/seed/wmi/figures/2024-semifinal-g2-a-q4.jpg) is the SAME _[WMI-24P2A-Q4]_
 - `p24-g2-q9` (P24G2Q9Explainer) — (no description) _[WMI-24P2A-Q9]_
 - `p24-g2-q9` (P24G2Q9Illustration) — WMI-24P2A-Q9 (2024 Grade 2 Semifinal, Paper A) — Jimmy and Nancy face to face.  READING THE STEM (figure 2024-semifinal-g2-a-q9.jpg shows two cartoon kids, _[WMI-24P2A-Q9]_
 - `p24-g3-q1` (P24G3Q1Explainer) — WMI-24P3A-Q1 post-answer explainer — number-line placement. Reuses the static figure's `NumberLineP` primitive so the animation reads as the same scene coming alive: it shows the midpoint 8500, drops the wrong candidates _[WMI-24P3A-Q1]_
@@ -958,10 +1909,23 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **painted**  
 - `painted-area22-g3` (PaintedArea22G3Explainer) — WMI-22F3A-Q5 — Painted-area explainer. Teaches the π-parity strategy: two figures match painted area only when they share the same number of unit quarter-circles AND the same straight-edge area. Beats walk example → key  _[WMI-22F3A-Q5]_
 - `painted-area22-g3` (PaintedArea22G3Illustration) — WMI-22F3A-Q5 — Painted-area matching puzzle. A 3×3 grid where each cell may contain an orange-painted shape. The question asks: which option has the same painted (orange) area as the example? KEY MATH PRINCIPLE ========= _[WMI-22F3A-Q5]_
+- `painted-cubes22-a20` (PaintedCubes22A20Illustration) — PaintedCubes22A20Illustration — SEAMO-22-A-Q20 "A cube has 6 faces. The object shown is made up of 8 cubes. How many cubes will have 4 faces painted if the object is painted yellow?" Answer: B (4 cubes) Source image: doc _[SEAMO-22-A-Q20]_
+- `painted-houses17-pe` (PaintedHouses17PEExplainer) — IKMC-22-PE-Q17 — post-answer explainer: find the painted-over "?".  Strategy: _[IKMC-22-PE-Q17]_
+- `painted-houses17-pe` (PaintedHouses17PEIllustration) — IKMC-22-PE-Q17 — "The sum of the five numbers in each house is 20. Some numbers have been painted over. What number is hidden under the question mark?"  _[IKMC-22-PE-Q17]_
+
+**pair**  
+- `pair-sums16-a20` (PairSums16A20Explainer) — Beat-driven explainer for SEAMO-16-A-Q20 (pair-sum system, find ⊙ = 28). Adapted from ShapeEquationExplainer.tsx structure. _[SEAMO-16-A-Q20]_
+- `pair-sums16-a20` (PairSums16A20Illustration) — SEAMO-16-A-Q20 — "Given that … What is the value of circle?"  Figures: docs/reference/ocr-res/seamo/contest/paper-a/2016.imgs/016.jpg (□ + ◆ = 36) _[SEAMO-16-A-Q20]_
+- `pair-sums24-ec` (PairSums24ECExplainer) — Palette echoes the static ring illustration (same qupu tokens). A small equation chip that shows the closing-edge constraint:   (G−1) + (G+2) = 2G+1 = 9  →  G = 4 _[IKMC-23-EC-Q24]_
+- `pair-sums24-ec` (PairSums24ECIllustration) — IKMC-23-EC-Q24 — "Teacher Olena wants to write the numbers 1 to 7 in the circles."  PROBLEM FIGURE: 7 circles arranged in a heptagon ring. _[IKMC-23-EC-Q24]_
 
 **paper**  
+- `paper-fold10` (PaperFold10Explainer) — IKMC-19-PE-Q10 — "Patricia folds a sheet of paper twice and then cuts it; how many pieces does she end up with?"  Answer: B = 3.  _[IKMC-19-PE-Q10]_
+- `paper-fold10` (PaperFold10Illustration) — IKMC-19-PE-Q10 — "Patricia folds a sheet of paper twice and then cuts it, as shown. How many pieces of paper does she end up with?"  Answer: B = 3.  _[IKMC-19-PE-Q10]_
 - `paper-fold23-g1` (PaperFold23G1Explainer) — WMI-23F1A-Q18 — "Fold the square left->right, then top->bottom; read the four numbers top layer to bottom layer." (answer 3124). One fold per beat, driving the same PaperFold23G1 primitive the static figure uses (stage 0 _[WMI-23F1A-Q18]_
 - `paper-fold23-g1` (PaperFold23G1Illustration) — WMI-23F1A-Q18 (2023 Grade 1 Final) — "Fold a square paper in half left->right, then top->bottom. Reading from the top layer down to the bottom layer, what are the four numbers in order?"  Answer: 3124 (fill-in). _[WMI-23F1A-Q18]_
+- `paper-punch6-pe` (PaperPunch6PEExplainer) — IKMC-21-PE-Q6 — post-answer explainer for the four-sheets punch-hole question.  Reuses PaperPunch6PE from PaperPunch6PEIllustration so the animation reads as _[IKMC-21-PE-Q6]_
+- `paper-punch6-pe` (PaperPunch6PEIllustration) — IKMC-21-PE-Q6 — "Four identical pieces of paper are placed as shown. Michael wants to punch a hole that goes through all four pieces. At which point should Michael punch the hole?" _[IKMC-21-PE-Q6]_
 
 **paper22**  
 - `paper22-g2-explainers` (paper22G2Explainers) — ── Beat harness (real beat-by-beat explainers) ──────────────────────────── ── Legacy static factory (still used by the not-yet-redrawn questions) ───── ── Q1 · Shark ───────────────────────────────────────────────────── _[WMI-22F2A-Q1, WMI-22F2A-Q10, WMI-22F2A-Q11, WMI-22F2A-Q12, WMI-22F2A-Q15, WMI-22F2A-Q16, WMI-22F2A-Q17, WMI-22F2A-Q18, WMI-22F2A-Q19, WMI-22F2A-Q20, WMI-22F2A-Q21, WMI-22F2A-Q23, WMI-22F2A-Q24, WMI-22F2A-Q25, WMI-22F2A-Q3, WMI-22F2A-Q5, WMI-22F2A-Q8]_
@@ -970,10 +1934,30 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **para**  
 - `para-divide25-g3` (ParaDivide25G3Explainer) — WMI-25F3A-Q19 — post-answer explainer. Enumerates every parallelogram and every trapezoid in the divided figure, ONE shape per beat, with a running counter that lands on exactly 14 (7 parallelograms + 7 trapezoids). Mirr _[WMI-25F3A-Q19]_
 - `para-divide25-g3` (ParaDivide25G3Illustration) — WMI-25F3A-Q19 — "How many parallelograms and trapezoids are there in the figure in total?" (answer 14) In-card SVG reconstruction of the divided parallelogram from db/seed/wmi/figures/2025-final-g3-a-q19.jpg. Pure render _[WMI-25F3A-Q19]_
+- `para-triangles-simoc22-g1-q8` (ParaTrianglesSIMOC22G1Q8Explainer) — (no description) _[SIMOC-22-G1-Q8]_
+- `para-triangles-simoc22-g1-q8` (ParaTrianglesSIMOC22G1Q8Illustration) — ParaTrianglesSIMOC22G1Q8Illustration — SIMOC-22-G1-Q8  Figure: a parallelogram divided by two full diagonals + a horizontal midline _[SIMOC-22-G1-Q8]_
+
+**parallel**  
+- `parallel-angles-osn08-kq16` (ParallelAnglesOSN08KQ16Explainer) — OSN-08-SD-KAB-Q16 — animated explainer for parallel-line co-interior angles.  Beat plan (5 beats): _[OSN-08-SD-KAB-Q16]_
+- `parallel-angles-osn08-kq16` (ParallelAnglesOSN08KQ16Illustration) — OSN-08-SD-KAB-Q16 — Two parallel horizontal lines cut by a transversal + diagonal. Source: docs/reference/ocr-res/osn/kabupaten/sd/2008.imgs/009.jpg  _[OSN-08-SD-KAB-Q16]_
+- `parallel-triangle-osn07-kq6` (ParallelTriangleOSN07KQ6Explainer) — ParallelTriangleOSN07KQ6Explainer — OSN-07-SD-KAB-Q6  Animated step-by-step solution for "∠DCE + ∠DAF = ?" _[OSN-07-SD-KAB-Q6]_
+- `parallel-triangle-osn07-kq6` (ParallelTriangleOSN07KQ6Illustration) — ParallelTriangleOSN07KQ6Illustration — OSN-07-SD-KAB-Q6  "Triangle BEF is equilateral. AB ∥ DC. Find ∠DCE + ∠DAF."  Answer: 150° _[OSN-07-SD-KAB-Q6]_
+
+**parallelogram**  
+- `parallelogram-osn11-kq12` (ParallelogramOSN11KQ12Explainer) — OSN-11-SD-KAB-Q12 — animated explainer for the parallelogram diagonal. Reuses the illustration layout (A, B, C, D, COLOR constants) so animations read as the static scene coming alive. _[OSN-11-SD-KAB-Q12]_
+- `parallelogram-osn11-kq12` (ParallelogramOSN11KQ12Illustration) — OSN-11-SD-KAB-Q12 — Parallelogram ABCD with AB = 3 cm, AD = 5 cm. The altitude from D drops perpendicularly onto AB at B (right-angle mark at B). Diagonal AC = 2√13 cm is the unknown shown as a question. _[OSN-11-SD-KAB-Q12]_
 
 **parallelogram24**  
 - `parallelogram24-g2` (Parallelogram24G2Explainer) — ── colour tokens (mirrors fill-qupu-* palette) ───────────────────────────── ── bilingual helper ───────────────────────────────────────────────────────── ── step type ──────────────────────────────────────────────────── _[WMI-24F2A-Q2]_
 - `parallelogram24-g2` (Parallelogram24G2Illustration) — Parallelogram → rectangle slide figure for WMI-24F2A-Q2. Shows a parallelogram with a shaded left triangle and labelled base segments. Never reveals the answer (slide distance); that is the animator's job. _[WMI-24F2A-Q2]_
+
+**park**  
+- `park-squares-osn25-kq13` (ParkSquaresOSN25KQ13Explainer) — (no description) _[OSN-25-SD-KAB-Q13]_
+- `park-squares-osn25-kq13` (ParkSquaresOSN25KQ13Illustration) — OSN 2025 SD Kabupaten Q13 — three adjacent square parks, top-aligned staircase. Source figure: docs/reference/ocr-res/osn/kabupaten/sd/2025.imgs/007.jpg Taman 1 (dark green, 5 units), Taman 2 (medium green, 4 units), Tam _[OSN-25-SD-KAB-Q13]_
+
+**park9**  
+- `park9-pe` (Park9PEExplainer) — IKMC-23-PE-Q9 — post-answer animation for the park / line-of-sight problem.  Reuses Park9PE from Park9PEIllustration so the animation reads as the _[IKMC-23-PE-Q9]_
+- `park9-pe` (Park9PEIllustration) — IKMC-23-PE-Q9 — park / line-of-sight stem illustration.  "There are 5 trees in a park. A beaver can see only two of the trees because _[IKMC-23-PE-Q9]_
 
 **parking**  
 - `parking-fee23-g3` (ParkingFee23G3Explainer) — WMI-23F3A-Q7 — equal parking fees, least combined hours (answer B = 8). Build two cost ladders, match the first fee both reach. Small car 5,8,11,14,17 at hours 1–5; big car 7,12,17 at hours 1–3; the first shared fee is $ _[WMI-23F3A-Q7]_
@@ -983,32 +1967,87 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `parking24-g2` (Parking24G2Explainer) — ── colour tokens (mirror Parking24G2Illustration) ──────────────────────────── Row / space geometry — mirrors the illustration constants The target: space 21 (index 5 in TOP_ROW) _[WMI-24F2A-Q21]_
 - `parking24-g2` (Parking24G2Illustration) — Parking-lot illustration for WMI-24F2A-Q21. Two rows of numbered spaces (odd 11–27, even 12–26) with several cars already parked. Shows the problem setup; does NOT reveal Marcus's space (21). _[WMI-24F2A-Q21]_
 
+**parrots21**  
+- `parrots21-ec` (Parrots21ECExplainer) — Parrots21ECExplainer — IKMC-20-EC-Q21 Post-answer beat-by-beat explainer. Reuses ParrotPrimitive from the illustration. Shows all 6 permutations of (R, G, B) across (head, wings, tail), then crosses out the one already u _[IKMC-20-EC-Q21]_
+- `parrots21-ec` (Parrots21ECIllustration) — Parrots21ECIllustration — IKMC-20-EC-Q21 "Jane has some pictures of parrots. She wants to colour only the head, tail and wings of each parrot either red, blue or green so that all three colours are used on each picture.  _[IKMC-20-EC-Q21]_
+
+**party**  
+- `party-balloons17-a21` (PartyBalloons17A21Illustration) — SEAMO-17-A-Q21 — "There are 14 children in a party. Each boy gets 2 balloons. Each girl gets 3 balloons. 36 balloons are given out in all. How many girls are there at the party?"  Answer: 8. _[SEAMO-17-A-Q21]_
+- `party-balloons21-a8` (PartyBalloons21A8Illustration) — SEAMO-21-A-Q8 — "There are 18 children in a party. Each girl gets 5 balloons, while each boy gets 3 balloons. If 72 balloons are given out in all, how many boys are there?"  Answer: 9 (choice D). _[SEAMO-21-A-Q8]_
+- `party-clocks16-a11` (PartyClocks16A11Explainer) — SEAMO-16-A-Q11 — animated explainer for the two-clock duration puzzle.  "Jennifer's party started and ended at the times shown. _[SEAMO-16-A-Q11]_
+- `party-clocks16-a11` (PartyClocks16A11Illustration) — SEAMO-16-A-Q11 — two analog clock faces (party start and end).  "The time that Jennifer's party started and ended is as shown below. _[SEAMO-16-A-Q11]_
+
 **path**  
 - `path-grid` (PathGridExplainer) — (no description) _[WMI-19F1A-Q19]_
 - `path-grid` (PathGridIllustration) — "Follow the path through the grid, find ★" figure for WMI-19F1-Q19. Reconstructed from the real figure: a 3-row x 5-column grid with a winding path. Walking the path one cell at a time, the value drops by 6 at every step _[WMI-19F1A-Q19]_
 
+**paths5**  
+- `paths5-pe` (Paths5PEExplainer) — IKMC-21-PE-Q5 — post-answer explainer: "Which path is the longest?" Strategy: count grid segments (each step between adjacent lattice points is 1 unit). More segments = longer path, regardless of the area covered. E: 20  _[IKMC-21-PE-Q5]_
+- `paths5-pe` (Paths5PEIllustration) — IKMC-21-PE-Q5 — "Which of the paths shown in the pictures is the longest?"  Answer: A (most grid segments — 34 segments vs B≈28, C≈26, D≈24, E≈20). _[IKMC-21-PE-Q5]_
+
 **pattern**  
+- `pattern-chain-hk18-p1-q20` (PatternChainHK18P1Q20Explainer) — HKIMO-18-P1H-Q20 — animated explainer for the horizontal bead chain.  Animation flow: _[HKIMO-18-P1H-Q20]_
+- `pattern-chain-hk18-p1-q20` (PatternChainHK18P1Q20Illustration) — HKIMO-18-P1H-Q20 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-18-P1H-Q20]_
 - `pattern-cycle-g3` (PatternCycleG3Illustration) — Repeating-pattern row for WMI-19F3A-Q9: ◻ ▼ ◯ ★ ◻ ▼ ◯ ★ … find the 32nd. Drawn as equal-sized SVG shapes (the text glyphs render at different sizes). _[WMI-19F3A-Q9]_
 - `pattern-cycle-g3-visual` (PatternCycleG3VisualExplainer) — WMI-19F3A-Q9 — group the repeating row into 4s; group ends land on 4, 8, 12… so position 32 (= 8 × 4) is a group END = ★. _[WMI-19F3A-Q9]_
+- `pattern-hk19-p2-q18` (PatternHK19P2Q18Explainer) — HKIMO-19-P2H-Q18 — post-answer explainer.  Reuses PatternHK19P2Q18Illustration's constants (CYCLE, BLANK_IDX, _[HKIMO-19-P2H-Q18]_
+- `pattern-hk19-p2-q18` (PatternHK19P2Q18Illustration) — HKIMO-19-P2H-Q18 — repeating shape-sequence pattern  Sequence shown on the paper: _[HKIMO-19-P2H-Q18]_
+- `pattern-hk23-p1-sfq16` (PatternHK23P1SFQ16Explainer) — HKIMO-23-P1SF-Q16 — post-answer explainer.  Reuses PatternHK23P1SFQ16Illustration's constants (CYCLE, ShapeGlyph, etc.) _[HKIMO-23-P1SF-Q16]_
+- `pattern-hk23-p1-sfq16` (PatternHK23P1SFQ16Illustration) — HKIMO-23-P1SF-Q16 — "According to the pattern shown below, what is the figure in the space provided?"  Repeating cycle (period 6): [square, triangle, circle, filled-circle, circle, circle] _[HKIMO-23-P1SF-Q16]_
 - `pattern-ninth-g2` (PatternNinthG2Explainer) — (no description) _[WMI-19F2A-Q5]_
 - `pattern-ninth-g2` (PatternNinthG2Illustration) — WMI-19F2A-Q5 — "What is the 9th figure counting from ★?" The real figure is a single horizontal row of 13 distinct Japanese-food pictures with a ★ at the far RIGHT end. There is no repeating cycle; the skill is positiona _[WMI-19F2A-Q5]_
 - `pattern-ninth-g2` (PatternNinthG2Option) — Renders a WMI-19F2A-Q5 answer option as the food picture it stands for, rather than the bare letter. The label→food map (ANSWER_OPTIONS) is shared with the figure + explainer, so the options can never drift from them. Th _[WMI-19F2A-Q5]_
+- `pattern-rule-x24-a5` (PatternRuleX24A5Explainer) — (no description) _[SEAMOX-24-A-Q5]_
+- `pattern-rule-x24-a5` (PatternRuleX24A5Illustration) — SEAMOX-24-A-Q5 — "Draw the missing diagram in your answer script." Three-row analogy: [A] + [B] → [result]. Row 3 A is the unknown (?). Rule (from rows 1–2): result = A minus what B contributes. _[SEAMOX-24-A-Q5]_
 - `pattern-rules23-g1` (PatternRules23G1Explainer) — WMI-23F1A-Q24 post-answer explainer. Mirrors the static five-row figure by driving its co-exported primitive (litRow + accumulating verdicts), and adds a small "fold to the middle" strip that peels matching end-pairs one _[WMI-23F1A-Q24]_
 - `pattern-rules23-g1` (PatternRules23G1Illustration) — WMI-23F1A-Q24 (2023 Grade 1 Final, Paper B) — pattern-building rules.  Reconstructed from the scan _[WMI-23F1A-Q24]_
+- `pattern-seq-hk24-p2-q19` (PatternSeqHK24P2Q19Explainer) — HKIMO-24-P2H-Q19 — animated explainer for the shape pattern question.  Animation flow (5 beats): _[HKIMO-24-P2H-Q19]_
+- `pattern-seq-hk24-p2-q19` (PatternSeqHK24P2Q19Illustration) — HKIMO-24-P2H-Q19 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-24-P2H-Q19]_
+
+**pattern2**  
+- `pattern2-ec` (Pattern2ECExplainer) — IKMC-20-EC-Q2 — post-answer explainer.  Reuses Pattern2ECIllustration's Pattern2ECGrid primitive so the animated grid _[IKMC-20-EC-Q2]_
+- `pattern2-ec` (Pattern2ECIllustration) — IKMC-20-EC-Q2 — "Which piece completes the pattern?"  Source figure (docs/reference/ocr-res/ikmc/contest/ecolier/2020.imgs/006.jpg): _[IKMC-20-EC-Q2]_
 
 **pattern23**  
 - `pattern23-g2` (Pattern23G2Explainer) — WMI-23F2A-Q24 — post-answer explainer.  A valid pattern is a palindrome (mirror) whose innermost 1–2 figures are the _[WMI-23F2A-Q24]_
 - `pattern23-g2` (Pattern23G2Illustration) — In-card illustration for WMI-23F2A-Q24 (2023 Grade-2 Final).  The printed question shows five candidate patterns A–E, each a horizontal _[WMI-23F2A-Q24]_
 
+**pattern4**  
+- `pattern4-pe` (Pattern4PEExplainer) — IKMC-20-PE-Q4 — post-answer explainer.  Reuses Pattern4PEIllustration's constants (CYCLE, TOY_EMOJI, OPTION_PAIRS, _[IKMC-20-PE-Q4]_
+- `pattern4-pe` (Pattern4PEIllustration) — IKMC-20-PE-Q4 — "A magician pulls toys from a top hat in a repeating 5-item cycle: mouse, snail, canary, canary, frog. After 11 toys have been pulled, what are the next two?" _[IKMC-20-PE-Q4]_
+
 **peggy**  
 - `peggy-map23-g2` (PeggyMap23G2Explainer) — WMI-23F2A-Q4 — Peggy's reverse-route explainer. Strategy: to find the way home, (1) reverse the ORDER of the legs, then (2) flip each direction to its opposite. Beats: 0 – intro: going to school is W → NW → S; to go home _[WMI-23F2A-Q4]_
 - `peggy-map23-g2` (PeggyMap23G2Illustration) — WMI-23F2A-Q4 — Peggy's walk to school (2023 Grade 2 Final). "Peggy walks to school from home. She first walks towards the west (W) for a while, then turns towards the northwest (NW) and walks for a while, and finally wal _[WMI-23F2A-Q4]_
+
+**pencil**  
+- `pencil-mirror-sasmo19-g2-q12` (PencilMirrorSASMO19G2Q12Explainer) — SASMO-19-G2-Q12 — animated explainer for the pencil mirror image question.  Animation flow: _[SASMO-19-G2-Q12]_
+- `pencil-mirror-sasmo19-g2-q12` (PencilMirrorSASMO19G2Q12Illustration) — SASMO-19-G2-Q12 — "Temukan bayangan cermin dari gambar di sebelah kanan." (Find the mirror image of the picture on the right.)  _[SASMO-19-G2-Q12]_
 
 **pent**  
 - `pent-roll24-g3` (PentRoll24G3Explainer) — PentRoll24G3Explainer.tsx WMI-24F3A-Q15: regular pentagon card rolls around a regular hexagon. Teaches the method: track the smiley face orientation edge by edge. _[WMI-24F3A-Q15]_
 - `pent-roll24-g3` (PentRoll24G3Illustration) — PentRoll24G3Illustration.tsx WMI-24F3A-Q15: regular pentagon card rolls around a regular hexagon. Shows: solid yellow hexagon + solid pink starting pentagon (with smiley face) _[WMI-24F3A-Q15]_
 
+**pentagon16**  
+- `pentagon16-b13` (Pentagon16B13Illustration) — SEAMO-16-B-Q13 — "The figure shown below is a regular pentagon."  The question asks for the interior angle of a regular pentagon (answer: 108°). _[SEAMO-16-B-Q13]_
+
+**pentagon22**  
+- `pentagon22-b3` (Pentagon22B3Explainer) — SEAMO-22-B-Q3 (2022 Contest B) — pentagon ABCDE, ∠A = 90°, find ∠B+∠C+∠D+∠E. Answer: E (450°).  _[SEAMO-22-B-Q3]_
+- `pentagon22-b3` (Pentagon22B3Illustration) — SEAMO-22-B-Q3 (2022 Contest B) — pentagon ABCDE, ∠A = 90°, find ∠B+∠C+∠D+∠E.  The figure shows a convex pentagon with vertices A (top-right, right angle), _[SEAMO-22-B-Q3]_
+
+**pickup**  
+- `pickup-hk19-p1-q25` (PickupHK19P1Q25Explainer) — (no description) _[HKIMO-19-P1H-Q25]_
+- `pickup-hk19-p1-q25` (PickupHK19P1Q25Illustration) — Minimum-distance path puzzle — HKIMO 2019 Heat Primary-1 Q25.  Figure: 19 apples in a 5×5 sparse grid. _[HKIMO-19-P1H-Q25]_
+
+**pictograph**  
+- `pictograph-muffins-sasmo19-g3-q18` (PictographMuffinsSASMO19G3Q18Explainer) — (no description) _[SASMO-19-G3-Q18]_
+- `pictograph-muffins-sasmo19-g3-q18` (PictographMuffinsSASMO19G3Q18Illustration) — SASMO 2019 Grade 3 Q18 — Pictograph: muffin icon counts for 5 siblings. Source images: docs/reference/ocr-res/sasmo/contest/g3/2019-2020.imgs/023–027.jpg Icon counts: Anastacia 1 | Braiden 7 | Clarke 8 | Darla 4 | Eddie  _[SASMO-19-G3-Q18]_
+
 **pie**  
+- `pie-chart-osn20-kq14` (PieChartOSN20KQ14Explainer) — (no description) _[OSN-20-SD-KAB-Q14]_
+- `pie-chart-osn20-kq14` (PieChartOSN20KQ14Illustration) — OSN-20-SD-KAB-Q14 — Diagram lingkaran ukuran baju 30 siswa Kelas V SDN Cipali. Tiga sektor berlabel x% (XS=10%), y% (XL=13.3%), z% (M=26.7%). Tiga sektor tidak berlabel menampilkan nilai: S=20%, L=23.3%, XXL=6.7%. _[OSN-20-SD-KAB-Q14]_
+- `pie-chart-osn25-nsfq8` (PieChartOSN25NSFQ8Explainer) — OSN-25-SD-NAS-SEMIFINAL-Q8 — animated explainer  Reuses the pie-sector geometry and SectorLabel from the illustration. _[OSN-25-SD-NAS-SEMIFINAL-Q8]_
+- `pie-chart-osn25-nsfq8` (PieChartOSN25NSFQ8Illustration) — OSN-25-SD-NAS-SEMIFINAL-Q8 — Survey pie-chart illustration (stem)  Problem: 300 students surveyed on Sunday activities. _[OSN-25-SD-NAS-SEMIFINAL-Q8]_
 - `pie-thirds22-g3` (PieThirds22G3Explainer) — Post-answer animation for WMI-22F3A-Q2 — "In how many of the five circles is exactly 1/3 shaded?"  Answer C = 3.  _[WMI-22F3A-Q2]_
 - `pie-thirds22-g3` (PieThirds22G3Illustration) — Pie-thirds puzzle for WMI-22F3A-Q2.  Source figure: db/seed/wmi/figures/2022-final-g3-a-q2.jpg _[WMI-22F3A-Q2]_
 
@@ -1016,9 +2055,102 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `piece-hunt20` (PieceHunt20Explainer) — (no description) _[WMI-20F1A-Q17]_
 - `piece-hunt20` (PieceHunt20Illustration) — Piece-hunt puzzle for WMI-20F1A-Q17.  Source figures: wmiPastPaper/2020 WMI Final G01 Paper B — a 3×3 grid of boxed _[WMI-20F1A-Q17]_
 
+**pieces19**  
+- `pieces19` (Pieces19Explainer) — IKMC-19-PE-Q19 — post-answer explainer. Animates: separate 3 pieces → assemble left lobe → add right lobe → add bottom triangle → complete heart → answer A. _[IKMC-19-PE-Q19]_
+- `pieces19` (Pieces19Illustration) — IKMC-19-PE-Q19 — "A figure has been cut into these 3 pieces. Which figure could have been cut?" (answer A = heart shape)  _[IKMC-19-PE-Q19]_
+
+**pieces22**  
+- `pieces22-pe` (Pieces22PEExplainer) — IKMC-23-PE-Q22 — Explainer Post-answer walkthrough: show the grid, place piece E at optimal position, reveal the sum (6+7+9+5+2 = 29). Answer: E (official IKMC 2023 answer key). _[IKMC-23-PE-Q22]_
+- `pieces22-pe` (Pieces22PEIllustration) — IKMC-23-PE-Q22 — "Malik places one of the five pieces on the grid…" This question has NO separate stem figure — the A–E choices ARE the figures. Exports: _[IKMC-23-PE-Q22]_
+
+**pieces4**  
+- `pieces4-ec` (Pieces4ECExplainer) — IKMC-23-EC-Q4 — post-answer explainer (answer C = pieces 1 and 4). Animation strategy (try-and-fit): Beat 0 — Introduce the goal; all four pieces shown, none highlighted. Beat 1 — Dim 3+4; highlight 1+2 in red — wrong. B _[IKMC-23-EC-Q4]_
+- `pieces4-ec` (Pieces4ECIllustration) — IKMC-23-EC-Q4 — "Alice has 4 puzzle pieces (numbered 1–4). Which 2 pieces can she put together to form a square?" (answer C = pieces 1 and 4). Stem figure (source: 2023.imgs/004–007.jpg): four L-shaped pieces, each with  _[IKMC-23-EC-Q4]_
+
+**pieces8**  
+- `pieces8-ec` (Pieces8ECExplainer) — IKMC-20-EC-Q8 — post-answer explainer. Animates the greedy "try from largest count downward" strategy: Beat 1 — introduce the 7 pieces and goal. Beat 2 — trial 7 pieces → sum 28 > 16 ✗ Beat 3 — trial 6 pieces → sum 21 >  _[IKMC-20-EC-Q8]_
+- `pieces8-ec` (Pieces8ECIllustration) — IKMC-20-EC-Q8 — "Casper has the following 7 pieces (parallelogram-shaped tiles of different sizes). He uses some of these pieces to fully cover a 1×16 grid without overlap. He uses as many different pieces as possible. H _[IKMC-20-EC-Q8]_
+
+**pinned**  
+- `pinned-photos9-ec` (PinnedPhotos9ECExplainer) — IKMC-19-EC-Q9 — post-answer animation. Reuses PinnedPhotosRow from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-EC-Q9]_
+- `pinned-photos9-ec` (PinnedPhotos9ECIllustration) — IKMC-19-EC-Q9 — "Linda pinned 3 photos in a row using 8 pins."  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-19-EC-Q9]_
+
 **pinwheel23**  
 - `pinwheel23-g3` (Pinwheel23G3Explainer) — WMI-23F3A-Q19 — 4 identical rectangles pinwheel around a square hole. The whole figure has perimeter 48 cm and area 90 cm²; find one rectangle's perimeter (19.5 cm). DEDUCE, beat by beat: name L (long) and W (short); the _[WMI-23F3A-Q19]_
 - `pinwheel23-g3` (Pinwheel23G3Illustration) — WMI-23F3A-Q19 (2023 Grade 3 Final) — pinwheel of 4 identical rectangles.  "The figure is made up of 4 identical rectangles. The perimeter of the whole _[WMI-23F3A-Q19]_
+
+**plank**  
+- `plank-bundle-osn20-kq1` (PlankBundleOSN20KQ1Explainer) — Post-answer explainer for OSN-20-SD-KAB-Q1. "Panjang kawat yang dibutuhkan untuk mengikat kayu adalah ⋯ cm" — answer: 370.  _[OSN-20-SD-KAB-Q1]_
+- `plank-bundle-osn20-kq1` (PlankBundleOSN20KQ1Illustration) — PlankBundleOSN20KQ1Illustration — OSN-20-SD-KAB-Q1 9 balok kayu (penampang 20cm × 10cm, panjang 150cm) disusun 3×3, diikat 2 kawat. Source: docs/reference/ocr-res/osn/kabupaten/sd/2020.imgs/001.jpg Primitive check: IsoCu _[OSN-20-SD-KAB-Q1]_
+
+**plates**  
+- `plates-pears-simoc21-g1-q13` (PlatesPearsSIMOC21G1Q13Explainer) — PlatesPearsSIMOC21G1Q13Explainer.tsx SIMOC-21-G1-Q13 animated explainer — Fibonacci plates+pears.  _[SIMOC-21-G1-Q13]_
+- `plates-pears-simoc21-g1-q13` (PlatesPearsSIMOC21G1Q13Illustration) — PlatesPearsSIMOC21G1Q13Illustration.tsx SIMOC-21-G1-Q13 stem illustration.  _[SIMOC-21-G1-Q13]_
+
+**podium1**  
+- `podium1-ec` (Podium1ECExplainer) — IKMC-19-EC-Q1 — post-answer animation. Reuses RunnerFigure and layout constants from Podium1ECIllustration so the animation reads as the static podium coming alive. _[IKMC-19-EC-Q1]_
+- `podium1-ec` (Podium1ECIllustration) — IKMC-19-EC-Q1 — "The higher the step on the podium, the higher the rank. Who finished third?"  _[IKMC-19-EC-Q1]_
+
+**poly**  
+- `poly-ear-seq-hk20-p2-q20` (PolyEarSeqHK20P2Q20Explainer) — HKIMO-20-P2H-Q20 — post-answer animated explainer. Reuses the static illustration from PolyEarSeqHK20P2Q20Illustration and adds beat-driven captions + formula/answer overlays. _[HKIMO-20-P2H-Q20]_
+- `poly-ear-seq-hk20-p2-q20` (PolyEarSeqHK20P2Q20Illustration) — HKIMO-20-P2H-Q20 — "By observing the pattern, how many edges does the 6th figure have?"  PROBLEM ONLY: shows the first three figures of the polygon-ear sequence. _[HKIMO-20-P2H-Q20]_
+- `poly-seg-hk25-p1-q18` (PolySegHK25P1Q18Explainer) — HKIMO-25-P1H-Q18 — animated explainer.  Beats: _[HKIMO-25-P1H-Q18]_
+- `poly-seg-hk25-p1-q18` (PolySegHK25P1Q18Illustration) — HKIMO-25-P1H-Q18 — "How many line segment(s) is/are there in the polygon below?"  OCR: docs/reference/ocr-res/hkimo/heat/primary-1/2025.md Q18 _[HKIMO-25-P1H-Q18]_
+
+**polygon**  
+- `polygon-angles-hk20-p1-q19` (PolygonAnglesHK20P1Q19Explainer) — HKIMO-20-P1H-Q19 — post-answer animation. Reuses HeptagonShape and vertex constants from the illustration so the animation reads as the static polygon coming alive. _[HKIMO-20-P1H-Q19]_
+- `polygon-angles-hk20-p1-q19` (PolygonAnglesHK20P1Q19Illustration) — PolygonAnglesHK20P1Q19Illustration — HKIMO 2020 Heat Primary-1 Q19  "How many interior angle(s) is / are there in the polygon below?" → 7 _[HKIMO-20-P1H-Q19]_
+- `polygon-angles-hk24-p1-q20` (PolygonAnglesHK24P1Q20Explainer) — PolygonAnglesHK24P1Q20Explainer — HKIMO 2024 Heat Primary-1 Q20  Animates counting each of the 12 interior angles of the polygon one by one. _[HKIMO-24-P1H-Q20]_
+- `polygon-angles-hk24-p1-q20` (PolygonAnglesHK24P1Q20Illustration) — PolygonAnglesHK24P1Q20Illustration — HKIMO 2024 Heat Primary-1 Q20  "How many interior angle(s) is / are there in the polygon below?" → 12 _[HKIMO-24-P1H-Q20]_
+- `polygon-angles-hk24-p2-q20` (PolygonAnglesHK24P2Q20Explainer) — HKIMO-24-P2H-Q20 — "How many interior angle(s) is / are there in the polygon below?"  Beat-driven explainer: reveals vertex-dot labels in three waves (0→4→8→12), _[HKIMO-24-P2H-Q20]_
+- `polygon-angles-hk24-p2-q20` (PolygonAnglesHK24P2Q20Illustration) — HKIMO-24-P2H-Q20 — "How many interior angle(s) is / are there in the polygon below?"  Reconstructed from docs/reference/ocr-res/hkimo/heat/primary-2/2024.imgs/008.jpg: _[HKIMO-24-P2H-Q20]_
+- `polygon-area-osn20-kq9` (PolygonAreaOSN20KQ9Explainer) — OSN-20-SD-KAB-Q9 — animated explainer. Beats:   0. intro       — static scene with all labels, CD = ? _[OSN-20-SD-KAB-Q9]_
+- `polygon-area-osn20-kq9` (PolygonAreaOSN20KQ9Illustration) — OSN-20-SD-KAB-Q9 — Polygon ABCDEF area problem  PROBLEM ONLY: shows the static figure the student sees in the paper: _[OSN-20-SD-KAB-Q9]_
+- `polygon-count-hk25-p2-q19` (PolygonCountHK25P2Q19Explainer) — HKIMO-25-P2H-Q19 — animated explainer.  Beats (see polygonCountHK25P2Q19Steps.ts): _[HKIMO-25-P2H-Q19]_
+- `polygon-count-hk25-p2-q19` (PolygonCountHK25P2Q19Illustration) — HKIMO-25-P2H-Q19 — "How many interior angle(s) is/are there in the polygon below?"  Reconstructed from docs/reference/ocr-res/hkimo/heat/primary-2/2025.imgs/006.jpg: _[HKIMO-25-P2H-Q19]_
+- `polygon-hk18-p1-q18` (PolygonHK18P1Q18Explainer) — HKIMO-18-P1H-Q18 — post-answer animation. Reuses HexagonShape and vertex constants from the illustration so the animation reads as the static polygon coming alive. _[HKIMO-18-P1H-Q18]_
+- `polygon-hk18-p1-q18` (PolygonHK18P1Q18Illustration) — HKIMO-18-P1H-Q18 — "How many sides is / are there in the polygon below?"  PROBLEM ONLY: renders the irregular hexagon from the paper. _[HKIMO-18-P1H-Q18]_
+- `polygon-hk20-p2-q19` (PolygonHK20P2Q19Explainer) — HKIMO-20-P2H-Q19 post-answer explainer: counting interior angles.  Beat plan (14 beats): _[HKIMO-20-P2H-Q19]_
+- `polygon-hk20-p2-q19` (PolygonHK20P2Q19Illustration) — HKIMO-20-P2H-Q19 — "How many interior angles does the polygon have?" (answer: 12)  Source figure: docs/reference/ocr-res/hkimo/heat/primary-2/2020.imgs/007.jpg _[HKIMO-20-P2H-Q19]_
+- `polygon-hk25-p1-q19` (PolygonHK25P1Q19Explainer) — HKIMO-25-P1H-Q19 — animated explainer.  Beats (see polygonHK25P1Q19Steps.ts): _[HKIMO-25-P1H-Q19]_
+- `polygon-hk25-p1-q19` (PolygonHK25P1Q19Illustration) — HKIMO-25-P1H-Q19 — "How many interior angle(s) is/are there in the polygon below?"  Reconstructed from docs/reference/ocr-res/hkimo/heat/primary-1/2025.imgs/008.jpg: _[HKIMO-25-P1H-Q19]_
+- `polygon-seg-hk20-p1-q18` (PolygonSegHK20P1Q18Explainer) — HKIMO-20-P1H-Q18 — animated explainer.  Reveals 7 line segments one-by-one, cycling through colours, until all _[HKIMO-20-P1H-Q18]_
+- `polygon-seg-hk20-p1-q18` (PolygonSegHK20P1Q18Illustration) — HKIMO-20-P1H-Q18 — "How many line segment(s) is / are there in the polygon below?"  Figure: 8-node graph with junction hub B connected to 3 branches: _[HKIMO-20-P1H-Q18]_
+- `polygon-seg-hk21-p1-q13` (PolygonSegHK21P1Q13Explainer) — HKIMO-21-P1H-Q13 — animated explainer.  Reveals 8 line segments one-by-one, cycling through colours, until all _[HKIMO-21-P1H-Q13]_
+- `polygon-seg-hk21-p1-q13` (PolygonSegHK21P1Q13Illustration) — HKIMO-21-P1H-Q13 — "How many line segment(s) is / are there in the polygon below?"  Figure: 5-node graph with a central hub (C) connected to all 4 outer vertices _[HKIMO-21-P1H-Q13]_
+- `polygon-sides-hk19-p1-q18` (PolygonSidesHK19P1Q18Explainer) — PolygonSidesHK19P1Q18Explainer — HKIMO 2019 Heat Primary-1 Q18  Animates tracing the 6 sides of the hexagon one by one. _[HKIMO-19-P1H-Q18]_
+- `polygon-sides-hk19-p1-q18` (PolygonSidesHK19P1Q18Illustration) — PolygonSidesHK19P1Q18Illustration — HKIMO 2019 Heat Primary-1 Q18  "How many sides does the polygon below have?" → answer: 6 _[HKIMO-19-P1H-Q18]_
+- `polygon-sides-timo22-p1-q18` (PolygonSidesTIMO22P1Q18Explainer) — PolygonSidesTIMO22P1Q18Explainer — TIMO 2022 Heat Primary-1 Q18 Animates counting each of the 18 sides, one beat per side.  _[TIMO-22-P1H-Q18]_
+- `polygon-sides-timo22-p1-q18` (PolygonSidesTIMO22P1Q18Illustration) — PolygonSidesTIMO22P1Q18Illustration — TIMO 2022 Heat Primary-1 Q18  "How many side(s) is / are there in the polygon below?" → 18 _[TIMO-22-P1H-Q18]_
+
+**polyom**  
+- `polyom-sasmo19-g3-q12` (PolyomSASMO19G3Q12Explainer) — SASMO-19-G3-Q12 explainer — "What is the perimeter of the figure with the largest perimeter?" (Answer: D = 48 cm) Beat sequence: 0 — intro: show all 4 figures; "Identify each figure's square count" 1 — largest area: Figu _[SASMO-19-G3-Q12]_
+- `polyom-sasmo19-g3-q12` (PolyomSASMO19G3Q12Illustration) — SASMO-19-G3-Q12 — "All the figures below are made up of identical squares. The area of the figure with the largest area is 48 cm². What is the perimeter of the figure with the largest perimeter?" _[SASMO-19-G3-Q12]_
+
+**polyomino**  
+- `polyomino-osn24-nekq5` (PolyominoOSN24NEKQ5Explainer) — PolyominoOSN24NEKQ5Explainer — post-answer explainer for OSN-24-SD-NAS-EKSPERIMEN-Q5. "Dalam petak 4×5, hubungkan 10 petak satuan menjadi satu daerah poliomino. Berapa perimeter maksimum?" — answer: 22. Animation beats ( _[OSN-24-SD-NAS-EKSPERIMEN-Q5]_
+- `polyomino-osn24-nekq5` (PolyominoOSN24NEKQ5Illustration) — PolyominoOSN24NEKQ5Illustration — OSN-24-SD-NAS-EKSPERIMEN-Q5 "Dalam petak 4×5, hubungkan 10 petak satuan menjadi satu daerah poliomino yang terhubung. Berapa perimeter maksimum yang mungkin dari daerah ini?" Answer: 22  _[OSN-24-SD-NAS-EKSPERIMEN-Q5]_
+
+**polyomino10**  
+- `polyomino10-ec` (Polyomino10ECExplainer) — IKMC-19-EC-Q10 — post-answer explainer. Systematically removes each cell of the 5-cell source shape and checks whether the resulting tetromino matches any of the five option shapes. Three options (A, B, D) match → answer _[IKMC-19-EC-Q10]_
+- `polyomino10-ec` (Polyomino10ECIllustration) — IKMC-19-EC-Q10 — "Dennis wants to remove one cell from the shape below. How many of the following shapes can he get?" (answer C = 3). The stem figure (030.jpg) is a 5-cell polyomino: Row 0: col 1, col 2 (top-right pair)  _[IKMC-19-EC-Q10]_
+
+**postcards11**  
+- `postcards11-ec` (Postcards11ECExplainer) — IKMC-22-EC-Q11 — post-answer explainer for the five-postcards logic puzzle.  Reuses CardASunset, CardBKangaroos, CardCLeafInsects, CardDDucks, CardEDog _[IKMC-22-EC-Q11]_
+- `postcards11-ec` (Postcards11ECIllustration) — IKMC-22-EC-Q11 — "During my holiday I sent the five postcards…"  The question gives 5 clues (one per friend) to assign each postcard, _[IKMC-22-EC-Q11]_
+
+**postman**  
+- `postman-grid21-a10` (PostmanGrid21A10Illustration) — PostmanGrid21A10Illustration — SEAMO-21-A-Q10  Postman Pat grid: deliveries from Point A (bottom-left) to Point B (top-right). _[SEAMO-21-A-Q10]_
+- `postman-route20-a16` (PostmanRoute20A16Explainer) — SEAMO-20-A-Q16 — animated explainer for the postman-route question. Strategy: multiply — count paths start→A (=3) × paths A→house (=4) = 12. Beats: 0 — intro: show full grid with postman, house, and point A. 1 — count_to _[SEAMO-20-A-Q16]_
+- `postman-route20-a16` (PostmanRoute20A16Illustration) — SEAMO-20-A-Q16 — Postman route-counting through Point A.  Problem: How many ways for the postman to reach the house passing through _[SEAMO-20-A-Q16]_
+
+**price**  
+- `price-clues16-ec` (PriceClues16ECExplainer) — IKMC-19-EC-Q16 — post-answer animation.  Teaching strategy: add all three clue equations, notice each fruit appears _[IKMC-19-EC-Q16]_
+- `price-clues16-ec` (PriceClues16ECIllustration) — IKMC-19-EC-Q16 — stem illustration only (text-option choices).  The original problem shows three rows of cartoon-fruit characters with speech _[IKMC-19-EC-Q16]_
+
+**prime**  
+- `prime-jump-osn24-nt2-q10` (PrimeJumpOSN24NT2Q10Explainer) — OSN-24-SD-NAS-TEORI2-Q10 — animated path explainer for "lompat berjumlah prima". Beat 0: intro (grid + rules recap) Beat 1: trace path A  1→7→6→4→11, sum 29 (prime ✓) _[OSN-24-SD-NAS-TEORI2-Q10]_
+- `prime-jump-osn24-nt2-q10` (PrimeJumpOSN24NT2Q10Illustration) — PrimeJumpOSN24NT2Q10Illustration — OSN-24-SD-NAS-TEORI2-Q10 "Lompat berjumlah prima" — prime-sum jump game tile grid. Grid layout (col 0–4, row 0–2), each tile 0.5 m × 0.5 m: row 0: — [2] [3] [4] — row 1: [1] [7] [6] [5] _[OSN-24-SD-NAS-TEORI2-Q10]_
 
 **product**  
 - `product-grid25-g2` (ProductGrid25G2Explainer) — WMI-25F2A-Q19 — solve the product grid by deducing the white cells one at a time from the shaded products (a=6, b=5, c=7, d=8), then read the visible "?" = b*d = 40. FLAG: the keyed answer 61 needs a SECOND sub-grid (its _[WMI-25F2A-Q19]_
@@ -1028,10 +2160,32 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `product-triangle22-g3` (ProductTriangle22G3Explainer) — Qupu colour tokens (echoing fill-qupu-* design tokens). Highlight colour for active sides (amber/orange overlay badge). --------------------------------------------------------------------------- _[WMI-22F3A-Q17]_
 - `product-triangle22-g3` (ProductTriangle22G3Illustration) — Product-triangle puzzle for WMI-22F3A-Q17.  Reconstructed from db/seed/wmi/figures/2022-final-g3-a-q17.jpg: _[WMI-22F3A-Q17]_
 
+**projections**  
+- `projections-timo22-p3-q2` (ProjectionsTIMO22P3Q2Explainer) — Post-answer explainer for TIMO-22-P3H-Q2. "Find the number of black marbles inserted in the 3×3×3 cube." — Answer: 7.  _[TIMO-22-P3H-Q2]_
+- `projections-timo22-p3-q2` (ProjectionsTIMO22P3Q2Illustration) — ProjectionsTIMO22P3Q2Illustration — TIMO-22-P3H-Q2 "27 transparent boxes arranged in a 3×3×3 cube. Some black marbles are inserted. Given top/front/right-side projections, find the number of marbles." Answer: 7 Source: d _[TIMO-22-P3H-Q2]_
+
+**punch**  
+- `punch-fold14-pe` (PunchFold14PEExplainer) — IKMC-23-PE-Q14 post-answer explainer — "How does the sheet look after unfolding?" Drives the PunchFold14PEPrimitive through 3 beats:   beat 0 — flat sheet + fold crease (plan) _[IKMC-23-PE-Q14]_
+- `punch-fold14-pe` (PunchFold14PEIllustration) — IKMC-23-PE-Q14 — "A sheet of paper is folded in half. Square and round holes are punched. How does the sheet look after it is unfolded again?" Answer: B.  _[IKMC-23-PE-Q14]_
+
 **puzzle**  
+- `puzzle-calc3-ec` (PuzzleCalc3ECExplainer) — IKMC-2021-Ecolier-Q3 — post-answer beat-driven explainer. Four jigsaw pieces assembled into a rectangle read "12 + 3 = 15".  _[IKMC-21-EC-Q3]_
+- `puzzle-calc3-ec` (PuzzleCalc3ECIllustration) — Stem illustration for IKMC-2021-Ecolier-Q3 (puzzle-piece calculation).  The question gives four jigsaw puzzle pieces, each carrying part of a _[IKMC-21-EC-Q3]_
+- `puzzle-complete16-pe` (PuzzleComplete16PEExplainer) — IKMC-23-PE-Q16 — "Which pieces does Max use to complete the puzzle?" (answer A). Walk: count the gap (9 cells) → reject B/C/D by wrong total → reject E by wrong shape → A fills the gap exactly. Mirrors the static board f _[IKMC-23-PE-Q16]_
+- `puzzle-complete16-pe` (PuzzleComplete16PEIllustration) — IKMC-23-PE-Q16 — "Max wants to complete the puzzle shown."  Source scans: _[IKMC-23-PE-Q16]_
 - `puzzle-explainers21-g1` (puzzleExplainers21G1) — (no description) _[WMI-21F1A-Q18, WMI-21F1A-Q19, WMI-21F1A-Q21, WMI-21F1A-Q22, WMI-21F1A-Q24, WMI-21F1A-Q25, WMI-21F1A-Q3]_
 - `puzzle-explainers21-g2` (puzzleExplainers21G2) — (no description) _[WMI-21F2A-Q17, WMI-21F2A-Q18, WMI-21F2A-Q19, WMI-21F2A-Q23, WMI-21F2A-Q24, WMI-21F2A-Q25, WMI-21F3A-Q25]_
 - `puzzle-explainers21-g3` (puzzleExplainers21G3) — Beat-based explainers for WMI-21F3A puzzle questions. _[WMI-21F3A-Q19, WMI-21F3A-Q24]_
+- `puzzle-gap18-ec` (PuzzleGap18ECExplainer) — IKMC-22-EC-Q18 — "What piece completes the star puzzle?" — explainer.  Beat-by-beat walk: _[IKMC-22-EC-Q18]_
+- `puzzle-gap18-ec` (PuzzleGap18ECIllustration) — IKMC-22-EC-Q18 — "The puzzle on the left should be completed to look like the puzzle on the right. What piece should be used?" (answer C)  _[IKMC-22-EC-Q18]_
+
+**puzzle3**  
+- `puzzle3-pe` (Puzzle3PEExplainer) — IKMC-20-PE-Q3 — "How are the pieces arranged?" (answer A)  The explainer walks through the kangaroo piece identification beat-by-beat: _[IKMC-20-PE-Q3]_
+- `puzzle3-pe` (Puzzle3PEIllustration) — IKMC-20-PE-Q3 — "Nelly arranged 4 pieces to make a picture of a kangaroo. How are the pieces arranged?"  _[IKMC-20-PE-Q3]_
+
+**puzzle7**  
+- `puzzle7-pe` (Puzzle7PEExplainer) — IKMC-22-PE-Q7 — post-answer explainer: puzzle assembly → crescent moon.  Reuses PuzzleOptionBox from Puzzle7PEIllustration so the options animate _[IKMC-22-PE-Q7]_
+- `puzzle7-pe` (Puzzle7PEIllustration) — IKMC-22-PE-Q7 — "Peter puts the 4 puzzle pieces shown together to make a square. Which picture can he make?"  _[IKMC-22-PE-Q7]_
 
 **puzzles20**  
 - `puzzles20-g2-illustrations` (puzzles20G2Illustrations) — Puzzle-figure illustrations for WMI-20F2A, reconstructed from the scans. Data constants are exported so the batch-2 explainers bind to the same values. Rows: ◯◯⬠=50, ⬠⬠◻=29, ◻⬠◻=34; columns: 42, 37, 34. Unique solution: _[WMI-20F2A-Q18, WMI-20F2A-Q19, WMI-20F2A-Q21, WMI-20F2A-Q22, WMI-20F2A-Q23, WMI-20F2A-Q25]_
@@ -1042,9 +2196,28 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `puzzles21-g2-illustrations` (puzzles21G2Illustrations) — Puzzle figures for WMI-21F2A with solver-verified data. _[WMI-21F2A-Q17, WMI-21F2A-Q18, WMI-21F2A-Q19, WMI-21F2A-Q23, WMI-21F2A-Q24, WMI-21F2A-Q25, WMI-21F3A-Q25]_
 - `puzzles21-g3-illustrations` (puzzles21G3Illustrations) — Puzzle figures for WMI-21F3A with solver-verified data. _[WMI-21F3A-Q19, WMI-21F3A-Q24]_
 
+**pyramid**  
+- `pyramid-net-sasmo20-g3-q15` (PyramidNetSASMO20G3Q15Explainer) — SASMO-20-G3-Q15 — animated explainer.  Shows the 3-D pyramid (left) beside the net for option B (right), then uses _[SASMO-20-G3-Q15]_
+- `pyramid-net-sasmo20-g3-q15` (PyramidNetSASMO20G3Q15Illustration) — SASMO-20-G3-Q15 — "Gambar manakah di bawah ini yang dapat membentuk piramida yang ditunjukkan di sebelah kanan?" (Which flat net folds into the given pyramid?) Answer: B. _[SASMO-20-G3-Q15]_
+
+**pyramid10**  
+- `pyramid10-ec` (Pyramid10ECExplainer) — IKMC-20-EC-Q10 — post-answer explainer: "What does Loes see looking from above?"  Animation beats: _[IKMC-20-EC-Q10]_
+- `pyramid10-ec` (Pyramid10ECIllustration) — IKMC-20-EC-Q10 — "Loes looks at the pyramid from above. What does she see?" Answer: C — a square with its two diagonals to the center (apex).  _[IKMC-20-EC-Q10]_
+
+**pyramid19**  
+- `pyramid19-a15` (Pyramid19A15Illustration) — Pyramid19A15Illustration — SEAMO 2019 Paper A Q15 "A number pyramid is shown below. Evaluate a + b + c + d."  _[SEAMO-19-A-Q15]_
+
 **pyramid20**  
 - `pyramid20` (Pyramid20Explainer) — (no description) _[WMI-20F1A-Q21]_
 - `pyramid20` (Pyramid20Illustration) — Number pyramid for WMI-20F1A-Q21.  Recovered from db/seed/wmi/figures/2020-final-g1-a-q21.jpg: a 5-row pyramid _[WMI-20F1A-Q21]_
+
+**quad**  
+- `quad-circle20-b8` (QuadCircle20B8Explainer) — (no description) _[SEAMO-20-B-Q8]_
+- `quad-circle20-b8` (QuadCircle20B8Illustration) — SEAMO-20-B-Q8 — "Find the value of B."  Source figures: 2020.imgs/016.jpg, 017.jpg, 018.jpg _[SEAMO-20-B-Q8]_
+- `quad-in-square17-b16` (QuadInSquare17B16Illustration) — SEAMO-17-B-Q16 — "The figure shows a square of sides 10 cm. The area of rectangle EFGH is 8 cm². Find the area of the quadrilateral ABCD in cm²." Answer: E (None of the above). FIGURE DESCRIPTION (from 2017.imgs/022.jpg) _[SEAMO-17-B-Q16]_
+
+**queue17**  
+- `queue17-a10` (Queue17A10Illustration) — SEAMO-17-A-Q10 — "20 children queuing to buy food; Ali is 8th from the front, Emma is 6th from the back. How many children are between them?"  _[SEAMO-17-A-Q10]_
 
 **rabbit**  
 - `rabbit-grid24-g3` (RabbitGrid24G3Explainer) — Post-answer explainer for WMI-24F3A-Q24 (HARD). The rabbit has exactly one jump path that skips every stone and ends at the carrot: E,F,H,G,B,A,C,D. We trace it one jump per beat (driving RabbitGridFigure's pathUpto), st _[WMI-24F3A-Q24]_
@@ -1054,11 +2227,34 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `race-track24-g3` (RaceTrack24G3Explainer) — Post-answer explainer for WMI-24F3A-Q4 (2024 Grade-3 Final). Strategy: convert every distance to "from finish", then apply the equal gap. Answer D = 84 m. _[WMI-24F3A-Q4]_
 - `race-track24-g3` (RaceTrack24G3Illustration) — Race-track figure for WMI-24F3A-Q4 (2024 Grade-3 Final). Three runners Amy / Ben / Carol on an 800 m track; shows given distances only, never the answer (Amy's distance from the finish). _[WMI-24F3A-Q4]_
 
+**racetrack7**  
+- `racetrack7-pe` (Racetrack7PEExplainer) — IKMC-23-PE-Q7 — animated explainer for the racetrack tunnel problem.  Reuses the road/tunnel layout and CarGlyph from Racetrack7PEIllustration. _[IKMC-23-PE-Q7]_
+- `racetrack7-pe` (Racetrack7PEIllustration) — IKMC-23-PE-Q7 — "Pablo puts 10 toy cars on this racetrack. How many cars are in the tunnel?"  The figure shows a straight road going left-to-right through a green _[IKMC-23-PE-Q7]_
+
+**ray**  
+- `ray-angles-osn18-kq11` (RayAnglesOSN18KQ11Explainer) — RayAnglesOSN18KQ11Explainer — OSN 2018 SD Kabupaten Q11  Animates the solution: name the 4 gaps, collect single-gap sizes (4), _[OSN-18-SD-KAB-Q11]_
+- `ray-angles-osn18-kq11` (RayAnglesOSN18KQ11Illustration) — RayAnglesOSN18KQ11Illustration — OSN 2018 SD Kabupaten Q11  "Look at the following figure. From a single vertex, 5 rays create consecutive _[OSN-18-SD-KAB-Q11]_
+
 **rect**  
-- `rect-frame22-g3` (RectFrame22G3Explainer) — Post-answer animation for WMI-22F3A-Q21.  Method taught: enclosing-rectangle identity. _[WMI-22F3A-Q21]_
+- `rect-circle-seq-x20-a17` (RectCircleSeqX20A17Explainer) — RectCircleSeqX20A17Explainer.tsx  Animated explainer for SEAMOX-20-A-Q17: _[SEAMOX-20-A-Q17]_
+- `rect-circle-seq-x20-a17` (RectCircleSeqX20A17Illustration) — RectCircleSeqX20A17Illustration.tsx  Stem illustration for SEAMOX-20-A-Q17: _[SEAMOX-20-A-Q17]_
+- `rect-count-seamo21-b20-fig` (RectCountSeamo21B20Fig) — RectCountSeamo21B20Fig — SEAMO 2021 Paper B Q20 "How many rectangles are there in the figure?"  _[SEAMO-21-B-Q20]_
+- `rect-frame22-g3` (RectFrame22G3Explainer) — Post-answer animation for WMI-22F3A-Q21.  Method taught: side lengths + the 4 / 4 / 3 offsets (the scan's labels). _[WMI-22F3A-Q21]_
 - `rect-frame22-g3` (RectFrame22G3Illustration) — WMI-22F3A-Q21 — Four rectangles pinwheeled around a shaded (starred) region. THE FIGURE (reconstructed from db/seed/wmi/figures/2022-final-g3-a-q21.jpg) =================================================================== _[WMI-22F3A-Q21]_
+- `rect-perim22-a6` (RectPerim22A6Explainer) — Post-answer animation for SEAMO-22-A-Q6.  Question: Four figures each made of 6 small rectangles — which has the largest perimeter? _[SEAMO-22-A-Q6]_
+- `rect-perim22-a6` (RectPerim22A6Illustration) — SEAMO-22-A-Q6 — Four arrangements of 6 small rectangles; compare perimeters. THE FIGURE (from OCR crop 2022.imgs/007.jpg) ============================================ Four figures, each made of 6 identical small rectangl _[SEAMO-22-A-Q6]_
+- `rect-poly-simoc19-g4-q25` (RectPolySIMOC19G4Q25Explainer) — RectPolySIMOC19G4Q25Explainer — SIMOC-19-G4-Q25 post-answer explainer.  Walks through: _[SIMOC-19-G4-Q25]_
+- `rect-poly-simoc19-g4-q25` (RectPolySIMOC19G4Q25Illustration) — RectPolySIMOC19G4Q25Illustration — SIMOC-19-G4-Q25 "Semua sisi pada gambar berikut saling bertemu membentuk sudut siku-siku. Gunakan bilangan 1–8 untuk mewakili sisi a–h. Tentukan luas terbesar." Answer: 50. Source: docs _[SIMOC-19-G4-Q25]_
 - `rect-square25-g3` (RectSquare25G3Explainer) — WMI-25F3A-Q4 — Three identical rectangles (portrait, w × 3w) arranged side-by-side form a square. Each rectangle has perimeter 48 cm. Strategy: name the short side w → perimeter equation 8w = 48 → w = 6 _[WMI-25F3A-Q4]_
 - `rect-square25-g3` (RectSquare25G3Illustration) — WMI-25F3A-Q4 — Three identical rectangles arranged side-by-side (portrait) to form a square. Each rectangle perimeter = 48 cm; long side L = 3w, w = 6 cm. Shows the setup only (dimensions labelled w and 3w), never the an _[WMI-25F3A-Q4]_
+- `rect-tri-osn07-kq13` (RectTriOSN07KQ13Explainer) — OSN-07-SD-KAB-Q13 — animated explainer.  Animation beats: _[OSN-07-SD-KAB-Q13]_
+- `rect-tri-osn07-kq13` (RectTriOSN07KQ13Illustration) — OSN-07-SD-KAB-Q13 — persegi panjang ABCD dengan segitiga ECF yang diarsir.  ABCD: lebar AB = 10 cm (AF=6 + FB=4), tinggi DA = 8 cm (DE=4 + EA=4). _[OSN-07-SD-KAB-Q13]_
+- `rect-triangles-x24-b13` (RectTrianglesX24B13Explainer) — RectTrianglesX24B13Explainer — SEAMOX-24-B-Q13  Animated solution: derive rectangle area (hw = 216) from △BEC, _[SEAMOX-24-B-Q13]_
+- `rect-triangles-x24-b13` (RectTrianglesX24B13Illustration) — RectTrianglesX24B13Illustration — SEAMOX-24-B-Q13  Rectangle ABCD with: _[SEAMOX-24-B-Q13]_
+
+**rectilinear20**  
+- `rectilinear20-a4` (Rectilinear20A4Explainer) — SEAMO-20-A-Q4 — animated explainer for the U-shape perimeter.  Beats: _[SEAMO-20-A-Q4]_
+- `rectilinear20-a4` (Rectilinear20A4Illustration) — SEAMO-20-A-Q4 — U-shaped rectilinear figure perimeter.  The figure (from paper-a/2020.imgs/004.jpg): _[SEAMO-20-A-Q4]_
 
 **remove**  
 - `remove-op24-g1` (RemoveOp24G1Explainer) — WMI-24F1A-Q23 — post-answer animation. Try-and-eliminate from the left:   • join 9,8 → 98 makes the whole expression 106, a 3-digit number → ✗   • join 8,7 → 87 → 9 + 87 + 6 − 5 − 4 + 3 + 2 − 1 = 97, a 2-digit number ✓ _[WMI-24F1A-Q23]_
@@ -1068,6 +2264,45 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `ribbon-clips20` (RibbonClips20Explainer) — (no description) _[WMI-20F1A-Q3]_
 - `ribbon-clips20` (RibbonClips20Illustration) — Ribbon-measured-in-paperclips figure for WMI-20F1A-Q3.  Recovered from db/seed/wmi/figures/2020-final-g1-a-q3.jpg: a dashed box with _[WMI-20F1A-Q3]_
 
+**ribbon10**  
+- `ribbon10-pe` (Ribbon10PEExplainer) — IKMC-21-PE-Q10 — post-answer explainer for the folded-ribbon cut question.  Reuses the RibbonSerpentineDiagram primitive from the illustration, _[IKMC-21-PE-Q10]_
+- `ribbon10-pe` (Ribbon10PEIllustration) — IKMC-21-PE-Q10 — "Edmund cut a ribbon as shown in the picture."  Reconstructed from docs/reference/ocr-res/ikmc/contest/preecolier/2021.imgs/017.jpg: _[IKMC-21-PE-Q10]_
+
+**rice**  
+- `rice-add21-a20` (RiceAdd21A20Illustration) — SEAMO-21-A-Q20 — Column addition cryptarithmetic: RICE        E _[SEAMO-21-A-Q20]_
+
+**right**  
+- `right-triangle16-b18` (RightTriangle16B18Explainer) — SEAMO-16-B-Q18 — animated explainer: solve for the hypotenuse of a right triangle with perimeter 12 cm and area 6 cm².  _[SEAMO-16-B-Q18]_
+- `right-triangle16-b18` (RightTriangle16B18Illustration) — SEAMO-16-B-Q18 — right-angled triangle with perimeter 12 cm and area 6 cm².  Stem figure (016.jpg): a right-angled triangle. No side lengths shown in the _[SEAMO-16-B-Q18]_
+- `right-view-cubes-timo22-p4-q18` (RightViewCubesTIMO22P4Q18Explainer) — Post-answer explainer for TIMO-22-P4H-Q18. "Paling sedikit berapa banyak persegi yang terlihat dari sisi kanan?" → 9  _[TIMO-22-P4H-Q18]_
+- `right-view-cubes-timo22-p4-q18` (RightViewCubesTIMO22P4Q18Illustration) — RightViewCubesTIMO22P4Q18Illustration — TIMO-22-P4H-Q18 "Paling sedikit berapa banyak persegi yang terlihat jika melihat gambar di bawah ini dari sisi kanan?" → 9 3D voxel layout (x=right, y=back/depth, z=up): Left secti _[TIMO-22-P4H-Q18]_
+- `right-view-hk20-p3-q16` (RightViewHK20P3Q16Explainer) — Post-answer explainer for HKIMO-20-P3H-Q16. "At least how many square(s) can be seen from the right?" — answer: 3.  _[HKIMO-20-P3H-Q16]_
+- `right-view-hk20-p3-q16` (RightViewHK20P3Q16Illustration) — RightViewHK20P3Q16Illustration — HKIMO-20-P3H-Q16 "At least how many square(s) can be seen if viewing the figure below from the right?" Answer: 3. Source image: docs/reference/ocr-res/hkimo/heat/primary-3/2020.imgs/006.j _[HKIMO-20-P3H-Q16]_
+- `right-view-hk23-p3-sfq19` (RightViewHK23P3SFQ19Explainer) — Post-answer explainer for HKIMO-23-P3SF-Q19. "At least how many squares visible from the right?" — answer: 7.  _[HKIMO-23-P3SF-Q19]_
+- `right-view-hk23-p3-sfq19` (RightViewHK23P3SFQ19Illustration) — RightViewHK23P3SFQ19Illustration — HKIMO-23-P3SF-Q19 "At least how many square(s) can be seen if viewing the figure below from the right?" Answer: 7 Source image: docs/reference/ocr-res/hkimo/semifinal/primary-3/2023.img _[HKIMO-23-P3SF-Q19]_
+- `right-view-hk24-p3-q17` (RightViewHK24P3Q17Explainer) — Post-answer explainer for HKIMO-24-P3H-Q17. "At least how many square(s) can be seen from the right?" — answer: 4.  _[HKIMO-24-P3H-Q17]_
+- `right-view-hk24-p3-q17` (RightViewHK24P3Q17Illustration) — RightViewHK24P3Q17Illustration — HKIMO-24-P3H-Q17 "At least how many square(s) can be seen if viewing the figure below from the right?" — Answer: 4. Source image: docs/reference/ocr-res/hkimo/heat/primary-3/2024.imgs/007 _[HKIMO-24-P3H-Q17]_
+- `right-view-hk25-p1-q16` (RightViewHK25P1Q16Explainer) — Post-answer explainer for HKIMO-25-P1H-Q16. "At least how many squares visible from the right?" — answer: 7.  _[HKIMO-25-P1H-Q16]_
+- `right-view-hk25-p1-q16` (RightViewHK25P1Q16Illustration) — RightViewHK25P1Q16Illustration — HKIMO-25-P1H-Q16 "At least how many square(s) can be seen if observing the figure below from the right?" Answer: 7 squares. Source image: docs/reference/ocr-res/hkimo/heat/primary-1/2025. _[HKIMO-25-P1H-Q16]_
+- `right-view-hk25-p3-q16` (RightViewHK25P3Q16Explainer) — Post-answer explainer for HKIMO-25-P3H-Q16. "At least how many squares can be seen from the right?" — answer: 6.  _[HKIMO-25-P3H-Q16]_
+- `right-view-hk25-p3-q16` (RightViewHK25P3Q16Illustration) — RightViewHK25P3Q16Illustration — HKIMO-25-P3H-Q16 "At least how many square(s) can be seen if viewing the figure below from the right?" Answer: 6 Source image: docs/reference/ocr-res/hkimo/heat/primary-3/2025.imgs/008.jp _[HKIMO-25-P3H-Q16]_
+- `right-view-pyramid-hk23-p1-sfq18` (RightViewPyramidHK23P1SFQ18Explainer) — Post-answer explainer for HKIMO-23-P1SF-Q18. "At least how many squares visible from the right?" — answer: 4.  _[HKIMO-23-P1SF-Q18]_
+- `right-view-pyramid-hk23-p1-sfq18` (RightViewPyramidHK23P1SFQ18Illustration) — RightViewPyramidHK23P1SFQ18Illustration — HKIMO-23-P1SF-Q18 "At least how many square(s) can be seen if observing the figure below from the right?" — Answer: 4. Source image: docs/reference/ocr-res/hkimo/semifinal/primar _[HKIMO-23-P1SF-Q18]_
+- `right-view-timo22-p3-q19` (RightViewTIMO22P3Q19Explainer) — Post-answer explainer for TIMO-22-P3H-Q19. "At least how many squares visible from the right?" — answer: 8.  _[TIMO-22-P3H-Q19]_
+- `right-view-timo22-p3-q19` (RightViewTIMO22P3Q19Illustration) — RightViewTIMO22P3Q19Illustration — TIMO-22-P3H-Q19 "We place some identical cubes on top of each other. At least how many square(s) can be seen if observing the figure below from the right-hand side?" Answer: 8 Source im _[TIMO-22-P3H-Q19]_
+
+**rings9**  
+- `rings9-ec` (Rings9ECExplainer) — IKMC-20-EC-Q9 — post-answer concentric-rings colouring explainer.  Beat plan (7 beats): _[IKMC-20-EC-Q9]_
+- `rings9-ec` (Rings9ECIllustration) — IKMC-20-EC-Q9 — Cindy's concentric-ring colouring puzzle (2020 Ecolier Q9).  "Cindy colours each region on the pattern either red, blue or yellow. _[IKMC-20-EC-Q9]_
+
+**road**  
+- `road-houses12-ec` (RoadHouses12ECExplainer) — IKMC-23-EC-Q12 — post-answer animated explainer.  Reuses RoadHouses12EC from the illustration as the shared primitive. _[IKMC-23-EC-Q12]_
+- `road-houses12-ec` (RoadHouses12ECIllustration) — IKMC-23-EC-Q12 — "There are 7 houses north of Road A, 8 houses east of Road B and 5 houses south of Road A. How many houses are west of Road B?" Answer: A (4) _[IKMC-23-EC-Q12]_
+- `road-map-osn16-pq14` (RoadMapOSN16PQ14Explainer) — OSN-16-SD-PROV-Q14 — animated explainer for the road-map shortest-path count.  Animation: 7 beats progressively reveal DP path-count bubbles at each _[OSN-16-SD-PROV-Q14]_
+- `road-map-osn16-pq14` (RoadMapOSN16PQ14Illustration) — OSN-16-SD-PROV-Q14 — Road map: two 2×2 unit-segment grids staircase-connected at corner B. Stem illustration shows the map with A, B, C labelled.  _[OSN-16-SD-PROV-Q14]_
+- `road-map8-pe` (RoadMap8PEExplainer) — IKMC-23-PE-Q8 — post-answer animation. Reuses the RoadMap8PE primitive from the illustration so the animation reads as the static scene coming alive. _[IKMC-23-PE-Q8]_
+- `road-map8-pe` (RoadMap8PEIllustration) — IKMC-23-PE-Q8 — road map from X to Y, count straight-through crossings.  Steven drives from X to Y on a winding spiral road. At each crossing he _[IKMC-23-PE-Q8]_
+
 **robot**  
 - `robot-maze23-g1` (RobotMaze23G1Explainer) — Echo the qupu tokens the static maze already uses so the animation reads as the same scene coming alive. The traced route + robot are drawn by the RobotMaze23G1 primitive (route + robot in fill-qupu-brand-orange / fill-q _[WMI-23F1A-Q25]_
 - `robot-maze23-g1` (RobotMaze23G1Illustration) — WMI-23F1A-Q25 (Grade 1, 2023 Final, Paper A) — robot square maze (fill-in, answer = 20).  A robot enters a 6-column x 5-row square maze on the LEFT (middle row) facing _[WMI-23F1A-Q25]_
@@ -1075,6 +2310,10 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `robot-maze23-g2` (RobotMaze23G2Illustration) — WMI-23F2A-Q25 (Grade 2, 2023 Final, Paper A) — robot square maze (fill-in, answer = 20).  A robot enters a 6-column x 5-row square maze on the LEFT (middle row) facing _[WMI-23F2A-Q25]_
 - `robot-maze23-g3` (RobotMaze23G3Explainer) — Echo the qupu tokens the static maze already uses so the animation reads as the same scene coming alive. The traced route + robot are drawn by the RobotMaze23G3 primitive (route + robot in fill-qupu-brand-orange / fill-q _[WMI-23F3A-Q25]_
 - `robot-maze23-g3` (RobotMaze23G3Illustration) — WMI-23F3A-Q25 (Grade 3, 2023 Final, Paper A) — broken-robot square maze (fill-in, answer = 31).  A robot passes through a 7-column x 5-row square-grid maze. Its left-turn and _[WMI-23F3A-Q25]_
+
+**rocket**  
+- `rocket-mirror-sasmo19-g3-q7` (RocketMirrorSASMO19G3Q7Explainer) — SASMO-19-G3-Q7 — animated explainer for the rocket mirror image question.  Animation flow: _[SASMO-19-G3-Q7]_
+- `rocket-mirror-sasmo19-g3-q7` (RocketMirrorSASMO19G3Q7Illustration) — SASMO-19-G3-Q7 — "Temukan bayangan cermin dari gambar di sebelah kanan." (Find the mirror image of the picture on the right.)  _[SASMO-19-G3-Q7]_
 
 **rolling**  
 - `rolling-hex24-g2` (RollingHex24G2Explainer) — RollingHex24G2Explainer.tsx WMI-24F2A-Q15: equilateral triangle rolls around a regular hexagon. Teaches the method: watch the smiley face orientation at each position. _[WMI-24F2A-Q15]_
@@ -1084,21 +2323,56 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `room-maze23-g1` (RoomMaze23G1Explainer) — Echo the qupu tokens the static maze already uses so the animation reads as the same scene coming alive. The traced route + the lit-even rooms are drawn by the RoomMaze23G1 primitive (route in fill-qupu-brand-orange #f08 _[WMI-23F1A-Q22]_
 - `room-maze23-g1` (RoomMaze23G1Illustration) — WMI-23F1A-Q22 (Grade 1) — maze of 16 numbered rooms (fill-in, answer = 6).  A 4x4 maze of numbered rooms. You may move between any two ADJACENT rooms _[WMI-23F1A-Q22]_
 
+**rooms20**  
+- `rooms20-pe` (Rooms20PEExplainer) — IKMC-22-PE-Q20 — animated explainer for the "Dino moves through rooms" problem.  Reuses the Rooms20PE grid primitive from Rooms20PEIllustration. _[IKMC-22-PE-Q20]_
+- `rooms20-pe` (Rooms20PEIllustration) — IKMC-22-PE-Q20 — "Dino moves from the entrance to the exit by going through rooms."  Figure source: docs/reference/ocr-res/ikmc/contest/preecolier/2022.imgs/061.jpg _[IKMC-22-PE-Q20]_
+
 **rope**  
+- `rope-knot-sasmo19-g4-q8` (RopeKnotSASMO19G4Q8Explainer) — SASMO-19-G4-Q8 — Rope knot explainer Walks through each option A–E, explaining which are unknots and why E is the genuine overhand knot (3 alternating crossings lock together). _[SASMO-19-G4-Q8]_
+- `rope-knot-sasmo19-g4-q8` (RopeKnotSASMO19G4Q8Illustration) — SASMO-19-G4-Q8 — "Manakah yang akan membentuk simpul ketika kedua ujungnya ditarik?" All five choices are rope figures (A–E); no separate stem figure. Answer: E — the overhand / trefoil knot (3 alternating crossings lock _[SASMO-19-G4-Q8]_
 - `rope-ruler25-g2` (RopeRuler25G2Explainer) — WMI-25F2A-Q5 — Rope on a ruler: measure each straight piece, add them. Post-answer explainer. SSR-safe and deterministic. Answer E = 12 cm  (upper 3→7 = 4 cm, lower 3→11 = 8 cm, total 12 cm). _[WMI-25F2A-Q5]_
 - `rope-ruler25-g2` (RopeRuler25G2Illustration) — WMI-25F2A-Q5 — Rope on a ruler (measure the straight pieces, ignore curves). Static problem figure: ruler + rope only, no answer revealed. SSR-safe and deterministic — no random, no dates, no side effects. _[WMI-25F2A-Q5]_
 - `rope-square-g3` (RopeSquareG3Explainer) — WMI-19F3A-Q4 — a 192 m rope forms a square with 24 m left over. Kid-visual: the rope bar loses its 24 m tail, the 168 m that is used folds into a square, and the side is shared out: 168 ÷ 4 = 42. _[WMI-19F3A-Q4]_
+
+**rotate22**  
+- `rotate22-ec` (Rotate22ECExplainer) — IKMC-23-EC-Q22 — post-answer explainer for the two-machine rotation problem.  Walks through the RSR sequence beat by beat: _[IKMC-23-EC-Q22]_
+- `rotate22-ec` (Rotate22ECIllustration) — IKMC-23-EC-Q22 — Stem illustration for the two-machine rotation problem.  READING THE SCAN: _[IKMC-23-EC-Q22]_
 
 **roundabout25**  
 - `roundabout25-g2` (Roundabout25G2Explainer) — Post-answer explainer for WMI-25F2A-Q20 (2025 Grade-2 Final, Q20). Strategy: name three arcs x/y/z, sum all three trips to get 2·loop = 852 → loop = 426, then subtract the known y+z = Brenda→Ashley = 332 to get _[WMI-25F2A-Q20]_
 - `roundabout25-g2` (Roundabout25G2Illustration) — Roundabout illustration for WMI-25F2A-Q20 (2025 Grade-2 Final, Question 20). Three homes sit around a counterclockwise-only roundabout. Given arc distances: Ashley->Cheryl = 207 m, Brenda->Ashley = 332 m, Cheryl->Brenda  _[WMI-25F2A-Q20]_
 
 **route**  
+- `route-grid19-b22` (RouteGrid19B22Illustration) — RouteGrid19B22Illustration — SEAMO 2019 Paper B, Q22  Question: How many ways are there to travel from A to B, _[SEAMO-19-B-Q22]_
+- `route-map23-pe` (RouteMap23PEExplainer) — IKMC-22-PE-Q23 — post-answer explainer: "Which route can Kangy take?" (Kangy's car can only turn left.) Strategy: examine each route (A → E) and test every corner for the left-turn-only (CCW) constraint. Routes B, C, D,  _[IKMC-22-PE-Q23]_
+- `route-map23-pe` (RouteMap23PEIllustration) — IKMC-22-PE-Q23 — "Kangy's car can only turn left. Which route can Kangy take?" Answer: A  _[IKMC-22-PE-Q23]_
 - `route-tree23-g1` (RouteTree23G1Explainer) — Verdict colours echo the qupu brand tokens used in the static figure: brand orange for the "good" routes (matching the markGood rings), a muted red for the rejected ones, and the cream/ink info palette for the intro beat _[WMI-23F1A-Q20]_
 - `route-tree23-g1` (RouteTree23G1Illustration) — WMI-23F1A-Q20 (Grade 1, 2023 Final, Paper A) — "Monkey route tree".  Recovered from db/seed/wmi/figures/2023-final-g1-a-q20.jpg: a monkey sits in _[WMI-23F1A-Q20]_
 
+**row**  
+- `row-col-circles22-pe` (RowColCircles22PEExplainer) — Palette echoes the static figure (same qupu tokens). ── Row = Col equation chip ────────────────────────────────────────────────── Shows "row sum = col sum" for the currently displayed arrangement. _[IKMC-20-PE-Q22]_
+- `row-col-circles22-pe` (RowColCircles22PEIllustration) — IKMC-20-PE-Q22 — "Roo wrote each of the numbers 1, 2, 3, 4 and 5 in one of the circles so that the sum of the numbers in the row is equal to the sum of the numbers in the column. What number could be written in the circl _[IKMC-20-PE-Q22]_
+
 **ruler**  
 - `ruler-measure-g2` (RulerMeasureG2Explainer) — (no description) _[WMI-19F2A-Q12]_
+- `ruler-tools-sasmo19-g2-q4` (RulerToolsSASMO19G2Q4Explainer) — Explainer for SASMO-19-G2-Q4 "Find the difference in length between the saw and the screwdriver."  _[SASMO-19-G2-Q4]_
+- `ruler-tools-sasmo19-g2-q4` (RulerToolsSASMO19G2Q4Illustration) — Illustration for SASMO-19-G2-Q4 "Find the difference in length between the saw and the screwdriver."  _[SASMO-19-G2-Q4]_
+
+**safe**  
+- `safe-buttons-osn25-nsfq5` (SafeButtonsOSN25NSFQ5Explainer) — OSN-25-SD-NAS-SEMIFINAL-Q5 — post-answer animated explainer.  Beats: _[OSN-25-SD-NAS-SEMIFINAL-Q5]_
+- `safe-buttons-osn25-nsfq5` (SafeButtonsOSN25NSFQ5Illustration) — OSN-25-SD-NAS-SEMIFINAL-Q5 — safe-lock button grid illustration.  STEM: a 2×4 keypad of buttons on a safe door. No buttons pressed. _[OSN-25-SD-NAS-SEMIFINAL-Q5]_
+
+**sailing19**  
+- `sailing19-ec` (Sailing19ECExplainer) — IKMC-22-EC-Q19 — post-answer animation.  Reuses the boat/buoy layout from Sailing19ECIllustration. _[IKMC-22-EC-Q19]_
+- `sailing19-ec` (Sailing19ECIllustration) — IKMC-22-EC-Q19 — "Karin sailed around four buoys, as shown."  Faithfully reconstructs the figure from: _[IKMC-22-EC-Q19]_
+
+**sandwich**  
+- `sandwich-juice4-pe` (SandwichJuice4PEExplainer) — IKMC-22-PE-Q4 post-answer explainer.  Strategy: show both orders side by side, spotlight the ONE extra juice in _[IKMC-22-PE-Q4]_
+- `sandwich-juice4-pe` (SandwichJuice4PEIllustration) — IKMC-22-PE-Q4 — "Sandwich and juice" stem illustration.  Source figure: docs/reference/ocr-res/ikmc/contest/preecolier/2022.imgs/011.jpg _[IKMC-22-PE-Q4]_
+
+**saw**  
+- `saw-log-x24-a12` (SawLogX24A12Explainer) — SEAMOX-24-A-Q12 — Animated explainer Walks through adding cuts to a log one at a time until we have 4 pieces, then reveals 3 cuts × 2 min = 6 minutes. Uses `SawLogSVG` from the illustration file (shared SVG geometry). _[SEAMOX-24-A-Q12]_
+- `saw-log-x24-a12` (SawLogX24A12Illustration) — SEAMOX-24-A-Q12 — Stem illustration Shows the GIVEN scenario: 1 vertical cut divides a log into 2 pieces (taking 2 minutes). The question (4 pieces = ? min) is left unanswered. Exports `SawLogSVG` so the explainer can re _[SEAMOX-24-A-Q12]_
 
 **scenes20**  
 - `scenes20-g2-illustrations` (scenes20G2Illustrations) — Scene illustrations for WMI-20F2A, reconstructed from the paper scans. _[WMI-20F2A-Q10, WMI-20F2A-Q11, WMI-20F2A-Q14, WMI-20F2A-Q15, WMI-20F2A-Q20, WMI-20F2A-Q7, WMI-20F2A-Q8]_
@@ -1112,6 +2386,21 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **school**  
 - `school-letters-g2` (SchoolLettersG2Explainer) — WMI-20F2A-Q2 — which letters of "SCHOOL" contain a vertical line segment? Checked one letter per beat: S ✗ (curves), C ✗ (curve), H ✓ (two vertical strokes), O ✗, O ✗, L ✓ (one vertical stroke) → 2 letters. _[WMI-20F2A-Q2]_
 
+**seamo**  
+- `seamo-x20-a4` (SeamoX20A4Explainer) — SEAMOX-20-A-Q4 — Explainer for "How many rectangles are in the figure below?" Cycles through each of the 12 rectangles beat-by-beat, highlighting it with a green dashed ring, then reveals the final count of 12. Uses the  _[SEAMOX-20-A-Q4]_
+- `seamo-x20-a4` (SeamoX20A4Illustration) — SEAMOX-20-A-Q4 — Illustration for "How many rectangles are in the figure below?" Source figure: docs/reference/ocr-res/seamo-x/contest/paper-a/2020.imgs/005.jpg Answer: 12 rectangles. The figure is a large outer rectangl _[SEAMOX-20-A-Q4]_
+
+**seamo18**  
+- `seamo18-a16-fig` (Seamo18A16Fig) — Seamo18A16Fig — SEAMO 2018 Paper A Q16 "How many triangles are there in the figure below?"  _[SEAMO-18-A-Q16]_
+- `seamo18-a24-fig` (Seamo18A24Fig) — Seamo18A24Fig — SEAMO 2018 Paper A Q24 "Each row represents one of the following numbers: 892, 485, 364, 624.  Which number does Row 2 represent?" _[SEAMO-18-A-Q24]_
+- `seamo18-b17-fig` (Seamo18B17Fig) — Seamo18B17Fig — SEAMO 2018 Paper B Q17 "The diagram below shows a rectangle of length 36 cm. It contains two shaded  regions and 7 identical small rectangles. Find the area of one small rectangle." _[SEAMO-18-B-Q17]_
+- `seamo18-b7-fig` (Seamo18B7Fig) — Seamo18B7Fig — SEAMO 2018 Paper B Q7 "The numbers 1, 2, 3, …, 9 is to be filled in each circle, such that  the sum of numbers along each line is S. Find S." _[SEAMO-18-B-Q7]_
+- `seamo18-bq20-fig` (Seamo18BQ20Fig) — Seamo18BQ20Fig — SEAMO 2018 Paper B Q20 "The diagram shows a square ABCD of side 10 cm and a shaded rectangle of  area 6 cm². What is the area of EFGH?" _[SEAMO-18-B-Q20]_
+
+**seamo22**  
+- `seamo22-a23` (Seamo22A23Explainer) — SEAMO-22-A-Q23 Explainer — "How many chicks equal ONE rabbit?" Animated beat-based walkthrough of the three-step chain substitution: Beat 0: Figure 1 — rabbit = 3 squirrels Beat 1: Figure 2 — squirrel = 3 ducks → rabbit  _[SEAMO-22-A-Q23]_
+- `seamo22-a23` (Seamo22A23Illustration) — SEAMO-22-A-Q23 — "How many chicks have the same weight as ONE rabbit?" Four balance-scale figures (all level / balanced): Figure 1: 1 rabbit = 3 squirrels Figure 2: 1 squirrel = 3 ducks Figure 3: 1 duck = 2 chicks Figure _[SEAMO-22-A-Q23]_
+
 **seating24**  
 - `seating24-g2` (Seating24G2Explainer) — Post-answer explainer for WMI-24F2A-Q12 (2024 Grade-2 final) — Samuel's seat.  Reuses the static figure's `Seating24G2` primitive and drives it beat by beat _[WMI-24F2A-Q12]_
 - `seating24-g2` (Seating24G2Illustration) — Static card illustration for WMI-24F2A-Q12 (2024 Grade-2 final).  "Below is a seating map of a small show. Find the number of Samuel's seat." _[WMI-24F2A-Q12]_
@@ -1120,31 +2409,76 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `second-longest` (SecondLongestExplainer) — (no description) _[WMI-19F1A-Q4]_
 - `second-longest` (SecondLongestIllustration) — "Which is the second longest?" figure for WMI-19F1-Q4. Four labelled strips A–D of different lengths drawn over a faint column grid. Real-figure ordering by length: B (longest) > A (second) > D > C (shortest), _[WMI-19F1A-Q4]_
 
+**seg**  
+- `seg-graph-hk23-p1-sfq20` (SegGraphHK23P1SFQ20Explainer) — HKIMO-23-P1SF-Q20 — animated explainer.  Reveals all 10 line segments one-by-one in distinct colours, _[HKIMO-23-P1SF-Q20]_
+- `seg-graph-hk23-p1-sfq20` (SegGraphHK23P1SFQ20Illustration) — HKIMO-23-P1SF-Q20 — "How many line segment(s) is / are there in the figure below?"  Reconstructed from docs/reference/ocr-res/hkimo/semifinal/primary-1/2023.imgs/009.jpg: _[HKIMO-23-P1SF-Q20]_
+
 **segment**  
+- `segment-count-hk24-p2-q18` (SegmentCountHK24P2Q18Explainer) — ── colour tokens ───────────────────────────────────────────────────────────── _[HKIMO-24-P2H-Q18]_
+- `segment-count-hk24-p2-q18` (SegmentCountHK24P2Q18Illustration) — HKIMO-24-P2H-Q18 — "How many line segments are there in the figure?"  PROBLEM ONLY (no answer): cross-rectangle-triangle compound figure. _[HKIMO-24-P2H-Q18]_
 - `segment-count23-g1` (SegmentCount23G1Explainer) — WMI-23F1A-Q17 (2023 Grade 1 Final) — fill-in answer = 3.  Binds to the built SegmentCount23G1 primitive (showDigit / heat). We do NOT _[WMI-23F1A-Q17]_
 - `segment-count23-g1` (SegmentCount23G1Illustration) — WMI-23F1A-Q17 (2023 Grade 1 Final) — answer = 3 (fill-in).  "You draw the digits 0–9 one by one on the 15 squares below (draw 0, then _[WMI-23F1A-Q17]_
+- `segment-graph-hk25-p2-q18` (SegmentGraphHK25P2Q18Explainer) — (no description) _[HKIMO-25-P2H-Q18]_
+- `segment-graph-hk25-p2-q18` (SegmentGraphHK25P2Q18Illustration) — HKIMO-25-P2H-Q18 — "How many line segment(s) is/are there in the polygon below?" Answer: 10  (5-cycle B-C-E-H-I-B plus 5 antennae: A-B, C-D, D-E, E-F, E-G)  _[HKIMO-25-P2H-Q18]_
 
 **segments24**  
 - `segments24-g1` (Segments24G1Explainer) — WMI-24F1A-Q3 (2024 Grade 1 Final) — multiple-choice answer = B ("A < B").  Binds to the built Segments24G1 primitive (lit / revealLengths). We do NOT _[WMI-24F1A-Q3]_
 - `segments24-g1` (Segments24G1Illustration) — WMI-24F1A-Q3 (2024 Grade 1 Final) — answer = B, i.e. the true statement "A < B".  "What is true about the lengths of the three black line segments A, B, and C _[WMI-24F1A-Q3]_
 
+**semi**  
+- `semi-circle-quadrants-x24-b6` (SemiCircleQuadrantsX24B6Explainer) — SEAMOX-24-B-Q6 — animated explainer for the square/semicircle/quadrant area puzzle.  Beat plan (5 beats, finalIndex = 4): _[SEAMOX-24-B-Q6]_
+- `semi-circle-quadrants-x24-b6` (SemiCircleQuadrantsX24B6Illustration) — SEAMOX-24-B-Q6 — Square/semicircle/quadrant shaded-area puzzle (SEAMO X 2024 Paper B Q6).  "The figure shows a square of side length 50 cm. Inscribed inside the square _[SEAMOX-24-B-Q6]_
+- `semi-trap-osn25-nfq13` (SemiTrapOSN25NFQ13Explainer) — OSN-25-SD-NAS-FINAL-Q13 — explainer animasi luas trapesium ORSQ  Beat walk: _[OSN-25-SD-NAS-FINAL-Q13]_
+- `semi-trap-osn25-nfq13` (SemiTrapOSN25NFQ13Illustration) — OSN-25-SD-NAS-FINAL-Q13 — setengah lingkaran dengan trapesium ORSQ  PROBLEM ONLY — shows the static figure from the paper: _[OSN-25-SD-NAS-FINAL-Q13]_
+
 **sequence**  
 - `sequence-fill-explainers` (sequenceFillExplainers) — Shared "find the step, fill the gaps" explainer for number-sequence questions. Beats: show the row with gaps → discover the step from two adjacent KNOWN numbers → fill every gap in order → reveal the ★ → result. The star _[WMI-19F1A-Q3, WMI-19F2A-Q1]_
+- `sequence-hk22-p2-q18` (SequenceHK22P2Q18Explainer) — HKIMO 2022 Heat Primary-2 Q18 — animated explainer Three-beat animation: identify ▲-runs → extend to run 5 → reveal ? = ▲ ── colours ────────────────────────────────────────────────────────────────── _[HKIMO-22-P2H-Q18]_
+- `sequence-hk22-p2-q18` (SequenceHK22P2Q18Illustration) — HKIMO 2022 Heat Primary-2 Q18 "By observing the pattern, from left to right, what is the missing figure?"  _[HKIMO-22-P2H-Q18]_
 
 **shaded**  
+- `shaded-arc22-b14` (ShadedArc22B14Explainer) — SEAMO-22-B-Q14 — post-answer beat-driven explainer.  Reuses ShadedArc22B14Figure from the illustration so the animation _[SEAMO-22-B-Q14]_
+- `shaded-arc22-b14` (ShadedArc22B14Illustration) — ShadedArc22B14Illustration — SEAMO 2022 Paper B Q14  "The area of a circle is πr², where π = 22/7 and r is the radius. _[SEAMO-22-B-Q14]_
+- `shaded-fraction-sasmo19-g4-q14` (ShadedFractionSASMO19G4Q14Explainer) — SASMO 2019 Grade 4 Q14 — post-answer explainer: largest shaded fraction. Teaches "compare fractions, not sizes" beat by beat: Beat 0 — intro: "Compare the shaded fraction, not total size." Beat 1 — A & B: "A=5/8 B=1/2" B _[SASMO-19-G4-Q14]_
+- `shaded-fraction-sasmo19-g4-q14` (ShadedFractionSASMO19G4Q14Illustration) — SASMO 2019 Grade 4 Q14 — "Which figure has the largest shaded fraction of its area?"  The A–E choices ARE the figures; there is no separate stem image. _[SASMO-19-G4-Q14]_
+- `shaded-grid-osn08-kq18` (ShadedGridOSN08KQ18Explainer) — OSN-08-SD-KAB-Q18 — post-answer explainer. Strategy: count the shaded unit squares, then multiply by 5 cm². Beat 0 — intro: show the grid + shaded polygon; task = count squares. Beat 1 — count: shaded area = 7.5 unit squ _[OSN-08-SD-KAB-Q18]_
+- `shaded-grid-osn08-kq18` (ShadedGridOSN08KQ18Illustration) — OSN-08-SD-KAB-Q18 — Stem illustration. Grid 4 cols × 5 rows; each unit square = 5 cm². Shaded polygon covers exactly 7.5 unit squares → 37.5 cm². Polygon vertices (grid units): (0,2) (1,0) (2,1) (4,2) (2,3) (2,5) (1,5) ( _[OSN-08-SD-KAB-Q18]_
+- `shaded-quad-osn15-nq8` (ShadedQuadOSN15NQ8Illustration) — OSN-15-SD-NAS-Q8 — "ABCD is a square. P midpoint AB, Q midpoint CD, R on BC with BR = (1/3)BC. Ratio of shaded to unshaded area = ?"  _[OSN-15-SD-NAS-Q8]_
+- `shaded-rect22-b9` (ShadedRect22B9Explainer) — SEAMO-22-B-Q9 — post-answer animation. Method: midline E–G splits ABCD in half; the two shaded triangles fill the top half. ∴ shaded = 40 ÷ 2 = 20 cm²  → B. _[SEAMO-22-B-Q9]_
+- `shaded-rect22-b9` (ShadedRect22B9Illustration) — SEAMO-22-B-Q9 — Rectangle ABCD with midpoints E, F, G and point H on AD. PROBLEM ONLY: shows the static figure from paper-b/2022.imgs/004.jpg. - Rectangle ABCD (A top-left, D top-right, C bottom-right, B bottom-left) - H _[SEAMO-22-B-Q9]_
+- `shaded-square-simoc19-g4-q17` (ShadedSquareSIMOC19G4Q17Explainer) — ShadedSquareSIMOC19G4Q17Explainer — SIMOC-19-G4-Q17  Post-answer animated explainer. _[SIMOC-19-G4-Q17]_
+- `shaded-square-simoc19-g4-q17` (ShadedSquareSIMOC19G4Q17Illustration) — ShadedSquareSIMOC19G4Q17Illustration — SIMOC-19-G4-Q17 "ABCD adalah persegi dengan panjang sisi 12 cm. Titik L adalah sembarang titik pada sisi AB. Titik H dan I membagi sisi AD menjadi tiga bagian sama. Titik J dan K ju _[SIMOC-19-G4-Q17]_
+- `shaded-square-x23-a5` (ShadedSquareX23A5Explainer) — SEAMO-X 2023 Paper A Q5 — animated explainer. Drives beat-by-beat through: intro → outer square (144) → diamond (72) → shaded (36) → result. Beat 0 (intro) → Beat 1 (outer) → Beat 2 (diamond) → Beat 3 (shaded) → Beat 4 ( _[SEAMOX-23-A-Q5]_
+- `shaded-square-x23-a5` (ShadedSquareX23A5Illustration) — SEAMO-X 2023 Paper A Q5 — nested-squares shaded region. Outer 12×12 cm square. Diamond (rotated 45°) with vertices at midpoints of outer sides. Shaded inner axis-aligned square with vertices at midpoints of diamond sides _[SEAMOX-23-A-Q5]_
+- `shaded-square20-b5` (ShadedSquare20B5Explainer) — ShadedSquare20B5Explainer.tsx — SEAMO-20-B-Q5  Animated step-by-step explainer for the "two shaded regions x and y" question. _[SEAMO-20-B-Q5]_
+- `shaded-square20-b5` (ShadedSquare20B5Illustration) — SEAMO-20-B-Q5 — Square with a diagonal, two shaded regions x and y.  ABCD is a square with side 5 cm. _[SEAMO-20-B-Q5]_
+- `shaded-stair-osn25-nfq22` (ShadedStairOSN25NFQ22Illustration) — OSN-25-SD-NAS-FINAL-Q22 — rectangle ABCD (6×9 units) with a shaded staircase region; E on BC is chosen so AE bisects the shaded area; find CE.  _[OSN-25-SD-NAS-FINAL-Q22]_
 - `shaded-tree-g3` (ShadedTreeG3Explainer) — WMI-19F3A-Q11 — count the shaded tree row by row: whole squares plus slanted halves that pair into wholes: 2 + 3 + 4 + 1 = 10 cm². _[WMI-19F3A-Q11]_
 - `shaded-tree-g3` (ShadedTreeG3Illustration) — Shaded-area "tree" on a unit grid for WMI-19F3A-Q11. Reconstructed from db/seed/wmi/figures/2019-final-g3-a-q11.jpg: a 7×4 grid (each cell 1 cm²) with a tree of three flat-topped tiers + a trunk. Row by _[WMI-19F3A-Q11]_
+
+**shaded4**  
+- `shaded4-ec` (Shaded4ECExplainer) — IKMC-20-EC-Q4 — post-answer explainer: which shaded 4×4 grid covers the greatest fraction? Teaching walk: Beat 0 — intro: count shaded cells in each figure. Beat 1 — E: 11/16 — eliminated. Beat 2 — D: 11.5/16 — eliminate _[IKMC-20-EC-Q4]_
+- `shaded4-ec` (Shaded4ECIllustration) — IKMC-20-EC-Q4 — "Which figure has the largest part shaded?"  This is an OPTIONS-ONLY question: the five A–E choices ARE the shaded-grid _[IKMC-20-EC-Q4]_
 
 **shape**  
 - `shape-add23-g1` (ShapeAdd23G1Explainer) — Colours echo the illustration / qupu tokens so the animation reads as the same scene coming alive. Geometry mirrored from ShapeAdd23G1Illustration so the highlight band lines _[WMI-23F1A-Q16]_
 - `shape-add23-g1` (ShapeAdd23G1Illustration) — Shape-addition chain for WMI-23F1A-Q16 (2023 Grade 1 Final).  "The figure shows four addition relationships. The same shape stands for the _[WMI-23F1A-Q16]_
 - `shape-add24-g1` (ShapeAdd24G1Explainer) — Colours echo the illustration / qupu tokens so the animation reads as the same scene coming alive. Geometry mirrored from ShapeAdd24G1Illustration so the highlight band lines _[WMI-24F1A-Q15]_
 - `shape-add24-g1` (ShapeAdd24G1Illustration) — Shape-addition flow figure for WMI-24F1A-Q15 (2024 Grade 1 Final).  "The figure shows addition relationships where the same shape stands for the _[WMI-24F1A-Q15]_
+- `shape-analogy20-a19` (ShapeAnalogy20A19Explainer) — SEAMOX-20-A-Q19 — post-answer explainer for "What is the missing figure?"  Walks through the analogy rule beat-by-beat: _[SEAMOX-20-A-Q19]_
+- `shape-analogy20-a19` (ShapeAnalogy20A19Illustration) — SEAMOX-20-A-Q19 — "What is the missing figure?"  Stem: 2-row analogy grid. _[SEAMOX-20-A-Q19]_
+- `shape-boxes10-ec` (ShapeBoxes10ECExplainer) — IKMC-21-EC-Q10 explainer — "Which shape must Sofie pick from box 4?" Strategy: scan each box, spot that diamond is unique to box 4 → forced pick. Imports the ShapeBoxes10EC primitive from the Illustration file so the sce _[IKMC-21-EC-Q10]_
+- `shape-boxes10-ec` (ShapeBoxes10ECIllustration) — IKMC-21-EC-Q10 — "Sofie wants to pick five different shapes from the boxes." The figure shows 5 vertical open boxes (box 1–5), each containing several blue geometric shapes. Sofie picks exactly 1 shape from each box so t _[IKMC-21-EC-Q10]_
+- `shape-code17-b9` (ShapeCode17B9Illustration) — SEAMO-17-B-Q9 — "What number does AB represent?"  Each figure = outer shape + inner shape.  Shape type encodes the digit: _[SEAMO-17-B-Q9]_
+- `shape-code21-a15` (ShapeCode21A15Explainer) — SEAMO-21-A-Q15 — animated explainer for the shape-code question. Beats (see shapeCode21A15Steps.ts): 0 — intro: show all panels 1 — highlight Square+Diamond (41): Square=4 tens, Diamond=1 ones 2 — highlight Circle+Triang _[SEAMO-21-A-Q15]_
+- `shape-code21-a15` (ShapeCode21A15Illustration) — SEAMO-21-A-Q15 — "Find the missing number." Each panel shows an outer shape containing an inner shape. The rule: assign each shape a code digit — Square = 4, Circle = 2, Diamond = 1, Triangle = 3 The two-digit number = ( _[SEAMO-21-A-Q15]_
 - `shape-count` (ShapeCountOption) — Renders an answer option for the shape-count question (WMI-19F1A-Q15) as a small bar chart, instead of plain text. The four bar heights are read from the choice text (e.g. "Circle 10, Square 7, Triangle 4, Bar 6" → _[WMI-19F1A-Q15, WMI-19F2A-Q4]_
 - `shape-count-chart` (ShapeCountChartExplainer) — (no description) _[WMI-19F1A-Q15]_
 - `shape-count-chart` (ShapeCountChartIllustration) — Shape-count figure for WMI-19F1A-Q15 (and the same-type WMI-19F2A-Q4). Answer C: Circle 10, Square 7, Triangle 4, Bar (small rectangle) 6. ---- A single shape glyph ------------------------------------------------- _[WMI-19F1A-Q15]_
 - `shape-count-g2` (ShapeCountG2Explainer) — (no description) _[WMI-19F2A-Q4]_
 - `shape-count-g2` (ShapeCountG2Illustration) — Shape-count chart figure for WMI-19F2A-Q4. The scattered figure contains: circles 10, squares 7, triangles 4, bars 6. Answer C: Circle 10, Square 7, Triangle 4, Bar 6. _[WMI-19F2A-Q4]_
+- `shape-eq21-pe` (ShapeEq21PEExplainer) — IKMC-2022-PreEcolier-Q21 — post-answer animated explainer.  Reuses ShapeEq21PEFigure so the animation reads as the static card coming alive. _[IKMC-22-PE-Q21]_
+- `shape-eq21-pe` (ShapeEq21PEIllustration) — In-card illustration for IKMC-2022-PreEcolier-Q21 (shape algebra, grid + row/col sums).  Reconstructed from OCR stem image docs/reference/ocr-res/ikmc/contest/preecolier/2022.imgs/062.jpg: _[IKMC-22-PE-Q21]_
 - `shape-eq24-g2` (ShapeEq24G2Explainer) — ── colour tokens (mirrors fill-qupu-* palette) ────────────────────────────── ── beat type ───────────────────────────────────────────────────────────────── ── storyboard builder ───────────────────────────────────────── _[WMI-24F2A-Q16]_
 - `shape-eq24-g2` (ShapeEq24G2Illustration) — In-card illustration for WMI-24F2A-Q16 (2024 Grade-2 Final, Q16). Reconstructed from db/seed/wmi/figures/2024-final-g2-a-q16.jpg.  _[WMI-24F2A-Q16]_
 - `shape-equation` (ShapeEquationExplainer) — (no description) _[WMI-19F1A-Q18, WMI-19F2A-Q9]_
@@ -1154,11 +2488,28 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `shape-grid20` (ShapeGrid20Illustration) — 3x3 grid of colourful shapes for WMI-20F1A-Q4.  Recovered from "wmiPastPaper/2020 WMI Final G01 Paper A/images/ _[WMI-20F1A-Q4]_
 - `shape-join19-p1` (ShapeJoin19P1Explainer) — WMI-19P1A-Q13 — apply the join rule (second shape onto the foot of the first, same orientation) to T + square. The square hangs under the T's stem, which matches choice D. _[WMI-19P1A-Q13]_
 - `shape-join19-p1` (ShapeJoin19P1Illustration) — Shape-join figure for WMI-19P1A-Q13 (2019 WMI Semifinal Grade 1 Paper A, question 13).  _[WMI-19P1A-Q13]_
+- `shape-matrix-sasmo19-g3-q11` (ShapeMatrixSASMO19G3Q11Explainer) — SASMO-19-G3-Q11 — animated explainer.  Reuses shape atoms from ShapeMatrixSASMO19G3Q11Illustration so the _[SASMO-19-G3-Q11]_
+- `shape-matrix-sasmo19-g3-q11` (ShapeMatrixSASMO19G3Q11Illustration) — SASMO-19-G3-Q11 — "Find the missing shape in the diagram below."  A 3×3 shape matrix: _[SASMO-19-G3-Q11]_
+- `shape-matrix-simoc19-g2-q13` (ShapeMatrixSIMOC19G2Q13Explainer) — Post-answer explainer for SIMOC-19-G2-Q13. "What is x in the 3×3 shape matrix?" — answer: X alone.  _[SIMOC-19-G2-Q13]_
+- `shape-matrix-simoc19-g2-q13` (ShapeMatrixSIMOC19G2Q13Illustration) — ShapeMatrixSIMOC19G2Q13Illustration — SIMOC-19-G2-Q13 "What is x in the figure below?" 3×3 matrix where shapes in each row share a geometry family and each column strips outer layers: row 0 = hexagonal, row 1 = square, r _[SIMOC-19-G2-Q13]_
+- `shape-odd12-pe` (ShapeOdd12PEExplainer) — IKMC-22-PE-Q12 — post-answer explainer: which picture has a unique shape? Teaches the "compare shapes across pictures" strategy: Beat 0 — intro: five tangram animals, look for the odd shape. Beat 1 — A, B, C, E all use t _[IKMC-22-PE-Q12]_
+- `shape-odd12-pe` (ShapeOdd12PEIllustration) — IKMC-22-PE-Q12 — "In one of the pictures below, a shape is used that cannot be seen in the others. In which picture is it?"  _[IKMC-22-PE-Q12]_
+- `shape-pattern-x20-a6` (ShapePatternX20A6Explainer) — SEAMOX-20-A-Q6 — animated explainer.  Four beats: _[SEAMOX-20-A-Q6]_
+- `shape-pattern-x20-a6` (ShapePatternX20A6Illustration) — SEAMOX-20-A-Q6 — "Draw the 17th shape in the geometric pattern shown below."  Pattern (cycle length 5): _[SEAMOX-20-A-Q6]_
 - `shape-pattern23-g1` (ShapePattern23G1Explainer) — Post-answer explainer for WMI-23F1A-Q11 (2023 G1 final). The unit △ ▲ □ ☆ ★ adds 2 stars per repeat, and those stars sit AFTER that unit's ▲. So the stars before the ▲ of unit n are 2(n − 1). The animation walks the runn _[WMI-23F1A-Q11]_
 - `shape-pattern23-g1` (ShapePattern23G1Illustration) — WMI-23F1A-Q11 (2023 Grade 1 Final) — repeating shape pattern.  Reconstructed pixel-for-pixel from db/seed/wmi/figures/2023-final-g1-a-q11.jpg. _[WMI-23F1A-Q11]_
+- `shape-seq-hk18-p1-q19` (ShapeSeqHK18P1Q19Explainer) — HKIMO-18-P1H-Q19 — animated explainer. Adapted from Pattern4PEExplainer.tsx (IKMC-20-PE-Q4).  _[HKIMO-18-P1H-Q19]_
+- `shape-seq-hk18-p1-q19` (ShapeSeqHK18P1Q19Illustration) — HKIMO-18-P1H-Q19 — "According to the pattern shown below, what is the figure in the space provided?"  _[HKIMO-18-P1H-Q19]_
+- `shape-seq17-a16` (ShapeSeq17A16Illustration) — SEAMO-17-A-Q16 — "How would the 4th figure look like?"  Pattern of three nested shapes (three layers each), cycling through: _[SEAMO-17-A-Q16]_
 - `shape-seq25-g1` (ShapeSeq25G1Explainer) — Post-answer explainer for WMI-25F1A-Q13 (Grade 1). It teaches the METHOD: one tangled row is really two simple cycles laid on top of each other — the OUTLINE repeats every 5, the FACE every 3. We walk each cycle on its o _[WMI-25F1A-Q13]_
 - `shape-seq25-g1` (ShapeSeq25G1Illustration) — WMI-25F1A-Q13 (2025 Grade 1 Final) — stem illustration + shared face-shape primitive. "Observe the arrangement of the shapes. Which shape should the '?' be?"  Answer = A. _[WMI-25F1A-Q13]_
 - `shape-seq25-g1` (ShapeSeq25G1Option) — CHOICE renderer for WMI-25F1A-Q13 (Grade 1): the A–E answer shapes for the "which shape continues the sequence?" question. Each option is one outlined shape with a smile/frown face, read straight from the scanned Paper A _[WMI-25F1A-Q13]_
+- `shape-set17-ec` (ShapeSet17ECExplainer) — IKMC-22-EC-Q17. Wanda chose a few shapes such that 2 are coloured, 2 are large, and 2 are round. The explainer walks through why 2 shapes can't satisfy all three pairs, then shows that the optimal pick of 3 shapes _[IKMC-22-EC-Q17]_
+- `shape-set17-ec` (ShapeSet17ECIllustration) — IKMC-22-EC-Q17 — "Wanda's minimum chosen shapes"  The problem figure shows 6 shapes in a single row: _[IKMC-22-EC-Q17]_
+- `shape-sum-sasmo19-g2-q19` (ShapeSumSASMO19G2Q19Explainer) — (no description) _[SASMO-19-G2-Q19]_
+- `shape-sum-sasmo19-g2-q19` (ShapeSumSASMO19G2Q19Illustration) — SASMO-19-G2-Q19 — shape-equation puzzle Given: sq+tri+circ+circ=32; sq=tri+20; circ=0 (from figure). Find: sq+circ+circ. Three equation rows with shape glyphs; never reveals the answer (sq=26). _[SASMO-19-G2-Q19]_
+- `shape-sum17-ec` (ShapeSum17ECExplainer) — IKMC-2019-Ecolier-Q17 — post-answer animation. Reuses ShapeSum17ECFigure from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-EC-Q17]_
+- `shape-sum17-ec` (ShapeSum17ECIllustration) — In-card illustration for IKMC-2019-Ecolier-Q17 (shape algebra / row-sum grid).  Reconstructed from OCR stem image 2019.imgs/050.jpg: _[IKMC-19-EC-Q17]_
 - `shape-tally-option20` (ShapeTallyOption20) — Renders an answer option for the shape-count question (WMI-20F1A-Q14) as a mini two-row table, like the source paper's options: a pink-tinted header row of four shape glyphs (triangle, circle, square, rectangle) over a r _[WMI-20F1A-Q14]_
 - `shape-tally20` (ShapeTally20Explainer) — (no description) _[WMI-20F1A-Q14]_
 
@@ -1166,9 +2517,21 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `shapes-squares-g2` (ShapesSquaresG2Explainer) — WMI-20F2A-Q3 — check each shape ONE PER BEAT: a square needs 4 sides, all the same length, with square corners — tilted ones still count! _[WMI-20F2A-Q3]_
 - `shapes-squares-g2` (ShapesSquaresG2Illustration) — "How many squares?" figure for WMI-20F2A-Q3, reconstructed from the scan: a 2×6 grid of coloured shapes. Exactly 3 are squares — the tilted orange square, the pink diamond (a square standing on its corner), and the green _[WMI-20F2A-Q3]_
 
+**shapes7**  
+- `shapes7-pe` (Shapes7PEExplainer) — IKMC-20-PE-Q7 — post-answer explainer. Reuses Shapes7PEPanel from the illustration so the animation looks like the scene coming alive. _[IKMC-20-PE-Q7]_
+- `shapes7-pe` (Shapes7PEIllustration) — IKMC-20-PE-Q7 — "Anna draws a picture of some shapes."  PROBLEM ONLY: shows all five labelled candidate pictures (A–E) exactly as _[IKMC-20-PE-Q7]_
+
+**shelves4**  
+- `shelves4-pe` (Shelves4PEExplainer) — IKMC-21-PE-Q4 — post-answer animation. Reuses all toy primitives from Shelves4PEIllustration.  _[IKMC-21-PE-Q4]_
+- `shelves4-pe` (Shelves4PEIllustration) — IKMC-21-PE-Q4 — "Michael's toy shelf"  PROBLEM ONLY: shows five numbered shelves, each holding three toys. _[IKMC-21-PE-Q4]_
+
 **ship**  
-- `ship-bridge24-g3` (ShipBridge24G3Explainer) — Post-answer explainer for WMI-24F3A-Q2 (ship width via bridge segment proportion). Strategy: 156 m ÷ 16 segments = 9.75 m each → ship spans 4 → 4 × 9.75 = 39 m (answer B). ── colour tokens ─────────────────────────────── _[WMI-24F3A-Q2]_
-- `ship-bridge24-g3` (ShipBridge24G3Illustration) — Ship-under-bridge illustration for WMI-24F3A-Q2. A bridge deck is split into 16 equal segments (156 m total). A ship labelled "038" passes underneath and its width aligns with 4 of those segments. _[WMI-24F3A-Q2]_
+- `ship-bridge24-g3` (ShipBridge24G3Explainer) — Post-answer explainer for WMI-24F3A-Q2 (ship width via bridge segment proportion). Strategy: 156 m ÷ 12 segments = 13 m each → ship spans 3 → 3 × 13 = 39 m (answer B). ── colour tokens ─────────────────────────────────── _[WMI-24F3A-Q2]_
+- `ship-bridge24-g3` (ShipBridge24G3Illustration) — Ship-under-bridge illustration for WMI-24F3A-Q2. A bridge deck is split into 12 equal segments (156 m total). A ship labelled "038" passes underneath and its width aligns with 3 of those segments. _[WMI-24F3A-Q2]_
+
+**shortest**  
+- `shortest-paths-x24-a6` (ShortestPathsX24A6Explainer) — ShortestPathsX24A6Explainer.tsx SEAMO-X 2024 Paper A Q6 — animated explainer.  _[SEAMOX-24-A-Q6]_
+- `shortest-paths-x24-a6` (ShortestPathsX24A6Illustration) — ShortestPathsX24A6Illustration.tsx SEAMO-X 2024 Paper A Q6 — "Using → and ↓ movements only, find the number of shortest paths from A to B, without passing through x." _[SEAMOX-24-A-Q6]_
 
 **skyscraper**  
 - `skyscraper-g3` (SkyscraperG3Explainer) — WMI-19F3A-Q25 — the forced chain (every cell derived, failed tries shown):   bottom row from the right-3 clue (only 1,2,4 climbing works beside the   given 3) → C's column from its top-3/bottom-2 pair → C's row from the _[WMI-19F3A-Q25]_
@@ -1177,6 +2540,21 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 **snail**  
 - `snail-path23-g3` (SnailPath23G3Explainer) — WMI-23F3A-Q5 — a snail crawls N14, W12, E29, S5 and must crawl home to A. The shortest return (taxicab, right-angle turns) is 26 cm. The method that makes this easy is to collapse the moves on each axis separately: _[WMI-23F3A-Q5]_
 - `snail-path23-g3` (SnailPath23G3Illustration) — WMI-23F3A-Q5 (2023 Grade 3 Final) — snail crawling in right-angle turns.  "A snail crawls in straight lines and right-angle turns. From A it goes _[WMI-23F3A-Q5]_
+
+**snake**  
+- `snake-seq18-a25` (SnakeSeq18A25Illustration) — SnakeSeq18A25Illustration.tsx  Stem illustration for SEAMO-2018-Paper-A Q25: _[SEAMO-18-A-Q25]_
+
+**snow**  
+- `snow-tracks6-ec` (SnowTracks6ECExplainer) — IKMC-19-EC-Q6 — "Snow Tracks" post-answer explainer. Reuses FootprintPrimitive and track layout from SnowTracks6ECIllustration to animate the layering logic: Beat 0 (intro): static scene with all three tracks Beat 1 (cro _[IKMC-19-EC-Q6]_
+- `snow-tracks6-ec` (SnowTracks6ECIllustration) — IKMC-19-EC-Q6 — "Snow Tracks" Three people crossed a snowy field. Their footprint tracks overlap — the crossing order (first under = walked first) determines the answer. Answer A: dotted (D) first, ribbed (R) second, ova _[IKMC-19-EC-Q6]_
+
+**snowflake**  
+- `snowflake-sasmo19-g2-q6` (SnowflakeSASMO19G2Q6Explainer) — SASMO-19-G2-Q6 — post-answer explainer: snowflake matching. Beat walk: 0. intro — show reference snowflake, name its features. 1. checkA — Option A: 6 arms, no fork tips → eliminate. 2. checkB — Option B: 8 arms but shor _[SASMO-19-G2-Q6]_
+- `snowflake-sasmo19-g2-q6` (SnowflakeSASMO19G2Q6Illustration) — SASMO-19-G2-Q6 — "Which snowflake below is the same as the snowflake on the right?"  Stem illustration: shows the REFERENCE snowflake (the one the student must match). _[SASMO-19-G2-Q6]_
+
+**socks7**  
+- `socks7` (Socks7Explainer) — IKMC-19-PE-Q7 — post-answer animation.  Reuses SockPile from Socks7Illustration so the animation reads as the same _[IKMC-19-PE-Q7]_
+- `socks7` (Socks7Illustration) — IKMC-19-PE-Q7 — "Jorge pairs his socks so that the numbers match.                  How many pairs can he make?"  _[IKMC-19-PE-Q7]_
 
 **soldier**  
 - `soldier-road22-g1` (SoldierRoad22G1Explainer) — WMI-22F1A-Q23 — Soldier Road explainer (Grade 1). Teaches the one-deep-hole strategy beat-by-beat: four soldiers march left toward ONE deep hole that needs TWO soldiers. 1 drops in (bottom), 2 drops in (top) → hole full; _[WMI-22F1A-Q23]_
@@ -1211,46 +2589,178 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `spiral23-g3` (Spiral23G3Illustration) — WMI-23F3A-Q15 (2023 Grade 3 Final) — clockwise outward spiral of shapes.  "The figures are arranged in a pattern. Starting from START, they are arranged _[WMI-23F3A-Q15]_
 
 **square**  
+- `square-count-hk24-p1-q17` (SquareCountHK24P1Q17Explainer) — (no description) _[HKIMO-24-P1H-Q17]_
+- `square-count-hk24-p1-q17` (SquareCountHK24P1Q17Illustration) — HKIMO-24-P1H-Q17 — Count all squares in a staircase figure (answer = 11)  Figure: 9 unit cells in a diagonal staircase (faithful to 2024.imgs/006.jpg) _[HKIMO-24-P1H-Q17]_
+- `square-mid-x24-b11` (SquareMidX24B11Explainer) — SEAMOX-24-B-Q11 — Explainer Animates the solution beat-by-beat: 1. Square with midpoints E, F 2. Draw lines EB and FC → intersection G 3. Shade triangle BGC; announce area = s²/5 4. Solve: s²/5 = 48 → s² = 240 cm² Import _[SEAMOX-24-B-Q11]_
+- `square-mid-x24-b11` (SquareMidX24B11Illustration) — SEAMOX-24-B-Q11 — Illustration "ABCD is a square; E, F are midpoints of sides AD and AB respectively. Find the area of the square if the shaded region is 48 cm²." Source: docs/reference/ocr-res/seamo-x/contest/paper-b/20 _[SEAMOX-24-B-Q11]_
+- `square-pieces17-pe` (SquarePieces17PEExplainer) — IKMC-21-PE-Q17 — post-answer explainer: which piece was not used? Shows the five piece options (A–E). Each beat highlights a piece to show it CAN fit (or in D's case, CANNOT fit). Lands on: D was not used. Reuses PieceSh _[IKMC-21-PE-Q17]_
+- `square-pieces17-pe` (SquarePieces17PEIllustration) — IKMC-21-PE-Q17 — "Mara built the square by using four of the following five shapes. Which shape was NOT used?"  _[IKMC-21-PE-Q17]_
+- `square-rect18-b25-fig` (SquareRect18B25Fig) — SEAMO 2018 Paper B Q25 — Square + Rectangle with similar triangles.  ABCD is a square of side 4 cm (A top-left, B bottom-left, C bottom-right, _[SEAMO-18-B-Q25]_
+- `square-rect19-b4` (SquareRect19B4Explainer) — SEAMO-19-B-Q4 — Square ABCD contains tilted rectangle EFGH; find area. Answer: 16 cm² → choice D.  _[SEAMO-19-B-Q4]_
+- `square-rect19-b4` (SquareRect19B4Illustration) — SquareRect19B4Illustration — SEAMO-19-B-Q4  Square ABCD (teal) with a tilted rectangle EFGH (dark navy) overlaid. _[SEAMO-19-B-Q4]_
+- `square-rects19-b8` (SquareRects19B8Explainer) — SEAMO-19-B-Q8 — post-answer animated explainer. Reuses SquareRects19B8Figure from the illustration (prop-driven overlays).  _[SEAMO-19-B-Q8]_
+- `square-rects19-b8` (SquareRects19B8Illustration) — SEAMO-19-B-Q8 — figure for "2 squares + 4 identical rectangles; areas 64 cm² and 4 cm²"  The competition figure (2019.imgs/005.jpg) shows a large outer square divided into 6 _[SEAMO-19-B-Q8]_
+- `square-split-simoc19-g3-q15` (SquareSplitSIMOC19G3Q15Explainer) — Post-answer explainer for SIMOC-19-G3-Q15 "Jumlah luas kedua persegi (besar + kecil)" — answer: 170 cm²  _[SIMOC-19-G3-Q15]_
+- `square-split-simoc19-g3-q15` (SquareSplitSIMOC19G3Q15Illustration) — SquareSplitSIMOC19G3Q15Illustration — SIMOC-19-G3-Q15 "ABCD adalah persegi yang terdiri dari 2 persegi panjang dengan luas masing-masing 44 cm² dan 28 cm², serta sebuah persegi kecil. Tentukan jumlah luas kedua persegi t _[SIMOC-19-G3-Q15]_
 - `square-triangles19-p1` (SquareTriangles19P1Explainer) — WMI-19P1A-Q21 — post-answer enumeration: every triangle in the divided square lights up one at a time with a running counter (1, 2, … 14), small triangles first then the big combined ones, landing on the total (answer A  _[WMI-19P1A-Q21]_
 - `square-triangles19-p1` (SquareTriangles19P1Illustration) — WMI-19P1A-Q21 — "The square is divided by straight lines. How many triangles are there in the figure?" (2019 Semifinal Grade 1, answer A = 14). Redrawn line-for-line from the source scan (db/seed/wmi/figures/2019-semifin _[WMI-19P1A-Q21]_
 
+**squares**  
+- `squares-hk18-p1-q16` (SquaresHK18P1Q16Explainer) — Animated explainer for HKIMO-18-P1H-Q16. Counts squares by size: 7 unit (1×1) + 2 large (2×2) = 9.  _[HKIMO-18-P1H-Q16]_
+- `squares-hk18-p1-q16` (SquaresHK18P1Q16Illustration) — Stem illustration for HKIMO-18-P1H-Q16 "How many squares are there in the figure below?"  _[HKIMO-18-P1H-Q16]_
+- `squares-hk22-p1-q19` (SquaresHK22P1Q19Explainer) — Animated explainer for HKIMO-22-P1H-Q19. Counts squares by size: 8 unit (1×1) + 2 large (2×2) = 10.  _[HKIMO-22-P1H-Q19]_
+- `squares-hk22-p1-q19` (SquaresHK22P1Q19Illustration) — Stem illustration for HKIMO-22-P1H-Q19 "How many squares are there in the figure below?"  _[HKIMO-22-P1H-Q19]_
+
+**stack**  
+- `stack-grid17-a18` (StackGrid17A18Explainer) — SEAMO-18-A-Q17 — post-answer explainer: stacking grids to find the union.  Teaches the "union = any cell in ANY figure" strategy beat-by-beat. _[SEAMO-18-A-Q17]_
+- `stack-grid17-a18` (StackGrid17A18Illustration) — SEAMO-18-A-Q17 — "What do we get if all the figures are stacked on top of each other?"  Three 4×4 grids each have two yellow highlighted cells.  Stacking (union) produces _[SEAMO-18-A-Q17]_
+- `stack-map-simoc19-g3-q9` (StackMapSIMOC19G3Q9Explainer) — SIMOC-19-G3-Q9 — stack map → front view animated explainer  Reuses StackMapGrid + FrontViewSilhouette geometry from the illustration file. _[SIMOC-19-G3-Q9]_
+- `stack-map-simoc19-g3-q9` (StackMapSIMOC19G3Q9Illustration) — SIMOC-19-G3-Q9 — "stack map → front view" stem illustration + option renderer  Figure 4 stack map (read from OCR crop 009.jpg): _[SIMOC-19-G3-Q9]_
+- `stack-map-simoc19-g4-q4` (StackMapSIMOC19G4Q4Explainer) — StackMapSIMOC19G4Q4Explainer — SIMOC-19-G4-Q4 Teaches: front view = column-wise maximum height. Beats: intro — full 3D cube arrangement (grey); cue column-by-column strategy. col1 — column 1 (indigo) highlighted; rest di _[SIMOC-19-G4-Q4]_
+- `stack-map-simoc19-g4-q4` (StackMapSIMOC19G4Q4Illustration) — StackMapSIMOC19G4Q4Illustration — SIMOC-19-G4-Q4 "Figure 4 is a stack map. Which of the following is the front view?" Stack map: Back row (top): 2 2 4 Front row (bottom): 1 3 1 Answer: B — front view heights [2, 3, 4] (c _[SIMOC-19-G4-Q4]_
+
+**stacked**  
+- `stacked-cubes-simoc22-g1-q9` (StackedCubesSIMOC22G1Q9Explainer) — Post-answer explainer for SIMOC-22-G1-Q9. "How many cubes are stacked in the corner?" — answer: E (24).  _[SIMOC-22-G1-Q9]_
+- `stacked-cubes-simoc22-g1-q9` (StackedCubesSIMOC22G1Q9Illustration) — StackedCubesSIMOC22G1Q9Illustration — SIMOC-22-G1-Q9 "The diagram shows some cubes of the same size stacked in a corner of a room. How many cubes are there altogether?" — Answer: E (24) Arrangement: 4-wide × 3-deep stair _[SIMOC-22-G1-Q9]_
+
 **stair**  
+- `stair-cubes17-a8-figure` (StairCubes17A8Figure) — SEAMO-17-A-Q8 — "At least how many cubes are there in the figure below?" Answer: A (9 cubes).  _[SEAMO-17-A-Q8]_
+- `stair-path21-b19` (StairPath21B19Explainer) — SEAMO-21-B-Q19 — Javier's staircase walking path. Teaching: horizontal segments sum to the full span (120 m); vertical segments sum to the full height (70 m). _[SEAMO-21-B-Q19]_
+- `stair-path21-b19` (StairPath21B19Illustration) — SEAMO-21-B-Q19 — Javier's staircase walking path.  Reconstructed from docs/reference/ocr-res/seamo/contest/paper-b/2021.imgs/006.jpg: _[SEAMO-21-B-Q19]_
+- `stair-perim18-b2` (StairPerim18B2Explainer) — SEAMO-18-B-Q2 — 3-step descending staircase perimeter. Teaching: "slide" trick — horizontals equal the bottom (15), verticals equal the left wall (8). Perimeter = 30 + 16 = 46 cm → D. _[SEAMO-18-B-Q2]_
+- `stair-perim18-b2` (StairPerim18B2Illustration) — SEAMO-18-B-Q2 — descending 3-step staircase perimeter.  Reconstructed from docs/reference/ocr-res/seamo/contest/paper-b/2018.imgs/002.jpg: _[SEAMO-18-B-Q2]_
 - `stair-perimeter-g3` (StairPerimeterG3Explainer) — WMI-19F3A-Q14 — no formula out of thin air:   flats: the top pieces SLIDE UP and tile one full 20 (shown), floor = 20;   climbs: walking around you climb only twice — 12 (left wall) and 10 (slot); _[WMI-19F3A-Q14]_
 - `stair-perimeter-g3` (StairPerimeterG3Illustration) — Rectilinear "staircase with a deep slot" for WMI-19F3A-Q14. Reconstructed from db/seed/wmi/figures/2019-final-g3-a-q14.jpg: height 12, width 20, with a slot whose labelled wall is 10 deep. All corners are right _[WMI-19F3A-Q14]_
+- `stair-pyramid19-b16` (StairPyramid19B16Illustration) — StairPyramid19B16Illustration — SEAMO 2019 Paper B Q16  "Given that Fig. 1 has a perimeter of 10 cm, find the perimeter of the _[SEAMO-19-B-Q16]_
+- `stair-pyramid22-b11` (StairPyramid22B11Explainer) — Post-answer explainer for SEAMO-22-B-Q11. "3 layers of 2×2×2 cm cubes — find total visible surface area from top and sides." Answer: E (132 cm²) = 33 unit faces × 4 cm². _[SEAMO-22-B-Q11]_
+- `stair-pyramid22-b11` (StairPyramid22B11Illustration) — StairPyramid22B11Illustration — SEAMO-22-B-Q11 "The figure shown is made up of 3 layers of 2 × 2 × 2 cm cubes. Find the total area of the visible surfaces from the top and sides." Answer: E (132 cm²). Source image: docs/ _[SEAMO-22-B-Q11]_
+
+**staircase**  
+- `staircase-hk25-p1-q17` (StaircaseHK25P1Q17Explainer) — Animated explainer for HKIMO-25-P1H-Q17. Staircase figure: 8 unit (1×1) + 2 large (2×2) = 10 total squares.  _[HKIMO-25-P1H-Q17]_
+- `staircase-hk25-p1-q17` (StaircaseHK25P1Q17Illustration) — Stem illustration for HKIMO-25-P1H-Q17 "How many squares are there in the figure below?"  _[HKIMO-25-P1H-Q17]_
+- `staircase-path-x23-a15` (StaircasePathX23A15Explainer) — SEAMOX-23-A-Q15 — animated Pascal fill for the staircase shortest-path problem.  Reuses the grid geometry constants from StaircasePathX23A15Illustration. _[SEAMOX-23-A-Q15]_
+- `staircase-path-x23-a15` (StaircasePathX23A15Illustration) — SEAMOX-23-A-Q15 — "Find the number of shortest paths from A to B."  OCR: docs/reference/ocr-res/seamo-x/contest/paper-a/2023.md Q15 _[SEAMOX-23-A-Q15]_
+- `staircase-perim-x22-a3` (StaircasePerimX22A3Explainer) — SEAMOX-22-A-Q3 — post-answer animated explainer. Reuses staircase geometry from StaircasePerimX22A3Illustration.  _[SEAMOX-22-A-Q3]_
+- `staircase-perim-x22-a3` (StaircasePerimX22A3Illustration) — SEAMOX-22-A-Q3 — "Find the perimeter of the staircase-shaped figure" (width = 10 m, height = 8 m; answer = 36 m — NOT shown here)  _[SEAMOX-22-A-Q3]_
+
+**staircase1**  
+- `staircase1-pe` (Staircase1PEExplainer) — IKMC-20-PE-Q1 — post-answer animation. Reuses StaircaseGrid, KangarooFigure and RabbitFigure from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-PE-Q1]_
+- `staircase1-pe` (Staircase1PEIllustration) — IKMC-20-PE-Q1 — "The kangaroo goes up 3 steps each time the rabbit goes down 2 steps. On which step do they meet?"  _[IKMC-20-PE-Q1]_
+
+**staircube**  
+- `staircube-x20-a8` (StaircubeX20A8Explainer) — Post-answer explainer for SEAMOX-20-A-Q8. "How many cubes are there in the figure below?" — answer 13.  _[SEAMOX-20-A-Q8]_
+- `staircube-x20-a8` (StaircubeX20A8Illustration) — StaircubeX20A8Illustration — SEAMOX-20-A-Q8 "How many cubes are there in the figure below?" — answer: 13. Source image: docs/reference/ocr-res/seamo-x/contest/paper-a/2020.imgs/007.jpg The figure shows a 3-step staircase _[SEAMOX-20-A-Q8]_
+
+**stamp**  
+- `stamp-graph-sasmo19-g2-q21` (StampGraphSASMO19G2Q21Explainer) — SASMO-19-G2-Q21 — animated explainer for the stamps pictograph.  Beats: _[SASMO-19-G2-Q21]_
+- `stamp-graph-sasmo19-g2-q21` (StampGraphSASMO19G2Q21Illustration) — SASMO-19-G2-Q21 — Pictograph: stamps owned by 5 children.  Source (OCR 2019-2020.md §Q21, crops 025–029.jpg): _[SASMO-19-G2-Q21]_
+
+**stamp14**  
+- `stamp14-pe` (Stamp14PEExplainer) — IKMC-22-PE-Q14 — post-answer explainer for the stamp mirror-flip question.  Reuses Stamp14PE from Stamp14PEIllustration so the animation reads as the _[IKMC-22-PE-Q14]_
+- `stamp14-pe` (Stamp14PEIllustration) — IKMC-22-PE-Q14 — "Which of the following pictures will we see when we use the stamp shown?"  _[IKMC-22-PE-Q14]_
 
 **star**  
 - `star-add25-g2` (StarAdd25G2Explainer) — WMI-25F2A-Q2 post-answer explainer Vertical addition: [★]8 + [□][□] = 73 Strategy: try ★ from largest downward, check digits stay distinct. _[WMI-25F2A-Q2]_
 - `star-add25-g2` (StarAdd25G2Illustration) — WMI-25F2A-Q2 (2025 Grade 2 Final) "Fill in the boxes with digits 1 to 9. Suppose the six digits in the equation  cannot repeat, what is the maximum digit that ★ could be?" _[WMI-25F2A-Q2]_
+- `star-circles-x22-a15` (StarCirclesX22A15Explainer) — (no description) _[SEAMOX-22-A-Q15]_
+- `star-circles-x22-a15` (StarCirclesX22A15Illustration) — SEAMOX-22-A-Q15 — "Fill 1–7 into each circle so each line of 3 sums to 12. What is the number in the middle circle?"  _[SEAMOX-22-A-Q15]_
 - `star-count` (StarCountExplainer) — (no description) _[WMI-19F1A-Q1]_
+- `star-grid-groups-hk24-p3-q5` (StarGridGroupsHK24P3Q5Explainer) — StarGridGroupsHK24P3Q5Explainer.tsx HKIMO-24-P3H-Q5 animated explainer.  _[HKIMO-24-P3H-Q5]_
+- `star-grid-groups-hk24-p3-q5` (StarGridGroupsHK24P3Q5Illustration) — StarGridGroupsHK24P3Q5Illustration.tsx HKIMO-24-P3H-Q5 stem illustration.  _[HKIMO-24-P3H-Q5]_
+- `star-grid-hk24-p1-q5` (StarGridHK24P1Q5Explainer) — HKIMO-24-P1H-Q5 — animated explainer  Pattern: group n = n×n grid of stars with bottom-right cell empty → n²−1 stars. _[HKIMO-24-P1H-Q5]_
+- `star-grid-hk24-p1-q5` (StarGridHK24P1Q5Illustration) — Stem illustration for HKIMO-24-P1H-Q5 "According to the pattern shown below, how many ★ are in the 6th group?"  _[HKIMO-24-P1H-Q5]_
+- `star-grid-timo22-p4-q20` (StarGridTIMO22P4Q20Explainer) — TIMO-22-P4H-Q20 — animated explainer for counting rectangles containing *.  Beats: _[TIMO-22-P4H-Q20]_
+- `star-grid-timo22-p4-q20` (StarGridTIMO22P4Q20Illustration) — TIMO-22-P4H-Q20 — "How many rectangles with '*' are there in the figure below?"  L-shaped grid: 3 cols × 4 rows, top-left 1×2 block absent. _[TIMO-22-P4H-Q20]_
 - `star-grid23-g2` (StarGrid23G2Explainer) — ── colour tokens (echoing fill-qupu-* palette) ──────────────────────────── ── deterministic enumeration ─────────────────────────────────────────────── Returns { bySize, examples, total } where: _[WMI-23F2A-Q17]_
 - `star-grid23-g2` (StarGrid23G2Illustration) — Star-grid illustration for WMI-23F2A-Q17. A 6×6 grid with six ★ placed on the anti-diagonal (top-right → bottom-left). The question asks: how many axis-aligned squares of any size contain exactly _[WMI-23F2A-Q17]_
+- `star-group-hk20-p1-q5` (StarGroupHK20P1Q5Explainer) — HKIMO-20-P1H-Q5 — animated explainer for the L-shaped star groups.  Animation flow (4 beats): _[HKIMO-20-P1H-Q5]_
+- `star-group-hk20-p1-q5` (StarGroupHK20P1Q5Illustration) — HKIMO-20-P1H-Q5 — stem illustration.  Shows groups 1–4 of * stars in growing L-shapes: _[HKIMO-20-P1H-Q5]_
+- `star-group-hk20-p2-q5` (StarGroupHK20P2Q5Explainer) — HKIMO-20-P2H-Q5 — animated explainer for the staircase star groups.  Animation flow (4 beats): _[HKIMO-20-P2H-Q5]_
+- `star-group-hk20-p2-q5` (StarGroupHK20P2Q5Illustration) — HKIMO-20-P2H-Q5 — stem illustration.  Shows groups 1–4 of * stars in staircase grids: _[HKIMO-20-P2H-Q5]_
+- `star-group-pattern-hk25-p2-q5` (StarGroupPatternHK25P2Q5Explainer) — StarGroupPatternHK25P2Q5Explainer.tsx HKIMO-25-P2H-Q5 animated explainer.  _[HKIMO-25-P2H-Q5]_
+- `star-group-pattern-hk25-p2-q5` (StarGroupPatternHK25P2Q5Illustration) — StarGroupPatternHK25P2Q5Illustration.tsx HKIMO-25-P2H-Q5 stem illustration.  _[HKIMO-25-P2H-Q5]_
+- `star-groups-hk20-p3-q5` (StarGroupsHK20P3Q5Explainer) — HKIMO-20-P3H-Q5 — post-answer animated explainer.  Reuses GridBoard grid layout + isStar predicate from the Illustration _[HKIMO-20-P3H-Q5]_
+- `star-groups-hk20-p3-q5` (StarGroupsHK20P3Q5Illustration) — HKIMO-20-P3H-Q5 — "According to the pattern shown below, how many * in the 13th group?"  STATIC PROBLEM FIGURE — four bordered star-grid groups side by side. _[HKIMO-20-P3H-Q5]_
+- `star-groups-hk23-p1-sfq2` (StarGroupsHK23P1SFQ2Explainer) — HKIMO-23-P1SF-Q2 — animated explainer for the cross-shaped star groups.  Beat flow: _[HKIMO-23-P1SF-Q2]_
+- `star-groups-hk23-p1-sfq2` (StarGroupsHK23P1SFQ2Illustration) — HKIMO-23-P1SF-Q2 — stem illustration.  Shows groups 1–4 of * stars in growing cross/plus shapes: _[HKIMO-23-P1SF-Q2]_
 - `star-rows` (StarRowsIllustration) — ${STAR_TOTAL} stars in rows of ${STAR_ROWS.join( _[WMI-19F1A-Q1]_
 - `star-squares23-g1` (StarSquares23G1Explainer) — WMI-23F1A-Q19 — "How many squares contain exactly one ★?" (answer 18). One qualifying square is outlined per beat (orange, mirroring the static figure) while every already-counted square stays washed faint behind it. _[WMI-23F1A-Q19]_
 - `star-squares23-g1` (StarSquares23G1Illustration) — WMI-23F1A-Q19 (2023 Grade 1 Final) — "How many squares contain exactly one ★?"  Reconstructed pixel-for-pixel from db/seed/wmi/figures/2023-final-g1-a-q19.jpg: _[WMI-23F1A-Q19]_
+- `star-sum20-a21-fig` (StarSum20A21Fig) — StarSum20A21Fig — SEAMO 2020 Paper A Q21 "Fill the circles with numbers 1 to 7 so that the sum of numbers along  each line is 12. You may only use each number once." _[SEAMO-20-A-Q21]_
+- `star-triangle-hk22-p2-q5` (StarTriangleHK22P2Q5Explainer) — (no description) _[HKIMO-22-P2H-Q5]_
+- `star-triangle-hk22-p2-q5` (StarTriangleHK22P2Q5Illustration) — HKIMO-22-P2H-Q5 — "According to the pattern shown below, how many * is / are there in the 9th group?"  _[HKIMO-22-P2H-Q5]_
 
 **station**  
 - `station-map25-g3` (StationMap25G3Explainer) — WMI-25F3A-Q8 — Teach mirror-symmetry on a linear station route. Strategy: same speed + opposite ends → each traveller covers the same number of station-hops. Tak reaches Chumphon (index 5) after 6 h, so by _[WMI-25F3A-Q8]_
 - `station-map25-g3` (StationMap25G3Illustration) — WMI-25F3A-Q8 (2025 Grade 3 Final) — Thailand Southern Line station map.  The question: Tak takes the 07:30 train from Krung Thep Aphiwat (Bangkok) _[WMI-25F3A-Q8]_
+
+**step**  
+- `step-perim21-a16` (StepPerim21A16Explainer) — SEAMO-21-A-Q16 — staircase perimeter trick:   All horizontal pieces slide up → they tile one full top of 7 cm (+ floor 7).   All vertical pieces collapse → one left wall of 4 cm (+ matching right total 4). _[SEAMO-21-A-Q16]_
+- `step-perim21-a16` (StepPerim21A16Illustration) — SEAMO-21-A-Q16 — "Find the perimeter of the staircase-shaped figure."  Source figure (2021.imgs/025.jpg): a 4-step staircase descending right, with _[SEAMO-21-A-Q16]_
+
+**stick**  
+- `stick-fig-x20-a3` (StickFigX20A3Explainer) — SEAMOX-20-A-Q3 — post-answer animation. Reuses StickFigure from the illustration.  _[SEAMOX-20-A-Q3]_
+- `stick-fig-x20-a3` (StickFigX20A3Illustration) — SEAMOX-20-A-Q3 — "Find the missing number."  Three stick-figure diagrams. Each has: _[SEAMOX-20-A-Q3]_
+
+**sticker**  
+- `sticker-cube7-ec` (StickerCube7ECExplainer) — IKMC-20-EC-Q7 — post-answer explainer: which sticker is opposite the duck? Strategy: any sticker visible alongside the duck in either view cannot be on the opposite face. Four stickers are ruled out; only the fly remains _[IKMC-20-EC-Q7]_
+- `sticker-cube7-ec` (StickerCube7ECIllustration) — IKMC-20-EC-Q7 — "Which sticker is opposite the duck?"  Stem illustration: one cube shown in TWO positions, each with 3 visible sticker faces. _[IKMC-20-EC-Q7]_
+
+**stickers17**  
+- `stickers17-ec` (Stickers17ECExplainer) — Post-answer explainer for IKMC-21-EC-Q17. Animates the constraint-propagation deduction on the 5-square sticker strip:   1. Fix apple at sq 1. _[IKMC-21-EC-Q17]_
+- `stickers17-ec` (Stickers17ECIllustration) — Stickers17ECIllustration — IKMC-21-EC-Q17  "Eva has the 5 stickers: triangle, circle, star, flower, apple. She stuck one _[IKMC-21-EC-Q17]_
+
+**stickers19**  
+- `stickers19-pe` (Stickers19PEExplainer) — IKMC-22-PE-Q19 — post-answer explainer: sticker stacking order. Ann has 4 stickers (circle, square, star, triangle). Required sticking order: square → star → triangle (circle anywhere). Later sticker appears ON TOP of ea _[IKMC-22-PE-Q19]_
+- `stickers19-pe` (Stickers19PEIllustration) — IKMC-22-PE-Q19 — "Ann has 4 stickers as shown."  SOURCE scans (docs/reference/ocr-res/ikmc/contest/preecolier/2022.imgs/): _[IKMC-22-PE-Q19]_
+
+**sticks1**  
+- `sticks1-pe` (Sticks1PEExplainer) — Sticks1PEExplainer — IKMC-21-PE-Q1 Post-answer animated explainer: "Which shape can be made from 3 equal sticks?" Answer: E (6-armed star, 3 sticks at 0°/60°/120°). Layout: Top — 5 option panels (A–E), each showing the s _[IKMC-21-PE-Q1]_
+- `sticks1-pe` (Sticks1PEIllustration) — IKMC-21-PE-Q1 — "A kangaroo laid out 3 sticks like this —— to make a shape. It's not allowed to break or to bend the sticks. Which shape could the kangaroo make?" Answer: E. The five options ARE the figures — there is no _[IKMC-21-PE-Q1]_
+
+**sticks16**  
+- `sticks16-ec` (Sticks16ECExplainer) — Sticks16ECExplainer — IKMC-20-EC-Q16  Animated explainer for the stick-combination square problem. _[IKMC-20-EC-Q16]_
+- `sticks16-ec` (Sticks16ECIllustration) — Sticks16ECIllustration — IKMC-20-EC-Q16  Stem figure: two clusters of sticks scattered on the page. _[IKMC-20-EC-Q16]_
+
+**sticks7**  
+- `sticks7-ec` (Sticks7ECExplainer) — IKMC-19-EC-Q7 — post-answer explainer. Shows each shape A–E with its stick count, eliminating those ≤ 10 and landing on D (12 sticks) as the answer. Reuses Sticks7ECOption from Sticks7ECIllustration for shape rendering. _[IKMC-19-EC-Q7]_
+- `sticks7-ec` (Sticks7ECIllustration) — IKMC-19-EC-Q7 — "Pia makes shapes with connected sticks. Which shape needs more sticks than Pia has?" (answer D). Stem: 10 connected sticks in a winding chain (the sticks Pia starts with). Co-exports Sticks7ECOption for  _[IKMC-19-EC-Q7]_
 
 **stones25**  
 - `stones25-g1` (Stones25G1Explainer) — WMI-25F1A-Q1 post-answer animation. Teaches the method, not just the answer: first find the landmark (the big toucan), then count the small birds to its LEFT one at a time (b0..b8) with a running counter 1..9. Result: 9  _[WMI-25F1A-Q1]_
 - `stones25-g1` (Stones25G1Illustration) — Static card illustration for WMI-25F1A-Q1 (2025 G1 final).  The figure is a single horizontal row of 14 birds, with a "Left" label at the _[WMI-25F1A-Q1]_
 
 **street**  
-- `street-map22-g3` (StreetMap22G3Explainer) — WMI-22F3A-Q4 — Longest non-repeating trail explainer. Walks the verified 9-edge trail T→0→1→3→2→T→5→3→4→M one street per beat, highlighting edges on the StreetGraph as the path grows. The final beat lands on 9 × 130 = 11 _[WMI-22F3A-Q4]_
-- `street-map22-g3` (StreetMap22G3Illustration) — WMI-22F3A-Q4 — Street map illustration. A triangular lattice of 8 nodes (6 cyan house icons + Tom bottom-left + Mary bottom-right) connected by 12 street segments (each 130 m). Graph topology (solver-verified): Nodes: T= _[WMI-22F3A-Q4]_
+- `street-map22-g3` (StreetMap22G3Explainer) — WMI-22F3A-Q4 — Longest non-repeating trail explainer. Walks the verified 9-edge trail T→2→0→1→2→4→1→3→4→M one street per beat, highlighting edges on the StreetGraph as the path grows. The final beat lands on 9 × 130 = 11 _[WMI-22F3A-Q4]_
+- `street-map22-g3` (StreetMap22G3Illustration) — WMI-22F3A-Q4 — Street map illustration. A triangular lattice of 7 nodes (5 cyan house icons + Tom bottom-left + Mary bottom-right) connected by 11 street segments (each 130 m). Matches the source scan db/seed/wmi/figures _[WMI-22F3A-Q4]_
+
+**student**  
+- `student-grid20-a17` (StudentGrid20A17Explainer) — Brand tokens matching house style _[SEAMO-20-A-Q17]_
+- `student-grid20-a17` (StudentGrid20A17Illustration) — SEAMO-20-A-Q17 — Students in a 5×9 rectangular grid; James is marked.  James observes: _[SEAMO-20-A-Q17]_
 
 **sub**  
 - `sub-triangle24-g3` (SubTriangle24G3Explainer) — WMI-24F3A-Q12 — "B and D are painted; paint 2 MORE so the figure keeps a fold line. How many ways?" Walk each of the 3 symmetry axes, shade every winning extra pair with a running counter, land on 9 → C. _[WMI-24F3A-Q12]_
 - `sub-triangle24-g3` (SubTriangle24G3Illustration) — WMI-24F3A-Q12 — "2 of the 9 small triangles are already painted; paint 2 more of the same colour so the figure remains line-symmetric. How many ways?" (Grade 3, 2024, answer C = 9). The large equilateral triangle is subd _[WMI-24F3A-Q12]_
 
+**subtract14**  
+- `subtract14-ec` (Subtract14ECExplainer) — IKMC-20-EC-Q14 — post-answer animation. Reuses SubtractFigure from Subtract14ECIllustration so the animation reads as the static scene coming alive. _[IKMC-20-EC-Q14]_
+- `subtract14-ec` (Subtract14ECIllustration) — IKMC-20-EC-Q14 — "The sum of three numbers is 50. Karin subtracts a secret number from each of these three numbers. She gets 24, 13 and 7 as the results. Which one of the following is one of the original three numbers?" _[IKMC-20-EC-Q14]_
+
 **subtraction**  
 - `subtraction-shapes-g2` (SubtractionShapesG2Explainer) — (no description) _[WMI-19F2A-Q15]_
 - `subtraction-shapes-g2` (SubtractionShapesG2Illustration) — WMI-19F2A-Q15 — column subtraction with shape-digits, find □ + ○. □ 3 - 6 ○ ------- 2 4 Units column needs a borrow: 3 − ○ can't make 4, so 13 − ○ = 4 → ○ = 9. Tens column after the borrow: □ − 1 − 6 = 2 → □ − 7 = 2 → □  _[WMI-19F2A-Q15]_
 
+**sugar**  
+- `sugar-path19-a8` (SugarPath19A8Explainer) — SEAMO-19-A-Q8 — "How many ways are there to spell the word 'SUGAR'?"  Animates path tracing through the diamond letter graph S→U→G→A→R, _[SEAMO-19-A-Q8]_
+- `sugar-path19-a8` (SugarPath19A8Illustration) — SEAMO-19-A-Q8 — "How many ways are there to spell the word 'SUGAR'?"  OCR source: docs/reference/ocr-res/seamo/contest/paper-a/2019.md Q8 _[SEAMO-19-A-Q8]_
+
 **sum**  
+- `sum-boxes14-ec` (SumBoxes14ECExplainer) — IKMC-19-EC-Q14 — post-answer animation. Reuses SumRowFigure from SumBoxes14ECIllustration so the animation reads as the static scene coming alive. _[IKMC-19-EC-Q14]_
+- `sum-boxes14-ec` (SumBoxes14ECIllustration) — IKMC-19-EC-Q14 — "Steven wants to write each of the digits 2, 0, 1 and 9 in one of the boxes of the sum. He wants to get the largest possible answer. Which digit could he write instead of the question mark?" _[IKMC-19-EC-Q14]_
 - `sum-cards24-g1` (SumCards24G1Explainer) — Mirror the static figure's qupu tokens. _[WMI-24F1A-Q18]_
 - `sum-cards24-g1` (SumCards24G1Illustration) — WMI-24F1A-Q18 (2024 Grade 1 Final) — answer = 6 (fill-in).  "Eight number cards in a row: 7, 4, 8, 1, 5, 2, 6, 3. The number on the □-th _[WMI-24F1A-Q18]_
+- `sum-grid12-ec` (SumGrid12ECExplainer) — (no description) _[IKMC-22-EC-Q12]_
+- `sum-grid12-ec` (SumGrid12ECIllustration) — Number-sum grid illustration for IKMC-22-EC-Q12.  Mosif's 3×3 grid, row and column sums — one number is wrong. _[IKMC-22-EC-Q12]_
 - `sum-grid20` (SumGrid20Explainer) — (no description) _[WMI-20F1A-Q19]_
 - `sum-grid20` (SumGrid20Illustration) — Row/column-sum shape grid for WMI-20F1A-Q19.  Recovered from db/seed/wmi/figures/2020-final-g1-a-q19.jpg: a 3×3 grid of _[WMI-20F1A-Q19]_
 - `sum-grid24-g1` (SumGrid24G1Explainer) — WMI-24F1A-Q25 post-answer explainer. 3×9 sum-grid: each row is a permutation of 1–9, each column's three entries are distinct, and the circle under a column holds that column's sum. The _[WMI-24F1A-Q25]_
@@ -1259,11 +2769,27 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `sum-to2019-g2` (SumTo2019G2Explainer) — (no description) _[WMI-19F2A-Q23]_
 - `sum-to2019-g2` (SumTo2019G2Illustration) — "Stacked addition, maximize the 4-digit number" figure for WMI-19F2A-Q23.  A right-aligned column addition adding to 2019: _[WMI-19F2A-Q23]_
 
+**sun4**  
+- `sun4-ec` (Sun4ECExplainer) — IKMC-21-EC-Q4 — post-answer explainer for "Alaya's sun" visual-matching question. Reuses FullSun, SunFace, SVG_W, SVG_H, CX, CY, R from Sun4ECIllustration. Animation beats: 0. intro — show the sun; state the task. 1. sca _[IKMC-21-EC-Q4]_
+- `sun4-ec` (Sun4ECIllustration) — IKMC-21-EC-Q4 — "Alaya draws a picture of the sun. Which of the following answers is part of her picture?" (answer B) STEM: The full sun drawing — a circle with a smiley face, surrounded by about 13 uneven spiky/jagged r _[IKMC-21-EC-Q4]_
+
+**sweets22**  
+- `sweets22-a16` (Sweets22A16Explainer) — Sweets22A16Explainer.tsx  Post-answer explainer for SEAMO-22-A-Q16: _[SEAMO-22-A-Q16]_
+- `sweets22-a16` (Sweets22A16Illustration) — Sweets22A16Illustration.tsx  Stem illustration for SEAMO-22-A-Q16: _[SEAMO-22-A-Q16]_
+
+**sym**  
+- `sym-eq18-a20` (SymEq18A20Illustration) — SymEq18A20Illustration — SEAMO 2018 Paper A, Q20  "Find the value of the square." _[SEAMO-18-A-Q20]_
+
 **symbol**  
+- `symbol-eqs16-b5` (SymbolEqs16B5Illustration) — SEAMO-16-B-Q5 — Symbol system of equations stem figure.  Three equations are given as picture-rows (images 004–006.jpg): _[SEAMO-16-B-Q5]_
+- `symbol-grid-osn25-pq6` (SymbolGridOSN25PQ6Explainer) — OSN-25-SD-PROV-Q6 — animated solution explainer.  Beats: _[OSN-25-SD-PROV-Q6]_
+- `symbol-grid-osn25-pq6` (SymbolGridOSN25PQ6Illustration) — OSN-25-SD-PROV-Q6 — symbol grid illustration (stem only, no answer).  Shows the 4×4 symbol table with row sums and column sums as seen in the _[OSN-25-SD-PROV-Q6]_
 - `symbol-grid19-p1` (SymbolGrid19P1Explainer) — (no description) _[WMI-19P1A-Q20]_
 - `symbol-grid19-p1` (SymbolGrid19P1Illustration) — Symbol-lookup grid for WMI-19P1A-Q20.  Source figure: db/seed/wmi/figures/2019-semifinal-g1-a-q20.jpg — _[WMI-19P1A-Q20]_
 - `symbol-grid24-g2` (SymbolGrid24G2Explainer) — WMI-24F2A-Q25 post-answer explainer. Mirrors the static symbol sum-grid and brings it alive: it deduces ●, ◆, ★ one column at a time from the printed circle sums, then computes ● + ◆ − ★ = 7 + 8 − 5 = 10. Every number is _[WMI-24F2A-Q25]_
 - `symbol-grid24-g2` (SymbolGrid24G2Illustration) — Symbol sum-grid figure for WMI-24F2A-Q25 (2024 Grade 2 Final, HARD).  "Fill the numbers 1-9 into the squares so each ROW uses 1-9. Each CIRCLE below _[WMI-24F2A-Q25]_
+- `symbol-pattern-hk25-p2-q20` (SymbolPatternHK25P2Q20Explainer) — HKIMO-25-P2H-Q20 — animated explainer for the symbol-pattern sequence. Four beats (intro → dots → tris → answer). Reuses layout constants and slot-rendering from SymbolPatternHK25P2Q20Illustration. _[HKIMO-25-P2H-Q20]_
+- `symbol-pattern-hk25-p2-q20` (SymbolPatternHK25P2Q20Illustration) — HKIMO-25-P2H-Q20 — Symbol-pattern sequence (fill-in) Groups: ■★•••▲ | ■★••▲▲ | ■★•▲▲▲ | ■★[?]▲▲ Dots decrease 3→2→1→0; triangles increase 1→2→3→4 per group. _[HKIMO-25-P2H-Q20]_
 - `symbol-pos19-p1` (SymbolPos19P1Explainer) — (no description) _[WMI-19P1A-Q3]_
 - `symbol-pos19-p1` (SymbolPos19P1Illustration) — Symbol-position figure for WMI-19P1A-Q3 (2019 semifinal Grade 1, Paper A).  Redrawn from db/seed/wmi/figures/2019-semifinal-g1-a-q3.jpg: two rows of nine _[WMI-19P1A-Q3]_
 
@@ -1275,9 +2801,21 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `tangram24-g2` (Tangram24G2Explainer) — WMI-24F2A-Q13 (HARD, tangram). The five answer figures spell WMI24; the question asks which has the MOST right angles. This post-answer explainer shows the stem target, then walks the five option figures one per beat, _[WMI-24F2A-Q13]_
 - `tangram24-g2` (Tangram24G2Illustration) — In-card illustration for WMI-24F2A-Q13 (2024 Grade-2 Final, HARD).  The printed stem shows a single elaborate tangram arrangement — a stylised _[WMI-24F2A-Q13]_
 
+**tape**  
+- `tape-cylinder6-ec` (TapeCylinder6ECExplainer) — IKMC-21-EC-Q6 — post-answer animation. Reuses CylinderBody + TapeBand from the illustration so the animation reads as the static scene coming alive. _[IKMC-21-EC-Q6]_
+- `tape-cylinder6-ec` (TapeCylinder6ECIllustration) — IKMC-21-EC-Q6 — "A measuring tape is wrapped around a cylinder."  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-21-EC-Q6]_
+
+**targets5**  
+- `targets5-ec` (Targets5ECExplainer) — IKMC-21-EC-Q5 — post-answer explainer for the shooting-target question. Teaches the "add ring values" strategy: Beat 0 — intro: rings score 10 → 9 → 8 → 7. Beat 1 — target A: 7+7+8 = 22. Beat 2 — target B: 7+7+9 = 23. Be _[IKMC-21-EC-Q5]_
+- `targets5-ec` (Targets5ECIllustration) — IKMC-21-EC-Q5 — "Five boys competed in a shooting challenge. Ricky scored the most points. Which target was Ricky's?" The choices ARE the only figures (no separate stem). This file provides ONLY the option renderer: Targ _[IKMC-21-EC-Q5]_
+
 **temp**  
 - `temp-chart-g3` (TempChartG3Explainer) — WMI-19F3A-Q3 — most distinct variation = the biggest swing (max − min). Each beat focuses one city, brackets its range, and compares the numbers. _[WMI-19F3A-Q3]_
 - `temp-chart-g3` (TempChartG3Illustration) — Seasonal temperature line chart for WMI-19F3A-Q3. Reconstructed from db/seed/wmi/figures/2019-final-g3-a-q3.jpg: four city lines (A–D) across Spring/Summer/Fall/Winter in °F. City C swings from 13 up _[WMI-19F3A-Q3]_
+
+**tetra**  
+- `tetra-cubes21-b23` (TetraCubes21B23Explainer) — Post-answer explainer for SEAMO-21-B-Q23. "How many cubes are there altogether in Figures 1 to 5?" — answer: 70.  _[SEAMO-21-B-Q23]_
+- `tetra-cubes21-b23` (TetraCubes21B23Illustration) — TetraCubes21B23Illustration — SEAMO-21-B-Q23 "There are 1, 4 and 10 cubes in Figures 1, 2 and 3, respectively. How many cubes are there altogether in Figures 1 to 5?" Answer: 70 (free-response, fill_in). Source images: d _[SEAMO-21-B-Q23]_
 
 **theater**  
 - `theater-seats25-g1` (TheaterSeats25G1Explainer) — Palette echoes the static theater illustration (qupu tokens). A small coverage meter: how many of the 12 seats are "safe" so far (occupied + their covered empty neighbours). Fills green; turns full + bright on the win. _[WMI-25F1A-Q20]_
@@ -1288,52 +2826,178 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `thermometer20` (Thermometer20Illustration) — Thermometer-reading figure for WMI-20F1A-Q7.  Recovered from db/seed/wmi/figures/2020-final-g1-a-q7.jpg: a vertical _[WMI-20F1A-Q7]_
 
 **three**  
+- `three-rects-x20-b14` (ThreeRectsX20B14Illustration) — SEAMOX-20-B-Q14 — "The figure shown is made up of 3 identical rectangles. Find the perimeter of 1 rectangle."  _[SEAMOX-20-B-Q14]_
 - `three-scales20` (ThreeScales20Explainer) — (no description) _[WMI-20F1A-Q25]_
 - `three-scales20` (ThreeScales20Illustration) — Three balance scales for WMI-20F1A-Q25 — five blocks weigh 2, 3, 3, 3, 5 g; △ + ○ = ?  Recovered from db/seed/wmi/figures/2020-final-g1-a-q25.jpg: three scales, each _[WMI-20F1A-Q25]_
+- `three-scales24-ec` (ThreeScales24ECExplainer) — Palette echoes the EC balance-scales pool (DogToys12EC, BallScales8EC). _[IKMC-21-EC-Q24]_
+- `three-scales24-ec` (ThreeScales24ECIllustration) — IKMC-21-EC-Q24 — "What does Martin need to put on the left-hand side of the third set of scales for them to balance?"  _[IKMC-21-EC-Q24]_
+- `three-views-simoc19-g2-q14` (ThreeViewsSIMOC19G2Q14Explainer) — Post-answer explainer for SIMOC-19-G2-Q14. "Minimum cubes to build the figure shown by three views?" — answer: 9 (choice D).  _[SIMOC-19-G2-Q14]_
+- `three-views-simoc19-g2-q14` (ThreeViewsSIMOC19G2Q14Illustration) — ThreeViewsSIMOC19G2Q14Illustration — SIMOC-19-G2-Q14 "A figure made up of unit cubes appears from the different views. What is the minimum number of cubes which could be used to build this figure?" Answer: D (9) Source c _[SIMOC-19-G2-Q14]_
 
 **tile**  
-- `tile-path19-p1` (TilePath19P1Explainer) — WMI-19P1A-Q12 — walk the white border from A to B, counting one step per move between neighbouring white tiles. The route hugs the border (up the left edge, across the top, around the top-right block to B) for 9 steps →  _[WMI-19P1A-Q12]_
+- `tile-area16-a7` (TileArea16A7Illustration) — SEAMO-16-A-Q7 — "How many tiles do you need to cover the area shown below?" Stem figure (2016.imgs/005.jpg): LEFT — a 4×4 checkerboard area (alternating teal / red cells). RIGHT — the tile shape: a T-hexomino outline (2  _[SEAMO-16-A-Q7]_
+- `tile-floor15` (TileFloor15Explainer) — IKMC-19-PE-Q15 — post-answer animated explainer.  Reuses TileFloorPrimitive + layout constants from TileFloor15Illustration so _[IKMC-19-PE-Q15]_
+- `tile-floor15` (TileFloor15Illustration) — IKMC-19-PE-Q15 — "A floor is covered with identical rectangular tiles."  PROBLEM ONLY (stem illustration): shows the tile layout as given in the paper. _[IKMC-19-PE-Q15]_
+- `tile-path15-pe` (TilePath15PEExplainer) — IKMC-22-PE-Q15 — tile-path explainer. Mirrors the static TilePath15PEIllustration (same TileFrame primitive, same colours) and brings it alive beat by beat: _[IKMC-22-PE-Q15]_
+- `tile-path15-pe` (TilePath15PEIllustration) — IKMC 2022 Pre-Ecolier Q15 — "Katrin builds a path around each square using tiles."  PROBLEM ONLY: shows three example figures from the paper — _[IKMC-22-PE-Q15]_
+- `tile-path19-p1` (TilePath19P1Explainer) — WMI-19P1A-Q12 — walk the white border from A to B, counting one step per square side. The route hugs the border (up the left edge, along the ledge, up the step, across the top to B) for 9 steps → answer D. _[WMI-19P1A-Q12]_
 - `tile-path19-p1` (TilePath19P1Illustration) — Tile-path figure for WMI-19P1A-Q12 (2019 WMI Semifinal Grade 1 Paper A, question 12).  _[WMI-19P1A-Q12]_
 - `tile-pieces19-p1` (TilePieces19P1Explainer) — The shared target rectangle (the thing all sets must tile). Schematic placement of each set's pieces INSIDE the rectangle: one region rect per piece. The regions partition the rectangle with no gaps/overlaps, _[WMI-19P1A-Q19]_
 - `tile-pieces19-p1` (TilePieces19P1Illustration) — Tiling-pieces figure for WMI-19P1A-Q19.  Source figure: db/seed/wmi/figures/2019-semifinal-g1-a-q19.jpg — _[WMI-19P1A-Q19]_
 - `tile-pieces22-g3` (TilePieces22G3Explainer) — WMI-22F3A-Q20 — Tile-pieces 3×3 explainer.  Strategy: checkerboard parity pins the 1×1 to a majority-colour cell _[WMI-22F3A-Q20]_
 - `tile-pieces22-g3` (TilePieces22G3Illustration) — Tile-pieces puzzle for WMI-22F3A-Q20.  Source figure: db/seed/wmi/figures/2022-final-g3-a-q20.jpg _[WMI-22F3A-Q20]_
 
+**tiled**  
+- `tiled-square-sasmo19-g4-q17` (TiledSquareSASMO19G4Q17Explainer) — TiledSquareSASMO19G4Q17Explainer — SASMO-19-G4-Q17  Animated step-by-step solution for "Find the perimeter of the big square". _[SASMO-19-G4-Q17]_
+- `tiled-square-sasmo19-g4-q17` (TiledSquareSASMO19G4Q17Illustration) — TiledSquareSASMO19G4Q17Illustration — SASMO-19-G4-Q17  "Persegi besar terbuat dari 8 persegi panjang identik dan 1 persegi kecil. _[SASMO-19-G4-Q17]_
+
+**tilted**  
+- `tilted-square-timo22-p4-q16` (TiltedSquareTIMO22P4Q16Explainer) — TIMO-22-P4H-Q16 — animated solution explainer.  Reuses the geometric primitives from the illustration. _[TIMO-22-P4H-Q16]_
+- `tilted-square-timo22-p4-q16` (TiltedSquareTIMO22P4Q16Illustration) — TIMO-22-P4H-Q16 — "4 identical right-angled triangles form the figure below. The areas of the big and the small squares are 64 and 36 respectively. Find the perimeter of the triangle." _[TIMO-22-P4H-Q16]_
+- `tilted-square17-b6` (TiltedSquare17B6Illustration) — TiltedSquare17B6Illustration.tsx  Stem illustration for SEAMO-2017-Paper-B Q6: _[SEAMO-17-B-Q6]_
+
+**token**  
+- `token-crown15-ec` (TokenCrown15ECExplainer) — IKMC-20-EC-Q15 — post-answer crown/token animation. Reuses CrownRing and TokenShape from the illustration so the animation reads as the static scene coming alive. _[IKMC-20-EC-Q15]_
+- `token-crown15-ec` (TokenCrown15ECIllustration) — IKMC-20-EC-Q15 — "Amelie's crown" token puzzle (2020 Ecolier Q15).  PROBLEM ONLY: shows the static figure the student sees in the paper: _[IKMC-20-EC-Q15]_
+
+**tokens11**  
+- `tokens11-pe` (Tokens11PEExplainer) — IKMC-23-PE-Q11 — post-answer beat-driven explainer.  Reuses Tokens11PE from the illustration so the animation reads as the same _[IKMC-23-PE-Q11]_
+- `tokens11-pe` (Tokens11PEIllustration) — IKMC-23-PE-Q11 — Token row stem illustration.  Figure (docs/reference/ocr-res/ikmc/contest/preecolier/2023.imgs/029.jpg): _[IKMC-23-PE-Q11]_
+
+**top**  
+- `top-view-cubes-hk20-p2-q17` (TopViewCubesHK20P2Q17Explainer) — Post-answer explainer for HKIMO-20-P2H-Q17. "At least how many squares can be seen if viewing the figure below from the top?" — answer: 13.  _[HKIMO-20-P2H-Q17]_
+- `top-view-cubes-hk20-p2-q17` (TopViewCubesHK20P2Q17Illustration) — TopViewCubesHK20P2Q17Illustration — HKIMO-20-P2H-Q17 "At least how many squares can be seen if viewing the figure below from the top?" Answer: 13 (10 × 1×1 + 3 × 2×2). Source: docs/reference/ocr-res/hkimo/heat/primary-2/ _[HKIMO-20-P2H-Q17]_
+- `top-view-cubes-timo22-p2-q19` (TopViewCubesTIMO22P2Q19Explainer) — Post-answer explainer for TIMO-22-P2H-Q19. "At least how many squares from the top?" → 9.  _[TIMO-22-P2H-Q19]_
+- `top-view-cubes-timo22-p2-q19` (TopViewCubesTIMO22P2Q19Illustration) — TopViewCubesTIMO22P2Q19Illustration — TIMO-22-P2H-Q19 "At least how many squares can be seen if viewing the figure below from top?" Answer: 9. 3D staircase layout (x=right, y=back/depth, z=up): Front row (y=0, height 1): _[TIMO-22-P2H-Q19]_
+- `top-view-hk18-p2-q19` (TopViewHK18P2Q19Explainer) — Post-answer explainer for HKIMO-18-P2H-Q19. "At least how many squares can be seen if viewing the figure below from top?" — answer 5.  _[HKIMO-18-P2H-Q19]_
+- `top-view-hk18-p2-q19` (TopViewHK18P2Q19Illustration) — TopViewHK18P2Q19Illustration — HKIMO-18-P2H-Q19 "At least how many squares can be seen if viewing the figure below from top?" Answer: 5 visible top-faces. Source image: docs/reference/ocr-res/hkimo/heat/primary-2/2018.im _[HKIMO-18-P2H-Q19]_
+- `top-view-hk19-p2-q19` (TopViewHK19P2Q19Explainer) — Post-answer explainer for HKIMO-19-P2H-Q19. "At least how many squares can be seen if viewing the figure below from the top?" — answer: 4.  _[HKIMO-19-P2H-Q19]_
+- `top-view-hk19-p2-q19` (TopViewHK19P2Q19Illustration) — TopViewHK19P2Q19Illustration — HKIMO-19-P2H-Q19 "At least how many squares can be seen if viewing the figure below from the top?" Answer: 4 (distinct top-view positions). Source: docs/reference/ocr-res/hkimo/heat/primary _[HKIMO-19-P2H-Q19]_
+- `top-view-hk25-p2-q17` (TopViewHK25P2Q17Explainer) — Post-answer explainer for HKIMO-25-P2H-Q17. "At least how many square(s) can be seen if viewing the figure below from the top?" — answer 9.  _[HKIMO-25-P2H-Q17]_
+- `top-view-hk25-p2-q17` (TopViewHK25P2Q17Illustration) — TopViewHK25P2Q17Illustration — HKIMO-25-P2H-Q17 "At least how many square(s) can be seen if viewing the figure below from the top?" Answer: 9 — a 3×3 grid footprint. Source: docs/reference/ocr-res/hkimo/heat/primary-2/20 _[HKIMO-25-P2H-Q17]_
+- `top-view-sasmo19-g3-q4` (TopViewSASMO19G3Q4Explainer) — SASMO-19-G3-Q4 post-answer explainer. "Find the top view of the figure on the right." — answer: C  _[SASMO-19-G3-Q4]_
+- `top-view-sasmo19-g3-q4` (TopViewSASMO19G3Q4Illustration) — SASMO-19-G3-Q4 — "Find the top view of the figure on the right."  The 3D figure has a tall left section (2 cubes wide × 1 deep × 2 tall) and a _[SASMO-19-G3-Q4]_
+- `top-view-simoc21-g1-q12` (TopViewSIMOC21G1Q12Explainer) — SIMOC-21-G1-Q12 — post-answer explainer: top-down view of a 9-cube arrangement.  Teaches the "bird's-eye footprint" strategy beat-by-beat: _[SIMOC-21-G1-Q12]_
+- `top-view-simoc21-g1-q12` (TopViewSIMOC21G1Q12Illustration) — SIMOC-21-G1-Q12 — "How will the following figure look like when looking from the top?"  Shows a 3D isometric cube arrangement (9 unit cubes in a cross-like pattern) _[SIMOC-21-G1-Q12]_
+- `top-view-stairs-hk18-p3-q19` (TopViewStairsHK18P3Q19Explainer) — Post-answer explainer for HKIMO-18-P3H-Q19. "At least how many squares from the top?" → 8.  _[HKIMO-18-P3H-Q19]_
+- `top-view-stairs-hk18-p3-q19` (TopViewStairsHK18P3Q19Illustration) — TopViewStairsHK18P3Q19Illustration — HKIMO-18-P3H-Q19 "At least how many square(s) can be seen if observing the figure below from the top?" — Answer: 8. Figure: 4-step staircase, 2 cubes deep in y. x=0 (leftmost, height  _[HKIMO-18-P3H-Q19]_
+
+**torn**  
+- `torn-map6-pe` (TornMap6PEExplainer) — IKMC-22-PE-Q6 — post-answer explainer. Walks through each option A–E, eliminating wrong shapes, then reveals that piece B is the correct missing piece (shape + pattern match). Reuses TornMap6PE (shared primitive) from To _[IKMC-22-PE-Q6]_
+- `torn-map6-pe` (TornMap6PEIllustration) — IKMC-22-PE-Q6 — "A monkey has torn a piece from Captain Jack's map. Which is the missing piece?" (answer B). Stem (013.jpg): a treasure-map fragment on aged parchment with: - A jagged torn-out hole in the upper-right are _[IKMC-22-PE-Q6]_
+
+**town**  
+- `town-shapes-sasmo19-g2-q17` (TownShapesSASMO19G2Q17Explainer) — SASMO-19-G2-Q17 — animated explainer. Beats: show all → highlight triangles(8) → highlight rectangles(15)         → highlight circles(19) → result 8+15+19=42. _[SASMO-19-G2-Q17]_
+- `town-shapes-sasmo19-g2-q17` (TownShapesSASMO19G2Q17Illustration) — SASMO-19-G2-Q17 — "What is the total number of triangles, rectangles and circles?" Source figure: town scene (house + traffic light + truck/trailer + sun + sky birds). Counts bound to seed quantities: rectangles=15, tria _[SASMO-19-G2-Q17]_
+
+**towns**  
+- `towns-meet19-a25` (TownsMeet19A25Explainer) — SEAMO-19-A-Q25 — Explainer: closing-speed meeting problem.  Animates the solution beat-by-beat: _[SEAMO-19-A-Q25]_
+- `towns-meet19-a25` (TownsMeet19A25Illustration) — SEAMO-19-A-Q25 — "Two vehicles travel toward each other; find meeting time."  Stem figure: a horizontal road with Town A (left) and Town B (right). _[SEAMO-19-A-Q25]_
+
+**toy**  
+- `toy-scales-sasmo19-g3-q15` (ToyScalesSASMO19G3Q15Explainer) — SASMO 2019 G3 Q15 — animated explainer. Beat-by-beat chain: Scale 1 (Train > 2 Cars) → Scale 2 (Car > Ship)   → Scale 3 (Submarine > 2 Trains) → Submarine is heaviest. _[SASMO-19-G3-Q15]_
+- `toy-scales-sasmo19-g3-q15` (ToyScalesSASMO19G3Q15Illustration) — SASMO 2019 G3 Q15 — Three balance scales comparing toy weights. Scale 1: 1 Train (left, ↓ heavier) vs 2 Cars (right)    → 1 Train > 2 Cars Scale 2: 3 Ships (left) vs 3 Cars (right, ↓ heavier)    → 1 Car > 1 Ship _[SASMO-19-G3-Q15]_
+
 **train**  
 - `train-arrows24-g2` (TrainArrows24G2Explainer) — Post-answer explainer for WMI-24F2A-Q14 (2024 Grade-2 Final).  Teaches the turning rule: the toy train rolls FORWARD and every car spins the _[WMI-24F2A-Q14]_
 - `train-arrows24-g2` (TrainArrows24G2Illustration) — In-card illustration for WMI-24F2A-Q14 (2024 Grade-2 Final).  The printed stem shows a toy train running forward along a curving grey rail. _[WMI-24F2A-Q14]_
+- `train-box4-ec` (TrainBox4ECExplainer) — Colour tokens echo the illustration palette. _[IKMC-22-EC-Q4]_
+- `train-box4-ec` (TrainBox4ECIllustration) — IKMC-22-EC-Q4 — "What is the smallest number of boxes that Bill has to move to be able to open the dark TRAIN box?"  Answer: C (5).  _[IKMC-22-EC-Q4]_
+
+**trains18**  
+- `trains18-pe` (Trains18PEExplainer) — IKMC-20-PE-Q18 — post-answer animation.  Shows a SCHEMATIC STRIP of cars around positions 12, 19, and 26 for both _[IKMC-20-PE-Q18]_
+- `trains18-pe` (Trains18PEIllustration) — IKMC-20-PE-Q18 — "Two identical trains, each with 31 cars, are traveling in opposite directions. When car No. 19 of one train is opposite car No. 19 of the other, which car is opposite car No. 12?" _[IKMC-20-PE-Q18]_
 
 **trap**  
+- `trap-diags-x23-b14` (TrapDiagsX23B14Explainer) — SEAMOX-23-B-Q14 — post-answer beat-driven explainer.  Reuses TrapDiagsX23B14Figure (shared primitive) from the illustration so the _[SEAMOX-23-B-Q14]_
+- `trap-diags-x23-b14` (TrapDiagsX23B14Illustration) — SEAMOX-23-B-Q14 — Trapezoid with parallel sides and intersecting diagonals.  AD ∥ BC, BC = 1.5 AD. The diagonals AC and BD meet at E. _[SEAMOX-23-B-Q14]_
 - `trap-triangles19-p1` (TrapTriangles19P1Explainer) — (no description) _[WMI-19P1A-Q11]_
 - `trap-triangles19-p1` (TrapTriangles19P1Illustration) — Trapezoid-with-dashed-lines figure for WMI-19P1A-Q11 (2019 Semifinal Grade 1 Paper A).  _[WMI-19P1A-Q11]_
+
+**trapezoid**  
+- `trapezoid-osn15-nq15` (TrapezoidOSN15NQ15Explainer) — OSN-15-SD-NAS-Q15 — animated explainer for trapezoid area ratio.  Beat plan (6 beats): _[OSN-15-SD-NAS-Q15]_
+- `trapezoid-osn15-nq15` (TrapezoidOSN15NQ15Illustration) — OSN-15-SD-NAS-Q15 — Trapezoid ABCD with triangle ABP inside. Source: docs/reference/ocr-res/osn/nasional/sd/2015.imgs/006.jpg  _[OSN-15-SD-NAS-Q15]_
+- `trapezoid-osn25-nsfq12` (TrapezoidOSN25NSFQ12Explainer) — TrapezoidOSN25NSFQ12Explainer — OSN-25-SD-NAS-SEMIFINAL-Q12  Beat animasi: intro → drop-perp → eq-ab → eq-dc → solve → area. _[OSN-25-SD-NAS-SEMIFINAL-Q12]_
+- `trapezoid-osn25-nsfq12` (TrapezoidOSN25NSFQ12Illustration) — TrapezoidOSN25NSFQ12Illustration — OSN-25-SD-NAS-SEMIFINAL-Q12  Trapesium ABCD dengan AD ∥ BC. _[OSN-25-SD-NAS-SEMIFINAL-Q12]_
 
 **trapezoid24**  
 - `trapezoid24-g3` (Trapezoid24G3Explainer) — WMI-24F3A-Q9 — Four identical 3-4-5 right triangles form a trapezoid in two ways. Strategy: try both orientations (short-leg vertical vs long-leg vertical), compute the perimeter for each, and land on "both 22 and 26" →  _[WMI-24F3A-Q9]_
 - `trapezoid24-g3` (Trapezoid24G3Illustration) — WMI-24F3A-Q9 — In-card illustration. Four identical 3-4-5 right triangles arranged to form a trapezoid. Two valid trapezoids exist: Trapezoid A: parallel bases 3 & 9, legs 5 & 5, height 4 → perimeter 22 Trapezoid B: para _[WMI-24F3A-Q9]_
 
+**travel**  
+- `travel-time16-b19` (TravelTime16B19Illustration) — TravelTime16B19Illustration.tsx  Stem illustration for SEAMO-16-B-Q19: _[SEAMO-16-B-Q19]_
+
 **tri**  
+- `tri-beads21-b18` (TriBeads21B18Illustration) — SEAMO-21-B-Q18 — 4 triangles from 9 equal-length segments, beads on each.  The figure shows one large equilateral triangle subdivided into 4 smaller _[SEAMO-21-B-Q18]_
+- `tri-count19-a1` (TriCount19A1Explainer) — (no description) _[SEAMO-19-A-Q1]_
+- `tri-count19-a1` (TriCount19A1Illustration) — SEAMO-19-A-Q1 — "How many triangles are there in the figure below?"  Source figure (2019.imgs/002.jpg): a large triangle subdivided by 3 interior _[SEAMO-19-A-Q1]_
+- `tri-count21-a11-fig` (TriCount21A11Fig) — TriCount21A11Fig — SEAMO 2021 Paper A Q11 "How many triangles are there in the figure below?"  Answer: 14  (choice A)  _[SEAMO-21-A-Q11]_
 - `tri-count22-g1` (TriCount22G1Explainer) — WMI-22F1A-Q19 — post-answer enumeration: every triangle in the tree lights up one at a time with a running counter (1, 2, … 16), small triangles first then the big combined ones, landing on the total. Plays after the lea _[WMI-22F1A-Q19]_
-- `tri-count22-g1` (TriCount22G1Illustration) — WMI-22F1A-Q19 — "How many triangles are in the figure?" (Grade 1, answer 16). The figure is a fir-tree built from THREE triangular tiers stacked top to bottom, each tier overlapping the one above so the apexes poke up li _[WMI-22F1A-Q19]_
+- `tri-count22-g1` (TriCount22G1Illustration) — WMI-22F1A-Q19 — "How many triangles are in the figure?" (Grade 1, answer 16). The figure is a fir-tree built from THREE equal triangular tiers stacked top to bottom, each tier's apex sitting halfway up the tier above (th _[WMI-22F1A-Q19]_
+- `tri-dots16-a14` (TriDots16A14Illustration) — SEAMO-16-A-Q14 — "How many dots are there in Figure 5?"  The paper shows Figures 1, 2, and 3 with triangular dot arrangements: _[SEAMO-16-A-Q14]_
 - `tri-grid-quad23-g3` (TriGridQuad23G3Explainer) — WMI-23F3A-Q13 — triangular-lattice area explainer (2023 Grade 3 Final). Teaches the COUNT-then-multiply method beat by beat: the shaded quadrilateral ABCD is built from small lattice triangles, each 6 cm². We count the s _[WMI-23F3A-Q13]_
 - `tri-grid-quad23-g3` (TriGridQuad23G3Illustration) — WMI-23F3A-Q13 (2023 Grade 3 Final) — area of a quadrilateral on a triangular grid.  "Each small equilateral triangle in the figure has an area of 6 cm². Find the _[WMI-23F3A-Q13]_
+- `tri-in-circle-x23-b9` (TriInCircleX23B9Explainer) — SEAMOX-23-B-Q9 — post-answer explainer.  Beat plan (5 beats): _[SEAMOX-23-B-Q9]_
+- `tri-in-circle-x23-b9` (TriInCircleX23B9Illustration) — SEAMOX-23-B-Q9 — Equilateral triangle inscribed in circle, circle inscribed in bigger equilateral triangle.  SOURCE FIGURE (docs/reference/ocr-res/seamo-x/contest/paper-b/2023.imgs/002.jpg): _[SEAMOX-23-B-Q9]_
+- `tri-outer-x23-b11` (TriOuterX23B11Explainer) — SEAMO-X 2023 Paper B Q11 — animated explainer. Reuses the sub-components exported from TriOuterX23B11Illustration.  _[SEAMOX-23-B-Q11]_
+- `tri-outer-x23-b11` (TriOuterX23B11Illustration) — SEAMO-X 2023 Paper B Q11 Inner △ABC has area 10 cm². Each side of △ABC is extended by its own length to form outer △DEF: _[SEAMOX-23-B-Q11]_
+- `tri-positions22-ec` (TriPositions22ECExplainer) — IKMC-19-EC-Q22 — post-answer beat-driven explainer. Reuses TriangleGrid / SmallTriangle / buildTriangles from the illustration so the animation reads as the static scene coming alive. _[IKMC-19-EC-Q22]_
+- `tri-positions22-ec` (TriPositions22ECIllustration) — IKMC-19-EC-Q22 — "Mary has 9 small triangles: 3 red, 3 yellow, 3 blue…"  PROBLEM ONLY: static figure the student sees in the paper — a big equilateral _[IKMC-19-EC-Q22]_
+- `tri-stair-hk24-p2-q5` (TriStairHK24P2Q5Explainer) — HKIMO-24-P2H-Q5 — animated explainer  Pattern: group n = n(n+1)/2 stars (triangular staircase, row r has n−r stars). _[HKIMO-24-P2H-Q5]_
+- `tri-stair-hk24-p2-q5` (TriStairHK24P2Q5Illustration) — Stem illustration for HKIMO-24-P2H-Q5 "According to the pattern shown below, how many * is/are there in the 10th group?"  _[HKIMO-24-P2H-Q5]_
+- `tri-star-groups-hk23-p3-sfq2` (TriStarGroupsHK23P3SFQ2Explainer) — TriStarGroupsHK23P3SFQ2Explainer.tsx HKIMO-23-P3SF-Q2 animated explainer.  _[HKIMO-23-P3SF-Q2]_
+- `tri-star-groups-hk23-p3-sfq2` (TriStarGroupsHK23P3SFQ2Illustration) — TriStarGroupsHK23P3SFQ2Illustration.tsx HKIMO-23-P3SF-Q2 stem illustration.  _[HKIMO-23-P3SF-Q2]_
+- `tri-star-hk25-p3-q5` (TriStarHK25P3Q5Explainer) — HKIMO-25-P3H-Q5 — animated explainer for the triangular star pattern. Reuses the staircase illustration and animates the formula T(n) = n(n+1)/2. _[HKIMO-25-P3H-Q5]_
+- `tri-star-hk25-p3-q5` (TriStarHK25P3Q5Illustration) — HKIMO-25-P3H-Q5 — "What is the difference between the number of * in group 30 and group 99?"  Groups 1–4 shown as inverted-staircase star patterns (triangular numbers). _[HKIMO-25-P3H-Q5]_
+- `tri-steps-hk18-p1-q5` (TriStepsHK18P1Q5Explainer) — HKIMO-18-P1H-Q5 — post-answer animated explainer.  Reuses CellGroup, layout constants, and COLOR from TriStepsHK18P1Q5Illustration _[HKIMO-18-P1H-Q5]_
+- `tri-steps-hk18-p1-q5` (TriStepsHK18P1Q5Illustration) — HKIMO-18-P1H-Q5 — "According to the pattern shown below, how many ⊕ are there in the 10th group?"  STATIC PROBLEM FIGURE — four staircase groups of unit squares with ⊕ symbols inside. _[HKIMO-18-P1H-Q5]_
 - `tri-sticks24-g2` (TriSticks24G2Explainer) — WMI-24F2A-Q19 — post-answer explainer. Strategy: count all 8 triangles one per beat (4 downward + 4 upward), then show the 4 shared diagonal sticks that each destroy 2 triangles, then land on 8 + 4 = 12. SSR-safe, determ _[WMI-24F2A-Q19]_
 - `tri-sticks24-g2` (TriSticks24G2Illustration) — WMI-24F2A-Q19 — "Triangles of different sizes in the figure; find (number of triangles) + (minimum matchsticks to remove so no triangle remains)." Answer: 8 triangles + 4 sticks = 12. The figure is a 2 × 2 parallelogram  _[WMI-24F2A-Q19]_
 
 **triangle**  
+- `triangle-area17-b24` (TriangleArea17B24Explainer) — SEAMO-17-B-Q24 — post-answer beat-driven explainer.  Reuses TriangleArea17B24Figure from the illustration so the animation _[SEAMO-17-B-Q24]_
+- `triangle-area17-b24` (TriangleArea17B24Illustration) — SEAMO-17-B-Q24 — Triangle area ratios.  In triangle ABC: D is on AB with AD = (1/2)DB  →  AD:DB = 1:2, D at 1/3 from A. _[SEAMO-17-B-Q24]_
+- `triangle-boxes1-pe` (TriangleBoxes1PEExplainer) — IKMC-22-PE-Q1 — post-answer explainer: "Which box contains the most triangles?"  Strategy: examine each box in turn, count ONLY the triangles, track the _[IKMC-22-PE-Q1]_
+- `triangle-boxes1-pe` (TriangleBoxes1PEIllustration) — IKMC-22-PE-Q1 — "Which box contains the most triangles?"  The five A–E options ARE the figures (boxes with cyan shapes). There is NO _[IKMC-22-PE-Q1]_
+- `triangle-cevian-osn15-nq19` (TriangleCevianOSN15NQ19Explainer) — OSN-15-SD-NAS-Q19 — animated angle-chase explainer  Reuses PT vertex coords from the Illustration as shared layout constants. _[OSN-15-SD-NAS-Q19]_
+- `triangle-cevian-osn15-nq19` (TriangleCevianOSN15NQ19Illustration) — OSN-15-SD-NAS-Q19 — Triangle ABC with cevian AD  Problem: D on BC s.t. AC = CD, ∠CAB = ∠ABC + 45°. Find ∠BAD. _[OSN-15-SD-NAS-Q19]_
+- `triangle-chain-timo22-p2-q16` (TriangleChainTIMO22P2Q16Explainer) — TIMO-22-P2H-Q16 — post-answer animated explainer.  Reuses the node/edge layout from TriangleChainTIMO22P2Q16Illustration and _[TIMO-22-P2H-Q16]_
+- `triangle-chain-timo22-p2-q16` (TriangleChainTIMO22P2Q16Illustration) — TIMO-22-P2H-Q16 — "How many line segments are there in the figure below?"  Figure: 9 dots (2 peaks + 5 on a horizontal row + 2 hanging ends) connected _[TIMO-22-P2H-Q16]_
 - `triangle-colors20` (TriangleColors20Explainer) — (no description) _[WMI-20F1A-Q20]_
 - `triangle-colors20` (TriangleColors20Illustration) — Venn-style shape picture for WMI-20F1A-Q20 — "how many triangles are NOT black?"  Recovered from db/seed/wmi/figures/2020-final-g1-a-q20.jpg: two large _[WMI-20F1A-Q20]_
+- `triangle-defgosn24-nt1-q19` (TriangleDEFGOSN24NT1Q19Explainer) — TriangleDEFGOSN24NT1Q19Explainer — OSN-24-SD-NAS-TEORI1-Q19  Animated beat-by-beat solution: subtract 3 corner triangles (BDE, CEF, AGD) _[OSN-24-SD-NAS-TEORI1-Q19]_
+- `triangle-defgosn24-nt1-q19` (TriangleDEFGOSN24NT1Q19Illustration) — TriangleDEFGOSN24NT1Q19Illustration — OSN-24-SD-NAS-TEORI1-Q19  Triangle ABC with: _[OSN-24-SD-NAS-TEORI1-Q19]_
 - `triangle-fill19-p1` (TriangleFill19P1Explainer) — WMI-19P1A-Q6 — reveals the empty space being filled by the small triangle ONE per beat, with a running counter, landing on 7 (answer B). Reuses the illustration's TriangleFillFigure primitive so the geometry can never dr _[WMI-19P1A-Q6]_
 - `triangle-fill19-p1` (TriangleFill19P1Illustration) — WMI-19P1A-Q6 — "How many MORE of the small triangle are needed to fill the empty space?" (2019 Grade 1 Semifinal, Paper A, answer B = 7). Reconstructed from db/seed/wmi/figures/2019-semifinal-g1-a-q6.jpg. The puzzle figu _[WMI-19P1A-Q6]_
+- `triangle-groups-hk19-p1-q5` (TriangleGroupsHK19P1Q5Explainer) — HKIMO-19-P1H-Q5 — post-answer animated explainer.  Reuses the illustration's cell layout (groupX, groupCells, CS, SVG_W, SVG_H) _[HKIMO-19-P1H-Q5]_
+- `triangle-groups-hk19-p1-q5` (TriangleGroupsHK19P1Q5Illustration) — HKIMO-19-P1H-Q5 — stem illustration.  Shows groups 1–4 of ⊕ symbols arranged in right-aligned staircases: _[HKIMO-19-P1H-Q5]_
+- `triangle-num-hk24-p3-q4` (TriangleNumHK24P3Q4Explainer) — TriangleNumHK24P3Q4Explainer — HKIMO-24-P3H-Q4  Animated step-by-step solution: discover the rule "top = left × right − 3" _[HKIMO-24-P3H-Q4]_
+- `triangle-num-hk24-p3-q4` (TriangleNumHK24P3Q4Illustration) — TriangleNumHK24P3Q4Illustration — HKIMO-24-P3H-Q4  "According to the pattern shown below, what is the missing number?" _[HKIMO-24-P3H-Q4]_
 - `triangle-pattern-g2` (TrianglePatternG2Explainer) — (no description) _[WMI-19F2A-Q13]_
 - `triangle-pattern-g2` (TrianglePatternG2Illustration) — WMI-19F2A-Q13 — triangular-stack growth pattern. Answer: C = 28.  picture(n) is a triangle of small ▲'s whose rows (top→bottom) contain _[WMI-19F2A-Q13]_
+- `triangle-pattern-hk25-p3-q4` (TrianglePatternHK25P3Q4Explainer) — HKIMO-25-P3H-Q4 — animated explainer. Reuses TriPanel + layout constants from the illustration. Rule: top = (left + right) × 2.  Answer: 32. _[HKIMO-25-P3H-Q4]_
+- `triangle-pattern-hk25-p3-q4` (TrianglePatternHK25P3Q4Illustration) — HKIMO-25-P3H-Q4 — "According to the pattern shown below, what is the missing number?"  Three triangles; each has a number at the top vertex and two numbers at the _[HKIMO-25-P3H-Q4]_
 - `triangle-pattern20` (TrianglePattern20Explainer) — (no description) _[WMI-20F1A-Q12]_
 - `triangle-pattern20` (TrianglePattern20Illustration) — Repeating shape pattern for WMI-20F1A-Q12.  Recovered from "wmiPastPaper/2020 WMI Final G01 Paper A/images/ _[WMI-20F1A-Q12]_
+- `triangle-rule18-a8` (TriangleRule18A8Illustration) — SEAMO-18-A-Q8 — "Find the missing number."  Three triangles are shown. Each triangle has: _[SEAMO-18-A-Q8]_
+
+**triangle17**  
+- `triangle17-pe` (Triangle17PEExplainer) — IKMC-23-PE-Q17 — post-answer explainer: triangle tiling to form a hexagon.  Reuses StemTriangle from Triangle17PEIllustration. _[IKMC-23-PE-Q17]_
+- `triangle17-pe` (Triangle17PEIllustration) — IKMC-23-PE-Q17 — "Elvis has 6 identical triangles. Which of the following pictures can he make?"  Stem (046.jpg): an inverted (apex-down) equilateral triangle subdivided into 4 _[IKMC-23-PE-Q17]_
+
+**triangles**  
+- `triangles-osn24-nekq2` (TrianglesOSN24NEKQ2Explainer) — SVG size for the two side-by-side triangles _[OSN-24-SD-NAS-EKSPERIMEN-Q2]_
+- `triangles-osn24-nekq2` (TrianglesOSN24NEKQ2Illustration) — OSN 2024 SD Nasional Eksperimen — Q2 24 numbered equilateral-triangle tiles; pick 6 to fill two composed triangles where the center (inverted) piece is fixed at 20 and 24. _[OSN-24-SD-NAS-EKSPERIMEN-Q2]_
+- `triangles-rect-osn08-kq6` (TrianglesRectOSN08KQ6Explainer) — TrianglesRectOSN08KQ6Explainer — OSN-08-SD-KAB-Q6  Beat-by-beat comparison of the three triangle perimeters: _[OSN-08-SD-KAB-Q6]_
+- `triangles-rect-osn08-kq6` (TrianglesRectOSN08KQ6Illustration) — TrianglesRectOSN08KQ6Illustration — OSN-08-SD-KAB-Q6  "Dari gambar berikut, keliling yang paling besar di antara segitiga ACD, _[OSN-08-SD-KAB-Q6]_
+- `triangles-x22-a7` (TrianglesX22A7Explainer) — (no description) _[SEAMOX-22-A-Q7]_
+- `triangles-x22-a7` (TrianglesX22A7Illustration) — SEAMO-X 2022 Paper A Q7 — "How many triangles are there in the figure below?" Source figure (2022.imgs/007.jpg): large equilateral triangle, 4-row grid, 16 unit cells (10 upward + 6 downward). Competition answer = 23: _[SEAMOX-22-A-Q7]_
 
 **try**  
 - `try-check-explainers` (tryCheckExplainers) — A shared "deduce by checking" explainer: rows reveal one per beat, each a candidate or fact — red ✗ when it fails, green ✓ when it works, blue when it is a neutral fact in the chain. Used by the simple non-figure questio _[WMI-19F1A-Q12, WMI-19F1A-Q13, WMI-19F1A-Q14, WMI-19F1A-Q2, WMI-19F1A-Q7, WMI-19F2A-Q6, WMI-19F2A-Q7]_
 - `try-check-explainers-g3` (tryCheckExplainersG3) — WMI-19F3A — deduction chains for the pure-arithmetic Grade-3 questions. _[WMI-19F3A-Q1, WMI-19F3A-Q13, WMI-19F3A-Q15, WMI-19F3A-Q5, WMI-19F3A-Q6]_
 - `try-check-explainers19-p1` (tryCheckExplainers19P1) — WMI-19P1A (2019 Grade 1 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-19P1A-Q1, WMI-19P1A-Q15, WMI-19P1A-Q16, WMI-19P1A-Q17, WMI-19P1A-Q2, WMI-19P1A-Q22, WMI-19P1A-Q7]_
-- `try-check-explainers19-p2` (tryCheckExplainers19P2) — WMI-19P2A (2019 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-19P2A-Q1, WMI-19P2A-Q10, WMI-19P2A-Q13, WMI-19P2A-Q14, WMI-19P2A-Q15, WMI-19P2A-Q16, WMI-19P2A-Q17, WMI-19P2A-Q18, WMI-19P2A-Q19, WMI-19P2A-Q2, WMI-19P2A-Q20, WMI-19P2A-Q22, WMI-19P2A-Q24, WMI-19P2A-Q4, WMI-19P2A-Q8, WMI-19P2A-Q9]_
+- `try-check-explainers19-p2` (tryCheckExplainers19P2) — WMI-19P2A (2019 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-19P2A-Q1, WMI-19P2A-Q10, WMI-19P2A-Q13, WMI-19P2A-Q14, WMI-19P2A-Q15, WMI-19P2A-Q16, WMI-19P2A-Q17, WMI-19P2A-Q18, WMI-19P2A-Q19, WMI-19P2A-Q2, WMI-19P2A-Q20, WMI-19P2A-Q24, WMI-19P2A-Q4, WMI-19P2A-Q8, WMI-19P2A-Q9]_
 - `try-check-explainers19-p3` (tryCheckExplainers19P3) — WMI-19P3A (2019 Grade 3 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-19P3A-Q1, WMI-19P3A-Q10, WMI-19P3A-Q12, WMI-19P3A-Q14, WMI-19P3A-Q15, WMI-19P3A-Q16, WMI-19P3A-Q18, WMI-19P3A-Q19, WMI-19P3A-Q2, WMI-19P3A-Q21, WMI-19P3A-Q22, WMI-19P3A-Q23, WMI-19P3A-Q24, WMI-19P3A-Q3, WMI-19P3A-Q4, WMI-19P3A-Q7, WMI-19P3A-Q8, WMI-19P3A-Q9]_
 - `try-check-explainers20-f1-a` (tryCheckExplainers20F1A) — WMI-20F1A — deduction chains for the pure-arithmetic Grade-1 questions. _[WMI-20F1A-Q11, WMI-20F1A-Q18, WMI-20F1A-Q2, WMI-20F1A-Q5]_
 - `try-check-explainers20-g2` (tryCheckExplainers20G2) — WMI-20F2A — deduction chains for the pure-arithmetic Grade-2 questions. _[WMI-20F2A-Q1, WMI-20F2A-Q11, WMI-20F2A-Q13, WMI-20F2A-Q16, WMI-20F2A-Q17, WMI-20F2A-Q24, WMI-20F2A-Q4, WMI-20F2A-Q6, WMI-20F2A-Q9, WMI-20F3A-Q21]_
@@ -1355,13 +3019,13 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `try-check-explainers22-p3` (tryCheckExplainers22P3) — WMI-22P3A (2022 Grade 3 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. Built faithfully fr _[WMI-22P3A-Q1, WMI-22P3A-Q11, WMI-22P3A-Q12, WMI-22P3A-Q13, WMI-22P3A-Q14, WMI-22P3A-Q15, WMI-22P3A-Q16, WMI-22P3A-Q19, WMI-22P3A-Q2, WMI-22P3A-Q20, WMI-22P3A-Q23, WMI-22P3A-Q25, WMI-22P3A-Q4, WMI-22P3A-Q6, WMI-22P3A-Q8]_
 - `try-check-explainers23-g1` (tryCheckExplainers23G1) — WMI-23F1A (2023 Grade 1 Final) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen. _[WMI-23F1A-Q14, WMI-23F1A-Q15, WMI-23F1A-Q2, WMI-23F1A-Q4, WMI-23F1A-Q5, WMI-23F1A-Q7, WMI-23F1A-Q8, WMI-23F1A-Q9]_
 - `try-check-explainers23-g2` (tryCheckExplainers23G2) — WMI-23F2A (2023 Grade 2 Final) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen. Q15 (colour-blindness rows) is intentionally NOT here: as transcribed, no _[WMI-23F2A-Q1, WMI-23F2A-Q10, WMI-23F2A-Q11, WMI-23F2A-Q13, WMI-23F2A-Q14, WMI-23F2A-Q16, WMI-23F2A-Q18, WMI-23F2A-Q19, WMI-23F2A-Q20, WMI-23F2A-Q22, WMI-23F2A-Q23, WMI-23F2A-Q3, WMI-23F2A-Q6, WMI-23F2A-Q7, WMI-23F2A-Q8, WMI-23F2A-Q9]_
-- `try-check-explainers23-g3` (tryCheckExplainers23G3) — WMI-23F3A (2023 Grade 3 Final) — deduction-chain explainers for the non-figure questions. Q12 and Q14 are blocked (missing figure / key discrepancy) and are not here. _[WMI-23F3A-Q1, WMI-23F3A-Q10, WMI-23F3A-Q16, WMI-23F3A-Q20, WMI-23F3A-Q21, WMI-23F3A-Q24, WMI-23F3A-Q3, WMI-23F3A-Q6, WMI-23F3A-Q9]_
+- `try-check-explainers23-g3` (tryCheckExplainers23G3) — WMI-23F3A (2023 Grade 3 Final) — deduction-chain explainers for the non-figure questions. Q12 is blocked (missing calendar-shape figure) and is not here. Q14 (tribe bar-notation) was un-blocked once the OCR-dropped _[WMI-23F3A-Q1, WMI-23F3A-Q10, WMI-23F3A-Q14, WMI-23F3A-Q16, WMI-23F3A-Q20, WMI-23F3A-Q21, WMI-23F3A-Q24, WMI-23F3A-Q3, WMI-23F3A-Q6, WMI-23F3A-Q9]_
 - `try-check-explainers23-p1` (tryCheckExplainers23P1) — WMI-23P1A (2023 Grade 1 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. Chains follow each  _[WMI-23P1A-Q1, WMI-23P1A-Q11, WMI-23P1A-Q12, WMI-23P1A-Q13, WMI-23P1A-Q14, WMI-23P1A-Q19, WMI-23P1A-Q2, WMI-23P1A-Q21, WMI-23P1A-Q23, WMI-23P1A-Q3, WMI-23P1A-Q4, WMI-23P1A-Q5, WMI-23P1A-Q6, WMI-23P1A-Q7, WMI-23P1A-Q8, WMI-23P1A-Q9]_
-- `try-check-explainers23-p2` (tryCheckExplainers23P2) — WMI-23P2A (2023 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-23P2A-Q1, WMI-23P2A-Q10, WMI-23P2A-Q11, WMI-23P2A-Q13, WMI-23P2A-Q14, WMI-23P2A-Q15, WMI-23P2A-Q16, WMI-23P2A-Q19, WMI-23P2A-Q20, WMI-23P2A-Q21, WMI-23P2A-Q22, WMI-23P2A-Q3, WMI-23P2A-Q6, WMI-23P2A-Q8, WMI-23P2A-Q9]_
+- `try-check-explainers23-p2` (tryCheckExplainers23P2) — WMI-23P2A (2023 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-23P2A-Q1, WMI-23P2A-Q10, WMI-23P2A-Q11, WMI-23P2A-Q13, WMI-23P2A-Q14, WMI-23P2A-Q15, WMI-23P2A-Q16, WMI-23P2A-Q19, WMI-23P2A-Q20, WMI-23P2A-Q21, WMI-23P2A-Q22, WMI-23P2A-Q23, WMI-23P2A-Q3, WMI-23P2A-Q6, WMI-23P2A-Q8, WMI-23P2A-Q9]_
 - `try-check-explainers23-p3` (tryCheckExplainers23P3) — WMI-23P3A (2023 Grade 3 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-23P3A-Q1, WMI-23P3A-Q10, WMI-23P3A-Q11, WMI-23P3A-Q12, WMI-23P3A-Q13, WMI-23P3A-Q15, WMI-23P3A-Q17, WMI-23P3A-Q19, WMI-23P3A-Q2, WMI-23P3A-Q20, WMI-23P3A-Q21, WMI-23P3A-Q22, WMI-23P3A-Q3, WMI-23P3A-Q6, WMI-23P3A-Q7]_
 - `try-check-explainers24-g1` (tryCheckExplainers24G1) — WMI-24F1A (2024 Grade 1 Final) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen. _[WMI-24F1A-Q1, WMI-24F1A-Q12, WMI-24F1A-Q19, WMI-24F1A-Q2, WMI-24F1A-Q4, WMI-24F1A-Q6, WMI-24F1A-Q7, WMI-24F1A-Q8, WMI-24F1A-Q9]_
 - `try-check-explainers24-g2` (tryCheckExplainers24G2) — WMI-24F2A (2024 Grade 2 Final) — deduction-chain explainers for the non-figure questions. Q18 (□4+□4+□8+□9+□7 = 901 with appended zeros) is NOT here: as transcribed it has no solution, so it cannot be honestly _[WMI-24F2A-Q1, WMI-24F2A-Q10, WMI-24F2A-Q11, WMI-24F2A-Q17, WMI-24F2A-Q20, WMI-24F2A-Q22, WMI-24F2A-Q5, WMI-24F2A-Q6, WMI-24F2A-Q7]_
-- `try-check-explainers24-g3` (tryCheckExplainers24G3) — WMI-24F3A (2024 Grade 3 Final) — deduction-chain explainers for the non-figure questions. Q16's stem box-layout is mistyped (□□ ÷ □□) but the intended division 936 ÷ 4 = 234 is solvable, so it is animated here. _[WMI-24F3A-Q1, WMI-24F3A-Q11, WMI-24F3A-Q13, WMI-24F3A-Q16, WMI-24F3A-Q17, WMI-24F3A-Q18, WMI-24F3A-Q19, WMI-24F3A-Q21, WMI-24F3A-Q5, WMI-24F3A-Q7, WMI-24F3A-Q8]_
+- `try-check-explainers24-g3` (tryCheckExplainers24G3) — WMI-24F3A (2024 Grade 3 Final) — deduction-chain explainers for the non-figure questions. Q16's stem asks for □□□ ÷ □ (digits 3,4,6,9 each once); the largest exact division is 936 ÷ 4 = 234, animated here. _[WMI-24F3A-Q1, WMI-24F3A-Q11, WMI-24F3A-Q13, WMI-24F3A-Q16, WMI-24F3A-Q17, WMI-24F3A-Q18, WMI-24F3A-Q19, WMI-24F3A-Q21, WMI-24F3A-Q5, WMI-24F3A-Q7, WMI-24F3A-Q8]_
 - `try-check-explainers24-p1` (tryCheckExplainers24P1) — WMI-24P1A (2024 Grade 1 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-24P1A-Q1, WMI-24P1A-Q10, WMI-24P1A-Q16, WMI-24P1A-Q2, WMI-24P1A-Q20, WMI-24P1A-Q3, WMI-24P1A-Q5, WMI-24P1A-Q7, WMI-24P1A-Q8, WMI-24P1A-Q9]_
 - `try-check-explainers24-p2` (tryCheckExplainers24P2) — WMI-24P2A (2024 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-24P2A-Q1, WMI-24P2A-Q10, WMI-24P2A-Q11, WMI-24P2A-Q12, WMI-24P2A-Q13, WMI-24P2A-Q16, WMI-24P2A-Q2, WMI-24P2A-Q21, WMI-24P2A-Q24, WMI-24P2A-Q3, WMI-24P2A-Q5, WMI-24P2A-Q6, WMI-24P2A-Q7, WMI-24P2A-Q8]_
 - `try-check-explainers24-p3` (tryCheckExplainers24P3) — WMI-24P3A (2024 Grade 3 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination, blue rows are neutr _[WMI-24P3A-Q10, WMI-24P3A-Q11, WMI-24P3A-Q13, WMI-24P3A-Q14, WMI-24P3A-Q15, WMI-24P3A-Q16, WMI-24P3A-Q2, WMI-24P3A-Q20, WMI-24P3A-Q21, WMI-24P3A-Q22, WMI-24P3A-Q24, WMI-24P3A-Q25, WMI-24P3A-Q4, WMI-24P3A-Q5, WMI-24P3A-Q6, WMI-24P3A-Q7, WMI-24P3A-Q9]_
@@ -1372,15 +3036,46 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `try-check-explainers25-p2` (tryCheckExplainers25P2) — WMI-25P2A (2025 Grade 2 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination. _[WMI-25P2A-Q1, WMI-25P2A-Q10, WMI-25P2A-Q11, WMI-25P2A-Q12, WMI-25P2A-Q13, WMI-25P2A-Q14, WMI-25P2A-Q16, WMI-25P2A-Q18, WMI-25P2A-Q20, WMI-25P2A-Q24, WMI-25P2A-Q25, WMI-25P2A-Q4, WMI-25P2A-Q5, WMI-25P2A-Q6, WMI-25P2A-Q7, WMI-25P2A-Q8, WMI-25P2A-Q9]_
 - `try-check-explainers25-p3` (tryCheckExplainers25P3) — WMI-25P3A (2025 Grade 3 Semifinal / prelim) — deduction-chain explainers for the non-figure questions. Every answer is derived on screen; ✗ rows show the rejected tries when the method is elimination, blue rows are neutr _[WMI-25P3A-Q1, WMI-25P3A-Q10, WMI-25P3A-Q11, WMI-25P3A-Q12, WMI-25P3A-Q13, WMI-25P3A-Q16, WMI-25P3A-Q17, WMI-25P3A-Q2, WMI-25P3A-Q20, WMI-25P3A-Q21, WMI-25P3A-Q23, WMI-25P3A-Q24, WMI-25P3A-Q25, WMI-25P3A-Q3, WMI-25P3A-Q5, WMI-25P3A-Q6, WMI-25P3A-Q7, WMI-25P3A-Q8]_
 
+**tshirt3**  
+- `tshirt3-pe` (Tshirt3PEExplainer) — IKMC-21-PE-Q3 — post-answer explainer for the t-shirt mirror question.  Reuses TshirtPrimitive from Tshirt3PEIllustration so the animation reads as _[IKMC-21-PE-Q3]_
+- `tshirt3-pe` (Tshirt3PEIllustration) — IKMC-21-PE-Q3 — "Ella puts on this t-shirt and stands in front of a mirror. Which of these images does she see in the mirror? (The t-shirt has the number 2021 printed on it.)"  Answer: A. _[IKMC-21-PE-Q3]_
+
+**tunnel**  
+- `tunnel-path20-ec` (TunnelPath20ECExplainer) — IKMC-22-EC-Q20 explainer — "Alma wants to put one of the pieces in the middle so that a child in A can travel to B and E, but not to D."  _[IKMC-22-EC-Q20]_
+- `tunnel-path20-ec` (TunnelPath20ECIllustration) — IKMC-22-EC-Q20 — "Alma wants to put one of the pieces shown in the middle of the picture so that a child in A is able to travel to B and to E, but not to D. She can rotate the pieces. Which two pieces could she use?" _[IKMC-22-EC-Q20]_
+
 **two**  
+- `two-circles-tangent-osn24-nt1-q18` (TwoCirclesTangentOSN24NT1Q18Explainer) — OSN-24-SD-NAS-TEORI1-Q18 — animated explainer.  Beat plan (6 beats): _[OSN-24-SD-NAS-TEORI1-Q18]_
+- `two-circles-tangent-osn24-nt1-q18` (TwoCirclesTangentOSN24NT1Q18Illustration) — OSN-24-SD-NAS-TEORI1-Q18 — Two circles, external tangent from midpoint T. Source: docs/reference/ocr-res/osn/nasional/sd/2024-teori1.imgs/008.jpg  _[OSN-24-SD-NAS-TEORI1-Q18]_
+- `two-cubes-simoc22-g1-q19` (TwoCubesSIMOC22G1Q19Explainer) — TwoCubesSIMOC22G1Q19Explainer.tsx SIMOC-22-G1-Q19 — animated beat-by-beat explainer. Reuses TwoCubesFigure and SCENE from TwoCubesSIMOC22G1Q19Illustration. _[SIMOC-22-G1-Q19]_
+- `two-cubes-simoc22-g1-q19` (TwoCubesSIMOC22G1Q19Illustration) — TwoCubesSIMOC22G1Q19Illustration.tsx SIMOC-22-G1-Q19 — Two cubes joined side-by-side. Visible faces: left top=2, left front=3; right top=1, right front=4, right side=5. _[SIMOC-22-G1-Q19]_
 - `two-digit-list-g2` (TwoDigitListG2Explainer) — (no description) _[WMI-19F2A-Q21, WMI-19F3A-Q18]_
 - `two-lines22-g1` (TwoLines22G1Explainer) — WMI-22F1A-Q12 (Grade 1). Mirror the illustrator's tokens so the animation reads as the same scene coming alive. _[WMI-22F1A-Q12]_
 - `two-lines22-g1` (TwoLines22G1Illustration) — WMI-22F1A-Q12 — "two equal lines of students" figure (Grade 1).  Students stand in TWO vertical columns of EQUAL length, all facing FORWARD _[WMI-22F1A-Q12]_
 - `two-numbers-bar-g3` (TwoNumbersBarG3Explainer) — WMI-19F3A-Q8 — bar model. The smaller number is ONE block of 19; the larger is SEVEN blocks of 19 plus 15. Subtracting lines the bars up: one 19-block cancels, leaving 6 blocks of 19 plus 15 = 129. The difference is SEEN _[WMI-19F3A-Q8]_
+- `two-pieces13-pe` (TwoPieces13PEExplainer) — IKMC-21-PE-Q13 — post-answer explainer: puzzle-piece fitting. Animates checking each option A–E against the two Z-shaped pieces, then shows how the pieces fit into figure A (the answer). Beat sequence (from twoPieces13PE _[IKMC-21-PE-Q13]_
+- `two-pieces13-pe` (TwoPieces13PEIllustration) — IKMC-21-PE-Q13 — "Which figure can be made of these two pieces?" Answer: A. Stem (021.jpg): Two identical Z-tetrominoes displayed side-by-side with a "+". Each piece covers 4 cells in a Z-shape: Piece cells (row, col fro _[IKMC-21-PE-Q13]_
+- `two-pieces5-ec` (TwoPieces5ECExplainer) — IKMC-20-EC-Q5 — post-answer explainer: piece-assembly matching. Animates checking each option A–E against the six-piece inventory, one beat per option, then reveals that E (the bicycle) is the only figure that uses all s _[IKMC-20-EC-Q5]_
+- `two-pieces5-ec` (TwoPieces5ECIllustration) — IKMC-20-EC-Q5 — "Which one of the figures below can you make with these pieces?" Answer: E (the bicycle figure). Stem (image 018): six loose geometric pieces displayed separately — 1 rectangle (wide, landscape), 1 right  _[IKMC-20-EC-Q5]_
+- `two-rects-shaded-sasmo20-g4-q11` (TwoRectsShadedSASMO20G4Q11Explainer) — SASMO-20-G4-Q11 — post-answer animated explainer. Reuses TwoRectsShadedBase + layout constants from the Illustration. Beats: intro → ABCD highlight → PQRS highlight → result (30 = 30, answer A). _[SASMO-20-G4-Q11]_
+- `two-rects-shaded-sasmo20-g4-q11` (TwoRectsShadedSASMO20G4Q11Illustration) — SASMO-20-G4-Q11 — Two rectangles ABCD and PQRS (each 10×6 cm). ABCD: horizontal divider; 2 upward triangles (upper half) + 2 asymmetric triangles (lower half). PQRS: vertical divider; 4 inward-arrowhead gray triangles wi _[SASMO-20-G4-Q11]_
+- `two-squares-osn11-kq11` (TwoSquaresOSN11KQ11Explainer) — OSN-11-SD-KAB-Q11 — animated explainer.  Reuses the L-shape geometry exported from TwoSquaresOSN11KQ11Illustration _[OSN-11-SD-KAB-Q11]_
+- `two-squares-osn11-kq11` (TwoSquaresOSN11KQ11Illustration) — OSN-11-SD-KAB-Q11 — "Bangun pada gambar dibentuk dari dua buah persegi."  PROBLEM ONLY: the L-shaped compound of two squares — a larger square (bottom) _[OSN-11-SD-KAB-Q11]_
+- `two-squares17-b17` (TwoSquares17B17Illustration) — TwoSquares17B17Illustration.tsx  Stem illustration for SEAMO-17-B-Q17: _[SEAMO-17-B-Q17]_
+
+**upside**  
+- `upside-cards18-ec` (UpsideCards18ECExplainer) — IKMC-21-EC-Q18 — post-answer explainer for the two-row card flip question.  Reuses UpsideCards18EC from UpsideCards18ECIllustration so the animation _[IKMC-21-EC-Q18]_
+- `upside-cards18-ec` (UpsideCards18ECIllustration) — IKMC-21-EC-Q18 — "7 cards turned upside-down" stem illustration.  READING THE SCAN (docs/reference/ocr-res/ikmc/contest/ecolier/2021.imgs/059.jpg): _[IKMC-21-EC-Q18]_
 
 **vases22**  
 - `vases22-g1` (Vases22G1Explainer) — Mirror the illustrator's tokens so the animation reads as the same scene. _[WMI-22F1A-Q17]_
 - `vases22-g1` (Vases22G1Illustration) — WMI-22F1A-Q17 — "three vases that sum to 100" figure.  Seven pink vases stand in a row, each with a printed number. In the scan they _[WMI-22F1A-Q17]_
+
+**venn**  
+- `venn-circles-x20-b15` (VennCirclesX20B15Explainer) — SEAMOX-20-B-Q15 — animated explainer for the 3-circle Venn sum question. Beats: 0 — intro: show full Venn diagram. 1 — highlight top circle, show equation A + 4 + D + 1 = 15. 2 — highlight bottom-left, show B + 4 + D + 6 _[SEAMOX-20-B-Q15]_
+- `venn-circles-x20-b15` (VennCirclesX20B15Illustration) — SEAMOX-20-B-Q15 — stem illustration: 3-circle Venn diagram. OCR source: docs/reference/ocr-res/seamo-x/contest/paper-b/2020.md Q15, image reference: 2020.imgs/005.jpg FIGURE: Three overlapping circles arranged in a trian _[SEAMOX-20-B-Q15]_
+- `venn-circles16-b10` (VennCircles16B10Explainer) — SEAMO-16-B-Q10 explainer — Inclusion-exclusion for three circles (answer D = 1200 per key).  Beat sequence (see vennCircles16B10Steps.ts): _[SEAMO-16-B-Q10]_
+- `venn-circles16-b10` (VennCircles16B10Illustration) — SEAMO-16-B-Q10 — Three overlapping circles (Venn diagram) with labelled regions.  OCR source: docs/reference/ocr-res/seamo/contest/paper-b/2016.md Q10, _[SEAMO-16-B-Q10]_
 
 **vertical**  
 - `vertical-mult-g3` (VerticalMultG3Explainer) — WMI-19F3A-Q22 — derive every hidden digit:   top × 9 is 3-digit with middle 1 → top ∈ 100…111 → only 102 × 9 = 918;   the product starts with 2 → tens digit 2 (19 → 1938 ✗, 29 → 2958 ✓, 39 → 3978 ✗); _[WMI-19F3A-Q22]_
@@ -1393,12 +3088,46 @@ Otherwise copy-adapt the closest bespoke entry. Build new only if nothing fits
 - `view-table24-g3` (ViewTable24G3Explainer) — ViewTable24G3Explainer — WMI-24F3A-Q10 Post-answer animation teaching the top-view / viewpoint reasoning: Jay stands behind the table and looks straight down. Each 3-D object collapses to its top-down footprint: - tall r _[WMI-24F3A-Q10]_
 - `view-table24-g3` (ViewTable24G3Illustration) — Scene illustration for WMI-24F3A-Q10 (2024 Grade-3 Final). Reconstructed from db/seed/wmi/figures/2024-final-g3-a-q10.jpg:   A boy (Jay) stands behind a four-legged table. Four objects sit on the table: _[WMI-24F3A-Q10]_
 
+**village**  
+- `village-flow-osn25-nsfq9` (VillageFlowOSN25NSFQ9Explainer) — OSN-25-SD-NAS-SEMIFINAL-Q9 — post-answer explainer.  Beats: _[OSN-25-SD-NAS-SEMIFINAL-Q9]_
+- `village-flow-osn25-nsfq9` (VillageFlowOSN25NSFQ9Illustration) — OSN-25-SD-NAS-SEMIFINAL-Q9 — directed commuter-flow graph  Three villages P, Q, R with 6 directed percentage arrows showing _[OSN-25-SD-NAS-SEMIFINAL-Q9]_
+- `village-map10-pe` (VillageMap10PEExplainer) — IKMC-20-PE-Q10 — post-answer explainer: village map road-count puzzle.  Teaches the method: each road (straight OR circular) must have exactly 3 _[IKMC-20-PE-Q10]_
+- `village-map10-pe` (VillageMap10PEIllustration) — IKMC-20-PE-Q10 — "A village of 12 houses has four straight roads and four circular roads. The map shows 11 of the houses. On each straight road there are 3 houses. On each circular road there are also 3 houses. Where on  _[IKMC-20-PE-Q10]_
+
+**villages19**  
+- `villages19-pe` (Villages19PEExplainer) — IKMC-23-PE-Q19 — post-answer explainer: five-village loop map.  Teaches the method: on a single closed-loop road, two villages are the same _[IKMC-23-PE-Q19]_
+- `villages19-pe` (Villages19PEIllustration) — IKMC-23-PE-Q19 — "The map shows five villages A, B, C, D and E, and the distances in kilometres between them. Only two villages are the same distance apart no matter which route you choose. Which are these two villages?" _[IKMC-23-PE-Q19]_
+
 **visual**  
 - `visual-explainers20-g3` (visualExplainers20G3) — (no description) _[WMI-20F3A-Q13, WMI-20F3A-Q14, WMI-20F3A-Q2, WMI-20F3A-Q20, WMI-20F3A-Q5, WMI-20F3A-Q7, WMI-20F3A-Q8]_
 - `visual-explainers21-g1` (visualExplainers21G1) — (no description) _[WMI-21F1A-Q10, WMI-21F1A-Q11, WMI-21F1A-Q14, WMI-21F1A-Q2, WMI-21F1A-Q20, WMI-21F1A-Q4, WMI-21F1A-Q5, WMI-21F1A-Q6, WMI-21F1A-Q7, WMI-21F1A-Q8]_
 - `visual-explainers21-g2` (visualExplainers21G2) — (no description) _[WMI-21F2A-Q11, WMI-21F2A-Q13, WMI-21F2A-Q14, WMI-21F2A-Q15, WMI-21F2A-Q2, WMI-21F2A-Q9]_
 - `visual-explainers21-g3` (visualExplainers21G3) — Beat-based explainers for WMI-21F3A figure questions. _[WMI-21F3A-Q11, WMI-21F3A-Q12, WMI-21F3A-Q13, WMI-21F3A-Q15, WMI-21F3A-Q18, WMI-21F3A-Q20, WMI-21F3A-Q21, WMI-21F3A-Q5, WMI-21F3A-Q6, WMI-21F3A-Q7]_
 
+**wallet19**  
+- `wallet19-b5` (Wallet19B5Explainer) — (no description) _[SEAMO-19-B-Q5]_
+- `wallet19-b5` (Wallet19B5Illustration) — SEAMO-19-B-Q5 — "Sam has 63 $2 and $5 notes; total $171. How many $5?"  Reconstructed from OCR img 003.jpg: a brown wallet with banknotes sticking out. _[SEAMO-19-B-Q5]_
+
+**weave11**  
+- `weave11-ec` (Weave11ECExplainer) — IKMC-19-EC-Q11 — post-answer animation for the 6-strip woven pattern.  Six strips (3 cyan vertical + 3 yellow horizontal) form a 3×3 alternating weave. _[IKMC-19-EC-Q11]_
+- `weave11-ec` (Weave11ECIllustration) — IKMC-19-EC-Q11 — "Six strips woven into a pattern" stem figure + shared primitive.  PROBLEM ONLY: shows the FRONT view of the weave — 3 cyan vertical strips over _[IKMC-19-EC-Q11]_
+
+**weave13**  
+- `weave13` (Weave13Explainer) — IKMC-19-PE-Q13 — post-answer animation for the woven-strips question.  Four strips are woven together (2 red vertical + 2 grey horizontal, vertical _[IKMC-19-PE-Q13]_
+- `weave13` (Weave13Illustration) — IKMC-19-PE-Q13 — "Woven strips" static figure + shared WeavePanel primitive.  PROBLEM ONLY: shows the front-view weave — 2 red vertical strips over 2 grey _[IKMC-19-PE-Q13]_
+
+**wheel2**  
+- `wheel2-ec` (Wheel2ECExplainer) — IKMC-22-EC-Q2 — "Four of the following are a picture of the Great Wheel at the Luna park. Which one is the different one?"  Answer: E.  _[IKMC-22-EC-Q2]_
+- `wheel2-ec` (Wheel2ECIllustration) — IKMC-22-EC-Q2 — "Four of the following are a picture of the Great Wheel at the Luna park. Which one is the different one?"  Answer: E.  _[IKMC-22-EC-Q2]_
+
 **white**  
 - `white-circle-square` (WhiteCircleSquareExplainer) — (no description) _[WMI-19F1A-Q8]_
 - `white-circle-square` (WhiteCircleSquareOption) — Renders a WMI-19F1A-Q8 answer option as its shape-in-shape figure instead of text. The glyph is chosen by the choice's label (A/B/C/D) — the four figures from the exam. The descriptive choice text becomes the aria-label. _[WMI-19F1A-Q8]_
+
+**wire**  
+- `wire-square-x24-a7` (WireSquareX24A7Explainer) — SEAMO-X 2024 Paper A Q7 — animated explainer. Beat 0: intro (square idle) → Beat 1: highlight sides + 4 × 16 = 64 cm   → Beat 2: remaining = 98 − 64 = 34 cm ✓ _[SEAMOX-24-A-Q7]_
+- `wire-square-x24-a7` (WireSquareX24A7Illustration) — SEAMO-X 2024 Paper A Q7 — Wire bent into a square. Wire total = 98 cm. Square side = 16 cm. Perimeter = 64 cm. Remaining = 34 cm. Stem: shows the square shape with tick marks and "16 cm" label only. _[SEAMOX-24-A-Q7]_
+
+**witch18**  
+- `witch18-pe` (Witch18PEExplainer) — IKMC-21-PE-Q18 — post-answer beat-by-beat explainer.  Reuses WitchRulePanel + Apple + Banana from Witch18PEIllustration _[IKMC-21-PE-Q18]_
+- `witch18-pe` (Witch18PEIllustration) — IKMC-21-PE-Q18 — stem illustration + co-exported option renderer.  PROBLEM: A witch transforms fruit using two rules: _[IKMC-21-PE-Q18]_

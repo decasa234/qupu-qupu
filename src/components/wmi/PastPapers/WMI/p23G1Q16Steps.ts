@@ -47,8 +47,8 @@ export function buildP23G1Q16Steps(lang: Lang, answer: string): Q16Storyboard {
       hold: 1700,
       result: false,
       caption: t(
-        'Watch the red dot: it hops to the next corner from one pentagon to the next.',
-        'Perhatikan titik merah: ia melompat ke sudut berikutnya dari satu segi lima ke segi lima berikutnya.',
+        'Watch the red dot: it hops around the corners from one pentagon to the next.',
+        'Perhatikan titik merah: ia melompat mengelilingi sudut-sudut dari satu segi lima ke segi lima berikutnya.',
       ),
     },
     {
@@ -58,8 +58,8 @@ export function buildP23G1Q16Steps(lang: Lang, answer: string): Q16Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Each step the dot turns one corner the SAME way (counter-clockwise here).',
-        'Tiap langkah titik berputar satu sudut dengan arah yang SAMA (di sini berlawanan arah jarum jam).',
+        'Each step the dot skips TWO corners the SAME way (counter-clockwise here).',
+        'Tiap langkah titik melompati DUA sudut dengan arah yang SAMA (di sini berlawanan arah jarum jam).',
       ),
     },
     {
@@ -69,8 +69,8 @@ export function buildP23G1Q16Steps(lang: Lang, answer: string): Q16Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Take the dot just before the "?" and turn it one more corner.',
-        'Ambil titik tepat sebelum tanda "?" lalu putar satu sudut lagi.',
+        'Take the dot just before the "?" and skip two corners once more.',
+        'Ambil titik tepat sebelum tanda "?" lalu lompati dua sudut sekali lagi.',
       ),
     },
     {

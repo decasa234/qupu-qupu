@@ -89,12 +89,25 @@ export default function WmiExamReview() {
         </div>
       </header>
       <div className="space-y-3">
-        {snapshot.paper.questions.map((question) => (
-          <WmiExamReviewItem key={question.id} question={question} attempt={attemptByQid.get(question.id)} />
+        {snapshot.paper.questions.map((question, index) => (
+          <WmiExamReviewItem
+            key={question.id}
+            question={question}
+            attempt={attemptByQid.get(question.id)}
+            // Mirror the exam's WMI split: 25 soal = Paper A 1–15 + Paper B 1–10.
+            label={
+              total === 25
+                ? index < 15
+                  ? `Paper A · Soal ${index + 1}`
+                  : `Paper B · Soal ${index - 14}`
+                : undefined
+            }
+          />
         ))}
       </div>
       <div className="mt-6 flex justify-between gap-3">
-        <BackButton variant="back" to="/latihan/wmi/ujian" />
+        {/* Explicit destination — navigate(-1) could re-enter the exam flow. */}
+        <BackButton variant="back" onClick={() => navigate('/latihan/wmi/ujian')} />
         <button
           type="button"
           onClick={restartPaper}

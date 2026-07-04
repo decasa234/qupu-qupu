@@ -175,7 +175,7 @@ export const SymbolSubstitute19P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: '● = 274 + 116 = 390', ok: null },
       { text: '■ = 875 − 216 = 659', ok: null },
-      { text: t('1049 adds 173 instead of subtracting — the sign on 173 is minus', '1049 menambah 173 bukan mengurangi — tanda pada 173 adalah minus'), ok: false },
+      { text: t('1049 skips the − 173 entirely (659 + 390) — the 173 must still be subtracted', '1049 melewatkan − 173 sama sekali (659 + 390) — 173 masih harus dikurangkan'), ok: false },
       { text: '659 − 173 + 390 = 876', ok: true },
     ],
     final: t('( ) = 876 (A).', '( ) = 876 (A).'),
@@ -191,7 +191,7 @@ export const ShapeEquations19P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: t('□ + □ + 7 = 25 → 2□ = 18 → □ = 9', '□ + □ + 7 = 25 → 2□ = 18 → □ = 9'), ok: null },
       { text: t('△ − 9 − 7 = 10 → △ = 26', '△ − 9 − 7 = 10 → △ = 26'), ok: null },
-      { text: t('36 mishandles △ — remember to add □ and ○ back to get it', '36 keliru menentukan △ — ingat tambahkan □ dan ○ kembali'), ok: false },
+      { text: t('36 adds the 10 from the third equation (26 + 10) instead of ○ + □ = 7 + 9', '36 menambah 10 dari persamaan ketiga (26 + 10), bukan ○ + □ = 7 + 9'), ok: false },
       { text: t('△ + ○ + □ = 26 + 7 + 9 = 42', '△ + ○ + □ = 26 + 7 + 9 = 42'), ok: true },
     ],
     final: t('△ + ○ + □ = 42 (B).', '△ + ○ + □ = 42 (B).'),
@@ -287,7 +287,7 @@ export const Formation19P3Explainer = makeTryCheckExplainer((lang) => {
     items: [
       { text: t('Adding a row and a column adds rows + cols + 1 = 14, so rows + cols = 13', 'Menambah satu baris dan kolom menambah baris + kolom + 1 = 14, jadi baris + kolom = 13'), ok: null },
       { text: t('Most: close factors 6 × 7 = 42; fewest: far apart 1 × 12 = 12', 'Terbanyak: faktor dekat 6 × 7 = 42; tersedikit: berjauhan 1 × 12 = 12'), ok: null },
-      { text: t('36 uses 2 × 11 = 22 as the minimum, but a single line still counts as a formation', '36 memakai 2 × 11 = 22 sebagai minimum, padahal satu baris pun tetap formasi'), ok: false },
+      { text: t('36 forgets the +1 corner person (rows + cols = 14 → 49 − 13 = 36)', '36 lupa 1 orang di pojok (baris + kolom = 14 → 49 − 13 = 36)'), ok: false },
       { text: '42 − 12 = 30', ok: true },
     ],
     final: t('The difference is 30 (B).', 'Selisihnya adalah 30 (B).'),

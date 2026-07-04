@@ -5,15 +5,15 @@
 // short straight middle segment between them.
 //   LEFT lens:  top arc = 4 trees, bottom arc = 2 trees
 //   MIDDLE:     straight segment = 3 trees (always crossed)
-//   RIGHT lens: top arc = 8 trees, bottom arc = 3 trees
+//   RIGHT lens: top arc = 8 trees, bottom arc = 5 trees
 //
 // A traveller picks ONE left arc, crosses the middle (3 trees), then ONE right
 // arc. The four route totals are therefore:
 //   4+3+8 = 15   (A)
 //   2+3+8 = 13   (B)
-//   4+3+3 = 10   (D)
-//   2+3+3 =  8   (extra)
-// Achievable set = {15, 13, 10, 8}. 11 is NOT achievable -> option C is wrong.
+//   4+3+5 = 12   (extra)
+//   2+3+5 = 10   (D)
+// Achievable set = {15, 13, 12, 10}. 11 is NOT achievable -> option C is wrong.
 //
 // The default export draws ONLY the problem (the map + trees). It never reveals
 // which total is impossible. The explainer reuses <RouteMapQ21> to highlight a
@@ -23,7 +23,7 @@ export const LEFT_TOP_TREES = 4
 export const LEFT_BOTTOM_TREES = 2
 export const MIDDLE_TREES = 3
 export const RIGHT_TOP_TREES = 8
-export const RIGHT_BOTTOM_TREES = 3
+export const RIGHT_BOTTOM_TREES = 5
 
 export type LeftArc = 'top' | 'bottom'
 export type RightArc = 'top' | 'bottom'
@@ -37,11 +37,11 @@ export interface RouteQ21 {
 export const ROUTES_Q21: Array<{ route: RouteQ21; total: number }> = [
   { route: { left: 'top', right: 'top' }, total: LEFT_TOP_TREES + MIDDLE_TREES + RIGHT_TOP_TREES }, // 15
   { route: { left: 'bottom', right: 'top' }, total: LEFT_BOTTOM_TREES + MIDDLE_TREES + RIGHT_TOP_TREES }, // 13
-  { route: { left: 'top', right: 'bottom' }, total: LEFT_TOP_TREES + MIDDLE_TREES + RIGHT_BOTTOM_TREES }, // 10
-  { route: { left: 'bottom', right: 'bottom' }, total: LEFT_BOTTOM_TREES + MIDDLE_TREES + RIGHT_BOTTOM_TREES }, // 8
+  { route: { left: 'top', right: 'bottom' }, total: LEFT_TOP_TREES + MIDDLE_TREES + RIGHT_BOTTOM_TREES }, // 12
+  { route: { left: 'bottom', right: 'bottom' }, total: LEFT_BOTTOM_TREES + MIDDLE_TREES + RIGHT_BOTTOM_TREES }, // 10
 ]
 
-/** Sorted set of achievable totals: [15, 13, 10, 8]. */
+/** Sorted set of achievable totals: [15, 13, 12, 10]. */
 export const ACHIEVABLE_TOTALS = ROUTES_Q21.map((r) => r.total).sort((a, b) => b - a)
 
 /** The choices on the paper. */
@@ -243,7 +243,7 @@ export default function P21G2Q21Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label="A road map from Home to School. The left loop has a top path with 4 trees and a bottom path with 2 trees, a straight middle path with 3 trees, then a right loop with a top path of 8 trees and a bottom path of 3 trees."
+      aria-label="A road map from Home to School. The left loop has a top path with 4 trees and a bottom path with 2 trees, a straight middle path with 3 trees, then a right loop with a top path of 8 trees and a bottom path of 5 trees."
     >
       <RouteMapQ21 />
     </div>

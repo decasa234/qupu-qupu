@@ -1,10 +1,11 @@
 // Storyboard for WMI-21P1A-Q24 — the animal-substitution explainer.
 //
 // Facts:  🦛 + 🦁 = 20            (the pair)
+//         🐨 = 15                  (given)
 //         🦛 + 🦁 + 🦁 + 🦁 + 🐨 = 51   (the long line)
 // Method: the long line STARTS with 🦛 + 🦁, which is 20. Swap it in:
 //         20 + 🦁 + 🦁 + 🐨 = 51  →  🦁 + 🦁 + 🐨 = 31
-//         🦁 = 8, 🐨 = 15:  8 + 8 + 15 = 31 ✓
+//         🐨 = 15  →  🦁 + 🦁 = 16  →  🦁 = 8
 //         🦛 = 20 − 🦁 = 20 − 8 = 12  → answer C.
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import {
@@ -90,8 +91,8 @@ export function buildP21G1Q24Steps(lang: Lang): Q24Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        `From the picture 🦁 = ${lion}, 🐨 = ${koala}: ${lion} + ${lion} + ${koala} = ${rest}. ✓`,
-        `Dari gambar 🦁 = ${lion}, 🐨 = ${koala}: ${lion} + ${lion} + ${koala} = ${rest}. ✓`,
+        `🐨 = ${koala}, so 🦁 + 🦁 = ${rest} − ${koala} = ${lion + lion}, and 🦁 = ${lion}.`,
+        `🐨 = ${koala}, jadi 🦁 + 🦁 = ${rest} − ${koala} = ${lion + lion}, dan 🦁 = ${lion}.`,
       ),
     },
     {

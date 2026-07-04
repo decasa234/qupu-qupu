@@ -2,10 +2,10 @@
 // the ruler is flipped over (its numbers run the other way). Find the correct
 // length of the pencil, in cm."  Answer: 5 (choice D).
 //
-// READING THE SCAN (2025-final-g1-a-q5.jpg): the ruler is upside-down, so the
-// printed numbers read left -> right as 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 AND
-// every digit glyph is mirror-flipped; the "cm" label sits (mirrored) at the
-// far right. The pencil lies on top with:
+// READING THE SCAN (2025-final-g1-a-q5.jpg): the ruler is mirror-flipped, so
+// the printed numbers read left -> right as 13, 12, 11, 10, 9, 8, 7, 6, 5, 4
+// AND every glyph is mirror-flipped; the mirrored "cm" label sits at the far
+// LEFT (next to the 13). The pencil lies on top with:
 //   - its eraser end (left, pink ferrule) above the mark  11
 //   - its sharpened tip (right) above the mark             6
 //
@@ -23,7 +23,7 @@
 
 const INK = '#1F2937' // ruler body outline + ticks + numerals ("ink")
 
-/** Printed numbers, left -> right, as they appear on the flipped ruler. */
+/** Printed marks on the flipped ruler (they appear 13 -> 4 left -> right). */
 export const PRINTED_MARKS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as const
 
 /** Pencil end readings on the ruler scale (see scan). */
@@ -46,12 +46,12 @@ const RULER_W = SPAN * CM
 const WIDTH = PAD_X * 2 + RULER_W
 const HEIGHT = RULER_TOP + RULER_H + 16
 
-/** Printed mark value -> SVG x (numbers run 4..13 left -> right as scanned). */
-const markX = (m: number) => PAD_X + (m - FIRST) * CM
+/** Printed mark value -> SVG x (numbers run 13..4 left -> right as scanned). */
+const markX = (m: number) => PAD_X + (LAST - m) * CM
 
 const PENCIL_Y = TOP + PENCIL_BAND / 2
-const ERASER_X = markX(ERASER_MARK) // left end of pencil
-const TIP_X = markX(TIP_MARK) // right end of pencil
+const ERASER_X = markX(ERASER_MARK) // left end of pencil (mark 11)
+const TIP_X = markX(TIP_MARK) // right end of pencil (mark 6)
 
 /**
  * Shared layout so the animator can overlay annotations (end markers, the gap
@@ -82,13 +82,13 @@ export interface FlippedRuler25G1Props {
   showMeasure?: boolean
 }
 
-/** One mirror-flipped numeral, rotated 180 deg about its own centre. */
+/** One mirror-flipped numeral (reflected about its own vertical axis, upright). */
 function FlippedNumber({ x, y, value }: { x: number; y: number; value: number }) {
   return (
     <text
       x={x}
       y={y}
-      transform={`rotate(180 ${x} ${y})`}
+      transform={`translate(${2 * x} 0) scale(-1 1)`}
       textAnchor="middle"
       dominantBaseline="middle"
       fontSize={value >= 10 ? 16 : 18}
@@ -131,10 +131,11 @@ export function FlippedRuler25G1({ showMeasure = false }: FlippedRuler25G1Props 
         parts.push(
           <line key={`f-${m}`} x1={x} y1={tickTop} x2={x} y2={tickTop + 16} stroke={INK} strokeWidth={2} />,
         )
-        // millimetre ticks toward the next mark (skip after the last mark)
+        // millimetre ticks toward the next mark (which sits to the LEFT, since
+        // the printed numbers run 13..4 left -> right; skip after the last mark)
         if (i < PRINTED_MARKS.length - 1) {
           for (let k = 1; k < 10; k++) {
-            const tx = x + (k / 10) * CM
+            const tx = x - (k / 10) * CM
             const len = k === 5 ? 11 : 6
             parts.push(
               <line key={`s-${m}-${k}`} x1={tx} y1={tickTop} x2={tx} y2={tickTop + len} stroke={INK} strokeWidth={1.25} />,
@@ -149,11 +150,11 @@ export function FlippedRuler25G1({ showMeasure = false }: FlippedRuler25G1Props 
         <FlippedNumber key={`n-${m}`} x={markX(m)} y={numY} value={m} />
       ))}
 
-      {/* flipped "cm" label at the far right edge of the scale */}
+      {/* mirrored "cm" label at the far LEFT edge of the scale (next to the 13) */}
       <text
-        x={PAD_X + RULER_W - 16}
+        x={PAD_X + 16}
         y={numY}
-        transform={`rotate(180 ${PAD_X + RULER_W - 16} ${numY})`}
+        transform={`translate(${2 * (PAD_X + 16)} 0) scale(-1 1)`}
         textAnchor="middle"
         dominantBaseline="middle"
         fontSize={13}
@@ -164,8 +165,8 @@ export function FlippedRuler25G1({ showMeasure = false }: FlippedRuler25G1Props 
         cm
       </text>
 
-      {/* ---- the pencil (eraser at mark 11 -> tip at mark 6) ---- */}
-      <PencilGlyph leftX={TIP_X} rightX={ERASER_X} y={PENCIL_Y} />
+      {/* ---- the pencil (eraser on the LEFT at mark 11 -> tip on the RIGHT at mark 6) ---- */}
+      <PencilGlyph leftX={ERASER_X} rightX={TIP_X} y={PENCIL_Y} />
 
       {/* ---- post-answer measurement overlay (no number printed) ---- */}
       {showMeasure && (
@@ -201,33 +202,19 @@ export function FlippedRuler25G1({ showMeasure = false }: FlippedRuler25G1Props 
   )
 }
 
-/** A simple drawn pencil: eraser ferrule on the right, sharpened tip on left. */
+/** A simple drawn pencil: eraser ferrule on the LEFT, sharpened tip on the RIGHT (as scanned). */
 function PencilGlyph({ leftX, rightX, y }: { leftX: number; rightX: number; y: number }) {
   const h = 16
   const top = y - h / 2
-  const tipLen = 16 // wooden point on the LEFT (tip end, lower reading)
-  const ferruleLen = 12 // metal band + eraser block on the RIGHT (eraser end)
-  const bodyLeft = leftX + tipLen
-  const bodyRight = rightX - ferruleLen
+  const tipLen = 16 // wooden point on the RIGHT (tip end, lower reading)
+  const ferruleLen = 12 // eraser block + metal band on the LEFT (eraser end)
+  const bodyLeft = leftX + ferruleLen
+  const bodyRight = rightX - tipLen
   return (
     <g>
-      {/* sharpened wooden tip (left) */}
-      <path
-        d={`M ${leftX} ${y} L ${bodyLeft} ${top} L ${bodyLeft} ${top + h} Z`}
-        fill="#F5C77E"
-        stroke={INK}
-        strokeWidth={1.5}
-        strokeLinejoin="round"
-      />
-      {/* graphite point */}
-      <path d={`M ${leftX} ${y} L ${leftX + 6} ${y - 3} L ${leftX + 6} ${y + 3} Z`} fill={INK} />
-      {/* painted barrel */}
-      <rect x={bodyLeft} y={top} width={bodyRight - bodyLeft} height={h} fill="#EF4444" stroke={INK} strokeWidth={1.5} />
-      {/* metal ferrule */}
-      <rect x={bodyRight} y={top} width={6} height={h} fill="#FBBF24" stroke={INK} strokeWidth={1.5} />
-      {/* eraser block (right end) */}
+      {/* eraser block (left end) */}
       <rect
-        x={bodyRight + 6}
+        x={leftX}
         y={top}
         width={ferruleLen - 6}
         height={h}
@@ -236,6 +223,20 @@ function PencilGlyph({ leftX, rightX, y }: { leftX: number; rightX: number; y: n
         stroke={INK}
         strokeWidth={1.5}
       />
+      {/* metal ferrule */}
+      <rect x={leftX + ferruleLen - 6} y={top} width={6} height={h} fill="#FBBF24" stroke={INK} strokeWidth={1.5} />
+      {/* painted barrel */}
+      <rect x={bodyLeft} y={top} width={bodyRight - bodyLeft} height={h} fill="#EF4444" stroke={INK} strokeWidth={1.5} />
+      {/* sharpened wooden tip (right) */}
+      <path
+        d={`M ${rightX} ${y} L ${bodyRight} ${top} L ${bodyRight} ${top + h} Z`}
+        fill="#F5C77E"
+        stroke={INK}
+        strokeWidth={1.5}
+        strokeLinejoin="round"
+      />
+      {/* graphite point */}
+      <path d={`M ${rightX} ${y} L ${rightX - 6} ${y - 3} L ${rightX - 6} ${y + 3} Z`} fill={INK} />
     </g>
   )
 }
@@ -246,7 +247,7 @@ export default function FlippedRuler25G1Illustration() {
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label="Penggaris terbalik dengan angka tercetak terbalik berurutan 4 sampai 13 dari kiri ke kanan, dan sebuah pensil tergeletak di atasnya: ujung penghapus berada di angka 11 dan ujung runcing di angka 6. Tentukan panjang pensil dalam cm."
+      aria-label="Penggaris terbalik dengan angka tercetak tercermin berurutan 13 sampai 4 dari kiri ke kanan (label cm di ujung kiri), dan sebuah pensil tergeletak di atasnya: ujung penghapus di kiri berada di angka 11 dan ujung runcing di kanan berada di angka 6. Tentukan panjang pensil dalam cm."
     >
       <FlippedRuler25G1 />
     </div>

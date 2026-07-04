@@ -27,10 +27,10 @@ export interface GridPathStoryboard {
   finalIndex: number
 }
 
-const BLUE:  GridBubble = { fill: '#EFF6FF', stroke: '#3B82F6',  textFill: '#1D4ED8' }
-const AMBER: GridBubble = { fill: '#FEF3C7', stroke: '#F59E0B',  textFill: '#92400E' }
-const RED:   GridBubble = { fill: '#FEE2E2', stroke: '#EF4444',  textFill: '#DC2626' }
-const GREEN: GridBubble = { fill: '#D1FAE5', stroke: '#10B981',  textFill: '#065F46' }
+const BLUE:  Omit<GridBubble, 'label'> = { fill: '#EFF6FF', stroke: '#3B82F6',  textFill: '#1D4ED8' }
+const AMBER: Omit<GridBubble, 'label'> = { fill: '#FEF3C7', stroke: '#F59E0B',  textFill: '#92400E' }
+const RED:   Omit<GridBubble, 'label'> = { fill: '#FEE2E2', stroke: '#EF4444',  textFill: '#DC2626' }
+const GREEN: Omit<GridBubble, 'label'> = { fill: '#D1FAE5', stroke: '#10B981',  textFill: '#065F46' }
 
 export function buildGridPathOSN25NSFQ15Steps(lang: Lang): GridPathStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)

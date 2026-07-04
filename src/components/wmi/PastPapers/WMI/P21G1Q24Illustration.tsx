@@ -2,11 +2,11 @@
 //
 // Recovered from db/seed/wmi/figures/2021-semifinal-g1-a-q24.jpg:
 //   🦛 + 🦁 + 🦁 + 🦁 + 🐨 = 51
-// The stem text also gives a second fact: 🦛 + 🦁 = 20.
+// The stem text also gives two more facts: 🦛 + 🦁 = 20 and 🐨 = 15.
 // Each animal stands for a number; find the value of the hippo.
-//   Lion = 8, Koala = 15, Hippo = 12  →  answer C (12).
+//   Substitute the pair: 🦁+🦁+🐨 = 31 → 🦁+🦁 = 16 → Lion = 8, Hippo = 12 → answer C.
 //
-// The static figure draws ONLY the two given equations (the problem). It never
+// The static figure draws ONLY the three given equations (the problem). It never
 // reveals any animal's value — that is the explainer's job, via the co-exported
 // AnimalEquationRow primitive.
 //
@@ -148,15 +148,23 @@ export const PAIR_ROW: Token[] = [
   { kind: 'num', text: String(PAIR_TOTAL) },
 ]
 
+/** The koala fact tokens: 🐨 = 15. */
+export const KOALA_ROW: Token[] = [
+  { kind: 'animal', glyph: KOALA },
+  { kind: 'equals' },
+  { kind: 'num', text: String(KOALA_VALUE) },
+]
+
 export default function P21G1Q24Illustration() {
   return (
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-3"
       role="img"
-      aria-label="Two animal equations. Hippo plus lion equals 20. Hippo plus lion plus lion plus lion plus koala equals 51. Each animal stands for a number; find the hippo."
+      aria-label="Three animal equations. Hippo plus lion equals 20. Koala equals 15. Hippo plus lion plus lion plus lion plus koala equals 51. Each animal stands for a number; find the hippo."
     >
       <div className="flex flex-col items-center gap-2">
         <AnimalEquationRow tokens={PAIR_ROW} />
+        <AnimalEquationRow tokens={KOALA_ROW} />
         <AnimalEquationRow tokens={LONG_ROW} />
       </div>
     </div>

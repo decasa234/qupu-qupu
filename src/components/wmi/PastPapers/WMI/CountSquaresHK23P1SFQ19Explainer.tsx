@@ -92,10 +92,7 @@ function FigureGrid({ highlightCells, highlightBlocks }: FigureGridProps) {
 export default function CountSquaresHK23P1SFQ19Explainer(props: ExplainerProps) {
   const lang = (props.lang ?? 'en') as 'en' | 'id'
   const story = useMemo(() => buildCountSquaresHK23P1SFQ19Steps(lang), [lang])
-  const index = useBeatControl(story.finalIndex, {
-    totalBeats: story.beats.length,
-    ...props,
-  })
+  const index = useBeatControl(story.finalIndex, props)
 
   const beat = story.beats[index]
 

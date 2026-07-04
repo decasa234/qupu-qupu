@@ -88,9 +88,10 @@ function NetPanel({ label, active, invalid, dim }: NetPanelProps) {
 // Explainer
 // ---------------------------------------------------------------------------
 
-export default function CubeNetsSIMOC19G3Q6Explainer({ lang = 'id' }: ExplainerProps) {
+export default function CubeNetsSIMOC19G3Q6Explainer(props: ExplainerProps) {
+  const lang = props.lang ?? 'id'
   const story = useMemo(() => buildCubeNetsSIMOC19G3Q6Steps(lang), [lang])
-  const index  = useBeatControl(story.finalIndex, { autoAdvance: true })
+  const index  = useBeatControl(story.finalIndex, props)
   const beat   = story.steps[index] ?? story.steps[story.finalIndex]
 
   // Determine dim/active/invalid state for each net

@@ -2,8 +2,9 @@ import { makeTryCheckExplainer } from './tryCheckExplainers'
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 
 // WMI-23F3A (2023 Grade 3 Final) — deduction-chain explainers for the
-// non-figure questions. Q12 and Q14 are blocked (missing figure / key
-// discrepancy) and are not here.
+// non-figure questions. Q12 is blocked (missing calendar-shape figure) and is
+// not here. Q14 (tribe bar-notation) was un-blocked once the OCR-dropped
+// overbars were reconstructed: 5 2̄ 3 6̄ (=4824) − 3 4̄ 7̄ 1 (=2531) = 2293.
 
 const tt = (lang: Lang) => (en: string, id: string) => (lang === 'id' ? id : en)
 
@@ -78,6 +79,21 @@ export const SwapDivide23G3Explainer = makeTryCheckExplainer((lang) => {
     ],
     final: t('The correct quotient is 726 (D).', 'Hasil bagi yang benar adalah 726 (D).'),
     aria: t('Un-swapping 3456 to 4356 and dividing by 6 gives 726.', 'Mengembalikan 3456 jadi 4356 dan membagi 6 memberi 726.'),
+  }
+})
+
+/** Q14 — tribe bar-notation subtraction: 5 2̄ 3 6̄ − 3 4̄ 7̄ 1. */
+export const TribeBars23G3Explainer = makeTryCheckExplainer((lang) => {
+  const t = tt(lang)
+  return {
+    intro: t('A barred digit counts as MINUS at its place value. Translate both tribe numerals first.', 'Angka bergaris dihitung MINUS pada nilai tempatnya. Terjemahkan dulu kedua bilangan suku.'),
+    items: [
+      { text: '5 2̄ 3 6̄ = 5000 − 200 + 30 − 6 = 4824', ok: null },
+      { text: '3 4̄ 7̄ 1 = 3000 − 400 − 70 + 1 = 2531', ok: null },
+      { text: '4824 − 2531 = 2293', ok: true },
+    ],
+    final: t('The result represents 2293 (B).', 'Hasilnya mewakili 2293 (B).'),
+    aria: t('The first numeral is 4824 and the second is 2531; their difference is 2293.', 'Bilangan pertama 4824 dan kedua 2531; selisihnya 2293.'),
   }
 })
 

@@ -16,6 +16,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import ConfirmModal from '../components/ConfirmModal'
 import Skeleton from '../components/Skeleton'
 import ErrorRetry from '../components/ErrorRetry'
 import WmiQuestionView from '../components/wmi/WmiQuestionView'
@@ -90,9 +91,30 @@ export default function WmiKonsepDrill() {
     void loadQuestion()
   }, [idx, round, loadQuestion, done])
 
-  function handleBack() {
+  // Refresh/close guard while a round is in progress (local state only).
+  const guardActive = !done && results.length > 0
+  useEffect(() => {
+    if (!guardActive) return
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [guardActive])
+
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+
+  function leaveDrill() {
     if (location.key === 'default') navigate('/wmi-arena')
     else navigate(-1)
+  }
+
+  function handleBack() {
+    // Mid-round progress lives only in local state — confirm before losing it.
+    // The summary screen (done) exits freely; rewards are already banked.
+    if (!done && results.length > 0) setShowExitConfirm(true)
+    else leaveDrill()
   }
 
   function restart() {
@@ -218,6 +240,16 @@ export default function WmiKonsepDrill() {
   return (
     <div className="relative mx-auto w-full max-w-[460px] pb-8">
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${round}-${idx}`} />}
+
+      <ConfirmModal
+        open={showExitConfirm}
+        title="Keluar latihan?"
+        message="Progres ronde ini akan hilang kalau keluar sekarang."
+        cancelLabel="Lanjut Latihan"
+        confirmLabel="Keluar Latihan"
+        onClose={() => setShowExitConfirm(false)}
+        onConfirm={leaveDrill}
+      />
 
       {/* Top row: close + green progress bar + counter (mirrors Belajar session) */}
       <div className="mb-3 flex items-center gap-3 px-1">

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import ConfirmModal from '../components/ConfirmModal'
 import Skeleton from '../components/Skeleton'
 import ErrorRetry from '../components/ErrorRetry'
 import { startChapterTest, submitChapterTest } from '../lib/wmiApi'
@@ -36,6 +37,20 @@ export default function WmiChapterTest() {
       .finally(() => !cancelled && setLoading(false))
     return () => { cancelled = true }
   }, [activeChildId, subjectKey, loadTick])
+
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+
+  // Refresh/close guard while answers are in-flight (local state only).
+  const guarded = !result && Object.keys(answers).length > 0
+  useEffect(() => {
+    if (!guarded) return
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [guarded])
 
   const current = questions[idx]
   const allAnswered = useMemo(
@@ -135,7 +150,23 @@ export default function WmiChapterTest() {
   return (
     <div className="mx-auto w-full max-w-[460px] p-4">
       <div className="mb-3 flex items-center justify-between">
-        <BackButton variant="close" onClick={() => navigate('/belajar')} />
+        {/* Answers live only in local state — leaving mid-test loses them. */}
+        <BackButton
+          variant="close"
+          onClick={() => {
+            if (Object.keys(answers).length === 0) navigate('/belajar')
+            else setShowExitConfirm(true)
+          }}
+        />
+        <ConfirmModal
+          open={showExitConfirm}
+          title="Keluar tes?"
+          message="Jawabanmu di tes ini akan hilang kalau keluar sekarang."
+          cancelLabel="Lanjut Tes"
+          confirmLabel="Keluar Tes"
+          onClose={() => setShowExitConfirm(false)}
+          onConfirm={() => navigate('/belajar')}
+        />
         <span className="text-xs font-black text-qupu-brand-blue">Soal {idx + 1}/{questions.length}</span>
       </div>
       <div className="rounded-[1.5rem] bg-white p-5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">

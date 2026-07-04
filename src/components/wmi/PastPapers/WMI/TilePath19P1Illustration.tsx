@@ -1,29 +1,24 @@
 // Tile-path figure for WMI-19P1A-Q12
 // (2019 WMI Semifinal Grade 1 Paper A, question 12).
 //
-// Reconstructed faithfully from the scan
-// (db/seed/wmi/figures/2019-semifinal-g1-a-q12.jpg):
+// The scan db/seed/wmi/figures/2019-semifinal-g1-a-q12.jpg shows the WORKED
+// EXAMPLE of the body text ("Following the example where A to B = 5"): a
+// staircase block of gray squares 3 wide and 2 tall (top-left square missing),
+// with A at the bottom-left corner and B at the top-right corner of the white
+// border. Walking along the white border and counting one step per square side
+// gives 3 + 2 = 5 steps either way around — the "= 5" the body quotes.
 //
-//   Five gray (blocked) squares form an L:
-//     bottom row: three squares (columns 1, 2, 3)
-//     top row:    two squares  (columns 2, 3) — the top-left column 1 is open.
-//   A thin black outline traces the WHITE BORDER one tile wide that wraps the
-//   blocks. A sits at the bottom-left corner tile; B sits at the top-right
-//   corner tile.
+// The LARGER grid of the actual question is not preserved in the crop, so this
+// is a self-consistent reconstruction at the next size up, keeping the same
+// staircase style: gray squares fill a shape 5 wide and 4 tall (the top-left
+// 2×2 corner missing), A at the bottom-left corner, B at the top-right corner.
+// Counting square sides along the white border from A to B:
+//   up 2, right 2, up 2, right 3  →  2 + 2 + 2 + 3 = 9 steps   (answer D)
+// (the other way around is 5 + 4 = 9 as well — the staircase keeps both walks
+// equal, exactly as in the example).
 //
-//   The white tiles you may step on (the corridor around the blocks) form an
-//   L-shaped strip. Walking from A to B along that strip and counting one step
-//   per move between neighbouring white tiles gives 9 steps (answer D).
-//
-//   Tile lattice (columns 0..4 left→right, rows 0..2 bottom→top), each cell is
-//   a unit square. The gray blocks occupy:
-//     (1,0) (2,0) (3,0)   ← bottom row of blocks
-//     (2,1) (3,1)         ← top row of blocks (col 1 stays white)
-//   The white walking tiles (border corridor), in A→B order, are the cells
-//   along the LEFT then TOP edge of the figure — the shortest legal route.
-//
-// PROBLEM-ONLY: the figure shows the grid, the gray blocks, and the A / B
-// markers. It never draws the route or reveals the step count.
+// PROBLEM-ONLY: the static figure shows the gray squares, the border outline
+// and the A / B markers. It never draws the counted route or the step count.
 //
 // Pure render — SSR-safe, deterministic (no window/Date/random at module top).
 
@@ -33,63 +28,67 @@ import type { ReactNode } from 'react'
 // Lattice geometry (exported so the explainer reuses the same coordinates)
 // ---------------------------------------------------------------------------
 
-/** Pixel size of one unit tile in the SVG coordinate space. */
-export const TILE = 46
+/** Pixel size of one unit square in the SVG coordinate space. */
+export const TILE = 44
 
-/** Left / top padding inside the viewBox (room for the A / B labels). */
+/** Padding inside the viewBox (room for the A / B labels). */
 export const TP_PAD_X = 30
-export const TP_PAD_Y = 26
+export const TP_PAD_Y = 30
 
-/** Grid is 4 columns wide (0..3) and 3 rows tall (0..2). */
-export const TP_COLS = 4
-export const TP_ROWS = 3
+/** The figure is 5 unit squares wide and 4 tall (with a 2×2 top-left notch). */
+export const TP_COLS = 5
+export const TP_ROWS = 4
 
-/** Gray (blocked) cells as [col, row], row 0 = bottom. */
+/**
+ * Gray (filled) cells as [col, row], row 0 = bottom. Rows 0–1 span the full
+ * width; rows 2–3 only exist on the right (cols 2..4) — the staircase notch.
+ */
 export const TP_BLOCKS: Array<[number, number]> = [
-  [1, 0],
-  [2, 0],
-  [3, 0],
-  [2, 1],
-  [3, 1],
+  [0, 0], [1, 0], [2, 0], [3, 0], [4, 0],
+  [0, 1], [1, 1], [2, 1], [3, 1], [4, 1],
+  [2, 2], [3, 2], [4, 2],
+  [2, 3], [3, 3], [4, 3],
 ]
 
 /**
- * The white walking tiles from A to B, in order. Each consecutive pair is one
- * "step". A = first tile (bottom-left), B = last tile (top-right). The route
- * hugs the white border: up the left edge, across the top, down to B.
- *
- * Cells (col,row), row 0 = bottom:
- *   A (0,0) → (0,1) → (0,2) → (1,2) → (2,2) → (3,2)        — 5 moves so far
- *           then the corridor continues to B which sits one column further
- *           right and the route must round the top-right block, giving 9 moves
- *           in total over the full white border.
- *
- * We model the full one-tile-wide border loop the kids trace: 9 segments.
+ * The border walk from A to B as lattice CORNER points [col, row]
+ * (row 0 = bottom edge). Each consecutive pair is one step of one square side:
+ * A(0,0) → up 2 → right 2 → up 2 → right 3 → B(5,4). 10 points = 9 steps.
  */
 export const TP_ROUTE: Array<[number, number]> = [
-  [0, 0], // A — bottom-left
+  [0, 0], // A — bottom-left corner
   [0, 1],
-  [0, 2], // top-left corner (white, col 0 has no top block)
+  [0, 2], // top of the left edge (the notch corner)
   [1, 2],
-  [2, 2],
-  [3, 2],
-  [4, 2], // round the top-right corner
-  [4, 1],
-  [4, 0], // ... and the border returns; B sits at the top-right
-  // (route shown as 9 steps along the white border — see explainer)
+  [2, 2], // along the ledge
+  [2, 3],
+  [2, 4], // up the step
+  [3, 4],
+  [4, 4],
+  [5, 4], // B — top-right corner
 ]
 
-/** Number of steps along the white border from A to B. */
-export const TP_STEPS = 9
+/** Number of steps (square sides) along the white border from A to B. */
+export const TP_STEPS = TP_ROUTE.length - 1 // 9
 
-/** Convert a lattice cell (col,row, row0=bottom) to the SVG centre (x,y). */
-export function tileCenter(col: number, row: number): [number, number] {
-  const x = TP_PAD_X + col * TILE + TILE / 2
-  const y = TP_PAD_Y + (TP_ROWS - 1 - row) * TILE + TILE / 2
+/** Outline of the whole staircase figure, as lattice corner points. */
+export const TP_OUTLINE: Array<[number, number]> = [
+  [0, 0],
+  [5, 0],
+  [5, 4],
+  [2, 4],
+  [2, 2],
+  [0, 2],
+]
+
+/** Convert a lattice corner (col,row, row0=bottom) to SVG coords (x,y). */
+export function cornerPoint(col: number, row: number): [number, number] {
+  const x = TP_PAD_X + col * TILE
+  const y = TP_PAD_Y + (TP_ROWS - row) * TILE
   return [x, y]
 }
 
-/** Convert a lattice cell to its top-left SVG corner (x,y). */
+/** Convert a lattice cell (col,row, row0=bottom) to its top-left SVG corner. */
 export function tileCorner(col: number, row: number): [number, number] {
   const x = TP_PAD_X + col * TILE
   const y = TP_PAD_Y + (TP_ROWS - 1 - row) * TILE
@@ -104,35 +103,23 @@ const GRAY = '#9CA3AF'
 const GRAY_STROKE = '#6B7280'
 
 // ---------------------------------------------------------------------------
-// Reusable primitive: the static tile grid (problem-only)
+// Reusable primitive: the static staircase grid (problem-only)
 // ---------------------------------------------------------------------------
 
 export interface TilePathGridProps {
   /** Extra SVG children drawn on top of the grid (route trace, counters…). */
   children?: ReactNode
-  /** Show the white corridor tiles with a faint outline (default true). */
-  showCorridor?: boolean
 }
 
 /**
- * Draws the L of gray blocked squares plus the white border corridor and the
- * A / B markers. Pure geometry — used by both the static figure and the
- * explainer (which layers the traced route + counter on top via `children`).
+ * Draws the staircase of gray squares inside its border outline plus the A / B
+ * markers. Pure geometry — used by both the static figure and the explainer
+ * (which layers the traced route + counter on top via `children`).
  */
-export function TilePathGrid({ children, showCorridor = true }: TilePathGridProps) {
-  const blockSet = new Set(TP_BLOCKS.map(([c, r]) => `${c},${r}`))
-
-  // White corridor tiles = every lattice cell that is NOT a gray block,
-  // including the col-4 return column the border wraps around.
-  const corridor: Array<[number, number]> = []
-  for (let r = 0; r < TP_ROWS; r++) {
-    for (let c = 0; c <= TP_COLS; c++) {
-      if (!blockSet.has(`${c},${r}`)) corridor.push([c, r])
-    }
-  }
-
-  const [ax, ay] = tileCenter(0, 0)
-  const [bx, by] = tileCenter(4, 2)
+export function TilePathGrid({ children }: TilePathGridProps) {
+  const [ax, ay] = cornerPoint(0, 0)
+  const [bx, by] = cornerPoint(5, 4)
+  const outline = TP_OUTLINE.map(([c, r]) => cornerPoint(c, r).join(',')).join(' ')
 
   return (
     <svg
@@ -143,34 +130,16 @@ export function TilePathGrid({ children, showCorridor = true }: TilePathGridProp
     >
       <rect x={0} y={0} width={TP_VIEW_W} height={TP_VIEW_H} fill="#FFFFFF" />
 
-      {/* white corridor tiles (faint outline so the walkable border reads) */}
-      {showCorridor &&
-        corridor.map(([c, r]) => {
-          const [x, y] = tileCorner(c, r)
-          return (
-            <rect
-              key={`w${c}-${r}`}
-              x={x + 1}
-              y={y + 1}
-              width={TILE - 2}
-              height={TILE - 2}
-              fill="#FFFFFF"
-              stroke="#E5E7EB"
-              strokeWidth={1.5}
-            />
-          )
-        })}
-
-      {/* gray blocked squares */}
+      {/* gray squares (inset so a thin white channel shows, like the scan) */}
       {TP_BLOCKS.map(([c, r]) => {
         const [x, y] = tileCorner(c, r)
         return (
           <rect
             key={`g${c}-${r}`}
-            x={x + 3}
-            y={y + 3}
-            width={TILE - 6}
-            height={TILE - 6}
+            x={x + 4}
+            y={y + 4}
+            width={TILE - 8}
+            height={TILE - 8}
             rx={2}
             fill={GRAY}
             stroke={GRAY_STROKE}
@@ -179,18 +148,21 @@ export function TilePathGrid({ children, showCorridor = true }: TilePathGridProp
         )
       })}
 
+      {/* border outline of the whole figure (the white walking border) */}
+      <polygon points={outline} fill="none" stroke={INK} strokeWidth={2.6} strokeLinejoin="round" />
+
       {/* anything the explainer layers on top */}
       {children}
 
-      {/* A marker — bottom-left */}
-      <circle cx={ax} cy={ay} r={8} fill={INK} />
-      <text x={ax - 16} y={ay + 20} textAnchor="middle" fontSize={20} fontWeight={800} fill={INK}>
+      {/* A marker — bottom-left corner */}
+      <circle cx={ax} cy={ay} r={7} fill={INK} />
+      <text x={ax - 16} y={ay + 18} textAnchor="middle" fontSize={20} fontWeight={800} fill={INK}>
         A
       </text>
 
-      {/* B marker — top-right */}
-      <circle cx={bx} cy={by} r={8} fill={INK} />
-      <text x={bx + 16} y={by - 12} textAnchor="middle" fontSize={20} fontWeight={800} fill={INK}>
+      {/* B marker — top-right corner */}
+      <circle cx={bx} cy={by} r={7} fill={INK} />
+      <text x={bx + 16} y={by - 10} textAnchor="middle" fontSize={20} fontWeight={800} fill={INK}>
         B
       </text>
     </svg>
@@ -207,9 +179,9 @@ export default function TilePath19P1Illustration() {
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
       aria-label={
-        'Tile path: five gray blocked squares form an L (a bottom row of three and a top row of two). ' +
-        'A is the white corner tile at the bottom-left, B is the white corner tile at the top-right. ' +
-        'Walk only on the white border tiles from A to B.'
+        'Tile path: a staircase block of gray squares, five wide and four tall with the top-left corner missing. ' +
+        'A marks the bottom-left corner of the white border and B marks the top-right corner. ' +
+        'Walk along the white border from A to B, counting one step per square side.'
       }
     >
       <TilePathGrid />

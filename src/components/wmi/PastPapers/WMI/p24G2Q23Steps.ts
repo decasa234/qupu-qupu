@@ -46,12 +46,12 @@ export function buildP24G2Q23Steps(lang: Lang): XorStoryboard {
     },
     {
       revealResult: true,
-      highlightResult: [4, 5], // (1,1) and (1,2): shared cells that cancel
+      highlightResult: [4, 5, 8], // (1,1), (1,2) and (2,2): shared cells that cancel
       hold: 2200,
       result: false,
       caption: t(
-        'Second pair: ● at top-left and ● at middle-right sit in BOTH → they cancel (empty).',
-        'Pasangan kedua: ● kiri-atas dan ● tengah-kanan ada di KEDUA kisi → saling meniadakan (kosong).',
+        'Second pair: the middle-centre, middle-right and bottom-right cells have a circle in BOTH grids → they cancel (empty).',
+        'Pasangan kedua: sel tengah-tengah, tengah-kanan, dan kanan-bawah berisi lingkaran di KEDUA kisi → saling meniadakan (kosong).',
       ),
     },
     {

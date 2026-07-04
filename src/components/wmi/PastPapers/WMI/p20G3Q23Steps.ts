@@ -24,8 +24,8 @@ export function buildP20G3Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2000,
       result: false,
       caption: t(
-        'Every cell is a different digit 0–9. Start where a block has the most givens.',
-        'Tiap sel adalah angka berbeda 0–9. Mulai dari blok yang paling banyak angkanya.',
+        'Each empty cell holds one digit 0–9; some answers spill into two connected cells.',
+        'Tiap sel kosong berisi satu angka 0–9; beberapa jawaban mengisi dua sel yang terhubung.',
       ),
     },
     {
@@ -33,8 +33,8 @@ export function buildP20G3Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        `The "+ 2 =" row pins cell A: chasing its equation gives A = ${A_VAL}.`,
-        `Baris "+ 2 =" menentukan sel A: dari persamaannya, A = ${A_VAL}.`,
+        `Left chain: 8 × 4 = 32, then 3 − 2 = 1, 1 − 1 = 0, 6 − 0 = 6; the column 6 + A = 11 gives A = ${A_VAL}.`,
+        `Rantai kiri: 8 × 4 = 32, lalu 3 − 2 = 1, 1 − 1 = 0, 6 − 0 = 6; kolom 6 + A = 11 memberi A = ${A_VAL}.`,
       ),
     },
     {
@@ -42,8 +42,8 @@ export function buildP20G3Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        `In the top-right block the "× … = 6" chain forces cell B = ${B_VAL}.`,
-        `Di blok kanan-atas, rantai "× … = 6" memaksa sel B = ${B_VAL}.`,
+        `Top-right: 5 × 2 = 10, and (5 − 2) × 6 = 18 lands in the B cells, so B = ${B_VAL}.`,
+        `Kanan-atas: 5 × 2 = 10, dan (5 − 2) × 6 = 18 jatuh di sel B, jadi B = ${B_VAL}.`,
       ),
     },
     {
@@ -51,8 +51,8 @@ export function buildP20G3Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2100,
       result: false,
       caption: t(
-        `The bottom-right "− 3 =" line leaves cell C = ${C_VAL}.`,
-        `Baris "− 3 =" di kanan-bawah menyisakan sel C = ${C_VAL}.`,
+        `Bottom-right: A + 2 = 7, 9 × 7 = 63, and 6 × 5 = 30 — the C cell is the TENS digit of 30 (the units 0 closes 3 − 3 = 0), so C = ${C_VAL}.`,
+        `Kanan-bawah: A + 2 = 7, 9 × 7 = 63, dan 6 × 5 = 30 — sel C adalah angka PULUHAN dari 30 (angka satuannya 0 menutup 3 − 3 = 0), jadi C = ${C_VAL}.`,
       ),
     },
     {

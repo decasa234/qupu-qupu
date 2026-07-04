@@ -63,19 +63,19 @@ const tri = (half: TriHalf): CellShape => ({ kind: 'tri', half })
 const qcL = (corner: QcCorner): CellShape => ({ kind: 'qc-large', corner })
 
 /**
- * Example (stem):
- *   (0,1) quarter-circle, centre at bottom-left corner (BL) → fills NE (upper-right)
+ * Example (stem) — cell-by-cell from db/seed/wmi/figures/2022-final-g3-a-q5.jpg:
+ *   (0,1) quarter-circle, centre at bottom-left corner (BL)
  *   (1,0) lower-left triangle
  *   (1,1) full square
- *   (2,0) lower-left triangle
- *   (2,1) quarter-circle, centre at top-left corner (TL) → fills SE (lower-right)
+ *   (1,2) quarter-circle, centre at top-left corner (TL)
+ *   (2,1) lower-left triangle
  *
  * Area = 2×(π/4) + 2×(1/2) + 1 = π/2 + 2    tuple (2, 2)
  */
 export const EXAMPLE_GRID: Grid3x3 = [
   [E,                    qc('BL'),           E],
-  [tri('lower-left'),    FULL,               E],
-  [tri('lower-left'),    qc('TL'),           E],
+  [tri('lower-left'),    FULL,               qc('TL')],
+  [E,                    tri('lower-left'),  E],
 ]
 
 /**

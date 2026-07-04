@@ -1,7 +1,7 @@
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
 import { SIX_PARTS, SIX_COUNT } from './P19G2Q21Illustration'
 
-// WMI-19P2A-Q21 — the decomposition machine counts how many ways the input can
+// WMI-19P2A-Q22 — the decomposition machine counts how many ways the input can
 // be written as a sum of TWO OR MORE whole numbers (order ignored). The worked
 // example shows 4 → 4 ways. We now fill the 6-box one partition at a time,
 // grouped by how many parts the sum has, with a running counter, landing on

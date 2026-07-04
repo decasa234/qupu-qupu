@@ -28,26 +28,27 @@ export interface TriCountStoryboard {
 }
 
 // Kid-voiced label for each triangle as it is revealed, keyed by 1-based id.
-// 1–4 bottom tier, 5–8 middle tier, 9–12 top tier, 13–15 whole tiers, 16 peak.
+// Matches the reveal ORDER in TriCount22G1Illustration:
+// 1–4 bottom band, 5–10 middle band, 11–16 top band.
 function triLabel(id: number, lang: Lang): string {
   const t = (en: string, idn: string) => (lang === 'id' ? idn : en)
   const map: Record<number, [string, string]> = {
-    1: ['the little peak in the bottom part', 'puncak kecil di bagian bawah'],
-    2: ['a little one in the bottom-left', 'satu kecil di kiri bawah'],
-    3: ['a little one in the bottom-right', 'satu kecil di kanan bawah'],
-    4: ['the upside-down one in the bottom', 'yang terbalik di bagian bawah'],
-    5: ['the little peak in the middle part', 'puncak kecil di bagian tengah'],
-    6: ['a little one in the middle-left', 'satu kecil di kiri tengah'],
-    7: ['a little one in the middle-right', 'satu kecil di kanan tengah'],
-    8: ['the upside-down one in the middle', 'yang terbalik di bagian tengah'],
-    9: ['the little peak at the very top', 'puncak kecil di paling atas'],
-    10: ['a little one in the top-left', 'satu kecil di kiri atas'],
-    11: ['a little one in the top-right', 'satu kecil di kanan atas'],
-    12: ['the upside-down one at the top', 'yang terbalik di bagian atas'],
-    13: ['the WHOLE bottom part is one big triangle too!', 'bagian bawah SELURUHNYA juga satu segitiga besar!'],
-    14: ['the whole middle part is a big triangle', 'bagian tengah seluruhnya satu segitiga besar'],
-    15: ['the whole top part is a big triangle', 'bagian atas seluruhnya satu segitiga besar'],
-    16: ['the peak poking up in the middle — one more!', 'puncak yang menyembul di tengah — satu lagi!'],
+    1: ['the little tent in the middle of the bottom part', 'tenda kecil di tengah bagian bawah'],
+    2: ['a big slanted one in the bottom, leaning right', 'satu besar miring di bawah, condong ke kanan'],
+    3: ['a big slanted one in the bottom, leaning left', 'satu besar miring di bawah, condong ke kiri'],
+    4: ['the WHOLE bottom part is one big triangle too!', 'bagian bawah SELURUHNYA juga satu segitiga besar!'],
+    5: ['a little one in the middle-left', 'satu kecil di kiri tengah'],
+    6: ['a little one in the middle-right', 'satu kecil di kanan tengah'],
+    7: ['the peak poking down into the middle part', 'puncak yang menjulur ke bagian tengah'],
+    8: ['a big slanted one in the middle, leaning right', 'satu besar miring di tengah, condong ke kanan'],
+    9: ['a big slanted one in the middle, leaning left', 'satu besar miring di tengah, condong ke kiri'],
+    10: ['the whole middle part is a big triangle', 'bagian tengah seluruhnya satu segitiga besar'],
+    11: ['a little one in the top-left', 'satu kecil di kiri atas'],
+    12: ['a little one in the top-right', 'satu kecil di kanan atas'],
+    13: ['the little peak poking up in the top part', 'puncak kecil yang menyembul di bagian atas'],
+    14: ['the lower-left corner of the top part', 'pojok kiri-bawah bagian atas'],
+    15: ['the lower-right corner of the top part', 'pojok kanan-bawah bagian atas'],
+    16: ['the whole top part is a big triangle', 'bagian atas seluruhnya satu segitiga besar'],
   }
   const [en, idn] = map[id] ?? ['this triangle', 'segitiga ini']
   return t(en, idn)

@@ -70,8 +70,8 @@ export function buildP24G1Q23Steps(lang: Lang): Q23Storyboard {
       hold: 2300,
       result: false,
       caption: t(
-        'Third pair: the highlighted cells have a dot in BOTH grids, so they cancel to empty.',
-        'Pasangan ketiga: sel yang disorot punya titik di KEDUA kisi, jadi saling meniadakan menjadi kosong.',
+        'Second pair: the highlighted cells have a dot in BOTH grids, so they cancel to empty.',
+        'Pasangan kedua: sel yang disorot punya titik di KEDUA kisi, jadi saling meniadakan menjadi kosong.',
       ),
     },
     {

@@ -14,8 +14,8 @@ export default function P21G1Q25Explainer(props: ExplainerProps) {
 
   const ariaLabel =
     lang === 'id'
-      ? 'Penjelasan: pasang lima keping ke kotak 4×4 (boleh diputar, tidak dibalik), lalu baca sel bertanda A dan B; A + B = 5 — jawaban D.'
-      : 'Explainer: fit the five pieces into the 4×4 grid (rotate, never flip), then read the marked cells A and B; A + B = 5 — answer D.'
+      ? 'Penjelasan: pasang lima keping ke kotak 4×4 (boleh diputar, tidak dibalik), lalu baca sel bertanda A dan B; A + B = 1 + 1 = 2 — jawaban A.'
+      : 'Explainer: fit the five pieces into the 4×4 grid (rotate, never flip), then read the marked cells A and B; A + B = 1 + 1 = 2 — answer A.'
 
   return (
     <div className="mx-auto w-full max-w-[480px]" role="img" aria-label={ariaLabel}>

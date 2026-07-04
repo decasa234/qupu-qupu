@@ -68,8 +68,8 @@ export function buildP20G3Q11Steps(lang: Lang): Q11Storyboard {
       hold: 1900,
       result: false,
       caption: t(
-        `Shape D is 4 diamonds of 2 each = ${AREA('D')} squares.`,
-        `Bangun D adalah 4 belah ketupat 2-an = ${AREA('D')} kotak.`,
+        `Shape D is 5 diamonds of 2 each = ${AREA('D')} squares.`,
+        `Bangun D adalah 5 belah ketupat 2-an = ${AREA('D')} kotak.`,
       ),
     },
     {

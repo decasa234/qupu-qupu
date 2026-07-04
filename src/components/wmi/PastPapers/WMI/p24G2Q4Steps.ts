@@ -1,118 +1,132 @@
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
-import { LEADER_POS, ROW_LENGTH, VICE_POS } from './P24G2Q4Illustration'
+import {
+  ANIMALS,
+  ANIMAL_COUNT,
+  LEADER_INDEX,
+  VICE_INDEX,
+} from './P24G2Q4Illustration'
 
 // Storyboard for the WMI-24P2A-Q4 explainer (animals in a row).
 //
-// Method, one idea per beat:
-//   1. show the row.
-//   2. count 10 from the LEFT -> the leader (10th).
-//   3. "7th from the RIGHT" is awkward; flip it to a count from the left.
-//   4. 15 − 7 + 1 = 9 -> the vice-leader is the 9th from the left.
-//   5. positions 9 and 10 are NEIGHBOURS — that adjacent pair is the answer.
-//   6. result: the option with the 9th + 10th animals is C.
+// Same 14-animal figure as the Grade-1 sibling WMI-24P1A-Q4:
+//   1 lion 2 owl 3 frog 4 penguin 5 cow 6 turtle 7 mouse 8 snake
+//   9 dinosaur 10 koala 11 bird 12 crab 13 chick 14 dog
+// "The 10th from the left is the leader; the 7th from the right is the vice
+//  leader. Which option has both?"  The options are small PICTURES (A–D);
+//  the one showing both the koala and the snake is C.
+//
+// Method, one idea per beat: state the goal, COUNT 10 in from the LEFT
+// (lands on the koala = leader), COUNT 7 in from the RIGHT (with 14 animals
+// that is animal 14 − 7 + 1 = 8 = the snake = vice leader), then pick the
+// picture option containing BOTH. Indices are 0-based to match the AnimalRow
+// primitive's litLeft / litRight props (koala = 9, snake = 7).
 
-export type AnimalPhase = 'show' | 'leader' | 'flip' | 'vice' | 'pair' | 'result'
+export const LEADER = ANIMALS[LEADER_INDEX] // koala (10th from left)
+export const VICE = ANIMALS[VICE_INDEX] // snake (7th from right)
+
+export type AnimalPhase = 'goal' | 'countLeft' | 'countRight' | 'match' | 'result'
 
 export interface AnimalStep {
   phase: AnimalPhase
-  /** 0-based indices to spotlight in the row. */
-  litIndices: number[]
-  /** Print the 1-based position number under every animal. */
-  showPositions: boolean
+  /** 0-based indices lit as "counted from the LEFT" (blue). */
+  litLeft: number[]
+  /** 0-based indices lit as "counted from the RIGHT" (orange). */
+  litRight: number[]
+  /** Print the ordinal above lit tiles this beat. */
+  showOrdinals: boolean
   caption: string
   hold: number
   result: boolean
 }
 
 export interface AnimalStoryboard {
-  rowLength: number
-  leaderPos: number
-  vicePos: number
-  answer: string
+  leaderEn: string
+  viceEn: string
+  answerLetter: string
   steps: AnimalStep[]
   finalIndex: number
 }
 
 export function buildP24G2Q4Steps(lang: Lang, answer: string): AnimalStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
+  const name = (e: typeof LEADER) => (lang === 'id' ? e.id : e.en)
 
-  const leaderIdx = LEADER_POS - 1 // 9
-  const viceIdx = VICE_POS - 1 // 8
+  const steps: AnimalStep[] = []
 
-  const steps: AnimalStep[] = [
-    {
-      phase: 'show',
-      litIndices: [],
-      showPositions: false,
-      hold: 1700,
-      result: false,
-      caption: t(
-        `${ROW_LENGTH} animals stand in a row. Find the leader and the vice-leader.`,
-        `${ROW_LENGTH} hewan berdiri sebaris. Cari ketua dan wakil ketua.`,
-      ),
-    },
-    {
-      phase: 'leader',
-      litIndices: [leaderIdx],
-      showPositions: true,
-      hold: 2000,
-      result: false,
-      caption: t(
-        `Count ${LEADER_POS} from the LEFT — that is the leader (the ${LEADER_POS}th).`,
-        `Hitung ${LEADER_POS} dari KIRI — itulah ketua (ke-${LEADER_POS}).`,
-      ),
-    },
-    {
-      phase: 'flip',
-      litIndices: [leaderIdx],
-      showPositions: true,
-      hold: 2000,
-      result: false,
-      caption: t(
-        `"7th from the right" is easier as a count from the left.`,
-        `"Ke-7 dari kanan" lebih mudah diubah jadi hitungan dari kiri.`,
-      ),
-    },
-    {
-      phase: 'vice',
-      litIndices: [viceIdx, leaderIdx],
-      showPositions: true,
-      hold: 2100,
-      result: false,
-      caption: t(
-        `${ROW_LENGTH} − 7 + 1 = ${VICE_POS}: the vice-leader is the ${VICE_POS}th from the left.`,
-        `${ROW_LENGTH} − 7 + 1 = ${VICE_POS}: wakil ketua adalah ke-${VICE_POS} dari kiri.`,
-      ),
-    },
-    {
-      phase: 'pair',
-      litIndices: [viceIdx, leaderIdx],
-      showPositions: true,
-      hold: 2000,
-      result: false,
-      caption: t(
-        `${VICE_POS}th and ${LEADER_POS}th sit side by side — we need that neighbouring pair.`,
-        `Ke-${VICE_POS} dan ke-${LEADER_POS} bersebelahan — itulah pasangan yang dicari.`,
-      ),
-    },
-    {
-      phase: 'result',
-      litIndices: [viceIdx, leaderIdx],
-      showPositions: true,
-      hold: 0,
-      result: true,
-      caption: t(
-        `The option with the ${VICE_POS}th + ${LEADER_POS}th animals is ${answer}.`,
-        `Pilihan dengan hewan ke-${VICE_POS} + ke-${LEADER_POS} adalah ${answer}.`,
-      ),
-    },
-  ]
+  // --- Beat 0: state the goal. Nothing lit. ---
+  steps.push({
+    phase: 'goal',
+    litLeft: [],
+    litRight: [],
+    showOrdinals: false,
+    hold: 2100,
+    result: false,
+    caption: t(
+      'Find the 10th animal from the left and the 7th from the right.',
+      'Cari hewan ke-10 dari kiri dan ke-7 dari kanan.',
+    ),
+  })
+
+  // --- Count 10 in from the LEFT: lands on the koala (leader). ---
+  steps.push({
+    phase: 'countLeft',
+    litLeft: Array.from({ length: LEADER_INDEX + 1 }, (_, k) => k),
+    litRight: [],
+    showOrdinals: true,
+    hold: 2200,
+    result: false,
+    caption: t(
+      `Count 10 from the left: 1, 2, 3 … 10 lands on the ${name(LEADER)} — the leader.`,
+      `Hitung 10 dari kiri: 1, 2, 3 … 10 jatuh di ${name(LEADER)} — sang pemimpin.`,
+    ),
+  })
+
+  // --- Count 7 in from the RIGHT: lands on the snake (vice leader). ---
+  steps.push({
+    phase: 'countRight',
+    litLeft: [LEADER_INDEX],
+    litRight: Array.from({ length: 7 }, (_, k) => ANIMAL_COUNT - 1 - k),
+    showOrdinals: true,
+    hold: 2400,
+    result: false,
+    caption: t(
+      `There are ${ANIMAL_COUNT} animals, so count 7 back from the right: it lands on the ${name(VICE)} — the vice leader.`,
+      `Ada ${ANIMAL_COUNT} hewan, jadi hitung 7 mundur dari kanan: jatuh di ${name(VICE)} — sang wakil.`,
+    ),
+  })
+
+  // --- Match: both found animals lit together. ---
+  steps.push({
+    phase: 'match',
+    litLeft: [LEADER_INDEX],
+    litRight: [VICE_INDEX],
+    showOrdinals: false,
+    hold: 2200,
+    result: false,
+    caption: t(
+      `Leader = ${name(LEADER)}, vice = ${name(VICE)}. Find the picture option with BOTH.`,
+      `Pemimpin = ${name(LEADER)}, wakil = ${name(VICE)}. Cari opsi gambar yang memuat KEDUANYA.`,
+    ),
+  })
+
+  // --- Result: the option letter. ---
+  steps.push({
+    phase: 'result',
+    litLeft: [LEADER_INDEX],
+    litRight: [VICE_INDEX],
+    showOrdinals: false,
+    hold: 0,
+    result: true,
+    caption: t(
+      `The picture showing both the ${name(LEADER)} and the ${name(VICE)} is option ${answer}.`,
+      `Gambar yang memuat ${name(LEADER)} sekaligus ${name(VICE)} adalah pilihan ${answer}.`,
+    ),
+  })
 
   return {
-    rowLength: ROW_LENGTH,
-    leaderPos: LEADER_POS,
-    vicePos: VICE_POS,
-    answer,
+    leaderEn: LEADER.en,
+    viceEn: VICE.en,
+    answerLetter: answer,
     steps,
     finalIndex: steps.length - 1,
   }

@@ -169,7 +169,7 @@ export function BarChart22G2({ values, active = null, maxH = 8 }: BarChart22G2Pr
   const barW = 44
   const gap = 22
   const colours = [BAR_GREEN, BAR_PINK, BAR_BLUE]
-  const labels = ['🍪', '🍰', '🧀']
+  const labelKinds: Dessert[] = ['cookie', 'cake', 'cheese']
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W, display: 'block', margin: '0 auto' }} aria-hidden="true">
@@ -211,9 +211,9 @@ export function BarChart22G2({ values, active = null, maxH = 8 }: BarChart22G2Pr
                 {v}
               </text>
             )}
-            <text x={x + barW / 2} y={bottom + 18} textAnchor="middle" fontSize={16}>
-              {labels[i]}
-            </text>
+            <g transform={`translate(${x + barW / 2}, ${bottom + 17}) scale(0.62)`}>
+              <DessertGlyph kind={labelKinds[i]} cx={0} cy={0} />
+            </g>
           </g>
         )
       })}

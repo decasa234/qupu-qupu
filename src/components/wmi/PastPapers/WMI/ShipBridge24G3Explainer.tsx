@@ -1,5 +1,5 @@
 // Post-answer explainer for WMI-24F3A-Q2 (ship width via bridge segment proportion).
-// Strategy: 156 m ÷ 16 segments = 9.75 m each → ship spans 4 → 4 × 9.75 = 39 m (answer B).
+// Strategy: 156 m ÷ 12 segments = 13 m each → ship spans 3 → 3 × 13 = 39 m (answer B).
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
@@ -24,7 +24,7 @@ const INFO_BORDER = '#30598A'
 const INFO_TEXT = '#30598A'
 
 // ── derived constants (deterministic) ─────────────────────────────────────────
-const ONE_SEG_M = BRIDGE_LENGTH_M / BRIDGE_SEGMENTS          // 9.75
+const ONE_SEG_M = BRIDGE_LENGTH_M / BRIDGE_SEGMENTS          // 13
 const SHIP_WIDTH_M = SHIP_SEGMENTS * ONE_SEG_M               // 39
 
 // ── bilingual helper ──────────────────────────────────────────────────────────
@@ -106,8 +106,8 @@ const BAND_H = 10
 const BAND_Y = DECK_Y + DECK_H
 const SEG_W = DECK_W / BRIDGE_SEGMENTS
 
-// Ship spans segments 6-9 (0-indexed), same as the illustration
-const SHIP_START_SEG = 6
+// Ship spans segments 4-6 (0-indexed), same as the illustration
+const SHIP_START_SEG = 4
 const SHIP_LEFT = DECK_X + SHIP_START_SEG * SEG_W
 const SHIP_RIGHT = DECK_X + (SHIP_START_SEG + SHIP_SEGMENTS) * SEG_W
 const SHIP_CX = (SHIP_LEFT + SHIP_RIGHT) / 2
@@ -224,8 +224,8 @@ export default function ShipBridge24G3Explainer(props: ExplainerProps) {
 
   const ariaLabel = t(
     lang,
-    `Bridge-proportion strategy: 156 m ÷ 16 segments = 9.75 m each; ship covers 4 segments; 4 × 9.75 = 39 m — answer B.`,
-    `Strategi proporsi jembatan: 156 m ÷ 16 ruas = 9,75 m tiap ruas; kapal menutupi 4 ruas; 4 × 9,75 = 39 m — jawaban B.`,
+    `Bridge-proportion strategy: 156 m ÷ 12 segments = 13 m each; ship covers 3 segments; 3 × 13 = 39 m — answer B.`,
+    `Strategi proporsi jembatan: 156 m ÷ 12 ruas = 13 m tiap ruas; kapal menutupi 3 ruas; 3 × 13 = 39 m — jawaban B.`,
   )
 
   return (

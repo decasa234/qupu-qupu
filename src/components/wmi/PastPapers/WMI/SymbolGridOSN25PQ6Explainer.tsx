@@ -6,10 +6,9 @@
 //   2. known-cols — highlight known col sums → 24+23+27 = 74.
 //   3. result     — reveal col 1 = 99−74 = 25 in green.
 
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
-import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { GridBoard, gridBoardViewBox } from './primitives/GridBoard'
 import {
   GRID,
@@ -66,7 +65,35 @@ function RowBrace({ color }: { color: string }) {
 
 export default function SymbolGridOSN25PQ6Explainer({ lang }: ExplainerProps) {
   const storyboard = useMemo(() => buildSymbolGridOSN25PQ6Steps(lang), [lang])
-  const { beat, isPlaying, goTo, play, pause, next, prev } = useBeatControl(storyboard)
+  // Local beat navigation + autoplay (house pattern — see ShadedSquare20B5Explainer).
+  const [index, setIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const prev = useCallback(() => {
+    setIsPlaying(false)
+    setIndex((i) => Math.max(i - 1, 0))
+  }, [])
+  const next = useCallback(() => {
+    setIsPlaying(false)
+    setIndex((i) => Math.min(i + 1, storyboard.finalIndex))
+  }, [storyboard.finalIndex])
+  const play = useCallback(() => {
+    setIndex((i) => (i >= storyboard.finalIndex ? 0 : i))
+    setIsPlaying(true)
+  }, [storyboard.finalIndex])
+  const pause = useCallback(() => setIsPlaying(false), [])
+
+  useEffect(() => {
+    if (!isPlaying) return
+    if (index >= storyboard.finalIndex) {
+      setIsPlaying(false)
+      return
+    }
+    const hold = storyboard.steps[index]?.hold || 2200
+    const timer = window.setTimeout(() => setIndex((i) => Math.min(i + 1, storyboard.finalIndex)), hold)
+    return () => window.clearTimeout(timer)
+  }, [isPlaying, index, storyboard])
+
+  const beat = storyboard.steps[index]
 
   const vb = gridBoardViewBox(ROWS, COLS, CELL, ROW_SUMS, COL_SUMS)
   const symFontSize = Math.round(CELL * 0.48)

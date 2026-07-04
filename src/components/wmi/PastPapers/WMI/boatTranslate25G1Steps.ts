@@ -3,7 +3,7 @@
 // A pure translation (slide) keeps a shape's SIZE and ORIENTATION. So the moving
 // boat A can only land exactly on boats that are identical copies of it. The
 // teaching walk: name the rule, then try-and-eliminate the look-alikes (tilted,
-// bigger, sail-centred near-miss) before lighting the two true matches and
+// wrong size, mirrored-sail near-miss) before lighting the two true matches and
 // counting them.
 //
 // Pure builder: (lang) => storyboard. No random, no dates, SSR-safe.
@@ -35,11 +35,11 @@ export interface BoatStoryboard {
 }
 
 // Indices into BOATS for the look-alikes we eliminate, in walk order. These
-// mirror the comments in BoatTranslate25G1Illustration (b2/b6/b7 tilted,
-// b5/b9 bigger, b8 sail-centred). We bundle them into kid-sized rejection beats.
-const TILTED = [1, 5, 6] // b2, b6, b7 — rotated, wrong way round
-const BIGGER = [4, 8] // b5, b9 — a different size
-const NEARMISS = [7] // b8 — upright but the sail sits in the middle
+// mirror the comments in BoatTranslate25G1Illustration (b3/b6/b7 tilted,
+// b5/b9 the wrong size, b2 mirrored). We bundle them into kid-sized rejection beats.
+const TILTED = [2, 5, 6] // b3, b6, b7 — rotated, wrong way round
+const BIGGER = [4, 8] // b5 (wider), b9 (tall sail) — a different size
+const NEARMISS = [1] // b2 — upright but its sail is flipped the other way
 
 export function buildBoatTranslate25G1Steps(lang: Lang): BoatStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
@@ -107,8 +107,8 @@ export function buildBoatTranslate25G1Steps(lang: Lang): BoatStoryboard {
       hold: 2100,
       result: false,
       caption: t(
-        'This one is upright but its sail sits in the middle — not the same. Skip it.',
-        'Yang ini tegak tapi layarnya di tengah — tidak sama. Lewati.',
+        'This one is upright but its sail is flipped the other way — a slide can’t flip A. Skip it.',
+        'Yang ini tegak tapi layarnya terbalik arah — geseran tak bisa membalik A. Lewati.',
       ),
     },
     {

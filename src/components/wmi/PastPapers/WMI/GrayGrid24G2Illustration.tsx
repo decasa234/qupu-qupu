@@ -18,21 +18,23 @@ export const GRID_COLS = 9
  * Transcribed faithfully from the exam figure
  * (db/seed/wmi/figures/2024-final-g2-a-q4.jpg).
  *
- * Row 1: cols 1, 2, 4  (3 cells in a single row, two close together on left)
+ * Pixel-verified against the scan's grid lines:
+ * Row 1: cols 1, 2, 3  (a run of 3 cells, upper left)
  * Row 2: col 6         (1 cell, upper-right area)
- * Row 3: col 4         (1 cell, centre)
- * Row 4: cols 1 and 7  (2 cells — left and right)
+ * Row 4: col 4         (1 cell, centre)
+ * Row 6: col 2         (1 cell, lower left)
+ * Row 7: col 6         (1 cell, bottom right)
  *
- * Total = 3 + 1 + 1 + 2 = 7 ✓
+ * Total = 3 + 1 + 1 + 1 + 1 = 7 ✓
  */
 export const GRAY_CELLS: ReadonlyArray<readonly [number, number]> = [
   [1, 1],
   [1, 2],
-  [1, 4],
+  [1, 3],
   [2, 6],
-  [3, 4],
-  [4, 1],
-  [4, 7],
+  [4, 4],
+  [6, 2],
+  [7, 6],
 ] as const
 
 /** Total cells, gray count, and white count for reference. */

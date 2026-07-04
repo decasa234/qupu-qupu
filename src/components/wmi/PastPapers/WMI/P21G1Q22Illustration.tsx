@@ -4,7 +4,7 @@
 // kites. The top-left cell is blank; the centre-left cell holds the "?".
 //
 //   row 0:  (blank)        red · diamond     yellow · long-kite
-//   row 1:  ?              yellow · diamond  white · diamond
+//   row 1:  ?              yellow · long-kite  white · diamond
 //   row 2:  yellow · diamond  white · long-kite  red · long-kite
 //
 // Two intrinsic attributes drive the pattern:
@@ -93,7 +93,7 @@ interface CellSpec {
 // The eight given kites (null = blank cell, 'q' = the "?" cell).
 const GRID: (CellSpec | 'q' | null)[][] = [
   [null, { color: 'red', shape: 'diamond' }, { color: 'yellow', shape: 'long' }],
-  ['q', { color: 'yellow', shape: 'diamond' }, { color: 'white', shape: 'diamond' }],
+  ['q', { color: 'yellow', shape: 'long' }, { color: 'white', shape: 'diamond' }],
   [{ color: 'yellow', shape: 'diamond' }, { color: 'white', shape: 'long' }, { color: 'red', shape: 'long' }],
 ]
 

@@ -6,7 +6,7 @@
 // That rotation is option A.
 
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
-import { RING_COLORS, RING_N } from './P22G2Q23Illustration'
+import { RING_N, STRIP_COLORS } from './P22G2Q23Illustration'
 
 export interface RingStep {
   /** How many wedges have been read into the strip so far (0..RING_N). */
@@ -21,13 +21,15 @@ export interface RingStep {
 }
 
 export interface RingStoryboard {
-  colors: typeof RING_COLORS
+  colors: typeof STRIP_COLORS
   steps: RingStep[]
   finalIndex: number
 }
 
 export function buildP22G2Q23Steps(lang: Lang): RingStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
+  const stripEn = STRIP_COLORS.join(', ')
+  const stripId = STRIP_COLORS.map((c) => (c === 'blue' ? 'biru' : 'putih')).join(', ')
 
   const steps: RingStep[] = [
     {
@@ -47,10 +49,7 @@ export function buildP22G2Q23Steps(lang: Lang): RingStoryboard {
       flipNote: false,
       hold: 2000,
       result: false,
-      caption: t(
-        'Unroll them into a straight strip: white, blue, white, blue, white, blue, white, blue.',
-        'Buka jadi pita lurus: putih, biru, putih, biru, putih, biru, putih, biru.',
-      ),
+      caption: t(`Unroll them into a straight strip: ${stripEn}.`, `Buka jadi pita lurus: ${stripId}.`),
     },
     {
       read: RING_N,
@@ -87,5 +86,5 @@ export function buildP22G2Q23Steps(lang: Lang): RingStoryboard {
     },
   ]
 
-  return { colors: RING_COLORS, steps, finalIndex: steps.length - 1 }
+  return { colors: STRIP_COLORS, steps, finalIndex: steps.length - 1 }
 }
