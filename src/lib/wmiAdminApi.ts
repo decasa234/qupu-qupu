@@ -15,6 +15,7 @@ export interface AdminConceptSummary {
   topic: string
   topic_label: string
   difficulty: 1 | 2 | 3 | 4 | 5
+  band: 'easy' | 'medium' | 'hard'
   isOlympiad: boolean
   status: ReviewStatus
   priority: 'high' | 'normal'

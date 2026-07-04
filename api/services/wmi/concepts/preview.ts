@@ -10,7 +10,9 @@ import {
   TOPICS,
   strandLabel,
   topicLabel,
+  difficultyBand,
   type ConceptTags,
+  type DifficultyBand,
   type StrandCode,
 } from './taxonomy.js'
 
@@ -46,6 +48,7 @@ export interface ConceptSummary {
   topic: string
   topic_label: string
   difficulty: 1 | 2 | 3 | 4 | 5
+  band: DifficultyBand
   isOlympiad: boolean
   priority: 'high' | 'normal'
 }
@@ -70,6 +73,7 @@ export function listConceptsForPreview(): ConceptSummary[] {
       topic: tag.topic,
       topic_label: topicLabel(tag.topic, 'en'),
       difficulty: tag.difficulty,
+      band: difficultyBand(tag.difficulty),
       isOlympiad: tag.isOlympiad,
       priority: HIGH_PRIORITY.has(slug) ? ('high' as const) : ('normal' as const),
     }

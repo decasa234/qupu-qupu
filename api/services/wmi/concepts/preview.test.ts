@@ -12,6 +12,7 @@ describe('listConceptsForPreview', () => {
     expect(add.topic).toBe('AR-OPS')
     expect(add.topic_label).toBe('Basic Operations')
     expect(add.difficulty).toBe(1)
+    expect(add.band).toBe('easy')
     expect(add.isOlympiad).toBe(false)
     expect(add.short_id).toBe('A1')
   })
@@ -20,7 +21,13 @@ describe('listConceptsForPreview', () => {
     const combo = list.find((c) => c.slug === 'combination-product-sum')!
     expect(combo.strand).toBe('CO')
     expect(combo.difficulty).toBe(5)
+    expect(combo.band).toBe('hard')
     expect(combo.isOlympiad).toBe(true)
+  })
+
+  test('every listed concept exposes an easy/medium/hard band', () => {
+    expect(list.length).toBeGreaterThan(0)
+    for (const c of list) expect(['easy', 'medium', 'hard']).toContain(c.band)
   })
 
   test('is sorted by strand order', () => {

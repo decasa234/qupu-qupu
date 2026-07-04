@@ -7,6 +7,7 @@ import {
   STRAND_ORDER,
   TOPICS,
   topicsForStrand,
+  difficultyBand,
 } from './taxonomy.js'
 
 const TOPIC_CODES = new Set(TOPICS.map((t) => t.code))
@@ -56,5 +57,15 @@ describe('concept taxonomy', () => {
     for (const code of STRAND_ORDER) {
       expect(topicsForStrand(code).length, `strand ${code} has no topics`).toBeGreaterThan(0)
     }
+  })
+
+  test('difficultyBand collapses 1-5 into easy/medium/hard', () => {
+    expect(([1, 2, 3, 4, 5] as const).map((d) => difficultyBand(d))).toEqual([
+      'easy',
+      'easy',
+      'medium',
+      'hard',
+      'hard',
+    ])
   })
 })

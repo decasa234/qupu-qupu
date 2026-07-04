@@ -34,6 +34,14 @@ export interface ConceptTags {
   isOlympiad: boolean
 }
 
+// Contest difficulty (1-5) collapsed to the learner-facing Easy/Medium/Hard
+// facet. Distinct from curriculum.ts's within-subject 1-3 ordering: this answers
+// "how hard is this concept as a contest problem", not "what order in its subject".
+export type DifficultyBand = 'easy' | 'medium' | 'hard'
+export function difficultyBand(d: 1 | 2 | 3 | 4 | 5): DifficultyBand {
+  return d <= 2 ? 'easy' : d === 3 ? 'medium' : 'hard'
+}
+
 export const STRAND_ORDER: readonly StrandCode[] = ['AR', 'NT', 'AP', 'CO', 'GE', 'LR']
 
 export const STRANDS: readonly Strand[] = [
