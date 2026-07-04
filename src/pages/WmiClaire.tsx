@@ -335,6 +335,7 @@ export default function WmiClaire() {
               }
               disabled={Boolean(feedback)}
               initialLang={preferredLang}
+              numericFillIn={question.numeric_answer}
               onPickChoice={submit}
               onSubmitFillIn={submit}
               onLookupTerm={() => {}}

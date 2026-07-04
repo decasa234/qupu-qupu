@@ -200,6 +200,7 @@ export interface WmiClaireQuestion {
   answer_type: 'multiple_choice' | 'fill_in'
   choices_en: WmiChoice[] | null
   choices_id: WmiChoice[] | null
+  numeric_answer: boolean
   hint_en: string | null
   hint_id: string | null
   hint_steps_en: string[] | null

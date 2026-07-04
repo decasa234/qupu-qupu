@@ -42,6 +42,7 @@ interface ClaireItem {
   choices_en: unknown
   choices_id: unknown
   answer: string
+  numeric_answer: boolean
   hint_en: string | null
   hint_id: string | null
   hint_steps_en: string[] | null
@@ -140,6 +141,7 @@ function generateItem(row: ConceptRow): ClaireItem | null {
       choices_en: r.choices_en ?? null,
       choices_id: r.choices_id ?? null,
       answer: r.answer,
+      numeric_answer: /^-?\d+(\.\d+)?$/.test(r.answer.trim()),
       hint_en: r.hint_en ?? null,
       hint_id: r.hint_id ?? null,
       hint_steps_en: r.hint_steps_en ?? null,

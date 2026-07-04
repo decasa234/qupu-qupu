@@ -49,6 +49,9 @@ interface Props {
   /** Fires only on a manual EN/ID toggle tap (never on per-question resets) —
    *  hosts persist the sticky language preference here. */
   onUserToggleLanguage?: (lang: 'en' | 'id') => void
+  /** Constrain the fill-in input to numeric characters (numeric keypad on
+   *  mobile, non-numeric keystrokes filtered out). Default off. */
+  numericFillIn?: boolean
 }
 
 function MarkupText({ text, onLookup }: { text: string; onLookup: (slug: string) => void }) {
@@ -88,8 +91,16 @@ export default function WmiQuestionView({
   onRevealTranslation,
   onLanguageChange,
   onUserToggleLanguage,
+  numericFillIn = false,
 }: Props) {
   const [localFill, setLocalFill] = useState(fillValue)
+  // Clear the fill-in input when the question changes. Hosts that keep this
+  // component mounted across questions (e.g. a preloaded round) would otherwise
+  // carry the previous answer's text into the next question.
+  useEffect(() => {
+    setLocalFill(fillValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question.id])
   // Active display language. Starts in the child's sticky preference (default
   // English); the translation toggle swaps it in place. Reset whenever the
   // question changes (review starts pre-revealed in id).
@@ -154,7 +165,9 @@ export default function WmiQuestionView({
           {label ?? `Soal ${question.number}`}
         </div>
       )}
-      <div className={`${hideConceptTitle ? 'mt-12' : 'mt-2'} text-lg font-semibold text-gray-900`}>
+      {/* mt-6 clears the absolute EN/Q toggle row (top-3 + h-9 ≈ 48px from the
+          card top) so the first line of the question never crowds the buttons. */}
+      <div className={`${hideConceptTitle ? 'mt-12' : 'mt-6'} text-lg font-semibold text-gray-900`}>
         {bdActive ? (
           question.breakdown ? (
             <WmiAuthoredBreakdown breakdown={question.breakdown} text={body} lang={lang} />
@@ -233,7 +246,12 @@ export default function WmiQuestionView({
           <input
             value={localFill}
             disabled={disabled}
-            onChange={(event) => setLocalFill(event.target.value)}
+            inputMode={numericFillIn ? 'numeric' : undefined}
+            onChange={(event) =>
+              setLocalFill(
+                numericFillIn ? event.target.value.replace(/[^0-9.-]/g, '') : event.target.value,
+              )
+            }
             className="min-w-0 flex-1 rounded-full border-2 border-qupu-peach bg-qupu-shell px-4 py-2.5 font-semibold focus:border-qupu-brand-orange focus:outline-none disabled:opacity-60"
             placeholder="Jawabanmu"
           />
