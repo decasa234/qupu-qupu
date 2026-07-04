@@ -72,7 +72,7 @@ export function render(params: Params) {
   ]
 
   return {
-    body_en: `A ${n}×${n}×${n} cube is painted on all its outside faces, then cut into ${total} small unit cubes.\n\nFind: How many small cubes have exactly ${k} painted faces?`,
+    body_en: `A ${n}×${n}×${n} cube is painted on all its outside faces, then cut into ${total} small unit cubes.\n\nFind: How many small cubes have exactly ${k} painted ${k === 1 ? 'face' : 'faces'}?`,
     body_id: `Sebuah kubus ${n}×${n}×${n} dicat pada semua sisi luarnya, lalu dipotong menjadi ${total} kubus kecil satuan.\n\nCari: Berapa banyak kubus kecil yang memiliki tepat ${k} sisi tercat?`,
     answer_type: 'fill_in' as const,
     choices_en: null,

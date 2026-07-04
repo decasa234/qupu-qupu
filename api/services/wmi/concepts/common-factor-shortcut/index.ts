@@ -25,12 +25,14 @@ export function result(p: Params): number {
 export function generate(rng: Rng): Params {
   let a = rng.int(2, 18)
   let b = rng.int(2, 18)
-  // Prefer a "round" a+b (divisible by 10) so the shortcut is satisfying to use.
+  // Prefer a "round" a+b (divisible by 10) so the shortcut is satisfying, and
+  // keep a !== b so the two term highlights ("a × c" / "b × c") stay distinct.
   // Bounded resample — accept whatever we have if we never land on a round sum.
-  for (let attempt = 0; attempt < 20 && (a + b) % 10 !== 0; attempt++) {
+  for (let attempt = 0; attempt < 20 && ((a + b) % 10 !== 0 || a === b); attempt++) {
     a = rng.int(2, 18)
     b = rng.int(2, 18)
   }
+  if (a === b) b = a === 18 ? 17 : b + 1 // final guard: never equal
   const c = rng.int(2, 12)
   return { a, b, c }
 }

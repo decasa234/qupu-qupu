@@ -46,6 +46,20 @@ describe('painted-cube-faces-count', () => {
     }
   })
 
+  test('k=1 renders grammatical singular "1 painted face"', () => {
+    // find a seed with k===1
+    let found = false
+    for (let seed = 1; seed <= 200 && !found; seed++) {
+      const p = concept.generate(mulberry32(seed))
+      if (p.k !== 1) continue
+      found = true
+      const r = concept.render(p)
+      expect(r.body_en).toContain('1 painted face?')
+      expect(r.body_en).not.toContain('1 painted faces')
+    }
+    expect(found).toBe(true)
+  })
+
   test('worked example: n=3, k=3 (corners) -> 8', () => {
     expect(countByFormula(3, 3)).toBe(8)
     expect(bruteForceCount(3, 3)).toBe(8)

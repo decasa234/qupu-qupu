@@ -36,7 +36,7 @@ export function buildPaintedCubeBreakdown(params: Params): Breakdown {
     },
     {
       category: 'question',
-      phrase_en: `exactly ${k} painted faces`,
+      phrase_en: `exactly ${k} painted ${k === 1 ? 'face' : 'faces'}`,
       phrase_id: `tepat ${k} sisi tercat`,
       note_en: 'Find how many small cubes have painted-face count exactly this many.',
       note_id: 'Cari berapa banyak kubus kecil yang jumlah sisi tercatnya sama persis dengan ini.',

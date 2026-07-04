@@ -13,6 +13,8 @@ describe('common-factor-shortcut', () => {
       expect(() => concept.paramsSchema.parse(p)).not.toThrow()
 
       const { a, b, c } = p
+      // a !== b keeps the two term highlights ("a × c" / "b × c") distinct.
+      expect(a).not.toBe(b)
       const distributed = a * c + b * c
       const factored = (a + b) * c
       expect(distributed).toBe(factored)
@@ -23,6 +25,9 @@ describe('common-factor-shortcut', () => {
       expect(Number(r.answer)).toBe(distributed)
       expect(Number(r.answer)).toBe(factored)
 
+      const facts = (r.breakdown?.highlights ?? []).filter((h) => h.category === 'fact')
+      // the two fact highlights must be distinct phrases (else one is unreachable)
+      expect(new Set(facts.map((h) => h.phrase_en)).size).toBe(facts.length)
       for (const h of r.breakdown?.highlights ?? []) {
         expect(r.body_en).toContain(h.phrase_en)
         expect(r.body_id).toContain(h.phrase_id)

@@ -9,23 +9,24 @@ export function buildCommonFactorBreakdown(params: Params): Breakdown {
   const { a, b, c } = params
   const sum = a + b
   const answer = result(params)
-  const sharedFactor = `× ${c}`
 
   const highlights: BreakdownHighlight[] = [
-    // facts — both terms share the same ×c factor
+    // facts — the two terms, both carrying the same ×c factor. Distinct phrases
+    // (the full term) so each highlight maps to its own span in the body; the
+    // generator guarantees a !== b so the two phrases never coincide.
     {
       category: 'fact',
-      phrase_en: sharedFactor,
-      phrase_id: sharedFactor,
-      note_en: `This term is multiplied by ${c}.`,
-      note_id: `Suku ini dikalikan dengan ${c}.`,
+      phrase_en: `${a} × ${c}`,
+      phrase_id: `${a} × ${c}`,
+      note_en: `The first term is multiplied by ${c}.`,
+      note_id: `Suku pertama dikalikan dengan ${c}.`,
     },
     {
       category: 'fact',
-      phrase_en: sharedFactor,
-      phrase_id: sharedFactor,
-      note_en: `This term is also multiplied by ${c} — the same shared factor.`,
-      note_id: `Suku ini juga dikalikan dengan ${c} — faktor yang sama.`,
+      phrase_en: `${b} × ${c}`,
+      phrase_id: `${b} × ${c}`,
+      note_en: `The second term is also multiplied by ${c} — the same shared factor.`,
+      note_id: `Suku kedua juga dikalikan dengan ${c} — faktor yang sama.`,
     },
     // question — what to find
     {
