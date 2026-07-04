@@ -10,6 +10,7 @@
 // summary (score + Main lagi). Questions are fetched once at round start.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
 import Skeleton from '../components/Skeleton'
@@ -35,6 +36,7 @@ type Phase = 'landing' | 'loading' | 'round' | 'done'
 
 export default function WmiClaire() {
   useDocumentTitle('WMI Claire')
+  const navigate = useNavigate()
   const { activeChildId } = useAuthStore()
   const preferredLang = useWmiStore((s) => s.preferredLang)
   const setPreferredLang = useWmiStore((s) => s.setPreferredLang)
@@ -56,6 +58,18 @@ export default function WmiClaire() {
   const [history, setHistory] = useState<WmiClaireRoundSummary[]>([])
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
+  // What to run when the exit confirm is accepted — set per exit trigger (the
+  // X goes back to the landing; browser-back leaves to /belajar).
+  const pendingExitRef = useRef<null | (() => void)>(null)
+
+  const requestExit = (action: () => void) => {
+    if (phase === 'round' && results.length > 0) {
+      pendingExitRef.current = action
+      setShowExitConfirm(true)
+    } else {
+      action()
+    }
+  }
 
   // Expandable per-round review (mistakes), lazily fetched + cached by round id.
   const [openReviewId, setOpenReviewId] = useState<string | null>(null)
@@ -131,6 +145,21 @@ export default function WmiClaire() {
     window.addEventListener('beforeunload', handler)
     return () => window.removeEventListener('beforeunload', handler)
   }, [guardActive])
+
+  // Browser/hardware back mid-round: trap it with a sentinel history entry and
+  // ask for confirmation (BrowserRouter has no useBlocker). Accepting leaves to
+  // /belajar; cancelling stays put (the sentinel keeps us on the page).
+  useEffect(() => {
+    if (!guardActive) return
+    window.history.pushState(null, '', window.location.href)
+    const onPop = () => {
+      pendingExitRef.current = () => navigate('/belajar')
+      setShowExitConfirm(true)
+      window.history.pushState(null, '', window.location.href)
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [guardActive, navigate])
 
   const submit = async (answer: string) => {
     if (!activeChildId || !roundId || feedback || submittingRef.current) return
@@ -389,14 +418,16 @@ export default function WmiClaire() {
         cancelLabel="Lanjut"
         confirmLabel="Keluar"
         onClose={() => setShowExitConfirm(false)}
-        onConfirm={() => setPhase('landing')}
+        onConfirm={() => {
+          setShowExitConfirm(false)
+          const action = pendingExitRef.current
+          pendingExitRef.current = null
+          ;(action ?? (() => setPhase('landing')))()
+        }}
       />
 
       <div className="mb-3 flex items-center gap-3 px-1">
-        <BackButton
-          variant="close"
-          onClick={() => (results.length > 0 ? setShowExitConfirm(true) : setPhase('landing'))}
-        />
+        <BackButton variant="close" onClick={() => requestExit(() => setPhase('landing'))} />
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
           <div
             className="h-full rounded-full transition-all duration-500"
