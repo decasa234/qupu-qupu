@@ -70,6 +70,14 @@ import equivalentFractionFill from './equivalent-fraction-fill/index.js'
 import tableLookupCombine from './table-lookup-combine/index.js'
 import truthOrderClues from './truth-order-clues/index.js'
 import makeGroupsLeftover from './make-groups-leftover/index.js'
+import solveSymbolEquations from './solve-symbol-equations/index.js'
+import rankComputedExpressions from './rank-computed-expressions/index.js'
+import calendarDayReasoning from './calendar-day-reasoning/index.js'
+import paintedCubeFacesCount from './painted-cube-faces-count/index.js'
+import cryptarithmeticAddition from './cryptarithmetic-addition/index.js'
+import consecutiveIntegerSum from './consecutive-integer-sum/index.js'
+import commonFactorShortcut from './common-factor-shortcut/index.js'
+import containerCapacityAllocation from './container-capacity-allocation/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -145,6 +153,14 @@ export const CONCEPTS = {
   'table-lookup-combine': tableLookupCombine,
   'truth-order-clues': truthOrderClues,
   'make-groups-leftover': makeGroupsLeftover,
+  'solve-symbol-equations': solveSymbolEquations,
+  'rank-computed-expressions': rankComputedExpressions,
+  'calendar-day-reasoning': calendarDayReasoning,
+  'painted-cube-faces-count': paintedCubeFacesCount,
+  'cryptarithmetic-addition': cryptarithmeticAddition,
+  'consecutive-integer-sum': consecutiveIntegerSum,
+  'common-factor-shortcut': commonFactorShortcut,
+  'container-capacity-allocation': containerCapacityAllocation,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

@@ -196,6 +196,15 @@ export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   'maze-path-shortest':             { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 10, tags: ['spatial', 'logic'] },
   'truth-order-clues':              { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 20, tags: ['logic'] },
   'budget-selection':               { subjectKey: 'g3-logika',        difficulty: 2, sortOrder: 30, tags: ['money', 'logic'] },
+  // Gap-fill concepts from the WMI drill concept map (2026-07).
+  'solve-symbol-equations':         { subjectKey: 'g3-logika',        difficulty: 3, sortOrder: 50, tags: ['logic', 'arithmetic'] },
+  'rank-computed-expressions':      { subjectKey: 'g2-operasi',       difficulty: 2, sortOrder: 60, tags: ['arithmetic'] },
+  'calendar-day-reasoning':         { subjectKey: 'g3-pengukuran',    difficulty: 2, sortOrder: 30, tags: ['measurement', 'logic'] },
+  'painted-cube-faces-count':       { subjectKey: 'g3-geometri',      difficulty: 3, sortOrder: 40, tags: ['geometry', 'spatial'] },
+  'cryptarithmetic-addition':       { subjectKey: 'g3-bilangan',      difficulty: 3, sortOrder: 50, tags: ['number-theory', 'logic'] },
+  'consecutive-integer-sum':        { subjectKey: 'g3-bilangan',      difficulty: 3, sortOrder: 60, tags: ['number-theory', 'patterns'] },
+  'common-factor-shortcut':         { subjectKey: 'g3-perkalian',     difficulty: 2, sortOrder: 50, tags: ['arithmetic'] },
+  'container-capacity-allocation':  { subjectKey: 'g3-cerita-multi',  difficulty: 2, sortOrder: 40, tags: ['word-problem', 'counting'] },
   'range-count-evaluate':           { subjectKey: 'g3-logika',        difficulty: 3, sortOrder: 40, tags: ['logic', 'arithmetic'] },
 
   // ── Grade 3: g3-cerita-multi (Soal Cerita Multi-langkah) ─────────────────

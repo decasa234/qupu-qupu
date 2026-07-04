@@ -120,7 +120,6 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'net-progress-cycles': { strand: 'AP', topic: 'AP-RATE', difficulty: 4, isOlympiad: true },
 
   // CO — Combinatorics & Counting
-  'count-objects': { strand: 'CO', topic: 'CO-OBJ', difficulty: 1, isOlympiad: false },
   'tally-marks-count': { strand: 'CO', topic: 'CO-OBJ', difficulty: 1, isOlympiad: false },
   'count-shapes-in-figure': { strand: 'CO', topic: 'CO-FIG', difficulty: 4, isOlympiad: true },
   'count-rectangles-grid': { strand: 'CO', topic: 'CO-FIG', difficulty: 4, isOlympiad: true },
@@ -161,6 +160,16 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'budget-selection': { strand: 'LR', topic: 'LR-BAL', difficulty: 3, isOlympiad: true },
   'lacking-money-shared': { strand: 'LR', topic: 'LR-BAL', difficulty: 3, isOlympiad: true },
   'money-coins-total': { strand: 'LR', topic: 'LR-BAL', difficulty: 2, isOlympiad: false },
+
+  // Gap-fill concepts derived from the WMI drill concept map (2026-07).
+  'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
+  'rank-computed-expressions': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: false },
+  'calendar-day-reasoning': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: true },
+  'painted-cube-faces-count': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
+  'cryptarithmetic-addition': { strand: 'NT', topic: 'NT-DIG', difficulty: 4, isOlympiad: true },
+  'consecutive-integer-sum': { strand: 'AP', topic: 'AP-NPAT', difficulty: 4, isOlympiad: true },
+  'common-factor-shortcut': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: true },
+  'container-capacity-allocation': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: false },
 }
 
 // Frozen legacy recall codes (domain letter + index). Do not renumber.
@@ -212,7 +221,6 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'sum-partition-split': 'L6',
   'venn-set-membership': 'L7',
   'truth-order-clues': 'L8',
-  'count-objects': 'C1',
   'combination-product-sum': 'C2',
   'count-shapes-in-figure': 'C3',
   'count-rectangles-grid': 'C4',
@@ -238,6 +246,14 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'bar-chart-compare': 'D1',
   'tally-marks-count': 'D2',
   'table-lookup-combine': 'D3',
+  'rank-computed-expressions': 'A10',
+  'common-factor-shortcut': 'A11',
+  'cryptarithmetic-addition': 'N16',
+  'consecutive-integer-sum': 'P6',
+  'solve-symbol-equations': 'L9',
+  'container-capacity-allocation': 'C6',
+  'painted-cube-faces-count': 'G15',
+  'calendar-day-reasoning': 'M5',
 }
 
 const STRAND_BY_CODE = new Map(STRANDS.map((s) => [s.code, s]))
