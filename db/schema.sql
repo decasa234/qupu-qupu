@@ -781,6 +781,23 @@ CREATE INDEX IF NOT EXISTS idx_wmi_attempts_concept_instance
   ON wmi_attempts (concept_instance_id)
   WHERE concept_instance_id IS NOT NULL;
 
+-- WMI Claire — isolated warmup drill for a single finalist (migration 0047).
+-- Gated to one parent account in the app layer. Stores each 10-question round
+-- (generated items + answers) server-side plus the child's responses/score for
+-- parent review; deliberately does NOT touch wmi_attempts / progress / rewards.
+CREATE TABLE IF NOT EXISTS claire_drill_rounds (
+  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  child_id     UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  items        JSONB NOT NULL,
+  responses    JSONB NOT NULL DEFAULT '{}',
+  total        INT  NOT NULL DEFAULT 10,
+  score        INT,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  completed_at TIMESTAMPTZ
+);
+CREATE INDEX IF NOT EXISTS idx_claire_rounds_child
+  ON claire_drill_rounds (child_id, completed_at DESC);
+
 -- ─────────────────────────────────────────────────────────────────────
 -- Coins (migration 0018)
 -- Earn-only currency riding the gamification engine alongside XP. The

@@ -50,9 +50,14 @@ interface SelectedConcept {
   chapter: WmiGardenChapter
 }
 
+// WMI Claire is a niche, temporary mode for a single finalist — its entry card
+// shows only for this one parent account (the server gates the API too).
+const CLAIRE_PARENT_EMAIL = 'johan@decasa.co.id'
+
 export default function BelajarPath() {
   useDocumentTitle('Belajar')
-  const { activeChildId } = useAuthStore()
+  const { activeChildId, user } = useAuthStore()
+  const isClaireParent = (user?.email ?? '').trim().toLowerCase() === CLAIRE_PARENT_EMAIL
   const { selectedGrade, gradeByChild, lastSubjectKey, loadGlossary } = useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
@@ -180,6 +185,23 @@ export default function BelajarPath() {
           )}
         </button>
       </div>
+
+      {isClaireParent && (
+        <button
+          type="button"
+          onClick={() => navigate('/latihan/wmi/claire')}
+          className="mt-3 flex w-full items-center gap-3 rounded-[1.25rem] bg-qupu-brand-blue px-4 py-3 text-left text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+        >
+          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[14px] bg-white/15 text-lg">
+            <i className="fa-solid fa-brain" aria-hidden="true" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-display text-sm font-black">WMI Claire</span>
+            <span className="text-[11px] font-bold text-white/75">Warmup final — 10 soal tersulit</span>
+          </span>
+          <i className="fa-solid fa-chevron-right flex-shrink-0 text-xs text-white/70" aria-hidden="true" />
+        </button>
+      )}
 
       <div className="mt-4">
         {loading ? (

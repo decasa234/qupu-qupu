@@ -43,6 +43,7 @@ const PrivasiPage = lazy(() => import('./pages/Privasi'))
 const KetentuanPage = lazy(() => import('./pages/Ketentuan'))
 const WmiPapersPage = lazy(() => import('./pages/WmiPapers'))
 const WmiPaperDetailPage = lazy(() => import('./pages/WmiPaperDetail'))
+const WmiClairePage = lazy(() => import('./pages/WmiClaire'))
 const WmiExamPage = lazy(() => import('./pages/WmiExam'))
 const WmiExamReviewPage = lazy(() => import('./pages/WmiExamReview'))
 // Parent dashboard pulls the full Dashboard + Report stacks — lazy, and
@@ -247,6 +248,7 @@ export default function App() {
             <Route path="latihan/wmi/exam/:sessionId/review" element={suspended(<WmiExamReviewPage />)} />
             <Route path="latihan/wmi/tes/:subjectKey" element={<WmiChapterTest />} />
             <Route path="latihan/wmi/sesi/:subjectKey" element={<WmiKonsepSession />} />
+            <Route path="latihan/wmi/claire" element={suspended(<WmiClairePage />)} />
 
             {/* Old standalone pages now live inside /parent */}
             <Route path="dashboard" element={<Navigate to="/parent" replace />} />

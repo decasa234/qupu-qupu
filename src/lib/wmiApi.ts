@@ -4,6 +4,9 @@ import type {
   WmiAttemptResult,
   WmiChapterTestQuestion,
   WmiChapterTestResult,
+  WmiClaireAnswerResult,
+  WmiClaireQuestion,
+  WmiClaireRoundSummary,
   WmiConceptAttemptInput,
   WmiConceptProgressSummary,
   WmiConceptQuestion,
@@ -95,6 +98,29 @@ export async function submitConceptVote(
 export async function submitConceptAttempt(input: WmiConceptAttemptInput): Promise<WmiAttemptResult> {
   const response = await api.post('/me/wmi/attempts', input)
   return unwrap<WmiAttemptResult>(response)
+}
+
+// ── WMI Claire (isolated warmup drill) ────────────────────────────────────
+export async function claireStart(
+  childId: string,
+): Promise<{ roundId: string; questions: WmiClaireQuestion[] }> {
+  const response = await api.post('/me/wmi/claire/start', { childId })
+  return unwrap<{ roundId: string; questions: WmiClaireQuestion[] }>(response)
+}
+
+export async function claireAnswer(
+  childId: string,
+  roundId: string,
+  index: number,
+  selected: string,
+): Promise<WmiClaireAnswerResult> {
+  const response = await api.post('/me/wmi/claire/answer', { childId, roundId, index, selected })
+  return unwrap<{ result: WmiClaireAnswerResult }>(response).result
+}
+
+export async function claireHistory(childId: string): Promise<WmiClaireRoundSummary[]> {
+  const response = await api.get('/me/wmi/claire/history', { params: { childId } })
+  return unwrap<{ rounds: WmiClaireRoundSummary[] }>(response).rounds
 }
 
 export async function fetchConceptProgress(childId: string, grade: WmiGrade): Promise<WmiConceptProgressSummary> {

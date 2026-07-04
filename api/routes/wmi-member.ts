@@ -19,9 +19,32 @@ import {
   FOCUS_SESSION_SIZE,
 } from '../services/wmi/concepts/session.js'
 import { SUBJECTS } from '../services/wmi/concepts/curriculum.js'
+import {
+  startClaireRound,
+  answerClaireRound,
+  getClaireHistory,
+  hasClaireAccess,
+} from '../services/wmi/claire.js'
 import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 
 const router = Router()
+
+// WMI Claire is a niche, temporary mode gated to a single parent account.
+// Fail closed for everyone else — invisible on the client, 403 here.
+function claireGuard(req: AuthRequest, res: Response): boolean {
+  if (!hasClaireAccess(req.user.email)) {
+    res.status(403).json({ success: false, error: 'Fitur ini tidak tersedia.' })
+    return false
+  }
+  return true
+}
+
+const claireAnswerSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  roundId: Joi.string().uuid().required(),
+  index: Joi.number().integer().min(0).max(50).required(),
+  selected: Joi.string().trim().min(1).max(200).required(),
+})
 
 const childQuerySchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -405,6 +428,73 @@ router.post(
       res.status(201).json({ success: true, data: out })
     } catch (error) {
       console.error('WMI konsep commit error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+// ── WMI Claire (isolated warmup drill, single-account) ─────────────────────
+router.post(
+  '/claire/start',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = childQuerySchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const round = await startClaireRound(req.user.id, value.childId)
+      res.status(201).json({ success: true, data: round })
+    } catch (error) {
+      console.error('WMI claire start error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.post(
+  '/claire/answer',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = claireAnswerSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const result = await answerClaireRound(
+        req.user.id,
+        value.childId,
+        value.roundId,
+        value.index,
+        value.selected,
+      )
+      res.json({ success: true, data: { result } })
+    } catch (error) {
+      console.error('WMI claire answer error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.get(
+  '/claire/history',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = childQuerySchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const rounds = await getClaireHistory(req.user.id, value.childId)
+      res.json({ success: true, data: { rounds } })
+    } catch (error) {
+      console.error('WMI claire history error:', error)
       sendPublicError(res, error)
     }
   },

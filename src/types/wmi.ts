@@ -188,6 +188,42 @@ export interface WmiConceptVoteResult {
   downvotes: number
 }
 
+// ── WMI Claire (isolated warmup drill) ────────────────────────────────────
+export interface WmiClaireQuestion {
+  index: number
+  concept_slug: string
+  concept_name_id: string
+  concept_name_en: string
+  params: unknown
+  body_en: string
+  body_id: string
+  answer_type: 'multiple_choice' | 'fill_in'
+  choices_en: WmiChoice[] | null
+  choices_id: WmiChoice[] | null
+  hint_en: string | null
+  hint_id: string | null
+  hint_steps_en: string[] | null
+  hint_steps_id: string[] | null
+  breakdown?: Breakdown | null
+}
+
+export interface WmiClaireAnswerResult {
+  is_correct: boolean
+  correct_answer: string
+  hint_en: string | null
+  hint_id: string | null
+  done: boolean
+  score: number | null
+}
+
+export interface WmiClaireRoundSummary {
+  id: string
+  score: number | null
+  total: number
+  created_at: string
+  completed_at: string | null
+}
+
 export type WmiConceptStatus = 'mastered' | 'in_progress' | 'not_started'
 
 export interface WmiConceptProgress {
