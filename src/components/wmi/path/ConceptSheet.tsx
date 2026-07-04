@@ -24,8 +24,16 @@ interface Props {
   onClose: () => void
 }
 
+// difficulty 1-5 → Mudah/Sedang/Sulit chip (mirrors backend difficultyBand).
+function difficultyChip(d: number) {
+  if (d <= 2) return { label: 'Mudah', bg: '#E7F6E0', color: '#3F7A25' }
+  if (d === 3) return { label: 'Sedang', bg: '#FEF3C7', color: '#92400E' }
+  return { label: 'Sulit', bg: '#FDE2E1', color: '#B4322B' }
+}
+
 export default function ConceptSheet({ concept, chapter, onStart, onClose }: Props) {
   const { panelRef, dragHandlers, sheetStyle } = useSheetDrag(onClose)
+  const diff = difficultyChip(concept.difficulty)
 
   // Focus the tapped node: scroll it to the centre of the visible band above
   // the sheet (between the sticky top stat strip and the sheet's top edge).
@@ -95,6 +103,13 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
             <h2 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
               {concept.nameId}
             </h2>
+            <span
+              className="mt-1.5 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-black"
+              style={{ background: diff.bg, color: diff.color }}
+            >
+              <i className="fa-solid fa-signal" aria-hidden="true" />
+              {diff.label}
+            </span>
           </div>
         </div>
 
