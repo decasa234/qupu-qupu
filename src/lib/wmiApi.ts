@@ -6,6 +6,7 @@ import type {
   WmiChapterTestResult,
   WmiClaireAnswerResult,
   WmiClaireQuestion,
+  WmiClaireRoundReview,
   WmiClaireRoundSummary,
   WmiConceptAttemptInput,
   WmiConceptProgressSummary,
@@ -121,6 +122,14 @@ export async function claireAnswer(
 export async function claireHistory(childId: string): Promise<WmiClaireRoundSummary[]> {
   const response = await api.get('/me/wmi/claire/history', { params: { childId } })
   return unwrap<{ rounds: WmiClaireRoundSummary[] }>(response).rounds
+}
+
+export async function claireRoundReview(
+  childId: string,
+  roundId: string,
+): Promise<WmiClaireRoundReview> {
+  const response = await api.get('/me/wmi/claire/round', { params: { childId, roundId } })
+  return unwrap<{ round: WmiClaireRoundReview }>(response).round
 }
 
 export async function fetchConceptProgress(childId: string, grade: WmiGrade): Promise<WmiConceptProgressSummary> {

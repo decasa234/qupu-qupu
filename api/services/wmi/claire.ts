@@ -1,8 +1,8 @@
 // WMI Claire — isolated warmup drill for a single WMI finalist.
 //
-// Temporary, niche feature: a bounded 10-question round drawn from grade-2
-// difficulty-2 concepts (the hardest available at that grade), always freshly
-// generated so problems never repeat. Fully isolated from the rest of QUPU —
+// Temporary, niche feature: a bounded 10-question round drawn from the hardest
+// concepts (grade-2 difficulty-2 plus every difficulty-3 concept), always
+// freshly generated so problems never repeat. Fully isolated from the rest of QUPU —
 // it does NOT write wmi_attempts, wmi_concept_progress, or any gamification;
 // its only persistence is the claire_drill_rounds table, which stores each
 // round + score so a parent can review a history.
@@ -22,8 +22,6 @@ import type { Breakdown, ConceptLogic } from './concepts/types.js'
 export const CLAIRE_PARENT_EMAILS = ['johan@decasa.co.id', 'vicopratama449@gmail.com']
 
 const ROUND_SIZE = 10
-const CLAIRE_GRADE = 2
-const CLAIRE_DIFFICULTY = 2
 const MAX_GEN_RETRIES = 5
 
 export function hasClaireAccess(email: string | undefined | null): boolean {
@@ -72,6 +70,25 @@ export interface ClaireRoundSummary {
   completed_at: string | null
 }
 
+export interface ClaireReviewItem {
+  index: number
+  concept_name_id: string
+  concept_name_en: string
+  body_id: string
+  body_en: string
+  correct_answer: string
+  selected: string | null
+  is_correct: boolean | null
+}
+
+export interface ClaireRoundReview {
+  id: string
+  score: number | null
+  total: number
+  completed_at: string | null
+  items: ClaireReviewItem[]
+}
+
 type ConceptRow = { slug: string; name_id: string; name_en: string }
 
 function stripAnswer(item: ClaireItem, index: number): ClaireQuestion {
@@ -91,13 +108,13 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 async function pickConceptRows(): Promise<ConceptRow[]> {
+  // Hardest available: grade-2's top band (difficulty 2) plus every
+  // difficulty-3 concept (the genuinely hard grade-3 material).
   const rows = await query<ConceptRow>(
     `SELECT slug, name_id, name_en
        FROM wmi_concepts
       WHERE enabled = TRUE
-        AND $1::SMALLINT = ANY(grades)
-        AND difficulty = $2`,
-    [CLAIRE_GRADE, CLAIRE_DIFFICULTY],
+        AND ((2 = ANY(grades) AND difficulty = 2) OR difficulty >= 3)`,
   )
   if (rows.length === 0) return []
   // Prefer distinct concepts; if the pool is smaller than a round, cycle it.
@@ -261,4 +278,50 @@ export async function getClaireHistory(
       LIMIT 30`,
     [childId],
   )
+}
+
+// Per-round review: every question with the correct answer and what the child
+// picked, so a parent can see the mistakes.
+export async function getClaireRoundReview(
+  parentUserId: string,
+  childId: string,
+  roundId: string,
+): Promise<ClaireRoundReview> {
+  await assertChildOwnership(pool, parentUserId, childId)
+  const round = await queryOne<{
+    id: string
+    child_id: string
+    items: ClaireItem[]
+    responses: Record<string, { selected: string; is_correct: boolean }>
+    score: number | null
+    total: number
+    completed_at: string | null
+  }>(
+    `SELECT id, child_id, items, responses, score, total, completed_at
+       FROM claire_drill_rounds WHERE id = $1`,
+    [roundId],
+  )
+  if (!round || round.child_id !== childId) {
+    throw new Error('Ronde tidak ditemukan.')
+  }
+  const items: ClaireReviewItem[] = round.items.map((it, i) => {
+    const resp = (round.responses ?? {})[String(i)]
+    return {
+      index: i,
+      concept_name_id: it.concept_name_id,
+      concept_name_en: it.concept_name_en,
+      body_id: it.body_id,
+      body_en: it.body_en,
+      correct_answer: it.answer,
+      selected: resp?.selected ?? null,
+      is_correct: resp?.is_correct ?? null,
+    }
+  })
+  return {
+    id: round.id,
+    score: round.score,
+    total: round.total,
+    completed_at: round.completed_at,
+    items,
+  }
 }

@@ -23,6 +23,7 @@ import {
   startClaireRound,
   answerClaireRound,
   getClaireHistory,
+  getClaireRoundReview,
   hasClaireAccess,
 } from '../services/wmi/claire.js'
 import { sendPublicError, sendValidationError } from '../lib/publicError.js'
@@ -45,6 +46,11 @@ const claireAnswerSchema = Joi.object({
   index: Joi.number().integer().min(0).max(50).required(),
   selected: Joi.string().trim().min(1).max(200).required(),
 })
+
+const claireRoundSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  roundId: Joi.string().uuid().required(),
+}).unknown(true)
 
 const childQuerySchema = Joi.object({
   childId: Joi.string().uuid().required(),
@@ -495,6 +501,26 @@ router.get(
       res.json({ success: true, data: { rounds } })
     } catch (error) {
       console.error('WMI claire history error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.get(
+  '/claire/round',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = claireRoundSchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const round = await getClaireRoundReview(req.user.id, value.childId, value.roundId)
+      res.json({ success: true, data: { round } })
+    } catch (error) {
+      console.error('WMI claire round review error:', error)
       sendPublicError(res, error)
     }
   },

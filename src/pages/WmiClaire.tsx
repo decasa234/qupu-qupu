@@ -19,13 +19,14 @@ import WmiExplainer from '../components/wmi/WmiExplainer'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import { getIllustration } from '../components/wmi/concepts/registry'
 import { toIndonesianErrorMessage } from '../lib/errorMessage'
-import { claireStart, claireAnswer, claireHistory } from '../lib/wmiApi'
+import { claireStart, claireAnswer, claireHistory, claireRoundReview } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import type {
   WmiClaireAnswerResult,
   WmiClaireQuestion,
+  WmiClaireRoundReview,
   WmiClaireRoundSummary,
   WmiQuestion,
 } from '../types/wmi'
@@ -55,6 +56,32 @@ export default function WmiClaire() {
   const [history, setHistory] = useState<WmiClaireRoundSummary[]>([])
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
+
+  // Expandable per-round review (mistakes), lazily fetched + cached by round id.
+  const [openReviewId, setOpenReviewId] = useState<string | null>(null)
+  const [reviewCache, setReviewCache] = useState<Record<string, WmiClaireRoundReview>>({})
+  const [reviewLoadingId, setReviewLoadingId] = useState<string | null>(null)
+
+  const toggleReview = useCallback(
+    async (roundId: string) => {
+      if (openReviewId === roundId) {
+        setOpenReviewId(null)
+        return
+      }
+      setOpenReviewId(roundId)
+      if (reviewCache[roundId] || !activeChildId) return
+      setReviewLoadingId(roundId)
+      try {
+        const review = await claireRoundReview(activeChildId, roundId)
+        setReviewCache((prev) => ({ ...prev, [roundId]: review }))
+      } catch {
+        setOpenReviewId(null)
+      } finally {
+        setReviewLoadingId(null)
+      }
+    },
+    [openReviewId, reviewCache, activeChildId],
+  )
 
   const loadHistory = useCallback(async () => {
     if (!activeChildId) return
@@ -207,30 +234,59 @@ export default function WmiClaire() {
             </p>
           ) : (
             <ul className="mt-2 space-y-2">
-              {history.map((r) => (
-                <li
-                  key={r.id}
-                  className="flex items-center gap-3 rounded-[1.25rem] bg-white px-4 py-3 shadow-[0_3px_0_0_#FFD3B1] ring-1 ring-[#FFE3CC]"
-                >
-                  <span
-                    className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-display text-sm font-black ${
-                      (r.score ?? 0) >= 6
-                        ? 'bg-[#E8F5D6] text-[#2D6B00]'
-                        : 'bg-rose-50 text-rose-600'
-                    }`}
+              {history.map((r) => {
+                const open = openReviewId === r.id
+                const review = reviewCache[r.id]
+                return (
+                  <li
+                    key={r.id}
+                    className="overflow-hidden rounded-[1.25rem] bg-white shadow-[0_3px_0_0_#FFD3B1] ring-1 ring-[#FFE3CC]"
                   >
-                    {r.score ?? 0}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-display text-sm font-black text-qupu-brand-blue">
-                      {r.score ?? 0} / {r.total} benar
-                    </span>
-                    <span className="text-[11px] font-bold text-qupu-muted">
-                      {formatWhen(r.completed_at ?? r.created_at)}
-                    </span>
-                  </span>
-                </li>
-              ))}
+                    <button
+                      type="button"
+                      onClick={() => toggleReview(r.id)}
+                      aria-expanded={open}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-left transition-transform active:translate-y-0.5"
+                    >
+                      <span
+                        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-display text-sm font-black ${
+                          (r.score ?? 0) >= 6 ? 'bg-[#E8F5D6] text-[#2D6B00]' : 'bg-rose-50 text-rose-600'
+                        }`}
+                      >
+                        {r.score ?? 0}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-display text-sm font-black text-qupu-brand-blue">
+                          {r.score ?? 0} / {r.total} benar
+                        </span>
+                        <span className="text-[11px] font-bold text-qupu-muted">
+                          {formatWhen(r.completed_at ?? r.created_at)}
+                        </span>
+                      </span>
+                      <i
+                        className={`fa-solid fa-chevron-down flex-shrink-0 text-xs text-qupu-muted/70 transition-transform ${open ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+
+                    {open && (
+                      <div className="border-t border-[#FFE3CC] px-3 py-3">
+                        {reviewLoadingId === r.id && !review ? (
+                          <div className="space-y-2" aria-hidden="true">
+                            {[0, 1, 2].map((i) => (
+                              <Skeleton key={i} className="h-14 rounded-[1rem]" />
+                            ))}
+                          </div>
+                        ) : review ? (
+                          <ReviewList review={review} />
+                        ) : (
+                          <p className="text-xs font-semibold text-qupu-muted">Gagal memuat rincian.</p>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>
@@ -424,6 +480,46 @@ function adaptClaireQuestion(question: WmiClaireQuestion, roundId: string | null
     difficulty: null,
     breakdown: question.breakdown ?? null,
   }
+}
+
+function ReviewList({ review }: { review: WmiClaireRoundReview }) {
+  return (
+    <ul className="space-y-2">
+      {review.items.map((it) => {
+        const wrong = it.is_correct === false
+        return (
+          <li
+            key={it.index}
+            className={`rounded-[1rem] border p-3 ${
+              wrong ? 'border-rose-200 bg-rose-50' : 'border-[#DCEFC6] bg-[#F3FAEA]'
+            }`}
+          >
+            <div className="flex items-start gap-2">
+              <span
+                className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] text-white ${
+                  wrong ? 'bg-rose-400' : 'bg-[#58A700]'
+                }`}
+              >
+                <i className={`fa-solid ${wrong ? 'fa-xmark' : 'fa-check'}`} aria-hidden="true" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-black uppercase tracking-wide text-qupu-muted">
+                  {it.concept_name_id}
+                </p>
+                <p className="mt-0.5 whitespace-pre-line text-xs font-semibold text-qupu-brand-blue">
+                  {it.body_id}
+                </p>
+                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] font-bold">
+                  {wrong && <span className="text-rose-600">Jawab: {it.selected ?? '—'}</span>}
+                  <span className="text-[#2D6B00]">Benar: {it.correct_answer}</span>
+                </div>
+              </div>
+            </div>
+          </li>
+        )
+      })}
+    </ul>
+  )
 }
 
 function QuestionSkeleton() {

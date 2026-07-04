@@ -225,6 +225,25 @@ export interface WmiClaireRoundSummary {
   completed_at: string | null
 }
 
+export interface WmiClaireReviewItem {
+  index: number
+  concept_name_id: string
+  concept_name_en: string
+  body_id: string
+  body_en: string
+  correct_answer: string
+  selected: string | null
+  is_correct: boolean | null
+}
+
+export interface WmiClaireRoundReview {
+  id: string
+  score: number | null
+  total: number
+  completed_at: string | null
+  items: WmiClaireReviewItem[]
+}
+
 export type WmiConceptStatus = 'mastered' | 'in_progress' | 'not_started'
 
 export interface WmiConceptProgress {
