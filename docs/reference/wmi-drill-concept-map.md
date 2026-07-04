@@ -1,35 +1,21 @@
 # WMI drill concept map
 
-Total questions: 1050. Covered: 559. Uncovered: 491.
-Concepts exercised: 67 / 72. Recovered mis-marked gaps: 0.
-Uncovered clusters: 363 (491 questions). Buildable (>=3): 27.
+Total questions: 1050. Covered: 615. Uncovered: 435.
+Concepts exercised: 75 / 80. Recovered mis-marked gaps: 0.
+Uncovered clusters: 349 (435 questions). Buildable (>=3): 13.
 
 ## Buildable gap concepts (>=3 drill questions) — the Phase-2 candidate list
 | proposed concept | count | build? | examples |
 | --- | --- | --- | --- |
-| algebraic-substitution-puzzle | 9 | BUILD | 2020-semifinal-g1 #12 (g1); 2020-semifinal-g2 #10 (g2); 2020-semifinal-g2 #13 (g2); 2020-semifinal-g3 #13 (g3); 2020-semifinal-g3 #18 (g3) |
-| symbol-equation-solve | 8 | BUILD | 2019-semifinal-g2 #19 (g2); 2019-semifinal-g2 #20 (g2); 2019-semifinal-g3 #15 (g3); 2019-semifinal-g3 #16 (g3); 2019-final-g1 #18 (g1) |
 | grid-sum-solve | 5 | BUILD | 2024-semifinal-g1 #24 (g1); 2024-final-g1 #21 (g1); 2024-final-g1 #25 (g1); 2024-final-g2 #25 (g2); 2024-final-g3 #25 (g3) |
 | composite-shape-perimeter | 4 | BUILD | 2019-semifinal-g3 #6 (g3); 2019-semifinal-g3 #13 (g3); 2019-final-g3 #14 (g3); 2023-final-g3 #4 (g3) |
 | cage-grid-latin-square | 4 | BUILD | 2019-semifinal-g3 #25 (g3); 2019-final-g1 #24 (g1); 2019-final-g2 #24 (g2); 2019-final-g3 #24 (g3) |
 | number-grid-sum-puzzle | 4 | BUILD | 2022-semifinal-g1 #21 (g1); 2022-semifinal-g2 #21 (g2); 2022-semifinal-g3 #21 (g3); 2022-final-g3 #25 (g3) |
-| evaluate-and-compare-expressions | 4 | BUILD | 2023-semifinal-g1 #2 (g1); 2023-semifinal-g1 #12 (g1); 2023-semifinal-g2 #13 (g2); 2023-final-g1 #2 (g1) |
-| rank-computed-expressions | 4 | BUILD | 2025-semifinal-g1 #8 (g1); 2025-final-g1 #4 (g1); 2025-final-g2 #1 (g2); 2025-final-g2 #15 (g2) |
-| painted-cube-faces-count | 4 | BUILD | 2025-semifinal-g1 #18 (g1); 2025-semifinal-g2 #19 (g2); 2025-semifinal-g3 #19 (g3); 2025-final-g2 #17 (g2) |
-| consecutive-sum-formula | 3 | BUILD | 2019-semifinal-g3 #19 (g3); 2019-final-g1 #16 (g1); 2019-final-g2 #16 (g2) |
-| lock-code-deduction | 3 | BUILD | 2019-final-g1 #23 (g1); 2019-final-g2 #22 (g2); 2019-final-g3 #21 (g3) |
-| shared-factor-shortcut | 3 | BUILD | 2019-final-g2 #6 (g2); 2019-final-g3 #10 (g3); 2019-final-g3 #16 (g3) |
-| cryptarithmetic-addition | 3 | BUILD | 2020-semifinal-g3 #12 (g3); 2020-semifinal-g3 #23 (g3); 2020-final-g3 #13 (g3) |
-| calendar-date-clue | 3 | BUILD | 2021-semifinal-g1 #6 (g1); 2021-semifinal-g3 #15 (g3); 2021-final-g2 #4 (g2) |
 | number-square-chain | 3 | BUILD | 2021-semifinal-g1 #21 (g1); 2021-semifinal-g2 #22 (g2); 2021-final-g2 #22 (g2) |
 | solid-from-views | 3 | BUILD | 2021-semifinal-g1 #23 (g1); 2021-semifinal-g2 #23 (g2); 2021-final-g2 #23 (g2) |
 | pentomino-tiling-puzzle | 3 | BUILD | 2021-semifinal-g1 #25 (g1); 2021-semifinal-g2 #25 (g2); 2021-final-g2 #25 (g2) |
-| tally-money-total | 3 | BUILD | 2021-final-g2 #11 (g2); 2021-final-g2 #17 (g2); 2021-final-g3 #15 (g3) |
-| calendar-day-reasoning | 3 | BUILD | 2022-semifinal-g1 #9 (g1); 2022-semifinal-g2 #18 (g2); 2022-final-g2 #6 (g2) |
-| shape-symbol-equation-solve | 3 | BUILD | 2022-semifinal-g2 #24 (g2); 2022-semifinal-g3 #19 (g3); 2022-final-g2 #15 (g2) |
 | hole-queue-simulation | 3 | BUILD | 2022-final-g1 #23 (g1); 2022-final-g2 #23 (g2); 2022-final-g3 #23 (g3) |
 | mirror-view-block-count | 3 | BUILD | 2022-final-g1 #24 (g1); 2022-final-g2 #24 (g2); 2022-final-g3 #24 (g3) |
-| container-capacity-allocation | 3 | BUILD | 2023-semifinal-g1 #21 (g1); 2023-semifinal-g3 #12 (g3); 2023-final-g2 #6 (g2) |
 | grid-path-sum-extremes | 3 | BUILD | 2023-semifinal-g1 #23 (g1); 2023-semifinal-g2 #22 (g2); 2023-final-g1 #22 (g1) |
 | puzzle-piece-fit-grid | 3 | BUILD | 2023-semifinal-g1 #25 (g1); 2023-semifinal-g2 #25 (g2); 2023-final-g1 #10 (g1) |
 | grid-position-locate | 3 | BUILD | 2024-semifinal-g1 #6 (g1); 2024-semifinal-g2 #6 (g2); 2024-semifinal-g2 #11 (g2) |
@@ -381,17 +367,18 @@ Uncovered clusters: 363 (491 questions). Buildable (>=3): 27.
 | story-sum | 45 |
 | arithmetic-expression-eval | 29 |
 | missing-addend | 22 |
+| solve-symbol-equations | 20 |
 | count-shapes-in-figure | 18 |
 | alternating-chain-eval | 18 |
 | reverse-arithmetic-puzzle | 17 |
 | pattern-next | 17 |
+| build-number-from-digit-clues | 16 |
 | visual-pattern-next | 16 |
 | block-count-3d | 15 |
 | assignment-cycle | 14 |
 | which-might-be | 14 |
 | weight-balance-word | 14 |
 | position-in-line | 14 |
-| build-number-from-digit-clues | 13 |
 | arrange-digits-to-form-number | 13 |
 | range-count-evaluate | 11 |
 | compare-order-numbers | 11 |
@@ -407,6 +394,7 @@ Uncovered clusters: 363 (491 questions). Buildable (>=3): 27.
 | count-rectangles-grid | 8 |
 | rectangle-area-grid | 8 |
 | scale-read | 8 |
+| rank-computed-expressions | 8 |
 | number-line-jumps | 7 |
 | fraction-of-region | 7 |
 | dice-opposite-faces | 7 |
@@ -418,6 +406,7 @@ Uncovered clusters: 363 (491 questions). Buildable (>=3): 27.
 | same-figure-identify | 6 |
 | clock-read-time | 6 |
 | odd-even-reasoning | 6 |
+| calendar-day-reasoning | 6 |
 | venn-set-membership | 6 |
 | mistaken-digit-correction | 5 |
 | digit-frequency | 5 |
@@ -425,15 +414,20 @@ Uncovered clusters: 363 (491 questions). Buildable (>=3): 27.
 | unit-conversion | 5 |
 | shape-perimeter-square | 5 |
 | perfect-square-search | 5 |
+| money-coins-total | 5 |
 | more-or-less-by-k | 4 |
 | place-value | 4 |
 | dice-net-fold | 4 |
 | find-number-by-digit-sum | 4 |
+| painted-cube-faces-count | 4 |
 | multiplication-small | 3 |
+| consecutive-integer-sum | 3 |
+| common-factor-shortcut | 3 |
+| cryptarithmetic-addition | 3 |
+| container-capacity-allocation | 3 |
 | distance-rate-time | 3 |
 | grid-path-steps | 2 |
 | sum-partition-split | 2 |
-| money-coins-total | 2 |
 | legs-items-rate | 2 |
 | money-shopping-change | 2 |
 | budget-selection | 2 |

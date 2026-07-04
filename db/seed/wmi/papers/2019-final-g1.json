@@ -143,7 +143,7 @@
         "quantities": [
           { "label_en": "Numbers to compare", "label_id": "Bilangan yang dibandingkan", "value": "37, 73, 56, 65" }
         ],
-        "strategy": { "name_en": "Compare the tens digit first", "name_id": "Bandingkan angka puluhan dulu" },
+        "strategy": { "conceptSlug": "compare-order-numbers", "name_en": "Compare the tens digit first", "name_id": "Bandingkan angka puluhan dulu" },
         "trap": {
           "wrong": "37",
           "why_en": "37 has the same digits as 73 but flipped — only 73 has 7 in the tens place.",
@@ -204,7 +204,7 @@
           { "label_en": "Step size", "label_id": "Besar lompatan", "value": "+4" },
           { "label_en": "Sequence", "label_id": "Barisan", "value": "56, 60, 64, 68, 72, 76, 80" }
         ],
-        "strategy": { "name_en": "Find the +4 pattern and count along", "name_id": "Cari pola +4 lalu hitung sepanjang barisan" },
+        "strategy": { "conceptSlug": "number-line-jumps", "name_en": "Find the +4 pattern and count along", "name_id": "Cari pola +4 lalu hitung sepanjang barisan" },
         "trap": {
           "wrong": "70",
           "why_en": "70 jumps by tens, but the real pattern adds 4 each time.",
@@ -333,7 +333,7 @@
           { "label_en": "Birds now", "label_id": "Burung sekarang", "value": "13" },
           { "label_en": "Birds that came", "label_id": "Burung yang datang", "value": "5" }
         ],
-        "strategy": { "name_en": "Work backwards: subtract what was added", "name_id": "Mundur: kurangi yang ditambahkan" },
+        "strategy": { "conceptSlug": "missing-addend", "name_en": "Work backwards: subtract what was added", "name_id": "Mundur: kurangi yang ditambahkan" },
         "trap": {
           "wrong": "10",
           "why_en": "Do not add 5 + 13 or guess a round number — take 5 away from 13 to get 8.",
@@ -395,7 +395,7 @@
           { "label_en": "Minute hand points to", "label_id": "Jarum menit ke", "value": "6 (= 30 min)" },
           { "label_en": "Hour hand near", "label_id": "Jarum jam dekat", "value": "12" }
         ],
-        "strategy": { "name_en": "Read the hour hand, then the minute hand", "name_id": "Baca jarum jam, lalu jarum menit" },
+        "strategy": { "conceptSlug": "clock-read-time", "name_en": "Read the hour hand, then the minute hand", "name_id": "Baca jarum jam, lalu jarum menit" },
         "trap": {
           "wrong": "12:06",
           "why_en": "The long hand on 6 means 30 minutes, not 6 minutes.",
@@ -455,7 +455,7 @@
         "quantities": [
           { "label_en": "Target value", "label_id": "Nilai yang dicari", "value": "9" }
         ],
-        "strategy": { "name_en": "Work out each choice and check for 9", "name_id": "Hitung tiap pilihan lalu cari yang 9" },
+        "strategy": { "conceptSlug": "which-expression-equals", "name_en": "Work out each choice and check for 9", "name_id": "Hitung tiap pilihan lalu cari yang 9" },
         "trap": {
           "wrong": "3 + 7",
           "why_en": "3 + 7 = 10, which is close to 9 but not equal — only 10 - 1 = 9.",
@@ -584,7 +584,7 @@
           { "label_en": "Starting floor", "label_id": "Lantai awal", "value": "12" },
           { "label_en": "Floors up", "label_id": "Lantai naik", "value": "6" }
         ],
-        "strategy": { "name_en": "Going up means add", "name_id": "Naik berarti menambah" },
+        "strategy": { "conceptSlug": "more-or-less-by-k", "name_en": "Going up means add", "name_id": "Naik berarti menambah" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -642,7 +642,7 @@
           { "label_en": "Step size", "label_id": "Besar lompatan", "value": "+1" },
           { "label_en": "Just before ★", "label_id": "Tepat sebelum ★", "value": "66" }
         ],
-        "strategy": { "name_en": "Count up by 1 along the row", "name_id": "Hitung naik 1 di sepanjang baris" },
+        "strategy": { "conceptSlug": "number-line-jumps", "name_en": "Count up by 1 along the row", "name_id": "Hitung naik 1 di sepanjang baris" },
         "trap": {
           "wrong": "66",
           "why_en": "66 is the number just before ★ — go one more step to reach 67.",
@@ -703,7 +703,7 @@
         "quantities": [
           { "label_en": "Sides must be", "label_id": "Kedua sisi harus", "value": "equal" }
         ],
-        "strategy": { "name_en": "Balance means both sides are equal", "name_id": "Seimbang berarti kedua sisi sama" },
+        "strategy": { "conceptSlug": "weight-balance-word", "name_en": "Balance means both sides are equal", "name_id": "Seimbang berarti kedua sisi sama" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -767,7 +767,7 @@
           { "label_en": "Range", "label_id": "Rentang", "value": "50 to 90" },
           { "label_en": "Tens digit", "label_id": "Angka puluhan", "value": "3 x units" }
         ],
-        "strategy": { "name_en": "Try each units digit until both rules fit", "name_id": "Coba tiap angka satuan sampai kedua aturan cocok" },
+        "strategy": { "conceptSlug": "build-number-from-digit-clues", "name_en": "Try each units digit until both rules fit", "name_id": "Coba tiap angka satuan sampai kedua aturan cocok" },
         "trap": {
           "wrong": "A",
           "why_en": "31 has tens = 3 times units, but 31 is not between 50 and 90.",
@@ -830,7 +830,7 @@
           { "label_en": "6 in the ones place", "label_id": "Angka 6 di satuan", "value": "5 (56, 66, 76, 86, 96)" },
           { "label_en": "6 in the tens place", "label_id": "Angka 6 di puluhan", "value": "10 (60 to 69)" }
         ],
-        "strategy": { "name_en": "Count 6's in the ones place and the tens place", "name_id": "Hitung angka 6 di satuan dan di puluhan" },
+        "strategy": { "conceptSlug": "digit-frequency", "name_en": "Count 6's in the ones place and the tens place", "name_id": "Hitung angka 6 di satuan dan di puluhan" },
         "trap": {
           "wrong": "D",
           "why_en": "10 only counts the tens-place 6's (60 to 69) and forgets the ones-place 6's.",
@@ -891,7 +891,7 @@
           { "label_en": "Numbers", "label_id": "Bilangan", "value": "12, 6, 7" },
           { "label_en": "Target answer", "label_id": "Hasil yang dicari", "value": "13" }
         ],
-        "strategy": { "name_en": "Try each pair of signs until it makes 13", "name_id": "Coba tiap pasang tanda sampai hasilnya 13" },
+        "strategy": { "conceptSlug": "operator-fill", "name_en": "Try each pair of signs until it makes 13", "name_id": "Coba tiap pasang tanda sampai hasilnya 13" },
         "trap": {
           "wrong": "A",
           "why_en": "+ , + gives 12 + 6 + 7 = 25, which is too big — only - , + makes 13.",
@@ -953,7 +953,7 @@
           { "label_en": "Shape kinds to count", "label_id": "Jenis bangun dihitung", "value": "circle, square, triangle, bar" },
           { "label_en": "Correct counts", "label_id": "Hitungan benar", "value": "10, 7, 4, 6" }
         ],
-        "strategy": { "name_en": "Count one shape type at a time, then match the chart", "name_id": "Hitung satu jenis bangun sekaligus, lalu cocokkan diagram" },
+        "strategy": { "conceptSlug": "count-shapes-in-figure", "name_en": "Count one shape type at a time, then match the chart", "name_id": "Hitung satu jenis bangun sekaligus, lalu cocokkan diagram" },
         "trap": {
           "wrong": "A",
           "why_en": "A looks almost right but says 8 squares — careful counting gives only 7.",
@@ -1001,7 +1001,7 @@
         "quantities": [
           { "label_en": "Numbers to add", "label_id": "Bilangan dijumlahkan", "value": "68, 58, 48, 38, 28" }
         ],
-        "strategy": { "name_en": "Same units: multiply them, then add the tens", "name_id": "Satuan sama: kalikan, lalu jumlahkan puluhannya" },
+        "strategy": { "conceptSlug": "consecutive-integer-sum", "name_en": "Same units: multiply them, then add the tens", "name_id": "Satuan sama: kalikan, lalu jumlahkan puluhannya" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "240" }
       }
@@ -1046,7 +1046,7 @@
         "quantities": [
           { "label_en": "Count by", "label_id": "Hitung berdasarkan", "value": "each size" }
         ],
-        "strategy": { "name_en": "Group squares by size and add them up", "name_id": "Kelompokkan persegi per ukuran lalu jumlahkan" },
+        "strategy": { "conceptSlug": "count-rectangles-grid", "name_en": "Group squares by size and add them up", "name_id": "Kelompokkan persegi per ukuran lalu jumlahkan" },
         "trap": {
           "wrong": "9",
           "why_en": "Counting only the small squares misses the bigger squares made of several small ones.",
@@ -1096,7 +1096,7 @@
           { "label_en": "Shapes to find", "label_id": "Bentuk yang dicari", "value": "triangle, star" },
           { "label_en": "Clues given", "label_id": "Petunjuk diberikan", "value": "3 totals" }
         ],
-        "strategy": { "name_en": "Find each shape's value, then add them", "name_id": "Cari nilai tiap bentuk, lalu jumlahkan" },
+        "strategy": { "conceptSlug": "solve-symbol-equations", "name_en": "Find each shape's value, then add them", "name_id": "Cari nilai tiap bentuk, lalu jumlahkan" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "13" }
       }
@@ -1141,7 +1141,7 @@
         "quantities": [
           { "label_en": "Target cell", "label_id": "Kotak yang dicari", "value": "★" }
         ],
-        "strategy": { "name_en": "Find the step rule, then follow it to the star", "name_id": "Cari aturan lompatan, lalu ikuti sampai bintang" },
+        "strategy": { "conceptSlug": "number-line-jumps", "name_en": "Find the step rule, then follow it to the star", "name_id": "Cari aturan lompatan, lalu ikuti sampai bintang" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "33" }
       }
@@ -1193,7 +1193,7 @@
           { "label_en": "Digits allowed", "label_id": "Angka boleh dipakai", "value": "1, 2, 3, 4" },
           { "label_en": "Sorted list", "label_id": "Daftar terurut", "value": "12, 13, 14, 21, 23, ..." }
         ],
-        "strategy": { "name_en": "List the numbers smallest first, then count to the fifth", "name_id": "Susun dari terkecil, lalu hitung sampai yang kelima" },
+        "strategy": { "conceptSlug": "arrange-digits-to-form-number", "name_en": "List the numbers smallest first, then count to the fifth", "name_id": "Susun dari terkecil, lalu hitung sampai yang kelima" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "23" }
       }
@@ -1245,7 +1245,7 @@
           { "label_en": "Numbers given", "label_id": "Bilangan diberikan", "value": "1, 5, 6, 9, 13, 17, 21" },
           { "label_en": "Steady step", "label_id": "Lompatan tetap", "value": "+4" }
         ],
-        "strategy": { "name_en": "Find the steady +4 step and spot the misfit", "name_id": "Cari lompatan tetap +4 dan temukan yang tak cocok" },
+        "strategy": { "conceptSlug": "pattern-next", "name_en": "Find the steady +4 step and spot the misfit", "name_id": "Cari lompatan tetap +4 dan temukan yang tak cocok" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "6" }
       }
@@ -1351,7 +1351,7 @@
           { "label_en": "Code length", "label_id": "Panjang kode", "value": "3 digits" },
           { "label_en": "Ruled out", "label_id": "Dicoret", "value": "1, 3, 4, 6, 8" }
         ],
-        "strategy": { "name_en": "Cross out the bad digits, then test what's left against every clue", "name_id": "Coret angka yang salah, lalu uji sisanya pada tiap petunjuk" },
+        "strategy": { "conceptSlug": "build-number-from-digit-clues", "name_en": "Cross out the bad digits, then test what's left against every clue", "name_id": "Coret angka yang salah, lalu uji sisanya pada tiap petunjuk" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "527" }
       }

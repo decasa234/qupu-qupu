@@ -77,7 +77,7 @@
           { "label_en": "Take away", "label_id": "Dikurangi", "value": "23 + 203 + 2023 = 2249" },
           { "label_en": "Result", "label_id": "Hasil", "value": "10000 − 2249 = 7751" }
         ],
-        "strategy": { "name_en": "Add the parts you subtract, then subtract once", "name_id": "Jumlahkan bagian yang dikurangkan, lalu kurangi sekali" },
+        "strategy": { "conceptSlug": "arithmetic-expression-eval", "name_en": "Add the parts you subtract, then subtract once", "name_id": "Jumlahkan bagian yang dikurangkan, lalu kurangi sekali" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -196,7 +196,7 @@
           { "label_en": "Tue/Thu", "label_id": "Sel/Kam", "value": "2 × 3/12 = 6/12 L" },
           { "label_en": "Total", "label_id": "Total", "value": "3/12 + 6/12 = 9/12 L" }
         ],
-        "strategy": { "name_en": "Count each day's milk, then add the twelfths", "name_id": "Hitung susu tiap hari, lalu jumlahkan per dua belas" },
+        "strategy": { "conceptSlug": "story-sum", "name_en": "Count each day's milk, then add the twelfths", "name_id": "Hitung susu tiap hari, lalu jumlahkan per dua belas" },
         "trap": { "wrong": "A", "why_en": "6/12 forgets the three 1/12 days — add all five days.", "why_id": "6/12 melupakan tiga hari 1/12 — jumlahkan kelima hari." },
         "answer": { "form": "choice", "unit": null, "value": "E" }
       }
@@ -560,7 +560,7 @@
           { "label_en": "Smallest", "label_id": "Terkecil", "value": "190537" },
           { "label_en": "M and digit sum", "label_id": "M dan jumlah angka", "value": "602973 → 6+0+2+9+7+3 = 27" }
         ],
-        "strategy": { "name_en": "Build the biggest and smallest, subtract, add the digits", "name_id": "Bentuk terbesar dan terkecil, kurangi, jumlahkan angkanya" },
+        "strategy": { "conceptSlug": "build-number-from-digit-clues", "name_en": "Build the biggest and smallest, subtract, add the digits", "name_id": "Bentuk terbesar dan terkecil, kurangi, jumlahkan angkanya" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -618,7 +618,7 @@
           { "label_en": "Correct dividend", "label_id": "Bilangan benar", "value": "3456 → 4356" },
           { "label_en": "Correct quotient", "label_id": "Hasil bagi benar", "value": "4356 ÷ 6 = 726" }
         ],
-        "strategy": { "name_en": "Rebuild the wrong dividend, un-swap, divide again", "name_id": "Bangun ulang bilangan salah, tukar kembali, bagi lagi" },
+        "strategy": { "conceptSlug": "reverse-arithmetic-puzzle", "name_en": "Rebuild the wrong dividend, un-swap, divide again", "name_id": "Bangun ulang bilangan salah, tukar kembali, bagi lagi" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -815,7 +815,7 @@
           { "label_en": "Second numeral", "label_id": "Bilangan kedua", "value": "3 4̄ 7̄ 1 = 3000 − 400 − 70 + 1 = 2531" },
           { "label_en": "Difference", "label_id": "Selisih", "value": "4824 − 2531 = 2293" }
         ],
-        "strategy": { "name_en": "Translate each tribe numeral to an ordinary number, then subtract", "name_id": "Terjemahkan tiap bilangan suku ke bilangan biasa, lalu kurangkan" },
+        "strategy": { "conceptSlug": "custom-operation", "name_en": "Translate each tribe numeral to an ordinary number, then subtract", "name_id": "Terjemahkan tiap bilangan suku ke bilangan biasa, lalu kurangkan" },
         "trap": { "wrong": "A", "why_en": "1765 = 5236 − 3471 as if there were no bars — the barred digits must be subtracted before computing.", "why_id": "1765 = 5236 − 3471 seolah tanpa garis — angka bergaris harus dikurangkan dulu sebelum menghitung." },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -874,7 +874,7 @@
           { "label_en": "Colour cycle", "label_id": "Siklus warna", "value": "white, white, gray, black" },
           { "label_en": "Missing two", "label_id": "Dua yang hilang", "value": "white heptagon, gray square" }
         ],
-        "strategy": { "name_en": "Find the shape cycle and the colour cycle, then extend both", "name_id": "Cari siklus bentuk dan siklus warna, lalu lanjutkan keduanya" },
+        "strategy": { "conceptSlug": "visual-pattern-next", "name_en": "Find the shape cycle and the colour cycle, then extend both", "name_id": "Cari siklus bentuk dan siklus warna, lalu lanjutkan keduanya" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -911,7 +911,7 @@
           { "label_en": "Expand & cancel", "label_id": "Jabarkan & coret", "value": "2023×2420 cancels" },
           { "label_en": "Result", "label_id": "Hasil", "value": "2023 + 2420 + 1 = 4444" }
         ],
-        "strategy": { "name_en": "Rewrite each factor as one-more, expand, cancel the big product", "name_id": "Tulis tiap faktor sebagai satu-lebih, jabarkan, coret hasil kali besar" },
+        "strategy": { "conceptSlug": "arithmetic-expression-eval", "name_en": "Rewrite each factor as one-more, expand, cancel the big product", "name_id": "Tulis tiap faktor sebagai satu-lebih, jabarkan, coret hasil kali besar" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "4444" }
       }
@@ -1312,7 +1312,7 @@
           { "label_en": "Rule", "label_id": "Aturan", "value": "straight or right turn only" },
           { "label_en": "Least squares", "label_id": "Kotak paling sedikit", "value": "31 (with 5 forced repeats)" }
         ],
-        "strategy": { "name_en": "Trace the only legal route, counting every square including forced repeats", "name_id": "Telusuri satu-satunya rute sah, hitung setiap kotak termasuk pengulangan terpaksa" },
+        "strategy": { "conceptSlug": "maze-path-shortest", "name_en": "Trace the only legal route, counting every square including forced repeats", "name_id": "Telusuri satu-satunya rute sah, hitung setiap kotak termasuk pengulangan terpaksa" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "31" }
       }

@@ -127,7 +127,7 @@
           { "label_en": "D", "label_id": "D", "value": "7" },
           { "label_en": "E", "label_id": "E", "value": "12" }
         ],
-        "strategy": { "name_en": "Work out every expression, then pick the smallest", "name_id": "Hitung setiap perhitungan, lalu pilih yang terkecil" },
+        "strategy": { "conceptSlug": "rank-computed-expressions", "name_en": "Work out every expression, then pick the smallest", "name_id": "Hitung setiap perhitungan, lalu pilih yang terkecil" },
         "trap": { "wrong": "D", "why_en": "14 − 4 − 3 = 7 is small, but 8 + 7 − 10 = 5 is even smaller.", "why_id": "14 − 4 − 3 = 7 memang kecil, tetapi 8 + 7 − 10 = 5 lebih kecil lagi." },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -345,7 +345,7 @@
           { "label_en": "Spent", "label_id": "Dibelanjakan", "value": "9 + 14 = 23" },
           { "label_en": "Change", "label_id": "Kembalian", "value": "50 − 23 = 27" }
         ],
-        "strategy": { "name_en": "Find the change, then match it to an option", "name_id": "Cari kembaliannya, lalu cocokkan dengan pilihan" },
+        "strategy": { "conceptSlug": "money-shopping-change", "name_en": "Find the change, then match it to an option", "name_id": "Cari kembaliannya, lalu cocokkan dengan pilihan" },
         "trap": { "wrong": "D", "why_en": "$20 + $1 + $1 + $1 = 23 is what he spent, not the change. The change is 27.", "why_id": "$20 + $1 + $1 + $1 = 23 adalah yang ia belanjakan, bukan kembalian. Kembaliannya 27." },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -396,7 +396,7 @@
           { "label_en": "Least frequent", "label_id": "Paling jarang", "value": "4 (3 times)" },
           { "label_en": "Difference", "label_id": "Selisih", "value": "10 − 4 = 6" }
         ],
-        "strategy": { "name_en": "Tally each number, then subtract the two values", "name_id": "Hitung tiap bilangan, lalu kurangkan kedua nilainya" },
+        "strategy": { "conceptSlug": "digit-frequency", "name_en": "Tally each number, then subtract the two values", "name_id": "Hitung tiap bilangan, lalu kurangkan kedua nilainya" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "E" }
       }
@@ -467,7 +467,7 @@
           { "label_en": "Mary after", "label_id": "Mary setelah", "value": "14 − 5 + 3 = 12" },
           { "label_en": "Denny after", "label_id": "Denny setelah", "value": "9 − 3 + 5 = 11" }
         ],
-        "strategy": { "name_en": "Count each person after the trade, then compare", "name_id": "Hitung tiap orang setelah penukaran, lalu bandingkan" },
+        "strategy": { "conceptSlug": "story-sum", "name_en": "Count each person after the trade, then compare", "name_id": "Hitung tiap orang setelah penukaran, lalu bandingkan" },
         "trap": { "wrong": "C", "why_en": "Trading 5 for 3 makes it look like Denny wins, but Mary still has 12 to Denny's 11.", "why_id": "Menukar 5 dengan 3 seakan membuat Denny menang, tetapi Mary tetap punya 12 lawan 11 milik Denny." },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -597,7 +597,7 @@
           { "label_en": "Left side", "label_id": "Sisi kiri", "value": "9 − 4 = 5" },
           { "label_en": "Right side", "label_id": "Sisi kanan", "value": "6 − 3 + 2 = 5" }
         ],
-        "strategy": { "name_en": "Pick the left value, then match the right side to it", "name_id": "Tentukan nilai kiri, lalu samakan sisi kanan dengannya" },
+        "strategy": { "conceptSlug": "operator-fill", "name_en": "Pick the left value, then match the right side to it", "name_id": "Tentukan nilai kiri, lalu samakan sisi kanan dengannya" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "E" }
       }
@@ -714,7 +714,7 @@
           { "label_en": "Target unit", "label_id": "Satuan yang dicari", "value": "7" },
           { "label_en": "Position", "label_id": "Posisi", "value": "32" }
         ],
-        "strategy": { "name_en": "Count stars per unit, find the right unit, then the position", "name_id": "Hitung bintang per satuan, cari satuan yang tepat, lalu posisinya" },
+        "strategy": { "conceptSlug": "assignment-cycle", "name_en": "Count stars per unit, find the right unit, then the position", "name_id": "Hitung bintang per satuan, cari satuan yang tepat, lalu posisinya" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -948,7 +948,7 @@
           { "label_en": "25th", "label_id": "ke-25", "value": "remainder 1 → red" },
           { "label_en": "50th", "label_id": "ke-50", "value": "remainder 2 → blue" }
         ],
-        "strategy": { "name_en": "Divide by 4 and use the remainder to pick the color", "name_id": "Bagi dengan 4 dan gunakan sisanya untuk memilih warna" },
+        "strategy": { "conceptSlug": "assignment-cycle", "name_en": "Divide by 4 and use the remainder to pick the color", "name_id": "Bagi dengan 4 dan gunakan sisanya untuk memilih warna" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -993,7 +993,7 @@
           { "label_en": "■", "label_id": "■", "value": "17" },
           { "label_en": "★", "label_id": "★", "value": "8" }
         ],
-        "strategy": { "name_en": "Work down the chain: ● then ■ then ★", "name_id": "Telusuri rantainya: ● lalu ■ lalu ★" },
+        "strategy": { "conceptSlug": "missing-addend", "name_en": "Work down the chain: ● then ■ then ★", "name_id": "Telusuri rantainya: ● lalu ■ lalu ★" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "8" }
       }
@@ -1136,7 +1136,7 @@
           { "label_en": "2×2 squares", "label_id": "Persegi 2×2", "value": "8" },
           { "label_en": "3×3 squares", "label_id": "Persegi 3×3", "value": "4" }
         ],
-        "strategy": { "name_en": "Count squares of each size that hold exactly one star", "name_id": "Hitung persegi tiap ukuran yang memuat tepat satu bintang" },
+        "strategy": { "conceptSlug": "count-rectangles-grid", "name_en": "Count squares of each size that hold exactly one star", "name_id": "Hitung persegi tiap ukuran yang memuat tepat satu bintang" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "18" }
       }
@@ -1414,7 +1414,7 @@
         "quantities": [
           { "label_en": "Squares passed", "label_id": "Kotak dilewati", "value": "20" }
         ],
-        "strategy": { "name_en": "Trace the shortest right-turn-only route, counting repeats", "name_id": "Telusuri rute terpendek hanya-belok-kanan, hitung yang berulang" },
+        "strategy": { "conceptSlug": "maze-path-shortest", "name_en": "Trace the shortest right-turn-only route, counting repeats", "name_id": "Telusuri rute terpendek hanya-belok-kanan, hitung yang berulang" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "20" }
       }
