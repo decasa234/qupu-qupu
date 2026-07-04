@@ -6,21 +6,15 @@
   "title": "WMI 2022 Grade 1 Final",
   "recommended_duration_min": 60,
   "review": {
-    "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q9 (1 banana = 3 strawberries → 6 = 2 bananas), Q13 (only 11/12/14 in (10,15)), Q17 (unique trio 13+39+48=100 → 133948), Q20 (☼ rule → 21), Q21 (dial walk on rim 0/3/1/9/2/7/6/4/8/5 → 93128). All 17 figures (.jpg) present. Figure-dependent answers checked for internal consistency, not pixel-compared to scans. Two minor nits below.",
+    "status": "ok",
+    "reviewed_on": "2026-07-03",
+    "summary": "Full re-review of all 25 with scans + brute-force scripts. Script-verified: Q8 (34-cube 4/6-row slab, max 3×1 packing = 10, bound 11 impossible), Q17 (unique trio 13+39+48), Q19 (exact line-arrangement enumeration = 16 triangles, 6+6+4 by band), Q21 (ring 0,3,1,9,2,7,6,4,8,5 → 93128), Q22 (unique knight tour, ★ = 9), Q24 (mirror-decode has a unique white count = 3). Fixed this pass: Q9 choice D text corrected to match the scan (1 banana + 2 strawberries, was 1+1); Q12 trap retargeted to real distractor 18; Q24 component rebuilt (iso solid was a 3-2-1 staircase contradicting the scan's 2,3,2 back-mirror; now the correct 12-cube lattice, plus the explainer's missing <svg> wrapper). Remaining flags: Q25 verified against answer key only — the in-repo scan lacks the numbered piece strip (component built from Paper-B source images no longer in repo) and shows an empty middle row the simplified component omits; Q5/Q7/Q10/Q11 option pictures have no in-repo scans (renderers claim source-image reads, internally consistent with keys).",
     "findings": [
       {
-        "q": 8,
-        "severity": "nit",
-        "gate": "steps",
-        "note": "Answer 10 (max 3×1 blocks) matches the key, but the hint is hand-wavy — 'the model has more than 30 cubes' without the exact count, and it asserts 10 rather than showing a packing/parity argument for why 11 straight blocks can't fit. Strengthen with the real cube total."
-      },
-      {
-        "q": 19,
+        "q": 25,
         "severity": "nit",
         "gate": "figure",
-        "note": "Triangle-count 16 is figure-dependent; the hint just states 'count by size → 16' without an enumeration. Not independently re-counted against the scan this pass."
+        "note": "Answer 725 matches the official key and the component's solver claim, but cannot be independently re-derived: the in-repo scan shows only the 3×3 board (empty middle row, A/B/C in the bottom row, top-row bumps yellow/red/none) while the component models A/B/C directly under the placed row with TOP_ABOVE red/yellow/yellow, built from Paper-B source images that are no longer in the repo."
       }
     ]
   },
@@ -245,7 +239,7 @@
           "why_en": "Giving the spider only 6 legs (like an insect) gives 8 + 6 + 6 = 20. A spider has 8 legs.",
           "why_id": "Memberi laba-laba hanya 6 kaki (seperti serangga) menghasilkan 8 + 6 + 6 = 20. Laba-laba punya 8 kaki."
         },
-        "answer": { "form": "number", "unit": "legs", "value": "22" }
+        "answer": { "form": "choice", "unit": null, "value": "A" }
       }
     },
     {
@@ -553,13 +547,13 @@
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q8.jpg",
       "hint_steps_en": [
         "Each 3×1 block is 3 cubes in a straight line.",
-        "The model has more than 30 cubes — you might guess 11, but they can't all line up into straight threes.",
-        "Fit straight blocks in carefully: the most that fit is 10 (a few cubes are left over)."
+        "The model has 34 cubes, and 34 ÷ 3 is 11 with 1 left over — so 11 is the most you could ever hope for.",
+        "But the cubes sit in rows of 4 and 6, and not all of them can line up into straight threes: packing carefully, the most that fit is 10 blocks (30 cubes), with 4 single cubes left over."
       ],
       "hint_steps_id": [
         "Setiap balok 3×1 adalah 3 kubus dalam satu garis lurus.",
-        "Model punya lebih dari 30 kubus — mungkin kamu menebak 11, tetapi tidak semua bisa berderet bertiga.",
-        "Susun balok lurus dengan hati-hati: paling banyak yang muat adalah 10 (beberapa kubus tersisa)."
+        "Model punya 34 kubus, dan 34 ÷ 3 adalah 11 sisa 1 — jadi 11 adalah harapan paling banyak.",
+        "Tetapi kubusnya tersusun dalam baris 4 dan 6, dan tidak semua bisa berderet bertiga: dengan susunan paling rapat, paling banyak muat 10 balok (30 kubus), dengan 4 kubus tersisa."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -581,8 +575,8 @@
         ],
         "quantities": [
           { "label_en": "Cubes per block", "label_id": "Kubus per balok", "value": "3" },
-          { "label_en": "Cubes in the model", "label_id": "Kubus dalam model", "value": "more than 30" },
-          { "label_en": "Straight blocks that actually fit", "label_id": "Balok lurus yang benar-benar muat", "value": "10 (a few cubes left over)" }
+          { "label_en": "Cubes in the model", "label_id": "Kubus dalam model", "value": "34" },
+          { "label_en": "Straight blocks that actually fit", "label_id": "Balok lurus yang benar-benar muat", "value": "10 (4 cubes left over)" }
         ],
         "strategy": {
           "name_en": "Pack as many straight 3-blocks as fit, then count",
@@ -602,16 +596,16 @@
       "body_id": "Setiap timbangan di bawah dalam keadaan seimbang, jadi kedua sisinya sama berat. Pada timbangan kedua, kelompok buah manakah yang beratnya sama dengan stroberi yang ditunjukkan?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "1 banana and 3 strawberries" },
+        { "label": "A", "text": "1 banana and 4 strawberries" },
         { "label": "B", "text": "2 bananas" },
         { "label": "C", "text": "2 bananas and 1 strawberry" },
-        { "label": "D", "text": "1 banana and 1 strawberry" }
+        { "label": "D", "text": "1 banana and 2 strawberries" }
       ],
       "choices_id": [
-        { "label": "A", "text": "1 pisang dan 3 stroberi" },
+        { "label": "A", "text": "1 pisang dan 4 stroberi" },
         { "label": "B", "text": "2 pisang" },
         { "label": "C", "text": "2 pisang dan 1 stroberi" },
-        { "label": "D", "text": "1 pisang dan 1 stroberi" }
+        { "label": "D", "text": "1 pisang dan 2 stroberi" }
       ],
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q9.jpg",
@@ -668,9 +662,9 @@
           "name_id": "Coret buah yang sama, lalu tukar"
         },
         "trap": {
-          "wrong": "1 banana and 3 strawberries",
-          "why_en": "Forgetting to take the 1 banana off both sides makes 1 banana = 3 strawberries come out wrong — 6 strawberries is really 2 bananas, not 1 banana plus 3 strawberries.",
-          "why_id": "Lupa mengambil 1 pisang dari kedua sisi membuat 1 pisang = 3 stroberi jadi salah — 6 stroberi sebenarnya 2 pisang, bukan 1 pisang ditambah 3 stroberi."
+          "wrong": "1 banana and 4 strawberries",
+          "why_en": "Choice A weighs 3 + 4 = 7 strawberries — it only looks right if you miscount the pyramid as 7 strawberries. The pyramid is 1 + 2 + 3 = 6, and 6 strawberries is exactly 2 bananas.",
+          "why_id": "Pilihan A beratnya 3 + 4 = 7 stroberi — tampak benar hanya kalau piramidanya salah dihitung jadi 7 stroberi. Piramidanya 1 + 2 + 3 = 6, dan 6 stroberi tepat sama dengan 2 pisang."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -890,9 +884,9 @@
           "name_id": "Cari posisi satu anak, hitung sisa barisan, lalu kalikan dua untuk kedua barisan"
         },
         "trap": {
-          "wrong": "9",
-          "why_en": "Adding only the named numbers, 5 + 4, forgets Dan and Paul themselves; one line is 6 + 4 = 10, and there are two lines, so 20.",
-          "why_id": "Menjumlahkan hanya angka yang disebut, 5 + 4, melupakan Dan dan Paul sendiri; satu barisan adalah 6 + 4 = 10, dan ada dua barisan, jadi 20."
+          "wrong": "18",
+          "why_en": "Forgetting Dan and Paul themselves gives 5 + 4 = 9 per line and 9 + 9 = 18; but each line is 5 + 1 + 4 = 10, so the total is 20.",
+          "why_id": "Melupakan Dan dan Paul sendiri memberi 5 + 4 = 9 per barisan dan 9 + 9 = 18; padahal tiap barisan adalah 5 + 1 + 4 = 10, jadi totalnya 20."
         },
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -1352,14 +1346,16 @@
       "answer": "16",
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q19.jpg",
       "hint_steps_en": [
-        "First count only the smallest single triangles, one at a time.",
-        "Don't stop there — bigger triangles are made of several small ones joined; count those too.",
-        "Add every size together: there are 16 triangles in all."
+        "Work band by band, from the top of the tree: in each band count the small triangles first, then the slanted and whole ones.",
+        "Top band: the whole top triangle, the little peak, 2 corner triangles, and 2 tiny ones — 6.",
+        "Middle band: the whole middle triangle, the peak poking into it, 2 big slanted ones, and 2 tiny ones — 6 more.",
+        "Bottom band: the whole bottom triangle, the middle tent, and 2 big slanted ones — 4 more. Total 6 + 6 + 4 = 16."
       ],
       "hint_steps_id": [
-        "Hitung dulu segitiga kecil satuan saja, satu per satu.",
-        "Jangan berhenti — segitiga besar terbentuk dari beberapa segitiga kecil yang digabung; hitung juga.",
-        "Jumlahkan semua ukuran: ada 16 segitiga seluruhnya."
+        "Kerjakan lapis demi lapis dari puncak pohon: di tiap lapis hitung segitiga kecil dulu, lalu yang miring dan yang utuh.",
+        "Lapis atas: segitiga atas utuh, puncak kecil, 2 segitiga pojok, dan 2 yang mungil — 6.",
+        "Lapis tengah: segitiga tengah utuh, puncak yang menjulur ke dalamnya, 2 yang besar miring, dan 2 yang mungil — 6 lagi.",
+        "Lapis bawah: segitiga bawah utuh, tenda di tengah, dan 2 yang besar miring — 4 lagi. Total 6 + 6 + 4 = 16."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1380,9 +1376,10 @@
           }
         ],
         "quantities": [
-          { "label_en": "Smallest single triangles", "label_id": "Segitiga satuan terkecil", "value": "count one at a time" },
-          { "label_en": "Bigger triangles (made of several small)", "label_id": "Segitiga lebih besar (dari beberapa kecil)", "value": "count these too" },
-          { "label_en": "Total of every size", "label_id": "Total semua ukuran", "value": "16" }
+          { "label_en": "Top band (all sizes)", "label_id": "Lapis atas (semua ukuran)", "value": "6" },
+          { "label_en": "Middle band (all sizes)", "label_id": "Lapis tengah (semua ukuran)", "value": "6" },
+          { "label_en": "Bottom band (all sizes)", "label_id": "Lapis bawah (semua ukuran)", "value": "4" },
+          { "label_en": "Total of every size", "label_id": "Total semua ukuran", "value": "6 + 6 + 4 = 16" }
         ],
         "strategy": {
           "name_en": "Count by size: smallest first, then the bigger combined triangles, then add",

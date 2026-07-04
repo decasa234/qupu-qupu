@@ -7,38 +7,32 @@
   "recommended_duration_min": 90,
   "review": {
     "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice + fill-in, 90-min). Strong paper: verified Q2 (max★=4), Q9 (45−1−22=22), Q10 (sheets 4/5/35/57=4), Q12 (25/3+7=1/4 → 25314, unique among options), Q14 (greedy keep → 217, removed 3+8+4=15), Q16 (1521 is the first digit-sum-9 after the 2025; intermediate multiples-of-9 all sum to 18), Q18 (□=6 forced — base-sum 12, only {1,2,3,6} splits with □ largest), Q20 (CCW arcs → loop 426 → A→B=94), Q21 (99N+25=200500 → 2025), Q22 (n−2 ≡ 0 mod 60 → 62), Q24 (bill grid decomposition is unique), Q25 (k=(4v−9)/3 with v≤k forces v=9 → 9 moves). One real concern (Q19) plus figure-dependent nits.",
+    "reviewed_on": "2026-07-04",
+    "summary": "Re-solved all 25 independently (brute-forced Q16/Q18/Q22/Q23/Q24/Q25); all stored answers match except the flagged Q19. Figure components verified cell-by-cell against the 10 scans: Q2/Q8/Q15/Q17/Q20/Q23/Q24 faithful (Q17 now geometry-verified: 66 cubes, 6 free ends -> 60). Fixed this pass: Q5 rope redrawn as the scan's Z-fold (4+2+6=12, was a two-strand 4+8 model); Q11 option C reconstructed as '2 happy' (column expressions alternate H,S,H,S,?,S,H,S,H in the scan, forcing 2 happy; old '1 happy + 1 sad' text made the keyed C unjustifiable); Q23 Photo B reconstructed as '6, ?, ?, 4' (script-enumerated: the only contiguous-window reading of B whose solution is unique AND equals the key 6124735; the old '6, 4 adjacent' reading is provably inconsistent with the key); Q24 static figure no longer leaks the 12 solved white-cell values (scan shows an empty grid).",
     "findings": [
       {
         "q": 19,
         "severity": "warning",
-        "gate": "breakdown",
-        "note": "The breakdown cannot derive its own answer: it models four white cells a/b/c/d = 6/5/7/8 (from 42, 30, 56) and computes one '?' = 5×8 = 40, but then defers the two-'?' sum to the key ('stated answer is 61 (see flag)'). 61−40 = 21, and 21 is not a product of {6,5,7,8} — so the 2×2 model is incomplete and the stated 61 is unverified. Needs the original figure to confirm both the grid shape and the answer."
+        "gate": "answer_key",
+        "note": "Scan shows ONE '?' and forces it to 40 (42/30/56 pinwheel; ?=40 under every factorization), but the body asks for the sum of TWO '?' and the key says 61 - a second sub-grid (its ?=21) is missing from the scan. Answer 61 kept per key; illustration/explainer draw only the scanned grid and state the gap honestly. Needs the original booklet to confirm."
       },
       {
         "q": 13,
-        "severity": "nit",
+        "severity": "warning",
         "gate": "figure",
-        "note": "P/Q/R tiling answer (max 5 copies of R) is entirely figure-driven: pieces-per-Q and pieces-per-R come only from the (absent in text) shapes. needsVisual is false, so a reader without the figure cannot reconstruct it; answer trusted, not re-derived."
+        "note": "No scan exists for the P/Q/R tiling figure and no illustration is registered; pieces-per-Q and pieces-per-R are figure-only, so the answer C(5) is trusted from the key, not re-derived. Do not invent the shapes; needs the original booklet."
       },
       {
-        "q": 17,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Exactly-4-painted-faces = 66 − 6 = 60 hinges on there being exactly 6 end/corner cubes (5 painted faces) across the '2025' solids; that count is figure-dependent and not re-verified against the scan."
+        "q": 11,
+        "severity": "warning",
+        "gate": "answer_key",
+        "note": "Original picture options are not in the scan. The stem (verified cell-by-cell) forces the gap to be a 2-HAPPY column (columns alternate H,S,H,S,?,S,H,S,H). Option C's text was reconstructed as '2 happy (2 faces)' so the keyed letter C is derivable; previous text '1 happy + 1 sad' fit no consistent pattern. Verify against the original options if available."
       },
       {
         "q": 23,
         "severity": "nit",
         "gate": "figure",
-        "note": "Jersey order 6124735 is consistent with all four photo clues, but the relative order of the two middle players (2 vs 4, Photo C '1,?,?,7') is fixed by the figure, not by the text clues alone; uniqueness trusted from the key."
-      },
-      {
-        "q": 24,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Grid solution is unique (verified), but which four cells are the shaded A/B/C/D — giving 50+5+10+5 = 70 — is read from the figure; answer trusted on that placement."
+        "note": "Scan shows only Photo A. Photo B reconstructed as a 4-player window '6, ?, ?, 4' - script-enumerated as the unique window interpretation whose solution is unique and equals the key 6124735."
       }
     ]
   },
@@ -603,14 +597,19 @@
             "value": "about 3 cm to 7 cm = 4 cm"
           },
           {
-            "label_en": "Lower piece",
-            "label_id": "Bagian bawah",
-            "value": "about 5 cm to 11 cm, doubling back over the ruler"
+            "label_en": "Fold-back piece",
+            "label_id": "Lipatan balik",
+            "value": "about 7 cm back to 5 cm = 2 cm"
           },
           {
-            "label_en": "Both pieces end-to-end",
-            "label_id": "Kedua bagian disambung",
-            "value": "about 4 cm + 8 cm = 12 cm -> E"
+            "label_en": "Lower piece",
+            "label_id": "Bagian bawah",
+            "value": "about 5 cm to 11 cm = 6 cm"
+          },
+          {
+            "label_en": "All pieces end-to-end",
+            "label_id": "Semua bagian disambung",
+            "value": "4 + 2 + 6 = 12 cm -> E"
           }
         ],
         "strategy": {
@@ -625,16 +624,16 @@
         }
       },
       "hint_steps_en": [
-        "The rope is two straight pieces laid over the ruler; ignore the curves.",
+        "The rope lies in a Z-fold: three straight pieces over the ruler; ignore the curved turns.",
         "Read each piece by its start and end marks on the ruler.",
-        "The top piece is about 4 cm and the longer piece is about 8 cm.",
-        "Straightened end-to-end: 4 + 8 is about 12 cm (E)."
+        "Top piece: 3 to 7 is about 4 cm; the fold back: 7 to 5 is about 2 cm; bottom piece: 5 to 11 is about 6 cm.",
+        "Straightened end-to-end: 4 + 2 + 6 is about 12 cm (E)."
       ],
       "hint_steps_id": [
-        "Tali terdiri dari dua bagian lurus di atas penggaris; abaikan lengkungannya.",
+        "Tali terlipat bentuk Z: tiga bagian lurus di atas penggaris; abaikan lengkungannya.",
         "Baca tiap bagian dari tanda awal dan akhirnya di penggaris.",
-        "Bagian atas sekitar 4 cm dan bagian yang lebih panjang sekitar 8 cm.",
-        "Diluruskan dan disambung: 4 + 8 sekitar 12 cm (E)."
+        "Bagian atas: 3 ke 7 sekitar 4 cm; lipatan balik: 7 ke 5 sekitar 2 cm; bagian bawah: 5 ke 11 sekitar 6 cm.",
+        "Diluruskan dan disambung: 4 + 2 + 6 sekitar 12 cm (E)."
       ]
     },
     {
@@ -1262,7 +1261,7 @@
         },
         {
           "label": "C",
-          "text": "1 happy + 1 sad (2 faces)"
+          "text": "2 happy (2 faces)"
         },
         {
           "label": "D",
@@ -1284,7 +1283,7 @@
         },
         {
           "label": "C",
-          "text": "1 senang + 1 sedih (2 wajah)"
+          "text": "2 senang (2 wajah)"
         },
         {
           "label": "D",
@@ -1327,14 +1326,14 @@
             "value": "that slot has height 2 -> 2 faces"
           },
           {
-            "label_en": "Faces alternate happy/sad",
-            "label_id": "Wajah selang-seling senang/sedih",
-            "value": "the 2-face slot is 1 happy + 1 sad"
+            "label_en": "Columns alternate happy/sad",
+            "label_id": "Kolom selang-seling senang/sedih",
+            "value": "H, S, H, S, ?, S, H, S, H -> the gap is a happy column"
           },
           {
             "label_en": "Best fit",
             "label_id": "Paling cocok",
-            "value": "1 happy + 1 sad (2 faces) -> C"
+            "value": "2 happy (2 faces) -> C"
           }
         ],
         "strategy": {
@@ -1342,9 +1341,9 @@
           "name_id": "Baca kelompok berulang, temukan celah, lalu cocokkan ukuran dan wajahnya"
         },
         "trap": {
-          "wrong": "E",
-          "why_en": "3 sad faces is too tall - the gap sits in the height-2 slot of the pattern, not a height-3 one.",
-          "why_id": "3 wajah sedih terlalu tinggi - celah ada di slot tinggi-2 dalam pola, bukan tinggi-3."
+          "wrong": "B",
+          "why_en": "Copying the other height-2 columns (2 sad) ignores the second rule: whole columns alternate happy, sad, happy, sad, ... - the gap lands on a HAPPY column.",
+          "why_id": "Meniru kolom tinggi-2 lain (2 sedih) mengabaikan aturan kedua: kolom-kolom selang-seling senang, sedih, senang, sedih, ... - celahnya jatuh di kolom SENANG."
         },
         "answer": {
           "form": "choice",
@@ -1355,13 +1354,13 @@
       "hint_steps_en": [
         "The columns repeat in groups whose heights go 1, 2, 3.",
         "The gap marked ? sits in the middle of a group, where the height is 2 - so 2 faces.",
-        "The faces alternate happy and sad, giving 1 happy + 1 sad.",
+        "Whole columns alternate happy, sad, happy, sad, ... (H, S, H, S, ?, S, H, S, H) - so the gap is a happy column: 2 happy faces.",
         "That matches option C."
       ],
       "hint_steps_id": [
         "Kolom-kolom berulang dalam kelompok dengan tinggi 1, 2, 3.",
         "Celah bertanda ? ada di tengah kelompok, di mana tingginya 2 - jadi 2 wajah.",
-        "Wajahnya selang-seling senang dan sedih, memberi 1 senang + 1 sedih.",
+        "Kolom-kolom selang-seling senang, sedih, senang, sedih, ... (S, D, S, D, ?, D, S, D, S) - jadi celahnya kolom senang: 2 wajah senang.",
         "Itu cocok dengan pilihan C."
       ]
     },
@@ -1972,19 +1971,19 @@
             "value": "front and back faces are always painted (2)"
           },
           {
-            "label_en": "Straight-run cube",
-            "label_id": "Kubus di bagian lurus",
+            "label_en": "Cube with two neighbours (straight or corner)",
+            "label_id": "Kubus dengan dua tetangga (lurus atau sudut)",
             "value": "2 more side faces painted -> 4 faces total"
           },
           {
-            "label_en": "End or corner cube",
-            "label_id": "Kubus ujung atau sudut",
+            "label_en": "Free-end cube (one neighbour)",
+            "label_id": "Kubus ujung bebas (satu tetangga)",
             "value": "3 more side faces painted -> 5 faces total"
           },
           {
-            "label_en": "End or corner cubes",
-            "label_id": "Kubus ujung atau sudut",
-            "value": "6 of them across the 4 digits"
+            "label_en": "Free ends",
+            "label_id": "Ujung bebas",
+            "value": "2 + 0 + 2 + 2 = 6 across the digits 2, 0, 2, 5"
           },
           {
             "label_en": "Exactly four faces",
@@ -2005,15 +2004,15 @@
       },
       "hint_steps_en": [
         "The shapes are one cube thick, so every cube has its front and back painted (2 faces).",
-        "A cube along a straight stretch shows 2 more side faces - exactly 4 painted.",
-        "A cube at an end or corner shows 3 more sides - 5 painted, so it does NOT count.",
-        "There are 6 such end or corner cubes, so 66 - 6 = 60 cubes have exactly four faces (60)."
+        "Every cube with two neighbours (straight parts AND corners) shows 2 more sides - exactly 4 painted.",
+        "A cube at a free end (only one neighbour) shows 3 more sides - 5 painted, so it does NOT count.",
+        "There are 6 free ends (2 on each '2', 2 on the '5'; the '0' is a loop), so 66 - 6 = 60 (60)."
       ],
       "hint_steps_id": [
         "Bentuknya satu kubus tebal, jadi tiap kubus dicat depan dan belakangnya (2 sisi).",
-        "Kubus di bagian lurus menampakkan 2 sisi lagi - tepat 4 dicat.",
-        "Kubus di ujung atau sudut menampakkan 3 sisi lagi - 5 dicat, jadi TIDAK dihitung.",
-        "Ada 6 kubus ujung atau sudut seperti itu, jadi 66 - 6 = 60 kubus bersisi empat (60)."
+        "Tiap kubus dengan dua tetangga (bagian lurus DAN sudut) menampakkan 2 sisi lagi - tepat 4 dicat.",
+        "Kubus di ujung bebas (hanya satu tetangga) menampakkan 3 sisi lagi - 5 dicat, jadi TIDAK dihitung.",
+        "Ada 6 ujung bebas (2 di tiap '2', 2 di '5'; '0' berbentuk cincin), jadi 66 - 6 = 60 (60)."
       ]
     },
     {
@@ -2431,8 +2430,8 @@
     },
     {
       "number": 23,
-      "body_en": "Seven football players stand in a row for a game and wear jerseys numbered 1 to 7. Photos are taken by 4 reporters, but due to lighting issues only a few jersey numbers are clear in each photo: Photo A shows jerseys 7, ?, 5 (3 players, left to right); Photo B shows jerseys 6, 4 (2 players visible); Photo C shows jerseys 1, ?, ?, 7 (4 players); Photo D shows jerseys 7, 3 (2 players). Find the jersey numbers of the 7 players from left to right.",
-      "body_id": "Tujuh pemain sepak bola berdiri dalam satu baris untuk pertandingan dan mengenakan jersey bernomor 1 sampai 7. Foto diambil oleh 4 reporter, tetapi karena masalah pencahayaan hanya beberapa nomor jersey yang terlihat jelas di setiap foto: Foto A memperlihatkan jersey 7, ?, 5 (3 pemain, dari kiri ke kanan); Foto B memperlihatkan jersey 6, 4 (2 pemain terlihat); Foto C memperlihatkan jersey 1, ?, ?, 7 (4 pemain); Foto D memperlihatkan jersey 7, 3 (2 pemain). Tentukan nomor jersey 7 pemain dari kiri ke kanan.",
+      "body_en": "Seven football players stand in a row for a game and wear jerseys numbered 1 to 7. Photos are taken by 4 reporters, but due to lighting issues only a few jersey numbers are clear in each photo: Photo A shows jerseys 7, ?, 5 (3 players, left to right); Photo B shows jerseys 6, ?, ?, 4 (4 players, only the two end numbers clear); Photo C shows jerseys 1, ?, ?, 7 (4 players); Photo D shows jerseys 7, 3 (2 players). Find the jersey numbers of the 7 players from left to right.",
+      "body_id": "Tujuh pemain sepak bola berdiri dalam satu baris untuk pertandingan dan mengenakan jersey bernomor 1 sampai 7. Foto diambil oleh 4 reporter, tetapi karena masalah pencahayaan hanya beberapa nomor jersey yang terlihat jelas di setiap foto: Foto A memperlihatkan jersey 7, ?, 5 (3 pemain, dari kiri ke kanan); Foto B memperlihatkan jersey 6, ?, ?, 4 (4 pemain, hanya dua nomor di ujung yang jelas); Foto C memperlihatkan jersey 1, ?, ?, 7 (4 pemain); Foto D memperlihatkan jersey 7, 3 (2 pemain). Tentukan nomor jersey 7 pemain dari kiri ke kanan.",
       "answer_type": "fill_in",
       "answer": "6124735",
       "figure_url": "/api/public/wmi/figures/2025-final-g2-a-q23.jpg",
@@ -2480,12 +2479,12 @@
           {
             "label_en": "Photo C: 1, ?, ?, 7",
             "label_id": "Foto C: 1, ?, ?, 7",
-            "value": "1 then two players then 7 -> 1,2,4,7"
+            "value": "1, ?, ?, 7 must end on that 7 -> the two middles are 2 and 4"
           },
           {
-            "label_en": "Photo B: 6, 4",
-            "label_id": "Foto B: 6, 4",
-            "value": "6 left of 4 -> 6 at the front"
+            "label_en": "Photo B: 6, ?, ?, 4",
+            "label_id": "Foto B: 6, ?, ?, 4",
+            "value": "6 at the front, 4 three seats later (4th) -> 2 before 4"
           },
           {
             "label_en": "Left to right",
@@ -2507,15 +2506,15 @@
       "hint_steps_en": [
         "Photo D shows 7 then 3, so 3 sits just right of 7.",
         "Photo A shows 7, ?, 5 with one between, so the order is 7, 3, 5 at the right end.",
-        "Photo C shows 1, ?, ?, 7 with two between: 1, 2, 4, 7 fills the left.",
-        "Photo B shows 6 left of 4, so 6 goes at the very front.",
+        "Photo C shows 1, ?, ?, 7: it must end on that 7, so 1 is 2nd and the two middle players are 2 and 4 (order still open).",
+        "Photo B shows 6, ?, ?, 4: 6 takes the very front, and 4 lands three seats later (4th) - so 2 comes before 4.",
         "Left to right: 6 1 2 4 7 3 5 -> 6124735."
       ],
       "hint_steps_id": [
         "Foto D memperlihatkan 7 lalu 3, jadi 3 ada tepat di kanan 7.",
         "Foto A memperlihatkan 7, ?, 5 dengan satu di tengah, jadi urutannya 7, 3, 5 di ujung kanan.",
-        "Foto C memperlihatkan 1, ?, ?, 7 dengan dua di tengah: 1, 2, 4, 7 mengisi kiri.",
-        "Foto B memperlihatkan 6 di kiri 4, jadi 6 di paling depan.",
+        "Foto C memperlihatkan 1, ?, ?, 7: harus berakhir di 7 itu, jadi 1 di posisi ke-2 dan dua pemain tengahnya 2 dan 4 (urutan belum pasti).",
+        "Foto B memperlihatkan 6, ?, ?, 4: 6 di paling depan, dan 4 jatuh tiga kursi setelahnya (ke-4) - jadi 2 sebelum 4.",
         "Kiri ke kanan: 6 1 2 4 7 3 5 -> 6124735."
       ]
     },

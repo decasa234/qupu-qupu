@@ -332,16 +332,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g3-a-q5.jpg",
       "hint_steps_en": [
-        "The symbols repeat in a fixed loop, like □ ○ △ □ ○ △ over and over.",
-        "Find where the \"?\" lands by counting along that loop.",
-        "The spot before \"?\" was ○, so the next one in the loop is △.",
-        "So the \"?\" should be △."
+        "The first eight boxes repeat a fixed loop of 4: ○ × △ △, then ○ × △ △ again.",
+        "The \"?\" sits in box 11, so find which slot of the loop box 11 lands on.",
+        "Boxes 9, 10, 11, 12 start the loop again: ○, ×, △, △ — box 11 is the 3rd slot.",
+        "The 3rd slot of the loop is △, so \"?\" = △."
       ],
       "hint_steps_id": [
-        "Simbol-simbol berulang dalam putaran tetap, seperti □ ○ △ □ ○ △ terus-menerus.",
-        "Cari posisi \"?\" dengan menghitung sepanjang putaran itu.",
-        "Posisi sebelum \"?\" adalah ○, jadi berikutnya dalam putaran adalah △.",
-        "Jadi \"?\" seharusnya △."
+        "Delapan kotak pertama mengulang putaran tetap 4 simbol: ○ × △ △, lalu ○ × △ △ lagi.",
+        "\"?\" berada di kotak ke-11, jadi cari kotak ke-11 jatuh di slot putaran yang mana.",
+        "Kotak 9, 10, 11, 12 memulai putaran lagi: ○, ×, △, △ — kotak ke-11 adalah slot ke-3.",
+        "Slot ke-3 putaran itu adalah △, jadi \"?\" = △."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -365,7 +365,7 @@
           {
             "label_en": "Repeating loop",
             "label_id": "Putaran berulang",
-            "value": "□ ○ △"
+            "value": "○ × △ △"
           }
         ],
         "strategy": {
@@ -373,9 +373,9 @@
           "name_id": "Kenali siklus berulang dan lanjutkan"
         },
         "trap": {
-          "wrong": "○",
-          "why_en": "○ just copies the previous shape instead of moving one step forward in the cycle.",
-          "why_id": "○ hanya menyalin bentuk sebelumnya, bukan maju satu langkah dalam siklus."
+          "wrong": "×",
+          "why_en": "× comes from reading the loop as ○ × △ (period 3) and missing that △ appears twice — box 11 then wrongly lands on ×.",
+          "why_id": "× muncul karena membaca putaran sebagai ○ × △ (periode 3) dan melewatkan bahwa △ muncul dua kali — kotak ke-11 lalu keliru jatuh di ×."
         },
         "answer": {
           "form": "choice",
@@ -451,8 +451,8 @@
         },
         "trap": {
           "wrong": "24",
-          "why_en": "24 comes from missing one short side when adding up the labelled lengths.",
-          "why_id": "24 muncul karena terlewat satu sisi pendek saat menjumlahkan panjang berlabel."
+          "why_en": "24 comes from an addition slip: 29 + 26 + 26 = 81, not 80 — then 104 − 80 wrongly gives 24.",
+          "why_id": "24 muncul dari salah jumlah: 29 + 26 + 26 = 81, bukan 80 — lalu 104 − 80 keliru memberi 24."
         },
         "answer": {
           "form": "choice",
@@ -773,9 +773,9 @@
           "name_id": "Hitung biaya tiap jenis, lalu jumlahkan"
         },
         "trap": {
-          "wrong": "275",
-          "why_en": "275 swaps the counts (5 coffees + 3 burgers = 75 + 117 = 192... ) — match each price to its own quantity.",
-          "why_id": "275 menukar jumlahnya — cocokkan tiap harga dengan kuantitasnya sendiri."
+          "wrong": "432",
+          "why_en": "432 adds the two prices first and multiplies by all 8 items: 8 × (15 + 39) = 432 — but only 3 items cost 15 and 5 cost 39.",
+          "why_id": "432 menjumlahkan kedua harga dulu lalu mengalikan dengan semua 8 barang: 8 × (15 + 39) = 432 — padahal hanya 3 barang seharga 15 dan 5 seharga 39."
         },
         "answer": {
           "form": "choice",
@@ -957,16 +957,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g3-a-q13.jpg",
       "hint_steps_en": [
-        "This is a stair-step (L-shaped) figure, so the perimeter still goes all the way around.",
-        "The hidden short sides on the steps add up to the same as the full width and full height.",
-        "So perimeter = 2 × (outer width + outer height).",
-        "That total works out to 68, so the perimeter is 68 cm."
+        "This is a C-shaped figure with a notch cut into the right side — the perimeter goes into the notch and back out.",
+        "Walk every edge in order: top 14, down 6, in 7, down 3, out 7, down 4, bottom 14, up the left 13.",
+        "Add them all: 14 + 6 + 7 + 3 + 7 + 4 + 14 + 13.",
+        "That total is 68, so the perimeter is 68 cm."
       ],
       "hint_steps_id": [
-        "Ini bangun bertangga (bentuk L), jadi kelilingnya tetap mengelilingi seluruhnya.",
-        "Sisi-sisi pendek tersembunyi pada tangga berjumlah sama dengan lebar penuh dan tinggi penuh.",
-        "Jadi keliling = 2 × (lebar luar + tinggi luar).",
-        "Totalnya menjadi 68, jadi kelilingnya 68 cm."
+        "Ini bangun berbentuk C dengan takikan di sisi kanan — keliling masuk ke takikan lalu keluar lagi.",
+        "Telusuri setiap tepi berurutan: atas 14, turun 6, masuk 7, turun 3, keluar 7, turun 4, bawah 14, naik sisi kiri 13.",
+        "Jumlahkan semuanya: 14 + 6 + 7 + 3 + 7 + 4 + 14 + 13.",
+        "Totalnya 68, jadi kelilingnya 68 cm."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -975,8 +975,8 @@
             "category": "fact",
             "phrase_en": "the figure below",
             "phrase_id": "gambar di bawah ini",
-            "note_en": "It is a step shape; the indented sides still belong to the boundary.",
-            "note_id": "Ini bentuk bertangga; sisi yang menjorok tetap bagian dari batas."
+            "note_en": "It is a C-shape with a notch; the edges going into and out of the notch still belong to the boundary.",
+            "note_id": "Ini bentuk C dengan takikan; tepi yang masuk dan keluar takikan tetap bagian dari batas."
           },
           {
             "category": "question",
@@ -994,13 +994,13 @@
           }
         ],
         "strategy": {
-          "name_en": "Slide the step sides out: perimeter equals that of the bounding rectangle",
-          "name_id": "Geser sisi tangga keluar: keliling sama dengan persegi panjang pembatas"
+          "name_en": "Walk the whole boundary and add every edge, including the notch",
+          "name_id": "Telusuri seluruh batas dan jumlahkan setiap tepi, termasuk takikan"
         },
         "trap": {
           "wrong": "54",
-          "why_en": "54 leaves out the small step segments — every notch still adds to the boundary.",
-          "why_id": "54 melewatkan ruas tangga kecil — setiap lekukan tetap menambah batas."
+          "why_en": "54 is just the plain rectangle 2 × (14 + 13) — it forgets the two 7 cm edges going into and out of the notch, which add 14 more.",
+          "why_id": "54 hanyalah persegi panjang polos 2 × (14 + 13) — lupa dua tepi 7 cm yang masuk dan keluar takikan, yang menambah 14 lagi."
         },
         "answer": {
           "form": "choice",
@@ -1163,8 +1163,8 @@
         },
         "trap": {
           "wrong": "1049",
-          "why_en": "1049 adds 173 (659 + 173 + ... pattern) instead of subtracting it; the sign on 173 is minus.",
-          "why_id": "1049 menambah 173, bukan mengurangi; tanda pada 173 adalah minus."
+          "why_en": "1049 skips the − 173 entirely: 659 + 390 = 1049 — the 173 still has to be subtracted.",
+          "why_id": "1049 melewatkan − 173 sama sekali: 659 + 390 = 1049 — 173 masih harus dikurangkan."
         },
         "answer": {
           "form": "choice",
@@ -1251,8 +1251,8 @@
         },
         "trap": {
           "wrong": "36",
-          "why_en": "36 likely uses △ from △ - □ - ○ = 10 wrongly (forgetting to add □ and ○ back to get △).",
-          "why_id": "36 keliru menentukan △ (lupa menambah □ dan ○ kembali untuk mendapat △)."
+          "why_en": "36 finds △ = 26 correctly but then adds the 10 from the third equation (26 + 10) instead of adding ○ + □ = 7 + 9.",
+          "why_id": "36 menemukan △ = 26 dengan benar tetapi lalu menambah 10 dari persamaan ketiga (26 + 10), bukan menambah ○ + □ = 7 + 9."
         },
         "answer": {
           "form": "choice",
@@ -1902,8 +1902,8 @@
         },
         "trap": {
           "wrong": "36",
-          "why_en": "36 likely uses 2 × 11 = 22 as the minimum instead of 1 × 12 = 12; a single line still counts as a formation.",
-          "why_id": "36 mungkin memakai 2 × 11 = 22 sebagai minimum, bukan 1 × 12 = 12; satu baris pun tetap formasi."
+          "why_en": "36 forgets the +1 corner person and uses rows + columns = 14: then max 7 × 7 = 49 and min 1 × 13 = 13 give 49 − 13 = 36.",
+          "why_id": "36 lupa 1 orang di pojok dan memakai baris + kolom = 14: maka maksimum 7 × 7 = 49 dan minimum 1 × 13 = 13 memberi 49 − 13 = 36."
         },
         "answer": {
           "form": "choice",

@@ -179,14 +179,14 @@
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g2-a-q3.jpg",
       "hint_steps_en": [
         "Turn each arrow into a number change: down = +10, up = -10, right = +1, left = -1.",
-        "Start at 63 and follow the path: the down arrows together move you 3 rows down, that is +30, giving 93.",
-        "The side arrows together move you 1 step right, that is +1.",
+        "Start at 63 and follow the path: there are 4 down arrows and 1 up arrow, so the net move is 3 rows down, that is +30, giving 93.",
+        "The side arrows are 3 rights and 2 lefts, together 1 step right, that is +1.",
         "63 + 30 + 1 = 94, so you land on 94."
       ],
       "hint_steps_id": [
         "Ubah tiap panah menjadi perubahan angka: bawah = +10, atas = -10, kanan = +1, kiri = -1.",
-        "Mulai dari 63 dan ikuti jalurnya: panah-panah ke bawah memindahkanmu 3 baris turun, yaitu +30, menjadi 93.",
-        "Panah ke samping memindahkanmu 1 langkah ke kanan, yaitu +1.",
+        "Mulai dari 63 dan ikuti jalurnya: ada 4 panah ke bawah dan 1 panah ke atas, jadi perpindahan bersihnya 3 baris turun, yaitu +30, menjadi 93.",
+        "Panah ke samping ada 3 ke kanan dan 2 ke kiri, bersihnya 1 langkah ke kanan, yaitu +1.",
         "63 + 30 + 1 = 94, jadi kamu mendarat di 94."
       ],
       "breakdown": {
@@ -237,8 +237,8 @@
         },
         "trap": {
           "wrong": "104",
-          "why_en": "104 means moving 4 rows down (+40) — count the down arrows carefully, there are only 3.",
-          "why_id": "104 berarti turun 4 baris (+40) — hitung panah ke bawah dengan teliti, hanya ada 3."
+          "why_en": "104 comes from counting all 4 down arrows (+40) but forgetting the final up arrow (-10) — the net drop is only 3 rows.",
+          "why_id": "104 muncul jika menghitung keempat panah ke bawah (+40) tapi lupa panah ke atas terakhir (-10) — turun bersihnya hanya 3 baris."
         },
         "answer": {
           "form": "choice",
@@ -875,8 +875,8 @@
         },
         "trap": {
           "wrong": "Figure A",
-          "why_en": "Guessing wheel A spins the same way as the start ignores the direction flips along the chain.",
-          "why_id": "Menebak roda A berputar sama dengan awalnya mengabaikan pembalikan arah di sepanjang rangkaian."
+          "why_en": "Missing one of the two crossed belts flips your answer the wrong way — the two crossed belts cancel each other, so wheel A ends up turning the same way as the arrow wheel.",
+          "why_id": "Melewatkan satu dari dua sabuk menyilang membuat jawabanmu terbalik — kedua sabuk menyilang saling meniadakan, jadi roda A akhirnya berputar searah dengan roda berpanah."
         },
         "answer": {
           "form": "choice",
@@ -1645,7 +1645,6 @@
         { "label": "D", "text": "2 + 3 + 4 + 5 + 7" }
       ],
       "answer": "C",
-      "figure_url": "/api/public/wmi/figures/2019-semifinal-g2-a-q21.jpg",
       "hint_steps_en": [
         "The trapezoid covers a fixed area, so the five pieces must add up to exactly fill it — no gaps, no overlaps.",
         "Match the slanted edge of the trapezoid first; only certain pieces have that matching slope.",
@@ -1722,6 +1721,7 @@
         { "label": "D", "text": "11" }
       ],
       "answer": "C",
+      "figure_url": "/api/public/wmi/figures/2019-semifinal-g2-a-q21.jpg",
       "hint_steps_en": [
         "List the ways starting with the biggest part, like the example, and never repeat the same set in a new order.",
         "Starting with 5: 5+1. Starting with 4: 4+2, 4+1+1. Starting with 3: 3+3, 3+2+1, 3+1+1+1.",
@@ -1735,7 +1735,7 @@
         "Hitung semuanya: yaitu 1 + 2 + 3 + 3 + 1 = 10 cara."
       ],
       "breakdown": {
-        "needsVisual": false,
+        "needsVisual": true,
         "highlights": [
           {
             "category": "fact",

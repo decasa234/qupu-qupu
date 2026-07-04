@@ -6,17 +6,10 @@
   "title": "WMI 2020 Grade 2 Final",
   "recommended_duration_min": 60,
   "review": {
-    "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q17 (5210−1052=4158), Q18 (◻×⬠=104), Q19 (cryptarithm sum 15, k=12 unique), Q20 (cloudy=13 is the unique valid weather order), Q24 (exactly 4 drop-triples sum to 29). All four .png figures (q5/q7/q8/q14/q23) exist. Figure-dependent answers checked for internal consistency, not pixel-compared to scans. Only the Sudoku-uniqueness nit below.",
-    "findings": [
-      {
-        "q": 23,
-        "severity": "nit",
-        "gate": "answer",
-        "note": "4×4 expression-Sudoku — the grid is claimed 'forced' but uniqueness wasn't proven by a backtracking solver this pass. Givens evaluate fine (2×2=4, 1×1=1, 1+1=2, 9−8=1, 10−6=4) and the marked cells (3 and 1) sum to 4."
-      }
-    ]
+    "status": "approved",
+    "reviewed_on": "2026-07-03",
+    "summary": "Full deploy-readiness pass: re-solved all 25, script-verified every enumerable answer (Q12, Q13, Q17, Q18, Q19, Q20, Q21 cube-net folding, Q22 weight assignment, Q23 backtracking solver, Q24, Q25 run count) and compared all 14 figure components against the original scans. Q23 uniqueness is now PROVEN: the backtracking solver finds exactly one Latin square (✕=3, ✚=1, sum 4). Q21 fold check confirms exactly nets 1,2,3,5,7 fold and 4,6,8 overlap. Q22 has two weight assignments (◼/⬡ swap) but both give ▲+●=6. Figure data constants (FRUIT_ROWS, GRID18, NETS21, SUDOKU23, DIGIT_GRID25, SHAPE_CELLS) match the scans cell-for-cell. No defects found.",
+    "findings": []
   },
   "questions": [
     {

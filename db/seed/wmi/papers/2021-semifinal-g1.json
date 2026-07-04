@@ -462,8 +462,8 @@
     },
     {
       "number": 7,
-      "body_en": "The table shows the number of four kinds of home appliance sold at a store. Week 1 sales were 12, 5, 9, and 21 units; Week 2 sales were 13, 15, 17, and 16 units. For the appliance asked about, how many fewer units were sold in Week 1 than in Week 2?",
-      "body_id": "Tabel menunjukkan jumlah empat jenis peralatan rumah tangga yang terjual di sebuah toko. Penjualan Minggu 1 adalah 12, 5, 9, dan 21 unit; penjualan Minggu 2 adalah 13, 15, 17, dan 16 unit. Untuk peralatan yang ditanyakan, berapa unit lebih sedikit yang terjual pada Minggu 1 dibandingkan Minggu 2?",
+      "body_en": "The table shows the number of four kinds of home appliance sold at a store. Week 1 sales were 12, 5, 9, and 21 units; Week 2 sales were 13, 16, 17, and 15 units. For the appliance with the lowest Week 1 sales, how many fewer units were sold in Week 1 than in Week 2?",
+      "body_id": "Tabel menunjukkan jumlah empat jenis peralatan rumah tangga yang terjual di sebuah toko. Penjualan Minggu 1 adalah 12, 5, 9, dan 21 unit; penjualan Minggu 2 adalah 13, 16, 17, dan 15 unit. Untuk peralatan dengan penjualan Minggu 1 paling sedikit, berapa unit lebih sedikit yang terjual pada Minggu 1 dibandingkan Minggu 2?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "4" },
@@ -479,13 +479,13 @@
       ],
       "answer": "D",
       "hint_steps_en": [
-        "Find the asked appliance's column in the table.",
+        "Find the appliance with the lowest Week 1 sales: that is the one that sold 5 units.",
         "Its Week 1 sales were 5 and its Week 2 sales were 16.",
         "\"How many fewer in Week 1\" means Week 2 - Week 1: 16 - 5.",
         "16 - 5 = 11."
       ],
       "hint_steps_id": [
-        "Cari kolom peralatan yang ditanyakan di tabel.",
+        "Cari peralatan dengan penjualan Minggu 1 paling sedikit: yaitu yang terjual 5 unit.",
         "Penjualan Minggu 1-nya 5 dan Minggu 2-nya 16.",
         "\"Berapa lebih sedikit di Minggu 1\" berarti Minggu 2 - Minggu 1: 16 - 5.",
         "16 - 5 = 11."
@@ -497,8 +497,8 @@
             "category": "fact",
             "phrase_en": "Week 1 sales were 12, 5, 9, and 21 units",
             "phrase_id": "Penjualan Minggu 1 adalah 12, 5, 9, dan 21 unit",
-            "note_en": "Pick the value in the asked appliance's column for Week 1.",
-            "note_id": "Ambil nilai di kolom peralatan yang ditanya untuk Minggu 1."
+            "note_en": "The lowest of these is 5 — that appliance is the one to track.",
+            "note_id": "Yang paling sedikit adalah 5 — peralatan itulah yang diikuti."
           },
           {
             "category": "question",
@@ -510,13 +510,13 @@
         ],
         "quantities": [
           {
-            "label_en": "Week 1 (asked appliance)",
-            "label_id": "Minggu 1 (peralatan ditanya)",
+            "label_en": "Week 1 (lowest seller)",
+            "label_id": "Minggu 1 (penjualan terendah)",
             "value": "5"
           },
           {
-            "label_en": "Week 2 (asked appliance)",
-            "label_id": "Minggu 2 (peralatan ditanya)",
+            "label_en": "Week 2 (same appliance)",
+            "label_id": "Minggu 2 (peralatan yang sama)",
             "value": "16"
           }
         ],
@@ -928,16 +928,16 @@
       "answer": "D",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g1-a-q13.jpg",
       "hint_steps_en": [
-        "Count the blocks in each figure, including hidden ones behind the front.",
-        "Don't forget blocks underneath that hold up the top ones.",
-        "Compare the four totals you counted.",
-        "Figure (D) has the largest count, so it uses the most blocks."
+        "Count the blocks in each figure one by one — the back rows count too.",
+        "Figure (A) has 6 blocks, Figure (B) has 8, and Figure (C) has 7.",
+        "Figure (D) is a 3-by-3 block, so it has 9.",
+        "9 is the largest count, so Figure (D) uses the most blocks."
       ],
       "hint_steps_id": [
-        "Hitung balok di setiap bangun, termasuk yang tersembunyi di belakang.",
-        "Jangan lupa balok di bawah yang menopang balok di atas.",
-        "Bandingkan keempat total yang sudah dihitung.",
-        "Bangun (D) jumlahnya paling banyak, jadi memakai balok paling banyak."
+        "Hitung balok di setiap bangun satu per satu — baris belakang juga dihitung.",
+        "Bangun (A) punya 6 balok, Bangun (B) punya 8, dan Bangun (C) punya 7.",
+        "Bangun (D) berupa susunan 3 kali 3, jadi ada 9.",
+        "9 adalah jumlah terbanyak, jadi Bangun (D) memakai balok paling banyak."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -953,11 +953,16 @@
             "category": "trap",
             "phrase_en": "Count",
             "phrase_id": "Hitunglah",
-            "note_en": "Include hidden blocks that support the ones you can see.",
-            "note_id": "Sertakan balok tersembunyi yang menopang balok yang terlihat."
+            "note_en": "Count carefully — the rows at the back are easy to miss.",
+            "note_id": "Hitung dengan teliti — baris di belakang mudah terlewat."
           }
         ],
         "quantities": [
+          {
+            "label_en": "Counts (A, B, C, D)",
+            "label_id": "Jumlah (A, B, C, D)",
+            "value": "6, 8, 7, 9"
+          },
           {
             "label_en": "Most blocks",
             "label_id": "Balok terbanyak",
@@ -965,13 +970,13 @@
           }
         ],
         "strategy": {
-          "name_en": "Count every block, count the hidden ones too",
-          "name_id": "Hitung setiap balok, termasuk yang tersembunyi"
+          "name_en": "Count every block, row by row",
+          "name_id": "Hitung setiap balok, baris demi baris"
         },
         "trap": {
-          "wrong": "Figure (A)",
-          "why_en": "Figure (A) may look tall but has fewer blocks; Figure (D) holds the most once hidden blocks are counted.",
-          "why_id": "Bangun (A) mungkin terlihat tinggi tapi baloknya lebih sedikit; Bangun (D) paling banyak setelah balok tersembunyi dihitung."
+          "wrong": "Figure (B)",
+          "why_en": "Figure (B) looks the longest, but it has only 8 blocks — Figure (D)'s 3-by-3 block holds 9.",
+          "why_id": "Bangun (B) terlihat paling panjang, tapi baloknya hanya 8 — susunan 3 kali 3 pada Bangun (D) berisi 9."
         },
         "answer": {
           "form": "choice",
@@ -1001,14 +1006,14 @@
       "hint_steps_en": [
         "The hint: 2 triangles need only 5 sticks because they SHARE a side.",
         "One square alone needs 4 sticks, so 4 separate squares would need 16.",
-        "Stand the 4 squares in a row so each pair shares one side — that saves 3 sticks.",
-        "16 - 3 = 12 sticks needed at least."
+        "Pack the 4 squares into a 2-by-2 block — then 4 sides are shared, saving 4 sticks.",
+        "16 - 4 = 12 sticks needed at least."
       ],
       "hint_steps_id": [
         "Petunjuknya: 2 segitiga cukup 5 batang karena BERBAGI satu sisi.",
         "Satu persegi sendiri butuh 4 batang, jadi 4 persegi terpisah butuh 16.",
-        "Susun 4 persegi sebaris agar tiap pasang berbagi satu sisi — itu menghemat 3 batang.",
-        "16 - 3 = 12 batang paling sedikit."
+        "Susun 4 persegi menjadi blok 2 kali 2 — ada 4 sisi yang dipakai bersama, menghemat 4 batang.",
+        "16 - 4 = 12 batang paling sedikit."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -1030,24 +1035,24 @@
         ],
         "quantities": [
           {
-            "label_en": "Squares in a row",
-            "label_id": "Persegi sebaris",
+            "label_en": "Squares in a 2-by-2 block",
+            "label_id": "Persegi dalam blok 2 kali 2",
             "value": "4"
           },
           {
-            "label_en": "Sticks (4 + 3 shared rows)",
-            "label_id": "Batang (4 + 3 sisi berbagi)",
+            "label_en": "Sticks (16 - 4 shared sides)",
+            "label_id": "Batang (16 - 4 sisi bersama)",
             "value": "12"
           }
         ],
         "strategy": {
-          "name_en": "Line them up so neighbours share a side",
-          "name_id": "Susun berderet agar tetangga berbagi sisi"
+          "name_en": "Pack them in a 2-by-2 block so neighbours share sides",
+          "name_id": "Susun jadi blok 2 kali 2 agar tetangga berbagi sisi"
         },
         "trap": {
-          "wrong": "16",
-          "why_en": "16 builds 4 separate squares; lining them up to share sides saves 3 sticks, leaving 12.",
-          "why_id": "16 membuat 4 persegi terpisah; menyusunnya berbagi sisi menghemat 3 batang, jadi tinggal 12."
+          "wrong": "13",
+          "why_en": "13 lines the squares up in one row, sharing only 3 sides; the 2-by-2 block shares 4 sides and needs just 12.",
+          "why_id": "13 menyusun persegi dalam satu baris sehingga hanya 3 sisi yang dibagi; blok 2 kali 2 berbagi 4 sisi dan hanya butuh 12."
         },
         "answer": {
           "form": "choice",
@@ -1232,15 +1237,15 @@
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g1-a-q17.jpg",
       "hint_steps_en": [
         "The dotted line is a mirror; the folded half flips over onto the other half.",
-        "Picture the left part landing exactly on the right part (or top onto bottom).",
-        "The folded shape becomes a mirror image joined at the line.",
-        "That matches Shape D."
+        "Picture the notched left part landing exactly on the solid right part.",
+        "The notch gets covered by the solid half, so the outline becomes a clean rectangle.",
+        "That clean rectangle matches Shape D."
       ],
       "hint_steps_id": [
         "Garis putus-putus itu seperti cermin; bagian yang dilipat membalik ke bagian satunya.",
-        "Bayangkan bagian kiri jatuh tepat di bagian kanan (atau atas ke bawah).",
-        "Bentuk lipatannya menjadi bayangan cermin yang menyatu di garis itu.",
-        "Itu cocok dengan Bentuk D."
+        "Bayangkan bagian kiri yang bertakik jatuh tepat di bagian kanan yang utuh.",
+        "Takiknya tertutup oleh bagian yang utuh, jadi garis luarnya menjadi persegi panjang utuh.",
+        "Persegi panjang utuh itu cocok dengan Bentuk D."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1273,8 +1278,8 @@
         },
         "trap": {
           "wrong": "Shape A",
-          "why_en": "Shape A is the paper just slid over, not mirror-flipped; folding makes a reflection, which is Shape D.",
-          "why_id": "Bentuk A hanya kertas yang digeser, bukan dibalik cermin; melipat menghasilkan pantulan, yaitu Bentuk D."
+          "why_en": "Shape A still shows the notch — but the fold covers the notch, leaving the clean rectangle of Shape D.",
+          "why_id": "Bentuk A masih memperlihatkan takiknya — padahal lipatan menutup takik itu, menyisakan persegi panjang utuh yaitu Bentuk D."
         },
         "answer": {
           "form": "choice",
@@ -1361,8 +1366,8 @@
     },
     {
       "number": 19,
-      "body_en": "Penguins and fish are scattered in the picture. A red loop encircling a group is worth 2. What is the value of the loop shape that is asked for?",
-      "body_id": "Penguin dan ikan tersebar dalam gambar. Sebuah lingkaran merah yang melingkari sekelompok bernilai 2. Berapakah nilai bentuk lingkaran yang ditanyakan?",
+      "body_en": "Penguins and fish are scattered in the picture. A loop's value is how many animals it encircles: the small red loop encircling a group is worth 2. What is the value of the large figure-eight loop?",
+      "body_id": "Penguin dan ikan tersebar dalam gambar. Nilai sebuah lingkaran adalah banyaknya hewan yang dilingkupinya: lingkaran merah kecil yang melingkari sekelompok bernilai 2. Berapakah nilai lingkaran angka-delapan yang besar?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "5" },
@@ -1379,55 +1384,55 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g1-a-q19.jpg",
       "hint_steps_en": [
-        "Each red loop around a group is worth 2 points.",
-        "Count how many loops make up the asked shape.",
-        "There are 3 loops, so multiply: 3 groups of 2.",
-        "3 x 2 = 6, so the loop shape is worth 6."
+        "A loop's value is how many animals it wraps: the small round loop wraps 2 animals, so it is worth 2.",
+        "The asked shape is the bigger figure-eight loop placed over a cluster of animals.",
+        "Count inside its two lobes: 3 penguins + 3 fish = 6 animals.",
+        "So the figure-eight loop is worth 6."
       ],
       "hint_steps_id": [
-        "Setiap lingkaran merah di sekitar kelompok bernilai 2 poin.",
-        "Hitung berapa lingkaran yang membentuk bentuk yang ditanya.",
-        "Ada 3 lingkaran, jadi kalikan: 3 kelompok berisi 2.",
-        "3 x 2 = 6, jadi bentuk lingkaran itu bernilai 6."
+        "Nilai sebuah lingkaran adalah banyaknya hewan yang dilingkupinya: lingkaran bulat kecil melingkupi 2 hewan, jadi bernilai 2.",
+        "Bentuk yang ditanya adalah lingkaran angka-delapan yang lebih besar di atas sekelompok hewan.",
+        "Hitung di dalam dua lengkungnya: 3 penguin + 3 ikan = 6 hewan.",
+        "Jadi lingkaran angka-delapan bernilai 6."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "A red loop encircling a group is worth 2",
-            "phrase_id": "Sebuah lingkaran merah yang melingkari sekelompok bernilai 2",
-            "note_en": "Every loop adds 2 to the value.",
-            "note_id": "Setiap lingkaran menambah 2 ke nilainya."
+            "phrase_en": "the small red loop encircling a group is worth 2",
+            "phrase_id": "lingkaran merah kecil yang melingkari sekelompok bernilai 2",
+            "note_en": "That loop wraps 2 animals — a loop's value is the count inside it.",
+            "note_id": "Lingkaran itu melingkupi 2 hewan — nilai lingkaran adalah banyaknya hewan di dalamnya."
           },
           {
             "category": "question",
-            "phrase_en": "the value of the loop shape that is asked for",
-            "phrase_id": "nilai bentuk lingkaran yang ditanyakan",
-            "note_en": "Count the loops, then multiply by 2.",
-            "note_id": "Hitung lingkarannya, lalu kalikan dengan 2."
+            "phrase_en": "the value of the large figure-eight loop",
+            "phrase_id": "nilai lingkaran angka-delapan yang besar",
+            "note_en": "Count every animal inside its two lobes.",
+            "note_id": "Hitung setiap hewan di dalam dua lengkungnya."
           }
         ],
         "quantities": [
           {
-            "label_en": "Loops in the shape",
-            "label_id": "Lingkaran pada bentuk",
-            "value": "3"
+            "label_en": "Animals inside the figure-eight",
+            "label_id": "Hewan di dalam angka-delapan",
+            "value": "3 penguins + 3 fish"
           },
           {
-            "label_en": "Value (3 x 2)",
-            "label_id": "Nilai (3 x 2)",
+            "label_en": "Value",
+            "label_id": "Nilai",
             "value": "6"
           }
         ],
         "strategy": {
-          "name_en": "Count groups, multiply by the group value",
-          "name_id": "Hitung kelompok, kalikan dengan nilai kelompok"
+          "name_en": "A loop's value = the animals it wraps; count them",
+          "name_id": "Nilai lingkaran = hewan yang dilingkupinya; hitunglah"
         },
         "trap": {
           "wrong": "5",
-          "why_en": "5 counts loops one by one as 1 each; each loop is worth 2, so 3 loops make 6.",
-          "why_id": "5 menghitung lingkaran satu-satu sebagai 1; tiap lingkaran bernilai 2, jadi 3 lingkaran jadi 6."
+          "why_en": "5 misses one animal tucked inside a lobe — the figure-eight wraps 3 penguins and 3 fish, 6 in all.",
+          "why_id": "5 melewatkan satu hewan yang terselip di dalam lengkung — angka-delapan melingkupi 3 penguin dan 3 ikan, total 6."
         },
         "answer": {
           "form": "choice",
@@ -1730,8 +1735,8 @@
     },
     {
       "number": 24,
-      "body_en": "Each animal stands for a number. Hippo + Lion = 20, and Hippo + Lion + Lion + Lion + Koala = 51. Find the value of the hippo.",
-      "body_id": "Setiap hewan mewakili sebuah bilangan. Kuda Nil + Singa = 20, dan Kuda Nil + Singa + Singa + Singa + Koala = 51. Tentukan nilai kuda nil.",
+      "body_en": "Each animal stands for a number. Hippo + Lion = 20, Koala = 15, and Hippo + Lion + Lion + Lion + Koala = 51. Find the value of the hippo.",
+      "body_id": "Setiap hewan mewakili sebuah bilangan. Kuda Nil + Singa = 20, Koala = 15, dan Kuda Nil + Singa + Singa + Singa + Koala = 51. Tentukan nilai kuda nil.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "8" },
@@ -1750,13 +1755,13 @@
       "hint_steps_en": [
         "Swap the pair: the second line starts with Hippo + Lion, which equals 20.",
         "So 20 + Lion + Lion + Koala = 51, meaning Lion + Lion + Koala = 31.",
-        "From the picture the lion is 8 and the koala is 15: 8 + 8 + 15 = 31. That checks out.",
+        "Koala = 15, so Lion + Lion = 31 - 15 = 16, meaning Lion = 8.",
         "Then Hippo = 20 - Lion = 20 - 8 = 12."
       ],
       "hint_steps_id": [
         "Tukar pasangannya: baris kedua diawali Kuda Nil + Singa, yang sama dengan 20.",
         "Jadi 20 + Singa + Singa + Koala = 51, berarti Singa + Singa + Koala = 31.",
-        "Dari gambar singa = 8 dan koala = 15: 8 + 8 + 15 = 31. Cocok.",
+        "Koala = 15, jadi Singa + Singa = 31 - 15 = 16, berarti Singa = 8.",
         "Maka Kuda Nil = 20 - Singa = 20 - 8 = 12."
       ],
       "breakdown": {
@@ -1789,6 +1794,11 @@
             "label_en": "Hippo + Lion",
             "label_id": "Kuda Nil + Singa",
             "value": "20"
+          },
+          {
+            "label_en": "Koala",
+            "label_id": "Koala",
+            "value": "15"
           },
           {
             "label_en": "Hippo",
@@ -1829,19 +1839,19 @@
         { "label": "C", "text": "4" },
         { "label": "D", "text": "5" }
       ],
-      "answer": "D",
+      "answer": "A",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g1-a-q25.jpg",
       "hint_steps_en": [
-        "Fit the 5 pieces into the 4x4 grid, rotating but never flipping them.",
-        "Once placed, see which grid cell each marked letter lands on.",
-        "Read the number written in those two cells: A and B.",
-        "Add them: A + B = 5."
+        "Fit the 5 pieces into the 4x4 grid, rotating but never flipping them — every printed number must land on the same number in the grid.",
+        "Those number matches force each piece into exactly one spot.",
+        "In the only fit, A lands on a 1 (right edge, second row) and B lands on a 1 (top row, second cell).",
+        "Add them: A + B = 1 + 1 = 2."
       ],
       "hint_steps_id": [
-        "Pasang 5 keping ke dalam kotak 4x4, boleh diputar tapi tidak dibalik.",
-        "Setelah terpasang, lihat sel kotak mana yang dituju tiap huruf yang ditandai.",
-        "Baca bilangan yang tertulis di kedua sel itu: A dan B.",
-        "Jumlahkan: A + B = 5."
+        "Pasang 5 keping ke dalam kotak 4x4, boleh diputar tapi tidak dibalik — setiap angka yang tercetak harus jatuh di angka yang sama pada kotak.",
+        "Kecocokan angka itu memaksa tiap keping ke tepat satu tempat.",
+        "Pada satu-satunya susunan yang cocok, A jatuh di angka 1 (tepi kanan, baris kedua) dan B jatuh di angka 1 (baris atas, sel kedua).",
+        "Jumlahkan: A + B = 1 + 1 = 2."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1865,7 +1875,7 @@
           {
             "label_en": "Sum A + B",
             "label_id": "Jumlah A + B",
-            "value": "5"
+            "value": "2"
           }
         ],
         "strategy": {
@@ -1873,14 +1883,14 @@
           "name_id": "Selesaikan susunannya, lalu baca A dan B"
         },
         "trap": {
-          "wrong": "4",
-          "why_en": "4 misplaces one piece so a marked cell reads wrong; the correct fit gives A + B = 5.",
-          "why_id": "4 salah menaruh satu keping sehingga sel bertanda terbaca keliru; susunan yang benar memberi A + B = 5."
+          "wrong": "5",
+          "why_en": "5 drops the pieces where they merely look like they fit; when every printed number is matched, both A and B land on cells showing 1, so A + B = 2.",
+          "why_id": "5 menaruh keping di tempat yang sekadar tampak pas; jika setiap angka tercetak dicocokkan, A dan B sama-sama jatuh di sel berangka 1, jadi A + B = 2."
         },
         "answer": {
           "form": "choice",
           "unit": null,
-          "value": "D"
+          "value": "A"
         }
       }
     }

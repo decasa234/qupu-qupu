@@ -89,8 +89,8 @@
         },
         "trap": {
           "wrong": "82",
-          "why_en": "82 is what you get if you add 19 instead of subtracting it.",
-          "why_id": "82 muncul kalau 19 ditambahkan, bukan dikurangkan."
+          "why_en": "82 comes from a borrowing slip in 91 - 19: after borrowing for 11 - 9 = 2, you must drop the tens to 8 - 1 = 7 — forgetting that gives 82 instead of 72.",
+          "why_id": "82 muncul dari salah meminjam pada 91 - 19: setelah meminjam untuk 11 - 9 = 2, puluhan harus turun jadi 8 - 1 = 7 — kalau lupa, hasilnya 82 bukan 72."
         },
         "answer": {
           "form": "choice",
@@ -606,8 +606,8 @@
         },
         "trap": {
           "wrong": "456",
-          "why_en": "456 is 462 - 6; the step is a full 12, not half of it.",
-          "why_id": "456 itu 462 - 6; langkahnya penuh 12, bukan setengahnya."
+          "why_en": "456 = 474 - 18: it treats the jump from 438 to 474 as 2 steps (36 / 2 = 18), but there are 3 steps, so the difference is 12 and star = 474 - 12 = 462.",
+          "why_id": "456 = 474 - 18: menganggap lompatan 438 ke 474 hanya 2 langkah (36 / 2 = 18), padahal ada 3 langkah, jadi bedanya 12 dan bintang = 474 - 12 = 462."
         },
         "answer": {
           "form": "choice",
@@ -820,9 +820,9 @@
           "name_id": "Cari ketiganya, lalu kurangi yang ekstrem"
         },
         "trap": {
-          "wrong": "12",
-          "why_en": "12 is just corn 23 minus radish 18 plus a slip; the real gap is eggplant 34 minus radish 18.",
-          "why_id": "12 hanya selisih jagung 23 dan lobak 18 yang keliru; selisih sebenarnya terung 34 dikurangi lobak 18."
+          "wrong": "18",
+          "why_en": "18 is just the radish's length (23 - 5) — it stops too early. The question wants longest minus shortest: 34 - 18 = 16.",
+          "why_id": "18 hanyalah panjang lobak (23 - 5) — berhenti terlalu cepat. Soal meminta terpanjang dikurangi terpendek: 34 - 18 = 16."
         },
         "answer": {
           "form": "choice",
@@ -1089,13 +1089,13 @@
       "hint_steps_en": [
         "When the net folds, opposite faces never touch the same corner.",
         "Three faces meeting at a corner must all be different (no opposite pair together).",
-        "Trying the biggest legal trio, the largest reachable sum is 8 + 9 + ... limited by the net to give 18.",
+        "Folding shows the opposite pairs are 5-3, 4-3 and 9-8; a corner takes the bigger face of each pair: 5 + 4 + 9 = 18.",
         "So the largest corner sum is 18."
       ],
       "hint_steps_id": [
         "Saat jaring-jaring dilipat, sisi-sisi yang berseberangan tidak pernah bertemu di sudut yang sama.",
         "Tiga sisi yang bertemu di satu sudut harus berbeda semua (tidak boleh pasangan berseberangan bersama).",
-        "Mencoba trio legal terbesar, jumlah terbesar yang bisa dicapai dibatasi jaring-jaring menjadi 18.",
+        "Melipat menunjukkan pasangan berseberangan adalah 5-3, 4-3, dan 9-8; satu sudut mengambil sisi terbesar dari tiap pasangan: 5 + 4 + 9 = 18.",
         "Jadi jumlah sudut terbesar adalah 18."
       ],
       "breakdown": {
@@ -1358,8 +1358,8 @@
         },
         "trap": {
           "wrong": "8",
-          "why_en": "8 comes from making 88-style mistakes; the true numbers are 82 and 70, a gap of 12.",
-          "why_id": "8 muncul dari kesalahan seperti 88; bilangan sebenarnya 82 dan 70, selisih 12."
+          "why_en": "8 comes from picking 80 (ending in 0) and then 72: 80 - 72 = 8. But 82 is a bigger even number than 80, so the right pair is 82 and 70, a gap of 12.",
+          "why_id": "8 muncul dari memilih 80 (berakhiran 0) lalu 72: 80 - 72 = 8. Padahal 82 bilangan genap yang lebih besar dari 80, jadi pasangan yang benar 82 dan 70, selisihnya 12."
         },
         "answer": {
           "form": "choice",
@@ -1677,8 +1677,8 @@
         },
         "trap": {
           "wrong": "229",
-          "why_en": "229 forgets to adjust the rounding (199 vs 200) or subtracts 46 instead of 56.",
-          "why_id": "229 lupa menyesuaikan pembulatan (199 vs 200) atau mengurangi 46 bukan 56."
+          "why_en": "229 subtracts 46 instead of 56: 275 - 46 = 229. Subtracting the full 56 gives 275 - 56 = 219.",
+          "why_id": "229 mengurangi 46 bukan 56: 275 - 46 = 229. Mengurangi 56 penuh memberi 275 - 56 = 219."
         },
         "answer": {
           "form": "choice",
@@ -2298,8 +2298,8 @@
     },
     {
       "number": 23,
-      "body_en": "Look at the picture of the colored ring (an octagon divided into 8 segments, with a rotation arrow). Which color strip below has the correct color arrangement? The two ends of the strip can be joined, but the strip cannot be turned over.",
-      "body_id": "Lihatlah gambar cincin berwarna (segi delapan yang dibagi menjadi 8 bagian, dengan panah putaran). Pita warna manakah di bawah ini yang susunan warnanya benar? Kedua ujung pita boleh disambung, tetapi pita tidak boleh dibalik.",
+      "body_en": "Look at the picture of the colored ring (a ring divided into 9 segments, with a rotation arrow). Which color strip below has the correct color arrangement? The two ends of the strip can be joined, but the strip cannot be turned over.",
+      "body_id": "Lihatlah gambar cincin berwarna (cincin yang dibagi menjadi 9 bagian, dengan panah putaran). Pita warna manakah di bawah ini yang susunan warnanya benar? Kedua ujung pita boleh disambung, tetapi pita tidak boleh dibalik.",
       "answer_type": "multiple_choice",
       "choices_en": [
         {
@@ -2356,10 +2356,10 @@
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "octagon divided into 8 segments",
-            "phrase_id": "segi delapan yang dibagi menjadi 8 bagian",
-            "note_en": "Eight colours sit in a fixed cyclic order.",
-            "note_id": "Delapan warna dalam urutan siklik tetap."
+            "phrase_en": "ring divided into 9 segments",
+            "phrase_id": "cincin yang dibagi menjadi 9 bagian",
+            "note_en": "Nine colours sit in a fixed cyclic order.",
+            "note_id": "Sembilan warna dalam urutan siklik tetap."
           },
           {
             "category": "trap",
@@ -2380,7 +2380,7 @@
           {
             "label_en": "Segments",
             "label_id": "Bagian",
-            "value": "8"
+            "value": "9"
           }
         ],
         "strategy": {

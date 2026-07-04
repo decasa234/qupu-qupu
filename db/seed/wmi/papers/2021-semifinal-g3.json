@@ -1429,34 +1429,34 @@
     },
     {
       "number": 22,
-      "body_en": "An unfolded die (its net) is shown below. Suppose the sum of the numbers on the two opposite faces is 7. Which option below is correct?",
-      "body_id": "Sebuah dadu yang dibuka (jaring-jaringnya) ditunjukkan di bawah ini. Misalkan jumlah angka pada dua sisi yang berhadapan adalah 7. Pilihan manakah di bawah ini yang benar?",
+      "body_en": "An unfolded die (its net) is shown below; a red star (★) marks one blank face. Suppose the sum of the numbers on the two opposite faces is 7. Which option below shows the correct face for the ★?",
+      "body_id": "Sebuah dadu yang dibuka (jaring-jaringnya) ditunjukkan di bawah ini; sebuah bintang merah (★) menandai satu sisi kosong. Misalkan jumlah angka pada dua sisi yang berhadapan adalah 7. Pilihan manakah di bawah ini yang menunjukkan sisi yang benar untuk ★?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "(see option figure A)" },
-        { "label": "B", "text": "(see option figure B)" },
-        { "label": "C", "text": "(see option figure C)" },
-        { "label": "D", "text": "(see option figure D)" }
+        { "label": "A", "text": "(face with 4 dots)" },
+        { "label": "B", "text": "(face with 3 dots)" },
+        { "label": "C", "text": "(face with 2 dots)" },
+        { "label": "D", "text": "(face with 6 dots)" }
       ],
       "choices_id": [
-        { "label": "A", "text": "(lihat gambar pilihan A)" },
-        { "label": "B", "text": "(lihat gambar pilihan B)" },
-        { "label": "C", "text": "(lihat gambar pilihan C)" },
-        { "label": "D", "text": "(lihat gambar pilihan D)" }
+        { "label": "A", "text": "(sisi dengan 4 titik)" },
+        { "label": "B", "text": "(sisi dengan 3 titik)" },
+        { "label": "C", "text": "(sisi dengan 2 titik)" },
+        { "label": "D", "text": "(sisi dengan 6 titik)" }
       ],
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g3-a-q22.jpg",
       "hint_steps_en": [
-        "On a real die, opposite faces add to 7: so 1 is opposite 6, 2 opposite 5, 3 opposite 4.",
-        "Fold the net up in your head and see which numbers land facing each other.",
-        "The correct option keeps every opposite pair adding to 7 (no two same numbers touching).",
-        "Only option B folds into a die where all opposite faces sum to 7."
+        "Opposite faces add to 7, so the pairs are 1-6, 2-5, and 3-4.",
+        "Fold the net up in your head: the ★ face lands opposite the face with 4 dots.",
+        "So ★ + 4 = 7, which means the ★ face has 7 - 4 = 3 dots.",
+        "The option showing 3 dots is option B."
       ],
       "hint_steps_id": [
-        "Pada dadu sungguhan, sisi berhadapan berjumlah 7: jadi 1 berhadapan 6, 2 berhadapan 5, 3 berhadapan 4.",
-        "Lipat jaring-jaringnya dalam pikiran dan lihat angka mana yang saling berhadapan.",
-        "Pilihan benar menjaga setiap pasangan berhadapan berjumlah 7 (tidak ada dua angka sama bersentuhan).",
-        "Hanya pilihan B yang terlipat menjadi dadu dengan semua sisi berhadapan berjumlah 7."
+        "Sisi berhadapan berjumlah 7, jadi pasangannya 1-6, 2-5, dan 3-4.",
+        "Lipat jaring-jaringnya dalam pikiran: sisi ★ berhadapan dengan sisi bertitik 4.",
+        "Jadi ★ + 4 = 7, artinya sisi ★ memiliki 7 - 4 = 3 titik.",
+        "Pilihan yang menunjukkan 3 titik adalah pilihan B."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1470,23 +1470,24 @@
           },
           {
             "category": "question",
-            "phrase_en": "Which option below is correct",
-            "phrase_id": "Pilihan manakah di bawah ini yang benar",
-            "note_en": "Pick the net that folds into a die obeying all three opposite pairs.",
-            "note_id": "Pilih jaring-jaring yang terlipat jadi dadu yang menaati ketiga pasangan berhadapan."
+            "phrase_en": "Which option below shows the correct face for the ★",
+            "phrase_id": "Pilihan manakah di bawah ini yang menunjukkan sisi yang benar untuk ★",
+            "note_en": "Work out how many dots belong on the ★ face, then pick the picture that matches.",
+            "note_id": "Cari berapa titik yang seharusnya ada di sisi ★, lalu pilih gambar yang cocok."
           }
         ],
         "quantities": [
-          { "label_en": "Opposite pairs", "label_id": "Pasangan berhadapan", "value": "1-6, 2-5, 3-4" }
+          { "label_en": "Opposite pairs", "label_id": "Pasangan berhadapan", "value": "1-6, 2-5, 3-4" },
+          { "label_en": "★ face", "label_id": "Sisi ★", "value": "7 - 4 = 3" }
         ],
         "strategy": {
-          "name_en": "Fold the net mentally and check each pair",
-          "name_id": "Lipat jaring-jaring dalam pikiran dan cek tiap pasangan"
+          "name_en": "Fold the net mentally to find the ★ face's partner",
+          "name_id": "Lipat jaring-jaring dalam pikiran untuk menemukan pasangan sisi ★"
         },
         "trap": {
-          "wrong": "(see option figure A)",
-          "why_en": "A tempting net puts a matching pair (like 2 and 5) on adjacent faces instead of opposite ones, breaking the sum-7 rule.",
-          "why_id": "Jaring-jaring yang menggoda menaruh pasangan (seperti 2 dan 5) di sisi bersebelahan, bukan berhadapan, sehingga melanggar aturan jumlah 7."
+          "wrong": "(face with 4 dots)",
+          "why_en": "A tempting picture shows 4 dots — copying the face opposite the ★ instead of computing 7 - 4 = 3.",
+          "why_id": "Gambar yang menggoda menunjukkan 4 titik — meniru sisi di seberang ★ alih-alih menghitung 7 - 4 = 3."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }

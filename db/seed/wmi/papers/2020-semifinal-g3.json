@@ -735,8 +735,8 @@
     },
     {
       "number": 12,
-      "body_en": "In the addition below, A, B, C, and D are nonzero digits. The two-digit number 4A is added to the three-digit number 39C to give the three-digit number D60. Find A + B + C + D.",
-      "body_id": "Pada penjumlahan berikut, A, B, C, dan D adalah angka yang bukan nol. Bilangan dua angka 4A dijumlahkan dengan bilangan tiga angka 39C menghasilkan bilangan tiga angka D60. Tentukan A + B + C + D.",
+      "body_en": "In the addition below, A, B, C, and D are nonzero digits. The three-digit number 4AB is added to the three-digit number 39C to give the three-digit number D60. Find A + B + C + D.",
+      "body_id": "Pada penjumlahan berikut, A, B, C, dan D adalah angka yang bukan nol. Bilangan tiga angka 4AB dijumlahkan dengan bilangan tiga angka 39C menghasilkan bilangan tiga angka D60. Tentukan A + B + C + D.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "15" },
@@ -752,16 +752,16 @@
       ],
       "answer": "D",
       "hint_steps_en": [
-        "Line up the addition so the units, tens, and hundreds match.",
-        "Work from the units column: the carries decide each hidden digit.",
-        "Solving the columns fixes each of the digits A, B, C, and D.",
-        "Adding those digits gives A + B + C + D = 24."
+        "Units column: B + C ends in 0, and B, C are nonzero, so B + C = 10 with a carry of 1.",
+        "Tens column: A + 9 + 1 must end in 6, so A + 10 = 16 and A = 6, carrying 1 again.",
+        "Hundreds column: 4 + 3 + 1 = 8, so D = 8.",
+        "So A + B + C + D = 6 + 10 + 8 = 24."
       ],
       "hint_steps_id": [
-        "Susun penjumlahannya agar satuan, puluhan, dan ratusan sejajar.",
-        "Mulai dari kolom satuan: simpanan menentukan setiap angka tersembunyi.",
-        "Menyelesaikan tiap kolom menetapkan angka A, B, C, dan D.",
-        "Menjumlahkan angka-angka itu menghasilkan A + B + C + D = 24."
+        "Kolom satuan: B + C berakhir 0, dan B, C bukan nol, jadi B + C = 10 dengan simpanan 1.",
+        "Kolom puluhan: A + 9 + 1 harus berakhir 6, jadi A + 10 = 16 dan A = 6, menyimpan 1 lagi.",
+        "Kolom ratusan: 4 + 3 + 1 = 8, jadi D = 8.",
+        "Jadi A + B + C + D = 6 + 10 + 8 = 24."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -797,8 +797,8 @@
         },
         "trap": {
           "wrong": "14",
-          "why_en": "14 forgets one of the carry digits, so the letters do not all add in.",
-          "why_id": "14 melupakan salah satu angka simpanan, sehingga tidak semua huruf terjumlah."
+          "why_en": "14 is only A + D = 6 + 8 — it forgets that the units column forces B + C = 10.",
+          "why_id": "14 hanya A + D = 6 + 8 — itu melupakan bahwa kolom satuan memaksa B + C = 10."
         },
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -1095,15 +1095,15 @@
       "answer": "D",
       "figure_url": "/api/public/wmi/figures/2020-semifinal-g3-a-q17.jpg",
       "hint_steps_en": [
-        "In picture n there are 1+2+...+n white triangles and the gray ones are n fewer.",
-        "The white-minus-gray gap grows by one each picture, so the gap equals n.",
-        "A gap of 10 happens at picture 9, where whites = 1+2+...+9 = 45.",
+        "In picture n there are 1+2+...+n gray triangles and the white ones are n fewer: 1+2+...+(n-1).",
+        "The gray-minus-white gap grows by one each picture, so the gap equals n.",
+        "A gap of 10 happens at picture 10, where whites = 1+2+...+9 = 45.",
         "So there are 45 white triangles."
       ],
       "hint_steps_id": [
-        "Pada gambar ke-n ada 1+2+...+n segitiga putih dan abu-abunya n lebih sedikit.",
-        "Selisih putih dikurangi abu-abu bertambah satu tiap gambar, jadi selisih sama dengan n.",
-        "Selisih 10 terjadi pada gambar ke-9, di mana putih = 1+2+...+9 = 45.",
+        "Pada gambar ke-n ada 1+2+...+n segitiga abu-abu dan putihnya n lebih sedikit: 1+2+...+(n-1).",
+        "Selisih abu-abu dikurangi putih bertambah satu tiap gambar, jadi selisih sama dengan n.",
+        "Selisih 10 terjadi pada gambar ke-10, di mana putih = 1+2+...+9 = 45.",
         "Jadi ada 45 segitiga putih."
       ],
       "breakdown": {
@@ -1126,7 +1126,7 @@
         ],
         "quantities": [
           { "label_en": "Gap needed", "label_id": "Selisih yang dicari", "value": "10" },
-          { "label_en": "Picture number", "label_id": "Nomor gambar", "value": "9" }
+          { "label_en": "Picture number", "label_id": "Nomor gambar", "value": "10" }
         ],
         "strategy": {
           "name_en": "Track the growing gap, then add the white triangles",
@@ -1142,8 +1142,8 @@
     },
     {
       "number": 18,
-      "body_en": "Square + Square + Square = 1541 and Circle + Square = 797. Find the value of Circle.",
-      "body_id": "Persegi + Persegi + Persegi = 1541 dan Lingkaran + Persegi = 797. Tentukan nilai Lingkaran.",
+      "body_en": "Square + Square + Circle = 1541 and Circle + Square = 797. Find the value of Circle.",
+      "body_id": "Persegi + Persegi + Lingkaran = 1541 dan Lingkaran + Persegi = 797. Tentukan nilai Lingkaran.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "744" },
@@ -1159,14 +1159,14 @@
       ],
       "answer": "C",
       "hint_steps_en": [
-        "Three equal Squares make the first total, so one Square is that total split into 3.",
-        "That gives Square = 744.",
+        "Compare the two facts: Square + Square + Circle = 1541 and Circle + Square = 797.",
+        "Take the second away from the first: the Circle and one Square cancel, leaving Square = 1541 - 797 = 744.",
         "Now use Circle + Square = 797: Circle = 797 - 744 = 53.",
         "So the Circle is 53."
       ],
       "hint_steps_id": [
-        "Tiga Persegi yang sama membentuk total pertama, jadi satu Persegi adalah total itu dibagi 3.",
-        "Itu memberi Persegi = 744.",
+        "Bandingkan kedua fakta: Persegi + Persegi + Lingkaran = 1541 dan Lingkaran + Persegi = 797.",
+        "Kurangkan yang kedua dari yang pertama: Lingkaran dan satu Persegi saling hilang, tersisa Persegi = 1541 - 797 = 744.",
         "Sekarang pakai Lingkaran + Persegi = 797: Lingkaran = 797 - 744 = 53.",
         "Jadi Lingkaran adalah 53."
       ],
@@ -1175,10 +1175,10 @@
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "Square + Square + Square",
-            "phrase_id": "Persegi + Persegi + Persegi",
-            "note_en": "Three equal Squares, so divide their total by 3 to get one.",
-            "note_id": "Tiga Persegi yang sama, jadi bagi totalnya dengan 3 untuk satu Persegi."
+            "phrase_en": "Square + Square + Circle",
+            "phrase_id": "Persegi + Persegi + Lingkaran",
+            "note_en": "This total holds one extra Square compared with Circle + Square.",
+            "note_id": "Total ini punya satu Persegi lebih banyak dibanding Lingkaran + Persegi."
           },
           {
             "category": "fact",
@@ -1200,8 +1200,8 @@
           { "label_en": "Circle + Square", "label_id": "Lingkaran + Persegi", "value": "797" }
         ],
         "strategy": {
-          "name_en": "Find one Square first, then subtract from 797",
-          "name_id": "Cari satu Persegi dulu, lalu kurangi dari 797"
+          "name_en": "Subtract the two totals to find one Square, then subtract from 797",
+          "name_id": "Kurangkan kedua total untuk mendapat satu Persegi, lalu kurangi dari 797"
         },
         "trap": {
           "wrong": "744",
@@ -1503,16 +1503,16 @@
       "answer": "A",
       "figure_url": "/api/public/wmi/figures/2020-semifinal-g3-a-q23.jpg",
       "hint_steps_en": [
-        "Each digit 0 to 9 is used once across the connected cells.",
-        "Use each equation to lock in digits, starting where only one choice fits.",
-        "Once the grid is filled, read off the three letters A, B, and C.",
-        "Their sum A + B + C is 16."
+        "Top-left block: 8 x ? = 3_ only works as 8 x 4 = 32, and the chain 3 - 1 = 2, then 1 - 1 = 0, then 6 - 0 = 6 fills the left side.",
+        "Bottom-left column: 6 + A lands in the connected cells 1 and 1 (eleven), so 6 + A = 11 and A = 5.",
+        "Right side: 5 x 2 = 10 and 3 x 6 = 18 give B = 8; then A + 2 = 7, 9 x 7 = 63, and the column 6 x 5 = 30 — the C cell holds the TENS digit of 30 (the units 0 closes 3 - 3 = 0), so C = 3.",
+        "So A + B + C = 5 + 8 + 3 = 16."
       ],
       "hint_steps_id": [
-        "Setiap angka 0 sampai 9 dipakai sekali di sel-sel yang terhubung.",
-        "Gunakan tiap persamaan untuk menetapkan angka, mulai dari yang hanya satu kemungkinan.",
-        "Setelah kisi terisi, baca ketiga huruf A, B, dan C.",
-        "Jumlahnya A + B + C adalah 16."
+        "Blok kiri-atas: 8 x ? = 3_ hanya cocok sebagai 8 x 4 = 32, dan rantai 3 - 1 = 2, lalu 1 - 1 = 0, lalu 6 - 0 = 6 mengisi sisi kiri.",
+        "Kolom kiri-bawah: 6 + A jatuh di sel terhubung 1 dan 1 (sebelas), jadi 6 + A = 11 dan A = 5.",
+        "Sisi kanan: 5 x 2 = 10 dan 3 x 6 = 18 memberi B = 8; lalu A + 2 = 7, 9 x 7 = 63, dan kolom 6 x 5 = 30 — sel C berisi angka PULUHAN dari 30 (angka satuannya 0 menutup 3 - 3 = 0), jadi C = 3.",
+        "Jadi A + B + C = 5 + 8 + 3 = 16."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1521,8 +1521,8 @@
             "category": "fact",
             "phrase_en": "the digits 0 to 9",
             "phrase_id": "angka 0 sampai 9",
-            "note_en": "Every digit is used exactly once.",
-            "note_id": "Setiap angka dipakai tepat satu kali."
+            "note_en": "Each empty cell gets one digit from 0 to 9 so every equation is true.",
+            "note_id": "Setiap sel kosong diisi satu angka 0 sampai 9 agar semua persamaan benar."
           },
           {
             "category": "fact",
@@ -1540,7 +1540,7 @@
           }
         ],
         "quantities": [
-          { "label_en": "Digits available", "label_id": "Angka tersedia", "value": "0-9 once each" },
+          { "label_en": "Digits available", "label_id": "Angka tersedia", "value": "0-9" },
           { "label_en": "Cells to read", "label_id": "Sel yang dibaca", "value": "A, B, C" }
         ],
         "strategy": {
@@ -1548,9 +1548,9 @@
           "name_id": "Selesaikan teka-teki syaratnya, lalu jumlahkan A, B, C"
         },
         "trap": {
-          "wrong": "21",
-          "why_en": "21 reuses a digit somewhere; each of 0 to 9 may appear only once.",
-          "why_id": "21 memakai ulang sebuah angka; setiap 0 sampai 9 hanya boleh muncul sekali."
+          "wrong": "18",
+          "why_en": "18 comes from reading C as the multiplier 5 in 6 x 5 = 30. But the C label in the figure marks the TENS cell of the product 30, so C = 3 and A + B + C = 5 + 8 + 3 = 16.",
+          "why_id": "18 muncul karena membaca C sebagai pengali 5 pada 6 x 5 = 30. Padahal label C pada gambar menandai sel PULUHAN dari hasil 30, jadi C = 3 dan A + B + C = 5 + 8 + 3 = 16."
         },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }

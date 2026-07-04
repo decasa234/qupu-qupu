@@ -103,7 +103,7 @@
       "hint_steps_en": [
         "Something plus 7 makes 20, so we work backwards.",
         "Adding can be undone by subtracting: 20 - 7.",
-        "Take 0 then 7 away: 20 - 7 = 13.",
+        "Take 7 away from 20: 20 - 7 = 13.",
         "So the box is 13, because 13 + 7 = 20."
       ],
       "hint_steps_id": [
@@ -482,16 +482,16 @@
       ],
       "answer": "C",
       "hint_steps_en": [
-        "Each step down the stairs adds one more number to the row.",
-        "Read along the bottom row in order: 1, 2, 9, then the box.",
-        "The bottom row follows the staircase pattern, and the missing tile is 9.",
-        "So the number in the box is 9."
+        "Line the stairs up from the left and read them as columns: column 1 holds 6, 3, 5, 1; column 2 holds 4, 7, 2; column 3 holds 2, 9; column 4 holds only the box.",
+        "Add each column: 6 + 3 + 5 + 1 = 15, then 4 + 7 + 2 = 13, then 2 + 9 = 11.",
+        "The column sums drop by 2 each time: 15, 13, 11, so the next column must total 9.",
+        "The box is the last column all by itself, so the number in the box is 9."
       ],
       "hint_steps_id": [
-        "Setiap turun satu anak tangga menambah satu angka di barisnya.",
-        "Baca baris paling bawah berurutan: 1, 2, 9, lalu kotaknya.",
-        "Baris bawah mengikuti pola tangga, dan ubin yang hilang adalah 9.",
-        "Jadi angka di kotak itu 9."
+        "Luruskan tangganya dari kiri dan baca sebagai kolom: kolom 1 berisi 6, 3, 5, 1; kolom 2 berisi 4, 7, 2; kolom 3 berisi 2, 9; kolom 4 hanya berisi kotaknya.",
+        "Jumlahkan tiap kolom: 6 + 3 + 5 + 1 = 15, lalu 4 + 7 + 2 = 13, lalu 2 + 9 = 11.",
+        "Jumlah kolomnya turun 2 setiap kali: 15, 13, 11, jadi kolom berikutnya harus berjumlah 9.",
+        "Kotak itu adalah kolom terakhir yang berdiri sendiri, jadi angka di kotak adalah 9."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -513,9 +513,9 @@
         ],
         "quantities": [
           {
-            "label_en": "Known tiles in row 4",
-            "label_id": "Ubin yang diketahui di baris 4",
-            "value": "1, 2, 9"
+            "label_en": "Column sums, left to right",
+            "label_id": "Jumlah kolom, dari kiri ke kanan",
+            "value": "15, 13, 11, ?"
           },
           {
             "label_en": "Missing tile",
@@ -524,8 +524,8 @@
           }
         ],
         "strategy": {
-          "name_en": "Follow the staircase pattern to the last tile",
-          "name_id": "Ikuti pola tangga sampai ubin terakhir"
+          "name_en": "Add each column — the sums drop by 2",
+          "name_id": "Jumlahkan tiap kolom — jumlahnya turun 2"
         },
         "trap": {
           "wrong": "11",
@@ -857,16 +857,16 @@
       "answer": "D",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q12.jpg",
       "hint_steps_en": [
-        "Walk only on the white tiles, since the gray ones are blocked.",
-        "Count one step for each tile you move onto, going from A toward B.",
-        "Follow the white border all the way around and tally the moves.",
-        "The shortest path along the white border takes 9 steps."
+        "Walk along the white border around the gray squares — every square side you walk is one step. In the example, A to B takes 5 steps.",
+        "On the larger grid, start at A and hug the border: up 2 steps, right 2, up 2, then right 3 to reach B.",
+        "Count the steps: 2 + 2 + 2 + 3 = 9.",
+        "So A to B along the white border takes 9 steps."
       ],
       "hint_steps_id": [
-        "Berjalanlah hanya di ubin putih, karena yang abu-abu terhalang.",
-        "Hitung satu langkah tiap kali pindah ke ubin berikutnya, dari A menuju B.",
-        "Ikuti tepi putih sampai mengelilingi dan hitung langkahnya.",
-        "Jalur terpendek menyusuri tepi putih butuh 9 langkah."
+        "Jalan menyusuri tepi putih mengelilingi kotak abu-abu — setiap sisi persegi yang dilalui adalah satu langkah. Pada contoh, A ke B butuh 5 langkah.",
+        "Pada kisi yang lebih besar, mulai dari A dan susuri tepinya: naik 2 langkah, kanan 2, naik 2, lalu kanan 3 sampai di B.",
+        "Hitung langkahnya: 2 + 2 + 2 + 3 = 9.",
+        "Jadi A ke B menyusuri tepi putih butuh 9 langkah."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -882,8 +882,8 @@
             "category": "question",
             "phrase_en": "how many steps does it take to walk along the white border from A to B",
             "phrase_id": "berapa langkah untuk berjalan menyusuri tepi putih dari A ke B",
-            "note_en": "Count one step per tile moved along the white path.",
-            "note_id": "Hitung satu langkah tiap ubin yang dilewati di jalur putih."
+            "note_en": "Count one step for every square side you walk along the white border.",
+            "note_id": "Hitung satu langkah untuk setiap sisi persegi yang dilalui di tepi putih."
           }
         ],
         "quantities": [
@@ -904,8 +904,8 @@
         },
         "trap": {
           "wrong": "8",
-          "why_en": "Cutting across a corner skips one tile and undercounts to 8 — every white tile on the way must be stepped on.",
-          "why_id": "Memotong sudut melewatkan satu ubin dan kurang hitung jadi 8 — tiap ubin putih di jalur harus diinjak."
+          "why_en": "Skipping one square side at a corner undercounts to 8 — every side along the border must be counted.",
+          "why_id": "Melewatkan satu sisi persegi di sudut membuat kurang hitung jadi 8 — setiap sisi di tepi harus dihitung."
         },
         "answer": {
           "form": "choice",
@@ -1006,16 +1006,16 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q14.jpg",
       "hint_steps_en": [
-        "A belt joining two wheels makes them turn the same way.",
-        "Start at the marked wheel and follow the belt from wheel to wheel.",
-        "Carry the turning direction along the belt until you reach wheel A.",
-        "Wheel A ends up turning in direction B."
+        "The belts are crossed (each makes a figure-8), and a crossed belt makes the two wheels it joins turn in opposite directions.",
+        "Start at the marked wheel: it turns counter-clockwise.",
+        "Follow the chain of three crossed belts, flipping the direction at each one: counter-clockwise, clockwise, counter-clockwise, clockwise.",
+        "Wheel A ends up turning clockwise — direction B."
       ],
       "hint_steps_id": [
-        "Sabuk yang menghubungkan dua roda membuat keduanya berputar searah.",
-        "Mulai dari roda yang ditandai dan ikuti sabuk dari roda ke roda.",
-        "Bawa arah putaran sepanjang sabuk sampai ke roda A.",
-        "Roda A akhirnya berputar ke arah B."
+        "Sabuknya menyilang (masing-masing membentuk angka 8), dan sabuk menyilang membuat dua roda yang dihubungkannya berputar berlawanan arah.",
+        "Mulai dari roda yang ditandai: roda itu berputar berlawanan arah jarum jam.",
+        "Ikuti rantai tiga sabuk menyilang, balik arah di setiap sabuk: berlawanan jarum jam, searah, berlawanan, searah.",
+        "Roda A akhirnya berputar searah jarum jam — arah B."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1037,19 +1037,19 @@
         ],
         "quantities": [
           {
-            "label_en": "Wheels linked by a belt",
-            "label_id": "Roda yang dihubungkan sabuk",
-            "value": "turn the same way"
+            "label_en": "Crossed belts in the chain",
+            "label_id": "Sabuk menyilang dalam rantai",
+            "value": "3 (each one flips the direction)"
           }
         ],
         "strategy": {
-          "name_en": "Carry the turn direction along the belt",
-          "name_id": "Bawa arah putaran menyusuri sabuk"
+          "name_en": "Flip the turn direction at every crossed belt",
+          "name_id": "Balik arah putaran di setiap sabuk menyilang"
         },
         "trap": {
           "wrong": "Direction A",
-          "why_en": "Belt-linked wheels turn the same way, not opposite — flipping the direction gives the wrong answer A.",
-          "why_id": "Roda yang dihubungkan sabuk berputar searah, bukan berlawanan — membalik arahnya memberi jawaban salah A."
+          "why_en": "Direction A keeps the marked wheel's counter-clockwise spin — but the belts are crossed, and three crossings flip the direction to clockwise.",
+          "why_id": "Arah A mempertahankan putaran berlawanan jarum jam roda yang ditandai — padahal sabuknya menyilang, dan tiga silangan membalik arahnya menjadi searah jarum jam."
         },
         "answer": {
           "form": "choice",

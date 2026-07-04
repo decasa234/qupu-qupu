@@ -716,8 +716,8 @@
     },
     {
       "number": 12,
-      "body_en": "How many of the 1×2 dominoes are needed at the least to cover the shaded region completely?",
-      "body_id": "Berapa minimal jumlah kepingan domino 1×2 yang dibutuhkan untuk menutupi seluruh daerah berwarna secara lengkap?",
+      "body_en": "How many of the L-shaped pieces of 3 squares are needed at the least to cover the shaded region completely?",
+      "body_id": "Berapa minimal jumlah kepingan berbentuk L dari 3 kotak yang dibutuhkan untuk menutupi seluruh daerah berwarna secara lengkap?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "5" },
@@ -734,47 +734,47 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2023-semifinal-g2-a-q12.jpg",
       "hint_steps_en": [
-        "Each 1×2 domino covers exactly 2 squares.",
-        "Count the shaded squares in the picture.",
-        "Divide the shaded count by 2 to get the dominoes needed.",
-        "The fewest that cover the whole shaded shape is 6."
+        "Each L-shaped piece covers exactly 3 squares.",
+        "Count the shaded squares in the picture: 4 + 5 + 5 + 4 = 18.",
+        "Divide the shaded count by 3: 18 ÷ 3 = 6 pieces at least.",
+        "A fit with exactly 6 L-pieces exists, so the answer is 6."
       ],
       "hint_steps_id": [
-        "Setiap domino 1×2 menutupi tepat 2 kotak.",
-        "Hitung jumlah kotak berwarna pada gambar.",
-        "Bagi jumlah kotak berwarna dengan 2 untuk dapat jumlah domino.",
-        "Jumlah paling sedikit yang menutupi seluruh daerah adalah 6."
+        "Setiap kepingan berbentuk L menutupi tepat 3 kotak.",
+        "Hitung kotak berwarna pada gambar: 4 + 5 + 5 + 4 = 18.",
+        "Bagi jumlah kotak berwarna dengan 3: 18 ÷ 3 = 6 kepingan paling sedikit.",
+        "Susunan dengan tepat 6 kepingan L memang ada, jadi jawabannya 6."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "1×2 dominoes",
-            "phrase_id": "domino 1×2",
-            "note_en": "Each piece covers two squares side by side.",
-            "note_id": "Tiap keping menutupi dua kotak yang bersebelahan."
+            "phrase_en": "L-shaped pieces of 3 squares",
+            "phrase_id": "kepingan berbentuk L dari 3 kotak",
+            "note_en": "Each piece covers three squares in an L shape.",
+            "note_id": "Tiap keping menutupi tiga kotak berbentuk L."
           },
           {
             "category": "question",
             "phrase_en": "at the least to cover the shaded region completely",
-            "phrase_id": "minimal jumlah kepingan domino 1×2 yang dibutuhkan untuk menutupi seluruh daerah berwarna",
-            "note_en": "Pair up the shaded squares with as few dominoes as possible.",
-            "note_id": "Pasangkan kotak-kotak berwarna dengan domino sesedikit mungkin."
+            "phrase_id": "minimal jumlah kepingan berbentuk L dari 3 kotak yang dibutuhkan untuk menutupi seluruh daerah berwarna",
+            "note_en": "Group the shaded squares with as few 3-square pieces as possible.",
+            "note_id": "Kelompokkan kotak-kotak berwarna dengan kepingan 3-kotak sesedikit mungkin."
           }
         ],
         "quantities": [
-          { "label_en": "Squares per domino", "label_id": "Kotak per domino", "value": "2" },
-          { "label_en": "Dominoes needed", "label_id": "Domino diperlukan", "value": "6" }
+          { "label_en": "Squares per piece", "label_id": "Kotak per keping", "value": "3" },
+          { "label_en": "Pieces needed", "label_id": "Keping diperlukan", "value": "6" }
         ],
         "strategy": {
-          "name_en": "Count squares, pair them two at a time",
-          "name_id": "Hitung kotak, pasangkan dua-dua"
+          "name_en": "Count squares, group them three at a time",
+          "name_id": "Hitung kotak, kelompokkan tiga-tiga"
         },
         "trap": {
           "wrong": "5",
-          "why_en": "5 dominoes only cover 10 squares — too few to cover the whole shaded shape.",
-          "why_id": "5 domino hanya menutupi 10 kotak — terlalu sedikit untuk seluruh daerah berwarna."
+          "why_en": "5 pieces only cover 15 squares — too few for the 18 shaded squares.",
+          "why_id": "5 keping hanya menutupi 15 kotak — terlalu sedikit untuk 18 kotak berwarna."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -914,8 +914,8 @@
     },
     {
       "number": 15,
-      "body_en": "The shapes repeat in a pattern (▲ = triangle, ⬠ = pentagon): ▲▲⬠⬠▲ ▲▲⬠⬠▲ __ ▲▲⬠⬠▲. Which option correctly fills the blank (__)?",
-      "body_id": "Bangun-bangun berikut berulang dalam suatu pola (▲ = segitiga, ⬠ = segilima): ▲▲⬠⬠▲ ▲▲⬠⬠▲ __ ▲▲⬠⬠▲. Pilihan mana yang dengan benar mengisi bagian kosong (__)?",
+      "body_en": "The shapes repeat in a pattern (▲ = triangle, ⬠ = pentagon): ▲▲⬠⬠▲ ▲▲⬠⬠▲ ▲__⬠▲ ▲▲⬠⬠▲, where the blank (__) hides two shapes. Which option correctly fills the blank (__), in order?",
+      "body_id": "Bangun-bangun berikut berulang dalam suatu pola (▲ = segitiga, ⬠ = segilima): ▲▲⬠⬠▲ ▲▲⬠⬠▲ ▲__⬠▲ ▲▲⬠⬠▲, dengan bagian kosong (__) menyembunyikan dua bentuk. Pilihan mana yang dengan benar mengisi bagian kosong (__) secara berurutan?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "pentagon, pentagon" },
@@ -932,14 +932,14 @@
       "answer": "D",
       "hint_steps_en": [
         "The repeating block is ▲▲⬠⬠▲ (triangle, triangle, pentagon, pentagon, triangle).",
-        "Each block always starts with two triangles, then two pentagons.",
-        "The blank begins a fresh block, so its first two shapes are triangle, then pentagon as the run continues.",
+        "The third block shows ▲__⬠▲: its 2nd and 3rd shapes are hidden.",
+        "In the block ▲▲⬠⬠▲, the 2nd shape is ▲ and the 3rd shape is ⬠.",
         "So the blank is filled by triangle, pentagon."
       ],
       "hint_steps_id": [
         "Blok yang berulang adalah ▲▲⬠⬠▲ (segitiga, segitiga, segilima, segilima, segitiga).",
-        "Tiap blok selalu mulai dengan dua segitiga, lalu dua segilima.",
-        "Bagian kosong memulai blok baru, jadi dua bentuk pertamanya segitiga lalu segilima saat deret berlanjut.",
+        "Blok ketiga tampak ▲__⬠▲: bentuk ke-2 dan ke-3nya tersembunyi.",
+        "Pada blok ▲▲⬠⬠▲, bentuk ke-2 adalah ▲ dan bentuk ke-3 adalah ⬠.",
         "Jadi bagian kosong diisi segitiga, segilima."
       ],
       "breakdown": {
@@ -969,8 +969,8 @@
         },
         "trap": {
           "wrong": "triangle, triangle",
-          "why_en": "Two triangles open a block, but the pattern shifts the pentagon in right after, giving triangle then pentagon here.",
-          "why_id": "Dua segitiga mengawali blok, tapi pola menaruh segilima tepat setelahnya, sehingga di sini segitiga lalu segilima."
+          "why_en": "Triangle, triangle would be the block's 1st and 2nd shapes — but the first ▲ is already shown, so the hidden shapes are the 2nd and 3rd: ▲ then ⬠.",
+          "why_id": "Segitiga, segitiga adalah bentuk ke-1 dan ke-2 blok — padahal ▲ pertama sudah terlihat, jadi yang tersembunyi adalah bentuk ke-2 dan ke-3: ▲ lalu ⬠."
         },
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -1124,13 +1124,13 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2023-semifinal-g2-a-q18.jpg",
       "hint_steps_en": [
-        "Count dots per row: two rows and two columns are short of 3.",
+        "Count dots per row and per column: three rows and two columns are short of 3.",
         "Rows short: one needs 2 more, two others need 1 each; columns short: two need 2 each.",
         "Place new dots where a short row crosses a short column so one dot helps both.",
         "Four well-placed dots fix every short row and column, so the answer is 4."
       ],
       "hint_steps_id": [
-        "Hitung ● tiap baris: dua baris dan dua kolom masih kurang dari 3.",
+        "Hitung ● tiap baris dan tiap kolom: tiga baris dan dua kolom masih kurang dari 3.",
         "Baris kurang: satu butuh 2 lagi, dua lainnya butuh 1; kolom kurang: dua kolom butuh 2 masing-masing.",
         "Letakkan ● baru di pertemuan baris kurang dan kolom kurang agar satu ● menolong keduanya.",
         "Empat ● yang ditempatkan tepat memperbaiki semua baris dan kolom, jadi jawabannya 4."
@@ -1425,8 +1425,8 @@
     },
     {
       "number": 23,
-      "body_en": "Fill the digits 1–9 into the □'s and △'s to make the addition correct. All the □'s are the same digit, and all the △'s are the same digit. The vertical addition is: a 3-digit number □□□ plus a 2-digit number □△ equals the 3-digit number △△△. Find □ + △ + △ + △.",
-      "body_id": "Isikan angka 1–9 ke dalam □ dan △ agar penjumlahan menjadi benar. Semua □ adalah angka yang sama, dan semua △ adalah angka yang sama. Penjumlahan bersusunnya: bilangan 3 angka □□□ ditambah bilangan 2 angka □△ sama dengan bilangan 3 angka △△△. Tentukan □ + △ + △ + △.",
+      "body_en": "Fill the digits 1–9 into the □'s and △'s to make the addition correct. All the □'s are the same digit, and all the △'s are the same digit. The vertical addition is: a 3-digit number □□□ plus a 2-digit number □□ plus a 2-digit number □△ equals the 3-digit number △△△. Find □ + △ + △ + △.",
+      "body_id": "Isikan angka 1–9 ke dalam □ dan △ agar penjumlahan menjadi benar. Semua □ adalah angka yang sama, dan semua △ adalah angka yang sama. Penjumlahan bersusunnya: bilangan 3 angka □□□ ditambah bilangan 2 angka □□ ditambah bilangan 2 angka □△ sama dengan bilangan 3 angka △△△. Tentukan □ + △ + △ + △.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "29" },
@@ -1442,16 +1442,16 @@
       ],
       "answer": "D",
       "hint_steps_en": [
-        "Write it as □□□ + □△ = △△△, where □ is one digit and △ another.",
-        "Testing digits, □ = 2 and △ = 7 works: 222 + 27 = 249? no — recheck with 222 + 27.",
-        "The pair that balances the sum is □ = 2, △ = 7, since 222 + 27 lines up to 777-pattern carries; the digits give □ + 3×△.",
-        "So □ + △ + △ + △ = 2 + 7 + 7 + 7 = 23."
+        "Write it as □□□ + □□ + □△ = △△△: the ones column adds □ + □ + △ and must end in △.",
+        "So □ + □ ends in 0, which forces □ = 5 (carry 1 to the tens).",
+        "Tens column: 5 + 5 + 5 + 1 = 16, so △ = 6 (carry 1); hundreds: 5 + 1 = 6 = △ ✓. Check: 555 + 55 + 56 = 666.",
+        "So □ + △ + △ + △ = 5 + 6 + 6 + 6 = 23."
       ],
       "hint_steps_id": [
-        "Tulis sebagai □□□ + □△ = △△△, dengan □ satu angka dan △ angka lain.",
-        "Mencoba angka, □ = 2 dan △ = 7 cocok dengan pola penjumlahan bersusun.",
-        "Pasangan yang menyeimbangkan adalah □ = 2, △ = 7, sehingga nilainya □ + 3×△.",
-        "Jadi □ + △ + △ + △ = 2 + 7 + 7 + 7 = 23."
+        "Tulis sebagai □□□ + □□ + □△ = △△△: kolom satuan menjumlahkan □ + □ + △ dan harus berakhiran △.",
+        "Jadi □ + □ berakhiran 0, yang memaksa □ = 5 (simpan 1 ke puluhan).",
+        "Kolom puluhan: 5 + 5 + 5 + 1 = 16, jadi △ = 6 (simpan 1); ratusan: 5 + 1 = 6 = △ ✓. Cek: 555 + 55 + 56 = 666.",
+        "Jadi □ + △ + △ + △ = 5 + 6 + 6 + 6 = 23."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -1472,8 +1472,8 @@
           }
         ],
         "quantities": [
-          { "label_en": "□", "label_id": "□", "value": "2" },
-          { "label_en": "△", "label_id": "△", "value": "7" }
+          { "label_en": "□", "label_id": "□", "value": "5" },
+          { "label_en": "△", "label_id": "△", "value": "6" }
         ],
         "strategy": {
           "name_en": "Solve the cryptarithm column by column, then sum",
@@ -1481,16 +1481,16 @@
         },
         "trap": {
           "wrong": "21",
-          "why_en": "21 would need △ = 6.33..., not a whole digit; the matching digits give 2 + 7 + 7 + 7 = 23.",
-          "why_id": "21 memerlukan △ = 6,33..., bukan angka bulat; angka yang cocok memberi 2 + 7 + 7 + 7 = 23."
+          "why_en": "21 swaps the digits (□ = 6, △ = 5 gives 6 + 5 + 5 + 5 = 21), but 666 + 66 + 65 = 797, not 555; only □ = 5, △ = 6 works.",
+          "why_id": "21 menukar angkanya (□ = 6, △ = 5 memberi 6 + 5 + 5 + 5 = 21), padahal 666 + 66 + 65 = 797, bukan 555; hanya □ = 5, △ = 6 yang benar."
         },
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
     },
     {
       "number": 24,
-      "body_en": "The product of a line of three fruits (each fruit represents a number) is written at the end of each row, as shown: apple × banana × banana = 16; apple × banana × cherry = 56; banana × banana × cherry = 28. Given that banana = 8, find apple + cherry. Choose the correct option.",
-      "body_id": "Hasil kali tiga buah dalam satu baris (setiap buah mewakili sebuah bilangan) ditulis di ujung tiap baris, seperti ditunjukkan: apel × pisang × pisang = 16; apel × pisang × ceri = 56; pisang × pisang × ceri = 28. Diketahui pisang = 8, tentukan apel + ceri. Pilih jawaban yang benar.",
+      "body_en": "The product of a line of three fruits (each fruit represents a number) is written at the end of each row, as shown: apple × banana × banana = 16; apple × banana × cherry = 56; banana × banana × cherry = 28. Below the grid, each column's product is shown the same way: the middle (banana) column gives banana = 8, while the apple column's product (pink circle) and the cherry column's product (blue circle) are hidden. Find apple + cherry, the sum of the two hidden column products. Choose the correct option.",
+      "body_id": "Hasil kali tiga buah dalam satu baris (setiap buah mewakili sebuah bilangan) ditulis di ujung tiap baris, seperti ditunjukkan: apel × pisang × pisang = 16; apel × pisang × ceri = 56; pisang × pisang × ceri = 28. Di bawah kisi, hasil kali tiap kolom ditulis dengan cara yang sama: kolom tengah (pisang) memberi pisang = 8, sedangkan hasil kali kolom apel (lingkaran merah muda) dan hasil kali kolom ceri (lingkaran biru) disembunyikan. Tentukan apel + ceri, jumlah kedua hasil kali kolom yang tersembunyi. Pilih jawaban yang benar.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "114" },
@@ -1537,8 +1537,8 @@
           },
           {
             "category": "question",
-            "phrase_en": "find apple + cherry",
-            "phrase_id": "tentukan apel + ceri",
+            "phrase_en": "Find apple + cherry",
+            "phrase_id": "Tentukan apel + ceri",
             "note_en": "Add the apple-column product and the cherry-column product.",
             "note_id": "Jumlahkan hasil kali kolom apel dan kolom ceri."
           }

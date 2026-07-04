@@ -1362,9 +1362,9 @@
           "name_id": "Lacak selisih dari selisih"
         },
         "trap": {
-          "wrong": "78",
-          "why_en": "Adding a constant 26 again would give 52 + 26 = 78, but the jumps grow by 8, so the real jump is 34 → 86. (78 is not offered, the nearest tempting value is the small jump.)",
-          "why_id": "Menambah 26 lagi memberi 52 + 26 = 78, tetapi lompatan bertambah 8, jadi lompatan sebenarnya 34 → 86."
+          "wrong": "80",
+          "why_en": "The first square tempts you with bottom-right = top-right × bottom-left (4 × 2 = 8); filling 10 and 8 into the last square then gives 10 × 8 = 80 — but that rule already fails on the second square (6 × 4 = 24, not 26). The growing jumps 18, 26, 34 lead to 86.",
+          "why_id": "Persegi pertama menggoda dengan kanan-bawah = kanan-atas × kiri-bawah (4 × 2 = 8); mengisi 10 dan 8 pada persegi terakhir memberi 10 × 8 = 80 — padahal aturan itu sudah gagal di persegi kedua (6 × 4 = 24, bukan 26). Lompatan yang membesar 18, 26, 34 menuju 86."
         },
         "answer": {
           "form": "choice",
@@ -1721,16 +1721,16 @@
       "answer": "E",
       "figure_url": "/api/public/wmi/figures/2025-semifinal-g3-a-q22.jpg",
       "hint_steps_en": [
-        "List the counts: Picture 1→1, 2→2, 3→5, 4→12.",
-        "Look at how each grows from the one before: 2 = 2×1, 5 = 2×2+1, 12 = 2×5+2.",
-        "So each picture doubles the last and adds one more each time: Picture 5 = 2×12+3 = 27, Picture 6 = 2×27+4 = 58... but checking the figure's actual triangles, the matching count for Picture 6 is 43.",
-        "So Picture 6 has 43 triangles."
+        "List the counts: Picture 1→1, 2→2, 3→5, 4→12 — the jumps (+1, +3, +7) keep growing, so extend the drawing instead of guessing a formula.",
+        "Draw Picture 6 the same way (each earlier triangle gains its grid lines, and one bigger empty triangle is added) and sort the triangles by direction: pointing right or pointing left.",
+        "Pointing right: 15 small + 6 double-size + 1 triple-size + the big outline = 23. Pointing left (upside-down): 10 small + 6 double-size + 3 triple-size + 1 quadruple-size = 20.",
+        "23 + 20 = 43, so Picture 6 has 43 triangles."
       ],
       "hint_steps_id": [
-        "Tuliskan banyaknya: Gambar 1→1, 2→2, 3→5, 4→12.",
-        "Lihat bagaimana tiap tumbuh dari sebelumnya: 2 = 2×1, 5 = 2×2+1, 12 = 2×5+2.",
-        "Jadi tiap gambar menggandakan yang sebelumnya dan menambah satu lebih banyak: Gambar 5 = 2×12+3 = 27; memeriksa segitiga sebenarnya pada gambar, banyaknya yang cocok untuk Gambar 6 adalah 43.",
-        "Jadi Gambar 6 memiliki 43 segitiga."
+        "Tuliskan banyaknya: Gambar 1→1, 2→2, 3→5, 4→12 — lompatannya (+1, +3, +7) terus membesar, jadi lanjutkan gambarnya alih-alih menebak rumus.",
+        "Gambarlah Gambar 6 dengan cara yang sama (tiap segitiga lama mendapat garis kisinya, dan satu segitiga kosong yang lebih besar ditambahkan) lalu pilah segitiga menurut arahnya: menghadap kanan atau kiri.",
+        "Menghadap kanan: 15 kecil + 6 ukuran dua + 1 ukuran tiga + 1 bingkai besar = 23. Menghadap kiri (terbalik): 10 kecil + 6 ukuran dua + 3 ukuran tiga + 1 ukuran empat = 20.",
+        "23 + 20 = 43, jadi Gambar 6 memiliki 43 segitiga."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1768,8 +1768,8 @@
         },
         "trap": {
           "wrong": "23",
-          "why_en": "23 is the count for an earlier picture; Picture 6 is two steps further along, reaching 43.",
-          "why_id": "23 adalah banyaknya untuk gambar lebih awal; Gambar 6 dua langkah lebih jauh, mencapai 43."
+          "why_en": "Counting only the right-pointing triangles in Picture 6 gives 23 and forgets the 20 upside-down (left-pointing) ones; the total is 23 + 20 = 43.",
+          "why_id": "Hanya menghitung segitiga yang menghadap kanan pada Gambar 6 memberi 23 dan melupakan 20 segitiga terbalik (menghadap kiri); totalnya 23 + 20 = 43."
         },
         "answer": {
           "form": "choice",
@@ -1979,7 +1979,7 @@
       ],
       "answer": "A",
       "hint_steps_en": [
-        "Start 5 4 3 2 1. Move the pair '1 ' along: slide adjacent pairs to rebuild 1 2 3 4 5.",
+        "Start 5 4 3 2 1. Slide adjacent pairs of cards to rebuild 1 2 3 4 5.",
         "Move 1 (with its neighbour) toward the front, then fix the next pair, then the last — each move places more cards correctly.",
         "Carefully chosen, just 3 pair-moves turn 5 4 3 2 1 into 1 2 3 4 5.",
         "So the minimum number of moves is 3."

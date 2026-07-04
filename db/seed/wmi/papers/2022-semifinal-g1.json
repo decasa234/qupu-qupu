@@ -75,8 +75,8 @@
         },
         "trap": {
           "wrong": "4",
-          "why_en": "A picture with 7 or 9 triangles can look close to 8, so counting too fast adds an extra match.",
-          "why_id": "Gambar dengan 7 atau 9 segitiga bisa terlihat mirip 8, jadi menghitung terburu-buru menambah satu yang salah."
+          "why_en": "A picture with 7 or 10 triangles can look close to 8, so counting too fast adds an extra match.",
+          "why_id": "Gambar dengan 7 atau 10 segitiga bisa terlihat mirip 8, jadi menghitung terburu-buru menambah satu yang salah."
         },
         "answer": {
           "form": "choice",
@@ -535,8 +535,8 @@
     },
     {
       "number": 8,
-      "body_en": "Each vase is worth 3 and each bone is worth 6. Look at the picture and find the total value of all the items shown.",
-      "body_id": "Setiap vas bernilai 3 dan setiap tulang bernilai 6. Perhatikan gambar dan cari nilai total dari semua benda yang ditampilkan.",
+      "body_en": "The picture shows many vases with a few bones scattered among them. How many vases are there in the picture?",
+      "body_id": "Gambar menunjukkan banyak vas dengan beberapa tulang berserakan di antaranya. Berapa banyak vas pada gambar?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "32" },
@@ -553,62 +553,62 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2022-semifinal-g1-a-q8.jpg",
       "hint_steps_en": [
-        "Count the vases and multiply by 3, then count the bones and multiply by 6.",
-        "Group the vases by 3s and the bones by 6s so nothing is missed.",
-        "Add the two amounts together carefully.",
-        "Following the picture, the totals add up to 35.",
-        "So the total value is 35."
+        "Count only the vases — the bones are just there to distract you.",
+        "Sweep the picture in bands from top to bottom so nothing is missed.",
+        "The top band has 12 vases; after the middle band the count reaches 25.",
+        "The bottom band brings the count to 35.",
+        "So there are 35 vases."
       ],
       "hint_steps_id": [
-        "Hitung vas lalu kalikan 3, kemudian hitung tulang lalu kalikan 6.",
-        "Kelompokkan vas per 3 dan tulang per 6 agar tidak ada yang terlewat.",
-        "Jumlahkan kedua nilai dengan hati-hati.",
-        "Mengikuti gambar, totalnya menjadi 35.",
-        "Jadi nilai totalnya 35."
+        "Hitung vasnya saja — tulang hanya ada untuk mengecohmu.",
+        "Sapu gambar per bagian dari atas ke bawah agar tidak ada yang terlewat.",
+        "Bagian atas ada 12 vas; setelah bagian tengah hitungannya mencapai 25.",
+        "Bagian bawah membuat hitungannya menjadi 35.",
+        "Jadi ada 35 vas."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "Each vase is worth 3 and each bone is worth 6",
-            "phrase_id": "Setiap vas bernilai 3 dan setiap tulang bernilai 6",
-            "note_en": "These are the values: multiply each count by its value.",
-            "note_id": "Inilah nilainya: kalikan tiap jumlah dengan nilainya."
+            "phrase_en": "a few bones scattered among them",
+            "phrase_id": "beberapa tulang berserakan di antaranya",
+            "note_en": "The bones do not count — only the vases matter.",
+            "note_id": "Tulang tidak dihitung — hanya vas yang penting."
           },
           {
             "category": "question",
-            "phrase_en": "the total value of all the items",
-            "phrase_id": "nilai total dari semua benda",
-            "note_en": "Add the vases' value and the bones' value together.",
-            "note_id": "Jumlahkan nilai vas dan nilai tulang."
+            "phrase_en": "How many vases",
+            "phrase_id": "Berapa banyak vas",
+            "note_en": "Count every vase in the picture exactly once.",
+            "note_id": "Hitung setiap vas pada gambar tepat satu kali."
           }
         ],
         "quantities": [
           {
-            "label_en": "Vase value",
-            "label_id": "Nilai vas",
-            "value": "3 each"
+            "label_en": "Top band",
+            "label_id": "Bagian atas",
+            "value": "12 vases"
           },
           {
-            "label_en": "Bone value",
-            "label_id": "Nilai tulang",
-            "value": "6 each"
+            "label_en": "Middle band",
+            "label_id": "Bagian tengah",
+            "value": "13 vases"
           },
           {
-            "label_en": "Total value",
-            "label_id": "Nilai total",
-            "value": "35"
+            "label_en": "Bottom band",
+            "label_id": "Bagian bawah",
+            "value": "10 vases"
           }
         ],
         "strategy": {
-          "name_en": "Count each kind, multiply by its value, then add",
-          "name_id": "Hitung tiap jenis, kalikan dengan nilainya, lalu jumlahkan"
+          "name_en": "Sweep in bands and count only the vases",
+          "name_id": "Sapu per bagian dan hitung vasnya saja"
         },
         "trap": {
           "wrong": "38",
-          "why_en": "Miscounting one extra bone (worth 6) or a few extra vases pushes the total too high.",
-          "why_id": "Salah menghitung satu tulang lebih (bernilai 6) atau beberapa vas lebih membuat total terlalu tinggi."
+          "why_en": "Double-counting a few vases in the crowded middle, or counting some bones as vases, pushes the count past 35.",
+          "why_id": "Menghitung ganda beberapa vas di bagian tengah yang padat, atau ikut menghitung tulang sebagai vas, membuat hitungan melewati 35."
         },
         "answer": {
           "form": "choice",
@@ -1035,8 +1035,8 @@
         },
         "trap": {
           "wrong": "21",
-          "why_en": "21 is between Bob and Andy but closer to Andy (27-21=6) than to Bob (21-14=7) is false — 21 is actually nearer Andy, breaking the rule.",
-          "why_id": "21 berada di antara Bob dan Andy tetapi lebih dekat ke Andy, melanggar syarat lebih dekat ke Bob."
+          "why_en": "21 is between Bob and Andy, but it is closer to Andy (27-21=6) than to Bob (21-14=7), breaking the 'closer to Bob' rule.",
+          "why_id": "21 berada di antara Bob dan Andy, tetapi lebih dekat ke Andy (27-21=6) daripada ke Bob (21-14=7), melanggar syarat lebih dekat ke Bob."
         },
         "answer": {
           "form": "choice",
@@ -1517,15 +1517,17 @@
       "answer": "D",
       "figure_url": "/api/public/wmi/figures/2022-semifinal-g1-a-q20.jpg",
       "hint_steps_en": [
-        "Find the rule linking the numbers along the chain, such as a steady jump from one circle to the next.",
-        "Use the known numbers to work out the jump, then apply it to reach the star.",
-        "Continue the same rule one more circle to reach the diamond.",
+        "Add the numbers inside one complete circle: the left circle holds 13 and 17, and 13 + 17 = 30.",
+        "Check another circle: the bottom-left holds 17, 6 and 7, and 17 + 6 + 7 = 30 — every circle's numbers add to 30.",
+        "The top-middle circle holds 12, 7 and the star: 12 + 7 + star = 30, so star = 11.",
+        "The bottom-right circle holds the star, the diamond and 5: 11 + diamond + 5 = 30, so diamond = 14.",
         "This gives star = 11 and diamond = 14."
       ],
       "hint_steps_id": [
-        "Temukan aturan yang menghubungkan bilangan sepanjang rantai, misalnya lompatan tetap dari satu lingkaran ke berikutnya.",
-        "Pakai bilangan yang diketahui untuk mencari lompatannya, lalu terapkan untuk sampai ke bintang.",
-        "Lanjutkan aturan yang sama satu lingkaran lagi untuk sampai ke belah ketupat.",
+        "Jumlahkan bilangan di dalam satu lingkaran penuh: lingkaran kiri berisi 13 dan 17, dan 13 + 17 = 30.",
+        "Cek lingkaran lain: kiri-bawah berisi 17, 6, dan 7, dan 17 + 6 + 7 = 30 — bilangan di setiap lingkaran berjumlah 30.",
+        "Lingkaran tengah-atas berisi 12, 7, dan bintang: 12 + 7 + bintang = 30, jadi bintang = 11.",
+        "Lingkaran kanan-bawah berisi bintang, belah ketupat, dan 5: 11 + belah ketupat + 5 = 30, jadi belah ketupat = 14.",
         "Hasilnya bintang = 11 dan belah ketupat = 14."
       ],
       "breakdown": {
@@ -1535,15 +1537,15 @@
             "category": "fact",
             "phrase_en": "the pattern in the numbers",
             "phrase_id": "pola pada bilangan-bilangannya",
-            "note_en": "The numbers change by a fixed rule along the chain.",
-            "note_id": "Bilangan berubah dengan aturan tetap sepanjang rantai."
+            "note_en": "The numbers inside every circle add up to the same total, 30.",
+            "note_id": "Bilangan di dalam setiap lingkaran berjumlah sama, yaitu 30."
           },
           {
             "category": "question",
             "phrase_en": "the value of the star and the diamond",
             "phrase_id": "nilai bintang dan belah ketupat",
-            "note_en": "Use the rule to fill the two missing values.",
-            "note_id": "Gunakan aturan untuk mengisi dua nilai yang hilang."
+            "note_en": "Use the equal circle total to fill the two missing values.",
+            "note_id": "Gunakan jumlah lingkaran yang sama untuk mengisi dua nilai yang hilang."
           }
         ],
         "quantities": [
@@ -1559,13 +1561,13 @@
           }
         ],
         "strategy": {
-          "name_en": "Find the step rule, then continue it",
-          "name_id": "Temukan aturan langkah, lalu lanjutkan"
+          "name_en": "Every circle adds to the same total — find it, then subtract",
+          "name_id": "Setiap lingkaran berjumlah sama — temukan totalnya, lalu kurangkan"
         },
         "trap": {
           "wrong": "star = 11, diamond = 16",
-          "why_en": "It gets the star right but overshoots the diamond by applying the step one time too many.",
-          "why_id": "Bintang benar tetapi belah ketupat kelebihan karena aturan diterapkan satu kali terlalu banyak."
+          "why_en": "It gets the star right, but a slip like adding star + 5 as 14 gives diamond = 30 - 14 = 16; carefully, 11 + 5 = 16, so diamond = 14.",
+          "why_id": "Bintangnya benar, tetapi salah menjumlah bintang + 5 sebagai 14 memberi belah ketupat = 30 - 14 = 16; yang teliti, 11 + 5 = 16, jadi belah ketupat = 14."
         },
         "answer": {
           "form": "choice",

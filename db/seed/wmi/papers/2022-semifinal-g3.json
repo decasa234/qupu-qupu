@@ -784,8 +784,8 @@
         },
         "trap": {
           "wrong": "618",
-          "why_en": "618 = 742 - 124 treats 024 as the smallest, but a number cannot start with 0; the real smallest is 102.",
-          "why_id": "618 = 742 - 124 menganggap 024 yang terkecil, padahal bilangan tidak boleh diawali 0; terkecil sebenarnya 102."
+          "why_en": "618 = 742 - 124 skips the 0 entirely and uses 124 as the smallest; but 0 may sit in the middle, so the real smallest is 102.",
+          "why_id": "618 = 742 - 124 tidak memakai 0 sama sekali dan menganggap 124 yang terkecil; padahal 0 boleh di tengah, jadi terkecil sebenarnya 102."
         },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -863,9 +863,9 @@
           "name_id": "Total dikurangi semua kelompok yang diketahui memberi kelompok yang tak diketahui"
         },
         "trap": {
-          "wrong": "123",
-          "why_en": "123 forgets the 11 survivors (456 - 138 - 207 = 111... 123 also mishandles the 'half more' step).",
-          "why_id": "123 melupakan 11 yang lolos dan salah menghitung langkah 'setengah lebih banyak'."
+          "wrong": "110",
+          "why_en": "110 drops a digit of the 11 finalists: 456 - 138 - 207 = 111, then subtracting only 1 instead of 11 gives 110.",
+          "why_id": "110 kehilangan satu angka dari 11 yang lolos: 456 - 138 - 207 = 111, lalu hanya mengurangi 1 alih-alih 11 memberi 110."
         },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -1005,9 +1005,9 @@
           "name_id": "Kelompokkan angka, selesaikan A + 3A = 24, lalu hitung"
         },
         "trap": {
-          "wrong": "9",
-          "why_en": "9 lets the thousands digit be 0, but a 4-digit number can't start with 0, so only 6 numbers remain.",
-          "why_id": "9 membolehkan angka ribuan 0, padahal bilangan 4 angka tidak boleh diawali 0, jadi hanya 6 bilangan tersisa."
+          "wrong": "5",
+          "why_en": "5 wrongly drops the (3,3) case, thinking a digit can't appear twice — but repeats are allowed, so all 6 numbers count.",
+          "why_id": "5 keliru membuang kasus (3,3) karena mengira angka tidak boleh muncul dua kali — padahal pengulangan boleh, jadi keenam bilangan dihitung."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -1148,9 +1148,9 @@
           "name_id": "Urutan operasi: × dan ÷ sebelum +"
         },
         "trap": {
-          "wrong": "544",
-          "why_en": "544 comes from 202 ÷ 2 = 102 (wrong); 202 ÷ 2 is exactly 101, giving 541.",
-          "why_id": "544 muncul dari 202 ÷ 2 = 102 (salah); 202 ÷ 2 tepat 101, jadi 541."
+          "wrong": "844",
+          "why_en": "844 multiplies instead of divides: 202 × 2 = 404, and 404 + 440 = 844; dividing gives 101 + 440 = 541.",
+          "why_id": "844 mengalikan alih-alih membagi: 202 × 2 = 404, dan 404 + 440 = 844; membagi memberi 101 + 440 = 541."
         },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -1629,8 +1629,8 @@
         },
         "trap": {
           "wrong": "13",
-          "why_en": "13 = 4 + 9 picks the wrong spot in the cycle; step 100 ends in 16, giving 1 + 6 = 7.",
-          "why_id": "13 = 4 + 9 mengambil titik yang salah dalam siklus; langkah 100 berakhir 16, memberi 1 + 6 = 7."
+          "why_en": "13 comes from landing on 76 (7 + 6 = 13) — a miscount of the cycle position; step 100 actually ends in 16, giving 1 + 6 = 7.",
+          "why_id": "13 muncul karena jatuh di 76 (7 + 6 = 13) — salah menghitung posisi siklus; langkah 100 sebenarnya berakhir 16, memberi 1 + 6 = 7."
         },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -1655,16 +1655,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2022-semifinal-g3-a-q24.jpg",
       "hint_steps_en": [
-        "Each tall block is labelled 75 and has its own width marked on top (8, 6, 7).",
-        "The full height on the right is 13, shared by the blocks and the ★ band at the base.",
-        "Use the matching heights and widths to set up the band: the ★ band's area works out to 48.",
-        "So ★ = 48."
+        "Each block has area 75; the widths marked on top are 8, 6 and 7.",
+        "On the right, the block of width 7 plus the ★ band under it stand exactly 13 tall, so that column's area is 7 × 13 = 91.",
+        "The band piece under that block is 91 - 75 = 16; the band's full width is 8 + 6 + 7 = 21 = 3 × 7, three pieces just like it.",
+        "So ★ = 3 × 16 = 48."
       ],
       "hint_steps_id": [
-        "Tiap balok tinggi berlabel 75 dan punya lebar sendiri di atasnya (8, 6, 7).",
-        "Tinggi penuh di kanan adalah 13, dibagi oleh balok-balok dan pita ★ di dasar.",
-        "Pakai kesesuaian tinggi dan lebar untuk menyusun pita: luas pita ★ menghasilkan 48.",
-        "Jadi ★ = 48."
+        "Tiap balok luasnya 75; lebar yang ditandai di atas adalah 8, 6, dan 7.",
+        "Di kanan, balok selebar 7 ditambah pita ★ di bawahnya tepat setinggi 13, jadi luas kolom itu 7 × 13 = 91.",
+        "Potongan pita di bawah balok itu 91 - 75 = 16; lebar penuh pita 8 + 6 + 7 = 21 = 3 × 7, tiga potongan yang sama.",
+        "Jadi ★ = 3 × 16 = 48."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1686,7 +1686,7 @@
         ],
         "quantities": [
           { "label_en": "Block widths", "label_id": "Lebar balok", "value": "8, 6, 7" },
-          { "label_en": "Full height", "label_id": "Tinggi penuh", "value": "13" }
+          { "label_en": "Right column height", "label_id": "Tinggi kolom kanan", "value": "13" }
         ],
         "strategy": {
           "name_en": "Relate the given lengths to the band, then compute ★",

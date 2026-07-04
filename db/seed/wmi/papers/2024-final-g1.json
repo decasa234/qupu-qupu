@@ -6,21 +6,15 @@
   "title": "WMI 2024 Grade 1 Final",
   "recommended_duration_min": 90,
   "review": {
-    "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice, 90-min); arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q6 (cake $12.50, Jessica $8), Q8 (third-most digit = 3, after 2&4 at 8 each), Q12 (24 is not of the form 4n+10), Q16 (22−13=9), Q17 (204 then 75), Q18 (6 distinct □+△ sums: 4/6/8/10/12/14), Q23 (merge 8,7→87 gives 97, the max 2-digit result). Figure-dependent answers (Q3, Q5, Q10, Q11, Q13, Q14, Q15, Q20, Q22, Q24) checked for internal consistency. Two figure-dependent grid nits below.",
+    "status": "approved",
+    "reviewed_on": "2026-07-04",
+    "summary": "Full deploy-readiness pass: re-solved all 25; script-verified the enumerable ones (Q8 digit tally, Q12 4n+10 totals, Q16, Q17, Q18, Q23 all-merge enumeration, Q24 BFS min = 6, Q21 backtracking → unique grid 916/435/827, shaded 9+3=12). All 25 answers confirmed; no answer-key changes. Scan-vs-component comparison (Q5, Q10, Q11, Q13, Q15, Q20, Q21, Q22, Q24) found and FIXED two step/figure defects: Q15 hint steps + figure encoded a wrong 'each branch totals 20' reading (scan is a number bond: 13 = □+7 → 6; the two blanks sum to 20 → 14; ★ = 3+14 = 17 — same answer by coincidence); Q22 hint steps + explainer claimed 4 cylinders (scan shows 5 cubes / 3 cylinders / 4 spheres; correct build = 7 alternating carriers + 1 sphere cap = 8) and the illustration now shows the supply counts. Remaining nit below (Q25).",
     "findings": [
-      {
-        "q": 21,
-        "severity": "nit",
-        "gate": "answer",
-        "note": "1–9 grid — the solved grid (916/435/827) is a valid arrangement and the shaded cells (9, 3) sum to 12, but full uniqueness from the figure's clues wasn't proven by a solver this pass."
-      },
       {
         "q": 25,
         "severity": "nit",
         "gate": "answer",
-        "note": "Three-row column-sum grid — ●=8, ◆=3, ★=1 (→ 10) depend on the figure's given numbers and column sums; not solver-verified for uniqueness this pass."
+        "note": "Three-row column-sum grid — no scan exists and the printed circle sums were never transcribed, so ●=8, ◆=3, ★=1 (→ 10) is the canonical answer with a self-consistent completion but is not solver-forced by the transcribed givens. Needs the source scan to close."
       }
     ]
   },
@@ -885,14 +879,14 @@
       "answer": "A",
       "figure_url": "/api/public/wmi/figures/2024-final-g1-a-q15.jpg",
       "hint_steps_en": [
-        "Each branch adds up to 20. The left branch shows 13 + 7 = 20.",
-        "The right branch is ★ + 3, which must also equal 20.",
-        "So ★ = 20 − 3 = 17."
+        "The left tree splits 13 into the empty box and 7, so that box holds 13 − 7 = 6.",
+        "The two empty boxes together make 20, so the right box holds 20 − 6 = 14.",
+        "★ splits into 3 and 14, so ★ = 3 + 14 = 17."
       ],
       "hint_steps_id": [
-        "Setiap cabang berjumlah 20. Cabang kiri menunjukkan 13 + 7 = 20.",
-        "Cabang kanan adalah ★ + 3, yang juga harus sama dengan 20.",
-        "Jadi ★ = 20 − 3 = 17."
+        "Pohon kiri memecah 13 menjadi kotak kosong dan 7, jadi kotak itu berisi 13 − 7 = 6.",
+        "Kedua kotak kosong bersama membentuk 20, jadi kotak kanan berisi 20 − 6 = 14.",
+        "★ terpecah menjadi 3 dan 14, jadi ★ = 3 + 14 = 17."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -913,12 +907,12 @@
           }
         ],
         "quantities": [
-          { "label_en": "Each branch total", "label_id": "Total tiap cabang", "value": "20" },
-          { "label_en": "Left branch", "label_id": "Cabang kiri", "value": "13 + 7 = 20" },
-          { "label_en": "Right branch", "label_id": "Cabang kanan", "value": "★ + 3 = 20" },
-          { "label_en": "★", "label_id": "★", "value": "17" }
+          { "label_en": "Left empty box", "label_id": "Kotak kosong kiri", "value": "13 − 7 = 6" },
+          { "label_en": "Two boxes make", "label_id": "Dua kotak membentuk", "value": "6 + 14 = 20" },
+          { "label_en": "Right empty box", "label_id": "Kotak kosong kanan", "value": "20 − 6 = 14" },
+          { "label_en": "★", "label_id": "★", "value": "3 + 14 = 17" }
         ],
-        "strategy": { "name_en": "Use one branch to find the total, then solve the other", "name_id": "Pakai satu cabang untuk cari totalnya, lalu selesaikan yang lain" },
+        "strategy": { "name_en": "Fill each empty box in turn, then rebuild ★", "name_id": "Isi tiap kotak kosong bergiliran, lalu susun kembali ★" },
         "trap": null,
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -1209,12 +1203,12 @@
       "hint_steps_en": [
         "A sphere can't hold anything, so a sphere can only ever be the very top of a stack.",
         "To stay tall, use the cubes and cylinders (the blocks that CAN carry) alternately and never put a sphere in the middle.",
-        "There are only 4 cylinders, so the tallest stack is cube, cylinder, … = 8 blocks."
+        "There are only 3 cylinders, so the carriers make cube, cylinder, …, cube = 7 blocks, and one sphere can sit on top → 8 blocks."
       ],
       "hint_steps_id": [
         "Bola tidak bisa menahan apa pun, jadi bola hanya bisa menjadi puncak tumpukan.",
         "Agar tetap tinggi, pakai kubus dan tabung (balok yang BISA menahan) bergantian dan jangan menaruh bola di tengah.",
-        "Hanya ada 4 tabung, jadi tumpukan tertinggi adalah kubus, tabung, … = 8 balok."
+        "Hanya ada 3 tabung, jadi penahan tersusun kubus, tabung, …, kubus = 7 balok, dan satu bola boleh di puncak → 8 balok."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1237,8 +1231,8 @@
         "quantities": [
           { "label_en": "Sphere role", "label_id": "Peran bola", "value": "only the top" },
           { "label_en": "Carriers", "label_id": "Penahan", "value": "cubes + cylinders, alternating" },
-          { "label_en": "Cylinders", "label_id": "Tabung", "value": "4" },
-          { "label_en": "Max stack", "label_id": "Tumpukan maks", "value": "8" }
+          { "label_en": "Cylinders", "label_id": "Tabung", "value": "3" },
+          { "label_en": "Max stack", "label_id": "Tumpukan maks", "value": "7 carriers + 1 sphere = 8" }
         ],
         "strategy": { "name_en": "Keep spheres off the middle; alternate the carrier blocks", "name_id": "Jauhkan bola dari tengah; selang-seling balok penahan" },
         "trap": null,

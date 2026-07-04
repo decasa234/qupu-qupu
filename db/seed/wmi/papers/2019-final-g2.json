@@ -7,9 +7,15 @@
   "recommended_duration_min": 60,
   "review": {
     "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean, and Q23's 1589 was verified to be the true maximum by column casework (hundreds digit 6/7/8 are all infeasible). One real defect: Q22's lock clues are under-constrained. Figure-dependent answers (Q2, Q4, Q5, Q8, Q10, Q13, Q14, Q15, Q20) checked for internal consistency, not pixel-compared to scans; logic grids Q24/Q25 not solver-verified.",
+    "reviewed_on": "2026-07-03",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. Q23 CORRECTED this pass: exhaustive brute force shows the true maximum is 1597 (82 + 340 + 1597 = 2019, nine distinct digits incl. 0) — the earlier 1589 casework wrongly assumed the tens carry is at most 1 (it can be 2). Answer, steps, breakdown, and the SumTo2019G2 figure/explainer were all updated to 1597. Remaining defect: Q22's lock clues are under-constrained. Figure-dependent answers (Q2, Q4, Q5, Q8, Q10, Q13, Q14, Q15, Q20) checked for internal consistency, not pixel-compared to scans; Q24/Q25 deduction chains re-verified by hand against the reused G1 figures.",
     "findings": [
+      {
+        "q": 23,
+        "severity": "error",
+        "gate": "answer",
+        "note": "FIXED 2026-07-03: stored answer 1589 was not maximal. Brute force over all 2-digit + 3-digit + 4-digit splits (nine distinct digits, 0 used) gives max 1597, e.g. 82 + 340 + 1597 = 2019 (tens 8+4+9 = 21 carries 2 into the hundreds 3+5+2 = 10). Answer changed to 1597; hint_steps, breakdown, SumTo2019G2Illustration/Steps/Explainer rewritten to match. If the official WMI key says 1589, the official key is wrong."
+      },
       {
         "q": 22,
         "severity": "warning",
@@ -1398,19 +1404,19 @@
       "body_en": "Select nine of the ten digits 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 to form a 2-digit number, a 3-digit number, and a 4-digit number so that the sum of these three numbers is 2019. The digit 0 must be used. Find the largest possible value of the 4-digit number.",
       "body_id": "Pilih sembilan dari sepuluh angka 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 untuk membentuk satu bilangan dua angka, satu bilangan tiga angka, dan satu bilangan empat angka sehingga jumlah ketiga bilangan itu adalah 2019. Angka 0 harus dipakai. Tentukan nilai terbesar yang mungkin untuk bilangan empat angka tersebut.",
       "answer_type": "fill_in",
-      "answer": "1589",
+      "answer": "1597",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q23.jpg",
       "hint_steps_en": [
         "Only the 4-digit number reaches the thousands, and the others take at least 100 + 10 — so it starts with 1, and the hundreds column must carry (1 + 1 = 2).",
-        "Hundreds: the two hundreds digits must make 10, and the 3-digit can't start with 0 or 1. Try big first: 8+2, 7+2, 6+4, 6+3 — the leftover digits never fit the tens and ones columns. Only 5+4 works.",
-        "With 5+4 the leftovers are 0, 2, 3, 7, 8, 9 (6 unused): tens 8+0+2 = 10 (writes 1 with the carry) and ones 9+3+7 = 19 (writes 9, carries 1) — give the biggest digits, 8 and 9, to the 4-digit number.",
-        "So the largest 4-digit number is 1589, with 403 + 27: check 27 + 403 + 1589 = 2019. ✓"
+        "Hundreds: the two hundreds digits plus the carry from the tens (it can be as big as 2!) must make 10, and the 3-digit can't start with 0 or 1. Try big first: 9, 8, 7, and 6 all fail — the leftover digits never fit the tens and ones columns. The biggest that works is 5, with 5 + 3 + a tens carry of 2.",
+        "With 5+3 leave out 6: the leftovers are 0, 2, 4, 7, 8, 9. Tens: 9+8+4 = 21 (writes 1, carries 2 ✓) and ones: 2+0+7 = 9 — give the biggest digits, 9 and 7, to the 4-digit number.",
+        "So the largest 4-digit number is 1597, with 340 + 82: check 82 + 340 + 1597 = 2019. ✓"
       ],
       "hint_steps_id": [
         "Hanya bilangan 4 angka yang sampai ribuan, dan dua lainnya minimal 100 + 10 — jadi ia mulai dengan 1, dan kolom ratusan harus menyimpan (1 + 1 = 2).",
-        "Ratusan: dua angka ratusan harus berjumlah 10, dan bilangan 3 angka tak boleh mulai 0 atau 1. Coba dari terbesar: 8+2, 7+2, 6+4, 6+3 — angka sisanya tak pernah pas untuk kolom puluhan dan satuan. Hanya 5+4 yang berhasil.",
-        "Dengan 5+4 sisa angkanya 0, 2, 3, 7, 8, 9 (6 tak dipakai): puluhan 8+0+2 = 10 (menulis 1 dengan simpanan) dan satuan 9+3+7 = 19 (menulis 9, menyimpan 1) — beri angka terbesar, 8 dan 9, ke bilangan 4 angka.",
-        "Jadi bilangan 4 angka terbesar adalah 1589, dengan 403 + 27: cek 27 + 403 + 1589 = 2019. ✓"
+        "Ratusan: dua angka ratusan plus simpanan dari puluhan (bisa sampai 2!) harus jadi 10, dan bilangan 3 angka tak boleh mulai 0 atau 1. Coba dari terbesar: 9, 8, 7, dan 6 semuanya gagal — angka sisanya tak pernah pas untuk kolom puluhan dan satuan. Yang terbesar yang berhasil adalah 5, dengan 5 + 3 + simpanan puluhan 2.",
+        "Dengan 5+3 sisihkan 6: sisa angkanya 0, 2, 4, 7, 8, 9. Puluhan: 9+8+4 = 21 (menulis 1, menyimpan 2 ✓) dan satuan: 2+0+7 = 9 — beri angka terbesar, 9 dan 7, ke bilangan 4 angka.",
+        "Jadi bilangan 4 angka terbesar adalah 1597, dengan 340 + 82: cek 82 + 340 + 1597 = 2019. ✓"
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1439,14 +1445,18 @@
         ],
         "quantities": [
           { "label_en": "Three numbers add to", "label_id": "Jumlah tiga bilangan", "value": "2019" },
-          { "label_en": "Hundreds pair", "label_id": "Pasangan ratusan", "value": "5 + 4 (8+2, 7+2, 6+4, 6+3 all fail)" },
-          { "label_en": "Tens", "label_id": "Puluhan", "value": "8 + 0 + 2 = 10" },
-          { "label_en": "Ones", "label_id": "Satuan", "value": "9 + 3 + 7 = 19" },
-          { "label_en": "Largest 4-digit", "label_id": "4-angka terbesar", "value": "1589" }
+          { "label_en": "Hundreds", "label_id": "Ratusan", "value": "5 + 3 + carry 2 (9, 8, 7, 6 all fail)" },
+          { "label_en": "Tens", "label_id": "Puluhan", "value": "9 + 8 + 4 = 21" },
+          { "label_en": "Ones", "label_id": "Satuan", "value": "2 + 0 + 7 = 9" },
+          { "label_en": "Largest 4-digit", "label_id": "4-angka terbesar", "value": "1597" }
         ],
-        "strategy": { "name_en": "Work the columns: it starts with 1; try the hundreds pair from the biggest down — only 5+4 fits", "name_id": "Kerjakan per kolom: mulai dengan 1; coba pasangan ratusan dari yang terbesar — hanya 5+4 yang pas" },
-        "trap": null,
-        "answer": { "form": "number", "unit": null, "value": "1589" }
+        "strategy": { "name_en": "Work the columns: it starts with 1; the tens can carry 2, so 5+3+2 beats 5+4+1 in the hundreds", "name_id": "Kerjakan per kolom: mulai dengan 1; puluhan bisa menyimpan 2, jadi 5+3+2 mengalahkan 5+4+1 di ratusan" },
+        "trap": {
+          "wrong": "1589",
+          "why_en": "1589 assumes the tens carry at most 1 — but three tens digits can total 21 (carry 2), letting the hundreds be 5+3+2 and the tens be 9: 82 + 340 + 1597 = 2019.",
+          "why_id": "1589 menganggap puluhan menyimpan paling banyak 1 — padahal tiga angka puluhan bisa berjumlah 21 (menyimpan 2), sehingga ratusannya 5+3+2 dan puluhannya 9: 82 + 340 + 1597 = 2019."
+        },
+        "answer": { "form": "number", "unit": null, "value": "1597" }
       }
     },
     {

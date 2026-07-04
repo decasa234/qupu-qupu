@@ -7,32 +7,14 @@
   "recommended_duration_min": 90,
   "review": {
     "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice, 90-min); breakdowns/steps/parity are otherwise clean and well-enriched. Verified by hand: Q5 (116), Q7 (items 2&3), Q10 (Amy R3=12), Q11 (sum 87), Q16 (two solutions, leftovers 2+1=3), Q17 (99572), Q20 (max odd sum 351 via parity 9T+45), Q21 (75=75 at 21), Q22 (Jerry rock=5), Q24 (24). One real defect (Q18, unsolvable as transcribed) + figure/extremal nits.",
+    "reviewed_on": "2026-07-04",
+    "summary": "Full re-review with brute-force scripts + scan comparison. Script-verified: Q16 (two solutions, leftovers 2+1=3), Q17 (99572), Q20 (351), Q22 (unique, Jerry rock=5), Q23 (max black = 10, exhaustive over 2^16 boards — prior optimality nit RESOLVED), Q24 (links 3→13/7→11/10→8/14→5 read off the scan; simulation confirms pairs (2,1)/(4,1)/(6,3) → 24, and the given 6-6-4/6-6-5 facts — prior figure nit RESOLVED), Q25 (unique grid solution ●=7 ♦=8 ★=5 → 10 — prior nit RESOLVED). Hand-verified: Q1, Q2 (4+9=13 vs scan), Q5 (116), Q6 (32), Q7 (2&3), Q8 (10 strip rects − 3 squares + 4 goal boxes + 2 outer goals = 13), Q9 (6+8+8=22 vs scan), Q10 (12), Q11 (87), Q15 (each roll = 120°+60° = 180° → 2 orientations), Q21 (unique balance at 21, checked all cars in both rows). Fixed this pass: Q3 steps/trap (scan path is down 3 rows + across 4 cells = 3+8=11, not 5+6) and the AntPath component; Q19 component (scan omits the middle-left stick — 15 sticks, 6 unit + 2 size-2 triangles = 8, min removal 4, so 12 stands; component wrongly drew 16 sticks which would give 10 triangles); Q13 option glyphs re-tuned so M genuinely has the most right angles; Q14 component re-ordered to match the scan (bottom row ▼ ◁ ▲ engine→). One open defect: Q18.",
     "findings": [
       {
         "q": 18,
         "severity": "warning",
         "gate": "answer",
-        "note": "Equation (1) □4+□4+□8+□9+□7=901 (append 0s to each digit) has NO solution as transcribed. Proof: only the 0-zero terms affect the units digit, and the only subsets of {4,4,8,9,7} with units≡1 are {4,7} (sum 11) and {4,8,9} (sum 21). The first needs the zero-padded {4,8,9} to total 890, the second needs {4,7} to total 880 — but every combination of {40/400}×{80/800}×{90/900} and {40/400}×{70/700} misses both. So the stem is unsolvable; the digits or the target 901 are likely OCR-garbled, and the hint asserts '7' without a worked decomposition. Re-transcribe from the original PDF and re-verify."
-      },
-      {
-        "q": 23,
-        "severity": "nit",
-        "gate": "answer",
-        "note": "Max 10 black stones (= 6 white minimum) on the 4×4 'each stone touches a black and a white' board — the hint asserts 6 whites suffice but doesn't exhibit the placement or prove 5 whites fail. Optimality not verified this pass."
-      },
-      {
-        "q": 24,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Board-game answer 24 (pairs (2,1)/(4,1)/(6,3) → 2+4+18) depends on the jump links shown in the figure (square 3→13, and 14 jumping away so ◇=1/5 are excluded). Consistent with the worked logic but not re-derived against the scan."
-      },
-      {
-        "q": 25,
-        "severity": "nit",
-        "gate": "answer",
-        "note": "Column-sum 1–9 grid (●=7, ♦=8, ★=5 → 10) depends on the figure's nine circle sums and the rows-use-1–9 rule; not solver-verified for uniqueness this pass."
+        "note": "Equation (1) □4+□4+□8+□9+□7=901 (append 0s to each digit) has NO solution as transcribed — exhaustively script-checked over 0..5 zeros per digit. Equation (2) □5+□7+□1−□8=95 has the unique solution 5+70+100−80=95 using 4 zeros, so the stored answer 7 requires equation (1) to use exactly 3 zeros. OCR-repair search found multiple one/two-digit variants that admit solutions (e.g. digits {4,4,8,9,3}: 4+4+800+90+3=901 with 3 zeros, but also a second 5-zero solution), so no reconstruction is provably unique. Keep answer 7 (official key) but the stem needs re-transcription from the original PDF before this question is deploy-clean."
       }
     ]
   },
@@ -308,15 +290,15 @@
       "figure_url": "/api/public/wmi/figures/2024-final-g2-a-q3.jpg",
       "hint_steps_en": [
         "Each cell is 2 cm wide and 1 cm tall.",
-        "The path goes down across several rows: that is 5 cm in all.",
-        "The path goes sideways across cells worth 2 cm each: that is 6 cm.",
-        "5 + 6 = 11 cm → B."
+        "The path goes down 3 rows in all: 3 × 1 cm = 3 cm.",
+        "The path goes sideways across 4 cells (2 right, then 1 left, then 1 left): 4 × 2 cm = 8 cm.",
+        "3 + 8 = 11 cm → B."
       ],
       "hint_steps_id": [
         "Tiap petak lebarnya 2 cm dan tingginya 1 cm.",
-        "Lintasan turun melewati beberapa baris: itu 5 cm seluruhnya.",
-        "Lintasan ke samping melewati petak senilai 2 cm tiap petak: itu 6 cm.",
-        "5 + 6 = 11 cm → B."
+        "Lintasan turun 3 baris seluruhnya: 3 × 1 cm = 3 cm.",
+        "Lintasan ke samping melewati 4 petak (2 ke kanan, lalu 1 ke kiri, lalu 1 ke kiri): 4 × 2 cm = 8 cm.",
+        "3 + 8 = 11 cm → B."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -338,17 +320,17 @@
           {
             "label_en": "Down steps (vertical)",
             "label_id": "Langkah turun (tegak)",
-            "value": "5 cells × 1 cm = 5 cm"
+            "value": "3 cells × 1 cm = 3 cm"
           },
           {
             "label_en": "Across steps (horizontal)",
             "label_id": "Langkah mendatar",
-            "value": "3 cells × 2 cm = 6 cm"
+            "value": "4 cells × 2 cm = 8 cm"
           },
           {
             "label_en": "Total path",
             "label_id": "Total lintasan",
-            "value": "5 + 6 = 11 cm"
+            "value": "3 + 8 = 11 cm"
           }
         ],
         "strategy": {
@@ -356,9 +338,9 @@
           "name_id": "Hitung ruas tegak dan mendatar terpisah memakai ukuran petak"
         },
         "trap": {
-          "wrong": "A",
-          "why_en": "Counting each step as 1 cm gives 10 — but a horizontal cell is 2 cm wide, not 1.",
-          "why_id": "Menghitung tiap langkah 1 cm memberi 10 — padahal petak mendatar lebarnya 2 cm, bukan 1."
+          "wrong": "C",
+          "why_en": "Missing one of the two left-going cells gives 3 + 6 = 9 — the path crosses 4 sideways cells, not 3.",
+          "why_id": "Melewatkan satu dari dua petak yang ke kiri memberi 3 + 6 = 9 — lintasan melewati 4 petak mendatar, bukan 3."
         },
         "answer": {
           "form": "choice",
@@ -973,8 +955,8 @@
         },
         "trap": {
           "wrong": "E",
-          "why_en": "15 counts the 60 by 60 shapes too, but those are squares, which the question excludes.",
-          "why_id": "15 ikut menghitung bangun 60 kali 60, padahal itu persegi, yang harus dikecualikan."
+          "why_en": "Counting some of the 60 by 60 shapes as rectangles pushes the count past 13 — those are squares, which the question excludes.",
+          "why_id": "Ikut menghitung bangun 60 kali 60 membuat hitungan melewati 13 — padahal itu persegi, yang harus dikecualikan."
         },
         "answer": {
           "form": "choice",

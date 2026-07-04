@@ -1039,15 +1039,15 @@
       "answer": "E",
       "figure_url": "/api/public/wmi/figures/2024-semifinal-g1-a-q14.jpg",
       "hint_steps_en": [
-        "The longest pencil spans the whole gap, so the dashed lines are 15 cm apart.",
-        "The middle pencil stops 5 cm short of the right line, so it is 15 - 5 = 10 cm.",
-        "The top pencil starts 10 cm in from the left line, so its painted body is the remaining 15 - 10 = 5 cm... but the marked 10 cm there is empty space, leaving the bottom pencil shortest at 8 cm.",
+        "The middle (blue) pencil reaches furthest — only a 5 cm gap remains — so it is the longest pencil, 15 cm.",
+        "The dashed lines are therefore 15 + 5 = 20 cm apart.",
+        "The top pencil leaves a 10 cm gap, so it is 20 - 10 = 10 cm; the bottom pencil leaves a 12 cm gap, so it is 20 - 12 = 8 cm.",
         "Comparing all three, the shortest pencil measures 8 cm."
       ],
       "hint_steps_id": [
-        "Pensil terpanjang mengisi seluruh celah, jadi jarak garis putus-putus 15 cm.",
-        "Pensil tengah berhenti 5 cm sebelum garis kanan, jadi panjangnya 15 - 5 = 10 cm.",
-        "Bandingkan tiap pensil dengan lebar penuh 15 cm memakai celah kosong yang ditandai di tiap ujungnya.",
+        "Pensil tengah (biru) paling jauh menjangkau — hanya tersisa celah 5 cm — jadi itulah pensil terpanjang, 15 cm.",
+        "Karena itu jarak kedua garis putus-putus adalah 15 + 5 = 20 cm.",
+        "Pensil atas menyisakan celah 10 cm, jadi panjangnya 20 - 10 = 10 cm; pensil bawah menyisakan celah 12 cm, jadi panjangnya 20 - 12 = 8 cm.",
         "Setelah dibandingkan, pensil terpendek panjangnya 8 cm."
       ],
       "breakdown": {
@@ -1064,8 +1064,8 @@
             "category": "fact",
             "phrase_en": "The longest pencil is 15 cm",
             "phrase_id": "Pensil terpanjang adalah 15 cm",
-            "note_en": "The longest pencil spans the full gap, so the dashed lines are 15 cm apart.",
-            "note_id": "Pensil terpanjang mengisi celah penuh, jadi jarak garis putus-putus 15 cm."
+            "note_en": "The blue pencil is the longest; it leaves only a 5 cm gap, so the dashed lines are 15 + 5 = 20 cm apart.",
+            "note_id": "Pensil biru adalah yang terpanjang; celahnya hanya 5 cm, jadi jarak garis putus-putus 15 + 5 = 20 cm."
           },
           {
             "category": "goal",
@@ -1077,9 +1077,9 @@
         ],
         "quantities": [
           {
-            "label_en": "Full width (longest pencil)",
-            "label_id": "Lebar penuh (pensil terpanjang)",
-            "value": "15"
+            "label_en": "Full width between the dashed lines (15 + 5)",
+            "label_id": "Lebar penuh antara garis putus-putus (15 + 5)",
+            "value": "20"
           },
           {
             "label_en": "Shortest pencil length",
@@ -1088,8 +1088,8 @@
           }
         ],
         "strategy": {
-          "name_en": "Subtract each marked gap from the 15 cm full width",
-          "name_id": "Kurangi setiap celah yang ditandai dari lebar penuh 15 cm"
+          "name_en": "Find the 20 cm full width, then subtract each marked gap",
+          "name_id": "Temukan lebar penuh 20 cm, lalu kurangi setiap celah yang ditandai"
         },
         "trap": {
           "wrong": "5",
@@ -1125,16 +1125,16 @@
       "answer": "A",
       "figure_url": "/api/public/wmi/figures/2024-semifinal-g1-a-q15.jpg",
       "hint_steps_en": [
-        "Each sheet has a front and a back, so its two page numbers always pair to a fixed total.",
-        "The figure shows the four used sheets and the page numbers on them; the fifth sheet is the one left out.",
-        "Read the two page numbers on that unused sheet and add them: front + back = 15.",
-        "So the sum on the unused sheet is 15."
+        "In printing order the 5 sheets pair the pages: (1,2), (3,4), (5,6), (7,8), (9,10).",
+        "The figure shows the four used sheets with faces 1, 4, 5 and 9 — those are the sheets (1,2), (3,4), (5,6) and (9,10).",
+        "The only sheet left over is (7,8), so the unused sheet holds pages 7 and 8.",
+        "Front + back = 7 + 8 = 15."
       ],
       "hint_steps_id": [
-        "Setiap lembar punya depan dan belakang, jadi dua nomor halamannya selalu berpasangan dengan total tetap.",
-        "Gambar menunjukkan empat lembar yang dipakai beserta nomor halamannya; lembar kelima adalah yang ditinggalkan.",
-        "Baca dua nomor halaman pada lembar yang tidak dipakai itu lalu jumlahkan: depan + belakang = 15.",
-        "Jadi jumlah pada lembar yang tidak dipakai adalah 15."
+        "Sesuai urutan cetak, 5 lembar memasangkan halaman: (1,2), (3,4), (5,6), (7,8), (9,10).",
+        "Gambar menunjukkan empat lembar terpakai dengan sisi 1, 4, 5, dan 9 — yaitu lembar (1,2), (3,4), (5,6), dan (9,10).",
+        "Satu-satunya lembar yang tersisa adalah (7,8), jadi lembar tak terpakai memuat halaman 7 dan 8.",
+        "Depan + belakang = 7 + 8 = 15."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1737,8 +1737,8 @@
     },
     {
       "number": 23,
-      "body_en": "Two examples show how two grids of dots are combined into a result grid. Following the same rule, which option is the result of the third addition?",
-      "body_id": "Dua contoh menunjukkan bagaimana dua kisi titik digabungkan menjadi kisi hasil. Mengikuti aturan yang sama, pilihan manakah yang merupakan hasil dari penjumlahan ketiga?",
+      "body_en": "The example shows how two grids of dots are combined into a result grid. Following the same rule, which option is the result of the second addition?",
+      "body_id": "Contoh menunjukkan bagaimana dua kisi titik digabungkan menjadi kisi hasil. Mengikuti aturan yang sama, pilihan manakah yang merupakan hasil dari penjumlahan kedua?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "(A)" },
@@ -1757,14 +1757,14 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2024-semifinal-g1-a-q23.jpg",
       "hint_steps_en": [
-        "Compare the two example grids cell by cell to find the rule: where both grids have a dot in the same cell, the result cell is empty; where only one has a dot, the result keeps it.",
-        "Apply that to the third pair: cells where both bottom grids have dots cancel out and become empty.",
+        "Compare the example's two grids cell by cell to find the rule: where both grids have a dot in the same cell, the result cell is empty; where only one has a dot, the result keeps it.",
+        "Apply that to the second pair: cells where both grids have dots cancel out and become empty.",
         "Cells where exactly one grid has a dot stay filled in the result.",
         "The grid that follows this rule is option C."
       ],
       "hint_steps_id": [
-        "Bandingkan dua kisi contoh sel demi sel untuk menemukan aturan: jika kedua kisi punya titik di sel yang sama, sel hasil kosong; jika hanya satu yang punya titik, hasilnya mempertahankannya.",
-        "Terapkan ke pasangan ketiga: sel yang kedua kisi bawahnya berisi titik saling meniadakan menjadi kosong.",
+        "Bandingkan dua kisi pada contoh sel demi sel untuk menemukan aturan: jika kedua kisi punya titik di sel yang sama, sel hasil kosong; jika hanya satu yang punya titik, hasilnya mempertahankannya.",
+        "Terapkan ke pasangan kedua: sel yang kedua kisinya berisi titik saling meniadakan menjadi kosong.",
         "Sel yang hanya satu kisi berisi titik tetap terisi pada hasil.",
         "Kisi yang mengikuti aturan ini adalah opsi C."
       ],
@@ -1773,17 +1773,17 @@
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "Two examples show how",
-            "phrase_id": "Dua contoh menunjukkan bagaimana",
-            "note_en": "Use the worked examples to discover the combining rule.",
+            "phrase_en": "The example shows how",
+            "phrase_id": "Contoh menunjukkan bagaimana",
+            "note_en": "Use the worked example to discover the combining rule.",
             "note_id": "Gunakan contoh yang sudah jadi untuk menemukan aturan penggabungan."
           },
           {
             "category": "goal",
-            "phrase_en": "the result of the third addition",
-            "phrase_id": "hasil dari penjumlahan ketiga",
-            "note_en": "Apply the same rule to the third pair of grids.",
-            "note_id": "Terapkan aturan yang sama pada pasangan kisi ketiga."
+            "phrase_en": "the result of the second addition",
+            "phrase_id": "hasil dari penjumlahan kedua",
+            "note_en": "Apply the same rule to the second pair of grids.",
+            "note_id": "Terapkan aturan yang sama pada pasangan kisi kedua."
           }
         ],
         "quantities": [

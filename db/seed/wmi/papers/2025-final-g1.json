@@ -1158,30 +1158,30 @@
     },
     {
       "number": 21,
-      "body_en": "Fill the numbers 1–10 into the circles without repeating, so that the two opposite circles marked with the same figure always add up to the same sum. With some numbers already filled in, find the sum of all the numbers that could go in the shaded circle.",
-      "body_id": "Isikan bilangan 1–10 ke dalam lingkaran tanpa pengulangan, sehingga dua lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama. Dengan beberapa bilangan sudah terisi, tentukan jumlah semua bilangan yang mungkin mengisi lingkaran yang diarsir.",
+      "body_en": "Fill the numbers 1–10 into the circles without repeating, so that the two opposite groups of circles marked with the same figure always add up to the same sum. With some numbers already filled in, find the sum of all the numbers that could go in the shaded circle.",
+      "body_id": "Isikan bilangan 1–10 ke dalam lingkaran tanpa pengulangan, sehingga dua kelompok lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama. Dengan beberapa bilangan sudah terisi, tentukan jumlah semua bilangan yang mungkin mengisi lingkaran yang diarsir.",
       "answer_type": "fill_in",
       "answer": "10",
       "figure_url": "/api/public/wmi/figures/2025-final-g1-a-q21.jpg",
       "hint_steps_en": [
-        "The numbers 1 to 10 add up to 55, split into 5 opposite pairs that all share one sum.",
-        "So each opposite pair must add to 55 ÷ 5 = 11.",
-        "The shaded circle is opposite the 1, so it must be 11 − 1 = 10 — the only value, so the sum is 10."
+        "Same figure means opposite sectors: the two circles beside one sector must total the same as the two circles beside the opposite sector with the same figure.",
+        "Crescent: 10 + 7 = 17, so the circle next to the 9 is 17 − 9 = 8. Hexagon: 8 + 1 = 9, so the circle next to the 7 is 9 − 7 = 2.",
+        "Only 3, 4, 5, 6 remain, and the square and star rules let them fit in exactly two ways — the shaded circle can be 4 or 6, so the sum is 4 + 6 = 10."
       ],
       "hint_steps_id": [
-        "Bilangan 1 sampai 10 berjumlah 55, dibagi menjadi 5 pasangan berseberangan yang semuanya berjumlah sama.",
-        "Jadi tiap pasangan berseberangan harus berjumlah 55 ÷ 5 = 11.",
-        "Lingkaran yang diarsir berseberangan dengan 1, jadi nilainya 11 − 1 = 10 — satu-satunya nilai, jadi jumlahnya 10."
+        "Gambar sama berarti daerah berseberangan: dua lingkaran di sisi satu daerah harus berjumlah sama dengan dua lingkaran di sisi daerah berseberangan yang gambarnya sama.",
+        "Bulan sabit: 10 + 7 = 17, jadi lingkaran di sebelah 9 adalah 17 − 9 = 8. Segi enam: 8 + 1 = 9, jadi lingkaran di sebelah 7 adalah 9 − 7 = 2.",
+        "Tersisa 3, 4, 5, 6, dan aturan persegi serta bintang membuatnya bisa diisi tepat dua cara — lingkaran arsir bisa 4 atau 6, jadi jumlahnya 4 + 6 = 10."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "condition",
-            "phrase_en": "two opposite circles marked with the same figure always add up to the same sum",
-            "phrase_id": "dua lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama",
-            "note_en": "All five opposite pairs share one common sum.",
-            "note_id": "Kelima pasangan berseberangan berbagi satu jumlah sama."
+            "phrase_en": "two opposite groups of circles marked with the same figure always add up to the same sum",
+            "phrase_id": "dua kelompok lingkaran berseberangan yang bertanda gambar sama selalu berjumlah sama",
+            "note_en": "Each figure marks two opposite sectors; the two circles beside one must total the same as the two beside the other.",
+            "note_id": "Setiap gambar menandai dua daerah berseberangan; dua lingkaran di sisi yang satu harus berjumlah sama dengan dua lingkaran di sisi lainnya."
           },
           {
             "category": "question",
@@ -1192,11 +1192,11 @@
           }
         ],
         "quantities": [
-          { "label_en": "Total 1–10", "label_id": "Total 1–10", "value": "55" },
-          { "label_en": "Pair sum", "label_id": "Jumlah pasangan", "value": "55 ÷ 5 = 11" },
-          { "label_en": "Shaded", "label_id": "Diarsir", "value": "11 − 1 = 10" }
+          { "label_en": "Crescent pair", "label_id": "Pasangan bulan sabit", "value": "10 + 7 = 17 → 9 + 8" },
+          { "label_en": "Hexagon pair", "label_id": "Pasangan segi enam", "value": "8 + 1 = 9 → 7 + 2" },
+          { "label_en": "Shaded candidates", "label_id": "Kandidat arsir", "value": "4 or 6 → 4 + 6 = 10" }
         ],
-        "strategy": { "name_en": "Find the common pair-sum, then the circle opposite the 1", "name_id": "Cari jumlah pasangan, lalu lingkaran berseberangan dengan 1" },
+        "strategy": { "name_en": "Match same-figure opposite sectors, force 8 and 2, then split 3–6", "name_id": "Cocokkan daerah bergambar sama, pastikan 8 dan 2, lalu bagi 3–6" },
         "trap": null,
         "answer": { "form": "number", "unit": null, "value": "10" }
       }

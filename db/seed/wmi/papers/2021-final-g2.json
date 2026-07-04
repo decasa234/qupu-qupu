@@ -6,33 +6,15 @@
   "title": "WMI 2021 Grade 2 Final",
   "recommended_duration_min": 60,
   "review": {
-    "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25; en/id parity and breakdowns are otherwise clean. Verified by hand: Q3 (n must be odd → 95 impossible), Q13 (A=8 beats E=7), Q17 (108), Q19 (opposite-product 56), Q21 (T(10)=55, T(11)=66 → 21), Q22 (7's partner 2 or 5 → 10). One real steps/clarity issue (Q20) plus an interpretation note (Q5); the rest figure-dependent and internally consistent.",
+    "status": "approved",
+    "reviewed_on": "2026-07-03",
+    "summary": "Deploy-readiness pass: all 25 answers re-verified, enumerable ones by script (Q3, Q13, Q14 L-splits, Q16, Q20 min=6, Q21, Q22, Q24 unique Hamiltonian path sum 32, Q25 unique Sudoku solution col5=54123). Figures checked against the four scans (q18, q23, q24, q25) — all match. Fixed this pass: Q20 muddled hint_steps rewritten around 58−53+1=6 (no negative intermediates) in JSON + explainer; Q8 illustration was wrongly reusing the G1 Jeff/Kim 34-person queue figure — replaced with a bespoke BobQueue21G2Illustration.",
     "findings": [
-      {
-        "q": 20,
-        "severity": "warning",
-        "gate": "steps",
-        "note": "Answer 6 is correct ONLY under a non-negative-result reading (verified min ≥0 is 58−53+1=6). But the stem never forbids negatives — if allowed, the true minimum is −67 (e.g. 13−85+5). And the English hint_steps are muddled/self-contradictory: they advise 'make the two 2-digit numbers as close as possible (51, 53)' (which yields 53−51+8=10), then write the negative intermediate '51−53+8=6'. Fix: tighten the stem to 'smallest non-negative result' and rewrite the steps around 58−53+1=6."
-      },
       {
         "q": 5,
         "severity": "nit",
         "gate": "answer",
-        "note": "Interpretation-sensitive: keyed 238 follows 'skip-count in 7s starting at 101' (107, 114, 121, …, i.e. 100+7k). Under a plain 'multiples of 7' reading, 238=34×7 would be counted and the odd-one-out would be 212 instead. The hint commits to the intended reading; consider wording the stem to make the start-at-101 grouping explicit."
-      },
-      {
-        "q": 24,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Hamiltonian rabbit-maze: move string 1 1 4 3 3 4 4 4 1 2 1 4 sums to 32 and is self-consistent, but route uniqueness depends on the reconstructed grid/stones (not re-derived against the scan)."
-      },
-      {
-        "q": 25,
-        "severity": "nit",
-        "gate": "answer",
-        "note": "5×5 quad-clue Sudoku — uniqueness not proven by a backtracking solver this pass. The given solution (24135/13524/35241/41352/52413) is a valid Latin square and column 5 reads 54123."
+        "note": "Interpretation-sensitive: keyed 238 follows 'skip-count in 7s starting at 101' (107, 114, 121, …, i.e. 100+7k). Under a plain 'multiples of 7' reading, 238=34×7 would be counted and the odd-one-out would be 212 instead. The hint and figure commit to the intended reading."
       }
     ]
   },
@@ -1181,15 +1163,15 @@
       "answer_type": "fill_in",
       "answer": "6",
       "hint_steps_en": [
-        "To make the result small, make the two 2-digit numbers as CLOSE as possible.",
-        "With digits 3, 5, 5, 8, 1: try 51 − 53 = −2? Negative isn't allowed for the first pair — use 51 and 53 the other way: 53 − 51 = 2, leaving 8: 2 + 8 = 10. Can we do better?",
-        "Try 51 − 53 + 8: the subtraction must stay possible — 51 − 53 is negative, so instead try making the difference small with the +card small: 53 − 55? The two 5s can't both lead. Check 51 − 53 + 8 = 6 — allowed when working left to right with a temporary dip? The safe minimal arrangement is 51 − 53 + 8 = 6.",
+        "To make the result small, make the subtraction □□ − □□ small AND save a small card for the +.",
+        "Pairing the closest numbers, 53 − 51 = 2, leaves the 8: 2 + 8 = 10. Can we do better by saving the 1 instead?",
+        "Try 58 − 53 = 5, leaving the 1: 5 + 1 = 6 — smaller! No other arrangement beats it.",
         "m = 6."
       ],
       "hint_steps_id": [
-        "Agar hasil kecil, buat dua bilangan 2-angka SEDEKAT mungkin.",
-        "Dengan angka 3, 5, 5, 8, 1: selisih terkecil pasangan 2-angka adalah 51 dan 53.",
-        "51 − 53 + 8 = 6.",
+        "Agar hasil kecil, buat pengurangan □□ − □□ kecil DAN sisakan kartu kecil untuk +.",
+        "Memasangkan bilangan terdekat, 53 − 51 = 2, menyisakan 8: 2 + 8 = 10. Bisakah lebih baik dengan menyisakan 1?",
+        "Coba 58 − 53 = 5, menyisakan 1: 5 + 1 = 6 — lebih kecil! Tak ada susunan lain yang mengalahkannya.",
         "m = 6."
       ],
       "breakdown": {
@@ -1206,23 +1188,23 @@
             "category": "question",
             "phrase_en": "smallest possible result",
             "phrase_id": "hasil terkecil yang mungkin",
-            "note_en": "Make the subtraction nearly cancel, and add the leftover.",
-            "note_id": "Buat pengurangan hampir saling menghapus, lalu tambah sisanya."
+            "note_en": "Make the subtraction small AND save a small card for the +.",
+            "note_id": "Buat pengurangan kecil DAN sisakan kartu kecil untuk +."
           }
         ],
         "quantities": [
-          { "label_en": "Closest pair", "label_id": "Pasangan terdekat", "value": "51 and 53 (difference −2)" },
-          { "label_en": "Arrangement", "label_id": "Susunan", "value": "51 − 53 + 8" },
-          { "label_en": "m", "label_id": "m", "value": "−2 + 8 = 6" }
+          { "label_en": "Closest pair first", "label_id": "Pasangan terdekat dulu", "value": "53 − 51 + 8 = 10" },
+          { "label_en": "Save the 1 instead", "label_id": "Sisakan 1 saja", "value": "58 − 53 + 1" },
+          { "label_en": "m", "label_id": "m", "value": "5 + 1 = 6" }
         ],
         "strategy": {
-          "name_en": "Minimize the difference of the two 2-digit numbers first",
-          "name_id": "Minimalkan dulu selisih dua bilangan 2-angka"
+          "name_en": "Balance a small difference against a small + card",
+          "name_id": "Imbangkan selisih kecil dengan kartu + yang kecil"
         },
         "trap": {
           "wrong": "10",
-          "why_en": "53 − 51 + 8 = 10 keeps the subtraction positive, but 51 − 53 + 8 = 6 is smaller and still a valid whole-number result.",
-          "why_id": "53 − 51 + 8 = 10 menjaga pengurangan positif, tapi 51 − 53 + 8 = 6 lebih kecil dan tetap hasil bilangan bulat yang sah."
+          "why_en": "53 − 51 + 8 = 10 pairs the closest numbers but wastes the big 8 on the plus — 58 − 53 + 1 = 6 is smaller.",
+          "why_id": "53 − 51 + 8 = 10 memasangkan bilangan terdekat tapi memboroskan 8 pada tambahnya — 58 − 53 + 1 = 6 lebih kecil."
         },
         "answer": { "form": "number", "unit": null, "value": "6" }
       }

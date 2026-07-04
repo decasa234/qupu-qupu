@@ -272,8 +272,8 @@
     },
     {
       "number": 5,
-      "body_en": "[OCR garbled] 57/93 = (star)/93. What number does the star stand for?",
-      "body_id": "[OCR rusak] 57/93 = (bintang)/93. Berapakah nilai bintang?",
+      "body_en": "[OCR garbled] 93/93 - 57/93 = (star)/93. What number does the star stand for?",
+      "body_id": "[OCR rusak] 93/93 - 57/93 = (bintang)/93. Berapakah nilai bintang?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "46" },
@@ -289,15 +289,15 @@
       ],
       "answer": "C",
       "hint_steps_en": [
-        "The two fractions share the same bottom number, 93.",
-        "The key works the star as a difference from 93: 93 - 57 = 36.",
-        "That matches the answer key, so the star stands for 36.",
+        "All the fractions share the same bottom number, 93.",
+        "With equal denominators, just subtract the top numbers: 93 - 57 = 36.",
+        "So the star's fraction is 36/93.",
         "So the star = 36."
       ],
       "hint_steps_id": [
-        "Kedua pecahan punya penyebut sama, yaitu 93.",
-        "Kuncinya memperlakukan bintang sebagai selisih dari 93: 93 - 57 = 36.",
-        "Itu cocok dengan kunci jawaban, jadi bintang bernilai 36.",
+        "Semua pecahan punya penyebut sama, yaitu 93.",
+        "Dengan penyebut sama, cukup kurangkan pembilangnya: 93 - 57 = 36.",
+        "Jadi pecahan bintang adalah 36/93.",
         "Jadi bintang = 36."
       ],
       "breakdown": {
@@ -420,13 +420,13 @@
       "hint_steps_en": [
         "Find where the pencil tip starts on the ruler and where its end stops.",
         "Measuring length means counting from the start mark to the end mark.",
-        "Here the pencil begins at one mark and ends 6 cm farther along.",
+        "The eraser end sits at mark 8 and the tip at mark 14, so the length is 14 - 8 = 6.",
         "So the pencil is 6 cm long."
       ],
       "hint_steps_id": [
         "Cari di mana ujung pensil mulai pada penggaris dan di mana ujung lainnya berhenti.",
         "Mengukur panjang berarti menghitung dari tanda awal ke tanda akhir.",
-        "Di sini pensil mulai di satu tanda dan berakhir 6 cm setelahnya.",
+        "Ujung penghapus ada di tanda 8 dan ujung runcing di tanda 14, jadi panjangnya 14 - 8 = 6.",
         "Jadi pensil itu panjangnya 6 cm."
       ],
       "breakdown": {
@@ -456,8 +456,8 @@
         },
         "trap": {
           "wrong": "7",
-          "why_en": "Reading only the number under the tip gives 7, but you must subtract where the pencil starts.",
-          "why_id": "Membaca hanya angka di bawah ujung memberi 7, tapi harus dikurangi posisi awal pensil."
+          "why_en": "7 counts the printed numbers 8 through 14 (seven numbers) instead of the gaps between them; the length is 14 - 8 = 6.",
+          "why_id": "7 menghitung angka tercetak 8 sampai 14 (tujuh angka), bukan jarak di antaranya; panjangnya 14 - 8 = 6."
         },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -593,8 +593,8 @@
     },
     {
       "number": 10,
-      "body_en": "Given that (square) x (triangle) = 20 and 8 x (cup) = 32, what is the value of (triangle)?",
-      "body_id": "Diketahui (persegi) x (segitiga) = 20 dan 8 x (cangkir) = 32, berapakah nilai (segitiga)?",
+      "body_en": "Given that (square) x (triangle) = 20 and 8 x (square) = 32, what is the value of (triangle)?",
+      "body_id": "Diketahui (persegi) x (segitiga) = 20 dan 8 x (persegi) = 32, berapakah nilai (segitiga)?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "2" },
@@ -610,14 +610,14 @@
       ],
       "answer": "D",
       "hint_steps_en": [
-        "From 8 x (cup) = 32, divide: cup = 32 / 8 = 4.",
-        "The square is the same value as the cup, so square = 4.",
+        "From 8 x (square) = 32, divide: square = 32 / 8 = 4.",
+        "So the square stands for 4.",
         "Now square x triangle = 20 means 4 x triangle = 20.",
         "Divide: triangle = 20 / 4 = 5."
       ],
       "hint_steps_id": [
-        "Dari 8 x (cangkir) = 32, bagi: cangkir = 32 / 8 = 4.",
-        "Persegi bernilai sama dengan cangkir, jadi persegi = 4.",
+        "Dari 8 x (persegi) = 32, bagi: persegi = 32 / 8 = 4.",
+        "Jadi persegi bernilai 4.",
         "Sekarang persegi x segitiga = 20 berarti 4 x segitiga = 20.",
         "Bagi: segitiga = 20 / 4 = 5."
       ],
@@ -626,10 +626,10 @@
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "8 x (cup) = 32",
-            "phrase_id": "8 x (cangkir) = 32",
-            "note_en": "Solve for the cup first: 32 / 8 = 4, which also gives the square.",
-            "note_id": "Cari cangkir dulu: 32 / 8 = 4, yang juga memberi nilai persegi."
+            "phrase_en": "8 x (square) = 32",
+            "phrase_id": "8 x (persegi) = 32",
+            "note_en": "Solve for the square first: 32 / 8 = 4.",
+            "note_id": "Cari persegi dulu: 32 / 8 = 4."
           },
           {
             "category": "operation",
@@ -640,7 +640,7 @@
           }
         ],
         "quantities": [
-          { "label_en": "Cup = Square", "label_id": "Cangkir = Persegi", "value": "4" },
+          { "label_en": "Square", "label_id": "Persegi", "value": "4" },
           { "label_en": "Product to reach", "label_id": "Hasil kali yang dituju", "value": "20" }
         ],
         "strategy": {
@@ -649,8 +649,8 @@
         },
         "trap": {
           "wrong": "4",
-          "why_en": "4 is the value of the cup and square, not the triangle. Triangle = 20 / 4 = 5.",
-          "why_id": "4 adalah nilai cangkir dan persegi, bukan segitiga. Segitiga = 20 / 4 = 5."
+          "why_en": "4 is the value of the square, not the triangle. Triangle = 20 / 4 = 5.",
+          "why_id": "4 adalah nilai persegi, bukan segitiga. Segitiga = 20 / 4 = 5."
         },
         "answer": { "form": "choice", "unit": null, "value": "D" }
       }
@@ -714,8 +714,8 @@
         },
         "trap": {
           "wrong": "48",
-          "why_en": "48 comes from 5 x (9 + 13)/... no — it ignores the proper order; 5 x 9 + 13 = 58, not 48.",
-          "why_id": "48 muncul dari urutan yang salah; 5 x 9 + 13 = 58, bukan 48."
+          "why_en": "48 is 45 + 3 — adding only the ones digit of 13. The full addition is 45 + 13 = 58.",
+          "why_id": "48 itu 45 + 3 — hanya menambahkan angka satuan dari 13. Penjumlahan lengkapnya 45 + 13 = 58."
         },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }
@@ -1139,16 +1139,16 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2020-semifinal-g2-a-q18.jpg",
       "hint_steps_en": [
-        "Each ring on the target is worth a certain number of points; use the two known throws to find them.",
-        "Throw 1 lands in rings totaling 14; throw 2 lands in rings totaling 16, which fixes each ring's value.",
-        "Read where the third throw's arrows land and add those ring values.",
-        "Their sum is 18 points."
+        "Read the scores in order: 14 points, then 16 points.",
+        "From 14 to 16 the score grows by 16 - 14 = 2.",
+        "The throws follow this +2 pattern, so the third throw = 16 + 2.",
+        "16 + 2 = 18 points."
       ],
       "hint_steps_id": [
-        "Setiap lingkaran pada target bernilai poin tertentu; pakai dua lemparan yang diketahui untuk mencarinya.",
-        "Lemparan 1 mengenai lingkaran berjumlah 14; lemparan 2 berjumlah 16, sehingga nilai tiap lingkaran tertentu.",
-        "Baca di mana anak panah lemparan ketiga jatuh lalu jumlahkan nilai lingkaran itu.",
-        "Jumlahnya 18 poin."
+        "Baca skornya berurutan: 14 poin, lalu 16 poin.",
+        "Dari 14 ke 16 skornya naik 16 - 14 = 2.",
+        "Lemparan mengikuti pola +2 ini, jadi lemparan ketiga = 16 + 2.",
+        "16 + 2 = 18 poin."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1157,15 +1157,15 @@
             "category": "fact",
             "phrase_en": "14 points the first time and 16 points the second time",
             "phrase_id": "14 poin pada lemparan pertama dan 16 poin pada lemparan kedua",
-            "note_en": "These two totals let you work out what each ring on the target is worth.",
-            "note_id": "Kedua total ini membantu menemukan nilai tiap lingkaran pada target."
+            "note_en": "These two scores show the pattern: each throw grows by +2.",
+            "note_id": "Kedua skor ini menunjukkan polanya: tiap lemparan naik +2."
           },
           {
             "category": "question",
             "phrase_en": "How many points does she get the third time",
             "phrase_id": "Berapa poin yang ia peroleh pada lemparan ketiga",
-            "note_en": "Add the ring values where the third throw's arrows land.",
-            "note_id": "Jumlahkan nilai lingkaran tempat anak panah lemparan ketiga jatuh."
+            "note_en": "Continue the +2 pattern one more throw: 16 + 2 = 18.",
+            "note_id": "Lanjutkan pola +2 satu lemparan lagi: 16 + 2 = 18."
           }
         ],
         "quantities": [
@@ -1174,13 +1174,13 @@
           { "label_en": "Third throw", "label_id": "Lemparan ketiga", "value": "18" }
         ],
         "strategy": {
-          "name_en": "Use known scores to value each ring, then read the third",
-          "name_id": "Pakai skor diketahui untuk menilai tiap lingkaran, lalu baca yang ketiga"
+          "name_en": "Find the score pattern, then extend it one throw",
+          "name_id": "Temukan pola skor, lalu lanjutkan satu lemparan"
         },
         "trap": {
           "wrong": "20",
-          "why_en": "Assuming the scores just go up by 2 each time (14, 16, 18... or 20) is a guess; the rings decide the real total of 18.",
-          "why_id": "Menebak skor naik 2 tiap kali hanyalah dugaan; lingkaranlah yang menentukan total sebenarnya 18."
+          "why_en": "20 goes one throw too far (14, 16, 18, 20) or adds 4 instead of 2; the THIRD throw is 16 + 2 = 18.",
+          "why_id": "20 melangkah satu lemparan terlalu jauh (14, 16, 18, 20) atau menambah 4 bukan 2; lemparan KETIGA adalah 16 + 2 = 18."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }

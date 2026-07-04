@@ -185,15 +185,15 @@
       "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q2.jpg",
       "hint_steps_en": [
         "For each circle, write shaded wedges ÷ total wedges and reduce it.",
-        "Circle 1: 1 of 3 = 1/3 ✓.   Circle 2: 4 of 10 = 2/5 ✗.   Circle 3: 2 of 6 = 1/3 ✓.",
-        "Circle 4: 4 of 12 = 1/3 ✓.   Circle 5: 5 of 12 ✗.",
-        "Circles 1, 3 and 4 are exactly 1/3 — that is 3 circles."
+        "Circle 1: 1 of 3 = 1/3 ✓.   Circle 2: 4 of 12 = 1/3 ✓.   Circle 3: 3 of 6 = 1/2 ✗.",
+        "Circle 4: 5 of 12 ✗.   Circle 5: 4 of 12 = 1/3 ✓.",
+        "Circles 1, 2 and 5 are exactly 1/3 — that is 3 circles."
       ],
       "hint_steps_id": [
         "Untuk tiap lingkaran, tulis juring diarsir ÷ jumlah juring lalu sederhanakan.",
-        "Lingkaran 1: 1 dari 3 = 1/3 ✓.   Lingkaran 2: 4 dari 10 = 2/5 ✗.   Lingkaran 3: 2 dari 6 = 1/3 ✓.",
-        "Lingkaran 4: 4 dari 12 = 1/3 ✓.   Lingkaran 5: 5 dari 12 ✗.",
-        "Lingkaran 1, 3, dan 4 tepat 1/3 — jadi ada 3 lingkaran."
+        "Lingkaran 1: 1 dari 3 = 1/3 ✓.   Lingkaran 2: 4 dari 12 = 1/3 ✓.   Lingkaran 3: 3 dari 6 = 1/2 ✗.",
+        "Lingkaran 4: 5 dari 12 ✗.   Lingkaran 5: 4 dari 12 = 1/3 ✓.",
+        "Lingkaran 1, 2, dan 5 tepat 1/3 — jadi ada 3 lingkaran."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -222,22 +222,22 @@
           {
             "label_en": "circle 2",
             "label_id": "lingkaran 2",
-            "value": "2/5 ✗"
+            "value": "1/3 ✓"
           },
           {
             "label_en": "circle 3",
             "label_id": "lingkaran 3",
-            "value": "1/3 ✓"
+            "value": "1/2 ✗"
           },
           {
             "label_en": "circle 4",
             "label_id": "lingkaran 4",
-            "value": "1/3 ✓"
+            "value": "5/12 ✗"
           },
           {
             "label_en": "circle 5",
             "label_id": "lingkaran 5",
-            "value": "5/12 ✗"
+            "value": "1/3 ✓"
           },
           {
             "label_en": "count of 1/3",
@@ -251,8 +251,8 @@
         },
         "trap": {
           "wrong": "D",
-          "why_en": "Counting a 2/5 or 5/12 circle as 1/3 gives 4 — reduce each fraction carefully.",
-          "why_id": "Menghitung lingkaran 2/5 atau 5/12 sebagai 1/3 memberi 4 — sederhanakan tiap pecahan dengan teliti."
+          "why_en": "Counting the 1/2 or 5/12 circle as 1/3 too gives 4 — reduce each fraction carefully.",
+          "why_id": "Ikut menghitung lingkaran 1/2 atau 5/12 sebagai 1/3 memberi 4 — sederhanakan tiap pecahan dengan teliti."
         },
         "answer": {
           "form": "choice",
@@ -1863,7 +1863,88 @@
       "body_en": "There are 6 blue balls, 6 red balls, and 6 green balls. Each blue ball weighs 3 kg, each red ball 2 kg, and each green ball 1 kg. All 18 balls are shared among Ada, Bella, and Carter so that each person gets the same number of balls and the same total weight, yet the three colour combinations are all completely different. If Ada and Bella have the same number of balls in two different colours, how many red balls does Carter get?",
       "body_id": "Ada 6 bola biru, 6 bola merah, dan 6 bola hijau. Setiap bola biru beratnya 3 kg, bola merah 2 kg, dan bola hijau 1 kg. Ke-18 bola dibagikan kepada Ada, Bella, dan Carter sehingga setiap orang memperoleh jumlah bola yang sama dan berat total yang sama, namun ketiga kombinasi warnanya benar-benar berbeda. Jika Ada dan Bella memiliki jumlah bola yang sama pada dua warna yang berbeda, berapa banyak bola merah yang diperoleh Carter?",
       "answer_type": "fill_in",
-      "answer": "4"
+      "answer": "4",
+      "hint_steps_en": [
+        "Share fairly first: 18 balls ÷ 3 people = 6 balls each, and the total weight 6×3 + 6×2 + 6×1 = 36 kg splits into 36 ÷ 3 = 12 kg each.",
+        "Let one person take b blue, r red, g green: b + r + g = 6 and 3b + 2r + g = 12. Subtracting gives 2b + r = 6, so the only possible sets (blue, red, green) are (0,6,0), (1,4,1), (2,2,2), (3,0,3).",
+        "Each colour has exactly 6 balls in total and the three sets must all be different — only (1,4,1) + (2,2,2) + (3,0,3) adds up to (6,6,6), so this trio is forced. Using (0,6,0) would need two identical sets.",
+        "The clue about Ada and Bella decides who holds which set. In the official reading it leaves Carter with the (1 blue, 4 red, 1 green) set — so Carter gets 4 red balls."
+      ],
+      "hint_steps_id": [
+        "Bagi rata dulu: 18 bola ÷ 3 orang = 6 bola per orang, dan berat total 6×3 + 6×2 + 6×1 = 36 kg terbagi menjadi 36 ÷ 3 = 12 kg per orang.",
+        "Misal seseorang mengambil b biru, r merah, g hijau: b + r + g = 6 dan 3b + 2r + g = 12. Kurangkan keduanya: 2b + r = 6, jadi set (biru, merah, hijau) yang mungkin hanya (0,6,0), (1,4,1), (2,2,2), (3,0,3).",
+        "Setiap warna totalnya tepat 6 bola dan ketiga set harus berbeda — hanya (1,4,1) + (2,2,2) + (3,0,3) yang berjumlah (6,6,6), jadi trio ini wajib. Memakai (0,6,0) akan butuh dua set kembar.",
+        "Petunjuk tentang Ada dan Bella menentukan siapa memegang set yang mana. Dalam pembacaan resmi, Carter mendapat set (1 biru, 4 merah, 1 hijau) — jadi Carter memperoleh 4 bola merah."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "fact",
+            "phrase_en": "the same number of balls and the same total weight",
+            "phrase_id": "jumlah bola yang sama dan berat total yang sama",
+            "note_en": "6 balls each, and 36 kg ÷ 3 = 12 kg each.",
+            "note_id": "6 bola per orang, dan 36 kg ÷ 3 = 12 kg per orang."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "the three colour combinations are all completely different",
+            "phrase_id": "ketiga kombinasi warnanya benar-benar berbeda",
+            "note_en": "The only trio of different sets that works is (1,4,1), (2,2,2), (3,0,3).",
+            "note_id": "Satu-satunya trio set berbeda yang berhasil adalah (1,4,1), (2,2,2), (3,0,3)."
+          },
+          {
+            "category": "condition",
+            "phrase_en": "Ada and Bella have the same number of balls in two different colours",
+            "phrase_id": "Ada dan Bella memiliki jumlah bola yang sama pada dua warna yang berbeda",
+            "note_en": "This clue only decides who is who — in the official reading Carter holds (1,4,1).",
+            "note_id": "Petunjuk ini hanya menentukan siapa memegang apa — dalam pembacaan resmi Carter memegang (1,4,1)."
+          },
+          {
+            "category": "question",
+            "phrase_en": "how many red balls does Carter get",
+            "phrase_id": "berapa banyak bola merah yang diperoleh Carter",
+            "note_en": "Carter's set is 1 blue, 4 red, 1 green → 4 red balls.",
+            "note_id": "Set Carter adalah 1 biru, 4 merah, 1 hijau → 4 bola merah."
+          }
+        ],
+        "quantities": [
+          {
+            "label_en": "balls per person",
+            "label_id": "bola per orang",
+            "value": "6"
+          },
+          {
+            "label_en": "weight per person (kg)",
+            "label_id": "berat per orang (kg)",
+            "value": "12"
+          },
+          {
+            "label_en": "forced trio (blue, red, green)",
+            "label_id": "trio wajib (biru, merah, hijau)",
+            "value": "(1,4,1) + (2,2,2) + (3,0,3)"
+          },
+          {
+            "label_en": "Carter's red balls",
+            "label_id": "bola merah Carter",
+            "value": "4"
+          }
+        ],
+        "strategy": {
+          "name_en": "Fair-share the count and weight, solve 2b + r = 6, then force the only distinct trio",
+          "name_id": "Bagi rata jumlah dan berat, selesaikan 2b + r = 6, lalu tetapkan satu-satunya trio berbeda"
+        },
+        "trap": {
+          "wrong": "2",
+          "why_en": "Every set in the forced trio has blue = green, so the Ada–Bella clue is easy to misread and hand Carter (2,2,2) → 2 or (3,0,3) → 0. The official reading gives Carter (1,4,1), so the answer is 4.",
+          "why_id": "Setiap set dalam trio wajib punya biru = hijau, jadi petunjuk Ada–Bella mudah salah baca dan memberi Carter (2,2,2) → 2 atau (3,0,3) → 0. Pembacaan resmi memberi Carter (1,4,1), jadi jawabannya 4."
+        },
+        "answer": {
+          "form": "number",
+          "unit": null,
+          "value": "4"
+        }
+      }
     },
     {
       "number": 19,
@@ -2016,16 +2097,16 @@
       "answer": "30",
       "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q21.jpg",
       "hint_steps_en": [
-        "Find each rectangle's missing side from its area: top 56 = 7 × 8, left 45 = 9 × 5, right 48 = 8 × 6, bottom 42 = 7 × 6.",
-        "The four rectangles and the shaded region together fill one big rectangle: width 7 + 6 = 13, height 8 + 9 = 17.",
-        "Big rectangle = 13 × 17 = 221.",
-        "Subtract the four rectangles: 221 − (56 + 45 + 48 + 42) = 221 − 191 = 30."
+        "Find the missing sides from the areas: top 56 = 7 × 8 (8 tall), left 45 = 9 × 5 (5 wide), right 48 = 8 × 6 (6 wide).",
+        "Height of the shaded region: the left rectangle's top is 4 below the top rectangle's top, so 8 − 4 = 4 of its 9 lies above the shaded region — shaded height = 9 − 4 = 5.",
+        "Bottom rectangle: it starts at the shaded region's bottom and sticks out 3 below the right rectangle, so its height = 8 + 3 − 5 = 6 and its width = 42 ÷ 6 = 7.",
+        "Width of the shaded region: the bottom rectangle starts 4 to the right of the left rectangle's edge — that is 5 − 4 = 1 left of the shaded region — so shaded width = 7 − 1 = 6. Area = 5 × 6 = 30."
       ],
       "hint_steps_id": [
-        "Cari sisi yang hilang dari tiap persegi panjang dari luasnya: atas 56 = 7 × 8, kiri 45 = 9 × 5, kanan 48 = 8 × 6, bawah 42 = 7 × 6.",
-        "Keempat persegi panjang dan daerah arsiran bersama-sama mengisi satu persegi panjang besar: lebar 7 + 6 = 13, tinggi 8 + 9 = 17.",
-        "Persegi panjang besar = 13 × 17 = 221.",
-        "Kurangi keempat persegi panjang: 221 − (56 + 45 + 48 + 42) = 221 − 191 = 30."
+        "Cari sisi yang hilang dari luasnya: atas 56 = 7 × 8 (tinggi 8), kiri 45 = 9 × 5 (lebar 5), kanan 48 = 8 × 6 (lebar 6).",
+        "Tinggi daerah arsiran: puncak persegi panjang kiri berada 4 di bawah puncak persegi panjang atas, jadi 8 − 4 = 4 dari tinggi 9-nya ada di atas daerah arsiran — tinggi arsiran = 9 − 4 = 5.",
+        "Persegi panjang bawah: mulai dari dasar daerah arsiran dan menjulur 3 di bawah persegi panjang kanan, jadi tingginya = 8 + 3 − 5 = 6 dan lebarnya = 42 ÷ 6 = 7.",
+        "Lebar daerah arsiran: persegi panjang bawah mulai 4 di kanan tepi persegi panjang kiri — yaitu 5 − 4 = 1 di kiri daerah arsiran — jadi lebar arsiran = 7 − 1 = 6. Luas = 5 × 6 = 30."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -2034,37 +2115,42 @@
             "category": "fact",
             "phrase_en": "4 rectangles surround a shaded region",
             "phrase_id": "4 persegi panjang mengelilingi sebuah daerah yang diarsir",
-            "note_en": "Together they all pack into one big rectangle.",
-            "note_id": "Bersama-sama semuanya termuat dalam satu persegi panjang besar."
+            "note_en": "Each rectangle's area and one labelled side give its other side.",
+            "note_id": "Luas tiap persegi panjang dan satu sisi berlabel memberi sisi lainnya."
           },
           {
             "category": "question",
             "phrase_en": "find the area of the shaded region",
             "phrase_id": "tentukan luas daerah yang diarsir",
-            "note_en": "Big rectangle minus the four known rectangles.",
-            "note_id": "Persegi panjang besar dikurangi empat persegi panjang yang diketahui."
+            "note_en": "Use the small 4, 4, 3 offsets to pin the shaded height and width, then multiply.",
+            "note_id": "Pakai selisih kecil 4, 4, 3 untuk menetapkan tinggi dan lebar arsiran, lalu kalikan."
           }
         ],
         "quantities": [
           {
-            "label_en": "big rectangle",
-            "label_id": "persegi panjang besar",
-            "value": "13 × 17 = 221"
+            "label_en": "shaded height",
+            "label_id": "tinggi arsiran",
+            "value": "9 − 4 = 5"
           },
           {
-            "label_en": "four rectangles",
-            "label_id": "empat persegi panjang",
-            "value": "191"
+            "label_en": "bottom rectangle",
+            "label_id": "persegi panjang bawah",
+            "value": "7 × 6"
+          },
+          {
+            "label_en": "shaded width",
+            "label_id": "lebar arsiran",
+            "value": "7 − 1 = 6"
           },
           {
             "label_en": "shaded",
             "label_id": "arsiran",
-            "value": "30"
+            "value": "5 × 6 = 30"
           }
         ],
         "strategy": {
-          "name_en": "Enclose everything in one big rectangle and subtract the four",
-          "name_id": "Lingkupi semuanya dalam satu persegi panjang besar lalu kurangi keempatnya"
+          "name_en": "Find each side, then use the 4, 4, 3 offsets to get the shaded sides",
+          "name_id": "Cari tiap sisi, lalu pakai selisih 4, 4, 3 untuk mendapatkan sisi arsiran"
         },
         "trap": null,
         "answer": {
@@ -2235,16 +2321,16 @@
       "answer": "6",
       "figure_url": "/api/public/wmi/figures/2022-final-g3-a-q24.jpg",
       "hint_steps_en": [
-        "The two mirror shadows must be explained: a black shadow needs a black 1×1×3 block (length 3) and a gray shadow needs a gray 1×1×2 block (length 2).",
-        "Place those long blocks so both coloured shadows are covered — they are forced.",
-        "To MAXIMISE the white count, make every remaining unit cell its own white 1×1×1 cube.",
-        "That leaves at most 6 white cubes."
+        "Count the unit cells of the solid: the 2×2 slab must be supported everywhere underneath, so the bottom layer has 8 cells, the slab has 4, and 1 cube sits on top — 13 cells in all.",
+        "Read the mirrors as coloured shadows of the surface: the side mirror shows a black face 3 long and a gray face 2 long; the back mirror shows three gray cells (an L shape) and one black cell.",
+        "Those shadows force the colours at the surface: one black 1×1×3 lying along the left edge of the floor (3 cells), and TWO gray 1×1×2 blocks — one lying in the slab, one standing at the back (4 cells). So 7 cells can never be white.",
+        "Make every remaining cell its own white 1×1×1 cube: 13 − 7 = 6, so at most 6 white cubes."
       ],
       "hint_steps_id": [
-        "Dua bayangan cermin harus dijelaskan: bayangan hitam butuh balok hitam 1×1×3 (panjang 3) dan bayangan abu-abu butuh balok abu-abu 1×1×2 (panjang 2).",
-        "Tempatkan balok panjang itu agar kedua bayangan berwarna tertutup — keduanya wajib ada.",
-        "Untuk MEMAKSIMALKAN banyak putih, jadikan setiap sel satuan sisanya kubus putih 1×1×1 sendiri.",
-        "Itu menyisakan paling banyak 6 kubus putih."
+        "Hitung sel satuan bangun itu: lempeng 2×2 harus tertopang penuh di bawahnya, jadi lapisan bawah punya 8 sel, lempengnya 4 sel, dan 1 kubus di puncak — total 13 sel.",
+        "Baca cermin sebagai bayangan warna dari permukaan: cermin samping menunjukkan sisi hitam sepanjang 3 dan sisi abu-abu sepanjang 2; cermin belakang menunjukkan tiga sel abu-abu (bentuk L) dan satu sel hitam.",
+        "Bayangan itu memaksa warna di permukaan: satu balok hitam 1×1×3 terbaring di tepi kiri lantai (3 sel), dan DUA balok abu-abu 1×1×2 — satu terbaring di lempeng, satu berdiri di belakang (4 sel). Jadi 7 sel tak mungkin putih.",
+        "Jadikan setiap sel sisanya kubus putih 1×1×1: 13 − 7 = 6, jadi paling banyak 6 kubus putih."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -2260,27 +2346,32 @@
             "category": "fact",
             "phrase_en": "two mirrors show its reflections",
             "phrase_id": "Dua cermin menunjukkan bayangannya",
-            "note_en": "Each coloured shadow forces a block of that colour to exist.",
-            "note_id": "Tiap bayangan berwarna mengharuskan adanya balok warna itu."
+            "note_en": "Every coloured cell in a mirror fixes the colour of the piece touching that side.",
+            "note_id": "Setiap sel berwarna di cermin menetapkan warna balok yang menyentuh sisi itu."
           },
           {
             "category": "question",
             "phrase_en": "At most how many white",
             "phrase_id": "Paling banyak berapa kubus putih",
-            "note_en": "Force the long coloured blocks, then make the rest white.",
-            "note_id": "Wajibkan balok panjang berwarna, lalu jadikan sisanya putih."
+            "note_en": "Count all 13 cells, subtract the 7 forced coloured cells, make the rest white.",
+            "note_id": "Hitung 13 sel, kurangi 7 sel berwarna yang wajib, sisanya jadikan putih."
           }
         ],
         "quantities": [
           {
-            "label_en": "forced black (length 3)",
-            "label_id": "hitam wajib (panjang 3)",
-            "value": "1"
+            "label_en": "total unit cells",
+            "label_id": "total sel satuan",
+            "value": "13"
           },
           {
-            "label_en": "forced gray (length 2)",
-            "label_id": "abu-abu wajib (panjang 2)",
-            "value": "1"
+            "label_en": "forced black cells (one 1×1×3)",
+            "label_id": "sel hitam wajib (satu 1×1×3)",
+            "value": "3"
+          },
+          {
+            "label_en": "forced gray cells (two 1×1×2)",
+            "label_id": "sel abu-abu wajib (dua 1×1×2)",
+            "value": "4"
           },
           {
             "label_en": "most white cubes",
@@ -2289,10 +2380,14 @@
           }
         ],
         "strategy": {
-          "name_en": "Force the long coloured blocks from the shadows, fill the rest with white",
-          "name_id": "Wajibkan balok panjang berwarna dari bayangan, isi sisanya dengan putih"
+          "name_en": "Count the 13 cells, let the mirror shadows force the coloured cells, fill the rest with white",
+          "name_id": "Hitung 13 sel, biarkan bayangan cermin mewajibkan sel berwarna, isi sisanya dengan putih"
         },
-        "trap": null,
+        "trap": {
+          "wrong": "8",
+          "why_en": "Counting only ONE forced gray gives 13 − 5 = 8. The back mirror shows three gray cells in an L — one 1×1×2 can never cover all of them, so TWO grays are forced and 13 − 7 = 6.",
+          "why_id": "Menghitung hanya SATU abu-abu wajib memberi 13 − 5 = 8. Cermin belakang menunjukkan tiga sel abu-abu berbentuk L — satu balok 1×1×2 tak mungkin menutup semuanya, jadi DUA abu-abu wajib dan 13 − 7 = 6."
+        },
         "answer": {
           "form": "number",
           "unit": null,

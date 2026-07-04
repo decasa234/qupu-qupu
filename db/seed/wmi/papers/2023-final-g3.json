@@ -7,32 +7,26 @@
   "recommended_duration_min": 90,
   "review": {
     "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice, 90-min). Breakdowns/steps/parity are clean except Q12 and Q14 (both unenriched and blocked). Verified by hand: Q5 (26), Q7 (8 hours), Q9 (M=602973 → 27), Q10 (726), Q16 (4444), Q17 (25°), Q20 (D=792 via CRT, A=789), Q21 ({1,2,3,5}→1235), Q22 (22+67=89), Q24 (greedy → 99999785960). Two blockers below + figure-dependent nits.",
+    "reviewed_on": "2026-07-04",
+    "summary": "Full re-verify with brute-force scripts. Confirmed: Q1–Q11, Q13, Q15–Q25 answers, steps, breakdowns, en/id parity, figures vs scans (metro graph edges, maze walls, spiral grid, trigrid vertices all match), choice renderer for Q15. Q11 diff=12 is forced (unique 4-sector split with two 26s leaves {7,19}). Q23 count=8 re-derived from grid [[1,2,3],[8,9,4],[7,6,5]] (no scan exists; grid taken from NumberGrid23G3Illustration). Q25: Dijkstra over (cell,heading) with straight-or-right moves on the scan-verified walls gives exactly 31. Q14 FIXED: unique overbar reconstruction 5 2̄ 3 6̄ (=4824) − 3 4̄ 7̄ 1 (=2531) = 2293 = key B (proved unique over all 64 bar assignments); body/hints/breakdown updated. Q12 remains the sole blocker.",
     "findings": [
       {
         "q": 12,
         "severity": "blocker",
         "gate": "figure",
-        "note": "BLOCKED (matches project memory). No breakdown, no hint_steps, and no figure_url — the framing shape that selects three July-2023 dates is missing from the OCR, so the key A=46 ('which sum is impossible') cannot be verified or re-derived. Needs the shape from the original PDF, then enrichment."
+        "note": "BLOCKED. No breakdown, no hint_steps, no figure_url — the fixed framing shape is missing from the OCR. Brute force over ALL 204 three-cell shapes (4×4 offset box, both Sun-start and Mon-start July-2023 calendars) finds NO shape for which 46 is impossible while 22/73/61/64 are all achievable — so the key A=46 cannot be reproduced by any candidate shape; the choices or key may also be OCR-corrupted. Needs the original PDF figure, then enrichment."
       },
       {
         "q": 14,
-        "severity": "blocker",
+        "severity": "nit",
         "gate": "answer",
-        "note": "BLOCKED (matches project memory). No breakdown/hint_steps; the keyed answer B=2293 conflicts with the natural computation: 5236−3471 = 1765 (which is option A), and even a digit-wise tribe subtraction (2, 2−4=−4→2̄, 3−7→4̄, 6−1=5 → '2 2̄ 4̄ 5') evaluates to 2000−200−40+5 = 1765. The interpretation that produces 2293 is unclear — needs the original-PDF wording to resolve key vs. derivation."
+        "note": "RESOLVED 2026-07-04: OCR had dropped the overbars from the operands. Among all 2^6 bar placements over '5236 − 3471' (leading digits unbarred), exactly one yields an offered choice matching the key: 5 2̄ 3 6̄ (=4824) − 3 4̄ 7̄ 1 (=2531) = 2293 = B. Body, hints, and breakdown updated accordingly. No illustration/explainer component yet (text-only question)."
       },
       {
         "q": 23,
         "severity": "nit",
         "gate": "figure",
-        "note": "Divisible-by-4 transversal count = 8 depends on the 3×3 grid's values (hint's six sets {1,9,5}/{1,4,6}/{2,8,5}/{2,4,7}/{3,8,6}/{3,9,7}); not re-derived from the scan this pass."
-      },
-      {
-        "q": 25,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Right-turn-only robot maze (7×5): least squares = 31 with 5 forced repeats — figure-dependent; the hint asserts 31 without a cell-by-cell trace. Verify against the scan."
+        "note": "No scan (2023-final-g3-a-q23.jpg absent). Count = 8 brute-force verified against the grid [[1,2,3],[8,9,4],[7,6,5]] encoded in NumberGrid23G3Illustration, which is consistent with the hint's six transversal sets — but the grid values could not be checked against the original scan."
       }
     ]
   },
@@ -770,8 +764,8 @@
     },
     {
       "number": 14,
-      "body_en": "A certain tribe writes numbers with a special method for addition and subtraction: a bar over a digit means that digit is subtracted. For example, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), and 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). In this tribe, what number does the result of 5236 − 3471 represent?",
-      "body_id": "Suatu suku menulis bilangan dengan metode khusus untuk penjumlahan dan pengurangan: garis di atas sebuah angka berarti angka itu dikurangkan. Contohnya, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), dan 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). Pada suku ini, bilangan berapa yang diwakili oleh hasil dari 5236 − 3471?",
+      "body_en": "A certain tribe writes numbers with a special method for addition and subtraction: a bar over a digit means that digit is subtracted. For example, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), and 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). In this tribe, what number does the result of 5 2̄ 3 6̄ − 3 4̄ 7̄ 1 represent?",
+      "body_id": "Suatu suku menulis bilangan dengan metode khusus untuk penjumlahan dan pengurangan: garis di atas sebuah angka berarti angka itu dikurangkan. Contohnya, 9 = 1 1̄ ( = 10 − 1 ), 197 = 2 0 3̄ ( = 200 − 3 ), dan 6745 = 1 3̄ 2̄ 6̄ 5 ( = 10000 − 3260 + 5 ). Pada suku ini, bilangan berapa yang diwakili oleh hasil dari 5 2̄ 3 6̄ − 3 4̄ 7̄ 1?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "1765" },
@@ -787,7 +781,44 @@
         { "label": "D", "text": "2343" },
         { "label": "E", "text": "1995" }
       ],
-      "answer": "B"
+      "answer": "B",
+      "hint_steps_en": [
+        "Read each tribe numeral by place value, subtracting every barred digit: 5 2̄ 3 6̄ = 5000 − 200 + 30 − 6 = 4824.",
+        "Likewise 3 4̄ 7̄ 1 = 3000 − 400 − 70 + 1 = 2531.",
+        "Subtract the two ordinary numbers: 4824 − 2531 = 2293 → choice B."
+      ],
+      "hint_steps_id": [
+        "Baca tiap bilangan suku menurut nilai tempat, kurangkan setiap angka bergaris: 5 2̄ 3 6̄ = 5000 − 200 + 30 − 6 = 4824.",
+        "Begitu pula 3 4̄ 7̄ 1 = 3000 − 400 − 70 + 1 = 2531.",
+        "Kurangkan kedua bilangan biasa: 4824 − 2531 = 2293 → pilihan B."
+      ],
+      "breakdown": {
+        "needsVisual": false,
+        "highlights": [
+          {
+            "category": "condition",
+            "phrase_en": "a bar over a digit means that digit is subtracted",
+            "phrase_id": "garis di atas sebuah angka berarti angka itu dikurangkan",
+            "note_en": "Barred digits count as minus at their place value.",
+            "note_id": "Angka bergaris dihitung minus pada nilai tempatnya."
+          },
+          {
+            "category": "question",
+            "phrase_en": "5 2̄ 3 6̄ − 3 4̄ 7̄ 1",
+            "phrase_id": "5 2̄ 3 6̄ − 3 4̄ 7̄ 1",
+            "note_en": "Turn both tribe numerals into ordinary numbers first.",
+            "note_id": "Ubah dulu kedua bilangan suku menjadi bilangan biasa."
+          }
+        ],
+        "quantities": [
+          { "label_en": "First numeral", "label_id": "Bilangan pertama", "value": "5 2̄ 3 6̄ = 5000 − 200 + 30 − 6 = 4824" },
+          { "label_en": "Second numeral", "label_id": "Bilangan kedua", "value": "3 4̄ 7̄ 1 = 3000 − 400 − 70 + 1 = 2531" },
+          { "label_en": "Difference", "label_id": "Selisih", "value": "4824 − 2531 = 2293" }
+        ],
+        "strategy": { "name_en": "Translate each tribe numeral to an ordinary number, then subtract", "name_id": "Terjemahkan tiap bilangan suku ke bilangan biasa, lalu kurangkan" },
+        "trap": { "wrong": "A", "why_en": "1765 = 5236 − 3471 as if there were no bars — the barred digits must be subtracted before computing.", "why_id": "1765 = 5236 − 3471 seolah tanpa garis — angka bergaris harus dikurangkan dulu sebelum menghitung." },
+        "answer": { "form": "choice", "unit": null, "value": "B" }
+      }
     },
     {
       "number": 15,

@@ -1022,15 +1022,15 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g2-a-q16.jpg",
       "hint_steps_en": [
-        "Count the smallest single triangles first.",
-        "Then count bigger triangles made by joining 2, 3, or 4 small ones.",
-        "Add the small ones and all the combined ones together.",
+        "Count the smallest single triangles strip by strip: 5 in the bottom strip and 4 in the top strip — 9 small ones.",
+        "Then count the bigger triangles: each is made of 4 small ones, and there are 3 of them (two pointing up, one pointing down).",
+        "Add the small ones and the big ones together: 9 + 3 = 12.",
         "The full count of triangles of every size is 12."
       ],
       "hint_steps_id": [
-        "Hitung dulu segitiga terkecil satu per satu.",
-        "Lalu hitung segitiga lebih besar yang dibentuk dari gabungan 2, 3, atau 4 segitiga kecil.",
-        "Jumlahkan yang kecil dan semua gabungannya.",
+        "Hitung dulu segitiga terkecil per baris: 5 di baris bawah dan 4 di baris atas — 9 segitiga kecil.",
+        "Lalu hitung segitiga yang lebih besar: masing-masing terbentuk dari 4 segitiga kecil, dan ada 3 buah (dua menghadap ke atas, satu ke bawah).",
+        "Jumlahkan yang kecil dan yang besar: 9 + 3 = 12.",
         "Total segitiga dari semua ukuran adalah 12."
       ],
       "breakdown": {
@@ -1068,8 +1068,8 @@
     },
     {
       "number": 17,
-      "body_en": "Which is the heaviest? Three balance scales are shown: (1) a peach and a banana balanced against two bananas, with the peach-and-banana side heavier; (2) a peach and a pineapple against two bananas, with the peach-and-pineapple side heavier; (3) a peach against two strawberries, with the peach side heavier. The options are peach, pineapple, banana and strawberry.",
-      "body_id": "Manakah yang paling berat? Ditampilkan tiga timbangan: (1) sebuah persik dan sebuah pisang ditimbang melawan dua pisang, dengan sisi persik-dan-pisang lebih berat; (2) sebuah persik dan sebuah nanas melawan dua pisang, dengan sisi persik-dan-nanas lebih berat; (3) sebuah persik melawan dua stroberi, dengan sisi persik lebih berat. Pilihannya adalah persik, nanas, pisang dan stroberi.",
+      "body_en": "Which is the heaviest? Three balance scales are shown: (1) a peach and a banana balanced against two bananas, with the peach-and-banana side heavier; (2) a pineapple alone against a peach and a banana, with the pineapple side heavier; (3) a peach against two strawberries, with the peach side heavier. The options are peach, pineapple, banana and strawberry.",
+      "body_id": "Manakah yang paling berat? Ditampilkan tiga timbangan: (1) sebuah persik dan sebuah pisang ditimbang melawan dua pisang, dengan sisi persik-dan-pisang lebih berat; (2) sebuah nanas sendirian melawan sebuah persik dan sebuah pisang, dengan sisi nanas lebih berat; (3) sebuah persik melawan dua stroberi, dengan sisi persik lebih berat. Pilihannya adalah persik, nanas, pisang dan stroberi.",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "Peach" },
@@ -1086,26 +1086,26 @@
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g2-a-q17.jpg",
       "hint_steps_en": [
-        "Scale 1: peach + banana beats banana + banana, so peach is heavier than a banana.",
-        "Scale 2: peach + pineapple beats banana + banana; since pineapple replaces a banana and the side still wins big, pineapple is heavier than a banana too.",
-        "Scale 3: peach beats two strawberries, so a strawberry is light.",
-        "Comparing, the pineapple ends up the heaviest of all."
+        "Scale 1: peach + banana beats banana + banana, so the peach is heavier than a banana.",
+        "Scale 2: the pineapple alone beats the peach and the banana together, so the pineapple is heavier than the peach.",
+        "Scale 3: peach beats two strawberries, so strawberries are the lightest.",
+        "Chain them: pineapple > peach > banana, and strawberries are lightest — the pineapple is the heaviest."
       ],
       "hint_steps_id": [
         "Timbangan 1: persik + pisang mengalahkan pisang + pisang, jadi persik lebih berat dari pisang.",
-        "Timbangan 2: persik + nanas mengalahkan pisang + pisang; karena nanas menggantikan pisang dan sisinya tetap menang besar, nanas pun lebih berat dari pisang.",
-        "Timbangan 3: persik mengalahkan dua stroberi, jadi stroberi ringan.",
-        "Dibandingkan semuanya, nanas menjadi yang paling berat."
+        "Timbangan 2: nanas sendirian mengalahkan persik dan pisang bersama-sama, jadi nanas lebih berat dari persik.",
+        "Timbangan 3: persik mengalahkan dua stroberi, jadi stroberi paling ringan.",
+        "Rangkai: nanas > persik > pisang, dan stroberi paling ringan — nanas yang paling berat."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "peach-and-pineapple side heavier",
-            "phrase_id": "sisi persik-dan-nanas lebih berat",
-            "note_en": "Swapping a banana for a pineapple makes the side even heavier, so pineapple outweighs a banana.",
-            "note_id": "Mengganti pisang dengan nanas membuat sisinya makin berat, jadi nanas lebih berat dari pisang."
+            "phrase_en": "pineapple side heavier",
+            "phrase_id": "sisi nanas lebih berat",
+            "note_en": "The pineapple alone outweighs the peach and banana together, so it beats the peach.",
+            "note_id": "Nanas sendirian lebih berat daripada persik dan pisang bersama-sama, jadi nanas mengalahkan persik."
           },
           {
             "category": "fact",
@@ -1131,8 +1131,8 @@
         },
         "trap": {
           "wrong": "Peach",
-          "why_en": "The peach is heavy, but in scale 2 peach + pineapple greatly outweighs two bananas, showing pineapple is the heaviest single fruit.",
-          "why_id": "Persik memang berat, tapi di timbangan 2 persik + nanas jauh melampaui dua pisang, menunjukkan nanas adalah buah tunggal terberat."
+          "why_en": "The peach is heavy, but in scale 2 the pineapple alone outweighs the peach and a banana together, so the pineapple beats the peach.",
+          "why_id": "Persik memang berat, tapi di timbangan 2 nanas sendirian lebih berat daripada persik dan pisang bersama-sama, jadi nanas mengalahkan persik."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }
@@ -1210,8 +1210,8 @@
     },
     {
       "number": 19,
-      "body_en": "A line of circles each contains a fruit, forming a repeating pattern of bananas and green apples. One group of three circles is hidden by a box marked with a question mark. Which option shows the three fruits that belong in the hidden circles?",
-      "body_id": "Sebaris lingkaran yang masing-masing berisi sebuah buah membentuk pola berulang dari pisang dan apel hijau. Satu kelompok berisi tiga lingkaran tertutup oleh kotak bertanda tanya. Pilihan manakah yang menunjukkan tiga buah yang seharusnya ada di lingkaran yang tersembunyi?",
+      "body_en": "A line of circles each contains a fruit: single green apples separate groups of bananas, and each group has one more banana than the group before (1 banana, then 2, then 3, and so on). One group of three circles is hidden by a box marked with a question mark. Which option shows the three fruits that belong in the hidden circles?",
+      "body_id": "Sebaris lingkaran yang masing-masing berisi sebuah buah: apel hijau tunggal memisahkan kelompok-kelompok pisang, dan setiap kelompok punya satu pisang lebih banyak daripada kelompok sebelumnya (1 pisang, lalu 2, lalu 3, dan seterusnya). Satu kelompok berisi tiga lingkaran tertutup oleh kotak bertanda tanya. Pilihan manakah yang menunjukkan tiga buah yang seharusnya ada di lingkaran yang tersembunyi?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "Apple, banana, apple" },
@@ -1228,15 +1228,15 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2021-semifinal-g2-a-q19.jpg",
       "hint_steps_en": [
-        "Read the visible fruits to spot the repeating unit (banana, apple, banana, apple...).",
-        "Track the pattern up to the hidden box, then continue it through the three hidden circles.",
-        "Following the rhythm, the three hidden fruits read banana, apple, banana.",
+        "Look between the apples: first 1 banana, then 2 bananas — each banana group grows by one.",
+        "The third group must have 3 bananas. Two of them are visible just before the box, so the box hides its last banana first.",
+        "After a full group comes an apple, and then the group of 4 begins — so the box hides banana, apple, banana.",
         "So the answer is banana, apple, banana."
       ],
       "hint_steps_id": [
-        "Baca buah yang terlihat untuk menemukan pola berulangnya (pisang, apel, pisang, apel...).",
-        "Lacak pola sampai ke kotak tersembunyi, lalu lanjutkan melewati tiga lingkaran tersembunyi.",
-        "Mengikuti iramanya, ketiga buah tersembunyi adalah pisang, apel, pisang.",
+        "Perhatikan di antara apel: mula-mula 1 pisang, lalu 2 pisang — setiap kelompok pisang bertambah satu.",
+        "Kelompok ketiga harus berisi 3 pisang. Dua di antaranya terlihat tepat sebelum kotak, jadi kotak menyembunyikan pisang terakhirnya dulu.",
+        "Setelah satu kelompok penuh datang sebuah apel, lalu kelompok berisi 4 dimulai — jadi kotak menyembunyikan pisang, apel, pisang.",
         "Jadi jawabannya pisang, apel, pisang."
       ],
       "breakdown": {
@@ -1244,30 +1244,30 @@
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "repeating pattern of bananas and green apples",
-            "phrase_id": "pola berulang dari pisang dan apel hijau",
-            "note_en": "The fruits alternate in a fixed cycle; find that cycle.",
-            "note_id": "Buah berganti dalam siklus tetap; temukan siklusnya."
+            "phrase_en": "one more banana than the group before",
+            "phrase_id": "satu pisang lebih banyak daripada kelompok sebelumnya",
+            "note_en": "The banana groups between the apples grow: 1, 2, 3, 4, 5 bananas.",
+            "note_id": "Kelompok pisang di antara apel bertambah: 1, 2, 3, 4, 5 pisang."
           },
           {
             "category": "question",
             "phrase_en": "three fruits that belong in the hidden circles",
             "phrase_id": "tiga buah yang seharusnya ada di lingkaran yang tersembunyi",
-            "note_en": "Extend the pattern across the three covered spots.",
-            "note_id": "Lanjutkan pola pada tiga tempat yang tertutup."
+            "note_en": "Extend the growing pattern across the three covered spots.",
+            "note_id": "Lanjutkan pola yang bertumbuh pada tiga tempat yang tertutup."
           }
         ],
         "quantities": [
           { "label_en": "Hidden circles", "label_id": "Lingkaran tersembunyi", "value": "3" }
         ],
         "strategy": {
-          "name_en": "Find the repeating unit, then continue it under the box",
-          "name_id": "Temukan unit berulang, lalu lanjutkan di balik kotak"
+          "name_en": "Find how the banana groups grow, then continue under the box",
+          "name_id": "Temukan cara kelompok pisang bertambah, lalu lanjutkan di balik kotak"
         },
         "trap": {
           "wrong": "Banana, banana, apple",
-          "why_en": "Two bananas in a row breaks the alternating rhythm; the pattern keeps switching, so it is banana, apple, banana.",
-          "why_id": "Dua pisang berturut-turut merusak irama bergantian; polanya terus berganti, jadi pisang, apel, pisang."
+          "why_en": "Banana, banana, apple would give the third group four bananas; it has exactly 3, so the apple comes right after one more banana: banana, apple, banana.",
+          "why_id": "Pisang, pisang, apel akan membuat kelompok ketiga berisi empat pisang; padahal tepat 3, jadi apel datang setelah satu pisang lagi: pisang, apel, pisang."
         },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }

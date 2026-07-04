@@ -8,8 +8,8 @@
   "questions": [
     {
       "number": 1,
-      "body_en": "A 4-digit number P is formed by two 8's, one 5, and one 0. According to the location on the number line (P is marked between 8000 and 9000, a little left of the midpoint), which option is most likely to be P?",
-      "body_id": "Sebuah bilangan 4 digit P dibentuk dari dua angka 8, satu angka 5, dan satu angka 0. Berdasarkan letaknya pada garis bilangan (P ditandai antara 8000 dan 9000, sedikit di kiri titik tengah), pilihan mana yang paling mungkin menjadi P?",
+      "body_en": "A 4-digit number P is formed by two 8's, one 5, and one 0. According to the location on the number line (P is marked between 8000 and 9000, close to the midpoint), which option is most likely to be P?",
+      "body_id": "Sebuah bilangan 4 digit P dibentuk dari dua angka 8, satu angka 5, dan satu angka 0. Berdasarkan letaknya pada garis bilangan (P ditandai antara 8000 dan 9000, dekat titik tengah), pilihan mana yang paling mungkin menjadi P?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "5088" },
@@ -27,7 +27,7 @@
       "figure_url": "/api/public/wmi/figures/2024-semifinal-g3-a-q1.jpg",
       "hint_steps_en": [
         "P sits between 8000 and 9000, so it must start with 8: that rules out 5088.",
-        "The midpoint of 8000 and 9000 is 8500, and P is a little left of nowhere near far-left, so its hundreds digit is 5.",
+        "The midpoint of 8000 and 9000 is 8500, and P sits close to the midpoint, so its hundreds digit is 5.",
         "Of 8085, 8580, 8850, only 8580 has a 5 in the hundreds place and sits just past 8500.",
         "So P is 8580."
       ],
@@ -49,8 +49,8 @@
           },
           {
             "category": "fact",
-            "phrase_en": "a little left of the midpoint",
-            "phrase_id": "sedikit di kiri titik tengah",
+            "phrase_en": "close to the midpoint",
+            "phrase_id": "dekat titik tengah",
             "note_en": "The midpoint is 8500, so P is close to 8500 — its hundreds digit is 5.",
             "note_id": "Titik tengahnya 8500, jadi P dekat 8500 — digit ratusannya 5."
           },
@@ -919,8 +919,8 @@
         },
         "trap": {
           "wrong": "128",
-          "why_en": "128 = 2 rubies (72 x 2 ≈), but the question asks for one ruby plus one sapphire, not two rubies.",
-          "why_id": "128 ≈ 2 rubi, tapi soal meminta satu rubi plus satu safir, bukan dua rubi."
+          "why_en": "128 = 96 + 32 swaps in a diamond (288 ÷ 3 = 96) for the ruby — the question asks for a ruby (72), not a diamond.",
+          "why_id": "128 = 96 + 32 keliru memakai berlian (288 ÷ 3 = 96) alih-alih rubi — soal meminta rubi (72), bukan berlian."
         },
         "answer": { "form": "choice", "unit": null, "value": "A" }
       }
@@ -1581,8 +1581,8 @@
     },
     {
       "number": 23,
-      "body_en": "Each 3x3 grid contains some white circles (open) and black circles (filled). Two grids are added cell by cell to give a result grid (a cell that holds a circle in either of the two grids holds that circle in the result). The first row gives a worked example. For the second row, the first grid has white circles at top-right, middle-center, middle-right, and the whole bottom row; the second grid has a black circle at top-left, middle-center, middle-right, and bottom-right. Which option shows the resulting grid?",
-      "body_id": "Setiap kisi 3x3 berisi beberapa lingkaran putih (kosong) dan lingkaran hitam (terisi). Dua kisi dijumlahkan sel demi sel untuk menghasilkan kisi hasil (sel yang berisi lingkaran pada salah satu dari dua kisi akan berisi lingkaran itu pada hasilnya). Baris pertama memberikan contoh. Untuk baris kedua, kisi pertama memiliki lingkaran putih di kanan-atas, tengah-tengah, tengah-kanan, dan seluruh baris bawah; kisi kedua memiliki lingkaran hitam di kiri-atas, tengah-tengah, tengah-kanan, dan kanan-bawah. Pilihan mana yang menunjukkan kisi hasilnya?",
+      "body_en": "Each 3x3 grid contains some white circles (open) and black circles (filled). Two grids are added cell by cell to give a result grid (a cell keeps its circle when exactly one of the two grids has a circle there; when both grids have a circle in the same cell, they cancel and the cell becomes empty). The first row gives a worked example. For the second row, the first grid has white circles at top-right, middle-center, middle-right, and the whole bottom row; the second grid has a black circle at top-left, middle-center, middle-right, and bottom-right. Which option shows the resulting grid?",
+      "body_id": "Setiap kisi 3x3 berisi beberapa lingkaran putih (kosong) dan lingkaran hitam (terisi). Dua kisi dijumlahkan sel demi sel untuk menghasilkan kisi hasil (sebuah sel menyimpan lingkarannya jika tepat satu dari dua kisi punya lingkaran di sana; jika kedua kisi punya lingkaran pada sel yang sama, keduanya saling hilang dan sel jadi kosong). Baris pertama memberikan contoh. Untuk baris kedua, kisi pertama memiliki lingkaran putih di kanan-atas, tengah-tengah, tengah-kanan, dan seluruh baris bawah; kisi kedua memiliki lingkaran hitam di kiri-atas, tengah-tengah, tengah-kanan, dan kanan-bawah. Pilihan mana yang menunjukkan kisi hasilnya?",
       "answer_type": "multiple_choice",
       "choices_en": [
         { "label": "A", "text": "(see figure A)" },
@@ -1601,26 +1601,26 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2024-semifinal-g3-a-q23.jpg",
       "hint_steps_en": [
-        "Overlay the two grids: a cell is filled in the result if either grid has a circle there.",
-        "Combine the marks: top-left, top-right, middle-center, middle-right, and the whole bottom row all get a circle.",
-        "Where both grids share a cell (middle-center, middle-right), it still shows one circle.",
-        "The pattern that matches this overlay is option C."
+        "Read the rule off the worked example: a circle survives only when exactly ONE grid has it; where BOTH grids have a circle, they cancel to empty.",
+        "Both grids share middle-center, middle-right, and bottom-right — those three cells cancel and end up empty.",
+        "The lone circles survive: the black at top-left, and the whites at top-right, bottom-left, and bottom-center — four circles in all.",
+        "The pattern with exactly those four circles is option C."
       ],
       "hint_steps_id": [
-        "Tumpuk kedua kisi: sebuah sel terisi pada hasil jika salah satu kisi punya lingkaran di sana.",
-        "Gabungkan tandanya: kiri-atas, kanan-atas, tengah-tengah, tengah-kanan, dan seluruh baris bawah semuanya berlingkaran.",
-        "Di sel yang dipakai kedua kisi (tengah-tengah, tengah-kanan), tetap tampil satu lingkaran.",
-        "Pola yang cocok dengan tumpukan ini adalah pilihan C."
+        "Baca aturannya dari baris contoh: lingkaran bertahan hanya jika TEPAT SATU kisi memilikinya; jika KEDUA kisi punya lingkaran, keduanya saling hilang.",
+        "Kedua kisi sama-sama mengisi tengah-tengah, tengah-kanan, dan kanan-bawah — ketiga sel itu saling hilang dan jadi kosong.",
+        "Lingkaran yang sendirian bertahan: hitam di kiri-atas, dan putih di kanan-atas, kiri-bawah, dan tengah-bawah — total empat lingkaran.",
+        "Pola dengan tepat empat lingkaran itu adalah pilihan C."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
             "category": "fact",
-            "phrase_en": "a cell that holds a circle in either of the two grids holds that circle in the result",
-            "phrase_id": "sel yang berisi lingkaran pada salah satu dari dua kisi akan berisi lingkaran itu pada hasilnya",
-            "note_en": "This is an OR overlay: keep a circle if it appears in grid 1 OR grid 2.",
-            "note_id": "Ini tumpukan OR: pertahankan lingkaran jika muncul di kisi 1 ATAU kisi 2."
+            "phrase_en": "when both grids have a circle in the same cell, they cancel and the cell becomes empty",
+            "phrase_id": "jika kedua kisi punya lingkaran pada sel yang sama, keduanya saling hilang dan sel jadi kosong",
+            "note_en": "This is addition mod 2 (XOR): a circle survives only where exactly one grid has it — the worked example drops both shared cells.",
+            "note_id": "Ini penjumlahan mod 2 (XOR): lingkaran bertahan hanya di sel yang dipakai tepat satu kisi — contohnya menghapus kedua sel yang sama-sama terisi."
           },
           {
             "category": "operation",
@@ -1638,16 +1638,16 @@
           }
         ],
         "quantities": [
-          { "label_en": "Filled cells in result", "label_id": "Sel terisi pada hasil", "value": "7" }
+          { "label_en": "Filled cells in result", "label_id": "Sel terisi pada hasil", "value": "4" }
         ],
         "strategy": {
-          "name_en": "Overlay both grids cell by cell (OR rule)",
-          "name_id": "Tumpuk kedua kisi sel demi sel (aturan OR)"
+          "name_en": "Overlay both grids cell by cell (shared cells cancel)",
+          "name_id": "Tumpuk kedua kisi sel demi sel (sel yang sama saling hilang)"
         },
         "trap": {
           "wrong": "(see figure A)",
-          "why_en": "A likely keeps only the cells both grids share (an AND), but the rule says keep a circle from either grid.",
-          "why_id": "A mungkin hanya menyimpan sel yang dipakai kedua kisi (AND), padahal aturannya simpan lingkaran dari salah satu kisi."
+          "why_en": "Keeping every circle from both grids (an OR) gives seven filled cells, but the worked example shows shared cells cancel — only four circles survive.",
+          "why_id": "Menyimpan semua lingkaran dari kedua kisi (OR) memberi tujuh sel terisi, padahal contoh menunjukkan sel yang sama saling hilang — hanya empat lingkaran bertahan."
         },
         "answer": { "form": "choice", "unit": null, "value": "C" }
       }

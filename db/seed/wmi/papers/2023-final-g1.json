@@ -6,33 +6,21 @@
   "title": "WMI 2023 Grade 1 Final",
   "recommended_duration_min": 90,
   "review": {
-    "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice, 90-min format); arithmetic, breakdowns, steps, and en/id parity are clean. No correctness defects. Verified by hand: Q2 (A=5 smallest), Q5 (change 27 → C), Q8 (six numbers), Q9 (−,−,+ unique), Q15 (red/blue), Q16 (★=8), Q23 (x=22 via 3a+1=5b+2=9c+4, a=7/b=4/c=2). Figure-dependent answers checked for internal consistency. One steps-clarity warning (Q22) + figure-dependent nits.",
+    "status": "approved",
+    "reviewed_on": "2026-07-04",
+    "summary": "Deploy-readiness pass: independently re-solved all 25; enumerable questions brute-forced by script (Q2, Q8, Q9, Q10 piece-fit, Q17, Q19, Q21, Q22, Q23, Q25). Figure components compared against scans; Q10 hole and Q25 walls verified pixel-by-pixel (both match). Prior Q22 steps warning fixed: hints now state the path uses 8 different rooms (the maze has duplicate labels 2 and 8); exhaustive search over all simple 8-room paths from the entrance confirms max even = 6. Prior figure nits resolved: Q19 = 18 (6+8+4) re-counted from the scan's anti-diagonal star grid; Q21 = 6 by full permutation over the reconstructed 3×3 grid; Q25 = 20 by Dijkstra over (cell, facing) states with straight/right-turn moves on scan-verified walls. One residual note (Q14).",
     "findings": [
       {
-        "q": 22,
+        "q": 14,
         "severity": "warning",
-        "gate": "steps",
-        "note": "The hint path '9 → 5 → 2 → 8 → 2 → 4 → 6 → 8' re-enters rooms 2 and 8, which reads as breaking the stated 'cannot enter any room more than once' rule. It is only valid if the maze has TWO distinct rooms each labelled 2 and two labelled 8 (so the 8 cells are distinct but share number-labels). Answer 6 may be right, but the hint must distinguish the duplicate-labelled cells (e.g. 2a/2b, 8a/8b) so it doesn't read as a violation — verify the numbering against the scan."
+        "gate": "answer",
+        "note": "With the encoded options (81, 25, 47, 59, 65) as standard 7-segment matchstick digits, exhaustive one-stick-move search finds D (59 → 50 or 56) AND E (65 → 56, moving the 6's bottom-left stick into the 5's bottom-left slot) can both become even. D stays the keyed/intended answer (clean within-digit move), but E is a technically valid second solution unless the printed option E differs from 65 — the original option scans are not in the repo, so this cannot be verified. Do not change the key; re-check E against the source paper if it resurfaces."
       },
       {
-        "q": 21,
+        "q": 6,
         "severity": "nit",
         "gate": "figure",
-        "note": "Fill-5/6/7/8 count = 6 = C(4,2) relies on the two empty regions being an independent column-pair and row-pair. If the four empty cells were instead a 2×2 block, the count would be 2. Confirm the grid shape from the figure."
-      },
-      {
-        "q": 19,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Squares-containing-exactly-one-star = 18 (6 + 8 + 4 by size) is figure-dependent; not independently re-counted against the scan this pass."
-      },
-      {
-        "q": 25,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Right-turn-only robot maze: least squares = 20 depends on the reconstructed maze; the hint asserts 20 without tracing the route cell-by-cell. Verify against the scan."
+        "note": "No scan exists for the Q6 number grid (also Q12 bracelets, Q14 matchstick options, Q21 grid, Q24 patterns); the illustrations are reconstructions consistent with the stored answers (Q6 tallies: 10×7 vs 4×3 → 6, unique max/min)."
       }
     ]
   },
@@ -1258,13 +1246,13 @@
       "answer": "6",
       "figure_url": "/api/public/wmi/figures/2023-final-g1-a-q22.jpg",
       "hint_steps_en": [
-        "Laura must visit exactly 8 rooms from the entrance (room 9) to a way out, never repeating a room.",
-        "A good path: 9 → 5 → 2 → 8 → 2 → 4 → 6 → 8.",
+        "Laura must visit exactly 8 rooms from the entrance (the bottom-left room 9) to a way out, never repeating a room. Careful: several rooms share the same number — the maze has more than one room labelled 2 and more than one labelled 8.",
+        "A good path of 8 different rooms: 9 → 5 → 2 → 8 → 2 → 4 → 6 → 8 (up the left column: 9, 5, 2; right to 8; down through the other 2 and 4; then right along the bottom row: 6, 8 — the two 2s and the two 8s are different rooms).",
         "The even rooms on it are 2, 8, 2, 4, 6, 8 → 6 even rooms (only 9 and 5 are odd)."
       ],
       "hint_steps_id": [
-        "Laura harus melewati tepat 8 ruang dari pintu masuk (ruang 9) ke pintu keluar, tanpa mengulang ruang.",
-        "Jalur yang baik: 9 → 5 → 2 → 8 → 2 → 4 → 6 → 8.",
+        "Laura harus melewati tepat 8 ruang dari pintu masuk (ruang 9 di kiri bawah) ke pintu keluar, tanpa mengulang ruang. Hati-hati: beberapa ruang bernomor sama — labirin punya lebih dari satu ruang berlabel 2 dan lebih dari satu berlabel 8.",
+        "Jalur yang baik dari 8 ruang berbeda: 9 → 5 → 2 → 8 → 2 → 4 → 6 → 8 (naik kolom kiri: 9, 5, 2; ke kanan ke 8; turun lewat 2 yang lain dan 4; lalu ke kanan sepanjang baris bawah: 6, 8 — kedua 2 dan kedua 8 adalah ruang yang berbeda).",
         "Ruang genapnya 2, 8, 2, 4, 6, 8 → 6 ruang genap (hanya 9 dan 5 yang ganjil)."
       ],
       "breakdown": {

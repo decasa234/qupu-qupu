@@ -321,7 +321,7 @@
         "Dari 25 Agustus ke akhir Agustus: 31 - 25 = 6 hari.",
         "6 hari itu memakai sebagian dari 10: 10 - 6 = 4 hari tersisa.",
         "4 hari sisa jatuh di September: 1, 2, 3, 4 September.",
-        "Jadi 10 hari setelah 25/8 adalah 4/9."
+        "Jadi 10 hari setelah 25/8 adalah 4 September — pilihan 9/4."
       ],
       "breakdown": {
         "needsVisual": false,
@@ -537,16 +537,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2020-semifinal-g1-a-q8.jpg",
       "hint_steps_en": [
-        "First count the small single triangles you can see.",
-        "Then look for bigger triangles made by joining small ones together.",
-        "Add the small ones and the combined ones carefully.",
-        "Counting all of them gives 8 triangles."
+        "Count only triangles — the bars, squares, and circles are decoys.",
+        "Big triangles first: the left side, the top point, the bottom point, and the arrow nose on the right — that is 4.",
+        "Now the small arrow triangles in front of the bars: 2 at the top right and 2 at the bottom right — 4 more.",
+        "4 + 4 = 8 triangles."
       ],
       "hint_steps_id": [
-        "Pertama hitung segitiga-segitiga kecil tunggal yang terlihat.",
-        "Lalu cari segitiga lebih besar yang terbentuk dari gabungan segitiga kecil.",
-        "Jumlahkan yang kecil dan yang gabungan dengan teliti.",
-        "Menghitung semuanya menghasilkan 8 segitiga."
+        "Hitung hanya segitiga — persegi panjang, persegi, dan lingkaran hanya jebakan.",
+        "Segitiga besar dulu: sisi kiri, ujung atas, ujung bawah, dan panah moncong di kanan — itu 4.",
+        "Lalu segitiga panah kecil di depan batang: 2 di kanan atas dan 2 di kanan bawah — 4 lagi.",
+        "4 + 4 = 8 segitiga."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -555,15 +555,15 @@
             "category": "question",
             "phrase_en": "How many triangles are there",
             "phrase_id": "Ada berapa banyak segitiga",
-            "note_en": "Count every triangle, including ones made by combining smaller ones.",
-            "note_id": "Hitung setiap segitiga, termasuk yang terbentuk dari gabungan yang kecil."
+            "note_en": "Count every triangle, big or small, wherever it sits in the picture.",
+            "note_id": "Hitung setiap segitiga, besar maupun kecil, di mana pun letaknya di gambar."
           },
           {
             "category": "trap",
             "phrase_en": "count",
             "phrase_id": "hitunglah",
-            "note_en": "Bigger triangles hide inside the figure — don't only count the small ones.",
-            "note_id": "Segitiga besar tersembunyi di dalam gambar — jangan hanya hitung yang kecil."
+            "note_en": "The tiny arrow triangles are easy to miss — and the circles, bars, and squares don't count.",
+            "note_id": "Segitiga panah kecil mudah terlewat — dan lingkaran, batang, serta persegi tidak dihitung."
           }
         ],
         "quantities": [
@@ -574,13 +574,13 @@
           }
         ],
         "strategy": {
-          "name_en": "Count small ones first, then combined ones",
-          "name_id": "Hitung yang kecil dulu, lalu yang gabungan"
+          "name_en": "Count the big triangles first, then the small arrow ones",
+          "name_id": "Hitung segitiga besar dulu, lalu segitiga panah kecil"
         },
         "trap": {
           "wrong": "6",
-          "why_en": "6 counts only the obvious small triangles and misses the larger combined ones.",
-          "why_id": "6 hanya menghitung segitiga kecil yang jelas dan melewatkan yang besar gabungan."
+          "why_en": "6 misses two of the small arrow triangles — all four of them count.",
+          "why_id": "6 melewatkan dua segitiga panah kecil — keempatnya harus dihitung."
         },
         "answer": {
           "form": "choice",
@@ -651,8 +651,8 @@
         },
         "trap": {
           "wrong": "5",
-          "why_en": "5 might be the longest ribbon's length alone — the question wants the difference.",
-          "why_id": "5 mungkin panjang pita terpanjang saja — pertanyaannya minta selisihnya."
+          "why_en": "5 comes from miscounting a ribbon by one square — the longest is 12 and the shortest is 8, so 12 - 8 = 4.",
+          "why_id": "5 muncul kalau salah hitung satu kotak — pita terpanjang 12 dan terpendek 8, jadi 12 - 8 = 4."
         },
         "answer": {
           "form": "choice",
@@ -950,8 +950,8 @@
         },
         "trap": {
           "wrong": "14",
-          "why_en": "14 might come from doing 15 + 8 - 7 in the wrong order or a small slip — but 15 - 7 + 8 = 16.",
-          "why_id": "14 bisa muncul dari urutan keliru atau salah kecil — padahal 15 - 7 + 8 = 16."
+          "why_en": "14 swaps the moves: 15 - 8 + 7 = 14 — but 7 got OFF and 8 got ON, so it is 15 - 7 + 8 = 16.",
+          "why_id": "14 menukar peristiwanya: 15 - 8 + 7 = 14 — padahal 7 yang TURUN dan 8 yang NAIK, jadi 15 - 7 + 8 = 16."
         },
         "answer": {
           "form": "choice",
@@ -1031,8 +1031,8 @@
         },
         "trap": {
           "wrong": "15",
-          "why_en": "15 ignores point values and just adds shots wrong — you must weight each shot by its points.",
-          "why_id": "15 mengabaikan nilai angka dan salah jumlah tembakan — tiap tembakan harus dikali nilainya."
+          "why_en": "15 counts the one-point shots as just 1 point (6 + 8 + 1) — they are worth 3 x 1 = 3.",
+          "why_id": "15 menghitung tembakan satu angka hanya 1 (6 + 8 + 1) — padahal nilainya 3 x 1 = 3."
         },
         "answer": {
           "form": "choice",
@@ -1259,8 +1259,8 @@
         },
         "trap": {
           "wrong": "32",
-          "why_en": "32 subtracts only one day's pages (48 - 13 - ... slip) — both day one and day two must be removed.",
-          "why_id": "32 hanya mengurangi halaman satu hari — halaman hari satu dan hari dua keduanya harus dikurangi."
+          "why_en": "32 comes from not removing both days in full — take away all 13 + 9 = 22 pages: 48 - 22 = 26.",
+          "why_id": "32 muncul kalau dua hari tidak dikurangkan penuh — kurangi seluruh 13 + 9 = 22 halaman: 48 - 22 = 26."
         },
         "answer": {
           "form": "choice",
@@ -1407,8 +1407,8 @@
         },
         "trap": {
           "wrong": "18",
-          "why_en": "18 might come from only adding two of the three numbers (12 + 3 + ... slip) — all three must be added.",
-          "why_id": "18 bisa dari hanya menjumlahkan dua dari tiga bilangan — ketiganya harus dijumlahkan."
+          "why_en": "18 copies the top-right of the last circle (5 + 7 + 6 = 18) — the star circle has its own sum: 12 + 8 + 3 = 23.",
+          "why_id": "18 meniru kanan-atas lingkaran terakhir (5 + 7 + 6 = 18) — lingkaran bintang punya jumlah sendiri: 12 + 8 + 3 = 23."
         },
         "answer": {
           "form": "choice",
@@ -1743,15 +1743,15 @@
       "figure_url": "/api/public/wmi/figures/2020-semifinal-g1-a-q24.jpg",
       "hint_steps_en": [
         "On any die, top + bottom = 7, so bottom = 7 - top.",
-        "Read the top face number on each of the 4 dice.",
-        "Each bottom equals 7 minus its top; add all four bottoms.",
-        "The four bottom faces add up to 21."
+        "Work out each die's up face from its side faces — the tower top shows 1, and the four up faces add to 7.",
+        "All four up + down pairs together make 4 x 7 = 28.",
+        "The four bottom faces add up to 28 - 7 = 21."
       ],
       "hint_steps_id": [
         "Pada setiap dadu, atas + bawah = 7, jadi bawah = 7 - atas.",
-        "Baca angka sisi atas pada masing-masing 4 dadu.",
-        "Tiap bawah = 7 dikurangi atasnya; jumlahkan keempat sisi bawah.",
-        "Keempat sisi bawah berjumlah 21."
+        "Tentukan sisi atas tiap dadu dari sisi sampingnya — puncak menara menunjukkan 1, dan keempat sisi atas berjumlah 7.",
+        "Keempat pasangan atas + bawah bersama-sama berjumlah 4 x 7 = 28.",
+        "Keempat sisi bawah berjumlah 28 - 7 = 21."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1789,8 +1789,8 @@
         },
         "trap": {
           "wrong": "17",
-          "why_en": "17 likely adds the top faces instead of converting each to its bottom with 7 - top.",
-          "why_id": "17 mungkin menjumlahkan sisi atas, bukan mengubah tiap ke bawahnya dengan 7 - atas."
+          "why_en": "17 comes from miscounting the up-face total — the four up faces add to 7, so the bottoms are 28 - 7 = 21.",
+          "why_id": "17 muncul dari salah menghitung total sisi atas — keempat sisi atas berjumlah 7, jadi sisi bawah 28 - 7 = 21."
         },
         "answer": {
           "form": "choice",

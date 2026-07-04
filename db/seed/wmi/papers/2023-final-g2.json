@@ -7,26 +7,20 @@
   "recommended_duration_min": 90,
   "review": {
     "status": "needs_changes",
-    "reviewed_on": "2026-06-15",
-    "summary": "Re-solved all 25 (5-choice, 90-min); breakdowns/steps/parity are clean and well-enriched. Verified by hand: Q2 (A off by 11), Q7 (Pokémon = 20), Q8 (six dice trios), Q9 (222), Q11 (position 17), Q13 (11 overlap days), Q14 (40), Q18 (3916 unique), Q19 (6 = C(4,2)), Q20 (675), Q21 (22), Q22 ({1,2,3,5} → 1235), Q23 (mod-9 forces unused = 2). One real data defect (Q15) + figure nits.",
+    "reviewed_on": "2026-07-04",
+    "summary": "Full re-verification with brute-force scripts: all 25 answers confirmed except Q15 (data defect, see finding). Figure-dependent answers verified pixel-exactly against the scans: Q5 (segment counts A15/B14/C17/D17/E16 → C=D unique, answer E), Q17 (6×6 anti-diagonal stars → 6+8+4=18; Q17 hint/breakdown split corrected from '6+12' to '6+8+4'), Q24 (only D non-palindromic → ABCE), Q25 (walls extracted from scan match RobotMaze23G2 exactly; Dijkstra confirms 20). Lines23G2Illustration path data rebuilt scan-exact (was 13/11/10/10/9 with inverted relative order).",
     "findings": [
       {
         "q": 15,
         "severity": "warning",
         "gate": "answer",
-        "note": "Color-blindness balloons — there is NO figure, so the four row strings in the stem ARE the data. Applying the stated merge (R=G, B=Y, O unchanged): R1 ZXOZOOX, R2 ZOOXXOO, R3 XOOXOZX, R4 XXXXXOZ. I checked all six pairs — NONE match (the keyed pair, rows 3 & 4, differ at 5 of 7 positions). So the answer C is not derivable from the text as written; the balloon strings appear OCR-garbled. Re-transcribe the balloon colours from the original PDF, then re-verify the key."
+        "note": "Color-blindness balloons — there is NO figure, so the four row strings in the stem ARE the data. Applying the stated merge (R=G, B=Y, O unchanged): R1 ZXOZOOX, R2 ZOOXXOO, R3 XOOXOZX, R4 XXXXXOZ. All six pairs checked by script — NONE match (the keyed pair, rows 3 & 4, differ at 5 of 7 positions). So the answer C is not derivable from the text as written; the balloon strings appear OCR-garbled. No source scan exists in-repo (no 2023-final-g2-a-q15 figure), so this cannot be reconstructed — re-transcribe the balloon colours from the original PDF, then re-verify the key."
       },
       {
-        "q": 17,
+        "q": 12,
         "severity": "nit",
         "gate": "figure",
-        "note": "Squares-containing-exactly-one-star = 18 (6 unit + 12 larger) is figure-dependent; not independently re-counted against the scan this pass."
-      },
-      {
-        "q": 25,
-        "severity": "nit",
-        "gate": "figure",
-        "note": "Right-turn-only robot maze: least squares = 20 depends on the reconstructed maze/walls; the hint asserts 20 without a cell-by-cell trace. Verify against the scan."
+        "note": "Choices (A)–(E) are picture cards, but the scan only shows the 12-card layout, not the five option cards; no CHOICE_RENDERERS entry exists and the option contents cannot be reconstructed without inventing them. The deduction (missing card = gray triangle) is verified against the scan and matches keyed answer D."
       }
     ]
   },
@@ -1942,12 +1936,17 @@
           {
             "label_en": "2×2 squares with exactly one star",
             "label_id": "Persegi 2×2 dengan tepat satu bintang",
-            "value": "the larger squares that cover just one star add 12 more"
+            "value": "8"
+          },
+          {
+            "label_en": "3×3 squares with exactly one star",
+            "label_id": "Persegi 3×3 dengan tepat satu bintang",
+            "value": "4"
           },
           {
             "label_en": "Total",
             "label_id": "Total",
-            "value": "6 + 12 = 18"
+            "value": "6 + 8 + 4 = 18"
           }
         ],
         "strategy": {
@@ -1956,8 +1955,8 @@
         },
         "trap": {
           "wrong": "6",
-          "why_en": "6 counts only the single cells; bigger 2×2 squares around a lone star also count, adding 12 more.",
-          "why_id": "6 hanya menghitung sel tunggal; persegi 2×2 yang lebih besar mengelilingi satu bintang juga dihitung, menambah 12 lagi."
+          "why_en": "6 counts only the single cells; bigger squares around a lone star also count — 2×2 squares add 8 and 3×3 squares add 4 more.",
+          "why_id": "6 hanya menghitung sel tunggal; persegi yang lebih besar di sekitar satu bintang juga dihitung — persegi 2×2 menambah 8 dan persegi 3×3 menambah 4 lagi."
         },
         "answer": {
           "form": "number",
@@ -1967,15 +1966,15 @@
       },
       "hint_steps_en": [
         "Every single cell that holds a star is a square with one star: that is 6.",
-        "Now look at the bigger 2×2 squares: keep only the ones that cover exactly one star.",
-        "Those bigger squares add 12 more.",
-        "6 + 12 = 18."
+        "Now check the 2×2 squares: exactly 8 of them cover just one star.",
+        "Check the 3×3 squares too: 4 of them cover just one star (bigger sizes always cover 2 or more).",
+        "6 + 8 + 4 = 18."
       ],
       "hint_steps_id": [
         "Tiap sel tunggal yang berisi bintang adalah persegi dengan satu bintang: itu 6.",
-        "Sekarang lihat persegi 2×2 yang lebih besar: simpan yang menutup tepat satu bintang.",
-        "Persegi besar itu menambah 12 lagi.",
-        "6 + 12 = 18."
+        "Sekarang periksa persegi 2×2: tepat 8 di antaranya menutup hanya satu bintang.",
+        "Periksa juga persegi 3×3: 4 di antaranya menutup hanya satu bintang (ukuran lebih besar selalu menutup 2 atau lebih).",
+        "6 + 8 + 4 = 18."
       ]
     },
     {
