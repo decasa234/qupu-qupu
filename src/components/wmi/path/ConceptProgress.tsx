@@ -73,7 +73,12 @@ export default function ConceptProgress({ concept }: { concept: WmiGardenConcept
     <div className="flex flex-col items-center">
       {/* Ring + plant */}
       <div className="relative h-[124px] w-[124px]">
-        <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
+        <svg
+          viewBox="0 0 120 120"
+          className="h-full w-full -rotate-90"
+          role="img"
+          aria-label={`${plant.label}, ${pct}% paham`}
+        >
           <circle cx="60" cy="60" r={R} fill="none" stroke="#EDE4D4" strokeWidth="10" />
           <circle
             cx="60"
