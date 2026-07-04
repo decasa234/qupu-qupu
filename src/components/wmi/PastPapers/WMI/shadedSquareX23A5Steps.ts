@@ -61,7 +61,7 @@ export function buildShadedSquareX23A5Steps(lang: Lang): ShadedSquareX23A5Storyb
       hold: 2600,
       result: false,
       caption: t(
-        'The diamond's vertices are at the midpoints of the outer square's sides. Its area is half the outer area: ½ × 144 = 72 cm².',
+        "The diamond's vertices are at the midpoints of the outer square's sides. Its area is half the outer area: ½ × 144 = 72 cm².",
         'Titik sudut belah ketupat berada di titik tengah sisi persegi luar. Luasnya setengah luas luar: ½ × 144 = 72 cm².',
       ),
     },
@@ -71,7 +71,7 @@ export function buildShadedSquareX23A5Steps(lang: Lang): ShadedSquareX23A5Storyb
       hold: 2600,
       result: false,
       caption: t(
-        'The shaded square's vertices are at the midpoints of the diamond's sides. Its area is half the diamond: ½ × 72 = 36 cm².',
+        "The shaded square's vertices are at the midpoints of the diamond's sides. Its area is half the diamond: ½ × 72 = 36 cm².",
         'Titik sudut persegi diarsir berada di titik tengah sisi belah ketupat. Luasnya setengah belah ketupat: ½ × 72 = 36 cm².',
       ),
     },

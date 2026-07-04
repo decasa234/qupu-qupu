@@ -36,7 +36,7 @@ export function buildVillageFlowOSN25NSFQ9Steps(lang: Lang): VillageFlowStoryboa
       hold: 2400,
       result: false,
       caption: t(
-        'Three villages P (320), Q (400), R (380). Arrows show what % of each village's residents work elsewhere. Find: how many people work in village Q?',
+        'Three villages P (320), Q (400), R (380). Arrows show what % of each village\'s residents work elsewhere. Find: how many people work in village Q?',
         'Tiga desa P (320), Q (400), R (380). Panah menunjukkan berapa % penduduk desa asal yang bekerja di desa lain. Pertanyaan: berapa orang yang bekerja di desa Q?',
       ),
     },
@@ -65,7 +65,7 @@ export function buildVillageFlowOSN25NSFQ9Steps(lang: Lang): VillageFlowStoryboa
       hold: 2600,
       result: false,
       caption: t(
-        '25% of P's 320 residents work in Q: 320 × 0.25 = 80.',
+        '25% of P\'s 320 residents work in Q: 320 × 0.25 = 80.',
         '25% dari 320 penduduk P bekerja di Q: 320 × 0,25 = 80.',
       ),
     },
@@ -80,7 +80,7 @@ export function buildVillageFlowOSN25NSFQ9Steps(lang: Lang): VillageFlowStoryboa
       hold: 2600,
       result: false,
       caption: t(
-        '35% of R's 380 residents work in Q: 380 × 0.35 = 133.',
+        '35% of R\'s 380 residents work in Q: 380 × 0.35 = 133.',
         '35% dari 380 penduduk R bekerja di Q: 380 × 0,35 = 133.',
       ),
     },
