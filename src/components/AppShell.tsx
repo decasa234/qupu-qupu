@@ -6,7 +6,7 @@
 // and the surrounding gutters are filled with brand decoration so it reads as
 // an intentional phone mockup, not a mobile page stranded on a wide monitor.
 import { useEffect, useState } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
@@ -23,7 +23,23 @@ function pinSkipKey(userId: string): string {
   return `qupu_parent_pin_skip:${userId}`
 }
 
+// Drill-play surfaces run "fullscreen": no top stat strip, no bottom tabs —
+// the page's own close/finish buttons are the only way out, so a kid can't
+// accidentally tab away mid-drill. Exam review keeps the chrome (not play).
+const PLAY_ROUTES = [
+  /^\/latihan\/wmi\/exam\/[^/]+$/,
+  /^\/latihan\/wmi\/(sesi|tes)\//,
+  /^\/latihan\/wmi\/claire$/,
+  /^\/wmi-arena\/campur$/,
+]
+
+function isPlayRoute(pathname: string): boolean {
+  return PLAY_ROUTES.some((re) => re.test(pathname))
+}
+
 export default function AppShell() {
+  const { pathname } = useLocation()
+  const playing = isPlayRoute(pathname)
   const children = useAuthStore((state) => state.children)
   const activeChildId = useAuthStore((state) => state.activeChildId)
   const user = useAuthStore((state) => state.user)
@@ -135,14 +151,14 @@ export default function AppShell() {
 
   return (
     <div className="flex min-h-screen flex-col bg-qupu-cream">
-      <TopStatStrip />
+      {!playing && <TopStatStrip />}
       <main className="relative flex w-full flex-1 flex-col px-4 py-4">
         <DesktopBackdrop />
         <div className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col sm:max-w-lg lg:my-6 lg:max-w-[460px] lg:rounded-[2.75rem] lg:bg-[#FFF8F0] lg:p-4 lg:shadow-[8px_10px_0_0_#FFD3B1] lg:ring-1 lg:ring-[#FFE3CC]">
           <Outlet />
         </div>
       </main>
-      <BottomTabBar />
+      {!playing && <BottomTabBar />}
       {/* Setting the PIN at sign-in no longer pre-unlocks anything — the
           /parent gate always asks for the PIN (unlock state is never
           persisted). */}

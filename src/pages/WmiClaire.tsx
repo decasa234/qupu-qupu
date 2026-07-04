@@ -296,6 +296,14 @@ export default function WmiClaire() {
 
   // ── Summary ─────────────────────────────────────────────────────────────────
   if (phase === 'done') {
+    // Per-concept report: results[i] is the verdict for questions[i] (answered
+    // in order). Concepts in a round are distinct, so one chip per concept.
+    const perConcept = questions.map((q, i) => ({
+      name: q.concept_name_id,
+      correct: results[i] ?? false,
+    }))
+    const good = perConcept.filter((p) => p.correct)
+    const wrong = perConcept.filter((p) => !p.correct)
     return (
       <div className="relative mx-auto w-full max-w-[460px] p-6">
         {finalScore >= 6 && <KonsepConfetti key={`summary-${roundId}`} />}
@@ -307,6 +315,44 @@ export default function WmiClaire() {
           <p className="mt-1 font-display text-lg font-black text-[#58A700]">
             {finalScore} / {questions.length} benar
           </p>
+
+          {/* Per-concept report */}
+          <div className="mt-5 space-y-3 text-left">
+            {good.length > 0 && (
+              <div>
+                <p className="flex items-center gap-1.5 text-xs font-black text-[#2D6B00]">
+                  <i className="fa-solid fa-circle-check" aria-hidden="true" /> Sudah bagus
+                </p>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {good.map((p, i) => (
+                    <span
+                      key={`g-${i}`}
+                      className="rounded-full bg-[#E8F5D6] px-2.5 py-1 text-[11px] font-bold text-[#2D6B00]"
+                    >
+                      {p.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            {wrong.length > 0 && (
+              <div>
+                <p className="flex items-center gap-1.5 text-xs font-black text-rose-600">
+                  <i className="fa-solid fa-circle-xmark" aria-hidden="true" /> Perlu latihan
+                </p>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {wrong.map((p, i) => (
+                    <span
+                      key={`w-${i}`}
+                      className="rounded-full bg-rose-50 px-2.5 py-1 text-[11px] font-bold text-rose-600"
+                    >
+                      {p.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           <button
             type="button"
