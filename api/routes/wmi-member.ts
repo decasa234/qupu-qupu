@@ -26,6 +26,13 @@ import {
   getClaireRoundReview,
   hasClaireAccess,
 } from '../services/wmi/claire.js'
+import {
+  startMockExam,
+  answerMockExam,
+  getMockHistory,
+  getMockReview,
+  MOCK_ROUNDS,
+} from '../services/wmi/claireMock.js'
 import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 
 const router = Router()
@@ -50,6 +57,21 @@ const claireAnswerSchema = Joi.object({
 const claireRoundSchema = Joi.object({
   childId: Joi.string().uuid().required(),
   roundId: Joi.string().uuid().required(),
+}).unknown(true)
+
+const mockStartSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  round: Joi.string().valid(...MOCK_ROUNDS).default('final'),
+})
+const mockAnswerSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  examId: Joi.string().uuid().required(),
+  index: Joi.number().integer().min(0).max(50).required(),
+  selected: Joi.string().trim().min(1).max(400).required(),
+})
+const mockReviewSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  examId: Joi.string().uuid().required(),
 }).unknown(true)
 
 const childQuerySchema = Joi.object({
@@ -521,6 +543,93 @@ router.get(
       res.json({ success: true, data: { round } })
     } catch (error) {
       console.error('WMI claire round review error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+// ── WMI Claire mock exams (isolated, single-account) ───────────────────────
+router.post(
+  '/claire/mock/start',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = mockStartSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const exam = await startMockExam(req.user.id, value.childId, value.round)
+      res.status(201).json({ success: true, data: exam })
+    } catch (error) {
+      console.error('WMI claire mock start error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.post(
+  '/claire/mock/answer',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = mockAnswerSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const result = await answerMockExam(
+        req.user.id,
+        value.childId,
+        value.examId,
+        value.index,
+        value.selected,
+      )
+      res.json({ success: true, data: { result } })
+    } catch (error) {
+      console.error('WMI claire mock answer error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.get(
+  '/claire/mock/history',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = childQuerySchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const exams = await getMockHistory(req.user.id, value.childId)
+      res.json({ success: true, data: { exams } })
+    } catch (error) {
+      console.error('WMI claire mock history error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.get(
+  '/claire/mock/review',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      if (!claireGuard(req, res)) return
+      const { error, value } = mockReviewSchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const exam = await getMockReview(req.user.id, value.childId, value.examId)
+      res.json({ success: true, data: { exam } })
+    } catch (error) {
+      console.error('WMI claire mock review error:', error)
       sendPublicError(res, error)
     }
   },

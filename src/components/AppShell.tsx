@@ -30,6 +30,7 @@ const PLAY_ROUTES = [
   /^\/latihan\/wmi\/exam\/[^/]+$/,
   /^\/latihan\/wmi\/(sesi|tes)\//,
   /^\/latihan\/wmi\/claire$/,
+  /^\/latihan\/wmi\/claire\/mock$/,
   /^\/wmi-arena\/campur$/,
 ]
 

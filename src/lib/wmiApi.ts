@@ -8,6 +8,11 @@ import type {
   WmiClaireQuestion,
   WmiClaireRoundReview,
   WmiClaireRoundSummary,
+  WmiMockAnswerResult,
+  WmiMockExamSummary,
+  WmiMockQuestion,
+  WmiMockReview,
+  WmiMockRound,
   WmiConceptAttemptInput,
   WmiConceptProgressSummary,
   WmiConceptQuestion,
@@ -130,6 +135,35 @@ export async function claireRoundReview(
 ): Promise<WmiClaireRoundReview> {
   const response = await api.get('/me/wmi/claire/round', { params: { childId, roundId } })
   return unwrap<{ round: WmiClaireRoundReview }>(response).round
+}
+
+// ── Claire mock exams ─────────────────────────────────────────────────────
+export async function mockStart(
+  childId: string,
+  round: WmiMockRound,
+): Promise<{ examId: string; round: WmiMockRound; questions: WmiMockQuestion[] }> {
+  const response = await api.post('/me/wmi/claire/mock/start', { childId, round })
+  return unwrap<{ examId: string; round: WmiMockRound; questions: WmiMockQuestion[] }>(response)
+}
+
+export async function mockAnswer(
+  childId: string,
+  examId: string,
+  index: number,
+  selected: string,
+): Promise<WmiMockAnswerResult> {
+  const response = await api.post('/me/wmi/claire/mock/answer', { childId, examId, index, selected })
+  return unwrap<{ result: WmiMockAnswerResult }>(response).result
+}
+
+export async function mockHistory(childId: string): Promise<WmiMockExamSummary[]> {
+  const response = await api.get('/me/wmi/claire/mock/history', { params: { childId } })
+  return unwrap<{ exams: WmiMockExamSummary[] }>(response).exams
+}
+
+export async function mockReview(childId: string, examId: string): Promise<WmiMockReview> {
+  const response = await api.get('/me/wmi/claire/mock/review', { params: { childId, examId } })
+  return unwrap<{ exam: WmiMockReview }>(response).exam
 }
 
 export async function fetchConceptProgress(childId: string, grade: WmiGrade): Promise<WmiConceptProgressSummary> {

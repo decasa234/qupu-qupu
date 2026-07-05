@@ -244,6 +244,52 @@ export interface WmiClaireRoundReview {
   items: WmiClaireReviewItem[]
 }
 
+// ── WMI Claire mock exams ─────────────────────────────────────────────────
+export type WmiMockRound = 'final' | 'semifinal'
+
+export type WmiMockQuestion = WmiQuestion & { index: number; part: 'A' | 'B' }
+
+export interface WmiMockAnswerResult {
+  is_correct: boolean
+  correct_answer: string
+  hint_en: string | null
+  hint_id: string | null
+  done: boolean
+  score: number | null
+}
+
+export interface WmiMockExamSummary {
+  id: string
+  round: string
+  score: number | null
+  total: number
+  created_at: string
+  completed_at: string | null
+}
+
+export interface WmiMockReviewItem {
+  index: number
+  part: 'A' | 'B'
+  number: number
+  code: string
+  body_id: string
+  body_en: string
+  choices_id: WmiChoice[] | null
+  breakdown: Breakdown | null
+  correct_answer: string
+  selected: string | null
+  is_correct: boolean | null
+}
+
+export interface WmiMockReview {
+  id: string
+  round: string
+  score: number | null
+  total: number
+  completed_at: string | null
+  items: WmiMockReviewItem[]
+}
+
 export type WmiConceptStatus = 'mastered' | 'in_progress' | 'not_started'
 
 export interface WmiConceptProgress {

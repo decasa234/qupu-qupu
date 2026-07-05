@@ -798,6 +798,30 @@ CREATE TABLE IF NOT EXISTS claire_drill_rounds (
 CREATE INDEX IF NOT EXISTS idx_claire_rounds_child
   ON claire_drill_rounds (child_id, completed_at DESC);
 
+-- WMI Claire mock exams (migration 0048). Assembles real WMI Final/Semifinal
+-- Grade-2 questions (15 Paper-A MC + 10 Paper-B fill-in) round-robin so each
+-- attempt is a fresh set; isolated from attempts/progress/gamification.
+CREATE TABLE IF NOT EXISTS claire_mock_exams (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  child_id      UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  round         TEXT NOT NULL,
+  question_ids  JSONB NOT NULL,
+  responses     JSONB NOT NULL DEFAULT '{}',
+  total         INT  NOT NULL DEFAULT 25,
+  score         INT,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  completed_at  TIMESTAMPTZ
+);
+CREATE INDEX IF NOT EXISTS idx_claire_mock_exams_child
+  ON claire_mock_exams (child_id, completed_at DESC);
+CREATE TABLE IF NOT EXISTS claire_mock_question_uses (
+  child_id     UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  question_id  UUID NOT NULL REFERENCES wmi_questions(id) ON DELETE CASCADE,
+  uses         INT  NOT NULL DEFAULT 0,
+  last_used_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (child_id, question_id)
+);
+
 -- ─────────────────────────────────────────────────────────────────────
 -- Coins (migration 0018)
 -- Earn-only currency riding the gamification engine alongside XP. The
