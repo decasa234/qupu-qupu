@@ -15,7 +15,6 @@ import ConceptSheet from '../components/wmi/path/ConceptSheet'
 import ChapterSheet from '../components/wmi/path/ChapterSheet'
 import QuestsSheet from '../components/wmi/path/QuestsSheet'
 import { fetchGarden } from '../lib/wmiApi'
-import { isClaireEmail } from '../lib/claireAccess'
 import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -53,9 +52,7 @@ interface SelectedConcept {
 
 export default function BelajarPath() {
   useDocumentTitle('Belajar')
-  const { activeChildId, user } = useAuthStore()
-  // WMI Claire card shows only for the allow-listed accounts (API enforces too).
-  const isClaireParent = isClaireEmail(user?.email)
+  const { activeChildId } = useAuthStore()
   const { selectedGrade, gradeByChild, lastSubjectKey, loadGlossary } = useWmiStore()
   const navigate = useNavigate()
   const [garden, setGarden] = useState<WmiGarden | null>(null)
@@ -183,23 +180,6 @@ export default function BelajarPath() {
           )}
         </button>
       </div>
-
-      {isClaireParent && (
-        <button
-          type="button"
-          onClick={() => navigate('/latihan/wmi/claire')}
-          className="mt-3 flex w-full items-center gap-3 rounded-[1.25rem] bg-qupu-brand-blue px-4 py-3 text-left text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
-        >
-          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[14px] bg-white/15 text-lg">
-            <i className="fa-solid fa-brain" aria-hidden="true" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block font-display text-sm font-black">WMI Claire</span>
-            <span className="text-[11px] font-bold text-white/75">Warmup final — 10 soal tersulit</span>
-          </span>
-          <i className="fa-solid fa-chevron-right flex-shrink-0 text-xs text-white/70" aria-hidden="true" />
-        </button>
-      )}
 
       <div className="mt-4">
         {loading ? (
