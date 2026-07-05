@@ -91,6 +91,26 @@ function toMockQuestion(row: QuestionRow, index: number): MockQuestion {
   }
 }
 
+// Picture-option questions store placeholder choice text ("(A)".."(E)") because
+// their real A–E options are figures rendered by a per-code CHOICE_RENDERERS
+// component on the client. For ~9 G2 questions those option figures were never
+// built (originals lost), so the choices show as indistinguishable "(A)…(E)" and
+// the question is unpickable. Detect the placeholder pattern in SQL and exclude
+// those MC questions from the mock pool so every served question is answerable.
+// ponytail: this also drops the ~4 picture-option questions that DO render
+// (their choices are placeholders too); acceptable — the pool has 100+ MC to
+// spare. Upgrade path if we want them back: thread the renderable-code allow-list
+// from the frontend registry into this filter.
+const PLAYABLE_MC = `NOT (
+  q.answer_type = 'multiple_choice'
+  AND q.choices_id IS NOT NULL
+  AND jsonb_array_length(q.choices_id) > 0
+  AND NOT EXISTS (
+    SELECT 1 FROM jsonb_array_elements(q.choices_id) e
+    WHERE btrim(e->>'text') !~ '^\\(?[A-E]\\)?$'
+  )
+)`
+
 // Round-robin pick: least-used questions of one answer_type for this child.
 async function pickLeastUsed(
   client: import('pg').PoolClient,
@@ -107,6 +127,7 @@ async function pickLeastUsed(
          ON u.child_id = $1 AND u.question_id = q.id
       WHERE lower(p.brand) = 'wmi' AND p.round = $2 AND p.grade = $3
         AND q.answer_type = $4
+        AND ${PLAYABLE_MC}
       ORDER BY COALESCE(u.uses, 0) ASC, random()
       LIMIT $5`,
     [childId, round, MOCK_GRADE, answerType, limit],

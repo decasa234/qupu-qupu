@@ -3,15 +3,15 @@
 // /latihan/wmi/claire/mock — "Mock Exam" for WMI Claire. Assembles a fresh
 // 25-question mock final from real WMI Final/Semifinal Grade-2 questions
 // (15 Paper A multiple_choice + 10 Paper B fill_in), round-robin per child so a
-// new set comes up each time. Exam-style: NO per-question feedback — answer all,
-// then see the score, A/B breakdown and a full review. Fully isolated (its own
-// tables, no XP/progress). Questions render identically to a real paper (figures
-// included) because they ARE paper questions, minus the withheld answer.
+// new set comes up each time. Drill-style: reveals the verdict + explainer on
+// answering (like the concept drill), then Lanjut to the next. Fully isolated
+// (its own tables, no XP/progress). Questions render identically to a real paper
+// (figures included) because they ARE paper questions, minus the withheld answer.
 //
-// Landing (round filter + Mulai + history) → exam (Soal X/25, part A/B) →
-// summary (score + A/B + review).
+// Landing (round filter + Mulai + history) → exam (Soal X/25, part A/B, reveal
+// on answer) → summary (score + A/B + review).
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
@@ -25,6 +25,7 @@ import { useAuthStore } from '../store/authStore'
 import { useWmiStore } from '../store/wmiStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import type {
+  WmiMockAnswerResult,
   WmiMockExamSummary,
   WmiMockQuestion,
   WmiMockReview,
@@ -47,11 +48,14 @@ export default function WmiClaireMock() {
   const [examId, setExamId] = useState<string | null>(null)
   const [questions, setQuestions] = useState<WmiMockQuestion[]>([])
   const [idx, setIdx] = useState(0)
-  const [answered, setAnswered] = useState(0)
+  const [results, setResults] = useState<boolean[]>([])
   const [finalScore, setFinalScore] = useState(0)
 
+  // Per-question state (drill-style reveal).
+  const [selected, setSelected] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState<WmiMockAnswerResult | null>(null)
+  const [questionLang, setQuestionLang] = useState<'en' | 'id'>(preferredLang)
   const [error, setError] = useState<string | null>(null)
-  const [pendingAnswer, setPendingAnswer] = useState<string | null>(null)
   const submittingRef = useRef(false)
 
   const [history, setHistory] = useState<WmiMockExamSummary[]>([])
@@ -66,7 +70,7 @@ export default function WmiClaireMock() {
   const [reviewLoadingId, setReviewLoadingId] = useState<string | null>(null)
 
   const requestExit = (action: () => void) => {
-    if (phase === 'exam' && answered > 0) {
+    if (phase === 'exam' && results.length > 0) {
       pendingExitRef.current = action
       setShowExitConfirm(true)
     } else {
@@ -120,9 +124,11 @@ export default function WmiClaireMock() {
       setExamId(id)
       setQuestions(qs)
       setIdx(0)
-      setAnswered(0)
+      setResults([])
       setFinalScore(0)
-      setPendingAnswer(null)
+      setSelected(null)
+      setFeedback(null)
+      setQuestionLang(useWmiStore.getState().preferredLang)
       setReview(null)
       setPhase('exam')
     } catch (err) {
@@ -133,7 +139,7 @@ export default function WmiClaireMock() {
 
   // Refresh/close + browser-back guard mid-exam (server persists answers, but a
   // reload loses local position — confirm before leaving).
-  const guardActive = phase === 'exam' && answered > 0
+  const guardActive = phase === 'exam' && results.length > 0
   useEffect(() => {
     if (!guardActive) return
     const handler = (event: BeforeUnloadEvent) => {
@@ -156,33 +162,49 @@ export default function WmiClaireMock() {
     return () => window.removeEventListener('popstate', onPop)
   }, [guardActive, navigate])
 
-  // Exam-style: record the answer, advance with NO feedback. Only the final
-  // response returns the score (done=true).
+  // Drill-style: record the answer, reveal the verdict + explainer. The final
+  // response carries the score (done=true); we surface it on Lanjut.
   const submit = async (answer: string) => {
-    if (!activeChildId || !examId || submittingRef.current) return
+    if (!activeChildId || !examId || feedback || submittingRef.current) return
     const question = questions[idx]
     if (!question) return
     submittingRef.current = true
-    setPendingAnswer(answer)
+    setSelected(answer)
     setError(null)
     try {
       const fb = await mockAnswer(activeChildId, examId, question.index, answer)
-      setAnswered((n) => Math.max(n, idx + 1))
-      if (fb.done && fb.score !== null) {
-        setFinalScore(fb.score)
-        setPhase('done')
-        // Pull the review for the summary (mistakes + explanations).
-        void mockReview(activeChildId, examId).then(setReview).catch(() => {})
-      } else {
-        setIdx((i) => i + 1)
-        setPendingAnswer(null)
-      }
+      setFeedback(fb)
+      setResults((prev) => [...prev, fb.is_correct])
+      if (fb.done && fb.score !== null) setFinalScore(fb.score)
     } catch (err) {
+      // Keep `selected` so ErrorRetry can resubmit the same answer.
       setError(toIndonesianErrorMessage(err, 'Gagal menyimpan jawaban.'))
     } finally {
       submittingRef.current = false
     }
   }
+
+  const handleLanjut = () => {
+    if (!feedback) return
+    if (idx < questions.length - 1) {
+      setIdx((i) => i + 1)
+      setSelected(null)
+      setFeedback(null)
+      setError(null)
+    } else {
+      setPhase('done')
+      if (activeChildId && examId) {
+        void mockReview(activeChildId, examId).then(setReview).catch(() => {})
+      }
+    }
+  }
+
+  const hint = useMemo(() => {
+    if (!feedback) return null
+    return questionLang === 'id'
+      ? feedback.hint_id ?? feedback.hint_en
+      : feedback.hint_en ?? feedback.hint_id
+  }, [feedback, questionLang])
 
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
@@ -410,6 +432,8 @@ export default function WmiClaireMock() {
   const question = questions[idx]
   return (
     <div className="relative mx-auto w-full max-w-[460px] pb-8">
+      {feedback?.is_correct && <KonsepConfetti key={`confetti-${examId}-${idx}`} />}
+
       <ConfirmModal
         open={showExitConfirm}
         title="Keluar mock exam?"
@@ -462,24 +486,73 @@ export default function WmiClaireMock() {
             message={error}
             onRetry={() => {
               setError(null)
-              if (pendingAnswer) void submit(pendingAnswer)
+              if (selected) void submit(selected)
             }}
           />
         ) : !question ? (
           <QuestionSkeleton />
         ) : (
-          <WmiQuestionView
-            key={question.id}
-            question={question}
-            selectedChoice={pendingAnswer}
-            disabled={submittingRef.current}
-            initialLang={preferredLang}
-            onPickChoice={submit}
-            onSubmitFillIn={submit}
-            onLookupTerm={() => {}}
-            onRevealTranslation={() => {}}
-            onUserToggleLanguage={setPreferredLang}
-          />
+          <div className="space-y-4">
+            <WmiQuestionView
+              key={question.id}
+              question={question}
+              selectedChoice={selected}
+              highlight={
+                feedback
+                  ? { correct: feedback.correct_answer, wrongPicked: feedback.is_correct ? null : selected }
+                  : undefined
+              }
+              disabled={Boolean(feedback)}
+              revealed={Boolean(feedback)}
+              initialLang={preferredLang}
+              // Pin language so reveal shows the explainer WITHOUT flipping the
+              // question text to id (revealed would otherwise force 'id').
+              previewLang={questionLang}
+              onPickChoice={submit}
+              onSubmitFillIn={submit}
+              onLookupTerm={() => {}}
+              onRevealTranslation={() => {}}
+              onLanguageChange={setQuestionLang}
+              onUserToggleLanguage={setPreferredLang}
+            />
+
+            {feedback && (
+              <>
+                <div
+                  className={`relative rounded-[1.5rem] border-2 p-4 shadow-[0_5px_0_0_#FFD3B1] ${
+                    feedback.is_correct ? 'border-[#58A700]/40 bg-[#E8F5D6]' : 'border-rose-200 bg-rose-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
+                        feedback.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
+                      }`}
+                    >
+                      <i className={`fa-solid ${feedback.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`} aria-hidden="true" />
+                    </span>
+                    <span className={`font-display font-black ${feedback.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}>
+                      {feedback.is_correct ? 'Benar!' : 'Belum tepat'}
+                    </span>
+                  </div>
+                  {!feedback.is_correct && (
+                    <p className="mt-2 text-sm font-semibold text-rose-700">
+                      Jawaban benar: <span className="font-black">{feedback.correct_answer}</span>
+                    </p>
+                  )}
+                  {hint && <p className="mt-2 text-xs font-semibold text-qupu-muted">{hint}</p>}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleLanjut}
+                  className="w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+                >
+                  {idx < questions.length - 1 ? 'Lanjut' : 'Selesai'}
+                </button>
+              </>
+            )}
+          </div>
         )}
       </div>
     </div>
