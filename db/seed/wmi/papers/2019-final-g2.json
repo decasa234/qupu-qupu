@@ -8,7 +8,7 @@
   "review": {
     "status": "needs_changes",
     "reviewed_on": "2026-07-03",
-    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. Q23 CORRECTED this pass: exhaustive brute force shows the true maximum is 1597 (82 + 340 + 1597 = 2019, nine distinct digits incl. 0) — the earlier 1589 casework wrongly assumed the tens carry is at most 1 (it can be 2). Answer, steps, breakdown, and the SumTo2019G2 figure/explainer were all updated to 1597. Remaining defect: Q22's lock clues are under-constrained. Figure-dependent answers (Q2, Q4, Q5, Q8, Q10, Q13, Q14, Q15, Q20) checked for internal consistency, not pixel-compared to scans; Q24/Q25 deduction chains re-verified by hand against the reused G1 figures.",
+    "summary": "Re-solved all 25; arithmetic, breakdowns, steps, and en/id parity are clean. Q23 CORRECTED this pass: exhaustive brute force shows the true maximum is 1597 (82 + 340 + 1597 = 2019, nine distinct digits incl. 0) — the earlier 1589 casework wrongly assumed the tens carry is at most 1 (it can be 2). Answer, steps, breakdown, and the SumTo2019G2 figure/explainer were all updated to 1597. Q22 CORRECTED this pass: the lock clues were under-constrained (257/527/957 all fit) — clue 753 now reads 'two digits correct, both in the wrong place', which brute force confirms makes 527 unique. Figure-dependent answers (Q2, Q4, Q5, Q8, Q10, Q13, Q14, Q15, Q20) checked for internal consistency, not pixel-compared to scans; Q24/Q25 deduction chains re-verified by hand against the reused G1 figures.",
     "findings": [
       {
         "q": 23,
@@ -18,9 +18,9 @@
       },
       {
         "q": 22,
-        "severity": "warning",
+        "severity": "nit",
         "gate": "answer",
-        "note": "As transcribed, the five clues are satisfied by 257, 527, AND 957 (each uses only the surviving digits, puts 7 last, gives 392 one correct-but-wrong-place digit, and 415 one correct via the 5). Key is 527 but the set is under-constrained — same template defect as 2019-G1 Q23. Re-check the original clue wording."
+        "note": "FIXED 2026-07-08: as originally transcribed the clues were satisfied by 257, 527, AND 957 (under-constrained). Clue 753 was missing its placement qualifier; brute force confirms adding 'both in the wrong place' to 753 makes 527 the UNIQUE solution while keeping the existing deduction chain intact. Body, hint_steps, and the LockCodeG2 figure badge were updated to 'two digits correct, both in the wrong place'. Answer unchanged (527)."
       },
       {
         "q": 24,
@@ -1348,21 +1348,21 @@
     },
     {
       "number": 22,
-      "body_en": "A lock has a 3-digit code. From the clues below, find the code.\n347: one digit is correct and in the right place.\n392: one digit is correct but in the wrong place.\n753: two digits are correct.\n164: no digit is correct.\n415: one digit is correct.",
-      "body_id": "Sebuah gembok memiliki kode 3 angka. Dari petunjuk di bawah ini, tentukan kodenya.\n347: satu angka benar dan berada di tempat yang tepat.\n392: satu angka benar tetapi salah tempat.\n753: dua angka benar.\n164: tidak ada angka yang benar.\n415: satu angka benar.",
+      "body_en": "A lock has a 3-digit code. From the clues below, find the code.\n347: one digit is correct and in the right place.\n392: one digit is correct but in the wrong place.\n753: two digits are correct but both in the wrong place.\n164: no digit is correct.\n415: one digit is correct.",
+      "body_id": "Sebuah gembok memiliki kode 3 angka. Dari petunjuk di bawah ini, tentukan kodenya.\n347: satu angka benar dan berada di tempat yang tepat.\n392: satu angka benar tetapi salah tempat.\n753: dua angka benar tetapi keduanya di tempat yang salah.\n164: tidak ada angka yang benar.\n415: satu angka benar.",
       "answer_type": "fill_in",
       "answer": "527",
       "figure_url": "/api/public/wmi/figures/2019-final-g2-a-q22.jpg",
       "hint_steps_en": [
         "164 has 0 correct → cross out 1, 6, 4. Then 415 has 1 correct, and its 4 and 1 are crossed → 5 is in the code.",
-        "753 has 2 correct: 5 plus 7 or 3. It can't be 3 (347 wants it in the right place while 392 wants it wrong, and 753 would then have 3 correct) → 7 is in the code.",
-        "347's correct-and-right-place digit is therefore 7 → 7 is the LAST digit. 392's correct digit is 2, in the WRONG place — the clue shows it last, so 2 moves to the middle.",
+        "753 has 2 correct but both misplaced: with 5 known, the other is 7 or 3. It can't be 3 — 347 and 392 both put 3 first, and 392's correct digit must be in the WRONG place, so 3 can't be the first digit → 7 is in the code.",
+        "753's 5 and 7 are both in the wrong place, and 347 has one digit correct AND in place — that must be 7, so 7 is the LAST digit. 392's correct digit 2 is in the WRONG place (shown last), so 2 goes in the middle.",
         "5 takes the first spot: the code is 527."
       ],
       "hint_steps_id": [
         "164 punya 0 benar → coret 1, 6, 4. Lalu 415 punya 1 benar, dan 4 serta 1-nya sudah dicoret → 5 ada di kode.",
-        "753 punya 2 angka benar: 5 plus 7 atau 3. Tak mungkin 3 (347 minta di tempat benar sedangkan 392 minta salah, dan 753 jadi punya 3 benar) → 7 ada di kode.",
-        "Angka benar-dan-tepat 347 berarti 7 → 7 angka TERAKHIR. Angka benar 392 adalah 2, di tempat SALAH — petunjuk menulisnya terakhir, jadi 2 pindah ke tengah.",
+        "753 punya 2 angka benar tetapi keduanya salah tempat: karena 5 sudah diketahui, satunya lagi 7 atau 3. Tak mungkin 3 — 347 dan 392 sama-sama menaruh 3 di depan, dan angka benar 392 harus di tempat SALAH, jadi 3 tak bisa jadi angka pertama → 7 ada di kode.",
+        "Angka 5 dan 7 pada 753 keduanya salah tempat, dan 347 punya satu angka benar DAN tepat — itu pasti 7, jadi 7 angka TERAKHIR. Angka benar 392 yaitu 2 ada di tempat SALAH (ditulis terakhir), jadi 2 di tengah.",
         "5 mengisi tempat pertama: kodenya 527."
       ],
       "breakdown": {

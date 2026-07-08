@@ -59,6 +59,20 @@ const CAT: Record<BreakdownCategory, {
   },
 }
 
+// Legacy authoring used a wider category vocabulary before it was narrowed to
+// the four in CAT. Alias the old names so old data still colours correctly, and
+// fall back to `fact` for anything unknown — an unmapped category must never
+// crash the Q breakdown (CAT[bad] is undefined → reading .soft throws).
+const CATEGORY_ALIAS: Record<string, BreakdownCategory> = {
+  given: 'fact',
+  goal: 'question',
+  operation: 'condition',
+  trap: 'condition',
+}
+function catOf(category: string) {
+  return CAT[category as BreakdownCategory] ?? CAT[CATEGORY_ALIAS[category]] ?? CAT.fact
+}
+
 // Split `text` into plain / highlighted runs, tagging each highlighted run with
 // the index of its highlight. Longest phrase wins so "30" inside "130" can't
 // steal the match.
@@ -114,7 +128,7 @@ export default function WmiAuthoredBreakdown({
   const segments = segment(clean, phrases)
 
   const sel = selected != null ? highlights[selected] : null
-  const selCat = sel ? CAT[sel.category] : null
+  const selCat = sel ? catOf(sel.category) : null
 
   return (
     <div className="mt-4">
@@ -139,7 +153,7 @@ export default function WmiAuthoredBreakdown({
         {segments.map((s, i) => {
           if (s.hi === null) return <span key={i}>{s.text}</span>
           const hl = highlights[s.hi]
-          const cat = CAT[hl.category]
+          const cat = catOf(hl.category)
           const isSel = s.hi === selected
           const toggle = () => setSelected((cur) => (cur === s.hi ? null : s.hi))
           return (

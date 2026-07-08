@@ -3,7 +3,7 @@
 // Clues (from the paper):
 //   347 -> 1 digit correct AND in the right place
 //   392 -> 1 digit correct, WRONG place
-//   753 -> 2 digits correct
+//   753 -> 2 digits correct, both in the WRONG place
 //   164 -> 0 correct  (eliminates 1, 6, 4)
 //   415 -> 1 digit correct
 // Surviving deduction lands on the official code 527.
@@ -22,7 +22,7 @@ export interface ClueG2 {
 export const CLUES_G2: ReadonlyArray<ClueG2> = [
   { guess: '347', kind: 'rightPlace', correct: 1 },
   { guess: '392', kind: 'wrongPlace', correct: 1 },
-  { guess: '753', kind: 'count', correct: 2 },
+  { guess: '753', kind: 'wrongPlace', correct: 2 },
   { guess: '164', kind: 'none', correct: 0 },
   { guess: '415', kind: 'count', correct: 1 },
 ]
@@ -217,7 +217,7 @@ function FeedbackBadge({ clue, x, y }: { clue: ClueG2; x: number; y: number }) {
       : clue.kind === 'rightPlace'
         ? '1 correct, right spot'
         : clue.kind === 'wrongPlace'
-          ? '1 correct, wrong spot'
+          ? `${clue.correct} correct, wrong spot`
           : `${clue.correct} correct`
   const color = clue.kind === 'none' ? RED : clue.kind === 'rightPlace' ? GREEN : '#30598A'
   return (
@@ -240,7 +240,7 @@ export default function LockCodeG2Illustration() {
     <div
       className="my-4 overflow-hidden rounded-lg border-2 border-qupu-cream-dark bg-white p-2"
       role="img"
-      aria-label={`A 3-digit lock with unknown digits, and five clue rows: 347 (1 correct in the right place), 392 (1 correct in the wrong place), 753 (2 correct), 164 (none correct), 415 (1 correct). The clues point to the code ${LOCK_CODE_G2}.`}
+      aria-label={`A 3-digit lock with unknown digits, and five clue rows: 347 (1 correct in the right place), 392 (1 correct in the wrong place), 753 (2 correct, both in the wrong place), 164 (none correct), 415 (1 correct). The clues point to the code ${LOCK_CODE_G2}.`}
     >
       <LockCodeG2Figure />
     </div>
