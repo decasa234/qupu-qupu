@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
-import { id as idLocale } from 'date-fns/locale'
 import { getCachedPublic } from '../lib/api'
 import { trackEvent } from '../lib/analytics'
 import { cn } from '../lib/utils'
@@ -521,10 +519,27 @@ function ScrollHint() {
   )
 }
 
+// "3 bulan yang lalu" via Intl — this was the last date-fns call site.
+const RELATIVE_UNITS: Array<[Intl.RelativeTimeFormatUnit, number]> = [
+  ['year', 31536000],
+  ['month', 2592000],
+  ['week', 604800],
+  ['day', 86400],
+  ['hour', 3600],
+  ['minute', 60],
+]
+
+function timeAgoId(iso: string): string {
+  const rtf = new Intl.RelativeTimeFormat('id', { numeric: 'auto' })
+  const seconds = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000))
+  for (const [unit, size] of RELATIVE_UNITS) {
+    if (seconds >= size) return rtf.format(-Math.round(seconds / size), unit)
+  }
+  return rtf.format(-seconds, 'second')
+}
+
 function LandingVideoCard({ video }: { video: VideoCardType }) {
-  const date = video.publishedAt
-    ? formatDistanceToNow(new Date(video.publishedAt), { addSuffix: true, locale: idLocale })
-    : ''
+  const date = video.publishedAt ? timeAgoId(video.publishedAt) : ''
 
   return (
     <Link

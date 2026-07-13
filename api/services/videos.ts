@@ -191,7 +191,7 @@ export async function listPublicVideos(options: {
   page?: number
   pageSize?: number
 } = {}) {
-  const conditions = ['v.is_published = TRUE']
+  const conditions = ['v.is_published = TRUE', 'v.deleted_at IS NULL']
   const params: unknown[] = []
 
   if (options.search) {
@@ -287,7 +287,7 @@ export async function getPublicVideoBySlug(slug: string) {
   const row = await queryOne<VideoRow>(
     `
       ${VIDEO_SELECT}
-      WHERE v.slug = $1 AND v.is_published = TRUE
+      WHERE v.slug = $1 AND v.is_published = TRUE AND v.deleted_at IS NULL
     `,
     [slug],
   )
@@ -513,7 +513,7 @@ export async function updateVideo(videoId: string, input: VideoInput) {
 
   return withTransaction(async (client) => {
     const existing = await queryOne<{ id: string; is_published: boolean }>(
-      'SELECT id, is_published FROM videos WHERE id = $1',
+      'SELECT id, is_published FROM videos WHERE id = $1 AND deleted_at IS NULL',
       [videoId],
       client,
     )
@@ -540,7 +540,7 @@ export async function updateVideo(videoId: string, input: VideoInput) {
           is_featured = $13,
           sort_order = $14,
           updated_at = NOW()
-        WHERE id = $1
+        WHERE id = $1 AND deleted_at IS NULL
       `,
       [
         videoId,

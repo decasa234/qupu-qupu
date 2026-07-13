@@ -108,10 +108,19 @@ async function main() {
   }
 
   const ids = shorts.map((s) => s.id)
+  // Skip any draft with member history — its FKs are ON DELETE RESTRICT
+  // (migration 0049), and history must survive an admin cleanup anyway.
   const result = await query<{ id: string }>(
-    'DELETE FROM videos WHERE id = ANY($1::uuid[]) RETURNING id',
+    `DELETE FROM videos
+      WHERE id = ANY($1::uuid[])
+        AND NOT EXISTS (SELECT 1 FROM score_attempts s WHERE s.video_id = videos.id)
+        AND NOT EXISTS (SELECT 1 FROM user_badge_unlocks u WHERE u.video_id = videos.id)
+      RETURNING id`,
     [ids],
   )
+  if (result.length < ids.length) {
+    console.log(`Skipped ${ids.length - result.length} draft(s) with member history.`)
+  }
   console.log(`\nDeleted ${result.length} short drafts.`)
   await pool.end()
 }

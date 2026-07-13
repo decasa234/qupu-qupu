@@ -9,8 +9,8 @@ describe.skipIf(!RUN)('paperReviews', () => {
 
   beforeAll(async () => {
     const row = await queryOne<{ id: string }>(
-      `INSERT INTO wmi_papers (year, grade, round, variant, title, recommended_duration_min, question_count)
-       VALUES (2099, 0, 'final', 'A', 'TEST paper', 60, 0)
+      `INSERT INTO wmi_papers (year, grade, level_code, level_sort, round, variant, title, recommended_duration_min, question_count)
+       VALUES (2099, 0, 'g0', 0, 'final', 'A', 'TEST paper', 60, 0)
        RETURNING id`,
     )
     paperId = row!.id

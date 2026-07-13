@@ -24,7 +24,7 @@
 
 import { query, queryOne } from '../../db.js'
 import { wibDateString, wibWeek } from '../../lib/wib.js'
-import { getNotificationProvider, type NotificationProvider } from './provider.js'
+import { resendProvider, type NotificationProvider } from './provider.js'
 import { streakAtRisk, weeklyDigest, type AtRiskChild, type DigestRow } from './templates.js'
 
 const DAY_MS = 24 * 60 * 60 * 1000
@@ -82,7 +82,7 @@ function bucketByParent<R extends { user_id: string; email: string; parent_name:
 
 export async function runDailyNotifications(
   now: Date = new Date(),
-  provider: NotificationProvider = getNotificationProvider(),
+  provider: NotificationProvider = resendProvider(),
 ): Promise<NotificationRunResult> {
   const result: NotificationRunResult = { atRiskSent: 0, digestSent: 0, skipped: 0 }
   const today = wibDateString(now)

@@ -38,6 +38,12 @@ export const authenticateToken = (
       res.status(401).json({ success: false, error: SESSION_EXPIRED_ERROR })
       return
     }
+    // Refresh tokens are for minting new access tokens only — accepting them
+    // here would turn them into 30-day access tokens.
+    if ((decoded as { typ?: string }).typ === 'refresh') {
+      res.status(401).json({ success: false, error: SESSION_EXPIRED_ERROR })
+      return
+    }
     req.user = decoded as AuthUser
     next()
   } catch {

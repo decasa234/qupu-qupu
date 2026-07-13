@@ -8,7 +8,6 @@ import helmet from 'helmet'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.js'
 import userRoutes from './routes/users.js'
-import metaRoutes from './routes/meta.js'
 import publicRoutes from './routes/public.js'
 import wmiPublicRoutes from './routes/wmi-public.js'
 import memberRoutes from './routes/member.js'
@@ -99,10 +98,9 @@ app.use(express.urlencoded({ extended: true, limit: '1mb' }))
 
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
-// Generous per-IP rate limits on the unauthenticated read surface. One
-// limiter bucket per route-group ('meta' covers /api/meta/*, 'catalog'
-// covers everything under /api/public/* including /api/public/wmi).
-app.use('/api/meta', publicRateLimit('meta'), metaRoutes)
+// Generous per-IP rate limit on the unauthenticated read surface: one
+// 'catalog' bucket covers everything under /api/public/* including
+// /api/public/wmi.
 app.use('/api/public', publicRateLimit('catalog'))
 app.use('/api/public/wmi', wmiPublicRoutes)
 app.use('/api/public', publicRoutes)

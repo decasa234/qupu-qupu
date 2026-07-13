@@ -132,7 +132,9 @@ function issueToken(user: { id: string; email: string; role: string }) {
 }
 
 function issueRefreshToken(userId: string) {
-  return signToken({ id: userId }, { expiresIn: '30d' })
+  // typ:'refresh' lets authenticateToken reject this token on API routes —
+  // otherwise the 30-day refresh token would defeat the 12h/7d access expiry.
+  return signToken({ id: userId, typ: 'refresh' }, { expiresIn: '30d' })
 }
 
 const SERVER_ERROR_MESSAGE = 'Terjadi kesalahan pada server. Coba lagi nanti.'

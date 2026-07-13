@@ -1,14 +1,10 @@
 // api/services/notifications/provider.ts
 //
-// Channel abstraction for the parent notification loop (Mythos P2.5).
-// Today the only real channel is Resend email (the same account/envs the
-// registration OTP uses — RESEND_API_KEY / RESEND_FROM). A WhatsApp
-// provider is stubbed Fonnte-shaped behind WHATSAPP_TOKEN/WHATSAPP_SENDER
-// so the dispatcher never has to change when WhatsApp sending lands.
-//
-// Selection: NOTIFICATION_CHANNEL env ('email' | 'whatsapp'), default
-// 'email' — the WhatsApp stub is NEVER active unless explicitly selected
-// AND its envs are present (the factory throws otherwise).
+// Sender for the parent notification loop (Mythos P2.5): Resend email, the
+// same account/envs the registration OTP uses (RESEND_API_KEY/RESEND_FROM).
+// The NotificationProvider interface exists as the dispatcher's test seam.
+// ponytail: single channel; add a provider + selection env when a second
+// real channel (e.g. Fonnte WhatsApp) actually lands.
 
 interface ResendError {
   statusCode?: number
@@ -59,28 +55,3 @@ export function resendProvider(): NotificationProvider {
   }
 }
 
-// WhatsApp (Fonnte-shaped) — INTERFACE STUB. The factory validates the
-// Fonnte envs up front (so selecting the channel without keys fails at
-// startup of the cron run, not silently); send() is intentionally
-// unimplemented until a Fonnte account exists. The future implementation
-// POSTs https://api.fonnte.com/send with { target, message } and an
-// Authorization: <WHATSAPP_TOKEN> header, sending plain text derived from
-// the template (WhatsApp has no HTML).
-export function whatsappProvider(): NotificationProvider {
-  const token = process.env.WHATSAPP_TOKEN
-  const sender = process.env.WHATSAPP_SENDER
-  if (!token || !sender) {
-    throw new Error('WHATSAPP_TOKEN or WHATSAPP_SENDER is not configured')
-  }
-  return {
-    async send(): Promise<void> {
-      throw new Error('WhatsApp provider is a stub — Fonnte sending is not implemented yet')
-    },
-  }
-}
-
-export function getNotificationProvider(): NotificationProvider {
-  const channel = (process.env.NOTIFICATION_CHANNEL ?? 'email').trim().toLowerCase()
-  if (channel === 'whatsapp') return whatsappProvider()
-  return resendProvider()
-}

@@ -102,7 +102,9 @@ CREATE TABLE IF NOT EXISTS video_badge_rules (
 CREATE TABLE IF NOT EXISTS score_attempts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   child_id UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
-  video_id UUID NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
+  -- RESTRICT: deleting a video must never destroy member history; videos
+  -- with attempts go through soft-delete (videos.deleted_at). See 0049.
+  video_id UUID NOT NULL REFERENCES videos(id) ON DELETE RESTRICT,
   correct_answers INTEGER NOT NULL CHECK (correct_answers >= 0),
   total_questions INTEGER NOT NULL CHECK (total_questions > 0),
   score_percentage NUMERIC(5,2) NOT NULL CHECK (score_percentage >= 0 AND score_percentage <= 100),
@@ -113,7 +115,7 @@ CREATE TABLE IF NOT EXISTS score_attempts (
 CREATE TABLE IF NOT EXISTS user_badge_unlocks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   child_id UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
-  video_id UUID NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
+  video_id UUID NOT NULL REFERENCES videos(id) ON DELETE RESTRICT,
   badge_count INTEGER NOT NULL DEFAULT 0 CHECK (badge_count >= 0),
   correct_answers INTEGER NOT NULL CHECK (correct_answers >= 0),
   unlocked_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -589,6 +591,10 @@ CREATE INDEX IF NOT EXISTS idx_wmi_questions_paper_number
 CREATE UNIQUE INDEX IF NOT EXISTS uniq_wmi_attempts_exam_per_question
   ON wmi_attempts(session_id, question_id)
   WHERE mode = 'exam' AND session_id IS NOT NULL;
+-- Serves the per-paper best-score join, resume lookup, and abandon update
+-- (migration 0049).
+CREATE INDEX IF NOT EXISTS idx_wmi_exam_sessions_child_paper
+  ON wmi_exam_sessions (child_id, paper_id);
 
 -- ---------------------------------------------------------------------
 -- WMI Concept Generator (migration 0021)

@@ -13,7 +13,37 @@ import WmiLanguageToggle from './WmiLanguageToggle'
 import WmiExplainer from './WmiExplainer'
 import WmiSteps from './WmiSteps'
 import WmiTrapNote from './WmiTrapNote'
-import { getQuestionIllustration, getQuestionExplainer, getQuestionChoiceRenderer, getTemplate } from './PastPapers/WMI/registry'
+// The per-code visual registry is a ~250KB mapping table, and this component
+// is imported by the EAGER konsep pages (App.tsx keeps them out of lazy routes
+// so the post-login hot path never flashes a spinner). Loading the registry as
+// its own async chunk keeps that table out of the initial bundle: questions
+// render immediately and the bespoke illustration/explainer/choice renderers
+// pop in once the chunk arrives (late pop-in is already the documented
+// behavior for these visuals). On chunk failure the question stays usable,
+// just without bespoke visuals.
+type VisualRegistry = typeof import('./PastPapers/WMI/registry')
+let visualRegistry: VisualRegistry | null = null
+const visualRegistryPromise = import('./PastPapers/WMI/registry')
+  .then((mod) => {
+    visualRegistry = mod
+    return mod
+  })
+  .catch(() => null)
+
+function useVisualRegistry(): VisualRegistry | null {
+  const [registry, setRegistry] = useState(visualRegistry)
+  useEffect(() => {
+    if (registry) return
+    let cancelled = false
+    visualRegistryPromise.then((mod) => {
+      if (mod && !cancelled) setRegistry(mod)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [registry])
+  return registry
+}
 
 interface Props {
   question: WmiQuestion
@@ -134,16 +164,19 @@ export default function WmiQuestionView({
     setLang(next)
   }
 
-  const Illustration = getQuestionIllustration(question.code)
+  const registry = useVisualRegistry()
+  const Illustration = registry?.getQuestionIllustration(question.code) ?? null
   const ConceptIllustration = conceptIllustration
-  const QuestionExplainer = getQuestionExplainer(question.code)
-  const ChoiceContent = getQuestionChoiceRenderer(question.code)
+  const QuestionExplainer = registry?.getQuestionExplainer(question.code) ?? null
+  const ChoiceContent = registry?.getQuestionChoiceRenderer(question.code) ?? null
 
   // Reusable explainer-pool template binding (Approach A). When a question carries
   // `visual: { templateId, params }`, render the template's parameterized figure +
   // explainer instead of the per-code bespoke components. Bespoke path is unchanged
   // (templateParams stays {} and the bespoke explainer ignores params).
-  const templateBinding = question.visual?.templateId ? getTemplate(question.visual.templateId) : null
+  const templateBinding = question.visual?.templateId
+    ? registry?.getTemplate(question.visual.templateId) ?? null
+    : null
   const templateParams = question.visual?.params ?? {}
   const TemplateIllustration = templateBinding?.Illustration ?? null
   const ResolvedExplainer = templateBinding?.Explainer ?? QuestionExplainer

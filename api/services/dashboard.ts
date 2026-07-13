@@ -1044,7 +1044,7 @@ function deriveBadges(summary: SummaryStats, streak: { current: number; longest:
   const lifetimeAttempts = summary.lifetimeAttempts
   const totalBadges = summary.badgesTotal
   return [
-    // `icon` is a Font Awesome class; rendered as <i> by DashboardBadges.
+    // `icon` is a Font Awesome class; rendered as <i> by the dashboard client.
     { id: 'first-quiz',  name: 'Pertama Kali',  description: 'Quiz pertama',     colorHex: '#F0853A', icon: 'fa-solid fa-bullseye',     earned: lifetimeAttempts >= 1 },
     { id: 'streak-3',    name: 'Streak 3 Hari', description: '3 hari berturut',  colorHex: '#FF6B6B', icon: 'fa-solid fa-fire',         earned: streak.longest >= 3 },
     { id: 'streak-5',    name: 'Streak 5 Hari', description: '5 hari berturut',  colorHex: '#F0853A', icon: 'fa-solid fa-fire',         earned: streak.longest >= 5 },

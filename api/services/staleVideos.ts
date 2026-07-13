@@ -12,7 +12,8 @@ export interface StaleVideo {
   youtubeVideoId: string
   title: string
   isPublished: boolean
-  // Linked rows a hard delete would cascade away (members lose these).
+  // Linked member history. Videos with any of these are soft-deleted, never
+  // hard-deleted (FK RESTRICT since migration 0049).
   scoreAttempts: number
   badgeUnlocks: number
 }
@@ -82,14 +83,29 @@ export async function findStaleVideos(): Promise<StaleVideo[]> {
     }))
 }
 
-// Hard delete by id. The videos FK cascade removes the linked
-// video_badge_rules, score_attempts, and user_badge_unlocks. Returns the count
-// actually deleted.
+// Remove videos by id. Videos with member history (attempts/badges) are
+// soft-deleted — the FKs are ON DELETE RESTRICT (migration 0049) precisely so
+// a purge can never destroy kids' history. History-free videos are hard
+// deleted (cascade only removes their video_badge_rules). Returns the count
+// removed either way.
 export async function deleteVideosByIds(ids: string[]): Promise<number> {
   if (ids.length === 0) return 0
-  const result = await query<{ id: string }>(
-    'DELETE FROM videos WHERE id = ANY($1::uuid[]) RETURNING id',
+  const softDeleted = await query<{ id: string }>(
+    `UPDATE videos
+        SET deleted_at = NOW(), is_published = false, updated_at = NOW()
+      WHERE id = ANY($1::uuid[]) AND deleted_at IS NULL
+        AND (EXISTS (SELECT 1 FROM score_attempts s WHERE s.video_id = videos.id)
+          OR EXISTS (SELECT 1 FROM user_badge_unlocks u WHERE u.video_id = videos.id))
+      RETURNING id`,
     [ids],
   )
-  return result.length
+  const hardDeleted = await query<{ id: string }>(
+    `DELETE FROM videos
+      WHERE id = ANY($1::uuid[])
+        AND NOT EXISTS (SELECT 1 FROM score_attempts s WHERE s.video_id = videos.id)
+        AND NOT EXISTS (SELECT 1 FROM user_badge_unlocks u WHERE u.video_id = videos.id)
+      RETURNING id`,
+    [ids],
+  )
+  return softDeleted.length + hardDeleted.length
 }

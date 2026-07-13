@@ -49,6 +49,14 @@ export async function submitVideoScore(input: {
   return withTransaction(async (client) => {
     await assertChildOwnership(client, input.userId, input.childId)
 
+    // Serialize concurrent submissions for this child (same pattern as
+    // shop/purchase.ts): without this, two in-flight submits both read
+    // existingUnlock as empty and both take the first-time reward path,
+    // double-granting XP/coins and quest progress.
+    await client.query('SELECT id FROM children WHERE id = $1 FOR UPDATE', [
+      input.childId,
+    ])
+
     const video = await queryOne<{
       id: string
       title: string
@@ -156,6 +164,13 @@ export async function submitVideoScore(input: {
           -- must never downgrade an already-earned badge tier or best score.
           badge_count = GREATEST(user_badge_unlocks.badge_count, EXCLUDED.badge_count),
           correct_answers = GREATEST(user_badge_unlocks.correct_answers, EXCLUDED.correct_answers),
+          -- A tier upgrade bumps unlocked_at ("when the current tier was
+          -- reached") so the parent-dashboard trend and sparkline count the
+          -- gain; otherwise upgrades were invisible in every KPI.
+          unlocked_at = CASE
+            WHEN EXCLUDED.badge_count > user_badge_unlocks.badge_count THEN NOW()
+            ELSE user_badge_unlocks.unlocked_at
+          END,
           updated_at = NOW()
       `,
       [input.childId, input.videoId, earnedBadgeCount, input.correctAnswers],
@@ -189,7 +204,10 @@ export async function submitVideoScore(input: {
         createdAt: attempt?.created_at ?? new Date().toISOString(),
       },
       earnedBadgeCount,
-      finalBadgeCount: earnedBadgeCount,
+      // The upsert is upgrade-only (GREATEST), so the stored badge tier never
+      // drops below what was already earned — reflect that here, not the raw
+      // per-attempt tier.
+      finalBadgeCount: Math.max(earnedBadgeCount, previousBadgeCount),
       previousBadgeCount,
       previousCorrectAnswers,
       isCorrection,

@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` — `tsc -b && vite build`. The API is not bundled; Vercel builds it separately.
 - `npm run check` — typecheck only (`tsc --noEmit`). Use this for quick validation.
 - `npm run lint` — ESLint (flat config in `eslint.config.js`).
-- No test runner is configured.
+- `npm test` — vitest. Pure unit suites always run; the Postgres integration suites (most of `api/__tests__/`) run only when `TEST_DATABASE_URL` points at a disposable test database and skip themselves otherwise (CI runs without one by design).
 - Database bootstrap is manual: apply `db/schema.sql` then `db/seed.sql` against the Postgres instance in `DATABASE_URL`. For an existing DB, apply migrations in `db/migrations/` in numeric order. Fresh installs of `db/schema.sql` already include all migration changes. The `supabase/migrations` folder is legacy and not part of the current flow.
 
 Required env (`.env`, see `.env.example`): `DATABASE_URL`, `JWT_SECRET`, `PORT`, `APP_ORIGIN`, `VITE_API_BASE_URL`. Optional but required for Google sign-in: `GOOGLE_CLIENT_ID` (server) and `VITE_GOOGLE_CLIENT_ID` (client) — same Google Cloud Web OAuth client id. Required for password registration OTP email delivery: `RESEND_API_KEY` and `RESEND_FROM`. Required for the admin YouTube channel picker and single-video importer: `YOUTUBE_API_KEY`. Optional: `YOUTUBE_CHANNEL_HANDLE` (default `@qupuid`; must match `/^@[A-Za-z0-9_.-]{1,50}$/`) and `YOUTUBE_UPLOADS_PLAYLIST_ID` (skips the `channels.list` resolution call — recommended on Vercel serverless).
@@ -26,12 +26,11 @@ Single repo with two halves sharing one `tsconfig.json` (`include: ["src", "api"
 
 ### API surface (mounted in `api/app.ts`)
 
-- `/api/auth` — `POST /register-init` + `POST /register-verify` + `POST /register-resend` (email-OTP gated registration via Resend), `POST /login` (only matches rows with `password_hash IS NOT NULL`), `POST /google` (no email-based linking — Google and password are separate identities, may share an email string). Access token expiry is role-aware: 12h hard cap for `admin`, 7d for everyone else. Admin sessions also have a 15-minute frontend idle-timeout via `src/hooks/useIdleLogout.ts`. Refresh token is 30d but plumbing is currently unused — frontend reuses the access token directly until it expires.
+- `/api/auth` — `POST /register-init` + `POST /register-verify` + `POST /register-resend` (email-OTP gated registration via Resend), `POST /login` (only matches rows with `password_hash IS NOT NULL`), `POST /google` (no email-based linking — Google and password are separate identities, may share an email string). Access token expiry is role-aware: 12h hard cap for `admin`, 7d for everyone else. Admin sessions also have a 15-minute frontend idle-timeout via `src/hooks/useIdleLogout.ts`. Refresh token is 30d but plumbing is currently unused — frontend reuses the access token directly until it expires; refresh tokens carry `typ: 'refresh'` and are rejected by `authenticateToken`.
 - `/api/users/me` — authenticated profile read/update.
 - `/api/public` — unauthenticated meta + video list/detail for the catalog.
 - `/api/me` — authenticated member endpoints: submit quiz score, progress, badges.
 - `/api/admin` — admin-only video CRUD plus channel-import endpoints (`GET /youtube-channel/videos` lists every upload on the configured channel with cached `alreadyImported` + `available` annotations; `POST /youtube-channel/import` bulk-creates drafts from selected video IDs and returns per-row `{ status, error? }`). The whole router is gated by `authenticateToken` + `requireAdmin`. The listing endpoint also runs through a Postgres-backed sliding-window rate limiter (`api/lib/rateLimit.ts`, 30/min per admin) and a 10-minute Postgres cache (`youtube_channel_cache`) so quota stays bounded across all serverless instances.
-- `/api/meta` — legacy lookups (subjects/age-groups/badge-families); `/api/public/meta` is the preferred aggregate.
 
 Routes are thin: validate with Joi, delegate to `api/services/*`. Put SQL and business rules in services, not route handlers.
 

@@ -50,17 +50,18 @@ api.interceptors.response.use(
   },
 )
 
+const PUBLIC_CACHE_TTL_MS = 60000
+
 export async function getCachedPublic<T>(
   url: string,
   config?: AxiosRequestConfig,
-  ttlMs = 60000,
 ): Promise<T> {
   const key = makeCacheKey(url, config?.params)
   const cachedValue = getCachedValue<T>(key)
   if (cachedValue !== null) return cachedValue
 
   const response = await api.get<T>(url, config)
-  setCachedValue(key, response.data, ttlMs)
+  setCachedValue(key, response.data, PUBLIC_CACHE_TTL_MS)
   return response.data
 }
 

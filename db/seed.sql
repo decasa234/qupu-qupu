@@ -221,8 +221,9 @@ SET title = EXCLUDED.title,
 -- 0..ceil(nq*0.34)-1   = 1 badge
 -- ceil(nq*0.34)..ceil(nq*0.67)-1 = 2 badges
 -- ceil(nq*0.67)..nq    = 3 badges
-DELETE FROM video_badge_rules;
-
+--
+-- Only for videos with no rules yet: a blanket DELETE+rebuild here would
+-- wipe admin-tuned rules on any re-run against an existing database.
 INSERT INTO video_badge_rules (video_id, min_correct, max_correct, badge_count)
 SELECT
   v.id,
@@ -238,4 +239,6 @@ SELECT
   END,
   level
 FROM videos v
-CROSS JOIN (VALUES (1), (2), (3)) AS t(level);
+CROSS JOIN (VALUES (1), (2), (3)) AS t(level)
+WHERE v.number_of_questions IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM video_badge_rules r WHERE r.video_id = v.id);

@@ -149,7 +149,9 @@ export async function completeWmiExamSession(
       `
         UPDATE wmi_exam_sessions
         SET completed_at = COALESCE(completed_at, NOW()),
-            duration_ms = COALESCE(duration_ms, GREATEST(0, (EXTRACT(EPOCH FROM (NOW() - started_at)) * 1000)::integer)),
+            -- Clamp before the ::integer cast: a session resumed after ~25
+            -- days would otherwise overflow int4 and 500 on every completion.
+            duration_ms = COALESCE(duration_ms, LEAST(GREATEST(0, (EXTRACT(EPOCH FROM (NOW() - started_at)) * 1000)::bigint), 2147483647)::integer),
             correct_count = $2
         WHERE id = $1
         RETURNING id, child_id, paper_id, started_at, completed_at, duration_ms,

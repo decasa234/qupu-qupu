@@ -129,11 +129,19 @@ export default function QuizPage() {
           isCorrection: submitted.isCorrection,
         },
       })
+      // Mirror the stored unlock row (upgrade-only): a downward correction
+      // keeps the best score/badge, so show the best, not this attempt.
+      const bestCorrect = Math.max(
+        submitted.attempt.correctAnswers,
+        submitted.previousCorrectAnswers ?? 0,
+      )
       setExistingScore({
-        correctAnswers: submitted.attempt.correctAnswers,
+        correctAnswers: bestCorrect,
         totalQuestions: submitted.attempt.totalQuestions,
-        badgeCount: submitted.earnedBadgeCount,
-        scorePercentage: submitted.attempt.scorePercentage,
+        badgeCount: submitted.finalBadgeCount,
+        scorePercentage: Number(
+          ((bestCorrect / submitted.attempt.totalQuestions) * 100).toFixed(2),
+        ),
         latestAttemptAt: submitted.attempt.createdAt,
       })
       setEditing(false)

@@ -1,6 +1,5 @@
 import { Router, type Request, type Response } from 'express'
 import { listMeta, listPublicVideos, getPublicVideoBySlug } from '../services/videos.js'
-import { getWmiPublicStats } from '../services/wmiStats.js'
 
 const router = Router()
 
@@ -80,16 +79,6 @@ router.get('/videos/:slug', async (req: Request, res: Response): Promise<void> =
     res.json({ success: true, data: video })
   } catch (error) {
     console.error('Public video detail error:', error)
-    res.status(500).json({ success: false, error: 'Internal server error' })
-  }
-})
-
-router.get('/wmi-stats', async (_req: Request, res: Response): Promise<void> => {
-  try {
-    const stats = await getWmiPublicStats()
-    res.json({ success: true, data: stats })
-  } catch (error) {
-    console.error('Public wmi-stats error:', error)
     res.status(500).json({ success: false, error: 'Internal server error' })
   }
 })
