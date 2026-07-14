@@ -1,7 +1,13 @@
 import { Router, type Response } from 'express'
 import Joi from 'joi'
 import bcrypt from 'bcrypt'
-import { queryOne } from '../db.js'
+import {
+  findAgeGroupIdForAge,
+  getUserCredentials,
+  getUserProfile,
+  setParentPinHash,
+  updateUserProfile,
+} from '../services/users.js'
 import { authenticateToken, type AuthRequest } from '../middleware/auth.js'
 import { PIN_REGEX } from '../lib/pin.js'
 import { enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
@@ -58,26 +64,7 @@ const updateProfileSchema = Joi.object({
 
 router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const user = await queryOne<{
-      id: string
-      email: string
-      phone: string
-      name: string
-      age: number
-      role: string
-      age_group_id: string | null
-      plan: string
-      notify_email: boolean
-      pinSet: boolean
-    }>(
-      `
-        SELECT id, email, phone, name, age, role, age_group_id, plan, notify_email,
-               (parent_pin_hash IS NOT NULL) AS "pinSet"
-        FROM users
-        WHERE id = $1
-      `,
-      [req.user.id],
-    )
+    const user = await getUserProfile(req.user.id)
 
     if (!user) {
       res.status(404).json({ success: false, error: 'User not found' })
@@ -102,51 +89,17 @@ router.put('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
 
     let ageGroupId: string | null | undefined
     if (typeof value.age === 'number') {
-      const ageGroup = await queryOne<{ id: string }>(
-        `
-          SELECT id
-          FROM age_groups
-          WHERE min_age <= $1 AND max_age >= $1
-          LIMIT 1
-        `,
-        [value.age],
-      )
-      ageGroupId = ageGroup?.id ?? null
+      ageGroupId = await findAgeGroupIdForAge(value.age)
     }
 
-    const user = await queryOne<{
-      id: string
-      email: string
-      phone: string
-      name: string
-      age: number
-      role: string
-      age_group_id: string | null
-      notify_email: boolean
-    }>(
-      `
-        UPDATE users
-        SET
-          name = COALESCE($2, name),
-          age = COALESCE($3, age),
-          phone = COALESCE($4, phone),
-          email = COALESCE($5, email),
-          age_group_id = COALESCE($6, age_group_id),
-          notify_email = COALESCE($7, notify_email),
-          updated_at = NOW()
-        WHERE id = $1
-        RETURNING id, email, phone, name, age, role, age_group_id, notify_email
-      `,
-      [
-        req.user.id,
-        value.name ?? null,
-        value.age ?? null,
-        value.phone ?? null,
-        value.email ?? null,
-        ageGroupId ?? null,
-        value.notify_email ?? null,
-      ],
-    )
+    const user = await updateUserProfile(req.user.id, {
+      name: value.name,
+      age: value.age,
+      phone: value.phone,
+      email: value.email,
+      ageGroupId,
+      notifyEmail: value.notify_email,
+    })
 
     res.json({ success: true, data: user })
   } catch (error) {
@@ -171,13 +124,7 @@ router.post('/me/pin', authenticateToken, async (req: AuthRequest, res: Response
       return
     }
 
-    const user = await queryOne<{
-      parent_pin_hash: string | null
-      password_hash: string | null
-    }>(
-      `SELECT parent_pin_hash, password_hash FROM users WHERE id = $1`,
-      [req.user.id],
-    )
+    const user = await getUserCredentials(req.user.id)
 
     if (!user) {
       res.status(404).json({ success: false, error: 'Akun tidak ditemukan.' })
@@ -218,10 +165,7 @@ router.post('/me/pin', authenticateToken, async (req: AuthRequest, res: Response
     }
 
     const pinHash = await bcrypt.hash(value.pin, PIN_BCRYPT_COST)
-    await queryOne(
-      `UPDATE users SET parent_pin_hash = $2, updated_at = NOW() WHERE id = $1 RETURNING id`,
-      [req.user.id, pinHash],
-    )
+    await setParentPinHash(req.user.id, pinHash)
 
     res.json({ success: true, data: { pinSet: true } })
   } catch (error) {
@@ -246,10 +190,7 @@ router.post('/me/pin/verify', authenticateToken, async (req: AuthRequest, res: R
 
     await enforceRateLimit(`user:${req.user.id}`, PIN_VERIFY_ROUTE, PIN_VERIFY_LIMIT)
 
-    const user = await queryOne<{ parent_pin_hash: string | null }>(
-      `SELECT parent_pin_hash FROM users WHERE id = $1`,
-      [req.user.id],
-    )
+    const user = await getUserCredentials(req.user.id)
 
     if (!user) {
       res.status(404).json({ success: false, error: 'Akun tidak ditemukan.' })

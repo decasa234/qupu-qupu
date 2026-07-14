@@ -13,7 +13,8 @@
 import { Router, type Request, type Response } from 'express'
 import Joi from 'joi'
 import { authenticateToken } from '../middleware/auth.js'
-import { queryOne } from '../db.js'
+import { pool } from '../db.js'
+import { assertChildOwnership } from '../lib/childOwnership.js'
 import { sendPublicError, sendValidationError } from '../lib/publicError.js'
 import { listItemsForChild } from '../services/shop/catalog.js'
 import { listInventory } from '../services/shop/inventory.js'
@@ -24,12 +25,15 @@ router.use(authenticateToken)
 
 const childIdQuery = Joi.object({ childId: Joi.string().uuid().required() })
 
+// Delegates to the canonical ownership check; boolean shape preserved so the
+// routes keep their existing 403 body via sendChildOwnershipError.
 async function assertChildBelongsToUser(childId: string, userId: string): Promise<boolean> {
-  const row = await queryOne<{ id: string }>(
-    `SELECT id FROM children WHERE id = $1 AND parent_user_id = $2`,
-    [childId, userId],
-  )
-  return Boolean(row)
+  try {
+    await assertChildOwnership(pool, userId, childId)
+    return true
+  } catch {
+    return false
+  }
 }
 
 // 403 + Indonesian copy from the shared allowlist (publicError.ts).

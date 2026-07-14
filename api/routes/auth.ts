@@ -1,7 +1,7 @@
 import { Router, type Request, type Response, type NextFunction } from 'express'
 import bcrypt from 'bcrypt'
 import Joi from 'joi'
-import { queryOne } from '../db.js'
+import { findUserForLogin } from '../services/users.js'
 import { findOrCreateGoogleUser, verifyGoogleIdToken } from '../services/oauth.js'
 import { signToken } from '../lib/jwt.js'
 import { clientIp, enforceRateLimit, RateLimitError } from '../lib/rateLimit.js'
@@ -227,22 +227,7 @@ router.post('/login', limitRequests('auth:login', 10, 300, byIp), async (req: Re
       return
     }
 
-    const user = await queryOne<{
-      id: string
-      email: string
-      name: string
-      role: string
-      phone: string | null
-      age: number | null
-      password_hash: string // WHERE password_hash IS NOT NULL guarantees non-null
-    }>(
-      `
-        SELECT id, email, name, role, phone, age, password_hash
-        FROM users
-        WHERE email = $1 AND password_hash IS NOT NULL
-      `,
-      [value.email],
-    )
+    const user = await findUserForLogin(value.email)
 
     if (!user) {
       // Run a dummy compare so an unknown email takes the same time as a
