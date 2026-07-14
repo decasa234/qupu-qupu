@@ -32,6 +32,15 @@ import { RateLimitError, enforceRateLimit } from '../lib/rateLimit.js'
 
 const router = Router()
 
+// Admin error copy: service validation errors are plain Errors with human
+// messages meant for the editor UI — echo those. Postgres/system errors carry
+// a `code`; echoing them leaks constraint/SQL internals, so those (and
+// non-Error throws) get the route's fallback copy instead.
+function adminErrorMessage(error: unknown, fallback: string): string {
+  if (error instanceof Error && !('code' in error)) return error.message
+  return fallback
+}
+
 const badgeRangeSchema = Joi.object({
   minCorrect: Joi.number().integer().min(0).required(),
   maxCorrect: Joi.number().integer().min(0).allow(null).required(),
@@ -113,7 +122,7 @@ router.post('/videos', async (req: AuthRequest, res: Response): Promise<void> =>
     console.error('Admin create video error:', error)
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to create video',
+      error: adminErrorMessage(error, 'Unable to create video'),
     })
   }
 })
@@ -139,7 +148,7 @@ router.put('/videos/:id', async (req: AuthRequest, res: Response): Promise<void>
     console.error('Admin update video error:', error)
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to update video',
+      error: adminErrorMessage(error, 'Unable to update video'),
     })
   }
 })
@@ -187,7 +196,7 @@ router.get('/youtube-import', async (req: AuthRequest, res: Response): Promise<v
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'YouTube import failed',
+      error: adminErrorMessage(error, 'YouTube import failed'),
     })
   }
 })
@@ -400,7 +409,7 @@ router.post('/subjects', async (req: AuthRequest, res: Response): Promise<void> 
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to create subject',
+      error: adminErrorMessage(error, 'Unable to create subject'),
     })
   }
 })
@@ -421,7 +430,7 @@ router.put('/subjects/:id', async (req: AuthRequest, res: Response): Promise<voi
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to update subject',
+      error: adminErrorMessage(error, 'Unable to update subject'),
     })
   }
 })
@@ -437,7 +446,7 @@ router.delete('/subjects/:id', async (req: AuthRequest, res: Response): Promise<
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to delete subject',
+      error: adminErrorMessage(error, 'Unable to delete subject'),
     })
   }
 })
@@ -473,7 +482,7 @@ router.post('/age-groups', async (req: AuthRequest, res: Response): Promise<void
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to create age group',
+      error: adminErrorMessage(error, 'Unable to create age group'),
     })
   }
 })
@@ -494,7 +503,7 @@ router.put('/age-groups/:id', async (req: AuthRequest, res: Response): Promise<v
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to update age group',
+      error: adminErrorMessage(error, 'Unable to update age group'),
     })
   }
 })
@@ -510,7 +519,7 @@ router.delete('/age-groups/:id', async (req: AuthRequest, res: Response): Promis
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to delete age group',
+      error: adminErrorMessage(error, 'Unable to delete age group'),
     })
   }
 })
@@ -548,7 +557,7 @@ router.put('/users/:id/role', async (req: AuthRequest, res: Response): Promise<v
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to update user role',
+      error: adminErrorMessage(error, 'Unable to update user role'),
     })
   }
 })
@@ -568,7 +577,7 @@ router.delete('/users/:id', async (req: AuthRequest, res: Response): Promise<voi
   } catch (error: unknown) {
     res.status(400).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unable to delete user',
+      error: adminErrorMessage(error, 'Unable to delete user'),
     })
   }
 })
