@@ -63,8 +63,8 @@ export default function MoneyChangeExplainer(props: ExplainerProps) {
       : `${p.name} pays ${pay} for a ${p.item_en} that costs ${cost}. Change: ${change}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* labeled chips: paid (blue) and price (orange) */}
         <div className="flex flex-wrap items-center justify-center gap-4">
           <div className="flex flex-col items-center gap-1">

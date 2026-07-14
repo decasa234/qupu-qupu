@@ -131,14 +131,14 @@ export default function WmiExam() {
   }
   if (loadError) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6">
         <ErrorRetry message={loadError} onRetry={() => setLoadTick((t) => t + 1)} />
       </div>
     )
   }
   if (!snapshot) {
     return (
-      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] space-y-3 p-6">
         <Skeleton className="h-10 w-40" />
         <Skeleton className="h-64" />
       </div>
@@ -146,7 +146,7 @@ export default function WmiExam() {
   }
   if (timeUp) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-hourglass-end text-2xl" aria-hidden="true" />
         </div>
@@ -226,7 +226,7 @@ export default function WmiExam() {
   }
 
   return (
-    <div className="w-full max-w-[460px] self-center pb-8">
+    <div className="w-full max-w-[28.75rem] self-center pb-8">
       <ConfirmModal
         open={showExitConfirm}
         icon="fa-solid fa-door-open"
@@ -252,13 +252,13 @@ export default function WmiExam() {
         {isSplit ? (
           <div className="space-y-2">
             <div>
-              <p className="mb-1 px-1 text-[10px] font-black uppercase tracking-[0.18em] text-qupu-muted">
+              <p className="mb-1 px-1 text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-muted">
                 Paper A
               </p>
               <WmiDots dots={navDots.slice(0, PAPER_A_SIZE)} />
             </div>
             <div>
-              <p className="mb-1 px-1 text-[10px] font-black uppercase tracking-[0.18em] text-qupu-muted">
+              <p className="mb-1 px-1 text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-muted">
                 Paper B
               </p>
               <WmiDots dots={navDots.slice(PAPER_A_SIZE)} />

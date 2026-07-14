@@ -21,10 +21,10 @@ export default function ArithmeticExpressionEvalExplainer({ params, lang = 'en',
     : { background: '#FFE1C2', color: '#9A3412', boxShadow: 'inset 0 0 0 2px #F97316' }
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-4">
         <LayoutGroup>
-          <div className="flex min-h-[64px] flex-wrap items-center justify-center gap-1 font-display text-xl font-black tabular-nums">
+          <div className="flex min-h-[4rem] flex-wrap items-center justify-center gap-1 font-display text-xl font-black tabular-nums">
             {beat.tokens.map((tk, i) => (
               <motion.span
                 key={i}

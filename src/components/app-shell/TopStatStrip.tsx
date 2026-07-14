@@ -62,7 +62,7 @@ export default function TopStatStrip() {
   return (
     <div
       data-app-topbar
-      className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[460px] lg:rounded-b-[1.75rem] lg:border-x-[3px]"
+      className="sticky top-0 z-30 mx-auto w-full border-b-[3px] border-[#C46123] bg-qupu-brand-orange lg:max-w-[28.75rem] lg:rounded-b-[1.75rem] lg:border-x-[3px]"
     >
       <div className="mx-auto flex w-full max-w-lg items-center gap-2 px-3 py-2">
         {/* Gamemode selector — opens a dropdown (WMI / Video). Main is still the full chooser. */}
@@ -77,8 +77,8 @@ export default function TopStatStrip() {
             <i className="fa-solid fa-fire text-base text-qupu-brand-yellow" aria-hidden="true" />
             <span className="font-display text-sm font-extrabold text-white">{streak}</span>
             {shields > 0 && (
-              <span className="inline-flex items-center gap-0.5 rounded-full bg-white/20 px-1.5 py-0.5 font-display text-[10px] font-extrabold text-white">
-                <i className="fa-solid fa-shield-halved text-[9px] text-qupu-brand-yellow" aria-hidden="true" />
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-white/20 px-1.5 py-0.5 font-display text-[0.625rem] font-extrabold text-white">
+                <i className="fa-solid fa-shield-halved text-[0.5625rem] text-qupu-brand-yellow" aria-hidden="true" />
                 {shields}
               </span>
             )}

@@ -155,7 +155,7 @@ export default function AppShell() {
       {!playing && <TopStatStrip />}
       <main className="relative flex w-full flex-1 flex-col px-4 py-4">
         <DesktopBackdrop />
-        <div className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col sm:max-w-lg lg:my-6 lg:max-w-[460px] lg:rounded-[2.75rem] lg:bg-[#FFF8F0] lg:p-4 lg:shadow-[8px_10px_0_0_#FFD3B1] lg:ring-1 lg:ring-[#FFE3CC]">
+        <div className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col sm:max-w-lg lg:my-6 lg:max-w-[28.75rem] lg:rounded-[2.75rem] lg:bg-[#FFF8F0] lg:p-4 lg:shadow-[8px_10px_0_0_#FFD3B1] lg:ring-1 lg:ring-[#FFE3CC]">
           <Outlet />
         </div>
       </main>

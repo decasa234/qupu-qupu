@@ -78,8 +78,8 @@ export default function AdminWmiReviewQueue() {
           <ul className="mt-2 divide-y divide-admin-line">
             {fixed.map((i) => (
               <li key={i.id} className="flex flex-wrap items-center gap-2 py-2 text-sm">
-                <span className="font-mono text-[11px] text-admin-muted">{targetLabel(i)}</span>
-                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[10px] text-white">{i.part}</span>
+                <span className="font-mono text-[0.6875rem] text-admin-muted">{targetLabel(i)}</span>
+                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[0.625rem] text-white">{i.part}</span>
                 <span className="min-w-0 flex-1 truncate" title={i.detail}>
                   {i.title}
                 </span>
@@ -145,18 +145,18 @@ export default function AdminWmiReviewQueue() {
             {open.map((i) => (
               <li key={i.id} className="flex flex-wrap items-center gap-2 py-2 text-sm">
                 <input type="checkbox" checked={sel.has(i.id)} onChange={() => toggle(i.id)} />
-                <span className="font-mono text-[11px] text-admin-muted">{targetLabel(i)}</span>
-                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[10px] text-white">{i.part}</span>
+                <span className="font-mono text-[0.6875rem] text-admin-muted">{targetLabel(i)}</span>
+                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[0.625rem] text-white">{i.part}</span>
                 <span className="min-w-0 flex-1 truncate" title={i.detail}>
                   {i.title}
                 </span>
                 {i.status === 'in_progress' && (
-                  <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-[10px] font-bold text-yellow-800">
+                  <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-[0.625rem] font-bold text-yellow-800">
                     in progress
                   </span>
                 )}
                 {!i.ai_actionable && (
-                  <span className="rounded-full bg-admin-sunk px-2 py-0.5 text-[10px] font-bold text-admin-muted">
+                  <span className="rounded-full bg-admin-sunk px-2 py-0.5 text-[0.625rem] font-bold text-admin-muted">
                     not AI
                   </span>
                 )}

@@ -255,7 +255,7 @@ function GradeButton({
     >
       <span className="text-lg">{label}</span>
       {hint && (
-        <span className={`text-[11px] font-bold ${active ? 'text-white/80' : 'text-qupu-muted'}`}>{hint}</span>
+        <span className={`text-[0.6875rem] font-bold ${active ? 'text-white/80' : 'text-qupu-muted'}`}>{hint}</span>
       )}
     </button>
   )

@@ -109,8 +109,8 @@ function BudgetMeter({
   const fill = win || fits ? GREEN : over ? ROSE : MUTED
 
   return (
-    <div className="w-full max-w-[300px]">
-      <div className="mb-1 flex items-center justify-between font-display text-[11px] font-extrabold" style={{ color: BRAND_BLUE }}>
+    <div className="w-full max-w-[18.75rem]">
+      <div className="mb-1 flex items-center justify-between font-display text-[0.6875rem] font-extrabold" style={{ color: BRAND_BLUE }}>
         <span>$0</span>
         <span>{`Budget $${budget}`}</span>
       </div>
@@ -136,7 +136,7 @@ function BudgetMeter({
           />
         )}
         {/* budget cap line */}
-        <div className="absolute inset-y-0 right-0 w-[3px] rounded-full" style={{ background: BRAND_BLUE }} />
+        <div className="absolute inset-y-0 right-0 w-[0.1875rem] rounded-full" style={{ background: BRAND_BLUE }} />
       </div>
     </div>
   )
@@ -194,14 +194,14 @@ export default function BudgetSelectionExplainer(props: ExplainerProps) {
   )
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div
-        className="flex min-h-[300px] flex-col items-center justify-start gap-3 rounded-2xl border-2 px-4 py-4"
+        className="flex min-h-[18.75rem] flex-col items-center justify-start gap-3 rounded-2xl border-2 px-4 py-4"
         style={{ background: SHELL, borderColor: PEACH }}
       >
         {/* budget banner — wallet + amount, echoing the static figure */}
         <div
-          className="relative flex w-full max-w-[300px] items-center gap-2 overflow-hidden rounded-xl px-3 py-2"
+          className="relative flex w-full max-w-[18.75rem] items-center gap-2 overflow-hidden rounded-xl px-3 py-2"
           style={{ background: BRAND_BLUE }}
         >
           {/* wallet flap accent */}

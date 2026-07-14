@@ -97,7 +97,7 @@ export default function WmiChapterTest() {
 
   if (!activeChildId) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Pilih profil anak dulu.</div>
   if (loading) return (
-    <div className="mx-auto w-full max-w-[460px] p-6">
+    <div className="mx-auto w-full max-w-[28.75rem] p-6">
       <Skeleton className="h-2 w-full rounded-full" />
       <Skeleton className="mt-6 h-64 rounded-[1.5rem]" />
     </div>
@@ -109,7 +109,7 @@ export default function WmiChapterTest() {
 
   if (result) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-3xl text-white ${result.passed ? 'bg-[#58A700]' : 'bg-rose-400'}`}>
           <i className={`fa-solid ${result.passed ? 'fa-check' : 'fa-rotate-right'}`} aria-hidden="true" />
         </div>
@@ -148,7 +148,7 @@ export default function WmiChapterTest() {
   const pick = (val: string) => setAnswers((a) => ({ ...a, [current.concept_instance_id]: val }))
 
   return (
-    <div className="mx-auto w-full max-w-[460px] p-4">
+    <div className="mx-auto w-full max-w-[28.75rem] p-4">
       <div className="mb-3 flex items-center justify-between">
         {/* Answers live only in local state — leaving mid-test loses them. */}
         <BackButton

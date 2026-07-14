@@ -74,13 +74,13 @@ export default function TrophyShelf({ group }: { group: SubjectBadgeGroup }) {
             <div className="font-display text-base font-extrabold leading-tight text-qupu-brand-blue">
               {group.name}
             </div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-qupu-muted">
+            <div className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-qupu-muted">
               {earnedCount} / {group.totalBadges} badge
             </div>
           </div>
         </div>
         <span
-          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-[0.08em] ${chip.bgClass} ${chip.textClass}`}
+          className={`shrink-0 rounded-full px-2 py-0.5 text-[0.625rem] font-extrabold uppercase tracking-[0.08em] ${chip.bgClass} ${chip.textClass}`}
         >
           {chip.label}
         </span>

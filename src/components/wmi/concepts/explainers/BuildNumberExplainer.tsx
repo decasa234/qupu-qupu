@@ -69,8 +69,8 @@ export default function BuildNumberExplainer(props: ExplainerProps) {
       : 'Strategy: build the number from tens and ones digits, then calculate more or less.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Tiles row */}
         <div className="flex items-end gap-4">
           <Tile digit={tens} color={BLUE} label={tensLabel} />

@@ -76,12 +76,12 @@ function GroupRing({
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ type: 'spring', stiffness: 380, damping: 24 }}
-      className="relative flex flex-wrap items-center justify-center gap-[3px] rounded-2xl border-2 px-2 py-2"
+      className="relative flex flex-wrap items-center justify-center gap-[0.1875rem] rounded-2xl border-2 px-2 py-2"
       style={{ borderColor: GROUP_RING, background: '#EFF6FF' }}
     >
       {/* Group number badge */}
       <span
-        className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full text-[10px] font-black text-white"
+        className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full text-[0.625rem] font-black text-white"
         style={{ background: fill }}
       >
         {label}
@@ -138,7 +138,7 @@ export default function MakeGroupsLeftoverExplainer(props: ExplainerProps) {
       : `Strategy: split ${total} counters into groups of ${groupSize}. Form ${groups} full groups, leftover is ${leftover}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
 
         {/* Visual area */}
@@ -155,7 +155,7 @@ export default function MakeGroupsLeftoverExplainer(props: ExplainerProps) {
 
           {/* Loose / ungrouped dots */}
           {looseCount > 0 && (
-            <div className="flex flex-wrap justify-center gap-[4px]">
+            <div className="flex flex-wrap justify-center gap-[0.25rem]">
               {Array.from({ length: looseCount }, (_, i) => (
                 <LooseDot
                   key={i}

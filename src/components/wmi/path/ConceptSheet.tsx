@@ -78,7 +78,7 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
         aria-modal="false"
         aria-label={concept.nameId}
         style={sheetStyle}
-        className="pointer-events-auto absolute inset-x-0 bottom-0 mx-auto w-full max-w-[460px] animate-rise rounded-t-[2rem] bg-white p-5 pb-[max(env(safe-area-inset-bottom),1.75rem)] shadow-[0_-6px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/5"
+        className="pointer-events-auto absolute inset-x-0 bottom-0 mx-auto w-full max-w-[28.75rem] animate-rise rounded-t-[2rem] bg-white p-5 pb-[max(env(safe-area-inset-bottom),1.75rem)] shadow-[0_-6px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/5"
       >
         {/* Explicit close — drag-to-dismiss, Escape, or tapping the open node also close. */}
         <button
@@ -97,14 +97,14 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
             aria-hidden="true"
           />
           <div className="mt-3 text-center">
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+            <p className="text-[0.6875rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
               {chapter.nameId}
             </p>
             <h2 className="font-display text-xl font-black leading-tight text-qupu-brand-blue">
               {concept.nameId}
             </h2>
             <span
-              className="mt-1.5 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-black"
+              className="mt-1.5 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[0.6875rem] font-black"
               style={{ background: diff.bg, color: diff.color }}
             >
               <i className="fa-solid fa-signal" aria-hidden="true" />

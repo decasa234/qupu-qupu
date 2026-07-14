@@ -71,8 +71,8 @@ export default function PatternNextExplainer(props: ExplainerProps) {
       : `Number pattern: each number goes up by ${p.step}. The next number is ${story.next}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Sequence row */}
         <div className="flex flex-wrap items-end justify-center gap-2">
           {story.terms.map((term, i) => (

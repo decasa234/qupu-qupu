@@ -60,7 +60,7 @@ export default function BottomTabBar() {
 
   return (
     <nav
-      className="sticky bottom-0 z-30 mx-auto w-full border-t-[3px] border-[#C46123] bg-qupu-brand-orange pt-2 lg:max-w-[460px] lg:rounded-t-[1.75rem] lg:border-x-[3px]"
+      className="sticky bottom-0 z-30 mx-auto w-full border-t-[3px] border-[#C46123] bg-qupu-brand-orange pt-2 lg:max-w-[28.75rem] lg:rounded-t-[1.75rem] lg:border-x-[3px]"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 0.75rem)' }}
     >
       <div className="mx-auto flex w-full max-w-lg justify-around">
@@ -70,7 +70,7 @@ export default function BottomTabBar() {
             <NavLink
               key={tab.to}
               to={tab.to}
-              className={`flex flex-col items-center gap-0.5 px-3 text-[10px] font-extrabold uppercase tracking-[0.12em] ${
+              className={`flex flex-col items-center gap-0.5 px-3 text-[0.625rem] font-extrabold uppercase tracking-[0.12em] ${
                 active ? 'text-white' : 'text-white/70'
               }`}
             >

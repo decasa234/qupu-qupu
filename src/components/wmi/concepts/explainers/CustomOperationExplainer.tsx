@@ -24,7 +24,7 @@ function Row({ show, label, children }: { show: boolean; label?: string; childre
           className="flex flex-col items-center gap-0.5"
         >
           {label && (
-            <span className="text-[10px] font-black uppercase tracking-wide" style={{ color: MUTED }}>
+            <span className="text-[0.625rem] font-black uppercase tracking-wide" style={{ color: MUTED }}>
               {label}
             </span>
           )}
@@ -51,9 +51,9 @@ export default function CustomOperationExplainer({ params, correctAnswer, lang =
       : 'Strategy: put your numbers into the rule, just like the example.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
-        <div className="flex min-h-[160px] flex-col items-center justify-center gap-3 text-center">
+        <div className="flex min-h-[10rem] flex-col items-center justify-center gap-3 text-center">
           <Row show={beat.showRule}>
             <span style={{ color: BLUE }}>{def}</span>
           </Row>

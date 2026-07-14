@@ -133,7 +133,7 @@ export default function BelajarPath() {
 
   if (!activeChildId) {
     return (
-      <div className="w-full max-w-[460px] self-center p-6 text-center text-sm font-semibold text-qupu-muted">
+      <div className="w-full max-w-[28.75rem] self-center p-6 text-center text-sm font-semibold text-qupu-muted">
         Pilih profil anak dulu.
       </div>
     )
@@ -154,7 +154,7 @@ export default function BelajarPath() {
   }
 
   return (
-    <div className="relative w-full max-w-[460px] self-center pb-6">
+    <div className="relative w-full max-w-[28.75rem] self-center pb-6">
       <BelajarBackdrop />
       <div className="relative z-10">
       {/* Header row: title + quest chest. No grade chips, no resume hero. */}
@@ -170,11 +170,11 @@ export default function BelajarPath() {
               : 'Misi Hari Ini'
           }
           onClick={() => setQuestsOpen(true)}
-          className="relative flex h-11 w-11 items-center justify-center rounded-[14px] bg-white text-lg text-qupu-brand-orange shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          className="relative flex h-11 w-11 items-center justify-center rounded-[0.875rem] bg-white text-lg text-qupu-brand-orange shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
         >
           <i className="fa-solid fa-gift" aria-hidden="true" />
           {claimableCount > 0 && (
-            <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white ring-2 ring-white">
+            <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-500 px-1 text-[0.625rem] font-black text-white ring-2 ring-white">
               {claimableCount}
             </span>
           )}
@@ -188,7 +188,7 @@ export default function BelajarPath() {
           // bg-qupu-peach/40 (house skeleton tint) — the page itself is
           // qupu-cream, so a cream skeleton would be invisible.
           <div aria-hidden="true">
-            <div className="h-[60px] animate-pulse rounded-[1.5rem] bg-qupu-peach/40" />
+            <div className="h-[3.75rem] animate-pulse rounded-[1.5rem] bg-qupu-peach/40" />
             <div className="relative" style={{ height: 5 * 104 }}>
               {[0.5, 0.22, 0.5, 0.78, 0.5].map((x, i) => (
                 <div

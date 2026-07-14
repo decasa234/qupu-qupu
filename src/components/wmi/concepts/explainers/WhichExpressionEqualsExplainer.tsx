@@ -20,7 +20,7 @@ export default function WhichExpressionEqualsExplainer({ params, lang = 'en', st
       : 'Strategy: work out each option, then find the one that equals the target.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col gap-2">
         <div className="text-center font-display text-base font-extrabold text-qupu-brand-blue">
           Target: <span className="tabular-nums">{story.target}</span>

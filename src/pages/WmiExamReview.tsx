@@ -50,7 +50,7 @@ export default function WmiExamReview() {
 
   if (error) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6">
         <ErrorRetry
           message="Gagal memuat hasil. Periksa koneksimu."
           onRetry={() => setLoadTick((t) => t + 1)}
@@ -60,7 +60,7 @@ export default function WmiExamReview() {
   }
   if (!snapshot) {
     return (
-      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] space-y-3 p-6">
         <Skeleton className="h-28" />
         <Skeleton className="h-32" />
         <Skeleton className="h-32" />
@@ -73,11 +73,11 @@ export default function WmiExamReview() {
   const pct = total ? Math.round((score / total) * 100) : 0
 
   return (
-    <div className="w-full max-w-[460px] self-center pb-8">
+    <div className="w-full max-w-[28.75rem] self-center pb-8">
       <header className="relative mb-4 overflow-hidden rounded-[2rem] bg-qupu-brand-blue p-5 text-center text-white shadow-[0_6px_0_0_#0E1430]">
         <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-qupu-brand-yellow/25" />
         <div className="relative">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
+          <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
             Hasil Ujian
           </p>
           <div className="mt-1 font-display text-4xl font-black">

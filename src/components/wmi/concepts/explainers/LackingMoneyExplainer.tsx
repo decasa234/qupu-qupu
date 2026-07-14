@@ -32,8 +32,8 @@ export default function LackingMoneyExplainer(props: ExplainerProps) {
       : `${nameA} and ${p.nameB} together have exactly enough for a cake. Find how much ${nameA} has.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Price bar split proportionally into lackA (orange) and lackB (blue/green) */}
         {showBar && (
           <motion.div
@@ -62,7 +62,7 @@ export default function LackingMoneyExplainer(props: ExplainerProps) {
                 >
                   {lackA}
                 </span>
-                <span className="font-display text-[10px] font-bold text-white opacity-80 text-center leading-tight">
+                <span className="font-display text-[0.625rem] font-bold text-white opacity-80 text-center leading-tight">
                   {lang === 'id' ? `kurang ${nameA}` : `${nameA} short`}
                 </span>
               </motion.div>
@@ -78,7 +78,7 @@ export default function LackingMoneyExplainer(props: ExplainerProps) {
                 <span className="font-display text-lg font-extrabold leading-none text-white">
                   {lackB}
                 </span>
-                <span className="font-display text-[10px] font-bold text-white opacity-80 text-center leading-tight">
+                <span className="font-display text-[0.625rem] font-bold text-white opacity-80 text-center leading-tight">
                   {highlightLackB
                     ? lang === 'id'
                       ? `uang ${nameA}`

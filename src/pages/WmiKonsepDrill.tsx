@@ -179,7 +179,7 @@ export default function WmiKonsepDrill() {
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
         </div>
@@ -192,7 +192,7 @@ export default function WmiKonsepDrill() {
   if (done) {
     const correct = results.filter(Boolean).length
     return (
-      <div className="relative mx-auto w-full max-w-[460px] p-6">
+      <div className="relative mx-auto w-full max-w-[28.75rem] p-6">
         {correct >= 6 && <KonsepConfetti key={`summary-${round}`} />}
         <div className="rounded-[1.75rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-qupu-brand-yellow/30 text-3xl text-qupu-brand-orange ring-4 ring-qupu-brand-yellow/50">
@@ -238,7 +238,7 @@ export default function WmiKonsepDrill() {
 
   // ── Active round ───────────────────────────────────────────────────────────
   return (
-    <div className="relative mx-auto w-full max-w-[460px] pb-8">
+    <div className="relative mx-auto w-full max-w-[28.75rem] pb-8">
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${round}-${idx}`} />}
 
       <ConfirmModal

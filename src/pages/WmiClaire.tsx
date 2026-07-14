@@ -202,7 +202,7 @@ export default function WmiClaire() {
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
         </div>
@@ -216,7 +216,7 @@ export default function WmiClaire() {
   // ── Landing (start + history) ───────────────────────────────────────────────
   if (phase === 'landing' || phase === 'loading') {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-4 pb-10">
+      <div className="mx-auto w-full max-w-[28.75rem] p-4 pb-10">
         <div className="mb-3 flex items-center gap-3 px-1">
           <BackButton />
           <h1 className="font-display text-xl font-black text-qupu-brand-blue">WMI Claire</h1>
@@ -308,7 +308,7 @@ export default function WmiClaire() {
                         <span className="block font-display text-sm font-black text-qupu-brand-blue">
                           {r.score ?? 0} / {r.total} benar
                         </span>
-                        <span className="text-[11px] font-bold text-qupu-muted">
+                        <span className="text-[0.6875rem] font-bold text-qupu-muted">
                           {formatWhen(r.completed_at ?? r.created_at)}
                         </span>
                       </span>
@@ -354,7 +354,7 @@ export default function WmiClaire() {
     const good = perConcept.filter((p) => p.correct)
     const wrong = perConcept.filter((p) => !p.correct)
     return (
-      <div className="relative mx-auto w-full max-w-[460px] p-6">
+      <div className="relative mx-auto w-full max-w-[28.75rem] p-6">
         {finalScore >= 6 && <KonsepConfetti key={`summary-${roundId}`} />}
         <div className="rounded-[1.75rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-qupu-brand-yellow/30 text-3xl text-qupu-brand-orange ring-4 ring-qupu-brand-yellow/50">
@@ -376,7 +376,7 @@ export default function WmiClaire() {
                   {good.map((p, i) => (
                     <span
                       key={`g-${i}`}
-                      className="rounded-full bg-[#E8F5D6] px-2.5 py-1 text-[11px] font-bold text-[#2D6B00]"
+                      className="rounded-full bg-[#E8F5D6] px-2.5 py-1 text-[0.6875rem] font-bold text-[#2D6B00]"
                     >
                       {p.name}
                     </span>
@@ -393,7 +393,7 @@ export default function WmiClaire() {
                   {wrong.map((p, i) => (
                     <span
                       key={`w-${i}`}
-                      className="rounded-full bg-rose-50 px-2.5 py-1 text-[11px] font-bold text-rose-600"
+                      className="rounded-full bg-rose-50 px-2.5 py-1 text-[0.6875rem] font-bold text-rose-600"
                     >
                       {p.name}
                     </span>
@@ -428,7 +428,7 @@ export default function WmiClaire() {
   // ── Active round ───────────────────────────────────────────────────────────
   const question = questions[idx]
   return (
-    <div className="relative mx-auto w-full max-w-[460px] pb-8">
+    <div className="relative mx-auto w-full max-w-[28.75rem] pb-8">
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${roundId}-${idx}`} />}
 
       <ConfirmModal
@@ -593,20 +593,20 @@ function ReviewList({ review }: { review: WmiClaireRoundReview }) {
           >
             <div className="flex items-start gap-2">
               <span
-                className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] text-white ${
+                className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[0.625rem] text-white ${
                   wrong ? 'bg-rose-400' : 'bg-[#58A700]'
                 }`}
               >
                 <i className={`fa-solid ${wrong ? 'fa-xmark' : 'fa-check'}`} aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] font-black uppercase tracking-wide text-qupu-muted">
+                <p className="text-[0.625rem] font-black uppercase tracking-wide text-qupu-muted">
                   {it.concept_name_id}
                 </p>
                 <p className="mt-0.5 whitespace-pre-line text-xs font-semibold text-qupu-brand-blue">
                   {it.body_id}
                 </p>
-                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] font-bold">
+                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[0.6875rem] font-bold">
                   {wrong && <span className="text-rose-600">Jawab: {it.selected ?? '—'}</span>}
                   <span className="text-[#2D6B00]">Benar: {it.correct_answer}</span>
                 </div>

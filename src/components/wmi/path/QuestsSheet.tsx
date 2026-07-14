@@ -38,7 +38,7 @@ export default function QuestsSheet({ childId, open, onClose, onClaimableCount }
         aria-modal="true"
         aria-label="Misi Hari Ini"
         style={sheetStyle}
-        className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[75vh] w-full max-w-[460px] flex-col animate-rise rounded-t-[2rem] bg-qupu-cream shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
+        className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[75vh] w-full max-w-[28.75rem] flex-col animate-rise rounded-t-[2rem] bg-qupu-cream shadow-[0_-4px_24px_rgba(0,0,0,0.12)]"
       >
         {/* Grab zone: drag the handle strip down to dismiss. Kept OUT of the
             scroll area below so pointer capture works (the list keeps its own

@@ -23,8 +23,8 @@ export default function FindDigitSumExplainer(props: ExplainerProps) {
       : `Find the number whose digits add up to ${p.k}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-3">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-3">
         {/* Target chip */}
         <div
           className="flex items-center gap-1 rounded-xl border-[3px] bg-white px-3 py-1 font-display text-lg font-extrabold"

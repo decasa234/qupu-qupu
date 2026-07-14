@@ -102,7 +102,7 @@ export default function ChildrenManager() {
 
   return (
     <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-      <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+      <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         Profil Anak
       </div>
 
@@ -119,12 +119,12 @@ export default function ChildrenManager() {
               {activeChild.name}
             </h2>
             <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.14em] text-qupu-brand-orange">
+              <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange/10 px-2.5 py-0.5 text-[0.625rem] font-black uppercase tracking-[0.14em] text-qupu-brand-orange">
                 <i className="fa-solid fa-circle-check" aria-hidden="true" />
                 Aktif
               </span>
               {activeAgeGroupName && (
-                <span className="inline-flex items-center rounded-full bg-qupu-shell px-2.5 py-0.5 text-[10px] font-bold text-qupu-muted ring-1 ring-[#FFE3CC]">
+                <span className="inline-flex items-center rounded-full bg-qupu-shell px-2.5 py-0.5 text-[0.625rem] font-bold text-qupu-muted ring-1 ring-[#FFE3CC]">
                   {activeAgeGroupName}
                 </span>
               )}
@@ -168,7 +168,7 @@ export default function ChildrenManager() {
               {gradeError}
             </p>
           ) : (
-            <p className="mt-2 text-[11px] font-semibold text-qupu-muted">
+            <p className="mt-2 text-[0.6875rem] font-semibold text-qupu-muted">
               Kelas menentukan level taman belajar anak.
             </p>
           )}
@@ -190,7 +190,7 @@ export default function ChildrenManager() {
             >
               <i className={avatarIconClass(child.avatarIcon)} aria-hidden="true" />
             </span>
-            <span className="w-full truncate text-center text-[11px] font-bold text-qupu-brand-blue">
+            <span className="w-full truncate text-center text-[0.6875rem] font-bold text-qupu-brand-blue">
               {child.name}
             </span>
           </button>
@@ -204,14 +204,14 @@ export default function ChildrenManager() {
           <span className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-qupu-brand-orange/60 bg-qupu-shell text-lg text-qupu-brand-orange">
             <i className="fa-solid fa-plus" aria-hidden="true" />
           </span>
-          <span className="w-full text-center text-[11px] font-bold leading-tight text-qupu-brand-orange">
+          <span className="w-full text-center text-[0.6875rem] font-bold leading-tight text-qupu-brand-orange">
             Tambah Anak
           </span>
         </button>
       </div>
 
       {otherChildren.length > 0 && (
-        <p className="mt-1 text-[11px] font-semibold text-qupu-muted">
+        <p className="mt-1 text-[0.6875rem] font-semibold text-qupu-muted">
           Ketuk avatar untuk ganti anak yang aktif.
         </p>
       )}

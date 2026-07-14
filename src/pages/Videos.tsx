@@ -156,7 +156,7 @@ export default function VideosPage() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-qupu-brand-orange text-white shadow-sm">
                   <i className="fa-solid fa-trophy text-sm" aria-hidden="true" />
                 </span>
-                <div className="flex-1 min-w-[180px]">
+                <div className="flex-1 min-w-[11.25rem]">
                   <div className="font-display text-sm font-extrabold text-qupu-brand-blue">
                     Tonton + isi skor = badge anak
                   </div>
@@ -192,7 +192,7 @@ export default function VideosPage() {
                 alt=""
                 draggable={false}
                 aria-hidden="true"
-                className="h-auto w-full max-w-[440px] select-none drop-shadow-[0_14px_30px_rgba(120,60,0,0.22)] lg:scale-110 xl:scale-125"
+                className="h-auto w-full max-w-[27.5rem] select-none drop-shadow-[0_14px_30px_rgba(120,60,0,0.22)] lg:scale-110 xl:scale-125"
               />
             </div>
           </div>

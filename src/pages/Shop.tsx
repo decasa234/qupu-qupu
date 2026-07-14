@@ -129,7 +129,7 @@ export default function ShopPage() {
       <section className="sticky top-12 z-20 -mx-2 rounded-b-[2rem] bg-[#FFF8F0] px-4 pb-4 pt-4 shadow-[0_5px_0_0_rgba(196,97,35,0.28)]">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
+            <p className="text-[0.625rem] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
               Tukar koin
             </p>
             <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
@@ -142,7 +142,7 @@ export default function ShopPage() {
             </span>
             <Link
               to="/profil#koleksi"
-              className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-black text-white"
+              className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[0.6875rem] font-black text-white"
             >
               <i className="fa-solid fa-box-archive" aria-hidden="true" /> Inventaris
             </Link>
@@ -155,7 +155,7 @@ export default function ShopPage() {
                 key={k}
                 type="button"
                 onClick={() => setFilter(k)}
-                className={`whitespace-nowrap rounded-full px-3.5 py-2 font-display text-[10px] font-black uppercase tracking-[0.08em] transition-colors ${
+                className={`whitespace-nowrap rounded-full px-3.5 py-2 font-display text-[0.625rem] font-black uppercase tracking-[0.08em] transition-colors ${
                   filter === k
                     ? 'bg-qupu-brand-blue text-white shadow-[0_2px_0_0_#0E1430]'
                     : 'bg-white text-qupu-brand-blue/75 shadow-[0_1px_0_0_rgba(29,42,77,0.08)]'

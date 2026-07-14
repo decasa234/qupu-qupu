@@ -209,7 +209,7 @@ export default function WmiClaireMock() {
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
         </div>
@@ -223,7 +223,7 @@ export default function WmiClaireMock() {
   // ── Landing (round filter + start + history) ────────────────────────────────
   if (phase === 'landing' || phase === 'loading') {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-4 pb-10">
+      <div className="mx-auto w-full max-w-[28.75rem] p-4 pb-10">
         <div className="mb-3 flex items-center gap-3 px-1">
           <BackButton />
           <h1 className="font-display text-xl font-black text-qupu-brand-blue">Mock Exam</h1>
@@ -317,7 +317,7 @@ export default function WmiClaireMock() {
                         <span className="block font-display text-sm font-black text-qupu-brand-blue">
                           {r.score ?? 0} / {r.total} benar
                         </span>
-                        <span className="text-[11px] font-bold text-qupu-muted">
+                        <span className="text-[0.6875rem] font-bold text-qupu-muted">
                           {ROUND_LABEL[(r.round as WmiMockRound) ?? 'final'] ?? r.round} ·{' '}
                           {formatWhen(r.completed_at ?? r.created_at)}
                         </span>
@@ -362,7 +362,7 @@ export default function WmiClaireMock() {
     const correctB = partB.filter((it) => it.is_correct).length
     const passed = finalScore >= total * 0.6
     return (
-      <div className="relative mx-auto w-full max-w-[460px] p-4 pb-10">
+      <div className="relative mx-auto w-full max-w-[28.75rem] p-4 pb-10">
         {passed && <KonsepConfetti key={`summary-${examId}`} />}
         <div className="rounded-[1.75rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-qupu-brand-yellow/30 text-3xl text-qupu-brand-orange ring-4 ring-qupu-brand-yellow/50">
@@ -376,13 +376,13 @@ export default function WmiClaireMock() {
           {review && (
             <div className="mt-4 flex gap-2">
               <div className="flex-1 rounded-[1.25rem] bg-qupu-shell px-3 py-2.5">
-                <p className="text-[10px] font-black uppercase tracking-wide text-qupu-muted">Paper A</p>
+                <p className="text-[0.625rem] font-black uppercase tracking-wide text-qupu-muted">Paper A</p>
                 <p className="font-display text-lg font-black text-qupu-brand-blue">
                   {correctA} / {partA.length}
                 </p>
               </div>
               <div className="flex-1 rounded-[1.25rem] bg-qupu-shell px-3 py-2.5">
-                <p className="text-[10px] font-black uppercase tracking-wide text-qupu-muted">Paper B</p>
+                <p className="text-[0.625rem] font-black uppercase tracking-wide text-qupu-muted">Paper B</p>
                 <p className="font-display text-lg font-black text-qupu-brand-blue">
                   {correctB} / {partB.length}
                 </p>
@@ -431,7 +431,7 @@ export default function WmiClaireMock() {
   // ── Active exam ─────────────────────────────────────────────────────────────
   const question = questions[idx]
   return (
-    <div className="relative mx-auto w-full max-w-[460px] pb-8">
+    <div className="relative mx-auto w-full max-w-[28.75rem] pb-8">
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${examId}-${idx}`} />}
 
       <ConfirmModal
@@ -468,7 +468,7 @@ export default function WmiClaireMock() {
       {question && (
         <div className="mb-2 px-1">
           <span
-            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-black ${
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.6875rem] font-black ${
               question.part === 'A'
                 ? 'bg-qupu-brand-blue/10 text-qupu-brand-blue'
                 : 'bg-qupu-brand-orange/10 text-qupu-brand-orange'
@@ -586,20 +586,20 @@ function ReviewList({ review }: { review: WmiMockReview }) {
           >
             <div className="flex items-start gap-2">
               <span
-                className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] text-white ${
+                className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[0.625rem] text-white ${
                   wrong ? 'bg-rose-400' : 'bg-[#58A700]'
                 }`}
               >
                 <i className={`fa-solid ${wrong ? 'fa-xmark' : 'fa-check'}`} aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] font-black uppercase tracking-wide text-qupu-muted">
+                <p className="text-[0.625rem] font-black uppercase tracking-wide text-qupu-muted">
                   Paper {it.part} · Soal {it.number}
                 </p>
                 <p className="mt-0.5 whitespace-pre-line text-xs font-semibold text-qupu-brand-blue">
                   {it.body_id}
                 </p>
-                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] font-bold">
+                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[0.6875rem] font-bold">
                   {wrong && <span className="text-rose-600">Jawab: {it.selected ?? '—'}</span>}
                   <span className="text-[#2D6B00]">Benar: {it.correct_answer}</span>
                 </div>

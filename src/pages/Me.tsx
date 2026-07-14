@@ -40,7 +40,7 @@ export default function MePage() {
       <FamilyQuestCard />
 
       <section id="koleksi" className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-        <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Koleksi saya</div>
+        <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Koleksi saya</div>
         <h2 className="mt-1 font-display text-lg font-extrabold text-qupu-brand-blue">Item yang sudah dimiliki</h2>
         <div className="mt-3">
           {activeChildId ? (
@@ -86,7 +86,7 @@ function StatRow() {
           <span className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">
             {item.value}
           </span>
-          <span className="text-[10px] font-black uppercase tracking-[0.14em] text-qupu-muted">
+          <span className="text-[0.625rem] font-black uppercase tracking-[0.14em] text-qupu-muted">
             {item.label}
           </span>
         </div>
@@ -143,10 +143,10 @@ function BadgeShelf({ childId }: { childId: string | null }) {
         </span>
         <Link
           to="/badges"
-          className="inline-flex items-center gap-1.5 rounded-full bg-qupu-shell px-3 py-1.5 text-[11px] font-extrabold text-qupu-brand-orange ring-1 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          className="inline-flex items-center gap-1.5 rounded-full bg-qupu-shell px-3 py-1.5 text-[0.6875rem] font-extrabold text-qupu-brand-orange ring-1 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
         >
           Lihat semua
-          <i className="fa-solid fa-chevron-right text-[9px]" aria-hidden="true" />
+          <i className="fa-solid fa-chevron-right text-[0.5625rem]" aria-hidden="true" />
         </Link>
       </div>
       {unlocks.length > 0 ? (

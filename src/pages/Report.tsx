@@ -135,26 +135,26 @@ export default function ReportPage({ embedded = false }: { embedded?: boolean })
         />
         <RaporSummary summary={progress.summary} />
 
-        <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
+        <h3 className="mt-4 text-[0.625rem] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
           Penilaian per mata pelajaran
         </h3>
         <RaporSubjectTable stats={progress.subjectStats} />
 
-        <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
+        <h3 className="mt-4 text-[0.625rem] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
           Rincian video per subject
         </h3>
         <RaporVideoBreakdown stats={progress.subjectStats} />
 
         {latihan && latihan.totalConcepts > 0 && (
           <>
-            <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
+            <h3 className="mt-4 text-[0.625rem] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
               Latihan Konsep
             </h3>
             <RaporLatihan summary={latihan} />
           </>
         )}
 
-        <h3 className="mt-4 text-[10px] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
+        <h3 className="mt-4 text-[0.625rem] font-extrabold uppercase tracking-[0.1em] text-qupu-brand-blue">
           Catatan QUPU
         </h3>
         <RaporNote

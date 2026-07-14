@@ -61,7 +61,7 @@ export default function CombinationProductSumExplainer(props: ExplainerProps) {
       : 'Strategy: list pairs with the same sum, then check their products.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <div className="flex gap-3 font-display text-base font-black tabular-nums">
           <div className="rounded-xl bg-blue-50 px-4 py-2" style={{ color: BLUE }}>

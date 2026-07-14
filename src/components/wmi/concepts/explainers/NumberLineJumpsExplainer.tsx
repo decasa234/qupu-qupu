@@ -60,8 +60,8 @@ export default function NumberLineJumpsExplainer(props: ExplainerProps) {
       : `Number line: frog starts at ${start}, makes ${jumps} jumps of ${step}, lands on ${landing}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[200px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[12.5rem] flex-col items-center justify-center gap-4">
         {/* Number line SVG */}
         <svg
           viewBox={`0 0 ${SVG_W} ${SVG_H}`}

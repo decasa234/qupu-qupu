@@ -175,7 +175,7 @@ export default function WmiAuthoredBreakdown({
               style={pulseHint && !isSel ? { animationDelay: `${0.4 + s.hi * 0.45}s` } : undefined}
               className={`cursor-pointer rounded-md px-1.5 font-extrabold ${
                 isSel ? `ring-2 ring-offset-1 ${cat.ring}` : ''
-              }${pulseHint ? ' inline-block underline decoration-dashed decoration-2 underline-offset-[3px]' : ''}${pulseHint && !isSel ? ' motion-safe:animate-tapPop' : ''}`}
+              }${pulseHint ? ' inline-block underline decoration-dashed decoration-2 underline-offset-[0.1875rem]' : ''}${pulseHint && !isSel ? ' motion-safe:animate-tapPop' : ''}`}
             >
               {s.text}
             </motion.span>

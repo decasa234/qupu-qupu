@@ -152,14 +152,14 @@ export default function IssuesPanel({
             const chip = STATUS_CHIP[i.status]
             return (
               <li key={i.id} className="flex flex-wrap items-center gap-2 py-2 text-sm">
-                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[10px] font-bold text-white">
+                <span className="rounded bg-admin-ink px-1.5 py-0.5 font-mono text-[0.625rem] font-bold text-white">
                   {i.part}
                 </span>
                 <span className={`h-2 w-2 rounded-full ${SEV_DOT[i.severity]}`} title={i.severity} />
                 <span className="min-w-0 flex-1 truncate" title={i.detail}>
                   {i.title}
                 </span>
-                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${chip.cls}`}>{chip.label}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[0.625rem] font-bold ${chip.cls}`}>{chip.label}</span>
                 {i.status === 'open' && (
                   <button
                     type="button"

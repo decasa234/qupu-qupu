@@ -76,8 +76,8 @@ export default function CompareOrderExplainer(props: ExplainerProps) {
       : 'Strategy: order the numbers from largest to smallest.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[230px] flex-col items-center justify-center gap-5">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[14.375rem] flex-col items-center justify-center gap-5">
         <LayoutGroup>
           <div className="flex items-end justify-center gap-3">
             {display.map((value, i) => (

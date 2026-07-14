@@ -47,7 +47,7 @@ function NameCard({
       {/* Position badge (1st, 2nd, 3rd) */}
       <motion.div
         layout
-        className="flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-extrabold"
+        className="flex h-5 w-5 items-center justify-center rounded-full text-[0.6875rem] font-extrabold"
         style={{
           background: isAnswer ? GREEN : BLUE,
           color: '#fff',
@@ -68,7 +68,7 @@ function NameCard({
               : '0 0 0 0px transparent',
         }}
         transition={SPRING}
-        className="flex h-10 min-w-[58px] items-center justify-center rounded-xl border-2 px-2 font-display text-sm font-extrabold"
+        className="flex h-10 min-w-[3.625rem] items-center justify-center rounded-xl border-2 px-2 font-display text-sm font-extrabold"
         style={{
           borderColor,
           background: bgColor,
@@ -102,13 +102,13 @@ function PlaceholderCard({ position }: { position: number }) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div
-        className="flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-extrabold"
+        className="flex h-5 w-5 items-center justify-center rounded-full text-[0.6875rem] font-extrabold"
         style={{ background: MUTED_BORDER, color: '#fff' }}
       >
         {position}
       </div>
       <div
-        className="flex h-10 min-w-[58px] items-center justify-center rounded-xl border-2 border-dashed px-2 font-display text-sm font-extrabold"
+        className="flex h-10 min-w-[3.625rem] items-center justify-center rounded-xl border-2 border-dashed px-2 font-display text-sm font-extrabold"
         style={{
           borderColor: MUTED_BORDER,
           background: MUTED_BG,
@@ -148,10 +148,10 @@ export default function TruthOrderCluesExplainer(props: ExplainerProps) {
       : `Strategy: chain the clues to build the order. ${story.answer} is first.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-4">
         {/* Card row */}
-        <div className="flex min-h-[88px] items-center justify-center">
+        <div className="flex min-h-[5.5rem] items-center justify-center">
           <LayoutGroup>
             <div className="flex items-center gap-2">
               {Array.from({ length: totalSlots }).map((_, slotIdx) => {

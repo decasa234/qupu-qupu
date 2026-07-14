@@ -120,7 +120,7 @@ export default function DailyQuestsPanel({ childId, variant = 'garden', onClaima
         <h2 className="min-w-0 flex-1 truncate font-display text-base font-black text-qupu-brand-blue">
           {allDone ? 'Semua misi selesai!' : 'Misi Hari Ini'}
         </h2>
-        <span className="flex-shrink-0 rounded-full bg-qupu-cream px-2.5 py-1 text-[11px] font-black text-qupu-brand-blue">
+        <span className="flex-shrink-0 rounded-full bg-qupu-cream px-2.5 py-1 text-[0.6875rem] font-black text-qupu-brand-blue">
           {doneCount}/{quests.length}
         </span>
       </div>
@@ -133,7 +133,7 @@ export default function DailyQuestsPanel({ childId, variant = 'garden', onClaima
               <span
                 className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
                   quest.completed
-                    ? 'bg-[#58A700] text-[9px] text-white'
+                    ? 'bg-[#58A700] text-[0.5625rem] text-white'
                     : 'ring-2 ring-inset ring-[#FFE3CC]'
                 }`}
               >
@@ -151,7 +151,7 @@ export default function DailyQuestsPanel({ childId, variant = 'garden', onClaima
                         type="button"
                         onClick={() => void handleClaim(quest)}
                         disabled={claimingId !== null}
-                        className={`inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-3 py-1 text-[10px] font-extrabold text-white shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60 ${
+                        className={`inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-3 py-1 text-[0.625rem] font-extrabold text-white shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60 ${
                           claimingId === null ? 'animate-bounce' : ''
                         }`}
                       >
@@ -161,13 +161,13 @@ export default function DailyQuestsPanel({ childId, variant = 'garden', onClaima
                     ) : (
                       <>
                         {quest.rewardXp > 0 && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                             <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
                             +{quest.rewardXp} XP
                           </span>
                         )}
                         {quest.rewardCoins > 0 && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                             <i className="fa-solid fa-coins" aria-hidden="true" />
                             +{quest.rewardCoins}
                           </span>

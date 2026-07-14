@@ -66,8 +66,8 @@ export default function DigitSumExplainer(props: ExplainerProps) {
 
   return (
     <LayoutGroup>
-      <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-        <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+      <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+        <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
           {/* the whole number */}
           {beat.showNumber && (
             <motion.div

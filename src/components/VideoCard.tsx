@@ -19,12 +19,12 @@ export default function VideoCard({ video }: VideoCardProps) {
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
           <div
-            className="absolute left-3 top-3 rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-white shadow-sm"
+            className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.625rem] font-extrabold uppercase tracking-[0.16em] text-white shadow-sm"
             style={{ backgroundColor: video.subject.colorHex }}
           >
             {video.subject.name}
           </div>
-          <div className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-qupu-brand-blue shadow-sm">
+          <div className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[0.625rem] font-bold uppercase tracking-[0.16em] text-qupu-brand-blue shadow-sm">
             {video.ageGroup.name}
           </div>
           <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -45,7 +45,7 @@ export default function VideoCard({ video }: VideoCardProps) {
           </p>
         )}
 
-        <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-qupu-muted">
+        <div className="flex flex-wrap items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-qupu-muted">
           <span>{video.numberOfQuestions} soal</span>
           <span className="text-qupu-muted/50">•</span>
           <span>{video.difficulty}</span>
@@ -55,7 +55,7 @@ export default function VideoCard({ video }: VideoCardProps) {
           <div className="flex items-center gap-2">
             <BadgeCurve color={video.subject.colorHex} size={28} />
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">Badge</div>
+              <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-qupu-muted">Badge</div>
               <div className="text-sm font-bold text-qupu-brand-blue">{video.subject.name}</div>
             </div>
           </div>

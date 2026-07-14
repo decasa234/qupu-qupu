@@ -22,7 +22,7 @@ export default function DashboardHighlights({ vm }: Props) {
   return (
     <section className="space-y-4">
       <div className="px-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+        <p className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
           Progresmu
         </p>
         <h2 className="font-display text-xl font-black leading-none text-qupu-brand-blue">
@@ -55,18 +55,18 @@ function DailyGoalCard({ vm }: Props) {
           '--goal-deg': `${pct * 3.6}deg`,
         }}
       >
-        <div className="flex h-[58px] w-[58px] flex-col items-center justify-center rounded-full bg-white">
+        <div className="flex h-[3.625rem] w-[3.625rem] flex-col items-center justify-center rounded-full bg-white">
           <span className="font-display text-lg font-black leading-none text-qupu-brand-blue">
             {done}/{target}
           </span>
-          <span className="text-[8px] font-black uppercase tracking-[0.04em] text-qupu-muted">
+          <span className="text-[0.5rem] font-black uppercase tracking-[0.04em] text-qupu-muted">
             aktivitas
           </span>
         </div>
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+        <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
           Target hari ini
         </div>
         <h3 className="mt-0.5 font-display text-base font-black leading-tight text-qupu-brand-blue">
@@ -99,7 +99,7 @@ function StreakWeekCard({ vm }: Props) {
     <div className="rounded-[1.75rem] bg-qupu-brand-blue p-4 text-white shadow-[0_5px_0_0_#0E1430]">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-yellow">
+          <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-yellow">
             Minggu ini
           </div>
           <h3 className="mt-0.5 font-display text-base font-black leading-none">
@@ -119,16 +119,16 @@ function StreakWeekCard({ vm }: Props) {
           return (
             <div key={i} className="flex flex-1 flex-col items-center gap-1">
               <div
-                className={`flex aspect-square w-full max-w-[34px] items-center justify-center rounded-[0.7rem] ${
+                className={`flex aspect-square w-full max-w-[2.125rem] items-center justify-center rounded-[0.7rem] ${
                   isToday ? 'ring-2 ring-qupu-brand-yellow ring-offset-1 ring-offset-qupu-brand-blue' : ''
                 }`}
                 style={{ backgroundColor: active ? RAMP[intensity] : 'rgba(255,255,255,0.12)' }}
               >
                 {active && (
-                  <i className="fa-solid fa-fire text-[11px] text-white/90" aria-hidden="true" />
+                  <i className="fa-solid fa-fire text-[0.6875rem] text-white/90" aria-hidden="true" />
                 )}
               </div>
-              <span className="text-[9px] font-black text-white/55">{DAY_LETTERS[i]}</span>
+              <span className="text-[0.5625rem] font-black text-white/55">{DAY_LETTERS[i]}</span>
             </div>
           )
         })}
@@ -150,16 +150,16 @@ function RecentBadgesCard({ vm }: Props) {
     >
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+          <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
             Badge terbaru
           </div>
           <h3 className="mt-0.5 font-display text-base font-black leading-none text-qupu-brand-blue">
             {earned.length} badge terkumpul
           </h3>
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 text-[10px] font-black text-white">
+        <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 text-[0.625rem] font-black text-white">
           Semua
-          <i className="fa-solid fa-arrow-right text-[9px]" aria-hidden="true" />
+          <i className="fa-solid fa-arrow-right text-[0.5625rem]" aria-hidden="true" />
         </span>
       </div>
 

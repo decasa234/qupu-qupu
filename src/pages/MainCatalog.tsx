@@ -18,9 +18,9 @@ export default function MainCatalog() {
   const setLearnMode = useWmiStore((s) => s.setLearnMode)
 
   return (
-    <div className="flex w-full max-w-[460px] flex-1 flex-col self-center pb-6">
+    <div className="flex w-full max-w-[28.75rem] flex-1 flex-col self-center pb-6">
       <header className="px-1 pt-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
+        <p className="text-[0.625rem] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
           Ayo main
         </p>
         <h1 className="mt-0.5 font-display text-2xl font-black text-qupu-brand-blue">

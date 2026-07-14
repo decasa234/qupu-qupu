@@ -59,7 +59,7 @@ export default function AdminLayout() {
         {NAV.map((entry) =>
           'group' in entry ? (
             <div key={entry.group} className="mt-2">
-              <div className="px-3 pb-1 pt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-admin-faint">
+              <div className="px-3 pb-1 pt-1 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-admin-faint">
                 {entry.group}
               </div>
               <div className="grid gap-0.5">{entry.children.map(leaf)}</div>
@@ -77,7 +77,7 @@ export default function AdminLayout() {
       <div className="border-t border-admin-line pt-3">
         {user?.email && (
           <div className="px-2 pb-2">
-            <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-admin-faint">
+            <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-admin-faint">
               Masuk sebagai
             </div>
             <div className="truncate text-xs font-semibold text-admin-ink" title={user.email}>
@@ -103,7 +103,7 @@ export default function AdminLayout() {
   function wordmark() {
     return (
       <div>
-        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
+        <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
           QUPU Admin
         </div>
         <div className="font-display text-base font-extrabold text-qupu-brand-blue">Control Panel</div>

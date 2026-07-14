@@ -159,7 +159,7 @@ export default function PostQuizRewardSummary({
                 <i className="fa-solid fa-star" />
               </span>
               <div className="min-w-0">
-                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <div className="text-[0.625rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                   Naik level
                 </div>
                 <div className="font-display text-lg font-extrabold text-qupu-brand-blue">
@@ -176,7 +176,7 @@ export default function PostQuizRewardSummary({
         {/* Section 3 — Achievements unlocked */}
         {gam && gam.unlockedAchievements.length > 0 && (
           <section className="mt-4 space-y-2">
-            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+            <div className="text-[0.625rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
               Pencapaian baru
             </div>
             <div className="space-y-2">
@@ -194,7 +194,7 @@ export default function PostQuizRewardSummary({
                     </div>
                   </div>
                   {a.xpAwarded > 0 && (
-                    <span className="whitespace-nowrap rounded-full bg-qupu-brand-blue px-2.5 py-1 font-display text-[11px] font-extrabold text-white">
+                    <span className="whitespace-nowrap rounded-full bg-qupu-brand-blue px-2.5 py-1 font-display text-[0.6875rem] font-extrabold text-white">
                       +{a.xpAwarded} XP
                     </span>
                   )}
@@ -209,10 +209,10 @@ export default function PostQuizRewardSummary({
             Misi Hari Ini panel — they are NOT in the XP total below. */}
         {gam && gam.completedQuests.length > 0 && (
           <section className="mt-4 space-y-2">
-            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+            <div className="text-[0.625rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
               Misi selesai
             </div>
-            <p className="text-[11px] font-semibold text-qupu-muted">
+            <p className="text-[0.6875rem] font-semibold text-qupu-muted">
               Klaim hadiahnya di panel Misi Hari Ini!
             </p>
             <div className="space-y-2">
@@ -228,12 +228,12 @@ export default function PostQuizRewardSummary({
                     {q.title}
                   </div>
                   {q.rewardXp > 0 && (
-                    <span className="whitespace-nowrap rounded-full bg-emerald-600 px-2.5 py-0.5 font-display text-[11px] font-extrabold text-white">
+                    <span className="whitespace-nowrap rounded-full bg-emerald-600 px-2.5 py-0.5 font-display text-[0.6875rem] font-extrabold text-white">
                       +{q.rewardXp} XP
                     </span>
                   )}
                   {q.rewardCoins > 0 && (
-                    <span className="whitespace-nowrap rounded-full bg-amber-500 px-2.5 py-0.5 font-display text-[11px] font-extrabold text-white">
+                    <span className="whitespace-nowrap rounded-full bg-amber-500 px-2.5 py-0.5 font-display text-[0.6875rem] font-extrabold text-white">
                       <i className="fa-solid fa-coins" aria-hidden="true" /> +{q.rewardCoins}
                     </span>
                   )}
@@ -248,39 +248,39 @@ export default function PostQuizRewardSummary({
           <section className="mt-4 grid grid-cols-2 gap-3">
             {gam.xpEarned > 0 && (
               <div className="rounded-[1.25rem] bg-qupu-brand-blue px-4 py-3 text-white">
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
                   XP didapat
                 </div>
                 <div className="mt-0.5 font-display text-2xl font-extrabold">
                   +{gam.xpEarned}
                 </div>
-                <div className="text-[10px] font-semibold text-white/80">
+                <div className="text-[0.625rem] font-semibold text-white/80">
                   Total {gam.totalXp} XP
                 </div>
               </div>
             )}
             {gam.coinsEarned > 0 && (
               <div className="rounded-[1.25rem] bg-amber-500 px-4 py-3 text-white">
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
                   Koin didapat
                 </div>
                 <div className="mt-0.5 font-display text-2xl font-extrabold">
                   <i className="fa-solid fa-coins" aria-hidden="true" /> +{gam.coinsEarned}
                 </div>
-                <div className="text-[10px] font-semibold text-white/80">
+                <div className="text-[0.625rem] font-semibold text-white/80">
                   Total {gam.coinBalance} koin
                 </div>
               </div>
             )}
             {gam.streak.current > 0 && (
               <div className="rounded-[1.25rem] bg-rose-500 px-4 py-3 text-white">
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
                   Streak
                 </div>
                 <div className="mt-0.5 font-display text-2xl font-extrabold">
                   <i className="fa-solid fa-fire" aria-hidden="true" /> {gam.streak.current}
                 </div>
-                <div className="text-[10px] font-semibold text-white/80">
+                <div className="text-[0.625rem] font-semibold text-white/80">
                   Hari berturut-turut
                 </div>
               </div>

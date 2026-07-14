@@ -42,7 +42,7 @@ export default function HomeActionCards({
     <section className="space-y-4">
       <div className="flex items-end justify-between px-1">
         <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+          <p className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
             Aksi Hari Ini
           </p>
           <h2 className="font-display text-xl font-black leading-none text-qupu-brand-blue">
@@ -78,8 +78,8 @@ export default function HomeActionCards({
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
-            <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[0.625rem] font-black text-qupu-brand-blue">
+            <i className="fa-solid fa-bolt text-[0.5625rem]" aria-hidden="true" />
             XP tiap jawaban benar
           </span>
           <span className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-4 py-2 text-sm font-black text-white shadow-[0_3px_0_0_#B8541A]">
@@ -110,12 +110,12 @@ export default function HomeActionCards({
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-qupu-brand-blue via-qupu-brand-blue/10 to-transparent" />
             <div className="absolute left-3 top-3 flex items-center gap-1.5">
-              <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-white shadow-[0_2px_0_0_#B8541A]">
-                <i className="fa-solid fa-wand-magic-sparkles text-[8px]" aria-hidden="true" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-2.5 py-1 text-[0.5625rem] font-black uppercase tracking-[0.12em] text-white shadow-[0_2px_0_0_#B8541A]">
+                <i className="fa-solid fa-wand-magic-sparkles text-[0.5rem]" aria-hidden="true" />
                 Rekomendasi
               </span>
               <span
-                className="rounded-full px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.1em] text-white shadow-sm"
+                className="rounded-full px-2.5 py-1 text-[0.5625rem] font-black uppercase tracking-[0.1em] text-white shadow-sm"
                 style={{ backgroundColor: recommended.subjectColorHex }}
               >
                 {recommended.subjectName}
@@ -132,12 +132,12 @@ export default function HomeActionCards({
             </h3>
             <div className="mt-3 flex items-center justify-between gap-3">
               <div className="flex items-center gap-1.5">
-                <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
-                  <i className="fa-solid fa-bolt text-[9px]" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[0.625rem] font-black text-qupu-brand-blue">
+                  <i className="fa-solid fa-bolt text-[0.5625rem]" aria-hidden="true" />
                   +25 XP
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-black text-white">
-                  <i className="fa-solid fa-award text-[9px]" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[0.625rem] font-black text-white">
+                  <i className="fa-solid fa-award text-[0.5625rem]" aria-hidden="true" />
                   Badge
                 </span>
               </div>
@@ -191,16 +191,16 @@ export default function HomeActionCards({
           <h3 className="mt-3 font-display text-base font-black leading-none text-qupu-brand-blue">
             Hadiah Login
           </h3>
-          <p className="mt-1 text-[11px] font-semibold leading-tight text-qupu-brand-blue/65">
+          <p className="mt-1 text-[0.6875rem] font-semibold leading-tight text-qupu-brand-blue/65">
             {loginBonusClaimed ? 'Sudah diambil. Sampai jumpa besok!' : 'Ambil koin harianmu.'}
           </p>
           {loginBonusClaimed ? (
-            <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#58A700] px-2.5 py-1 text-[10px] font-black text-white">
+            <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#58A700] px-2.5 py-1 text-[0.625rem] font-black text-white">
               <i className="fa-solid fa-check" aria-hidden="true" />
               Diambil
             </span>
           ) : (
-            <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-2.5 py-1 text-[10px] font-black text-white">
+            <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-qupu-brand-orange px-2.5 py-1 text-[0.625rem] font-black text-white">
               {loginBonusClaiming ? (
                 <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />
               ) : (
@@ -241,23 +241,23 @@ export default function HomeActionCards({
             )}
           </span>
           {streakShields > 0 && (
-            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-black text-qupu-brand-yellow">
-              <i className="fa-solid fa-shield-halved text-[9px]" aria-hidden="true" />
+            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[0.625rem] font-black text-qupu-brand-yellow">
+              <i className="fa-solid fa-shield-halved text-[0.5625rem]" aria-hidden="true" />
               x{streakShields}
             </span>
           )}
           <h3 className="mt-3 font-display text-base font-black leading-none">
             {streak} Hari Streak
           </h3>
-          <p className="mt-1 text-[11px] font-semibold leading-tight text-white/70">
+          <p className="mt-1 text-[0.6875rem] font-semibold leading-tight text-white/70">
             {streakShields > 0
               ? `Aman! ${streakShields} pelindung siap jaga streak-mu.`
               : streak > 0
                 ? 'Jaga apinya tetap menyala!'
                 : 'Mulai streak pertamamu!'}
           </p>
-          <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-qupu-brand-blue">
-            <i className="fa-solid fa-hand-pointer text-[9px]" aria-hidden="true" />
+          <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[0.625rem] font-black text-qupu-brand-blue">
+            <i className="fa-solid fa-hand-pointer text-[0.5625rem]" aria-hidden="true" />
             Ketuk aku!
           </span>
         </button>

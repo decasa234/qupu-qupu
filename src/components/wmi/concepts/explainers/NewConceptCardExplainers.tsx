@@ -48,7 +48,7 @@ export function MissingAddendExplainer(props: ExplainerProps) {
 
   return (
     <div
-      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-6"
+      className="mx-auto flex w-full max-w-[27.5rem] flex-col items-center gap-6"
       role="img"
       aria-label={T(
         `Solve ? + ${b} = ${sum}: switch +${b} across the = sign where it becomes −${b}, so ? = ${a}.`,
@@ -164,7 +164,7 @@ export function ArrangeDigitsExplainer(props: ExplainerProps) {
 
   return (
     <div
-      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-5"
+      className="mx-auto flex w-full max-w-[27.5rem] flex-col items-center gap-5"
       role="img"
       aria-label={T(
         `Make every 2-digit number from ${digits.join(', ')}, sort them, and take the number at rank ${rank}: ${answer}.`,
@@ -204,7 +204,7 @@ export function ArrangeDigitsExplainer(props: ExplainerProps) {
               >
                 {num}
                 {inCount && (
-                  <span className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-slate-900 text-[10px] font-black text-white">
+                  <span className="absolute -left-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-slate-900 text-[0.625rem] font-black text-white">
                     {sortedIdx + 1}
                   </span>
                 )}
@@ -313,7 +313,7 @@ export function EquivalentFractionFillExplainer(props: ExplainerProps) {
 
   return (
     <div
-      className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4"
+      className="mx-auto flex w-full max-w-[27.5rem] flex-col items-center gap-4"
       role="img"
       aria-label={T(
         `Equivalent fraction: ${den} × ${m} = ${newDen}, so multiply the top by ${m} too: ${num} × ${m} = ${answer}, giving ${num}/${den} = ${answer}/${newDen}.`,

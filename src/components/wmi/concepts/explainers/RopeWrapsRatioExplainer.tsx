@@ -69,7 +69,7 @@ function Divider({ label }: { label: string }) {
   return (
     <div className="flex w-full items-center gap-2 py-0.5">
       <div className="h-px flex-1 bg-slate-200" />
-      <span className="font-display text-[10px] font-extrabold uppercase tracking-wider text-slate-400">{label}</span>
+      <span className="font-display text-[0.625rem] font-extrabold uppercase tracking-wider text-slate-400">{label}</span>
       <div className="h-px flex-1 bg-slate-200" />
     </div>
   )
@@ -106,7 +106,7 @@ export default function RopeWrapsRatioExplainer(props: ExplainerProps) {
   const rope2Label = T('Rope 2', 'Tali 2')
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
 
         {/* Proportion bars panel */}

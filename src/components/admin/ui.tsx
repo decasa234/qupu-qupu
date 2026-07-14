@@ -158,12 +158,12 @@ export function Field({
 }) {
   return (
     <label className={`grid min-w-0 gap-1 ${className}`}>
-      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-admin-muted">
+      <span className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-admin-muted">
         {label}
         {required && <span className="text-red-500"> *</span>}
       </span>
       {children}
-      {hint && <span className="text-[11px] text-admin-faint">{hint}</span>}
+      {hint && <span className="text-[0.6875rem] text-admin-faint">{hint}</span>}
     </label>
   )
 }
@@ -233,7 +233,7 @@ export function Tag({
   if (color) {
     return (
       <span
-        className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white ${className}`}
+        className={`inline-flex items-center rounded px-1.5 py-0.5 text-[0.625rem] font-bold uppercase tracking-wide text-white ${className}`}
         style={{ backgroundColor: color }}
       >
         {children}
@@ -242,7 +242,7 @@ export function Tag({
   }
   return (
     <span
-      className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${TAG_TONES[tone]} ${className}`}
+      className={`inline-flex items-center rounded px-1.5 py-0.5 text-[0.625rem] font-bold uppercase tracking-wide ${TAG_TONES[tone]} ${className}`}
     >
       {children}
     </span>
@@ -272,13 +272,13 @@ export function StatCard({
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-qupu-brand-blue/10 text-qupu-brand-blue">
           <i className={`${icon} text-sm`} aria-hidden="true" />
         </span>
-        <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-admin-muted">{label}</div>
+        <div className="text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-admin-muted">{label}</div>
       </div>
       <div className="mt-3 font-display text-2xl font-extrabold text-qupu-brand-blue">
         {value}
         {suffix && <span className="text-lg text-admin-muted">{suffix}</span>}
       </div>
-      {hint && <div className="mt-0.5 text-[11px] text-admin-faint">{hint}</div>}
+      {hint && <div className="mt-0.5 text-[0.6875rem] text-admin-faint">{hint}</div>}
     </Panel>
   )
 }

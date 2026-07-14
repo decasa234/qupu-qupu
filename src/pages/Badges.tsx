@@ -121,7 +121,7 @@ export default function BadgesPage() {
 
           <div className="relative grid gap-6">
             <div>
-              <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange">
+              <div className="flex items-center gap-2 text-[0.6875rem] font-extrabold uppercase tracking-[0.22em] text-qupu-brand-orange">
                 <i className="fa-solid fa-trophy" aria-hidden="true" />
                 Ruang Trofi
               </div>

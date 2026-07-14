@@ -170,13 +170,13 @@ export default function DashboardPage({ embedded = false }: { embedded?: boolean
   }
 
   return (
-    <div className="w-full max-w-[390px] self-center pb-6">
+    <div className="w-full max-w-[24.375rem] self-center pb-6">
       <section className="relative overflow-hidden rounded-[2.25rem] bg-qupu-brand-orange p-4 text-white shadow-[0_7px_0_0_#C46123]">
         <div className="absolute -right-8 -top-10 h-32 w-32 rounded-full bg-qupu-brand-yellow/35" />
         <div className="absolute -bottom-14 -left-10 h-32 w-32 rounded-full bg-white/12" />
         <div className="relative flex items-start justify-between gap-4">
           <div className="min-w-0 pt-1">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/75">
+            <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-white/75">
               {vm.tierName}
             </p>
             <h1 className="mt-1 font-display text-[2rem] font-black leading-[0.95] tracking-tight">
@@ -199,14 +199,14 @@ export default function DashboardPage({ embedded = false }: { embedded?: boolean
         <div className="relative mt-5 rounded-[1.5rem] bg-qupu-brand-blue p-3 shadow-[0_4px_0_0_#0E1430]">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="text-[10px] font-black uppercase tracking-[0.16em] text-qupu-brand-yellow">
+              <div className="text-[0.625rem] font-black uppercase tracking-[0.16em] text-qupu-brand-yellow">
                 Level {vm.level}
               </div>
               <div className="mt-1 text-xs font-bold text-white/80">
                 {atMaxLevel ? `${vm.xp} XP · level maks` : `${vm.xp} / ${levelSpan} XP`}
               </div>
             </div>
-            <div className="rounded-full bg-white px-3 py-1 text-[11px] font-black text-qupu-brand-blue">
+            <div className="rounded-full bg-white px-3 py-1 text-[0.6875rem] font-black text-qupu-brand-blue">
               {atMaxLevel ? 'MAKS' : `${xpPercent}%`}
             </div>
           </div>

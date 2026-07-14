@@ -48,7 +48,7 @@ export default function FamilyQuestCard() {
         <h2 className="min-w-0 flex-1 truncate font-display text-base font-black text-qupu-brand-blue">
           Misi Keluarga
         </h2>
-        <span className="flex-shrink-0 rounded-full bg-qupu-cream px-2.5 py-1 text-[11px] font-black text-qupu-brand-blue">
+        <span className="flex-shrink-0 rounded-full bg-qupu-cream px-2.5 py-1 text-[0.6875rem] font-black text-qupu-brand-blue">
           {Math.min(quest.progressXp, quest.targetXp)}/{quest.targetXp} XP
         </span>
       </div>
@@ -65,12 +65,12 @@ export default function FamilyQuestCard() {
       </div>
 
       {quest.completed ? (
-        <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-extrabold text-[#58A700]">
+        <p className="mt-2 inline-flex items-center gap-1.5 text-[0.6875rem] font-extrabold text-[#58A700]">
           <i className="fa-solid fa-circle-check" aria-hidden="true" />
           Selesai! Hadiah sudah masuk.
         </p>
       ) : (
-        <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-bold text-qupu-muted">
+        <p className="mt-2 inline-flex items-center gap-1.5 text-[0.6875rem] font-bold text-qupu-muted">
           <i className="fa-solid fa-coins text-amber-500" aria-hidden="true" />
           +{quest.rewardCoinsPerChild} koin untuk semua
         </p>

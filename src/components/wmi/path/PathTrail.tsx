@@ -106,7 +106,7 @@ export default function PathTrail({
               }`}
             >
               <span
-                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[12px] text-[15px] text-white"
+                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[0.75rem] text-[0.9375rem] text-white"
                 style={{ background: chapter.unlocked ? chapter.colorHex : '#C3CAD6' }}
               >
                 <i

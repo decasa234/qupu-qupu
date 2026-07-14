@@ -70,7 +70,7 @@ export function DataList<T>({
                 <th
                   key={c.key}
                   scope="col"
-                  className={`pb-2 pr-4 text-[11px] font-bold uppercase tracking-[0.14em] text-admin-muted ${
+                  className={`pb-2 pr-4 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-admin-muted ${
                     c.align === 'right' ? 'text-right' : ''
                   } ${c.hideBelow ? HIDE[c.hideBelow] : ''} ${c.thClassName ?? ''}`}
                 >
@@ -108,7 +108,7 @@ export function DataList<T>({
               <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-admin-muted">
                 {metas.map((c) => (
                   <span key={c.key} className="inline-flex items-center gap-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wide text-admin-faint">{c.header}</span>
+                    <span className="text-[0.625rem] font-bold uppercase tracking-wide text-admin-faint">{c.header}</span>
                     {c.cell(row)}
                   </span>
                 ))}

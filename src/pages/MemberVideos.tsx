@@ -156,14 +156,14 @@ export default function MemberVideosPage() {
           strip instead of colliding with it. Only the filter bar below pins. */}
       <div className="flex items-start justify-between gap-3 px-1 pt-1">
         <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
+          <p className="text-[0.625rem] font-black uppercase tracking-[0.22em] text-qupu-brand-orange">
             Tonton &amp; belajar
           </p>
           <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
             Video QUPU
           </h1>
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[11px] font-black text-white">
+        <span className="inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-3 py-1 font-display text-[0.6875rem] font-black text-white">
           <i className="fa-solid fa-clapperboard" aria-hidden="true" /> {videos.length}
         </span>
       </div>
@@ -213,10 +213,10 @@ export default function MemberVideosPage() {
                   : 'text-qupu-brand-blue/60 hover:text-qupu-brand-blue'
               }`}
             >
-              <i className={`${seg.icon} text-[11px]`} aria-hidden="true" />
+              <i className={`${seg.icon} text-[0.6875rem]`} aria-hidden="true" />
               <span>{seg.label}</span>
               <span
-                className={`rounded-full px-1.5 text-[10px] ${
+                className={`rounded-full px-1.5 text-[0.625rem] ${
                   segment === seg.key ? 'bg-white/20 text-white' : 'bg-white text-qupu-brand-blue/70'
                 }`}
               >
@@ -383,7 +383,7 @@ function MemberVideoCard({ video, watched }: { video: VideoCardType; watched: bo
           />
         )}
         <span
-          className="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-white shadow-sm"
+          className="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[0.5625rem] font-black uppercase tracking-[0.14em] text-white shadow-sm"
           style={{ backgroundColor: subjectColor }}
         >
           {subjectName}
@@ -398,8 +398,8 @@ function MemberVideoCard({ video, watched }: { video: VideoCardType; watched: bo
           </span>
         )}
         {watched && (
-          <span className="absolute left-3 bottom-3 inline-flex items-center gap-1 rounded-full bg-[#58A700] px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.12em] text-white">
-            <i className="fa-solid fa-check text-[8px]" aria-hidden="true" /> Sudah
+          <span className="absolute left-3 bottom-3 inline-flex items-center gap-1 rounded-full bg-[#58A700] px-2 py-0.5 text-[0.5625rem] font-black uppercase tracking-[0.12em] text-white">
+            <i className="fa-solid fa-check text-[0.5rem]" aria-hidden="true" /> Sudah
           </span>
         )}
       </div>
@@ -407,7 +407,7 @@ function MemberVideoCard({ video, watched }: { video: VideoCardType; watched: bo
         <h3 className="line-clamp-2 font-display text-base font-black leading-tight text-qupu-brand-blue">
           {video.title}
         </h3>
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] font-black uppercase tracking-[0.1em] text-qupu-muted">
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[0.6875rem] font-black uppercase tracking-[0.1em] text-qupu-muted">
           {video.numberOfQuestions != null && (
             <span className="inline-flex items-center gap-1">
               <i className="fa-solid fa-circle-question text-qupu-brand-orange" aria-hidden="true" />

@@ -48,14 +48,14 @@ export default function WmiPaperDetail() {
   }
   if (error) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6">
         <ErrorRetry message={error} onRetry={loadPaper} />
       </div>
     )
   }
   if (!paper) {
     return (
-      <div className="mx-auto w-full max-w-[460px] space-y-3 p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] space-y-3 p-6">
         <Skeleton className="h-8 w-32" />
         <Skeleton className="h-48" />
       </div>
@@ -65,7 +65,7 @@ export default function WmiPaperDetail() {
   const openSession = paper.openSession ?? null
 
   return (
-    <div className="w-full max-w-[460px] self-center pb-6">
+    <div className="w-full max-w-[28.75rem] self-center pb-6">
       <div className="mb-3">
         {/* Always go to the paper list, never navigate(-1): after exiting an
             exam, history-back would land inside the live exam again. */}

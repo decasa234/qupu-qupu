@@ -11,7 +11,7 @@ const BLUE = '#30598A'
 const ORANGE = '#F97316'
 const GREEN = '#10B981'
 
-// Tape width in px — fits inside LogicFrame's max-w-[440px] container
+// Tape width in px — fits inside LogicFrame's max-w-[27.5rem] container
 const TAPE_W = 400
 const TAPE_H = 56
 

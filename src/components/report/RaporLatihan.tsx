@@ -26,7 +26,7 @@ export default function RaporLatihan({ summary }: { summary: WmiConceptProgressS
       </div>
 
       <div className="mt-3">
-        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.1em] text-qupu-muted">
+        <div className="flex items-center justify-between text-[0.625rem] font-bold uppercase tracking-[0.1em] text-qupu-muted">
           <span>Penguasaan konsep</span>
           <span>{overallPct}%</span>
         </div>
@@ -46,11 +46,11 @@ export default function RaporLatihan({ summary }: { summary: WmiConceptProgressS
               <span className="min-w-0 flex-1 truncate text-xs font-semibold text-qupu-brand-blue">
                 {concept.nameId}
               </span>
-              <span className="text-[10px] font-bold text-qupu-muted">
+              <span className="text-[0.625rem] font-bold text-qupu-muted">
                 {concept.correct}/{summary.masteryTarget}
               </span>
               <span
-                className="flex-shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-black uppercase tracking-[0.06em]"
+                className="flex-shrink-0 rounded-full px-1.5 py-0.5 text-[0.5625rem] font-black uppercase tracking-[0.06em]"
                 style={{ color: meta.color, backgroundColor: meta.bg }}
               >
                 {meta.label}
@@ -67,7 +67,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-qupu-shell px-2.5 py-2 text-center">
       <div className="font-display text-lg font-black leading-none text-qupu-brand-blue">{value}</div>
-      <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.08em] text-qupu-muted">
+      <div className="mt-1 text-[0.5625rem] font-bold uppercase tracking-[0.08em] text-qupu-muted">
         {label}
       </div>
     </div>

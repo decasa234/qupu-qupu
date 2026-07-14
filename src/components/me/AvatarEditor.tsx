@@ -59,7 +59,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
 
   return (
     <section className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-      <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+      <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         Avatar anak
       </div>
 
@@ -107,7 +107,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
             >
               <i className={option.icon} aria-hidden="true" />
               {locked && (
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-qupu-brand-blue px-1.5 py-px text-[8px] font-black leading-tight text-white">
+                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-qupu-brand-blue px-1.5 py-px text-[0.5rem] font-black leading-tight text-white">
                   <i className="fa-solid fa-lock" aria-hidden="true" /> Lv {option.minLevel}
                 </span>
               )}
@@ -117,7 +117,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
       </div>
 
       <div className="mt-4">
-        <div className="text-[10px] font-black uppercase tracking-[0.16em] text-qupu-muted">Warna</div>
+        <div className="text-[0.625rem] font-black uppercase tracking-[0.16em] text-qupu-muted">Warna</div>
         <div className="mt-2 flex flex-wrap gap-2.5">
           {AVATAR_COLOR_OPTIONS.map(({ value: color, minLevel }) => {
             const locked = !isAvatarUnlocked(minLevel, level)
@@ -140,7 +140,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
                 style={{ backgroundColor: color }}
               >
                 {locked && (
-                  <span className="absolute inset-0 flex items-center justify-center text-[10px] text-white/90">
+                  <span className="absolute inset-0 flex items-center justify-center text-[0.625rem] text-white/90">
                     <i className="fa-solid fa-lock" aria-hidden="true" />
                   </span>
                 )}
@@ -151,7 +151,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
       </div>
 
       {lockHint && (
-        <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-qupu-shell px-3 py-1.5 text-[11px] font-bold text-qupu-brand-blue ring-1 ring-[#FFE3CC]">
+        <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-qupu-shell px-3 py-1.5 text-[0.6875rem] font-bold text-qupu-brand-blue ring-1 ring-[#FFE3CC]">
           <i className="fa-solid fa-lock text-qupu-brand-orange" aria-hidden="true" />
           {lockHint}
         </p>
@@ -160,7 +160,7 @@ export default function AvatarEditor({ child }: { child: Child }) {
       {error ? (
         <p className="mt-3 text-xs font-semibold text-red-600">{error}</p>
       ) : saving ? (
-        <p className="mt-3 text-[11px] font-semibold text-qupu-muted">Menyimpan...</p>
+        <p className="mt-3 text-[0.6875rem] font-semibold text-qupu-muted">Menyimpan...</p>
       ) : null}
     </section>
   )

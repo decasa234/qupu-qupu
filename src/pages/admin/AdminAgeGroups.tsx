@@ -175,7 +175,7 @@ export default function AdminAgeGroupsPage() {
                 <li key={group.id} className="flex items-center justify-between gap-3 py-2.5">
                   <div className="min-w-0">
                     <div className="font-semibold text-admin-ink">{group.name}</div>
-                    <div className="text-[11px] text-admin-muted">
+                    <div className="text-[0.6875rem] text-admin-muted">
                       {group.minAge}-{group.maxAge} tahun · {group.videoCount} video
                     </div>
                   </div>

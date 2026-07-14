@@ -118,7 +118,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
       {/* One-shot confetti rain over the whole stage */}
       <KonsepConfetti pieces={48} />
 
-      <div className="mx-auto flex min-h-full w-full max-w-[460px] flex-col items-center justify-center gap-4 px-6 py-10 text-center">
+      <div className="mx-auto flex min-h-full w-full max-w-[28.75rem] flex-col items-center justify-center gap-4 px-6 py-10 text-center">
         {/* Beat 1 — score */}
         <div className="animate-reward-pop">
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-qupu-brand-orange text-3xl text-white shadow-[0_6px_0_0_#C46123]">
@@ -142,7 +142,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
             {result.levelUp && (
               <div className="mt-3 rounded-[1.5rem] bg-qupu-brand-blue p-3 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
                 <i className="fa-solid fa-arrow-up me-1.5" aria-hidden="true" />
-                Naik ke {result.levelUp.tierName}! Level {result.levelUp.previousLevel} <i className="fa-solid fa-arrow-right mx-0.5 text-[10px]" aria-hidden="true" /> {result.levelUp.currentLevel}
+                Naik ke {result.levelUp.tierName}! Level {result.levelUp.previousLevel} <i className="fa-solid fa-arrow-right mx-0.5 text-[0.625rem]" aria-hidden="true" /> {result.levelUp.currentLevel}
               </div>
             )}
           </div>
@@ -170,7 +170,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
         {/* Beat 5 — completed quests (rewards claim-gated, P2.2) */}
         {visible('quests') && result.completedQuests.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">
+            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-qupu-brand-orange">
               Misi selesai — klaim hadiahmu di Kebun!
             </p>
             {result.completedQuests.map((q) => {
@@ -183,18 +183,18 @@ export default function KonsepCeremony({ result, onDone }: Props) {
                   key={q.id}
                   className="flex items-center gap-2.5 rounded-[1.25rem] bg-white p-3 text-left shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]"
                 >
-                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#58A700] text-[10px] text-white">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#58A700] text-[0.625rem] text-white">
                     <i className="fa-solid fa-check" aria-hidden="true" />
                   </span>
                   <p className="min-w-0 flex-1 truncate text-xs font-bold text-qupu-brand-blue">{q.title}</p>
                   {xp > 0 && (
-                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                       <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
                       +{xp} XP
                     </span>
                   )}
                   {coins > 0 && (
-                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                    <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                       <i className="fa-solid fa-coins" aria-hidden="true" />
                       +{coins}
                     </span>
@@ -208,8 +208,8 @@ export default function KonsepCeremony({ result, onDone }: Props) {
         {/* Beat 6 — unlocked achievements */}
         {visible('unlocks') && result.unlockedAchievements.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Pencapaian baru</p>
-            <p className="text-[9px] font-semibold text-qupu-muted">termasuk dalam total XP di atas</p>
+            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Pencapaian baru</p>
+            <p className="text-[0.5625rem] font-semibold text-qupu-muted">termasuk dalam total XP di atas</p>
             {result.unlockedAchievements.map((a) => (
               <div
                 key={a.id}
@@ -220,7 +220,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
                 </span>
                 <p className="min-w-0 flex-1 truncate font-display text-sm font-black text-qupu-brand-blue">{a.title}</p>
                 {a.xpAwarded > 0 && (
-                  <span className="flex-shrink-0 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                  <span className="flex-shrink-0 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                     +{a.xpAwarded} XP
                   </span>
                 )}
@@ -232,7 +232,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
         {/* Beat 7 — concepts grown (plant tier morph) */}
         {visible('growth') && result.conceptsGrown.length > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Konsep Tumbuh</p>
+            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Konsep Tumbuh</p>
             {result.conceptsGrown.map((cg) => (
               <GrowthRow key={cg.slug} grown={cg} instant={reduced} />
             ))}
@@ -244,7 +244,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
             Pro-only, so the free fa-box-open plays the chest. */}
         {visible('chests') && (result.chests?.length ?? 0) > 0 && (
           <div className="animate-reward-pop w-full space-y-2">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Peti Bab terbuka!</p>
+            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-qupu-brand-orange">Peti Bab terbuka!</p>
             {(result.chests ?? []).map((chest) => (
               <div
                 key={chest.threshold}
@@ -253,17 +253,17 @@ export default function KonsepCeremony({ result, onDone }: Props) {
                 <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-amber-500 text-base text-white">
                   <i className="fa-solid fa-box-open" aria-hidden="true" />
                 </span>
-                <p className="min-w-0 flex-1 font-display text-[13px] font-black leading-tight text-qupu-brand-blue">
+                <p className="min-w-0 flex-1 font-display text-[0.8125rem] font-black leading-tight text-qupu-brand-blue">
                   Kebun bab {chest.threshold}% tumbuh!
                 </p>
                 {chest.coins > 0 && (
-                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                     <i className="fa-solid fa-coins" aria-hidden="true" />
                     +{chest.coins}
                   </span>
                 )}
                 {chest.xp > 0 && (
-                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+                  <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
                     <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
                     +{chest.xp} XP
                   </span>
@@ -279,7 +279,7 @@ export default function KonsepCeremony({ result, onDone }: Props) {
           <div className="animate-reward-pop inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-display text-sm font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
             <i className="fa-solid fa-box-open text-amber-500" aria-hidden="true" />
             Bonus sesi
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-extrabold text-white">
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
               <i className="fa-solid fa-coins" aria-hidden="true" />
               +{result.sessionDrop} koin
             </span>
@@ -373,13 +373,13 @@ function GrowthRow({ grown, instant }: { grown: WmiConceptGrown; instant: boolea
         <PlantIcon tier={tier} />
       </span>
       <div className="min-w-0 flex-1">
-        <div className="font-display text-[13px] font-black leading-tight text-qupu-brand-blue">{grown.nameId}</div>
-        <div className="mt-0.5 text-[10px] font-bold text-qupu-muted">
-          {from.labelId} <i className="fa-solid fa-arrow-right mx-0.5 text-[8px]" aria-hidden="true" /> {to.labelId}
+        <div className="font-display text-[0.8125rem] font-black leading-tight text-qupu-brand-blue">{grown.nameId}</div>
+        <div className="mt-0.5 text-[0.625rem] font-bold text-qupu-muted">
+          {from.labelId} <i className="fa-solid fa-arrow-right mx-0.5 text-[0.5rem]" aria-hidden="true" /> {to.labelId}
         </div>
       </div>
       {bonusXp > 0 && (
-        <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[10px] font-extrabold text-white">
+        <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2 py-0.5 text-[0.625rem] font-extrabold text-white">
           <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
           +{bonusXp} XP — {to.labelId}!
         </span>

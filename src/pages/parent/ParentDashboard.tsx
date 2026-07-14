@@ -101,9 +101,9 @@ function TopBar() {
             <a
               key={section.id}
               href={`#${section.id}`}
-              className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-slate-600 ring-1 ring-[#FFE3CC] transition-colors hover:text-qupu-brand-orange"
+              className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[0.6875rem] font-bold text-slate-600 ring-1 ring-[#FFE3CC] transition-colors hover:text-qupu-brand-orange"
             >
-              <i className={`${section.icon} text-[10px]`} aria-hidden="true" />
+              <i className={`${section.icon} text-[0.625rem]`} aria-hidden="true" />
               {section.label}
             </a>
           ))}
@@ -138,7 +138,7 @@ function SettingsCard() {
 
   return (
     <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-      <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Akun</div>
+      <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">Akun</div>
       <h3 className="mt-1 font-display text-lg font-extrabold text-slate-800">{user?.name ?? 'Akun'}</h3>
       <p className="mt-0.5 text-xs font-medium text-slate-500">{user?.email}</p>
 
@@ -218,7 +218,7 @@ function NotifyEmailRow() {
         <span className="block font-display text-sm font-extrabold leading-tight text-slate-700">
           Email pengingat &amp; rangkuman mingguan
         </span>
-        <span className="block text-[11px] font-semibold text-slate-500">
+        <span className="block text-[0.6875rem] font-semibold text-slate-500">
           Pengingat streak &amp; rangkuman belajar tiap Senin
         </span>
       </span>
@@ -269,7 +269,7 @@ function SettingsRow({ icon, iconBg, title, subtitle, onClick, danger }: Setting
         <span className={`block font-display text-sm font-extrabold leading-tight ${danger ? 'text-[#E11D48]' : 'text-slate-700'}`}>
           {title}
         </span>
-        <span className="block text-[11px] font-semibold text-slate-500">{subtitle}</span>
+        <span className="block text-[0.6875rem] font-semibold text-slate-500">{subtitle}</span>
       </span>
       <i className="fa-solid fa-chevron-right text-xs text-slate-400" aria-hidden="true" />
     </button>

@@ -77,7 +77,7 @@ export default function ReferralShareCard({ childName, headline }: Props) {
           <i className="fa-solid fa-bullhorn" />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-700">
+          <div className="text-[0.625rem] font-bold uppercase tracking-[0.22em] text-emerald-700">
             Bagikan momen ini
           </div>
           <div className="mt-0.5 font-display text-sm font-extrabold text-qupu-brand-blue sm:text-base">

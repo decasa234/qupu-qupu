@@ -155,7 +155,7 @@ export default function SymmetryCountExplainer(props: ExplainerProps) {
       : `Shape with ${beat.linesShown} symmetry line${beat.linesShown !== 1 ? 's' : ''} shown`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={shapeLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={shapeLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* SVG canvas */}
         <svg

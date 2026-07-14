@@ -16,7 +16,7 @@ export default function AdminPageHeader({
   return (
     <div className="flex flex-col gap-3 border-b border-admin-line pb-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
-        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
+        <div className="text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">
           {eyebrow}
         </div>
         <h1 className="mt-1 font-display text-2xl font-extrabold text-qupu-brand-blue">{title}</h1>

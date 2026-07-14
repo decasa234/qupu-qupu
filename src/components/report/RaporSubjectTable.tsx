@@ -25,7 +25,7 @@ export default function RaporSubjectTable({ stats }: { stats: SubjectStat[] }) {
                   </span>
                 </div>
                 <span
-                  className={`flex-shrink-0 rounded px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.06em] ${chip.bgClass} ${chip.textClass}`}
+                  className={`flex-shrink-0 rounded px-2 py-0.5 text-[0.5625rem] font-extrabold uppercase tracking-[0.06em] ${chip.bgClass} ${chip.textClass}`}
                 >
                   {chip.label}
                 </span>
@@ -42,7 +42,7 @@ export default function RaporSubjectTable({ stats }: { stats: SubjectStat[] }) {
 
       {/* Desktop + print: the original 5-column table. */}
       <div className="mt-2 hidden overflow-hidden rounded-lg border border-qupu-brand-blue/10 sm:block print:block">
-        <div className="grid grid-cols-[1.4fr_1fr_1fr_0.8fr_1.1fr] bg-qupu-brand-blue px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white">
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_0.8fr_1.1fr] bg-qupu-brand-blue px-3 py-2 text-[0.625rem] font-extrabold uppercase tracking-[0.08em] text-white">
           <div>Subject</div>
           <div>Coverage</div>
           <div>Rata Skor</div>
@@ -67,7 +67,7 @@ export default function RaporSubjectTable({ stats }: { stats: SubjectStat[] }) {
               <div>{s.badgesEarned}×</div>
               <div>
                 <span
-                  className={`inline-block rounded px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.06em] ${chip.bgClass} ${chip.textClass}`}
+                  className={`inline-block rounded px-2 py-0.5 text-[0.5625rem] font-extrabold uppercase tracking-[0.06em] ${chip.bgClass} ${chip.textClass}`}
                 >
                   {chip.label}
                 </span>
@@ -83,7 +83,7 @@ export default function RaporSubjectTable({ stats }: { stats: SubjectStat[] }) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-white px-1.5 py-1.5">
-      <div className="text-[8px] font-extrabold uppercase tracking-[0.1em] text-qupu-muted">
+      <div className="text-[0.5rem] font-extrabold uppercase tracking-[0.1em] text-qupu-muted">
         {label}
       </div>
       <div className="font-display text-sm font-extrabold text-qupu-brand-blue">{value}</div>

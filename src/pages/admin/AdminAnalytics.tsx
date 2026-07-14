@@ -43,7 +43,7 @@ const RANGES = [
 function PanelTitle({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
   return (
     <div className="mb-4">
-      <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">{eyebrow}</div>
+      <div className="text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-qupu-brand-orange">{eyebrow}</div>
       <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue">{title}</h2>
       {subtitle && <p className="mt-1 text-sm text-admin-muted">{subtitle}</p>}
     </div>
@@ -192,7 +192,7 @@ export default function AdminAnalyticsPage() {
               <p className="text-sm text-admin-muted">Belum ada traffic di rentang ini.</p>
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-semibold text-admin-faint">
+                <div className="flex items-center justify-between text-[0.625rem] font-semibold text-admin-faint">
                   <span>Maks {Math.max(...overview.traffic.map((d) => d.pageViews), 0)} page views/hari</span>
                   <span>{overview.traffic.length} hari</span>
                 </div>
@@ -202,8 +202,8 @@ export default function AdminAnalyticsPage() {
                       const max = Math.max(...overview.traffic.map((d) => d.pageViews), 1)
                       const heightPct = day.pageViews === 0 ? 3 : Math.max(10, Math.round((day.pageViews / max) * 85))
                       return (
-                        <div key={day.day} className="flex h-full min-w-[40px] flex-1 flex-col items-center justify-end gap-1">
-                          <span className="text-[10px] font-bold text-qupu-brand-orange">{day.pageViews}</span>
+                        <div key={day.day} className="flex h-full min-w-[2.5rem] flex-1 flex-col items-center justify-end gap-1">
+                          <span className="text-[0.625rem] font-bold text-qupu-brand-orange">{day.pageViews}</span>
                           <div
                             className="w-full rounded-t-md bg-qupu-brand-blue"
                             style={{ height: `${heightPct}%` }}
@@ -215,7 +215,7 @@ export default function AdminAnalyticsPage() {
                   </div>
                   <div className="mt-1 flex gap-2">
                     {overview.traffic.map((day) => (
-                      <div key={day.day} className="min-w-[40px] flex-1 text-center text-[10px] font-semibold text-admin-muted">
+                      <div key={day.day} className="min-w-[2.5rem] flex-1 text-center text-[0.625rem] font-semibold text-admin-muted">
                         {new Date(day.day).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })}
                       </div>
                     ))}
@@ -237,18 +237,18 @@ export default function AdminAnalyticsPage() {
                     className="flex items-center justify-between gap-3 rounded-lg bg-admin-sunk px-4 py-2.5"
                   >
                     <div className="flex min-w-0 items-center gap-3">
-                      <span className="shrink-0 rounded bg-qupu-brand-blue px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-white">
+                      <span className="shrink-0 rounded bg-qupu-brand-blue px-2 py-0.5 font-mono text-[0.625rem] font-bold uppercase tracking-[0.12em] text-white">
                         {event.eventName}
                       </span>
                       <div className="min-w-0">
                         <div className="truncate text-xs font-medium text-admin-ink">{event.path ?? '—'}</div>
-                        <div className="text-[10px] font-semibold text-admin-faint">
+                        <div className="text-[0.625rem] font-semibold text-admin-faint">
                           {event.sessionId ? `s:${event.sessionId.slice(0, 8)}` : 'no session'}
                           {event.userId ? ` · u:${event.userId.slice(0, 8)}` : ''}
                         </div>
                       </div>
                     </div>
-                    <div className="shrink-0 text-[10px] font-semibold text-admin-muted">
+                    <div className="shrink-0 text-[0.625rem] font-semibold text-admin-muted">
                       {formatDateLabel(event.createdAt)}
                     </div>
                   </div>
@@ -278,7 +278,7 @@ function FunnelStep({
   return (
     <div className="relative rounded-xl px-4 py-5" style={{ backgroundColor: `${color}1F` }}>
       <span
-        className="absolute -top-3 left-4 rounded-full px-3 py-1 font-display text-[10px] font-extrabold uppercase tracking-[0.18em] text-white"
+        className="absolute -top-3 left-4 rounded-full px-3 py-1 font-display text-[0.625rem] font-extrabold uppercase tracking-[0.18em] text-white"
         style={{ backgroundColor: color }}
       >
         {isDropOff ? 'Drop' : `Step ${step}`}

@@ -301,7 +301,7 @@ export default function VideoDetailPage() {
 
         <Reveal delay={0.05}>
           <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-8">
-            <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-qupu-muted">
+            <div className="flex flex-wrap items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-qupu-muted">
               <span
                 className="rounded-full px-3 py-1 text-white"
                 style={{ backgroundColor: video.subject.colorHex }}
@@ -331,7 +331,7 @@ export default function VideoDetailPage() {
           <div className="rounded-[2rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[5px_6px_0_0_#FFD3B1] sm:p-7">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                   Badge {video.subject.name}
                 </div>
                 <div className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue">
@@ -364,7 +364,7 @@ export default function VideoDetailPage() {
                       </div>
                     </div>
                     <span
-                      className="rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                      className="rounded-full px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white"
                       style={{ backgroundColor: video.subject.colorHex }}
                     >
                       {range.badgeCount}×
@@ -381,7 +381,7 @@ export default function VideoDetailPage() {
             {!result && (existingScore === null || editing) && (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                  <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                     Input Skor
                   </div>
                   <div className="mt-1 flex items-center gap-3">
@@ -397,7 +397,7 @@ export default function VideoDetailPage() {
                     Geser untuk masukkan jumlah jawaban benar (0 – {video.numberOfQuestions}).
                   </p>
                   {editing && (
-                    <p className="mt-1 text-[11px] font-semibold text-qupu-brand-orange">
+                    <p className="mt-1 text-[0.6875rem] font-semibold text-qupu-brand-orange">
                       Mengubah skor yang sudah tersimpan.
                     </p>
                   )}
@@ -431,7 +431,7 @@ export default function VideoDetailPage() {
                         )}
                       </div>
                       <div>
-                        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-muted">
+                        <div className="text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-qupu-muted">
                           Akan dapat
                         </div>
                         <div className="font-display text-base font-extrabold text-qupu-brand-blue">
@@ -472,7 +472,7 @@ export default function VideoDetailPage() {
 
             {!result && existingScore !== null && !editing && (
               <div className="space-y-4">
-                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                   Sudah selesai
                 </div>
                 <div className="font-display text-5xl font-extrabold leading-none text-qupu-brand-blue">
@@ -510,7 +510,7 @@ export default function VideoDetailPage() {
 
             {result && (
               <div className="space-y-5 text-center">
-                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+                <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
                   Skor Tersimpan
                 </div>
 

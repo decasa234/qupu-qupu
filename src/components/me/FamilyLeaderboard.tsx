@@ -43,7 +43,7 @@ export default function FamilyLeaderboard() {
           <h2 className="truncate font-display text-base font-black text-qupu-brand-blue">
             Papan Keluarga
           </h2>
-          <p className="text-[10px] font-bold text-qupu-muted">XP minggu ini — semangat bareng!</p>
+          <p className="text-[0.625rem] font-bold text-qupu-muted">XP minggu ini — semangat bareng!</p>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function FamilyLeaderboard() {
             <span className="min-w-0 flex-1 truncate text-sm font-extrabold text-qupu-brand-blue">
               {entry.name}
             </span>
-            <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2.5 py-1 text-[11px] font-extrabold text-white">
+            <span className="inline-flex flex-shrink-0 items-center gap-1 rounded-full bg-qupu-brand-blue px-2.5 py-1 text-[0.6875rem] font-extrabold text-white">
               <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
               {entry.weeklyXp} XP
             </span>

@@ -77,7 +77,7 @@ export default function TallyMarksCountExplainer(props: ExplainerProps) {
       : 'Strategy: count tally groups by fives, then add the leftover marks.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <div className="font-display text-3xl font-black tabular-nums" style={{ color: beat.result ? GREEN : BLUE }}>
           {total}

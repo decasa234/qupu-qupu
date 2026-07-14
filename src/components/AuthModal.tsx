@@ -203,7 +203,7 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
             onError={setError}
           />
 
-          <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-muted">
+          <div className="flex items-center gap-3 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-muted">
             <span className="h-px flex-1 bg-qupu-peach" />
             atau
             <span className="h-px flex-1 bg-qupu-peach" />

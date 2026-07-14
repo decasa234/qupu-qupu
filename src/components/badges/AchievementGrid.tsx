@@ -192,7 +192,7 @@ export default function AchievementGrid({ childId }: Props) {
 function SectionHeader({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div>
-      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+      <div className="text-[0.625rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         {kicker}
       </div>
       <h2 className="mt-1 font-display text-xl font-extrabold text-qupu-brand-blue sm:text-2xl">
@@ -233,14 +233,14 @@ function AchievementCard({ item, state }: { item: AchievementListItem; state: Ca
             {item.title}
           </h3>
           {state === 'unlocked' && item.unlockedAt && (
-            <div className="mt-0.5 text-[11px] font-semibold text-qupu-muted">
+            <div className="mt-0.5 text-[0.6875rem] font-semibold text-qupu-muted">
               {unlockedDateLabel(item.unlockedAt)}
             </div>
           )}
         </div>
         {item.xpReward > 0 && (
           <span
-            className={`whitespace-nowrap rounded-full px-2.5 py-1 font-display text-[11px] font-extrabold ${
+            className={`whitespace-nowrap rounded-full px-2.5 py-1 font-display text-[0.6875rem] font-extrabold ${
               state === 'unlocked'
                 ? 'bg-qupu-brand-blue text-white'
                 : 'bg-qupu-shell text-qupu-brand-blue/70'
@@ -257,7 +257,7 @@ function AchievementCard({ item, state }: { item: AchievementListItem; state: Ca
 
       {isLocked && (
         <div className="mt-4">
-          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.18em] text-qupu-muted">
+          <div className="flex items-center justify-between text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-qupu-muted">
             <span>
               {item.progressValue} / {item.targetValue}
             </span>

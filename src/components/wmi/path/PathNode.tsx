@@ -31,7 +31,7 @@ interface Props {
 }
 
 export default function PathNode({ state, tier, isBoss, label, onClick, anchorRef, selected }: Props) {
-  const size = isBoss ? 'h-20 w-20 text-[30px]' : 'h-16 w-16 text-[24px]'
+  const size = isBoss ? 'h-20 w-20 text-[1.875rem]' : 'h-16 w-16 text-[1.5rem]'
   const locked = state === 'locked'
   const plant = plantForTier(tier)
 
@@ -46,7 +46,7 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
       circleStyle = { background: '#FFE159' } // bright gold
       ringClass = 'ring-2 ring-[#E8B400]'
       depthClass =
-        'shadow-[0_8px_0_0_#D9A800] active:translate-y-[8px] active:shadow-[0_0_0_0_#D9A800]'
+        'shadow-[0_8px_0_0_#D9A800] active:translate-y-[0.5rem] active:shadow-[0_0_0_0_#D9A800]'
       face = <i className="fa-solid fa-crown text-[#8A6400]" aria-hidden="true" />
     } else if (locked) {
       circleStyle = { background: '#E7E2D6' }
@@ -57,14 +57,14 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
       circleStyle = { background: '#FFFFFF' }
       ringClass = 'ring-4 ring-qupu-brand-orange'
       depthClass =
-        'shadow-[0_8px_0_0_#C46123] active:translate-y-[8px] active:shadow-[0_0_0_0_#C46123]'
+        'shadow-[0_8px_0_0_#C46123] active:translate-y-[0.5rem] active:shadow-[0_0_0_0_#C46123]'
       face = <i className="fa-solid fa-flag-checkered text-qupu-brand-blue" aria-hidden="true" />
     }
   } else if (locked) {
     circleStyle = { background: '#E7E2D6' }
     ringClass = 'ring-2 ring-[#D8D2C2]'
     depthClass = 'shadow-[0_4px_0_0_rgba(0,0,0,0.10)]'
-    face = <i className="fa-solid fa-lock text-[18px] text-[#9AA0AC]" aria-hidden="true" />
+    face = <i className="fa-solid fa-lock text-[1.125rem] text-[#9AA0AC]" aria-hidden="true" />
   } else {
     // current + open both show the plant at its tier; current adds the halo,
     // a thicker orange ring, and a deeper rim so it sits proud of the trail.
@@ -72,11 +72,11 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
     if (state === 'current') {
       ringClass = 'ring-4 ring-qupu-brand-orange'
       depthClass =
-        'shadow-[0_7px_0_0_rgba(0,0,0,0.20)] active:translate-y-[7px] active:shadow-[0_0_0_0_rgba(0,0,0,0.20)]'
+        'shadow-[0_7px_0_0_rgba(0,0,0,0.20)] active:translate-y-[0.4375rem] active:shadow-[0_0_0_0_rgba(0,0,0,0.20)]'
     } else {
       ringClass = 'ring-1 ring-black/10'
       depthClass =
-        'shadow-[0_6px_0_0_rgba(0,0,0,0.16)] active:translate-y-[6px] active:shadow-[0_0_0_0_rgba(0,0,0,0.16)]'
+        'shadow-[0_6px_0_0_rgba(0,0,0,0.16)] active:translate-y-[0.375rem] active:shadow-[0_0_0_0_rgba(0,0,0,0.16)]'
     }
     face = <PlantIcon tier={tier} />
   }
@@ -126,14 +126,14 @@ export default function PathNode({ state, tier, isBoss, label, onClick, anchorRe
       <span className="relative drop-shadow-sm">{face}</span>
       {!isBoss && state === 'open' && plant.crown && (
         <i
-          className="fa-solid fa-crown absolute -right-1 -top-2 text-[15px] text-qupu-orange"
+          className="fa-solid fa-crown absolute -right-1 -top-2 text-[0.9375rem] text-qupu-orange"
           aria-hidden="true"
         />
       )}
       {state === 'current' && !isBoss && (
         <span
           aria-hidden="true"
-          className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-qupu-brand-orange text-[11px] text-white shadow-[0_2px_0_0_#C46123] ring-2 ring-white"
+          className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-qupu-brand-orange text-[0.6875rem] text-white shadow-[0_2px_0_0_#C46123] ring-2 ring-white"
         >
           <i className="fa-solid fa-play" />
         </span>

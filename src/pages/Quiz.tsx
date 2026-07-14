@@ -186,7 +186,7 @@ export default function QuizPage() {
 
   if (loading) {
     return (
-      <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
+      <div className="w-full max-w-[24.375rem] self-center space-y-4 pb-6">
         <Skeleton className="aspect-video rounded-[1.75rem]" />
         <Skeleton className="h-24" />
       </div>
@@ -195,7 +195,7 @@ export default function QuizPage() {
 
   if (loadError || !video) {
     return (
-      <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
+      <div className="w-full max-w-[24.375rem] self-center space-y-4 pb-6">
         <BackButton variant="back" to="/video" />
         <div className="rounded-[1.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 text-center shadow-[5px_6px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
@@ -225,10 +225,10 @@ export default function QuizPage() {
   const maxBadgeCount = sortedRanges.reduce((max, range) => Math.max(max, range.badgeCount), 0)
 
   return (
-    <div className="w-full max-w-[390px] self-center space-y-4 pb-6">
+    <div className="w-full max-w-[24.375rem] self-center space-y-4 pb-6">
       <div className="flex items-center justify-between gap-3">
         <BackButton variant="back" to="/video" />
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
+        <span className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-qupu-brand-orange">
           Kuis
         </span>
       </div>
@@ -248,7 +248,7 @@ export default function QuizPage() {
 
       {/* Title + meta */}
       <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
-        <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-qupu-muted">
+        <div className="flex flex-wrap items-center gap-1.5 text-[0.625rem] font-bold uppercase tracking-[0.12em] text-qupu-muted">
           <span
             className="rounded-full px-2.5 py-1 text-white"
             style={{ backgroundColor: video.subject.colorHex }}
@@ -271,7 +271,7 @@ export default function QuizPage() {
       <div className="rounded-[1.5rem] bg-white p-4 shadow-[5px_6px_0_0_#FFD3B1]">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+            <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
               Badge {video.subject.name}
             </div>
             <div className="mt-1 font-display text-xl font-black text-qupu-brand-blue">
@@ -293,7 +293,7 @@ export default function QuizPage() {
                   <div className="text-xs font-extrabold text-qupu-brand-blue">
                     {range.minCorrect} – {range.maxCorrect ?? `${video.numberOfQuestions}+`} benar
                   </div>
-                  <div className="text-[11px] text-qupu-muted">
+                  <div className="text-[0.6875rem] text-qupu-muted">
                     {range.badgeCount === 0
                       ? 'Belum dapat badge'
                       : `${range.badgeCount} badge ${video.subject.name}`}
@@ -301,7 +301,7 @@ export default function QuizPage() {
                 </div>
               </div>
               <span
-                className="rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.12em] text-white"
+                className="rounded-full px-2 py-0.5 text-[0.625rem] font-black uppercase tracking-[0.12em] text-white"
                 style={{ backgroundColor: video.subject.colorHex }}
               >
                 {range.badgeCount}×
@@ -316,7 +316,7 @@ export default function QuizPage() {
         {!result && (existingScore === null || editing) && (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+              <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
                 Input Skor
               </div>
               <div className="mt-1 flex items-center gap-2.5">
@@ -332,7 +332,7 @@ export default function QuizPage() {
                 Geser untuk masukkan jumlah jawaban benar (0 – {video.numberOfQuestions}).
               </p>
               {editing && (
-                <p className="mt-1 text-[11px] font-bold text-qupu-brand-orange">
+                <p className="mt-1 text-[0.6875rem] font-bold text-qupu-brand-orange">
                   Mengubah skor yang sudah tersimpan.
                 </p>
               )}
@@ -365,7 +365,7 @@ export default function QuizPage() {
                     )}
                   </div>
                   <div>
-                    <div className="text-[10px] font-black uppercase tracking-[0.14em] text-qupu-muted">
+                    <div className="text-[0.625rem] font-black uppercase tracking-[0.14em] text-qupu-muted">
                       Akan dapat
                     </div>
                     <div className="font-display text-sm font-extrabold text-qupu-brand-blue">
@@ -406,7 +406,7 @@ export default function QuizPage() {
 
         {!result && existingScore !== null && !editing && (
           <div className="space-y-3">
-            <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+            <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
               Sudah selesai
             </div>
             <div className="font-display text-5xl font-black leading-none text-qupu-brand-blue">
@@ -444,7 +444,7 @@ export default function QuizPage() {
 
         {result && (
           <div className="space-y-4 text-center">
-            <div className="text-[10px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+            <div className="text-[0.625rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
               Skor Tersimpan
             </div>
             <div className="font-display text-6xl font-black leading-none text-qupu-brand-blue">

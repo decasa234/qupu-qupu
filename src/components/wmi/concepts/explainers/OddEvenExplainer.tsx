@@ -24,7 +24,7 @@ function Term({ n, odd, lang }: { n: number; odd: boolean; lang: 'en' | 'id' }) 
       <span className="text-lg font-extrabold" style={{ color: PURPLE }}>
         {n}
       </span>
-      <span className="text-[10px] font-bold" style={{ color: odd ? ORANGE : BLUE }}>
+      <span className="text-[0.625rem] font-bold" style={{ color: odd ? ORANGE : BLUE }}>
         {tag}
       </span>
     </span>
@@ -46,8 +46,8 @@ export default function OddEvenExplainer(props: ExplainerProps) {
       : 'Strategy: an odd sum only comes from one odd + one even; cross out the rest.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-3">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-3">
         {/* the rule */}
         <div
           className="rounded-xl border-2 px-3 py-2 text-center font-display text-xs font-extrabold"

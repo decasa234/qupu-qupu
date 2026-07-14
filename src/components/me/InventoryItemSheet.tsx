@@ -32,7 +32,7 @@ export default function InventoryItemSheet({ open, onClose, item, shieldCount = 
             />
           )}
         </div>
-        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-qupu-brand-orange">
+        <div className="text-[0.625rem] font-bold uppercase tracking-[0.2em] text-qupu-brand-orange">
           {isShield ? 'Power-Up' : item.kind}
         </div>
         <h2 className="font-display text-xl font-extrabold text-qupu-brand-blue">{item.name}</h2>

@@ -27,7 +27,7 @@ export function Caption({ beat }: { beat: BasicStep }) {
 
 export function LogicFrame({ children, beat, label }: { children: ReactNode; beat: BasicStep; label: string }) {
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={label}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={label}>
       <div className="flex flex-col items-center gap-3">
         {children}
         <Caption beat={beat} />

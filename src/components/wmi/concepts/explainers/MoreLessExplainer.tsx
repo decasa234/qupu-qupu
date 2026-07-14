@@ -24,11 +24,11 @@ function Rod({ glow }: { glow?: boolean }) {
       initial={{ scale: 0.5, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-      className="flex flex-col gap-[1px] rounded-[3px] p-[2px]"
+      className="flex flex-col gap-[0.0625rem] rounded-[0.1875rem] p-[0.125rem]"
       style={{ background: glow ? GREEN : BLUE }}
     >
       {Array.from({ length: 10 }, (_, i) => (
-        <span key={i} className="block h-[4px] w-3 rounded-[1px]" style={{ background: '#ffffff66' }} />
+        <span key={i} className="block h-[0.25rem] w-3 rounded-[0.0625rem]" style={{ background: '#ffffff66' }} />
       ))}
     </motion.div>
   )
@@ -42,7 +42,7 @@ function Cube({ glow }: { glow?: boolean }) {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 500, damping: 26 }}
-      className="block h-3 w-3 rounded-[2px]"
+      className="block h-3 w-3 rounded-[0.125rem]"
       style={{ background: glow ? GREEN : ORANGE }}
     />
   )
@@ -66,14 +66,14 @@ function Pile({
   return (
     <div className="flex flex-wrap items-end justify-center gap-2" style={{ opacity: dim ? 0.8 : 1 }}>
       {tens > 0 && (
-        <div className="flex max-w-[150px] flex-wrap items-end gap-1">
+        <div className="flex max-w-[9.375rem] flex-wrap items-end gap-1">
           {Array.from({ length: tens }, (_, i) => (
             <Rod key={`r${i}`} glow={i >= tens - glowTens} />
           ))}
         </div>
       )}
       {ones > 0 && (
-        <div className="grid max-w-[72px] grid-cols-5 gap-1">
+        <div className="grid max-w-[4.5rem] grid-cols-5 gap-1">
           {Array.from({ length: ones }, (_, i) => (
             <Cube key={`o${i}`} glow={i >= ones - glowOnes} />
           ))}
@@ -100,8 +100,8 @@ export default function MoreLessExplainer(props: ExplainerProps) {
       : 'Strategy: show it with ten-rods and ones, then add or take away and regroup.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-5">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-5">
         <div className="flex flex-wrap items-end justify-center gap-4">
           <Pile tens={main.tens} ones={main.ones} glowTens={glowTens} glowOnes={glowOnes} />
           {delta && (

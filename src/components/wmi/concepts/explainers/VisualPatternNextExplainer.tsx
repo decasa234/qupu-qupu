@@ -179,7 +179,7 @@ export default function VisualPatternNextExplainer(props: ExplainerProps) {
       : `Visual pattern with repeating unit ${story.cycle.join(', ')}, laid out in a grid so each column is the same shape. After ${story.shown} shapes, the next is ${story.next}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
 
         {/* Repeating-unit header — its columns line up with the grid below */}

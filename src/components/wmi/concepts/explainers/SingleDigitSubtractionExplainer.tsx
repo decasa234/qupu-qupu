@@ -66,7 +66,7 @@ export default function SingleDigitSubtractionExplainer({ params, lang = 'en', s
       : 'Strategy: take part away from the whole, then see what is left.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <div className="grid grid-cols-5 gap-1.5">{cells}</div>
         <div

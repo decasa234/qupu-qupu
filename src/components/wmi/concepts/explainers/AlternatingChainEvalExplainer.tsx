@@ -41,8 +41,8 @@ export default function AlternatingChainEvalExplainer(props: ExplainerProps) {
       : 'Strategy: compute the chain left to right, one step at a time.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* the chain, with the current step highlighted */}
         <div className="flex flex-wrap items-center justify-center gap-2 font-display text-lg font-extrabold tabular-nums">
           <Chip active={beat.active === -1} done={beat.active >= 0} color={BLUE}>

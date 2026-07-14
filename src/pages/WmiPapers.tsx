@@ -40,14 +40,14 @@ export default function WmiPapers() {
 
   if (!activeChildId) {
     return (
-      <div className="w-full max-w-[460px] self-center p-6 text-center text-sm font-semibold text-qupu-muted">
+      <div className="w-full max-w-[28.75rem] self-center p-6 text-center text-sm font-semibold text-qupu-muted">
         Pilih profil anak dulu.
       </div>
     )
   }
 
   return (
-    <div className="w-full max-w-[460px] self-center pb-6">
+    <div className="w-full max-w-[28.75rem] self-center pb-6">
       <div className="mb-3">
         <BackButton variant="back" to="/main" />
       </div>
@@ -59,11 +59,11 @@ export default function WmiPapers() {
             <i className="fa-solid fa-file-pen" aria-hidden="true" />
           </span>
           <div className="min-w-0">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
+            <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-qupu-brand-yellow">
               WMI · Ujian
             </p>
             <h1 className="font-display text-2xl font-black leading-none">Latihan Soal Ujian</h1>
-            <p className="mt-0.5 text-[11px] font-bold text-white/80">Soal ujian WMI asli.</p>
+            <p className="mt-0.5 text-[0.6875rem] font-bold text-white/80">Soal ujian WMI asli.</p>
           </div>
         </div>
       </section>

@@ -31,8 +31,8 @@ export default function FindMultipleExplainer(props: ExplainerProps) {
       : `Strategy: use the rule for multiples of ${p.d} to cross out the options that don't fit.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-3">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-3">
         {/* the rule */}
         <div
           className="rounded-xl border-2 px-3 py-2 text-center font-display text-xs font-extrabold"

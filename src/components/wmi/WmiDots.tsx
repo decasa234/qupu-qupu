@@ -41,7 +41,7 @@ export default function WmiDots({ dots }: { dots: WmiDot[] }) {
           const ring = dot.current
             ? 'ring-2 ring-qupu-brand-orange ring-offset-2 ring-offset-white'
             : ''
-          const className = `flex h-7 w-7 items-center justify-center rounded-full text-[11px] ${STATE_STYLE[dot.state]} ${ring}`
+          const className = `flex h-7 w-7 items-center justify-center rounded-full text-[0.6875rem] ${STATE_STYLE[dot.state]} ${ring}`
           const icon = STATE_ICON[dot.state]
           const content =
             dot.number != null ? (

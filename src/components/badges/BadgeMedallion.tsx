@@ -26,7 +26,7 @@ export default function BadgeMedallion(props: Props) {
           className="block h-auto w-full"
           label={props.label}
         />
-        <div className="mt-1 w-full truncate text-[9px] font-bold text-slate-400">
+        <div className="mt-1 w-full truncate text-[0.5625rem] font-bold text-slate-400">
           {props.label}
         </div>
       </div>
@@ -44,12 +44,12 @@ export default function BadgeMedallion(props: Props) {
           label={props.label}
         />
         {props.badgeCount > 1 && (
-          <span className="absolute right-0 top-0 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-qupu-brand-orange px-1 font-display text-[9px] font-extrabold text-white shadow-sm">
+          <span className="absolute right-0 top-0 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-qupu-brand-orange px-1 font-display text-[0.5625rem] font-extrabold text-white shadow-sm">
             {props.badgeCount}×
           </span>
         )}
       </div>
-      <div className="mt-1 w-full truncate text-[9px] font-bold text-qupu-brand-blue">
+      <div className="mt-1 w-full truncate text-[0.5625rem] font-bold text-qupu-brand-blue">
         {props.label}
       </div>
     </Link>

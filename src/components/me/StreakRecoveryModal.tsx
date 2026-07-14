@@ -206,7 +206,7 @@ export default function StreakRecoveryModal({ childId, previousStreak, onClose }
               <button
                 type="button"
                 onClick={onClose}
-                className="mt-5 w-full rounded-full bg-qupu-brand-blue py-3 font-display text-[15px] font-black text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+                className="mt-5 w-full rounded-full bg-qupu-brand-blue py-3 font-display text-[0.9375rem] font-black text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
               >
                 Tutup
               </button>
@@ -216,7 +216,7 @@ export default function StreakRecoveryModal({ childId, previousStreak, onClose }
                   type="button"
                   disabled={busy}
                   onClick={handleRecover}
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange py-3 font-display text-[15px] font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60"
+                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange py-3 font-display text-[0.9375rem] font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60"
                 >
                   {busy ? (
                     <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />

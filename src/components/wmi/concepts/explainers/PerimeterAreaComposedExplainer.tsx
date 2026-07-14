@@ -53,11 +53,11 @@ export default function PerimeterAreaComposedExplainer(props: ExplainerProps) {
     }
   }
 
-  // Scale SVG to fit inside max-w-[440px] — CELL=28 + PAD keeps most grids < 240px wide
+  // Scale SVG to fit inside max-w-[27.5rem] — CELL=28 + PAD keeps most grids < 240px wide
   // so we let the svg's own size determine layout.
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* Grid */}
         <svg

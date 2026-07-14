@@ -452,7 +452,7 @@ export default function AdminWmiDrill() {
                 ) : (
                   grouped.map(([levelCode, items]) => (
                     <div key={levelCode} className="mb-2">
-                      <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-admin-faint">
+                      <div className="px-2 pb-1 pt-2 text-[0.625rem] font-bold uppercase tracking-wider text-admin-faint">
                         {levelLabelOf(items[0])}
                       </div>
                       {items.map((p) => (
@@ -470,7 +470,7 @@ export default function AdminWmiDrill() {
                             className={`h-2 w-2 shrink-0 rounded-full ${STATUS_META[p.status].dot}`}
                           />
                           <span
-                            className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                            className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[0.6875rem] font-bold ${
                               p.id === activePaperId ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
                             }`}
                           >
@@ -481,7 +481,7 @@ export default function AdminWmiDrill() {
                           </span>
                           {counts.byPaper[p.id] > 0 && (
                             <span
-                              className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[9px] font-bold text-white"
+                              className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[0.5625rem] font-bold text-white"
                               title={`${counts.byPaper[p.id]} open issue(s)`}
                             >
                               {counts.byPaper[p.id]}⚑
@@ -492,14 +492,14 @@ export default function AdminWmiDrill() {
                           )}
                           {p.question_count === 0 && (
                             <span
-                              className="shrink-0 rounded-full bg-amber-100 px-1.5 text-[9px] font-bold text-amber-700"
+                              className="shrink-0 rounded-full bg-amber-100 px-1.5 text-[0.5625rem] font-bold text-amber-700"
                               title="Belum ada soal — perlu ekstraksi"
                             >
                               perlu ekstraksi
                             </span>
                           )}
                           <span
-                            className={`shrink-0 text-[10px] tabular-nums ${
+                            className={`shrink-0 text-[0.625rem] tabular-nums ${
                               p.id === activePaperId ? 'text-white/70' : 'text-admin-faint'
                             }`}
                           >
@@ -636,7 +636,7 @@ export default function AdminWmiDrill() {
                   >
                     Next <i className="fa-solid fa-chevron-right" aria-hidden="true" />
                   </Button>
-                  <span className="text-[10px] text-admin-faint">keys: j/k question · n next w/ issues</span>
+                  <span className="text-[0.625rem] text-admin-faint">keys: j/k question · n next w/ issues</span>
                 </div>
               )}
 
@@ -670,7 +670,7 @@ export default function AdminWmiDrill() {
                     </span>
                   </div>
                   {currentQuestion && (
-                    <div className="mt-2 flex flex-wrap items-center gap-2 text-[10px]">
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-[0.625rem]">
                       <span className="font-bold text-admin-faint">Quick-fix:</span>
                       {(['stem', 'answer', 'hint'] as const).map((part) => (
                         <button

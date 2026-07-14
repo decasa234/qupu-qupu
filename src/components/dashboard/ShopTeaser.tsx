@@ -14,13 +14,13 @@ export default function ShopTeaser({ coinBalance, affordableItems }: Props) {
           <i className="fa-solid fa-bag-shopping" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.16em] text-qupu-brand-orange">
+          <p className="text-[0.625rem] font-black uppercase tracking-[0.16em] text-qupu-brand-orange">
             Toko QUPU
           </p>
           <h3 className="font-display text-lg font-black leading-none text-qupu-brand-blue">
             Tukar koinmu
           </h3>
-          <p className="mt-1 truncate text-[11px] font-semibold text-qupu-brand-blue/65">
+          <p className="mt-1 truncate text-[0.6875rem] font-semibold text-qupu-brand-blue/65">
             {affordableItems.length > 0
               ? `${affordableItems.length} item siap dibeli sekarang`
               : `${coinBalance} koin tersimpan untuk hadiah berikutnya`}

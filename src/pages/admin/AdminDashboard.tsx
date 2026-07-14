@@ -162,7 +162,7 @@ export default function AdminDashboardPage() {
                       </div>
                       <div className="flex shrink-0 items-center gap-1.5">
                         <Tag color={a.subjectColorHex}>{a.subjectName}</Tag>
-                        <span className="rounded bg-admin-sunk px-1.5 py-0.5 font-mono text-[11px] font-bold text-admin-ink">
+                        <span className="rounded bg-admin-sunk px-1.5 py-0.5 font-mono text-[0.6875rem] font-bold text-admin-ink">
                           {a.scorePercentage}%
                         </span>
                       </div>
@@ -194,7 +194,7 @@ export default function AdminDashboardPage() {
                       </div>
                       <div className="flex shrink-0 items-center gap-1.5">
                         <Tag tone={u.role === 'admin' ? 'ink' : 'neutral'}>{u.role}</Tag>
-                        <span className="text-[11px] text-admin-muted">{formatDateLabel(u.createdAt)}</span>
+                        <span className="text-[0.6875rem] text-admin-muted">{formatDateLabel(u.createdAt)}</span>
                       </div>
                     </li>
                   ))}
@@ -222,7 +222,7 @@ export default function AdminDashboardPage() {
                   <BadgeCurve color={s.colorHex} size={32} />
                   <div className="min-w-0">
                     <div className="truncate font-semibold text-admin-ink">{s.name}</div>
-                    <div className="text-[11px] text-admin-muted">
+                    <div className="text-[0.6875rem] text-admin-muted">
                       {s.totalBadges} badge · {s.totalVideos} video
                     </div>
                   </div>

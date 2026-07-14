@@ -53,17 +53,17 @@ export default function MoneyCoinsTotalExplainer({ params, lang = 'en', step, pl
       : `Strategy: group coins of equal value and add them to ${total}¢, then 100 − ${total} = ${needed}¢ to complete a dollar.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <LayoutGroup>
           {!beat.grouped ? (
-            <div className="flex min-h-[72px] flex-wrap items-center justify-center gap-2">
+            <div className="flex min-h-[4.5rem] flex-wrap items-center justify-center gap-2">
               {coins.map((v, i) => (
                 <Coin key={i} index={i} value={v} />
               ))}
             </div>
           ) : (
-            <div className="flex min-h-[72px] flex-wrap items-start justify-center gap-4">
+            <div className="flex min-h-[4.5rem] flex-wrap items-start justify-center gap-4">
               {clusters.map((g) => (
                 <div key={g.value} className="flex flex-col items-center gap-1">
                   <div className="flex flex-wrap items-center justify-center gap-1" style={{ maxWidth: 100 }}>

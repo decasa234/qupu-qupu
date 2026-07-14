@@ -8,7 +8,7 @@ const RAMP = ['#FFF2DF', '#FFE6C2', '#FFC988', '#F0853A', '#D66B23']
 export default function Heatmap({ data, todayIdx = 27 }: Props) {
   return (
     <div
-      className="grid gap-[5px]"
+      className="grid gap-[0.3125rem]"
       style={{
         gridTemplateRows: 'repeat(7, 22px)',
         gridAutoFlow: 'column',
@@ -23,7 +23,7 @@ export default function Heatmap({ data, todayIdx = 27 }: Props) {
           <div
             key={i}
             title={`Hari ${i + 1}: intensitas ${intensity}`}
-            className={`h-[22px] w-[22px] rounded-[6px] ${isToday ? 'ring-2 ring-qupu-brand-blue ring-offset-1' : ''}`}
+            className={`h-[1.375rem] w-[1.375rem] rounded-[0.375rem] ${isToday ? 'ring-2 ring-qupu-brand-blue ring-offset-1' : ''}`}
             style={{ backgroundColor: RAMP[intensity] }}
           />
         )
@@ -34,11 +34,11 @@ export default function Heatmap({ data, todayIdx = 27 }: Props) {
 
 export function HeatmapLegend() {
   return (
-    <div className="mt-3 flex items-center justify-end gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-qupu-muted">
+    <div className="mt-3 flex items-center justify-end gap-2 text-[0.625rem] font-bold uppercase tracking-[0.16em] text-qupu-muted">
       <span>Sepi</span>
-      <div className="flex gap-[3px]">
+      <div className="flex gap-[0.1875rem]">
         {RAMP.map((color) => (
-          <span key={color} className="h-[10px] w-[10px] rounded-[3px]" style={{ backgroundColor: color }} />
+          <span key={color} className="h-[0.625rem] w-[0.625rem] rounded-[0.1875rem]" style={{ backgroundColor: color }} />
         ))}
       </div>
       <span>Aktif</span>

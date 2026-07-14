@@ -61,8 +61,8 @@ export default function ClockTimeAfterExplainer(props: ExplainerProps) {
       : `Explainer: clock ${story.startStr}, forward ${p.addHour} hours ${p.addMin} minutes, result ${story.resultStr}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         <svg viewBox="0 0 140 140" width={130} height={130} aria-hidden="true">
           {/* Clock face */}
           <circle cx={70} cy={70} r={60} fill="white" stroke={BLUE} strokeWidth={3} />

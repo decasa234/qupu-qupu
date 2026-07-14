@@ -66,7 +66,7 @@ export default function BarChartCompareExplainer(props: ExplainerProps) {
       : 'Strategy: read each bar height, then subtract to find the difference.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-end gap-10">
           <Bar emoji={story.a} value={story.vA} shown={beat.showA} diffFrom={beat.showDiff ? story.vB : null} />

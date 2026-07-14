@@ -52,7 +52,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 function DefaultErrorFallback() {
   return (
     <div className="flex min-h-[60vh] w-full items-center justify-center bg-qupu-cream px-4">
-      <div className="w-full max-w-[420px] rounded-[1.5rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_5px_0_0_#FFD3B1]">
+      <div className="w-full max-w-[26.25rem] rounded-[1.5rem] border-2 border-qupu-peach bg-white p-6 text-center shadow-[0_5px_0_0_#FFD3B1]">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
         </div>

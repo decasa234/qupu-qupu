@@ -92,7 +92,7 @@ export default function InventoryGrid({ childId }: Props) {
               </div>
               <div className="p-2">
                 <div className="line-clamp-1 font-display text-sm font-extrabold text-qupu-brand-blue">{it.name}</div>
-                <div className="text-[10px] font-medium text-qupu-muted">
+                <div className="text-[0.625rem] font-medium text-qupu-muted">
                   {isShield
                     ? `x${shieldCount} — aktif otomatis`
                     : new Date(it.acquiredAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}

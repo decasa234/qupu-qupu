@@ -40,7 +40,7 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
         aria-modal="true"
         aria-label={`Rincian ${chapter.nameId}`}
         style={sheetStyle}
-        className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[78vh] w-full max-w-[460px] flex-col animate-rise rounded-t-[2rem] bg-white pb-[max(env(safe-area-inset-bottom),1.25rem)] shadow-[0_-6px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/5"
+        className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[78vh] w-full max-w-[28.75rem] flex-col animate-rise rounded-t-[2rem] bg-white pb-[max(env(safe-area-inset-bottom),1.25rem)] shadow-[0_-6px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/5"
       >
         {/* Grab zone: handle + header — drag down to dismiss. The list below
             keeps its own scroll. */}
@@ -50,7 +50,7 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
           {/* Header */}
           <div className="flex items-center gap-3 px-5 pb-4 pt-3">
             <span
-              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[14px] text-lg text-white"
+              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[0.875rem] text-lg text-white"
               style={{ background: chapter.unlocked ? chapter.colorHex : '#C3CAD6' }}
             >
               <i className={`fa-solid fa-${chapter.iconKey}`} aria-hidden="true" />
@@ -83,13 +83,13 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
               const row = (
                 <>
                   <span
-                    className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[14px] text-[20px]"
+                    className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[0.875rem] text-[1.25rem]"
                     style={{ background: plant.bg, color: plant.color }}
                   >
                     <PlantIcon tier={concept.tier} />
                     {plant.crown && (
                       <i
-                        className="fa-solid fa-crown absolute -right-1 -top-1.5 text-[11px] text-qupu-orange"
+                        className="fa-solid fa-crown absolute -right-1 -top-1.5 text-[0.6875rem] text-qupu-orange"
                         aria-hidden="true"
                       />
                     )}
@@ -98,7 +98,7 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
                     <span className="block truncate font-display text-sm font-black text-qupu-brand-blue">
                       {concept.nameId}
                     </span>
-                    <span className="text-[11px] font-bold text-qupu-muted">
+                    <span className="text-[0.6875rem] font-bold text-qupu-muted">
                       {plant.label} · {pct}%
                     </span>
                   </span>
@@ -144,7 +144,7 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
             }`}
           >
             <span
-              className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[14px] text-lg ${
+              className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[0.875rem] text-lg ${
                 boss === 'open'
                   ? 'bg-qupu-brand-yellow text-[#8A6400]'
                   : boss === 'current'
@@ -159,7 +159,7 @@ export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props
             </span>
             <span className="min-w-0 flex-1">
               <span className="block font-display text-sm font-black text-qupu-brand-blue">Tes Bab</span>
-              <span className="text-[11px] font-bold text-qupu-muted">
+              <span className="text-[0.6875rem] font-bold text-qupu-muted">
                 {boss === 'open' ? 'Sudah lulus' : boss === 'current' ? 'Siap diuji' : 'Tumbuhkan dulu konsepnya'}
               </span>
             </span>

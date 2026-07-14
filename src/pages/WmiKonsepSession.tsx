@@ -398,7 +398,7 @@ export default function WmiKonsepSession() {
   // ── No active child ────────────────────────────────────────────────────────
   if (!activeChildId) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-child-reaching text-2xl" aria-hidden="true" />
         </div>
@@ -410,7 +410,7 @@ export default function WmiKonsepSession() {
   // ── Commit conflict (409): session already saved elsewhere — terminal ──────
   if (commitConflict) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-cloud-arrow-up text-2xl" aria-hidden="true" />
         </div>
@@ -436,7 +436,7 @@ export default function WmiKonsepSession() {
   // ── Loading / error states ─────────────────────────────────────────────────
   if (loadingGarden) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6">
         <Skeleton className="h-2 w-full rounded-full" />
         <Skeleton className="mt-6 h-64 rounded-[1.5rem]" />
       </div>
@@ -445,7 +445,7 @@ export default function WmiKonsepSession() {
 
   if (gardenError) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
           <i className="fa-solid fa-circle-exclamation text-2xl" aria-hidden="true" />
         </div>
@@ -461,7 +461,7 @@ export default function WmiKonsepSession() {
   // ── Resume offer (interrupted session found) ───────────────────────────────
   if (resumeOffer) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6">
         <div className="rounded-[1.5rem] border-2 border-qupu-peach bg-white p-5 text-center shadow-[0_5px_0_0_#FFD3B1]">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-qupu-cream text-qupu-brand-orange">
             <i className="fa-solid fa-clock-rotate-left text-2xl" aria-hidden="true" />
@@ -498,7 +498,7 @@ export default function WmiKonsepSession() {
 
   // ── Main session UI ────────────────────────────────────────────────────────
   return (
-    <div className="relative mx-auto w-full max-w-[460px] pb-8">
+    <div className="relative mx-auto w-full max-w-[28.75rem] pb-8">
       {/* Confetti on correct answer — re-mount per question via key */}
       {feedback?.is_correct && <KonsepConfetti key={`confetti-${idx}`} />}
 

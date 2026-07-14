@@ -69,8 +69,8 @@ export default function UnitConversionExplainer(props: ExplainerProps) {
       : `How to convert units: multiply ${bigU} by ${factor} then add ${smallU}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Rule row: 1 bigU = factor smallU */}
         {showRule && (
           <motion.div

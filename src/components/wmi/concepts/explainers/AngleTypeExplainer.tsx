@@ -68,13 +68,13 @@ export default function AngleTypeExplainer(props: ExplainerProps) {
       : `Angle type explainer: a ${degrees}-degree angle is ${story.category}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <svg
           viewBox={`0 0 ${SVG_W} ${SVG_H}`}
           width={SVG_W}
           height={SVG_H}
-          className="w-full max-w-[340px]"
+          className="w-full max-w-[21.25rem]"
           aria-hidden="true"
         >
           {/* 90° faint reference ray — shown when showSquare */}

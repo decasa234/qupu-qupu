@@ -403,7 +403,7 @@ export default function AdminVideosPage() {
                   <li key={video.id} className="flex items-center justify-between gap-3 py-2">
                     <div className="min-w-0">
                       <div className="truncate text-sm font-semibold text-admin-ink">{video.title}</div>
-                      <div className="text-[11px] text-admin-muted">
+                      <div className="text-[0.6875rem] text-admin-muted">
                         {video.youtubeVideoId} · {video.scoreAttempts} skor · {video.badgeUnlocks} badge
                       </div>
                     </div>
@@ -605,7 +605,7 @@ export default function AdminVideosPage() {
                         )}
                       </div>
                       <div className="mt-1 line-clamp-2 text-sm font-semibold text-admin-ink">{video.title}</div>
-                      <div className="mt-1 flex items-center gap-1.5 text-[11px] text-admin-muted">
+                      <div className="mt-1 flex items-center gap-1.5 text-[0.6875rem] text-admin-muted">
                         {video.subject && <BadgeCurve color={video.subject.colorHex} size={16} />}
                         {totalRanges} range · max {maxBadges} badge · {video.numberOfQuestions ?? '—'} soal
                       </div>

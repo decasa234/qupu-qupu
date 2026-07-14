@@ -72,7 +72,7 @@ export default function ConceptProgress({ concept }: { concept: WmiGardenConcept
   return (
     <div className="flex flex-col items-center">
       {/* Ring + plant */}
-      <div className="relative h-[124px] w-[124px]">
+      <div className="relative h-[7.75rem] w-[7.75rem]">
         <svg
           viewBox="0 0 120 120"
           className="h-full w-full -rotate-90"
@@ -95,13 +95,13 @@ export default function ConceptProgress({ concept }: { concept: WmiGardenConcept
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <span
-            className="relative flex h-[74px] w-[74px] items-center justify-center rounded-full text-[36px] motion-safe:animate-plant-bob"
+            className="relative flex h-[4.625rem] w-[4.625rem] items-center justify-center rounded-full text-[2.25rem] motion-safe:animate-plant-bob"
             style={{ background: plant.bg, color: plant.color }}
           >
             <PlantIcon tier={concept.tier} />
             {plant.crown && (
               <i
-                className="fa-solid fa-crown absolute -top-2.5 text-[16px] text-qupu-orange"
+                className="fa-solid fa-crown absolute -top-2.5 text-[1rem] text-qupu-orange"
                 aria-hidden="true"
               />
             )}
@@ -133,7 +133,7 @@ export default function ConceptProgress({ concept }: { concept: WmiGardenConcept
             <span
               key={t}
               className={`flex items-center justify-center rounded-full transition-transform ${
-                isCurrent ? 'h-9 w-9 text-[16px] ring-2 ring-qupu-brand-orange' : 'h-7 w-7 text-[12px]'
+                isCurrent ? 'h-9 w-9 text-[1rem] ring-2 ring-qupu-brand-orange' : 'h-7 w-7 text-[0.75rem]'
               } ${reached ? '' : 'opacity-35 grayscale'}`}
               style={{ background: stage.bg, color: stage.fg }}
             >

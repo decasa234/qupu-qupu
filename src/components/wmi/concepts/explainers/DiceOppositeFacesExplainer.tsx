@@ -293,8 +293,8 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
   )
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[260px] flex-col items-center gap-3">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[16.25rem] flex-col items-center gap-3">
 
         {/* === BEAT: rule — show the 3 pair cards === */}
         {phase === 'rule' && (
@@ -368,7 +368,7 @@ export default function DiceOppositeFacesExplainer(props: ExplainerProps) {
                   textColor={PURPLE}
                 />
                 <div className="flex flex-col items-center leading-none">
-                  <span className="font-display text-[11px] font-bold" style={{ color: MUTED }}>
+                  <span className="font-display text-[0.6875rem] font-bold" style={{ color: MUTED }}>
                     7 − {vis}
                   </span>
                   <span className="text-lg font-extrabold leading-none" style={{ color: GREEN }}>

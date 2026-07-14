@@ -161,7 +161,7 @@ export default function LatihanWmiPage() {
                 </Link>
                 <Link
                   to="/harga"
-                  className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[10px] font-display text-base font-extrabold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-full border-[3px] border-white bg-white/10 px-6 py-[0.625rem] font-display text-base font-extrabold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-white hover:text-qupu-brand-blue"
                 >
                   <i className="fa-solid fa-tag" aria-hidden="true" />
                   Lihat Harga

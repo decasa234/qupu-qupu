@@ -95,8 +95,8 @@ export default function DistanceRateTimeExplainer(props: ExplainerProps) {
         : `Time = distance ÷ speed. ${distance} km divided by ${rate} km/h equals ${t} hours.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Formula label — appears from 'formula' onward */}
         {showFormula && <FormulaLabel text={formulaText} color={BLUE} />}
 

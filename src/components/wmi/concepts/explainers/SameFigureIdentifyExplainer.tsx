@@ -107,13 +107,13 @@ export default function SameFigureIdentifyExplainer(props: ExplainerProps) {
   const isResult = beat.result
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         <svg
           viewBox={`0 0 ${svgW} ${svgH}`}
           width={svgW}
           height={svgH}
-          className="w-full max-w-[340px] overflow-visible"
+          className="w-full max-w-[21.25rem] overflow-visible"
           aria-hidden="true"
         >
           {/* ── Reference figure (top half) ─────────────────────────────── */}

@@ -67,7 +67,7 @@ export default function ShapePerimeterRectangleExplainer(props: ExplainerProps) 
       : `Strategy to find the perimeter of a ${w}×${h} rectangle: trace all four sides and add them up.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* SVG rectangle */}
         <svg

@@ -67,7 +67,7 @@ export default function ChildSwitcher() {
                 />
                 <span className="flex-1 text-qupu-ink">{child.name}</span>
                 {child.id === activeChildId && (
-                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-orange">aktif</span>
+                  <span className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-qupu-orange">aktif</span>
                 )}
               </button>
             ))}

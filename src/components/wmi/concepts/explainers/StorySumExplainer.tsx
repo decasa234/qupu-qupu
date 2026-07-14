@@ -198,7 +198,7 @@ export default function StorySumExplainer(props: ExplainerProps) {
     return () => cancelAnimationFrame(raf)
   }, [beat, basketLayout, tableLayout, p])
 
-  return <canvas ref={canvasRef} width={440} height={260} className="mx-auto block w-full max-w-[440px]" />
+  return <canvas ref={canvasRef} width={440} height={260} className="mx-auto block w-full max-w-[27.5rem]" />
 }
 
 function wrapText(

@@ -266,7 +266,7 @@ function NewBadge({ children }: { children: string }) {
         className="absolute inset-0 rounded-full bg-qupu-brand-orange/60 motion-safe:animate-ping"
         aria-hidden="true"
       />
-      <span className="relative rounded-full bg-qupu-brand-orange px-1.5 py-[2px] text-[9px] font-extrabold uppercase leading-none tracking-wide text-white shadow-[0_1px_0_0_#d96a22]">
+      <span className="relative rounded-full bg-qupu-brand-orange px-1.5 py-[0.125rem] text-[0.5625rem] font-extrabold uppercase leading-none tracking-wide text-white shadow-[0_1px_0_0_#d96a22]">
         {children}
       </span>
     </span>
@@ -283,7 +283,7 @@ function NavItemLink({
   const location = useLocation()
   const isHash = item.to.includes('#')
   const activeClass =
-    'text-qupu-brand-orange underline decoration-qupu-brand-orange decoration-[3px] underline-offset-[10px]'
+    'text-qupu-brand-orange underline decoration-qupu-brand-orange decoration-[0.1875rem] underline-offset-[0.625rem]'
   const idleClass = 'text-qupu-muted hover:text-qupu-brand-orange'
 
   const labelContent = (

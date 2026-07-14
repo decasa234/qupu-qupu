@@ -385,7 +385,7 @@ function AdminToggle({
     >
       <div className="min-w-0">
         <div className="text-sm font-semibold text-admin-ink">{label}</div>
-        {helper && <div className="text-[11px] text-admin-muted">{helper}</div>}
+        {helper && <div className="text-[0.6875rem] text-admin-muted">{helper}</div>}
       </div>
       <span className="relative inline-flex h-5 w-9 shrink-0 items-center">
         <input
@@ -400,7 +400,7 @@ function AdminToggle({
         />
         <span
           className={`relative inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
-            checked ? 'translate-x-[18px]' : 'translate-x-[3px]'
+            checked ? 'translate-x-[1.125rem]' : 'translate-x-[0.1875rem]'
           }`}
         />
       </span>

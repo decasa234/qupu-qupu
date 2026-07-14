@@ -41,7 +41,7 @@ export default function CountPolygonSidesExplainer(props: ExplainerProps) {
       : `Counting sides animation: a ${sides}-sided polygon, each side highlighted in turn.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* Polygon SVG */}
         <svg

@@ -34,8 +34,8 @@ export default function DigitFrequencyExplainer(props: ExplainerProps) {
       : `Strategy: count the digit ${d} in the ones place and the tens place separately.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-3">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-3">
         {/* the rule */}
         <div
           className="rounded-xl border-2 px-3 py-2 text-center font-display text-xs font-extrabold"
@@ -55,15 +55,15 @@ export default function DigitFrequencyExplainer(props: ExplainerProps) {
             return (
               <span
                 key={n}
-                className="inline-flex overflow-hidden rounded-[3px] border text-[11px] font-extrabold"
+                className="inline-flex overflow-hidden rounded-[0.1875rem] border text-[0.6875rem] font-extrabold"
                 style={{ borderColor: '#e6dcc6', color: PURPLE }}
               >
                 {tensChar && (
-                  <span className="px-[3px] py-[1px]" style={{ background: tensHit ? BLUE : 'transparent', color: tensHit ? '#fff' : PURPLE }}>
+                  <span className="px-[0.1875rem] py-[0.0625rem]" style={{ background: tensHit ? BLUE : 'transparent', color: tensHit ? '#fff' : PURPLE }}>
                     {tensChar}
                   </span>
                 )}
-                <span className="px-[3px] py-[1px]" style={{ background: onesHit ? ORANGE : 'transparent', color: onesHit ? '#fff' : PURPLE }}>
+                <span className="px-[0.1875rem] py-[0.0625rem]" style={{ background: onesHit ? ORANGE : 'transparent', color: onesHit ? '#fff' : PURPLE }}>
                   {onesChar}
                 </span>
               </span>

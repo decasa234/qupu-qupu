@@ -110,7 +110,7 @@ export default function NetProgressCyclesExplainer(props: ExplainerProps) {
       : `Ladder animation: up ${up} down ${down} for ${cycles} cycles, total ${story.answer} steps.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* Main visual: ladder track + cycle info */}
         <div className="flex items-start justify-center gap-5">

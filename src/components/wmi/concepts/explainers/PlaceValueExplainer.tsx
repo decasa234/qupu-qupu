@@ -28,7 +28,7 @@ function Tile({ digit, color, place }: { digit: number; color: string; place: st
       >
         {digit}
       </motion.div>
-      <span className="font-display text-[11px] font-bold text-qupu-muted">{place}</span>
+      <span className="font-display text-[0.6875rem] font-bold text-qupu-muted">{place}</span>
     </div>
   )
 }
@@ -42,12 +42,12 @@ function Rod({ index }: { index: number }) {
       transition={{ type: 'spring', stiffness: 400, damping: 24, delay: index * 0.04 }}
       className="flex flex-col items-center gap-1"
     >
-      <div className="flex flex-col gap-[2px]">
+      <div className="flex flex-col gap-[0.125rem]">
         {Array.from({ length: 10 }, (_, i) => (
-          <span key={i} className="block h-2.5 w-2.5 rounded-[2px]" style={{ background: BLUE }} />
+          <span key={i} className="block h-2.5 w-2.5 rounded-[0.125rem]" style={{ background: BLUE }} />
         ))}
       </div>
-      <span className="font-display text-[10px] font-bold" style={{ color: BLUE }}>
+      <span className="font-display text-[0.625rem] font-bold" style={{ color: BLUE }}>
         10
       </span>
     </motion.div>
@@ -71,8 +71,8 @@ export default function PlaceValueExplainer(props: ExplainerProps) {
       : 'Strategy: a digit in the tens place is worth that many tens.'
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[250px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[15.625rem] flex-col items-center justify-center gap-4">
         {/* the whole number */}
         {beat.showNumber && (
           <motion.div
@@ -111,7 +111,7 @@ export default function PlaceValueExplainer(props: ExplainerProps) {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 30, delay: k * 0.04 }}
-                    className="block h-2.5 w-2.5 rounded-[2px]"
+                    className="block h-2.5 w-2.5 rounded-[0.125rem]"
                     style={{ background: ORANGE }}
                   />
                 ))}

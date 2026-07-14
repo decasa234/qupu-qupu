@@ -54,7 +54,7 @@ export default function ShopItemCard({ item, balance, onTap }: Props) {
             <i className={KIND_ICON[item.kind]} aria-hidden="true" />
           </span>
         )}
-        <span className="absolute left-3 top-3 rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.08em] text-qupu-brand-blue/75">
+        <span className="absolute left-3 top-3 rounded-full bg-white/80 px-2 py-0.5 text-[0.5625rem] font-black uppercase tracking-[0.08em] text-qupu-brand-blue/75">
           {KIND_LABEL[item.kind]}
         </span>
       </div>
@@ -63,27 +63,27 @@ export default function ShopItemCard({ item, balance, onTap }: Props) {
           {item.name}
         </div>
         <div className="flex items-center justify-between gap-2">
-          <div className="inline-flex items-center gap-1 self-start rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[11px] font-black text-qupu-brand-blue shadow-[0_2px_0_0_rgba(29,42,77,0.12)]">
+          <div className="inline-flex items-center gap-1 self-start rounded-full bg-qupu-brand-yellow px-2.5 py-1 text-[0.6875rem] font-black text-qupu-brand-blue shadow-[0_2px_0_0_rgba(29,42,77,0.12)]">
             <i className="fa-solid fa-coins" aria-hidden="true" /> {item.coinPrice}
           </div>
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-qupu-brand-blue text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-qupu-brand-blue text-[0.6875rem] text-white opacity-0 transition-opacity group-hover:opacity-100">
             <i className="fa-solid fa-arrow-right" aria-hidden="true" />
           </span>
         </div>
       </div>
       {item.owned && (
-        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[oklch(0.52_0.14_155)] px-2.5 py-1 text-[10px] font-black text-white shadow-[0_2px_0_0_rgba(10,80,55,0.25)]">
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[oklch(0.52_0.14_155)] px-2.5 py-1 text-[0.625rem] font-black text-white shadow-[0_2px_0_0_rgba(10,80,55,0.25)]">
           <i className="fa-solid fa-check" aria-hidden="true" /> Dimiliki
         </span>
       )}
       {/* Repurchasable shield: show the owned count instead of "Dimiliki". */}
       {!item.owned && (item.shieldCount ?? 0) > 0 && (
-        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[oklch(0.52_0.14_155)] px-2.5 py-1 text-[10px] font-black text-white shadow-[0_2px_0_0_rgba(10,80,55,0.25)]">
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[oklch(0.52_0.14_155)] px-2.5 py-1 text-[0.625rem] font-black text-white shadow-[0_2px_0_0_rgba(10,80,55,0.25)]">
           <i className="fa-solid fa-shield-halved" aria-hidden="true" /> x{item.shieldCount}
         </span>
       )}
       {!item.owned && !(item.shieldCount ?? 0) && !item.affordable && (
-        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2.5 py-1 text-[10px] font-black text-white shadow-[0_2px_0_0_#0E1430]">
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-qupu-brand-blue px-2.5 py-1 text-[0.625rem] font-black text-white shadow-[0_2px_0_0_#0E1430]">
           +{shortBy} koin
         </span>
       )}

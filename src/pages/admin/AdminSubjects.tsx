@@ -180,7 +180,7 @@ export default function AdminSubjectsPage() {
             <BadgeCurve color={form.colorHex} size={48} />
             <div className="min-w-0">
               <div className="truncate font-semibold text-admin-ink">{form.name || 'Nama subject'}</div>
-              <div className="text-[11px] text-admin-muted">{form.colorHex}</div>
+              <div className="text-[0.6875rem] text-admin-muted">{form.colorHex}</div>
             </div>
           </div>
 
@@ -258,7 +258,7 @@ export default function AdminSubjectsPage() {
                     <BadgeCurve color={subject.colorHex} size={32} />
                     <div className="min-w-0">
                       <div className="truncate font-semibold text-admin-ink">{subject.name}</div>
-                      <div className="text-[11px] text-admin-muted">
+                      <div className="text-[0.6875rem] text-admin-muted">
                         {subject.slug} · {subject.videoCount} video · {subject.defaultBadgeRanges.length} range template
                       </div>
                     </div>

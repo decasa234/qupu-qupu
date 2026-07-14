@@ -44,8 +44,8 @@ export function BadgeRangeEditor({
         <div className="flex min-w-0 items-center gap-2">
           {leading}
           <div className="min-w-0">
-            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-admin-ink">{title}</div>
-            {subtitle && <div className="truncate text-[11px] text-admin-muted">{subtitle}</div>}
+            <div className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-admin-ink">{title}</div>
+            {subtitle && <div className="truncate text-[0.6875rem] text-admin-muted">{subtitle}</div>}
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
@@ -67,9 +67,9 @@ export function BadgeRangeEditor({
           {/* Column headers */}
           <div className="grid grid-cols-[auto_1fr_1fr_1fr_auto] items-center gap-2 px-2">
             <span className="w-9" aria-hidden="true" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-admin-muted">Min</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-admin-muted">Maks</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-admin-muted">Badge</span>
+            <span className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-admin-muted">Min</span>
+            <span className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-admin-muted">Maks</span>
+            <span className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-admin-muted">Badge</span>
             <span className="w-9" aria-hidden="true" />
           </div>
           {ranges.map((range, index) => (
@@ -77,7 +77,7 @@ export function BadgeRangeEditor({
               key={index}
               className="grid grid-cols-[auto_1fr_1fr_1fr_auto] items-center gap-2 rounded-lg bg-white p-2"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded bg-admin-sunk font-mono text-[10px] font-bold uppercase text-admin-muted">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded bg-admin-sunk font-mono text-[0.625rem] font-bold uppercase text-admin-muted">
                 R{index + 1}
               </span>
               <Input
@@ -112,7 +112,7 @@ export function BadgeRangeEditor({
             </div>
           ))}
           {unlimitedMaxHint && (
-            <p className="text-[11px] text-admin-faint">Kosong di baris terakhir = tanpa batas.</p>
+            <p className="text-[0.6875rem] text-admin-faint">Kosong di baris terakhir = tanpa batas.</p>
           )}
         </div>
       )}

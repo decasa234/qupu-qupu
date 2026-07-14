@@ -71,11 +71,11 @@ function adapt(slug: string, s: AdminConceptSample): WmiQuestion {
 function Chip({ on, label }: { on: boolean; label: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.6875rem] font-bold ${
         on ? 'bg-emerald-100 text-emerald-700' : 'bg-admin-sunk text-admin-faint'
       }`}
     >
-      <i className={`fa-solid ${on ? 'fa-check' : 'fa-minus'} text-[9px]`} aria-hidden="true" />
+      <i className={`fa-solid ${on ? 'fa-check' : 'fa-minus'} text-[0.5625rem]`} aria-hidden="true" />
       {label}
     </span>
   )
@@ -312,7 +312,7 @@ export default function AdminWmiConcepts() {
                 reviewFilter === 'urgent' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 hover:bg-red-100'
               }`}
             >
-              <i className="fa-solid fa-flag text-[11px]" aria-hidden="true" />
+              <i className="fa-solid fa-flag text-[0.6875rem]" aria-hidden="true" />
               <span className="tabular-nums">{urgentCount}</span> Urgent
             </button>
           )}
@@ -395,7 +395,7 @@ export default function AdminWmiConcepts() {
               placeholder="Search id / name… (e.g. G14)"
             />
             {query && (
-              <div className="px-1 pt-1 text-[11px] text-admin-faint">
+              <div className="px-1 pt-1 text-[0.6875rem] text-admin-faint">
                 {filtered.length} match{filtered.length === 1 ? '' : 'es'} · Enter to open the first
               </div>
             )}
@@ -403,12 +403,12 @@ export default function AdminWmiConcepts() {
           {grouped.length === 0 && <div className="px-2 py-3 text-sm text-admin-faint">No matches.</div>}
           {grouped.map(([strand, topics]) => (
             <div key={strand} className="mb-3">
-              <div className="px-2 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-admin-faint">
+              <div className="px-2 pb-1 pt-2 text-[0.625rem] font-bold uppercase tracking-wider text-admin-faint">
                 {strand}
               </div>
               {topics.map(([topic, items]) => (
                 <div key={topic} className="mb-1">
-                  <div className="px-2 pb-0.5 pt-1 text-[10px] font-semibold text-admin-muted">
+                  <div className="px-2 pb-0.5 pt-1 text-[0.625rem] font-semibold text-admin-muted">
                     {items[0]?.topic_label ?? topic}
                   </div>
                   {items.map((c) => (
@@ -423,7 +423,7 @@ export default function AdminWmiConcepts() {
                       }`}
                     >
                       <span
-                        className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[11px] font-bold ${
+                        className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[0.6875rem] font-bold ${
                           c.slug === activeSlug ? 'bg-white/20 text-white' : 'bg-admin-sunk text-admin-muted'
                         }`}
                       >
@@ -431,7 +431,7 @@ export default function AdminWmiConcepts() {
                       </span>
                       <span className="flex-1 truncate">{c.name_en}</span>
                       <span
-                        className={`shrink-0 tabular-nums text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                        className={`shrink-0 tabular-nums text-[0.625rem] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
                         title={`Difficulty ${c.difficulty}/5`}
                         aria-hidden="true"
                       >
@@ -439,7 +439,7 @@ export default function AdminWmiConcepts() {
                       </span>
                       {c.isOlympiad && (
                         <span
-                          className={`shrink-0 text-[10px] leading-none ${c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-brand-orange'}`}
+                          className={`shrink-0 text-[0.625rem] leading-none ${c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-brand-orange'}`}
                           title="Olympiad-core"
                           aria-hidden="true"
                         >
@@ -447,13 +447,13 @@ export default function AdminWmiConcepts() {
                         </span>
                       )}
                       <span
-                        className={`shrink-0 text-[10px] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
+                        className={`shrink-0 text-[0.625rem] ${c.slug === activeSlug ? 'text-white/70' : 'text-admin-faint'}`}
                       >
                         G{c.grades.join('')}
                       </span>
                       {c.wmi_refined && (
                         <i
-                          className={`fa-solid fa-star shrink-0 text-[10px] leading-none ${
+                          className={`fa-solid fa-star shrink-0 text-[0.625rem] leading-none ${
                             c.slug === activeSlug ? 'text-yellow-200' : 'text-qupu-purple'
                           }`}
                           aria-hidden="true"
@@ -462,7 +462,7 @@ export default function AdminWmiConcepts() {
                       )}
                       {counts.byConcept[c.slug] > 0 && (
                         <span
-                          className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[9px] font-bold text-white"
+                          className="shrink-0 rounded-full bg-qupu-brand-orange px-1.5 text-[0.5625rem] font-bold text-white"
                           title={`${counts.byConcept[c.slug]} open issue(s)`}
                         >
                           {counts.byConcept[c.slug]}⚑
@@ -632,7 +632,7 @@ export default function AdminWmiConcepts() {
               New samples
             </Button>
           </div>
-          <p className="text-[10px] text-admin-faint">
+          <p className="text-[0.625rem] text-admin-faint">
             Keys: <b>j</b>/<b>k</b> move concept · <b>n</b> next with open issues
           </p>
 
@@ -745,7 +745,7 @@ function Steps({
 }) {
   return (
     <div>
-      <div className="mb-1 text-[11px] font-bold uppercase text-admin-faint">{label}</div>
+      <div className="mb-1 text-[0.6875rem] font-bold uppercase text-admin-faint">{label}</div>
       {steps?.length ? (
         <ol className="list-decimal space-y-1 pl-5 text-sm text-admin-ink">
           {steps.map((s, i) => (

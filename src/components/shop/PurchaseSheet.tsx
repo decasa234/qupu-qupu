@@ -57,7 +57,7 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
             <i className="fa-solid fa-image text-5xl text-qupu-muted" aria-hidden="true" />
           )}
         </div>
-        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-qupu-brand-orange">{item.kind}</div>
+        <div className="text-[0.625rem] font-bold uppercase tracking-[0.2em] text-qupu-brand-orange">{item.kind}</div>
         <h2 className="font-display text-xl font-extrabold text-qupu-brand-blue">{item.name}</h2>
         <p className="text-sm font-medium text-qupu-muted">{item.description}</p>
         <div className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-3 py-1 font-display text-sm font-extrabold text-qupu-brand-blue">

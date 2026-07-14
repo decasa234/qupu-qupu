@@ -69,7 +69,7 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en', step
         <div className="flex gap-1.5 rounded-lg p-1.5 ring-2 ring-qupu-brand-orange">
           {Array.from({ length: splitFills }, (_, k) => looseChip(k))}
         </div>
-        <span className="text-[11px] font-extrabold" style={{ color: ORANGE }}>
+        <span className="text-[0.6875rem] font-extrabold" style={{ color: ORANGE }}>
           {splitFills} {lang === 'id' ? '→ isi sepuluh' : '→ fills ten'}
         </span>
       </div>
@@ -78,13 +78,13 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en', step
         <div className="flex gap-1.5 p-1.5">
           {Array.from({ length: splitLeft }, (_, k) => looseChip(splitFills + k))}
         </div>
-        <span className="text-[11px] font-extrabold text-qupu-muted">
+        <span className="text-[0.6875rem] font-extrabold text-qupu-muted">
           {splitLeft} {lang === 'id' ? 'sisa' : 'left'}
         </span>
       </div>
     </div>
   ) : (
-    <div className="flex min-h-[24px] items-center gap-1.5">
+    <div className="flex min-h-[1.5rem] items-center gap-1.5">
       {Array.from({ length: beat.loose }, (_, k) => looseChip(beat.orange + k))}
     </div>
   )
@@ -98,7 +98,7 @@ export default function SingleDigitAdditionExplainer({ params, lang = 'en', step
   // isolated if more than one explainer ever renders on the same page.
   return (
     <LayoutGroup>
-      <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+      <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
         <div className="flex flex-col items-center gap-3">
           {/* Ten-frame, with a "10" badge once it is full */}
           <div className="flex items-center gap-3">

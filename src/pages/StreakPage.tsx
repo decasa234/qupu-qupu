@@ -52,14 +52,14 @@ export default function StreakPage() {
 
   if (!activeChildId) {
     return (
-      <div className="mx-auto w-full max-w-[460px] p-6 text-center text-sm font-semibold text-qupu-muted">
+      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center text-sm font-semibold text-qupu-muted">
         Pilih profil anak dulu.
       </div>
     )
   }
 
   return (
-    <div className="mx-auto w-full max-w-[460px] pb-8">
+    <div className="mx-auto w-full max-w-[28.75rem] pb-8">
       <div className="mb-3 flex items-center gap-3 px-1 pt-1">
         <BackButton variant="back" to="/profil" />
         <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">Streak</h1>
@@ -112,7 +112,7 @@ export default function StreakPage() {
 
           {/* Calendar / heatmap */}
           <div className="rounded-[1.75rem] bg-white p-5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
+            <p className="text-[0.6875rem] font-black uppercase tracking-[0.18em] text-qupu-brand-orange">
               Aktivitas
             </p>
             <h2 className="mt-0.5 font-display text-lg font-black text-qupu-brand-blue">4 minggu terakhir</h2>

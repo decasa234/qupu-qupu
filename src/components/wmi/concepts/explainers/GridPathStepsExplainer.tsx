@@ -80,7 +80,7 @@ export default function GridPathStepsExplainer(props: ExplainerProps) {
   const tokenFill = isResult ? GREEN : BLUE
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
       <div className="flex flex-col items-center gap-3">
         {/* Grid SVG */}
         <svg

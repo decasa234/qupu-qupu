@@ -68,7 +68,7 @@ export default function ConfirmModal({
         <button
           type="button"
           onClick={onClose}
-          className="mt-5 w-full rounded-full bg-qupu-brand-blue py-3 font-display text-[15px] font-black text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+          className="mt-5 w-full rounded-full bg-qupu-brand-blue py-3 font-display text-[0.9375rem] font-black text-white shadow-[0_4px_0_0_#0E1430] transition-transform active:translate-y-0.5"
         >
           {cancelLabel}
         </button>

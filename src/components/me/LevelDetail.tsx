@@ -74,7 +74,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
 
   return (
     <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
-      <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+      <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         Level &amp; XP
       </div>
 
@@ -98,7 +98,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
       </div>
 
       <div className="mt-4">
-        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.14em] text-qupu-muted">
+        <div className="flex items-center justify-between text-[0.625rem] font-bold uppercase tracking-[0.14em] text-qupu-muted">
           <span>{atMax ? 'Level maksimal' : `${summary.xpIntoCurrent} / ${summary.levelSpan} XP`}</span>
           <span>{atMax ? 'MAKS' : `${pct}%`}</span>
         </div>
@@ -109,7 +109,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
           />
         </div>
         {!atMax && nextTier && (
-          <p className="mt-1.5 text-[11px] font-semibold text-qupu-muted">
+          <p className="mt-1.5 text-[0.6875rem] font-semibold text-qupu-muted">
             Kurang {summary.xpToNext} XP menuju{' '}
             <strong className="text-qupu-brand-blue">{nextTier.name}</strong>
           </p>
@@ -123,7 +123,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
       </div>
 
       <div className="mt-4">
-        <div className="text-[10px] font-black uppercase tracking-[0.16em] text-qupu-muted">Tingkatan</div>
+        <div className="text-[0.625rem] font-black uppercase tracking-[0.16em] text-qupu-muted">Tingkatan</div>
         <div className="mt-2 max-h-80 space-y-1.5 overflow-y-auto pr-1">
           {summary.tiers.map((tier) => {
             const reached = summary.totalXp >= tier.minXp
@@ -158,7 +158,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
                     {tier.name}
                   </div>
                   <div
-                    className={`text-[10px] font-semibold ${isCurrent ? 'text-white/80' : 'text-qupu-muted'}`}
+                    className={`text-[0.625rem] font-semibold ${isCurrent ? 'text-white/80' : 'text-qupu-muted'}`}
                   >
                     Level {tier.level} · {tier.minXp} XP
                   </div>
@@ -188,7 +188,7 @@ function MiniStat({ icon, label, value }: { icon: string; label: string; value: 
       <i className={`${icon} text-base text-qupu-brand-orange`} aria-hidden="true" />
       <div className="min-w-0">
         <div className="font-display text-sm font-black leading-none text-qupu-brand-blue">{value}</div>
-        <div className="mt-0.5 text-[9px] font-bold uppercase tracking-[0.1em] text-qupu-muted">{label}</div>
+        <div className="mt-0.5 text-[0.5625rem] font-bold uppercase tracking-[0.1em] text-qupu-muted">{label}</div>
       </div>
     </div>
   )

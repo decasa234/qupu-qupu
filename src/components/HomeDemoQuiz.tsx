@@ -107,7 +107,7 @@ export default function HomeDemoQuiz() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
+            <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
               Demo
             </div>
             <h3 className="mt-1 font-display text-2xl font-bold text-qupu-brand-blue">
@@ -141,7 +141,7 @@ export default function HomeDemoQuiz() {
                     ))}
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-qupu-muted">
+                    <div className="text-[0.625rem] font-bold uppercase tracking-[0.18em] text-qupu-muted">
                       Akan dapat
                     </div>
                     <div className="font-display text-base font-extrabold text-qupu-brand-blue">
@@ -167,7 +167,7 @@ export default function HomeDemoQuiz() {
             </span>
             Coba simpan skor — daftar gratis
           </button>
-          <p className="text-center text-[11px] font-semibold text-qupu-muted">
+          <p className="text-center text-[0.6875rem] font-semibold text-qupu-muted">
             Skor kamu akan tersimpan otomatis setelah daftar.
           </p>
         </form>

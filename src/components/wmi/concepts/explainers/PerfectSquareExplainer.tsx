@@ -29,8 +29,8 @@ export default function PerfectSquareExplainer(props: ExplainerProps) {
       : `Strategy: find the smallest perfect square greater than ${n}.`
 
   return (
-    <div className="mx-auto w-full max-w-[440px]" role="img" aria-label={ariaLabel}>
-      <div className="flex min-h-[210px] flex-col items-center justify-center gap-4">
+    <div className="mx-auto w-full max-w-[27.5rem]" role="img" aria-label={ariaLabel}>
+      <div className="flex min-h-[13.125rem] flex-col items-center justify-center gap-4">
         {/* Square chips row */}
         {showSquares && (
           <div className="flex flex-wrap items-end justify-center gap-2">
@@ -64,7 +64,7 @@ export default function PerfectSquareExplainer(props: ExplainerProps) {
                     {sq.value}
                   </span>
                   <span
-                    className="font-display text-[10px] font-bold"
+                    className="font-display text-[0.625rem] font-bold"
                     style={{ color: MUTED }}
                   >
                     {sq.k}×{sq.k}
