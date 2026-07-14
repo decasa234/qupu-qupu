@@ -187,7 +187,7 @@ export default function VideosPage() {
             </div>
 
             <div className="hidden justify-center lg:flex lg:-my-6 xl:-my-10">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/hero-mascot.png"
                 alt=""
                 draggable={false}

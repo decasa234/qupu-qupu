@@ -48,7 +48,7 @@ export default function ShopItemCard({ item, balance, onTap }: Props) {
       <div className={`relative flex h-24 items-center justify-center ${KIND_TINT[item.kind]}`}>
         <div className="absolute inset-x-4 bottom-0 h-px bg-white/35" />
         {item.thumbnailUrl ? (
-          <img src={item.thumbnailUrl} alt="" className="h-full w-full object-cover" />
+          <img loading="lazy" decoding="async" src={item.thumbnailUrl} alt="" className="h-full w-full object-cover" />
         ) : (
           <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/28 text-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.22)]">
             <i className={KIND_ICON[item.kind]} aria-hidden="true" />

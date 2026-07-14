@@ -82,7 +82,7 @@ export default function InventoryGrid({ childId }: Props) {
             >
               <div className="flex h-24 items-center justify-center bg-qupu-shell">
                 {it.thumbnailUrl ? (
-                  <img src={it.thumbnailUrl} alt="" className="h-full w-full object-cover" />
+                  <img loading="lazy" decoding="async" src={it.thumbnailUrl} alt="" className="h-full w-full object-cover" />
                 ) : (
                   <i
                     className={`fa-solid ${isShield ? 'fa-shield-halved text-qupu-brand-orange' : 'fa-image text-qupu-muted'} text-3xl`}

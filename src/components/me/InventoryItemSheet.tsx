@@ -24,7 +24,7 @@ export default function InventoryItemSheet({ open, onClose, item, shieldCount = 
       <div className="space-y-3">
         <div className="flex h-40 items-center justify-center rounded-[1.25rem] bg-qupu-shell">
           {item.thumbnailUrl ? (
-            <img src={item.thumbnailUrl} alt="" className="h-full w-full rounded-[1.25rem] object-cover" />
+            <img loading="lazy" decoding="async" src={item.thumbnailUrl} alt="" className="h-full w-full rounded-[1.25rem] object-cover" />
           ) : (
             <i
               className={`fa-solid ${isShield ? 'fa-shield-halved text-qupu-brand-orange' : 'fa-image text-qupu-muted'} text-5xl`}

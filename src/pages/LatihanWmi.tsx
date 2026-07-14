@@ -131,7 +131,7 @@ export default function LatihanWmiPage() {
             <Reveal delay={0.05}>
           <section className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-qupu-brand-blue to-[#3d6ea8] px-6 py-14 text-center text-white shadow-[6px_8px_0_0_#FFD3B1] sm:px-10 sm:py-16">
             <Sprinkles />
-            <img
+            <img loading="lazy" decoding="async"
               src="/subs-mascot.png"
               alt=""
               draggable={false}

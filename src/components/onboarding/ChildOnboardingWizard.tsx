@@ -110,7 +110,7 @@ export default function ChildOnboardingWizard({ onCreated }: ChildOnboardingWiza
 
   return (
     <div className="relative mx-auto w-full max-w-lg">
-      <img
+      <img loading="lazy" decoding="async"
         src="/hero-mascot.png"
         alt=""
         draggable={false}

@@ -588,7 +588,7 @@ export default function AdminVideosPage() {
                       aria-label={`Pilih ${video.title}`}
                     />
                     <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md border border-admin-line">
-                      <img src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
+                      <img loading="lazy" decoding="async" src={video.thumbnailUrl} alt={video.title} className="h-full w-full object-cover" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-1.5">

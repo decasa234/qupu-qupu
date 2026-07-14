@@ -106,7 +106,7 @@ export default function PostQuizRewardSummary({
       <div className="animate-reward-pop relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[2.5rem] border-[3px] border-dashed border-qupu-brand-orange/60 bg-white p-6 shadow-[6px_8px_0_0_#FFD3B1] [scrollbar-width:none] sm:p-8 [&::-webkit-scrollbar]:hidden">
         {/* Mascot + headline */}
         <div className="text-center">
-          <img
+          <img loading="lazy" decoding="async"
             src="/hero-mascot.png"
             alt=""
             aria-hidden="true"

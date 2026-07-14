@@ -97,7 +97,7 @@ export default function HomeActionCards({
           {/* Real video thumbnail with overlaid chips + a play target. */}
           <div className="relative aspect-video w-full overflow-hidden bg-qupu-brand-blue">
             {recommended.thumbnailUrl ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={recommended.thumbnailUrl}
                 alt=""
                 draggable={false}
