@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { query, queryOne, withTransaction } from '../../../db.js'
 import { CURRICULUM, SUBJECTS } from './curriculum.js'
 import { ALL_SLUGS, CONCEPTS } from './registry.js'
@@ -19,16 +20,55 @@ export function ensureBootstrapped(): Promise<void> {
   return bootstrapPromise
 }
 
+// Fingerprint of everything this bootstrap writes: subject rows, concept
+// metadata/curriculum, and the seed-pool size. Deliberately NOT the concept
+// render/generate code — seeded instances are immutable once written
+// (ON CONFLICT DO NOTHING); refreshing stale instances is
+// db/seed/wmi/regen-stale-instances.ts's job, not the request path's.
+function registryFingerprint(): string {
+  const material = JSON.stringify({
+    seedCount: SEED_COUNT,
+    subjects: SUBJECTS,
+    curriculum: CURRICULUM,
+    metas: ALL_SLUGS.map((slug) => CONCEPTS[slug].meta),
+  })
+  return createHash('sha256').update(material).digest('hex')
+}
+
 async function doBootstrap(): Promise<void> {
   // NOTE: schema (DDL) is owned by db/schema.sql + db/migrations (the
   // hint_steps columns come from migration 0023). This bootstrap no longer
   // runs DDL at request time — it only upserts concept rows and seeds the
   // idempotent starter instance pool.
+  //
+  // Fast path: the full upsert+seed pass is ~1,700 sequential queries — a
+  // 15-50s first request on every serverless cold start against a remote
+  // Postgres. The wmi_bootstrap_state stamp (migration 0050) records the
+  // fingerprint of the last completed pass; when it matches, this instance
+  // has nothing to write and the gate costs one SELECT.
+  // Both stamp queries tolerate a missing table (code deployed before
+  // migration 0050): the fast path is then skipped and behavior degrades to
+  // the old full pass instead of failing every WMI request.
+  const fingerprint = registryFingerprint()
+  const stamp = await queryOne<{ fingerprint: string }>(
+    'SELECT fingerprint FROM wmi_bootstrap_state WHERE id = 1',
+  ).catch(() => null)
+  if (stamp?.fingerprint === fingerprint) return
+
   await upsertSubjects()
   await upsertConcepts()
   for (const slug of ALL_SLUGS) {
     await seedConcept(slug, CONCEPTS[slug] as ConceptLogic<unknown>)
   }
+
+  await query(
+    `INSERT INTO wmi_bootstrap_state (id, fingerprint, bootstrapped_at)
+     VALUES (1, $1, NOW())
+     ON CONFLICT (id) DO UPDATE SET fingerprint = EXCLUDED.fingerprint, bootstrapped_at = NOW()`,
+    [fingerprint],
+  ).catch((err) => {
+    console.error('wmi bootstrap: could not stamp fingerprint (migration 0050 applied?):', err)
+  })
 }
 
 async function upsertSubjects(): Promise<void> {

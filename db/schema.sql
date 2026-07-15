@@ -600,6 +600,16 @@ CREATE INDEX IF NOT EXISTS idx_wmi_exam_sessions_child_paper
 -- WMI Concept Generator (migration 0021)
 -- ---------------------------------------------------------------------
 
+-- Cold-start fast path for the request-time bootstrap (migration 0050):
+-- records the fingerprint of the last completed subject/concept/seed pass
+-- so a serverless cold start with matching code skips the ~1,700-query
+-- upsert grind and serves immediately.
+CREATE TABLE IF NOT EXISTS wmi_bootstrap_state (
+  id             SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  fingerprint    TEXT NOT NULL,
+  bootstrapped_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- Per-grade subjects — migration 0034
 CREATE TABLE IF NOT EXISTS wmi_subjects (
   subject_key TEXT PRIMARY KEY,
