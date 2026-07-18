@@ -105,11 +105,11 @@ export default function TrackMap() {
             checkpointSlug={pickCheckpoint(state.units)}
             onConcept={(node, unit) => {
               if (!unit.unlocked) return
-              navigate(`/latihan/track/${trackId}/sesi/${node.slug}`)
+              navigate(`/latihan/track/${trackId}/sesi/${node.slug}`, { state: { theme: state.theme } })
             }}
             onGate={(node) => {
               if (node.unlocked || node.cleared) {
-                navigate(`/latihan/track/${trackId}/gerbang/${node.key}`)
+                navigate(`/latihan/track/${trackId}/gerbang/${node.key}`, { state: { theme: state.theme } })
               }
             }}
           />

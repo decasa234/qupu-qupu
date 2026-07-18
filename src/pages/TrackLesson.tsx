@@ -71,7 +71,7 @@ export default function TrackLesson() {
 
   const current = questions[idx]
   const allAnswered = useMemo(
-    () => questions.length > 0 && questions.every((q) => answers[q.instanceId]),
+    () => questions.length > 0 && questions.every((q) => answers[q.instanceId]?.trim()),
     [questions, answers],
   )
 
@@ -83,7 +83,7 @@ export default function TrackLesson() {
     try {
       const payload = questions.map((q) => ({
         instanceId: q.instanceId,
-        selectedAnswer: answers[q.instanceId] ?? '',
+        selectedAnswer: (answers[q.instanceId] ?? '').trim(),
         recall: q.recall,
       }))
       const lessonResult = await commitTrackLesson(childId, trackId, focusSlug, payload)

@@ -101,6 +101,7 @@ export default function TrackTrail({
           >
             {/* Banner row — plain div in Plan 2, no breakdown-sheet tap. */}
             <div
+              role="group"
               aria-label={`${unit.nameId}, ${goldCount} dari ${total} emas`}
               className={`flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 ${
                 unit.unlocked

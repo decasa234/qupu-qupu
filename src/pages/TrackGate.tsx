@@ -88,11 +88,11 @@ export default function TrackGate() {
   }, [activeChildId, trackId, gateKey, loadTick])
 
   async function submit() {
-    if (!activeChildId || !trackId || !gateKey || !selectedAnswer) return
+    if (!activeChildId || !trackId || !gateKey || !selectedAnswer.trim()) return
     setSubmitting(true)
     setSubmitError(false)
     try {
-      const res = await submitTrackGate(activeChildId, trackId, gateKey, selectedAnswer)
+      const res = await submitTrackGate(activeChildId, trackId, gateKey, selectedAnswer.trim())
       setResult(res)
     } catch {
       // Answer stays in state — the kid just taps "Jawab" again.
@@ -238,7 +238,7 @@ export default function TrackGate() {
       <div className="mt-4">
         <button
           onClick={submit}
-          disabled={!selectedAnswer || submitting}
+          disabled={!selectedAnswer.trim() || submitting}
           className="w-full rounded-full bg-[#58A700] py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] transition-transform active:translate-y-0.5 disabled:opacity-50"
         >
           {submitting ? 'Memeriksa…' : 'Jawab'}
