@@ -147,7 +147,15 @@ export default function TrackLesson() {
                 className="mx-auto flex h-20 w-20 items-center justify-center rounded-full text-3xl shadow-[inset_0_-5px_0_rgba(0,0,0,0.15)]"
                 style={{ background: stage.bg, color: stage.fg }}
               >
-                <i className={`${stage.iconPrefix} ${stage.icon}`} aria-hidden="true" />
+                {stage.forest ? (
+                  <span className="relative flex items-end" aria-hidden="true">
+                    <i className="fa-solid fa-tree text-[0.9375rem] opacity-75" style={{ color: stage.fg }} />
+                    <i className="fa-solid fa-tree -ml-[0.3125rem] text-[1.4375rem]" style={{ color: stage.fg }} />
+                    <i className="fa-solid fa-tree -ml-[0.3125rem] text-[0.8125rem] opacity-75" style={{ color: stage.fg }} />
+                  </span>
+                ) : (
+                  <i className={`${stage.iconPrefix} ${stage.icon}`} aria-hidden="true" />
+                )}
               </div>
             ) : (
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-rose-400 text-3xl text-white shadow-[inset_0_-5px_0_rgba(0,0,0,0.15)]">
@@ -160,12 +168,14 @@ export default function TrackLesson() {
             {subline && (
               <p className="mt-1 text-sm font-semibold text-qupu-muted">{subline}</p>
             )}
-            <div className="mt-4 flex flex-wrap justify-center gap-2.5">
-              <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
-                <i className="fa-solid fa-check text-qupu-brand-yellow" aria-hidden="true" />
-                +{result.focusCorrect} benar
-              </span>
-            </div>
+            {result.passed && (
+              <div className="mt-4 flex flex-wrap justify-center gap-2.5">
+                <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
+                  <i className="fa-solid fa-check text-qupu-brand-yellow" aria-hidden="true" />
+                  +{result.focusCorrect} benar
+                </span>
+              </div>
+            )}
             {result.passed ? (
               <button
                 type="button"
