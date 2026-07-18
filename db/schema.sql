@@ -1098,6 +1098,8 @@ ALTER TABLE users
 -- leveled instance pools (0 = legacy/unleveled), and gate clears.
 -- ─────────────────────────────────────────────────────────────────────
 
+-- Ladder level 0..5 (5 = gold). NULL = not yet touched by the new engine;
+-- readers derive it from best_tier via the spec mapping (0→0, 1→1, 2→2, 3→4, 4→5).
 ALTER TABLE wmi_concept_progress
   ADD COLUMN IF NOT EXISTS level SMALLINT
   CHECK (level IS NULL OR level BETWEEN 0 AND 5);

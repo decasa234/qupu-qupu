@@ -31,6 +31,7 @@ describe('ladder', () => {
 
   it('effectiveLevel prefers the stored level, else derives from tier', () => {
     expect(effectiveLevel(3, 4)).toBe(3)
+    expect(effectiveLevel(0, 3)).toBe(0)
     expect(effectiveLevel(null, 3)).toBe(4)
     expect(effectiveLevel(null, 0)).toBe(0)
   })
