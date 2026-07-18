@@ -4,7 +4,7 @@ import { pool, query, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { getTrack, conceptSlugsInSpineOrder } from './registry.js'
 import { FOCUS_COUNT, RECALL_COUNT, GOLD_LEVEL, effectiveLevel, passesFocus } from './ladder.js'
-import { pickRecall, type RecallCandidate } from './lessonMix.js'
+import { pickRecall, buildRecallCandidates, type RecallCandidate } from './lessonMix.js'
 import {
   applyAnswers,
   lockConceptProgress,
@@ -40,7 +40,9 @@ interface ProgressRow {
   concept_slug: string
   level: number | null
   best_tier: number
-  updated_at: string
+  // pg returns a Date for TIMESTAMPTZ columns (not a string) — buildRecallCandidates
+  // coerces via `new Date(value)`, which accepts both.
+  updated_at: string | Date
 }
 
 // Shared guard for both endpoints: the track must exist and focusSlug must
@@ -118,13 +120,10 @@ export async function buildLesson(
   // Recall candidates: spine concepts strictly BEFORE the focus concept that
   // the child has cleared at least level 1 of, ranked staleness-first
   // (pickRecall, see lessonMix.ts) so the longest-untouched concept surfaces.
-  const candidates: RecallCandidate[] = spine.slice(0, focusIdx).flatMap((slug) => {
-    const p = bySlug.get(slug)
-    const level = effectiveLevel(p?.level ?? null, p?.best_tier ?? 0)
-    return level >= 1
-      ? [{ slug, level: Math.min(level, GOLD_LEVEL), lastPracticedMs: p ? Date.parse(p.updated_at) : 0 }]
-      : []
-  })
+  // Candidate construction itself lives in lessonMix.ts (pure, unit-tested)
+  // since the only registered track has one concept and never exercises it
+  // here.
+  const candidates: RecallCandidate[] = buildRecallCandidates(spine, focusIdx, bySlug)
   const recallPicks = pickRecall(candidates, RECALL_COUNT)
   const recallRows: InstanceRow[] = []
   for (const pick of recallPicks) {

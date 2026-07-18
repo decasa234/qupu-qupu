@@ -368,7 +368,7 @@ router.post(
         return
       }
       const lesson = await buildLesson(req.user.id, value.childId, req.params.trackId, value.focusSlug)
-      res.status(201).json({ success: true, data: lesson })
+      res.json({ success: true, data: lesson })
     } catch (error) {
       console.error('WMI lesson build error:', error)
       sendPublicError(res, error)
