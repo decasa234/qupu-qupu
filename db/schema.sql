@@ -1116,3 +1116,10 @@ CREATE TABLE IF NOT EXISTS wmi_gate_clears (
   cleared_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (child_id, track_id, gate_key)
 );
+
+-- Level pools store the same params at different levels; the params unique
+-- key must therefore include level. Legacy rows keep level 0, so old-garden
+-- dedup semantics are unchanged.
+ALTER TABLE wmi_concept_instances DROP CONSTRAINT IF EXISTS wmi_concept_instances_params_unique;
+ALTER TABLE wmi_concept_instances DROP CONSTRAINT IF EXISTS wmi_concept_instances_params_level_unique;
+ALTER TABLE wmi_concept_instances ADD CONSTRAINT wmi_concept_instances_params_level_unique UNIQUE (concept_slug, params, level);

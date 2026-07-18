@@ -181,7 +181,7 @@ async function generateAndPersist(
         (concept_slug, params, body_en, body_id, answer_type,
          choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id)
       VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb)
-      ON CONFLICT (concept_slug, params) DO NOTHING
+      ON CONFLICT (concept_slug, params, level) DO NOTHING
       RETURNING id, params, body_en, body_id, answer_type,
                 choices_en, choices_id, hint_en, hint_id, hint_steps_en, hint_steps_id
       `,

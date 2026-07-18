@@ -1,14 +1,14 @@
 // Fills per-level instance pools for levelled concepts. Mirrors bootstrap's
 // insert shape (bootstrap.ts:seedConcept) but stamps the `level` column.
 //
-// The DB uniqueness guarantee lives on `wmi_concept_instances_params_unique
-// UNIQUE (concept_slug, params)` (db/schema.sql) — it is NOT scoped by
-// level, so a freshly-generated candidate at level N can collide with an
-// instance already seeded at a different level (including the legacy
+// The DB uniqueness guarantee lives on `wmi_concept_instances_params_level_unique
+// UNIQUE (concept_slug, params, level)` (db/schema.sql) — it IS scoped by
+// level, so a freshly-generated candidate at level N can be stored even if
+// the same params already exist at a different level (including the legacy
 // level=0 pool bootstrap.ts fills for every concept). We therefore dedupe
 // with an in-memory Set as a fast path (avoids a redundant round trip for
 // obviously-repeated draws within this level) but rely on
-// `ON CONFLICT (concept_slug, params) DO NOTHING RETURNING id` as the
+// `ON CONFLICT (concept_slug, params, level) DO NOTHING RETURNING id` as the
 // source of truth: a collision silently no-ops instead of throwing, and we
 // only count a candidate as "made" when a row was actually returned.
 // Small param spaces at low levels may cap below perLevel; that is fine
@@ -62,7 +62,7 @@ export async function ensureLevelPools(slugs: string[], perLevel = DEFAULT_PER_L
              (concept_slug, params, body_en, body_id, answer_type,
               choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id, level)
            VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb, $13)
-           ON CONFLICT (concept_slug, params) DO NOTHING
+           ON CONFLICT (concept_slug, params, level) DO NOTHING
            RETURNING id`,
           [
             slug,
