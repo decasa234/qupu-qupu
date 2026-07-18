@@ -1091,3 +1091,28 @@ CREATE TABLE IF NOT EXISTS notification_log (
 
 ALTER TABLE users
   ADD COLUMN IF NOT EXISTS parent_pin_hash VARCHAR(255);
+
+-- ─────────────────────────────────────────────────────────────────────
+-- Track engine (migration 0051)
+-- Ladder level on progress (NULL = derive via effectiveLevel; 0..5),
+-- leveled instance pools (0 = legacy/unleveled), and gate clears.
+-- ─────────────────────────────────────────────────────────────────────
+
+ALTER TABLE wmi_concept_progress
+  ADD COLUMN IF NOT EXISTS level SMALLINT
+  CHECK (level IS NULL OR level BETWEEN 0 AND 5);
+
+ALTER TABLE wmi_concept_instances
+  ADD COLUMN IF NOT EXISTS level SMALLINT NOT NULL DEFAULT 0
+  CHECK (level BETWEEN 0 AND 5);
+
+CREATE INDEX IF NOT EXISTS wmi_concept_instances_slug_level_idx
+  ON wmi_concept_instances (concept_slug, level);
+
+CREATE TABLE IF NOT EXISTS wmi_gate_clears (
+  child_id   UUID NOT NULL REFERENCES children(id) ON DELETE CASCADE,
+  track_id   TEXT NOT NULL,
+  gate_key   TEXT NOT NULL,
+  cleared_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (child_id, track_id, gate_key)
+);
