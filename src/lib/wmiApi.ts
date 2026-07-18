@@ -26,6 +26,10 @@ import type {
   WmiKonsepSessionResult,
   WmiPaperDetail,
   WmiPaperSummary,
+  TrackState,
+  TrackLessonQuestion,
+  TrackLessonResult,
+  TrackGateView,
 } from '../types/wmi'
 
 function unwrap<T>(response: { data: { success: boolean; data: T; error?: string } }): T {
@@ -211,4 +215,43 @@ export async function commitKonsepSession(
     childId, subject_key: subjectKey, session_id: sessionId, answers,
   })
   return unwrap<WmiKonsepSessionResult>(response)
+}
+
+// ── QUPU track (garden path 2.0: units/nodes/gates) ───────────────────────
+export async function fetchTrackState(childId: string, trackId: string): Promise<TrackState> {
+  const response = await api.get(`/me/wmi/tracks/${trackId}`, { params: { childId } })
+  return unwrap<TrackState>(response)
+}
+
+export async function buildTrackLesson(
+  childId: string, trackId: string, focusSlug: string,
+): Promise<{ questions: TrackLessonQuestion[] }> {
+  const response = await api.post(`/me/wmi/tracks/${trackId}/lessons`, { childId, focusSlug })
+  return unwrap<{ questions: TrackLessonQuestion[] }>(response)
+}
+
+export async function commitTrackLesson(
+  childId: string, trackId: string, focusSlug: string,
+  answers: Array<{ instanceId: string; selectedAnswer: string; recall: boolean }>,
+): Promise<TrackLessonResult> {
+  const response = await api.post(`/me/wmi/tracks/${trackId}/lessons/commit`, {
+    childId, focusSlug, answers,
+  })
+  return unwrap<TrackLessonResult>(response)
+}
+
+export async function fetchTrackGate(
+  childId: string, trackId: string, gateKey: string,
+): Promise<TrackGateView> {
+  const response = await api.get(`/me/wmi/tracks/${trackId}/gates/${gateKey}`, { params: { childId } })
+  return unwrap<TrackGateView>(response)
+}
+
+export async function submitTrackGate(
+  childId: string, trackId: string, gateKey: string, selectedAnswer: string,
+): Promise<{ correct: boolean; cleared: boolean }> {
+  const response = await api.post(`/me/wmi/tracks/${trackId}/gates/${gateKey}/submit`, {
+    childId, selectedAnswer,
+  })
+  return unwrap<{ correct: boolean; cleared: boolean }>(response)
 }

@@ -447,3 +447,63 @@ export interface WmiKonsepSessionResult {
   // hit) — skip celebration analytics + stat-strip sync.
   replayed?: boolean
 }
+
+// ── QUPU track (garden path 2.0: units/nodes/gates) ───────────────────────
+export interface TrackConceptNodeState {
+  kind: 'concept'
+  slug: string
+  nameId: string
+  level: number
+  gold: boolean
+}
+export interface TrackGateNodeState {
+  kind: 'gate'
+  key: string
+  problemRef: string
+  requires: string[]
+  unlocked: boolean
+  cleared: boolean
+}
+export type TrackNodeState = TrackConceptNodeState | TrackGateNodeState
+export interface TrackUnitState {
+  key: string
+  nameId: string
+  colorHex: string
+  iconKey: string
+  unlocked: boolean
+  nodes: TrackNodeState[]
+}
+export interface TrackState {
+  trackId: string
+  theme: string
+  status: string
+  units: TrackUnitState[]
+}
+export interface TrackLessonQuestion {
+  instanceId: string
+  conceptSlug: string
+  level: number
+  recall: boolean
+  bodyId: string
+  bodyEn: string
+  answerType: 'multiple_choice' | 'fill_in'
+  choicesId: WmiChoice[] | null
+  choicesEn: WmiChoice[] | null
+}
+export interface TrackLessonResult {
+  focusCorrect: number
+  passed: boolean
+  levelBefore: number
+  levelAfter: number
+}
+export interface TrackGateView {
+  unlocked: boolean
+  cleared: boolean
+  question: {
+    bodyId: string
+    bodyEn: string
+    answerType: string
+    choicesId: WmiChoice[] | null
+    choicesEn: WmiChoice[] | null
+  } | null
+}
