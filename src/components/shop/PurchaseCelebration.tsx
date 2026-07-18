@@ -4,9 +4,10 @@
 // (no emoji glyphs per project rule) + scale-up spring on the item card.
 // Auto-dismisses after 2.5s or on tap.
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import type { ShopItem } from '../../lib/shopApi'
-import { STREAK_SHIELD_SLUG } from '../../lib/shopApi'
+import { STREAK_SHIELD_SLUG, shopItemDisplayName } from '../../lib/shopApi'
 
 interface Props {
   item: ShopItem
@@ -16,7 +17,7 @@ interface Props {
 const CONFETTI = Array.from({ length: 24 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
   delay: `${(i * 90) % 700}ms`,
-  color: ['#F0853A', '#FFB400', '#1d2a4d', '#58CC02'][i % 4],
+  color: ['#F0853A', '#FFDD55', '#58A700', '#4A90D9', '#8A5BF0', '#F472B6'][i % 6],
 }))
 
 export default function PurchaseCelebration({ item, onDismiss }: Props) {
@@ -27,11 +28,13 @@ export default function PurchaseCelebration({ item, onDismiss }: Props) {
     return () => window.clearTimeout(t)
   }, [onDismiss])
 
-  return (
+  // Portaled to <body> — can be triggered from inside the ShopSheet, whose
+  // transformed panel would otherwise trap this fixed overlay.
+  return createPortal(
     <button
       type="button"
       onClick={onDismiss}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-qupu-brand-blue/90 px-6 text-center text-white"
+      className="fixed inset-0 z-[80] flex flex-col items-center justify-center gap-4 bg-qupu-brand-blue/90 px-6 text-center text-white"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {CONFETTI.map((c, i) => (
@@ -43,12 +46,12 @@ export default function PurchaseCelebration({ item, onDismiss }: Props) {
         ))}
       </div>
       <i
-        className={`fa-solid ${isShield ? 'fa-shield-halved' : 'fa-gift'} text-6xl text-qupu-brand-yellow`}
+        className={`fa-solid ${isShield ? 'fa-snowflake' : 'fa-gift'} text-6xl text-qupu-brand-yellow`}
         aria-hidden="true"
       />
       <h2 className="font-display text-3xl font-extrabold">Hore!</h2>
       <p className="font-display text-xl font-extrabold">
-        Kamu dapat <span className="text-qupu-brand-yellow">{item.name}</span>
+        Kamu dapat <span className="text-qupu-brand-yellow">{shopItemDisplayName(item)}</span>
       </p>
       <p className="text-sm font-medium opacity-80">
         {isShield ? 'Aktif otomatis saat kamu absen 1 hari' : 'Tersimpan di inventaris kamu'}
@@ -60,6 +63,7 @@ export default function PurchaseCelebration({ item, onDismiss }: Props) {
       >
         Lihat inventaris <i className="fa-solid fa-arrow-right" aria-hidden="true" />
       </Link>
-    </button>
+    </button>,
+    document.body,
   )
 }

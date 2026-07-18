@@ -80,11 +80,26 @@ export default {
           '0%, 14%, 100%': { transform: 'scale(1)' },
           '6%': { transform: 'scale(1.08)' },
         },
+        twinkle: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1) rotate(0deg)' },
+          '50%': { opacity: '0.35', transform: 'scale(0.6) rotate(20deg)' },
+        },
+        bob: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-4px)' },
+        },
+        breathe: {
+          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+          '50%': { opacity: '0.25', transform: 'scale(1.14)' },
+        },
       },
       animation: {
         ring: 'ring 0.9s ease-in-out',
         rise: 'rise 0.35s cubic-bezier(.34,1.4,.5,1) both',
         tapPop: 'tapPop 2.4s ease-in-out infinite',
+        twinkle: 'twinkle 1.6s ease-in-out infinite',
+        bob: 'bob 2.4s ease-in-out infinite',
+        breathe: 'breathe 2.4s ease-in-out infinite',
       },
     },
   },

@@ -5,7 +5,7 @@
 export default function RouteFallback() {
   return (
     <div className="flex min-h-[60vh] w-full items-center justify-center bg-qupu-cream">
-      <i className="fa-solid fa-spinner fa-spin text-3xl text-qupu-brand-orange" aria-hidden="true" />
+      <div className="ld-worm text-qupu-brand-orange" aria-hidden="true" />
       <span className="sr-only">Memuat…</span>
     </div>
   )

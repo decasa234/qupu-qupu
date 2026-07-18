@@ -76,17 +76,17 @@ export default function StreakPage() {
         </div>
       ) : (
         <div className="mt-4 space-y-4">
-          {/* Hero */}
-          <div className="rounded-[1.75rem] bg-gradient-to-br from-qupu-brand-orange to-[#D66B23] p-6 text-center text-white shadow-[0_6px_0_0_#FFD3B1]">
+          {/* Hero — flat design-orange surface with inset top highlight. */}
+          <div className="rounded-[1.75rem] bg-qupu-brand-orange p-6 text-center text-white shadow-[0_5px_0_0_#C46123,inset_0_3px_0_rgba(255,255,255,0.28)]">
             <i className="fa-solid fa-fire text-4xl" aria-hidden="true" />
             <div className="mt-2 font-display text-5xl font-black leading-none">{vm.streak}</div>
             <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-white/85">hari beruntun</p>
             <div className="mt-4 flex justify-center gap-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 font-display text-sm font-black">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 font-display text-sm font-black shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]">
                 <i className="fa-solid fa-trophy" aria-hidden="true" />
                 {vm.longestStreak} terpanjang
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 font-display text-sm font-black">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 font-display text-sm font-black shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]">
                 <i className="fa-solid fa-shield-halved text-qupu-brand-yellow" aria-hidden="true" />
                 {vm.streakShields} pelindung
               </span>

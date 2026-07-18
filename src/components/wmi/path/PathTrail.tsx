@@ -13,6 +13,10 @@ import { bossState } from './pathState'
 import type { WmiGarden, WmiGardenChapter, WmiGardenConcept } from '../../../types/wmi'
 
 export const ROW_H = 104
+// Breathing room inside each chapter's trail canvas: the first node clears the
+// banner, the last node's "Tes Bab" chip stays inside the tinted section.
+const PAD_TOP = 10
+const PAD_BOT = 28
 // Backend's PROFICIENT_TIER: a concept counts as "grown" at tier >= 3 (Mahir).
 const GROWN_TIER = 3
 
@@ -59,6 +63,8 @@ interface Props {
   currentRef: Ref<HTMLButtonElement>
   /** Slug of the concept whose sheet is open — spotlight that node. */
   selectedSlug?: string | null
+  /** subjectKey of the chapter whose Tes Bab sheet is open — spotlight its boss. */
+  selectedBossKey?: string | null
   /** One-shot onboarding bubble, rendered just above the current node's chapter. */
   coachMark?: ReactNode
 }
@@ -71,6 +77,7 @@ export default function PathTrail({
   onChapter,
   currentRef,
   selectedSlug,
+  selectedBossKey,
   coachMark,
 }: Props) {
   const current = pickCurrentNode(garden, lastSubjectKey)
@@ -80,8 +87,11 @@ export default function PathTrail({
       {garden.chapters.map((chapter, chapterIndex) => {
         const count = chapter.concepts.length + 1 // +1 boss
         const offsets = nodeOffsets(count)
-        const height = count * ROW_H
-        const centers = offsets.map((p) => ({ x: p.x * 100, y: p.y * ROW_H + ROW_H / 2 }))
+        const height = count * ROW_H + PAD_TOP + PAD_BOT
+        const centers = offsets.map((p) => ({
+          x: p.x * 100,
+          y: p.y * ROW_H + ROW_H / 2 + PAD_TOP,
+        }))
         const d = centers
           .map((p, i) => {
             if (i === 0) return `M ${p.x} ${p.y}`
@@ -93,13 +103,17 @@ export default function PathTrail({
         const isCurrentChapter = current?.chapter.subjectKey === chapter.subjectKey
 
         return (
-          <section key={chapter.subjectKey} className="mb-2">
+          <section
+            key={chapter.subjectKey}
+            className="mb-2 rounded-[1.625rem] p-2 pb-1"
+            style={{ background: `${chapter.colorHex}12` }}
+          >
             {/* Banner row — tappable: opens the chapter's curriculum breakdown. */}
             <button
               type="button"
               onClick={() => onChapter(chapter)}
               aria-label={`Rincian Bab ${chapterIndex + 1} — ${chapter.nameId}, ${chapter.grownCount} dari ${chapter.total} tumbuh`}
-              className={`flex w-full items-center gap-3 rounded-[1.5rem] px-4 py-3 text-left ring-2 transition-transform active:translate-y-0.5 ${
+              className={`tap-press flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 active:translate-y-0.5 ${
                 chapter.unlocked
                   ? 'bg-white shadow-[0_5px_0_0_#FFD3B1] ring-[#FFE3CC]'
                   : 'bg-[#FBF4E7] shadow-[0_5px_0_0_#EFE2CC] ring-[#EFE2CC]'
@@ -114,13 +128,24 @@ export default function PathTrail({
                   aria-hidden="true"
                 />
               </span>
-              <h2
-                className={`min-w-0 flex-1 truncate font-display text-base font-black leading-tight ${
-                  chapter.unlocked ? 'text-qupu-brand-blue' : 'text-[#7C8597]'
-                }`}
-              >
-                Bab {chapterIndex + 1} · {chapter.nameId}
-              </h2>
+              <span className="min-w-0 flex-1">
+                <h2
+                  className={`truncate font-display text-base font-black leading-tight ${
+                    chapter.unlocked ? 'text-qupu-brand-blue' : 'text-[#7C8597]'
+                  }`}
+                >
+                  Bab {chapterIndex + 1} · {chapter.nameId}
+                </h2>
+                <span className="mt-1.5 block h-1.5 overflow-hidden rounded-full bg-black/[0.07]">
+                  <span
+                    className="block h-full rounded-full"
+                    style={{
+                      background: chapter.unlocked ? chapter.colorHex : '#C3CAD6',
+                      width: `${chapter.total ? Math.round((chapter.grownCount / chapter.total) * 100) : 0}%`,
+                    }}
+                  />
+                </span>
+              </span>
               <span
                 className={`flex-shrink-0 font-display text-sm font-black ${
                   chapter.unlocked ? 'text-[#58A700]' : 'text-[#AAB2BF]'
@@ -157,9 +182,16 @@ export default function PathTrail({
 
               {chapter.concepts.map((concept, i) => {
                 const isCurrent = isCurrentChapter && current?.concept.slug === concept.slug
+                // Exactly one spotlit node (orange ring + pulse + Mulai chip +
+                // checkpoint flag): the selected one while a sheet is open,
+                // otherwise the default "you are here" stop.
+                const sheetTaken = !!selectedSlug || !!selectedBossKey
+                const spotlit = selectedSlug
+                  ? selectedSlug === concept.slug
+                  : !sheetTaken && isCurrent
                 const state: PathNodeState = !chapter.unlocked
                   ? 'locked'
-                  : isCurrent
+                  : spotlit
                     ? 'current'
                     : 'open'
                 return (
@@ -174,6 +206,7 @@ export default function PathTrail({
                       tier={concept.tier}
                       isBoss={false}
                       selected={selectedSlug === concept.slug}
+                      checkpoint={isCurrent}
                       label={`${concept.nameId} — ${state === 'locked' ? 'terkunci' : 'latihan'}`}
                       onClick={() => onNode(concept, chapter)}
                       anchorRef={isCurrent ? currentRef : undefined}
@@ -184,6 +217,7 @@ export default function PathTrail({
 
               {/* Boss — Tes Bab */}
               <div
+                data-node-slug={`boss-${chapter.subjectKey}`}
                 className="absolute -translate-x-1/2 -translate-y-1/2"
                 style={{
                   left: `calc(${offsets[count - 1].x * 100}%)`,
@@ -191,9 +225,10 @@ export default function PathTrail({
                 }}
               >
                 <PathNode
-                  state={bossState(chapter)}
+                  state={bossState(chapter, isCurrentChapter)}
                   tier={0}
                   isBoss
+                  selected={selectedBossKey === chapter.subjectKey}
                   label={`Tes Bab — ${chapter.nameId}`}
                   onClick={() => onBoss(chapter)}
                 />

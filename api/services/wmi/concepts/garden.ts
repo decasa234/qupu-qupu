@@ -92,7 +92,13 @@ export async function getGarden(parentUserId: string, childId: string, grade: nu
   }
 
   chapters.forEach((ch, i) => {
-    ch.unlocked = i === 0 || ch.testedOut || (chapters[i - 1]?.meanPct ?? 0) >= UNLOCK_PCT
+    // Unlocked when: first chapter, tested-out itself (the test IS the unlock
+    // shortcut), the previous chapter's comprehension reached the bar, or the
+    // previous chapter's Tes Bab was passed (finishing a Tes Bab always opens
+    // the next bab).
+    const prev = chapters[i - 1]
+    ch.unlocked =
+      i === 0 || ch.testedOut || (prev?.meanPct ?? 0) >= UNLOCK_PCT || prev?.testedOut === true
   })
 
   let nextConceptSlug: string | null = null

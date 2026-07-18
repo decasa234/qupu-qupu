@@ -62,7 +62,7 @@ export default function ModeBadge() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={`Mode: ${learnMode === 'wmi' ? 'WMI' : 'Video'} — ketuk untuk ganti mode`}
-        className="flex h-8 flex-shrink-0 items-center justify-center gap-1.5 rounded-[0.75rem] bg-white/20 px-2.5 font-display text-sm font-black text-white ring-1 ring-white/30 transition-transform active:translate-y-0.5"
+        className="flex h-[2.125rem] flex-shrink-0 items-center justify-center gap-1.5 rounded-full bg-white/20 px-3 font-display text-sm font-semibold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35),inset_0_2px_0_rgba(255,255,255,0.25)] tap-press active:translate-y-0.5"
       >
         {learnMode === 'wmi' ? (
           <span>WMI</span>

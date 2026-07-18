@@ -4,6 +4,8 @@ import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
 import Skeleton from '../components/Skeleton'
 import ErrorRetry from '../components/ErrorRetry'
+import WmiAnswerChoice from '../components/wmi/WmiAnswerChoice'
+import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import { startChapterTest, submitChapterTest } from '../lib/wmiApi'
 import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
@@ -108,37 +110,47 @@ export default function WmiChapterTest() {
   }
 
   if (result) {
+    // Ceremony-style close, mirroring the konsep session's finish screen.
     return (
-      <div className="mx-auto w-full max-w-[28.75rem] p-6 text-center">
-        <div className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-3xl text-white ${result.passed ? 'bg-[#58A700]' : 'bg-rose-400'}`}>
-          <i className={`fa-solid ${result.passed ? 'fa-check' : 'fa-rotate-right'}`} aria-hidden="true" />
-        </div>
-        <h1 className="mt-4 font-display text-2xl font-black text-qupu-brand-blue">
-          {result.passed ? 'Bab terbuka!' : 'Belum lulus'}
-        </h1>
-        <p className="mt-1 text-sm font-semibold text-qupu-muted">
-          Skor {result.score_pct}% ({result.correct}/{result.total}). {result.passed ? 'Bab ini sekarang terbuka.' : 'Butuh >70%. Coba lagi atau tumbuhkan bab sebelumnya.'}
-        </p>
-        {/* First-pass reward chips — 0 on repeat passes, so nothing renders */}
-        {(result.xp_earned > 0 || result.coins_earned > 0) && (
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
-            {result.xp_earned > 0 && (
-              <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-1.5 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
-                <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
-                +{result.xp_earned} XP
-              </span>
+      <div className="mx-auto w-full max-w-[28.75rem] p-4">
+        {result.passed && <KonsepConfetti />}
+        <div className="flex min-h-[70vh] flex-col justify-center">
+          <div className="animate-rise rounded-[1.75rem] bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
+            <div className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-3xl text-white shadow-[inset_0_-5px_0_rgba(0,0,0,0.15)] ${result.passed ? 'bg-[#58A700]' : 'bg-rose-400'}`}>
+              <i className={`fa-solid ${result.passed ? 'fa-check' : 'fa-rotate-right'}`} aria-hidden="true" />
+            </div>
+            <h1 className="mt-4 font-display text-2xl font-black text-qupu-brand-blue">
+              {result.passed ? 'Bab terbuka!' : 'Belum lulus'}
+            </h1>
+            <p className="mt-1 text-sm font-semibold text-qupu-muted">
+              Skor {result.score_pct}% ({result.correct}/{result.total}). {result.passed ? 'Bab ini sekarang terbuka.' : 'Butuh >70%. Coba lagi atau tumbuhkan bab sebelumnya.'}
+            </p>
+            {/* First-pass reward chips — 0 on repeat passes, so nothing renders */}
+            {(result.xp_earned > 0 || result.coins_earned > 0) && (
+              <div className="mt-4 flex flex-wrap justify-center gap-2.5">
+                {result.xp_earned > 0 && (
+                  <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
+                    <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                    +{result.xp_earned} XP
+                  </span>
+                )}
+                {result.coins_earned > 0 && (
+                  <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-[#F59E0B] px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#B45309]">
+                    <i className="fa-solid fa-coins text-qupu-brand-yellow" aria-hidden="true" />
+                    +{result.coins_earned} koin
+                  </span>
+                )}
+              </div>
             )}
-            {result.coins_earned > 0 && (
-              <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-4 py-1.5 font-display text-sm font-black text-white shadow-[0_3px_0_0_#B45309]">
-                <i className="fa-solid fa-coins" aria-hidden="true" />
-                +{result.coins_earned} koin
-              </span>
-            )}
+            <Link
+              to="/belajar"
+              className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange py-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5 active:shadow-[0_2px_0_0_#C46123]"
+            >
+              <i className="fa-solid fa-seedling" aria-hidden="true" />
+              Kembali ke Kebun
+            </Link>
           </div>
-        )}
-        <Link to="/belajar" className="mt-6 inline-flex rounded-full bg-qupu-brand-blue px-6 py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430]">
-          Kembali ke Kebun
-        </Link>
+        </div>
       </div>
     )
   }
@@ -148,9 +160,22 @@ export default function WmiChapterTest() {
   const pick = (val: string) => setAnswers((a) => ({ ...a, [current.concept_instance_id]: val }))
 
   return (
-    <div className="mx-auto w-full max-w-[28.75rem] p-4">
-      <div className="mb-3 flex items-center justify-between">
-        {/* Answers live only in local state — leaving mid-test loses them. */}
+    <div className="mx-auto w-full max-w-[28.75rem] p-4 pb-8">
+      <ConfirmModal
+        open={showExitConfirm}
+        icon="fa-solid fa-triangle-exclamation"
+        title="Keluar tes?"
+        message="Jawabanmu di tes ini akan hilang kalau keluar sekarang."
+        cancelLabel="Lanjut Tes"
+        confirmLabel="Keluar Tes"
+        onClose={() => setShowExitConfirm(false)}
+        onConfirm={() => navigate('/belajar')}
+      />
+
+      {/* Top row: close button + single compact progress element — mirrors
+          the konsep session header. Answers live only in local state, so
+          leaving mid-test loses them (hence the confirm). */}
+      <div className="mb-3 flex items-center gap-3 px-1">
         <BackButton
           variant="close"
           onClick={() => {
@@ -158,26 +183,35 @@ export default function WmiChapterTest() {
             else setShowExitConfirm(true)
           }}
         />
-        <ConfirmModal
-          open={showExitConfirm}
-          title="Keluar tes?"
-          message="Jawabanmu di tes ini akan hilang kalau keluar sekarang."
-          cancelLabel="Lanjut Tes"
-          confirmLabel="Keluar Tes"
-          onClose={() => setShowExitConfirm(false)}
-          onConfirm={() => navigate('/belajar')}
-        />
-        <span className="text-xs font-black text-qupu-brand-blue">Soal {idx + 1}/{questions.length}</span>
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#F1E4CC]">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${((idx + 1) / questions.length) * 100}%`,
+              background: 'linear-gradient(90deg, #6BCC2A 0%, #58A700 100%)',
+            }}
+          />
+        </div>
+        <span className="font-display text-xs font-black text-qupu-brand-blue">
+          {idx + 1} / {questions.length}
+        </span>
       </div>
-      <div className="rounded-[1.5rem] bg-white p-5 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
-        <p className="font-display text-lg font-black text-qupu-brand-blue">{current.body_id}</p>
-        <div className="mt-4 space-y-2">
+
+      <div className="mt-4 rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]">
+        <p className="font-display text-lg font-black leading-snug text-qupu-brand-blue">
+          {current.body_id}
+        </p>
+        <div className="mt-4 grid gap-3">
           {current.answer_type === 'multiple_choice' && current.choices_id ? (
             current.choices_id.map((ch) => (
-              <button key={ch.label} onClick={() => pick(ch.text)}
-                className={`flex w-full items-center gap-3 rounded-xl border-2 p-3 text-left text-sm font-semibold ${answers[current.concept_instance_id] === ch.text ? 'border-qupu-brand-blue bg-qupu-sky/40' : 'border-qupu-cream-dark bg-white'}`}>
-                <span className="font-black text-qupu-brand-blue">{ch.label}</span> {ch.text}
-              </button>
+              <WmiAnswerChoice
+                key={ch.label}
+                choice={ch}
+                selected={answers[current.concept_instance_id] === ch.text}
+                onPick={() => pick(ch.text)}
+              >
+                {ch.text}
+              </WmiAnswerChoice>
             ))
           ) : (
             <input
@@ -198,14 +232,27 @@ export default function WmiChapterTest() {
       )}
       <div className="mt-4 flex gap-3">
         {idx > 0 && (
-          <button onClick={() => setIdx((i) => i - 1)} className="flex-1 rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue ring-2 ring-[#FFE3CC]">Sebelumnya</button>
+          <button
+            onClick={() => setIdx((i) => i - 1)}
+            className="flex-1 rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
+          >
+            Sebelumnya
+          </button>
         )}
         {idx < questions.length - 1 ? (
-          <button onClick={() => setIdx((i) => i + 1)} disabled={!answers[current.concept_instance_id]}
-            className="flex-1 rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] disabled:opacity-50">Lanjut</button>
+          <button
+            onClick={() => setIdx((i) => i + 1)}
+            disabled={!answers[current.concept_instance_id]}
+            className="flex-1 rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5 disabled:opacity-50"
+          >
+            Lanjut
+          </button>
         ) : (
-          <button onClick={finish} disabled={!allAnswered || submitting}
-            className="flex-1 rounded-full bg-[#58A700] py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] disabled:opacity-50">
+          <button
+            onClick={finish}
+            disabled={!allAnswered || submitting}
+            className="flex-1 rounded-full bg-[#58A700] py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] transition-transform active:translate-y-0.5 disabled:opacity-50"
+          >
             {submitting ? 'Memeriksa…' : 'Selesai'}
           </button>
         )}

@@ -13,9 +13,11 @@ import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/S
 import PathTrail, { pickCurrentNode } from '../components/wmi/path/PathTrail'
 import ConceptSheet from '../components/wmi/path/ConceptSheet'
 import ChapterSheet from '../components/wmi/path/ChapterSheet'
+import BossSheet from '../components/wmi/path/BossSheet'
 import QuestsSheet from '../components/wmi/path/QuestsSheet'
 import { fetchGarden } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
+import { useCelebrationStore } from '../store/celebrationStore'
 import { useWmiStore } from '../store/wmiStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { WmiGarden, WmiGardenChapter, WmiGardenConcept, WmiGrade } from '../types/wmi'
@@ -45,6 +47,31 @@ function clampGardenGrade(grade: WmiGrade): WmiGrade {
   return grade < 1 ? 1 : grade > 3 ? 3 : grade
 }
 
+// Per-(child, grade) record of which chapters the kid has already SEEN
+// unlocked — a freshly unlocked chapter not in this list triggers the
+// "Bab baru terbuka!" reveal. First-ever load just seeds the list quietly.
+function seenUnlocksKey(childId: string, grade: WmiGrade): string {
+  return `qupu_seen_unlocks:${childId}:${grade}`
+}
+
+function diffFreshUnlock(
+  garden: WmiGarden,
+  childId: string,
+  grade: WmiGrade,
+): WmiGardenChapter | null {
+  try {
+    const key = seenUnlocksKey(childId, grade)
+    const raw = localStorage.getItem(key)
+    const seen: unknown = raw ? JSON.parse(raw) : null
+    const unlockedNow = garden.chapters.filter((ch) => ch.unlocked).map((ch) => ch.subjectKey)
+    localStorage.setItem(key, JSON.stringify(unlockedNow))
+    if (!Array.isArray(seen)) return null // first load — seed quietly
+    return garden.chapters.find((ch) => ch.unlocked && !seen.includes(ch.subjectKey)) ?? null
+  } catch {
+    return null // storage unavailable — skip the ceremony
+  }
+}
+
 interface SelectedConcept {
   concept: WmiGardenConcept
   chapter: WmiGardenChapter
@@ -60,10 +87,17 @@ export default function BelajarPath() {
   const [loadError, setLoadError] = useState(false)
   const [fetchTick, setFetchTick] = useState(0)
   const [selected, setSelected] = useState<SelectedConcept | null>(null)
+  const [bossChapter, setBossChapter] = useState<WmiGardenChapter | null>(null)
   const [breakdownChapter, setBreakdownChapter] = useState<WmiGardenChapter | null>(null)
   const [questsOpen, setQuestsOpen] = useState(false)
   const [claimableCount, setClaimableCount] = useState(0)
+  // Quest FAB ducks out of the way (scale 0) while the trail is scrolling.
+  const [scrolling, setScrolling] = useState(false)
+  const scrollTimerRef = useRef<number | undefined>(undefined)
   const currentRef = useRef<HTMLButtonElement | null>(null)
+  // The "Lanjut" FAB shows only while the current node is OFF screen —
+  // when the node (and its Mulai chip) is visible, the FAB is redundant.
+  const [currentOnScreen, setCurrentOnScreen] = useState(true)
   // Auto-scroll fires once per (child, grade) path identity — switching the
   // active child or grade re-arms it, but refetches of the same path don't.
   // gardenKeyRef records which path the current `garden` state belongs to, so
@@ -90,6 +124,35 @@ export default function BelajarPath() {
 
   useEffect(() => { loadGlossary().catch(() => {}) }, [loadGlossary])
 
+  // Window is the scroll container (AppShell's column has no inner scroller).
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolling(true)
+      window.clearTimeout(scrollTimerRef.current)
+      scrollTimerRef.current = window.setTimeout(() => setScrolling(false), 240)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.clearTimeout(scrollTimerRef.current)
+    }
+  }, [])
+
+  // Track whether the current node is in the viewport. Re-observes whenever a
+  // fresh trail renders (the anchor ref moves to the new current node).
+  useEffect(() => {
+    const node = currentRef.current
+    if (!garden || !node) {
+      setCurrentOnScreen(true) // no node to jump to — keep the FAB hidden
+      return
+    }
+    const observer = new IntersectionObserver(([entry]) =>
+      setCurrentOnScreen(entry.isIntersecting),
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [garden, lastSubjectKey])
+
   const pathKey = `${activeChildId}:${effectiveGrade}`
 
   useEffect(() => {
@@ -102,6 +165,22 @@ export default function BelajarPath() {
         if (cancelled) return
         gardenKeyRef.current = `${activeChildId}:${effectiveGrade}`
         setGarden(d)
+        // "Bab baru terbuka!" — enqueue a persistent celebration for a chapter
+        // this child has never seen unlocked before (e.g. right after passing
+        // the previous Tes Bab). CelebrationHost shows it until dismissed.
+        const fresh = diffFreshUnlock(d, activeChildId, effectiveGrade)
+        if (fresh) {
+          useCelebrationStore.getState().enqueue(activeChildId, {
+            id: `chapter:${effectiveGrade}:${fresh.subjectKey}`,
+            kind: 'chapter',
+            chapter: {
+              nameId: fresh.nameId,
+              colorHex: fresh.colorHex,
+              iconKey: fresh.iconKey,
+              concepts: fresh.concepts.map((c) => ({ nameId: c.nameId })),
+            },
+          })
+        }
       })
       .catch(() => {
         if (cancelled) return
@@ -145,7 +224,7 @@ export default function BelajarPath() {
   const coachMarkVisible = showCoachMark && !!garden && grownTotal === 0
 
   const current = garden ? pickCurrentNode(garden, lastSubjectKey) : null
-  const sheetOpen = !!selected || questsOpen || !!breakdownChapter
+  const sheetOpen = !!selected || questsOpen || !!breakdownChapter || !!bossChapter
 
   const startSession = (subjectKey: string, focusSlug?: string) => {
     if (showCoachMark) dismissCoachMark()
@@ -155,33 +234,8 @@ export default function BelajarPath() {
 
   return (
     <div className="relative w-full max-w-[28.75rem] self-center pb-6">
-      <BelajarBackdrop />
       <div className="relative z-10">
-      {/* Header row: title + quest chest. No grade chips, no resume hero. */}
-      <div className="flex items-center justify-between px-1 pt-1">
-        <h1 className="font-display text-2xl font-black leading-none text-qupu-brand-blue">
-          Belajar
-        </h1>
-        <button
-          type="button"
-          aria-label={
-            claimableCount > 0
-              ? `Misi Hari Ini — ${claimableCount} hadiah siap diklaim`
-              : 'Misi Hari Ini'
-          }
-          onClick={() => setQuestsOpen(true)}
-          className="relative flex h-11 w-11 items-center justify-center rounded-[0.875rem] bg-white text-lg text-qupu-brand-orange shadow-[0_4px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-        >
-          <i className="fa-solid fa-gift" aria-hidden="true" />
-          {claimableCount > 0 && (
-            <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-500 px-1 text-[0.625rem] font-black text-white ring-2 ring-white">
-              {claimableCount}
-            </span>
-          )}
-        </button>
-      </div>
-
-      <div className="mt-4">
+      <div className="mt-1">
         {loading ? (
           // Skeleton mirrors the real trail: a banner bar + node circles on
           // the same zigzag lanes (pathLayout LANE) and 96px row rhythm.
@@ -222,18 +276,25 @@ export default function BelajarPath() {
               coachMarkVisible ? <GardenCoachMark onDismiss={dismissCoachMark} /> : undefined
             }
             selectedSlug={selected?.concept.slug ?? null}
-            onNode={(concept, chapter) =>
-              // Tapping the open node toggles it shut; tapping another switches
-              // the sheet to it (no need to close first).
-              setSelected((prev) =>
-                prev && prev.concept.slug === concept.slug ? null : { concept, chapter },
-              )
-            }
+            selectedBossKey={bossChapter?.subjectKey ?? null}
+            onNode={(concept, chapter) => {
+              // Tapping a node selects it; tapping the selected node again is
+              // a no-op (the sheet closes via ×, drag, or Escape only —
+              // never by bouncing the spotlight back to another node).
+              setBossChapter(null)
+              setSelected({ concept, chapter })
+            }}
             onChapter={(chapter) => {
               setSelected(null)
+              setBossChapter(null)
               setBreakdownChapter(chapter)
             }}
-            onBoss={(chapter) => navigate(`/latihan/wmi/tes/${chapter.subjectKey}`)}
+            onBoss={(chapter) => {
+              // Same tap model as concept nodes: spotlight + sheet first, the
+              // test only starts from the sheet's Mulai.
+              setSelected(null)
+              setBossChapter(chapter)
+            }}
           />
         ) : (
           <p className="rounded-[1.25rem] bg-qupu-shell px-4 py-3 text-xs font-semibold text-qupu-muted">
@@ -243,18 +304,43 @@ export default function BelajarPath() {
       </div>
       </div>{/* /relative z-10 content */}
 
-      {/* Floating "Lanjut" — scrolls to + opens the current node's sheet. */}
-      {current && !sheetOpen && (
+      {/* Floating "Lanjut" — bottom-left twin of the quest chest. Scrolls the
+          path to the latest active node; shown only while that node is off
+          screen. Same duck-away while scrolling. */}
+      {current && !sheetOpen && !currentOnScreen && (
         <button
           type="button"
-          onClick={() => {
-            scrollToCurrent(true)
-            setSelected({ concept: current.concept, chapter: current.chapter })
-          }}
-          className="fixed bottom-24 right-4 z-40 flex items-center gap-2 rounded-full bg-qupu-brand-orange py-3 pl-4 pr-5 font-display text-sm font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5 lg:right-[calc(50%-230px+1rem)]"
+          aria-label={`Lanjut belajar — ${current.concept.nameId}`}
+          onClick={() => scrollToCurrent(true)}
+          className={`fixed bottom-24 left-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-qupu-brand-orange text-xl text-white shadow-[0_5px_0_0_#C46123] tap-press active:translate-y-0.5 active:shadow-[0_2px_0_0_#C46123] lg:bottom-32 lg:left-[calc(50%-230px+1rem)] ${
+            scrolling ? 'pointer-events-none scale-0' : 'scale-100'
+          }`}
         >
-          <i className="fa-solid fa-play" aria-hidden="true" />
-          Lanjut
+          <i className="fa-solid fa-chevron-up" aria-hidden="true" />
+        </button>
+      )}
+
+      {/* Floating quest chest — Misi Hari Ini. Ducks away while scrolling and
+          whenever a sheet is open. */}
+      {!sheetOpen && (
+        <button
+          type="button"
+          aria-label={
+            claimableCount > 0
+              ? `Misi Hari Ini — ${claimableCount} hadiah siap diklaim`
+              : 'Misi Hari Ini'
+          }
+          onClick={() => setQuestsOpen(true)}
+          className={`fixed bottom-24 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-white text-xl text-qupu-brand-orange shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] tap-press active:translate-y-0.5 active:shadow-[0_2px_0_0_#FFD3B1] lg:bottom-32 lg:right-[calc(50%-230px+1rem)] ${
+            scrolling ? 'pointer-events-none scale-0' : 'scale-100'
+          }`}
+        >
+          <i className="fa-solid fa-gift" aria-hidden="true" />
+          {claimableCount > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-[1.375rem] min-w-[1.375rem] items-center justify-center rounded-full bg-red-500 px-1 text-[0.6875rem] font-black text-white ring-2 ring-white">
+              {claimableCount}
+            </span>
+          )}
         </button>
       )}
 
@@ -267,18 +353,33 @@ export default function BelajarPath() {
         />
       )}
 
+      {/* Tes Bab confirmation — mirrors the concept flow; navigation to the
+          chapter test happens only from here. */}
+      {bossChapter && (
+        <BossSheet
+          chapter={bossChapter}
+          onStart={() => navigate(`/latihan/wmi/tes/${bossChapter.subjectKey}`)}
+          onClose={() => setBossChapter(null)}
+        />
+      )}
+
       {/* Curriculum breakdown — opened from a chapter banner. Picking a concept
           hands off to ConceptSheet (which focuses the node + shows progress). */}
       {breakdownChapter && (
         <ChapterSheet
           chapter={breakdownChapter}
+          hasCurrentNode={current?.chapter.subjectKey === breakdownChapter.subjectKey}
           onPick={(concept) => {
             const chapter = breakdownChapter
             setBreakdownChapter(null)
             setSelected({ concept, chapter })
           }}
           onBoss={() => {
-            navigate(`/latihan/wmi/tes/${breakdownChapter.subjectKey}`)
+            // Hand off to the Tes Bab sheet (same confirm-first flow as the
+            // boss node) instead of jumping straight into the test.
+            const chapter = breakdownChapter
+            setBreakdownChapter(null)
+            setBossChapter(chapter)
           }}
           onClose={() => setBreakdownChapter(null)}
         />
@@ -301,27 +402,6 @@ export default function BelajarPath() {
           onClose={dismissRecovery}
         />
       )}
-    </div>
-  )
-}
-
-// Decorative warmth behind the trail — soft blurred colour glows + a few faint
-// star sprinkles (brand flair, never a mascot or a flat SVG path). Covers the
-// full scroll height; pointer-events-none and behind the z-10 content.
-function BelajarBackdrop() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <div className="absolute -left-16 top-[4%] h-56 w-56 rounded-full bg-qupu-brand-yellow/20 blur-3xl" />
-      <div className="absolute -right-20 top-[26%] h-64 w-64 rounded-full bg-qupu-brand-orange/15 blur-3xl" />
-      <div className="absolute -left-20 top-[52%] h-60 w-60 rounded-full bg-qupu-brand-blue/10 blur-3xl" />
-      <div className="absolute -right-16 top-[78%] h-56 w-56 rounded-full bg-qupu-brand-yellow/20 blur-3xl" />
-
-      <i className="fa-solid fa-star absolute left-[8%] top-[12%] text-base text-qupu-brand-yellow/50" />
-      <i className="fa-solid fa-star absolute right-[10%] top-[20%] text-xs text-qupu-brand-orange/35" />
-      <i className="fa-solid fa-star absolute left-[14%] top-[40%] text-sm text-qupu-brand-yellow/40" />
-      <i className="fa-solid fa-star absolute right-[12%] top-[55%] text-base text-qupu-brand-yellow/45" />
-      <i className="fa-solid fa-star absolute left-[10%] top-[72%] text-xs text-qupu-brand-orange/35" />
-      <i className="fa-solid fa-star absolute right-[14%] top-[86%] text-sm text-qupu-brand-yellow/40" />
     </div>
   )
 }

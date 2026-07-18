@@ -52,7 +52,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
 
   if (loading) {
     return (
-      <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
+      <section className="rounded-[1.5rem] bg-white p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
         <div className="h-28 animate-pulse rounded-[1.25rem] bg-qupu-cream" />
       </section>
     )
@@ -73,7 +73,7 @@ export default function LevelDetail({ childId }: { childId: string }) {
   const currentAvatar = avatarForLevel(summary.level)
 
   return (
-    <section className="rounded-[2rem] border-[3px] border-qupu-brand-blue/15 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
+    <section className="rounded-[1.5rem] bg-white p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
       <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         Level &amp; XP
       </div>

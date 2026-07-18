@@ -12,6 +12,12 @@ export type ShopItemKind = 'worksheet' | 'ebook' | 'coloring' | 'sticker' | 'aud
 export const STREAK_SHIELD_SLUG = 'streak_shield'
 export const MAX_STREAK_SHIELDS = 2
 
+// Kid-facing rename (design): the streak shield reads "Perisai Beku" across
+// the UI (shop, purchase sheet, streak popup); the DB row keeps its name.
+export function shopItemDisplayName(item: Pick<ShopItem, 'slug' | 'name'>): string {
+  return item.slug === STREAK_SHIELD_SLUG ? 'Perisai Beku' : item.name
+}
+
 export interface ShopItem {
   id: string
   slug: string

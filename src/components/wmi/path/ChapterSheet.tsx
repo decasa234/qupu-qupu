@@ -17,13 +17,15 @@ import type { WmiGardenChapter, WmiGardenConcept } from '../../../types/wmi'
 
 interface Props {
   chapter: WmiGardenChapter
+  /** This chapter holds the kid's current node — its Tes Bab is tappable. */
+  hasCurrentNode?: boolean
   onPick: (concept: WmiGardenConcept) => void
   onBoss: () => void
   onClose: () => void
 }
 
-export default function ChapterSheet({ chapter, onPick, onBoss, onClose }: Props) {
-  const boss = bossState(chapter)
+export default function ChapterSheet({ chapter, hasCurrentNode, onPick, onBoss, onClose }: Props) {
+  const boss = bossState(chapter, hasCurrentNode)
   const { panelRef, dragHandlers, sheetStyle } = useSheetDrag(onClose)
 
   return createPortal(

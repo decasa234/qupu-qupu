@@ -8,6 +8,10 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 7rem;
+    /* Reserve the scrollbar gutter so switching between tall pages (Belajar,
+       scrollbar present) and short ones (Main/Profil, none) never nudges the
+       centred app column sideways. */
+    scrollbar-gutter: stable;
   }
 
   :root {
@@ -180,4 +184,42 @@ body[data-wmi-hide-footer='true'] [data-app-footer] {
 }
 .animate-drop-drip {
   animation: drop-drip 2.6s ease-in 0.4s infinite;
+}
+
+/* ── Loading worm — stretching pill used by RouteFallback ──────────────────
+   Colour comes from currentColor (set a text-* class on the element). */
+.ld-worm {
+  position: relative;
+  width: 80px;
+  height: 10px;
+}
+.ld-worm::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 10px;
+  border-radius: 5px;
+  background: currentColor;
+  animation: worm 1.2s ease-in-out infinite alternate;
+}
+@keyframes worm {
+  0%   { left: 0; width: 24px; }
+  50%  { width: 56px; }
+  100% { left: 56px; width: 24px; }
+}
+
+/* ── Tactile press ──────────────────────────────────────────────────────────
+   For chunky kid buttons using active:translate-y + hard-shadow collapse:
+   the press lands instantly (no floaty lag), the release springs back with a
+   small overshoot. Pair with active:translate-y-* / active:shadow-* classes. */
+.tap-press {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tap-press:active {
+  transition-duration: 0.06s, 0.06s;
+  transition-timing-function: ease-out, ease-out;
 }

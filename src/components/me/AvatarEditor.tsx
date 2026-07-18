@@ -16,7 +16,6 @@ import {
   AVATAR_OPTIONS,
   DEFAULT_AVATAR_COLOR,
   DEFAULT_AVATAR_SLUG,
-  avatarIconClass,
   isAvatarUnlocked,
 } from '../../lib/avatars'
 import type { Child } from '../../types'
@@ -58,27 +57,15 @@ export default function AvatarEditor({ child }: { child: Child }) {
   }
 
   return (
-    <section className="rounded-[2rem] border-[3px] border-qupu-brand-orange/40 bg-white p-5 shadow-[5px_6px_0_0_#FFD3B1]">
+    <section className="rounded-[1.5rem] bg-white p-4 shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
       <div className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-qupu-brand-orange">
         Avatar anak
       </div>
+      <p className="mt-1 text-xs font-semibold text-qupu-muted">
+        Naik level untuk membuka karakter baru!
+      </p>
 
-      <div className="mt-3 flex items-center gap-4">
-        <span
-          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-[1.6rem] text-4xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.15)]"
-          style={{ backgroundColor: currentColor }}
-        >
-          <i className={avatarIconClass(currentIcon)} aria-hidden="true" />
-        </span>
-        <div className="min-w-0">
-          <h2 className="font-display text-lg font-extrabold text-qupu-brand-blue">{child.name}</h2>
-          <p className="text-xs font-semibold text-qupu-muted">
-            Naik level untuk membuka karakter baru!
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4 grid grid-cols-5 gap-2 sm:grid-cols-7">
+      <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-7">
         {AVATAR_OPTIONS.map((option) => {
           const active = currentIcon === option.slug
           const locked = !isAvatarUnlocked(option.minLevel, level)

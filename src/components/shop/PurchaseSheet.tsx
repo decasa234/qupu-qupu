@@ -7,7 +7,12 @@ import { useState } from 'react'
 import BottomSheet from './BottomSheet'
 import { toIndonesianErrorMessage } from '../../lib/errorMessage'
 import type { PurchaseResult, ShopItemForChild } from '../../lib/shopApi'
-import { MAX_STREAK_SHIELDS, STREAK_SHIELD_SLUG, purchaseShopItem } from '../../lib/shopApi'
+import {
+  MAX_STREAK_SHIELDS,
+  STREAK_SHIELD_SLUG,
+  purchaseShopItem,
+  shopItemDisplayName,
+} from '../../lib/shopApi'
 
 interface Props {
   open: boolean
@@ -53,12 +58,16 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
         <div className="flex h-40 items-center justify-center rounded-[1.25rem] bg-qupu-shell">
           {item.thumbnailUrl ? (
             <img loading="lazy" decoding="async" src={item.thumbnailUrl} alt="" className="h-full w-full rounded-[1.25rem] object-cover" />
+          ) : isShield ? (
+            <span className="flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-[#4A90D9] text-4xl text-white shadow-[inset_0_-5px_0_rgba(0,0,0,0.15)]">
+              <i className="fa-solid fa-snowflake" aria-hidden="true" />
+            </span>
           ) : (
             <i className="fa-solid fa-image text-5xl text-qupu-muted" aria-hidden="true" />
           )}
         </div>
         <div className="text-[0.625rem] font-bold uppercase tracking-[0.2em] text-qupu-brand-orange">{item.kind}</div>
-        <h2 className="font-display text-xl font-extrabold text-qupu-brand-blue">{item.name}</h2>
+        <h2 className="font-display text-xl font-extrabold text-qupu-brand-blue">{shopItemDisplayName(item)}</h2>
         <p className="text-sm font-medium text-qupu-muted">{item.description}</p>
         <div className="inline-flex items-center gap-2 rounded-full bg-qupu-brand-yellow px-3 py-1 font-display text-sm font-extrabold text-qupu-brand-blue">
           <i className="fa-solid fa-coins" aria-hidden="true" /> {item.coinPrice} koin
@@ -82,7 +91,7 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
           <button
             type="button"
             onClick={onClose}
-            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
+            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#58A700] px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_4px_0_0_#3F7A18]"
           >
             <i className="fa-solid fa-shield-halved" aria-hidden="true" /> Pelindungmu sudah penuh
           </button>
@@ -90,7 +99,7 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
           <button
             type="button"
             onClick={onClose}
-            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
+            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#58A700] px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_4px_0_0_#3F7A18]"
           >
             <i className="fa-solid fa-check" aria-hidden="true" /> Sudah ada di inventaris
           </button>
@@ -106,20 +115,20 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
           <button
             type="button"
             onClick={() => setConfirming(true)}
-            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-subscribe"
+            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-qupu-brand-orange px-6 py-3 font-display text-base font-extrabold text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5 active:shadow-[0_2px_0_0_#C46123]"
           >
             <i className="fa-solid fa-coins" aria-hidden="true" /> Beli — {item.coinPrice} koin
           </button>
         ) : (
           <div className="mt-2 space-y-2 rounded-[1.25rem] bg-qupu-shell p-3">
             <p className="text-center text-sm font-bold text-qupu-brand-blue">
-              Tukar {item.coinPrice} koin untuk {item.name}?
+              Tukar {item.coinPrice} koin untuk {shopItemDisplayName(item)}?
             </p>
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => setConfirming(false)}
-                className="flex-1 rounded-full bg-white px-4 py-2 font-display text-sm font-extrabold text-qupu-brand-blue"
+                className="flex-1 rounded-full bg-white px-4 py-2 font-display text-sm font-extrabold text-qupu-brand-blue shadow-[0_2px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
               >
                 Batal
               </button>
@@ -127,7 +136,7 @@ export default function PurchaseSheet({ open, onClose, item, childId, balance, o
                 type="button"
                 onClick={handleBuy}
                 disabled={submitting}
-                className="flex-1 rounded-full bg-qupu-brand-orange px-4 py-2 font-display text-sm font-extrabold text-white disabled:opacity-60"
+                className="flex-1 rounded-full bg-qupu-brand-orange px-4 py-2 font-display text-sm font-extrabold text-white shadow-[0_2px_0_0_#C46123] transition-transform active:translate-y-0.5 disabled:opacity-60"
               >
                 {submitting ? 'Memproses…' : 'Ya, tukar'}
               </button>

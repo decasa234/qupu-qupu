@@ -120,7 +120,7 @@ export default function ConceptSheet({ concept, chapter, onStart, onClose }: Pro
         <button
           type="button"
           onClick={onStart}
-          className="mt-5 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] transition-transform active:translate-y-0.5"
+          className="tap-press mt-5 flex w-full items-center justify-center gap-2.5 rounded-full bg-qupu-brand-orange p-3.5 font-display text-base font-black text-white shadow-[0_4px_0_0_#C46123] active:translate-y-0.5 active:shadow-[0_2px_0_0_#C46123]"
         >
           <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-xs text-qupu-brand-orange">
             <i className="fa-solid fa-play" aria-hidden="true" />

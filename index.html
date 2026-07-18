@@ -61,12 +61,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1.5rem;
-        background:
-          radial-gradient(40rem 32rem at 14% 18%, rgba(249, 115, 22, 0.13), transparent 60%),
-          radial-gradient(36rem 30rem at 86% 22%, rgba(48, 89, 138, 0.13), transparent 60%),
-          radial-gradient(32rem 26rem at 50% 94%, rgba(255, 211, 177, 0.55), transparent 60%),
-          #fff2df;
+        gap: 1.75rem;
+        background: #fff2df;
         font-family: 'Fredoka', 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         transition: opacity 0.45s ease;
       }
@@ -74,106 +70,34 @@
         opacity: 0;
         pointer-events: none;
       }
-      #qupu-splash .qupu-splash__stage {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      #qupu-splash .qupu-splash__ring {
-        position: absolute;
-        inset: 4px;
-        border-radius: 9999px;
-        border: 4px dashed rgba(240, 133, 58, 0.5);
-        animation: qupu-spin 12s linear infinite;
-      }
-      #qupu-splash .qupu-splash__orbit {
-        position: absolute;
-        inset: 4px;
-        animation: qupu-spin 6s linear infinite;
-      }
-      #qupu-splash .qupu-splash__orbit i {
-        position: absolute;
-        top: -11px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #ffdd55;
-        font-size: 1.15rem;
-        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.14));
-      }
       #qupu-splash .qupu-splash__mascot {
-        position: relative;
-        z-index: 1;
         width: 118px;
         height: auto;
         user-select: none;
-        animation: qupu-bob 1.5s ease-in-out infinite;
-        filter: drop-shadow(0 12px 22px rgba(120, 60, 0, 0.22));
       }
-      #qupu-splash .qupu-splash__shadow {
-        position: absolute;
-        bottom: 22px;
-        left: 50%;
-        width: 84px;
-        height: 13px;
-        transform: translateX(-50%);
-        border-radius: 9999px;
-        background: rgba(48, 89, 138, 0.16);
-        filter: blur(2px);
-        animation: qupu-shadow 1.5s ease-in-out infinite;
-      }
+      /* Worm loader — stretching pill. */
       #qupu-splash .qupu-splash__bar {
         position: relative;
-        width: 176px;
-        height: 8px;
-        border-radius: 9999px;
-        background: rgba(240, 133, 58, 0.18);
-        overflow: hidden;
+        width: 80px;
+        height: 10px;
       }
       #qupu-splash .qupu-splash__bar span {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 42%;
-        border-radius: 9999px;
-        background: linear-gradient(90deg, #ffdd55, #f0853a);
-        animation: qupu-load 1.4s ease-in-out infinite;
+        width: 24px;
+        height: 10px;
+        border-radius: 5px;
+        background: #f0853a;
+        animation: qupu-worm 1.2s ease-in-out infinite alternate;
       }
-      #qupu-splash .qupu-splash__star {
-        position: absolute;
-        color: #ffdd55;
-        animation: qupu-twinkle 1.9s ease-in-out infinite;
-      }
-      @keyframes qupu-spin {
-        to { transform: rotate(360deg); }
-      }
-      @keyframes qupu-bob {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-12px); }
-      }
-      @keyframes qupu-shadow {
-        0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.5; }
-        50% { transform: translateX(-50%) scaleX(0.68); opacity: 0.3; }
-      }
-      @keyframes qupu-load {
-        0% { left: -42%; }
-        50% { left: 56%; }
-        100% { left: 100%; }
-      }
-      @keyframes qupu-twinkle {
-        0%, 100% { opacity: 0.35; transform: scale(0.85); }
-        50% { opacity: 1; transform: scale(1); }
+      @keyframes qupu-worm {
+        0% { left: 0; width: 24px; }
+        50% { width: 56px; }
+        100% { left: 56px; width: 24px; }
       }
       @media (prefers-reduced-motion: reduce) {
-        #qupu-splash .qupu-splash__ring,
-        #qupu-splash .qupu-splash__orbit,
-        #qupu-splash .qupu-splash__mascot,
-        #qupu-splash .qupu-splash__shadow,
-        #qupu-splash .qupu-splash__bar span,
-        #qupu-splash .qupu-splash__star {
+        #qupu-splash .qupu-splash__bar span {
           animation: none;
         }
       }
@@ -193,18 +117,7 @@
   <body>
     <div id="root"></div>
     <div id="qupu-splash" role="status" aria-label="Memuat QUPU">
-      <i class="fa-solid fa-star qupu-splash__star" style="top: 24%; left: 30%; font-size: 1rem" aria-hidden="true"></i>
-      <i class="fa-solid fa-star qupu-splash__star" style="top: 28%; right: 29%; font-size: 1.4rem; animation-delay: 0.5s" aria-hidden="true"></i>
-      <i class="fa-solid fa-star qupu-splash__star" style="bottom: 26%; left: 38%; font-size: 0.8rem; animation-delay: 0.9s" aria-hidden="true"></i>
-      <i class="fa-solid fa-star qupu-splash__star" style="bottom: 30%; right: 33%; font-size: 1.05rem; animation-delay: 1.3s" aria-hidden="true"></i>
-
-      <div class="qupu-splash__stage">
-        <div class="qupu-splash__ring" aria-hidden="true"></div>
-        <div class="qupu-splash__orbit" aria-hidden="true"><i class="fa-solid fa-star"></i></div>
-        <span class="qupu-splash__shadow" aria-hidden="true"></span>
-        <img src="/hero-mascot.png" alt="" class="qupu-splash__mascot" draggable="false" />
-      </div>
-
+      <img src="/hero-mascot.png" alt="" class="qupu-splash__mascot" draggable="false" />
       <div class="qupu-splash__bar" aria-hidden="true"><span></span></div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
