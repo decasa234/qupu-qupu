@@ -20,6 +20,7 @@ import WmiKonsepDrill from './pages/WmiKonsepDrill'
 import WmiKonsepSession from './pages/WmiKonsepSession'
 import WmiChapterTest from './pages/WmiChapterTest'
 import TrackMap from './pages/TrackMap'
+import TrackLesson from './pages/TrackLesson'
 import OnboardingChild from './pages/OnboardingChild'
 import AppShell from './components/AppShell'
 import ShopPage from './pages/Shop'
@@ -244,6 +245,7 @@ export default function App() {
             {/* 3-tab structure: Belajar (skill tree) / Main (arena) / Profil */}
             <Route path="belajar" element={<MemberHome />} />
             <Route path="belajar/track/:trackId" element={<TrackMap />} />
+            <Route path="latihan/track/:trackId/sesi/:focusSlug" element={<TrackLesson />} />
             <Route path="main" element={<MainCatalogPage />} />
             <Route path="wmi-arena" element={<WmiArenaPage />} />
             <Route path="wmi-arena/campur" element={<WmiKonsepDrill />} />
