@@ -27,6 +27,16 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
   'Concept not found': { status: 400, message: 'Konsep tidak ditemukan.' },
   'Track not found': { status: 404, message: 'Jalur belajar tidak ditemukan.' },
   'Concept not in track': { status: 400, message: 'Konsep ini tidak ada di jalur belajar ini.' },
+  // Synthesis gates (Task 8)
+  'Gate not found': { status: 404, message: 'Gerbang tidak ditemukan.' },
+  'Gate locked': { status: 403, message: 'Gerbang ini masih terkunci.' },
+  // The gate's problemRef didn't resolve to a real wmi_questions row — a
+  // content-availability problem, not a client mistake, so 503 (same
+  // reasoning as 'Instance pool too small' below).
+  'Gate problem missing': {
+    status: 503,
+    message: 'Soal untuk gerbang ini belum tersedia. Coba lagi sebentar lagi ya.',
+  },
   // Level pool starved (fewer than FOCUS_COUNT instances at the requested
   // level) — a content-availability problem, not a client mistake, so 503.
   'Instance pool too small': {

@@ -12,6 +12,7 @@ import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/conce
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
 import { getTrackState } from '../services/wmi/tracks/trackState.js'
+import { getGate, submitGate } from '../services/wmi/tracks/gates.js'
 import { buildLesson, commitLesson } from '../services/wmi/tracks/lesson.js'
 import { FOCUS_COUNT, LESSON_SIZE } from '../services/wmi/tracks/ladder.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
@@ -330,6 +331,55 @@ router.get(
       res.json({ success: true, data: track })
     } catch (error) {
       console.error('WMI track state error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+const gateSubmitSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  selectedAnswer: Joi.string().trim().min(1).max(200).required(),
+})
+
+router.get(
+  '/tracks/:trackId/gates/:gateKey',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = childQuerySchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const gate = await getGate(req.user.id, value.childId, req.params.trackId, req.params.gateKey)
+      res.json({ success: true, data: gate })
+    } catch (error) {
+      console.error('WMI gate error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.post(
+  '/tracks/:trackId/gates/:gateKey/submit',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = gateSubmitSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const result = await submitGate(
+        req.user.id,
+        value.childId,
+        req.params.trackId,
+        req.params.gateKey,
+        value.selectedAnswer,
+      )
+      res.json({ success: true, data: result })
+    } catch (error) {
+      console.error('WMI gate submit error:', error)
       sendPublicError(res, error)
     }
   },
