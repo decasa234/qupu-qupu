@@ -26,6 +26,13 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
   'Video not found': { status: 400, message: 'Video tidak ditemukan.' },
   'Concept not found': { status: 400, message: 'Konsep tidak ditemukan.' },
   'Track not found': { status: 404, message: 'Jalur belajar tidak ditemukan.' },
+  'Concept not in track': { status: 400, message: 'Konsep ini tidak ada di jalur belajar ini.' },
+  // Level pool starved (fewer than FOCUS_COUNT instances at the requested
+  // level) — a content-availability problem, not a client mistake, so 503.
+  'Instance pool too small': {
+    status: 503,
+    message: 'Soal untuk level ini belum cukup. Coba lagi sebentar lagi ya.',
+  },
   // Quest claim ritual (P2.2)
   'Quest not found': { status: 404, message: 'Misi tidak ditemukan.' },
   'Quest not completed': { status: 400, message: 'Misi belum selesai.' },

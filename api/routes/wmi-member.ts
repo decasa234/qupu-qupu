@@ -12,6 +12,8 @@ import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/conce
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
 import { getTrackState } from '../services/wmi/tracks/trackState.js'
+import { buildLesson, commitLesson } from '../services/wmi/tracks/lesson.js'
+import { FOCUS_COUNT, LESSON_SIZE } from '../services/wmi/tracks/ladder.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
 import {
   gradeConceptAnswer,
@@ -328,6 +330,72 @@ router.get(
       res.json({ success: true, data: track })
     } catch (error) {
       console.error('WMI track state error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+const lessonBuildSchema = Joi.object({
+  childId: Joi.string().uuid().required(),
+  focusSlug: Joi.string().pattern(/^[a-z0-9-]+$/).required(),
+})
+
+const lessonCommitSchema = lessonBuildSchema.keys({
+  // FOCUS_COUNT questions always come back (buildLesson throws rather than
+  // serve a short focus set); recall rows are best-effort (0..RECALL_COUNT),
+  // so the total is FOCUS_COUNT..LESSON_SIZE.
+  answers: Joi.array()
+    .items(
+      Joi.object({
+        instanceId: Joi.string().uuid().required(),
+        selectedAnswer: Joi.string().trim().min(1).max(200).required(),
+        recall: Joi.boolean().required(),
+      }),
+    )
+    .min(FOCUS_COUNT)
+    .max(LESSON_SIZE)
+    .required(),
+})
+
+router.post(
+  '/tracks/:trackId/lessons',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = lessonBuildSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const lesson = await buildLesson(req.user.id, value.childId, req.params.trackId, value.focusSlug)
+      res.status(201).json({ success: true, data: lesson })
+    } catch (error) {
+      console.error('WMI lesson build error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.post(
+  '/tracks/:trackId/lessons/commit',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = lessonCommitSchema.validate(req.body)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const result = await commitLesson(
+        req.user.id,
+        value.childId,
+        req.params.trackId,
+        value.focusSlug,
+        value.answers,
+      )
+      res.status(201).json({ success: true, data: result })
+    } catch (error) {
+      console.error('WMI lesson commit error:', error)
       sendPublicError(res, error)
     }
   },
