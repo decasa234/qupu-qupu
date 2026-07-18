@@ -11,6 +11,7 @@ import {
 import { getNextConceptQuestion, submitConceptVote } from '../services/wmi/concepts/engine.js'
 import { getConceptProgress } from '../services/wmi/concepts/progress.js'
 import { getGarden } from '../services/wmi/concepts/garden.js'
+import { getTrackState } from '../services/wmi/tracks/trackState.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
 import {
   gradeConceptAnswer,
@@ -308,6 +309,25 @@ router.get(
       res.json({ success: true, data: garden })
     } catch (error) {
       console.error('WMI garden error:', error)
+      sendPublicError(res, error)
+    }
+  },
+)
+
+router.get(
+  '/tracks/:trackId',
+  authenticateToken,
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+      const { error, value } = childQuerySchema.validate(req.query)
+      if (error) {
+        sendValidationError(res, error)
+        return
+      }
+      const track = await getTrackState(req.user.id, value.childId, req.params.trackId)
+      res.json({ success: true, data: track })
+    } catch (error) {
+      console.error('WMI track state error:', error)
       sendPublicError(res, error)
     }
   },
