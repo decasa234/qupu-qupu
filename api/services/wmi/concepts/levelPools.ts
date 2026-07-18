@@ -52,35 +52,40 @@ export async function ensureLevelPools(slugs: string[], perLevel = DEFAULT_PER_L
       let made = 0
       while (have + made < perLevel && attempts < perLevel * 20) {
         attempts += 1
-        const params = concept.paramsSchema.parse(levelled(rng, level))
-        const key = JSON.stringify(params)
-        if (seenParams.has(key)) continue
-        seenParams.add(key)
-        const r = concept.render(params)
-        const inserted = await query<{ id: string }>(
-          `INSERT INTO wmi_concept_instances
-             (concept_slug, params, body_en, body_id, answer_type,
-              choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id, level)
-           VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb, $13)
-           ON CONFLICT (concept_slug, params, level) DO NOTHING
-           RETURNING id`,
-          [
-            slug,
-            JSON.stringify(params),
-            r.body_en,
-            r.body_id,
-            r.answer_type,
-            r.choices_en ? JSON.stringify(r.choices_en) : null,
-            r.choices_id ? JSON.stringify(r.choices_id) : null,
-            r.answer,
-            r.hint_en,
-            r.hint_id,
-            r.hint_steps_en ? JSON.stringify(r.hint_steps_en) : null,
-            r.hint_steps_id ? JSON.stringify(r.hint_steps_id) : null,
-            level,
-          ],
-        )
-        if (inserted.length > 0) made += 1
+        try {
+          const params = concept.paramsSchema.parse(levelled(rng, level))
+          const key = JSON.stringify(params)
+          if (seenParams.has(key)) continue
+          seenParams.add(key)
+          const r = concept.render(params)
+          const inserted = await query<{ id: string }>(
+            `INSERT INTO wmi_concept_instances
+               (concept_slug, params, body_en, body_id, answer_type,
+                choices_en, choices_id, answer, hint_en, hint_id, hint_steps_en, hint_steps_id, level)
+             VALUES ($1, $2::jsonb, $3, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11::jsonb, $12::jsonb, $13)
+             ON CONFLICT (concept_slug, params, level) DO NOTHING
+             RETURNING id`,
+            [
+              slug,
+              JSON.stringify(params),
+              r.body_en,
+              r.body_id,
+              r.answer_type,
+              r.choices_en ? JSON.stringify(r.choices_en) : null,
+              r.choices_id ? JSON.stringify(r.choices_id) : null,
+              r.answer,
+              r.hint_en,
+              r.hint_id,
+              r.hint_steps_en ? JSON.stringify(r.hint_steps_en) : null,
+              r.hint_steps_id ? JSON.stringify(r.hint_steps_id) : null,
+              level,
+            ],
+          )
+          if (inserted.length > 0) made += 1
+        } catch (err) {
+          console.error(`level pool fill failed for ${slug} level=${level}:`, err)
+          // Continue — one bad attempt doesn't block the rest of the level's pool
+        }
       }
     }
   }
