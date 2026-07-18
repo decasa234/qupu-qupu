@@ -225,15 +225,14 @@ export default function TrackNode({
               style={{ transform: `translateY(${rim.depth}px)`, background: rim.color }}
             />
           )}
+          {/* z-elevation for a selected node returns with the sheets in Plan 3. */}
           <button
             ref={anchorRef}
             type="button"
             aria-label={label}
             disabled={locked}
             onClick={onClick}
-            className={`tap-press relative flex flex-shrink-0 items-center justify-center rounded-full ${size} ${glossClass} ${pressClass} ${
-              spotlight ? 'z-20' : ''
-            }`}
+            className={`tap-press relative flex flex-shrink-0 items-center justify-center rounded-full ${size} ${glossClass} ${pressClass}`}
             style={circleStyle}
           >
             <span className="relative">{face}</span>
