@@ -332,4 +332,148 @@ const WRONG_ANSWER = '__definitely_wrong__'
       commitLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG, lesson.lessonId, foreignAnswers),
     ).rejects.toThrow('Lesson answers mismatch')
   })
+
+  it('rejects commit that drops an answer (submits N-1 of the served instances)', async () => {
+    const { parentUserId, childId } = await createChild()
+    const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+
+    // Every submitted id is known and duplicate-free — the omission is the
+    // ONLY thing wrong here, isolating the exact-set check from the
+    // duplicate/unknown-instance checks already covered above.
+    const answers = await answersFor(lesson.questions, 0)
+    const shortAnswers = answers.slice(0, answers.length - 1)
+    expect(shortAnswers).toHaveLength(lesson.questions.length - 1)
+
+    await expect(
+      commitLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG, lesson.lessonId, shortAnswers),
+    ).rejects.toThrow('Lesson answers mismatch')
+  })
+
+  it('stale-lesson commit does not bump the level, grant rewards, or add ledger rows', async () => {
+    const { parentUserId, childId } = await createChild()
+
+    // Build two lessons back-to-back while the child is still at level 0 —
+    // both get stamped focus_level = 1 by buildLesson, since neither commit
+    // has happened yet to advance the frontier.
+    const lessonA = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    const lessonB = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+
+    const resultA = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lessonA.lessonId,
+      await answersFor(lessonA.questions, 0),
+    )
+    expect(resultA).toMatchObject({
+      passed: true,
+      levelBefore: 0,
+      levelAfter: 1,
+      xpEarned: LESSON_PASS_XP,
+      coinsEarned: LESSON_PASS_COINS,
+    })
+
+    // lessonB was built at the same level-0 frontier as lessonA, but by the
+    // time it's committed the child is already at level 1 — it is now
+    // STALE. Without the frontier binding, this all-correct commit would
+    // walk levelAfter to 2 and fire a second reward grant off nothing but
+    // level-1 material.
+    const resultB = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lessonB.lessonId,
+      await answersFor(lessonB.questions, 0),
+    )
+    expect(resultB).toMatchObject({
+      focusCorrect: 6,
+      passed: true,
+      levelBefore: 1,
+      levelAfter: 1, // no bump — lessonB.focus_level (1) !== levelBefore + 1 (2)
+      xpEarned: 0,
+      coinsEarned: 0,
+    })
+
+    const progressRow = await queryOne<{ level: number }>(
+      `SELECT level FROM wmi_concept_progress WHERE child_id = $1 AND concept_slug = $2`,
+      [childId, CONCEPT_SLUG],
+    )
+    expect(progressRow?.level).toBe(1) // still 1, not bumped to 2
+
+    // No new reward-ledger rows from the stale commit — still just the one
+    // row from resultA.
+    const ledgerRows = await query(
+      `SELECT 1 FROM reward_ledger WHERE child_id = $1 AND reward_type = 'TRACK_LESSON_XP'`,
+      [childId],
+    )
+    expect(ledgerRows).toHaveLength(1)
+  })
+
+  it('a passed commit with no level-up still advances the streak and stamps last_activity_date', async () => {
+    const { parentUserId, childId } = await createChild()
+
+    // Build two lessons at the level-0 frontier, same setup as the
+    // stale-lesson test above.
+    const lessonA = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    const lessonB = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+
+    // Commit A levels 0 -> 1, which is the FIRST gamification touch for
+    // this child: ensureProfile creates the row, and the streak/activity
+    // stamp land at today/1.
+    await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lessonA.lessonId,
+      await answersFor(lessonA.questions, 0),
+    )
+    const profileAfterA = await queryOne<{ current_streak_days: number; last_activity_date: string }>(
+      `SELECT current_streak_days, last_activity_date::text AS last_activity_date
+         FROM gamification_profiles WHERE child_id = $1`,
+      [childId],
+    )
+    expect(profileAfterA?.current_streak_days).toBe(1)
+    const today = profileAfterA!.last_activity_date
+
+    // Backdate last_activity_date to "yesterday" (WIB) so the NEXT streak
+    // update has a gap === 1 to react to. This isolates whether commit B —
+    // which passes but does NOT level up (lessonB is stale, same as above)
+    // — actually invokes ensureProfile/updateStreakForActivity/the
+    // activity-date stamp: before the fix, gamification was gated entirely
+    // inside the levelAfter > levelBefore branch, so a no-level-up pass
+    // never touched this row and last_activity_date would stay "yesterday".
+    const yesterday = new Date(Date.parse(`${today}T00:00:00Z`) - 24 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 10)
+    await query(
+      `UPDATE gamification_profiles SET last_activity_date = $2 WHERE child_id = $1`,
+      [childId, yesterday],
+    )
+
+    // Commit B: passes (all correct) but is stale (frontier binding keeps
+    // levelAfter === levelBefore === 1) — no level-up.
+    const resultB = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lessonB.lessonId,
+      await answersFor(lessonB.questions, 0),
+    )
+    expect(resultB).toMatchObject({ passed: true, levelBefore: 1, levelAfter: 1, xpEarned: 0, coinsEarned: 0 })
+
+    const profileAfterB = await queryOne<{ current_streak_days: number; last_activity_date: string }>(
+      `SELECT current_streak_days, last_activity_date::text AS last_activity_date
+         FROM gamification_profiles WHERE child_id = $1`,
+      [childId],
+    )
+    // gap of 1 day (yesterday -> today) means updateStreakForActivity ran
+    // and incremented the streak; last_activity_date is stamped back to
+    // today by updateProfileWithDelta's zero-delta call.
+    expect(profileAfterB?.current_streak_days).toBe(2)
+    expect(profileAfterB?.last_activity_date).toBe(today)
+  })
 })

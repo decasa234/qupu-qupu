@@ -224,7 +224,14 @@ export async function commitLesson(
     const storedIds = new Set(lessonRow.instance_ids)
     const hasDuplicates = new Set(submittedIds).size !== submittedIds.length
     const hasUnknownInstance = submittedIds.some((id) => !storedIds.has(id))
-    if (hasDuplicates || hasUnknownInstance) {
+    // Exact-set enforcement: submitting a duplicate-free subset of known
+    // instanceIds used to pass (only hasDuplicates/hasUnknownInstance were
+    // checked) — a client could silently drop answers it didn't like and
+    // shrink the focus denominator on future multi-concept tracks. The
+    // served set size is fixed by buildLesson, so any count mismatch is
+    // also a mismatch.
+    const hasWrongCount = submittedIds.length !== lessonRow.instance_ids.length
+    if (hasDuplicates || hasUnknownInstance || hasWrongCount) {
       throw new Error('Lesson answers mismatch')
     }
 
@@ -273,7 +280,28 @@ export async function commitLesson(
     })
     await upsertConceptProgressRows(tx, childId, upserts)
 
-    const levelAfter = passed ? Math.min(GOLD_LEVEL, levelBefore + 1) : levelBefore
+    // Frontier binding (review fix — stale-lesson level grinding): a commit
+    // only bumps the level when the lesson being committed was BUILT for the
+    // child's current frontier (lessonRow.focus_level === levelBefore + 1).
+    // Without this, levelAfter was derived purely from the fresh progress
+    // read, ignoring the stored lesson's focus_level entirely — a client
+    // could build 5 lessons back-to-back while still at level 0 (buildLesson
+    // stamps every one of them focus_level = 1), then commit them one after
+    // another: each commit's fresh levelBefore read had already advanced
+    // from the PRIOR commit, so passing all 5 walked levels 0→1→2→3→4→5 and
+    // fired 5 separate reward grants off nothing but level-1 material. Binding
+    // the bump to lessonRow.focus_level === levelBefore + 1 means only a
+    // lesson built exactly at the current frontier can advance it; every
+    // other stale lesson in the batch now finds focus_level <= levelBefore
+    // and no-ops. Gold (L5) replays stay a no-op too: focus_level is pinned
+    // at GOLD_LEVEL while levelBefore is already GOLD_LEVEL, so
+    // GOLD_LEVEL !== GOLD_LEVEL + 1 and no bump fires. Since the reward
+    // block below still gates on levelAfter > levelBefore, stale/replay
+    // commits pay out nothing either.
+    const levelAfter =
+      passed && lessonRow.focus_level === levelBefore + 1
+        ? Math.min(GOLD_LEVEL, lessonRow.focus_level)
+        : levelBefore
     await query(
       `UPDATE wmi_concept_progress SET level = $3 WHERE child_id = $1 AND concept_slug = $2`,
       [childId, focusSlug, levelAfter],
@@ -283,62 +311,73 @@ export async function commitLesson(
     let xpEarned = 0
     let coinsEarned = 0
 
-    // Reward parity (Plan 3): only a GENUINELY new level fires the grant —
-    // replays of an already-cleared level and gold (L5) replays leave
-    // levelAfter === levelBefore and grant nothing. Mirrors chapterTest.ts's
-    // gamification block (same helpers, same order, same transaction).
-    if (passed && levelAfter > levelBefore) {
+    // Streak parity (review fix): EVERY passed commit is real practice —
+    // ensureProfile + advancing the streak + stamping today's activity date
+    // must run whether or not this particular commit crosses a new level
+    // (stale lessons the frontier binding above declined to bump, and gold/
+    // L5 replays, still count as a session played). Only the reward-bearing
+    // steps — ledger, event, quests, achievements, and the XP/coin portion
+    // of the profile delta — stay gated on a GENUINE level-up, matching the
+    // existing reward-parity rule. Ordering mirrors chapterTest.ts's
+    // gamification block: ensureProfile, then advance the streak (reads the
+    // OLD last_activity_date to compute the gap), THEN updateProfileWithDelta
+    // stamps last_activity_date = today — that stamp must run even at a 0/0
+    // delta, or tomorrow's streak-gap check would see a stale date despite
+    // the streak counter already having advanced today.
+    if (passed) {
       const today = wibDateString(new Date())
       await ensureProfile(tx, childId)
-      // Leveling up counts as today's learning activity — advance the streak
-      // BEFORE updateProfileWithDelta stamps last_activity_date (same
-      // ordering as chapterTest.ts).
       const streak = await updateStreakForActivity(tx, childId, today)
 
-      // Deterministic per-(child, concept, level) source id: a level is
-      // monotonic and can only be cleared once, so this branch can only
-      // legitimately fire once per level anyway — the ledger UNIQUE key is
-      // defense-in-depth against any recompute/replay.
-      const sourceId = deterministicUuid(`track-lesson:${childId}:${focusSlug}:L${levelAfter}`)
-      const led = await appendLedger(tx, {
-        childId,
-        rewardType: 'TRACK_LESSON_XP',
-        sourceType: 'wmi_track_lesson',
-        sourceId,
-        xpDelta: LESSON_PASS_XP,
-        coinDelta: LESSON_PASS_COINS,
-        metadata: { trackId, focusSlug, levelAfter },
-      })
-      if (led.appended) {
-        xpEarned = led.xpDelta
-        coinsEarned = led.coinDelta
+      // Reward parity (Plan 3): only a GENUINELY new level fires the grant —
+      // replays of an already-cleared level and gold (L5) replays leave
+      // levelAfter === levelBefore and grant nothing.
+      if (levelAfter > levelBefore) {
+        // Deterministic per-(child, concept, level) source id: a level is
+        // monotonic and can only be cleared once, so this branch can only
+        // legitimately fire once per level anyway — the ledger UNIQUE key is
+        // defense-in-depth against any recompute/replay.
+        const sourceId = deterministicUuid(`track-lesson:${childId}:${focusSlug}:L${levelAfter}`)
+        const led = await appendLedger(tx, {
+          childId,
+          rewardType: 'TRACK_LESSON_XP',
+          sourceType: 'wmi_track_lesson',
+          sourceId,
+          xpDelta: LESSON_PASS_XP,
+          coinDelta: LESSON_PASS_COINS,
+          metadata: { trackId, focusSlug, levelAfter },
+        })
+        if (led.appended) {
+          xpEarned = led.xpDelta
+          coinsEarned = led.coinDelta
+        }
+
+        await emitEvent(tx, {
+          childId,
+          eventType: 'TRACK_LESSON_LEVEL_UP',
+          sourceType: 'wmi_track_lesson',
+          sourceId,
+          eventDate: today,
+          metadata: { trackId, focusSlug, levelAfter },
+        })
+        await ensureTodaysQuests(tx, childId, today)
+        await evaluateForEvent(tx, today, {
+          childId,
+          eventType: 'TRACK_LESSON_LEVEL_UP',
+          eventSourceType: 'wmi_track_lesson',
+          eventSourceId: sourceId,
+          currentStreakDays: streak.currentStreakDays,
+        })
+
+        const newAchievements = await evaluateAchievements(tx, childId, streak)
+        for (const ach of newAchievements) {
+          xpEarned += ach.xpAwarded
+        }
       }
 
-      await emitEvent(tx, {
-        childId,
-        eventType: 'TRACK_LESSON_LEVEL_UP',
-        sourceType: 'wmi_track_lesson',
-        sourceId,
-        eventDate: today,
-        metadata: { trackId, focusSlug, levelAfter },
-      })
-      await ensureTodaysQuests(tx, childId, today)
-      await evaluateForEvent(tx, today, {
-        childId,
-        eventType: 'TRACK_LESSON_LEVEL_UP',
-        eventSourceType: 'wmi_track_lesson',
-        eventSourceId: sourceId,
-        currentStreakDays: streak.currentStreakDays,
-      })
-
-      const newAchievements = await evaluateAchievements(tx, childId, streak)
-      for (const ach of newAchievements) {
-        xpEarned += ach.xpAwarded
-      }
-
-      // Always run the profile delta on a level-up — even at 0/0 (ledger
-      // no-op) it stamps last_activity_date so tomorrow's streak gap stays
-      // correct.
+      // Always run the profile delta on a passed commit — even at 0/0 (no
+      // level-up this time) it stamps last_activity_date so tomorrow's
+      // streak gap stays correct.
       await updateProfileWithDelta(tx, {
         childId,
         xpDelta: xpEarned,
