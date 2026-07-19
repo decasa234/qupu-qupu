@@ -9,7 +9,7 @@
 // nodeOffsets S-curve. An SVG path behind the nodes connects their centers;
 // locked units get a dashed stroke in the theme's trail color.
 
-import type { Ref } from 'react'
+import type { ReactNode, Ref } from 'react'
 import TrackNode from './TrackNode'
 import type { TrackThemePack } from './themes'
 import { nodeOffsets } from '../path/pathLayout'
@@ -54,6 +54,10 @@ interface TrackTrailProps {
   checkpointSlug: string | null
   onConcept: (node: TrackConceptNodeState, unit: TrackUnitState) => void
   onGate: (node: TrackGateNodeState, unit: TrackUnitState) => void
+  /** Unit banner tap — opens the curriculum-breakdown sheet. */
+  onUnit: (unit: TrackUnitState) => void
+  /** Rendered right under the banner of the unit holding the checkpoint. */
+  coachMark?: ReactNode
   currentRef?: Ref<HTMLButtonElement>
 }
 
@@ -64,6 +68,8 @@ export default function TrackTrail({
   checkpointSlug,
   onConcept,
   onGate,
+  onUnit,
+  coachMark,
   currentRef,
 }: TrackTrailProps) {
   const sheetTaken = selectedKey !== null
@@ -99,11 +105,13 @@ export default function TrackTrail({
             className="mb-2 rounded-[1.625rem] p-2 pb-1"
             style={{ background: `${unit.colorHex}12` }}
           >
-            {/* Banner row — plain div in Plan 2, no breakdown-sheet tap. */}
-            <div
-              role="group"
-              aria-label={`${unit.nameId}, ${goldCount} dari ${total} emas`}
-              className={`flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 ${
+            {/* Banner row — tapping opens the unit's breakdown sheet (same
+                model as the garden's chapter banner). */}
+            <button
+              type="button"
+              aria-label={`${unit.nameId}, ${goldCount} dari ${total} emas — lihat rincian`}
+              onClick={() => onUnit(unit)}
+              className={`flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 transition-transform active:translate-y-0.5 ${
                 unit.unlocked
                   ? 'bg-white shadow-[0_5px_0_0_#FFD3B1] ring-[#FFE3CC]'
                   : 'bg-[#FBF4E7] shadow-[0_5px_0_0_#EFE2CC] ring-[#EFE2CC]'
@@ -143,7 +151,15 @@ export default function TrackTrail({
               >
                 {goldCount}/{total}
               </span>
-            </div>
+              <i
+                className="fa-solid fa-chevron-right flex-shrink-0 text-xs text-qupu-muted/60"
+                aria-hidden="true"
+              />
+            </button>
+
+            {unit.nodes.some(
+              (n) => n.kind === 'concept' && n.slug === checkpointSlug,
+            ) && coachMark}
 
             {/* Trail canvas */}
             <div className="relative" style={{ height }}>

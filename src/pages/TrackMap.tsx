@@ -1,24 +1,95 @@
 // src/pages/TrackMap.tsx
 //
-// /belajar/track/:trackId — Plan 2's track map: the theme-driven QUPU track
-// engine (units/nodes/gates) rendered via TrackTrail. Deliberately lean
-// (no sheets/FABs/celebrations — those return in later Plan 2 tasks). A
-// node tap navigates straight to the lesson or gate session; locked taps
-// are a no-op (TrackNode already disables the underlying button).
+// /belajar/track/:trackId — the theme-driven QUPU track map (units/nodes/
+// gates) with full /belajar parity: tap-first sheets (concept / gate / unit
+// breakdown), the floating "Lanjut" + Misi Hari Ini buttons, quest badge,
+// streak-recovery prompt, "Bab baru terbuka!" celebrations and the one-time
+// coach mark. Navigation into a lesson or gate happens ONLY from a sheet's
+// Mulai button.
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import GardenCoachMark from '../components/onboarding/GardenCoachMark'
+import StreakRecoveryModal, { useStreakRecoveryPrompt } from '../components/me/StreakRecoveryModal'
+import QuestsSheet from '../components/wmi/path/QuestsSheet'
 import TrackTrail, { pickCheckpoint } from '../components/wmi/track/TrackTrail'
+import TrackConceptSheet from '../components/wmi/track/TrackConceptSheet'
+import TrackGateSheet from '../components/wmi/track/TrackGateSheet'
+import TrackUnitSheet from '../components/wmi/track/TrackUnitSheet'
 import { getThemePack } from '../components/wmi/track/themes'
 import { fetchTrackState } from '../lib/wmiApi'
 import { useAuthStore } from '../store/authStore'
+import { useCelebrationStore } from '../store/celebrationStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
-import type { TrackState } from '../types/wmi'
+import type {
+  TrackConceptNodeState,
+  TrackGateNodeState,
+  TrackState,
+  TrackUnitState,
+} from '../types/wmi'
+
+// Same flag the garden path uses — a kid who dismissed the hint there never
+// sees it again here (and vice versa).
+const COACHMARK_KEY = 'qupu_garden_coachmark'
+
+function isCoachMarkDone(): boolean {
+  try {
+    return localStorage.getItem(COACHMARK_KEY) === 'done'
+  } catch {
+    return true
+  }
+}
+
+function markCoachMarkDone(): void {
+  try {
+    localStorage.setItem(COACHMARK_KEY, 'done')
+  } catch {
+    /* storage unavailable — nothing to persist */
+  }
+}
+
+// Per-(child, track) record of which units the kid has already SEEN
+// unlocked — a freshly unlocked unit not in this list triggers the
+// "Bab baru terbuka!" reveal. First-ever load just seeds the list quietly.
+function seenUnlocksKey(childId: string, trackId: string): string {
+  return `qupu_seen_unlocks_track:${childId}:${trackId}`
+}
+
+function diffFreshUnlock(
+  state: TrackState,
+  childId: string,
+  trackId: string,
+): TrackUnitState | null {
+  try {
+    const key = seenUnlocksKey(childId, trackId)
+    const raw = localStorage.getItem(key)
+    const seen: unknown = raw ? JSON.parse(raw) : null
+    const unlockedNow = state.units.filter((u) => u.unlocked).map((u) => u.key)
+    localStorage.setItem(key, JSON.stringify(unlockedNow))
+    if (!Array.isArray(seen)) return null // first load — seed quietly
+    return state.units.find((u) => u.unlocked && !seen.includes(u.key)) ?? null
+  } catch {
+    return null // storage unavailable — skip the ceremony
+  }
+}
+
+function unitConcepts(unit: TrackUnitState): TrackConceptNodeState[] {
+  return unit.nodes.filter((n): n is TrackConceptNodeState => n.kind === 'concept')
+}
+
+interface SelectedConcept {
+  node: TrackConceptNodeState
+  unit: TrackUnitState
+}
+interface SelectedGate {
+  node: TrackGateNodeState
+  unit: TrackUnitState
+}
 
 export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } = {}) {
   useDocumentTitle('Belajar')
   // Always call useParams (hook-order safety) even when a caller (e.g.
-  // MemberHome's dark-cutover branch) already knows the track id.
+  // MemberHome's cutover branch) already knows the track id.
   const params = useParams()
   const trackId = trackIdProp ?? params.trackId
   const { activeChildId } = useAuthStore()
@@ -27,6 +98,63 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
   const [fetchTick, setFetchTick] = useState(0)
+  const [selected, setSelected] = useState<SelectedConcept | null>(null)
+  const [gateSel, setGateSel] = useState<SelectedGate | null>(null)
+  const [unitSheet, setUnitSheet] = useState<TrackUnitState | null>(null)
+  const [questsOpen, setQuestsOpen] = useState(false)
+  const [claimableCount, setClaimableCount] = useState(0)
+  // FABs duck out of the way (scale 0) while the trail is scrolling.
+  const [scrolling, setScrolling] = useState(false)
+  const scrollTimerRef = useRef<number | undefined>(undefined)
+  const currentRef = useRef<HTMLButtonElement | null>(null)
+  // The "Lanjut" FAB shows only while the checkpoint node is OFF screen.
+  const [currentOnScreen, setCurrentOnScreen] = useState(true)
+  // Auto-scroll fires once per (child, track) identity — switching the
+  // active child re-arms it, refetches of the same track don't.
+  const autoScrolledForRef = useRef<string | null>(null)
+  const stateKeyRef = useRef<string | null>(null)
+
+  const [showCoachMark, setShowCoachMark] = useState(() => !isCoachMarkDone())
+  const dismissCoachMark = () => {
+    markCoachMarkDone()
+    setShowCoachMark(false)
+  }
+
+  // Streak-recovery prompt (at most once per eligibility window; a summary
+  // fetch failure simply means no prompt — the map is unaffected).
+  const { prompt: recoveryPrompt, dismiss: dismissRecovery } =
+    useStreakRecoveryPrompt(activeChildId ?? null)
+
+  // Window is the scroll container (AppShell's column has no inner scroller).
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolling(true)
+      window.clearTimeout(scrollTimerRef.current)
+      scrollTimerRef.current = window.setTimeout(() => setScrolling(false), 240)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.clearTimeout(scrollTimerRef.current)
+    }
+  }, [])
+
+  // Track whether the checkpoint node is in the viewport. Re-observes
+  // whenever a fresh trail renders (the anchor ref moves with it).
+  useEffect(() => {
+    const node = currentRef.current
+    if (!state || !node) {
+      setCurrentOnScreen(true) // no node to jump to — keep the FAB hidden
+      return
+    }
+    const observer = new IntersectionObserver(([entry]) =>
+      setCurrentOnScreen(entry.isIntersecting),
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [state])
+
+  const stateKey = `${activeChildId}:${trackId}`
 
   useEffect(() => {
     if (!activeChildId || !trackId) { setState(null); setLoading(false); return }
@@ -36,7 +164,25 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
     fetchTrackState(activeChildId, trackId)
       .then((d) => {
         if (cancelled) return
+        stateKeyRef.current = `${activeChildId}:${trackId}`
         setState(d)
+        // "Bab baru terbuka!" — enqueue a persistent celebration for a unit
+        // this child has never seen unlocked before (e.g. right after
+        // passing the previous Tes Bab). CelebrationHost shows it until
+        // dismissed.
+        const fresh = diffFreshUnlock(d, activeChildId, trackId)
+        if (fresh) {
+          useCelebrationStore.getState().enqueue(activeChildId, {
+            id: `track:${trackId}:${fresh.key}`,
+            kind: 'chapter',
+            chapter: {
+              nameId: fresh.nameId,
+              colorHex: fresh.colorHex,
+              iconKey: fresh.iconKey,
+              concepts: unitConcepts(fresh).map((c) => ({ nameId: c.nameId })),
+            },
+          })
+        }
       })
       .catch(() => {
         if (cancelled) return
@@ -47,12 +193,62 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
     return () => { cancelled = true }
   }, [activeChildId, trackId, fetchTick])
 
+  const scrollToCurrent = useCallback((smooth: boolean) => {
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    currentRef.current?.scrollIntoView({
+      block: 'center',
+      behavior: smooth && !reduced ? 'smooth' : 'auto',
+    })
+  }, [])
+
+  // Auto-scroll each freshly loaded track to the "you are here" node.
+  useEffect(() => {
+    if (!state || stateKeyRef.current !== stateKey || autoScrolledForRef.current === stateKey) {
+      return
+    }
+    autoScrolledForRef.current = stateKey
+    scrollToCurrent(false)
+  }, [state, stateKey, scrollToCurrent])
+
+  const handleClaimableCount = useCallback((count: number) => setClaimableCount(count), [])
+
   if (!activeChildId) {
     return (
       <div className="w-full max-w-[28.75rem] self-center p-6 text-center text-sm font-semibold text-qupu-muted">
         Pilih profil anak dulu.
       </div>
     )
+  }
+
+  const theme = getThemePack(state?.theme ?? 'forest')
+  const checkpointSlug = state ? pickCheckpoint(state.units) : null
+  const checkpoint = state && checkpointSlug
+    ? state.units.flatMap(unitConcepts).find((n) => n.slug === checkpointSlug) ?? null
+    : null
+  const levelTotal = state
+    ? state.units.flatMap(unitConcepts).reduce((s, n) => s + n.level, 0)
+    : 0
+  // Veterans never see the coach-mark, even if the localStorage flag was
+  // never set on this device.
+  const coachMarkVisible = showCoachMark && !!state && levelTotal === 0
+  const sheetOpen = !!selected || !!gateSel || !!unitSheet || questsOpen
+  const selectedKey = selected
+    ? selected.node.slug
+    : gateSel
+      ? `gate:${gateSel.node.key}`
+      : null
+
+  const startLesson = (slug: string) => {
+    if (showCoachMark) dismissCoachMark()
+    navigate(`/latihan/track/${trackId}/sesi/${slug}`, { state: { theme: state?.theme } })
+  }
+  const startGate = (key: string) => {
+    navigate(`/latihan/track/${trackId}/gerbang/${key}`, { state: { theme: state?.theme } })
+  }
+  const requireNames = (node: TrackGateNodeState): string[] => {
+    if (!state) return []
+    const bySlug = new Map(state.units.flatMap(unitConcepts).map((n) => [n.slug, n.nameId]))
+    return node.requires.map((slug) => bySlug.get(slug) ?? slug)
   }
 
   return (
@@ -68,7 +264,7 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
         </div>
       )}
 
-      <div className="mt-1">
+      <div className="relative z-10 mt-1">
         {loading ? (
           // Skeleton mirrors the real trail: a banner bar + node circles on
           // the same zigzag lanes (pathLayout LANE) and 96px row rhythm.
@@ -103,17 +299,28 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
         ) : state && state.units.length > 0 ? (
           <TrackTrail
             units={state.units}
-            theme={getThemePack(state.theme)}
-            selectedKey={null}
-            checkpointSlug={pickCheckpoint(state.units)}
+            theme={theme}
+            selectedKey={selectedKey}
+            checkpointSlug={checkpointSlug}
+            currentRef={currentRef}
+            coachMark={
+              coachMarkVisible ? <GardenCoachMark onDismiss={dismissCoachMark} /> : undefined
+            }
             onConcept={(node, unit) => {
-              if (!unit.unlocked) return
-              navigate(`/latihan/track/${trackId}/sesi/${node.slug}`, { state: { theme: state.theme } })
+              // Tapping a node selects it; the lesson only starts from the
+              // sheet's Mulai. Tapping the selected node again is a no-op.
+              setGateSel(null)
+              setSelected({ node, unit })
             }}
-            onGate={(node) => {
-              if (node.unlocked || node.cleared) {
-                navigate(`/latihan/track/${trackId}/gerbang/${node.key}`, { state: { theme: state.theme } })
-              }
+            onGate={(node, unit) => {
+              if (!node.unlocked && !node.cleared) return
+              setSelected(null)
+              setGateSel({ node, unit })
+            }}
+            onUnit={(unit) => {
+              setSelected(null)
+              setGateSel(null)
+              setUnitSheet(unit)
             }}
           />
         ) : (
@@ -122,6 +329,106 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
           </p>
         )}
       </div>
+
+      {/* Floating "Lanjut" — bottom-left twin of the quest chest. Scrolls the
+          map to the checkpoint node; shown only while that node is off
+          screen. Same duck-away while scrolling. */}
+      {checkpoint && !sheetOpen && !currentOnScreen && (
+        <button
+          type="button"
+          aria-label={`Lanjut belajar — ${checkpoint.nameId}`}
+          onClick={() => scrollToCurrent(true)}
+          className={`fixed bottom-24 left-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-qupu-brand-orange text-xl text-white shadow-[0_5px_0_0_#C46123] tap-press active:translate-y-0.5 active:shadow-[0_2px_0_0_#C46123] lg:bottom-32 lg:left-[calc(50%-230px+1rem)] ${
+            scrolling ? 'pointer-events-none scale-0' : 'scale-100'
+          }`}
+        >
+          <i className="fa-solid fa-chevron-up" aria-hidden="true" />
+        </button>
+      )}
+
+      {/* Floating quest chest — Misi Hari Ini. Ducks away while scrolling and
+          whenever a sheet is open. */}
+      {!sheetOpen && (
+        <button
+          type="button"
+          aria-label={
+            claimableCount > 0
+              ? `Misi Hari Ini — ${claimableCount} hadiah siap diklaim`
+              : 'Misi Hari Ini'
+          }
+          onClick={() => setQuestsOpen(true)}
+          className={`fixed bottom-24 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-white text-xl text-qupu-brand-orange shadow-[0_5px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] tap-press active:translate-y-0.5 active:shadow-[0_2px_0_0_#FFD3B1] lg:bottom-32 lg:right-[calc(50%-230px+1rem)] ${
+            scrolling ? 'pointer-events-none scale-0' : 'scale-100'
+          }`}
+        >
+          <i className="fa-solid fa-gift" aria-hidden="true" />
+          {claimableCount > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-[1.375rem] min-w-[1.375rem] items-center justify-center rounded-full bg-red-500 px-1 text-[0.6875rem] font-black text-white ring-2 ring-white">
+              {claimableCount}
+            </span>
+          )}
+        </button>
+      )}
+
+      {selected && (
+        <TrackConceptSheet
+          node={selected.node}
+          unit={selected.unit}
+          theme={theme}
+          onStart={() => startLesson(selected.node.slug)}
+          onClose={() => setSelected(null)}
+        />
+      )}
+
+      {/* Tes Bab confirmation — mirrors the concept flow; navigation to the
+          gate happens only from here. */}
+      {gateSel && (
+        <TrackGateSheet
+          node={gateSel.node}
+          unit={gateSel.unit}
+          requireNames={requireNames(gateSel.node)}
+          onStart={() => startGate(gateSel.node.key)}
+          onClose={() => setGateSel(null)}
+        />
+      )}
+
+      {/* Curriculum breakdown — opened from a unit banner. Picking a concept
+          or the gate hands off to the matching confirm-first sheet. */}
+      {unitSheet && (
+        <TrackUnitSheet
+          unit={unitSheet}
+          theme={theme}
+          onPick={(node) => {
+            const unit = unitSheet
+            setUnitSheet(null)
+            setSelected({ node, unit })
+          }}
+          onGate={(node) => {
+            const unit = unitSheet
+            setUnitSheet(null)
+            setGateSel({ node, unit })
+          }}
+          onClose={() => setUnitSheet(null)}
+        />
+      )}
+
+      {/* Mounted while closed so the quest fetch feeds the chest badge. */}
+      <QuestsSheet
+        childId={activeChildId}
+        open={questsOpen}
+        onClose={() => setQuestsOpen(false)}
+        onClaimableCount={handleClaimableCount}
+      />
+
+      {/* Never stack on top of an open sheet — useStreakRecoveryPrompt keeps
+          `prompt` set until an explicit dismiss, so it re-shows after close. */}
+      {recoveryPrompt && !sheetOpen && (
+        <StreakRecoveryModal
+          childId={activeChildId}
+          previousStreak={recoveryPrompt.previousStreak}
+          onClose={dismissRecovery}
+        />
+      )}
     </div>
   )
 }
