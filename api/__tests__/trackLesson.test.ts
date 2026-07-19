@@ -10,6 +10,7 @@ import { describe, expect, it, beforeAll, afterAll, afterEach } from 'vitest'
 import { randomUUID } from 'node:crypto'
 import { pool, query, queryOne } from '../db.js'
 import { buildLesson, commitLesson } from '../services/wmi/tracks/lesson.js'
+import { LESSON_PASS_XP, LESSON_PASS_COINS } from '../services/wmi/tracks/ladder.js'
 import { ensureLevelPools } from '../services/wmi/concepts/levelPools.js'
 import {
   ensureBootstrapped,
@@ -53,6 +54,18 @@ const WRONG_ANSWER = '__definitely_wrong__'
     const child = await queryOne<{ id: string }>(
       `INSERT INTO children (parent_user_id, name) VALUES ($1, $2) RETURNING id`,
       [user!.id, `Child ${tag}`],
+    )
+    // Pre-unlock every seeded achievement (e.g. 'first_concept_mahir' fires
+    // the moment ANY concept crosses Mahir, which a fresh child's first 6/6
+    // focus run does via the legacy best_tier fold) so evaluateAchievements
+    // never has anything new to grant here — isolates the lesson-specific
+    // reward amounts this suite asserts from the achievement system's own
+    // (separately tested) XP grants.
+    await query(
+      `INSERT INTO child_achievements (child_id, achievement_template_id)
+         SELECT $1, id FROM achievement_templates
+         ON CONFLICT DO NOTHING`,
+      [child!.id],
     )
     return { parentUserId: user!.id, childId: child!.id }
   }
@@ -101,7 +114,22 @@ const WRONG_ANSWER = '__definitely_wrong__'
       lesson1.lessonId,
       await answersFor(lesson1.questions, 0),
     )
-    expect(result1).toMatchObject({ focusCorrect: 6, passed: true, levelBefore: 0, levelAfter: 1 })
+    expect(result1).toMatchObject({
+      focusCorrect: 6,
+      passed: true,
+      levelBefore: 0,
+      levelAfter: 1,
+      xpEarned: LESSON_PASS_XP,
+      coinsEarned: LESSON_PASS_COINS,
+    })
+
+    const ledgerRows1 = await query<{ xp_delta: number; coin_delta: number }>(
+      `SELECT xp_delta, coin_delta FROM reward_ledger
+         WHERE child_id = $1 AND reward_type = 'TRACK_LESSON_XP' AND source_type = 'wmi_track_lesson'`,
+      [childId],
+    )
+    expect(ledgerRows1).toHaveLength(1)
+    expect(ledgerRows1[0]).toMatchObject({ xp_delta: LESSON_PASS_XP, coin_delta: LESSON_PASS_COINS })
 
     const progressRow1 = await queryOne<{ level: number; updated_at: string }>(
       `SELECT level, updated_at FROM wmi_concept_progress WHERE child_id = $1 AND concept_slug = $2`,
@@ -123,13 +151,114 @@ const WRONG_ANSWER = '__definitely_wrong__'
       lesson2.lessonId,
       await answersFor(lesson2.questions, 2), // 2 wrong -> fails the one-miss bar
     )
-    expect(result2).toMatchObject({ focusCorrect: 4, passed: false, levelBefore: 1, levelAfter: 1 })
+    expect(result2).toMatchObject({
+      focusCorrect: 4,
+      passed: false,
+      levelBefore: 1,
+      levelAfter: 1,
+      xpEarned: 0,
+      coinsEarned: 0,
+    })
 
     const progressRow2 = await queryOne<{ level: number }>(
       `SELECT level FROM wmi_concept_progress WHERE child_id = $1 AND concept_slug = $2`,
       [childId, CONCEPT_SLUG],
     )
     expect(progressRow2?.level).toBe(1)
+
+    // A failed commit never grants — no ledger row at all for this child.
+    const ledgerRowsAfterFail = await query(
+      `SELECT 1 FROM reward_ledger WHERE child_id = $1 AND reward_type = 'TRACK_LESSON_XP'`,
+      [childId],
+    )
+    expect(ledgerRowsAfterFail).toHaveLength(1) // only the L1 pass from result1 above
+  })
+
+  it('grants nothing on a gold (L5) replay pass', async () => {
+    const { parentUserId, childId } = await createChild()
+    // Seed progress directly at gold so this pass can't level up further.
+    await query(
+      `INSERT INTO wmi_concept_progress (child_id, concept_slug, level, best_tier)
+       VALUES ($1, $2, 5, 4)`,
+      [childId, CONCEPT_SLUG],
+    )
+
+    const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    for (const q of lesson.questions) expect(q.level).toBe(5)
+
+    const result = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lesson.lessonId,
+      await answersFor(lesson.questions, 0),
+    )
+    expect(result).toMatchObject({
+      passed: true,
+      levelBefore: 5,
+      levelAfter: 5,
+      xpEarned: 0,
+      coinsEarned: 0,
+    })
+
+    const ledgerRows = await query(
+      `SELECT 1 FROM reward_ledger WHERE child_id = $1 AND reward_type = 'TRACK_LESSON_XP'`,
+      [childId],
+    )
+    expect(ledgerRows).toHaveLength(0)
+  })
+
+  it('grants XP/coins once per (child, concept, level) — a replayed level-up no-ops on the ledger', async () => {
+    const { parentUserId, childId } = await createChild()
+
+    const lesson1 = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    const result1 = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lesson1.lessonId,
+      await answersFor(lesson1.questions, 0),
+    )
+    expect(result1).toMatchObject({
+      passed: true,
+      levelBefore: 0,
+      levelAfter: 1,
+      xpEarned: LESSON_PASS_XP,
+      coinsEarned: LESSON_PASS_COINS,
+    })
+
+    // Reset progress back down to simulate replaying the SAME level (level
+    // is monotonic in the real API, so this can't happen through
+    // buildLesson/commitLesson alone — this reset stands in for whatever
+    // future path could re-trigger the same levelAfter, e.g. an admin
+    // reset tool). The deterministic ledger source id must still make the
+    // second grant a no-op even though passed && levelAfter > levelBefore
+    // is true again.
+    await query(
+      `UPDATE wmi_concept_progress SET level = 0 WHERE child_id = $1 AND concept_slug = $2`,
+      [childId, CONCEPT_SLUG],
+    )
+
+    const lesson2 = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    const result2 = await commitLesson(
+      parentUserId,
+      childId,
+      TRACK_ID,
+      CONCEPT_SLUG,
+      lesson2.lessonId,
+      await answersFor(lesson2.questions, 0),
+    )
+    expect(result2).toMatchObject({ passed: true, levelBefore: 0, levelAfter: 1, xpEarned: 0, coinsEarned: 0 })
+
+    const ledgerRows = await query<{ xp_delta: number; coin_delta: number }>(
+      `SELECT xp_delta, coin_delta FROM reward_ledger
+         WHERE child_id = $1 AND reward_type = 'TRACK_LESSON_XP' AND source_type = 'wmi_track_lesson'`,
+      [childId],
+    )
+    expect(ledgerRows).toHaveLength(1) // still just the one row from result1
+    expect(ledgerRows[0]).toMatchObject({ xp_delta: LESSON_PASS_XP, coin_delta: LESSON_PASS_COINS })
   })
 
   it('rejects an unknown track id', async () => {

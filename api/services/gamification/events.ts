@@ -21,6 +21,9 @@ export type EventType =
   | 'KONSEP_QUESTION_ANSWERED' // batch marker; metadata.count = answers graded
   | 'KONSEP_CONCEPT_GROWN'     // batch marker; metadata.count = concepts that hit a new tier
   | 'CHAPTER_TEST_PASSED'      // Tes Bab >= 70%
+  // QUPU track events (Plan 3 reward parity).
+  | 'TRACK_LESSON_LEVEL_UP'    // a lesson session pushed a concept past its previous level
+  | 'TRACK_GATE_CLEARED'       // a synthesis gate's FIRST correct clear
 
 export type SourceType =
   | 'score_attempt'
@@ -29,6 +32,8 @@ export type SourceType =
   | 'wmi_session'        // anchor = first wmi_attempts row of the committed session
   | 'wmi_chapter_test'   // anchor = wmi_chapter_tests row
   | 'wmi_attempt'        // anchor = a single wmi_attempts row (Latihan Campur concept drill)
+  | 'wmi_track_lesson'   // anchor = deterministic id, see tracks/lesson.ts commitLesson
+  | 'wmi_gate_clear'     // anchor = deterministic id, see tracks/gates.ts submitGate
 
 export interface EmitEventInput {
   childId: string

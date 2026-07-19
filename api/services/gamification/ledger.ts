@@ -27,6 +27,8 @@ export type RewardType =
   | 'SESSION_DROP_COIN'     // variable 2-6 coin drop at konsep session commit (P2.2)
   | 'STREAK_SHIELD_CONSUMED' // 0-coin audit row: shield(s) covered missed day(s)
   | 'FAMILY_QUEST_COIN'     // Misi Keluarga payout — once per (quest, child) (P2.3)
+  | 'TRACK_LESSON_XP'       // QUPU track lesson level-up — once per (child, concept, level) (Plan 3)
+  | 'TRACK_GATE_XP'         // QUPU track synthesis-gate first clear — once per (child, track, gate) (Plan 3)
 
 export interface AppendLedgerInput {
   childId: string

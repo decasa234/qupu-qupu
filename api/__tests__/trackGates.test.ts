@@ -3,7 +3,7 @@
 import { describe, expect, it, beforeAll, afterAll, afterEach } from 'vitest'
 import { randomUUID } from 'node:crypto'
 import { pool, query, queryOne } from '../db.js'
-import { getGate, submitGate } from '../services/wmi/tracks/gates.js'
+import { getGate, submitGate, GATE_CLEAR_XP, GATE_CLEAR_COINS } from '../services/wmi/tracks/gates.js'
 import {
   ensureBootstrapped,
   _resetBootstrapForTesting,
@@ -138,7 +138,7 @@ const WRONG_ANSWER = '999'
     await setLevel(childId, 4)
 
     const wrong = await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, WRONG_ANSWER)
-    expect(wrong).toEqual({ correct: false, cleared: false })
+    expect(wrong).toEqual({ correct: false, cleared: false, xpEarned: 0, coinsEarned: 0 })
     const noClearRow = await queryOne(
       `SELECT 1 FROM wmi_gate_clears WHERE child_id = $1 AND track_id = $2 AND gate_key = $3`,
       [childId, TRACK_ID, GATE_KEY],
@@ -146,7 +146,7 @@ const WRONG_ANSWER = '999'
     expect(noClearRow).toBeNull()
 
     const right = await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, CORRECT_ANSWER)
-    expect(right).toEqual({ correct: true, cleared: true })
+    expect(right).toEqual({ correct: true, cleared: true, xpEarned: GATE_CLEAR_XP, coinsEarned: GATE_CLEAR_COINS })
     const clearRow = await queryOne(
       `SELECT 1 FROM wmi_gate_clears WHERE child_id = $1 AND track_id = $2 AND gate_key = $3`,
       [childId, TRACK_ID, GATE_KEY],
@@ -155,17 +155,37 @@ const WRONG_ANSWER = '999'
 
     // Idempotent re-submit (ON CONFLICT DO NOTHING): stays cleared even on
     // a wrong resubmit, and does not error on the duplicate insert attempt.
+    // Reward already granted on first clear — resubmits grant nothing.
     const resubmitWrong = await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, WRONG_ANSWER)
-    expect(resubmitWrong).toEqual({ correct: false, cleared: true })
+    expect(resubmitWrong).toEqual({ correct: false, cleared: true, xpEarned: 0, coinsEarned: 0 })
 
     const resubmitRight = await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, CORRECT_ANSWER)
-    expect(resubmitRight).toEqual({ correct: true, cleared: true })
+    expect(resubmitRight).toEqual({ correct: true, cleared: true, xpEarned: 0, coinsEarned: 0 })
 
     const stillOneRow = await query(
       `SELECT 1 FROM wmi_gate_clears WHERE child_id = $1 AND track_id = $2 AND gate_key = $3`,
       [childId, TRACK_ID, GATE_KEY],
     )
     expect(stillOneRow).toHaveLength(1)
+
+    // Ledger idempotency: exactly one TRACK_GATE_XP row for this gate,
+    // despite the two resubmits after the first clear.
+    const ledgerRows = await query(
+      `SELECT xp_delta, coin_delta FROM reward_ledger
+         WHERE child_id = $1 AND reward_type = 'TRACK_GATE_XP' AND source_type = 'wmi_gate_clear'`,
+      [childId],
+    )
+    expect(ledgerRows).toHaveLength(1)
+    expect(ledgerRows[0]).toMatchObject({ xp_delta: GATE_CLEAR_XP, coin_delta: GATE_CLEAR_COINS })
+  })
+
+  it('grants nothing when the gate was already cleared by a prior submission', async () => {
+    const { parentUserId, childId } = await createChild()
+    await setLevel(childId, 4)
+
+    await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, CORRECT_ANSWER)
+    const again = await submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, CORRECT_ANSWER)
+    expect(again).toEqual({ correct: true, cleared: true, xpEarned: 0, coinsEarned: 0 })
   })
 
   it('rejects an unknown gate key', async () => {

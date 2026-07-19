@@ -8,6 +8,13 @@ export const FOCUS_COUNT = 6
 export const RECALL_COUNT = 2
 export const LESSON_SIZE = FOCUS_COUNT + RECALL_COUNT
 
+// Lesson pass reward (Plan 3 reward parity) — granted once per (child,
+// concept, cleared level): commitLesson only fires this when a lesson
+// session pushes levelAfter strictly past levelBefore, so replaying an
+// already-cleared level (or replaying gold/L5) grants nothing.
+export const LESSON_PASS_XP = 10
+export const LESSON_PASS_COINS = 2
+
 // Old-garden tier → ladder level, preserving unlock semantics: tier >= 3
 // ("Mahir") counted as grown/gate-ready, so it lands ON the gate bar.
 // 0→0, 1→1, 2→2, 3→4, 4→5. Level 3 is simply skipped for migrated progress.

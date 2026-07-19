@@ -5,10 +5,26 @@
 // re-derives it, so there is exactly one place that decides "is this gate
 // open". Here we only locate the gate node inside that state, resolve its
 // past-paper problem, and grade a submitted answer.
-import { query } from '../../../db.js'
+import { query, queryOne, withTransaction } from '../../../db.js'
+import { wibDateString } from '../../../lib/wib.js'
+import { deterministicUuid } from '../../../lib/deterministicUuid.js'
 import { getTrackState, type TrackNodeState } from './trackState.js'
 import { paperCode as computePaperCode } from '../paperCode.js'
 import { isCorrectAnswer } from '../answerMatch.js'
+import { emitEvent } from '../../gamification/events.js'
+import { appendLedger } from '../../gamification/ledger.js'
+import { ensureProfile, updateProfileWithDelta } from '../../gamification/profileUpdater.js'
+import { updateStreakForActivity } from '../../gamification/streakUpdater.js'
+import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
+import { evaluateForEvent } from '../../gamification/questEvaluator.js'
+import { evaluateAchievements } from '../../gamification/achievementEvaluator.js'
+
+// Gate-clear reward — the SAME amount as a Tes Bab first pass. Mirrored
+// (not imported) because chapterTest.ts's CHAPTER_TEST_XP/CHAPTER_TEST_COINS
+// are module-private constants — keep these in lockstep if that reward ever
+// changes (see api/services/wmi/concepts/chapterTest.ts).
+export const GATE_CLEAR_XP = 30
+export const GATE_CLEAR_COINS = 50
 
 type GateNodeState = Extract<TrackNodeState, { kind: 'gate' }>
 
@@ -123,7 +139,7 @@ export async function submitGate(
   trackId: string,
   gateKey: string,
   selectedAnswer: string,
-): Promise<{ correct: boolean; cleared: boolean }> {
+): Promise<{ correct: boolean; cleared: boolean; xpEarned: number; coinsEarned: number }> {
   const node = await findGateNode(parentUserId, childId, trackId, gateKey)
   if (!node.unlocked) throw new Error('Gate locked')
 
@@ -131,14 +147,83 @@ export async function submitGate(
   if (!problem) throw new Error('Gate problem missing')
 
   const correct = isCorrectAnswer(problem.answer, selectedAnswer)
+  let xpEarned = 0
+  let coinsEarned = 0
+
   if (correct && !node.cleared) {
-    await query(
-      `INSERT INTO wmi_gate_clears (child_id, track_id, gate_key) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
-      [childId, trackId, gateKey],
-    )
+    // Child ownership was already asserted upstream by findGateNode (via
+    // getTrackState), immediately before this transaction opens on the same
+    // childId with no intervening user input in between — no need to
+    // re-check it here (buildLesson follows the same single-check pattern).
+    await withTransaction(async (tx) => {
+      // RETURNING detects whether THIS call is the actual first clear (vs. a
+      // race with another request that already inserted the row) — only the
+      // request that truly inserts it grants the reward.
+      const insert = await queryOne<{ gate_key: string }>(
+        `INSERT INTO wmi_gate_clears (child_id, track_id, gate_key) VALUES ($1, $2, $3)
+         ON CONFLICT DO NOTHING
+         RETURNING gate_key`,
+        [childId, trackId, gateKey],
+        tx,
+      )
+      if (!insert) return // lost the race — another request already cleared it
+
+      // ── Gamification (same transaction; mirrors chapterTest.ts's submit
+      // path — same helpers, same order, same amounts as a Tes Bab pass) ──
+      const today = wibDateString(new Date())
+      await ensureProfile(tx, childId)
+      const streak = await updateStreakForActivity(tx, childId, today)
+
+      // Deterministic per-(child, track, gate) source id: wmi_gate_clears'
+      // PK is (child_id, track_id, gate_key), so this branch can only ever
+      // insert once — the ledger UNIQUE key is defense-in-depth.
+      const sourceId = deterministicUuid(`track-gate:${childId}:${trackId}:${gateKey}`)
+      const led = await appendLedger(tx, {
+        childId,
+        rewardType: 'TRACK_GATE_XP',
+        sourceType: 'wmi_gate_clear',
+        sourceId,
+        xpDelta: GATE_CLEAR_XP,
+        coinDelta: GATE_CLEAR_COINS,
+        metadata: { trackId, gateKey },
+      })
+      if (led.appended) {
+        xpEarned = led.xpDelta
+        coinsEarned = led.coinDelta
+      }
+
+      await emitEvent(tx, {
+        childId,
+        eventType: 'TRACK_GATE_CLEARED',
+        sourceType: 'wmi_gate_clear',
+        sourceId,
+        eventDate: today,
+        metadata: { trackId, gateKey },
+      })
+      await ensureTodaysQuests(tx, childId, today)
+      await evaluateForEvent(tx, today, {
+        childId,
+        eventType: 'TRACK_GATE_CLEARED',
+        eventSourceType: 'wmi_gate_clear',
+        eventSourceId: sourceId,
+        currentStreakDays: streak.currentStreakDays,
+      })
+
+      const newAchievements = await evaluateAchievements(tx, childId, streak)
+      for (const ach of newAchievements) {
+        xpEarned += ach.xpAwarded
+      }
+
+      await updateProfileWithDelta(tx, {
+        childId,
+        xpDelta: xpEarned,
+        coinDelta: coinsEarned,
+        activityDate: today,
+      })
+    })
   }
 
   // Already-cleared stays cleared regardless of this submission's
   // correctness (idempotent re-submit never un-clears a gate).
-  return { correct, cleared: correct || node.cleared }
+  return { correct, cleared: correct || node.cleared, xpEarned, coinsEarned }
 }

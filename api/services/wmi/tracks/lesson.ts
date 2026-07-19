@@ -2,8 +2,18 @@
 // SQL, unlike registry.ts/ladder.ts/lessonMix.ts).
 import { pool, query, queryOne, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
+import { wibDateString } from '../../../lib/wib.js'
+import { deterministicUuid } from '../../../lib/deterministicUuid.js'
 import { getTrack, conceptSlugsInSpineOrder } from './registry.js'
-import { FOCUS_COUNT, RECALL_COUNT, GOLD_LEVEL, effectiveLevel, passesFocus } from './ladder.js'
+import {
+  FOCUS_COUNT,
+  RECALL_COUNT,
+  GOLD_LEVEL,
+  LESSON_PASS_XP,
+  LESSON_PASS_COINS,
+  effectiveLevel,
+  passesFocus,
+} from './ladder.js'
 import { pickRecall, buildRecallCandidates, type RecallCandidate } from './lessonMix.js'
 import {
   applyAnswers,
@@ -12,6 +22,13 @@ import {
   EMPTY_PROGRESS,
 } from '../concepts/conceptProgress.js'
 import { isCorrectAnswer } from '../answerMatch.js'
+import { emitEvent } from '../../gamification/events.js'
+import { appendLedger } from '../../gamification/ledger.js'
+import { ensureProfile, updateProfileWithDelta } from '../../gamification/profileUpdater.js'
+import { updateStreakForActivity } from '../../gamification/streakUpdater.js'
+import { ensureTodaysQuests } from '../../gamification/questGenerator.js'
+import { evaluateForEvent } from '../../gamification/questEvaluator.js'
+import { evaluateAchievements } from '../../gamification/achievementEvaluator.js'
 
 export interface LessonQuestion {
   instanceId: string
@@ -165,7 +182,14 @@ export async function commitLesson(
   focusSlug: string,
   lessonId: string,
   answers: Array<{ instanceId: string; selectedAnswer: string; recall: boolean }>,
-): Promise<{ focusCorrect: number; passed: boolean; levelBefore: number; levelAfter: number }> {
+): Promise<{
+  focusCorrect: number
+  passed: boolean
+  levelBefore: number
+  levelAfter: number
+  xpEarned: number
+  coinsEarned: number
+}> {
   requireTrackAndFocus(trackId, focusSlug)
 
   return withTransaction(async (tx) => {
@@ -256,6 +280,80 @@ export async function commitLesson(
       tx,
     )
 
-    return { focusCorrect: focusResults.filter(Boolean).length, passed, levelBefore, levelAfter }
+    let xpEarned = 0
+    let coinsEarned = 0
+
+    // Reward parity (Plan 3): only a GENUINELY new level fires the grant —
+    // replays of an already-cleared level and gold (L5) replays leave
+    // levelAfter === levelBefore and grant nothing. Mirrors chapterTest.ts's
+    // gamification block (same helpers, same order, same transaction).
+    if (passed && levelAfter > levelBefore) {
+      const today = wibDateString(new Date())
+      await ensureProfile(tx, childId)
+      // Leveling up counts as today's learning activity — advance the streak
+      // BEFORE updateProfileWithDelta stamps last_activity_date (same
+      // ordering as chapterTest.ts).
+      const streak = await updateStreakForActivity(tx, childId, today)
+
+      // Deterministic per-(child, concept, level) source id: a level is
+      // monotonic and can only be cleared once, so this branch can only
+      // legitimately fire once per level anyway — the ledger UNIQUE key is
+      // defense-in-depth against any recompute/replay.
+      const sourceId = deterministicUuid(`track-lesson:${childId}:${focusSlug}:L${levelAfter}`)
+      const led = await appendLedger(tx, {
+        childId,
+        rewardType: 'TRACK_LESSON_XP',
+        sourceType: 'wmi_track_lesson',
+        sourceId,
+        xpDelta: LESSON_PASS_XP,
+        coinDelta: LESSON_PASS_COINS,
+        metadata: { trackId, focusSlug, levelAfter },
+      })
+      if (led.appended) {
+        xpEarned = led.xpDelta
+        coinsEarned = led.coinDelta
+      }
+
+      await emitEvent(tx, {
+        childId,
+        eventType: 'TRACK_LESSON_LEVEL_UP',
+        sourceType: 'wmi_track_lesson',
+        sourceId,
+        eventDate: today,
+        metadata: { trackId, focusSlug, levelAfter },
+      })
+      await ensureTodaysQuests(tx, childId, today)
+      await evaluateForEvent(tx, today, {
+        childId,
+        eventType: 'TRACK_LESSON_LEVEL_UP',
+        eventSourceType: 'wmi_track_lesson',
+        eventSourceId: sourceId,
+        currentStreakDays: streak.currentStreakDays,
+      })
+
+      const newAchievements = await evaluateAchievements(tx, childId, streak)
+      for (const ach of newAchievements) {
+        xpEarned += ach.xpAwarded
+      }
+
+      // Always run the profile delta on a level-up — even at 0/0 (ledger
+      // no-op) it stamps last_activity_date so tomorrow's streak gap stays
+      // correct.
+      await updateProfileWithDelta(tx, {
+        childId,
+        xpDelta: xpEarned,
+        coinDelta: coinsEarned,
+        activityDate: today,
+      })
+    }
+
+    return {
+      focusCorrect: focusResults.filter(Boolean).length,
+      passed,
+      levelBefore,
+      levelAfter,
+      xpEarned,
+      coinsEarned,
+    }
   })
 }
