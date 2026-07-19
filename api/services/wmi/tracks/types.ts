@@ -11,8 +11,9 @@ export interface ConceptNode {
   slug: string
 }
 
-// Synthesis boss: a real WMI past-paper problem, unlocked when every
-// `requires` concept reaches GATE_BAR_LEVEL (see tracks/ladder.ts).
+// Synthesis boss: a real WMI past-paper problem. Attemptable as soon as its
+// unit is open (test-out — passing unlocks the next unit); `requires` lists
+// the concepts the problem draws on, shown as guidance in the UI.
 export interface GateNode {
   kind: 'gate'
   /** Stable per-track key — gate clears are stored against it. */

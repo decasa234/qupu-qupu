@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  GOLD_LEVEL, GATE_BAR_LEVEL, FOCUS_COUNT, RECALL_COUNT, LESSON_SIZE,
+  GOLD_LEVEL, FOCUS_COUNT, RECALL_COUNT, LESSON_SIZE,
   LESSON_PASS_XP, LESSON_PASS_COINS,
   mapTierToLevel, passesFocus, effectiveLevel, canViewTrack,
 } from './ladder.js'
@@ -8,7 +8,6 @@ import {
 describe('ladder', () => {
   it('spec constants', () => {
     expect(GOLD_LEVEL).toBe(5)
-    expect(GATE_BAR_LEVEL).toBe(4)
     expect(FOCUS_COUNT).toBe(6)
     expect(RECALL_COUNT).toBe(2)
     expect(LESSON_SIZE).toBe(8)

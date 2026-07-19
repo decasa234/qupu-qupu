@@ -3,7 +3,6 @@
 // One global rule everywhere — nothing here is per-track configurable.
 
 export const GOLD_LEVEL = 5
-export const GATE_BAR_LEVEL = 4
 export const FOCUS_COUNT = 6
 export const RECALL_COUNT = 2
 export const LESSON_SIZE = FOCUS_COUNT + RECALL_COUNT

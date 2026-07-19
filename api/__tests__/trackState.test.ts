@@ -64,9 +64,12 @@ const GATE_KEY = 'gate-penjumlahan-dasar'
     const concept1 = unit1.nodes.find((n) => n.kind === 'concept')
     const gate1 = unit1.nodes.find((n) => n.kind === 'gate')
     expect(concept1).toMatchObject({ kind: 'concept', slug: CONCEPT_SLUG, level: 4, gold: false })
-    // requires = ['single-digit-addition'] at level 4 (>= GATE_BAR_LEVEL) unlocks the gate;
-    // no wmi_gate_clears row yet, so it is not cleared.
+    // Test-out: unit 1 is always open, so its gate is attemptable regardless
+    // of concept levels; no wmi_gate_clears row yet, so it is not cleared.
     expect(gate1).toMatchObject({ kind: 'gate', key: GATE_KEY, unlocked: true, cleared: false })
+    // Unit 2 (and its gate) stay locked until unit 1's gate is cleared.
+    expect(state1.units[1]).toMatchObject({ unlocked: false })
+    expect(state1.units[1].nodes.find((n) => n.kind === 'gate')).toMatchObject({ unlocked: false })
 
     await query(
       `INSERT INTO wmi_gate_clears (child_id, track_id, gate_key) VALUES ($1, $2, $3)`,
@@ -76,6 +79,9 @@ const GATE_KEY = 'gate-penjumlahan-dasar'
     const state2 = await getTrackState(parentUserId, childId, TRACK_ID)
     const gate2 = state2.units[0].nodes.find((n) => n.kind === 'gate')
     expect(gate2).toMatchObject({ cleared: true })
+    // Clearing unit 1's gate unlocks unit 2 — and (test-out) its gate too.
+    expect(state2.units[1]).toMatchObject({ unlocked: true })
+    expect(state2.units[1].nodes.find((n) => n.kind === 'gate')).toMatchObject({ unlocked: true })
 
     // NULL level derives from best_tier via the ladder mapping (tier 3 -> level 4).
     await query(

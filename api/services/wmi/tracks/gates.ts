@@ -1,7 +1,7 @@
 // Synthesis gate resolution + grading (Task 8). NOT browser-safe (owns SQL).
 //
 // Unlock/clear state is the single source of truth already computed by
-// getTrackState (the unit-fold + GATE_BAR_LEVEL check) — this file never
+// getTrackState (the unit-fold test-out rule) — this file never
 // re-derives it, so there is exactly one place that decides "is this gate
 // open". Here we only locate the gate node inside that state, resolve its
 // past-paper problem, and grade a submitted answer.

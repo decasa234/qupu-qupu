@@ -29,6 +29,25 @@ const track: TrackDef = {
         },
       ],
     },
+    {
+      key: 'pengurangan-dasar',
+      nameId: 'Pengurangan Dasar',
+      nameEn: 'Basic Subtraction',
+      colorHex: '#4C9EE8',
+      iconKey: 'minus',
+      nodes: [
+        { kind: 'concept', slug: 'single-digit-subtraction' },
+        {
+          // WMI-21F1A#9 — the bus-stop word problem (text-only, no figure):
+          // 4 orang naik bus 9, 7 orang masih menunggu bus 12 — penjumlahan
+          // dan pengurangan bilangan satuan, synthesis of both spine concepts.
+          kind: 'gate',
+          key: 'gate-pengurangan-dasar',
+          problemRef: 'WMI-21F1A#9',
+          requires: ['single-digit-addition', 'single-digit-subtraction'],
+        },
+      ],
+    },
   ],
 }
 

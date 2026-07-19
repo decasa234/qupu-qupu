@@ -14,6 +14,8 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
 const TRACK_ID = 'wmi-grade-1'
 const CONCEPT_SLUG = 'single-digit-addition'
 const GATE_KEY = 'gate-penjumlahan-dasar'
+// Unit 2's gate — locked until unit 1's gate is cleared.
+const LOCKED_GATE_KEY = 'gate-pengurangan-dasar'
 // wmi-grade-1's pilot gate problemRef ('WMI-21F1A#1') — paperCode({brand:
 // 'wmi', year: 2021, round: 'final', level: 'g1', variant: 'A'}) === 'WMI-21F1A'.
 const CORRECT_ANSWER = '5'
@@ -104,18 +106,13 @@ const WRONG_ANSWER = '999'
     )
   }
 
-  it('hides the question while locked, reveals it once the requirement clears the bar', async () => {
+  it('is attemptable immediately (test-out): reveals the question with zero concept progress', async () => {
     const { parentUserId, childId } = await createChild()
-    await setLevel(childId, 3) // below GATE_BAR_LEVEL (4)
 
-    const locked = await getGate(parentUserId, childId, TRACK_ID, GATE_KEY)
-    expect(locked).toEqual({ unlocked: false, cleared: false, question: null })
-
-    await setLevel(childId, 4)
-    const unlocked = await getGate(parentUserId, childId, TRACK_ID, GATE_KEY)
-    expect(unlocked.unlocked).toBe(true)
-    expect(unlocked.cleared).toBe(false)
-    expect(unlocked.question).toEqual({
+    const gate = await getGate(parentUserId, childId, TRACK_ID, GATE_KEY)
+    expect(gate.unlocked).toBe(true)
+    expect(gate.cleared).toBe(false)
+    expect(gate.question).toEqual({
       bodyId: 'Berapa 2 + 3?',
       bodyEn: 'What is 2 + 3?',
       answerType: 'fill_in',
@@ -124,12 +121,17 @@ const WRONG_ANSWER = '999'
     })
   })
 
-  it('rejects a submission while the gate is still locked', async () => {
+  it('hides the question of a locked unit\'s gate and rejects submissions to it', async () => {
+    // Unit 2's gate stays locked until unit 1's gate is cleared — concept
+    // levels alone never unlock it (test-out is the only unit key).
     const { parentUserId, childId } = await createChild()
-    await setLevel(childId, 3)
+    await setLevel(childId, 5)
+
+    const locked = await getGate(parentUserId, childId, TRACK_ID, LOCKED_GATE_KEY)
+    expect(locked).toEqual({ unlocked: false, cleared: false, question: null })
 
     await expect(
-      submitGate(parentUserId, childId, TRACK_ID, GATE_KEY, CORRECT_ANSWER),
+      submitGate(parentUserId, childId, TRACK_ID, LOCKED_GATE_KEY, CORRECT_ANSWER),
     ).rejects.toThrow('Gate locked')
   })
 

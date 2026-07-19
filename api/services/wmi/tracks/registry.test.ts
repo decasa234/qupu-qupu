@@ -36,7 +36,7 @@ describe('track registry', () => {
   it('lists concept slugs in spine order, concepts before their gate', () => {
     const track = getTrack('wmi-grade-1')!
     const slugs = conceptSlugsInSpineOrder(track)
-    expect(slugs).toEqual(['single-digit-addition'])
+    expect(slugs).toEqual(['single-digit-addition', 'single-digit-subtraction'])
     const gate = track.units[0].nodes.find((n) => n.kind === 'gate')
     expect(gate).toBeDefined()
   })

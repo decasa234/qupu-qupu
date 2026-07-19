@@ -3,7 +3,7 @@
 import { pool, query } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { getTrack } from './registry.js'
-import { effectiveLevel, GATE_BAR_LEVEL, GOLD_LEVEL } from './ladder.js'
+import { effectiveLevel, GOLD_LEVEL } from './ladder.js'
 import { getConcept } from '../concepts/registry.js'
 
 export type TrackNodeState =
@@ -74,8 +74,10 @@ export async function getTrackState(
           gold: level >= GOLD_LEVEL,
         }
       }
-      const gateUnlocked =
-        unlocked && node.requires.every((slug) => (levelBySlug.get(slug) ?? 0) >= GATE_BAR_LEVEL)
+      // Test-out: a gate is attemptable as soon as its unit is open — no
+      // per-concept level bar. Passing it is the "jump" that unlocks the
+      // next unit, mirroring the old garden's always-takeable Tes Bab.
+      const gateUnlocked = unlocked
       return {
         kind: 'gate' as const,
         key: node.key,
