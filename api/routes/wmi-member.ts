@@ -404,6 +404,9 @@ const lessonBuildSchema = Joi.object({
 })
 
 const lessonCommitSchema = lessonBuildSchema.keys({
+  // Binds this commit to the exact lesson buildLesson persisted — see
+  // commitLesson's one-shot FOR UPDATE guard in tracks/lesson.ts.
+  lessonId: Joi.string().uuid().required(),
   // FOCUS_COUNT questions always come back (buildLesson throws rather than
   // serve a short focus set); recall rows are best-effort (0..RECALL_COUNT),
   // so the total is FOCUS_COUNT..LESSON_SIZE.
@@ -462,6 +465,7 @@ router.post(
         value.childId,
         req.params.trackId,
         value.focusSlug,
+        value.lessonId,
         value.answers,
       )
       res.status(201).json({ success: true, data: result })

@@ -27,6 +27,14 @@ const KNOWN_ERRORS: Record<string, PublicError> = {
   'Concept not found': { status: 400, message: 'Konsep tidak ditemukan.' },
   'Track not found': { status: 404, message: 'Jalur belajar tidak ditemukan.' },
   'Concept not in track': { status: 400, message: 'Konsep ini tidak ada di jalur belajar ini.' },
+  // One-shot lesson sessions (Task 3) — buildLesson persists a
+  // wmi_track_lessons row that commitLesson must reference exactly once.
+  'Lesson not found': { status: 404, message: 'Sesi latihan ini tidak ditemukan.' },
+  'Lesson already committed': { status: 409, message: 'Sesi latihan ini sudah dikirim.' },
+  'Lesson answers mismatch': {
+    status: 400,
+    message: 'Jawaban tidak cocok dengan soal sesi latihan ini.',
+  },
   // Synthesis gates (Task 8)
   'Gate not found': { status: 404, message: 'Gerbang tidak ditemukan.' },
   'Gate locked': { status: 403, message: 'Gerbang ini masih terkunci.' },

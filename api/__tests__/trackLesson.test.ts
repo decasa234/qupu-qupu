@@ -77,6 +77,7 @@ const WRONG_ANSWER = '__definitely_wrong__'
   it('builds 6 focus questions at level 1 with no recall (pilot track has one concept)', async () => {
     const { parentUserId, childId } = await createChild()
     const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    expect(typeof lesson.lessonId).toBe('string')
     expect(lesson.questions).toHaveLength(6)
     for (const q of lesson.questions) {
       expect(q.conceptSlug).toBe(CONCEPT_SLUG)
@@ -97,6 +98,7 @@ const WRONG_ANSWER = '__definitely_wrong__'
       childId,
       TRACK_ID,
       CONCEPT_SLUG,
+      lesson1.lessonId,
       await answersFor(lesson1.questions, 0),
     )
     expect(result1).toMatchObject({ focusCorrect: 6, passed: true, levelBefore: 0, levelAfter: 1 })
@@ -118,6 +120,7 @@ const WRONG_ANSWER = '__definitely_wrong__'
       childId,
       TRACK_ID,
       CONCEPT_SLUG,
+      lesson2.lessonId,
       await answersFor(lesson2.questions, 2), // 2 wrong -> fails the one-miss bar
     )
     expect(result2).toMatchObject({ focusCorrect: 4, passed: false, levelBefore: 1, levelAfter: 1 })
@@ -135,7 +138,7 @@ const WRONG_ANSWER = '__definitely_wrong__'
       'Track not found',
     )
     await expect(
-      commitLesson(parentUserId, childId, 'nonexistent-track', CONCEPT_SLUG, []),
+      commitLesson(parentUserId, childId, 'nonexistent-track', CONCEPT_SLUG, randomUUID(), []),
     ).rejects.toThrow('Track not found')
   })
 
@@ -145,7 +148,7 @@ const WRONG_ANSWER = '__definitely_wrong__'
       buildLesson(parentUserId, childId, TRACK_ID, 'not-a-real-concept'),
     ).rejects.toThrow('Concept not in track')
     await expect(
-      commitLesson(parentUserId, childId, TRACK_ID, 'not-a-real-concept', []),
+      commitLesson(parentUserId, childId, TRACK_ID, 'not-a-real-concept', randomUUID(), []),
     ).rejects.toThrow('Concept not in track')
   })
 
@@ -155,5 +158,49 @@ const WRONG_ANSWER = '__definitely_wrong__'
     await expect(
       buildLesson(otherParent.parentUserId, childId, TRACK_ID, CONCEPT_SLUG),
     ).rejects.toThrow('Child not found')
+  })
+
+  it('rejects commit with a lessonId that does not exist', async () => {
+    const { parentUserId, childId } = await createChild()
+    const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    await expect(
+      commitLesson(
+        parentUserId,
+        childId,
+        TRACK_ID,
+        CONCEPT_SLUG,
+        randomUUID(),
+        await answersFor(lesson.questions, 0),
+      ),
+    ).rejects.toThrow('Lesson not found')
+  })
+
+  it('rejects a second commit of the same lesson', async () => {
+    const { parentUserId, childId } = await createChild()
+    const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+    const answers = await answersFor(lesson.questions, 0)
+
+    await commitLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG, lesson.lessonId, answers)
+
+    await expect(
+      commitLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG, lesson.lessonId, answers),
+    ).rejects.toThrow('Lesson already committed')
+  })
+
+  it('rejects commit with an instanceId that was not served by this lesson', async () => {
+    const { parentUserId, childId } = await createChild()
+    const lesson = await buildLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG)
+
+    // Substitute a fabricated instanceId the lesson never served — provably
+    // not in the stored instance_ids regardless of what buildLesson picked.
+    const answers = await answersFor(lesson.questions, 0)
+    const foreignAnswers = [
+      { instanceId: randomUUID(), selectedAnswer: answers[0].selectedAnswer, recall: false },
+      ...answers.slice(1),
+    ]
+
+    await expect(
+      commitLesson(parentUserId, childId, TRACK_ID, CONCEPT_SLUG, lesson.lessonId, foreignAnswers),
+    ).rejects.toThrow('Lesson answers mismatch')
   })
 })

@@ -1,6 +1,6 @@
 // Lesson assembly (build) + one-miss commit (Task 7). NOT browser-safe (owns
 // SQL, unlike registry.ts/ladder.ts/lessonMix.ts).
-import { pool, query, withTransaction } from '../../../db.js'
+import { pool, query, queryOne, withTransaction } from '../../../db.js'
 import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { getTrack, conceptSlugsInSpineOrder } from './registry.js'
 import { FOCUS_COUNT, RECALL_COUNT, GOLD_LEVEL, effectiveLevel, passesFocus } from './ladder.js'
@@ -78,7 +78,7 @@ export async function buildLesson(
   childId: string,
   trackId: string,
   focusSlug: string,
-): Promise<{ questions: LessonQuestion[] }> {
+): Promise<{ lessonId: string; questions: LessonQuestion[] }> {
   const { spine, focusIdx } = requireTrackAndFocus(trackId, focusSlug)
 
   const client = await pool.connect()
@@ -140,9 +140,22 @@ export async function buildLesson(
     if (rows[0]) recallRows.push(rows[0])
   }
 
-  return {
-    questions: [...focusRows.map((r) => toQuestion(r, false)), ...recallRows.map((r) => toQuestion(r, true))],
-  }
+  const questions = [
+    ...focusRows.map((r) => toQuestion(r, false)),
+    ...recallRows.map((r) => toQuestion(r, true)),
+  ]
+
+  // One-shot session record (Task 3): commitLesson binds to this row so a
+  // lesson can only be committed once and only with the instances actually
+  // served here — kills replay grinding and instanceId substitution.
+  const lessonRow = await queryOne<{ id: string }>(
+    `INSERT INTO wmi_track_lessons (child_id, track_id, focus_slug, focus_level, instance_ids)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id`,
+    [childId, trackId, focusSlug, focusLevel, questions.map((q) => q.instanceId)],
+  )
+
+  return { lessonId: lessonRow!.id, questions }
 }
 
 export async function commitLesson(
@@ -150,12 +163,48 @@ export async function commitLesson(
   childId: string,
   trackId: string,
   focusSlug: string,
+  lessonId: string,
   answers: Array<{ instanceId: string; selectedAnswer: string; recall: boolean }>,
 ): Promise<{ focusCorrect: number; passed: boolean; levelBefore: number; levelAfter: number }> {
   requireTrackAndFocus(trackId, focusSlug)
 
   return withTransaction(async (tx) => {
     await assertChildOwnership(tx, parentUserId, childId)
+
+    // One-shot binding: this lesson must have been built by buildLesson for
+    // this exact (child, track), never committed before, and the submitted
+    // answers must be exactly (a subset of, no repeats) the instances it
+    // actually served — otherwise a client could replay a lesson or swap in
+    // easier instanceIds it never saw.
+    const lessonRow = await queryOne<{
+      focus_slug: string
+      focus_level: number
+      instance_ids: string[]
+      committed_at: string | Date | null
+    }>(
+      `SELECT focus_slug, focus_level, instance_ids, committed_at
+       FROM wmi_track_lessons
+       WHERE id = $1 AND child_id = $2 AND track_id = $3
+       FOR UPDATE`,
+      [lessonId, childId, trackId],
+      tx,
+    )
+    if (!lessonRow || lessonRow.focus_slug !== focusSlug) {
+      throw new Error('Lesson not found')
+    }
+    if (lessonRow.committed_at) {
+      throw new Error('Lesson already committed')
+    }
+
+    const submittedIds = answers.map((a) => a.instanceId)
+    const storedIds = new Set(lessonRow.instance_ids)
+    const hasDuplicates = new Set(submittedIds).size !== submittedIds.length
+    const hasUnknownInstance = submittedIds.some((id) => !storedIds.has(id))
+    if (hasDuplicates || hasUnknownInstance) {
+      throw new Error('Lesson answers mismatch')
+    }
+
+    await query(`UPDATE wmi_track_lessons SET committed_at = NOW() WHERE id = $1`, [lessonId], tx)
 
     const ids = answers.map((a) => a.instanceId)
     const rows = await query<{ id: string; concept_slug: string; answer: string }>(
