@@ -29,3 +29,13 @@ export function passesFocus(focusResults: readonly boolean[]): boolean {
 export function effectiveLevel(level: number | null, bestTier: number): number {
   return level ?? mapTierToLevel(bestTier)
 }
+
+// Track visibility gate: published tracks are visible to everyone; review
+// tracks are admin-only (pilot/QA can see progress before rollout); draft
+// tracks are invisible to everyone, including admins (routes must still
+// resolve the track through the admin-only builder tools, not this path).
+export function canViewTrack(status: 'draft' | 'review' | 'published', role: string | undefined): boolean {
+  if (status === 'published') return true
+  if (status === 'review') return role === 'admin'
+  return false
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   GOLD_LEVEL, GATE_BAR_LEVEL, FOCUS_COUNT, RECALL_COUNT, LESSON_SIZE,
-  mapTierToLevel, passesFocus, effectiveLevel,
+  mapTierToLevel, passesFocus, effectiveLevel, canViewTrack,
 } from './ladder.js'
 
 describe('ladder', () => {
@@ -34,5 +34,23 @@ describe('ladder', () => {
     expect(effectiveLevel(0, 3)).toBe(0)
     expect(effectiveLevel(null, 3)).toBe(4)
     expect(effectiveLevel(null, 0)).toBe(0)
+  })
+
+  it('canViewTrack: published is visible to everyone', () => {
+    expect(canViewTrack('published', 'admin')).toBe(true)
+    expect(canViewTrack('published', 'parent')).toBe(true)
+    expect(canViewTrack('published', undefined)).toBe(true)
+  })
+
+  it('canViewTrack: review is admin-only', () => {
+    expect(canViewTrack('review', 'admin')).toBe(true)
+    expect(canViewTrack('review', 'parent')).toBe(false)
+    expect(canViewTrack('review', undefined)).toBe(false)
+  })
+
+  it('canViewTrack: draft is hidden from everyone, even admin', () => {
+    expect(canViewTrack('draft', 'admin')).toBe(false)
+    expect(canViewTrack('draft', 'parent')).toBe(false)
+    expect(canViewTrack('draft', undefined)).toBe(false)
   })
 })

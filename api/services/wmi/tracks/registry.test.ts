@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { TRACKS, getTrack, conceptSlugsInSpineOrder } from './registry.js'
 
 describe('track registry', () => {
-  it('registers the pilot track as draft', () => {
+  it('registers the pilot track as review', () => {
     const track = getTrack('wmi-grade-1')
     expect(track).toBeDefined()
     expect(track!.mode).toBe('wmi')
     expect(track!.grade).toBe(1)
-    expect(track!.status).toBe('draft')
+    expect(track!.status).toBe('review')
     expect(track!.theme).toBe('forest')
     expect(track!.units.length).toBeGreaterThan(0)
   })

@@ -14,7 +14,8 @@ import { getGarden } from '../services/wmi/concepts/garden.js'
 import { getTrackState } from '../services/wmi/tracks/trackState.js'
 import { getGate, submitGate } from '../services/wmi/tracks/gates.js'
 import { buildLesson, commitLesson } from '../services/wmi/tracks/lesson.js'
-import { FOCUS_COUNT, LESSON_SIZE } from '../services/wmi/tracks/ladder.js'
+import { FOCUS_COUNT, LESSON_SIZE, canViewTrack } from '../services/wmi/tracks/ladder.js'
+import { getTrack } from '../services/wmi/tracks/registry.js'
 import { startChapterTest, submitChapterTest } from '../services/wmi/concepts/chapterTest.js'
 import {
   gradeConceptAnswer,
@@ -327,6 +328,10 @@ router.get(
         sendValidationError(res, error)
         return
       }
+      const trackDef = getTrack(req.params.trackId)
+      if (!trackDef || !canViewTrack(trackDef.status, req.user?.role)) {
+        throw new Error('Track not found')
+      }
       const track = await getTrackState(req.user.id, value.childId, req.params.trackId)
       res.json({ success: true, data: track })
     } catch (error) {
@@ -351,6 +356,10 @@ router.get(
         sendValidationError(res, error)
         return
       }
+      const trackDef = getTrack(req.params.trackId)
+      if (!trackDef || !canViewTrack(trackDef.status, req.user?.role)) {
+        throw new Error('Track not found')
+      }
       const gate = await getGate(req.user.id, value.childId, req.params.trackId, req.params.gateKey)
       res.json({ success: true, data: gate })
     } catch (error) {
@@ -369,6 +378,10 @@ router.post(
       if (error) {
         sendValidationError(res, error)
         return
+      }
+      const trackDef = getTrack(req.params.trackId)
+      if (!trackDef || !canViewTrack(trackDef.status, req.user?.role)) {
+        throw new Error('Track not found')
       }
       const result = await submitGate(
         req.user.id,
@@ -417,6 +430,10 @@ router.post(
         sendValidationError(res, error)
         return
       }
+      const trackDef = getTrack(req.params.trackId)
+      if (!trackDef || !canViewTrack(trackDef.status, req.user?.role)) {
+        throw new Error('Track not found')
+      }
       const lesson = await buildLesson(req.user.id, value.childId, req.params.trackId, value.focusSlug)
       res.json({ success: true, data: lesson })
     } catch (error) {
@@ -435,6 +452,10 @@ router.post(
       if (error) {
         sendValidationError(res, error)
         return
+      }
+      const trackDef = getTrack(req.params.trackId)
+      if (!trackDef || !canViewTrack(trackDef.status, req.user?.role)) {
+        throw new Error('Track not found')
       }
       const result = await commitLesson(
         req.user.id,
