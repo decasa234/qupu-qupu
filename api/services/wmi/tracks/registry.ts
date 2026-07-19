@@ -1,11 +1,25 @@
 // All registered learning tracks. BROWSER-SAFE (see types.ts).
-import type { TrackDef } from './types.js'
+import type { TrackDef, TrackMode } from './types.js'
 import wmiGrade1 from './wmi-grade-1.js'
 
 export const TRACKS: readonly TrackDef[] = [wmiGrade1]
 
 export function getTrack(id: string): TrackDef | undefined {
   return TRACKS.find((t) => t.id === id)
+}
+
+/** First `tracks` entry matching mode+grade with status === 'published'. */
+export function findPublishedTrack(
+  tracks: readonly TrackDef[],
+  mode: TrackMode,
+  grade: number,
+): TrackDef | undefined {
+  return tracks.find((t) => t.mode === mode && t.grade === grade && t.status === 'published')
+}
+
+/** Live cutover switch: the published track (if any) for a mode+grade — see TRACKS. */
+export function getPublishedTrack(mode: TrackMode, grade: number): TrackDef | undefined {
+  return findPublishedTrack(TRACKS, mode, grade)
 }
 
 /** Concept slugs in the order a child meets them walking the spine. */

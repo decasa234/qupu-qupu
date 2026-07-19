@@ -15,9 +15,12 @@ import { useAuthStore } from '../store/authStore'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import type { TrackState } from '../types/wmi'
 
-export default function TrackMap() {
+export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } = {}) {
   useDocumentTitle('Belajar')
-  const { trackId } = useParams()
+  // Always call useParams (hook-order safety) even when a caller (e.g.
+  // MemberHome's dark-cutover branch) already knows the track id.
+  const params = useParams()
+  const trackId = trackIdProp ?? params.trackId
   const { activeChildId } = useAuthStore()
   const navigate = useNavigate()
   const [state, setState] = useState<TrackState | null>(null)
