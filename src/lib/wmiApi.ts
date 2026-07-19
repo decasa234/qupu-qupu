@@ -30,6 +30,7 @@ import type {
   TrackLessonQuestion,
   TrackLessonResult,
   TrackGateView,
+  TrackGateSubmitResult,
 } from '../types/wmi'
 
 function unwrap<T>(response: { data: { success: boolean; data: T; error?: string } }): T {
@@ -225,17 +226,17 @@ export async function fetchTrackState(childId: string, trackId: string): Promise
 
 export async function buildTrackLesson(
   childId: string, trackId: string, focusSlug: string,
-): Promise<{ questions: TrackLessonQuestion[] }> {
+): Promise<{ lessonId: string; questions: TrackLessonQuestion[] }> {
   const response = await api.post(`/me/wmi/tracks/${trackId}/lessons`, { childId, focusSlug })
-  return unwrap<{ questions: TrackLessonQuestion[] }>(response)
+  return unwrap<{ lessonId: string; questions: TrackLessonQuestion[] }>(response)
 }
 
 export async function commitTrackLesson(
-  childId: string, trackId: string, focusSlug: string,
+  childId: string, trackId: string, focusSlug: string, lessonId: string,
   answers: Array<{ instanceId: string; selectedAnswer: string; recall: boolean }>,
 ): Promise<TrackLessonResult> {
   const response = await api.post(`/me/wmi/tracks/${trackId}/lessons/commit`, {
-    childId, focusSlug, answers,
+    childId, focusSlug, lessonId, answers,
   })
   return unwrap<TrackLessonResult>(response)
 }
@@ -249,9 +250,9 @@ export async function fetchTrackGate(
 
 export async function submitTrackGate(
   childId: string, trackId: string, gateKey: string, selectedAnswer: string,
-): Promise<{ correct: boolean; cleared: boolean }> {
+): Promise<TrackGateSubmitResult> {
   const response = await api.post(`/me/wmi/tracks/${trackId}/gates/${gateKey}/submit`, {
     childId, selectedAnswer,
   })
-  return unwrap<{ correct: boolean; cleared: boolean }>(response)
+  return unwrap<TrackGateSubmitResult>(response)
 }

@@ -16,7 +16,9 @@ import WmiAnswerChoice from '../components/wmi/WmiAnswerChoice'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import { getThemePack } from '../components/wmi/track/themes'
 import { buildTrackLesson, commitTrackLesson } from '../lib/wmiApi'
+import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
+import { useGamificationStats } from '../hooks/useGamificationStats'
 import type { TrackLessonQuestion, TrackLessonResult } from '../types/wmi'
 
 export default function TrackLesson() {
@@ -32,6 +34,7 @@ export default function TrackLesson() {
   const theme = useMemo(() => getThemePack(themeKey), [themeKey])
 
   const [questions, setQuestions] = useState<TrackLessonQuestion[]>([])
+  const [lessonId, setLessonId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [idx, setIdx] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -47,7 +50,11 @@ export default function TrackLesson() {
     setLoading(true)
     setLoadError(false)
     buildTrackLesson(activeChildId, trackId, focusSlug)
-      .then((d) => !cancelled && setQuestions(d.questions))
+      .then((d) => {
+        if (cancelled) return
+        setQuestions(d.questions)
+        setLessonId(d.lessonId)
+      })
       // A failed fetch is NOT "no questions exist" — show a retry state,
       // never a misleading empty-lesson message.
       .catch(() => !cancelled && setLoadError(true))
@@ -76,7 +83,7 @@ export default function TrackLesson() {
   )
 
   async function finish() {
-    if (!activeChildId || !trackId || !focusSlug) return
+    if (!activeChildId || !trackId || !focusSlug || !lessonId) return
     const childId = activeChildId
     setSubmitting(true)
     setSubmitError(false)
@@ -86,8 +93,27 @@ export default function TrackLesson() {
         selectedAnswer: (answers[q.instanceId] ?? '').trim(),
         recall: q.recall,
       }))
-      const lessonResult = await commitTrackLesson(childId, trackId, focusSlug, payload)
+      const lessonResult = await commitTrackLesson(childId, trackId, focusSlug, lessonId, payload)
       setResult(lessonResult)
+      if (lessonResult.xpEarned > 0 || lessonResult.coinsEarned > 0) {
+        // A level-up awards rewards but the commit response carries no
+        // balances — refresh the top stat strip from the summary endpoint,
+        // stamped for the child who took the lesson. Fire-and-forget: a
+        // failure just leaves the strip stale until the next surface fetches.
+        fetchGamificationSummary(childId)
+          .then((summary) => {
+            useGamificationStats.getState().setStats(childId, {
+              streak: summary.streak,
+              streakShields: summary.streakShields ?? 0,
+              coinBalance: summary.coinBalance,
+              level: summary.level,
+              tierName: summary.tierName,
+              xp: summary.xpIntoCurrent,
+              xpToNext: summary.xpToNext,
+            })
+          })
+          .catch(() => { /* stat strip refresh is best-effort */ })
+      }
     } catch {
       // Answers stay in state — the kid just taps "Selesai" again.
       setSubmitError(true)
@@ -102,6 +128,7 @@ export default function TrackLesson() {
     setIdx(0)
     setSubmitError(false)
     setQuestions([])
+    setLessonId(null)
     setLoading(true)
     setLoadTick((t) => t + 1)
   }
@@ -174,6 +201,24 @@ export default function TrackLesson() {
                   <i className="fa-solid fa-check text-qupu-brand-yellow" aria-hidden="true" />
                   +{result.focusCorrect} benar
                 </span>
+              </div>
+            )}
+            {/* Level-up reward chips — 0/0 on a repeat pass at an
+                already-cleared level, so nothing renders */}
+            {(result.xpEarned > 0 || result.coinsEarned > 0) && (
+              <div className="mt-4 flex flex-wrap justify-center gap-2.5">
+                {result.xpEarned > 0 && (
+                  <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
+                    <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                    +{result.xpEarned} XP
+                  </span>
+                )}
+                {result.coinsEarned > 0 && (
+                  <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-[#F59E0B] px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#B45309]">
+                    <i className="fa-solid fa-coins text-qupu-brand-yellow" aria-hidden="true" />
+                    +{result.coinsEarned} koin
+                  </span>
+                )}
               </div>
             )}
             {result.passed ? (

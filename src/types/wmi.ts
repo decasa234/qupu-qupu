@@ -495,6 +495,10 @@ export interface TrackLessonResult {
   passed: boolean
   levelBefore: number
   levelAfter: number
+  // Present whenever this commit's level-up granted a reward (0/0 on a
+  // repeat pass at an already-cleared level, or on a fail).
+  xpEarned: number
+  coinsEarned: number
 }
 export interface TrackGateView {
   unlocked: boolean
@@ -506,4 +510,12 @@ export interface TrackGateView {
     choicesId: WmiChoice[] | null
     choicesEn: WmiChoice[] | null
   } | null
+}
+export interface TrackGateSubmitResult {
+  correct: boolean
+  cleared: boolean
+  // Present only on the request that actually clears the gate for the
+  // first time (0/0 on a correct-but-already-cleared idempotent resubmit).
+  xpEarned: number
+  coinsEarned: number
 }

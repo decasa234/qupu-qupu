@@ -13,8 +13,10 @@ import ErrorRetry from '../components/ErrorRetry'
 import WmiAnswerChoice from '../components/wmi/WmiAnswerChoice'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
 import { fetchTrackGate, submitTrackGate } from '../lib/wmiApi'
+import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
-import type { TrackGateView } from '../types/wmi'
+import { useGamificationStats } from '../hooks/useGamificationStats'
+import type { TrackGateView, TrackGateSubmitResult } from '../types/wmi'
 
 const GOLD = { background: '#FFE159', color: '#8A6400' }
 const LOCKED = { background: '#E7E2D6', color: '#9AA0AC' }
@@ -71,7 +73,7 @@ export default function TrackGate() {
   const [selectedAnswer, setSelectedAnswer] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(false)
-  const [result, setResult] = useState<{ correct: boolean; cleared: boolean } | null>(null)
+  const [result, setResult] = useState<TrackGateSubmitResult | null>(null)
 
   useEffect(() => {
     if (!activeChildId || !trackId || !gateKey) return
@@ -94,6 +96,26 @@ export default function TrackGate() {
     try {
       const res = await submitTrackGate(activeChildId, trackId, gateKey, selectedAnswer.trim())
       setResult(res)
+      if (res.xpEarned > 0 || res.coinsEarned > 0) {
+        // A first-time gate clear awards rewards but the submit response
+        // carries no balances — refresh the top stat strip from the summary
+        // endpoint, stamped for the child who cleared the gate.
+        // Fire-and-forget: a failure just leaves the strip stale until the
+        // next surface fetches.
+        fetchGamificationSummary(activeChildId)
+          .then((summary) => {
+            useGamificationStats.getState().setStats(activeChildId, {
+              streak: summary.streak,
+              streakShields: summary.streakShields ?? 0,
+              coinBalance: summary.coinBalance,
+              level: summary.level,
+              tierName: summary.tierName,
+              xp: summary.xpIntoCurrent,
+              xpToNext: summary.xpToNext,
+            })
+          })
+          .catch(() => { /* stat strip refresh is best-effort */ })
+      }
     } catch {
       // Answer stays in state — the kid just taps "Jawab" again.
       setSubmitError(true)
@@ -136,6 +158,24 @@ export default function TrackGate() {
             <div className="animate-rise rounded-[1.75rem] bg-white p-6 text-center shadow-[0_6px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC]">
               <Medallion icon="fa-crown" style={GOLD} />
               <h1 className="mt-4 font-display text-2xl font-black text-qupu-brand-blue">Gerbang terbuka!</h1>
+              {/* First-clear reward chips — 0/0 on an idempotent resubmit of
+                  an already-cleared gate, so nothing renders */}
+              {(result.xpEarned > 0 || result.coinsEarned > 0) && (
+                <div className="mt-4 flex flex-wrap justify-center gap-2.5">
+                  {result.xpEarned > 0 && (
+                    <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-qupu-brand-blue px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#0E1430]">
+                      <i className="fa-solid fa-bolt text-qupu-brand-yellow" aria-hidden="true" />
+                      +{result.xpEarned} XP
+                    </span>
+                  )}
+                  {result.coinsEarned > 0 && (
+                    <span className="animate-reward-pop inline-flex items-center gap-1.5 rounded-full bg-[#F59E0B] px-4 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#B45309]">
+                      <i className="fa-solid fa-coins text-qupu-brand-yellow" aria-hidden="true" />
+                      +{result.coinsEarned} koin
+                    </span>
+                  )}
+                </div>
+              )}
               <BackToMapButton trackId={trackId} />
             </div>
           </div>
