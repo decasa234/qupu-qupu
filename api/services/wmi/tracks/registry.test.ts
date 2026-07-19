@@ -23,12 +23,12 @@ function makeTrack(overrides: Partial<TrackDef>): TrackDef {
 }
 
 describe('track registry', () => {
-  it('registers the pilot track as review', () => {
+  it('registers the pilot track as published', () => {
     const track = getTrack('wmi-grade-1')
     expect(track).toBeDefined()
     expect(track!.mode).toBe('wmi')
     expect(track!.grade).toBe(1)
-    expect(track!.status).toBe('review')
+    expect(track!.status).toBe('published')
     expect(track!.theme).toBe('forest')
     expect(track!.units.length).toBeGreaterThan(0)
   })
@@ -87,7 +87,7 @@ describe('findPublishedTrack', () => {
 })
 
 describe('getPublishedTrack', () => {
-  it('delegates to TRACKS and is undefined for wmi grade 1 while the pilot is review', () => {
-    expect(getPublishedTrack('wmi', 1)).toBeUndefined()
+  it('delegates to TRACKS and finds the published wmi grade-1 pilot', () => {
+    expect(getPublishedTrack('wmi', 1)?.id).toBe('wmi-grade-1')
   })
 })

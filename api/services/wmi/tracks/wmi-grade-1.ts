@@ -8,7 +8,7 @@ const track: TrackDef = {
   id: 'wmi-grade-1',
   mode: 'wmi',
   grade: 1,
-  status: 'review',
+  status: 'published',
   theme: 'forest',
   nameId: 'WMI Kelas 1',
   nameEn: 'WMI Grade 1',
