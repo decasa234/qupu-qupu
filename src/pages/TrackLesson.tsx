@@ -1,48 +1,91 @@
 // src/pages/TrackLesson.tsx
 //
 // /latihan/track/:trackId/sesi/:focusSlug — the QUPU track engine's lesson
-// play page (Plan 2, Task 5). Structurally a copy-adaptation of
-// WmiChapterTest.tsx (same header/progress/exit-confirm/question-card/result
-// ceremony chrome) wired to the track lesson endpoints instead of the
-// chapter-test ones: one FOCUS_COUNT+RECALL_COUNT (6+2) lesson, one-miss
-// grading server-side, and a level-up (not percent-pass) result.
-import { useEffect, useMemo, useState } from 'react'
+// play page. Per-question /belajar parity (mirrors WmiKonsepSession): each
+// answer is graded immediately (gradeConceptAnswer — pure, no progress write)
+// for a Benar/Belum-tepat verdict, confetti on a correct pick, and the
+// animated WmiExplainer walkthrough; the authoritative level-up grade still
+// happens once at the end via commitTrackLesson (one-miss rule, server-side).
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
 import Skeleton from '../components/Skeleton'
 import ErrorRetry from '../components/ErrorRetry'
-import WmiAnswerChoice from '../components/wmi/WmiAnswerChoice'
 import KonsepConfetti from '../components/wmi/KonsepConfetti'
+import WmiQuestionView from '../components/wmi/WmiQuestionView'
+import WmiExplainer from '../components/wmi/WmiExplainer'
+import WmiVoteToggle from '../components/wmi/WmiVoteToggle'
+import { getIllustration } from '../components/wmi/concepts/registry'
 import { getThemePack } from '../components/wmi/track/themes'
-import { buildTrackLesson, commitTrackLesson } from '../lib/wmiApi'
+import { buildTrackLesson, commitTrackLesson, gradeConceptAnswer, submitConceptVote } from '../lib/wmiApi'
 import { fetchGamificationSummary } from '../lib/gamificationApi'
 import { useAuthStore } from '../store/authStore'
+import { useWmiStore } from '../store/wmiStore'
 import { useGamificationStats } from '../hooks/useGamificationStats'
-import type { TrackLessonQuestion, TrackLessonResult } from '../types/wmi'
+import type {
+  TrackLessonQuestion,
+  TrackLessonResult,
+  WmiKonsepGradeResult,
+  WmiQuestion,
+} from '../types/wmi'
+
+// A track lesson question is a concept instance — adapt it to the shape
+// WmiQuestionView renders (same as WmiKonsepSession's adaptConceptQuestion).
+function adaptLessonQuestion(q: TrackLessonQuestion): WmiQuestion {
+  return {
+    id: q.instanceId,
+    paper_id: '',
+    number: 0,
+    body_en: q.bodyEn,
+    body_id: q.bodyId,
+    answer_type: q.answerType,
+    choices_en: q.choicesEn,
+    choices_id: q.choicesId,
+    figure_url: null,
+    hint_en: null,
+    hint_id: null,
+    difficulty: null,
+    // Refined authored breakdown (color-coded) when the concept has one.
+    breakdown: q.breakdown,
+  }
+}
 
 export default function TrackLesson() {
   const { trackId, focusSlug } = useParams()
   const location = useLocation()
   const { activeChildId } = useAuthStore()
+  const preferredLang = useWmiStore((s) => s.preferredLang)
+  const setPreferredLang = useWmiStore((s) => s.setPreferredLang)
   const navigate = useNavigate()
 
-  // TrackMap doesn't pass router state yet (Plan 2 task 4 navigates bare),
-  // so this always resolves to the forest pack for now — safe default until
-  // a later task threads the track's real theme through.
+  // TrackMap threads the track's theme via router state; forest is the safe
+  // default when navigated to bare.
   const themeKey = (location.state as { theme?: string } | null)?.theme ?? 'forest'
   const theme = useMemo(() => getThemePack(themeKey), [themeKey])
 
   const [questions, setQuestions] = useState<TrackLessonQuestion[]>([])
   const [lessonId, setLessonId] = useState<string | null>(null)
-  const [answers, setAnswers] = useState<Record<string, string>>({})
+  // Banked answers, appended one-per-question as the kid taps Lanjut.
+  const [answers, setAnswers] = useState<{ instanceId: string; selectedAnswer: string; recall: boolean }[]>([])
   const [idx, setIdx] = useState(0)
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
   const [loadTick, setLoadTick] = useState(0)
+
+  // Per-question feedback state (reset on every idx change).
+  const [selected, setSelected] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState<WmiKonsepGradeResult | null>(null)
+  const [submittingAnswer, setSubmittingAnswer] = useState(false)
+  const [gradeError, setGradeError] = useState(false)
+  const gradingRef = useRef(false)
+
+  // End-of-lesson commit state.
   const [result, setResult] = useState<TrackLessonResult | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(false)
+
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
 
   useEffect(() => {
     if (!activeChildId || !trackId || !focusSlug) return
@@ -62,10 +105,15 @@ export default function TrackLesson() {
     return () => { cancelled = true }
   }, [activeChildId, trackId, focusSlug, loadTick])
 
-  const [showExitConfirm, setShowExitConfirm] = useState(false)
+  // Fresh question → clear the previous verdict/selection.
+  useEffect(() => {
+    setSelected(null)
+    setFeedback(null)
+    setGradeError(false)
+  }, [idx])
 
   // Refresh/close guard while answers are in-flight (local state only).
-  const guarded = !result && Object.keys(answers).length > 0
+  const guarded = !result && answers.length > 0
   useEffect(() => {
     if (!guarded) return
     const handler = (event: BeforeUnloadEvent) => {
@@ -77,29 +125,38 @@ export default function TrackLesson() {
   }, [guarded])
 
   const current = questions[idx]
-  const allAnswered = useMemo(
-    () => questions.length > 0 && questions.every((q) => answers[q.instanceId]?.trim()),
-    [questions, answers],
-  )
+  const isLast = idx >= questions.length - 1
 
-  async function finish() {
+  // ── Grade one answer for immediate feedback (no progress write) ──
+  async function handleAnswer(answer: string) {
+    if (!current || !activeChildId || feedback || gradingRef.current) return
+    gradingRef.current = true
+    setSubmittingAnswer(true)
+    setSelected(answer)
+    setGradeError(false)
+    try {
+      const fb = await gradeConceptAnswer(activeChildId, current.instanceId, answer)
+      setFeedback(fb)
+    } catch {
+      setGradeError(true)
+    } finally {
+      gradingRef.current = false
+      setSubmittingAnswer(false)
+    }
+  }
+
+  // ── Commit the whole lesson (authoritative level-up grade) ──
+  async function finish(finalAnswers: { instanceId: string; selectedAnswer: string; recall: boolean }[]) {
     if (!activeChildId || !trackId || !focusSlug || !lessonId) return
     const childId = activeChildId
     setSubmitting(true)
     setSubmitError(false)
     try {
-      const payload = questions.map((q) => ({
-        instanceId: q.instanceId,
-        selectedAnswer: (answers[q.instanceId] ?? '').trim(),
-        recall: q.recall,
-      }))
-      const lessonResult = await commitTrackLesson(childId, trackId, focusSlug, lessonId, payload)
+      const lessonResult = await commitTrackLesson(childId, trackId, focusSlug, lessonId, finalAnswers)
       setResult(lessonResult)
       if (lessonResult.xpEarned > 0 || lessonResult.coinsEarned > 0) {
         // A level-up awards rewards but the commit response carries no
-        // balances — refresh the top stat strip from the summary endpoint,
-        // stamped for the child who took the lesson. Fire-and-forget: a
-        // failure just leaves the strip stale until the next surface fetches.
+        // balances — refresh the top stat strip. Fire-and-forget.
         fetchGamificationSummary(childId)
           .then((summary) => {
             useGamificationStats.getState().setStats(childId, {
@@ -115,17 +172,35 @@ export default function TrackLesson() {
           .catch(() => { /* stat strip refresh is best-effort */ })
       }
     } catch {
-      // Answers stay in state — the kid just taps "Selesai" again.
+      // Answers stay banked — the kid taps "Coba lagi".
       setSubmitError(true)
     } finally { setSubmitting(false) }
   }
 
-  // "Coba Lagi" on a failed result: pull a fresh lesson (new instance rows at
-  // the same still-unlevel-up'd level) and reset all local session state.
+  // ── Bank the current answer, then advance or commit ──
+  function handleLanjut() {
+    if (!current || !feedback) return
+    const newAnswers = [
+      ...answers,
+      { instanceId: current.instanceId, selectedAnswer: selected ?? '', recall: current.recall },
+    ]
+    setAnswers(newAnswers)
+    if (!isLast) setIdx((i) => i + 1)
+    else void finish(newAnswers)
+  }
+
+  // Flag the current question as good/bad (same as /belajar's vote).
+  async function onVote(vote: 1 | -1) {
+    if (activeChildId && current) await submitConceptVote(activeChildId, current.instanceId, vote)
+  }
+
+  // "Coba Lagi" on a failed result: pull a fresh lesson and reset all state.
   function retry() {
     setResult(null)
-    setAnswers({})
+    setAnswers([])
     setIdx(0)
+    setSelected(null)
+    setFeedback(null)
     setSubmitError(false)
     setQuestions([])
     setLessonId(null)
@@ -256,10 +331,11 @@ export default function TrackLesson() {
 
   if (!current) return <div className="p-6 text-center text-sm font-semibold text-qupu-muted">Latihan belum tersedia untuk konsep ini.</div>
 
-  const pick = (val: string) => setAnswers((a) => ({ ...a, [current.instanceId]: val }))
-
   return (
-    <div className="mx-auto w-full max-w-[28.75rem] p-4 pb-8">
+    <div className="relative mx-auto w-full max-w-[28.75rem] p-4 pb-8">
+      {/* Confetti on a correct pick — re-mount per question via key */}
+      {feedback?.is_correct && <KonsepConfetti key={`confetti-${idx}`} />}
+
       <ConfirmModal
         open={showExitConfirm}
         icon="fa-solid fa-triangle-exclamation"
@@ -271,14 +347,12 @@ export default function TrackLesson() {
         onConfirm={() => navigate(`/belajar/track/${trackId}`)}
       />
 
-      {/* Top row: close button + single compact progress element — mirrors
-          WmiChapterTest's header. Answers live only in local state, so
-          leaving mid-lesson loses them (hence the confirm). */}
+      {/* Top row: close button + compact progress. */}
       <div className="mb-3 flex items-center gap-3 px-1">
         <BackButton
           variant="close"
           onClick={() => {
-            if (Object.keys(answers).length === 0) navigate(`/belajar/track/${trackId}`)
+            if (answers.length === 0 && !feedback) navigate(`/belajar/track/${trackId}`)
             else setShowExitConfirm(true)
           }}
         />
@@ -296,74 +370,124 @@ export default function TrackLesson() {
         </span>
       </div>
 
-      <div
-        className="mt-4 rounded-[1.5rem] border-2 border-qupu-peach bg-white p-4 shadow-[0_5px_0_0_#FFD3B1]"
-        role={current.recall ? 'group' : undefined}
-        aria-label={current.recall ? 'soal ulangan' : undefined}
-      >
+      <div className="space-y-4">
         {current.recall && (
-          <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-[#EAF2FE] px-2.5 py-1 text-[0.6875rem] font-black text-[#30598A]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EAF2FE] px-2.5 py-1 text-[0.6875rem] font-black text-[#30598A]">
             <i className="fa-solid fa-clock-rotate-left" aria-hidden="true" />
             Ulangan
           </span>
         )}
-        <p className="font-display text-lg font-black leading-snug text-qupu-brand-blue">
-          {current.bodyId}
-        </p>
-        <div className="mt-4 grid gap-3">
-          {current.answerType === 'multiple_choice' && current.choicesId ? (
-            current.choicesId.map((ch) => (
-              <WmiAnswerChoice
-                key={ch.label}
-                choice={ch}
-                selected={answers[current.instanceId] === ch.text}
-                onPick={() => pick(ch.text)}
+
+        <WmiQuestionView
+          question={adaptLessonQuestion(current)}
+          hideConceptTitle
+          conceptIllustration={getIllustration(current.conceptSlug)}
+          conceptIllustrationParams={current.params}
+          selectedChoice={selected}
+          highlight={
+            feedback
+              ? { correct: feedback.correct_answer, wrongPicked: feedback.is_correct ? null : selected }
+              : undefined
+          }
+          disabled={Boolean(feedback) || submittingAnswer}
+          initialLang={preferredLang}
+          onPickChoice={handleAnswer}
+          onSubmitFillIn={handleAnswer}
+          onLookupTerm={() => {}}
+          onRevealTranslation={() => {}}
+          onUserToggleLanguage={setPreferredLang}
+        />
+
+        {/* Grading failed — keep the question interactive and say so */}
+        {gradeError && !feedback && (
+          <div className="rounded-[1.25rem] border-2 border-rose-200 bg-rose-50 p-3 text-center">
+            <p className="text-sm font-bold text-rose-600">
+              <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+              Jawaban belum terkirim. Coba lagi.
+            </p>
+            {selected && (
+              <button
+                type="button"
+                onClick={() => void handleAnswer(selected)}
+                disabled={submittingAnswer}
+                className="mt-2 inline-flex items-center gap-2 rounded-full bg-qupu-brand-orange px-5 py-2 font-display text-sm font-black text-white shadow-[0_3px_0_0_#C46123] disabled:opacity-50 transition-transform active:translate-y-0.5"
               >
-                {ch.text}
-              </WmiAnswerChoice>
-            ))
-          ) : (
-            <input
-              type="text" inputMode="numeric"
-              value={answers[current.instanceId] ?? ''}
-              onChange={(e) => pick(e.target.value)}
-              className="w-full rounded-full border-2 border-qupu-peach bg-qupu-shell px-4 py-3 font-semibold focus:border-qupu-brand-orange focus:outline-none"
-              placeholder="Jawabanmu"
-            />
-          )}
-        </div>
-      </div>
-      {submitError && (
-        <p className="mt-3 text-center text-xs font-semibold text-rose-600">
-          <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
-          Gagal mengirim jawaban. Coba lagi.
-        </p>
-      )}
-      <div className="mt-4 flex gap-3">
-        {idx > 0 && (
-          <button
-            onClick={() => setIdx((i) => i - 1)}
-            className="flex-1 rounded-full bg-white py-3 font-display font-black text-qupu-brand-blue shadow-[0_3px_0_0_#FFD3B1] ring-2 ring-[#FFE3CC] transition-transform active:translate-y-0.5"
-          >
-            Sebelumnya
-          </button>
+                <i className="fa-solid fa-rotate-right text-xs" aria-hidden="true" />
+                Kirim lagi
+              </button>
+            )}
+          </div>
         )}
-        {idx < questions.length - 1 ? (
-          <button
-            onClick={() => setIdx((i) => i + 1)}
-            disabled={!answers[current.instanceId]}
-            className="flex-1 rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5 disabled:opacity-50"
-          >
-            Lanjut
-          </button>
-        ) : (
-          <button
-            onClick={finish}
-            disabled={!allAnswered || submitting}
-            className="flex-1 rounded-full bg-[#58A700] py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] transition-transform active:translate-y-0.5 disabled:opacity-50"
-          >
-            {submitting ? 'Memeriksa…' : 'Selesai'}
-          </button>
+
+        {/* Feedback (after answer): verdict → animated walkthrough → action */}
+        {feedback && (
+          <>
+            <div
+              className={`relative rounded-[1.5rem] border-2 p-4 pe-12 shadow-[0_5px_0_0_#FFD3B1] ${
+                feedback.is_correct ? 'border-[#58A700]/40 bg-[#E8F5D6]' : 'border-rose-200 bg-rose-50'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white ${
+                    feedback.is_correct ? 'bg-[#58A700]' : 'bg-rose-400'
+                  }`}
+                >
+                  <i className={`fa-solid ${feedback.is_correct ? 'fa-check' : 'fa-xmark'} text-sm`} aria-hidden="true" />
+                </span>
+                <span className={`font-display font-black ${feedback.is_correct ? 'text-[#2D6B00]' : 'text-rose-600'}`}>
+                  {feedback.is_correct ? 'Benar!' : 'Belum tepat'}
+                </span>
+              </div>
+              {!feedback.is_correct && (
+                <p className="mt-2 text-sm font-semibold text-rose-700">
+                  Jawaban benar: <span className="font-black">{feedback.correct_answer}</span>
+                </p>
+              )}
+              {(feedback.hint_id ?? feedback.hint_en) && (
+                <p className="mt-2 text-xs font-semibold text-qupu-muted">
+                  {feedback.hint_id ?? feedback.hint_en}
+                </p>
+              )}
+              {/* Flag this question good/bad — same control as /belajar. */}
+              <WmiVoteToggle onVote={onVote} />
+            </div>
+
+            {/* Animated step-by-step walkthrough — self-hides when the concept
+                has no explainer registered. */}
+            <WmiExplainer
+              slug={current.conceptSlug}
+              params={current.params}
+              correctAnswer={feedback.correct_answer}
+              lang={preferredLang}
+            />
+
+            {submitError && (
+              <p className="text-center text-xs font-semibold text-rose-600">
+                <i className="fa-solid fa-circle-exclamation me-1" aria-hidden="true" />
+                Gagal menyimpan latihan. Coba lagi.
+              </p>
+            )}
+            {answers.length >= questions.length ? (
+              // Final answer banked — commit / loading / retry only.
+              <button
+                type="button"
+                onClick={() => void finish(answers)}
+                disabled={submitting}
+                className="w-full rounded-full bg-[#58A700] py-3 font-display font-black text-white shadow-[0_3px_0_0_#3C7400] disabled:opacity-50 transition-transform active:translate-y-0.5"
+              >
+                {submitting ? 'Memeriksa…' : submitError ? 'Coba lagi' : 'Selesaikan Latihan'}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleLanjut}
+                className="w-full rounded-full bg-qupu-brand-blue py-3 font-display font-black text-white shadow-[0_3px_0_0_#0E1430] transition-transform active:translate-y-0.5"
+              >
+                {isLast ? 'Selesai' : 'Lanjut'}
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>

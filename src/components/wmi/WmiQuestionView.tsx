@@ -238,6 +238,43 @@ export default function WmiQuestionView({
       </ErrorBoundary>
 
       {question.answer_type === 'multiple_choice' ? (
+        choices.length > 0 && choices.every((c: WmiChoice) => /^-?\d+$/.test(c.label)) ? (
+          // Always-tap numeric answers — big COLORED 2-col number tiles (no
+          // A/B/C badge, no typing). Graded by label (the number), like any MC.
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            {choices.map((choice: WmiChoice, ci: number) => {
+              const isCorrect = highlight?.correct === choice.label
+              const isWrong = highlight?.wrongPicked === choice.label
+              const isSel = selectedChoice === choice.label
+              const revealed = highlight != null
+              // Rotating playful fills with a chunky 3D rim; the correct/wrong
+              // tile overrides its colour and the rest dim once revealed.
+              const FILL = ['#3E7CC4', '#F0853A', '#7C5CBF', '#2E9E6B']
+              const RIM = ['#2E5F9C', '#C4601F', '#5E44A0', '#217A50']
+              let bg = FILL[ci % 4]
+              let rim = RIM[ci % 4]
+              const dim = revealed && !isCorrect && !isWrong
+              if (isCorrect) { bg = '#4FA02A'; rim = '#3C7A1E' }
+              else if (isWrong) { bg = '#E0554A'; rim = '#B23A30' }
+              return (
+                <button
+                  key={choice.label}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => onPickChoice(choice.label)}
+                  style={dim ? undefined : { background: bg, boxShadow: `0 5px 0 0 ${rim}` }}
+                  className={`flex h-16 items-center justify-center rounded-2xl font-display text-2xl font-black text-white transition-transform ${
+                    !disabled ? 'active:translate-y-[3px]' : 'cursor-default'
+                  } ${dim ? 'bg-qupu-shell text-qupu-muted opacity-60' : ''} ${
+                    isSel && !revealed ? 'ring-4 ring-white/60' : ''
+                  }`}
+                >
+                  {choice.label}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
         <div className="mt-4 grid gap-3">
           {choices.map((choice: WmiChoice) => (
             <WmiAnswerChoice
@@ -268,6 +305,7 @@ export default function WmiQuestionView({
             </WmiAnswerChoice>
           ))}
         </div>
+        )
       ) : (
         <form
           className="mt-4 flex flex-col gap-3 sm:flex-row"

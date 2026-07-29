@@ -489,6 +489,11 @@ export interface TrackLessonQuestion {
   answerType: 'multiple_choice' | 'fill_in'
   choicesId: WmiChoice[] | null
   choicesEn: WmiChoice[] | null
+  // Concept params — feeds the in-card illustration + animated explainer
+  // during play (per-question /belajar feedback parity).
+  params: unknown
+  // Authored color-coded breakdown (refined stem). Null → plain stem.
+  breakdown: Breakdown | null
 }
 export interface TrackLessonResult {
   focusCorrect: number

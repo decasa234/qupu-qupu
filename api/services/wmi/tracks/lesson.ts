@@ -5,6 +5,7 @@ import { assertChildOwnership } from '../../../lib/childOwnership.js'
 import { wibDateString } from '../../../lib/wib.js'
 import { deterministicUuid } from '../../../lib/deterministicUuid.js'
 import { getTrack, conceptSlugsInSpineOrder } from './registry.js'
+import { getConcept } from '../concepts/registry.js'
 import {
   FOCUS_COUNT,
   RECALL_COUNT,
@@ -40,6 +41,12 @@ export interface LessonQuestion {
   answerType: string
   choicesId: unknown
   choicesEn: unknown
+  // Concept params — feeds the in-card illustration + the animated explainer
+  // walkthrough during play (/belajar parity), not the server-side grade.
+  params: unknown
+  // Authored color-coded breakdown (refined stem highlight). Null falls back to
+  // the plain stem — never the legacy auto WmiBreakdownView.
+  breakdown: unknown
 }
 
 interface InstanceRow {
@@ -51,6 +58,10 @@ interface InstanceRow {
   answer_type: string
   choices_id: unknown
   choices_en: unknown
+  params: unknown
+  // Server-side only — used to synthesize tap choices for numeric fill-ins.
+  // NEVER copied into LessonQuestion (the client must not learn the answer).
+  answer: string
 }
 
 interface ProgressRow {
@@ -74,9 +85,59 @@ function requireTrackAndFocus(trackId: string, focusSlug: string): { spine: stri
   return { spine, focusIdx }
 }
 
-const INSTANCE_SELECT = `id, concept_slug, level, body_id, body_en, answer_type, choices_id, choices_en`
+const INSTANCE_SELECT = `id, concept_slug, level, body_id, body_en, answer_type, choices_id, choices_en, params, answer`
+
+// Always-tap: turn a numeric fill-in answer into 4 pick choices (the correct
+// value + 3 non-negative near-miss distractors), so a young kid never types.
+// Labels ARE the values — grading compares the tapped label to the answer via
+// isCorrectAnswer's tolerant numeric match. Returns null for non-integer
+// answers (those keep the text input). Exported for the unit test.
+// ponytail: generic ±k distractors; swap for per-concept distractors only if a
+// concept's near-misses turn out implausible.
+export function buildNumericChoices(answer: string): { label: string; text: string }[] | null {
+  const trimmed = String(answer).trim()
+  if (trimmed === '') return null // Number('') is 0 — never fabricate a "0" answer
+  const n = Number(trimmed)
+  if (!Number.isInteger(n)) return null
+  const distractors: number[] = []
+  for (const d of [1, -1, 2, -2, 3, 5, 10]) {
+    const cand = n + d
+    if (cand < 0 || cand === n || distractors.includes(cand)) continue
+    distractors.push(cand)
+    if (distractors.length === 3) break
+  }
+  // Answers near 0 may not yield 3 non-negative near-misses — widen upward.
+  for (let up = n + 1; distractors.length < 3; up++) {
+    if (up !== n && up >= 0 && !distractors.includes(up)) distractors.push(up)
+  }
+  const values = [n, ...distractors]
+  for (let i = values.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[values[i], values[j]] = [values[j], values[i]]
+  }
+  return values.map((v) => ({ label: String(v), text: String(v) }))
+}
 
 function toQuestion(row: InstanceRow, recall: boolean): LessonQuestion {
+  let answerType = row.answer_type
+  let choicesId = row.choices_id
+  let choicesEn = row.choices_en
+  if (answerType === 'fill_in') {
+    const choices = buildNumericChoices(row.answer)
+    if (choices) {
+      answerType = 'multiple_choice'
+      choicesId = choices
+      choicesEn = choices
+    }
+  }
+  // Refined breakdown is a pure function of params (mirrors engine.ts) — it is
+  // NOT a DB column. A render hiccup must never block the lesson → fall back null.
+  let breakdown: unknown = null
+  try {
+    breakdown = getConcept(row.concept_slug)?.render(row.params).breakdown ?? null
+  } catch {
+    breakdown = null
+  }
   return {
     instanceId: row.id,
     conceptSlug: row.concept_slug,
@@ -84,9 +145,11 @@ function toQuestion(row: InstanceRow, recall: boolean): LessonQuestion {
     recall,
     bodyId: row.body_id,
     bodyEn: row.body_en,
-    answerType: row.answer_type,
-    choicesId: row.choices_id,
-    choicesEn: row.choices_en,
+    answerType,
+    choicesId,
+    choicesEn,
+    params: row.params,
+    breakdown,
   }
 }
 
