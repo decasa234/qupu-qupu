@@ -60,9 +60,24 @@ export async function getTrackState(
   )
   const cleared = new Set(clears.map((c) => c.gate_key))
 
+  // Test-out "jump": passing a chapter's Tes Bab unlocks every unit up to and
+  // including it, PLUS the next one — so clearing a far gate opens everything
+  // before it (mirrors /belajar, where any locked chapter's boss is takeable).
+  // maxClearedIdx is the deepest unit whose gate(s) are all cleared; every unit
+  // at or before maxClearedIdx + 1 is open.
+  const gateKeysByUnit = track.units.map((u) =>
+    u.nodes.flatMap((n) => (n.kind === 'gate' ? [n.key] : [])),
+  )
+  let maxClearedIdx = -1
+  gateKeysByUnit.forEach((keys, i) => {
+    if (keys.length > 0 && keys.every((k) => cleared.has(k))) maxClearedIdx = i
+  })
+
   let previousGateCleared = true // first unit is always open
-  const units: TrackUnitState[] = track.units.map((unit) => {
-    const unlocked = previousGateCleared
+  const units: TrackUnitState[] = track.units.map((unit, i) => {
+    // Open by normal progression (previous gate cleared, or a transparent
+    // no-gate unit passing through) OR by a test-out jump reaching here.
+    const unlocked = previousGateCleared || i <= maxClearedIdx + 1
     const nodes: TrackNodeState[] = unit.nodes.map((node) => {
       if (node.kind === 'concept') {
         const level = levelBySlug.get(node.slug) ?? 0
@@ -74,16 +89,15 @@ export async function getTrackState(
           gold: level >= GOLD_LEVEL,
         }
       }
-      // Test-out: a gate is attemptable as soon as its unit is open — no
-      // per-concept level bar. Passing it is the "jump" that unlocks the
-      // next unit, mirroring the old garden's always-takeable Tes Bab.
-      const gateUnlocked = unlocked
+      // Every gate is attemptable, even in a locked unit — tapping a far
+      // chapter's Tes Bab and passing it IS the jump. getTrackState is the
+      // single unlock authority; gates.ts trusts this flag.
       return {
         kind: 'gate' as const,
         key: node.key,
         problemRef: node.problemRef,
         requires: [...node.requires],
-        unlocked: gateUnlocked,
+        unlocked: true,
         cleared: cleared.has(node.key),
       }
     })

@@ -79,7 +79,9 @@ export default function TrackGateSheet({ node, unit, requireNames, onStart, onCl
             <p className="mt-1.5 text-sm font-bold text-qupu-muted">
               {node.cleared
                 ? 'Sudah lulus — ulangi untuk latihan!'
-                : 'Satu soal olimpiade sungguhan. Lulus untuk membuka bab berikutnya!'}
+                : unit.unlocked
+                  ? 'Satu soal olimpiade sungguhan. Lulus untuk membuka bab berikutnya!'
+                  : 'Satu soal olimpiade sungguhan. Lulus untuk langsung membuka semua bab sampai sini!'}
             </p>
           </div>
         </div>

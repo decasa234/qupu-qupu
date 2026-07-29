@@ -11,9 +11,10 @@ export interface ConceptNode {
   slug: string
 }
 
-// Synthesis boss: a real WMI past-paper problem. Attemptable as soon as its
-// unit is open (test-out — passing unlocks the next unit); `requires` lists
-// the concepts the problem draws on, shown as guidance in the UI.
+// Synthesis boss: a real WMI past-paper problem. ALWAYS attemptable (test-out
+// jump) — passing a far, still-locked chapter's gate unlocks every unit up to
+// and including it, plus the next one; `requires` lists the concepts the
+// problem draws on, shown as guidance in the UI.
 export interface GateNode {
   kind: 'gate'
   /** Stable per-track key — gate clears are stored against it. */

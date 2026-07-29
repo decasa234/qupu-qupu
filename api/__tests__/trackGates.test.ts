@@ -14,8 +14,8 @@ const runIntegration = Boolean(process.env.TEST_DATABASE_URL)
 const TRACK_ID = 'wmi-grade-1'
 const CONCEPT_SLUG = 'single-digit-addition'
 const GATE_KEY = 'gate-penjumlahan-dasar'
-// Unit 2's gate — locked until unit 1's gate is cleared.
-const LOCKED_GATE_KEY = 'gate-pengurangan-dasar'
+// Unit 2's gate — a later unit's Tes Bab, attemptable immediately (test-out).
+const LATER_GATE_KEY = 'gate-pengurangan-dasar'
 // wmi-grade-1's pilot gate problemRef ('WMI-21F1A#1') — paperCode({brand:
 // 'wmi', year: 2021, round: 'final', level: 'g1', variant: 'A'}) === 'WMI-21F1A'.
 const CORRECT_ANSWER = '5'
@@ -26,6 +26,7 @@ const WRONG_ANSWER = '999'
   let paperId: string
   let createdPaper = false
   let createdQuestion = false
+  let createdQuestion9 = false
 
   // The disposable test DB may or may not already have WMI-21F1A#1 seeded
   // (a real paper with that code is expected to exist eventually — see
@@ -57,6 +58,21 @@ const WRONG_ANSWER = '999'
       )
       createdQuestion = true
     }
+
+    // The later unit's gate references WMI-21F1A#9 — seed a stub so getGate can
+    // resolve it when the far gate is attempted as a test-out.
+    const q9 = await queryOne<{ id: string }>(
+      `SELECT id FROM wmi_questions WHERE paper_id = $1 AND number = 9`,
+      [paperId],
+    )
+    if (!q9) {
+      await query(
+        `INSERT INTO wmi_questions (paper_id, number, body_en, body_id, answer_type, answer)
+         VALUES ($1, 9, 'What is 9 - 2?', 'Berapa 9 - 2?', 'fill_in', '7')`,
+        [paperId],
+      )
+      createdQuestion9 = true
+    }
   }
 
   beforeAll(async () => {
@@ -76,6 +92,9 @@ const WRONG_ANSWER = '999'
   afterAll(async () => {
     if (createdQuestion) {
       await query(`DELETE FROM wmi_questions WHERE paper_id = $1 AND number = 1`, [paperId])
+    }
+    if (createdQuestion9) {
+      await query(`DELETE FROM wmi_questions WHERE paper_id = $1 AND number = 9`, [paperId])
     }
     if (createdPaper) {
       await query(`DELETE FROM wmi_papers WHERE id = $1`, [paperId])
@@ -121,18 +140,16 @@ const WRONG_ANSWER = '999'
     })
   })
 
-  it('hides the question of a locked unit\'s gate and rejects submissions to it', async () => {
-    // Unit 2's gate stays locked until unit 1's gate is cleared — concept
-    // levels alone never unlock it (test-out is the only unit key).
+  it('reveals a later unit\'s gate immediately (test-out jump), even with zero progress', async () => {
+    // The later unit's gate is attemptable straight away now — tapping a far
+    // chapter's Tes Bab is the jump, so its question is served without first
+    // clearing unit 1's gate or grinding any concept.
     const { parentUserId, childId } = await createChild()
-    await setLevel(childId, 5)
 
-    const locked = await getGate(parentUserId, childId, TRACK_ID, LOCKED_GATE_KEY)
-    expect(locked).toEqual({ unlocked: false, cleared: false, question: null })
-
-    await expect(
-      submitGate(parentUserId, childId, TRACK_ID, LOCKED_GATE_KEY, CORRECT_ANSWER),
-    ).rejects.toThrow('Gate locked')
+    const far = await getGate(parentUserId, childId, TRACK_ID, LATER_GATE_KEY)
+    expect(far.unlocked).toBe(true)
+    expect(far.cleared).toBe(false)
+    expect(far.question).not.toBeNull()
   })
 
   it('grades submissions and clears the gate exactly once on a correct answer', async () => {

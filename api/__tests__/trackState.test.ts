@@ -64,12 +64,13 @@ const GATE_KEY = 'gate-penjumlahan-dasar'
     const concept1 = unit1.nodes.find((n) => n.kind === 'concept')
     const gate1 = unit1.nodes.find((n) => n.kind === 'gate')
     expect(concept1).toMatchObject({ kind: 'concept', slug: CONCEPT_SLUG, level: 4, gold: false })
-    // Test-out: unit 1 is always open, so its gate is attemptable regardless
-    // of concept levels; no wmi_gate_clears row yet, so it is not cleared.
+    // Test-out: every gate is attemptable regardless of concept levels or unit
+    // lock; no wmi_gate_clears row yet, so it is not cleared.
     expect(gate1).toMatchObject({ kind: 'gate', key: GATE_KEY, unlocked: true, cleared: false })
-    // Unit 2 (and its gate) stay locked until unit 1's gate is cleared.
+    // Unit 2 stays LOCKED until a gate at or after it is cleared — but its own
+    // gate is still attemptable straight away (test-out jump).
     expect(state1.units[1]).toMatchObject({ unlocked: false })
-    expect(state1.units[1].nodes.find((n) => n.kind === 'gate')).toMatchObject({ unlocked: false })
+    expect(state1.units[1].nodes.find((n) => n.kind === 'gate')).toMatchObject({ unlocked: true })
 
     await query(
       `INSERT INTO wmi_gate_clears (child_id, track_id, gate_key) VALUES ($1, $2, $3)`,
@@ -92,6 +93,18 @@ const GATE_KEY = 'gate-penjumlahan-dasar'
     const state3 = await getTrackState(parentUserId, childId, TRACK_ID)
     const concept3 = state3.units[0].nodes.find((n) => n.kind === 'concept')
     expect(concept3).toMatchObject({ level: 4 })
+  })
+
+  it('opens every unit up to a tested-out gate (unlock-through jump)', async () => {
+    const { parentUserId, childId } = await createChild()
+    // Clear ONLY the later unit's gate (test-out), skipping unit 1's entirely.
+    await query(
+      `INSERT INTO wmi_gate_clears (child_id, track_id, gate_key) VALUES ($1, $2, $3)`,
+      [childId, TRACK_ID, 'gate-pengurangan-dasar'],
+    )
+    const state = await getTrackState(parentUserId, childId, TRACK_ID)
+    // Both units are open even though unit 1's own gate was never cleared.
+    expect(state.units.every((u) => u.unlocked)).toBe(true)
   })
 
   it('rejects a child the caller does not own', async () => {

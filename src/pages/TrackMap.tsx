@@ -313,7 +313,7 @@ export default function TrackMap({ trackId: trackIdProp }: { trackId?: string } 
               setSelected({ node, unit })
             }}
             onGate={(node, unit) => {
-              if (!node.unlocked && !node.cleared) return
+              // Every gate is attemptable now (test-out jump) — no lock guard.
               setSelected(null)
               setGateSel({ node, unit })
             }}
