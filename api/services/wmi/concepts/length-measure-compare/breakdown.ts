@@ -3,8 +3,8 @@ import { LABELS, derive, type Params } from './index.js'
 
 // Authored decomposition of a length-measure-compare problem.
 //
-// The figure carries the data (a ruler with the object drawn on it, or a chain
-// of repeated units), so the stem is short. Every highlight phrase is built from
+// The figure carries the data (a ruler with the object drawn on it, or a strip
+// of unit squares under it), so the stem is short. Every highlight phrase is built from
 // the SAME string pieces `derive()` assembles the body from, so each phrase is
 // guaranteed to be an exact substring of the DISPLAY body (i.e. after
 // stripSectionLabels removes "Find:" / "Cari:" and collapses the blank line).
@@ -67,12 +67,12 @@ export function buildLengthMeasureCompareBreakdown(params: Params): Breakdown {
       note_en: isOffset
         ? `Nothing starts at 0, so length = right number ${MINUS} left number.`
         : isChain
-          ? 'No gaps and no overlaps, so every unit counts as exactly 1.'
+          ? 'No gaps and no overlaps, so every square counts as exactly 1.'
           : 'Everything starts at 0, so the number under the right end is the length.',
       note_id: isOffset
         ? `Tidak ada yang mulai dari 0, jadi panjang = angka kanan ${MINUS} angka kiri.`
         : isChain
-          ? 'Tidak ada celah dan tidak bertumpuk, jadi setiap satuan bernilai tepat 1.'
+          ? 'Tidak ada celah dan tidak bertumpuk, jadi setiap petak bernilai tepat 1.'
           : 'Semua mulai dari 0, jadi angka di ujung kanan itulah panjangnya.',
     })
   }
@@ -164,8 +164,8 @@ export function buildLengthMeasureCompareBreakdown(params: Params): Breakdown {
       : medium === 'unit-chain'
         ? {
             conceptSlug: 'length-measure-compare',
-            name_en: 'Count the repeated units',
-            name_id: 'Hitung satuan berulang',
+            name_en: 'Count the unit squares',
+            name_id: 'Hitung petak satuan',
           }
         : {
             conceptSlug: 'length-measure-compare',

@@ -39,8 +39,8 @@ export function buildCountManyObjectsBreakdown(params: Params): Breakdown {
       id: `Tiap baris isinya sama, yaitu ${step} — hitung satu baris, lalu lompat hitung per baris.`,
     },
     'grouped-tens': {
-      en: 'Each cluster is exactly 10, so skip-count 10, 20, 30 … instead of one by one.',
-      id: 'Satu kelompok isinya tepat 10, jadi lompat hitung 10, 20, 30 … bukan satu per satu.',
+      en: 'They sit in clumps set far apart; every full clump is 10, so skip-count 10, 20, 30 … instead of one by one.',
+      id: 'Bendanya menumpuk terpisah-pisah; tiap tumpukan penuh isinya 10, jadi lompat hitung 10, 20, 30 … bukan satu per satu.',
     },
     scatter: {
       en: 'Nothing is lined up, so ring off 5 at a time first — then the pile becomes countable.',

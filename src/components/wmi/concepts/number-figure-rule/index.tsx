@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 type Slot = 'a' | 'b' | 'c'
-type Layout = 'quartered-circle' | 'triangle' | 'chain'
+type Layout = 'row' | 'pyramid'
 
 interface Triple {
   a: number
@@ -19,14 +19,14 @@ interface RuleFigureParams {
 const BLUE = '#30598A'
 const ORANGE = '#F0853A'
 const GREEN = '#58A700'
-const YELLOW = '#E0A000'
-const CREAM = '#FAF6EF'
-const MUTED = '#A99F92'
+const CARD = '#FDF8F1'
+const CARD_EDGE = '#EADFCD'
+const LINK = '#B5A896'
 
 const SLOTS: Slot[] = ['a', 'b', 'c']
 
 const SAMPLE: RuleFigureParams = {
-  layout: 'quartered-circle',
+  layout: 'row',
   groups: [
     { a: 3, b: 4, c: 7 },
     { a: 5, b: 2, c: 7 },
@@ -35,23 +35,32 @@ const SAMPLE: RuleFigureParams = {
   blankPosition: 'c',
 }
 
+// Layout names before the figures were simplified. Kept only so instances that
+// were pooled under the old shape still draw a sensible picture.
+const LEGACY_LAYOUT: Record<string, Layout> = {
+  chain: 'row',
+  triangle: 'pyramid',
+  'quartered-circle': 'pyramid',
+}
+
 function isTriple(value: unknown): value is Triple {
   const t = value as Triple | null
   return (
     !!t &&
     typeof t === 'object' &&
-    typeof t.a === 'number' &&
-    typeof t.b === 'number' &&
-    typeof t.c === 'number'
+    Number.isFinite(t.a) &&
+    Number.isFinite(t.b) &&
+    Number.isFinite(t.c)
   )
 }
 
 function normalize(params: unknown): RuleFigureParams {
   const p = (params ?? {}) as Partial<RuleFigureParams>
+  const raw = p.layout as string | undefined
   const layout: Layout =
-    p.layout === 'triangle' || p.layout === 'chain' || p.layout === 'quartered-circle'
-      ? p.layout
-      : SAMPLE.layout
+    raw === 'row' || raw === 'pyramid' ? raw
+    : raw && LEGACY_LAYOUT[raw] ? LEGACY_LAYOUT[raw]
+    : SAMPLE.layout
   const groups =
     Array.isArray(p.groups) && p.groups.length === 3 && p.groups.every(isTriple)
       ? (p.groups as Triple[])
@@ -63,38 +72,51 @@ function normalize(params: unknown): RuleFigureParams {
   return { layout, groups, blankPosition }
 }
 
-/** Five-pointed star as an SVG points string — pure maths, no randomness. */
-function starPoints(cx: number, cy: number, r: number): string {
-  const pts: string[] = []
-  for (let i = 0; i < 10; i++) {
-    const radius = i % 2 === 0 ? r : r * 0.45
-    const angle = (Math.PI / 5) * i - Math.PI / 2
-    pts.push(`${(cx + radius * Math.cos(angle)).toFixed(2)},${(cy + radius * Math.sin(angle)).toFixed(2)}`)
+/**
+ * A connector that stops short of both circles and ends in a small arrow head,
+ * so "these two make that one" reads in one direction only. Pure trigonometry.
+ */
+function connector(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  trimStart: number,
+  trimEnd: number,
+) {
+  const dx = x2 - x1
+  const dy = y2 - y1
+  const len = Math.hypot(dx, dy) || 1
+  const ux = dx / len
+  const uy = dy / len
+  const tipX = x2 - ux * trimEnd
+  const tipY = y2 - uy * trimEnd
+  const headLen = 8
+  const headHalf = 4.5
+  const baseX = tipX - ux * headLen
+  const baseY = tipY - uy * headLen
+  const f = (n: number) => n.toFixed(2)
+  return {
+    x1: f(x1 + ux * trimStart),
+    y1: f(y1 + uy * trimStart),
+    x2: f(baseX),
+    y2: f(baseY),
+    head: `${f(tipX)},${f(tipY)} ${f(baseX - uy * headHalf)},${f(baseY + ux * headHalf)} ${f(
+      baseX + uy * headHalf,
+    )},${f(baseY - ux * headHalf)}`,
   }
-  return pts.join(' ')
-}
-
-/** A small diamond used as a link bead on the chain layout. */
-function diamondPoints(cx: number, cy: number, r: number): string {
-  return `${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`
-}
-
-function groupLabel(x: number, y: number, index: number, anchor: 'middle' | 'start') {
-  return (
-    <text x={x} y={y} textAnchor={anchor} fontSize="11" fontWeight="bold" fill={MUTED}>
-      {index + 1}
-    </text>
-  )
 }
 
 /**
  * number-figure-rule — question figure.
  *
- * Three number groups drawn in the same decorated shape. Two are complete (the
- * evidence the hidden rule is read from) and the third shows a "?" in one slot.
- * The figure never hints at the operation — that is exactly what the child has
- * to work out. Pure render from params: no random, no dates, SSR-safe, and it
- * falls back to a sample when params arrive with the wrong shape.
+ * The figure is the ONLY place the numbers appear, so it stays deliberately
+ * plain: three number groups on their own cards, two complete (the evidence the
+ * hidden rule is read from) and one showing a "?" in a single slot. Two given
+ * numbers in blue, the result in green, the gap in dashed orange, and an arrow
+ * that always points at the result — nothing decorative, nothing that could be
+ * mistaken for a fourth number. Pure render from params: no random, no dates,
+ * SSR-safe, and it falls back to a sample when params arrive malformed.
  */
 export default function NumberFigureRuleIllustration({ params }: { params: unknown }) {
   const { layout, groups, blankPosition } = normalize(params)
@@ -102,101 +124,106 @@ export default function NumberFigureRuleIllustration({ params }: { params: unkno
   const isBlank = (groupIndex: number, slot: Slot) => groupIndex === 2 && slot === blankPosition
   const cellText = (groupIndex: number, slot: Slot, group: Triple) =>
     isBlank(groupIndex, slot) ? '?' : String(group[slot])
-
-  // Colour of one cell: the gap is always orange, the result slot green, the
-  // two given slots brand blue.
   const toneOf = (groupIndex: number, slot: Slot) =>
     isBlank(groupIndex, slot) ? ORANGE : slot === 'c' ? GREEN : BLUE
 
-  // One number cell: an optional badge ring (dashed when it is the gap), then
-  // the value. Layouts that already draw their own outline pass ring = null.
-  const cell = (
+  // One number bubble: white disc, coloured ring, the value inside. The gap gets
+  // a dashed ring so it reads as "something belongs here".
+  const bubble = (
     key: string,
     cx: number,
     cy: number,
+    r: number,
     text: string,
     tone: string,
-    ring: number | null,
+    blank: boolean,
   ): ReactNode => (
     <g key={key}>
-      {ring !== null && (
-        <circle
-          cx={cx}
-          cy={cy}
-          r={ring}
-          fill="#FFFFFF"
-          stroke={tone}
-          strokeWidth={2.5}
-          strokeDasharray={tone === ORANGE ? '4 3' : undefined}
-        />
-      )}
-      <text x={cx} y={cy + 6} textAnchor="middle" fontSize="17" fontWeight="bold" fill={tone}>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={r}
+        fill="#FFFFFF"
+        stroke={tone}
+        strokeWidth={3}
+        strokeDasharray={blank ? '5 4' : undefined}
+      />
+      <text
+        x={cx}
+        y={cy + r * 0.36}
+        textAnchor="middle"
+        fontSize={r * 1.05}
+        fontWeight="bold"
+        fill={tone}
+      >
         {text}
       </text>
     </g>
   )
 
-  const ariaLayout =
-    layout === 'triangle' ? 'segitiga'
-    : layout === 'chain' ? 'rantai lingkaran'
-    : 'lingkaran berbagi empat'
+  const spoken = (groupIndex: number, slot: Slot, group: Triple) =>
+    isBlank(groupIndex, slot) ? 'tanda tanya' : String(group[slot])
   const ariaGroups = groups
-    .map((g, i) => `Gambar ${i + 1}: ${SLOTS.map((s) => cellText(i, s, g)).join(', ')}`)
+    .map(
+      (g, i) =>
+        `Kelompok ${i + 1}: ${spoken(i, 'a', g)} dan ${spoken(i, 'b', g)} menjadi ${spoken(i, 'c', g)}`,
+    )
     .join('. ')
-  const ariaLabel = `Tiga gambar ${ariaLayout} yang memakai aturan yang sama. ${ariaGroups}. Cari angka yang hilang.`
+  const ariaLabel = `Tiga kelompok angka yang memakai aturan yang sama. ${ariaGroups}. Satu angka diganti tanda tanya.`
 
-  // --- chain: wide groups, so stack them ------------------------------------
-  if (layout === 'chain') {
-    const groupW = 210
-    const groupH = 54
-    const gapY = 12
-    const padX = 14
-    const padY = 8
-    const labelW = 24
-    const width = padX * 2 + labelW + groupW
-    const height = padY * 2 + groupH * 3 + gapY * 2
+  // --- row: three circles in a straight line, groups stacked ----------------
+  if (layout === 'row') {
+    const r = 19
+    const cxA = 36
+    const cxB = 86
+    const cxC = 172
+    const cardX = 4
+    const cardW = 200
+    const cardH = 62
+    const pitch = cardH + 11
+    const width = 208
+    const height = 6 + cardH * 3 + 11 * 2 + 6
 
     return (
-      <div
-        className="my-4 flex justify-center"
-        role="img"
-        aria-label={ariaLabel}
-      >
-        <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(300, width)}>
+      <div className="my-4 flex justify-center" role="img" aria-label={ariaLabel}>
+        <svg viewBox={`0 0 ${width} ${height}`} width={260}>
           {groups.map((g, i) => {
-            const ox = padX + labelW
-            const oy = padY + i * (groupH + gapY)
-            const cy = oy + groupH / 2
-            const cxs = [ox + 22, ox + 105, ox + 188]
+            const cardY = 6 + i * pitch
+            const cy = cardY + cardH / 2
+            const arrow = connector(cxB, cy, cxC, cy, r + 10, r + 9)
             return (
               <g key={i}>
-                {groupLabel(padX + 4, cy + 4, i, 'start')}
-                {/* link bars with a bead in the middle */}
-                {[0, 1].map((k) => {
-                  const x = cxs[k] + 19
-                  const w = cxs[k + 1] - 19 - x
-                  return (
-                    <g key={`l${k}`}>
-                      <rect x={x} y={cy - 3.5} width={w} height={7} rx={3.5} fill={ORANGE} />
-                      <polygon points={diamondPoints(x + w / 2, cy, 5)} fill={YELLOW} />
-                    </g>
-                  )
-                })}
-                {/* the three number bubbles */}
-                {SLOTS.map((slot, k) => (
-                  <g key={slot}>
-                    <circle
-                      cx={cxs[k]}
-                      cy={cy}
-                      r={19}
-                      fill={isBlank(i, slot) ? '#FFFFFF' : CREAM}
-                      stroke={toneOf(i, slot)}
-                      strokeWidth={3}
-                      strokeDasharray={isBlank(i, slot) ? '4 3' : undefined}
-                    />
-                    {cell(`${i}-${slot}`, cxs[k], cy, cellText(i, slot, g), toneOf(i, slot), null)}
-                  </g>
-                ))}
+                <rect
+                  x={cardX}
+                  y={cardY}
+                  width={cardW}
+                  height={cardH}
+                  rx={14}
+                  fill={CARD}
+                  stroke={CARD_EDGE}
+                  strokeWidth={2}
+                />
+                <line
+                  x1={arrow.x1}
+                  y1={arrow.y1}
+                  x2={arrow.x2}
+                  y2={arrow.y2}
+                  stroke={LINK}
+                  strokeWidth={3}
+                  strokeLinecap="round"
+                />
+                <polygon points={arrow.head} fill={LINK} />
+                {SLOTS.map((slot, k) =>
+                  bubble(
+                    `${i}-${slot}`,
+                    [cxA, cxB, cxC][k],
+                    cy,
+                    r,
+                    cellText(i, slot, g),
+                    toneOf(i, slot),
+                    isBlank(i, slot),
+                  ),
+                )}
               </g>
             )
           })}
@@ -205,77 +232,69 @@ export default function NumberFigureRuleIllustration({ params }: { params: unkno
     )
   }
 
-  // --- quartered-circle & triangle: compact groups, side by side ------------
-  const groupW = 112
-  const groupH = 116
-  const gapX = 8
-  const padX = 10
-  const padY = 6
-  const width = padX * 2 + groupW * 3 + gapX * 2
-  const height = padY * 2 + groupH
+  // --- pyramid: two above, one below, groups side by side -------------------
+  const r = 16
+  const groupW = 88
+  const gapX = 9
+  const cyTop = 30
+  const cyBot = 94
+  const cardY = 4
+  const cardH = 116
+  const width = 4 + groupW * 3 + gapX * 2 + 4
+  const height = cardY + cardH + 4
 
   return (
     <div className="my-4 flex justify-center" role="img" aria-label={ariaLabel}>
-      <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(340, width)}>
+      <svg viewBox={`0 0 ${width} ${height}`} width={288}>
         {groups.map((g, i) => {
-          const ox = padX + i * (groupW + gapX)
-          const oy = padY
-          const cx = ox + groupW / 2
-
-          if (layout === 'triangle') {
-            const apexY = oy + 24
-            const baseY = oy + 100
-            const left = ox + 16
-            const right = ox + 96
-            const midY = oy + 76
-            const seats: Array<[Slot, number, number]> = [
-              ['a', left, baseY],
-              ['b', right, baseY],
-              ['c', cx, midY],
-            ]
-            return (
-              <g key={i}>
-                {groupLabel(cx, oy + 11, i, 'middle')}
-                <polygon
-                  points={`${cx},${apexY} ${left},${baseY} ${right},${baseY}`}
-                  fill={CREAM}
-                  stroke={BLUE}
-                  strokeWidth={3}
-                  strokeLinejoin="round"
-                />
-                <polygon points={starPoints(cx, apexY, 9)} fill={YELLOW} />
-                {seats.map(([slot, sx, sy]) =>
-                  cell(`${i}-${slot}`, sx, sy, cellText(i, slot, g), toneOf(i, slot), 15),
-                )}
-              </g>
-            )
-          }
-
-          // quartered-circle
-          const cy = oy + 66
-          const r = 40
-          const d = 20
+          const ox = 4 + i * (groupW + gapX)
+          const cxA = ox + 24
+          const cxB = ox + 64
+          const cxC = ox + 44
+          const legs = [
+            connector(cxA, cyTop, cxC, cyBot, r + 2, r + 3),
+            connector(cxB, cyTop, cxC, cyBot, r + 2, r + 3),
+          ]
           const seats: Array<[Slot, number, number]> = [
-            ['a', cx - d, cy - d],
-            ['b', cx + d, cy - d],
-            ['c', cx + d, cy + d],
+            ['a', cxA, cyTop],
+            ['b', cxB, cyTop],
+            ['c', cxC, cyBot],
           ]
           return (
             <g key={i}>
-              {groupLabel(cx, oy + 11, i, 'middle')}
-              <circle cx={cx} cy={cy} r={r} fill={CREAM} stroke={BLUE} strokeWidth={3} />
-              <line x1={cx} y1={cy - r} x2={cx} y2={cy + r} stroke={BLUE} strokeWidth={2} />
-              <line x1={cx - r} y1={cy} x2={cx + r} y2={cy} stroke={BLUE} strokeWidth={2} />
-              {/* the fourth quarter is decoration, never a number */}
-              <polygon points={starPoints(cx - d, cy + d, 11)} fill={YELLOW} />
+              <rect
+                x={ox}
+                y={cardY}
+                width={groupW}
+                height={cardH}
+                rx={14}
+                fill={CARD}
+                stroke={CARD_EDGE}
+                strokeWidth={2}
+              />
+              {legs.map((leg, k) => (
+                <g key={`leg${k}`}>
+                  <line
+                    x1={leg.x1}
+                    y1={leg.y1}
+                    x2={leg.x2}
+                    y2={leg.y2}
+                    stroke={LINK}
+                    strokeWidth={3}
+                    strokeLinecap="round"
+                  />
+                  <polygon points={leg.head} fill={LINK} />
+                </g>
+              ))}
               {seats.map(([slot, sx, sy]) =>
-                cell(
+                bubble(
                   `${i}-${slot}`,
                   sx,
                   sy,
+                  r,
                   cellText(i, slot, g),
                   toneOf(i, slot),
-                  isBlank(i, slot) ? 13 : null,
+                  isBlank(i, slot),
                 ),
               )}
             </g>

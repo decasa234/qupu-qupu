@@ -23,8 +23,19 @@ const YELLOW = '#E0A000'
 const CREAM = '#FAF6EF'
 
 type Dot = { x: number; y: number }
-type Ring = { x: number; y: number; w: number; h: number }
-type Figure = { dots: Dot[]; rings: Ring[]; r: number; width: number; height: number }
+type Figure = { dots: Dot[]; r: number; width: number; height: number }
+
+/**
+ * Deterministic 32-bit integer hash of two small integers — the only source of
+ * "randomness" in this figure. Same params in, same pixels out (SSR-safe).
+ */
+function hash32(a: number, b: number): number {
+  let h = Math.imul(a + 0x9e37, 0x85ebca6b) ^ Math.imul(b + 0x165667, 0xc2b2ae35)
+  h ^= h >>> 15
+  h = Math.imul(h, 0x27d4eb2f)
+  h ^= h >>> 13
+  return h >>> 0
+}
 
 /** Neat lattice, `perRow` per row, last row left-aligned so it stays skip-countable. */
 function rowsFigure(total: number, perRow: number): Figure {
@@ -39,7 +50,6 @@ function rowsFigure(total: number, perRow: number): Figure {
   }
   return {
     dots,
-    rings: [],
     r: 9,
     width: pad * 2 + perRow * cell,
     height: pad * 2 + rows * cell,
@@ -76,57 +86,136 @@ function scatterFigure(total: number, perRow: number): Figure {
   }
   return {
     dots,
-    rings: [],
     r: 8,
     width: pad * 2 + cols * cell + stagger,
     height: pad * 2 + rows * cell,
   }
 }
 
-/** Clusters of exactly ten (5 x 2 inside a dashed basket), leftovers loose below. */
+// --- grouped-tens geometry -------------------------------------------------
+// A cluster of ten is a *messy* pile, not a tidy 5x2 basket: up to three icons
+// per staggered row, four rows, every row shifted by a hash-picked whole-cell
+// offset AND a sub-cell stagger, every icon nudged by a hash-picked jitter. The
+// pitch/jitter budget is what keeps the mess safe:
+//   in-row and cross-row centres are always >= G_CELL - 2*G_JIT = 16 apart,
+//   which beats the icon diameter 2*G_R = 15 — so nothing can ever collide.
+// Clusters are told apart by whitespace alone (no drawn basket): neighbouring
+// clusters sit >= G_GAP = 68 apart, while the widest gap *inside* a cluster is
+// G_CELL + 2*G_JIT = 32 — a 2.1x proximity ratio, so the tens still pop out but
+// the child, not the picture, is the one doing the grouping.
+const G_CELL = 24
+const G_JIT = 4
+const G_COLS = 3
+const G_STAG = 10
+const G_PHASE = 10
+const G_GAP = 68
+const G_PAD = 14
+const G_R = 7.5
+const G_BOX_W = (G_COLS - 1) * G_CELL + G_STAG + G_JIT * 2
+
+/** How many rows a pile of `n` uses — never a lonely row of one (unless n === 1). */
+function clusterRowCount(n: number): number {
+  return Math.max(1, Math.ceil(n / G_COLS))
+}
+
+/** Bounding height reserved for a pile of `n`, phase drift included. */
+function clusterBoxH(n: number): number {
+  return (clusterRowCount(n) - 1) * G_CELL + G_JIT * 2 + G_PHASE
+}
+
+/**
+ * One casually-scattered pile of `n` icons (n <= 10) with its box top-left at
+ * (ox, oy). Row lengths, row offsets, row stagger, the pile's vertical phase and
+ * every icon's jitter all come from `hash32(seed, …)`, so the pile looks
+ * hand-thrown yet renders identically every time. The phase is what stops the
+ * row baselines of neighbouring piles from lining up into visible bands.
+ * Stays inside [ox, ox + G_BOX_W] x [oy, oy + clusterBoxH(n)].
+ */
+function pushCluster(out: Dot[], n: number, seed: number, ox: number, oy: number): void {
+  const rowCount = clusterRowCount(n)
+  const base = Math.floor(n / rowCount)
+  const extra = n % rowCount
+  const rot = hash32(seed, 1) % rowCount
+  const phase = hash32(seed, 7) % (G_PHASE + 1)
+  const span = G_JIT * 2 + 1
+  let idx = 0
+  for (let r = 0; r < rowCount; r++) {
+    // Spread the "+1" rows around so the fat rows are not always on top.
+    const len = base + ((r + rot) % rowCount < extra ? 1 : 0)
+    const slack = G_COLS - len
+    const offCells = slack > 0 ? hash32(seed, 10 + r) % (slack + 1) : 0
+    const stagger = hash32(seed, 40 + r) % (G_STAG + 1)
+    for (let c = 0; c < len; c++) {
+      const h = hash32(seed, 100 + idx)
+      const jx = (h % span) - G_JIT
+      const jy = (Math.floor(h / span) % span) - G_JIT
+      out.push({
+        x: ox + G_JIT + (offCells + c) * G_CELL + stagger + jx,
+        y: oy + G_JIT + phase + r * G_CELL + jy,
+      })
+      idx++
+    }
+    if (idx >= n) break
+  }
+}
+
+/**
+ * Piles of exactly ten, scattered inside each pile but held apart by generous
+ * whitespace; the incomplete remainder sits on its own, visibly smaller than a
+ * full ten. No dashed basket — spotting the tens is the exercise.
+ */
 function groupedTensFigure(total: number): Figure {
-  const cell = 22
-  const boxPad = 9
-  const gap = 12
-  const pad = 12
   const groups = Math.floor(total / 10)
   const leftover = total % 10
-  const boxW = boxPad * 2 + 5 * cell
-  const boxH = boxPad * 2 + 2 * cell
-  const perBoxRow = Math.min(2, Math.max(1, groups))
-  const boxRows = groups > 0 ? Math.ceil(groups / perBoxRow) : 0
-  const gridW = groups > 0 ? perBoxRow * boxW + (perBoxRow - 1) * gap : 0
-  const gridH = boxRows > 0 ? boxRows * boxH + (boxRows - 1) * gap : 0
+  const boxH = clusterBoxH(10)
+
+  const gridRows = groups > 0 ? Math.ceil(groups / 3) : 0
+  const perRow = gridRows > 0 ? Math.ceil(groups / gridRows) : 0
+  const gridW = groups > 0 ? perRow * G_BOX_W + (perRow - 1) * G_GAP : 0
+  const gridH = gridRows > 0 ? gridRows * boxH + (gridRows - 1) * G_GAP : 0
 
   const dots: Dot[] = []
-  const rings: Ring[] = []
   for (let g = 0; g < groups; g++) {
-    const col = g % perBoxRow
-    const row = Math.floor(g / perBoxRow)
-    const bx = pad + col * (boxW + gap)
-    const by = pad + row * (boxH + gap)
-    rings.push({ x: bx, y: by, w: boxW, h: boxH })
-    for (let j = 0; j < 10; j++) {
-      dots.push({
-        x: bx + boxPad + (j % 5) * cell + cell / 2,
-        y: by + boxPad + Math.floor(j / 5) * cell + cell / 2,
-      })
-    }
+    const row = Math.floor(g / perRow)
+    const col = g % perRow
+    // Centre a short last row so the pile-of-piles stays balanced.
+    const inRow = Math.min(perRow, groups - row * perRow)
+    const rowW = inRow * G_BOX_W + (inRow - 1) * G_GAP
+    pushCluster(
+      dots,
+      10,
+      (total + 1) * 31 + g,
+      G_PAD + (gridW - rowW) / 2 + col * (G_BOX_W + G_GAP),
+      G_PAD + row * (boxH + G_GAP),
+    )
   }
 
-  const looseGap = groups > 0 ? 16 : 0
-  const looseY = pad + gridH + looseGap
-  for (let k = 0; k < leftover; k++) {
-    dots.push({ x: pad + boxPad + k * cell + cell / 2, y: looseY + cell / 2 })
+  // The remainder: same messy style, but short — it reads as the pile that never
+  // made it to ten. It always sits apart from the grid with extra breathing room
+  // so it is never mistaken for another full group. Normally that means "below";
+  // on a narrow two-column grid it goes beside instead, which keeps the whole
+  // figure inside three pile-columns rather than growing a very tall card.
+  const looseGap = leftover > 0 && groups > 0 ? G_GAP + 24 : 0
+  const looseH = leftover > 0 ? clusterBoxH(leftover) : 0
+  const looseBeside = leftover > 0 && perRow > 0 && perRow < 3 && gridRows > 1
+  const contentW =
+    Math.max(gridW, leftover > 0 && !looseBeside ? G_BOX_W : 0) +
+    (looseBeside ? looseGap + G_BOX_W : 0)
+  if (leftover > 0) {
+    pushCluster(
+      dots,
+      leftover,
+      (total + 1) * 31 + groups,
+      looseBeside ? G_PAD + gridW + looseGap : G_PAD + (contentW - G_BOX_W) / 2,
+      looseBeside ? G_PAD + (gridH - looseH) / 2 : G_PAD + gridH + looseGap,
+    )
   }
-  const looseW = leftover > 0 ? boxPad * 2 + leftover * cell : 0
 
   return {
     dots,
-    rings,
-    r: 8,
-    width: pad * 2 + Math.max(gridW, looseW),
-    height: pad * 2 + gridH + (leftover > 0 ? looseGap + cell : 0),
+    r: G_R,
+    width: G_PAD * 2 + contentW,
+    height: G_PAD * 2 + gridH + (leftover > 0 && !looseBeside ? looseGap + looseH : 0),
   }
 }
 
@@ -228,7 +317,7 @@ function glyph(kind: IconKind, r: number): ReactNode {
 const ARIA: Record<Layout, string> = {
   rows: 'Sekumpulan benda yang disusun rapi dalam baris yang sama panjang — hitung semuanya.',
   'grouped-tens':
-    'Sekumpulan benda yang dikelompokkan sepuluh-sepuluh di dalam keranjang, sisanya di luar — hitung semuanya.',
+    'Beberapa tumpukan benda yang letaknya berjauhan; di tiap tumpukan penuh ada sepuluh benda yang berserakan, dan sisanya menumpuk sendiri terpisah — hitung semuanya.',
   scatter: 'Sekumpulan benda yang tersebar tidak beraturan — hitung semuanya.',
 }
 
@@ -238,7 +327,9 @@ const ARIA: Record<Layout, string> = {
  * Draws `total` (15–65) icons in one of three layouts. It shows ONLY the pile;
  * it never prints the total or hints which option is right. Every position is
  * computed arithmetically from the params (staggered lattice + integer-hash
- * jitter for 'scatter'), so the render is pure, SSR-safe and never overlaps.
+ * jitter for 'scatter' and 'grouped-tens'), so the render is pure, SSR-safe and
+ * never overlaps. 'grouped-tens' draws no basket around each ten — the piles are
+ * separated by whitespace only, because spotting the tens is the exercise.
  * Falls back to a sample when params arrive with the wrong shape.
  */
 export default function CountManyObjectsIllustration({ params }: { params: unknown }) {
@@ -268,20 +359,6 @@ export default function CountManyObjectsIllustration({ params }: { params: unkno
         width={Math.min(320, fig.width)}
         style={{ maxWidth: '100%', height: 'auto' }}
       >
-        {fig.rings.map((ring, i) => (
-          <rect
-            key={`ring-${i}`}
-            x={ring.x}
-            y={ring.y}
-            width={ring.w}
-            height={ring.h}
-            rx={14}
-            fill={CREAM}
-            stroke={BLUE}
-            strokeWidth={2}
-            strokeDasharray="7 5"
-          />
-        ))}
         {fig.dots.map((dot, i) => (
           <g key={`icon-${i}`} transform={`translate(${dot.x.toFixed(2)} ${dot.y.toFixed(2)})`}>
             {glyph(icon, fig.r)}

@@ -11,8 +11,8 @@ import { buildLengthMeasureCompareBreakdown } from './breakdown.js'
 //   offset-ruler  — the SIGNATURE WMI twist: the object does not start at 0, so
 //                   the child must subtract (end − start). Reading the right-hand
 //                   number straight off the ruler is the trap.
-//   unit-chain    — length measured with repeated non-standard units (paper
-//                   clips / unit squares) laid end to end.
+//   unit-chain    — length measured with repeated unit squares (petak satuan)
+//                   laid end to end, sharing edges, with no gaps.
 //
 // Everything is whole numbers, never negative, and never above 20 units.
 // ---------------------------------------------------------------------------
@@ -34,7 +34,6 @@ export const OBJECTS: Record<
 
 const UNIT_WORDS = {
   cm: { shortId: 'cm', shortEn: 'cm', longId: 'penggaris', longEn: 'a ruler' },
-  klip: { shortId: 'klip', shortEn: 'clips', longId: 'klip kertas', longEn: 'paper clips' },
   petak: { shortId: 'petak', shortEn: 'squares', longId: 'petak satuan', longEn: 'unit squares' },
 } as const
 
@@ -52,7 +51,7 @@ const itemSchema = z.object({
 
 const paramsSchema = z.object({
   medium: z.enum(['ruler', 'offset-ruler', 'unit-chain']),
-  unitLabel: z.enum(['cm', 'klip', 'petak']),
+  unitLabel: z.enum(['cm', 'petak']),
   ask: z.enum(['measure-one', 'longest', 'difference']),
   // Rulers: the biggest number printed on the ruler. Unit chains: the longest
   // chain (used only for laying out the figure).
@@ -83,8 +82,8 @@ function cap(word: string): string {
 export function generate(rng: Rng): Params {
   // offset-ruler is the signature type, so it gets extra weight.
   const medium = rng.pick(['ruler', 'offset-ruler', 'offset-ruler', 'unit-chain'] as const)
-  const unitLabel: Params['unitLabel'] =
-    medium === 'unit-chain' ? rng.pick(['klip', 'petak'] as const) : 'cm'
+  // Unit chains are always measured in unit squares (petak satuan).
+  const unitLabel: Params['unitLabel'] = medium === 'unit-chain' ? 'petak' : 'cm'
   const ask = rng.pick(['measure-one', 'measure-one', 'longest', 'difference'] as const)
   const keys = rng.shuffle(OBJECT_KEYS)
 
@@ -401,14 +400,14 @@ function hintSteps(params: Params, d: Derived): { id: string[]; en: string[] } {
     if (medium === 'unit-chain') {
       return {
         id: [
-          `${cap(u.longId)} disusun rapat dari ujung kiri sampai ujung kanan ${a.nameId}.`,
-          `Hitung satu per satu: 1, 2, 3, ... sampai yang terakhir.`,
-          `Yang terakhir bernomor ${a.length}, jadi panjangnya ${a.length} ${u.shortId}.`,
+          `${cap(u.longId)} berjajar rapat dari ujung kiri sampai ujung kanan ${a.nameId}.`,
+          `Hitung petaknya satu per satu: 1, 2, 3, ... sampai petak terakhir.`,
+          `Hitungan terakhir ${a.length}, jadi panjangnya ${a.length} ${u.shortId}.`,
         ],
         en: [
           `The ${u.longEn} run from the left end of the ${a.nameEn} to its right end.`,
-          `Count them one by one: 1, 2, 3, ... up to the last one.`,
-          `The last one is number ${a.length}, so the length is ${a.length} ${u.shortEn}.`,
+          `Count them one by one: 1, 2, 3, ... up to the last square.`,
+          `The last count is ${a.length}, so the length is ${a.length} ${u.shortEn}.`,
         ],
       }
     }
@@ -451,7 +450,7 @@ function hintSteps(params: Params, d: Derived): { id: string[]; en: string[] } {
         .join(', ')
       return {
         id: [
-          `Hitung ${u.longId} pada setiap benda.`,
+          `Hitung ${u.longId} di bawah setiap benda.`,
           `${cap(listId)}.`,
           `${win.length} paling besar, jadi ${win.nameId} yang paling panjang.`,
         ],
@@ -503,8 +502,8 @@ function hintSteps(params: Params, d: Derived): { id: string[]; en: string[] } {
   if (medium === 'unit-chain') {
     return {
       id: [
-        `Hitung ${u.longId} pada ${a.nameId}: ${a.length}.`,
-        `Hitung ${u.longId} pada ${b.nameId}: ${b.length}.`,
+        `Hitung ${u.longId} di bawah ${a.nameId}: ${a.length}.`,
+        `Hitung ${u.longId} di bawah ${b.nameId}: ${b.length}.`,
         `Selisihnya: ${a.length} ${MINUS} ${b.length} = ${diff} ${u.shortId}.`,
       ],
       en: [
@@ -536,13 +535,13 @@ export function render(params: Params) {
     params.medium === 'offset-ruler'
       ? `Panjang bukan angka di ujung kanan! Kurangi dulu: angka ujung kanan ${MINUS} angka ujung kiri.`
       : params.medium === 'unit-chain'
-        ? `Hitung satuan yang disusun rapat, jangan sampai ada yang terlewat atau terhitung dua kali.`
+        ? `Hitung petak satuannya satu per satu, jangan sampai ada yang terlewat atau terhitung dua kali.`
         : `Bendanya mulai dari 0, jadi angka di ujung kanan itulah panjangnya.`
   const hint_en =
     params.medium === 'offset-ruler'
       ? `The length is not the right-hand number! Subtract first: right number ${MINUS} left number.`
       : params.medium === 'unit-chain'
-        ? `Count the units laid end to end — do not skip one or count one twice.`
+        ? `Count the unit squares one by one — do not skip one or count one twice.`
         : `The object starts at 0, so the right-hand number is the length.`
 
   return {

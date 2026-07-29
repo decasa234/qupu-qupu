@@ -195,10 +195,10 @@ export function render(params: Params) {
     }
   } else if (params.layout === 'grouped-tens') {
     hint_steps_id.push(
-      `Jangan hitung satu per satu. Satu kelompok isinya 10 ${noun.id}, jadi hitung per kelompok.`,
+      `Jangan hitung satu per satu. Lihat, ${noun.id}nya berkumpul jadi beberapa kelompok yang terpisah jauh — satu kelompok penuh isinya 10, jadi hitung per kelompok.`,
     )
     hint_steps_en.push(
-      `Don't count one by one. Each group holds 10 ${noun.en_p}, so count group by group.`,
+      `Don't count one by one. Look — the ${noun.en_p} gather into separate groups set far apart; a full group holds 10, so count group by group.`,
     )
     hint_steps_id.push(`Ada ${chunks} kelompok penuh: ${seq} → ${fromChunks}.`)
     hint_steps_en.push(`There are ${chunks} full groups: ${seq} → ${fromChunks}.`)

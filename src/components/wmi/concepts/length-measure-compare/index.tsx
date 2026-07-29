@@ -8,7 +8,7 @@ interface LengthItem {
 
 interface LengthParams {
   medium: 'ruler' | 'offset-ruler' | 'unit-chain'
-  unitLabel: 'cm' | 'klip' | 'petak'
+  unitLabel: 'cm' | 'petak'
   ask: 'measure-one' | 'longest' | 'difference'
   rulerMax: number
   items: LengthItem[]
@@ -29,6 +29,7 @@ const SAMPLE: LengthParams = {
 
 const BLUE = '#30598A'
 const CREAM = '#FAF6EF'
+const SQUARE_FILL = '#E9F0F8' // pale blue so each petak reads against the card
 const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000'] // orange, green, yellow
 const CHOICE_LABELS = ['A', 'B', 'C']
 
@@ -54,10 +55,9 @@ function coerce(params: unknown): LengthParams {
     p.medium === 'ruler' || p.medium === 'offset-ruler' || p.medium === 'unit-chain'
       ? p.medium
       : SAMPLE.medium
-  const unitLabel =
-    p.unitLabel === 'cm' || p.unitLabel === 'klip' || p.unitLabel === 'petak'
-      ? p.unitLabel
-      : SAMPLE.unitLabel
+  // Rulers are always cm; unit chains are always unit squares (petak). Nothing
+  // else is drawable, so derive it rather than trusting the incoming value.
+  const unitLabel: LengthParams['unitLabel'] = medium === 'unit-chain' ? 'petak' : 'cm'
   const ask =
     p.ask === 'measure-one' || p.ask === 'longest' || p.ask === 'difference' ? p.ask : SAMPLE.ask
   const widest = items.reduce((m, it) => Math.max(m, it.start + it.length), 1)
@@ -145,45 +145,44 @@ function ObjectBar({
   )
 }
 
-/** One non-standard unit in the chain: a paper clip or a unit square. */
-function UnitCell({
-  variant,
-  x,
-  y,
-}: {
-  variant: 'klip' | 'petak'
-  x: number
-  y: number
-}): ReactNode {
-  if (variant === 'petak') {
-    return (
-      <g>
-        <rect x={x + 1} y={y} width={U - 2} height={U} rx={2} fill={CREAM} stroke={BLUE} strokeWidth={1.8} />
-      </g>
+/**
+ * `count` unit squares (petak satuan) laid end to end along the object: one
+ * unbroken strip whose neighbours share an edge, with a divider drawn on every
+ * shared edge so each square is separately countable. Deliberately unnumbered —
+ * counting the tiles is the exercise.
+ */
+function UnitSquareStrip({ count, x, y }: { count: number; x: number; y: number }): ReactNode {
+  const squares: ReactNode[] = []
+  for (let j = 0; j < count; j++) {
+    // Exactly U wide and U tall, butted against its neighbour: consecutive
+    // squares share an edge, and each square's own stroke draws that edge.
+    squares.push(
+      <rect
+        key={j}
+        x={x + j * U}
+        y={y}
+        width={U}
+        height={U}
+        fill={SQUARE_FILL}
+        stroke={BLUE}
+        strokeWidth={1.5}
+        shapeRendering="crispEdges"
+      />,
     )
   }
   return (
     <g>
-      <rect x={x + 1} y={y} width={U - 2} height={U} rx={2} fill={CREAM} stroke={BLUE} strokeWidth={1} opacity={0.45} />
+      {squares}
+      {/* outline the whole strip so its two ends line up with the object's ends */}
       <rect
-        x={x + 4}
-        y={y + 3}
-        width={U - 8}
-        height={U - 6}
-        rx={(U - 6) / 2}
+        x={x}
+        y={y}
+        width={count * U}
+        height={U}
         fill="none"
         stroke={BLUE}
-        strokeWidth={2}
-      />
-      <rect
-        x={x + 7}
-        y={y + 6}
-        width={U - 14}
-        height={U - 13}
-        rx={(U - 13) / 2}
-        fill="none"
-        stroke={BLUE}
-        strokeWidth={1.5}
+        strokeWidth={2.4}
+        shapeRendering="crispEdges"
       />
     </g>
   )
@@ -193,7 +192,7 @@ function UnitCell({
  * length-measure-compare — question figure.
  *
  * Draws either a numbered ruler with the object(s) lying on it (aligned at 0, or
- * offset so the child must subtract), or a chain of repeated non-standard units
+ * offset so the child must subtract), or a strip of unit squares (petak satuan)
  * laid end to end under each object. It never shows the length as a number —
  * reading it off the picture is the whole exercise.
  *
@@ -212,22 +211,19 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
   const colorFor = (i: number) => OBJECT_COLORS[i % OBJECT_COLORS.length]
 
   if (p.medium === 'unit-chain') {
-    const variant = p.unitLabel === 'petak' ? 'petak' : 'klip'
     const widest = p.items.reduce((m, it) => Math.max(m, it.length), 1)
     const topPad = single ? 24 : 12
     const rowH = 54
     const rowGap = 12
     const width = padL + widest * U + padR
     const height = topPad + p.items.length * rowH + (p.items.length - 1) * rowGap + 8
-    const aria = p.items
-      .map((it) => `${cap(it.name)} sepanjang ${it.length} ${p.unitLabel}`)
-      .join(', ')
+    const aria = p.items.map((it) => `${cap(it.name)} sepanjang ${it.length} petak`).join(', ')
 
     return (
       <div
         className="my-4 flex justify-center"
         role="img"
-        aria-label={`Benda diukur dengan ${p.unitLabel} yang disusun rapat: ${aria}.`}
+        aria-label={`Benda diukur dengan petak satuan yang disusun rapat tanpa celah: ${aria}.`}
       >
         <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(360, width)} className="max-w-full">
           {p.items.map((it, i) => {
@@ -235,10 +231,7 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
             const color = colorFor(i)
             const barX = padL
             const barW = it.length * U
-            const cells = []
-            for (let j = 0; j < it.length; j++) {
-              cells.push(<UnitCell key={j} variant={variant} x={padL + j * U} y={rowTop + 26} />)
-            }
+            const stripY = rowTop + 26
             return (
               <g key={i}>
                 {single ? (
@@ -265,13 +258,13 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
                   </text>
                 )}
                 <ObjectBar kind={it.name} x={barX} y={rowTop} w={barW} color={color} />
-                {/* the units line up exactly under the object, end to end */}
-                {cells}
+                {/* the unit squares line up exactly under the object, edge to edge */}
+                <UnitSquareStrip count={it.length} x={barX} y={stripY} />
                 <line
                   x1={barX}
                   y1={rowTop + BAR_H}
                   x2={barX}
-                  y2={rowTop + 26}
+                  y2={stripY}
                   stroke={color}
                   strokeWidth={1.5}
                   strokeDasharray="3 3"
@@ -280,7 +273,7 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
                   x1={barX + barW}
                   y1={rowTop + BAR_H}
                   x2={barX + barW}
-                  y2={rowTop + 26}
+                  y2={stripY}
                   stroke={color}
                   strokeWidth={1.5}
                   strokeDasharray="3 3"

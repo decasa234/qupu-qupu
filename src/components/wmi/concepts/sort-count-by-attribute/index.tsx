@@ -149,14 +149,38 @@ function glyph(attribute: Attribute, key: string, cx: number, cy: number, s: num
 
   if (attribute === 'fruit') {
     if (key === 'banana') {
+      // A long, shallow crescent — 1.90s wide against 1.04s tall, so it reads as
+      // a fruit lying on its side rather than as a bowl or a hook (an arc deeper
+      // than a half-circle looks like a horn). The outer belly runs 0.39s–0.48s
+      // below the inner edge, so the body has real thickness instead of the hairline
+      // sliver it used to be. The left end is cut blunt and carries a brown stem;
+      // the right end tapers to a pointed blossom tip. That stem plus the
+      // blunt/pointed asymmetry are what stop it reading as a crescent moon.
+      const body =
+        `M ${cx - 0.94 * s} ${cy - 0.06 * s} ` +
+        `C ${cx - 0.9 * s} ${cy + 0.32 * s} ${cx - 0.44 * s} ${cy + 0.58 * s} ${cx + 0.14 * s} ${cy + 0.56 * s} ` +
+        `C ${cx + 0.6 * s} ${cy + 0.54 * s} ${cx + 0.92 * s} ${cy + 0.22 * s} ${cx + 0.96 * s} ${cy - 0.4 * s} ` +
+        `C ${cx + 0.76 * s} ${cy + 0.06 * s} ${cx + 0.48 * s} ${cy + 0.12 * s} ${cx + 0.06 * s} ${cy + 0.08 * s} ` +
+        `C ${cx - 0.34 * s} ${cy + 0.04 * s} ${cx - 0.68 * s} ${cy - 0.12 * s} ${cx - 0.78 * s} ${cy - 0.46 * s} Z`
       return (
-        <path
-          d={`M ${cx - 0.88 * s} ${cy - 0.5 * s} Q ${cx} ${cy + 1.05 * s} ${cx + 0.88 * s} ${cy - 0.5 * s} Q ${cx + 0.62 * s} ${cy - 0.1 * s} ${cx} ${cy + 0.38 * s} Q ${cx - 0.62 * s} ${cy - 0.1 * s} ${cx - 0.88 * s} ${cy - 0.5 * s} Z`}
-          fill={fill}
-          stroke={stroke}
-          strokeWidth={sw}
-          strokeLinejoin="round"
-        />
+        <>
+          <path d={body} fill={fill} stroke={stroke} strokeWidth={sw} strokeLinejoin="round" />
+          <path
+            d={`M ${cx - 0.46 * s} ${cy + 0.12 * s} Q ${cx + 0.04 * s} ${cy + 0.46 * s} ${cx + 0.56 * s} ${cy + 0.12 * s}`}
+            fill="none"
+            stroke={CREAM}
+            strokeWidth={1.8}
+            strokeLinecap="round"
+            opacity={0.35}
+          />
+          <path
+            d={`M ${cx - 0.86 * s} ${cy - 0.26 * s} L ${cx - 0.99 * s} ${cy - 0.32 * s}`}
+            stroke={STEM}
+            strokeWidth={2.2}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </>
       )
     }
     if (key === 'grape') {
@@ -216,22 +240,35 @@ function glyph(attribute: Attribute, key: string, cx: number, cy: number, s: num
         </>
       )
     }
-    // orange
+    // orange — a plain round citrus: solid orange disc, upright brown stem and a
+    // clear almond leaf tucked behind the top, plus a soft sheen. Stem and leaf
+    // are drawn first so the disc hides their bases. What separates it from the
+    // apple is the citrus colour and the unbroken circular silhouette (the apple
+    // is dimpled at the top and red).
     return (
       <>
         <path
-          d={`M ${cx + 0.1 * s} ${cy - 0.84 * s} q ${0.34 * s} ${-0.16 * s} ${0.44 * s} ${0.12 * s} q ${-0.3 * s} ${0.18 * s} ${-0.44 * s} ${-0.12 * s} Z`}
+          d={`M ${cx} ${cy - 0.7 * s} L ${cx + 0.05 * s} ${cy - 0.94 * s}`}
+          stroke={STEM}
+          strokeWidth={2}
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d={`M ${cx + 0.06 * s} ${cy - 0.7 * s} Q ${cx + 0.26 * s} ${cy - 1.12 * s} ${cx + 0.66 * s} ${cy - 0.98 * s} Q ${cx + 0.42 * s} ${cy - 0.6 * s} ${cx + 0.06 * s} ${cy - 0.7 * s} Z`}
           fill={GREEN}
           stroke={stroke}
           strokeWidth={1}
+          strokeLinejoin="round"
         />
         <circle cx={cx} cy={cy} r={0.82 * s} fill={fill} stroke={stroke} strokeWidth={sw} />
         <path
-          d={`M ${cx - 0.58 * s} ${cy - 0.58 * s} L ${cx + 0.58 * s} ${cy + 0.58 * s} M ${cx + 0.58 * s} ${cy - 0.58 * s} L ${cx - 0.58 * s} ${cy + 0.58 * s}`}
-          stroke={CREAM}
-          strokeWidth={1.3}
-          opacity={0.8}
+          d={`M ${cx - 0.46 * s} ${cy - 0.3 * s} Q ${cx - 0.4 * s} ${cy - 0.56 * s} ${cx - 0.14 * s} ${cy - 0.64 * s}`}
           fill="none"
+          stroke={CREAM}
+          strokeWidth={2.6}
+          strokeLinecap="round"
+          opacity={0.5}
         />
       </>
     )

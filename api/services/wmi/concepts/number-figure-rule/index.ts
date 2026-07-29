@@ -2,8 +2,8 @@ import { z } from 'zod'
 import type { ConceptLogic, Rng } from '../types.js'
 import { buildNumberFigureRuleBreakdown } from './breakdown.js'
 
-// One number group inside the decorated figure: two given slots and a result
-// slot, always related by the SAME hidden rule across all three groups.
+// One number group inside the figure: two given slots and a result slot, always
+// related by the SAME hidden rule across all three groups.
 const tripleSchema = z.object({
   a: z.number().int().min(0).max(20),
   b: z.number().int().min(0).max(20),
@@ -11,7 +11,9 @@ const tripleSchema = z.object({
 })
 
 const paramsSchema = z.object({
-  layout: z.enum(['quartered-circle', 'triangle', 'chain']),
+  // Two plain, unambiguous shapes: three circles in a row (a b → c) and a
+  // two-on-top-one-below pyramid. Both read left-to-right / top-to-bottom.
+  layout: z.enum(['row', 'pyramid']),
   rule: z.enum(['sum', 'diff', 'sum-minus-one']),
   // Exactly 3 groups: [0] and [1] are drawn complete (they teach the rule),
   // [2] is drawn with one slot blanked out.
@@ -170,6 +172,46 @@ export function trapFor(
 }
 
 // ---------------------------------------------------------------------------
+// Fairness: exactly one number may fit the groups the child can see
+// ---------------------------------------------------------------------------
+
+// The rule shapes a child could plausibly read off two solved groups. Each takes
+// one integer offset k, which the FIRST solved group pins down. Deliberately
+// wider than the three rules we actually generate — a puzzle is only fair when
+// nothing else in this family also fits.
+const RULE_FORMS: Array<(a: number, b: number, k: number) => number> = [
+  (a, b, k) => a + b + k,
+  (a, b, k) => a - b + k,
+  (a, b, k) => b - a + k,
+  (a, b, k) => a * b + k,
+  (a, b, k) => 2 * a - b + k,
+  (a, b, k) => a + 2 * b + k,
+  (a, _b, k) => a + k,
+  (_a, b, k) => b + k,
+  (_a, _b, k) => k,
+]
+
+/**
+ * Every value 0..20 that could sit in the blank without contradicting the two
+ * solved groups, under ANY shape in RULE_FORMS. Exactly one entry means the
+ * puzzle has a single defensible answer.
+ */
+export function fittingAnswers(groups: Triple[], blank: Slot): number[] {
+  const [g0, g1, g2] = groups
+  const fits: number[] = []
+  for (const form of RULE_FORMS) {
+    const k = g0.c - form(g0.a, g0.b, 0)
+    if (form(g1.a, g1.b, k) !== g1.c) continue
+    for (let x = 0; x <= 20; x++) {
+      const t: Triple = { a: g2.a, b: g2.b, c: g2.c }
+      t[blank] = x
+      if (form(t.a, t.b, k) === t.c && !fits.includes(x)) fits.push(x)
+    }
+  }
+  return fits.sort((p, q) => p - q)
+}
+
+// ---------------------------------------------------------------------------
 // Generation
 // ---------------------------------------------------------------------------
 
@@ -198,32 +240,43 @@ function candidatesFor(rule: RuleKind): Triple[] {
   return out
 }
 
-// Greedy pick of 3 groups, loosening the "all slots differ" wish only if the
-// shuffled pool cannot satisfy it — so generate() always returns 3 groups.
-function pickGroups(rng: Rng, rule: RuleKind): Triple[] {
-  const pool = rng.shuffle(candidatesFor(rule))
-  const passes: Array<(chosen: Triple[], t: Triple) => boolean> = [
-    (chosen, t) => chosen.every((g) => g.a !== t.a && g.b !== t.b && g.c !== t.c),
-    (chosen, t) => chosen.every((g) => g.a !== t.a && g.b !== t.b),
-    (chosen, t) => chosen.every((g) => g.a !== t.a || g.b !== t.b),
-  ]
-  const chosen: Triple[] = []
-  for (const ok of passes) {
-    for (const t of pool) {
-      if (chosen.length === 3) break
-      if (chosen.includes(t)) continue
-      if (ok(chosen, t)) chosen.push(t)
+/** No two groups may repeat a value in the same slot — that would let a child
+ * "explain" the figure with a rule that ignores the inputs. */
+function slotsDiffer(x: Triple, y: Triple): boolean {
+  return x.a !== y.a && x.b !== y.b && x.c !== y.c
+}
+
+/**
+ * First trio in `order` where all three slots differ pairwise AND exactly one
+ * number fits the blank. Exhaustive, so shuffling `order` is what makes the
+ * choice random while the search itself stays deterministic.
+ */
+function searchTriple(order: Triple[], blank: Slot): Triple[] | null {
+  const n = order.length
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (j === i || !slotsDiffer(order[i], order[j])) continue
+      for (let k = 0; k < n; k++) {
+        if (k === i || k === j) continue
+        if (!slotsDiffer(order[i], order[k]) || !slotsDiffer(order[j], order[k])) continue
+        const trio = [order[i], order[j], order[k]]
+        if (fittingAnswers(trio, blank).length === 1) return trio
+      }
     }
-    if (chosen.length === 3) break
   }
-  return chosen
+  return null
+}
+
+function pickGroups(rng: Rng, rule: RuleKind, blank: Slot): Triple[] {
+  const pool = rng.shuffle(candidatesFor(rule))
+  return searchTriple(pool, blank) ?? pool.slice(0, 3)
 }
 
 export function generate(rng: Rng): Params {
-  const layout = rng.pick(['quartered-circle', 'triangle', 'chain'] as const)
+  const layout = rng.pick(['row', 'pyramid'] as const)
   const rule = rng.pick(['sum', 'diff', 'sum-minus-one'] as const)
-  const groups = pickGroups(rng, rule)
   const blankPosition = rng.pick(['a', 'b', 'c'] as const)
+  const groups = pickGroups(rng, rule, blankPosition)
   return { layout, rule, groups, blankPosition }
 }
 
@@ -232,28 +285,27 @@ export function generate(rng: Rng): Params {
 // ---------------------------------------------------------------------------
 
 export function render(params: Params) {
-  const [g1, g2, g3] = params.groups
-  const t1 = groupText(g1, null)
-  const t2 = groupText(g2, null)
-  const t3 = groupText(g3, params.blankPosition)
+  const [g1, g2] = params.groups
   const answer = missingValue(params)
   const words = ruleWords(params.rule)
   const line = solutionLine(params)
 
   const hint_steps_en = [
-    `Figure 1: ${g1.a} and ${g1.b} become ${g1.c}. What could the rule be?`,
-    `Figure 2 does the same: ${g2.a} and ${g2.b} become ${g2.c}. So the rule is: ${words.en}.`,
-    `Now use that rule on figure 3: ${line.en}.`,
+    `First figure: ${g1.a} and ${g1.b} become ${g1.c}. What could the rule be?`,
+    `The second figure does the same: ${g2.a} and ${g2.b} become ${g2.c}. So the rule is: ${words.en}.`,
+    `Now use that rule on the last figure: ${line.en}.`,
   ]
   const hint_steps_id = [
-    `Gambar 1: ${g1.a} dan ${g1.b} jadi ${g1.c}. Aturannya apa ya?`,
-    `Gambar 2 juga begitu: ${g2.a} dan ${g2.b} jadi ${g2.c}. Jadi aturannya: ${words.id}.`,
-    `Sekarang pakai aturan itu di gambar 3: ${line.id}.`,
+    `Gambar pertama: ${g1.a} dan ${g1.b} jadi ${g1.c}. Aturannya apa ya?`,
+    `Gambar kedua juga begitu: ${g2.a} dan ${g2.b} jadi ${g2.c}. Jadi aturannya: ${words.id}.`,
+    `Sekarang pakai aturan itu di gambar terakhir: ${line.id}.`,
   ]
 
   return {
-    body_en: `The same rule is used in every figure.\nFigure 1: ${t1}\nFigure 2: ${t2}\nFigure 3: ${t3}\n\nFind: What is the missing number?`,
-    body_id: `Aturan yang sama dipakai di setiap gambar.\nGambar 1: ${t1}\nGambar 2: ${t2}\nGambar 3: ${t3}\n\nCari: Berapa angka yang hilang?`,
+    // The numbers live in the figure ONLY — the body never lists them, so it
+    // stays a short instruction a grade-1 reader can get through in one breath.
+    body_en: 'The same rule is used in every figure. Find: What is the missing number?',
+    body_id: 'Aturan yang sama dipakai di setiap gambar. Cari: Berapa angka yang hilang?',
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,

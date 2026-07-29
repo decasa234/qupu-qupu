@@ -36,27 +36,50 @@ const CUBE_SIDE = '#B27C00'
 const CREAM = '#FAF6EF'
 
 // ── geometry (one scale cell) ─────────────────────────────────────────────
+// Counting the things in the pans IS the task, so the whole frame is built so
+// that nothing can ever sit on top of an item:
+//   • the pan is a flat plate, not a bowl — items rest ON it, never inside it;
+//   • the pan hangs from two wires that splay out high, then drop VERTICALLY
+//     outside the item strip, so a tall stack never runs into a slanted hanger;
+//   • the beam sits far enough above the plate to clear the tallest stack;
+//   • every piece of scale chrome is painted BEFORE the items.
 const CELL_W = 300
-const CELL_H = 164
+const CELL_H = 158
 const PIVOT_X = 150
-const BEAM_Y = 52 // level beam — both scales always balance
-const BEAM_HALF = 96
-const PAN_DROP = 52 // long hangers keep pan contents clear of the beam
-const PAN_HW = 48
-const POST_BOTTOM = 144
+const BEAM_Y = 44
+const BEAM_HALF = 92
+const BEAM_W = 7
+const SPLAY_Y = BEAM_Y + 18 // the hanger has finished splaying out and runs straight down
+const PAN_DROP = 60 // beam → pan surface; long enough to clear two cube rows
+const TRAY_Y = BEAM_Y + PAN_DROP // the surface items rest on
+const PAN_HW = 54 // half width of the flat plate
+const WIRE_HS = 50 // vertical hanger wires — always outside the items
+const TRAY_TH = 5 // shallow plate: it can never swallow an item body
+const BOWL_DEPTH = 15
+const INNER_W = 88 // usable width for items (wires at ±50, 6px of air each side)
+const POST_BOTTOM = 140
 
 // ── item sizing ───────────────────────────────────────────────────────────
-const SHAPE = 24
+const SHAPE = 26
 const SHAPE_GAP = 5
 const CUBE = 16
 const CUBE_GAP = 4
 const CUBES_PER_ROW = 4
+const CUBE_ROW_PITCH = CUBE + CUBE_GAP
+const GROUP_GAP = 10
+const STAR_SIN54 = Math.sin((54 * Math.PI) / 180)
 
 const SHAPE_LABEL_ID: Record<ShapeKind, string> = {
   circle: 'lingkaran',
   triangle: 'segitiga',
   square: 'persegi',
   star: 'bintang',
+}
+
+/** Defensive count: params arrive as `unknown`, so clamp to something drawable. */
+function count(value: number, max: number): number {
+  if (!Number.isFinite(value)) return 0
+  return Math.max(0, Math.min(max, Math.floor(value)))
 }
 
 function starPoints(r: number, cx: number, cy: number): string {
@@ -85,7 +108,8 @@ function shapeGlyph(kind: ShapeKind, fill: string, key: string): ReactNode {
       return <polygon key={key} points={`0,${-s} ${-half},0 ${half},0`} {...common} />
     case 'star':
     default:
-      return <polygon key={key} points={starPoints(half, 0, -half)} {...common} />
+      // seat the star's two lowest points exactly on the pan surface
+      return <polygon key={key} points={starPoints(half, 0, -half * STAR_SIN54)} {...common} />
   }
 }
 
@@ -111,25 +135,38 @@ function cubeGlyph(key: string): ReactNode {
   )
 }
 
-/** Everything resting on one pan tray. Origin (0, 0) = tray top-centre. */
+/**
+ * Everything resting on one pan plate. Origin (0, 0) = plate top-centre.
+ *
+ * Shapes go in one row; cubes go in at most two tidy rows next to them. If a
+ * pan is unusually crowded the whole group is scaled down to the plate width
+ * instead of spilling past the hanger wires.
+ */
 function panContents(side: Side, shapeA: ShapeKind, shapeB: ShapeKind, tag: string): ReactNode {
+  const nA = count(side.a, 6)
+  const nB = count(side.b, 6)
+  const unit = count(side.unit, 12)
+
   const shapes: Array<{ kind: ShapeKind; fill: string }> = [
-    ...Array.from({ length: side.a }, () => ({ kind: shapeA, fill: ORANGE })),
-    ...Array.from({ length: side.b }, () => ({ kind: shapeB, fill: GREEN })),
+    ...Array.from({ length: nA }, () => ({ kind: shapeA, fill: ORANGE })),
+    ...Array.from({ length: nB }, () => ({ kind: shapeB, fill: GREEN })),
   ]
   const shapesW = shapes.length > 0 ? shapes.length * SHAPE + (shapes.length - 1) * SHAPE_GAP : 0
 
+  // Never more than two rows — a third row would reach the beam. Wide rows are
+  // handled by the fit-to-plate scale below.
+  const rows = unit === 0 ? 0 : unit <= CUBES_PER_ROW ? 1 : 2
+  const perRow = rows === 0 ? 0 : rows === 1 ? unit : Math.ceil(unit / rows)
   const cubeRows: number[] = []
-  let remaining = side.unit
+  let remaining = unit
   while (remaining > 0) {
-    const take = Math.min(CUBES_PER_ROW, remaining)
+    const take = Math.min(perRow, remaining)
     cubeRows.push(take)
     remaining -= take
   }
-  const cubeCols = Math.min(side.unit, CUBES_PER_ROW)
-  const cubesW = side.unit > 0 ? cubeCols * CUBE + (cubeCols - 1) * CUBE_GAP : 0
+  const cubesW = perRow > 0 ? perRow * CUBE + (perRow - 1) * CUBE_GAP : 0
 
-  const bridge = shapesW > 0 && cubesW > 0 ? 10 : 0
+  const bridge = shapesW > 0 && cubesW > 0 ? GROUP_GAP : 0
   const totalW = shapesW + cubesW + bridge
   const startX = -totalW / 2
 
@@ -145,11 +182,11 @@ function panContents(side: Side, shapeA: ShapeKind, shapeB: ShapeKind, tag: stri
 
   const cubesStartX = startX + shapesW + bridge
   let placed = 0
-  cubeRows.forEach((count, row) => {
-    const rowW = count * CUBE + (count - 1) * CUBE_GAP
+  cubeRows.forEach((rowCount, row) => {
+    const rowW = rowCount * CUBE + (rowCount - 1) * CUBE_GAP
     const rowX = cubesStartX + (cubesW - rowW) / 2
-    const rowY = -row * (CUBE + CUBE_GAP)
-    for (let i = 0; i < count; i++) {
+    const rowY = -row * CUBE_ROW_PITCH
+    for (let i = 0; i < rowCount; i++) {
       const cx = rowX + i * (CUBE + CUBE_GAP) + CUBE / 2
       nodes.push(
         <g key={`${tag}-c${placed}`} transform={`translate(${cx.toFixed(2)},${rowY})`}>
@@ -160,24 +197,46 @@ function panContents(side: Side, shapeA: ShapeKind, shapeB: ShapeKind, tag: stri
     }
   })
 
-  return <>{nodes}</>
+  const fit = totalW > INNER_W ? INNER_W / totalW : 1
+  return <g transform={`scale(${fit.toFixed(4)})`}>{nodes}</g>
 }
 
+/** One hanger wire: it splays out from the beam high up, then drops vertically. */
+function hangerPath(bx: number, dir: 1 | -1): string {
+  const x = bx + dir * WIRE_HS
+  return `M ${bx} ${BEAM_Y} C ${bx} ${BEAM_Y + 10}, ${x} ${BEAM_Y + 8}, ${x} ${SPLAY_Y} L ${x} ${TRAY_Y}`
+}
+
+/**
+ * The pan: two hanger wires, a shallow dish and the flat plate items rest on.
+ * `children` (the items) are rendered LAST so no piece of chrome can cover them.
+ */
 function Pan({ bx, children }: { bx: number; children: ReactNode }) {
-  const trayTop = BEAM_Y + PAN_DROP
+  // thin wires: the pan chrome stays quiet so the goods on it read first
+  const wire = { fill: 'none', stroke: BLUE, strokeWidth: 1.6, strokeLinecap: 'round' as const }
   return (
     <g>
-      <line x1={bx} y1={BEAM_Y} x2={bx - PAN_HW + 8} y2={trayTop} stroke={BLUE} strokeWidth={1.5} />
-      <line x1={bx} y1={BEAM_Y} x2={bx + PAN_HW - 8} y2={trayTop} stroke={BLUE} strokeWidth={1.5} />
-      <g transform={`translate(${bx},${trayTop})`}>{children}</g>
+      <path d={hangerPath(bx, -1)} {...wire} />
+      <path d={hangerPath(bx, 1)} {...wire} />
       <path
-        d={`M ${bx - PAN_HW} ${trayTop} Q ${bx} ${trayTop + 14} ${bx + PAN_HW} ${trayTop}`}
-        fill="none"
+        d={`M ${bx - PAN_HW + 6} ${TRAY_Y + TRAY_TH} Q ${bx} ${TRAY_Y + TRAY_TH + BOWL_DEPTH} ${bx + PAN_HW - 6} ${TRAY_Y + TRAY_TH}`}
+        fill={CREAM}
         stroke={BLUE}
         strokeWidth={2.5}
-        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <ellipse cx={bx} cy={trayTop} rx={PAN_HW} ry={4.5} fill={CREAM} stroke={BLUE} strokeWidth={2.5} />
+      <rect
+        x={bx - PAN_HW}
+        y={TRAY_Y}
+        width={PAN_HW * 2}
+        height={TRAY_TH}
+        rx={TRAY_TH / 2}
+        fill={CREAM}
+        stroke={BLUE}
+        strokeWidth={2}
+      />
+      {/* items last — always fully visible on top of the plate */}
+      <g transform={`translate(${bx},${TRAY_Y})`}>{children}</g>
     </g>
   )
 }
@@ -203,16 +262,15 @@ function ScaleCell({
         {index}
       </text>
 
-      <Pan bx={leftX}>{panContents(scale.left, shapeA, shapeB, `s${index}l`)}</Pan>
-      <Pan bx={rightX}>{panContents(scale.right, shapeA, shapeB, `s${index}r`)}</Pan>
-
-      {/* level beam — the scale always balances */}
-      <line x1={leftX} y1={BEAM_Y} x2={rightX} y2={BEAM_Y} stroke={BLUE} strokeWidth={7} strokeLinecap="round" />
-
-      {/* stand: post + base plate, drawn between the two pans */}
+      {/* frame first: level beam, stand, pivot cap */}
+      <line x1={leftX} y1={BEAM_Y} x2={rightX} y2={BEAM_Y} stroke={BLUE} strokeWidth={BEAM_W} strokeLinecap="round" />
       <rect x={PIVOT_X - 4} y={BEAM_Y} width={8} height={POST_BOTTOM - BEAM_Y} rx={3} fill={BLUE} />
       <rect x={PIVOT_X - 38} y={POST_BOTTOM} width={76} height={10} rx={5} fill={BLUE} />
       <circle cx={PIVOT_X} cy={BEAM_Y} r={7} fill={CREAM} stroke={BLUE} strokeWidth={2.5} />
+
+      {/* pans (and their contents) last */}
+      <Pan bx={leftX}>{panContents(scale.left, shapeA, shapeB, `s${index}l`)}</Pan>
+      <Pan bx={rightX}>{panContents(scale.right, shapeA, shapeB, `s${index}r`)}</Pan>
     </g>
   )
 }
@@ -227,7 +285,9 @@ function describeSideId(side: Side, shapeA: ShapeKind, shapeB: ShapeKind): strin
 
 function isSide(v: unknown): v is Side {
   const s = v as Partial<Side> | null
-  return !!s && typeof s.a === 'number' && typeof s.b === 'number' && typeof s.unit === 'number'
+  return (
+    !!s && Number.isFinite(s.a as number) && Number.isFinite(s.b as number) && Number.isFinite(s.unit as number)
+  )
 }
 function isScale(v: unknown): v is ScaleData {
   const s = v as Partial<ScaleData> | null

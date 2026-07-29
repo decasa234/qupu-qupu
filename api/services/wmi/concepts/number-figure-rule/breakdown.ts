@@ -7,20 +7,19 @@ import {
   type Params,
 } from './index.js'
 
-// Authored decomposition of a number-figure-rule problem: a decorated figure
-// holds three number groups. Two are complete — they are the EVIDENCE the child
-// reads the hidden rule from — and the third has one slot blanked out.
+// Authored decomposition of a number-figure-rule problem. The figure carries all
+// the numbers: three number groups, two complete (the EVIDENCE the child reads
+// the hidden rule from) and a third with one slot blanked out. The body is a
+// short instruction with no numbers in it at all, so the highlights sit on the
+// instruction words and point the child AT the figure.
 //
 // The notes deliberately never name the rule: naming it would hand over the
-// whole puzzle. They point at WHERE to look instead. Every phrase below is
-// built from params and is an exact substring of the rendered body in that
-// language (the "Cari:" / "Find:" labels are stripped before display, so no
-// phrase is allowed to touch them).
+// whole puzzle. Every phrase below is an exact substring of the rendered body in
+// that language, and none of them overlap (the renderer matches longest-first
+// and would swallow a nested phrase). The "Cari:" / "Find:" labels are stripped
+// before display, so no phrase is allowed to touch them.
 export function buildNumberFigureRuleBreakdown(params: Params): Breakdown {
   const [g1, g2, g3] = params.groups
-  const t1 = groupText(g1, null)
-  const t2 = groupText(g2, null)
-  const t3 = groupText(g3, params.blankPosition)
   const answer = missingValue(params)
   const words = ruleWords(params.rule)
   const trap = trapFor(params)
@@ -31,44 +30,29 @@ export function buildNumberFigureRuleBreakdown(params: Params): Breakdown {
     : { en: 'last', id: 'terakhir' }
 
   const highlights: BreakdownHighlight[] = [
-    // condition — the one rule that ties all three groups together
+    // condition — one single rule ties all three groups together
     {
       category: 'condition',
-      phrase_en: 'The same rule is used in every figure',
-      phrase_id: 'Aturan yang sama dipakai di setiap gambar',
-      note_en: 'One single rule fits all three figures. Find it in the finished ones first.',
-      note_id: 'Cuma ada satu aturan untuk ketiga gambar. Cari dulu di gambar yang sudah lengkap.',
+      phrase_en: 'The same rule',
+      phrase_id: 'Aturan yang sama',
+      note_en: 'There is only ONE rule for all the figures — not a different one each time.',
+      note_id: 'Cuma ada SATU aturan untuk semua gambar, bukan aturan yang beda-beda.',
     },
-    // facts — the two solved groups, the evidence for the rule
+    // fact — where the evidence is: the finished groups in the picture
     {
       category: 'fact',
-      phrase_en: t1,
-      phrase_id: t1,
-      note_en: `This figure is finished: ${g1.a} and ${g1.b} turn into ${g1.c}. What was done to them?`,
-      note_id: `Gambar ini sudah lengkap: ${g1.a} dan ${g1.b} jadi ${g1.c}. Diapakan ya?`,
-    },
-    {
-      category: 'fact',
-      phrase_en: t2,
-      phrase_id: t2,
-      note_en: `A second finished figure: ${g2.a} and ${g2.b} turn into ${g2.c}. Your rule must fit this one too.`,
-      note_id: `Gambar lengkap kedua: ${g2.a} dan ${g2.b} jadi ${g2.c}. Aturanmu harus cocok di sini juga.`,
-    },
-    // object — the group you actually have to work on
-    {
-      category: 'object',
-      phrase_en: t3,
-      phrase_id: t3,
-      note_en: `This is the figure with the gap — the ${slotOrdinal.en} number is missing.`,
-      note_id: `Ini gambar yang bolong — angka ${slotOrdinal.id} hilang.`,
+      phrase_en: 'is used in every figure',
+      phrase_id: 'dipakai di setiap gambar',
+      note_en: 'Look at the figures that are already finished. They show the rule working, so read them first.',
+      note_id: 'Lihat gambar yang sudah lengkap. Di situ aturannya terlihat bekerja, jadi baca itu dulu.',
     },
     // question — what to hand in
     {
       category: 'question',
-      phrase_en: 'What is the missing number?',
-      phrase_id: 'Berapa angka yang hilang?',
-      note_en: 'Put the rule you found to work on the last figure and write that one number.',
-      note_id: 'Pakai aturan yang kamu temukan di gambar terakhir, lalu tulis satu angka itu.',
+      phrase_en: 'the missing number',
+      phrase_id: 'angka yang hilang',
+      note_en: `One figure has a "?" where the ${slotOrdinal.en} number should be. Use your rule there and write that one number.`,
+      note_id: `Ada satu gambar dengan "?" di tempat angka ${slotOrdinal.id}. Pakai aturanmu di situ, lalu tulis satu angka itu.`,
     },
   ]
 
@@ -76,10 +60,16 @@ export function buildNumberFigureRuleBreakdown(params: Params): Breakdown {
     needsVisual: true,
     highlights,
 
+    // Machine brief. The real numbers live here (and in the figure) — never in
+    // the body, so this is what the illustrator / explainer bind to.
     quantities: [
-      { label_en: 'Figure 1', label_id: 'Gambar 1', value: t1 },
-      { label_en: 'Figure 2', label_id: 'Gambar 2', value: t2 },
-      { label_en: 'Figure 3', label_id: 'Gambar 3', value: t3 },
+      { label_en: 'First figure', label_id: 'Gambar pertama', value: groupText(g1, null) },
+      { label_en: 'Second figure', label_id: 'Gambar kedua', value: groupText(g2, null) },
+      {
+        label_en: 'Last figure',
+        label_id: 'Gambar terakhir',
+        value: groupText(g3, params.blankPosition),
+      },
       { label_en: 'Hidden rule', label_id: 'Aturan tersembunyi', value: words.id },
       { label_en: 'Missing number', label_id: 'Angka yang hilang', value: String(answer) },
     ],
