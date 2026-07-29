@@ -31,6 +31,20 @@ export interface ConceptTags {
   strand: StrandCode
   topic: string // a TOPICS code; must belong to `strand`
   difficulty: 1 | 2 | 3 | 4 | 5
+  /**
+   * LEARNING PATH, not a difficulty restatement — the two are independent axes.
+   *   false = Fondasi   — taught by the school curriculum (Merdeka / Common
+   *                       Core). The child must master it; levelling up means
+   *                       fluency. e.g. `pattern-next` is d3 but IS school
+   *                       material (Merdeka's Aljabar "pola" element).
+   *   true  = Olimpiade — non-routine reasoning school never teaches:
+   *                       deduction, systematic counting, spatial reasoning,
+   *                       puzzles, working backwards. e.g. `grid-path-steps`
+   *                       is only d2 but is NOT curriculum content.
+   * Ask "is there a question like this in a school textbook?", never "is this
+   * hard?". Corrected 2026-07 — the flag previously tracked difficulty (every
+   * true was d>=3, every false d<=3), which made it useless as a path split.
+   */
   isOlympiad: boolean
 }
 
@@ -103,22 +117,22 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'place-value': { strand: 'NT', topic: 'NT-PV', difficulty: 2, isOlympiad: false },
   'build-number-from-digit-clues': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: true },
   'arrange-digits-to-form-number': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: true },
-  'digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
+  'digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: false },
   'digit-frequency': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'find-number-by-digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'divisibility-multiple-property': { strand: 'NT', topic: 'NT-DIV', difficulty: 4, isOlympiad: true },
   'product-of-consecutive': { strand: 'NT', topic: 'NT-DIV', difficulty: 4, isOlympiad: true },
-  'odd-even-reasoning': { strand: 'NT', topic: 'NT-PAR', difficulty: 3, isOlympiad: true },
+  'odd-even-reasoning': { strand: 'NT', topic: 'NT-PAR', difficulty: 3, isOlympiad: false },
   'perfect-square-search': { strand: 'NT', topic: 'NT-PAR', difficulty: 4, isOlympiad: true },
   'compare-order-numbers': { strand: 'NT', topic: 'NT-CMP', difficulty: 1, isOlympiad: false },
   'fraction-of-region': { strand: 'NT', topic: 'NT-FRAC', difficulty: 2, isOlympiad: false },
-  'equivalent-fraction-fill': { strand: 'NT', topic: 'NT-FRAC', difficulty: 3, isOlympiad: true },
+  'equivalent-fraction-fill': { strand: 'NT', topic: 'NT-FRAC', difficulty: 3, isOlympiad: false },
 
   // AP — Algebra & Patterns
-  'pattern-next': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
+  'pattern-next': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: false },
   'number-pyramid': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
   'number-line-jumps': { strand: 'AP', topic: 'AP-NPAT', difficulty: 2, isOlympiad: false },
-  'visual-pattern-next': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: true },
+  'visual-pattern-next': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: false },
   'shape-transformation-rule': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: true },
   'custom-operation': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
   'operator-fill': { strand: 'AP', topic: 'AP-FUNC', difficulty: 3, isOlympiad: true },
@@ -148,7 +162,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'dice-opposite-faces': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'dice-net-fold': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'direction-orientation': { strand: 'GE', topic: 'GE-3D', difficulty: 2, isOlympiad: false },
-  'grid-path-steps': { strand: 'GE', topic: 'GE-PATH', difficulty: 2, isOlympiad: false },
+  'grid-path-steps': { strand: 'GE', topic: 'GE-PATH', difficulty: 2, isOlympiad: true },
   'maze-path-shortest': { strand: 'GE', topic: 'GE-PATH', difficulty: 3, isOlympiad: true },
   'clock-read-time': { strand: 'GE', topic: 'GE-MEAS', difficulty: 1, isOlympiad: false },
   'clock-time-after': { strand: 'GE', topic: 'GE-MEAS', difficulty: 2, isOlympiad: false },
@@ -157,7 +171,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
 
   // LR — Logic & Reasoning
   'truth-order-clues': { strand: 'LR', topic: 'LR-DED', difficulty: 4, isOlympiad: true },
-  'position-in-line': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: true },
+  'position-in-line': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: false },
   'assignment-cycle': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: true },
   'which-might-be': { strand: 'LR', topic: 'LR-CON', difficulty: 3, isOlympiad: true },
   'range-count-evaluate': { strand: 'LR', topic: 'LR-CON', difficulty: 3, isOlympiad: true },
@@ -172,7 +186,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   // Gap-fill concepts derived from the WMI drill concept map (2026-07).
   'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
   'rank-computed-expressions': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: false },
-  'calendar-day-reasoning': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: true },
+  'calendar-day-reasoning': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: false },
   'painted-cube-faces-count': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'cryptarithmetic-addition': { strand: 'NT', topic: 'NT-DIG', difficulty: 4, isOlympiad: true },
   'consecutive-integer-sum': { strand: 'AP', topic: 'AP-NPAT', difficulty: 4, isOlympiad: true },
