@@ -22,7 +22,9 @@ import type {
 export const ROW_H = 104
 // Breathing room inside each unit's trail canvas: the first node clears the
 // banner, the last node's chip stays inside the tinted section.
-const PAD_TOP = 10
+// PAD_TOP gives the first node (and its breathing glow / checkpoint ring)
+// clearance below the chapter banner so the animation never bleeds into it.
+const PAD_TOP = 34
 const PAD_BOT = 28
 
 // The single "you are here" stop: the first unlocked unit's first concept
@@ -111,7 +113,7 @@ export default function TrackTrail({
               type="button"
               aria-label={`${unit.nameId}, ${goldCount} dari ${total} emas — lihat rincian`}
               onClick={() => onUnit(unit)}
-              className={`flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 transition-transform active:translate-y-0.5 ${
+              className={`relative z-10 flex w-full items-center gap-3 rounded-[1.25rem] px-3.5 py-3 text-left ring-2 transition-transform active:translate-y-0.5 ${
                 unit.unlocked
                   ? 'bg-white shadow-[0_5px_0_0_#FFD3B1] ring-[#FFE3CC]'
                   : 'bg-[#FBF4E7] shadow-[0_5px_0_0_#EFE2CC] ring-[#EFE2CC]'

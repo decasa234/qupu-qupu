@@ -88,18 +88,46 @@ export default function TrackConceptSheet({ node, unit, theme, onStart, onClose 
           </div>
         </div>
 
-        {/* 5-level ladder — the same segments the node's arc ring shows. */}
-        <div className="mt-4">
-          <div className="flex items-center gap-1.5" aria-hidden="true">
-            {Array.from({ length: 5 }, (_, i) => (
-              <span
-                key={i}
-                className="h-2.5 flex-1 rounded-full"
-                style={{ background: i < node.level ? '#58A700' : '#EDE4D4' }}
-              />
-            ))}
+        {/* Level phases — mirrors /belajar's ConceptProgress ladder, on the
+            theme's 0→5 growth stages: a big current-stage showcase, then the
+            5 growth phases with the current level ringed and reached ones
+            filled. Gives the same "how far along am I" read as the garden. */}
+        <div className="mt-4 flex flex-col items-center">
+          <span
+            className="flex h-16 w-16 items-center justify-center rounded-full text-2xl shadow-[inset_0_-4px_0_rgba(0,0,0,0.12)] motion-safe:animate-plant-bob"
+            style={{ background: stage.bg, color: stage.fg }}
+          >
+            {stage.forest ? (
+              <span className="relative flex items-end" aria-hidden="true">
+                <i className="fa-solid fa-tree text-[0.75rem] opacity-75" />
+                <i className="fa-solid fa-tree -ml-[0.25rem] text-[1.15rem]" />
+                <i className="fa-solid fa-tree -ml-[0.25rem] text-[0.65rem] opacity-75" />
+              </span>
+            ) : (
+              <i className={`${stage.iconPrefix} ${stage.icon}`} aria-hidden="true" />
+            )}
+          </span>
+
+          <div className="mt-4 flex items-end gap-2" aria-hidden="true">
+            {theme.stages.slice(1).map((s, i) => {
+              const level = i + 1
+              const reached = level <= node.level
+              const isCurrent = level === node.level
+              return (
+                <span
+                  key={level}
+                  className={`flex items-center justify-center rounded-full transition-transform ${
+                    isCurrent ? 'h-9 w-9 text-[1rem] ring-2 ring-qupu-brand-orange' : 'h-7 w-7 text-[0.75rem]'
+                  } ${reached ? '' : 'opacity-35 grayscale'}`}
+                  style={{ background: s.bg, color: s.fg }}
+                >
+                  <i className={`${s.iconPrefix} ${s.icon}`} />
+                </span>
+              )
+            })}
           </div>
-          <p className="mt-2 text-center text-xs font-bold text-qupu-muted">
+
+          <p className="mt-3 text-center text-xs font-bold text-qupu-muted">
             {node.gold ? 'Emas — sudah dikuasai!' : `Level ${node.level}/5 menuju emas`}
           </p>
         </div>

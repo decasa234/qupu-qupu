@@ -7,10 +7,9 @@
 // "Pilih Dunia" tab remains the full chooser.
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useNavigate } from 'react-router-dom'
 import { useWmiStore } from '../../store/wmiStore'
-import { useAuthStore } from '../../store/authStore'
-import { isClaireEmail } from '../../lib/claireAccess'
+// WMI Claire is ARCHIVED from the mode switcher (kept for reference): the
+// /latihan/wmi/claire route + claireAccess helper still exist, just not listed.
 
 const MODES = [
   { mode: 'wmi' as const, label: 'WMI', icon: 'fa-solid fa-trophy' },
@@ -20,10 +19,6 @@ const MODES = [
 export default function ModeBadge() {
   const learnMode = useWmiStore((s) => s.learnMode)
   const setLearnMode = useWmiStore((s) => s.setLearnMode)
-  const navigate = useNavigate()
-  // WMI Claire is a gated route, not a learn mode — shown only for the
-  // allow-listed accounts (the API enforces access too).
-  const showClaire = isClaireEmail(useAuthStore((s) => s.user?.email))
   const [open, setOpen] = useState(false)
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null)
   const btnRef = useRef<HTMLButtonElement | null>(null)
@@ -111,23 +106,6 @@ export default function ModeBadge() {
                   </button>
                 )
               })}
-              {showClaire && (
-                <button
-                  type="button"
-                  role="menuitem"
-                  onClick={() => {
-                    setOpen(false)
-                    navigate('/latihan/wmi/claire')
-                  }}
-                  className="flex w-full items-center gap-2.5 rounded-[0.75rem] px-3 py-2 text-left font-display text-sm font-black text-qupu-brand-blue transition-colors hover:bg-qupu-shell"
-                >
-                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center text-base">
-                    <i className="fa-solid fa-brain" aria-hidden="true" />
-                  </span>
-                  <span className="flex-1">WMI Claire</span>
-                  <i className="fa-solid fa-chevron-right text-[0.625rem] text-qupu-muted/70" aria-hidden="true" />
-                </button>
-              )}
             </div>
           </div>,
           document.body,
