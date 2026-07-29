@@ -78,6 +78,14 @@ import cryptarithmeticAddition from './cryptarithmetic-addition/index.js'
 import consecutiveIntegerSum from './consecutive-integer-sum/index.js'
 import commonFactorShortcut from './common-factor-shortcut/index.js'
 import containerCapacityAllocation from './container-capacity-allocation/index.js'
+import sortCountByAttribute from './sort-count-by-attribute/index.js'
+import countManyObjects from './count-many-objects/index.js'
+import numberFigureRule from './number-figure-rule/index.js'
+import sequenceRepair from './sequence-repair/index.js'
+import lengthMeasureCompare from './length-measure-compare/index.js'
+import balanceSubstitution from './balance-substitution/index.js'
+import countTwoDigitNumbers from './count-two-digit-numbers/index.js'
+import transferToEqualize from './transfer-to-equalize/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -161,6 +169,14 @@ export const CONCEPTS = {
   'consecutive-integer-sum': consecutiveIntegerSum,
   'common-factor-shortcut': commonFactorShortcut,
   'container-capacity-allocation': containerCapacityAllocation,
+  'sort-count-by-attribute': sortCountByAttribute,
+  'count-many-objects': countManyObjects,
+  'number-figure-rule': numberFigureRule,
+  'sequence-repair': sequenceRepair,
+  'length-measure-compare': lengthMeasureCompare,
+  'balance-substitution': balanceSubstitution,
+  'count-two-digit-numbers': countTwoDigitNumbers,
+  'transfer-to-equalize': transferToEqualize,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

@@ -192,6 +192,16 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'consecutive-integer-sum': { strand: 'AP', topic: 'AP-NPAT', difficulty: 4, isOlympiad: true },
   'common-factor-shortcut': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: true },
   'container-capacity-allocation': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: false },
+
+  // Mined from 350 real WMI grade-1 questions (2019-2025).
+  'sort-count-by-attribute': { strand: 'CO', topic: 'CO-OBJ', difficulty: 2, isOlympiad: false },
+  'count-many-objects': { strand: 'CO', topic: 'CO-OBJ', difficulty: 1, isOlympiad: false },
+  'number-figure-rule': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
+  'sequence-repair': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
+  'length-measure-compare': { strand: 'GE', topic: 'GE-MEAS', difficulty: 2, isOlympiad: false },
+  'balance-substitution': { strand: 'LR', topic: 'LR-BAL', difficulty: 2, isOlympiad: true },
+  'count-two-digit-numbers': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
+  'transfer-to-equalize': { strand: 'AR', topic: 'AR-STORY', difficulty: 3, isOlympiad: true },
 }
 
 // Frozen legacy recall codes (domain letter + index). Do not renumber.
@@ -276,6 +286,14 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'container-capacity-allocation': 'C6',
   'painted-cube-faces-count': 'G15',
   'calendar-day-reasoning': 'M5',
+  'sort-count-by-attribute': 'D4',
+  'count-many-objects': 'C7',
+  'number-figure-rule': 'P7',
+  'sequence-repair': 'P8',
+  'length-measure-compare': 'M6',
+  'balance-substitution': 'L10',
+  'count-two-digit-numbers': 'N17',
+  'transfer-to-equalize': 'W11',
 }
 
 const STRAND_BY_CODE = new Map(STRANDS.map((s) => [s.code, s]))

@@ -28,6 +28,11 @@ const ILLUSTRATION_LOADERS: Record<string, () => Promise<{ default: Illustration
   'count-shapes-in-figure': () => import('./count-shapes-in-figure'),
   'count-rectangles-grid': () => import('./count-rectangles-grid'),
   'budget-selection': () => import('./budget-selection'),
+  'sort-count-by-attribute': () => import('./sort-count-by-attribute'),
+  'count-many-objects': () => import('./count-many-objects'),
+  'number-figure-rule': () => import('./number-figure-rule'),
+  'length-measure-compare': () => import('./length-measure-compare'),
+  'balance-substitution': () => import('./balance-substitution'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

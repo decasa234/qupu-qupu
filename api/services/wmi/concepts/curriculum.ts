@@ -217,4 +217,14 @@ export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   // grades [2,3] / [2]
   'weight-balance-word':            { subjectKey: 'g3-pengukuran',    difficulty: 1, sortOrder: 10, tags: ['measurement', 'logic'] },
   'scale-read':                     { subjectKey: 'g3-pengukuran',    difficulty: 2, sortOrder: 20, tags: ['measurement'] },
+
+  // Grade-1 concepts mined from real WMI papers (2026-07).
+  'sort-count-by-attribute': { subjectKey: 'g1-jam-data', difficulty: 2, sortOrder: 40, tags: ['data', 'counting'] },
+  'count-many-objects': { subjectKey: 'g1-hitung', difficulty: 1, sortOrder: 10, tags: ['counting'] },
+  'number-figure-rule': { subjectKey: 'g1-pola', difficulty: 2, sortOrder: 40, tags: ['patterns', 'arithmetic'] },
+  'sequence-repair': { subjectKey: 'g1-pola', difficulty: 2, sortOrder: 50, tags: ['patterns'] },
+  'length-measure-compare': { subjectKey: 'g1-jam-data', difficulty: 2, sortOrder: 50, tags: ['measurement'] },
+  'balance-substitution': { subjectKey: 'g1-cerita', difficulty: 2, sortOrder: 40, tags: ['logic', 'measurement'] },
+  'count-two-digit-numbers': { subjectKey: 'g1-hitung', difficulty: 2, sortOrder: 80, tags: ['place-value', 'counting'] },
+  'transfer-to-equalize': { subjectKey: 'g1-tambah-kurang', difficulty: 2, sortOrder: 50, tags: ['word-problem', 'arithmetic'] },
 }
