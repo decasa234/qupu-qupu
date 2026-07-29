@@ -116,7 +116,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   // NT — Number Theory
   'place-value': { strand: 'NT', topic: 'NT-PV', difficulty: 2, isOlympiad: false },
   'build-number-from-digit-clues': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: true },
-  'arrange-digits-to-form-number': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: true },
+  'arrange-digits-to-form-number': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: false },
   'digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: false },
   'digit-frequency': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'find-number-by-digit-sum': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
@@ -133,7 +133,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'number-pyramid': { strand: 'AP', topic: 'AP-NPAT', difficulty: 3, isOlympiad: true },
   'number-line-jumps': { strand: 'AP', topic: 'AP-NPAT', difficulty: 2, isOlympiad: false },
   'visual-pattern-next': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: false },
-  'shape-transformation-rule': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: true },
+  'shape-transformation-rule': { strand: 'AP', topic: 'AP-VPAT', difficulty: 3, isOlympiad: false },
   'custom-operation': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
   'operator-fill': { strand: 'AP', topic: 'AP-FUNC', difficulty: 3, isOlympiad: true },
   'legs-items-rate': { strand: 'AP', topic: 'AP-RATE', difficulty: 3, isOlympiad: true },
@@ -158,7 +158,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'angle-type': { strand: 'GE', topic: 'GE-SHAPE', difficulty: 1, isOlympiad: false },
   'symmetry-count': { strand: 'GE', topic: 'GE-SHAPE', difficulty: 2, isOlympiad: false },
   'same-figure-identify': { strand: 'GE', topic: 'GE-SHAPE', difficulty: 2, isOlympiad: false },
-  'block-count-3d': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
+  'block-count-3d': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: false },
   'dice-opposite-faces': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'dice-net-fold': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'direction-orientation': { strand: 'GE', topic: 'GE-3D', difficulty: 2, isOlympiad: false },
@@ -184,7 +184,7 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'money-coins-total': { strand: 'LR', topic: 'LR-BAL', difficulty: 2, isOlympiad: false },
 
   // Gap-fill concepts derived from the WMI drill concept map (2026-07).
-  'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
+  'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: false },
   'rank-computed-expressions': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: false },
   'calendar-day-reasoning': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: false },
   'painted-cube-faces-count': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
