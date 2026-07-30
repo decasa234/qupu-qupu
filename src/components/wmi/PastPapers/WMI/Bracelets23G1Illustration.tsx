@@ -10,16 +10,23 @@
  *   small diamond (SD) = 1 cm (tiny tilted square)
  *   small circle (SC) = 1 cm  (small circle)
  *
- * --- Bead sequences + totals (one clean monochrome shape set) -------------
- *   Alice  : 4 big squares, 4 big circles, 2 small circles, 1 small diamond
- *            = 4*3 + 4*2 + 2*1 + 1*1 = 12 + 8 + 2 + 1 = 23 cm
- *   Becky  : 2 big squares, 4 big circles, 4 small circles, 1 small diamond
- *            = 2*3 + 4*2 + 4*1 + 1*1 =  6 + 8 + 4 + 1 = 19 cm
+ * --- Bead counts + totals, read off the official PDF ----------------------
+ * Corrected 2026-07-30 against the printed paper. Alice previously carried a
+ * 4th big square (23 cm) and Becky a composition that only happened to total
+ * 19; both now match the print. The bead ORDER around each bracelet is still
+ * ours — the paper's counts are what the question depends on, and `total()`
+ * sums the sequence, so the drawn totals follow these counts automatically.
+ *   Alice  : 3 big squares, 4 big circles, 2 small circles, 2 small diamonds
+ *            = 3*3 + 4*2 + 2*1 + 2*1 =  9 + 8 + 2 + 2 = 21 cm
+ *   Becky  : 1 big square,  4 big circles, 5 small circles, 3 small diamonds
+ *            = 1*3 + 4*2 + 5*1 + 3*1 =  3 + 8 + 5 + 3 = 19 cm
  *   Chloe  : 4 big squares, 1 big circle, 2 small circles, 2 small diamonds
  *            = 4*3 + 1*2 + 2*1 + 2*1 = 12 + 2 + 2 + 2 = 18 cm
  *
- * CONFIRMED order longest -> shortest:  Alice (23) > Becky (19) > Chloe (18)
- *   => answer (B) Alice, Becky, Chloe.
+ * Order longest -> shortest:  Alice (21) > Becky (19) > Chloe (18)
+ *   => answer (B) Alice, Becky, Chloe. The ranking and the key are the same
+ *      before and after this correction; only the drawn beads and the hint's
+ *      quoted length change.
  *
  * The DEFAULT export draws only the problem setup: the legend + three labelled
  * coiled bracelets. It never straightens them, never shows totals and never
@@ -59,14 +66,15 @@ interface BraceletDef {
   beads: BeadKind[]
 }
 
-// Sequences chosen so the per-bead lengths total to the confirmed figures.
+// Bead COUNTS match the printed paper (see the header); the order around each
+// bracelet is spread for legibility.
 const ALICE: BraceletDef = {
   name: 'Alice',
-  beads: ['BS', 'BC', 'BC', 'SC', 'BS', 'SD', 'BS', 'SC', 'BC', 'BC', 'BS'],
+  beads: ['BS', 'BC', 'SC', 'BC', 'BS', 'SD', 'BC', 'SC', 'BC', 'SD', 'BS'],
 }
 const BECKY: BraceletDef = {
   name: 'Becky',
-  beads: ['BC', 'BS', 'BC', 'SD', 'SC', 'BC', 'SC', 'BC', 'SC', 'BS', 'SC'],
+  beads: ['BC', 'SC', 'BC', 'SD', 'SC', 'BC', 'SC', 'SD', 'BC', 'SC', 'SD', 'SC', 'BS'],
 }
 const CHLOE: BraceletDef = {
   name: 'Chloe',
