@@ -1,23 +1,32 @@
+// Post-answer explainer for WMI-24F1A-Q22 (2024 Grade 1 Final) — answer 8.
+//
+// Binds to the built BlockStack24G1 primitive: the three COLOUR groups and the
+// blue -> green -> white order strip stay on screen every beat while
+// `stackHeight` grows the tallest legal tower. The reasoning lives in
+// blockStack24G1Steps — the colour of each turn is forced by the cycle, and the
+// tower ends when the scarcest colour (green, with only two carrying blocks)
+// comes round a third time with nothing left but spheres.
+//
+// Deterministic & SSR-safe: a pure render of the storyboard.
+
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
 import { useBeatControl } from '../../concepts/explainers/useBeatControl'
 import { BlockStack24G1 } from './BlockStack24G1Illustration'
-import { buildBlockStack24G1Steps, type BlockKind } from './blockStack24G1Steps'
+import { buildBlockStack24G1Steps, type BlockHue } from './blockStack24G1Steps'
 
-// Colours echo the illustration / qupu tokens so the animation reads as the
-// same scene coming alive (hex mirrors of BlockStack24G1Illustration's fills).
 const GREEN = '#10B981' // fill-qupu-green — winning beat
-const BLUE = '#2C9CDB' // cube faces
-const CYL = '#9ACA3C' // cylinder body
 const BLUE_BG = '#E1EFFB'
 const BLUE_INK = '#30598A'
 
-// Accent for the running count: takes the colour of the block just laid.
-const KIND_COLOR: Record<BlockKind, string> = {
-  cube: BLUE,
-  cylinder: CYL,
-  sphere: '#CBD7DF',
+// Accent for the running count: takes the COLOUR of the block just laid, since
+// the colour is what the cycle forces. Hex values echo the illustration's face
+// fills (white darkened to stay legible as text on the card).
+const HUE_INK: Record<BlockHue, string> = {
+  blue: '#30598A',
+  green: '#417C00',
+  white: '#8C8172',
 }
 
 export default function BlockStack24G1Explainer(props: ExplainerProps) {
@@ -26,12 +35,13 @@ export default function BlockStack24G1Explainer(props: ExplainerProps) {
   const index = useBeatControl(story.finalIndex, { ...props, holds: story.steps.map((s) => s.hold) })
   const beat = story.steps[index] ?? story.steps[story.finalIndex]
 
-  const accent = beat.laid ? KIND_COLOR[beat.laid] : BLUE_INK
+  const accent = beat.hue ? HUE_INK[beat.hue] : BLUE_INK
 
+  // Describes the METHOD only — it never states the block count.
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: bola tak bisa memikul balok, jadi selang-seling kubus dan tabung. Dibatasi ${story.cylinders} tabung, tumpukan tertinggi = ${story.answer} balok.`
-      : `Explainer: a sphere can't carry a block, so alternate cubes and cylinders. Bounded by ${story.cylinders} cylinders, the tallest stack is ${story.answer} blocks.`
+      ? 'Penjelasan bertahap: balok diambil menurut urutan warna biru, hijau, putih, dan tidak ada balok yang boleh diletakkan di atas bola. Menara ditumpuk terus sampai warna dengan balok pemikul paling sedikit datang lagi tanpa sisa pemikul, lalu berhenti.'
+      : 'Step-by-step explainer: blocks are taken in the colour order blue, green, white, and nothing may sit on a sphere. The tower keeps growing until the colour with the fewest carrying blocks comes round again with none left, and then it stops.'
 
   return (
     <div className="mx-auto w-full max-w-[320px]" role="img" aria-label={ariaLabel}>
