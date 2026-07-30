@@ -47,6 +47,8 @@ export type AdminPaperQuestion = {
   hint_steps_id: string[] | null
   breakdown: Breakdown | null
   visual: { templateId: string; params: unknown } | null
+  /** Non-null means the drill hides this question from children; the text says why. */
+  unplayable_reason: string | null
   code?: string
 }
 
@@ -75,6 +77,9 @@ export async function listAdminPaperQuestions(paperId: string): Promise<AdminPap
   const rows = await query<AdminPaperQuestion & { year: number; round: 'semifinal' | 'final'; brand: string; level_code: string }>(
     `SELECT q.id, q.paper_id, q.number, q.body_en, q.body_id, q.answer_type, q.choices_en, q.choices_id,
             q.answer, q.figure_url, q.hint_en, q.hint_id, q.difficulty, q.hint_steps_en, q.hint_steps_id, q.breakdown, q.visual,
+            -- Admins see every question INCLUDING the hidden ones, plus why each
+            -- is hidden; this is the surface where they get fixed.
+            q.unplayable_reason,
             p.year, p.round, p.brand, p.level_code
      FROM wmi_questions q
      JOIN wmi_papers p ON p.id = q.paper_id

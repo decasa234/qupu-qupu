@@ -130,6 +130,7 @@ async function pickLeastUsed(
       WHERE lower(p.brand) = 'wmi' AND p.round = $2 AND p.grade = $3
         AND q.answer_type = $4
         AND ${PLAYABLE_MC}
+        AND q.unplayable_reason IS NULL
       ORDER BY COALESCE(u.uses, 0) ASC, random()
       LIMIT $5`,
     [childId, round, MOCK_GRADE, answerType, limit],

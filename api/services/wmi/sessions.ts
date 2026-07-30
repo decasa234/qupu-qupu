@@ -47,6 +47,12 @@ export async function startWmiExamSession(
       client,
     )
 
+    // Fetch the questions BEFORE opening the session: total_questions has to be
+    // what the child is actually served. paper.question_count is the paper's
+    // historical size and still counts questions hidden as unplayable, so using
+    // it would score the child out of a total they cannot reach.
+    const questions = await listWmiQuestionsForPaper(paper.id, client)
+
     const session = await queryOne<WmiExamSessionRow>(
       `
         INSERT INTO wmi_exam_sessions (child_id, paper_id, total_questions)
@@ -54,13 +60,16 @@ export async function startWmiExamSession(
         RETURNING id, child_id, paper_id, started_at, completed_at, duration_ms,
                   correct_count, total_questions, abandoned
       `,
-      [childId, paper.id, paper.question_count],
+      [childId, paper.id, questions.length],
       client,
     )
     if (!session) throw new Error('Unable to start exam')
 
-    const questions = await listWmiQuestionsForPaper(paper.id, client)
-    return { session, paper: { ...paper, questions }, submittedAttempts: [] }
+    return {
+      session,
+      paper: { ...paper, question_count: questions.length, questions },
+      submittedAttempts: [],
+    }
   })
 }
 

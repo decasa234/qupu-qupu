@@ -58,7 +58,13 @@ export async function listWmiPapers(
     return query<WmiPaperRow & { best_score: string | null }>(
       `
         SELECT p.id, p.year, p.grade, p.round, p.variant, p.title, p.source_url,
-               p.recommended_duration_min, p.question_count,
+               p.recommended_duration_min,
+               -- Count what the child will actually be served, not what the
+               -- paper historically contains: p.question_count still says 25
+               -- for a paper with hidden questions, which would promise a score
+               -- out of 25 that nobody can reach.
+               (SELECT COUNT(*) FROM wmi_questions q
+                 WHERE q.paper_id = p.id AND q.unplayable_reason IS NULL)::int AS question_count,
                MAX(
                  CASE
                    WHEN s.completed_at IS NOT NULL AND s.total_questions > 0
@@ -87,9 +93,13 @@ export async function getWmiPaperDetail(
     await assertChildOwnership(client, parentUserId, childId)
     const paper = await queryOne<WmiPaperRow>(
       `
-        SELECT id, year, grade, round, variant, title, source_url, recommended_duration_min, question_count
-        FROM wmi_papers
-        WHERE id = $1
+        SELECT p.id, p.year, p.grade, p.round, p.variant, p.title, p.source_url,
+               p.recommended_duration_min,
+               -- Playable count, matching listWmiPapersForChild above.
+               (SELECT COUNT(*) FROM wmi_questions q
+                 WHERE q.paper_id = p.id AND q.unplayable_reason IS NULL)::int AS question_count
+        FROM wmi_papers p
+        WHERE p.id = $1
       `,
       [paperId],
       client,
@@ -129,6 +139,11 @@ export async function listWmiQuestionsForPaper(
       FROM wmi_questions q
       JOIN wmi_papers p ON p.id = q.paper_id
       WHERE q.paper_id = $1
+        -- Kid-facing only. Questions with a reason are ones nobody can answer
+        -- (lost option figures, or a source paper with two valid answers), so
+        -- serving them just costs the child marks. The admin review query in
+        -- paperReviews.ts is separate and still returns every question.
+        AND q.unplayable_reason IS NULL
       ORDER BY q.number ASC
     `,
     [paperId],
