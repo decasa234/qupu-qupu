@@ -1,3 +1,11 @@
+import {
+  BAR_H,
+  U,
+  lengthFigureGeometry,
+  xAt,
+  type LengthGeometry,
+  type LengthGeometryRow,
+} from '../length-measure-compare'
 import type { Lang } from './makeTenSteps'
 
 // ---------------------------------------------------------------------------
@@ -6,21 +14,46 @@ import type { Lang } from './makeTenSteps'
 // The misconception this exists to kill: reading the number under the RIGHT END
 // instead of measuring the span. When the object does not start at 0 a child
 // says "it stops at 11, so it is 11". So every ruler story walks:
-//     where it starts → where it ends → (offset only) the 0→start stretch that
-//     is NOT the object → sweep the span unit by unit → land end − start.
-// Unit chains count the petak one at a time with a running tally.
-// `longest` / `difference` measure each object the same way and then line the
+//     where the two ends sit → (offset only) the 0→start stretch that is NOT
+//     the object → sweep the span → land end − start.
+// Unit chains count the petak with a running tally.
+// `longest` / `difference` measure each object in one beat and then line the
 // measured bars up so the comparison is visual, not arithmetic.
 //
+// Kept SHORT on purpose: this plays after the child has already answered, so it
+// must not outstay a six-year-old's attention. Every branch fits in 8 beats —
+// see `countingStops` for how a long span is swept without a beat per unit.
+//
 // Pure data: no random, no dates, no DOM — unit-testable and SSR-safe.
+// The board's coordinate maths is NOT replayed here: it is imported from the
+// static figure so the animated board and the question picture cannot drift.
 // ---------------------------------------------------------------------------
 
-/** Pixels per whole unit — pinned to the static figure (src/components/wmi/concepts/length-measure-compare). */
-export const U = 22
-/** Object bar height — pinned to the static figure. */
-export const BAR_H = 18
+export { BAR_H, U, xAt }
 /** Choice letters, mirroring LABELS in the concept logic. */
 export const LENGTH_LABELS = ['A', 'B', 'C'] as const
+
+/** Spans up to this many units are still counted one unit at a time. */
+export const COUNT_ONE_BY_ONE_UP_TO = 5
+/** Hard ceiling on counting beats, whatever the length. */
+export const MAX_COUNT_BEATS = 4
+
+/**
+ * Where the sweep pauses on its way to `length`, never landing on `length`
+ * itself (the result beat does that).
+ *
+ * Short objects are still counted 1, 2, 3 … — that is the arithmetic a Grade-1
+ * child needs to watch. Longer ones jump in equal steps — a 10-unit span counts
+ * "3, 6, 9" instead of nine separate beats — so the running tally still climbs
+ * on screen while the story stays inside its beat budget.
+ */
+export function countingStops(length: number): number[] {
+  const step =
+    length <= COUNT_ONE_BY_ONE_UP_TO ? 1 : Math.ceil((length - 1) / MAX_COUNT_BEATS)
+  const stops: number[] = []
+  for (let k = step; k < length; k += step) stops.push(k)
+  return stops
+}
 
 const MINUS = '−' // proper minus sign, matching the concept's hint steps
 
@@ -122,140 +155,22 @@ export function coerceLengthParams(params: unknown): LengthParams {
 }
 
 // ---------------------------------------------------------------------------
-// layout — a literal replay of the static figure's coordinate maths so the
-// animated board and the question's picture are the same picture.
+// layout — the static figure's own geometry, imported rather than recomputed.
 // ---------------------------------------------------------------------------
 
-export interface LengthRow {
-  name: string
-  /** top of the row box */
-  top: number
-  /** y of the object bar (ruler rows sit 4px below the row top; chain rows sit on it) */
-  barY: number
-  /** left / right edge of the object bar */
-  x0: number
-  x1: number
-  /** chain only: y of the unit-square strip */
-  stripY: number
-  start: number
-  end: number
-  length: number
-}
+export type LengthRow = LengthGeometryRow
+export type LengthLayout = LengthGeometry
 
-export interface LengthLayout {
-  kind: 'ruler' | 'chain'
-  width: number
-  height: number
-  padL: number
-  padR: number
-  topPad: number
-  rowH: number
-  rowGap: number
-  /** ruler only (0 on chains) */
-  rulerTop: number
-  rulerH: number
-  rulerMax: number
-  single: boolean
-  showLetters: boolean
-  rows: LengthRow[]
-}
-
+/** The board the animation draws on — byte for byte the question picture's. */
 export function buildLengthLayout(p: LengthParams): LengthLayout {
-  const single = p.items.length === 1
-  const gutter = single ? 0 : 78
-  const padL = 22 + gutter
-  const padR = 22
-  const showLetters = p.ask === 'longest'
-
-  if (p.medium === 'unit-chain') {
-    const widest = p.items.reduce((m, it) => Math.max(m, it.length), 1)
-    const topPad = single ? 24 : 12
-    const rowH = 54
-    const rowGap = 12
-    const width = padL + widest * U + padR
-    const height = topPad + p.items.length * rowH + (p.items.length - 1) * rowGap + 8
-    const rows: LengthRow[] = p.items.map((it, i) => {
-      const top = topPad + i * (rowH + rowGap)
-      return {
-        name: it.name,
-        top,
-        barY: top,
-        x0: padL,
-        x1: padL + it.length * U,
-        stripY: top + 26,
-        start: 0,
-        end: it.length,
-        length: it.length,
-      }
-    })
-    return {
-      kind: 'chain',
-      width,
-      height,
-      padL,
-      padR,
-      topPad,
-      rowH,
-      rowGap,
-      rulerTop: 0,
-      rulerH: 0,
-      rulerMax: widest,
-      single,
-      showLetters,
-      rows,
-    }
-  }
-
-  const topPad = single ? 26 : 12
-  const rowH = 26
-  const rowGap = 10
-  const objectsH = p.items.length * rowH + (p.items.length - 1) * rowGap
-  const rulerTop = topPad + objectsH + 14
-  const rulerH = 46
-  const width = padL + p.rulerMax * U + padR
-  const height = rulerTop + rulerH + 8
-  const rows: LengthRow[] = p.items.map((it, i) => {
-    const top = topPad + i * (rowH + rowGap)
-    return {
-      name: it.name,
-      top,
-      barY: top + 4,
-      x0: padL + it.start * U,
-      x1: padL + (it.start + it.length) * U,
-      stripY: 0,
-      start: it.start,
-      end: it.start + it.length,
-      length: it.length,
-    }
-  })
-  return {
-    kind: 'ruler',
-    width,
-    height,
-    padL,
-    padR,
-    topPad,
-    rowH,
-    rowGap,
-    rulerTop,
-    rulerH,
-    rulerMax: p.rulerMax,
-    single,
-    showLetters,
-    rows,
-  }
-}
-
-/** x of ruler value `v` — the figure's `xAt`. */
-export function xAt(layout: LengthLayout, v: number): number {
-  return layout.padL + v * U
+  return lengthFigureGeometry(p)
 }
 
 // ---------------------------------------------------------------------------
 // storyboard
 // ---------------------------------------------------------------------------
 
-export type LengthPhase = 'intro' | 'start' | 'end' | 'trap' | 'count' | 'span' | 'compare' | 'result'
+export type LengthPhase = 'intro' | 'start' | 'trap' | 'count' | 'span' | 'compare' | 'result'
 
 export interface LengthTrap {
   /** The tempting wrong number — always the right-end reading, never the answer. */
@@ -406,45 +321,37 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
     )
   }
 
-  const countCaption = (k: number) =>
-    k === 1 ? t(`Count: 1 ${uw(1)}`, `Hitung: 1 ${uw(1)}`) : `${k} ${uw(k)}`
+  const countCaption = (k: number, first: boolean) =>
+    first ? t(`Count: ${k} ${uw(k)}`, `Hitung: ${k} ${uw(k)}`) : `${k} ${uw(k)}`
 
-  /** Sweep the span one unit at a time, stopping one short of the total. */
+  /**
+   * Sweep the span, stopping short of the total so the result beat still lands
+   * it. Short spans get a beat per unit; long ones jump in equal steps (the
+   * squares inside a beat still light one after another), so the tally keeps
+   * climbing without the story dragging.
+   */
   const pushCounting = (i: number) => {
-    const L = lenOf(i)
-    for (let k = 1; k < L; k++) {
-      push('count', countCaption(k), {
+    const stops = countingStops(lenOf(i))
+    stops.forEach((k, j) => {
+      push('count', countCaption(k, j === 0), {
         item: i,
         markStart: true,
         markEnd: true,
         countTo: k,
         tally: k,
-        hold: k === 1 ? 1500 : 900,
+        hold: j === 0 ? 1500 : 900,
       })
-    }
+    })
   }
 
-  /** Compact two-beat measure used when several objects must be measured. */
+  /**
+   * One beat per object — used when several objects must be measured, where the
+   * comparison, not each individual measurement, is the point.
+   */
   const pushMeasure = (i: number) => {
     const s = startOf(i)
     const e = endOf(i)
     const L = lenOf(i)
-    if (isChain) {
-      push(
-        'start',
-        t(
-          `Squares sit under the ${nm(i)} with no gaps.`,
-          `Petak berjajar rapat di bawah ${nm(i)}.`,
-        ),
-        { item: i, markStart: true, hold: 1600 },
-      )
-    } else {
-      push(
-        'start',
-        t(`The ${nm(i)} runs from ${s} to ${e}.`, `${Nm(i)} dari angka ${s} sampai ${e}.`),
-        { item: i, markStart: true, markEnd: true, hold: 1800 },
-      )
-    }
     measured[i] = L
     const spanCaption = isChain
       ? t(
@@ -452,8 +359,8 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
           `Hitung petak di bawah ${nm(i)}: ${L}.`,
         )
       : t(
-          `Length of the ${nm(i)} = ${e} ${MINUS} ${s} = ${L} ${uw(L)}.`,
-          `Panjang ${nm(i)} = ${e} ${MINUS} ${s} = ${L} ${uw(L)}.`,
+          `The ${nm(i)} runs ${s} to ${e}, so ${e} ${MINUS} ${s} = ${L} ${uw(L)}.`,
+          `${Nm(i)} dari ${s} sampai ${e}, jadi ${e} ${MINUS} ${s} = ${L} ${uw(L)}.`,
         )
     push('span', spanCaption, {
       item: i,
@@ -463,7 +370,7 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
       tally: L,
       measured: snap(),
       focus: [i],
-      hold: 2200,
+      hold: 2600,
     })
   }
 
@@ -484,19 +391,21 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
         { item: i, markStart: true, hold: 2000 },
       )
     } else {
+      // Both ends in one beat: the two pointers drop together, and the trap beat
+      // that follows an offset case re-states the right-hand number anyway.
       push(
         'start',
         s === 0
-          ? t(`The ${nm(i)} starts right at 0.`, `${Nm(i)} mulai tepat di angka 0.`)
-          : t(`The ${nm(i)} starts at ${s}, not at 0.`, `${Nm(i)} mulai di angka ${s}, bukan 0.`),
-        { item: i, markStart: true, hold: 1900 },
+          ? t(
+              `The ${nm(i)} starts right at 0 and ends at ${e}.`,
+              `${Nm(i)} mulai tepat di angka 0 dan berhenti di angka ${e}.`,
+            )
+          : t(
+              `The ${nm(i)} starts at ${s}, not 0, and ends at ${e}.`,
+              `${Nm(i)} mulai di angka ${s}, bukan 0, dan berhenti di angka ${e}.`,
+            ),
+        { item: i, markStart: true, markEnd: true, hold: 2400 },
       )
-      push('end', t(`It ends at ${e}.`, `Ujung kanannya di angka ${e}.`), {
-        item: i,
-        markStart: true,
-        markEnd: true,
-        hold: 1900,
-      })
       if (isOffset) pushTrap(i)
     }
 

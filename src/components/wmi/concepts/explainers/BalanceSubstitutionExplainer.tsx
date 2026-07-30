@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from 'react'
+import { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import {
@@ -10,22 +10,28 @@ import {
   type BalanceShape,
   type BalanceStoryboard,
 } from './balanceSubstitutionSteps'
+import {
+  BALANCE_INK,
+  CUBE_BOX,
+  PanChrome,
+  SCALE_GEOM,
+  SHAPE_BOX,
+  ScaleFrame,
+  cubeGlyph,
+  roleFill,
+  scaleFrame,
+  shapeGlyph,
+} from '../balance-substitution'
 import { useBeatControl } from './useBeatControl'
 
 // L10 `balance-substitution` — the two scales from the question figure, alive.
-// Geometry, glyphs and palette are lifted from the static illustration
-// (src/components/wmi/concepts/balance-substitution/index.tsx) so a shape keeps
-// its identity from the question card into the explanation: chrome is painted
+// Geometry, glyphs and palette are IMPORTED from the static illustration
+// (src/components/wmi/concepts/balance-substitution/index.tsx) rather than
+// copied, so a shape keeps its identity from the question card into the
+// explanation and can never drift when the figure is redrawn: chrome is painted
 // first, items rest ON a flat plate, and nothing can ever cover a countable.
 
-// ── palette (same literals as the figure) ─────────────────────────────────
-const BLUE = '#30598A'
-const ORANGE = '#F0853A' // shape A
-const GREEN = '#58A700' // shape B
-const CUBE_FRONT = '#E0A000'
-const CUBE_TOP = '#F2BE45'
-const CUBE_SIDE = '#B27C00'
-const CREAM = '#FAF6EF'
+// ── explainer-only inks (the figure never lights a pan up) ────────────────
 const SHELL = '#FFF9F4'
 const PEACH = '#FFD3B1'
 const BLUE_SOFT = '#E1EFFB'
@@ -33,31 +39,19 @@ const GREEN_SOFT = '#EAF6DC'
 const GREEN_INK = '#3D7400'
 const MUTED = '#8B94A3'
 
-// ── scale geometry (one cell, identical to the figure) ────────────────────
-const BOARD_W = 300
-const BOARD_H = 176
-const PIVOT_X = 150
-const BEAM_Y = 44
-const BEAM_HALF = 92
-const BEAM_W = 7
-const SPLAY_Y = BEAM_Y + 18 // the hanger has finished splaying out and runs straight down
+// ── scale geometry ────────────────────────────────────────────────────────
 // The explainer stacks more on a pan than the question figure ever does (a
 // swapped-out shape can become six cubes), so the pans hang lower than in the
 // figure — the wires are longer, nothing else changes.
-const TRAY_Y = BEAM_Y + 78
-const PAN_HW = 54
-const WIRE_HS = 50
-const TRAY_TH = 5
-const BOWL_DEPTH = 15
-const POST_BOTTOM = TRAY_Y + 36
-const LEFT_X = PIVOT_X - BEAM_HALF
-const RIGHT_X = PIVOT_X + BEAM_HALF
+const TRAY_Y = SCALE_GEOM.beamY + 78
+const BOARD_H = scaleFrame(TRAY_Y).height
+const { width: BOARD_W, leftX: LEFT_X, rightX: RIGHT_X } = SCALE_GEOM
 
 // The strip items may occupy: between the VERTICAL parts of the hanger wires and
 // the plate, so a tall stack can never run into a slanted wire or the beam.
 // Everything is fitted into it; nothing ever spills out of it.
 const ITEM_W = 96
-const ITEM_H = TRAY_Y - SPLAY_Y - 4
+const ITEM_H = TRAY_Y - SCALE_GEOM.splayY - 4
 
 // ── item sizing (before the storyboard-wide fit factor) ───────────────────
 const SHAPE = 24
@@ -68,7 +62,6 @@ const BLOCK_GAP = 8
 const HALO_PAD = 2
 const HALO_BORDER = 1.5
 const HALO_GAP = 7
-const STAR_SIN54 = Math.sin((54 * Math.PI) / 180)
 
 // ── pure layout maths (shared by the measure pass and the render) ─────────
 
@@ -158,53 +151,36 @@ export function fitFactor(story: BalanceStoryboard): number {
   return Math.max(0.4, Math.min(1, fit))
 }
 
-// ── glyphs (same drawings as the figure) ──────────────────────────────────
+// ── glyphs (the figure's own drawings, wrapped in a sized box) ────────────
 
-function starPoints(r: number, cx: number, cy: number): string {
-  const inner = r * 0.44
-  const pts: string[] = []
-  for (let i = 0; i < 10; i++) {
-    const rad = i % 2 === 0 ? r : inner
-    const angle = -Math.PI / 2 + (i * Math.PI) / 5
-    pts.push(`${(cx + rad * Math.cos(angle)).toFixed(2)},${(cy + rad * Math.sin(angle)).toFixed(2)}`)
-  }
-  return pts.join(' ')
-}
-
-/** One shape glyph, drawn in a 26-wide box whose bottom edge is the pan surface. */
+/** One shape glyph, drawn in the figure's box whose bottom edge is the pan surface. */
 function ShapeGlyph({ kind, fill, size }: { kind: BalanceShape; fill: string; size: number }) {
-  const s = 26
-  const half = s / 2
-  const common = { fill, stroke: BLUE, strokeWidth: 1.5, strokeLinejoin: 'round' as const }
-  let node: ReactNode
-  if (kind === 'circle') node = <circle cx={0} cy={-half} r={half} {...common} />
-  else if (kind === 'square') node = <rect x={-half} y={-s} width={s} height={s} rx={3} {...common} />
-  else if (kind === 'triangle') node = <polygon points={`0,${-s} ${-half},0 ${half},0`} {...common} />
-  else node = <polygon points={starPoints(half, 0, -half * STAR_SIN54)} {...common} />
+  const half = SHAPE_BOX / 2
   return (
-    <svg viewBox={`${-half} ${-s} ${s} ${s}`} width={size} height={size} role="presentation" style={{ display: 'block' }}>
-      {node}
+    <svg
+      viewBox={`${-half} ${-SHAPE_BOX} ${SHAPE_BOX} ${SHAPE_BOX}`}
+      width={size}
+      height={size}
+      role="presentation"
+      style={{ display: 'block' }}
+    >
+      {shapeGlyph(kind, fill)}
     </svg>
   )
 }
 
-/** One unit cube, same three-face drawing as the figure. */
+/** One unit cube, the figure's own three-face drawing. */
 function CubeGlyph({ size }: { size: number }) {
-  const s = 16
-  const d = s * 0.28
-  const fw = s - d
-  const x0 = -s / 2
-  const topY = -fw
+  const x0 = -CUBE_BOX / 2
   return (
-    <svg viewBox={`${x0} ${-s} ${s} ${s}`} width={size} height={size} role="presentation" style={{ display: 'block' }}>
-      <g stroke={BLUE} strokeWidth={1.2} strokeLinejoin="round">
-        <rect x={x0} y={topY} width={fw} height={fw} fill={CUBE_FRONT} />
-        <polygon
-          points={`${x0},${topY} ${x0 + d},${topY - d} ${x0 + d + fw},${topY - d} ${x0 + fw},${topY}`}
-          fill={CUBE_TOP}
-        />
-        <polygon points={`${x0 + fw},${topY} ${x0 + fw + d},${topY - d} ${x0 + fw + d},${-d} ${x0 + fw},0`} fill={CUBE_SIDE} />
-      </g>
+    <svg
+      viewBox={`${x0} ${-CUBE_BOX} ${CUBE_BOX} ${CUBE_BOX}`}
+      width={size}
+      height={size}
+      role="presentation"
+      style={{ display: 'block' }}
+    >
+      {cubeGlyph()}
     </svg>
   )
 }
@@ -228,7 +204,7 @@ function Token({ item, u, still }: { item: BalanceItem; u: number; still: boolea
       {item.kind === 'cube' ? (
         <CubeGlyph size={size} />
       ) : (
-        <ShapeGlyph kind={item.shape ?? 'circle'} fill={item.role === 'B' ? GREEN : ORANGE} size={size} />
+        <ShapeGlyph kind={item.shape ?? 'circle'} fill={roleFill(item.role)} size={size} />
       )}
     </motion.div>
   )
@@ -273,7 +249,7 @@ function PanContents({ pan, u, still }: { pan: BalancePan; u: number; still: boo
               alignItems: 'flex-end',
               gap: BLOCK_GAP * u,
               padding: multi ? HALO_PAD * u : 0,
-              border: multi ? `${HALO_BORDER * u}px dashed ${BLUE}` : undefined,
+              border: multi ? `${HALO_BORDER * u}px dashed ${BALANCE_INK.frame}` : undefined,
               borderRadius: 8 * u,
             }}
           >
@@ -286,38 +262,9 @@ function PanContents({ pan, u, still }: { pan: BalancePan; u: number; still: boo
   )
 }
 
-/** A hanger wire: splays out from the beam high up, then drops vertically. */
-function hangerPath(bx: number, dir: 1 | -1): string {
-  const x = bx + dir * WIRE_HS
-  return `M ${bx} ${BEAM_Y} C ${bx} ${BEAM_Y + 10}, ${x} ${BEAM_Y + 8}, ${x} ${SPLAY_Y} L ${x} ${TRAY_Y}`
-}
-
 /** The scale itself: level beam, stand, two hanging plates. Painted before items. */
 function Chrome({ index, litLeft, litRight }: { index: number | null; litLeft: boolean; litRight: boolean }) {
-  const wire = { fill: 'none', stroke: BLUE, strokeWidth: 1.6, strokeLinecap: 'round' as const }
-  const plate = (bx: number, lit: boolean) => (
-    <g key={bx}>
-      <path d={hangerPath(bx, -1)} {...wire} />
-      <path d={hangerPath(bx, 1)} {...wire} />
-      <path
-        d={`M ${bx - PAN_HW + 6} ${TRAY_Y + TRAY_TH} Q ${bx} ${TRAY_Y + TRAY_TH + BOWL_DEPTH} ${bx + PAN_HW - 6} ${TRAY_Y + TRAY_TH}`}
-        fill={CREAM}
-        stroke={lit ? GREEN : BLUE}
-        strokeWidth={lit ? 3 : 2.5}
-        strokeLinejoin="round"
-      />
-      <rect
-        x={bx - PAN_HW}
-        y={TRAY_Y}
-        width={PAN_HW * 2}
-        height={TRAY_TH}
-        rx={TRAY_TH / 2}
-        fill={lit ? GREEN_SOFT : CREAM}
-        stroke={lit ? GREEN : BLUE}
-        strokeWidth={lit ? 2.6 : 2}
-      />
-    </g>
-  )
+  const lit = { stroke: BALANCE_INK.shapeB, plateFill: GREEN_SOFT, bold: true }
   return (
     <svg
       viewBox={`0 0 ${BOARD_W} ${BOARD_H}`}
@@ -326,28 +273,9 @@ function Chrome({ index, litLeft, litRight }: { index: number | null; litLeft: b
       role="presentation"
       style={{ position: 'absolute', inset: 0 }}
     >
-      {index != null && (
-        <>
-          <circle cx={20} cy={20} r={13} fill={BLUE} />
-          <text x={20} y={20} textAnchor="middle" dominantBaseline="central" fontSize={15} fontWeight={800} fill={CREAM}>
-            {index}
-          </text>
-        </>
-      )}
-      <line
-        x1={LEFT_X}
-        y1={BEAM_Y}
-        x2={RIGHT_X}
-        y2={BEAM_Y}
-        stroke={BLUE}
-        strokeWidth={BEAM_W}
-        strokeLinecap="round"
-      />
-      <rect x={PIVOT_X - 4} y={BEAM_Y} width={8} height={POST_BOTTOM - BEAM_Y} rx={3} fill={BLUE} />
-      <rect x={PIVOT_X - 38} y={POST_BOTTOM} width={76} height={10} rx={5} fill={BLUE} />
-      <circle cx={PIVOT_X} cy={BEAM_Y} r={7} fill={CREAM} stroke={BLUE} strokeWidth={2.5} />
-      {plate(LEFT_X, litLeft)}
-      {plate(RIGHT_X, litRight)}
+      <ScaleFrame trayY={TRAY_Y} index={index} />
+      <PanChrome bx={LEFT_X} trayY={TRAY_Y} style={litLeft ? lit : undefined} />
+      <PanChrome bx={RIGHT_X} trayY={TRAY_Y} style={litRight ? lit : undefined} />
     </svg>
   )
 }
@@ -360,10 +288,14 @@ function FactChip({ shape, role, cubes, fresh, u }: { shape: BalanceShape; role:
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 26 }}
       className="inline-flex items-center gap-1 rounded-full border-2 px-2 py-[0.0625rem] font-display text-[0.6875rem] font-extrabold tabular-nums"
-      style={{ background: fresh ? GREEN_SOFT : '#FFFFFF', borderColor: fresh ? GREEN : PEACH, color: fresh ? GREEN_INK : BLUE }}
+      style={{
+        background: fresh ? GREEN_SOFT : '#FFFFFF',
+        borderColor: fresh ? BALANCE_INK.shapeB : PEACH,
+        color: fresh ? GREEN_INK : BALANCE_INK.frame,
+      }}
     >
       1
-      <ShapeGlyph kind={shape} fill={role === 'B' ? GREEN : ORANGE} size={13 * u + 4} />
+      <ShapeGlyph kind={shape} fill={roleFill(role)} size={13 * u + 4} />
       {`= ${cubes}`}
       <CubeGlyph size={11 * u + 3} />
     </motion.span>
@@ -385,8 +317,8 @@ export default function BalanceSubstitutionExplainer(props: ExplainerProps) {
   const litRight = spot === 'right' || spot === 'both'
 
   const captionStyle = beat.result
-    ? { background: GREEN_SOFT, borderColor: GREEN, color: GREEN_INK }
-    : { background: BLUE_SOFT, borderColor: BLUE, color: BLUE }
+    ? { background: GREEN_SOFT, borderColor: BALANCE_INK.shapeB, color: GREEN_INK }
+    : { background: BLUE_SOFT, borderColor: BALANCE_INK.frame, color: BALANCE_INK.frame }
 
   const ariaLabel = T(
     `Strategy: a level scale means both sides weigh the same, so a shape may be swapped for the cubes that balance it. Swapping keeps the beam level, and after swapping, ${shapeWord(story.shapeA, 1, 'en')} and ${shapeWord(story.shapeB, 1, 'en')} can be compared directly.`,
@@ -403,7 +335,7 @@ export default function BalanceSubstitutionExplainer(props: ExplainerProps) {
         <div className="flex min-h-[1.5rem] w-full flex-wrap items-center justify-center gap-1.5">
           <span
             className="rounded-full px-2.5 py-[0.0625rem] font-display text-[0.6875rem] font-extrabold"
-            style={{ background: BLUE, color: CREAM }}
+            style={{ background: BALANCE_INK.frame, color: BALANCE_INK.cream }}
           >
             {beat.board.title}
           </span>
@@ -452,7 +384,7 @@ export default function BalanceSubstitutionExplainer(props: ExplainerProps) {
               {beat.tradedNote && (
                 <span
                   className="mb-[0.125rem] font-display text-[0.6875rem] font-extrabold tabular-nums"
-                  style={{ color: BLUE }}
+                  style={{ color: BALANCE_INK.frame }}
                 >
                   {beat.tradedNote}
                 </span>

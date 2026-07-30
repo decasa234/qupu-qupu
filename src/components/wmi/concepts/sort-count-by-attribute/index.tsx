@@ -12,24 +12,42 @@ import type { ReactNode } from 'react'
  * integer hash of `seed` + the item index, so the same params always draw the
  * same picture (no Math.random, no Date — SSR-safe). Falls back to a sample so
  * previews still render when params have the wrong shape.
+ *
+ * THIS MODULE OWNS THE OBJECTS. The post-answer explainer
+ * (`../explainers/SortCountByAttributeExplainer.tsx`) shows the very same pile
+ * flying apart into groups, so it imports `sortCountGlyph`, `sortCountFill`,
+ * `sortCountHash` and `buildSortCountItems` from here rather than keeping its
+ * own copies — a redrawn glyph must never desync the animation from the
+ * question. The default export stays the illustration (the concept registry
+ * lazy-imports this module).
  */
 
-type Attribute = 'shape' | 'colour' | 'fruit'
-type Layout = 'scatter' | 'grid' | 'rows'
+export type SortCountAttribute = 'shape' | 'colour' | 'fruit'
+export type SortCountLayout = 'scatter' | 'grid' | 'rows'
+/** Mirrors ASKS in api/services/wmi/concepts/sort-count-by-attribute. */
+export type SortCountAsk = 'count-one' | 'most' | 'difference' | 'how-many-kinds'
+
+type Attribute = SortCountAttribute
+type Layout = SortCountLayout
 
 interface SortCountParams {
   attribute: Attribute
   categories: string[]
   counts: number[]
   layout: Layout
+  /** Drives the aria-label only — the picture is identical for every ask. */
+  ask: SortCountAsk | null
   seed: number
 }
+
+const ASKS: readonly SortCountAsk[] = ['count-one', 'most', 'difference', 'how-many-kinds']
 
 const SAMPLE: SortCountParams = {
   attribute: 'shape',
   categories: ['circle', 'triangle', 'star'],
   counts: [6, 4, 5],
   layout: 'scatter',
+  ask: null,
   seed: 7,
 }
 
@@ -46,7 +64,8 @@ const OUTLINE = 'rgba(38,59,85,0.28)'
 const STRING = 'rgba(38,59,85,0.35)'
 const STEM = '#7A5B3A'
 
-const HUE: Record<string, string> = {
+/** The one colour map for this concept — the explainer imports it too. */
+export const SORT_COUNT_HUE: Record<string, string> = {
   'shape:circle': BLUE,
   'shape:triangle': ORANGE,
   'shape:square': GREEN,
@@ -60,6 +79,11 @@ const HUE: Record<string, string> = {
   'fruit:banana': YELLOW,
   'fruit:orange': ORANGE,
   'fruit:grape': PURPLE,
+}
+
+/** Colour of one kind of object, with the same fallback everywhere. */
+export function sortCountFill(attribute: Attribute, key: string): string {
+  return SORT_COUNT_HUE[`${attribute}:${key}`] ?? BLUE
 }
 
 const NAME_ID: Record<string, string> = {
@@ -84,10 +108,17 @@ const SCENE_NOUN_ID: Record<Attribute, string> = {
   fruit: 'buah',
 }
 
+/** What "one kind" is called per scene — mirrors SCENES.kinds_id in the generator. */
+const KIND_WORD_ID: Record<Attribute, string> = {
+  shape: 'jenis',
+  colour: 'warna',
+  fruit: 'jenis',
+}
+
 // --- deterministic helpers --------------------------------------------------
 
 /** 32-bit integer hash of (seed, index, salt) — pure index arithmetic. */
-function hash(seed: number, i: number, salt: number): number {
+export function sortCountHash(seed: number, i: number, salt: number): number {
   let h = Math.imul(seed + 1, 2654435761) ^ Math.imul(i + 1, 40503) ^ Math.imul(salt + 1, 668265263)
   h = Math.imul(h ^ (h >>> 15), 2246822519)
   h = Math.imul(h ^ (h >>> 13), 3266489917)
@@ -95,18 +126,42 @@ function hash(seed: number, i: number, salt: number): number {
 }
 
 /** The pile order: one entry per object, mixed so groups never sit together. */
-function buildItems(counts: number[], seed: number): number[] {
+export function buildSortCountItems(counts: number[], seed: number): number[] {
   const bag: number[] = []
   counts.forEach((c, ci) => {
     for (let i = 0; i < c; i++) bag.push(ci)
   })
   for (let i = bag.length - 1; i > 0; i--) {
-    const j = hash(seed, i, 3) % (i + 1)
+    const j = sortCountHash(seed, i, 3) % (i + 1)
     const tmp = bag[i]
     bag[i] = bag[j]
     bag[j] = tmp
   }
   return bag
+}
+
+/**
+ * The picture, in words, for a screen reader.
+ *
+ * Policy: describe what is pictured richly enough that the question can still be
+ * attempted, but NEVER say anything that IS the answer to this `ask`.
+ * - count-one / difference / most — naming the kinds is fine; no group's count
+ *   and no total is ever stated.
+ * - how-many-kinds — the kinds are the answer, so they are neither listed nor
+ *   counted. An unknown ask is treated the same way, because it might be this one.
+ */
+export function sortCountAriaLabel(
+  attribute: Attribute,
+  categories: string[],
+  ask: SortCountAsk | null,
+): string {
+  const noun = SCENE_NOUN_ID[attribute]
+  const kindWord = KIND_WORD_ID[attribute]
+  if (ask !== 'count-one' && ask !== 'most' && ask !== 'difference') {
+    return `Gambar berisi beberapa ${kindWord} ${noun} yang tercampur jadi satu. Kelompokkan yang sama, lalu hitung sendiri ada berapa ${kindWord}nya.`
+  }
+  const kindList = categories.map((k) => NAME_ID[`${attribute}:${k}`] ?? k).join(', ')
+  return `Gambar berisi ${noun} yang tercampur jadi satu: ${kindList}. Kelompokkan yang sama, lalu hitung sendiri tiap kelompoknya.`
 }
 
 function starPoints(cx: number, cy: number, outer: number, inner: number): string {
@@ -119,7 +174,22 @@ function starPoints(cx: number, cy: number, outer: number, inner: number): strin
   return pts.join(' ')
 }
 
-function glyph(attribute: Attribute, key: string, cx: number, cy: number, s: number, fill: string): ReactNode {
+/**
+ * One object, drawn around (cx, cy) at half-extent `s`.
+ *
+ * Every glyph stays inside a reach of 1.20s from the centre. That is the budget
+ * the scatter layout allows: cells are `cell` apart and each item is jittered by
+ * up to `cell/2 - 15` px, leaving 15px ≈ 1.208s of clearance per side, so two
+ * neighbours can never touch.
+ */
+export function sortCountGlyph(
+  attribute: Attribute,
+  key: string,
+  cx: number,
+  cy: number,
+  s: number,
+  fill: string,
+): ReactNode {
   const stroke = OUTLINE
   const sw = 1.4
 
@@ -216,10 +286,17 @@ function glyph(attribute: Attribute, key: string, cx: number, cy: number, s: num
       )
     }
     if (key === 'apple') {
+      // The leaf sprouts sideways off the top of the stem rather than diagonally
+      // up: same almond outline, near-identical length (0.48s vs 0.54s), but its
+      // tip lands at (0.44, -1.04) instead of (0.42, -1.24). That pulls the
+      // apple's reach from 1.28s to 1.09s measured on the axis the scatter grid
+      // actually crowds (1.31s to 1.13s as a circumradius) — back inside the
+      // 1.208s budget, so two adjacent apples can no longer meet leaf tip to leaf
+      // tip. Anything drawn above y = -1.16s here starts touching again.
       return (
         <>
           <path
-            d={`M ${cx} ${cy - 0.9 * s} q ${0.1 * s} ${-0.3 * s} ${0.42 * s} ${-0.34 * s} q ${-0.06 * s} ${0.34 * s} ${-0.42 * s} ${0.36 * s} Z`}
+            d={`M ${cx} ${cy - 0.86 * s} q ${0.14 * s} ${-0.24 * s} ${0.44 * s} ${-0.18 * s} q ${-0.14 * s} ${0.28 * s} ${-0.44 * s} ${0.18 * s} Z`}
             fill={GREEN}
             stroke={stroke}
             strokeWidth={1}
@@ -330,11 +407,12 @@ export default function SortCountByAttributeIllustration({ params }: { params: u
         counts: raw.counts as number[],
         layout:
           raw.layout === 'grid' || raw.layout === 'rows' || raw.layout === 'scatter' ? raw.layout : 'scatter',
+        ask: ASKS.includes(raw.ask as SortCountAsk) ? (raw.ask as SortCountAsk) : null,
         seed: typeof raw.seed === 'number' ? raw.seed : 0,
       }
     : SAMPLE
 
-  const items = buildItems(p.counts, p.seed)
+  const items = buildSortCountItems(p.counts, p.seed)
   const n = items.length
 
   // --- layout ---------------------------------------------------------------
@@ -354,8 +432,7 @@ export default function SortCountByAttributeIllustration({ params }: { params: u
   const height = padY * 2 + rowCount * cell
   const s = cell * 0.27 // glyph half-extent; jitter below always stays inside the cell
 
-  const kindList = p.categories.map((k) => NAME_ID[`${p.attribute}:${k}`] ?? k).join(', ')
-  const label = `Gambar berisi ${n} ${SCENE_NOUN_ID[p.attribute]} yang tercampur: ${kindList}. Hitung sendiri setiap kelompoknya.`
+  const label = sortCountAriaLabel(p.attribute, p.categories, p.ask)
 
   return (
     <div className="my-4 flex justify-center" role="img" aria-label={label}>
@@ -370,13 +447,14 @@ export default function SortCountByAttributeIllustration({ params }: { params: u
           let cy = padY + row * cell + cell / 2
           if (p.layout === 'rows') cx += (row % 2) * stagger
           if (p.layout === 'scatter') {
-            // jitter stays under (cell/2 - s) so neighbouring glyphs never touch
-            cx += (hash(p.seed, i, 0) % 17) - 8
-            cy += (hash(p.seed, i, 1) % 17) - 8
+            // ±8px of jitter leaves cell - 16 = 30px between the closest pair of
+            // centres, i.e. 15px ≈ 1.208s of reach each — the budget every glyph
+            // in `sortCountGlyph` is drawn to stay inside, so none ever touch.
+            cx += (sortCountHash(p.seed, i, 0) % 17) - 8
+            cy += (sortCountHash(p.seed, i, 1) % 17) - 8
           }
           const key = p.categories[ci] ?? ''
-          const fill = HUE[`${p.attribute}:${key}`] ?? BLUE
-          return <g key={i}>{glyph(p.attribute, key, cx, cy, s, fill)}</g>
+          return <g key={i}>{sortCountGlyph(p.attribute, key, cx, cy, s, sortCountFill(p.attribute, key))}</g>
         })}
       </svg>
     </div>

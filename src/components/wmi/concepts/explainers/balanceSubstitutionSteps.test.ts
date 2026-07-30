@@ -1,4 +1,6 @@
 import { describe, test, expect } from 'vitest'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import {
   buildBalanceSubstitutionSteps,
   chunkItems,
@@ -7,6 +9,21 @@ import {
   type BalanceParams,
   type BalanceStoryboard,
 } from './balanceSubstitutionSteps'
+import BalanceSubstitutionIllustration, {
+  BALANCE_INK,
+  CUBE_BOX,
+  FIGURE_PAN_DROP,
+  SCALE_GEOM,
+  SHAPE_BOX,
+  STAR_SIN54,
+  balanceFigureAriaLabel,
+  hangerPath,
+  scaleFrame,
+  starPoints,
+  type ScaleData,
+  type ShapeKind,
+} from '../balance-substitution'
+import BalanceSubstitutionExplainer from './BalanceSubstitutionExplainer'
 
 // value-of-one: 2 triangles = 4 cubes, and 3 triangles = 1 star. wA 2, wB 6.
 const valueOfOne: BalanceParams = {
@@ -217,6 +234,160 @@ describe('buildBalanceSubstitutionSteps — defensive', () => {
       for (const beat of build(params).steps) {
         const ids = [...beat.board.left.items, ...beat.board.right.items, ...beat.traded].map((i) => i.id)
         expect(new Set(ids).size).toBe(ids.length)
+      }
+    }
+  })
+})
+
+// ---------------------------------------------------------------------------
+// The figure's aria-label
+// ---------------------------------------------------------------------------
+
+const ALL_PARAMS = [valueOfOne, valueOfOneShared, balanceGroup] as const
+
+/** Every run of digits in a string, as numbers. */
+function digitsIn(text: string): number[] {
+  return (text.match(/\d+/g) ?? []).map(Number)
+}
+
+/** What the picture actually puts on the pans, in reading order. */
+function drawnCounts(scales: readonly ScaleData[]): number[] {
+  const out: number[] = []
+  for (const scale of scales) {
+    for (const side of [scale.left, scale.right]) {
+      for (const n of [side.a, side.b, side.unit]) if (n > 0) out.push(n)
+    }
+  }
+  return out
+}
+
+describe('balanceFigureAriaLabel', () => {
+  test('says there are two level scales and what sits on each pan', () => {
+    expect(balanceFigureAriaLabel(valueOfOne)).toBe(
+      'Dua timbangan, keduanya seimbang dengan lengan mendatar. ' +
+        'Timbangan pertama: piring kiri berisi 2 segitiga, piring kanan berisi 4 kubus. ' +
+        'Timbangan kedua: piring kiri berisi 3 segitiga, piring kanan berisi 1 bintang.',
+    )
+    expect(balanceFigureAriaLabel(balanceGroup)).toBe(
+      'Dua timbangan, keduanya seimbang dengan lengan mendatar. ' +
+        'Timbangan pertama: piring kiri berisi 1 persegi, piring kanan berisi 4 kubus. ' +
+        'Timbangan kedua: piring kiri berisi 2 bintang, piring kanan berisi 4 kubus.',
+    )
+  })
+
+  test('every number it speaks is a count the picture draws — nothing is derived', () => {
+    for (const params of ALL_PARAMS) {
+      const label = balanceFigureAriaLabel(params)
+      expect(digitsIn(label)).toEqual(drawnCounts(params.scales))
+      // it never states what one shape is worth, nor how many balance the group
+      expect(label).not.toMatch(/seimbang dengan \d/)
+      expect(label).not.toContain('=')
+    }
+  })
+
+  test('reads the counts the figure clamps to, and calls an empty pan empty', () => {
+    const label = balanceFigureAriaLabel({
+      shapeA: 'circle',
+      shapeB: 'square',
+      scales: [
+        // a raw count past what the figure can draw, and a pan with nothing on it
+        { left: { a: 99, b: 0, unit: 0 }, right: { a: 0, b: 0, unit: 0 } },
+        { left: { a: 1, b: 0, unit: 0 }, right: { a: 0, b: 0, unit: 2 } },
+      ],
+    })
+    expect(label).toContain('piring kiri berisi 6 lingkaran, piring kanan berisi kosong')
+    expect(label).not.toContain('99')
+  })
+
+  test('same params in, identical label out', () => {
+    expect(balanceFigureAriaLabel(valueOfOne)).toBe(balanceFigureAriaLabel(valueOfOne))
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Figure ↔ explainer: one set of glyphs and one frame, not two copies
+// ---------------------------------------------------------------------------
+
+const figureHtml = (p: unknown) =>
+  renderToStaticMarkup(createElement(BalanceSubstitutionIllustration, { params: p }))
+
+const explainerHtml = (p: unknown, step: number) =>
+  renderToStaticMarkup(
+    createElement(BalanceSubstitutionExplainer, { params: p, correctAnswer: '6', lang: 'id', step }),
+  )
+
+describe('the explainer draws the figure, not a copy of it', () => {
+  test('both SSR renders agree on the glyphs, the frame and the palette', () => {
+    const p: BalanceParams = { ...valueOfOne }
+    const fig = figureHtml(p)
+    // shape B only reaches a pan on the closing beat, so read the whole story
+    const exp = build(p).steps.map((_, i) => explainerHtml(p, i)).join('')
+
+    // the star polygon comes from one `starPoints` call, not two
+    const half = SHAPE_BOX / 2
+    const star = starPoints(half, 0, -half * STAR_SIN54)
+    expect(fig).toContain(`points="${star}"`)
+    expect(exp).toContain(`points="${star}"`)
+
+    // the triangle glyph, drawn in the same box
+    const triangle = `0,${-SHAPE_BOX} ${-half},0 ${half},0`
+    expect(fig).toContain(`points="${triangle}"`)
+    expect(exp).toContain(`points="${triangle}"`)
+
+    // the three cube faces, at the shared cube size
+    const d = CUBE_BOX * 0.28
+    const fw = CUBE_BOX - d
+    const x0 = -CUBE_BOX / 2
+    const cubeTop = `${x0},${-fw} ${x0 + d},${-fw - d} ${x0 + d + fw},${-fw - d} ${x0 + fw},${-fw}`
+    expect(fig).toContain(`points="${cubeTop}"`)
+    expect(exp).toContain(`points="${cubeTop}"`)
+
+    // the standing frame: same beam span and pivot on both, whatever the drop
+    expect(fig).toContain(`x1="${SCALE_GEOM.leftX}"`)
+    expect(exp).toContain(`x1="${SCALE_GEOM.leftX}"`)
+    expect(fig).toContain(`x2="${SCALE_GEOM.rightX}"`)
+    expect(exp).toContain(`x2="${SCALE_GEOM.rightX}"`)
+    expect(fig).toContain(`stroke-width="${SCALE_GEOM.beamWidth}"`)
+    expect(exp).toContain(`stroke-width="${SCALE_GEOM.beamWidth}"`)
+
+    // the hanger wires: same curve, only the drop differs between the two
+    const figTray = SCALE_GEOM.beamY + FIGURE_PAN_DROP
+    const expTray = SCALE_GEOM.beamY + 78
+    expect(fig).toContain(hangerPath(SCALE_GEOM.leftX, figTray, -1))
+    expect(exp).toContain(hangerPath(SCALE_GEOM.leftX, expTray, -1))
+
+    // one palette
+    for (const ink of [
+      BALANCE_INK.frame,
+      BALANCE_INK.shapeA,
+      BALANCE_INK.shapeB,
+      BALANCE_INK.cubeFront,
+      BALANCE_INK.cubeTop,
+      BALANCE_INK.cubeSide,
+      BALANCE_INK.cream,
+    ]) {
+      expect(fig).toContain(ink)
+      expect(exp).toContain(ink)
+    }
+  })
+
+  test('the frame maths is one formula: the drop fixes the post and the cell height', () => {
+    expect(scaleFrame(104)).toEqual({ trayY: 104, postBottom: 140, height: 158 })
+    expect(scaleFrame(122)).toEqual({ trayY: 122, postBottom: 158, height: 176 })
+    // the figure's own cell, straight from the shared constants
+    const cell = scaleFrame(SCALE_GEOM.beamY + FIGURE_PAN_DROP)
+    expect(figureHtml(valueOfOne)).toContain(
+      `viewBox="0 0 ${SCALE_GEOM.width} ${cell.height * 2}"`,
+    )
+  })
+
+  test('every shape kind renders deterministically in both languages', () => {
+    const kinds: ShapeKind[] = ['circle', 'triangle', 'square', 'star']
+    for (const shapeA of kinds) {
+      for (const shapeB of kinds) {
+        const p = { ...valueOfOne, shapeA, shapeB }
+        expect(figureHtml(p)).toBe(figureHtml(p))
+        expect(explainerHtml(p, 0)).toBe(explainerHtml(p, 0))
       }
     }
   })

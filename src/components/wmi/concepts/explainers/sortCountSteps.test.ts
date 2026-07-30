@@ -1,5 +1,16 @@
 import { describe, test, expect } from 'vitest'
-import { buildSortCountSteps, type SortCountParams } from './sortCountSteps'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Figure, {
+  SORT_COUNT_HUE,
+  buildSortCountItems,
+  sortCountAriaLabel,
+  sortCountFill,
+  sortCountGlyph,
+  sortCountHash as figureHash,
+} from '../sort-count-by-attribute'
+import Explainer from './SortCountByAttributeExplainer'
+import { buildSortCountSteps, buildPile, sortCountHash, type SortCountParams } from './sortCountSteps'
 
 const base: SortCountParams = {
   attribute: 'shape',
@@ -218,5 +229,150 @@ describe('buildSortCountSteps — language and robustness', () => {
     expect(Number.isNaN(Number(sb.answer))).toBe(false)
     const lineup = sb.steps.find((s) => s.phase === 'lineup')!
     expect(new Set(lineup.groups.map((g) => g.index)).size).toBe(2)
+  })
+})
+
+// --- one source of truth for the objects ------------------------------------
+// The explainer replays the pile the question drew. It used to hold its own copy
+// of the glyphs, the colour map, the hash and the pile builder — and a review
+// that redrew the banana and the orange only touched the figure, so the two
+// surfaces silently disagreed. These tests fail loudly if a copy ever comes back.
+
+const POOLS: Record<string, string[]> = {
+  shape: ['circle', 'triangle', 'square', 'star'],
+  colour: ['red', 'blue', 'orange', 'green', 'yellow'],
+  fruit: ['apple', 'banana', 'orange', 'grape'],
+}
+
+/** Every drawn tag with its fill, e.g. `path #D64545` — order preserved. */
+const shapeSig = (markup: string): string[] =>
+  (markup.match(/<(?:path|circle|ellipse|polygon|rect)[^>]*>/g) ?? []).map((tag) => {
+    const name = tag.match(/^<(\w+)/)![1]
+    return `${name} ${tag.match(/fill="([^"]*)"/)?.[1] ?? 'none'}`
+  })
+
+describe('sort-count-by-attribute — the figure owns the objects', () => {
+  test('the pile builder and the hash are the figure’s, not a second copy', () => {
+    expect(buildPile).toBe(buildSortCountItems)
+    expect(sortCountHash).toBe(figureHash)
+  })
+
+  test('the storyboard pile is exactly the pile the figure lays out', () => {
+    const params: Array<Partial<SortCountParams>> = [
+      { counts: [6, 4, 5], seed: 7 },
+      { counts: [12, 3, 3, 9], categories: ['circle', 'triangle', 'star', 'square'], seed: 0 },
+      { counts: [3, 3, 3], seed: 999 },
+      { attribute: 'fruit', categories: ['apple', 'banana', 'grape'], counts: [8, 5, 11], seed: 314 },
+    ]
+    for (const over of params) {
+      const sb = build(over)
+      expect(sb.pile).toEqual(buildSortCountItems(sb.counts, sb.seed))
+    }
+  })
+
+  test('both surfaces colour every kind from the one shared map', () => {
+    for (const [attribute, keys] of Object.entries(POOLS)) {
+      for (const key of keys) {
+        const hue = SORT_COUNT_HUE[`${attribute}:${key}`]
+        expect(hue, `${attribute}:${key} has no hue`).toBeDefined()
+        expect(sortCountFill(attribute as 'shape', key)).toBe(hue)
+
+        const p = { attribute, categories: [key, key], counts: [2, 2], layout: 'grid', ask: 'most', askIndices: [], seed: 3 }
+        const figure = renderToStaticMarkup(createElement(Figure, { params: p }))
+        const explainer = renderToStaticMarkup(createElement(Explainer, { params: p, lang: 'id' } as never))
+        expect(figure, `figure lost ${attribute}:${key}`).toContain(`fill="${hue}"`)
+        expect(explainer, `explainer lost ${attribute}:${key}`).toContain(`fill="${hue}"`)
+        // same parts with the same fills on both surfaces — the explainer adds
+        // chrome (the crown, the trap cross), so the figure's set must be inside it
+        const inExplainer = new Set(shapeSig(explainer))
+        for (const part of new Set(shapeSig(figure))) {
+          expect(inExplainer.has(part), `explainer missing "${part}" for ${attribute}:${key}`).toBe(true)
+        }
+      }
+    }
+  })
+
+  test('the explainer draws the figure’s glyph, byte for byte', () => {
+    for (const [attribute, keys] of Object.entries(POOLS)) {
+      for (const key of keys) {
+        const markup = renderToStaticMarkup(
+          createElement(Explainer, {
+            params: { attribute, categories: [key, key, key], counts: [3, 3, 3], layout: 'grid', ask: 'most', askIndices: [], seed: 1 },
+            lang: 'id',
+          } as never),
+        )
+        // Each object is its own square <svg>; the explainer sizes the glyph at
+        // half-extent `size / 2.3` (see buildGeometry). Rebuild the same call
+        // and require an exact match of the rendered SVG children.
+        const box = markup.match(/<svg viewBox="0 0 (\d+) \1"[^>]*role="presentation">(.*?)<\/svg>/)
+        expect(box, `no item svg for ${attribute}:${key}`).not.toBeNull()
+        const size = Number(box![1])
+        const expected = renderToStaticMarkup(
+          createElement(
+            'svg',
+            null,
+            sortCountGlyph(attribute as 'shape', key, size / 2, size / 2, size / 2.3, sortCountFill(attribute as 'shape', key)),
+          ),
+        ).replace(/^<svg>|<\/svg>$/g, '')
+        expect(box![2], `${attribute}:${key} drifted from the figure`).toBe(expected)
+      }
+    }
+  })
+})
+
+// --- aria-label policy ------------------------------------------------------
+// Describe the picture richly enough to attempt the question, but never state
+// anything that IS the answer to this ask.
+
+describe('sort-count-by-attribute — the figure’s aria-label', () => {
+  const label = (over: Record<string, unknown>) =>
+    renderToStaticMarkup(
+      createElement(Figure, {
+        params: { attribute: 'fruit', categories: ['apple', 'banana', 'grape'], counts: [7, 4, 9], layout: 'grid', seed: 5, ...over },
+      }),
+    ).match(/aria-label="([^"]*)"/)![1]
+
+  test('no ask ever states a count, a total, or any digit', () => {
+    for (const ask of ['count-one', 'most', 'difference', 'how-many-kinds', undefined]) {
+      const l = label({ ask, askIndices: ask === 'difference' ? [2, 1] : [0] })
+      expect(l, `${ask}: ${l}`).not.toMatch(/\d/)
+      expect(l).not.toContain('20') // the total
+    }
+  })
+
+  test('count-one, difference and most name the kinds — that is not the answer', () => {
+    for (const ask of ['count-one', 'difference', 'most']) {
+      const l = label({ ask, askIndices: ask === 'difference' ? [2, 1] : [0] })
+      expect(l).toContain('apel')
+      expect(l).toContain('pisang')
+      expect(l).toContain('anggur')
+      // never singles out a winner
+      expect(l).not.toMatch(/paling|terbanyak|terbesar/)
+    }
+  })
+
+  test('how-many-kinds neither lists nor counts the kinds', () => {
+    const l = label({ ask: 'how-many-kinds', askIndices: [] })
+    expect(l).toBe(
+      'Gambar berisi beberapa jenis buah yang tercampur jadi satu. Kelompokkan yang sama, lalu hitung sendiri ada berapa jenisnya.',
+    )
+    for (const kind of ['apel', 'pisang', 'anggur', 'jeruk']) expect(l).not.toContain(kind)
+    expect(l.replace(/jadi satu/g, '')).not.toMatch(/\b(satu|dua|tiga|empat|lima)\b/)
+  })
+
+  test('an unknown ask is treated as the guarded one, because it might be', () => {
+    expect(sortCountAriaLabel('fruit', ['apple', 'banana'], null)).toBe(
+      sortCountAriaLabel('fruit', ['apple', 'banana'], 'how-many-kinds'),
+    )
+    expect(label({ ask: 'nonsense' })).toBe(label({ ask: 'how-many-kinds' }))
+  })
+
+  test('each scene keeps its own words for a kind', () => {
+    expect(sortCountAriaLabel('colour', [], 'how-many-kinds')).toContain('beberapa warna balon')
+    expect(sortCountAriaLabel('shape', [], 'how-many-kinds')).toContain('beberapa jenis bentuk')
+    expect(sortCountAriaLabel('fruit', [], 'how-many-kinds')).toContain('beberapa jenis buah')
+    expect(sortCountAriaLabel('shape', ['circle', 'star'], 'most')).toBe(
+      'Gambar berisi bentuk yang tercampur jadi satu: lingkaran, bintang. Kelompokkan yang sama, lalu hitung sendiri tiap kelompoknya.',
+    )
   })
 })

@@ -3,6 +3,14 @@ import { motion, useReducedMotion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { useBeatControl } from './useBeatControl'
 import {
+  GAP_DASH,
+  RULE_INK,
+  bubbleNumeral,
+  ruleGeometry,
+  slotInk,
+  type RuleGroupGeom,
+} from '../number-figure-rule'
+import {
   buildNumberFigureRuleSteps,
   type RuleStep,
   type RuleStoryboard,
@@ -11,69 +19,27 @@ import {
   type Triple,
 } from './numberFigureRuleSteps'
 
-// Palette copied from the static number-figure-rule figure so the animation
-// reads as that same picture coming alive: blue = given, green = result,
-// dashed orange = the gap, cream cards on a warm shell.
-const BLUE = '#30598A'
-const ORANGE = '#F0853A'
+// The palette, the bubble glyph and every coordinate come from the static
+// number-figure-rule figure (`../number-figure-rule`), so the animation is that
+// same picture coming alive and cannot drift when the figure is redrawn. Only
+// the beat inks below — rose for a rejected candidate, the warm shell, the
+// darker inks used on filled chips — belong to the animation alone.
 const ORANGE_INK = '#9A4A12'
-const GREEN = '#58A700'
 const GREEN_INK = '#3B6F00'
-const CARD = '#FDF8F1'
-const CARD_EDGE = '#EADFCD'
-const LINK = '#B5A896'
 const SHELL = '#FFF9F4'
 const PEACH = '#FFD3B1'
 const ROSE = '#E11D48'
 const ROSE_INK = '#9F1239'
 
 const TONE: Record<Tone, { ink: string; edge: string; fill: string }> = {
-  try: { ink: BLUE, edge: BLUE, fill: '#E1EFFB' },
-  ok: { ink: GREEN_INK, edge: GREEN, fill: '#EEF7E0' },
-  rule: { ink: BLUE, edge: BLUE, fill: '#E1EFFB' },
+  try: { ink: RULE_INK.given, edge: RULE_INK.given, fill: '#E1EFFB' },
+  ok: { ink: GREEN_INK, edge: RULE_INK.result, fill: '#EEF7E0' },
+  rule: { ink: RULE_INK.given, edge: RULE_INK.given, fill: '#E1EFFB' },
   trap: { ink: ROSE_INK, edge: ROSE, fill: '#FFF1F2' },
-  answer: { ink: ORANGE_INK, edge: ORANGE, fill: '#FFF2DF' },
+  answer: { ink: ORANGE_INK, edge: RULE_INK.gap, fill: '#FFF2DF' },
 }
 
-const SLOTS: Slot[] = ['a', 'b', 'c']
-
-/**
- * Connector that stops short of both circles and ends in an arrow head, so
- * "these two make that one" reads in one direction only. Same trigonometry as
- * the static figure (which does not export it).
- */
-function connector(
-  x1: number,
-  y1: number,
-  x2: number,
-  y2: number,
-  trimStart: number,
-  trimEnd: number,
-) {
-  const dx = x2 - x1
-  const dy = y2 - y1
-  const len = Math.hypot(dx, dy) || 1
-  const ux = dx / len
-  const uy = dy / len
-  const tipX = x2 - ux * trimEnd
-  const tipY = y2 - uy * trimEnd
-  const headLen = 8
-  const headHalf = 4.5
-  const baseX = tipX - ux * headLen
-  const baseY = tipY - uy * headLen
-  const f = (n: number) => n.toFixed(2)
-  return {
-    x1: f(x1 + ux * trimStart),
-    y1: f(y1 + uy * trimStart),
-    x2: f(baseX),
-    y2: f(baseY),
-    head: `${f(tipX)},${f(tipY)} ${f(baseX - uy * headHalf)},${f(baseY + ux * headHalf)} ${f(
-      baseX + uy * headHalf,
-    )},${f(baseY - ux * headHalf)}`,
-  }
-}
-
-// One number bubble. `open` is the still-unsolved gap: dashed orange ring, "?".
+// One number bubble. `open` is the still-unsolved gap: dashed ring, "?".
 function Bubble({
   cx,
   cy,
@@ -95,6 +61,7 @@ function Bubble({
   landed: boolean
   dur: number
 }) {
+  const numeral = bubbleNumeral(cx, cy, r)
   return (
     <g>
       {landed && (
@@ -103,7 +70,7 @@ function Bubble({
           cx={cx}
           cy={cy}
           fill="none"
-          stroke={ORANGE}
+          stroke={RULE_INK.gap}
           strokeWidth={2}
           initial={false}
           animate={{ r: r + 7, opacity: 0.45 }}
@@ -116,16 +83,16 @@ function Bubble({
         r={r}
         fill="#FFFFFF"
         stroke={tone}
-        strokeDasharray={open ? '5 4' : '0 0'}
+        strokeDasharray={open ? GAP_DASH : '0 0'}
         initial={false}
         animate={{ strokeWidth: lit ? 4.2 : 3 }}
         transition={{ duration: dur }}
       />
       <text
-        x={cx}
-        y={cy + r * 0.36}
+        x={numeral.x}
+        y={numeral.y}
         textAnchor="middle"
-        fontSize={r * 1.05}
+        fontSize={numeral.fontSize}
         fontWeight="bold"
         fill={tone}
       >
@@ -137,7 +104,7 @@ function Bubble({
 
 // Small verdict badge pinned to a spotlighted card.
 function Badge({ x, y, kind }: { x: number; y: number; kind: 'check' | 'cross' }) {
-  const color = kind === 'check' ? GREEN : ROSE
+  const color = kind === 'check' ? RULE_INK.result : ROSE
   return (
     <g>
       <circle cx={x} cy={y} r={9} fill="#FFFFFF" stroke={color} strokeWidth={2} />
@@ -223,8 +190,11 @@ function WorkStrip({
   )
 }
 
+const STRIP_H = 48
+const STRIP_GAP = 6
+
 /**
- * The board: the three number groups drawn exactly like the static figure, with
+ * The board: the three number groups drawn on the figure's own geometry, with
  * the current beat's group spotlighted (the others dimmed) and the arithmetic
  * annotation in a work strip underneath.
  */
@@ -237,194 +207,109 @@ function RuleBoard({
   step: RuleStep
   reduce: boolean
 }) {
-  const { layout, groups, blank } = story
+  const { groups, blank } = story
+  const geom = ruleGeometry(story.layout)
   const tone = TONE[step.work.tone]
   const dur = reduce ? 0 : 0.35
   const solved = step.answer !== null
 
   const isGap = (groupIndex: number, slot: Slot) => groupIndex === 2 && slot === blank
   // The gap holds "?" until either a candidate is being tried out (rose, about
-  // to be crossed off) or the real answer lands (orange).
+  // to be crossed off) or the real answer lands (the figure's gap ink).
   const gapValue = solved ? step.answer : step.trial
   const cellText = (groupIndex: number, slot: Slot, group: Triple) =>
     isGap(groupIndex, slot) ? (gapValue === null ? '?' : String(gapValue)) : String(group[slot])
   const toneOf = (groupIndex: number, slot: Slot) =>
-    isGap(groupIndex, slot)
-      ? step.trial !== null && !solved
-        ? ROSE
-        : ORANGE
-      : slot === 'c'
-        ? GREEN
-        : BLUE
+    isGap(groupIndex, slot) && step.trial !== null && !solved
+      ? ROSE
+      : slotInk(slot, isGap(groupIndex, slot))
   // Unfocused groups stay readable — they are the evidence, not decoration.
   const dim = (i: number) => (step.focus === null || step.focus === i ? 1 : 0.42)
   const focused = (i: number) => step.focus === i
+
+  // The badge goes wherever the layout leaves a clear patch of card.
+  const badgeAt = (cell: RuleGroupGeom) =>
+    geom.layout === 'row'
+      ? { x: (cell.seats[1].cx + cell.seats[2].cx) / 2, y: cell.card.y + 13 }
+      : { x: cell.card.x + cell.card.w - 14, y: cell.card.y + cell.card.h - 14 }
+
+  const strip =
+    geom.layout === 'row'
+      ? { x: geom.groups[0].card.x, w: geom.groups[0].card.w }
+      : { x: 4, w: geom.width - 8 }
+  const stripY = geom.figureHeight + STRIP_GAP
+  const height = stripY + STRIP_H + STRIP_GAP
 
   const spoken = (groupIndex: number, slot: Slot, group: Triple) =>
     isGap(groupIndex, slot) && !solved ? '?' : cellText(groupIndex, slot, group)
   const ariaGroups = groups
     .map(
-      (g, i) =>
-        `${i + 1}: ${spoken(i, 'a', g)}, ${spoken(i, 'b', g)}, ${spoken(i, 'c', g)}`,
+      (g, i) => `${i + 1}: ${spoken(i, 'a', g)}, ${spoken(i, 'b', g)}, ${spoken(i, 'c', g)}`,
     )
     .join('. ')
 
-  // --- row: three circles in a straight line, groups stacked ---------------
-  if (layout === 'row') {
-    const r = 19
-    const cxs = [36, 86, 172]
-    const cardX = 4
-    const cardW = 200
-    const cardH = 62
-    const pitch = cardH + 11
-    const width = 208
-    const figureH = 6 + cardH * 3 + 11 * 2 + 6
-    const stripY = figureH + 6
-    const stripH = 48
-    const height = stripY + stripH + 6
-
-    return (
-      <svg viewBox={`0 0 ${width} ${height}`} width="100%" role="presentation" aria-hidden>
-        <title>{ariaGroups}</title>
-        {groups.map((g, i) => {
-          const cardY = 6 + i * pitch
-          const cy = cardY + cardH / 2
-          const arrow = connector(cxs[1], cy, cxs[2], cy, r + 10, r + 9)
-          return (
-            <motion.g key={i} initial={false} animate={{ opacity: dim(i) }} transition={{ duration: dur }}>
-              <motion.rect
-                x={cardX}
-                y={cardY}
-                width={cardW}
-                height={cardH}
-                rx={14}
-                fill={CARD}
-                initial={false}
-                animate={{
-                  stroke: focused(i) ? tone.edge : CARD_EDGE,
-                  strokeWidth: focused(i) ? 3.2 : 2,
-                }}
-                transition={{ duration: dur }}
-              />
-              <line
-                x1={arrow.x1}
-                y1={arrow.y1}
-                x2={arrow.x2}
-                y2={arrow.y2}
-                stroke={LINK}
-                strokeWidth={3}
-                strokeLinecap="round"
-              />
-              <polygon points={arrow.head} fill={LINK} />
-              {SLOTS.map((slot, k) => (
-                <Bubble
-                  key={slot}
-                  cx={cxs[k]}
-                  cy={cy}
-                  r={r}
-                  text={cellText(i, slot, g)}
-                  tone={toneOf(i, slot)}
-                  open={isGap(i, slot) && gapValue === null}
-                  lit={focused(i)}
-                  landed={isGap(i, slot) && solved}
-                  dur={dur}
-                />
-              ))}
-              {focused(i) && step.badge !== 'none' && (
-                // sits in the clear strip above the arrow, between b and c
-                <Badge x={(cxs[1] + cxs[2]) / 2} y={cardY + 13} kind={step.badge} />
-              )}
-            </motion.g>
-          )
-        })}
-        <WorkStrip x={cardX} y={stripY} w={cardW} h={stripH} step={step} dur={dur} />
-      </svg>
-    )
-  }
-
-  // --- pyramid: two above, one below, groups side by side ------------------
-  const r = 16
-  const groupW = 88
-  const gapX = 9
-  const cyTop = 30
-  const cyBot = 94
-  const cardY = 4
-  const cardH = 116
-  const width = 4 + groupW * 3 + gapX * 2 + 4
-  const figureH = cardY + cardH + 4
-  const stripY = figureH + 6
-  const stripH = 48
-  const height = stripY + stripH + 6
-
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width="100%" role="presentation" aria-hidden>
+    <svg
+      viewBox={`0 0 ${geom.width} ${height}`}
+      width="100%"
+      role="presentation"
+      aria-hidden
+    >
       <title>{ariaGroups}</title>
       {groups.map((g, i) => {
-        const ox = 4 + i * (groupW + gapX)
-        const cxA = ox + 24
-        const cxB = ox + 64
-        const cxC = ox + 44
-        const legs = [
-          connector(cxA, cyTop, cxC, cyBot, r + 2, r + 3),
-          connector(cxB, cyTop, cxC, cyBot, r + 2, r + 3),
-        ]
-        const seats: Array<[Slot, number, number]> = [
-          ['a', cxA, cyTop],
-          ['b', cxB, cyTop],
-          ['c', cxC, cyBot],
-        ]
+        const cell = geom.groups[i]
+        const badge = badgeAt(cell)
         return (
           <motion.g key={i} initial={false} animate={{ opacity: dim(i) }} transition={{ duration: dur }}>
             <motion.rect
-              x={ox}
-              y={cardY}
-              width={groupW}
-              height={cardH}
-              rx={14}
-              fill={CARD}
+              x={cell.card.x}
+              y={cell.card.y}
+              width={cell.card.w}
+              height={cell.card.h}
+              rx={cell.card.rx}
+              fill={RULE_INK.card}
               initial={false}
               animate={{
-                stroke: focused(i) ? tone.edge : CARD_EDGE,
+                stroke: focused(i) ? tone.edge : RULE_INK.cardEdge,
                 strokeWidth: focused(i) ? 3.2 : 2,
               }}
               transition={{ duration: dur }}
             />
-            {legs.map((leg, k) => (
+            {cell.arrows.map((arrow, k) => (
               <g key={k}>
                 <line
-                  x1={leg.x1}
-                  y1={leg.y1}
-                  x2={leg.x2}
-                  y2={leg.y2}
-                  stroke={LINK}
+                  x1={arrow.x1}
+                  y1={arrow.y1}
+                  x2={arrow.x2}
+                  y2={arrow.y2}
+                  stroke={RULE_INK.link}
                   strokeWidth={3}
                   strokeLinecap="round"
                 />
-                <polygon points={leg.head} fill={LINK} />
+                <polygon points={arrow.head} fill={RULE_INK.link} />
               </g>
             ))}
-            {seats.map(([slot, sx, sy]) => (
+            {cell.seats.map((seat) => (
               <Bubble
-                key={slot}
-                cx={sx}
-                cy={sy}
-                r={r}
-                text={cellText(i, slot, g)}
-                tone={toneOf(i, slot)}
-                open={isGap(i, slot) && gapValue === null}
+                key={seat.slot}
+                cx={seat.cx}
+                cy={seat.cy}
+                r={geom.r}
+                text={cellText(i, seat.slot, g)}
+                tone={toneOf(i, seat.slot)}
+                open={isGap(i, seat.slot) && gapValue === null}
                 lit={focused(i)}
-                landed={isGap(i, slot) && solved}
+                landed={isGap(i, seat.slot) && solved}
                 dur={dur}
               />
             ))}
             {focused(i) && step.badge !== 'none' && (
-              // bottom-right corner is the only empty spot in a pyramid card
-              <Badge x={ox + groupW - 14} y={cardY + cardH - 14} kind={step.badge} />
+              <Badge x={badge.x} y={badge.y} kind={step.badge} />
             )}
           </motion.g>
         )
       })}
-      <WorkStrip x={4} y={stripY} w={width - 8} h={stripH} step={step} dur={dur} />
+      <WorkStrip x={strip.x} y={stripY} w={strip.w} h={STRIP_H} step={step} dur={dur} />
     </svg>
   )
 }

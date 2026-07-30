@@ -1,19 +1,44 @@
 import type { ReactNode } from 'react'
 
-type IconKind = 'star' | 'apple' | 'ball' | 'leaf' | 'fish'
-type Layout = 'rows' | 'scatter' | 'grouped-tens'
+// ---------------------------------------------------------------------------
+// This module is the SINGLE SOURCE of the count-many-objects picture: the icon
+// positions, the glyphs and the param clamps all live here and are exported, so
+// the post-answer explainer (src/components/wmi/concepts/explainers/
+// countManySteps.ts + CountManyObjectsExplainer.tsx) draws its rings around the
+// very same coordinates instead of keeping a second copy that can drift.
+// ---------------------------------------------------------------------------
 
-interface CountManyParams {
+export type IconKind = 'star' | 'apple' | 'ball' | 'leaf' | 'fish'
+export type Layout = 'rows' | 'scatter' | 'grouped-tens'
+
+export interface CountManyParams {
   icon: IconKind
   layout: Layout
   total: number
   perRow: number
 }
 
-const ICON_KINDS: readonly IconKind[] = ['star', 'apple', 'ball', 'leaf', 'fish']
-const LAYOUTS: readonly Layout[] = ['rows', 'scatter', 'grouped-tens']
+export const ICON_KINDS: readonly IconKind[] = ['star', 'apple', 'ball', 'leaf', 'fish']
+export const LAYOUTS: readonly Layout[] = ['rows', 'scatter', 'grouped-tens']
 
-const SAMPLE: CountManyParams = { icon: 'star', layout: 'rows', total: 34, perRow: 8 }
+export const SAMPLE: CountManyParams = { icon: 'star', layout: 'rows', total: 34, perRow: 8 }
+
+/** The figure's own clamps — the one place params are coerced onto the board. */
+export function normalizeCountManyFigureParams(raw: unknown): CountManyParams {
+  const p = (raw ?? {}) as Partial<CountManyParams>
+  return {
+    icon: ICON_KINDS.includes(p.icon as IconKind) ? (p.icon as IconKind) : SAMPLE.icon,
+    layout: LAYOUTS.includes(p.layout as Layout) ? (p.layout as Layout) : SAMPLE.layout,
+    total:
+      typeof p.total === 'number' && Number.isFinite(p.total)
+        ? Math.min(65, Math.max(1, Math.round(p.total)))
+        : SAMPLE.total,
+    perRow:
+      typeof p.perRow === 'number' && Number.isFinite(p.perRow)
+        ? Math.min(10, Math.max(3, Math.round(p.perRow)))
+        : SAMPLE.perRow,
+  }
+}
 
 // Warm brand palette — literal hex so the figure reads the same in any surface.
 const BLUE = '#30598A'
@@ -22,8 +47,8 @@ const GREEN = '#58A700'
 const YELLOW = '#E0A000'
 const CREAM = '#FAF6EF'
 
-type Dot = { x: number; y: number }
-type Figure = { dots: Dot[]; r: number; width: number; height: number }
+export type Dot = { x: number; y: number }
+export type Figure = { dots: Dot[]; r: number; width: number; height: number }
 
 /**
  * Deterministic 32-bit integer hash of two small integers — the only source of
@@ -38,7 +63,7 @@ function hash32(a: number, b: number): number {
 }
 
 /** Neat lattice, `perRow` per row, last row left-aligned so it stays skip-countable. */
-function rowsFigure(total: number, perRow: number): Figure {
+export function rowsFigure(total: number, perRow: number): Figure {
   const cell = 30
   const pad = 12
   const rows = Math.ceil(total / perRow)
@@ -57,20 +82,27 @@ function rowsFigure(total: number, perRow: number): Figure {
 }
 
 /**
+ * Lattice columns the scatter layout uses. Widen the lattice when the pile is
+ * large so the blob stays card-shaped instead of growing into a tall narrow
+ * column. The explainer's rings key off this too.
+ */
+export function scatterCols(total: number, perRow: number): number {
+  return Math.max(perRow, Math.ceil(total / 8))
+}
+
+/**
  * Irregular-looking but provably non-overlapping: a staggered lattice with a
  * deterministic per-index jitter (integer hash of `i`, never Math.random).
  * cell 28, jitter ±5, stagger 14, icon radius 8 → the closest two centres can
  * ever come is ~18 > 2r, so nothing collides.
  */
-function scatterFigure(total: number, perRow: number): Figure {
+export function scatterFigure(total: number, perRow: number): Figure {
   const cell = 28
   const pad = 14
   const stagger = 14
   const jitter = 5
   const span = jitter * 2 + 1 // 11
-  // Widen the lattice when the pile is large so the blob stays card-shaped
-  // instead of growing into a tall narrow column.
-  const cols = Math.max(perRow, Math.ceil(total / 8))
+  const cols = scatterCols(total, perRow)
   const rows = Math.ceil(total / cols)
   const dots: Dot[] = []
   for (let i = 0; i < total; i++) {
@@ -164,7 +196,7 @@ function pushCluster(out: Dot[], n: number, seed: number, ox: number, oy: number
  * whitespace; the incomplete remainder sits on its own, visibly smaller than a
  * full ten. No dashed basket — spotting the tens is the exercise.
  */
-function groupedTensFigure(total: number): Figure {
+export function groupedTensFigure(total: number): Figure {
   const groups = Math.floor(total / 10)
   const leftover = total % 10
   const boxH = clusterBoxH(10)
@@ -219,8 +251,15 @@ function groupedTensFigure(total: number): Figure {
   }
 }
 
+/** The exact icon positions this figure draws for these params. */
+export function countManyFigure(layout: Layout, total: number, perRow: number): Figure {
+  if (layout === 'rows') return rowsFigure(total, perRow)
+  if (layout === 'scatter') return scatterFigure(total, perRow)
+  return groupedTensFigure(total)
+}
+
 /** One icon, drawn centred on (0,0) and always inside the circle of radius r. */
-function glyph(kind: IconKind, r: number): ReactNode {
+export function countManyGlyph(kind: IconKind, r: number): ReactNode {
   const w = Math.max(1, r * 0.15)
   switch (kind) {
     case 'star': {
@@ -314,11 +353,35 @@ function glyph(kind: IconKind, r: number): ReactNode {
   }
 }
 
-const ARIA: Record<Layout, string> = {
-  rows: 'Sekumpulan benda yang disusun rapi dalam baris yang sama panjang — hitung semuanya.',
-  'grouped-tens':
-    'Beberapa tumpukan benda yang letaknya berjauhan; di tiap tumpukan penuh ada sepuluh benda yang berserakan, dan sisanya menumpuk sendiri terpisah — hitung semuanya.',
-  scatter: 'Sekumpulan benda yang tersebar tidak beraturan — hitung semuanya.',
+const ICON_NOUN_ID: Record<IconKind, string> = {
+  star: 'bintang',
+  apple: 'apel',
+  ball: 'bola',
+  leaf: 'daun',
+  fish: 'ikan',
+}
+
+/**
+ * Aria policy for this figure: describe what is pictured richly enough that a
+ * screen-reader user can attempt the question — but never state a value that IS
+ * the answer. The answer here is the TOTAL, so the label names the object and
+ * the arrangement only: never the total, never how many sit in a group, never
+ * how many groups there are. (No digits appear at all.)
+ *
+ * The one param-dependent clause is whether a loose pile exists in
+ * 'grouped-tens' — that is a plain feature of the picture every sighted child
+ * can see, and it is not a count.
+ */
+export function countManyAriaLabel(icon: IconKind, layout: Layout, total: number): string {
+  const noun = ICON_NOUN_ID[icon]
+  if (layout === 'rows') {
+    return `Banyak ${noun} tersusun rapi dalam baris-baris yang sama panjang — hitung semuanya.`
+  }
+  if (layout === 'scatter') {
+    return `Banyak ${noun} tersebar tidak beraturan — hitung semuanya.`
+  }
+  const loose = total % 10 > 0 ? ', dan ada juga yang menumpuk sendiri di luar tumpukan' : ''
+  return `Banyak ${noun} terkumpul menjadi beberapa tumpukan yang letaknya berjauhan${loose} — hitung semuanya.`
 }
 
 /**
@@ -331,29 +394,20 @@ const ARIA: Record<Layout, string> = {
  * never overlaps. 'grouped-tens' draws no basket around each ten — the piles are
  * separated by whitespace only, because spotting the tens is the exercise.
  * Falls back to a sample when params arrive with the wrong shape.
+ *
+ * The geometry, the glyphs and the clamps are exported above; the post-answer
+ * explainer imports them so its rings hug these exact icons.
  */
 export default function CountManyObjectsIllustration({ params }: { params: unknown }) {
-  const p = (params ?? {}) as Partial<CountManyParams>
-  const icon = ICON_KINDS.includes(p.icon as IconKind) ? (p.icon as IconKind) : SAMPLE.icon
-  const layout = LAYOUTS.includes(p.layout as Layout) ? (p.layout as Layout) : SAMPLE.layout
-  const total =
-    typeof p.total === 'number' && Number.isFinite(p.total)
-      ? Math.min(65, Math.max(1, Math.round(p.total)))
-      : SAMPLE.total
-  const perRow =
-    typeof p.perRow === 'number' && Number.isFinite(p.perRow)
-      ? Math.min(10, Math.max(3, Math.round(p.perRow)))
-      : SAMPLE.perRow
-
-  const fig =
-    layout === 'rows'
-      ? rowsFigure(total, perRow)
-      : layout === 'scatter'
-        ? scatterFigure(total, perRow)
-        : groupedTensFigure(total)
+  const { icon, layout, total, perRow } = normalizeCountManyFigureParams(params)
+  const fig = countManyFigure(layout, total, perRow)
 
   return (
-    <div className="my-4 flex justify-center" role="img" aria-label={ARIA[layout]}>
+    <div
+      className="my-4 flex justify-center"
+      role="img"
+      aria-label={countManyAriaLabel(icon, layout, total)}
+    >
       <svg
         viewBox={`0 0 ${fig.width} ${fig.height}`}
         width={Math.min(320, fig.width)}
@@ -361,7 +415,7 @@ export default function CountManyObjectsIllustration({ params }: { params: unkno
       >
         {fig.dots.map((dot, i) => (
           <g key={`icon-${i}`} transform={`translate(${dot.x.toFixed(2)} ${dot.y.toFixed(2)})`}>
-            {glyph(icon, fig.r)}
+            {countManyGlyph(icon, fig.r)}
           </g>
         ))}
       </svg>

@@ -1,5 +1,6 @@
-import { useMemo, type ReactNode } from 'react'
+import { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import { sortCountFill, sortCountGlyph } from '../sort-count-by-attribute'
 import type { ExplainerProps } from './registry'
 import {
   buildSortCountSteps,
@@ -25,19 +26,13 @@ import { useBeatControl } from './useBeatControl'
  * `layoutId` and the springs so nothing moves.
  */
 
-// --- palette (mirrors src/components/wmi/concepts/sort-count-by-attribute) ---
+// --- palette ----------------------------------------------------------------
+// The objects' own colours and shapes live in the question figure
+// (`../sort-count-by-attribute`) and are imported, never copied — a redrawn
+// banana must land here too. Only this panel's chrome is local.
 const BLUE = '#30598A'
-const ORANGE = '#F0853A'
 const GREEN = '#58A700'
 const YELLOW = '#E0A000'
-const RED = '#D64545'
-const PURPLE = '#7B5EA7'
-const CREAM = '#FAF6EF'
-const OUTLINE = 'rgba(38,59,85,0.28)'
-const STRING = 'rgba(38,59,85,0.35)'
-const STEM = '#7A5B3A'
-
-// house chrome
 const SHELL = '#FFF9F4'
 const PEACH = '#FFD3B1'
 const BLUE_SOFT = '#E1EFFB'
@@ -48,221 +43,6 @@ const ROSE_SOFT = '#FBE9E8'
 const AMBER = '#E0A000'
 const AMBER_SOFT = '#FFF3D4'
 const INK = '#263B55'
-
-const HUE: Record<string, string> = {
-  'shape:circle': BLUE,
-  'shape:triangle': ORANGE,
-  'shape:square': GREEN,
-  'shape:star': YELLOW,
-  'colour:red': RED,
-  'colour:blue': BLUE,
-  'colour:orange': ORANGE,
-  'colour:green': GREEN,
-  'colour:yellow': YELLOW,
-  'fruit:apple': RED,
-  'fruit:banana': YELLOW,
-  'fruit:orange': ORANGE,
-  'fruit:grape': PURPLE,
-}
-
-// --- glyphs (mirrors the question figure, so an object looks the same here) ---
-
-function starPoints(cx: number, cy: number, outer: number, inner: number): string {
-  const pts: string[] = []
-  for (let i = 0; i < 10; i++) {
-    const r = i % 2 === 0 ? outer : inner
-    const a = (Math.PI / 5) * i - Math.PI / 2
-    pts.push(`${(cx + r * Math.cos(a)).toFixed(2)},${(cy + r * Math.sin(a)).toFixed(2)}`)
-  }
-  return pts.join(' ')
-}
-
-function glyph(
-  attribute: SortAttribute,
-  key: string,
-  cx: number,
-  cy: number,
-  s: number,
-  fill: string,
-): ReactNode {
-  const stroke = OUTLINE
-  const sw = 1.4
-
-  if (attribute === 'colour') {
-    return (
-      <>
-        <path
-          d={`M ${cx} ${cy + 0.33 * s} L ${cx - 0.16 * s} ${cy + 0.58 * s} L ${cx + 0.16 * s} ${cy + 0.58 * s} Z`}
-          fill={fill}
-          stroke={stroke}
-          strokeWidth={sw}
-        />
-        <ellipse cx={cx} cy={cy - 0.32 * s} rx={0.62 * s} ry={0.75 * s} fill={fill} stroke={stroke} strokeWidth={sw} />
-        <ellipse cx={cx - 0.22 * s} cy={cy - 0.55 * s} rx={0.13 * s} ry={0.19 * s} fill={CREAM} opacity={0.75} />
-        <path
-          d={`M ${cx} ${cy + 0.58 * s} q ${0.26 * s} ${0.18 * s} 0 ${0.37 * s}`}
-          fill="none"
-          stroke={STRING}
-          strokeWidth={1.2}
-          strokeLinecap="round"
-        />
-      </>
-    )
-  }
-
-  if (attribute === 'fruit') {
-    if (key === 'banana') {
-      const body =
-        `M ${cx - 0.94 * s} ${cy - 0.06 * s} ` +
-        `C ${cx - 0.9 * s} ${cy + 0.32 * s} ${cx - 0.44 * s} ${cy + 0.58 * s} ${cx + 0.14 * s} ${cy + 0.56 * s} ` +
-        `C ${cx + 0.6 * s} ${cy + 0.54 * s} ${cx + 0.92 * s} ${cy + 0.22 * s} ${cx + 0.96 * s} ${cy - 0.4 * s} ` +
-        `C ${cx + 0.76 * s} ${cy + 0.06 * s} ${cx + 0.48 * s} ${cy + 0.12 * s} ${cx + 0.06 * s} ${cy + 0.08 * s} ` +
-        `C ${cx - 0.34 * s} ${cy + 0.04 * s} ${cx - 0.68 * s} ${cy - 0.12 * s} ${cx - 0.78 * s} ${cy - 0.46 * s} Z`
-      return (
-        <>
-          <path d={body} fill={fill} stroke={stroke} strokeWidth={sw} strokeLinejoin="round" />
-          <path
-            d={`M ${cx - 0.46 * s} ${cy + 0.12 * s} Q ${cx + 0.04 * s} ${cy + 0.46 * s} ${cx + 0.56 * s} ${cy + 0.12 * s}`}
-            fill="none"
-            stroke={CREAM}
-            strokeWidth={1.8}
-            strokeLinecap="round"
-            opacity={0.35}
-          />
-          <path
-            d={`M ${cx - 0.86 * s} ${cy - 0.26 * s} L ${cx - 0.99 * s} ${cy - 0.32 * s}`}
-            stroke={STEM}
-            strokeWidth={2.2}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </>
-      )
-    }
-    if (key === 'grape') {
-      const dots: Array<[number, number]> = [
-        [-0.52, -0.18],
-        [0, -0.3],
-        [0.52, -0.18],
-        [-0.28, 0.28],
-        [0.28, 0.28],
-        [0, 0.72],
-      ]
-      return (
-        <>
-          <path
-            d={`M ${cx} ${cy - 0.9 * s} l 0 ${0.34 * s}`}
-            stroke={STEM}
-            strokeWidth={1.6}
-            strokeLinecap="round"
-            fill="none"
-          />
-          {dots.map(([dx, dy], i) => (
-            <circle
-              key={i}
-              cx={cx + dx * s}
-              cy={cy + dy * s}
-              r={0.32 * s}
-              fill={fill}
-              stroke={stroke}
-              strokeWidth={sw}
-            />
-          ))}
-        </>
-      )
-    }
-    if (key === 'apple') {
-      return (
-        <>
-          <path
-            d={`M ${cx} ${cy - 0.9 * s} q ${0.1 * s} ${-0.3 * s} ${0.42 * s} ${-0.34 * s} q ${-0.06 * s} ${0.34 * s} ${-0.42 * s} ${0.36 * s} Z`}
-            fill={GREEN}
-            stroke={stroke}
-            strokeWidth={1}
-          />
-          <path
-            d={`M ${cx} ${cy - 0.86 * s} l 0 ${0.22 * s}`}
-            stroke={STEM}
-            strokeWidth={1.6}
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d={`M ${cx} ${cy - 0.6 * s} q ${0.9 * s} ${-0.28 * s} ${0.9 * s} ${0.5 * s} q 0 ${0.72 * s} ${-0.9 * s} ${0.86 * s} q ${-0.9 * s} ${-0.14 * s} ${-0.9 * s} ${-0.86 * s} q 0 ${-0.78 * s} ${0.9 * s} ${-0.5 * s} Z`}
-            fill={fill}
-            stroke={stroke}
-            strokeWidth={sw}
-          />
-        </>
-      )
-    }
-    return (
-      <>
-        <path
-          d={`M ${cx} ${cy - 0.7 * s} L ${cx + 0.05 * s} ${cy - 0.94 * s}`}
-          stroke={STEM}
-          strokeWidth={2}
-          strokeLinecap="round"
-          fill="none"
-        />
-        <path
-          d={`M ${cx + 0.06 * s} ${cy - 0.7 * s} Q ${cx + 0.26 * s} ${cy - 1.12 * s} ${cx + 0.66 * s} ${cy - 0.98 * s} Q ${cx + 0.42 * s} ${cy - 0.6 * s} ${cx + 0.06 * s} ${cy - 0.7 * s} Z`}
-          fill={GREEN}
-          stroke={stroke}
-          strokeWidth={1}
-          strokeLinejoin="round"
-        />
-        <circle cx={cx} cy={cy} r={0.82 * s} fill={fill} stroke={stroke} strokeWidth={sw} />
-        <path
-          d={`M ${cx - 0.46 * s} ${cy - 0.3 * s} Q ${cx - 0.4 * s} ${cy - 0.56 * s} ${cx - 0.14 * s} ${cy - 0.64 * s}`}
-          fill="none"
-          stroke={CREAM}
-          strokeWidth={2.6}
-          strokeLinecap="round"
-          opacity={0.5}
-        />
-      </>
-    )
-  }
-
-  if (key === 'triangle') {
-    return (
-      <polygon
-        points={`${cx},${cy - 0.92 * s} ${cx + 0.9 * s},${cy + 0.72 * s} ${cx - 0.9 * s},${cy + 0.72 * s}`}
-        fill={fill}
-        stroke={stroke}
-        strokeWidth={sw}
-        strokeLinejoin="round"
-      />
-    )
-  }
-  if (key === 'square') {
-    return (
-      <rect
-        x={cx - 0.78 * s}
-        y={cy - 0.78 * s}
-        width={1.56 * s}
-        height={1.56 * s}
-        rx={2.5}
-        fill={fill}
-        stroke={stroke}
-        strokeWidth={sw}
-      />
-    )
-  }
-  if (key === 'star') {
-    return (
-      <polygon
-        points={starPoints(cx, cy, 0.95 * s, 0.42 * s)}
-        fill={fill}
-        stroke={stroke}
-        strokeWidth={sw}
-        strokeLinejoin="round"
-      />
-    )
-  }
-  return <circle cx={cx} cy={cy} r={0.82 * s} fill={fill} stroke={stroke} strokeWidth={sw} />
-}
 
 // --- geometry ---------------------------------------------------------------
 // Two boards share one item size so an object can fly between them without
@@ -381,7 +161,7 @@ function Item({
   ring: 'extra' | null
   still: boolean
 }) {
-  const fill = HUE[`${attribute}:${catKey}`] ?? BLUE
+  const fill = sortCountFill(attribute, catKey)
   const ringColor = ring === 'extra' ? AMBER : null
   return (
     <motion.div
@@ -398,7 +178,7 @@ function Item({
       }}
     >
       <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} role="presentation">
-        {glyph(attribute, catKey, size / 2, size / 2, glyphS, fill)}
+        {sortCountGlyph(attribute, catKey, size / 2, size / 2, glyphS, fill)}
       </svg>
     </motion.div>
   )
@@ -435,7 +215,7 @@ function GroupRow({
   crown: boolean
   still: boolean
 }) {
-  const hue = HUE[`${attribute}:${view.key}`] ?? BLUE
+  const hue = sortCountFill(attribute, view.key)
   const accent = view.state === 'win' ? GREEN : view.state === 'trap' ? ROSE : hue
   const bg = view.state === 'win' ? GREEN_SOFT : view.state === 'trap' ? ROSE_SOFT : `${hue}14`
   const ink = view.state === 'win' ? GREEN_INK : view.state === 'trap' ? ROSE : INK

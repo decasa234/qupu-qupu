@@ -1,29 +1,52 @@
 import type { ReactNode } from 'react'
 
-type Slot = 'a' | 'b' | 'c'
-type Layout = 'row' | 'pyramid'
+export type Slot = 'a' | 'b' | 'c'
+export type Layout = 'row' | 'pyramid'
 
-interface Triple {
+export interface Triple {
   a: number
   b: number
   c: number
 }
 
-interface RuleFigureParams {
+export interface RuleFigureParams {
   layout: Layout
   groups: Triple[]
   blankPosition: Slot
 }
 
-// Warm brand palette — kept as literals so the figure is fully self-contained.
-const BLUE = '#30598A'
-const ORANGE = '#F0853A'
-const GREEN = '#58A700'
-const CARD = '#FDF8F1'
-const CARD_EDGE = '#EADFCD'
-const LINK = '#B5A896'
+/**
+ * Warm brand palette. Exported (with the geometry and glyph helpers below) so
+ * the animated explainer paints the SAME picture instead of keeping its own copy
+ * of these literals — a copy silently desyncs the moment the figure is redrawn.
+ */
+export const RULE_INK = {
+  /** The two numbers you are handed. */
+  given: '#30598A',
+  /** The blank. */
+  gap: '#F0853A',
+  /** The number the rule produces. */
+  result: '#58A700',
+  card: '#FDF8F1',
+  cardEdge: '#EADFCD',
+  link: '#B5A896',
+} as const
 
-const SLOTS: Slot[] = ['a', 'b', 'c']
+export const RULE_SLOTS: readonly Slot[] = ['a', 'b', 'c']
+
+/** Dash pattern that marks a bubble as "something belongs here". */
+export const GAP_DASH = '5 4'
+
+/** Which ink a bubble wears: gap first, then result, then given. */
+export function slotInk(slot: Slot, blank: boolean): string {
+  if (blank) return RULE_INK.gap
+  return slot === 'c' ? RULE_INK.result : RULE_INK.given
+}
+
+/** Where the numeral inside a bubble sits, and how big it is drawn. */
+export function bubbleNumeral(cx: number, cy: number, r: number) {
+  return { x: cx, y: cy + r * 0.36, fontSize: r * 1.05 }
+}
 
 const SAMPLE: RuleFigureParams = {
   layout: 'row',
@@ -72,18 +95,27 @@ function normalize(params: unknown): RuleFigureParams {
   return { layout, groups, blankPosition }
 }
 
+export interface Connector {
+  x1: string
+  y1: string
+  x2: string
+  y2: string
+  /** `points` for the arrow head polygon. */
+  head: string
+}
+
 /**
  * A connector that stops short of both circles and ends in a small arrow head,
  * so "these two make that one" reads in one direction only. Pure trigonometry.
  */
-function connector(
+export function connector(
   x1: number,
   y1: number,
   x2: number,
   y2: number,
   trimStart: number,
   trimEnd: number,
-) {
+): Connector {
   const dx = x2 - x1
   const dy = y2 - y1
   const len = Math.hypot(dx, dy) || 1
@@ -107,6 +139,135 @@ function connector(
   }
 }
 
+// ── coordinate maths ───────────────────────────────────────────────────────
+// One source of truth for both drawings. The explainer reuses every number here
+// and only adds a work strip of its own underneath `figureHeight`.
+
+export interface RuleSeat {
+  slot: Slot
+  cx: number
+  cy: number
+}
+
+export interface RuleGroupGeom {
+  card: { x: number; y: number; w: number; h: number; rx: number }
+  seats: RuleSeat[]
+  /** Always points AT the result bubble. */
+  arrows: Connector[]
+}
+
+export interface RuleGeom {
+  layout: Layout
+  /** Bubble radius. */
+  r: number
+  /** viewBox width. */
+  width: number
+  /** viewBox height of the figure on its own. */
+  figureHeight: number
+  /** On-screen width the static figure renders at. */
+  drawWidth: number
+  /** Exactly three groups, in reading order. */
+  groups: RuleGroupGeom[]
+}
+
+const CARD_RX = 14
+
+export function ruleGeometry(layout: Layout): RuleGeom {
+  // --- row: three circles in a straight line, groups stacked ---------------
+  if (layout === 'row') {
+    const r = 19
+    const cxs = [36, 86, 172]
+    const cardX = 4
+    const cardW = 200
+    const cardH = 62
+    const gapY = 11
+    const pitch = cardH + gapY
+    const width = 208
+    const figureHeight = 6 + cardH * 3 + gapY * 2 + 6
+    return {
+      layout,
+      r,
+      width,
+      figureHeight,
+      drawWidth: 260,
+      groups: [0, 1, 2].map((i) => {
+        const cardY = 6 + i * pitch
+        const cy = cardY + cardH / 2
+        return {
+          card: { x: cardX, y: cardY, w: cardW, h: cardH, rx: CARD_RX },
+          seats: RULE_SLOTS.map((slot, k) => ({ slot, cx: cxs[k], cy })),
+          arrows: [connector(cxs[1], cy, cxs[2], cy, r + 10, r + 9)],
+        }
+      }),
+    }
+  }
+
+  // --- pyramid: two above, one below, groups side by side ------------------
+  const r = 16
+  const groupW = 88
+  const gapX = 9
+  const cyTop = 30
+  const cyBot = 94
+  const cardY = 4
+  const cardH = 116
+  const width = 4 + groupW * 3 + gapX * 2 + 4
+  const figureHeight = cardY + cardH + 4
+  return {
+    layout,
+    r,
+    width,
+    figureHeight,
+    drawWidth: 288,
+    groups: [0, 1, 2].map((i) => {
+      const ox = 4 + i * (groupW + gapX)
+      const cxA = ox + 24
+      const cxB = ox + 64
+      const cxC = ox + 44
+      return {
+        card: { x: ox, y: cardY, w: groupW, h: cardH, rx: CARD_RX },
+        seats: [
+          { slot: 'a' as Slot, cx: cxA, cy: cyTop },
+          { slot: 'b' as Slot, cx: cxB, cy: cyTop },
+          { slot: 'c' as Slot, cx: cxC, cy: cyBot },
+        ],
+        arrows: [
+          connector(cxA, cyTop, cxC, cyBot, r + 2, r + 3),
+          connector(cxB, cyTop, cxC, cyBot, r + 2, r + 3),
+        ],
+      }
+    }),
+  }
+}
+
+// ── screen-reader label ────────────────────────────────────────────────────
+// The question body of this concept carries NO numbers — the figure is the only
+// place they appear — so the label has to be rich enough to attempt the puzzle
+// from. Policy: describe the layout and every GIVEN number (they are evidence,
+// freely readable), and speak the blank as "tanda tanya", never as its value.
+
+const LAYOUT_WORDS_ID: Record<Layout, string> = {
+  row: 'Tiga kelompok angka, satu kelompok tiap baris. Tiap baris berisi tiga lingkaran berjajar mendatar, dan panah menunjuk ke lingkaran terakhir',
+  pyramid:
+    'Tiga kelompok angka berjajar mendatar. Tiap kelompok berbentuk segitiga: dua lingkaran di atas dan satu lingkaran di bawah, dengan dua panah menunjuk ke lingkaran bawah',
+}
+
+/**
+ * Deterministic Indonesian description of the picture. The blanked slot is
+ * always spoken as "tanda tanya" — its value is the answer and never appears.
+ */
+export function ruleFigureAriaLabel(p: RuleFigureParams): string {
+  const { layout, groups, blankPosition } = p
+  const spoken = (groupIndex: number, slot: Slot, group: Triple) =>
+    groupIndex === 2 && slot === blankPosition ? 'tanda tanya' : String(group[slot])
+  const lines = groups
+    .map(
+      (g, i) =>
+        `Kelompok ${i + 1}: ${spoken(i, 'a', g)} dan ${spoken(i, 'b', g)} menjadi ${spoken(i, 'c', g)}`,
+    )
+    .join('. ')
+  return `${LAYOUT_WORDS_ID[layout]}. Semua kelompok memakai aturan yang sama. ${lines}. Satu lingkaran berisi tanda tanya, itulah angka yang harus dicari.`
+}
+
 /**
  * number-figure-rule — question figure.
  *
@@ -119,13 +280,13 @@ function connector(
  * SSR-safe, and it falls back to a sample when params arrive malformed.
  */
 export default function NumberFigureRuleIllustration({ params }: { params: unknown }) {
-  const { layout, groups, blankPosition } = normalize(params)
+  const figure = normalize(params)
+  const { groups, blankPosition } = figure
+  const geom = ruleGeometry(figure.layout)
 
   const isBlank = (groupIndex: number, slot: Slot) => groupIndex === 2 && slot === blankPosition
   const cellText = (groupIndex: number, slot: Slot, group: Triple) =>
     isBlank(groupIndex, slot) ? '?' : String(group[slot])
-  const toneOf = (groupIndex: number, slot: Slot) =>
-    isBlank(groupIndex, slot) ? ORANGE : slot === 'c' ? GREEN : BLUE
 
   // One number bubble: white disc, coloured ring, the value inside. The gap gets
   // a dashed ring so it reads as "something belongs here".
@@ -137,164 +298,73 @@ export default function NumberFigureRuleIllustration({ params }: { params: unkno
     text: string,
     tone: string,
     blank: boolean,
-  ): ReactNode => (
-    <g key={key}>
-      <circle
-        cx={cx}
-        cy={cy}
-        r={r}
-        fill="#FFFFFF"
-        stroke={tone}
-        strokeWidth={3}
-        strokeDasharray={blank ? '5 4' : undefined}
-      />
-      <text
-        x={cx}
-        y={cy + r * 0.36}
-        textAnchor="middle"
-        fontSize={r * 1.05}
-        fontWeight="bold"
-        fill={tone}
-      >
-        {text}
-      </text>
-    </g>
-  )
-
-  const spoken = (groupIndex: number, slot: Slot, group: Triple) =>
-    isBlank(groupIndex, slot) ? 'tanda tanya' : String(group[slot])
-  const ariaGroups = groups
-    .map(
-      (g, i) =>
-        `Kelompok ${i + 1}: ${spoken(i, 'a', g)} dan ${spoken(i, 'b', g)} menjadi ${spoken(i, 'c', g)}`,
-    )
-    .join('. ')
-  const ariaLabel = `Tiga kelompok angka yang memakai aturan yang sama. ${ariaGroups}. Satu angka diganti tanda tanya.`
-
-  // --- row: three circles in a straight line, groups stacked ----------------
-  if (layout === 'row') {
-    const r = 19
-    const cxA = 36
-    const cxB = 86
-    const cxC = 172
-    const cardX = 4
-    const cardW = 200
-    const cardH = 62
-    const pitch = cardH + 11
-    const width = 208
-    const height = 6 + cardH * 3 + 11 * 2 + 6
-
+  ): ReactNode => {
+    const numeral = bubbleNumeral(cx, cy, r)
     return (
-      <div className="my-4 flex justify-center" role="img" aria-label={ariaLabel}>
-        <svg viewBox={`0 0 ${width} ${height}`} width={260}>
-          {groups.map((g, i) => {
-            const cardY = 6 + i * pitch
-            const cy = cardY + cardH / 2
-            const arrow = connector(cxB, cy, cxC, cy, r + 10, r + 9)
-            return (
-              <g key={i}>
-                <rect
-                  x={cardX}
-                  y={cardY}
-                  width={cardW}
-                  height={cardH}
-                  rx={14}
-                  fill={CARD}
-                  stroke={CARD_EDGE}
-                  strokeWidth={2}
-                />
-                <line
-                  x1={arrow.x1}
-                  y1={arrow.y1}
-                  x2={arrow.x2}
-                  y2={arrow.y2}
-                  stroke={LINK}
-                  strokeWidth={3}
-                  strokeLinecap="round"
-                />
-                <polygon points={arrow.head} fill={LINK} />
-                {SLOTS.map((slot, k) =>
-                  bubble(
-                    `${i}-${slot}`,
-                    [cxA, cxB, cxC][k],
-                    cy,
-                    r,
-                    cellText(i, slot, g),
-                    toneOf(i, slot),
-                    isBlank(i, slot),
-                  ),
-                )}
-              </g>
-            )
-          })}
-        </svg>
-      </div>
+      <g key={key}>
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="#FFFFFF"
+          stroke={tone}
+          strokeWidth={3}
+          strokeDasharray={blank ? GAP_DASH : undefined}
+        />
+        <text
+          x={numeral.x}
+          y={numeral.y}
+          textAnchor="middle"
+          fontSize={numeral.fontSize}
+          fontWeight="bold"
+          fill={tone}
+        >
+          {text}
+        </text>
+      </g>
     )
   }
 
-  // --- pyramid: two above, one below, groups side by side -------------------
-  const r = 16
-  const groupW = 88
-  const gapX = 9
-  const cyTop = 30
-  const cyBot = 94
-  const cardY = 4
-  const cardH = 116
-  const width = 4 + groupW * 3 + gapX * 2 + 4
-  const height = cardY + cardH + 4
-
   return (
-    <div className="my-4 flex justify-center" role="img" aria-label={ariaLabel}>
-      <svg viewBox={`0 0 ${width} ${height}`} width={288}>
+    <div className="my-4 flex justify-center" role="img" aria-label={ruleFigureAriaLabel(figure)}>
+      <svg viewBox={`0 0 ${geom.width} ${geom.figureHeight}`} width={geom.drawWidth}>
         {groups.map((g, i) => {
-          const ox = 4 + i * (groupW + gapX)
-          const cxA = ox + 24
-          const cxB = ox + 64
-          const cxC = ox + 44
-          const legs = [
-            connector(cxA, cyTop, cxC, cyBot, r + 2, r + 3),
-            connector(cxB, cyTop, cxC, cyBot, r + 2, r + 3),
-          ]
-          const seats: Array<[Slot, number, number]> = [
-            ['a', cxA, cyTop],
-            ['b', cxB, cyTop],
-            ['c', cxC, cyBot],
-          ]
+          const cell = geom.groups[i]
           return (
             <g key={i}>
               <rect
-                x={ox}
-                y={cardY}
-                width={groupW}
-                height={cardH}
-                rx={14}
-                fill={CARD}
-                stroke={CARD_EDGE}
+                x={cell.card.x}
+                y={cell.card.y}
+                width={cell.card.w}
+                height={cell.card.h}
+                rx={cell.card.rx}
+                fill={RULE_INK.card}
+                stroke={RULE_INK.cardEdge}
                 strokeWidth={2}
               />
-              {legs.map((leg, k) => (
-                <g key={`leg${k}`}>
+              {cell.arrows.map((arrow, k) => (
+                <g key={`arrow${k}`}>
                   <line
-                    x1={leg.x1}
-                    y1={leg.y1}
-                    x2={leg.x2}
-                    y2={leg.y2}
-                    stroke={LINK}
+                    x1={arrow.x1}
+                    y1={arrow.y1}
+                    x2={arrow.x2}
+                    y2={arrow.y2}
+                    stroke={RULE_INK.link}
                     strokeWidth={3}
                     strokeLinecap="round"
                   />
-                  <polygon points={leg.head} fill={LINK} />
+                  <polygon points={arrow.head} fill={RULE_INK.link} />
                 </g>
               ))}
-              {seats.map(([slot, sx, sy]) =>
+              {cell.seats.map((seat) =>
                 bubble(
-                  `${i}-${slot}`,
-                  sx,
-                  sy,
-                  r,
-                  cellText(i, slot, g),
-                  toneOf(i, slot),
-                  isBlank(i, slot),
+                  `${i}-${seat.slot}`,
+                  seat.cx,
+                  seat.cy,
+                  geom.r,
+                  cellText(i, seat.slot, g),
+                  slotInk(seat.slot, isBlank(i, seat.slot)),
+                  isBlank(i, seat.slot),
                 ),
               )}
             </g>

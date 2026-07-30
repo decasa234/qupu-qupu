@@ -1,4 +1,6 @@
 import { describe, test, expect } from 'vitest'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import {
   applyRule,
   buildNumberFigureRuleSteps,
@@ -7,6 +9,15 @@ import {
   type Slot,
   type Triple,
 } from './numberFigureRuleSteps'
+import NumberFigureRuleIllustration, {
+  GAP_DASH,
+  RULE_INK,
+  bubbleNumeral,
+  ruleFigureAriaLabel,
+  ruleGeometry,
+  type Layout,
+} from '../number-figure-rule'
+import NumberFigureRuleExplainer from './NumberFigureRuleExplainer'
 
 const MINUS = '−'
 
@@ -225,5 +236,153 @@ describe('buildNumberFigureRuleSteps', () => {
     expect(solveBlank('sum-minus-one', s, 'c')).toBe(9)
     expect(solveBlank('sum-minus-one', s, 'a')).toBe(6)
     expect(solveBlank('sum-minus-one', s, 'b')).toBe(4)
+  })
+})
+
+// ---------------------------------------------------------------------------
+// The figure's aria-label
+// ---------------------------------------------------------------------------
+
+const LAYOUTS: Layout[] = ['row', 'pyramid']
+
+/** Every run of digits in a string, as numbers. */
+function digitsIn(text: string): number[] {
+  return (text.match(/\d+/g) ?? []).map(Number)
+}
+
+describe('ruleFigureAriaLabel', () => {
+  test('names the layout, the group count and every given number', () => {
+    const label = ruleFigureAriaLabel({
+      layout: 'row',
+      groups: SUM_GROUPS,
+      blankPosition: 'c',
+    })
+    expect(label).toBe(
+      'Tiga kelompok angka, satu kelompok tiap baris. Tiap baris berisi tiga lingkaran berjajar mendatar, dan panah menunjuk ke lingkaran terakhir. ' +
+        'Semua kelompok memakai aturan yang sama. ' +
+        'Kelompok 1: 8 dan 4 menjadi 12. Kelompok 2: 5 dan 7 menjadi 12. Kelompok 3: 6 dan 3 menjadi tanda tanya. ' +
+        'Satu lingkaran berisi tanda tanya, itulah angka yang harus dicari.',
+    )
+    // the pyramid label describes the other picture, not the same words
+    const pyramid = ruleFigureAriaLabel({
+      layout: 'pyramid',
+      groups: SUM_GROUPS,
+      blankPosition: 'c',
+    })
+    expect(pyramid).toContain('berbentuk segitiga')
+    expect(pyramid).not.toContain('tiap baris')
+  })
+
+  test('speaks the blank as "tanda tanya" and never leaks a number that is not given', () => {
+    for (const layout of LAYOUTS) {
+      for (const [rule, groups] of [
+        ['sum', SUM_GROUPS],
+        ['diff', DIFF_GROUPS],
+        ['sum-minus-one', SMO_GROUPS],
+      ] as const) {
+        for (const blank of ['a', 'b', 'c'] as Slot[]) {
+          const label = ruleFigureAriaLabel({ layout, groups, blankPosition: blank })
+          const where = `${layout}/${rule}/${blank}`
+
+          expect(`${where} ${label.includes('tanda tanya')}`).toBe(`${where} true`)
+
+          // Everything the label says out loud: the three group numbers plus the
+          // GIVEN slots. The blanked slot must never appear.
+          const shown = [1, 2, 3]
+          groups.forEach((g, i) => {
+            for (const slot of ['a', 'b', 'c'] as Slot[]) {
+              if (i === 2 && slot === blank) continue
+              shown.push(g[slot])
+            }
+          })
+          const spoken = digitsIn(label)
+          expect(`${where} ${spoken.length}`).toBe(`${where} ${shown.length}`)
+          expect(`${where} ${[...spoken].sort((x, y) => x - y).join()}`).toBe(
+            `${where} ${[...shown].sort((x, y) => x - y).join()}`,
+          )
+
+          // The blanked slot itself reads as a question mark, whatever its value.
+          expect(`${where} ${label}`).toContain(
+            blank === 'a'
+              ? `Kelompok 3: tanda tanya dan ${groups[2].b} menjadi ${groups[2].c}`
+              : blank === 'b'
+                ? `Kelompok 3: ${groups[2].a} dan tanda tanya menjadi ${groups[2].c}`
+                : `Kelompok 3: ${groups[2].a} dan ${groups[2].b} menjadi tanda tanya`,
+          )
+        }
+      }
+    }
+  })
+
+  test('same params in, identical label out', () => {
+    const p = { layout: 'pyramid' as Layout, groups: DIFF_GROUPS, blankPosition: 'b' as Slot }
+    expect(ruleFigureAriaLabel(p)).toBe(ruleFigureAriaLabel(p))
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Figure ↔ explainer: one geometry, not two copies of it
+// ---------------------------------------------------------------------------
+
+const figureHtml = (p: unknown) =>
+  renderToStaticMarkup(createElement(NumberFigureRuleIllustration, { params: p }))
+
+const explainerHtml = (p: unknown, step: number) =>
+  renderToStaticMarkup(
+    createElement(NumberFigureRuleExplainer, { params: p, correctAnswer: '9', lang: 'id', step }),
+  )
+
+describe('the explainer draws the figure, not a copy of it', () => {
+  for (const layout of LAYOUTS) {
+    test(`${layout}: both SSR renders agree on every shared coordinate and ink`, () => {
+      const p = params('sum', SUM_GROUPS, 'c', layout)
+      const fig = figureHtml(p)
+      const exp = explainerHtml(p, 0)
+      const geom = ruleGeometry(layout)
+
+      // the connector trigonometry: long, distinctive strings from one function
+      for (const group of geom.groups) {
+        for (const arrow of group.arrows) {
+          expect(fig).toContain(`points="${arrow.head}"`)
+          expect(exp).toContain(`points="${arrow.head}"`)
+          expect(fig).toContain(`x1="${arrow.x1}"`)
+          expect(exp).toContain(`x1="${arrow.x1}"`)
+          expect(fig).toContain(`y2="${arrow.y2}"`)
+          expect(exp).toContain(`y2="${arrow.y2}"`)
+        }
+        // the card and every bubble seat
+        expect(fig).toContain(`height="${group.card.h}"`)
+        expect(exp).toContain(`height="${group.card.h}"`)
+        for (const seat of group.seats) {
+          expect(fig).toContain(`cx="${seat.cx}"`)
+          expect(exp).toContain(`cx="${seat.cx}"`)
+          expect(fig).toContain(`cy="${seat.cy}"`)
+          expect(exp).toContain(`cy="${seat.cy}"`)
+        }
+      }
+
+      // the numeral inside a bubble is sized by the shared helper
+      const size = bubbleNumeral(0, 0, geom.r).fontSize
+      expect(fig).toContain(`font-size="${size}"`)
+      expect(exp).toContain(`font-size="${size}"`)
+
+      // the palette, and the dashes that mark the still-open gap
+      for (const ink of [RULE_INK.given, RULE_INK.result, RULE_INK.card, RULE_INK.link]) {
+        expect(fig).toContain(ink)
+        expect(exp).toContain(ink)
+      }
+      expect(fig).toContain(`stroke-dasharray="${GAP_DASH}"`)
+      expect(exp).toContain(`stroke-dasharray="${GAP_DASH}"`)
+
+      // the figure's own viewBox comes from the same geometry
+      expect(fig).toContain(`viewBox="0 0 ${geom.width} ${geom.figureHeight}"`)
+      // the explainer keeps that width and only grows downward for its work strip
+      expect(exp).toContain(`viewBox="0 0 ${geom.width} `)
+    })
+  }
+
+  test('the figure renders identically for identical params', () => {
+    const p = params('diff', DIFF_GROUPS, 'a', 'pyramid')
+    expect(figureHtml(p)).toBe(figureHtml(p))
   })
 })

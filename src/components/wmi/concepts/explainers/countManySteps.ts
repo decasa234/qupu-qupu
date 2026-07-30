@@ -1,6 +1,16 @@
+import {
+  countManyFigure,
+  normalizeCountManyFigureParams,
+  scatterCols,
+  type Dot as FigureDot,
+  type Figure as FigureGeometry,
+  type IconKind,
+  type Layout,
+} from '../count-many-objects/index'
+
 export type Lang = 'en' | 'id'
-export type CountManyLayout = 'rows' | 'scatter' | 'grouped-tens'
-export type CountManyIcon = 'star' | 'apple' | 'ball' | 'leaf' | 'fish'
+export type CountManyLayout = Layout
+export type CountManyIcon = IconKind
 
 export interface CountManyParams {
   icon: CountManyIcon
@@ -10,17 +20,12 @@ export interface CountManyParams {
   distractorDeltas?: number[]
 }
 
-export interface Dot {
-  x: number
-  y: number
-}
+export type Dot = FigureDot
+export type CountManyFigure = FigureGeometry
 
-export interface CountManyFigure {
-  dots: Dot[]
-  r: number
-  width: number
-  height: number
-}
+// The figure module owns the geometry; re-exported here so callers that already
+// speak to the storyboard keep one import.
+export { countManyFigure, scatterCols }
 
 /** A ring is either an axis-aligned rounded box or a rounded "rope" lasso. */
 export type CountManyRing =
@@ -50,8 +55,10 @@ export interface CountManyBeat {
   ringsDrawn: number
   /** How many full groups have been counted (drawn in the "done" colour). */
   counted: number
-  /** The group being counted this beat, else null. */
-  activeGroup: number | null
+  /** The group(s) being counted this beat — one, or a pair/triple once the
+   * pile is long enough that counting them one at a time would drag. Empty
+   * when no group is in the spotlight. */
+  activeGroups: number[]
   /** Running total on screen, null before the skip-count starts. */
   running: number | null
   /** Draw the leftover lasso. */
@@ -81,6 +88,10 @@ export interface CountManyStoryboard {
   leftover: number
   /** step * chunks — what the skip-count lands on before the leftover. */
   fromChunks: number
+  /** How many groups one skip-count beat covers (1, 2 or 3). */
+  groupsPerBeat: number
+  /** The running total after each skip-count beat, in beat order. */
+  stops: number[]
   dots: Dot[]
   r: number
   width: number
@@ -105,193 +116,17 @@ export interface CountManyStoryboard {
   finalIndex: number
 }
 
-// ---------------------------------------------------------------------------
-// Figure geometry — a byte-for-byte mirror of the question figure
-// (src/components/wmi/concepts/count-many-objects/index.tsx). The rings have to
-// wrap the icons where they ACTUALLY sit, so this module recomputes the exact
-// same positions rather than guessing a fresh layout. `countManySteps.test.ts`
-// renders the real figure and pins every coordinate against `countManyFigure`,
-// so the two can never drift apart silently.
-// ---------------------------------------------------------------------------
-
-const ICON_KINDS: readonly CountManyIcon[] = ['star', 'apple', 'ball', 'leaf', 'fish']
-const LAYOUTS: readonly CountManyLayout[] = ['rows', 'scatter', 'grouped-tens']
-const SAMPLE = { icon: 'star' as CountManyIcon, layout: 'rows' as CountManyLayout, total: 34, perRow: 8 }
-
-/** Deterministic 32-bit integer hash of two small integers (figure mirror). */
-function hash32(a: number, b: number): number {
-  let h = Math.imul(a + 0x9e37, 0x85ebca6b) ^ Math.imul(b + 0x165667, 0xc2b2ae35)
-  h ^= h >>> 15
-  h = Math.imul(h, 0x27d4eb2f)
-  h ^= h >>> 13
-  return h >>> 0
-}
-
-function rowsFigure(total: number, perRow: number): CountManyFigure {
-  const cell = 30
-  const pad = 12
-  const rows = Math.ceil(total / perRow)
-  const dots: Dot[] = []
-  for (let i = 0; i < total; i++) {
-    const col = i % perRow
-    const row = Math.floor(i / perRow)
-    dots.push({ x: pad + col * cell + cell / 2, y: pad + row * cell + cell / 2 })
-  }
-  return { dots, r: 9, width: pad * 2 + perRow * cell, height: pad * 2 + rows * cell }
-}
-
-/** Lattice columns the scatter layout uses — the rings key off this too. */
-function scatterCols(total: number, perRow: number): number {
-  return Math.max(perRow, Math.ceil(total / 8))
-}
-
-function scatterFigure(total: number, perRow: number): CountManyFigure {
-  const cell = 28
-  const pad = 14
-  const stagger = 14
-  const jitter = 5
-  const span = jitter * 2 + 1 // 11
-  const cols = scatterCols(total, perRow)
-  const rows = Math.ceil(total / cols)
-  const dots: Dot[] = []
-  for (let i = 0; i < total; i++) {
-    const col = i % cols
-    const row = Math.floor(i / cols)
-    const h = Math.abs(Math.imul(i + 1, 2654435761)) % (span * span)
-    const jx = (h % span) - jitter
-    const jy = (Math.floor(h / span) % span) - jitter
-    dots.push({
-      x: pad + col * cell + cell / 2 + (row % 2 === 1 ? stagger : 0) + jx,
-      y: pad + row * cell + cell / 2 + jy,
-    })
-  }
-  return { dots, r: 8, width: pad * 2 + cols * cell + stagger, height: pad * 2 + rows * cell }
-}
-
-const G_CELL = 24
-const G_JIT = 4
-const G_COLS = 3
-const G_STAG = 10
-const G_PHASE = 10
-const G_GAP = 68
-const G_PAD = 14
-const G_R = 7.5
-const G_BOX_W = (G_COLS - 1) * G_CELL + G_STAG + G_JIT * 2
-
-function clusterRowCount(n: number): number {
-  return Math.max(1, Math.ceil(n / G_COLS))
-}
-
-function clusterBoxH(n: number): number {
-  return (clusterRowCount(n) - 1) * G_CELL + G_JIT * 2 + G_PHASE
-}
-
-function pushCluster(out: Dot[], n: number, seed: number, ox: number, oy: number): void {
-  const rowCount = clusterRowCount(n)
-  const base = Math.floor(n / rowCount)
-  const extra = n % rowCount
-  const rot = hash32(seed, 1) % rowCount
-  const phase = hash32(seed, 7) % (G_PHASE + 1)
-  const span = G_JIT * 2 + 1
-  let idx = 0
-  for (let r = 0; r < rowCount; r++) {
-    const len = base + ((r + rot) % rowCount < extra ? 1 : 0)
-    const slack = G_COLS - len
-    const offCells = slack > 0 ? hash32(seed, 10 + r) % (slack + 1) : 0
-    const stagger = hash32(seed, 40 + r) % (G_STAG + 1)
-    for (let c = 0; c < len; c++) {
-      const h = hash32(seed, 100 + idx)
-      const jx = (h % span) - G_JIT
-      const jy = (Math.floor(h / span) % span) - G_JIT
-      out.push({
-        x: ox + G_JIT + (offCells + c) * G_CELL + stagger + jx,
-        y: oy + G_JIT + phase + r * G_CELL + jy,
-      })
-      idx++
-    }
-    if (idx >= n) break
-  }
-}
-
-function groupedTensFigure(total: number): CountManyFigure {
-  const groups = Math.floor(total / 10)
-  const leftover = total % 10
-  const boxH = clusterBoxH(10)
-
-  const gridRows = groups > 0 ? Math.ceil(groups / 3) : 0
-  const perRow = gridRows > 0 ? Math.ceil(groups / gridRows) : 0
-  const gridW = groups > 0 ? perRow * G_BOX_W + (perRow - 1) * G_GAP : 0
-  const gridH = gridRows > 0 ? gridRows * boxH + (gridRows - 1) * G_GAP : 0
-
-  const dots: Dot[] = []
-  for (let g = 0; g < groups; g++) {
-    const row = Math.floor(g / perRow)
-    const col = g % perRow
-    const inRow = Math.min(perRow, groups - row * perRow)
-    const rowW = inRow * G_BOX_W + (inRow - 1) * G_GAP
-    pushCluster(
-      dots,
-      10,
-      (total + 1) * 31 + g,
-      G_PAD + (gridW - rowW) / 2 + col * (G_BOX_W + G_GAP),
-      G_PAD + row * (boxH + G_GAP),
-    )
-  }
-
-  const looseGap = leftover > 0 && groups > 0 ? G_GAP + 24 : 0
-  const looseH = leftover > 0 ? clusterBoxH(leftover) : 0
-  const looseBeside = leftover > 0 && perRow > 0 && perRow < 3 && gridRows > 1
-  const contentW =
-    Math.max(gridW, leftover > 0 && !looseBeside ? G_BOX_W : 0) +
-    (looseBeside ? looseGap + G_BOX_W : 0)
-  if (leftover > 0) {
-    pushCluster(
-      dots,
-      leftover,
-      (total + 1) * 31 + groups,
-      looseBeside ? G_PAD + gridW + looseGap : G_PAD + (contentW - G_BOX_W) / 2,
-      looseBeside ? G_PAD + (gridH - looseH) / 2 : G_PAD + gridH + looseGap,
-    )
-  }
-
-  return {
-    dots,
-    r: G_R,
-    width: G_PAD * 2 + contentW,
-    height: G_PAD * 2 + gridH + (leftover > 0 && !looseBeside ? looseGap + looseH : 0),
-  }
-}
-
-/** The figure's own clamps, mirrored so the animation never drifts off-board. */
+/**
+ * The figure's own clamps plus the option deltas the storyboard needs. The
+ * clamping itself comes from the figure module, so the animation can never
+ * normalize params differently from the picture it is annotating.
+ */
 export function normalizeCountManyParams(raw: unknown): CountManyParams & { distractorDeltas: number[] } {
   const p = (raw ?? {}) as Partial<CountManyParams>
-  const icon = ICON_KINDS.includes(p.icon as CountManyIcon) ? (p.icon as CountManyIcon) : SAMPLE.icon
-  const layout = LAYOUTS.includes(p.layout as CountManyLayout)
-    ? (p.layout as CountManyLayout)
-    : SAMPLE.layout
-  const total =
-    typeof p.total === 'number' && Number.isFinite(p.total)
-      ? Math.min(65, Math.max(1, Math.round(p.total)))
-      : SAMPLE.total
-  const perRow =
-    typeof p.perRow === 'number' && Number.isFinite(p.perRow)
-      ? Math.min(10, Math.max(3, Math.round(p.perRow)))
-      : SAMPLE.perRow
   const deltas = Array.isArray(p.distractorDeltas)
     ? p.distractorDeltas.filter((d) => typeof d === 'number' && Number.isFinite(d) && d !== 0).map((d) => Math.round(d))
     : []
-  return { icon, layout, total, perRow, distractorDeltas: deltas }
-}
-
-/** The exact icon positions the question figure draws for these params. */
-export function countManyFigure(
-  layout: CountManyLayout,
-  total: number,
-  perRow: number,
-): CountManyFigure {
-  if (layout === 'rows') return rowsFigure(total, perRow)
-  if (layout === 'scatter') return scatterFigure(total, perRow)
-  return groupedTensFigure(total)
+  return { ...normalizeCountManyFigureParams(raw), distractorDeltas: deltas }
 }
 
 // ---------------------------------------------------------------------------
@@ -483,10 +318,28 @@ const ICON_WORDS: Record<CountManyIcon, { id: string; en_p: string }> = {
   fish: { id: 'ikan', en_p: 'fish' },
 }
 
-const GROUP_NOUN: Record<CountManyLayout, { id: string; en: string }> = {
-  rows: { id: 'Baris', en: 'Row' },
-  'grouped-tens': { id: 'Kelompok', en: 'Group' },
-  scatter: { id: 'Lingkaran', en: 'Ring' },
+const GROUP_NOUN: Record<CountManyLayout, { id: string; en: string; en_p: string }> = {
+  rows: { id: 'Baris', en: 'Row', en_p: 'Rows' },
+  'grouped-tens': { id: 'Kelompok', en: 'Group', en_p: 'Groups' },
+  scatter: { id: 'Lingkaran', en: 'Ring', en_p: 'Rings' },
+}
+
+// ---------------------------------------------------------------------------
+// Beat budget — a six-year-old's post-answer moment has to stay short.
+//
+// A play-through is 3 fixed beats (intro, slip, plan) + the skip-count + the
+// leftover beat + the landing, i.e. at most 5 beats that are not counting. So
+// capping the skip-count at MAX_COUNT_BEATS = 5 caps the whole storyboard at
+// 10 beats. Past that the groups are counted several rings per beat — the
+// running total still moves, and it still skip-counts (by 10s instead of 5s,
+// by 20s instead of 10s), it just takes fewer stops to get there.
+// ---------------------------------------------------------------------------
+
+const MAX_COUNT_BEATS = 5
+
+/** How many groups one skip-count beat should swallow. */
+export function countManyGroupsPerBeat(chunks: number): number {
+  return chunks > MAX_COUNT_BEATS ? Math.ceil(chunks / MAX_COUNT_BEATS) : 1
 }
 
 // ---------------------------------------------------------------------------
@@ -530,6 +383,10 @@ function buildSlip(total: number): {
  *
  * Nothing is asserted: every number on screen is either counted or added, and
  * the answer appears on the last beat alone.
+ *
+ * The skip-count is capped at MAX_COUNT_BEATS stops (see countManyGroupsPerBeat)
+ * so no pile can drag the play-through past 10 beats: a long pile counts two or
+ * three rings per stop instead of one.
  */
 export function buildCountManySteps(
   rawParams: unknown,
@@ -547,7 +404,28 @@ export function buildCountManySteps(
 
   const noun = ICON_WORDS[icon]
   const gn = GROUP_NOUN[layout]
-  const groupWord = t(gn.en, gn.id)
+
+  // How the skip-count is chopped into beats: one group per beat while the pile
+  // is short, two or three per beat once counting them singly would run long.
+  const groupsPerBeat = countManyGroupsPerBeat(chunks)
+  const spans: { from: number; to: number }[] = []
+  for (let start = 1; start <= chunks; start += groupsPerBeat) {
+    spans.push({ from: start, to: Math.min(chunks, start + groupsPerBeat - 1) })
+  }
+  const stops = spans.map((s) => step * s.to)
+  const membersOf = (span: { from: number; to: number }): number[] => {
+    const out: number[] = []
+    for (let g = span.from; g <= span.to; g++) out.push(g - 1)
+    return out
+  }
+  /** "Ring 3" / "Rings 3 and 4" / "Rings 3 to 5" — never a bare list of numbers. */
+  const spanWord = (span: { from: number; to: number }): string => {
+    if (span.from === span.to) return t(`${gn.en} ${span.from}`, `${gn.id} ke-${span.from}`)
+    if (span.to === span.from + 1) {
+      return t(`${gn.en_p} ${span.from} and ${span.to}`, `${gn.id} ke-${span.from} dan ke-${span.to}`)
+    }
+    return t(`${gn.en_p} ${span.from} to ${span.to}`, `${gn.id} ke-${span.from} sampai ke-${span.to}`)
+  }
 
   const options = optionValues(total, distractorDeltas)
   const trap = trapValue(total, distractorDeltas)
@@ -557,8 +435,8 @@ export function buildCountManySteps(
 
   const slip = buildSlip(total)
 
-  // Long piles get a brisker skip-count so the whole play-through stays short.
-  const countHold = chunks > 8 ? 750 : 950
+  // A beat that lights two or three rings at once carries more to read.
+  const countHold = groupsPerBeat > 1 ? 1050 : 950
 
   const steps: CountManyBeat[] = []
   const push = (beat: Partial<CountManyBeat> & { id: CountManyBeatId; caption: string; hold: number }) => {
@@ -566,7 +444,7 @@ export function buildCountManySteps(
       note: null,
       ringsDrawn: 0,
       counted: 0,
-      activeGroup: null,
+      activeGroups: [],
       running: null,
       showLeftover: false,
       leftoverLit: false,
@@ -609,15 +487,16 @@ export function buildCountManySteps(
 
   // 4 — skip-count the groups. With no leftover the last jump IS the landing
   // beat, so the total never shows up before the answer does.
-  const countBeats = leftover > 0 ? chunks : Math.max(0, chunks - 1)
-  for (let k = 1; k <= countBeats; k++) {
+  const countSpans = leftover > 0 ? spans : spans.slice(0, Math.max(0, spans.length - 1))
+  for (const span of countSpans) {
+    const running = step * span.to
     push({
       id: 'count',
-      caption: t(`${gn.en} ${k}: ${step * k}.`, `${gn.id} ke-${k}: ${step * k}.`),
+      caption: `${spanWord(span)}: ${running}.`,
       ringsDrawn: groups.length,
-      counted: k,
-      activeGroup: k - 1,
-      running: step * k,
+      counted: span.to,
+      activeGroups: membersOf(span),
+      running,
       hold: countHold,
     })
   }
@@ -654,11 +533,9 @@ export function buildCountManySteps(
     equation = `${fromChunks} + ${leftover} = ${total}`
     landing = `${equation}.` + answerTail
   } else {
+    const lastSpan = spans[spans.length - 1]
     landing =
-      t(
-        `${gn.en} ${chunks}: ${total}. Nothing left over.`,
-        `${gn.id} ke-${chunks}: ${total}. Tidak ada sisa.`,
-      ) + answerTail
+      `${spanWord(lastSpan)}: ${total}. ` + t('Nothing left over.', 'Tidak ada sisa.') + answerTail
   }
 
   let note: string | null = null
@@ -682,7 +559,7 @@ export function buildCountManySteps(
     note,
     ringsDrawn: groups.length,
     counted: chunks,
-    activeGroup: leftover > 0 ? null : chunks > 0 ? chunks - 1 : null,
+    activeGroups: leftover > 0 || spans.length === 0 ? [] : membersOf(spans[spans.length - 1]),
     running: total,
     showLeftover: leftover > 0,
     leftoverLit: leftover > 0,
@@ -701,6 +578,8 @@ export function buildCountManySteps(
     chunks,
     leftover,
     fromChunks,
+    groupsPerBeat,
+    stops,
     dots: fig.dots,
     r: fig.r,
     width: fig.width,

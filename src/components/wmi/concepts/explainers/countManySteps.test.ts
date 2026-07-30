@@ -14,16 +14,26 @@ import {
 
 const LAYOUTS: CountManyLayout[] = ['rows', 'scatter', 'grouped-tens']
 
+function figureMarkup(layout: CountManyLayout, total: number, perRow: number, icon = 'star'): string {
+  return renderToStaticMarkup(
+    createElement(CountManyObjectsIllustration, { params: { icon, layout, total, perRow } }),
+  )
+}
+
 /** Every `translate(x y)` the real question figure emits, in draw order. */
 function figureDots(layout: CountManyLayout, total: number, perRow: number): Dot[] {
-  const html = renderToStaticMarkup(
-    createElement(CountManyObjectsIllustration, { params: { icon: 'star', layout, total, perRow } }),
-  )
+  const html = figureMarkup(layout, total, perRow)
   const out: Dot[] = []
   const re = /translate\((-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)\)/g
   let m: RegExpExecArray | null
   while ((m = re.exec(html)) !== null) out.push({ x: Number(m[1]), y: Number(m[2]) })
   return out
+}
+
+/** The aria-label the real figure renders. */
+function figureAria(layout: CountManyLayout, total: number, perRow: number, icon = 'star'): string {
+  const m = /aria-label="([^"]*)"/.exec(figureMarkup(layout, total, perRow, icon))
+  return m ? m[1] : ''
 }
 
 function distToSeg(p: Dot, a: Dot, b: Dot): number {
@@ -42,7 +52,11 @@ function distToPath(p: Dot, pts: Dot[]): number {
   return min
 }
 
-describe('countManySteps — geometry is pinned to the question figure', () => {
+describe('countManySteps — geometry comes from the question figure itself', () => {
+  // The layout functions now live in the figure module and are imported by the
+  // storyboard, so there is only one implementation. This still renders the real
+  // component and pins every drawn coordinate, which is what proves the picture
+  // the child sees is the picture the rings are computed against.
   test('every icon lands on the exact coordinate the figure draws', () => {
     const cases: [CountManyLayout, number, number][] = [
       ['rows', 34, 8],
@@ -68,6 +82,50 @@ describe('countManySteps — geometry is pinned to the question figure', () => {
         expect(Number(d.y.toFixed(2)), `${layout}/${total} dot ${i}.y`).toBe(drawn[i].y)
       })
     }
+  })
+
+  test('the storyboard animates the very coordinates the figure drew', () => {
+    for (const [layout, total, perRow] of [
+      ['rows', 34, 8],
+      ['scatter', 47, 6],
+      ['grouped-tens', 52, 7],
+    ] as [CountManyLayout, number, number][]) {
+      const sb = buildCountManySteps({ icon: 'fish', layout, total, perRow }, 'id')
+      const drawn = figureDots(layout, total, perRow)
+      expect(sb.dots.map((d) => [Number(d.x.toFixed(2)), Number(d.y.toFixed(2))])).toEqual(
+        drawn.map((d) => [d.x, d.y]),
+      )
+    }
+  })
+})
+
+describe('the question figure aria-label — pictured, never the answer', () => {
+  test('names the object and the arrangement, and carries no digit at all', () => {
+    for (const icon of ['star', 'apple', 'ball', 'leaf', 'fish']) {
+      for (const layout of LAYOUTS) {
+        for (let total = 15; total <= 65; total++) {
+          const label = figureAria(layout, total, 8, icon)
+          expect(label.length, `${layout}/${total}/${icon} empty label`).toBeGreaterThan(20)
+          // No value that IS (or reveals) the answer: no digits, no spelled-out
+          // group size, no count of groups.
+          expect(label, `${layout}/${total}/${icon}`).not.toMatch(/\d/)
+          expect(label.toLowerCase()).not.toMatch(
+            /\b(satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh|puluh|belas)\b/,
+          )
+        }
+      }
+    }
+  })
+
+  test('the object kind and the arrangement both reach a screen reader', () => {
+    expect(figureAria('rows', 34, 8, 'apple')).toContain('apel')
+    expect(figureAria('rows', 34, 8, 'apple')).toContain('baris')
+    expect(figureAria('scatter', 34, 8, 'fish')).toContain('ikan')
+    expect(figureAria('scatter', 34, 8, 'fish')).toContain('tersebar')
+    expect(figureAria('grouped-tens', 30, 8, 'ball')).toContain('tumpukan')
+    // the loose pile is a plain feature of the picture, so say it when it exists
+    expect(figureAria('grouped-tens', 34, 8, 'ball')).toContain('di luar tumpukan')
+    expect(figureAria('grouped-tens', 30, 8, 'ball')).not.toContain('di luar tumpukan')
   })
 })
 
@@ -191,7 +249,9 @@ describe('buildCountManySteps — the storyboard deduces, never asserts', () => 
     expect(sb.steps.length).toBeGreaterThanOrEqual(3)
     expect(sb.steps.map((s) => s.id).slice(0, 3)).toEqual(['intro', 'slip', 'plan'])
     expect(sb.steps[sb.finalIndex].id).toBe('total')
-    expect(sb.steps.filter((s) => s.id === 'count')).toHaveLength(sb.chunks)
+    expect(sb.steps.filter((s) => s.id === 'count')).toHaveLength(
+      Math.ceil(sb.chunks / sb.groupsPerBeat),
+    )
     expect(sb.steps.filter((s) => s.id === 'rest')).toHaveLength(1)
   })
 
@@ -200,12 +260,69 @@ describe('buildCountManySteps — the storyboard deduces, never asserts', () => 
     expect(sb.step).toBe(5)
     expect(sb.chunks).toBe(11)
     expect(sb.leftover).toBe(3)
+    // 11 rings of 5 would be 11 stops; they are counted three at a time instead,
+    // so the running total still skip-counts, just in bigger hops.
+    expect(sb.groupsPerBeat).toBe(3)
+    expect(sb.stops).toEqual([15, 30, 45, 55])
     const counts = sb.steps.filter((s) => s.id === 'count').map((s) => s.running)
-    expect(counts).toEqual([5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+    expect(counts).toEqual([15, 30, 45, 55])
+    expect(sb.steps.filter((s) => s.id === 'count').map((s) => s.activeGroups)).toEqual([
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [9, 10],
+    ])
+    expect(sb.steps.filter((s) => s.id === 'count').map((s) => s.caption)).toEqual([
+      'Lingkaran ke-1 sampai ke-3: 15.',
+      'Lingkaran ke-4 sampai ke-6: 30.',
+      'Lingkaran ke-7 sampai ke-9: 45.',
+      'Lingkaran ke-10 dan ke-11: 55.',
+    ])
     const sizes = [...sb.groups.map((g) => g.size), ...(sb.leftoverGroup ? [sb.leftoverGroup.size] : [])]
     expect(sizes.reduce((a, b) => a + b, 0)).toBe(sb.total)
     expect(sb.steps[sb.finalIndex].running).toBe(58)
     expect(sb.steps[sb.finalIndex].equation).toBe('55 + 3 = 58')
+  })
+
+  test('a pile short enough to count ring by ring still does', () => {
+    const sb = buildCountManySteps(
+      { icon: 'star', layout: 'grouped-tens', total: 34, perRow: 8, distractorDeltas: [-2, 2, 4] },
+      'id',
+    )
+    expect(sb.chunks).toBe(3)
+    expect(sb.groupsPerBeat).toBe(1)
+    expect(sb.steps.filter((s) => s.id === 'count').map((s) => s.caption)).toEqual([
+      'Kelompok ke-1: 10.',
+      'Kelompok ke-2: 20.',
+      'Kelompok ke-3: 30.',
+    ])
+  })
+
+  test('no play-through runs past 10 beats, and the running total never lies', () => {
+    for (const layout of LAYOUTS) {
+      for (let perRow = 5; perRow <= 10; perRow++) {
+        for (let total = 15; total <= 65; total++) {
+          const sb = buildCountManySteps(
+            { icon: 'ball', layout, total, perRow, distractorDeltas: [-2, 1, 3] },
+            'id',
+          )
+          const where = `${layout}/${total}/${perRow}`
+          expect(sb.steps.length, `${where} beat count`).toBeLessThanOrEqual(10)
+          // every stop is a real multiple of the group size, and they climb
+          const counts = sb.steps.filter((s) => s.id === 'count')
+          counts.forEach((s, i) => {
+            expect(s.running! % sb.step, `${where} stop ${i}`).toBe(0)
+            expect(s.running!).toBe(sb.step * s.counted)
+            if (i > 0) expect(s.running!).toBeGreaterThan(counts[i - 1].running!)
+          })
+          // and the groups the beats light up cover every full group, once
+          const lit = counts.flatMap((s) => s.activeGroups)
+          const landing = sb.steps[sb.finalIndex]
+          const all = [...lit, ...landing.activeGroups]
+          expect(new Set(all).size, `${where} group coverage`).toBe(sb.chunks)
+        }
+      }
+    }
   })
 
   test('only the last beat lands the answer', () => {
@@ -230,9 +347,12 @@ describe('buildCountManySteps — the storyboard deduces, never asserts', () => 
     )
     expect(sb.leftover).toBe(0)
     expect(sb.steps.filter((s) => s.id === 'rest')).toHaveLength(0)
-    expect(sb.steps.filter((s) => s.id === 'count')).toHaveLength(sb.chunks - 1)
+    expect(sb.steps.filter((s) => s.id === 'count')).toHaveLength(
+      Math.ceil(sb.chunks / sb.groupsPerBeat) - 1,
+    )
     const last = sb.steps[sb.finalIndex]
     expect(last.running).toBe(40)
+    expect(last.caption).toContain('Baris ke-5: 40')
     expect(last.caption).toContain('Tidak ada sisa')
     sb.steps.slice(0, sb.finalIndex).forEach((s) => expect(s.running === null || s.running < 40).toBe(true))
   })

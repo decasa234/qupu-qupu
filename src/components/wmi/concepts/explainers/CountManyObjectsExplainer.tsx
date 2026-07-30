@@ -1,11 +1,11 @@
-import { useMemo, type ReactNode } from 'react'
+import { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { ExplainerProps } from './registry'
 import { useBeatControl } from './useBeatControl'
+import { countManyGlyph } from '../count-many-objects/index'
 import {
   buildCountManySteps,
   type CountManyBeat,
-  type CountManyIcon,
   type CountManyRing,
   type CountManyStoryboard,
 } from './countManySteps'
@@ -21,84 +21,6 @@ const CREAM = '#FAF6EF'
 const SHELL = '#FFF9F4'
 const PEACH = '#FFD3B1'
 const INK_MUTED = '#8A93A3'
-
-/**
- * One icon, drawn centred on (0,0) inside the circle of radius r — the same
- * glyphs the question figure uses, so the child watches the very same pile.
- * (Mirrored rather than imported: the figure keeps them private.)
- */
-function glyph(kind: CountManyIcon, r: number): ReactNode {
-  const w = Math.max(1, r * 0.15)
-  switch (kind) {
-    case 'star': {
-      const pts: string[] = []
-      for (let i = 0; i < 10; i++) {
-        const rr = i % 2 === 0 ? r : r * 0.44
-        const a = -Math.PI / 2 + (i * Math.PI) / 5
-        pts.push(`${(rr * Math.cos(a)).toFixed(2)},${(rr * Math.sin(a)).toFixed(2)}`)
-      }
-      return (
-        <polygon
-          points={pts.join(' ')}
-          fill={YELLOW}
-          stroke={ORANGE}
-          strokeWidth={w * 0.6}
-          strokeLinejoin="round"
-        />
-      )
-    }
-    case 'apple':
-      return (
-        <>
-          <path
-            d={`M 0 ${-0.38 * r} C ${-1.0 * r} ${-1.0 * r}, ${-0.95 * r} ${0.95 * r}, 0 ${0.88 * r} C ${0.95 * r} ${0.95 * r}, ${1.0 * r} ${-1.0 * r}, 0 ${-0.38 * r} Z`}
-            fill={ORANGE}
-          />
-          <path
-            d={`M 0 ${-0.42 * r} L ${0.1 * r} ${-0.92 * r}`}
-            stroke={GREEN}
-            strokeWidth={w}
-            strokeLinecap="round"
-            fill="none"
-          />
-          <ellipse
-            cx={0.4 * r}
-            cy={-0.78 * r}
-            rx={0.33 * r}
-            ry={0.18 * r}
-            fill={GREEN}
-            transform={`rotate(-25 ${0.4 * r} ${-0.78 * r})`}
-          />
-        </>
-      )
-    case 'ball':
-      return (
-        <>
-          <circle cx={0} cy={0} r={0.92 * r} fill={BLUE} />
-          <ellipse cx={0} cy={0} rx={0.34 * r} ry={0.9 * r} fill="none" stroke={CREAM} strokeWidth={w} />
-          <path d={`M ${-0.9 * r} 0 L ${0.9 * r} 0`} stroke={CREAM} strokeWidth={w} strokeLinecap="round" />
-        </>
-      )
-    case 'leaf':
-      return (
-        <>
-          <path
-            d={`M 0 ${-0.95 * r} C ${0.85 * r} ${-0.35 * r}, ${0.6 * r} ${0.75 * r}, 0 ${0.95 * r} C ${-0.6 * r} ${0.75 * r}, ${-0.85 * r} ${-0.35 * r}, 0 ${-0.95 * r} Z`}
-            fill={GREEN}
-          />
-          <path d={`M 0 ${-0.78 * r} L 0 ${0.85 * r}`} stroke={CREAM} strokeWidth={w} strokeLinecap="round" />
-        </>
-      )
-    case 'fish':
-      return (
-        <>
-          <polygon points={`${0.4 * r},0 ${0.95 * r},${-0.5 * r} ${0.95 * r},${0.5 * r}`} fill={ORANGE} />
-          <ellipse cx={-0.18 * r} cy={0} rx={0.7 * r} ry={0.46 * r} fill={BLUE} />
-          <circle cx={-0.5 * r} cy={-0.12 * r} r={0.14 * r} fill={CREAM} />
-        </>
-      )
-  }
-}
 
 type RingState = 'planned' | 'done' | 'active' | 'rest'
 
@@ -278,22 +200,32 @@ export default function CountManyObjectsExplainer(props: ExplainerProps) {
 
   const T = (en: string, id: string) => (lang === 'id' ? id : en)
 
-  // Which icons are in the spotlight this beat.
+  // Which icons are in the spotlight this beat. A long pile counts two or three
+  // rings per beat, so the spotlight is a union, not a single group.
   const litMembers = useMemo(() => {
     if (beat.result) return null // the landing beat brightens the whole pile
-    if (beat.activeGroup !== null) return new Set(story.groups[beat.activeGroup]?.members ?? [])
+    if (beat.activeGroups.length > 0) {
+      const lit = new Set<number>()
+      for (const g of beat.activeGroups) for (const i of story.groups[g]?.members ?? []) lit.add(i)
+      return lit
+    }
     if (beat.leftoverLit && story.leftoverGroup) return new Set(story.leftoverGroup.members)
     return null
   }, [beat, story])
 
   const ringState = (g: number): RingState => {
-    if (beat.activeGroup === g) return 'active'
+    if (beat.activeGroups.includes(g)) return 'active'
     return g < beat.counted ? 'done' : 'planned'
   }
 
+  // One chip per skip-count stop, so the chain stays as short as the beats do.
   const chips: { text: string; tone: 'past' | 'now' | 'rest' | 'sum' }[] = []
-  for (let k = 1; k <= beat.counted; k++) {
-    chips.push({ text: String(story.step * k), tone: k === beat.counted && !beat.result ? 'now' : 'past' })
+  const stopsDone = Math.ceil(beat.counted / Math.max(1, story.groupsPerBeat))
+  for (let k = 0; k < stopsDone && k < story.stops.length; k++) {
+    chips.push({
+      text: String(story.stops[k]),
+      tone: k === stopsDone - 1 && !beat.result ? 'now' : 'past',
+    })
   }
   if (beat.leftoverLit && story.leftover > 0) chips.push({ text: `+${story.leftover}`, tone: 'rest' })
   if (beat.result) chips.push({ text: `= ${story.total}`, tone: 'sum' })
@@ -356,7 +288,7 @@ export default function CountManyObjectsExplainer(props: ExplainerProps) {
                   animate={{ opacity: lit ? 1 : 0.42 }}
                   transition={reduce ? { duration: 0 } : { duration: 0.28 }}
                 >
-                  {glyph(story.icon, story.r)}
+                  {countManyGlyph(story.icon, story.r)}
                 </motion.g>
               )
             })}

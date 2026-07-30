@@ -33,11 +33,149 @@ const SQUARE_FILL = '#E9F0F8' // pale blue so each petak reads against the card
 const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000'] // orange, green, yellow
 const CHOICE_LABELS = ['A', 'B', 'C']
 
-const U = 22 // pixels per whole unit
-const BAR_H = 18
+/** Pixels per whole unit. */
+export const U = 22
+/** Object bar height. */
+export const BAR_H = 18
 
 function cap(word: string): string {
   return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
+// ---------------------------------------------------------------------------
+// geometry — the ONE copy of this board's coordinate maths.
+//
+// Exported because the post-answer explainer draws the same board and must land
+// on the same pixels; it imports this instead of replaying the numbers. Change
+// a pad, a gutter or a row height here and both pictures move together.
+// ---------------------------------------------------------------------------
+
+export interface LengthGeometryInput {
+  medium: LengthParams['medium']
+  ask: LengthParams['ask']
+  /** Biggest number printed on the ruler (ignored by unit chains). */
+  rulerMax: number
+  items: LengthItem[]
+}
+
+export interface LengthGeometryRow {
+  name: string
+  /** top of the row box */
+  top: number
+  /** y of the object bar (ruler rows sit 4px below the row top; chain rows sit on it) */
+  barY: number
+  /** left / right edge of the object bar */
+  x0: number
+  x1: number
+  /** chain only: y of the unit-square strip */
+  stripY: number
+  start: number
+  end: number
+  length: number
+}
+
+export interface LengthGeometry {
+  kind: 'ruler' | 'chain'
+  width: number
+  height: number
+  padL: number
+  padR: number
+  topPad: number
+  rowH: number
+  rowGap: number
+  /** ruler only (0 on chains) */
+  rulerTop: number
+  rulerH: number
+  /** ruler: the printed maximum. chain: the longest chain, used for the canvas. */
+  rulerMax: number
+  single: boolean
+  showLetters: boolean
+  rows: LengthGeometryRow[]
+}
+
+export function lengthFigureGeometry(p: LengthGeometryInput): LengthGeometry {
+  const single = p.items.length === 1
+  const gutter = single ? 0 : 78 // room for the name (and A./B./C.) beside each row
+  const padL = 22 + gutter
+  const padR = 22
+  const showLetters = p.ask === 'longest'
+
+  if (p.medium === 'unit-chain') {
+    const widest = p.items.reduce((m, it) => Math.max(m, it.length), 1)
+    const topPad = single ? 24 : 12
+    const rowH = 54
+    const rowGap = 12
+    return {
+      kind: 'chain',
+      width: padL + widest * U + padR,
+      height: topPad + p.items.length * rowH + (p.items.length - 1) * rowGap + 8,
+      padL,
+      padR,
+      topPad,
+      rowH,
+      rowGap,
+      rulerTop: 0,
+      rulerH: 0,
+      rulerMax: widest,
+      single,
+      showLetters,
+      rows: p.items.map((it, i) => {
+        const top = topPad + i * (rowH + rowGap)
+        return {
+          name: it.name,
+          top,
+          barY: top,
+          x0: padL,
+          x1: padL + it.length * U,
+          stripY: top + 26,
+          start: 0,
+          end: it.length,
+          length: it.length,
+        }
+      }),
+    }
+  }
+
+  const topPad = single ? 26 : 12
+  const rowH = 26
+  const rowGap = 10
+  const objectsH = p.items.length * rowH + (p.items.length - 1) * rowGap
+  const rulerTop = topPad + objectsH + 14
+  const rulerH = 46
+  return {
+    kind: 'ruler',
+    width: padL + p.rulerMax * U + padR,
+    height: rulerTop + rulerH + 8,
+    padL,
+    padR,
+    topPad,
+    rowH,
+    rowGap,
+    rulerTop,
+    rulerH,
+    rulerMax: p.rulerMax,
+    single,
+    showLetters,
+    rows: p.items.map((it, i) => {
+      const top = topPad + i * (rowH + rowGap)
+      return {
+        name: it.name,
+        top,
+        barY: top + 4,
+        x0: padL + it.start * U,
+        x1: padL + (it.start + it.length) * U,
+        stripY: 0,
+        start: it.start,
+        end: it.start + it.length,
+        length: it.length,
+      }
+    }),
+  }
+}
+
+/** x of ruler value `v`. */
+export function xAt(geometry: Pick<LengthGeometry, 'padL'>, v: number): number {
+  return geometry.padL + v * U
 }
 
 function coerce(params: unknown): LengthParams {
@@ -188,6 +326,50 @@ function UnitSquareStrip({ count, x, y }: { count: number; x: number; y: number 
   )
 }
 
+// ---------------------------------------------------------------------------
+// aria-label
+//
+// Policy: describe what is pictured richly enough that a screen-reader user can
+// attempt the question, but NEVER speak a value that IS the answer. So: name the
+// objects and the measuring instrument, and say WHETHER an object starts at 0 —
+// a legitimate observable. Never a length, never an end reading, never a
+// difference, and never a hint at which object is longest.
+// ---------------------------------------------------------------------------
+
+function objectList(p: LengthParams): string {
+  const showLetters = p.ask === 'longest'
+  return p.items
+    .map((it, i) => (showLetters ? `${CHOICE_LABELS[i]}. ${cap(it.name)}` : cap(it.name)))
+    .join(', ')
+}
+
+function rulerAria(p: LengthParams): string {
+  const atZero = p.items.filter((it) => it.start === 0).length
+  const wherePlaced =
+    p.items.length === 1
+      ? atZero === 1
+        ? 'Ujung kirinya tepat di angka 0'
+        : 'Ujung kirinya tidak di angka 0'
+      : atZero === p.items.length
+        ? 'Semua ujung kirinya tepat di angka 0'
+        : atZero === 0
+          ? 'Tidak ada ujung kiri yang tepat di angka 0'
+          : 'Sebagian ujung kirinya tidak di angka 0'
+  return (
+    `Penggaris bernomor dengan angka berurutan mulai dari angka 0. ` +
+    `Di atasnya diletakkan ${objectList(p)}. ${wherePlaced}. ` +
+    `Posisi kedua ujung tiap benda dibaca sendiri dari gambar.`
+  )
+}
+
+function chainAria(p: LengthParams): string {
+  return (
+    `${objectList(p)} diukur memakai petak satuan berukuran sama yang disusun rapat tanpa celah. ` +
+    `Deretan petak mulai tepat di ujung kiri tiap benda dan berhenti tepat di ujung kanannya. ` +
+    `Banyak petaknya dihitung sendiri dari gambar.`
+  )
+}
+
 /**
  * length-measure-compare — question figure.
  *
@@ -201,43 +383,24 @@ function UnitSquareStrip({ count, x, y }: { count: number; x: number; y: number 
  */
 export default function LengthMeasureCompareIllustration({ params }: { params: unknown }) {
   const p = coerce(params)
-  const single = p.items.length === 1
-  const gutter = single ? 0 : 78
-  const padL = 22 + gutter
-  const padR = 22
-  const showLetters = p.ask === 'longest'
+  const g = lengthFigureGeometry(p)
+  const { single, showLetters, padL } = g
 
   const nameFor = (i: number) => cap(p.items[i].name)
   const colorFor = (i: number) => OBJECT_COLORS[i % OBJECT_COLORS.length]
 
-  if (p.medium === 'unit-chain') {
-    const widest = p.items.reduce((m, it) => Math.max(m, it.length), 1)
-    const topPad = single ? 24 : 12
-    const rowH = 54
-    const rowGap = 12
-    const width = padL + widest * U + padR
-    const height = topPad + p.items.length * rowH + (p.items.length - 1) * rowGap + 8
-    const aria = p.items.map((it) => `${cap(it.name)} sepanjang ${it.length} petak`).join(', ')
-
+  if (g.kind === 'chain') {
     return (
-      <div
-        className="my-4 flex justify-center"
-        role="img"
-        aria-label={`Benda diukur dengan petak satuan yang disusun rapat tanpa celah: ${aria}.`}
-      >
-        <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(360, width)} className="max-w-full">
-          {p.items.map((it, i) => {
-            const rowTop = topPad + i * (rowH + rowGap)
+      <div className="my-4 flex justify-center" role="img" aria-label={chainAria(p)}>
+        <svg viewBox={`0 0 ${g.width} ${g.height}`} width={Math.min(360, g.width)} className="max-w-full">
+          {g.rows.map((row, i) => {
             const color = colorFor(i)
-            const barX = padL
-            const barW = it.length * U
-            const stripY = rowTop + 26
             return (
               <g key={i}>
                 {single ? (
                   <text
-                    x={barX + barW / 2}
-                    y={rowTop - 6}
+                    x={(row.x0 + row.x1) / 2}
+                    y={row.top - 6}
                     textAnchor="middle"
                     fontSize={12}
                     fontWeight="bold"
@@ -248,7 +411,7 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
                 ) : (
                   <text
                     x={padL - 12}
-                    y={rowTop + BAR_H - 4}
+                    y={row.top + BAR_H - 4}
                     textAnchor="end"
                     fontSize={12}
                     fontWeight="bold"
@@ -257,23 +420,23 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
                     {showLetters ? `${CHOICE_LABELS[i]}. ${nameFor(i)}` : nameFor(i)}
                   </text>
                 )}
-                <ObjectBar kind={it.name} x={barX} y={rowTop} w={barW} color={color} />
+                <ObjectBar kind={row.name} x={row.x0} y={row.barY} w={row.x1 - row.x0} color={color} />
                 {/* the unit squares line up exactly under the object, edge to edge */}
-                <UnitSquareStrip count={it.length} x={barX} y={stripY} />
+                <UnitSquareStrip count={row.length} x={row.x0} y={row.stripY} />
                 <line
-                  x1={barX}
-                  y1={rowTop + BAR_H}
-                  x2={barX}
-                  y2={stripY}
+                  x1={row.x0}
+                  y1={row.barY + BAR_H}
+                  x2={row.x0}
+                  y2={row.stripY}
                   stroke={color}
                   strokeWidth={1.5}
                   strokeDasharray="3 3"
                 />
                 <line
-                  x1={barX + barW}
-                  y1={rowTop + BAR_H}
-                  x2={barX + barW}
-                  y2={stripY}
+                  x1={row.x1}
+                  y1={row.barY + BAR_H}
+                  x2={row.x1}
+                  y2={row.stripY}
                   stroke={color}
                   strokeWidth={1.5}
                   strokeDasharray="3 3"
@@ -287,23 +450,15 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
   }
 
   // --- ruler / offset-ruler -------------------------------------------------
-  const xAt = (v: number) => padL + v * U
-  const topPad = single ? 26 : 12
-  const rowH = 26
-  const rowGap = 10
-  const objectsH = p.items.length * rowH + (p.items.length - 1) * rowGap
-  const rulerTop = topPad + objectsH + 14
-  const rulerH = 46
-  const width = padL + p.rulerMax * U + padR
-  const height = rulerTop + rulerH + 8
+  const { rulerTop, rulerH, rulerMax } = g
 
   // Only spotlight the two boundary numbers when there is a single object —
   // with several objects the dashed guides already do the work.
-  const emphasis = single ? [p.items[0].start, p.items[0].start + p.items[0].length] : []
+  const emphasis = single ? [g.rows[0].start, g.rows[0].end] : []
 
   const ticks = []
-  for (let v = 0; v <= p.rulerMax; v++) {
-    const x = xAt(v)
+  for (let v = 0; v <= rulerMax; v++) {
+    const x = xAt(g, v)
     const major = v % 5 === 0
     const hot = emphasis.includes(v)
     ticks.push(
@@ -331,22 +486,14 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
     )
   }
 
-  const aria = p.items
-    .map((it) => `${cap(it.name)} dari angka ${it.start} sampai angka ${it.start + it.length}`)
-    .join(', ')
-
   return (
-    <div
-      className="my-4 flex justify-center"
-      role="img"
-      aria-label={`Penggaris dari 0 sampai ${p.rulerMax} cm. ${aria}.`}
-    >
-      <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(360, width)} className="max-w-full">
+    <div className="my-4 flex justify-center" role="img" aria-label={rulerAria(p)}>
+      <svg viewBox={`0 0 ${g.width} ${g.height}`} width={Math.min(360, g.width)} className="max-w-full">
         {/* the ruler */}
         <rect
-          x={xAt(0) - 10}
+          x={xAt(g, 0) - 10}
           y={rulerTop}
-          width={p.rulerMax * U + 20}
+          width={rulerMax * U + 20}
           height={rulerH}
           rx={6}
           fill={CREAM}
@@ -354,23 +501,19 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
           strokeWidth={2}
         />
         {ticks}
-        <text x={xAt(p.rulerMax) + 6} y={rulerTop + rulerH - 6} textAnchor="end" fontSize={10} fill={BLUE}>
+        <text x={xAt(g, rulerMax) + 6} y={rulerTop + rulerH - 6} textAnchor="end" fontSize={10} fill={BLUE}>
           cm
         </text>
 
         {/* the measured objects, sitting above the ruler */}
-        {p.items.map((it, i) => {
-          const rowTop = topPad + i * (rowH + rowGap)
+        {g.rows.map((row, i) => {
           const color = colorFor(i)
-          const x0 = xAt(it.start)
-          const x1 = xAt(it.start + it.length)
-          const barY = rowTop + 4
           return (
             <g key={i}>
               {single ? (
                 <text
-                  x={(x0 + x1) / 2}
-                  y={barY - 8}
+                  x={(row.x0 + row.x1) / 2}
+                  y={row.barY - 8}
                   textAnchor="middle"
                   fontSize={12}
                   fontWeight="bold"
@@ -381,7 +524,7 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
               ) : (
                 <text
                   x={padL - 12}
-                  y={barY + BAR_H - 4}
+                  y={row.barY + BAR_H - 4}
                   textAnchor="end"
                   fontSize={12}
                   fontWeight="bold"
@@ -390,21 +533,21 @@ export default function LengthMeasureCompareIllustration({ params }: { params: u
                   {showLetters ? `${CHOICE_LABELS[i]}. ${nameFor(i)}` : nameFor(i)}
                 </text>
               )}
-              <ObjectBar kind={it.name} x={x0} y={barY} w={x1 - x0} color={color} />
+              <ObjectBar kind={row.name} x={row.x0} y={row.barY} w={row.x1 - row.x0} color={color} />
               {/* dashed drop lines from both ends down to the ruler */}
               <line
-                x1={x0}
-                y1={barY + BAR_H}
-                x2={x0}
+                x1={row.x0}
+                y1={row.barY + BAR_H}
+                x2={row.x0}
                 y2={rulerTop}
                 stroke={color}
                 strokeWidth={1.5}
                 strokeDasharray="3 3"
               />
               <line
-                x1={x1}
-                y1={barY + BAR_H}
-                x2={x1}
+                x1={row.x1}
+                y1={row.barY + BAR_H}
+                x2={row.x1}
                 y2={rulerTop}
                 stroke={color}
                 strokeWidth={1.5}

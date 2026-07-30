@@ -1,3 +1,4 @@
+import { buildSortCountItems, sortCountHash } from '../sort-count-by-attribute'
 import type { Lang } from './makeTenSteps'
 
 // D4 `sort-count-by-attribute` — the most common grade-1 WMI figure task. A
@@ -165,30 +166,11 @@ const SAMPLE: SortCountParams = {
   seed: 7,
 }
 
-// --- deterministic pile order (mirrors the illustration) --------------------
+// --- deterministic pile order (OWNED BY the illustration) -------------------
+// Re-exported, never re-implemented: the animation replays the exact pile the
+// question drew, so both sides must run the same shuffle off the same hash.
 
-/** 32-bit integer hash of (seed, index, salt) — pure index arithmetic. */
-export function sortCountHash(seed: number, i: number, salt: number): number {
-  let h = Math.imul(seed + 1, 2654435761) ^ Math.imul(i + 1, 40503) ^ Math.imul(salt + 1, 668265263)
-  h = Math.imul(h ^ (h >>> 15), 2246822519)
-  h = Math.imul(h ^ (h >>> 13), 3266489917)
-  return (h ^ (h >>> 16)) >>> 0
-}
-
-/** The pile order: one entry per object, mixed so groups never sit together. */
-export function buildPile(counts: number[], seed: number): number[] {
-  const bag: number[] = []
-  counts.forEach((c, ci) => {
-    for (let i = 0; i < c; i++) bag.push(ci)
-  })
-  for (let i = bag.length - 1; i > 0; i--) {
-    const j = sortCountHash(seed, i, 3) % (i + 1)
-    const tmp = bag[i]
-    bag[i] = bag[j]
-    bag[j] = tmp
-  }
-  return bag
-}
+export { sortCountHash, buildSortCountItems as buildPile }
 
 // --- params sanitising ------------------------------------------------------
 
@@ -267,7 +249,7 @@ export function buildSortCountSteps(raw: unknown, lang: Lang): SortCountStoryboa
   let cmpB = clamp(Math.round(p.askIndices[1] ?? 1), 0, k - 1)
   if (cmpA === cmpB) cmpB = (cmpA + 1) % k
 
-  const pile = buildPile(counts, seed)
+  const pile = buildSortCountItems(counts, seed)
   const itemsByGroup: number[][] = counts.map(() => [])
   pile.forEach((g, i) => itemsByGroup[g].push(i))
 
