@@ -8,19 +8,31 @@
   "review": {
     "status": "approved",
     "reviewed_on": "2026-07-04",
-    "summary": "Deploy-readiness pass: independently re-solved all 25; enumerable questions brute-forced by script (Q2, Q8, Q9, Q10 piece-fit, Q17, Q19, Q21, Q22, Q23, Q25). Figure components compared against scans; Q10 hole and Q25 walls verified pixel-by-pixel (both match). Prior Q22 steps warning fixed: hints now state the path uses 8 different rooms (the maze has duplicate labels 2 and 8); exhaustive search over all simple 8-room paths from the entrance confirms max even = 6. Prior figure nits resolved: Q19 = 18 (6+8+4) re-counted from the scan's anti-diagonal star grid; Q21 = 6 by full permutation over the reconstructed 3×3 grid; Q25 = 20 by Dijkstra over (cell, facing) states with straight/right-turn moves on scan-verified walls. One residual note (Q14).",
+    "summary": "Deploy-readiness pass: independently re-solved all 25; enumerable questions brute-forced by script (Q2, Q8, Q9, Q10 piece-fit, Q17, Q19, Q21, Q22, Q23, Q25). Figure components compared against scans; Q10 hole and Q25 walls verified pixel-by-pixel (both match). Prior Q22 steps warning fixed: hints now state the path uses 8 different rooms (the maze has duplicate labels 2 and 8); exhaustive search over all simple 8-room paths from the entrance confirms max even = 6. Prior figure nits resolved: Q19 = 18 (6+8+4) re-counted from the scan's anti-diagonal star grid; Q21 = 6 by full permutation over the reconstructed 3×3 grid; Q25 = 20 by Dijkstra over (cell, facing) states with straight/right-turn moves on scan-verified walls. One residual note (Q14). 2026-07-30 addendum: full cross-check against the official PDFs (Paper A Q1-15, Paper B Q1-10 = seed Q16-25, plus the answer sheet). All 25 stored answers match the official key. Independently re-solved: Q6 tally (sums to 30 exactly), Q10 piece B rotated 90° CW tiles the 9-cell hole exactly while D's two rotations do not, Q17 per-square draw counts (□={1,2,3,9,15}=5, △={6,13}=2 → 3), Q19 by size (6+8+4=18), Q22 exhaustive 8-room search (max 6 evens), Q25 Dijkstra over (cell, facing) on scan-read walls (20). Fixed Q18's fold-direction steps and restored Q15's four wrong distractors from the printed paper; recorded new findings for Q12, Q14, Q24.",
     "findings": [
       {
         "q": 14,
         "severity": "warning",
         "gate": "answer",
-        "note": "With the encoded options (81, 25, 47, 59, 65) as standard 7-segment matchstick digits, exhaustive one-stick-move search finds D (59 → 50 or 56) AND E (65 → 56, moving the 6's bottom-left stick into the 5's bottom-left slot) can both become even. D stays the keyed/intended answer (clean within-digit move), but E is a technically valid second solution unless the printed option E differs from 65 — the original option scans are not in the repo, so this cannot be verified. Do not change the key; re-check E against the source paper if it resurfaces."
+        "note": "CONFIRMED against the official PDF (2026-07-30): the printed options really are 81, 25, 47, 59, 65 and the reference row 0123456789 uses standard 7-segment matchstick glyphs. Under those glyphs an exhaustive one-stick-move search finds TWO options that can become even: D (59 → 50, moving the 9's middle stick to its bottom-left slot) and E (65 → 56, moving the 6's bottom-left stick into the 5's bottom-left slot). A, B, C genuinely cannot. So the printed problem has a second valid answer; D is the official key (the clean within-digit move) and stays the stored answer. Kids who pick E will be graded wrong — flagged as a source-paper defect, not a seed defect."
       },
       {
         "q": 6,
         "severity": "nit",
         "gate": "figure",
-        "note": "No scan exists for the Q6 number grid (also Q12 bracelets, Q14 matchstick options, Q21 grid, Q24 patterns); the illustrations are reconstructions consistent with the stored answers (Q6 tallies: 10×7 vs 4×3 → 6, unique max/min)."
+        "note": "RESOLVED 2026-07-30 by reading the official PDFs at 600–1200 dpi. The previously unscanned reconstructions were checked cell-by-cell and are byte-identical to the printed figures: Q6 FreqGrid GRID, Q14 MatchNum option digits + 7-segment glyph set, Q17 SegmentCount DIGIT_SQUARES (incl. '1' as the centre column), Q21 GridFill givens (1 3 _ / 2 4 _ / _ _ 9), Q24 PatternRules sequences (PBP / BFFB / PPP / FFPFFF / FPBBPF). Q1 stone counts (18 black, 13 white), Q3 strip, Q10 hole + all five pieces, Q11 unit, Q19 anti-diagonal stars, Q20 route tree, Q22 room grid + entrance, Q25 wall set all match too. Only Q12 differs — see its own finding."
+      },
+      {
+        "q": 12,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Bracelets23G1Illustration's Alice does not match the official scan. Printed Alice = 3 big squares + 4 big circles + 2 small circles + 2 small diamonds = 3·3 + 4·2 + 2·1 + 2·1 = 21 cm; the component draws 4 big squares + 4 big circles + 2 small circles + 1 small diamond = 23 cm, and the hint steps quote 23. Printed Becky = 1 big square + 4 big circles + 5 small circles + 3 small diamonds = 19 cm (component uses a different composition that happens to total 19). Chloe = 4 big squares + 1 big circle + 2 small circles + 2 small diamonds = 18 cm, exact match. Every reading still gives Alice > Becky > Chloe, so choice B is unaffected; the hint's '23 cm' is left in place because it matches the figure the kid is shown. Fix the component's Alice bead sequence to 3 BS / 4 BC / 2 SC / 2 SD and the hint to 21 cm together, never separately."
+      },
+      {
+        "q": 24,
+        "severity": "nit",
+        "gate": "answer",
+        "note": "Multi-letter fill-in: the official key is the letter string ABCE (Section B answer sheet). answerMatch accepts \"ABCE\"/\"abce\" but rejects \"A, B, C, E\", \"A B C E\" and any other letter order. Do not loosen the matcher for this; if it becomes a support issue, normalise the question rather than the grader."
       }
     ]
   },
@@ -899,18 +911,18 @@
       "body_id": "Para siswa berdiri berbaris. Mulai dari siswa ke-1, guru membagikan balon dengan urutan berulang merah, biru, kuning, hijau. Warna balon apa yang didapat siswa ke-25 dan ke-50?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "blue, green" },
-        { "label": "B", "text": "red, green" },
+        { "label": "A", "text": "red, red" },
+        { "label": "B", "text": "green, blue" },
         { "label": "C", "text": "red, blue" },
-        { "label": "D", "text": "yellow, blue" },
-        { "label": "E", "text": "green, blue" }
+        { "label": "D", "text": "yellow, green" },
+        { "label": "E", "text": "blue, yellow" }
       ],
       "choices_id": [
-        { "label": "A", "text": "biru, hijau" },
-        { "label": "B", "text": "merah, hijau" },
+        { "label": "A", "text": "merah, merah" },
+        { "label": "B", "text": "hijau, biru" },
         { "label": "C", "text": "merah, biru" },
-        { "label": "D", "text": "kuning, biru" },
-        { "label": "E", "text": "hijau, biru" }
+        { "label": "D", "text": "kuning, hijau" },
+        { "label": "E", "text": "biru, kuning" }
       ],
       "answer": "C",
       "hint_steps_en": [
@@ -1059,14 +1071,14 @@
       "figure_url": "/api/public/wmi/figures/2023-final-g1-a-q18.jpg",
       "hint_steps_en": [
         "The flat square shows 1, 3 on top and 2, 4 below (left to right).",
-        "Fold left over right: 3 ends up over 1, and 4 over 2.",
-        "Fold the top down over the bottom: the layers stack together.",
+        "First fold (left–right): the left half slips behind the right half, so 3 sits on top of 1 and 4 sits on top of 2.",
+        "Second fold (top–bottom): the bottom half swings up behind the top half, so the 3–1 pair stays on top and the 4–2 pair goes underneath — flipped, so 2 comes before 4.",
         "Read from the top layer to the bottom: 3, 1, 2, 4 → 3124."
       ],
       "hint_steps_id": [
         "Persegi datar menunjukkan 1, 3 di atas dan 2, 4 di bawah (kiri ke kanan).",
-        "Lipat kiri ke kanan: 3 berada di atas 1, dan 4 di atas 2.",
-        "Lipat bagian atas ke bawah: lapisan-lapisan bertumpuk.",
+        "Lipatan pertama (kiri–kanan): bagian kiri masuk ke belakang bagian kanan, jadi 3 di atas 1 dan 4 di atas 2.",
+        "Lipatan kedua (atas–bawah): bagian bawah naik ke belakang bagian atas, jadi pasangan 3–1 tetap di atas dan pasangan 4–2 ada di bawahnya — terbalik, jadi 2 lebih dulu daripada 4.",
         "Baca dari lapisan teratas ke terbawah: 3, 1, 2, 4 → 3124."
       ],
       "breakdown": {
@@ -1076,15 +1088,15 @@
             "category": "condition",
             "phrase_en": "fold it in half from left to right",
             "phrase_id": "lipat dari kiri ke kanan",
-            "note_en": "First fold: the left half lands on the right half.",
-            "note_id": "Lipatan pertama: bagian kiri menutup bagian kanan."
+            "note_en": "First fold: the left half slips behind the right half, so 3 and 4 stay on top.",
+            "note_id": "Lipatan pertama: bagian kiri masuk ke belakang bagian kanan, jadi 3 dan 4 tetap di atas."
           },
           {
             "category": "condition",
             "phrase_en": "fold it in half from top to bottom",
             "phrase_id": "lipat dari atas ke bawah",
-            "note_en": "Second fold: the top half lands on the bottom half.",
-            "note_id": "Lipatan kedua: bagian atas menutup bagian bawah."
+            "note_en": "Second fold: the bottom half swings up behind the top half, so 3 stays on top.",
+            "note_id": "Lipatan kedua: bagian bawah naik ke belakang bagian atas, jadi 3 tetap di atas."
           },
           {
             "category": "question",
