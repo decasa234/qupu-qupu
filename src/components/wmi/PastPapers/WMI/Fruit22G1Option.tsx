@@ -21,7 +21,7 @@ type OptionLabel = 'A' | 'B' | 'C' | 'D'
 export const FRUIT_SETS: Record<OptionLabel, FruitCounts> = {
   A: { strawberry: 2, banana: 2, apple: 3 },
   B: { strawberry: 1, banana: 2, apple: 4 },
-  C: { strawberry: 1, banana: 4, apple: 2 },
+  C: { strawberry: 1, banana: 3, apple: 2 },
   D: { strawberry: 1, banana: 2, apple: 3 },
 }
 

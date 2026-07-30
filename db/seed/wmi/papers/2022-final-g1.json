@@ -7,14 +7,26 @@
   "recommended_duration_min": 60,
   "review": {
     "status": "ok",
-    "reviewed_on": "2026-07-03",
-    "summary": "Full re-review of all 25 with scans + brute-force scripts. Script-verified: Q8 (34-cube 4/6-row slab, max 3×1 packing = 10, bound 11 impossible), Q17 (unique trio 13+39+48), Q19 (exact line-arrangement enumeration = 16 triangles, 6+6+4 by band), Q21 (ring 0,3,1,9,2,7,6,4,8,5 → 93128), Q22 (unique knight tour, ★ = 9), Q24 (mirror-decode has a unique white count = 3). Fixed this pass: Q9 choice D text corrected to match the scan (1 banana + 2 strawberries, was 1+1); Q12 trap retargeted to real distractor 18; Q24 component rebuilt (iso solid was a 3-2-1 staircase contradicting the scan's 2,3,2 back-mirror; now the correct 12-cube lattice, plus the explainer's missing <svg> wrapper). Remaining flags: Q25 verified against answer key only — the in-repo scan lacks the numbered piece strip (component built from Paper-B source images no longer in repo) and shows an empty middle row the simplified component omits; Q5/Q7/Q10/Q11 option pictures have no in-repo scans (renderers claim source-image reads, internally consistent with keys).",
+    "reviewed_on": "2026-07-30",
+    "summary": "Re-audited all 25 against the official PDFs (WMI 2022 Final G01 Paper A = Q1–15 logical reasoning, Paper B = Q16–25 applications, G01 Answer Key). All 25 stored answers match the official key exactly (A,D,A,D,D,C,D,C,B,A,B,D,C,B,C then 12,133948,459,16,21,93128,9,3421,3,725). All 10 fill-in keys are bare numbers, so every question is typeable by a kid — no unanswerable items. Newly script-verified this pass: Q19 (line arrangement extracted from the PDF vector stream → exactly 16 triangles, and the stored 6+6+4 band split is exactly right); Q25 (piece strip finally read from Paper B — 7 pieces fill the 7 empty cells of the 3×3 board with every seam a completed circle and every frame edge flat → UNIQUE solution A=7, B=2, C=5 = 725, so the old Q25 flag is resolved); Q2 (red-ink area measured per letter: W 32137 px, M 32504 px, I 22040 px at equal stroke width → W ≈ M ≫ I, so the D tie is real). Fixed this pass: Q5 choice C had 4 bananas but the paper shows 3 (seed text + Fruit22G1Option FRUIT_SETS.C); Q2 hint steps/quantities claimed M was 'four long slanted strokes' (the paper's M is two upright + two slanted) and that I was 'a short stem with two small bars' (the paper's I is 工 with FULL-WIDTH top and bottom bars — it loses on stroke COUNT, 3 vs 4, not on bar length); Q17's worked example had been mangled to '13, 57, 88 → 135788' (official is '13, 57, 8 → 81357'); Q25 step 2 asserted the answer with no route, now replaced by the verified red/yellow/yellow top-bump argument. Remaining flags: Q14 (see findings — the stem was re-authored away from the official problem) and two Q2 figure nits.",
     "findings": [
+      {
+        "q": 14,
+        "severity": "major",
+        "gate": "content",
+        "note": "The stem does not match the official paper. Official Paper A Q14 reads: Ann says 'Ken is shorter than I.' / Dan says 'I am the tallest.' / Ken says 'I am taller than Pan.' / 'Write down their names from left to right' — with a picture of four children of visibly different heights and a red ★ marking the LEFT end. Those clues give the height order Dan > Ann > Ken > Pan, and reading the picture's positions (tallest, shortest, 3rd, 2nd from left) gives Dan-Pan-Ken-Ann = B. The seed instead invented 'Pan is taller than Ken' + 'Ken is taller than Ann' and asked for 'tallest to shortest', which also lands on B but is a different problem, and HeightOrder22G1Illustration was built for that re-authored version (four NAMED children at deliberately EQUAL heights with '?' marks). Restoring the official stem requires rebuilding the illustration first: four UNNAMED children at the paper's relative heights (pos1 tallest, pos2 shortest, pos3 third, pos4 second) with the ★ at the left. Left as-is here because changing the stem alone would make the question unanswerable."
+      },
+      {
+        "q": 2,
+        "severity": "nit",
+        "gate": "figure",
+        "note": "Letters22G1Illustration diverges from the paper in two ways. (1) It draws I with SHORT bars (LETTER_STROKES.I bars run x 0.6→3.4 of a 4-cell grid); the paper draws 工 with full-width bars, so I = 4+4+4 = 12 grid-lengths. (2) Its W and M are not equal: W ≈ 13.8 and M ≈ 14.6 cell-lengths, so a kid measuring the drawn figure would pick M alone rather than the tie. The paper's own W and M are within 1.1% (32137 vs 32504 red px). Answer D survives either way; the hint steps were rewritten to a stroke-COUNT argument that is true of both the paper and the current drawing."
+      },
       {
         "q": 25,
         "severity": "nit",
         "gate": "figure",
-        "note": "Answer 725 matches the official key and the component's solver claim, but cannot be independently re-derived: the in-repo scan shows only the 3×3 board (empty middle row, A/B/C in the bottom row, top-row bumps yellow/red/none) while the component models A/B/C directly under the placed row with TOP_ABOVE red/yellow/yellow, built from Paper-B source images that are no longer in the repo."
+        "note": "EdgeMatch22G1Illustration models a 2-row board (three placed pieces sitting directly above A/B/C, TOP_ABOVE red/yellow/yellow). The official board is 3×3 with only cells (1,1) and (1,2) pre-placed, an EMPTY middle row, and (1,3) empty too — 7 numbered pieces fill all 7 empty cells. The simplification is sound, not wrong: brute force confirms TOP_ABOVE red/yellow/yellow is exactly what the full solve forces on A/B/C ((2,1)=4, (2,2)=1, (2,3)=3, (1,3)=6), and the simplified model still has the unique solution 725. Upgrading the figure to the true 3×3 board with the piece strip would be a fidelity improvement, not a correction."
       }
     ]
   },
@@ -111,14 +123,16 @@
       "answer": "D",
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q2.jpg",
       "hint_steps_en": [
-        "Measure each letter: which red line is longest?",
-        "I is just a short stem with two small bars — the shortest, not it.",
-        "W and M each have 4 long slanted strokes, the same length — they tie. Answer: W and M."
+        "All three letters sit on the same size grid, so count how many long strokes each one needs.",
+        "I needs only 3 strokes — a top bar, a middle stem, and a bottom bar — so it uses the least red line.",
+        "W needs 4 long strokes, and M needs 4 long strokes too (two straight up-and-down, two slanted).",
+        "4 long strokes beats 3, and W and M use the same amount of line — they tie. Answer: W and M."
       ],
       "hint_steps_id": [
-        "Ukur tiap huruf: garis merah mana yang paling panjang?",
-        "I hanya batang pendek dengan dua palang kecil — paling pendek, bukan itu.",
-        "W dan M sama-sama punya 4 garis miring panjang yang sama — keduanya seri. Jawaban: W dan M."
+        "Ketiga huruf ada di kotak seukuran sama, jadi hitung berapa garis panjang yang dibutuhkan tiap huruf.",
+        "I hanya butuh 3 garis — palang atas, batang tengah, dan palang bawah — jadi garis merahnya paling sedikit.",
+        "W butuh 4 garis panjang, dan M juga butuh 4 garis panjang (dua tegak, dua miring).",
+        "4 garis panjang lebih banyak dari 3, dan W dan M memakai garis sama banyak — keduanya seri. Jawaban: W dan M."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -146,9 +160,10 @@
           }
         ],
         "quantities": [
-          { "label_en": "W = four long slanted strokes", "label_id": "W = empat garis miring panjang", "value": "4 long" },
-          { "label_en": "M = four long slanted strokes", "label_id": "M = empat garis miring panjang", "value": "4 long" },
-          { "label_en": "I = one stem + two short bars (shorter)", "label_id": "I = satu garis tegak + dua garis pendek (lebih pendek)", "value": "shorter" }
+          { "label_en": "W = four long strokes", "label_id": "W = empat garis panjang", "value": "4 long strokes" },
+          { "label_en": "M = four long strokes (two upright, two slanted)", "label_id": "M = empat garis panjang (dua tegak, dua miring)", "value": "4 long strokes" },
+          { "label_en": "I = three strokes (top bar + stem + bottom bar)", "label_id": "I = tiga garis (palang atas + batang + palang bawah)", "value": "3 strokes — the least" },
+          { "label_en": "Longest total line", "label_id": "Garis total terpanjang", "value": "W = M > I" }
         ],
         "strategy": {
           "name_en": "Count each letter's strokes, then compare totals",
@@ -324,13 +339,13 @@
       "choices_en": [
         { "label": "A", "text": "2 strawberries, 2 bananas, 3 apples" },
         { "label": "B", "text": "1 strawberry, 2 bananas, 4 apples" },
-        { "label": "C", "text": "1 strawberry, 4 bananas, 2 apples" },
+        { "label": "C", "text": "1 strawberry, 3 bananas, 2 apples" },
         { "label": "D", "text": "1 strawberry, 2 bananas, 3 apples" }
       ],
       "choices_id": [
         { "label": "A", "text": "2 stroberi, 2 pisang, 3 apel" },
         { "label": "B", "text": "1 stroberi, 2 pisang, 4 apel" },
-        { "label": "C", "text": "1 stroberi, 4 pisang, 2 apel" },
+        { "label": "C", "text": "1 stroberi, 3 pisang, 2 apel" },
         { "label": "D", "text": "1 stroberi, 2 pisang, 3 apel" }
       ],
       "answer": "D",
@@ -1201,8 +1216,8 @@
     },
     {
       "number": 17,
-      "body_en": "Each vase below has a number on it. The numbers on three of the vases add up to exactly 100. Arrange those three numbers from smallest to largest, side by side, to form one number. (Example: 13, 57, 88 → 135788.)",
-      "body_id": "Setiap vas di bawah memiliki sebuah bilangan. Bilangan pada tiga vas berjumlah tepat 100. Susun ketiga bilangan itu dari yang terkecil ke terbesar, berdampingan, membentuk satu bilangan. (Contoh: 13, 57, 88 → 135788.)",
+      "body_en": "Each vase below has a number on it. The numbers on three of the vases add up to exactly 100. Arrange those three numbers from smallest to largest, side by side, to form one number. (Example: 13, 57, 8 → 81357.)",
+      "body_id": "Setiap vas di bawah memiliki sebuah bilangan. Bilangan pada tiga vas berjumlah tepat 100. Susun ketiga bilangan itu dari yang terkecil ke terbesar, berdampingan, membentuk satu bilangan. (Contoh: 13, 57, 8 → 81357.)",
       "answer_type": "fill_in",
       "answer": "133948",
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q17.jpg",
@@ -1742,14 +1757,18 @@
       "answer": "725",
       "figure_url": "/api/public/wmi/figures/2022-final-g1-a-q25.jpg",
       "hint_steps_en": [
-        "Touching edges must be the same color, so match each empty cell to the pieces around it.",
-        "A fits piece 7, B fits piece 2, C fits piece 5.",
-        "Read the bottom row left to right: 725."
+        "Touching edges must be the same color, so start with the bump sitting just above each empty cell.",
+        "Above A the bump is red, above B it is yellow, and above C it is yellow — so A needs red on top, B and C need yellow on top.",
+        "A piece's outside edges must be flat (no bump). Turned that way, only piece 7 gives a red top, only piece 2 fits B, and only piece 5 fits C.",
+        "Check the seams: A–B make a yellow circle and B–C make a white circle, so it all matches.",
+        "Read the bottom row left to right: 7, 2, 5 → 725."
       ],
       "hint_steps_id": [
-        "Sisi yang bersentuhan harus warna sama, jadi cocokkan tiap sel kosong dengan keping di sekitarnya.",
-        "A pas keping 7, B pas keping 2, C pas keping 5.",
-        "Baca baris bawah dari kiri ke kanan: 725."
+        "Sisi yang bersentuhan harus warna sama, jadi mulai dari tonjolan yang ada tepat di atas tiap sel kosong.",
+        "Di atas A tonjolannya merah, di atas B kuning, dan di atas C kuning — jadi A butuh merah di atas, B dan C butuh kuning di atas.",
+        "Sisi luar keping harus rata (tanpa tonjolan). Diputar begitu, hanya keping 7 yang memberi atas merah, hanya keping 2 yang pas di B, dan hanya keping 5 yang pas di C.",
+        "Periksa sambungannya: A–B membentuk lingkaran kuning dan B–C membentuk lingkaran putih, jadi semuanya cocok.",
+        "Baca baris bawah dari kiri ke kanan: 7, 2, 5 → 725."
       ],
       "breakdown": {
         "needsVisual": true,
