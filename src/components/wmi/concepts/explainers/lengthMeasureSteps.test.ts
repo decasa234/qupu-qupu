@@ -17,6 +17,11 @@ import {
   xAt,
   type LengthParams,
 } from './lengthMeasureSteps'
+import { mulberry32 } from '../../../../../api/services/wmi/concepts/rng'
+import {
+  generate as generateParams,
+  render as conceptRender,
+} from '../../../../../api/services/wmi/concepts/length-measure-compare'
 
 const OFFSET_ONE: LengthParams = {
   medium: 'offset-ruler',
@@ -110,6 +115,79 @@ const ALL_CASES: LengthParams[] = [
     ],
     focusA: 0,
     focusB: 1,
+  },
+  // --- the four asks added from the real Grade-1 papers --------------------
+  // Four bars is the widest board the generator emits (order-all), so these
+  // also stand in for "does everything still draw with a fourth row".
+  {
+    medium: 'offset-ruler',
+    unitLabel: 'cm',
+    ask: 'nth-longest',
+    rulerMax: 13,
+    items: [
+      { name: 'pensil', start: 2, length: 8 },
+      { name: 'pita', start: 1, length: 4 },
+      { name: 'tali', start: 3, length: 6 },
+      { name: 'krayon', start: 1, length: 3 },
+    ],
+    focusA: 0,
+    focusB: 0,
+    nth: 3,
+  },
+  {
+    medium: 'offset-ruler',
+    unitLabel: 'cm',
+    ask: 'order-all',
+    rulerMax: 13,
+    items: [
+      { name: 'sedotan', start: 3, length: 5 },
+      { name: 'ranting', start: 1, length: 8 },
+      { name: 'pita', start: 2, length: 3 },
+      { name: 'tali', start: 1, length: 7 },
+    ],
+    focusA: 0,
+    focusB: 0,
+  },
+  {
+    medium: 'unit-chain',
+    unitLabel: 'petak',
+    ask: 'order-all',
+    rulerMax: 8,
+    items: [
+      { name: 'pita', start: 0, length: 5 },
+      { name: 'tali', start: 0, length: 8 },
+      { name: 'krayon', start: 0, length: 3 },
+      { name: 'pensil', start: 0, length: 6 },
+    ],
+    focusA: 0,
+    focusB: 0,
+  },
+  {
+    medium: 'offset-ruler',
+    unitLabel: 'cm',
+    ask: 'sum-two',
+    rulerMax: 12,
+    // startA (2) must not equal lengthB (5), else the trap beat's right-end
+    // reading would be the answer.
+    items: [
+      { name: 'pensil', start: 2, length: 6 },
+      { name: 'pita', start: 1, length: 5 },
+    ],
+    focusA: 0,
+    focusB: 1,
+  },
+  {
+    medium: 'offset-ruler',
+    unitLabel: 'cm',
+    ask: 'relative-from-known',
+    rulerMax: 13,
+    items: [
+      { name: 'krayon', start: 2, length: 4 },
+      { name: 'pensil', start: 1, length: 8 },
+      { name: 'tali', start: 3, length: 6 },
+    ],
+    focusA: 1,
+    focusB: 0,
   },
 ]
 
@@ -505,3 +583,59 @@ describe('buildLengthMeasureSteps — invariants', () => {
     }
   })
 })
+
+// ---------------------------------------------------------------------------
+// The storyboard must never disagree with the concept logic about the answer —
+// it plays AFTER the child has answered, so a drift here contradicts the grade
+// they were just given. Checked against real generated params, not fixtures.
+// ---------------------------------------------------------------------------
+describe('storyboard vs concept logic', () => {
+  const seeds = Array.from({ length: 400 }, (_, i) => generateParams(mulberry32(i + 1)))
+
+  test('every ask is covered by the seeds', () => {
+    expect(new Set(seeds.map((p) => p.ask)).size).toBe(7)
+  })
+
+  test('the storyboard lands the same answer the concept grades', () => {
+    for (const p of seeds) {
+      const expected = conceptRender(p).answer
+      for (const lang of ['id', 'en'] as const) {
+        const sb = buildLengthMeasureSteps(p, lang)
+        if (p.ask === 'order-all') {
+          // The concept grades a picked option; the story spells the order out.
+          const names = sb.answer.split(', ')
+          expect(names).toHaveLength(p.items.length)
+          const byLength = p.items
+            .map((_, i) => i)
+            .sort((i, j) => p.items[j].length - p.items[i].length || i - j)
+          expect(names).toEqual(byLength.map((i) => cap(sb.names[i])))
+        } else {
+          expect(sb.answer).toBe(expected)
+        }
+      }
+    }
+  })
+
+  test('every storyboard ends on a result beat and stays inside the beat budget', () => {
+    for (const p of seeds) {
+      const sb = buildLengthMeasureSteps(p, 'id')
+      expect(sb.steps.length).toBeLessThanOrEqual(8)
+      expect(sb.finalIndex).toBe(sb.steps.length - 1)
+      expect(sb.steps[sb.finalIndex].result).toBe(true)
+      for (const s of sb.steps) expect(s.caption).not.toMatch(/undefined|NaN/)
+    }
+  })
+
+  test('a trap beat never shows the answer as the tempting number', () => {
+    for (const p of seeds) {
+      const sb = buildLengthMeasureSteps(p, 'id')
+      for (const s of sb.steps) {
+        if (s.trap) expect(String(s.trap.wrong)).not.toBe(sb.answer)
+      }
+    }
+  })
+})
+
+function cap(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}

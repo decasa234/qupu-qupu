@@ -6,10 +6,32 @@ interface LengthItem {
   length: number
 }
 
+type LengthAsk =
+  | 'measure-one'
+  | 'longest'
+  | 'difference'
+  | 'nth-longest'
+  | 'order-all'
+  | 'sum-two'
+  | 'relative-from-known'
+
+const ASKS: readonly LengthAsk[] = [
+  'measure-one',
+  'longest',
+  'difference',
+  'nth-longest',
+  'order-all',
+  'sum-two',
+  'relative-from-known',
+]
+
+/** Asks whose answer names an object by its A/B/C/D badge. */
+const LETTERED_ASKS: readonly LengthAsk[] = ['longest', 'nth-longest']
+
 interface LengthParams {
   medium: 'ruler' | 'offset-ruler' | 'unit-chain'
   unitLabel: 'cm' | 'petak'
-  ask: 'measure-one' | 'longest' | 'difference'
+  ask: LengthAsk
   rulerMax: number
   items: LengthItem[]
   focusA: number
@@ -30,8 +52,10 @@ const SAMPLE: LengthParams = {
 const BLUE = '#30598A'
 const CREAM = '#FAF6EF'
 const SQUARE_FILL = '#E9F0F8' // pale blue so each petak reads against the card
-const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000'] // orange, green, yellow
-const CHOICE_LABELS = ['A', 'B', 'C']
+const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000', '#7C5CBF'] // orange, green, yellow, purple
+const CHOICE_LABELS = ['A', 'B', 'C', 'D']
+/** Most rows the figure ever draws (order-all asks for four). */
+const MAX_ITEMS = 4
 
 /** Pixels per whole unit. */
 export const U = 22
@@ -98,7 +122,10 @@ export function lengthFigureGeometry(p: LengthGeometryInput): LengthGeometry {
   const gutter = single ? 0 : 78 // room for the name (and A./B./C.) beside each row
   const padL = 22 + gutter
   const padR = 22
-  const showLetters = p.ask === 'longest'
+  // Only the asks whose answer IS a badge get badges. `order-all` deliberately
+  // does not: its options spell the objects out, and an option labelled "B"
+  // holding the text "B, D, A, C" would read as a riddle.
+  const showLetters = LETTERED_ASKS.includes(p.ask)
 
   if (p.medium === 'unit-chain') {
     const widest = p.items.reduce((m, it) => Math.max(m, it.length), 1)
@@ -187,7 +214,7 @@ function coerce(params: unknown): LengthParams {
       (it) =>
         it && typeof it.name === 'string' && typeof it.start === 'number' && typeof it.length === 'number',
     )
-      ? (p.items.slice(0, 3) as LengthItem[])
+      ? (p.items.slice(0, MAX_ITEMS) as LengthItem[])
       : SAMPLE.items
   const medium =
     p.medium === 'ruler' || p.medium === 'offset-ruler' || p.medium === 'unit-chain'
@@ -196,8 +223,7 @@ function coerce(params: unknown): LengthParams {
   // Rulers are always cm; unit chains are always unit squares (petak). Nothing
   // else is drawable, so derive it rather than trusting the incoming value.
   const unitLabel: LengthParams['unitLabel'] = medium === 'unit-chain' ? 'petak' : 'cm'
-  const ask =
-    p.ask === 'measure-one' || p.ask === 'longest' || p.ask === 'difference' ? p.ask : SAMPLE.ask
+  const ask = ASKS.includes(p.ask as LengthAsk) ? (p.ask as LengthAsk) : SAMPLE.ask
   const widest = items.reduce((m, it) => Math.max(m, it.start + it.length), 1)
   const rulerMax =
     typeof p.rulerMax === 'number' && p.rulerMax >= widest ? Math.round(p.rulerMax) : widest
@@ -337,7 +363,10 @@ function UnitSquareStrip({ count, x, y }: { count: number; x: number; y: number 
 // ---------------------------------------------------------------------------
 
 function objectList(p: LengthParams): string {
-  const showLetters = p.ask === 'longest'
+  // Only the asks whose answer IS a badge get badges. `order-all` deliberately
+  // does not: its options spell the objects out, and an option labelled "B"
+  // holding the text "B, D, A, C" would read as a riddle.
+  const showLetters = LETTERED_ASKS.includes(p.ask)
   return p.items
     .map((it, i) => (showLetters ? `${CHOICE_LABELS[i]}. ${cap(it.name)}` : cap(it.name)))
     .join(', ')

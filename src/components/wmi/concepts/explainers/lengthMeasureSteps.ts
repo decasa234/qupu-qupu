@@ -31,7 +31,9 @@ import type { Lang } from './makeTenSteps'
 
 export { BAR_H, U, xAt }
 /** Choice letters, mirroring LABELS in the concept logic. */
-export const LENGTH_LABELS = ['A', 'B', 'C'] as const
+export const LENGTH_LABELS = ['A', 'B', 'C', 'D'] as const
+/** Most rows the board ever draws (order-all asks for four). */
+const MAX_ITEMS = 4
 
 /** Spans up to this many units are still counted one unit at a time. */
 export const COUNT_ONE_BY_ONE_UP_TO = 5
@@ -63,14 +65,38 @@ export interface LengthItem {
   length: number
 }
 
+export type LengthAsk =
+  | 'measure-one'
+  | 'longest'
+  | 'difference'
+  | 'nth-longest'
+  | 'order-all'
+  | 'sum-two'
+  | 'relative-from-known'
+
+const ASKS: readonly LengthAsk[] = [
+  'measure-one',
+  'longest',
+  'difference',
+  'nth-longest',
+  'order-all',
+  'sum-two',
+  'relative-from-known',
+]
+
+const ORDINAL_ID: Record<number, string> = { 2: 'kedua', 3: 'ketiga' }
+const ORDINAL_EN: Record<number, string> = { 2: 'second', 3: 'third' }
+
 export interface LengthParams {
   medium: 'ruler' | 'offset-ruler' | 'unit-chain'
   unitLabel: 'cm' | 'petak'
-  ask: 'measure-one' | 'longest' | 'difference'
+  ask: LengthAsk
   rulerMax: number
   items: LengthItem[]
   focusA: number
   focusB: number
+  /** `nth-longest` only: the rank the question asks for. */
+  nth?: number
 }
 
 // Same fallback the static figure uses, so a malformed payload still draws the
@@ -125,7 +151,7 @@ export function coerceLengthParams(params: unknown): LengthParams {
         it.length > 0,
     )
   const items: LengthItem[] = ok
-    ? rawItems.slice(0, 3).map((it) => ({
+    ? rawItems.slice(0, MAX_ITEMS).map((it) => ({
         name: it.name,
         start: Math.max(0, Math.round(it.start)),
         length: Math.max(1, Math.round(it.length)),
@@ -138,8 +164,7 @@ export function coerceLengthParams(params: unknown): LengthParams {
       : SAMPLE.medium
   // Rulers are always cm; unit chains are always petak. Derive rather than trust.
   const unitLabel: LengthParams['unitLabel'] = medium === 'unit-chain' ? 'petak' : 'cm'
-  const ask =
-    p.ask === 'measure-one' || p.ask === 'longest' || p.ask === 'difference' ? p.ask : SAMPLE.ask
+  const ask = ASKS.includes(p.ask as LengthAsk) ? (p.ask as LengthAsk) : SAMPLE.ask
 
   const widest = items.reduce((m, it) => Math.max(m, it.start + it.length), 1)
   const rulerMax =
@@ -151,7 +176,22 @@ export function coerceLengthParams(params: unknown): LengthParams {
   const clamp = (v: unknown) =>
     typeof v === 'number' && Number.isFinite(v) ? Math.min(last, Math.max(0, Math.round(v))) : 0
 
-  return { medium, unitLabel, ask, rulerMax, items, focusA: clamp(p.focusA), focusB: clamp(p.focusB) }
+  // `nth` only ever names a rank that exists: 2 … (item count − 1).
+  const nth =
+    typeof p.nth === 'number' && Number.isFinite(p.nth)
+      ? Math.min(Math.max(Math.round(p.nth), 2), Math.max(items.length - 1, 2))
+      : 2
+
+  return {
+    medium,
+    unitLabel,
+    ask,
+    rulerMax,
+    items,
+    focusA: clamp(p.focusA),
+    focusB: clamp(p.focusB),
+    nth,
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -244,21 +284,36 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
 
   // Match derive(): first strict maximum wins.
   let longestIndex = 0
+  let shortestIndex = 0
   let farthestEndIndex = 0
   for (let i = 1; i < n; i++) {
     if (lenOf(i) > lenOf(longestIndex)) longestIndex = i
+    if (lenOf(i) < lenOf(shortestIndex)) shortestIndex = i
     if (endOf(i) > endOf(farthestEndIndex)) farthestEndIndex = i
   }
+  // Longest → shortest, position breaking a tie — byte for byte derive()'s.
+  const rankOrder = p.items.map((_, i) => i).sort((i, j) => lenOf(j) - lenOf(i) || i - j)
+  const nth = Math.min(Math.max(p.nth ?? 2, 2), Math.max(n - 1, 2))
 
-  const aIndex = Math.min(p.focusA, n - 1)
-  const bIndex = Math.min(p.focusB, n - 1)
+  // `relative-from-known` names its pair by superlative, so the story takes the
+  // pair from the ranking rather than from focusA/focusB.
+  const aIndex = p.ask === 'relative-from-known' ? longestIndex : Math.min(p.focusA, n - 1)
+  const bIndex = p.ask === 'relative-from-known' ? shortestIndex : Math.min(p.focusB, n - 1)
 
   const answer =
     p.ask === 'longest'
       ? LENGTH_LABELS[longestIndex]
-      : p.ask === 'measure-one'
-        ? String(lenOf(aIndex))
-        : String(lenOf(aIndex) - lenOf(bIndex))
+      : p.ask === 'nth-longest'
+        ? LENGTH_LABELS[rankOrder[nth - 1]]
+        : p.ask === 'order-all'
+          ? rankOrder.map((i) => capWord(names[i])).join(', ')
+          : p.ask === 'measure-one'
+            ? String(lenOf(aIndex))
+            : p.ask === 'sum-two'
+              ? String(lenOf(aIndex) + lenOf(bIndex))
+              : p.ask === 'relative-from-known'
+                ? String(lenOf(bIndex))
+                : String(lenOf(aIndex) - lenOf(bIndex))
 
   const strategy = isOffset
     ? t(`Subtract: right end ${MINUS} left end`, `Kurangi: ujung kanan ${MINUS} ujung kiri`)
@@ -299,10 +354,30 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
         : t(`How long is the ${nm(aIndex)}?`, `Berapa panjang ${nm(aIndex)}?`)
       : p.ask === 'longest'
         ? t('Which object is the longest?', 'Benda mana yang paling panjang?')
-        : t(
-            `How much longer is the ${nm(aIndex)} than the ${nm(bIndex)}?`,
-            `Berapa ${nm(aIndex)} lebih panjang dari ${nm(bIndex)}?`,
-          )
+        : p.ask === 'nth-longest'
+          ? t(
+              `Which object is the ${ORDINAL_EN[nth] ?? 'second'} longest?`,
+              `Benda mana yang terpanjang ${ORDINAL_ID[nth] ?? 'kedua'}?`,
+            )
+          : p.ask === 'order-all'
+            ? t(
+                'Put them in order from the longest to the shortest.',
+                'Urutkan dari yang terpanjang ke yang terpendek.',
+              )
+            : p.ask === 'sum-two'
+              ? t(
+                  `How long are the ${nm(aIndex)} and the ${nm(bIndex)} together?`,
+                  `Berapa panjang ${nm(aIndex)} dan ${nm(bIndex)} kalau digabung?`,
+                )
+              : p.ask === 'relative-from-known'
+                ? t(
+                    `The longest is ${lenOf(longestIndex)} ${uw(lenOf(longestIndex))} — how long is the shortest?`,
+                    `Yang terpanjang ${lenOf(longestIndex)} ${uw(lenOf(longestIndex))} — berapa panjang yang terpendek?`,
+                  )
+                : t(
+                    `How much longer is the ${nm(aIndex)} than the ${nm(bIndex)}?`,
+                    `Berapa ${nm(aIndex)} lebih panjang dari ${nm(bIndex)}?`,
+                  )
   push('intro', introCaption, { hold: 1900 })
 
   // --- shared beat makers --------------------------------------------------
@@ -484,6 +559,165 @@ export function buildLengthMeasureSteps(raw: unknown, lang: Lang): LengthStorybo
         tally: winLen,
         measured: snap(),
         focus: [longestIndex],
+        result: true,
+        hold: 0,
+      },
+    )
+
+    return {
+      params: p,
+      layout,
+      names,
+      unitShort: uw(2),
+      answer,
+      longestIndex,
+      farthestEndIndex,
+      aIndex,
+      bIndex,
+      compare: true,
+      strategy,
+      steps,
+      finalIndex: steps.length - 1,
+    }
+  }
+
+  // --- nth-longest / order-all ---------------------------------------------
+  // Same shape as `longest`: measure everything, then line the results up. The
+  // compare beat IS the ranking, so the result beat only reads it off.
+  if (p.ask === 'nth-longest' || p.ask === 'order-all') {
+    if (isOffset) pushTrap(farthestEndIndex)
+    for (let i = 0; i < n; i++) pushMeasure(i)
+
+    const ordered = rankOrder.map((i) => `${nm(i)} ${lenOf(i)}`).join(', ')
+    push(
+      'compare',
+      t(`Longest to shortest: ${ordered}.`, `Urut dari terpanjang: ${ordered}.`),
+      { countTo: 0, measured: snap(), focus: rankOrder.slice(), hold: 2600 },
+    )
+
+    if (p.ask === 'order-all') {
+      push('result', t(`So the order is ${answer}.`, `Jadi urutannya ${answer}.`), {
+        countTo: 0,
+        measured: snap(),
+        focus: rankOrder.slice(),
+        result: true,
+        hold: 0,
+      })
+    } else {
+      const target = rankOrder[nth - 1]
+      push(
+        'result',
+        t(
+          `The ${ORDINAL_EN[nth] ?? 'second'} one on that list is ${lenOf(target)} — the ${nm(target)} → ${answer}.`,
+          `Yang ${ORDINAL_ID[nth] ?? 'kedua'} di urutan itu ${lenOf(target)} — yaitu ${nm(target)} → ${answer}.`,
+        ),
+        {
+          item: target,
+          markStart: true,
+          markEnd: !isChain,
+          countTo: lenOf(target),
+          tally: lenOf(target),
+          measured: snap(),
+          focus: [target],
+          result: true,
+          hold: 0,
+        },
+      )
+    }
+
+    return {
+      params: p,
+      layout,
+      names,
+      unitShort: uw(2),
+      answer,
+      longestIndex,
+      farthestEndIndex,
+      aIndex,
+      bIndex,
+      compare: true,
+      strategy,
+      steps,
+      finalIndex: steps.length - 1,
+    }
+  }
+
+  // --- sum-two --------------------------------------------------------------
+  if (p.ask === 'sum-two') {
+    if (isOffset) pushTrap(aIndex)
+    pushMeasure(aIndex)
+    if (bIndex !== aIndex) pushMeasure(bIndex)
+
+    const sumA = lenOf(aIndex)
+    const sumB = lenOf(bIndex)
+    const total = sumA + sumB
+    push(
+      'compare',
+      t(
+        `Line them up: the ${nm(aIndex)} is ${sumA}, the ${nm(bIndex)} is ${sumB}.`,
+        `Sejajarkan: ${nm(aIndex)} ${sumA}, ${nm(bIndex)} ${sumB}.`,
+      ),
+      { countTo: 0, measured: snap(), focus: [aIndex, bIndex], hold: 2400 },
+    )
+    push(
+      'result',
+      t(
+        `Together: ${sumA} + ${sumB} = ${total} ${uw(total)}.`,
+        `Digabung: ${sumA} + ${sumB} = ${total} ${uw(total)}.`,
+      ),
+      { countTo: 0, measured: snap(), focus: [aIndex, bIndex], result: true, hold: 0 },
+    )
+
+    return {
+      params: p,
+      layout,
+      names,
+      unitShort: uw(2),
+      answer,
+      longestIndex,
+      farthestEndIndex,
+      aIndex,
+      bIndex,
+      compare: true,
+      strategy,
+      steps,
+      finalIndex: steps.length - 1,
+    }
+  }
+
+  // --- relative-from-known --------------------------------------------------
+  // The given length is checked against the picture FIRST — that is what proves
+  // "right end − left end" is the rule — and then the same rule is run on the
+  // shortest bar. `a` is the given (longest) one, `b` is the one asked for.
+  if (p.ask === 'relative-from-known') {
+    const givenLen = lenOf(aIndex)
+    push(
+      'start',
+      t(
+        `We are told the longest one, the ${nm(aIndex)}, is ${givenLen} ${uw(givenLen)}.`,
+        `Kita diberi tahu yang terpanjang, ${nm(aIndex)}, panjangnya ${givenLen} ${uw(givenLen)}.`,
+      ),
+      { item: aIndex, markStart: true, markEnd: !isChain, hold: 2200 },
+    )
+    pushMeasure(aIndex)
+    if (isOffset) pushTrap(bIndex)
+    pushMeasure(bIndex)
+
+    const targetLen = lenOf(bIndex)
+    push(
+      'result',
+      t(
+        `So the shortest, the ${nm(bIndex)}, is ${targetLen} ${uw(targetLen)}.`,
+        `Jadi yang terpendek, ${nm(bIndex)}, panjangnya ${targetLen} ${uw(targetLen)}.`,
+      ),
+      {
+        item: bIndex,
+        markStart: true,
+        markEnd: !isChain,
+        countTo: targetLen,
+        tally: targetLen,
+        measured: snap(),
+        focus: [aIndex, bIndex],
         result: true,
         hold: 0,
       },

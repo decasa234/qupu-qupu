@@ -18,7 +18,7 @@ import {
 const BLUE = '#30598A'
 const CREAM = '#FAF6EF'
 const SQUARE_FILL = '#E9F0F8'
-const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000'] // orange, green, yellow
+const OBJECT_COLORS = ['#F0853A', '#58A700', '#E0A000', '#7C5CBF'] // orange, green, yellow, purple
 const ROSE = '#D9534F' // the trap beat only
 const ROSE_TINT = '#FDECEA'
 const GREEN = '#58A700'
