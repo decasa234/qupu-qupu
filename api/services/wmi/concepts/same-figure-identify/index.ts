@@ -15,7 +15,7 @@ export const meta = {
   slug: 'same-figure-identify',
   name_en: 'Same shape, just turned',
   name_id: 'Bentuk sama, hanya diputar',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Pilih bentuk yang sama (diputar, bukan dibalik).',
 } as const
 

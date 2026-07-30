@@ -14,7 +14,7 @@ export const meta = {
   slug: 'venn-set-membership',
   name_en: 'Numbers in a Venn diagram',
   name_id: 'Bilangan dalam diagram Venn',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Jumlahkan bilangan yang berada di dalam A tetapi di luar B.',
 } as const
 

@@ -12,7 +12,7 @@ export const meta = {
   slug: 'container-capacity-allocation',
   name_en: 'How many containers are needed?',
   name_id: 'Berapa wadah yang diperlukan?',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Bagi jumlah benda dengan kapasitas, lalu bulatkan ke atas karena sisa tetap perlu satu wadah.',
 } as const
 

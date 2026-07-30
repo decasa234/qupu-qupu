@@ -12,7 +12,7 @@ export const meta = {
   slug: 'painted-cube-faces-count',
   name_en: 'Painted cube: count small cubes',
   name_id: 'Kubus dicat: hitung kubus kecil',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Sebuah kubus besar dicat lalu dipotong; hitung kubus kecil menurut jumlah sisi tercat.',
 } as const
 

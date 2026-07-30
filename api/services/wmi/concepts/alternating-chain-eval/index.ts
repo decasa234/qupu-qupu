@@ -13,7 +13,7 @@ export const meta = {
   slug: 'alternating-chain-eval',
   name_en: 'Evaluate an add/subtract chain',
   name_id: 'Hitung rantai tambah-kurang',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung serangkaian penjumlahan dan pengurangan dari kiri ke kanan.',
 } as const
 

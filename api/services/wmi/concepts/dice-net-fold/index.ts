@@ -14,7 +14,7 @@ export const meta = {
   slug: 'dice-net-fold',
   name_en: 'Which net folds into a cube',
   name_id: 'Jaring-jaring mana yang membentuk kubus',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Pilih jaring-jaring yang dapat dilipat menjadi sebuah kubus.',
 } as const
 

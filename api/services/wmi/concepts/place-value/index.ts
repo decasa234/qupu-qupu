@@ -11,7 +11,7 @@ export const meta = {
   slug: 'place-value',
   name_en: 'Place value (tens)',
   name_id: 'Nilai tempat (puluhan)',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Cari nilai angka di tempat puluhan.',
 } as const
 

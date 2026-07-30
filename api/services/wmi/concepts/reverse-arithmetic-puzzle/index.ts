@@ -12,7 +12,7 @@ export const meta = {
   slug: 'reverse-arithmetic-puzzle',
   name_en: 'Work backward through arithmetic clues',
   name_id: 'Teka-teki aritmetika terbalik',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Cari sebuah bilangan dari petunjuk terbalik, lalu jumlahkan digitnya.',
 } as const
 

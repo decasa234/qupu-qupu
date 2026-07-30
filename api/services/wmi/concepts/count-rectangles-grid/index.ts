@@ -12,7 +12,7 @@ export const meta = {
   slug: 'count-rectangles-grid',
   name_en: 'Count the squares',
   name_id: 'Hitung persegi',
-  grades: [3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung banyak persegi dari semua ukuran dalam sebuah kisi.',
 } as const
 

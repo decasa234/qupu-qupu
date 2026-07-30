@@ -13,7 +13,7 @@ export const meta = {
   slug: 'weight-balance-word',
   name_en: 'Find one item’s weight from a total',
   name_id: 'Cari berat satu benda dari total',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Cari berat satu botol dari berat total dan berat gula.',
 } as const
 

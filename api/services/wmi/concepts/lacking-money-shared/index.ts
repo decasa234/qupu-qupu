@@ -16,7 +16,7 @@ export const meta = {
   slug: 'lacking-money-shared',
   name_en: 'Each is short some money; together just enough',
   name_id: 'Masing-masing kurang uang; bersama pas',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Dua orang sama-sama kurang uang; bersama pas untuk satu barang.',
 } as const
 

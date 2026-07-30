@@ -35,7 +35,7 @@ export const meta = {
   slug: 'odd-even-reasoning',
   name_en: 'Odd and even reasoning',
   name_id: 'Penalaran ganjil dan genap',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Terapkan aturan ganjil/genap: bedakan, jumlahkan, dan temukan selisih absolut.',
 } as const
 

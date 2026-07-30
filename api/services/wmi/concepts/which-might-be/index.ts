@@ -14,7 +14,7 @@ export const meta = {
   slug: 'which-might-be',
   name_en: 'Which number fits all the clues',
   name_id: 'Bilangan mana yang memenuhi semua petunjuk',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Pilih bilangan yang memenuhi semua syarat (ganjil, dalam rentang, jumlah digit).',
 } as const
 

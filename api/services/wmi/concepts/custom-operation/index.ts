@@ -148,7 +148,7 @@ export const meta = {
   slug: 'custom-operation',
   name_en: 'Apply a newly-defined operation',
   name_id: 'Terapkan operasi yang baru didefinisikan',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Temukan pola operasi baru dari dua contoh, lalu terapkan aturannya.',
 } as const
 

@@ -26,7 +26,7 @@ export const meta = {
   slug: 'money-shopping-change',
   name_en: 'Shopping change',
   name_id: 'Kembalian belanja',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung uang kembalian setelah membeli sebuah barang.',
 } as const
 

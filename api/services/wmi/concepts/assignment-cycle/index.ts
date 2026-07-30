@@ -14,7 +14,7 @@ export const meta = {
   slug: 'assignment-cycle',
   name_en: 'Repeating count-off pattern',
   name_id: 'Pola hitung berulang',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Temukan label ke-n dalam pola yang berulang.',
 } as const
 

@@ -27,7 +27,7 @@ export const meta = {
   slug: 'legs-items-rate',
   name_en: 'Total legs from a mix of animals',
   name_id: 'Jumlah kaki dari beberapa hewan',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung total kaki dari sejumlah hewan dengan jumlah kaki berbeda.',
 } as const
 

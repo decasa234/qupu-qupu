@@ -13,7 +13,7 @@ export const meta = {
   slug: 'number-pyramid',
   name_en: 'Number pyramid',
   name_id: 'Piramida bilangan',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Setiap blok adalah jumlah dua blok di bawahnya; cari puncaknya.',
 } as const
 

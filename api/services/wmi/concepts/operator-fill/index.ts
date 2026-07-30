@@ -14,7 +14,7 @@ export const meta = {
   slug: 'operator-fill',
   name_en: 'Fill in + or − to make the equation true',
   name_id: 'Isi + atau − agar persamaan benar',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Pilih tanda + atau − yang membuat persamaan benar.',
 } as const
 

@@ -14,7 +14,7 @@ export const meta = {
   slug: 'clock-time-after',
   name_en: 'Time after hours and minutes',
   name_id: 'Waktu setelah jam dan menit',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Tentukan waktu yang ditunjuk setelah beberapa jam dan menit berlalu.',
 } as const
 

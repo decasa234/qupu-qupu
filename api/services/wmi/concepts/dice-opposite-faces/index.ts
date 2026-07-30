@@ -17,7 +17,7 @@ export const meta = {
   slug: 'dice-opposite-faces',
   name_en: 'Hidden faces of a die',
   name_id: 'Sisi tersembunyi dadu',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Sisi berlawanan dadu berjumlah 7; cari total sisi yang tersembunyi.',
 } as const
 

@@ -14,7 +14,7 @@ export const meta = {
   slug: 'range-count-evaluate',
   name_en: 'Count the results in a range',
   name_id: 'Hitung hasil yang berada dalam rentang',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung berapa banyak ekspresi yang hasilnya berada dalam rentang tertentu.',
 } as const
 

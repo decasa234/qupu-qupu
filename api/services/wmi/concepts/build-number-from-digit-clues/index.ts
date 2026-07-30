@@ -18,7 +18,7 @@ export const meta = {
   slug: 'build-number-from-digit-clues',
   name_en: 'Build a number from digit clues',
   name_id: 'Susun bilangan dari petunjuk angka',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Bentuk bilangan dari petunjuk posisi angka, lalu hitung selisihnya.',
 } as const
 

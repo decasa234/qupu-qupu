@@ -12,7 +12,7 @@ export const meta = {
   slug: 'scale-read',
   name_en: 'Read the scale',
   name_id: 'Membaca skala',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Baca nilai yang ditunjuk pada sebuah skala bernomor.',
 } as const
 

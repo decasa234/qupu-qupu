@@ -15,7 +15,7 @@ export const meta = {
   slug: 'truth-order-clues',
   name_en: 'Order from clues',
   name_id: 'Urutan dari petunjuk',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Sambungkan petunjuk posisi yang teracak untuk menentukan siapa yang pertama.',
 } as const
 

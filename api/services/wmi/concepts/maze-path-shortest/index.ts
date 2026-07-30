@@ -15,7 +15,7 @@ export const meta = {
   slug: 'maze-path-shortest',
   name_en: 'Shortest path through a maze',
   name_id: 'Jalur terpendek melewati labirin',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Cari langkah paling sedikit dari titik ke bendera, menghindari dinding.',
 } as const
 

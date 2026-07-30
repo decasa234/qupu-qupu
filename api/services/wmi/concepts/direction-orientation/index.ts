@@ -16,7 +16,7 @@ export const meta = {
   slug: 'direction-orientation',
   name_en: 'Direction after turning',
   name_id: 'Arah setelah berputar',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Tentukan arah hadap setelah beberapa putaran seperempat searah jarum jam.',
 } as const
 

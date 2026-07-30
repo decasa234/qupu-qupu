@@ -11,7 +11,7 @@ export const meta = {
   slug: 'count-shapes-in-figure',
   name_en: 'Count the triangles',
   name_id: 'Hitung segitiga',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung banyak segitiga dalam gambar kipas dari puncak ke alas.',
 } as const
 

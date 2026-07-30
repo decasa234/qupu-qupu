@@ -12,7 +12,7 @@ export const meta = {
   slug: 'find-number-by-digit-sum',
   name_en: 'Find the number with a given digit sum',
   name_id: 'Cari bilangan dengan jumlah digit tertentu',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Pilih bilangan dua angka yang jumlah digitnya sama dengan nilai yang diminta.',
 } as const
 

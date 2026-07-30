@@ -15,7 +15,7 @@ export const meta = {
   slug: 'arithmetic-expression-eval',
   name_en: 'Evaluate an arithmetic expression',
   name_id: 'Hitung nilai ekspresi aritmetika',
-  grades: [2, 3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung nilai sebuah ekspresi (jumlah panjang atau selisih dua hasil kali).',
 } as const
 

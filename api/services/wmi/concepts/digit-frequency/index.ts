@@ -13,7 +13,7 @@ export const meta = {
   slug: 'digit-frequency',
   name_en: 'How often a digit appears',
   name_id: 'Seberapa sering sebuah angka muncul',
-  grades: [3] as const,
+  grades: [1, 2, 3] as const,
   description_id: 'Hitung berapa kali sebuah angka muncul saat menulis serangkaian bilangan.',
 } as const
 
