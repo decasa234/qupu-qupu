@@ -1,361 +1,236 @@
-// Block-stacking figure for WMI-24F1A-Q22 (2024 Grade 1 Final).
+// Block-stacking figure for WMI-24F1A-Q22 (2024 Grade 1 Final). Answer: 8.
 //
-// "Stack blocks in the repeating order cube, cylinder, sphere, cube, cylinder,
-//  sphere, … A block may be placed on top of a cube or a cylinder, but NOT on
-//  top of a sphere. Stacking as high as possible, at most how many blocks are
-//  used?"  Answer: 8 (fill-in).
+// Official stem: "Take the blocks in the order of blue → green → white → blue →
+// green → white → …  A block can be put on a cube or a cylinder, but it cannot
+// be put on a sphere, as shown in the figure below. If the blocks are piled up
+// vertically as high as possible, how many blocks are used the most?"
 //
-// The static question figure shows ONLY the setup the learner is given:
-//   1. the three labelled block TYPES with their SUPPLY counts from the source
-//      scan (2024-final-g1-a-q22.jpg): cube × 5, cylinder × 3, sphere × 4 —
-//      the counts are the question's data (only 3 cylinders bounds the tower
-//      at 4 cubes + 3 cylinders + 1 sphere cap = 8), and
-//   2. the repeating ORDER rule as a left-to-right legend:
-//          cube → cylinder → sphere → cube → cylinder → sphere → …
-//      with the sphere marked "stop" (nothing sits on a sphere).
-// It NEVER draws the final tower and NEVER reveals the count (8) — that is the
-// animator's job, post-answer, via the co-exported BlockStack24G1 primitive.
+// The repeating cycle is by COLOUR, not by shape. (An earlier revision of this
+// figure modelled a cube → cylinder → sphere SHAPE cycle and printed a shape-only
+// supply "cube ×5, cylinder ×3, sphere ×4" — which loses the whole problem: the
+// child chooses the SHAPE freely and is only forced on the COLOUR.)
 //
-// The animator builds the tower one block at a time by passing `stackHeight`
-// to BlockStack24G1; at the default (stackHeight = 0) only the type row + the
-// order legend render, i.e. the pristine question figure.
+// What the paper prints, and what this figure therefore draws:
+//   • three colour groups with their exact contents —
+//       blue  : cube, cube, cylinder, sphere
+//       green : cube, cube, sphere,   sphere
+//       white : cube, cylinder, cylinder, sphere
+//     (5 cubes, 3 cylinders and 4 spheres in total, but the totals are NOT the
+//      binding data — the per-colour split is)
+//   • the colour order strip  blue → green → white → blue → green → white → …
+//   • the paper's dotted worked example: a blue cylinder carrying a green cube
+//     carrying a white sphere, with the sphere marked "nothing goes on top".
+//
+// Why the answer is 8 (never drawn here): a sphere ends the tower, so every
+// block below the top must be a cube or a cylinder. Each colour's stock of
+// non-spheres is blue 3, GREEN 2, white 3. Colour turns run 1 blue, 2 green,
+// 3 white, 4 blue, 5 green, 6 white, 7 blue, 8 green … so green's third turn is
+// block 8 — and green has only 2 non-spheres, so block 8 must be a green sphere
+// and nothing can sit on it. Eight blocks.
+//
+// The animator drives `stackHeight` on the co-exported BlockStack24G1 primitive
+// to build that tower a block at a time; at stackHeight = 0 only the colour
+// groups, the order strip and the example render — the pristine question figure.
 //
 // Pure render, SSR-safe, deterministic — no random / dates / state.
-// House-style reference: ShapeAdd24G1Illustration (the 2024 G1 sibling).
+// Wordless by design: illustrations get no `lang` prop, so nothing here is
+// captioned in Indonesian or English.
 
-const INK = '#1F2937'
-// qupu palette mirrored as raw hex for the SVG fills (tokens preferred in
-// class-styled figures; this figure is fully hand-drawn so raw hex is allowed).
-const BLUE = '#2C9CDB' // qupu-brand-blue family — cube faces
-const BLUE_DK = '#1F7FB8' // shaded cube side
-const GREEN = '#9ACA3C' // qupu-brand-green family — cylinder body
-const GREEN_DK = '#7FAE2C' // shaded cylinder side
-const CREAM = '#FBF6EC' // qupu-cream — sphere highlight
-const SPHERE = '#E7EDF1' // pale sphere body (the "cap" block)
-const SPHERE_DK = '#CBD7DF'
-const STOP = '#E8615A' // warm accent for the "stop on sphere" marker
-
-// --- block glyphs -----------------------------------------------------------
-// Each glyph is drawn centred on (cx) with its BASE sitting on baseline `by`.
-// Footprint width ~ UNIT; heights chosen so a stack reads cleanly.
-
-const UNIT = 46 // nominal footprint of one block
-const CUBE_H = 40
-const CYL_H = 46
-const SPH_R = 22
-
-/** Simple isometric cube centred at cx with its base on `by`. */
-function Cube({ cx, by }: { cx: number; by: number }) {
-  const w = UNIT
-  const d = 12 // iso depth
-  const x = cx - w / 2
-  const topY = by - CUBE_H
-  return (
-    <g>
-      {/* top face */}
-      <polygon
-        points={`${x},${topY} ${x + w},${topY} ${x + w + d},${topY - d} ${x + d},${topY - d}`}
-        fill={BLUE}
-        stroke={INK}
-        strokeWidth={2}
-        strokeLinejoin="round"
-      />
-      {/* right (shaded) face */}
-      <polygon
-        points={`${x + w},${topY} ${x + w + d},${topY - d} ${x + w + d},${by - d} ${x + w},${by}`}
-        fill={BLUE_DK}
-        stroke={INK}
-        strokeWidth={2}
-        strokeLinejoin="round"
-      />
-      {/* front face */}
-      <rect x={x} y={topY} width={w} height={CUBE_H} fill={BLUE} stroke={INK} strokeWidth={2} />
-    </g>
-  )
-}
-
-/** Upright cylinder centred at cx with its base on `by`. */
-function Cylinder({ cx, by }: { cx: number; by: number }) {
-  const w = UNIT - 6
-  const rx = w / 2
-  const ry = 7
-  const x = cx - rx
-  const topY = by - CYL_H + ry
-  return (
-    <g>
-      {/* body */}
-      <rect x={x} y={topY} width={w} height={CYL_H - ry * 2} fill={GREEN} stroke="none" />
-      <line x1={x} y1={topY} x2={x} y2={by - ry} stroke={INK} strokeWidth={2} />
-      <line x1={x + w} y1={topY} x2={x + w} y2={by - ry} stroke={INK} strokeWidth={2} />
-      {/* shaded sliver on the right for a touch of volume */}
-      <rect x={x + w - 7} y={topY} width={7} height={CYL_H - ry * 2} fill={GREEN_DK} stroke="none" />
-      {/* bottom ellipse (front arc) */}
-      <path
-        d={`M ${x} ${by - ry} A ${rx} ${ry} 0 0 0 ${x + w} ${by - ry}`}
-        fill="none"
-        stroke={INK}
-        strokeWidth={2}
-      />
-      {/* top ellipse */}
-      <ellipse cx={cx} cy={topY} rx={rx} ry={ry} fill={GREEN} stroke={INK} strokeWidth={2} />
-    </g>
-  )
-}
-
-/** Sphere centred at cx with its base on `by`. */
-function Sphere({ cx, by }: { cx: number; by: number }) {
-  const cy = by - SPH_R
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r={SPH_R} fill={SPHERE} stroke={INK} strokeWidth={2} />
-      {/* simple specular highlight */}
-      <ellipse cx={cx - SPH_R * 0.32} cy={cy - SPH_R * 0.34} rx={SPH_R * 0.4} ry={SPH_R * 0.28} fill={CREAM} opacity={0.85} />
-      {/* faint bottom shading */}
-      <path
-        d={`M ${cx - SPH_R * 0.86} ${cy + SPH_R * 0.46} A ${SPH_R} ${SPH_R} 0 0 0 ${cx + SPH_R * 0.86} ${cy + SPH_R * 0.46}`}
-        fill="none"
-        stroke={SPHERE_DK}
-        strokeWidth={3}
-        strokeLinecap="round"
-      />
-    </g>
-  )
-}
+const INK = '#2B2622'
+const STOP = '#E8615A' // warm accent for the "nothing sits on a sphere" marker
+const FRAME = '#C6BBA6' // dotted frame around the paper's worked example
+const ARROW = '#8C8172' // order-strip arrows + trailing ellipsis
 
 type Kind = 'cube' | 'cylinder' | 'sphere'
+type Hue = 'blue' | 'green' | 'white'
 
-/** Render one block of `kind`, base on `by`, centred at `cx`. */
-function Block({ kind, cx, by }: { kind: Kind; cx: number; by: number }) {
-  if (kind === 'cube') return <Cube cx={cx} by={by} />
-  if (kind === 'cylinder') return <Cylinder cx={cx} by={by} />
-  return <Sphere cx={cx} by={by} />
+/** qupu brand hues, each split into front / top / shaded-side faces. */
+const FACES: Record<Hue, { face: string; top: string; side: string }> = {
+  blue: { face: '#30598A', top: '#3E6EA6', side: '#24446A' },
+  green: { face: '#58A700', top: '#6BC30D', side: '#417C00' },
+  white: { face: '#FFFDF7', top: '#FFFFFF', side: '#EDE4D4' },
 }
 
-/** Stack height each block adds (so towers line up base-to-top). */
-const BLOCK_RISE: Record<Kind, number> = {
+// --- block glyphs -----------------------------------------------------------
+// Each glyph is drawn centred on `cx` with its BASE sitting on baseline `by`.
+
+const U = 28 // nominal footprint width of one block
+const ISO_D = 7 // isometric depth of a cube (extends up-right)
+const CUBE_H = 26
+const CYL_H = 30
+const SPH_R = 13
+
+/** Height each block adds to a tower, so stacks seat base-to-top. */
+const RISE: Record<Kind, number> = {
   cube: CUBE_H,
   cylinder: CYL_H,
   sphere: SPH_R * 2,
 }
 
-// The repeating supply order. The animator's tower draws from this cycle.
-const ORDER: Kind[] = ['cube', 'cylinder', 'sphere']
-const LABEL_ID: Record<Kind, string> = {
-  cube: 'kubus',
-  cylinder: 'tabung',
-  sphere: 'bola',
-}
-
-// Supply counts from the source scan (12 blocks): the question's key data.
-const SUPPLY: Record<Kind, number> = {
-  cube: 5,
-  cylinder: 3,
-  sphere: 4,
-}
-
-// --- layout -----------------------------------------------------------------
-const VIEW_W = 320
-
-/**
- * Build the first `height` blocks of the tallest legal tower, bottom → top.
- * The full tower is fixed by the supply (5 cubes, 3 cylinders, 4 spheres):
- * 7 alternating carriers (C,Y,C,Y,C,Y,C — capped by the 3 cylinders) and then
- * ONE sphere cap as block 8. Each intermediate height is a prefix of that
- * final tower, so the animator's build never re-arranges blocks. This is used
- * ONLY by the animator (stackHeight > 0); it never renders in the question
- * figure.
- */
-const CARRIER_COUNT = 2 * SUPPLY.cylinder + 1 // 7
-function towerSequence(height: number): Kind[] {
-  const seq: Kind[] = []
-  for (let i = 0; i < height; i++) {
-    if (i === CARRIER_COUNT) {
-      seq.push('sphere') // block 8 — the single cap on top
-    } else {
-      seq.push(i % 2 === 0 ? 'cube' : 'cylinder')
-    }
-  }
-  return seq
-}
-
-export interface BlockStack24G1Props {
-  /**
-   * Number of blocks the animator has placed in the tower so far (0 = pristine
-   * question figure: just the three labelled types + the order legend).
-   * The tower grows bottom-to-top as this increases.
-   */
-  stackHeight?: number
-}
-
-/**
- * Primitive board. At stackHeight = 0 it draws the three block TYPES in a row
- * plus the repeating-order legend (the question setup). When the animator
- * passes stackHeight > 0 it additionally draws the growing tower on the right,
- * one block at a time, so the build-up of the tallest legal stack can be shown
- * post-answer. It never labels the final count.
- */
-export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
-  const showTower = stackHeight > 0
-  const tower = showTower ? towerSequence(stackHeight) : []
-
-  // --- top row: the three labelled block types --------------------------------
-  const typeBy = 58 // baseline for the type-row glyphs
-  const typeCx = [60, 160, 260]
-
-  // --- legend row: cube → cylinder → sphere → … with the stop marker ---------
-  const legendY = 118
-  const chipW = 30
-  const chipGap = 16
-  // six chips: C Y S C Y S, then an ellipsis
-  const legendKinds: Kind[] = [...ORDER, ...ORDER]
-  const legendStartX = 18
-
-  // --- optional tower (animator only) ----------------------------------------
-  // Drawn to the right of the legend so it never overlaps the static setup.
-  const towerCx = VIEW_W - 46
-  const towerBaseline = 250
-  const TOWER_SCALE = 0.6 // keeps the full 8-block tower inside the viewBox
-
-  // running baseline for tower stacking
-  let runningBase = towerBaseline
-  const towerNodes = tower.map((kind, i) => {
-    const node = (
-      <Block key={`t-${i}`} kind={kind} cx={towerCx} by={runningBase} />
-    )
-    runningBase -= BLOCK_RISE[kind] - 4 // -4 so blocks visually seat together
-    return node
-  })
-
-  const VIEW_H = showTower ? 270 : 150
-
+function Cube({ cx, by, hue }: { cx: number; by: number; hue: Hue }) {
+  const c = FACES[hue]
+  const x = cx - U / 2
+  const topY = by - CUBE_H
+  const d = ISO_D
   return (
-    <svg
-      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-      width="100%"
-      style={{ maxWidth: 320, display: 'block', margin: '0 auto' }}
-      aria-hidden="true"
-    >
-      {/* ---- three labelled block types + their supply counts (the data!) ---- */}
-      {ORDER.map((kind, i) => (
-        <g key={`type-${kind}`}>
-          <Block kind={kind} cx={typeCx[i]} by={typeBy} />
-          <text
-            x={typeCx[i]}
-            y={typeBy + 20}
-            textAnchor="middle"
-            fontSize={14}
-            fontWeight={700}
-            fill={INK}
-          >
-            {`${LABEL_ID[kind]} × ${SUPPLY[kind]}`}
-          </text>
-        </g>
-      ))}
-
-      {/* ---- repeating-order legend ---- */}
-      {legendKinds.map((kind, i) => {
-        const x = legendStartX + i * (chipW + chipGap)
-        const cx = x + chipW / 2
-        const cy = legendY
-        return (
-          <g key={`leg-${i}`}>
-            {/* tiny chip glyph for the kind */}
-            <LegendChip kind={kind} cx={cx} cy={cy} size={chipW / 2} />
-            {/* arrow to the next chip */}
-            {i < legendKinds.length - 1 && (
-              <Arrow x1={x + chipW + 2} y={cy} x2={x + chipW + chipGap - 2} />
-            )}
-            {/* a small "stop" mark over each sphere = nothing stacks on it */}
-            {kind === 'sphere' && <StopMark cx={cx} cy={cy - chipW / 2 - 7} />}
-          </g>
-        )
-      })}
-      {/* trailing ellipsis = the order repeats forever */}
-      <text
-        x={legendStartX + legendKinds.length * (chipW + chipGap)}
-        y={legendY + 5}
-        fontSize={18}
-        fontWeight={800}
-        fill={INK}
-      >
-        …
-      </text>
-
-      {/* ---- animator-only growing tower ----
-          Scaled down about its own base so the full 8-block tower (~310 units
-          of rise) stays inside the viewBox instead of clipping past the top. */}
-      {showTower && (
-        <g
-          transform={`translate(${towerCx * (1 - TOWER_SCALE)}, ${towerBaseline * (1 - TOWER_SCALE)}) scale(${TOWER_SCALE})`}
-        >
-          {/* faint ground line under the tower */}
-          <line
-            x1={towerCx - UNIT / 2 - 6}
-            y1={towerBaseline + 2}
-            x2={towerCx + UNIT / 2 + 10}
-            y2={towerBaseline + 2}
-            stroke={INK}
-            strokeWidth={2}
-            opacity={0.35}
-          />
-          {towerNodes}
-        </g>
-      )}
-    </svg>
+    <g>
+      <polygon
+        points={`${x},${topY} ${x + U},${topY} ${x + U + d},${topY - d} ${x + d},${topY - d}`}
+        fill={c.top}
+        stroke={INK}
+        strokeWidth={1.6}
+        strokeLinejoin="round"
+      />
+      <polygon
+        points={`${x + U},${topY} ${x + U + d},${topY - d} ${x + U + d},${by - d} ${x + U},${by}`}
+        fill={c.side}
+        stroke={INK}
+        strokeWidth={1.6}
+        strokeLinejoin="round"
+      />
+      <rect x={x} y={topY} width={U} height={CUBE_H} fill={c.face} stroke={INK} strokeWidth={1.6} />
+    </g>
   )
 }
 
-/** A miniature chip showing a block kind for the order legend. */
-function LegendChip({ kind, cx, cy, size }: { kind: Kind; cx: number; cy: number; size: number }) {
-  if (kind === 'cube') {
-    return (
-      <rect
-        x={cx - size}
-        y={cy - size}
-        width={size * 2}
-        height={size * 2}
-        rx={3}
-        fill={BLUE}
-        stroke={INK}
-        strokeWidth={2}
-      />
-    )
-  }
-  if (kind === 'cylinder') {
-    return (
-      <g>
-        <rect
-          x={cx - size * 0.8}
-          y={cy - size + 3}
-          width={size * 1.6}
-          height={size * 2 - 6}
-          fill={GREEN}
-          stroke={INK}
-          strokeWidth={2}
-        />
-        <ellipse cx={cx} cy={cy - size + 3} rx={size * 0.8} ry={3} fill={GREEN} stroke={INK} strokeWidth={2} />
-        <ellipse cx={cx} cy={cy + size - 3} rx={size * 0.8} ry={3} fill={GREEN_DK} stroke={INK} strokeWidth={2} />
-      </g>
-    )
-  }
-  return <circle cx={cx} cy={cy} r={size} fill={SPHERE} stroke={INK} strokeWidth={2} />
-}
-
-/** Short right-pointing arrow between legend chips. */
-function Arrow({ x1, y, x2 }: { x1: number; y: number; x2: number }) {
-  const head = 5
+function Cylinder({ cx, by, hue }: { cx: number; by: number; hue: Hue }) {
+  const c = FACES[hue]
+  const w = U - 4
+  const rx = w / 2
+  const ry = 5
+  const x = cx - rx
+  const topY = by - CYL_H + ry
+  // One closed path for the whole body INCLUDING the bottom arc, so the crescent
+  // under the barrel is filled rather than left white.
+  const body =
+    `M ${x} ${topY} L ${x} ${by - ry} ` +
+    `A ${rx} ${ry} 0 0 0 ${x + w} ${by - ry} ` +
+    `L ${x + w} ${topY} Z`
   return (
     <g>
-      <line x1={x1} y1={y} x2={x2 - head} y2={y} stroke={INK} strokeWidth={2} strokeLinecap="round" />
-      <polygon
-        points={`${x2},${y} ${x2 - head},${y - head * 0.7} ${x2 - head},${y + head * 0.7}`}
-        fill={INK}
+      <path d={body} fill={c.face} stroke={INK} strokeWidth={1.6} strokeLinejoin="round" />
+      {/* top face, a shade lighter, reads as the open rim */}
+      <ellipse cx={cx} cy={topY} rx={rx} ry={ry} fill={c.top} stroke={INK} strokeWidth={1.6} />
+    </g>
+  )
+}
+
+function Sphere({ cx, by, hue }: { cx: number; by: number; hue: Hue }) {
+  const c = FACES[hue]
+  const cy = by - SPH_R
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={SPH_R} fill={c.face} stroke={INK} strokeWidth={1.6} />
+      <ellipse
+        cx={cx - SPH_R * 0.3}
+        cy={cy - SPH_R * 0.32}
+        rx={SPH_R * 0.36}
+        ry={SPH_R * 0.24}
+        fill={c.top}
+        opacity={0.7}
       />
     </g>
   )
 }
 
-/** A small no-stacking marker placed above a sphere in the legend. */
+/** Render one block of `kind` in `hue`, base on `by`, centred at `cx`. */
+function Block({ kind, hue, cx, by }: { kind: Kind; hue: Hue; cx: number; by: number }) {
+  if (kind === 'cube') return <Cube cx={cx} by={by} hue={hue} />
+  if (kind === 'cylinder') return <Cylinder cx={cx} by={by} hue={hue} />
+  return <Sphere cx={cx} by={by} hue={hue} />
+}
+
+// --- the question's data ----------------------------------------------------
+
+/** The repeating COLOUR cycle the blocks must be taken in. */
+const ORDER: readonly Hue[] = ['blue', 'green', 'white']
+
+/** Exactly what each colour group holds on the paper, in printed order. */
+const GROUPS: ReadonlyArray<{ hue: Hue; blocks: readonly Kind[] }> = [
+  { hue: 'blue', blocks: ['cube', 'cube', 'cylinder', 'sphere'] },
+  { hue: 'green', blocks: ['cube', 'cube', 'sphere', 'sphere'] },
+  { hue: 'white', blocks: ['cube', 'cylinder', 'cylinder', 'sphere'] },
+]
+
+/**
+ * The tallest legal tower, bottom → top. The COLOUR of block i is forced by the
+ * cycle (ORDER[i % 3]); the SHAPE is our choice, so we spend non-spheres first
+ * and let green — the colour with only two non-spheres — run out on its third
+ * turn, block 8, which therefore has to be the sphere cap.
+ *   1 blue cube · 2 green cube · 3 white cube · 4 blue cube · 5 green cube
+ *   6 white cylinder · 7 blue cylinder · 8 green sphere (cap)
+ * Every prefix is itself legal, so the animator's build never re-arranges
+ * blocks. Used ONLY by the animator (stackHeight > 0).
+ */
+const TOWER_SHAPES: readonly Kind[] = [
+  'cube',
+  'cube',
+  'cube',
+  'cube',
+  'cube',
+  'cylinder',
+  'cylinder',
+  'sphere',
+]
+
+function towerSequence(height: number): { kind: Kind; hue: Hue }[] {
+  const n = Math.max(0, Math.min(TOWER_SHAPES.length, Math.floor(height)))
+  return Array.from({ length: n }, (_, i) => ({
+    kind: TOWER_SHAPES[i],
+    hue: ORDER[i % ORDER.length],
+  }))
+}
+
+// --- layout -----------------------------------------------------------------
+const VIEW_W = 360
+
+// colour groups (left): 3 rows x 4 blocks
+const GROUP_CX = [30, 72, 114, 156]
+const GROUP_BY = [44, 90, 136]
+
+// colour order strip (bottom left)
+const STRIP_CY = 172
+const CHIP = 18
+const CHIP_PITCH = 36
+const STRIP_X0 = 20
+
+// worked example / animator tower (right)
+const EX_FRAME = { x: 250, y: 46, w: 92, h: 114 }
+const EX_CX = 296
+const EX_BY = 150
+
+const TOWER_CX = 296
+const TOWER_BY = 250
+const TOWER_SCALE = 0.55
+
+/** A flat colour chip for the order strip. */
+function HueChip({ hue, cx, cy }: { hue: Hue; cx: number; cy: number }) {
+  return (
+    <rect
+      x={cx - CHIP / 2}
+      y={cy - CHIP / 2}
+      width={CHIP}
+      height={CHIP}
+      rx={4}
+      fill={FACES[hue].face}
+      stroke={INK}
+      strokeWidth={1.6}
+    />
+  )
+}
+
+/** Short right-pointing arrow between order-strip chips. */
+function Arrow({ x1, y, x2 }: { x1: number; y: number; x2: number }) {
+  const head = 4.5
+  return (
+    <g>
+      <line x1={x1} y1={y} x2={x2 - head} y2={y} stroke={ARROW} strokeWidth={1.8} strokeLinecap="round" />
+      <polygon points={`${x2},${y} ${x2 - head},${y - head * 0.7} ${x2 - head},${y + head * 0.7}`} fill={ARROW} />
+    </g>
+  )
+}
+
+/** "Nothing may sit here" marker — a small crossed-out circle. */
 function StopMark({ cx, cy }: { cx: number; cy: number }) {
   const r = 6
   return (
@@ -374,17 +249,131 @@ function StopMark({ cx, cy }: { cx: number; cy: number }) {
   )
 }
 
-// Indonesian aria description: names the three types + the repeating order +
-// the sphere stop-rule. It does NOT state the answer (8).
-const ARIA =
-  'Tiga jenis balok dengan persediaannya: 5 kubus, 3 tabung, dan 4 bola. ' +
-  'Balok disusun berulang dengan urutan kubus, tabung, bola, kubus, tabung, bola, dan seterusnya. ' +
-  'Sebuah balok boleh diletakkan di atas kubus atau tabung, tetapi tidak boleh di atas bola. ' +
-  'Tumpuk setinggi mungkin: paling banyak berapa balok yang dipakai?'
+export interface BlockStack24G1Props {
+  /**
+   * Number of blocks the animator has placed so far (0 = pristine question
+   * figure: the three colour groups, the order strip and the worked example).
+   * Above 0 the worked example is replaced by the tower, which grows
+   * bottom-to-top as this increases.
+   */
+  stackHeight?: number
+}
 
 /**
- * Question figure — the three block types + the repeating-order rule, no tower,
- * no count. Sits in the card, no box.
+ * Primitive board. At stackHeight = 0 it draws the three COLOUR groups with
+ * their exact contents, the blue → green → white order strip, and the paper's
+ * dotted worked example. When the animator passes stackHeight > 0 the example
+ * is swapped for the growing tallest-legal tower. It never labels the count.
+ */
+export function BlockStack24G1({ stackHeight = 0 }: BlockStack24G1Props) {
+  const showTower = stackHeight > 0
+  const tower = showTower ? towerSequence(stackHeight) : []
+
+  // Running baseline for the tower, stacking bottom → top.
+  let runningBase = TOWER_BY
+  const towerNodes = tower.map((b, i) => {
+    const node = <Block key={`t-${i}`} kind={b.kind} hue={b.hue} cx={TOWER_CX} by={runningBase} />
+    runningBase -= RISE[b.kind] - 2 // −2 so blocks visually seat together
+    return node
+  })
+
+  const VIEW_H = showTower ? 272 : 196
+
+  return (
+    <svg
+      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+      width="100%"
+      style={{ maxWidth: 360, display: 'block', margin: '0 auto' }}
+      aria-hidden="true"
+    >
+      {/* ---- the three COLOUR groups and their exact contents (the data!) ---- */}
+      {GROUPS.map((group, r) =>
+        group.blocks.map((kind, c) => (
+          <Block key={`g-${group.hue}-${c}`} kind={kind} hue={group.hue} cx={GROUP_CX[c]} by={GROUP_BY[r]} />
+        )),
+      )}
+
+      {/* ---- the repeating COLOUR order: blue → green → white → … ---- */}
+      {Array.from({ length: 6 }, (_, i) => {
+        const cx = STRIP_X0 + CHIP / 2 + i * CHIP_PITCH
+        return (
+          <g key={`chip-${i}`}>
+            <HueChip hue={ORDER[i % ORDER.length]} cx={cx} cy={STRIP_CY} />
+            {i < 5 && <Arrow x1={cx + CHIP / 2 + 3} y={STRIP_CY} x2={cx + CHIP_PITCH - CHIP / 2 - 3} />}
+          </g>
+        )
+      })}
+      {/* trailing ellipsis = the colour order repeats forever */}
+      <text
+        x={STRIP_X0 + CHIP + 5 * CHIP_PITCH + 8}
+        y={STRIP_CY}
+        dominantBaseline="central"
+        fontSize={18}
+        fontWeight={800}
+        fill={ARROW}
+      >
+        …
+      </text>
+
+      {/* ---- the paper's worked example (question state only) ----
+          blue cylinder carrying a green cube carrying a white sphere, with the
+          sphere marked so the "nothing sits on a sphere" rule is visible. */}
+      {!showTower && (
+        <g>
+          <rect
+            x={EX_FRAME.x}
+            y={EX_FRAME.y}
+            width={EX_FRAME.w}
+            height={EX_FRAME.h}
+            rx={6}
+            fill="none"
+            stroke={FRAME}
+            strokeWidth={1.8}
+            strokeDasharray="3 4"
+          />
+          {/* seated bottom-up: cylinder top edge carries the cube, whose front-top
+              edge carries the sphere (the sphere nestles onto the iso top face) */}
+          <Block kind="cylinder" hue="blue" cx={EX_CX} by={EX_BY} />
+          <Block kind="cube" hue="green" cx={EX_CX} by={EX_BY - CYL_H} />
+          <Block kind="sphere" hue="white" cx={EX_CX} by={EX_BY - CYL_H - CUBE_H} />
+          <StopMark cx={EX_CX} cy={EX_BY - CYL_H - CUBE_H - SPH_R * 2 - 7} />
+        </g>
+      )}
+
+      {/* ---- animator-only growing tower ----
+          Scaled about its own base so the full 8-block tower stays in view. */}
+      {showTower && (
+        <g
+          transform={`translate(${TOWER_CX * (1 - TOWER_SCALE)}, ${TOWER_BY * (1 - TOWER_SCALE)}) scale(${TOWER_SCALE})`}
+        >
+          <line
+            x1={TOWER_CX - U / 2 - 8}
+            y1={TOWER_BY + 3}
+            x2={TOWER_CX + U / 2 + 12}
+            y2={TOWER_BY + 3}
+            stroke={INK}
+            strokeWidth={2}
+            opacity={0.35}
+          />
+          {towerNodes}
+        </g>
+      )}
+    </svg>
+  )
+}
+
+// Indonesian aria description: the colour groups with their contents, the colour
+// order, and the sphere rule. It does NOT state the answer (8).
+const ARIA =
+  'Tiga kelompok balok menurut warna. Kelompok biru: kubus, kubus, tabung, bola. ' +
+  'Kelompok hijau: kubus, kubus, bola, bola. Kelompok putih: kubus, tabung, tabung, bola. ' +
+  'Balok diambil berulang dengan urutan warna biru, hijau, putih, biru, hijau, putih, dan seterusnya. ' +
+  'Contoh tumpukan: tabung biru di bawah, kubus hijau di tengah, bola putih di atas — ' +
+  'tidak ada balok yang boleh diletakkan di atas bola. Tumpuk setinggi mungkin.'
+
+/**
+ * Question figure — the colour groups, the colour order strip and the worked
+ * example. No tower, no count. Sits in the card, no box.
  */
 export default function BlockStack24G1Illustration() {
   return (

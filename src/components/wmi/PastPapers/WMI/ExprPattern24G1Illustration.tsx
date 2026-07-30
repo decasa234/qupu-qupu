@@ -1,7 +1,15 @@
 // WMI-24F1A-Q16 (2024 Grade 1 Final) — answer = 9 (fill-in).
 //
-// "The expressions are in a regular pattern: 28 − 1, 27 − 3, 26 − 5, …
-//  Continuing the pattern, find the result of the 7th expression (marked ★)."
+// Official stem: "The expressions below are arranged in a regular pattern. Find
+// the result of the expression ★."  The stem does NOT say how far along ★ sits,
+// so the figure alone has to make that countable: the paper prints a single
+// LEFT-TO-RIGHT row of SEVEN chips, separated by small tick marks —
+//
+//   [28 − 1] 、[27 − 3] 、[26 − 5] 、[    ] 、[    ] 、[    ] 、[  ★  ]
+//
+// i.e. three given expressions, three blanks, then the ★ chip in seventh place.
+// (Earlier revisions of this figure drew a VERTICAL list of five rows with "n="
+// captions, so the reader could not tell that ★ is the 7th expression at all.)
 //
 // The n-th expression is (29 − n) − (2n − 1) = 30 − 3n, so the results run
 //   n: 1  2  3  4  5  6  7
@@ -9,19 +17,23 @@
 // The 7th expression is 22 − 13 = 9 (minuend 29−7=22, subtrahend 2·7−1=13),
 // so ★ = 9.
 //
-// The pristine question figure shows ONLY the three GIVEN expressions
-// (28 − 1, 27 − 3, 26 − 5), a "…" continuation gap, and the ★ row — it must
-// NEVER reveal the later expressions or that ★ = 9. The co-exported primitive
-// ExprPattern24G1 lets the animator fill in the hidden middle rows
-// (`revealUpTo`) and surface each row's result (`showResults`) post-answer.
+// The question figure shows ONLY what the paper prints: the three given
+// expressions, three empty chips, and the ★ chip. It must NEVER reveal the
+// hidden expressions or that ★ = 9. The co-exported primitive ExprPattern24G1
+// lets the animator fill the blank chips (`revealUpTo`) and surface each chip's
+// result (`showResults`) post-answer.
 //
 // Pure render: no Math.random, no Date, SSR-safe & deterministic.
 
-const INK = '#1F2937' // expression text + row rule
-const LABEL = '#30598A' // brand blue — row index "n=…" captions + results
-const STAR_FILL = '#FBBF6B' // warm fill for the unknown ★ glyph
+const INK = '#2B2622' // expression text
+const CHIP_FILL = '#E9F2DC' // pale green chip face (mirrors the printed paper)
+const CHIP_LINE = '#B7CE96' // soft green chip edge
+const ORD = '#A8997F' // muted tan — the 1..7 ordinal captions
+const ORD_STAR = '#E0A000' // brand yellow — the 7th ordinal, tying ★ to "7th"
+const SEP = '#C6BBA6' // tick separator between chips (the paper's "、")
+const STAR_FILL = '#E0A000' // brand yellow ★ glyph
 const RESULT_FILL = '#FFF2DF' // soft cream pill behind a revealed result
-const ELLIPSIS = '#A8997F' // muted tan for the "…" continuation gap
+const RESULT_LINE = '#30598A' // brand blue pill edge + result text
 
 export const EXPR_COUNT = 7
 
@@ -38,11 +50,11 @@ export interface ExprRow {
   minuend: number
   subtrahend: number
   result: number
-  /** True for the 7th row — the ★ row whose result is the answer. */
+  /** True for the 7th chip — the ★ chip whose result is the answer. */
   star: boolean
 }
 
-/** All seven rows of the pattern, derived from the closed forms above. */
+/** All seven chips of the pattern, derived from the closed forms above. */
 export const EXPR_ROWS: ExprRow[] = Array.from({ length: EXPR_COUNT }, (_, i) => {
   const n = i + 1
   return {
@@ -54,26 +66,35 @@ export const EXPR_ROWS: ExprRow[] = Array.from({ length: EXPR_COUNT }, (_, i) =>
   }
 })
 
-/** Rows whose expression is GIVEN on the paper (28 − 1, 27 − 3, 26 − 5). */
+/** Chips whose expression is PRINTED on the paper (28 − 1, 27 − 3, 26 − 5). */
 export const GIVEN_COUNT = 3
 
 // ---- layout ----------------------------------------------------------------
-const VIEW_W = 260
-const ROW_H = 38 // vertical pitch between successive rows
-const PAD_TOP = 18
-const PAD_BOTTOM = 16
-const IDX_X = 30 // x-centre of the "n=" caption column
-const EXPR_X = 150 // x-centre of the expression column
-const RESULT_X = 224 // x-centre of the result pill column
-const STAR_R = 12
+const PAD_X = 12
+const PAD_TOP = 12
+const CHIP_W = 62
+const CHIP_H = 40
+const SEP_W = 14 // gap between chips, holding the tick separator
+const PITCH = CHIP_W + SEP_W
+const ORD_GAP = 16 // baseline offset of the ordinal caption below a chip
+const ORD_H = 22
+const RESULT_GAP = 6
+const RESULT_H = 30
+const PAD_BOTTOM = 8
 
-/** Five-pointed ★ glyph marking the ★ (7th) expression row. */
-function StarGlyph({ cx, cy }: { cx: number; cy: number }) {
-  const inner = STAR_R * 0.42
+const ROW_W = EXPR_COUNT * CHIP_W + (EXPR_COUNT - 1) * SEP_W
+const VIEW_W = PAD_X * 2 + ROW_W
+
+const chipX = (i: number) => PAD_X + i * PITCH
+const CHIP_MID_Y = PAD_TOP + CHIP_H / 2
+
+/** Five-pointed ★ glyph marking the seventh (★) chip. */
+function StarGlyph({ cx, cy, r = 12 }: { cx: number; cy: number; r?: number }) {
+  const inner = r * 0.42
   const pts: string[] = []
   for (let i = 0; i < 10; i++) {
     const rad = (Math.PI / 5) * i - Math.PI / 2
-    const rr = i % 2 === 0 ? STAR_R : inner
+    const rr = i % 2 === 0 ? r : inner
     pts.push(`${(cx + rr * Math.cos(rad)).toFixed(2)},${(cy + rr * Math.sin(rad)).toFixed(2)}`)
   }
   return (
@@ -81,98 +102,113 @@ function StarGlyph({ cx, cy }: { cx: number; cy: number }) {
       points={pts.join(' ')}
       fill={STAR_FILL}
       stroke={INK}
-      strokeWidth={2}
+      strokeWidth={1.8}
       strokeLinejoin="round"
     />
   )
 }
 
-/** One sequence row: the "n=" caption, the expression, and (optionally) a result pill. */
-function ExpressionRow({
+/** The paper's "、" separator, drawn as a short slanted tick (font-independent). */
+function TickSeparator({ cx, cy }: { cx: number; cy: number }) {
+  return (
+    <line
+      x1={cx + 2}
+      y1={cy - 4}
+      x2={cx - 2}
+      y2={cy + 5}
+      stroke={SEP}
+      strokeWidth={2.4}
+      strokeLinecap="round"
+    />
+  )
+}
+
+/** One chip of the row: the pale-green plate plus whatever it currently holds. */
+function ExpressionChip({
   row,
-  cy,
+  x,
   showExpr,
   showResult,
 }: {
   row: ExprRow
-  cy: number
-  /** Render the actual "a − b" expression (vs. a "?" placeholder for hidden rows). */
+  x: number
+  /** Render the "a − b" expression (blank chip, or the ★ glyph, otherwise). */
   showExpr: boolean
-  /** Render the result pill ("= r") on the right. */
+  /** Render the result pill ("= r") under the chip. */
   showResult: boolean
 }) {
+  const cx = x + CHIP_W / 2
   return (
     <g>
-      {/* row index caption, e.g. "n=1" / "★" for the seventh */}
-      <text
-        x={IDX_X}
-        y={cy}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontSize={13}
-        fontWeight={700}
-        fill={LABEL}
-      >
-        {row.star ? '★' : `n=${row.n}`}
-      </text>
+      <rect
+        x={x}
+        y={PAD_TOP}
+        width={CHIP_W}
+        height={CHIP_H}
+        rx={11}
+        fill={CHIP_FILL}
+        stroke={CHIP_LINE}
+        strokeWidth={1.6}
+      />
 
-      {/* the expression, or a "?" placeholder if this row is still hidden */}
+      {/* chip contents: the expression, or the ★ glyph, or nothing at all */}
       {showExpr ? (
         <text
-          x={EXPR_X}
-          y={cy}
+          x={cx}
+          y={CHIP_MID_Y}
           textAnchor="middle"
           dominantBaseline="central"
-          fontSize={22}
+          className="font-display"
+          fontSize={18}
           fontWeight={800}
           fill={INK}
         >
           {`${row.minuend} − ${row.subtrahend}`}
         </text>
-      ) : (
-        <text
-          x={EXPR_X}
-          y={cy}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize={22}
-          fontWeight={800}
-          fill={ELLIPSIS}
-        >
-          ?
-        </text>
-      )}
+      ) : row.star ? (
+        <StarGlyph cx={cx} cy={CHIP_MID_Y} />
+      ) : null}
 
-      {/* result pill (post-answer only) */}
+      {/* ordinal caption 1..7 — makes "★ is the 7th expression" countable */}
+      <text
+        x={cx}
+        y={PAD_TOP + CHIP_H + ORD_GAP}
+        textAnchor="middle"
+        dominantBaseline="central"
+        className="font-display"
+        fontSize={12}
+        fontWeight={800}
+        fill={row.star ? ORD_STAR : ORD}
+      >
+        {row.n}
+      </text>
+
+      {/* result pill (animator only) */}
       {showResult && (
         <g>
           <rect
-            x={RESULT_X - 22}
-            y={cy - 13}
-            width={44}
-            height={26}
+            x={cx - 24}
+            y={PAD_TOP + CHIP_H + ORD_H + RESULT_GAP}
+            width={48}
+            height={RESULT_H - 6}
             rx={9}
             fill={RESULT_FILL}
-            stroke={LABEL}
+            stroke={RESULT_LINE}
             strokeWidth={1.5}
           />
           <text
-            x={RESULT_X}
-            y={cy}
+            x={cx}
+            y={PAD_TOP + CHIP_H + ORD_H + RESULT_GAP + (RESULT_H - 6) / 2}
             textAnchor="middle"
             dominantBaseline="central"
+            className="font-display"
             fontSize={15}
             fontWeight={900}
-            fill={LABEL}
+            fill={RESULT_LINE}
           >
             {`= ${row.result}`}
           </text>
         </g>
-      )}
-
-      {/* ★ marker badge on the seventh row (kept even when the expression shows) */}
-      {row.star && !showResult && (
-        <StarGlyph cx={RESULT_X} cy={cy} />
       )}
     </g>
   )
@@ -180,94 +216,62 @@ function ExpressionRow({
 
 export interface ExprPattern24G1Props {
   /**
-   * Reveal expressions for rows 1..revealUpTo (the rest show "?"). Defaults to
-   * GIVEN_COUNT (3) — the pristine question state: 28 − 1, 27 − 3, 26 − 5 given,
-   * the ★ (7th) row's expression hidden. Pass 7 to fill the whole sequence.
+   * Fill in expressions for chips 1..revealUpTo (the rest stay blank). Defaults
+   * to GIVEN_COUNT (3) — the pristine question state: 28 − 1, 27 − 3, 26 − 5
+   * printed, chips 4–6 blank and the ★ chip still just a ★. Pass 7 to fill the
+   * whole row (that is what turns the ★ chip into 22 − 13).
    */
   revealUpTo?: number
   /**
-   * Print each visible row's result pill ("= r"). Off by default — the question
-   * never shows results. Animator passes true post-answer to surface the ★ = 9.
+   * Print each filled chip's result pill ("= r"). Off by default — the question
+   * never shows results. Animator passes true post-answer to surface ★ = 9.
    */
   showResults?: boolean
 }
 
 /**
- * Primitive board for the expression-pattern sequence. With no props it renders
- * the pristine question: the three given expressions, a "…" continuation gap,
- * and the ★ row (7th) with its expression hidden and no results.
+ * Primitive board for the expression-pattern row. With no props it renders the
+ * pristine question: seven chips left to right — three given expressions, three
+ * blanks, and the ★ chip — with ordinals 1..7 beneath and no results.
  *
- * The animator fills hidden rows via `revealUpTo` and surfaces results via
+ * The animator fills blank chips via `revealUpTo` and surfaces results via
  * `showResults`. By itself the default reveals nothing about ★ = 9.
  */
 export function ExprPattern24G1({
   revealUpTo = GIVEN_COUNT,
   showResults = false,
 }: ExprPattern24G1Props = {}) {
-  // Clamp so the ★ row's expression only appears once the whole pattern is shown.
+  // Clamp so the ★ chip's expression only appears once the whole row is filled.
   const upTo = Math.max(0, Math.min(EXPR_COUNT, revealUpTo))
 
-  // The visible rows: always the given block + the ★; intermediate rows appear
-  // only as they get revealed. While the middle (rows 4..6) is still hidden, a
-  // single "…" gap row stands in for the continuation.
-  const middleHidden = upTo < EXPR_COUNT - 1 // rows 4..6 (or some) still "?"
-
-  // Rows we actually draw, top to bottom, paired with their y-centre.
-  type Drawn =
-    | { kind: 'row'; row: ExprRow }
-    | { kind: 'gap' }
-  const drawn: Drawn[] = []
-  for (const row of EXPR_ROWS) {
-    if (row.star) continue // the ★ row is appended last
-    if (row.n <= upTo) {
-      drawn.push({ kind: 'row', row })
-    }
-  }
-  if (middleHidden) drawn.push({ kind: 'gap' })
-  // the ★ row always sits at the bottom
-  const starRow = EXPR_ROWS[EXPR_COUNT - 1]
-  drawn.push({ kind: 'row', row: starRow })
-
-  const rowCount = drawn.length
-  const viewH = PAD_TOP + rowCount * ROW_H + PAD_BOTTOM
+  const viewH =
+    PAD_TOP + CHIP_H + ORD_H + (showResults ? RESULT_GAP + RESULT_H : 0) + PAD_BOTTOM
 
   return (
     <svg
       viewBox={`0 0 ${VIEW_W} ${viewH}`}
-      width={Math.min(240, VIEW_W)}
+      width="100%"
+      style={{ display: 'block', margin: '0 auto', maxWidth: 480 }}
       aria-hidden="true"
     >
-      {drawn.map((d, i) => {
-        const cy = PAD_TOP + ROW_H / 2 + i * ROW_H
-        if (d.kind === 'gap') {
-          return (
-            <text
-              key="gap"
-              x={EXPR_X}
-              y={cy}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fontSize={24}
-              fontWeight={800}
-              fill={ELLIPSIS}
-              letterSpacing="2"
-            >
-              …
-            </text>
-          )
-        }
-        const { row } = d
-        // A row's expression shows when it is given/revealed; the ★ row's
-        // expression shows only when the full pattern (upTo === 7) is reached.
-        const showExpr = row.star ? upTo >= EXPR_COUNT : row.n <= upTo
-        const showResult = showResults && showExpr
+      {/* tick separators sitting in the gaps, exactly as the paper prints them */}
+      {EXPR_ROWS.slice(0, EXPR_COUNT - 1).map((row, i) => (
+        <TickSeparator
+          key={`sep-${row.n}`}
+          cx={chipX(i) + CHIP_W + SEP_W / 2}
+          cy={CHIP_MID_Y}
+        />
+      ))}
+
+      {EXPR_ROWS.map((row, i) => {
+        const showExpr = row.n <= upTo
         return (
-          <ExpressionRow
+          <ExpressionChip
             key={row.n}
             row={row}
-            cy={cy}
+            x={chipX(i)}
             showExpr={showExpr}
-            showResult={showResult}
+            showResult={showResults && showExpr}
           />
         )
       })}
@@ -275,12 +279,14 @@ export function ExprPattern24G1({
   )
 }
 
-// Indonesian aria description (given expressions named, ★ NOT solved).
+// Indonesian aria description — names the printed chips and the blanks, and
+// states ★ sits seventh. It never states the ★ result (9).
 const ARIA =
-  'Deret ekspresi berpola teratur: 28 − 1, 27 − 3, 26 − 5, dan seterusnya. ' +
-  'Lanjutkan polanya, lalu tentukan hasil dari ekspresi ke-7 yang ditandai bintang.'
+  'Tujuh kotak berderet dari kiri ke kanan. Kotak ke-1 sampai ke-3 berisi 28 − 1, 27 − 3, dan 26 − 5. ' +
+  'Kotak ke-4, ke-5, dan ke-6 masih kosong. Kotak ke-7 bertanda bintang. ' +
+  'Deret ini berpola teratur; tentukan hasil perhitungan pada kotak bintang.'
 
-/** Question figure — three given expressions, a "…" gap, and the ★ row. */
+/** Question figure — the seven-chip row exactly as printed, no results. */
 export default function ExprPattern24G1Illustration() {
   return (
     <div className="my-4 flex justify-center" role="img" aria-label={ARIA}>

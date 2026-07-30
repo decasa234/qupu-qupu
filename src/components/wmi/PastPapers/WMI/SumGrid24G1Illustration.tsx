@@ -1,41 +1,47 @@
-// Sum-grid figure for WMI-24F1A-Q25 (2024 Grade 1 Final).
+// Sum-grid figure for WMI-24F1A-Q25 (2024 Grade 1 Final). Answer: 10 (fill-in).
 //
-// "Fill the numbers 1-9 into the squares so each ROW uses 1-9. Each CIRCLE below
-// holds the sum of the three squares directly above it, and the three numbers
-// stacked vertically in a column are all DIFFERENT (e.g. 2 + 9 + 6 = 17).
-// Find ● + ◆ - ★."  Answer: 10 (fill-in).
+// Official stem: "Fill numbers 1~9 in the squares so that each row has numbers
+// 1~9. Given that each number in the circle below is the sum of the three numbers
+// in the squares directly above it, and the numbers in the three vertical squares
+// are different as in 2+9+6=17. Find ●+◆−★."
 //
-// LAYOUT — 3 rows x 9 columns of squares; a sum-circle sits under each column.
-// Givens transcribed from the source table (?? = blank cell, ●/◆/★ = the three
-// unknown target cells the question asks about):
+// LAYOUT — 3 rows x 9 columns of squares, with a printed sum-circle under each
+// column. Transcribed from the paper (·· = blank cell):
 //
-//   row 1:  [●]  3  [ ]  6   9  [ ]  4   2  [ ]
-//   row 2:   6  [ ]  4  [◆] [ ] [ ]  1  [ ]  9
-//   row 3:  [ ]  8  [ ]  9   4  [ ] [ ] [★]  6
+//   row 1:  ··  [●]  3   ··   6   9   ··   4   2
+//   row 2:   6   ··  4  [◆]  ··  ··   1   ··   9
+//   row 3:  ··   8   ··   9   4   ··  ··  [★]   6
+//   circles 15   17  14   18  13   16   9   16  17
 //
-// Each row is a permutation of 1..9; each column's three entries are distinct;
-// the circle under a column is that column's sum.
+// TWO earlier defects, both fixed here:
+//   1. row 1 was drawn shifted one column LEFT ([●] sat in column 1 instead of
+//      column 2, and the trailing blank fell off the end), so the ● column never
+//      lined up with its printed sum;
+//   2. the nine circle sums were never transcribed at all — they were drawn as
+//      empty circles. They are the binding constraint: rows-are-permutations plus
+//      columns-are-distinct leaves the grid massively under-determined, but WITH
+//      the printed sums the completion is UNIQUE (verified by exhaustive search
+//      over column triples):
 //
-// SOLVER NOTE (throwaway tsx solver, since deleted) — IMPORTANT for downstream
-// roles: the transcribed givens above do NOT uniquely determine the grid. The
-// row-permutation + column-distinctness constraints alone leave the grid
-// massively under-constrained (>40k completions per row-1 alignment; ● + ◆ - ★
-// ranges over -4..15). The genuinely binding constraint in the published puzzle
-// is the printed VALUE inside each sum-circle, which was not transcribed. The
-// canonical answer is 10 (e.g. ● = 8, ◆ = 3, ★ = 1 -> 8 + 3 - 1 = 10), and that
-// triple IS achievable, but it is not forced by the data we have. So this figure
-// draws ONLY the setup (givens + ●/◆/★ markers + EMPTY circles) and never asserts
-// a solution. The `solved` reference filling below is one fully self-consistent
-// completion (rows are 1..9 permutations, every column distinct) that yields
-// 8 + 3 - 1 = 10; it is for the post-answer animation ONLY.
+//        8 7 3 1 6 9 5 4 2
+//        6 2 4 8 3 5 1 7 9
+//        1 8 7 9 4 2 3 5 6
+//
+//      giving ● = 7, ◆ = 8, ★ = 5 and hence ● + ◆ − ★ = 7 + 8 − 5 = 10, which
+//      matches the official key.
+//
+// The circle sums are QUESTION DATA, so they always render. The completion is the
+// ANSWER, so it renders only when the animator passes `solved`.
 //
 // Pure render: no Math.random, no Date, SSR-safe & deterministic.
 
-const INK = '#1F2937' // grid lines + given numbers
-const GIVEN = '#2B2622' // fixed given numbers (matches the scan's black ink)
-const FILLED = '#30598a' // qupu brand blue — numbers the animator drops in
-const MARK = '#f0853a' // qupu brand orange — the ●/◆/★ target glyphs
-const CIRCLE_LINE = '#30598a' // sum-circle outline (qupu brand blue)
+const INK = '#2B2622' // grid lines
+const GIVEN = '#2B2622' // fixed given numbers (the scan's black ink)
+const FILLED = '#30598A' // qupu brand blue — numbers the animator drops in
+const MARK = '#F0853A' // qupu brand orange — the ●/◆/★ target glyphs & values
+const CIRCLE_FILL = '#30598A' // brand blue sum-circle body (paper prints it solid)
+const CIRCLE_LINE = '#24446A'
+const CIRCLE_INK = '#FFFFFF' // the sum printed inside the circle
 
 export const ROWS = 3
 export const COLS = 9
@@ -51,21 +57,27 @@ type CellSpec = { given?: number; mark?: Marker }
  * one of the three asked-about cells; an empty object = a blank square.
  */
 export const GRID: ReadonlyArray<ReadonlyArray<CellSpec>> = [
-  [{ mark: 'bullet' }, { given: 3 }, {}, { given: 6 }, { given: 9 }, {}, { given: 4 }, { given: 2 }, {}],
+  [{}, { mark: 'bullet' }, { given: 3 }, {}, { given: 6 }, { given: 9 }, {}, { given: 4 }, { given: 2 }],
   [{ given: 6 }, {}, { given: 4 }, { mark: 'diamond' }, {}, {}, { given: 1 }, {}, { given: 9 }],
   [{}, { given: 8 }, {}, { given: 9 }, { given: 4 }, {}, {}, { mark: 'star' }, { given: 6 }],
 ]
 
 /**
- * One fully self-consistent reference completion (rows are permutations of 1..9,
- * every column has three distinct entries) giving ● = 8, ◆ = 3, ★ = 1 so that
- * ● + ◆ - ★ = 10. Used ONLY when the animator passes `solved`. The static
- * question figure never shows these numbers.
+ * The nine sums printed in the circles under the columns. Question data — always
+ * drawn. These are what pin the grid to a single completion.
+ */
+export const CIRCLE_SUMS: readonly number[] = [15, 17, 14, 18, 13, 16, 9, 16, 17]
+
+/**
+ * The UNIQUE completion (each row a permutation of 1–9, every column's three
+ * entries distinct, every column summing to its printed circle). It gives
+ * ● = 7, ◆ = 8, ★ = 5 so ● + ◆ − ★ = 10. Used ONLY when the animator passes
+ * `solved`; the static question figure never shows these numbers.
  */
 const SOLVED: ReadonlyArray<ReadonlyArray<number>> = [
-  [8, 3, 5, 6, 9, 7, 4, 2, 1],
-  [6, 2, 4, 3, 5, 8, 1, 7, 9],
-  [2, 8, 3, 9, 4, 5, 7, 1, 6],
+  [8, 7, 3, 1, 6, 9, 5, 4, 2],
+  [6, 2, 4, 8, 3, 5, 1, 7, 9],
+  [1, 8, 7, 9, 4, 2, 3, 5, 6],
 ]
 
 // --- layout -----------------------------------------------------------------
@@ -75,16 +87,15 @@ const CELL = 30
 const GRID_W = COLS * CELL
 const GRID_H = ROWS * CELL
 
-const CIRCLE_GAP = 16 // vertical gap between grid bottom and circle centres
-const CIRCLE_R = 13
+const CIRCLE_R = 15 // r = CELL/2, so the circles tile the row exactly as printed
 
 const VIEW_W = PAD_X * 2 + GRID_W
-const VIEW_H = PAD_TOP + GRID_H + CIRCLE_GAP + CIRCLE_R * 2 + 12
+const VIEW_H = PAD_TOP + GRID_H + CIRCLE_R * 2 + 12
 
 const gx = (c: number) => PAD_X + c * CELL
 const gy = (r: number) => PAD_TOP + r * CELL
 const circleCx = (c: number) => gx(c) + CELL / 2
-const circleCy = PAD_TOP + GRID_H + CIRCLE_GAP + CIRCLE_R
+const circleCy = PAD_TOP + GRID_H + CIRCLE_R
 
 /** A small filled five-pointed star centred at (cx, cy). */
 function StarGlyph({ cx, cy }: { cx: number; cy: number }) {
@@ -102,12 +113,7 @@ function StarGlyph({ cx, cy }: { cx: number; cy: number }) {
 /** A small filled diamond centred at (cx, cy). */
 function DiamondGlyph({ cx, cy }: { cx: number; cy: number }) {
   const R = 8.5
-  const pts = [
-    `${cx},${cy - R}`,
-    `${cx + R},${cy}`,
-    `${cx},${cy + R}`,
-    `${cx - R},${cy}`,
-  ].join(' ')
+  const pts = [`${cx},${cy - R}`, `${cx + R},${cy}`, `${cx},${cy + R}`, `${cx - R},${cy}`].join(' ')
   return <polygon points={pts} fill={MARK} stroke={INK} strokeWidth={1.4} strokeLinejoin="round" />
 }
 
@@ -124,22 +130,27 @@ function MarkerGlyph({ mark, cx, cy }: { mark: Marker; cx: number; cy: number })
 
 export interface SumGrid24G1Props {
   /**
-   * When true, fill every square with the reference completion and print each
-   * column's sum inside its circle. Animator-only — the default question figure
-   * shows the bare setup (givens + markers + empty circles, no answer).
+   * When true, fill every square with the unique completion (the marked cells in
+   * brand orange so ● / ◆ / ★ stay identifiable). Animator-only — the default
+   * question figure shows the bare setup: givens, markers and the printed circle
+   * sums, with every other square empty.
    */
   solved?: boolean
 }
 
 /**
- * Bare 3x9 sum-grid primitive: givens, the ●/◆/★ target markers, and the empty
- * column-sum circles. With `solved` it overlays one self-consistent completion
- * plus the column sums (post-answer animation). By itself it reveals nothing
- * about the filling or about ● + ◆ - ★.
+ * 3x9 sum-grid primitive: the givens, the ●/◆/★ target markers, and the nine
+ * printed column-sum circles. With `solved` it overlays the unique completion
+ * (post-answer animation). By itself it reveals nothing about ● + ◆ − ★.
  */
 export function SumGrid24G1({ solved = false }: SumGrid24G1Props = {}) {
   return (
-    <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} width={Math.min(300, VIEW_W)} aria-hidden="true">
+    <svg
+      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+      width="100%"
+      style={{ display: 'block', margin: '0 auto', maxWidth: 320 }}
+      aria-hidden="true"
+    >
       {/* outer board */}
       <rect x={PAD_X} y={PAD_TOP} width={GRID_W} height={GRID_H} fill="#FFFFFF" stroke={INK} strokeWidth={2.5} />
 
@@ -157,9 +168,10 @@ export function SumGrid24G1({ solved = false }: SumGrid24G1Props = {}) {
         row.map((cell, c) => {
           const cx = gx(c) + CELL / 2
           const cy = gy(r) + CELL / 2
-          // Solved overlay: print every square's number in brand blue (givens stay ink).
+          // Solved overlay: print every square. Givens stay ink, the three marked
+          // cells go orange so they can still be picked out, the rest brand blue.
           if (solved) {
-            const isGiven = typeof cell.given === 'number'
+            const colour = typeof cell.given === 'number' ? GIVEN : cell.mark ? MARK : FILLED
             return (
               <text
                 key={`s-${r}-${c}`}
@@ -167,9 +179,10 @@ export function SumGrid24G1({ solved = false }: SumGrid24G1Props = {}) {
                 y={cy}
                 textAnchor="middle"
                 dominantBaseline="central"
+                className="font-display"
                 fontSize={17}
                 fontWeight={800}
-                fill={isGiven ? GIVEN : FILLED}
+                fill={colour}
               >
                 {SOLVED[r][c]}
               </text>
@@ -184,6 +197,7 @@ export function SumGrid24G1({ solved = false }: SumGrid24G1Props = {}) {
                 y={cy}
                 textAnchor="middle"
                 dominantBaseline="central"
+                className="font-display"
                 fontSize={17}
                 fontWeight={800}
                 fill={GIVEN}
@@ -199,52 +213,47 @@ export function SumGrid24G1({ solved = false }: SumGrid24G1Props = {}) {
         }),
       )}
 
-      {/* column-sum circles under every column */}
-      {Array.from({ length: COLS }, (_, c) => {
-        const cx = circleCx(c)
-        const sum = SOLVED[0][c] + SOLVED[1][c] + SOLVED[2][c]
-        return (
-          <g key={`c-${c}`}>
-            {/* thin connector from the column down to its circle */}
-            <line
-              x1={cx}
-              y1={PAD_TOP + GRID_H}
-              x2={cx}
-              y2={circleCy - CIRCLE_R}
-              stroke={CIRCLE_LINE}
-              strokeWidth={1.2}
-            />
-            <circle cx={cx} cy={circleCy} r={CIRCLE_R} fill="#FFFFFF" stroke={CIRCLE_LINE} strokeWidth={2} />
-            {solved && (
-              <text
-                x={cx}
-                y={circleCy}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fontSize={13}
-                fontWeight={800}
-                fill={FILLED}
-              >
-                {sum}
-              </text>
-            )}
-          </g>
-        )
-      })}
+      {/* the nine printed column-sum circles — question data, always shown */}
+      {CIRCLE_SUMS.map((sum, c) => (
+        <g key={`c-${c}`}>
+          <circle
+            cx={circleCx(c)}
+            cy={circleCy}
+            r={CIRCLE_R}
+            fill={CIRCLE_FILL}
+            stroke={CIRCLE_LINE}
+            strokeWidth={1.5}
+          />
+          <text
+            x={circleCx(c)}
+            y={circleCy}
+            textAnchor="middle"
+            dominantBaseline="central"
+            className="font-display"
+            fontSize={13}
+            fontWeight={800}
+            fill={CIRCLE_INK}
+          >
+            {sum}
+          </text>
+        </g>
+      ))}
     </svg>
   )
 }
 
-// Indonesian aria description — names the givens + markers, never the answer.
+// Indonesian aria description — the givens, the markers and the printed circle
+// sums. It never states the completion or the answer.
 const ARIA =
   'Kisi 3 baris dan 9 kolom. Setiap baris diisi bilangan 1 sampai 9. ' +
-  'Baris atas: bulatan, 3, kosong, 6, 9, kosong, 4, 2, kosong. ' +
+  'Baris atas: kosong, bulatan, 3, kosong, 6, 9, kosong, 4, 2. ' +
   'Baris tengah: 6, kosong, 4, belah ketupat, kosong, kosong, 1, kosong, 9. ' +
   'Baris bawah: kosong, 8, kosong, 9, 4, kosong, kosong, bintang, 6. ' +
-  'Di bawah tiap kolom ada lingkaran berisi jumlah tiga bilangan di atasnya, ' +
-  'dan tiga bilangan dalam satu kolom semuanya berbeda. Cari bulatan tambah belah ketupat kurang bintang.'
+  'Di bawah tiap kolom ada lingkaran berisi jumlah tiga bilangan di atasnya, berturut-turut ' +
+  '15, 17, 14, 18, 13, 16, 9, 16, dan 17. Tiga bilangan dalam satu kolom semuanya berbeda. ' +
+  'Cari bulatan tambah belah ketupat kurang bintang.'
 
-/** Question figure — bare setup, no answer revealed. Sits in the card, no box. */
+/** Question figure — bare setup plus the printed sums, no answer revealed. */
 export default function SumGrid24G1Illustration() {
   return (
     <div className="my-4 flex justify-center" role="img" aria-label={ARIA}>

@@ -1,10 +1,18 @@
 // WMI-24F1A-Q23 (Grade 1) — "remove one operator card" expression.
 //
-// The printed expression is built from 9 number cards and 8 operator cards:
-//   9 + 8 + 7 + 6 − 5 − 4 + 3 + 2 − 1
-// Removing exactly ONE operator card lets its two neighbour number cards join
-// into a single 2-digit number; everything else is computed unchanged. The
-// question asks for the LARGEST 2-digit result reachable this way.
+// Official stem: "Use 9 square number cards and 8 circular arithmetic cards to
+// form an expression from left to right. When an arithmetic card is removed, the
+// 2 adjacent number cards will be seen as a 2-digit number while the other cards
+// stay the same. If the result of this expression is a 2-digit number, find the
+// largest result."  The stem names no values — the expression lives only in the
+// figure, so all SEVENTEEN cards have to be drawn and legible:
+//
+//   [9] (+) [8] (+) [7] (+) [6] (−) [5] (−) [4] (+) [3] (+) [2] (−) [1]
+//
+// SQUARE cards carry the digits; the operators are ROUND yellow cards, exactly as
+// printed. (An earlier revision drew the operators as bare symbols between the
+// number cards, so "8 circular arithmetic cards" had nothing to point at and the
+// card that gets removed did not read as a card at all.)
 //
 // (Solution — never drawn here: remove the '+' between 8 and 7 →
 //  9 + 87 + 6 − 5 − 4 + 3 + 2 − 1 = 97, the largest valid 2-digit total.)
@@ -13,25 +21,35 @@
 // result. The animator imports the RemoveOp24G1 primitive and passes
 // `removeOpIndex` (0..7) to lift one operator + merge its neighbours, and
 // `showResult` to reveal the computed value post-answer.
+//
+// Pure render: no Math.random, no Date, SSR-safe & deterministic.
 
 // The 9 number cards, left to right.
 const NUMBERS = [9, 8, 7, 6, 5, 4, 3, 2, 1] as const
-// The 8 operator cards between them. '+' adds, '-' subtracts (rendered as '−').
+// The 8 circular operator cards between them. '+' adds, '-' subtracts (rendered as '−').
 const OPS = ['+', '+', '+', '-', '-', '+', '+', '-'] as const
 
-const INK = '#2B2B2B'
+const INK = '#2B2622'
+const CARD_FILL = '#FFF8EE' // qupu cream — a number card face
+const CARD_LINE = '#2B2622' // the paper's black card rule
+const MERGE_FILL = '#FDEBDD' // peach — the fused 2-digit card
+const MERGE_LINE = '#F0853A' // brand orange edge on the fused card
+const OP_FILL = '#FDF3D0' // pale yellow — a circular operator card
+const OP_LINE = '#E0A000' // brand yellow edge
+const MUTED = '#A8997F' // the lifted-out operator card
+const RESULT_INK = '#30598A' // brand blue result readout
 
 // --- layout (viewBox units) ---------------------------------------------
-const NUM_W = 40 // number-card width (single digit)
-const MERGE_W = 64 // merged 2-digit card width
-const CARD_H = 46
-const OP_W = 26 // operator-card width
-const GAP = 8 // gap between adjacent cards
-const PAD_X = 12
-const PAD_TOP = 26 // headroom for the "lift" arc above a removed operator
-const PAD_BOTTOM = 14
-const RESULT_H = 40
-const RESULT_GAP = 14
+const NUM_W = 34 // number-card width (single digit)
+const MERGE_W = 56 // merged 2-digit card width
+const CARD_H = 40
+const OP_D = 28 // operator-card diameter
+const GAP = 3 // gap between adjacent cards
+const PAD_X = 10
+const PAD_TOP = 26 // headroom for the lifted operator card
+const PAD_BOTTOM = 12
+const RESULT_H = 34
+const RESULT_GAP = 10
 
 type Slot =
   | { kind: 'num'; value: number; w: number; merged?: boolean }
@@ -61,29 +79,77 @@ function buildSlots(removeOpIndex: number | null): Slot[] {
     // Emit the operator that follows this number, if any.
     if (i < OPS.length) {
       const isRemoved = i === removeOpIndex
-      slots.push({ kind: 'op', symbol: OPS[i] === '+' ? '+' : '−', w: OP_W, removed: isRemoved })
+      slots.push({ kind: 'op', symbol: OPS[i] === '+' ? '+' : '−', w: OP_D, removed: isRemoved })
     }
   }
   return slots
 }
 
-/** Compute the value of the expression after removing the given operator. */
+/**
+ * Compute the value of the expression after removing operator card `k`.
+ *
+ * Terms are walked left to right, each carrying the sign of the operator printed
+ * BEFORE it. Removing card k fuses NUMBERS[k] and NUMBERS[k+1] into one term
+ * that keeps NUMBERS[k]'s sign (OPS[k-1]); the term after it is governed by
+ * OPS[k+1], because OPS[k] is the card that was taken away.
+ */
 function evaluate(removeOpIndex: number): number {
-  const merged = NUMBERS[removeOpIndex] * 10 + NUMBERS[removeOpIndex + 1]
+  const k = removeOpIndex
   let total = 0
-  let signPos = true // running sign for the NEXT term; first term is positive
+  // Sign for the term at index i: '+' before the first term, else OPS[i-1].
+  const signOf = (i: number) => (i === 0 ? 1 : OPS[i - 1] === '+' ? 1 : -1)
   for (let i = 0; i < NUMBERS.length; i++) {
-    if (i === removeOpIndex) {
-      total += signPos ? merged : -merged
-      // the operator before the right neighbour is consumed by the merge
-      if (i < OPS.length) signPos = OPS[i] === '+'
-      i++ // skip the folded right neighbour
+    if (i === k) {
+      // the fused 2-digit term, signed by the operator before NUMBERS[k]
+      total += signOf(i) * (NUMBERS[k] * 10 + NUMBERS[k + 1])
+      i++ // NUMBERS[k+1] is folded in
       continue
     }
-    total += signPos ? NUMBERS[i] : -NUMBERS[i]
-    if (i < OPS.length) signPos = OPS[i] === '+'
+    // A term sitting just after the merge is governed by OPS[k+1], not OPS[k].
+    const sign = i === k + 2 ? (OPS[k + 1] === '+' ? 1 : -1) : signOf(i)
+    total += sign * NUMBERS[i]
   }
   return total
+}
+
+/** A round operator card. */
+function OpCard({
+  cx,
+  cy,
+  symbol,
+  tone,
+}: {
+  cx: number
+  cy: number
+  symbol: string
+  tone: 'normal' | 'lifted'
+}) {
+  const lifted = tone === 'lifted'
+  return (
+    <g opacity={lifted ? 0.55 : 1}>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={OP_D / 2}
+        fill={lifted ? '#FFFFFF' : OP_FILL}
+        stroke={lifted ? MUTED : OP_LINE}
+        strokeWidth={2}
+        strokeDasharray={lifted ? '4 3' : undefined}
+      />
+      <text
+        x={cx}
+        y={cy + 1}
+        textAnchor="middle"
+        dominantBaseline="central"
+        className="font-display"
+        fontSize={19}
+        fontWeight={800}
+        fill={lifted ? MUTED : INK}
+      >
+        {symbol}
+      </text>
+    </g>
+  )
 }
 
 export interface RemoveOp24G1Props {
@@ -94,17 +160,16 @@ export interface RemoveOp24G1Props {
 }
 
 /**
- * Reusable primitive: the row of alternating number / operator cards.
- * - Default (no `removeOpIndex`) → the bare full expression.
- * - `removeOpIndex` set → lifts that operator and merges its two neighbours.
+ * Reusable primitive: the row of alternating square number / round operator cards.
+ * - Default (no `removeOpIndex`) → the bare full expression, all 17 cards.
+ * - `removeOpIndex` set → lifts that round card out and merges its two neighbours.
  * - `showResult` → appends "= <value>" below (only meaningful with a removal).
  */
 export function RemoveOp24G1({ removeOpIndex = null, showResult = false }: RemoveOp24G1Props = {}) {
   const idx = removeOpIndex
   const slots = buildSlots(idx)
 
-  // Lay out slots left to right, tracking each one's x so we can place the
-  // lifted operator and any merge underbrace precisely.
+  // Lay out slots left to right, tracking each one's x.
   let cursor = PAD_X
   const placed = slots.map((slot) => {
     const x = cursor
@@ -118,68 +183,31 @@ export function RemoveOp24G1({ removeOpIndex = null, showResult = false }: Remov
   const resultValue = hasResult ? evaluate(idx as number) : null
 
   const width = rowW
-  const height =
-    PAD_TOP + CARD_H + PAD_BOTTOM + (hasResult ? RESULT_GAP + RESULT_H : 0)
+  const height = PAD_TOP + CARD_H + PAD_BOTTOM + (hasResult ? RESULT_GAP + RESULT_H : 0)
 
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
       width="100%"
-      style={{ display: 'block', margin: '0 auto', maxWidth: 460 }}
+      style={{ display: 'block', margin: '0 auto', maxWidth: 480 }}
       aria-hidden="true"
     >
       {placed.map((slot, i) => {
         if (slot.kind === 'op') {
-          if (slot.removed) {
-            // Lifted operator card: drawn above the row, dimmed, with a small
-            // arc showing it was pulled out. (Only the animator reaches this.)
-            const liftY = 2
-            return (
-              <g key={i} opacity={0.5}>
-                <rect
-                  x={slot.x}
-                  y={liftY}
-                  width={slot.w}
-                  height={CARD_H * 0.5}
-                  rx={6}
-                  fill="#FFFFFF"
-                  className="stroke-qupu-muted"
-                  strokeWidth={2}
-                  strokeDasharray="4 3"
-                />
-                <text
-                  x={slot.x + slot.w / 2}
-                  y={liftY + CARD_H * 0.25 + 1}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  className="font-display fill-qupu-muted"
-                  fontSize={18}
-                  fontWeight={800}
-                >
-                  {slot.symbol}
-                </text>
-              </g>
-            )
-          }
-          // Normal operator: no card, just the symbol sitting between numbers.
+          // A removed card floats above the row, dashed and dimmed; a normal one
+          // sits inline as the printed yellow circle.
+          const cy = slot.removed ? PAD_TOP - OP_D / 2 - 4 : rowMidY
           return (
-            <text
+            <OpCard
               key={i}
-              x={slot.x + slot.w / 2}
-              y={rowMidY + 1}
-              textAnchor="middle"
-              dominantBaseline="central"
-              className="font-display"
-              fontSize={22}
-              fontWeight={800}
-              fill={INK}
-            >
-              {slot.symbol}
-            </text>
+              cx={slot.x + slot.w / 2}
+              cy={cy}
+              symbol={slot.symbol}
+              tone={slot.removed ? 'lifted' : 'normal'}
+            />
           )
         }
-        // Number card (single digit or merged 2-digit).
-        const fillClass = slot.merged ? 'fill-qupu-peach' : 'fill-qupu-cream'
+        // Square number card (single digit or merged 2-digit).
         return (
           <g key={i}>
             <rect
@@ -187,9 +215,10 @@ export function RemoveOp24G1({ removeOpIndex = null, showResult = false }: Remov
               y={PAD_TOP}
               width={slot.w}
               height={CARD_H}
-              rx={9}
-              className={`${fillClass} stroke-qupu-brand-orange`}
-              strokeWidth={2.5}
+              rx={4}
+              fill={slot.merged ? MERGE_FILL : CARD_FILL}
+              stroke={slot.merged ? MERGE_LINE : CARD_LINE}
+              strokeWidth={slot.merged ? 2.5 : 2}
             />
             <text
               x={slot.x + slot.w / 2}
@@ -214,9 +243,10 @@ export function RemoveOp24G1({ removeOpIndex = null, showResult = false }: Remov
           y={PAD_TOP + CARD_H + RESULT_GAP + RESULT_H / 2 + 1}
           textAnchor="middle"
           dominantBaseline="central"
-          className="font-display fill-qupu-brand-blue"
+          className="font-display"
           fontSize={24}
           fontWeight={800}
+          fill={RESULT_INK}
         >
           {`= ${resultValue}`}
         </text>
@@ -226,10 +256,10 @@ export function RemoveOp24G1({ removeOpIndex = null, showResult = false }: Remov
 }
 
 const SAMPLE_ARIA =
-  'Sebuah pernyataan dari sembilan kartu angka dan delapan kartu operator: ' +
-  '9 + 8 + 7 + 6 − 5 − 4 + 3 + 2 − 1. Hapus tepat satu kartu operator sehingga dua ' +
-  'kartu angka di sisinya bergabung menjadi satu bilangan dua angka; cari hasil dua ' +
-  'angka terbesar yang mungkin.'
+  'Sebuah perhitungan dari sembilan kartu angka persegi dan delapan kartu operasi bulat, dari kiri ke kanan: ' +
+  '9 tambah 8 tambah 7 tambah 6 kurang 5 kurang 4 tambah 3 tambah 2 kurang 1. Jika satu kartu operasi ' +
+  'dihilangkan, dua kartu angka di sisinya terbaca sebagai satu bilangan dua angka; cari hasil dua angka ' +
+  'terbesar yang mungkin.'
 
 export default function RemoveOp24G1Illustration() {
   return (
