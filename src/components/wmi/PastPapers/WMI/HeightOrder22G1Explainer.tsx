@@ -26,10 +26,12 @@ export default function HeightOrder22G1Explainer(props: ExplainerProps) {
 
   const T = (en: string, id: string) => (lang === 'id' ? id : en)
 
+  // Describes the METHOD only. The picture's heights are given, so naming the
+  // final left-to-right order here would hand over the answer.
   const ariaLabel =
     lang === 'id'
-      ? `Penjelasan: pakai petunjuk satu per satu untuk mengurutkan tinggi anak. Dan paling tinggi, Pan lebih tinggi dari Ken, Ken lebih tinggi dari Ann. Tertinggi ke terpendek: Dan, Pan, Ken, Ann. Jawabannya ${HEIGHT_ORDER_CHOICE}.`
-      : `Explainer: use the clues one at a time to order the kids by height. Dan is tallest, Pan is taller than Ken, Ken is taller than Ann. Tallest to shortest: Dan, Pan, Ken, Ann. The answer is ${HEIGHT_ORDER_CHOICE}.`
+      ? 'Penjelasan: gambar memberi tinggi setiap anak, petunjuk memberi peringkatnya. Pakai petunjuk untuk mengurutkan tinggi, lalu cocokkan peringkat itu ke posisi anak di gambar, dan baca namanya dari kiri ke kanan mulai dari bintang.'
+      : 'Explainer: the picture gives each child’s height and the clues give the ranking. Use the clues to order them by height, match that ranking onto the children in the picture, then read the names left to right starting at the star.'
 
   const focus = new Set<ChildName>(beat.focus)
 
@@ -38,11 +40,14 @@ export default function HeightOrder22G1Explainer(props: ExplainerProps) {
       <div className="flex flex-col items-center gap-3">
         {/* Heading: which clue we are applying. */}
         <div className="font-display text-xs font-extrabold uppercase tracking-wide" style={{ color: BLUE }}>
-          {beat.phase === 'unknown'
-            ? T('Who is tallest?', 'Siapa yang paling tinggi?')
-            : beat.phase === 'result'
-              ? T('Tallest to shortest', 'Tertinggi ke terpendek')
-              : T(`Clue ${index}`, `Petunjuk ${index}`)}
+          {beat.phase === 'given'
+            ? T('What the picture gives us', 'Yang diberikan gambar')
+            : beat.phase === 'place'
+              ? T('Match the ranking to the picture', 'Cocokkan peringkat ke gambar')
+              : beat.phase === 'result'
+                ? T('Left to right', 'Kiri ke kanan')
+                : T(`Clue: ${beat.phase === 'dan' ? 'Dan' : beat.phase === 'ann' ? 'Ann' : 'Ken'}`,
+                    `Petunjuk: ${beat.phase === 'dan' ? 'Dan' : beat.phase === 'ann' ? 'Ann' : 'Ken'}`)}
         </div>
 
         {/* The bars come alive: each clue animates a child up or down. */}
@@ -52,7 +57,7 @@ export default function HeightOrder22G1Explainer(props: ExplainerProps) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring', stiffness: 220, damping: 22 }}
         >
-          <HeightBars heights={beat.heights} />
+          <HeightBars heights={beat.heights} revealNames={beat.reveal} showStar />
         </motion.div>
 
         {/* Focus chips — the children touched by this clue light up amber. */}
@@ -90,6 +95,12 @@ export default function HeightOrder22G1Explainer(props: ExplainerProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 240, damping: 20 }}
           >
+            {/* The answer is a POSITION order, not a comparison, so the names
+                are joined by dashes. A ">" here would claim Dan is taller than
+                Pan is taller than Ken, which the clues do not say. */}
+            <span className="font-display text-lg font-extrabold" style={{ color: '#D93025' }} aria-hidden="true">
+              ★
+            </span>
             {story.order.map((name, i) => (
               <motion.div
                 key={name}
@@ -106,7 +117,7 @@ export default function HeightOrder22G1Explainer(props: ExplainerProps) {
                 </span>
                 {i < story.order.length - 1 ? (
                   <span className="font-display text-base font-extrabold" style={{ color: GREEN_INK }}>
-                    {'>'}
+                    -
                   </span>
                 ) : null}
               </motion.div>

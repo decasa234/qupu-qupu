@@ -14,7 +14,7 @@
         "q": 14,
         "severity": "major",
         "gate": "content",
-        "note": "The stem does not match the official paper. Official Paper A Q14 reads: Ann says 'Ken is shorter than I.' / Dan says 'I am the tallest.' / Ken says 'I am taller than Pan.' / 'Write down their names from left to right' — with a picture of four children of visibly different heights and a red ★ marking the LEFT end. Those clues give the height order Dan > Ann > Ken > Pan, and reading the picture's positions (tallest, shortest, 3rd, 2nd from left) gives Dan-Pan-Ken-Ann = B. The seed instead invented 'Pan is taller than Ken' + 'Ken is taller than Ann' and asked for 'tallest to shortest', which also lands on B but is a different problem, and HeightOrder22G1Illustration was built for that re-authored version (four NAMED children at deliberately EQUAL heights with '?' marks). Restoring the official stem requires rebuilding the illustration first: four UNNAMED children at the paper's relative heights (pos1 tallest, pos2 shortest, pos3 third, pos4 second) with the ★ at the left. Left as-is here because changing the stem alone would make the question unanswerable."
+        "note": "RESOLVED 2026-07-30 — the official stem is restored, together with the figure it needs. The seed had been re-authored into a different, easier problem: it invented 'Pan is taller than Ken' + 'Ken is taller than Ann' and asked for 'tallest to shortest', which needed no picture at all and reached key B by coincidence. The paper asks: Ann says 'Ken is shorter than I.' / Dan says 'I am the tallest.' / Ken says 'I am taller than Pan.' / 'Write down their names from left to right', over a picture of four children at visibly different heights with a red star marking the LEFT end. Clues give the height ranking Dan > Ann > Ken > Pan; the picture's positions are (tallest, shortest, 3rd, 2nd) left to right, so the answer is Dan-Pan-Ken-Ann = B — unchanged. Also restored: the star prefix the paper prints on every option, and the paper's real trap, which is answering with the height ranking (that is exactly option A). HeightOrder22G1Illustration was rebuilt to show the printed heights with NO name tags and the star on the left (names are the puzzle, and because HeightBars draws in the order Dan-Pan-Ken-Ann the tags would have given the answer away); heightOrder22G1Steps and the explainer now narrate the two-stage argument instead of a single transitive chain. HeightBars keeps its old defaults, so Podium1ECIllustration is untouched."
       },
       {
         "q": 2,
@@ -1002,74 +1002,82 @@
     },
     {
       "number": 14,
-      "body_en": "Dan says, “I am the tallest.” Pan says, “I am taller than Ken.” Ken says, “I am taller than Ann.” List their names in order from tallest to shortest.",
-      "body_id": "Dan berkata, “Aku yang paling tinggi.” Pan berkata, “Aku lebih tinggi daripada Ken.” Ken berkata, “Aku lebih tinggi daripada Ann.” Tuliskan nama mereka berurutan dari yang tertinggi ke terpendek.",
+      "body_en": "Ann says, “Ken is shorter than I.”\nDan says, “I am the tallest.”\nKen says, “I am taller than Pan.”\nWrite down their names from left to right.",
+      "body_id": "Ann berkata, “Ken lebih pendek daripada aku.”\nDan berkata, “Aku yang paling tinggi.”\nKen berkata, “Aku lebih tinggi daripada Pan.”\nTuliskan nama mereka dari kiri ke kanan.",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "Dan - Ann - Ken - Pan" },
-        { "label": "B", "text": "Dan - Pan - Ken - Ann" },
-        { "label": "C", "text": "Dan - Pan - Ann - Ken" },
-        { "label": "D", "text": "Ann - Ken - Pan - Dan" }
+        { "label": "A", "text": "★ Dan - Ann - Ken - Pan" },
+        { "label": "B", "text": "★ Dan - Pan - Ken - Ann" },
+        { "label": "C", "text": "★ Dan - Pan - Ann - Ken" },
+        { "label": "D", "text": "★ Ann - Ken - Pan - Dan" }
       ],
       "choices_id": [
-        { "label": "A", "text": "Dan - Ann - Ken - Pan" },
-        { "label": "B", "text": "Dan - Pan - Ken - Ann" },
-        { "label": "C", "text": "Dan - Pan - Ann - Ken" },
-        { "label": "D", "text": "Ann - Ken - Pan - Dan" }
+        { "label": "A", "text": "★ Dan - Ann - Ken - Pan" },
+        { "label": "B", "text": "★ Dan - Pan - Ken - Ann" },
+        { "label": "C", "text": "★ Dan - Pan - Ann - Ken" },
+        { "label": "D", "text": "★ Ann - Ken - Pan - Dan" }
       ],
       "answer": "B",
       "hint_steps_en": [
-        "Dan says he is the tallest, so Dan goes first.",
-        "Pan is taller than Ken, so Pan comes before Ken.",
-        "Ken is taller than Ann, so Ann is last.",
-        "From tallest to shortest: Dan, Pan, Ken, Ann."
+        "The picture already gives the heights. Reading from the star end: the tallest child, then the shortest, then the third tallest, then the second tallest. What is missing is which name goes with which child.",
+        "Dan says he is the tallest, so Dan is the child at the star end.",
+        "Ann says Ken is shorter than her, so Ann is taller than Ken. Ken says he is taller than Pan. Chain those: Ann, then Ken, then Pan.",
+        "Fit that chain into the three spots left. Ann is the tallest of the three, so she is the second-tallest child; Ken is the third tallest; Pan is the shortest, standing right next to Dan.",
+        "Now read the names from left to right, starting at the star: Dan, Pan, Ken, Ann."
       ],
       "hint_steps_id": [
-        "Dan berkata ia paling tinggi, jadi Dan yang pertama.",
-        "Pan lebih tinggi daripada Ken, jadi Pan sebelum Ken.",
-        "Ken lebih tinggi daripada Ann, jadi Ann paling terakhir.",
-        "Dari tertinggi ke terpendek: Dan, Pan, Ken, Ann."
+        "Gambarnya sudah memberi tingginya. Dibaca dari ujung berbintang: anak paling tinggi, lalu paling pendek, lalu tertinggi ketiga, lalu tertinggi kedua. Yang belum ada: nama siapa untuk anak yang mana.",
+        "Dan berkata dia paling tinggi, jadi Dan adalah anak di ujung berbintang.",
+        "Ann berkata Ken lebih pendek darinya, jadi Ann lebih tinggi daripada Ken. Ken berkata dia lebih tinggi daripada Pan. Rangkai keduanya: Ann, lalu Ken, lalu Pan.",
+        "Pasang rangkaian itu ke tiga tempat yang tersisa. Ann paling tinggi di antara ketiganya, jadi dia anak tertinggi kedua; Ken tertinggi ketiga; Pan paling pendek, berdiri tepat di samping Dan.",
+        "Sekarang baca namanya dari kiri ke kanan, mulai dari bintang: Dan, Pan, Ken, Ann."
       ],
       "breakdown": {
         "needsVisual": true,
         "highlights": [
           {
+            "category": "condition",
+            "phrase_en": "Ken is shorter than I",
+            "phrase_id": "Ken lebih pendek daripada aku",
+            "note_en": "Ann said this, so Ann is taller than Ken.",
+            "note_id": "Ann yang berkata, jadi Ann lebih tinggi daripada Ken."
+          },
+          {
             "category": "fact",
             "phrase_en": "I am the tallest",
             "phrase_id": "Aku yang paling tinggi",
-            "note_en": "Dan said this, so Dan is at the top of the list.",
-            "note_id": "Dan yang berkata, jadi Dan di urutan teratas."
+            "note_en": "Dan said this, so Dan is the tallest child in the picture.",
+            "note_id": "Dan yang berkata, jadi Dan anak paling tinggi di gambar."
           },
           {
             "category": "condition",
-            "phrase_en": "I am taller than Ken",
-            "phrase_id": "Aku lebih tinggi daripada Ken",
-            "note_en": "Pan said this, so Pan stands above Ken.",
-            "note_id": "Pan yang berkata, jadi Pan di atas Ken."
+            "phrase_en": "I am taller than Pan",
+            "phrase_id": "Aku lebih tinggi daripada Pan",
+            "note_en": "Ken said this, so Pan is the shortest of all four.",
+            "note_id": "Ken yang berkata, jadi Pan paling pendek di antara keempatnya."
           },
           {
-            "category": "condition",
-            "phrase_en": "I am taller than Ann",
-            "phrase_id": "Aku lebih tinggi daripada Ann",
-            "note_en": "Ken said this, so Ann is the shortest.",
-            "note_id": "Ken yang berkata, jadi Ann yang terpendek."
+            "category": "question",
+            "phrase_en": "from left to right",
+            "phrase_id": "dari kiri ke kanan",
+            "note_en": "Not tallest to shortest — the answer is the order they STAND in, which only the picture shows.",
+            "note_id": "Bukan tertinggi ke terpendek — yang ditanya urutan mereka BERDIRI, dan itu hanya gambar yang menunjukkan."
           }
         ],
         "quantities": [
-          { "label_en": "Tallest", "label_id": "Tertinggi", "value": "Dan (he said so)" },
-          { "label_en": "Pan vs Ken", "label_id": "Pan vs Ken", "value": "Pan > Ken" },
-          { "label_en": "Ken vs Ann", "label_id": "Ken vs Ann", "value": "Ken > Ann" },
-          { "label_en": "Order", "label_id": "Urutan", "value": "Dan, Pan, Ken, Ann" }
+          { "label_en": "Height ranking from the clues", "label_id": "Peringkat tinggi dari petunjuk", "value": "Dan > Ann > Ken > Pan" },
+          { "label_en": "Positions in the picture", "label_id": "Posisi di gambar", "value": "tallest, shortest, 3rd, 2nd" },
+          { "label_en": "Answer, left to right", "label_id": "Jawaban, kiri ke kanan", "value": "Dan, Pan, Ken, Ann" }
         ],
         "strategy": {
           "conceptSlug": "truth-order-clues",
-          "name_en": "Place the tallest first, then chain the comparisons",
-          "name_id": "Tempatkan yang tertinggi dulu, lalu rangkai perbandingannya"
+          "name_en": "Rank them by height from the clues, then read that ranking off the picture's positions",
+          "name_id": "Urutkan tingginya dari petunjuk, lalu baca urutan itu pada posisi di gambar"
         },
         "trap": {
-          "wrong": "Dan - Ann - Ken - Pan",
-          "why_en": "No clue says Ann is tall — the clues actually push Ann to the very end, and put Pan near the top.",
-          "why_id": "Tidak ada petunjuk bahwa Ann tinggi — petunjuknya justru menaruh Ann paling akhir dan Pan di dekat atas."
+          "wrong": "★ Dan - Ann - Ken - Pan",
+          "why_en": "That is the height ranking, tallest to shortest. The question asks for the order they stand in from left to right, and in the picture the shortest child stands second, not last.",
+          "why_id": "Itu peringkat tinggi, dari tertinggi ke terpendek. Yang ditanya urutan mereka berdiri dari kiri ke kanan, dan di gambar anak terpendek berdiri kedua, bukan terakhir."
         },
         "answer": { "form": "choice", "unit": null, "value": "B" }
       }

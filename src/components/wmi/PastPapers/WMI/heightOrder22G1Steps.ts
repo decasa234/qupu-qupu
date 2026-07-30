@@ -1,17 +1,24 @@
-// Storyboard for WMI-22F1A-Q14 (Grade 1) — order four children by height.
+// Storyboard for WMI-22F1A-Q14 (Grade 1) — name the children in the picture.
 //
-// Clues, applied ONE per beat:
-//   (1) Dan is the tallest.
-//   (2) Pan is taller than Ken.
-//   (3) Ken is taller than Ann.
-// Deduction → tallest to shortest: Dan, Pan, Ken, Ann → answer B.
+// Restored 2026-07-30 to the official problem. The previous storyboard narrated
+// a re-authored version ("Dan tallest, Pan > Ken, Ken > Ann", asked tallest ->
+// shortest), which reached the same key B but is a different, easier question:
+// it needed no picture at all.
 //
-// `heights` is a relative-height map fed straight into the illustrator's
-// <HeightBars heights/>: 4 = tallest, 1 = shortest. We start everyone equal
-// (all 2, "unknown") and let each clue push a bar up or down until the final
-// order {Dan:4, Pan:3, Ken:2, Ann:1} emerges.
+// The paper's clues:
+//   Ann: "Ken is shorter than I."   -> Ann > Ken
+//   Dan: "I am the tallest."        -> Dan on top
+//   Ken: "I am taller than Pan."    -> Ken > Pan
+// giving the HEIGHT ranking Dan > Ann > Ken > Pan. But the question asks for the
+// LEFT-TO-RIGHT order, so the ranking has to be mapped onto the positions the
+// picture prints (tallest, shortest, third, second) -> Dan, Pan, Ken, Ann = B.
+//
+// So the figure never changes across the beats: the heights are GIVEN evidence.
+// What advances is which name has been pinned to which child, which is why each
+// step carries `reveal` rather than a new height map.
 
 import type { Lang } from '../../concepts/explainers/makeTenSteps'
+import { PRINTED_HEIGHTS } from './HeightOrder22G1Illustration'
 
 export const HEIGHT_ORDER_ANSWER = 'Dan - Pan - Ken - Ann'
 export const HEIGHT_ORDER_CHOICE = 'B'
@@ -19,13 +26,21 @@ export const HEIGHT_ORDER_CHOICE = 'B'
 export type ChildName = 'Dan' | 'Pan' | 'Ken' | 'Ann'
 export type HeightMap = Record<ChildName, number>
 
-export type HeightOrderPhase = 'unknown' | 'clue1' | 'clue2' | 'clue3' | 'result'
+export type HeightOrderPhase =
+  | 'given'
+  | 'dan'
+  | 'ann'
+  | 'ken'
+  | 'place'
+  | 'result'
 
 export interface HeightOrderStep {
   phase: HeightOrderPhase
-  /** Relative heights 1 (shortest) → 4 (tallest), fed to <HeightBars />. */
+  /** Always the printed heights — the picture is given data, not a variable. */
   heights: HeightMap
-  /** Children touched by THIS clue (so the explainer can ring them). */
+  /** Name tags pinned so far, fed to <HeightBars revealNames/>. */
+  reveal: ChildName[]
+  /** Children this beat is arguing about (so the explainer can ring them). */
   focus: ChildName[]
   caption: string
   hold: number
@@ -34,78 +49,91 @@ export interface HeightOrderStep {
 
 export interface HeightOrderStoryboard {
   answer: string
-  /** The final tallest→shortest order, for the result strip. */
+  /** Left-to-right order — what the question actually asks for. */
   order: ChildName[]
+  /** Tallest-to-shortest ranking, the intermediate result. */
+  ranking: ChildName[]
   steps: HeightOrderStep[]
   finalIndex: number
 }
 
+const ALL: ChildName[] = ['Dan', 'Pan', 'Ken', 'Ann']
+
 export function buildHeightOrder22G1Steps(lang: Lang): HeightOrderStoryboard {
   const t = (en: string, id: string) => (lang === 'id' ? id : en)
-
-  // Everyone starts at the same "we don't know yet" height.
-  const start: HeightMap = { Dan: 2, Pan: 2, Ken: 2, Ann: 2 }
-  // Clue 1: Dan goes to the top, the other three drop a little so Dan reads tallest.
-  const afterClue1: HeightMap = { Dan: 4, Pan: 2, Ken: 2, Ann: 2 }
-  // Clue 2: Pan rises above Ken (Pan 3, Ken 2), Ann still tucked at 2.
-  const afterClue2: HeightMap = { Dan: 4, Pan: 3, Ken: 2, Ann: 2 }
-  // Clue 3: Ann becomes the shortest. Final order locks in.
-  const afterClue3: HeightMap = { Dan: 4, Pan: 3, Ken: 2, Ann: 1 }
+  const h = PRINTED_HEIGHTS
 
   const steps: HeightOrderStep[] = [
     {
-      phase: 'unknown',
-      heights: start,
+      phase: 'given',
+      heights: h,
+      reveal: [],
       focus: [],
+      hold: 2400,
+      result: false,
+      caption: t(
+        'The picture already tells us the heights: the star end has the TALLEST child, next to it the SHORTEST, then the third tallest, then the second tallest. What we do not know is which name belongs to which child.',
+        'Gambarnya sudah memberi tahu tingginya: di ujung berbintang ada anak PALING TINGGI, di sebelahnya yang PALING PENDEK, lalu tertinggi ketiga, lalu tertinggi kedua. Yang belum kita tahu: nama siapa untuk anak yang mana.',
+      ),
+    },
+    {
+      phase: 'dan',
+      heights: h,
+      reveal: ['Dan'],
+      focus: ['Dan'],
       hold: 2300,
       result: false,
       caption: t(
-        'Four kids: Dan, Pan, Ken, Ann. We do not know who is tallest yet — so all the bars start the same. Let us use the clues one at a time.',
-        'Empat anak: Dan, Pan, Ken, Ann. Kita belum tahu siapa yang paling tinggi — jadi semua batang mulai sama. Mari pakai petunjuk satu per satu.',
+        'Dan says he is the TALLEST. Only one child is tallest, and the picture puts that child at the star end — so the first child is Dan.',
+        'Dan berkata dia PALING TINGGI. Hanya satu anak yang paling tinggi, dan gambar menaruhnya di ujung berbintang — jadi anak pertama adalah Dan.',
       ),
     },
     {
-      phase: 'clue1',
-      heights: afterClue1,
-      focus: ['Dan'],
-      hold: 2200,
+      phase: 'ann',
+      heights: h,
+      reveal: ['Dan'],
+      focus: ['Ann', 'Ken'],
+      hold: 2300,
       result: false,
       caption: t(
-        'Clue 1: Dan is the TALLEST. So Dan goes all the way to the top.',
-        'Petunjuk 1: Dan paling TINGGI. Jadi Dan naik ke paling atas.',
+        'Ann says Ken is shorter than her, so Ann is taller than Ken. Three children are left, and neither of these two is the tallest.',
+        'Ann berkata Ken lebih pendek darinya, jadi Ann lebih tinggi daripada Ken. Tersisa tiga anak, dan keduanya bukan yang paling tinggi.',
       ),
     },
     {
-      phase: 'clue2',
-      heights: afterClue2,
-      focus: ['Pan', 'Ken'],
-      hold: 2200,
+      phase: 'ken',
+      heights: h,
+      reveal: ['Dan'],
+      focus: ['Ken', 'Pan'],
+      hold: 2300,
       result: false,
       caption: t(
-        'Clue 2: Pan is taller than Ken. So Pan stands above Ken — Pan goes higher.',
-        'Petunjuk 2: Pan lebih tinggi dari Ken. Jadi Pan berdiri di atas Ken — Pan naik lebih tinggi.',
+        'Ken says he is taller than Pan. Chain the two clues together: Ann is taller than Ken, and Ken is taller than Pan — so among the three it goes Ann, then Ken, then Pan.',
+        'Ken berkata dia lebih tinggi daripada Pan. Rangkai kedua petunjuk: Ann lebih tinggi dari Ken, dan Ken lebih tinggi dari Pan — jadi di antara ketiganya urutannya Ann, lalu Ken, lalu Pan.',
       ),
     },
     {
-      phase: 'clue3',
-      heights: afterClue3,
-      focus: ['Ken', 'Ann'],
-      hold: 2200,
+      phase: 'place',
+      heights: h,
+      reveal: ALL,
+      focus: ['Ann', 'Ken', 'Pan'],
+      hold: 2500,
       result: false,
       caption: t(
-        'Clue 3: Ken is taller than Ann. Ann is left under everyone — Ann is the SHORTEST.',
-        'Petunjuk 3: Ken lebih tinggi dari Ann. Ann tersisa di bawah semua — Ann paling PENDEK.',
+        'Now match that to the three spots left in the picture: Ann is the tallest of the three, so she is the second-tallest child; Ken is next; Pan is the shortest, standing right beside Dan.',
+        'Sekarang cocokkan dengan tiga tempat yang tersisa di gambar: Ann paling tinggi di antara ketiganya, jadi dia anak tertinggi kedua; Ken berikutnya; Pan paling pendek, berdiri tepat di samping Dan.',
       ),
     },
     {
       phase: 'result',
-      heights: afterClue3,
-      focus: ['Dan', 'Pan', 'Ken', 'Ann'],
+      heights: h,
+      reveal: ALL,
+      focus: ALL,
       hold: 0,
       result: true,
       caption: t(
-        `Tallest to shortest: Dan, Pan, Ken, Ann. The answer is ${HEIGHT_ORDER_CHOICE}.`,
-        `Tertinggi ke terpendek: Dan, Pan, Ken, Ann. Jawabannya ${HEIGHT_ORDER_CHOICE}.`,
+        `Read the names from left to right, starting at the star: Dan, Pan, Ken, Ann. The answer is ${HEIGHT_ORDER_CHOICE}.`,
+        `Baca namanya dari kiri ke kanan, mulai dari bintang: Dan, Pan, Ken, Ann. Jawabannya ${HEIGHT_ORDER_CHOICE}.`,
       ),
     },
   ]
@@ -113,6 +141,7 @@ export function buildHeightOrder22G1Steps(lang: Lang): HeightOrderStoryboard {
   return {
     answer: HEIGHT_ORDER_ANSWER,
     order: ['Dan', 'Pan', 'Ken', 'Ann'],
+    ranking: ['Dan', 'Ann', 'Ken', 'Pan'],
     steps,
     finalIndex: steps.length - 1,
   }
