@@ -43,7 +43,24 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import type { ExplainerProps } from '../../concepts/explainers/registry'
 import { useBeatControl } from '../../concepts/explainers/useBeatControl'
-import { SumGrid24G1, GRID, ROWS, COLS, type Marker } from './SumGrid24G1Illustration'
+import {
+  SumGrid24G1,
+  GRID,
+  // Geometry comes from the illustration, which is the rendering source of
+  // truth: this explainer's overlay has to register pixel-for-pixel over the
+  // grid it draws. These used to be re-declared here under a "keep in sync"
+  // comment that nothing enforced.
+  CELL,
+  GRID_H,
+  CIRCLE_R,
+  VIEW_W,
+  VIEW_H,
+  gx,
+  gy,
+  circleCx,
+  circleCy as CIRCLE_CY,
+  type Marker,
+} from './SumGrid24G1Illustration'
 
 const CAPTION_BG_NEUTRAL = '#E1EFFB'
 const CAPTION_BORDER_NEUTRAL = '#30598A'
@@ -57,23 +74,6 @@ const MARK = '#F0853A' // qupu brand orange — the bullet / diamond / star valu
 const SPOT = '#F0853A' // spotlight on the column under discussion
 const CHIP_BG = '#FFF2DF'
 const CHIP_INK = '#B4791F'
-
-// ---- layout ----------------------------------------------------------------
-// These MIRROR the private layout constants of SumGrid24G1Illustration so the
-// overlay registers pixel-for-pixel over the rendered grid. Keep in sync.
-const PAD_X = 14
-const PAD_TOP = 14
-const CELL = 30
-const GRID_W = COLS * CELL
-const GRID_H = ROWS * CELL
-const CIRCLE_R = 15
-const VIEW_W = PAD_X * 2 + GRID_W
-const VIEW_H = PAD_TOP + GRID_H + CIRCLE_R * 2 + 12
-
-const gx = (c: number) => PAD_X + c * CELL
-const gy = (r: number) => PAD_TOP + r * CELL
-const circleCx = (c: number) => gx(c) + CELL / 2
-const CIRCLE_CY = PAD_TOP + GRID_H + CIRCLE_R
 
 // ---- the deduction chain ---------------------------------------------------
 

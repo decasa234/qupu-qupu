@@ -145,8 +145,13 @@ function Block({ kind, hue, cx, by }: { kind: Kind; hue: Hue; cx: number; by: nu
 /** The repeating COLOUR cycle the blocks must be taken in. */
 const ORDER: readonly Hue[] = ['blue', 'green', 'white']
 
-/** Exactly what each colour group holds on the paper, in printed order. */
-const GROUPS: ReadonlyArray<{ hue: Hue; blocks: readonly Kind[] }> = [
+/**
+ * Exactly what each colour group holds on the paper, in printed order.
+ * Exported so blockStack24G1Steps.test.ts can assert the steps module's
+ * independent copy still matches this one — they used to agree only by
+ * convention.
+ */
+export const GROUPS: ReadonlyArray<{ hue: Hue; blocks: readonly Kind[] }> = [
   { hue: 'blue', blocks: ['cube', 'cube', 'cylinder', 'sphere'] },
   { hue: 'green', blocks: ['cube', 'cube', 'sphere', 'sphere'] },
   { hue: 'white', blocks: ['cube', 'cylinder', 'cylinder', 'sphere'] },
@@ -162,7 +167,7 @@ const GROUPS: ReadonlyArray<{ hue: Hue; blocks: readonly Kind[] }> = [
  * Every prefix is itself legal, so the animator's build never re-arranges
  * blocks. Used ONLY by the animator (stackHeight > 0).
  */
-const TOWER_SHAPES: readonly Kind[] = [
+export const TOWER_SHAPES: readonly Kind[] = [
   'cube',
   'cube',
   'cube',

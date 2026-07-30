@@ -81,21 +81,25 @@ const SOLVED: ReadonlyArray<ReadonlyArray<number>> = [
 ]
 
 // --- layout -----------------------------------------------------------------
-const PAD_X = 14
-const PAD_TOP = 14
-const CELL = 30
-const GRID_W = COLS * CELL
-const GRID_H = ROWS * CELL
+// Exported because SumGrid24G1Explainer draws a transparent overlay that has to
+// register pixel-for-pixel over this grid. It used to keep its own copies of
+// these numbers with a "keep in sync" comment, which nothing enforced; it now
+// imports them, so the geometry has exactly one definition.
+export const PAD_X = 14
+export const PAD_TOP = 14
+export const CELL = 30
+export const GRID_W = COLS * CELL
+export const GRID_H = ROWS * CELL
 
-const CIRCLE_R = 15 // r = CELL/2, so the circles tile the row exactly as printed
+export const CIRCLE_R = 15 // r = CELL/2, so the circles tile the row exactly as printed
 
-const VIEW_W = PAD_X * 2 + GRID_W
-const VIEW_H = PAD_TOP + GRID_H + CIRCLE_R * 2 + 12
+export const VIEW_W = PAD_X * 2 + GRID_W
+export const VIEW_H = PAD_TOP + GRID_H + CIRCLE_R * 2 + 12
 
-const gx = (c: number) => PAD_X + c * CELL
-const gy = (r: number) => PAD_TOP + r * CELL
-const circleCx = (c: number) => gx(c) + CELL / 2
-const circleCy = PAD_TOP + GRID_H + CIRCLE_R
+export const gx = (c: number) => PAD_X + c * CELL
+export const gy = (r: number) => PAD_TOP + r * CELL
+export const circleCx = (c: number) => gx(c) + CELL / 2
+export const circleCy = PAD_TOP + GRID_H + CIRCLE_R
 
 /** A small filled five-pointed star centred at (cx, cy). */
 function StarGlyph({ cx, cy }: { cx: number; cy: number }) {

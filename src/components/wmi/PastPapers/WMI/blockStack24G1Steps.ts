@@ -81,8 +81,14 @@ export interface BlockStack24Storyboard {
 /** The repeating COLOUR cycle. */
 const ORDER: readonly BlockHue[] = ['blue', 'green', 'white']
 
-/** Exactly what each colour group holds on the paper, in printed order. */
-const STOCK: Readonly<Record<BlockHue, readonly BlockKind[]>> = {
+/**
+ * Exactly what each colour group holds on the paper, in printed order.
+ * Exported so the coherence test can assert this still matches the
+ * illustration's GROUPS — the two are deliberately independent (the derivation
+ * below is what proves the reasoning reproduces the drawing) but they must
+ * describe the same paper.
+ */
+export const STOCK: Readonly<Record<BlockHue, readonly BlockKind[]>> = {
   blue: ['cube', 'cube', 'cylinder', 'sphere'],
   green: ['cube', 'cube', 'sphere', 'sphere'],
   white: ['cube', 'cylinder', 'cylinder', 'sphere'],
@@ -139,7 +145,11 @@ function buildTower(): Placement[] {
   return out
 }
 
-const TOWER: readonly Placement[] = buildTower()
+/**
+ * Exported for the coherence test: the illustration hardcodes the same tower as
+ * TOWER_SHAPES to draw it, and nothing but that test keeps the two agreeing.
+ */
+export const TOWER: readonly Placement[] = buildTower()
 const ANSWER = TOWER.length // 8
 /** Turns 1..ANSWER-1 all carry; the last turn is the forced sphere cap. */
 const CARRY_TURNS = ANSWER - 1
