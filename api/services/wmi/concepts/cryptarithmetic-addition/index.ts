@@ -138,8 +138,11 @@ export function render(params: Params) {
   ]
 
   return {
-    body_en: `Each letter stands for a different digit, and no number starts with 0:\n\n  ${m.wordA} + ${m.wordB} = ${m.wordS}\n\nFind: What digit does the letter ${askLetter} stand for?`,
-    body_id: `Setiap huruf mewakili satu angka yang berbeda, dan tidak ada bilangan yang diawali 0:\n\n  ${m.wordA} + ${m.wordB} = ${m.wordS}\n\nCari: Angka berapa yang diwakili oleh huruf ${askLetter}?`,
+    // The preamble ends with a FULL STOP, not a colon. Section labels collapse the
+    // blank lines at display time, so "…starts with 0:" ran straight into the sum
+    // and read as "0: AB + CA = ADD" — the 0 looked like part of the equation.
+    body_en: `Each letter stands for a different digit, and no number starts with 0.\n\n  ${m.wordA} + ${m.wordB} = ${m.wordS}\n\nFind: What digit does the letter ${askLetter} stand for?`,
+    body_id: `Setiap huruf mewakili satu angka yang berbeda, dan tidak ada bilangan yang diawali 0.\n\n  ${m.wordA} + ${m.wordB} = ${m.wordS}\n\nCari: Angka berapa yang diwakili oleh huruf ${askLetter}?`,
     answer_type: 'fill_in' as const,
     choices_en: null,
     choices_id: null,
