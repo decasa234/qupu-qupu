@@ -15,6 +15,14 @@ const SAMPLE: BudgetParams = { prices: [30, 50, 90, 120], budget: 160 }
  *
  * Pure render from params — no random, no dates, SSR-safe. Falls back to a
  * sample so it still renders in previews when params have the wrong shape.
+ *
+ * LANGUAGE: concept illustrations are handed only `{ params }` (see
+ * `IllustrationComponent` in ../registry.ts) and `params` carries no locale, so
+ * the figure cannot know whether the stem is rendering in EN or ID. It is
+ * therefore drawn WORDLESS — the wallet glyph plus the currency amount carry
+ * the "money you may spend" meaning in both languages. Only the aria-label is
+ * necessarily prose; it is pinned to English via `lang="en"` on the wrapper so
+ * screen readers announce it correctly under the page's `<html lang="id">`.
  */
 export default function BudgetSelectionIllustration({ params }: { params: unknown }) {
   const p = (params ?? {}) as Partial<BudgetParams>
@@ -49,7 +57,8 @@ export default function BudgetSelectionIllustration({ params }: { params: unknow
     <div
       className="my-4 flex justify-center"
       role="img"
-      aria-label={`Loket tiket: empat tiket seharga ${ariaPrices}. Anggaran $${budget}. Beli dua tiket dengan total terbesar yang masih muat.`}
+      lang="en"
+      aria-label={`Ticket booth: four tickets priced ${ariaPrices}. Wallet holds $${budget} to spend. Buy two tickets with the biggest total that still fits.`}
     >
       <svg viewBox={`0 0 ${width} ${height}`} width={Math.min(280, width)}>
         {/* perforation pattern for the ticket notch line */}
@@ -120,30 +129,40 @@ export default function BudgetSelectionIllustration({ params }: { params: unknow
           )
         })}
 
-        {/* budget banner — a labeled wallet/tag */}
+        {/* Budget banner — a wallet holding the amount that may be spent. No
+            caption word: see the LANGUAGE note above. */}
         {(() => {
           const by = padTop + gridH + budgetGap
           const bx = padX
           const bw = gridW
+          const amount = `$${budget}`
+          const amountSize = 22
+          // Deterministic width estimate (never measures the DOM, so it is
+          // identical on the server and the client) keeps the wallet + amount
+          // group optically centred for 2- and 3-digit budgets alike.
+          const amountW = amount.length * amountSize * 0.6
+          const walletW = 28
+          const glyphGap = 10
+          const groupX = bx + (bw - (walletW + glyphGap + amountW)) / 2
           return (
             <g>
               <rect x={bx} y={by} width={bw} height={budgetH} rx={12} className="fill-qupu-brand-blue" />
               {/* wallet flap accent */}
               <rect x={bx} y={by} width={bw} height={16} rx={12} className="fill-qupu-brand-blue-shadow" />
-              {/* drawn wallet glyph */}
-              <g transform={`translate(${bx + 14}, ${by + budgetH / 2 - 11})`}>
+              {/* drawn wallet glyph — the wordless "this is your money" marker */}
+              <g transform={`translate(${groupX}, ${by + budgetH / 2 - 11})`}>
                 <rect x={0} y={2} width={26} height={20} rx={4} className="fill-qupu-brand-yellow stroke-qupu-shell" strokeWidth={1.5} />
                 <rect x={16} y={8} width={12} height={8} rx={2} className="fill-qupu-peach stroke-qupu-shell" strokeWidth={1.5} />
                 <circle cx={22} cy={12} r={1.5} className="fill-qupu-brand-blue" />
               </g>
               <text
-                x={bx + 50}
-                y={by + budgetH / 2 + 6}
-                fontSize="18"
+                x={groupX + walletW + glyphGap}
+                y={by + budgetH / 2 + 8}
+                fontSize={amountSize}
                 fontWeight="bold"
                 className="fill-qupu-cream"
               >
-                {`Anggaran: $${budget}`}
+                {amount}
               </text>
             </g>
           )

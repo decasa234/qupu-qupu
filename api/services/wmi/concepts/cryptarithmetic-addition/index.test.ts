@@ -7,6 +7,9 @@ describe('cryptarithmetic-addition', () => {
     expect(concept.generate(mulberry32(7))).toEqual(concept.generate(mulberry32(7)))
   })
 
+  // Brute-forces every letter->digit assignment for 100 seeds, so it runs ~6s —
+  // over vitest's 5s default. Given a longer budget rather than fewer seeds:
+  // proving the solution is UNIQUE is the point of the test.
   test('100 seeds: unique solution, reproduces the sum, and answer matches the asked letter', () => {
     for (let seed = 1; seed <= 100; seed++) {
       const p = concept.generate(mulberry32(seed))
@@ -42,7 +45,7 @@ describe('cryptarithmetic-addition', () => {
         expect(r.body_id).toContain(h.phrase_id)
       }
     }
-  })
+  }, 30_000)
 
   test('worked example: 11 + 89 = 100 -> AA + BC = ADD, letter B is 8', () => {
     const p: Params = { addend1: 11, addend2: 89, askDigit: 8 }

@@ -12,8 +12,12 @@ const W = 54  // short side (one column)
 const S = W * 3  // square side = long side of each rectangle = 162
 const PAD = 24  // headroom around the square so strokes don't clip
 
-// Overall SVG canvas
-const VW = S + PAD * 2        // 210
+// Overall SVG canvas.
+// RIGHT_PAD is room for the "3w" dimension label, which is drawn OUTSIDE the
+// square with textAnchor="start" — without it the glyphs run past the viewBox
+// and the wrapper's overflow-hidden clips them ("3w" rendered as "3").
+const RIGHT_PAD = 32
+const VW = S + PAD * 2 + RIGHT_PAD
 const VH = S + PAD * 2 + 40  // extra 40 for dimension label row at bottom
 
 // Square top-left origin
@@ -85,13 +89,16 @@ export function RectSquare25G3Figure() {
         3w
       </text>
 
-      {/* ── Perimeter tag below each rectangle: "K = 48 cm" centred ── */}
+      {/* ── Perimeter tag below each rectangle: "K = 48 cm" centred ──
+           Centred on the CANVAS, not on the square: this caption is wider than
+           the square, so anchoring it to the square's midpoint pushed its left
+           end past x=0. ── */}
       <text
-        x={X0 + S / 2}
+        x={VW / 2}
         y={Y0 + S + 18}
         textAnchor="middle"
         dominantBaseline="central"
-        fontSize={12}
+        fontSize={11}
         fill="#6B7280"
       >
         Keliling tiap persegi panjang = 48 cm

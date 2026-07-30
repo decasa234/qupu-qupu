@@ -184,13 +184,13 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'money-coins-total': { strand: 'LR', topic: 'LR-BAL', difficulty: 2, isOlympiad: false },
 
   // Gap-fill concepts derived from the WMI drill concept map (2026-07).
-  'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: false },
+  'solve-symbol-equations': { strand: 'AP', topic: 'AP-FUNC', difficulty: 3, isOlympiad: false },
   'rank-computed-expressions': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: false },
   'calendar-day-reasoning': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: false },
   'painted-cube-faces-count': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'cryptarithmetic-addition': { strand: 'NT', topic: 'NT-DIG', difficulty: 4, isOlympiad: true },
   'consecutive-integer-sum': { strand: 'AP', topic: 'AP-NPAT', difficulty: 4, isOlympiad: true },
-  'common-factor-shortcut': { strand: 'AR', topic: 'AR-CALC', difficulty: 3, isOlympiad: true },
+  'common-factor-shortcut': { strand: 'AR', topic: 'AR-CALC', difficulty: 2, isOlympiad: true },
   'container-capacity-allocation': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: false },
 
   // Mined from 350 real WMI grade-1 questions (2019-2025).

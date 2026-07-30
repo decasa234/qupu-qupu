@@ -33,6 +33,8 @@ const ILLUSTRATION_LOADERS: Record<string, () => Promise<{ default: Illustration
   'number-figure-rule': () => import('./number-figure-rule'),
   'length-measure-compare': () => import('./length-measure-compare'),
   'balance-substitution': () => import('./balance-substitution'),
+  'solve-symbol-equations': () => import('./solve-symbol-equations'),
+  'cryptarithmetic-addition': () => import('./cryptarithmetic-addition'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component
