@@ -335,10 +335,17 @@ const GROUP_NOUN: Record<CountManyLayout, { id: string; en: string; en_p: string
 // by 20s instead of 10s), it just takes fewer stops to get there.
 // ---------------------------------------------------------------------------
 
+// EXCEPT on `grouped-tens`. There the icons are already clustered in tens and
+// the count-by-tens ladder (10, 20, 30, …) IS the lesson — pairing would make
+// 6 piles read 20/40/60 and throw away the rehearsal the layout exists for. So
+// that layout always counts one pile per beat and accepts a taller ceiling
+// (3 fixed + up to 6 piles + leftover + landing = 11); on this layout the beat
+// count is the price of the lesson.
 const MAX_COUNT_BEATS = 5
 
 /** How many groups one skip-count beat should swallow. */
-export function countManyGroupsPerBeat(chunks: number): number {
+export function countManyGroupsPerBeat(chunks: number, layout?: Layout): number {
+  if (layout === 'grouped-tens') return 1
   return chunks > MAX_COUNT_BEATS ? Math.ceil(chunks / MAX_COUNT_BEATS) : 1
 }
 
@@ -406,8 +413,9 @@ export function buildCountManySteps(
   const gn = GROUP_NOUN[layout]
 
   // How the skip-count is chopped into beats: one group per beat while the pile
-  // is short, two or three per beat once counting them singly would run long.
-  const groupsPerBeat = countManyGroupsPerBeat(chunks)
+  // is short, two or three per beat once counting them singly would run long —
+  // never on grouped-tens, where the ten-by-ten ladder is the point.
+  const groupsPerBeat = countManyGroupsPerBeat(chunks, layout)
   const spans: { from: number; to: number }[] = []
   for (let start = 1; start <= chunks; start += groupsPerBeat) {
     spans.push({ from: start, to: Math.min(chunks, start + groupsPerBeat - 1) })

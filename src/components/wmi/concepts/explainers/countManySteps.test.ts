@@ -298,7 +298,16 @@ describe('buildCountManySteps — the storyboard deduces, never asserts', () => 
     ])
   })
 
-  test('no play-through runs past 10 beats, and the running total never lies', () => {
+  // rows/scatter pair their groups past 5 stops, so they cap at 10. grouped-tens
+  // deliberately never pairs (the 10/20/30 ladder is the lesson), so it pays for
+  // that with a taller ceiling: 3 fixed + at most 6 piles + leftover + landing.
+  const BEAT_CEILING: Record<string, number> = {
+    rows: 10,
+    scatter: 10,
+    'grouped-tens': 11,
+  }
+
+  test('no play-through runs past its layout ceiling, and the running total never lies', () => {
     for (const layout of LAYOUTS) {
       for (let perRow = 5; perRow <= 10; perRow++) {
         for (let total = 15; total <= 65; total++) {
@@ -307,7 +316,12 @@ describe('buildCountManySteps — the storyboard deduces, never asserts', () => 
             'id',
           )
           const where = `${layout}/${total}/${perRow}`
-          expect(sb.steps.length, `${where} beat count`).toBeLessThanOrEqual(10)
+          expect(sb.steps.length, `${where} beat count`).toBeLessThanOrEqual(BEAT_CEILING[layout])
+          // grouped-tens must count one pile at a time — a paired beat there
+          // would skip rungs of the ten-by-ten ladder.
+          if (layout === 'grouped-tens') {
+            expect(sb.groupsPerBeat, `${where} pairs piles`).toBe(1)
+          }
           // every stop is a real multiple of the group size, and they climb
           const counts = sb.steps.filter((s) => s.id === 'count')
           counts.forEach((s, i) => {
