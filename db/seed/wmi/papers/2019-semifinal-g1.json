@@ -533,8 +533,8 @@
         },
         "trap": {
           "wrong": "11",
-          "why_en": "Adding nearby tiles (2 + 9) gives 11, but the stairs are filled by the position pattern, not by summing neighbours.",
-          "why_id": "Menjumlahkan ubin di dekatnya (2 + 9) memberi 11, padahal tangga diisi oleh pola posisi, bukan menjumlahkan tetangga."
+          "why_en": "11 is the third column's total (2 + 9), not the fourth — the column totals run 15, 13, 11, so the last one has to be 9.",
+          "why_id": "11 adalah jumlah kolom ketiga (2 + 9), bukan kolom keempat — jumlah kolomnya berurutan 15, 13, 11, jadi yang terakhir harus 9."
         },
         "answer": {
           "form": "choice",
@@ -641,16 +641,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q9.jpg",
       "hint_steps_en": [
-        "Each black cell stands for the number printed in that spot on the board.",
-        "Read off the three black cells' values from the number board.",
-        "Add the first two, then take the third away.",
-        "The two added minus the one subtracted leaves 8."
+        "Each black cell stands for the number printed in that spot on the board: top row 4, 3, 1, 8 and bottom row 9, 6, 2, 7.",
+        "Check the example first: its black cells are the top row's 2nd (= 3) and the top row's 4th (= 8), and 3 + 8 = 11 — the rule works.",
+        "Now read the three black cells of the question: top row 1st = 4, bottom row 2nd = 6, bottom row 3rd = 2.",
+        "Add the first two, then take the third away: 4 + 6 - 2 = 8."
       ],
       "hint_steps_id": [
-        "Setiap sel hitam mewakili angka yang tercetak di posisi itu pada papan.",
-        "Baca nilai ketiga sel hitam dari papan angka.",
-        "Jumlahkan dua yang pertama, lalu kurangi yang ketiga.",
-        "Dua yang dijumlah dikurangi satu yang dikurangkan menyisakan 8."
+        "Setiap sel hitam mewakili angka yang tercetak di posisi itu pada papan: baris atas 4, 3, 1, 8 dan baris bawah 9, 6, 2, 7.",
+        "Cek contohnya dulu: sel hitamnya adalah baris atas ke-2 (= 3) dan baris atas ke-4 (= 8), dan 3 + 8 = 11 — aturannya cocok.",
+        "Sekarang baca tiga sel hitam pada soal: baris atas ke-1 = 4, baris bawah ke-2 = 6, baris bawah ke-3 = 2.",
+        "Jumlahkan dua yang pertama, lalu kurangi yang ketiga: 4 + 6 - 2 = 8."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -680,6 +680,11 @@
             "label_en": "Board bottom row",
             "label_id": "Baris bawah papan",
             "value": "9 6 2 7"
+          },
+          {
+            "label_en": "The three black cells",
+            "label_id": "Ketiga sel hitam",
+            "value": "4 + 6 - 2"
           }
         ],
         "strategy": {
@@ -689,8 +694,8 @@
         },
         "trap": {
           "wrong": "9",
-          "why_en": "Adding all three values instead of subtracting the third overshoots the answer.",
-          "why_id": "Menjumlahkan ketiga nilai alih-alih mengurangi yang ketiga membuat hasilnya kelebihan."
+          "why_en": "9 comes from taking the last black cell off the TOP row (4 + 6 - 1) — but that cell is black in the bottom row, so it is 2, not 1.",
+          "why_id": "9 muncul jika sel hitam terakhir dibaca dari baris ATAS (4 + 6 - 1) — padahal sel itu hitam di baris bawah, jadi nilainya 2, bukan 1."
         },
         "answer": {
           "form": "choice",
@@ -998,20 +1003,20 @@
     },
     {
       "number": 14,
-      "body_en": "In the belt-and-pulley system shown, wheel A is at the corner. If the marked wheel turns in the direction shown, in which direction does wheel A roll?",
-      "body_id": "Pada sistem sabuk dan katrol yang ditunjukkan, roda A berada di sudut. Jika roda yang ditandai berputar ke arah yang ditunjukkan, ke arah mana roda A berputar?",
+      "body_en": "In the belt-and-pulley system shown, four wheels are joined in a chain and wheel A is the last one. If the marked wheel turns in the direction shown, in which direction does wheel A roll?",
+      "body_id": "Pada sistem sabuk dan katrol yang ditunjukkan, empat roda terhubung dalam satu rantai dan roda A adalah yang terakhir. Jika roda yang ditandai berputar ke arah yang ditunjukkan, ke arah mana roda A berputar?",
       "answer_type": "multiple_choice",
       "choices_en": [
-        { "label": "A", "text": "Direction A" },
-        { "label": "B", "text": "Direction B" },
-        { "label": "C", "text": "Direction C" },
-        { "label": "D", "text": "Direction D" }
+        { "label": "A", "text": "Counter-clockwise" },
+        { "label": "B", "text": "Clockwise" },
+        { "label": "C", "text": "Downwards" },
+        { "label": "D", "text": "Upwards" }
       ],
       "choices_id": [
-        { "label": "A", "text": "Arah A" },
-        { "label": "B", "text": "Arah B" },
-        { "label": "C", "text": "Arah C" },
-        { "label": "D", "text": "Arah D" }
+        { "label": "A", "text": "Berlawanan arah jarum jam" },
+        { "label": "B", "text": "Searah jarum jam" },
+        { "label": "C", "text": "Ke bawah" },
+        { "label": "D", "text": "Ke atas" }
       ],
       "answer": "B",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q14.jpg",
@@ -1019,13 +1024,13 @@
         "The belts are crossed (each makes a figure-8), and a crossed belt makes the two wheels it joins turn in opposite directions.",
         "Start at the marked wheel: it turns counter-clockwise.",
         "Follow the chain of three crossed belts, flipping the direction at each one: counter-clockwise, clockwise, counter-clockwise, clockwise.",
-        "Wheel A ends up turning clockwise — direction B."
+        "Wheel A ends up turning clockwise."
       ],
       "hint_steps_id": [
         "Sabuknya menyilang (masing-masing membentuk angka 8), dan sabuk menyilang membuat dua roda yang dihubungkannya berputar berlawanan arah.",
         "Mulai dari roda yang ditandai: roda itu berputar berlawanan arah jarum jam.",
         "Ikuti rantai tiga sabuk menyilang, balik arah di setiap sabuk: berlawanan jarum jam, searah, berlawanan, searah.",
-        "Roda A akhirnya berputar searah jarum jam — arah B."
+        "Roda A akhirnya berputar searah jarum jam."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1057,9 +1062,9 @@
           "name_id": "Balik arah putaran di setiap sabuk menyilang"
         },
         "trap": {
-          "wrong": "Direction A",
-          "why_en": "Direction A keeps the marked wheel's counter-clockwise spin — but the belts are crossed, and three crossings flip the direction to clockwise.",
-          "why_id": "Arah A mempertahankan putaran berlawanan jarum jam roda yang ditandai — padahal sabuknya menyilang, dan tiga silangan membalik arahnya menjadi searah jarum jam."
+          "wrong": "Counter-clockwise",
+          "why_en": "Counter-clockwise just copies the marked wheel's spin — but the belts are crossed, and three crossings flip the direction an odd number of times, so it ends up clockwise.",
+          "why_id": "Berlawanan arah jarum jam hanya menyalin putaran roda yang ditandai — padahal sabuknya menyilang, dan tiga silangan membalik arah sebanyak ganjil kali, jadi hasilnya searah jarum jam."
         },
         "answer": {
           "form": "choice",
@@ -1325,16 +1330,16 @@
       "answer": "A",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q18.jpg",
       "hint_steps_en": [
-        "The rule says a number cannot start with 0 (so 07 is not allowed).",
-        "Using 5, 2, 0, list the valid two-digit numbers you can build.",
-        "Count how many valid numbers there are following the rule.",
-        "The box value works out to 4."
+        "The box holds HOW MANY different two-digit numbers the digits can build — in the worked example the digits 7, 3, 8 build 73, 78, 37, 38, 83, 87, which is 6.",
+        "The rule says a number cannot start with 0: 78 and 70 are ticked, 07 is crossed out.",
+        "With 5, 2, 0 the pairings are 52, 50, 25, 20, 05, 02 — but 05 and 02 start with 0, so cross them out.",
+        "Four numbers survive: 52, 50, 25, 20. So the box is 4."
       ],
       "hint_steps_id": [
-        "Aturannya: bilangan tidak boleh diawali 0 (jadi 07 tidak sah).",
-        "Dengan 5, 2, 0, daftar bilangan dua angka yang sah.",
-        "Hitung berapa banyak bilangan sah menurut aturan itu.",
-        "Nilai kotaknya adalah 4."
+        "Kotak itu berisi BERAPA BANYAK bilangan dua angka berbeda yang bisa dibuat — pada contoh, angka 7, 3, 8 membentuk 73, 78, 37, 38, 83, 87, yaitu 6.",
+        "Aturannya: bilangan tidak boleh diawali 0 — 78 dan 70 dicentang, 07 dicoret.",
+        "Dengan 5, 2, 0 pasangannya adalah 52, 50, 25, 20, 05, 02 — tapi 05 dan 02 diawali 0, jadi dicoret.",
+        "Tersisa empat bilangan: 52, 50, 25, 20. Jadi kotaknya 4."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1546,16 +1551,16 @@
       "answer": "A",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q21.jpg",
       "hint_steps_en": [
-        "First count the smallest single triangles inside the square.",
-        "Then find bigger triangles made by joining two or more small ones.",
-        "Add the small triangles and the combined triangles together.",
-        "The total comes to 14 triangles."
+        "The lines cut the square into 7 smallest pieces, and every one of them is already a triangle: the 4 tiny ones inside the little square, the 2 leftover corners around it, and the big half above the long diagonal.",
+        "Now join pieces. Inside the little square, each neighbouring pair of tiny triangles makes a bigger one: 4 more.",
+        "Bigger joins across the little square give 3 more: the whole left half, the whole bottom half, and the whole half below the long diagonal.",
+        "7 single + 4 + 3 joined = 14 triangles."
       ],
       "hint_steps_id": [
-        "Hitung dulu segitiga tunggal terkecil di dalam persegi.",
-        "Lalu cari segitiga besar dari gabungan dua atau lebih segitiga kecil.",
-        "Jumlahkan segitiga kecil dan segitiga gabungan.",
-        "Totalnya 14 segitiga."
+        "Garis-garisnya membagi persegi jadi 7 potongan terkecil, dan semuanya sudah berupa segitiga: 4 segitiga mungil di dalam persegi kecil, 2 sisa di sekelilingnya, dan setengah besar di atas diagonal panjang.",
+        "Sekarang gabungkan potongannya. Di dalam persegi kecil, tiap pasangan segitiga mungil yang bersebelahan membentuk segitiga yang lebih besar: 4 lagi.",
+        "Gabungan yang lebih besar melintasi persegi kecil memberi 3 lagi: seluruh setengah kiri, seluruh setengah bawah, dan seluruh setengah di bawah diagonal panjang.",
+        "7 tunggal + 4 + 3 gabungan = 14 segitiga."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1859,16 +1864,16 @@
       "answer": "C",
       "figure_url": "/api/public/wmi/figures/2019-semifinal-g1-a-q25.jpg",
       "hint_steps_en": [
-        "Read the clues and pin down any letter whose box is fixed first.",
-        "Use each clue to cross out boxes where B cannot go.",
-        "Keep narrowing until only one box is left for B.",
-        "The only box that fits all the clues is box 5."
+        "Each speech bubble is a gap clue, read left to right. D _ E means E sits 2 boxes after D. D _ _ B means B sits 3 boxes after D. C _ _ E means E sits 3 boxes after C.",
+        "E is 2 boxes after D and 3 boxes after C, so C must sit exactly 1 box before D.",
+        "There are only 5 boxes: B = D + 3 needs D to be 2 at most, and C = D - 1 needs D to be 2 at least. So D is box 2.",
+        "That fixes C = box 1, D = box 2, E = box 4 and B = box 5 — B is the 5th box from the left."
       ],
       "hint_steps_id": [
-        "Baca petunjuknya dan kunci dulu huruf yang posisinya pasti.",
-        "Pakai tiap petunjuk untuk mencoret kotak yang tak mungkin untuk B.",
-        "Terus persempit sampai tersisa satu kotak untuk B.",
-        "Satu-satunya kotak yang cocok dengan semua petunjuk adalah kotak ke-5."
+        "Setiap gelembung bicara adalah petunjuk jarak, dibaca dari kiri. D _ E berarti E berada 2 kotak setelah D. D _ _ B berarti B berada 3 kotak setelah D. C _ _ E berarti E berada 3 kotak setelah C.",
+        "E berada 2 kotak setelah D dan 3 kotak setelah C, jadi C pasti tepat 1 kotak sebelum D.",
+        "Kotaknya hanya 5: B = D + 3 menuntut D paling besar 2, dan C = D - 1 menuntut D paling kecil 2. Jadi D di kotak 2.",
+        "Itu mengunci C = kotak 1, D = kotak 2, E = kotak 4, dan B = kotak 5 — B ada di kotak ke-5 dari kiri."
       ],
       "breakdown": {
         "needsVisual": true,
@@ -1907,8 +1912,8 @@
         },
         "trap": {
           "wrong": "4",
-          "why_en": "Stopping one clue early leaves B at box 4, but the last clue pushes B all the way to box 5.",
-          "why_id": "Berhenti satu petunjuk lebih awal menaruh B di kotak 4, padahal petunjuk terakhir mendorong B sampai kotak 5."
+          "why_en": "Box 4 is where E lands, not B. B sits 3 boxes after D, and D is box 2, so B is box 5.",
+          "why_id": "Kotak 4 adalah tempat E, bukan B. B berada 3 kotak setelah D, dan D di kotak 2, jadi B di kotak 5."
         },
         "answer": {
           "form": "choice",
