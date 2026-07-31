@@ -202,6 +202,15 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'balance-substitution': { strand: 'LR', topic: 'LR-BAL', difficulty: 2, isOlympiad: true },
   'count-two-digit-numbers': { strand: 'NT', topic: 'NT-DIG', difficulty: 3, isOlympiad: true },
   'transfer-to-equalize': { strand: 'AR', topic: 'AR-STORY', difficulty: 3, isOlympiad: true },
+  // Mined from the 1050-question WMI corpus (grades 1-3), July 2026.
+  'book-sheet-pages': { strand: 'NT', topic: 'NT-PV', difficulty: 3, isOlympiad: true },
+  'comparison-chain-solve': { strand: 'AR', topic: 'AR-STORY', difficulty: 3, isOlympiad: false },
+  'count-numbers-from-digits': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: true },
+  'delete-digits-extremise': { strand: 'NT', topic: 'NT-PV', difficulty: 4, isOlympiad: true },
+  'digits-into-equation-fill': { strand: 'AP', topic: 'AP-FUNC', difficulty: 4, isOlympiad: true },
+  'min-adjacent-swaps': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: true },
+  'ordinal-position-read': { strand: 'CO', topic: 'CO-OBJ', difficulty: 2, isOlympiad: false },
+  'subset-sum-target': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: true },
 }
 
 // Frozen legacy recall codes (domain letter + index). Do not renumber.
@@ -294,6 +303,14 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'balance-substitution': 'L10',
   'count-two-digit-numbers': 'N17',
   'transfer-to-equalize': 'W11',
+  'subset-sum-target': 'C8',
+  'ordinal-position-read': 'C9',
+  'count-numbers-from-digits': 'C10',
+  'min-adjacent-swaps': 'C11',
+  'delete-digits-extremise': 'N18',
+  'book-sheet-pages': 'N19',
+  'digits-into-equation-fill': 'P9',
+  'comparison-chain-solve': 'W12',
 }
 
 const STRAND_BY_CODE = new Map(STRANDS.map((s) => [s.code, s]))

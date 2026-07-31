@@ -35,6 +35,11 @@ const ILLUSTRATION_LOADERS: Record<string, () => Promise<{ default: Illustration
   'balance-substitution': () => import('./balance-substitution'),
   'solve-symbol-equations': () => import('./solve-symbol-equations'),
   'cryptarithmetic-addition': () => import('./cryptarithmetic-addition'),
+  // Mined from the 1050-question WMI corpus (grades 1-3), July 2026. Only the
+  // three concepts whose question is unreadable without a picture have one.
+  'ordinal-position-read': () => import('./ordinal-position-read'),
+  'subset-sum-target': () => import('./subset-sum-target'),
+  'min-adjacent-swaps': () => import('./min-adjacent-swaps'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

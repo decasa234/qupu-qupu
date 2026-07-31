@@ -119,6 +119,16 @@ const EXPLAINER_LOADERS: Record<string, ExplainerLoader> = {
   'weight-balance-word': () => import('./WeightBalanceExplainer'),
   'which-might-be': () => import('./WhichMightBeExplainer'),
   'which-expression-equals': () => import('./WhichExpressionEqualsExplainer'),
+  // Mined from the 1050-question WMI corpus (grades 1-3), July 2026. Without a
+  // line here the concept still plays but its animation silently never renders.
+  'book-sheet-pages': () => import('./BookSheetPagesExplainer'),
+  'comparison-chain-solve': () => import('./ComparisonChainSolveExplainer'),
+  'count-numbers-from-digits': () => import('./CountNumbersFromDigitsExplainer'),
+  'delete-digits-extremise': () => import('./DeleteDigitsExtremiseExplainer'),
+  'digits-into-equation-fill': () => import('./DigitsIntoEquationFillExplainer'),
+  'min-adjacent-swaps': () => import('./MinAdjacentSwapsExplainer'),
+  'ordinal-position-read': () => import('./OrdinalPositionReadExplainer'),
+  'subset-sum-target': () => import('./SubsetSumTargetExplainer'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

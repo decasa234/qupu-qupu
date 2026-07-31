@@ -86,6 +86,14 @@ import lengthMeasureCompare from './length-measure-compare/index.js'
 import balanceSubstitution from './balance-substitution/index.js'
 import countTwoDigitNumbers from './count-two-digit-numbers/index.js'
 import transferToEqualize from './transfer-to-equalize/index.js'
+import bookSheetPages from './book-sheet-pages/index.js'
+import comparisonChainSolve from './comparison-chain-solve/index.js'
+import countNumbersFromDigits from './count-numbers-from-digits/index.js'
+import deleteDigitsExtremise from './delete-digits-extremise/index.js'
+import digitsIntoEquationFill from './digits-into-equation-fill/index.js'
+import minAdjacentSwaps from './min-adjacent-swaps/index.js'
+import ordinalPositionRead from './ordinal-position-read/index.js'
+import subsetSumTarget from './subset-sum-target/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -177,6 +185,14 @@ export const CONCEPTS = {
   'balance-substitution': balanceSubstitution,
   'count-two-digit-numbers': countTwoDigitNumbers,
   'transfer-to-equalize': transferToEqualize,
+  'book-sheet-pages': bookSheetPages,
+  'comparison-chain-solve': comparisonChainSolve,
+  'count-numbers-from-digits': countNumbersFromDigits,
+  'delete-digits-extremise': deleteDigitsExtremise,
+  'digits-into-equation-fill': digitsIntoEquationFill,
+  'min-adjacent-swaps': minAdjacentSwaps,
+  'ordinal-position-read': ordinalPositionRead,
+  'subset-sum-target': subsetSumTarget,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

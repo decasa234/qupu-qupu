@@ -227,4 +227,13 @@ export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   'balance-substitution': { subjectKey: 'g1-cerita', difficulty: 2, sortOrder: 40, tags: ['logic', 'measurement'] },
   'count-two-digit-numbers': { subjectKey: 'g1-hitung', difficulty: 2, sortOrder: 80, tags: ['place-value', 'counting'] },
   'transfer-to-equalize': { subjectKey: 'g1-tambah-kurang', difficulty: 2, sortOrder: 50, tags: ['word-problem', 'arithmetic'] },
+  // Mined from the 1050-question WMI corpus (grades 1-3), July 2026.
+  'ordinal-position-read': { subjectKey: 'g1-hitung', difficulty: 1, sortOrder: 90, tags: ['counting', 'spatial'] },
+  'min-adjacent-swaps': { subjectKey: 'g1-pola', difficulty: 3, sortOrder: 60, tags: ['counting', 'logic'] },
+  'book-sheet-pages': { subjectKey: 'g2-nilai-tempat', difficulty: 3, sortOrder: 60, tags: ['place-value', 'logic'] },
+  'subset-sum-target': { subjectKey: 'g2-logika', difficulty: 2, sortOrder: 60, tags: ['counting', 'arithmetic'] },
+  'comparison-chain-solve': { subjectKey: 'g3-cerita-multi', difficulty: 2, sortOrder: 60, tags: ['word-problem', 'arithmetic'] },
+  'count-numbers-from-digits': { subjectKey: 'g3-bilangan', difficulty: 2, sortOrder: 60, tags: ['counting', 'place-value'] },
+  'delete-digits-extremise': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 70, tags: ['place-value', 'logic'] },
+  'digits-into-equation-fill': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 80, tags: ['place-value', 'arithmetic', 'logic'] },
 }
