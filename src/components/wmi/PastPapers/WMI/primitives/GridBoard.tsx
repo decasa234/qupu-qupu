@@ -42,6 +42,24 @@ const HIGHLIGHT_RING_STROKES: Record<string, string> = {
   red:   '#EF4444',   // red-500
 }
 
+// ── Cage groups ───────────────────────────────────────────────────────────────
+
+/**
+ * A group of cells drawn with one bold outline around the union of its cells —
+ * a KenKen/sudoku "cage" or a thick sudoku box. The group need not be a
+ * rectangle: only the edges that separate a member cell from a non-member are
+ * stroked, so any polyomino outlines correctly.
+ */
+export interface CageGroup {
+  /** Member cells as `[row, col]` pairs, 0-indexed. Order does not matter. */
+  cells: [number, number][]
+  /**
+   * Small clue printed in the top-left corner of the group's top-left cell
+   * (e.g. `"5+"`). Omit for a plain outline such as a sudoku box.
+   */
+  label?: string
+}
+
 // ── Props ─────────────────────────────────────────────────────────────────────
 
 export interface GridBoardProps extends Omit<SVGProps<SVGGElement>, 'fill'> {
@@ -88,6 +106,22 @@ export interface GridBoardProps extends Omit<SVGProps<SVGGElement>, 'fill'> {
    * @default '#d1d5db'
    */
   gridStroke?: string
+  /**
+   * Bold outlines around irregular groups of cells (KenKen cages, sudoku
+   * boxes), drawn on top of the gridlines and under the cell labels. Purely
+   * additive: omit it and the grid renders exactly as before.
+   */
+  cageBorders?: CageGroup[]
+  /**
+   * Stroke colour for `cageBorders`.
+   * @default '#1F2937'
+   */
+  cageStroke?: string
+  /**
+   * Stroke width for `cageBorders`.
+   * @default 3
+   */
+  cageStrokeWidth?: number
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -118,11 +152,15 @@ export function GridBoard({
   rowSums,
   colSums,
   gridStroke = '#d1d5db',
+  cageBorders,
+  cageStroke = '#1F2937',
+  cageStrokeWidth = 3,
   ...rest
 }: GridBoardProps) {
   const SUM_OFFSET = cellSize * 0.6   // distance from grid edge to sum label centre
   const FONT_SIZE  = Math.round(cellSize * 0.38)
   const SUM_FONT   = Math.round(cellSize * 0.36)
+  const CAGE_FONT  = Math.round(cellSize * 0.26)
   const RING_INSET = 3
   const RING_RX    = 3
 
@@ -204,6 +242,58 @@ export function GridBoard({
           strokeWidth={1}
         />
       ))}
+
+      {/* ── cage outlines (union boundary of each group) + corner clues ── */}
+      {cageBorders?.map((group, g) => {
+        const member = new Set(group.cells.map(([r, c]) => `${r},${c}`))
+        const has = (r: number, c: number) => member.has(`${r},${c}`)
+        // An edge belongs to the boundary exactly when the cell across it is
+        // not in the group — that is what makes any polyomino outline right.
+        const edges: { x1: number; y1: number; x2: number; y2: number }[] = []
+        for (const [r, c] of group.cells) {
+          const x = c * cellSize
+          const y = r * cellSize
+          if (!has(r - 1, c)) edges.push({ x1: x, y1: y, x2: x + cellSize, y2: y })
+          if (!has(r + 1, c)) edges.push({ x1: x, y1: y + cellSize, x2: x + cellSize, y2: y + cellSize })
+          if (!has(r, c - 1)) edges.push({ x1: x, y1: y, x2: x, y2: y + cellSize })
+          if (!has(r, c + 1)) edges.push({ x1: x + cellSize, y1: y, x2: x + cellSize, y2: y + cellSize })
+        }
+        // Top-left member cell, in reading order — where the clue is printed.
+        const anchor = group.cells.reduce(
+          (best, cell) => (cell[0] < best[0] || (cell[0] === best[0] && cell[1] < best[1]) ? cell : best),
+          group.cells[0] ?? [0, 0],
+        )
+        return (
+          <g key={`cage-${g}`}>
+            {edges.map((e, i) => (
+              <line
+                key={`ce-${i}`}
+                x1={e.x1}
+                y1={e.y1}
+                x2={e.x2}
+                y2={e.y2}
+                stroke={cageStroke}
+                strokeWidth={cageStrokeWidth}
+                strokeLinecap="square"
+              />
+            ))}
+            {group.label && (
+              <text
+                x={anchor[1] * cellSize + cellSize * 0.13}
+                y={anchor[0] * cellSize + cellSize * 0.2}
+                textAnchor="start"
+                dominantBaseline="central"
+                fontSize={CAGE_FONT}
+                fontWeight={800}
+                fill={cageStroke}
+                fontFamily="ui-sans-serif, system-ui, sans-serif"
+              >
+                {group.label}
+              </text>
+            )}
+          </g>
+        )
+      })}
 
       {/* ── cell labels ── */}
       {label &&

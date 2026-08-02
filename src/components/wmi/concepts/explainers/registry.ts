@@ -129,6 +129,19 @@ const EXPLAINER_LOADERS: Record<string, ExplainerLoader> = {
   'min-adjacent-swaps': () => import('./MinAdjacentSwapsExplainer'),
   'ordinal-position-read': () => import('./OrdinalPositionReadExplainer'),
   'subset-sum-target': () => import('./SubsetSumTargetExplainer'),
+  'compare-fractions': () => import('./CompareFractionsExplainer'),
+  'cryptarithmetic-multiplication': () => import('./CryptarithmeticMultiplicationExplainer'),
+  'growing-figure-nth-term': () => import('./GrowingFigureNthTermExplainer'),
+  'latin-square-cage': () => import('./LatinSquareCageExplainer'),
+  'map-route-distance': () => import('./MapRouteDistanceExplainer'),
+  'mastermind-code-deduce': () => import('./MastermindCodeDeduceExplainer'),
+  'odd-one-out': () => import('./OddOneOutExplainer'),
+  'path-sum-optimize': () => import('./PathSumOptimizeExplainer'),
+  'pieces-fill-region': () => import('./PiecesFillRegionExplainer'),
+  'row-column-sum-grid': () => import('./RowColumnSumGridExplainer'),
+  'tile-fill-count': () => import('./TileFillCountExplainer'),
+  'views-of-solid': () => import('./ViewsOfSolidExplainer'),
+  'visit-all-cells-path': () => import('./VisitAllCellsPathExplainer'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

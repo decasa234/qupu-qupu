@@ -94,6 +94,19 @@ import digitsIntoEquationFill from './digits-into-equation-fill/index.js'
 import minAdjacentSwaps from './min-adjacent-swaps/index.js'
 import ordinalPositionRead from './ordinal-position-read/index.js'
 import subsetSumTarget from './subset-sum-target/index.js'
+import compareFractions from './compare-fractions/index.js'
+import cryptarithmeticMultiplication from './cryptarithmetic-multiplication/index.js'
+import growingFigureNthTerm from './growing-figure-nth-term/index.js'
+import latinSquareCage from './latin-square-cage/index.js'
+import mapRouteDistance from './map-route-distance/index.js'
+import mastermindCodeDeduce from './mastermind-code-deduce/index.js'
+import oddOneOut from './odd-one-out/index.js'
+import pathSumOptimize from './path-sum-optimize/index.js'
+import piecesFillRegion from './pieces-fill-region/index.js'
+import rowColumnSumGrid from './row-column-sum-grid/index.js'
+import tileFillCount from './tile-fill-count/index.js'
+import viewsOfSolid from './views-of-solid/index.js'
+import visitAllCellsPath from './visit-all-cells-path/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -193,6 +206,19 @@ export const CONCEPTS = {
   'min-adjacent-swaps': minAdjacentSwaps,
   'ordinal-position-read': ordinalPositionRead,
   'subset-sum-target': subsetSumTarget,
+  'compare-fractions': compareFractions,
+  'cryptarithmetic-multiplication': cryptarithmeticMultiplication,
+  'growing-figure-nth-term': growingFigureNthTerm,
+  'latin-square-cage': latinSquareCage,
+  'map-route-distance': mapRouteDistance,
+  'mastermind-code-deduce': mastermindCodeDeduce,
+  'odd-one-out': oddOneOut,
+  'path-sum-optimize': pathSumOptimize,
+  'pieces-fill-region': piecesFillRegion,
+  'row-column-sum-grid': rowColumnSumGrid,
+  'tile-fill-count': tileFillCount,
+  'views-of-solid': viewsOfSolid,
+  'visit-all-cells-path': visitAllCellsPath,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

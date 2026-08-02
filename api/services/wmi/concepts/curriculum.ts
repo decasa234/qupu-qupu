@@ -233,7 +233,25 @@ export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   'book-sheet-pages': { subjectKey: 'g2-nilai-tempat', difficulty: 3, sortOrder: 60, tags: ['place-value', 'logic'] },
   'subset-sum-target': { subjectKey: 'g2-logika', difficulty: 2, sortOrder: 60, tags: ['counting', 'arithmetic'] },
   'comparison-chain-solve': { subjectKey: 'g3-cerita-multi', difficulty: 2, sortOrder: 60, tags: ['word-problem', 'arithmetic'] },
-  'count-numbers-from-digits': { subjectKey: 'g3-bilangan', difficulty: 2, sortOrder: 60, tags: ['counting', 'place-value'] },
+  'count-numbers-from-digits': { subjectKey: 'g3-bilangan', difficulty: 2, sortOrder: 65, tags: ['counting', 'place-value'] },
   'delete-digits-extremise': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 70, tags: ['place-value', 'logic'] },
   'digits-into-equation-fill': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 80, tags: ['place-value', 'arithmetic', 'logic'] },
+  // Wave 2. Three concepts each asked for g1-bentuk sortOrder 40 (10/20/30 were
+  // taken, so all three were right); they get 40/50/60. Same for the g3-logika
+  // and g3-bilangan clashes below. `difficulty` here is capped at 3 by
+  // curriculum.test.ts, so the four contest-difficulty-4 concepts carry 3 in
+  // this table while taxonomy.ts keeps their real 4.
+  'tile-fill-count': { subjectKey: 'g1-bentuk', difficulty: 2, sortOrder: 40, tags: ['geometry', 'measurement'] },
+  'pieces-fill-region': { subjectKey: 'g1-bentuk', difficulty: 3, sortOrder: 50, tags: ['geometry', 'spatial'] },
+  'views-of-solid': { subjectKey: 'g1-bentuk', difficulty: 3, sortOrder: 60, tags: ['geometry', 'spatial'] },
+  'row-column-sum-grid': { subjectKey: 'g1-tambah-kurang', difficulty: 2, sortOrder: 60, tags: ['arithmetic', 'logic'] },
+  'odd-one-out': { subjectKey: 'g1-pola', difficulty: 3, sortOrder: 70, tags: ['patterns', 'logic'] },
+  'path-sum-optimize': { subjectKey: 'g2-geometri', difficulty: 3, sortOrder: 60, tags: ['spatial', 'logic'] },
+  'latin-square-cage': { subjectKey: 'g3-logika', difficulty: 3, sortOrder: 60, tags: ['logic', 'counting'] },
+  'map-route-distance': { subjectKey: 'g3-logika', difficulty: 2, sortOrder: 70, tags: ['spatial', 'logic'] },
+  'mastermind-code-deduce': { subjectKey: 'g3-logika', difficulty: 3, sortOrder: 80, tags: ['logic'] },
+  'visit-all-cells-path': { subjectKey: 'g3-logika', difficulty: 3, sortOrder: 90, tags: ['spatial', 'logic'] },
+  'cryptarithmetic-multiplication': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 85, tags: ['number-theory', 'logic'] },
+  'compare-fractions': { subjectKey: 'g3-bilangan', difficulty: 2, sortOrder: 90, tags: ['fractions'] },
+  'growing-figure-nth-term': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 95, tags: ['patterns', 'counting'] },
 }

@@ -40,6 +40,19 @@ const ILLUSTRATION_LOADERS: Record<string, () => Promise<{ default: Illustration
   'ordinal-position-read': () => import('./ordinal-position-read'),
   'subset-sum-target': () => import('./subset-sum-target'),
   'min-adjacent-swaps': () => import('./min-adjacent-swaps'),
+  // Wave 2. Only the ten whose question is unreadable without a picture;
+  // odd-one-out, compare-fractions and cryptarithmetic-multiplication are
+  // needsVisual: false and deliberately have none.
+  'row-column-sum-grid': () => import('./row-column-sum-grid'),
+  'pieces-fill-region': () => import('./pieces-fill-region'),
+  'latin-square-cage': () => import('./latin-square-cage'),
+  'views-of-solid': () => import('./views-of-solid'),
+  'visit-all-cells-path': () => import('./visit-all-cells-path'),
+  'map-route-distance': () => import('./map-route-distance'),
+  'growing-figure-nth-term': () => import('./growing-figure-nth-term'),
+  'tile-fill-count': () => import('./tile-fill-count'),
+  'path-sum-optimize': () => import('./path-sum-optimize'),
+  'mastermind-code-deduce': () => import('./mastermind-code-deduce'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

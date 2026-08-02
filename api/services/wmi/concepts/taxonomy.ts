@@ -211,6 +211,20 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'min-adjacent-swaps': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: true },
   'ordinal-position-read': { strand: 'CO', topic: 'CO-OBJ', difficulty: 2, isOlympiad: false },
   'subset-sum-target': { strand: 'CO', topic: 'CO-ARR', difficulty: 3, isOlympiad: true },
+  // Wave 2 of the corpus mining: the families that needed a figure primitive.
+  'compare-fractions': { strand: 'NT', topic: 'NT-FRAC', difficulty: 2, isOlympiad: false },
+  'cryptarithmetic-multiplication': { strand: 'NT', topic: 'NT-DIG', difficulty: 4, isOlympiad: true },
+  'growing-figure-nth-term': { strand: 'AP', topic: 'AP-VPAT', difficulty: 4, isOlympiad: true },
+  'latin-square-cage': { strand: 'LR', topic: 'LR-CON', difficulty: 4, isOlympiad: true },
+  'map-route-distance': { strand: 'GE', topic: 'GE-PATH', difficulty: 3, isOlympiad: true },
+  'mastermind-code-deduce': { strand: 'LR', topic: 'LR-DED', difficulty: 4, isOlympiad: true },
+  'odd-one-out': { strand: 'LR', topic: 'LR-DED', difficulty: 3, isOlympiad: true },
+  'path-sum-optimize': { strand: 'GE', topic: 'GE-PATH', difficulty: 4, isOlympiad: true },
+  'pieces-fill-region': { strand: 'GE', topic: 'GE-SHAPE', difficulty: 3, isOlympiad: true },
+  'row-column-sum-grid': { strand: 'AP', topic: 'AP-FUNC', difficulty: 3, isOlympiad: true },
+  'tile-fill-count': { strand: 'GE', topic: 'GE-AREA', difficulty: 2, isOlympiad: false },
+  'views-of-solid': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
+  'visit-all-cells-path': { strand: 'GE', topic: 'GE-PATH', difficulty: 4, isOlympiad: true },
 }
 
 // Frozen legacy recall codes (domain letter + index). Do not renumber.
@@ -311,6 +325,22 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'book-sheet-pages': 'N19',
   'digits-into-equation-fill': 'P9',
   'comparison-chain-solve': 'W12',
+  // Wave 2. Assigned centrally: four separate agents each proposed 'G16' for
+  // their own concept, every one of them correctly reading G15 as the highest
+  // in use. None could see the others, so the numbering is settled here.
+  'pieces-fill-region': 'G16',
+  'views-of-solid': 'G17',
+  'map-route-distance': 'G18',
+  'visit-all-cells-path': 'G19',
+  'path-sum-optimize': 'G20',
+  'tile-fill-count': 'G21',
+  'row-column-sum-grid': 'P10',
+  'growing-figure-nth-term': 'P11',
+  'latin-square-cage': 'L11',
+  'odd-one-out': 'L12',
+  'mastermind-code-deduce': 'L13',
+  'cryptarithmetic-multiplication': 'N20',
+  'compare-fractions': 'N21',
 }
 
 const STRAND_BY_CODE = new Map(STRANDS.map((s) => [s.code, s]))
