@@ -1,5 +1,5 @@
 import type { Breakdown, BreakdownHighlight } from '../types.js'
-import { type Params, computeSumDiff } from './index.js'
+import { type Params, computeSumDiff, CONTEXTS } from './index.js'
 
 const LABELS = ['A', 'B', 'C', 'D'] as const
 
@@ -21,19 +21,16 @@ function buildPairParityBreakdown(params: Extract<Params, { mode: 'pair-parity' 
       note_en: 'There are 4 sums to check — look at the parity of each addend.',
       note_id: 'Ada 4 penjumlahan untuk diperiksa — lihat paritas tiap suku.',
     },
-    {
-      category: 'condition',
-      phrase_en: 'odd',
-      phrase_id: 'ganjil',
-      note_en: 'A sum is odd only when one addend is odd and the other is even.',
-      note_id: 'Hasil ganjil hanya jika satu suku ganjil dan satu suku genap.',
-    },
+    // The bare word "odd" / "ganjil" used to sit here as its own condition
+    // highlight, but it occurs only inside the question phrase below, so the two
+    // fought over one span and one of them was always dropped. The parity rule
+    // is folded into the question note instead.
     {
       category: 'question',
       phrase_en: 'Which expression gives an odd answer',
       phrase_id: 'Ekspresi mana yang hasilnya ganjil',
-      note_en: `Pick the one with one odd + one even addend — that is ${answerLabel}.`,
-      note_id: `Pilih yang punya satu suku ganjil + satu genap — yaitu ${answerLabel}.`,
+      note_en: `A sum is odd only when one addend is odd and the other even — that is ${answerLabel}.`,
+      note_id: `Hasil ganjil hanya jika satu suku ganjil dan satu genap — yaitu ${answerLabel}.`,
     },
   ]
 
@@ -60,9 +57,25 @@ function buildPairParityBreakdown(params: Extract<Params, { mode: 'pair-parity' 
   }
 }
 
-// ─── sum-diff breakdown (shared by sum-diff + sum-diff-ctx) ─────────────────
+// ─── sum-diff breakdown (sum-diff + sum-diff-ctx) ───────────────────────────
+//
+// Both modes share the maths but NOT their wording, and that used to be the bug:
+// one set of phrases was written for the plain mode and reused for the context
+// mode, where the body says "the odd ages" rather than "odd numbers". Highlight
+// phrases must be exact substrings of the body or the refined renderer silently
+// stops highlighting — measured at 321 of 400 generated instances before this.
+//
+// So every phrase below is built from the same pieces the body is built from.
+// The plain mode's Indonesian intro also begins the sentence, so its phrase has
+// to carry the capital "B" the body actually prints.
 
-function buildSumDiffBreakdown(numbers: number[]): Breakdown {
+/** The nouns the context mode substitutes into its body, or null for plain mode. */
+export interface SumDiffWording {
+  noun_en: string
+  noun_id: string
+}
+
+function buildSumDiffBreakdown(numbers: number[], w: SumDiffWording | null): Breakdown {
   const odds = numbers.filter((n) => n % 2 === 1)
   const evens = numbers.filter((n) => n % 2 === 0)
   const sumOdd = odds.reduce((a, b) => a + b, 0)
@@ -72,22 +85,25 @@ function buildSumDiffBreakdown(numbers: number[]): Breakdown {
   const highlights: BreakdownHighlight[] = [
     {
       category: 'fact',
-      phrase_en: 'following numbers',
-      phrase_id: 'bilangan-bilangan berikut',
+      // The context mode's intro differs per context and capitalises its first
+      // word, so the one thing guaranteed present in both modes and both
+      // languages is the list of numbers itself — which is the fact anyway.
+      phrase_en: w ? numbers.join(', ') : 'following numbers',
+      phrase_id: w ? numbers.join(', ') : 'Bilangan-bilangan berikut',
       note_en: `${numbers.length} numbers to sort into odd and even groups.`,
       note_id: `${numbers.length} bilangan yang harus dikelompokkan jadi ganjil dan genap.`,
     },
     {
       category: 'condition',
-      phrase_en: 'odd numbers',
-      phrase_id: 'bilangan ganjil',
+      phrase_en: w ? `odd ${w.noun_en}` : 'odd numbers',
+      phrase_id: w ? `${w.noun_id} ganjil` : 'bilangan ganjil',
       note_en: `Odd group: ${odds.join(', ')} — sum = ${sumOdd}.`,
       note_id: `Kelompok ganjil: ${odds.join(', ')} — jumlah = ${sumOdd}.`,
     },
     {
       category: 'condition',
-      phrase_en: 'even numbers',
-      phrase_id: 'bilangan genap',
+      phrase_en: w ? `even ${w.noun_en}` : 'even numbers',
+      phrase_id: w ? `${w.noun_id} genap` : 'bilangan genap',
       note_en: `Even group: ${evens.join(', ')} — sum = ${sumEven}.`,
       note_id: `Kelompok genap: ${evens.join(', ')} — jumlah = ${sumEven}.`,
     },
@@ -128,5 +144,11 @@ function buildSumDiffBreakdown(numbers: number[]): Breakdown {
 
 export function buildOddEvenReasoningBreakdown(params: Params): Breakdown {
   if (params.mode === 'pair-parity') return buildPairParityBreakdown(params)
-  return buildSumDiffBreakdown(params.numbers)
+  // The context mode renames "numbers" to its own noun ("ages", "usia"), so the
+  // breakdown has to be built from the same noun or its phrases never match.
+  const w =
+    params.mode === 'sum-diff-ctx'
+      ? { noun_en: CONTEXTS[params.contextKey].noun_en, noun_id: CONTEXTS[params.contextKey].noun_id }
+      : null
+  return buildSumDiffBreakdown(params.numbers, w)
 }

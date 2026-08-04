@@ -8,6 +8,12 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     environment: 'node',
+    // The concept suites prove their generators exhaustively — brute-forcing
+    // every Latin-square completion, every polyomino placement, every digit
+    // assignment. That is the point of them, and several legitimately run past
+    // vitest's 5s default once the whole suite is loaded at once. Raised here
+    // rather than sprinkling per-test timeouts across a dozen files.
+    testTimeout: 30_000,
     include: ['api/**/*.test.ts', 'src/**/*.test.ts', 'db/**/*.test.ts'],
     setupFiles: ['./api/__tests__/setup.ts'],
     environmentOptions: {

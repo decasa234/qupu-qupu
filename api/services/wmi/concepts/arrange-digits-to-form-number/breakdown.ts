@@ -1,5 +1,5 @@
 import type { Breakdown, BreakdownHighlight } from '../types.js'
-import { numbers, type Params } from './index.js'
+import { numbers, ordinalEn, type Params } from './index.js'
 
 // Authored decomposition of an arrange-digits-to-form-number problem: from the
 // given digits build every 2-digit number with no repeated digit, sort them, and
@@ -12,7 +12,7 @@ export function buildArrangeDigitsToFormNumberBreakdown(params: Params): Breakdo
   const ans = list[params.rank - 1]
   const digits = params.digits.join(', ')
   // Ordinal matches render(): 2nd / 3rd / 4th / 5th ...
-  const ord = `${params.rank}${params.rank === 2 ? 'nd' : params.rank === 3 ? 'rd' : 'th'}`
+  const ord = ordinalEn(params.rank)
 
   const highlights: BreakdownHighlight[] = [
     // fact — the digits you are given to work with

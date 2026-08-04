@@ -101,7 +101,7 @@ export function generate(rng: Rng): Params {
 
 // ─── contexts ───────────────────────────────────────────────────────────────
 
-const CONTEXTS = [
+export const CONTEXTS = [
   {
     noun_en: 'points scored',
     noun_id: 'poin yang dicetak',

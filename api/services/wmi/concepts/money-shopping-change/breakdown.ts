@@ -25,21 +25,19 @@ export function buildMoneyShoppingChangeBreakdown(params: Params): Breakdown {
       note_en: `${params.name} gives the cashier $${params.pay}.`,
       note_id: `${params.name} memberi kasir $${params.pay}.`,
     },
-    // condition — the change relationship (paid is more than the price)
-    {
-      category: 'condition',
-      phrase_en: 'change',
-      phrase_id: 'kembalian',
-      note_en: 'Change is the money paid that is left after the price.',
-      note_id: 'Kembalian adalah sisa uang setelah dipakai membayar harga.',
-    },
-    // question — what to find
+    // question — what to find.
+    //
+    // There used to be a separate 'condition' highlight on the bare word
+    // "change" / "kembalian". That word appears exactly ONCE in the body, inside
+    // this question phrase, so the two highlights fought over the same span and
+    // the question one never rendered — on every instance. Its definition is
+    // folded in here instead.
     {
       category: 'question',
       phrase_en: 'How much change',
       phrase_id: 'Berapa uang kembalian',
-      note_en: 'Find the change: amount paid minus the price.',
-      note_id: 'Cari kembalian: uang dibayar dikurangi harga.',
+      note_en: 'Change is what is left of the money paid after the price — amount paid minus the price.',
+      note_id: 'Kembalian adalah sisa uang setelah dipakai membayar harga — uang dibayar dikurangi harga.',
     },
   ]
 
