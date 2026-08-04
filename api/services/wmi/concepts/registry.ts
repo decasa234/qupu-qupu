@@ -107,6 +107,11 @@ import rowColumnSumGrid from './row-column-sum-grid/index.js'
 import tileFillCount from './tile-fill-count/index.js'
 import viewsOfSolid from './views-of-solid/index.js'
 import visitAllCellsPath from './visit-all-cells-path/index.js'
+import composeShapePerimeter from './compose-shape-perimeter/index.js'
+import gridShadedAreaCount from './grid-shaded-area-count/index.js'
+import intervalFencepostCount from './interval-fencepost-count/index.js'
+import iteratedRuleFarTerm from './iterated-rule-far-term/index.js'
+import rectangleAreaDecompose from './rectangle-area-decompose/index.js'
 import type { ConceptLogic } from './types.js'
 
 export const CONCEPTS = {
@@ -219,6 +224,11 @@ export const CONCEPTS = {
   'tile-fill-count': tileFillCount,
   'views-of-solid': viewsOfSolid,
   'visit-all-cells-path': visitAllCellsPath,
+  'compose-shape-perimeter': composeShapePerimeter,
+  'grid-shaded-area-count': gridShadedAreaCount,
+  'interval-fencepost-count': intervalFencepostCount,
+  'iterated-rule-far-term': iteratedRuleFarTerm,
+  'rectangle-area-decompose': rectangleAreaDecompose,
 } as const
 
 export type ConceptSlug = keyof typeof CONCEPTS

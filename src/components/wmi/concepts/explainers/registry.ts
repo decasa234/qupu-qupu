@@ -142,6 +142,11 @@ const EXPLAINER_LOADERS: Record<string, ExplainerLoader> = {
   'tile-fill-count': () => import('./TileFillCountExplainer'),
   'views-of-solid': () => import('./ViewsOfSolidExplainer'),
   'visit-all-cells-path': () => import('./VisitAllCellsPathExplainer'),
+  'compose-shape-perimeter': () => import('./ComposeShapePerimeterExplainer'),
+  'grid-shaded-area-count': () => import('./GridShadedAreaCountExplainer'),
+  'interval-fencepost-count': () => import('./IntervalFencepostCountExplainer'),
+  'iterated-rule-far-term': () => import('./IteratedRuleFarTermExplainer'),
+  'rectangle-area-decompose': () => import('./RectangleAreaDecomposeExplainer'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

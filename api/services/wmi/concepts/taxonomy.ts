@@ -225,6 +225,12 @@ export const CONCEPT_TAGS: Record<string, ConceptTags> = {
   'tile-fill-count': { strand: 'GE', topic: 'GE-AREA', difficulty: 2, isOlympiad: false },
   'views-of-solid': { strand: 'GE', topic: 'GE-3D', difficulty: 3, isOlympiad: true },
   'visit-all-cells-path': { strand: 'GE', topic: 'GE-PATH', difficulty: 4, isOlympiad: true },
+  // Wave 3: the area-and-measurement families, two of which needed new primitives.
+  'compose-shape-perimeter': { strand: 'GE', topic: 'GE-AREA', difficulty: 3, isOlympiad: false },
+  'grid-shaded-area-count': { strand: 'GE', topic: 'GE-AREA', difficulty: 3, isOlympiad: false },
+  'interval-fencepost-count': { strand: 'GE', topic: 'GE-MEAS', difficulty: 3, isOlympiad: true },
+  'iterated-rule-far-term': { strand: 'AP', topic: 'AP-NPAT', difficulty: 4, isOlympiad: true },
+  'rectangle-area-decompose': { strand: 'GE', topic: 'GE-AREA', difficulty: 4, isOlympiad: true },
 }
 
 // Frozen legacy recall codes (domain letter + index). Do not renumber.
@@ -341,6 +347,12 @@ export const SHORT_ID_BY_SLUG: Record<string, string> = {
   'mastermind-code-deduce': 'L13',
   'cryptarithmetic-multiplication': 'N20',
   'compare-fractions': 'N21',
+  // Wave 3.
+  'grid-shaded-area-count': 'G22',
+  'compose-shape-perimeter': 'G23',
+  'rectangle-area-decompose': 'G24',
+  'interval-fencepost-count': 'M7',
+  'iterated-rule-far-term': 'P12',
 }
 
 const STRAND_BY_CODE = new Map(STRANDS.map((s) => [s.code, s]))

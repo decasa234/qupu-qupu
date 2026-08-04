@@ -53,6 +53,11 @@ const ILLUSTRATION_LOADERS: Record<string, () => Promise<{ default: Illustration
   'tile-fill-count': () => import('./tile-fill-count'),
   'path-sum-optimize': () => import('./path-sum-optimize'),
   'mastermind-code-deduce': () => import('./mastermind-code-deduce'),
+  // Wave 3. iterated-rule-far-term is needsVisual: false and has none.
+  'compose-shape-perimeter': () => import('./compose-shape-perimeter'),
+  'grid-shaded-area-count': () => import('./grid-shaded-area-count'),
+  'interval-fencepost-count': () => import('./interval-fencepost-count'),
+  'rectangle-area-decompose': () => import('./rectangle-area-decompose'),
 }
 
 // Memoize the lazy wrapper per slug so re-renders get the same component

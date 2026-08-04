@@ -254,4 +254,11 @@ export const CURRICULUM: Record<ConceptSlug, ConceptCurriculum> = {
   'cryptarithmetic-multiplication': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 85, tags: ['number-theory', 'logic'] },
   'compare-fractions': { subjectKey: 'g3-bilangan', difficulty: 2, sortOrder: 90, tags: ['fractions'] },
   'growing-figure-nth-term': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 95, tags: ['patterns', 'counting'] },
+  // Wave 3. g3-geometri already ran to 40, so these take 50/60/70 — the agent
+  // that proposed 40 read the file before another concept claimed it.
+  'compose-shape-perimeter': { subjectKey: 'g3-geometri', difficulty: 3, sortOrder: 50, tags: ['geometry', 'measurement'] },
+  'rectangle-area-decompose': { subjectKey: 'g3-geometri', difficulty: 3, sortOrder: 60, tags: ['geometry', 'measurement'] },
+  'grid-shaded-area-count': { subjectKey: 'g3-geometri', difficulty: 3, sortOrder: 70, tags: ['geometry', 'measurement'] },
+  'interval-fencepost-count': { subjectKey: 'g3-pengukuran', difficulty: 3, sortOrder: 40, tags: ['measurement', 'logic'] },
+  'iterated-rule-far-term': { subjectKey: 'g3-bilangan', difficulty: 3, sortOrder: 100, tags: ['patterns', 'number-theory'] },
 }
