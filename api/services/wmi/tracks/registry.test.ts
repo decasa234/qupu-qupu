@@ -33,12 +33,27 @@ describe('track registry', () => {
     expect(track!.units.length).toBeGreaterThan(0)
   })
 
+  // Asserts the STRUCTURE, not the content. This used to pin the two slugs the
+  // pilot track happened to contain, which made it fail the moment the track
+  // was generated from the curriculum — a test that only described the status
+  // quo. What actually has to hold is that every unit ends with a gate and that
+  // a gate never requires a concept the child has not met yet.
   it('lists concept slugs in spine order, concepts before their gate', () => {
-    const track = getTrack('wmi-grade-1')!
-    const slugs = conceptSlugsInSpineOrder(track)
-    expect(slugs).toEqual(['single-digit-addition', 'single-digit-subtraction'])
-    const gate = track.units[0].nodes.find((n) => n.kind === 'gate')
-    expect(gate).toBeDefined()
+    for (const track of TRACKS) {
+      const slugs = conceptSlugsInSpineOrder(track)
+      expect(slugs.length).toBeGreaterThan(0)
+      expect(new Set(slugs).size).toBe(slugs.length)
+
+      const seen = new Set<string>()
+      for (const unit of track.units) {
+        const last = unit.nodes[unit.nodes.length - 1]
+        expect(last.kind, `${track.id}/${unit.key} must end with its gate`).toBe('gate')
+        for (const node of unit.nodes) {
+          if (node.kind === 'concept') seen.add(node.slug)
+          else for (const req of node.requires) expect(seen.has(req)).toBe(true)
+        }
+      }
+    }
   })
 
   it('getTrack returns undefined for unknown ids', () => {
