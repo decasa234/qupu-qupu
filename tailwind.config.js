@@ -28,6 +28,20 @@ export default {
         'qupu-peach': '#FFD3B1',
         'qupu-ink': '#1E3A8A',
         'qupu-muted': '#475569',
+        // Kid app-shell (AppShell routes). These were raw hexes scattered
+        // across ~40 files before being named here — see DESIGN.md. Existing
+        // literals were left alone; new code uses the token.
+        'qupu-app': '#FFF8F0', // app surface (brighter than cream)
+        'qupu-edge': '#FFE3CC', // warm hairline / ring on app surfaces
+        'qupu-orange-edge': '#C46123', // orange chrome border + orange hard-shadow
+        'qupu-blue-deep': '#0E1430', // brand-blue hard-shadow (deeper than -shadow)
+        'qupu-parchment': '#EFE2CC', // drag handles, inert tan dividers
+        // Progress green — the "grown / correct" register (track nodes,
+        // lesson progress bar, correct-answer feedback).
+        'qupu-grass': '#58A700',
+        'qupu-grass-deep': '#3F7A18', // side rim / hard-shadow under grass
+        'qupu-grass-ink': '#2D6B00', // grass-toned text on a light tint
+        'qupu-grass-tint': '#E8F5D6', // correct-answer panel background
         // Admin panel — warm, lightly-branded utilitarian register.
         // Neutrals tint warm (toward the brand) instead of cool slate.
         // Accent = qupu-brand-blue; highlight = qupu-brand-orange.
