@@ -263,7 +263,7 @@ export function buildSortCountSteps(raw: unknown, lang: Lang): SortCountStoryboa
   const runnerUp = order[Math.min(1, order.length - 1)].i
 
   const target = clamp(Math.round(p.askIndices[0] ?? 0), 0, k - 1)
-  let cmpA = clamp(Math.round(p.askIndices[0] ?? 0), 0, k - 1)
+  const cmpA = clamp(Math.round(p.askIndices[0] ?? 0), 0, k - 1)
   let cmpB = clamp(Math.round(p.askIndices[1] ?? 1), 0, k - 1)
   if (cmpA === cmpB) cmpB = (cmpA + 1) % k
 

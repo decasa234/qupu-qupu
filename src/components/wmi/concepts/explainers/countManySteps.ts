@@ -547,7 +547,6 @@ export function buildCountManySteps(
 
   const noun = ICON_WORDS[icon]
   const gn = GROUP_NOUN[layout]
-  const groupWord = t(gn.en, gn.id)
 
   const options = optionValues(total, distractorDeltas)
   const trap = trapValue(total, distractorDeltas)
